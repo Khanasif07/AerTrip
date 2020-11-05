@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -25,7 +27,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6IG-Sx-hPI" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="190"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nlo-zj-iHg" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -85,6 +87,7 @@ with us!</string>
                                 <color key="trackTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </progressView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="Hnr-2M-F8B"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Hnr-2M-F8B" firstAttribute="trailing" secondItem="r5R-Jl-udX" secondAttribute="trailing" constant="52" id="1Ch-ur-2pF"/>
@@ -114,7 +117,6 @@ with us!</string>
                             <constraint firstItem="Nlo-zj-iHg" firstAttribute="top" secondItem="Hnr-2M-F8B" secondAttribute="top" id="vUf-p5-10a"/>
                             <constraint firstItem="JWb-C2-3xC" firstAttribute="leading" secondItem="Hnr-2M-F8B" secondAttribute="leading" id="zqN-pU-hL3"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="Hnr-2M-F8B"/>
                     </view>
                     <connections>
                         <outlet property="blurBackgroundView" destination="6IG-Sx-hPI" id="NDc-HB-hIv"/>
@@ -142,9 +144,10 @@ with us!</string>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="RQQ-OT-0Mc" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="xaN-iU-Qc4"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="RQQ-OT-0Mc" secondAttribute="bottom" id="1Fv-yH-qYb"/>
@@ -152,7 +155,6 @@ with us!</string>
                             <constraint firstItem="RQQ-OT-0Mc" firstAttribute="trailing" secondItem="xaN-iU-Qc4" secondAttribute="trailing" id="OqZ-Ny-vX2"/>
                             <constraint firstItem="RQQ-OT-0Mc" firstAttribute="leading" secondItem="xaN-iU-Qc4" secondAttribute="leading" id="wAL-oV-bha"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="xaN-iU-Qc4"/>
                     </view>
                     <connections>
                         <outlet property="tableView" destination="RQQ-OT-0Mc" id="Ll0-BT-lnM"/>
@@ -175,6 +177,7 @@ with us!</string>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="Gaw-TH-nGX"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Gaw-TH-nGX" firstAttribute="bottom" secondItem="ezx-fh-j9H" secondAttribute="bottom" id="1ok-o1-v62"/>
@@ -182,7 +185,6 @@ with us!</string>
                             <constraint firstItem="ezx-fh-j9H" firstAttribute="top" secondItem="Gaw-TH-nGX" secondAttribute="top" id="PfE-zd-lbZ"/>
                             <constraint firstItem="Gaw-TH-nGX" firstAttribute="trailing" secondItem="ezx-fh-j9H" secondAttribute="trailing" id="r9D-JT-eXF"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="Gaw-TH-nGX"/>
                     </view>
                     <connections>
                         <outlet property="eventTypeTableView" destination="ezx-fh-j9H" id="Zmf-4k-cUz"/>
@@ -232,6 +234,7 @@ with us!</string>
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="0Ms-f8-FPE"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <constraints>
@@ -245,7 +248,6 @@ with us!</string>
                             <constraint firstItem="0Ms-f8-FPE" firstAttribute="trailing" secondItem="rJG-zF-i8u" secondAttribute="trailing" id="huw-dJ-E3e"/>
                             <constraint firstItem="0Ms-f8-FPE" firstAttribute="trailing" secondItem="0Gr-iF-j8Y" secondAttribute="trailing" id="tTV-WE-cOP"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="0Ms-f8-FPE"/>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="bsf-bd-oTl"/>
@@ -412,13 +414,13 @@ with us!</string>
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="Oen-TJ-2bb"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="wp8-Xi-rj6" firstAttribute="leading" secondItem="Oen-TJ-2bb" secondAttribute="leading" id="Ovx-85-Vcl"/>
                             <constraint firstItem="Oen-TJ-2bb" firstAttribute="trailing" secondItem="wp8-Xi-rj6" secondAttribute="trailing" id="nIy-kE-LuR"/>
                             <constraint firstItem="wp8-Xi-rj6" firstAttribute="top" secondItem="Oen-TJ-2bb" secondAttribute="top" id="wCo-LH-Zj7"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="Oen-TJ-2bb"/>
                     </view>
                     <connections>
                         <outlet property="firstDividerView" destination="Lmc-bQ-9q7" id="S9I-iN-HHw"/>
@@ -452,7 +454,7 @@ with us!</string>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cdS-y3-xMa" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pTa-4M-ijb" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -463,9 +465,10 @@ with us!</string>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ocQ-m0-3CH">
                                 <rect key="frame" x="0.0" y="88" width="414" height="808"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="cC7-Ec-fUV"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="cdS-y3-xMa" firstAttribute="trailing" secondItem="cC7-Ec-fUV" secondAttribute="trailing" id="0Ze-Uk-6tm"/>
@@ -480,7 +483,6 @@ with us!</string>
                             <constraint firstItem="ocQ-m0-3CH" firstAttribute="leading" secondItem="cC7-Ec-fUV" secondAttribute="leading" id="jPg-rU-KWf"/>
                             <constraint firstItem="pTa-4M-ijb" firstAttribute="top" secondItem="cC7-Ec-fUV" secondAttribute="top" id="trt-zp-UDU"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="cC7-Ec-fUV"/>
                     </view>
                     <connections>
                         <outlet property="containerView" destination="ocQ-m0-3CH" id="q2q-Cp-dDX"/>
@@ -506,7 +508,7 @@ with us!</string>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EuX-20-8iN" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BaI-np-mZL" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -516,6 +518,7 @@ with us!</string>
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="A6t-RC-zBN"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="BaI-np-mZL" firstAttribute="top" secondItem="A6t-RC-zBN" secondAttribute="top" id="Cqv-Tj-1gW"/>
@@ -530,7 +533,6 @@ with us!</string>
                             <constraint firstItem="EuX-20-8iN" firstAttribute="trailing" secondItem="A6t-RC-zBN" secondAttribute="trailing" id="sci-hL-3vw"/>
                             <constraint firstItem="0na-82-Y4e" firstAttribute="top" secondItem="A6t-RC-zBN" secondAttribute="top" id="zs3-oV-g8b"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="A6t-RC-zBN"/>
                     </view>
                     <connections>
                         <outlet property="navigationBarHeightConstraint" destination="wGD-WC-MXu" id="f35-0h-NsI"/>
@@ -562,6 +564,7 @@ with us!</string>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="Iae-zJ-fki"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="690-M3-wZS" secondAttribute="bottom" id="5bl-No-Jck"/>
@@ -572,7 +575,6 @@ with us!</string>
                             <constraint firstItem="690-M3-wZS" firstAttribute="top" secondItem="DXk-Of-kSW" secondAttribute="top" id="gjB-j5-Cee"/>
                             <constraint firstItem="690-M3-wZS" firstAttribute="leading" secondItem="DXk-Of-kSW" secondAttribute="leading" id="rXs-Fg-xuc"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="Iae-zJ-fki"/>
                     </view>
                     <connections>
                         <outlet property="hotelDetailTableView" destination="690-M3-wZS" id="KqU-ET-D4X"/>
@@ -600,7 +602,7 @@ with us!</string>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vir-db-N3x" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Csy-94-hWi">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -624,7 +626,7 @@ with us!</string>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lxP-8k-bg0" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="43.5" width="414" height="0.5"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="bgP-Lb-boB"/>
                                         </constraints>
@@ -645,6 +647,7 @@ with us!</string>
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="GRd-dR-2oX"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="5dH-N9-T8X" firstAttribute="leading" secondItem="GRd-dR-2oX" secondAttribute="leading" id="0jO-lS-CJH"/>
@@ -659,7 +662,6 @@ with us!</string>
                             <constraint firstItem="Vir-db-N3x" firstAttribute="bottom" secondItem="Csy-94-hWi" secondAttribute="bottom" id="iIe-33-uIu"/>
                             <constraint firstItem="Vir-db-N3x" firstAttribute="leading" secondItem="GRd-dR-2oX" secondAttribute="leading" id="qbZ-8f-3Yf"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="GRd-dR-2oX"/>
                     </view>
                     <connections>
                         <outlet property="bookingPolicyTableView" destination="5dH-N9-T8X" id="VHw-NW-7ZF"/>
@@ -696,17 +698,17 @@ with us!</string>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7gK-WX-KPY" userLabel="FromView">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="Qpk-KJ-R8L">
+                                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="Qpk-KJ-R8L">
                                                         <rect key="frame" x="16" y="0.0" width="382" height="44"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NY9-oa-1Gu">
-                                                                <rect key="frame" x="0.0" y="10.5" width="58.5" height="23"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NY9-oa-1Gu">
+                                                                <rect key="frame" x="0.0" y="10.5" width="41.5" height="23"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wed,  5 Dec 2017" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QYa-dX-ybx">
-                                                                <rect key="frame" x="72.5" y="10.5" width="269.5" height="23"/>
+                                                                <rect key="frame" x="55.5" y="10.5" width="286.5" height="23"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -767,17 +769,17 @@ with us!</string>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bma-Tm-RNe" userLabel="toView">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="oCn-cS-2Q4">
+                                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="oCn-cS-2Q4">
                                                         <rect key="frame" x="16" y="0.0" width="382" height="44"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eGt-Jf-dUh">
-                                                                <rect key="frame" x="0.0" y="10.5" width="58.5" height="23"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eGt-Jf-dUh">
+                                                                <rect key="frame" x="0.0" y="10.5" width="41.5" height="23"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wed,  5 Dec 2017" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hNr-hZ-Xwg">
-                                                                <rect key="frame" x="72.5" y="10.5" width="269.5" height="23"/>
+                                                                <rect key="frame" x="55.5" y="10.5" width="286.5" height="23"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -849,13 +851,13 @@ with us!</string>
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="rIE-uP-06S"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="ZrN-2k-eZQ" firstAttribute="leading" secondItem="rIE-uP-06S" secondAttribute="leading" id="1sf-co-VmG"/>
                             <constraint firstItem="ZrN-2k-eZQ" firstAttribute="top" secondItem="rIE-uP-06S" secondAttribute="top" id="Nk8-V0-MJF"/>
                             <constraint firstItem="rIE-uP-06S" firstAttribute="trailing" secondItem="ZrN-2k-eZQ" secondAttribute="trailing" id="lPp-AJ-dlY"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="rIE-uP-06S"/>
                     </view>
                     <connections>
                         <outlet property="firstDividerView" destination="CQg-Sl-V9N" id="DtJ-zf-1k2"/>
@@ -894,7 +896,7 @@ with us!</string>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZKY-EF-RvG" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="118"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8a9-js-Ay6" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -913,7 +915,7 @@ with us!</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="wtw-xe-kL1" secondAttribute="bottom" id="0rC-Ch-fY4"/>
                                     <constraint firstItem="wtw-xe-kL1" firstAttribute="leading" secondItem="gmJ-gX-dhB" secondAttribute="leading" constant="10" id="BJN-Uk-u7l"/>
@@ -933,7 +935,7 @@ with us!</string>
                             </progressView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f1Y-yS-mTy">
                                 <rect key="frame" x="0.0" y="846" width="414" height="50"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M3B-FY-Udb">
                                 <rect key="frame" x="0.0" y="846" width="414" height="50"/>
@@ -953,7 +955,7 @@ with us!</string>
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="lOm-fu-WSA">
                                         <rect key="frame" x="367" y="15" width="20" height="20"/>
                                     </activityIndicatorView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2cp-ge-TTJ">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2cp-ge-TTJ">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
@@ -980,6 +982,7 @@ with us!</string>
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="VHX-sa-ouH"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="ZKY-EF-RvG" firstAttribute="top" secondItem="Tzy-KJ-qp9" secondAttribute="top" id="2c2-78-Tft"/>
@@ -1007,7 +1010,6 @@ with us!</string>
                             <constraint firstItem="gmJ-gX-dhB" firstAttribute="top" secondItem="8a9-js-Ay6" secondAttribute="bottom" id="xPX-uU-EBs"/>
                             <constraint firstItem="VHX-sa-ouH" firstAttribute="trailing" secondItem="got-SJ-hpU" secondAttribute="trailing" id="zU8-b1-Gwx"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="VHX-sa-ouH"/>
                     </view>
                     <connections>
                         <outlet property="bookingRequestStatusLabel" destination="wtw-xe-kL1" id="guV-R4-xMS"/>
@@ -1049,6 +1051,7 @@ with us!</string>
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="UJl-PL-qc9"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="Juw-B5-Gbd" secondAttribute="bottom" id="4qd-gV-cHC"/>
@@ -1059,7 +1062,6 @@ with us!</string>
                             <constraint firstItem="Juw-B5-Gbd" firstAttribute="leading" secondItem="UJl-PL-qc9" secondAttribute="leading" id="ofq-Xj-Vi0"/>
                             <constraint firstItem="UJl-PL-qc9" firstAttribute="trailing" secondItem="Juw-B5-Gbd" secondAttribute="trailing" id="ux5-vx-hkt"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="UJl-PL-qc9"/>
                     </view>
                     <connections>
                         <outlet property="completedBookingsTableView" destination="wk4-Oa-osq" id="wGk-tI-tgS"/>
@@ -1091,6 +1093,7 @@ with us!</string>
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="eap-pT-189"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="5Hn-Yh-dpb" firstAttribute="trailing" secondItem="eap-pT-189" secondAttribute="trailing" id="0YH-OG-NY5"/>
@@ -1101,7 +1104,6 @@ with us!</string>
                             <constraint firstItem="7fh-Fm-4L9" firstAttribute="top" secondItem="5Hn-Yh-dpb" secondAttribute="bottom" id="j5x-2e-P2d"/>
                             <constraint firstItem="eap-pT-189" firstAttribute="trailing" secondItem="7fh-Fm-4L9" secondAttribute="trailing" id="r6R-rv-xUL"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="eap-pT-189"/>
                     </view>
                     <connections>
                         <outlet property="cancelledBookingsTableView" destination="5Hn-Yh-dpb" id="MzE-Uo-2TD"/>
@@ -1180,6 +1182,7 @@ with us!</string>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="sww-kj-Nqc"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="RMC-OW-cWP" firstAttribute="leading" secondItem="sww-kj-Nqc" secondAttribute="leading" id="2Ao-X6-wc2"/>
@@ -1190,7 +1193,6 @@ with us!</string>
                             <constraint firstItem="sww-kj-Nqc" firstAttribute="trailing" secondItem="vX4-6A-WQl" secondAttribute="trailing" id="o00-ic-CIJ"/>
                             <constraint firstItem="vX4-6A-WQl" firstAttribute="leading" secondItem="sww-kj-Nqc" secondAttribute="leading" id="yuP-BV-eem"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="sww-kj-Nqc"/>
                     </view>
                     <connections>
                         <outlet property="crossButton" destination="m5T-4T-JIA" id="FgO-UP-9VW"/>
@@ -1217,7 +1219,7 @@ with us!</string>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sLN-Zg-Bp3" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1sj-WR-1XK" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -1227,6 +1229,7 @@ with us!</string>
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="xeM-wX-3Vq"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="1sj-WR-1XK" firstAttribute="top" secondItem="xeM-wX-3Vq" secondAttribute="top" id="1bR-BS-0fd"/>
@@ -1241,7 +1244,6 @@ with us!</string>
                             <constraint firstItem="Baw-lv-2xG" firstAttribute="top" secondItem="xeM-wX-3Vq" secondAttribute="top" id="sEy-pP-H26"/>
                             <constraint firstItem="xeM-wX-3Vq" firstAttribute="trailing" secondItem="Baw-lv-2xG" secondAttribute="trailing" id="zfy-6S-uaj"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="xeM-wX-3Vq"/>
                     </view>
                     <connections>
                         <outlet property="fareRuleTableView" destination="Baw-lv-2xG" id="By0-Rg-SnK"/>
@@ -1263,9 +1265,10 @@ with us!</string>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="awS-Qc-vIt" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="cOR-nu-MNB"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="awS-Qc-vIt" firstAttribute="leading" secondItem="cOR-nu-MNB" secondAttribute="leading" id="Nfz-zP-q27"/>
@@ -1273,7 +1276,6 @@ with us!</string>
                             <constraint firstItem="awS-Qc-vIt" firstAttribute="top" secondItem="cOR-nu-MNB" secondAttribute="top" id="c2p-15-LpG"/>
                             <constraint firstItem="cOR-nu-MNB" firstAttribute="bottom" secondItem="awS-Qc-vIt" secondAttribute="bottom" id="qct-PE-KcK"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="cOR-nu-MNB"/>
                     </view>
                     <connections>
                         <outlet property="fareInfoTableView" destination="awS-Qc-vIt" id="nUZ-0G-cN6"/>
@@ -1297,7 +1299,7 @@ with us!</string>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7U3-1G-RbW" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J80-Nz-GmH" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -1307,6 +1309,7 @@ with us!</string>
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="5D0-XR-qi0"/>
                         <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="sTn-3c-QGW" firstAttribute="leading" secondItem="5D0-XR-qi0" secondAttribute="leading" id="1Sn-qO-SiG"/>
@@ -1321,7 +1324,6 @@ with us!</string>
                             <constraint firstItem="J80-Nz-GmH" firstAttribute="top" secondItem="5D0-XR-qi0" secondAttribute="top" id="yRi-Nu-uPG"/>
                             <constraint firstItem="J80-Nz-GmH" firstAttribute="bottom" secondItem="7U3-1G-RbW" secondAttribute="bottom" id="zZB-LV-kJt"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="5D0-XR-qi0"/>
                     </view>
                     <connections>
                         <outlet property="topNavigationView" destination="J80-Nz-GmH" id="QrZ-cM-eM0"/>
@@ -1349,13 +1351,13 @@ with us!</string>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="X0O-4u-igv" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="88" width="414" height="758"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cv8-4e-ZZK">
                                 <rect key="frame" x="0.0" y="846" width="414" height="50"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DiR-MH-Bvn">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DiR-MH-Bvn">
                                 <rect key="frame" x="0.0" y="846" width="414" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="ibi-Ma-C8P"/>
@@ -1365,6 +1367,7 @@ with us!</string>
                                 </connections>
                             </button>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="c0N-Ia-BmZ"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="c0N-Ia-BmZ" firstAttribute="trailing" secondItem="DiR-MH-Bvn" secondAttribute="trailing" id="6Fy-Av-g1b"/>
@@ -1382,7 +1385,6 @@ with us!</string>
                             <constraint firstItem="npd-h4-fHh" firstAttribute="leading" secondItem="c0N-Ia-BmZ" secondAttribute="leading" id="xyg-EW-aLh"/>
                             <constraint firstItem="DiR-MH-Bvn" firstAttribute="leading" secondItem="Cv8-4e-ZZK" secondAttribute="leading" id="zX5-99-Jgn"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="c0N-Ia-BmZ"/>
                     </view>
                     <connections>
                         <outlet property="confirmAbortButton" destination="DiR-MH-Bvn" id="kdz-7n-6M7"/>
@@ -1410,7 +1412,7 @@ with us!</string>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NkC-nu-gnl" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KZu-ug-ggf" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -1421,12 +1423,13 @@ with us!</string>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IX8-kq-0o6" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="88" width="414" height="0.5"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="7uO-Lg-Sg1"/>
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="59g-2I-k8i"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="KZu-ug-ggf" firstAttribute="bottom" secondItem="NkC-nu-gnl" secondAttribute="bottom" id="170-Fm-Q8E"/>
@@ -1444,7 +1447,6 @@ with us!</string>
                             <constraint firstItem="NkC-nu-gnl" firstAttribute="trailing" secondItem="59g-2I-k8i" secondAttribute="trailing" id="vcg-4T-OhF"/>
                             <constraint firstItem="IX8-kq-0o6" firstAttribute="leading" secondItem="59g-2I-k8i" secondAttribute="leading" id="z8J-fg-Zqg"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="59g-2I-k8i"/>
                     </view>
                     <connections>
                         <outlet property="callTableView" destination="b9r-2R-lYa" id="aM7-Rf-IXW"/>
@@ -1472,7 +1474,7 @@ with us!</string>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="daK-3H-hCn" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CFv-Rw-eJl" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -1482,6 +1484,7 @@ with us!</string>
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="oxA-MX-1Cb"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="CFv-Rw-eJl" firstAttribute="leading" secondItem="oxA-MX-1Cb" secondAttribute="leading" id="1Rp-EG-3KU"/>
@@ -1496,7 +1499,6 @@ with us!</string>
                             <constraint firstItem="oxA-MX-1Cb" firstAttribute="trailing" secondItem="CFv-Rw-eJl" secondAttribute="trailing" id="m6F-kj-R4m"/>
                             <constraint firstItem="daK-3H-hCn" firstAttribute="leading" secondItem="oxA-MX-1Cb" secondAttribute="leading" id="wSb-nU-aTh"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="oxA-MX-1Cb"/>
                     </view>
                     <connections>
                         <outlet property="invoiceTableView" destination="nVN-KD-R9K" id="G6Q-he-37H"/>
@@ -1521,7 +1523,7 @@ with us!</string>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JOo-kC-25T" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ik0-GS-yny" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -1531,6 +1533,7 @@ with us!</string>
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="nqU-W7-1w3"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="ik0-GS-yny" firstAttribute="leading" secondItem="nqU-W7-1w3" secondAttribute="leading" id="B60-oa-goi"/>
@@ -1545,7 +1548,6 @@ with us!</string>
                             <constraint firstAttribute="bottom" secondItem="j0V-sn-mGo" secondAttribute="bottom" id="zCk-Fz-ssa"/>
                             <constraint firstItem="nqU-W7-1w3" firstAttribute="trailing" secondItem="j0V-sn-mGo" secondAttribute="trailing" id="ziw-0W-TBV"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="nqU-W7-1w3"/>
                     </view>
                     <connections>
                         <outlet property="directionTableView" destination="j0V-sn-mGo" id="Ws3-V5-qPY"/>
@@ -1578,9 +1580,9 @@ with us!</string>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7py-hj-JkT">
                                 <rect key="frame" x="0.0" y="812" width="414" height="84"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Jz-d5-jao">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Jz-d5-jao">
                                 <rect key="frame" x="0.0" y="812" width="414" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="lnO-Lj-7ZU"/>
@@ -1593,6 +1595,7 @@ with us!</string>
                                 <rect key="frame" x="197" y="827" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="liV-xw-Oym"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="7hY-87-fYM" firstAttribute="leading" secondItem="liV-xw-Oym" secondAttribute="leading" id="0F9-iZ-sx7"/>
@@ -1612,7 +1615,6 @@ with us!</string>
                             <constraint firstItem="7hY-87-fYM" firstAttribute="top" secondItem="Slw-2P-6Su" secondAttribute="bottom" id="ddp-Ci-5bM"/>
                             <constraint firstItem="3Jz-d5-jao" firstAttribute="trailing" secondItem="7py-hj-JkT" secondAttribute="trailing" id="z70-T2-5vA"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="liV-xw-Oym"/>
                     </view>
                     <connections>
                         <outlet property="dataContainerView" destination="7hY-87-fYM" id="i7y-YI-CBS"/>
@@ -1636,9 +1638,10 @@ with us!</string>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="BQY-eB-swK" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="fMl-TV-riK"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="fMl-TV-riK" firstAttribute="trailing" secondItem="BQY-eB-swK" secondAttribute="trailing" id="4ai-gp-z25"/>
@@ -1646,7 +1649,6 @@ with us!</string>
                             <constraint firstItem="BQY-eB-swK" firstAttribute="leading" secondItem="fMl-TV-riK" secondAttribute="leading" id="Z0V-vO-YhS"/>
                             <constraint firstItem="BQY-eB-swK" firstAttribute="top" secondItem="fMl-TV-riK" secondAttribute="top" id="opA-3B-giV"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="fMl-TV-riK"/>
                     </view>
                     <connections>
                         <outlet property="addOnTableView" destination="BQY-eB-swK" id="eo2-5v-hKY"/>
@@ -1663,8 +1665,8 @@ with us!</string>
                     <view key="view" contentMode="scaleToFill" id="5v4-Ny-Bzs">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="7NK-Ft-NxJ"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="67w-Eq-3Cm" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1681,9 +1683,10 @@ with us!</string>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="MaJ-cQ-kcj" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="EP2-a5-E45"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="EP2-a5-E45" firstAttribute="bottom" secondItem="MaJ-cQ-kcj" secondAttribute="bottom" id="DiW-DD-Muq"/>
@@ -1691,7 +1694,6 @@ with us!</string>
                             <constraint firstItem="MaJ-cQ-kcj" firstAttribute="leading" secondItem="EP2-a5-E45" secondAttribute="leading" id="HNL-mX-PSW"/>
                             <constraint firstItem="MaJ-cQ-kcj" firstAttribute="top" secondItem="EP2-a5-E45" secondAttribute="top" id="v3B-X4-81c"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="EP2-a5-E45"/>
                     </view>
                     <connections>
                         <outlet property="frequentFlyerTableView" destination="MaJ-cQ-kcj" id="PEQ-rI-zFC"/>
@@ -1711,11 +1713,11 @@ with us!</string>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="35" translatesAutoresizingMaskIntoConstraints="NO" id="B6p-KS-kHc" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="724"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Szu-KQ-ejt" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="132"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3FH-rM-Xb1">
                                 <rect key="frame" x="0.0" y="44" width="414" height="88"/>
@@ -1758,7 +1760,7 @@ with us!</string>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6uJ-Tg-adQ">
                                 <rect key="frame" x="0.0" y="812" width="414" height="84"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Xh-hk-UEH">
                                 <rect key="frame" x="0.0" y="768" width="414" height="94"/>
@@ -1774,13 +1776,13 @@ with us!</string>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Label fs f s f s fsd f sdf " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6qR-dD-Z17">
-                                                <rect key="frame" x="16" y="11.5" width="178" height="21"/>
+                                                <rect key="frame" x="16" y="11.5" width="176.5" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RBZ-l1-Yj7">
-                                                <rect key="frame" x="204" y="11.5" width="194" height="21"/>
+                                                <rect key="frame" x="202.5" y="11.5" width="195.5" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -1821,6 +1823,7 @@ with us!</string>
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="c1t-8m-vgW"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Szu-KQ-ejt" firstAttribute="top" secondItem="l3G-g4-q2b" secondAttribute="top" id="28n-Ds-216"/>
@@ -1844,7 +1847,6 @@ with us!</string>
                             <constraint firstItem="3Xh-hk-UEH" firstAttribute="leading" secondItem="c1t-8m-vgW" secondAttribute="leading" id="qry-UH-DHL"/>
                             <constraint firstItem="g8v-7A-Rws" firstAttribute="top" secondItem="6uJ-Tg-adQ" secondAttribute="top" id="tzT-yt-KBN"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="c1t-8m-vgW"/>
                     </view>
                     <connections>
                         <outlet property="continueButton" destination="g8v-7A-Rws" id="3Al-lT-JLV"/>
@@ -1874,7 +1876,7 @@ with us!</string>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cba-EN-gkr" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aKq-04-O9H" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -1894,7 +1896,7 @@ with us!</string>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hdl-CV-WIO">
                                         <rect key="frame" x="39" y="7.5" width="325" height="20"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="CtY-eE-oZj"/>
                                         </constraints>
@@ -1950,6 +1952,7 @@ with us!</string>
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="rKf-G2-n9x"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="XFI-IG-ufI" firstAttribute="leading" secondItem="rKf-G2-n9x" secondAttribute="leading" id="2nt-fa-AO6"/>
@@ -1967,7 +1970,6 @@ with us!</string>
                             <constraint firstItem="rKf-G2-n9x" firstAttribute="trailing" secondItem="aKq-04-O9H" secondAttribute="trailing" id="tuE-ac-F3k"/>
                             <constraint firstItem="F7d-bq-YSK" firstAttribute="top" secondItem="aKq-04-O9H" secondAttribute="bottom" id="xZg-Ga-isK"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="rKf-G2-n9x"/>
                     </view>
                     <connections>
                         <outlet property="addEmailButton" destination="6TH-GX-8GW" id="Xus-54-vPk"/>
@@ -2129,13 +2131,13 @@ with us!</string>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Label fs f s f s fsd f sdf " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H1P-A6-YB1">
-                                        <rect key="frame" x="16" y="11.5" width="178" height="21"/>
+                                        <rect key="frame" x="16" y="11.5" width="176.5" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="STk-Up-0s8">
-                                        <rect key="frame" x="204" y="11.5" width="194" height="21"/>
+                                        <rect key="frame" x="202.5" y="11.5" width="195.5" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -2156,7 +2158,7 @@ with us!</string>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z4J-bT-1Xy">
                                 <rect key="frame" x="0.0" y="812" width="414" height="84"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EQY-E1-Dg9" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="812" width="414" height="50"/>
@@ -2168,6 +2170,7 @@ with us!</string>
                                 </connections>
                             </button>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="RJ9-4T-Ppy"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="EQY-E1-Dg9" firstAttribute="trailing" secondItem="z4J-bT-1Xy" secondAttribute="trailing" id="5af-gu-VdR"/>
@@ -2199,7 +2202,6 @@ with us!</string>
                             <constraint firstItem="1Tu-Wy-uni" firstAttribute="leading" secondItem="RJ9-4T-Ppy" secondAttribute="leading" id="zNq-es-vy1"/>
                             <constraint firstItem="UUH-SE-kyq" firstAttribute="top" secondItem="1Tu-Wy-uni" secondAttribute="bottom" id="zx3-Vo-5eE"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="RJ9-4T-Ppy"/>
                     </view>
                     <connections>
                         <outlet property="bottomViewHeightConstraint" destination="o72-jM-oKe" id="g6P-uf-kDp"/>
@@ -2248,6 +2250,7 @@ with us!</string>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="7Ee-my-0YT"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="1gc-OY-tbN" firstAttribute="trailing" secondItem="7Ee-my-0YT" secondAttribute="trailing" id="8hn-vl-eCN"/>
@@ -2258,7 +2261,6 @@ with us!</string>
                             <constraint firstItem="1gc-OY-tbN" firstAttribute="top" secondItem="DjU-Vd-QVb" secondAttribute="top" id="skm-vd-G5s"/>
                             <constraint firstItem="1gc-OY-tbN" firstAttribute="leading" secondItem="7Ee-my-0YT" secondAttribute="leading" id="wqf-r8-1sz"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="7Ee-my-0YT"/>
                     </view>
                     <connections>
                         <outlet property="dataTableView" destination="SqY-5z-guB" id="rOJ-6Q-X0q"/>
@@ -2290,6 +2292,7 @@ with us!</string>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="7aU-VL-6XS"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="28R-iA-8cu" firstAttribute="leading" secondItem="7aU-VL-6XS" secondAttribute="leading" id="B5K-DH-9WH"/>
@@ -2300,7 +2303,6 @@ with us!</string>
                             <constraint firstItem="28R-iA-8cu" firstAttribute="top" secondItem="7aU-VL-6XS" secondAttribute="top" id="s3E-pL-0mX"/>
                             <constraint firstItem="V3e-Df-fcY" firstAttribute="trailing" secondItem="7aU-VL-6XS" secondAttribute="trailing" id="s8e-5O-G5b"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="7aU-VL-6XS"/>
                     </view>
                     <connections>
                         <outlet property="bookingDetailsTableView" destination="28R-iA-8cu" id="9j7-ht-O8D"/>
@@ -2326,7 +2328,7 @@ with us!</string>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AA0-SS-TG1" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="132"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EQ2-en-J8z" customClass="BookingTopNavBarWithSubtitle" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="88"/>
@@ -2337,9 +2339,9 @@ with us!</string>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bbw-vB-K01">
                                 <rect key="frame" x="0.0" y="813" width="414" height="83"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B5k-SN-QxH" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B5k-SN-QxH" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="813" width="414" height="49"/>
                                 <color key="backgroundColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -2394,6 +2396,7 @@ with us!</string>
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="LlE-o1-db6"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="EQ2-en-J8z" firstAttribute="bottom" secondItem="AA0-SS-TG1" secondAttribute="bottom" id="2Ai-a2-ZMD"/>
@@ -2419,7 +2422,6 @@ with us!</string>
                             <constraint firstItem="heH-9b-SUq" firstAttribute="leading" secondItem="LlE-o1-db6" secondAttribute="leading" id="qKE-Rk-IcU"/>
                             <constraint firstItem="heH-9b-SUq" firstAttribute="top" secondItem="LlE-o1-db6" secondAttribute="top" id="vBo-oX-f5f"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="LlE-o1-db6"/>
                     </view>
                     <connections>
                         <outlet property="gradientView" destination="Bbw-vB-K01" id="PGJ-eK-fHk"/>
@@ -2454,6 +2456,7 @@ with us!</string>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="qs8-VL-YKn"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="ARh-bi-qJE" firstAttribute="top" secondItem="ejk-4J-J6B" secondAttribute="top" id="39l-lL-V7i"/>
@@ -2464,7 +2467,6 @@ with us!</string>
                             <constraint firstItem="2PL-Nd-yEc" firstAttribute="trailing" secondItem="qs8-VL-YKn" secondAttribute="trailing" id="j5e-a8-ul2"/>
                             <constraint firstItem="2PL-Nd-yEc" firstAttribute="top" secondItem="qs8-VL-YKn" secondAttribute="top" id="nlb-Fi-cj9"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="qs8-VL-YKn"/>
                     </view>
                     <connections>
                         <outlet property="bookingDetailsTableView" destination="2PL-Nd-yEc" id="IcK-C8-2ld"/>
@@ -2535,7 +2537,7 @@ with us!</string>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="buH-2e-nDP">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="132"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eQY-xz-Jff" customClass="BookingTopNavBarWithSubtitle" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="88"/>
@@ -2546,9 +2548,9 @@ with us!</string>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Iv-gH-gGc">
                                 <rect key="frame" x="0.0" y="813" width="414" height="83"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fXs-r7-uDg">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fXs-r7-uDg">
                                 <rect key="frame" x="0.0" y="813" width="414" height="49"/>
                                 <color key="backgroundColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -2563,6 +2565,7 @@ with us!</string>
                                 </connections>
                             </button>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="UN3-ei-9OI"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Suh-a8-eij" firstAttribute="top" secondItem="UN3-ei-9OI" secondAttribute="top" id="4Bc-w8-iDC"/>
@@ -2584,7 +2587,6 @@ with us!</string>
                             <constraint firstAttribute="bottom" secondItem="4Iv-gH-gGc" secondAttribute="bottom" id="gVL-WD-Bo9"/>
                             <constraint firstItem="buH-2e-nDP" firstAttribute="leading" secondItem="UN3-ei-9OI" secondAttribute="leading" id="kPl-mT-XjZ"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="UN3-ei-9OI"/>
                     </view>
                     <connections>
                         <outlet property="cancellationButtonOutlet" destination="fXs-r7-uDg" id="FA9-kE-1Ef"/>
@@ -2607,8 +2609,8 @@ with us!</string>
                     <view key="view" contentMode="scaleToFill" id="nSI-Pf-Hq6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="QM5-P9-B4K"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PtO-wp-r2Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2638,6 +2640,7 @@ with us!</string>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="48a-t3-643"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="vfS-gq-Ahx" firstAttribute="trailing" secondItem="yLP-wa-WRA" secondAttribute="trailing" constant="-20" id="1c1-Sk-yWK"/>
@@ -2651,7 +2654,6 @@ with us!</string>
                             <constraint firstItem="48a-t3-643" firstAttribute="trailing" secondItem="yLP-wa-WRA" secondAttribute="trailing" id="u7y-FF-hLP"/>
                             <constraint firstItem="yLP-wa-WRA" firstAttribute="top" secondItem="48a-t3-643" secondAttribute="top" id="xDn-Yp-gCh"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="48a-t3-643"/>
                     </view>
                     <connections>
                         <outlet property="acitivityIndicatorView" destination="vfS-gq-Ahx" id="nX0-S7-LpV"/>
@@ -2682,6 +2684,7 @@ with us!</string>
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="KdF-9U-oOs"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="KdF-9U-oOs" firstAttribute="trailing" secondItem="mqY-0E-gBZ" secondAttribute="trailing" id="17Y-sH-2eT"/>
@@ -2692,7 +2695,6 @@ with us!</string>
                             <constraint firstItem="cQG-4F-DrY" firstAttribute="top" secondItem="SQt-0j-Pvt" secondAttribute="top" id="v2e-go-tBn"/>
                             <constraint firstItem="mqY-0E-gBZ" firstAttribute="top" secondItem="cQG-4F-DrY" secondAttribute="bottom" id="yaK-l3-oNx"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="KdF-9U-oOs"/>
                     </view>
                     <connections>
                         <outlet property="footerBottomConstraint" destination="VB2-0g-fFr" id="yeh-tF-7iA"/>
@@ -2715,9 +2717,10 @@ with us!</string>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="wLg-Fe-HHz" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="auD-Px-wb2"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="wLg-Fe-HHz" firstAttribute="trailing" secondItem="auD-Px-wb2" secondAttribute="trailing" id="Sfu-hC-jfM"/>
@@ -2725,7 +2728,6 @@ with us!</string>
                             <constraint firstAttribute="bottom" secondItem="wLg-Fe-HHz" secondAttribute="bottom" id="std-va-Y8m"/>
                             <constraint firstItem="wLg-Fe-HHz" firstAttribute="leading" secondItem="auD-Px-wb2" secondAttribute="leading" id="xzk-Oh-Oh1"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="auD-Px-wb2"/>
                     </view>
                     <connections>
                         <outlet property="tableView" destination="wLg-Fe-HHz" id="tVN-Dl-iA2"/>
@@ -2745,9 +2747,10 @@ with us!</string>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="2X2-hK-HDg" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="d5r-CY-Bm9"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="2X2-hK-HDg" firstAttribute="top" secondItem="Zz3-Vf-JqR" secondAttribute="top" id="H43-0G-uvX"/>
@@ -2755,7 +2758,6 @@ with us!</string>
                             <constraint firstAttribute="bottom" secondItem="2X2-hK-HDg" secondAttribute="bottom" id="Y8w-rb-KR1"/>
                             <constraint firstItem="2X2-hK-HDg" firstAttribute="trailing" secondItem="d5r-CY-Bm9" secondAttribute="trailing" id="uOp-Zw-bAL"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="d5r-CY-Bm9"/>
                     </view>
                     <connections>
                         <outlet property="tableView" destination="2X2-hK-HDg" id="781-6L-v5v"/>
@@ -2778,7 +2780,7 @@ with us!</string>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dai-8W-ZLy" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="58"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PUv-1N-qVp">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="58"/>
@@ -2837,7 +2839,7 @@ with us!</string>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="PUv-1N-qVp" firstAttribute="leading" secondItem="y1L-ih-3P8" secondAttribute="leading" id="1No-eQ-awA"/>
                                     <constraint firstItem="Dai-8W-ZLy" firstAttribute="leading" secondItem="y1L-ih-3P8" secondAttribute="leading" id="Ggs-1F-Gib"/>
@@ -2854,13 +2856,13 @@ with us!</string>
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="1yV-yJ-Io5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="y1L-ih-3P8" firstAttribute="leading" secondItem="1yV-yJ-Io5" secondAttribute="leading" id="I5x-iF-MOS"/>
                             <constraint firstItem="1yV-yJ-Io5" firstAttribute="trailing" secondItem="y1L-ih-3P8" secondAttribute="trailing" id="n7M-VF-hRP"/>
                             <constraint firstAttribute="bottom" secondItem="y1L-ih-3P8" secondAttribute="bottom" id="wKV-aL-JnM"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="1yV-yJ-Io5"/>
                     </view>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
@@ -2891,7 +2893,7 @@ with us!</string>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HMM-pG-g2c" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aWx-Zi-Cjw" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -2906,12 +2908,13 @@ with us!</string>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2jv-2g-KyQ" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="88" width="414" height="0.5"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="6a4-b9-e25"/>
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="r8J-gx-Hes"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="cdN-nF-cPw" firstAttribute="leading" secondItem="r8J-gx-Hes" secondAttribute="leading" id="5id-cj-rhv"/>
@@ -2929,7 +2932,6 @@ with us!</string>
                             <constraint firstItem="HMM-pG-g2c" firstAttribute="leading" secondItem="r8J-gx-Hes" secondAttribute="leading" id="qhO-yJ-YP5"/>
                             <constraint firstItem="HMM-pG-g2c" firstAttribute="trailing" secondItem="r8J-gx-Hes" secondAttribute="trailing" id="x0p-m0-DLy"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="r8J-gx-Hes"/>
                     </view>
                     <connections>
                         <outlet property="navBarHeightConstraint" destination="YXn-wh-tkj" id="bxv-8E-Zea"/>
@@ -2952,7 +2954,7 @@ with us!</string>
                         <subviews>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mEf-iT-l8g" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zdq-Al-upK" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -2975,7 +2977,7 @@ with us!</string>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Uc-dg-a4O" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="36.5" width="414" height="0.5"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="0.5" id="cu9-YQ-Qjb"/>
                                                 </constraints>
@@ -2990,7 +2992,7 @@ with us!</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="3Uc-dg-a4O" secondAttribute="bottom" id="8Ik-Hx-c7L"/>
                                             <constraint firstAttribute="trailing" secondItem="3Uc-dg-a4O" secondAttribute="trailing" id="8vE-pO-huz"/>
@@ -3005,7 +3007,7 @@ with us!</string>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fLY-pH-M1C">
                                         <rect key="frame" x="0.0" y="37" width="414" height="763"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </view>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="nYm-3E-kXS">
                                         <rect key="frame" x="197" y="408.5" width="20" height="20"/>
@@ -3027,7 +3029,8 @@ with us!</string>
                                 <viewLayoutGuide key="frameLayoutGuide" id="ycc-xY-xNK"/>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="Hrq-2R-Ory"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="mEf-iT-l8g" firstAttribute="bottom" secondItem="zdq-Al-upK" secondAttribute="bottom" id="0se-Ax-Xrl"/>
                             <constraint firstItem="mEf-iT-l8g" firstAttribute="leading" secondItem="zdq-Al-upK" secondAttribute="leading" id="1bI-uc-auM"/>
@@ -3041,7 +3044,6 @@ with us!</string>
                             <constraint firstItem="mEf-iT-l8g" firstAttribute="top" secondItem="zdq-Al-upK" secondAttribute="top" id="tEW-Nr-Yxt"/>
                             <constraint firstItem="zdq-Al-upK" firstAttribute="trailing" secondItem="Hrq-2R-Ory" secondAttribute="trailing" id="ywg-UQ-5nP"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="Hrq-2R-Ory"/>
                     </view>
                     <connections>
                         <outlet property="activityIndicatorView" destination="nYm-3E-kXS" id="S4U-ll-bKF"/>
@@ -3068,5 +3070,20 @@ with us!</string>
         <image name="cross_icon" width="22" height="22"/>
         <image name="greenCircleButton" width="22" height="22"/>
         <image name="saveHotelsSelected" width="27" height="30"/>
+        <systemColor name="groupTableViewBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="groupTableViewBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="groupTableViewBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="groupTableViewBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

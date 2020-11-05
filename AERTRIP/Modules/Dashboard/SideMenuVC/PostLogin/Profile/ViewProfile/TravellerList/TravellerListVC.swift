@@ -710,25 +710,25 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         }
         if isSelectMode {
             if let trav = travellerData, self.selectedTravller.contains(where: { ($0.id ?? "") == (trav.id ?? "") }) {
-               // cell.setSelected(true, animated: false)
+                cell.setSelected(true, animated: false)
                 
             } else {
-                //cell.setSelected(false, animated: false)
+                cell.setSelected(false, animated: false)
             }
         }
         
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        if isSelectMode {
-//            //        let trav = fetchedResultsController.object(at: indexPath)
-//            let section = tableDataArray[indexPath.section]
-//            let trav = section[indexPath.row]
-//            if self.selectedTravller.contains(where: { ($0.id ?? "") == (trav.id ?? "") }) {
-//                cell.setSelected(true, animated: false)
-//                tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
-//            }
-//        }
+        if isSelectMode {
+            //        let trav = fetchedResultsController.object(at: indexPath)
+            let section = tableDataArray[indexPath.section]
+            let trav = section[indexPath.row]
+            if self.selectedTravller.contains(where: { ($0.id ?? "") == (trav.id ?? "") }) {
+                cell.setSelected(true, animated: false)
+                tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
