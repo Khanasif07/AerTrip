@@ -153,13 +153,19 @@ class AerinCustomPopoverVC: BaseVC {
         }
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        chatVm.shouldProduceVoiceOutput = false
+        speechRecognizer.stop()
+    }
+    
     override func bindViewModel() {
         super.bindViewModel()
         chatVm.delegate = self
     }
     
     deinit {
-        speechRecognizer.stop()
+        printDebug("AERIN POPOVER DEINIT")
     }
     
     // MARK: Actions

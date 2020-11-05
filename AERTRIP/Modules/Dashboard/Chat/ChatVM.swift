@@ -58,7 +58,7 @@ class ChatVM {
     private let locationManager = CLLocationManager()
     
     private let speechSynthesizer = SpeechSynthesizer()
-
+    var shouldProduceVoiceOutput = true
     
     func getMylastMessageIndex() -> Int {
         
@@ -92,7 +92,9 @@ class ChatVM {
             params["longitude"] = curLoc.longitude
         }
         
-        APICaller.shared.startChatBotSession(params: params) { (success, message, sessionId, filters) in
+        APICaller.shared.startChatBotSession(params: params) {[weak self] (success, message, sessionId, filters) in
+            
+            guard let self = self else { return }
             
             if success {
                 //                self.delegate?.hideTypingCell()
@@ -127,7 +129,9 @@ class ChatVM {
             params["longitude"] = curLoc.longitude
         }
         
-        APICaller.shared.communicateWithChatBot(params: params) { (success, message, sessionId, filters) in
+        APICaller.shared.communicateWithChatBot(params: params) {[weak self] (success, message, sessionId, filters) in
+            
+            guard let self = self else { return }
             
             if success {
                 //                self.delegate?.hideTypingCell()
@@ -435,7 +439,7 @@ class ChatVM {
 extension ChatVM {
     
     func checkToProvideVoiceFeedback(_ model: MessageModel) {
-        if lastMessageSentType == .voice {
+        if lastMessageSentType == .voice && shouldProduceVoiceOutput {
             if model.fullfilment.isEmpty && !model.depart.isEmpty && !model.origin.isEmpty && !model.destination.isEmpty {
                 speechSynthesizer.synthesizeToSpeech("Here are your results")
             } else {

@@ -477,6 +477,17 @@ extension FlightResultDisplayGroup  {
         userSelectedFilters?.dt.setEarliest(time: minDuration)
         userSelectedFilters?.dt.setLatest(time: maxDuration)
         
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+        let earliest = dateFormatter.date(from: userSelectedFilters?.depDt.earliest ?? "")?.toString(dateFormat: "yyyy-MM-dd")
+        let latest = dateFormatter.date(from: userSelectedFilters?.depDt.latest ?? "")?.toString(dateFormat: "yyyy-MM-dd")
+        
+        let dtEarliest = (userSelectedFilters?.dt.earliest ?? "")
+        userSelectedFilters?.depDt.earliest = (earliest ?? "") + " " + dtEarliest
+        
+        let dtLatest = (userSelectedFilters?.dt.latest ?? "")
+        userSelectedFilters?.depDt.latest = (latest ?? "") + " " + dtLatest
+        
         if isTimesFilterApplied() {
             appliedFilters.insert(.Times)
         } else {
@@ -612,6 +623,12 @@ extension FlightResultDisplayGroup  {
         userSelectedFilters?.pr.maxPrice = Int(maxFare)
         
         if userSelectedFilters?.pr == inputFilter?.pr {
+            UIFilters.remove(.priceRange)
+        } else {
+            UIFilters.insert(.priceRange)
+        }
+        
+        if userSelectedFilters?.pr == inputFilter?.pr && !UIFilters.contains(.refundableFares) {
             appliedFilters.remove(.Price)
         }
         else {
@@ -629,11 +646,19 @@ extension FlightResultDisplayGroup  {
         else {
             UIFilters.remove(.refundableFares)
         }
+        
+        if (userSelectedFilters?.pr == inputFilter?.pr) && !UIFilters.contains(.refundableFares) {
+            appliedFilters.remove(.Price)
+        }
+        else {
+            appliedFilters.insert(.Price)
+        }
+        
         applyFilters()
     }
     
     func applyPriceFilter(_ inputArray: [Journey]) -> [Journey]{
-        guard let userFil = userSelectedFilters else { return inputArray }
+        guard let userFil = userSelectedFilters, UIFilters.contains(.priceRange) else { return inputArray }
         let outputArray = inputArray.filter{  $0.farepr >= userFil.pr.minPrice && $0.farepr <= userFil.pr.maxPrice  }
         return outputArray
     }
@@ -919,6 +944,8 @@ extension FlightResultDisplayGroup  {
             case .originDestinationSelectedForReturnJourney:
                 print("originDestinationSelectedForReturnJourney")
             case .allAirlinesSelected:
+                continue
+            case .priceRange:
                 continue
             }
         }

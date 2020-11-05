@@ -200,7 +200,6 @@ class PriceFilterViewController: UIViewController , FilterViewController {
         setupPriceSlider()
         setupPriceLabels()
         updateSegmentTitles()
-
     }
     
     private func getSegmentTitleFor(_ index: Int) -> String {
@@ -401,5 +400,6 @@ class PriceFilterViewController: UIViewController , FilterViewController {
                  }
              }
          }
+        refundableFaresButton.isSelected = currentPriceFilter.onlyRefundableFaresSelected
      }
 }
