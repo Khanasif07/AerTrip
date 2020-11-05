@@ -58,8 +58,14 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         setupPinnedFlightsOptionsView()
         self.viewModel.setSharedFks()
     }
-    
-    
+        
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        self.emailPinnedFlights.setImage(UIImage(named: "EmailPinned"), for: .normal)
+        self.emailPinnedFlights.displayLoadingIndicator(false)
+
+    }
     
     deinit {
         print("FlightResultSingleJourneyVC")

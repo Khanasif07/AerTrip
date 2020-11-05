@@ -139,9 +139,12 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        super.viewWillAppear(true)
+        
+        self.emailPinnedFlights.setImage(UIImage(named: "EmailPinned"), for: .normal)
+        self.emailPinnedFlights.displayLoadingIndicator(false)
+
     }
-    
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
