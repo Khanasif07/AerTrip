@@ -72,9 +72,9 @@ extension IntMCAndReturnVC {
         let count = viewModel.results.aboveScoreCount
         
         if count == 1 {
-            titleLabel.text  = "Show 1 longer or more expensive flight"
+            titleLabel.text  = "Show 1 longer or expensive flight"
         }else {
-            titleLabel.text  = "Show " + String(count) + " longer or more expensive flights"
+            titleLabel.text  = "Show " + String(count) + " longer or expensive flights"
         }
         
         groupedFooterView.addSubview(titleLabel)
@@ -152,7 +152,7 @@ extension IntMCAndReturnVC {
 
         titleLabel.textAlignment = .center
         let count = viewModel.results.aboveScoreCount
-        titleLabel.text  = "Hide " + String(count) + " longer or more expensive flights"
+        titleLabel.text  = "Hide " + String(count) + " longer or expensive flights"
         expandedFooterView.addSubview(titleLabel)
         
         if let footerView = resultsTableView.tableFooterView {

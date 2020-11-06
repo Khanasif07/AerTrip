@@ -45,6 +45,11 @@ class FlightResultSingleJourneyVM {
         var isSharedFkmatched = false
         var contentOffset : CGPoint?
     
+    
+
+    
+    
+    
     func getOnewayDisplayArray( results : [Journey]) -> [JourneyOnewayDisplay] {
         
         var displayArray = [JourneyOnewayDisplay]()
