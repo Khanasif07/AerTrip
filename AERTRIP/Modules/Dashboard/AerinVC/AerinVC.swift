@@ -288,6 +288,10 @@ class AerinVC: BaseVC {
     }
     
     @IBAction func travelSafetyBtnTapped(_ sender: Any) {
-        AppToast.default.showToastMessage(message: LocalizedString.UnderDevelopment.localized)
+//        AppToast.default.showToastMessage(message: LocalizedString.UnderDevelopment.localized)
+        
+        if let url = URL(string: APIEndPoint.travelGuidelines.rawValue) {
+            AppFlowManager.default.showURLOnATWebView(url, screenTitle:  "Travel Safety Guidlines", presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
+        }
     }
 }

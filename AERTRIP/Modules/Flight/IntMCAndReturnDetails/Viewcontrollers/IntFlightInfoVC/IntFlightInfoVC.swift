@@ -340,7 +340,7 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                         }else{
                             cell.classLabel.text = flight.al + " - " + flight.fn + "・"
                             
-                            cell.classNameLabel.attributedText = cell.addAttributsForRange(" " + flight.cc + bc + " ", coloredString: flight.cc, color: UIColor.clear)
+                            cell.classNameLabel.attributedText = cell.addAttributsForRange("" + flight.cc + bc + " ", coloredString: flight.cc, color: UIColor.clear)
                             cell.classNameLabel.textColor = AppColors.themeGray40
                         }
                     }else{

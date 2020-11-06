@@ -99,13 +99,13 @@ class FareInfoCommonCell: ATTableViewCell {
             //            self.topSeperatorLabelTop.constant = 0
             //            self.topSeperatorLabelBottom.constant = 10
             //            self.topSeperatorLabel.isHidden = false
-            self.titleLabel.text = "Cancellation Fee"
+            self.titleLabel.text = "Cancellation"
             self.titleView.isHidden = false
         }else if indexPath.section == 1 && indexPath.row == 0{
             //            self.topSeperatorLabelTop.constant = 12
             //            self.topSeperatorLabelBottom.constant = 8
             //            self.topSeperatorLabel.isHidden = false
-            self.titleLabel.text = "Rescheduling Fee"
+            self.titleLabel.text = "Rescheduling"
             self.titleView.isHidden = false
         }else{
             //            self.topSeperatorLabelBottom.constant = 0
