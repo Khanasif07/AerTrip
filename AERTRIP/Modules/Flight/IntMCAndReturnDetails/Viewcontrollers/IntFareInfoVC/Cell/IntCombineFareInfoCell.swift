@@ -233,14 +233,14 @@ extension IntCombineFareInfoCell{
             slabCell.topSeperatorLabelTop.constant = 0
             slabCell.topSeperatorLabelBottom.constant = 10
             slabCell.topSeperatorLabel.isHidden = false
-            slabCell.titleLabel.text = "Cancellation Fee"
+            slabCell.titleLabel.text = "Cancellation"
             slabCell.titleView.isHidden = false
             slabCell.titleViewHeight.constant = 40
         }else if indexPath.section == 1 && indexPath.row == 0{
             slabCell.topSeperatorLabelTop.constant = 12
             slabCell.topSeperatorLabelBottom.constant = 8
             slabCell.topSeperatorLabel.isHidden = false
-            slabCell.titleLabel.text = "Rescheduling Fee"
+            slabCell.titleLabel.text = "Rescheduling"
             slabCell.titleView.isHidden = false
             slabCell.titleViewHeight.constant = 40
         }else{
