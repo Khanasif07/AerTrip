@@ -3,7 +3,7 @@
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -334,6 +334,7 @@
                         <outlet property="pickerView" destination="jM9-7f-snp" id="A2o-qH-jNr"/>
                         <outlet property="viewHeight" destination="cgP-Yt-Cns" id="S08-Xi-Oa1"/>
                         <outlet property="warningLabel" destination="iFa-eg-4aU" id="y76-nT-8A4"/>
+                        <outlet property="warningViewHeightConstraint" destination="2Ob-8m-BFC" id="yBu-wn-aCu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z0e-fp-cam" userLabel="First Responder" sceneMemberID="firstResponder"/>

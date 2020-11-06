@@ -60,7 +60,7 @@ class ADEventFilterVC: BaseVC {
     override func initialSetup() {
         
         if !ADEventFilterVM.shared.voucherTypes.isEmpty {
-            ADEventFilterVM.shared.voucherTypes.insert("All", at: 0)
+            ADEventFilterVM.shared.voucherTypes.insert(LocalizedString.ALL.localized, at: 0)
         }
         
         self.topNavBar.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isDivider: false)

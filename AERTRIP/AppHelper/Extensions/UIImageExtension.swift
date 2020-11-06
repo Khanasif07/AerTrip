@@ -154,7 +154,7 @@ extension UIImageView {
             if showIndicator{
                 self.kf.indicatorType = .activity
             }
-            self.kf.setImage(with: url, placeholder: placeholder){  result in
+            self.kf.setImage(with: url, placeholder: placeholder, completionHandler: {  result in
                 
                 switch result {
                 case .success(let value):
@@ -164,7 +164,7 @@ extension UIImageView {
                     //                    print("Job failed: \(error.localizedDescription)")
                     completionHandler?(nil, error)
                 }
-            }
+            })
         }
         
         self.image = placeholder

@@ -47,6 +47,9 @@ class SideMenuVC: BaseVC {
     
     @IBOutlet weak var sideMenuTableView: ATTableView!
     @IBOutlet weak var socialOptionView: UIView!
+    @IBOutlet weak var fbButton: UIButton!
+    @IBOutlet weak var instaButton: UIButton!
+    @IBOutlet weak var twitterButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
