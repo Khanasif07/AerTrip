@@ -784,7 +784,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                     }
                 }
                 
-                if isFSR == true{
+                if isFSR && (self.fromScreen != "upgradePlan"){
                     self.fewSeatsLeftView.isHidden = false
                     self.fewSeatsLeftViewHeight.constant = 40
                     
@@ -922,7 +922,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 }
             }
             
-            if isFSR == true{
+            if isFSR && (self.fromScreen != "upgradePlan"){
                 self.fewSeatsLeftView.isHidden = false
                 self.fewSeatsLeftViewHeight.constant = 40
                 
