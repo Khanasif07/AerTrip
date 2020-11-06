@@ -884,13 +884,13 @@ class GetSharableUrl
                 }
                 
                 
-                //     Price
-                if (appliedFilters.contains(.Price))
-                {
-                    let price = "filters[\(i)][pr][0]=\(userSelectedFilters[i].pr.minPrice)&filters[\(i)][pr][1]=\(userSelectedFilters[i].pr.maxPrice)&"
-                    
-                    filterString.append(price)
-                }
+//                //     Price
+//                if (appliedFilters.contains(.Price))
+//                {
+//                    let price = "filters[\(i)][pr][0]=\(userSelectedFilters[i].pr.minPrice)&filters[\(i)][pr][1]=\(userSelectedFilters[i].pr.maxPrice)&"
+//
+//                    filterString.append(price)
+//                }
                 
                 
                 //     Stops
@@ -908,6 +908,15 @@ class GetSharableUrl
                     
                     filterString.append(stops)
                 }
+            }
+            
+            
+            //     Price
+            if (appliedFilters.contains(.Price))
+            {
+                let price = "&filters[\(appliedFilterLegIndex)][pr][0]=\(userSelectedFilters[appliedFilterLegIndex].pr.minPrice)&filters[\(appliedFilterLegIndex)][pr][1]=\(userSelectedFilters[appliedFilterLegIndex].pr.maxPrice)&"
+                
+                filterString.append(price)
             }
             
             //Aircraft
