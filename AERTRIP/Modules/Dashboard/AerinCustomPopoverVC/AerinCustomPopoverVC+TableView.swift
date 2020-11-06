@@ -54,6 +54,7 @@ extension AerinCustomPopoverVC: UITableViewDelegate, UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "TypingStatusChatCell", for: indexPath) as? TypingStatusChatCell else {
                 fatalError("TypingStatusChatCell not found")
             }
+            cell.loader.play()
             cell.contentView.alpha = 1
             return cell
         }
