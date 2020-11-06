@@ -28,6 +28,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *warningViewHeightConstraint;
 @property (weak, nonatomic) id<AddFlightPassengerHandler> delegate;
 @property (strong, nonatomic) TravellerCount* travellerCount;
 @property ( assign, nonatomic) BOOL isForBulking;

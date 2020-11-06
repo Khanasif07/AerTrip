@@ -87,6 +87,7 @@ extension ADVoucherTypeVC: UITableViewDelegate, UITableViewDataSource {
             }
         } else {
             if ADEventFilterVM.shared.selectedVoucherType.contains(ADEventFilterVM.shared.voucherTypes[indexPath.row]) {
+                ADEventFilterVM.shared.selectedVoucherType.remove(object: LocalizedString.ALL.localized)
                 ADEventFilterVM.shared.selectedVoucherType.remove(object: ADEventFilterVM.shared.voucherTypes[indexPath.row])
             } else {
                 ADEventFilterVM.shared.selectedVoucherType.append(ADEventFilterVM.shared.voucherTypes[indexPath.row])

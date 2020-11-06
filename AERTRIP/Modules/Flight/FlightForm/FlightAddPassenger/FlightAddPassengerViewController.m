@@ -63,7 +63,7 @@ int alreadySelectedComponent = 0;
     [self.doneButton setTitleColor:[UIColor AertripColor] forState:UIControlStateNormal];
     [self.doneButton setTitleColor:[UIColor TWO_ZERO_FOUR_COLOR] forState:UIControlStateDisabled];
     self.warningLabel.textColor = [UIColor colorWithDisplayP3Red:255.0/255.0 green:144.0/255.0 blue:0.0/255.0 alpha:1.0];
-
+    
 }
 
 -(void)setupBackgroundView{
@@ -80,8 +80,8 @@ int alreadySelectedComponent = 0;
 
 -(void)dismiss {
     [self.delegate addFlightPassengerAction:self.travellerCount];
-
-      [self animateBottomViewOut];
+    
+    [self animateBottomViewOut];
 }
 
 
@@ -97,19 +97,19 @@ int alreadySelectedComponent = 0;
 //MARK:- USER INTERACTIONS
 - (IBAction)doneAction:(id)sender {
     
-        [self.delegate addFlightPassengerAction:self.travellerCount];
-        [self animateBottomViewOut];
+    [self.delegate addFlightPassengerAction:self.travellerCount];
+    [self animateBottomViewOut];
 }
 
 - (IBAction)adultAction:(id)sender {
-
+    
 }
 - (IBAction)childAction:(id)sender {
-
+    
 }
 
 - (IBAction)infantAction:(id)sender {
-
+    
 }
 
 
@@ -118,7 +118,7 @@ int alreadySelectedComponent = 0;
     self.numberOfInfantArray = [[NSMutableArray alloc] init];
     self.numberOfAdultArray = [[NSMutableArray alloc] init];
     self.numberOfChildArray = [[NSMutableArray alloc] init];
- 
+    
     
     int minimumPassenger = 1 ;
     int maxPassenger = 10 ;
@@ -135,13 +135,13 @@ int alreadySelectedComponent = 0;
         }
         [self.numberOfInfantArray addObject:[NSString stringWithFormat:@"%ld",(long)i]];
         [self.numberOfChildArray addObject:[NSString stringWithFormat:@"%ld",(long)i]];
-        }
+    }
     
-        if (self.isForBulking){
-            [self.numberOfAdultArray addObject:@"100+"];
-            [self.numberOfChildArray addObject:@"100+"];
-            [self.numberOfInfantArray addObject:@"100+"];
-        }
+    if (self.isForBulking){
+        [self.numberOfAdultArray addObject:@"100+"];
+        [self.numberOfChildArray addObject:@"100+"];
+        [self.numberOfInfantArray addObject:@"100+"];
+    }
     self.pickerView.delegate = self;
     self.pickerView.dataSource = self;
     
@@ -156,7 +156,7 @@ int alreadySelectedComponent = 0;
     [self.pickerView selectRow:adultCountSelection inComponent:0 animated:YES];
     [self.pickerView selectRow:self.travellerCount.flightChildrenCount inComponent:1 animated:YES];
     [self.pickerView selectRow:self.travellerCount.flightInfantCount inComponent:2 animated:YES];
-
+    
     
 }
 //- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
@@ -193,13 +193,13 @@ int alreadySelectedComponent = 0;
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
     
     NSString * stringForTitle;
-     if (component == 0) {
-                 stringForTitle = [self.numberOfAdultArray objectAtIndex:row];
-     }else if (component == 1) {
-                stringForTitle =  [self.numberOfChildArray objectAtIndex:row];
-     }else if (component == 2) {
-                 stringForTitle = [self.numberOfInfantArray objectAtIndex:row];
-     }
+    if (component == 0) {
+        stringForTitle = [self.numberOfAdultArray objectAtIndex:row];
+    }else if (component == 1) {
+        stringForTitle =  [self.numberOfChildArray objectAtIndex:row];
+    }else if (component == 2) {
+        stringForTitle = [self.numberOfInfantArray objectAtIndex:row];
+    }
     
     return stringForTitle;
 }
@@ -231,16 +231,21 @@ int alreadySelectedComponent = 0;
         self.dimmerLayer.alpha = 0.3;
         self.bottomViewBottomConstraint.constant = 0;
         self.bottomViewHeight.constant = 50 + self.view.safeAreaInsets.bottom;
-         if (self.travellerCount.flightAdultCount + self.travellerCount.flightChildrenCount > 6 ) {
-            self.viewHeight.constant = 410 + self.view.safeAreaInsets.bottom;
-            [self.WarningView setHidden:FALSE];
-         }
-         else {
-            self.viewHeight.constant = 358 + self.view.safeAreaInsets.bottom;
-         }
         
-//        self.viewHeight.constant = 358 + self.view.safeAreaInsets.bottom;
-
+        if (self.travellerCount.flightAdultCount + self.travellerCount.flightChildrenCount > 6 ) {
+            if (!self.isForBulking) {
+                self.viewHeight.constant = 410 + self.view.safeAreaInsets.bottom;
+                [self.WarningView setHidden:FALSE];
+            } else {
+                self.viewHeight.constant = 358 + self.view.safeAreaInsets.bottom;
+            }
+        }
+        else {
+            self.viewHeight.constant = 358 + self.view.safeAreaInsets.bottom;
+        }
+        
+        //        self.viewHeight.constant = 358 + self.view.safeAreaInsets.bottom;
+        
         [self.view layoutIfNeeded];
     } completion:^(BOOL finished) {
         
@@ -263,7 +268,7 @@ int alreadySelectedComponent = 0;
     switch (component) {
         case 0:
             self.travellerCount.flightAdultCount = count ;
-
+            
             break;
         case 1 :
             self.travellerCount.flightChildrenCount = count;
@@ -319,29 +324,29 @@ int alreadySelectedComponent = 0;
 -(void)validateUserSelection:(TravellerCount *)tempTravellerCount component:(NSUInteger)component row:(NSUInteger)row
 {
     if ( tempTravellerCount.flightInfantCount > tempTravellerCount.flightAdultCount) {
-
+        
         NSUInteger adultCount = tempTravellerCount.flightAdultCount ;
         [self.pickerView selectRow:adultCount inComponent:2 animated:YES];
-//        [AertripToastView toastInView:self.view withText:@"Infants should not exceed adults"];
+        //        [AertripToastView toastInView:self.view withText:@"Infants should not exceed adults"];
         
         
         
         [self displayToastWithMessage:@"Infants should not exceed adults" component:2];
-
-
+        
+        
         self.travellerCount.flightAdultCount = adultCount;
         self.travellerCount.flightInfantCount = adultCount;
-
+        
         return;
     }
     
     if ( tempTravellerCount.flightAdultCount + tempTravellerCount.flightChildrenCount > 9 ) {
-//        NSString * message = [NSString stringWithFormat:@"Total passengers cannot be more than 9"];
+        //        NSString * message = [NSString stringWithFormat:@"Total passengers cannot be more than 9"];
         
-//        [AertripToastView toastInView:self.view withText:message];
+        //        [AertripToastView toastInView:self.view withText:message];
         
         [self displayToastWithMessage:@"Total passengers cannot be more than 9" component:1];
-
+        
         
         NSUInteger selection;
         
@@ -361,22 +366,23 @@ int alreadySelectedComponent = 0;
     
     if (self.travellerCount.flightAdultCount + self.travellerCount.flightChildrenCount > 6 ) {
         
-        [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            self.viewHeight.constant = 410  + self.view.safeAreaInsets.bottom;
-            [self.view layoutIfNeeded];
-
-        } completion:^(BOOL finished){
-             [self.WarningView setHidden:FALSE];
-        }];
-            
-       
+        if (!self.isForBulking) {
+            [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                self.viewHeight.constant = 410  + self.view.safeAreaInsets.bottom;
+                [self.view layoutIfNeeded];
+                
+            } completion:^(BOOL finished){
+                [self.WarningView setHidden:FALSE];
+            }];
+        }
+        
     }else {
-
+        
         [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             [self.WarningView setHidden:YES];
             self.viewHeight.constant = 358 + self.view.safeAreaInsets.bottom;
             [self.view layoutIfNeeded];
-          } completion:nil];
+        } completion:nil];
     }
 }
 
@@ -388,7 +394,7 @@ int alreadySelectedComponent = 0;
         
         NSUInteger adultCount = tempTravellerCount.flightAdultCount ;
         [self.pickerView selectRow:adultCount inComponent:2 animated:YES];
-//        [AertripToastView hideToast];
+        //        [AertripToastView hideToast];
         [AertripToastView toastInView:self.view withText:@"Infats should not exceed adults"];
         
         self.travellerCount.flightAdultCount = adultCount;
@@ -413,13 +419,13 @@ int alreadySelectedComponent = 0;
         toastView.frame = CGRectMake(16.0, self.view.frame.size.height, self.view.frame.size.width-32, 50.0);
         toastView.backgroundColor = [UIColor clearColor];
         toastView.tag = 1112;
-
+        
         UIVisualEffect *blurEffect;
         blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
-
+        
         UIVisualEffectView *visualEffectView;
         visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-
+        
         visualEffectView.frame = toastView.bounds;
         visualEffectView.layer.cornerRadius = 10;
         visualEffectView.clipsToBounds = YES;
@@ -452,7 +458,7 @@ int alreadySelectedComponent = 0;
                     toastView.frame = rect;
                     toastView.alpha = 1.0;
                 } completion:^(BOOL finished){
-                      [self fadeOut:toastView toastMessage:toastMessage component:component];
+                    [self fadeOut:toastView toastMessage:toastMessage component:component];
                     
                 }];
             }
@@ -460,20 +466,7 @@ int alreadySelectedComponent = 0;
             NSLog(@"not visible");
             NSLog(@"self.isToastVisible=%u",self.isToastVisible);
             if(self.isToastVisible == false){
-            self.isToastVisible = true;
-            [self.view addSubview:toastView];
-            [UIView animateWithDuration:.5  delay:0 options:UIViewAnimationOptionCurveEaseIn
-                             animations:^{
-                
-                CGRect rect = toastView.frame;
-                rect.origin.y = self.view.frame.size.height - bottom;
-                toastView.frame = rect;
-                toastView.alpha = 1.0;
-            } completion:^(BOOL finished){
-                  [self fadeOut:toastView toastMessage:toastMessage component:component];
-            }];
-            }else if(self.isToastVisible == true && alreadySelectedComponent != component){
-
+                self.isToastVisible = true;
                 [self.view addSubview:toastView];
                 [UIView animateWithDuration:.5  delay:0 options:UIViewAnimationOptionCurveEaseIn
                                  animations:^{
@@ -483,7 +476,20 @@ int alreadySelectedComponent = 0;
                     toastView.frame = rect;
                     toastView.alpha = 1.0;
                 } completion:^(BOOL finished){
-                      [self fadeOut:toastView toastMessage:toastMessage component:component];
+                    [self fadeOut:toastView toastMessage:toastMessage component:component];
+                }];
+            }else if(self.isToastVisible == true && alreadySelectedComponent != component){
+                
+                [self.view addSubview:toastView];
+                [UIView animateWithDuration:.5  delay:0 options:UIViewAnimationOptionCurveEaseIn
+                                 animations:^{
+                    
+                    CGRect rect = toastView.frame;
+                    rect.origin.y = self.view.frame.size.height - bottom;
+                    toastView.frame = rect;
+                    toastView.alpha = 1.0;
+                } completion:^(BOOL finished){
+                    [self fadeOut:toastView toastMessage:toastMessage component:component];
                 }];
             }
             
@@ -497,7 +503,7 @@ int alreadySelectedComponent = 0;
     if(alreadySelectedComponent == component){
         delay = 10;
     }else{
-//        delay = 0;
+        //        delay = 0;
     }
     [UIView animateWithDuration:.5  delay:delay options:UIViewAnimationOptionCurveEaseIn
                      animations:^{

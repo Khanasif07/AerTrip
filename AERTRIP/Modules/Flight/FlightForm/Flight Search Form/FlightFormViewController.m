@@ -123,9 +123,9 @@
     self.recentSearchCollectionView.backgroundView = nil;
     self.recentSearchCollectionView.backgroundColor = [UIColor clearColor];
     self.recentSearchCollectionView.contentInset = UIEdgeInsetsMake(0.0, 16.0, 0.0, 16.0);
-    SnappingCollectionViewLayout * collectionViewLayout = [[ SnappingCollectionViewLayout alloc] init];
-    collectionViewLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    self.recentSearchCollectionView.collectionViewLayout = collectionViewLayout;
+//    SnappingCollectionViewLayout * collectionViewLayout = [[ SnappingCollectionViewLayout alloc] init];
+//    collectionViewLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+//    self.recentSearchCollectionView.collectionViewLayout = collectionViewLayout;
 }
 
 - (void)setupInitials {
