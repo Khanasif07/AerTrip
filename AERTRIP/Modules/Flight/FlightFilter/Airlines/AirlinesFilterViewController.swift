@@ -344,13 +344,17 @@ extension AirlinesFilterViewController : UITableViewDataSource , UITableViewDele
                    cell.radioButton.isSelected  = true
                 }
             }
-            
-            
-            cell.radioButton.addTarget(self, action: #selector(airlineRadioButtonTapped(sender:)) , for: .touchDown)
+            cell.radioButton.isUserInteractionEnabled = false
+//            cell.radioButton.addTarget(self, action: #selector(airlineRadioButtonTapped(sender:)) , for: .touchDown)
             return cell
         }
 
         return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? RadioButtonTableViewCell else { return }
+        airlineRadioButtonTapped(sender: cell.radioButton)
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
