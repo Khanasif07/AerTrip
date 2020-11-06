@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "microphoneGreenSmall.png",
+      "filename" : "aerinSmallMic@1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "microphoneGreenSmall@2x.png",
+      "filename" : "aerinSmallMic@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "microphoneGreenSmall@3x.png",
+      "filename" : "aerinSmallMic@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

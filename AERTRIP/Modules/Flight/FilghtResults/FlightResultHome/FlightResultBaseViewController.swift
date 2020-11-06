@@ -63,6 +63,22 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
     private var showDepartReturnSame = false
     private var curSelectedFilterIndex = 0
     
+    
+    enum SortingValuesWhenShared : String {
+        
+        case smart = "humane-sorting_asc"
+        case priceHighToLow = "price-sorting_desc"
+        case priceLowToHigh = "price-sorting_asc"
+        case durationLowToHigh = "duration-sorting_asc"
+        case durationHighToLow = "duration-sorting_desc"
+        case departureLowToHigh = "depart-sorting_asc"
+        case departureHighToLow = "depart-sorting_desc"
+        case arivalLowToHigh = "arrive-sorting_asc"
+        case arivalHighToLow = "arrive-sorting_desc"
+        
+    }
+    
+    
     //MARK:- Initializers
     @objc convenience init(flightSearchResultVM : FlightSearchResultVM , flightSearchParameters: NSDictionary, isIntReturnOrMCJourney: Bool, airlineCode:String) {
         self.init(nibName:nil, bundle:nil)
@@ -152,9 +168,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         let buttonImage = UIImage(named: "green")
         backButton.setImage(buttonImage, for: .normal)
         backButton.setImage(buttonImage, for: .selected)
-        
         backButton.frame = CGRect(x: 6, y: statusBarHeight, width: 44, height: 44)
-        
         backButton.addTarget(self, action: #selector(self.popToPreviousScreen(sender:)), for: .touchUpInside)
         visualEffectView.contentView.addSubview(backButton)
         
@@ -215,7 +229,6 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         
         if flightType == SINGLE_JOURNEY || isIntReturnOrMCJourney{
             ApiProgress.isHidden = false
-            
             separatorView.snp.makeConstraints { (make) in
                 make.left.equalTo(visualEffectView.contentView).offset(0.0)
                 make.bottom.equalTo(visualEffectView.contentView).offset(-2.0)
@@ -455,6 +468,12 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         resultBaseVC.viewModel.bookFlightObject = flightSearchResultVM.bookFlightObject
         resultBaseVC.viewModel.flightSearchResultVM = flightSearchResultVM
         resultBaseVC.viewModel.flightSearchParameters = self.flightSearchParameters
+        
+        let sharedSortOrder = self.flightSearchParameters["sort[]"] as? String ?? ""
+        
+//        resultBaseVC.viewModel.sortOrder = SortingValuesWhenShared(rawValue: sharedSortOrder)
+        
+        
         addChildView(resultBaseVC)
         singleJourneyResultVC = resultBaseVC
     }

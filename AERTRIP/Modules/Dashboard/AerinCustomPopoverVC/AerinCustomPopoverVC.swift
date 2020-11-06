@@ -323,13 +323,13 @@ class AerinCustomPopoverVC: BaseVC {
         
         // Horizontal and size animation
         UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
-            animationMicImgView.frame.origin.x = finalFrame.origin.x - 3
-            animationMicImgView.frame.size = CGSize(width: finalFrame.width*1.2, height: finalFrame.height*1.2)
+            animationMicImgView.frame.origin.x = finalFrame.origin.x
+            animationMicImgView.frame.size = CGSize(width: finalFrame.width, height: finalFrame.height)
         }, completion: nil)
         
         // Vertical animation with total animation time of 0.3 seconds
         UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut) {
-            animationMicImgView.frame.origin.y = finalFrame.origin.y - 1
+            animationMicImgView.frame.origin.y = finalFrame.origin.y
         } completion: { (_) in
             DispatchQueue.delay(0.1) {
                 animationMicImgView.removeFromSuperview()

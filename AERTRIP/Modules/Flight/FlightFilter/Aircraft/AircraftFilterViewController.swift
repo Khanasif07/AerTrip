@@ -151,7 +151,7 @@ extension AircraftFilterViewController : UITableViewDataSource , UITableViewDele
                 
                 cell.configureAllAircraftsCell()
                 
-                cell.imageView?.image = nil
+//                cell.imageView?.image = nil
                 
                 cell.radioButton.setImage(self.aircraftFilter.selectedAircraftsArray.count == self.aircraftFilter.allAircraftsArray.count ? #imageLiteral(resourceName: "selectOption") : #imageLiteral(resourceName: "UncheckedGreenRadioButton"), for: .normal)
            
@@ -160,7 +160,7 @@ extension AircraftFilterViewController : UITableViewDataSource , UITableViewDele
                 
                // cell.configureAircraftCell(title: self.aircraftFilter.allAircrafts[indexPath.row])
 
-                cell.textLabel?.text = self.aircraftFilter.allAircraftsArray[indexPath.row].name
+//                cell.textLabel?.text = self.aircraftFilter.allAircraftsArray[indexPath.row].name
                 
                 if self.aircraftFilter.selectedAircraftsArray.contains(self.aircraftFilter.allAircraftsArray[indexPath.row]) {
                         
@@ -171,7 +171,8 @@ extension AircraftFilterViewController : UITableViewDataSource , UITableViewDele
                         cell.radioButton.setImage(#imageLiteral(resourceName: "UncheckedGreenRadioButton"), for: .normal)
                         
                     }
-                cell.imageView?.image = self.aircraftFilter.allAircraftsArray[indexPath.row].quality == 1 ? #imageLiteral(resourceName: "ACIcon") : nil
+                
+        cell.textLabel?.text = self.aircraftFilter.allAircraftsArray[indexPath.row].quality == 1 ? "⭑ \(self.aircraftFilter.allAircraftsArray[indexPath.row].name)" : self.aircraftFilter.allAircraftsArray[indexPath.row].name
 
             }
 
