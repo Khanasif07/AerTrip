@@ -279,7 +279,7 @@ extension IntFareBreakupVC: UITableViewDelegate,UITableViewDataSource{
             }
         }
         
-        if isFSR && remainingSeats != ""{
+        if isFSR && remainingSeats != "" && self.fromScreen != "upgradePlan"{
             fewSeatsLeftView.isHidden = false
             fewSeatsLeftViewHeight.constant = 35
             
