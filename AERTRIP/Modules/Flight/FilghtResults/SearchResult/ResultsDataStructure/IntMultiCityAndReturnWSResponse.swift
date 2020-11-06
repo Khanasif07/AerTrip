@@ -132,7 +132,7 @@ struct IntMultiCityAndReturnWSResponse {
             }
         }
         
-        struct EqMaster : Equatable {
+        struct EqMaster : Equatable, Codable {
             var name: String
             var quality: Int
             

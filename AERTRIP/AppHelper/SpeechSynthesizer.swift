@@ -11,7 +11,7 @@ import AVFoundation
 
 class SpeechSynthesizer {
 
-    let speechSynthesizer = AVSpeechSynthesizer()
+    private let speechSynthesizer = AVSpeechSynthesizer()
     
     func synthesizeToSpeech(_ text: String) {
         let audioSession = AVAudioSession.sharedInstance()
@@ -28,5 +28,9 @@ class SpeechSynthesizer {
         let speechUtterance: AVSpeechUtterance = AVSpeechUtterance(string: text)
         speechUtterance.voice = AVSpeechSynthesisVoice(identifier: "com.apple.ttsbundle.Samantha-compact")
         speechSynthesizer.speak(speechUtterance)
+    }
+    
+    func stopImmediate() {
+        speechSynthesizer.stopSpeaking(at: .immediate)
     }
 }

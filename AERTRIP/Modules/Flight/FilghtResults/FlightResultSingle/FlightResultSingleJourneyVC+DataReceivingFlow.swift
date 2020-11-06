@@ -16,6 +16,10 @@ extension FlightResultSingleJourneyVC {
             viewModel.resultTableState = .showRegularResults
         }
         
+        
+        
+        printDebug("self.flightSearchParameters....\(self.viewModel.flightSearchParameters)")
+        
 //                var sharedUrlPF = ""
 //                if ((self.flightSearchParameters?["PF[]"] as? String) != nil){
 //                    sharedUrlPF = self.flightSearchParameters?["PF[]"] as? String ?? ""
@@ -30,6 +34,9 @@ extension FlightResultSingleJourneyVC {
 //                        }
 //                    }
 //                }
+        
+        
+        
         
         let modifiedResult = results
         
@@ -73,7 +80,7 @@ extension FlightResultSingleJourneyVC {
             }
             
             
-            
+           
             
             if !self.viewModel.sharedFks.isEmpty {
                 
@@ -91,8 +98,11 @@ extension FlightResultSingleJourneyVC {
                 }
                 
             }
-            
 
+//            self.viewModel.sortOrder = .pric
+//            self.viewModel.isConditionReverced = true
+            
+            
             let groupedArray =   self.viewModel.getOnewayDisplayArray(results: modifiedResult)
             self.viewModel.results.journeyArray = groupedArray
             //            self.viewModel.setPinnedFlights(shouldApplySorting: true)

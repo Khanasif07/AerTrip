@@ -54,7 +54,7 @@ class SpeechRecognizer: NSObject {
         }
     }
     
-    private func stopRecordingAfterDelay(delayTime: TimeInterval = 0.5) {
+    private func stopRecordingAfterDelay(delayTime: TimeInterval = 1.4) {
         recordWorkItem?.cancel()
         recordWorkItem = DispatchWorkItem(block: { [weak self] in
             self?.stop()
@@ -119,7 +119,7 @@ class SpeechRecognizer: NSObject {
         let audioSession = AVAudioSession.sharedInstance()
         do {
             try audioSession.setCategory(AVAudioSession.Category.playAndRecord)
-            try audioSession.setMode(AVAudioSession.Mode.default)
+            try audioSession.setMode(AVAudioSession.Mode.measurement)
             try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
         } catch {
             print("audioSession properties weren't set because of an error.")
@@ -142,7 +142,10 @@ class SpeechRecognizer: NSObject {
             if result != nil {
                 
                 if !self.shouldStopRecordingText {
-                    self.delegate?.recordedText(result?.bestTranscription.formattedString ?? "")
+                    var finalString = result?.bestTranscription.formattedString ?? ""
+                    finalString = finalString.replacingOccurrences(of: "Erin", with: "Aerin")
+                    finalString = finalString.replacingOccurrences(of: "Aaron", with: "Aerin")
+                    self.delegate?.recordedText(finalString)
                 }
                 isFinal = (result?.isFinal)!
                 

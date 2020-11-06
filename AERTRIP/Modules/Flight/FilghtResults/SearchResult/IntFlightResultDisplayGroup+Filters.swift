@@ -555,7 +555,7 @@ extension IntFlightResultDisplayGroup  {
                     maxLayoverDuration *= 3600
                 }
                 
-                if appliedSubFilters[legIndex]?.contains(.tripDuration) ?? false {
+                if appliedSubFilters[legIndex]?.contains(.layoverDuration) ?? false {
                     
                     outputArray = outputArray.filter { (journey) -> Bool in
                         
@@ -797,6 +797,12 @@ extension IntFlightResultDisplayGroup  {
         userSelectedFilters[0].pr.maxPrice = Int(maxFare)
         
         if userSelectedFilters[0].pr == inputFilter[0].pr {
+            UIFilters.remove(.priceRange)
+        } else {
+            UIFilters.insert(.priceRange)
+        }
+        
+        if userSelectedFilters[0].pr == inputFilter[0].pr && !UIFilters.contains(.refundableFares) {
             //working fine
             appliedFilters.remove(.Price)
         }else {
@@ -815,10 +821,20 @@ extension IntFlightResultDisplayGroup  {
             //working fine
             UIFilters.remove(.refundableFares)
         }
+        
+        if userSelectedFilters[0].pr == inputFilter[0].pr && !UIFilters.contains(.refundableFares) {
+            //working fine
+            appliedFilters.remove(.Price)
+        }else {
+            appliedFilters.insert(.Price)
+        }
+        
         applyFilters(index: 0)
     }
     
     func applyPriceFilter(_ inputArray: [IntMultiCityAndReturnWSResponse.Results.J]) -> [IntMultiCityAndReturnWSResponse.Results.J]{
+        
+        guard UIFilters.contains(.priceRange) else { return inputArray }
         let outputArray = inputArray.filter{  $0.farepr >= userSelectedFilters[0].pr.minPrice && $0.farepr <= userSelectedFilters[0].pr.maxPrice  }
         return outputArray
     }
@@ -1279,6 +1295,8 @@ extension IntFlightResultDisplayGroup  {
                 inputForFilter =  applyAirportsFilterForReturnJourneys(inputArray: inputForFilter)
                 //                print("originDestinationSelectedForReturnJourney")
             case .allAirlinesSelected:
+                continue
+            case .priceRange:
                 continue
             }
         }

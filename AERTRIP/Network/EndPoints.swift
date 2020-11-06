@@ -160,6 +160,8 @@ enum APIEndPoint: String {
     case refundCase = "itinerary/refund-case"
     case otherFare = "flights/otherfares"
     
+    case travelGuidelines = "https://aertrip.com/covid-guide"
+    
     //FlightAddOns
     case seatMap = "flights/seat-map-list"
     case postBookingAddOn = "addon/get-addon-availability"

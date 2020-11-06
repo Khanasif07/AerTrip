@@ -80,7 +80,7 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
         }
     }
     
-    private var multiLegSegmentControl = UISegmentedControl()
+    private var multiLegSegmentControl: UISegmentedControl?
     
     //MARK:- View Controller Method
     override func viewDidLoad() {
@@ -280,23 +280,25 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
             return
         }
                 
-        multiLegSegmentControl.removeAllSegments()
+        multiLegSegmentControl?.removeAllSegments()
         
         let numberOfStops = airportFilterArray.count
 
         for  index in 1...numberOfStops  {
             let segmentTitle = getSegmentTitleFor(index)
-            multiLegSegmentControl.insertSegment(withTitle: segmentTitle, at: index-1, animated: false)
+            multiLegSegmentControl?.insertSegment(withTitle: segmentTitle, at: index-1, animated: false)
         }
         
-        multiLegSegmentControl.selectedSegmentIndex = currentActiveIndex
+        multiLegSegmentControl?.selectedSegmentIndex = currentActiveIndex
                 
-        if multiLegSegmentControl.superview == nil && numberOfStops > 1 {
+        if multiLegSegmentControl?.superview == nil && numberOfStops > 1 {
             let font: [NSAttributedString.Key : Any] = [.font : AppFonts.SemiBold.withSize(14)]
-            multiLegSegmentControl.setTitleTextAttributes(font, for: .normal)
-            multiLegSegmentControl.addTarget(self, action: #selector(indexChanged(_:)), for: .valueChanged)
-            multicitySegmentView.addSubview(multiLegSegmentControl)
-            multiLegSegmentControl.snp.makeConstraints { (maker) in
+            multiLegSegmentControl?.setTitleTextAttributes(font, for: .normal)
+            multiLegSegmentControl?.addTarget(self, action: #selector(indexChanged(_:)), for: .valueChanged)
+            if let segmentControl = multiLegSegmentControl {
+                multicitySegmentView.addSubview(segmentControl)
+            }
+            multiLegSegmentControl?.snp.makeConstraints { (maker) in
                 maker.width.equalToSuperview()
                 maker.height.equalToSuperview()
                 maker.leading.equalToSuperview()
@@ -340,9 +342,10 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
     }
     
     private func updateSegmentTitles() {
-        for index in 0..<multiLegSegmentControl.numberOfSegments {
+        guard let segmentControl = multiLegSegmentControl else { return }
+        for index in 0..<segmentControl.numberOfSegments {
             let segmentTitle = getSegmentTitleFor(index + 1)
-            multiLegSegmentControl.setTitle(segmentTitle, forSegmentAt: index)
+            multiLegSegmentControl?.setTitle(segmentTitle, forSegmentAt: index)
         }
     }
     
@@ -358,6 +361,9 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
             setupMultiLegSegmentControl()
         }
         setupScrollView()
+        if multiLegSegmentControl == nil {
+            multiLegSegmentControl = UISegmentedControl()
+        }
     }
     
     func updateUIPostLatestResults() {
@@ -632,8 +638,9 @@ extension AirportsFilterViewController : UITableViewDataSource , UITableViewDele
                 cell.airportCode.text = currentAirport.IATACode
                 cell.airportName?.text = currentAirport.name
                 cell.radioButton.isSelected = currentAirport.isSelected
-                cell.radioButton.addTarget(self, action: #selector(originAirportTapped(sender:)), for: .touchDown)
+//                cell.radioButton.addTarget(self, action: #selector(originAirportTapped(sender:)), for: .touchDown)
                 cell.radioButton.tag = indexPath.section * 100 + indexPath.row
+                cell.radioButton.isUserInteractionEnabled = false
                 cell.backgroundColor = .clear
                 return cell
             }
@@ -647,8 +654,9 @@ extension AirportsFilterViewController : UITableViewDataSource , UITableViewDele
                 cell.airportCode.text = currentAirport.IATACode
                 cell.airportName?.text = currentAirport.name
                 cell.radioButton.isSelected = currentAirport.isSelected
-                cell.radioButton.addTarget(self, action: #selector(destinationAirportTapped(sender:)), for:.touchDown)
+//                cell.radioButton.addTarget(self, action: #selector(destinationAirportTapped(sender:)), for:.touchDown)
                 cell.radioButton.tag = indexPath.section * 100 + indexPath.row
+                cell.radioButton.isUserInteractionEnabled = false
                 cell.backgroundColor = .clear
                 return cell
             }
@@ -667,14 +675,27 @@ extension AirportsFilterViewController : UITableViewDataSource , UITableViewDele
                     print(currentAirport.isSelected)
                     cell.radioButton.isSelected = currentAirport.isSelected
                 }
-                cell.radioButton.addTarget(self, action: #selector(layoverAirportTapped(sender:)), for: .touchDown)
+//                cell.radioButton.addTarget(self, action: #selector(layoverAirportTapped(sender:)), for: .touchDown)
                 cell.radioButton.tag = indexPath.section * 100 + indexPath.row
+                cell.radioButton.isUserInteractionEnabled = false
                 cell.backgroundColor = .clear
                 return cell
             }
         }
         
         return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? AirportSelectionCell else { return }
+        
+        if cell.reuseIdentifier == "OriginCells" {
+            originAirportTapped(sender: cell.radioButton)
+        } else if cell.reuseIdentifier == "DestinationCells" {
+            destinationAirportTapped(sender: cell.radioButton)
+        } else if cell.reuseIdentifier == "LayOverCells" {
+            layoverAirportTapped(sender: cell.radioButton)
+        }
     }
     
    

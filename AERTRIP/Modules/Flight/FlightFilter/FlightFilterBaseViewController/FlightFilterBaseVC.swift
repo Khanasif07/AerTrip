@@ -69,7 +69,6 @@ class FlightFilterBaseVC: UIViewController {
                      }
                     
                 }
-
             }
         
         }
@@ -568,10 +567,11 @@ extension FlightFilterBaseVC {
             
             if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[index].contains(.Times), timesViewController.multiLegTimerFilter.indices.contains(index) {
                 
+                timesViewController.multiLegTimerFilter[index].departureMinTime = newFlightLegFilter.departureMinTime
+                
+                timesViewController.multiLegTimerFilter[index].departureTimeMax = newFlightLegFilter.departureTimeMax
+                
                 if userFilters.appliedSubFilters[index].contains(.departureTime) {
-                    timesViewController.multiLegTimerFilter[index].departureMinTime = newFlightLegFilter.departureMinTime
-                    
-                    timesViewController.multiLegTimerFilter[index].departureTimeMax = newFlightLegFilter.departureTimeMax
                     
                     if let userMin = userDepartureMin {
                         timesViewController.multiLegTimerFilter[index].userSelectedStartTime = userMin
@@ -580,12 +580,17 @@ extension FlightFilterBaseVC {
                     if let userMax = userDepartureMax {
                         timesViewController.multiLegTimerFilter[index].userSelectedEndTime = userMax
                     }
+                } else {
+                    timesViewController.multiLegTimerFilter[index].userSelectedStartTime = newFlightLegFilter.departureMinTime
+                    
+                    timesViewController.multiLegTimerFilter[index].userSelectedEndTime = newFlightLegFilter.departureTimeMax
                 }
                 
+                timesViewController.multiLegTimerFilter[index].arrivalStartTime = newFlightLegFilter.arrivalStartTime
+                
+                timesViewController.multiLegTimerFilter[index].arrivalEndTime = newFlightLegFilter.arrivalEndTime
+                
                 if userFilters.appliedSubFilters[index].contains(.arrivalTime) {
-                    timesViewController.multiLegTimerFilter[index].arrivalStartTime = newFlightLegFilter.arrivalStartTime
-                    
-                    timesViewController.multiLegTimerFilter[index].arrivalEndTime = newFlightLegFilter.arrivalEndTime
                     
                     if let userMin = userArrivalMin {
                         timesViewController.multiLegTimerFilter[index].userSelectedArrivalStartTime = userMin
@@ -594,6 +599,10 @@ extension FlightFilterBaseVC {
                     if let userMax = userArrivalMax {
                         timesViewController.multiLegTimerFilter[index].userSelectedArrivalEndTime = userMax
                     }
+                } else {
+                    timesViewController.multiLegTimerFilter[index].userSelectedArrivalStartTime = newFlightLegFilter.arrivalStartTime
+                    
+                    timesViewController.multiLegTimerFilter[index].userSelectedArrivalEndTime = newFlightLegFilter.arrivalEndTime
                 }
                 
             } else {
@@ -1128,15 +1137,26 @@ extension FlightFilterBaseVC {
             }
                 
             if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[index].contains(.Price), priceViewController.allPriceFilters.indices.contains(index) {
-                priceViewController.allPriceFilters[index].inputFareMinValue = newPriceFilter.inputFareMinValue
                 
-                priceViewController.allPriceFilters[index].inputFareMaxVaule = newPriceFilter.inputFareMaxVaule
+                let onlyRefundable = priceViewController.allPriceFilters[index].onlyRefundableFaresSelected
                 
-                if let userFil = userFilter {
-                    priceViewController.allPriceFilters[index].userSelectedFareMinValue = CGFloat(userFil.minPrice)
+                if userFilters.uiFilters[index].contains(.priceRange) {
+                    priceViewController.allPriceFilters[index].inputFareMinValue = newPriceFilter.inputFareMinValue
                     
-                    priceViewController.allPriceFilters[index].userSelectedFareMaxValue = CGFloat(userFil.maxPrice)
+                    priceViewController.allPriceFilters[index].inputFareMaxVaule = newPriceFilter.inputFareMaxVaule
+                    
+                    if let userFil = userFilter {
+                        priceViewController.allPriceFilters[index].userSelectedFareMinValue = CGFloat(userFil.minPrice)
+                        
+                        priceViewController.allPriceFilters[index].userSelectedFareMaxValue = CGFloat(userFil.maxPrice)
+                    }
+                    
+                } else {
+                    priceViewController.allPriceFilters[index] = newPriceFilter
                 }
+                
+                priceViewController.allPriceFilters[index].onlyRefundableFaresSelected = onlyRefundable
+                                
             } else {
                 if !priceViewController.allPriceFilters.indices.contains(index) {
                     priceViewController.allPriceFilters.insert(newPriceFilter, at: index)
@@ -1501,7 +1521,6 @@ extension FlightFilterBaseVC {
             let aircraftVc = aircraftViewController as AircraftFilterViewController
             aircraftVc.loadViewIfNeeded()
             aircraftVc.delegate = self.delegate as? AircraftFilterDelegate
-            printDebug("updatedAircraftFilter...\(self.updatedAircraftFilter.allAircrafts)")
             aircraftVc.updateAircraftList(filter: self.updatedAircraftFilter)
         }
       

@@ -897,6 +897,7 @@
             [self.airportDisplayArray insertObject:@"" atIndex:0];
             [self.displaySections setObject:self.viewModel.fromFlightArray forKey:@""];
             [self hideTableViewHeader:YES];
+            [self.resultTableView reloadData];
             return;
         }else {
             if(isAirportNearMeSelectedInTo == true){

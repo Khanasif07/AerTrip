@@ -128,21 +128,15 @@ class IntFareBreakupVC: BaseVC {
         initialDisplayView()
         taxesDataDisplay()
         self.setupUpgradeButton(isHidden: self.isHideUpgradeOption)
-        //        setupSwipeDownGuesture()
         self.manageLoader()
-//        if fromScreen == "upgradePlan" {
-//            infoLabel.isHidden = true
-//            bookingInfoArrowImg.isHidden = true
-//        }else{
-            infoLabel.isHidden = false
-            bookingInfoArrowImg.isHidden = false
-//        }
+        infoLabel.isHidden = false
+        bookingInfoArrowImg.isHidden = false
     }
     
     override func viewDidLayoutSubviews(){
         if fromScreen == "upgradePlanCollapse"
         {
-            /*
+            
             if let subLayers = bookingDataDisplayView.layer.sublayers{
                 if subLayers.count > 0{
                     for layer in subLayers {
@@ -152,7 +146,7 @@ class IntFareBreakupVC: BaseVC {
                     }
                 }
             }
-            */
+            
             bookingDataDisplayView.removeGredient()
             fromScreen = "upgradePlan"
 
@@ -161,32 +155,7 @@ class IntFareBreakupVC: BaseVC {
             
             if isFareBreakupExpanded == true{
                 self.fareDataDisplayView.backgroundColor = .white
-//                let gradient = CAGradientLayer()
-//                gradient.frame = bookingDataDisplayView.bounds
-//                gradient.frame.size.height = bookingDataDisplayView.frame.height
-//
-//                gradient.startPoint = CGPoint(x: 0, y: 1)
-//                gradient.endPoint = CGPoint(x: 1, y: 1)
-//                let colorOne = UIColor(displayP3Red: ( 0.0 / 255.0), green: ( 204.0 / 255.0), blue: ( 153 / 255.0), alpha: 1.0)
-//                let colorTwo = UIColor(displayP3Red: (41.0/255.0), green: ( 176.0 / 255.0) , blue: ( 182 / 255.0), alpha: 1.0)
-//                gradient.colors = [colorTwo.cgColor, colorOne.cgColor]
-//                gradient.name = "bookingGradient"
-//                bookingDataDisplayView.layer.insertSublayer(gradient, at: 0)
                 bookingDataDisplayView.addGredient(isVertical: false)
-            }else{
-                self.fareDataDisplayView.backgroundColor = .clear
-                /*
-                if let subLayers = bookingDataDisplayView.layer.sublayers{
-                    if subLayers.count > 0{
-                        for layer in subLayers {
-                            if layer.name == "bookingGradient" {
-                                layer.removeFromSuperlayer()
-                            }
-                        }
-                    }
-                }
-                */
-                bookingDataDisplayView.removeGredient()
             }
         }else{
             bookingDataDisplayView.frame.size.width = self.view.frame.width
@@ -195,51 +164,12 @@ class IntFareBreakupVC: BaseVC {
                 
                 UIView.animate(withDuration: 0.2, delay: 0.1, options: [.curveEaseOut], animations: {[weak self] in
                     guard let self = self else {return}
-                    /*
-                    let gradient = CAGradientLayer()
-                    gradient.frame = self.fareDataDisplayView.bounds
-                    let bottomInset = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
-                    gradient.frame.size.height = self.fareDataDisplayView.frame.height+bottomInset
-                    
-                    gradient.startPoint = CGPoint(x: 0, y: 1)
-                    gradient.endPoint = CGPoint(x: 1, y: 1)
-                    let colorOne = AppColors.themeGreen
-                    let colorTwo = UIColor(displayP3Red: (41.0/255.0), green: ( 176.0 / 255.0) , blue: ( 182 / 255.0), alpha: 1.0)
-                    gradient.colors = [colorTwo.cgColor, colorOne.cgColor]
-                    gradient.name = "bookingGradient"
-                    self.fareDataDisplayView.layer.insertSublayer(gradient, at: 0)
- */
                     self.fareDataDisplayView.addGredient(isVertical: false)
                 })
                 
             }else{
-                /*
-                if let subLayers = fareDataDisplayView.layer.sublayers{
-                    if subLayers.count > 0{
-                        for layer in subLayers {
-                            if layer.name == "bookingGradient" {
-                                layer.removeFromSuperlayer()
-                            }
-                        }
-                    }
-                }
-                */
                 fareDataDisplayView.removeGredient()
-
                 fareDataDisplayView.backgroundColor = .white
-                /*
-                let gradient = CAGradientLayer()
-                gradient.frame = bookingDataDisplayView.bounds
-                gradient.frame.size.height = bookingDataDisplayView.frame.height
-                
-                gradient.startPoint = CGPoint(x: 0, y: 1)
-                gradient.endPoint = CGPoint(x: 1, y: 1)
-                let colorOne = AppColors.themeGreen
-                let colorTwo = UIColor(displayP3Red: (41.0/255.0), green: ( 176.0 / 255.0) , blue: ( 182 / 255.0), alpha: 1.0)
-                gradient.colors = [colorTwo.cgColor, colorOne.cgColor]
-                gradient.name = "fareGradient"
-                bookingDataDisplayView.layer.insertSublayer(gradient, at: 0)
-    */
                 self.bookingDataDisplayView.addGredient(isVertical: false)
             }
         }
@@ -410,8 +340,7 @@ class IntFareBreakupVC: BaseVC {
     
     
     
-    func displayCollapseView()
-    {
+    func displayCollapseView(){
         self.isBackgroundVisible = false
         let bottomInset = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
         let screenSize = UIScreen.main.bounds
@@ -501,7 +430,12 @@ class IntFareBreakupVC: BaseVC {
             }
             self.view.layoutSubviews()
             self.view.setNeedsLayout()
-        },completion: nil)
+        },completion:{_ in
+            if self.fromScreen == "upgradePlan"{
+                self.bookingDataDisplayView.removeGredient()
+                self.fareDataDisplayView.backgroundColor = .clear
+            }
+        })
         
         if ((self.journey.first?.fsr ?? 0) == 1){
             self.detailsDelegate?.updateHeight(to: 85 + CGFloat(bottomInset) + self.heightForBookingTitleView)

@@ -63,6 +63,22 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
     private var showDepartReturnSame = false
     private var curSelectedFilterIndex = 0
     
+    
+    enum SortingValuesWhenShared : String {
+        
+        case smart = "humane-sorting_asc"
+        case priceHighToLow = "price-sorting_desc"
+        case priceLowToHigh = "price-sorting_asc"
+        case durationLowToHigh = "duration-sorting_asc"
+        case durationHighToLow = "duration-sorting_desc"
+        case departureLowToHigh = "depart-sorting_asc"
+        case departureHighToLow = "depart-sorting_desc"
+        case arivalLowToHigh = "arrive-sorting_asc"
+        case arivalHighToLow = "arrive-sorting_desc"
+        
+    }
+    
+    
     //MARK:- Initializers
     @objc convenience init(flightSearchResultVM : FlightSearchResultVM , flightSearchParameters: NSDictionary, isIntReturnOrMCJourney: Bool, airlineCode:String) {
         self.init(nibName:nil, bundle:nil)
@@ -152,9 +168,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         let buttonImage = UIImage(named: "green")
         backButton.setImage(buttonImage, for: .normal)
         backButton.setImage(buttonImage, for: .selected)
-        
         backButton.frame = CGRect(x: 6, y: statusBarHeight, width: 44, height: 44)
-        
         backButton.addTarget(self, action: #selector(self.popToPreviousScreen(sender:)), for: .touchUpInside)
         visualEffectView.contentView.addSubview(backButton)
         
@@ -215,7 +229,6 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         
         if flightType == SINGLE_JOURNEY || isIntReturnOrMCJourney{
             ApiProgress.isHidden = false
-            
             separatorView.snp.makeConstraints { (make) in
                 make.left.equalTo(visualEffectView.contentView).offset(0.0)
                 make.bottom.equalTo(visualEffectView.contentView).offset(-2.0)
@@ -455,9 +468,57 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         resultBaseVC.viewModel.bookFlightObject = flightSearchResultVM.bookFlightObject
         resultBaseVC.viewModel.flightSearchResultVM = flightSearchResultVM
         resultBaseVC.viewModel.flightSearchParameters = self.flightSearchParameters
+        
+        let sharedSortOrder = calculateSortOrder()
+        printDebug("sharedSortOrder....\(sharedSortOrder)")
+        resultBaseVC.viewModel.sortOrder = sharedSortOrder.0
+        resultBaseVC.viewModel.isConditionReverced = sharedSortOrder.1
+        
         addChildView(resultBaseVC)
         singleJourneyResultVC = resultBaseVC
     }
+    
+    
+    func calculateSortOrder() -> (Sort, Bool) {
+        
+        let sharedSortOrder = self.flightSearchParameters["sort[]"] as? String ?? ""
+        let order = SortingValuesWhenShared(rawValue: sharedSortOrder) ?? SortingValuesWhenShared.smart
+        
+        switch order {
+        case .priceLowToHigh:
+            return (Sort.Price, false)
+            
+        case .priceHighToLow:
+            return (Sort.Price, true)
+
+        case .durationLowToHigh:
+            return (Sort.Duration, false)
+
+        case .durationHighToLow:
+            return (Sort.Duration, true)
+            
+        case .departureLowToHigh:
+            return (Sort.Depart, false)
+
+        case .departureHighToLow:
+            return (Sort.Depart, true)
+
+        case .arivalLowToHigh:
+            return (Sort.Arrival, false)
+            
+        case .arivalHighToLow:
+            return (Sort.Arrival, true)
+            
+        default:
+            return (Sort.Smart, false)
+
+        }
+        
+    }
+    
+    
+    
+    
     
     func setupResultView() {
         
@@ -1128,9 +1189,12 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
             case SINGLE_JOURNEY:
                         
                 guard let filterVc = self.flightFilterVC else { return }
-                var currentData = filterVc.updatedAircraftFilter.allAircrafts
-                currentData.append(contentsOf: filters.aircraft.allAircrafts)
-                self.flightFilterVC?.updatedAircraftFilter.allAircrafts = currentData.removeDuplicates()
+                var currentData = filterVc.updatedAircraftFilter
+                currentData.allAircraftsArray.append(contentsOf: filters.aircraft.allAircraftsArray.removeDuplicates())
+                currentData.allAircraftsArray = currentData.allAircraftsArray.removeDuplicates()
+                self.flightFilterVC?.updatedAircraftFilter = currentData
+                
+                printDebug("selected...\(currentData.selectedAircraftsArray.count)")
             
             
         case RETURN_JOURNEY:
@@ -1138,9 +1202,10 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
             if flightSearchResultVM.isDomestic {
         
                 guard let filterVc = self.flightFilterVC else { return }
-                var currentData = filterVc.updatedAircraftFilter.allAircrafts
-                currentData.append(contentsOf: filters.aircraft.allAircrafts)
-                self.flightFilterVC?.updatedAircraftFilter.allAircrafts = currentData.removeDuplicates()
+                var currentData = filterVc.updatedAircraftFilter
+                currentData.allAircraftsArray.append(contentsOf: filters.aircraft.allAircraftsArray.removeDuplicates())
+                currentData.allAircraftsArray = currentData.allAircraftsArray.removeDuplicates()
+                self.flightFilterVC?.updatedAircraftFilter = currentData
             
             } else {
             
@@ -1156,9 +1221,10 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
             if flightSearchResultVM.isDomestic {
                     
                 guard let filterVc = self.flightFilterVC else { return }
-                var currentData = filterVc.updatedAircraftFilter.allAircrafts
-                currentData.append(contentsOf: filters.aircraft.allAircrafts)
-                self.flightFilterVC?.updatedAircraftFilter.allAircrafts = currentData.removeDuplicates()
+                var currentData = filterVc.updatedAircraftFilter
+                currentData.allAircraftsArray.append(contentsOf: filters.aircraft.allAircraftsArray.removeDuplicates())
+                currentData.allAircraftsArray = currentData.allAircraftsArray.removeDuplicates()
+                self.flightFilterVC?.updatedAircraftFilter = currentData
                         
             } else {
                         

@@ -91,9 +91,9 @@ extension MealsContainerVC {
         
         self.topNavBarView.delegate = self
         let isDivider = mealsContainerVM.allChildVCs.count > 1 ? false : true
-        self.topNavBarView.configureNavBar(title: LocalizedString.Meals.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false,isDivider : isDivider, isLeftButtonEnabled : self.mealsContainerVM.isAnyThingSelected())
+        self.topNavBarView.configureNavBar(title: LocalizedString.Meals.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false,isDivider : isDivider)
         let clearStr = "  \(LocalizedString.ClearAll.localized)"
-        self.topNavBarView.configureLeftButton(normalTitle: clearStr, normalColor: AppColors.themeGreen, font : AppFonts.Regular.withSize(18))
+        self.topNavBarView.configureLeftButton(normalTitle: clearStr, normalColor: AppColors.themeGreen, font : AppFonts.Regular.withSize(18), isLeftButtonEnabled : self.mealsContainerVM.isAnyThingSelected())
         self.topNavBarView.configureFirstRightButton(normalTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18))
     }
     
@@ -170,9 +170,8 @@ extension MealsContainerVC: TopNavigationViewDelegate {
         let price = self.totalLabel.text ?? ""
         self.delegate?.mealsUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))
         self.delegate?.resetMeals()
-        
-        printDebug(self.mealsContainerVM.isAnyThingSelected())
-
+        configureNavigation()
+ 
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
@@ -256,7 +255,8 @@ extension MealsContainerVC : SelectMealDelegate {
                     }
                     present(vc, animated: false, completion: nil)
             }
-//        printDebug(<#T##obj: T##T#>)
+        
+        printDebug("addPassengerToMeal\(self.mealsContainerVM.isAnyThingSelected())")
         self.configureNavigation()
         
         }

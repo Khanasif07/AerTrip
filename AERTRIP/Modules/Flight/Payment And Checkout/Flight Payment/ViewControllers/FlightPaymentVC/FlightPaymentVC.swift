@@ -332,9 +332,8 @@ extension FlightPaymentVC : TopNavigationViewDelegate, HotelFareSectionHeaderDel
 //MARK:- Coupon selection delegate
 extension FlightPaymentVC: FlightCouponCodeVCDelegate {
     func appliedCouponData(_ appliedCouponData: FlightItineraryData) {
-        printDebug(appliedCouponData)
         self.viewModel.appliedCouponData = appliedCouponData
-        self.isCouponApplied = true
+        self.isCouponApplied = self.viewModel.appliedCouponData.isCouponAppied ?? false
         self.viewModel.taxesDataDisplay()
         self.viewModel.webServiceGetPaymentMethods(isWalletChnaged: true)
 //        self.viewModel.updateConvenienceFee()

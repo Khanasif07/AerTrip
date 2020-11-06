@@ -379,7 +379,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                             }else{
                                 flightDetailsCell.classLabel.text = flight.al + " - " + flight.fn + "・"
                                 
-                                flightDetailsCell.classNameLabel.attributedText = flightDetailsCell.addAttributsForRange(" " + flight.cc + bc + " ", coloredString: flight.cc, color: UIColor.clear)
+                                flightDetailsCell.classNameLabel.attributedText = flightDetailsCell.addAttributsForRange("" + flight.cc + bc + " ", coloredString: flight.cc, color: UIColor.clear)
                                 flightDetailsCell.classNameLabel.textColor = AppColors.themeGray40
 
                             }

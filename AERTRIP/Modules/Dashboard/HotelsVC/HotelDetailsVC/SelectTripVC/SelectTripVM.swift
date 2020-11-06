@@ -56,12 +56,18 @@ class SelectTripVM {
     func setSelectedTripIndexPath() {
         if usingFor == .bookingTripChange {
             if let selectedTripId = tripInfo?.tripId {
-            for (index, trip) in allTrips.enumerated() {
-                if trip.id == selectedTripId {
-                   selectedIndexPath = IndexPath(row: index, section: 0)
-                    break
+                for (index, trip) in allTrips.enumerated() {
+                    if trip.id == selectedTripId {
+                        selectedIndexPath = IndexPath(row: index, section: 0)
+                        break
+                    }
                 }
-            }
+            }else{
+                if let firstIndex = self.allTrips.firstIndex(where: {$0.id == tripDetails?.trip_id}){
+                    selectedIndexPath = IndexPath(row: firstIndex, section: 0)
+                }else if let firstIndex = self.allTrips.firstIndex(where: {$0.isDefault}){
+                    selectedIndexPath = IndexPath(row: firstIndex, section: 0)
+                }
             }
         } else {
         for (index, trip) in allTrips.enumerated() {

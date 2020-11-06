@@ -36,6 +36,7 @@ public struct  FlightsResults : Codable {
     var aldet : [String : String]
     var alMaster :[ String :AirlineMasterWS]
     var taxSort : String
+    var eqMaster : [String: IntMultiCityAndReturnWSResponse.Results.EqMaster]
     
     init() {
         j = [Journey]()
@@ -45,6 +46,7 @@ public struct  FlightsResults : Codable {
         aldet = [String : String]()
         alMaster = [ String :AirlineMasterWS]()
         taxSort = ""
+        eqMaster = [:]
     }
     
     func setAirlinesToJourney (_ journey : [Journey] ,  airlineMasterTable : [ String :AirlineMasterWS] ) -> [Journey] {

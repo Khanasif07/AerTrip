@@ -536,6 +536,19 @@ struct TripDetails {
                 APIKeys.name.rawValue: self.name]
     }
     
+    init(_ json:JSON = JSON()) {
+        self.booking_id = json[APIKeys.booking_id.rawValue].stringValue
+        self.trip_id = json[APIKeys.trip_id.rawValue].stringValue
+        self.is_updated = json[APIKeys.is_updated.rawValue].stringValue
+        if let obj = json[APIKeys.event_id.rawValue].array{
+            self.event_id = obj.first?.stringValue ?? ""
+        }else{
+            self.event_id = json[APIKeys.event_id.rawValue].stringValue
+        }
+        self.trip_key = json[APIKeys.trip_key.rawValue].stringValue
+        self.name = json[APIKeys.name.rawValue].stringValue
+    }
+    
     init(json: JSONDictionary) {
         if let obj = json[APIKeys.booking_id.rawValue] {
             self.booking_id = "\(obj)".removeNull

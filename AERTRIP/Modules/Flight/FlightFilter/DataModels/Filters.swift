@@ -102,6 +102,7 @@ enum UIFilters : Int,  CaseIterable {
     case originDestinationSame
     case originDestinationSelectedForReturnJourney
     case allAirlinesSelected
+    case priceRange
 }
 
 extension UIFilters {

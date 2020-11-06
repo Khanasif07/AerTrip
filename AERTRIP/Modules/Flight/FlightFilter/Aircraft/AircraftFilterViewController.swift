@@ -75,17 +75,28 @@ class AircraftFilterViewController: UIViewController , FilterViewController {
         
 //        printDebug("aircraft filter count....\(filter.allAircrafts.count)")
         
-        self.aircraftFilter = filter
+        
+        let starAircrafts = filter.allAircraftsArray.filter { $0.quality == 1 }.sorted { (craft1, craft2) -> Bool in
+            craft1.name < craft2.name
+        }
+        
+        let withoutStarAircrafts = filter.allAircraftsArray.filter { $0.quality != 1 }.sorted { (craft1, craft2) -> Bool in
+            craft1.name < craft2.name
+        }
+        
+        var combinedArray = starAircrafts
+        combinedArray.append(contentsOf: withoutStarAircrafts)
+        
+        self.aircraftFilter.allAircraftsArray = combinedArray
+
         
 //        printDebug("aircraftFilter in vc...\(self.aircraftFilter.allAircrafts)")
 
-        
         aircraftTableView.reloadData()
                 
     }
     
 }
-
 
 extension AircraftFilterViewController : UITableViewDataSource , UITableViewDelegate {
    
@@ -140,13 +151,16 @@ extension AircraftFilterViewController : UITableViewDataSource , UITableViewDele
                 
                 cell.configureAllAircraftsCell()
                 
+//                cell.imageView?.image = nil
+                
                 cell.radioButton.setImage(self.aircraftFilter.selectedAircraftsArray.count == self.aircraftFilter.allAircraftsArray.count ? #imageLiteral(resourceName: "selectOption") : #imageLiteral(resourceName: "UncheckedGreenRadioButton"), for: .normal)
            
+                
             } else {
                 
                // cell.configureAircraftCell(title: self.aircraftFilter.allAircrafts[indexPath.row])
 
-                cell.textLabel?.text = self.aircraftFilter.allAircraftsArray[indexPath.row].name
+//                cell.textLabel?.text = self.aircraftFilter.allAircraftsArray[indexPath.row].name
                 
                 if self.aircraftFilter.selectedAircraftsArray.contains(self.aircraftFilter.allAircraftsArray[indexPath.row]) {
                         
@@ -158,8 +172,11 @@ extension AircraftFilterViewController : UITableViewDataSource , UITableViewDele
                         
                     }
                 
+        cell.textLabel?.text = self.aircraftFilter.allAircraftsArray[indexPath.row].quality == 1 ? "⭑ \(self.aircraftFilter.allAircraftsArray[indexPath.row].name)" : self.aircraftFilter.allAircraftsArray[indexPath.row].name
+
             }
 
+            
             cell.radioButton.isUserInteractionEnabled = false
             
             return cell
