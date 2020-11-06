@@ -469,14 +469,56 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         resultBaseVC.viewModel.flightSearchResultVM = flightSearchResultVM
         resultBaseVC.viewModel.flightSearchParameters = self.flightSearchParameters
         
-        let sharedSortOrder = self.flightSearchParameters["sort[]"] as? String ?? ""
-        
-//        resultBaseVC.viewModel.sortOrder = SortingValuesWhenShared(rawValue: sharedSortOrder)
-        
+        let sharedSortOrder = calculateSortOrder()
+        printDebug("sharedSortOrder....\(sharedSortOrder)")
+        resultBaseVC.viewModel.sortOrder = sharedSortOrder.0
+        resultBaseVC.viewModel.isConditionReverced = sharedSortOrder.1
         
         addChildView(resultBaseVC)
         singleJourneyResultVC = resultBaseVC
     }
+    
+    
+    func calculateSortOrder() -> (Sort, Bool) {
+        
+        let sharedSortOrder = self.flightSearchParameters["sort[]"] as? String ?? ""
+        let order = SortingValuesWhenShared(rawValue: sharedSortOrder) ?? SortingValuesWhenShared.smart
+        
+        switch order {
+        case .priceLowToHigh:
+            return (Sort.Price, false)
+            
+        case .priceHighToLow:
+            return (Sort.Price, true)
+
+        case .durationLowToHigh:
+            return (Sort.Duration, false)
+
+        case .durationHighToLow:
+            return (Sort.Duration, true)
+            
+        case .departureLowToHigh:
+            return (Sort.Depart, false)
+
+        case .departureHighToLow:
+            return (Sort.Depart, true)
+
+        case .arivalLowToHigh:
+            return (Sort.Arrival, false)
+            
+        case .arivalHighToLow:
+            return (Sort.Arrival, true)
+            
+        default:
+            return (Sort.Smart, false)
+
+        }
+        
+    }
+    
+    
+    
+    
     
     func setupResultView() {
         

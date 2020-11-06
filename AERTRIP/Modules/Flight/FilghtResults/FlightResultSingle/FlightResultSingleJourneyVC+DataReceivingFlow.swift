@@ -99,8 +99,8 @@ extension FlightResultSingleJourneyVC {
                 
             }
 
-            self.viewModel.sortOrder = .Price
-            self.viewModel.isConditionReverced = true
+//            self.viewModel.sortOrder = .pric
+//            self.viewModel.isConditionReverced = true
             
             
             let groupedArray =   self.viewModel.getOnewayDisplayArray(results: modifiedResult)
