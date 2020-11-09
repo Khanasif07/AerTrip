@@ -1433,6 +1433,8 @@ struct BaggageInfo {
 
 struct Dimension {
     var cm: CM?
+    var inch: CM?
+    var weight = ""
     
     init() {
         self.init(json: [:])
@@ -1441,6 +1443,12 @@ struct Dimension {
     init(json: JSONDictionary) {
         if let obj = json["cm"] as? JSONDictionary {
             self.cm = CM(json: obj)
+        }
+        if let inch = json["in"] as? JSONDictionary{
+            self.inch = CM(json: inch)
+        }
+        if let weight = json["weight"]{
+            self.weight = "\(weight)".removeNull
         }
     }
 }
