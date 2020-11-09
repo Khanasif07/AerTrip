@@ -5739,6 +5739,7 @@
 				84247F8F22A53D6D00A0FEB7 /* CancelledVC+CoreData.swift */,
 				84247F9022A53D6D00A0FEB7 /* CancelledVC+Delegates.swift */,
 				84247F9122A53D6D00A0FEB7 /* CancelledVC.swift */,
+				84DD24562265A30D0013F77E /* UpcomingBookingsVC */,
 			);
 			path = CancelledVC;
 			sourceTree = "<group>";
@@ -8976,7 +8977,6 @@
 				1807A37E2297F83A00B78D47 /* MyBookingVC+Delegatemethods.swift */,
 				84247F8E22A53D6D00A0FEB7 /* CancelledVC */,
 				84247F8722A5308200A0FEB7 /* CompletedVC */,
-				84DD24562265A30D0013F77E /* UpcomingBookingsVC */,
 				84F2DCA6226477D700212F05 /* MyBookingFilterVC */,
 				84F2DC992264730800212F05 /* TravelDateVC */,
 				84F2DC9E2264738100212F05 /* EventTypeVC */,
