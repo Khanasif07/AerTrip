@@ -175,7 +175,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.view.backgroundColor = .clear
-        self.navigationController?.view.addSubview(backView)
+        self.view.addSubview(backView)
         
         visualEffectView.contentView.addSubview(resultTitle)
         visualEffectView.contentView.addSubview(resultsubTitle)
@@ -257,7 +257,8 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        backView.removeFromSuperview()
+//        backView.removeFromSuperview()
+        toggleFiltersView(hidden: true)
         statusBarBlurView.removeFromSuperview()
         self.flightSearchResultVM.cancelAllWebserviceCalls()
     }
