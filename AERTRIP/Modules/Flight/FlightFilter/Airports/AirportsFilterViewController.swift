@@ -52,6 +52,8 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
     @IBOutlet weak var layoverSeparatorView: UIView!
     @IBOutlet weak var layoverTitleLbl: UILabel!
     @IBOutlet weak var allLayoverButton: UIButton!
+    @IBOutlet weak var allLayoversContainerBtn: UIButton!
+    
     //MARK:- Height Constraints Outlets
     @IBOutlet weak var topViewHeight: NSLayoutConstraint!
     @IBOutlet weak var originTableViewHeight: NSLayoutConstraint!
@@ -564,6 +566,7 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
         
         
     }
+    
     @IBAction func AllLayoversSelected(_ sender: UIButton ) {
         tableOffsetAtIndex[currentActiveIndex] = baseScrollview.contentOffset.y
         sender.isSelected.toggle()
@@ -591,6 +594,11 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
         }
         
     }
+    
+    @IBAction func allLayoversContainerBtnAction(_ sender: UIButton) {
+        AllLayoversSelected(allLayoverButton)
+    }
+    
 }
 
 

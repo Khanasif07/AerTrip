@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,6 +19,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AirportsFilterViewController" customModule="AERTRIP" customModuleProvider="target">
             <connections>
                 <outlet property="allLayoverButton" destination="AlR-le-apo" id="hK7-fA-qmH"/>
+                <outlet property="allLayoversContainerBtn" destination="IDW-8q-PZ1" id="e64-L2-q9m"/>
                 <outlet property="baseScrollview" destination="0Lx-jY-x7e" id="yEU-Bn-CtF"/>
                 <outlet property="destinationSeparatorView" destination="hzh-i4-HRw" id="0W4-04-D14"/>
                 <outlet property="destinationTableViewHeight" destination="hcG-zZ-FtV" id="bo7-Re-GkR"/>
@@ -77,6 +78,7 @@
                             </constraints>
                         </view>
                     </subviews>
+                    <viewLayoutGuide key="safeArea" id="qxg-QD-wMj"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="qxg-QD-wMj" firstAttribute="bottom" secondItem="Bgg-xm-l4F" secondAttribute="bottom" id="62A-j2-sY5"/>
@@ -90,7 +92,6 @@
                         <constraint firstAttribute="trailing" secondItem="tTj-mG-SES" secondAttribute="trailing" constant="16" id="rL9-Lz-oS8"/>
                         <constraint firstItem="9Id-ev-37i" firstAttribute="top" secondItem="XC2-wu-r23" secondAttribute="top" constant="16" id="rid-IP-Ngq"/>
                     </constraints>
-                    <viewLayoutGuide key="safeArea" id="qxg-QD-wMj"/>
                 </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Lx-jY-x7e">
                     <rect key="frame" x="0.0" y="94" width="375" height="573"/>
@@ -219,6 +220,12 @@
                                 <action selector="AllLayoversSelected:" destination="-1" eventType="touchUpInside" id="s6m-lL-Zu9"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IDW-8q-PZ1">
+                            <rect key="frame" x="16" y="213" width="354" height="45"/>
+                            <connections>
+                                <action selector="allLayoversContainerBtnAction:" destination="-1" eventType="touchUpInside" id="fah-2k-qKH"/>
+                            </connections>
+                        </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hzh-i4-HRw" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                             <rect key="frame" x="16" y="105" width="359" height="1"/>
                             <color key="backgroundColor" red="0.90196078431372551" green="0.90196078431372551" blue="0.90196078431372551" alpha="1" colorSpace="calibratedRGB"/>
@@ -244,10 +251,12 @@
                     <constraints>
                         <constraint firstItem="Q4N-KB-wvw" firstAttribute="top" secondItem="jrA-Th-7kE" secondAttribute="top" id="52u-2Z-PRj"/>
                         <constraint firstItem="vIe-L9-OY0" firstAttribute="top" secondItem="ym0-0Y-kKt" secondAttribute="bottom" constant="45" id="Eqa-xX-IhA"/>
+                        <constraint firstItem="IDW-8q-PZ1" firstAttribute="leading" secondItem="jrA-Th-7kE" secondAttribute="leading" id="F0a-r6-RAH"/>
                         <constraint firstItem="ngh-uu-pEy" firstAttribute="leading" secondItem="0Lx-jY-x7e" secondAttribute="leading" id="IG4-aT-myk"/>
                         <constraint firstItem="jrA-Th-7kE" firstAttribute="top" secondItem="vIe-L9-OY0" secondAttribute="bottom" constant="35" id="KAz-Xk-YVu"/>
                         <constraint firstItem="vIe-L9-OY0" firstAttribute="centerX" secondItem="0Lx-jY-x7e" secondAttribute="centerX" id="KR9-9k-cqB"/>
                         <constraint firstItem="hzh-i4-HRw" firstAttribute="leading" secondItem="0Lx-jY-x7e" secondAttribute="leading" constant="16" id="Rpo-lA-4yx"/>
+                        <constraint firstItem="IDW-8q-PZ1" firstAttribute="top" secondItem="jrA-Th-7kE" secondAttribute="top" id="S8I-xt-A5i"/>
                         <constraint firstAttribute="trailing" secondItem="ngh-uu-pEy" secondAttribute="trailing" id="SLe-A2-WZo"/>
                         <constraint firstItem="SoM-Je-Erx" firstAttribute="top" secondItem="jrA-Th-7kE" secondAttribute="bottom" constant="1" id="TB5-Xm-IgM"/>
                         <constraint firstAttribute="bottom" secondItem="SoM-Je-Erx" secondAttribute="bottom" constant="16" id="TdR-CW-frz"/>
@@ -259,7 +268,9 @@
                         <constraint firstAttribute="trailing" secondItem="jrA-Th-7kE" secondAttribute="trailing" constant="50" id="g8L-T8-mhM"/>
                         <constraint firstItem="jrA-Th-7kE" firstAttribute="leading" secondItem="0Lx-jY-x7e" secondAttribute="leading" constant="16" id="i0F-4G-ebJ"/>
                         <constraint firstItem="SoM-Je-Erx" firstAttribute="centerX" secondItem="0Lx-jY-x7e" secondAttribute="centerX" id="jGq-ah-ugu"/>
+                        <constraint firstItem="IDW-8q-PZ1" firstAttribute="trailing" secondItem="AlR-le-apo" secondAttribute="trailing" id="ljv-ev-yq3"/>
                         <constraint firstItem="hzh-i4-HRw" firstAttribute="top" secondItem="ym0-0Y-kKt" secondAttribute="bottom" constant="16" id="lyf-c7-a5z"/>
+                        <constraint firstItem="IDW-8q-PZ1" firstAttribute="bottom" secondItem="jrA-Th-7kE" secondAttribute="bottom" id="nbt-cb-34y"/>
                         <constraint firstItem="vIe-L9-OY0" firstAttribute="width" secondItem="0Lx-jY-x7e" secondAttribute="width" id="p54-jD-BeM"/>
                         <constraint firstItem="Q4N-KB-wvw" firstAttribute="leading" secondItem="0Lx-jY-x7e" secondAttribute="leading" constant="16" id="vaU-0g-lwC"/>
                         <constraint firstItem="AlR-le-apo" firstAttribute="top" secondItem="jrA-Th-7kE" secondAttribute="top" id="xqh-7B-p0V"/>
@@ -269,6 +280,7 @@
                     </connections>
                 </scrollView>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="AlR-le-apo" secondAttribute="trailing" constant="5" id="0Cw-Ro-JRp"/>
@@ -284,7 +296,6 @@
                 <constraint firstItem="SoM-Je-Erx" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="tFj-I9-rrK"/>
                 <constraint firstItem="0Lx-jY-x7e" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="zov-ob-eOi"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="53.600000000000001" y="48.125937031484263"/>
         </view>
     </objects>
