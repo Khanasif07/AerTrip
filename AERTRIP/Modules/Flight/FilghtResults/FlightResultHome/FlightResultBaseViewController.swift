@@ -474,6 +474,9 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         resultBaseVC.viewModel.sortOrder = sharedSortOrder.0
         resultBaseVC.viewModel.isConditionReverced = sharedSortOrder.1
         
+        printDebug("resultBaseVC.viewModel.sortOrder...\(resultBaseVC.viewModel.sortOrder)")
+        printDebug("resultBaseVC.viewModel.isConditionReverced...\(resultBaseVC.viewModel.isConditionReverced)")
+        
         addChildView(resultBaseVC)
         singleJourneyResultVC = resultBaseVC
     }
@@ -1412,7 +1415,10 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                 singleJourneyVC.viewModel.updatedApiProgress = updatedApiProgress
                 singleJourneyVC.viewModel.airlineCode = airlineCode
 //                singleJourneyVC.viewModel.flightSearchParameters = self.flightSearchParameters
-                singleJourneyVC.updateWithArray( resultVM.getOnewayJourneyDisplayArray(), sortOrder: resultVM.getSortOrder())
+                
+                let sharedSortOrder = calculateSortOrder()
+
+                singleJourneyVC.updateWithArray( resultVM.getOnewayJourneyDisplayArray(), sortOrder: sharedSortOrder.0)
                 singleJourneyVC.updateAirportDetailsArray(resultVM.getOnewayAirportArray())
                 singleJourneyVC.updateAirlinesDetailsArray(resultVM.getAirlineDetailsArray())
                 singleJourneyVC.updateTaxesArray(resultVM.getTaxesDetailsArray())
