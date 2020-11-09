@@ -153,6 +153,11 @@ public struct airportCodes : Codable {
 public struct Humanprice : Codable {
     let total : Float
     let breakup : [String : Float]
+    
+    init() {
+        total = 0
+        breakup = [:]
+    }
 }
 
 public struct FlightLeg : Codable {
@@ -266,11 +271,24 @@ struct Taxes:Codable {
     var totalPayableNow : TaxesSubStruct
     let cancellationCharges : cancellationChargesStruct
     let reschedulingCharges : reschedulingChargesStruct
+    
+    init() {
+        taxes = TotalPayabelSubStruct()
+        BF = TaxesSubStruct()
+        totalPayableNow = TaxesSubStruct()
+        cancellationCharges = cancellationChargesStruct()
+        reschedulingCharges = reschedulingChargesStruct()
+    }
 }
 
 struct TaxesSubStruct:Codable {
     let name:String
     var value:Int
+    
+    init() {
+        name = ""
+        value = 0
+    }
 }
 
 struct TotalPayabelSubStruct:Codable {
@@ -278,6 +296,12 @@ struct TotalPayabelSubStruct:Codable {
     var value:Int
     
     var details : [String:Int]
+    
+    init() {
+        name = ""
+        value = 0
+        details = [:]
+    }
 }
 
 struct cancellationChargesStruct:Codable {
@@ -285,15 +309,30 @@ struct cancellationChargesStruct:Codable {
     let value:Int
     
     let details : cancellationDetailsStruct
+    
+    init() {
+        name = ""
+        value = 0
+        details = cancellationDetailsStruct()
+    }
 
 }
 struct reschedulingChargesStruct:Codable {
     let details : reschedulingChargesDetailsStruct
+    
+    init() {
+        details = reschedulingChargesDetailsStruct()
+    }
 }
 
 struct reschedulingChargesDetailsStruct:Codable {
     let SPRFEE : [String:[String:[cancellationSlabStruct]]]
     let SURFEE : [String:[String:[sucfeeValueStruct]]]
+    
+    init() {
+        SPRFEE = [:]
+        SURFEE = [:]
+    }
     
     
     func getAirlineReschedulingDataForAllFlights() -> [[String:[String:[cancellationSlabStruct]]]] {
@@ -341,6 +380,12 @@ struct cancellationDetailsStruct:Codable {
     let SPCFEE : [String:[String:[cancellationSlabStruct]]]
     let SUCFEE : [String:[String:[sucfeeValueStruct]]]
     
+    init() {
+        RAF = [:]
+        SPCFEE = [:]
+        SUCFEE = [:]
+    }
+    
     
     func getAirlineCancellationDataForAllFlights() -> [[String:[String:[cancellationSlabStruct]]]] {
         var newVal = [[String:[String:[cancellationSlabStruct]]]]()
@@ -369,6 +414,11 @@ struct sucfeeValueStruct:Codable{
 struct refundPolicyStruct:Codable {
     var rfd:[String:Int]
     var rsc:[String:Int]
+    
+    init() {
+        rfd = [:]
+        rsc = [:]
+    }
 }
 
 
