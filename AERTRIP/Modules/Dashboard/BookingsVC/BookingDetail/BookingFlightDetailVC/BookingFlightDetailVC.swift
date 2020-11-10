@@ -97,6 +97,7 @@ class BookingFlightDetailVC: BaseVC {
         let flightBaggageInfoVC = FlightBaggageInfoVC.instantiate(fromAppStoryboard: .Bookings)
         flightBaggageInfoVC.viewModel.bookingDetail = self.viewModel.bookingDetail
         flightBaggageInfoVC.viewModel.legSectionTap = self.viewModel.legSectionTap
+        flightBaggageInfoVC.dimesionDelegate = self
         self.allChildVCs.append(flightBaggageInfoVC)
         
         let flightFareInfoVC = FlightFareInfoVC.instantiate(fromAppStoryboard: .Bookings)
@@ -196,7 +197,19 @@ extension BookingFlightDetailVC : PagingViewControllerDataSource , PagingViewCon
         }
     }
 }
-extension BookingFlightDetailVC: BookingDetailVMDelegate {
+extension BookingFlightDetailVC: BookingDetailVMDelegate, BaggageDimesionPresentDelegate {
+    func dimesionButtonTapprd(with dimension: Dimension) {
+        let weight = dimension.weight.removeAllWhitespaces.lowercased().replacingOccurrences(of: "kg", with: "")
+//        if weight.isEmpty || weight == "-9" || weight == "0"{
+//            return
+//        }
+        let baggageDimensionVC = BaggageDimensionsVC(nibName: "BaggageDimensionsVC", bundle: nil)
+        baggageDimensionVC.settingForBookingDetails = true
+        baggageDimensionVC.weight = dimension.weight
+        baggageDimensionVC.dimesionsObj = dimension
+        self.present(baggageDimensionVC, animated: true, completion: nil)
+    }
+    
     func willGetBookingFees() {}
     
     func getBookingFeesSuccess() {

@@ -129,26 +129,15 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         statusBarStyle = .darkContent
     }
     
-    func addSwipeLeftGuesture(){
-        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
-        swipeRight.direction = .right
-        self.view.addGestureRecognizer(swipeRight)
-    }
-    
-    @objc func handleGesture(gesture: UISwipeGestureRecognizer) -> Void
-    {
-        UIView.animate(withDuration: 0.5, animations: {
-            self.navigationController?.view.viewWithTag(500)?.removeFromSuperview()
-            self.navigationController?.view.viewWithTag(2500)?.removeFromSuperview()
-            self.statusBarBlurView.removeFromSuperview()
-            self.navigationController?.viewControllers.removeLast()
-            self.navigationController?.popViewController(animated: true)
-        })
-    }
-    
     func addCustomBackgroundBlurView()
     {
-        
+        guard self.view.viewWithTag(500) == nil else {
+            // Added Blur view Behind Status bar to avoid content getting merged with status bars
+            statusBarBlurView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: statusBarHeight))
+            statusBarBlurView.effect = UIBlurEffect(style: .prominent)
+            self.navigationController?.view.addSubview(statusBarBlurView)
+            return
+        }
         visualEffectView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: visualEffectViewHeight))
         visualEffectView.effect = UIBlurEffect(style: .prominent)
         visualEffectView.contentView.backgroundColor = .clear//UIColor.white.withAlphaComponent(0.4)
@@ -175,7 +164,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.view.backgroundColor = .clear
-        self.navigationController?.view.addSubview(backView)
+        self.view.addSubview(backView)
         
         visualEffectView.contentView.addSubview(resultTitle)
         visualEffectView.contentView.addSubview(resultsubTitle)
@@ -257,7 +246,8 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        backView.removeFromSuperview()
+//        backView.removeFromSuperview()
+        toggleFiltersView(hidden: true)
         statusBarBlurView.removeFromSuperview()
         self.flightSearchResultVM.cancelAllWebserviceCalls()
     }
@@ -1411,33 +1401,43 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
         
         switch flightType {
         case SINGLE_JOURNEY:
+            filterUpdateWorkItem?.cancel()
             if let singleJourneyVC = self.singleJourneyResultVC {
-                singleJourneyVC.viewModel.updatedApiProgress = updatedApiProgress
-                singleJourneyVC.viewModel.airlineCode = airlineCode
-//                singleJourneyVC.viewModel.flightSearchParameters = self.flightSearchParameters
                 
-                let sharedSortOrder = calculateSortOrder()
+                filterUpdateWorkItem = DispatchWorkItem {
+                    singleJourneyVC.viewModel.updatedApiProgress = self.updatedApiProgress
+                    singleJourneyVC.viewModel.airlineCode = self.airlineCode
+                    
+                    let sharedSortOrder = self.calculateSortOrder()
 
-                singleJourneyVC.updateWithArray( resultVM.getOnewayJourneyDisplayArray(), sortOrder: sharedSortOrder.0)
-                singleJourneyVC.updateAirportDetailsArray(resultVM.getOnewayAirportArray())
-                singleJourneyVC.updateAirlinesDetailsArray(resultVM.getAirlineDetailsArray())
-                singleJourneyVC.updateTaxesArray(resultVM.getTaxesDetailsArray())
-                singleJourneyVC.addPlaceholderTableHeaderView()
+                    singleJourneyVC.updateWithArray( resultVM.getOnewayJourneyDisplayArray(), sortOrder: sharedSortOrder.0)
+                    singleJourneyVC.updateAirportDetailsArray(resultVM.getOnewayAirportArray())
+                    singleJourneyVC.updateAirlinesDetailsArray(resultVM.getAirlineDetailsArray())
+                    singleJourneyVC.updateTaxesArray(resultVM.getTaxesDetailsArray())
+                    singleJourneyVC.addPlaceholderTableHeaderView()
+                }
                 
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: filterUpdateWorkItem!)
             }
             
         case RETURN_JOURNEY:
             domesticMultiLegResultVC?.updatedApiProgress = updatedApiProgress
             domesticMultiLegResultVC?.viewModel.airlineCode = airlineCode
             if flightSearchResultVM.isDomestic {
-                let journeyArray = resultVM.getJourneyDisplayArrayFor(index:  index)
-                domesticMultiLegResultVC?.updatewithArray(index: index , updatedArray: journeyArray, sortOrder: resultVM.getSortOrder())
-                domesticMultiLegResultVC?.updateAirportDetailsArray(resultVM.getAllAirportsArray())
-                domesticMultiLegResultVC?.updateAirlinesDetailsArray(resultVM.getAirlineDetailsArray())
-                domesticMultiLegResultVC?.updateTaxesArray(resultVM.getTaxesDetailsArray())
-                
-                if resultVM.comboResults.count > 0 {
-                    domesticMultiLegResultVC?.comboResults = resultVM.comboResults
+                filterUpdateWorkItem?.cancel()
+                if let domesticMLResultVC = domesticMultiLegResultVC {
+                    filterUpdateWorkItem = DispatchWorkItem {
+                        let journeyArray = resultVM.getJourneyDisplayArrayFor(index:  index)
+                        domesticMLResultVC.updatewithArray(index: index , updatedArray: journeyArray, sortOrder: resultVM.getSortOrder())
+                        domesticMLResultVC.updateAirportDetailsArray(resultVM.getAllAirportsArray())
+                        domesticMLResultVC.updateAirlinesDetailsArray(resultVM.getAirlineDetailsArray())
+                        domesticMLResultVC.updateTaxesArray(resultVM.getTaxesDetailsArray())
+                        
+                        if resultVM.comboResults.count > 0 {
+                            domesticMLResultVC.comboResults = resultVM.comboResults
+                        }
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: filterUpdateWorkItem!)
                 }
             }
             else {
@@ -1458,14 +1458,17 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
         case  MULTI_CITY:
             domesticMultiLegResultVC?.updatedApiProgress = updatedApiProgress
             if flightSearchResultVM.isDomestic {
-                
-                let journeyArray = self.flightSearchResultVM.getJourneyDisplayArrayFor(index: index )
-                domesticMultiLegResultVC?.updatewithArray(index: index , updatedArray: journeyArray, sortOrder: self.flightSearchResultVM.getSortOrder())
-                domesticMultiLegResultVC?.updateAirportDetailsArray(resultVM.getAllAirportsArray())
-                domesticMultiLegResultVC?.updateAirlinesDetailsArray(resultVM.getAirlineDetailsArray())
-                domesticMultiLegResultVC?.updateTaxesArray(resultVM.getTaxesDetailsArray())
-                domesticMultiLegResultVC?.viewModel.airlineCode = airlineCode
-                
+                filterUpdateWorkItem?.cancel()
+                filterUpdateWorkItem = DispatchWorkItem {
+                    guard let domesticMLResultVC = self.domesticMultiLegResultVC else { return }
+                    let journeyArray = self.flightSearchResultVM.getJourneyDisplayArrayFor(index: index )
+                    domesticMLResultVC.updatewithArray(index: index , updatedArray: journeyArray, sortOrder: self.flightSearchResultVM.getSortOrder())
+                    domesticMLResultVC.updateAirportDetailsArray(resultVM.getAllAirportsArray())
+                    domesticMLResultVC.updateAirlinesDetailsArray(resultVM.getAirlineDetailsArray())
+                    domesticMLResultVC.updateTaxesArray(resultVM.getTaxesDetailsArray())
+                    domesticMLResultVC.viewModel.airlineCode = self.airlineCode
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: filterUpdateWorkItem!)
             }
             else {
                 filterUpdateWorkItem?.cancel()

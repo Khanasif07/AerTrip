@@ -564,8 +564,7 @@ extension SelectDestinationVC: UITableViewDelegate, UITableViewDataSource {
             if isInSearchMode {
                 let hotelsForSection = self.viewModel.searchedHotels[self.viewModel.allTypes[indexPath.section].rawValue] as? [SearchedDestination] ?? []
                 selected = hotelsForSection[indexPath.row]
-            }
-            else {
+            } else {
                 if (self.viewModel.recentSearchLimit > 0), indexPath.section == 1 {
                     selected = self.viewModel.recentSearches[indexPath.row]
                 }

@@ -668,6 +668,7 @@ class HotelsSearchVC: BaseVC {
             }
         }
     }
+    
 }
 
 //Mark:- UICollectionView Delegate and Datasource

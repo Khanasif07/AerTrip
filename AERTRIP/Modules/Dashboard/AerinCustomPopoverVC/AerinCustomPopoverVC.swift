@@ -849,6 +849,10 @@ extension AerinCustomPopoverVC {
 // MARK: Chatbot Delegate
 extension AerinCustomPopoverVC : ChatBotDelegatesDelegate {
     
+    
+    func triggerSpeechRecognizer() {
+        setupForView = .waveAnimation
+    }
    
     func willstarttChatBotSession() {
 

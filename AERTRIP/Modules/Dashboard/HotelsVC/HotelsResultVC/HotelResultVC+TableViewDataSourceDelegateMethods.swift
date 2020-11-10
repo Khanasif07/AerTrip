@@ -69,6 +69,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        //Need Understanding
         if tableView === hotelSearchTableView {
             return self.viewModel.searchedHotels.count
         } else {
@@ -94,6 +95,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
+    //Need Understanding
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if tableView === hotelSearchTableView {
             let headerView = ATDividerView()

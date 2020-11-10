@@ -81,6 +81,53 @@ public class Journey: Codable , Equatable {
     let humaneScore : Float
     //    let humaneArr
     let humanePrice : Humanprice
+    
+    init() {
+        self.vendor = ""
+        self.id = ""
+        self.fk = ""
+        self.ofk = ""
+        self.otherfares = false
+        self.farepr = 0
+        self.iic = false
+        self.displaySeat = false
+        self.fare = Taxes()
+        self.rfdPlcy = refundPolicyStruct()
+        self.dt = ""
+        self.at = ""
+        self.tt = []
+        self.slo  = 0
+        self.slot = ""
+        self.llow = 0
+        self.llowt = ""
+        self.red = 0
+        self.redt = ""
+        self.cot = 0
+        self.cop = 0
+        self.copt = ""
+        self.fsr = 0
+        self.seats = ""
+        self.al = []
+        self.stp = ""
+        self.ap = []
+        self.loap = []
+        self.leg = []
+        self.isLcc = 0
+        self.sict = false
+        self.dspNoshow = 0
+        self.cc = ""
+        self.fcc = ""
+        self.lg = 0
+        self.ovngt = 0
+        self.ovngtt = ""
+        self.ovgtf = 0
+        self.ovgtlo = 0
+        self.dd = ""
+        self.ad = ""
+        self.coa = 0
+        self.humaneScore = 0
+        self.humanePrice = Humanprice()
+    }
 
     // Computed properties for display and logic
     
@@ -473,7 +520,7 @@ class JourneyOnewayDisplay {
     }
     
     var first : Journey {
-        return journeyArray.first!
+        return journeyArray.first ?? Journey()
     }
     
     var isAboveHumanScore : Bool {
