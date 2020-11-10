@@ -95,6 +95,7 @@ class HCEmailItinerariesVC: BaseVC {
         self.headerView.leftButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 8)
         self.headerView.firstRightButton.isEnabled = false
         self.headerView.firstRightButton.setTitleColor(AppColors.themeGray40, for: .normal)
+        self.headerView.navTitleLabel.numberOfLines = 1
     }
     
     private func registerNibs() {

@@ -7,7 +7,9 @@
 //
 
 import UIKit
-
+protocol BaggageDimesionPresentDelegate : NSObjectProtocol{
+    func dimesionButtonTapprd(with dimension: Dimension)
+}
 extension FlightBaggageInfoVC: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.viewModel.allBaggageCells.count + 1
@@ -82,8 +84,9 @@ extension FlightBaggageInfoVC: BaggageAirlineInfoTableViewCellDelegate {
             }
         }
         
-        if let obj = detail?.dimension {
-            AppFlowManager.default.presentBaggageInfoVC(dimension: obj)
+        if let obj = detail?.dimension{
+//            AppFlowManager.default.presentBaggageInfoVC(dimension: obj)
+            self.dimesionDelegate?.dimesionButtonTapprd(with: obj)
         }
     }
 }
