@@ -245,10 +245,18 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                                 if let adtBaggage = bgData["ADT"] as? JSONDictionary{
                                     if let weight = adtBaggage["weight"] as? String, let pieces = adtBaggage["pieces"] as? String{
                                         if pieces != "" && pieces != "-9" && pieces != "-1" && pieces != "0 pc" && pieces != "0"{
-                                            amenitiesData.append("Check-in Baggage \n(\(pieces))")
+                                            if isSEDevice{
+                                                amenitiesData.append("Check-in Baggage (\(pieces))")
+                                            }else{
+                                                amenitiesData.append("Check-in Baggage \n(\(pieces))")
+                                            }
                                         }else{
                                             if weight != "" && weight != "-9" && weight != "-1" && weight != "0 kg"{
-                                                amenitiesData.append("Check-in Baggage \n(\(weight))")
+                                                if isSEDevice{
+                                                    amenitiesData.append("Check-in Baggage (\(weight))")
+                                                }else{
+                                                    amenitiesData.append("Check-in Baggage \n(\(weight))")
+                                                }
                                             }
                                         }
                                     }
@@ -330,24 +338,57 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                     cell.classNameLabel.layer.masksToBounds = true
                     
                     var bc = flight.bc
+//                    if bc != ""{
+//                        bc =  " (" + bc + ")"
+//                        if flight.ccChg == 1{
+//                            cell.classLabel.text = flight.al + " - " + flight.fn + "・"
+//
+//                            cell.classNameLabel.attributedText = cell.addAttributsForRange((" " + flight.cc + bc + " "), coloredString: (" " + flight.cc + bc + " "), color: AppColors.lightYellow)
+//                            cell.classNameLabel.textColor = UIColor.black
+//                        }else{
+//                            cell.classLabel.text = flight.al + " - " + flight.fn + "・"
+//
+//                            cell.classNameLabel.attributedText = cell.addAttributsForRange("" + flight.cc + bc + " ", coloredString: flight.cc, color: UIColor.clear)
+//                            cell.classNameLabel.textColor = AppColors.themeGray40
+//                        }
+//                    }else{
+//                        cell.classLabel.text = flight.al + " - " + flight.fn + "・"
+//                        cell.classNameLabel.text = flight.cc
+//                        cell.classNameLabel.textColor = AppColors.themeGray40
+//                    }
+                    
+
+                    var cc = flight.cc
+                    if cc == "Premium Economy"{
+                        cc = "Premium E"
+                    }
+
                     if bc != ""{
                         bc =  " (" + bc + ")"
                         if flight.ccChg == 1{
-                            cell.classLabel.text = flight.al + " - " + flight.fn + "・"
+                            cell.classLabel.text = ""// flight.al + " - " + flight.fn + "・"
                             
-                            cell.classNameLabel.attributedText = cell.addAttributsForRange((" " + flight.cc + bc + " "), coloredString: (" " + flight.cc + bc + " "), color: AppColors.lightYellow)
+
+                            let str = flight.al + " - " + flight.fn + "・" + " " + cc + bc + " "
+                            
+                            cell.classNameLabel.attributedText = cell.addAttributsForRange(str, coloredString: (" " + flight.cc + bc + " "), color: AppColors.lightYellow)
                             cell.classNameLabel.textColor = UIColor.black
                         }else{
-                            cell.classLabel.text = flight.al + " - " + flight.fn + "・"
+                            cell.classLabel.text = ""//flight.al + " - " + flight.fn + "・"
                             
-                            cell.classNameLabel.attributedText = cell.addAttributsForRange("" + flight.cc + bc + " ", coloredString: flight.cc, color: UIColor.clear)
+                            let str = flight.al + " - " + flight.fn + "・" + "" + cc + bc + " "
+                            cell.classNameLabel.attributedText = cell.addAttributsForRange(str, coloredString: flight.cc, color: UIColor.clear)
                             cell.classNameLabel.textColor = AppColors.themeGray40
                         }
                     }else{
-                        cell.classLabel.text = flight.al + " - " + flight.fn + "・"
-                        cell.classNameLabel.text = flight.cc
+//                        cell.classLabel.text = flight.al + " - " + flight.fn + "・"
+//                        cell.classNameLabel.text = flight.cc
+                        
+                        let str  = flight.al + " - " + flight.fn + "・" + cc
+                        cell.classNameLabel.text = str
                         cell.classNameLabel.textColor = AppColors.themeGray40
                     }
+                    
                     cell.arrivalAirportLabel.text = flight.to
                     cell.arrivalTimeLabel.text = flight.at
                     cell.departureTimeLbl.text = flight.dt
@@ -372,6 +413,10 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                     cell.onArrivalPerformanceView.isHidden = true
                     cell.onArrivalPerformanceViewWidth.constant = 0
                     
+                    
+                    
+                    
+                    
                     if flight.ontimePerformanceDataStoringTime != nil{
                         if Double(flight.ontimePerformance!) > 90.0{
                             cell.onArrivalPerformanceLabel.textColor = AppColors.themeGreen
@@ -379,20 +424,33 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                             cell.onArrivalPerformanceLabel.textColor = UIColor.black
                         }
                         
+                        
+                        var viewWidth : CGFloat = 0
+                        var ontimeText = ""
+                        if isSEDevice{
+                            viewWidth = 65.0
+                            ontimeText = "%  On-time"
+                        }else{
+                            viewWidth = 87.0
+                            ontimeText = "% On-time"
+                        }
+                        
+                        cell.onArrivalPerformanceLabel.text = "\(flight.ontimePerformance ?? 0)\(ontimeText)"
+
+                        cell.onArrivalPerformanceViewWidth.constant = viewWidth
+
                         cell.arrivalPerformaceButton.isUserInteractionEnabled = true
                         
-                        cell.onArrivalPerformanceLabel.text = "\(flight.ontimePerformance ?? 0)% On-time"
                         
                         cell.onArrivalPerformanceView.isHidden = false
-                        cell.onArrivalPerformanceViewWidth.constant = 100
                         
-                        let onTimePerformanceInPercent = flight.ontimePerformance
-                        let delayedPerformanceInPercent = flight.latePerformance
-                        let cancelledPerformanceInPercent = flight.cancelledPerformance
+                        let onTimePerformanceInPercent = flight.ontimePerformance ?? 0
+                        let delayedPerformanceInPercent = flight.latePerformance ?? 0
+                        let cancelledPerformanceInPercent = flight.cancelledPerformance ?? 0
                         
-                        cell.onTimePerformanceSubViewWidth.constant = CGFloat(onTimePerformanceInPercent! * Int(cell.onArrivalPerformanceViewWidth.constant/100))
-                        cell.delayedPerformanceSubViewWidth.constant = CGFloat(delayedPerformanceInPercent! * Int(cell.onArrivalPerformanceViewWidth.constant/100))
-                        cell.cancelledPerformanceSubViewWidth.constant = CGFloat(cancelledPerformanceInPercent! * Int(cell.onArrivalPerformanceViewWidth.constant/100))
+                        cell.onTimePerformanceSubViewWidth.constant = CGFloat(onTimePerformanceInPercent * Int(cell.onArrivalPerformanceViewWidth.constant/viewWidth))
+                        cell.delayedPerformanceSubViewWidth.constant = CGFloat(delayedPerformanceInPercent * Int(cell.onArrivalPerformanceViewWidth.constant/viewWidth))
+                        cell.cancelledPerformanceSubViewWidth.constant = CGFloat(cancelledPerformanceInPercent * Int(cell.onArrivalPerformanceViewWidth.constant/viewWidth))
                     }
                     
                     cell.arrivalPerformaceButton.tag = (indexPath.section*100)+index
