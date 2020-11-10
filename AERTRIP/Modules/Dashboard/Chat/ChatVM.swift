@@ -29,6 +29,12 @@ protocol ChatBotDelegatesDelegate: class {
     func getRecentSearchFlightsSuccessFully()
     func failedToGetRecentSearchedFlightsApi()
     
+    func triggerSpeechRecognizer()
+    
+}
+
+extension ChatBotDelegatesDelegate {
+    func triggerSpeechRecognizer() { }
 }
 
 
@@ -59,6 +65,16 @@ class ChatVM {
     
     private let speechSynthesizer = SpeechSynthesizer()
     var shouldProduceVoiceOutput = true
+    private var shouldTriggerSpeechRecognizer = false
+    
+    init() {
+        speechSynthesizer.onSpeechFinish = { [weak self] in
+            guard let self = self else { return }
+            if self.shouldTriggerSpeechRecognizer {
+                self.delegate?.triggerSpeechRecognizer()
+            }
+        }
+    }
     
     func getMylastMessageIndex() -> Int {
         
@@ -442,9 +458,13 @@ extension ChatVM {
         if lastMessageSentType == .voice && shouldProduceVoiceOutput {
             if model.fullfilment.isEmpty && !model.depart.isEmpty && !model.origin.isEmpty && !model.destination.isEmpty {
                 speechSynthesizer.synthesizeToSpeech("Here are your results")
+                shouldTriggerSpeechRecognizer = false
             } else {
                 speechSynthesizer.synthesizeToSpeech(model.fullfilment)
+                shouldTriggerSpeechRecognizer = true
             }
+        } else {
+            shouldTriggerSpeechRecognizer = false
         }
         lastMessageSentType = .text
     }
