@@ -9,11 +9,14 @@
 import Foundation
 import AVFoundation
 
-class SpeechSynthesizer {
+class SpeechSynthesizer: NSObject, AVSpeechSynthesizerDelegate {
 
     private let speechSynthesizer = AVSpeechSynthesizer()
     
+    var onSpeechFinish: (() -> ())?
+    
     func synthesizeToSpeech(_ text: String) {
+        speechSynthesizer.delegate = self
         let audioSession = AVAudioSession.sharedInstance()
         do {
             try audioSession.setCategory(AVAudioSession.Category.soloAmbient)
@@ -32,5 +35,9 @@ class SpeechSynthesizer {
     
     func stopImmediate() {
         speechSynthesizer.stopSpeaking(at: .immediate)
+    }
+    
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+        onSpeechFinish?()
     }
 }
