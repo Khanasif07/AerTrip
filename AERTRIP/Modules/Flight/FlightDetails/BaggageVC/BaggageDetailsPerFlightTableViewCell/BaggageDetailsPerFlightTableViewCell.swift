@@ -73,6 +73,9 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
     func setPerAdultCheckinBaggage(adtCheckinBaggage:JSONDictionary)
     {
         if adtCheckinBaggage.count > 0{
+            
+            var isNewLineAdded = false
+            
             let weight = adtCheckinBaggage["weight"] as? String ?? ""
             let pieces = adtCheckinBaggage["pieces"] as? String ?? ""
             let max_pieces = adtCheckinBaggage["max_pieces"] as? String ?? ""
@@ -131,7 +134,15 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
                         if let intmax_weight = Int(weights[0]), let intPieces = Int(pc[0]){
                             if intmax_weight != 0{
                                 let str1 = "\(intmax_weight*intPieces) kg"
-                                let str2 = " (\(intPieces) pc X \(intmax_weight) kg)"
+                                var str2 = ""
+                                
+                                if isSEDevice{
+                                    isNewLineAdded = true
+                                    str2 = "\n(\(intPieces) pc X \(intmax_weight) kg)"
+                                }else{
+                                    isNewLineAdded = false
+                                    str2 = " (\(intPieces) pc X \(intmax_weight) kg)"
+                                }
                                 let font:UIFont? = AppFonts.SemiBold.withSize(16)
                                 let fontSuper:UIFont? = AppFonts.Regular.withSize(14)
                                 let attString:NSMutableAttributedString = NSMutableAttributedString(string: str1, attributes: [.font:font!])
@@ -152,6 +163,14 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
                     perAdultCheckinLabel.text = "No Baggage"
                 }
             }
+            
+            
+            if isNewLineAdded{
+                perAdultViewHeight.constant = 50
+            }else{
+                perAdultViewHeight.constant = 30
+            }
+            
         }else{
             perAdultView.isHidden = true
             perAdultViewHeight.constant = 0
