@@ -452,7 +452,7 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
                 }else if pieces == "" && weight == "" {
                     perChildCabinLabel.text = "No Info"
                 }else{
-                    if pieces != "0 pc"{
+                    if pieces != "0 pc" && pieces != "-9"{
                         let pc = pieces.components(separatedBy: " ")
                         let weights = weight.components(separatedBy: " ")
                         
@@ -534,7 +534,7 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
                 }else if pieces == "" && weight == "" {
                     perInfantCabinLabel.text = "No Info"
                 }else{
-                    if pieces != "0 pc"{
+                    if pieces != "0 pc" && pieces != "-9"{
                         let pc = pieces.components(separatedBy: " ")
                         let weights = weight.components(separatedBy: " ")
                         
