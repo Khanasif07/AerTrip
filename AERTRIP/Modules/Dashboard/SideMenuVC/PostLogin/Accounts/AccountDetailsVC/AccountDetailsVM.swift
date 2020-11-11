@@ -112,25 +112,25 @@ class AccountDetailsVM: NSObject {
         return newStr.filter {okayChars.contains($0) }
     }
     
-    private func filterForVoucher(voucher: String, onData: JSONDictionary) -> JSONDictionary? {
-        
-        guard !voucher.isEmpty, voucher.lowercased() != "all", let vchr = VoucherType(rawValue: voucher) else {
-            return [:]
-        }
-        
-        var newData = JSONDictionary()
-        
-        for date in Array(onData.keys) {
-            if let events = onData[date] as? [AccountDetailEvent] {
-                let fltrd = events.filter({ $0.voucher == vchr})
-                if !fltrd.isEmpty {
-                    newData[date] = fltrd
-                }
-            }
-        }
-        
-        return newData
-    }
+//    private func filterForVoucher(voucher: String, onData: JSONDictionary) -> JSONDictionary? {
+//
+//        guard !voucher.isEmpty, voucher.lowercased() != "all", let vchr = VoucherType(rawValue: voucher) else {
+//            return [:]
+//        }
+//
+//        var newData = JSONDictionary()
+//
+//        for date in Array(onData.keys) {
+//            if let events = onData[date] as? [AccountDetailEvent] {
+//                let fltrd = events.filter({ $0.voucher == vchr})
+//                if !fltrd.isEmpty {
+//                    newData[date] = fltrd
+//                }
+//            }
+//        }
+//
+//        return newData
+//    }
     
     func setAccountDetails(details: JSONDictionary) {
         self._accountDetails = details
