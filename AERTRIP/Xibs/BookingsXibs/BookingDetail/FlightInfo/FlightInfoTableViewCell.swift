@@ -55,7 +55,7 @@ class FlightInfoTableViewCell: UITableViewCell {
         finalDetails += finalDetails.isEmpty ? detail : "\n\(detail)"
         
         self.flightDetailsLabel.text = finalDetails
-        
+        printDebug("cabinClass: \(self.flightDetail?.cabinClass)")
         if let code = self.flightDetail?.carrierCode, !code.isEmpty {
             let imageUrl = AppGlobals.shared.getAirlineCodeImageUrl(code: code)
             self.flightImageView.setImageWithUrl(imageUrl, placeholder: AppPlaceholderImage.default, showIndicator: true)

@@ -39,42 +39,64 @@ class BaggageDimensionsVC: UIViewController, UIScrollViewDelegate
     var weight = ""
     var dimensions = JSONDictionary()
     var dimensions_inch = JSONDictionary()
-
+    var dimesionsObj:Dimension?
+    var settingForBookingDetails = false
     var note = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-  
         let blurEffect = UIBlurEffect(style: .prominent)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = self.backgroundView.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         backgroundView.addSubview(blurEffectView)
+        if settingForBookingDetails{
+            self.setDataFromDimesion()
+        }else{
+            self.setDataWithDictionary()
+        }
 
+    }
+    
+    private func setDataFromDimesion(){
         
-        baggageScrollView.delegate = self
-//        dividerView.isHidden = true
-        
-        if note == ""{
-            dividerLabel.isHidden = true
+        if let dimestion = self.dimesionsObj{
+            baggageScrollView.isScrollEnabled = true
+
+            baggageImgView.image = UIImage(named: "group4")
+            self.hideUnhindContent(isHidden: false)
+            weightLabel.text = dimestion.weight
+            heightLabel.text = "\(dimestion.cm?.height ?? 0)"
+            widthLabel.text = "\(dimestion.cm?.width ?? 0)"
+            breadthLabel.text = "\(dimestion.cm?.depth ?? 0)"
+            
+            let cm = (dimestion.cm?.height ?? 0) + (dimestion.cm?.width ?? 0) + (dimestion.cm?.depth ?? 0)
+            if let inch = dimestion.inch{
+                //Crash
+                let height_inch = inch.height
+                let width_inch = inch.width
+                let depth_inch = inch.depth
+
+                let inch = height_inch + width_inch + depth_inch
+
+                dimensionInfoLabel.text = "The sum of the 3 dimensions (length + breadth + height) of each piece must not exceed \(inch) inches or \(cm) centimeters for each piece."
+            }else{
+                dimensionInfoLabel.text = "The sum of the 3 dimensions (length + breadth + height) of each piece must not exceed \(cm) centimeters for each piece."
+            }
+            
+        }else{
+            self.clearData()
         }
         
+    }
+    
+    private func setDataWithDictionary(){
         dimensionDetailsInfoLabel.text = note
-  
         if dimensions.count > 0{
             baggageScrollView.isScrollEnabled = true
 
             baggageImgView.image = UIImage(named: "group4")
-            heightLabelCM.isHidden = false
-            widthLabelCM.isHidden = false
-            breadthLabelCM.isHidden = false
-            weightLabelKG.isHidden = false
-
-            heightImg.isHidden = false
-            widthImg.isHidden = false
-            breadthImg.isHidden = false
-            weightImg.isHidden = false
+            hideUnhindContent(isHidden: false)
 
             let weights = weight.components(separatedBy: " ")
             weightLabel.text = weights[0]
@@ -106,26 +128,38 @@ class BaggageDimensionsVC: UIViewController, UIScrollViewDelegate
                 dimensionInfoLabel.text = "The sum of the 3 dimensions (length + breadth + height) of each piece must not exceed \(cm) centimeters for each piece."
             }
         }else{
-            baggageScrollView.isScrollEnabled = false
-            
-            dimensionInfoLabel.text = ""
-            
-            baggageImgView.image = UIImage(named: "Group 4.1")
-            heightLabel.text = ""
-            widthLabel.text = ""
-            breadthLabel.text = ""
-            weightLabel.text = ""
-            
-            heightLabelCM.isHidden = true
-            widthLabelCM.isHidden = true
-            breadthLabelCM.isHidden = true
-            weightLabelKG.isHidden = true
-
-            heightImg.isHidden = true
-            widthImg.isHidden = true
-            breadthImg.isHidden = true
-            weightImg.isHidden = true
+            self.clearData()
         }
+        
+        
+    }
+    
+    private func clearData(){
+        baggageScrollView.isScrollEnabled = false
+        dimensionInfoLabel.text = ""
+        baggageImgView.image = UIImage(named: "Group 4.1")
+        heightLabel.text = ""
+        widthLabel.text = ""
+        breadthLabel.text = ""
+        weightLabel.text = ""
+        
+        hideUnhindContent(isHidden: true)
+        
+    }
+    
+    private func hideUnhindContent(isHidden: Bool){
+        
+        baggageScrollView.isScrollEnabled = !isHidden
+        heightLabelCM.isHidden = isHidden
+        widthLabelCM.isHidden = isHidden
+        breadthLabelCM.isHidden = isHidden
+        weightLabelKG.isHidden = isHidden
+
+        heightImg.isHidden = isHidden
+        widthImg.isHidden = isHidden
+        breadthImg.isHidden = isHidden
+        weightImg.isHidden = isHidden
+        
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView)

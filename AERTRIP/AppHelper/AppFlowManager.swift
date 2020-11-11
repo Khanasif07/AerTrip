@@ -580,7 +580,7 @@ extension AppFlowManager {
             ob.delegate = delegate
             ob.viewModel.productType = productType
             ob.modalPresentationStyle = .overFullScreen
-            delay(seconds: 0.2) {
+            delay(seconds: 0.3) {
                 topVC.present(ob, animated: true, completion:nil)
             }
             
