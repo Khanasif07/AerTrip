@@ -78,7 +78,10 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
             let max_pieces = adtCheckinBaggage["max_pieces"] as? String ?? ""
             let max_weight = adtCheckinBaggage["max_weight"] as? String ?? ""
             
-            
+            print("weight=",weight)
+            print("pieces=",pieces)
+            print("max_pieces=",max_pieces)
+            print("max_weight=",max_weight)
             if weight == "" && pieces == "" && max_pieces == "" && max_weight == ""{
                 perAdultCheckinLabel.text = "No Info"
             }
@@ -96,7 +99,7 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
             
             
 //  21 kg* (21 kg: Max 3 pieces can be carried weighing total 21 kg.) {API/DB gives weight. Max pieces from DB} {ignore max weight}
-            if weight != "" && max_pieces != ""  && max_pieces != "0 pc"{
+            if  weight != "-9" && weight != "" && max_pieces != ""  && max_pieces != "0 pc"{
                 let result = weight + "*"
                 let font:UIFont? = AppFonts.SemiBold.withSize(16)
                 let fontSuper:UIFont? = AppFonts.SemiBold.withSize(12)
@@ -108,7 +111,7 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
             
 //   1 pc* (Most Airlines typically allow max 23 kg per piece) {API / DB gives Pieces. Max Weight NOT available from DB} {ignore weight}
             
-            if pieces != "" && pieces != "0 pc" && max_weight == ""
+            if pieces != "-9" && pieces != "" && pieces != "0 pc" && max_weight == ""
             {
                 let result = pieces + "*"
                 let font:UIFont? = AppFonts.SemiBold.withSize(16)
@@ -180,7 +183,7 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
             }
             
 //  21 kg* (21 kg: Max 3 pieces can be carried weighing total 21 kg.) {API/DB gives weight. Max pieces from DB} {ignore max weight}
-            if weight != "" && max_pieces != ""  && max_pieces != "0 pc"{
+            if weight != "-9" && weight != "" && max_pieces != ""  && max_pieces != "0 pc"{
                 let result = weight + "*"
                 let font:UIFont? = AppFonts.SemiBold.withSize(16)
                 let fontSuper:UIFont? = AppFonts.SemiBold.withSize(12)
@@ -191,7 +194,7 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
             
 //  1 pc* (Most Airlines typically allow max 23 kg per piece) {API / DB gives Pieces. Max Weight NOT available from DB} {ignore weight}
             
-            if pieces != "" && pieces != "0 pc" && max_weight == ""
+            if pieces != "-9" && pieces != "" && pieces != "0 pc" && max_weight == ""
             {
                 let result = pieces + "*"
                 let font:UIFont? = AppFonts.SemiBold.withSize(16)
@@ -264,7 +267,7 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
             
             
 //   21 kg* (21 kg: Max 3 pieces can be carried weighing total 21 kg.) {API/DB gives weight. Max pieces from DB} {ignore max weight}
-            if weight != "" && max_pieces != ""  && max_pieces != "0 pc"{
+            if weight != "-9" && weight != "" && max_pieces != ""  && max_pieces != "0 pc"{
                 let result = weight + "*"
                 let font:UIFont? = AppFonts.SemiBold.withSize(16)
                 let fontSuper:UIFont? = AppFonts.SemiBold.withSize(12)
@@ -276,7 +279,7 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
             
 //   1 pc* (Most Airlines typically allow max 23 kg per piece) {API / DB gives Pieces. Max Weight NOT available from DB} {ignore weight}
             
-            if pieces != "" && pieces != "0 pc" && max_weight == ""
+            if pieces != "-9" && pieces != "" && pieces != "0 pc" && max_weight == ""
             {
                 let result = pieces + "*"
                 let font:UIFont? = AppFonts.SemiBold.withSize(16)
@@ -347,7 +350,7 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
                 }else if pieces == "" && weight == "" {
                     perAdultCabinLabel.text = "No Info"
                 }else{
-                    if pieces != "0 pc"{
+                    if pieces != "0 pc" && pieces != "-9" {
                         let pc = pieces.components(separatedBy: " ")
                         let weights = weight.components(separatedBy: " ")
                         

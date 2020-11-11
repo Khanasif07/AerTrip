@@ -190,7 +190,7 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
                             
                             if let weight = adtCheckinBaggage["weight"] as? String, let pieces = adtCheckinBaggage["pieces"] as? String, let max_pieces = adtCheckinBaggage["max_pieces"] as? String, let max_weight = adtCheckinBaggage["max_weight"] as? String
                             {
-                                if pieces != "" && pieces != "0 pc" && max_weight == ""
+                                if pieces != "-9" && pieces != "" && pieces != "0 pc" && max_weight == ""
                                 {
                                     let str = "\(pieces) : Most airline typically allow 23 kgs per piece."
                                     if !attStringArray.contains(str){
@@ -202,7 +202,7 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
                                     }
                                 }
                                 
-                                if weight != "" && max_pieces != ""  && max_pieces != "0 pc"{
+                                if weight != "-9" && weight != "" && max_pieces != ""  && max_pieces != "0 pc"{
                                     isAdultBaggageWithPiece = true
                                     var pc = ""
                                     if max_pieces.contains(find: " "){
@@ -234,7 +234,7 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
                             baggageCell.setPerChildCheckinBaggage(chdCheckinBaggage: chdCheckinBaggage)
                             
                             if let weight = chdCheckinBaggage["weight"] as? String, let pieces = chdCheckinBaggage["pieces"] as? String, let max_pieces = chdCheckinBaggage["max_pieces"] as? String, let max_weight = chdCheckinBaggage["max_weight"] as? String{
-                                if pieces != "" && pieces != "0 pc" && max_weight == ""
+                                if pieces != "-9" && pieces != "" && pieces != "0 pc" && max_weight == ""
                                 {
                                     let str = "\(pieces) : Most airline typically allow 23 kgs per piece."
                                     if !attStringArray.contains(str){
@@ -246,7 +246,7 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
                                     }
                                 }
                                 
-                                if weight != "" && max_pieces != ""  && max_pieces != "0 pc"
+                                if weight != "-9" && weight != "" && max_pieces != ""  && max_pieces != "0 pc"
                                 {
                                     isChildBaggageWithPiece = true
                                     
@@ -283,7 +283,7 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
                             
                             if let weight = infCheckInBaggage["weight"] as? String, let pieces = infCheckInBaggage["pieces"] as? String, let max_pieces = infCheckInBaggage["max_pieces"] as? String, let max_weight = infCheckInBaggage["max_weight"] as? String
                             {
-                                if pieces != "" && pieces != "0 pc" && max_weight == ""
+                                if pieces != "-9" && pieces != "" && pieces != "0 pc" && max_weight == ""
                                 {
                                     let str = "\(pieces) : Most airline typically allow 23 kgs per piece."
                                     if !attStringArray.contains(str){
@@ -295,7 +295,7 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
                                     }
                                 }
                                 
-                                if weight != "" && max_pieces != ""  && max_pieces != "0 pc"
+                                if weight != "-9" && weight != "" && max_pieces != ""  && max_pieces != "0 pc"
                                 {
                                     isInfantBaggageWithPiece = true
                                     
