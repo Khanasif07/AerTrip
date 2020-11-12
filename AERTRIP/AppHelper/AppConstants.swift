@@ -43,6 +43,7 @@ enum AppConstants {
     static let fareRules = "https://beta.aertrip.com/terms"
     static let walletAmountUrl = "https://beta.aertrip.com/wallet"
     static let tripsUrl = "https://aertrip.com/trips"
+    static let travelSafetyLink = "https://aertrip.com/covid-guide"
 
     static let kSearchTextLimit = 3
     static let kNameTextLimit = 30
