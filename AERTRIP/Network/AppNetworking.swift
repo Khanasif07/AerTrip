@@ -295,6 +295,8 @@ enum AppNetworking {
             
             AppNetworking.saveCookies(fromUrl: response.response?.url)
             
+            
+            
                             if loader { hideLoader() }
                             
                             switch(response.result) {
@@ -314,6 +316,9 @@ enum AppNetworking {
 
                                 self.textLog.write("\nREQUEST HEADER :::::::: \(requestDate)  ::::::::\n\n\(String(describing: request.request?.allHTTPHeaderFields))\n")
                                 
+                                
+                                self.textLog.write("\nRESPONSE HEADER :::::::: \(requestDate)  ::::::::\n\n\(String(describing: response.response?.allHeaderFields))\n")
+
                                 // Logger for response
                                 self.textLog.write("RESPONSE DATA ::::::::    \(Date.getCurrentDate()) ::::::::\(jsonVal)\n##########################################################################################\n")
                                 
@@ -331,6 +336,8 @@ enum AppNetworking {
                                     
                                     printDebug("response: \(e)\nresponse url: \(URLString)")
                                     
+                                    self.textLog.write("\nRESPONSE HEADER :::::::: \(requestDate)  ::::::::\n\n\(String(describing: response.response?.allHeaderFields))\n")
+
                                     // Logger for response
                                     self.textLog.write("RESPONSE DATA ::::::::    \(Date.getCurrentDate()) :::::::: response: \(e)\nresponse url: \(URLString)\n##########################################################################################\n")
                                     
