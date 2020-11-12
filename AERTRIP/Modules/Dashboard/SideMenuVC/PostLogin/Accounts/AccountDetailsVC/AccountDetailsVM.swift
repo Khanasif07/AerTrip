@@ -193,18 +193,18 @@ class AccountDetailsVM: NSObject {
                             
                             var status = false
                             if let frmDate = filtr.fromDate, let toDate = filtr.toDate, let creationDate = event._creationDate, frmDate <= toDate {
-                                if (frmDate...toDate).contains(creationDate) || frmDate.daysFrom(creationDate) == 0 || toDate.daysFrom(creationDate) == 0  {
+                                if (frmDate...toDate).contains(creationDate) || Date.compareDate(date1: frmDate, date2: creationDate) || Date.compareDate(date1: creationDate, date2: toDate)  {
                                     printDebug("toDate: \(toDate)")
                                     printDebug("frmDate: \(frmDate)")
                                     printDebug("creationDate: \(creationDate)")
                                     status = true
                                 }
                             } else if let frmDate = filtr.fromDate, let creationDate = event._creationDate {
-                                if creationDate >= frmDate || frmDate.daysFrom(creationDate) == 0 {
+                                if creationDate >= frmDate || Date.compareDate(date1: frmDate, date2: creationDate) {
                                     status = true
                                 }
                             }else if let toDate = filtr.toDate, let creationDate = event._creationDate {
-                                if creationDate <= toDate || toDate.daysFrom(creationDate) == 0 {
+                                if creationDate <= toDate || Date.compareDate(date1: creationDate, date2: toDate) {
                                     status = true
                                 }
                             }

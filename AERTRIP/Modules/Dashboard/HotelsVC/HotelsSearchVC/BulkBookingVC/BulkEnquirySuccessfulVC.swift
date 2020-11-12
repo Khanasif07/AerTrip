@@ -107,6 +107,8 @@ class BulkEnquirySuccessfulVC: BaseVC {
     }
     
     override func initialSetup() {
+        self.mainTitleLabel.adjustsFontSizeToFitWidth = true
+        self.subTitleLabel.adjustsFontSizeToFitWidth = true
         self.setupSearchButton()
         switch self.currentUsingAs {
         case .bulkBooking:

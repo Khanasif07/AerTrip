@@ -52,14 +52,21 @@ class BookingCallVM {
                     self.section.append(LocalizedString.Airports.localized)
                 }
             } else {
+                
+                self.aertripData = contactInfo.aertrip
+                self.hotelData.removeAll()
+                contactInfo.hotel.forEach { (model) in
+                    if !model.phone.isEmpty {
+                        self.hotelData.append(model)
+                    }
+                }
+                
                 if !contactInfo.aertrip.isEmpty {
                     self.section.append(LocalizedString.Aertip.localized)
                 }
-                if !contactInfo.hotel.isEmpty {
+                if !self.hotelData.isEmpty {
                     self.section.append(LocalizedString.Hotel.localized)
                 }
-                self.aertripData = contactInfo.aertrip
-                self.hotelData = contactInfo.hotel
             }
            
         }

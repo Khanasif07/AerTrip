@@ -320,6 +320,10 @@ extension Date {
         }
         return dates
     }
+    
+    static func compareDate(date1:Date, date2:Date) -> Bool {
+        return Calendar.current.isDate(date1, equalTo: date2, toGranularity: .day)
+    }
 }
 
 extension Date {

@@ -39,8 +39,10 @@ class HotelsSearchVM: NSObject{
     }
     
     func canSetRecentSearch() -> Bool {
-        guard let lastSearchedData = self.recentSearchesData?.first else { return true }
+       // guard let lastSearchedData = self.recentSearchesData?.first else { return true }
         var canSetSearch = true
+        self.recentSearchesData?.forEach({ (lastSearchedData) in
+        
         if lastSearchedData.dest_id == self.searchedFormData.destId {
             printDebug("lastSearchedData.checkInDate \(lastSearchedData.checkInDate )")
             printDebug("lastSearchedData.checkOutDate \(lastSearchedData.checkOutDate)")
@@ -58,16 +60,16 @@ class HotelsSearchVM: NSObject{
                         
                         if (lastSearchedData.room?[i].adultCounts ?? "0") == "\(self.searchedFormData.adultsCount[i])" {
                             canSetSearch = false
-                            //break
+                            break
                         } else {
                             canSetSearch = true
-                            break
+                            //break
                         }
                     }
                 }
             }
         }
-        
+        })
         return canSetSearch
     }
     
