@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -47,17 +45,17 @@
                                 <constraint firstAttribute="height" constant="8" id="q84-bg-qTI"/>
                             </constraints>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show pending actions only" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o8L-xF-VjI">
-                            <rect key="frame" x="34" y="10" width="284" height="23"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show pending actions only" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="o8L-xF-VjI">
+                            <rect key="frame" x="34" y="10" width="300" height="23"/>
                             <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uNG-Ta-F3q">
-                            <rect key="frame" x="318" y="0.5" width="96" height="43.5"/>
+                            <rect key="frame" x="334" y="0.5" width="80" height="43.5"/>
                             <subviews>
                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TbU-Y5-FlF">
-                                    <rect key="frame" x="29" y="6.5" width="53" height="31"/>
+                                    <rect key="frame" x="13" y="6.5" width="53" height="31"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="51" id="G8o-eM-RCR"/>
                                     </constraints>
@@ -71,7 +69,7 @@
                                 <constraint firstAttribute="bottom" secondItem="TbU-Y5-FlF" secondAttribute="bottom" constant="6" id="AV9-2w-YC2"/>
                                 <constraint firstAttribute="trailing" secondItem="TbU-Y5-FlF" secondAttribute="trailing" constant="16" id="Kkd-Me-dMx"/>
                                 <constraint firstItem="TbU-Y5-FlF" firstAttribute="top" secondItem="uNG-Ta-F3q" secondAttribute="top" constant="6.5" id="Nyo-4W-Prl"/>
-                                <constraint firstAttribute="width" constant="96" id="swJ-wo-NGb"/>
+                                <constraint firstAttribute="width" constant="80" id="swJ-wo-NGb"/>
                             </constraints>
                         </view>
                     </subviews>
@@ -92,6 +90,7 @@
                     </constraints>
                 </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="RpD-Sk-c2p" secondAttribute="bottom" id="0gS-Ef-aRh"/>
@@ -100,7 +99,7 @@
                 <constraint firstItem="RpD-Sk-c2p" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="v8t-2m-AD7"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="25" y="79"/>
         </view>
     </objects>
     <resources>

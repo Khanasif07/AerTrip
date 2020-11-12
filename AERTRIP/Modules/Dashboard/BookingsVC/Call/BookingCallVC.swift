@@ -84,7 +84,14 @@ class BookingCallVC: BaseVC {
         }
         
         bookingCell.dividerView.isHidden = self.viewModel.aertripData.count - 1 == indexPath.row
-        
+        if self.viewModel.section.count == 1 {
+            if self.viewModel.aertripData.count - 1 == indexPath.row {
+                bookingCell.dividerViewLeadingConst.constant = 0
+                bookingCell.dividerView.isHidden = false
+            } else {
+                bookingCell.dividerViewLeadingConst.constant = 59
+            }
+        }
         return bookingCell
     }
     

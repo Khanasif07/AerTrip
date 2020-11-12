@@ -27,7 +27,8 @@ extension HotlelBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
         let currentSection = self.viewModel.sectionDataForHotelDetail[indexPath.section]
         switch currentSection[indexPath.row] {
         case .hotelBookingInfoCell:
-            return (self.viewModel.bookingDetail?.bookingDetail?.hotelAddress ?? "NA").sizeCount(withFont: AppFonts.Regular.withSize(16.0), bundingSize: CGSize(width: (UIDevice.screenWidth - 50.0), height: 10000.0)).height + 190.0
+            return UITableView.automaticDimension
+            //return (self.viewModel.bookingDetail?.bookingDetail?.hotelAddress ?? "NA").sizeCount(withFont: AppFonts.Regular.withSize(16.0), bundingSize: CGSize(width: (UIDevice.screenWidth - 64.0), height: 10000.0)).height + 190.0
         case .roomNameAndTypeCell:
             return UITableView.automaticDimension
         case .travellersCell:

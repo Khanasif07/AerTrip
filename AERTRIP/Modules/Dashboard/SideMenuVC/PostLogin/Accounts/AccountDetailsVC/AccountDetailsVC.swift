@@ -584,8 +584,16 @@ extension AccountDetailsVC: AccountDetailsVMDelegate {
         self.refreshControl.endRefreshing()
         self.topNavView.firstRightButton.isUserInteractionEnabled = true
         self.topNavView.secondRightButton.isUserInteractionEnabled = true
+        if self.currentViewState == .filterApplied {
+            self.viewModel.applyFilter(searchText: self.mainSearchBar.text ?? "")
+        } else if self.currentViewState == .filterApplied {
+            self.viewModel.searchEvent(forText: self.mainSearchBar.text ?? "")
+        }
         self.reloadList()
         NotificationCenter.default.post(name: .accountDetailFetched, object: model)
+        
+        
+
     }
     
     func getAccountDetailsFail(showProgres: Bool) {

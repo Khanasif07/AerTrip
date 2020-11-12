@@ -148,13 +148,15 @@ extension CommunicationVC: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
 //        self.webView.scrollView.isScrollEnabled = false
-        if height < webView.scrollView.contentSize.height{
-            webView.frame.size.height = webView.scrollView.contentSize.height
+        let totalHeight = height - (topNavView.x + topNavView.height + titleView.height)
+        if totalHeight < webView.scrollView.contentSize.height{
+            webView.frame.size.height = webView.scrollView.contentSize.height + 50
         }else{
             webView.frame.size.height = height
         }
         self.activityIndicatorView.stopAnimating()
         self.activityIndicatorView.isHidden = true
+        scrollView.contentSize = CGSize(width: scrollView.width, height: webView.height + titleView.height)
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {

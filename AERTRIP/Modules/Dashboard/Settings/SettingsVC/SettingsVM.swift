@@ -14,7 +14,7 @@ class SettingsVM {
         case country = "Country"
         case currency = "Currency"
         case notification = "Notification"
-        case calenderSync = "Calender Sync"
+        case calenderSync = "Calendar Sync"
         case aboutUs = "About Us"
         case legal = "Legal"
         case privacyPolicy = "Privacy Policy"

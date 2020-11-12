@@ -112,25 +112,25 @@ class AccountDetailsVM: NSObject {
         return newStr.filter {okayChars.contains($0) }
     }
     
-    private func filterForVoucher(voucher: String, onData: JSONDictionary) -> JSONDictionary? {
-        
-        guard !voucher.isEmpty, voucher.lowercased() != "all", let vchr = VoucherType(rawValue: voucher) else {
-            return [:]
-        }
-        
-        var newData = JSONDictionary()
-        
-        for date in Array(onData.keys) {
-            if let events = onData[date] as? [AccountDetailEvent] {
-                let fltrd = events.filter({ $0.voucher == vchr})
-                if !fltrd.isEmpty {
-                    newData[date] = fltrd
-                }
-            }
-        }
-        
-        return newData
-    }
+//    private func filterForVoucher(voucher: String, onData: JSONDictionary) -> JSONDictionary? {
+//
+//        guard !voucher.isEmpty, voucher.lowercased() != "all", let vchr = VoucherType(rawValue: voucher) else {
+//            return [:]
+//        }
+//
+//        var newData = JSONDictionary()
+//
+//        for date in Array(onData.keys) {
+//            if let events = onData[date] as? [AccountDetailEvent] {
+//                let fltrd = events.filter({ $0.voucher == vchr})
+//                if !fltrd.isEmpty {
+//                    newData[date] = fltrd
+//                }
+//            }
+//        }
+//
+//        return newData
+//    }
     
     func setAccountDetails(details: JSONDictionary) {
         self._accountDetails = details
@@ -193,18 +193,18 @@ class AccountDetailsVM: NSObject {
                             
                             var status = false
                             if let frmDate = filtr.fromDate, let toDate = filtr.toDate, let creationDate = event._creationDate, frmDate <= toDate {
-                                if (frmDate...toDate).contains(creationDate) || frmDate.daysFrom(creationDate) == 0 || toDate.daysFrom(creationDate) == 0  {
+                                if (frmDate...toDate).contains(creationDate) || Date.compareDate(date1: frmDate, date2: creationDate) || Date.compareDate(date1: creationDate, date2: toDate)  {
                                     printDebug("toDate: \(toDate)")
                                     printDebug("frmDate: \(frmDate)")
                                     printDebug("creationDate: \(creationDate)")
                                     status = true
                                 }
                             } else if let frmDate = filtr.fromDate, let creationDate = event._creationDate {
-                                if creationDate >= frmDate || frmDate.daysFrom(creationDate) == 0 {
+                                if creationDate >= frmDate || Date.compareDate(date1: frmDate, date2: creationDate) {
                                     status = true
                                 }
                             }else if let toDate = filtr.toDate, let creationDate = event._creationDate {
-                                if creationDate <= toDate || toDate.daysFrom(creationDate) == 0 {
+                                if creationDate <= toDate || Date.compareDate(date1: creationDate, date2: toDate) {
                                     status = true
                                 }
                             }

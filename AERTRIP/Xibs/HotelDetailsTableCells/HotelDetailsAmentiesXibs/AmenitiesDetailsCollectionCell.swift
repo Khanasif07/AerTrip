@@ -35,7 +35,8 @@ class AmenitiesDetailsCollectionCell: UICollectionViewCell {
     }
     
     private func configUi() {
-        self.amenitiesNameLabel.font = AppFonts.Regular.withSize(17.0)//18 is to big
+        let fontSize: CGFloat = UIScreen.width > 320 ? 17 : 12
+        self.amenitiesNameLabel.font = AppFonts.Regular.withSize(fontSize)//18 is to big
         self.amenitiesNameLabel.textColor = AppColors.themeBlack
     }
 
