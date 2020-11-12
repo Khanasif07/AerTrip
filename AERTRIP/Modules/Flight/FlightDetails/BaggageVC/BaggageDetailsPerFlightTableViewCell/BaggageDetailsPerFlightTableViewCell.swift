@@ -166,7 +166,7 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
             
             
             if isNewLineAdded{
-                perAdultViewHeight.constant = 50
+                perAdultViewHeight.constant = 45
             }else{
                 perAdultViewHeight.constant = 30
             }
@@ -181,6 +181,7 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
     
     func setPerChildCheckinBaggage(chdCheckinBaggage:JSONDictionary)
     {
+        var isNewLineAdded = false
         if chdCheckinBaggage.count > 0{
             let weight = chdCheckinBaggage["weight"] as? String ?? ""
             let pieces = chdCheckinBaggage["pieces"] as? String ?? ""
@@ -233,7 +234,14 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
                         if let intmax_weight = Int(weights[0]), let intPieces = Int(pc[0]){
                             if intmax_weight != 0{
                                 let str1 = "\(intmax_weight*intPieces) kg"
-                                let str2 = " (\(intPieces) pc X \(intmax_weight) kg)"
+                                var str2 = ""
+                                if isSEDevice{
+                                    isNewLineAdded = true
+                                    str2 = "\n(\(intPieces) pc X \(intmax_weight) kg)"
+                                }else{
+                                    isNewLineAdded = false
+                                    str2 = " (\(intPieces) pc X \(intmax_weight) kg)"
+                                }
                                 let font:UIFont? = AppFonts.SemiBold.withSize(16)
                                 let fontSuper:UIFont? = AppFonts.Regular.withSize(14)
                                 let attString:NSMutableAttributedString = NSMutableAttributedString(string: str1, attributes: [.font:font!])
@@ -253,6 +261,13 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
                     perChildCheckInLabel.textColor = .black
                     perChildCheckInLabel.text = "No Baggage"
                 }
+                
+                
+                if isNewLineAdded{
+                    perChildViewHeight.constant = 45
+                }else{
+                    perChildViewHeight.constant = 30
+                }
             }
         }else{
             perChildView.isHidden = true
@@ -263,6 +278,7 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
     
     func setPerInfantCheckinBaggage(infCheckInBaggage:JSONDictionary)
     {
+        var isNewLineAdded = false
         if infCheckInBaggage.count > 0{
             let weight = infCheckInBaggage["weight"] as? String ?? ""
             let pieces = infCheckInBaggage["pieces"] as? String ?? ""
@@ -318,7 +334,16 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
                         if let intmax_weight = Int(weights[0]), let intPieces = Int(pc[0]){
                             if intmax_weight != 0{
                                 let str1 = "\(intmax_weight*intPieces) kg"
-                                let str2 = " (\(intPieces) pc X \(intmax_weight) kg)"
+                                
+                                var str2 = ""
+                                
+                                if isSEDevice{
+                                    isNewLineAdded = true
+                                    str2 = "\n(\(intPieces) pc X \(intmax_weight) kg)"
+                                }else{
+                                    isNewLineAdded = false
+                                    str2 = " (\(intPieces) pc X \(intmax_weight) kg)"
+                                }
                                 let font:UIFont? = AppFonts.SemiBold.withSize(16)
                                 let fontSuper:UIFont? = AppFonts.Regular.withSize(14)
                                 let attString:NSMutableAttributedString = NSMutableAttributedString(string: str1, attributes: [.font:font!])
@@ -331,6 +356,12 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
                                 perInfantCheckInLabel.textColor = .black
                                 perInfantCheckInLabel.text = "No Baggage"
                             }
+                        }
+                        
+                        if isNewLineAdded{
+                            perInfantViewHeight.constant = 45
+                        }else{
+                            perInfantViewHeight.constant = 30
                         }
                     }
                 }else{
