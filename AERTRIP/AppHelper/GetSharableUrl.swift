@@ -231,6 +231,36 @@ class GetSharableUrl
             cookies = "AT_R_STAGE_SESSID=cba8fbjvl52c316a4b24tuank4"
         }
         
+//        if (UserInfo.loggedInUser != nil){
+//            if let allCookies = UserDefaults.getCustomObject(forKey: UserDefaults.Key.currentUserCookies.rawValue) as? [HTTPCookie]
+//            {
+//                print("allCookies")
+//                if allCookies.count > 0{
+//                    let name = allCookies.first?.name ?? ""
+//                    let value = allCookies.first?.value ?? ""
+//                    if !name.isEmpty && !value.isEmpty || !name.isEmpty || !value.isEmpty{
+//                        cookies = name + "=" + value
+//                    }else{
+//                        cookies = "AT_R_STAGE_SESSID=cba8fbjvl52c316a4b24tuank4"
+//                    }
+//                }
+//            }
+//
+//        }else{
+//            if let strrr = UserDefaults.standard.value(forKey: "SearchResultCookie") as? String{
+//                print("strrr=",strrr)
+//
+//                cookies = strrr
+//            }else{
+//                cookies = "AT_R_STAGE_SESSID=cba8fbjvl52c316a4b24tuank4"
+//            }
+//        }
+        
+        
+        
+
+        
+        
         print("cookies= ",cookies)
         request.addValue(cookies, forHTTPHeaderField: "Cookie")
 

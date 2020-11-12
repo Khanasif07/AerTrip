@@ -58,6 +58,21 @@ class WebAPIService
                     failureHandler( NSError(domain:"", code:httpResponse.statusCode, userInfo:nil))
                     return
                 }
+                
+                
+//                print("coockie=",httpResponse.allHeaderFields)
+//                let keys = httpResponse.allHeaderFields
+//                if let val = keys["Set-Cookie"] as? String{
+//                    print("val=",val)
+//                    let str = val.components(separatedBy: ";")
+//                    print("str0=",str[0])
+//                    
+//                    if str.count > 0 {
+//                        if str[0].contains("AT_R_STAGE_SESSID"){
+//                            UserDefaults.standard.set(str[0], forKey: "SearchResultCookie")
+//                        }
+//                    }
+//                }
             }
             
             guard let responseData = data else {
