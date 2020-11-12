@@ -42,7 +42,7 @@ class BookingTravellerAddOnsCollectionViewCell: UICollectionViewCell {
             } else {
                 pnrNumber = "\(pnrData[0])"
             }
-            self.titleValueLabel.attributedText = getAttributedBoldText(text: pnrNumber + status, boldText: "\(status)")
+            self.titleValueLabel.attributedText = getAttributedBoldText(text: pnrNumber + " \(status)", boldText: "\(status)")
         } else {
             self.titleValueLabel.text = detail
          }

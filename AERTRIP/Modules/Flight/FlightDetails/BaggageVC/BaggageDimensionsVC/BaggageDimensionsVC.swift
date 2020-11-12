@@ -65,7 +65,7 @@ class BaggageDimensionsVC: UIViewController, UIScrollViewDelegate
 
             baggageImgView.image = UIImage(named: "group4")
             self.hideUnhindContent(isHidden: false)
-            weightLabel.text = dimestion.weight
+            weightLabel.text = self.weight.lowercased().removeAllWhitespaces.replacingLastOccurrenceOfString("kg", with: "")
             heightLabel.text = "\(dimestion.cm?.height ?? 0)"
             widthLabel.text = "\(dimestion.cm?.width ?? 0)"
             breadthLabel.text = "\(dimestion.cm?.depth ?? 0)"

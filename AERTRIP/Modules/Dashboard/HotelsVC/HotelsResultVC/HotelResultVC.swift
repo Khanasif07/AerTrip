@@ -317,11 +317,16 @@ class HotelResultVC: BaseVC {
     }
     
     override func dataChanged(_ note: Notification) {
-        if let noti = note.object as? ATNotification, noti == .GRNSessionExpired {
-            //re-hit the search API
-            self.manageShimmer(isHidden: false)
-            CoreDataManager.shared.deleteData("HotelSearched")
-            self.viewModel.hotelListOnPreferencesApi()
+        if let noti = note.object as? ATNotification {
+            switch noti {
+            case .GRNSessionExpired:
+                //re-hit the search API
+                self.manageShimmer(isHidden: false)
+                CoreDataManager.shared.deleteData("HotelSearched")
+                self.viewModel.hotelListOnPreferencesApi()
+            default:
+                break
+            }
         }
         else if let _ = note.object as? HotelDetailsVC {
             //fav updated from hotel details
