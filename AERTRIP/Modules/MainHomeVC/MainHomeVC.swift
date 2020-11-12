@@ -88,12 +88,19 @@ class MainHomeVC: BaseVC {
     }
     
     override func dataChanged(_ note: Notification) {
-        if let noti = note.object as? ATNotification, noti == .userLoggedInSuccess {
-            self.scrollViewSetup()
-            self.makeDefaultSetup()
-        }
-        else if let noti = note.object as? ATNotification, noti == .profileChanged {
-            self.setUserDataOnProfileHeader()
+        
+        if let noti = note.object as? ATNotification {
+            
+            switch noti {
+            case .userLoggedInSuccess(let successJson):
+                let fromFlights = successJson["flights"].boolValue
+                self.scrollViewSetup(fromFlights)
+                self.makeDefaultSetup()
+            case .profileChanged:
+                self.setUserDataOnProfileHeader()
+            default:
+                break
+            }
         }
     }
     
@@ -124,17 +131,27 @@ class MainHomeVC: BaseVC {
         }
     }
     
-    private func scrollViewSetup() {
+    private func scrollViewSetup(_ fromFlights: Bool = false) {
         
         //set content size
         
         //setup side menu controller
-        let sideVC = self.createSideMenu()
-        sideVC.view.frame = CGRect(x: UIDevice.screenWidth * 0.0, y: 0.0, width: UIDevice.screenWidth, height: UIDevice.screenHeight)
-        
-        self.contentView.addSubview(sideVC.view)
-        self.addChild(sideVC)
-        sideVC.didMove(toParent: self)
+        if fromFlights {
+            if let pkSideMenu = children.first as? PKSideMenuController {
+                let sideMenu = SideMenuVC.instantiate(fromAppStoryboard: .Dashboard)
+                sideMenu.delegate = self
+                self.sideMenuVC = sideMenu
+                pkSideMenu.menuViewController(sideMenu)
+                SwiftObjCBridgingController.shared.resetRecentSearches()
+            }
+        } else {
+            let sideVC = self.createSideMenu()
+            sideVC.view.frame = CGRect(x: UIDevice.screenWidth * 0.0, y: 0.0, width: UIDevice.screenWidth, height: UIDevice.screenHeight)
+            
+            self.contentView.addSubview(sideVC.view)
+            self.addChild(sideVC)
+            sideVC.didMove(toParent: self)
+        }
         
         if let _ = UserInfo.loggedInUserId {
             //setup view profile vc

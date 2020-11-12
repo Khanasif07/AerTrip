@@ -81,9 +81,14 @@ class SpecialAccountDetailsVC: BaseVC {
     }
     
     override func dataChanged(_ note: Notification) {
-        if let noti = note.object as? ATNotification, noti == .accountPaymentRegister {
-            //re-hit the details API
-            self.viewModel.fetchScreenDetails(showProgress: true)
+        if let noti = note.object as? ATNotification {
+            switch noti {
+            case .accountPaymentRegister:
+                //re-hit the details API
+                self.viewModel.fetchScreenDetails(showProgress: true)
+            default:
+                break
+            }
         }
     }
     

@@ -278,7 +278,18 @@ extension LoginVC: LoginVMDelegate {
             self.sendDataChangedNotification(data: ATNotification.userLoggedInSuccess)
         }
         else {
-            self.sendDataChangedNotification(data: ATNotification.userLoggedInSuccess)
+            
+            var successJson = JSON()
+            if navigationController?.viewControllers.contains(where: { $0 is FlightResultBaseViewController }) ?? false {
+                successJson["flights"] = true
+//                if let mainHomeVC = navigationController?.viewControllers.first(where: { $0 is MainHomeVC }) as? MainHomeVC {
+//                    mainHomeVC.toBeSelect = .flight
+//                }
+            }
+            let notif = ATNotification.userLoggedInSuccess(successJson)
+            
+            self.sendDataChangedNotification(data: notif)
+            
         }
 //        else if self.currentlyUsingFrom == .loginVerificationForCheckout {
 //            popIfUsingFromCheckOut()
