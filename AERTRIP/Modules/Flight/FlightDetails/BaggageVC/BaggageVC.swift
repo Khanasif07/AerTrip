@@ -99,8 +99,8 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
             var displayTxt = ""
             
             if combineString != ""{
-                displayTxt = displayTxt + "*   " + combineString + "\n"
-                
+                displayTxt = displayTxt + "✶   " + combineString + "\n"
+                    
                 displayTxt = displayTxt + "•   Baggage details are indicative and subject to change without prior notice."
                 
                 var strArray = [String]()
@@ -152,7 +152,7 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
                             
                             if let weight = adtCheckinBaggage["weight"] as? String, let pieces = adtCheckinBaggage["pieces"] as? String, let max_pieces = adtCheckinBaggage["max_pieces"] as? String, let max_weight = adtCheckinBaggage["max_weight"] as? String
                             {
-                                if pieces != "" && pieces != "0 pc" && max_weight == ""
+                                if pieces != "-9" && pieces != "" && pieces != "0 pc" && max_weight == ""
                                 {
                                     let str = "\(pieces) : Most airline typically allow 23 kgs per piece."
                                     if !attStringArray.contains(str){
@@ -164,7 +164,7 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
                                     }
                                 }
                                 
-                                if weight != "" && max_pieces != ""  && max_pieces != "0 pc"{
+                                if weight != "-9" && weight != "" && max_pieces != ""  && max_pieces != "0 pc"{
                                     isAdultBaggageWithPiece = true
                                     var pc = ""
                                     if max_pieces.contains(find: " "){
@@ -197,7 +197,7 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
                             baggageCell.setPerChildCheckinBaggage(chdCheckinBaggage: chdCheckinBaggage)
                             
                             if let weight = chdCheckinBaggage["weight"] as? String, let pieces = chdCheckinBaggage["pieces"] as? String, let max_pieces = chdCheckinBaggage["max_pieces"] as? String, let max_weight = chdCheckinBaggage["max_weight"] as? String{
-                                if pieces != "" && pieces != "0 pc" && max_weight == ""
+                                if pieces != "-9" && pieces != "" && pieces != "0 pc" && max_weight == ""
                                 {
                                     let str = "\(pieces) : Most airline typically allow 23 kgs per piece."
                                     if !attStringArray.contains(str){
@@ -209,7 +209,7 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
                                     }
                                 }
                                 
-                                if weight != "" && max_pieces != ""  && max_pieces != "0 pc"
+                                if weight != "-9" && weight != "" && max_pieces != ""  && max_pieces != "0 pc"
                                 {
                                     isChildBaggageWithPiece = true
                                     
@@ -246,7 +246,7 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
                             
                             if let weight = infCheckInBaggage["weight"] as? String, let pieces = infCheckInBaggage["pieces"] as? String, let max_pieces = infCheckInBaggage["max_pieces"] as? String, let max_weight = infCheckInBaggage["max_weight"] as? String
                             {
-                                if pieces != "" && pieces != "0 pc" && max_weight == ""
+                                if pieces != "-9" && pieces != "" && pieces != "0 pc" && max_weight == ""
                                 {
                                     
                                     let str = "\(pieces) : Most airline typically allow 23 kgs per piece."
@@ -259,7 +259,7 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
                                     }
                                 }
                                 
-                                if weight != "" && max_pieces != ""  && max_pieces != "0 pc"
+                                if weight != "-9" && weight != "" && max_pieces != ""  && max_pieces != "0 pc"
                                 {
                                     isInfantBaggageWithPiece = true
                                     
@@ -508,10 +508,20 @@ extension String {
             attributedString.addAttribute(NSAttributedString.Key.font, value: font, range: range)
         }
         
+        if attributedString.string.contains("✶"){
+            let range = (self as NSString).range(of: "✶")
+            let font : UIFont = AppFonts.SemiBold.withSize(9)
+
+            attributedString.addAttribute(NSAttributedString.Key.font, value: font, range: range)
+
+        }
+        
         guard let characterSpacing = characterSpacing else {return attributedString}
         
         
         attributedString.addAttribute(NSAttributedString.Key.kern, value: characterSpacing, range: NSRange(location: 0, length: attributedString.length))
+        
+        
         
         return attributedString
     }

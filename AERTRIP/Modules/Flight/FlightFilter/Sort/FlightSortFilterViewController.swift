@@ -148,9 +148,16 @@ class FlightSortFilterViewController: UIViewController {
         let learnMoreRange = (text as NSString).range(of: "Learn more")
         if gesture.didTapAttributedTextInLabel(label: label, inRange: learnMoreRange) {
         
-            let webviewController = WebViewController()
-            webviewController.urlPath = "https://aertrip.com/smart-sort"
-            self.parent?.present(webviewController, animated: true, completion: nil)
+//            let webviewController = WebViewController()
+//            webviewController.urlPath = "https://aertrip.com/smart-sort"
+//            self.parent?.present(webviewController, animated: true, completion: nil)
+            
+            
+            
+            if let url = URL(string: APIEndPoint.smartSort.rawValue) {
+                AppFlowManager.default.showURLOnATWebView(url, screenTitle:  "Smart Sort", presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
+            }
+
         }
     }
     

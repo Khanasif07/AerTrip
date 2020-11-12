@@ -54,6 +54,7 @@ class LayoverViewTableViewCell: UITableViewCell
                 displayImgName = ""
             }
         }
+    
         
         
         displayText = displayText + " " + layoverTime
