@@ -164,9 +164,14 @@ class AccountDetailsVC: BaseVC {
     }
     
     override func dataChanged(_ note: Notification) {
-        if let noti = note.object as? ATNotification, noti == .accountPaymentRegister, let usr = UserInfo.loggedInUser, usr.userCreditType == .regular {
+        if let noti = note.object as? ATNotification, let usr = UserInfo.loggedInUser, usr.userCreditType == .regular {
             //re-hit the details API
-            self.viewModel.getAccountDetails(showProgres: true)
+            switch noti {
+            case .accountPaymentRegister:
+                self.viewModel.getAccountDetails(showProgres: true)
+            default:
+                break
+            }
         }
     }
     

@@ -177,14 +177,16 @@ class CompletedVC: BaseVC {
         if let noti = note.object as? ATNotification {
             //refresh the data with filters
             
-            if (noti == .myBookingFilterApplied || noti == .myBookingFilterCleared) {
+            switch noti {
+            case .myBookingFilterApplied, .myBookingFilterCleared:
                 self.isComingFromFilter  = true
                 self.loadSaveData()
                 self.reloadTable()
-            }
-            else if noti == .myBookingSearching {
+            case .myBookingSearching:
                 self.loadSaveData()
                 self.reloadTable()
+            default:
+                break
             }
         }
     }

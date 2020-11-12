@@ -92,11 +92,13 @@ class AppFlowManager: NSObject {
     @objc private func dataChanged(_ note: Notification) {
         // function intended to override
         if let noti = note.object as? ATNotification, let com = loginVerificationComplition {
-            if noti == .userAsGuest {
+            switch noti {
+            case .userAsGuest:
                 com(true)
-            }
-            else if noti == .userLoggedInSuccess {
+            case .userLoggedInSuccess(let dict):
                 com(false)
+            default:
+                break
             }
         }
     }

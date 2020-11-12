@@ -149,22 +149,32 @@ class TravellerListVC: BaseVC {
     }
     
     override func dataChanged(_ note: Notification) {
-        if let noti = note.object as? ATNotification, noti == .profileSavedOnServer {
-            // Clear the DB
-            CoreDataManager.shared.deleteData("TravellerData")
-            //re-hit the details API
-            viewModel.callSearchTravellerListAPI(isShowLoader: false)
-        } else if let noti = note.object as? ATNotification, noti == .preferenceUpdated {
-            // Clear the DB
-            CoreDataManager.shared.deleteData("TravellerData")
-            //re-hit the details API
-            self.viewModel.callSearchTravellerListAPI(isShowLoader: false)
-        } else if let noti = note.object as? ATNotification, noti == .travellerDeleted {
-            // Clear the DB
-            CoreDataManager.shared.deleteData("TravellerData", predicate: "id == '\(travellerIdToDelete)'")
-            //re-hit the details API
-            loadSavedData()
-        }else if let noti = note.object as? ImportContactVM.Notification, noti == .contactSavedSuccess {
+        
+        if let noti = note.object as? ATNotification {
+            switch noti {
+            case .profileSavedOnServer:
+                // Clear the DB
+                CoreDataManager.shared.deleteData("TravellerData")
+                //re-hit the details API
+                viewModel.callSearchTravellerListAPI(isShowLoader: false)
+                
+            case .preferenceUpdated:
+                // Clear the DB
+                CoreDataManager.shared.deleteData("TravellerData")
+                //re-hit the details API
+                self.viewModel.callSearchTravellerListAPI(isShowLoader: false)
+                
+            case .travellerDeleted:
+                // Clear the DB
+                CoreDataManager.shared.deleteData("TravellerData", predicate: "id == '\(travellerIdToDelete)'")
+                //re-hit the details API
+                loadSavedData()
+                
+            default:
+                break
+            }
+            
+        } else if let noti = note.object as? ImportContactVM.Notification, noti == .contactSavedSuccess {
             self.tableView.setContentOffset(CGPoint(x: 0, y: -tableViewContentInset), animated: false)
             self.shouldHitAPI = false
             self.showImportContactView = true

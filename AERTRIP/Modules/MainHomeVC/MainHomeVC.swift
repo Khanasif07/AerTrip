@@ -88,12 +88,19 @@ class MainHomeVC: BaseVC {
     }
     
     override func dataChanged(_ note: Notification) {
-        if let noti = note.object as? ATNotification, noti == .userLoggedInSuccess {
-            self.scrollViewSetup()
-            self.makeDefaultSetup()
-        }
-        else if let noti = note.object as? ATNotification, noti == .profileChanged {
-            self.setUserDataOnProfileHeader()
+        
+        if let noti = note.object as? ATNotification {
+            
+            switch noti {
+            case .userLoggedInSuccess(let successJson):
+                printDebug(successJson)
+                self.scrollViewSetup()
+                self.makeDefaultSetup()
+            case .profileChanged:
+                self.setUserDataOnProfileHeader()
+            default:
+                break
+            }
         }
     }
     
