@@ -93,8 +93,8 @@ class MainHomeVC: BaseVC {
             
             switch noti {
             case .userLoggedInSuccess(let successJson):
-                printDebug(successJson)
-                self.scrollViewSetup()
+                let fromFlights = successJson["flights"].boolValue
+                self.scrollViewSetup(fromFlights)
                 self.makeDefaultSetup()
             case .profileChanged:
                 self.setUserDataOnProfileHeader()
@@ -131,7 +131,7 @@ class MainHomeVC: BaseVC {
         }
     }
     
-    private func scrollViewSetup() {
+    private func scrollViewSetup(_ fromFlights: Bool = false) {
         
         //set content size
         
