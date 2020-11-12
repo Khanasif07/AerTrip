@@ -59,6 +59,7 @@ extension FlightBaggageInfoVC {
             }
             airlineCell.flightDetail = flight
             airlineCell.delegate = self
+            airlineCell.hideDimesionButton()
             return airlineCell
         }
         

@@ -198,14 +198,10 @@ extension BookingFlightDetailVC : PagingViewControllerDataSource , PagingViewCon
     }
 }
 extension BookingFlightDetailVC: BookingDetailVMDelegate, BaggageDimesionPresentDelegate {
-    func dimesionButtonTapprd(with dimension: Dimension) {
-        let weight = dimension.weight.removeAllWhitespaces.lowercased().replacingOccurrences(of: "kg", with: "")
-//        if weight.isEmpty || weight == "-9" || weight == "0"{
-//            return
-//        }
+    func dimesionButtonTapprd(with dimension: Dimension, weight: String) {
         let baggageDimensionVC = BaggageDimensionsVC(nibName: "BaggageDimensionsVC", bundle: nil)
         baggageDimensionVC.settingForBookingDetails = true
-        baggageDimensionVC.weight = dimension.weight
+        baggageDimensionVC.weight = weight
         baggageDimensionVC.dimesionsObj = dimension
         self.present(baggageDimensionVC, animated: true, completion: nil)
     }

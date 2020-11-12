@@ -391,6 +391,9 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     }
     
     fileprivate func hideHeaderBlurView(_ offsetDifference: CGFloat) {
+        
+        guard (self.parent as? FlightResultBaseViewController)?.doneButton == nil else {return}
+        
         DispatchQueue.main.async {
             
             var yCordinate : CGFloat

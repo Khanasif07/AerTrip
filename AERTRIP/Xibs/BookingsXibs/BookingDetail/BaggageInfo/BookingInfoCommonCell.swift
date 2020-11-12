@@ -158,93 +158,98 @@ class BookingInfoCommonCell: ATTableViewCell {
         let pieces = info.piece
         let max_pieces = info.maxPieces
         let max_weight = info.maxWeight
+        var returnText = LocalizedString.na.localized.uppercased()
         
-        
-        if weight.lowercased() == "0 kg"{
-            return LocalizedString.NoBaggage.localized
-        }else if weight == "" && pieces == "" && max_pieces == "" && max_weight == ""{
-            return LocalizedString.NoInfo.localized
+        if weight == "" && pieces == "" && max_pieces == "" && max_weight == ""{
+           returnText = LocalizedString.NoInfo.localized
+        }
+        if weight.lowercased() != "0 kg" && weight != "" && weight != "-9"{
+           returnText = weight
         }else{
-            if pieces == "" && max_pieces == "" && max_weight == ""{
-                if weight.lowercased() != "0 kg" {
-                    return weight
-                }else{
-                    return LocalizedString.NoInfo.localized
-                }
-            }
-            if weight.lowercased() != "0 kg" && weight != "" && weight != "-9"{
-                return weight
-            }
-            
-            if (weight == "0 Kg" && max_pieces == "" && max_weight == "") || (weight == "" && max_pieces == "" && max_weight == "") || (weight == "-9" && max_pieces == "" && max_weight == ""){
-                if pieces == "0 pc"{
-                    return LocalizedString.NoInfo.localized
-                }else{
-                    return pieces + "*"
-                }
-            }
-            if pieces != "" && max_weight != ""{
-                if pieces != "0 pc"{
-                    let pc = pieces.components(separatedBy: " ")
-                    let weights = max_weight.components(separatedBy: " ")
-                    
-                    if pc.count > 0, weights.count > 0{
-                        if let intmax_weight = Int(weights[0]), let intPieces = Int(pc[0]){
-                            if intmax_weight != 0{
-                                let str1 = "\(intmax_weight*intPieces) kg"
-                                let str2 = " (\(intPieces) pc X \(intmax_weight) kg)"
-                                return str1 + str2
-                            }else{
-                                return LocalizedString.NoBaggage.localized
-                            }
-                        }
-                    }
-                }else{
-                    return LocalizedString.NoBaggage.localized
-                }
-            }
-            
-            if weight != "" && max_pieces != ""{
-                return weight + "*"
-            }
+           returnText = LocalizedString.NoBaggage.localized
         }
 
-//        if weight == "0" || weight == "0 Kg"{
+        if weight != "" && max_pieces != ""  && max_pieces != "0 pc"{
+            returnText = weight + "*"
+        }
+        
+        if pieces != "" && pieces != "0 pc" && max_weight == ""
+        {
+            returnText = pieces + "*"
+        }
+        
+        if pieces != "" && max_weight != ""
+        {
+            if pieces != "0 pc"{
+                let pc = pieces.components(separatedBy: " ")
+                let weights = max_weight.components(separatedBy: " ")
+                
+                if pc.count > 0, weights.count > 0{
+                    if let intmax_weight = Int(weights[0]), let intPieces = Int(pc[0]){
+                        if intmax_weight != 0{
+                            let str1 = "\(intmax_weight*intPieces) kg"
+                            let str2 = " (\(intPieces) pc X \(intmax_weight) kg)"
+                            returnText = str1 + str2
+                        }else{
+                           returnText = LocalizedString.NoBaggage.localized
+                        }
+                    }
+                }
+            }else{
+               returnText = LocalizedString.NoBaggage.localized
+            }
+        }
+        
+//        if weight.lowercased() == "0 kg"{
 //            return LocalizedString.NoBaggage.localized
-//        }else if weight == "-9"{
+//        }else if weight == "" && pieces == "" && max_pieces == "" && max_weight == ""{
 //            return LocalizedString.NoInfo.localized
-//        }else if !weight.isEmpty && max_weight.isEmpty && max_pieces.isEmpty && (pieces == "0 pc" || pieces == "0" || pieces == ""){
-//            return weight // only weight present
-//        }else if !pieces.isEmpty && weight.isEmpty && max_weight.isEmpty && max_pieces.isEmpty {
-//            if pieces == "0 pc" || pieces == "0" {
-//                return LocalizedString.NoBaggage.localized
-//            }
-//            return pieces // only pieces present
-//        }
-//        else if !max_weight.isEmpty && !pieces.isEmpty && weight.isEmpty && max_pieces.isEmpty {
-//            // only max_weight and  pieces present
-//            if pieces == "0 pc" || pieces == "0" {
-//                return LocalizedString.NoBaggage.localized
-//            }
-//            let pc = pieces.components(separatedBy: " ")
-//            let weights = max_weight.components(separatedBy: " ")
-//
-//            if pc.count > 0, weights.count > 0{
-//                if let intmax_weight = Int(weights[0]), let intPieces = Int(pc[0]){
-//                    if intmax_weight != 0{
-//                        let str1 = "\(intmax_weight*intPieces) kg"
-//                        let str2 = " (\(intPieces) pc X \(intmax_weight) kg)"
-//                        return str1 + str2
-//                    }else{
-//                        return LocalizedString.NoBaggage.localized
-//                    }
+//        }else{
+//            if pieces == "" && max_pieces == "" && max_weight == ""{
+//                if weight.lowercased() != "0 kg" {
+//                    return weight
+//                }else{
+//                    return LocalizedString.NoInfo.localized
 //                }
 //            }
-//        }else if !weight.isEmpty && !max_pieces.isEmpty && max_weight.isEmpty && (pieces == "0 pc" || pieces == "0" || pieces == "") {
-//            // only weight and  max_pieces present
-//            return weight + "*"
+//            if weight.lowercased() != "0 kg" && weight != "" && weight != "-9"{
+//                return weight
+//            }
+//
+//            if (weight == "0 Kg" && max_pieces == "" && max_weight == "") || (weight == "" && max_pieces == "" && max_weight == "") || (weight == "-9" && max_pieces == "" && max_weight == ""){
+//                if pieces == "0 pc"{
+//                    return LocalizedString.NoInfo.localized
+//                }else{
+//                    return pieces + "*"
+//                }
+//            }
+//            if pieces != "" && max_weight != ""{
+//                if pieces != "0 pc"{
+//                    let pc = pieces.components(separatedBy: " ")
+//                    let weights = max_weight.components(separatedBy: " ")
+//
+//                    if pc.count > 0, weights.count > 0{
+//                        if let intmax_weight = Int(weights[0]), let intPieces = Int(pc[0]){
+//                            if intmax_weight != 0{
+//                                let str1 = "\(intmax_weight*intPieces) kg"
+//                                let str2 = " (\(intPieces) pc X \(intmax_weight) kg)"
+//                                return str1 + str2
+//                            }else{
+//                                return LocalizedString.NoBaggage.localized
+//                            }
+//                        }
+//                    }
+//                }else{
+//                    return LocalizedString.NoBaggage.localized
+//                }
+//            }
+//
+//            if weight != "" && max_pieces != ""{
+//                return weight + "*"
+//            }
 //        }
-        return LocalizedString.na.localized.uppercased()
+
+        return returnText//LocalizedString.na.localized.uppercased()
         
     }
     

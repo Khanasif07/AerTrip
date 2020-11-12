@@ -55,6 +55,30 @@ class BaggageAirlineInfoTableViewCell: UITableViewCell {
     }
     
     
+    func hideDimesionButton(){
+        
+        var detail: BaggageInfo?
+        self.dimensionButton.isHidden = true
+        if let obj = self.flightDetail?.baggage?.cabinBg?.infant {
+            detail = obj
+        }
+        if let obj = self.flightDetail?.baggage?.cabinBg?.child {
+            detail = obj
+        }
+        if let obj = self.flightDetail?.baggage?.cabinBg?.adult {
+            detail = obj
+        }
+        if let dimension = detail?.weight, let cm = detail?.dimension?.cm{
+            let weight = dimension.removeAllWhitespaces.lowercased().replacingOccurrences(of: "kg", with: "")
+            if weight.isEmpty || weight == "-9" || weight == "0" || cm.height == 0 || cm.width == 0 || cm.depth == 0 {
+                self.dimensionButton.isHidden = true
+            }else{
+                self.dimensionButton.isHidden = false
+            }
+        }
+        
+    }
+    
     private func configureCell() {
         self.airlineNameLabel.text = "\(self.flightDetail?.departCity ?? "") → \(self.flightDetail?.arrivalCity ?? "")"
 //        var finalDetails = ""

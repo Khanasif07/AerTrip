@@ -203,7 +203,7 @@ class HotelsSearchVC: BaseVC {
                 if parent.mainScrollView.contentOffset.y + parent.mainScrollView.height < parent.mainScrollView.contentSize.height{
                     if scrollView.contentOffset.y > 0.0 {
                         parent.mainScrollView.contentOffset.y = min(parent.mainScrollView.contentOffset.y + difference, parent.mainScrollView.contentSize.height - parent.mainScrollView.height)
-                        //scrollView.contentOffset = CGPoint.zero
+                        scrollView.contentOffset = CGPoint.zero
                     }
                 }
             } else {
