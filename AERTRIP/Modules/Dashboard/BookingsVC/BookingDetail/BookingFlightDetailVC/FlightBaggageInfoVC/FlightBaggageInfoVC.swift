@@ -19,6 +19,7 @@ class FlightBaggageInfoVC: BaseVC {
     let footerViewIdentifier = "BookingInfoEmptyFooterView"
     //let fareInfoHeaderViewIdentifier = "FareInfoHeaderView"
     let viewModel = BookingDetailVM()
+    weak var dimesionDelegate:BaggageDimesionPresentDelegate?
     
     override func initialSetup() {
         self.view.layoutIfNeeded()

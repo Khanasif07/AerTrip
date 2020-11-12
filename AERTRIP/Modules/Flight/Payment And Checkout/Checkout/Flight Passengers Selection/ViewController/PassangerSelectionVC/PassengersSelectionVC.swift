@@ -162,7 +162,7 @@ class PassengersSelectionVC: BaseVC {
     @IBAction func tapAddButton(_ sender: UIButton) {
         self.hideShowLoader(isHidden: false)
         AppFlowManager.default.presentHCSelectGuestsVC(delegate: self, productType: .flight)
-        delay(seconds: 1.6){[weak self] in
+        delay(seconds: 1.7){[weak self] in
             self?.hideShowLoader(isHidden: true)
         }
     }
@@ -322,10 +322,6 @@ extension PassengersSelectionVC: HCSelectGuestsVCDelegate{
 extension PassengersSelectionVC:PassengerSelectionVMDelegate{
     
     func startFechingConfirmationData(){
-//        delay(seconds: 0.2){
-//            AppGlobals.shared.startLoading()
-//        }
-        
         self.progressView.setProgress(0, animated: false)
 
                self.showProgressView()
@@ -361,7 +357,6 @@ extension PassengersSelectionVC:PassengerSelectionVMDelegate{
             guard let self = self else {return}
                 self.progressView.setProgress(0.5, animated: true)
             }
-//            self.addButtomView()
         }else{
             
             self.hideProgressView()

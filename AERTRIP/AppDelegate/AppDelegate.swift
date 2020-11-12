@@ -21,6 +21,8 @@ import FirebaseCore
 import IQKeyboardManager
 import Kingfisher
 
+var isSEDevice = false
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
@@ -60,6 +62,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared().shouldResignOnTouchOutside = true
         ImageCache.default.memoryStorage.config.totalCostLimit = 100
         ImageCache.default.cleanExpiredCache()
+        
+        
+        if UIDevice.current.name.contains(find: "SE"){
+            isSEDevice = true
+        }else{
+            isSEDevice = false
+        }
+        
         return true
     }
     

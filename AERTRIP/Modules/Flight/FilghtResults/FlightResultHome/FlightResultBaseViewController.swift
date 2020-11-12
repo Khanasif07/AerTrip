@@ -129,26 +129,15 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         statusBarStyle = .darkContent
     }
     
-    func addSwipeLeftGuesture(){
-        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
-        swipeRight.direction = .right
-        self.view.addGestureRecognizer(swipeRight)
-    }
-    
-    @objc func handleGesture(gesture: UISwipeGestureRecognizer) -> Void
-    {
-        UIView.animate(withDuration: 0.5, animations: {
-            self.navigationController?.view.viewWithTag(500)?.removeFromSuperview()
-            self.navigationController?.view.viewWithTag(2500)?.removeFromSuperview()
-            self.statusBarBlurView.removeFromSuperview()
-            self.navigationController?.viewControllers.removeLast()
-            self.navigationController?.popViewController(animated: true)
-        })
-    }
-    
     func addCustomBackgroundBlurView()
     {
-        
+        guard self.view.viewWithTag(500) == nil else {
+            // Added Blur view Behind Status bar to avoid content getting merged with status bars
+            statusBarBlurView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: statusBarHeight))
+            statusBarBlurView.effect = UIBlurEffect(style: .prominent)
+            self.navigationController?.view.addSubview(statusBarBlurView)
+            return
+        }
         visualEffectView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: visualEffectViewHeight))
         visualEffectView.effect = UIBlurEffect(style: .prominent)
         visualEffectView.contentView.backgroundColor = .clear//UIColor.white.withAlphaComponent(0.4)
@@ -175,7 +164,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.view.backgroundColor = .clear
-        self.navigationController?.view.addSubview(backView)
+        self.view.addSubview(backView)
         
         visualEffectView.contentView.addSubview(resultTitle)
         visualEffectView.contentView.addSubview(resultsubTitle)
@@ -257,7 +246,8 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        backView.removeFromSuperview()
+//        backView.removeFromSuperview()
+        toggleFiltersView(hidden: true)
         statusBarBlurView.removeFromSuperview()
         self.flightSearchResultVM.cancelAllWebserviceCalls()
     }
@@ -1182,34 +1172,31 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
     
     func updateDynamicFilters(filters : DynamicFilters) {
         
-    
-        
         let flightType = flightSearchResultVM.flightSearchType
-        
         
         switch flightType {
 
             case SINGLE_JOURNEY:
                         
-                guard let filterVc = self.flightFilterVC else { return }
-                var currentData = filterVc.updatedAircraftFilter
-                currentData.allAircraftsArray.append(contentsOf: filters.aircraft.allAircraftsArray.removeDuplicates())
-                currentData.allAircraftsArray = currentData.allAircraftsArray.removeDuplicates()
-                self.flightFilterVC?.updatedAircraftFilter = currentData
-                
-                printDebug("selected...\(currentData.selectedAircraftsArray.count)")
-            
+                delay(seconds: 0.5) {
+                    guard let filterVc = self.flightFilterVC else { return }
+                    var currentData = filterVc.updatedAircraftFilter
+                    currentData.allAircraftsArray.append(contentsOf: filters.aircraft.allAircraftsArray.removeDuplicates())
+                    currentData.allAircraftsArray = currentData.allAircraftsArray.removeDuplicates()
+                    self.flightFilterVC?.updatedAircraftFilter = currentData
+                }
             
         case RETURN_JOURNEY:
        
             if flightSearchResultVM.isDomestic {
-        
-                guard let filterVc = self.flightFilterVC else { return }
-                var currentData = filterVc.updatedAircraftFilter
-                currentData.allAircraftsArray.append(contentsOf: filters.aircraft.allAircraftsArray.removeDuplicates())
-                currentData.allAircraftsArray = currentData.allAircraftsArray.removeDuplicates()
-                self.flightFilterVC?.updatedAircraftFilter = currentData
-            
+                delay(seconds: 0.5) {
+                    guard let filterVc = self.flightFilterVC else { return }
+                  var currentData = filterVc.updatedAircraftFilter
+                    currentData.allAircraftsArray.append(contentsOf: filters.aircraft.allAircraftsArray.removeDuplicates())
+                    currentData.allAircraftsArray = currentData.allAircraftsArray.removeDuplicates()
+                    self.flightFilterVC?.updatedAircraftFilter = currentData
+                }
+                
             } else {
             
                 delay(seconds: 0.5) {
@@ -1222,13 +1209,14 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
         case  MULTI_CITY:
                     
             if flightSearchResultVM.isDomestic {
-                    
-                guard let filterVc = self.flightFilterVC else { return }
-                var currentData = filterVc.updatedAircraftFilter
-                currentData.allAircraftsArray.append(contentsOf: filters.aircraft.allAircraftsArray.removeDuplicates())
-                currentData.allAircraftsArray = currentData.allAircraftsArray.removeDuplicates()
-                self.flightFilterVC?.updatedAircraftFilter = currentData
-                        
+                delay(seconds: 0.5) {
+                    guard let filterVc = self.flightFilterVC else { return }
+                    var currentData = filterVc.updatedAircraftFilter
+                    currentData.allAircraftsArray.append(contentsOf: filters.aircraft.allAircraftsArray.removeDuplicates())
+                    currentData.allAircraftsArray = currentData.allAircraftsArray.removeDuplicates()
+                    self.flightFilterVC?.updatedAircraftFilter = currentData
+                }
+                
             } else {
                         
                 delay(seconds: 0.5) {

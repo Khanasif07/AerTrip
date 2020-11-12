@@ -50,7 +50,7 @@ class AerinVC: BaseVC {
         containerScrollView.alwaysBounceVertical = true
         containerScrollView.delegate = self
         
-        if UIDevice.current.name.contains(find: "SE"){
+        if isSEDevice{
             bottomViewImage.contentMode = .scaleAspectFit
             travelSafetyLabelBottom.constant = 40
         }else{
@@ -123,7 +123,7 @@ class AerinVC: BaseVC {
     override func setupFonts() {
         self.messageLabel.font = AppFonts.Regular.withSize(16.0)
         //self.weekendMessageLabel.font = AppFonts.Regular.withSize(17.0)
-        if UIDevice.current.name.contains(find: "SE"){
+        if isSEDevice{
             self.travelSafetyLabel.font = AppFonts.SemiBold.withSize(24.0)
         }else{
             self.travelSafetyLabel.font = AppFonts.SemiBold.withSize(28.0)

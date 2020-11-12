@@ -69,7 +69,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
     var selectedJourneyFK = [String]()
     var fewSeatsLeftViewHeight = 0
     var isInternational = false//For International results.
-
+    
     
     //MARK:- Initial Display Methods
     
@@ -159,7 +159,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                             }else{
                                 journey[j].leg[0].flights[k].isDepartureDateChange = false
                             }
-
+                            
                         }else{
                             journey[j].leg[0].flights[k].isDepartureTerminalChange = false
                             journey[j].leg[0].flights[k].isArrivalTerminalChange = false
@@ -168,7 +168,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                             journey[j].leg[0].flights[k].isArrivalAirportChange = false
                             
                             journey[j].leg[0].flights[k].isDepartureDateChange = false
-
+                            
                         }
                     }
                 }
@@ -236,12 +236,11 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
         if indexPath.section == journey.count{
             let changeAirportCell = tableView.dequeueReusableCell(withIdentifier: "ChangeAirportCell") as! ChangeAirportTableViewCell
             changeAirportCell.titleLabel.text = "Change of Airport"
-               
-            let myMutableString = NSMutableAttributedString(string: "While changing airports, re-checking baggage and going back through security may be necessary. Ensure you have ample time between transfers. Kindly check all terms regarding connection, baggage transfer, visas, etc. with the airlines directly before booking this itinerary.")// While changing airports While changing airports.")
-           
-//            myMutableString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.clear, range: NSRange(location:273,length:48))
+            
+            let myMutableString = NSMutableAttributedString(string: "While changing airports, re-checking baggage and going back through security may be necessary. Ensure you have ample time between transfers. Kindly check all terms regarding connection, baggage transfer, visas, etc. with the airlines directly before booking this itinerary.")
+            
             changeAirportCell.dataLabel.attributedText = myMutableString
-        
+            
             return changeAirportCell
         }else{
             let count = journey[indexPath.section].leg.first?.flights.count
@@ -256,15 +255,23 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         index = indexPath.row
                     }
                     
-                    if var flight = journey[indexPath.section].leg.first?.flights[index] {
+                    if let flight = journey[indexPath.section].leg.first?.flights[index] {
                         var amenitiesData = [String]()
                         
                         if let bgWeight = flight.bg?["ADT"]?.weight, let bgPieces = flight.bg?["ADT"]?.pieces {
                             if bgPieces != "" && bgPieces != "-9" && bgPieces != "-1" && bgPieces != "0 pc" && bgPieces != "0" {
-                                amenitiesData.append("Check-in Baggage \n(\(bgPieces))")
+                                if isSEDevice{
+                                    amenitiesData.append("Check-in Baggage (\(bgPieces))")
+                                }else{
+                                    amenitiesData.append("Check-in Baggage \n(\(bgPieces))")
+                                }
                             } else {
                                 if bgWeight != "" && bgWeight != "-9" && bgWeight != "-1" && bgWeight != "0 kg"{
-                                    amenitiesData.append("Check-in Baggage \n(\(bgWeight))")
+                                    if isSEDevice{
+                                        amenitiesData.append("Check-in Baggage (\(bgWeight))")
+                                    }else{
+                                        amenitiesData.append("Check-in Baggage \n(\(bgWeight))")
+                                    }
                                 }
                             }
                         }
@@ -280,13 +287,21 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                                                 self.journey[indexPath.section].leg[0].flights[index].bg = ["ADT":baggageStruct.init(weight: weight, pieces: pieces, note: "")]
                                                 
                                                 self.delegate?.reloadBaggageSuperScriptAtIndexPath()
-                                             
+                                                
                                                 if pieces != "" && pieces != "-9" && pieces != "-1" && pieces != "0 pc" && pieces != "0"
                                                 {
-                                                    amenitiesData.append("Check-in Baggage \n(\(pieces))")
+                                                    if isSEDevice{
+                                                        amenitiesData.append("Check-in Baggage (\(pieces))")
+                                                    }else{
+                                                        amenitiesData.append("Check-in Baggage \n(\(pieces))")
+                                                    }
                                                 }else{
                                                     if weight != "" && weight != "-9" && weight != "-1" && weight != "0 kg"{
-                                                        amenitiesData.append("Check-in Baggage \n(\(weight))")
+                                                        if isSEDevice{
+                                                            amenitiesData.append("Check-in Baggage (\(weight))")
+                                                        }else{
+                                                            amenitiesData.append("Check-in Baggage \n(\(weight))")
+                                                        }
                                                     }
                                                 }
                                             }
@@ -324,12 +339,11 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                                 flightDetailsCell.amenitiesCollectionView.reloadData()
                                 flightDetailsCell.amenitiesDisplayViewHeight.constant = 90
                                 flightDetailsCell.amenitiesCollectionView.reloadData()
-                                
                             }else{
                                 flightDetailsCell.amenitiesDisplayView.isHidden = true
                                 flightDetailsCell.amenitiesDisplayViewHeight.constant = 0
                             }
-                    }else{
+                        }else{
                             flightDetailsCell.amenitiesDisplayView.isHidden = true
                             flightDetailsCell.amenitiesDisplayViewHeight.constant = 0
                         }
@@ -339,7 +353,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         
                         let logoURL = "http://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/" + flight.al.uppercased() + ".png"
                         flightDetailsCell.setAirlineImage(with: logoURL)
-
+                        
                         if indexPath.row == 0{
                             let ap = journey[indexPath.section].ap
                             let departureAirportDetails = airportDetailsResult[ap[0]]
@@ -368,26 +382,56 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         flightDetailsCell.classNameLabel.layer.masksToBounds = true
                         
                         var bc = flight.bc
+                        //                        if bc != ""{
+                        //                            bc =  " (" + bc + ")"
+                        //                            if flight.ccChg == 1{
+                        //                                flightDetailsCell.classLabel.text = flight.al + " - " + flight.fn + "・"
+                        //
+                        //                                flightDetailsCell.classNameLabel.attributedText = flightDetailsCell.addAttributsForRange((" " + flight.cc + bc + " "), coloredString: (" " + flight.cc + bc + " "), color: AppColors.lightYellow)
+                        //                                flightDetailsCell.classNameLabel.textColor = UIColor.black
+                        //
+                        //                            }else{
+                        //                                flightDetailsCell.classLabel.text = flight.al + " - " + flight.fn + "・"
+                        //
+                        //                                flightDetailsCell.classNameLabel.attributedText = flightDetailsCell.addAttributsForRange("" + flight.cc + bc + " ", coloredString: flight.cc, color: UIColor.clear)
+                        //                                flightDetailsCell.classNameLabel.textColor = AppColors.themeGray40
+                        //
+                        //                            }
+                        //                        }else{
+                        //                            flightDetailsCell.classLabel.text = flight.al + " - " + flight.fn + "・"
+                        //                            flightDetailsCell.classNameLabel.text = flight.cc
+                        //                            flightDetailsCell.classNameLabel.textColor = UIColor(displayP3Red: 153.0/255.0, green: 153.0/255.0, blue: 153.0/255.0, alpha: 1.0)
+                        //                        }
+                        
+                        
+                        
                         if bc != ""{
-                            bc =  " (" + bc + ")"
+                            bc = " (" + bc + ")"
                             if flight.ccChg == 1{
-                                flightDetailsCell.classLabel.text = flight.al + " - " + flight.fn + "・"
-                                
-                                flightDetailsCell.classNameLabel.attributedText = flightDetailsCell.addAttributsForRange((" " + flight.cc + bc + " "), coloredString: (" " + flight.cc + bc + " "), color: AppColors.lightYellow)
                                 flightDetailsCell.classNameLabel.textColor = UIColor.black
-
+                                flightDetailsCell.classLabel.text = ""
+                                let lbl = flight.al + " - " + flight.fn + "・"
+                                let lbl1 = " " + flight.cc + bc + " "
+                                flightDetailsCell.classNameLabel.attributedText = flightDetailsCell.addAttributsForRange((lbl + lbl1), coloredString: (lbl1), color: AppColors.lightYellow)
                             }else{
-                                flightDetailsCell.classLabel.text = flight.al + " - " + flight.fn + "・"
-                                
-                                flightDetailsCell.classNameLabel.attributedText = flightDetailsCell.addAttributsForRange("" + flight.cc + bc + " ", coloredString: flight.cc, color: UIColor.clear)
                                 flightDetailsCell.classNameLabel.textColor = AppColors.themeGray40
-
+                                flightDetailsCell.classLabel.text = ""
+                                if flight.cc == "Premium Economy"{
+                                    let cc = "Premium E"
+                                    let lbl = flight.al + " - " + flight.fn + "・" + "" + cc + bc + " "
+                                    flightDetailsCell.classNameLabel.attributedText = flightDetailsCell.addAttributsForRange(lbl, coloredString: cc, color: UIColor.clear)
+                                }else{
+                                    let lbl = flight.al + " - " + flight.fn + "・" + "" + flight.cc + bc + " "
+                                    flightDetailsCell.classNameLabel.attributedText = flightDetailsCell.addAttributsForRange(lbl, coloredString: flight.cc, color: UIColor.clear)
+                                }
                             }
                         }else{
-                            flightDetailsCell.classLabel.text = flight.al + " - " + flight.fn + "・"
-                            flightDetailsCell.classNameLabel.text = flight.cc
-                            flightDetailsCell.classNameLabel.textColor = UIColor(displayP3Red: 153.0/255.0, green: 153.0/255.0, blue: 153.0/255.0, alpha: 1.0)
+                            flightDetailsCell.classNameLabel.textColor = AppColors.themeGray40
+                            flightDetailsCell.classLabel.text = ""
+                            flightDetailsCell.classNameLabel.text = flight.al + " - " + flight.fn + "・" + flight.cc
                         }
+                        
+                        
                         
                         flightDetailsCell.arrivalAirportLabel.text = flight.to
                         flightDetailsCell.arrivalTimeLabel.text = flight.at
@@ -406,8 +450,8 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         }else{
                             flightDetailsCell.arrivalAirportLabel.attributedText = flightDetailsCell.addAttributsForRange(flight.to, coloredString: flight.to, color: AppColors.clear)
                         }
-
-//                        flightDetailsCell.setClassNameLabelWidth()
+                        
+                        //                        flightDetailsCell.setClassNameLabelWidth()
                         
                         flightDetailsCell.arrivalPerformaceButton.isUserInteractionEnabled = false
                         flightDetailsCell.onArrivalPerformanceLabel.text = ""
@@ -423,25 +467,42 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                             
                             flightDetailsCell.arrivalPerformaceButton.isUserInteractionEnabled = true
                             
-                            flightDetailsCell.onArrivalPerformanceLabel.text = "\(flight.ontimePerformance!)% On-time"
+                            
                             
                             flightDetailsCell.onArrivalPerformanceView.isHidden = false
-                            flightDetailsCell.onArrivalPerformanceViewWidth.constant = 100
                             
-                            let onTimePerformanceInPercent = flight.ontimePerformance!
-                            let delayedPerformanceInPercent = flight.latePerformance!
-                            let cancelledPerformanceInPercent = flight.cancelledPerformance!
                             
-                            flightDetailsCell.onTimePerformanceSubViewWidth.constant = CGFloat(onTimePerformanceInPercent * Int(flightDetailsCell.onArrivalPerformanceViewWidth.constant/100))
-                            flightDetailsCell.delayedPerformanceSubViewWidth.constant = CGFloat(delayedPerformanceInPercent * Int(flightDetailsCell.onArrivalPerformanceViewWidth.constant/100))
-                            flightDetailsCell.cancelledPerformanceSubViewWidth.constant = CGFloat(cancelledPerformanceInPercent * Int(flightDetailsCell.onArrivalPerformanceViewWidth.constant/100))
+                            var viewWidth : CGFloat = 0
+                            var ontimeText = ""
+                            if isSEDevice{
+                                viewWidth = 65.0
+                                ontimeText = "%  On-time"
+                            }else{
+                                viewWidth = 87.0
+                                ontimeText = "% On-time"
+                            }
+                            
+                            flightDetailsCell.onArrivalPerformanceLabel.text = "\(flight.ontimePerformance ?? 0)\(ontimeText)"
+
+                            flightDetailsCell.onArrivalPerformanceViewWidth.constant = viewWidth
+                            
+                            let onTimePerformanceInPercent = flight.ontimePerformance ?? 0
+                            let delayedPerformanceInPercent = flight.latePerformance ?? 0
+                            let cancelledPerformanceInPercent = flight.cancelledPerformance ?? 0
+                            
+                            flightDetailsCell.onTimePerformanceSubViewWidth.constant = CGFloat(onTimePerformanceInPercent * Int(flightDetailsCell.onArrivalPerformanceViewWidth.constant/viewWidth))
+                            flightDetailsCell.delayedPerformanceSubViewWidth.constant = CGFloat(delayedPerformanceInPercent * Int(flightDetailsCell.onArrivalPerformanceViewWidth.constant/viewWidth))
+                            flightDetailsCell.cancelledPerformanceSubViewWidth.constant = CGFloat(cancelledPerformanceInPercent * Int(flightDetailsCell.onArrivalPerformanceViewWidth.constant/viewWidth))
                         }
+                        
+                        
+                        print("isSE=",isSEDevice)
                         
                         flightDetailsCell.arrivalPerformaceButton.tag = (indexPath.section*100)+index
                         flightDetailsCell.arrivalPerformaceButton.addTarget(self, action: #selector(flightArrivalPerfomaceButtonClicked(_:)), for: .touchUpInside)
                         
                         if flight.oc != flight.al{
-                            flightDetailsCell.operatorLabel.text = "Operated by \(flight.oc!)"
+                            flightDetailsCell.operatorLabel.text = "Operated by \(flight.oc ?? "")"
                         }else{
                             flightDetailsCell.operatorLabel.text = ""
                         }
@@ -494,7 +555,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                             let string_to_color = arrivalAirportDetails.c! + ", " + arrivalAirportDetails.cn!
                             
                             flightDetailsCell.arrivalAirportAddressLabel.attributedText = flightDetailsCell.addAttributsForRange(main_string, coloredString: string_to_color, color: AppColors.themeBlack, isForground: true)
-
+                            
                         }else{
                             flightDetailsCell.arrivalAirportAddressLabel.text = ""
                         }
@@ -502,9 +563,9 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         if let departureAirportDetails = airportDetailsResult[flight.fr]{
                             let main_string1 = departureAirportDetails.n! + "\n" + departureAirportDetails.c! + ", " + departureAirportDetails.cn!
                             let string_to_color1 = departureAirportDetails.c! + ", " + departureAirportDetails.cn!
-
+                            
                             flightDetailsCell.departureAirportAddressLabel.attributedText = flightDetailsCell.addAttributsForRange(main_string1, coloredString: string_to_color1, color: AppColors.themeBlack, isForground: true)
-
+                            
                         }else{
                             flightDetailsCell.departureAirportAddressLabel.text = ""
                         }
@@ -528,7 +589,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         }
                         
                         flightDetailsCell.setJourneyTitle()
-                                                
+                        
                         flightDetailsCell.count = count ?? 0
                         flightDetailsCell.halt = flight.halt
                         flightDetailsCell.durationTitle = journey.first?.durationTitle ?? ""
@@ -557,20 +618,20 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                             flightDetailsCell.topSeperatorViewHeight.constant = 0.0
                             flightDetailsCell.topSeperatorView.isHidden = true
                         }
-//                            flightDetailsCell.topSeperatorViewHeight.constant = 0
-//                            flightDetailsCell.topSeperatorView.isHidden = true
-//                        }else if tableView.numberOfRows(inSection: indexPath.section) > 1{
-//                            if indexPath.row == 0{
-//                                flightDetailsCell.topSeperatorView.isHidden = false
-//                                flightDetailsCell.topSeperatorViewHeight.constant = 0.5
-//                            }else{
-//                                flightDetailsCell.topSeperatorView.isHidden = true
-//                                flightDetailsCell.topSeperatorViewHeight.constant = 0
-//                            }
-//                        }else{
-//                            flightDetailsCell.topSeperatorViewHeight.constant = 0.5
-//                            flightDetailsCell.topSeperatorView.isHidden = false
-//                        }
+                        //                            flightDetailsCell.topSeperatorViewHeight.constant = 0
+                        //                            flightDetailsCell.topSeperatorView.isHidden = true
+                        //                        }else if tableView.numberOfRows(inSection: indexPath.section) > 1{
+                        //                            if indexPath.row == 0{
+                        //                                flightDetailsCell.topSeperatorView.isHidden = false
+                        //                                flightDetailsCell.topSeperatorViewHeight.constant = 0.5
+                        //                            }else{
+                        //                                flightDetailsCell.topSeperatorView.isHidden = true
+                        //                                flightDetailsCell.topSeperatorViewHeight.constant = 0
+                        //                            }
+                        //                        }else{
+                        //                            flightDetailsCell.topSeperatorViewHeight.constant = 0.5
+                        //                            flightDetailsCell.topSeperatorView.isHidden = false
+                        //                        }
                     }
                     return flightDetailsCell
                 }else{
@@ -584,7 +645,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                     }
                     
                     if let flight = journey[indexPath.section].leg.first?.flights[index]{
-
+                        
                         if airportDetailsResult != nil{
                             
                             var layoverCityName = ""
@@ -633,19 +694,19 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
     //MARK:- Scrollview Delegate
     func scrollViewDidScroll(_ scrollView: UIScrollView)
     {
-//        var isHidden = false
-//        var viewHeight = 0.0
-//        if scrollView.contentOffset.y < 0{
-//            isHidden = false
-//            viewHeight = 0.5
-//        }else{
-//            isHidden = true
-//            viewHeight = 0
-//        }
-//        if let cell = flightInfoTableView.cellForRow(at: IndexPath(item: 0, section: 0)) as? FlightDetailsTableViewCell {
-//            cell.topSeperatorView.isHidden = isHidden
-//            cell.topSeperatorViewHeight.constant = CGFloat(viewHeight)
-//        }
+        //        var isHidden = false
+        //        var viewHeight = 0.0
+        //        if scrollView.contentOffset.y < 0{
+        //            isHidden = false
+        //            viewHeight = 0.5
+        //        }else{
+        //            isHidden = true
+        //            viewHeight = 0
+        //        }
+        //        if let cell = flightInfoTableView.cellForRow(at: IndexPath(item: 0, section: 0)) as? FlightDetailsTableViewCell {
+        //            cell.topSeperatorView.isHidden = isHidden
+        //            cell.topSeperatorViewHeight.constant = CGFloat(viewHeight)
+        //        }
     }
     
     //MARK:- Calculate Travelling Time
@@ -669,10 +730,10 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
     @objc func flightArrivalPerfomaceButtonClicked(_ sender:UIButton)
     {
         let arrivalPerformanceView = ArrivalPerformaceVC(nibName: "ArrivalPerformaceVC", bundle: nil)
-
+        
         let section = sender.tag / 100
         let row = sender.tag % 100
-
+        
         if let flight = journey[section].leg.first?.flights[row]{
             if flight.ontimePerformanceDataStoringTime != nil{
                 arrivalPerformanceView.observationCount = "\(flight.observationCount!)"
@@ -687,15 +748,15 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
     }
     
     // Monika
-//    @objc func flightArrivalPerfomaceButtonClicked(_ sender:UIButton)
-//    {
-//        let section = sender.tag / 100
-//        let row = sender.tag % 100
-//
-//        if let flight = journey[section].leg.first?.flights[row]{
-//            arrivalPerformanceDelegate?.getArrivalPerformanceData(flight: flight)
-//        }
-//    }
+    //    @objc func flightArrivalPerfomaceButtonClicked(_ sender:UIButton)
+    //    {
+    //        let section = sender.tag / 100
+    //        let row = sender.tag % 100
+    //
+    //        if let flight = journey[section].leg.first?.flights[row]{
+    //            arrivalPerformanceDelegate?.getArrivalPerformanceData(flight: flight)
+    //        }
+    //    }
     
     //MARK:- API Call
     func callAPIforFlightsOnTimePerformace(origin: String, destination: String, airline: String, flight_number: String, index:[Int],FFK:String)
@@ -776,8 +837,8 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                     let seconds = calendar.component(.second, from: date)
                     
                     let newArr = ["Time":"\(hour):\(minutes):\(seconds)",
-                        "selectedJourneyFK":self.selectedJourneyFK,
-                        "BaggageDataResponse":self.baggageData] as [String : Any]
+                                  "selectedJourneyFK":self.selectedJourneyFK,
+                                  "BaggageDataResponse":self.baggageData] as [String : Any]
                     self.appdelegate.flightBaggageMutableArray.add(newArr)
                     self.flightInfoTableView.reloadData()
                     delay(seconds: 0.3) {

@@ -59,9 +59,9 @@ class ADEventFilterVC: BaseVC {
     //MARK:-
     override func initialSetup() {
         
-        if !ADEventFilterVM.shared.voucherTypes.isEmpty {
-            ADEventFilterVM.shared.voucherTypes.insert(LocalizedString.ALL.localized, at: 0)
-        }
+//        if !ADEventFilterVM.shared.voucherTypes.isEmpty {
+//            ADEventFilterVM.shared.voucherTypes.insert(LocalizedString.ALL.localized, at: 0)
+//        }
         
         self.topNavBar.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isDivider: false)
         
@@ -278,7 +278,7 @@ extension ADEventFilterVC: TopNavigationViewDelegate {
                 vc.setFilterValues()
             }
             else if let vc = viewController as? ADVoucherTypeVC {
-                vc.tableView.reloadData()
+                vc.setFilterValues()
             }
         }
         checkDoneBtnState()

@@ -368,14 +368,10 @@ extension UpgradePlanContrainerVC : FareBreakupVCDelegate{
                         self.isModalInPresentation = false
                     }
                     vc.viewModel.newItineraryData = self.viewModel.itineraryData
-                    if let nav = AppFlowManager.default.currentNavigation{
-                        nav.pushViewController(vc, animated: true)
-                    }else{
-                        let nav = UINavigationController(rootViewController: vc)
-                        nav.modalPresentationStyle = .fullScreen
-                        nav.modalPresentationCapturesStatusBarAppearance = true
-                        self.present(nav, animated: true, completion: nil)
-                    }
+                    let nav = UINavigationController(rootViewController: vc)
+                    nav.modalPresentationStyle = .fullScreen
+                    nav.modalPresentationCapturesStatusBarAppearance = true
+                    self.present(nav, animated: true, completion: nil)
                 }
             }else{
                 AppGlobals.shared.showErrorOnToastView(withErrors: errorCodes, fromModule: .flightConfirmation)

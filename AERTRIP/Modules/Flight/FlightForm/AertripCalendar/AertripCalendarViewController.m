@@ -594,7 +594,11 @@
     
     
     //date cell
-    self.customCalenderView.rowHeight = 70.0;
+    if (self.view.frame.size.width > 320) {
+        self.customCalenderView.rowHeight = 70.0;
+    } else {
+        self.customCalenderView.rowHeight = 50.0;//70.0;
+    }
     self.customCalenderView.appearance.titleDefaultColor = [UIColor blackColor];
     self.customCalenderView.appearance.titleFont = [UIFont fontWithName:@"SourceSansPro-Regular" size:20.0];
     self.customCalenderView.swipeToChooseGesture.enabled = YES;
