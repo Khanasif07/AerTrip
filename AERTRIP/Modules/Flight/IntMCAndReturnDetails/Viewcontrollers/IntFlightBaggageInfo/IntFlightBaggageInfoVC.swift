@@ -140,7 +140,7 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
             
             if combineString != ""{
                 
-                displayTxt = displayTxt + "*   " + combineString + "\n"
+                displayTxt = displayTxt + "✶   " + combineString + "\n"
                 
                 displayTxt = displayTxt + "•   Baggage details are indicative and subject to change without prior notice."
                 

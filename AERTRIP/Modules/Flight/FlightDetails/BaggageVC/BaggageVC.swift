@@ -99,8 +99,8 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
             var displayTxt = ""
             
             if combineString != ""{
-                displayTxt = displayTxt + "*   " + combineString + "\n"
-                
+                displayTxt = displayTxt + "✶   " + combineString + "\n"
+                    
                 displayTxt = displayTxt + "•   Baggage details are indicative and subject to change without prior notice."
                 
                 var strArray = [String]()
@@ -508,10 +508,20 @@ extension String {
             attributedString.addAttribute(NSAttributedString.Key.font, value: font, range: range)
         }
         
+        if attributedString.string.contains("✶"){
+            let range = (self as NSString).range(of: "✶")
+            let font : UIFont = AppFonts.SemiBold.withSize(9)
+
+            attributedString.addAttribute(NSAttributedString.Key.font, value: font, range: range)
+
+        }
+        
         guard let characterSpacing = characterSpacing else {return attributedString}
         
         
         attributedString.addAttribute(NSAttributedString.Key.kern, value: characterSpacing, range: NSRange(location: 0, length: attributedString.length))
+        
+        
         
         return attributedString
     }
