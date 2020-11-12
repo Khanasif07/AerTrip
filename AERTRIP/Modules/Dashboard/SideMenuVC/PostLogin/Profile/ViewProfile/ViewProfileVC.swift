@@ -114,9 +114,9 @@ class ViewProfileVC: BaseVC {
     }
     
     override func dataChanged(_ note: Notification) {
-        if let noti = note.object as? ATNotification, noti == .profileSavedOnServer {
+//        if let noti = note.object as? ATNotification, noti == .profileSavedOnServer {
             // self.viewModel.webserviceForGetTravelDetail()
-        }
+//        }
     }
     
     

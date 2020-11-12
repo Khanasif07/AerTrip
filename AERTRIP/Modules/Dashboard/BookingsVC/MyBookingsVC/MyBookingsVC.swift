@@ -70,7 +70,9 @@ class MyBookingsVC: BaseVC {
     
     override func dataChanged(_ note: Notification) {
         if let noti = note.object as? ATNotification {
-            if noti == .myBookingFilterApplied {
+            
+            switch noti {
+            case .myBookingFilterApplied:
                 if  MyBookingFilterVM.shared.isFilterAplied() {
                     self.topNavBar.firstRightButton.isSelected = true
                     self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "bookingFilterIconSelected"), selectedImage: #imageLiteral(resourceName: "bookingFilterIconSelected"))
@@ -78,14 +80,14 @@ class MyBookingsVC: BaseVC {
                     self.topNavBar.firstRightButton.isSelected = false
                     self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "bookingFilterIcon"), selectedImage: #imageLiteral(resourceName: "bookingFilterIcon"))
                 }
-            }
-            else if noti == .myBookingFilterCleared {
+            case .myBookingFilterCleared:
                 self.topNavBar.firstRightButton.isSelected = false
                 self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "bookingFilterIcon"), selectedImage: #imageLiteral(resourceName: "bookingFilterIcon"))
                 MyBookingFilterVM.shared.setToDefault()
-            }
-            else if noti == .myBookingCasesRequestStatusChanged {
+            case .myBookingCasesRequestStatusChanged:
                 MyBookingsVM.shared.getBookings(showProgress: true)
+            default:
+                break
             }
         }
     }

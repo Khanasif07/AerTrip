@@ -88,12 +88,19 @@ class MainHomeVC: BaseVC {
     }
     
     override func dataChanged(_ note: Notification) {
-        if let noti = note.object as? ATNotification, noti == .userLoggedInSuccess {
-            self.scrollViewSetup()
-            self.makeDefaultSetup()
-        }
-        else if let noti = note.object as? ATNotification, noti == .profileChanged {
-            self.setUserDataOnProfileHeader()
+        
+        if let noti = note.object as? ATNotification {
+            
+            switch noti {
+            case .userLoggedInSuccess(let successJson):
+                let fromFlights = successJson["flights"].boolValue
+                self.scrollViewSetup(fromFlights)
+                self.makeDefaultSetup()
+            case .profileChanged:
+                self.setUserDataOnProfileHeader()
+            default:
+                break
+            }
         }
     }
     
@@ -124,7 +131,7 @@ class MainHomeVC: BaseVC {
         }
     }
     
-    private func scrollViewSetup() {
+    private func scrollViewSetup(_ fromFlights: Bool = false) {
         
         //set content size
         

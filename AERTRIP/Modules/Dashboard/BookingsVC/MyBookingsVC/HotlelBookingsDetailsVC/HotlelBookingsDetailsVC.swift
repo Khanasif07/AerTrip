@@ -107,8 +107,11 @@ class HotlelBookingsDetailsVC: BaseVC {
     
     override func dataChanged(_ note: Notification) {
         if let noti = note.object as? ATNotification {
-            if noti == .myBookingCasesRequestStatusChanged {
+            switch noti {
+            case .myBookingCasesRequestStatusChanged:
                 self.viewModel.getBookingDetail(showProgress: true)
+            default:
+                break
             }
         }
     }
