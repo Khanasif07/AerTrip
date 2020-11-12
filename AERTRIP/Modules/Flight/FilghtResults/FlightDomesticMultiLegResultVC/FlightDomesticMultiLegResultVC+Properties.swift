@@ -224,7 +224,8 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         
     }
     
-    func checkForOverlappingFlights(shouldDisplayToast : Bool = true) {
+    func checkForOverlappingFlights(displayToast : Bool = true) {
+      
         fareBreakupVC?.bookButton.isEnabled = true
         
         for i in 0 ..< self.viewModel.numberOfLegs {
@@ -237,7 +238,6 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         var msg = ""
         var finalFrame : CGRect = CGRect.zero
         var shouldFadeAllToast = false
-        
         
                 for i in 0 ..< (selectedJourneys.count - 1) {
                     
@@ -331,7 +331,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         
         
         delay(seconds: 0.5) {
-            if !msg.isEmpty {
+            if !msg.isEmpty && displayToast {
                 
                 if let parentVC = self.parent {
 //                    printDebug("message...\(msg)")
@@ -341,8 +341,29 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
                 
             }
         }
+                
+    }
+    
+    
+    
+    func showMessageForIncompatableFlights(tableIndex : Int){
         
+        switch tableIndex {
+        
+        case 0:
 
+            
+            
+            printDebug("")
+
+            
+        default:
+            
+            printDebug("")
+        
+        
+        }
+        
         
     }
     

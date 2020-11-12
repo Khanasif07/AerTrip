@@ -355,6 +355,18 @@ extension AdonsVM {
           }
           return isOtherSelected
       }
+    
+    func isSpecialRequestAdded() -> Bool {
+        let dataStore = AddonsDataStore.shared
+        var isSpecialRequestAdded = false
+
+        dataStore.flightsWithData.forEach { (flight) in
+            if !isSpecialRequestAdded{
+                isSpecialRequestAdded = !flight.specialRequest.isEmpty
+            }
+        }
+        return isSpecialRequestAdded
+    }
       
     
     func setOthersString() {
@@ -373,7 +385,6 @@ extension AdonsVM {
                     
                     othersTotal += other.price * other.othersSelectedFor.count
 
-                    
                     other.othersSelectedFor.forEach { (passenger) in
                         count += 1
 //                        guard let desc = other.ssrName?.name else { return }
@@ -381,7 +392,11 @@ extension AdonsVM {
                     }
                 }
             }
-            description = "\(LocalizedString.Total.localized) : ₹\(othersTotal.commaSeprated)"
+            description = "\(LocalizedString.Total.localized) : ₹\(othersTotal.commaSeprated) "
+        }
+        
+        if self.isSpecialRequestAdded() {
+            description = description + "+ Special Request"
         }
         
         if description.isEmpty {

@@ -319,15 +319,12 @@ extension FlightDomesticMultiLegResultVC {
                 
                 self.updateSelectedJourney(index: index)
 
-                
-                
-                self.checkForOverlappingFlights(shouldDisplayToast: false)
+                self.checkForOverlappingFlights(displayToast: true)
                 
                 tableView.isScrollEnabled = true
                 tableView.scrollsToTop = true
                 tableView.reloadData()
                 
-
                 
     //            if self.viewModel.resultsTableStates[index] == .showExpensiveFlights {
     //                self.setExpandedStateFooterAt(index: index)

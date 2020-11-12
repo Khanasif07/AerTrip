@@ -175,7 +175,6 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
 //                self.immediateAirportWidth.constant = size.width + 20
 //            }
             
-            
                 let font = AppFonts.Regular.withSize(14)
                 let fontAttributes = [NSAttributedString.Key.font: font]
                 let myText = journey.intermediateAirports
@@ -185,7 +184,6 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
         }
         
         baggageSuperScript = journey.baggageSuperScript
-        
         
         smartIconsArray = journey.smartIconArray
         smartIconCollectionView.reloadData()

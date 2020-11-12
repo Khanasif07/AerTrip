@@ -87,7 +87,7 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
            if flightSearchType == RETURN_JOURNEY { 
                checkForComboFares()
            }
-           checkForOverlappingFlights()
+           checkForOverlappingFlights(displayToast : false)
            setTotalFare()
 //        tableView.reloadData()
 //        animateJourneyCompactView(for: tableView)

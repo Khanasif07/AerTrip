@@ -412,6 +412,11 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         resultBaseVC.flightSearchType = flightSearchResultVM.flightSearchType
         resultBaseVC.flightSearchResultVM = flightSearchResultVM
         resultBaseVC.viewModel.flightSearchParameters = self.flightSearchParameters
+        
+        let sharedSortOrder = calculateSortOrder()
+        resultBaseVC.viewModel.sortOrder = sharedSortOrder.0
+        resultBaseVC.viewModel.isConditionReverced = sharedSortOrder.1
+        
         domesticMultiLegResultVC = resultBaseVC
         addChildView(resultBaseVC)
     }
@@ -444,6 +449,11 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         resultBaseVC.numberOfLegs = self.numberOfLegs
         resultBaseVC.flightSearchResultVM = self.flightSearchResultVM
         resultBaseVC.viewModel.flightSearchParameters = self.flightSearchParameters
+        
+        let sharedSortOrder = calculateSortOrder()
+        resultBaseVC.viewModel.sortOrder = sharedSortOrder.0
+        resultBaseVC.viewModel.isConditionReverced = sharedSortOrder.1
+        
         addChildView(resultBaseVC)
         self.intMultiLegResultVC = resultBaseVC
     }
@@ -458,14 +468,10 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         resultBaseVC.viewModel.bookFlightObject = flightSearchResultVM.bookFlightObject
         resultBaseVC.viewModel.flightSearchResultVM = flightSearchResultVM
         resultBaseVC.viewModel.flightSearchParameters = self.flightSearchParameters
-        
+
         let sharedSortOrder = calculateSortOrder()
-        printDebug("sharedSortOrder....\(sharedSortOrder)")
         resultBaseVC.viewModel.sortOrder = sharedSortOrder.0
         resultBaseVC.viewModel.isConditionReverced = sharedSortOrder.1
-        
-        printDebug("resultBaseVC.viewModel.sortOrder...\(resultBaseVC.viewModel.sortOrder)")
-        printDebug("resultBaseVC.viewModel.isConditionReverced...\(resultBaseVC.viewModel.isConditionReverced)")
         
         addChildView(resultBaseVC)
         singleJourneyResultVC = resultBaseVC
@@ -508,9 +514,6 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         }
         
     }
-    
-    
-    
     
     
     func setupResultView() {
@@ -789,7 +792,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         let x = UIScreen.main.bounds.width - 40
         infoButton.frame = CGRect(x: x, y: statusBarHeight +  7, width: 30, height: 30)
         infoButton.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
-        
+        infoButton.isHidden = true
         
     }
     
@@ -1426,7 +1429,8 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                 if let domesticMLResultVC = domesticMultiLegResultVC {
                     filterUpdateWorkItem = DispatchWorkItem {
                         let journeyArray = resultVM.getJourneyDisplayArrayFor(index:  index)
-                        domesticMLResultVC.updatewithArray(index: index , updatedArray: journeyArray, sortOrder: resultVM.getSortOrder())
+                        let sharedSortOrder = self.calculateSortOrder()
+                        domesticMLResultVC.updatewithArray(index: index , updatedArray: journeyArray, sortOrder: sharedSortOrder.0)
                         domesticMLResultVC.updateAirportDetailsArray(resultVM.getAllAirportsArray())
                         domesticMLResultVC.updateAirlinesDetailsArray(resultVM.getAirlineDetailsArray())
                         domesticMLResultVC.updateTaxesArray(resultVM.getTaxesDetailsArray())
@@ -1437,14 +1441,14 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                     }
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: filterUpdateWorkItem!)
                 }
-            }
-            else {
+            } else {
             filterUpdateWorkItem?.cancel()
             filterUpdateWorkItem = DispatchWorkItem {
                 let journeyArray = resultVM.getIntJourneyDisplayArrayFor(index: index)
                 guard let intMCAndReturnVC = self.intMultiLegResultVC else { return }
                 intMCAndReturnVC.airlineCode = self.airlineCode
-                intMCAndReturnVC.updateWithArray( journeyArray, sortOrder: resultVM.getSortOrder())
+                let sharedSortOrder = self.calculateSortOrder()
+                intMCAndReturnVC.updateWithArray( journeyArray, sortOrder: sharedSortOrder.0)
                 intMCAndReturnVC.updateAirportDetailsArray(resultVM.getAllIntAirportsArray())
                 intMCAndReturnVC.updateAirlinesDetailsArray(resultVM.getIntAirlineDetailsArray())
                 intMCAndReturnVC.updateTaxesArray(resultVM.getTaxesDetailsArray())
@@ -1460,7 +1464,8 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                 filterUpdateWorkItem = DispatchWorkItem {
                     guard let domesticMLResultVC = self.domesticMultiLegResultVC else { return }
                     let journeyArray = self.flightSearchResultVM.getJourneyDisplayArrayFor(index: index )
-                    domesticMLResultVC.updatewithArray(index: index , updatedArray: journeyArray, sortOrder: self.flightSearchResultVM.getSortOrder())
+                    let sharedSortOrder = self.calculateSortOrder()
+                    domesticMLResultVC.updatewithArray(index: index , updatedArray: journeyArray, sortOrder: sharedSortOrder.0)
                     domesticMLResultVC.updateAirportDetailsArray(resultVM.getAllAirportsArray())
                     domesticMLResultVC.updateAirlinesDetailsArray(resultVM.getAirlineDetailsArray())
                     domesticMLResultVC.updateTaxesArray(resultVM.getTaxesDetailsArray())
@@ -1473,7 +1478,8 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                 filterUpdateWorkItem = DispatchWorkItem(block: {
                     let journeyArray = resultVM.getIntJourneyDisplayArrayFor(index: index)
                     guard let intMCAndReturnVC = self.intMultiLegResultVC else { return }
-                    intMCAndReturnVC.updateWithArray( journeyArray, sortOrder: resultVM.getSortOrder())
+                    let sharedSortOrder = self.calculateSortOrder()
+                    intMCAndReturnVC.updateWithArray( journeyArray, sortOrder: sharedSortOrder.0)
                     intMCAndReturnVC.updateAirportDetailsArray(resultVM.getAllIntAirportsArray())
                     intMCAndReturnVC.updateAirlinesDetailsArray(resultVM.getIntAirlineDetailsArray())
                     intMCAndReturnVC.updateTaxesArray(resultVM.getTaxesDetailsArray())

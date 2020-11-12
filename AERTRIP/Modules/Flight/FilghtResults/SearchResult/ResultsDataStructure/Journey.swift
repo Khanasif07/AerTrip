@@ -438,7 +438,6 @@ public class Journey: Codable , Equatable {
                     
                 }
                 
-        
             }
         } else {
 
