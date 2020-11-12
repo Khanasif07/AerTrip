@@ -98,6 +98,7 @@
     [super viewDidLoad];
     [self setupInitials];
     [self setAerinSearchClosure];
+    [self setLoginClosure];
     //Change for flight form not fill for some case.
     self.viewModel.isSettingForMulticity = false;
 }
@@ -214,6 +215,14 @@
     __weak typeof(self) weakSelf = self;
     [self.bridgingObj setOnFetchingFlightFormData:^(NSMutableDictionary<NSString *,id> * dict) {
         [weakSelf.viewModel performFlightSearchWith:dict];
+    }];
+}
+
+-(void)setLoginClosure {
+    self.bridgingObj = [SwiftObjCBridgingController shared];
+    __weak typeof(self) weakSelf = self;
+    [self.bridgingObj setOnResetRecentSearches:^{
+        [weakSelf.viewModel getRecentSearches];
     }];
 }
 

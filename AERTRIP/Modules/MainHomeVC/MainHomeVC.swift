@@ -136,12 +136,22 @@ class MainHomeVC: BaseVC {
         //set content size
         
         //setup side menu controller
-        let sideVC = self.createSideMenu()
-        sideVC.view.frame = CGRect(x: UIDevice.screenWidth * 0.0, y: 0.0, width: UIDevice.screenWidth, height: UIDevice.screenHeight)
-        
-        self.contentView.addSubview(sideVC.view)
-        self.addChild(sideVC)
-        sideVC.didMove(toParent: self)
+        if fromFlights {
+            if let pkSideMenu = children.first as? PKSideMenuController {
+                let sideMenu = SideMenuVC.instantiate(fromAppStoryboard: .Dashboard)
+                sideMenu.delegate = self
+                self.sideMenuVC = sideMenu
+                pkSideMenu.menuViewController(sideMenu)
+                SwiftObjCBridgingController.shared.resetRecentSearches()
+            }
+        } else {
+            let sideVC = self.createSideMenu()
+            sideVC.view.frame = CGRect(x: UIDevice.screenWidth * 0.0, y: 0.0, width: UIDevice.screenWidth, height: UIDevice.screenHeight)
+            
+            self.contentView.addSubview(sideVC.view)
+            self.addChild(sideVC)
+            sideVC.didMove(toParent: self)
+        }
         
         if let _ = UserInfo.loggedInUserId {
             //setup view profile vc

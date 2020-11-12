@@ -83,6 +83,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)removeLastLegFromJourney;
 -(void)addFlightLegForMulticityJourney;
 -(MulticityCalendarVM*)prepareVMForMulticityCalendar:(NSUInteger)currentIndex;
+-(void)getRecentSearches;
 
 
 @property (strong , nonatomic) NSString * airlineCode;
