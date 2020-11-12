@@ -1172,34 +1172,31 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
     
     func updateDynamicFilters(filters : DynamicFilters) {
         
-    
-        
         let flightType = flightSearchResultVM.flightSearchType
-        
         
         switch flightType {
 
             case SINGLE_JOURNEY:
                         
-                guard let filterVc = self.flightFilterVC else { return }
-                var currentData = filterVc.updatedAircraftFilter
-                currentData.allAircraftsArray.append(contentsOf: filters.aircraft.allAircraftsArray.removeDuplicates())
-                currentData.allAircraftsArray = currentData.allAircraftsArray.removeDuplicates()
-                self.flightFilterVC?.updatedAircraftFilter = currentData
-                
-                printDebug("selected...\(currentData.selectedAircraftsArray.count)")
-            
+                delay(seconds: 0.5) {
+                    guard let filterVc = self.flightFilterVC else { return }
+                    var currentData = filterVc.updatedAircraftFilter
+                    currentData.allAircraftsArray.append(contentsOf: filters.aircraft.allAircraftsArray.removeDuplicates())
+                    currentData.allAircraftsArray = currentData.allAircraftsArray.removeDuplicates()
+                    self.flightFilterVC?.updatedAircraftFilter = currentData
+                }
             
         case RETURN_JOURNEY:
        
             if flightSearchResultVM.isDomestic {
-        
-                guard let filterVc = self.flightFilterVC else { return }
-                var currentData = filterVc.updatedAircraftFilter
-                currentData.allAircraftsArray.append(contentsOf: filters.aircraft.allAircraftsArray.removeDuplicates())
-                currentData.allAircraftsArray = currentData.allAircraftsArray.removeDuplicates()
-                self.flightFilterVC?.updatedAircraftFilter = currentData
-            
+                delay(seconds: 0.5) {
+                    guard let filterVc = self.flightFilterVC else { return }
+                  var currentData = filterVc.updatedAircraftFilter
+                    currentData.allAircraftsArray.append(contentsOf: filters.aircraft.allAircraftsArray.removeDuplicates())
+                    currentData.allAircraftsArray = currentData.allAircraftsArray.removeDuplicates()
+                    self.flightFilterVC?.updatedAircraftFilter = currentData
+                }
+                
             } else {
             
                 delay(seconds: 0.5) {
@@ -1212,13 +1209,14 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
         case  MULTI_CITY:
                     
             if flightSearchResultVM.isDomestic {
-                    
-                guard let filterVc = self.flightFilterVC else { return }
-                var currentData = filterVc.updatedAircraftFilter
-                currentData.allAircraftsArray.append(contentsOf: filters.aircraft.allAircraftsArray.removeDuplicates())
-                currentData.allAircraftsArray = currentData.allAircraftsArray.removeDuplicates()
-                self.flightFilterVC?.updatedAircraftFilter = currentData
-                        
+                delay(seconds: 0.5) {
+                    guard let filterVc = self.flightFilterVC else { return }
+                    var currentData = filterVc.updatedAircraftFilter
+                    currentData.allAircraftsArray.append(contentsOf: filters.aircraft.allAircraftsArray.removeDuplicates())
+                    currentData.allAircraftsArray = currentData.allAircraftsArray.removeDuplicates()
+                    self.flightFilterVC?.updatedAircraftFilter = currentData
+                }
+                
             } else {
                         
                 delay(seconds: 0.5) {

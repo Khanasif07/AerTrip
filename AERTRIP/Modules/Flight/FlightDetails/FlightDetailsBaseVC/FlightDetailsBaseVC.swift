@@ -423,7 +423,7 @@ extension FlightDetailsBaseVC: PagingViewControllerDataSource , PagingViewContro
     
     func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat
     {
-        if UIDevice.current.name.contains(find: "SE"){
+        if isSEDevice{
             return 112
         }else{
             return 120
