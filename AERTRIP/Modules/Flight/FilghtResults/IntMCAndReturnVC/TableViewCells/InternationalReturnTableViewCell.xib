@@ -24,7 +24,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="74a-0s-a07">
-                        <rect key="frame" x="16" y="16" width="512" height="217"/>
+                        <rect key="frame" x="8" y="8" width="528" height="233"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sKE-jK-RdL">
@@ -156,11 +156,11 @@
                     <constraint firstItem="sKE-jK-RdL" firstAttribute="top" secondItem="wC3-hn-qxc" secondAttribute="top" constant="8" id="1cG-ZS-c2c"/>
                     <constraint firstAttribute="bottom" secondItem="sKE-jK-RdL" secondAttribute="bottom" constant="8" id="5BU-Bb-2y1"/>
                     <constraint firstAttribute="trailing" secondItem="sKE-jK-RdL" secondAttribute="trailing" constant="8" id="5wm-ku-3xC"/>
-                    <constraint firstAttribute="bottom" secondItem="74a-0s-a07" secondAttribute="bottom" constant="16" id="NOt-8C-r1Q"/>
                     <constraint firstItem="sKE-jK-RdL" firstAttribute="leading" secondItem="wC3-hn-qxc" secondAttribute="leading" constant="8" id="Ooj-ab-ZFp"/>
-                    <constraint firstAttribute="trailing" secondItem="74a-0s-a07" secondAttribute="trailing" constant="16" id="Yj4-nV-d81"/>
-                    <constraint firstItem="74a-0s-a07" firstAttribute="leading" secondItem="wC3-hn-qxc" secondAttribute="leading" constant="16" id="dTW-KQ-Ncx"/>
-                    <constraint firstItem="74a-0s-a07" firstAttribute="top" secondItem="wC3-hn-qxc" secondAttribute="top" constant="16" id="x3F-AD-0PD"/>
+                    <constraint firstItem="74a-0s-a07" firstAttribute="trailing" secondItem="sKE-jK-RdL" secondAttribute="trailing" id="Z29-fd-hPo"/>
+                    <constraint firstItem="74a-0s-a07" firstAttribute="top" secondItem="sKE-jK-RdL" secondAttribute="top" id="ahJ-AX-z1P"/>
+                    <constraint firstItem="74a-0s-a07" firstAttribute="bottom" secondItem="sKE-jK-RdL" secondAttribute="bottom" id="fJF-oz-wtW"/>
+                    <constraint firstItem="74a-0s-a07" firstAttribute="leading" secondItem="sKE-jK-RdL" secondAttribute="leading" id="ftv-tR-RaI"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="EV4-j1-mNJ"/>
