@@ -42,7 +42,8 @@ class InternationalReturnTableViewCell: UITableViewCell {
 //        layer.shadowColor = UIColor.black.withAlphaComponent(0.3).cgColor
 //        self.baseView.layer.cornerRadius = 10
         //        shadowBackView.addGrayShadow(ofColor: UIColor.black.withAlphaComponent(0.8), radius: 8, opacity: 0.7)
-        self.baseView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
+        self.baseView.layer.cornerRadius = 10
+        self.shadowBackView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
     }
     
     override func awakeFromNib() {

@@ -34,6 +34,9 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
     @IBOutlet weak var priceWidth: NSLayoutConstraint!
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var smartIconCollectionView: UICollectionView!
+    
+    @IBOutlet weak var shadowView: UIView!
+    
     var pinnedRoundedLayer : CALayer?
     
     var smartIconsArray : [String]?
@@ -48,8 +51,8 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
 //        layer.shadowRadius = 4
 //        layer.shadowOffset = CGSize(width: 0, height: 0)
 //        layer.shadowColor = UIColor.black.withAlphaComponent(0.3).cgColor
-//        self.baseView.layer.cornerRadius = 10
-        self.baseView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
+        self.baseView.layer.cornerRadius = 10
+        self.shadowView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
     }
     
     override func awakeFromNib() {
