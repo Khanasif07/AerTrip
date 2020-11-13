@@ -236,33 +236,20 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         guard let selectedJourneys = self.viewModel.getSelectedJourneyForAllLegs(), selectedJourneys.count >= 2 else { return }
 
         var msg = ""
-        var finalFrame : CGRect = CGRect.zero
+        let finalFrame : CGRect = CGRect.zero
         var shouldFadeAllToast = false
         
                 for i in 0 ..< (selectedJourneys.count - 1) {
                     
                     let currentLegJourney = selectedJourneys[i]
                     let nextLegJourney = selectedJourneys[(i + 1)]
-                                
-                    let fsr = currentLegJourney.fsr + nextLegJourney.fsr
-                    
+                                                    
                     guard let currentLegArrival = currentLegJourney.arrivalDate else { return }
                     guard let nextLegDeparture = nextLegJourney.departureDate else { return }
                         
                     if nextLegDeparture < currentLegArrival {
-                        if let parentVC = self.parent {
                             
-                            var frame = parentVC.view.frame
-                            let bottomInset = self.view.safeAreaInsets.bottom
-                            let height = 36 + bottomInset
-                            frame.size.height = frame.size.height - height
-                            
-                            if fsr > 0 {
-                                frame.size.height = frame.size.height - 16
-                            }
-                            finalFrame = frame
                             if self.viewModel.shouldDisplayToast {
-                               // AertripToastView.toast(in: parentVC.view , withText: "Flight timings are not compatible. Select a different flight." , parentRect: frame)
                                 msg = "Flight timings are not compatible. Select a different flight."
                             }
                             
@@ -271,10 +258,10 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
                             
                             self.headerArray[i].isInCompatable = true
                             self.headerArray[i+1].isInCompatable = true
-
+                        
                             fareBreakupVC?.bookButton.isEnabled = false
                             
-                        }
+                        
                     } else if nextLegDeparture.timeIntervalSince(currentLegArrival) <= 7200 {
                        
                         if !self.headerArray[i].isInCompatable {
@@ -283,28 +270,12 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
                         
                         self.headerArray[i+1].isInCompatable = false
                         
-                        if let parentVC = self.parent {
-                            
-                            var frame = parentVC.view.frame
-                            let bottomInset = self.view.safeAreaInsets.bottom
-                            let height = 36 + bottomInset
-                            frame.size.height = frame.size.height - height
-                            
-                            if fsr > 0 {
-                                frame.size.height = frame.size.height - 16
-                            }
-                            
-                            finalFrame = frame
-                            
                             if self.viewModel.shouldDisplayToast {
-//                                AertripToastView.toast(in: parentVC.view , withText: "Selected flights have less than 2 hrs of gap." , parentRect: frame)
-                                
                                msg = "Selected flights have less than 2 hrs of gap."
-                                
                             }
                             
                             fareBreakupVC?.bookButton.isEnabled = true
-                        }
+                        
                     } else {
                         
                         if !self.headerArray[i].isInCompatable {
@@ -312,12 +283,8 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
                         }
                         
                         self.headerArray[i+1].isInCompatable = false
-//                        CustomToast.shared.fadeAllToasts(animated:  false)
                         shouldFadeAllToast = true
-//                        printDebug("CCCCCC")
-//                        setTextColorToHeader(.black, indexPath: i)
-//                        setTextColorToHeader(.black, indexPath: (i + 1 ))
-//                        AertripToastView.hideToast()
+
             }
                     headerCollectionView.reloadData()
 
@@ -334,7 +301,6 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
             if !msg.isEmpty && displayToast {
                 
                 if let parentVC = self.parent {
-//                    printDebug("message...\(msg)")
                     AertripToastView.toast(in: parentVC.view , withText: msg, parentRect: finalFrame)
                     msg = ""
                 }
@@ -348,22 +314,72 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
     
     func showMessageForIncompatableFlights(tableIndex : Int){
         
+        guard let selectedJourneys = self.viewModel.getSelectedJourneyForAllLegs(), selectedJourneys.count >= 2 else { return }
+       
+        var msg = ""
+        let finalFrame : CGRect = CGRect.zero
+
         switch tableIndex {
         
-        case 0:
+            case 0:
 
-            
-            
-            printDebug("")
+                let currentLegJourney = selectedJourneys[0]
+                let nextLegJourney = selectedJourneys[1]
+                                    
+                guard let currentLegArrival = currentLegJourney.arrivalDate else { return }
+                guard let nextLegDeparture = nextLegJourney.departureDate else { return }
 
+                
+                if nextLegDeparture < currentLegArrival {
+                    msg = "Flight timings are not compatible. Select a different flight."
+                } else if nextLegDeparture.timeIntervalSince(currentLegArrival) <= 7200 {
+                    msg = "Selected flights have less than 2 hrs of gap."
+                }
             
-        default:
+            case (selectedJourneys.count - 1):
             
-            printDebug("")
-        
-        
+                let currentLegJourney = selectedJourneys[selectedJourneys.count - 2]
+                let nextLegJourney = selectedJourneys[(selectedJourneys.count - 1)]
+                                    
+                guard let currentLegArrival = currentLegJourney.arrivalDate else { return }
+                guard let nextLegDeparture = nextLegJourney.departureDate else { return }
+                            
+                if nextLegDeparture < currentLegArrival {
+                    msg = "Flight timings are not compatible. Select a different flight."
+                } else if nextLegDeparture.timeIntervalSince(currentLegArrival) <= 7200 {
+                    msg = "Selected flights have less than 2 hrs of gap."
+                }
+
+            default:
+            
+                let selectedJourneysToBeChecked = [selectedJourneys[tableIndex - 1], selectedJourneys[tableIndex], selectedJourneys[tableIndex + 1]]
+            
+                for i in 0 ..< (selectedJourneysToBeChecked.count - 1) {
+                    
+                    let currentLegJourney = selectedJourneysToBeChecked[i]
+                    let nextLegJourney = selectedJourneysToBeChecked[(i + 1)]
+                                                
+                    guard let currentLegArrival = currentLegJourney.arrivalDate else { return }
+                    guard let nextLegDeparture = nextLegJourney.departureDate else { return }
+                
+                    if nextLegDeparture < currentLegArrival {
+                        msg = "Flight timings are not compatible. Select a different flight."
+                    } else if nextLegDeparture.timeIntervalSince(currentLegArrival) <= 7200 {
+                        msg = "Selected flights have less than 2 hrs of gap."
+                }
+            }
         }
         
+        
+        delay(seconds: 0.5) {
+            if !msg.isEmpty  {
+                if let parentVC = self.parent {
+                    AertripToastView.toast(in: parentVC.view , withText: msg, parentRect: finalFrame)
+                    msg = ""
+                }
+                
+            }
+        }
         
     }
     
