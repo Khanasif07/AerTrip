@@ -499,7 +499,9 @@ extension MainHomeVC: SocialLoginVCDelegate {
 
 extension MainHomeVC {
     func startAnimation() {
+        
         func setupForProfilePop() {
+          
             if self.transitionAnimator == nil {
                 if let profile = self.profileView {
                     self.sideMenuVC?.updateProfileView(view: profile)

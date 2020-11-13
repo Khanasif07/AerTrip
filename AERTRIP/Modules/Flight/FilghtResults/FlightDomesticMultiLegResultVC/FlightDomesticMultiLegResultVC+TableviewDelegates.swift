@@ -88,6 +88,7 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
                checkForComboFares()
            }
            checkForOverlappingFlights(displayToast : false)
+            showMessageForIncompatableFlights(tableIndex: tableIndex)
            setTotalFare()
 //        tableView.reloadData()
 //        animateJourneyCompactView(for: tableView)
