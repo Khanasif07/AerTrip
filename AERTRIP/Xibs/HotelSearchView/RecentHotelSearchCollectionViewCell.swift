@@ -74,6 +74,7 @@ class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
 //            self.cityNameLabel.text = nearMeText
 //            self.cityNameLabel.AttributedFontAndColorForText(atributedText: nearMeText, textFont: AppFonts.SemiBold.withSize(18.0), textColor: AppColors.themeBlack)
 //        } else {
+            printDebug(recentSearchesData.dest_name)
             let cityName = recentSearchesData.dest_name.split(separator: ",").first ?? ""
             let countryCode = recentSearchesData.dest_name.split(separator: ",").last ?? ""
             //        self.cityNameLabel.text = "\(cityName)"
@@ -81,7 +82,7 @@ class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
             let suffix: String = countryCode.isEmpty ? "" : ",\(countryCode)"
             
             var stateText = recentSearchesData.dest_name.deletingPrefix(prefix: prefix).removeSpaceAsSentence
-            stateText = stateText.deletingSuffix(suffix: suffix).removeSpaceAsSentence
+            //stateText = stateText.deletingSuffix(suffix: suffix).removeSpaceAsSentence
             
             self.cityNameLabel.text = "\(cityName) " + stateText
             self.cityNameLabel.AttributedFontAndColorForText(atributedText: "\(cityName)", textFont: AppFonts.SemiBold.withSize(18.0), textColor: AppColors.themeBlack)
