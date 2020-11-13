@@ -194,7 +194,7 @@ struct RecentSearchesModel {
         let suffix: String = countryCode.isEmpty ? "" : ",\(countryCode)"
         
         var stateText = self.dest_name.deletingPrefix(prefix: prefix).removeSpaceAsSentence
-        stateText = stateText.deletingSuffix(suffix: suffix).removeSpaceAsSentence
+        //stateText = stateText.deletingSuffix(suffix: suffix).removeSpaceAsSentence
         
         title = "\(cityName) " + stateText
         titleWidth = AppGlobals.shared.AttributedFontAndColorForText(text: title, atributedText: "\(cityName)", textFont: AppFonts.SemiBold.withSize(18.0), textColor: AppColors.themeBlack).width(withConstrainedHeight: height)

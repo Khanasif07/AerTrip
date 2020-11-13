@@ -279,6 +279,9 @@ extension MailComposerVC: TopNavigationViewDelegate {
     }
     func stopProgress() {
         self.time += 1
+        if self.time <= 8  {
+            self.time = 9
+        }
         self.timer?.invalidate()
         self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
     }
