@@ -25,7 +25,7 @@ class SwiftObjCBridgingController: NSObject {
         onFetchingFlightFormData?(newDict)
     }
     
-    func resetRecentSearches() {
+    func resetFlightsRecentSearches() {
         onResetRecentSearches?()
     }
     

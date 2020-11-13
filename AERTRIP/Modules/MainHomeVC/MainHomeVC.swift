@@ -142,7 +142,8 @@ class MainHomeVC: BaseVC {
                 sideMenu.delegate = self
                 self.sideMenuVC = sideMenu
                 pkSideMenu.menuViewController(sideMenu)
-                SwiftObjCBridgingController.shared.resetRecentSearches()
+                resetHotelsRecentSearches()
+                SwiftObjCBridgingController.shared.resetFlightsRecentSearches()
             }
         } else {
             let sideVC = self.createSideMenu()
@@ -171,6 +172,11 @@ class MainHomeVC: BaseVC {
             self.addChild(social)
             social.didMove(toParent: self)
         }
+    }
+    
+    private func resetHotelsRecentSearches() {
+        guard let pksideMenuController = children.first as? PKSideMenuController, let dashboardVC = pksideMenuController.mainViewController as? DashboardVC, dashboardVC.children.indices.contains(2), let hotelSearchVC = dashboardVC.children[2] as? HotelsSearchVC else { return }
+        hotelSearchVC.viewModel.getRecentSearchesData()
     }
     
     private func addEdgeSwipeGesture() {
