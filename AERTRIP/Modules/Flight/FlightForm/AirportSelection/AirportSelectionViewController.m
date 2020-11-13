@@ -245,6 +245,8 @@
 
 
 - (void)setupInitials {
+    self.fromLabel.alpha = 0;
+    self.toLabel.alpha = 0;
     self.primaryDuration = 0.4;
     
     [self createPopularAirportArray];
@@ -1663,10 +1665,11 @@
 
 - (void)setupFromAndToView
 {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    // Commented by Rishabh due to delay in setup
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self setupFromView];
         [self setupToView];
-    });
+//    });
     [self setupSwitcherButton];
     [self changeColorTab];
 }
