@@ -729,7 +729,7 @@ enum ResolutionStatus: RawRepresentable {
         switch self {
         case .paymentPending: return AppColors.themeRed
         case .actionRequired: return AppColors.themeRed
-        case .inProgress: return AppColors.themeOrange
+        case .inProgress: return AppColors.themeYellow
         case .successfull: return AppColors.themeGreen
         case .aborted: return AppColors.themeGray20
         case .closed: return AppColors.themeBlack

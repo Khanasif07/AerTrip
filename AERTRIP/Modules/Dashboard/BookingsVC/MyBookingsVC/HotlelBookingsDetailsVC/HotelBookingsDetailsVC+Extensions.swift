@@ -520,7 +520,7 @@ extension HotlelBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
             hotelData.stateName = stateName
             
             hotelData.destType = "Hotel"
-            hotelData.destName = hotelName
+            hotelData.destName = hotelName + ", \(address)"
             hotelData.destId = "\(hotelId):gn"
             
             if checkIn.isGreaterThan(Date()) {

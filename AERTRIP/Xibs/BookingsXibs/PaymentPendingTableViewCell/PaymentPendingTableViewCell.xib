@@ -3,7 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,25 +23,33 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eth-Dq-hma">
-                        <rect key="frame" x="16" y="0.0" width="343" height="50.5"/>
+                        <rect key="frame" x="16" y="0.0" width="343" height="49.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DWg-Sa-eFk">
-                        <rect key="frame" x="16" y="0.0" width="343" height="50.5"/>
+                        <rect key="frame" x="16" y="0.0" width="343" height="49.5"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ga-r9-3Z1">
-                                <rect key="frame" x="10" y="12" width="323" height="26"/>
-                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="KjA-WI-lu5">
+                                <rect key="frame" x="10" y="12" width="323" height="25.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ga-r9-3Z1">
+                                        <rect key="frame" x="0.0" y="0.0" width="323" height="25.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="G1Y-3i-Lsa"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="0ga-r9-3Z1" secondAttribute="bottom" constant="12.5" id="GkR-Te-7Fy"/>
-                            <constraint firstItem="0ga-r9-3Z1" firstAttribute="top" secondItem="DWg-Sa-eFk" secondAttribute="top" constant="12" id="HQv-7O-Iwk"/>
-                            <constraint firstAttribute="trailing" secondItem="0ga-r9-3Z1" secondAttribute="trailing" constant="10" id="V8d-gh-WWd"/>
-                            <constraint firstItem="0ga-r9-3Z1" firstAttribute="leading" secondItem="DWg-Sa-eFk" secondAttribute="leading" constant="10" id="x0v-ZJ-jv1"/>
+                            <constraint firstAttribute="bottom" secondItem="KjA-WI-lu5" secondAttribute="bottom" constant="12" id="3Ft-yf-Nac"/>
+                            <constraint firstItem="KjA-WI-lu5" firstAttribute="top" secondItem="DWg-Sa-eFk" secondAttribute="top" constant="12" id="GRW-zX-tTS"/>
+                            <constraint firstAttribute="trailing" secondItem="KjA-WI-lu5" secondAttribute="trailing" constant="10" id="RJ5-8u-n41"/>
+                            <constraint firstItem="KjA-WI-lu5" firstAttribute="leading" secondItem="DWg-Sa-eFk" secondAttribute="leading" constant="10" id="dp7-1x-ISQ"/>
                         </constraints>
                     </view>
                 </subviews>
