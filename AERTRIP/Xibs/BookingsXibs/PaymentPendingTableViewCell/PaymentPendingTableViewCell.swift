@@ -24,6 +24,11 @@ class PaymentPendingTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configUI()
+        //Font
+        self.priceLabel.font = AppFonts.Regular.withSize(20.0)
+        
+        //Color
+        self.priceLabel.textColor = AppColors.themeWhite
     }
     
     override func layoutSubviews() {
@@ -35,11 +40,7 @@ class PaymentPendingTableViewCell: UITableViewCell {
     //MARK:- Functions
     //MARK:===========
     private func configUI() {
-        //Font
-        self.priceLabel.font = AppFonts.Regular.withSize(20.0)
         
-        //Color
-        self.priceLabel.textColor = AppColors.themeWhite
         //self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.7, shadowRadius: 5.0)
 //        self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
         self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMaxYCorner, .layerMinXMaxYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
