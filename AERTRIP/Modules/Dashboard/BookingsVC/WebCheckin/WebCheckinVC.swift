@@ -99,6 +99,7 @@ extension WebCheckinVC: UITableViewDataSource, UITableViewDelegate {
         
       //  guard let url = self.viewModel.webCheckins[indexPath.row].toUrl else { return }
       //  AppFlowManager.default.showURLOnATWebView(url, screenTitle: LocalizedString.WebCheckin.localized)
+        guard self.viewModel.webCheckins.count > indexPath.row else {return}
         self.openUrl( self.viewModel.webCheckins[indexPath.row])
     }
     
