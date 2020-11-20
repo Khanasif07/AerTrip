@@ -24,7 +24,13 @@ class WebCheckinVM {
                 
                 
 //                self.aertripData = contactInfo.aertrip
-                self.airlineData = contactInfo.airlines
+//                self.airlineData = contactInfo.airlines
+            for airline in self.contactInfo?.airlines ?? []{
+                if (!self.airlineData.contains(where: {$0.airlineName == airline.airlineName}) && !airline.airlineCode.isEmpty){
+                    self.airlineData.append(airline)
+                }
+            }
+            
 //                self.airportData.removeAll()
 //                contactInfo.airport.forEach { (airport) in
 //                    if !airport.phone.isEmpty {
