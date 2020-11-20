@@ -79,7 +79,7 @@ extension BookingDirectionVC: UITableViewDataSource, UITableViewDelegate {
             fatalError("BookingDirectionTableViewCell not found")
         }
         
-        let airportName: String = self.viewModel.directionData[indexPath.row].city + "," + self.viewModel.directionData[indexPath.row].country_code
+        let airportName: String = self.viewModel.directionData[indexPath.row].city + ", " + self.viewModel.directionData[indexPath.row].country_code
         directionCell.configureCell(airportCode: self.viewModel.directionData[indexPath.row].iataCode, airportName: airportName, airportAddress: self.viewModel.directionData[indexPath.row].airportName)
         directionCell.bottomDividerView.isHidden = self.viewModel.directionData.count - 1 == indexPath.row
         directionCell.edgeToedgeBottomDividerView.isHidden = self.viewModel.directionData.count - 1 != indexPath.row
