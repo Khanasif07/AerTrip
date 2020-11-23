@@ -97,6 +97,7 @@ class UpcomingBookingsVC: BaseVC {
         self.refreshControl.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControl.Event.valueChanged)
         self.refreshControl.tintColor = AppColors.themeGreen
         self.upcomingBookingsTableView.refreshControl = refreshControl
+        self.upcomingBookingsTableView.showsVerticalScrollIndicator = true
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
