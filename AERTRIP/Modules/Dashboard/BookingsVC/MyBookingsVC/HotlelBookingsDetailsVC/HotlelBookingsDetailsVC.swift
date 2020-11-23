@@ -196,6 +196,29 @@ class HotlelBookingsDetailsVC: BaseVC {
         self.bookingDetailsTableView.registerCell(nibName: TripChangeTableViewCell.reusableIdentifier)
         self.bookingDetailsTableView.registerCell(nibName: BookingCommonActionTableViewCell.reusableIdentifier)
     }
+    
+    
+    func showDepositOptions() {
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.PayOnline.localized, LocalizedString.PayOfflineNRegister.localized], colors: [AppColors.themeDarkGreen, AppColors.themeDarkGreen])
+        
+        _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
+            
+            switch index {
+            case 0:
+                //PayOnline
+                AppFlowManager.default.moveToAccountOnlineDepositVC(depositItinerary: self.viewModel.itineraryData, usingToPaymentFor: .booking)
+                
+            case 1:
+                //PayOfflineNRegister
+                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .fundTransfer, usingToPaymentFor: .addOns, paymentModeDetail: self.viewModel.itineraryData?.chequeOrDD, netAmount: self.viewModel.itineraryData?.netAmount ?? 0.0, bankMaster: self.viewModel.itineraryData?.bankMaster ?? [])
+                printDebug("PayOfflineNRegister")
+                
+            default:
+                printDebug("no need to implement")
+            }
+        }
+    }
+    
 }
 
 extension HotlelBookingsDetailsVC: BookingProductDetailVMDelegate {
@@ -239,4 +262,13 @@ extension HotlelBookingsDetailsVC: BookingProductDetailVMDelegate {
     func getTripOwnerFaiure(error: ErrorCodes) {
         self.bookingDetailsTableView.reloadData()
     }
+    
+    func getBookingOutstandingPaymentSuccess() {
+        self.showDepositOptions()
+    }
+    
+    func getBookingOutstandingPaymentFail() {
+//        self.payButtonRef?.isLoading = false
+    }
+    
 }

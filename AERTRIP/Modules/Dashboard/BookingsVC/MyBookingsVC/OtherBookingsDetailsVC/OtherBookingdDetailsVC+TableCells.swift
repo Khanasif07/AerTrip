@@ -93,7 +93,7 @@ extension OtherBookingsDetailsVC {
         cell.titleLabelTopConstraint.constant = 18.0
         cell.configCell(title: LocalizedString.BillingName.localized, titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, subTitle: self.viewModel.bookingDetail?.billingInfo?.billingName ?? "", subTitleFont: AppFonts.Regular.withSize(18.0), subTitleColor: AppColors.textFieldTextColor51)
         cell.containerView.backgroundColor = AppColors.screensBackground.color
-        cell.dividerView.isHidden = false
+        cell.dividerView.isHidden = true
         cell.clipsToBounds = true
         cell.titleLabelBottomConstraint.constant = 2.0
         cell.subtitleLabelBottomConstraint.constant = 9.0
@@ -116,7 +116,7 @@ extension OtherBookingsDetailsVC {
     func getMobileCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TitleWithSubTitleTableViewCell.reusableIdentifier, for: indexPath) as? TitleWithSubTitleTableViewCell else { return UITableViewCell() }
         cell.configCell(title: LocalizedString.Mobile.localized, titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, subTitle: self.viewModel.bookingDetail?.billingInfo?.communicationNumber ?? "", subTitleFont: AppFonts.Regular.withSize(18.0), subTitleColor: AppColors.textFieldTextColor51)
-        cell.dividerView.isHidden = false
+        cell.dividerView.isHidden = true
         cell.clipsToBounds = true
         cell.containerView.backgroundColor = AppColors.screensBackground.color
         cell.titleLabelBottomConstraint.constant = 2.0
@@ -127,7 +127,7 @@ extension OtherBookingsDetailsVC {
     func getGstCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TitleWithSubTitleTableViewCell.reusableIdentifier, for: indexPath) as? TitleWithSubTitleTableViewCell else { return UITableViewCell() }
         cell.configCell(title: LocalizedString.GSTIN.localized, titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, subTitle: self.viewModel.bookingDetail?.billingInfo?.gst ?? "", subTitleFont: AppFonts.Regular.withSize(18.0), subTitleColor: AppColors.textFieldTextColor51)
-        cell.dividerView.isHidden = false
+        cell.dividerView.isHidden = true
         cell.clipsToBounds = true
         cell.titleLabelBottomConstraint.constant = 2.0
         cell.subtitleLabelBottomConstraint.constant = 9.0
@@ -140,7 +140,7 @@ extension OtherBookingsDetailsVC {
         cell.titleLabelBottomConstraint.constant = 2.0
         cell.subtitleLabelBottomConstraint.constant = 9.0
         cell.configCell(title: LocalizedString.BillingAddress.localized, titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, subTitle: self.viewModel.bookingDetail?.billingInfo?.address?.completeAddress ?? "", subTitleFont: AppFonts.Regular.withSize(18.0), subTitleColor: AppColors.textFieldTextColor51)
-        cell.dividerView.isHidden = false
+        cell.dividerView.isHidden = true
         cell.clipsToBounds = true
         cell.containerView.backgroundColor = AppColors.screensBackground.color
         return cell

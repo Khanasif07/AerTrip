@@ -74,11 +74,23 @@ class HCCouponCodeVM {
         APICaller.shared.applyCoupnCodeApi(params: params, loader: true) { [weak self] (success, errors, appliedCouponData) in
             guard let sSelf = self else { return }
             if success {
-                printDebug(appliedCouponData)
                 sSelf.appliedCouponData = appliedCouponData
                 sSelf.delegate?.applyCouponCodeSuccessful()
             } else {
                 printDebug(errors)
+                sSelf.delegate?.applyCouponCodeFailed(errors: errors)
+            }
+        }
+    }
+    
+    func removeCouponHotelCoupon() {
+        let params: [String : Any] = [ APIKeys.it_id.rawValue : self.itineraryId ]
+        APICaller.shared.removeCouponApi(params: params, loader: true) { [weak self] (success, errors, appliedCouponData) in
+            guard let sSelf = self else { return }
+            if success {
+                sSelf.appliedCouponData = appliedCouponData
+                sSelf.delegate?.applyCouponCodeSuccessful()
+            } else {
                 sSelf.delegate?.applyCouponCodeFailed(errors: errors)
             }
         }
