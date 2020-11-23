@@ -44,6 +44,9 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
     @IBOutlet weak var mainStackView: UIStackView!
     @IBOutlet weak var descLabel: UILabel!
     
+    @IBOutlet weak var mainStackViewTop: NSLayoutConstraint!
+    
+    
     //Mark:- LifeCycle
     //================
     override func awakeFromNib() {
@@ -165,6 +168,13 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
             }
             self.dropDownTextField.text = self.typesOfBed[0] + "   "
         }
+        
+        if bedDiscriptionLabel.isHidden && descLabel.isHidden {
+            mainStackViewTop.constant = 15
+        } else {
+            mainStackViewTop.constant = 9
+        }
+        
     }
     
     internal func showHideSetUp(cornerRaduis: CGFloat, bookmarkBtnHidden: Bool, dividerViewHidden: Bool) {

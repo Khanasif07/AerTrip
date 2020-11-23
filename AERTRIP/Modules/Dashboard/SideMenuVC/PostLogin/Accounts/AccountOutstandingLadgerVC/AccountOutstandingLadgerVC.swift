@@ -148,6 +148,7 @@ class AccountOutstandingLadgerVC: BaseVC {
         self.refreshControl.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControl.Event.valueChanged)
         self.refreshControl.tintColor = AppColors.themeGreen
         self.tableView.refreshControl = refreshControl
+        self.tableView.showsVerticalScrollIndicator = true
         
         addLongPressOnTableView()
     }
