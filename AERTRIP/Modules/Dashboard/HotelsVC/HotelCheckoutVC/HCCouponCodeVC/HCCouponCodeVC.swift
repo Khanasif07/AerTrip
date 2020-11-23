@@ -377,7 +377,11 @@ extension HCCouponCodeVC: PassSelectedCoupon {
     func selectedCoupon(indexPath: IndexPath) {
         let model = self.viewModel.searcedCouponsData[indexPath.item]
         if !self.viewModel.couponCode.isEmpty, self.viewModel.couponCode.lowercased() == model.couponCode.lowercased() {
-            self.applyButton.setTitleColor(AppColors.themeGray20, for: .normal)
+            if !self.viewModel.isCouponApplied{
+                self.applyButton.setTitleColor(AppColors.themeGray20, for: .normal)
+            }else{
+                self.applyButton.setTitleColor(AppColors.themeGreen, for: .normal)
+            }
             //self.selectedIndexPath = nil
             //self.couponValidationTextSetUp(isCouponValid: true)
             self.couponTextField.text = ""

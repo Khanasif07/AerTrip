@@ -292,4 +292,13 @@ extension OtherBookingsDetailsVC: BookingProductDetailVMDelegate {
     func getTripOwnerFaiure(error: ErrorCodes) {
         self.dataTableView.reloadData()
     }
+    
+    func getBookingOutstandingPaymentSuccess() {
+        self.showDepositOptions()
+    }
+    
+    func getBookingOutstandingPaymentFail() {
+//        self.payButtonRef?.isLoading = false
+    }
+    
 }
