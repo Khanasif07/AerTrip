@@ -305,29 +305,30 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         switch self.sections[indexPath.section] {
-        case "details":
-            self.statusBarStyle = .darkContent
-            switch self.details[indexPath.row] {
+       
+            case "details":
+                self.statusBarStyle = .darkContent
+                    switch self.details[indexPath.row] {
             // Open traveller detail listing
-            case LocalizedString.TravellerList.localized:
-                AppFlowManager.default.moveToTravellerListVC()
+                    case LocalizedString.TravellerList.localized:
+                        AppFlowManager.default.moveToTravellerListVC()
                 
-            // Open View All hotel details
-            case LocalizedString.HotelPreferences.localized:
-                AppFlowManager.default.moveToViewAllHotelsVC()
+                    // Open View All hotel details
+                    case LocalizedString.HotelPreferences.localized:
+                        AppFlowManager.default.moveToViewAllHotelsVC()
                 
-            // Open Quick pay
-            case LocalizedString.QuickPay.localized:
-                AppFlowManager.default.moveToQuickPayVC()
+                    // Open Quick pay
+                    case LocalizedString.QuickPay.localized:
+                        AppFlowManager.default.moveToQuickPayVC()
                 
-            // Open linked accout VC
-            case LocalizedString.LinkedAccounts.localized:
-                AppFlowManager.default.moveToLinkedAccountsVC()
+                    // Open linked accout VC
+                    case LocalizedString.LinkedAccounts.localized:
+                        AppFlowManager.default.moveToLinkedAccountsVC()
                 
-            default:
-                AppToast.default.showToastMessage(message: "This feature is coming soon")
-                break
-            }
+                    default:
+                        AppToast.default.showToastMessage(message: "This feature is coming soon")
+                        break
+                }
             
             //        case "accounts":
             //            self.statusBarStyle = .default

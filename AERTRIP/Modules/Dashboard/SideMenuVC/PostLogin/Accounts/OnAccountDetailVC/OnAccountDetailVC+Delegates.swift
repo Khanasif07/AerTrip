@@ -74,11 +74,11 @@ extension OnAccountDetailVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let (currentEvent, _) = self.getEvent(forIndexPath: indexPath, forTableView: tableView)
 
+        
         if let bID = currentEvent?.transactionId, !bID.isEmpty {
             
             AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)dashboard/download-voucher?id=\(bID)", screenTitle: "Receipt Voucher", showLoader: true, complition: { [weak self] (status) in
                 
-//                self?.tableView.reloadRow(at: indexPath, with: .automatic)
             })
         }
     }

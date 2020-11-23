@@ -95,7 +95,6 @@ class ViewProfileDetailVC: BaseVC {
         }
         self.topNavView.configureFirstRightButton( normalTitle: LocalizedString.Edit.localized, selectedTitle: LocalizedString.Edit.localized, normalColor: AppColors.themeWhite, selectedColor: AppColors.themeGreen)
         
-        
     }
     
     // MARK: - Helper method

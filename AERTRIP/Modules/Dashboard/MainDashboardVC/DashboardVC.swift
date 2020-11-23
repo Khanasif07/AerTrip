@@ -61,7 +61,6 @@ class DashboardVC: BaseVC {
     }
     
     enum SelectedOption : Int {
-        
         case aerin = 0
         case flight = 1
         case hotels = 2
@@ -138,7 +137,8 @@ class DashboardVC: BaseVC {
         super.viewWillAppear(animated)
         
         registerBulkEnquiryNotification()
-        if firstTime{
+        
+        if firstTime {
             firstTime = false
             identitySize = aerinView.bounds.applying(CGAffineTransform.identity).size
             smallerSize = flightsView.bounds.applying(CGAffineTransform(scaleX: 0.75, y: 0.75)).size
