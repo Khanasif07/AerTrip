@@ -146,13 +146,13 @@ extension AccountOutstandingLadgerVC: UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         var eventSelected: AccountDetailEvent? = nil
+        
         if tableView === self.tableView {
             if let allEvent = self.viewModel.accountDetails[self.viewModel.allDates[indexPath.section]] as? [AccountDetailEvent] {
                 
                 eventSelected = allEvent[indexPath.row]
             }
-        }
-        else {
+        } else {
             if let allEvent = self.viewModel.searchedAccountDetails[self.viewModel.searchedAllDates[indexPath.section]] as? [AccountDetailEvent] {
                 
                 eventSelected = allEvent[indexPath.row]
@@ -172,8 +172,7 @@ extension AccountOutstandingLadgerVC: UITableViewDataSource, UITableViewDelegate
                 self.viewModel.selectedEvent.append(event)
             }
             self.reloadList()
-        }
-        else {
+        } else {
             AppFlowManager.default.moveToAccountLadgerDetailsVC(forEvent: event, detailType: .outstandingLadger)
         }
     }

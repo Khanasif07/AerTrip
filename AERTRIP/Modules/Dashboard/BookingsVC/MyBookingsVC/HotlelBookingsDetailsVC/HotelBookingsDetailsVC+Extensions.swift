@@ -170,10 +170,11 @@ extension HotlelBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
             self.addToCalender()
         case .bookAnotherRoomCell:
             self.bookAnotherRoom()
-        case .paymentInfoCell, .bookingCell, .addOnsCell, .cancellationCell, .refundCell,.paymentPendingCell, .paidCell:
+        case .paymentInfoCell, .bookingCell, .addOnsCell, .cancellationCell, .refundCell, .paidCell:
             if let rcpt = self.viewModel.bookingDetail?.receipt {
                 AppFlowManager.default.moveToBookingVoucherVC(receipt: rcpt, bookingId: self.viewModel.bookingId)
             }
+        case .paymentPendingCell: self.getOutstandingDetails()
         default:  break
         }
         
@@ -213,6 +214,11 @@ extension HotlelBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
          AppFlowManager.default.moveToBookingVoucherVC(receipt: rcpt, caseId: "")
          }
          */
+    }
+    
+    func getOutstandingDetails(){
+        
+        self.viewModel.getBookingOutstandingPayment()
     }
 }
 
@@ -520,7 +526,7 @@ extension HotlelBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
             hotelData.stateName = stateName
             
             hotelData.destType = "Hotel"
-            hotelData.destName = hotelName
+            hotelData.destName = hotelName + ", \(address)"
             hotelData.destId = "\(hotelId):gn"
             
             if checkIn.isGreaterThan(Date()) {

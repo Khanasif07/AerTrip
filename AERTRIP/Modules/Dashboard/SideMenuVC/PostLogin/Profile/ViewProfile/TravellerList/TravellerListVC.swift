@@ -308,6 +308,7 @@ class TravellerListVC: BaseVC {
     func doneButtonTapped() {
         shouldHitAPI = true
         setTravellerMode()
+        tableView.reloadData()
     }
     
     func popOverOptionTapped() {
@@ -588,6 +589,7 @@ class TravellerListVC: BaseVC {
         bottomBackgroundView.isHidden = false
         isSelectMode = true
         updateNavView()
+        tableView.reloadData()
     }
     
     func resetAllItem() {
@@ -679,6 +681,17 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
 //        backView.backgroundColor = .clear//AppColors.themeWhite
         //cell.selectedBackgroundView = backView
        // cell.backgroundColor = .clear
+        
+        if #available(iOS 14.0, *) {
+            if isSelectMode {
+            var bgConfig = UIBackgroundConfiguration.listPlainCell()
+            bgConfig.backgroundColor = UIColor.clear
+            cell.backgroundConfiguration = bgConfig
+            } else {
+                cell.backgroundConfiguration = nil
+            }
+        }
+        
         return cell
     }
     

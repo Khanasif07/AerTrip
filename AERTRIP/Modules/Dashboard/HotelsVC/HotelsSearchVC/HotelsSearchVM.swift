@@ -39,6 +39,7 @@ class HotelsSearchVM: NSObject{
     }
     
     func canSetRecentSearch() -> Bool {
+        // TODO: Remove this method for this pointer https://app.asana.com/0/1181922655927025/1199180703186773/f
        // guard let lastSearchedData = self.recentSearchesData?.first else { return true }
         var canSetSearch = true
         self.recentSearchesData?.forEach({ (lastSearchedData) in

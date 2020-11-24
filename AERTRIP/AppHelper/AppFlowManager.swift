@@ -686,6 +686,7 @@ extension AppFlowManager {
         obj.viewModel.couponCode = couponCode
         obj.viewModel.product = product
         obj.viewModel.couponsData = couponData
+        obj.viewModel.isCouponApplied = !couponCode.isEmpty
         obj.modalPresentationStyle = .overFullScreen
         self.currentNavigation?.present(obj, animated: true)
     }

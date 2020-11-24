@@ -59,7 +59,9 @@ class WebCheckinVC: BaseVC {
             fatalError("BookingCallTableViewCell not found")
         }
         bookingCell.configureCell(code: self.viewModel.airlineData[indexPath.row].airlineCode, title: self.viewModel.airlineData[indexPath.row].airlineName, phoneLabel: "", cellType: .webcheckin)
-        bookingCell.dividerView.isHidden = self.viewModel.airlineData.count - 1 == indexPath.row
+        bookingCell.dividerView.isHidden = false//self.viewModel.airlineData.count - 1 == indexPath.row
+        bookingCell.dividerViewLeadingConst.constant = (self.viewModel.airlineData.count - 1 == indexPath.row) ? 0 : 59
+
         return bookingCell
     }
     
@@ -99,6 +101,7 @@ extension WebCheckinVC: UITableViewDataSource, UITableViewDelegate {
         
       //  guard let url = self.viewModel.webCheckins[indexPath.row].toUrl else { return }
       //  AppFlowManager.default.showURLOnATWebView(url, screenTitle: LocalizedString.WebCheckin.localized)
+        guard self.viewModel.webCheckins.count > indexPath.row else {return}
         self.openUrl( self.viewModel.webCheckins[indexPath.row])
     }
     

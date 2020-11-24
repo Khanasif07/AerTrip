@@ -241,9 +241,14 @@ class HCCouponCodeVC: BaseVC {
     
     @IBAction func applyButtonAction(_ sender: UIButton) { self.view.endEditing(true)
         if (self.couponTextField.text == "") {
-            if self.viewModel.isCouponApplied && self.viewModel.product == .flights{
+            if self.viewModel.isCouponApplied{
                 self.hideShowLoader(isHidden: false)
-                self.viewModel.removeFlightCouponCode()
+                switch self.viewModel.product{
+                case .flights:
+                    self.viewModel.removeFlightCouponCode()
+                case .hotels:
+                    self.viewModel.removeCouponHotelCoupon()
+                }
                 return
             }else{
                 AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterCouponCode.localized)
@@ -315,7 +320,7 @@ extension HCCouponCodeVC: UITableViewDelegate, UITableViewDataSource {
 extension HCCouponCodeVC {
     
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
-        if self.viewModel.isCouponApplied && self.viewModel.product == .flights{
+        if self.viewModel.isCouponApplied{
             self.applyButton.setTitleColor(AppColors.themeGreen, for: .normal)
         }else{
             self.applyButton.setTitleColor(AppColors.themeGray20, for: .normal)
@@ -337,7 +342,7 @@ extension HCCouponCodeVC {
         printDebug(finalText)
         if finalText.isEmpty {
             self.viewModel.couponCode = ""
-            if self.viewModel.isCouponApplied && self.viewModel.product == .flights{
+            if self.viewModel.isCouponApplied{
                 self.applyButton.setTitleColor(AppColors.themeGreen, for: .normal)
             }else{
                 self.applyButton.setTitleColor(AppColors.themeGray20, for: .normal)
@@ -372,7 +377,11 @@ extension HCCouponCodeVC: PassSelectedCoupon {
     func selectedCoupon(indexPath: IndexPath) {
         let model = self.viewModel.searcedCouponsData[indexPath.item]
         if !self.viewModel.couponCode.isEmpty, self.viewModel.couponCode.lowercased() == model.couponCode.lowercased() {
-            self.applyButton.setTitleColor(AppColors.themeGray20, for: .normal)
+            if !self.viewModel.isCouponApplied{
+                self.applyButton.setTitleColor(AppColors.themeGray20, for: .normal)
+            }else{
+                self.applyButton.setTitleColor(AppColors.themeGreen, for: .normal)
+            }
             //self.selectedIndexPath = nil
             //self.couponValidationTextSetUp(isCouponValid: true)
             self.couponTextField.text = ""

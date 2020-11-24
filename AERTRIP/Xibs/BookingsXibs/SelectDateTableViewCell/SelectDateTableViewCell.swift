@@ -24,7 +24,7 @@ class SelectDateTableViewCell: UITableViewCell {
         didSet{
 //            self.datePicker.minimumDate = minimumDate
 //            self.datePicker.date = minimumDate
-            configureDatePickerView()
+//            configureDatePickerView()
         }
     }
     
@@ -58,7 +58,9 @@ class SelectDateTableViewCell: UITableViewCell {
         self.newDateLabel.textColor = AppColors.themeGray40
         self.selectDateTextField.textColor = AppColors.textFieldTextColor51
         self.dropDownButtonSetUp()
-        self.configureDatePickerView()
+       // self.configureDatePickerView()
+        self.selectDateTextField.text = LocalizedString.Select.localized//Date().toString(dateFormat: "dd MMM YYYY")
+
     }
     
     ///Configure drop down button setup
@@ -149,4 +151,8 @@ extension SelectDateTableViewCell: UITextFieldDelegate {
         return false
     }
     
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        configureDatePickerView()
+        return true
+    }
 }

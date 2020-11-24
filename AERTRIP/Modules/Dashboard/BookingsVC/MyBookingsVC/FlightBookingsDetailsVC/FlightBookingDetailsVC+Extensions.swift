@@ -132,10 +132,12 @@ extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
             }
         case .addToCalenderCell:
             self.addToCalender()
-        case .paymentInfoCell, .bookingCell, .addOnsCell, .cancellationCell, .refundCell,.paymentPendingCell, .paidCell:
+        case .paymentInfoCell, .bookingCell, .addOnsCell, .cancellationCell, .refundCell, .paidCell://.paymentPendingCell
             if let rcpt = self.viewModel.bookingDetail?.receipt {
                 AppFlowManager.default.moveToBookingVoucherVC(receipt: rcpt, bookingId: self.viewModel.bookingId)
             }
+        case .paymentPendingCell:
+            self.getOutstandingDetails()
         default:  break
         }
         /*
@@ -186,6 +188,13 @@ extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
          
          */
     }
+    
+    func getOutstandingDetails(){
+        
+        self.viewModel.getBookingOutstandingPayment()
+    }
+    
+    
 }
 
 extension FlightBookingsDetailsVC: TopNavigationViewDelegate {
@@ -603,6 +612,14 @@ extension FlightBookingsDetailsVC: BookingProductDetailVMDelegate {
     }
     func getTripOwnerFaiure(error: ErrorCodes) {
         self.bookingDetailsTableView.reloadData()
+    }
+    
+    func getBookingOutstandingPaymentSuccess() {
+        self.showDepositOptions()
+    }
+    
+    func getBookingOutstandingPaymentFail() {
+//        self.payButtonRef?.isLoading = false
     }
 }
 

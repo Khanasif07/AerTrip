@@ -847,9 +847,8 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
 
 extension FinalCheckOutVC: HCCouponCodeVCDelegate {
     func appliedCouponData(_ appliedCouponData: HCCouponAppliedModel) {
-        printDebug(appliedCouponData)
         self.appliedCouponData = appliedCouponData
-        self.isCouponApplied = true
+        self.isCouponApplied = appliedCouponData.isCouponApplied
         self.manageCouponLoader(isApplying:true)
         delay(seconds: 0.3) { [weak self] in
             self?.viewModel.webServiceGetPaymentMethods()

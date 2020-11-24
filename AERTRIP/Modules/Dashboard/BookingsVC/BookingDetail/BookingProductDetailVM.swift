@@ -16,6 +16,9 @@ protocol BookingProductDetailVMDelegate: class {
     func willGetTripOwner()
     func getBTripOwnerSucces()
     func getTripOwnerFaiure(error: ErrorCodes)
+    
+    func getBookingOutstandingPaymentSuccess()
+    func getBookingOutstandingPaymentFail()
 }
 
 class BookingProductDetailVM {
@@ -171,7 +174,7 @@ class BookingProductDetailVM {
     var bookingId: String = "9705"
     var bookingDetail: BookingDetailModel?
     var tripCitiesStr: NSMutableAttributedString = NSMutableAttributedString(string: "")
-    
+    private(set) var itineraryData: DepositItinerary?
     enum TableViewCellForFlightProductType {
         case notesCell, requestCell, cancellationsReqCell, addOnRequestCell, reschedulingRequestCell, flightCarriersCell, flightBoardingAndDestinationCell, travellersPnrStatusTitleCell, travellersPnrStatusCell, documentCell, paymentInfoCell, bookingCell, addOnsCell, cancellationCell, paidCell, refundCell, paymentPendingCell, nameCell, emailCell, mobileCell, gstCell, billingAddressCell, flightsOptionsCell, weatherHeaderCell, weatherInfoCell, weatherFooterCell, tripChangeCell, addToCalenderCell, addToTripCell, bookSameFlightCell, addToAppleWallet
     }
@@ -369,6 +372,19 @@ class BookingProductDetailVM {
             } else {
                 printDebug("error are \(error)")
                 sSelf.delegate?.getTripOwnerFaiure(error: error)
+            }
+        }
+    }
+    
+    func getBookingOutstandingPayment() {
+        APICaller.shared.bookingOutstandingPaymentAPI(params: ["booking_id": bookingId]) { [weak self](success, errors, itiner) in
+            if success {
+                self?.itineraryData = itiner
+                self?.delegate?.getBookingOutstandingPaymentSuccess()
+            }
+            else {
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+                self?.delegate?.getBookingOutstandingPaymentFail()
             }
         }
     }

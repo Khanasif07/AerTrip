@@ -33,6 +33,7 @@ class MainHomeVC: BaseVC {
     var isPushedToNext: Bool {
         return !(self.scrollView.contentOffset.x < UIDevice.screenWidth)
     }
+    
     var isLaunchThroughSplash = false
     var toBeSelect: DashboardVC.SelectedOption = .aerin
     private var logoViewOriginalFrame: CGRect?
@@ -124,8 +125,7 @@ class MainHomeVC: BaseVC {
         delay(seconds: 0.3) {[weak self] in
             if UserInfo.loggedInUserId == nil {
                 self?.setupLogoView()
-            }
-            else {
+            } else {
                 self?.setupProfileView()
             }
         }
@@ -136,6 +136,8 @@ class MainHomeVC: BaseVC {
         //set content size
         
         //setup side menu controller
+        
+        //To avoid dashboard reset when login flow works from flights
         if fromFlights {
             if let pkSideMenu = children.first as? PKSideMenuController {
                 let sideMenu = SideMenuVC.instantiate(fromAppStoryboard: .Dashboard)
@@ -162,8 +164,7 @@ class MainHomeVC: BaseVC {
             self.contentView.addSubview(viewProfile.view)
             self.addChild(viewProfile)
             viewProfile.didMove(toParent: self)
-        }
-        else {
+        } else {
             //setup social login vc
             let social = self.createSocialLoginVC()
             social.view.frame = CGRect(x: UIDevice.screenWidth * 1.0, y: 0.0, width: UIDevice.screenWidth, height: UIDevice.screenHeight-44.0)
@@ -271,8 +272,7 @@ class MainHomeVC: BaseVC {
             self.profileView?.profileImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder() ?? UIImage(), showIndicator: false)
             //  self.profileView?.backgroundImageView.kf.setImage(with: URL(string: imagePath))
             self.profileView?.backgroundImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder(font:AppConstants.profileViewBackgroundNameIntialsFont) ?? UIImage(), showIndicator: false)
-        }
-        else {
+        } else {
             self.profileView?.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder()
             self.profileView?.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(font:AppConstants.profileViewBackgroundNameIntialsFont, textColor: AppColors.themeBlack)
         }

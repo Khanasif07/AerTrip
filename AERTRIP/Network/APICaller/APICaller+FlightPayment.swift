@@ -181,7 +181,9 @@ extension APICaller{
     
     
     func flightPaymentResponseAPI(params: JSONDictionary ,loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ json: JSON?)->Void) {
+        printDebug("Time when hit Api \(DispatchTime.now())")
         AppNetworking.POST(endPoint:APIEndPoint.paymentResponse, parameters: params, loader: loader, success: { [weak self] (json) in
+            printDebug("Time when response came \(DispatchTime.now())")
             guard let sSelf = self else {return}
 //            printDebug(json)
             sSelf.handleResponse(json, success: { (sucess, jsonData) in
@@ -197,6 +199,7 @@ extension APICaller{
                 completionBlock(false, errors, nil)
             })
         }) { (error) in
+            printDebug("Time when response came \(DispatchTime.now())")
             if error.code == AppNetworking.noInternetError.code {
                 AppGlobals.shared.stopLoading()
                 AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
