@@ -45,6 +45,11 @@ class LinkedAccountsTableCell: UITableViewCell {
         // Initialization code
         self.initialSetup()
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
