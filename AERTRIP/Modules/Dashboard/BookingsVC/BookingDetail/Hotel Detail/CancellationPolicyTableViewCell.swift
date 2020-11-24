@@ -50,13 +50,15 @@ class CancellationPolicyTableViewCell: ATTableViewCell {
         switch cancellationType {
         case .freeCancellation:
             self.titleLabelLeadingConstraint.constant = 12
-            self.titleLabel.textColor = AppColors.themeGreen
-            self.titleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: (UIImage(named: "greenBgIcon"))!, endText: " \(cancellationType.title.uppercased())", font: AppFonts.Regular.withSize(18.0))
+            self.titleLabel.textColor = AppColors.themeOrange
+            self.titleLabel.text = " \(cancellationType.title)"
+            self.titleLabel.font = AppFonts.SemiBold.withSize(18.0)
+//            self.titleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: (UIImage(named: "greenBgIcon"))!, endText: " \(cancellationType.title.uppercased())", font: AppFonts.Regular.withSize(18.0))
         case .cancellationFee:
-            self.titleLabel.attributedText = self.getAttributedText(text: "\(cancellationAmount) " + cancellationType.title, amountText: cancellationAmount)
+            self.titleLabel.attributedText = self.getAttributedText(text: "\(cancellationAmount) "/* + cancellationType.title */, amountText: cancellationAmount)
         case .nonRefundable:
-            self.titleLabel.textColor = AppColors.themeRed
-            self.titleLabel.font = AppFonts.Regular.withSize(18.0)
+            self.titleLabel.textColor = AppColors.themeBlack
+            self.titleLabel.font = AppFonts.SemiBold.withSize(18.0)
             self.titleLabel.text = cancellationType.title
         }
         self.titleValueLabel.text = cancellationTimePeriod
@@ -65,8 +67,8 @@ class CancellationPolicyTableViewCell: ATTableViewCell {
     private func getAttributedText(text: String, amountText: String) -> NSMutableAttributedString {
         let attString: NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font: AppFonts.Regular.withSize(14.0), .foregroundColor: AppColors.themeGray60])
         attString.addAttributes([
-            .font: AppFonts.Regular.withSize(18.0),
-            .foregroundColor: AppColors.themeRed
+            .font: AppFonts.SemiBold.withSize(18.0),
+            .foregroundColor: AppColors.themeBlack
         ], range: (text as NSString).range(of: amountText))
         return attString
     }
