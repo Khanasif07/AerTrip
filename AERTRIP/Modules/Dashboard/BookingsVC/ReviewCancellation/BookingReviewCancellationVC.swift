@@ -34,7 +34,9 @@ class BookingReviewCancellationVC: BaseVC {
     // Cancellation View
     @IBOutlet weak var cancellationTitleLabel: UILabel!
     @IBOutlet weak var cancellationTextField: UITextField!
-    @IBOutlet weak var commentTextView: PKTextView!
+    @IBOutlet weak var commentTextView: UITextView!
+    @IBOutlet weak var commentPlaceholderLbl: UILabel!
+    
     @IBOutlet weak var totalNetRefundView: UIView!
     @IBOutlet weak var totalNetRefundViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var totalNetRefundLabel: UILabel!
@@ -82,18 +84,19 @@ class BookingReviewCancellationVC: BaseVC {
     override func initialSetup() {
         self.requestCancellationButton.shouldShowPressAnimation = false
         self.requestCancellationButton.shadowColor = AppColors.clear
-        self.commentTextView.placeholderColor = AppColors.themeGray20
+        self.commentPlaceholderLbl.textColor = AppColors.themeGray20
+        self.commentPlaceholderLbl.font = AppFonts.Regular.withSize(18)
         self.commentTextView.font = AppFonts.Regular.withSize(18)
         switch self.viewModel.currentUsingAs {
         case .flightCancellationReview, .hotelCancellationReview:
-            self.commentTextView.placeholder = LocalizedString.EnterYourCommentOptional.localized
-            self.commentTextView.placeholderInsets = UIEdgeInsets(top: 4.0, left: 0.0, bottom: 0.0, right: 0.0)
+            self.commentPlaceholderLbl.text = LocalizedString.EnterYourCommentOptional.localized
+//            self.commentTextView.placeholderInsets = UIEdgeInsets(top: 4.0, left: 0.0, bottom: 0.0, right: 0.0)
         case .specialRequest:
             self.cancellationReasonView.isHidden = true
             self.cancellationViewHeightConstraint.constant = 0.0
             self.totalNetRefundView.isHidden = true
             self.totalNetRefundViewHeightConstraint.constant = 0.0
-            self.commentTextView.placeholderInsets = UIEdgeInsets(top: 4.0, left: 0.0, bottom: 0.0, right: 0.0)
+//            self.commentTextView.placeholderInsets = UIEdgeInsets(top: 4.0, left: 0.0, bottom: 0.0, right: 0.0)
         }
         
         self.refundModeTextField.delegate = self
@@ -143,7 +146,7 @@ class BookingReviewCancellationVC: BaseVC {
             self.refundModeTitleLabel.text = LocalizedString.RequestType.localized
             self.refundModeTextField.text = LocalizedString.Select.localized
             self.infoLabel.text = LocalizedString.ReviewCancellationInfoLabel.localized
-            self.commentTextView.placeholder = LocalizedString.WriteAboutYourSpecialRequest.localized
+            self.commentPlaceholderLbl.text = LocalizedString.WriteAboutYourSpecialRequest.localized
         }
     }
     
@@ -303,6 +306,7 @@ extension BookingReviewCancellationVC {
     func textViewDidChange(_ textView: UITextView) {
         self.viewModel.comment = textView.text
         self.manageTextFieldHeight()
+        commentPlaceholderLbl.isHidden = !textView.text.isEmpty
     }
     
         func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
