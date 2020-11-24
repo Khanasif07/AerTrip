@@ -270,12 +270,12 @@ class BookingProductDetailVM {
         self.sectionDataForFlightProductType.append([.flightsOptionsCell])
         
         
-        self.sectionDataForFlightProductType.append([.addToCalenderCell])
+//        self.sectionDataForFlightProductType.append([.addToCalenderCell])
         if self.bookingDetail?.tripInfo == nil {
             self.sectionDataForFlightProductType.append([.addToTripCell])
         }
         
-        self.sectionDataForFlightProductType.append([.bookSameFlightCell])
+//        self.sectionDataForFlightProductType.append([.bookSameFlightCell])
         if self.bookingDetail?.bookingStatus == .booked {
             self.sectionDataForFlightProductType.append([.addToAppleWallet])
         }

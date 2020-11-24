@@ -194,12 +194,12 @@ extension HotlelBookingsDetailsVC {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FlightsOptionsTableViewCell.reusableIdentifier, for: indexPath) as? FlightsOptionsTableViewCell else { return UITableViewCell() }
         cell.delegate = self
         cell.additionalInformation = self.viewModel.bookingDetail?.additionalInformation
-        var optionImages: [UIImage] = [#imageLiteral(resourceName: "directions"), #imageLiteral(resourceName: "call")]
-        var optionNames: [String] = [LocalizedString.Directions.localized, LocalizedString.Call.localized]
-        if self.viewModel.bookingDetail?.tripInfo == nil {
-            optionImages.append(#imageLiteral(resourceName: "addToTrips"))
-            optionNames.append(LocalizedString.AddToTrips.localized)
-        }
+        var optionImages: [UIImage] = [#imageLiteral(resourceName: "directions"), #imageLiteral(resourceName: "bookingsCalendar"), #imageLiteral(resourceName: "bookingsCall"), #imageLiteral(resourceName: "shareBooking"), #imageLiteral(resourceName: "bookingsHotel")]
+        var optionNames: [String] = [LocalizedString.Directions.localized, LocalizedString.AddToCalender.localized, LocalizedString.Call.localized, LocalizedString.Share.localized, LocalizedString.BookAnotherRoom.localized]
+//        if self.viewModel.bookingDetail?.tripInfo == nil {
+//            optionImages.append(#imageLiteral(resourceName: "addToTrips"))
+//            optionNames.append(LocalizedString.AddToTrips.localized)
+//        }
         cell.optionImages = optionImages
         cell.optionNames = optionNames
         cell.usingFor = .hotel

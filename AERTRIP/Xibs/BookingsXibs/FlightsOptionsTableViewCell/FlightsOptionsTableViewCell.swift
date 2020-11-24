@@ -17,7 +17,16 @@ protocol FlightsOptionsTableViewCellDelegate: class {
     func openWebCheckin()
     func openDirections()
     func openCallDetail()
+    func addToCalendar()
+    func share()
+    func bookSameFlight()
     func addToTrips()
+}
+
+extension FlightsOptionsTableViewCellDelegate {
+    func addToCalendar() {}
+    func share() {}
+    func bookSameFlight() {}
 }
 
 class FlightsOptionsTableViewCell: UITableViewCell {
@@ -26,9 +35,11 @@ class FlightsOptionsTableViewCell: UITableViewCell {
     // MARK: ===========
     
     weak var delegate: FlightsOptionsTableViewCellDelegate?
-    var optionImages: [UIImage] = [#imageLiteral(resourceName: "webCheckin"), #imageLiteral(resourceName: "directions"), #imageLiteral(resourceName: "call")]
-    var optionNames: [String] = [LocalizedString.WebCheckin.localized, LocalizedString.Directions.localized, LocalizedString.Call.localized]
     
+    var optionImages = [#imageLiteral(resourceName: "bookingsWebCheckin"), #imageLiteral(resourceName: "bookingsCalendar"), #imageLiteral(resourceName: "directions"), #imageLiteral(resourceName: "shareBooking"), #imageLiteral(resourceName: "bookingsCall"), #imageLiteral(resourceName: "bookSameFlight")]
+    
+    var optionNames = [LocalizedString.WebCheckin.localized, LocalizedString.AddToCalender.localized, LocalizedString.Directions.localized, LocalizedString.Share.localized, LocalizedString.Call.localized, LocalizedString.BookSameFlight.localized]
+        
     var additionalInformation: AdditionalInformation?
     var webCheckinUrl: String = ""
     var usingFor: UsingFor = .flight
@@ -38,6 +49,7 @@ class FlightsOptionsTableViewCell: UITableViewCell {
     // MARK: ===========
     
     @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var optionsCollViewHeight: NSLayoutConstraint!
     @IBOutlet weak var flightsOptionCollectionView: UICollectionView! {
         didSet {
             self.flightsOptionCollectionView.contentInset = UIEdgeInsets(top: 0.0, left: 1.0, bottom: 0.0, right: 1.0)
@@ -87,11 +99,11 @@ extension FlightsOptionsTableViewCell: UICollectionViewDelegate, UICollectionVie
             if indexPath.item == 0, self.webCheckinUrl.isEmpty {
                 cell.optionImageView.image = #imageLiteral(resourceName: "webCheckinGray")
                 cell.optionNameLabel.textColor = AppColors.themeGray40
-            } else if indexPath.item == 1, self.additionalInformation?.directions.isEmpty ?? false {
+            } else if indexPath.item == 2, self.additionalInformation?.directions.isEmpty ?? false {
                 cell.optionImageView.image = #imageLiteral(resourceName: "dircetionGray")
                 cell.optionNameLabel.textColor = AppColors.themeGray40
                 
-            } else if indexPath.item == 2, self.additionalInformation?.contactInfo == nil {
+            } else if indexPath.item == 4, self.additionalInformation?.contactInfo == nil {
                 printDebug("inside contact cell")
                 cell.optionImageView.image = #imageLiteral(resourceName: "callGray")
                 cell.optionNameLabel.textColor = AppColors.themeGray40
@@ -127,15 +139,17 @@ extension FlightsOptionsTableViewCell: UICollectionViewDelegate, UICollectionVie
                     self.delegate?.openWebCheckin()
                 }
             case 1:
+                delegate?.addToCalendar()
+            case 2:
                 if !(self.additionalInformation?.directions.isEmpty ?? false) {
                     self.delegate?.openDirections()
                 }
-                
-            case 2:
+            case 4:
                 if self.additionalInformation?.contactInfo != nil {
                     self.delegate?.openCallDetail()
                 }
-                
+            case 5:
+                delegate?.bookSameFlight()
             default:
                 return
             }
@@ -146,13 +160,14 @@ extension FlightsOptionsTableViewCell: UICollectionViewDelegate, UICollectionVie
                     self.delegate?.openDirections()
                 }
                 
-            case 1:
+            case 2:
                 if self.additionalInformation?.contactInfo != nil {
                     self.delegate?.openCallDetail()
                 }
                 
             case 2:
-                self.delegate?.addToTrips()
+//                self.delegate?.addToTrips()
+            break
             default:
                 return
             }
@@ -169,8 +184,18 @@ extension FlightsOptionsTableViewCell: UICollectionViewDelegate, UICollectionVie
 //                return CGSize(width: collectionView.frame.width/3, height: collectionView.frame.height)
 //            }
 //        }
-        let width = collectionView.width/CGFloat(self.optionImages.count)
-        return CGSize(width: width, height: collectionView.height)
+        
+        switch usingFor {
+        case .flight:
+            let width = collectionView.width/3//CGFloat(self.optionImages.count)
+            return CGSize(width: width, height: collectionView.height/2)
+        default:
+            var width = collectionView.width/3 - 5
+            if indexPath.item == 0 || indexPath.item == 1 {
+                width = collectionView.width/2 - 5
+            }
+            return CGSize(width: width, height: collectionView.height/2)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
