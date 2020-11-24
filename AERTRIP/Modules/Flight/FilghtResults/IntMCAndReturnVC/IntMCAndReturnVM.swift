@@ -158,6 +158,20 @@ class IntMCAndReturnVM {
                    sortArray = self.results.journeyArray
                }
         
+        sortArray.sort(by: { (obj1, obj2) -> Bool in
+                return (obj1.journeyArray.first?.price ?? 0) < (obj2.journeyArray.first?.price ?? 0)
+        })
+        
+        
+        sortArray.sort(by: { (obj1, obj2) -> Bool in
+            
+            let firstObjDepartureTime = obj1.journeyArray.first?.legsWithDetail[self.prevLegIndex].dt
+            let secondObjDepartureTime = obj2.journeyArray.first?.legsWithDetail[self.prevLegIndex].dt
+                            
+                return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime ?? "") < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime ?? "")
+                
+        })
+        
         
         switch  sortOrder {
             

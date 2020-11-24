@@ -47,7 +47,6 @@ class WebCheckinVC: BaseVC {
     }
     
     // MARK: - Helper methods
-    
     func registerXib() {
         self.webCheckinTableView.register(UINib(nibName: AppConstants.ktableViewHeaderViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: AppConstants.ktableViewHeaderViewIdentifier)
         self.webCheckinTableView.registerCell(nibName: BookingCallTableViewCell.reusableIdentifier)
@@ -61,7 +60,6 @@ class WebCheckinVC: BaseVC {
         bookingCell.configureCell(code: self.viewModel.airlineData[indexPath.row].airlineCode, title: self.viewModel.airlineData[indexPath.row].airlineName, phoneLabel: "", cellType: .webcheckin)
         bookingCell.dividerView.isHidden = false//self.viewModel.airlineData.count - 1 == indexPath.row
         bookingCell.dividerViewLeadingConst.constant = (self.viewModel.airlineData.count - 1 == indexPath.row) ? 0 : 59
-
         return bookingCell
     }
     
@@ -89,8 +87,6 @@ extension WebCheckinVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return self.getCellForSecondSection(indexPath)
-        
-        
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -111,10 +107,12 @@ extension WebCheckinVC: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension WebCheckinVC: TopNavigationViewDelegate {
+    
     func topNavBarLeftButtonAction(_ sender: UIButton) {
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
+    
 }
