@@ -398,7 +398,7 @@ extension AdonsVM {
         if self.isSpecialRequestAdded() {
             
             let speReq = description.isEmpty ? "Special Request" : "+ Special Request"
-            description = speReq
+            description = description + speReq
         }
         
         if description.isEmpty {

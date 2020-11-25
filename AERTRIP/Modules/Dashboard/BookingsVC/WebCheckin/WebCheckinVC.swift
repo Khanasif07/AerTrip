@@ -47,7 +47,6 @@ class WebCheckinVC: BaseVC {
     }
     
     // MARK: - Helper methods
-    
     func registerXib() {
         self.webCheckinTableView.register(UINib(nibName: AppConstants.ktableViewHeaderViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: AppConstants.ktableViewHeaderViewIdentifier)
         self.webCheckinTableView.registerCell(nibName: BookingCallTableViewCell.reusableIdentifier)
@@ -59,7 +58,8 @@ class WebCheckinVC: BaseVC {
             fatalError("BookingCallTableViewCell not found")
         }
         bookingCell.configureCell(code: self.viewModel.airlineData[indexPath.row].airlineCode, title: self.viewModel.airlineData[indexPath.row].airlineName, phoneLabel: "", cellType: .webcheckin)
-        bookingCell.dividerView.isHidden = self.viewModel.airlineData.count - 1 == indexPath.row
+        bookingCell.dividerView.isHidden = false//self.viewModel.airlineData.count - 1 == indexPath.row
+        bookingCell.dividerViewLeadingConst.constant = (self.viewModel.airlineData.count - 1 == indexPath.row) ? 0 : 59
         return bookingCell
     }
     
@@ -87,8 +87,6 @@ extension WebCheckinVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return self.getCellForSecondSection(indexPath)
-        
-        
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -99,6 +97,7 @@ extension WebCheckinVC: UITableViewDataSource, UITableViewDelegate {
         
       //  guard let url = self.viewModel.webCheckins[indexPath.row].toUrl else { return }
       //  AppFlowManager.default.showURLOnATWebView(url, screenTitle: LocalizedString.WebCheckin.localized)
+        guard self.viewModel.webCheckins.count > indexPath.row else {return}
         self.openUrl( self.viewModel.webCheckins[indexPath.row])
     }
     
@@ -108,10 +107,12 @@ extension WebCheckinVC: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension WebCheckinVC: TopNavigationViewDelegate {
+    
     func topNavBarLeftButtonAction(_ sender: UIButton) {
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
+    
 }

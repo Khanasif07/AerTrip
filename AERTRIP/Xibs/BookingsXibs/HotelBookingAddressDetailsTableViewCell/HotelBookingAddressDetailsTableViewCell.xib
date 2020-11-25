@@ -28,10 +28,10 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ob9-I2-SeW">
                         <rect key="frame" x="16" y="8.5" width="343" height="252.5"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ramada Plaza Palm Grove" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p2r-ji-8oO">
-                                <rect key="frame" x="16" y="8" width="287" height="33"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ramada Plaza Palm Grove" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p2r-ji-8oO">
+                                <rect key="frame" x="16" y="8" width="287" height="41.5"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="33" id="5OZ-87-nsG"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="33" id="5OZ-87-nsG"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="26.100000381469727"/>
                                 <nil key="textColor"/>
@@ -45,7 +45,7 @@
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="S6C-rA-2SE">
-                                <rect key="frame" x="16" y="53" width="311" height="95.5"/>
+                                <rect key="frame" x="16" y="61.5" width="311" height="87"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="ipV-ly-DuP">
                                         <rect key="frame" x="0.0" y="0.0" width="217" height="16"/>
@@ -107,7 +107,7 @@
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eem-Pf-Nlo">
-                                        <rect key="frame" x="0.0" y="26" width="292.5" height="69.5"/>
+                                        <rect key="frame" x="0.0" y="26" width="292.5" height="61"/>
                                         <string key="text">Ramada Powai, Powai Saki Vihar Road Mumbai 400 087, Mumbai, India,
 Pin-code: 400 043</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>

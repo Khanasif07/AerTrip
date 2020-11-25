@@ -128,7 +128,7 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
             
         }
         else if let _ = tableView.cellForRow(at: indexPath) as? HotelDetailsCheckOutTableViewCell {
-            AppGlobals.shared.startLoading(loaderBgColor: .clear)
+          //  AppGlobals.shared.startLoading(loaderBgColor: .clear)
             delay(seconds: 0.1) {
                 var presentSelectionVC = false
                 if let _ = UserInfo.loggedInUserId {

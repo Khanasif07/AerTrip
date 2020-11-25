@@ -35,6 +35,14 @@ class AccountLadgerDetailHeader: UIView {
             self.configureData()
         }
     }
+    
+    var onAccountEvent:OnAccountLedgerEvent?{
+        didSet {
+            self.configureForOnAccount()
+        }
+        
+    }
+    
     weak var delegate:AccountLadgerDetailHeaderDelegate?
     //MARK:- Life Cycle
     //MARK:-
@@ -109,6 +117,24 @@ class AccountLadgerDetailHeader: UIView {
             self.bottomDetailContainerHeightConstraint.constant = 38.0
             self.bottomContainerBottomConstraint.constant = 22.0
         }
+    }
+    
+    
+    func configureForOnAccount(){
+        
+        self.layoutIfNeeded()
+        guard let event = self.onAccountEvent else {
+            self.resetAllSubviews()
+            return
+        }
+        
+        self.imageView.image = #imageLiteral(resourceName: "ic_acc_receipt")
+        self.titleLabel.text = event.voucher.rawValue
+        self.bookingIdKeyLabel.text = ""
+        self.bookingIdValueLabel.text = ""
+        self.bottomDetailContainer.isHidden = true
+        self.bottomDetailContainerHeightConstraint.constant = 0.0
+        self.bottomContainerBottomConstraint.constant = 0.0
     }
     
     //MARK:- Public

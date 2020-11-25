@@ -274,7 +274,6 @@ extension APICaller {
     }
     
     
-    
     func fetchConfirmItineraryData(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes, _ data: ItineraryData?) -> Void) {
         AppNetworking.GET(endPoint: APIEndPoint.confirmation, parameters: params, success: { [weak self] json in
             guard let sSelf = self else { return }

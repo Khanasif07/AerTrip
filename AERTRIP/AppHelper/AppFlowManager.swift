@@ -686,6 +686,7 @@ extension AppFlowManager {
         obj.viewModel.couponCode = couponCode
         obj.viewModel.product = product
         obj.viewModel.couponsData = couponData
+        obj.viewModel.isCouponApplied = !couponCode.isEmpty
         obj.modalPresentationStyle = .overFullScreen
         self.currentNavigation?.present(obj, animated: true)
     }
@@ -935,6 +936,14 @@ extension AppFlowManager {
         let obj = AccountLadgerDetailsVC.instantiate(fromAppStoryboard: .Account)
         obj.viewModel.ladgerEvent = forEvent
         obj.viewModel.detailType = detailType
+        self.mainNavigationController.pushViewController(obj, animated: true)
+    }
+    
+    func emoveToAccountLadgerDetailsForOnAccount(forEvent: OnAccountLedgerEvent?, detailType: AccountLadgerDetailsVM.AccountLadgerDetailType) {
+        let obj = AccountLadgerDetailsVC.instantiate(fromAppStoryboard: .Account)
+        obj.viewModel.onAccountEvent = forEvent
+        obj.viewModel.detailType = detailType
+        obj.viewModel.isForOnAccount = true
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     

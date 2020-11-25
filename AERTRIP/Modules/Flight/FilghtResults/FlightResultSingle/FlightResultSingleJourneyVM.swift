@@ -309,6 +309,35 @@ class FlightResultSingleJourneyVM {
                 
           var journeySortedArray = self.results.journeyArray
 
+//                suggetedSortArray.sort(by: { (obj1, obj2) -> Bool in
+//                    return (obj1.journeyArray[obj1.currentSelectedIndex].price) < (obj2.journeyArray[obj2.currentSelectedIndex].price)
+//                })
+//
+//               journeySortedArray.sort(by: { (obj1, obj2) -> Bool in
+//                    return (obj1.journeyArray[obj1.currentSelectedIndex].price) < (obj2.journeyArray[obj2.currentSelectedIndex].price)
+//                })
+//
+//
+//                suggetedSortArray.sort(by: { (obj1, obj2) -> Bool in
+//
+//                  let firstObjDepartureTime = obj1.journeyArray[obj1.currentSelectedIndex].leg[0].dt
+//                  let secondObjDepartureTime = obj2.journeyArray[obj2.currentSelectedIndex].leg[0].dt
+//
+//                      return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
+//
+//                })
+//
+//
+//              journeySortedArray.sort(by: { (obj1, obj2) -> Bool in
+//
+//                  let firstObjDepartureTime = obj1.journeyArray[obj1.currentSelectedIndex].leg[0].dt
+//                  let secondObjDepartureTime = obj2.journeyArray[obj2.currentSelectedIndex].leg[0].dt
+//
+//                    return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
+//
+//              })
+        
+
           switch  sortOrder {
               
           case .Smart:
@@ -386,7 +415,6 @@ class FlightResultSingleJourneyVM {
                   
                   return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
 
-                    
                 }
             })
               
@@ -427,7 +455,6 @@ class FlightResultSingleJourneyVM {
                   
                   return firstObjTimeInterval > secondObjTimeInterval
 
-                  
                 }else{
                   
                   return firstObjTimeInterval < secondObjTimeInterval
@@ -440,6 +467,9 @@ class FlightResultSingleJourneyVM {
               
           }
         
+        
+
+
         self.results.journeyArray = journeySortedArray
         self.results.suggestedJourneyArray = suggetedSortArray
 

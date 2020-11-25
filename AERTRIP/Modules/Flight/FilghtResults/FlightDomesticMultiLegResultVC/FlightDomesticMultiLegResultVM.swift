@@ -136,6 +136,33 @@ class FlightDomesticMultiLegResultVM {
         
         var journeySortedArray = self.results[tableIndex].journeyArray
         
+        suggetedSortArray.sort(by: { (obj1, obj2) -> Bool in
+                return obj1.price  < obj2.price
+        })
+        
+        journeySortedArray.sort(by: { (obj1, obj2) -> Bool in
+                return obj1.price  < obj2.price
+        })
+        
+        
+        suggetedSortArray.sort(by: { (obj1, obj2) -> Bool in
+            
+            let firstObjDepartureTime = obj1.dt
+            let secondObjDepartureTime = obj2.dt
+                
+                return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
+                
+        })
+        
+        journeySortedArray.sort(by: { (obj1, obj2) -> Bool in
+            
+            let firstObjDepartureTime = obj1.dt
+            let secondObjDepartureTime = obj2.dt
+
+                return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
+                
+        })
+        
         switch  sortOrder {
             
         case .Smart:

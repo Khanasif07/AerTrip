@@ -268,14 +268,14 @@ enum AppNetworking {
         }
         
         printDebug("headers: \(header)")
-        AF.sessionConfiguration.timeoutIntervalForRequest = 200
-        AF.sessionConfiguration.timeoutIntervalForResource = 200
+        AF.session.configuration.timeoutIntervalForRequest = 200
+        AF.session.configuration.timeoutIntervalForResource = 200
         
        let request = AF.request(URLString,
                           method: httpMethod,
                           parameters: isLocalServerUrl ? addMandatoryParams(toExistingParams: parameters):parameters,
                           encoding: encoding,
-                          headers: header)
+                          headers: header,requestModifier: {$0.timeoutInterval = 200})
         
         request.responseString { (data) in
             //printDebug(data)

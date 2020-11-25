@@ -84,14 +84,26 @@ class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
             var stateText = recentSearchesData.dest_name.deletingPrefix(prefix: prefix).removeSpaceAsSentence
             //stateText = stateText.deletingSuffix(suffix: suffix).removeSpaceAsSentence
             
-            self.cityNameLabel.text = "\(cityName) " + stateText
-            self.cityNameLabel.AttributedFontAndColorForText(atributedText: "\(cityName)", textFont: AppFonts.SemiBold.withSize(18.0), textColor: AppColors.themeBlack)
+//            self.cityNameLabel.text = "\(cityName) " + stateText
+//            self.cityNameLabel.AttributedFontAndColorForText(atributedText: "\(cityName)", textFont: AppFonts.SemiBold.withSize(18.0), textColor: AppColors.themeBlack)
 //        }
+        self.cityNameLabel.attributedText = self.createAttributedText(attTxt: "\(cityName) ", normalText: stateText)
         //        let totalNights = (recentSearchesData.totalNights == 1 ? " (\(recentSearchesData.totalNights) Night)" : " (\(recentSearchesData.totalNights) Nights)")
         if let checkInDate = self.getDateFromString(stringDate: recentSearchesData.checkInDate), let checkOutDate = self.getDateFromString(stringDate: recentSearchesData.checkOutDate) {
             self.timeLabel.text = checkInDate + " - " + checkOutDate
         }
         //       / self.adultAndRoomText(recentSearchesData: recentSearchesData)
+    }
+    
+    
+    
+    func createAttributedText(attTxt: String, normalText: String)-> NSAttributedString{
+        let attStr = NSMutableAttributedString(string: attTxt, attributes: [.font: AppFonts.SemiBold.withSize(18.0), .foregroundColor: AppColors.themeBlack])
+        
+        let sufix = NSAttributedString(string: normalText, attributes: [.font: AppFonts.SemiBold.withSize(14.0), .foregroundColor: AppColors.themeGray60])
+        attStr.append(sufix)
+        return attStr
+        
     }
     
     ///GetDateFromString

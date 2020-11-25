@@ -117,8 +117,7 @@ extension HCSpecialRequestsVC: UITableViewDelegate, UITableViewDataSource{
             if !self.viewModel.selectedRequestsId.contains(self.viewModel.specialRequests[indexPath.row].id) {
                 self.viewModel.selectedRequestsId.append(self.viewModel.specialRequests[indexPath.row].id)
                 self.viewModel.selectedRequestsName.append(self.viewModel.specialRequests[indexPath.row].name)
-            }
-            else {
+            } else {
                 self.viewModel.selectedRequestsId.remove(object: self.viewModel.specialRequests[indexPath.row].id)
                 self.viewModel.selectedRequestsName.remove(object: self.viewModel.specialRequests[indexPath.row].name)
             }
