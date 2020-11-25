@@ -374,7 +374,7 @@ struct IntMultiCityAndReturnWSResponse {
                     return attributedSuperScript
                 }
                 
-                print("baggageArray=",baggageArray)
+//                print("baggageArray=",baggageArray)
                 
                 if baggageArray.allSatisfy({ $0 == firstValue }) {
                     
