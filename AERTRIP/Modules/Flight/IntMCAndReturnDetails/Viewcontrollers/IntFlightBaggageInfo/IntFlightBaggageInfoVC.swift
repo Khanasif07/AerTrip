@@ -63,6 +63,7 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
                 }
             }
         }
+        baggageTableView.showsVerticalScrollIndicator = true
     }
     
     private func setLoader(){

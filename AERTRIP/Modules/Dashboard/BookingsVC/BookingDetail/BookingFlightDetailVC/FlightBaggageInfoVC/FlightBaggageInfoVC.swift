@@ -77,6 +77,7 @@ class FlightBaggageInfoVC: BaseVC {
         self.tableView.registerCell(nibName: BookingTravellerAddOnsTableViewCell.reusableIdentifier)
         self.tableView.registerCell(nibName: BookingInfoNotesCellTableViewCell.reusableIdentifier)
 
+        tableView.showsVerticalScrollIndicator = true
     }
     
 }

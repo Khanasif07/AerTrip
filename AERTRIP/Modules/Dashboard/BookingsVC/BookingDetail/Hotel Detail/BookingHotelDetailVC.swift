@@ -62,6 +62,7 @@ class BookingHotelDetailVC: BaseVC {
         self.hotelDetailTableView.delegate = self
         self.hotelDetailTableView.reloadData()
         self.hotelDetailTableView.backgroundColor = AppColors.themeGray04
+        hotelDetailTableView.showsVerticalScrollIndicator = true
         self.configureNavBar()
         if self.viewModel.bookingDetail == nil {
             self.hotelDetailTableView.backgroundColor = AppColors.themeWhite

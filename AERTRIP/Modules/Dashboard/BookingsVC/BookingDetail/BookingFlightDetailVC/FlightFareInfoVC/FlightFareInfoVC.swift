@@ -72,7 +72,7 @@ class FlightFareInfoVC: BaseVC {
         self.tableView.registerCell(nibName: FareInfoCommonCell.reusableIdentifier)
         self.tableView.registerCell(nibName: FareInfoCombineCell.reusableIdentifier)
 
-        
+        tableView.showsVerticalScrollIndicator = true
     }
     
 }
