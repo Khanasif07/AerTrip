@@ -167,7 +167,6 @@ extension LinkedAccountsVC: LinkedAccountsCellDelegate {
         default:
             printDebug("not required")
         }
-        sender.layoutSubviews()
     }
     
     func disConnect(_ sender: UIButton, forType: LinkedAccount.SocialType) {

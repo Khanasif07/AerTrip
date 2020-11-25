@@ -300,7 +300,6 @@ import UIKit
     }
     
     private func startLoading() {
-        self.loaderContainer.frame = self.bounds
         self.setLoaderColor()
         self.loaderContainer.isHidden = false
         self.loaderIndicator.isHidden = false
