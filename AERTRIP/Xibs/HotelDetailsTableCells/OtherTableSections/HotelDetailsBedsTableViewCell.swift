@@ -129,7 +129,7 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
             self.bedDiscriptionLabel.text = roomData.desc
             self.bedDiscriptionLabel.isHidden = roomData.desc.isEmpty
             self.dropDownStackView.isHidden = roomData.desc.isEmpty
-            self.bedDiscriptionLabel.font = AppFonts.SemiBold.withSize(18.0)
+            self.bedDiscriptionLabel.font = AppFonts.Regular.withSize(14.0)
             self.bedTypeLabel.font = AppFonts.SemiBold.withSize(18.0)
             self.deviderView.isHidden = false
             self.descLabel.isHidden = true
