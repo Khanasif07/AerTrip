@@ -34,6 +34,9 @@ class PaymentPendingTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.configUI()
+        delay(seconds: 0.05) {
+            self.configUI()
+        }
     }
     
     

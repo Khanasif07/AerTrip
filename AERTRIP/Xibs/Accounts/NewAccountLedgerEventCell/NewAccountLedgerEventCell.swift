@@ -106,7 +106,20 @@ class NewAccountLedgerEventCell: UITableViewCell {
         
         
         self.voucherTitleLabel.text = self.event?.voucherName ?? ""
-        self.balanceTitleLabel.attributedText = (self.event?.amount ?? 0.0).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(18.0))
+        
+        let suff = (self.event?.amount ?? 0.0) > 0 ? LocalizedString.CreditShort.localized : LocalizedString.DebitShort.localized
+//         "\(abs(self.ladgerEvent!.amount).amountInDelimeterWithSymbol) \(suff)", age: "", isEmptyCell: false))
+        
+        if let matableTxt = abs(self.event?.amount ?? 0.0).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(18.0)).mutableCopy() as? NSMutableAttributedString{
+            
+            let attStr = NSAttributedString(string: " \(suff)", attributes: [.font: AppFonts.SemiBold.withSize(18.0)])
+            matableTxt.append(attStr)
+            self.balanceTitleLabel.attributedText = matableTxt
+        }else{
+            self.balanceTitleLabel.attributedText = (self.event?.amount ?? 0.0).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(18.0))
+        }
+        
+        
         let mutableText = NSMutableAttributedString(string: "Closing Balance: ", attributes: [.font: AppFonts.Regular.withSize(12), .foregroundColor: AppColors.themeGray40])
         mutableText.append((self.event?.balance ?? 0.0).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(12.0)))
         self.balanceValueLabel.attributedText = mutableText//(self.event?.balance ?? 0.0).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(12.0))

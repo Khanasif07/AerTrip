@@ -100,6 +100,7 @@ struct AccountDetailEvent {
     var checkIn: Date?
     var checkOut: Date?
     var room: String = ""
+    var roomNamesArray = [String]()
     var inclusion: String = ""
     var confirmationId: String = ""
     var names: [AccountUser] = []
@@ -560,6 +561,7 @@ struct AccountDetailEvent {
                 if let obj = first["room_name"] {
                     self.room = "\(obj)"
                 }
+                self.roomNamesArray = rows.map({$0["room_name"] as? String ?? ""})
                 
                 //inclusion
                 if let obj = first["inclusions"] as? [String] {
