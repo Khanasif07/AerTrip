@@ -435,6 +435,19 @@ extension HotlelBookingsDetailsVC: MXParallaxHeaderDelegate {
 }
 
 extension HotlelBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
+    
+    func addToCalendar() {
+        addToCalender()
+    }
+    
+    func share() {
+        
+    }
+    
+    func bookSameFlightOrRoom() {
+        bookAnotherRoom()
+    }
+    
     func addToTrips() {
         AppGlobals.shared.showUnderDevelopment()
     }

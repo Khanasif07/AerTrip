@@ -432,7 +432,7 @@ extension FlightBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
         
     }
     
-    func bookSameFlight() {
+    func bookSameFlightOrRoom() {
         if let whatNext = self.whatNextForSameFlightBook() {
             self.bookSameFlightWith(whatNext)
         }

@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "bookingsDirections@1x.png",
+      "filename" : "bookingsDirectionsUnselected@1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "bookingsDirections@2x.png",
+      "filename" : "bookingsDirectionsUnselected@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "bookingsDirections@3x.png",
+      "filename" : "bookingsDirectionsUnselected@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

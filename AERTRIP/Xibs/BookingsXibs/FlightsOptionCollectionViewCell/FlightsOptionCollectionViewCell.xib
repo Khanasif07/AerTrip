@@ -33,7 +33,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Web Checkin" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kt5-VD-iA8">
-                                <rect key="frame" x="10" y="58" width="105" height="18"/>
+                                <rect key="frame" x="10" y="50" width="105" height="26"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -50,7 +50,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="VHS-On-RlR" secondAttribute="bottom" id="0ST-Sm-f2V"/>
-                            <constraint firstItem="kt5-VD-iA8" firstAttribute="top" secondItem="tF5-re-DTE" secondAttribute="bottom" constant="8" id="4xg-6p-O28"/>
+                            <constraint firstItem="kt5-VD-iA8" firstAttribute="top" secondItem="tF5-re-DTE" secondAttribute="bottom" id="4xg-6p-O28"/>
                             <constraint firstAttribute="trailing" secondItem="VHS-On-RlR" secondAttribute="trailing" id="AhN-lX-Cdw"/>
                             <constraint firstAttribute="height" constant="79" id="BDH-1y-jmb"/>
                             <constraint firstItem="VHS-On-RlR" firstAttribute="top" secondItem="gdw-iz-RBT" secondAttribute="top" id="ECF-pw-Ny1"/>
@@ -70,6 +70,7 @@
                 <constraint firstAttribute="trailing" secondItem="gdw-iz-RBT" secondAttribute="trailing" id="Dnh-dM-OQO"/>
                 <constraint firstItem="gdw-iz-RBT" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="fcT-wV-3zR"/>
             </constraints>
+            <size key="customSize" width="125" height="79"/>
             <connections>
                 <outlet property="containerView" destination="gdw-iz-RBT" id="zxt-xx-AZG"/>
                 <outlet property="containerViewLeadingConstraint" destination="fcT-wV-3zR" id="NtW-St-HiN"/>
@@ -81,7 +82,7 @@
                 <outlet property="optionNameLabel" destination="kt5-VD-iA8" id="nNn-aT-a1k"/>
                 <outlet property="titleTopConstraint" destination="4xg-6p-O28" id="IkN-IS-YlZ"/>
             </connections>
-            <point key="canvasLocation" x="105" y="27"/>
+            <point key="canvasLocation" x="103.62318840579711" y="26.450892857142858"/>
         </collectionViewCell>
     </objects>
     <resources>
