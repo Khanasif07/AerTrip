@@ -688,8 +688,13 @@ class GetSharableUrl
             {
                 if let pr = userSelectedFilters?.pr{
                     let price = "filters[\(i)][pr][0]=\(pr.minPrice)&filters[\(i)][pr][1]=\(pr.maxPrice)&"
-                    
+
                     filterString.append(price)
+                }
+                
+                if uiFilters.contains(.refundableFares){
+                    filterString.append("filters[\(i)][fares][]=1&")
+                    
                 }
             }
             
