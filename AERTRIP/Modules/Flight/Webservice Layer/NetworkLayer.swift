@@ -63,18 +63,17 @@ class WebAPIService
                 self.textLog.write("\nRESPONSE HEADER :::::::: \(requestDate)  ::::::::\n\n\(String(describing: httpResponse.allHeaderFields))\n")
 
                 
-//                print("coockie=",httpResponse.allHeaderFields)
                 let keys = httpResponse.allHeaderFields
                 if let val = keys["Set-Cookie"] as? String{
-//                    print("val=",val)
-                    let str = val.components(separatedBy: ";")
+                    print("val=",val)
+//                    let str = val.components(separatedBy: ";")
 //                    print("str0=",str[0])
 
-                    if str.count > 0 {
-                        if str[0].contains("AT_R_STAGE_SESSID"){
-                            UserDefaults.standard.set(str[0], forKey: "SearchResultCookie")
-                        }
-                    }
+//                    if str.count > 0 {
+//                        if str[0].contains("AT_R_STAGE_SESSID"){
+                            UserDefaults.standard.set(val, forKey: "SearchResultCookie")
+//                        }
+//                    }
                 }
             }
             
