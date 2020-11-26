@@ -123,8 +123,8 @@ class BookingProductDetailVM {
         
         self.sectionDataForHotelDetail.append([.flightsOptionsCell])
         
-        self.sectionDataForHotelDetail.append([.addToCalenderCell])
-        self.sectionDataForHotelDetail.append([.bookAnotherRoomCell])
+//        self.sectionDataForHotelDetail.append([.addToCalenderCell])
+//        self.sectionDataForHotelDetail.append([.bookAnotherRoomCell])
         if self.bookingDetail?.bookingStatus == .booked {
             self.sectionDataForHotelDetail.append([.addToAppleWallet])
         }
