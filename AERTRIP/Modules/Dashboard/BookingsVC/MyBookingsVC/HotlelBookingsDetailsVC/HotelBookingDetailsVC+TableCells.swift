@@ -255,6 +255,13 @@ extension HotlelBookingsDetailsVC {
     
     func getWeatherInfoCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherInfoTableViewCell.reusableIdentifier, for: indexPath) as? WeatherInfoTableViewCell else { return UITableViewCell() }
+        
+        // For getting maximum label widths and setting - start
+        cell.cityAndDateLblWidth.constant = viewModel.weatherLabelWidths.dateLblWidth
+        cell.tempLblWidth.constant = viewModel.weatherLabelWidths.curTempLblWidth
+        cell.weatherLblWidth.constant = viewModel.weatherLabelWidths.highLowLblWidth
+        // For getting maximum label widths and setting - end
+        
         cell.usingFor = .hotel
         if self.viewModel.isSeeAllWeatherButtonTapped || (self.viewModel.bookingDetail?.tripWeatherData.count ?? 0) < 5  {
             cell.isLastCell = (self.viewModel.bookingDetail?.weatherDisplayedWithin16Info ?? false ) ? false : indexPath.row == ((self.viewModel.bookingDetail?.tripWeatherData.count ?? 0))
@@ -263,6 +270,7 @@ extension HotlelBookingsDetailsVC {
         }
         cell.weatherData = self.viewModel.bookingDetail?.tripWeatherData[indexPath.row - 1]
         cell.clipsToBounds = true
+        
         return cell
     }
     
@@ -336,3 +344,4 @@ extension HotlelBookingsDetailsVC {
         return cell
     }
 }
+
