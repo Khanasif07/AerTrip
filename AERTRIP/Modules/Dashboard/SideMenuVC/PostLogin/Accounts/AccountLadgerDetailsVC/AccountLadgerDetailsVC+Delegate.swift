@@ -96,8 +96,6 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
         }
         
         
-        
-        
         if indexPath.section == self.viewModel.sectionArray.count + 1{
             
             switch indexPath.row {
@@ -357,6 +355,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
             if let mutableString = suffix {
                 val.append(mutableString)
             }
+            printDebug("\(title)...\(val.string)....\(suffix)....\(desc)")
             cell.configureCellWithAttributedText(title: title, description: val)
         }else{
             cell.configure(title: title, description: description, age: age)
