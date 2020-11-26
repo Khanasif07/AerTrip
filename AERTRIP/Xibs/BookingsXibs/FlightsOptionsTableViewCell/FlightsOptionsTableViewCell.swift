@@ -221,7 +221,7 @@ extension FlightsOptionsTableViewCell: UICollectionViewDelegate, UICollectionVie
             let width = collectionView.width/3//CGFloat(self.optionImages.count)
             return CGSize(width: width, height: collectionView.height/2)
         default:
-            var width = collectionView.width/3
+            var width = collectionView.width/3 - 0.5
             if indexPath.item == 0 || indexPath.item == 1 {
                 width = collectionView.width/2
             }
