@@ -105,6 +105,10 @@ struct  WhatNext {
     var departCity:String
     var arrivalCity:String
     var settingFor: String
+    var arrivalAirports = ""
+    var departAiports = ""
+    var arrivalCountryCode = ""
+    var departureCountryCode = ""
     
     //Array for multicity flight result
     var originArr:[String]?
@@ -112,6 +116,10 @@ struct  WhatNext {
     var departArr:[String]?
     var departCityArr:[String]?
     var arrivalCityArr:[String]?
+    var arrivalAirportArr:[String]?
+    var departAiportArr:[String]?
+    var arrivalCountryCodeArr:[String]?
+    var departureCountryCodeArr:[String]?
     
     var whatNextStringValue:String{
         

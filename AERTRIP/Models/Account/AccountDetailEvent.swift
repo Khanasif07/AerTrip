@@ -575,9 +575,10 @@ struct AccountDetailEvent {
                 }
                 
                 //guest names
+                self.names = []
                 for room in rows {
                     if let guests = room["guests"] as? [JSONDictionary], !rows.isEmpty {
-                        self.names = AccountUser.retunsAccountUserArray(jsonArr: guests)
+                        self.names.append(contentsOf: AccountUser.retunsAccountUserArray(jsonArr: guests))
                         /*
                          for guest in guests {
                          let salt = (guest["salutation"] as? String) ?? ""
