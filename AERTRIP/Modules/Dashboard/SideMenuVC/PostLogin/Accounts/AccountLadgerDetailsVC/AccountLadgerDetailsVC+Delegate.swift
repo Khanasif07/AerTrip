@@ -300,6 +300,22 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
                         })
                     }
                 }
+            }else if let event = self.viewModel.onAccountEvent{
+                
+                let bID = event.transactionId
+                if !bID.isEmpty{
+                    self.viewModel.isDownloadingRecipt = true
+                    if let cell = self.tableView.cellForRow(at: indexPath) as? DownloadInvoiceTableViewCell{
+                        cell.showLoader = true
+                    }
+                    AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)dashboard/download-voucher?id=\(bID)", screenTitle: "Receipt Voucher", showLoader: false, complition: { [weak self] (status) in
+                        
+                        self?.viewModel.isDownloadingRecipt = false
+                        self?.tableView.reloadRow(at: indexPath, with: .automatic)
+                    })
+                }
+                
+                
             }
         }
         

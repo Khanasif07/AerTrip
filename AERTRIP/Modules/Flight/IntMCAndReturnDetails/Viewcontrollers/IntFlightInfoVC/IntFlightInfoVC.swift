@@ -57,6 +57,7 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         flightInfoTableView.sectionFooterHeight = .zero
         flightInfoTableViewBottom.constant = 0.0
         self.flightInfoTableView.contentInset = UIEdgeInsets(top: -0.5, left: 0, bottom: 0, right: 0)
+        flightInfoTableView.showsVerticalScrollIndicator = true
     }
     
     override func viewWillAppear(_ animated: Bool) {

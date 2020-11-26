@@ -115,34 +115,57 @@ class BookingInfoNotesCellTableViewCell: UITableViewCell {
         let max_weight = info.maxWeight
         
         
-        if weight == "0" || weight == "0 Kg"{
-            return ""
-        }else if weight == "-9"{
-            return LocalizedString.NoInfo.localized
-        }else if !weight.isEmpty && max_weight.isEmpty && max_pieces.isEmpty && (pieces == "0 pc" || pieces == "0" || pieces == ""){
-            return "" // only weight present
-        }else if !pieces.isEmpty && weight.isEmpty && max_weight.isEmpty && max_pieces.isEmpty {
-            if pieces == "0 pc" || pieces == "0" {
-                return ""
-            }
-            //return pieces // only pieces present
+//        if weight == "0" || weight == "0 Kg"{
+//            return ""
+//        }else if weight == "-9"{
+//            return LocalizedString.NoInfo.localized
+//        }else if !weight.isEmpty && max_weight.isEmpty && max_pieces.isEmpty && (pieces == "0 pc" || pieces == "0" || pieces == ""){
+//            return "" // only weight present
+//        }else if !pieces.isEmpty && weight.isEmpty && max_weight.isEmpty && max_pieces.isEmpty {
+//            if pieces == "0 pc" || pieces == "0" {
+//                return ""
+//            }
+//            //return pieces // only pieces present
+//            return "\(pieces) : Most airline typically allow 23 kgs per piece."
+//        }
+//        else if !max_weight.isEmpty && !pieces.isEmpty && weight.isEmpty && max_pieces.isEmpty {
+//            // only max_weight and  pieces present
+//            if pieces == "0 pc" || pieces == "0" {
+//                return ""
+//            }
+//
+//            return ""
+//
+//        }else if !weight.isEmpty && !max_pieces.isEmpty && max_weight.isEmpty && (pieces == "0 pc" || pieces == "0" || pieces == "") {
+//            // only weight and  max_pieces present
+//            return "\(weight) : Max \(max_pieces) pieces can be carried weighing total \(weight)"
+//
+//        }
+//        return LocalizedString.na.localized.uppercased()
+     
+        
+        
+        
+        
+        if pieces != "-9" && pieces != "" && pieces != "0 pc" && max_weight == ""
+        {
             return "\(pieces) : Most airline typically allow 23 kgs per piece."
         }
-        else if !max_weight.isEmpty && !pieces.isEmpty && weight.isEmpty && max_pieces.isEmpty {
-            // only max_weight and  pieces present
-            if pieces == "0 pc" || pieces == "0" {
-                return ""
-            }
-            
-            return ""
-            
-        }else if !weight.isEmpty && !max_pieces.isEmpty && max_weight.isEmpty && (pieces == "0 pc" || pieces == "0" || pieces == "") {
-            // only weight and  max_pieces present
-            return "\(weight) : Max \(max_pieces) pieces can be carried weighing total \(weight)"
-            
-        }
-        return LocalizedString.na.localized.uppercased()
         
+        if weight != "-9" && weight != "" && max_pieces != ""  && max_pieces != "0 pc"
+        {
+            var pc = ""
+            if max_pieces.contains(find: " "){
+                let pieces = max_pieces.components(separatedBy: " ")
+                if pieces.count > 0{
+                    pc = pieces[0]
+                }
+            }
+
+            return "Max \(pc) pieces can be carried weighing total \(weight)"
+        }
+        
+        return ""
     }
     
 }

@@ -54,6 +54,7 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
                 }
             }
         }
+        baggageTableView.showsVerticalScrollIndicator = true
     }
     
     //MARK:- Tableview Methods

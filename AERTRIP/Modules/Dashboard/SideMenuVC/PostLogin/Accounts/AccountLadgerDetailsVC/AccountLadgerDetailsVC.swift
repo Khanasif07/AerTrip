@@ -138,7 +138,12 @@ class AccountLadgerDetailsVC: BaseVC {
             }
         }
         headerView.delegate = self
-        self.headerView.ladgerEvent = self.viewModel.ladgerEvent
+        if !self.viewModel.isForOnAccount{
+            self.headerView.ladgerEvent = self.viewModel.ladgerEvent
+        }else{
+            headerView.bookingIdButton.isHidden = true
+            self.headerView.onAccountEvent = self.viewModel.onAccountEvent
+        }
         self.headerView.backgroundColor = AppColors.themeWhite
         self.headerView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: self.parallexHeaderMaxHeight)
         self.headerView?.translatesAutoresizingMaskIntoConstraints = false
@@ -336,20 +341,27 @@ extension AccountLadgerDetailsVC: MXParallaxHeaderDelegate {
                     guard let sSelf = self else { return }
                     sSelf.topNavView.leftButton.isSelected = true
                     sSelf.topNavView.leftButton.tintColor = AppColors.themeGreen
-                    if let event = sSelf.viewModel.ladgerEvent, let img = event.iconImage {
-                        if let abtTxt = event.attributedString{
-                            sSelf.topNavView.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImageAttributedTxt(image: #imageLiteral(resourceName: "BookingDetailFlightNavIcon"), attributedText: abtTxt)
-                        }else{
-                            sSelf.topNavView.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: img, endText: "  \(event.title)", font: AppFonts.SemiBold.withSize(18.0))
+                    if !(sSelf.viewModel.isForOnAccount){
+                        if let event = sSelf.viewModel.ladgerEvent, let img = event.iconImage {
+                            if let abtTxt = event.attributedString{
+                                sSelf.topNavView.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImageAttributedTxt(image: #imageLiteral(resourceName: "BookingDetailFlightNavIcon"), attributedText: abtTxt)
+                            }else{
+                                sSelf.topNavView.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: img, endText: "  \(event.title)", font: AppFonts.SemiBold.withSize(18.0))
+                            }
+                            
                         }
-                        
-                    }
-                    else {
-                        if let abtTxt = sSelf.viewModel.ladgerEvent?.attributedString{
-                            sSelf.topNavView.navTitleLabel.attributedText = abtTxt
-                        }else{
-                            sSelf.topNavView.navTitleLabel.text = sSelf.viewModel.ladgerEvent?.title ?? ""
+                        else {
+                            if let abtTxt = sSelf.viewModel.ladgerEvent?.attributedString{
+                                sSelf.topNavView.navTitleLabel.attributedText = abtTxt
+                            }else{
+                                sSelf.topNavView.navTitleLabel.text = sSelf.viewModel.ladgerEvent?.title ?? ""
+                            }
+                            
                         }
+                    }else{
+                        let img = #imageLiteral(resourceName: "ic_acc_receipt")
+                        let atbtrTxt = sSelf.viewModel.onAccountEvent?.voucherName ?? ""
+                        sSelf.topNavView.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: img, endText: "  \(atbtrTxt)", font: AppFonts.SemiBold.withSize(18.0))
                         
                     }
                     sSelf.blurView.isHidden = false

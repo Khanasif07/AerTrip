@@ -131,6 +131,7 @@ class IntFareBreakupVC: BaseVC {
         self.manageLoader()
         infoLabel.isHidden = false
         bookingInfoArrowImg.isHidden = false
+        baseFareTableview.showsVerticalScrollIndicator = true
     }
     
     override func viewDidLayoutSubviews(){

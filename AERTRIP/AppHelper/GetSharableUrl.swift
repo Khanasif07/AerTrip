@@ -462,10 +462,10 @@ class GetSharableUrl
             }
             
             //Aircraft
-            if dynamicFilters.aircraft.selectedAircrafts.count > 0{
+            if dynamicFilters.aircraft.selectedAircraftsArray.count > 0{
                 var aircraft = ""
-                for n in 0..<dynamicFilters.aircraft.selectedAircrafts.count{
-                    aircraft.append("filters[\(i)][aircraft][\(n)]=\(dynamicFilters.aircraft.selectedAircrafts[n])&")
+                for n in 0..<dynamicFilters.aircraft.selectedAircraftsArray.count{
+                    aircraft.append("filters[\(i)][aircraft][\(n)]=\(dynamicFilters.aircraft.selectedAircraftsArray[n].name)&")
                 }
                 
                 filterString.append(aircraft)
@@ -730,8 +730,12 @@ class GetSharableUrl
             let dynamicFilters = legs[0].dynamicFilters
             let numberOfLegs = legs[0].numberOfLegs
             
+            print("international userSelectedFilters=",userSelectedFilters)
             print("numberOfLegs=",numberOfLegs)
-            
+            print("international appliedFilters=",appliedFilters)
+            print("international appliedSubFilters=",appliedSubFilters)
+            print("international uiFilters=",uiFilters)
+            print("international dynamicFilters=",dynamicFilters)
             for i in 0..<userSelectedFilters.count
             {
                 filterString.append("&")
@@ -890,9 +894,12 @@ class GetSharableUrl
                 if (appliedFilters.contains(.Airlines))
                 {
                     var airline = ""
-                    for n in 0..<userSelectedFilters[i].al.count{
-                        airline.append("filters[\(i)][al][\(n)]=\(userSelectedFilters[i].al[n])&")
+                    for n in 0..<userSelectedFilters[0].al.count{
+                        airline.append("filters[\(i)][al][\(n)]=\(userSelectedFilters[0].al[n])&")
                     }
+                    
+                    
+                    
                     
                     filterString.append(airline)
                 }
@@ -959,10 +966,10 @@ class GetSharableUrl
             }
             
             //Aircraft
-            if dynamicFilters.aircraft.selectedAircrafts.count > 0{
+            if dynamicFilters.aircraft.selectedAircraftsArray.count > 0{
                 var aircraft = ""
-                for n in 0..<dynamicFilters.aircraft.selectedAircrafts.count{
-                    aircraft.append("filters[0][aircraft][\(n)]=\(dynamicFilters.aircraft.selectedAircrafts[n])&")
+                for n in 0..<dynamicFilters.aircraft.selectedAircraftsArray.count{
+                    aircraft.append("filters[0][aircraft][\(n)]=\(dynamicFilters.aircraft.selectedAircraftsArray[n].name)&")
                 }
                 
                 filterString.append(aircraft)

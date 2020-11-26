@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -32,15 +32,15 @@
                                     <constraint firstAttribute="width" secondItem="tF5-re-DTE" secondAttribute="height" multiplier="1:1" id="wxX-Bu-bSj"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Web Checkin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kt5-VD-iA8">
-                                <rect key="frame" x="10" y="58" width="105" height="18"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Web Checkin" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kt5-VD-iA8">
+                                <rect key="frame" x="10" y="50" width="105" height="26"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VHS-On-RlR" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="124.5" y="0.0" width="0.5" height="79"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="backgroundColor" systemColor="darkTextColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="79" id="EN6-OF-QfL"/>
                                     <constraint firstAttribute="width" constant="0.5" id="sML-0l-zRT"/>
@@ -50,7 +50,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="VHS-On-RlR" secondAttribute="bottom" id="0ST-Sm-f2V"/>
-                            <constraint firstItem="kt5-VD-iA8" firstAttribute="top" secondItem="tF5-re-DTE" secondAttribute="bottom" constant="8" id="4xg-6p-O28"/>
+                            <constraint firstItem="kt5-VD-iA8" firstAttribute="top" secondItem="tF5-re-DTE" secondAttribute="bottom" id="4xg-6p-O28"/>
                             <constraint firstAttribute="trailing" secondItem="VHS-On-RlR" secondAttribute="trailing" id="AhN-lX-Cdw"/>
                             <constraint firstAttribute="height" constant="79" id="BDH-1y-jmb"/>
                             <constraint firstItem="VHS-On-RlR" firstAttribute="top" secondItem="gdw-iz-RBT" secondAttribute="top" id="ECF-pw-Ny1"/>
@@ -63,13 +63,14 @@
                     </view>
                 </subviews>
             </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
                 <constraint firstItem="gdw-iz-RBT" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="7MU-FF-1XE"/>
                 <constraint firstAttribute="bottom" secondItem="gdw-iz-RBT" secondAttribute="bottom" id="8tf-Gn-Y4k"/>
                 <constraint firstAttribute="trailing" secondItem="gdw-iz-RBT" secondAttribute="trailing" id="Dnh-dM-OQO"/>
                 <constraint firstItem="gdw-iz-RBT" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="fcT-wV-3zR"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="125" height="79"/>
             <connections>
                 <outlet property="containerView" destination="gdw-iz-RBT" id="zxt-xx-AZG"/>
                 <outlet property="containerViewLeadingConstraint" destination="fcT-wV-3zR" id="NtW-St-HiN"/>
@@ -81,10 +82,13 @@
                 <outlet property="optionNameLabel" destination="kt5-VD-iA8" id="nNn-aT-a1k"/>
                 <outlet property="titleTopConstraint" destination="4xg-6p-O28" id="IkN-IS-YlZ"/>
             </connections>
-            <point key="canvasLocation" x="105" y="27"/>
+            <point key="canvasLocation" x="103.62318840579711" y="26.450892857142858"/>
         </collectionViewCell>
     </objects>
     <resources>
         <image name="webCheckin" width="50" height="50"/>
+        <systemColor name="darkTextColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

@@ -127,11 +127,13 @@ extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
         case .addToAppleWallet:
             addToAppleWallet(indexPath: indexPath)
         case .bookSameFlightCell :
-            if let whatNext = self.whatNextForSameFlightBook() {
-                self.bookSameFlightWith(whatNext)
-            }
+//            if let whatNext = self.whatNextForSameFlightBook() {
+//                self.bookSameFlightWith(whatNext)
+//            }
+        break
         case .addToCalenderCell:
-            self.addToCalender()
+//            self.addToCalender()
+        break
         case .paymentInfoCell, .bookingCell, .addOnsCell, .cancellationCell, .refundCell, .paidCell://.paymentPendingCell
             if let rcpt = self.viewModel.bookingDetail?.receipt {
                 AppFlowManager.default.moveToBookingVoucherVC(receipt: rcpt, bookingId: self.viewModel.bookingId)
@@ -425,6 +427,17 @@ extension FlightBookingsDetailsVC: MXParallaxHeaderDelegate {
 }
 
 extension FlightBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
+    
+    func share() {
+        
+    }
+    
+    func bookSameFlightOrRoom() {
+        if let whatNext = self.whatNextForSameFlightBook() {
+            self.bookSameFlightWith(whatNext)
+        }
+    }
+    
     func addToTrips() {
         // not needed here
     }
@@ -435,7 +448,6 @@ extension FlightBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
             AppFlowManager.default.moveToBookingWebCheckinVC(contactInfo: self.viewModel.bookingDetail?.additionalInformation?.contactInfo, webCheckins: self.viewModel.bookingDetail?.additionalInformation?.webCheckins ?? [])
         } else {
             self.webCheckinServices(url: self.viewModel.bookingDetail?.webCheckinUrl ?? "")
-            
         }
         
         
@@ -452,7 +464,7 @@ extension FlightBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
         AppFlowManager.default.moveToBookingCallVC(contactInfo: self.viewModel.bookingDetail?.additionalInformation?.contactInfo, presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
     }
     
-    func addToCalender() {
+    func addToCalendar() {
         //        if let start = self.viewModel.bookingDetail?.bookingDetail?.eventStartingDate, let end = self.viewModel.bookingDetail?.bookingDetail?.evenEndingDate {
         //            let bId = self.viewModel.bookingDetail?.bookingDetail?.bookingId ?? ""
         //            AppGlobals.shared.addEventToCalender(title: "\(self.viewModel.tripCitiesStr.string)", startDate: start, endDate: end, notes: "You've a flight booked for '\(self.viewModel.tripCitiesStr.string)'\nFor reference you booking id is '\(self.viewModel.bookingDetail?.bookingDetail?.bookingId ?? "")'", uniqueId: bId)

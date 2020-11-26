@@ -50,15 +50,15 @@ class FlightsOptionCollectionViewCell: UICollectionViewCell {
     internal func configureCell(optionImage: UIImage, optionName: String, isLastCell: Bool) {
         self.optionNameLabel.text = optionName
         self.optionImageView.image = optionImage
-        if isLastCell {
-            self.imageViewHeightConstraint.constant = 40.0
-            self.imageViewTopConstraint.constant = 6.0
-            self.titleTopConstraint.constant = 12.0
-        } else {
+//        if isLastCell {
+//            self.imageViewHeightConstraint.constant = 40.0
+//            self.imageViewTopConstraint.constant = 6.0
+//            self.titleTopConstraint.constant = 0.0
+//        } else {
             self.imageViewHeightConstraint.constant = 50.0
             self.imageViewTopConstraint.constant = 0.0
-            self.titleTopConstraint.constant = 8.0
-        }
+            self.titleTopConstraint.constant = 0.0
+//        }
         
     }
     

@@ -508,20 +508,32 @@ extension BookingDetailModel {
     
     var frequentFlyerDatas: [FrequentFlyerData] {
         var temp: [FrequentFlyerData] = []
+        let totalFlight = (self.bookingDetail?.leg ?? []).flatMap({$0.flight})
+        let pax = (self.bookingDetail?.leg ?? []).first?.pax ?? []
         
-        for leg in self.bookingDetail?.leg ?? [] {
-            for pax in leg.pax {
-                // need to remove duplicates
-                if !temp.contains(where: { (object) -> Bool in
-                    if  pax.paxId == object.passenger?.paxId {
-                        return true
-                    }
-                    return false
-                }) {
-                    temp.append(FrequentFlyerData(passenger: pax, flights: leg.flight))
+        for px in pax{
+            var newFF = FrequentFlyerData(passenger: px, flights: [])
+            for flight in totalFlight{
+                if !newFF.flights.contains(where: {$0.carrier == flight.carrier}){
+                    newFF.flights.append(flight)
                 }
             }
+            temp.append(newFF)
         }
+        
+//        for leg in self.bookingDetail?.leg ?? [] {
+//            for pax in leg.pax {
+//                // need to remove duplicates
+//                if !temp.contains(where: { (object) -> Bool in
+//                    if  pax.paxId == object.passenger?.paxId {
+//                        return true
+//                    }
+//                    return false
+//                }) {
+//                    temp.append(FrequentFlyerData(passenger: pax, flights: leg.flight))
+//                }
+//            }
+//        }
         
         return temp
     }

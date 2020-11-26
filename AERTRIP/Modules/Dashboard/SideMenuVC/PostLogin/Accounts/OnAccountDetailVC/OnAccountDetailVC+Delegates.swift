@@ -73,14 +73,14 @@ extension OnAccountDetailVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let (currentEvent, _) = self.getEvent(forIndexPath: indexPath, forTableView: tableView)
-
+        AppFlowManager.default.emoveToAccountLadgerDetailsForOnAccount(forEvent: currentEvent, detailType: .outstandingLadger)
         
-        if let bID = currentEvent?.transactionId, !bID.isEmpty {
-            
-            AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)dashboard/download-voucher?id=\(bID)", screenTitle: "Receipt Voucher", showLoader: true, complition: { [weak self] (status) in
-                
-            })
-        }
+//        if let bID = currentEvent?.transactionId, !bID.isEmpty {
+//
+//            AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)dashboard/download-voucher?id=\(bID)", screenTitle: "Receipt Voucher", showLoader: true, complition: { [weak self] (status) in
+//
+//            })
+//        }
     }
     
     func getEvent(forIndexPath indexPath: IndexPath, forTableView: UITableView) -> (event: OnAccountLedgerEvent?, allCount: Int){
