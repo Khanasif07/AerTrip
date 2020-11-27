@@ -31,13 +31,21 @@ import Foundation
                     "infant": whtNxt.infant,
                     "cabinclass":whtNxt.cabinclass,
                     "departCity":whtNxt.departCity,
-                    "arrivalCity":whtNxt.arrivalCity] as NSMutableDictionary
+                    "arrivalCity":whtNxt.arrivalCity,
+                    "departCountryCode":whtNxt.departureCountryCode,
+                    "departAirport":whtNxt.departAiports,
+                    "arrivalCountryCode":whtNxt.arrivalCountryCode,
+                    "arrivalAirpots":whtNxt.arrivalAirports] as NSMutableDictionary
         if whtNxt.tripType.lowercased() == "multi"{
             dict["originArr"] = whtNxt.originArr ?? []
             dict["destinationArr"] = whtNxt.destinationArr ?? []
             dict["departArr"] = whtNxt.departArr ?? []
             dict["departCityArr"] = whtNxt.departCityArr ?? []
             dict["arrivalCityArr"] = whtNxt.arrivalCityArr ?? []
+            dict["arrivalCountryArr"] = whtNxt.arrivalCountryCodeArr ?? []
+            dict["arrivalAirportsArr"] = whtNxt.arrivalAirportArr ?? []
+            dict["departCountryArr"] = whtNxt.departureCountryCodeArr
+            dict["departAirpotrsArr"] = whtNxt.departAiportArr
         }
         return dict
         } else if let recentsearch =  self.recentSearch{

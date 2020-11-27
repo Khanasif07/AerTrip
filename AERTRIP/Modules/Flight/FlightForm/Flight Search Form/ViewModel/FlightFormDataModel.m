@@ -1663,6 +1663,11 @@
         NSArray * departCityArr = [query mutableArrayValueForKey:@"departCityArr"];
         NSArray * arrivalCityArr = [query mutableArrayValueForKey:@"arrivalCityArr"];
         
+        NSArray * departCountrys = [query mutableArrayValueForKey:@"departCountryArr"];
+        NSArray * departsAirporsts = [query mutableArrayValueForKey:@"departAirpotrsArr"];
+        NSArray * arrivalCountrys = [query mutableArrayValueForKey:@"arrivalCountryArr"];
+        NSArray * arrivalAirporsts = [query mutableArrayValueForKey:@"arrivalAirportsArr"];
+        
         for (int i = 0;  i < originArray.count; i++) {
             
             NSString * currentOrigin = [originArray objectAtIndex:i];
@@ -1671,15 +1676,22 @@
             NSString * departCity = [departCityArr objectAtIndex:i];
             NSString * arrivalCity = [arrivalCityArr objectAtIndex:i];
             
+            NSString * arrivalCountry = [arrivalCountrys objectAtIndex:i];
+            NSString * arrivalAirports = [arrivalAirporsts objectAtIndex:i];
+            NSString * departCountry = [departCountrys objectAtIndex:i];
+            NSString * departAirport = [arrivalAirporsts objectAtIndex:i];
+            
             AirportSearch * SourceAirport = [AirportSearch new];
             SourceAirport.iata = currentOrigin;
             SourceAirport.city = departCity;
-            SourceAirport.countryCode = @"";
+            SourceAirport.countryCode = departCountry;
+            SourceAirport.airport = departAirport;
             
             AirportSearch * ToAirport = [AirportSearch new];
             ToAirport.iata = currentDestination;
             ToAirport.city = arrivalCity;
-            ToAirport.countryCode = @"";
+            ToAirport.countryCode = arrivalCountry;
+            ToAirport.airport = arrivalAirports;
             
             NSDate * travelDate = [self dateFromString:date];
             MulticityFlightLeg * newMultiLegJourney = [[MulticityFlightLeg alloc]init];
@@ -1705,7 +1717,8 @@
     AirportSearch *airportSearch = [AirportSearch new];
     airportSearch.iata = [flightNextParam valueForKey:@"origin"];
     airportSearch.city = [flightNextParam valueForKey: @"departCity"];
-    airportSearch.countryCode = @"";
+    airportSearch.countryCode = [flightNextParam valueForKey: @"departCountryCode"];
+    airportSearch.airport = [flightNextParam valueForKey: @"departAirport"];
     [airportsArray addObject: airportSearch];
     self.fromFlightArray = [NSMutableArray arrayWithArray:airportsArray];
 
@@ -1714,7 +1727,8 @@
     AirportSearch *airportSearchReturn = [AirportSearch new];
     airportSearchReturn.iata = [flightNextParam valueForKey:@"destination"];
     airportSearchReturn.city = [flightNextParam valueForKey: @"arrivalCity"];
-    airportSearchReturn.countryCode = @"";
+    airportSearchReturn.countryCode = [flightNextParam valueForKey: @"arrivalCountryCode"];
+    airportSearchReturn.airport = [flightNextParam valueForKey: @"arrivalAirpots"];
     [airportsArray addObject: airportSearchReturn];
     self.toFlightArray = [NSMutableArray arrayWithArray:airportsArray];
     [self.delegate setupFromAndToView];

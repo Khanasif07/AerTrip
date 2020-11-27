@@ -175,6 +175,10 @@ class FlightBookingsDetailsVC: BaseVC {
             whatNext.adult = "\((leg.pax.filter{$0.paxType.uppercased() == "ADT"}).count)"
             whatNext.child = "\((leg.pax.filter{$0.paxType.uppercased() == "CHD"}).count)"
             whatNext.infant = "\((leg.pax.filter{$0.paxType.uppercased() == "INF"}).count)"
+            whatNext.departureCountryCode = leg.flight.first?.departureCountry ?? ""
+            whatNext.departAiports = leg.flight.first?.departureAirport ?? ""
+            whatNext.arrivalCountryCode = leg.flight.last?.arrivalCountryCode ?? ""
+            whatNext.arrivalAirports = leg.flight.last?.arrivalAirport ?? ""
         }else{
             return nil
         }
@@ -192,6 +196,10 @@ class FlightBookingsDetailsVC: BaseVC {
             var destination = [String]()
             var departCity = [String]()
             var arrivalCity = [String]()
+            var arrivalAriports = [String]()
+            var arrivalCountry = [String]()
+            var departAriports = [String]()
+            var departCountry = [String]()
             
             for leg in fDetails.leg{
                 depart.append(leg.flight.first?.departDate?.toString(dateFormat: "dd-MM-yyyy") ?? "")
@@ -199,12 +207,20 @@ class FlightBookingsDetailsVC: BaseVC {
                 destination.append(leg.destination)
                 departCity.append((leg.title.components(separatedBy: "→").first ?? "").trimmingCharacters(in: .whitespaces))
                 arrivalCity.append((leg.title.components(separatedBy: "→").last ?? "").trimmingCharacters(in: .whitespaces))
-                whatNext.departArr = depart
-                whatNext.originArr = origin
-                whatNext.destinationArr = destination
-                whatNext.departCityArr = departCity
-                whatNext.arrivalCityArr = arrivalCity
+                arrivalAriports.append(leg.flight.last?.arrivalAirport ?? "")
+                arrivalCountry.append(leg.flight.last?.arrivalCountryCode ?? "")
+                departAriports.append(leg.flight.first?.arrivalAirport ?? "")
+                departCountry.append(leg.flight.first?.arrivalCountryCode ?? "")
             }
+            whatNext.departArr = depart
+            whatNext.originArr = origin
+            whatNext.destinationArr = destination
+            whatNext.departCityArr = departCity
+            whatNext.arrivalCityArr = arrivalCity
+            whatNext.arrivalAirportArr = arrivalAriports
+            whatNext.arrivalCountryCodeArr = arrivalCountry
+            whatNext.departAiportArr = departAriports
+            whatNext.departureCountryCodeArr = departCountry
             return whatNext
         default : break;
         }
