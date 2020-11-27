@@ -338,6 +338,8 @@ class FlightResultSingleJourneyVM {
 //              })
         
 
+        printDebug("latest sort order....\(sortOrder)")
+        
           switch  sortOrder {
               
           case .Smart:
