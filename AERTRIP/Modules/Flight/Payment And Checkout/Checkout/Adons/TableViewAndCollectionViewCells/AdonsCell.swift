@@ -21,7 +21,7 @@ class AdonsCell: UITableViewCell {
         super.awakeFromNib()
         self.selectionStyle = .none
         headingLabel.font = AppFonts.SemiBold.withSize(18)
-        descriptionLabel.font = AppFonts.Regular.withSize(14)
+        descriptionLabel.font = AppFonts.Regular.withSize(isSEDevice ? 12 : 14)
         complementLabel.font = AppFonts.Regular.withSize(12)
         headingLabel.textColor = UIColor.black
         descriptionLabel.textColor = AppColors.themeGray60

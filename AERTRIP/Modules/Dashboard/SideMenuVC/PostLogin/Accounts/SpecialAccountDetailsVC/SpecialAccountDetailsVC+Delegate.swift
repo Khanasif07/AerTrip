@@ -290,6 +290,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
                     AppFlowManager.default.moveToAccountDetailsVC(usingFor: .accountLadger, forDetails: self.viewModel.accountLadger, forVoucherTypes: self.viewModel.accVouchers)
                     
                 case 1:
+                    
                     AppFlowManager.default.moveToAccountOutstandingLadgerVC(data: self.viewModel.outstandingLadger)
                     
                 case 2:

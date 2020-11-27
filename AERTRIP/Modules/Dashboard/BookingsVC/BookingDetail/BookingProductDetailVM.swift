@@ -34,6 +34,14 @@ class BookingProductDetailVM {
     var isSeeAllWeatherButtonTapped: Bool = false
     var showWaletLoader = false
     
+    // for weather
+    struct WeatherLabelWidths {
+        var dateLblWidth: CGFloat = 0
+        var curTempLblWidth: CGFloat = 0
+        var highLowLblWidth: CGFloat = 0
+    }
+    var weatherLabelWidths = WeatherLabelWidths()
+    
     var noOfCellAboveHotelDetail: Int {
         var count = 1
         if !(self.bookingDetail?.bookingDetail?.note.isEmpty ?? false) {
@@ -123,8 +131,8 @@ class BookingProductDetailVM {
         
         self.sectionDataForHotelDetail.append([.flightsOptionsCell])
         
-        self.sectionDataForHotelDetail.append([.addToCalenderCell])
-        self.sectionDataForHotelDetail.append([.bookAnotherRoomCell])
+//        self.sectionDataForHotelDetail.append([.addToCalenderCell])
+//        self.sectionDataForHotelDetail.append([.bookAnotherRoomCell])
         if self.bookingDetail?.bookingStatus == .booked {
             self.sectionDataForHotelDetail.append([.addToAppleWallet])
         }
@@ -353,6 +361,7 @@ class BookingProductDetailVM {
             guard let sSelf = self else { return }
             if success {
                 sSelf.bookingDetail = bookingDetail
+                sSelf.calculateWeatherLabelWidths(usingFor: bookingDetail?.product == "flight" ? .flight : .hotel)
                 sSelf.delegate?.getBookingDetailSucces(showProgress: showProgress)
             } else {
                 sSelf.delegate?.getBookingDetailFaiure(error: errors, showProgress: showProgress)
@@ -387,5 +396,55 @@ class BookingProductDetailVM {
                 self?.delegate?.getBookingOutstandingPaymentFail()
             }
         }
+    }
+}
+
+// MARK: For weather label widths
+extension BookingProductDetailVM {
+    
+    private func calculateWeatherLabelWidths(usingFor: WeatherCellUsingFor) {
+        let lblForDateWidth = UILabel()
+        let lblForCurTempWidth = UILabel()
+        let lblForMaxMinTempWidth = UILabel()
+        bookingDetail?.tripWeatherData.forEach({ (weatherData) in
+            let cityNameCode: String = "\(weatherData.city), \(weatherData.countryCode)"
+            lblForDateWidth.attributedText = getWeatherDateString(cityName: usingFor == .hotel ? "" : cityNameCode, date: weatherData.date?.toString(dateFormat: usingFor == .hotel ? "E, d MMM" : "d MMM") ?? "", usingFor: usingFor)
+            if lblForDateWidth.intrinsicContentSize.width > weatherLabelWidths.dateLblWidth {
+                weatherLabelWidths.dateLblWidth = lblForDateWidth.intrinsicContentSize.width
+            }
+            
+            if weatherData.maxTemperature == 0 || weatherData.minTemperature == 0 {
+                lblForCurTempWidth.text = "-"
+            } else if weatherData.temperature != 0 {
+                lblForCurTempWidth.text = "\(weatherData.temperature)\u{00B0}C"
+            } else {
+                lblForCurTempWidth.text = ""
+            }
+            if lblForCurTempWidth.intrinsicContentSize.width > weatherLabelWidths.curTempLblWidth {
+                weatherLabelWidths.curTempLblWidth = lblForCurTempWidth.intrinsicContentSize.width
+            }
+            
+            let code: String = String(weatherData.weatherIcon.split(separator: "-").first ?? "")
+            
+            let iconWithText = AppGlobals.shared.getTextWithImage(startText: "", image: ATWeatherType(rawValue: code)!.icon, endText: "  \(weatherData.maxTemperature) \u{00B0}/ \(weatherData.minTemperature)\u{00B0}", font: AppFonts.Regular.withSize(18.0), isEndTextBold: false)
+            lblForMaxMinTempWidth.attributedText = weatherData.maxTemperature == 0 ||
+                weatherData.minTemperature == 0 ? NSAttributedString(string: "              -") : iconWithText
+            
+            if lblForMaxMinTempWidth.intrinsicContentSize.width > weatherLabelWidths.highLowLblWidth {
+                weatherLabelWidths.highLowLblWidth = lblForMaxMinTempWidth.intrinsicContentSize.width
+            }
+        })
+    }
+    
+    // get city name with date attributes
+    private func getWeatherDateString(cityName: String, date: String, usingFor: WeatherCellUsingFor) -> NSAttributedString {
+        let attributedString = NSMutableAttributedString()
+        let nameAttribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(18.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack] as [NSAttributedString.Key: Any]
+        let dateAtrribute = [NSAttributedString.Key.font: cityName.isEmpty ? AppFonts.Regular.withSize(18.0) : AppFonts.Regular.withSize(14.0), NSAttributedString.Key.foregroundColor: cityName.isEmpty ? AppColors.themeBlack : AppColors.themeGray40]
+        let nameAttributedString = NSAttributedString(string: cityName, attributes: nameAttribute)
+        let dateAttributedString = NSAttributedString(string: usingFor == .hotel ? ""  + date : " " + date, attributes: dateAtrribute)
+        attributedString.append(nameAttributedString)
+        attributedString.append(dateAttributedString)
+        return attributedString
     }
 }

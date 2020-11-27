@@ -155,7 +155,7 @@ struct TimeFK {
        delay(seconds: 0.1) {
         let indexPath = IndexPath(row: self.flightGroup.currentSelectedIndex, section: 0)
         self.timeCollectionView.selectItem(at: indexPath, animated: false, scrollPosition: UICollectionView.ScrollPosition.centeredHorizontally)
-        self.resultsCollectionView.scrollToItem(at: IndexPath(item: self.flightGroup.currentSelectedIndex, section: 0), at: UICollectionView.ScrollPosition.centeredHorizontally, animated: false)
+        self.resultsCollectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.centeredHorizontally, animated: false)
         self.setSelectionViewFrame(animate: false)
 //            self.layoutIfNeeded()
 //            self.layoutSubviews()
