@@ -100,7 +100,6 @@ class AerinVC: BaseVC {
                 self.travelSafetyViewTopConstraint.constant = value
             }
         }
-        
     }
     
     override func initialSetup() {

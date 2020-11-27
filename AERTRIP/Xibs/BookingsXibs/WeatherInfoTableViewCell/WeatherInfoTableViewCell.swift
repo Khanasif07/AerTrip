@@ -39,6 +39,9 @@ class WeatherInfoTableViewCell: UITableViewCell {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var containerViewBottomConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var cityAndDateLblWidth: NSLayoutConstraint!
+    @IBOutlet weak var tempLblWidth: NSLayoutConstraint!
+    @IBOutlet weak var weatherLblWidth: NSLayoutConstraint!
     // MARK: - LifeCycle
     
     // MARK: ===========
@@ -62,7 +65,7 @@ class WeatherInfoTableViewCell: UITableViewCell {
         let cityNameCode: String = "\(weatherData?.city ?? ""), \(weatherData?.countryCode ?? "")"
         getCityNameWithDateLabel(cityName: usingFor == .hotel ? "" : cityNameCode, date: weatherData?.date?.toString(dateFormat: usingFor == .hotel ? "E, d MMM" : "d MMM") ?? "")
         if weatherData?.maxTemperature == 0 || weatherData?.minTemperature == 0 {
-           tempLabel.text = "   -         "
+           tempLabel.text = "-"
         } else if (weatherData?.temperature ?? 0) != 0 {
             tempLabel.text = "\(weatherData?.temperature ?? 0)\u{00B0}C"
         } else {

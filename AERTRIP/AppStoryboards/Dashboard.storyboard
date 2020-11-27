@@ -37,7 +37,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="08Q-wv-BRZ">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="926"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F4Y-5a-ItW" userLabel="Content View">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="653.5"/>
@@ -440,7 +440,7 @@
                             <constraint firstItem="oLe-ql-yRs" firstAttribute="bottom" secondItem="bO0-Bl-9pr" secondAttribute="bottom" id="ab9-JT-wC8"/>
                             <constraint firstItem="EIt-yX-B3o" firstAttribute="leading" secondItem="O8V-oo-rnK" secondAttribute="leading" id="ncQ-6z-EFW"/>
                             <constraint firstItem="AVB-Hf-qqV" firstAttribute="trailing" secondItem="O8V-oo-rnK" secondAttribute="trailing" id="o41-vE-Y2F"/>
-                            <constraint firstAttribute="bottom" secondItem="08Q-wv-BRZ" secondAttribute="bottom" id="qhB-Dk-jT1"/>
+                            <constraint firstAttribute="bottom" secondItem="08Q-wv-BRZ" secondAttribute="bottom" constant="-30" id="qhB-Dk-jT1"/>
                             <constraint firstItem="O8V-oo-rnK" firstAttribute="trailing" secondItem="08Q-wv-BRZ" secondAttribute="trailing" id="tzn-WN-Ztz"/>
                             <constraint firstItem="EIt-yX-B3o" firstAttribute="trailing" secondItem="O8V-oo-rnK" secondAttribute="trailing" id="vhz-OP-qFS"/>
                             <constraint firstItem="AVB-Hf-qqV" firstAttribute="top" secondItem="bO0-Bl-9pr" secondAttribute="top" id="xV6-PH-ZcN"/>

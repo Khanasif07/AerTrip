@@ -925,6 +925,7 @@ extension AppFlowManager {
     }
     
     func moveToAccountDetailsVC(usingFor: AccountDetailsVC.UsingFor, forDetails: JSONDictionary, forVoucherTypes: [String]) {
+        if let _ = mainNavigationController.topViewController as? AccountDetailsVC { return }
         let obj = AccountDetailsVC.instantiate(fromAppStoryboard: .Account)
         obj.currentUsingAs = usingFor
         obj.viewModel.allVouchers = forVoucherTypes
@@ -956,6 +957,7 @@ extension AppFlowManager {
     }
     
     func moveToAccountOutstandingLadgerVC(data: AccountOutstanding) {
+        if let _ = mainNavigationController.topViewController as? AccountOutstandingLadgerVC { return }
         let obj = AccountOutstandingLadgerVC.instantiate(fromAppStoryboard: .Account)
         obj.viewModel.accountOutstanding = data
         self.mainNavigationController.pushViewController(obj, animated: true)
@@ -968,6 +970,7 @@ extension AppFlowManager {
     }
     
     func moveToPeriodicStatementVC(periodicEvents: JSONDictionary) {
+        if let _ = mainNavigationController.topViewController as? PeriodicStatementVC { return }
         let obj = PeriodicStatementVC.instantiate(fromAppStoryboard: .Account)
         obj.viewModel.periodicEvents = periodicEvents
         self.mainNavigationController.pushViewController(obj, animated: true)

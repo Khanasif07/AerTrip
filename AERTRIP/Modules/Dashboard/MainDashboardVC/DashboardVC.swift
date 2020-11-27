@@ -124,7 +124,9 @@ class DashboardVC: BaseVC {
         let guideHeight = view.safeAreaLayoutGuide.layoutFrame.size.height
         let fullHeight = UIScreen.main.bounds.size.height
         
-        let temp = UIScreen.main.bounds.size.height - (fullHeight - guideHeight) - segmentContainerView.bounds.height + headerTopConstraint.constant
+        //Rishabh - Added 30 and changed mainscrollview bottom constraint to -30 in dashboard to resolve bottom card getting cut issue.
+        let temp = UIScreen.main.bounds.size.height + 30 - (fullHeight - guideHeight) - segmentContainerView.bounds.height + headerTopConstraint.constant
+        
         if !isScrollHeightSet {
             isScrollHeightSet = true
             let extraHeightForSafeArea: CGFloat = UIApplication.shared.statusBarFrame.height > 20 ? 26 : 0
