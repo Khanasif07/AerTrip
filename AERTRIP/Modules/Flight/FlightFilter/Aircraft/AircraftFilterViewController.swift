@@ -108,7 +108,7 @@ extension AircraftFilterViewController : UITableViewDataSource , UITableViewDele
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        printDebug("count is..\(self.aircraftFilter.allAircraftsArray.count)")
+//        printDebug("count is..\(self.aircraftFilter.allAircraftsArray.count)")
         return section == 0 ? 1 : self.aircraftFilter.allAircraftsArray.count
         
     }
