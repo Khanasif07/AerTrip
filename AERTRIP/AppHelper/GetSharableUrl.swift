@@ -655,9 +655,29 @@ class GetSharableUrl
             if (appliedFilters.contains(.Airport))
             {
                 var airport = ""
-                if let loap = userSelectedFilters?.loap{
-                    for n in 0..<loap.count{
-                        airport.append("filters[\(i)][loap][\(n)]=\(loap[n])&")
+                
+                if uiFilters.contains(.layoverAirports){
+                    if let loap = userSelectedFilters?.loap{
+                        for n in 0..<loap.count{
+                            airport.append("filters[\(i)][loap][\(n)]=\(loap[n])&")
+                        }
+                    }
+                }else{
+                    var airportsArray = [String]()
+                    if let to = userSelectedFilters?.cityapN.to{
+                        if let destinationAirport = to.values.first{
+                            airportsArray.append(contentsOf: destinationAirport)
+                        }
+                    }
+                    
+                    if let fr = userSelectedFilters?.cityapN.fr{
+                        if let originAirport = fr.values.first{
+                            airportsArray.append(contentsOf: originAirport)
+                        }
+                    }
+                    
+                    for n in 0..<airportsArray.count{
+                        airport.append("filters[\(i)][ap][\(n)]=\(airportsArray[n])&")
                     }
                 }
                 
@@ -912,12 +932,62 @@ class GetSharableUrl
                 if (appliedFilters.contains(.Airport))
                 {
                     var airport = ""
+                    
                     for n in 0..<userSelectedFilters[i].loap.count{
                         airport.append("filters[\(i)][loap][\(n)]=\(userSelectedFilters[i].loap[n])&")
                     }
                     
                     filterString.append(airport)
                 }
+                
+                //     Airport - originDestinationSelectedForReturnJourney
+
+                if uiFilters.contains(.originDestinationSelectedForReturnJourney)
+                {
+                    var airport = ""
+                    var airportsArray = [String]()
+                    
+                    let returnOriginAirports = userSelectedFilters[i].cityapn.returnOriginAirports
+
+                    if returnOriginAirports.count > 0{
+                        
+                        for i in 0..<returnOriginAirports.count{
+                            airportsArray.append(returnOriginAirports[i])
+                        }
+                    }else{
+                        let fr = userSelectedFilters[i].cityapn.fr
+                        
+                        if let originAirport = fr.values.first{
+                            airportsArray.append(contentsOf: originAirport)
+                        }
+                    }
+                    
+                    
+                    
+                    
+                    let returnDestinationAirports = userSelectedFilters[i].cityapn.returnDestinationAirports
+                    if returnDestinationAirports.count > 0 {
+                        for i in 0..<returnDestinationAirports.count{
+                            airportsArray.append(returnDestinationAirports[i])
+                        }
+                    }else{
+                        let to = userSelectedFilters[i].cityapn.to
+                        
+                        if let destinationAirport = to.values.first{
+                            airportsArray.append(contentsOf: destinationAirport)
+                        }
+                    }
+
+                    
+                    for n in 0..<airportsArray.count{
+                        airport.append("filters[\(i)][ap][\(n)]=\(airportsArray[n])&")
+                    }
+                    
+                    filterString.append(airport)
+
+                }
+                
+                
                 
                 //     Quality
                 if (appliedFilters.contains(.Quality))
