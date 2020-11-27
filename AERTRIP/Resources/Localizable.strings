@@ -883,7 +883,8 @@ Not to worry! Your booking is our highest priority. Our customer support team sh
 "EnterUTRSwiftCode" = "Enter UTR/Swift Code";
 "DepositAmountErrorMessage" = "Deposit amount must be grater then 0";
 "ModeOfPayment" = "Mode of payment";
-
+"requestNoted" = "We have noted your booking requirement.";
+"maximumOnlineLimit" = " As per guideline, payments of more than ₹11,00,000 are not allowed online.\n\nNot to worry! Your booking is our highest priority. Our customer support team shall contact you at earliest. Thank you.";
 
 "Camera" = "Camera";
 "PhotoLibrary" = "Photo Library";
