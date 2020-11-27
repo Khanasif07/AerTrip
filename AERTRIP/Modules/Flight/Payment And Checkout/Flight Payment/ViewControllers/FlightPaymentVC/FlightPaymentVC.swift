@@ -427,7 +427,13 @@ extension FlightPaymentVC:FlightPaymentVMDelegate{
     
     func makePaymentFail(error: ErrorCodes) {
         self.hideShowLoader(isHidden:true)
-        AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .payment)
+        if ((error.first ?? 0) != 2){
+            AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .payment)
+        }else{
+            let vc = OnlinePaymentLimitVC.instantiate(fromAppStoryboard: .FlightPayment)
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        
     }
     
     func willGetPaymentResonse() {
