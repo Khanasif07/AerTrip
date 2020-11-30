@@ -44,7 +44,7 @@ class AddOnsVC: BaseVC {
         guard let commontInputTableViewCell = self.addOnTableView.dequeueReusableCell(withIdentifier: "BookingAddCommonInputTableViewCell") as? BookingAddCommonInputTableViewCell else {
             fatalError("BookingAddCommonInputTableViewCell not found")
         }
-        
+        let pax = BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5]
         commontInputTableViewCell.delegate = self
         switch indexPath.row % 5 {
        
@@ -64,16 +64,19 @@ class AddOnsVC: BaseVC {
                 age = AppGlobals.shared.getAgeLastString(dob: dob, formatter: Date.DateFormat.yyyy_MM_dd.rawValue)
             }
             cell.configureCell(profileImage: user?.profileImage ?? "", salutationImage: AppGlobals.shared.getEmojiIcon(dob: dob, salutation: (user?.salutation ?? ""), dateFormatter: Date.DateFormat.yyyy_MM_dd.rawValue), passengerName: user?.paxName ?? "", age: age)
+                cell.isUserInteractionEnabled = !(pax?.inProcess ?? false)
+                cell.passengerNameLabel.textColor = (!(pax?.inProcess ?? false)) ? AppColors.themeBlack : AppColors.themeGray60
             return cell
         // Seat Preference or Seat Booking Based on Flight type LCC or GDS
         case 1:
             
             if BookingRequestAddOnsFFVM.shared.isLCC {
                 commontInputTableViewCell.configureCell(title: LocalizedString.SeatBookingTitle.localized, placeholderText: LocalizedString.SeatBookingPlaceholder.localized, text: BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].seat ?? "")
-                
+                commontInputTableViewCell.isUserInteractionEnabled = !(pax?.inProcess ?? false)
                 return commontInputTableViewCell
             } else {
                 mealOrPreferencesCell.configureCell(title: LocalizedString.SeatPreferenceTitle.localized, text: BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].seatPreferences ?? "")
+                mealOrPreferencesCell.isUserInteractionEnabled = !(pax?.inProcess ?? false)
                 return mealOrPreferencesCell
             }
             
@@ -81,10 +84,11 @@ class AddOnsVC: BaseVC {
         case 2:
             if BookingRequestAddOnsFFVM.shared.isLCC {
                 commontInputTableViewCell.configureCell(title: LocalizedString.MealBookingTitle.localized, placeholderText: LocalizedString.MealBookingPlaceholder.localized, text: BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].meal ?? "")
-                
+                commontInputTableViewCell.isUserInteractionEnabled = !(pax?.inProcess ?? false)
                 return commontInputTableViewCell
             } else {
                 mealOrPreferencesCell.configureCell(title: LocalizedString.MealPreferenceTitle.localized, text: BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].mealPreferenes ?? "")
+                mealOrPreferencesCell.isUserInteractionEnabled = !(pax?.inProcess ?? false)
                 return mealOrPreferencesCell
             }
             
@@ -92,6 +96,7 @@ class AddOnsVC: BaseVC {
         case 3:
             commontInputTableViewCell.configureCell(title: LocalizedString.ExtraBaggageTitle.localized, placeholderText: LocalizedString.ExtraBaggagePlacheholder.localized, text: BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].baggage ?? "")
             commontInputTableViewCell.characterCountLabel.isHidden = false
+            commontInputTableViewCell.isUserInteractionEnabled = !(pax?.inProcess ?? false)
             return commontInputTableViewCell
             
         // Other Cell
@@ -100,6 +105,7 @@ class AddOnsVC: BaseVC {
             let paxCount = BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax.count ?? 0
             commontInputTableViewCell.configureCell(title: LocalizedString.OtherBookingTitle.localized, placeholderText: LocalizedString.OtherBookingPlaceholder.localized, text: BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].other ?? "")
             commontInputTableViewCell.dividerView.isHidden = (indexPath.row == (extraCellCount + paxCount) - 1)
+            commontInputTableViewCell.isUserInteractionEnabled = !(pax?.inProcess ?? false)
             return commontInputTableViewCell
            
         default:

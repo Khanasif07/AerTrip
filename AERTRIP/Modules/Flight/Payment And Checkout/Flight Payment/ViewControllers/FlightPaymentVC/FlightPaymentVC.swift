@@ -430,8 +430,9 @@ extension FlightPaymentVC:FlightPaymentVMDelegate{
         if ((error.first ?? 0) != 2){
             AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .payment)
         }else{
-            let vc = OnlinePaymentLimitVC.instantiate(fromAppStoryboard: .FlightPayment)
-            self.navigationController?.pushViewController(vc, animated: true)
+            AppFlowManager.default.moveToPaymentAmountHigh()
+//            let vc = OnlinePaymentLimitVC.instantiate(fromAppStoryboard: .FlightPayment)
+//            self.navigationController?.pushViewController(vc, animated: true)
         }
         
     }

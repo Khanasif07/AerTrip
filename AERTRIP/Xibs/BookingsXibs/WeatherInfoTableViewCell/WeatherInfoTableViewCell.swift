@@ -64,9 +64,9 @@ class WeatherInfoTableViewCell: UITableViewCell {
     private func configureCell() {
         let cityNameCode: String = "\(weatherData?.city ?? ""), \(weatherData?.countryCode ?? "")"
         getCityNameWithDateLabel(cityName: usingFor == .hotel ? "" : cityNameCode, date: weatherData?.date?.toString(dateFormat: usingFor == .hotel ? "E, d MMM" : "d MMM") ?? "")
-        if weatherData?.maxTemperature == 0 || weatherData?.minTemperature == 0 {
+        if weatherData?.maxTemperature == nil || weatherData?.minTemperature == nil {
            tempLabel.text = "-"
-        } else if (weatherData?.temperature ?? 0) != 0 {
+        } else if (weatherData?.temperature) != nil {
             tempLabel.text = "\(weatherData?.temperature ?? 0)\u{00B0}C"
         } else {
             tempLabel.text = ""
@@ -75,8 +75,8 @@ class WeatherInfoTableViewCell: UITableViewCell {
         let code: String = String(weatherData?.weatherIcon.split(separator: "-").first ?? "")
         
         let iconWithText = AppGlobals.shared.getTextWithImage(startText: "", image: ATWeatherType(rawValue: code)!.icon, endText: "  \(weatherData?.maxTemperature ?? 0) \u{00B0}/ \(weatherData?.minTemperature ?? 0)\u{00B0}", font: AppFonts.Regular.withSize(18.0), isEndTextBold: false)
-        whetherLabel.attributedText = weatherData?.maxTemperature == 0 ||
-            weatherData?.minTemperature == 0 ? NSAttributedString(string: "              -") : iconWithText
+        whetherLabel.attributedText = weatherData?.maxTemperature == nil ||
+            weatherData?.minTemperature == nil ? NSAttributedString(string: "              -") : iconWithText
         
         self.containerViewBottomConstraint.constant = self.isLastCell ? 26.0 : 0.0
     }

@@ -292,6 +292,9 @@ class BookingReschedulingVC: BaseVC {
             //expandedIndexPaths
             bookingAccordionCell.headerDividerView.isHidden = (self.expandedIndexPaths.contains(indexPath) || (index == legD.pax.count - 1))
             bookingAccordionCell.bottomDividerView.isHidden = ((index == legD.pax.count - 1) || !self.expandedIndexPaths.contains(indexPath))
+            bookingAccordionCell.selectedTravellerButton.isEnabled = !(paxD.inProcess)
+//            bookingAccordionCell.selectedTravellerButton.isUserInteractionEnabled = !(paxD.inProcess)
+            bookingAccordionCell.passengerNameLabel.isEnabled = !(paxD.inProcess)
             return bookingAccordionCell
         }
     }
@@ -443,7 +446,7 @@ extension BookingReschedulingVC: BookingReschedulingHeaderViewDelegate {
         }
         else {
             //select all
-            legD.selectedPaxs = legD.pax
+            legD.selectedPaxs = legD.pax.filter({!($0.inProcess)})
         }
         
         self.viewModel.legsData.insert(legD, at: sender.tag)

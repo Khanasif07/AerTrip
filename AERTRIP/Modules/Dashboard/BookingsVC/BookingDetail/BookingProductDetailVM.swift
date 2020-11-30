@@ -413,10 +413,10 @@ extension BookingProductDetailVM {
                 weatherLabelWidths.dateLblWidth = lblForDateWidth.intrinsicContentSize.width
             }
             
-            if weatherData.maxTemperature == 0 || weatherData.minTemperature == 0 {
+            if weatherData.maxTemperature == nil || weatherData.minTemperature == nil {
                 lblForCurTempWidth.text = "-"
-            } else if weatherData.temperature != 0 {
-                lblForCurTempWidth.text = "\(weatherData.temperature)\u{00B0}C"
+            } else if let temp = weatherData.temperature {
+                lblForCurTempWidth.text = "\(temp)\u{00B0}C"
             } else {
                 lblForCurTempWidth.text = ""
             }
@@ -426,9 +426,9 @@ extension BookingProductDetailVM {
             
             let code: String = String(weatherData.weatherIcon.split(separator: "-").first ?? "")
             
-            let iconWithText = AppGlobals.shared.getTextWithImage(startText: "", image: ATWeatherType(rawValue: code)!.icon, endText: "  \(weatherData.maxTemperature) \u{00B0}/ \(weatherData.minTemperature)\u{00B0}", font: AppFonts.Regular.withSize(18.0), isEndTextBold: false)
-            lblForMaxMinTempWidth.attributedText = weatherData.maxTemperature == 0 ||
-                weatherData.minTemperature == 0 ? NSAttributedString(string: "              -") : iconWithText
+            let iconWithText = AppGlobals.shared.getTextWithImage(startText: "", image: ATWeatherType(rawValue: code)!.icon, endText: "  \(weatherData.maxTemperature ?? 0) \u{00B0}/ \(weatherData.minTemperature ?? 0)\u{00B0}", font: AppFonts.Regular.withSize(18.0), isEndTextBold: false)
+            lblForMaxMinTempWidth.attributedText = weatherData.maxTemperature == nil ||
+                weatherData.minTemperature == nil ? NSAttributedString(string: "              -") : iconWithText
             
             if lblForMaxMinTempWidth.intrinsicContentSize.width > weatherLabelWidths.highLowLblWidth {
                 weatherLabelWidths.highLowLblWidth = lblForMaxMinTempWidth.intrinsicContentSize.width
