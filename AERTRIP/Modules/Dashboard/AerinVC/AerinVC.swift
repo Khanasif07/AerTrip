@@ -100,6 +100,15 @@ class AerinVC: BaseVC {
                 self.travelSafetyViewTopConstraint.constant = value
             }
         }
+        
+        //Rishabh For card getting cut issue - start
+        if isSEDevice {
+            containerScrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -30, right: 0)
+        } else if view.window?.safeAreaInsets.bottom != 0 {
+            containerScrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
+        }
+        //Rishabh For card getting cut issue - end
+        
     }
     
     override func initialSetup() {

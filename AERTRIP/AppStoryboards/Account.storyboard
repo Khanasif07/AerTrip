@@ -809,6 +809,7 @@
                                                     <outlet property="stackBottomConstraint" destination="I2d-LA-DGX" id="NGK-YS-sgQ"/>
                                                     <outlet property="stackTopConstraint" destination="2FW-il-xCt" id="TWN-bw-sOI"/>
                                                     <outlet property="titleLabel" destination="tQH-F7-xva" id="tXw-Xc-uZp"/>
+                                                    <outlet property="titleLabelWidthConstraints" destination="vN2-xq-b3O" id="tjV-bf-3y7"/>
                                                 </connections>
                                             </tableViewCell>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AccountLadgerDividerell" rowHeight="92" id="krT-VY-oKJ" customClass="AccountLadgerDividerell" customModule="AERTRIP" customModuleProvider="target">

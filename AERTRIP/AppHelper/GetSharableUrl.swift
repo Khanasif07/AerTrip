@@ -95,9 +95,7 @@ class GetSharableUrl
             
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
-            
-//            print(String(data: data, encoding: .utf8)!)
-            
+                        
             do{
                 let jsonResult:AnyObject?  = try JSONSerialization.jsonObject(with: data, options: []) as AnyObject
                 
@@ -210,7 +208,8 @@ class GetSharableUrl
         var request = URLRequest(url: URL(string: tempelteUrl)!,timeoutInterval: Double.infinity)
         request.addValue(apiKey, forHTTPHeaderField: "api-key")
         request.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-        
+
+
         var cookies = ""
 //        if (UserInfo.loggedInUser != nil){
 //            if let allCookies = UserDefaults.getCustomObject(forKey: UserDefaults.Key.currentUserCookies.rawValue) as? [HTTPCookie]
@@ -232,45 +231,47 @@ class GetSharableUrl
 //        }
         
         if (UserInfo.loggedInUser != nil){
-            if let allCookies = UserDefaults.getCustomObject(forKey: UserDefaults.Key.currentUserCookies.rawValue) as? [HTTPCookie]
-            {
-                print("allCookies")
-                if allCookies.count > 0{
-                    let name = allCookies.first?.name ?? ""
-                    let value = allCookies.first?.value ?? ""
-                    if !name.isEmpty && !value.isEmpty || !name.isEmpty || !value.isEmpty{
-                        cookies = name + "=" + value
-                    }else{
-                        cookies = "AT_R_STAGE_SESSID=cba8fbjvl52c316a4b24tuank4"
-                    }
-                }
+//            if let allCookies = UserDefaults.getCustomObject(forKey: UserDefaults.Key.currentUserCookies.rawValue) as? [HTTPCookie]
+//            {
+//                print("allCookies",allCookies.description)
+//
+////                AT_R_STAGE_SESSID=ikba8nlb4895sln3itliok513a; expires=Sat, 26-Dec-2020 10:50:10 GMT; Max-Age=2592000; path=/; domain=.aertrip.com; secure; HttpOnly
+//
+//
+//                if allCookies.count > 0{
+////                    let name = allCookies.first?.name ?? ""
+////                    let value = allCookies.first?.value ?? ""
+////                    if !name.isEmpty && !value.isEmpty || !name.isEmpty || !value.isEmpty{
+////                        cookies = name + "=" + value
+////                    }else{
+////                        cookies = "AT_R_STAGE_SESSID=cba8fbjvl52c316a4b24tuank4"
+////                    }
+//
+//                }
+//            }
+            
+            
+            
+            if let loginCookie = UserDefaults.standard.value(forKey: "loginCookie") as? String{
+                cookies = loginCookie
+            }else{
+                cookies = "AT_R_STAGE_SESSID=cba8fbjvl52c316a4b24tuank4"
             }
-
         }else{
-            if let strrr = UserDefaults.standard.value(forKey: "SearchResultCookie") as? String{
-                print("strrr=",strrr)
-
-                cookies = strrr
+            if let SearchResultCookie = UserDefaults.standard.value(forKey: "SearchResultCookie") as? String{
+                cookies = SearchResultCookie
             }else{
                 cookies = "AT_R_STAGE_SESSID=cba8fbjvl52c316a4b24tuank4"
             }
         }
         
-        
-        
-
-        
-        
         print("cookies= ",cookies)
         request.addValue(cookies, forHTTPHeaderField: "Cookie")
-
-        
         
         request.httpMethod = "POST"
         request.httpBody = postData
         
-        
-        print("postData=", String(data: postData!, encoding: .utf8)!)
+//        print("postData=", String(data: postData!, encoding: .utf8)!)
         
         let requestDate = Date.getCurrentDate()
         var textLog = TextLog()
@@ -279,15 +280,12 @@ class GetSharableUrl
         
         textLog.write("\nREQUEST HEADER :::::::: \(requestDate)  ::::::::\n\n\(String(describing: request.allHTTPHeaderFields))\n")
         textLog.write("\nParameters :::::::: \(requestDate)  ::::::::\n\n\(parameters)\n")
-        
-        
-        
+                
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data else {
                 print(String(describing: error))
                 return
             }
-            print(String(data: data, encoding: .utf8)!)
             
             do{
                 let jsonResult:AnyObject?  = try JSONSerialization.jsonObject(with: data, options: []) as AnyObject
@@ -657,9 +655,29 @@ class GetSharableUrl
             if (appliedFilters.contains(.Airport))
             {
                 var airport = ""
-                if let loap = userSelectedFilters?.loap{
-                    for n in 0..<loap.count{
-                        airport.append("filters[\(i)][loap][\(n)]=\(loap[n])&")
+                
+                if uiFilters.contains(.layoverAirports){
+                    if let loap = userSelectedFilters?.loap{
+                        for n in 0..<loap.count{
+                            airport.append("filters[\(i)][loap][\(n)]=\(loap[n])&")
+                        }
+                    }
+                }else{
+                    var airportsArray = [String]()
+                    if let to = userSelectedFilters?.cityapN.to{
+                        if let destinationAirport = to.values.first{
+                            airportsArray.append(contentsOf: destinationAirport)
+                        }
+                    }
+                    
+                    if let fr = userSelectedFilters?.cityapN.fr{
+                        if let originAirport = fr.values.first{
+                            airportsArray.append(contentsOf: originAirport)
+                        }
+                    }
+                    
+                    for n in 0..<airportsArray.count{
+                        airport.append("filters[\(i)][ap][\(n)]=\(airportsArray[n])&")
                     }
                 }
                 
@@ -688,8 +706,13 @@ class GetSharableUrl
             {
                 if let pr = userSelectedFilters?.pr{
                     let price = "filters[\(i)][pr][0]=\(pr.minPrice)&filters[\(i)][pr][1]=\(pr.maxPrice)&"
-                    
+
                     filterString.append(price)
+                }
+                
+                if uiFilters.contains(.refundableFares){
+                    filterString.append("filters[\(i)][fares][]=1&")
+                    
                 }
             }
             
@@ -909,12 +932,62 @@ class GetSharableUrl
                 if (appliedFilters.contains(.Airport))
                 {
                     var airport = ""
+                    
                     for n in 0..<userSelectedFilters[i].loap.count{
                         airport.append("filters[\(i)][loap][\(n)]=\(userSelectedFilters[i].loap[n])&")
                     }
                     
                     filterString.append(airport)
                 }
+                
+                //     Airport - originDestinationSelectedForReturnJourney
+
+                if uiFilters.contains(.originDestinationSelectedForReturnJourney)
+                {
+                    var airport = ""
+                    var airportsArray = [String]()
+                    
+                    let returnOriginAirports = userSelectedFilters[i].cityapn.returnOriginAirports
+
+                    if returnOriginAirports.count > 0{
+                        
+                        for i in 0..<returnOriginAirports.count{
+                            airportsArray.append(returnOriginAirports[i])
+                        }
+                    }else{
+                        let fr = userSelectedFilters[i].cityapn.fr
+                        
+                        if let originAirport = fr.values.first{
+                            airportsArray.append(contentsOf: originAirport)
+                        }
+                    }
+                    
+                    
+                    
+                    
+                    let returnDestinationAirports = userSelectedFilters[i].cityapn.returnDestinationAirports
+                    if returnDestinationAirports.count > 0 {
+                        for i in 0..<returnDestinationAirports.count{
+                            airportsArray.append(returnDestinationAirports[i])
+                        }
+                    }else{
+                        let to = userSelectedFilters[i].cityapn.to
+                        
+                        if let destinationAirport = to.values.first{
+                            airportsArray.append(contentsOf: destinationAirport)
+                        }
+                    }
+
+                    
+                    for n in 0..<airportsArray.count{
+                        airport.append("filters[\(i)][ap][\(n)]=\(airportsArray[n])&")
+                    }
+                    
+                    filterString.append(airport)
+
+                }
+                
+                
                 
                 //     Quality
                 if (appliedFilters.contains(.Quality))

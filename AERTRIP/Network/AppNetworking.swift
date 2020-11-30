@@ -294,6 +294,21 @@ enum AppNetworking {
             printDebug("Cookies:--\(HTTPCookieStorage.shared.cookies(for: request.request!.url!))")
             
             AppNetworking.saveCookies(fromUrl: response.response?.url)
+                        
+            if let url = response.response?.url?.absoluteString{
+                if url.contains(APIEndPoint.login.rawValue)
+                {
+                    if let keys = response.response?.allHeaderFields
+                    {
+                        print("login keys=",keys)
+                        if let val = keys["Set-Cookie"] as? String{
+                            print("login val=",val)
+                            UserDefaults.standard.set(val, forKey: "loginCookie")
+                        }
+                    }
+                }
+            }
+            
             
             
             
