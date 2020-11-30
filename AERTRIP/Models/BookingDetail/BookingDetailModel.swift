@@ -190,6 +190,11 @@ struct BookingDetailModel {
 //
 //            ]
             self.weatherInfo = WeatherInfo.getModels(json: obj)
+            let filtered = self.weatherInfo.filter({$0.maxTemperature != nil || $0.minTemperature != nil || $0.temperature != nil})
+            if filtered.count == 0{
+                self.weatherInfo = []
+            }
+
         }
         
         if self.product == "flight" {
@@ -235,7 +240,7 @@ struct BookingDetailModel {
             }
             
             for tripWeatherData in self.tripWeatherData {
-                if tripWeatherData.minTemperature == 0 || tripWeatherData.maxTemperature == 0 {
+                if tripWeatherData.minTemperature == nil || tripWeatherData.maxTemperature == nil {
                     self.weatherDisplayedWithin16Info = true
                     break
                 }
@@ -263,7 +268,7 @@ struct BookingDetailModel {
             }
             
             for tripWeatherData in self.tripWeatherData {
-                if tripWeatherData.temperature == 0 {
+                if tripWeatherData.temperature == nil {
                     self.weatherDisplayedWithin16Info = true
                     break
                 }
@@ -2302,11 +2307,11 @@ struct Codes {
 }
 
 struct WeatherInfo {
-    var maxTemperature: Int = 0
-    var minTemperature: Int = 0
+    var maxTemperature: Int?
+    var minTemperature: Int?
     var weather: String = ""
     var weatherIcon: String = ""
-    var temperature: Int = 0
+    var temperature: Int?
     var date: Date?
     var countryCode: String = ""
     var city: String = ""

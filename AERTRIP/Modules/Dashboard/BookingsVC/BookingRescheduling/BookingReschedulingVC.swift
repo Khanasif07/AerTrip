@@ -281,7 +281,6 @@ class BookingReschedulingVC: BaseVC {
             
             bookingAccordionCell.configureCell(passengerName: paxD.paxName, pnrNo: pnrNoStr, saleValue: paxD.amountPaid.amountInDelimeterWithSymbol, cancellationCharge: cancelationValueText, refundValue: self.viewModel.usingFor == .rescheduling ? paxD.netRefundForReschedule.amountInDelimeterWithSymbol : paxD.netRefundForCancellation.amountInDelimeterWithSymbol, age: age)
             bookingAccordionCell.delegate = self
-//            bookingAccordionCell.headerDividerView.isHidden = (legD.pax.count - 1) == (indexPath.row - (legD.flight.count))
             
             bookingAccordionCell.cancellationChargeLabel.text = self.viewModel.usingFor == .rescheduling ? LocalizedString.ReschedulingCharges.localized : LocalizedString.CancellationCharges.localized
 
@@ -292,6 +291,8 @@ class BookingReschedulingVC: BaseVC {
             //expandedIndexPaths
             bookingAccordionCell.headerDividerView.isHidden = (self.expandedIndexPaths.contains(indexPath) || (index == legD.pax.count - 1))
             bookingAccordionCell.bottomDividerView.isHidden = ((index == legD.pax.count - 1) || !self.expandedIndexPaths.contains(indexPath))
+            bookingAccordionCell.selectedTravellerButton.isEnabled = !(paxD.inProcess)
+            bookingAccordionCell.passengerNameLabel.isEnabled = !(paxD.inProcess)
             return bookingAccordionCell
         }
     }
@@ -443,7 +444,7 @@ extension BookingReschedulingVC: BookingReschedulingHeaderViewDelegate {
         }
         else {
             //select all
-            legD.selectedPaxs = legD.pax
+            legD.selectedPaxs = legD.pax.filter({!($0.inProcess)})
         }
         
         self.viewModel.legsData.insert(legD, at: sender.tag)

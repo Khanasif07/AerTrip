@@ -37,6 +37,7 @@ class AccountLadgerDetailsVM {
     //OnAccountDetais Model
     var onAccountEvent:OnAccountLedgerEvent?
     var isForOnAccount:Bool = false
+    var cellTitleLabelWidth:CGFloat = 0.0
     
     
     //MARK:- Methods
@@ -97,7 +98,7 @@ class AccountLadgerDetailsVM {
             }
             
         }
-        
+        self.calculateMaxWidth()
     }
     
     private func parseDataForFlightSales() {
@@ -211,7 +212,7 @@ class AccountLadgerDetailsVM {
                 self.sectionArray.append(section2)
             }
         }
-        
+        self.calculateMaxWidth()
         
     }
     
@@ -297,6 +298,7 @@ class AccountLadgerDetailsVM {
         //self.ladgerDetails["1"] = bookingDetails
         section3.append((title: "", value: "", age: "", isEmptyCell: true))
         self.sectionArray.append(section3)
+        self.calculateMaxWidth()
         
     }
     
@@ -385,12 +387,29 @@ class AccountLadgerDetailsVM {
         section1.append((title: "Amount", value: "\(abs(event.amount).amountInDelimeterWithSymbol) \(suffix)", age: "", isEmptyCell: false))
         section1.append((title: "", value: "", age: "", isEmptyCell: true))
         self.sectionArray.append(section1)
+        self.calculateMaxWidth()
         
     }
     
     func updateDataForOnAccount(onData: JSONDictionary){
        
         
+    }
+    
+    func calculateMaxWidth(){
+        let keys = self.sectionArray.flatMap({$0.map({$0.title})})
+        print(keys)
+        let label = UILabel()
+        label.numberOfLines = 1
+        label.font = AppFonts.Regular.withSize(16)
+        for key in keys{
+            label.sizeToFit()
+            label.text = key
+            label.sizeToFit()
+            if cellTitleLabelWidth < label.size.width{
+                cellTitleLabelWidth = label.size.width
+            }
+        }
     }
     
     func updateFethedData(onData: JSONDictionary) {
