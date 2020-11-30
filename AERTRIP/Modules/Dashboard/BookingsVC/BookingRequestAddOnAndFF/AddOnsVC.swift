@@ -65,7 +65,7 @@ class AddOnsVC: BaseVC {
             }
             cell.configureCell(profileImage: user?.profileImage ?? "", salutationImage: AppGlobals.shared.getEmojiIcon(dob: dob, salutation: (user?.salutation ?? ""), dateFormatter: Date.DateFormat.yyyy_MM_dd.rawValue), passengerName: user?.paxName ?? "", age: age)
                 cell.isUserInteractionEnabled = !(pax?.inProcess ?? false)
-                cell.passengerNameLabel.textColor = (!(pax?.inProcess ?? false)) ? AppColors.themeBlack : AppColors.themeGray60
+                cell.passengerNameLabel.isEnabled = !(pax?.inProcess ?? false)
             return cell
         // Seat Preference or Seat Booking Based on Flight type LCC or GDS
         case 1:
