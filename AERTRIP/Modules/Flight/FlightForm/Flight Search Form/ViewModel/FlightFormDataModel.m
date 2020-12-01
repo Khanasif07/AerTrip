@@ -614,7 +614,13 @@
         bookFlightObject.isDomestic = NO;
     }
         
-    bookFlightObject.subTitleString = [NSString stringWithFormat:@"%@  •  %ld Pax  •  %@", date,  (long)count, [flightSearchParameters valueForKey:@"cabinclass"]];
+    
+    
+    if(count > 1){
+        bookFlightObject.subTitleString = [NSString stringWithFormat:@"%@  •  %ld Pax  •  %@", date,  (long)count, [flightSearchParameters valueForKey:@"cabinclass"]];
+    }else{
+        bookFlightObject.subTitleString = [NSString stringWithFormat:@"%@  •  %ld Adt  •  %@", date,  (long)count, [flightSearchParameters valueForKey:@"cabinclass"]];
+    }
     
    if ( [tripType isEqualToString:@"return"]) {
        bookFlightObject.flightSearchType = RETURN_JOURNEY;
