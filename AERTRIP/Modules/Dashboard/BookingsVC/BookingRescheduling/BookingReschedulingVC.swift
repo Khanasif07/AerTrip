@@ -293,6 +293,7 @@ class BookingReschedulingVC: BaseVC {
             bookingAccordionCell.bottomDividerView.isHidden = ((index == legD.pax.count - 1) || !self.expandedIndexPaths.contains(indexPath))
             bookingAccordionCell.selectedTravellerButton.isEnabled = !(paxD.inProcess)
             bookingAccordionCell.passengerNameLabel.isEnabled = !(paxD.inProcess)
+            bookingAccordionCell.togglePaxDetails(hidden: paxD.inProcess)
             return bookingAccordionCell
         }
     }
@@ -351,7 +352,7 @@ extension BookingReschedulingVC: UITableViewDataSource, UITableViewDelegate {
             return 60
         }
         else {
-            return self.expandedIndexPaths.contains(indexPath) ? 144.5 : 44.0
+            return self.expandedIndexPaths.contains(indexPath) ? UITableView.automaticDimension : 44.0
         }
     }
     

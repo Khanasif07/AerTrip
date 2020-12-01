@@ -1002,7 +1002,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         
         if flightSearchResultVM.containsJourneyResuls  {
             
-            if curSelectedFilterIndex == 0 && backView.height > visualEffectViewHeight {
+            if curSelectedFilterIndex == 0 && backView.height > visualEffectViewHeight + 10 /* safe constant */ {
                 toggleFiltersView(hidden: true)
             } else {
                 flightFilterVC?.selectSortVC()
