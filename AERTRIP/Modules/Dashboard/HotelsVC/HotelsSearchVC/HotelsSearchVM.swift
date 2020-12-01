@@ -42,7 +42,7 @@ class HotelsSearchVM: NSObject{
         // TODO: Remove this method for this pointer https://app.asana.com/0/1181922655927025/1199180703186773/f
        // guard let lastSearchedData = self.recentSearchesData?.first else { return true }
         var canSetSearch = true
-        self.recentSearchesData?.forEach({ (lastSearchedData) in
+        guard let lastSearchedData = recentSearchesData?.first else { return true }
         
         if lastSearchedData.dest_id == self.searchedFormData.destId {
             printDebug("lastSearchedData.checkInDate \(lastSearchedData.checkInDate )")
@@ -50,7 +50,7 @@ class HotelsSearchVM: NSObject{
             printDebug("self.searchedFormData.checkInDateWithDay \(self.searchedFormData.checkInDateWithDay)")
             printDebug("self.searchedFormData.checkOutDateWithDay \(self.searchedFormData.checkOutDateWithDay)")
 
-            if lastSearchedData.checkInDate ==  self.searchedFormData.checkInDateWithDay  || lastSearchedData.checkOutDate ==  self.searchedFormData.checkOutDateWithDay{
+            if lastSearchedData.checkInDate ==  self.searchedFormData.checkInDateWithDay  && lastSearchedData.checkOutDate ==  self.searchedFormData.checkOutDateWithDay{
                 printDebug("lastSearchedData.room?.count \(lastSearchedData.room?.count ?? 0)")
                 printDebug("self.searchedFormData.adultsCount.count \(self.searchedFormData.adultsCount.count)")
 
@@ -70,7 +70,37 @@ class HotelsSearchVM: NSObject{
                 }
             }
         }
-        })
+        
+        
+//        self.recentSearchesData?.forEach({ (lastSearchedData) in
+        
+//        if lastSearchedData.dest_id == self.searchedFormData.destId {
+//            printDebug("lastSearchedData.checkInDate \(lastSearchedData.checkInDate )")
+//            printDebug("lastSearchedData.checkOutDate \(lastSearchedData.checkOutDate)")
+//            printDebug("self.searchedFormData.checkInDateWithDay \(self.searchedFormData.checkInDateWithDay)")
+//            printDebug("self.searchedFormData.checkOutDateWithDay \(self.searchedFormData.checkOutDateWithDay)")
+//
+//            if lastSearchedData.checkInDate ==  self.searchedFormData.checkInDateWithDay  || lastSearchedData.checkOutDate ==  self.searchedFormData.checkOutDateWithDay{
+//                printDebug("lastSearchedData.room?.count \(lastSearchedData.room?.count ?? 0)")
+//                printDebug("self.searchedFormData.adultsCount.count \(self.searchedFormData.adultsCount.count)")
+//
+//                if (lastSearchedData.room?.count ?? 0) == self.searchedFormData.adultsCount.count {
+//                    for i in 0..<(lastSearchedData.room?.count ?? 0) {
+//                      printDebug("lastSearchedData.room?[\(i)].adultCounts \(lastSearchedData.room?[i].adultCounts ?? "0")")
+//                        printDebug("self.searchedFormData.adultsCount[\(i)] \(self.searchedFormData.adultsCount[i])")
+//
+//                        if (lastSearchedData.room?[i].adultCounts ?? "0") == "\(self.searchedFormData.adultsCount[i])" {
+//                            canSetSearch = false
+//                            break
+//                        } else {
+//                            canSetSearch = true
+//                            //break
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        })
         return canSetSearch
     }
     
@@ -87,6 +117,7 @@ class HotelsSearchVM: NSObject{
             guard let sSelf = self else { return }
             if success {
                 sSelf.recentSearchesData = recentSearchesHotels
+                sSelf.removeRecentSearchDuplicates()
                 sSelf.delegate?.getRecentSearchesDataSuccess()
             } else {
                 printDebug(errors)
@@ -94,6 +125,29 @@ class HotelsSearchVM: NSObject{
                 sSelf.delegate?.getRecentSearchesDataFail()
             }
         }
+    }
+    
+    private func removeRecentSearchDuplicates() {
+        guard let recentSearches = recentSearchesData, !recentSearches.isEmpty else { return }
+        var indicesToRemove = [Int]()
+        for index in 0..<recentSearches.count - 1 {
+            let toBeSearched = recentSearches[index]
+            for innerIndex in (index+1)..<recentSearches.count {
+                if indicesToRemove.contains(innerIndex) {
+                    continue
+                }
+                let innerIteratingSearch = recentSearches[innerIndex]
+                if toBeSearched.dest_id == innerIteratingSearch.dest_id && toBeSearched.checkInDate == innerIteratingSearch.checkInDate && toBeSearched.checkOutDate == innerIteratingSearch.checkOutDate {
+                    indicesToRemove.append(innerIndex)
+                }
+            }
+        }
+        indicesToRemove.sort()
+        indicesToRemove.reverse()
+        indicesToRemove.forEach { (index) in
+            recentSearchesData?.remove(at: index)
+        }
+        
     }
     
     func setRecentSearchesData() {

@@ -957,6 +957,8 @@ enum LocalizedString: String {
     case PhotoLibrary
     case Document
     case ChooseOptionToSelect
+    case requestNoted
+    case maximumOnlineLimit
     
     // MARK: - OTHER BOOKING PRODUCT DETAIL
     

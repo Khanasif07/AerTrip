@@ -216,22 +216,13 @@ extension FlightResultSingleJourneyVC {
     
     func applySorting(sortOrder : Sort, isConditionReverced : Bool, legIndex : Int, shouldReload : Bool = false, completion : (()-> Void)){
         previousRequest?.cancel()
-        
-        
-        printDebug("self.viewModel.flightSearchParameters...\(self.viewModel.flightSearchParameters)")
-        
         self.viewModel.sortOrder = sortOrder
         self.viewModel.isConditionReverced = isConditionReverced
         //  self.viewModel.prevLegIndex = legIndex
         
         self.viewModel.applySortingOnGroups(sortOrder: sortOrder, isConditionReverced: isConditionReverced, legIndex: legIndex)
         self.viewModel.setPinnedFlights(shouldApplySorting: true)
-    
-        delay(seconds: 0.5) {
-            self.viewModel.applySorting(sortOrder: sortOrder, isConditionReverced: isConditionReverced, legIndex: legIndex)
-
-        }
-        
+        self.viewModel.applySorting(sortOrder: sortOrder, isConditionReverced: isConditionReverced, legIndex: legIndex)
         
         let newRequest = DispatchWorkItem {
             if shouldReload {

@@ -153,7 +153,6 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 return self.getDetailCell(title: key, description: value, descriptionColor: descColor, age: age, at: indexPath)
                 
             }
-            
         }
         /*
         guard let dict = self.viewModel.ladgerDetails["\(section)"] as? JSONDictionary else {
@@ -390,6 +389,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
             cell.stackTopConstraint.constant = 0
             cell.stackBottomConstraint.constant = 0
         }
+        cell.titleLabelWidthConstraints.constant = self.viewModel.cellTitleLabelWidth
         return cell
     }
 }
@@ -400,6 +400,7 @@ class AccountLadgerDetailCell: UITableViewCell {
     
     //MARK:- IBOutlet
     //MARK:-
+    @IBOutlet weak var titleLabelWidthConstraints: NSLayoutConstraint!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descLabel: UILabel!
     @IBOutlet weak var stackTopConstraint: NSLayoutConstraint!

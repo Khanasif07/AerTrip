@@ -194,6 +194,7 @@ struct BookingDetailModel {
             if filtered.count == 0{
                 self.weatherInfo = []
             }
+
         }
         
         if self.product == "flight" {
@@ -267,7 +268,7 @@ struct BookingDetailModel {
             }
             
             for tripWeatherData in self.tripWeatherData {
-                if tripWeatherData.temperature == 0 {
+                if tripWeatherData.temperature == nil {
                     self.weatherDisplayedWithin16Info = true
                     break
                 }

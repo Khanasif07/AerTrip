@@ -484,6 +484,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         let order = SortingValuesWhenShared(rawValue: sharedSortOrder) ?? SortingValuesWhenShared.smart
         
         switch order {
+        
         case .priceLowToHigh:
             return (Sort.Price, false)
             
@@ -513,6 +514,37 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
 
         }
         
+    }
+    
+    
+    func convertSortOrder(sortOrder : Sort, isConditionReverced : Bool) -> SortingValuesWhenShared {
+        
+        var order = SortingValuesWhenShared.smart
+        
+        switch sortOrder {
+        case .Price:
+            
+            order = isConditionReverced ? SortingValuesWhenShared.priceHighToLow  : SortingValuesWhenShared.priceLowToHigh
+            
+        case .Duration:
+            
+            order = isConditionReverced ? SortingValuesWhenShared.durationHighToLow  : SortingValuesWhenShared.durationLowToHigh
+            
+        case .Depart:
+            
+            order = isConditionReverced ? SortingValuesWhenShared.departureHighToLow  : SortingValuesWhenShared.departureLowToHigh
+            
+        case .Arrival:
+            
+            order = isConditionReverced ? SortingValuesWhenShared.arivalHighToLow  : SortingValuesWhenShared.arivalLowToHigh
+            
+        default:
+            
+            order = .smart
+        }
+        
+        
+        return order
     }
     
     
@@ -978,7 +1010,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
                 toggleFiltersView(hidden: false)
                 curSelectedFilterIndex = 0
             }
-//            
+//
 //            if backView.height <= visualEffectViewHeight {
 //                toggleFiltersView(hidden: false)
 //            } else {
@@ -1041,7 +1073,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         
         resultTitle.isHidden = isHidden
         resultsubTitle.isHidden = isHidden
-        infoButton.isHidden = isHidden
+//        infoButton.isHidden = isHidden
         backButton.isHidden = isHidden
     }
     
@@ -1059,7 +1091,6 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         filterTitle.removeFromSuperview()
         
     }
-    
     func createFilterTitle() {
         self.filterTitle = UILabel()
 //        self.filterTitle.font = UIFont(name: "SourceSansPro-Regular", size: 16.0)
@@ -1497,6 +1528,8 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
     func applySorting(sortOrder : Sort, isConditionReverced : Bool, legIndex : Int){
 //        guard let intMCAndReturnVC = self.intMultiLegResultVC else { return }
 //        intMCAndReturnVC.applySorting(sortOrder: sortOrder, isConditionReverced: isConditionReverced, legIndex: legIndex, shouldReload : true, completion: {})
+        
+        self.flightSearchParameters["sort[]"] = self.convertSortOrder(sortOrder: sortOrder, isConditionReverced: isConditionReverced).rawValue
         
         if let intMCAndReturnVC = self.intMultiLegResultVC {
              intMCAndReturnVC.applySorting(sortOrder: sortOrder, isConditionReverced: isConditionReverced, legIndex: legIndex, shouldReload : true, completion: {})

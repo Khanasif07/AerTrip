@@ -402,7 +402,7 @@ class FlightResultDisplayGroup {
         
         dynamicFilters.aircraft.allAircraftsArray = allAircrafts.removeDuplicates()
 
-        printDebug("dynamicFilters.aircraft.allAircraftsArraycount....\(dynamicFilters.aircraft.allAircraftsArray.count)")
+//        printDebug("dynamicFilters.aircraft.allAircraftsArraycount....\(dynamicFilters.aircraft.allAircraftsArray.count)")
 
         
         self.delegate?.updateDynamicFilters(filters: dynamicFilters)

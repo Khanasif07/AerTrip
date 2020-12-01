@@ -66,8 +66,8 @@ class WeatherInfoTableViewCell: UITableViewCell {
         getCityNameWithDateLabel(cityName: usingFor == .hotel ? "" : cityNameCode, date: weatherData?.date?.toString(dateFormat: usingFor == .hotel ? "E, d MMM" : "d MMM") ?? "")
         if weatherData?.maxTemperature == nil || weatherData?.minTemperature == nil {
            tempLabel.text = "-"
-        } else if let temp =  weatherData?.temperature{//(weatherData?.temperature ?? 0) != 0
-            tempLabel.text = "\(temp)\u{00B0}C"
+        } else if (weatherData?.temperature) != nil {
+            tempLabel.text = "\(weatherData?.temperature ?? 0)\u{00B0}C"
         } else {
             tempLabel.text = ""
         }

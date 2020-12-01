@@ -81,6 +81,7 @@
 		0C26ECFE243386E700C058D0 /* SettingsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C26ECFD243386E700C058D0 /* SettingsHeaderView.xib */; };
 		0C272E292422601300133B50 /* SenderChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C272E272422601300133B50 /* SenderChatCell.swift */; };
 		0C272E2A2422601300133B50 /* SenderChatCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C272E282422601300133B50 /* SenderChatCell.xib */; };
+		0C2AF7F92570E0FB00FD6162 /* OnlinePaymentLimitVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2AF7F82570E0FB00FD6162 /* OnlinePaymentLimitVC.swift */; };
 		0C30BC1124A9F7B4004BF7E0 /* BaggageTermsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C30BC1024A9F7B4004BF7E0 /* BaggageTermsVC.swift */; };
 		0C30BC1424A9F92A004BF7E0 /* LabelWithBulletCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C30BC1224A9F92A004BF7E0 /* LabelWithBulletCell.swift */; };
 		0C30BC1524A9F92A004BF7E0 /* LabelWithBulletCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C30BC1324A9F92A004BF7E0 /* LabelWithBulletCell.xib */; };
@@ -1744,6 +1745,7 @@
 		0C26ECFD243386E700C058D0 /* SettingsHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsHeaderView.xib; sourceTree = "<group>"; };
 		0C272E272422601300133B50 /* SenderChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenderChatCell.swift; sourceTree = "<group>"; };
 		0C272E282422601300133B50 /* SenderChatCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SenderChatCell.xib; sourceTree = "<group>"; };
+		0C2AF7F82570E0FB00FD6162 /* OnlinePaymentLimitVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlinePaymentLimitVC.swift; sourceTree = "<group>"; };
 		0C30BC1024A9F7B4004BF7E0 /* BaggageTermsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaggageTermsVC.swift; sourceTree = "<group>"; };
 		0C30BC1224A9F92A004BF7E0 /* LabelWithBulletCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelWithBulletCell.swift; sourceTree = "<group>"; };
 		0C30BC1324A9F92A004BF7E0 /* LabelWithBulletCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LabelWithBulletCell.xib; sourceTree = "<group>"; };
@@ -3694,6 +3696,14 @@
 			path = chat;
 			sourceTree = "<group>";
 		};
+		0C2AF7F72570E01400FD6162 /* OnlinePaymentAmountLimitVC */ = {
+			isa = PBXGroup;
+			children = (
+				0C2AF7F82570E0FB00FD6162 /* OnlinePaymentLimitVC.swift */,
+			);
+			path = OnlinePaymentAmountLimitVC;
+			sourceTree = "<group>";
+		};
 		0C32DC03232F70B5008033B5 /* New Group */ = {
 			isa = PBXGroup;
 			children = (
@@ -4175,6 +4185,7 @@
 		1827D480248690E600A0594F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				0C2AF7F72570E01400FD6162 /* OnlinePaymentAmountLimitVC */,
 				18DEFE78249D0FF600E64260 /* PostBookingAddonsPaymentStatusVC */,
 				18637D64249C987B001325CD /* FlightPaymentPendingRequestSuccessVC */,
 				187CC6D0249B2662006C7F5A /* PostBookingAddonsPayment */,
@@ -10769,6 +10780,7 @@
 				843FF55224740232001F21B1 /* IntFlightResultDisplayGroup+Filters.swift in Sources */,
 				843FF58124740232001F21B1 /* FareInfoVC.swift in Sources */,
 				180632A322521D60008B1F32 /* FinalCheckOutVC+DelegateMethods.swift in Sources */,
+				0C2AF7F92570E0FB00FD6162 /* OnlinePaymentLimitVC.swift in Sources */,
 				182D483E228AA544004796A2 /* BookingHotelDetailVC.swift in Sources */,
 				0CB5A79C24EAA20F00C59536 /* IntMCAndReturnVC+Animation.swift in Sources */,
 				1835E50A23EAC1F000F6EEA1 /* GlobalConstants.swift in Sources */,
