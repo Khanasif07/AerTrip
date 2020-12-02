@@ -60,7 +60,7 @@ extension AppUserDefaults {
     static func removeAllValues() {
         
         let tutorial = AppUserDefaults.value(forKey: .tutorialDisplayed).stringValue
-        let appDomain = Bundle.main.bundleIdentifier!
+        let appDomain = Bundle.main.bundleIdentifier ?? ""
         UserDefaults.standard.removePersistentDomain(forName: appDomain)
         UserDefaults.standard.synchronize()
         AppUserDefaults.save(value: tutorial, forKey: .tutorialDisplayed)

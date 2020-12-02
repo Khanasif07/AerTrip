@@ -14,12 +14,14 @@ extension UIApplication {
     
     ///Opens Settings app
     @nonobjc class var openSettingsApp:Void{
-        
+        guard let url =  URL(string: UIApplication.openSettingsURLString) else {
+            return
+        }
         if #available(iOS 10.0, *) {
-            self.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
+            self.shared.open(url, options: [:], completionHandler: nil)
         } else {
             // Fallback on earlier versions
-            self.shared.openURL(URL(string: UIApplication.openSettingsURLString)!)
+            self.shared.openURL(url)
         }
     }
     
