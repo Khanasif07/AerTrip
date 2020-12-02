@@ -104,7 +104,7 @@ class LoginVC: BaseVC {
     
     @IBAction func statementButtonAction(_ sender: UIButton) {
         self.emailTextField.text = "pawan.kumar@appinventiv.com"
-        self.passwordTextField.text = "Pk71@yahoo"
+        self.passwordTextField.text = "PK71@yahoo"
         self.viewModel.email = self.emailTextField.text ?? ""
         self.viewModel.password = self.passwordTextField.text ?? ""
         self.loginButtonAction(self.loginButton)

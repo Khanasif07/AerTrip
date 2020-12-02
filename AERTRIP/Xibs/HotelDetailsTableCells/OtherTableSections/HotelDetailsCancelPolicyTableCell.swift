@@ -51,7 +51,9 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
     ///Configure UI
     private func configUI() {
         self.allDetailsLabel.isHidden = true
-        self.shadowView.addShadow(cornerRadius: 0, maskedCorners: [], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
+//        self.shadowView.addShadow(cornerRadius: 0, maskedCorners: [], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
+        let shadow = AppShadowProperties()
+        self.shadowView.addShadow(cornerRadius: 0, maskedCorners: [], color: shadow.shadowColor, offset: shadow.offset, opacity: shadow.opecity, shadowRadius: shadow.shadowRadius)
         //UIColor
         self.backgroundColor = .clear//AppColors.screensBackground.color
         ///Font

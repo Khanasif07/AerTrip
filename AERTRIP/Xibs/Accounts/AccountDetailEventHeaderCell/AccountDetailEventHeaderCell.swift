@@ -52,8 +52,10 @@ class AccountDetailEventHeaderCell: UITableViewCell {
         self.mainContainerView.backgroundColor = AppColors.themeWhite
 //        self.mainContainerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMinYCorner ,.layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.4), offset: CGSize(width: 0.0, height: -1.0), opacity: 0.5, shadowRadius: 5.0)
         
-        self.mainContainerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMinYCorner ,.layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 0.5, shadowRadius: 4.0)
+//        self.mainContainerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMinYCorner ,.layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 0.5, shadowRadius: 4.0)
 
+        let shadowProp = AppShadowProperties()
+        self.mainContainerView.addShadow(cornerRadius: shadowProp.cornerRadius, maskedCorners: [.layerMaxXMinYCorner ,.layerMinXMinYCorner], color: shadowProp.shadowColor, offset: shadowProp.offset, opacity: shadowProp.opecity, shadowRadius: shadowProp.shadowRadius)
 
         self.dividerView.defaultHeight = 0.5
         
