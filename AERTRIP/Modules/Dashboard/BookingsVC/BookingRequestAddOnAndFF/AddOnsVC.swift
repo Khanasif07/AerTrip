@@ -66,6 +66,9 @@ class AddOnsVC: BaseVC {
             cell.configureCell(profileImage: user?.profileImage ?? "", salutationImage: AppGlobals.shared.getEmojiIcon(dob: dob, salutation: (user?.salutation ?? ""), dateFormatter: Date.DateFormat.yyyy_MM_dd.rawValue), passengerName: user?.paxName ?? "", age: age)
                 cell.isUserInteractionEnabled = !(pax?.inProcess ?? false)
                 cell.passengerNameLabel.isEnabled = !(pax?.inProcess ?? false)
+                
+                cell.requestInProcessLbl.isHidden = !(user?.inProcess ?? false)
+                
             return cell
         // Seat Preference or Seat Booking Based on Flight type LCC or GDS
         case 1:
@@ -120,6 +123,7 @@ extension AddOnsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
         let extraCellCount = 4 * (BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[section].pax.count ?? 0)
         let paxCount = BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[section].pax.count ?? 0
         return extraCellCount + paxCount
@@ -138,9 +142,27 @@ extension AddOnsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        let paxDetail = BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5]
+
         if indexPath.row % 5 == 0 {
-            return indexPath.row == 0 ? 44 : 60
+            if indexPath.row == 0 {
+                if (paxDetail?.inProcess ?? false) {
+                    return 60
+                }
+                return 44
+            } else {
+                if (paxDetail?.inProcess ?? false) {
+                    return 76
+                }
+                return 60
+            }
         }
+                
+        if paxDetail?.inProcess ?? false {
+            return 0
+        }
+        
         return 60.0
     }
     

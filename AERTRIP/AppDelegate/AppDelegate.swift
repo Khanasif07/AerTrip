@@ -7,8 +7,6 @@
 //
 
 import CoreData
-//import Crashlytics
-import Fabric
 import FBSDKLoginKit
 import Firebase
 import GoogleMaps
@@ -17,7 +15,6 @@ import GoogleSignIn
 import FirebaseDynamicLinks
 import FirebaseCore
 import UIKit
-import FirebaseCore
 import IQKeyboardManager
 import Kingfisher
 
@@ -49,7 +46,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         GoogleLoginController.shared.configure()
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
-        //Fabric.with([Crashlytics.self])
         GMSServices.provideAPIKey(AppConstants.kGoogleAPIKey)
         UITextView.appearance().tintColor = AppColors.themeGreen
         UITextField.appearance().tintColor = AppColors.themeGreen
