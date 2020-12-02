@@ -12,6 +12,7 @@ class BookingAddOnPassengerTableViewCell: ATTableViewCell {
     // MARK: - IBOutlet
     
     @IBOutlet weak var passengerNameLabel: UILabel!
+    @IBOutlet weak var requestInProcessLbl: UILabel!
     @IBOutlet weak var passengerImageView: UIImageView!
     
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
@@ -28,10 +29,17 @@ class BookingAddOnPassengerTableViewCell: ATTableViewCell {
     
     override func setupFonts() {
         self.passengerNameLabel.font = AppFonts.SemiBold.withSize(18.0)
+        self.requestInProcessLbl.font = AppFonts.Regular.withSize(16)
+        
     }
     
     override func setupColors() {
         self.passengerNameLabel.textColor = AppColors.themeBlack
+        self.requestInProcessLbl.textColor = AppColors.themeRed
+    }
+    
+    override func setupTexts() {
+        self.requestInProcessLbl.text = LocalizedString.requestInProcess.localized
     }
     
     func configureCell(profileImage: String, salutationImage: UIImage, passengerName: String, age: String) {

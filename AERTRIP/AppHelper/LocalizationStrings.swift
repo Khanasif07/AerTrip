@@ -804,6 +804,7 @@ enum LocalizedString: String {
     case Rescheduling
     case AddOnRequestSent
     case AddOnRequestMesage
+    case requestInProcess
     case PNRNo
     case SaleAmount
     case ConfirmationNo
