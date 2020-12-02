@@ -886,8 +886,33 @@
 {
     NSDictionary * dictionary = self.recentSearchArray[indexPath.row];
     NSMutableDictionary * queryDictionay = [NSMutableDictionary dictionaryWithDictionary:[dictionary objectForKey:@"query"]];
-
+    
     NSString * tripType = [queryDictionay objectForKey:@"trip_type"];
+    
+    if ([tripType isEqualToString:@"multi"] ) {
+        NSArray * departArray = [queryDictionay objectForKey:@"depart"];
+        NSMutableArray * newDepartArray = [NSMutableArray array];
+        for (int i = 0;  i < departArray.count; i++) {
+            NSString * departDateStr = [departArray objectAtIndex:i];
+            NSDate * departDate = [self dateFromString:departDateStr];
+            NSString * newDepartDateStr = [self stringFromDate:departDate];
+            [newDepartArray addObject:newDepartDateStr];
+        }
+        [queryDictionay setObject:newDepartArray forKey:@"depart"];
+        
+    } else {
+        NSString * departDateStr = [queryDictionay objectForKey:@"depart"];
+        NSDate * departDate = [self dateFromString:departDateStr];
+        NSString * newDepartDateStr = [self stringFromDate:departDate];
+        [queryDictionay setValue:newDepartDateStr forKey:@"depart"];
+
+        if ([tripType isEqualToString:@"return"] ) {
+            NSString * returnDateStr = [queryDictionay objectForKey:@"return"];
+            NSDate *returnDate = [self dateFromString:returnDateStr];
+            NSString * newReturnDateStr = [self stringFromDate:returnDate];
+            [queryDictionay setValue:newReturnDateStr forKey:@"return"];
+        }
+    }
     
     if ([tripType isEqualToString:@"multi"] ) {
     
@@ -1172,6 +1197,31 @@
     
     NSString * tripType = [flightSearchParameters valueForKey:@"trip_type"];
     
+    if ([tripType isEqualToString:@"multi"] ) {
+        NSArray * departArray = [flightParameters objectForKey:@"depart"];
+        NSMutableArray * newDepartArray = [NSMutableArray array];
+        for (int i = 0;  i < departArray.count; i++) {
+            NSString * departDateStr = [departArray objectAtIndex:i];
+            NSDate * departDate = [self dateFromString:departDateStr];
+            NSString * newDepartDateStr = [self stringFromDate:departDate];
+            [newDepartArray addObject:newDepartDateStr];
+        }
+        [flightParameters setObject:newDepartArray forKey:@"depart"];
+        
+    } else {
+        NSString * departDateStr = [flightParameters objectForKey:@"depart"];
+        NSDate * departDate = [self dateFromString:departDateStr];
+        NSString * newDepartDateStr = [self stringFromDate:departDate];
+        [flightParameters setValue:newDepartDateStr forKey:@"depart"];
+
+        if ([tripType isEqualToString:@"return"] ) {
+            NSString * returnDateStr = [flightParameters objectForKey:@"return"];
+            NSDate *returnDate = [self dateFromString:returnDateStr];
+            NSString * newReturnDateStr = [self stringFromDate:returnDate];
+            [flightParameters setValue:newReturnDateStr forKey:@"return"];
+        }
+    }
+    
     if ([tripType compare:@"multi"]  == NSOrderedSame) {
 
         NSMutableArray * originAirports = [NSMutableArray arrayWithCapacity:5];
@@ -1338,6 +1388,13 @@
         date = [dateFormatter dateFromString:dateString];
     }
     return date;
+}
+
+-(NSString*)stringFromDate:(NSDate*) date {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"dd-MM-yyyy"];
+    NSString *stringFromDate = [formatter stringFromDate:date];
+    return stringFromDate;
 }
 
 -(void)handleRecentSearchWSResponse:(NSDictionary*)recentSearchWSResponse

@@ -7,7 +7,6 @@ PODS:
   - AppAuth/Core (1.4.0)
   - AppAuth/ExternalUserAgent (1.4.0)
   - AvailableHapticFeedback (1.0.2)
-  - Fabric (1.10.2)
   - FBSDKCoreKit (8.0.0):
     - FBSDKCoreKit/Basics (= 8.0.0)
     - FBSDKCoreKit/Core (= 8.0.0)
@@ -22,11 +21,16 @@ PODS:
     - FBSDKShareKit/Share (= 8.0.0)
   - FBSDKShareKit/Share (8.0.0):
     - FBSDKCoreKit (~> 8.0.0)
+  - Firebase/Analytics (6.33.0):
+    - Firebase/Core
   - Firebase/Core (6.33.0):
     - Firebase/CoreOnly
     - FirebaseAnalytics (= 6.8.3)
   - Firebase/CoreOnly (6.33.0):
     - FirebaseCore (= 6.10.3)
+  - Firebase/Crashlytics (6.33.0):
+    - Firebase/CoreOnly
+    - FirebaseCrashlytics (~> 4.6.1)
   - Firebase/DynamicLinks (6.33.0):
     - Firebase/CoreOnly
     - FirebaseDynamicLinks (~> 4.3.1)
@@ -48,6 +52,12 @@ PODS:
     - GoogleUtilities/Environment (~> 6.7)
     - GoogleUtilities/Logger (~> 6.7)
     - nanopb (~> 1.30906.0)
+  - FirebaseCrashlytics (4.6.2):
+    - FirebaseCore (~> 6.10)
+    - FirebaseInstallations (~> 1.6)
+    - GoogleDataTransport (~> 7.2)
+    - nanopb (~> 1.30906.0)
+    - PromisesObjC (~> 1.2)
   - FirebaseDynamicLinks (4.3.1):
     - FirebaseCore (~> 6.10)
   - FirebaseInstallations (1.7.0):
@@ -135,11 +145,12 @@ DEPENDENCIES:
   - ActiveLabel
   - Alamofire
   - AvailableHapticFeedback
-  - Fabric
   - FBSDKCoreKit
   - FBSDKLoginKit
   - FBSDKShareKit
+  - Firebase/Analytics
   - Firebase/Core
+  - Firebase/Crashlytics
   - Firebase/DynamicLinks
   - FlexiblePageControl
   - FSCalendar
@@ -167,7 +178,6 @@ SPEC REPOS:
     - Alamofire
     - AppAuth
     - AvailableHapticFeedback
-    - Fabric
     - FBSDKCoreKit
     - FBSDKLoginKit
     - FBSDKShareKit
@@ -175,6 +185,7 @@ SPEC REPOS:
     - FirebaseAnalytics
     - FirebaseCore
     - FirebaseCoreDiagnostics
+    - FirebaseCrashlytics
     - FirebaseDynamicLinks
     - FirebaseInstallations
     - FlexiblePageControl
@@ -209,7 +220,6 @@ SPEC CHECKSUMS:
   Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
   AvailableHapticFeedback: 9b21b9f6d3e4566015988b5de35b40abefe6c09a
-  Fabric: ea977e3cd9c20425516d3dafd3bf8c941c51223f
   FBSDKCoreKit: 9d27fe97a2fa2abe5eeefea8240e837623ab88e0
   FBSDKLoginKit: 2cbaf5405379731b22f2ebc224f7c30f62378171
   FBSDKShareKit: bf3705fc42b660c3da9f15223db791b3c9c2acde
@@ -217,6 +227,7 @@ SPEC CHECKSUMS:
   FirebaseAnalytics: 5dd088bd2e67bb9d13dbf792d1164ceaf3052193
   FirebaseCore: d889d9e12535b7f36ac8bfbf1713a0836a3012cd
   FirebaseCoreDiagnostics: 770ac5958e1372ce67959ae4b4f31d8e127c3ac1
+  FirebaseCrashlytics: 1a747c9cc084a24dc6d9511c991db1cd078154eb
   FirebaseDynamicLinks: 6eac37d86910382eafb6315d952cc44c9e176094
   FirebaseInstallations: 466c7b4d1f58fe16707693091da253726a731ed2
   FlexiblePageControl: 07f7765054f16b3f0bc3f14dfd95ab5f45817ea4
@@ -246,6 +257,6 @@ SPEC CHECKSUMS:
   TransitionButton: 36283346e17c64775a1b3bc3a7a72940a367de1f
   WSTagsField: a4e91b7d866e8c9755332ebcf8123f42f2abd4a0
 
-PODFILE CHECKSUM: 177f85242c96089a8f90a6b54d3fd1d6e4154f5e
+PODFILE CHECKSUM: 75ca6fb83058b108e8c5127fd43082a56b8336d4
 
 COCOAPODS: 1.10.0
