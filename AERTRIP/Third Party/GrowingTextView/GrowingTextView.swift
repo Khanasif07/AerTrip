@@ -115,9 +115,9 @@ open class GrowingTextView: UITextView {
         }
         
         // Update height constraint if needed
-        if height != heightConstraint!.constant {
+        if height != (heightConstraint?.constant ?? 0.0) {
             shouldScrollAfterHeightChanged = true
-            heightConstraint!.constant = height
+            heightConstraint?.constant = height
             if let delegate = delegate as? GrowingTextViewDelegate {
                 delegate.textViewDidChangeHeight?(self, height: height)
             }

@@ -294,7 +294,7 @@ public class PKViewPagerController:UIViewController {
         if dataSource.numberOfPages() > 0 {
             
             currentPageIndex = dataSource.startViewPagerAtIndex()
-            let firstController = getPageItemViewController(atIndex: currentPageIndex)!
+            guard let firstController = getPageItemViewController(atIndex: currentPageIndex) else  {return}
             pageViewController.setViewControllers([firstController], direction: UIPageViewController.NavigationDirection.forward, animated: false, completion: nil)
         }
         
@@ -384,16 +384,16 @@ extension PKViewPagerController: UIPageViewControllerDelegate {
         
         if completed && finished {
             
-            let pageIndex = pageViewController.viewControllers?.first?.view.tag
-            setupCurrentPageIndicator(currentIndex: pageIndex!, previousIndex: currentPageIndex)
-            delegate?.didMoveToControllerAtIndex?(index: pageIndex!)
+            let pageIndex = pageViewController.viewControllers?.first?.view.tag ?? 0
+            setupCurrentPageIndicator(currentIndex: pageIndex, previousIndex: currentPageIndex)
+            delegate?.didMoveToControllerAtIndex?(index: pageIndex)
         }
     }
     
     public func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
         
-        let pageIndex = pendingViewControllers.first?.view.tag
-        delegate?.willMoveToControllerAtIndex?(index: pageIndex!)
+        let pageIndex = pendingViewControllers.first?.view.tag ?? 0
+        delegate?.willMoveToControllerAtIndex?(index: pageIndex)
     }    
 }
 

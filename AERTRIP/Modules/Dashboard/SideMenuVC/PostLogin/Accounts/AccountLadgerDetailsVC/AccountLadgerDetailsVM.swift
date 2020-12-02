@@ -398,7 +398,6 @@ class AccountLadgerDetailsVM {
     
     func calculateMaxWidth(){
         let keys = self.sectionArray.flatMap({$0.map({$0.title})})
-        print(keys)
         let label = UILabel()
         label.numberOfLines = 1
         label.font = AppFonts.Regular.withSize(16)
