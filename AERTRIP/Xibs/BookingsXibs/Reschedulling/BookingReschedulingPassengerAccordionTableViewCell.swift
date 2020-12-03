@@ -24,12 +24,17 @@ class BookingReschedulingPassengerAccordionTableViewCell: ATTableViewCell {
     @IBOutlet weak var bottomDividerView: ATDividerView!
     
     @IBOutlet weak var selectedTravellerButton: UIButton!
+    @IBOutlet weak var requestInProcessLbl: UILabel!
+    @IBOutlet weak var pnrStackView: UIStackView!
     @IBOutlet weak var pnrTitleLabel: UILabel!
     @IBOutlet weak var pnrValueLabel: UILabel!
+    @IBOutlet weak var saleAmntStackView: UIStackView!
     @IBOutlet weak var saleAmountLabel: UILabel!
     @IBOutlet weak var saleValueLabel: UILabel!
+    @IBOutlet weak var cancellationChargeStackView: UIStackView!
     @IBOutlet weak var cancellationChargeLabel: UILabel!
     @IBOutlet weak var cancellationChargeValueLabel: UILabel!
+    @IBOutlet weak var netRefundStackView: UIStackView!
     @IBOutlet weak var netRefundLabel: UILabel!
     @IBOutlet weak var netRefundValueLabel: UILabel!
     
@@ -46,6 +51,7 @@ class BookingReschedulingPassengerAccordionTableViewCell: ATTableViewCell {
     }
     
     override func setupTexts() {
+        requestInProcessLbl.text = LocalizedString.requestInProcess.localized
         self.pnrTitleLabel.text = LocalizedString.PNRNo.localized
         self.saleAmountLabel.text = LocalizedString.SaleAmount.localized
         self.cancellationChargeLabel.text = LocalizedString.CancellationCharges.localized
@@ -53,6 +59,7 @@ class BookingReschedulingPassengerAccordionTableViewCell: ATTableViewCell {
     }
     
     override func setupFonts() {
+        requestInProcessLbl.font = AppFonts.Regular.withSize(16.0)
         self.pnrTitleLabel.font = AppFonts.Regular.withSize(16.0)
         self.saleAmountLabel.font = AppFonts.Regular.withSize(16.0)
         self.cancellationChargeLabel.font = AppFonts.Regular.withSize(16.0)
@@ -65,6 +72,7 @@ class BookingReschedulingPassengerAccordionTableViewCell: ATTableViewCell {
     }
     
     override func setupColors() {
+        requestInProcessLbl.textColor = AppColors.themeRed
         self.pnrTitleLabel.textColor = AppColors.themeGray40
         self.saleAmountLabel.textColor = AppColors.themeGray40
         self.cancellationChargeLabel.textColor = AppColors.themeGray40
@@ -110,6 +118,15 @@ class BookingReschedulingPassengerAccordionTableViewCell: ATTableViewCell {
         if !age.isEmpty {
             self.passengerNameLabel.AttributedFontColorForText(text: age, textColor: AppColors.themeGray40)
         }
+    }
+    
+    func togglePaxDetails(hidden: Bool) {
+        requestInProcessLbl.isHidden = !hidden
+        pnrStackView.isHidden = hidden
+        saleAmntStackView.isHidden = hidden
+        cancellationChargeStackView.isHidden = hidden
+        netRefundStackView.isHidden = hidden
+        selectedTravellerButton.isHidden = hidden
     }
     
     @IBAction func arrowButtonTapped(_ sender: UIButton) {

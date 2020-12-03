@@ -20,6 +20,8 @@ target 'AERTRIP' do
   #  pod 'LinkedinSwift'
   pod 'Firebase/Core'
   pod 'Firebase/DynamicLinks'
+  pod 'Firebase/Crashlytics'
+  pod 'Firebase/Analytics'
   pod 'MXParallaxHeader'
   pod 'PhoneNumberKit', '~> 3.3'
   pod 'IQKeyboardManager'

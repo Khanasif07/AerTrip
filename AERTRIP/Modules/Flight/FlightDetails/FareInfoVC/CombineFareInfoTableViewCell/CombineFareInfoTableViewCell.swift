@@ -173,16 +173,25 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                             slabCell.statusLabel.text = "Free Cancellation"
                         }else{
                             slabCell.statusLabel.textColor = .black
-                            let adtRafVal = rafFees["ADT"]?.values.first
-                            let displayValue = getPrice(price: Double(airlineValue + adtRafVal!))
                             
-                            let aertripFees = NSAttributedString(string: " + ")
-                            displayValue.append(aertripFees)
                             
-                            let atrrAertripValue = getPrice(price: Double(aertripValue))
-                            displayValue.append(atrrAertripValue)
-                            
-                            slabCell.statusLabel.attributedText = displayValue
+                            let adtRafVal = rafFees["ADT"]?.values.first ?? 0
+
+                            if aertripValue > 0{
+                                let displayValue = getPrice(price: Double(airlineValue + adtRafVal + aertripValue))
+                                slabCell.statusLabel.attributedText = displayValue
+                                
+                            }else{
+                                let displayValue = getPrice(price: Double(airlineValue + adtRafVal))
+                                
+                                let aertripFees = NSAttributedString(string: " + ")
+                                displayValue.append(aertripFees)
+                                
+                                let atrrAertripValue = getPrice(price: Double(aertripValue))
+                                displayValue.append(atrrAertripValue)
+                                
+                                slabCell.statusLabel.attributedText = displayValue
+                            }
                         }
                     }else{
                         if airlineValue == -9{
@@ -196,19 +205,33 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                             slabCell.perAdultAmountLabel.text = "Free Cancellation"
                         }else{
                             slabCell.perAdultAmountLabel.textColor = .black
-                            let adtRafVal = rafFees["ADT"]?.values.first
-                            let displayValue = getPrice(price: Double(airlineValue + adtRafVal!))
                             
-//                            slabCell.perAdultAmountLabel.text = displayValue + " + ₹ " + String(aertripValue)
-                            
-//                            let str = " + ₹ " + String(aertripValue)
-                            let aertripFees = NSAttributedString(string: " + ")
-                            displayValue.append(aertripFees)
-                            
-                            let atrrAertripValue = getPrice(price: Double(aertripValue))
-                            displayValue.append(atrrAertripValue)
+                            if aertripValue > 0{
+                                if let adtRafVal = rafFees["ADT"]?.values.first{
+                                    let displayValue = getPrice(price: Double(airlineValue + adtRafVal + aertripValue))
+                                    slabCell.perAdultAmountLabel.attributedText = displayValue
+                                }
 
-                            slabCell.perAdultAmountLabel.attributedText = displayValue
+                            }else{
+                                let adtRafVal = rafFees["ADT"]?.values.first ?? 0
+                                
+                                if aertripValue > 0{
+                                    let displayValue = getPrice(price: Double(airlineValue + adtRafVal + aertripValue))
+                                    slabCell.perAdultAmountLabel.attributedText = displayValue
+
+                                }else{
+                                    let displayValue = getPrice(price: Double(airlineValue + adtRafVal))
+                                    
+                                    let aertripFees = NSAttributedString(string: " + ")
+                                    displayValue.append(aertripFees)
+                                    
+                                    let atrrAertripValue = getPrice(price: Double(aertripValue))
+                                    
+                                    displayValue.append(atrrAertripValue)
+
+                                    slabCell.perAdultAmountLabel.attributedText = displayValue
+                                }
+                            }
                         }
                     }
                 }else{
@@ -227,7 +250,7 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                 }
                 
                 if indexPath.row < chdAirlineCancellationSlab.count{
-                    let value = chdAirlineCancellationSlab[indexPath.row].value
+                    let value = chdAirlineCancellationSlab[indexPath.row].value ?? 0
                     
                     if value == -9{
                         slabCell.perChildAmountLabel.textColor = .black
@@ -240,19 +263,22 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                         slabCell.perChildAmountLabel.text = "Free Cancellation"
                     }else{
                         slabCell.perChildAmountLabel.textColor = .black
-                        let chdRafVal = rafFees["CHD"]?.values.first
-                        let displayValue = getPrice(price: Double(value! + chdRafVal!))
+                        let chdRafVal = rafFees["CHD"]?.values.first ?? 0
                         
-//                        slabCell.perChildAmountLabel.text = displayValue + " + ₹ " +  String(aertripValue)
-                        
-                        let str = NSAttributedString(string: " + ")
-                        displayValue.append(str)
-                        
-                        
-                        let atrrAertripValue = getPrice(price: Double(aertripValue))
-                        displayValue.append(atrrAertripValue)
+                        if aertripValue > 0{
+                            let displayValue = getPrice(price: Double(value + chdRafVal + aertripValue))
+                            slabCell.perChildAmountLabel.attributedText = displayValue
+                        }else{
+                            let displayValue = getPrice(price: Double(value + chdRafVal))
+                            
+                            let str = NSAttributedString(string: " + ")
+                            displayValue.append(str)
+                            
+                            let atrrAertripValue = getPrice(price: Double(aertripValue))
+                            displayValue.append(atrrAertripValue)
 
-                        slabCell.perChildAmountLabel.attributedText = displayValue
+                            slabCell.perChildAmountLabel.attributedText = displayValue
+                        }
                     }
                 }else{
                     slabCell.perChildAmountLabel.text = "NA"
@@ -270,7 +296,7 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                 }
                 
                 if indexPath.row < infAirlineCancellationSlab.count{
-                    let value = infAirlineCancellationSlab[indexPath.row].value
+                    let value = infAirlineCancellationSlab[indexPath.row].value ?? 0
                     
                     if value == -9{
                         slabCell.perInfantAmountLabel.textColor = .black
@@ -283,17 +309,23 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                         slabCell.perInfantAmountLabel.text = "Free Cancellation"
                     }else{
                         slabCell.perInfantAmountLabel.textColor = .black
-                        let chdRafVal = rafFees["INF"]?.values.first
-                        let displayValue = getPrice(price: Double(value! + chdRafVal!))
-//                        slabCell.perInfantAmountLabel.text = displayValue + " + ₹ " +  String(aertripValue)
- 
-                        let str = NSAttributedString(string: " + ")
-                        displayValue.append(str)
+                        let chdRafVal = rafFees["INF"]?.values.first ?? 0
                         
-                        let atrrAertripValue = getPrice(price: Double(aertripValue))
-                        displayValue.append(atrrAertripValue)
+                        if aertripValue > 0{
+                            let displayValue = getPrice(price: Double(value + chdRafVal + aertripValue))
+                            slabCell.perInfantAmountLabel.attributedText = displayValue
 
-                        slabCell.perInfantAmountLabel.attributedText = displayValue
+                        }else{
+                            let displayValue = getPrice(price: Double(value + chdRafVal))
+     
+                            let str = NSAttributedString(string: " + ")
+                            displayValue.append(str)
+                            
+                            let atrrAertripValue = getPrice(price: Double(aertripValue))
+                            displayValue.append(atrrAertripValue)
+
+                            slabCell.perInfantAmountLabel.attributedText = displayValue
+                        }
                     }
                 }else{
                     slabCell.perInfantAmountLabel.text = "NA"
@@ -344,7 +376,7 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                         }
                     }
                     
-                    let value = adtAirlineReschedulingSlab[indexPath.row].value
+                    let value = adtAirlineReschedulingSlab[indexPath.row].value ?? 0
                     
                     if flightAdultCount > 0 && flightChildrenCount == 0 && flightInfantCount == 0{
                         slabCell.statusLabel.isHidden = false
@@ -360,17 +392,20 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                         }else{
                             slabCell.statusLabel.textColor = .black
                             
-                            let displayValue = getPrice(price: Double(value!))
-//                            slabCell.statusLabel.text = displayValue + " + ₹ " +  String(aertripValue)
- 
-
-                            displayValue.append(NSAttributedString(string: " + "))
                             
-                            let atrrAertripValue = getPrice(price: Double(aertripValue))
-                            displayValue.append(atrrAertripValue)
+                            if aertripValue > 0{
+                                let displayValue = getPrice(price: Double(value + aertripValue))
+                                slabCell.statusLabel.attributedText = displayValue
 
-                            slabCell.statusLabel.attributedText = displayValue
+                            }else{
+                                let displayValue = getPrice(price: Double(value))
+                                displayValue.append(NSAttributedString(string: " + "))
+                                
+                                let atrrAertripValue = getPrice(price: Double(aertripValue))
+                                displayValue.append(atrrAertripValue)
 
+                                slabCell.statusLabel.attributedText = displayValue
+                            }
                         }
                     }else{
                         if value == -9{
@@ -385,17 +420,22 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                         }else{
                             slabCell.perAdultAmountLabel.textColor = .black
                             
-                            let displayValue = getPrice(price: Double(value!))
-                            
-//                            slabCell.perAdultAmountLabel.text = displayValue + " + ₹ " +  String(aertripValue)
 
-                            displayValue.append(NSAttributedString(string: " + "))
-                            
-                            let atrrAertripValue = getPrice(price: Double(aertripValue))
-                            displayValue.append(atrrAertripValue)
+                            if aertripValue > 0{
+                                let displayValue = getPrice(price: Double(value + aertripValue))
 
-                            slabCell.perAdultAmountLabel.attributedText = displayValue
+                                slabCell.perAdultAmountLabel.attributedText = displayValue
 
+                            }else{
+                                let displayValue = getPrice(price: Double(value))
+
+                                displayValue.append(NSAttributedString(string: " + "))
+
+                                let atrrAertripValue = getPrice(price: Double(aertripValue))
+                                displayValue.append(atrrAertripValue)
+
+                                slabCell.perAdultAmountLabel.attributedText = displayValue
+                            }
                         }
                     }
                 }else{
@@ -414,7 +454,7 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                 }
                 
                 if indexPath.row < chdAirlineReschedulingSlab.count{
-                    let value = chdAirlineReschedulingSlab[indexPath.row].value
+                    let value = chdAirlineReschedulingSlab[indexPath.row].value ?? 0
                     
                     if value == -9{
                         slabCell.perChildAmountLabel.textColor = .black
@@ -427,17 +467,20 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                         slabCell.perChildAmountLabel.text = "Free Rescheduling"
                     }else{
                         slabCell.perChildAmountLabel.textColor = .black
-                        
-                        let displayValue = getPrice(price: Double(value!))
-                        
-//                        slabCell.perChildAmountLabel.text = displayValue + " + ₹ " +  String(aertripValue)
 
-                        displayValue.append(NSAttributedString(string: " + "))
-                        
-                        let atrrAertripValue = getPrice(price: Double(aertripValue))
-                        displayValue.append(atrrAertripValue)
+                        if aertripValue > 0{
+                            let displayValue = getPrice(price: Double(value + aertripValue))
+                            slabCell.perChildAmountLabel.attributedText = displayValue
+                        }else{
+                            let displayValue = getPrice(price: Double(value))
 
-                        slabCell.perChildAmountLabel.attributedText = displayValue
+                            displayValue.append(NSAttributedString(string: " + "))
+                            
+                            let atrrAertripValue = getPrice(price: Double(aertripValue))
+                            displayValue.append(atrrAertripValue)
+
+                            slabCell.perChildAmountLabel.attributedText = displayValue
+                        }
 
                     }
                 }else{
@@ -456,7 +499,7 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                     
                 }
                 if indexPath.row < infAirlineReschedulingSlab.count{
-                    let value = infAirlineReschedulingSlab[indexPath.row].value
+                    let value = infAirlineReschedulingSlab[indexPath.row].value ?? 0
                     
                     if value == -9{
                         slabCell.perInfantAmountLabel.textColor = .black
@@ -469,17 +512,19 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                         slabCell.perInfantAmountLabel.text = "Free Rescheduling"
                     }else{
                         slabCell.perInfantAmountLabel.textColor = .black
-                        let displayValue = getPrice(price: Double(value!))
                         
-//                        slabCell.perInfantAmountLabel.text = displayValue + " + ₹ " +  String(aertripValue)
-                        
+                        if aertripValue > 0{
+                            let displayValue = getPrice(price: Double(value + aertripValue))
+                            slabCell.perInfantAmountLabel.attributedText = displayValue
+                        }else{
+                            let displayValue = getPrice(price: Double(value))
+                            displayValue.append(NSAttributedString(string: " + "))
+                            
+                            let atrrAertripValue = getPrice(price: Double(aertripValue))
+                            displayValue.append(atrrAertripValue)
 
-                        displayValue.append(NSAttributedString(string: " + "))
-                        
-                        let atrrAertripValue = getPrice(price: Double(aertripValue))
-                        displayValue.append(atrrAertripValue)
-
-                        slabCell.perInfantAmountLabel.attributedText = displayValue
+                            slabCell.perInfantAmountLabel.attributedText = displayValue
+                        }
 
                     }
                 }else{
@@ -609,11 +654,6 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
             let innerView = UIView(frame: CGRect(x: 0, y: 20, width: UIScreen.main.bounds.width, height:45))
             innerView.backgroundColor = UIColor(displayP3Red: (246.0/255.0), green: (246.0/255.0), blue: (246.0/255.0), alpha: 1.0)
             footerView.addSubview(innerView)
-
-
-//            let seperatorView = UIView(frame:CGRect(x: 0, y: 20, width: UIScreen.main.bounds.width, height: 0.6))
-//            seperatorView.backgroundColor = UIColor(displayP3Red: (204.0/255.0), green: (204.0/255.0), blue: (204.0/255.0), alpha: 1.0)
-//            seperatorView.backgroundColor = .blue
             
             let seperatorView = ATDividerView()
             seperatorView.frame = CGRect(x: 0, y: 20, width: UIScreen.main.bounds.width, height: 0.5)

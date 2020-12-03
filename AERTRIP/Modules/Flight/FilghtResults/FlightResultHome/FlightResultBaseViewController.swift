@@ -1002,7 +1002,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         
         if flightSearchResultVM.containsJourneyResuls  {
             
-            if curSelectedFilterIndex == 0 && backView.height > visualEffectViewHeight {
+            if curSelectedFilterIndex == 0 && backView.height > visualEffectViewHeight + 10 /* safe constant */ {
                 toggleFiltersView(hidden: true)
             } else {
                 flightFilterVC?.selectSortVC()
@@ -1073,7 +1073,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         
         resultTitle.isHidden = isHidden
         resultsubTitle.isHidden = isHidden
-        infoButton.isHidden = isHidden
+//        infoButton.isHidden = isHidden
         backButton.isHidden = isHidden
     }
     
@@ -1091,7 +1091,6 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         filterTitle.removeFromSuperview()
         
     }
-    
     func createFilterTitle() {
         self.filterTitle = UILabel()
 //        self.filterTitle.font = UIFont(name: "SourceSansPro-Regular", size: 16.0)

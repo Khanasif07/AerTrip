@@ -9856,6 +9856,8 @@
 			);
 			inputPaths = (
 				"$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
 			);
 			outputFileListPaths = (
 			);
@@ -9863,7 +9865,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\" b1d76909c3f911405604adaed9943a3612918dcf 29130d7ad56d8563cac9817934b81940dd44e94e986d09e047fe078330cceb4d\n";
+			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
 		B2FDF64CF1CB4B70BAEB5000 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -11252,7 +11254,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 210;
+				CURRENT_PROJECT_VERSION = 212;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;
@@ -11338,8 +11340,6 @@
 					"\"FIRAnalyticsConnector\"",
 					"-framework",
 					"\"FSCalendar\"",
-					"-framework",
-					"\"Fabric\"",
 					"-framework",
 					"\"FirebaseAnalytics\"",
 					"-framework",
@@ -11460,7 +11460,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 210;
+				CURRENT_PROJECT_VERSION = 212;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;
@@ -11547,8 +11547,6 @@
 					"\"FIRAnalyticsConnector\"",
 					"-framework",
 					"\"FSCalendar\"",
-					"-framework",
-					"\"Fabric\"",
 					"-framework",
 					"\"FirebaseAnalytics\"",
 					"-framework",

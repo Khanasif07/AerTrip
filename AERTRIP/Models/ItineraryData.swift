@@ -124,11 +124,13 @@ struct SpecialRequest {
     var id: Int = 0
     var name: String = ""
     var is_checked: Int = 0
+    var groupId : String = ""
     
     init(json: JSON) {
         self.id = json["id"].intValue
         self.name = json["name"].stringValue.removeNull
         self.is_checked = json["is_checked"].intValue
+        self.groupId = json["group_id"].stringValue
     }
     
     static func models(jsonArr: [JSON]) -> [SpecialRequest] {

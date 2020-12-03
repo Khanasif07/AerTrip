@@ -35,7 +35,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="cpB-LP-TEu">
-                                <rect key="frame" x="165" y="4" width="125" height="23"/>
+                                <rect key="frame" x="234" y="4" width="125" height="23"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-           " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="94F-X5-TXV">
                                         <rect key="frame" x="0.0" y="0.0" width="45.5" height="23"/>
@@ -65,9 +65,9 @@
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="sbr-31-UvM" secondAttribute="bottom" constant="4" id="9dc-Ns-GnN"/>
                             <constraint firstItem="sbr-31-UvM" firstAttribute="top" secondItem="2XX-YR-fHv" secondAttribute="top" constant="4" id="A9d-nR-Ooc"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="cpB-LP-TEu" secondAttribute="trailing" constant="16" id="GJJ-E3-jBE"/>
+                            <constraint firstAttribute="trailing" secondItem="cpB-LP-TEu" secondAttribute="trailing" constant="16" id="GJJ-E3-jBE"/>
                             <constraint firstItem="cpB-LP-TEu" firstAttribute="centerY" secondItem="sbr-31-UvM" secondAttribute="centerY" id="NKs-TR-Nfp"/>
-                            <constraint firstItem="cpB-LP-TEu" firstAttribute="leading" secondItem="sbr-31-UvM" secondAttribute="trailing" constant="10" id="Yf3-o5-9qL"/>
+                            <constraint firstItem="cpB-LP-TEu" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sbr-31-UvM" secondAttribute="trailing" constant="10" id="Yf3-o5-9qL"/>
                             <constraint firstItem="sbr-31-UvM" firstAttribute="leading" secondItem="2XX-YR-fHv" secondAttribute="leading" constant="16" id="yKC-6n-Kmj"/>
                         </constraints>
                     </view>
