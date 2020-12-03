@@ -136,7 +136,7 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
                 }
                 
                 if let flightIcon = evaluatedBaggageResp[indexPath.section][indexPath.row]["flightIcon"] as? NSArray{
-                    let icon = flightIcon[indexPath.row] as! String
+                    let icon = flightIcon[indexPath.row] as? String ?? ""
                     let logoURL = "http://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/" + icon.uppercased() + ".png"
                     setImageFromPath(urlPath : logoURL , to: baggageCell.airlineLogoImageView)
                 }else if let flightIconStr = evaluatedBaggageResp[indexPath.section][indexPath.row]["flightIcon"] as? String{
@@ -412,7 +412,7 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
                         
                         if let data = result["data"] as? JSONDictionary {
                             
-                            let keys = data.keys//.allKeys
+                            let keys = data.keys
                             if keys.count > 0{
                                 
                                 for key in keys{
@@ -429,7 +429,6 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
             }catch{
             }
         } , failureHandler : { (error ) in
-            print(error)
         })
     }
     
@@ -443,7 +442,7 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
                 if allFlights.count>0{
                     for i in 0..<allFlights.count{
                         
-                        let str = "\(allFlights[i].al)*\(allFlights[i].oc!)-\(baggage[i])"
+                        let str = "\(allFlights[i].al)*\(allFlights[i].oc ?? "")-\(baggage[i])"
                         baggageStringArray.append(str)
                     }
                 }
@@ -456,7 +455,7 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
             let loc = journeyObj.ap[0] + " → " + journeyObj.ap[1]
             let data = ["flightIcon":journeyObj.al,
                         "flightRoute":loc,
-                        "baggageData":baggage[0]] as JSONDictionary//[String : Any]
+                        "baggageData":baggage[0]] as JSONDictionary
             journeywiseBaggageData.append(data)
             evaluatedBaggageResp.append(journeywiseBaggageData)
             journeywiseBaggageData.removeAll()
@@ -470,7 +469,7 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
                             let loc = allFlights[i].fr + " → " + allFlights[i].to
                             let data = ["flightIcon":allFlights[i].al,
                                         "flightRoute":loc,
-                                        "baggageData":baggage[i]] as JSONDictionary//[String : Any]
+                                        "baggageData":baggage[i]] as JSONDictionary
                             journeywiseBaggageData.append(data)
                         }
                         evaluatedBaggageResp.append(journeywiseBaggageData)
@@ -495,15 +494,12 @@ extension String {
         style.paragraphSpacingBefore = 16
         
         attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value: style, range: NSRange(location: 0, length: attributedString.length))
-//        let font:UIFont = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))!
         
         let font : UIFont = AppFonts.Regular.withSize(14)
-        
         attributedString.addAttribute(NSAttributedString.Key.font, value: font, range: NSRange(location: 0, length: attributedString.length))
         
         for string in strings {
             let range = (self as NSString).range(of: string)
-//            let font:UIFont = UIFont(name: "SourceSansPro-SemiBold", size:CGFloat(14))!
             let font : UIFont = AppFonts.SemiBold.withSize(14)
 
             attributedString.addAttribute(NSAttributedString.Key.font, value: font, range: range)

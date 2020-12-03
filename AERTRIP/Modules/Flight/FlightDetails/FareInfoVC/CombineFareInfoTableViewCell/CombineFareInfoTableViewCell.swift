@@ -117,16 +117,16 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
         if indexPath.section == 0{
             if let adtAirlineCancellationSlab = airlineCancellationFees[0]["ADT"]?.values.first
             {
-                let adtAertripCancellationSlab = aertripCancellationFees[0]["ADT"]?.values.first
+                let adtAertripCancellationSlab = aertripCancellationFees[0]["ADT"]?.values.first ?? []
                 
                 var aertripValue = 0
                 
-                if indexPath.row < adtAertripCancellationSlab!.count{
-                    aertripValue = adtAertripCancellationSlab![indexPath.row].value!
+                if indexPath.row < adtAertripCancellationSlab.count{
+                    aertripValue = adtAertripCancellationSlab[indexPath.row].value ?? 0
                 }
                 
                 if indexPath.row < adtAirlineCancellationSlab.count{
-                    let airlineValue = adtAirlineCancellationSlab[indexPath.row].value!
+                    let airlineValue = adtAirlineCancellationSlab[indexPath.row].value ?? 0
                     
                     if let sla = adtAirlineCancellationSlab[indexPath.row].sla, let slab = adtAirlineCancellationSlab[indexPath.row].slab{
                         
@@ -136,11 +136,11 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                         let strTotalSlab = String(totalSlab).replacingOccurrences(of: "-", with: "")
                         
                         if indexPath.row > 0{
-                            let prevSla = adtAirlineCancellationSlab[indexPath.row-1].sla
-                            let prevSlab = adtAirlineCancellationSlab[indexPath.row-1].slab
+                            let prevSla = adtAirlineCancellationSlab[indexPath.row-1].sla ?? 0
+                            let prevSlab = adtAirlineCancellationSlab[indexPath.row-1].slab ?? 0
                             
-                            let prevSlaInHours = minutesToHoursMinutes(seconds: prevSla!)
-                            let prevTotalSlab = prevSlab! + prevSlaInHours
+                            let prevSlaInHours = minutesToHoursMinutes(seconds: prevSla)
+                            let prevTotalSlab = prevSlab + prevSlaInHours
                             
                             let strPrevTotalSlab = String(prevTotalSlab).replacingOccurrences(of: "-", with: "")
                             
@@ -241,12 +241,12 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
             
             if let chdAirlineCancellationSlab = airlineCancellationFees[0]["CHD"]?.values.first
             {
-                let chdAertripCancellationSlab = aertripCancellationFees[0]["CHD"]?.values.first
+                let chdAertripCancellationSlab = aertripCancellationFees[0]["CHD"]?.values.first ?? []
                 
                 var aertripValue = 0
                 
-                if indexPath.row < chdAertripCancellationSlab!.count{
-                    aertripValue = chdAertripCancellationSlab![indexPath.row].value!
+                if indexPath.row < chdAertripCancellationSlab.count{
+                    aertripValue = chdAertripCancellationSlab[indexPath.row].value ?? 0
                 }
                 
                 if indexPath.row < chdAirlineCancellationSlab.count{
@@ -287,12 +287,12 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
             
             if let infAirlineCancellationSlab = airlineCancellationFees[0]["INF"]?.values.first
             {
-                let infAertripCancellationSlab = aertripCancellationFees[0]["INF"]?.values.first
+                let infAertripCancellationSlab = aertripCancellationFees[0]["INF"]?.values.first ?? []
                 
                 var aertripValue = 0
                 
-                if indexPath.row < infAertripCancellationSlab!.count{
-                    aertripValue = infAertripCancellationSlab![indexPath.row].value!
+                if indexPath.row < infAertripCancellationSlab.count{
+                    aertripValue = infAertripCancellationSlab[indexPath.row].value ?? 0
                 }
                 
                 if indexPath.row < infAirlineCancellationSlab.count{
@@ -334,12 +334,12 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
         }else{
             if let adtAirlineReschedulingSlab = airlineReschedulingFees[0]["ADT"]?.values.first
             {
-                let adtAertripReschedulingSlab = aertripReschedulingFees[0]["ADT"]?.values.first
+                let adtAertripReschedulingSlab = aertripReschedulingFees[0]["ADT"]?.values.first ?? []
                 
                 var aertripValue = 0
                 
-                if indexPath.row < adtAertripReschedulingSlab!.count{
-                    aertripValue = adtAertripReschedulingSlab![indexPath.row].value!
+                if indexPath.row < adtAertripReschedulingSlab.count{
+                    aertripValue = adtAertripReschedulingSlab[indexPath.row].value ?? 0
                 }
                 
                 if indexPath.row < adtAirlineReschedulingSlab.count{
@@ -352,11 +352,11 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                         let strTotalSlab = String(totalSlab).replacingOccurrences(of: "-", with: "")
                         
                         if indexPath.row > 0{
-                            let prevSla = adtAirlineReschedulingSlab[indexPath.row-1].sla
-                            let prevSlab = adtAirlineReschedulingSlab[indexPath.row-1].slab
+                            let prevSla = adtAirlineReschedulingSlab[indexPath.row-1].sla ?? 0
+                            let prevSlab = adtAirlineReschedulingSlab[indexPath.row-1].slab ?? 0
                             
-                            let prevSlaInHours = minutesToHoursMinutes(seconds: prevSla!)
-                            let prevTotalSlab = prevSlaInHours + prevSlab!
+                            let prevSlaInHours = minutesToHoursMinutes(seconds: prevSla)
+                            let prevTotalSlab = prevSlaInHours + prevSlab
                             
                             let strPrevTotalSlab = String(prevTotalSlab).replacingOccurrences(of: "-", with: "")
                             
@@ -445,12 +445,12 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
             
             if let chdAirlineReschedulingSlab = airlineReschedulingFees[0]["CHD"]?.values.first
             {
-                let chdAertripReschedulingSlab = aertripReschedulingFees[0]["CHD"]?.values.first
+                let chdAertripReschedulingSlab = aertripReschedulingFees[0]["CHD"]?.values.first ?? []
                 
                 var aertripValue = 0
                 
-                if indexPath.row < chdAertripReschedulingSlab!.count{
-                    aertripValue = chdAertripReschedulingSlab![indexPath.row].value!
+                if indexPath.row < chdAertripReschedulingSlab.count{
+                    aertripValue = chdAertripReschedulingSlab[indexPath.row].value ?? 0
                 }
                 
                 if indexPath.row < chdAirlineReschedulingSlab.count{
@@ -490,12 +490,12 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
             
             if let infAirlineReschedulingSlab = airlineReschedulingFees[0]["INF"]?.values.first
             {
-                let infAertripReschedulingSlab = aertripReschedulingFees[0]["INF"]?.values.first
+                let infAertripReschedulingSlab = aertripReschedulingFees[0]["INF"]?.values.first ?? []
                 
                 var aertripValue = 0
                 
-                if indexPath.row < infAertripReschedulingSlab!.count{
-                    aertripValue = infAertripReschedulingSlab![indexPath.row].value!
+                if indexPath.row < infAertripReschedulingSlab.count{
+                    aertripValue = infAertripReschedulingSlab[indexPath.row].value ?? 0
                     
                 }
                 if indexPath.row < infAirlineReschedulingSlab.count{
@@ -686,20 +686,6 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
     }
     
     //MARK:- Format Price
-//    func getPrice(price:Double) -> String{
-//        let formatter = NumberFormatter()
-//        formatter.numberStyle = .currency
-//        formatter.maximumFractionDigits = 2
-//        formatter.locale = Locale(identifier: "en_IN")
-//        var result = formatter.string(from: NSNumber(value: price))
-//        
-////        if result!.contains(find: ".00"){
-////            result = result?.replacingOccurrences(of: ".00", with: "", options: .caseInsensitive, range: Range(NSRange(location:result!.count-3,length:3), in: result!) )
-////        }
-//        return result!
-//    }
-    
-    
     func getPrice(price:Double) -> NSMutableAttributedString{
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
@@ -713,10 +699,10 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
             let displayFontSuper = AppFonts.SemiBold.rawValue
 
             
-            let font:UIFont? = UIFont(name: displayFont, size:CGFloat(fontSize))
-            let fontSuper:UIFont? = UIFont(name: displayFontSuper, size:CGFloat(fontSizeSuper))
-            let attString:NSMutableAttributedString = NSMutableAttributedString(string: result, attributes: [.font:font!])
-            attString.setAttributes([.font:fontSuper!,.baselineOffset:6], range: NSRange(location:result.count-3,length:3))
+            let font = UIFont(name: displayFont, size:CGFloat(fontSize))
+            let fontSuper = UIFont(name: displayFontSuper, size:CGFloat(fontSizeSuper))
+            let attString:NSMutableAttributedString = NSMutableAttributedString(string: result, attributes: [.font:font])
+            attString.setAttributes([.font:fontSuper,.baselineOffset:6], range: NSRange(location:result.count-3,length:3))
             if attString.string.contains(find: ".00"){
                 attString.mutableString.replaceOccurrences(of: ".00", with: "", options: .caseInsensitive, range: NSRange(location:result.count-3,length:3))
             }
@@ -724,7 +710,5 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
         }else{
             return NSMutableAttributedString(string: "\(price)")
         }
-        
-        
     }
 }

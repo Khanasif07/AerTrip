@@ -17,5 +17,4 @@ class FlightAmenitiesCollectionViewCell: UICollectionViewCell
         super.awakeFromNib()
         // Initialization code
     }
-
 }

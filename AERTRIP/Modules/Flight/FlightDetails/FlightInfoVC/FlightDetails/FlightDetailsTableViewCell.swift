@@ -11,7 +11,6 @@ import UIKit
 class FlightDetailsTableViewCell: UITableViewCell
 {
     //MARK:- Outlets
-
     @IBOutlet weak var dashedView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var titleLabelHeight: NSLayoutConstraint!
@@ -42,7 +41,7 @@ class FlightDetailsTableViewCell: UITableViewCell
     @IBOutlet weak var arrivalDateLabel: UILabel!
     @IBOutlet weak var arrivalAirportAddressLabel: UILabel!
     @IBOutlet weak var arrivalTerminalLabel: UILabel!
-
+    
     @IBOutlet weak var arrivalPerformaceButton: UIButton!
     @IBOutlet weak var amenitiesDisplayView: UIView!
     @IBOutlet weak var amenitiesDisplayViewHeight: NSLayoutConstraint!
@@ -55,7 +54,7 @@ class FlightDetailsTableViewCell: UITableViewCell
     @IBOutlet weak var cancelledPerformanceSubView: UIView!
     @IBOutlet weak var cancelledPerformanceSubViewWidth: NSLayoutConstraint!
     @IBOutlet weak var displayViewBottom: NSLayoutConstraint!
-
+    
     @IBOutlet weak var topSeperatorView: ATDividerView!
     @IBOutlet weak var topSeperatorViewHeight: NSLayoutConstraint!
     @IBOutlet weak var bottomSeperatorView: ATDividerView!
@@ -68,11 +67,10 @@ class FlightDetailsTableViewCell: UITableViewCell
     var flights : [FlightDetail]?
     var journey: Journey!
     var airportDetailsResult : [String : AirportDetailsWS]!
-
+    
     var onTimePerformanceInPercent = 0
     var delayedPerformanceInPercent = 0
     var cancelledPerformanceInPercent = 0
-    
     
     var count = -1
     var halt = ""
@@ -82,11 +80,12 @@ class FlightDetailsTableViewCell: UITableViewCell
     
     var journeyTitle = ""
     var cellIndex:IndexPath = IndexPath()
+    
     //MARK:- Init Methods
-
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-
+        
         let caShapeLayer = CAShapeLayer()
         caShapeLayer.strokeColor = UIColor.ONE_ZORE_TWO_COLOR.cgColor
         caShapeLayer.lineWidth = 0.5
@@ -99,18 +98,18 @@ class FlightDetailsTableViewCell: UITableViewCell
         
         amenitiesCollectionView.delegate = self
         amenitiesCollectionView.dataSource = self
-
+        
         onArrivalPerformanceView.clipsToBounds = true
         onArrivalPerformanceView.layer.cornerRadius = 1.5
         
         self.amenitiesCollectionView.register(UINib.init(nibName: "FlightAmenitiesCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "FlightAmenitiesCell")
         
         airlineImageView.layer.cornerRadius = 3
-
+        
         arrivalDateLabel.layer.cornerRadius = 3
         arrivalAirportLabel.layer.cornerRadius = 3
         arrivalTerminalLabel.layer.cornerRadius = 3
-
+        
         departureDateLabel.layer.cornerRadius = 3
         departureAirportLabel.layer.cornerRadius = 3
         departureTerminalLabel.layer.cornerRadius = 3
@@ -124,7 +123,7 @@ class FlightDetailsTableViewCell: UITableViewCell
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
     
@@ -143,7 +142,6 @@ class FlightDetailsTableViewCell: UITableViewCell
         }
     }
     
-    
     func setTravellingTime(){
         var travellingTime = NSAttributedString()
         if count == 1{
@@ -157,13 +155,12 @@ class FlightDetailsTableViewCell: UITableViewCell
                 let arrivalAirportRange = (main_string111 as NSString).range(of: string_to_color111)
                 let haltAtAttributedString = NSMutableAttributedString(string:main_string111)
                 haltAtAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.clear , range: (main_string111 as NSString).range(of: "."))
-
+                
                 haltAtAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black , range: arrivalAirportRange)
                 haltAtAttributedString.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor(displayP3Red: 254.0/255.0, green: 242.0/255.0, blue: 199.0/255.0, alpha: 1.0), range: arrivalAirportRange)
-//                haltAtAttributedString.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "SourceSansPro-Regular", size: 14.0)! , range: (main_string111 as NSString).range(of: main_string111))
-
+                
                 haltAtAttributedString.addAttribute(NSAttributedString.Key.font, value: AppFonts.Regular.withSize(14) , range: (main_string111 as NSString).range(of: main_string111))
-
+                
                 travellingTime = haltAtAttributedString
             }else{
                 travellingTime = NSAttributedString(string: durationTitle)
@@ -178,10 +175,9 @@ class FlightDetailsTableViewCell: UITableViewCell
                 haltAtAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black , range: arrivalAirportRange)
                 haltAtAttributedString.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor(displayP3Red: 254.0/255.0, green: 242.0/255.0, blue: 199.0/255.0, alpha: 1.0), range: arrivalAirportRange)
                 haltAtAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.clear , range: (main_string111 as NSString).range(of: "."))
-//                haltAtAttributedString.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "SourceSansPro-Regular", size: 14.0)! , range: (main_string111 as NSString).range(of: main_string111))
-
+                
                 haltAtAttributedString.addAttribute(NSAttributedString.Key.font, value: AppFonts.Regular.withSize(14) , range: (main_string111 as NSString).range(of: main_string111))
-
+                
                 travellingTime = haltAtAttributedString
             }else{
                 travellingTime = NSAttributedString(string:travellingTiming)
@@ -210,8 +206,6 @@ class FlightDetailsTableViewCell: UITableViewCell
         travelingtimeLabel.textAlignment = .center
     }
     
-    
-    
     func setJourneyTitle(){
         if journeyTitle != ""{
             titleLabelHeight.constant = 25
@@ -230,9 +224,7 @@ class FlightDetailsTableViewCell: UITableViewCell
         deptDateAttrStr.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor(displayP3Red: 254.0/255.0, green: 242.0/255.0, blue: 199.0/255.0, alpha: 1.0), range: deptDateRange)
         deptDateAttrStr.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.clear , range: (str as NSString).range(of: "."))
         departureAirportLabel.attributedText = deptDateAttrStr
-
     }
-    
     
     func setArrivalAirportAddress(mainString:String,stringToColor:String)
     {
@@ -252,22 +244,20 @@ class FlightDetailsTableViewCell: UITableViewCell
         departureAirportAddressLabel.attributedText = attribute
     }
     
-    
-    func addAttributsForRange(_ text: String, coloredString:String, color: UIColor, isForground:Bool = false)-> NSAttributedString{
-        
+    func addAttributsForRange(_ text: String, coloredString:String, color: UIColor, isForground:Bool = false)-> NSAttributedString
+    {
         let range = (text as NSString).range(of: coloredString)
         let attribute = NSMutableAttributedString.init(string: text)
         if isForground{
-             attribute.addAttribute(NSAttributedString.Key.foregroundColor, value: color , range: range)
+            attribute.addAttribute(NSAttributedString.Key.foregroundColor, value: color , range: range)
         }else{
-             attribute.addAttribute(NSAttributedString.Key.backgroundColor, value: color , range: range)
+            attribute.addAttribute(NSAttributedString.Key.backgroundColor, value: color , range: range)
         }
-       
         return attribute
     }
     
-    
-    func setDepartureDate(str:String,str1:String){
+    func setDepartureDate(str:String,str1:String)
+    {
         let deptDateRange = (str as NSString).range(of: str1)
         let deptDateAttrStr = NSMutableAttributedString(string:str)
         deptDateAttrStr.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black , range: deptDateRange)
@@ -279,10 +269,9 @@ class FlightDetailsTableViewCell: UITableViewCell
     
     func setClassNameLabelWidth(){
         let fontAttributes = [NSAttributedString.Key.font: AppFonts.Regular.withSize(14)]
-        let myText = classNameLabel.text
-        let size = (myText! as NSString).size(withAttributes: fontAttributes as [NSAttributedString.Key : Any])
+        let myText = classNameLabel.text ?? ""
+        let size = (myText as NSString).size(withAttributes: fontAttributes as [NSAttributedString.Key : Any])
         classNameLabelWidth.constant = size.width
-
     }
     
     func dateConverter(dateStr:String)-> String{
@@ -294,7 +283,6 @@ class FlightDetailsTableViewCell: UITableViewCell
         }
         return ""
     }
-    
 }
 
 extension FlightDetailsTableViewCell:UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout

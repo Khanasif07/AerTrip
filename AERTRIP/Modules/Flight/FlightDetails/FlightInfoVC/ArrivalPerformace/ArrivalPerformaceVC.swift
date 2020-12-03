@@ -61,8 +61,6 @@ class ArrivalPerformaceVC: UIViewController
             let range = (displayText as NSString).range(of: "(Avg. Delay = \(averageDelay) mins)")
             
             let averageDelayLbl = NSMutableAttributedString(string: displayText)
-//            averageDelayLbl.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "SourceSansPro-Regular", size: 14.0)! , range: range)
-  
             averageDelayLbl.addAttribute(NSAttributedString.Key.font, value: AppFonts.Regular.withSize(14) , range: range)
 
             delayedTitleLbl.attributedText = averageDelayLbl
@@ -82,12 +80,8 @@ class ArrivalPerformaceVC: UIViewController
             displayText = "\u{2022}   Based on \(observationCount) observations."
         }
         
-        
         let title = NSMutableAttributedString(string: displayText, attributes: [NSAttributedString.Key.paragraphStyle: style,NSAttributedString.Key.foregroundColor:UIColor.black])
-        
         noteLabel.attributedText = title
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -105,17 +99,14 @@ class ArrivalPerformaceVC: UIViewController
             self.cancelledPerformanceSubView.backgroundColor = UIColor(displayP3Red: 255.0/255.0, green: 51.0/255.0, blue: 51.0/255.0, alpha: 1.0)
             self.cancelledProgressDisplayView.addSubview(self.cancelledPerformanceSubView)
         })
-        
     }
 
-    
     //MARK:- Guesture
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
     {
         let touch: UITouch? = touches.first
         if touch?.view == backgroundDisplayView {
             self.dismiss(animated: false, completion: nil)
-//            self.view.removeFromSuperview()
         }
     }
 
@@ -123,7 +114,6 @@ class ArrivalPerformaceVC: UIViewController
 
     @IBAction func closeButtonClicked(_ sender: Any)
     {
-//        self.view.removeFromSuperview()
         self.dismiss(animated: false, completion: nil)
     }
 }

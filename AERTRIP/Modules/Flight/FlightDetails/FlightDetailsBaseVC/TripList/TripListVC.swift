@@ -81,8 +81,7 @@ class TripListVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             
             let textField = alert?.textFields![0]
             if textField!.text != ""{
-//                print("Text field: \(textField!.text!)")
-                self.createTripAPICall(tripName: textField!.text!)
+                self.createTripAPICall(tripName: textField!.text ?? "")
             }
         })
         
@@ -123,19 +122,19 @@ class TripListVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 let jsonResult:AnyObject?  = try JSONSerialization.jsonObject(with: data, options: []) as AnyObject
                 
                 DispatchQueue.main.async {
-                    if let result = jsonResult as? [String: AnyObject] {
+                    if let result = jsonResult as? JSONDictionary {
                         if let dataVal = result["data"] as? JSONDictionary {
                             if let activeArray = dataVal["active"] as? NSArray{
                                 for i in 0...activeArray.count-1{
-                                    let name = (activeArray[i] as AnyObject).value(forKey: "name") as? String
-                                    let id = (activeArray[i] as AnyObject).value(forKey: "id") as? Int
+                                    let name = (activeArray[i] as AnyObject).value(forKey: "name") as? String ?? ""
+                                    let id = (activeArray[i] as AnyObject).value(forKey: "id") as? Int ?? 0
 
                                     if i == 0{
-                                        self.tripName = name!
-                                        self.trip_id = "\(id!)"
+                                        self.tripName = name
+                                        self.trip_id = "\(id)"
                                     }
-                                    let dict = ["tripName":name!,
-                                                "tripId":"\(id!)"]
+                                    let dict = ["tripName":name,
+                                                "tripId":"\(id)"]
                                     self.tripListDict.append(dict)
                                 }
                                 self.tripListTableView.reloadData()
@@ -145,7 +144,6 @@ class TripListVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 }
             }catch{}
         } , failureHandler : { (error ) in
-            print(error)
         })
     }
     
@@ -163,14 +161,13 @@ class TripListVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         var body = ""
         let error: NSError? = nil
         for param in parameters {
-            let paramName = param["name"]!
+            let paramName = param["name"] ?? ""
             body += "--\(boundary)\r\n"
             body += "Content-Disposition:form-data; name=\"\(paramName)\""
             if let filename = param["fileName"] {
-                let contentType = param["content-type"]!
+                let contentType = param["content-type"] ?? ""
                 let fileContent = try! String(contentsOfFile: filename, encoding: String.Encoding.utf8)
                 if (error != nil) {
-                    print(error as Any)
                 }
                 body += "; filename=\"\(filename)\"\r\n"
                 body += "Content-Type: \(contentType)\r\n\r\n"
@@ -188,7 +185,7 @@ class TripListVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 let jsonResult:AnyObject?  = try JSONSerialization.jsonObject(with: data, options: []) as AnyObject
                 
                 DispatchQueue.main.async {
-                    if let result = jsonResult as? [String: AnyObject] {
+                    if let result = jsonResult as? JSONDictionary {
                         if result["success"] as? Bool == true{
                             self.tripListApiCall()
                             AertripToastView.toast(in: self.view, withText: "Trip added Successfully")
@@ -199,7 +196,6 @@ class TripListVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 }
             }catch{}
         } , failureHandler : { (error ) in
-            print(error)
         })
     }
     
@@ -227,7 +223,6 @@ class TripListVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             ])
         }
         
-//        print("param= ", parameters)
         let boundary = "----WebKitFormBoundary7MA4YWxkTrZu0gW"
         
         var body = ""
@@ -240,7 +235,6 @@ class TripListVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 let contentType = param["Content-Type"]!
                 let fileContent = try? String(contentsOfFile: filename as! String, encoding: String.Encoding.utf8)
                 if (error != nil) {
-                    print(error!)
                 }
                 body += "; filename=\"\(filename)\"\r\n"
                 body += "Content-Type: \(contentType)\r\n\r\n"
@@ -258,7 +252,7 @@ class TripListVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 let jsonResult:AnyObject?  = try JSONSerialization.jsonObject(with: data, options: []) as AnyObject
                 
                 DispatchQueue.main.async {
-                    if let result = jsonResult as? [String: AnyObject] {
+                    if let result = jsonResult as? JSONDictionary {
                         if result["success"] as? Bool == true{
                             
                             if let view = self.presentingViewController?.view{
@@ -273,13 +267,12 @@ class TripListVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 }
             }catch{}
         } , failureHandler : { (error ) in
-            print(error)
         })
     }
     
     func getParametersForJourney() -> [[AnyHashable:Any]] {
         var parameters = [[:]]
-        for i in 0...journey.count-1{
+        for i in 0..<journey.count{
             parameters = [
                 [
                     "name": "eventDetails[\(i)][airline_code]",
@@ -287,23 +280,23 @@ class TripListVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 ],
                 [
                     "name": "eventDetails[\(i)][depart_airport]",
-                    "value": "\((journey[i].leg.first?.flights.first?.fr)!)"
+                    "value": "\((journey[i].leg.first?.flights.first?.fr) ?? "")"
                 ],
                 [
                     "name": "eventDetails[\(i)][arrival_airport]",
-                    "value": "\((journey[i].leg.first?.flights.first?.to)!)"
+                    "value": "\((journey[i].leg.first?.flights.first?.to) ?? "")"
                 ],
                 [
                     "name": "eventDetails[\(i)][flight_number]",
-                    "value": "\((journey[i].leg.first?.flights.first?.fn)!)"
+                    "value": "\((journey[i].leg.first?.flights.first?.fn) ?? "")"
                 ],
                 [
                     "name": "eventDetails[\(i)][depart_terminal]",
-                    "value": "\((journey[i].leg.first?.flights.first?.dtm)!)"
+                    "value": "\((journey[i].leg.first?.flights.first?.dtm) ?? "")"
                 ],
                 [
                     "name": "eventDetails[\(i)][arrival_terminal]",
-                    "value": "\((journey[i].leg.first?.flights.first?.atm)!)"
+                    "value": "\((journey[i].leg.first?.flights.first?.atm) ?? "")"
                 ],
                 [
                     "name": "eventDetails[\(i)][cabin_class]",
@@ -327,7 +320,7 @@ class TripListVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 ],
                 [
                     "name": "eventDetails[\(i)][equipment]",
-                    "value": "\((journey[i].leg.first?.flights.first?.eq)!)"
+                    "value": "\((journey[i].leg.first?.flights.first?.eq) ?? "")"
                 ],
                 [
                     "name": "eventDetails[\(i)][timezone]",
@@ -340,7 +333,7 @@ class TripListVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     func getParametersForIntMCAndReturnJourney() -> [[AnyHashable:Any]] {
         var parameters = [[:]]
-        for i in 0...intMCAndReturnJourney.count-1{
+        for i in 0..<intMCAndReturnJourney.count{
             parameters = [
                 [
                     "name": "eventDetails[\(i)][airline_code]",
@@ -348,23 +341,23 @@ class TripListVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 ],
                 [
                     "name": "eventDetails[\(i)][depart_airport]",
-                    "value": "\((intMCAndReturnJourney[i].legsWithDetail.first?.flightsWithDetails.first?.fr)!)"
+                    "value": "\((intMCAndReturnJourney[i].legsWithDetail.first?.flightsWithDetails.first?.fr) ?? "")"
                 ],
                 [
                     "name": "eventDetails[\(i)][arrival_airport]",
-                    "value": "\((intMCAndReturnJourney[i].legsWithDetail.first?.flightsWithDetails.first?.to)!)"
+                    "value": "\((intMCAndReturnJourney[i].legsWithDetail.first?.flightsWithDetails.first?.to) ?? "")"
                 ],
                 [
                     "name": "eventDetails[\(i)][flight_number]",
-                    "value": "\((intMCAndReturnJourney[i].legsWithDetail.first?.flightsWithDetails.first?.fn)!)"
+                    "value": "\((intMCAndReturnJourney[i].legsWithDetail.first?.flightsWithDetails.first?.fn) ?? "")"
                 ],
                 [
                     "name": "eventDetails[\(i)][depart_terminal]",
-                    "value": "\((intMCAndReturnJourney[i].legsWithDetail.first?.flightsWithDetails.first?.dtm)!)"
+                    "value": "\((intMCAndReturnJourney[i].legsWithDetail.first?.flightsWithDetails.first?.dtm) ?? "")"
                 ],
                 [
                     "name": "eventDetails[\(i)][arrival_terminal]",
-                    "value": "\((intMCAndReturnJourney[i].legsWithDetail.first?.flightsWithDetails.first?.atm)!)"
+                    "value": "\((intMCAndReturnJourney[i].legsWithDetail.first?.flightsWithDetails.first?.atm) ?? "")"
                 ],
                 [
                     "name": "eventDetails[\(i)][cabin_class]",
@@ -388,7 +381,7 @@ class TripListVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 ],
                 [
                     "name": "eventDetails[\(i)][equipment]",
-                    "value": "\((intMCAndReturnJourney[i].legsWithDetail.first?.flightsWithDetails.first?.eq)!)"
+                    "value": "\((intMCAndReturnJourney[i].legsWithDetail.first?.flightsWithDetails.first?.eq) ?? "")"
                 ],
                 [
                     "name": "eventDetails[\(i)][timezone]",

@@ -88,7 +88,7 @@ class FareInfoTableViewCell: UITableViewCell
                     let vall = val.values
                     if vall.count > 0{
                         if vall.first as? String != nil{
-                            if vall.first as! String != ""
+                            if (vall.first as? String ?? "") != ""
                             {
                                 fareRulesButton.isHidden = false
                                 fareRulesButton.isUserInteractionEnabled = true
@@ -112,7 +112,6 @@ class FareInfoTableViewCell: UITableViewCell
     
     func setupTitle(flight:FlightDetail,journey:[Journey],index:Int,airportDetailsResult:[String : AirportDetailsWS])
     {
-//        let flight = flights![indexPath.row]
         let cc = flight.cc
         let fbn = flight.fbn
         var bc = flight.bc
@@ -148,9 +147,9 @@ class FareInfoTableViewCell: UITableViewCell
                 if departureAirportDetails != nil && arrivalAirportDetails != nil{
                     location = departureAirportDetails!.c! + " → " + arrivalAirportDetails!.c!
                 }else if departureAirportDetails != nil{
-                    location = departureAirportDetails!.c!
+                    location = departureAirportDetails!.c ?? ""
                 }else if arrivalAirportDetails != nil{
-                    location = arrivalAirportDetails!.c!
+                    location = arrivalAirportDetails!.c ?? ""
                 }else{
                     location = displayTitle
                 }
