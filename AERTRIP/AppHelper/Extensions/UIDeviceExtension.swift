@@ -25,8 +25,8 @@ extension UIDevice{
     static let isIPad = UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
     
     static let systemVersionString : String = UIDevice.current.systemVersion
-    static let systemVersionFloat : Float = Float(systemVersionString)!
-    static let systemVersionInt : Int = Int(systemVersionString)!
+    static let systemVersionFloat : Float = Float(systemVersionString) ?? 0.0
+    static let systemVersionInt : Int = Int(systemVersionString) ?? 0
     
     static var screenWidth: CGFloat {
         return UIScreen.main.bounds.size.width
@@ -63,7 +63,7 @@ extension UIDevice{
         if #available(iOS 10.0, *) {
             let videoDeviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera, .builtInDuoCamera], mediaType: AVMediaType.video, position: .unspecified)
             let devices = videoDeviceDiscoverySession.devices
-            device = devices.first!
+            device = devices.first ?? AVCaptureDevice(uniqueID: "")
             
         } else {
             // Fallback on earlier versions
@@ -142,7 +142,7 @@ extension UIDevice{
     }
     
     class var uuidString: String {
-        return UIDevice.current.identifierForVendor!.uuidString
+        return UIDevice.current.identifierForVendor?.uuidString ?? ""
     }
     
     class func flashOn(_ shouldFlashOn:Bool)

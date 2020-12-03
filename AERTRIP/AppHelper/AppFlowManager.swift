@@ -705,10 +705,10 @@ extension AppFlowManager {
         let obj = HCSpecialRequestsVC.instantiate(fromAppStoryboard: .HotelCheckout)
         obj.delegate = delegate
         obj.viewModel.specialRequests = specialRequests
-        obj.viewModel.selectedRequestsId = selectedRequestIds
+//        obj.viewModel.selectedRequestsId = selectedRequestIds
         obj.viewModel.other = other
         obj.viewModel.specialRequest = specialRequest
-        obj.viewModel.selectedRequestsName = selectedRequestNames
+        obj.viewModel.selectedRequests = specialRequests.filter { selectedRequestIds.contains($0.id) }
         obj.modalPresentationStyle = .overFullScreen
         self.currentNavigation?.present(obj, animated: true)
     }

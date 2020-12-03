@@ -457,7 +457,7 @@ extension UIViewController {
                 let fetchPredicate = CNContact.predicateForContactsInContainer(withIdentifier: container.identifier)
                 
                 do {
-                    let containerResults = try contactStore.unifiedContacts(matching: fetchPredicate, keysToFetch: keysToFetch as! [CNKeyDescriptor])
+                    let containerResults = try contactStore.unifiedContacts(matching: fetchPredicate, keysToFetch: keysToFetch as? [CNKeyDescriptor] ?? [])
                     results.append(contentsOf: containerResults)
                 } catch {
                     printDebug("Error fetching results for container")

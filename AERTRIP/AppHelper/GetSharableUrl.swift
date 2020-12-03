@@ -79,7 +79,9 @@ class GetSharableUrl
         body += "--\(boundary)--\r\n";
         let postData = body.data(using: .utf8)
         
-        var request = URLRequest(url: URL(string: pinnedUrl)!,timeoutInterval: Double.infinity)
+        guard let url = URL(string: pinnedUrl) else {return}
+        
+        var request = URLRequest(url: url,timeoutInterval: Double.infinity)
         request.addValue(apiKey, forHTTPHeaderField: "api-key")
         request.addValue("AT_R_STAGE_SESSID=cba8fbjvl52c316a4b24tuank4", forHTTPHeaderField: "Cookie")
         request.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
@@ -148,7 +150,8 @@ class GetSharableUrl
             if isInternational{
                 let test = [
                     "key": "fk[\(i)]",
-                    "value": (journeyArray as! [IntMultiCityAndReturnWSResponse.Results.J])[i].fk,
+//                    "value": (journeyArray as! [IntMultiCityAndReturnWSResponse.Results.J])[i].fk,
+                    "value": (journeyArray as? [IntMultiCityAndReturnWSResponse.Results.J])?[i].fk ?? "",
                     "type": "text"
                 ]
                 
@@ -156,7 +159,8 @@ class GetSharableUrl
             }else{
                 let test = [
                     "key": "fk[\(i)]",
-                    "value": (journeyArray as! [Journey])[i].fk,
+//                    "value": (journeyArray as! [Journey])[i].fk,
+                    "value": (journeyArray as? [Journey])?[i].fk ?? "",
                     "type": "text"
                 ]
                 

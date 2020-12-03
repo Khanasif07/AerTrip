@@ -50,10 +50,10 @@ class FlightPaymentVC: BaseVC {
     // Boolean to check if convenienceFeeToAppliedOrNot
     var isConvenienceFeeApplied: Bool = false
     // Boolean to handle  coupon view expanded or not , By Default will be expanded
-    var isCouponSectionExpanded: Bool = true
+    var isCouponSectionExpanded: Bool = false
     //Is taxes and fee expended
-    var isTaxesAndFeeExpended = true
-    var isAddonsExpended = true
+    var isTaxesAndFeeExpended = false
+    var isAddonsExpended = false
     
    
     

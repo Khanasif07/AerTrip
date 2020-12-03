@@ -127,6 +127,8 @@ class HCHotelAddreesCell: UITableViewCell {
         self.containerTrailingConstraint.constant = 16
         self.layoutIfNeeded()
         self.shadowView.addShadow(cornerRadius: 0, maskedCorners: [], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 8.0)
+        let shadowProp = AppShadowProperties()
+        self.shadowView.addShadow(cornerRadius: 0, maskedCorners: [], color: shadowProp.shadowColor, offset: shadowProp.offset, opacity: shadowProp.opecity, shadowRadius: 8.0)
     }
     
     // Mark:- IBActions

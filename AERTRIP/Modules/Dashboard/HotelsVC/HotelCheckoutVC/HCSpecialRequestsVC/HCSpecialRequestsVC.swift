@@ -114,12 +114,31 @@ extension HCSpecialRequestsVC: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let _ = tableView.cellForRow(at: indexPath) as? RoomTableViewCell {
-            if !self.viewModel.selectedRequestsId.contains(self.viewModel.specialRequests[indexPath.row].id) {
-                self.viewModel.selectedRequestsId.append(self.viewModel.specialRequests[indexPath.row].id)
-                self.viewModel.selectedRequestsName.append(self.viewModel.specialRequests[indexPath.row].name)
+        
+            if !self.viewModel.selectedRequests.contains(where: { (req) -> Bool in
+                req.id == self.viewModel.specialRequests[indexPath.row].id
+            }) {
+
+                let contradictingReq = self.viewModel.selectedRequests.filter { $0.groupId != self.viewModel.specialRequests[indexPath.row].groupId }
+            
+                
+                self.viewModel.selectedRequests = contradictingReq
+                
+//                self.viewModel.selectedRequestsId.append(self.viewModel.specialRequests[indexPath.row].id)
+                self.viewModel.selectedRequests.append(self.viewModel.specialRequests[indexPath.row])
+          
             } else {
-                self.viewModel.selectedRequestsId.remove(object: self.viewModel.specialRequests[indexPath.row].id)
-                self.viewModel.selectedRequestsName.remove(object: self.viewModel.specialRequests[indexPath.row].name)
+//                self.viewModel.selectedRequestsId.remove(object: self.viewModel.specialRequests[indexPath.row].id)
+                
+                
+                if let ind = self.viewModel.selectedRequests.firstIndex(where: { (req) -> Bool in
+                    req.id == self.viewModel.specialRequests[indexPath.row].id
+                }) {
+                self.viewModel.selectedRequests.remove(at: ind)
+               }
+                
+                
+//                self.viewModel.selectedRequests.remove(object: self.viewModel.specialRequests[indexPath.row])
             }
         }
         self.specialReqTableView.reloadData()
@@ -132,8 +151,11 @@ extension HCSpecialRequestsVC {
     
     internal func getRoomTableViewCell(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RoomTableViewCell.reusableIdentifier, for: indexPath) as? RoomTableViewCell else { return UITableViewCell() }
-        if self.viewModel.selectedRequestsId.contains(self.viewModel.specialRequests[indexPath.row].id) {
-           cell.statusButton.setImage(#imageLiteral(resourceName: "CheckedGreenRadioButton"), for: .normal)
+        
+        if self.viewModel.selectedRequests.contains(where: { (req) -> Bool in
+            req.id == self.viewModel.specialRequests[indexPath.row].id
+        }) {
+            cell.statusButton.setImage(#imageLiteral(resourceName: "CheckedGreenRadioButton"), for: .normal)
         } else {
             cell.statusButton.setImage(#imageLiteral(resourceName: "UncheckedGreenRadioButton"), for: .normal)
         }
@@ -172,7 +194,10 @@ extension HCSpecialRequestsVC: TopNavigationViewDelegate {
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         if let safeDelegate = self.delegate {
-            safeDelegate.didPassSelectedRequestsId(ids: self.viewModel.selectedRequestsId, names: self.viewModel.selectedRequestsName, other: self.viewModel.other, specialRequest: self.viewModel.specialRequest)
+            
+            let names = self.viewModel.specialRequests.map { $0.name }
+            
+            safeDelegate.didPassSelectedRequestsId(ids: self.viewModel.selectedRequests.map { $0.id }, names: names, other: self.viewModel.other, specialRequest: self.viewModel.specialRequest)
         }
         self.dismiss(animated: true, completion: nil)
     }

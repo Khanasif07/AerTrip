@@ -159,15 +159,16 @@ extension HotelsGroupExpendedVC: UICollectionViewDataSource, UICollectionViewDel
         cell.hotelListData = self.viewModel.samePlaceHotels[indexPath.item]
         cell.saveButton.isSelected = self.viewModel.samePlaceHotels[indexPath.item].fav == "0" ? false : true
         //        cell.hotelNameLabel.text = "\(indexPath.item + 1)"
-        //        cell.containerTopConstraint.constant = (indexPath.item == 0) ? 16.0 : 5.0
-        //        cell.containerBottomConstraint.constant = 5.0
+                cell.containerTopConstraint.constant = (indexPath.item == 0) ? 16.0 : 5.0
+        cell.containerBottomConstraint.constant = (indexPath.item == (self.viewModel.samePlaceHotels.count - 1)) ? 16.0 : 5.0
+        cell.layoutIfNeeded()
         cell.delegate = self
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let height = (indexPath.item == 0) ? 214.0 : 203.0
+        let height = ((indexPath.item == 0) || (indexPath.item == (self.viewModel.samePlaceHotels.count - 1))) ? 214.0 : 203.0
         return CGSize(width: UIDevice.screenWidth, height: CGFloat(height))
     }
     
