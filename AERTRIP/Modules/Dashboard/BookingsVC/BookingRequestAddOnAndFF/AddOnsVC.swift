@@ -148,12 +148,12 @@ extension AddOnsVC: UITableViewDataSource, UITableViewDelegate {
         if indexPath.row % 5 == 0 {
             if indexPath.row == 0 {
                 if (paxDetail?.inProcess ?? false) {
-                    return 60
+                    return 65
                 }
                 return 44
             } else {
                 if (paxDetail?.inProcess ?? false) {
-                    return 76
+                    return 81
                 }
                 return 60
             }
