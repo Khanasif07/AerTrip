@@ -47,7 +47,7 @@ class IntMCAndReturnVC : UIViewController, GetSharableUrlDelegate
     
 //    var isConditionReverced = false
 //    var prevLegIndex = 0
-    var noResultScreen : NoResultsScreenViewController?
+    var noResultScreen : NoResultsScreenViewController!
     let viewModel = IntMCAndReturnVM()
     var previousRequest : DispatchWorkItem?
     var updateResultWorkItem: DispatchWorkItem?
@@ -148,7 +148,7 @@ extension IntMCAndReturnVC {
         noResultScreen = NoResultsScreenViewController()
         noResultScreen?.delegate = self.parent as? NoResultScreenDelegate
         self.view.addSubview(noResultScreen!.view)
-        self.addChild(noResultScreen!)
+        self.addChild(noResultScreen)
         let frame = self.view.frame
         noResultScreen?.view.frame = frame
         noResultScreen?.noFilteredResults()
@@ -314,31 +314,6 @@ extension IntMCAndReturnVC {
         }
     }
     
-//    {
-//        self.sharePinnedFilghts.setImage(UIImage(named: "OvHotelResult"), for: .normal)
-//        sharePinnedFilghts.displayLoadingIndicator(true)
-//
-//        if #available(iOS 13.0, *) {
-//            guard let postData = generatePostData(for: viewModel.results.pinnedFlights ) else { return }
-//
-//            executeWebServiceForShare(with: postData as Data, onCompletion:{ (link)  in
-//
-//                DispatchQueue.main.async {
-//                    self.sharePinnedFilghts.setImage(UIImage(named: "SharePinned"), for: .normal)
-//                    self.sharePinnedFilghts.displayLoadingIndicator(false)
-//
-//                    if link == "No Data"{
-//                        AertripToastView.toast(in: self.view, withText: "Something went wrong. Please try again.")
-//                    }else{
-//                        let textToShare = [ "Checkout my favourite flights on Aertrip!\n\(link)" ]
-//                        let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
-//                        activityViewController.popoverPresentationController?.sourceView = self.view
-//                        self.present(activityViewController, animated: true, completion: nil)
-//                    }
-//                }
-//            })
-//        }
-//    }
 }
 
 extension IntMCAndReturnVC {
