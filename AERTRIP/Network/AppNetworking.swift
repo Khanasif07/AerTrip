@@ -40,7 +40,7 @@ enum AppNetworking {
     static private func addMandatoryParams(toExistingParams params: JSONDictionary) -> JSONDictionary {
         
         var temp = params
-        temp["_"] = Int(Date().timeIntervalSince1970)
+//        temp["_"] = Int(Date().timeIntervalSince1970)
         
         return temp
     }
