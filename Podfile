@@ -25,7 +25,7 @@ target 'AERTRIP' do
   pod 'MXParallaxHeader'
   pod 'PhoneNumberKit', '~> 3.3'
   pod 'IQKeyboardManager'
-  pod 'Fabric'
+#  pod 'Fabric'
 #  pod 'Crashlytics'
   pod 'AvailableHapticFeedback'
   pod 'MiniLayout'
