@@ -234,7 +234,7 @@ class SeatMapContainerVM {
             
             var rowStr: String {
                 if let number = Int(seatData.columnData.ssrCode.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()) {
-                    print(number)
+                    printDebug(number)
                     return "\(number)"
                 }
                 return ""

@@ -432,7 +432,7 @@ extension FlightResultViewModelDelegate {
                     self.delegate?.showNoResultScreenAt(index: 0)
                 }
                 
-                print(error)
+                printDebug(error)
             })
     }
     

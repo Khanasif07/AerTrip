@@ -300,7 +300,7 @@ extension IntFlightResultDisplayGroup  {
         var durationChanged = false
         var layOverChanged = false
         
-        print(min)
+        printDebug(min)
         //        print(max)
         
         var Number = NSNumber(floatLiteral: Double(min * 3600))

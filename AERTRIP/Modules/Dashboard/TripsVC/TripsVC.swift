@@ -32,7 +32,7 @@ class TripsVC: BaseVC {
         // Do any additional setup after loading the view.
         self.initialSetups()
         
-        print( UIDevice.modelName)
+        printDebug( UIDevice.modelName)
         
 //        UIDevice.modelName//"iPhone SE"
         

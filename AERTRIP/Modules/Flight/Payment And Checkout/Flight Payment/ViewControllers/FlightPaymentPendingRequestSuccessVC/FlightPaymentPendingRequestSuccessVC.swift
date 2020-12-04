@@ -138,7 +138,7 @@ class FlightPaymentPendingRequestSuccessVC: BaseVC {
         
         self.searchButtonWidthConstraint.constant = searchButtonConfiguration.width
         
-        print(self.containerView.height - searchButtonConfiguration.spaceFromBottom - self.searchBtnOutlet.y)
+        printDebug(self.containerView.height - searchButtonConfiguration.spaceFromBottom - self.searchBtnOutlet.y)
         let y = self.view.height - searchButtonConfiguration.spaceFromBottom - self.searchBtnOutlet.y - self.searchBtnOutlet.height
         self.searchBtnOutlet.transform = CGAffineTransform(translationX:  0, y: y)
     }

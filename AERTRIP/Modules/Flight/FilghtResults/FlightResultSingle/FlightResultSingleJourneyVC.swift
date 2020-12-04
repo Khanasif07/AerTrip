@@ -68,7 +68,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     }
     
     deinit {
-        print("FlightResultSingleJourneyVC")
+        printDebug("FlightResultSingleJourneyVC")
     }
     
     
@@ -204,14 +204,14 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             self.bannerView = ResultHeaderView(frame: rect)
             self.bannerView?.frame = rect
             self.bannerView?.lineView.isHidden = true
-            self.view.addSubview(self.bannerView!)
+            self.view.addSubview(self.bannerView ?? UIView())
             
             let headerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 96))
             self.resultsTableView.tableHeaderView = headerView
             self.resultsTableView.isScrollEnabled = false
             self.resultsTableView.tableFooterView = nil
             
-            self.resultsTableView.bringSubviewToFront(self.bannerView!)
+            self.resultsTableView.bringSubviewToFront(self.bannerView ?? UIView())
             
         }
     }
@@ -602,15 +602,8 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     //MARK:- Methods for naviagating to other View Controller
     
     func navigateToFlightDetailFor(journey : Journey, selectedIndex:IndexPath) {
-        
-//        printDebug("journey.baggageSuperScript....\(journey.baggageSuperScript)")
-//
-        printDebug("journey.baggageSuperScript....\(journey.baggageSuperScript?.string)")
-
-        
         let storyboard = UIStoryboard(name: "FlightDetailsBaseVC", bundle: nil)
-        let flightDetailsVC:FlightDetailsBaseVC =
-            storyboard.instantiateViewController(withIdentifier: "FlightDetailsBaseVC") as! FlightDetailsBaseVC
+        guard let flightDetailsVC:FlightDetailsBaseVC = storyboard.instantiateViewController(withIdentifier: "FlightDetailsBaseVC") as? FlightDetailsBaseVC else { return }
         flightDetailsVC.flightSearchResultVM = self.flightSearchResultVM
         flightDetailsVC.delegate = self
         flightDetailsVC.isConditionReverced = viewModel.isConditionReverced

@@ -404,7 +404,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
                 }
                 
             default:
-                print("unknown state")
+                printDebug("unknown state")
         }
         
         switch curPosNumber {
@@ -439,7 +439,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
             }
             
         default:
-            print("unknown state")
+            printDebug("unknown state")
         }
         
     }
@@ -478,7 +478,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
             }
             
         default:
-            print("unknown state")
+            printDebug("unknown state")
         }
                 
         switch curPosNumber {
@@ -514,7 +514,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
                 }
                 
             default:
-                print("unknown state")
+                printDebug("unknown state")
         }
     }
     
@@ -738,7 +738,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
                 departureEndTimeInterval = TimeInterval.endOfDay
             }
         default:
-            print("unknown state")
+            printDebug("unknown state")
         }
         
         
@@ -1122,7 +1122,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
             lateEveningButton.backgroundColor = UIColor(displayP3Red: 236.0/255.0 , green:253.0/255.0 , blue:244.0/255.0 , alpha:1)
             
         default:
-            print("unknown state")
+            printDebug("unknown state")
         }
         
         departureSelectedByRangeButtons(sender)

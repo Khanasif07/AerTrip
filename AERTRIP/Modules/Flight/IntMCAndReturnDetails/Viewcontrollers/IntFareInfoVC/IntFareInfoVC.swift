@@ -252,7 +252,7 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 self.removeIndicator()
                 self.getFareInfoAPICall(sid: sid, fk: fk, count:count-1)
             }
-            print(error)
+            printDebug(error)
         })
     }
     
@@ -285,7 +285,7 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         } , failureHandler : {[weak self] (error ) in
             guard let self = self else {return}
             self.getFareRulesAPICall(sid: sid, fk: fk,count:count-1)
-            print(error)
+            printDebug(error)
         })
     }
     

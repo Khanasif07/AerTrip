@@ -13,7 +13,7 @@ class IntMCAndReturnVM {
     
     var resultTableState  = ResultTableViewState.showTemplateResults {
         didSet {
-            print(resultTableState)
+            printDebug(resultTableState)
         }
 }
     

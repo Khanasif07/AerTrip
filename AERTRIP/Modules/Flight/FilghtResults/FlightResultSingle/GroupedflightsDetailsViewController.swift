@@ -291,7 +291,7 @@ class GroupedFlightsDetailsViewController: UIViewController, UITableViewDataSour
            selectionFeedbackGenerator.selectionChanged()
         //*******************Haptic Feedback code********************
 
-        print("hide=\(hide)")
+        printDebug("hide=\(hide)")
         if hide{
             
             //true - hideOption

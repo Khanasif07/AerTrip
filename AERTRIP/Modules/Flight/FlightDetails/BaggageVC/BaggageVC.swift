@@ -429,7 +429,7 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
             }catch{
             }
         } , failureHandler : { (error ) in
-            print(error)
+            printDebug(error)
         })
     }
     

@@ -58,10 +58,10 @@ class RangeVC: BaseVC {
 //        printDebug("index: \((sender as AnyObject).index ?? 0)")
 //        printDebug("value: \(value)")
 //
-        print("-----------------------------------")
-        print(value)
-        print(lastSelectedRange)
-        print("-----------------------------------")
+        printDebug("-----------------------------------")
+        printDebug(value)
+        printDebug(lastSelectedRange)
+        printDebug("-----------------------------------")
         if value != lastSelectedRange {
             if value >= 1 {
                 generateHapticFeedback()
@@ -143,7 +143,7 @@ extension RangeVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     private func generateHapticFeedback() {
-        print("feedback generated")
+        printDebug("feedback generated")
         let feedbackGenerator = UISelectionFeedbackGenerator()
         feedbackGenerator.selectionChanged()
     }

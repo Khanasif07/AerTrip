@@ -444,7 +444,7 @@ extension FlightPaymentVC:FlightPaymentVMDelegate{
     func getPaymentResonseSuccess(bookingIds: [String], cid: [String]) {
         // send to you are all donr screen
        self.hideShowLoader(isHidden:true)
-        print(bookingIds)
+        printDebug(bookingIds)
         let vc = FlightPaymentBookingStatusVC.instantiate(fromAppStoryboard: .FlightPayment)
         vc.viewModel.apiBookingIds = bookingIds
         vc.viewModel.itId = self.viewModel.itinerary.id

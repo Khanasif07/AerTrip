@@ -598,7 +598,7 @@ extension YouAreAllDoneVC: HCWhatNextTableViewCellDelegate {
                 try imageData?.write(to: URL(string: saveImagePath)! , options: Data.WritingOptions(rawValue: 0))
                 //try imageData?.writeToFile(saveImagePath, options: NSData.WritingOptions(rawValue: 0))
             } catch {
-                print("Instagram sharing error")
+         printDebug("Instagram sharing error")
             }
             let imageURL = URL(fileURLWithPath: saveImagePath)
             let documentInteractionController = UIDocumentInteractionController()
@@ -608,7 +608,7 @@ extension YouAreAllDoneVC: HCWhatNextTableViewCellDelegate {
             
             
             if !documentInteractionController.presentPreview(animated: true) {
-                print("Instagram not found")
+         printDebug("Instagram not found")
             }
             
         }
@@ -661,7 +661,7 @@ extension YouAreAllDoneVC: YouAreAllDoneTableViewCellDelegate {
             addController?.delegate = self
             self.present(addController!, animated: true)
         } catch {
-            print(error)
+            printDebug(error)
         }
     }
     
