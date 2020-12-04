@@ -29,6 +29,9 @@ import UIKit
                 self.hideToast(lastToast)
             })
 //            printDebug("cccccc")
+            if messageWorkItem == nil{
+                return
+            }
             DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: messageWorkItem!)
             return
         }
@@ -60,6 +63,9 @@ import UIKit
             messageWorkItem = DispatchWorkItem(block: {
                 self.hideToast(lastToast)
             })
+            if messageWorkItem == nil{
+                return
+            }
             DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: messageWorkItem!)
             return
         }
@@ -76,7 +82,9 @@ import UIKit
         messageWorkItem = DispatchWorkItem(block: {
             self.hideToast(toastView)
         })
-        
+        if messageWorkItem == nil{
+            return
+        }
         DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: messageWorkItem!)
         
         lastMessage = msg
@@ -138,7 +146,7 @@ class CustomToastView: UIView {
         //.InitialSetUp
         let bundle = Bundle(for: type(of: self))
         let nib = UINib(nibName: "CustomToastView", bundle: bundle)
-        let view = nib.instantiate(withOwner: self, options: nil)[0] as! UIView
+        let view = nib.instantiate(withOwner: self, options: nil)[0] as? UIView ?? UIView()
         view.frame = bounds
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.addSubview(view)

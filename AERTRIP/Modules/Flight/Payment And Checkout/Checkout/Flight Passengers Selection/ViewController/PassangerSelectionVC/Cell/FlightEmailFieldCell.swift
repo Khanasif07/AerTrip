@@ -96,12 +96,15 @@ extension FlightEmailFieldCell: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         
         //for verify the data
+        guard let txt =  textField.text else {
+            return
+        }
         self.editableTextField.lineView.backgroundColor = AppColors.clear
-        let finalTxt = textField.text?.replacingOccurrences(of: " ", with: "")
+        let finalTxt = txt.replacingOccurrences(of: " ", with: "")
         textField.text = finalTxt
         guard let indexPath = idxPath else {return}
-        delegate?.textEditableTableViewCellTextFieldText(indexPath, finalTxt!)
-        self.editableTextField.isError = finalTxt?.checkInvalidity(.Email) ?? false
+        delegate?.textEditableTableViewCellTextFieldText(indexPath, finalTxt)
+        self.editableTextField.isError = finalTxt.checkInvalidity(.Email)
     }
 }
 

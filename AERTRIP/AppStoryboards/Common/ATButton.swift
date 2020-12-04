@@ -104,7 +104,7 @@ import UIKit
             self.addGradientLayer()
         }
     }
-    
+    var isShadowColorNeeded = false
     var fontForTitle: UIFont = AppFonts.SemiBold.withSize(17.0) {
         didSet {
             self.titleLabel?.font = fontForTitle
@@ -150,7 +150,7 @@ import UIKit
                 shadowLayer.shadowOpacity = 0.0
                 shadowLayer.shadowRadius = 0.0
             } else {
-            shadowLayer.shadowColor = AppShadowProperties().shadowColor.cgColor//shadowColor.cgColor
+                shadowLayer.shadowColor = (!isShadowColorNeeded) ? AppShadowProperties().shadowColor.cgColor : shadowColor.cgColor//shadowColor.cgColor
             shadowLayer.shadowPath  = shadowLayer.path
             shadowLayer.shadowOffset = CGSize(width: 0.0, height: self.isSocial ? 2.0 : 12.0)
             shadowLayer.shadowOpacity = self.isSocial ? 0.16 : 0.5
@@ -226,7 +226,7 @@ import UIKit
     override func setImage(_ image: UIImage?, for state: UIControl.State) {
         super.setImage(image?.withRenderingMode(.alwaysOriginal), for: .normal)
         super.setImage(image?.withRenderingMode(.alwaysOriginal), for: .highlighted)
-        if !self.isLoading {
+        if !self.isLoading, self.imageView != nil {
             self.bringSubviewToFront(self.imageView!)
         }
     }

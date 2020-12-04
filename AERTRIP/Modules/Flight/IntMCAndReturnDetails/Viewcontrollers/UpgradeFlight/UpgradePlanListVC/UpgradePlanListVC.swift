@@ -80,7 +80,7 @@ class UpgradePlanListVC: BaseVC {
     }
     
     func setupCollection() {
-        let layout = self.planCollectionView.collectionViewLayout as! UPCarouselFlowLayout
+        guard let layout = self.planCollectionView.collectionViewLayout as? UPCarouselFlowLayout else {return}
         layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: 4.0)
         layout.scrollDirection = .horizontal
         layout.scrollScalePoint = 1.8
@@ -144,7 +144,7 @@ extension UpgradePlanListVC : UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "plansCell", for: indexPath) as! PlansCollectionViewCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "plansCell", for: indexPath) as? PlansCollectionViewCell else {return UICollectionViewCell()}
         let upgardeResult = self.viewModel.ohterFareData[usedIndexFor] ?? []
         if upgardeResult.count > 0{
             if !cell.isAnimated {
@@ -196,21 +196,21 @@ extension UpgradePlanListVC : UICollectionViewDataSource, UICollectionViewDelega
             
             let image1String = NSAttributedString(attachment: image1Attachment)
             
-            let mutableAttributedString = attributedStr.mutableCopy()
-            let mutableString = (mutableAttributedString as AnyObject).mutableString
+            let mutableAttributedString = attributedStr.mutableCopy() as? NSAttributedString ?? NSAttributedString()
+            let mutableString = (mutableAttributedString as AnyObject).mutableString ?? NSMutableString()
             
-            while mutableString!.contains("•"){
-                let rangeOfStringToBeReplaced = mutableString!.range(of: "•")
+            while mutableString.contains("•"){
+                let rangeOfStringToBeReplaced = mutableString.range(of: "•")
                 (mutableAttributedString as AnyObject).replaceCharacters(in: rangeOfStringToBeReplaced, with: image1String)
             }
             
-            while mutableString!.contains("◦") {
+            while mutableString.contains("◦") {
                 isNewSubPoint = true
-                let rangeOfStringToBeReplaced = mutableString!.range(of: "◦")
+                let rangeOfStringToBeReplaced = mutableString.range(of: "◦")
                 (mutableAttributedString as AnyObject).replaceCharacters(in: rangeOfStringToBeReplaced, with: "－")
             }
             
-            let updatedStr = NSMutableAttributedString(attributedString: mutableAttributedString as! NSAttributedString)
+            let updatedStr = NSMutableAttributedString(attributedString: mutableAttributedString)
             
             let style = NSMutableParagraphStyle()
             style.alignment = .left
@@ -281,13 +281,12 @@ extension UpgradePlanListVC : UICollectionViewDataSource, UICollectionViewDelega
     
     
     func viewSlideInFromRight(toLeft views: UIView) {
-        var transition: CATransition? = nil
-        transition = CATransition.init()
-        transition?.duration = 0.4
-        transition?.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-        transition?.type = CATransitionType.push
-        transition?.subtype = CATransitionSubtype.fromRight
-        views.layer.add(transition!, forKey: nil)
+        var transition = CATransition()
+        transition.duration = 0.4
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromRight
+        views.layer.add(transition, forKey: nil)
     }
     
     //MARK:- Scroll View Methods
@@ -325,12 +324,12 @@ extension UpgradePlanListVC : UICollectionViewDataSource, UICollectionViewDelega
         formatter.numberStyle = .currency
         formatter.maximumFractionDigits = 2
         formatter.locale = Locale(identifier: "en_IN")
-        var result = formatter.string(from: NSNumber(value: price))
+        var result = formatter.string(from: NSNumber(value: price)) ?? ""
         
-        if result!.contains(find: ".00"){
-            result = result?.replacingOccurrences(of: ".00", with: "", options: .caseInsensitive, range: Range(NSRange(location:result!.count-3,length:3), in: result!) )
+        if result.contains(find: ".00"){
+            result = result.replacingOccurrences(of: ".00", with: "", options: .caseInsensitive, range: Range(NSRange(location:result.count-3,length:3), in: result) )
         }
-        return result!
+        return result
     }
     
 }

@@ -73,7 +73,7 @@ extension UserDefaults {
     }
     class func clear() {
         
-        let appDomain = Bundle.main.bundleIdentifier!
+        let appDomain = Bundle.main.bundleIdentifier ?? ""
         UserDefaults.standard.removePersistentDomain(forName: appDomain)
         UserDefaults.standard.synchronize()
     }

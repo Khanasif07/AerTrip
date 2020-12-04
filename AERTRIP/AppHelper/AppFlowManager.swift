@@ -1310,9 +1310,10 @@ extension AppFlowManager {
             message: "Microphone access required to start speech recognition!",
             preferredStyle: .alert
         )
+        guard let settingUrl = URL(string: UIApplication.openSettingsURLString) else {return}
         alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
         alert.addAction(UIAlertAction(title: "Allow Mic Access", style: .cancel, handler: { (alert) -> Void in
-            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+            UIApplication.shared.open(settingUrl)
         }))
         UIApplication.topViewController()?.present(alert, animated: true, completion: nil)
     }

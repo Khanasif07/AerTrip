@@ -334,10 +334,10 @@ extension FlightPaymentBookingStatusVC : YouAreAllDoneTableViewCellDelegate, PKA
         guard let passData = try? Data(contentsOf: passFilePath) else {return}
         do {
             let newpass = try PKPass.init(data: passData)
-            let addController =  PKAddPassesViewController(pass: newpass)
-            addController?.delegate = self
+            guard let addController =  PKAddPassesViewController(pass: newpass) else {return}
+            addController.delegate = self
             DispatchQueue.main.async {
-                self.present(addController!, animated: true)
+                self.present(addController, animated: true)
             }
         } catch {
             printDebug(error)

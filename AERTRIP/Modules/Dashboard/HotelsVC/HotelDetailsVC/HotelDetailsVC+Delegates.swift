@@ -403,7 +403,8 @@ extension HotelDetailsVC {
                             }, completion: nil)
                     }
                 }
-                else if (self.initialStickyPosition + self.footerView.height) < finalY {
+//                else if (self.initialStickyPosition + self.footerView.height) < finalY {
+                else if (self.initialStickyPosition + 20) < finalY {
                     //hidden
                     if self.stickyBottomConstraint.constant != -(self.footerView.height) {
                         UIView.animate(withDuration: AppConstants.kAnimationDuration, delay: 0, options: .curveEaseIn, animations: { [weak self] in
