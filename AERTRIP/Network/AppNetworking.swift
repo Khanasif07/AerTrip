@@ -8,7 +8,7 @@
 import Foundation
 import SystemConfiguration
 import Alamofire
-import SwiftyJSON
+//import SwiftyJSON
 
 typealias JSONDictionary = [String: Any]
 typealias JSONDictionaryArray = [JSONDictionary]

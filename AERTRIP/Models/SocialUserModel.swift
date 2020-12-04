@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-import SwiftyJSON
+//import SwiftyJSON
 
 
 enum Gender : String {

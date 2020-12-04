@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import SwiftyJSON
+//import SwiftyJSON
 
 public struct PKCountryModel {
     var countryID: Int = 0

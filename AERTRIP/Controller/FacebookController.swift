@@ -10,7 +10,7 @@ import UIKit
 import FBSDKLoginKit
 import Social
 import Accounts
-import SwiftyJSON
+//import SwiftyJSON
 
 class FacebookController {
     

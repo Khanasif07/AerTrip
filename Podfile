@@ -10,7 +10,7 @@ target 'AERTRIP' do
   # Pods for AERTRIP
   pod 'Alamofire'
   pod 'Kingfisher'
-  pod 'SwiftyJSON'
+#  pod 'SwiftyJSON'
   #  pod 'FBSDKCoreKit', '~> 4.38.1'
   #  pod 'FBSDKLoginKit', '~> 4.38.1'
   pod 'FBSDKCoreKit'
