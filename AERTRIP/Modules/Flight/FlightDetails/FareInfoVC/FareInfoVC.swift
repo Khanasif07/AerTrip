@@ -46,12 +46,8 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     
     var updatedFareInfo = [updatedFareInfoDataStruct]()
     
-//    var rowHeight = 0
-//    var titleViewHeight = 0
-//    var isTableViewReloaded = false
     var fewSeatsLeftViewHeight = 0
     var selectedIndex : IndexPath?
-//    var indexFromDelegate = 0
     var isProgressBarHidden = false
     var isAPICalled = false
     
@@ -85,7 +81,6 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                     self.getFareInfoAPICall(sid: self.sid, fk: self.journey[i].fk,i:i)
                     self.initialFCPArray.append(1)
                 }else{
-//                    progressBar.progress = 1.0
                     self.apiCallCount += 1
                     self.initialFCPArray.append(0)
                     self.progressBar.isHidden = true
@@ -229,7 +224,6 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                     
                     changeAirportCell.dataLabel.attributedText = getAttributedNote()
                     changeAirportCell.topSeperatorLabelLeading.constant = 0
-//                    changeAirportCell.topSeperatorLabelTop.constant = 0
                     changeAirportCell.bottomStrokeHeight.constant = 0.7
                     changeAirportCell.seperatorBottom.constant = 35
                     return changeAirportCell
@@ -389,14 +383,9 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                             
                             fareInfoCell.combineFareTableView.reloadData()
                         }else{
-//                            if isProgressBarHidden == true{
                                 fareInfoCell.isNoInfoViewVisible = true
                                 fareInfoCell.combineFareTableView.isHidden = true
                                 fareInfoCell.noInfoView.isHidden = false
-//                            }else{
-//                                fareInfoCell.isNoInfoViewVisible = false
-//                                fareInfoCell.noInfoView.isHidden = true
-//                            }
                         }
                     }else{
                         
@@ -498,14 +487,12 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                             self.journey[i].leg[0].fcp = 0
                             let rfd = currentParsedResponse.data.first?.value.rfd ?? 0
                             let rsc = currentParsedResponse.data.first?.value.rsc ?? 0
-                            printDebug("\(fk)  \(rfd)   \(rsc)")
                             
                             self.journey[i].rfdPlcy.rfd.keys.forEach { (key) in
                                 self.journey[i].rfdPlcy.rfd[key] = rfd
                             }
                             
                             self.delegate?.updateRefundStatusIfPending()
-//                            self.delegate?.reloadSmartIconsAtIndexPath()
                         }
                         
                         DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
@@ -518,7 +505,6 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                 }
             }
         } , failureHandler : { (error ) in
-            printDebug(error)
         })
     }
     
@@ -559,7 +545,6 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                 
             }
         } , failureHandler : { (error ) in
-            printDebug(error)
         })
     }
     
@@ -597,9 +582,6 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         let str2 = "\n•    Above mentioned charges are per passenger per sector, applicable only on refundable fares.\n•    Total Cancellation Charges displayed above include Cancellation Fees, RAF & GST.\n•    Total Rescheduling Charges = Rescheduling Fees as above + Fare Difference + Differences in Taxes (if any).\n•    In case of no-show or if the ticket is not cancelled or amended within the stipulated time, no refund is applicable.\n•    Airlines do not accept cancellation/rescheduling requests 1-75 hours before departure the flight, depending on the airline, fare basis and booking fare policy. You must raise a request at least 2 hours before the airline request time.\n•    In case of restricted fares, no amendments and/or cancellation may be allowed.\n•    In case of combo fares or round-trip special fares or tickets booked under special discounted fares, cancellation of a partial journey may not be allowed. In certain cases, cancellation or amendment of future sectors may be allowed only if the previous sectors are flown."
         let str3 = "\n\nDISCLAIMER".capitalized
         let str4 = "\n•    Above mentioned charges are indicative, subject to currency fluctuations and can change without prior notice. They need to be re-confirmed before making any amendments or cancellation. Aertrip does not guarantee or warrant this information."
-//        let font:UIFont? = UIFont(name: "SourceSansPro-SemiBold", size:CGFloat(16))
-//        let fontSuper:UIFont? = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
-
         
         let font:UIFont = AppFonts.SemiBold.withSize(16)
         let fontSuper:UIFont = AppFonts.Regular.withSize(14)

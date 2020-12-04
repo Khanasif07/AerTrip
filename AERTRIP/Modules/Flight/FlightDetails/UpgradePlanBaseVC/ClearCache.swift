@@ -24,7 +24,7 @@ class ClearCache: NSObject
                 if i < appdelegate.upgradeDataMutableArray.count{
                     if let ass = self.appdelegate.upgradeDataMutableArray[i] as? JSONDictionary
                     {
-                        let storedTime = ass["Time"] as! String
+                        let storedTime = ass["Time"] as? String ?? ""
                         
                         let currTime = "\(hour):\(minutes):\(seconds)"
                         
@@ -55,29 +55,29 @@ class ClearCache: NSObject
             
             
             if journey != nil{
-                for j in 0..<journey!.count{
-                    if let allFlights = journey![j].leg.first?.flights{
+                for j in 0..<(journey?.count ?? 0){
+                    if let allFlights = journey?[j].leg.first?.flights{
                         for k in 0..<allFlights.count{
-                            let storedTime = journey![j].leg[0].flights[k].ontimePerformanceDataStoringTime
+                            let storedTime = journey?[j].leg[0].flights[k].ontimePerformanceDataStoringTime ?? ""
 
                             if storedTime != nil{
                                 let currTime = "\(hour):\(minutes):\(seconds)"
                                 
                                 let dateFormatter = DateFormatter()
                                 dateFormatter.dateFormat = "HH:mm:ss"
-                                let formatedStoredTime = dateFormatter.date(from:storedTime!)!
+                                let formatedStoredTime = dateFormatter.date(from:storedTime)!
                                 let formatedCurrTime = dateFormatter.date(from:currTime)!
                                 
                                 let calendarFormat = NSCalendar.current
                                 let next3MinutesTime = calendarFormat.date(byAdding: .minute, value: 3, to: formatedStoredTime)
                                 
                                 if formatedCurrTime > next3MinutesTime!{
-                                    journey![j].leg[0].flights[k].ontimePerformance = nil
-                                    journey![j].leg[0].flights[k].latePerformance = nil
-                                    journey![j].leg[0].flights[k].cancelledPerformance = nil
-                                    journey![j].leg[0].flights[k].observationCount = nil
-                                    journey![j].leg[0].flights[k].averageDelay = nil
-                                    journey![j].leg[0].flights[k].ontimePerformanceDataStoringTime = nil
+                                    journey?[j].leg[0].flights[k].ontimePerformance = nil
+                                    journey?[j].leg[0].flights[k].latePerformance = nil
+                                    journey?[j].leg[0].flights[k].cancelledPerformance = nil
+                                    journey?[j].leg[0].flights[k].observationCount = nil
+                                    journey?[j].leg[0].flights[k].averageDelay = nil
+                                    journey?[j].leg[0].flights[k].ontimePerformanceDataStoringTime = nil
 
                                 }
                             }
@@ -101,7 +101,7 @@ class ClearCache: NSObject
                 if i < appdelegate.flightBaggageMutableArray.count{
                     if let ass = self.appdelegate.flightBaggageMutableArray[i] as? JSONDictionary
                     {
-                        let storedTime = ass["Time"] as! String
+                        let storedTime = ass["Time"] as? String ?? ""
                         
                         let currTime = "\(hour):\(minutes):\(seconds)"
                         
@@ -137,14 +137,14 @@ class ClearCache: NSObject
                    for j in 0..<newJourney.legsWithDetail.count{
                        let allFlights = newJourney.legsWithDetail[j].flightsWithDetails
                        for k in 0..<allFlights.count{
-                           let storedTime = newJourney.legsWithDetail[j].flightsWithDetails[k].ontimePerformanceDataStoringTime
+                           let storedTime = newJourney.legsWithDetail[j].flightsWithDetails[k].ontimePerformanceDataStoringTime ?? ""
                            
                            if storedTime != nil{
                                let currTime = "\(hour):\(minutes):\(seconds)"
                                
                                let dateFormatter = DateFormatter()
                                dateFormatter.dateFormat = "HH:mm:ss"
-                               let formatedStoredTime = dateFormatter.date(from:storedTime!)!
+                               let formatedStoredTime = dateFormatter.date(from:storedTime)!
                                let formatedCurrTime = dateFormatter.date(from:currTime)!
                                
                                let calendarFormat = NSCalendar.current

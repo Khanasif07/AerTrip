@@ -30,7 +30,6 @@ class LayoverViewTableViewCell: UITableViewCell
         layoverView.layer.borderWidth = 0.5
         layoverView.layer.borderColor = UIColor(displayP3Red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1.0).cgColor
         layoverView.layer.cornerRadius = layoverView.frame.height/2
-
     }
     
     
@@ -54,8 +53,6 @@ class LayoverViewTableViewCell: UITableViewCell
                 displayImgName = ""
             }
         }
-    
-        
         
         displayText = displayText + " " + layoverTime
         let completeText = NSMutableAttributedString(string: "")
@@ -82,14 +79,12 @@ class LayoverViewTableViewCell: UITableViewCell
                 textAfterIcon.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.red , range: range1)
                 textAfterIcon.addAttribute(NSAttributedString.Key.font, value: AppFonts.SemiBold.withSize(14), range: range1)
             }
-        }
-        else if isArrivalAirportChange == true{
+        }else if isArrivalAirportChange == true{
             let range1 = (displayText as NSString).range(of: displayText)
             
             textAfterIcon.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.red , range: range1)
             textAfterIcon.addAttribute(NSAttributedString.Key.font, value: AppFonts.SemiBold.withSize(14), range: (displayText as NSString).range(of: layoverTime))
-        }
-        else{
+        }else{
             let range1 = (displayText as NSString).range(of: layoverTime)
             
             textAfterIcon.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black , range: range1)
@@ -107,5 +102,4 @@ class LayoverViewTableViewCell: UITableViewCell
 
         // Configure the view for the selected state
     }
-    
 }

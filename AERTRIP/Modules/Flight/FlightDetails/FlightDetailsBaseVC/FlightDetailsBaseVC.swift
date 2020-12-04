@@ -168,7 +168,8 @@ class FlightDetailsBaseVC: BaseVC {
         initialDisplayView()
     }
     
-    func initialDisplayView(){
+    func initialDisplayView()
+    {
         if isInternational || !(needToAddFareBreakup){
             allChildVCs.append(addIntFlightInfoVC())
             allChildVCs.append(addIntBaggageVC())
@@ -178,7 +179,6 @@ class FlightDetailsBaseVC: BaseVC {
             allChildVCs.append(addBaggageVC())
             allChildVCs.append(addFareInfoVC())
         }
-        
     }
     
     func setupFarebreakupView(){        
@@ -221,8 +221,6 @@ class FlightDetailsBaseVC: BaseVC {
             height: 0.5,
             zIndex: Int.max - 1,
             insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
-//        self.parchmentView?.font = UIFont(name: "SourceSansPro-Regular", size: 16.0)!
-//        self.parchmentView?.selectedFont = UIFont(name: "SourceSansPro-Semibold", size: 16.0)!
         
         self.parchmentView?.font = AppFonts.Regular.withSize(16)
         self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16)
@@ -358,7 +356,6 @@ class FlightDetailsBaseVC: BaseVC {
         self.addToTrip()
     }
     
-    // Monika
     @IBAction func shareButtonClicked(_ sender: UIButton)
     {
         shareButton.setImage(nil, for: .normal)
@@ -762,7 +759,6 @@ extension FlightDetailsBaseVC : flightDetailsBaggageDelegate
 //MARK:- Baggage Dimentions Delegate
 extension FlightDetailsBaseVC : getBaggageDimentionsDelegate
 {
-    //Present Baggage Dimensions screen
     func getBaggageDimentions(baggage: [[JSONDictionary]], sender: UIButton) {
         let baggageDimensionVC = BaggageDimensionsVC(nibName: "BaggageDimensionsVC", bundle: nil)
         
@@ -798,7 +794,6 @@ extension FlightDetailsBaseVC : getBaggageDimentionsDelegate
 //MARK:- Fare Rules Delegate
 extension FlightDetailsBaseVC : getFareRulesDelegate
 {
-    //Present Fare Rules Screen
     func getFareRulesData(fareRules: [JSONDictionary]) {
         let fareRulesVC = FareRulesVC(nibName: "FareRulesVC", bundle: nil)
         fareRulesVC.fareRulesData = fareRules
@@ -838,12 +833,12 @@ extension FlightDetailsBaseVC : getArrivalPerformanceDelegate
         
         if flight.ontimePerformanceDataStoringTime != nil{
             
-            arrivalPerformanceView.observationCount = "\(flight.observationCount!)"
-            arrivalPerformanceView.averageDelay = "\(flight.averageDelay!)"
+            arrivalPerformanceView.observationCount = "\(flight.observationCount ?? 0)"
+            arrivalPerformanceView.averageDelay = "\(flight.averageDelay ?? 0)"
             
-            arrivalPerformanceView.cancelledPerformanceInPercent = flight.cancelledPerformance!
-            arrivalPerformanceView.delayedPerformanceInPercent = flight.latePerformance!
-            arrivalPerformanceView.onTimePerformanceInPercent = flight.ontimePerformance!
+            arrivalPerformanceView.cancelledPerformanceInPercent = flight.cancelledPerformance ?? 0
+            arrivalPerformanceView.delayedPerformanceInPercent = flight.latePerformance ?? 0
+            arrivalPerformanceView.onTimePerformanceInPercent = flight.ontimePerformance ?? 0
             
             arrivalPerformanceView.view.frame = self.view.bounds
             self.view.addSubview(arrivalPerformanceView.view)

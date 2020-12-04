@@ -46,11 +46,8 @@ class FareRulesVC: UIViewController, UIScrollViewDelegate
             let vall = val.values
             if vall.count > 0{
                 if vall.first as? String != nil{
-                    if vall.first as! String != "" {
-                        let newVal = (vall.first as! String)
-                        
-//                        let cssStr = newVal.htmlCSSCodeString(withFont: AppFonts.Regular.withSize(28.0), isCustomFont: true, fontFileName: "SourceSansPro-Regular", fontColor: AppColors.themeBlack)
-//
+                    if (vall.first as? String ?? "") != "" {
+                        let newVal = (vall.first as? String ?? "")
                         
                         let cssStr = newVal.htmlCSSCodeString(withFont: AppFonts.Regular.withSize(28.0), isCustomFont: true, fontFileName: AppFonts.Regular.rawValue, fontColor: AppColors.themeBlack)
                         var url = Bundle.main.url(forResource: AppFonts.Regular.rawValue, withExtension: "ttf")

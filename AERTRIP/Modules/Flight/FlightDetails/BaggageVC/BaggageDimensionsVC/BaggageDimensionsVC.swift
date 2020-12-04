@@ -72,7 +72,6 @@ class BaggageDimensionsVC: UIViewController, UIScrollViewDelegate
             
             let cm = (dimestion.cm?.height ?? 0) + (dimestion.cm?.width ?? 0) + (dimestion.cm?.depth ?? 0)
             if let inch = dimestion.inch{
-                //Crash
                 let height_inch = inch.height
                 let width_inch = inch.width
                 let depth_inch = inch.depth
@@ -103,25 +102,24 @@ class BaggageDimensionsVC: UIViewController, UIScrollViewDelegate
 
             let height = dimensions["height"] as? String ?? ""
             let height_double = Double(height)
-            heightLabel.text = "\(String(describing: Int(height_double!)))"
+            heightLabel.text = "\(String(describing: Int(height_double ?? 0)))"
             
             let width = dimensions["width"] as? String ?? ""
             let width_double = Double(width)
-            widthLabel.text = "\(String(describing: Int(width_double!)))"
+            widthLabel.text = "\(String(describing: Int(width_double ?? 0)))"
             
             let depth = dimensions["depth"] as? String ?? ""
             let depth_double = Double(depth)
-            breadthLabel.text = "\(String(describing: Int(depth_double!)))"
+            breadthLabel.text = "\(String(describing: Int(depth_double ?? 0)))"
             
-            let cm = Int(height_double!) + Int(width_double!) + Int(depth_double!)
+            let cm = Int(height_double ?? 0) + Int(width_double ?? 0) + Int(depth_double ?? 0)
             
             if dimensions_inch.count > 0{
-                //Crash
                 let height_inch = dimensions_inch["height"] as? String ?? ""
                 let width_inch = dimensions_inch["width"] as? String ?? ""
                 let depth_inch = dimensions_inch["depth"] as? String ?? ""
 
-                let inch = Double(height_inch)! + Double(width_inch)! + Double(depth_inch)!
+                let inch = (Double(height_inch) ?? 0.0) + (Double(width_inch) ?? 0.0) + (Double(depth_inch) ?? 0.0)
 
                 dimensionInfoLabel.text = "The sum of the 3 dimensions (length + breadth + height) of each piece must not exceed \(inch) inches or \(cm) centimeters for each piece."
             }else{
@@ -164,11 +162,6 @@ class BaggageDimensionsVC: UIViewController, UIScrollViewDelegate
     
     func scrollViewDidScroll(_ scrollView: UIScrollView)
     {
-        if scrollView.contentOffset.y > 0{
-//            dividerView.isHidden = false
-        }else{
-//            dividerView.isHidden = true
-        }
     }
 
     @IBAction func closeButtonClicked(_ sender: Any)

@@ -47,7 +47,6 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
     
     var thisWidth = 0
     var selectedLocationIndex = 0
-    //    var upgardeResult = NSArray()
     var apiResp = [NSArray]()
     let actInd: UIActivityIndicatorView = UIActivityIndicatorView()
     let cellScale : CGFloat = 0.92
@@ -67,7 +66,6 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
     var selectButtonTitle = "Select"
     var isNewPlanSelected = false
     var selectedPlanFare = [Int]()
-    //    var isCellAnimated = false
     var isInitialJourneySelected = true
     
     fileprivate var parchmentView : PagingViewController?
@@ -102,11 +100,11 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
             
             if self.updatedJourneyArray != nil{
                 self.setupDisplayView()
-
+                
                 self.updatedJourneyArray = self.updatedJourneyArray.filter(){$0.airlinesSubString != "AirAsia India"}
-
+                
                 for i in 0..<self.updatedJourneyArray.count{
-                                        
+                    
                     self.selectedPlanFare.append(self.updatedJourneyArray[i].farepr)
                     self.apiResp.append(NSArray())
                     
@@ -134,7 +132,7 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                     self.displayBrandedFaresFromResp(selectedIndexFK: self.updatedJourneyArray[0].fk, selectedIndex: 0)
                 }
                 
-                self.selectedFareName = ((self.updatedJourneyArray[0].leg.first?.flights.first?.fbn)?.lowercased())!
+                self.selectedFareName = ((self.updatedJourneyArray[0].leg.first?.flights.first?.fbn)?.lowercased()) ?? ""
                 self.selectedFareAmount = self.updatedJourneyArray[0].farepr
                 
                 self.setupParchmentPageController()
@@ -145,22 +143,18 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
     
     func setupNoDataFoundView(){
         let attributedString = NSMutableAttributedString(string: "Oops!\nOther Fares not found for this flight", attributes: [
-//            .font: UIFont(name: "SourceSansPro-Regular", size: 18.0)!,
-            .font: AppFonts.Regular.withSize(18),
-            .foregroundColor: UIColor.white])
-        
-//        attributedString.addAttribute(.font, value: UIFont(name: "SourceSansPro-Regular", size: 22.0)!, range: NSRange(location: 0, length: 5))
-  
+                                                            .font: AppFonts.Regular.withSize(18),
+                                                            .foregroundColor: UIColor.white])
         
         attributedString.addAttribute(.font, value: AppFonts.Regular.withSize(22), range: NSRange(location: 0, length: 5))
-
+        
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
         paragraphStyle.lineSpacing = 10
         attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
         
         noDataFoundLabel.attributedText = attributedString
-
+        
     }
     
     private func setupParchmentPageController(){
@@ -173,14 +167,12 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
             height: 0.6,
             zIndex: Int.max - 1,
             insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
-//        self.parchmentView?.font = UIFont(name: "SourceSansPro-Regular", size: 16.0)!
-//        self.parchmentView?.selectedFont = UIFont(name: "SourceSansPro-Semibold", size: 16.0)!
         
         self.parchmentView?.font = AppFonts.Regular.withSize(16)
         self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16)
-
-        self.parchmentView?.indicatorColor = .white//UIColor.AertripColor
-        self.parchmentView?.selectedTextColor = .white // .black
+        
+        self.parchmentView?.indicatorColor = .white
+        self.parchmentView?.selectedTextColor = .white
         self.parchmentView?.textColor = .white
         self.parchmentView?.collectionView.backgroundColor = UIColor.clear
         self.journeyNameView.addSubview(self.parchmentView!.view)
@@ -241,7 +233,7 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                     self.planDisplayViewTop.constant = 15
                 }
                 
-                self.planCollectionViewBottom.constant = 0//CGFloat(self.fewSeatsLeftViewHeight)
+                self.planCollectionViewBottom.constant = 0
                 screenHeight = Int(screenSize.height - 235 +  self.journeyNameDisplayViewHeight.constant)
             }
             
@@ -275,7 +267,7 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                     self.planDisplayViewTop.constant = 15
                 }
                 
-                self.planCollectionViewBottom.constant = 0//CGFloat(self.fewSeatsLeftViewHeight)
+                self.planCollectionViewBottom.constant = 0
                 screenHeight = Int(screenSize.height - 140 +  self.journeyNameDisplayViewHeight.constant)
             }else{
                 if self.journeyPageControl.isHidden == true{
@@ -284,7 +276,7 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                     self.planDisplayViewTop.constant = 15
                 }
                 
-                self.planCollectionViewBottom.constant = 0//CGFloat(self.fewSeatsLeftViewHeight)
+                self.planCollectionViewBottom.constant = 0
                 screenHeight = Int(screenSize.height - 240 +  self.journeyNameDisplayViewHeight.constant)
             }
             
@@ -298,7 +290,7 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                     self.planDisplayViewTop.constant = 15
                 }
                 
-                self.planCollectionViewBottom.constant = 0//CGFloat(self.fewSeatsLeftViewHeight)
+                self.planCollectionViewBottom.constant = 0
                 screenHeight = Int(screenSize.height - 180 +  self.journeyNameDisplayViewHeight.constant)
             }else{
                 if self.journeyPageControl.isHidden == true{
@@ -307,7 +299,7 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                     self.planDisplayViewTop.constant = 15
                 }
                 
-                self.planCollectionViewBottom.constant = 25//CGFloat(25 + self.fewSeatsLeftViewHeight)
+                self.planCollectionViewBottom.constant = 25
                 screenHeight = Int(screenSize.height - 280 +  self.journeyNameDisplayViewHeight.constant)
             }
             break
@@ -320,7 +312,7 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                     self.planDisplayViewTop.constant = 15
                 }
                 
-                self.planCollectionViewBottom.constant = 40//CGFloat(self.fewSeatsLeftViewHeight)
+                self.planCollectionViewBottom.constant = 40
                 screenHeight = Int(screenSize.height - 190 +  self.journeyNameDisplayViewHeight.constant)
             }else{
                 if self.journeyPageControl.isHidden == true{
@@ -329,7 +321,7 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                     self.planDisplayViewTop.constant = 10
                 }
                 
-                self.planCollectionViewBottom.constant = 40 //CGFloat(40 + self.fewSeatsLeftViewHeight)
+                self.planCollectionViewBottom.constant = 40
                 screenHeight = Int(screenSize.height - 290 +  self.journeyNameDisplayViewHeight.constant)
             }
             break
@@ -384,12 +376,12 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                 if title.count > 0{
                     if let ttl = title[0] as? NSArray{
                         if ttl.count > 0{
-                            titleVal = (ttl[0] as! String)
+                            titleVal = (ttl[0] as? String ?? "")
                         }else{
                             titleVal = ""
                         }
                     }else if title[0] as? String != nil{
-                        titleVal = (title[0] as! String)
+                        titleVal = (title[0] as? String ?? "")
                     }else{
                         titleVal = ""
                     }
@@ -405,7 +397,7 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                     if className.count > 0{
                         if let name = className[0] as? NSArray{
                             if name.count > 0{
-                                titleVal = name[0] as! String
+                                titleVal = name[0] as? String ?? ""
                             }
                         }
                     }
@@ -416,12 +408,12 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                 if bc.count > 0{
                     if let bc1 = bc[0] as? NSArray{
                         if bc1.count > 0 {
-                            titleVal = titleVal + " (" + (bc1[0] as! String) + ")"
+                            titleVal = titleVal + " (" + (bc1[0] as? String ?? "") + ")"
                         }else{
                             titleVal = "\(titleVal)"
                         }
                     }else if bc[0] as? String != nil{
-                        titleVal = titleVal + " (" + (bc[0] as! String) + ")"
+                        titleVal = titleVal + " (" + (bc[0] as? String ?? "") + ")"
                     }else{
                         titleVal = "\(titleVal)"
                     }
@@ -451,7 +443,7 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                                     
                                     var checkMarkImgName = ""
                                     
-                                    let farepr = (upgardeResult[indexPath.row] as AnyObject).value(forKey: "farepr") as! Int
+                                    let farepr = (upgardeResult[indexPath.row] as AnyObject).value(forKey: "farepr") as? Int ?? 0
                                     cell.selectButtonClick.tag = indexPath.row
                                     cell.selectButtonClick.addTarget(self, action: #selector(selectPlanButtonClicked), for: .touchUpInside)
                                     
@@ -493,7 +485,7 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                                             }else{
                                                 var newFare = 0
                                                 if selectedPlanIndex >= 0{
-                                                    newFare = (upgardeResult[selectedPlanIndex] as AnyObject).value(forKey: "farepr") as! Int
+                                                    newFare = (upgardeResult[selectedPlanIndex] as AnyObject).value(forKey: "farepr") as? Int ?? 0
                                                 }else{
                                                     newFare = updatedJourneyArray[selectedLocationIndex].farepr
                                                 }
@@ -560,7 +552,7 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                                             }else{
                                                 var newFare = 0
                                                 if selectedPlanIndex >= 0{
-                                                    newFare = (upgardeResult[selectedPlanIndex] as AnyObject).value(forKey: "farepr") as! Int
+                                                    newFare = (upgardeResult[selectedPlanIndex] as AnyObject).value(forKey: "farepr") as? Int ?? 0
                                                 }else{
                                                     newFare = updatedJourneyArray[selectedLocationIndex].farepr
                                                 }
@@ -626,8 +618,6 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                                     
                                     let range = (displayString as NSString).range(of: displayString)
                                     
-//                                    updatedStr.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "SourceSansPro-Regular", size: 16.0)! , range: range)
-                                    
                                     updatedStr.addAttribute(NSAttributedString.Key.font, value: AppFonts.Regular.withSize(16) , range: range)
                                     updatedStr.addAttribute(NSAttributedString.Key.paragraphStyle, value: style, range: range)
                                     
@@ -643,14 +633,14 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
             //Display Few Seats Left view
             if let flightResults = (upgardeResult[indexPath.row] as AnyObject).value(forKey: "flight_result") as? JSONDictionary{
                 
-                let remainingSeats = flightResults["seats"] as? String
+                let remainingSeats = flightResults["seats"] as? String ?? ""
                 
                 if let fsr = flightResults["fsr"] as? Int{
                     if fsr == 1 && remainingSeats != nil{
                         
                         cell.fewSeatsLeftView.isHidden = false
                         cell.fewSeatsLeftViewHeight.constant = 35
-                        if Int(remainingSeats!)! > 1{
+                        if (Int(remainingSeats) ?? 0) > 1{
                             cell.fewSeatsLeftLabel.text = "Seats left at this price. Hurry up!"
                         }else{
                             cell.fewSeatsLeftLabel.text = "Seat left at this price. Hurry up!"
@@ -664,7 +654,7 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                         
                         cell.fewSeatsLeftView.isHidden = false
                         cell.fewSeatsLeftViewHeight.constant = 35
-                        if Int(remainingSeats!)! > 1{
+                        if (Int(remainingSeats) ?? 0) > 1{
                             cell.fewSeatsLeftLabel.text = "Seats left at this price. Hurry up!"
                         }else{
                             cell.fewSeatsLeftLabel.text = "Seat left at this price. Hurry up!"
@@ -727,11 +717,11 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
         var dict = JSONDictionary()
         if selectedPlanIndex != sender.tag{
             let upgardeResult = apiResp[selectedLocationIndex]
-            dict = (upgardeResult[sender.tag] as AnyObject).value(forKey: "fare") as! JSONDictionary
+            dict = (upgardeResult[sender.tag] as AnyObject).value(forKey: "fare") as? JSONDictionary ?? [:]
             if let fareTypeName = (upgardeResult[sender.tag] as AnyObject).value(forKey: "FareTypeName") as? NSArray
             {
                 if fareTypeName.count > 0{
-                    selectedFareName = ((fareTypeName[0] as? NSArray)?.firstObject as! String).lowercased()
+                    selectedFareName = ((fareTypeName[0] as? NSArray)?.firstObject as? String ?? "").lowercased()
                     
                     isNewPlanSelected = true
                     selectedPlanIndex = sender.tag
@@ -746,7 +736,6 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
             }
         }
         
-        
         var totalFareVal = 0
         for i in 0..<selectedPlanFare.count{
             totalFareVal += selectedPlanFare[i]
@@ -754,10 +743,6 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
         
         let price = getPrice(price: Double(totalFareVal))
         fareBreakupVC.bookingAmountLabel.text = price
-        
-//        
-//        fareBreakupVC.fareBreakupFromUpgrade = dict
-//        fareBreakupVC.createTaxesDict()
     }
     
     @IBAction func closeButtonClicked(_ sender: Any)
@@ -790,7 +775,7 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                                         if other_fares.count > 1{
                                             fareArray = other_fares
                                         }else{
-                                            fareArray = other_fares[0] as! NSArray
+                                            fareArray = other_fares[0] as? NSArray ?? []
                                         }
                                         
                                         var storedFKArray = [String]()
@@ -798,7 +783,7 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                                         for i in 0..<self.newTestDict.count{
                                             let dict = self.newTestDict[i] as [String:NSArray]
                                             if dict.count > 0{
-                                                let storedFK = dict.first!.key
+                                                let storedFK = dict.first?.key ?? ""
                                                 storedFKArray.append(storedFK)
                                             }
                                         }
@@ -826,8 +811,8 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                                             let seconds = calendar.component(.second, from: date)
                                             
                                             let arr = ["Time" : "\(hour):\(minutes):\(seconds)",
-                                                "selectedJourneyFK" : fk,
-                                                "upgradeArray":fareArray] as JSONDictionary
+                                                       "selectedJourneyFK" : fk,
+                                                       "upgradeArray":fareArray] as JSONDictionary
                                             
                                             self.appdelegate.upgradeDataMutableArray.add(arr)
                                         }
@@ -837,7 +822,7 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                                         for i in 0..<self.newTestDict.count{
                                             let dict = self.newTestDict[i] as [String:NSArray]
                                             if dict.count > 0{
-                                                let storedFK = dict.first!.key
+                                                let storedFK = dict.first?.key ?? ""
                                                 storedFKArray.append(storedFK)
                                             }
                                         }
@@ -852,7 +837,7 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                                     
                                     for i in 0..<self.newTestDict.count{
                                         let dict = self.newTestDict[i] as [String:NSArray]
-                                        let storedFK = dict.first!.key
+                                        let storedFK = dict.first?.key ?? ""
                                         storedFKArray.append(storedFK)
                                     }
                                     
@@ -866,7 +851,7 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                                 
                                 for i in 0..<self.newTestDict.count{
                                     let dict = self.newTestDict[i] as [String:NSArray]
-                                    let storedFK = dict.first!.key
+                                    let storedFK = dict.first?.key ?? ""
                                     storedFKArray.append(storedFK)
                                 }
                                 
@@ -880,7 +865,7 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                             
                             for i in 0..<self.newTestDict.count{
                                 let dict = self.newTestDict[i] as [String:NSArray]
-                                let storedFK = dict.first!.key
+                                let storedFK = dict.first?.key ?? ""
                                 storedFKArray.append(storedFK)
                             }
                             
@@ -896,7 +881,6 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
             }catch{
             }
         } , failureHandler : { (error ) in
-            printDebug(error)
         })
     }
     
@@ -925,13 +909,13 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                 let storedFK = dict.first?.key
                 
                 if storedFK == selectedIndexFK{
-                    valArray = dict.first!.value
+                    valArray = dict.first?.value ?? []
                 }
             }
             
             if valArray.count > 0{
                 apiResp.insert(valArray, at: selectedIndex)
-                selectedFareName = (updatedJourneyArray[selectedLocationIndex].leg.first?.flights.first?.fbn)!.lowercased()
+                selectedFareName = (updatedJourneyArray[selectedLocationIndex].leg.first?.flights.first?.fbn ?? "").lowercased()
                 selectedFareAmount = updatedJourneyArray[selectedLocationIndex].farepr
                 self.planDisplayView.isHidden = false
                 self.noDataFoundView.isHidden = true
@@ -976,9 +960,9 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
         for i in 0..<self.appdelegate.upgradeDataMutableArray.count{
             if let ass = self.appdelegate.upgradeDataMutableArray[i] as? JSONDictionary
             {
-                let storedFK = ass["selectedJourneyFK"] as! String
+                let storedFK = ass["selectedJourneyFK"] as? String ?? ""
                 
-                let storedUpgradeArray = ass["upgradeArray"] as! NSArray
+                let storedUpgradeArray = ass["upgradeArray"] as? NSArray ?? []
                 
                 let newDict = [storedFK:storedUpgradeArray]
                 self.newTestDict.append(newDict)
@@ -992,12 +976,12 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
         formatter.numberStyle = .currency
         formatter.maximumFractionDigits = 2
         formatter.locale = Locale(identifier: "en_IN")
-        var result = formatter.string(from: NSNumber(value: price))
+        var result = formatter.string(from: NSNumber(value: price)) ?? ""
         
-        if result!.contains(find: ".00"){
-            result = result?.replacingOccurrences(of: ".00", with: "", options: .caseInsensitive, range: Range(NSRange(location:result!.count-3,length:3), in: result!) )
+        if result.contains(find: ".00"){
+            result = result.replacingOccurrences(of: ".00", with: "", options: .caseInsensitive, range: Range(NSRange(location:result.count-3,length:3), in: result) )
         }
-        return result!
+        return result
     }
     
 }
@@ -1032,8 +1016,8 @@ extension UpgradePlanBaseVC: PagingViewControllerDataSource , PagingViewControll
         
         let gradient = CAGradientLayer()
         gradient.frame = dataDisplayView.bounds
-        let bottomInset = UIApplication.shared.keyWindow?.safeAreaInsets.bottom
-        gradient.frame.size.height = dataDisplayView.frame.height+bottomInset!
+        let bottomInset = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
+        gradient.frame.size.height = dataDisplayView.frame.height+bottomInset
         
         gradient.startPoint = CGPoint(x: 1, y: 0)
         gradient.endPoint = CGPoint(x: 0, y: 1)

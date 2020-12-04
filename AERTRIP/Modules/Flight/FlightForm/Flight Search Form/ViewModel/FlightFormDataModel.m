@@ -615,8 +615,7 @@
     }
         
     
-    
-    if(count > 1){
+    if((childCount > 0 && infantCount > 0) || (childCount > 0) || (infantCount > 0)) {
         bookFlightObject.subTitleString = [NSString stringWithFormat:@"%@  •  %ld Pax  •  %@", date,  (long)count, [flightSearchParameters valueForKey:@"cabinclass"]];
     }else{
         bookFlightObject.subTitleString = [NSString stringWithFormat:@"%@  •  %ld Adt  •  %@", date,  (long)count, [flightSearchParameters valueForKey:@"cabinclass"]];
