@@ -393,7 +393,7 @@ class FlightResultDisplayGroup {
             
             allAircrafts.append(contentsOf: flightMainObj.results.eqMaster.compactMap { $0.value })
 
-            print(flightMainObj.results.eqMaster.count)
+            printDebug(flightMainObj.results.eqMaster.count)
             
 //            printDebug("flightMainObj.results.eqMaster....\(flightMainObj.results.eqMaster)")
             

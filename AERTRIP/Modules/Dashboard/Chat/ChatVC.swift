@@ -586,7 +586,7 @@ extension ChatVC : ChatBotDelegatesDelegate {
     
     func moveFurtherWhenallRequiredInformationSubmited(data: MessageModel) {
         invalidateTypingCellTimer()
-        print("lets go...\(data)")
+        printDebug("lets go...\(data)")
         chatVm.lastCachedResultModel = data
         chatVm.createFlightSearchDictionaryAndPushToVC(data)
         if chatVm.messages.last?.msgSource != .seeResultsAgain {

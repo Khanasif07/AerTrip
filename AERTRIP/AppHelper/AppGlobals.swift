@@ -74,7 +74,7 @@ class AppGlobals {
     }
     
     func json(from object: Any) -> String? {
-        guard let data = try? JSONSerialization.data(withJSONObject: object, options: []) else {
+        guard let data = try? JSONSerialization.data(withJSONObject: object, options: .sortedKeys) else {
             return nil
         }
         return String(data: data, encoding: String.Encoding.utf8)
@@ -486,7 +486,7 @@ class AppGlobals {
                             AppToast.default.showToastMessage(message: LocalizedString.EventAddedToCalander.localized)
                         } catch let error as NSError {
                             AppToast.default.showToastMessage(message: LocalizedString.UnableToAddEventToCalander.localized)
-                            print("json error: \(error.localizedDescription)")
+                            printDebug("json error: \(error.localizedDescription)")
                         }
                     }
                 }

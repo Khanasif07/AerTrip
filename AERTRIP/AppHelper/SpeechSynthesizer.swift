@@ -23,7 +23,7 @@ class SpeechSynthesizer: NSObject, AVSpeechSynthesizerDelegate {
             try audioSession.setMode(AVAudioSession.Mode.default)
             try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
         } catch {
-            print("audioSession properties weren't set because of an error.")
+            printDebug("audioSession properties weren't set because of an error.")
         }
         if speechSynthesizer.isSpeaking {
             speechSynthesizer.stopSpeaking(at: .immediate)

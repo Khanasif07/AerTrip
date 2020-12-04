@@ -46,7 +46,6 @@ func parse <T: Decodable >(data: Data ,into type: T.Type , with decoder : JSONDe
 
     } catch let DecodingError.typeMismatch(type, context)  {
         
-        print("\nType '\(type)' mismatch:", context.debugDescription)
         for element in context.codingPath {
         }
 

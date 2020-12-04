@@ -349,7 +349,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
                     updateQualityFilter(qualityFilterVC)
                 }
             default:
-                print("Switch case missing for " + VCclass)
+                printDebug("Switch case missing for " + VCclass)
             }
         }
     }

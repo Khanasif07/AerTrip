@@ -8,7 +8,7 @@
 import Foundation
 import SystemConfiguration
 import Alamofire
-import SwiftyJSON
+//import SwiftyJSON
 
 typealias JSONDictionary = [String: Any]
 typealias JSONDictionaryArray = [JSONDictionary]
@@ -40,7 +40,7 @@ enum AppNetworking {
     static private func addMandatoryParams(toExistingParams params: JSONDictionary) -> JSONDictionary {
         
         var temp = params
-        temp["_"] = Int(Date().timeIntervalSince1970)
+//        temp["_"] = Int(Date().timeIntervalSince1970)
         
         return temp
     }
@@ -300,9 +300,7 @@ enum AppNetworking {
                 {
                     if let keys = response.response?.allHeaderFields
                     {
-                        print("login keys=",keys)
                         if let val = keys["Set-Cookie"] as? String{
-                            print("login val=",val)
                             UserDefaults.standard.set(val, forKey: "loginCookie")
                         }
                     }

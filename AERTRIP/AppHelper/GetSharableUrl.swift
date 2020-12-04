@@ -26,9 +26,7 @@ class GetSharableUrl
         self.searchParam = searchParam ?? [:]
         tripType = trip_type
         var valueString = ""
-        
-        print("valString=",valString)
-        
+                
         if !isInternational{
             let cc = journeyArray.first?.cc ?? ""
             let origin = getOrigin(journey: journeyArray)
@@ -39,7 +37,6 @@ class GetSharableUrl
             
             valueString = "https://beta.aertrip.com/flights?trip_type=\(trip_type)&adult=\(adult)&child=\(child)&infant=\(infant)&\(origin)\(destination)\(departureDate)\(returnDate)cabinclass=\(cc)&pType=flight&isDomestic=\(isDomestic)&\(pinnedFlightFK)\(filterString)"
             
-            print("valueString=",valueString)
         }
         
         let pinnedUrl = flightBaseUrl+"get-pinned-url"
@@ -91,7 +88,7 @@ class GetSharableUrl
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data else {
-                print(String(describing: error))
+                printDebug(String(describing: error))
                 return
             }
             
@@ -204,8 +201,8 @@ class GetSharableUrl
             }
         }
         body += "--\(boundary)--\r\n";
-        
-        print("body= ",body)
+                
+        printDebug("body=\(body)")
         
         let postData = body.data(using: .utf8)
         
@@ -269,7 +266,7 @@ class GetSharableUrl
             }
         }
         
-        print("cookies= ",cookies)
+        printDebug("cookies= \(cookies)")
         request.addValue(cookies, forHTTPHeaderField: "Cookie")
         
         request.httpMethod = "POST"
@@ -287,7 +284,7 @@ class GetSharableUrl
                 
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data else {
-                print(String(describing: error))
+                printDebug(String(describing: error))
                 return
             }
             
@@ -430,10 +427,7 @@ class GetSharableUrl
             let appliedSubFilters = legs[i].appliedSubFilters
             let uiFilters = legs[i].UIFilters
             let dynamicFilters = legs[i].dynamicFilters
-            
-            print("appliedFilters=",appliedFilters)
-            print("uiFilters=",uiFilters)
-            
+          
             
             //            quality
             var fqArray = [String]()
@@ -756,13 +750,7 @@ class GetSharableUrl
             let uiFilters = legs[0].UIFilters
             let dynamicFilters = legs[0].dynamicFilters
             let numberOfLegs = legs[0].numberOfLegs
-            
-            print("international userSelectedFilters=",userSelectedFilters)
-            print("numberOfLegs=",numberOfLegs)
-            print("international appliedFilters=",appliedFilters)
-            print("international appliedSubFilters=",appliedSubFilters)
-            print("international uiFilters=",uiFilters)
-            print("international dynamicFilters=",dynamicFilters)
+                        
             for i in 0..<userSelectedFilters.count
             {
                 filterString.append("&")

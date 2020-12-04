@@ -222,7 +222,7 @@ struct TimeFK {
         let selectedIndex = IndexPath(item: flightGroup.currentSelectedIndex, section: 0)
     
         guard  let attributes = timeCollectionView.layoutAttributesForItem(at: selectedIndex) else {
-            print("Attributed not found")
+            printDebug("Attributed not found")
             return }
         
         let duration : Double
@@ -448,7 +448,7 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
                 if scrollView != self.resultsCollectionView { return }
         
                 guard let indexPath =  self.resultsCollectionView.indexPathForItem(at: self.resultsCollectionView.contentOffset) else { return }
-                print(indexPath.item)
+        printDebug(indexPath.item)
         flightGroup.currentSelectedIndex = indexPath.item
                  flightGroup.selectedFK = timeArray[indexPath.item].fk
                  collaspableTableView.reloadData()

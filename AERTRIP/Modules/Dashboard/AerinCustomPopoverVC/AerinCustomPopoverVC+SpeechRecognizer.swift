@@ -53,7 +53,7 @@ extension AerinCustomPopoverVC: SpeechRecognizerDelegate {
         let rectWrtView = self.chatTableView.convert(rectOfLastCell, to: self.view)
         self.showAnimationViewWith(text: text)
         let listeningLblFrame = listeningLblBackView.convert(listeningLbl.frame, to: view)
-        print("frame ---- \(listeningLblFrame)")
+        printDebug("frame ---- \(listeningLblFrame)")
         self.animationView.frame = CGRect(x: 0, y: listeningLblFrame.origin.y - 10, width: self.view.frame.width, height: self.animationLabel.frame.height + 28)
         let horizintalScale = self.animationBubbleImageView.frame.origin.x - listeningLblFrame.origin.x
         self.animationLabel.transform = CGAffineTransform(translationX: -horizintalScale, y: 0)

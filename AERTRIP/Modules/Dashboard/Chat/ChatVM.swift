@@ -173,7 +173,7 @@ class ChatVM {
             
             self.delegate?.willGetRecentSearchHotel()
             APICaller.shared.recentSearchesApi(searchFor: RecentSearchFor.flight) { [weak self] (success, error, obj) in
-                print("obj.....\(obj)")
+                printDebug("obj.....\(obj)")
                 if success {
                     //self?.recentSearchesData = obj
                     self?.arrangeHotelAndFlightsRecentSearch(obj)

@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import FirebaseAnalytics
 
 public enum PKSideMenuOpenSide {
     case left
@@ -306,14 +305,7 @@ open class PKSideMenuController: UIViewController {
     }
     
     func openMenu(){
-        
-        let title = "Side_Menu_Open"
-        
-        Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
-          AnalyticsParameterItemID: "id-\(title)",
-          AnalyticsParameterItemName: title,
-          AnalyticsParameterContentType: "Side Menu"
-          ])
+                
         addTapGestures()
         var fMain : CGRect = self.mainContainer!.frame
         fMain.origin.x = self.distanceOpenMenu

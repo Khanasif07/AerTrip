@@ -214,7 +214,7 @@ extension FlightResultDisplayGroup  {
     
     func applySort( inputArray : [Journey] ) {
         
-        print("applySort=", sortOrder)
+        printDebug("applySort=\(sortOrder)")
         var sortArray = inputArray
         switch  sortOrder {
         case .Price:
@@ -255,7 +255,7 @@ extension FlightResultDisplayGroup  {
     
     func applySortFilter( inputArray : [Journey] ) -> [Journey]{
             
-            print("sortOrder=", sortOrder)
+        printDebug("sortOrder=\(sortOrder)")
             var sortArray = inputArray
             switch  sortOrder {
             case .Price:
@@ -942,7 +942,7 @@ extension FlightResultDisplayGroup  {
             case .originDestinationSame:
                 continue
             case .originDestinationSelectedForReturnJourney:
-                print("originDestinationSelectedForReturnJourney")
+                printDebug("originDestinationSelectedForReturnJourney")
             case .allAirlinesSelected:
                 continue
             case .priceRange:

@@ -138,7 +138,6 @@ PODS:
   - razorpay-pod (1.1.7)
   - Shimmer (1.0.2)
   - SnapKit (5.0.1)
-  - SwiftyJSON (5.0.0)
   - TransitionButton (0.5.3)
   - WSTagsField (5.4.0)
 
@@ -170,7 +169,6 @@ DEPENDENCIES:
   - razorpay-pod
   - Shimmer
   - SnapKit (~> 5.0.0)
-  - SwiftyJSON
   - TransitionButton
   - WSTagsField
 
@@ -214,7 +212,6 @@ SPEC REPOS:
     - razorpay-pod
     - Shimmer
     - SnapKit
-    - SwiftyJSON
     - TransitionButton
     - WSTagsField
 
@@ -257,10 +254,9 @@ SPEC CHECKSUMS:
   razorpay-pod: 6ee0c8c7afad8eead9524d5eb516bc35ac1604ef
   Shimmer: c5374be1c2b0c9e292fb05b339a513cf291cac86
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
-  SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   TransitionButton: 36283346e17c64775a1b3bc3a7a72940a367de1f
   WSTagsField: a4e91b7d866e8c9755332ebcf8123f42f2abd4a0
 
-PODFILE CHECKSUM: 8bfed4125d0001beb23d38f0bfb5c5cae23b97c9
+PODFILE CHECKSUM: 2258d2e2cac0984e6ea2cfa19dac765ea4438ea3
 
 COCOAPODS: 1.10.0

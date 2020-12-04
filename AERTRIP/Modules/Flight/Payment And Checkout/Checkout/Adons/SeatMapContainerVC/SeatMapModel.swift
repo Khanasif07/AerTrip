@@ -133,7 +133,7 @@ struct SeatMapModel {
         
         var rowStr: String {
             if let number = Int(ssrCode.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()) {
-                print(number)
+                printDebug(number)
                 return "\(number)"
             }
             return ""

@@ -30,7 +30,7 @@ extension IntMCAndReturnDetailsVC{
             self.viewModel.selectedJourney = selectedJourneys
             return selectedJourneys
         }
-        print("getSelectedJourneyForAllLegs return five")
+        printDebug("getSelectedJourneyForAllLegs return five")
         return nil
     }
     

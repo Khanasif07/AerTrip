@@ -117,7 +117,7 @@ extension IntMCAndReturnVC {
             }
             
             // If blurEffectView yCoodinate is close to top of the screen
-            print(yCoordinate)
+            printDebug(yCoordinate)
             if  ( yCoordinate > ( visualEffectViewHeight / 2.0 ) ){
                 let progressBarrStopPositionValue : CGFloat = UIDevice.isIPhoneX ? 46 : 22
 

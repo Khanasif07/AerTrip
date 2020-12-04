@@ -340,7 +340,7 @@ extension FlightPaymentBookingStatusVC : YouAreAllDoneTableViewCellDelegate, PKA
                 self.present(addController!, animated: true)
             }
         } catch {
-            print(error)
+            printDebug(error)
         }
     }
 

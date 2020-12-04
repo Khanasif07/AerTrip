@@ -72,7 +72,6 @@ class IntMCAndReturnVC : UIViewController, GetSharableUrlDelegate
         self.emailPinnedFlights.displayLoadingIndicator(false)
 
     }
-    
 }
 
 extension IntMCAndReturnVC {
@@ -358,10 +357,7 @@ extension IntMCAndReturnVC {
 extension IntMCAndReturnVC : flightDetailsPinFlightDelegate, UpdateRefundStatusDelegate{
    
     func updateRefundStatus(for fk: String, rfd: Int, rsc: Int) {
-        print(fk, rfd, rsc)
-        
         self.viewModel.updateRefundStatusInJourneys(fk: fk, rfd: rfd, rsc: rsc)
-        
         self.resultsTableView.reloadData()
 
     }

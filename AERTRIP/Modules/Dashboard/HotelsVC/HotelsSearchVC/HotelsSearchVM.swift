@@ -117,7 +117,6 @@ class HotelsSearchVM: NSObject{
             guard let sSelf = self else { return }
             if success {
                 sSelf.recentSearchesData = recentSearchesHotels
-                sSelf.removeRecentSearchDuplicates()
                 sSelf.delegate?.getRecentSearchesDataSuccess()
             } else {
                 printDebug(errors)
@@ -127,6 +126,7 @@ class HotelsSearchVM: NSObject{
         }
     }
     
+    // To remove duplicates - not being used currently
     private func removeRecentSearchDuplicates() {
         guard let recentSearches = recentSearchesData, !recentSearches.isEmpty else { return }
         var indicesToRemove = [Int]()
@@ -185,7 +185,6 @@ class HotelsSearchVM: NSObject{
         let filter: JSONDictionary = [APIKeys.star.rawValue : star]
         
         let query: JSONDictionary = [APIKeys.place.rawValue : place , APIKeys.checkInDate.rawValue : checkInDate , APIKeys.checkOutDate.rawValue : checkOutDate , APIKeys.nights.rawValue : nights , APIKeys.guests.rawValue : guests, APIKeys.room.rawValue : room , APIKeys.filter.rawValue : filter, APIKeys.lat.rawValue : self.searchedFormData.lat, APIKeys.lng.rawValue : self.searchedFormData.lng, APIKeys.search_nearby.rawValue : self.searchedFormData.isHotelNearMeSelected ]
-
         
         let params: JSONDictionary = [
             APIKeys.product.rawValue : "hotel",
@@ -193,6 +192,7 @@ class HotelsSearchVM: NSObject{
             "data[query]" : AppGlobals.shared.json(from: query) ?? ""
         ]
         printDebug(params)
+        
         APICaller.shared.setRecentHotelsSearchesApi(params: params) { [weak self] (success, response, errors) in
             guard let sSelf = self else { return }
             if success {

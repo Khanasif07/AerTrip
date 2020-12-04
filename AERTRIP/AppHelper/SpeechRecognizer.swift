@@ -77,19 +77,19 @@ class SpeechRecognizer: NSObject {
                     DispatchQueue.main.async {
                         self.presentAlertForSpeechRecognizer()
                     }
-                    print("User denied access to speech recognition")
+                    printDebug("User denied access to speech recognition")
                     
                 case .restricted:
                     isButtonEnabled = false
-                    print("Speech recognition restricted on this device")
+                    printDebug("Speech recognition restricted on this device")
                     
                 case .notDetermined:
                     isButtonEnabled = false
-                    print("Speech recognition not yet authorized")
+                    printDebug("Speech recognition not yet authorized")
                     
                 default:
                     isButtonEnabled = false
-                    print("default case for speech recognizer")
+                    printDebug("default case for speech recognizer")
                 }
                 
                 //            OperationQueue.main.addOperation() {
@@ -122,7 +122,7 @@ class SpeechRecognizer: NSObject {
             try audioSession.setMode(AVAudioSession.Mode.measurement)
             try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
         } catch {
-            print("audioSession properties weren't set because of an error.")
+            printDebug("audioSession properties weren't set because of an error.")
         }
         
         recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
@@ -173,7 +173,7 @@ class SpeechRecognizer: NSObject {
         do {
             try audioEngine.start()
         } catch {
-            print("audioEngine couldn't start because of an error.")
+            printDebug("audioEngine couldn't start because of an error.")
         }
         
 //        self.delegate?.recordedText("Say something, I'm listening!")

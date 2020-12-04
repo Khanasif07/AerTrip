@@ -1178,6 +1178,7 @@
 		843FF69B247409E4001F21B1 /* LoginRegisterComplete copy.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843FF63D247409E2001F21B1 /* LoginRegisterComplete copy.storyboard */; };
 		843FF9CF240D216300CBE5EC /* ViewProfileDetailFrequentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FF9CD240D216300CBE5EC /* ViewProfileDetailFrequentCell.swift */; };
 		843FF9D0240D216300CBE5EC /* ViewProfileDetailFrequentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 843FF9CE240D216300CBE5EC /* ViewProfileDetailFrequentCell.xib */; };
+		844083C72578C5D400FB8B1F /* FirebaseAnalyticsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844083C62578C5D400FB8B1F /* FirebaseAnalyticsController.swift */; };
 		84409E5E2266F969005A5487 /* CustomDotMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84409E5C2266F969005A5487 /* CustomDotMarker.swift */; };
 		84409E5F2266F969005A5487 /* CustomDotMarker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84409E5D2266F969005A5487 /* CustomDotMarker.xib */; };
 		8441B24224C6B3D9001A465F /* SnappingCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8441B24124C6B3D8001A465F /* SnappingCollectionViewLayout.swift */; };
@@ -2946,6 +2947,7 @@
 		843FF63D247409E2001F21B1 /* LoginRegisterComplete copy.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "LoginRegisterComplete copy.storyboard"; sourceTree = "<group>"; };
 		843FF9CD240D216300CBE5EC /* ViewProfileDetailFrequentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewProfileDetailFrequentCell.swift; sourceTree = "<group>"; };
 		843FF9CE240D216300CBE5EC /* ViewProfileDetailFrequentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewProfileDetailFrequentCell.xib; sourceTree = "<group>"; };
+		844083C62578C5D400FB8B1F /* FirebaseAnalyticsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAnalyticsController.swift; sourceTree = "<group>"; };
 		84409E5C2266F969005A5487 /* CustomDotMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDotMarker.swift; sourceTree = "<group>"; };
 		84409E5D2266F969005A5487 /* CustomDotMarker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomDotMarker.xib; sourceTree = "<group>"; };
 		8441B24124C6B3D8001A465F /* SnappingCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnappingCollectionViewLayout.swift; sourceTree = "<group>"; };
@@ -4772,6 +4774,7 @@
 				8452D36C21E614BA00927287 /* CoreData */,
 				18A96B9421B661F900EA9B3A /* FacebookController.swift */,
 				18A96B9521B661F900EA9B3A /* GoogleLoginController.swift */,
+				844083C62578C5D400FB8B1F /* FirebaseAnalyticsController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -10931,6 +10934,7 @@
 				84BF46CB2212A762000AA6E3 /* HotelDetailsLoaderTableViewCell.swift in Sources */,
 				849D379B22893A4B00763AD8 /* AccountOfflineDepositVC+DelegateMethods.swift in Sources */,
 				843FF56C24740232001F21B1 /* AmenitiesDetailsVC.swift in Sources */,
+				844083C72578C5D400FB8B1F /* FirebaseAnalyticsController.swift in Sources */,
 				843FF58524740232001F21B1 /* FareInfoTableViewCell.swift in Sources */,
 				843FF65F247409E3001F21B1 /* User.m in Sources */,
 				0CBADF802473DC6F00086EA7 /* AFURLSessionManager.m in Sources */,
@@ -11254,7 +11258,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 212;
+				CURRENT_PROJECT_VERSION = 213;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;
@@ -11403,8 +11407,6 @@
 					"-framework",
 					"\"StoreKit\"",
 					"-framework",
-					"\"SwiftyJSON\"",
-					"-framework",
 					"\"SystemConfiguration\"",
 					"-framework",
 					"\"TransitionButton\"",
@@ -11460,7 +11462,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 212;
+				CURRENT_PROJECT_VERSION = 213;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;
@@ -11609,8 +11611,6 @@
 					"\"Security\"",
 					"-framework",
 					"\"StoreKit\"",
-					"-framework",
-					"\"SwiftyJSON\"",
 					"-framework",
 					"\"SystemConfiguration\"",
 					"-framework",

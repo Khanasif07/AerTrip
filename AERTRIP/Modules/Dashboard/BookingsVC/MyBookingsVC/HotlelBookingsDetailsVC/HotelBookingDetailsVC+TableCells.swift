@@ -266,7 +266,7 @@ extension HotlelBookingsDetailsVC {
         if self.viewModel.isSeeAllWeatherButtonTapped || (self.viewModel.bookingDetail?.tripWeatherData.count ?? 0) < 5  {
             cell.isLastCell = (self.viewModel.bookingDetail?.weatherDisplayedWithin16Info ?? false ) ? false : indexPath.row == ((self.viewModel.bookingDetail?.tripWeatherData.count ?? 0))
         } else {
-            cell.isLastCell = (self.viewModel.bookingDetail?.weatherDisplayedWithin16Info ?? false ) ? false : (indexPath.row == (self.viewModel.bookingDetail?.tripWeatherData.count ?? 0))
+            cell.isLastCell = (self.viewModel.bookingDetail?.weatherDisplayedWithin16Info ?? false ) ? false : (indexPath.row == 5)
         }
         cell.weatherData = self.viewModel.bookingDetail?.tripWeatherData[indexPath.row - 1]
         cell.clipsToBounds = true
