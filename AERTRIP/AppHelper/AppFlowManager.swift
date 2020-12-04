@@ -83,6 +83,8 @@ class AppFlowManager: NSObject {
         nav.navigationBar.barTintColor = AppColors.themeWhite
         nav.navigationBar.backgroundColor = AppColors.themeWhite
         nav.navigationBar.tintColor = AppColors.themeGreen
+        nav.interactivePopGestureRecognizer?.delegate = self
+
         //nav.navigationBar.isTranslucent = false
         //nav.interactivePopGestureRecognizer?.delegate = self
         

@@ -202,7 +202,7 @@ class FlightResultDisplayGroup {
     fileprivate func groupSimilarFlights(_ journey : [Journey] ) -> [Journey] {
         
         // Grouping of flights having same fare , Airline , number of stops and destination airport
-        let groupedFlights = Dictionary(grouping: journey, by: { String($0.farepr) + $0.al.first! + $0.stp + $0.ap.last!  })
+        let groupedFlights = Dictionary(grouping: journey, by: { String($0.farepr) + ($0.al.first ?? "") + $0.stp + ($0.ap.last ?? "")  })
         
         var modifiedJourneyArray = [Journey]()
         var index = 0
@@ -342,7 +342,7 @@ class FlightResultDisplayGroup {
             return outputJourney
         }
         
-        let minHumanScore = outputArray.min { (first, second) in first.computedHumanScore! < second.computedHumanScore! }
+    let minHumanScore = outputArray.min { (first, second) in first.computedHumanScore ?? 0.0 < second.computedHumanScore ?? 0.0 }
         
         
         // set property above human score threadshold bool
@@ -351,7 +351,7 @@ class FlightResultDisplayGroup {
             
             let outputJourney = journey
             
-            if outputJourney.computedHumanScore! > ((minHumanScore?.computedHumanScore)! * 1.26) {
+            if outputJourney.computedHumanScore ?? 0.0 > (((minHumanScore?.computedHumanScore) ?? 0.0) * 1.26) {
                 outputJourney.isAboveHumanScore = true
             }
             else {
@@ -360,7 +360,7 @@ class FlightResultDisplayGroup {
             return outputJourney
         }
         
-        outputArray = outputArray.sorted(by: { $0.computedHumanScore!  < $1.computedHumanScore!  })
+    outputArray = outputArray.sorted(by: { $0.computedHumanScore ?? 0.0  < $1.computedHumanScore ?? 0.0  })
         
         return outputArray
     }
@@ -475,8 +475,8 @@ class FlightResultDisplayGroup {
             self.appliedSubFilters.insert(.arrivalTime)
             let newTime = floor((Float(ar_dt) ?? 0)/60)*60
             
-            let arrivalMin = inputFilter?.arDt.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)!
-            let userArrivalMin = dateFromTime(arrivalInputStartDate: arrivalMin!, interval: TimeInterval(newTime))
+            let arrivalMin = inputFilter?.arDt.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)
+            let userArrivalMin = dateFromTime(arrivalInputStartDate: arrivalMin ?? Date(), interval: TimeInterval(newTime))
             self.userSelectedFilters?.arDt.earliest = userArrivalMin.toString(dateFormat: "yyyy-MM-dd HH:mm")
         }
         
@@ -486,8 +486,8 @@ class FlightResultDisplayGroup {
             self.appliedSubFilters.insert(.arrivalTime)
             let newTime = ceil((Float(ar_dt) ?? 0)/60)*60
             
-            let arrivalMin = inputFilter?.arDt.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)!
-            let userArrivalMin = dateFromTime(arrivalInputStartDate: arrivalMin!, interval: TimeInterval(newTime))
+            let arrivalMin = inputFilter?.arDt.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)
+            let userArrivalMin = dateFromTime(arrivalInputStartDate: arrivalMin ?? Date(), interval: TimeInterval(newTime))
             self.userSelectedFilters?.arDt.latest = userArrivalMin.toString(dateFormat: "yyyy-MM-dd HH:mm")
         }
         
@@ -497,8 +497,8 @@ class FlightResultDisplayGroup {
             self.appliedSubFilters.insert(.departureTime)
             let newTime = floor((Float(dep_dt) ?? 0)/60)*60
             
-            let departureMin = inputFilter?.depDt.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)!
-            let userDepartureMin = dateFromTime(arrivalInputStartDate: departureMin!, interval: TimeInterval(newTime))
+            let departureMin = inputFilter?.depDt.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)
+            let userDepartureMin = dateFromTime(arrivalInputStartDate: departureMin ?? Date(), interval: TimeInterval(newTime))
             self.userSelectedFilters?.depDt.earliest = userDepartureMin.toString(dateFormat: "yyyy-MM-dd HH:mm")
             self.userSelectedFilters?.dt.earliest = userDepartureMin.toString(dateFormat: "HH:mm")
         }
@@ -509,8 +509,8 @@ class FlightResultDisplayGroup {
             self.appliedSubFilters.insert(.departureTime)
             let newTime = ceil((Float(dep_dt) ?? 0)/60)*60
             
-            let departureMin = inputFilter?.depDt.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)!
-            let userDepartureMin = dateFromTime(arrivalInputStartDate: departureMin!, interval: TimeInterval(newTime))
+            let departureMin = inputFilter?.depDt.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)
+            let userDepartureMin = dateFromTime(arrivalInputStartDate: departureMin ?? Date(), interval: TimeInterval(newTime))
             self.userSelectedFilters?.depDt.latest = userDepartureMin.toString(dateFormat: "yyyy-MM-dd HH:mm")
             self.userSelectedFilters?.dt.latest = userDepartureMin.toString(dateFormat: "HH:mm")
         }

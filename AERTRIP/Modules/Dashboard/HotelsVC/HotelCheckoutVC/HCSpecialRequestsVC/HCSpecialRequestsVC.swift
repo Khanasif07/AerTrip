@@ -119,10 +119,12 @@ extension HCSpecialRequestsVC: UITableViewDelegate, UITableViewDataSource{
                 req.id == self.viewModel.specialRequests[indexPath.row].id
             }) {
 
-                let contradictingReq = self.viewModel.selectedRequests.filter { $0.groupId != self.viewModel.specialRequests[indexPath.row].groupId }
-            
+                if self.viewModel.specialRequests[indexPath.row].groupId != "0" {
                 
+                let contradictingReq = self.viewModel.selectedRequests.filter { $0.groupId != self.viewModel.specialRequests[indexPath.row].groupId }
                 self.viewModel.selectedRequests = contradictingReq
+                    
+                }
                 
 //                self.viewModel.selectedRequestsId.append(self.viewModel.specialRequests[indexPath.row].id)
                 self.viewModel.selectedRequests.append(self.viewModel.specialRequests[indexPath.row])
