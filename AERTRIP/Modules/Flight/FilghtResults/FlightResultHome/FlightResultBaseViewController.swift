@@ -59,7 +59,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
     }
     private var isIntReturnOrMCJourney = false
     
-    private var filterUpdateWorkItem : DispatchWorkItem?
+    private var filterUpdateWorkItem : DispatchWorkItem!
     private var showDepartReturnSame = false
     private var curSelectedFilterIndex = 0
     
@@ -84,16 +84,14 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         self.init(nibName:nil, bundle:nil)
         self.flightSearchResultVM = flightSearchResultVM
         let new = flightSearchResultVM
-        print(new.flightLegs.count)
+        printDebug(new.flightLegs.count)
         flightSearchResultVM.delegate = self
         flightSearchResultVM.initiateResultWebService()
 //        self.flightSearchParameters = flightSearchParameters
         self.isIntReturnOrMCJourney = isIntReturnOrMCJourney
         self.airlineCode = airlineCode
-                
         guard let dict = flightSearchParameters as? JSONDictionary else { return }
         self.flightSearchParameters = dict
-        
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -105,7 +103,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
     }
     
     deinit {
-          print("FlightResultBaseViewController")
+        printDebug("FlightResultBaseViewController")
       }
     
     //MARK:- View Controller Methods
@@ -375,10 +373,9 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
     func getStringFromImage(name : String) -> NSAttributedString {
         
         let imageAttachment = NSTextAttachment()
-//        let sourceSansPro18 = UIFont(name: "SourceSansPro-Semibold", size: 18.0)!
         
         let sourceSansPro18 = AppFonts.SemiBold.withSize(18)
-        let iconImage = UIImage(named: name )!
+        guard let iconImage = UIImage(named: name ) else { return NSAttributedString() }
         imageAttachment.image = iconImage
         
         let yCordinate  = roundf(Float(sourceSansPro18.capHeight - iconImage.size.height) / 2.0)
@@ -672,8 +669,8 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         let flightType = flightSearchResultVM.flightSearchType
         
         if flightType == SINGLE_JOURNEY {
-            let origin = self.flightSearchParameters["origin"] as! String
-            let destination = self.flightSearchParameters["destination"] as! String
+            let origin = self.flightSearchParameters["origin"] as? String ?? ""
+            let destination = self.flightSearchParameters["destination"] as? String ?? ""
             let journey = Leg(origin: origin, destination: destination)
             legList = [journey]
         }
@@ -1073,7 +1070,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         
         resultTitle.isHidden = isHidden
         resultsubTitle.isHidden = isHidden
-        infoButton.isHidden = isHidden
+//        infoButton.isHidden = isHidden
         backButton.isHidden = isHidden
     }
     
@@ -1091,7 +1088,6 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         filterTitle.removeFromSuperview()
         
     }
-    
     func createFilterTitle() {
         self.filterTitle = UILabel()
 //        self.filterTitle.font = UIFont(name: "SourceSansPro-Regular", size: 16.0)
@@ -1450,7 +1446,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                     singleJourneyVC.addPlaceholderTableHeaderView()
                 }
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: filterUpdateWorkItem!)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: filterUpdateWorkItem)
             }
             
         case RETURN_JOURNEY:
@@ -1471,7 +1467,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                             domesticMLResultVC.comboResults = resultVM.comboResults
                         }
                     }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: filterUpdateWorkItem!)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: filterUpdateWorkItem)
                 }
             } else {
             filterUpdateWorkItem?.cancel()
@@ -1503,7 +1499,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                     domesticMLResultVC.updateTaxesArray(resultVM.getTaxesDetailsArray())
                     domesticMLResultVC.viewModel.airlineCode = self.airlineCode
                 }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: filterUpdateWorkItem!)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: filterUpdateWorkItem)
             }
             else {
                 filterUpdateWorkItem?.cancel()
@@ -1518,7 +1514,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                     intMCAndReturnVC.addPlaceholderTableHeaderView()
                     intMCAndReturnVC.airlineCode = self.airlineCode
                 })
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: filterUpdateWorkItem!)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: filterUpdateWorkItem)
             }
             
         default:

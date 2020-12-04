@@ -65,7 +65,6 @@ class WebAPIService
                 
                 let keys = httpResponse.allHeaderFields
                 if let val = keys["Set-Cookie"] as? String{
-                    print("val=",val)
 //                    let str = val.components(separatedBy: ";")
 //                    print("str0=",str[0])
 

@@ -496,7 +496,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         }
                         
                         
-                        print("isSE=",isSEDevice)
+                        printDebug("isSE=\(isSEDevice)")
                         
                         flightDetailsCell.arrivalPerformaceButton.tag = (indexPath.section*100)+index
                         flightDetailsCell.arrivalPerformaceButton.addTarget(self, action: #selector(flightArrivalPerfomaceButtonClicked(_:)), for: .touchUpInside)
@@ -798,7 +798,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                 }
             }
         } , failureHandler : { (error ) in
-            print(error)
+            printDebug(error)
         })
     }
     
@@ -848,7 +848,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
             }catch{
             }
         } , failureHandler : { (error ) in
-            print(error)
+            printDebug(error)
         })
     }
 }

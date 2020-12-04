@@ -151,7 +151,6 @@ extension FlightResultSingleJourneyVC: ATSwitcherChangeValueDelegate {
             showFooterView()
         }
         
-        //        hidePinnedFlightOptions(!value)
         resultsTableView.reloadData()
         resultsTableView.setContentOffset(.zero, animated: false)
         showBluredHeaderViewCompleted()
@@ -485,7 +484,7 @@ extension FlightResultSingleJourneyVC {
                    curJourneyArr = viewModel.results.allJourneys
                }
         
-        print(curJourneyArr.count)
+        printDebug(curJourneyArr.count)
         
            guard let index = curJourneyArr.firstIndex(where: {
                     

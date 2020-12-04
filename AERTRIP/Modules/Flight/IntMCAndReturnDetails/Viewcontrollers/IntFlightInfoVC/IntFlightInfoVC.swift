@@ -782,7 +782,7 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         } , failureHandler : {[weak self](error ) in
             guard let self = self else {return}
             self.callAPIforFlightsOnTimePerformace(origin: origin, destination: destination, airline: airline, flight_number: flight_number, index:index, FFK:FFK,count:count - 1)
-            print(error)
+            printDebug(error)
         })
     }
     
@@ -833,7 +833,7 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         } , failureHandler : {[weak self](error ) in
             guard let self = self else {return}
             self.callAPIforBaggageInfo(sid:sid, fk:fk, count: count-1)
-            print(error)
+            printDebug(error)
         })
     }
 }

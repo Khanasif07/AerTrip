@@ -642,7 +642,6 @@ extension AccountOutstandingLadgerVC {
         }
         else {
             //if the offset is under the boundery limits
-            print(yChanged, yOffset)
             if (0...Int(self.subHeaderContainerHeightConstraint.constant)) ~= yOffset {
                 if yChanged > 0 {
                     //show full header

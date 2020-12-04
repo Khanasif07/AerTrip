@@ -145,7 +145,7 @@ class TripListVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 }
             }catch{}
         } , failureHandler : { (error ) in
-            print(error)
+            printDebug(error)
         })
     }
     
@@ -170,7 +170,7 @@ class TripListVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 let contentType = param["content-type"]!
                 let fileContent = try! String(contentsOfFile: filename, encoding: String.Encoding.utf8)
                 if (error != nil) {
-                    print(error as Any)
+                    printDebug(error as Any)
                 }
                 body += "; filename=\"\(filename)\"\r\n"
                 body += "Content-Type: \(contentType)\r\n\r\n"
@@ -199,7 +199,7 @@ class TripListVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 }
             }catch{}
         } , failureHandler : { (error ) in
-            print(error)
+            printDebug(error)
         })
     }
     
@@ -240,7 +240,7 @@ class TripListVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 let contentType = param["Content-Type"]!
                 let fileContent = try? String(contentsOfFile: filename as! String, encoding: String.Encoding.utf8)
                 if (error != nil) {
-                    print(error!)
+                    printDebug(error!)
                 }
                 body += "; filename=\"\(filename)\"\r\n"
                 body += "Content-Type: \(contentType)\r\n\r\n"
@@ -273,7 +273,7 @@ class TripListVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 }
             }catch{}
         } , failureHandler : { (error ) in
-            print(error)
+            printDebug(error)
         })
     }
     

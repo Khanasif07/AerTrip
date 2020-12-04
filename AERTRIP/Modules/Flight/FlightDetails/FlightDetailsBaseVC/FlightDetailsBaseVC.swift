@@ -147,7 +147,6 @@ class FlightDetailsBaseVC: BaseVC {
             DispatchQueue.delay(1) {
                 self.parchmentLoaded = true
             }
-            print("self.displayView.bounds=",self.displayView.bounds)
             self.parchmentView?.view.frame = self.displayView.bounds
             self.parchmentView?.view.frame.size.height = self.dataDisplayView.height - innerControllerBottomConstraint
             self.parchmentView?.loadViewIfNeeded()

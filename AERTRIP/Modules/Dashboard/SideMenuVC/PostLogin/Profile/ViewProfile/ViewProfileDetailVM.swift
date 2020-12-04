@@ -83,7 +83,7 @@ class ViewProfileDetailVM {
                 DispatchQueue.mainAsync {
                 strongSelf.delegate?.getFail(errors: errorCode)
                 }
-                debugPrint(errorCode)
+                printDebug(errorCode)
             }
         })
     }

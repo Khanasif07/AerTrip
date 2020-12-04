@@ -360,7 +360,7 @@ extension FlightFilterBaseVC {
                     updateQualityFilter(qualityFilterVC)
                 }
             default:
-                print("Switch case missing for " + VCclass)
+                printDebug("Switch case missing for " + VCclass)
             }
         }
     }
@@ -1556,7 +1556,6 @@ extension FlightFilterBaseVC {
                 }
             }
         }
-        print("aircraftArray= ",aircraftArray)
         
         vc.aircraftArray = aircraftArray
     }

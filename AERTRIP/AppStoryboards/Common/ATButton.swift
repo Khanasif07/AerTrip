@@ -145,12 +145,12 @@ import UIKit
         shadowLayer.fillColor = AppColors.clear.cgColor
         if self.isEnabled {
             if isEnabledShadow {
-                shadowLayer.shadowColor = AppColors.clear.cgColor
+                shadowLayer.shadowColor = AppShadowProperties().shadowColor.cgColor//AppColors.clear.cgColor
                 shadowLayer.shadowOffset = CGSize.zero
                 shadowLayer.shadowOpacity = 0.0
                 shadowLayer.shadowRadius = 0.0
             } else {
-            shadowLayer.shadowColor = shadowColor.cgColor
+            shadowLayer.shadowColor = AppShadowProperties().shadowColor.cgColor//shadowColor.cgColor
             shadowLayer.shadowPath  = shadowLayer.path
             shadowLayer.shadowOffset = CGSize(width: 0.0, height: self.isSocial ? 2.0 : 12.0)
             shadowLayer.shadowOpacity = self.isSocial ? 0.16 : 0.5

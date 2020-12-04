@@ -130,4 +130,10 @@ enum AppConstants {
 }
 
 
-
+struct AppShadowProperties {
+    let shadowRadius:CGFloat  = 4.0
+    let cornerRadius:CGFloat = 10.0
+    let opecity:Float = 1.0
+    let offset:CGSize = .zero
+    let shadowColor = AppColors.appShadowColor
+}

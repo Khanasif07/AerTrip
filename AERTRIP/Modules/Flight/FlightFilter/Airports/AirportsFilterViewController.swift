@@ -680,7 +680,7 @@ extension AirportsFilterViewController : UITableViewDataSource , UITableViewDele
                 if currentAirportFilter.allLayoverSelectedByUserInteraction {
                    cell.radioButton.isSelected  = true
                 } else {
-                    print(currentAirport.isSelected)
+                    printDebug(currentAirport.isSelected)
                     cell.radioButton.isSelected = currentAirport.isSelected
                 }
 //                cell.radioButton.addTarget(self, action: #selector(layoverAirportTapped(sender:)), for: .touchDown)

@@ -474,7 +474,7 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
                 self.removeIndicator()
                 self.callAPIforBaggageInfo(sid:sid, fk:fk, journeyObj:journeyObj, count:count-1)
             }
-            print(error)
+            printDebug(error)
         })
     }
     
@@ -577,7 +577,7 @@ extension IntFlightBaggageInfoVC{
             }catch{
             }
         } , failureHandler : { (error ) in
-            print(error)
+            printDebug(error)
         })
     }
     

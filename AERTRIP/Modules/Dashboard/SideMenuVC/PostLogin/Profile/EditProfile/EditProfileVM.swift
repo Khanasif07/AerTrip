@@ -200,7 +200,7 @@ class EditProfileVM {
                 self.delegate?.getSuccess(addresses, emails, mobiles, salutations, socials)
             } else {
                 self.delegate?.getFail(errors: errorCode)
-                debugPrint(errorCode)
+                printDebug(errorCode)
             }
         }
     }
@@ -213,7 +213,7 @@ class EditProfileVM {
                 self.delegate?.getPreferenceListSuccess(seatPreferences, mealPreferences)
             } else {
                 self.delegate?.getFail(errors: errorCode)
-                debugPrint(errorCode)
+                printDebug(errorCode)
             }
         }
     }
@@ -241,7 +241,7 @@ class EditProfileVM {
                 self.delegate?.getDefaultAirlineSuccess(data)
             } else {
                 self.delegate?.getFail(errors: errorCode)
-                debugPrint(errorCode)
+                printDebug(errorCode)
             }
         })
     }

@@ -896,7 +896,7 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
             }catch{
             }
         } , failureHandler : { (error ) in
-            print(error)
+            printDebug(error)
         })
     }
     

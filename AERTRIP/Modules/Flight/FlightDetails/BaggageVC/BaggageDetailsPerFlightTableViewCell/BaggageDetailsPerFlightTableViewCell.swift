@@ -81,10 +81,7 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
             let max_pieces = adtCheckinBaggage["max_pieces"] as? String ?? ""
             let max_weight = adtCheckinBaggage["max_weight"] as? String ?? ""
             
-            print("weight=",weight)
-            print("pieces=",pieces)
-            print("max_pieces=",max_pieces)
-            print("max_weight=",max_weight)
+        
             if weight == "" && pieces == "" && max_pieces == "" && max_weight == ""{
                 perAdultCheckinLabel.text = "No Info"
             }

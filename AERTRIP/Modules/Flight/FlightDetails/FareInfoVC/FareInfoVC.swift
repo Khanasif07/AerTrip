@@ -518,7 +518,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                 }
             }
         } , failureHandler : { (error ) in
-            print(error)
+            printDebug(error)
         })
     }
     
@@ -559,7 +559,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                 
             }
         } , failureHandler : { (error ) in
-            print(error)
+            printDebug(error)
         })
     }
     

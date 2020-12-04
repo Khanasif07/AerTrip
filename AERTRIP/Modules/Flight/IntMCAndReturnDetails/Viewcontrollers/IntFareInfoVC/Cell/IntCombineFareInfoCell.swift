@@ -318,12 +318,17 @@ extension IntCombineFareInfoCell{
                             }else{
                                 adtRafVal = (rafFees["ADT"] as? [String:Int])?.values.first ?? 0
                             }
-                            let displayValue = getPrice(price: Double(airlineValue + adtRafVal))
+                            
+                            if aertripValue > 0{
+                                let displayValue = getPrice(price: Double(airlineValue + adtRafVal + aertripValue))
+                                slabCell.statusLabel.attributedText = displayValue
+                            }else{
+                                let displayValue = getPrice(price: Double(airlineValue + adtRafVal))
 
-                            displayValue.append(NSAttributedString(string: " + "))
-                            displayValue.append(getPrice(price: Double(aertripValue)))
-                            slabCell.statusLabel.attributedText = displayValue
-//                            slabCell.statusLabel.text = displayValue + " + ₹ " + String(aertripValue)
+                                displayValue.append(NSAttributedString(string: " + "))
+                                displayValue.append(getPrice(price: Double(aertripValue)))
+                                slabCell.statusLabel.attributedText = displayValue
+                            }
                         }
                     }else{
                         if airlineValue == -9{
@@ -343,12 +348,16 @@ extension IntCombineFareInfoCell{
                             }else{
                                 adtRafVal = (rafFees["ADT"] as? [String:Int])?.values.first ?? 0
                             }
-                            let displayValue = getPrice(price: Double(airlineValue + adtRafVal))
-                            displayValue.append(NSAttributedString(string: " + "))
-                            displayValue.append(getPrice(price: Double(aertripValue)))
-                            slabCell.perAdultAmountLabel.attributedText = displayValue
-                            
-//                            slabCell.perAdultAmountLabel.text = displayValue + " + ₹ " + String(aertripValue)
+
+                            if aertripValue > 0{
+                                let displayValue = getPrice(price: Double(airlineValue + adtRafVal + aertripValue))
+                                slabCell.perAdultAmountLabel.attributedText = displayValue
+                            }else{
+                                let displayValue = getPrice(price: Double(airlineValue + adtRafVal))
+                                displayValue.append(NSAttributedString(string: " + "))
+                                displayValue.append(getPrice(price: Double(aertripValue)))
+                                slabCell.perAdultAmountLabel.attributedText = displayValue
+                            }
                         }
                     }
                 }else{
@@ -386,13 +395,16 @@ extension IntCombineFareInfoCell{
                         }else{
                             chdRafVal = (rafFees["CHD"] as? [String:Int])?.values.first ?? 0
                         }
-                        let displayValue = getPrice(price: Double(value + chdRafVal))
-                        displayValue.append(NSAttributedString(string: " + "))
-                        displayValue.append(getPrice(price: Double(aertripValue)))
-                        
-                        slabCell.perChildAmountLabel.attributedText = displayValue
-                        
-//                        slabCell.perChildAmountLabel.text = displayValue + " + ₹ " +  String(aertripValue)
+
+                        if aertripValue > 0 {
+                            let displayValue = getPrice(price: Double(value + chdRafVal + aertripValue))
+                            slabCell.perChildAmountLabel.attributedText = displayValue
+                        }else{
+                            let displayValue = getPrice(price: Double(value + chdRafVal))
+                            displayValue.append(NSAttributedString(string: " + "))
+                            displayValue.append(getPrice(price: Double(aertripValue)))
+                            slabCell.perChildAmountLabel.attributedText = displayValue
+                        }
                     }
                 }else{
                     slabCell.perChildAmountLabel.text = "NA"
@@ -429,14 +441,16 @@ extension IntCombineFareInfoCell{
                         }else{
                             iNFRafVal = (rafFees["INF"] as? [String:Int])?.values.first ?? 0
                         }
-                        let displayValue = getPrice(price: Double(value + iNFRafVal))
-                        displayValue.append(NSAttributedString(string: " + "))
-                        displayValue.append(getPrice(price: Double(aertripValue)))
                         
-                        slabCell.perInfantAmountLabel.attributedText = displayValue
-
-                        
-//                        slabCell.perInfantAmountLabel.text = displayValue + " + ₹ " +  String(aertripValue)
+                        if aertripValue > 0{
+                            let displayValue = getPrice(price: Double(value + iNFRafVal + aertripValue))
+                            slabCell.perInfantAmountLabel.attributedText = displayValue
+                        }else{
+                            let displayValue = getPrice(price: Double(value + iNFRafVal))
+                            displayValue.append(NSAttributedString(string: " + "))
+                            displayValue.append(getPrice(price: Double(aertripValue)))
+                            slabCell.perInfantAmountLabel.attributedText = displayValue
+                        }
                     }
                 }else{
                     slabCell.perInfantAmountLabel.text = "NA"
@@ -504,13 +518,17 @@ extension IntCombineFareInfoCell{
                         }else{
                             slabCell.statusLabel.textColor = .black
                             
-                            let displayValue = getPrice(price: Double(value))
-                            displayValue.append(NSAttributedString(string: " + "))
-                            displayValue.append(getPrice(price: Double(aertripValue)))
+                            if aertripValue > 0{
+                                let displayValue = getPrice(price: Double(value + aertripValue))
+                                slabCell.statusLabel.attributedText = displayValue
+                            }else{
+                                let displayValue = getPrice(price: Double(value))
+                                displayValue.append(NSAttributedString(string: " + "))
+                                displayValue.append(getPrice(price: Double(aertripValue)))
 
-                            slabCell.statusLabel.attributedText = displayValue
+                                slabCell.statusLabel.attributedText = displayValue
+                            }
 
-//                            slabCell.statusLabel.text = displayValue + " + ₹ " +  String(aertripValue)
                         }
                     }else{
                         if value == -9{
@@ -525,12 +543,16 @@ extension IntCombineFareInfoCell{
                         }else{
                             slabCell.perAdultAmountLabel.textColor = .black
                             
-                            let displayValue = getPrice(price: Double(value))
-                            displayValue.append(NSAttributedString(string: " + "))
-                            displayValue.append(getPrice(price: Double(aertripValue)))
-                            slabCell.perAdultAmountLabel.attributedText = displayValue
 
-//                            slabCell.perAdultAmountLabel.text = displayValue + " + ₹ " +  String(aertripValue)
+                            if aertripValue > 0{
+                                let displayValue = getPrice(price: Double(value + aertripValue))
+                                slabCell.perAdultAmountLabel.attributedText = displayValue
+                            }else{
+                                let displayValue = getPrice(price: Double(value))
+                                displayValue.append(NSAttributedString(string: " + "))
+                                displayValue.append(getPrice(price: Double(aertripValue)))
+                                slabCell.perAdultAmountLabel.attributedText = displayValue
+                            }
                         }
                     }
                 }else{
@@ -562,14 +584,16 @@ extension IntCombineFareInfoCell{
                         slabCell.perChildAmountLabel.text = "Free Rescheduling"
                     }else{
                         slabCell.perChildAmountLabel.textColor = .black
-                        
-                        let displayValue = getPrice(price: Double(value))
-                        displayValue.append(NSAttributedString(string: " + "))
-                        displayValue.append(getPrice(price: Double(aertripValue)))
-                        
-                        slabCell.perChildAmountLabel.attributedText = displayValue
 
-//                        slabCell.perChildAmountLabel.text = displayValue + " + ₹ " +  String(aertripValue)
+                        if aertripValue > 0 {
+                            let displayValue = getPrice(price: Double(value + aertripValue))
+                            slabCell.perChildAmountLabel.attributedText = displayValue
+                        }else{
+                            let displayValue = getPrice(price: Double(value))
+                            displayValue.append(NSAttributedString(string: " + "))
+                            displayValue.append(getPrice(price: Double(aertripValue)))
+                            slabCell.perChildAmountLabel.attributedText = displayValue
+                        }
                     }
                 }else{
                     slabCell.perChildAmountLabel.text = "NA"
@@ -600,12 +624,16 @@ extension IntCombineFareInfoCell{
                         slabCell.perInfantAmountLabel.text = "Free Rescheduling"
                     }else{
                         slabCell.perInfantAmountLabel.textColor = .black
-                        let displayValue = getPrice(price: Double(value))
-                        displayValue.append(NSAttributedString(string: " + "))
-                        displayValue.append(getPrice(price: Double(aertripValue)))
-                        slabCell.perInfantAmountLabel.attributedText = displayValue
-
-//                        slabCell.perInfantAmountLabel.text = displayValue + " + ₹ " +  String(aertripValue)
+                        
+                        if aertripValue > 0{
+                            let displayValue = getPrice(price: Double(value + aertripValue))
+                            slabCell.perInfantAmountLabel.attributedText = displayValue
+                        }else{
+                            let displayValue = getPrice(price: Double(value))
+                            displayValue.append(NSAttributedString(string: " + "))
+                            displayValue.append(getPrice(price: Double(aertripValue)))
+                            slabCell.perInfantAmountLabel.attributedText = displayValue
+                        }
                     }
                 }else{
                     slabCell.perInfantAmountLabel.text = "NA"

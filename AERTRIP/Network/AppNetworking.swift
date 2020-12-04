@@ -300,9 +300,7 @@ enum AppNetworking {
                 {
                     if let keys = response.response?.allHeaderFields
                     {
-                        print("login keys=",keys)
                         if let val = keys["Set-Cookie"] as? String{
-                            print("login val=",val)
                             UserDefaults.standard.set(val, forKey: "loginCookie")
                         }
                     }

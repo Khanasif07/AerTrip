@@ -75,7 +75,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let remoteHostStatus = networkReachability.currentReachabilityStatus
         
         if remoteHostStatus == .notReachable {
-            print("Not Reachable")
             AppGlobals.shared.stopLoading()
             NotificationCenter.default.post(name: Notification.Name(rawValue: ReachabilityDidChangeNotificationName), object: nil)
         }
