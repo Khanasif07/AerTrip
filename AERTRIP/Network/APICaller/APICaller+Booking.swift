@@ -426,18 +426,21 @@ extension APICaller {
             sSelf.handleResponse(json, success: { sucess, jsonData in
                 if sucess, let response = jsonData[APIKeys.data.rawValue].dictionaryObject {
                     printDebug(response)
+                    let userMode = (response["user_refund_mode"] as? String) ?? ""
+                    var mode = ""
                     var modes: [String] = [], reasons: [String] = []
                     if let rModes = response["refund_mode"] as? JSONDictionary {
                         modes = rModes.map({ "\($0.1)" })
+                        mode = rModes[userMode] as? String ?? ""
                     }
                     
                     if let reason = response["reason"] as? JSONDictionary {
                         reasons = reason.map({ "\($0.1)" })
                     }
                     
-                    let userMode = (response["user_refund_mode"] as? String) ?? ""
                     
-                    completionBlock(true, [], modes, reasons, userMode)
+                    
+                    completionBlock(true, [], modes, reasons, mode)
                 }
                 else {
                     completionBlock(false, [], [], [], "")

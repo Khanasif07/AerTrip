@@ -38,8 +38,8 @@ class WebViewController: UIViewController , WKUIDelegate {
             maker.centerX.equalToSuperview()
         }
         
-        let myURL = URL(string:urlToLoad)
-        let myRequest = URLRequest(url: myURL!)
+        guard let myURL = URL(string:urlToLoad) else {return}
+        let myRequest = URLRequest(url: myURL)
         webView.load(myRequest)
     }
     @IBAction func onDoneTapped(_ sender: Any) {

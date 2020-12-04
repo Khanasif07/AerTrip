@@ -41,7 +41,8 @@ open class UPCarouselFlowLayout: UICollectionViewFlowLayout {
     
     override open func prepare() {
         super.prepare()
-        let currentState = LayoutState(size: self.collectionView!.bounds.size, direction: self.scrollDirection)
+        guard let collection = self.collectionView else {return}
+        let currentState = LayoutState(size: collection.bounds.size, direction: self.scrollDirection)
         
         if !self.state.isEqual(currentState) {
             self.setupCollectionView()

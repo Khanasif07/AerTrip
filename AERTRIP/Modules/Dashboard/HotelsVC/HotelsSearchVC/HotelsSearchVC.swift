@@ -239,7 +239,7 @@ class HotelsSearchVC: BaseVC {
 //        self.containerView.layer.shadowOpacity = 0.7
 //        self.containerView.layer.shadowRadius = 6.0
         
-        self.containerView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize(width: 0, height: 16), opacity: 0.7, shadowRadius: 6.0)
+        self.containerView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize(width: 0, height: 16), opacity: 1, shadowRadius: 6.0)
     }
     
     ///ConfigureCheckInOutView

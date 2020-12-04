@@ -99,17 +99,16 @@ class FlightContactCell: UITableViewCell {
 
     //MARK:- Public
     @IBAction func selectCountruButtonAction(_ sender: UIButton) {
-        if let vc = self.vc {
-            let prevSectdContry = preSelectedCountry
-            self.delegate?.setIsdCode(prevSectdContry!)
+        if let vc = self.vc, let prevSectdContry = preSelectedCountry {
+            self.delegate?.setIsdCode(prevSectdContry)
             PKCountryPicker.default.chooseCountry(onViewController: vc, preSelectedCountry: prevSectdContry) { [weak self] (selectedCountry,closePicker) in
-                guard let weakSelf = self else {return}
-                weakSelf.preSelectedCountry = selectedCountry
-                weakSelf.flagImageView.image = selectedCountry.flagImage
-                weakSelf.countryCodeLabel.text = selectedCountry.countryCode
-                weakSelf.contactNumberTextField.defaultRegion = selectedCountry.ISOCode
-                weakSelf.contactNumberTextField.text = weakSelf.contactNumberTextField.nationalNumber
-                weakSelf.delegate?.setIsdCode(selectedCountry)
+                guard let self = self else {return}
+                self.preSelectedCountry = selectedCountry
+                self.flagImageView.image = selectedCountry.flagImage
+                self.countryCodeLabel.text = selectedCountry.countryCode
+                self.contactNumberTextField.defaultRegion = selectedCountry.ISOCode
+                self.contactNumberTextField.text = self.contactNumberTextField.nationalNumber
+                self.delegate?.setIsdCode(selectedCountry)
             }
         }
     }

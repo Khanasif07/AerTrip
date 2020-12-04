@@ -13,7 +13,7 @@ class HomeDummyViewController: UIViewController {
     
     @IBOutlet weak var baseView: UIView!
     
-    let appdelegate = UIApplication.shared.delegate as! AppDelegate
+    let appdelegate = UIApplication.shared.delegate as? AppDelegate
 
     let clearCache = ClearCache()
     

@@ -32,7 +32,7 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     var sid = ""
     var isTableviewScrolledDown = false
     let clearCache = ClearCache()
-    let appdelegate = UIApplication.shared.delegate as! AppDelegate
+    let appdelegate = UIApplication.shared.delegate as? AppDelegate ?? AppDelegate()
     var selectedIndex : IndexPath!
     var selectedJourneyFK = [String]()
     var fewSeatsLeftViewHeight = 0
@@ -90,9 +90,9 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                     for i in 0..<self.appdelegate.flightBaggageMutableArray.count{
                         if let baggageArray = self.appdelegate.flightBaggageMutableArray[i] as? JSONDictionary
                         {
-                            let selectedIndex = baggageArray["selectedJourneyFK"] as! [String]
+                            let selectedIndex = baggageArray["selectedJourneyFK"] as? [String] ?? []
                             if self.selectedJourneyFK == selectedIndex{
-                                let baggageDataResponse = baggageArray["BaggageDataResponse"] as! [JSONDictionary]
+                                let baggageDataResponse = baggageArray["BaggageDataResponse"] as? [JSONDictionary] ?? []
                                 self.baggageData = baggageDataResponse
                             }
                         }
@@ -214,7 +214,7 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         guard let legs = journey?.legsWithDetail else {return UITableViewCell()}
         if indexPath.section == legs.count{
-            let changeAirportCell = tableView.dequeueReusableCell(withIdentifier: "ChangeAirportCell") as! ChangeAirportTableViewCell
+            guard let changeAirportCell = tableView.dequeueReusableCell(withIdentifier: "ChangeAirportCell") as? ChangeAirportTableViewCell else {return UITableViewCell()}
             changeAirportCell.titleLabel.text = "Change of Airport"
                
             let myMutableString = NSMutableAttributedString(string: "While changing airports, re-checking baggage and going back through security may be necessary. Ensure you have ample time between transfers. Kindly check all terms regarding connection, baggage transfer, visas, etc. with the airlines directly before booking this itinerary.")//. While changing airports While changing airports.")
@@ -227,7 +227,7 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
             let count = legs[indexPath.section].flightsWithDetails.count
             if count > 0{
                 if indexPath.row % 2 == 0{
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "FlightDetailsCell") as! FlightDetailsTableViewCell
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "FlightDetailsCell") as? FlightDetailsTableViewCell else {return  UITableViewCell()}
                     
                     var index = 0
                     if indexPath.row > 0{
@@ -419,7 +419,7 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                     
                     
                     if flight.ontimePerformanceDataStoringTime != nil{
-                        if Double(flight.ontimePerformance!) > 90.0{
+                        if Double(flight.ontimePerformance ?? 0) > 90.0{
                             cell.onArrivalPerformanceLabel.textColor = AppColors.themeGreen
                         }else{
                             cell.onArrivalPerformanceLabel.textColor = UIColor.black
@@ -587,7 +587,7 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 //                    }
                     return cell
                 }else{
-                    let layoverCell = tableView.dequeueReusableCell(withIdentifier: "LayoverViewCell") as! LayoverViewTableViewCell
+                    guard let layoverCell = tableView.dequeueReusableCell(withIdentifier: "LayoverViewCell") as? LayoverViewTableViewCell else {return UITableViewCell()}
                     
                     var index = 0
                     if indexPath.row > 0{
@@ -727,9 +727,9 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
             if flight.ontimePerformanceDataStoringTime != nil{
                 arrivalPerformanceView.observationCount = "\(flight.observationCount ?? 0)"
                 arrivalPerformanceView.averageDelay = "\(flight.averageDelay ?? 0)"
-                arrivalPerformanceView.cancelledPerformanceInPercent = flight.cancelledPerformance!
-                arrivalPerformanceView.delayedPerformanceInPercent = flight.latePerformance!
-                arrivalPerformanceView.onTimePerformanceInPercent = flight.ontimePerformance!
+                arrivalPerformanceView.cancelledPerformanceInPercent = flight.cancelledPerformance ?? 0
+                arrivalPerformanceView.delayedPerformanceInPercent = flight.latePerformance ?? 0
+                arrivalPerformanceView.onTimePerformanceInPercent = flight.ontimePerformance ?? 0
                 arrivalPerformanceView.modalPresentationStyle = .overFullScreen
                 self.present(arrivalPerformanceView, animated: false, completion: nil)
 //                arrivalPerformanceView.view.frame = self.parent!.view.bounds
@@ -763,15 +763,15 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                         guard let flight = self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]] else {return}
                         
                         if flight.ffk == FFK{
-                            self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]].ontimePerformance = Int((currentParsedResponse.data?.delayIndex?.ontime)!)
+                            self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]].ontimePerformance = Int((currentParsedResponse.data?.delayIndex?.ontime) ?? "0")
                             
-                            self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]].latePerformance = Int((currentParsedResponse.data?.delayIndex?.late)!)
+                            self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]].latePerformance = Int((currentParsedResponse.data?.delayIndex?.late) ?? "0")
                             
-                            self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]].cancelledPerformance = Int((currentParsedResponse.data?.delayIndex?.cancelled)!)
+                            self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]].cancelledPerformance = Int((currentParsedResponse.data?.delayIndex?.cancelled) ?? "0")
                             
-                            self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]].observationCount = Int((currentParsedResponse.data?.delayIndex?.observationCount)!)
+                            self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]].observationCount = Int((currentParsedResponse.data?.delayIndex?.observationCount) ?? "0")
                             
-                            self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]].averageDelay = Int((currentParsedResponse.data?.delayIndex?.averageDelay)!)
+                            self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]].averageDelay = Int((currentParsedResponse.data?.delayIndex?.averageDelay) ?? "0")
                             self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]].ontimePerformanceDataStoringTime = "\(hour):\(minutes):\(seconds)"
                         }
                         

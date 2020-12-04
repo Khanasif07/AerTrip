@@ -85,4 +85,5 @@ extension UIColor {
     @objc static var AERTRIP_ORAGE_COLOR : UIColor  { return UIColor(red: 255.0/255.0 , green:144.0/255.0 , blue:0.0 , alpha:1) }
     @objc static var AERTRIP_BLUE_COLOR : UIColor  { return UIColor(red: 51.0/255.0 , green:153.0/255.0 , blue:255.0/255.0 , alpha:1) }
     @objc static var PIN_RED_COLOR : UIColor { return UIColor(displayP3Red: (253.0/255.0), green: (191.0/255.0), blue: (192.0/255.0), alpha: 1.0) }
+    @objc static var appShadow : UIColor{return AppColors.appShadowColor}
 }

@@ -143,8 +143,9 @@ extension MealsContainerVC {
         self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
         self.parchmentView?.indicatorColor = AppColors.themeGreen
         self.parchmentView?.selectedTextColor = AppColors.themeBlack
-        self.mealsContainerView.addSubview(self.parchmentView!.view)
-        
+        if self.parchmentView != nil{
+            self.mealsContainerView.addSubview(self.parchmentView!.view)
+        }
         self.parchmentView?.dataSource = self
         self.parchmentView?.delegate = self
         self.parchmentView?.sizeDelegate = self

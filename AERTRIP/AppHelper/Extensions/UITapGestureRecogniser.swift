@@ -12,9 +12,10 @@ extension UITapGestureRecognizer {
     
     func didTapAttributedTextInLabel(label: UILabel, inRange targetRange: NSRange) -> Bool {
         // Create instances of NSLayoutManager, NSTextContainer and NSTextStorage
+        guard let atTxt = label.attributedText else {return false}
         let layoutManager = NSLayoutManager()
         let textContainer = NSTextContainer(size: CGSize.zero)
-        let textStorage = NSTextStorage(attributedString: label.attributedText!)
+        let textStorage = NSTextStorage(attributedString: atTxt)
         
         // Configure layoutManager and textStorage
         layoutManager.addTextContainer(textContainer)

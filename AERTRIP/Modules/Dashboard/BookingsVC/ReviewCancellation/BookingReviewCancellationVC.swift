@@ -82,6 +82,7 @@ class BookingReviewCancellationVC: BaseVC {
     }
     
     override func initialSetup() {
+        self.requestCancellationButton.isShadowColorNeeded = true
         self.requestCancellationButton.shouldShowPressAnimation = false
         self.requestCancellationButton.shadowColor = AppColors.clear
         self.commentPlaceholderLbl.textColor = AppColors.themeGray20

@@ -1230,15 +1230,16 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
                 var cityName = city.key
                 for airportcode in airportCodes {
                     
-                    let airport = airportsDetails[airportcode]
-                    
-                    let name = airport?.n
-                    guard let airportCity = airport?.c else { continue }
-                    cityName = airportCity
-                    let airportCode = airportcode
-                    
-                    let displayModel = Airport(name : name!, IATACode:airportCode, city: airportCity )
-                    airportsArray.append(displayModel)
+                    if let airport = airportsDetails[airportcode]{
+                        let name = airport.n
+                        let airportCity = airport.c
+                        cityName = airportCity
+                        let airportCode = airportcode
+                        
+                        let displayModel = Airport(name : name, IATACode:airportCode, city: airportCity )
+                        airportsArray.append(displayModel)
+                        
+                    }
                 }
                 originAirports.append( AirportsGroupedByCity(name: cityName, airports: airportsArray))
             }
@@ -1381,14 +1382,14 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
                 var cityName = city.key
                 for airportcode in airportCodes {
                     
-                    let airport = airportsDetails[airportcode]
+                    guard let airport = airportsDetails[airportcode] else { continue }
                     
-                    let name = airport?.n
-                    guard let airportCity = airport?.c else { continue }
+                    let name = airport.n
+                    let airportCity = airport.c
                     cityName = airportCity
                     let airportCode = airportcode
                     
-                    let displayModel = Airport(name : name!, IATACode:airportCode, city: airportCity )
+                    let displayModel = Airport(name : name, IATACode:airportCode, city: airportCity )
                     airportsArray.append(displayModel)
                 }
                 originAirports.append( AirportsGroupedByCity(name: cityName, airports: airportsArray))

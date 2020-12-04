@@ -48,6 +48,7 @@ class RequestReschedulingVC: BaseVC {
         self.reschedulingTableView.delegate = self
         self.reschedulingTableView.dataSource = self
         self.topNavBar.delegate = self
+        self.requestReschedulingBtnOutlet.isShadowColorNeeded = true
         self.requestReschedulingBtnOutlet.shadowColor = AppColors.clear
         self.requestReschedulingBtnOutlet.shouldShowPressAnimation = false
         self.setTotalRefundAmount()

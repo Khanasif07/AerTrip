@@ -29,43 +29,43 @@ extension Date {
     }
     
     var year: Int {
-        return (Calendar.current as NSCalendar).components(.year, from: self).year!
+        return (Calendar.current as NSCalendar).components(.year, from: self).year ?? 0
     }
     
     var month: Int {
-        return (Calendar.current as NSCalendar).components(.month, from: self).month!
+        return (Calendar.current as NSCalendar).components(.month, from: self).month ?? 0
     }
     
     var weekOfYear: Int {
-        return (Calendar.current as NSCalendar).components(.weekOfYear, from: self).weekOfYear!
+        return (Calendar.current as NSCalendar).components(.weekOfYear, from: self).weekOfYear ?? 0
     }
     
     var weekday: Int {
-        return (Calendar.current as NSCalendar).components(.weekday, from: self).weekday!
+        return (Calendar.current as NSCalendar).components(.weekday, from: self).weekday ?? 0
     }
     
     var weekdayOrdinal: Int {
-        return (Calendar.current as NSCalendar).components(.weekdayOrdinal, from: self).weekdayOrdinal!
+        return (Calendar.current as NSCalendar).components(.weekdayOrdinal, from: self).weekdayOrdinal ?? 0
     }
     
     var weekOfMonth: Int {
-        return (Calendar.current as NSCalendar).components(.weekOfMonth, from: self).weekOfMonth!
+        return (Calendar.current as NSCalendar).components(.weekOfMonth, from: self).weekOfMonth ?? 0
     }
     
     var day: Int {
-        return (Calendar.current as NSCalendar).components(.day, from: self).day!
+        return (Calendar.current as NSCalendar).components(.day, from: self).day ?? 0
     }
     
     var hour: Int {
-        return (Calendar.current as NSCalendar).components(.hour, from: self).hour!
+        return (Calendar.current as NSCalendar).components(.hour, from: self).hour ?? 0
     }
     
     var minute: Int {
-        return (Calendar.current as NSCalendar).components(.minute, from: self).minute!
+        return (Calendar.current as NSCalendar).components(.minute, from: self).minute ?? 0
     }
     
     var second: Int {
-        return (Calendar.current as NSCalendar).components(.second, from: self).second!
+        return (Calendar.current as NSCalendar).components(.second, from: self).second ?? 0
     }
     
     var numberOfWeeks: Int {
@@ -83,11 +83,11 @@ extension Date {
         let dateComponentNow: DateComponents = (calendar as NSCalendar).components(unitFlags, from: Date())
         let dateComponentBirth: DateComponents = (calendar as NSCalendar).components(unitFlags, from: self)
         
-        if (dateComponentNow.month! < dateComponentBirth.month!) ||
-            ((dateComponentNow.month! == dateComponentBirth.month!) && (dateComponentNow.day! < dateComponentBirth.day!)) {
-            return dateComponentNow.year! - dateComponentBirth.year! - 1
+        if ((dateComponentNow.month ?? 0) < (dateComponentBirth.month ?? 0)) ||
+            (((dateComponentNow.month ?? 0) == (dateComponentBirth.month ?? 0)) && ((dateComponentNow.day ?? 0) < (dateComponentBirth.day ?? 0))) {
+            return (dateComponentNow.year ?? 0) - (dateComponentBirth.year ?? 0) - 1
         } else {
-            return dateComponentNow.year! - dateComponentBirth.year!
+            return (dateComponentNow.year ?? 0) - (dateComponentBirth.year ?? 0)
         }
     }
     
@@ -103,43 +103,43 @@ extension Date {
      }
     
     func yearsFrom(_ date: Date) -> Int {
-        return (Calendar.current as NSCalendar).components(.year, from: date, to: self, options: []).year!
+        return (Calendar.current as NSCalendar).components(.year, from: date, to: self, options: []).year ?? 0
     }
     
     func monthsFrom(_ date: Date) -> Int {
-        return (Calendar.current as NSCalendar).components(.month, from: date, to: self, options: []).month!
+        return (Calendar.current as NSCalendar).components(.month, from: date, to: self, options: []).month ?? 0
     }
     
     func weeksFrom(_ date: Date) -> Int {
-        return (Calendar.current as NSCalendar).components(.weekOfYear, from: date, to: self, options: []).weekOfYear!
+        return (Calendar.current as NSCalendar).components(.weekOfYear, from: date, to: self, options: []).weekOfYear ?? 0
     }
     
     func weekdayFrom(_ date: Date) -> Int {
-        return (Calendar.current as NSCalendar).components(.weekday, from: date, to: self, options: []).weekday!
+        return (Calendar.current as NSCalendar).components(.weekday, from: date, to: self, options: []).weekday ?? 0
     }
     
     func weekdayOrdinalFrom(_ date: Date) -> Int {
-        return (Calendar.current as NSCalendar).components(.weekdayOrdinal, from: date, to: self, options: []).weekdayOrdinal!
+        return (Calendar.current as NSCalendar).components(.weekdayOrdinal, from: date, to: self, options: []).weekdayOrdinal ?? 0
     }
     
     func weekOfMonthFrom(_ date: Date) -> Int {
-        return (Calendar.current as NSCalendar).components(.weekOfMonth, from: date, to: self, options: []).weekOfMonth!
+        return (Calendar.current as NSCalendar).components(.weekOfMonth, from: date, to: self, options: []).weekOfMonth ?? 0
     }
     
     func daysFrom(_ date: Date) -> Int {
-        return (Calendar.current as NSCalendar).components(.day, from: date, to: self, options: []).day!
+        return (Calendar.current as NSCalendar).components(.day, from: date, to: self, options: []).day ?? 0
     }
     
     func hoursFrom(_ date: Date) -> Int {
-        return (Calendar.current as NSCalendar).components(.hour, from: date, to: self, options: []).hour!
+        return (Calendar.current as NSCalendar).components(.hour, from: date, to: self, options: []).hour ?? 0
     }
     
     func minutesFrom(_ date: Date) -> Int {
-        return (Calendar.current as NSCalendar).components(.minute, from: date, to: self, options: []).minute!
+        return (Calendar.current as NSCalendar).components(.minute, from: date, to: self, options: []).minute ?? 0
     }
     
     func secondsFrom(_ date: Date) -> Int {
-        return (Calendar.current as NSCalendar).components(.second, from: date, to: self, options: []).second!
+        return (Calendar.current as NSCalendar).components(.second, from: date, to: self, options: []).second ?? 0
     }
     
     func offsetFrom(_ date: Date) -> String {
@@ -179,7 +179,7 @@ extension Date {
         }
         
         if components.day! >= 7 {
-            let week = components.day! / 7
+            let week = (components.day ?? 0) / 7
             return "\(week)W ago"
         }
         
@@ -221,55 +221,55 @@ extension Date {
         let components = calendar.dateComponents(unitFlags, from: earliest as Date, to: latest as Date)
         
         if components.year! >= 2 {
-            return "\(components.year!) years ago"
-        } else if components.year! >= 1 {
+            return "\(components.year ?? 0) years ago"
+        } else if (components.year ?? 0) >= 1 {
             if numericDates {
                 return "1 year ago"
             } else {
                 return "Last year"
             }
-        } else if components.month! >= 2 {
-            return "\(components.month!) months ago"
-        } else if components.month! >= 1 {
+        } else if (components.month ?? 0) >= 2 {
+            return "\(components.month ?? 0) months ago"
+        } else if (components.month ?? 0) >= 1 {
             if numericDates {
                 return "1 month ago"
             } else {
                 return "Last month"
             }
-        } else if components.weekOfYear! >= 2 {
-            return "\(components.weekOfYear!) weeks ago"
-        } else if components.weekOfYear! >= 1 {
+        } else if (components.weekOfYear ?? 0) >= 2 {
+            return "\(components.weekOfYear ?? 0) weeks ago"
+        } else if (components.weekOfYear ?? 0) >= 1 {
             if numericDates {
                 return "1 week ago"
             } else {
                 return "Last week"
             }
-        } else if components.day! >= 2 {
-            return "\(components.day!) days ago"
-        } else if components.day! >= 1 {
+        } else if (components.day ?? 0) >= 2 {
+            return "\(components.day ?? 0) days ago"
+        } else if (components.day ?? 0) >= 1 {
             if numericDates {
                 return "1 day ago"
             } else {
                 return "Yesterday"
             }
-        } else if components.hour! >= 2 {
-            return "\(components.hour!) hours ago"
-        } else if components.hour! >= 1 {
+        } else if (components.hour ?? 0) >= 2 {
+            return "\(components.hour ?? 0) hours ago"
+        } else if (components.hour ?? 0) >= 1 {
             if numericDates {
                 return "1 hour ago"
             } else {
                 return "An hour ago"
             }
-        } else if components.minute! >= 2 {
-            return "\(components.minute!) minutes ago"
-        } else if components.minute! >= 1 {
+        } else if (components.minute ?? 0) >= 2 {
+            return "\(components.minute ?? 0) minutes ago"
+        } else if (components.minute ?? 0) >= 1 {
             if numericDates {
                 return "1 minute ago"
             } else {
                 return "A minute ago"
             }
-        } else if components.second! >= 3 {
-            return "\(components.second!) seconds ago"
+        } else if (components.second ?? 0) >= 3 {
+            return "\(components.second ?? 0) seconds ago"
         } else {
             return "Just now"
         }

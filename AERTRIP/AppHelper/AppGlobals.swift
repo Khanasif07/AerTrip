@@ -58,7 +58,7 @@ class AppGlobals {
     static let shared = AppGlobals()
     private init() {}
     
-    let appdelegate = UIApplication.shared.delegate as! AppDelegate
+    let appdelegate = UIApplication.shared.delegate as? AppDelegate //?? AppDelegate()
     
     //vcs used in mybooking filter screen
   //  var travelDateVC: TravelDateVC?
@@ -377,7 +377,7 @@ class AppGlobals {
     func createParagraphAttribute(paragraphSpacingBefore: CGFloat = -2.5,isForNotes: Bool,lineSpacing : CGFloat =  0.0, headIndent: CGFloat = 11) -> NSParagraphStyle {
         var paragraphStyle: NSMutableParagraphStyle
         paragraphStyle = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
-        paragraphStyle.tabStops = [NSTextTab(textAlignment: .left, location: 15, options: NSDictionary() as! [NSTextTab.OptionKey: Any])]
+        paragraphStyle.tabStops = [NSTextTab(textAlignment: .left, location: 15, options: NSDictionary() as? [NSTextTab.OptionKey: Any] ?? [:])]
         paragraphStyle.minimumLineHeight = 0
         paragraphStyle.maximumLineHeight = 0
         paragraphStyle.defaultTabInterval = 5
@@ -392,7 +392,7 @@ class AppGlobals {
     
     func openGoogleMaps(originLat: String, originLong: String, destLat: String, destLong: String) {
         
-        if UIApplication.shared.canOpenURL(URL(string: "comgooglemaps://")!) {
+        if let url = URL(string: "comgooglemaps://"), UIApplication.shared.canOpenURL(url) {
             let urlStr = "comgooglemaps://?q=\(destLat),\(destLong)&zoom=12"
             if let url = URL(string: urlStr), !url.absoluteString.isEmpty {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -568,8 +568,8 @@ class AppGlobals {
     func getStringFromImage(name : String) -> NSAttributedString {
         
         let imageAttachment = NSTextAttachment()
-        let sourceSansPro18 = UIFont(name: "SourceSansPro-Semibold", size: 18.0)!
-        let iconImage = UIImage(named: name )!
+        let sourceSansPro18 = UIFont(name: "SourceSansPro-Semibold", size: 18.0) ?? UIFont.systemFont(ofSize: 18.0)
+        let iconImage = UIImage(named: name ) ?? UIImage()
         imageAttachment.image = iconImage
         
         let yCordinate  = roundf(Float(sourceSansPro18.capHeight - iconImage.size.height) / 2.0)
@@ -947,7 +947,7 @@ extension AppGlobals {
         default:
             emoji = UIImage(named: "person")
         }
-        return emoji!
+        return emoji ?? UIImage()
     }
     
     func getEmojiIconFromAge(ageString: String,salutation: String) -> UIImage {
@@ -982,7 +982,7 @@ extension AppGlobals {
         default:
             emoji = UIImage(named: "person")
         }
-        return emoji!
+        return emoji ?? UIImage()
     }
     
     //get Age Last String Based on DOB

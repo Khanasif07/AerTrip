@@ -21,9 +21,9 @@ enum WebService {
 }
 
 extension WebService : APIProtocol {
-    func getUrlRequest() -> URLRequest {
-        let URLObj = URL(string: path)
-        var urlRequestObj = URLRequest(url: URLObj!)
+    func getUrlRequest() -> URLRequest? {
+        guard let URLObj = URL(string: path) else {return nil}
+        var urlRequestObj = URLRequest(url: URLObj)
         urlRequestObj.httpBody = data
         urlRequestObj.httpMethod = httpMethod
         urlRequestObj.allHTTPHeaderFields = httpHeader
@@ -100,23 +100,23 @@ extension WebService : APIProtocol {
             return nil
             
         case .flightPerformanceResult(origin: let origin, destination: let destination, airline: let airline, flight_number: let flight_number):
-            let postData = NSMutableData(data: "origin=\(origin)".data(using: String.Encoding.utf8)!)
-            postData.append("&destination=\(destination)".data(using: String.Encoding.utf8)!)
-            postData.append("&airline=\(airline)".data(using: String.Encoding.utf8)!)
-            postData.append("&flight_number=\(flight_number)".data(using: String.Encoding.utf8)!)
+            let postData = NSMutableData(data: "origin=\(origin)".data(using: String.Encoding.utf8) ?? Data())
+            postData.append("&destination=\(destination)".data(using: String.Encoding.utf8) ?? Data())
+            postData.append("&airline=\(airline)".data(using: String.Encoding.utf8) ?? Data())
+            postData.append("&flight_number=\(flight_number)".data(using: String.Encoding.utf8) ?? Data())
             return postData as Data
             
         case .baggageResult(_, _):
             return nil
             
         case .fareInfoResult(sid: let sid, fk: let fk):
-            let postData = NSMutableData(data: "sid=\(sid)".data(using: String.Encoding.utf8)!)
-            postData.append("&fk[]=\(fk)".data(using: String.Encoding.utf8)!)
+            let postData = NSMutableData(data: "sid=\(sid)".data(using: String.Encoding.utf8) ?? Data())
+            postData.append("&fk[]=\(fk)".data(using: String.Encoding.utf8) ?? Data())
             return postData as Data
             
         case .fareRulesResult(sid: let sid, fk: let fk):
-            let postData = NSMutableData(data: "sid=\(sid)".data(using: String.Encoding.utf8)!)
-            postData.append("&fk[]=\(fk)".data(using: String.Encoding.utf8)!)
+            let postData = NSMutableData(data: "sid=\(sid)".data(using: String.Encoding.utf8) ?? Data())
+            postData.append("&fk[]=\(fk)".data(using: String.Encoding.utf8) ?? Data())
             return postData as Data
             
         case .upgradeAPIResult(sid: _, fk: _, oldFare: _):

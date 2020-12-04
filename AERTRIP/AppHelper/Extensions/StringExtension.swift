@@ -127,7 +127,7 @@ extension String {
     }
     
     var isBackSpace : Bool {
-        let char = self.cString(using: String.Encoding.utf8)!
+        guard let char = self.cString(using: String.Encoding.utf8) else {return false}
         return strcmp(char, "\\b") == -92
     }
     

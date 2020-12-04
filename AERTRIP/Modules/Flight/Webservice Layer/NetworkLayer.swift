@@ -11,7 +11,7 @@ import UIKit
 
 protocol APIProtocol {
     
-    func getUrlRequest() -> URLRequest
+    func getUrlRequest() -> URLRequest?
     
 //    var flightBaseUrl : String { get }
 
@@ -35,7 +35,7 @@ class WebAPIService
 
     func executeAPI(apiServive : WebService, completionHandler : @escaping (Data) -> Void , failureHandler: @escaping (Error) -> Void )
     {
-        var urlRequest = apiServive.getUrlRequest()
+        guard var urlRequest = apiServive.getUrlRequest() else {return}
         urlRequest.httpBody = apiServive.data
         urlRequest.httpMethod = apiServive.httpMethod
         
@@ -103,7 +103,7 @@ class WebAPIService
     
     func getJSONFileFromAPI(APIRequest : APIProtocol , completionHandler : @escaping (Data) -> Void , failureHandler: @escaping (Error) -> Void ){
         
-        let urlRequest = APIRequest.getUrlRequest()
+        guard let urlRequest = APIRequest.getUrlRequest() else {return}
         
         let session = URLSession.shared
         let task = session.downloadTask(with: urlRequest){ url , response, error in
@@ -139,8 +139,8 @@ class WebAPIService
     }
     
     func getImageForPath( path:String , completionHandler: @escaping (() -> Void )) -> UIImage? {
-        
-        let urlRequest = URLRequest(url: URL(string: path)!)
+        guard let url = URL(string: path) else {return nil}
+        let urlRequest = URLRequest(url: url)
         if let responseObj = URLCache.shared.cachedResponse(for: urlRequest) {
             
             let image = UIImage(data: responseObj.data)

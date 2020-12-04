@@ -255,7 +255,7 @@ class PriceFilterViewController: UIViewController , FilterViewController {
             .kern: 0.0
         ])
         
-        attributedString.addAttribute(.font, value: UIFont(name: "SourceSansPro-Regular", size: 14.0)!, range:NSRange(location: 0, length: 1))
+        attributedString.addAttribute(.font, value: AppFonts.Regular.withSize(14), range:NSRange(location: 0, length: 1))
         //            attributedString.addAttribute(.font, value: UIFont(name: "SourceSansPro-Regular", size: 14.0)!, range:NSRange(location: distance, length: 1))
         return attributedString
     }

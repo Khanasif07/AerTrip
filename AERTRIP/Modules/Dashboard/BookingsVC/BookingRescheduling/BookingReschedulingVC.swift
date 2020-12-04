@@ -55,6 +55,7 @@ class BookingReschedulingVC: BaseVC {
     
     override func initialSetup() {
         self.reschedulingTableView.contentInset = UIEdgeInsets(top: headerContainer.height, left: 0, bottom: 0, right: 0)
+        self.continueButton.isShadowColorNeeded = true
         self.continueButton.shadowColor = AppColors.clear
         self.priceViewAndButtonContainerView.backgroundColor = AppColors.clear
         self.setupTotalRefundAndCont()

@@ -77,7 +77,7 @@ class ATPageContainerView: UIView {
         pageVC.view.willMove(toSuperview: self)
         addSubview(pageVC.view)
         pageVC.view.didMoveToSuperview()
-        
+        guard self.childVCs.count > 0 else {return}
         pageVC.setViewControllers([childVCs.first!], direction: .forward, animated: false, completion: nil)
         
         

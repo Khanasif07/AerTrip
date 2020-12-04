@@ -117,7 +117,9 @@ class PostBookingAddonsPaymentVC: BaseVC{
         self.payButton.titleLabel?.font = AppFonts.SemiBold.withSize(20.0)
         self.payButton.setImage(#imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .normal)
         self.payButton.setImage(#imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .highlighted)
-        self.payButton.bringSubviewToFront(self.payButton.imageView!)
+        if self.payButton.imageView != nil{
+            self.payButton.bringSubviewToFront(self.payButton.imageView!)
+        }
         self.payButton.spaceInTextAndImageOfButton(spacing: 2)
         self.payButton.setTitleColor(AppColors.themeWhite, for: .normal)
         self.setupPayButtonTitle()

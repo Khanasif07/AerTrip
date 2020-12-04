@@ -53,7 +53,8 @@ class PhotoGalleryVC: BaseVC {
             if self.hid == TAViewModel.shared.hotelId, let data = TAViewModel.shared.hotelTripAdvisorDetails{
                 let urlString = "https:\(data.seeAllPhotos)"
                 let screenTitle = LocalizedString.Photos.localized
-                AppFlowManager.default.showURLOnATWebView(URL(string: urlString)!, screenTitle: screenTitle)
+                guard let url = URL(string: urlString) else {return}
+                AppFlowManager.default.showURLOnATWebView(url, screenTitle: screenTitle)
             }
         }
         self.bottomContainerView.layoutIfNeeded()
@@ -208,21 +209,29 @@ extension PhotoGalleryVC: UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
 
         guard let cell = self.galleryCollection.cellForItem(at: IndexPath(item: index, section: 0)) else { return nil }
-        let currentFrame = self.returnCellFrameWithViewController(cell: cell)
+        if let currentFrame = self.returnCellFrameWithViewController(cell: cell){
         
-        return GalleryPresentingAnimator(pageIndex: index, originFrame: currentFrame)
+            return GalleryPresentingAnimator(pageIndex: index, originFrame: currentFrame)
+            
+        }else{
+            return nil
+        }
     }
 
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         guard let returnCellFrame = self.galleryCollection.cellForItem(at: IndexPath(item: index, section: 0)) else { return nil }
-        let cardFrame = returnCellFrameWithViewController(cell:returnCellFrame)
-        return GalleryImageDismissAnimator(pageIndex: index, finalFrame: cardFrame)
+        if let cardFrame = returnCellFrameWithViewController(cell:returnCellFrame){
+            return GalleryImageDismissAnimator(pageIndex: index, finalFrame: cardFrame)
+            
+        }else{
+            return nil
+        }
     }
     
     
-    func returnCellFrameWithViewController(cell: UICollectionViewCell)-> CGRect{
-        let currentCellFrame = cell.layer.presentation()!.frame
-        let cardFrame = cell.superview!.convert(currentCellFrame, to: nil)
+    func returnCellFrameWithViewController(cell: UICollectionViewCell)-> CGRect?{
+        let currentCellFrame = cell.layer.presentation()?.frame ?? CGRect.zero
+        let cardFrame = cell.superview?.convert(currentCellFrame, to: nil)
         return cardFrame
     }
     

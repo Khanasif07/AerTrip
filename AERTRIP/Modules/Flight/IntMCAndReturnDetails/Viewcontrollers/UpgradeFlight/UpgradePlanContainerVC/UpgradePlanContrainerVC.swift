@@ -123,7 +123,9 @@ class UpgradePlanContrainerVC: BaseVC, UpgradePlanListVCDelegate {
         self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
         self.parchmentView?.indicatorColor = AppColors.themeWhite
         self.parchmentView?.selectedTextColor = AppColors.themeWhite
-        self.containerView.addSubview(self.parchmentView!.view)
+        if self.parchmentView != nil{
+            self.containerView.addSubview(self.parchmentView!.view)
+        }
         
         self.parchmentView?.dataSource = self
         self.parchmentView?.delegate = self
@@ -152,7 +154,7 @@ class UpgradePlanContrainerVC: BaseVC, UpgradePlanListVCDelegate {
     private func getStringFromImage(name : String) -> NSAttributedString {
         let imageAttachment = NSTextAttachment()
         let sourceSansPro18 = AppFonts.SemiBold.withSize(18.0)
-        let iconImage = UIImage(named: name )!
+        let iconImage = UIImage(named: name ) ?? UIImage()
         imageAttachment.image = iconImage
         
         let yCordinate  = roundf(Float(sourceSansPro18.capHeight - iconImage.size.height) / 2.0)

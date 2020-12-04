@@ -42,6 +42,6 @@ import UIKit
     }
     
     @objc func onDoneButtonTapped() {
-        self.delegate?.flight!(fromSource: self.fromFlightArray, toDestination: self.toFlightArray, airlineNum:airlineNum)
+        self.delegate?.flight?(fromSource: self.fromFlightArray, toDestination: self.toFlightArray, airlineNum:airlineNum)
     }
 }
