@@ -33,7 +33,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Web Checkin" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kt5-VD-iA8">
-                                <rect key="frame" x="10" y="50" width="105" height="26"/>
+                                <rect key="frame" x="1" y="47" width="122.5" height="32"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -50,15 +50,15 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="VHS-On-RlR" secondAttribute="bottom" id="0ST-Sm-f2V"/>
-                            <constraint firstItem="kt5-VD-iA8" firstAttribute="top" secondItem="tF5-re-DTE" secondAttribute="bottom" id="4xg-6p-O28"/>
+                            <constraint firstItem="kt5-VD-iA8" firstAttribute="top" secondItem="tF5-re-DTE" secondAttribute="bottom" constant="-3" id="4xg-6p-O28"/>
                             <constraint firstAttribute="trailing" secondItem="VHS-On-RlR" secondAttribute="trailing" id="AhN-lX-Cdw"/>
                             <constraint firstAttribute="height" constant="79" id="BDH-1y-jmb"/>
                             <constraint firstItem="VHS-On-RlR" firstAttribute="top" secondItem="gdw-iz-RBT" secondAttribute="top" id="ECF-pw-Ny1"/>
                             <constraint firstItem="tF5-re-DTE" firstAttribute="centerX" secondItem="gdw-iz-RBT" secondAttribute="centerX" id="Jvb-PC-H7a"/>
-                            <constraint firstItem="VHS-On-RlR" firstAttribute="leading" secondItem="kt5-VD-iA8" secondAttribute="trailing" constant="9.5" id="Ozp-Ns-DL7"/>
-                            <constraint firstItem="kt5-VD-iA8" firstAttribute="leading" secondItem="gdw-iz-RBT" secondAttribute="leading" constant="10" id="Qxt-7R-m5w"/>
+                            <constraint firstItem="VHS-On-RlR" firstAttribute="leading" secondItem="kt5-VD-iA8" secondAttribute="trailing" constant="1" id="Ozp-Ns-DL7"/>
+                            <constraint firstItem="kt5-VD-iA8" firstAttribute="leading" secondItem="gdw-iz-RBT" secondAttribute="leading" constant="1" id="Qxt-7R-m5w"/>
                             <constraint firstItem="tF5-re-DTE" firstAttribute="top" secondItem="gdw-iz-RBT" secondAttribute="top" id="WdR-Zx-74h"/>
-                            <constraint firstAttribute="bottom" secondItem="kt5-VD-iA8" secondAttribute="bottom" constant="3" id="oLq-an-ub0"/>
+                            <constraint firstAttribute="bottom" secondItem="kt5-VD-iA8" secondAttribute="bottom" id="oLq-an-ub0"/>
                         </constraints>
                     </view>
                 </subviews>

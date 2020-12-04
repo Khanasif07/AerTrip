@@ -105,7 +105,6 @@ extension FlightsOptionsTableViewCell: UICollectionViewDelegate, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FlightsOptionCollectionViewCell.reusableIdentifier, for: indexPath) as? FlightsOptionCollectionViewCell else { return UICollectionViewCell() }
-        
         if self.usingFor == .flight {
             cell.configureCell(optionImage: self.optionImages[indexPath.item], optionName: self.optionNames[indexPath.item], isLastCell: indexPath.row == 2)
             if indexPath.item == 0, self.webCheckinUrl.isEmpty {
@@ -219,13 +218,13 @@ extension FlightsOptionsTableViewCell: UICollectionViewDelegate, UICollectionVie
         switch usingFor {
         case .flight:
             let width = collectionView.width/3//CGFloat(self.optionImages.count)
-            return CGSize(width: width, height: collectionView.height/2)
+            return CGSize(width: width, height: collectionView.height/2 - 5)
         default:
             var width = collectionView.width/3 - 0.5
             if indexPath.item == 0 || indexPath.item == 1 {
                 width = collectionView.width/2
             }
-            return CGSize(width: width, height: collectionView.height/2)
+            return CGSize(width: width, height: collectionView.height/2 - 5)
         }
     }
     
@@ -234,10 +233,10 @@ extension FlightsOptionsTableViewCell: UICollectionViewDelegate, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return CGFloat.leastNonzeroMagnitude
+        return usingFor == .hotel ? 10 : .leastNonzeroMagnitude
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return CGFloat.leastNonzeroMagnitude
+        return usingFor == .flight ? 10 : .leastNonzeroMagnitude
     }
 }

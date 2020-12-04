@@ -227,6 +227,7 @@ extension HotlelBookingsDetailsVC {
         cell.usingFor = .addToAppleWallet
         cell.configureCell(buttonImage: #imageLiteral(resourceName: "AddToAppleWallet"), buttonTitle: LocalizedString.AddToAppleWallet.localized)
         cell.actionButton.isLoading = self.viewModel.showWaletLoader
+        cell.backgroundViewTopConstraint.constant = 16
         return cell
     }
     

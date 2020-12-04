@@ -21,6 +21,7 @@ class BookingCommonActionTableViewCell: ATTableViewCell {
     
     @IBOutlet weak var actionButton: ATButton!
     @IBOutlet weak var topBackgroundView: UIView!
+    @IBOutlet weak var backgroundViewTopConstraint: NSLayoutConstraint!
     
     // MARK: - Variables
     

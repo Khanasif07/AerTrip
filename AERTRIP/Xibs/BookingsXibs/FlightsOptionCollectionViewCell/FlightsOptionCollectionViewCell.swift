@@ -57,7 +57,7 @@ class FlightsOptionCollectionViewCell: UICollectionViewCell {
 //        } else {
             self.imageViewHeightConstraint.constant = 50.0
             self.imageViewTopConstraint.constant = 0.0
-            self.titleTopConstraint.constant = 0.0
+            self.titleTopConstraint.constant = -3.0
 //        }
         
     }
