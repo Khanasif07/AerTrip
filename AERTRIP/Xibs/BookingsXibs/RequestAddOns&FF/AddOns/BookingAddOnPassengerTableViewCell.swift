@@ -15,6 +15,7 @@ class BookingAddOnPassengerTableViewCell: ATTableViewCell {
     @IBOutlet weak var requestInProcessLbl: UILabel!
     @IBOutlet weak var passengerImageView: UIImageView!
     
+    @IBOutlet weak var dividerView: ATDividerView!
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
     
     override func awakeFromNib() {

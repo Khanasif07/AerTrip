@@ -169,7 +169,7 @@ extension SearchHotelTagVC: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if !(searchBar.text?.trimmingCharacters(in: .whitespaces).isEmpty ?? false){
             if let safeDelegate = self.delegate {
-                safeDelegate.addTagButtons(tagName: searchBar.text!)
+                safeDelegate.addTagButtons(tagName: searchBar.text ?? "")
             }
             IQKeyboardManager.shared().isEnabled = true
             IQKeyboardManager.shared().isEnableAutoToolbar = true

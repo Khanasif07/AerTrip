@@ -127,7 +127,7 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
     {
         guard let legs = journey?.legsWithDetail else {return UITableViewCell()}
         if indexPath.section == legs.count{
-            let changeAirportCell = tableView.dequeueReusableCell(withIdentifier: "ChangeAirportCell") as! ChangeAirportTableViewCell
+            guard let changeAirportCell = tableView.dequeueReusableCell(withIdentifier: "ChangeAirportCell") as? ChangeAirportTableViewCell else {return UITableViewCell()}
             changeAirportCell.titleLabel.text = ""
             changeAirportCell.titleLabelHeight.constant = 0
             changeAirportCell.dataLabelTop.constant = 0
@@ -163,7 +163,7 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
             }
             return changeAirportCell
         }else{
-            let baggageCell = tableView.dequeueReusableCell(withIdentifier: "BaggageDetailsPerFlightCell") as! BaggageDetailsPerFlightTableViewCell
+            guard let baggageCell = tableView.dequeueReusableCell(withIdentifier: "BaggageDetailsPerFlightCell") as? BaggageDetailsPerFlightTableViewCell else {return UITableViewCell()}
             
             if evaluatedBaggageResp.count > 0{
                 baggageCell.dimensionsButton.tag = (indexPath.section*100)+indexPath.row
@@ -173,8 +173,7 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
                     baggageCell.journeyTitleLabel.text = flightRoute
                 }
                 
-                if let flightIcon = evaluatedBaggageResp[indexPath.section][indexPath.row]["flightIcon"] as? NSArray{
-                    let icon = flightIcon[indexPath.row] as! String
+                if let flightIcon = evaluatedBaggageResp[indexPath.section][indexPath.row]["flightIcon"] as? NSArray, let icon = flightIcon[indexPath.row] as? String{
                     let logoURL = "http://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/" + icon.uppercased() + ".png"
                     setImageFromPath(urlPath : logoURL , to: baggageCell.airlineLogoImageView)
                 }else if let flightIconStr = evaluatedBaggageResp[indexPath.section][indexPath.row]["flightIcon"] as? String{

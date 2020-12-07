@@ -245,7 +245,7 @@ extension SelectTripVC: UITableViewDataSource, UITableViewDelegate {
             cell?.accessoryView = checkMarckImageView
         }
         
-        return cell!
+        return cell ?? UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

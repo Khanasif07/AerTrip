@@ -318,15 +318,15 @@ class HotelDetailsVM {
         if isRefundableSelected && isPartRefundable && isNonRefundable || (!isRefundableSelected && !isPartRefundable && !isNonRefundable) /* remianing cases */ {
             return currentRate
         } else {
-            if isRefundableSelected && currentRate.cancellation_penalty!.is_refundable {
+            if isRefundableSelected && (currentRate.cancellation_penalty?.is_refundable ?? false) {
                 return currentRate
             } else if isPartRefundable {
-                for penalty in currentRate.penalty_array! {
+                for penalty in currentRate.penalty_array ?? [] {
                     if !penalty.to.isEmpty && !penalty.from.isEmpty {
                         return currentRate
                     }
                 }
-            } else if isNonRefundable && !currentRate.cancellation_penalty!.is_refundable {
+            } else if isNonRefundable && !(currentRate.cancellation_penalty?.is_refundable ?? false) {
                 return currentRate
             }
         }

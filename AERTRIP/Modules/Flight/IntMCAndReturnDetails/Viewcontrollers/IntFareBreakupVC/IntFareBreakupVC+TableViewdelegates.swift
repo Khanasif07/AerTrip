@@ -44,7 +44,7 @@ extension IntFareBreakupVC: UITableViewDelegate,UITableViewDataSource{
         switch indexPath.section
         {
         case 0:
-            let fareBreakupCell = tableView.dequeueReusableCell(withIdentifier: "FareBreakupCell") as! FareBreakupTableViewCell
+            guard let fareBreakupCell = tableView.dequeueReusableCell(withIdentifier: "FareBreakupCell") as? FareBreakupTableViewCell else  {return UITableViewCell()}
             fareBreakupCell.selectionStyle = .none
             
             if self.bookFlightObject.flightAdultCount == 0{
@@ -80,7 +80,7 @@ extension IntFareBreakupVC: UITableViewDelegate,UITableViewDataSource{
             return fareBreakupCell
             
         case 1:
-            let baseFareCell = tableView.dequeueReusableCell(withIdentifier: "BaseFareCell") as! BaseFareTableViewCell
+            guard let baseFareCell = tableView.dequeueReusableCell(withIdentifier: "BaseFareCell") as? BaseFareTableViewCell else {return UITableViewCell()}
             baseFareCell.selectionStyle = .none
             
             baseFareCell.titleLabelLeading.constant = 16
@@ -140,7 +140,7 @@ extension IntFareBreakupVC: UITableViewDelegate,UITableViewDataSource{
                 baseFareCell.titleLabelLeading.constant = 31
                 
                 if taxAndFeesData.count > 0{
-                    baseFareCell.titleLabel.text = (taxAndFeesData[indexPath.row-1]["name"] as! String)
+                    baseFareCell.titleLabel.text = taxAndFeesData[indexPath.row-1]["name"] as? String
                     if (taxAndFeesData[indexPath.row-1]["value"] as? Int) != nil{
                         let amount : Double = Double(taxAndFeesData[indexPath.row-1]["value"] as? Int ?? 0)
                         
@@ -183,7 +183,7 @@ extension IntFareBreakupVC: UITableViewDelegate,UITableViewDataSource{
                 baseFareCell.dataDisplayViewBottom.constant = 0
                 return baseFareCell
             }else{
-                let baseFareCell = tableView.dequeueReusableCell(withIdentifier: "BaseFareCell") as! BaseFareTableViewCell
+                guard let baseFareCell = tableView.dequeueReusableCell(withIdentifier: "BaseFareCell") as? BaseFareTableViewCell else {return UITableViewCell()}
                 baseFareCell.selectionStyle = .none
                 baseFareCell.isHidden = isAddonsExpend
                 baseFareCell.titleLabelLeading.constant = 31
