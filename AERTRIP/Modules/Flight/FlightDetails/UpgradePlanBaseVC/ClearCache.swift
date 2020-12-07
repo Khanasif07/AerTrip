@@ -46,44 +46,44 @@ class ClearCache: NSObject
     }
     
     func checkTimeAndClearFlightPerformanceResultCache(journey: [Journey]?){
-        if appdelegate.flightPerformanceMutableArray != nil{
-            let date = Date()
-            let calendar = Calendar.current
-            let hour = calendar.component(.hour, from: date)
-            let minutes = calendar.component(.minute, from: date)
-            let seconds = calendar.component(.second, from: date)
-            
-            
-            if journey != nil{
-                for j in 0..<(journey?.count ?? 0){
-                    if let allFlights = journey?[j].leg.first?.flights{
-                        for k in 0..<allFlights.count{
-                            let storedTime = journey?[j].leg[0].flights[k].ontimePerformanceDataStoringTime ?? ""
-
-                            if storedTime != nil{
-                                let currTime = "\(hour):\(minutes):\(seconds)"
-                                
-                                let dateFormatter = DateFormatter()
-                                dateFormatter.dateFormat = "HH:mm:ss"
-                                let formatedStoredTime = dateFormatter.date(from:storedTime)!
-                                let formatedCurrTime = dateFormatter.date(from:currTime)!
-                                
-                                let calendarFormat = NSCalendar.current
-                                let next3MinutesTime = calendarFormat.date(byAdding: .minute, value: 3, to: formatedStoredTime)
-                                
-                                if formatedCurrTime > next3MinutesTime!{
-                                    journey?[j].leg[0].flights[k].ontimePerformance = nil
-                                    journey?[j].leg[0].flights[k].latePerformance = nil
-                                    journey?[j].leg[0].flights[k].cancelledPerformance = nil
-                                    journey?[j].leg[0].flights[k].observationCount = nil
-                                    journey?[j].leg[0].flights[k].averageDelay = nil
-                                    journey?[j].leg[0].flights[k].ontimePerformanceDataStoringTime = nil
-
-                                }
-                            }
+        //        if appdelegate.flightPerformanceMutableArray != nil{
+        let date = Date()
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: date)
+        let minutes = calendar.component(.minute, from: date)
+        let seconds = calendar.component(.second, from: date)
+        
+        
+        if journey != nil{
+            for j in 0..<(journey?.count ?? 0){
+                if let allFlights = journey?[j].leg.first?.flights{
+                    for k in 0..<allFlights.count{
+                        let storedTime = journey?[j].leg[0].flights[k].ontimePerformanceDataStoringTime ?? ""
+                        
+                        //                            if storedTime != nil {
+                        let currTime = "\(hour):\(minutes):\(seconds)"
+                        
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.dateFormat = "HH:mm:ss"
+                        let formatedStoredTime = dateFormatter.date(from:storedTime)
+                        let formatedCurrTime = dateFormatter.date(from:currTime)
+                        
+                        let calendarFormat = NSCalendar.current
+                        guard let formattedStoredTime = formatedStoredTime, let formattedCurTime = formatedCurrTime, let next3MinutesTime = calendarFormat.date(byAdding: .minute, value: 3, to: formattedStoredTime) else { return }
+                        
+                        if formattedCurTime > next3MinutesTime{
+                            journey?[j].leg[0].flights[k].ontimePerformance = nil
+                            journey?[j].leg[0].flights[k].latePerformance = nil
+                            journey?[j].leg[0].flights[k].cancelledPerformance = nil
+                            journey?[j].leg[0].flights[k].observationCount = nil
+                            journey?[j].leg[0].flights[k].averageDelay = nil
+                            journey?[j].leg[0].flights[k].ontimePerformanceDataStoringTime = nil
+                            
                         }
+                        //                            }
                     }
-
+                    //                    }
+                    
                 }
             }
         }

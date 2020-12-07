@@ -253,63 +253,59 @@ extension FlightFilterBaseVC {
         
         switch filter {
         case .sort:
-            if uiViewController is FlightSortFilterViewController {
-                setSortVC(uiViewController as! FlightSortFilterViewController)
+            if let sortVC = uiViewController as? FlightSortFilterViewController {
+                setSortVC(sortVC)
             }
             
         case .stops:
-            if uiViewController is FlightStopsFilterViewController {
-                setStopsVC(uiViewController as! FlightStopsFilterViewController, inputFilters: filters)
+            if let stopsVC = uiViewController as? FlightStopsFilterViewController {
+                setStopsVC(stopsVC, inputFilters: filters)
             }
             
         case .Times :
-            if uiViewController is FlightFilterTimesViewController {
-                setTimesVC(uiViewController as! FlightFilterTimesViewController, inputFilters: filters)
+            if let timesVC = uiViewController as? FlightFilterTimesViewController {
+                setTimesVC(timesVC, inputFilters: filters)
             }
             
         case .Duration:
-            if uiViewController is FlightDurationFilterViewController {
+            if let durationVC = uiViewController as? FlightDurationFilterViewController {
                 
                 if searchType == RETURN_JOURNEY {
-                    setDurationVCForReturnJourney(uiViewController as! FlightDurationFilterViewController, inputFilters: filters)
+                    setDurationVCForReturnJourney(durationVC, inputFilters: filters)
                 }else {
-                    setDurationVC(uiViewController as! FlightDurationFilterViewController, inputFilters: filters)
+                    setDurationVC(durationVC, inputFilters: filters)
                 }
             }
             
         case .Airlines:
-            if uiViewController is AirlinesFilterViewController {
+            if let airlinesVC = uiViewController as? AirlinesFilterViewController {
                 
                 if searchType == RETURN_JOURNEY {
-                    setAirlineVCForReturnJourney(uiViewController as! AirlinesFilterViewController, inputFilters: filters)
+                    setAirlineVCForReturnJourney(airlinesVC, inputFilters: filters)
                 }else {
-                    setAirlineVC( uiViewController as! AirlinesFilterViewController, inputFilters: filters)
+                    setAirlineVC(airlinesVC, inputFilters: filters)
                 }
             }
             
         case .Price:
-            if uiViewController is PriceFilterViewController {
-                setPriceVC( uiViewController as! PriceFilterViewController, inputFilters: filters)
+            if let priceVC = uiViewController as? PriceFilterViewController {
+                setPriceVC(priceVC, inputFilters: filters)
             }
             
         case .Airport:
-            if uiViewController is AirportsFilterViewController {
-                setAirportVC ( uiViewController as! AirportsFilterViewController, inputFilters: filters)
+            if let airportsVC = uiViewController as? AirportsFilterViewController {
+                setAirportVC (airportsVC, inputFilters: filters)
             }
             
         case .Quality:
-            if uiViewController is QualityFilterViewController {
-                setQualityFilterVC(uiViewController as! QualityFilterViewController)
+            if let qualityVC = uiViewController as? QualityFilterViewController {
+                setQualityFilterVC(qualityVC)
             }
             
         case .Aircraft:
-            
-            if let vc = uiViewController as? AircraftFilterViewController {
-                self.setAircraftFilterVC(vc)
-
+            if let aircraftVC = uiViewController as? AircraftFilterViewController {
+                self.setAircraftFilterVC(aircraftVC)
             }
-            
-
         }
     }
     
@@ -1200,12 +1196,12 @@ extension FlightFilterBaseVC {
                     
                     let airport = airportsDetails[airportcode]
                     
-                    let name = airport?.n
+                    let name = airport?.n ?? ""
                     guard let airportCity = airport?.c else { continue }
                     cityName = airportCity
                     let airportCode = airportcode
                     
-                    let displayModel = Airport(name : name!, IATACode:airportCode, city: airportCity )
+                    let displayModel = Airport(name : name, IATACode:airportCode, city: airportCity )
                     airportsArray.append(displayModel)
                 }
                 originAirports.append( AirportsGroupedByCity(name: cityName, airports: airportsArray))
@@ -1221,12 +1217,12 @@ extension FlightFilterBaseVC {
                     
                     if  let airport = airportsDetails[airportcode] {
                         
-                        let name = airport.n
-                        let city = airport.c
-                        cityName = city!
+                        let name = airport.n ?? ""
+                        let city = airport.c ?? ""
+                        cityName = city
                         let airportCode = airportcode
                         
-                        let displayModel = Airport(name : name!, IATACode:airportCode, city: city! )
+                        let displayModel = Airport(name : name, IATACode:airportCode, city: city)
                         airportsArray.append(displayModel)
                     }
                 }
@@ -1239,13 +1235,13 @@ extension FlightFilterBaseVC {
             for layoverAirport in  layoverAirportsCode {
                 
                 if let airport = airportsDetails[layoverAirport] {
-                    let name = airport.n
-                    country = airport.cname!
-                    let city = airport.c
+                    let name = airport.n ?? ""
+                    country = airport.cname ?? ""
+                    let city = airport.c ?? ""
                     let airportCode = layoverAirport
                     
                     var layouverAirportsArray = [Airport]()
-                    let displayModel = Airport(name : name!, IATACode:airportCode, city: city! )
+                    let displayModel = Airport(name : name, IATACode:airportCode, city: city)
                     layouverAirportsArray.append(displayModel)
                     let layoverDisplayModel =  LayoverDisplayModel(country: country, airports:layouverAirportsArray)
                     
@@ -1310,12 +1306,12 @@ extension FlightFilterBaseVC {
                     
                     let airport = airportsDetails[airportcode]
                     
-                    let name = airport?.n
+                    let name = airport?.n ?? ""
                     guard let airportCity = airport?.c else { continue }
                     cityName = airportCity
                     let airportCode = airportcode
                     
-                    let displayModel = Airport(name : name!, IATACode:airportCode, city: airportCity )
+                    let displayModel = Airport(name : name, IATACode:airportCode, city: airportCity)
                     airportsArray.append(displayModel)
                 }
                 originAirports.append( AirportsGroupedByCity(name: cityName, airports: airportsArray))
@@ -1331,12 +1327,12 @@ extension FlightFilterBaseVC {
                     
                     if  let airport = airportsDetails[airportcode] {
                         
-                        let name = airport.n
-                        let city = airport.c
-                        cityName = city!
+                        let name = airport.n ?? ""
+                        let city = airport.c ?? ""
+                        cityName = city
                         let airportCode = airportcode
                         
-                        let displayModel = Airport(name : name!, IATACode:airportCode, city: city! )
+                        let displayModel = Airport(name : name, IATACode:airportCode, city: city)
                         airportsArray.append(displayModel)
                     }
                 }
@@ -1349,13 +1345,13 @@ extension FlightFilterBaseVC {
             for layoverAirport in  layoverAirportsCode {
                 
                 if let airport = airportsDetails[layoverAirport] {
-                    let name = airport.n
-                    country = airport.cname!
-                    let city = airport.c
+                    let name = airport.n ?? ""
+                    country = airport.cname ?? ""
+                    let city = airport.c ?? ""
                     let airportCode = layoverAirport
                     
                     var layouverAirportsArray = [Airport]()
-                    let displayModel = Airport(name : name!, IATACode:airportCode, city: city! )
+                    let displayModel = Airport(name : name, IATACode:airportCode, city: city)
                     layouverAirportsArray.append(displayModel)
                     let layoverDisplayModel =  LayoverDisplayModel(country: country, airports:layouverAirportsArray)
                     
