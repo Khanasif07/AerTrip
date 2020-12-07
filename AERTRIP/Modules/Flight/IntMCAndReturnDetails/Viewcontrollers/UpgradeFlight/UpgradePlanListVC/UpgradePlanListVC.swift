@@ -54,7 +54,7 @@ class UpgradePlanListVC: BaseVC {
     }
     
     private func setupIndicator(){
-        self.indicator.style = .white
+        self.indicator.style = .medium// .white
         self.indicator.color = AppColors.themeWhite
         self.indicator.hidesWhenStopped = true
     }

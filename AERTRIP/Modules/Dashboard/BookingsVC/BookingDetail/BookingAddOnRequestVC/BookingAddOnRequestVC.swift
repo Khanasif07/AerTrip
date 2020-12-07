@@ -139,7 +139,7 @@ class BookingAddOnRequestVC: BaseVC {
     }
     
     private func manageLoader(shouldStart: Bool) {
-        self.indicator.style = .white
+        self.indicator.style = .medium// .white
         self.indicator.color = AppColors.themeWhite
         if shouldStart{
             self.indicator.startAnimating()

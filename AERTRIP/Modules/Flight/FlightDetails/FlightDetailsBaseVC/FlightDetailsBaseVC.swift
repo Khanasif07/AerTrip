@@ -569,7 +569,7 @@ extension FlightDetailsBaseVC{
 
 extension FlightDetailsBaseVC : FlightDetailsVMDelegate, TripCancelDelegate{
     func manageLoader() {
-        self.addToTripIndicator.style = .gray
+        self.addToTripIndicator.style = .medium// .gray
         self.addToTripIndicator.color = AppColors.themeGreen
         self.addToTripIndicator.startAnimating()
         self.viewModel.delegate = self

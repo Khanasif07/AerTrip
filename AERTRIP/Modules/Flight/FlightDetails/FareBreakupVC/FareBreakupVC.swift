@@ -340,7 +340,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         indicator.frame.size.height = 25
         indicator.frame.size.width = 25
         self.bookingView.addSubview(indicator)
-        self.indicator.style = .white
+        self.indicator.style = .medium// .white
         self.indicator.color = AppColors.themeWhite
         self.indicator.startAnimating()
         self.hideShowLoader(isHidden:true)

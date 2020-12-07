@@ -245,56 +245,55 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
             //            if uiViewController is FlightSortFilterViewController {
             //                setSortVC(uiViewController as! FlightSortFilterViewController)
             //            }
-            if uiViewController is IntReturnAndMCSortVC {
-                setSortVC(uiViewController as! IntReturnAndMCSortVC, inputFilters: filters)
+            if let sortVC = uiViewController as? IntReturnAndMCSortVC {
+                setSortVC(sortVC, inputFilters: filters)
             }
         case .stops:
-            if uiViewController is FlightStopsFilterViewController {
-                setStopsVC(uiViewController as! FlightStopsFilterViewController, inputFilters: filters)
+            if let stopsVC = uiViewController as? FlightStopsFilterViewController {
+                setStopsVC(stopsVC, inputFilters: filters)
             }
         case .Times :
-            if uiViewController is FlightFilterTimesViewController {
-                setTimesVC(uiViewController as! FlightFilterTimesViewController, inputFilters: filters)
+            if let timesVC = uiViewController as? FlightFilterTimesViewController {
+                setTimesVC(timesVC, inputFilters: filters)
             }
         case .Duration:
-            if uiViewController is FlightDurationFilterViewController {
+            if let durationVC = uiViewController as? FlightDurationFilterViewController {
                 
                 if searchType == RETURN_JOURNEY {
-                    setDurationVCForReturnJourney(uiViewController as! FlightDurationFilterViewController, inputFilters: filters)
+                    setDurationVCForReturnJourney(durationVC, inputFilters: filters)
                 }
                 else {
-                    setDurationVC(uiViewController as! FlightDurationFilterViewController, inputFilters: filters)
+                    setDurationVC(durationVC, inputFilters: filters)
                 }
             }
             
         case .Airlines:
-            if uiViewController is AirlinesFilterViewController {
+            if let airlinesVC = uiViewController as? AirlinesFilterViewController {
                 
                 if searchType == RETURN_JOURNEY {
-                    setAirlineVCForReturnJourney(uiViewController as! AirlinesFilterViewController, inputFilters: filters)
+                    setAirlineVCForReturnJourney(airlinesVC, inputFilters: filters)
                 } else {
-                    setAirlineVC( uiViewController as! AirlinesFilterViewController, inputFilters: filters)
+                    setAirlineVC(airlinesVC, inputFilters: filters)
                 }
             }
             
         case .Price:
-            if uiViewController is PriceFilterViewController {
-                setPriceVC( uiViewController as! PriceFilterViewController, inputFilters: filters)
+            if let priceVC = uiViewController as? PriceFilterViewController {
+                setPriceVC(priceVC, inputFilters: filters)
             }
         case .Airport:
-            if uiViewController is AirportsFilterViewController {
-                setAirportVC ( uiViewController as! AirportsFilterViewController, inputFilters: filters, isUpdating: false)
+            if let airportsVC = uiViewController as? AirportsFilterViewController {
+                setAirportVC (airportsVC, inputFilters: filters, isUpdating: false)
             }
         case .Quality:
-            if uiViewController is QualityFilterViewController {
-                setQualityFilterVC(uiViewController as! QualityFilterViewController)
+            if let qualityVC = uiViewController as? QualityFilterViewController {
+                setQualityFilterVC(qualityVC)
             }
             
         case .Aircraft:
-              if let vc = uiViewController as? AircraftFilterViewController {
-                         self.setAircraftFilterVC(vc)
-
-                     }
+            if let aircraftVC = uiViewController as? AircraftFilterViewController {
+                self.setAircraftFilterVC(aircraftVC)
+            }
         }
     }
     
@@ -390,12 +389,12 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
                     
                     let airport = airportsDetails[airportcode]
                     
-                    let name = airport?.n
+                    let name = airport?.n ?? ""
                     guard let airportCity = airport?.c else { continue }
                     cityName = airportCity
                     let airportCode = airportcode
                     
-                    let displayModel = Airport(name : name!, IATACode:airportCode, city: airportCity)
+                    let displayModel = Airport(name : name, IATACode:airportCode, city: airportCity)
                     airportsArray.append(displayModel)
                 }
                 originAirports.append( AirportsGroupedByCity(name: cityName, airports: airportsArray))
@@ -617,21 +616,21 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
             let departureTime = filter.depDt
             let arrivalTime = filter.arDt
             
-            let departureMin = departureTime.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)
-            let departureMax = departureTime.latest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: true, interval: 3600)!
-            let arrivalMin = arrivalTime.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)!
-            let arrivalMax = arrivalTime.latest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: true, interval: 3600)
+            guard let departureMin = departureTime.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600),
+            let departureMax = departureTime.latest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: true, interval: 3600),
+            let arrivalMin = arrivalTime.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600),
+            let arrivalMax = arrivalTime.latest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: true, interval: 3600) else { return }
             
-            let newFlightLegFilter =  FlightLegTimeFilter(leg:leg, departureStartTime:  departureMin!, departureMaxTime: departureMax, arrivalStartTime: arrivalMin, arrivalEndTime: arrivalMax! )
+            let newFlightLegFilter =  FlightLegTimeFilter(leg:leg, departureStartTime:  departureMin, departureMaxTime: departureMax, arrivalStartTime: arrivalMin, arrivalEndTime: arrivalMax)
             
             let userSelectedFilter = userSelectedFilters[index]
             let userDepartureTime = userSelectedFilter.depDt
             let userArrivalTime = userSelectedFilter.arDt
 
-            let userDepartureMin = userDepartureTime.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)!
-            let userDepartureMax = userDepartureTime.latest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: true, interval: 3600)!
-            let userArrivalMin = userArrivalTime.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)!
-            let userArrivalMax = userArrivalTime.latest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: true, interval: 3600)!
+            let userDepartureMin = userDepartureTime.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600) ?? Date()
+            let userDepartureMax = userDepartureTime.latest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: true, interval: 3600) ?? Date()
+            let userArrivalMin = userArrivalTime.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600) ?? Date()
+            let userArrivalMax = userArrivalTime.latest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: true, interval: 3600) ?? Date()
             
             if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[0].contains(.Times),
                 userFilters.appliedSubFilters.indices.contains(index), timesViewController.multiLegTimerFilter.indices.contains(index) {

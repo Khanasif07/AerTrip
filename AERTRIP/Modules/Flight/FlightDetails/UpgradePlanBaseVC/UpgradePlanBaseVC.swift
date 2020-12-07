@@ -886,7 +886,7 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
     
     func displayLoadingIndicator(){
         self.actInd.center = CGPoint(x: UIScreen.main.bounds.width/2, y: UIScreen.main.bounds.height/2)
-        self.actInd.style = UIActivityIndicatorView.Style.white
+        self.actInd.style = .medium// UIActivityIndicatorView.Style.white
         self.view.addSubview(self.actInd)
         self.actInd.startAnimating()
     }

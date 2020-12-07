@@ -158,7 +158,7 @@ class BookingRequestAddOnsFFVC: BaseVC {
     }
     
     func manageLoader(shouldStart: Bool) {
-        self.indicatorView.style = .white
+        self.indicatorView.style = .medium//.white
         self.indicatorView.color = AppColors.themeWhite
         if shouldStart{
             self.requestButton.setTitle("", for: .normal)
