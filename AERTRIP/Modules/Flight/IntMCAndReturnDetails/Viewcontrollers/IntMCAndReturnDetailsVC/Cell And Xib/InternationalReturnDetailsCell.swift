@@ -224,6 +224,6 @@ class InternationalReturnDetailsCell: UITableViewCell {
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-        return newImage!
+        return newImage ?? UIImage()
     }
 }

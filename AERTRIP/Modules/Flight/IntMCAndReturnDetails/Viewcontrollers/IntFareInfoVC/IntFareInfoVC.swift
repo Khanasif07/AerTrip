@@ -242,7 +242,7 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                         }
                         let rfd = (currentParsedResponse.data.values.first?.rfd ?? 0)
                         let rsc = currentParsedResponse.data.values.first?.rsc ?? 0
-                        self.refundDelegate?.updateRefundStatus(for: self.journey.first!.fk, rfd: rfd, rsc:rsc)
+                        self.refundDelegate?.updateRefundStatus(for: (self.journey.first?.fk ?? ""), rfd: rfd, rsc:rsc)
                     }
                 }
             }
@@ -336,7 +336,7 @@ extension IntFareInfoVC{
     
     func getNoteCell()->UITableViewCell{
         
-        let changeAirportCell = self.fareInfoTableView.dequeueReusableCell(withIdentifier: "ChangeAirportCell") as! ChangeAirportTableViewCell
+        guard let changeAirportCell = self.fareInfoTableView.dequeueReusableCell(withIdentifier: "ChangeAirportCell") as? ChangeAirportTableViewCell else {return UITableViewCell()}
         changeAirportCell.titleLabel.text = ""
         changeAirportCell.titleLabelHeight.constant = 0
         changeAirportCell.dataLabelTop.constant = 0
@@ -350,7 +350,7 @@ extension IntFareInfoVC{
     
     
     func getFareInfoCellWithJourney(with indexPath:IndexPath)->UITableViewCell{
-        let fareInfoCell = fareInfoTableView.dequeueReusableCell(withIdentifier: "IntFareInfoCell") as! IntFareInfoCell
+        guard let fareInfoCell = fareInfoTableView.dequeueReusableCell(withIdentifier: "IntFareInfoCell") as? IntFareInfoCell else {return UITableViewCell()}
         
         let isFareRulesButtonVisible = fareInfoCell.setupFareRulesButton(fareRulesData: fareRulesData, index: indexPath.section)
         
@@ -403,7 +403,7 @@ extension IntFareInfoVC{
     }
     
     func getChangeAirportCell()-> UITableViewCell{
-        let changeAirportCell = fareInfoTableView.dequeueReusableCell(withIdentifier: "ChangeAirportCell") as! ChangeAirportTableViewCell
+        guard let changeAirportCell = fareInfoTableView.dequeueReusableCell(withIdentifier: "ChangeAirportCell") as? ChangeAirportTableViewCell else {return UITableViewCell()}
         changeAirportCell.titleLabel.text = ""
         changeAirportCell.titleLabelHeight.constant = 0
         changeAirportCell.dataLabelTop.constant = 0
@@ -418,7 +418,7 @@ extension IntFareInfoVC{
     
     func getCombineFareInfoWithJourney(with indexPath: IndexPath)-> UITableViewCell
     {
-        let fareInfoCell = fareInfoTableView.dequeueReusableCell(withIdentifier: "IntCombineFareInfoCell") as! IntCombineFareInfoCell
+        guard let fareInfoCell = fareInfoTableView.dequeueReusableCell(withIdentifier: "IntCombineFareInfoCell") as? IntCombineFareInfoCell else {return UITableViewCell()}
         
         fareInfoCell.journey = journey
         fareInfoCell.legsCount = 1
@@ -510,8 +510,8 @@ extension IntFareInfoVC{
 extension IntFareInfoVC{
     
     func getFareInfoWithLegs(at indexPath:IndexPath)-> UITableViewCell{
-        guard let legs = self.journey.first?.legsWithDetail else {return UITableViewCell()}
-        let fareInfoCell = self.fareInfoTableView.dequeueReusableCell(withIdentifier: "IntFareInfoCell") as! IntFareInfoCell
+        guard let legs = self.journey.first?.legsWithDetail, let fareInfoCell = self.fareInfoTableView.dequeueReusableCell(withIdentifier: "IntFareInfoCell") as? IntFareInfoCell else {return UITableViewCell()}
+        
 //        if self.fareRulesData.count > 0{
 //            let data = (self.fareRulesData.count > indexPath.section) ? [self.fareRulesData[indexPath.section]] :  [self.fareRulesData[0]]
 //            let val = data.first ?? [:]
@@ -633,8 +633,8 @@ extension IntFareInfoVC{
     
     
     func getCombineFareWithLegs(at indexPath:IndexPath)-> UITableViewCell{
-        guard let legs = self.journey.first?.legsWithDetail else {return UITableViewCell()}
-        let fareInfoCell = fareInfoTableView.dequeueReusableCell(withIdentifier: "IntCombineFareInfoCell") as! IntCombineFareInfoCell
+        guard let jrny = self.journey.first, let legs = self.journey.first?.legsWithDetail, let fareInfoCell = fareInfoTableView.dequeueReusableCell(withIdentifier: "IntCombineFareInfoCell") as? IntCombineFareInfoCell else {return UITableViewCell()}
+        
         
         fareInfoCell.journey = journey
         fareInfoCell.legsCount = legs.count
@@ -692,19 +692,19 @@ extension IntFareInfoVC{
             }
         }else{
             fareInfoCell.withApi = false
-            let airlineCancellationData = journey.first!.fare.cancellationCharges.details.spcFee
+            let airlineCancellationData = jrny.fare.cancellationCharges.details.spcFee
             fareInfoCell.intAirlineCancellationFees = airlineCancellationData
             
-            let aertripCancellationData = journey.first!.fare.cancellationCharges.details.sucFee
+            let aertripCancellationData = jrny.fare.cancellationCharges.details.sucFee
             fareInfoCell.intAertripCancellationFees = aertripCancellationData
             
-            let airlineReschedulingData = journey.first!.fare.reschedulingCharges.details.spcFee
+            let airlineReschedulingData = jrny.fare.reschedulingCharges.details.spcFee
             fareInfoCell.intAirlineReschedulingFees = airlineReschedulingData
             
-            let aertripReschedulingData = journey.first!.fare.reschedulingCharges.details.sucFee
+            let aertripReschedulingData = jrny.fare.reschedulingCharges.details.sucFee
             fareInfoCell.intAertripReschedulingFees = aertripReschedulingData
             
-            let rafFeesData = journey.first!.fare.cancellationCharges.details.raf
+            let rafFeesData = jrny.fare.cancellationCharges.details.raf
             
             fareInfoCell.rafFees = rafFeesData
         }

@@ -79,7 +79,7 @@ class IntFareInfoCell: UITableViewCell {
                     let vall = val.values
                     if vall.count > 0{
                         if vall.first as? String != nil{
-                            if vall.first as! String != ""
+                            if (vall.first as? String ?? "") != ""
                             {
                                 fareRulesButton.isHidden = false
                                 fareRulesButton.isUserInteractionEnabled = true

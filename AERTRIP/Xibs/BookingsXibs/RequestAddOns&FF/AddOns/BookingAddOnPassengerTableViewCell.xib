@@ -72,6 +72,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="dividerView" destination="YxH-s0-t2i" id="ebB-kp-qgW"/>
                 <outlet property="passengerImageView" destination="hkd-gZ-j4m" id="KKe-wV-HZX"/>
                 <outlet property="passengerNameLabel" destination="0n3-w6-5Pp" id="ElQ-vf-53h"/>
                 <outlet property="requestInProcessLbl" destination="oAP-gd-dmi" id="Eue-CH-dzm"/>

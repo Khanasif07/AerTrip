@@ -42,7 +42,7 @@ class TripListVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let fareBreakupCell = tableView.dequeueReusableCell(withIdentifier: "FareBreakupCell") as! FareBreakupTableViewCell
+        guard let fareBreakupCell = tableView.dequeueReusableCell(withIdentifier: "FareBreakupCell") as? FareBreakupTableViewCell else {return UITableViewCell()}
         fareBreakupCell.selectionStyle = .none
         fareBreakupCell.passangersView.isHidden = true
         
@@ -79,9 +79,9 @@ class TripListVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         
         let addButton = UIAlertAction(title: "Add", style: .default, handler: { [weak alert] (_) in
             
-            let textField = alert?.textFields![0]
-            if textField!.text != ""{
-                self.createTripAPICall(tripName: textField!.text ?? "")
+            let textField = alert?.textFields?[0] ?? UITextField()
+            if textField.text != ""{
+                self.createTripAPICall(tripName: textField.text ?? "")
             }
         })
         
@@ -93,7 +93,7 @@ class TripListVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         alert.addTextField(configurationHandler: { (textField) in
             textField.placeholder = "Trip Name"
             NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: OperationQueue.main) { (notification) in
-                addButton.isEnabled = textField.text!.count > 0
+                addButton.isEnabled = (textField.text?.count ?? 0) > 0
             }
         })
         
@@ -164,9 +164,8 @@ class TripListVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             let paramName = param["name"] ?? ""
             body += "--\(boundary)\r\n"
             body += "Content-Disposition:form-data; name=\"\(paramName)\""
-            if let filename = param["fileName"] {
+            if let filename = param["fileName"],let fileContent = try? String(contentsOfFile: filename, encoding: String.Encoding.utf8) {
                 let contentType = param["content-type"] ?? ""
-                let fileContent = try! String(contentsOfFile: filename, encoding: String.Encoding.utf8)
                 if (error != nil) {
                 }
                 body += "; filename=\"\(filename)\"\r\n"
@@ -176,9 +175,9 @@ class TripListVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 body += "\r\n\r\n\(paramValue)"
             }
         }
-        
-        postData.append(body.data(using: String.Encoding.utf8)!)
-        
+        if body.data(using: String.Encoding.utf8) != nil{
+            postData.append(body.data(using: String.Encoding.utf8)!)
+        }
         let webservice = WebAPIService()
         webservice.executeAPI(apiServive: .createTrip(tripData: postData as Data), completionHandler: { (data) in
             do{
@@ -228,23 +227,24 @@ class TripListVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         var body = ""
         let error: NSError? = nil
         for param in parameters {
-            let paramName = param["name"]!
+            let paramName = param["name"] ?? ""
             body += "--\(boundary)\r\n"
             body += "Content-Disposition:form-data; name=\"\(paramName)\""
-            if let filename = param["fileName"] {
-                let contentType = param["Content-Type"]!
-                let fileContent = try? String(contentsOfFile: filename as! String, encoding: String.Encoding.utf8)
+            if let filename = param["fileName"], let fileContent = try? String(contentsOfFile: filename as! String, encoding: String.Encoding.utf8){
+                let contentType = param["Content-Type"] ?? ""
+                
                 if (error != nil) {
                 }
                 body += "; filename=\"\(filename)\"\r\n"
                 body += "Content-Type: \(contentType)\r\n\r\n"
-                body += fileContent!
+                body += fileContent
             } else if let paramValue = param["value"] {
                 body += "\r\n\r\n\(paramValue)"
             }
         }
-        
-        postData.append(body.data(using: String.Encoding.utf8)!)
+        if body.data(using: String.Encoding.utf8) != nil{
+            postData.append(body.data(using: String.Encoding.utf8)!)
+        }
         
         let webservice = WebAPIService()
         webservice.executeAPI(apiServive: .addToTrip(postData: postData as Data), completionHandler: { (data) in

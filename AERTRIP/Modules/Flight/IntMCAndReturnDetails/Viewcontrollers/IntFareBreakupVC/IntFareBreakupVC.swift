@@ -283,25 +283,25 @@ class IntFareBreakupVC: BaseVC {
             taxAndFeesDataDict.removeAll()
             taxesData = journey.first?.fare
             var sortOrderArray = [String]()
-            taxesDetails = (taxesData?.taxes.details)!
+            taxesDetails = (taxesData?.taxes.details) ?? [:]
             
             for val in (taxesData?.sortOrder ?? "").components(separatedBy: ","){
                 sortOrderArray.append(taxesResult[val.removeAllWhitespaces] ?? "")
             }
             
             for (_, value) in taxesDetails.enumerated() {
-                let newObj = taxStruct.init(name: taxesResult[value.key]!, taxVal: value.value)
+                let newObj = taxStruct.init(name: taxesResult[value.key] ?? "", taxVal: value.value)
                 taxAndFeesDataDict.append(newObj)
             }
             let newDict = Dictionary(grouping: taxAndFeesDataDict) { $0.name }
             if sortOrderArray.isEmpty{
                 for ( key , _ ) in newDict {
                     
-                    let dataArray = newDict[key]
+                    let dataArray = newDict[key] ?? []
                     
                     var newTaxVal = 0
-                    for i in 0..<dataArray!.count{
-                        newTaxVal += (dataArray?[i].taxVal)!
+                    for i in 0..<dataArray.count{
+                        newTaxVal += (dataArray[i].taxVal)
                     }
                     
                     let newArr = ["name" : key,
@@ -312,11 +312,11 @@ class IntFareBreakupVC: BaseVC {
             }else{
                 for key in sortOrderArray {
                     
-                    let dataArray = newDict[key]
+                    let dataArray = newDict[key] ?? []
                     
                     var newTaxVal = 0
-                    for i in 0..<dataArray!.count{
-                        newTaxVal += (dataArray?[i].taxVal)!
+                    for i in 0..<dataArray.count{
+                        newTaxVal += (dataArray[i].taxVal)
                     }
                     
                     let newArr = ["name" : key,
@@ -749,10 +749,10 @@ class IntFareBreakupVC: BaseVC {
 
             }
             
-            let font:UIFont? = UIFont(name: displayFont, size:CGFloat(fontSize))
-            let fontSuper:UIFont? = UIFont(name: displayFontSuper, size:CGFloat(fontSizeSuper))
-            let attString:NSMutableAttributedString = NSMutableAttributedString(string: result, attributes: [.font:font!])
-            attString.setAttributes([.font:fontSuper!,.baselineOffset:7], range: NSRange(location:result.count-3,length:3))
+            let font:UIFont = UIFont(name: displayFont, size:CGFloat(fontSize)) ?? UIFont.systemFont(ofSize: 18)
+            let fontSuper:UIFont = UIFont(name: displayFontSuper, size:CGFloat(fontSizeSuper)) ?? UIFont.systemFont(ofSize: 14)
+            let attString:NSMutableAttributedString = NSMutableAttributedString(string: result, attributes: [.font:font])
+            attString.setAttributes([.font:fontSuper,.baselineOffset:7], range: NSRange(location:result.count-3,length:3))
             if attString.string.contains(find: ".00"){
                 attString.mutableString.replaceOccurrences(of: ".00", with: "", options: .caseInsensitive, range: NSRange(location:result.count-3,length:3))
             }
