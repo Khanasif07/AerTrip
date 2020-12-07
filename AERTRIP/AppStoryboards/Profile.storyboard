@@ -868,10 +868,10 @@
     </scenes>
     <designables>
         <designable name="dQP-Az-qGA">
-            <size key="intrinsicContentSize" width="62.5" height="18.5"/>
+            <size key="intrinsicContentSize" width="62.5" height="19"/>
         </designable>
         <designable name="p31-n3-9C6">
-            <size key="intrinsicContentSize" width="62.5" height="18.5"/>
+            <size key="intrinsicContentSize" width="62.5" height="19"/>
         </designable>
     </designables>
     <resources>

@@ -112,8 +112,9 @@
 -(void)setupMainView
 {
     self.mainView.layer.shadowOffset = CGSizeMake(0.0,16.0);
-    self.mainView.layer.shadowRadius = 16.0;
+    self.mainView.layer.shadowRadius = 6.0;
     self.mainView.layer.shadowOpacity = 1.0;
+    self.mainView.layer.cornerRadius = 10.0;
     self.mainView.layer.shadowColor = [UIColor appShadow].CGColor;
     
 }
