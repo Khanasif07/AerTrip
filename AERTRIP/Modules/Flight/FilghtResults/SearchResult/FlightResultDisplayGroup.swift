@@ -381,8 +381,6 @@ class FlightResultDisplayGroup {
 
 //      var allEqs : [String] = []
         
-        
-        
         var allAircrafts : [IntMultiCityAndReturnWSResponse.Results.EqMaster] = []
 
 //        allEqs.append(contentsOf: dynamicFilters.aircraft.allAircrafts)
