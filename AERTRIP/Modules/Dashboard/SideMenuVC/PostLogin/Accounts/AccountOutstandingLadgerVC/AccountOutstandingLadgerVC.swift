@@ -368,7 +368,7 @@ class AccountOutstandingLadgerVC: BaseVC {
     }
     
     private func manageLoader(shouldStart: Bool) {
-        self.indicatorView.style = .white
+        self.indicatorView.style = .medium//.white
         self.indicatorView.color = AppColors.themeWhite
         self.indicatorView.startAnimating()
         self.makePaymentTitleLabel.text = shouldStart ? "" : "Make Payment"

@@ -116,8 +116,6 @@ class FareInfoCommonCell: ATTableViewCell
     {
         if let adtAirlineCancellationSlab = model.aerlineCanCharges?.adult
         {
-            let adtAertripCancellationSlab = model.aertripCanCharges?.adult
-            
             var aertripValue: Double = 0
             
             aertripValue = Double(model.aertripCanCharges?.adult ?? 0)
@@ -200,8 +198,6 @@ class FareInfoCommonCell: ATTableViewCell
         
         if let chdAirlineCancellationSlab = model.aerlineCanCharges?.child
         {
-            let chdAertripCancellationSlab = model.aertripCanCharges?.child
-            
             var aertripValue: Double = 0
             
             aertripValue = Double(model.aertripCanCharges?.child ?? 0)
@@ -232,8 +228,6 @@ class FareInfoCommonCell: ATTableViewCell
         
         if let infAirlineCancellationSlab = model.aerlineCanCharges?.infant
         {
-            let infAertripCancellationSlab = model.aertripCanCharges?.infant
-            
             var aertripValue: Double = 0
             
             aertripValue = Double(model.aertripCanCharges?.infant ?? 0)
@@ -268,8 +262,6 @@ class FareInfoCommonCell: ATTableViewCell
     func configureForRescheduling(model: BookingFeeDetail, indexPath: IndexPath) {
         if let adtAirlineReschedulingSlab = model.aerlineResCharges?.adult
         {
-            let adtAertripReschedulingSlab = model.aertripResCharges?.adult
-            
             var aertripValue: Double = 0
             
             aertripValue = Double(model.aertripResCharges?.adult ?? 0)
@@ -351,8 +343,6 @@ class FareInfoCommonCell: ATTableViewCell
         
         if let chdAirlineReschedulingSlab = model.aerlineResCharges?.child
         {
-            let chdAertripReschedulingSlab = model.aertripResCharges?.child
-            
             var aertripValue: Double = 0
             
             aertripValue = Double(model.aertripResCharges?.child ?? 0)
@@ -382,9 +372,7 @@ class FareInfoCommonCell: ATTableViewCell
         }
         
         if let infAirlineReschedulingSlab = model.aerlineResCharges?.infant
-        {
-            let infAertripReschedulingSlab = model.aertripResCharges?.infant
-            
+        {            
             var aertripValue: Double = 0
             
             aertripValue = Double(model.aertripResCharges?.infant ?? 0)

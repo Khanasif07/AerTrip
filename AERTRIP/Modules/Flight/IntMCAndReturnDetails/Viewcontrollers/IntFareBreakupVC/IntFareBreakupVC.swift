@@ -237,7 +237,7 @@ class IntFareBreakupVC: BaseVC {
     }
     
     private func manageLoader() {
-        self.indicator.style = .white
+        self.indicator.style = .medium// .white
         self.indicator.color = AppColors.themeWhite
         self.indicator.startAnimating()
         self.hideShowLoader(isHidden:true)

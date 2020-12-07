@@ -271,7 +271,7 @@ import UIKit
             self.loaderContainer.autoresizingMask = [.flexibleWidth,.flexibleHeight]
             let size = min(self.frame.size.width, self.frame.size.height)
             self.loaderIndicator = UIActivityIndicatorView(frame: CGRect(x: (self.frame.size.width - size) / 2.0, y: 0.0, width: size, height: size))
-            self.loaderIndicator.style = .white
+            self.loaderIndicator.style = .medium//.white
             
             self.loaderContainer.addSubview(self.loaderIndicator)
             self.addSubview(self.loaderContainer)
