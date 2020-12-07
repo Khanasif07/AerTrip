@@ -124,7 +124,7 @@ extension PriceVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let cell = tableView.cellForRow(at: indexPath) as? SortTableViewCell{
+        if let _ = tableView.cellForRow(at: indexPath) as? SortTableViewCell{
             //            cell.tintColor = AppColors.themeGreen
             //            cell.accessoryType = .checkmark
             //            cell.leftTitleLabel.textColor = AppColors.themeGreen

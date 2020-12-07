@@ -11,7 +11,7 @@ import IQKeyboardManager
 
 class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate, UITextViewDelegate {
     
-    private let indicator = UIActivityIndicatorView(style: .gray)
+    private let indicator = UIActivityIndicatorView(style: .medium)
     private let indicatorContainer = UIView()
     
     var statusBarColor: UIColor = AppColors.themeWhite {

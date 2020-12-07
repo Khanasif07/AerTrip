@@ -62,7 +62,7 @@ class HotelRatingInfoCell: UITableViewCell {
     }
 
     private func manageLoader() {
-        self.indicator.style = .gray
+        self.indicator.style = .medium//.gray
         self.indicator.tintColor = AppColors.themeGreen
         self.indicator.color = AppColors.themeGreen
         self.indicator.stopAnimating()

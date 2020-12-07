@@ -159,7 +159,7 @@ class HCDataSelectionVC: BaseVC {
     
     func setUpIndicatorView() {
         self.mainIndicatorView.isHidden = true
-        self.mainIndicatorView.style = .whiteLarge
+        self.mainIndicatorView.style = .large// .whiteLarge
         self.mainIndicatorView.color = AppColors.themeGreen
     }
     override func setupColors() {
@@ -180,9 +180,9 @@ class HCDataSelectionVC: BaseVC {
     
     private func manageLoader(shouldStart: Bool) {
         self.mainIndicatorView.isHidden = true
-        self.mainIndicatorView.style = .whiteLarge
+        self.mainIndicatorView.style = .large// .whiteLarge
         self.mainIndicatorView.color = AppColors.themeGreen
-        activityLoader.style = .whiteLarge
+        activityLoader.style = .large//.whiteLarge
         activityLoader.color = AppColors.themeGreen
         activityLoader.startAnimating()
         

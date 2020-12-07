@@ -186,7 +186,7 @@ extension FlightSortFilterViewController : UITableViewDataSource , UITableViewDe
                 
                 if isInitialSetup == false
                 {
-                    let indicator = UIActivityIndicatorView(style: .gray)
+                    let indicator = UIActivityIndicatorView(style: .medium)
                     indicator.color = .AertripColor
                     indicator.startAnimating()
                     indicator.hidesWhenStopped = true

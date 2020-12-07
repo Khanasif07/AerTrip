@@ -92,7 +92,7 @@ extension AddOnVC {
         indicator.frame.size = CGSize(width: 25, height: 25)
         self.topNavView.addSubview(indicator)
         self.topNavView.bringSubviewToFront(indicator)
-        self.indicator.style = .gray
+        self.indicator.style = .medium// .gray
         self.indicator.tintColor = AppColors.themeGreen
         self.indicator.color = AppColors.themeGreen
         self.indicator.stopAnimating()

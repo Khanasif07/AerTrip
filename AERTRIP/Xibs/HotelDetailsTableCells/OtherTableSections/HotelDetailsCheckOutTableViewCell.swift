@@ -39,7 +39,7 @@ class HotelDetailsCheckOutTableViewCell: UITableViewCell {
     //=======================
     
     private func manageLoader() {
-        self.indicator.style = .gray
+        self.indicator.style = .medium//.gray
         self.indicator.tintColor = AppColors.themeWhite
         self.indicator.color = AppColors.themeWhite
         self.indicator.startAnimating()
