@@ -1046,22 +1046,22 @@ extension AppFlowManager {
     }
     
     // MARK: - Aerin
-    
-    func showAerinTextToSpeechVC() {
-        let ob = AerinTextSpeechVC.instantiate(fromAppStoryboard: .Aerin)
-        self.mainNavigationController.pushViewController(ob, animated: true)
-    }
-    
-    func moveToAerinTextSpeechDetailVC() {
-        let ob = AerinTextSpeechDetailVC.instantiate(fromAppStoryboard: .Aerin)
-        self.mainNavigationController.pushViewController(ob, animated: true)
-    }
-    
-    func presentAerinTextSpeechVC() {
-        let ob = AerinTextSpeechVC.instantiate(fromAppStoryboard: .Aerin)
-        ob.isFromHotelResult = true
-        self.mainNavigationController.present(ob, animated: true)
-    }
+//    
+//    func showAerinTextToSpeechVC() {
+//        let ob = AerinTextSpeechVC.instantiate(fromAppStoryboard: .Aerin)
+//        self.mainNavigationController.pushViewController(ob, animated: true)
+//    }
+//    
+//    func moveToAerinTextSpeechDetailVC() {
+//        let ob = AerinTextSpeechDetailVC.instantiate(fromAppStoryboard: .Aerin)
+//        self.mainNavigationController.pushViewController(ob, animated: true)
+//    }
+//    
+//    func presentAerinTextSpeechVC() {
+//        let ob = AerinTextSpeechVC.instantiate(fromAppStoryboard: .Aerin)
+//        ob.isFromHotelResult = true
+//        self.mainNavigationController.present(ob, animated: true)
+//    }
     
     func moveToBookingDetail(bookingDetail: BookingDetailModel?,tripCities: NSMutableAttributedString = NSMutableAttributedString(string: ""),legSectionTap: Int = 0, presentingStatusBarStyle: UIStatusBarStyle = .darkContent, dismissalStatusBarStyle: UIStatusBarStyle = .darkContent) {
         let ob = BookingFlightDetailVC.instantiate(fromAppStoryboard: .Bookings)

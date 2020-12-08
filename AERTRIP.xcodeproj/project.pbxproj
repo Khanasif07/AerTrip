@@ -35,7 +35,6 @@
 		0C0AB1FF247C3D6D005E5E99 /* SelectBaggageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0AB1FE247C3D6D005E5E99 /* SelectBaggageVC.swift */; };
 		0C0AB202247C439F005E5E99 /* SelectBagageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0AB200247C439F005E5E99 /* SelectBagageCell.swift */; };
 		0C0AB203247C439F005E5E99 /* SelectBagageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C0AB201247C439F005E5E99 /* SelectBagageCell.xib */; };
-		0C0B231524210CD700E1764D /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C0B231424210CD700E1764D /* Chat.storyboard */; };
 		0C0B8CDA24D2C88C008942DB /* FlightResultSingleJourneyVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0B8CD924D2C88C008942DB /* FlightResultSingleJourneyVM.swift */; };
 		0C0B8CDC24D2D63F008942DB /* FlightResultSingleJourneyVC+TableViewDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0B8CDB24D2D63F008942DB /* FlightResultSingleJourneyVC+TableViewDelegates.swift */; };
 		0C0D992C24D431A900DF80F0 /* FlightResultSingleJourneyVC+FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0D992B24D431A900DF80F0 /* FlightResultSingleJourneyVC+FooterView.swift */; };
@@ -182,11 +181,8 @@
 		18020B0D2282E1F200DE5FE0 /* AerinChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18020B0B2282E1F200DE5FE0 /* AerinChatTableViewCell.swift */; };
 		18020B0E2282E1F200DE5FE0 /* AerinChatTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18020B0C2282E1F200DE5FE0 /* AerinChatTableViewCell.xib */; };
 		18032DC223FA816A000B6A2F /* PassThroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18032DC123FA816A000B6A2F /* PassThroughView.swift */; };
-		18038CF0226D90C000A4D1DD /* Aerin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18038CEF226D90C000A4D1DD /* Aerin.storyboard */; };
 		18038D13226DC37500A4D1DD /* AerinSuggestionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18038D11226DC37500A4D1DD /* AerinSuggestionCollectionViewCell.swift */; };
 		18038D14226DC37500A4D1DD /* AerinSuggestionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18038D12226DC37500A4D1DD /* AerinSuggestionCollectionViewCell.xib */; };
-		18038D17226DCB4600A4D1DD /* AerinTextSpeechVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18038D16226DCB4600A4D1DD /* AerinTextSpeechVC.swift */; };
-		18038D19226DCF8B00A4D1DD /* AerinTextSpeechDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18038D18226DCF8B00A4D1DD /* AerinTextSpeechDetailVC.swift */; };
 		18038D1D226DE73B00A4D1DD /* AerinCurrentStateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18038D1B226DE73B00A4D1DD /* AerinCurrentStateTableViewCell.swift */; };
 		18038D1E226DE73B00A4D1DD /* AerinCurrentStateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18038D1C226DE73B00A4D1DD /* AerinCurrentStateTableViewCell.xib */; };
 		1804888821CA597000437C81 /* ViewProfileDetailTableViewSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804888721CA597000437C81 /* ViewProfileDetailTableViewSectionView.swift */; };
@@ -538,7 +534,6 @@
 		18E7971A224A17CD00A7AC8B /* FinalCheckOutVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E79719224A17CD00A7AC8B /* FinalCheckOutVM.swift */; };
 		18EF5E22221C07F500EFFA6E /* ATSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EF5E21221C07F500EFFA6E /* ATSwitcher.swift */; };
 		18EF5E88221D2E1F00EFFA6E /* HotelSearchRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EF5E87221D2E1F00EFFA6E /* HotelSearchRequestModel.swift */; };
-		18EF75372280145A00FCBBE6 /* PKWaterWaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EF75362280145A00FCBBE6 /* PKWaterWaveView.swift */; };
 		18EF753A228043C100FCBBE6 /* OneWayCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EF7538228043C100FCBBE6 /* OneWayCardCollectionViewCell.swift */; };
 		18EF753B228043C100FCBBE6 /* OneWayCardCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18EF7539228043C100FCBBE6 /* OneWayCardCollectionViewCell.xib */; };
 		18F181D4223BC13200323775 /* FinalCheckOutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F181D3223BC13200323775 /* FinalCheckOutVC.swift */; };
@@ -1697,7 +1692,6 @@
 		0C0AB1FE247C3D6D005E5E99 /* SelectBaggageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBaggageVC.swift; sourceTree = "<group>"; };
 		0C0AB200247C439F005E5E99 /* SelectBagageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBagageCell.swift; sourceTree = "<group>"; };
 		0C0AB201247C439F005E5E99 /* SelectBagageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectBagageCell.xib; sourceTree = "<group>"; };
-		0C0B231424210CD700E1764D /* Chat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
 		0C0B8CD924D2C88C008942DB /* FlightResultSingleJourneyVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightResultSingleJourneyVM.swift; sourceTree = "<group>"; };
 		0C0B8CDB24D2D63F008942DB /* FlightResultSingleJourneyVC+TableViewDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlightResultSingleJourneyVC+TableViewDelegates.swift"; sourceTree = "<group>"; };
 		0C0D992B24D431A900DF80F0 /* FlightResultSingleJourneyVC+FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlightResultSingleJourneyVC+FooterView.swift"; sourceTree = "<group>"; };
@@ -1853,11 +1847,8 @@
 		18020B0B2282E1F200DE5FE0 /* AerinChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AerinChatTableViewCell.swift; sourceTree = "<group>"; };
 		18020B0C2282E1F200DE5FE0 /* AerinChatTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AerinChatTableViewCell.xib; sourceTree = "<group>"; };
 		18032DC123FA816A000B6A2F /* PassThroughView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassThroughView.swift; sourceTree = "<group>"; };
-		18038CEF226D90C000A4D1DD /* Aerin.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Aerin.storyboard; sourceTree = "<group>"; };
 		18038D11226DC37500A4D1DD /* AerinSuggestionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AerinSuggestionCollectionViewCell.swift; sourceTree = "<group>"; };
 		18038D12226DC37500A4D1DD /* AerinSuggestionCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AerinSuggestionCollectionViewCell.xib; sourceTree = "<group>"; };
-		18038D16226DCB4600A4D1DD /* AerinTextSpeechVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AerinTextSpeechVC.swift; sourceTree = "<group>"; };
-		18038D18226DCF8B00A4D1DD /* AerinTextSpeechDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AerinTextSpeechDetailVC.swift; sourceTree = "<group>"; };
 		18038D1B226DE73B00A4D1DD /* AerinCurrentStateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AerinCurrentStateTableViewCell.swift; sourceTree = "<group>"; };
 		18038D1C226DE73B00A4D1DD /* AerinCurrentStateTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AerinCurrentStateTableViewCell.xib; sourceTree = "<group>"; };
 		1804888721CA597000437C81 /* ViewProfileDetailTableViewSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewProfileDetailTableViewSectionView.swift; sourceTree = "<group>"; };
@@ -2209,7 +2200,6 @@
 		18E79719224A17CD00A7AC8B /* FinalCheckOutVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalCheckOutVM.swift; sourceTree = "<group>"; };
 		18EF5E21221C07F500EFFA6E /* ATSwitcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATSwitcher.swift; sourceTree = "<group>"; };
 		18EF5E87221D2E1F00EFFA6E /* HotelSearchRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelSearchRequestModel.swift; sourceTree = "<group>"; };
-		18EF75362280145A00FCBBE6 /* PKWaterWaveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKWaterWaveView.swift; sourceTree = "<group>"; };
 		18EF7538228043C100FCBBE6 /* OneWayCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneWayCardCollectionViewCell.swift; sourceTree = "<group>"; };
 		18EF7539228043C100FCBBE6 /* OneWayCardCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OneWayCardCollectionViewCell.xib; sourceTree = "<group>"; };
 		18F181D3223BC13200323775 /* FinalCheckOutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalCheckOutVC.swift; sourceTree = "<group>"; };
@@ -3925,15 +3915,6 @@
 			path = Aerin;
 			sourceTree = "<group>";
 		};
-		18038D15226DCABA00A4D1DD /* Aerin */ = {
-			isa = PBXGroup;
-			children = (
-				18038D16226DCB4600A4D1DD /* AerinTextSpeechVC.swift */,
-				18038D18226DCF8B00A4D1DD /* AerinTextSpeechDetailVC.swift */,
-			);
-			path = Aerin;
-			sourceTree = "<group>";
-		};
 		18038D1A226DE67400A4D1DD /* AerinTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -4887,14 +4868,6 @@
 			path = ATSwitcher;
 			sourceTree = "<group>";
 		};
-		18EF75352280144100FCBBE6 /* PKWaterWaveView */ = {
-			isa = PBXGroup;
-			children = (
-				18EF75362280145A00FCBBE6 /* PKWaterWaveView.swift */,
-			);
-			path = PKWaterWaveView;
-			sourceTree = "<group>";
-		};
 		18F181D0223A3D0900323775 /* HotelCheckOut */ = {
 			isa = PBXGroup;
 			children = (
@@ -5080,7 +5053,6 @@
 			children = (
 				84816E5C2518833200D0C256 /* SplashAnimation */,
 				843FF2E62474022F001F21B1 /* Flight */,
-				18038D15226DCABA00A4D1DD /* Aerin */,
 				18B435622202C9AA000C5E31 /* HotelFilter */,
 				84085C6D21F59C0C00F1E844 /* TransitionCoordinator.swift */,
 				84085C6E21F59C0C00F1E844 /* DefaultNavigationTransition.swift */,
@@ -9056,7 +9028,6 @@
 				0CD644B5234B0AC200D71709 /* ATUnicodeSwitch */,
 				188DFC832318FC530060F9D1 /* PKTapAndCopyUITextView */,
 				84269060228E9EF700CFCBFC /* PKMultiPicker */,
-				18EF75352280144100FCBBE6 /* PKWaterWaveView */,
 				847F7EB62279DB75009BE02F /* PKTextField */,
 				18FDF3252236A988009CC909 /* ATEmailSelectorTextView */,
 				18FDF3242236A974009CC909 /* ISPageControl */,
@@ -9237,8 +9208,6 @@
 				84271E7F22379E4F00C1A70D /* HotelCheckout.storyboard */,
 				847775582265BE6900EAB8B0 /* Account.storyboard */,
 				84F2DC8D22644BCF00212F05 /* Bookings.storyboard */,
-				18038CEF226D90C000A4D1DD /* Aerin.storyboard */,
-				0C0B231424210CD700E1764D /* Chat.storyboard */,
 				84816E5F2518841900D0C256 /* SplashAnimation.storyboard */,
 			);
 			path = AppStoryboards;
@@ -9386,7 +9355,6 @@
 				84FCB83B24AF210800DAAB13 /* FareInfoCombineCell.xib in Resources */,
 				843FF50424740231001F21B1 /* IntFareInfoCell.xib in Resources */,
 				843FF69B247409E4001F21B1 /* LoginRegisterComplete copy.storyboard in Resources */,
-				18038CF0226D90C000A4D1DD /* Aerin.storyboard in Resources */,
 				187684B122845A44009637D6 /* NightStateTableViewCell.xib in Resources */,
 				1804888E21CA6BAA00437C81 /* ViewProfileDetailTableViewCell.xib in Resources */,
 				84F983F421B51A070018DFED /* PreLogin.storyboard in Resources */,
@@ -9755,7 +9723,6 @@
 				843FF56E24740232001F21B1 /* FlightDetailsTableViewCell.xib in Resources */,
 				18E7970C2248F98900A7AC8B /* DiscountCell.xib in Resources */,
 				0C09BFDD242B9A2D00B801BE /* SettingsCell.xib in Resources */,
-				0C0B231524210CD700E1764D /* Chat.storyboard in Resources */,
 				843FF53F24740232001F21B1 /* SingleJourneyResultTableViewCell.xib in Resources */,
 				843FF4AE24740231001F21B1 /* IntReturnAndMCSortVC.xib in Resources */,
 				843FF57B24740232001F21B1 /* FareBreakupVC.xib in Resources */,
@@ -10319,7 +10286,6 @@
 				843FF57824740232001F21B1 /* FareBreakupVC.swift in Sources */,
 				84E4BC27229C622700B72306 /* DownloadingModel.swift in Sources */,
 				84D5F23222A65D4900824A9F /* TravellersDetailsTableViewCell.swift in Sources */,
-				18038D17226DCB4600A4D1DD /* AerinTextSpeechVC.swift in Sources */,
 				84F983ED21B51A070018DFED /* APICaller.swift in Sources */,
 				18E7970F2249092A00A7AC8B /* CurrencyOptionCell.swift in Sources */,
 				84791EE22281BB8000472E54 /* AccountLadgerDetailHeader.swift in Sources */,
@@ -10369,7 +10335,6 @@
 				84085CF321F59C0E00F1E844 /* LinkedAccountsVM.swift in Sources */,
 				18E79717224A06B100A7AC8B /* TotalPayableNowCell.swift in Sources */,
 				84085CE821F59C0E00F1E844 /* CreateYourAccountVC.swift in Sources */,
-				18EF75372280145A00FCBBE6 /* PKWaterWaveView.swift in Sources */,
 				8463A56C2456C7B200C70D8C /* GMUGroundOverlay.m in Sources */,
 				0CBDEA4E2429EF9B009D7849 /* SuggestionsCell.swift in Sources */,
 				8472F21723E4161C00993B08 /* HotelsMapVC+CoreData.swift in Sources */,
@@ -10815,7 +10780,6 @@
 				841AA50B247439B000B66720 /* NetworkLayer.swift in Sources */,
 				84F983C421B51A070018DFED /* PKTextView.swift in Sources */,
 				841F398E253F1F5F007C99B6 /* ChatVC+AerinCommunication.swift in Sources */,
-				18038D19226DCF8B00A4D1DD /* AerinTextSpeechDetailVC.swift in Sources */,
 				18C31F082227CBAA0052162C /* HotelMailComposerCardViewTableViewCell.swift in Sources */,
 				1846EFD024A501AD001D93A2 /* SeatBookingStatusCell.swift in Sources */,
 				18F967FF2233945400B163C8 /* EmptyTableViewCell.swift in Sources */,
