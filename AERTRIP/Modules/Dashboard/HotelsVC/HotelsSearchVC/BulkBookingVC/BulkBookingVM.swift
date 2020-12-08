@@ -22,7 +22,7 @@ class BulkBookingVM {
     var checkInDate = "2019-03-20" //Date().toString(dateFormat: "YYYY-MM-DD")
     var checkOutDate = "2019-03-25" {
         didSet {
-            print("checkOutDate: \(checkOutDate)")
+            printDebug("checkOutDate: \(checkOutDate)")
         }
     }
     var ratingCount: [Int] = []

@@ -344,7 +344,8 @@ enum LocalizedString: String {
     case GroupAlreadyExist
     case GroupNameCanNotEmpty
     case CantCreateGroupWithThisName
-    
+    case Me = "Me"
+
     // MARK: - Import Contacts
     case ImportingContacts
     case ThisMightTakeSomeTime
@@ -803,6 +804,7 @@ enum LocalizedString: String {
     case Rescheduling
     case AddOnRequestSent
     case AddOnRequestMesage
+    case requestInProcess
     case PNRNo
     case SaleAmount
     case ConfirmationNo
@@ -859,6 +861,8 @@ enum LocalizedString: String {
     case ShowPendingActionsOnly
     case DateSpan
     case VoucherType
+    case hereAreYourResults = "hereAreYourResults"
+    case seeResultsAgain = "seeResultsAgain"
     
     // MARK: - Import Contact Screen
     
@@ -954,6 +958,8 @@ enum LocalizedString: String {
     case PhotoLibrary
     case Document
     case ChooseOptionToSelect
+    case requestNoted
+    case maximumOnlineLimit
     
     // MARK: - OTHER BOOKING PRODUCT DETAIL
     
@@ -1040,6 +1046,16 @@ enum LocalizedString: String {
     case QuickPayInfo
     case NoNotificationYet
     case NotificationInfo
+    
+    //MARK: - Passengers Selections
+    case firstName3Char
+    case fistNameNumeric
+    case lastName3Char
+    case lastNameNumeric
+    case fillContactDetails
+    case adultAgeError
+    case childAgeError
+    case infantAgeError
     
     
     // MARK: - Disconnect linkedin issue
@@ -1172,6 +1188,8 @@ enum LocalizedString: String {
     case tripsComingSoon = "tripsComingSoon"
     case tripsNote = "tripsNote"
     case tripsLink = "tripsLink"
+
+    case reloadDetail = "reloadDetail"
 
 }
 

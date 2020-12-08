@@ -54,13 +54,13 @@ class DashboardVC: BaseVC {
     
     private var isAnimatingButtons = false
     var lastInnerScrollViewContentOffset = CGPoint.zero
-    
+    var initialOffsetY : CGFloat = 0.0
+    var scrollingDirection = ""
     var itemWidth : CGFloat {
         return aerinView.width
     }
     
     enum SelectedOption : Int {
-        
         case aerin = 0
         case flight = 1
         case hotels = 2
@@ -89,7 +89,7 @@ class DashboardVC: BaseVC {
             self.addOverlayView()
         }
         
-        self.backgroundGradientView.colors = [AppColors.themeGreen,AppColors.dashboardGradientColor]
+        self.backgroundGradientView.colors = AppConstants.appthemeGradientColors.reversed()
         mainScrollView.delaysContentTouches = false
         self.profileButton.imageView?.contentMode = .scaleAspectFill
         //addViewOnTop()
@@ -124,7 +124,9 @@ class DashboardVC: BaseVC {
         let guideHeight = view.safeAreaLayoutGuide.layoutFrame.size.height
         let fullHeight = UIScreen.main.bounds.size.height
         
-        let temp = UIScreen.main.bounds.size.height - (fullHeight - guideHeight) - segmentContainerView.bounds.height + headerTopConstraint.constant
+        //Rishabh - Added 30 and changed mainscrollview bottom constraint to -30 in dashboard to resolve bottom card getting cut issue.
+        let temp = UIScreen.main.bounds.size.height + 30 - (fullHeight - guideHeight) - segmentContainerView.bounds.height + headerTopConstraint.constant
+        
         if !isScrollHeightSet {
             isScrollHeightSet = true
             let extraHeightForSafeArea: CGFloat = UIApplication.shared.statusBarFrame.height > 20 ? 26 : 0
@@ -137,7 +139,8 @@ class DashboardVC: BaseVC {
         super.viewWillAppear(animated)
         
         registerBulkEnquiryNotification()
-        if firstTime{
+        
+        if firstTime {
             firstTime = false
             identitySize = aerinView.bounds.applying(CGAffineTransform.identity).size
             smallerSize = flightsView.bounds.applying(CGAffineTransform(scaleX: 0.75, y: 0.75)).size
@@ -297,7 +300,7 @@ class DashboardVC: BaseVC {
     private func updateProfileButton() {
         if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty{
             let image = UserInfo.loggedInUser?.profilePlaceholder ?? AppGlobals.shared.getImageFor(firstName: nil, lastName: nil)
-            self.profileButton.kf.setImage(with: URL(string: imagePath), for: UIControl.State.normal, placeholder: image)
+            self.profileButton.kf.setImage(with: URL(string: imagePath), for: UIControl.State.normal, placeholder: image, options: [.keepCurrentImageWhileLoading])
             //        self.profileButton.imageView?.setImageWithUrl(imagePath, placeholder: AppPlaceholderImage.user, showIndicator: false)
         } else {
             if let userInfo = UserInfo.loggedInUser {
@@ -327,7 +330,6 @@ class DashboardVC: BaseVC {
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.view.backgroundColor = .clear
         self.navigationController?.view.addSubview(backView)
-        
         navigationItem.hidesBackButton = true
         self.navigationItem.leftBarButtonItem=nil
     }
@@ -338,6 +340,7 @@ extension DashboardVC  {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         
         isSelectingFromTabs = false
+        
         previousSelected = selectedOption
         if scrollView == innerScrollView {
             lastInnerScrollViewContentOffset.x = scrollView.contentOffset.x
@@ -352,18 +355,62 @@ extension DashboardVC  {
             if lastInnerScrollViewContentOffset.x < scrollView.contentOffset.x {
                 // moved right
                 printDebug("right")
+                self.scrollingDirection = "right"
             } else if lastInnerScrollViewContentOffset.x > scrollView.contentOffset.x {
                 // moved left
                 printDebug("left")
+                self.scrollingDirection = "left"
             } else if lastInnerScrollViewContentOffset.y < scrollView.contentOffset.y {
                 printDebug("up")
+                self.scrollingDirection = "up"
                 innerScrollDidEndDragging(scrollView)
             } else if lastInnerScrollViewContentOffset.y > scrollView.contentOffset.y {
                 printDebug("down")
+                self.scrollingDirection = "down"
                 innerScrollDidEndDragging(scrollView)
             }
         }
     }
+    
+    func setTransformAfterDraging(selectedTap: SelectedOption, isOnlyAlpha: Bool){
+        
+        UIView.animate(withDuration: 0.2, animations:{
+            
+            
+            self.aerinView.alpha = (selectedTap == SelectedOption.aerin) ? 1.0 : 0.5
+            self.flightsView.alpha = (selectedTap == SelectedOption.flight) ? 1.0 : 0.5
+            self.hotelsView.alpha = (selectedTap == SelectedOption.hotels) ? 1.0 : 0.5
+            self.tripsView.alpha = (selectedTap == SelectedOption.trips) ? 1.0 : 0.5
+            
+            if !isOnlyAlpha{
+                
+                self.aerinView.transform = CGAffineTransform(scaleX: (selectedTap == SelectedOption.aerin) ? 1.0 : 0.75, y: (selectedTap == SelectedOption.aerin) ? 1.0 : 0.75)
+                
+                self.flightsView.transform = CGAffineTransform(scaleX: ((selectedTap == SelectedOption.flight) ? 1.0 : 0.75), y: ((selectedTap == SelectedOption.flight) ? 1.0 : 0.75))
+                
+                self.hotelsView.transform = CGAffineTransform(scaleX: ((selectedTap == SelectedOption.hotels) ? 1.0 : 0.75), y: ((selectedTap == SelectedOption.hotels) ? 1.0 : 0.75))
+                
+                self.tripsView.transform = CGAffineTransform(scaleX: ((selectedTap == SelectedOption.trips) ? 1.0 : 0.75), y: ((selectedTap == SelectedOption.trips) ? 1.0 : 0.75))
+            }
+            
+        })
+        
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if scrollView == innerScrollView {
+            let page = Int(scrollView.contentOffset.x/scrollView.bounds.width)
+            guard let currentOption = SelectedOption(rawValue: page) else {return}
+            if mainScrollView.contentOffset.y + mainScrollView.height < mainScrollView.contentSize.height - 19.0 {
+                if self.scrollingDirection == "right" || self.scrollingDirection == "left"{
+                    self.setTransformAfterDraging(selectedTap: currentOption, isOnlyAlpha: false)
+                }
+            }else{
+                self.setTransformAfterDraging(selectedTap: currentOption, isOnlyAlpha: true)
+            }
+        }
+    }
+    
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
@@ -421,12 +468,12 @@ extension DashboardVC  {
             updateSegmentYPosition(for: scrollView.contentOffset.y)
             updateSegmentTop(for: scrollView.contentOffset.y)
             updateInnerScrollTop(for: scrollView.contentOffset.y)
-            
+            let isIncreasing = (scrollView.contentOffset.y - self.initialOffsetY) < 0
             switch selectedOption{
-            case .aerin: checkAndApplyTransform(aerinView, transformValue: transform, scrolledUp: userDidScrollUp)
-            case .flight: checkAndApplyTransform(flightsView, transformValue: transform, scrolledUp: userDidScrollUp)
-            case .hotels: checkAndApplyTransform(hotelsView, transformValue: transform, scrolledUp: userDidScrollUp)
-            case .trips: checkAndApplyTransform(tripsView, transformValue: transform, scrolledUp: userDidScrollUp)
+            case .aerin: checkAndApplyTransform(aerinView, transformValue: transform, scrolledUp: userDidScrollUp, isIncreasing: isIncreasing, isForVertical:true)
+            case .flight: checkAndApplyTransform(flightsView, transformValue: transform, scrolledUp: userDidScrollUp, isIncreasing: isIncreasing, isForVertical:true)
+            case .hotels: checkAndApplyTransform(hotelsView, transformValue: transform, scrolledUp: userDidScrollUp, isIncreasing: isIncreasing, isForVertical:true)
+            case .trips: checkAndApplyTransform(tripsView, transformValue: transform, scrolledUp: userDidScrollUp, isIncreasing: isIncreasing, isForVertical:true)
             }
             
             mainScrollViewOffset = scrollView.contentOffset
@@ -525,11 +572,10 @@ extension DashboardVC  {
     }
     
     
-    private func checkAndApplyTransform(_ view : UIView, transformValue : CGFloat, scrolledUp : Bool){
+    private func checkAndApplyTransform(_ view : UIView, transformValue : CGFloat, scrolledUp : Bool, isIncreasing:Bool, isForVertical:Bool = false){
         
         let initialTransform = view.transform
-        let transformedBounds = view.bounds.applying(initialTransform.scaledBy(x: transformValue, y: transformValue))
-        
+
         if isSelectingFromTabs {
             view.transform = (transformValue == 1.0) ? CGAffineTransform.identity : CGAffineTransform(scaleX: transformValue, y: transformValue)
         }
@@ -544,6 +590,18 @@ extension DashboardVC  {
             //            }else{
             //                view.transform = view.transform.scaledBy(x: transformValue, y: transformValue)
             //            }
+            if !isForVertical{
+                if isIncreasing{
+                    if view.transform.a >= 1.0{
+                        return
+                    }
+                }else{
+                    if view.transform.a <= 0.75{
+                        return
+                    }
+                    
+                }
+            }
             view.transform = view.transform.scaledBy(x: transformValue, y: transformValue)
             
         }
@@ -616,8 +674,8 @@ extension DashboardVC  {
             fromV.alpha = 0.5
             toV.alpha = 1.0
             if !self.userDidScrollUp {
-                self.checkAndApplyTransform(fromV, transformValue: 0.75, scrolledUp: true)
-                self.checkAndApplyTransform(toV, transformValue: 1.0, scrolledUp: true)
+                self.checkAndApplyTransform(fromV, transformValue: 0.75, scrolledUp: true, isIncreasing: false)
+                self.checkAndApplyTransform(toV, transformValue: 1.0, scrolledUp: true, isIncreasing: true)
             }
         }
         
@@ -642,23 +700,23 @@ extension DashboardVC  {
                 flightsView.alpha = min(flightsView.alpha + moved, 1.0)
                 
                 if mainScrollView.contentOffset.y + mainScrollView.height < mainScrollView.contentSize.height - 19.0 {
-                    checkAndApplyTransform(aerinView, transformValue: decreaseSize, scrolledUp: isForward)
-                    checkAndApplyTransform(flightsView, transformValue: increaseSize, scrolledUp: isForward)
+                    checkAndApplyTransform(aerinView, transformValue: decreaseSize, scrolledUp: isForward, isIncreasing: false)
+                    checkAndApplyTransform(flightsView, transformValue: increaseSize, scrolledUp: isForward, isIncreasing: true)
                 }
                 
             case .flight:
                 flightsView.alpha = max(flightsView.alpha - moved, 0.5)
                 hotelsView.alpha = min(hotelsView.alpha + moved, 1.0)
                 if mainScrollView.contentOffset.y + mainScrollView.height < mainScrollView.contentSize.height - 19.0 {
-                    checkAndApplyTransform(flightsView, transformValue: decreaseSize, scrolledUp: isForward)
-                    checkAndApplyTransform(hotelsView, transformValue: increaseSize, scrolledUp: isForward)
+                    checkAndApplyTransform(flightsView, transformValue: decreaseSize, scrolledUp: isForward, isIncreasing: false)
+                    checkAndApplyTransform(hotelsView, transformValue: increaseSize, scrolledUp: isForward, isIncreasing: true)
                 }
             case .hotels:
                 hotelsView.alpha = max(hotelsView.alpha - moved, 0.5)
                 tripsView.alpha = min(tripsView.alpha + moved, 1.0)
                 if mainScrollView.contentOffset.y + mainScrollView.height < mainScrollView.contentSize.height - 19.0 {
-                    checkAndApplyTransform(hotelsView, transformValue: decreaseSize, scrolledUp: isForward)
-                    checkAndApplyTransform(tripsView, transformValue: increaseSize, scrolledUp: isForward)
+                    checkAndApplyTransform(hotelsView, transformValue: decreaseSize, scrolledUp: isForward, isIncreasing: false)
+                    checkAndApplyTransform(tripsView, transformValue: increaseSize, scrolledUp: isForward, isIncreasing: true)
                 }
             case .trips: break
             }
@@ -670,8 +728,8 @@ extension DashboardVC  {
                 aerinView.alpha = min(aerinView.alpha + moved, 1.0)
                 
                 if mainScrollView.contentOffset.y + mainScrollView.height < mainScrollView.contentSize.height - 19.0 {
-                    checkAndApplyTransform(flightsView, transformValue: decreaseSize, scrolledUp: isForward)
-                    checkAndApplyTransform(aerinView, transformValue: increaseSize, scrolledUp: isForward)
+                    checkAndApplyTransform(flightsView, transformValue: decreaseSize, scrolledUp: isForward, isIncreasing: false)
+                    checkAndApplyTransform(aerinView, transformValue: increaseSize, scrolledUp: isForward, isIncreasing: true)
                 }
                 
             case .flight:
@@ -679,8 +737,8 @@ extension DashboardVC  {
                 flightsView.alpha = min(flightsView.alpha + moved, 1.0)
                 // Asif Change ====================== ======================  ======================
                 if mainScrollView.contentOffset.y + mainScrollView.height < mainScrollView.contentSize.height - 19.0 {
-                    checkAndApplyTransform(hotelsView, transformValue: decreaseSize, scrolledUp: isForward)
-                    checkAndApplyTransform(flightsView, transformValue: increaseSize, scrolledUp: isForward)
+                    checkAndApplyTransform(hotelsView, transformValue: decreaseSize, scrolledUp: isForward, isIncreasing: false)
+                    checkAndApplyTransform(flightsView, transformValue: increaseSize, scrolledUp: isForward, isIncreasing: true)
                 }
             case .hotels:
                 
@@ -688,8 +746,8 @@ extension DashboardVC  {
                 hotelsView.alpha = min(hotelsView.alpha + moved, 1.0)
                 
                 if mainScrollView.contentOffset.y + mainScrollView.height < mainScrollView.contentSize.height -  19.0 {
-                    checkAndApplyTransform(tripsView, transformValue: decreaseSize, scrolledUp: isForward)
-                    checkAndApplyTransform(hotelsView, transformValue: increaseSize, scrolledUp: isForward)
+                    checkAndApplyTransform(tripsView, transformValue: decreaseSize, scrolledUp: isForward, isIncreasing: false)
+                    checkAndApplyTransform(hotelsView, transformValue: increaseSize, scrolledUp: isForward, isIncreasing: true)
                 }
             case .trips: break
             }

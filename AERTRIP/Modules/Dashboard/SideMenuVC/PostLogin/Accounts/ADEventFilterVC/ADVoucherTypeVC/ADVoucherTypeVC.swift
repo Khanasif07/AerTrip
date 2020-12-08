@@ -24,6 +24,7 @@ class ADVoucherTypeVC: BaseVC {
     //MARK:- Public
     weak var delegate: ADVoucherTypeVCDelegate?
     //let viewModel = ADVoucherTypeVM()
+    var oldSelection: [String] = []
     
     //MARK:- Private
     private let cellIdentifier = "RoomTableViewCell"
@@ -31,6 +32,7 @@ class ADVoucherTypeVC: BaseVC {
     //MARK:- ViewLifeCycle
     //MARK:-
     override func initialSetup() {
+        setFilterValues()
         registerXib()
         self.tableView.dataSource = self
         self.tableView.delegate = self
@@ -42,6 +44,10 @@ class ADVoucherTypeVC: BaseVC {
         tableView.register(UINib(nibName: cellIdentifier, bundle: nil), forCellReuseIdentifier: cellIdentifier)
     }
     
+    internal func setFilterValues() {
+        self.oldSelection = ADEventFilterVM.shared.selectedVoucherType
+        self.tableView?.reloadData()
+    }
     //MARK:- Public
     
     
@@ -50,9 +56,11 @@ class ADVoucherTypeVC: BaseVC {
 
 //MARK:- Action
 extension ADVoucherTypeVC: UITableViewDelegate, UITableViewDataSource {
-    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ADEventFilterVM.shared.voucherTypes.count
+        return section == 0 ? 1 : ADEventFilterVM.shared.voucherTypes.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -60,38 +68,55 @@ extension ADVoucherTypeVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as? RoomTableViewCell else {
-            printDebug("RoomTableViewCell not found")
-            return UITableViewCell()
-        }
-        cell.configCell(title: ADEventFilterVM.shared.voucherTypes[indexPath.row])
-        cell.dividerView.isHidden = indexPath.row != 0
-        
-//        if ADEventFilterVM.shared.selectedVoucherType.isEmpty || ADEventFilterVM.shared.selectedVoucherType.count ==  ADEventFilterVM.shared.voucherTypes.count{
-//            cell.statusButton.isSelected = true
+        if indexPath.section == 1 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as? RoomTableViewCell else {
+                printDebug("RoomTableViewCell not found")
+                return UITableViewCell()
+            }
+            cell.configCell(title: ADEventFilterVM.shared.voucherTypes[indexPath.row])
+            cell.dividerView.isHidden = true
+            
+//            if oldSelection.isEmpty || oldSelection.count ==  ADEventFilterVM.shared.voucherTypes.count - 1{
+//                cell.statusButton.isSelected = true
 //
-//        } else {
-            cell.statusButton.isSelected = ADEventFilterVM.shared.selectedVoucherType.contains(ADEventFilterVM.shared.voucherTypes[indexPath.row])
-//        }
-        
-        
-        return cell
+//            } else {
+                cell.statusButton.isSelected = oldSelection.contains(ADEventFilterVM.shared.voucherTypes[indexPath.row])
+//            }
+            
+            
+            return cell
+        } else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as? RoomTableViewCell else {
+                printDebug("RoomTableViewCell not found")
+                return UITableViewCell()
+            }
+            cell.configCell(title: LocalizedString.ALL.localized)
+            cell.dividerView.isHidden = false
+            cell.statusButton.isSelected = oldSelection.count == ADEventFilterVM.shared.voucherTypes.count
+            
+            
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 0 {
-            if ADEventFilterVM.shared.selectedVoucherType.contains(ADEventFilterVM.shared.voucherTypes[indexPath.row]) {
-                ADEventFilterVM.shared.selectedVoucherType = []
+        
+        if indexPath.section == 1 {
+            if oldSelection.contains(ADEventFilterVM.shared.voucherTypes[indexPath.row]) {
+                oldSelection.remove(object: ADEventFilterVM.shared.voucherTypes[indexPath.row])
             } else {
-                ADEventFilterVM.shared.selectedVoucherType = ADEventFilterVM.shared.voucherTypes
+                oldSelection.append(ADEventFilterVM.shared.voucherTypes[indexPath.row])
             }
+            
         } else {
-            if ADEventFilterVM.shared.selectedVoucherType.contains(ADEventFilterVM.shared.voucherTypes[indexPath.row]) {
-                ADEventFilterVM.shared.selectedVoucherType.remove(object: ADEventFilterVM.shared.voucherTypes[indexPath.row])
+            if  oldSelection.count ==  ADEventFilterVM.shared.voucherTypes.count {
+                oldSelection.removeAll()
             } else {
-                ADEventFilterVM.shared.selectedVoucherType.append(ADEventFilterVM.shared.voucherTypes[indexPath.row])
+                oldSelection.removeAll()
+                oldSelection = ADEventFilterVM.shared.voucherTypes
             }
         }
+        ADEventFilterVM.shared.selectedVoucherType = oldSelection
         self.delegate?.didSelect()
         tableView.reloadData()
     }

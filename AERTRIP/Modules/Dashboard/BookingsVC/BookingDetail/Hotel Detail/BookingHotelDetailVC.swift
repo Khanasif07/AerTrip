@@ -35,19 +35,22 @@ class BookingHotelDetailVC: BaseVC {
         
     }
     
+    var presentingStatusBarStyle: UIStatusBarStyle = .darkContent,
+    dismissalStatusBarStyle: UIStatusBarStyle = .darkContent
+    
     // MARK: - Override methods
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if #available(iOS 13.0, *) {
-            self.statusBarStyle = .lightContent
+            self.statusBarStyle = presentingStatusBarStyle
         }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if #available(iOS 13.0, *) {
-            self.statusBarStyle = .default
+            self.statusBarStyle = dismissalStatusBarStyle
         }
     }
     
@@ -59,6 +62,7 @@ class BookingHotelDetailVC: BaseVC {
         self.hotelDetailTableView.delegate = self
         self.hotelDetailTableView.reloadData()
         self.hotelDetailTableView.backgroundColor = AppColors.themeGray04
+        hotelDetailTableView.showsVerticalScrollIndicator = true
         self.configureNavBar()
         if self.viewModel.bookingDetail == nil {
             self.hotelDetailTableView.backgroundColor = AppColors.themeWhite
@@ -119,7 +123,7 @@ class BookingHotelDetailVC: BaseVC {
         self.topNavigationView.firstRightButton.imageEdgeInsets = UIEdgeInsets(top: 2, left: 0, bottom: 0, right: 0)
         self.topNavigationView.navTitleLabel.numberOfLines = 1
         self.topNavigationView.firstRightButtonTrailingConstraint.constant = -3
-        //self.topNavigationView.configureLeftButton(normalImage: UIImage(named: "whiteBackIcon"), selectedImage: UIImage(named: "whiteBackIcon"))
+        //self.topNavigationView.configureLeftButton(normalImage: UIImage(named: "Back"), selectedImage: UIImage(named: "Back"))
         self.topNavigationView.delegate = self
         self.topNavigationView.backgroundColor = .clear
         self.view.bringSubviewToFront(self.topNavigationView)

@@ -35,26 +35,25 @@ func parse <T: Decodable >(data: Data ,into type: T.Type , with decoder : JSONDe
         for element in context.codingPath {
 
         }
-        saveToFile(data.prettyPrintedJSONString! as String)
+        saveToFile(data.prettyPrintedJSONString as? String ?? "")
 
     } catch let DecodingError.valueNotFound(value, context) {
         
         for element in context.codingPath {
         }
         
-        saveToFile(data.prettyPrintedJSONString! as String)
+        saveToFile(data.prettyPrintedJSONString as? String ?? "")
 
     } catch let DecodingError.typeMismatch(type, context)  {
         
-//        print("\nType '\(type)' mismatch:", context.debugDescription)
         for element in context.codingPath {
         }
 
-        saveToFile(data.prettyPrintedJSONString! as String)
+        saveToFile(data.prettyPrintedJSONString as? String ?? "")
 
     } catch {
         
-        saveToFile(data.prettyPrintedJSONString! as String)
+        saveToFile(data.prettyPrintedJSONString as? String ?? "")
 
 //        print("error: ", error)
     }

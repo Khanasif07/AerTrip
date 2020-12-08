@@ -21,6 +21,7 @@ class PassengerDetailsVM {
     var isAllPaxInfoRequired = false
     var lastJourneyDate = Date()
     var journeyEndDate = Date()
+    var firstJourneyDate = Date()
     var currentIndex = 0{
         didSet{
             self.indexPath = IndexPath(row: 0, section: currentIndex)
@@ -36,6 +37,7 @@ class PassengerDetailsVM {
         let ff = GuestDetailsVM.shared.guests[0][index].frequentFlyer
         let code = object.countryCode
         GuestDetailsVM.shared.guests[0][index] = object
+        /*
         if let country = GuestDetailsVM.shared.countries?[code]{
             GuestDetailsVM.shared.guests[0][index].nationality = country
         }else if let countryCode = GuestDetailsVM.shared.countries?.someKey(forValue: code){
@@ -44,6 +46,12 @@ class PassengerDetailsVM {
         }else{
             GuestDetailsVM.shared.guests[0][index].nationality = ""
             GuestDetailsVM.shared.guests[0][index].countryCode = ""
+        }
+         */
+        let prevSelectedCountry = PKCountryPicker.default.getCountryData(forISOCode: code.isEmpty ? "IN" : code )
+        if let country = prevSelectedCountry{
+            GuestDetailsVM.shared.guests[0][index].nationality = country.countryEnglishName
+            GuestDetailsVM.shared.guests[0][index].countryCode = country.ISOCode
         }
         GuestDetailsVM.shared.guests[0][index].passengerType = type
         GuestDetailsVM.shared.guests[0][index].numberInRoom = numberInRoom
@@ -104,24 +112,24 @@ class PassengerDetailsVM {
         for contact in GuestDetailsVM.shared.guests[0]{
             if !contact.firstName.removeAllWhitespaces.isEmpty{
                 if contact.firstName.count < 3 {
-                    return (false, "Passenger first name should have atleast 3 character")
+                    return (false, LocalizedString.firstName3Char.localized)
                 } else if !contact.firstName.isName {
-                    return (false, "Passenger first name should not have any numeric or special character")
+                    return (false, LocalizedString.fistNameNumeric.localized)
                 }
             }else if !contact.lastName.removeAllWhitespaces.isEmpty {
                 if  contact.lastName.count < 3 {
-                    return (false, "Passenger first last should have atleast 3 character")
+                    return (false, LocalizedString.lastName3Char.localized)
                 }else if !contact.lastName.isName {
-                    return (false, "Passenger last name should not have any numeric or special character")
+                    return (false, LocalizedString.lastNameNumeric.localized)
                 }
             }
             if isAllPaxInfoRequired && contact.passengerType == .Adult{
                 if contact.isd.isEmpty{
-                    return (false, "Please fill the passenger contact details")
+                    return (false, LocalizedString.fillContactDetails.localized)
                 }else if ((!contact.contact.isEmpty) && self.getOnlyIntiger(contact.contact).count < contact.minContactLimit || self.getOnlyIntiger(contact.contact).count > contact.maxContactLimit){
-                    return (false, "Please fill the passenger contact details")
+                    return (false, LocalizedString.fillContactDetails.localized)
                 }else if ((!contact.emailLabel.isEmpty) && !(contact.emailLabel.checkValidity(.Email))){
-                    return (false, "Please fill the passenger contact details")
+                    return (false, LocalizedString.fillContactDetails.localized)
                 }
             }
         }

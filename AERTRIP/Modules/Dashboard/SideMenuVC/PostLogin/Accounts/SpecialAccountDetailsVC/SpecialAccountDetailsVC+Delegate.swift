@@ -290,6 +290,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
                     AppFlowManager.default.moveToAccountDetailsVC(usingFor: .accountLadger, forDetails: self.viewModel.accountLadger, forVoucherTypes: self.viewModel.accVouchers)
                     
                 case 1:
+                    
                     AppFlowManager.default.moveToAccountOutstandingLadgerVC(data: self.viewModel.outstandingLadger)
                     
                 case 2:
@@ -430,6 +431,7 @@ class AccountSummeryCell: UITableViewCell {
     }
     
     private func configure(detail: String, amount: String, descp: String? = nil, symbol: String? = nil) {
+        guard self.event != nil else {return}
         self.resetAllSubViews()
         amountStackView.isHidden = false
         self.dividerView.isHidden = !(self.event!.isDevider)
@@ -480,6 +482,7 @@ class AccountSummeryCell: UITableViewCell {
     }
     
     private func configureNext(title: String) {
+        guard self.event != nil else {return}
         self.resetAllSubViews()
         amountStackView.isHidden = false
         self.dividerView.isHidden = false

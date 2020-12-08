@@ -44,6 +44,8 @@ class SelectTripVC: BaseVC {
     weak var delegate: SelectTripVCDelegate?
     weak var cancelDelegate:TripCancelDelegate?
     var selectionComplition: ((TripModel, TripDetails?) -> Void)?
+    var presentingStatusBarStyle: UIStatusBarStyle = .darkContent
+    var dismissalStatusBarStyle: UIStatusBarStyle = .darkContent
     
     // MARK: - Private
     
@@ -54,7 +56,8 @@ class SelectTripVC: BaseVC {
     // MARK: -
     
     override func initialSetup() {
-        
+        self.tableView.contentInset = UIEdgeInsets(top: topNavView.height , left: 0.0, bottom: 10.0, right: 0.0)
+
         let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
         swipeGesture.delegate = self
         self.view.addGestureRecognizer(swipeGesture)
@@ -99,7 +102,12 @@ class SelectTripVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        statusBarStyle = .default
+        statusBarStyle = presentingStatusBarStyle
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        statusBarStyle = dismissalStatusBarStyle
     }
     
     override func bindViewModel() {
@@ -232,12 +240,12 @@ extension SelectTripVC: UITableViewDataSource, UITableViewDelegate {
         cell?.accessoryView = nil
         
         if let idxPath = viewModel.selectedIndexPath, idxPath.row == indexPath.row {
-            let checkMarckImageView = UIImageView(image: UIImage(named: "buttonCheckIcon"))
+            let checkMarckImageView = UIImageView(image: UIImage(named: "checkIcon"))
             checkMarckImageView.contentMode = .center
             cell?.accessoryView = checkMarckImageView
         }
         
-        return cell!
+        return cell ?? UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

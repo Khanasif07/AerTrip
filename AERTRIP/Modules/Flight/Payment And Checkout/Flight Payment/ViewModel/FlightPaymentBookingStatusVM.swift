@@ -35,13 +35,14 @@ class FlightPaymentBookingStatusVM{
     var loadingIndex:Int = -1
     var bookingObject:BookFlightObject?
     var availableSeatMaps = [AvailableSeatMap]()
+    var availableBookingMaps = [AvailableSeatMap]()
     var appleWalletDetails = [AppleWalletFlight]()
     var seatMapModels = [String: SeatMapModel]()
     var perAPIPersentage:Double{
         0.8/Double(self.apiBookingIds.count + 1)
     }
     var bookingAPIGroup = DispatchGroup()
-    
+
     /* TableViewCellType Enum contains all tableview cell for YouAreAllDoneVC tableview */
     enum TableViewCellType {
         case  allDoneCell, eventSharedCell, carriersCell, legInfoCell,BookingPaymentCell, pnrStatusCell, totalChargeCell, confirmationHeaderCell,confirmationVoucherCell, whatNextCell
@@ -117,6 +118,7 @@ class FlightPaymentBookingStatusVM{
                 self.bookingDetail[index] = bookingDetail
                 self.setSeatMapAvailability(bookingId, booking: bookingDetail)
                 self.setAppleWalletFligh(bookingId, booking: bookingDetail)
+                self.setBookingData(bookingId, booking: bookingDetail)
             }
             self.bookingAPIGroup.notify(queue: .main) {
                 delay(seconds: 0.2) {
@@ -145,8 +147,15 @@ class FlightPaymentBookingStatusVM{
         guard let bookingLegs = booking?.bookingDetail?.leg, self.itinerary.bookingStatus.status == "booked" else {return}
         let flights = bookingLegs.flatMap{$0.flight}
         self.appleWalletDetails.append(contentsOf: flights.map{AppleWalletFlight(bookingId: bookingId, flight: $0)})
-    }
+    }//availableBookingMaps
     
+    private func setBookingData(_ bookingId: String, booking: BookingDetailModel?){
+        guard let bookingLegs = booking?.bookingDetail?.leg.first else {return}
+        var seatMap = AvailableSeatMap(bookingId: bookingId, name: "")
+        let name = "\(bookingLegs.origin) → \(bookingLegs.destination)"
+        seatMap.name = name
+        self.availableBookingMaps.append(seatMap)
+    }
     func getPnrWith(_ indexPath:IndexPath)->String{
         let sec = indexPath.section - 1
         let row = indexPath.row - 3

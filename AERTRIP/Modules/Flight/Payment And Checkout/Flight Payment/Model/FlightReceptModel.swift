@@ -18,7 +18,7 @@ struct FlightReceptModelData {
 
 // MARK: - Receipt
 struct FlightRecept {
-    var id, sid: String
+    var id, sid, search_url: String
     var details: IntJourney
     var bookingStatus: BookingStatus
     var partPayment: PartPayment
@@ -35,6 +35,7 @@ struct FlightRecept {
     init(_ json:JSON = JSON()) {
         id = json["id"].stringValue
         sid = json["sid"].stringValue
+        search_url = json["search_url"].stringValue
         details = IntJourney(jsonData: json["details"])
         bookingStatus = BookingStatus(json["booking_status"])
         partPayment = PartPayment(json["part_payment"])
@@ -47,7 +48,7 @@ struct FlightRecept {
         hotelLinkParam = json["hotel_link_param"].arrayValue.map{HotelLinkParam($0)}
         bookingNumber = json["booking_number"].stringValue
         paymentDetails = PaymentDetails(json["payment_details"])
-        tripDetails = TripDetails(json: json["trip_details"].dictionaryValue)
+        tripDetails = TripDetails(json["trip_details"])
         tk = json["tk"].stringValue
         currency = json["currency"].stringValue
         whatNext =  json["whatsNext"].arrayValue.map{WhatNext($0, isFor: "flight")}
@@ -104,6 +105,10 @@ struct  WhatNext {
     var departCity:String
     var arrivalCity:String
     var settingFor: String
+    var arrivalAirports = ""
+    var departAiports = ""
+    var arrivalCountryCode = ""
+    var departureCountryCode = ""
     
     //Array for multicity flight result
     var originArr:[String]?
@@ -111,6 +116,10 @@ struct  WhatNext {
     var departArr:[String]?
     var departCityArr:[String]?
     var arrivalCityArr:[String]?
+    var arrivalAirportArr:[String]?
+    var departAiportArr:[String]?
+    var arrivalCountryCodeArr:[String]?
+    var departureCountryCodeArr:[String]?
     
     var whatNextStringValue:String{
         
@@ -150,8 +159,8 @@ struct  WhatNext {
         cabinclass = json["cabinclass"].stringValue.capitalized
         child = json["child"].stringValue
         returnDate = json["return"].stringValue
-        departCity = json["depart_city"].stringValue
-        arrivalCity = json["arrival_city"].stringValue
+        departCity = json["origin_city"].stringValue
+        arrivalCity = json["destination_city"].stringValue
         productType = ProductType.getTypeFrom(self.product)
         settingFor = isFor
         switch productType{

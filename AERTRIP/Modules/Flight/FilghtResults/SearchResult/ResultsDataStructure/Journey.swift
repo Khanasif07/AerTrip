@@ -30,7 +30,7 @@ public class Journey: Codable , Equatable {
     let displaySeat : Bool
     var fare : Taxes
 //    let rfd : Int
-    let rfdPlcy:refundPolicyStruct
+    var rfdPlcy:refundPolicyStruct
 //    let rsc : Int
     let dt : String
     let at : String
@@ -81,6 +81,53 @@ public class Journey: Codable , Equatable {
     let humaneScore : Float
     //    let humaneArr
     let humanePrice : Humanprice
+    
+    init() {
+        self.vendor = ""
+        self.id = ""
+        self.fk = ""
+        self.ofk = ""
+        self.otherfares = false
+        self.farepr = 0
+        self.iic = false
+        self.displaySeat = false
+        self.fare = Taxes()
+        self.rfdPlcy = refundPolicyStruct()
+        self.dt = ""
+        self.at = ""
+        self.tt = []
+        self.slo  = 0
+        self.slot = ""
+        self.llow = 0
+        self.llowt = ""
+        self.red = 0
+        self.redt = ""
+        self.cot = 0
+        self.cop = 0
+        self.copt = ""
+        self.fsr = 0
+        self.seats = ""
+        self.al = []
+        self.stp = ""
+        self.ap = []
+        self.loap = []
+        self.leg = []
+        self.isLcc = 0
+        self.sict = false
+        self.dspNoshow = 0
+        self.cc = ""
+        self.fcc = ""
+        self.lg = 0
+        self.ovngt = 0
+        self.ovngtt = ""
+        self.ovgtf = 0
+        self.ovgtlo = 0
+        self.dd = ""
+        self.ad = ""
+        self.coa = 0
+        self.humaneScore = 0
+        self.humanePrice = Humanprice()
+    }
 
     // Computed properties for display and logic
     
@@ -240,7 +287,7 @@ public class Journey: Codable , Equatable {
         if coa == 0 && cot > 0 { logoArray.append("changeOfTerminal") }
         if ovngt > 0 { logoArray.append("overnight")}
         if llow > 0 { logoArray.append("longLayover") }
-        if leg.first?.fcp == 1 && !isRefundUpdated { logoArray.append("refundStatusPending")}
+        if leg.first?.fcp == 1 { logoArray.append("refundStatusPending")}
         
         return logoArray
     }
@@ -313,10 +360,10 @@ public class Journey: Codable , Equatable {
     var isPinned : Bool? = false
     var groupID : Int?
     var noBaggage : Bool?
-    var isRefundUpdated : Bool {
-        
-        return false
-    }
+//    var isRefundUpdated : Bool {
+//
+//        return false
+//    }
     
     public static func == (lhs: Journey, rhs: Journey) -> Bool {
         
@@ -335,7 +382,6 @@ public class Journey: Codable , Equatable {
         return false
     }
     
-        
     
     var baggageSuperScript : NSAttributedString? {
         
@@ -360,7 +406,7 @@ public class Journey: Codable , Equatable {
             return attributedSuperScript
         }
         
-
+        
         if baggageArray.allSatisfy({ $0 == firstValue }) {
             
             let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 9.0)! ,
@@ -370,6 +416,18 @@ public class Journey: Codable , Equatable {
                 
                 let attributedSuperScript : NSAttributedString
                 
+                if let pieces = ADTBaggage.pieces, pieces != "" && pieces != "-9" && pieces != "-1" && pieces != "0 pc" && pieces != "0" {
+            
+                            if pieces.containsIgnoringCase(find: " ") {
+                                let numbers = pieces.components(separatedBy: " ")
+                                attributedSuperScript = NSAttributedString(string:numbers.first! + "Pc" , attributes: attributes)
+                                return attributedSuperScript
+                            } else {
+                                attributedSuperScript = NSAttributedString(string: pieces + "Pc" , attributes: attributes)
+                                return attributedSuperScript
+                    }
+                }
+                
                 if let weight = ADTBaggage.weight {
                     
                     if weight.containsIgnoringCase(find: " ") {
@@ -377,25 +435,44 @@ public class Journey: Codable , Equatable {
                         attributedSuperScript = NSAttributedString(string:numbers.first!, attributes: attributes)
                         return attributedSuperScript
                     }
+                    
                 }
                 
-                if let pieces = ADTBaggage.pieces {
-                    
-                    if pieces.containsIgnoringCase(find: " ") {
-                        let numbers = pieces.components(separatedBy: " ")
-                        attributedSuperScript = NSAttributedString(string:numbers.first! + "P" , attributes: attributes)
-                        return attributedSuperScript
-                    }
-                }
             }
-        }
-         else {
+        } else {
 
-            let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 16.0)! ,
-                               NSAttributedString.Key.foregroundColor : UIColor.black]
+//            print("baggageArray=",baggageArray)
+//            let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 16.0)! ,
+//                               NSAttributedString.Key.foregroundColor : UIColor.black]
+//
+//            let attributedSuperScript = NSAttributedString(string: "*", attributes: attributes)
+//            return attributedSuperScript
+            
+            
+            
+            if let ADTBaggage = firstValue["ADT"] {
+                
+                
+                if let pieces = ADTBaggage.pieces, pieces != "" && pieces != "-9" && pieces != "-1" && pieces != "0 pc" && pieces != "0" {
+                    let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 16.0)! ,
+                                       NSAttributedString.Key.foregroundColor : UIColor.black]
 
-            let attributedSuperScript = NSAttributedString(string: "*", attributes: attributes)
-            return attributedSuperScript
+                    let attributedSuperScript = NSAttributedString(string: "*", attributes: attributes)
+                    return attributedSuperScript
+
+                }else{
+                    let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 9.0)! ,
+                                         NSAttributedString.Key.foregroundColor : UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)]
+                     let attributedSuperScript = NSAttributedString(string: "?", attributes: attributes)
+                     return attributedSuperScript
+                }
+            }else{
+                let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 9.0)! ,
+                                     NSAttributedString.Key.foregroundColor : UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)]
+                 let attributedSuperScript = NSAttributedString(string: "?", attributes: attributes)
+                 return attributedSuperScript
+
+            }
          }
 
         let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 9.0)! ,
@@ -469,7 +546,7 @@ class JourneyOnewayDisplay {
     }
     
     var first : Journey {
-        return journeyArray.first!
+        return journeyArray.first ?? Journey()
     }
     
     var isAboveHumanScore : Bool {
@@ -477,7 +554,8 @@ class JourneyOnewayDisplay {
     }
     
     var computedHumanScore : Float {
-        return getJourneyWithLeastHumanScore().computedHumanScore!
+        guard let jrny = getJourneyWithLeastHumanScore() else { return 0.0 }
+        return jrny.computedHumanScore ?? 0.0
     }
     
     //    var isPinned : Bool?
@@ -536,9 +614,9 @@ class JourneyOnewayDisplay {
         return self.journeyArray.first(where:{ $0.fk == fk })
     }
     
-    func getJourneyWithLeastHumanScore () ->  Journey {
+    func getJourneyWithLeastHumanScore () ->  Journey? {
             let sorted =  journeyArray.sorted(by: { $0.computedHumanScore! < $1.computedHumanScore! })
-            return sorted.first!
+            return sorted.first
     }
     
     func getJourneysWithMinDuration() -> Journey? {

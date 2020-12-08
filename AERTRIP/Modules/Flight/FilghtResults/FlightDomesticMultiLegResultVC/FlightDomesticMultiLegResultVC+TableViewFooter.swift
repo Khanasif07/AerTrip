@@ -63,7 +63,9 @@ extension FlightDomesticMultiLegResultVC {
             let titleLabel = UILabel(frame: CGRect(x:8,y: 16 ,width:groupedFooterView.frame.width - 16  ,height:60))
             titleLabel.textColor = UIColor.AertripColor
             titleLabel.numberOfLines = 0
-            titleLabel.font = UIFont(name: "SourceSansPro-Regular", size: 14.0)
+//            titleLabel.font = UIFont(name: "SourceSansPro-Regular", size: 14.0)
+            titleLabel.font = AppFonts.Regular.withSize(14)
+
             titleLabel.textAlignment = .center
             
             if aboveHumanScoreCount == 1 {
@@ -83,7 +85,7 @@ extension FlightDomesticMultiLegResultVC {
         guard let tableIndex = sender.view?.tag else { return }
         guard let tableView = baseScrollView.viewWithTag( 1000 + tableIndex) as? UITableView else { return }
 
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: 0.1, animations: {
                    tableView.tableFooterView?.transform = CGAffineTransform(translationX: 0, y: 200)
                }) { (success) in
                 
@@ -132,7 +134,7 @@ extension FlightDomesticMultiLegResultVC {
         let titleLabel = UILabel(frame: CGRect(x:8,y: 16 ,width:expandedFooterView.frame.width - 16  ,height:60))
         titleLabel.textColor = UIColor.AertripColor
         titleLabel.numberOfLines = 0
-        titleLabel.font = UIFont(name: "SourceSansPro-Regular", size: 14.0)
+            titleLabel.font = AppFonts.Regular.withSize(14)
         titleLabel.textAlignment = .center
         titleLabel.text  = "Hide " + String(aboveHumanScoreCount) + " longer or expensive flights"
         expandedFooterView.addSubview(titleLabel)
@@ -144,12 +146,14 @@ extension FlightDomesticMultiLegResultVC {
     func createRepeatedFooterBaseView(for view : UIView) -> UIView {
         let baseView = UIView(frame: CGRect(x: 0 , y: 0, width: view.frame.width, height: 60))
         baseView.backgroundColor = .white
-        baseView.layer.cornerRadius = 5.0
-        baseView.layer.shadowColor = UIColor.black.cgColor
-        baseView.layer.shadowOpacity = 0.1
-        baseView.layer.shadowRadius = 8.0
-        baseView.layer.shadowOffset = CGSize(width: 0, height: 2)
-
+//        baseView.layer.cornerRadius = 5.0
+//        baseView.layer.shadowColor = UIColor.black.cgColor
+//        baseView.layer.shadowOpacity = 0.1
+//        baseView.layer.shadowRadius = 8.0
+//        baseView.layer.shadowOffset = CGSize(width: 0, height: 2)
+//        baseView.addShadow(cornerRadius: 5.0, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize(width: 0, height: 2), opacity: 0.1, shadowRadius: 8.0)
+        let shadowProp = AppShadowProperties()
+        baseView.addShadow(cornerRadius: shadowProp.cornerRadius/2, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: shadowProp.shadowColor, offset: shadowProp.offset, opacity: shadowProp.opecity, shadowRadius: shadowProp.shadowRadius)
         return baseView
     }
     

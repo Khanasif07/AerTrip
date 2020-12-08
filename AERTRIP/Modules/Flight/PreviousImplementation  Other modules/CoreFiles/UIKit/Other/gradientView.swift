@@ -21,22 +21,22 @@ class GradientView: UIView {
     
     override class var layerClass: AnyClass { return CAGradientLayer.self }
     
-    var gradientLayer: CAGradientLayer { return layer as! CAGradientLayer }
+    var gradientLayer: CAGradientLayer? { return layer as? CAGradientLayer }
     
     func updatePoints() {
         if horizontalMode {
-            gradientLayer.startPoint = diagonalMode ? CGPoint(x: 1, y: 0) : CGPoint(x: 0, y: 0.5)
-            gradientLayer.endPoint   = diagonalMode ? CGPoint(x: 0, y: 1) : CGPoint(x: 1, y: 0.5)
+            gradientLayer?.startPoint = diagonalMode ? CGPoint(x: 1, y: 0) : CGPoint(x: 0, y: 0.5)
+            gradientLayer?.endPoint   = diagonalMode ? CGPoint(x: 0, y: 1) : CGPoint(x: 1, y: 0.5)
         } else {
-            gradientLayer.startPoint = diagonalMode ? CGPoint(x: 0, y: 0) : CGPoint(x: 0.5, y: 0)
-            gradientLayer.endPoint   = diagonalMode ? CGPoint(x: 1, y: 1) : CGPoint(x: 0.5, y: 1)
+            gradientLayer?.startPoint = diagonalMode ? CGPoint(x: 0, y: 0) : CGPoint(x: 0.5, y: 0)
+            gradientLayer?.endPoint   = diagonalMode ? CGPoint(x: 1, y: 1) : CGPoint(x: 0.5, y: 1)
         }
     }
     func updateLocations() {
-        gradientLayer.locations = [startLocation as NSNumber, endLocation as NSNumber]
+        gradientLayer?.locations = [startLocation as NSNumber, endLocation as NSNumber]
     }
     func updateColors() {
-        gradientLayer.colors    = [startColor.cgColor, endColor.cgColor]
+        gradientLayer?.colors    = [startColor.cgColor, endColor.cgColor]
     }
     
     override func layoutSubviews() {

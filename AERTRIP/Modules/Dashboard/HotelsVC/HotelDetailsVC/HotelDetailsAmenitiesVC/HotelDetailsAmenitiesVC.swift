@@ -30,7 +30,6 @@ class HotelDetailsAmenitiesVC: BaseVC {
     @IBOutlet weak var amenitiesLabelTopConstraints: NSLayoutConstraint!
     @IBOutlet weak var amenitiesTblView: UITableView! {
         didSet {
-            self.amenitiesTblView.contentInset = UIEdgeInsets(top: 8.0, left: 0.0, bottom: 0.0, right: 0.0)
             self.amenitiesTblView.delegate = self
             self.amenitiesTblView.dataSource = self
             self.amenitiesTblView.estimatedRowHeight = UITableView.automaticDimension
@@ -69,6 +68,8 @@ class HotelDetailsAmenitiesVC: BaseVC {
     }
     
     override func initialSetup() {
+        self.amenitiesTblView.contentInset = UIEdgeInsets(top: headerContainerView.height + 8.0, left: 0.0, bottom: 0.0, right: 0.0)
+
         headerContainerView.backgroundColor = .clear
                mainContainerView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
                self.view.backgroundColor = .clear

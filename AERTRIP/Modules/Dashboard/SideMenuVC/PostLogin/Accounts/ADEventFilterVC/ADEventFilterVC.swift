@@ -54,14 +54,15 @@ class ADEventFilterVC: BaseVC {
     
     private var travelDateVC = TravelDateVC.instantiate(fromAppStoryboard: .Bookings)
     private var adVoucherTypeVC = ADVoucherTypeVC.instantiate(fromAppStoryboard: .Account)
-    
+    private var filtersTabs =  [MenuItem]()
+
     //MARK:- ViewLifeCycle
     //MARK:-
     override func initialSetup() {
         
-        if !ADEventFilterVM.shared.voucherTypes.isEmpty {
-            ADEventFilterVM.shared.voucherTypes.insert("All", at: 0)
-        }
+//        if !ADEventFilterVM.shared.voucherTypes.isEmpty {
+//            ADEventFilterVM.shared.voucherTypes.insert(LocalizedString.ALL.localized, at: 0)
+//        }
         
         self.topNavBar.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isDivider: false)
         
@@ -178,6 +179,11 @@ class ADEventFilterVC: BaseVC {
     
     
     private func setUpViewPager() {
+        for i in 0..<(allTabsStr.count){
+            let obj = MenuItem(title: HotelFilterVM.shared.allTabsStr[i], index: i, isSelected: false)
+            filtersTabs.append(obj)
+        }
+        setBadgesOnAllCategories()
         self.allChildVCs.removeAll()
         self.allChildVCs.append(travelDateVC)
         self.allChildVCs.append(adVoucherTypeVC)
@@ -195,7 +201,7 @@ class ADEventFilterVC: BaseVC {
         self.parchmentView = PagingViewController()
         var textWidth: CGFloat = 0
          allTabsStr.forEach { (str) in
-            textWidth += str.widthOfString(usingFont: AppFonts.Regular.withSize(16.0))
+            textWidth += str.widthOfString(usingFont: AppFonts.Regular.withSize(16.0)) + 22
          }
          var menuItemSpacing: CGFloat = 0
          if self.allTabsStr.count > 2 {
@@ -232,6 +238,24 @@ class ADEventFilterVC: BaseVC {
     
     
     private func setBadgesOnAllCategories() {
+        
+        for (idx,tab) in self.allTabsStr.enumerated() {
+            
+            switch tab.lowercased() {
+            case LocalizedString.DateSpan.localized.lowercased():
+                if ADEventFilterVM.shared.toDate != nil || ADEventFilterVM.shared.fromDate != nil {
+                    filtersTabs[idx].isSelected = false
+                } else {
+                    filtersTabs[idx].isSelected = true
+                }
+                
+            case LocalizedString.VoucherType.localized.lowercased():
+                filtersTabs[idx].isSelected  = ADEventFilterVM.shared.selectedVoucherType.isEmpty
+                
+            default:
+                printDebug("not useable case")
+            }
+        }
     }
     
     private func setupGesture() {
@@ -278,10 +302,11 @@ extension ADEventFilterVC: TopNavigationViewDelegate {
                 vc.setFilterValues()
             }
             else if let vc = viewController as? ADVoucherTypeVC {
-                vc.tableView.reloadData()
+                vc.setFilterValues()
             }
         }
         checkDoneBtnState()
+        reloadMenu()
         // self.hide(animated: true, shouldRemove: true)
     }
     
@@ -311,18 +336,33 @@ extension ADEventFilterVC: ADVoucherTypeVCDelegate, TravelDateVCDelegate {
 //        }
         self.delegate?.applyFilter()
         checkDoneBtnState()
+        reloadMenu()
     }
     
     func didSelect(toDate: Date?, forType: TravelDateVC.UsingFor) {
         ADEventFilterVM.shared.toDate = toDate
         self.delegate?.applyFilter()
         checkDoneBtnState()
+        reloadMenu()
     }
     
     func didSelect(fromDate: Date?, forType: TravelDateVC.UsingFor) {
         ADEventFilterVM.shared.fromDate = fromDate
         self.delegate?.applyFilter()
         checkDoneBtnState()
+        reloadMenu()
+    }
+    
+    func reloadMenu(){
+        DispatchQueue.main.async {
+        self.setBadgesOnAllCategories()
+        UIView.setAnimationsEnabled(false)
+        UIView.animate(withDuration: 0, animations: {
+            self.parchmentView?.reloadMenu()
+        }) { (_) in
+            UIView.setAnimationsEnabled(true)
+        }
+        }
     }
 }
 
@@ -336,7 +376,7 @@ extension ADEventFilterVC : PagingViewControllerDataSource , PagingViewControlle
     }
     
     func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
-        return MenuItem(title: self.allTabsStr[index], index: index, isSelected:false)
+        return MenuItem(title: self.allTabsStr[index], index: index, isSelected: filtersTabs[index].isSelected )
     }
     
     func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
@@ -346,7 +386,7 @@ extension ADEventFilterVC : PagingViewControllerDataSource , PagingViewControlle
             let text = pagingIndexItem.title
             
             let font = isSelected ? AppFonts.SemiBold.withSize(16.0) : AppFonts.Regular.withSize(16.0)
-            return text.widthOfString(usingFont: font)
+            return text.widthOfString(usingFont: font) + 20
         }
         
         return 100.0

@@ -72,6 +72,7 @@ class PassengerSelectionVM  {
     func setupGuestArray() {
         AddonsDataStore.shared.resetData()
         guard self.sid != GuestDetailsVM.shared.sid else {
+            self.setUpMealAndFrequentFlyerForAlreadyLoaded()
             self.setupLoginData()
             GuestDetailsVM.shared.canShowSalutationError = false
             return
@@ -128,6 +129,24 @@ class PassengerSelectionVM  {
         GuestDetailsVM.shared.canShowSalutationError = false
     }
     
+    
+    func setUpMealAndFrequentFlyerForAlreadyLoaded(){
+        
+        if var passengers = GuestDetailsVM.shared.guests.first{
+            for i in 0..<passengers.count{
+                if passengers[i].passengerType != .Infant{
+                    passengers[i].frequentFlyer = self.getFrequentFlyer()
+                    passengers[i].mealPreference = self.getMealPreference()
+                }else{
+                    passengers[i].frequentFlyer = self.getFrequentFlyer()
+                }
+            }
+            GuestDetailsVM.shared.guests[0] = passengers
+        }
+    }
+    
+    
+    
     func setupLoginData(){
         self.journeyType = (self.itineraryData.itinerary.isInternational) ? .international : .domestic
         self.bookingObject?.isDomestic = (!self.itineraryData.itinerary.isInternational)
@@ -143,7 +162,7 @@ class PassengerSelectionVM  {
         APICaller.shared.callGetCountriesListApi {[weak self] success, countries, errorCode in
             guard let _ = self else {return}
             if success {
-                GuestDetailsVM.shared.countries = countries
+               // GuestDetailsVM.shared.countries = countries
             } else {
                 debugPrint(errorCode)
             }

@@ -492,24 +492,28 @@
 - (void) performFlightSearchWebServiceCall:(NSDictionary*)flightSearchParameters
 {
     [self.delegate showLoaderIndicatorForFilghtSearch];
+    __weak typeof(self) weakSelf = self;
+
     [[Network sharedNetwork]
      callGETApi:FLIGHT_SEARCH_API
      parameters:flightSearchParameters
      loadFromCache:NO
      expires:YES
      success:^(NSDictionary *dataDictionary) {
-        [self addToRecentSearch:flightSearchParameters];
+        if (!weakSelf) { return; }
+        [weakSelf addToRecentSearch:flightSearchParameters];
          BookFlightObject * bookingObject = [self handleResponseForFlightSearch:dataDictionary flightSearchParameters:flightSearchParameters];
          
          dispatch_async(dispatch_get_main_queue(), ^{
-                      [self.delegate showFlightSearchResult:bookingObject flightSearchParameters:flightSearchParameters];
+                      [weakSelf.delegate showFlightSearchResult:bookingObject flightSearchParameters:flightSearchParameters];
          });
          
 
 
     } failure:^(NSString *error, BOOL popup) {
-        [self.delegate showErrorMessage:error];
-        [self.delegate hideLoaderIndicatorForFilghtSearch];
+        if (!weakSelf) { return; }
+        [weakSelf.delegate showErrorMessage:error];
+        [weakSelf.delegate hideLoaderIndicatorForFilghtSearch];
     }];
 }
 
@@ -610,7 +614,12 @@
         bookFlightObject.isDomestic = NO;
     }
         
-    bookFlightObject.subTitleString = [NSString stringWithFormat:@"%@  •  %ld Pax  •  %@", date,  (long)count, [flightSearchParameters valueForKey:@"cabinclass"]];
+    
+    if((childCount > 0 && infantCount > 0) || (childCount > 0) || (infantCount > 0)) {
+        bookFlightObject.subTitleString = [NSString stringWithFormat:@"%@  •  %ld Pax  •  %@", date,  (long)count, [flightSearchParameters valueForKey:@"cabinclass"]];
+    }else{
+        bookFlightObject.subTitleString = [NSString stringWithFormat:@"%@  •  %ld Adt  •  %@", date,  (long)count, [flightSearchParameters valueForKey:@"cabinclass"]];
+    }
     
    if ( [tripType isEqualToString:@"return"]) {
        bookFlightObject.flightSearchType = RETURN_JOURNEY;
@@ -882,8 +891,33 @@
 {
     NSDictionary * dictionary = self.recentSearchArray[indexPath.row];
     NSMutableDictionary * queryDictionay = [NSMutableDictionary dictionaryWithDictionary:[dictionary objectForKey:@"query"]];
-
+    
     NSString * tripType = [queryDictionay objectForKey:@"trip_type"];
+    
+    if ([tripType isEqualToString:@"multi"] ) {
+        NSArray * departArray = [queryDictionay objectForKey:@"depart"];
+        NSMutableArray * newDepartArray = [NSMutableArray array];
+        for (int i = 0;  i < departArray.count; i++) {
+            NSString * departDateStr = [departArray objectAtIndex:i];
+            NSDate * departDate = [self dateFromString:departDateStr];
+            NSString * newDepartDateStr = [self stringFromDate:departDate];
+            [newDepartArray addObject:newDepartDateStr];
+        }
+        [queryDictionay setObject:newDepartArray forKey:@"depart"];
+        
+    } else {
+        NSString * departDateStr = [queryDictionay objectForKey:@"depart"];
+        NSDate * departDate = [self dateFromString:departDateStr];
+        NSString * newDepartDateStr = [self stringFromDate:departDate];
+        [queryDictionay setValue:newDepartDateStr forKey:@"depart"];
+
+        if ([tripType isEqualToString:@"return"] ) {
+            NSString * returnDateStr = [queryDictionay objectForKey:@"return"];
+            NSDate *returnDate = [self dateFromString:returnDateStr];
+            NSString * newReturnDateStr = [self stringFromDate:returnDate];
+            [queryDictionay setValue:newReturnDateStr forKey:@"return"];
+        }
+    }
     
     if ([tripType isEqualToString:@"multi"] ) {
     
@@ -934,10 +968,14 @@
     
     NSString * url = [NEARBY_AIRPORT_SEARCH_API stringByAppendingString:latitudeLongituteString];
     
+    __weak typeof(self) weakSelf = self;
+    
     [[Network sharedNetwork] callGETApi:url parameters:nil loadFromCache:NO expires:YES success:^(NSDictionary *dataDictionary) {
-        [self handleNearbyAirportByLocationResult:dataDictionary];
+        if (!weakSelf) { return; }
+        [weakSelf handleNearbyAirportByLocationResult:dataDictionary];
     } failure:^(NSString *error, BOOL popup) {
-        [self.delegate showErrorMessage:error.description];
+        if (!weakSelf) { return; }
+        [weakSelf.delegate showErrorMessage:error.description];
     }];
     
 }
@@ -1029,7 +1067,8 @@
         airportSearchUpdated = YES;
     }
     
-    if (airportSearchUpdated) {
+    //Change for flight form not fill for some case.
+    if ((airportSearchUpdated) && (!self.isSettingForMulticity)){
         [self.multiCityArray removeAllObjects];
         [self setupNewMulticitySearch];
     }
@@ -1163,6 +1202,31 @@
     
     NSString * tripType = [flightSearchParameters valueForKey:@"trip_type"];
     
+    if ([tripType isEqualToString:@"multi"] ) {
+        NSArray * departArray = [flightParameters objectForKey:@"depart"];
+        NSMutableArray * newDepartArray = [NSMutableArray array];
+        for (int i = 0;  i < departArray.count; i++) {
+            NSString * departDateStr = [departArray objectAtIndex:i];
+            NSDate * departDate = [self dateFromString:departDateStr];
+            NSString * newDepartDateStr = [self stringFromDate:departDate];
+            [newDepartArray addObject:newDepartDateStr];
+        }
+        [flightParameters setObject:newDepartArray forKey:@"depart"];
+        
+    } else {
+        NSString * departDateStr = [flightParameters objectForKey:@"depart"];
+        NSDate * departDate = [self dateFromString:departDateStr];
+        NSString * newDepartDateStr = [self stringFromDate:departDate];
+        [flightParameters setValue:newDepartDateStr forKey:@"depart"];
+
+        if ([tripType isEqualToString:@"return"] ) {
+            NSString * returnDateStr = [flightParameters objectForKey:@"return"];
+            NSDate *returnDate = [self dateFromString:returnDateStr];
+            NSString * newReturnDateStr = [self stringFromDate:returnDate];
+            [flightParameters setValue:newReturnDateStr forKey:@"return"];
+        }
+    }
+    
     if ([tripType compare:@"multi"]  == NSOrderedSame) {
 
         NSMutableArray * originAirports = [NSMutableArray arrayWithCapacity:5];
@@ -1213,8 +1277,11 @@
     [parametersDynamic setObject:[self dateFormattedForAPIRequest:self.onwardsDate] forKey:@"data[start_date]"];
     [parametersDynamic setObject:jsonString forKey:@"data[query]"];
     
+    __weak typeof(self) weakSelf = self;
+
     [[Network sharedNetwork] callApi:RECENT_SEARCH_SET_API parameters:parametersDynamic loadFromCache:NO expires:YES success:^(NSDictionary *dataDictionary) {
-        [self getRecentSearches];
+        if (!weakSelf) { return; }
+        [weakSelf getRecentSearches];
     } failure:^(NSString *error, BOOL popup) {
         NSLog(@"%@", error.debugDescription);
     }];
@@ -1230,8 +1297,11 @@
         NSMutableDictionary *parametersDynamic = [[NSMutableDictionary alloc] init];
     [parametersDynamic setObject:@"flight" forKey:@"product"];
     
+    __weak typeof(self) weakSelf = self;
+
     [[Network sharedNetwork] callGETApi:RECENT_SEARCH_GET_API parameters:parametersDynamic loadFromCache:NO expires:YES success:^(NSDictionary *dataDictionary) {
-        [self handleRecentSearchWSResponse:dataDictionary];
+        if (!weakSelf) { return; }
+        [weakSelf handleRecentSearchWSResponse:dataDictionary];
     } failure:^(NSString *error, BOOL popup) {
         ///Chnage for what next functionality by @Golu
         [FlightWhatNextData.shared clearData];
@@ -1248,26 +1318,26 @@
     flightclass.imageName = @"";
 
     
-    if ([flightClassName isEqualToString:@"Economy"]) {
+    if ([flightClassName caseInsensitiveCompare:@"Economy"] == NSOrderedSame) {
     
         flightclass.name = @"Economy";
         flightclass.type = ECONOMY_FLIGHT_TYPE;
     }
     
-    if ([flightClassName isEqualToString:@"Premium Economy"]) {
+    if ([flightClassName caseInsensitiveCompare:@"Premium Economy"] == NSOrderedSame) {
     
         flightclass.name = @"Premium Economy";
         flightclass.type = PREMIUM_FLIGHT_TYPE;
     }
     
-     if ([flightClassName isEqualToString:@"Business"]) {
+     if ([flightClassName caseInsensitiveCompare:@"Business"] == NSOrderedSame) {
        
         flightclass.name = @"Business";
         flightclass.type = BUSINESS_FLIGHT_TYPE;
 
     }
 
-     if ([flightClassName isEqualToString:@"First"]) {
+     if ([flightClassName caseInsensitiveCompare:@"First"] == NSOrderedSame) {
        
         flightclass.name = @"First";
         flightclass.type = FIRST_FLIGHT_TYPE;
@@ -1325,6 +1395,13 @@
     return date;
 }
 
+-(NSString*)stringFromDate:(NSDate*) date {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"dd-MM-yyyy"];
+    NSString *stringFromDate = [formatter stringFromDate:date];
+    return stringFromDate;
+}
+
 -(void)handleRecentSearchWSResponse:(NSDictionary*)recentSearchWSResponse
 {
     
@@ -1375,7 +1452,8 @@
         [self setFlightFormUIForOnwardDate:departDateString returnDateString:returnDateString tripType:tripType];
         }
         else {
-            
+            //Change for flight form not fill for some case.
+            self.isSettingForMulticity = true;
             [self.multiCityArray removeAllObjects];
             self.flightSearchType = MULTI_CITY;
             
@@ -1406,6 +1484,8 @@
         }
         [self.delegate setupFlightViews];
         [self.delegate updateRecentSearch];
+        //Change for flight form not fill for some case.
+        self.isSettingForMulticity = false;
     }
 
 }
@@ -1414,9 +1494,11 @@
 
 - (void) performSearchOnServerWithText:(NSString *)searchText
 {
-    
+    __weak typeof(self) weakSelf = self;
+
     [[Network sharedNetwork] callGETApi:AIRPORT_SEARCH_API parameters:[self buildSearchParametersWithText:searchText] loadFromCache:NO expires:YES success:^(NSDictionary *dataDictionary) {
-        [self handleSearchResultDictionary:dataDictionary];
+        if (!weakSelf) { return; }
+        [weakSelf handleSearchResultDictionary:dataDictionary];
     } failure:^(NSString *error, BOOL popup) {
 
     }];
@@ -1475,10 +1557,11 @@
 
 - (void) performAirportSearchFromIATACode:(NSString *)searchText forOrigin:(BOOL)forOrigin
 {
-    
-    [[Network sharedNetwork] callGETApi:AIRPORT_SEARCH_API parameters:[self dictionaryForAirportSearch:searchText] loadFromCache:NO expires:YES success:^(NSDictionary *dataDictionary) {
+    __weak typeof(self) weakSelf = self;
 
-        [self HandleAirportSearchResult:dataDictionary forOrigin:forOrigin];
+    [[Network sharedNetwork] callGETApi:AIRPORT_SEARCH_API parameters:[self dictionaryForAirportSearch:searchText] loadFromCache:NO expires:YES success:^(NSDictionary *dataDictionary) {
+        if (!weakSelf) { return; }
+        [weakSelf HandleAirportSearchResult:dataDictionary forOrigin:forOrigin];
     } failure:^(NSString *error, BOOL popup) {
     }];
 }
@@ -1642,6 +1725,11 @@
         NSArray * departCityArr = [query mutableArrayValueForKey:@"departCityArr"];
         NSArray * arrivalCityArr = [query mutableArrayValueForKey:@"arrivalCityArr"];
         
+        NSArray * departCountrys = [query mutableArrayValueForKey:@"departCountryArr"];
+        NSArray * departsAirporsts = [query mutableArrayValueForKey:@"departAirpotrsArr"];
+        NSArray * arrivalCountrys = [query mutableArrayValueForKey:@"arrivalCountryArr"];
+        NSArray * arrivalAirporsts = [query mutableArrayValueForKey:@"arrivalAirportsArr"];
+        
         for (int i = 0;  i < originArray.count; i++) {
             
             NSString * currentOrigin = [originArray objectAtIndex:i];
@@ -1650,15 +1738,22 @@
             NSString * departCity = [departCityArr objectAtIndex:i];
             NSString * arrivalCity = [arrivalCityArr objectAtIndex:i];
             
+            NSString * arrivalCountry = [arrivalCountrys objectAtIndex:i];
+            NSString * arrivalAirports = [arrivalAirporsts objectAtIndex:i];
+            NSString * departCountry = [departCountrys objectAtIndex:i];
+            NSString * departAirport = [arrivalAirporsts objectAtIndex:i];
+            
             AirportSearch * SourceAirport = [AirportSearch new];
             SourceAirport.iata = currentOrigin;
             SourceAirport.city = departCity;
-            SourceAirport.countryCode = @"";
+            SourceAirport.countryCode = departCountry;
+            SourceAirport.airport = departAirport;
             
             AirportSearch * ToAirport = [AirportSearch new];
             ToAirport.iata = currentDestination;
             ToAirport.city = arrivalCity;
-            ToAirport.countryCode = @"";
+            ToAirport.countryCode = arrivalCountry;
+            ToAirport.airport = arrivalAirports;
             
             NSDate * travelDate = [self dateFromString:date];
             MulticityFlightLeg * newMultiLegJourney = [[MulticityFlightLeg alloc]init];
@@ -1684,7 +1779,8 @@
     AirportSearch *airportSearch = [AirportSearch new];
     airportSearch.iata = [flightNextParam valueForKey:@"origin"];
     airportSearch.city = [flightNextParam valueForKey: @"departCity"];
-    airportSearch.countryCode = @"";
+    airportSearch.countryCode = [flightNextParam valueForKey: @"departCountryCode"];
+    airportSearch.airport = [flightNextParam valueForKey: @"departAirport"];
     [airportsArray addObject: airportSearch];
     self.fromFlightArray = [NSMutableArray arrayWithArray:airportsArray];
 
@@ -1693,7 +1789,8 @@
     AirportSearch *airportSearchReturn = [AirportSearch new];
     airportSearchReturn.iata = [flightNextParam valueForKey:@"destination"];
     airportSearchReturn.city = [flightNextParam valueForKey: @"arrivalCity"];
-    airportSearchReturn.countryCode = @"";
+    airportSearchReturn.countryCode = [flightNextParam valueForKey: @"arrivalCountryCode"];
+    airportSearchReturn.airport = [flightNextParam valueForKey: @"arrivalAirpots"];
     [airportsArray addObject: airportSearchReturn];
     self.toFlightArray = [NSMutableArray arrayWithArray:airportsArray];
     [self.delegate setupFromAndToView];

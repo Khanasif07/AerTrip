@@ -57,6 +57,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     private var highlightedBtnArr = Set<UIButton>()
     
     //MARK:- multiLeg Outlets
+    @IBOutlet weak var flightTimesScrollView: UIScrollView!
     @IBOutlet weak var multiLegViewHeight: NSLayoutConstraint!
     @IBOutlet weak var multiLegView: UIView!
     @IBOutlet weak var multiSegmentView: UIView!
@@ -121,11 +122,14 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         }
         addDaysSeparatorInArrivalRangeSlider()
         hideShowOvernightView()
+        resetAvoidOvernightBtn()
     }
     
     //MARK:- Departure feature methods
     fileprivate func setDepartureLabelAttributedString() {
-        let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Semibold", size: 14.0)! , NSAttributedString.Key.foregroundColor : UIColor.ONE_FIVE_THREE_COLOR]
+//        let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Semibold", size: 14.0)! , NSAttributedString.Key.foregroundColor : UIColor.ONE_FIVE_THREE_COLOR]
+        let attributes =   [NSAttributedString.Key.font :AppFonts.SemiBold.withSize(14) , NSAttributedString.Key.foregroundColor : UIColor.ONE_FIVE_THREE_COLOR]
+
         let departureTime  = NSMutableAttributedString(string: "Departure Time " , attributes: attributes)
         
         if multiLegTimerFilter.count > 1 {
@@ -400,7 +404,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
                 }
                 
             default:
-                print("unknown state")
+                printDebug("unknown state")
         }
         
         switch curPosNumber {
@@ -435,7 +439,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
             }
             
         default:
-            print("unknown state")
+            printDebug("unknown state")
         }
         
     }
@@ -474,7 +478,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
             }
             
         default:
-            print("unknown state")
+            printDebug("unknown state")
         }
                 
         switch curPosNumber {
@@ -510,7 +514,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
                 }
                 
             default:
-                print("unknown state")
+                printDebug("unknown state")
         }
     }
     
@@ -734,7 +738,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
                 departureEndTimeInterval = TimeInterval.endOfDay
             }
         default:
-            print("unknown state")
+            printDebug("unknown state")
         }
         
         
@@ -1037,6 +1041,8 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     
     func initialSetup() {
        
+        flightTimesScrollView.delegate = self
+        
         allSectorsLbl.isHidden = !isIntMCOrReturnVC
                 
         if multiLegTimerFilter.count == 1 {
@@ -1116,7 +1122,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
             lateEveningButton.backgroundColor = UIColor(displayP3Red: 236.0/255.0 , green:253.0/255.0 , blue:244.0/255.0 , alpha:1)
             
         default:
-            print("unknown state")
+            printDebug("unknown state")
         }
         
         departureSelectedByRangeButtons(sender)
@@ -1190,6 +1196,12 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
         selectionFeedbackGenerator.selectionChanged()
         //*******************Haptic Feedback code********************
+    }
+}
+
+extension FlightFilterTimesViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        buttonReleased(sender: UIButton())
     }
 }
 

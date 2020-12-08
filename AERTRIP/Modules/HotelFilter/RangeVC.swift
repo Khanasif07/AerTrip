@@ -9,6 +9,11 @@
 import UIKit
 
 class RangeVC: BaseVC {
+    
+    
+    // MARK: Variables
+    var lastSelectedRange: Double = .leastNormalMagnitude
+    
     // MARK: - IB Outlets
     @IBOutlet weak var tableView: ATTableView!
     
@@ -48,9 +53,22 @@ class RangeVC: BaseVC {
     @IBAction func sliderValueChanged(_ sender: Any) {
         //        let value = (sender as AnyObject).index ?? 0
         // self.rangeLabel.text = value >= 20 ? "Beyond \(value)km" : "Within " + "\(value)" + "km"
+        
         var value = Double((sender as AnyObject).index ?? 0)
-        printDebug("index: \((sender as AnyObject).index ?? 0)")
-        printDebug("value: \(value)")
+//        printDebug("index: \((sender as AnyObject).index ?? 0)")
+//        printDebug("value: \(value)")
+//
+        printDebug("-----------------------------------")
+        printDebug(value)
+        printDebug(lastSelectedRange)
+        printDebug("-----------------------------------")
+        if value != lastSelectedRange {
+            if value >= 1 {
+                generateHapticFeedback()
+            }
+        }
+        lastSelectedRange = value == 0 ? 1 : value
+        
         var sliderPoint = 13
         if value <= 1 {
             value = 0.5
@@ -78,7 +96,7 @@ class RangeVC: BaseVC {
         HotelFilterVM.shared.delegate?.updateFiltersTabs()
         if let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? RangeTableViewCell {
             //cell.stepSlider?.index = UInt(sliderPoint)
-            cell.stepSlider?.enableHapticFeedback = setValue
+            cell.stepSlider?.enableHapticFeedback = false
             cell.stepSlider?.setIndex(UInt(sliderPoint), animated: false)
             cell.updateSliderValueOnLabel(range: value)
         } else {
@@ -118,10 +136,16 @@ extension RangeVC: UITableViewDataSource, UITableViewDelegate {
         } else {
             value = Int(range + 1)
         }
-        cell.stepSlider?.enableHapticFeedback = HotelFilterVM.shared.distanceRange != 0.5
+        cell.stepSlider?.enableHapticFeedback = false//HotelFilterVM.shared.distanceRange != 0.5
         cell.stepSlider?.index = UInt(value) //UInt(value.toInt)
         cell.updateSliderValueOnLabel(range: range)
         return cell
+    }
+    
+    private func generateHapticFeedback() {
+        printDebug("feedback generated")
+        let feedbackGenerator = UISelectionFeedbackGenerator()
+        feedbackGenerator.selectionChanged()
     }
     
 }

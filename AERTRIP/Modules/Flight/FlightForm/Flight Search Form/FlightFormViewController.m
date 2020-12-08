@@ -98,6 +98,9 @@
     [super viewDidLoad];
     [self setupInitials];
     [self setAerinSearchClosure];
+    [self setLoginClosure];
+    //Change for flight form not fill for some case.
+    self.viewModel.isSettingForMulticity = false;
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -109,20 +112,22 @@
 -(void)setupMainView
 {
     self.mainView.layer.shadowOffset = CGSizeMake(0.0,16.0);
-    self.mainView.layer.shadowRadius = 16.0;
-    self.mainView.layer.shadowOpacity = 0.16;
-    self.mainView.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.mainView.layer.shadowRadius = 6.0;
+    self.mainView.layer.shadowOpacity = 1.0;
+    self.mainView.layer.cornerRadius = 10.0;
+    self.mainView.layer.shadowColor = [UIColor appShadow].CGColor;
     
 }
 - (void)setupCollectionView {
+    self.recentSearchTitleLabel.hidden = true;
     self.recentSearchCollectionView.delegate = self.viewModel;
     self.recentSearchCollectionView.dataSource = self.viewModel;
     self.recentSearchCollectionView.backgroundView = nil;
     self.recentSearchCollectionView.backgroundColor = [UIColor clearColor];
     self.recentSearchCollectionView.contentInset = UIEdgeInsetsMake(0.0, 16.0, 0.0, 16.0);
-    SnappingCollectionViewLayout * collectionViewLayout = [[ SnappingCollectionViewLayout alloc] init];
-    collectionViewLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    self.recentSearchCollectionView.collectionViewLayout = collectionViewLayout;
+//    SnappingCollectionViewLayout * collectionViewLayout = [[ SnappingCollectionViewLayout alloc] init];
+//    collectionViewLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+//    self.recentSearchCollectionView.collectionViewLayout = collectionViewLayout;
 }
 
 - (void)setupInitials {
@@ -211,6 +216,14 @@
     __weak typeof(self) weakSelf = self;
     [self.bridgingObj setOnFetchingFlightFormData:^(NSMutableDictionary<NSString *,id> * dict) {
         [weakSelf.viewModel performFlightSearchWith:dict];
+    }];
+}
+
+-(void)setLoginClosure {
+    self.bridgingObj = [SwiftObjCBridgingController shared];
+    __weak typeof(self) weakSelf = self;
+    [self.bridgingObj setOnResetRecentSearches:^{
+        [weakSelf.viewModel getRecentSearches];
     }];
 }
 

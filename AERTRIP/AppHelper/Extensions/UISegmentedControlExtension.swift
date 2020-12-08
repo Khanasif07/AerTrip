@@ -11,7 +11,7 @@ import UIKit
 extension UISegmentedControl {
     func setBacgroundColor() {
         setBackgroundImage(imageWithColor(color: backgroundColor ?? .clear), for: .normal, barMetrics: .default)
-        setBackgroundImage(imageWithColor(color: tintColor!), for: .selected, barMetrics: .default)
+        setBackgroundImage(imageWithColor(color: tintColor), for: .selected, barMetrics: .default)
         setDividerImage(imageWithColor(color: tintColor), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
     }
 

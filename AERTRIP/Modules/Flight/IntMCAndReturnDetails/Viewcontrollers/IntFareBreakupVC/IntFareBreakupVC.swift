@@ -14,7 +14,7 @@ protocol JourneyDetailsTapDelegate: NSObjectProtocol {
 }
 
 
-class IntFareBreakupVC: UIViewController {
+class IntFareBreakupVC: BaseVC {
     //MARK:- Outlets
     @IBOutlet weak var backgroundDisplayView: UIView!
     @IBOutlet weak var fareDataDisplayView: UIView!
@@ -71,7 +71,7 @@ class IntFareBreakupVC: UIViewController {
 
     var taxesData : IntTaxes?
     var taxesDetails : [String:Int] = [String:Int]()
-    var taxAndFeesData = [NSDictionary]()
+    var taxAndFeesData = [JSONDictionary]()
     var taxAndFeesDataDict = [taxStruct]()
     
     var isTaxesSectionHidden = true
@@ -128,20 +128,16 @@ class IntFareBreakupVC: UIViewController {
         initialDisplayView()
         taxesDataDisplay()
         self.setupUpgradeButton(isHidden: self.isHideUpgradeOption)
-        //        setupSwipeDownGuesture()
         self.manageLoader()
-//        if fromScreen == "upgradePlan" {
-//            infoLabel.isHidden = true
-//            bookingInfoArrowImg.isHidden = true
-//        }else{
-            infoLabel.isHidden = false
-            bookingInfoArrowImg.isHidden = false
-//        }
+        infoLabel.isHidden = false
+        bookingInfoArrowImg.isHidden = false
+        baseFareTableview.showsVerticalScrollIndicator = true
     }
     
     override func viewDidLayoutSubviews(){
         if fromScreen == "upgradePlanCollapse"
         {
+            
             if let subLayers = bookingDataDisplayView.layer.sublayers{
                 if subLayers.count > 0{
                     for layer in subLayers {
@@ -152,6 +148,7 @@ class IntFareBreakupVC: UIViewController {
                 }
             }
             
+            bookingDataDisplayView.removeGredient()
             fromScreen = "upgradePlan"
 
         }else if fromScreen == "upgradePlan" {
@@ -159,28 +156,7 @@ class IntFareBreakupVC: UIViewController {
             
             if isFareBreakupExpanded == true{
                 self.fareDataDisplayView.backgroundColor = .white
-                let gradient = CAGradientLayer()
-                gradient.frame = bookingDataDisplayView.bounds
-                gradient.frame.size.height = bookingDataDisplayView.frame.height
-                
-                gradient.startPoint = CGPoint(x: 0, y: 1)
-                gradient.endPoint = CGPoint(x: 1, y: 1)
-                let colorOne = UIColor(displayP3Red: ( 0.0 / 255.0), green: ( 204.0 / 255.0), blue: ( 153 / 255.0), alpha: 1.0)
-                let colorTwo = UIColor(displayP3Red: (41.0/255.0), green: ( 176.0 / 255.0) , blue: ( 182 / 255.0), alpha: 1.0)
-                gradient.colors = [colorTwo.cgColor, colorOne.cgColor]
-                gradient.name = "bookingGradient"
-                bookingDataDisplayView.layer.insertSublayer(gradient, at: 0)
-            }else{
-                self.fareDataDisplayView.backgroundColor = .clear
-                if let subLayers = bookingDataDisplayView.layer.sublayers{
-                    if subLayers.count > 0{
-                        for layer in subLayers {
-                            if layer.name == "bookingGradient" {
-                                layer.removeFromSuperlayer()
-                            }
-                        }
-                    }
-                }
+                bookingDataDisplayView.addGredient(isVertical: false)
             }
         }else{
             bookingDataDisplayView.frame.size.width = self.view.frame.width
@@ -189,43 +165,13 @@ class IntFareBreakupVC: UIViewController {
                 
                 UIView.animate(withDuration: 0.2, delay: 0.1, options: [.curveEaseOut], animations: {[weak self] in
                     guard let self = self else {return}
-                    let gradient = CAGradientLayer()
-                    gradient.frame = self.fareDataDisplayView.bounds
-                    let bottomInset = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
-                    gradient.frame.size.height = self.fareDataDisplayView.frame.height+bottomInset
-                    
-                    gradient.startPoint = CGPoint(x: 0, y: 1)
-                    gradient.endPoint = CGPoint(x: 1, y: 1)
-                    let colorOne = AppColors.themeGreen
-                    let colorTwo = UIColor(displayP3Red: (41.0/255.0), green: ( 176.0 / 255.0) , blue: ( 182 / 255.0), alpha: 1.0)
-                    gradient.colors = [colorTwo.cgColor, colorOne.cgColor]
-                    gradient.name = "bookingGradient"
-                    self.fareDataDisplayView.layer.insertSublayer(gradient, at: 0)
+                    self.fareDataDisplayView.addGredient(isVertical: false)
                 })
                 
             }else{
-                if let subLayers = fareDataDisplayView.layer.sublayers{
-                    if subLayers.count > 0{
-                        for layer in subLayers {
-                            if layer.name == "bookingGradient" {
-                                layer.removeFromSuperlayer()
-                            }
-                        }
-                    }
-                }
-                
+                fareDataDisplayView.removeGredient()
                 fareDataDisplayView.backgroundColor = .white
-                let gradient = CAGradientLayer()
-                gradient.frame = bookingDataDisplayView.bounds
-                gradient.frame.size.height = bookingDataDisplayView.frame.height
-                
-                gradient.startPoint = CGPoint(x: 0, y: 1)
-                gradient.endPoint = CGPoint(x: 1, y: 1)
-                let colorOne = AppColors.themeGreen
-                let colorTwo = UIColor(displayP3Red: (41.0/255.0), green: ( 176.0 / 255.0) , blue: ( 182 / 255.0), alpha: 1.0)
-                gradient.colors = [colorTwo.cgColor, colorOne.cgColor]
-                gradient.name = "fareGradient"
-                bookingDataDisplayView.layer.insertSublayer(gradient, at: 0)
+                self.bookingDataDisplayView.addGredient(isVertical: false)
             }
         }
     }
@@ -291,7 +237,7 @@ class IntFareBreakupVC: UIViewController {
     }
     
     private func manageLoader() {
-        self.indicator.style = .white
+        self.indicator.style = .medium// .white
         self.indicator.color = AppColors.themeWhite
         self.indicator.startAnimating()
         self.hideShowLoader(isHidden:true)
@@ -337,44 +283,44 @@ class IntFareBreakupVC: UIViewController {
             taxAndFeesDataDict.removeAll()
             taxesData = journey.first?.fare
             var sortOrderArray = [String]()
-            taxesDetails = (taxesData?.taxes.details)!
+            taxesDetails = (taxesData?.taxes.details) ?? [:]
             
             for val in (taxesData?.sortOrder ?? "").components(separatedBy: ","){
                 sortOrderArray.append(taxesResult[val.removeAllWhitespaces] ?? "")
             }
             
             for (_, value) in taxesDetails.enumerated() {
-                let newObj = taxStruct.init(name: taxesResult[value.key]!, taxVal: value.value)
+                let newObj = taxStruct.init(name: taxesResult[value.key] ?? "", taxVal: value.value)
                 taxAndFeesDataDict.append(newObj)
             }
             let newDict = Dictionary(grouping: taxAndFeesDataDict) { $0.name }
             if sortOrderArray.isEmpty{
                 for ( key , _ ) in newDict {
                     
-                    let dataArray = newDict[key]
+                    let dataArray = newDict[key] ?? []
                     
                     var newTaxVal = 0
-                    for i in 0..<dataArray!.count{
-                        newTaxVal += (dataArray?[i].taxVal)!
+                    for i in 0..<dataArray.count{
+                        newTaxVal += (dataArray[i].taxVal)
                     }
                     
                     let newArr = ["name" : key,
-                                  "value":newTaxVal] as NSDictionary
+                                  "value":newTaxVal] as JSONDictionary
                     taxAndFeesData.append(newArr)
                     
                 }
             }else{
                 for key in sortOrderArray {
                     
-                    let dataArray = newDict[key]
+                    let dataArray = newDict[key] ?? []
                     
                     var newTaxVal = 0
-                    for i in 0..<dataArray!.count{
-                        newTaxVal += (dataArray?[i].taxVal)!
+                    for i in 0..<dataArray.count{
+                        newTaxVal += (dataArray[i].taxVal)
                     }
                     
                     let newArr = ["name" : key,
-                                  "value":newTaxVal] as NSDictionary
+                                  "value":newTaxVal] as JSONDictionary
                     taxAndFeesData.append(newArr)
                     
                 }
@@ -395,8 +341,7 @@ class IntFareBreakupVC: UIViewController {
     
     
     
-    func displayCollapseView()
-    {
+    func displayCollapseView(){
         self.isBackgroundVisible = false
         let bottomInset = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
         let screenSize = UIScreen.main.bounds
@@ -434,10 +379,6 @@ class IntFareBreakupVC: UIViewController {
             self.baseFareTableview.isHidden = true
             self.baseFareTableviewHeight.constant = 0
             
-            
-            self.view.layoutSubviews()
-            self.view.setNeedsLayout()
-        },completion: { _ in
             let viewHeight = self.bookingDataDisplayViewHeight.constant + self.fewSeatsLeftViewHeight.constant + self.heightForBookingTitleView
             
             if self.isFromFlightDetails{
@@ -468,7 +409,7 @@ class IntFareBreakupVC: UIViewController {
                     
                 case 812: //11 Pro | X | Xs
                     if #available(iOS 13.0, *) {
-                        self.view.frame = CGRect(x: 0, y: screenSize.height-viewHeight - 55, width: screenSize.width, height:viewHeight + CGFloat(bottomInset))
+                        self.view.frame = CGRect(x: 0, y: screenSize.height-viewHeight - 54, width: screenSize.width, height:viewHeight + CGFloat(bottomInset))
                     }else{
                         self.view.frame = CGRect(x: 0, y: screenSize.height-viewHeight, width: screenSize.width, height:viewHeight + CGFloat(bottomInset))
                     }
@@ -476,7 +417,7 @@ class IntFareBreakupVC: UIViewController {
                     
                 case 896: //11 & 11 Pro Max & Xs Max & Xr
                     if #available(iOS 13.0, *) {
-                        self.view.frame = CGRect(x: 0, y: screenSize.height-viewHeight - 60, width: screenSize.width, height:viewHeight + CGFloat(bottomInset))
+                        self.view.frame = CGRect(x: 0, y: screenSize.height-viewHeight - 54, width: screenSize.width, height:viewHeight + CGFloat(bottomInset))
                     }else{
                         self.view.frame = CGRect(x: 0, y: screenSize.height-viewHeight, width: screenSize.width, height:viewHeight + CGFloat(bottomInset))
                     }
@@ -487,6 +428,13 @@ class IntFareBreakupVC: UIViewController {
                 }
             }else{
                 self.view.frame = CGRect(x: 0, y: screenSize.height-viewHeight-CGFloat(bottomInset), width: screenSize.width, height:viewHeight + CGFloat(bottomInset))
+            }
+            self.view.layoutSubviews()
+            self.view.setNeedsLayout()
+        },completion:{_ in
+            if self.fromScreen == "upgradePlan"{
+                self.bookingDataDisplayView.removeGredient()
+                self.fareDataDisplayView.backgroundColor = .clear
             }
         })
         
@@ -518,12 +466,16 @@ class IntFareBreakupVC: UIViewController {
 
         var cellHeight = 0
         var totalAddonsCellHeight = 0
-
+        var extraSpace = 17
         if self.baseFareTableview.numberOfRows(inSection: 2) == 2{
             cellHeight = 24
+            extraSpace = -5
         }else{
             let cellsCount = self.baseFareTableview.numberOfRows(inSection: 2)
             cellHeight = (cellsCount-2) * 24
+            if ((cellsCount-2) < 2){
+                extraSpace = -5
+            }
         }
         
         if self.addonsData.count != 0{
@@ -533,13 +485,14 @@ class IntFareBreakupVC: UIViewController {
                 let cellsCount = self.baseFareTableview.numberOfRows(inSection: 3)
                 totalAddonsCellHeight = (cellsCount-2) * 24
             }
+            extraSpace = 17
         }
 
         var totalHeight = 0
         let bottomInset = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
         
         if !isTaxesSectionHidden{
-            totalHeight = sectionHeight + cellHeight + Int(bottomInset) + 17
+            totalHeight = sectionHeight + cellHeight + Int(bottomInset) + extraSpace
         }else{
             totalHeight = sectionHeight + Int(bottomInset)
         }
@@ -663,11 +616,19 @@ class IntFareBreakupVC: UIViewController {
         let hightOfView = UIScreen.main.bounds.height//(!isForSelectionAndCheckout) ? UIScreen.main.bounds.height : self.fareDataDisplayViewHeight.constant
         let y = UIScreen.main.bounds.height - hightOfView
         self.detailsDelegate?.updateHeight(to: hightOfView)
-        UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {[weak self] in
-            guard let self = self else {return}
-            self.view.frame = CGRect(x: 0, y: y, width: UIScreen.main.bounds.width, height: hightOfView)
+        
+//        UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {[weak self] in
+//            guard let self = self else {return}
+//            self.view.frame = CGRect(x: 0, y: y, width: UIScreen.main.bounds.width, height: hightOfView)
+//
+//            self.view.layoutSubviews()
+//            self.view.setNeedsLayout()
+//        })
+        
+        UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {
+            self.view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height:UIScreen.main.bounds.height)
 
-            self.view.layoutSubviews()
+            self.view.layoutIfNeeded()
             self.view.setNeedsLayout()
         })
     }
@@ -754,48 +715,50 @@ class IntFareBreakupVC: UIViewController {
         formatter.numberStyle = .currency
         formatter.maximumFractionDigits = 2
         formatter.locale = Locale(identifier: "en_IN")
-        let result = formatter.string(from: NSNumber(value: price))
-        
-        var fontSize = 10
-        var fontSizeSuper = 10
-        
-        var displayFont = "SourceSansPro-Regular"
-        var displayFontSuper = "SourceSansPro-Regular"
-        
-        if fromOption == "FareAmount"{
-            fontSize = 16
-            fontSizeSuper = 10
-            
-            displayFont = "SourceSansPro-Regular"
-            displayFontSuper = "SourceSansPro-Regular"
-        }else if fromOption == "BookingAmount"{
-            fontSize = 18
-            fontSizeSuper = 12
-            
-            displayFont = "SourceSansPro-SemiBold"
-            displayFontSuper = "SourceSansPro-SemiBold"
-        }else if fromOption == "totalAmount"{
-            fontSize = 20
-            fontSizeSuper = 14
-            
-            displayFont = "SourceSansPro-SemiBold"
-            displayFontSuper = "SourceSansPro-SemiBold"
-        }else if fromOption == "strikeOutPrice"{
-            fontSize = 12
-            fontSizeSuper = 10
-            
-            displayFont = "SourceSansPro-Regular"
-            displayFontSuper = "SourceSansPro-Regular"
+        if let result = formatter.string(from: NSNumber(value: price)){
+            var fontSize = 10
+            var fontSizeSuper = 10
 
+            var displayFont = AppFonts.Regular.rawValue
+            var displayFontSuper = AppFonts.Regular.rawValue
+
+            if fromOption == "FareAmount"{
+                fontSize = 16
+                fontSizeSuper = 10
+                
+                displayFont = AppFonts.Regular.rawValue
+                displayFontSuper = AppFonts.Regular.rawValue
+            }else if fromOption == "BookingAmount"{
+                fontSize = 18
+                fontSizeSuper = 12
+                
+                displayFont = AppFonts.SemiBold.rawValue
+                displayFontSuper = AppFonts.SemiBold.rawValue
+            }else if fromOption == "totalAmount"{
+                fontSize = 20
+                fontSizeSuper = 14
+                
+                displayFont = AppFonts.SemiBold.rawValue
+                displayFontSuper = AppFonts.SemiBold.rawValue
+            }else if fromOption == "strikeOutPrice"{
+                fontSize = 12
+                fontSizeSuper = 10
+                
+                displayFont = AppFonts.Regular.rawValue
+                displayFontSuper = AppFonts.Regular.rawValue
+
+            }
+            
+            let font:UIFont = UIFont(name: displayFont, size:CGFloat(fontSize)) ?? UIFont.systemFont(ofSize: 18)
+            let fontSuper:UIFont = UIFont(name: displayFontSuper, size:CGFloat(fontSizeSuper)) ?? UIFont.systemFont(ofSize: 14)
+            let attString:NSMutableAttributedString = NSMutableAttributedString(string: result, attributes: [.font:font])
+            attString.setAttributes([.font:fontSuper,.baselineOffset:7], range: NSRange(location:result.count-3,length:3))
+            if attString.string.contains(find: ".00"){
+                attString.mutableString.replaceOccurrences(of: ".00", with: "", options: .caseInsensitive, range: NSRange(location:result.count-3,length:3))
+            }
+            return attString
+        }else{
+            return NSMutableAttributedString(string: "\(price)")
         }
-        
-        let font:UIFont? = UIFont(name: displayFont, size:CGFloat(fontSize))
-        let fontSuper:UIFont? = UIFont(name: displayFontSuper, size:CGFloat(fontSizeSuper))
-        let attString:NSMutableAttributedString = NSMutableAttributedString(string: result!, attributes: [.font:font!])
-        attString.setAttributes([.font:fontSuper!,.baselineOffset:7], range: NSRange(location:result!.count-3,length:3))
-        if attString.string.contains(find: ".00"){
-            attString.mutableString.replaceOccurrences(of: ".00", with: "", options: .caseInsensitive, range: NSRange(location:result!.count-3,length:3))
-        }
-        return attString
     }
 }

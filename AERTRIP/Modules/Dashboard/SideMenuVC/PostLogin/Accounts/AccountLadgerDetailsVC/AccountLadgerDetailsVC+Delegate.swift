@@ -96,8 +96,6 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
         }
         
         
-        
-        
         if indexPath.section == self.viewModel.sectionArray.count + 1{
             
             switch indexPath.row {
@@ -155,7 +153,6 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 return self.getDetailCell(title: key, description: value, descriptionColor: descColor, age: age, at: indexPath)
                 
             }
-            
         }
         /*
         guard let dict = self.viewModel.ladgerDetails["\(section)"] as? JSONDictionary else {
@@ -302,6 +299,22 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
                         })
                     }
                 }
+            }else if let event = self.viewModel.onAccountEvent{
+                
+                let bID = event.transactionId
+                if !bID.isEmpty{
+                    self.viewModel.isDownloadingRecipt = true
+                    if let cell = self.tableView.cellForRow(at: indexPath) as? DownloadInvoiceTableViewCell{
+                        cell.showLoader = true
+                    }
+                    AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)dashboard/download-voucher?id=\(bID)", screenTitle: "Receipt Voucher", showLoader: false, complition: { [weak self] (status) in
+                        
+                        self?.viewModel.isDownloadingRecipt = false
+                        self?.tableView.reloadRow(at: indexPath, with: .automatic)
+                    })
+                }
+                
+                
             }
         }
         
@@ -341,6 +354,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
             if let mutableString = suffix {
                 val.append(mutableString)
             }
+            printDebug("\(title)...\(val.string)....\(suffix)....\(desc)")
             cell.configureCellWithAttributedText(title: title, description: val)
         }else{
             cell.configure(title: title, description: description, age: age)
@@ -375,6 +389,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
             cell.stackTopConstraint.constant = 0
             cell.stackBottomConstraint.constant = 0
         }
+        cell.titleLabelWidthConstraints.constant = self.viewModel.cellTitleLabelWidth
         return cell
     }
 }
@@ -385,6 +400,7 @@ class AccountLadgerDetailCell: UITableViewCell {
     
     //MARK:- IBOutlet
     //MARK:-
+    @IBOutlet weak var titleLabelWidthConstraints: NSLayoutConstraint!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descLabel: UILabel!
     @IBOutlet weak var stackTopConstraint: NSLayoutConstraint!

@@ -26,14 +26,14 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gI2-Hf-6mp">
                         <rect key="frame" x="0.0" y="8" width="515" height="352"/>
                         <subviews>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uAA-Mo-tZT" userLabel="LineView">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uAA-Mo-tZT" userLabel="LineView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="515" height="0.5"/>
                                 <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="tSW-Nj-N7e"/>
                                 </constraints>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OcD-wy-i0U" userLabel="LineView">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OcD-wy-i0U" userLabel="LineView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="359.5" width="515" height="0.5"/>
                                 <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -124,10 +124,10 @@
                                 </connections>
                             </tableView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="zlS-Fq-BNc">
-                                <rect key="frame" x="0.0" y="90" width="515" height="139"/>
+                                <rect key="frame" x="0.0" y="90" width="515" height="131"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="139" id="Dc4-cp-blV"/>
+                                    <constraint firstAttribute="height" constant="131" id="Dc4-cp-blV"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="a0s-CH-Nep">
                                     <size key="itemSize" width="50" height="50"/>

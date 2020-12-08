@@ -151,7 +151,12 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
             else if indexPath.row == 3, (self.viewModel.bookingDetail?.bookingDetail?.overViewData ?? "") != LocalizedString.SpaceWithHiphen.localized { // Overview cell {
                 AppFlowManager.default.presentHotelDetailsOverViewVC(overViewInfo: self.viewModel.bookingDetail?.bookingDetail?.overview ?? "")
             } else if indexPath.row == 5 {
-                AppFlowManager.default.presentHotelDetailsTripAdvisorVC(hotelId: self.viewModel.bookingDetail?.bookingDetail?.hotelId ?? "")
+                var statusStyle: UIStatusBarStyle = .lightContent
+                let presentingStyle = presentingViewController?.modalPresentationStyle
+                if presentingStyle == .fullScreen || presentingStyle == .overFullScreen {
+                    statusStyle = .darkContent
+                }
+                AppFlowManager.default.presentHotelDetailsTripAdvisorVC(hotelId: self.viewModel.bookingDetail?.bookingDetail?.hotelId ?? "", presentingStatusBarStyle: statusStyle, dismissalStatusBarStyle: statusBarStyle)
             } else if indexPath.row == 4 {
                 AppFlowManager.default.showHotelDetailAmenitiesVC(amenitiesGroups: self.viewModel.bookingDetail?.bookingDetail?.amenitiesGroups ?? [:], amentites: self.viewModel.bookingDetail?.bookingDetail?.amenities, amenitiesGroupOrder: self.viewModel.bookingDetail?.bookingDetail?.amenities_group_order ?? [:])
             }
@@ -159,7 +164,8 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
             if (self.viewModel.bookingDetail?.bookingDetail?.hotelId ?? "") == TAViewModel.shared.hotelId, let data = TAViewModel.shared.hotelTripAdvisorDetails{
                 let urlString = "https:\(data.seeAllPhotos)"
                 let screenTitle = LocalizedString.Photos.localized
-                AppFlowManager.default.showURLOnATWebView(URL(string: urlString)!, screenTitle: screenTitle)
+                guard let url = URL(string: urlString) else {return}
+                AppFlowManager.default.showURLOnATWebView(url, screenTitle: screenTitle)
             }
             
         }
@@ -180,8 +186,8 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
             self.topNavigationView.firstRightButtonTrailingConstraint.constant = 0
         } else {
             self.topNavigationView.animateBackView(isHidden: true, completion: nil)
-             //sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "whiteBackIcon"), for: .normal)
-            // sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "whiteBackIcon"), for: .selected)
+             //sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "Back"), for: .normal)
+            // sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "Back"), for: .selected)
              self.topNavigationView.navTitleLabel.text = " "
              self.topNavigationView.dividerView.isHidden = true
              self.topNavigationView.firstRightButton.setImage(#imageLiteral(resourceName: "CancelButtonWhite"), for: .normal)
@@ -194,8 +200,8 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
                 guard let sSelf = self else { return }
                 //sSelf.topNavigationView.backView.backgroundColor = AppColors.clear
                 sSelf.topNavigationView.animateBackView(isHidden: true, completion: nil)
-                //sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "whiteBackIcon"), for: .normal)
-               // sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "whiteBackIcon"), for: .selected)
+                //sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "Back"), for: .normal)
+               // sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "Back"), for: .selected)
                 sSelf.topNavigationView.navTitleLabel.text = " "
                 sSelf.topNavigationView.dividerView.isHidden = true
                 sSelf.topNavigationView.firstRightButton.setImage(#imageLiteral(resourceName: "CancelButtonWhite"), for: .normal)

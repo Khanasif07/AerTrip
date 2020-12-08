@@ -79,9 +79,9 @@ class ViewProfileDetailVC: BaseVC {
     }
     
     override func dataChanged(_ note: Notification) {
-        if let noti = note.object as? ATNotification, noti == .profileSavedOnServer {
+//        if let noti = note.object as? ATNotification, noti == .profileSavedOnServer {
            // viewModel.webserviceForGetTravelDetail(isShowLoader: true)
-        }
+//        }
     }
     
     
@@ -94,7 +94,6 @@ class ViewProfileDetailVC: BaseVC {
             self?.topNavView.isToShowIndicatorView = false
         }
         self.topNavView.configureFirstRightButton( normalTitle: LocalizedString.Edit.localized, selectedTitle: LocalizedString.Edit.localized, normalColor: AppColors.themeWhite, selectedColor: AppColors.themeGreen)
-        
         
     }
     
@@ -561,7 +560,7 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
                         self?.topNavView.dividerView.isHidden = true
                        }
             } else {
-                self.statusBarStyle = .default
+                self.statusBarStyle = .darkContent
                            self.topNavView.animateBackView(isHidden: false) { [weak self](isDone) in
                                self?.topNavView.firstRightButton.isSelected = true
                                self?.topNavView.leftButton.isSelected = true

@@ -30,6 +30,9 @@ class MailComposerVC: BaseVC {
     private var time: Float = 0.0
     private var timer: Timer?
     
+    var presentingStatusBarStyle: UIStatusBarStyle = .darkContent,
+    dismissalStatusBarStyle: UIStatusBarStyle = .darkContent
+    
     // MARK: - View Life cycle
     
     override func viewDidLoad() {
@@ -43,14 +46,14 @@ class MailComposerVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //self.statusBarColor = AppColors.clear
-        self.statusBarStyle = .default
+        self.statusBarStyle = presentingStatusBarStyle
     }
     
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         //self.statusBarColor = AppColors.clear
-        self.statusBarStyle = .default
+        self.statusBarStyle = dismissalStatusBarStyle
     }
     
     
@@ -165,7 +168,7 @@ class MailComposerVC: BaseVC {
         let checkInDate = Date.getDateFromString(stringDate: self.viewModel.hotelSearchRequest?.requestParameters.checkIn ?? "", currentFormat: currentFormat, requiredFormat: "dd MMM")
         let checkOutDate = Date.getDateFromString(stringDate: self.viewModel.hotelSearchRequest?.requestParameters.checkOut ?? "", currentFormat: currentFormat, requiredFormat: "dd MMM")
         
-        let totalNights = (self.viewModel.hotelSearchRequest?.requestParameters.checkOut.toDate(dateFormat: currentFormat)! ?? Date()).daysFrom(viewModel.hotelSearchRequest?.requestParameters.checkIn.toDate(dateFormat: currentFormat)! ?? Date())
+        let totalNights = (self.viewModel.hotelSearchRequest?.requestParameters.checkOut.toDate(dateFormat: currentFormat) ?? Date()).daysFrom(viewModel.hotelSearchRequest?.requestParameters.checkIn.toDate(dateFormat: currentFormat) ?? Date())
         
         let checkInDay = Date.getDateFromString(stringDate: self.viewModel.hotelSearchRequest?.requestParameters.checkIn ?? "", currentFormat: currentFormat, requiredFormat: "EEEE")
         let checkOutDay = Date.getDateFromString(stringDate: self.viewModel.hotelSearchRequest?.requestParameters.checkOut ?? "", currentFormat: currentFormat, requiredFormat: "EEEE")
@@ -260,21 +263,26 @@ extension MailComposerVC: TopNavigationViewDelegate {
             return
         }
         if self.time == 2 {
-            self.timer!.invalidate()
+            self.timer?.invalidate()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
             }
         }
         
         if self.time >= 10 {
-            self.timer!.invalidate()
+            self.timer?.invalidate()
             delay(seconds: 0.5) {
+                self.timer?.invalidate()
                 self.progressView?.isHidden = true
             }
         }
     }
     func stopProgress() {
         self.time += 1
+        if self.time <= 8  {
+            self.time = 9
+        }
+        self.timer?.invalidate()
         self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
     }
 }
@@ -318,14 +326,15 @@ extension MailComposerVC: EmailComposeerHeaderViewDelegate {
     
     
     func updateHeightOfHeader(_ headerView: EmailComposerHeaderView, _ textView: UITextView) {
-        let minHeight = textView.font!.lineHeight * 1.0
-        let maxHeight = textView.font!.lineHeight * 5.0
+        guard let txtViewFont = textView.font else {return}
+        let minHeight = txtViewFont.lineHeight * 1.0
+        let maxHeight = txtViewFont.lineHeight * 5.0
         //for email textView (screenW-62)
         //for message textView (screenW-32)
         
         var emailHeight = headerView.emailContainerViewHeightConstraint.constant//headerView.toEmailTextView.text.sizeCount(withFont: textView.font!, bundingSize:         CGSize(width: (UIDevice.screenWidth - 62.0), height: 10000.0)).height
         
-        var msgHeight = headerView.messageSubjectTextView.text.sizeCount(withFont: textView.font!, bundingSize:         CGSize(width: (UIDevice.screenWidth - 22.0), height: 10000.0)).height
+        var msgHeight = headerView.messageSubjectTextView.text.sizeCount(withFont: txtViewFont, bundingSize:         CGSize(width: (UIDevice.screenWidth - 22.0), height: 10000.0)).height
         
         var labelHeight = headerView.messageSubjectTextView.text.sizeCount(withFont: AppFonts.Italic.withSize(18.0), bundingSize:         CGSize(width: (UIDevice.screenWidth - 32), height: 10000.0)).height
         if labelHeight < 25 {
@@ -337,8 +346,8 @@ extension MailComposerVC: EmailComposeerHeaderViewDelegate {
         msgHeight = max(minHeight, msgHeight)
         msgHeight = min(maxHeight, msgHeight)
         
-        print("headerView.checkOutMessageLabel.frame")
-        print(headerView.checkOutMessageLabel.frame)
+        printDebug("headerView.checkOutMessageLabel.frame")
+        printDebug(headerView.checkOutMessageLabel.frame)
         //let value = headerView.checkOutMessageLabel.numberOfLines * 23
         self.tableView.tableHeaderView?.frame = CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: (607.0 + emailHeight + msgHeight + labelHeight))
         

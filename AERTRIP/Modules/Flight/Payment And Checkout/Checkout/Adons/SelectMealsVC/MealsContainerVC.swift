@@ -86,10 +86,14 @@ class MealsContainerVC: BaseVC {
 extension MealsContainerVC {
     
     private func configureNavigation(){
+        
+//        printDebug(self.mealsContainerVM.isAnyThingSelected())
+        
         self.topNavBarView.delegate = self
         let isDivider = mealsContainerVM.allChildVCs.count > 1 ? false : true
         self.topNavBarView.configureNavBar(title: LocalizedString.Meals.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false,isDivider : isDivider)
-        self.topNavBarView.configureLeftButton(normalTitle: LocalizedString.ClearAll.localized, normalColor: AppColors.themeGreen, font : AppFonts.Regular.withSize(18))
+        let clearStr = "  \(LocalizedString.ClearAll.localized)"
+        self.topNavBarView.configureLeftButton(normalTitle: clearStr, normalColor: AppColors.themeGreen, font : AppFonts.Regular.withSize(18), isLeftButtonEnabled : self.mealsContainerVM.isAnyThingSelected())
         self.topNavBarView.configureFirstRightButton(normalTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18))
     }
     
@@ -139,8 +143,9 @@ extension MealsContainerVC {
         self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
         self.parchmentView?.indicatorColor = AppColors.themeGreen
         self.parchmentView?.selectedTextColor = AppColors.themeBlack
-        self.mealsContainerView.addSubview(self.parchmentView!.view)
-        
+        if self.parchmentView != nil{
+            self.mealsContainerView.addSubview(self.parchmentView!.view)
+        }
         self.parchmentView?.dataSource = self
         self.parchmentView?.delegate = self
         self.parchmentView?.sizeDelegate = self
@@ -166,6 +171,8 @@ extension MealsContainerVC: TopNavigationViewDelegate {
         let price = self.totalLabel.text ?? ""
         self.delegate?.mealsUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))
         self.delegate?.resetMeals()
+        configureNavigation()
+ 
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
@@ -227,7 +234,7 @@ extension MealsContainerVC : SelectMealDelegate {
         
         if allowedPassengers.count == 0 { return }
         
-        if allowedPassengers.count == 1{
+        if allowedPassengers.count == 1 {
             
             let passengersToBeAdded = !selectedContacts.isEmpty ? [] : allowedPassengers
             
@@ -242,13 +249,17 @@ extension MealsContainerVC : SelectMealDelegate {
                     vc.selectPassengersVM.setupFor = .meals
                     vc.selectPassengersVM.currentFlightKey = currentFlightKey
                     vc.selectPassengersVM.freeMeal = self.mealsContainerVM.allChildVCs[vcIndex].selectMealsVM.freeMeal
-                    vc.selectPassengersVM.contactsComplition = {[weak self] (contacts) in
+                    vc.selectPassengersVM.contactsComplition = { [weak self] (contacts) in
                     guard let weakSelf = self else { return }
                     weakSelf.mealsContainerVM.addPassengerToMeal(forAdon: forAdon, vcIndex: vcIndex, currentFlightKey: currentFlightKey, mealIndex: mealIndex, contacts: contacts)
                         weakSelf.calculateTotalAmount()
                     }
                     present(vc, animated: false, completion: nil)
             }
+        
+        printDebug("addPassengerToMeal\(self.mealsContainerVM.isAnyThingSelected())")
+        self.configureNavigation()
+        
         }
     
     func addContactButtonTapped() {

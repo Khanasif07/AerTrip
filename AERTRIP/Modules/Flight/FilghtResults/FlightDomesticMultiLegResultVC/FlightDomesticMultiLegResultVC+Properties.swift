@@ -12,7 +12,7 @@ import UIKit
 import SnapKit
 import MessageUI
 
-class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate, getSharableUrlDelegate {
+class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate, GetSharableUrlDelegate {
     //MARK:- Outlets
     var bannerView : ResultHeaderView?
     @IBOutlet weak var headerCollectionView: UICollectionView!
@@ -73,10 +73,13 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
     let getSharableLink = GetSharableUrl()
     var previousRequest : [DispatchWorkItem?] = []
     var isNeedToUpdateLayout = true
+    var initialHeader:CGFloat = 138.0
+    var isHiddingHeader = false
+    var isSettingupHeader = false
 
     
     //MARK:-  Initializers
-    
+
     convenience init(numberOfLegs  : Int , headerArray : [MultiLegHeader]) {
         self.init(nibName:nil, bundle:nil)
         self.viewModel.numberOfLegs = numberOfLegs
@@ -121,19 +124,26 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         setupPinnedFlightsOptionsView()
         showHintAnimation()
         
-        ApiProgress = UIProgressView()
+        ApiProgress = UIProgressView(progressViewStyle: .bar)
         ApiProgress.progressTintColor = UIColor.AertripColor
         ApiProgress.trackTintColor = .clear
         ApiProgress.progress = 0.25
         
-        ApiProgress.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 10.0)
+        ApiProgress.transform = CGAffineTransform(scaleX: 1, y: 0.3)
+        ApiProgress.frame = CGRect(x: -2, y: 0, width: UIScreen.main.bounds.size.width, height: 0.5)
+
         self.collectionContainerView.addSubview(ApiProgress)
-        
         getSharableLink.delegate = self
+        self.viewModel.setSharedFks()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.emailPinnedFlights.setImage(UIImage(named: "EmailPinned"), for: .normal)
+        self.emailPinnedFlights.displayLoadingIndicator(false)
+
     }
     
     override func viewDidLayoutSubviews() {
@@ -153,6 +163,10 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
             frame.size.height = height
             view.frame = frame
         }
+    }
+    
+    deinit {
+        self.fareBreakupVC?.view.removeFromSuperview()
     }
     
     //MARK:- Additional UI Methods
@@ -187,7 +201,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
                 headerCell.setRedColoredTitles()
             }
         } else {
-            print("cell not fount...\(indexPath)")
+//            print("cell not fount...\(indexPath)")
         }
     }
     
@@ -201,78 +215,172 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
             
             if let comboResultFiltered = comboResults.first(where: {$0.fk == fkArray }) {
                 fareBreakupVC?.journeyCombo = [comboResultFiltered]
+            }else{
+                fareBreakupVC?.journeyCombo = nil
             }
+        }else{
+            fareBreakupVC?.journeyCombo = nil
         }
+        
     }
     
-    func checkForOverlappingFlights(shouldDisplayToast : Bool = true) {
+    func checkForOverlappingFlights(displayToast : Bool = true) {
+      
         fareBreakupVC?.bookButton.isEnabled = true
         
         for i in 0 ..< self.viewModel.numberOfLegs {
             setTextColorToHeader(.black, indexPath: i)
+            self.headerArray[i].isInCompatable = false
         }
         
         guard let selectedJourneys = self.viewModel.getSelectedJourneyForAllLegs(), selectedJourneys.count >= 2 else { return }
 
+        var msg = ""
+        let finalFrame : CGRect = CGRect.zero
+        var shouldFadeAllToast = false
+        
                 for i in 0 ..< (selectedJourneys.count - 1) {
                     
                     let currentLegJourney = selectedJourneys[i]
                     let nextLegJourney = selectedJourneys[(i + 1)]
-                                
-                    let fsr = currentLegJourney.fsr + nextLegJourney.fsr
-                    
+                                                    
                     guard let currentLegArrival = currentLegJourney.arrivalDate else { return }
                     guard let nextLegDeparture = nextLegJourney.departureDate else { return }
                         
                     if nextLegDeparture < currentLegArrival {
-                        if let parentVC = self.parent {
-                            
-                            var frame = parentVC.view.frame
-                            let bottomInset = self.view.safeAreaInsets.bottom
-                            let height = 36 + bottomInset
-                            frame.size.height = frame.size.height - height
-                            
-                            if fsr > 0 {
-                                frame.size.height = frame.size.height - 16
-                            }
                             
                             if self.viewModel.shouldDisplayToast {
-                                AertripToastView.toast(in: parentVC.view , withText: "Flight timings are not compatible. Select a different flight." , parentRect: frame)
+                                msg = "Flight timings are not compatible. Select a different flight."
                             }
                             
                             setTextColorToHeader(.AERTRIP_RED_COLOR, indexPath: i)
                             setTextColorToHeader(.AERTRIP_RED_COLOR, indexPath: (i + 1 ))
+                            
+                            self.headerArray[i].isInCompatable = true
+                            self.headerArray[i+1].isInCompatable = true
+                        
                             fareBreakupVC?.bookButton.isEnabled = false
                             
-                        }
+                        
                     } else if nextLegDeparture.timeIntervalSince(currentLegArrival) <= 7200 {
-                        if let parentVC = self.parent {
-                            
-                            var frame = parentVC.view.frame
-                            let bottomInset = self.view.safeAreaInsets.bottom
-                            let height = 36 + bottomInset
-                            frame.size.height = frame.size.height - height
-                            
-                            if fsr > 0 {
-                                frame.size.height = frame.size.height - 16
-                            }
-                            
+                       
+                        if !self.headerArray[i].isInCompatable {
+                            self.headerArray[i].isInCompatable = false
+                        }
+                        
+                        self.headerArray[i+1].isInCompatable = false
+                        
                             if self.viewModel.shouldDisplayToast {
-                                AertripToastView.toast(in: parentVC.view , withText: "Selected flights have less than 2 hrs of gap." , parentRect: frame)
+                               msg = "Selected flights have less than 2 hrs of gap."
                             }
                             
                             fareBreakupVC?.bookButton.isEnabled = true
-                        }
+                        
                     } else {
                         
-                        CustomToast.shared.fadeAllToasts()
+                        if !self.headerArray[i].isInCompatable {
+                            self.headerArray[i].isInCompatable = false
+                        }
                         
-//                        setTextColorToHeader(.black, indexPath: i)
-//                        setTextColorToHeader(.black, indexPath: (i + 1 ))
-                        
-//                        AertripToastView.hideToast()
+                        self.headerArray[i+1].isInCompatable = false
+                        shouldFadeAllToast = true
+
             }
+                    headerCollectionView.reloadData()
+
        }
+        
+        if shouldFadeAllToast && msg.isEmpty {
+                CustomToast.shared.fadeAllToasts(animated: false)
+            shouldFadeAllToast = false
+            printDebug("fade all")
+        }
+        
+        
+        delay(seconds: 0.5) {
+            if !msg.isEmpty && displayToast {
+                
+                if let parentVC = self.parent {
+                    AertripToastView.toast(in: parentVC.view , withText: msg, parentRect: finalFrame)
+                    msg = ""
+                }
+                
+            }
+        }
+                
+    }
+    
+    
+    
+    func showMessageForIncompatableFlights(tableIndex : Int){
+        
+        guard let selectedJourneys = self.viewModel.getSelectedJourneyForAllLegs(), selectedJourneys.count >= 2 else { return }
+       
+        var msg = ""
+        let finalFrame : CGRect = CGRect.zero
+
+        switch tableIndex {
+        
+            case 0:
+
+                let currentLegJourney = selectedJourneys[0]
+                let nextLegJourney = selectedJourneys[1]
+                                    
+                guard let currentLegArrival = currentLegJourney.arrivalDate else { return }
+                guard let nextLegDeparture = nextLegJourney.departureDate else { return }
+
+                
+                if nextLegDeparture < currentLegArrival {
+                    msg = "Flight timings are not compatible. Select a different flight."
+                } else if nextLegDeparture.timeIntervalSince(currentLegArrival) <= 7200 {
+                    msg = "Selected flights have less than 2 hrs of gap."
+                }
+            
+            case (selectedJourneys.count - 1):
+            
+                let currentLegJourney = selectedJourneys[selectedJourneys.count - 2]
+                let nextLegJourney = selectedJourneys[(selectedJourneys.count - 1)]
+                                    
+                guard let currentLegArrival = currentLegJourney.arrivalDate else { return }
+                guard let nextLegDeparture = nextLegJourney.departureDate else { return }
+                            
+                if nextLegDeparture < currentLegArrival {
+                    msg = "Flight timings are not compatible. Select a different flight."
+                } else if nextLegDeparture.timeIntervalSince(currentLegArrival) <= 7200 {
+                    msg = "Selected flights have less than 2 hrs of gap."
+                }
+
+            default:
+            
+                let selectedJourneysToBeChecked = [selectedJourneys[tableIndex - 1], selectedJourneys[tableIndex], selectedJourneys[tableIndex + 1]]
+            
+                for i in 0 ..< (selectedJourneysToBeChecked.count - 1) {
+                    
+                    let currentLegJourney = selectedJourneysToBeChecked[i]
+                    let nextLegJourney = selectedJourneysToBeChecked[(i + 1)]
+                                                
+                    guard let currentLegArrival = currentLegJourney.arrivalDate else { return }
+                    guard let nextLegDeparture = nextLegJourney.departureDate else { return }
+                
+                    if nextLegDeparture < currentLegArrival {
+                        msg = "Flight timings are not compatible. Select a different flight."
+                    } else if nextLegDeparture.timeIntervalSince(currentLegArrival) <= 7200 {
+                        msg = "Selected flights have less than 2 hrs of gap."
+                }
+            }
+        }
+        
+        
+        delay(seconds: 0.5) {
+            if !msg.isEmpty  {
+                if let parentVC = self.parent {
+                    AertripToastView.toast(in: parentVC.view , withText: msg, parentRect: finalFrame)
+                    msg = ""
+                }
+                
+            }
+        }
+        
     }
     
     
@@ -347,15 +455,42 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
    
     
 //    MARK:- Email Flight code added by Monika
-    @IBAction func emailPinnedFlights(_ sender: Any) {
+    @IBAction func emailPinnedFlights(_ sender: Any)
+    {
+        emailPinnedFlights.setImage(UIImage(named: "OvHotelResult"), for: .normal)
+        emailPinnedFlights.displayLoadingIndicator(true)
 
+        if let _ = UserInfo.loggedInUserId{
+            callAPIToGetMailTemplate()
+        }else{
+            AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginFromEmailShare, completion: {_ in
+                
+                if let vc = self.parent{
+                    AppFlowManager.default.popToViewController(vc, animated: true)
+                }
+                
+                self.callAPIToGetMailTemplate()
+            })
+        }
+    }
+    
+    func callAPIToGetMailTemplate(){
+        
         let pinnedFlightsArray = viewModel.results.reduce([]) { $0 + $1.pinnedFlights }
           
           let flightAdultCount = bookFlightObject.flightAdultCount
           let flightChildrenCount = bookFlightObject.flightChildrenCount
           let flightInfantCount = bookFlightObject.flightInfantCount
           let isDomestic = bookFlightObject.isDomestic
-          let tripType = (self.bookFlightObject.flightSearchType == RETURN_JOURNEY) ? "return" : "multi"
+
+        var tripType = ""
+        if self.bookFlightObject.flightSearchType == SINGLE_JOURNEY{
+            tripType = "single"
+        }else if self.bookFlightObject.flightSearchType == RETURN_JOURNEY{
+            tripType = "return"
+        }else{
+            tripType = "multi"
+        }
 
           self.getSharableLink.getUrlForMail(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, sid: sid, isInternational: false, journeyArray: pinnedFlightsArray, valString: "", trip_type: tripType)
 
@@ -370,25 +505,53 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
     }
     
     func shareFlights( journeyArray : [Journey]) {
-        
+        sharePinnedFilghts.displayLoadingIndicator(true)
+        self.sharePinnedFilghts.setImage(UIImage(named: "OvHotelResult"), for: .normal)
+
         let flightAdultCount = bookFlightObject.flightAdultCount
         let flightChildrenCount = bookFlightObject.flightChildrenCount
         let flightInfantCount = bookFlightObject.flightInfantCount
         let isDomestic = bookFlightObject.isDomestic
-        let tripType = (self.bookFlightObject.flightSearchType == RETURN_JOURNEY) ? "return" : "multi"
-        let filterStr = getSharableLink.getAppliedFiltersForSharingDomesticJourney(legs: self.flightSearchResultVM.flightLegs)
+        
+        var tripType = ""
+//        var returnDate = ""
+//        let inputFormatter = DateFormatter()
 
-        self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, isInternational: false, journeyArray: journeyArray, valString: "", trip_type: tripType,filterString: filterStr)
+        if self.bookFlightObject.flightSearchType == SINGLE_JOURNEY{
+            tripType = "single"
+        }else if self.bookFlightObject.flightSearchType == RETURN_JOURNEY{
+            tripType = "return"
+            
+//            if journeyArray.count == 1{
+//                inputFormatter.dateFormat = "dd-MM-yyyy"
+//                returnDate = inputFormatter.string(from: self.bookFlightObject.returnDate)
+//            }
+        }else{
+            tripType = "multi"
+        }
+
+        
+        let filterStr = getSharableLink.getAppliedFiltersForSharingDomesticJourney(legs: self.flightSearchResultVM.flightLegs,isConditionReverced:viewModel.isConditionReverced)
+
+        self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, isInternational: false, journeyArray: journeyArray, valString: "", trip_type: tripType,filterString: filterStr,searchParam: flightSearchResultVM.flightSearchParametersFromDeepLink)
 
     }
     
     func returnSharableUrl(url: String)
     {
-        let textToShare = [ "Checkout my favourite flights on Aertrip!\n\(url)" ]
-        let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
-        activityViewController.popoverPresentationController?.sourceView = self.view
+        sharePinnedFilghts.displayLoadingIndicator(false)
+        self.sharePinnedFilghts.setImage(UIImage(named: "SharePinned"), for: .normal)
 
-        self.present(activityViewController, animated: true, completion: nil)
+        if url == "No Data"{
+            AertripToastView.toast(in: self.view, withText: "Something went wrong. Please try again.")
+        }else{
+            let textToShare = [ "Checkout my favourite flights on Aertrip!\n\(url)" ]
+            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view
+
+            self.present(activityViewController, animated: true, completion: nil)
+        }
+
     }
     
 }

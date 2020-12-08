@@ -27,7 +27,7 @@ extension FlightPaymentBookingStatusVC{
         cell.configCell(tripName: self.viewModel.itinerary.tripDetails.name)
         cell.changeBtnHandler = {[weak self] in
             guard let self = self else {return}
-            AppFlowManager.default.selectTrip(self.viewModel.itinerary.tripDetails, tripType: .bookingTripChange) { [weak self] (tripModel, tripDetail) in
+            AppFlowManager.default.selectTrip(self.viewModel.itinerary.tripDetails, tripType: .bookingTripChange, presentingStatusBarStyle: .darkContent, dismissalStatusBarStyle: .darkContent) { [weak self] (tripModel, tripDetail) in
                 guard let self = self else {return}
                 printDebug(tripDetail)
                 if let detail = tripDetail {
@@ -42,7 +42,7 @@ extension FlightPaymentBookingStatusVC{
     func getCarriarTableCell(_ indexPath: IndexPath)-> UITableViewCell{
         guard let cell = self.statusTableView.dequeueReusableCell(withIdentifier: FlightCarriersTableViewCell.reusableIdentifier) as? FlightCarriersTableViewCell else {return UITableViewCell()}
         cell.configureCellWith(self.viewModel.itinerary.details.legsWithDetail[indexPath.section - 1], airLineDetail: self.viewModel.itinerary.details.aldet ?? [:])
-        cell.containerTopConstraints.constant = ((indexPath.section - 1) == 0) ? 5.0 : 13.0
+        cell.containerTopConstraints.constant = ((indexPath.section - 1) == 0) ? 8.5 : 13.0
         return cell
     }
     
@@ -208,12 +208,12 @@ extension FlightPaymentBookingStatusVC{
     
     func openActionSheetForBooking(){
         
-        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: self.viewModel.availableSeatMaps.map{$0.name}, colors: self.viewModel.availableSeatMaps.map{$0.isSelectedForall ? AppColors.themeGray40 : AppColors.themeGreen})
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: self.viewModel.availableBookingMaps.map{$0.name}, colors: self.viewModel.availableBookingMaps.map{$0.isSelectedForall ? AppColors.themeGray40 : AppColors.themeGreen})
         let cencelBtn = PKAlertButton(title: LocalizedString.Cancel.localized, titleColor: AppColors.themeDarkGreen,titleFont: AppFonts.SemiBold.withSize(20))
         _ = PKAlertController.default.presentActionSheet("View details for...",titleFont: AppFonts.SemiBold.withSize(14), titleColor: AppColors.themeGray40, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: cencelBtn) { [weak self] _, index in
             guard let self = self else {return}
-            let tripCity = NSMutableAttributedString(string: self.viewModel.availableSeatMaps[index].name)
-            AppFlowManager.default.moveToFlightBookingsDetailsVC(bookingId: self.viewModel.availableSeatMaps[index].bookingId, tripCitiesStr: tripCity)
+            let tripCity = NSMutableAttributedString(string: self.viewModel.availableBookingMaps[index].name)
+            AppFlowManager.default.moveToFlightBookingsDetailsVC(bookingId: self.viewModel.availableBookingMaps[index].bookingId, tripCitiesStr: tripCity)
         }
         
     }
@@ -221,9 +221,20 @@ extension FlightPaymentBookingStatusVC{
 }
 
 
-extension FlightPaymentBookingStatusVC : HCWhatNextTableViewCellDelegate{
-    func shareOnInstagram() {
-        
+extension FlightPaymentBookingStatusVC : HCWhatNextTableViewCellDelegate
+{
+    func shareOnInstagram()
+    {
+        if viewModel.itinerary.search_url != ""
+        {
+            let textToShare = [ "I have Booked the flight with Aertrip\n\(viewModel.itinerary.search_url)" ]
+            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            
+            self.present(activityViewController, animated: true, completion: nil)
+        }else{
+            AertripToastView.toast(in: self.view, withText: "Something went wrong. Please try again.")
+        }
     }
     
     func shareOnFaceBook() {
@@ -266,8 +277,7 @@ extension FlightPaymentBookingStatusVC : HCWhatNextTableViewCellDelegate{
 }
 
 extension FlightPaymentBookingStatusVC : YouAreAllDoneTableViewCellDelegate, PKAddPassesViewControllerDelegate{
-    
-    func addToAppleWalletTapped() {
+    func addToAppleWalletTapped(button: ATButton) {
         self.addToAppleWalletSetup()
     }
     
@@ -324,13 +334,13 @@ extension FlightPaymentBookingStatusVC : YouAreAllDoneTableViewCellDelegate, PKA
         guard let passData = try? Data(contentsOf: passFilePath) else {return}
         do {
             let newpass = try PKPass.init(data: passData)
-            let addController =  PKAddPassesViewController(pass: newpass)
-            addController?.delegate = self
+            guard let addController =  PKAddPassesViewController(pass: newpass) else {return}
+            addController.delegate = self
             DispatchQueue.main.async {
-                self.present(addController!, animated: true)
+                self.present(addController, animated: true)
             }
         } catch {
-            print(error)
+            printDebug(error)
         }
     }
 

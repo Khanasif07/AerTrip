@@ -37,7 +37,6 @@ class SelectDestinationVC: BaseVC {
         didSet {
             tableView.delegate = self
             tableView.dataSource = self
-            tableView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
         }
     }
     @IBOutlet weak var mainCintainerBottomConstraint: NSLayoutConstraint!
@@ -113,6 +112,8 @@ class SelectDestinationVC: BaseVC {
     //MARK:- Methods
     //MARK:- Private
     private func initialSetups() {
+        tableView.contentInset = UIEdgeInsets(top: headerView.height, left: 0.0, bottom: 0.0, right: 0.0)
+
         registerXib()
         
         let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
@@ -217,7 +218,7 @@ class SelectDestinationVC: BaseVC {
                 }
             }
         }
-        print(velocity.y)
+        printDebug(velocity.y)
     }
     
     func openBottomSheet() {
@@ -563,8 +564,7 @@ extension SelectDestinationVC: UITableViewDelegate, UITableViewDataSource {
             if isInSearchMode {
                 let hotelsForSection = self.viewModel.searchedHotels[self.viewModel.allTypes[indexPath.section].rawValue] as? [SearchedDestination] ?? []
                 selected = hotelsForSection[indexPath.row]
-            }
-            else {
+            } else {
                 if (self.viewModel.recentSearchLimit > 0), indexPath.section == 1 {
                     selected = self.viewModel.recentSearches[indexPath.row]
                 }

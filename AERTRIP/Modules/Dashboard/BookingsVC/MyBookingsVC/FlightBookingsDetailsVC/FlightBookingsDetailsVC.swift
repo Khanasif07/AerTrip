@@ -56,6 +56,7 @@ class FlightBookingsDetailsVC: BaseVC {
             self.bookingDetailsTableView.estimatedSectionHeaderHeight = 0
             self.bookingDetailsTableView.sectionHeaderHeight = 0
             self.bookingDetailsTableView.backgroundColor = AppColors.screensBackground.color
+            bookingDetailsTableView.showsVerticalScrollIndicator = true
         }
     }
     
@@ -73,7 +74,8 @@ class FlightBookingsDetailsVC: BaseVC {
         self.topNavBarHeightConstraint.constant = self.navBarHeight
         self.topNavBar.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: true, isDivider: false, backgroundType: .color(color: .white))
         self.topNavBar.configureLeftButton(normalImage: #imageLiteral(resourceName: "backGreen"), selectedImage: #imageLiteral(resourceName: "backGreen"))
-        self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "greenPopOverButton"), selectedImage: #imageLiteral(resourceName: "greenPopOverButton"))
+        //self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "greenPopOverButton"), selectedImage: #imageLiteral(resourceName: "greenPopOverButton"))
+        self.topNavBar.configureFirstRightButton(normalTitle: LocalizedString.Request.localized, normalColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18))
         self.headerView = OtherBookingDetailsHeaderView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 147.0))
         self.configureTableHeaderView(hideDivider: true)
         self.setupParallaxHeader()
@@ -81,7 +83,7 @@ class FlightBookingsDetailsVC: BaseVC {
         
         self.refreshControl.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControl.Event.valueChanged)
         self.refreshControl.tintColor = AppColors.themeGreen
-        self.bookingDetailsTableView.refreshControl = refreshControl
+        //self.bookingDetailsTableView.refreshControl = refreshControl
         
         // Call to get booking detail
         self.viewModel.getBookingDetail(showProgress: true)
@@ -107,8 +109,13 @@ class FlightBookingsDetailsVC: BaseVC {
     }
     
     override func dataChanged(_ note: Notification) {
-        if let noti = note.object as? ATNotification, noti == .myBookingCasesRequestStatusChanged {
-            self.viewModel.getBookingDetail(showProgress: true)
+        if let noti = note.object as? ATNotification {
+            switch noti {
+            case .myBookingCasesRequestStatusChanged:
+                self.viewModel.getBookingDetail(showProgress: true)
+            default:
+                break
+            }
         }
     }
     
@@ -131,7 +138,7 @@ class FlightBookingsDetailsVC: BaseVC {
     /// ConfigureCheckInOutView
     func configureTableHeaderView(hideDivider: Bool) {
         if let view = self.headerView {
-            view.configureUI(bookingEventTypeImage: self.eventTypeImage, bookingIdStr: self.viewModel.bookingDetail?.id ?? "", bookingIdNumbers: self.viewModel.bookingDetail?.bookingNumber ?? "", date: self.viewModel.bookingDetail?.bookingDate?.toString(dateFormat: "d MMM''yy") ?? "")
+            view.configureUI(bookingEventTypeImage: self.eventTypeImage, bookingIdStr: self.viewModel.bookingDetail?.id ?? "", bookingIdNumbers: self.viewModel.bookingDetail?.bookingNumber ?? "", date: self.viewModel.bookingDetail?.bookingDate?.toString(dateFormat: "d MMM’ yy") ?? "")
             
             view.dividerView.isHidden = true
             view.isBottomStroke = false
@@ -168,6 +175,10 @@ class FlightBookingsDetailsVC: BaseVC {
             whatNext.adult = "\((leg.pax.filter{$0.paxType.uppercased() == "ADT"}).count)"
             whatNext.child = "\((leg.pax.filter{$0.paxType.uppercased() == "CHD"}).count)"
             whatNext.infant = "\((leg.pax.filter{$0.paxType.uppercased() == "INF"}).count)"
+            whatNext.departureCountryCode = leg.flight.first?.departureCountry ?? ""
+            whatNext.departAiports = leg.flight.first?.departureAirport ?? ""
+            whatNext.arrivalCountryCode = leg.flight.last?.arrivalCountryCode ?? ""
+            whatNext.arrivalAirports = leg.flight.last?.arrivalAirport ?? ""
         }else{
             return nil
         }
@@ -185,6 +196,10 @@ class FlightBookingsDetailsVC: BaseVC {
             var destination = [String]()
             var departCity = [String]()
             var arrivalCity = [String]()
+            var arrivalAriports = [String]()
+            var arrivalCountry = [String]()
+            var departAriports = [String]()
+            var departCountry = [String]()
             
             for leg in fDetails.leg{
                 depart.append(leg.flight.first?.departDate?.toString(dateFormat: "dd-MM-yyyy") ?? "")
@@ -192,12 +207,20 @@ class FlightBookingsDetailsVC: BaseVC {
                 destination.append(leg.destination)
                 departCity.append((leg.title.components(separatedBy: "→").first ?? "").trimmingCharacters(in: .whitespaces))
                 arrivalCity.append((leg.title.components(separatedBy: "→").last ?? "").trimmingCharacters(in: .whitespaces))
-                whatNext.departArr = depart
-                whatNext.originArr = origin
-                whatNext.destinationArr = destination
-                whatNext.departCityArr = departCity
-                whatNext.arrivalCityArr = arrivalCity
+                arrivalAriports.append(leg.flight.last?.arrivalAirport ?? "")
+                arrivalCountry.append(leg.flight.last?.arrivalCountryCode ?? "")
+                departAriports.append(leg.flight.first?.arrivalAirport ?? "")
+                departCountry.append(leg.flight.first?.arrivalCountryCode ?? "")
             }
+            whatNext.departArr = depart
+            whatNext.originArr = origin
+            whatNext.destinationArr = destination
+            whatNext.departCityArr = departCity
+            whatNext.arrivalCityArr = arrivalCity
+            whatNext.arrivalAirportArr = arrivalAriports
+            whatNext.arrivalCountryCodeArr = arrivalCountry
+            whatNext.departAiportArr = departAriports
+            whatNext.departureCountryCodeArr = departCountry
             return whatNext
         default : break;
         }
@@ -213,6 +236,27 @@ class FlightBookingsDetailsVC: BaseVC {
         
     }
     
+    func showDepositOptions() {
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.PayOnline.localized, LocalizedString.PayOfflineNRegister.localized], colors: [AppColors.themeDarkGreen, AppColors.themeDarkGreen])
+        
+        _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
+            
+            switch index {
+            case 0:
+                //PayOnline
+                AppFlowManager.default.moveToAccountOnlineDepositVC(depositItinerary: self.viewModel.itineraryData, usingToPaymentFor: .booking)
+                
+            case 1:
+                //PayOfflineNRegister
+                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .fundTransfer, usingToPaymentFor: .addOns, paymentModeDetail: self.viewModel.itineraryData?.chequeOrDD, netAmount: self.viewModel.itineraryData?.netAmount ?? 0.0, bankMaster: self.viewModel.itineraryData?.bankMaster ?? [])
+                printDebug("PayOfflineNRegister")
+                
+            default:
+                printDebug("no need to implement")
+            }
+        }
+    }
+    
     private func setupParallaxHeader() {
         let parallexHeaderHeight = CGFloat(147.0)
         let parallexHeaderMinHeight = CGFloat(0.0)//navigationController?.navigationBar.bounds.height ?? 74 // 105
@@ -222,7 +266,7 @@ class FlightBookingsDetailsVC: BaseVC {
         self.bookingDetailsTableView.parallaxHeader.view = self.headerView
         self.bookingDetailsTableView.parallaxHeader.minimumHeight = parallexHeaderMinHeight
         self.bookingDetailsTableView.parallaxHeader.height = parallexHeaderHeight
-        self.bookingDetailsTableView.parallaxHeader.mode = MXParallaxHeaderMode.top
+        self.bookingDetailsTableView.parallaxHeader.mode = MXParallaxHeaderMode.fill
         self.bookingDetailsTableView.parallaxHeader.delegate = self
         self.view.bringSubviewToFront(self.topNavBar)
     }

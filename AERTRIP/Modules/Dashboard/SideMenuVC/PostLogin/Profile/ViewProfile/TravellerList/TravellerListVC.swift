@@ -103,7 +103,7 @@ class TravellerListVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        statusBarStyle = .default
+        statusBarStyle = .darkContent
         setUpTravellerHeader()
         
     }
@@ -140,29 +140,41 @@ class TravellerListVC: BaseVC {
         }
     }
     
-    
+    deinit {
+        self.timer?.invalidate()
+    }
     
     override func bindViewModel() {
         viewModel.delegate = self
     }
     
     override func dataChanged(_ note: Notification) {
-        if let noti = note.object as? ATNotification, noti == .profileSavedOnServer {
-            // Clear the DB
-            CoreDataManager.shared.deleteData("TravellerData")
-            //re-hit the details API
-            viewModel.callSearchTravellerListAPI(isShowLoader: false)
-        } else if let noti = note.object as? ATNotification, noti == .preferenceUpdated {
-            // Clear the DB
-            CoreDataManager.shared.deleteData("TravellerData")
-            //re-hit the details API
-            self.viewModel.callSearchTravellerListAPI(isShowLoader: false)
-        } else if let noti = note.object as? ATNotification, noti == .travellerDeleted {
-            // Clear the DB
-            CoreDataManager.shared.deleteData("TravellerData", predicate: "id == '\(travellerIdToDelete)'")
-            //re-hit the details API
-            loadSavedData()
-        }else if let noti = note.object as? ImportContactVM.Notification, noti == .contactSavedSuccess {
+        
+        if let noti = note.object as? ATNotification {
+            switch noti {
+            case .profileSavedOnServer:
+                // Clear the DB
+                CoreDataManager.shared.deleteData("TravellerData")
+                //re-hit the details API
+                viewModel.callSearchTravellerListAPI(isShowLoader: false)
+                
+            case .preferenceUpdated:
+                // Clear the DB
+                CoreDataManager.shared.deleteData("TravellerData")
+                //re-hit the details API
+                self.viewModel.callSearchTravellerListAPI(isShowLoader: false)
+                
+            case .travellerDeleted:
+                // Clear the DB
+                CoreDataManager.shared.deleteData("TravellerData", predicate: "id == '\(travellerIdToDelete)'")
+                //re-hit the details API
+                loadSavedData()
+                
+            default:
+                break
+            }
+            
+        } else if let noti = note.object as? ImportContactVM.Notification, noti == .contactSavedSuccess {
             self.tableView.setContentOffset(CGPoint(x: 0, y: -tableViewContentInset), animated: false)
             self.shouldHitAPI = false
             self.showImportContactView = true
@@ -228,21 +240,28 @@ class TravellerListVC: BaseVC {
             return
         }
         if self.time == 2 {
-            self.timer!.invalidate()
+            self.timer?.invalidate()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.timer?.invalidate()
                 self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
             }
         }
         
         if self.time >= 10 {
-            self.timer!.invalidate()
+            self.timer?.invalidate()
             delay(seconds: 0.5) {
+                self.timer?.invalidate()
                 self.progressView?.isHidden = true
             }
         }
     }
     func stopProgress() {
+        printDebug(self.time)
         self.time += 1
+        if self.time <= 8  {
+            self.time = 9
+        }
+        self.timer?.invalidate()
         self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
     }
     
@@ -289,6 +308,7 @@ class TravellerListVC: BaseVC {
     func doneButtonTapped() {
         shouldHitAPI = true
         setTravellerMode()
+        tableView.reloadData()
     }
     
     func popOverOptionTapped() {
@@ -459,6 +479,7 @@ class TravellerListVC: BaseVC {
             }
             fetchRequest.sortDescriptors = sortDes
             fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "labelLocPrio", cacheName: nil)
+            
         } else {
             if UserInfo.loggedInUser?.generalPref?.sortOrder == "LF" {
                 fetchRequest.sortDescriptors = [NSSortDescriptor(key: "lastNameSorting", ascending: true, selector: #selector(NSString.caseInsensitiveCompare)),NSSortDescriptor(key: "firstNameSorting", ascending: true, selector: #selector(NSString.caseInsensitiveCompare))]
@@ -478,7 +499,7 @@ class TravellerListVC: BaseVC {
                 fetchedResultsController.fetchRequest.predicate = nil//charactersPredicate()
             }
         } else {
-            if UserInfo.loggedInUser?.generalPref?.categorizeByGroup ?? false {
+            if UserInfo.loggedInUser?.generalPref?.categorizeByGroup ?? false,  labelPredicate() != nil{
                 fetchedResultsController.fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [labelPredicate()!,getSearchPredicates()])
             } else {
                 fetchedResultsController.fetchRequest.predicate = getSearchPredicates()
@@ -491,8 +512,9 @@ class TravellerListVC: BaseVC {
             tableSectionArray.removeAll()
             for section in fetchedResultsController.sections ?? [] {
                 if section.numberOfObjects > 0 {
-                    tableDataArray.append(section.objects as! [TravellerData])
-                    tableSectionArray.append(section.indexTitle ?? "")
+                    tableDataArray.append(section.objects as? [TravellerData] ?? [])
+                    tableSectionArray.append(section.name )
+                    printDebug("indexTitle: \(section.name)")
                 }
             }
             if tableSectionArray.contains("#") {
@@ -567,6 +589,7 @@ class TravellerListVC: BaseVC {
         bottomBackgroundView.isHidden = false
         isSelectMode = true
         updateNavView()
+        tableView.reloadData()
     }
     
     func resetAllItem() {
@@ -658,6 +681,17 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
 //        backView.backgroundColor = .clear//AppColors.themeWhite
         //cell.selectedBackgroundView = backView
        // cell.backgroundColor = .clear
+        
+        if #available(iOS 14.0, *) {
+            if isSelectMode {
+            var bgConfig = UIBackgroundConfiguration.listPlainCell()
+            bgConfig.backgroundColor = UIColor.clear
+            cell.backgroundConfiguration = bgConfig
+            } else {
+                cell.backgroundConfiguration = nil
+            }
+        }
+        
         return cell
     }
     
@@ -699,24 +733,25 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         }
         if isSelectMode {
             if let trav = travellerData, self.selectedTravller.contains(where: { ($0.id ?? "") == (trav.id ?? "") }) {
-               // cell.setSelected(true, animated: false)
+                cell.setSelected(true, animated: false)
                 
             } else {
-                //cell.setSelected(false, animated: false)
+                cell.setSelected(false, animated: false)
             }
         }
+        
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        if isSelectMode {
-//            //        let trav = fetchedResultsController.object(at: indexPath)
-//            let section = tableDataArray[indexPath.section]
-//            let trav = section[indexPath.row]
-//            if self.selectedTravller.contains(where: { ($0.id ?? "") == (trav.id ?? "") }) {
-//                cell.setSelected(true, animated: false)
-//                tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
-//            }
-//        }
+        if isSelectMode {
+            //        let trav = fetchedResultsController.object(at: indexPath)
+            let section = tableDataArray[indexPath.section]
+            let trav = section[indexPath.row]
+            if self.selectedTravller.contains(where: { ($0.id ?? "") == (trav.id ?? "") }) {
+                cell.setSelected(true, animated: false)
+                tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -871,23 +906,22 @@ extension TravellerListVC: TravellerListVMDelegate {
     func searchTravellerFail(errors: ErrorCodes, _ isShowLoader: Bool = false) {
         printDebug(errors)
         //AppGlobals.shared.stopLoading()
-        if isShowLoader {
-            stopProgress()
-        }
+        
         if self.showImportContactView {
             self.showImportContactView = false
             manageImportContactHeaderView()
         }
         AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+        if isShowLoader {
+            stopProgress()
+        }
     }
     
     
     
     func searchTravellerSuccess(_ isShowLoader: Bool = false) {
         //AppGlobals.shared.stopLoading()
-        if isShowLoader {
-            stopProgress()
-        }
+        
         if self.showImportContactView {
             self.showImportContactView = false
             manageImportContactHeaderView()
@@ -896,6 +930,9 @@ extension TravellerListVC: TravellerListVMDelegate {
         tableView.dataSource = self
         shouldHitAPI = true
         loadSavedData()
+        if isShowLoader {
+            stopProgress()
+        }
     }
 }
 

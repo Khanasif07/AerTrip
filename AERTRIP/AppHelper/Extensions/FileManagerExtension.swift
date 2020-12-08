@@ -37,7 +37,7 @@ extension FileManager{
     ///Clears all files of 'Cache' directory
     @nonobjc class var clearCacheDirectory:Void{
         
-        let documentsUrl =  self.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
+        guard let documentsUrl =  self.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {return}
         do {
             let directoryContents : [URL] = try self.default.contentsOfDirectory(at: documentsUrl, includingPropertiesForKeys: nil, options: self.DirectoryEnumerationOptions())
             for videoUrl in directoryContents {

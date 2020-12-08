@@ -41,6 +41,8 @@ class AccountOnlineDepositVC: BaseVC {
     }
     
     override func initialSetup() {
+        checkOutTableView.contentInset = UIEdgeInsets(top: topNavView.height - 0.5, left: 0.0, bottom: 0.0, right: 0.0)
+        
         self.view.backgroundColor = AppColors.themeWhite
         self.checkOutTableView.dataSource = self
         self.checkOutTableView.delegate = self
@@ -55,13 +57,14 @@ class AccountOnlineDepositVC: BaseVC {
         //self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
         topNavView.backgroundColor = AppColors.clear
         checkOutTableView.backgroundColor = AppColors.themeGray04
-        delay(seconds: 0.8) { [weak self] in
-            guard let strongSelf = self else {return}
-            if let cell = strongSelf.checkOutTableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? AccountDepositAmountCell {
-                cell.amountTextField.selectAll(nil)
+        if self.currentUsingFor == .accountDeposit {
+            delay(seconds: 0.8) { [weak self] in
+                guard let strongSelf = self else {return}
+                if let cell = strongSelf.checkOutTableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? AccountDepositAmountCell {
+                    cell.amountTextField.selectAll(nil)
+                }
             }
         }
-        
     }
     
     override func setupFonts() {
@@ -85,7 +88,7 @@ class AccountOnlineDepositVC: BaseVC {
     // Set up Navigation header
     private func setUpNavigationView() {
         self.topNavView.delegate = self
-        self.topNavView.configureNavBar(title: LocalizedString.CheckoutTitle.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false)
+        self.topNavView.configureNavBar(title: LocalizedString.CheckoutTitle.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: true)
     }
     
     // Registe all Xib file to checkOut table view
@@ -116,23 +119,23 @@ class AccountOnlineDepositVC: BaseVC {
         self.updatePayButtonText()
         self.checkOutTableView.reloadData()
     }
-
+    
     // Get Update Pay Button Text
     func updatePayButtonText() {
-       // self.payButton.setTitle(" " + LocalizedString.Pay.localized + " " + self.viewModel.totalPayableAmount.amountInDelimeterWithSymbol, for: .normal)
+        // self.payButton.setTitle(" " + LocalizedString.Pay.localized + " " + self.viewModel.totalPayableAmount.amountInDelimeterWithSymbol, for: .normal)
         
         let title = (" " + LocalizedString.Pay.localized + " " + self.viewModel.totalPayableAmount.amountInDelimeterWithSymbol).asStylizedPrice(using: AppFonts.Regular.withSize(22.0))
         self.payButton.setTitle(title.string, for: .normal)
         self.payButton.setTitle(title.string, for: .highlighted)
-
+        
         self.payButton.setAttributedTitle(title, for: .normal)
         self.payButton.setAttributedTitle(title, for: .highlighted)
         self.payButton.AttributedFontColorForText(text: title.string, textColor: .white, state: .normal)
         self.payButton.AttributedFontColorForText(text: title.string, textColor: .white, state: .highlighted)
     }
-
+    
     func manageLoader(shouldStart: Bool) {
-        self.indicatorView.style = .white
+        self.indicatorView.style = .medium//.white
         self.indicatorView.color = AppColors.themeWhite
         self.indicatorView.startAnimating()
         self.payButton.isHidden = shouldStart
@@ -141,7 +144,7 @@ class AccountOnlineDepositVC: BaseVC {
     
     func showPaymentSuccessMessage() {
         if self.currentUsingFor == .addOns || self.currentUsingFor == .booking || self.currentUsingFor == .outstandingLedger{
-//            AppFlowManager.default.showAddonRequestSent(buttonTitle:LocalizedString.Done.localized, delegate: self)
+            //            AppFlowManager.default.showAddonRequestSent(buttonTitle:LocalizedString.Done.localized, delegate: self)
             
             var config = BulkEnquirySuccessfulVC.ButtonConfiguration()
             config.text = self.payButton.titleLabel?.text ?? ""
@@ -165,7 +168,7 @@ class AccountOnlineDepositVC: BaseVC {
             AppFlowManager.default.showAccountDepositSuccessVC(buttonConfig: config, delegate: self, flow: .accountDepositOnline)
         }
     }
-
+    
     //MARK: - Action
     @IBAction func payButtonAction(_ sender: UIButton) {
         if self.viewModel.isValidAmount() {
@@ -192,7 +195,7 @@ extension AccountOnlineDepositVC: BulkEnquirySuccessfulVCDelegate {
                 }
             }
             if !vcFound {
-               AppFlowManager.default.popViewController(animated: true)
+                AppFlowManager.default.popViewController(animated: true)
             }
         }
         else {

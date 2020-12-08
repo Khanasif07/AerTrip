@@ -35,6 +35,6 @@ extension UIImage {
         image.draw(in: CGRect(x: 0, y: 0, width: scaledSize.width, height: scaledSize.height))
         let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return scaledImage!
+        return scaledImage ?? UIImage()
     }
 }

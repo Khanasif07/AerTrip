@@ -32,9 +32,9 @@ extension UITextField {
     }
     
     ///Text field clear button setUp
-    func textFieldClearBtnSetUp() {
+    func textFieldClearBtnSetUp(with img: UIImage? = #imageLiteral(resourceName: "ic_toast_cross")) {
         if let clearButton : UIButton = self.value(forKey: "_clearButton") as? UIButton {
-            clearButton.setImage(#imageLiteral(resourceName: "ic_toast_cross"), for: .normal)
+            clearButton.setImage(img, for: .normal)
             clearButton.size = CGSize(width: 16.0, height: 16.0)
         }
     }

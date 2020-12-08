@@ -76,6 +76,25 @@ extension IntMCAndReturnVC {
                 }
                 
                 
+                if !self.viewModel.sharedFks.isEmpty {
+                          
+                              modifiedResult.enumerated().forEach { (ind,jour) in
+                                              
+                                  if self.viewModel.sharedFks.contains(jour.fk){
+                                      
+                                        self.viewModel.results.currentPinnedJourneys.append(jour)
+                                        self.viewModel.results.currentPinnedJourneys = self.viewModel.results.currentPinnedJourneys.removeDuplicates()
+                                        self.viewModel.isSearchByAirlineCode = true
+                                        modifiedResult[ind].isPinned = true
+                                      
+                                  }
+                                  
+                          }
+                          
+                      }
+                
+                
+                
                 let groupedArray =  self.viewModel.getInternationalDisplayArray(results: modifiedResult)
                 self.viewModel.results.journeyArray = groupedArray
                 self.sortedArray = Array(self.viewModel.results.sortedArray)
@@ -101,7 +120,7 @@ extension IntMCAndReturnVC {
                             self.noResultScreen = nil
                         }
                         
-                        if self.viewModel.isSearchByAirlineCode {
+                        if self.viewModel.isSearchByAirlineCode || self.viewModel.isSharedFkmatched  {
                     
                             delay(seconds: 1) {
                                 self.switchView.isOn = true

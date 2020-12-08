@@ -9,8 +9,7 @@
 import UIKit
 
 
-class InternationalReturnTableViewCell: UITableViewCell
-{
+class InternationalReturnTableViewCell: UITableViewCell {
     //MARK:- Outlets
     @IBOutlet weak var price: UILabel!
     @IBOutlet weak var baseView: UIView!
@@ -24,6 +23,8 @@ class InternationalReturnTableViewCell: UITableViewCell
     @IBOutlet weak var optionsViewHeight: NSLayoutConstraint!
     @IBOutlet weak var indexLabel: UILabel!
     @IBOutlet weak var arrowImage: UIImageView!
+    @IBOutlet weak var dividerView: ATDividerView!
+    @IBOutlet weak var shadowBackView: UIView!
     
     var pinnedRoundedLayer : CALayer?
     var smartIconsArray : [String]?
@@ -34,23 +35,29 @@ class InternationalReturnTableViewCell: UITableViewCell
     //MARK:- Setup Methods
     fileprivate func setupBaseView() {
         backgroundColor = .clear // very important
-        layer.masksToBounds = false
-        layer.shadowOpacity = 0.5
-        layer.shadowRadius = 4
-        layer.shadowOffset = CGSize(width: 0, height: 0)
-        layer.shadowColor = UIColor.black.withAlphaComponent(0.3).cgColor
+//        layer.masksToBounds = false
+//        layer.shadowOpacity = 0.5
+//        layer.shadowRadius = 4
+//        layer.shadowOffset = CGSize(width: 0, height: 0)
+//        layer.shadowColor = UIColor.black.withAlphaComponent(0.3).cgColor
+//        self.baseView.layer.cornerRadius = 10
+        //        shadowBackView.addGrayShadow(ofColor: UIColor.black.withAlphaComponent(0.8), radius: 8, opacity: 0.7)
         self.baseView.layer.cornerRadius = 10
+        let shadowProp = AppShadowProperties()
+        self.shadowBackView.addShadow(cornerRadius: shadowProp.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: shadowProp.shadowColor, offset: shadowProp.offset, opacity: shadowProp.opecity, shadowRadius: shadowProp.shadowRadius)
+        
+//        self.shadowBackView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.layer.masksToBounds = false
         setupBaseView()
-//        dashedView.setupDashedView()
-//        let img = #imageLiteral(resourceName: "BackWhite")
-//        let templetImage = img.withRenderingMode(.alwaysTemplate)
-//        arrowImage.image = templetImage
-//        arrowImage.tintColor = AppColors.themeGreen
+        //        dashedView.setupDashedView()
+        //        let img = #imageLiteral(resourceName: "Back")
+        //        let templetImage = img.withRenderingMode(.alwaysTemplate)
+        //        arrowImage.image = templetImage
+        //        arrowImage.tintColor = AppColors.themeGreen
         self.arrowImage.transform = CGAffineTransform(rotationAngle: CGFloat(3 * (Double.pi)/2))
         setupGradientView()
         setupCollectionView()
@@ -61,21 +68,21 @@ class InternationalReturnTableViewCell: UITableViewCell
         super.setSelected(selected, animated: animated)
     }
     
-        override func prepareForReuse() {
-
-    //        logoOne.isHidden = false
-    //        logoTwo.isHidden = false
-    //        logoThree.isHidden = false
-    //        self.immediateAirportWidth.constant = 100
-    //        self.intermediateAirports.isHidden = false
-
-            self.baseView.layer.borderWidth = 0.0
-    //        durationTime.textColor = UIColor.ONE_ZORE_TWO_COLOR
-            price.textColor = .black
-            priceWidth.constant = 170
-            pinnedRoundedLayer?.removeFromSuperlayer()
-            super.prepareForReuse()
-        }
+    override func prepareForReuse() {
+        
+        //        logoOne.isHidden = false
+        //        logoTwo.isHidden = false
+        //        logoThree.isHidden = false
+        //        self.immediateAirportWidth.constant = 100
+        //        self.intermediateAirports.isHidden = false
+        
+        self.baseView.layer.borderWidth = 0.0
+        //        durationTime.textColor = UIColor.ONE_ZORE_TWO_COLOR
+        price.textColor = .black
+        priceWidth.constant = 170
+        pinnedRoundedLayer?.removeFromSuperlayer()
+        super.prepareForReuse()
+    }
     
     func setupCollectionView() {
         smartIconCollectionView.register(UINib(nibName: "SmartIconCell", bundle: nil), forCellWithReuseIdentifier: "SmartIconCell")
@@ -85,11 +92,11 @@ class InternationalReturnTableViewCell: UITableViewCell
         smartIconCollectionView.dataSource = self
         smartIconCollectionView.delegate = self
     }
-
+    
     func setUpTableView(){
         multiFlightsTableView.register(UINib(nibName: "InternationalReturnJourneyCell", bundle: nil), forCellReuseIdentifier: "InternationalReturnJourneyCell")
         multiFlightsTableView.separatorStyle = .none
-//        multiFlightsTableView.estimatedRowHeight  = 50
+        //        multiFlightsTableView.estimatedRowHeight  = 50
         multiFlightsTableView.rowHeight = UITableView.automaticDimension
         multiFlightsTableView.separatorStyle = .none
         multiFlightsTableView.isScrollEnabled = false
@@ -142,8 +149,9 @@ class InternationalReturnTableViewCell: UITableViewCell
     
     func textToImage(drawText text: String, diameter: CGFloat, color: UIColor ) -> UIImage {
         let textColor = UIColor.white
-        let textFont = UIFont(name: "SourceSansPro-Semibold", size: 16)!
-        
+//        let textFont = UIFont(name: "SourceSansPro-Semibold", size: 16)!
+        let textFont = AppFonts.SemiBold.withSize(16)
+
         let scale = UIScreen.main.scale
         UIGraphicsBeginImageContextWithOptions(CGSize(width: diameter, height: diameter), false, scale)
         let ctx = UIGraphicsGetCurrentContext()!
@@ -169,32 +177,33 @@ class InternationalReturnTableViewCell: UITableViewCell
     }
     
     func populateData(journey : IntMultiCityAndReturnDisplay, indexPath : IndexPath){
-          currentJourney = journey.first
-            if currentJourney.isPinned {
-                setPinnedFlight()
-           }
-          self.price.text = currentJourney.priceAsString
-          multiFlightsTableView.reloadData()
-          self.multiFlighrsTableViewHeight.constant = CGFloat(66 * currentJourney.legsWithDetail.count)
-          smartIconCollectionView.reloadData()
-          self.optionsViewHeight.constant = journey.count > 1 ? 45 : 0
-          self.samePriceOptionsLabel.text = "\(journey.count) options at same price"
-          price.textColor = journey.isCheapest ? .AERTRIP_ORAGE_COLOR : UIColor.black
-          self.priceWidth.constant =  self.price.intrinsicContentSize.width
-          smartIconsArray = currentJourney.smartIconArray
-          baggageSuperScript = currentJourney.baggageSuperScript
+        currentJourney = journey.first
+        if currentJourney.isPinned {
+            setPinnedFlight()
+        }
+        self.price.text = currentJourney.priceAsString
+        multiFlightsTableView.reloadData()
+        self.multiFlighrsTableViewHeight.constant = CGFloat(66 * currentJourney.legsWithDetail.count)
+        smartIconCollectionView.reloadData()
+        self.optionsViewHeight.constant = journey.count > 1 ? 45 : 0
+        self.samePriceOptionsLabel.text = "\(journey.count) options at same price"
+        self.dividerView.isHidden = !(journey.count > 1)
+        price.textColor = journey.isCheapest ? .AERTRIP_ORAGE_COLOR : UIColor.black
+        self.priceWidth.constant =  self.price.intrinsicContentSize.width
+        smartIconsArray = currentJourney.smartIconArray
+        baggageSuperScript = currentJourney.baggageSuperScript
         self.indexLabel.isHidden = true
-      }
+    }
 }
 
 //MARK:- Tableview DataSource , Delegate Methods
 extension InternationalReturnTableViewCell : UITableViewDataSource , UITableViewDelegate {
-
-     func numberOfSections(in tableView: UITableView) -> Int {
-            return 1
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
     }
     
-     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return currentJourney.legsWithDetail.count
     }
     
@@ -215,7 +224,7 @@ extension InternationalReturnTableViewCell : UITableViewDataSource , UITableView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            return getSingleJourneyCell(indexPath: indexPath)
+        return getSingleJourneyCell(indexPath: indexPath)
     }
     
     func getSingleJourneyCell (indexPath : IndexPath) -> UITableViewCell {
@@ -226,82 +235,97 @@ extension InternationalReturnTableViewCell : UITableViewDataSource , UITableView
         
         return cell
     }
-
+    
 }
 
 extension InternationalReturnTableViewCell : UICollectionViewDataSource , UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-   
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 2
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    
+        
         if section == 0 {
-            if baggageSuperScript?.string == "?" || baggageSuperScript?.string == "0P" {
+            
+            printDebug("baggageSuperScript?.string....\(baggageSuperScript?.string)")
+            
+            if baggageSuperScript?.string == "?" || baggageSuperScript?.string == "0P" || baggageSuperScript?.string == "0" {
                 return 0
-            }
-            else {
+            } else {
                 return 1
             }
-        }
-        else {
+        } else {
             return smartIconsArray?.count ?? 0
         }
     }
     
     
     @objc func collectionView(_ collectionView: UICollectionView,
-                          layout collectionViewLayout: UICollectionViewLayout,
-                          referenceSizeForHeaderInSection section: Int) -> CGSize {
-    if section == 0 {
-        return .zero
-    }else {
-        if smartIconsArray?.count == 0  || baggageSuperScript?.string == "?" || baggageSuperScript?.string == "0P" {
+                              layout collectionViewLayout: UICollectionViewLayout,
+                              referenceSizeForHeaderInSection section: Int) -> CGSize {
+        if section == 0 {
             return .zero
+        }else {
+            if smartIconsArray?.count == 0  || baggageSuperScript?.string == "?" || baggageSuperScript?.string == "0P" || baggageSuperScript?.string == "0" {
+                return .zero
+            }
+            return CGSize(width: 16.0, height:  23.0)
         }
-        return CGSize(width: 21.0, height:  23.0)
-      }
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-         let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,withReuseIdentifier: "smartIconHeaderView", for: indexPath)
+        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,withReuseIdentifier: "smartIconHeaderView", for: indexPath)
         
-        headerView.frame = CGRect(x: 33, y: 5, width: 1.0, height: collectionView.frame.height)
-
-        headerView.backgroundColor = UIColor(displayP3Red: ( 204.0 / 255.0), green: ( 204.0 / 255.0), blue: ( 204 / 255.0), alpha: 1.0)
-     
+        //        headerView.frame = CGRect(x: 0, y: 5, width: 1.0, height: collectionView.frame.height)
+        
+        //        headerView.backgroundColor = UIColor(displayP3Red: ( 204.0 / 255.0), green: ( 204.0 / 255.0), blue: ( 204 / 255.0), alpha: 1.0)
+        
         return headerView
-     }
+    }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = smartIconCollectionView.dequeueReusableCell(withReuseIdentifier: "SmartIconCell", for: indexPath) as! SmartIconCell
-        cell.superScriptWidth.constant = 10
+
         if indexPath.section == 0 {
+        
             cell.imageView.image = UIImage(named: "checkingBaggageKg")
             cell.superScript.attributedText = baggageSuperScript
+            cell.superScriptWidth.constant = 14
+                
         }else {
+            
             guard let imageName = smartIconsArray?[indexPath.row] else { return UICollectionViewCell() }
+         
             if  imageName == "fsr" {
                 let color = UIColor(displayP3Red:1.0 , green: ( 88.0/255.0), blue:( 77.0/255.0) , alpha: 1.0)
                 let seats = currentJourney.seats
-                    let tempImage = textToImage(drawText: seats, diameter:20.0 , color: color)
-                    cell.imageView.image = tempImage
-            }else{
+                let tempImage = textToImage(drawText: seats, diameter:20.0 , color: color)
+                cell.imageView.image = tempImage
+            } else {
                 cell.imageView.image = UIImage(named: imageName)
             }
             
             if imageName == "refundStatusPending" {
                 cell.superScript.text = "?"
                 cell.superScript.textColor = UIColor.AERTRIP_RED_COLOR
-                cell.superScript.font = UIFont(name: "SourceSansPro-Bold", size: 10.0)
+//                cell.superScript.font = UIFont(name: "SourceSansPro-Bold", size: 10.0)
+                
+                cell.superScript.font = AppFonts.Bold.withSize(10)
+
             }else {
                 cell.superScript.text = ""
             }
         }
+        
         return cell
+        
     }
-
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: indexPath.section == 0 ? 30 : 26, height: 23)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }

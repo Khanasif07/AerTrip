@@ -19,6 +19,7 @@ class PassengersSelectionVC: BaseVC {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var passengerTableview: UITableView!
     @IBOutlet weak var tableViewBottomConsctraint: NSLayoutConstraint!
+    @IBOutlet weak var addContactIndicator: UIActivityIndicatorView!
     
     var viewModel = PassengerSelectionVM()
     weak var intFareBreakupVC:IntFareBreakupVC?
@@ -38,6 +39,9 @@ class PassengersSelectionVC: BaseVC {
         self.passengerTableview.dataSource = self
         self.progressView.progressTintColor = UIColor.AertripColor
         self.progressView.trackTintColor = .clear
+        self.manageLoader()
+        self.passengerTableview.contentInset = UIEdgeInsets(top: (backNavigationView.height - 0.5), left: 0, bottom: 0, right: 0)
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,7 +49,7 @@ class PassengersSelectionVC: BaseVC {
         self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
         self.navigationController?.navigationBar.isHidden = true
         
-        self.statusBarStyle = .default
+        self.statusBarStyle = .darkContent
     }
     
     func apiCall(){
@@ -124,6 +128,27 @@ class PassengersSelectionVC: BaseVC {
         }
     }
     
+    private func manageLoader() {
+        self.addContactIndicator.style = .medium
+        self.addContactIndicator.tintColor = AppColors.themeGreen
+        self.addContactIndicator.color = AppColors.themeGreen
+        self.addContactIndicator.startAnimating()
+        self.hideShowLoader(isHidden:true)
+    }
+    
+    func hideShowLoader(isHidden:Bool){
+        DispatchQueue.main.async {
+            self.addButton.isHidden = !isHidden
+            if isHidden{
+                self.addContactIndicator.stopAnimating()
+                
+            }else{
+                self.addContactIndicator.startAnimating()
+            }
+            
+        }
+    }
+    
     @IBAction func tapBackButton(_ sender: UIButton) {
         if #available(iOS 13, *) {
             self.statusBarStyle = .lightContent
@@ -135,7 +160,11 @@ class PassengersSelectionVC: BaseVC {
     }
     
     @IBAction func tapAddButton(_ sender: UIButton) {
+        self.hideShowLoader(isHidden: false)
         AppFlowManager.default.presentHCSelectGuestsVC(delegate: self, productType: .flight)
+        delay(seconds: 1.7){[weak self] in
+            self?.hideShowLoader(isHidden: true)
+        }
     }
 }
 
@@ -268,9 +297,9 @@ extension PassengersSelectionVC{
     func getListingController(){
       if let nav = self.navigationController?.presentingViewController?.presentingViewController as? UINavigationController{
           nav.dismiss(animated: true) {[weak self] in
-          guard let _ = self else {return}
-              delay(seconds: 0.0) {[weak self] in
-                guard let self = self else {return}
+            guard let self = self else {return}
+            DispatchQueue.main.async {//[weak self] in
+//                guard let self = self else {return}
                 if let vc = nav.viewControllers.first(where: {$0.isKind(of: FlightResultBaseViewController.self)}) as? FlightResultBaseViewController{
 //                    nav.popToViewController(vc, animated: true)
                     vc.searchApiResult(flightItinary: self.viewModel.itineraryData)
@@ -293,10 +322,6 @@ extension PassengersSelectionVC: HCSelectGuestsVCDelegate{
 extension PassengersSelectionVC:PassengerSelectionVMDelegate{
     
     func startFechingConfirmationData(){
-//        delay(seconds: 0.2){
-//            AppGlobals.shared.startLoading()
-//        }
-        
         self.progressView.setProgress(0, animated: false)
 
                self.showProgressView()
@@ -332,7 +357,6 @@ extension PassengersSelectionVC:PassengerSelectionVMDelegate{
             guard let self = self else {return}
                 self.progressView.setProgress(0.5, animated: true)
             }
-//            self.addButtomView()
         }else{
             
             self.hideProgressView()

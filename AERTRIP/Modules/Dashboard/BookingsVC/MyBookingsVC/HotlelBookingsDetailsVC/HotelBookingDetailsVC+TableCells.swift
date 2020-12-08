@@ -104,7 +104,7 @@ extension HotlelBookingsDetailsVC {
         if (self.viewModel.bookingDetail?.documents ?? []).count != 0{
             cell.paymentInfoTopConstraint.constant = 26
         }else{
-            cell.paymentInfoTopConstraint.constant = 5
+            cell.paymentInfoTopConstraint.constant = 10//5
         }
         cell.changeShadow()
         cell.clipsToBounds = true
@@ -194,12 +194,12 @@ extension HotlelBookingsDetailsVC {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FlightsOptionsTableViewCell.reusableIdentifier, for: indexPath) as? FlightsOptionsTableViewCell else { return UITableViewCell() }
         cell.delegate = self
         cell.additionalInformation = self.viewModel.bookingDetail?.additionalInformation
-        var optionImages: [UIImage] = [#imageLiteral(resourceName: "directions"), #imageLiteral(resourceName: "call")]
-        var optionNames: [String] = [LocalizedString.Directions.localized, LocalizedString.Call.localized]
-        if self.viewModel.bookingDetail?.tripInfo == nil {
-            optionImages.append(#imageLiteral(resourceName: "addToTrips"))
-            optionNames.append(LocalizedString.AddToTrips.localized)
-        }
+        var optionImages: [UIImage] = [#imageLiteral(resourceName: "bookingsDirections"), #imageLiteral(resourceName: "bookingsCall"), #imageLiteral(resourceName: "bookingsCalendar"), #imageLiteral(resourceName: "shareBooking"), #imageLiteral(resourceName: "bookingsHotel")]
+        var optionNames: [String] = [LocalizedString.Directions.localized, LocalizedString.Call.localized, LocalizedString.AddToCalender.localized, LocalizedString.Share.localized, LocalizedString.BookAnotherRoom.localized]
+//        if self.viewModel.bookingDetail?.tripInfo == nil {
+//            optionImages.append(#imageLiteral(resourceName: "addToTrips"))
+//            optionNames.append(LocalizedString.AddToTrips.localized)
+//        }
         cell.optionImages = optionImages
         cell.optionNames = optionNames
         cell.usingFor = .hotel
@@ -226,6 +226,8 @@ extension HotlelBookingsDetailsVC {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingCommonActionTableViewCell.reusableIdentifier, for: indexPath) as? BookingCommonActionTableViewCell else { return UITableViewCell() }
         cell.usingFor = .addToAppleWallet
         cell.configureCell(buttonImage: #imageLiteral(resourceName: "AddToAppleWallet"), buttonTitle: LocalizedString.AddToAppleWallet.localized)
+        cell.actionButton.isLoading = self.viewModel.showWaletLoader
+        cell.backgroundViewTopConstraint.constant = 16
         return cell
     }
     
@@ -254,14 +256,22 @@ extension HotlelBookingsDetailsVC {
     
     func getWeatherInfoCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherInfoTableViewCell.reusableIdentifier, for: indexPath) as? WeatherInfoTableViewCell else { return UITableViewCell() }
+        
+        // For getting maximum label widths and setting - start
+        cell.cityAndDateLblWidth.constant = viewModel.weatherLabelWidths.dateLblWidth
+        cell.tempLblWidth.constant = viewModel.weatherLabelWidths.curTempLblWidth
+        cell.weatherLblWidth.constant = viewModel.weatherLabelWidths.highLowLblWidth
+        // For getting maximum label widths and setting - end
+        
         cell.usingFor = .hotel
         if self.viewModel.isSeeAllWeatherButtonTapped || (self.viewModel.bookingDetail?.tripWeatherData.count ?? 0) < 5  {
             cell.isLastCell = (self.viewModel.bookingDetail?.weatherDisplayedWithin16Info ?? false ) ? false : indexPath.row == ((self.viewModel.bookingDetail?.tripWeatherData.count ?? 0))
         } else {
-            cell.isLastCell = (self.viewModel.bookingDetail?.weatherDisplayedWithin16Info ?? false ) ? false : (indexPath.row == (self.viewModel.bookingDetail?.tripWeatherData.count ?? 0) - 1)
+            cell.isLastCell = (self.viewModel.bookingDetail?.weatherDisplayedWithin16Info ?? false ) ? false : (indexPath.row == 5)
         }
         cell.weatherData = self.viewModel.bookingDetail?.tripWeatherData[indexPath.row - 1]
         cell.clipsToBounds = true
+        
         return cell
     }
     
@@ -335,3 +345,4 @@ extension HotlelBookingsDetailsVC {
         return cell
     }
 }
+

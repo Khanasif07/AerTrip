@@ -41,7 +41,7 @@ class FlightPaymentVM{
 //    var parmsForItinerary:JSONDictionary = [:]
     var grossTotalPayableAmount : Double = 0.0 // without wallet amount
     var paymentDetails: PaymentModal? //Payment methods
-    var delegate:FlightPaymentVMDelegate?
+    weak var delegate:FlightPaymentVMDelegate?
     var gstDetail = GSTINModel()
     var bookingObject:BookFlightObject?
     var isGSTOn = false
@@ -76,20 +76,20 @@ class FlightPaymentVM{
         let newDict = Dictionary(grouping: taxAndFeesDataDict) { $0.name }
         if sortOrderArr.isEmpty{
             for ( key , _ ) in newDict {
-                let dataArray = newDict[key]
+                let dataArray = newDict[key] ?? []
                 var newTaxVal = 0
-                for i in 0..<dataArray!.count {
-                    newTaxVal += (dataArray?[i].taxVal ?? 0)
+                for i in 0..<dataArray.count {
+                    newTaxVal += (dataArray[i].taxVal ?? 0)
                 }
                 let newArr = (key,newTaxVal)
                 taxAndFeesData.append(newArr)
             }
         }else{
             for key in sortOrderArr {
-                let dataArray = newDict[key]
+                let dataArray = newDict[key] ?? []
                 var newTaxVal = 0
-                for i in 0..<dataArray!.count {
-                    newTaxVal += (dataArray?[i].taxVal ?? 0)
+                for i in 0..<dataArray.count {
+                    newTaxVal += (dataArray[i].taxVal ?? 0)
                 }
                 let newArr = (key,newTaxVal)
                 taxAndFeesData.append(newArr)
@@ -113,10 +113,10 @@ class FlightPaymentVM{
         }
         let newDict = Dictionary(grouping: addonsDataDict) { $0.name }
         for ( key , _ ) in newDict {
-            let dataArray = newDict[key]
+            let dataArray = newDict[key] ?? []
             var newTaxVal = 0
-            for i in 0..<dataArray!.count{
-                newTaxVal += (dataArray?[i].taxVal ?? 0)
+            for i in 0..<dataArray.count{
+                newTaxVal += (dataArray[i].taxVal ?? 0)
             }
             let newArr = (key,newTaxVal)
             addonsData.append(newArr)
@@ -136,10 +136,10 @@ class FlightPaymentVM{
         }
         let newDict = Dictionary(grouping: addonsDataDict) { $0.name }
         for ( key , _ ) in newDict {
-            let dataArray = newDict[key]
+            let dataArray = newDict[key] ?? []
             var newTaxVal = 0
-            for i in 0..<dataArray!.count{
-                newTaxVal += (dataArray?[i].taxVal ?? 0)
+            for i in 0..<dataArray.count{
+                newTaxVal += (dataArray[i].taxVal ?? 0)
             }
             let newArr = (key,newTaxVal)
             discountData.append(newArr)

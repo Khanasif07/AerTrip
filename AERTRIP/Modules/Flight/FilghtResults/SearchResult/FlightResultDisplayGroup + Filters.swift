@@ -11,12 +11,14 @@ import UIKit
 
 
 extension FlightResultDisplayGroup  {
-    func allAirlinesSelected() {
-        
+    func allAirlinesSelected(selected: Bool) {
         userSelectedFilters?.al = []
         userSelectedFilters?.multiAl = 0
-        appliedFilters.remove(.Airlines)
-        UIFilters.remove(.hideMultiAirlineItinarery)
+        if selected {
+            appliedFilters.insert(.Airlines)
+        } else {
+            appliedFilters.remove(.Airlines)
+        }
         applyFilters()
     }
     
@@ -53,6 +55,25 @@ extension FlightResultDisplayGroup  {
     }
     
     
+    func aircraftFilterUpdated(_ filter: AircraftFilter) {
+
+        self.dynamicFilters.aircraft.selectedAircraftsArray = filter.selectedAircraftsArray
+        
+        if !filter.selectedAircraftsArray.isEmpty{
+            
+            appliedFilters.insert(.Aircraft)
+
+        } else {
+            
+            appliedFilters.remove(.Aircraft)
+
+        }
+        
+        applyFilters()
+
+        
+    }
+    
     func applyMultiItinaryAirlineFilter( _ inputArray : [Journey]) -> [Journey] {
         
         let hideMultiAirlineItinerary =  userSelectedFilters?.multiAl == 1 ? false : true
@@ -74,7 +95,9 @@ extension FlightResultDisplayGroup  {
     }
     
     func applyAirlineFilter(_ inputArray : [Journey]) -> [Journey] {
+      
         var filteredAirlineSet = Set<String>()
+        
         if let airlines = userSelectedFilters?.al {
             filteredAirlineSet = Set(airlines)
         }
@@ -93,10 +116,35 @@ extension FlightResultDisplayGroup  {
             }
         }
         
-        
         return outputArray
     }
 
+    func applyAircraftFilter(_ inputArray : [Journey]) -> [Journey] {
+        
+        let selectedAircrsfts = Set(self.dynamicFilters.aircraft.selectedAircraftsArray.map { $0.name })
+
+         var outputArray = inputArray
+         
+         if !selectedAircrsfts.isEmpty {
+      
+             outputArray = inputArray.filter{
+                
+                let eqs = $0.leg.flatMap { $0.flights }.compactMap { $0.eq }
+                
+                 if Set(eqs).isDisjoint(with:selectedAircrsfts) {
+                     return false
+                 }
+                
+                 return true
+                
+             }
+         }
+         
+         
+         return outputArray
+     }
+
+    
 
 //MARK:- Sorting
 
@@ -166,7 +214,7 @@ extension FlightResultDisplayGroup  {
     
     func applySort( inputArray : [Journey] ) {
         
-        print("applySort=", sortOrder)
+        printDebug("applySort=\(sortOrder)")
         var sortArray = inputArray
         switch  sortOrder {
         case .Price:
@@ -207,7 +255,7 @@ extension FlightResultDisplayGroup  {
     
     func applySortFilter( inputArray : [Journey] ) -> [Journey]{
             
-            print("sortOrder=", sortOrder)
+        printDebug("sortOrder=\(sortOrder)")
             var sortArray = inputArray
             switch  sortOrder {
             case .Price:
@@ -429,6 +477,17 @@ extension FlightResultDisplayGroup  {
         userSelectedFilters?.dt.setEarliest(time: minDuration)
         userSelectedFilters?.dt.setLatest(time: maxDuration)
         
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+        let earliest = dateFormatter.date(from: userSelectedFilters?.depDt.earliest ?? "")?.toString(dateFormat: "yyyy-MM-dd")
+        let latest = dateFormatter.date(from: userSelectedFilters?.depDt.latest ?? "")?.toString(dateFormat: "yyyy-MM-dd")
+        
+        let dtEarliest = (userSelectedFilters?.dt.earliest ?? "")
+        userSelectedFilters?.depDt.earliest = (earliest ?? "") + " " + dtEarliest
+        
+        let dtLatest = (userSelectedFilters?.dt.latest ?? "")
+        userSelectedFilters?.depDt.latest = (latest ?? "") + " " + dtLatest
+        
         if isTimesFilterApplied() {
             appliedFilters.insert(.Times)
         } else {
@@ -498,8 +557,16 @@ extension FlightResultDisplayGroup  {
         guard initiatedFilters.contains(.departureTime) else { return inputArray }
         
         guard let minDepartureTime = userSelectedFilters?.dt.earliestTimeInteval else { return inputArray}
-        guard let maxDepartureTime = userSelectedFilters?.dt.latestTimeInterval else { return inputArray}
+        guard var maxDepartureTime = userSelectedFilters?.dt.latestTimeInterval else { return inputArray}
         
+        let dateFormatterForDepDt = DateFormatter()
+        dateFormatterForDepDt.dateFormat = "yyyy-MM-dd HH:mm"
+        let ear = dateFormatterForDepDt.date(from: userSelectedFilters?.depDt.earliest ?? "")?.day ?? 0
+        let lat = dateFormatterForDepDt.date(from: userSelectedFilters?.depDt.latest ?? "")?.day ?? 0
+        
+        if lat - ear > 0 {
+            maxDepartureTime = 86400
+        }
     
         let outputArray = inputArray.filter {
             
@@ -556,6 +623,12 @@ extension FlightResultDisplayGroup  {
         userSelectedFilters?.pr.maxPrice = Int(maxFare)
         
         if userSelectedFilters?.pr == inputFilter?.pr {
+            UIFilters.remove(.priceRange)
+        } else {
+            UIFilters.insert(.priceRange)
+        }
+        
+        if userSelectedFilters?.pr == inputFilter?.pr && !UIFilters.contains(.refundableFares) {
             appliedFilters.remove(.Price)
         }
         else {
@@ -573,11 +646,19 @@ extension FlightResultDisplayGroup  {
         else {
             UIFilters.remove(.refundableFares)
         }
+        
+        if (userSelectedFilters?.pr == inputFilter?.pr) && !UIFilters.contains(.refundableFares) {
+            appliedFilters.remove(.Price)
+        }
+        else {
+            appliedFilters.insert(.Price)
+        }
+        
         applyFilters()
     }
     
     func applyPriceFilter(_ inputArray: [Journey]) -> [Journey]{
-        guard let userFil = userSelectedFilters else { return inputArray }
+        guard let userFil = userSelectedFilters, UIFilters.contains(.priceRange) else { return inputArray }
         let outputArray = inputArray.filter{  $0.farepr >= userFil.pr.minPrice && $0.farepr <= userFil.pr.maxPrice  }
         return outputArray
     }
@@ -585,10 +666,16 @@ extension FlightResultDisplayGroup  {
 
 //MARK:- Airport Filters
 
-    func allLayoverSelected() {
+    func allLayoverSelected(selected: Bool) {
         
         userSelectedFilters?.loap = [String]()
-        UIFilters.remove(.layoverAirports)
+        if selected || UIFilters.contains(.originAirports) || UIFilters.contains(.destinationAirports) {
+            UIFilters.insert(.layoverAirports)
+            appliedFilters.insert(.Airport)
+        } else {
+            UIFilters.remove(.layoverAirports)
+            appliedFilters.remove(.Airport)
+        }
         applyFilters()
     }
     
@@ -603,11 +690,13 @@ extension FlightResultDisplayGroup  {
         UIFilters.remove(.destinationAirports)
         
         userSelectedFilters?.cityapN = inputFil.cityapN
+        
+        checkForAirportsFilter()
         applyFilters()
     }
     
     func originSelectionChanged(selection: [AirportsGroupedByCity]) {
-        
+                
         let origins = selection.reduce([] , { $0 + $1.airports })
         let selectedOrigins = origins.filter{  $0.isSelected == true }
         let groupedByCity = Dictionary(grouping: selectedOrigins, by: { $0.city } )
@@ -626,13 +715,12 @@ extension FlightResultDisplayGroup  {
         else {
             UIFilters.insert(.originAirports)
         }
-        
+        checkForAirportsFilter()
         applyFilters()
     }
     
     func destinationSelectionChanged(selection: [AirportsGroupedByCity]) {
-        
-        
+                
         let destinations = selection.reduce([] , { $0 + $1.airports })
         let selectedDestinations = destinations.filter{  $0.isSelected == true }
         let groupedByCity = Dictionary(grouping: selectedDestinations, by: { $0.city } )
@@ -650,7 +738,7 @@ extension FlightResultDisplayGroup  {
         else {
             UIFilters.insert(.destinationAirports)
         }
-        
+        checkForAirportsFilter()
         applyFilters()
     }
     
@@ -662,15 +750,23 @@ extension FlightResultDisplayGroup  {
         let selectedLayoverIATACodes = selectedLayovers.map{ $0.IATACode}
         
         userSelectedFilters?.loap = selectedLayoverIATACodes
-        if layOvers.count == selectedLayovers.count || selectedLayovers.count == 0 {
+        if selectedLayovers.count == 0 {
             UIFilters.remove(.layoverAirports)
         }
         else {
             UIFilters.insert(.layoverAirports)
         }
-        
+        checkForAirportsFilter()
         applyFilters()
         
+    }
+    
+    private func checkForAirportsFilter() {
+        if UIFilters.contains(.originAirports) || UIFilters.contains(.destinationAirports) || UIFilters.contains(.layoverAirports) {
+            appliedFilters.insert(.Airport)
+        } else {
+            appliedFilters.remove(.Airport)
+        }
     }
     
     func applyOriginFilter(_ inputArray: [Journey]) -> [Journey] {
@@ -697,6 +793,7 @@ extension FlightResultDisplayGroup  {
         guard let userFil = userSelectedFilters else { return inputArray }
         
         let selectedDestinations = userFil.cityapN.to.reduce([]){ $0 +  $1.value }
+
         let destinationSet = Set(selectedDestinations)
         if selectedDestinations.count == 0 {
             return inputArray
@@ -774,6 +871,9 @@ extension FlightResultDisplayGroup  {
         appliedFilters.removeAll()
         UIFilters.removeAll()
         self.filteredJourneyArray = processedJourneyArray
+        self.dynamicFilters.aircraft.selectedAircrafts.removeAll()
+        self.dynamicFilters.aircraft.selectedAircraftsArray.removeAll()
+
     }
     
     
@@ -804,6 +904,12 @@ extension FlightResultDisplayGroup  {
                 continue
             case .Price:
                 inputForFilter = self.applyPriceFilter(inputForFilter)
+                
+            case .Aircraft:
+                
+                inputForFilter = self.applyAircraftFilter(inputForFilter)
+
+                
             }
             
         }
@@ -836,8 +942,10 @@ extension FlightResultDisplayGroup  {
             case .originDestinationSame:
                 continue
             case .originDestinationSelectedForReturnJourney:
-                print("originDestinationSelectedForReturnJourney")
+                printDebug("originDestinationSelectedForReturnJourney")
             case .allAirlinesSelected:
+                continue
+            case .priceRange:
                 continue
             }
         }

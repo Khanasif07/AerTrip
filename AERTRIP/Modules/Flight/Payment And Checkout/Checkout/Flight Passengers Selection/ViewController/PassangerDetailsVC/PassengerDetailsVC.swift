@@ -15,9 +15,9 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var showPassportView: UIView!
     @IBOutlet weak var travellersTableView: ATTableView!
     @IBOutlet weak var passengerTable: ATTableView!
+    @IBOutlet weak var travellerTableViewTop: NSLayoutConstraint!
     
     weak var delegate : HCSelectGuestsVCDelegate?
     var viewModel = PassengerDetailsVM()
@@ -25,6 +25,8 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
     var offsetPoint = CGPoint(x: 0, y: 0)
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.passengerTable.contentInset = UIEdgeInsets(top: topNavigationView.height, left: 0, bottom: 0, right: 0)
+
         self.registerCells()
         //        self.setupTextView()
         self.doInitialSetup()
@@ -39,13 +41,20 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        IQKeyboardManager.shared().shouldResignOnTouchOutside = false
+    }
     
     override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self)
 
     }
     
-    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        IQKeyboardManager.shared().shouldResignOnTouchOutside = true
+    }
     
     private func registerCells(){
         
@@ -124,9 +133,12 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
     //update dob if it not valid.
     private func updateDob(at index:Int){
         switch GuestDetailsVM.shared.guests[0][index].passengerType{
-        case .Adult:break
+        case .Adult:
+            if !calculateMinimumAge(with : GuestDetailsVM.shared.guests[0][index], year: 12){
+                GuestDetailsVM.shared.guests[0][index].dob = ""
+            }
         case .Child:
-            if !calculateAge(with : GuestDetailsVM.shared.guests[0][index], year: 12){
+            if !calculateAge(with : GuestDetailsVM.shared.guests[0][index], year: 12) || !calculateMinimumAge(with : GuestDetailsVM.shared.guests[0][index], year: 2){
                 GuestDetailsVM.shared.guests[0][index].dob = ""
             }
         case .Infant:
@@ -141,6 +153,12 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
         guard let date = dob.toDate(dateFormat: "dd MMM yyyy") else {return false}
         let component = Calendar.current.dateComponents([.year], from: date, to: Date())
         return (component.year ?? 0) < year
+    }
+    private func calculateMinimumAge(with contact: ATContact, year:Int)-> Bool{
+        let dob = contact.displayDob
+        guard let date = dob.toDate(dateFormat: "dd MMM yyyy") else {return false}
+        let component = Calendar.current.dateComponents([.year], from: date, to: Date())
+        return (component.year ?? 0) >= year
     }
     
     @IBAction func tapBackBtn(_ sender: UIButton) {
@@ -328,6 +346,7 @@ extension PassengerDetailsVC: UITableViewDelegate, UITableViewDataSource{
         cell.allPaxInfoRequired = self.viewModel.isAllPaxInfoRequired
         cell.guestDetail = self.viewModel.passengerList[indexPath.section]
         cell.lastJourneyDate = self.viewModel.lastJourneyDate
+        cell.journeyStartDate = self.viewModel.firstJourneyDate
         cell.journeyEndDate = self.viewModel.journeyEndDate
         return cell
     }
@@ -469,7 +488,15 @@ extension PassengerDetailsVC: GuestDetailTableViewCellDelegate {
         //  get item position
         let itemPosition: CGPoint = textField.convert(CGPoint.zero, to: passengerTable)
         
-        let pointToScroll = CGPoint(x: 0, y: itemPosition.y - 125)
+        if let indexPath = self.passengerTable.indexPath(for: cell){
+            if indexPath.section == 0{
+                self.travellerTableViewTop.constant = 198.5
+            }else{
+                self.travellerTableViewTop.constant = 228
+            }
+        }
+        
+        let pointToScroll = CGPoint(x: 0, y: itemPosition.y - (125 + self.passengerTable.contentInset.top))
         if passengerTable.contentOffset.y < pointToScroll.y {
             
             DispatchQueue.delay(0.3) { [weak self] in

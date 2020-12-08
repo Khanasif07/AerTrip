@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Smz-JN-LYQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Smz-JN-LYQ">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -25,7 +25,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="733"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4zR-6f-czq">
+                            <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4zR-6f-czq">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="733"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="znX-wS-4up">
@@ -54,7 +54,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x66-3R-0Rb">
                                                         <rect key="frame" x="0.0" y="0.0" width="382" height="46"/>
                                                         <subviews>
-                                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ugr-e7-Gju" userLabel="LineView">
+                                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ugr-e7-Gju" userLabel="LineView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                                                 <rect key="frame" x="16" y="0.0" width="350" height="0.0"/>
                                                                 <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
@@ -140,14 +140,14 @@
                                                                     </view>
                                                                 </subviews>
                                                             </stackView>
-                                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CkB-fF-fnD" userLabel="LineView">
+                                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CkB-fF-fnD" userLabel="LineView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                                                 <rect key="frame" x="16" y="45.333333333333329" width="350" height="0.3333333333333357"/>
                                                                 <color key="backgroundColor" red="0.792156862745098" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="0.29999999999999999" id="cF2-XT-QkF"/>
                                                                 </constraints>
                                                             </view>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="29v-eT-lNi">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="29v-eT-lNi">
                                                                 <rect key="frame" x="0.0" y="0.0" width="174" height="46"/>
                                                                 <state key="normal">
                                                                     <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -156,7 +156,7 @@
                                                                     <action selector="removeMultiCityAction:" destination="Smz-JN-LYQ" eventType="touchUpInside" id="Sfb-VD-dVg"/>
                                                                 </connections>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eHU-bO-vyu">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eHU-bO-vyu">
                                                                 <rect key="frame" x="174" y="0.0" width="208" height="46"/>
                                                                 <state key="normal">
                                                                     <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -279,7 +279,7 @@
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BR2-Is-ycy">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BR2-Is-ycy">
                                                         <rect key="frame" x="0.0" y="0.0" width="191" height="104"/>
                                                         <state key="normal">
                                                             <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -288,7 +288,7 @@
                                                             <action selector="fromAction:" destination="Smz-JN-LYQ" eventType="touchUpInside" id="wai-9U-EJ6"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XrV-pQ-djy">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XrV-pQ-djy">
                                                         <rect key="frame" x="191" y="0.0" width="191" height="104"/>
                                                         <state key="normal">
                                                             <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -309,7 +309,7 @@
                                                             <action selector="InvertAirportSelection:" destination="Smz-JN-LYQ" eventType="touchUpInside" id="jHf-U9-kQr"/>
                                                         </connections>
                                                     </button>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fjU-Ru-Y0V" userLabel="LineView">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fjU-Ru-Y0V" userLabel="LineView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                                         <rect key="frame" x="16" y="103.66666666666666" width="350" height="0.3333333333333286"/>
                                                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
@@ -513,7 +513,7 @@
                                                             <constraint firstItem="1Ag-mS-bec" firstAttribute="top" secondItem="uFQ-Fv-8Ez" secondAttribute="top" id="rTS-BD-QdD"/>
                                                         </constraints>
                                                     </stackView>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hze-Ax-wqF">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hze-Ax-wqF">
                                                         <rect key="frame" x="0.0" y="14.999999999999996" width="191" height="55.666666666666657"/>
                                                         <state key="normal">
                                                             <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -522,7 +522,7 @@
                                                             <action selector="passengersAction:" destination="Smz-JN-LYQ" eventType="touchUpInside" id="nbn-lk-H6h"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xwb-BL-Euf">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xwb-BL-Euf">
                                                         <rect key="frame" x="191" y="14.999999999999996" width="191" height="55.666666666666657"/>
                                                         <state key="normal">
                                                             <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -531,7 +531,7 @@
                                                             <action selector="classAction:" destination="Smz-JN-LYQ" eventType="touchUpInside" id="4CY-LA-igq"/>
                                                         </connections>
                                                     </button>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DZR-83-jLc" userLabel="LineView">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DZR-83-jLc" userLabel="LineView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                                         <rect key="frame" x="16" y="85.666666666666686" width="350" height="0.3333333333333286"/>
                                                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
@@ -619,7 +619,7 @@
                                                             <constraint firstItem="T4z-fC-MRa" firstAttribute="top" secondItem="u5x-x6-BMQ" secondAttribute="top" constant="15" id="h83-EZ-yOU"/>
                                                         </constraints>
                                                     </stackView>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GCa-RE-rLs">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GCa-RE-rLs">
                                                         <rect key="frame" x="0.0" y="15" width="191" height="73.666666666666671"/>
                                                         <state key="normal">
                                                             <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -628,7 +628,7 @@
                                                             <action selector="onwardsAction:" destination="Smz-JN-LYQ" eventType="touchUpInside" id="9oW-PS-YHK"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="27K-OL-qsa">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="27K-OL-qsa">
                                                         <rect key="frame" x="191" y="15" width="191" height="73.666666666666671"/>
                                                         <state key="normal">
                                                             <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -637,7 +637,7 @@
                                                             <action selector="returnAction:" destination="Smz-JN-LYQ" eventType="touchUpInside" id="eLH-Qw-08X"/>
                                                         </connections>
                                                     </button>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j9O-oG-cbe" userLabel="LineView">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j9O-oG-cbe" userLabel="LineView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                                         <rect key="frame" x="16" y="103.66666666666669" width="350" height="0.3333333333333286"/>
                                                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
@@ -709,14 +709,14 @@
                                                 <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cmd-5B-LDk" userLabel="LineView">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cmd-5B-LDk" userLabel="LineView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="47.666666666666664" width="382" height="0.3333333333333357"/>
                                                 <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="0.40000000000000002" id="DVw-5d-Csc"/>
                                                 </constraints>
                                             </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HGw-7j-31M">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HGw-7j-31M">
                                                 <rect key="frame" x="191" y="432.33333333333331" width="139" height="30"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal">
@@ -778,10 +778,15 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="100" id="azQ-Ut-cQp"/>
                                         </constraints>
-                                        <collectionViewLayout key="collectionViewLayout" id="srA-bS-qlS"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="fjB-fc-KaU">
+                                            <size key="itemSize" width="128" height="128"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="RecentSearchCell" id="kX8-yO-Nw9" customClass="RecentSearchCellCollectionViewCell" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="99.666666666666671" y="0.0" width="215" height="98"/>
+                                                <rect key="frame" x="0.0" y="1" width="215" height="98"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                                     <rect key="frame" x="0.0" y="0.0" width="215" height="98"/>
@@ -907,6 +912,7 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="MZv-ed-Oo6"/>
                         <constraints>
                             <constraint firstItem="4zR-6f-czq" firstAttribute="centerX" secondItem="MZv-ed-Oo6" secondAttribute="centerX" id="HdO-Ax-aQm"/>
                             <constraint firstItem="MZv-ed-Oo6" firstAttribute="trailing" secondItem="4zR-6f-czq" secondAttribute="trailing" id="Kte-Td-pMI"/>
@@ -915,7 +921,6 @@
                             <constraint firstItem="4zR-6f-czq" firstAttribute="leading" secondItem="MZv-ed-Oo6" secondAttribute="leading" id="fUd-gU-xY2"/>
                             <constraint firstItem="MZv-ed-Oo6" firstAttribute="top" secondItem="4zR-6f-czq" secondAttribute="top" id="vJo-Tx-gVc"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="MZv-ed-Oo6"/>
                     </view>
                     <navigationItem key="navigationItem" id="hhb-Tm-5DK"/>
                     <nil key="simulatedTopBarMetrics"/>

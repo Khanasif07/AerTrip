@@ -122,6 +122,8 @@ extension FlightPaymentVC: UITableViewDelegate, UITableViewDataSource {
                 obj.viewModel.couponCode = self.viewModel.appliedCouponData.couponCode ?? ""
                 obj.viewModel.product = .flights
                 obj.viewModel.couponsData = data
+                obj.viewModel.isCouponApplied = self.isCouponApplied
+                obj.viewModel.appliedDataForFlight = self.viewModel.appliedCouponData
                 obj.modalPresentationStyle = .overFullScreen
                 self.present(obj, animated: true)
             }else{
@@ -330,11 +332,11 @@ extension FlightPaymentVC{
             }
             walletAmountCell.callForReuse()
             if self.isWallet {
-                var amount = Double(self.viewModel.itinerary.details.farepr)
+                let amount = Double(self.viewModel.itinerary.details.farepr)
                 var amountFromWallet: Double = 0.0
-                if self.isCouponApplied, let discountBreakUp = self.viewModel.appliedCouponData.discountsBreakup {
-                    amount -= discountBreakUp.CPD
-                }
+//                if self.isCouponApplied, let discountBreakUp = self.viewModel.appliedCouponData.discountsBreakup {
+//                    amount -= discountBreakUp.CPD
+//                }
                 if amount > self.getWalletAmount() {
                     amountFromWallet = self.getWalletAmount()
                 } else {

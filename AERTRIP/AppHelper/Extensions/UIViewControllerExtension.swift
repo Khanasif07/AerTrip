@@ -447,7 +447,7 @@ extension UIViewController {
             do {
                 allContainers = try contactStore.containers(matching: nil)
             } catch {
-                print("Error fetching containers")
+                printDebug("Error fetching containers")
             }
             
             var results: [CNContact] = []
@@ -457,10 +457,10 @@ extension UIViewController {
                 let fetchPredicate = CNContact.predicateForContactsInContainer(withIdentifier: container.identifier)
                 
                 do {
-                    let containerResults = try contactStore.unifiedContacts(matching: fetchPredicate, keysToFetch: keysToFetch as! [CNKeyDescriptor])
+                    let containerResults = try contactStore.unifiedContacts(matching: fetchPredicate, keysToFetch: keysToFetch as? [CNKeyDescriptor] ?? [])
                     results.append(contentsOf: containerResults)
                 } catch {
-                    print("Error fetching results for container")
+                    printDebug("Error fetching results for container")
                 }
             }
             
@@ -518,6 +518,17 @@ extension UIViewController {
         dismiss(animated: false, completion: complition)
     }
     
+    func dismissAsPopAnimationWithReveal(complition: (()->())? = nil) {
+        let transition = CATransition()
+        transition.duration = 0.5
+        transition.type = CATransitionType.reveal
+        transition.subtype = CATransitionSubtype.fromBottom
+        transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
+        self.view.window?.layer.add(transition, forKey: kCATransition)
+        dismiss(animated: false, completion: complition)
+    }
+    
+    
     func openUrl(_ urlString: String) {
         if let url = URL(string: urlString)
         {
@@ -531,4 +542,18 @@ extension UIViewController {
             }
         }
     }
+}
+
+
+// MARK: Added by Rishabh
+extension UIViewController {
+//    func hideKeyboardWhenTappedAround() {
+//        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+//        tap.cancelsTouchesInView = true
+//        view.addGestureRecognizer(tap)
+//    }
+//
+//    @objc private func dismissKeyboard() {
+//        view.endEditing(true)
+//    }
 }

@@ -66,7 +66,7 @@ class HotelInfoAddressCell: UITableViewCell {
         // SetUps
 //        self.moreBtnContainerView.addGredient(isVertical: false, colors: [.white, UIColor.white.withAlphaComponent(0)])
         self.gradientView.backgroundColor = .clear
-        self.gradientView.addGredient(isVertical: false, colors: [.white, UIColor.white.withAlphaComponent(0)])
+        self.gradientView.addGredient(isVertical: false, colors: [UIColor.white.withAlphaComponent(0), UIColor.white])
         self.moreBtnContainerView.isHidden = true
         
         // Color
@@ -147,8 +147,8 @@ class HotelInfoAddressCell: UITableViewCell {
         self.addressInfoTextView.textContainer.maximumNumberOfLines = 3
         self.addressLabel.text = LocalizedString.Overview.localized
         if isForBooking {
-            self.addressInfoTextView.attributedText = AppGlobals.shared.getTextWithImageWithLink(startText:  hotelData.info, startTextColor: AppColors.themeBlack, middleText: " ", image: #imageLiteral(resourceName: "send_icon"), endText: "", endTextColor: AppColors.themeGreen, middleTextColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
-            self.moreBtnContainerView.isHidden = (self.addressInfoTextView.numberOfLines >= 3) ? false : true
+            self.addressInfoTextView.attributedText = AppGlobals.shared.getTextWithImageWithLink(startText:  overview, startTextColor: AppColors.themeBlack, middleText: " ", image: #imageLiteral(resourceName: "send_icon"), endText: "", endTextColor: AppColors.themeGreen, middleTextColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
+             self.moreBtnContainerView.isHidden = (self.addressInfoTextView.numberOfLines >= 3) ? false : true
             self.attributeLabelSetUp(overview: overview)
             self.moreBtnOutlet.isUserInteractionEnabled = false
         }
@@ -194,7 +194,7 @@ class HotelInfoAddressCell: UITableViewCell {
         self.containerLeadingConstraint.constant = 16
         self.containerTrailingConstraint.constant = 16
         self.layoutIfNeeded()
-        self.containerView.addShadow(cornerRadius: 0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
+        self.containerView.addShadow(cornerRadius: 0, maskedCorners: [], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
     }
     
     // Mark:- IBActions

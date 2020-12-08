@@ -44,7 +44,7 @@ extension FlightResultSingleJourneyVC : UITableViewDataSource , UITableViewDeleg
         
         if viewModel.resultTableState == .showTemplateResults {
            
-            return getTemplateCell()
+            return getTemplateCell(isFirstCell: indexPath.row == 0)
         
         } else if viewModel.resultTableState == .showPinnedFlights {
           
@@ -78,10 +78,11 @@ extension FlightResultSingleJourneyVC : UITableViewDataSource , UITableViewDeleg
     }
     
     //MARK:- Methods to get different types of cells
-    func getTemplateCell () -> UITableViewCell {
+    func getTemplateCell (isFirstCell: Bool) -> UITableViewCell {
         
-        if let cell =  resultsTableView.dequeueReusableCell(withIdentifier: "SingleJourneyTemplateCell") {
+        if let cell =  resultsTableView.dequeueReusableCell(withIdentifier: "SingleJourneyTemplateCell") as? SingleJourneyResultTemplateCell {
             cell.selectionStyle = .none
+            cell.isFirstCell = isFirstCell
             return cell
         }
         
@@ -110,24 +111,26 @@ extension FlightResultSingleJourneyVC : UITableViewDataSource , UITableViewDeleg
                     cell.logoOne.isHidden = false
                     cell.logoTwo.isHidden = true
                     cell.logoThree.isHidden = true
-                    setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
+                    cell.logoOne.setImageWithUrl(logoArray[0], placeholder: UIImage(), showIndicator: false)
 
                 case 2 :
                     
                     cell.logoOne.isHidden = false
                     cell.logoTwo.isHidden = false
                     cell.logoThree.isHidden = true
-                    setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
-                    setImageto(imageView: cell.logoTwo, url:logoArray[1] , index:  indexPath.row)
+                    cell.logoOne.setImageWithUrl(logoArray[0], placeholder: UIImage(), showIndicator: false)
+                    cell.logoTwo.setImageWithUrl(logoArray[1], placeholder: UIImage(), showIndicator: false)
 
+                
                 case 3 :
                     
                     cell.logoOne.isHidden = false
                     cell.logoTwo.isHidden = false
                     cell.logoThree.isHidden = false
-                    setImageto(imageView: cell.logoOne, url:logoArray[0] , index:  indexPath.row)
-                    setImageto(imageView: cell.logoTwo, url:logoArray[1] , index:  indexPath.row)
-                    setImageto(imageView: cell.logoThree, url:logoArray[2] , index:  indexPath.row)
+                    cell.logoOne.setImageWithUrl(logoArray[0], placeholder: UIImage(), showIndicator: false)
+                    cell.logoTwo.setImageWithUrl(logoArray[1], placeholder: UIImage(), showIndicator: false)
+                    cell.logoThree.setImageWithUrl(logoArray[2], placeholder: UIImage(), showIndicator: false)
+
                     
                 default:
                     break
@@ -171,11 +174,9 @@ extension FlightResultSingleJourneyVC : UITableViewDataSource , UITableViewDeleg
     }
     
     func reloadTableCell(_ indexPath: IndexPath) {
-        
         DispatchQueue.main.async {
             self.resultsTableView.reloadRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
         }
-        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -186,9 +187,10 @@ extension FlightResultSingleJourneyVC : UITableViewDataSource , UITableViewDeleg
         guard let journeyCell = tableView.cellForRow(at: indexPath) as? SingleJourneyResultTableViewCell, let currentJourney = journeyCell.currentJourney  else {
             return
         }
+        
+        printDebug(currentJourney.id)
+        
         navigateToFlightDetailFor(journey: currentJourney, selectedIndex: indexPath)
     }
-    
-    
     
 }

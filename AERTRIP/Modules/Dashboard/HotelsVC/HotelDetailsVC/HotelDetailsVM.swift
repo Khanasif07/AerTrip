@@ -153,7 +153,7 @@ class HotelDetailsVM {
                             let fromDate: String = firstRefundableData.from
                             let penalty: Int = firstRefundableData.penalty
                             
-                            if !toDate.isEmpty && fromDate.isEmpty && penalty == 0 {
+                            if !toDate.isEmpty && fromDate.isEmpty && penalty == 0 || (!toDate.isEmpty && !fromDate.isEmpty && penalty == 0) {
                                 // free cancelation
                                 if  (tag.lowercased() == "free cancellation") || (tag.lowercased() == "free") {
                                     return true
@@ -318,15 +318,15 @@ class HotelDetailsVM {
         if isRefundableSelected && isPartRefundable && isNonRefundable || (!isRefundableSelected && !isPartRefundable && !isNonRefundable) /* remianing cases */ {
             return currentRate
         } else {
-            if isRefundableSelected && currentRate.cancellation_penalty!.is_refundable {
+            if isRefundableSelected && (currentRate.cancellation_penalty?.is_refundable ?? false) {
                 return currentRate
             } else if isPartRefundable {
-                for penalty in currentRate.penalty_array! {
+                for penalty in currentRate.penalty_array ?? [] {
                     if !penalty.to.isEmpty && !penalty.from.isEmpty {
                         return currentRate
                     }
                 }
-            } else if isNonRefundable && !currentRate.cancellation_penalty!.is_refundable {
+            } else if isNonRefundable && !(currentRate.cancellation_penalty?.is_refundable ?? false) {
                 return currentRate
             }
         }

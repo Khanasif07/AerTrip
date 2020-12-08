@@ -52,8 +52,8 @@ extension String {
 //            return self
 //        }
         
-        let data = self.data(using: String.Encoding.utf8)
-        let decodedStr = NSString(data: data!, encoding: String.Encoding.nonLossyASCII.rawValue)
+        guard let data = self.data(using: String.Encoding.utf8) else {return self}
+        let decodedStr = NSString(data: data, encoding: String.Encoding.nonLossyASCII.rawValue)
         if let str = decodedStr {
             return str as String
         }
@@ -65,7 +65,7 @@ extension String {
 //        let msgData: Data = uniText.data(using: String.Encoding.nonLossyASCII.rawValue)!
 //        let goodMsg: NSString = NSString(data: msgData, encoding: String.Encoding.utf8.rawValue)!
 //        return goodMsg as String
-        if let encodeStr = NSString(cString: self.cString(using: .nonLossyASCII)!, encoding: String.Encoding.utf8.rawValue) {
+        if let str = self.cString(using: .nonLossyASCII), let encodeStr = NSString(cString: str, encoding: String.Encoding.utf8.rawValue) {
             return encodeStr as String
         }
         return self
@@ -127,7 +127,7 @@ extension String {
     }
     
     var isBackSpace : Bool {
-        let char = self.cString(using: String.Encoding.utf8)!
+        guard let char = self.cString(using: String.Encoding.utf8) else {return false}
         return strcmp(char, "\\b") == -92
     }
     
@@ -251,7 +251,7 @@ extension String {
     var hasVideoFileExtension: Bool {
         let arr = self.components(separatedBy: ".")
         if arr.count > 1 {
-            switch arr.last! {
+            switch arr.last ?? "" {
             case "mp4", "m4a", "m4v", "mov", "wav", "mp3":
                 return true
             default:
@@ -411,7 +411,8 @@ extension String {
     var htmlToAttributedString: NSAttributedString {
         guard let data = data(using: .utf8) else { return NSAttributedString() }
         do {
-            return try NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil)
+            let result = try NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil)
+            return result
         } catch {
             return NSAttributedString()
         }
@@ -465,7 +466,7 @@ extension String {
         stringTags += "font-family: \(tempFont.fontName) !important;"
         stringTags += "font-size: \(Int(tempFont.pointSize))pt !important;"
         if let color = fontColor {
-            stringTags += "color: #\(color.hexString!) !important;"
+            stringTags += "color: #\(color.hexString ?? "") !important;"
         }
         stringTags += "}"
         stringTags += "</style>"
@@ -494,7 +495,7 @@ extension String {
         }
         
         if let color = fontColor {
-            htmlCSSString += "color: #\(color.hexString!) !important;"
+            htmlCSSString += "color: #\(color.hexString ?? "") !important;"
         }
         
         htmlCSSString += "}</style> \(self)"
@@ -744,11 +745,11 @@ extension String {
         let inDateFormatter: DateFormatter = DateFormatter()
         inDateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         inDateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-        let inDate: Date = inDateFormatter.date(from: self)!
+        let inDate: Date = inDateFormatter.date(from: self) ?? Date()
         let outDateFormatter: DateFormatter = DateFormatter()
         outDateFormatter.timeZone = TimeZone.autoupdatingCurrent
         outDateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        let outDateStr: Date = outDateFormatter.date(from: outDateFormatter.string(from: inDate))!
+        let outDateStr: Date = outDateFormatter.date(from: outDateFormatter.string(from: inDate)) ?? Date()
         
         outDateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
@@ -826,7 +827,6 @@ extension String {
             return stylizedPrice
         }
         let result = self.components(separatedBy: ".").last?.components(separatedBy: " ").first?.count
-//        print("result: \(result)")
         changeRange.length = self.count - changeRange.location
         
         guard let font = UIFont(name: font.fontName, size: (font.pointSize * 0.75)) else {

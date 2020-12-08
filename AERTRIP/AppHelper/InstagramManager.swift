@@ -30,14 +30,14 @@ class InstagramManager: NSObject, UIDocumentInteractionControllerDelegate {
     func postImageToInstagramWithCaption(imageInstagram: UIImage, instagramCaption: String, view: UIView) {
         // called to post image with caption to the instagram application
         
-        let instagramURL = NSURL(string: kInstagramURL)
-        if UIApplication.shared.canOpenURL(instagramURL! as URL) {
+        guard let instagramURL = NSURL(string: kInstagramURL) else {return}
+        if UIApplication.shared.canOpenURL(instagramURL as URL) {
             let jpgPath = (NSTemporaryDirectory() as NSString).appendingPathComponent(kfileNameExtension)
             
             do {
             try imageInstagram.jpegData(compressionQuality: 0.75)?.write(to: URL(fileURLWithPath: jpgPath), options: .atomic)
             } catch {
-                print(error)
+                printDebug(error)
             }
 
             let rect = CGRect.zero

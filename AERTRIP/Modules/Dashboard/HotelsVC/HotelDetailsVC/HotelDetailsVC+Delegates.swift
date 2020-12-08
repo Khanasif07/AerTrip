@@ -120,7 +120,7 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
                     AppFlowManager.default.presentHotelDetailsOverViewVC(overViewInfo: self.viewModel.hotelData?.info ?? "")
                 } 
             } else if (tableView.cellForRow(at: indexPath) as? TripAdvisorTableViewCell) != nil , let locid = self.viewModel.hotelData?.locid {
-                !locid.isEmpty ? AppFlowManager.default.presentHotelDetailsTripAdvisorVC(hotelId: self.viewModel.hotelData?.hid ?? "") : printDebug(locid + "location id is empty")
+                !locid.isEmpty ? AppFlowManager.default.presentHotelDetailsTripAdvisorVC(hotelId: self.viewModel.hotelData?.hid ?? "", presentingStatusBarStyle: statusBarStyle, dismissalStatusBarStyle: statusBarStyle) : printDebug(locid + "location id is empty")
             } else if (tableView.cellForRow(at: indexPath) as? HotelDetailAmenitiesCell) != nil {
                 self.viewAllButtonAction()
             }
@@ -128,7 +128,7 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
             
         }
         else if let _ = tableView.cellForRow(at: indexPath) as? HotelDetailsCheckOutTableViewCell {
-            AppGlobals.shared.startLoading(loaderBgColor: .clear)
+          //  AppGlobals.shared.startLoading(loaderBgColor: .clear)
             delay(seconds: 0.1) {
                 var presentSelectionVC = false
                 if let _ = UserInfo.loggedInUserId {
@@ -139,7 +139,7 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
                     //                if let vc = sSelf.parent {
                     //                    AppFlowManager.default.popToViewController(vc, animated: true)
                     //                }
-                    AppFlowManager.default.moveToHCDataSelectionVC(sid: sSelf.viewModel.hotelSearchRequest?.sid ?? "", hid: sSelf.viewModel.hotelInfo?.hid ?? "", qid: sSelf.viewModel.ratesData[indexPath.section-2].qid, placeModel: sSelf.viewModel.placeModel ?? PlaceModel(), hotelSearchRequest: sSelf.viewModel.hotelSearchRequest ?? HotelSearchRequestModel(), hotelInfo: sSelf.viewModel.hotelInfo ?? HotelSearched(), locid: sSelf.viewModel.hotelInfo?.locid ?? "", roomRate: sSelf.viewModel.ratesData[indexPath.section - 2], delegate: self as! HCDataSelectionVCDelegate, presentViewController: presentSelectionVC)
+                    AppFlowManager.default.moveToHCDataSelectionVC(sid: sSelf.viewModel.hotelSearchRequest?.sid ?? "", hid: sSelf.viewModel.hotelInfo?.hid ?? "", qid: sSelf.viewModel.ratesData[indexPath.section-2].qid, placeModel: sSelf.viewModel.placeModel ?? PlaceModel(), hotelSearchRequest: sSelf.viewModel.hotelSearchRequest ?? HotelSearchRequestModel(), hotelInfo: sSelf.viewModel.hotelInfo ?? HotelSearched(), locid: sSelf.viewModel.hotelInfo?.locid ?? "", roomRate: sSelf.viewModel.ratesData[indexPath.section - 2], delegate: sSelf, presentViewController: presentSelectionVC)
                     AppFlowManager.default.removeLoginConfirmationScreenFromStack()
                     AppGlobals.shared.stopLoading()
                 }
@@ -151,7 +151,8 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
             if (self.viewModel.hotelInfo?.hid ?? "") == TAViewModel.shared.hotelId, let data = TAViewModel.shared.hotelTripAdvisorDetails{
                 let urlString = "https:\(data.seeAllPhotos)"
                 let screenTitle = LocalizedString.Photos.localized
-                AppFlowManager.default.showURLOnATWebView(URL(string: urlString)!, screenTitle: screenTitle)
+                guard let url = URL(string: urlString) else {return}
+                AppFlowManager.default.showURLOnATWebView(url, screenTitle: screenTitle)
             }
         }
     }
@@ -328,9 +329,9 @@ extension HotelDetailsVC: HotelDetailDelegate {
 //==========================
 extension HotelDetailsVC {
     func manageHeaderView() {
-        if #available(iOS 14.0, *) {
-            guard hotelTableView.isDragging else {return}
-        }
+//        if #available(iOS 14.0, *) {
+//            guard hotelTableView.isDragging else {return}
+//        }
         
         let yOffset = self.hotelTableView.contentOffset.y
         printDebug("yOffset \(yOffset)")
@@ -403,7 +404,8 @@ extension HotelDetailsVC {
                             }, completion: nil)
                     }
                 }
-                else if (self.initialStickyPosition + self.footerView.height) < finalY {
+//                else if (self.initialStickyPosition + self.footerView.height) < finalY {
+                else if (self.initialStickyPosition + 20) < finalY {
                     //hidden
                     if self.stickyBottomConstraint.constant != -(self.footerView.height) {
                         UIView.animate(withDuration: AppConstants.kAnimationDuration, delay: 0, options: .curveEaseIn, animations: { [weak self] in
@@ -533,7 +535,7 @@ extension HotelDetailsVC: HotelDetailsBedsTableViewCellDelegate {
             }else {
                 AppFlowManager.default.popToViewController(sSelf, animated: true)
             }
-            AppFlowManager.default.selectTrip(nil, tripType: .hotel) { [weak self] (trip, details)  in
+            AppFlowManager.default.selectTrip(nil, tripType: .hotel, presentingStatusBarStyle: sSelf.statusBarStyle, dismissalStatusBarStyle: sSelf.statusBarStyle) { [weak self] (trip, details)  in
                 delay(seconds: 0.3, completion: { [weak self] in
                     guard let sSelf = self else {return}
                     

@@ -33,7 +33,7 @@ extension IntMCAndReturnVC {
                     let yCordinateOfView = rect.origin.y
                     if ( yCordinateOfView  > yCordinate ) {
                         rect.origin.y = yCordinate
-                        if (self.visualEffectViewHeight + yCordinate) > progressBarrStopPositionValue {
+                        if ((self.visualEffectViewHeight + yCordinate) > progressBarrStopPositionValue) || (blurEffectView.origin.y > -86) {
 //                            print(yCordinate)
                             blurEffectView.frame = rect
                         }
@@ -48,8 +48,11 @@ extension IntMCAndReturnVC {
             UIView.animate(withDuration: 0.1, delay: 0.0, options: [.curveEaseInOut], animations: {
                 if let blurEffectView = self.navigationController?.view.viewWithTag(500) {
                     var rect = blurEffectView.frame
-                    var yCordinate = rect.origin.y + invertedOffset
+                    var yCordinate = invertedOffset - 86
                     yCordinate = min ( 0,  yCordinate)
+                    if self.resultsTableView.contentOffset.y <= 0 || rect.origin.y == 0{
+                        yCordinate = 0
+                    }
                     rect.origin.y = yCordinate
                     blurEffectView.frame = rect
                 }
@@ -114,7 +117,7 @@ extension IntMCAndReturnVC {
             }
             
             // If blurEffectView yCoodinate is close to top of the screen
-            print(yCoordinate)
+            printDebug(yCoordinate)
             if  ( yCoordinate > ( visualEffectViewHeight / 2.0 ) ){
                 let progressBarrStopPositionValue : CGFloat = UIDevice.isIPhoneX ? 46 : 22
 

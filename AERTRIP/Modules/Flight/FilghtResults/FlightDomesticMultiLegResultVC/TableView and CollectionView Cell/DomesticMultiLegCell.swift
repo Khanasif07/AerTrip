@@ -215,7 +215,10 @@ class DomesticMultiLegCell: UITableViewCell {
         
         let amountText = NSMutableAttributedString.init(string: journey.priceAsString)
         
-        amountText.setAttributes([NSAttributedString.Key.font: UIFont(name: "SourceSansPro-Regular", size: 14)!], range: NSMakeRange(0, 1))
+//        amountText.setAttributes([NSAttributedString.Key.font: UIFont(name: "SourceSansPro-Regular", size: 14)!], range: NSMakeRange(0, 1))
+        
+        amountText.setAttributes([NSAttributedString.Key.font: AppFonts.Regular.withSize(14)], range: NSMakeRange(0, 1))
+
         self.price.attributedText = amountText
         
         
@@ -284,8 +287,10 @@ class DomesticMultiLegCell: UITableViewCell {
     
     func textToImage(drawText text: String, diameter: CGFloat, color: UIColor ) -> UIImage {
         let textColor = UIColor.white
-        let textFont = UIFont(name: "SourceSansPro-Semibold", size: 16)!
+//        let textFont = UIFont(name: "SourceSansPro-Semibold", size: 16)!
         
+        let textFont = AppFonts.SemiBold.withSize(16)
+
         let scale = UIScreen.main.scale
         UIGraphicsBeginImageContextWithOptions(CGSize(width: diameter, height: diameter), false, scale)
         let ctx = UIGraphicsGetCurrentContext()!
@@ -314,12 +319,12 @@ class DomesticMultiLegCell: UITableViewCell {
 }
 
 
-extension DomesticMultiLegCell : UICollectionViewDataSource , UICollectionViewDelegate {
+extension DomesticMultiLegCell : UICollectionViewDataSource , UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         
         if section == 0 {
-            if baggageSuperScript?.string == "0P" {
+            if baggageSuperScript?.string == "0P" || baggageSuperScript?.string == "0" {
                 return 0
             }
             else {
@@ -361,7 +366,8 @@ extension DomesticMultiLegCell : UICollectionViewDataSource , UICollectionViewDe
             if imageName == "refundStatusPending" {
                 cell.superScript.text = "?"
                 cell.superScript.textColor = UIColor.AERTRIP_RED_COLOR
-                cell.superScript.font = UIFont(name: "SourceSansPro-Bold", size: 10.0)
+//                cell.superScript.font = UIFont(name: "SourceSansPro-Bold", size: 10.0)
+                cell.superScript.font = AppFonts.Bold.withSize(10)
                 cell.superScriptWidth.constant = 10
                 if indexPath.row == 0{
                     cell.imageViewLeading.constant = 0
@@ -386,7 +392,7 @@ extension DomesticMultiLegCell : UICollectionViewDataSource , UICollectionViewDe
         let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
                                                                          withReuseIdentifier: "smartIconHeaderView",
                                                                          for: indexPath)
-//        headerView.frame = CGRect(x: 33, y: 5, width: 4.0, height: collectionView.frame.height)
+//        headerView.frame = CGRect(x: 0, y: 5, width: 1.0, height: collectionView.frame.height)
         
 //        headerView.backgroundColor = UIColor.yellow
         
@@ -396,14 +402,27 @@ extension DomesticMultiLegCell : UICollectionViewDataSource , UICollectionViewDe
         return headerView
     }
     
-    @objc func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         if section == 0 {
             return .zero
         }else {
-            if smartIconsArray?.count == 0  || baggageSuperScript?.string == "0P" {
+            if smartIconsArray?.count == 0  || baggageSuperScript?.string == "0P" || baggageSuperScript?.string == "0" {
                 return .zero
             }
             return CGSize(width: 16.0, height:  23.0)
         }
     }
+    
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    return CGSize(width: indexPath.section == 0 ? 30 : 26, height: 23)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
 }

@@ -12,7 +12,7 @@ extension FlightResultSingleJourneyVC {
     
     func expandFlights(){
         
-        UIView.animate(withDuration: 0, animations: {
+        UIView.animate(withDuration: 0.1, animations: {
             self.resultsTableView.tableFooterView?.transform = CGAffineTransform(translationX: 0, y: 200)
             
             printDebug("time1..\(Date().timeIntervalSince1970)")
@@ -20,10 +20,12 @@ extension FlightResultSingleJourneyVC {
         }) { (success) in
             
             printDebug("time2..\(Date().timeIntervalSince1970)")
-
             
             self.viewModel.resultTableState = .showExpensiveFlights
+            //To change state before(Crash issue on unpinned.)
+            self.viewModel.stateBeforePinnedFlight = .showExpensiveFlights
             self.viewModel.results.excludeExpensiveFlights = false
+   
             DispatchQueue.global(qos: .default).async {
                 
 //                self.sortedArray = Array(self.viewModel.results.sortedArray)
@@ -57,6 +59,8 @@ extension FlightResultSingleJourneyVC {
             self.resultsTableView.deleteRows(at: indexPathsToBedeleted, with: UITableView.RowAnimation.fade)
             
         self.viewModel.resultTableState = .showRegularResults
+        //To change state before(Crash issue on unpinned.)
+        self.viewModel.stateBeforePinnedFlight = .showRegularResults
             self.viewModel.results.excludeExpensiveFlights = false
             
             DispatchQueue.global(qos: .background).async {
@@ -65,7 +69,7 @@ extension FlightResultSingleJourneyVC {
                     DispatchQueue.main.async {
                         self.setGroupedFooterView()
                         self.showBluredHeaderViewCompleted()
-                        self.resultsTableView.reloadSections([0], with: .none)
+                        self.resultsTableView.reloadData()
                     }
                 })
             }

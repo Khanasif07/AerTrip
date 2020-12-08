@@ -89,7 +89,9 @@ class HCCheckInOutTableViewCell: UITableViewCell {
         self.checkinDayLabelBottomConstriant.constant = 16
         self.layoutIfNeeded()
         self.topDividerView.isHidden = true
-        self.shadowView.addShadow(cornerRadius: 0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 8.0)
+//        self.shadowView.addShadow(cornerRadius: 0, maskedCorners: [], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 8.0)
+        let shadow = AppShadowProperties()
+        self.shadowView.addShadow(cornerRadius: 0, maskedCorners: [], color: shadow.shadowColor, offset: shadow.offset, opacity: shadow.opecity, shadowRadius: shadow.shadowRadius)
         self.checkInLabel.font = AppFonts.Regular.withSize(14.0)
         self.checkOutLabel.font = AppFonts.Regular.withSize(14.0)
         self.checkInDateLabel.font = AppFonts.Regular.withSize(22.0)

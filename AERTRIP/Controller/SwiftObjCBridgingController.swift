@@ -13,6 +13,7 @@ class SwiftObjCBridgingController: NSObject {
     @objc static let shared = SwiftObjCBridgingController()
         
     @objc var onFetchingFlightFormData: ((NSMutableDictionary) -> ())?
+    @objc var onResetRecentSearches: (() -> ())?
     
     func sendFlightFormData(_ jsonDict: JSONDictionary) {
         
@@ -23,5 +24,10 @@ class SwiftObjCBridgingController: NSObject {
         
         onFetchingFlightFormData?(newDict)
     }
+    
+    func resetFlightsRecentSearches() {
+        onResetRecentSearches?()
+    }
+    
 }
 

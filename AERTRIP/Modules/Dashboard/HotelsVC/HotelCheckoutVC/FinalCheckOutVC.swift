@@ -33,13 +33,13 @@ class FinalCheckOutVC: BaseVC {
     let viewModel = FinalCheckoutVM()
     let cellIdentifier = "HotelFareSectionHeader"
     var isWallet: Bool = true // To check if using wallet or Not
-//    var gradientColors: [UIColor] = [AppColors.shadowBlue, AppColors.themeGreen] {
+//    var gradientColors: [UIColor] = AppConstants.appthemeGradientColors {
 //        didSet {
 //            self.viewDidLayoutSubviews()
 //        }
 //    }
 //
-//    var disabledGradientColors: [UIColor] = [AppColors.themeGray20, AppColors.themeGray20] {
+//    var disabledGradientColors: [UIColor] = AppConstants.appthemeDisableGradientColors {
 //        didSet {
 //            self.viewDidLayoutSubviews()
 //        }
@@ -71,6 +71,7 @@ class FinalCheckOutVC: BaseVC {
     
     
     override func initialSetup() {
+        self.checkOutTableView.contentInset = UIEdgeInsets(top: topNavView.height - 0.5 , left: 0.0, bottom: 10.0, right: 0.0)
         self.checkOutTableView.dataSource = self
         self.checkOutTableView.delegate = self
         self.addFooterView()
@@ -438,7 +439,9 @@ class FinalCheckOutVC: BaseVC {
         if showImage {
             self.payButton.setImage( #imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .normal)
             self.payButton.setImage( #imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .highlighted)
-            self.payButton.bringSubviewToFront(self.payButton.imageView!)
+            if self.payButton.imageView != nil{
+                self.payButton.bringSubviewToFront(self.payButton.imageView!)
+            }
             self.payButton.spaceInTextAndImageOfButton(spacing: 2)
         } else {
             self.payButton.setImage(nil, for: .normal)
@@ -528,7 +531,7 @@ class FinalCheckOutVC: BaseVC {
         let adultCount = self.viewModel.hotelFormData.adultsCount.count
         var text = ""
         text += adultCount > 1 ? "\(adultCount) Rooms" : "\(adultCount) Room"
-        let totalNights = (self.viewModel.hotelFormData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd")!).daysFrom(self.viewModel.hotelFormData.checkInDate.toDate(dateFormat: "yyyy-MM-dd")!)
+        let totalNights = (self.viewModel.hotelFormData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd") ?? Date()).daysFrom(self.viewModel.hotelFormData.checkInDate.toDate(dateFormat: "yyyy-MM-dd") ?? Date())
         text += (totalNights == 1) ? " & \(totalNights) Night" : " & \(totalNights) Nights"
         
         return text
@@ -539,7 +542,7 @@ class FinalCheckOutVC: BaseVC {
     }
     
     private func manageLoader(shouldStart: Bool) {
-        self.indicatorView.style = .white
+        self.indicatorView.style = .medium//.white
         self.indicatorView.color = AppColors.themeWhite
         self.indicatorView.startAnimating()
         
@@ -691,7 +694,7 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
     func getBookingReceiptSuccess(detail: HotelReceiptModel) {
         self.manageLoader(shouldStart: false)
         if let id = self.viewModel.itineraryData?.it_id {
-            AppFlowManager.default.presentYouAreAllDoneVC(forItId: id, bookingIds: self.viewModel.bookingIds, cid: self.viewModel.cId, originLat: self.viewModel.originLat, originLong: self.viewModel.originLong, recieptData: detail)
+            AppFlowManager.default.presentYouAreAllDoneVC(forItId: id, bookingIds: self.viewModel.bookingIds, cid: self.viewModel.cId, originLat: self.viewModel.originLat, originLong: self.viewModel.originLong, recieptData: detail, sId: self.viewModel.sId)
         }
     }
     
@@ -846,9 +849,8 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
 
 extension FinalCheckOutVC: HCCouponCodeVCDelegate {
     func appliedCouponData(_ appliedCouponData: HCCouponAppliedModel) {
-        printDebug(appliedCouponData)
         self.appliedCouponData = appliedCouponData
-        self.isCouponApplied = true
+        self.isCouponApplied = appliedCouponData.isCouponApplied
         self.manageCouponLoader(isApplying:true)
         delay(seconds: 0.3) { [weak self] in
             self?.viewModel.webServiceGetPaymentMethods()

@@ -28,7 +28,7 @@ class AppFlowManager: NSObject {
     private var blurEffectView: UIVisualEffectView?
     private let urlScheme = "://"
     private var loginVerificationComplition: ((_ isGuest: Bool) -> Void)?
-
+    
     
     private override init() {
         super.init()
@@ -36,9 +36,9 @@ class AppFlowManager: NSObject {
         NotificationCenter.default.addObserver(self, selector: #selector(self.dataChanged(_:)), name: .dataChanged, object: nil)
     }
     ///Change because flight is not added in main navigation currently.
-//    var safeAreaInsets: UIEdgeInsets {
-//        return AppFlowManager.default.mainNavigationController.view.safeAreaInsets
-//    }
+    //    var safeAreaInsets: UIEdgeInsets {
+    //        return AppFlowManager.default.mainNavigationController.view.safeAreaInsets
+    //    }
     var safeAreaInsets: UIEdgeInsets {
         if self.mainNavigationController != nil{
             return AppFlowManager.default.mainNavigationController.view.safeAreaInsets
@@ -48,7 +48,7 @@ class AppFlowManager: NSObject {
         
     }
     
-    var mainNavigationController: SwipeNavigationController! {
+    var mainNavigationController: UINavigationController! {
         didSet {
             let textAttributes = [NSAttributedString.Key.font: AppFonts.Regular.withSize(17.0),
                                   NSAttributedString.Key.foregroundColor: AppColors.themeWhite]
@@ -59,7 +59,12 @@ class AppFlowManager: NSObject {
             mainNavigationController.navigationBar.barTintColor = AppColors.themeWhite
             mainNavigationController.navigationBar.backgroundColor = AppColors.themeWhite
             mainNavigationController.navigationBar.tintColor = AppColors.themeGreen
-            mainNavigationController.navigationBar.isTranslucent = false
+            //mainNavigationController.navigationBar.isTranslucent = false
+            mainNavigationController.interactivePopGestureRecognizer?.delegate = self
+            
+            if oldValue != nil {
+                oldValue.interactivePopGestureRecognizer?.delegate = nil
+            }
         }
     }
     
@@ -78,7 +83,10 @@ class AppFlowManager: NSObject {
         nav.navigationBar.barTintColor = AppColors.themeWhite
         nav.navigationBar.backgroundColor = AppColors.themeWhite
         nav.navigationBar.tintColor = AppColors.themeGreen
-        nav.navigationBar.isTranslucent = false
+        nav.interactivePopGestureRecognizer?.delegate = self
+
+        //nav.navigationBar.isTranslucent = false
+        //nav.interactivePopGestureRecognizer?.delegate = self
         
         return nav
     }
@@ -86,11 +94,13 @@ class AppFlowManager: NSObject {
     @objc private func dataChanged(_ note: Notification) {
         // function intended to override
         if let noti = note.object as? ATNotification, let com = loginVerificationComplition {
-            if noti == .userAsGuest {
+            switch noti {
+            case .userAsGuest:
                 com(true)
-            }
-            else if noti == .userLoggedInSuccess {
+            case .userLoggedInSuccess(let dict):
                 com(false)
+            default:
+                break
             }
         }
     }
@@ -128,15 +138,14 @@ class AppFlowManager: NSObject {
     
     func setupSplashAnimationFlow() {
         let splashAnimationScene = SplashAnimationVC.instantiate(fromAppStoryboard: .SplashAnimation)
-         self.window.rootViewController = splashAnimationScene
-         //self.window.becomeKey()
-         self.window.backgroundColor = .black
-         self.window.makeKeyAndVisible()
+        self.window.rootViewController = splashAnimationScene
+        //self.window.becomeKey()
+        self.window.backgroundColor = .black
+        self.window.makeKeyAndVisible()
     }
     
     func setupInitialFlow() {
         self.goToDashboard(launchThroughSplash: true)
-        
         self.addBlurToStatusBar()
     }
     
@@ -145,8 +154,8 @@ class AppFlowManager: NSObject {
         self.mainHomeVC = mainHome
         self.mainHomeVC?.isLaunchThroughSplash = launchThroughSplash
         self.mainHomeVC?.toBeSelect = toBeSelect
-        let nvc = SwipeNavigationController(rootViewController: mainHome)
-       // nvc.delegate = AppDelegate.shared.transitionCoordinator
+        let nvc = UINavigationController(rootViewController: mainHome)
+        // nvc.delegate = AppDelegate.shared.transitionCoordinator
         self.mainNavigationController = nvc
         self.window.rootViewController = nvc
         //self.window.becomeKey()
@@ -221,10 +230,12 @@ class AppFlowManager: NSObject {
 extension AppFlowManager {
     func moveToLogoutNavigation() {}
     
-    func showURLOnATWebView(_ url: URL, screenTitle: String) {
+    func showURLOnATWebView(_ url: URL, screenTitle: String, presentingStatusBarStyle: UIStatusBarStyle = .darkContent, dismissalStatusBarStyle: UIStatusBarStyle = .darkContent) {
         let obj = ATWebViewVC.instantiate(fromAppStoryboard: .Common)
         obj.urlToLoad = url
         obj.navTitle = screenTitle
+        obj.presentingStatusBarStyle = presentingStatusBarStyle
+        obj.dismissalStatusBarStyle = dismissalStatusBarStyle
         //        self.mainNavigationController.present(obj, animated: true, completion: nil)
         UIApplication.topViewController()?.present(obj, animated: true, completion: nil)
     }
@@ -234,7 +245,7 @@ extension AppFlowManager {
         obj.htmlString = html
         obj.navTitle = screenTitle
         //        self.mainNavigationController.present(obj, animated: true, completion: nil)
-//        UIApplication.topViewController()?.present(obj, animated: true, completion: nil)
+        //        UIApplication.topViewController()?.present(obj, animated: true, completion: nil)
         self.currentNavigation?.present(obj, animated: true, completion: nil)
     }
     
@@ -268,7 +279,7 @@ extension AppFlowManager {
         ob.viewModel.refId = refId
         ob.viewModel.token = token
         
-        let nvc = SwipeNavigationController(rootViewController: ob)
+        let nvc = UINavigationController(rootViewController: ob)
         self.mainNavigationController = nvc
         self.window.rootViewController = nvc
         self.window.becomeKey()
@@ -379,7 +390,7 @@ extension AppFlowManager {
                 }
             }
             ob.viewModel.childrenAge = ages
-           // mVC.add(childViewController: ob)
+            // mVC.add(childViewController: ob)
             ob.modalPresentationStyle = .overCurrentContext
             ob.modalPresentationCapturesStatusBarAppearance = true
             mVC.present(ob, animated: false, completion: nil)
@@ -451,9 +462,9 @@ extension AppFlowManager {
             ob.viewModel.adultCount = adults
             ob.viewModel.childrenCounts = children
             //mVC.add(childViewController: ob)
-            if #available(iOS 13.0, *) {} else {
-                ob.modalPresentationStyle = .overCurrentContext
-            }
+//            if #available(iOS 13.0, *) {} else {
+                ob.modalPresentationStyle = .overFullScreen
+//            }
             (navigationController ?? mVC).present(ob, animated: false, completion: nil)
         }
     }
@@ -544,7 +555,7 @@ extension AppFlowManager {
             ob.viewModel.hotelSearchRequest = hotelSearchRequest
             ob.onCloseHandler = onCloseHandler
             //ob.modalPresentationStyle = .fullScreen
-           // ob.show(onViewController: topVC, sourceView: sourceView, animated: true)
+            // ob.show(onViewController: topVC, sourceView: sourceView, animated: true)
             
             let nav = AppFlowManager.default.getNavigationController(forPresentVC: ob)
             if #available(iOS 13.0, *) {} else {
@@ -555,17 +566,17 @@ extension AppFlowManager {
     }
     
     // presentHotelDetailsVCOverExpendCard
-//    func presentHotelDetailsVCOverExpendCard(_ vc: HotelsGroupExpendedVC, hotelInfo: HotelSearched, sourceView: UIView, sid: String, hotelSearchRequest: HotelSearchRequestModel?, onCloseHandler: (() -> Void)? = nil) {
-//        if let topVC = UIApplication.topViewController() {
-//            let ob = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
-//            ob.viewModel.hotelInfo = hotelInfo
-//            ob.delegate = vc
-//            ob.isHideWithAnimation = false
-//            ob.viewModel.hotelSearchRequest = hotelSearchRequest
-//            ob.onCloseHandler = onCloseHandler
-//            ob.show(onViewController: topVC, sourceView: sourceView, animated: false)
-//        }
-//    }
+    //    func presentHotelDetailsVCOverExpendCard(_ vc: HotelsGroupExpendedVC, hotelInfo: HotelSearched, sourceView: UIView, sid: String, hotelSearchRequest: HotelSearchRequestModel?, onCloseHandler: (() -> Void)? = nil) {
+    //        if let topVC = UIApplication.topViewController() {
+    //            let ob = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
+    //            ob.viewModel.hotelInfo = hotelInfo
+    //            ob.delegate = vc
+    //            ob.isHideWithAnimation = false
+    //            ob.viewModel.hotelSearchRequest = hotelSearchRequest
+    //            ob.onCloseHandler = onCloseHandler
+    //            ob.show(onViewController: topVC, sourceView: sourceView, animated: false)
+    //        }
+    //    }
     
     func presentHCSelectGuestsVC(delegate: HCSelectGuestsVCDelegate, productType:ProductType = .hotel) {
         if let topVC = UIApplication.topViewController() {
@@ -573,18 +584,22 @@ extension AppFlowManager {
             ob.delegate = delegate
             ob.viewModel.productType = productType
             ob.modalPresentationStyle = .overFullScreen
-            topVC.present(ob, animated: true, completion: {
-              printDebug("dsafafds")
-            })
+            delay(seconds: 0.3) {
+                topVC.present(ob, animated: true, completion:nil)
+            }
+            
         }
     }
     
-    func presentSearchHotelTagVC(tagButtons: [String], superView: HotelDetailsSearchTagTableCell) {
+    func presentSearchHotelTagVC(tagButtons: [String], superView: HotelDetailsSearchTagTableCell, presentingStatusBarStyle: UIStatusBarStyle = .darkContent, dismissingStatusBarStyle: UIStatusBarStyle = .darkContent) {
         let ob = SearchHotelTagVC.instantiate(fromAppStoryboard: .HotelResults)
         ob.delegate = superView
         ob.tagButtons = tagButtons
-        ob.modalPresentationStyle = .overFullScreen
-        ob.modalPresentationCapturesStatusBarAppearance = true
+        ob.presentingStatusBarStyle = presentingStatusBarStyle
+        ob.dismissingStatusBarStyle = dismissingStatusBarStyle
+        //        ob.modalPresentationStyle = .overFullScreen
+        //        ob.modalPresentationCapturesStatusBarAppearance = true
+        ob.modalPresentationStyle = .popover
         UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
     
@@ -610,9 +625,11 @@ extension AppFlowManager {
         UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
     
-    func presentHotelDetailsTripAdvisorVC(hotelId: String) {
+    func presentHotelDetailsTripAdvisorVC(hotelId: String, presentingStatusBarStyle: UIStatusBarStyle = .darkContent, dismissalStatusBarStyle: UIStatusBarStyle = .darkContent) {
         let ob = HotelDetailsReviewsVC.instantiate(fromAppStoryboard: .HotelResults)
         ob.viewModel.hotelId = hotelId
+        ob.presentingStatusBarStyle = presentingStatusBarStyle
+        ob.dismissalStatusBarStyle = dismissalStatusBarStyle
         //        ob.modalPresentationStyle = .overFullScreen
         //        ob.modalPresentationCapturesStatusBarAppearance = true
         //        ob.statusBarColor = AppColors.themeWhite
@@ -671,6 +688,7 @@ extension AppFlowManager {
         obj.viewModel.couponCode = couponCode
         obj.viewModel.product = product
         obj.viewModel.couponsData = couponData
+        obj.viewModel.isCouponApplied = !couponCode.isEmpty
         obj.modalPresentationStyle = .overFullScreen
         self.currentNavigation?.present(obj, animated: true)
     }
@@ -689,22 +707,22 @@ extension AppFlowManager {
         let obj = HCSpecialRequestsVC.instantiate(fromAppStoryboard: .HotelCheckout)
         obj.delegate = delegate
         obj.viewModel.specialRequests = specialRequests
-        obj.viewModel.selectedRequestsId = selectedRequestIds
+//        obj.viewModel.selectedRequestsId = selectedRequestIds
         obj.viewModel.other = other
         obj.viewModel.specialRequest = specialRequest
-        obj.viewModel.selectedRequestsName = selectedRequestNames
+        obj.viewModel.selectedRequests = specialRequests.filter { selectedRequestIds.contains($0.id) }
         obj.modalPresentationStyle = .overFullScreen
         self.currentNavigation?.present(obj, animated: true)
     }
     
-    func presentHCEmailItinerariesVC(forBookingId bId: String, travellers: [TravellersList]) {
+    func presentHCEmailItinerariesVC(forBookingId bId: String, travellers: [TravellersList], presentingStatusBarStyle: UIStatusBarStyle = .darkContent, dismissalStatusBarStyle: UIStatusBarStyle = .darkContent) {
         let obj = HCEmailItinerariesVC.instantiate(fromAppStoryboard: .HotelCheckout)
         obj.viewModel.bookingId = bId
         obj.viewModel.travellers = travellers
         UIApplication.topViewController()?.present(obj, animated: true, completion: nil)
     }
     
-    func presentYouAreAllDoneVC(forItId itId: String, bookingIds: [String], cid: [String], originLat: String, originLong: String, recieptData: HotelReceiptModel?) {
+    func presentYouAreAllDoneVC(forItId itId: String, bookingIds: [String], cid: [String], originLat: String, originLong: String, recieptData: HotelReceiptModel?, sId: String) {
         let obj = YouAreAllDoneVC.instantiate(fromAppStoryboard: .HotelCheckout)
         obj.viewModel.itId = itId
         obj.viewModel.bookingIds = bookingIds
@@ -712,21 +730,24 @@ extension AppFlowManager {
         obj.viewModel.originLat = originLat
         obj.viewModel.originLong = originLong
         obj.viewModel.hotelReceiptData = recieptData
+        obj.viewModel.sId = sId
         self.currentNavigation?.pushViewController(obj, animated: false)
     }
     
     // Mail Composer
     
-    func presentMailComposerVC(_ favouriteHotels: [HotelSearched], _ hotelSearchRequest: HotelSearchRequestModel, _ pinnedTemplateUrl: String) {
+    func presentMailComposerVC(_ favouriteHotels: [HotelSearched], _ hotelSearchRequest: HotelSearchRequestModel, _ pinnedTemplateUrl: String, presentingStatusBarStyle: UIStatusBarStyle = .darkContent, dismissalStatusBarStyle: UIStatusBarStyle = .darkContent) {
         let obj = MailComposerVC.instantiate(fromAppStoryboard: .HotelResults)
         obj.viewModel.favouriteHotels = favouriteHotels
         obj.viewModel.shortUrl = pinnedTemplateUrl
         obj.viewModel.hotelSearchRequest = hotelSearchRequest
+        obj.presentingStatusBarStyle = presentingStatusBarStyle
+        obj.dismissalStatusBarStyle = dismissalStatusBarStyle
         //obj.modalPresentationStyle = .overFullScreen
         self.currentNavigation?.present(obj, animated: true)
     }
     
-    func presentSelectTripVC(delegate: SelectTripVCDelegate, usingFor: TripUsingFor = .hotel,allTrips: [TripModel] = [],tripInfo: TripInfo = TripInfo()) {
+    func presentSelectTripVC(delegate: SelectTripVCDelegate, usingFor: TripUsingFor = .hotel,allTrips: [TripModel] = [],tripInfo: TripInfo = TripInfo(), dismissalStatusBarStyle: UIStatusBarStyle = .lightContent) {
         /* Don't call this method directly if you want to get the default trip or select the trip if there is no default trip.
          In that case use `AppFlowManager.default.selectTrip()` method.
          */
@@ -736,14 +757,15 @@ extension AppFlowManager {
         obj.viewModel.tripInfo = tripInfo
         obj.delegate = delegate
         obj.modalPresentationStyle = .overFullScreen
+        obj.dismissalStatusBarStyle = dismissalStatusBarStyle
         self.currentNavigation?.present(obj, animated: true)
     }
     
     func presentCreateNewTripVC(delegate: CreateNewTripVCDelegate, onViewController: UIViewController? = nil) {
         let obj = CreateNewTripVC.instantiate(fromAppStoryboard: .HotelResults)
         if #available(iOS 13.0, *) {} else {
-        obj.modalPresentationStyle = .overFullScreen
-        obj.modalPresentationCapturesStatusBarAppearance =  true
+            obj.modalPresentationStyle = .overFullScreen
+            obj.modalPresentationCapturesStatusBarAppearance =  true
             obj.statusBarColor = AppColors.themeWhite
         }
         obj.delegate = delegate
@@ -762,13 +784,14 @@ extension AppFlowManager {
         self.currentNavigation?.pushViewController(obj, animated: true)
     }
     
-    func moveToFinalCheckoutVC(delegate: FinalCheckOutVCDelegate, _ itinaryData: ItineraryData? = ItineraryData(), _ itinaryPriceDetail: ItenaryModel? = ItenaryModel(), originLat: String, originLong: String) {
+    func moveToFinalCheckoutVC(delegate: FinalCheckOutVCDelegate, _ itinaryData: ItineraryData? = ItineraryData(), _ itinaryPriceDetail: ItenaryModel? = ItenaryModel(), originLat: String, originLong: String, sId: String) {
         let obj = FinalCheckOutVC.instantiate(fromAppStoryboard: .HotelCheckout)
         obj.viewModel.itineraryData = itinaryData
         obj.delegate = delegate
         obj.viewModel.originLat = originLat
         obj.viewModel.originLong = originLong
         obj.viewModel.itinaryPriceDetail = itinaryPriceDetail
+        obj.viewModel.sId = sId
         self.currentNavigation?.pushViewController(obj, animated: true)
     }
     
@@ -842,10 +865,11 @@ extension AppFlowManager {
         (onNavController ?? self.mainNavigationController).pushViewController(obj, animated: true)
     }
     
-    func presentToHotelCancellationVC(bookingDetail: BookingDetailModel) {
+    func presentToHotelCancellationVC(bookingDetail: BookingDetailModel, presentingStatusBarStyle: UIStatusBarStyle = .darkContent, dismissalStatusBarStyle: UIStatusBarStyle = .darkContent) {
         let obj = HotelCancellationVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.bookingDetail = bookingDetail
-        
+        obj.presentingStatusBarStyle = presentingStatusBarStyle
+        obj.dismissalStatusBarStyle = dismissalStatusBarStyle
         let nav = UINavigationController(rootViewController: obj)
         nav.isNavigationBarHidden = true
         self.currentNavigation?.present(nav, animated: true, completion: nil)
@@ -903,6 +927,7 @@ extension AppFlowManager {
     }
     
     func moveToAccountDetailsVC(usingFor: AccountDetailsVC.UsingFor, forDetails: JSONDictionary, forVoucherTypes: [String]) {
+        if let _ = mainNavigationController.topViewController as? AccountDetailsVC { return }
         let obj = AccountDetailsVC.instantiate(fromAppStoryboard: .Account)
         obj.currentUsingAs = usingFor
         obj.viewModel.allVouchers = forVoucherTypes
@@ -917,6 +942,14 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
+    func emoveToAccountLadgerDetailsForOnAccount(forEvent: OnAccountLedgerEvent?, detailType: AccountLadgerDetailsVM.AccountLadgerDetailType) {
+        let obj = AccountLadgerDetailsVC.instantiate(fromAppStoryboard: .Account)
+        obj.viewModel.onAccountEvent = forEvent
+        obj.viewModel.detailType = detailType
+        obj.viewModel.isForOnAccount = true
+        self.mainNavigationController.pushViewController(obj, animated: true)
+    }
+    
     func moveToADEventFilterVC(onViewController: UIViewController? = nil, delegate: ADEventFilterVCDelegate) {
         if let obj = onViewController ?? UIApplication.topViewController() {
             let vc = ADEventFilterVC.instantiate(fromAppStoryboard: .Account)
@@ -926,6 +959,7 @@ extension AppFlowManager {
     }
     
     func moveToAccountOutstandingLadgerVC(data: AccountOutstanding) {
+        if let _ = mainNavigationController.topViewController as? AccountOutstandingLadgerVC { return }
         let obj = AccountOutstandingLadgerVC.instantiate(fromAppStoryboard: .Account)
         obj.viewModel.accountOutstanding = data
         self.mainNavigationController.pushViewController(obj, animated: true)
@@ -938,6 +972,7 @@ extension AppFlowManager {
     }
     
     func moveToPeriodicStatementVC(periodicEvents: JSONDictionary) {
+        if let _ = mainNavigationController.topViewController as? PeriodicStatementVC { return }
         let obj = PeriodicStatementVC.instantiate(fromAppStoryboard: .Account)
         obj.viewModel.periodicEvents = periodicEvents
         self.mainNavigationController.pushViewController(obj, animated: true)
@@ -1028,11 +1063,13 @@ extension AppFlowManager {
         self.mainNavigationController.present(ob, animated: true)
     }
     
-    func moveToBookingDetail(bookingDetail: BookingDetailModel?,tripCities: NSMutableAttributedString = NSMutableAttributedString(string: ""),legSectionTap: Int = 0) {
+    func moveToBookingDetail(bookingDetail: BookingDetailModel?,tripCities: NSMutableAttributedString = NSMutableAttributedString(string: ""),legSectionTap: Int = 0, presentingStatusBarStyle: UIStatusBarStyle = .darkContent, dismissalStatusBarStyle: UIStatusBarStyle = .darkContent) {
         let ob = BookingFlightDetailVC.instantiate(fromAppStoryboard: .Bookings)
         ob.viewModel.bookingDetail = bookingDetail
         ob.viewModel.tripStr = tripCities
         ob.viewModel.legSectionTap = legSectionTap
+        ob.presentingStatusBarStyle = presentingStatusBarStyle
+        ob.dismissalStatusBarStyle = dismissalStatusBarStyle
         self.currentNavigation?.present(ob, animated: true, completion: nil)
     }
     
@@ -1043,7 +1080,7 @@ extension AppFlowManager {
     }
     
     // Complete Hotel Booking Details VC
-    func moveToBookingHotelDetailVC(bookingDetail: BookingDetailModel?,hotelTitle: String,bookingId: String = "", hotelName: String = "", taRating: Double = 0, hotelStarRating: Double = 0) {
+    func moveToBookingHotelDetailVC(bookingDetail: BookingDetailModel?,hotelTitle: String,bookingId: String = "", hotelName: String = "", taRating: Double = 0, hotelStarRating: Double = 0, presentingStatusBarStyle: UIStatusBarStyle = .darkContent, dismissalStatusBarStyle: UIStatusBarStyle = .darkContent) {
         let ob = BookingHotelDetailVC.instantiate(fromAppStoryboard: .Bookings)
         ob.viewModel.bookingDetail = bookingDetail
         ob.viewModel.hotelTitle = hotelTitle
@@ -1051,6 +1088,8 @@ extension AppFlowManager {
         ob.viewModel.hotelName = hotelName
         ob.viewModel.taRating = taRating
         ob.viewModel.hotelStarRating = hotelStarRating
+        ob.presentingStatusBarStyle = presentingStatusBarStyle
+        ob.dismissalStatusBarStyle = dismissalStatusBarStyle
         self.currentNavigation?.present(ob, animated: true)
     }
     
@@ -1090,11 +1129,13 @@ extension AppFlowManager {
     
     // Move To Booking Call VC
     
-    func moveToBookingCallVC(contactInfo: ContactInfo?,usingFor: BookingCallVCUsingFor = .flight,hotel: String = "" ) {
+    func moveToBookingCallVC(contactInfo: ContactInfo?,usingFor: BookingCallVCUsingFor = .flight,hotel: String = "", presentingStatusBarStyle: UIStatusBarStyle = .darkContent, dismissalStatusBarStyle: UIStatusBarStyle = .darkContent ) {
         let obj = BookingCallVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.contactInfo = contactInfo
         obj.viewModel.usingFor = usingFor
         obj.viewModel.hotelName = hotel
+        obj.presentingStatusBarStyle = presentingStatusBarStyle
+        obj.dismissalStatusBarStyle = dismissalStatusBarStyle
         self.currentNavigation?.present(obj, animated: true, completion: nil)
     }
     
@@ -1166,20 +1207,24 @@ extension AppFlowManager {
         (onNavController ?? self.mainNavigationController).pushViewController(obj, animated: true)
     }
     
-    func moveToSpecialRequestVC(forBookingId: String) {
+    func moveToSpecialRequestVC(forBookingId: String, presentingStatusBarStyle: UIStatusBarStyle = .darkContent, dismissalStatusBarStyle: UIStatusBarStyle = .darkContent) {
         let obj = BookingReviewCancellationVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.legsWithSelection = []
         obj.viewModel.currentUsingAs = .specialRequest
         obj.viewModel.selectedRooms = []
         obj.viewModel.bookingId = forBookingId
+        obj.presentingStatusBarStyle = presentingStatusBarStyle
+        obj.dismissalStatusBarStyle = dismissalStatusBarStyle
         self.currentNavigation?.present(obj, animated: true, completion: nil)
     }
     
     // Move to Booking confirm email
     
-    func presentConfirmationMailVC(bookindId: String) {
+    func presentConfirmationMailVC(bookindId: String, presentingStatusBarStyle: UIStatusBarStyle = .darkContent, dismissalStatusBarStyle: UIStatusBarStyle = .darkContent) {
         let obj = BookingConfimationMailVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.bookingId = bookindId
+        obj.presentingStatusBarStyle = presentingStatusBarStyle
+        obj.dismissalStatusBarStyle = dismissalStatusBarStyle
         self.currentNavigation?.present(obj, animated: true)
     }
     
@@ -1188,7 +1233,7 @@ extension AppFlowManager {
     
     func moveToQuickPayVC() {
         let ob = QuickPayVC.instantiate(fromAppStoryboard: .Profile)
-        self.currentNavigation?.pushViewController(ob, animated: true)
+        self.mainNavigationController?.pushViewController(ob, animated: true)
     }
     
     // Move to Notification screen
@@ -1204,11 +1249,11 @@ extension AppFlowManager {
     }
     
     func moveToWebViewVC(type : WebViewVM.WebViewType){
-           let ob = WebViewVC.instantiate(fromAppStoryboard: .Settings)
+        let ob = WebViewVC.instantiate(fromAppStoryboard: .Settings)
         ob.webViewVm.webViewType = type
-           self.mainNavigationController.present(ob, animated: true, completion: nil)
-       }
-       
+        self.mainNavigationController.present(ob, animated: true, completion: nil)
+    }
+    
     
     //MARK:- Settings Screen
     
@@ -1260,12 +1305,26 @@ extension AppFlowManager {
         //        ob.statusBarColor = AppColors.themeWhite
         UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
+    
+    func presentMicAccessPermissionPopup() {
+        let alert = UIAlertController(
+            title: "Access Denied!",
+            message: "Microphone access required to start speech recognition!",
+            preferredStyle: .alert
+        )
+        guard let settingUrl = URL(string: UIApplication.openSettingsURLString) else {return}
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Allow Mic Access", style: .cancel, handler: { (alert) -> Void in
+            UIApplication.shared.open(settingUrl)
+        }))
+        UIApplication.topViewController()?.present(alert, animated: true, completion: nil)
+    }
 }
 
 // MARK: - Select Trip Flow Methods
 
 extension AppFlowManager {
-    func selectTrip(_ tripDetails: TripDetails?, tripType: TripUsingFor, cancelDelegate:TripCancelDelegate? = nil ,complition: @escaping ((TripModel, TripDetails?) -> Void)) {
+    func selectTrip(_ tripDetails: TripDetails?, tripType: TripUsingFor, cancelDelegate:TripCancelDelegate? = nil, presentingStatusBarStyle: UIStatusBarStyle = .darkContent, dismissalStatusBarStyle: UIStatusBarStyle = .lightContent ,complition: @escaping ((TripModel, TripDetails?) -> Void)) {
         func openSelectTripScreen(trips: [TripModel]) {
             let obj = SelectTripVC.instantiate(fromAppStoryboard: .HotelResults)
             obj.selectionComplition = complition
@@ -1274,10 +1333,13 @@ extension AppFlowManager {
             obj.viewModel.usingFor = tripType
             obj.cancelDelegate = cancelDelegate
             if #available(iOS 13.0, *) {} else {
-            obj.modalPresentationStyle = .overFullScreen
-            obj.modalPresentationCapturesStatusBarAppearance = true
-            obj.statusBarColor = AppColors.themeWhite
+                obj.modalPresentationStyle = .overFullScreen
+                obj.modalPresentationCapturesStatusBarAppearance = true
+                obj.statusBarColor = AppColors.themeWhite
             }
+            obj.presentingStatusBarStyle = presentingStatusBarStyle
+            obj.dismissalStatusBarStyle = dismissalStatusBarStyle
+            
             if self.currentNavigation != nil{
                 self.currentNavigation?.present(obj, animated: true)
             }else{
@@ -1308,11 +1370,11 @@ extension AppFlowManager {
                 //                    complition(trip, nil)
                 //                }
                 //                else {
-//                if tripType == .hotel {
-//                    checkDefaultTrip(trips: trips)
-//                } else {
-                    openSelectTripScreen(trips: trips)
-//                }
+                //                if tripType == .hotel {
+                //                    checkDefaultTrip(trips: trips)
+                //                } else {
+                openSelectTripScreen(trips: trips)
+                //                }
                 //                }
             }
         }
@@ -1323,11 +1385,11 @@ extension AppFlowManager {
                 //                    complition(trip, nil)
                 //                }
                 //                else {
-//                if tripType == .hotel {
-//                    checkDefaultTrip(trips: trips)
-//                } else {
-                    openSelectTripScreen(trips: trips)
-//                }
+                //                if tripType == .hotel {
+                //                    checkDefaultTrip(trips: trips)
+                //                } else {
+                openSelectTripScreen(trips: trips)
+                //                }
                 //                }
             }
         }
@@ -1450,9 +1512,18 @@ extension AppFlowManager {
 extension AppFlowManager {
     
     func flightReturnToHomefrom(_ vc: UIViewController){
-//        AppDelegate.shared.setupFlightsVC()
+        //        AppDelegate.shared.setupFlightsVC()
         self.goToDashboard(launchThroughSplash: true)
         
     }
     
+}
+
+extension AppFlowManager : UIGestureRecognizerDelegate {
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if let navi = self.mainNavigationController {
+            return navi.viewControllers.count > 1 ? true : false
+        }
+        return false
+    }
 }

@@ -18,31 +18,18 @@ enum WebService {
     case tripList(ass:String)
     case addToTrip(postData:Data)
     case createTrip(tripData:Data)
-    case getShareUrl(postData:Data)
-    case getEmailUrl(postData:Data)
 }
 
 extension WebService : APIProtocol {
-    func getUrlRequest() -> URLRequest {
-        let URLObj = URL(string: path)
-        var urlRequestObj = URLRequest(url: URLObj!)
+    func getUrlRequest() -> URLRequest? {
+        guard let URLObj = URL(string: path) else {return nil}
+        var urlRequestObj = URLRequest(url: URLObj)
         urlRequestObj.httpBody = data
         urlRequestObj.httpMethod = httpMethod
         urlRequestObj.allHTTPHeaderFields = httpHeader
         return urlRequestObj
     }
     
-//    var flightBaseUrl: String {
-//        return  flightBaseUrl123//"https://beta.aertrip.com/api/v1/flights/"
-//    }
-    
-//    var tripsBaseUrl: String{
-//        return "https://beta.aertrip.com/api/v1/trips/"
-//    }
-    
-//    var apiKey:String{
-//        return "3a457a74be76d6c3603059b559f6addf"
-//    }
     
     var path: String {
         switch self {
@@ -72,12 +59,6 @@ extension WebService : APIProtocol {
             
         case .createTrip(tripData: _):
             return tripsBaseUrl+"add"
-            
-        case .getShareUrl(postData: _):
-            return flightBaseUrl+"get-pinned-url"
-        
-        case .getEmailUrl(postData: _):
-            return flightBaseUrl+"get-pinned-template"
         }
     }
     
@@ -110,12 +91,6 @@ extension WebService : APIProtocol {
         
         case .createTrip(tripData: _):
             return "POST"
-            
-        case .getShareUrl(postData: _):
-            return "POST"
-            
-        case .getEmailUrl( _):
-             return "POST"
         }
     }
     
@@ -125,23 +100,23 @@ extension WebService : APIProtocol {
             return nil
             
         case .flightPerformanceResult(origin: let origin, destination: let destination, airline: let airline, flight_number: let flight_number):
-            let postData = NSMutableData(data: "origin=\(origin)".data(using: String.Encoding.utf8)!)
-            postData.append("&destination=\(destination)".data(using: String.Encoding.utf8)!)
-            postData.append("&airline=\(airline)".data(using: String.Encoding.utf8)!)
-            postData.append("&flight_number=\(flight_number)".data(using: String.Encoding.utf8)!)
+            let postData = NSMutableData(data: "origin=\(origin)".data(using: String.Encoding.utf8) ?? Data())
+            postData.append("&destination=\(destination)".data(using: String.Encoding.utf8) ?? Data())
+            postData.append("&airline=\(airline)".data(using: String.Encoding.utf8) ?? Data())
+            postData.append("&flight_number=\(flight_number)".data(using: String.Encoding.utf8) ?? Data())
             return postData as Data
             
         case .baggageResult(_, _):
             return nil
             
         case .fareInfoResult(sid: let sid, fk: let fk):
-            let postData = NSMutableData(data: "sid=\(sid)".data(using: String.Encoding.utf8)!)
-            postData.append("&fk[]=\(fk)".data(using: String.Encoding.utf8)!)
+            let postData = NSMutableData(data: "sid=\(sid)".data(using: String.Encoding.utf8) ?? Data())
+            postData.append("&fk[]=\(fk)".data(using: String.Encoding.utf8) ?? Data())
             return postData as Data
             
         case .fareRulesResult(sid: let sid, fk: let fk):
-            let postData = NSMutableData(data: "sid=\(sid)".data(using: String.Encoding.utf8)!)
-            postData.append("&fk[]=\(fk)".data(using: String.Encoding.utf8)!)
+            let postData = NSMutableData(data: "sid=\(sid)".data(using: String.Encoding.utf8) ?? Data())
+            postData.append("&fk[]=\(fk)".data(using: String.Encoding.utf8) ?? Data())
             return postData as Data
             
         case .upgradeAPIResult(sid: _, fk: _, oldFare: _):
@@ -153,14 +128,8 @@ extension WebService : APIProtocol {
         case .addToTrip(postData: let data):
             return data
             
-
         case .createTrip(tripData: let data):
             return data
-            
-        case .getShareUrl(postData: let data):
-            return data
-        case .getEmailUrl(let postData):
-              return postData
         }
     }
     
@@ -245,23 +214,6 @@ extension WebService : APIProtocol {
               "Connection": "keep-alive",
               "cache-control": "no-cache"
             ]
-            return headers
-            
-            
-        case .getShareUrl(postData: _):
-            let headers = [
-              "content-type": "multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW",
-              "api-key": apiKey,
-              "Host": "beta.aertrip.com",
-              "Content-Type": "multipart/form-data; boundary=--------------------------311403206525934394271310",
-            ]
-            return headers
-        case .getEmailUrl( _):
-            let headers = [
-              "api-key": apiKey,
-              "Cookie" : "AT_R_STAGE_SESSID=a186gmjn76ai68c0qfetm818p6",
-              "Content-Type": "application/x-www-form-urlencoded",
-            ]   
             return headers
         }
     }

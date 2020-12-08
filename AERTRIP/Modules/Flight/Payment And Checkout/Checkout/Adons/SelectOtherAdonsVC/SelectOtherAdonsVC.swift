@@ -31,6 +31,10 @@ class SelectOtherAdonsVC: UIViewController {
         initialSetup()
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
      func setupFonts() {
         self.specialRequestLabel.font = AppFonts.Regular.withSize(14)
         self.clearButton.titleLabel?.font = AppFonts.Regular.withSize(14)
@@ -54,7 +58,7 @@ class SelectOtherAdonsVC: UIViewController {
         self.specialRequestTextView.text = ""
         self.clearButton.isHidden = true
         self.otherAdonsVm.specialRequest = ""
-        self.delegate?.specialRequestUpdated()
+        self.delegate?.specialRequestUpdated(txt: "", currentFk: otherAdonsVm.getCurrentFlightKey(), vcIndex: otherAdonsVm.getVcIndex())
 //        self.specialRequestPlaceHolderLabel.isHidden = false
         self.showHideClearButton()
     }
@@ -107,7 +111,7 @@ extension SelectOtherAdonsVC {
         self.otherAdonsTableView.reloadData()
     }
     
-    private func showHideClearButton(){
+     func showHideClearButton(){
          guard let txt = specialRequestTextView.text else { return  }
          self.clearButton.isHidden = txt.isEmpty
         
@@ -153,7 +157,7 @@ extension SelectOtherAdonsVC : UITableViewDelegate, UITableViewDataSource {
     }
                 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        self.view.endEditing(true)
         self.delegate?.addPassengerToMeal(forAdon: self.otherAdonsVm.getOthers()[indexPath.row], vcIndex: self.otherAdonsVm.getVcIndex(), currentFlightKey: self.otherAdonsVm.getCurrentFlightKey(), othersIndex: indexPath.row, selectedContacts: self.otherAdonsVm.getOthers()[indexPath.row].othersSelectedFor )
         
     }
@@ -170,10 +174,15 @@ extension SelectOtherAdonsVC : UITextViewDelegate {
         self.showHideClearButton()
     }
     
-    func textViewDidEndEditing(_ textView: UITextView) {
-        guard let txt = textView.text else { return }
+    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        guard let txt = textView.text else { return false }
         self.otherAdonsVm.specialRequest = txt
-        self.delegate?.specialRequestUpdated()
+        self.delegate?.specialRequestUpdated(txt: txt, currentFk: otherAdonsVm.getCurrentFlightKey(), vcIndex: otherAdonsVm.getVcIndex())
+        return true
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+
     }
     
 }

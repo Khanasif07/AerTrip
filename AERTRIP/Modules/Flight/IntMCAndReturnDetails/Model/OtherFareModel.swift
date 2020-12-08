@@ -70,15 +70,35 @@ struct OtherFareModel {
     
     
     var descriptionShown:String{
-        guard let str = self.description.first, var displayString = str.getAttributedString?.string else  {return ""}
-        if displayString.contains(find: "\t•\t"){
-            displayString = displayString.replacingOccurrences(of: "\t•\t", with: "•   ")
-        }else if displayString.contains(find: " • "){
-            displayString = displayString.replacingOccurrences(of: " • ", with: "\n•   ")
-        }else if displayString.contains(find: " · "){
-            displayString = displayString.replacingOccurrences(of: " · ", with: "\n•   ")
+        var totalText = ""
+        for str in self.description{
+            if var displayString = str.getAttributedString?.string, !str.isEmpty{
+                if displayString.contains(find: "\t•\t"){
+                    displayString = displayString.replacingOccurrences(of: "\t•\t", with: "•   ")
+                }else if displayString.contains(find: " • "){
+                    displayString = displayString.replacingOccurrences(of: " • ", with: "\n•   ")
+                }else if displayString.contains(find: " · "){
+                    displayString = displayString.replacingOccurrences(of: " · ", with: "\n•   ")
+                }
+                if totalText.isEmpty{
+                    totalText += displayString
+                }else{
+                    totalText += "\n\(displayString)"
+                }
+
+            }
         }
-        return displayString
+        return totalText
+        
+//        guard let str = self.description.first, var displayString = str.getAttributedString?.string else  {return ""}
+//        if displayString.contains(find: "\t•\t"){
+//            displayString = displayString.replacingOccurrences(of: "\t•\t", with: "•   ")
+//        }else if displayString.contains(find: " • "){
+//            displayString = displayString.replacingOccurrences(of: " • ", with: "\n•   ")
+//        }else if displayString.contains(find: " · "){
+//            displayString = displayString.replacingOccurrences(of: " · ", with: "\n•   ")
+//        }
+//        return "\(displayString)\n"
     }
     
     var descriptionTitle:String{

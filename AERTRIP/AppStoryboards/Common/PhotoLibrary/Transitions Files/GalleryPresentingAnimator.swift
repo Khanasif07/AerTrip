@@ -51,7 +51,8 @@ class GalleryPresentingAnimator: NSObject, UIViewControllerAnimatedTransitioning
         toView.isHidden = true
 
         // Determine the final image height based on final frame width and image aspect ratio
-        let imageAspectRatio = viewToAnimate.image!.size.width / viewToAnimate.image!.size.height
+        guard let image = viewToAnimate.image else {return}
+        let imageAspectRatio = image.size.width / image.size.height
         let finalImageheight = finalFrame.width / imageAspectRatio
 
         // Animate size and position

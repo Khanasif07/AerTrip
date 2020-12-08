@@ -20,6 +20,9 @@ class SearchHotelTagVC: BaseVC {
     internal weak var delegate: AddTagButtonDelegate?
     internal var initialTouchPoint: CGPoint = CGPoint(x: 0.0, y: 0.0)
     
+    var presentingStatusBarStyle: UIStatusBarStyle = .darkContent
+    var dismissingStatusBarStyle: UIStatusBarStyle = .darkContent
+    
     //Mark:- IBOutlets
     //================
     @IBOutlet weak var tagTableView: UITableView! {
@@ -37,6 +40,7 @@ class SearchHotelTagVC: BaseVC {
             //            self.dividerView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.5)
         }
     }
+    @IBOutlet weak var headerContainer: UIView!
     
     //Mark:- LifeCycle
     //================
@@ -56,6 +60,17 @@ class SearchHotelTagVC: BaseVC {
         IQKeyboardManager.shared().isEnabled = true
         IQKeyboardManager.shared().isEnableAutoToolbar = true
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.statusBarStyle = presentingStatusBarStyle
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.statusBarStyle = dismissingStatusBarStyle
+    }
+    
     override func setupTexts() {
         self.cancelBtnOutlet.setTitle(LocalizedString.Cancel.localized, for: .normal)
     }
@@ -69,12 +84,14 @@ class SearchHotelTagVC: BaseVC {
     }
     
     override func initialSetup() {
+        self.tagTableView.contentInset = UIEdgeInsets(top: headerContainer.height, left: 0.0, bottom: 0.0, right: 0.0)
         self.copyOfTagButtons = self.tagButtons
-        
+        if #available(iOS 13.0, *) {} else {
         let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
         swipeGesture.delegate = self
         self.view.addGestureRecognizer(swipeGesture)
         searchBar.placeholder = LocalizedString.hotelFilterSearchBar.localized
+        }
     }
     
     override func bindViewModel() {
@@ -152,7 +169,7 @@ extension SearchHotelTagVC: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if !(searchBar.text?.trimmingCharacters(in: .whitespaces).isEmpty ?? false){
             if let safeDelegate = self.delegate {
-                safeDelegate.addTagButtons(tagName: searchBar.text!)
+                safeDelegate.addTagButtons(tagName: searchBar.text ?? "")
             }
             IQKeyboardManager.shared().isEnabled = true
             IQKeyboardManager.shared().isEnableAutoToolbar = true

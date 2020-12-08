@@ -138,11 +138,11 @@ extension UseGSTINCell: UITextFieldDelegate{
         }
         switch textField {
         case self.companyNameTextField:
-            self.delegate?.editTextFields(.companyName, text: textField.text!)
+            self.delegate?.editTextFields(.companyName, text: textField.text ?? "")
         case self.billingNameTextField:
-            self.delegate?.editTextFields(.billingName, text: textField.text!)
+            self.delegate?.editTextFields(.billingName, text: textField.text ?? "")
         case self.gSTNumberTextField:
-            self.delegate?.editTextFields(.gstNumber, text: textField.text!)
+            self.delegate?.editTextFields(.gstNumber, text: textField.text ?? "")
         default:break
         }
     }
@@ -150,11 +150,11 @@ extension UseGSTINCell: UITextFieldDelegate{
     func textFieldDidEndEditing(_ textField: UITextField) {
         switch textField {
         case self.companyNameTextField:
-            self.delegate?.editTextFields(.companyName, text: textField.text!)
+            self.delegate?.editTextFields(.companyName, text: textField.text ?? "")
         case self.billingNameTextField:
-            self.delegate?.editTextFields(.billingName, text: textField.text!)
+            self.delegate?.editTextFields(.billingName, text: textField.text ?? "")
         case self.gSTNumberTextField:
-            self.delegate?.editTextFields(.gstNumber, text: textField.text!)
+            self.delegate?.editTextFields(.gstNumber, text: textField.text ?? "")
         default:break
         }
     }

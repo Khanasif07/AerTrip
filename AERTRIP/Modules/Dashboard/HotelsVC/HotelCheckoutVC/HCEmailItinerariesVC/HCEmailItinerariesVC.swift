@@ -14,6 +14,9 @@ class HCEmailItinerariesVC: BaseVC {
     //================
     let viewModel = HCEmailItinerariesVM()
     
+    var presentingStatusBarStyle: UIStatusBarStyle = .darkContent,
+    dismissalStatusBarStyle: UIStatusBarStyle = .darkContent
+    
     
     //Mark:- IBOutlets
     //================
@@ -24,7 +27,6 @@ class HCEmailItinerariesVC: BaseVC {
             self.tableView.dataSource = self
             self.tableView.estimatedRowHeight = UITableView.automaticDimension
             self.tableView.rowHeight = UITableView.automaticDimension
-            self.tableView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 10.0)
         }
     }
     @IBOutlet weak var headerHeightConstraint: NSLayoutConstraint!
@@ -38,7 +40,23 @@ class HCEmailItinerariesVC: BaseVC {
         }else{
             self.viewModel.fillData()
         }
+        if self.viewModel.emailInfo.filter({$0.emailId.isEmail}).count > 1{
+            self.headerView.firstRightButton.isEnabled = true
+            self.headerView.firstRightButton.setTitleColor(AppColors.themeGreen, for: .normal)
+        }
+        
 //        self.viewModel.fillData()
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        statusBarStyle = presentingStatusBarStyle
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        statusBarStyle = dismissalStatusBarStyle
     }
     
     override func initialSetup() {
@@ -50,6 +68,7 @@ class HCEmailItinerariesVC: BaseVC {
         } else {
             self.view.backgroundColor = .white
         }
+        self.tableView.contentInset = UIEdgeInsets(top: headerHeightConstraint.constant, left: 0.0, bottom: 0.0, right: 0)
         self.headerViewSetUp()
         self.registerNibs()
     }
@@ -76,6 +95,7 @@ class HCEmailItinerariesVC: BaseVC {
         self.headerView.leftButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 8)
         self.headerView.firstRightButton.isEnabled = false
         self.headerView.firstRightButton.setTitleColor(AppColors.themeGray40, for: .normal)
+        self.headerView.navTitleLabel.numberOfLines = 1
     }
     
     private func registerNibs() {
@@ -221,7 +241,7 @@ extension HCEmailItinerariesVC: HCEmailItinerariesVMDelegate {
             self.viewModel.emailInfo[currentEmailIndex].emailStatus = .sending
             self.tableView.reloadData()
             delay(seconds: 1) {
-                self.viewModel.sendEmailIdApi( emailId: [self.viewModel.emailInfo[currentEmailIndex].emailId], isMultipleEmailSending: isMultipleEmailSending, currentEmailIndex: currentEmailIndex)
+                self.viewModel.sendEmailIdApi( emailId: self.viewModel.emailInfo[currentEmailIndex].emailId, isMultipleEmailSending: isMultipleEmailSending, currentEmailIndex: currentEmailIndex)
             }
         }
     }

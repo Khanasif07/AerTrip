@@ -16,10 +16,7 @@ class NotificationVC: BaseVC {
     @IBOutlet weak var subTiteLabel: UILabel!
     
     
-    
     // MARK: - Override methods
-    
-    
     override func initialSetup() {
         self.configureNavBar()
     }

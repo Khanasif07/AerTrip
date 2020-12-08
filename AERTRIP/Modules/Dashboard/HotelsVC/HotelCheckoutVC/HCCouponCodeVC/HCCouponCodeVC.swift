@@ -34,7 +34,6 @@ class HCCouponCodeVC: BaseVC {
     //================
     @IBOutlet weak var couponTableView: UITableView! {
         didSet {
-            self.couponTableView.contentInset = UIEdgeInsets(top: 0, left: 0.0, bottom: 10.0, right: 0.0)
             self.couponTableView.estimatedRowHeight = UITableView.automaticDimension
             self.couponTableView.rowHeight = UITableView.automaticDimension
         }
@@ -49,7 +48,7 @@ class HCCouponCodeVC: BaseVC {
             self.couponTextField.autocorrectionType = .no
             self.couponTextField.autocapitalizationType = .allCharacters
             self.couponTextField.adjustsFontSizeToFitWidth = true
-            self.couponTextField.textFieldClearBtnSetUp()
+            self.couponTextField.textFieldClearBtnSetUp(with: UIImage(named: "BlurCross"))
             self.couponTextField.clearButtonMode = .always
         }
     }
@@ -65,6 +64,8 @@ class HCCouponCodeVC: BaseVC {
     @IBOutlet weak var couponInfoTextView: UITextView!
     @IBOutlet weak var dividerView: ATDividerView! 
     @IBOutlet weak var applyCouponButton: UIButton!
+    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var textFieldContainer: UIView!
     
     //Mark:- LifeCycle
     //================
@@ -82,11 +83,13 @@ class HCCouponCodeVC: BaseVC {
     }
     
     override func initialSetup() {
+        self.couponTableView.contentInset = UIEdgeInsets(top: headerView.height + textFieldContainer.height, left: 0.0, bottom: 0.0, right: 0.0)
+
         self.manageLoader()
         self.registerNibs()
         self.couponTableView.delegate = self
         self.couponTableView.dataSource = self
-        self.statusBarStyle = .default
+        self.statusBarStyle = .darkContent
 //        if self.viewModel.product != .flights{
 //            self.viewModel.getCouponsDetailsApi()
 //        }
@@ -100,9 +103,9 @@ class HCCouponCodeVC: BaseVC {
         offerTermsView.isUserInteractionEnabled = true
         swipeGesture.delegate = self
         self.offerTermsView.addGestureRecognizer(swipeGesture)
-        if self.viewModel.searcedCouponsData.count == 0{
+//        if self.viewModel.searcedCouponsData.count == 0{
             self.emptyStateSetUp()
-        }
+//        }
     }
     
     override func setupFonts() {
@@ -146,7 +149,7 @@ class HCCouponCodeVC: BaseVC {
     
     
     private func manageLoader() {
-        self.indicator.style = .gray
+        self.indicator.style = .medium//.gray
         self.indicator.tintColor = AppColors.themeGreen
         self.indicator.color = AppColors.themeGreen
         self.indicator.stopAnimating()
@@ -238,7 +241,19 @@ class HCCouponCodeVC: BaseVC {
     
     @IBAction func applyButtonAction(_ sender: UIButton) { self.view.endEditing(true)
         if (self.couponTextField.text == "") {
-            AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterCouponCode.localized)
+            if self.viewModel.isCouponApplied{
+                self.hideShowLoader(isHidden: false)
+                switch self.viewModel.product{
+                case .flights:
+                    self.viewModel.removeFlightCouponCode()
+                case .hotels:
+                    self.viewModel.removeCouponHotelCoupon()
+                }
+                return
+            }else{
+                AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterCouponCode.localized)
+            }
+            
         }
         if !self.viewModel.couponCode.isEmpty {
             printDebug("\(self.viewModel.couponCode) Applied")
@@ -285,13 +300,13 @@ extension HCCouponCodeVC: UITableViewDelegate, UITableViewDataSource {
         cell.delegate = self
         let model = self.viewModel.searcedCouponsData[indexPath.item]
         if !self.viewModel.couponCode.isEmpty, self.viewModel.couponCode.lowercased() == model.couponCode.lowercased()  {
-            cell.checkMarkImageView.image =  #imageLiteral(resourceName: "tick")
+            cell.checkMarkImageView.image =  #imageLiteral(resourceName: "CheckedGreenRadioButton")
             self.viewModel.couponCode = model.couponCode
             self.couponTextField.text = model.couponCode
            // self.couponValidationTextSetUp(isCouponValid: true)
             self.couponTextField.becomeFirstResponder()
         } else {
-            cell.checkMarkImageView.image = #imageLiteral(resourceName: "untick")
+            cell.checkMarkImageView.image = #imageLiteral(resourceName: "UncheckedGreenRadioButton")
         }
         cell.configCell(currentCoupon: model)
         return cell
@@ -305,14 +320,14 @@ extension HCCouponCodeVC: UITableViewDelegate, UITableViewDataSource {
 extension HCCouponCodeVC {
     
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
-        //        self.enterCouponLabel.isHidden = true
-        self.applyButton.setTitleColor(AppColors.themeGray20, for: .normal)
-        //self.selectedIndexPath = nil
-       // self.couponValidationTextSetUp(isCouponValid: true)
+        if self.viewModel.isCouponApplied{
+            self.applyButton.setTitleColor(AppColors.themeGreen, for: .normal)
+        }else{
+            self.applyButton.setTitleColor(AppColors.themeGray20, for: .normal)
+        }
+        
         self.viewModel.couponCode = ""
         self.couponTableView.reloadData()
-//        guard let text = textField.text else { return true }
-//        let finalText = text.trimmingCharacters(in: .whitespacesAndNewlines)
         self.viewModel.searchCoupons(searchText: "")
         return true
     }
@@ -327,7 +342,9 @@ extension HCCouponCodeVC {
         printDebug(finalText)
         if finalText.isEmpty {
             self.viewModel.couponCode = ""
-            if self.viewModel.couponCode.isEmpty {
+            if self.viewModel.isCouponApplied{
+                self.applyButton.setTitleColor(AppColors.themeGreen, for: .normal)
+            }else{
                 self.applyButton.setTitleColor(AppColors.themeGray20, for: .normal)
             }
             
@@ -360,7 +377,11 @@ extension HCCouponCodeVC: PassSelectedCoupon {
     func selectedCoupon(indexPath: IndexPath) {
         let model = self.viewModel.searcedCouponsData[indexPath.item]
         if !self.viewModel.couponCode.isEmpty, self.viewModel.couponCode.lowercased() == model.couponCode.lowercased() {
-            self.applyButton.setTitleColor(AppColors.themeGray20, for: .normal)
+            if !self.viewModel.isCouponApplied{
+                self.applyButton.setTitleColor(AppColors.themeGray20, for: .normal)
+            }else{
+                self.applyButton.setTitleColor(AppColors.themeGreen, for: .normal)
+            }
             //self.selectedIndexPath = nil
             //self.couponValidationTextSetUp(isCouponValid: true)
             self.couponTextField.text = ""

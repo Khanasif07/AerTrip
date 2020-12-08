@@ -39,6 +39,7 @@ extension UITableView {
         }
         return false
     }
+    
     func isSectionPresentAt(section: Int) -> Bool {
         if section < self.numberOfSections {
             return true
@@ -132,7 +133,7 @@ extension UITableView  {
           let dataTask =  urlSession.dataTask(with: urlRequest) {[weak self ] ( downloadedData, response, error) in
             
                 if (error != nil) {
-                    print(error.debugDescription)
+                    printDebug(error.debugDescription)
                     return
                 }
                 

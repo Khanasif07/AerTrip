@@ -41,7 +41,7 @@ class IntMCAndReturnDetailsVC: UIViewController {
     var resultTitle : UILabel!
     var resultsubTitle: UILabel!
     var infoButton : UIButton!
-    let separatorView = UIView()
+    let separatorView = ATDividerView()
     weak var selectionDelegate:UpdateSelectedJourneyDelegate?
     weak var pinnedDelegate:flightDetailsPinFlightDelegate?
     weak var refundDelegate:UpdateRefundStatusDelegate?
@@ -49,8 +49,9 @@ class IntMCAndReturnDetailsVC: UIViewController {
     var onJourneySelect: ((String) -> ())?
     
     let backButton = UIButton(type: .custom)
+    var isConditionReverced = false
+    var appliedFilterLegIndex = -1
 
-    
     //MARK:-  Life cycle and override methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,7 +112,8 @@ class IntMCAndReturnDetailsVC: UIViewController {
     
     private func setupTitleAndButton(){
         resultTitle = UILabel(frame: CGRect(x:  50, y:1.0 , width: (UIScreen.width - 100), height: 42))
-        resultTitle.font = UIFont(name: "SourceSansPro-semibold", size: 18)!
+//        resultTitle.font = UIFont(name: "SourceSansPro-semibold", size: 18)!
+        resultTitle.font = AppFonts.SemiBold.withSize(18)
         resultTitle.text = self.viewModel.largeTitle
         resultTitle.textAlignment = .center
         resultTitle.lineBreakMode = NSLineBreakMode.byTruncatingMiddle
@@ -213,7 +215,8 @@ extension IntMCAndReturnDetailsVC{
         tableView.tableHeaderView = tableViewHeader
         
         let boarderRect = CGRect(x: ((width * CGFloat(index + 1)) - 1), y: 0, width: 0.5, height: height)
-        let borderView = UIView(frame: boarderRect)
+        let borderView = ATVerticalDividerView()
+        borderView.frame = boarderRect //UIView(frame: boarderRect)
         borderView.backgroundColor = .TWO_ZERO_FOUR_COLOR
         
         baseScrollView.addSubview(tableView)
@@ -242,6 +245,17 @@ extension IntMCAndReturnDetailsVC{
 }
 
 extension IntMCAndReturnDetailsVC : flightDetailsPinFlightDelegate{
+    
+    func updateRefundStatusIfPending(fk: String) {
+        
+        if let _ = self.viewModel.internationalDataArray!.firstIndex(where: {$0.fk == fk}){
+
+            self.pinnedDelegate?.updateRefundStatusIfPending(fk: fk)
+            
+        }
+        
+    }
+    
     func reloadRowFromFlightDetails(fk: String, isPinned: Bool, isPinnedButtonClicked: Bool) {
         guard self.viewModel.internationalDataArray != nil else {return}
         if let index = self.viewModel.internationalDataArray!.firstIndex(where: {$0.fk == fk}){

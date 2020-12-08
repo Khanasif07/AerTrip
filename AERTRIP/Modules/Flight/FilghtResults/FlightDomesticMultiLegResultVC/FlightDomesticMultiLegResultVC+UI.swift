@@ -16,30 +16,30 @@ extension FlightDomesticMultiLegResultVC {
         self.bannerView = ResultHeaderView(frame: rect)
         self.bannerView?.frame = rect
         self.view.addSubview(self.bannerView!)
+        self.baseScrollView.isScrollEnabled = false
+        self.view.bringSubviewToFront(self.collectionContainerView)
     }
     
     func setupPinnedFlightsOptionsView() {
         
-//        pinnedFlightOptionsTop.constant = 0
+        switchView.delegate = self
+        switchView.tintColor = UIColor.TWO_ZERO_FOUR_COLOR
+        switchView.offTintColor = UIColor.TWO_THREE_ZERO_COLOR
+        switchView.onTintColor = AppColors.themeGreen
+        switchView.onThumbImage = #imageLiteral(resourceName: "pushpin")
+        switchView.offThumbImage = #imageLiteral(resourceName: "pushpin-gray")
+        switchView.setupUI()
+        delay(seconds: 0.6) {
+            self.switchView.isOn = false
+        }
         
-            switchView.delegate = self
-            switchView.tintColor = UIColor.TWO_ZERO_FOUR_COLOR
-            switchView.offTintColor = UIColor.TWO_THREE_ZERO_COLOR
-            switchView.onTintColor = AppColors.themeGreen
-            switchView.onThumbImage = #imageLiteral(resourceName: "pushpin")
-            switchView.offThumbImage = #imageLiteral(resourceName: "pushpin-gray")
-            switchView.setupUI()
-            delay(seconds: 0.6) {
-                self.switchView.isOn = false
-            }
-               
-            showPinnedFlightsOption(false)
-               
-            hideOrShowPinnedButtons(show : false)
-               
-            addShadowTo(unpinnedAllButton)
-            addShadowTo(emailPinnedFlights)
-            addShadowTo(sharePinnedFilghts)
+        showPinnedFlightsOption(false)
+        
+        hideOrShowPinnedButtons(show : false)
+        
+        addShadowTo(unpinnedAllButton)
+        addShadowTo(emailPinnedFlights)
+        addShadowTo(sharePinnedFilghts)
     }
     
     func addShadowTo(_ view : UIView)
@@ -50,8 +50,7 @@ extension FlightDomesticMultiLegResultVC {
         view.layer.shadowOffset = CGSize(width: 0, height: 2)
     }
     
-    func setupScrollView()
-    {
+    func setupScrollView(){
         let width =  UIScreen.main.bounds.size.width / 2.0
         let height = self.baseScrollView.frame.height
         baseScrollView.contentSize = CGSize( width: (CGFloat(self.viewModel.numberOfLegs) * width ), height:height + 88.0)
@@ -83,16 +82,14 @@ extension FlightDomesticMultiLegResultVC {
         
         let width = UIScreen.main.bounds.width / 2.0
         let height = UIScreen.main.bounds.height
-        let rect = CGRect(x: (width * CGFloat(index)), y: 165, width: width, height: height)
-        
-        
+        let rect = CGRect(x: (width * CGFloat(index)), y: 170, width: width, height: height)
         let tableView = UITableView(frame: rect)
         tableView.dataSource = self
         tableView.tag = 1000 + index
         tableView.delegate = self
         tableView.allowsMultipleSelection = false
         tableView.isScrollEnabled = false
-//        tableView.scrollsToTop = true
+        //        tableView.scrollsToTop = true
         tableView.showsVerticalScrollIndicator = false
         tableView.showsHorizontalScrollIndicator = false
         tableView.separatorStyle = .none
@@ -103,14 +100,17 @@ extension FlightDomesticMultiLegResultVC {
         let headerRect = CGRect(x: 0, y: 0, width: width, height: 138)
         let tableViewHeader = UIView(frame: headerRect)
         
-        let separatorView = UIView(frame:CGRect(x: 0, y: 137.5, width: width, height: 0.5))
-        separatorView.backgroundColor = .TWO_ZERO_FOUR_COLOR
-        tableViewHeader.addSubview(separatorView)
+//        let separatorView = ATDividerView()//UIView(frame:CGRect(x: 0, y: 137.5, width: width, height: 0.5))
+//        separatorView.frame = CGRect(x: 0, y: 137.5, width: width, height: 0.5)
+//        separatorView.backgroundColor = .TWO_ZERO_FOUR_COLOR
+//        tableViewHeader.addSubview(separatorView)
         tableView.tableHeaderView = tableViewHeader
         
-        let boarderRect = CGRect(x: ((width * CGFloat(index + 1)) - 1), y: 0, width: 0.5, height: height)
-        let borderView = UIView(frame: boarderRect)
+        let boarderRect = CGRect(x: ((width * CGFloat(index + 1)) - 1), y: 307.5, width: 0.5, height: height)
+        let borderView = ATVerticalDividerView()
+        borderView.frame = boarderRect//UIView(frame: boarderRect)
         borderView.backgroundColor = .TWO_ZERO_FOUR_COLOR
+//        borderView.tag = 300 + index
         
         baseScrollView.addSubview(tableView)
         baseScrollView.addSubview(borderView)
@@ -199,6 +199,7 @@ extension FlightDomesticMultiLegResultVC {
         if self.navigationController?.view.viewWithTag(5100) == nil{
             self.navigationController?.view.addSubview(testView)
         }
+
         let fareBreakupVC = FareBreakupVC(nibName: "FareBreakupVC", bundle: nil)
         fareBreakupVC.taxesResult = self.viewModel.taxesResult
         fareBreakupVC.journey = self.viewModel.getSelectedJourneyForAllLegs()
@@ -207,7 +208,7 @@ extension FlightDomesticMultiLegResultVC {
         fareBreakupVC.flightAdultCount = bookFlightObject.flightAdultCount
         fareBreakupVC.flightChildrenCount = bookFlightObject.flightChildrenCount
         fareBreakupVC.flightInfantCount = bookFlightObject.flightInfantCount
-        fareBreakupVC.view.autoresizingMask = []
+        fareBreakupVC.view.autoresizingMask = [.flexibleWidth, .flexibleHeight, .flexibleBottomMargin]
         fareBreakupVC.delegate = self
         fareBreakupVC.view.tag = 2500
         fareBreakupVC.modalPresentationStyle = .overCurrentContext
@@ -229,24 +230,25 @@ extension FlightDomesticMultiLegResultVC {
             }
         }
         
-        if isFSRVisible == true && remainingSeats != "" && Int(remainingSeats)! != 0{
+        if isFSRVisible == true && remainingSeats != "" && (Int(remainingSeats) ?? 0) != 0{
             fareBreakupVC.fewSeatsLeftViewHeightFromFlightDetails = 40
             self.viewModel.isFewSeatsLeft = true
         }else{
             fareBreakupVC.fewSeatsLeftViewHeightFromFlightDetails = 0
             self.viewModel.isFewSeatsLeft = false
         }
-        
         let ts = CATransition()
         ts.type = .moveIn
         ts.subtype = .fromTop
         ts.duration = 0.4
         ts.timingFunction = .init(name: CAMediaTimingFunctionName.easeOut)
         fareBreakupVC.view.layer.add(ts, forKey: nil)
-        self.navigationController?.view.addSubview(fareBreakupVC.view)
-        self.navigationController?.addChild(fareBreakupVC)
-        fareBreakupVC.didMove(toParent: self.navigationController)
-        
+        //self.navigationController?.view.addSubview(fareBreakupVC.view)
+        //self.navigationController?.addChild(fareBreakupVC)
+        //fareBreakupVC.didMove(toParent: self.navigationController)
+        if let parent = self.parent {
+            parent.view.addSubview(fareBreakupVC.view)
+        }
         self.fareBreakupVC = fareBreakupVC
     }
     
@@ -255,7 +257,6 @@ extension FlightDomesticMultiLegResultVC {
         DispatchQueue.main.async {
             let bottomInset = self.view.safeAreaInsets.bottom
             let scrollBottom = ((self.viewModel.results.map{$0.selectedJourney}.filter{($0?.fsr ?? 0) == 1}).count == 0) ? (50 + bottomInset) : (90 + bottomInset)
-            self.isNeedToUpdateLayout = false
             UIView.animate(withDuration: 0.2) {
                 self.scrollViewBottomConstraint.constant = scrollBottom
                 self.baseScrollView.layoutIfNeeded()
@@ -288,7 +289,7 @@ extension FlightDomesticMultiLegResultVC {
                 fareBreakupViewController.infoButtonTapped()
             }
             
-            if isFSRVisible == true && remainingSeats != "" && Int(remainingSeats)! != 0{
+            if isFSRVisible == true && remainingSeats != "" && (Int(remainingSeats) ?? 0) != 0{
                 fareBreakupViewController.fewSeatsLeftViewHeightFromFlightDetails = 40
                 self.viewModel.isFewSeatsLeft = true
 
@@ -416,8 +417,18 @@ extension FlightDomesticMultiLegResultVC {
     
 }
 
-extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetailsPinFlightDelegate
-{
+extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetailsPinFlightDelegate {
+    
+    func updateRefundStatusIfPending(fk: String) {
+        
+        for index in 0 ..< self.viewModel.numberOfLegs {
+            if let tableView = baseScrollView.viewWithTag( 1000 + index ) as? UITableView {
+                tableView.reloadData()
+            }
+        }
+        
+    }
+    
     func reloadRowFromFlightDetails(fk: String, isPinned: Bool, isPinnedButtonClicked: Bool) {
         for index in 0 ..< self.viewModel.numberOfLegs {
                    
@@ -441,9 +452,10 @@ extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetails
     }
     
     func infoButtonTapped(isViewExpanded: Bool) {
-        
+        guard fareBreakupVC != nil else {return}
         if isViewExpanded == true{
             testView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+            self.navigationController?.view.addSubview(fareBreakupVC!.view)
             
             UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {
                 self.testView.backgroundColor = UIColor(displayP3Red: 0.0/255.0, green: 0.0/255.0, blue: 0.0/255.0, alpha: 0.2)
@@ -453,15 +465,19 @@ extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetails
                 self.testView.backgroundColor = UIColor(displayP3Red: 0.0/255.0, green: 0.0/255.0, blue: 0.0/255.0, alpha: 0.0)
             },completion: { _ in
                 self.testView.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
+                if let parent = self.parent {
+                    parent.view.addSubview(self.fareBreakupVC!.view)
+                }
             })
         }
     }
     
     func bookButtonTapped(journeyCombo: [CombinationJourney]?) {
             let storyboard = UIStoryboard(name: "FlightDetailsBaseVC", bundle: nil)
-            let flightDetailsVC:FlightDetailsBaseVC =
-                storyboard.instantiateViewController(withIdentifier: "FlightDetailsBaseVC") as! FlightDetailsBaseVC
+            guard let flightDetailsVC:FlightDetailsBaseVC =
+                    storyboard.instantiateViewController(withIdentifier: "FlightDetailsBaseVC") as? FlightDetailsBaseVC else {return}
     
+        flightDetailsVC.isConditionReverced = viewModel.isConditionReverced
             flightDetailsVC.delegate = self
             flightDetailsVC.bookFlightObject = self.bookFlightObject
             flightDetailsVC.taxesResult = self.viewModel.taxesResult
@@ -498,7 +514,7 @@ extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetails
         
         var rect = headerView.frame
         baseScrollViewTop.constant = 0
-        
+        self.baseScrollView.isScrollEnabled = true
         UIView.animate(withDuration: 1.0 , animations: {
             let y = rect.origin.y - rect.size.height - 20
             rect.origin.y = y
@@ -506,9 +522,9 @@ extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetails
             self.view.layoutIfNeeded()
             for subview in self.baseScrollView.subviews {
                 if let tableView = subview as? UITableView {
-                    let width = UIScreen.main.bounds.size.width / 2.0
-                    let headerRect = CGRect(x: 0, y: 0, width: width, height: 138.0)
-                    tableView.tableHeaderView = UIView(frame: headerRect)
+                    tableView.origin.y = 0
+                }else if let divider = subview as? ATVerticalDividerView{
+                    divider.origin.y = 0.5
                 }
             }
         }) { (bool) in

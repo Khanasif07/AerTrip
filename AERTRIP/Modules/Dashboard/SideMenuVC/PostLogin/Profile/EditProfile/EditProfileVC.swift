@@ -62,19 +62,19 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     let flightPreferencesTitle: [String] = [LocalizedString.seatPreference.rawValue, LocalizedString.mealPreference.rawValue]
     
     // picker
-    var pickerView: UIPickerView? = nil
-    let pickerSize: CGSize = UIPickerView.pickerSize
+//    var pickerView: UIPickerView? = nil
+//    let pickerSize: CGSize = UIPickerView.pickerSize
     var pickerData: [String] = [String]()
     var pickerType: PickerType = .salutation
     
     // date picker
-    var datePickerView: UIView? = nil
-    var datePicker:UIDatePicker? = nil
+//    var datePickerView: UIView? = nil
+//    var datePicker:UIDatePicker? = nil
     
     var viewType: ViewType = .leftView
     
     // GenericPickerView
-    var genericPickerView: UIView? = nil
+//    var genericPickerView: UIView? = nil
     
     // cell Identifier
     let editTwoPartCellIdentifier = "EditProfileTwoPartTableViewCell"
@@ -111,8 +111,8 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         }
         
         registerXib()
-        setupToolBar()
-        setUpToolBarForGenericPickerView()
+       // setupToolBar()
+       // setUpToolBarForGenericPickerView()
       //  self.tableView.estimatedRowHeight = 44.0
        self.startLoading()
         
@@ -121,7 +121,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        statusBarStyle = .default
+        statusBarStyle = .darkContent
     }
     
   
@@ -142,20 +142,20 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        delay(seconds: 0.3) { [weak self] in
-            guard let sSelf = self else {
-                return
-            }
-            if sSelf.pickerView == nil {
-                sSelf.pickerView = UIPickerView()
-                sSelf.datePicker = UIDatePicker()
-                
-                sSelf.datePickerView = UIView()
-                sSelf.genericPickerView = UIView()
-                
-                sSelf.setupPickers()
-            }
-        }
+//        delay(seconds: 0.3) { [weak self] in
+//            guard let sSelf = self else {
+//                return
+//            }
+//            if sSelf.pickerView == nil {
+//                sSelf.pickerView = UIPickerView()
+//                sSelf.datePicker = UIDatePicker()
+//
+//                sSelf.datePickerView = UIView()
+//                sSelf.genericPickerView = UIView()
+//
+//                sSelf.setupPickers()
+//            }
+//        }
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.stopLoading()
@@ -167,8 +167,8 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     }
     
     override func keyboardWillShow(notification: Notification) {
-        closePicker(completion: nil)
-        closeDatePicker(completion: nil)
+        //closePicker(completion: nil)
+        //closeDatePicker(completion: nil)
         PKCountryPicker.default.closePicker()
     }
     
@@ -223,7 +223,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         tableView.sectionFooterHeight = CGFloat.leastNormalMagnitude
         tableView.backgroundColor = AppColors.themeGray04
         
-        self.tableView.contentInset = UIEdgeInsets(top: 44, left: 0, bottom: 0, right: 0)
+        self.tableView.contentInset = UIEdgeInsets(top: topNavView.height, left: 0, bottom: 0, right: 0)
         
         let dismissKeyboardGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
         dismissKeyboardGesture.cancelsTouchesInView = false
@@ -231,15 +231,17 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     }
     @objc func handleTap(sender: UITapGestureRecognizer) {
         if sender.state == .ended {
-            view.endEditing(true)
+//            view.endEditing(true)
             let location = sender.location(in: self.tableView)
             let path = self.tableView.indexPathForRow(at: location)
             if path == nil {
+                view.endEditing(true)
                 closeAllPicker(completion: nil)
             }
         }
         sender.cancelsTouchesInView = false
     }
+    /*
     func setupPickers() {
         
         datePickerView?.frame = CGRect(x: (UIScreen.main.bounds.size.width - PKCountryPickerSettings.pickerSize.width) / 2.0, y: UIScreen.main.bounds.size.height, width: PKCountryPickerSettings.pickerSize.width, height: (PKCountryPickerSettings.pickerSize.height + PKCountryPickerSettings.toolbarHeight))
@@ -267,6 +269,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         setupToolBar()
         setUpToolBarForGenericPickerView()
     }
+    */
     
     func registerXib() {
         tableView.register(UINib(nibName: AppConstants.ktableViewHeaderViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: AppConstants.ktableViewHeaderViewIdentifier)
@@ -511,6 +514,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         tableView.reloadData()
     }
     
+    /*
     private func setupToolBar() {
         let toolbar = UIToolbar()
         toolbar.frame = CGRect(x: 0.0, y: -10, width: PKCountryPickerSettings.pickerSize.width, height: PKCountryPickerSettings.toolbarHeight)
@@ -557,72 +561,80 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         toolbar.clipsToBounds = true
         genericPickerView?.addSubview(toolbar)
     }
-    
+    */
     func insertRowsAtIndexPaths(indexPaths: [NSIndexPath],
                                 withRowAnimation animation: UITableView.RowAnimation) {
         let IndexPathOfLastRow = NSIndexPath(row: viewModel.email.count - 1, section: 0)
         tableView.insertRows(at: [IndexPathOfLastRow as IndexPath], with: UITableView.RowAnimation.top)
     }
     
-    func openPicker(withSelection: String) {
-        dismissKeyboard()
-        pickerView?.reloadAllComponents()
-        
-        closeDatePicker(completion: nil)
-        PKCountryPicker.default.closePicker()
-        
-        let visibleFrame = CGRect(x: 0, y: UIScreen.main.bounds.size.height - pickerSize.height, width: pickerSize.width, height: pickerSize.height)
-        let index = self.pickerData.firstIndex(of: withSelection) ?? 0
-        self.pickerView?.selectRow(index, inComponent: 0, animated: false)
-        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
-            self.genericPickerView?.frame = visibleFrame
-            self.view.addSubview(self.genericPickerView!)
-        }) { _ in
-            
+    func openPicker(withSelection: String, textField: UITextField ) {
+      //  dismissKeyboard()
+//        pickerView?.reloadAllComponents()
+//
+//        closeDatePicker(completion: nil)
+//        PKCountryPicker.default.closePicker()
+//
+//        let visibleFrame = CGRect(x: 0, y: UIScreen.main.bounds.size.height - pickerSize.height, width: pickerSize.width, height: pickerSize.height)
+//        let index = self.pickerData.firstIndex(of: withSelection) ?? 0
+//        self.pickerView?.selectRow(index, inComponent: 0, animated: false)
+//        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+//            self.genericPickerView?.frame = visibleFrame
+//            self.view.addSubview(self.genericPickerView!)
+//        }) { _ in
+//
+//        }
+        PKMultiPicker.noOfComponent = 1
+        PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: pickerData, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [unowned self] (firstSelect, secondSelect) in
+            //textField.text = firstSelect
+            printDebug("firstSelect: \(firstSelect)")
+            self.pickerTitle = firstSelect
+            self.valueChangedGenericPicker()
         }
+        textField.tintColor = AppColors.clear
     }
     
-    func closePicker(completion: ((Bool) -> Void)?) {
-        let hiddenFrame = CGRect(x: 0, y: UIScreen.main.bounds.size.height, width: pickerSize.width, height: pickerSize.height)
-        
-        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
-            self.genericPickerView?.frame = hiddenFrame
-        }) { isDone in
-            self.genericPickerView?.removeFromSuperview()
-            self.pickerView?.selectRow(0, inComponent: 0, animated: true)
-            completion?(isDone)
-        }
-    }
+//    func closePicker(completion: ((Bool) -> Void)?) {
+//        let hiddenFrame = CGRect(x: 0, y: UIScreen.main.bounds.size.height, width: pickerSize.width, height: pickerSize.height)
+//
+//        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+//            self.genericPickerView?.frame = hiddenFrame
+//        }) { isDone in
+//            self.genericPickerView?.removeFromSuperview()
+//            self.pickerView?.selectRow(0, inComponent: 0, animated: true)
+//            completion?(isDone)
+//        }
+//    }
     
-    func closeGenricAndDatePicker(completion: ((Bool) -> Void)?) {
-        let genricFrame = CGRect(x: 0, y: UIScreen.main.bounds.size.height, width: pickerSize.width, height: pickerSize.height)
-        
-        let dateFrame = CGRect(x: 0, y: UIScreen.main.bounds.size.height, width: pickerSize.width, height: pickerSize.height)
-        
-        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
-            self.genericPickerView?.frame = genricFrame
-            self.datePickerView?.frame = dateFrame
-            
-        }) { isDone in
-            self.genericPickerView?.removeFromSuperview()
-            self.datePickerView?.removeFromSuperview()
-            completion?(isDone)
-        }
-    }
+//    func closeGenricAndDatePicker(completion: ((Bool) -> Void)?) {
+//        let genricFrame = CGRect(x: 0, y: UIScreen.main.bounds.size.height, width: pickerSize.width, height: pickerSize.height)
+//
+//        let dateFrame = CGRect(x: 0, y: UIScreen.main.bounds.size.height, width: pickerSize.width, height: pickerSize.height)
+//
+//        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+//            self.genericPickerView?.frame = genricFrame
+//            self.datePickerView?.frame = dateFrame
+//
+//        }) { isDone in
+//            self.genericPickerView?.removeFromSuperview()
+//            self.datePickerView?.removeFromSuperview()
+//            completion?(isDone)
+//        }
+//    }
     
     func closeAllPicker(completion: ((Bool) -> Void)?) {
         dismissKeyboard()
         PKCountryPicker.default.closePicker()
-        closeGenricAndDatePicker(completion: nil)
+       // closeGenricAndDatePicker(completion: nil)
     }
     
     @objc func cancelGenericPicker() {
-        closePicker(completion: nil)
+      //  closePicker(completion: nil)
     }
     
     @objc func doneGenericPicker() {
         valueChangedGenericPicker()
-        self.closePicker(completion: nil)
+      //  self.closePicker(completion: nil)
     }
     @objc func valueChangedGenericPicker() {
         switch pickerType {
@@ -680,8 +692,8 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
             }
             
         case .country:
-            if sections[(self.indexPath?.section)!] == LocalizedString.PassportDetails.localized {
-                let indexPath = IndexPath(row: (self.indexPath?.row)!, section: (self.indexPath?.section)!)
+            if let indexPath = self.indexPath,sections[(indexPath.section)] == LocalizedString.PassportDetails.localized {
+                let indexPath = IndexPath(row: (indexPath.row), section: (indexPath.section))
                 guard let cell = self.tableView.cellForRow(at: indexPath) as? TextEditableTableViewCell else { fatalError("TextEditableTableViewCell not found") }
                 cell.editableTextField.text = pickerTitle
                 viewModel.passportCountryName = pickerTitle
@@ -690,12 +702,12 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
                 }
                 
                 viewModel.passportCountryName = pickerTitle
-            } else {
-                let indexPath = IndexPath(row: (self.indexPath?.row)!, section: (self.indexPath?.section)!)
+            } else if let indexPath = self.indexPath {
+                let indexPath = IndexPath(row: (indexPath.row), section: (indexPath.section))
                 guard let cell = self.tableView.cellForRow(at: indexPath) as? AddAddressTableViewCell else { fatalError("AddAddressTableViewCell not found") }
                 cell.countryLabel.text = pickerTitle
                 viewModel.addresses[indexPath.row].countryName = pickerTitle
-                viewModel.addresses[indexPath.row].country = viewModel.countries.someKey(forValue: pickerTitle)!
+                viewModel.addresses[indexPath.row].country = viewModel.countries.someKey(forValue: pickerTitle) ?? ""
             }
             
         case .addressTypes:
@@ -707,9 +719,9 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         case .groups:
             editProfileImageHeaderView.groupLabel.text = pickerTitle
             viewModel.label = pickerTitle
-        case .program:
+        case .program: break
             
-            let indexPath = IndexPath(row: (self.indexPath?.row)!, section: (self.indexPath?.section)!)
+//            let indexPath = IndexPath(row: (self.indexPath?.row)!, section: (self.indexPath?.section)!)
 //            self.viewModel.frequentFlyer[indexPath.row]. = pickerTitle
 //            self.viewModel.frequentFlyer[indexPath.row].country = viewModel.countries.someKey(forValue: pickerTitle)!
            // guard let cell = self.tableView.cellForRow(at: indexPath) as? FrequentFlyerTableViewCell else { fatalError("FrequentFlyerTableViewCell not found") }
@@ -717,19 +729,21 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         }
     }
     
-    func handleMoreInformationSectionSelection(_ indexPath: IndexPath) {
+    func handleMoreInformationSectionSelection(_ indexPath: IndexPath, textField: UITextField) {
         self.indexPath = indexPath
         switch indexPath.row {
         case 0:
             printDebug("date of birth")
             let formatter = DateFormatter()
             formatter.dateFormat = "dd MMMM yyyy"
-            showDatePicker(formatter.date(from: viewModel.dob) ?? formatter.date(from: viewModel.doa),nil , maximumDate: formatter.date(from: viewModel.doa) ?? Date())            
+            showDatePicker(formatter.date(from: viewModel.dob) ?? formatter.date(from: viewModel.doa),nil , maximumDate: formatter.date(from: viewModel.doa) ?? Date(), textField: textField)
+            //textField.becomeFirstResponder()
         case 1:
             printDebug("date of aniversary")
             let formatter = DateFormatter()
             formatter.dateFormat = "dd MMMM yyyy"
-            showDatePicker(formatter.date(from: viewModel.doa), formatter.date(from: viewModel.dob), maximumDate: Date())
+            showDatePicker(formatter.date(from: viewModel.doa), formatter.date(from: viewModel.dob), maximumDate: Date(), textField: textField)
+            //textField.becomeFirstResponder()
         case 2:
             printDebug("show notes ")
             closeAllPicker(completion: nil)
@@ -749,7 +763,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
                 let countries = Array(viewModel.countries.values)
                 pickerData = countries
                 
-                closeGenricAndDatePicker(completion: nil)
+               // closeGenricAndDatePicker(completion: nil)
                 PKCountryPickerSettings.shouldShowCountryCode = false
                 UIApplication.shared.sendAction(#selector(resignFirstResponder), to: nil, from: nil, for: nil)
                 let prevSectdContry = PKCountryPicker.default.getCountryData(forISOCode: self.viewModel.passportCountryCode.isEmpty ? AppConstants.kIndianCountryCode : self.viewModel.passportCountryCode)
@@ -773,7 +787,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         }
     }
     
-    func handleFlightPreferencesSectionSelection(_ indexPath: IndexPath) {
+    func handleFlightPreferencesSectionSelection(_ indexPath: IndexPath, textField: UITextField) {
         self.indexPath = indexPath
         switch indexPath.row {
         case 0:
@@ -782,7 +796,8 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
                 var seatPreferences = Array(viewModel.seatPreferences.values)
                 seatPreferences.insert(LocalizedString.Select.localized, at: 0)
                 pickerData = seatPreferences
-                openPicker(withSelection: viewModel.seat)
+                openPicker(withSelection: viewModel.seat, textField: textField)
+                //textField.becomeFirstResponder()
             }
         case 1:
             if viewModel.mealPreferences.count > 0 {
@@ -790,14 +805,15 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
                 var mealPreferences = Array(viewModel.mealPreferences.values)
                 mealPreferences.insert(LocalizedString.Select.localized, at: 0)
                 pickerData = mealPreferences
-                openPicker(withSelection: viewModel.meal)
+                openPicker(withSelection: viewModel.meal, textField: textField)
+                //textField.becomeFirstResponder()
             }
         default:
             break
         }
     }
     
-    func showDatePicker(_ pickerDate: Date?, _ minimumDate: Date?, maximumDate: Date?) {
+    func showDatePicker(_ pickerDate: Date?, _ minimumDate: Date?, maximumDate: Date?, textField: UITextField) {
         // Formate Date
 //        var components = DateComponents()
 //        components.year = -100
@@ -816,46 +832,48 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
             minDate = Calendar.current.date(byAdding: components, to: Date())
         }
         
-        datePicker?.minimumDate = minDate
-        datePicker?.maximumDate = maximumDate
-        
-        datePicker?.datePickerMode = .date
-        datePicker?.setDate(pickerDate ?? Date(), animated: false)
-        openDatePicker()
+//        datePicker?.minimumDate = minDate
+//        datePicker?.maximumDate = maximumDate
+//
+//        datePicker?.datePickerMode = .date
+//        datePicker?.setDate(pickerDate ?? Date(), animated: false)
+        openDatePicker(textField: textField, selectedDate: pickerDate ?? Date(), minimumDate: minDate, maximumDate: maximumDate)
     }
     
      @objc func donedatePicker() {
-        valueChangedDatePicker()
-        closeDatePicker(completion: nil)
+       // valueChangedDatePicker()
+       // closeDatePicker(completion: nil)
     }
     
-    @objc func valueChangedDatePicker() {
+    @objc func valueChangedDatePicker(date: String) {
+        guard let selectedDate = date.toDate(dateFormat: "dd-MM-yyyy"), let indexPath = self.indexPath else {return}
+
         let formatter = DateFormatter()
         formatter.dateFormat = "dd MMMM yyyy"
-        switch sections[(self.indexPath?.section)!] {
+        switch sections[(indexPath.section)] {
         case LocalizedString.MoreInformation.localized:
-            let indexPath = IndexPath(row: (self.indexPath?.row)!, section: (self.indexPath?.section)!)
+            let indexPath = IndexPath(row: (indexPath.row), section: (indexPath.section))
             guard let cell = tableView.cellForRow(at: indexPath) as? TextEditableTableViewCell else {
                 printDebug("TextEditableTableViewCell not found")
                 return
             }
-            cell.editableTextField.text = formatter.string(from: datePicker?.date ?? Date())
+            cell.editableTextField.text = formatter.string(from: selectedDate)
             if indexPath.row == 1 {
-                viewModel.doa = formatter.string(from: datePicker?.date ?? Date())
+                viewModel.doa = formatter.string(from: selectedDate)
             } else {
-                viewModel.dob = formatter.string(from: datePicker?.date ?? Date())
+                viewModel.dob = formatter.string(from: selectedDate)
             }
         case LocalizedString.PassportDetails.localized:
-            let indexPath = IndexPath(row: (self.indexPath?.row)!, section: (self.indexPath?.section)!)
+            let indexPath = IndexPath(row: (indexPath.row), section: (indexPath.section))
             guard let cell = tableView.cellForRow(at: indexPath) as? TwoPartEditTableViewCell else {
                 fatalError("TextEditableTableViewCell not found")
             }
             if viewType == .leftView {
-                    cell.leftTextField.text = formatter.string(from: datePicker?.date ?? Date())
-                    viewModel.passportIssueDate = formatter.string(from: datePicker?.date ?? Date())
+                    cell.leftTextField.text = formatter.string(from: selectedDate)
+                    viewModel.passportIssueDate = formatter.string(from: selectedDate)
             }else {
-                    cell.rightTextField.text = formatter.string(from: datePicker?.date ?? Date())
-                    viewModel.passportExpiryDate = formatter.string(from: self.datePicker?.date ?? Date())
+                    cell.rightTextField.text = formatter.string(from: selectedDate)
+                    viewModel.passportExpiryDate = formatter.string(from: selectedDate)
             }
 
         default:
@@ -864,41 +882,47 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         
     }
     
-    @objc func cancelDatePicker() {
-        closeDatePicker(completion: nil)
+//    @objc func cancelDatePicker() {
+//        closeDatePicker(completion: nil)
+//    }
+    
+    func openDatePicker(textField: UITextField, selectedDate: Date?, minimumDate: Date?, maximumDate: Date? ) {
+//        dismissKeyboard()
+//        closePicker(completion: nil)
+//        PKCountryPicker.default.closePicker()
+        
+//        let visibleFrame = CGRect(x: 0, y: UIScreen.main.bounds.size.height - pickerSize.height, width: pickerSize.width, height: pickerSize.height)
+//
+//        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+//            self.datePickerView?.frame = visibleFrame
+//            self.view.addSubview(self.datePickerView!)
+//        }) { _ in
+//        }
+        PKDatePicker.openDatePickerIn(textField, outPutFormate: "dd-MM-yyyy", mode: .date, minimumDate: nil, maximumDate: Date(), selectedDate: selectedDate, appearance: .light, toolBarTint: AppColors.themeGreen) { [unowned self] (dateStr) in
+            //textField.text = dateStr
+            printDebug("dateStr: \(dateStr)")
+            self.valueChangedDatePicker(date: dateStr)
+        }
+        textField.tintColor = AppColors.clear
     }
     
-    func openDatePicker() {
-        dismissKeyboard()
-        closePicker(completion: nil)
-        PKCountryPicker.default.closePicker()
-        
-        let visibleFrame = CGRect(x: 0, y: UIScreen.main.bounds.size.height - pickerSize.height, width: pickerSize.width, height: pickerSize.height)
-        
-        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
-            self.datePickerView?.frame = visibleFrame
-            self.view.addSubview(self.datePickerView!)
-        }) { _ in
-        }
-    }
-    
-    func closeDatePicker(completion: ((Bool) -> Void)?) {
-        let hiddenFrame = CGRect(x: 0, y: UIScreen.main.bounds.size.height, width: pickerSize.width, height: pickerSize.height)
-        
-        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
-            self.datePickerView?.frame = hiddenFrame
-        }) { isDone in
-            self.datePickerView?.removeFromSuperview()
-            completion?(isDone)
-        }
-    }
+//    func closeDatePicker(completion: ((Bool) -> Void)?) {
+//        let hiddenFrame = CGRect(x: 0, y: UIScreen.main.bounds.size.height, width: pickerSize.width, height: pickerSize.height)
+//
+//        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+//            self.datePickerView?.frame = hiddenFrame
+//        }) { isDone in
+//            self.datePickerView?.removeFromSuperview()
+//            completion?(isDone)
+//        }
+//    }
     
     
     func compressAndSaveImage(_ image: UIImage, name: String) -> String? {
         let imageData = image.jpegData(compressionQuality: 0.2)
-        let docDir = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+        guard let docDir = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true) else {return nil}
         let imageURL = docDir.appendingPathComponent(name)
-        try! imageData?.write(to: imageURL)
+        try? imageData?.write(to: imageURL)
         
         return imageURL.absoluteString
     }

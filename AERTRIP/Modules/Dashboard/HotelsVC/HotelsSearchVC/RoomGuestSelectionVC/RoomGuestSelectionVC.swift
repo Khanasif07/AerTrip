@@ -105,7 +105,7 @@ class RoomGuestSelectionVC: BaseVC {
     override func setupColors() {
         self.doneButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.doneButton.setTitleColor(AppColors.themeGreen, for: .selected)
-        self.doneButton.addShadow(cornerRadius: 0.0, shadowColor: AppColors.themeBlack.withAlphaComponent(0.2), offset: CGSize(width: 0, height: -8))
+        self.doneButton.addShadow(cornerRadius: 0.0, shadowColor: AppColors.appShadowColor, offset: CGSize(width: 0, height: -8))
         
         self.roomNumberLabel.textColor = AppColors.themeBlack
         self.guestSelectionLabel.textColor = AppColors.themeGray40
@@ -310,8 +310,7 @@ class RoomGuestSelectionVC: BaseVC {
             } else {
                 picker.isHidden = false
             }
-            
-            
+            picker.autoresizingMask = .flexibleWidth
         }
     }
     
@@ -438,11 +437,11 @@ extension RoomGuestSelectionVC: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if #available(iOS 14.0, *) {} else {
+//        if #available(iOS 14.0, *) {} else {
         pickerView.subviews.forEach({
             $0.isHidden = $0.frame.height < 1.0
         })
-        }
+//        }
         return 13
     }
     
@@ -451,7 +450,7 @@ extension RoomGuestSelectionVC: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        
+
         var pickerLabel: UILabel? = (view as? UILabel)
         if pickerLabel == nil {
             pickerLabel = UILabel()
@@ -466,6 +465,25 @@ extension RoomGuestSelectionVC: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.viewModel.childrenAge[pickerView.tag] = row
     }
+    
+//    func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
+//        return pickerView.width
+//    }
+    
+//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+//        return (row == 0) ? "<1" : "\(row)"
+//    }
+
+//    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+//        let text = (row == 0) ? "<1" : "\(row)"
+//        let titleParagraphStyle = NSMutableParagraphStyle()
+//        titleParagraphStyle.alignment = .center
+//        let titleFont = AppFonts.Regular.withSize(23.0)
+//        return NSMutableAttributedString(string: text,
+//            attributes: [.font: titleFont,
+//            .foregroundColor: AppColors.themeBlack,
+//            .paragraphStyle: titleParagraphStyle])
+//    }
 }
 
 
@@ -484,3 +502,6 @@ extension RoomGuestSelectionVC {
         self.hide(animated: true, shouldRemove: true)
     }
 }
+//https://stackoverflow.com/questions/64086579/uipickerview-rendering-incorrectly-after-ios-14-xcode-12-0-1-update
+//https://stackoverflow.com/questions/63973930/swift-uipickerview-and-text-misalignment-and-ios-14
+// https://developer.apple.com/forums/thread/659184

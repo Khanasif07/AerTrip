@@ -60,6 +60,16 @@ class BookingRequestAddOnsFFVC: BaseVC {
         self.gradientView.addGredient(isVertical: false)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        statusBarStyle = .lightContent
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        statusBarStyle = .darkContent
+    }
+    
     override func setupNavBar() {
         self.topNavigationView.delegate = self
         self.topNavigationView.navTitleLabel.font = AppFonts.SemiBold.withSize(18.0)
@@ -148,7 +158,7 @@ class BookingRequestAddOnsFFVC: BaseVC {
     }
     
     func manageLoader(shouldStart: Bool) {
-        self.indicatorView.style = .white
+        self.indicatorView.style = .medium//.white
         self.indicatorView.color = AppColors.themeWhite
         if shouldStart{
             self.requestButton.setTitle("", for: .normal)

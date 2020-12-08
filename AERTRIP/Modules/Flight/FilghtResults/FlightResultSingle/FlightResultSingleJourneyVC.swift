@@ -14,7 +14,9 @@ import MessageUI
     func access()
 }
 
-class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDelegate , GroupedFlightCellDelegate, getSharableUrlDelegate {
+class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDelegate , GroupedFlightCellDelegate, GetSharableUrlDelegate {
+   
+    
     
     //MARK:- Outlets
     var bannerView : ResultHeaderView?
@@ -29,22 +31,23 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     
     //MARK:- Properties
     var noResultScreen : NoResultsScreenViewController?
-
-//    var sortedArray: [Journey]!
-
+    
+    //    var sortedArray: [Journey]!
+    
     var visualEffectViewHeight : CGFloat {
         return statusBarHeight + 88.0
     }
+    
     var statusBarHeight : CGFloat {
         return UIApplication.shared.isStatusBarHidden ? CGFloat(0) : UIApplication.shared.statusBarFrame.height
     }
-  
+    
     var ApiProgress: UIProgressView!
     var previousRequest : DispatchWorkItem?
     let getSharableLink = GetSharableUrl()
     let viewModel = FlightResultSingleJourneyVM()
     var flightSearchResultVM: FlightSearchResultVM?
-    var flightSearchParameters: NSDictionary?
+    
     
     //MARK:- View Controller Methods
     override func viewDidLoad() {
@@ -53,11 +56,21 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         self.viewModel.results = OnewayJourneyResultsArray(sort: .Smart)
         setupTableView()
         setupPinnedFlightsOptionsView()
+        self.viewModel.setSharedFks()
+    }
+        
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        self.emailPinnedFlights.setImage(UIImage(named: "EmailPinned"), for: .normal)
+        self.emailPinnedFlights.displayLoadingIndicator(false)
+
     }
     
     deinit {
-        print("FlightResultSingleJourneyVC")
+        printDebug("FlightResultSingleJourneyVC")
     }
+    
     
     //MARK:- Additional UI Methods
     func showNoFilteredResults() {
@@ -159,8 +172,11 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             
             // If blurEffectView yCoodinate is close to top of the screen
             if  ( yCoordinate > ( visualEffectViewHeight / 2.0 ) ){
-                rect.origin.y = -visualEffectViewHeight
                 
+                let progressBarrStopPositionValue : CGFloat = UIDevice.isIPhoneX ? 46 : 22
+
+                rect.origin.y = -visualEffectViewHeight + progressBarrStopPositionValue
+
                 
                 if scrollView.contentOffset.y < 100 {
                     let zeroPoint = CGPoint(x: 0, y: 96.0)
@@ -188,14 +204,14 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             self.bannerView = ResultHeaderView(frame: rect)
             self.bannerView?.frame = rect
             self.bannerView?.lineView.isHidden = true
-            self.view.addSubview(self.bannerView!)
+            self.view.addSubview(self.bannerView ?? UIView())
             
             let headerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 96))
             self.resultsTableView.tableHeaderView = headerView
             self.resultsTableView.isScrollEnabled = false
             self.resultsTableView.tableFooterView = nil
             
-            self.resultsTableView.bringSubviewToFront(self.bannerView!)
+            self.resultsTableView.bringSubviewToFront(self.bannerView ?? UIView())
             
         }
     }
@@ -254,16 +270,52 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         }
     }
     
-    @IBAction func emailPinnedFlights(_ sender: Any) {
-        
-        guard let postData = generatePostDataForEmail(for: self.viewModel.results.pinnedFlights) else { return }
-        executeWebServiceForEmail(with: postData as Data, onCompletion:{ (view)  in
-            
-            DispatchQueue.main.async {
-                self.showEmailViewController(body : view)
-            }
-        })
+    @IBAction func emailPinnedFlights(_ sender: Any)
+    {
+        emailPinnedFlights.setImage(UIImage(named: "OvHotelResult"), for: .normal)
+        emailPinnedFlights.displayLoadingIndicator(true)
+
+        if let _ = UserInfo.loggedInUserId{
+            callAPIToGetMailTemplate()
+        }else{
+            AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginFromEmailShare, completion: {_ in
+                
+                if let vc = self.parent{
+                    AppFlowManager.default.popToViewController(vc, animated: true)
+                }
+                
+                self.callAPIToGetMailTemplate()
+            })
+        }
     }
+    
+    
+    func callAPIToGetMailTemplate(){
+        let flightAdultCount = viewModel.bookFlightObject.flightAdultCount
+        let flightChildrenCount = viewModel.bookFlightObject.flightChildrenCount
+        let flightInfantCount = viewModel.bookFlightObject.flightInfantCount
+        let isDomestic = viewModel.bookFlightObject.isDomestic
+
+        self.getSharableLink.getUrlForMail(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, sid: viewModel.sid, isInternational: false, journeyArray: self.viewModel.results.pinnedFlights, valString: "", trip_type: "single")
+    }
+    
+    func returnEmailView(view: String)
+    {
+        DispatchQueue.main.async {
+            
+            self.emailPinnedFlights.setImage(UIImage(named: "EmailPinned"), for: .normal)
+            self.emailPinnedFlights.displayLoadingIndicator(false)
+
+            if #available(iOS 13.0, *) {
+                if view == "Pinned template data not found"{
+                    AppToast.default.showToastMessage(message: view)
+                }else{
+                    self.showEmailViewController(body : view)
+                }
+            }
+        }
+    }
+
     
     // Monika
     @IBAction func sharePinnedFlights(_ sender: Any) {
@@ -282,6 +334,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         }
         
     }
+
     
     func reloadRowAtIndex(indexPath: IndexPath , with journeyDisplay: JourneyOnewayDisplay ) {
         
@@ -306,16 +359,30 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         //         self.resultsTableView.reloadRows(at: [indexPath], with: .none)
     }
     
+    
+    func updateRefundStatusIfPending(fk: String) {
+        
+        
+//        printDebug(fk)
+        
+        self.resultsTableView.reloadData()
+        
+    }
+    
     func reloadRowFromFlightDetails(fk: String, isPinned: Bool,isPinnedButtonClicked:Bool) {
+     
         if isPinnedButtonClicked == true{
-            setPinnedFlightAt(fk, isPinned: isPinned)
+            setPinnedFlightAt(fk, isPinned: isPinned, indexpath: nil)
         }
         
-        if let cell =  resultsTableView.dequeueReusableCell(withIdentifier: "SingleJourneyResultTableViewCell") as? SingleJourneyResultTableViewCell{
-            
-            cell.smartIconsArray = cell.currentJourney?.smartIconArray
-            cell.smartIconCollectionView.reloadData()
-        }
+
+//        if let cell =  resultsTableView.dequeueReusableCell(withIdentifier: "SingleJourneyResultTableViewCell") as? SingleJourneyResultTableViewCell{
+//
+//            printDebug("journey.baggageSuperScript....updated..\(String(describing: cell.currentJourney?.leg.first?.fcp))")
+//
+//            cell.smartIconsArray = cell.currentJourney?.smartIconArray
+//            cell.smartIconCollectionView.reloadData()
+//        }
     }
     
     //MARK:- Scroll related methods
@@ -324,12 +391,16 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     }
     
     fileprivate func hideHeaderBlurView(_ offsetDifference: CGFloat) {
+        
+        guard (self.parent as? FlightResultBaseViewController)?.doneButton == nil else {return}
+        
         DispatchQueue.main.async {
             
             var yCordinate : CGFloat
             yCordinate = max (  -self.visualEffectViewHeight ,  -offsetDifference )
             yCordinate = min ( 0,  yCordinate)
             
+            let progressBarrStopPositionValue : CGFloat = UIDevice.isIPhoneX ? 46 : 22
             
             UIView.animate(withDuration: 0.1, delay: 0.0, options: [.curveEaseOut], animations: {
                 
@@ -338,7 +409,9 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
                     let yCordinateOfView = rect.origin.y
                     if ( yCordinateOfView  > yCordinate ) {
                         rect.origin.y = yCordinate
-                        blurEffectView.frame = rect
+                        if ((blurEffectView.height + yCordinate) > progressBarrStopPositionValue) || (blurEffectView.origin.y > -86.0) {
+                            blurEffectView.frame = rect
+                        }
                     }
                 }
             } ,completion: nil)
@@ -352,9 +425,11 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
                 
                 if let blurEffectView = self.navigationController?.view.viewWithTag(500) {
                     var rect = blurEffectView.frame
-                    
-                    var yCordinate = rect.origin.y + invertedOffset
+                    var yCordinate = invertedOffset - 86
                     yCordinate = min ( 0,  yCordinate)
+                    if self.resultsTableView.contentOffset.y <= 0 || rect.origin.y == 0{
+                        yCordinate = 0
+                    }
                     rect.origin.y = yCordinate
                     blurEffectView.frame = rect
                 }
@@ -380,7 +455,28 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             let invertedOffset = -offsetDifference
             revealBlurredHeaderView(invertedOffset)
         }
+        
+        
+//        guard let content = self.viewModel.contentOffset else { return }
+//
+//        self.resultsTableView.setContentOffset(content, animated: false)
+        
+//        self.viewModel.contentOffset = nil
+
+        
     }
+    
+    
+//    func changeContentOfssetWithMainScrollView(with offset: CGFloat){
+//        guard let blurView = self.navigationController?.view.viewWithTag(500) else  {return}
+//        DispatchQueue.main.async {
+//            var y = 88 - offset
+//            y = (y < 0) ? y : 0
+//            printDebug(y)
+//            blurView.frame.origin.y = y//-self.resultsTableView.contentOffset.y
+////            self.view.layoutIfNeeded()
+//        }
+//    }
     
     func scrollViewDidScrollToTop(_ scrollView: UIScrollView){
         
@@ -404,36 +500,36 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     
     func addToTripFlightAt(_ indexPath : IndexPath){
         
-//        if viewModel.sortOrder == .Smart{
-            var arrayForDisplay = viewModel.results.suggestedJourneyArray
-            
-            if viewModel.resultTableState == .showExpensiveFlights && indexPath.section == 1 {
-                arrayForDisplay = viewModel.results.allJourneys
-            }
-            
-            let journey = arrayForDisplay[indexPath.row]
-            
-            if journey.cellType == .singleJourneyCell {
-                addToTrip(journey: journey.first )
-            }
-            else {
-                addToTrip(journey: journey.first)
-            }
-            
-//        }
-//        else {
-//            let currentJourney =  self.sortedArray[indexPath.row]
-//            addToTrip(journey: currentJourney)
-//        }
+        //        if viewModel.sortOrder == .Smart{
+        var arrayForDisplay = viewModel.results.suggestedJourneyArray
+        
+        if viewModel.resultTableState == .showExpensiveFlights && indexPath.section == 1 {
+            arrayForDisplay = viewModel.results.allJourneys
+        }
+        
+        let journey = arrayForDisplay[indexPath.row]
+        
+        if journey.cellType == .singleJourneyCell {
+            addToTrip(journey: journey.first )
+        }
+        else {
+            addToTrip(journey: journey.first)
+        }
+        
+        //        }
+        //        else {
+        //            let currentJourney =  self.sortedArray[indexPath.row]
+        //            addToTrip(journey: currentJourney)
+        //        }
     }
     
-//    func addToTrip(journey : Journey) {
-//        let tripListVC = TripListVC(nibName: "TripListVC", bundle: nil)
-//        tripListVC.journey = [journey]
-//        tripListVC.modalPresentationStyle = .overCurrentContext
-//        self.present(tripListVC, animated: true, completion: nil)
-//    }
-//
+    //    func addToTrip(journey : Journey) {
+    //        let tripListVC = TripListVC(nibName: "TripListVC", bundle: nil)
+    //        tripListVC.journey = [journey]
+    //        tripListVC.modalPresentationStyle = .overCurrentContext
+    //        self.present(tripListVC, animated: true, completion: nil)
+    //    }
+    //
     
     func addToTrip(journey : Journey) {
         AppFlowManager.default.proccessIfUserLoggedInForFlight(verifyingFor: .loginVerificationForCheckout,presentViewController: true, vc: self) { [weak self](isGuest) in
@@ -498,11 +594,6 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         }
     }
     
-    // Monika
-    func returnEmailView(view: String) {
-        
-    }
-    
     func navigateToFlightDetailFor(journey: Journey) {
         
     }
@@ -512,10 +603,10 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     
     func navigateToFlightDetailFor(journey : Journey, selectedIndex:IndexPath) {
         let storyboard = UIStoryboard(name: "FlightDetailsBaseVC", bundle: nil)
-        let flightDetailsVC:FlightDetailsBaseVC =
-            storyboard.instantiateViewController(withIdentifier: "FlightDetailsBaseVC") as! FlightDetailsBaseVC
+        guard let flightDetailsVC:FlightDetailsBaseVC = storyboard.instantiateViewController(withIdentifier: "FlightDetailsBaseVC") as? FlightDetailsBaseVC else { return }
         flightDetailsVC.flightSearchResultVM = self.flightSearchResultVM
         flightDetailsVC.delegate = self
+        flightDetailsVC.isConditionReverced = viewModel.isConditionReverced
         flightDetailsVC.bookFlightObject = self.viewModel.bookFlightObject
         flightDetailsVC.taxesResult = self.viewModel.taxesResult
         flightDetailsVC.sid = self.viewModel.sid
@@ -528,5 +619,3 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         self.present(flightDetailsVC, animated: true, completion: nil)
     }
 }
-
-

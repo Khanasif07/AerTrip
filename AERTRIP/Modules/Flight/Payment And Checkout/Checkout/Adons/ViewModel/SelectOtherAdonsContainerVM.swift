@@ -42,8 +42,35 @@ class SelectOtherAdonsContainerVM {
                  item.otherAdonsVm.updateContactInOthers(OthersIndex: addonIndex, contacts: [], autoSelectedFor: [])
                  AddonsDataStore.shared.flightsWithData[index].special.addonsArray[addonIndex].othersSelectedFor = []
                 }
-                item.reloadData()
+            AddonsDataStore.shared.flightsWithData[index].specialRequest = ""
+
+                if item != nil && item.clearButton != nil {
+                    item.clearButtonTapped(item.clearButton)
+                }
+                    item.reloadData()
+                }
+    }
+    
+    
+    func isAnyThingSelected() -> Bool {
+        
+        var isAnyThingSelected = false
+        
+        allChildVCs.forEach { (child) in
+
+            child.otherAdonsVm.addonsDetails.addonsArray.enumerated().forEach { (othersId, other) in
+                if !isAnyThingSelected {
+                    isAnyThingSelected = !other.othersSelectedFor.isEmpty
+                    
+                }
             }
+            
+            if !isAnyThingSelected {
+                isAnyThingSelected = !child.otherAdonsVm.specialRequest.isEmpty
+            }
+        }
+        
+        return isAnyThingSelected
     }
     
     func calculateTotalAmount() -> Int {
@@ -135,7 +162,8 @@ class SelectOtherAdonsContainerVM {
     
     private func getStringFromImage(name : String) -> NSAttributedString {
         let imageAttachment = NSTextAttachment()
-        let sourceSansPro18 = UIFont(name: "SourceSansPro-Semibold", size: 18.0)!
+//        let sourceSansPro18 = UIFont(name: "SourceSansPro-Semibold", size: 18.0)!
+        let sourceSansPro18 = AppFonts.SemiBold.withSize(18)
         let iconImage = UIImage(named: name )!
         imageAttachment.image = iconImage
         
@@ -145,5 +173,32 @@ class SelectOtherAdonsContainerVM {
         return imageString
     }
     
+    func updateSpecialRequest(txt: String, currentFk: String, vcIndex: Int) {
+        
+           let dataStore = AddonsDataStore.shared
+        
+            let currentLegId = dataStore.flightsWithData[vcIndex].legId
+            let flightsWithSameLegId = dataStore.flightsWithData.filter { $0.legId == currentLegId }
+            
+            flightsWithSameLegId.enumerated().forEach { (index, flight) in
+                
+                if let vcIndexWithFk = self.allChildVCs.firstIndex(where: { (vc) -> Bool in
+                    return vc.otherAdonsVm.getCurrentFlightKey() == flight.flightId
+                }) {
+                    
+                     let currentVc = self.allChildVCs[vcIndexWithFk]
+                  
+                    if currentVc != nil && currentVc.specialRequestTextView != nil {
+                        currentVc.otherAdonsVm.specialRequest = txt
+                        currentVc.specialRequestTextView.text = txt
+                        currentVc.showHideClearButton()
+                    }
+                                        
+                    //  self.allChildVCs[index].otherAdonsTableView.reloadData()
+                }
+                
+            }
+        
+    }
     
 }

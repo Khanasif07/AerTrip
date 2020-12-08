@@ -21,7 +21,7 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
            
            let tableState = viewModel.resultsTableStates[index]
         
-        printDebug("state...\(index)...\(tableState)")
+//        printDebug("state...\(index)...\(tableState)")
         
            if tableState == .showTemplateResults{
                return 10
@@ -74,6 +74,7 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         tableView.isScrollEnabled = false
         baseScrollView.isScrollEnabled = false
+        isNeedToUpdateLayout = false
         return indexPath
     }
     
@@ -86,10 +87,16 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
            if flightSearchType == RETURN_JOURNEY { 
                checkForComboFares()
            }
-           checkForOverlappingFlights()
+           checkForOverlappingFlights(displayToast : false)
+            showMessageForIncompatableFlights(tableIndex: tableIndex)
            setTotalFare()
-        tableView.reloadData()
+//        tableView.reloadData()
 //        animateJourneyCompactView(for: tableView)
+        if let indexPath = tableView.indexPathsForVisibleRows{
+            UIView.performWithoutAnimation {
+                tableView.reloadRows(at: indexPath, with: .none)
+            }
+        }
         setTableViewHeaderAfterSelection(tableView: tableView)
         delay(seconds: 0.2) {
             tableView.isScrollEnabled = true
@@ -164,6 +171,8 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
         if let selectedJourneys = self.viewModel.getSelectedJourneyForAllLegs() {
                if selectedJourneys.count == self.viewModel.numberOfLegs {
                    ShowFareBreakupView()
+               }else{
+                hideFareBreakupView()
                }
            } else {
                hideFareBreakupView()

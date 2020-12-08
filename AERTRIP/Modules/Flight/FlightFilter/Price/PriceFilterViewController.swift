@@ -51,7 +51,7 @@ class PriceFilterViewController: UIViewController , FilterViewController {
     //MARK:- State Properties
     weak var delegate : PriceFilterDelegate?
     var currentActiveIndex : Int = 0
-    var allPriceFilters : [PriceFilter]!
+    var allPriceFilters = [PriceFilter]()
     var currentPriceFilter : PriceFilter!
     var legsArray = [Leg]()
     var flightResultArray : [FlightsResults]!
@@ -200,7 +200,6 @@ class PriceFilterViewController: UIViewController , FilterViewController {
         setupPriceSlider()
         setupPriceLabels()
         updateSegmentTitles()
-
     }
     
     private func getSegmentTitleFor(_ index: Int) -> String {
@@ -250,12 +249,13 @@ class PriceFilterViewController: UIViewController , FilterViewController {
         
         let formattedString =  currencyString
         let attributedString = NSMutableAttributedString(string: formattedString, attributes: [
-            .font: UIFont(name: "SourceSansPro-Regular", size: 18.0)!,
+//            .font: UIFont(name: "SourceSansPro-Regular", size: 18.0)!,
+            .font: AppFonts.Regular.withSize(18),
             .foregroundColor: UIColor.black,
             .kern: 0.0
         ])
         
-        attributedString.addAttribute(.font, value: UIFont(name: "SourceSansPro-Regular", size: 14.0)!, range:NSRange(location: 0, length: 1))
+        attributedString.addAttribute(.font, value: AppFonts.Regular.withSize(14), range:NSRange(location: 0, length: 1))
         //            attributedString.addAttribute(.font, value: UIFont(name: "SourceSansPro-Regular", size: 14.0)!, range:NSRange(location: distance, length: 1))
         return attributedString
     }
@@ -306,14 +306,12 @@ class PriceFilterViewController: UIViewController , FilterViewController {
     
     func resetFilter() {
         guard priceRangeSlider != nil else { return }
-        if let newPriceFilters = allPriceFilters {
-            let priceFilters = newPriceFilters.map { (priceFilter) -> PriceFilter in
-                var newPriceFilter = priceFilter
-                newPriceFilter.resetFilter()
-                return newPriceFilter
-            }
-            allPriceFilters = priceFilters
+        let priceFilters = allPriceFilters.map { (priceFilter) -> PriceFilter in
+            var newPriceFilter = priceFilter
+            newPriceFilter.resetFilter()
+            return newPriceFilter
         }
+        allPriceFilters = priceFilters
         setupUI()
     }
  
@@ -400,5 +398,6 @@ class PriceFilterViewController: UIViewController , FilterViewController {
                  }
              }
          }
+        refundableFaresButton.isSelected = currentPriceFilter.onlyRefundableFaresSelected
      }
 }

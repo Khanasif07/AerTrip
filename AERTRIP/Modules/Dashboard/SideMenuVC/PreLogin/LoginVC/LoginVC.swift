@@ -104,7 +104,7 @@ class LoginVC: BaseVC {
     
     @IBAction func statementButtonAction(_ sender: UIButton) {
         self.emailTextField.text = "pawan.kumar@appinventiv.com"
-        self.passwordTextField.text = "Pk71@yahoo"
+        self.passwordTextField.text = "PK71@yahoo"
         self.viewModel.email = self.emailTextField.text ?? ""
         self.viewModel.password = self.passwordTextField.text ?? ""
         self.loginButtonAction(self.loginButton)
@@ -278,7 +278,18 @@ extension LoginVC: LoginVMDelegate {
             self.sendDataChangedNotification(data: ATNotification.userLoggedInSuccess)
         }
         else {
-            self.sendDataChangedNotification(data: ATNotification.userLoggedInSuccess)
+            
+            var successJson = JSON()
+            if navigationController?.viewControllers.contains(where: { $0 is FlightResultBaseViewController }) ?? false {
+                successJson["flights"] = true
+//                if let mainHomeVC = navigationController?.viewControllers.first(where: { $0 is MainHomeVC }) as? MainHomeVC {
+//                    mainHomeVC.toBeSelect = .flight
+//                }
+            }
+            let notif = ATNotification.userLoggedInSuccess(successJson)
+            
+            self.sendDataChangedNotification(data: notif)
+            
         }
 //        else if self.currentlyUsingFrom == .loginVerificationForCheckout {
 //            popIfUsingFromCheckOut()
@@ -322,7 +333,7 @@ extension LoginVC {
             self.emailTextField.attributedPlaceholder = NSAttributedString(string: emailPlaceHolder, attributes: [NSAttributedString.Key.foregroundColor: isValidEmail ? AppColors.themeGray40 :  AppColors.themeRed])
         } else {
             let isValidPassword = !self.viewModel.password.isEmpty
-            self.passwordTextField.isError = !self.viewModel.password.isEmpty //self.viewModel.password.checkInvalidity(.Password)  removed the validation because to match with website
+            self.passwordTextField.isError = self.viewModel.password.isEmpty //self.viewModel.password.checkInvalidity(.Password)  removed the validation because to match with website
             let passwordPlaceHolder = self.passwordTextField.placeholder ?? ""
             self.passwordTextField.attributedPlaceholder = NSAttributedString(string: passwordPlaceHolder, attributes: [NSAttributedString.Key.foregroundColor: isValidPassword ? AppColors.themeGray40 :  AppColors.themeRed])
         }

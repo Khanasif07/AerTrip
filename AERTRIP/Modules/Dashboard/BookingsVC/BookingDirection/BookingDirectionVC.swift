@@ -19,6 +19,16 @@ class BookingDirectionVC: BaseVC {
     
     let viewModel = BookingDirectionVM()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        statusBarStyle = .lightContent
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        statusBarStyle = .darkContent
+    }
+    
     override func initialSetup() {
         self.setupNavBar()
         self.registerXib()
@@ -29,6 +39,7 @@ class BookingDirectionVC: BaseVC {
         } else {
             self.view.backgroundColor = AppColors.themeWhite
         }
+        self.directionTableView.contentInset = UIEdgeInsets(top: topNavigationView.height , left: 0.0, bottom: 0.0, right: 0.0)
         self.directionTableView.dataSource = self
         self.directionTableView.delegate = self
         self.directionTableView.reloadData()
@@ -68,7 +79,7 @@ extension BookingDirectionVC: UITableViewDataSource, UITableViewDelegate {
             fatalError("BookingDirectionTableViewCell not found")
         }
         
-        let airportName: String = self.viewModel.directionData[indexPath.row].city + "," + self.viewModel.directionData[indexPath.row].country_code
+        let airportName: String = self.viewModel.directionData[indexPath.row].city + ", " + self.viewModel.directionData[indexPath.row].country_code
         directionCell.configureCell(airportCode: self.viewModel.directionData[indexPath.row].iataCode, airportName: airportName, airportAddress: self.viewModel.directionData[indexPath.row].airportName)
         directionCell.bottomDividerView.isHidden = self.viewModel.directionData.count - 1 == indexPath.row
         directionCell.edgeToedgeBottomDividerView.isHidden = self.viewModel.directionData.count - 1 != indexPath.row

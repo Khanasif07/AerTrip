@@ -8,7 +8,8 @@
 
 import UIKit
 
-class IntMCAndReturnVC : UIViewController {
+class IntMCAndReturnVC : UIViewController, GetSharableUrlDelegate
+{
     
     @IBOutlet weak var resultsTableView: UITableView!
     @IBOutlet weak var pinnedFlightsOptionsView : UIView!
@@ -46,25 +47,31 @@ class IntMCAndReturnVC : UIViewController {
     
 //    var isConditionReverced = false
 //    var prevLegIndex = 0
-    var noResultScreen : NoResultsScreenViewController?
+    var noResultScreen : NoResultsScreenViewController!
     let viewModel = IntMCAndReturnVM()
     var previousRequest : DispatchWorkItem?
     var updateResultWorkItem: DispatchWorkItem?
-    
     var flightSearchResultVM  : FlightSearchResultVM?
+    let getSharableLink = GetSharableUrl()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.results = InternationalJourneyResultsArray(sort: .Smart)
         setUpSubView()
+        getSharableLink.delegate = self
+        self.viewModel.setSharedFks()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool)
+    {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
         self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
+        
+        self.emailPinnedFlights.setImage(UIImage(named: "EmailPinned"), for: .normal)
+        self.emailPinnedFlights.displayLoadingIndicator(false)
+
     }
-    
 }
 
 extension IntMCAndReturnVC {
@@ -141,7 +148,7 @@ extension IntMCAndReturnVC {
         noResultScreen = NoResultsScreenViewController()
         noResultScreen?.delegate = self.parent as? NoResultScreenDelegate
         self.view.addSubview(noResultScreen!.view)
-        self.addChild(noResultScreen!)
+        self.addChild(noResultScreen)
         let frame = self.view.frame
         noResultScreen?.view.frame = frame
         noResultScreen?.noFilteredResults()
@@ -229,34 +236,84 @@ extension IntMCAndReturnVC {
         self.present(alert, animated: true, completion: nil)
     }
     
-    @IBAction func emailPinnedFlights(_ sender: Any) {
-        
-        if #available(iOS 13.0, *) {
-            guard let postData = generatePostDataForEmail(for: viewModel.results.pinnedFlights) else { return }
-            executeWebServiceForEmail(with: postData as Data, onCompletion:{ (view)  in
-                DispatchQueue.main.async {
-                    self.showEmailViewController(body : view)
+    @IBAction func emailPinnedFlights(_ sender: Any)
+    {
+        emailPinnedFlights.setImage(UIImage(named: "OvHotelResult"), for: .normal)
+        emailPinnedFlights.displayLoadingIndicator(true)
+
+        if let _ = UserInfo.loggedInUserId{
+            callAPIToGetMailTemplate()
+        }else{
+            AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginFromEmailShare, completion: {_ in
+                
+                if let vc = self.parent{
+                    AppFlowManager.default.popToViewController(vc, animated: true)
                 }
+                
+                self.callAPIToGetMailTemplate()
             })
         }
     }
     
-    @IBAction func sharePinnedFlights(_ sender: Any) {
-        
+    func callAPIToGetMailTemplate()
+    {
+        let flightAdultCount = bookFlightObject.flightAdultCount
+        let flightChildrenCount = bookFlightObject.flightChildrenCount
+        let flightInfantCount = bookFlightObject.flightInfantCount
+        let isDomestic = bookFlightObject.isDomestic
+        var valStr = ""
         if #available(iOS 13.0, *) {
-            guard let postData = generatePostData(for: viewModel.results.pinnedFlights ) else { return }
-            
-            executeWebServiceForShare(with: postData as Data, onCompletion:{ (link)  in
-                
-                DispatchQueue.main.async {
-                    let textToShare = [ "Checkout my favourite flights on Aertrip!\n\(link)" ]
-                    let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
-                    activityViewController.popoverPresentationController?.sourceView = self.view
-                    self.present(activityViewController, animated: true, completion: nil)
+            valStr = generateCommonString(for: viewModel.results.pinnedFlights, flightObject: bookFlightObject)
+        }
+
+        self.getSharableLink.getUrlForMail(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, sid: sid, isInternational: true, journeyArray: viewModel.results.pinnedFlights, valString: valStr, trip_type: "")
+
+    }
+    
+    func returnEmailView(view: String)
+    {
+        DispatchQueue.main.async {
+            self.emailPinnedFlights.setImage(UIImage(named: "EmailPinned"), for: .normal)
+            self.emailPinnedFlights.displayLoadingIndicator(false)
+
+            if #available(iOS 13.0, *) {
+                if view == "Pinned template data not found"{
+                    AppToast.default.showToastMessage(message: view)
+                }else{
+                    self.showEmailViewController(body : view)
                 }
-            })
+            }
         }
     }
+    
+//    func returnSharableUrl(url: String)
+//    {
+//
+//    }
+    
+    func returnSharableUrl(url: String) {
+        sharePinnedFilghts.displayLoadingIndicator(false)
+        self.sharePinnedFilghts.setImage(UIImage(named: "SharePinned"), for: .normal)
+
+        if url == "No Data"{
+            AertripToastView.toast(in: self.view, withText: "Something went wrong. Please try again.")
+        }else{
+            let textToShare = [ "Checkout my favourite flights on Aertrip!\n\(url)" ]
+            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            
+            self.present(activityViewController, animated: true, completion: nil)
+        }
+    }
+    
+    @IBAction func sharePinnedFlights(_ sender: Any){
+        if #available(iOS 13.0, *) {
+            shareJourney(journey: viewModel.results.pinnedFlights)
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+    
 }
 
 extension IntMCAndReturnVC {
@@ -273,8 +330,23 @@ extension IntMCAndReturnVC {
 //MARK:- Pinned and RefundStatus Delegate.
 
 extension IntMCAndReturnVC : flightDetailsPinFlightDelegate, UpdateRefundStatusDelegate{
+   
     func updateRefundStatus(for fk: String, rfd: Int, rsc: Int) {
-        print(fk, rfd, rsc)
+        self.viewModel.updateRefundStatusInJourneys(fk: fk, rfd: rfd, rsc: rsc)
+        self.resultsTableView.reloadData()
+
+    }
+    
+    
+    func updateRefundStatusIfPending(fk: String) {
+        
+//        printDebug("fk..\(fk)")
+        
+        self.resultsTableView.reloadData()
+        
+        
+        
+        
     }
     
     func reloadRowFromFlightDetails(fk: String, isPinned: Bool, isPinnedButtonClicked: Bool) {

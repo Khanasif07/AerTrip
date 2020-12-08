@@ -142,9 +142,9 @@ extension LinkedAccountsVC: LinkedAccountsCellDelegate {
         atButton = sender
         switch forType {
         case .facebook:
-            sender.isLoading = true
+            displayIndicatorOnButtons(sender: sender, show: true, titleLabel: "", color: .white)
             self.viewModel.fbLogin(vc: self) { (_) in
-                sender.isLoading = false
+                self.displayIndicatorOnButtons(sender: sender, show: false, titleLabel: sender.titleLabel?.text ?? "",color: .white)
             }
             
 //        case .linkedin:
@@ -154,15 +154,19 @@ extension LinkedAccountsVC: LinkedAccountsCellDelegate {
 //            }
             
         case .google:
-            sender.isLoading = true
+            displayIndicatorOnButtons(sender: sender, show: true, titleLabel: "", color: .gray)
+
             self.viewModel.googleLogin(vc: self) { (_) in
-                sender.isLoading = false
+                self.displayIndicatorOnButtons(sender: sender, show: false, titleLabel: sender.titleLabel?.text ?? "",color: .gray)
+
             }
           
          case .apple:
-            sender.isLoading = true
+            displayIndicatorOnButtons(sender: sender, show: true, titleLabel: "", color: .white)
+
             self.viewModel.appleLogin(vc: self) { (_) in
-                sender.isLoading = false
+                self.displayIndicatorOnButtons(sender: sender, show: false, titleLabel: sender.titleLabel?.text ?? "",color: .white)
+
             }
         default:
             printDebug("not required")
@@ -179,14 +183,15 @@ extension LinkedAccountsVC: LinkedAccountsCellDelegate {
             if let indexPath = self.tableView.indexPath(forItem: sender) {
                 let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Disconnect.localized], colors: [AppColors.themeRed])
                 _ = PKAlertController.default.presentActionSheet(LocalizedString.DeleteTraveller.localized, titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, message: nil, messageFont: nil, messageColor: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton, tapBlock: { [weak self] _, index in
-                    if index == 0 {
-                        self?.viewModel.disConnect(account: (self?.viewModel.linkedAccounts[indexPath.row])!)
+                    if index == 0, let account =  (self?.viewModel.linkedAccounts[indexPath.row]){
+                        self?.viewModel.disConnect(account: account)
                     }
                 })
             }
         }
     
     }
+
 }
 
 // MARK: - Top navigation view Delegate methods
@@ -197,4 +202,44 @@ extension LinkedAccountsVC : TopNavigationViewDelegate {
     }
     
     
+}
+
+
+//MARK:- Display Loading indicator on buttons
+
+extension LinkedAccountsVC
+{
+    func displayIndicatorOnButtons(sender:UIButton,show:Bool,titleLabel:String,color:UIColor){
+        let tag = 808455
+        
+        if show {
+            let indicator = UIActivityIndicatorView()
+            let buttonHeight = sender.bounds.size.height
+            let buttonWidth = sender.bounds.size.width
+            indicator.center = CGPoint(x: buttonWidth/2, y: buttonHeight/2)
+            indicator.color = color
+            indicator.tag = tag
+
+            sender.setTitle(titleLabel, for: .normal)
+            if let imageView = sender.imageView {
+                sender.sendSubviewToBack(imageView)
+            }
+
+            sender.addSubview(indicator)
+            indicator.startAnimating()
+
+        } else {
+            if let indicator = sender.viewWithTag(tag) as? UIActivityIndicatorView
+            {
+                sender.setTitle(titleLabel, for: .normal)
+
+                if let imageView = sender.imageView {
+                    sender.bringSubviewToFront(imageView)
+                }
+
+                indicator.stopAnimating()
+                indicator.removeFromSuperview()
+            }
+        }
+    }
 }

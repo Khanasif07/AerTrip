@@ -24,14 +24,14 @@ class FlightBookingInfoVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if #available(iOS 13.0, *) {
-            self.statusBarStyle = .lightContent
+//            self.statusBarStyle = .lightContent
         }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if #available(iOS 13.0, *) {
-            self.statusBarStyle = .default
+//            self.statusBarStyle = .darkContent
         }
     }
     
@@ -40,7 +40,8 @@ class FlightBookingInfoVC: BaseVC {
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.registerXib()
-        delay(seconds: 0.2) {
+        delay(seconds: 0.2) { [weak self] in
+            guard let self = self else {return}
             self.tableView.reloadData()
         }
         delay(seconds: 0.3) { [weak self] in
@@ -85,5 +86,7 @@ class FlightBookingInfoVC: BaseVC {
         
         // Traveller Addon TableViewCell
         self.tableView.registerCell(nibName: BookingTravellerAddOnsTableViewCell.reusableIdentifier)
+        
+        tableView.showsVerticalScrollIndicator = true
     }
 }

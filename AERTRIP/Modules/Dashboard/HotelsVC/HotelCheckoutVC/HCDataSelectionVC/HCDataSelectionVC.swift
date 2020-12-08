@@ -77,6 +77,7 @@ class HCDataSelectionVC: BaseVC {
     // MARK: -
     
     override func initialSetup() {
+        self.tableView.contentInset = UIEdgeInsets(top: topNavView.height - 0.5, left: 0, bottom: 0, right: 0)
         setupNavView()
         setUpIndicatorView()
         
@@ -116,7 +117,7 @@ class HCDataSelectionVC: BaseVC {
         super.viewWillAppear(animated)
         delay(seconds: 0.2) {
             self.statusBarColor = AppColors.clear
-            self.statusBarStyle = .default
+            self.statusBarStyle = .darkContent
         }
         
     }
@@ -158,7 +159,7 @@ class HCDataSelectionVC: BaseVC {
     
     func setUpIndicatorView() {
         self.mainIndicatorView.isHidden = true
-        self.mainIndicatorView.style = .whiteLarge
+        self.mainIndicatorView.style = .large// .whiteLarge
         self.mainIndicatorView.color = AppColors.themeGreen
     }
     override func setupColors() {
@@ -179,9 +180,9 @@ class HCDataSelectionVC: BaseVC {
     
     private func manageLoader(shouldStart: Bool) {
         self.mainIndicatorView.isHidden = true
-        self.mainIndicatorView.style = .whiteLarge
+        self.mainIndicatorView.style = .large// .whiteLarge
         self.mainIndicatorView.color = AppColors.themeGreen
-        activityLoader.style = .whiteLarge
+        activityLoader.style = .large//.whiteLarge
         activityLoader.color = AppColors.themeGreen
         activityLoader.startAnimating()
         
@@ -321,7 +322,7 @@ class HCDataSelectionVC: BaseVC {
         if !isFromFinalCheckout {
             //            AppFlowManager.default.moveToFinalCheckoutVC(delegate: self, viewModel.itineraryData, viewModel.itineraryPriceDetail, originLat: viewModel.hotelInfo?.lat ?? "", originLong: viewModel.hotelInfo?.long ?? "")
             if !isGrossValueZero {
-                AppFlowManager.default.moveToFinalCheckoutVC(delegate: self, viewModel.itineraryData, viewModel.itineraryPriceDetail, originLat: viewModel.hotelInfo?.lat ?? "", originLong: viewModel.hotelInfo?.long ?? "")
+                AppFlowManager.default.moveToFinalCheckoutVC(delegate: self, viewModel.itineraryData, viewModel.itineraryPriceDetail, originLat: viewModel.hotelInfo?.lat ?? "", originLong: viewModel.hotelInfo?.long ?? "", sId: self.viewModel.sId)
             }
             else {
                 AppToast.default.showToastMessage(message: LocalizedString.SomethingWentWrong.localized)
@@ -447,8 +448,9 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
     func callForItenaryDataTravellerFail(errors: ErrorCodes) {
         self.stopLoading()
         self.isGrossValueZero = true
-        if errors.contains(55) {
-            AppToast.default.showToastMessage(message: LocalizedString.ResultUnavailable.localized, onViewController: self, buttonTitle: LocalizedString.ReloadResults.localized, buttonAction: self.checkoutSessionExpireCompletionHandler)
+        if errors.contains(55) || errors.contains(81) {
+            //AppToast.default.showToastMessage(message: LocalizedString.ResultUnavailable.localized, onViewController: self, buttonTitle: LocalizedString.ReloadResults.localized, buttonAction: self.checkoutSessionExpireCompletionHandler)
+            ReloadResultPopupVC.showPopUp(message: LocalizedString.InformationUnavailable.localized, isButtonHidden: false, buttonTitle: LocalizedString.ReloadResults.localized, reloadButtonAction: self.checkoutSessionExpireCompletionHandler)
         } else {
             AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
         }
@@ -511,8 +513,9 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
             confirmationCall += 1
             viewModel.fetchConfirmItineraryData()
         } else {
-            if errors.contains(55) {
-                AppToast.default.showToastMessage(message: LocalizedString.ResultUnavailable.localized, onViewController: self, buttonTitle: LocalizedString.ReloadResults.localized, buttonAction: self.checkoutSessionExpireCompletionHandler)
+            if errors.contains(55) || errors.contains(81) {
+                //AppToast.default.showToastMessage(message: LocalizedString.ResultUnavailable.localized, onViewController: self, buttonTitle: LocalizedString.ReloadResults.localized, buttonAction: self.checkoutSessionExpireCompletionHandler)
+                ReloadResultPopupVC.showPopUp(message: LocalizedString.InformationUnavailable.localized, isButtonHidden: false, buttonTitle: LocalizedString.ReloadResults.localized, reloadButtonAction: self.checkoutSessionExpireCompletionHandler)
             } else {
                 AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
             }
@@ -548,8 +551,11 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
                     AppFlowManager.default.popViewController(animated: true)
                 }
             }
-        } else if errors.contains(55) {
-            AppToast.default.showToastMessage(message: LocalizedString.ResultUnavailable.localized, onViewController: self, buttonTitle: LocalizedString.ReloadResults.localized, buttonAction: self.checkoutSessionExpireCompletionHandler)
+        } else if errors.contains(55) || errors.contains(81) {
+           // AppToast.default.showToastMessage(message: LocalizedString.ResultUnavailable.localized, onViewController: self, buttonTitle: LocalizedString.ReloadResults.localized, buttonAction: self.checkoutSessionExpireCompletionHandler)
+            
+            ReloadResultPopupVC.showPopUp(message: LocalizedString.InformationUnavailable.localized, isButtonHidden: false, buttonTitle: LocalizedString.ReloadResults.localized, reloadButtonAction: self.checkoutSessionExpireCompletionHandler)
+
         }else {
             AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
         }
@@ -633,7 +639,17 @@ extension HCDataSelectionVC: TopNavigationViewDelegate {
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         // plus button action
-        AppFlowManager.default.presentHCSelectGuestsVC(delegate: self)
+        DispatchQueue.main.async {
+            self.topNavView.firstRightButton.isHidden = true
+            self.topNavView.startActivityIndicaorLoading()
+        }
+//        delay(seconds: 0.2) {
+            AppFlowManager.default.presentHCSelectGuestsVC(delegate: self)
+//        }
+        delay(seconds: 1.6) {[weak self] in
+            self?.topNavView.stopActivityIndicaorLoading()
+            self?.topNavView.firstRightButton.isHidden = false
+        }
     }
 }
 
@@ -863,7 +879,8 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
         if let _ = tableView.cellForRow(at: indexPath) as? HCDataSelectionPrefrencesCell, let specialRequests = self.viewModel.itineraryData?.special_requests {
             AppFlowManager.default.presentHCSpecialRequestsVC(specialRequests: specialRequests,selectedRequestIds: self.viewModel.selectedSpecialRequest, selectedRequestNames: self.viewModel.selectedRequestsName, other: self.viewModel.other, specialRequest: self.viewModel.specialRequest,delegate: self)
         } else if let _ = tableView.cellForRow(at: indexPath) as? HCDataSelectionTravelSafetyCell {
-            AppToast.default.showToastMessage(message: LocalizedString.UnderDevelopment.localized)
+            guard let url = URL(string: AppConstants.travelSafetyLink) else {return}
+            AppFlowManager.default.showURLOnATWebView(url, screenTitle: "Travel Safety Guidlines")
         }
     }
     

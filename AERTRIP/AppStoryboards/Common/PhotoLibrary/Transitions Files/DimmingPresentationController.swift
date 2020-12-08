@@ -37,8 +37,8 @@ class DimmingPresentationController: UIPresentationController {
     private func setupBackground() {
         background.backgroundColor = UIColor.black
         background.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        background.frame = containerView!.bounds
-        containerView!.insertSubview(background, at: 0)
+        background.frame = containerView?.bounds ?? CGRect.zero
+        containerView?.insertSubview(background, at: 0)
         background.alpha = 0
     }
     

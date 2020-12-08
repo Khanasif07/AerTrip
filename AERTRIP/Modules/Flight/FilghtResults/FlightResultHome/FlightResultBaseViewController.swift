@@ -14,13 +14,14 @@ import UIKit
 //import HMSegmentedControl
 import SnapKit
 
-class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
+class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
     
     var flightSearchResultVM  : FlightSearchResultVM!
-    var flightSearchParameters : NSDictionary!
+    var flightSearchParameters = JSONDictionary()
     var visualEffectViewHeight : CGFloat {
         return statusBarHeight + 88.0
     }
+
     var ApiProgress: UIProgressView!
     @IBOutlet weak var resultContainerTopOffset: NSLayoutConstraint!
     @IBOutlet weak var headerImageViewHeight: NSLayoutConstraint!
@@ -47,7 +48,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     var updatedApiProgress : Float = 0
     var isSearchByAirline = false
     var airlineCode = ""
-    let separatorView = UIView()
+    let separatorView = ATDividerView()
     
     private var filterBackView = UIView()
     
@@ -58,21 +59,39 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     }
     private var isIntReturnOrMCJourney = false
     
-    private var filterUpdateWorkItem : DispatchWorkItem?
+    private var filterUpdateWorkItem : DispatchWorkItem!
     private var showDepartReturnSame = false
     private var curSelectedFilterIndex = 0
+    
+    
+    enum SortingValuesWhenShared : String {
+        
+        case smart = "humane-sorting_asc"
+        case priceHighToLow = "price-sorting_desc"
+        case priceLowToHigh = "price-sorting_asc"
+        case durationLowToHigh = "duration-sorting_asc"
+        case durationHighToLow = "duration-sorting_desc"
+        case departureLowToHigh = "depart-sorting_asc"
+        case departureHighToLow = "depart-sorting_desc"
+        case arivalLowToHigh = "arrive-sorting_asc"
+        case arivalHighToLow = "arrive-sorting_desc"
+        
+    }
+    
     
     //MARK:- Initializers
     @objc convenience init(flightSearchResultVM : FlightSearchResultVM , flightSearchParameters: NSDictionary, isIntReturnOrMCJourney: Bool, airlineCode:String) {
         self.init(nibName:nil, bundle:nil)
         self.flightSearchResultVM = flightSearchResultVM
         let new = flightSearchResultVM
-        print(new.flightLegs.count)
+        printDebug(new.flightLegs.count)
         flightSearchResultVM.delegate = self
         flightSearchResultVM.initiateResultWebService()
-        self.flightSearchParameters = flightSearchParameters
+//        self.flightSearchParameters = flightSearchParameters
         self.isIntReturnOrMCJourney = isIntReturnOrMCJourney
         self.airlineCode = airlineCode
+        guard let dict = flightSearchParameters as? JSONDictionary else { return }
+        self.flightSearchParameters = dict
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -84,13 +103,13 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     }
     
     deinit {
-          print("FlightResultBaseViewController")
+        printDebug("FlightResultBaseViewController")
       }
     
     //MARK:- View Controller Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNagationBar()
+        setupNavigationBar()
         createFilterTitle()
         
         setupSegmentView()
@@ -105,33 +124,28 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         super.viewWillAppear(animated)
         addCustomBackgroundBlurView()
         createFilters(curSelectedFilterIndex)
-    }
-    
-    func addSwipeLeftGuesture(){
-        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
-        swipeRight.direction = .right
-        self.view.addGestureRecognizer(swipeRight)
-    }
-    
-    @objc func handleGesture(gesture: UISwipeGestureRecognizer) -> Void
-    {
-        UIView.animate(withDuration: 0.5, animations: {
-            self.navigationController?.view.viewWithTag(500)?.removeFromSuperview()
-            self.navigationController?.view.viewWithTag(2500)?.removeFromSuperview()
-            self.statusBarBlurView.removeFromSuperview()
-            self.navigationController?.viewControllers.removeLast()
-            self.navigationController?.popViewController(animated: true)
-        })
+        statusBarStyle = .darkContent
     }
     
     func addCustomBackgroundBlurView()
     {
-        
+        guard self.view.viewWithTag(500) == nil else {
+            // Added Blur view Behind Status bar to avoid content getting merged with status bars
+            statusBarBlurView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: statusBarHeight))
+            statusBarBlurView.effect = UIBlurEffect(style: .prominent)
+            self.navigationController?.view.addSubview(statusBarBlurView)
+            return
+        }
         visualEffectView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: visualEffectViewHeight))
         visualEffectView.effect = UIBlurEffect(style: .prominent)
         visualEffectView.contentView.backgroundColor = .clear//UIColor.white.withAlphaComponent(0.4)
         
-        backView = UIView(frame: CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: visualEffectViewHeight))
+        let flightType = self.flightSearchResultVM.flightSearchType
+        if flightType == SINGLE_JOURNEY || self.isIntReturnOrMCJourney{
+            backView = UIView(frame: CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: visualEffectViewHeight + 1))
+        } else {
+            backView = UIView(frame: CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: visualEffectViewHeight))
+        }
         backView.addSubview(visualEffectView)
         backView.tag = 500
         backView.clipsToBounds = true
@@ -141,16 +155,14 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         let buttonImage = UIImage(named: "green")
         backButton.setImage(buttonImage, for: .normal)
         backButton.setImage(buttonImage, for: .selected)
-        
         backButton.frame = CGRect(x: 6, y: statusBarHeight, width: 44, height: 44)
-        
         backButton.addTarget(self, action: #selector(self.popToPreviousScreen(sender:)), for: .touchUpInside)
         visualEffectView.contentView.addSubview(backButton)
         
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.view.backgroundColor = .clear
-        self.navigationController?.view.addSubview(backView)
+        self.view.addSubview(backView)
         
         visualEffectView.contentView.addSubview(resultTitle)
         visualEffectView.contentView.addSubview(resultsubTitle)
@@ -174,7 +186,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
             make.height.equalTo(42)
         }
         
-        ApiProgress = UIProgressView()
+        ApiProgress = UIProgressView(progressViewStyle: .bar)
         ApiProgress.progressTintColor = UIColor.AertripColor
         ApiProgress.trackTintColor = .clear
         
@@ -183,10 +195,10 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         if flightSearchResultVM.isIntMCOrReturnJourney {
             ApiProgress.progress = flightSearchResultVM.containsJourneyResuls ? 0 : 0.25
         }
-        
+                
         backView.addSubview(ApiProgress)
         ApiProgress.snp.makeConstraints { (make) in
-            make.bottom.equalTo(visualEffectView.contentView).offset(0)
+            make.bottom.equalTo(visualEffectView.contentView).offset(-0.4)
             make.width.equalToSuperview()
             make.left.equalToSuperview()
         }
@@ -202,10 +214,8 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         //        }
         
         
-        let flightType = flightSearchResultVM.flightSearchType
         if flightType == SINGLE_JOURNEY || isIntReturnOrMCJourney{
             ApiProgress.isHidden = false
-            
             separatorView.snp.makeConstraints { (make) in
                 make.left.equalTo(visualEffectView.contentView).offset(0.0)
                 make.bottom.equalTo(visualEffectView.contentView).offset(-2.0)
@@ -234,7 +244,8 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        backView.removeFromSuperview()
+//        backView.removeFromSuperview()
+        toggleFiltersView(hidden: true)
         statusBarBlurView.removeFromSuperview()
         self.flightSearchResultVM.cancelAllWebserviceCalls()
     }
@@ -281,7 +292,9 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     
     func headerTitlesForIntMultiCityJourney()-> [MultiLegHeader]{
         
-        guard let allKey = (self.flightSearchParameters.allKeys as? [String]) else {return []}
+//        guard let allKey = (self.flightSearchParameters.keys as? [String]) else {return []}
+        
+        let allKey = self.flightSearchParameters.keys
         var headerTitles = [MultiLegHeader]()
         let departArray = allKey.map{$0.contains("depart")}
         for i in 0..<departArray.count{
@@ -360,8 +373,9 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     func getStringFromImage(name : String) -> NSAttributedString {
         
         let imageAttachment = NSTextAttachment()
-        let sourceSansPro18 = UIFont(name: "SourceSansPro-Semibold", size: 18.0)!
-        let iconImage = UIImage(named: name )!
+        
+        let sourceSansPro18 = AppFonts.SemiBold.withSize(18)
+        guard let iconImage = UIImage(named: name ) else { return NSAttributedString() }
         imageAttachment.image = iconImage
         
         let yCordinate  = roundf(Float(sourceSansPro18.capHeight - iconImage.size.height) / 2.0)
@@ -394,6 +408,12 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         resultBaseVC.bookFlightObject = flightSearchResultVM.bookFlightObject
         resultBaseVC.flightSearchType = flightSearchResultVM.flightSearchType
         resultBaseVC.flightSearchResultVM = flightSearchResultVM
+        resultBaseVC.viewModel.flightSearchParameters = self.flightSearchParameters
+        
+        let sharedSortOrder = calculateSortOrder()
+        resultBaseVC.viewModel.sortOrder = sharedSortOrder.0
+        resultBaseVC.viewModel.isConditionReverced = sharedSortOrder.1
+        
         domesticMultiLegResultVC = resultBaseVC
         addChildView(resultBaseVC)
     }
@@ -425,6 +445,12 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         resultBaseVC.headerTitles = headerTitles
         resultBaseVC.numberOfLegs = self.numberOfLegs
         resultBaseVC.flightSearchResultVM = self.flightSearchResultVM
+        resultBaseVC.viewModel.flightSearchParameters = self.flightSearchParameters
+        
+        let sharedSortOrder = calculateSortOrder()
+        resultBaseVC.viewModel.sortOrder = sharedSortOrder.0
+        resultBaseVC.viewModel.isConditionReverced = sharedSortOrder.1
+        
         addChildView(resultBaseVC)
         self.intMultiLegResultVC = resultBaseVC
     }
@@ -438,15 +464,93 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         resultBaseVC.viewModel.sid = flightSearchResultVM.sid
         resultBaseVC.viewModel.bookFlightObject = flightSearchResultVM.bookFlightObject
         resultBaseVC.viewModel.flightSearchResultVM = flightSearchResultVM
+        resultBaseVC.viewModel.flightSearchParameters = self.flightSearchParameters
+
+        let sharedSortOrder = calculateSortOrder()
+        resultBaseVC.viewModel.sortOrder = sharedSortOrder.0
+        resultBaseVC.viewModel.isConditionReverced = sharedSortOrder.1
+        
         addChildView(resultBaseVC)
         singleJourneyResultVC = resultBaseVC
     }
+    
+    
+    func calculateSortOrder() -> (Sort, Bool) {
+        
+        let sharedSortOrder = self.flightSearchParameters["sort[]"] as? String ?? ""
+        let order = SortingValuesWhenShared(rawValue: sharedSortOrder) ?? SortingValuesWhenShared.smart
+        
+        switch order {
+        
+        case .priceLowToHigh:
+            return (Sort.Price, false)
+            
+        case .priceHighToLow:
+            return (Sort.Price, true)
+
+        case .durationLowToHigh:
+            return (Sort.Duration, false)
+
+        case .durationHighToLow:
+            return (Sort.Duration, true)
+            
+        case .departureLowToHigh:
+            return (Sort.Depart, false)
+
+        case .departureHighToLow:
+            return (Sort.Depart, true)
+
+        case .arivalLowToHigh:
+            return (Sort.Arrival, false)
+            
+        case .arivalHighToLow:
+            return (Sort.Arrival, true)
+            
+        default:
+            return (Sort.Smart, false)
+
+        }
+        
+    }
+    
+    
+    func convertSortOrder(sortOrder : Sort, isConditionReverced : Bool) -> SortingValuesWhenShared {
+        
+        var order = SortingValuesWhenShared.smart
+        
+        switch sortOrder {
+        case .Price:
+            
+            order = isConditionReverced ? SortingValuesWhenShared.priceHighToLow  : SortingValuesWhenShared.priceLowToHigh
+            
+        case .Duration:
+            
+            order = isConditionReverced ? SortingValuesWhenShared.durationHighToLow  : SortingValuesWhenShared.durationLowToHigh
+            
+        case .Depart:
+            
+            order = isConditionReverced ? SortingValuesWhenShared.departureHighToLow  : SortingValuesWhenShared.departureLowToHigh
+            
+        case .Arrival:
+            
+            order = isConditionReverced ? SortingValuesWhenShared.arivalHighToLow  : SortingValuesWhenShared.arivalLowToHigh
+            
+        default:
+            
+            order = .smart
+        }
+        
+        
+        return order
+    }
+    
     
     func setupResultView() {
         
         let flightType = flightSearchResultVM.flightSearchType
         
         switch flightType {
+        
         case SINGLE_JOURNEY:
             addSingleJourneyViewController()
             
@@ -565,8 +669,8 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         let flightType = flightSearchResultVM.flightSearchType
         
         if flightType == SINGLE_JOURNEY {
-            let origin = self.flightSearchParameters.value(forKey: "origin") as! String
-            let destination = self.flightSearchParameters.value(forKey: "destination") as! String
+            let origin = self.flightSearchParameters["origin"] as? String ?? ""
+            let destination = self.flightSearchParameters["destination"] as? String ?? ""
             let journey = Leg(origin: origin, destination: destination)
             legList = [journey]
         }
@@ -589,6 +693,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
             self.intMCAndReturnFilterVC?.delegate = flightSearchResultVM
             self.intMCAndReturnFilterVC?.toastDelegate = self
             self.intMCAndReturnFilterVC?.filterUIDelegate = self
+            self.intMCAndReturnFilterVC?.flightSearchParameters = self.flightSearchParameters
             self.intMCAndReturnFilterVC?.showDepartReturnSame = showDepartReturnSame
             createFilters(index)
             return
@@ -605,8 +710,8 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         if let intFilterBaseView = self.intMCAndReturnFilterVC {
             if intFilterBaseView.parent == nil {
                 var frame = self.view.frame
-                frame.origin.y = visualEffectViewHeight - 45
-                frame.size.height = 36//UIScreen.main.bounds.size.height - visualEffectViewHeight + 50
+                frame.origin.y = visualEffectViewHeight - 46
+                frame.size.height = 36.5//UIScreen.main.bounds.size.height - visualEffectViewHeight + 50
                 intFilterBaseView.view.frame = frame
                 backView.addSubview(intFilterBaseView.view)
                 backView.bringSubviewToFront(filterButton)
@@ -620,8 +725,8 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         if let FilterBaseView = self.flightFilterVC {
             if FilterBaseView.parent == nil {
                 var frame = self.view.frame
-                frame.origin.y = visualEffectViewHeight - 45
-                frame.size.height = 36//UIScreen.main.bounds.size.height - visualEffectViewHeight + 50
+                frame.origin.y = visualEffectViewHeight - 46
+                frame.size.height = 36.5//UIScreen.main.bounds.size.height - visualEffectViewHeight + 50
                 FilterBaseView.view.frame = frame
                 backView.addSubview(FilterBaseView.view)
                 backView.bringSubviewToFront(filterButton)
@@ -676,8 +781,8 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         self.filterSegmentView.isVerticalDividerEnabled = false
         self.filterSegmentView.selectionIndicatorColor = .clear
 
-        self.filterSegmentView.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black , NSAttributedString.Key.font : UIFont(name:"SourceSansPro-Regular" , size: 16)! ]
-        self.filterSegmentView.selectedTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.black , NSAttributedString.Key.font : UIFont(name:"SourceSansPro-Semibold" , size: 16)!]
+        self.filterSegmentView.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black , NSAttributedString.Key.font : AppFonts.Regular.withSize(16)]
+        self.filterSegmentView.selectedTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.black , NSAttributedString.Key.font : AppFonts.SemiBold.withSize(16)]
         self.filterSegmentView .addTarget(self, action: #selector(filtersegmentChanged(_:)), for: .valueChanged)
 
         self.filterSegmentView.sectionTitles = flightSearchResultVM.segmentTitles(showSelection: false, selectedIndex: filterSegmentView.selectedSegmentIndex)
@@ -691,11 +796,11 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         self.navigationController?.view.viewWithTag(500)?.removeFromSuperview()
         self.navigationController?.view.viewWithTag(2500)?.removeFromSuperview()
         statusBarBlurView.removeFromSuperview()
-        self.navigationController?.viewControllers.removeLast()
+        //self.navigationController?.viewControllers.removeLast()
         self.navigationController?.popViewController(animated: true)
     }
     
-    func setupNagationBar() {
+    func setupNavigationBar() {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         addTitleToNavigationController()
         addSubTitleToNavigationController()
@@ -716,7 +821,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         let x = UIScreen.main.bounds.width - 40
         infoButton.frame = CGRect(x: x, y: statusBarHeight +  7, width: 30, height: 30)
         infoButton.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
-        
+        infoButton.isHidden = true
         
     }
     
@@ -731,9 +836,9 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     
     func createFilterButton() {
         filterButton = UIButton(type: .custom)
-        guard let normalImage = UIImage(named: "filterClearIndicator") else { assertionFailure("filter clear imaage missing")
+        guard let normalImage = UIImage(named: "ic_hotel_filter") else { assertionFailure("filter clear imaage missing")
             return }
-        guard let selectedImage = UIImage(named:"FilterApplIiedndicator") else { assertionFailure("filter selected image missing")
+        guard let selectedImage = UIImage(named:"ic_hotel_filter_applied") else { assertionFailure("filter selected image missing")
             return }
         filterButton.setImage(normalImage, for: .normal)
         filterButton.setImage(selectedImage, for: .selected)
@@ -744,7 +849,10 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     func addSubTitleToNavigationController() {
         
         resultsubTitle = UILabel(frame: CGRect(x:0 , y: statusBarHeight + 23, width: UIScreen.main.bounds.size.width, height: 17))
-        resultsubTitle.font = UIFont(name: "SourceSansPro-regular", size: 13)!
+//        resultsubTitle.font = UIFont(name: "SourceSansPro-regular", size: 13)!
+        
+        resultsubTitle.font = AppFonts.Regular.withSize(13)
+
         resultsubTitle.text = flightSearchResultVM.subTitleString
         resultsubTitle.textAlignment = .center
         
@@ -762,7 +870,9 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         clearAllFilters.setTitle("Clear all", for: .normal)
         clearAllFilters.setTitleColor( UIColor.AertripColor, for: .normal)
         clearAllFilters.setTitleColor( UIColor.TWO_ZERO_FOUR_COLOR , for: .disabled)
-        clearAllFilters.titleLabel?.font = UIFont(name: "SourceSansPro-Regular", size: 18.0)
+//        clearAllFilters.titleLabel?.font = UIFont(name: "SourceSansPro-Regular", size: 18.0)
+        
+        clearAllFilters.titleLabel?.font = AppFonts.Regular.withSize(18)
         clearAllFilters.titleLabel?.textAlignment = .left
         clearAllFilters.addTarget(self, action: #selector(clearAllFilterTapped), for: .touchDown)
         
@@ -807,7 +917,9 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         doneButton.setTitle("Done", for: .normal)
         doneButton.titleLabel?.textAlignment = .right
         doneButton.setTitleColor( UIColor.AertripColor, for: .normal)
-        doneButton.titleLabel?.font = UIFont(name: "SourceSansPro-Semibold", size: 18.0)
+//        doneButton.titleLabel?.font = UIFont(name: "SourceSansPro-Semibold", size: 18.0)
+        
+        doneButton.titleLabel?.font = AppFonts.SemiBold.withSize(18)
         doneButton.addTarget(self, action: #selector(doneButtonTapped), for: .touchDown)
         visualEffectView.contentView.addSubview(doneButton)
         
@@ -823,7 +935,8 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     func addTitleToNavigationController() {
         
         resultTitle = UILabel(frame: CGRect(x: 50 , y: statusBarHeight + 1.0 , width: UIScreen.main.bounds.size.width  - 100.0 , height: 23))
-        resultTitle.font = UIFont(name: "SourceSansPro-semibold", size: 18)!
+//        resultTitle.font = UIFont(name: "SourceSansPro-semibold", size: 18)!
+        resultTitle.font = AppFonts.SemiBold.withSize(18)
 //        resultTitle.attributedText = flightSearchResultVM.titleString
         resultTitle.textAlignment = .center
         resultTitle.lineBreakMode = NSLineBreakMode.byTruncatingMiddle
@@ -870,7 +983,8 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
     }
     
     func selectedIndexChanged(index: UInt) {
-        if index == curSelectedFilterIndex && backView.height > visualEffectViewHeight {
+        
+        if index == curSelectedFilterIndex && backView.height > visualEffectViewHeight + 2 {
             toggleFiltersView(hidden: true)
         } else {
             toggleFiltersView(hidden: false)
@@ -885,7 +999,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         
         if flightSearchResultVM.containsJourneyResuls  {
             
-            if curSelectedFilterIndex == 0 && backView.height > visualEffectViewHeight {
+            if curSelectedFilterIndex == 0 && backView.height > visualEffectViewHeight + 10 /* safe constant */ {
                 toggleFiltersView(hidden: true)
             } else {
                 flightFilterVC?.selectSortVC()
@@ -893,7 +1007,7 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
                 toggleFiltersView(hidden: false)
                 curSelectedFilterIndex = 0
             }
-//            
+//
 //            if backView.height <= visualEffectViewHeight {
 //                toggleFiltersView(hidden: false)
 //            } else {
@@ -912,11 +1026,30 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
             UIView.animate(withDuration: 0.3) {
                 self.backView.height = self.view.height + 100
             }
+            self.separatorView.snp.updateConstraints { (make) in
+                make.bottom.equalTo(self.visualEffectView.contentView).offset(0.0)
+            }
         } else {
             removeFilterHeader()
             backView.bringSubviewToFront(ApiProgress)
             UIView.animate(withDuration: 0.3) {
-                self.backView.height = self.visualEffectViewHeight
+                let flightType = self.flightSearchResultVM.flightSearchType
+                if flightType == SINGLE_JOURNEY || self.isIntReturnOrMCJourney{
+                    self.backView.height = self.visualEffectViewHeight + 1
+                } else {
+                    self.backView.height = self.visualEffectViewHeight
+                }
+            }
+            if updatedApiProgress < 0.97 {
+                self.separatorView.snp.updateConstraints { (make) in
+                    
+                    let flightType = self.flightSearchResultVM.flightSearchType
+                    if flightType == SINGLE_JOURNEY || isIntReturnOrMCJourney{
+                        make.bottom.equalTo(self.visualEffectView.contentView).offset(-2.0)
+                    } else {
+                        make.bottom.equalTo(self.visualEffectView.contentView).offset(0.0)
+                    }
+                }
             }
         }
         backView.layoutIfNeeded()
@@ -937,12 +1070,14 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         
         resultTitle.isHidden = isHidden
         resultsubTitle.isHidden = isHidden
-        infoButton.isHidden = isHidden
+//        infoButton.isHidden = isHidden
         backButton.isHidden = isHidden
     }
     
     func removeFilterHeader() {
         flightResultHeadersViews(isHidden: false)
+        
+        guard doneButton != nil else { return }
         
         doneButton.removeFromSuperview()
         doneButton = nil
@@ -953,10 +1088,11 @@ class FlightResultBaseViewController: UIViewController , FilterUIDelegate {
         filterTitle.removeFromSuperview()
         
     }
-    
     func createFilterTitle() {
         self.filterTitle = UILabel()
-        self.filterTitle.font = UIFont(name: "SourceSansPro-Regular", size: 16.0)
+//        self.filterTitle.font = UIFont(name: "SourceSansPro-Regular", size: 16.0)
+        
+        self.filterTitle.font = AppFonts.Regular.withSize(16)
         self.filterTitle.textColor = UIColor.ONE_FIVE_THREE_COLOR
         self.filterTitle.textAlignment = .center
         
@@ -1065,14 +1201,76 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
         intMCAndReturnFilterVC?.showDepartReturnSame = show
     }
     
+    func updateDynamicFilters(filters : DynamicFilters) {
+        
+        let flightType = flightSearchResultVM.flightSearchType
+        
+        switch flightType {
+
+            case SINGLE_JOURNEY:
+                        
+                delay(seconds: 0.5) {
+                    guard let filterVc = self.flightFilterVC else { return }
+                    var currentData = filterVc.updatedAircraftFilter
+                    currentData.allAircraftsArray.append(contentsOf: filters.aircraft.allAircraftsArray.removeDuplicates())
+                    currentData.allAircraftsArray = currentData.allAircraftsArray.removeDuplicates()
+                    self.flightFilterVC?.updatedAircraftFilter = currentData
+                }
+            
+        case RETURN_JOURNEY:
+       
+            if flightSearchResultVM.isDomestic {
+                delay(seconds: 0.5) {
+                    guard let filterVc = self.flightFilterVC else { return }
+                  var currentData = filterVc.updatedAircraftFilter
+                    currentData.allAircraftsArray.append(contentsOf: filters.aircraft.allAircraftsArray.removeDuplicates())
+                    currentData.allAircraftsArray = currentData.allAircraftsArray.removeDuplicates()
+                    self.flightFilterVC?.updatedAircraftFilter = currentData
+                }
+                
+            } else {
+            
+                delay(seconds: 0.5) {
+                    self.intMCAndReturnFilterVC?.updatedAircraftFilter = filters.aircraft
+                }
+            
+            }
+            
+            
+        case  MULTI_CITY:
+                    
+            if flightSearchResultVM.isDomestic {
+                delay(seconds: 0.5) {
+                    guard let filterVc = self.flightFilterVC else { return }
+                    var currentData = filterVc.updatedAircraftFilter
+                    currentData.allAircraftsArray.append(contentsOf: filters.aircraft.allAircraftsArray.removeDuplicates())
+                    currentData.allAircraftsArray = currentData.allAircraftsArray.removeDuplicates()
+                    self.flightFilterVC?.updatedAircraftFilter = currentData
+                }
+                
+            } else {
+                        
+                delay(seconds: 0.5) {
+                    self.intMCAndReturnFilterVC?.updatedAircraftFilter = filters.aircraft
+                }
+                
+            }
+            
+        default: break
+
+            
+        }
+        
+    }
+    
+    
     func clearFilters() {
         flightSearchResultVM.clearAllFilters()
         flightFilterVC?.resetAllFilters()
         intMCAndReturnFilterVC?.resetAllFilters()
     }
     
-    func restartFlightSearch()
-    {
+    func restartFlightSearch() {
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -1113,9 +1311,21 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                     break
                 }
             }
+            for uiFilters in flightSearchResultVM.flightLegsAppliedFilters.uiFilters {
+                if !uiFilters.isEmpty {
+                    isFilterApplied = true
+                    break
+                }
+            }
         } else if intMCAndReturnFilterVC != nil {
             for appliedFilters in flightSearchResultVM.intFlightLegsAppliedFilters.appliedFilters {
                 if !appliedFilters.isEmpty {
+                    isFilterApplied = true
+                    break
+                }
+            }
+            for uiFilters in flightSearchResultVM.intFlightLegsAppliedFilters.uiFilters {
+                if !uiFilters.isEmpty {
                     isFilterApplied = true
                     break
                 }
@@ -1220,72 +1430,94 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
         
         switch flightType {
         case SINGLE_JOURNEY:
+            filterUpdateWorkItem?.cancel()
             if let singleJourneyVC = self.singleJourneyResultVC {
-                singleJourneyVC.viewModel.updatedApiProgress = updatedApiProgress
-                singleJourneyVC.viewModel.airlineCode = airlineCode
-                singleJourneyVC.flightSearchParameters = self.flightSearchParameters
-                singleJourneyVC.updateWithArray( resultVM.getOnewayJourneyDisplayArray(), sortOrder: resultVM.getSortOrder())
-                singleJourneyVC.updateAirportDetailsArray(resultVM.getOnewayAirportArray())
-                singleJourneyVC.updateAirlinesDetailsArray(resultVM.getAirlineDetailsArray())
-                singleJourneyVC.updateTaxesArray(resultVM.getTaxesDetailsArray())
-                singleJourneyVC.addPlaceholderTableHeaderView()
                 
+                filterUpdateWorkItem = DispatchWorkItem {
+                    singleJourneyVC.viewModel.updatedApiProgress = self.updatedApiProgress
+                    singleJourneyVC.viewModel.airlineCode = self.airlineCode
+                    
+                    let sharedSortOrder = self.calculateSortOrder()
+
+                    singleJourneyVC.updateWithArray( resultVM.getOnewayJourneyDisplayArray(), sortOrder: sharedSortOrder.0)
+                    singleJourneyVC.updateAirportDetailsArray(resultVM.getOnewayAirportArray())
+                    singleJourneyVC.updateAirlinesDetailsArray(resultVM.getAirlineDetailsArray())
+                    singleJourneyVC.updateTaxesArray(resultVM.getTaxesDetailsArray())
+                    singleJourneyVC.addPlaceholderTableHeaderView()
+                }
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: filterUpdateWorkItem)
             }
             
         case RETURN_JOURNEY:
             domesticMultiLegResultVC?.updatedApiProgress = updatedApiProgress
             domesticMultiLegResultVC?.viewModel.airlineCode = airlineCode
             if flightSearchResultVM.isDomestic {
-                let journeyArray = resultVM.getJourneyDisplayArrayFor(index:  index)
-                domesticMultiLegResultVC?.updatewithArray(index: index , updatedArray: journeyArray, sortOrder: resultVM.getSortOrder())
-                domesticMultiLegResultVC?.updateAirportDetailsArray(resultVM.getAllAirportsArray())
-                domesticMultiLegResultVC?.updateAirlinesDetailsArray(resultVM.getAirlineDetailsArray())
-                domesticMultiLegResultVC?.updateTaxesArray(resultVM.getTaxesDetailsArray())
-                
-                if resultVM.comboResults.count > 0 {
-                    domesticMultiLegResultVC?.comboResults = resultVM.comboResults
+                filterUpdateWorkItem?.cancel()
+                if let domesticMLResultVC = domesticMultiLegResultVC {
+                    filterUpdateWorkItem = DispatchWorkItem {
+                        let journeyArray = resultVM.getJourneyDisplayArrayFor(index:  index)
+                        let sharedSortOrder = self.calculateSortOrder()
+                        domesticMLResultVC.updatewithArray(index: index , updatedArray: journeyArray, sortOrder: sharedSortOrder.0)
+                        domesticMLResultVC.updateAirportDetailsArray(resultVM.getAllAirportsArray())
+                        domesticMLResultVC.updateAirlinesDetailsArray(resultVM.getAirlineDetailsArray())
+                        domesticMLResultVC.updateTaxesArray(resultVM.getTaxesDetailsArray())
+                        
+                        if resultVM.comboResults.count > 0 {
+                            domesticMLResultVC.comboResults = resultVM.comboResults
+                        }
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: filterUpdateWorkItem)
                 }
-            }
-            else {
+            } else {
             filterUpdateWorkItem?.cancel()
             filterUpdateWorkItem = DispatchWorkItem {
                 let journeyArray = resultVM.getIntJourneyDisplayArrayFor(index: index)
                 guard let intMCAndReturnVC = self.intMultiLegResultVC else { return }
                 intMCAndReturnVC.airlineCode = self.airlineCode
-                intMCAndReturnVC.updateWithArray( journeyArray, sortOrder: resultVM.getSortOrder())
+                let sharedSortOrder = self.calculateSortOrder()
+                intMCAndReturnVC.updateWithArray( journeyArray, sortOrder: sharedSortOrder.0)
                 intMCAndReturnVC.updateAirportDetailsArray(resultVM.getAllIntAirportsArray())
                 intMCAndReturnVC.updateAirlinesDetailsArray(resultVM.getIntAirlineDetailsArray())
                 intMCAndReturnVC.updateTaxesArray(resultVM.getTaxesDetailsArray())
                 intMCAndReturnVC.addPlaceholderTableHeaderView()
                 }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: filterUpdateWorkItem!)
+                if filterUpdateWorkItem != nil{
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: filterUpdateWorkItem!)
+                }
+                
             }
             
         case  MULTI_CITY:
             domesticMultiLegResultVC?.updatedApiProgress = updatedApiProgress
             if flightSearchResultVM.isDomestic {
-                
-                let journeyArray = self.flightSearchResultVM.getJourneyDisplayArrayFor(index: index )
-                domesticMultiLegResultVC?.updatewithArray(index: index , updatedArray: journeyArray, sortOrder: self.flightSearchResultVM.getSortOrder())
-                domesticMultiLegResultVC?.updateAirportDetailsArray(resultVM.getAllAirportsArray())
-                domesticMultiLegResultVC?.updateAirlinesDetailsArray(resultVM.getAirlineDetailsArray())
-                domesticMultiLegResultVC?.updateTaxesArray(resultVM.getTaxesDetailsArray())
-                domesticMultiLegResultVC?.viewModel.airlineCode = airlineCode
-                
+                filterUpdateWorkItem?.cancel()
+                filterUpdateWorkItem = DispatchWorkItem {
+                    guard let domesticMLResultVC = self.domesticMultiLegResultVC else { return }
+                    let journeyArray = self.flightSearchResultVM.getJourneyDisplayArrayFor(index: index )
+                    let sharedSortOrder = self.calculateSortOrder()
+                    domesticMLResultVC.updatewithArray(index: index , updatedArray: journeyArray, sortOrder: sharedSortOrder.0)
+                    domesticMLResultVC.updateAirportDetailsArray(resultVM.getAllAirportsArray())
+                    domesticMLResultVC.updateAirlinesDetailsArray(resultVM.getAirlineDetailsArray())
+                    domesticMLResultVC.updateTaxesArray(resultVM.getTaxesDetailsArray())
+                    domesticMLResultVC.viewModel.airlineCode = self.airlineCode
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: filterUpdateWorkItem)
             }
             else {
                 filterUpdateWorkItem?.cancel()
                 filterUpdateWorkItem = DispatchWorkItem(block: {
                     let journeyArray = resultVM.getIntJourneyDisplayArrayFor(index: index)
                     guard let intMCAndReturnVC = self.intMultiLegResultVC else { return }
-                    intMCAndReturnVC.updateWithArray( journeyArray, sortOrder: resultVM.getSortOrder())
+                    let sharedSortOrder = self.calculateSortOrder()
+                    intMCAndReturnVC.updateWithArray( journeyArray, sortOrder: sharedSortOrder.0)
                     intMCAndReturnVC.updateAirportDetailsArray(resultVM.getAllIntAirportsArray())
                     intMCAndReturnVC.updateAirlinesDetailsArray(resultVM.getIntAirlineDetailsArray())
                     intMCAndReturnVC.updateTaxesArray(resultVM.getTaxesDetailsArray())
                     intMCAndReturnVC.addPlaceholderTableHeaderView()
                     intMCAndReturnVC.airlineCode = self.airlineCode
                 })
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: filterUpdateWorkItem!)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: filterUpdateWorkItem)
             }
             
         default:
@@ -1296,6 +1528,8 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
     func applySorting(sortOrder : Sort, isConditionReverced : Bool, legIndex : Int){
 //        guard let intMCAndReturnVC = self.intMultiLegResultVC else { return }
 //        intMCAndReturnVC.applySorting(sortOrder: sortOrder, isConditionReverced: isConditionReverced, legIndex: legIndex, shouldReload : true, completion: {})
+        
+        self.flightSearchParameters["sort[]"] = self.convertSortOrder(sortOrder: sortOrder, isConditionReverced: isConditionReverced).rawValue
         
         if let intMCAndReturnVC = self.intMultiLegResultVC {
              intMCAndReturnVC.applySorting(sortOrder: sortOrder, isConditionReverced: isConditionReverced, legIndex: legIndex, shouldReload : true, completion: {})
@@ -1314,7 +1548,9 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
     
     
     func webserviceProgressUpdated(progress: Float) {
+       
         if progress > 0.25 {
+            
             DispatchQueue.main.async {
                 
                 self.updatedApiProgress = progress

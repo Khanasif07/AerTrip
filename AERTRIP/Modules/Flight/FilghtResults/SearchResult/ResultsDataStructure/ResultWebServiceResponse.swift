@@ -36,6 +36,7 @@ public struct  FlightsResults : Codable {
     var aldet : [String : String]
     var alMaster :[ String :AirlineMasterWS]
     var taxSort : String
+    var eqMaster : [String: IntMultiCityAndReturnWSResponse.Results.EqMaster]
     
     init() {
         j = [Journey]()
@@ -45,14 +46,16 @@ public struct  FlightsResults : Codable {
         aldet = [String : String]()
         alMaster = [ String :AirlineMasterWS]()
         taxSort = ""
+        eqMaster = [:]
     }
-    
     
     func setAirlinesToJourney (_ journey : [Journey] ,  airlineMasterTable : [ String :AirlineMasterWS] ) -> [Journey] {
         
         let modifiedJourneyArray = journey.map({ (journey) -> Journey in
             let newJourney = journey
             let airlineArray = journey.al
+            
+//            printDebug("airlineArray...\(airlineArray)")
             
             switch airlineArray.count {
             case 1 :

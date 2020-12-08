@@ -51,6 +51,10 @@ class PreferencesVC: BaseVC {
         labelsCountDict = CoreDataManager.shared.fetchData(fromEntity: "TravellerData", forAttribute: "label", usingFunction: "count")
     }
     
+    deinit {
+        printDebug("deinit")
+    }
+    
     // MARK: - IB Actions
     
     // MARK: - Helper methods
@@ -95,24 +99,25 @@ class PreferencesVC: BaseVC {
         let alertController = UIAlertController(title: LocalizedString.EnterAGroupName.localized, message: "", preferredStyle: .alert)
         alertController.view.tintColor = AppColors.themeGreen
         
-        alertController.addTextField { textField in
+        alertController.addTextField { (textField) in
             textField.placeholder = LocalizedString.EnterGroupName.localized
             textField.textAlignment = .left
         }
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) {   _ in
             printDebug("Canelled")
         }
         
-        let confirmAction = UIAlertAction(title: "OK", style: .default) { [unowned self] _ in
-            let groupName = alertController.textFields?.first?.text?.trimmingCharacters(in: .whitespaces) ?? "None"
+        let confirmAction = UIAlertAction(title: "OK", style: .default) { [weak self] _ in
+            guard let self = self else {return}
+            let groupName = (alertController.textFields?.first?.text?.trimmingCharacters(in: .whitespaces) ?? "None").capitalized
             printDebug("Current group name: \(groupName)")
             
             if groupName.isEmpty{
                 AppToast.default.showToastMessage(message: LocalizedString.GroupNameCanNotEmpty.localized)
                 return
             } else if !self.viewModel.groups.contains(where: { $0.compare(groupName, options: .caseInsensitive) == .orderedSame }) {
-                if (groupName.lowercased() == LocalizedString.Other.localized.lowercased()) || (groupName.lowercased() == LocalizedString.Others.localized.lowercased()) {
+                if (groupName.lowercased() == LocalizedString.Other.localized.lowercased()) || (groupName.lowercased() == LocalizedString.Others.localized.lowercased()) || (groupName.lowercased() == LocalizedString.Me.localized.lowercased()) {
                    AppToast.default.showToastMessage(message: LocalizedString.CantCreateGroupWithThisName.localized)
                 } else {
                     self.viewModel.groups.append(groupName)
@@ -493,7 +498,8 @@ extension PreferencesVC: GroupTableViewCellDelegate {
     
     func deleteCellTapped(_ indexPath: IndexPath) {
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Delete.localized], colors: [AppColors.themeRed])
-        _ = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.WouldYouLikeToDelete.localized, sourceView: view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
+        _ = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.WouldYouLikeToDelete.localized, sourceView: view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] _, index in
+            guard let self = self else {return}
             if index == 0 {
                 switch self.sections[indexPath.section] {
                 case LocalizedString.Groups:

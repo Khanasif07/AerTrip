@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -27,8 +28,8 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZJL-g9-byz">
-                                <rect key="frame" x="56" y="12" width="4" height="4"/>
-                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="59" y="12" width="4" height="4"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="4" id="19N-SW-unq"/>
                                     <constraint firstAttribute="height" constant="4" id="Tma-px-QKL"/>
@@ -39,7 +40,7 @@
                             <constraint firstItem="qzs-Ob-bSY" firstAttribute="centerY" secondItem="bC8-je-RHQ" secondAttribute="centerY" id="M2B-wJ-PkZ"/>
                             <constraint firstItem="qzs-Ob-bSY" firstAttribute="centerX" secondItem="bC8-je-RHQ" secondAttribute="centerX" id="Wt0-Kf-VfB"/>
                             <constraint firstItem="ZJL-g9-byz" firstAttribute="top" secondItem="qzs-Ob-bSY" secondAttribute="top" constant="7.5" id="r6k-Qa-FjD"/>
-                            <constraint firstItem="ZJL-g9-byz" firstAttribute="leading" secondItem="qzs-Ob-bSY" secondAttribute="trailing" constant="2" id="siz-gr-Tq7"/>
+                            <constraint firstItem="ZJL-g9-byz" firstAttribute="leading" secondItem="qzs-Ob-bSY" secondAttribute="trailing" constant="5" id="siz-gr-Tq7"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -58,4 +59,9 @@
             <point key="canvasLocation" x="118.11594202898551" y="125.22321428571428"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
 </document>

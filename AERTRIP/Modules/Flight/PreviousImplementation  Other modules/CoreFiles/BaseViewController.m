@@ -1091,16 +1091,18 @@
 
 
 - (void) initiateNetworkingCheck{
+    __weak typeof(self) weakSelf = self;
+
     [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        
+        if (!weakSelf) { return; }
         if (status == AFNetworkReachabilityStatusReachableViaWiFi || status == AFNetworkReachabilityStatusReachableViaWWAN) {
-            [self saveBoolean:TRUE forKey:REACHABLE_KEY];
+            [weakSelf saveBoolean:TRUE forKey:REACHABLE_KEY];
         }
         else if(status == AFNetworkReachabilityStatusNotReachable) {
-            [self saveBoolean:FALSE forKey:REACHABLE_KEY];
+            [weakSelf saveBoolean:FALSE forKey:REACHABLE_KEY];
         }
         else {
-            [self saveBoolean:TRUE forKey:REACHABLE_KEY];
+            [weakSelf saveBoolean:TRUE forKey:REACHABLE_KEY];
         }
     }];
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
@@ -1446,8 +1448,8 @@
 - (void)setupStarRatingView: (SCRatingView *)ratingView isEditable:(BOOL)isEditable{
     
     
-    UIImage *emptyImage = [UIImage imageNamed:@"ratingUnSelectedStar"];
-    UIImage *filledImage = [UIImage imageNamed:@"ratingSelectedStar"];
+    UIImage *emptyImage = [UIImage imageNamed:@"starRatingUnfill"];
+    UIImage *filledImage = [UIImage imageNamed:@"starRatingFilled"];
     
     NSMutableArray *emptyArray = [[NSMutableArray alloc] init];
     NSMutableArray *filledArray = [[NSMutableArray alloc] init];
@@ -1471,8 +1473,8 @@
 - (void)setupDotRatingView: (SCRatingView *)ratingView isEditable:(BOOL)isEditable{
     
     
-    UIImage *emptyImage = [UIImage imageNamed:@"tripAdviserUnSelectedDot"];
-    UIImage *filledImage = [UIImage imageNamed:@"tripAdviserSelectedDot"];
+    UIImage *emptyImage = [UIImage imageNamed:@"deselectedAdvisorRating"];
+    UIImage *filledImage = [UIImage imageNamed:@"selectedAdvisorRating"];
     
     NSMutableArray *emptyArray = [[NSMutableArray alloc] init];
     NSMutableArray *filledArray = [[NSMutableArray alloc] init];

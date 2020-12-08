@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,14 +19,17 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="31"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="30.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="31"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2XX-YR-fHv">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="30.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="31"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mumbai, IN 23 Jun" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sbr-31-UvM">
-                                <rect key="frame" x="16" y="4" width="208" height="22.5"/>
+                                <rect key="frame" x="16" y="4" width="139" height="23"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="139" id="2S2-rS-Le1"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -36,9 +37,12 @@
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="cpB-LP-TEu">
                                 <rect key="frame" x="234" y="4" width="125" height="23"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-           " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="94F-X5-TXV">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-           " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="94F-X5-TXV">
                                         <rect key="frame" x="0.0" y="0.0" width="45.5" height="23"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="45.5" id="gAs-ke-aKg"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -46,6 +50,9 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="                -" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="32C-n7-Vrk">
                                         <rect key="frame" x="61.5" y="0.0" width="63.5" height="23"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="63.5" id="wZp-tr-sEQ"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -60,7 +67,7 @@
                             <constraint firstItem="sbr-31-UvM" firstAttribute="top" secondItem="2XX-YR-fHv" secondAttribute="top" constant="4" id="A9d-nR-Ooc"/>
                             <constraint firstAttribute="trailing" secondItem="cpB-LP-TEu" secondAttribute="trailing" constant="16" id="GJJ-E3-jBE"/>
                             <constraint firstItem="cpB-LP-TEu" firstAttribute="centerY" secondItem="sbr-31-UvM" secondAttribute="centerY" id="NKs-TR-Nfp"/>
-                            <constraint firstItem="cpB-LP-TEu" firstAttribute="leading" secondItem="sbr-31-UvM" secondAttribute="trailing" constant="10" id="Yf3-o5-9qL"/>
+                            <constraint firstItem="cpB-LP-TEu" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sbr-31-UvM" secondAttribute="trailing" constant="10" id="Yf3-o5-9qL"/>
                             <constraint firstItem="sbr-31-UvM" firstAttribute="leading" secondItem="2XX-YR-fHv" secondAttribute="leading" constant="16" id="yKC-6n-Kmj"/>
                         </constraints>
                     </view>
@@ -73,15 +80,19 @@
                     <constraint firstItem="2XX-YR-fHv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="uax-CA-YJt"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="cityAndDateLabel" destination="sbr-31-UvM" id="hr8-is-Cwc"/>
+                <outlet property="cityAndDateLblWidth" destination="2S2-rS-Le1" id="2XB-N0-W79"/>
                 <outlet property="containerView" destination="2XX-YR-fHv" id="qsG-AY-a6o"/>
                 <outlet property="containerViewBottomConstraint" destination="Ofn-qC-rmH" id="XRG-LH-BH0"/>
                 <outlet property="tempLabel" destination="94F-X5-TXV" id="ODv-9z-Ylj"/>
+                <outlet property="tempLblWidth" destination="gAs-ke-aKg" id="O1Z-ib-cS5"/>
+                <outlet property="weatherLblWidth" destination="wZp-tr-sEQ" id="mLo-aG-sQR"/>
                 <outlet property="whetherLabel" destination="32C-n7-Vrk" id="oIc-fo-abd"/>
             </connections>
+            <point key="canvasLocation" x="64" y="72"/>
         </tableViewCell>
     </objects>
 </document>

@@ -8,7 +8,7 @@
 import Foundation
 import SystemConfiguration
 import Alamofire
-import SwiftyJSON
+//import SwiftyJSON
 
 typealias JSONDictionary = [String: Any]
 typealias JSONDictionaryArray = [JSONDictionary]
@@ -22,6 +22,8 @@ enum AppNetworking {
         case image, video
     }
     
+    static var textLog = TextLog()
+        
     static let username = ""
     static let password = ""
     //static var manager:AFHTTPSessionManager?
@@ -38,7 +40,7 @@ enum AppNetworking {
     static private func addMandatoryParams(toExistingParams params: JSONDictionary) -> JSONDictionary {
         
         var temp = params
-        temp["_"] = Int(Date().timeIntervalSince1970)
+//        temp["_"] = Int(Date().timeIntervalSince1970)
         
         return temp
     }
@@ -236,6 +238,7 @@ enum AppNetworking {
             let base64LoginString = data.base64EncodedString()
             header["content-type"] = "application/x-www-form-urlencoded"
             header["Authorization"] = "Basic \(base64LoginString)"
+          
             if let accessToken = UserInfo.loggedInUser?.accessToken, !accessToken.isEmpty {
                 
                 header["Access-Token"] = accessToken
@@ -265,12 +268,14 @@ enum AppNetworking {
         }
         
         printDebug("headers: \(header)")
-        AF.sessionConfiguration.timeoutIntervalForRequest = 200
+        AF.session.configuration.timeoutIntervalForRequest = 200
+        AF.session.configuration.timeoutIntervalForResource = 200
+        
        let request = AF.request(URLString,
                           method: httpMethod,
                           parameters: isLocalServerUrl ? addMandatoryParams(toExistingParams: parameters):parameters,
                           encoding: encoding,
-                          headers: header)
+                          headers: header,requestModifier: {$0.timeoutInterval = 200})
         
         request.responseString { (data) in
             //printDebug(data)
@@ -278,9 +283,10 @@ enum AppNetworking {
         
         self.addCookies(forUrl: request.request?.url)
         
+        let requestDate = Date.getCurrentDate()
+
         request.responseData { (response:DataResponse) in
                             
-            
             //save the X-Auth-Token for the security perpose as discussed with aertrip backend
             if let headers = response.response?.allHeaderFields, let xToken = headers["X-Auth-Token"] {
                 UserDefaults.setObject("\(xToken)", forKey: UserDefaults.Key.xAuthToken.rawValue)
@@ -288,6 +294,21 @@ enum AppNetworking {
             printDebug("Cookies:--\(HTTPCookieStorage.shared.cookies(for: request.request!.url!))")
             
             AppNetworking.saveCookies(fromUrl: response.response?.url)
+                        
+            if let url = response.response?.url?.absoluteString{
+                if url.contains(APIEndPoint.login.rawValue)
+                {
+                    if let keys = response.response?.allHeaderFields
+                    {
+                        if let val = keys["Set-Cookie"] as? String{
+                            UserDefaults.standard.set(val, forKey: "loginCookie")
+                        }
+                    }
+                }
+            }
+            
+            
+            
             
                             if loader { hideLoader() }
                             
@@ -300,14 +321,38 @@ enum AppNetworking {
                                 else {
                                     printDebug("response: \(value)\nresponse url: \(URLString)")
                                 }
-                                printDebug(JSON(value))
-                                success(JSON(value))
+                                
+                                let jsonVal = JSON(value)
+                                
+                                // Logger for request
+                                self.textLog.write("\n##########################################################################################\nAPI URL :::\(String(describing: request.request?.url))")
+
+                                self.textLog.write("\nREQUEST HEADER :::::::: \(requestDate)  ::::::::\n\n\(String(describing: request.request?.allHTTPHeaderFields))\n")
+                                
+                                
+                                self.textLog.write("\nRESPONSE HEADER :::::::: \(requestDate)  ::::::::\n\n\(String(describing: response.response?.allHeaderFields))\n")
+
+                                // Logger for response
+                                self.textLog.write("RESPONSE DATA ::::::::    \(Date.getCurrentDate()) ::::::::\(jsonVal)\n##########################################################################################\n")
+                                
+                                printDebug(jsonVal)
+                                success(jsonVal)
                                 
                             case .failure(let e):
+                                
+                                // Logger for request
+                                self.textLog.write("\n##########################################################################################\nAPI URL :::\(String(describing: request.request?.url))")
+
+                                self.textLog.write("\nREQUEST HEADER :::::::: \(requestDate)  ::::::::\n\n\(String(describing: request.request?.allHTTPHeaderFields))\n")
                                 
                                 if (e as NSError).code == NSURLErrorNotConnectedToInternet {
                                     
                                     printDebug("response: \(e)\nresponse url: \(URLString)")
+                                    
+                                    self.textLog.write("\nRESPONSE HEADER :::::::: \(requestDate)  ::::::::\n\n\(String(describing: response.response?.allHeaderFields))\n")
+
+                                    // Logger for response
+                                    self.textLog.write("RESPONSE DATA ::::::::    \(Date.getCurrentDate()) :::::::: response: \(e)\nresponse url: \(URLString)\n##########################################################################################\n")
                                     
                                     // Handle Internet Not available UI
                                     if loader {
@@ -316,6 +361,7 @@ enum AppNetworking {
                                 }
                                 else{
                                     printDebug("response: some error occured\nresponse url: \(URLString)")
+                                                                        self.textLog.write("RESPONSE DATA ::::::::    \(Date.getCurrentDate()) :::::::: response: some error occured\nresponse url: \(URLString)error: \(e as NSError)\n##########################################################################################\n")
                                 }
                                 failure(e as NSError)
                             }

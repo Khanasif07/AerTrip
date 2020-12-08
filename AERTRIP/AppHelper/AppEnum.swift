@@ -12,7 +12,7 @@ import UIKit
 enum ATNotification {
     case profileChanged
     case profileSavedOnServer
-    case userLoggedInSuccess
+    case userLoggedInSuccess(JSON)
     case userAsGuest
     case GRNSessionExpired
     case accountPaymentRegister
@@ -23,6 +23,8 @@ enum ATNotification {
     case profileDetailUpdated
     case preferenceUpdated
     case travellerDeleted
+    
+    
 }
 
 extension Notification.Name {
@@ -34,6 +36,7 @@ extension Notification.Name {
     static let checkoutSessionExpired = Notification.Name("checkoutSessionExpired")
     static let accountDetailFetched = Notification.Name("accountDetailFetched")
     static let bookingDetailFetched = Notification.Name("bookingDetailFetched")
+    static let statusBarTouched = Notification.Name("statusBarTouched")
 
 }
 
@@ -726,7 +729,7 @@ enum ResolutionStatus: RawRepresentable {
         switch self {
         case .paymentPending: return AppColors.themeRed
         case .actionRequired: return AppColors.themeRed
-        case .inProgress: return AppColors.themeOrange
+        case .inProgress: return AppColors.themeYellow
         case .successfull: return AppColors.themeGreen
         case .aborted: return AppColors.themeGray20
         case .closed: return AppColors.themeBlack

@@ -31,6 +31,16 @@ class TripsVC: BaseVC {
         contentScrollView.delegate = self
         // Do any additional setup after loading the view.
         self.initialSetups()
+        
+        printDebug( UIDevice.modelName)
+        
+//        UIDevice.modelName//"iPhone SE"
+        
+        if isSEDevice{
+            tripImageView.contentMode = .scaleAspectFit
+        }else{
+            tripImageView.contentMode = .scaleAspectFill
+        }
     }
     
     //MARK:- Methods

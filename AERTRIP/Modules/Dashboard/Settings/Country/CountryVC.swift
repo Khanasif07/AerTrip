@@ -13,10 +13,15 @@ class CountryVC : BaseVC {
     //@IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var countryTableView: UITableView!
-    @IBOutlet weak var searchBarBackView: UIView!
-    @IBOutlet weak var searchBarSepratorView: UIView!
-    @IBOutlet weak var searchTextField: UITextField!
-    @IBOutlet weak var micButton: UIButton!
+    @IBOutlet weak var searchBarContainer: UIView!
+    @IBOutlet weak var searchBarSepratorView: ATDividerView!
+    @IBOutlet weak var searchBar: ATSearchBar! {
+        didSet {
+            self.searchBar.backgroundColor = AppColors.clear
+            self.searchBar.delegate = self
+            self.searchBar.placeholder = LocalizedString.search.localized
+        }
+    }
     
     
     //MARK:- Properties
@@ -38,6 +43,7 @@ class CountryVC : BaseVC {
     //MARK:- Methods
     //MARK:- Private
     private func initialSetups() {
+        self.countryTableView.contentInset = UIEdgeInsets(top: topNavView.height + self.searchBarContainer.height, left: 0, bottom: 0, right: 0)
         self.topNavView.delegate = self
         self.topNavView.configureNavBar(title: LocalizedString.Country.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false,isDivider : false)
         configureTableView()
@@ -45,12 +51,12 @@ class CountryVC : BaseVC {
         self.countryVm.getCountries()
         self.countryVm.preSelectIndia()
         self.countryTableView.reloadData()
+        self.searchBar.cornerradius = 10.0
+        self.searchBar.clipsToBounds = true
     }
     
     func setUpViewAttributes(){
-        self.searchTextField.delegate = self
-        self.searchTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: UIControl.Event.editingChanged)
-        self.searchBarBackView.roundedCorners(cornerRadius: 10)
+       // self.searchBarBackView.roundedCorners(cornerRadius: 10)
     }
     
     override func bindViewModel() {
@@ -60,14 +66,12 @@ class CountryVC : BaseVC {
     
     override func setupFonts() {
         super.setupFonts()
-        self.searchTextField.font = AppFonts.Regular.withSize(18)
     }
     
     override func setupColors() {
         super.setupColors()
-        self.searchBarBackView.backgroundColor = AppColors.themeGray04
-        self.searchBarSepratorView.backgroundColor = AppColors.themeGray20
-        searchTextField.setAttributedPlaceHolder(placeHolderText: LocalizedString.search.localized, color: AppColors.themeGray40, font: AppFonts.Regular.withSize(18))
+      //  self.searchBarBackView.backgroundColor = AppColors.themeGray04
+      //  self.searchBarSepratorView.backgroundColor = AppColors.themeGray20
     }
     
     private func configureTableView(){
@@ -84,31 +88,33 @@ extension CountryVC: TopNavigationViewDelegate {
     }
 }
 
-extension CountryVC  {
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        return true
-    }
-    
-    @objc func textFieldValueChanged(_ textField : UITextField) {
-        guard let txt = textField.text else { return }
-        self.countryVm.searchText = txt
-        if txt.isEmpty{
-            self.countryVm.clearFilteredData()
-            self.countryTableView.reloadData()
-        }else {
-            self.countryVm.filterCountries(txt: txt)
-            noResultemptyView.searchTextLabel.isHidden = false
-            noResultemptyView.searchTextLabel.text = "for \(txt.quoted)"
-            self.countryTableView.reloadData()
-        }
-    }
-}
-
 extension CountryVC : CountryVcDelegate {
     func showUnderDevelopmentPopUp(){
         AppToast.default.showToastMessage(message: LocalizedString.ThisFunctionalityWillBeAvailableSoon.localized)
         
     //   _ = ATAlertController.alert(title: "", message: LocalizedString.ThisFunctionalityWillBeAvailableSoon.localized, buttons: [LocalizedString.Ok.localized], tapBlock: nil)
+    }
+}
+extension CountryVC: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        search(searchText)
+    }
+    
+    @objc private func search(_ forText: String) {
+        printDebug(forText)
+        self.countryVm.searchText = forText
+        if forText.isEmpty{
+            self.countryVm.clearFilteredData()
+            self.countryTableView.reloadData()
+        }else {
+            self.countryVm.filterCountries(txt: forText)
+            noResultemptyView.searchTextLabel.isHidden = false
+            noResultemptyView.searchTextLabel.text = "for \(forText.quoted)"
+            self.countryTableView.reloadData()
+        }
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.view.endEditing(true)
     }
 }

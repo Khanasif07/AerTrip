@@ -10,7 +10,7 @@ import UIKit
 import FBSDKLoginKit
 import Social
 import Accounts
-import SwiftyJSON
+//import SwiftyJSON
 
 class FacebookController {
     
@@ -30,11 +30,11 @@ class FacebookController {
             facebookLogout()
         }
         
-        var permissions = [ "email", "public_profile" ]
+        var permissions = [ "email", "public_profile", "user_friends"]
         
-        if shouldFetchFriends {
-            permissions.append("user_friends")
-        }
+//        if shouldFetchFriends {
+//            permissions.append("user_friends")
+//        }
         let login = LoginManager()
         
         login.logIn(permissions: permissions, from: viewController, handler: {
@@ -226,8 +226,16 @@ class FacebookController {
     //==========================
     func fetchFacebookFriendsUsingThisAPP(withViewController vc: UIViewController,success: @escaping (([String:Any]) -> Void),
                               failure: @escaping ((Error?) -> Void)){
-        
-            self.loginWithFacebook(fromViewController: vc,isSilentLogin: true, completion: { (result, err) in
+
+        if AccessToken.isCurrentAccessTokenActive{
+            printDebug("++++++++++++++++ \(AccessToken.current?.permissions)++++++++++++")
+            self.fetchFriends(success: { (result) in
+                success(result)
+            }, failure: { (err) in
+                failure(err)
+            })
+        }else{
+            self.loginWithFacebook(fromViewController: vc,isSilentLogin: true, shouldFetchFriends: true, completion: { (result, err) in
                 
                 self.fetchFriends(success: { (result) in
                     
@@ -240,6 +248,7 @@ class FacebookController {
                 })
 
             })
+        }
     }
     
     private func fetchFriends(success: @escaping (([String:Any]) -> Void),

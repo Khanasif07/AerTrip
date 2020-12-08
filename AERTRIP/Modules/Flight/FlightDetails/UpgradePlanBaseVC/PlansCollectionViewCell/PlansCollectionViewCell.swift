@@ -31,6 +31,7 @@ class PlansCollectionViewCell: UICollectionViewCell
     var desc = NSAttributedString()
     var isAnimated = false
     var handler: (()->())?
+    
     override func awakeFromNib()
     {
         super.awakeFromNib()
@@ -38,9 +39,11 @@ class PlansCollectionViewCell: UICollectionViewCell
         fewSeatsLeftCountLabel.layer.cornerRadius = fewSeatsLeftCountLabel.frame.width/2
         dataDisplayView.layer.cornerRadius = 10
         selectButton.layer.cornerRadius = selectButton.bounds.height/2
+        self.dataDisplayView.addShadow(cornerRadius: AppShadowProperties().cornerRadius, maskedCorners: [.layerMaxXMaxYCorner,.layerMaxXMinYCorner,.layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppShadowProperties().shadowColor, offset: AppShadowProperties().offset, opacity: AppShadowProperties().opecity, shadowRadius: AppShadowProperties().shadowRadius)
     }
     
-    @IBAction func tapSelectButton(_ sender: Any) {
+    @IBAction func tapSelectButton(_ sender: Any)
+    {
         self.handler?()
     }
 }

@@ -120,22 +120,26 @@ extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 AppFlowManager.default.moveToAddOnRequestVC(caseData: allCases[indexPath.row - 1], receipt: rcpt)
             }
         case .flightCarriersCell, .flightBoardingAndDestinationCell, .travellersPnrStatusTitleCell, .travellersPnrStatusCell:
-            AppFlowManager.default.moveToBookingDetail(bookingDetail: self.viewModel.bookingDetail,tripCities: self.viewModel.tripCitiesStr,legSectionTap: indexPath.section - self.viewModel.noOfLegCellAboveLeg)
+            AppFlowManager.default.moveToBookingDetail(bookingDetail: self.viewModel.bookingDetail,tripCities: self.viewModel.tripCitiesStr,legSectionTap: indexPath.section - self.viewModel.noOfLegCellAboveLeg, presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
         case .tripChangeCell:
-            AppFlowManager.default.presentSelectTripVC(delegate: self, usingFor: .bookingTripChange, allTrips: self.viewModel.allTrips,tripInfo: self.viewModel.bookingDetail?.tripInfo ?? TripInfo())
+            AppFlowManager.default.presentSelectTripVC(delegate: self, usingFor: .bookingTripChange, allTrips: self.viewModel.allTrips,tripInfo: self.viewModel.bookingDetail?.tripInfo ?? TripInfo(), dismissalStatusBarStyle: .darkContent)
             self.tripChangeIndexPath = indexPath
         case .addToAppleWallet:
             addToAppleWallet(indexPath: indexPath)
         case .bookSameFlightCell :
-            if let whatNext = self.whatNextForSameFlightBook() {
-                self.bookSameFlightWith(whatNext)
-            }
+//            if let whatNext = self.whatNextForSameFlightBook() {
+//                self.bookSameFlightWith(whatNext)
+//            }
+        break
         case .addToCalenderCell:
-            self.addToCalender()
-        case .paymentInfoCell, .bookingCell, .addOnsCell, .cancellationCell, .refundCell,.paymentPendingCell, .paidCell:
+//            self.addToCalender()
+        break
+        case .paymentInfoCell, .bookingCell, .addOnsCell, .cancellationCell, .refundCell, .paidCell://.paymentPendingCell
             if let rcpt = self.viewModel.bookingDetail?.receipt {
                 AppFlowManager.default.moveToBookingVoucherVC(receipt: rcpt, bookingId: self.viewModel.bookingId)
             }
+        case .paymentPendingCell:
+            self.getOutstandingDetails()
         default:  break
         }
         /*
@@ -186,6 +190,13 @@ extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
          
          */
     }
+    
+    func getOutstandingDetails(){
+        
+        self.viewModel.getBookingOutstandingPayment()
+    }
+    
+    
 }
 
 extension FlightBookingsDetailsVC: TopNavigationViewDelegate {
@@ -198,7 +209,7 @@ extension FlightBookingsDetailsVC: TopNavigationViewDelegate {
             return
         }
         
-        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.RequestAddOnAndFrequentFlyer.localized, LocalizedString.RequestRescheduling.localized, LocalizedString.RequestCancellation.localized, LocalizedString.Download.localized, LocalizedString.ResendConfirmationMail.localized], colors: [self.viewModel.bookingDetail?.addOnRequestAllowed ?? false ? AppColors.themeDarkGreen : AppColors.themeGray40, self.viewModel.bookingDetail?.rescheduleRequestAllowed ?? false ? AppColors.themeDarkGreen : AppColors.themeGray40, self.viewModel.bookingDetail?.cancellationRequestAllowed ?? false ? AppColors.themeDarkGreen : AppColors.themeGray40, AppColors.themeDarkGreen, AppColors.themeDarkGreen])
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.RequestAddOnAndFrequentFlyer.localized, LocalizedString.RequestRescheduling.localized, LocalizedString.RequestCancellation.localized, LocalizedString.Download.localized, LocalizedString.ResendConfirmationMail.localized, LocalizedString.reloadDetail.localized], colors: [self.viewModel.bookingDetail?.addOnRequestAllowed ?? false ? AppColors.themeDarkGreen : AppColors.themeGray40, self.viewModel.bookingDetail?.rescheduleRequestAllowed ?? false ? AppColors.themeDarkGreen : AppColors.themeGray40, self.viewModel.bookingDetail?.cancellationRequestAllowed ?? false ? AppColors.themeDarkGreen : AppColors.themeGray40, AppColors.themeDarkGreen, AppColors.themeDarkGreen, AppColors.themeDarkGreen])
         
         _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] _, index in
             
@@ -224,7 +235,10 @@ extension FlightBookingsDetailsVC: TopNavigationViewDelegate {
                 AppGlobals.shared.viewPdf(urlPath: endPoints, screenTitle: LocalizedString.ETicket.localized)
             } else if index == 4 {
                 // Present Resend Confirmation Email  
-                AppFlowManager.default.presentConfirmationMailVC(bookindId: self?.viewModel.bookingDetail?.id ?? "")
+                AppFlowManager.default.presentConfirmationMailVC(bookindId: self?.viewModel.bookingDetail?.id ?? "", presentingStatusBarStyle: .lightContent)
+            }else if index == 5 {
+                printDebug("reload result")
+                self?.viewModel.getBookingDetail(showProgress: true)
             }
         }
     }
@@ -413,6 +427,17 @@ extension FlightBookingsDetailsVC: MXParallaxHeaderDelegate {
 }
 
 extension FlightBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
+    
+    func share() {
+        
+    }
+    
+    func bookSameFlightOrRoom() {
+        if let whatNext = self.whatNextForSameFlightBook() {
+            self.bookSameFlightWith(whatNext)
+        }
+    }
+    
     func addToTrips() {
         // not needed here
     }
@@ -423,7 +448,6 @@ extension FlightBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
             AppFlowManager.default.moveToBookingWebCheckinVC(contactInfo: self.viewModel.bookingDetail?.additionalInformation?.contactInfo, webCheckins: self.viewModel.bookingDetail?.additionalInformation?.webCheckins ?? [])
         } else {
             self.webCheckinServices(url: self.viewModel.bookingDetail?.webCheckinUrl ?? "")
-            
         }
         
         
@@ -437,10 +461,10 @@ extension FlightBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
     
     func openCallDetail() {
         printDebug("open call detail  ")
-        AppFlowManager.default.moveToBookingCallVC(contactInfo: self.viewModel.bookingDetail?.additionalInformation?.contactInfo)
+        AppFlowManager.default.moveToBookingCallVC(contactInfo: self.viewModel.bookingDetail?.additionalInformation?.contactInfo, presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
     }
     
-    func addToCalender() {
+    func addToCalendar() {
         //        if let start = self.viewModel.bookingDetail?.bookingDetail?.eventStartingDate, let end = self.viewModel.bookingDetail?.bookingDetail?.evenEndingDate {
         //            let bId = self.viewModel.bookingDetail?.bookingDetail?.bookingId ?? ""
         //            AppGlobals.shared.addEventToCalender(title: "\(self.viewModel.tripCitiesStr.string)", startDate: start, endDate: end, notes: "You've a flight booked for '\(self.viewModel.tripCitiesStr.string)'\nFor reference you booking id is '\(self.viewModel.bookingDetail?.bookingDetail?.bookingId ?? "")'", uniqueId: bId)
@@ -537,7 +561,7 @@ extension FlightBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
             addController?.delegate = self
             self.present(addController!, animated: true)
         } catch {
-            print(error)
+            printDebug(error)
         }
     }
     
@@ -600,6 +624,14 @@ extension FlightBookingsDetailsVC: BookingProductDetailVMDelegate {
     }
     func getTripOwnerFaiure(error: ErrorCodes) {
         self.bookingDetailsTableView.reloadData()
+    }
+    
+    func getBookingOutstandingPaymentSuccess() {
+        self.showDepositOptions()
+    }
+    
+    func getBookingOutstandingPaymentFail() {
+//        self.payButtonRef?.isLoading = false
     }
 }
 

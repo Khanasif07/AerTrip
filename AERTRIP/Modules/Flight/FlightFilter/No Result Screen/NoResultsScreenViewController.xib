@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -27,25 +27,25 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RadarMarker" translatesAutoresizingMaskIntoConstraints="NO" id="zST-cY-klk">
-                    <rect key="frame" x="39.5" y="108" width="296" height="296"/>
+                    <rect key="frame" x="12" y="104" width="296" height="296"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="296" id="67M-w2-vax"/>
                         <constraint firstAttribute="height" constant="296" id="Zni-Ul-XNO"/>
                     </constraints>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RadarRevolvingIndicator" translatesAutoresizingMaskIntoConstraints="NO" id="kgj-Hz-ZSX">
-                    <rect key="frame" x="97.5" y="166" width="180" height="180"/>
+                    <rect key="frame" x="70" y="162" width="180" height="180"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="180" id="U7j-4Q-80m"/>
                         <constraint firstAttribute="height" constant="180" id="z3M-Oo-Xzn"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Results Available" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MCc-eg-RWt">
-                    <rect key="frame" x="16" y="419" width="343" height="28"/>
+                    <rect key="frame" x="16" y="415" width="288" height="28"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="28" id="sTi-lk-kBK"/>
                     </constraints>
@@ -53,18 +53,17 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We couldn’t find flights to match your filters. Try changing the filters, or reset them." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wjY-RV-Axa">
-                    <rect key="frame" x="51.5" y="453" width="272" height="69"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Try different filters, or clear all." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wjY-RV-Axa">
+                    <rect key="frame" x="26" y="449" width="268" height="30"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="272" id="GWc-Vk-TQ9"/>
-                        <constraint firstAttribute="height" constant="69" id="iGV-P1-vl4"/>
+                        <constraint firstAttribute="height" constant="30" id="iGV-P1-vl4"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                     <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yYa-M0-e2g">
-                    <rect key="frame" x="137.5" y="532" width="100" height="44"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yYa-M0-e2g">
+                    <rect key="frame" x="110" y="489" width="100" height="44"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="9fa-d7-fHL"/>
                         <constraint firstAttribute="width" constant="100" id="Zz3-N9-E2Q"/>
@@ -78,22 +77,24 @@
                     </connections>
                 </button>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="kgj-Hz-ZSX" firstAttribute="centerX" secondItem="zST-cY-klk" secondAttribute="centerX" id="0uQ-rI-3od"/>
                 <constraint firstItem="kgj-Hz-ZSX" firstAttribute="centerY" secondItem="zST-cY-klk" secondAttribute="centerY" id="3z8-T0-cvP"/>
+                <constraint firstAttribute="trailing" secondItem="wjY-RV-Axa" secondAttribute="trailing" constant="26" id="5zc-EI-UyU"/>
                 <constraint firstItem="MCc-eg-RWt" firstAttribute="top" secondItem="zST-cY-klk" secondAttribute="bottom" constant="15" id="9Sg-Wa-YVy"/>
                 <constraint firstItem="yYa-M0-e2g" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="BwG-Ke-JoJ"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="MCc-eg-RWt" secondAttribute="trailing" constant="16" id="OPm-cR-34z"/>
                 <constraint firstItem="wjY-RV-Axa" firstAttribute="top" secondItem="MCc-eg-RWt" secondAttribute="bottom" constant="6" id="QVu-cd-N9e"/>
                 <constraint firstItem="zST-cY-klk" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="XDd-5Y-9j2"/>
-                <constraint firstItem="zST-cY-klk" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="108" id="bbc-vz-K1h"/>
+                <constraint firstItem="zST-cY-klk" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="104" id="bbc-vz-K1h"/>
                 <constraint firstItem="MCc-eg-RWt" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="cHB-XH-702"/>
                 <constraint firstItem="wjY-RV-Axa" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="eWI-xq-WNG"/>
+                <constraint firstItem="wjY-RV-Axa" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="26" id="gc7-aa-h8m"/>
                 <constraint firstItem="MCc-eg-RWt" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="kdZ-w7-ULv"/>
                 <constraint firstItem="yYa-M0-e2g" firstAttribute="top" secondItem="wjY-RV-Axa" secondAttribute="bottom" constant="10" id="uy1-Et-lAX"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="138" y="154"/>
         </view>
     </objects>

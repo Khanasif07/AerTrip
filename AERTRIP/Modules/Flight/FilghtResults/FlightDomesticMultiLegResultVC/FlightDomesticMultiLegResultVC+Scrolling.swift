@@ -12,7 +12,7 @@ extension FlightDomesticMultiLegResultVC {
     
     
     //MARK:- NavigationView Animation
-    func hidingAnimationOnNavigationBarOnScroll(offsetDifference : CGFloat) {
+    func hidingAnimationOnNavigationBarOnScroll(offsetDifference : CGFloat, scrollView: UIScrollView) {
          DispatchQueue.main.async {
             let visualEffectViewHeight =  CGFloat(88.0)
             
@@ -37,15 +37,19 @@ extension FlightDomesticMultiLegResultVC {
                         self.baseScrollView.setContentOffset(baseViewContentOffset, animated: false )
                         self.headerCollectionViewTop.constant = yCordinateForHeaderView
                         blurEffectView.frame = rect
+                        if ((scrollView as? UITableView) == nil) && (self.headerCollectionViewTop.constant == 0.0){
+                            self.setAllTableViewHeader()
+                        }
                         
                     }
+                    self.view.layoutIfNeeded()
                 }
             } ,completion: nil)
         }
        }
     
     
-    fileprivate func revealAnimationOfNavigationBarOnScroll(offsetDifference : CGFloat) {
+    fileprivate func revealAnimationOfNavigationBarOnScroll(offsetDifference : CGFloat, scrollView: UIScrollView) {
         let invertedOffset = -offsetDifference
         
         DispatchQueue.main.async {
@@ -54,34 +58,47 @@ extension FlightDomesticMultiLegResultVC {
                 
                 if let blurEffectView = self.navigationController?.view.viewWithTag(500) {
                     var rect = blurEffectView.frame
-                    var yCordinate = rect.origin.y + invertedOffset
+                    var yCordinate = invertedOffset - 86
                     yCordinate = min ( 0,  yCordinate)
+                    if self.baseScrollView.contentOffset.y <= 0 || rect.origin.y == 0{
+                        yCordinate = 0
+                    }
                     rect.origin.y = yCordinate
                     blurEffectView.frame = rect
                     var baseViewContentOffset = self.baseScrollView.contentOffset
-                    baseViewContentOffset.y = min( 0 , invertedOffset)
-//                    self.baseScrollView.setContentOffset(baseViewContentOffset, animated: false )
-                    
+                    let newDiff = 86 - invertedOffset
+                    baseViewContentOffset.y = max(0 , newDiff)
+                    if self.baseScrollView.contentOffset.y <= 0{
+                        baseViewContentOffset.y = 0
+                    }
+                    self.baseScrollView.setContentOffset(baseViewContentOffset, animated: false )
                     rect = self.collectionContainerView.frame
-                    var yCordinateForHeaderView = rect.origin.y + invertedOffset
+                    var yCordinateForHeaderView = (invertedOffset + 2.0)
+                    if rect.origin.y >= 88{
+                        yCordinateForHeaderView = 88.0
+                    }
                     yCordinateForHeaderView = min(88.0 , yCordinateForHeaderView)
                     self.headerCollectionViewTop.constant = yCordinateForHeaderView
+                    if ((scrollView as? UITableView) == nil) && (self.headerCollectionViewTop.constant == 88.0){
+                        self.setAllTableViewHeader()
+                    }
+                    self.view.layoutIfNeeded()
                 }
-            } ,completion: nil)
+            } ,completion: nil)//{_ in self.setAllTableViewHeader()}
         }
     }
-    
+
     func animateTopViewOnScroll(_ scrollView: UIScrollView) {
         
         let contentOffset = scrollView.contentOffset
         let offsetDifference = contentOffset.y - scrollviewInitialYOffset
         
         if offsetDifference > 0 {
-            self.hidingAnimationOnNavigationBarOnScroll(offsetDifference : offsetDifference)
+            self.hidingAnimationOnNavigationBarOnScroll(offsetDifference : offsetDifference, scrollView: scrollView)
         } else if offsetDifference < 0{
-            self.revealAnimationOfNavigationBarOnScroll(offsetDifference : offsetDifference)
+            self.revealAnimationOfNavigationBarOnScroll(offsetDifference : offsetDifference, scrollView: scrollView)
         }else if contentOffset.y == 0.0{
-            self.baseScrollView.contentOffset.y = 0.0
+//            self.baseScrollView.contentOffset.y = 0.0
         }
     }
     
@@ -98,11 +115,11 @@ extension FlightDomesticMultiLegResultVC {
 //
 //            // If blurEffectView yCoodinate is close to top of the screen
             if  ( yCoordinate > ( visualEffectViewHeight / 2.0 ) ){
-                hidingAnimationOnNavigationBarOnScroll(offsetDifference: 88.0)
+                hidingAnimationOnNavigationBarOnScroll(offsetDifference: 88.0, scrollView: scrollView)
                 
             }
             else {  //If blurEffectView yCoodinate is close to fully visible state of blurView
-                revealAnimationOfNavigationBarOnScroll(offsetDifference: (-88.0))
+                revealAnimationOfNavigationBarOnScroll(offsetDifference: (-88.0), scrollView: scrollView)
             }
         }
     }
@@ -128,20 +145,19 @@ extension FlightDomesticMultiLegResultVC {
             }
             return
         }//tableView.indexPathForSelectedRow
-        let visibleRect = getVisibleAreaRectFor(tableView: tableView)
+//        let visibleRect = getVisibleAreaRectFor(tableView: tableView)
         let xCoordinate = tableView.frame.origin.x
         let selectedRowIndex = IndexPath(row: selectedIndex, section: 0)
         var selectedRowRect = tableView.rectForRow(at: selectedRowIndex)
         selectedRowRect.origin.y = selectedRowRect.origin.y - tableView.contentOffset.y
         selectedRowRect.origin.x = xCoordinate
-        if self.isRowCompletelyVisible(at: selectedRowIndex, for: tableView){//visibleRect.contains(selectedRowRect) {
+        if self.isRowCompletelyVisible(at: selectedRowIndex, for: tableView){
             let index = tableView.tag - 1000
             hideHeaderCellAt(index: index, isHeaderNeedSet: isHeaderNeedToSet)
         }
         else {
             showHeaderCellAt(tableView: tableView, isHeaderNeedSet: isHeaderNeedToSet)
         }
-//        setTableViewHeaderFor(tableView: tableView)
     }
         
     func showHeaderCellAt(tableView : UITableView, isHeaderNeedSet: Bool = false) {
@@ -153,21 +169,16 @@ extension FlightDomesticMultiLegResultVC {
             headerView.isHidden = false
             
             let width = UIScreen.main.bounds.size.width / 2.0
-            
+             
             if let journey = self.viewModel.results[index].selectedJourney{
                 headerView.setValuesFrom(journey: journey)
             }
-            let hiddenHeaderY:CGFloat = -44.0//(self.headerCollectionViewTop.constant + self.headerCollectionView.height + self.baseScrollView.contentOffset.y - 44)
-            
+            let hiddenHeaderY:CGFloat = -44.0
             let headerJourneyRect  = CGRect(x: (width * CGFloat(index)), y: hiddenHeaderY , width: width - 1 , height: journeyCompactViewHeight)
             headerView.frame = headerJourneyRect
             UIView.animate(withDuration: 0.4, animations: {
                 var rect = headerView.frame
-//                var yCoordinate = max(self.headerCollectionViewTop.constant +  self.headerCollectionView.frame.size.height , self.headerCollectionView.frame.size.height)
-//                if self.baseScrollView.contentOffset.y == 88.0 {
-//                    yCoordinate = yCoordinate + 88.0
-//                }
-                rect.origin.y = 0.0//(self.headerCollectionViewTop.constant + self.headerCollectionView.height + self.baseScrollView.contentOffset.y)
+                rect.origin.y = 0.0
                 rect.size.height = self.journeyCompactViewHeight
                 headerView.frame = rect
             }){ _ in
@@ -194,13 +205,15 @@ extension FlightDomesticMultiLegResultVC {
             return
         }
         
-        if !headerView.isHidden {
+        if !headerView.isHidden && !isHiddingHeader {
+            isHiddingHeader = true
             UIView.animate(withDuration: 0.4, animations: {
                 var frame = headerView.frame
                 frame.origin.y =  -44.0//(self.headerCollectionViewTop.constant + self.headerCollectionView.height + self.baseScrollView.contentOffset.y - 44.0)//(-self.headerCollectionViewTop.constant - self.journeyCompactViewHeight)
                 headerView.frame = frame
             }) { (completed) in
                 headerView.isHidden = true
+                self.isHiddingHeader = false
                 if isHeaderNeedSet{
                     if let table = self.baseScrollView.viewWithTag(1000 + index) as? UITableView{
                         self.setTableViewHeaderFor(tableView: table)
@@ -237,15 +250,28 @@ extension FlightDomesticMultiLegResultVC {
         
         let height : CGFloat
         if headerView.isHidden {
-            height = 138.0
+            height = 0.0//138.0
         }
         else {
-            height = 188.0
+            height = 44.0//188.0
         }
+        
+//        tableView.contentInset = UIEdgeInsets(top: height, left: 0, bottom: 0, right: 0)
+        
 //        guard !((tableView.tableHeaderView?.height) == height) else {return}
-        let rect = CGRect(x: 0, y: 0, width: width, height: height )
-        let tableHeaderView = UIView(frame: rect)
-        tableView.tableHeaderView = tableHeaderView
+//        let rect = CGRect(x: 0, y: 0, width: width, height: height )
+//        let tableHeaderView = UIView(frame: rect)
+//        tableView.tableHeaderView = tableHeaderView
+        
+        if  (height != initialHeader) || (!self.isSettingupHeader){
+            self.isSettingupHeader = true
+            self.initialHeader = height
+            UIView.animate(withDuration: 0.05, animations: {
+                tableView.contentInset = UIEdgeInsets(top: height, left: 0, bottom: 0, right: 0)
+            }) { (_) in
+                self.isSettingupHeader = false
+            }
+        }
     }
                
 
@@ -255,64 +281,24 @@ extension FlightDomesticMultiLegResultVC {
             self.journeyHeaderViewArray[index].setValuesFrom(journey: journey)
         }
         self.hideHeaderCellAt(index: index, isHeaderNeedSet: true)
-        
-        
-//        let visibleRect = self.getVisibleAreaRectFor(tableView: tableView)
-//        let xCoordinate = tableView.frame.origin.x
-//        let zerothRowIndex = IndexPath(item: 0, section: 0)
-//        var zerothRowRect = tableView.rectForRow(at: zerothRowIndex)
-//        zerothRowRect.origin.x = xCoordinate
-//        let width = tableView.bounds.size.width
-//
-//        let isFirstCellVisible : Bool
-//        if visibleRect.contains(zerothRowRect) {
-//            isFirstCellVisible = true
-//        }
-//        else {
-//            isFirstCellVisible = false
-//        }
-        
-//        let index = tableView.tag - 1000
-//        if let journey = self.viewModel.results[index].selectedJourney{
-//            journeyHeaderViewArray[index].setValuesFrom(journey: journey)
-//        }
-////        let headerView = journeyHeaderViewArray[index]
-//
-//        let height : CGFloat = 138.0
-//        journeyHeaderViewArray[index].isHidden = true
-//        if isFirstCellVisible {
-//
-//            if headerView.isHidden {
-//                height = 138.0
-//            }
-//            else {
-//                height = 188.0
-//            }
-//        }
-
-//        if let selectedIndex =  self.getSelectedIndex(for: tableView){ //tableView.indexPathForSelectedRow
-//
-//            if selectedIndex <= 4 {//selectedIndex.row
-//                  height = 138.0
-//            }
-//        }
-//
-//        let rect = CGRect(x: 0.0, y: 0.0, width: width, height: height )
-//        let tableHeaderView = UIView(frame: rect)
-//        tableView.tableHeaderView = tableHeaderView
     }
 
     
     //MARK:- ScrollView Delegate Methods
    
     
-    func changeContentOfssetWithMainScrollView(_ isNeedToAnimate:Bool = false){
+    func changeContentOfssetWithMainScrollView(_ isNeedToAnimate:Bool = true){
         guard let blurView = self.navigationController?.view.viewWithTag(500) else  {return}
-        UIView.animate(withDuration: isNeedToAnimate ? 0.3 : 0.0) {
-            blurView.frame.origin.y = -self.baseScrollView.contentOffset.y
-//            self.headerCollectionView.frame.origin.y = (88.0 - self.baseScrollView.contentOffset.y)
-            self.headerCollectionViewTop.constant = (88.0 - self.baseScrollView.contentOffset.y)
-            self.view.layoutIfNeeded()
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: isNeedToAnimate ? 0.3 : 0.0) {
+                self.collectionContainerView.origin.y = (88.0 - self.baseScrollView.contentOffset.y)
+                self.headerCollectionViewTop.constant = (88.0 - self.baseScrollView.contentOffset.y)
+                blurView.frame.origin.y = -self.baseScrollView.contentOffset.y
+                if ((self.headerCollectionViewTop.constant == 88.0) || (self.headerCollectionViewTop.constant == 0.0)){
+                    self.setAllTableViewHeader()
+                }
+                self.view.layoutIfNeeded()
+            }
         }
     }
     
@@ -369,7 +355,6 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
         if !scrollView.isScrollEnabled{
             return
         }
-        
         if scrollView == baseScrollView {
             self.syncScrollView(headerCollectionView, toScrollView: baseScrollView)
             if scrollView.contentOffset.y > 88.0{
@@ -384,16 +369,23 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
         if scrollView.tag > 999 {
             
             for subview in baseScrollView.subviews.filter({ $0.tag > 999 }) {
-                
+                guard (!scrollView.isBouncingBottom && ((scrollView.contentSize.height - 5.0) > (scrollView.contentOffset.y + scrollView.height)) || (self.baseScrollView.contentOffset.y < 88)) else {
+                    return
+                }
                 if subview == scrollView {
                     animateTopViewOnScroll(scrollView)
                     if let tableView = scrollView as? UITableView {
                         animateJourneyCompactView(for: tableView)
+                        self.setTableViewHeaderFor(tableView: tableView)
                     }
                 }
                 else {
                     if let tableView = subview as? UIScrollView {
-                        tableView.setContentOffset(tableView.contentOffset, animated: false)
+                        if tableView.contentOffset.y < 0{
+                            tableView.contentOffset.y = 0
+                        }else{
+                            tableView.setContentOffset(tableView.contentOffset, animated: false)
+                        }
                     }
                 }
             }
@@ -403,6 +395,14 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
     func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
         if scrollView != self.baseScrollView{
             if let tableView = scrollView as? UITableView{
+                if let index = self.getSelectedIndex(for: tableView){
+                    if index < 5{
+                        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+                    }else{
+                        tableView.contentInset = UIEdgeInsets(top: 44.0, left: 0, bottom: 0, right: 0)
+                    }
+                    
+                }
                 tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .middle, animated: true)
             }
         }
@@ -459,9 +459,6 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
                 if !scrollView.isBouncingBottom{
                     snapToTopOrBottomOnSlowScrollDragging(scrollView)
                 }
-                if (scrollView.contentOffset.y == 0 && self.baseScrollView.contentOffset.y != 0){
-                    self.baseScrollView.contentOffset.y = 0.0
-                }
                 return
             }
         }
@@ -487,9 +484,17 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
             UIView.animate(withDuration: 0.3) {
                 self.setTableViewHeaderFor(tableView: tableView)
                 if scrollView.contentOffset.y == 0{
-                    self.baseScrollView.contentOffset.y = 0
+//                    self.baseScrollView.contentOffset.y = 0
                 }
             }
+        }
+        if self.baseScrollView.contentOffset.y < 88.0{
+            if self.baseScrollView.contentOffset.y < 44{
+                self.baseScrollView.contentOffset.y = 0.0
+            }else{
+                self.baseScrollView.contentOffset.y = 88.0
+            }
+            self.changeContentOfssetWithMainScrollView(true)
         }
     }
     
@@ -501,10 +506,28 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
     
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         if let tableView = scrollView as? UITableView{
-            delay(seconds: 0.4) {
+            delay(seconds: 0.2) {
                 self.animateJourneyCompactView(for: tableView, isHeaderNeedToSet: true)
-                UIView.animate(withDuration: 0.3) {
-                    self.baseScrollView.contentOffset.y = 0.0
+                self.setAllTableViewHeader()
+            }
+        }
+        if self.baseScrollView.contentOffset.y < 88.0{
+            if self.baseScrollView.contentOffset.y < 44{
+                self.baseScrollView.contentOffset.y = 0.0
+            }else{
+                self.baseScrollView.contentOffset.y = 88.0
+            }
+            self.changeContentOfssetWithMainScrollView(true)
+        }
+    }
+    
+    func setAllTableViewHeader(){
+        delay(seconds: 0.2) {
+            for subView in self.baseScrollView.subviews{
+                if let tableView = subView as? UITableView{
+                    DispatchQueue.main.async {
+                        self.animateJourneyCompactView(for: tableView, isHeaderNeedToSet: true)
+                    }
                 }
             }
         }
@@ -518,14 +541,17 @@ extension FlightDomesticMultiLegResultVC{
     public func boundsWithoutInset(for tableView: UITableView)-> CGRect{
         var boundsWithoutInset = tableView.bounds
         let colletionSpace = self.headerCollectionViewTop.constant + self.headerCollectionView.height
-        boundsWithoutInset.origin.y += (tableView.contentInset.top + colletionSpace)
-        boundsWithoutInset.size.height -= (tableView.contentInset.top + tableView.contentInset.bottom + colletionSpace - 40)
+        boundsWithoutInset.origin.y += (tableView.contentInset.top + colletionSpace + self.baseScrollView.contentOffset.y) + 10
+        let insetOnTop:CGFloat = (colletionSpace <= 50) ? 20 : (colletionSpace + 50)
+        boundsWithoutInset.size.height -= (tableView.contentInset.top + tableView.contentInset.bottom + insetOnTop + 50 + self.baseScrollView.contentOffset.y)
         return boundsWithoutInset
     }
 
     public func isRowCompletelyVisible(at indexPath: IndexPath, for tableView: UITableView) -> Bool {
         let rect = tableView.rectForRow(at: indexPath)
-        return self.boundsWithoutInset(for: tableView).contains(rect)
+//        let rectWithRespectToView = tableView.convert(rect, from: self.view)
+//        printDebug("rectWithRespectToView\(rectWithRespectToView)")
+        return self.boundsWithoutInset(for: tableView).intersects(rect)
     }
     
 }

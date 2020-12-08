@@ -278,7 +278,7 @@ extension BookingHotelDetailVC {
             //            return (self.viewModel.bookingDetail?.bookingDetail?.overViewData ?? "").isEmpty ? CGFloat.leastNormalMagnitude : UITableView.automaticDimension
             if let info = self.viewModel.bookingDetail?.bookingDetail?.overViewData, !info.isEmpty {
                 let textView = UITextView()
-                textView.frame.size = CGSize(width: UIDevice.screenWidth - 32.0, height: 100.0)
+                textView.frame.size = CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0)
                 textView.font = AppFonts.Regular.withSize(18)
                 textView.text = info
                 if textView.numberOfLines >= 3{
@@ -286,10 +286,10 @@ extension BookingHotelDetailVC {
                         return ((3 * lineHeight) + 62)
                     }
                 }else{
-                    let text = (self.viewModel.bookingDetail?.bookingDetail?.hotelAddressDetail ?? "") + "Maps    "
-                    let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
+                    let text = (self.viewModel.bookingDetail?.bookingDetail?.hotelAddressDetail ?? "") + "Maps 1234"
+                    let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 33.0, height: 10000.0))
                     return size.height + 46.5
-                        + 13.0  + 2.0//y of textview 46.5 + bottom space 14.0 + 7.0
+                        + 13.0  + 7.0//y of textview 46.5 + bottom space 14.0 + 7.0
                 }
             }
             return CGFloat.leastNormalMagnitude

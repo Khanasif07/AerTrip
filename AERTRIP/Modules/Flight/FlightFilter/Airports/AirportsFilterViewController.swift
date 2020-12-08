@@ -13,18 +13,18 @@ protocol AirportFilterDelegate : FilterDelegate {
     
     func originSelectionChanged(selection : [AirportsGroupedByCity]  ,at index : Int )
     func destinationSelectionChanged(selection : [AirportsGroupedByCity] ,at index : Int )
-    func sameSourceDestinationSelected(at index : Int)
+    func sameSourceDestinationSelected(at index : Int, selected: Bool)
     func layoverSelectionsChanged(selection : [LayoverDisplayModel] , at index : Int )
-    func allLayoverSelectedAt( index : Int)
+    func allLayoverSelectedAt( index : Int, selected: Bool)
     func allOriginDestinationAirportsSelectedAt( index : Int)
     func airportSelectionChangedForReturnJourneys(originAirports: [AirportsGroupedByCity], destinationAirports: [AirportsGroupedByCity])
     func layoverSelectionsChangedForReturnJourney(selection : [LayoverDisplayModel] , at index : Int)
-    func allLayoversSelectedInReturn()
+    func allLayoversSelectedInReturn(selected: Bool)
 }
 
 extension AirportFilterDelegate {
     func layoverSelectionsChangedForReturnJourney(selection : [LayoverDisplayModel] , at index : Int) { }
-    func allLayoversSelectedInReturn() { }
+    func allLayoversSelectedInReturn(selected: Bool) { }
 }
 
 
@@ -52,6 +52,8 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
     @IBOutlet weak var layoverSeparatorView: UIView!
     @IBOutlet weak var layoverTitleLbl: UILabel!
     @IBOutlet weak var allLayoverButton: UIButton!
+    @IBOutlet weak var allLayoversContainerBtn: UIButton!
+    
     //MARK:- Height Constraints Outlets
     @IBOutlet weak var topViewHeight: NSLayoutConstraint!
     @IBOutlet weak var originTableViewHeight: NSLayoutConstraint!
@@ -70,7 +72,6 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
     var airportFilterArray  = [AirportLegFilter]()
     var currentAirportFilter : AirportLegFilter!
     var searchType : FlightSearchType? 
-    var allLayoverSelectedByUserInteraction = false
     
     private var allOriginDestSelectedAtIndex: [Int: Bool] = [:]
     var isIntReturnOrMCJourney = false
@@ -81,7 +82,7 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
         }
     }
     
-    private var multiLegSegmentControl = UISegmentedControl()
+    private var multiLegSegmentControl: UISegmentedControl?
     
     //MARK:- View Controller Method
     override func viewDidLoad() {
@@ -281,23 +282,25 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
             return
         }
                 
-        multiLegSegmentControl.removeAllSegments()
+        multiLegSegmentControl?.removeAllSegments()
         
         let numberOfStops = airportFilterArray.count
 
         for  index in 1...numberOfStops  {
             let segmentTitle = getSegmentTitleFor(index)
-            multiLegSegmentControl.insertSegment(withTitle: segmentTitle, at: index-1, animated: false)
+            multiLegSegmentControl?.insertSegment(withTitle: segmentTitle, at: index-1, animated: false)
         }
         
-        multiLegSegmentControl.selectedSegmentIndex = currentActiveIndex
+        multiLegSegmentControl?.selectedSegmentIndex = currentActiveIndex
                 
-        if multiLegSegmentControl.superview == nil && numberOfStops > 1 {
+        if multiLegSegmentControl?.superview == nil && numberOfStops > 1 {
             let font: [NSAttributedString.Key : Any] = [.font : AppFonts.SemiBold.withSize(14)]
-            multiLegSegmentControl.setTitleTextAttributes(font, for: .normal)
-            multiLegSegmentControl.addTarget(self, action: #selector(indexChanged(_:)), for: .valueChanged)
-            multicitySegmentView.addSubview(multiLegSegmentControl)
-            multiLegSegmentControl.snp.makeConstraints { (maker) in
+            multiLegSegmentControl?.setTitleTextAttributes(font, for: .normal)
+            multiLegSegmentControl?.addTarget(self, action: #selector(indexChanged(_:)), for: .valueChanged)
+            if let segmentControl = multiLegSegmentControl {
+                multicitySegmentView.addSubview(segmentControl)
+            }
+            multiLegSegmentControl?.snp.makeConstraints { (maker) in
                 maker.width.equalToSuperview()
                 maker.height.equalToSuperview()
                 maker.leading.equalToSuperview()
@@ -341,9 +344,10 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
     }
     
     private func updateSegmentTitles() {
-        for index in 0..<multiLegSegmentControl.numberOfSegments {
+        guard let segmentControl = multiLegSegmentControl else { return }
+        for index in 0..<segmentControl.numberOfSegments {
             let segmentTitle = getSegmentTitleFor(index + 1)
-            multiLegSegmentControl.setTitle(segmentTitle, forSegmentAt: index)
+            multiLegSegmentControl?.setTitle(segmentTitle, forSegmentAt: index)
         }
     }
     
@@ -359,11 +363,14 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
             setupMultiLegSegmentControl()
         }
         setupScrollView()
+        if multiLegSegmentControl == nil {
+            multiLegSegmentControl = UISegmentedControl()
+        }
     }
     
     func updateUIPostLatestResults() {
         
-        if allLayoverSelectedByUserInteraction {
+        if currentAirportFilter.allLayoverSelectedByUserInteraction {
             currentAirportFilter.layoverCities = currentAirportFilter.layoverCities.map { var newAirport = $0
                 newAirport.selectAll(true)
                 return newAirport
@@ -408,10 +415,8 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
         sameDepartReturnBtn.isSelected = false
         
         currentAirportFilter = airportFilterArray[currentActiveIndex]
-        if !isIntReturnOrMCJourney {
-            allLayoverButton.isSelected = false
-            allLayoverSelectedByUserInteraction = false
-        }
+        currentAirportFilter.allLayoverSelectedByUserInteraction = false
+        allLayoverButton.isSelected = false
                 
 //        setmultiLegSubviews ()
         updateSegmentTitles()
@@ -472,9 +477,7 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
         currentAirportFilter.layoverCities[section].airports = airports
         
         let combinedSelectionStatus = currentAirportFilter.allLayoverSelected()
-        if !isIntReturnOrMCJourney {
-            allLayoverSelectedByUserInteraction = combinedSelectionStatus
-        }
+        currentAirportFilter.allLayoverSelectedByUserInteraction = combinedSelectionStatus
         allLayoverButton.isSelected = combinedSelectionStatus
         
         airportFilterArray[currentActiveIndex] = currentAirportFilter
@@ -532,7 +535,7 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
     @IBAction func sameDepartReturnBtnAction(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         currentAirportFilter.sameDepartReturnSelected = sender.isSelected
-        delegate?.sameSourceDestinationSelected(at: 0)
+        delegate?.sameSourceDestinationSelected(at: 0, selected: sender.isSelected)
     }
     
     
@@ -563,16 +566,15 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
         
         
     }
+    
     @IBAction func AllLayoversSelected(_ sender: UIButton ) {
         tableOffsetAtIndex[currentActiveIndex] = baseScrollview.contentOffset.y
         sender.isSelected.toggle()
 
+        currentAirportFilter.allLayoverSelectedByUserInteraction = sender.isSelected
         currentAirportFilter.layoverCities = currentAirportFilter.layoverCities.map { var newAirport = $0
             newAirport.selectAll(sender.isSelected  )
             return newAirport
-        }
-        if !isIntReturnOrMCJourney {
-//            allLayoverSelectedByUserInteraction  = sender.isSelected
         }
         airportFilterArray[currentActiveIndex] = currentAirportFilter
 //        setmultiLegSubviews ()
@@ -580,18 +582,23 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
         layoverTableview.reloadData()
         if searchType == RETURN_JOURNEY {
             if isIntReturnOrMCJourney {
-                self.delegate?.allLayoversSelectedInReturn()
+                self.delegate?.allLayoversSelectedInReturn(selected: sender.isSelected)
                 return
             }
             
-            self.delegate?.allLayoverSelectedAt(index: 0)
-            self.delegate?.allLayoverSelectedAt(index: 1)
+            self.delegate?.allLayoverSelectedAt(index: 0, selected: sender.isSelected)
+            self.delegate?.allLayoverSelectedAt(index: 1, selected: sender.isSelected)
         }
         else {
-            self.delegate?.allLayoverSelectedAt(index: currentActiveIndex)
+            self.delegate?.allLayoverSelectedAt(index: currentActiveIndex, selected: sender.isSelected)
         }
         
     }
+    
+    @IBAction func allLayoversContainerBtnAction(_ sender: UIButton) {
+        AllLayoversSelected(allLayoverButton)
+    }
+    
 }
 
 
@@ -639,14 +646,13 @@ extension AirportsFilterViewController : UITableViewDataSource , UITableViewDele
                 cell.airportCode.text = currentAirport.IATACode
                 cell.airportName?.text = currentAirport.name
                 cell.radioButton.isSelected = currentAirport.isSelected
-                cell.radioButton.addTarget(self, action: #selector(originAirportTapped(sender:)), for: .touchDown)
+//                cell.radioButton.addTarget(self, action: #selector(originAirportTapped(sender:)), for: .touchDown)
                 cell.radioButton.tag = indexPath.section * 100 + indexPath.row
+                cell.radioButton.isUserInteractionEnabled = false
                 cell.backgroundColor = .clear
                 return cell
             }
-        }
-        
-        if tableView == destinationsTableView {
+        } else if tableView == destinationsTableView {
 
             if let cell = destinationsTableView.dequeueReusableCell(withIdentifier: "DestinationCells") as? AirportSelectionCell {
                 cell.selectionStyle = .none
@@ -656,14 +662,13 @@ extension AirportsFilterViewController : UITableViewDataSource , UITableViewDele
                 cell.airportCode.text = currentAirport.IATACode
                 cell.airportName?.text = currentAirport.name
                 cell.radioButton.isSelected = currentAirport.isSelected
-                cell.radioButton.addTarget(self, action: #selector(destinationAirportTapped(sender:)), for:.touchDown)
+//                cell.radioButton.addTarget(self, action: #selector(destinationAirportTapped(sender:)), for:.touchDown)
                 cell.radioButton.tag = indexPath.section * 100 + indexPath.row
+                cell.radioButton.isUserInteractionEnabled = false
                 cell.backgroundColor = .clear
                 return cell
             }
-        }
-        
-        if tableView == layoverTableview {
+        } else if tableView == layoverTableview {
             
             if let cell = layoverTableview.dequeueReusableCell(withIdentifier: "LayOverCells") as? AirportSelectionCell {
                 cell.selectionStyle = .none
@@ -672,18 +677,33 @@ extension AirportsFilterViewController : UITableViewDataSource , UITableViewDele
                 let currentAirport = airports[indexPath.row]
                 cell.airportCode.text = currentAirport.IATACode
                 cell.airportName?.text = currentAirport.city
-                cell.radioButton.isSelected = currentAirport.isSelected
-                if allLayoverSelectedByUserInteraction {
+                if currentAirportFilter.allLayoverSelectedByUserInteraction {
                    cell.radioButton.isSelected  = true
+                } else {
+                    printDebug(currentAirport.isSelected)
+                    cell.radioButton.isSelected = currentAirport.isSelected
                 }
-                cell.radioButton.addTarget(self, action: #selector(layoverAirportTapped(sender:)), for: .touchDown)
+//                cell.radioButton.addTarget(self, action: #selector(layoverAirportTapped(sender:)), for: .touchDown)
                 cell.radioButton.tag = indexPath.section * 100 + indexPath.row
+                cell.radioButton.isUserInteractionEnabled = false
                 cell.backgroundColor = .clear
                 return cell
             }
         }
         
         return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? AirportSelectionCell else { return }
+        
+        if cell.reuseIdentifier == "OriginCells" {
+            originAirportTapped(sender: cell.radioButton)
+        } else if cell.reuseIdentifier == "DestinationCells" {
+            destinationAirportTapped(sender: cell.radioButton)
+        } else if cell.reuseIdentifier == "LayOverCells" {
+            layoverAirportTapped(sender: cell.radioButton)
+        }
     }
     
    
@@ -706,7 +726,8 @@ extension AirportsFilterViewController : UITableViewDataSource , UITableViewDele
         let view = UIView()
         
         let title = UILabel(frame: CGRect(x: 16, y: 16, width: self.view.frame.size.width - 16, height: 20))
-        title.font = UIFont(name: "sourceSansPro-Regular", size: 16)
+//        title.font = UIFont(name: "sourceSansPro-Regular", size: 16)
+        title.font = AppFonts.Regular.withSize(16)
         title.textColor = UIColor.ONE_FIVE_THREE_COLOR
         title.textAlignment = .left
         view.addSubview(title)

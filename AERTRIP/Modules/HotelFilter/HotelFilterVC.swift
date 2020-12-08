@@ -144,7 +144,7 @@ class HotelFilterVC: BaseVC {
                 self.isFilterApplied = true
             }
         }
-        self.isFilterAppliedBtn.setImage(isFilterApplied  ? #imageLiteral(resourceName: "ic_hotel_filter_applied") : #imageLiteral(resourceName: "ic_hotel_filter"), for: .normal)
+      //  self.isFilterAppliedBtn.setImage(isFilterApplied  ? #imageLiteral(resourceName: "ic_hotel_filter_applied") : #imageLiteral(resourceName: "ic_hotel_filter"), for: .normal)
         self.isFilterAppliedBtn.setImage(isFilterApplied  ? #imageLiteral(resourceName: "ic_hotel_filter_applied") : #imageLiteral(resourceName: "ic_hotel_filter"), for: .selected)
         
         if  isFilterApplied {
@@ -402,12 +402,14 @@ extension HotelFilterVC: HotelFilterVMDelegate {
     }
     
     func reloadMenu(){
+        DispatchQueue.main.async {
         self.setBadgesOnAllCategories()
         UIView.setAnimationsEnabled(false)
         UIView.animate(withDuration: 0, animations: {
             self.parchmentView?.reloadMenu()
         }) { (_) in
             UIView.setAnimationsEnabled(true)
+        }
         }
     }
 }

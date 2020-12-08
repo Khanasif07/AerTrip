@@ -29,13 +29,16 @@ class SingleJourneyGroupedResultsCell: UITableViewCell {
     fileprivate func setupBaseView() {
        
         backgroundColor = .clear // very important
-        layer.masksToBounds = false
-        layer.shadowOpacity = 0.5
-        layer.shadowRadius = 4
-        layer.shadowOffset = CGSize(width: 0, height: 0)
-        layer.shadowColor = UIColor.black.withAlphaComponent(0.3).cgColor
-        
-        baseView.layer.cornerRadius = 10.0
+//        layer.masksToBounds = false
+//        layer.shadowOpacity = 0.5
+//        layer.shadowRadius = 4
+//        layer.shadowOffset = CGSize(width: 0, height: 0)
+//        layer.shadowColor = UIColor.black.withAlphaComponent(0.3).cgColor
+//
+//        baseView.layer.cornerRadius = 10.0
+        let shadowProp = AppShadowProperties()
+        self.baseView.addShadow(cornerRadius: shadowProp.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: shadowProp.shadowColor, offset: shadowProp.offset, opacity: shadowProp.opecity, shadowRadius: shadowProp.shadowRadius)
+//        self.baseView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -80,13 +83,17 @@ class SingleJourneyGroupedResultsCell: UITableViewCell {
         
         if journey.isFastest  {
             
-            var attributes = [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Semibold", size: 16.0)!, NSAttributedString.Key.foregroundColor : UIColor.AertripColor]
-            
+//            var attributes = [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Semibold", size: 16.0)!, NSAttributedString.Key.foregroundColor : UIColor.AertripColor]
+  
+            var attributes = [NSAttributedString.Key.font :AppFonts.SemiBold.withSize(16), NSAttributedString.Key.foregroundColor : UIColor.AertripColor]
+
             let summaryText = String(journey.count) + " options from "
             let combinedString = NSMutableAttributedString(string: summaryText + " ", attributes: attributes)
             
-            attributes = [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Semibold", size: 16.0)!, NSAttributedString.Key.foregroundColor : UIColor.AERTRIP_ORAGE_COLOR]
+//            attributes = [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Semibold", size: 16.0)!, NSAttributedString.Key.foregroundColor : UIColor.AERTRIP_ORAGE_COLOR]
             
+            attributes = [NSAttributedString.Key.font :AppFonts.SemiBold.withSize(16), NSAttributedString.Key.foregroundColor : UIColor.AERTRIP_ORAGE_COLOR]
+
             let timeString = NSAttributedString(string: fastestFlight.durationTitle, attributes: attributes)
             combinedString.append(timeString)
             summaryLabel.attributedText = combinedString
@@ -108,7 +115,9 @@ class SingleJourneyGroupedResultsCell: UITableViewCell {
         
         let label = UILabel(frame: CGRect(x:0 , y: 0, width: 20,  height: 18))
         label.textAlignment = .center
-        label.font = UIFont(name: "SourceSansPro-regular", size: 14)!
+//        label.font = UIFont(name: "SourceSansPro-regular", size: 14)!
+        label.font = AppFonts.Regular.withSize(14)
+
         label.textColor = .AertripColor
         label.text = count
         return label

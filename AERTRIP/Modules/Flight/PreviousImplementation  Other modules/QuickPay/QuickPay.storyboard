@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="m4s-SB-XkA">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="m4s-SB-XkA">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -28,36 +25,36 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iaD-Af-keN">
-                                <rect key="frame" x="8" y="28" width="27" height="27"/>
+                                <rect key="frame" x="8" y="8" width="27" height="27"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="27" id="Mqh-Lq-JTw"/>
                                     <constraint firstAttribute="width" constant="27" id="f3S-ES-5yO"/>
                                 </constraints>
-                                <state key="normal" backgroundImage="backThick"/>
+                                <state key="normal" backgroundImage="backGreen"/>
                                 <connections>
                                     <action selector="pushBack:" destination="m4s-SB-XkA" eventType="touchUpInside" id="Yee-J3-WcR"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QuickPay" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lgC-RS-UHy">
-                                <rect key="frame" x="151" y="30" width="73" height="23"/>
+                                <rect key="frame" x="151" y="10" width="73" height="23"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coming Soon" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oMd-K5-lDd">
-                                <rect key="frame" x="125.5" y="414" width="124" height="28"/>
+                                <rect key="frame" x="125.5" y="404" width="124" height="28"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="QuickPay" translatesAutoresizingMaskIntoConstraints="NO" id="xFW-KA-I7f">
-                                <rect key="frame" x="35" y="136" width="305" height="215"/>
+                                <rect key="frame" x="35" y="126" width="305" height="215"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="xFW-KA-I7f" secondAttribute="height" multiplier="319:225" id="maD-vI-LVT"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save your credit / debit card details for one click card payments." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I0I-i2-zzN">
-                                <rect key="frame" x="23" y="456" width="329" height="35.5"/>
+                                <rect key="frame" x="23" y="446" width="329" height="35.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35.5" id="sqe-7r-7GC"/>
                                 </constraints>
@@ -66,6 +63,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="p1I-La-IZs"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="I0I-i2-zzN" firstAttribute="top" secondItem="oMd-K5-lDd" secondAttribute="bottom" constant="14" id="3G3-4b-VpL"/>
@@ -83,7 +81,6 @@
                             <constraint firstItem="lgC-RS-UHy" firstAttribute="centerY" secondItem="iaD-Af-keN" secondAttribute="centerY" id="wif-oR-bOn"/>
                             <constraint firstItem="I0I-i2-zzN" firstAttribute="centerX" secondItem="oMd-K5-lDd" secondAttribute="centerX" id="y0P-gy-5DU"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="p1I-La-IZs"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8EU-Vk-ZbD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -92,7 +89,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="QuickPay" width="478" height="337"/>
-        <image name="backThick" width="27" height="27"/>
+        <image name="QuickPay" width="478.5" height="337.5"/>
+        <image name="backGreen" width="27" height="27"/>
     </resources>
 </document>

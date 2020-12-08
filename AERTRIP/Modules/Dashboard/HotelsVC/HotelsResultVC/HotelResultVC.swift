@@ -60,7 +60,7 @@ class HotelResultVC: BaseVC {
             self.tableViewVertical.delegate = self
             self.tableViewVertical.dataSource = self
             self.tableViewVertical.separatorStyle = .none
-            self.tableViewVertical.showsVerticalScrollIndicator = false
+            self.tableViewVertical.showsVerticalScrollIndicator = true
             self.tableViewVertical.showsHorizontalScrollIndicator = false
             self.tableViewVertical.contentInset = UIEdgeInsets(top: topContentSpace, left: 0, bottom: 0, right: 0)
             self.tableViewVertical.tableHeaderView = searchResultHeaderView
@@ -277,14 +277,14 @@ class HotelResultVC: BaseVC {
         super.viewDidAppear(animated)
         self.isViewDidAppear = true
         self.statusBarColor = AppColors.clear
-        self.statusBarStyle = .default
+        self.statusBarStyle = .darkContent
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)        
         // addCustomBackgroundBlurView()
         self.statusBarColor = AppColors.clear
-        self.statusBarStyle = .default
+        self.statusBarStyle = .darkContent
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -317,11 +317,16 @@ class HotelResultVC: BaseVC {
     }
     
     override func dataChanged(_ note: Notification) {
-        if let noti = note.object as? ATNotification, noti == .GRNSessionExpired {
-            //re-hit the search API
-            self.manageShimmer(isHidden: false)
-            CoreDataManager.shared.deleteData("HotelSearched")
-            self.viewModel.hotelListOnPreferencesApi()
+        if let noti = note.object as? ATNotification {
+            switch noti {
+            case .GRNSessionExpired:
+                //re-hit the search API
+                self.manageShimmer(isHidden: false)
+                CoreDataManager.shared.deleteData("HotelSearched")
+                self.viewModel.hotelListOnPreferencesApi()
+            default:
+                break
+            }
         }
         else if let _ = note.object as? HotelDetailsVC {
             //fav updated from hotel details
@@ -454,7 +459,7 @@ class HotelResultVC: BaseVC {
 //                strongSelf.emailButton.isLoading = false
 //                if status {
                     // url fetched
-                    AppFlowManager.default.presentMailComposerVC(self.viewModel.favouriteHotels, self.viewModel.hotelSearchRequest ?? HotelSearchRequestModel(), self.viewModel.shortUrl)
+            AppFlowManager.default.presentMailComposerVC(self.viewModel.favouriteHotels, self.viewModel.hotelSearchRequest ?? HotelSearchRequestModel(), self.viewModel.shortUrl, presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: statusBarStyle)
                     AppFlowManager.default.removeLoginConfirmationScreenFromStack()
 //                }
 //            }
@@ -598,15 +603,15 @@ class HotelResultVC: BaseVC {
         let remoteHostStatus = networkReachability.currentReachabilityStatus
         
         if remoteHostStatus == .notReachable {
-            print("Not Reachable")
+            printDebug("Not Reachable")
             // self.noHotelFound()
             
         }
         else if remoteHostStatus == .reachableViaWiFi {
-            print("Reachable via Wifi")
+            printDebug("Reachable via Wifi")
         }
         else {
-            print("Reachable")
+            printDebug("Reachable")
         }
     }
     

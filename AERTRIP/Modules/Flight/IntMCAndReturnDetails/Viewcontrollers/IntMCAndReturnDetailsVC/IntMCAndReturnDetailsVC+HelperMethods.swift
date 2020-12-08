@@ -30,7 +30,7 @@ extension IntMCAndReturnDetailsVC{
             self.viewModel.selectedJourney = selectedJourneys
             return selectedJourneys
         }
-        print("getSelectedJourneyForAllLegs return five")
+        printDebug("getSelectedJourneyForAllLegs return five")
         return nil
     }
     
@@ -118,7 +118,9 @@ extension IntMCAndReturnDetailsVC {
                         selectedIndex = indexPath
                         tableView.selectRow(at: selectedIndex , animated: true, scrollPosition: .none)
                     }
-                    self.updateSeleted(indexPath: selectedIndex!, table: tableView)
+                    if selectedIndex != nil{
+                        self.updateSeleted(indexPath: selectedIndex!, table: tableView)
+                    }
                     tableView.isScrollEnabled = true
                 }
             }
@@ -264,9 +266,9 @@ extension IntMCAndReturnDetailsVC {
                     }
                 }
                 else {
-                    if let tableView = subview as? UIScrollView {
-                        tableView.setContentOffset(tableView.contentOffset, animated: false)
-                    }
+//                    if let tableView = subview as? UIScrollView {
+//                        tableView.setContentOffset(tableView.contentOffset, animated: false)
+//                    }
                 }
             }
         }
@@ -355,6 +357,8 @@ extension IntMCAndReturnDetailsVC : FareBreakupVCDelegate{
     func bookButtonTapped(journeyCombo: [CombinationJourney]?) {
         let flightDetailsVC = FlightDetailsBaseVC.instantiate(fromAppStoryboard: .FlightDetailsBaseVC)
         flightDetailsVC.delegate = self
+        flightDetailsVC.isConditionReverced = isConditionReverced
+        flightDetailsVC.appliedFilterLegIndex = appliedFilterLegIndex
         flightDetailsVC.isInternational = true
         flightDetailsVC.bookFlightObject = self.viewModel.bookFlightObject
         flightDetailsVC.taxesResult = self.viewModel.taxesResult

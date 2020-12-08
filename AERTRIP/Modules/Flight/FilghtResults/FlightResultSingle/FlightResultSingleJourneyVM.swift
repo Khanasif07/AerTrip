@@ -25,12 +25,12 @@ class FlightResultSingleJourneyVM {
     
         var resultTableState  = ResultTableViewState.showTemplateResults {
             didSet {
-                print(resultTableState)
+                printDebug(resultTableState)
             }
         }
     
-        var stateBeforePinnedFlight = ResultTableViewState.showRegularResults
-        var results : OnewayJourneyResultsArray!
+    var stateBeforePinnedFlight = ResultTableViewState.showRegularResults
+    var results : OnewayJourneyResultsArray!
         var isConditionReverced = false
 //        var prevLegIndex = 0
         var sortOrder = Sort.Smart
@@ -39,7 +39,16 @@ class FlightResultSingleJourneyVM {
         var airlineCode = ""
     
         var isSearchByAirlineCode = false
+    
+        var flightSearchParameters = JSONDictionary()
+        var sharedFks : [String] = []
+        var isSharedFkmatched = false
+        var contentOffset : CGPoint?
+    
+    
 
+    
+    
     
     func getOnewayDisplayArray( results : [Journey]) -> [JourneyOnewayDisplay] {
         
@@ -168,17 +177,17 @@ class FlightResultSingleJourneyVM {
     
     func applySortingOnGroups(sortOrder : Sort, isConditionReverced : Bool, legIndex : Int) {
      
-        let journeyArrayToSort = self.results.journeyArray
+//        let journeyArrayToSort = self.results.journeyArray
         
-        for (index,_) in journeyArrayToSort.enumerated() {
+        for (index,_) in self.results.journeyArray.enumerated() {
                         
-            if journeyArrayToSort[index].journeyArray.count > 1 {
+            if self.results.journeyArray[index].journeyArray.count > 1 {
             
                 //smart sort
-                journeyArrayToSort[index].journeyArray.sort(by: { $0.computedHumanScore ?? 0.0 < $1.computedHumanScore ?? 0.0 })
+                self.results.journeyArray[index].journeyArray.sort(by: { $0.computedHumanScore ?? 0.0 < $1.computedHumanScore ?? 0.0 })
                 
                 //arival sort
-                journeyArrayToSort[index].journeyArray.sort(by: { (obj1, obj2) -> Bool in
+                self.results.journeyArray[index].journeyArray.sort(by: { (obj1, obj2) -> Bool in
                                
                     let firstObjDepartureTime = (obj1.ad) + " " + (obj1.at)
                                
@@ -193,7 +202,7 @@ class FlightResultSingleJourneyVM {
                            })
 
                 //departure sort
-                journeyArrayToSort[index].journeyArray.sort(by: { (obj1, obj2) -> Bool in
+                self.results.journeyArray[index].journeyArray.sort(by: { (obj1, obj2) -> Bool in
                     
                     let firstObjDepartureTime = obj1.dt
                     let secondObjDepartureTime = obj2.dt
@@ -209,12 +218,12 @@ class FlightResultSingleJourneyVM {
                     
                        case .Smart, .Price :
                            
-                           if let ind = journeyArrayToSort[index].journeyArray.firstIndex(where: { (jrny) -> Bool in
-                               jrny.fk == journeyArrayToSort[index].getJourneyWithLeastHumanScore().fk
+                           if let ind = self.results.journeyArray[index].journeyArray.firstIndex(where: { (jrny) -> Bool in
+                            jrny.fk == self.results.journeyArray[index].getJourneyWithLeastHumanScore()?.fk
                            }){
                             
-                            journeyArrayToSort[index].selectedFK = journeyArrayToSort[index].journeyArray[ind].fk
-                            journeyArrayToSort[index].currentSelectedIndex = ind
+                            self.results.journeyArray[index].selectedFK = self.results.journeyArray[index].journeyArray[ind].fk
+                            self.results.journeyArray[index].currentSelectedIndex = ind
                             
                            }
                            
@@ -222,26 +231,26 @@ class FlightResultSingleJourneyVM {
                            
                            if isConditionReverced {
                                
-                               guard let jour = journeyArrayToSort[index].getJourneysWithMaxDuration() else { return }
-                               journeyArrayToSort[index].selectedFK = jour.fk
+                               guard let jour = self.results.journeyArray[index].getJourneysWithMaxDuration() else { return }
+                               self.results.journeyArray[index].selectedFK = jour.fk
                                   
-                               if let ind = journeyArrayToSort[index].journeyArray.firstIndex(where: { (jrny) -> Bool in
+                               if let ind = self.results.journeyArray[index].journeyArray.firstIndex(where: { (jrny) -> Bool in
                                    jrny.fk == jour.fk
                                }){
-                                   journeyArrayToSort[index].selectedFK = journeyArrayToSort[index].journeyArray[ind].fk
-                                journeyArrayToSort[index].currentSelectedIndex = ind
+                                   self.results.journeyArray[index].selectedFK = self.results.journeyArray[index].journeyArray[ind].fk
+                                self.results.journeyArray[index].currentSelectedIndex = ind
                                }
                                
                            } else {
                                
-                               guard let jour = journeyArrayToSort[index].getJourneysWithMinDuration() else { return }
-                               journeyArrayToSort[index].selectedFK = jour.fk
+                               guard let jour = self.results.journeyArray[index].getJourneysWithMinDuration() else { return }
+                               self.results.journeyArray[index].selectedFK = jour.fk
                                             
-                               if let ind = journeyArrayToSort[index].journeyArray.firstIndex(where: { (jrny) -> Bool in
+                               if let ind = self.results.journeyArray[index].journeyArray.firstIndex(where: { (jrny) -> Bool in
                                    jrny.fk == jour.fk
                                }){
-                                   journeyArrayToSort[index].selectedFK = journeyArrayToSort[index].journeyArray[ind].fk
-                                journeyArrayToSort[index].currentSelectedIndex = ind
+                                   self.results.journeyArray[index].selectedFK = self.results.journeyArray[index].journeyArray[ind].fk
+                                self.results.journeyArray[index].currentSelectedIndex = ind
                                }
                                
                            }
@@ -249,37 +258,37 @@ class FlightResultSingleJourneyVM {
                        case .Depart:
                            
                            if isConditionReverced {
-                               journeyArrayToSort[index].selectedFK = journeyArrayToSort[index].journeyArray.last?.fk ?? ""
-                            journeyArrayToSort[index].currentSelectedIndex = journeyArrayToSort[index].journeyArray.count - 1
+                               self.results.journeyArray[index].selectedFK = self.results.journeyArray[index].journeyArray.last?.fk ?? ""
+                            self.results.journeyArray[index].currentSelectedIndex = self.results.journeyArray[index].journeyArray.count - 1
                            }else{
-                               journeyArrayToSort[index].selectedFK = journeyArrayToSort[index].journeyArray.first?.fk ?? ""
-                            journeyArrayToSort[index].currentSelectedIndex = 0
+                               self.results.journeyArray[index].selectedFK = self.results.journeyArray[index].journeyArray.first?.fk ?? ""
+                            self.results.journeyArray[index].currentSelectedIndex = 0
                            }
                            
                        case .Arrival:
                            
                            if isConditionReverced {
                                
-                               guard let jour = journeyArrayToSort[index].getJourneysWithMaxArivalTime() else { return }
-                               journeyArrayToSort[index].selectedFK = jour.fk
+                               guard let jour = self.results.journeyArray[index].getJourneysWithMaxArivalTime() else { return }
+                               self.results.journeyArray[index].selectedFK = jour.fk
                                
-                               if let ind = journeyArrayToSort[index].journeyArray.firstIndex(where: { (jrny) -> Bool in
+                               if let ind = self.results.journeyArray[index].journeyArray.firstIndex(where: { (jrny) -> Bool in
                                    jrny.fk == jour.fk
                                }){
-                                   journeyArrayToSort[index].selectedFK = journeyArrayToSort[index].journeyArray[ind].fk
-                                journeyArrayToSort[index].currentSelectedIndex = ind
+                                   self.results.journeyArray[index].selectedFK = self.results.journeyArray[index].journeyArray[ind].fk
+                                self.results.journeyArray[index].currentSelectedIndex = ind
                                }
                                
                            } else{
                                
-                               guard let jour = journeyArrayToSort[index].getJourneysWithMinArivalTime() else { return }
-                               journeyArrayToSort[index].selectedFK = jour.fk
+                               guard let jour = self.results.journeyArray[index].getJourneysWithMinArivalTime() else { return }
+                               self.results.journeyArray[index].selectedFK = jour.fk
                                              
-                               if let ind = journeyArrayToSort[index].journeyArray.firstIndex(where: { (jrny) -> Bool in
+                               if let ind = self.results.journeyArray[index].journeyArray.firstIndex(where: { (jrny) -> Bool in
                                    jrny.fk == jour.fk
                                }){
-                                   journeyArrayToSort[index].selectedFK = journeyArrayToSort[index].journeyArray[ind].fk
-                                journeyArrayToSort[index].currentSelectedIndex = ind
+                                   self.results.journeyArray[index].selectedFK = self.results.journeyArray[index].journeyArray[ind].fk
+                                self.results.journeyArray[index].currentSelectedIndex = ind
                                }
                            }
                            
@@ -289,7 +298,7 @@ class FlightResultSingleJourneyVM {
            }
         }
         
-        self.results.journeyArray = journeyArrayToSort
+//        self.results.journeyArray = journeyArrayToSort
         
     }
     
@@ -487,6 +496,25 @@ extension FlightResultSingleJourneyVM{
                 AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .hotelsSearch)
             }
         }
-        
+
     }
+    
+    
+    func setSharedFks(){
+        
+        guard let dict = flightSearchParameters as? JSONDictionary else { return }
+        
+        let pfKeys = dict.keys.filter( { $0.contains("PF") } )
+       
+        printDebug("pfKeys...\(pfKeys)")
+        
+        pfKeys.forEach { (key) in
+            if let fk = dict[key] as? String {
+                self.sharedFks.append(fk)
+            }
+        }
+
+    }
+    
+    
 }

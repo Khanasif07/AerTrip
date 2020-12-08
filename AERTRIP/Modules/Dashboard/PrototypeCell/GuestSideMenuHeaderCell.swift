@@ -52,6 +52,8 @@ private extension GuestSideMenuHeaderCell {
     }
     
     func setupFontColorAndText() {
+        self.loginAndRegisterButton.configureCommonGreenButton()
+
 //        self.loginAndRegisterButton.layer.cornerRadius = self.loginAndRegisterButton.height/2
         self.loginAndRegisterButton.setTitle(LocalizedString.LoginOrRegister.localized, for: .normal)
         
@@ -64,7 +66,10 @@ private extension GuestSideMenuHeaderCell {
 //        self.loginAndRegisterButton.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
 //        self.loginAndRegisterButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
         
-        self.loginAndRegisterButton.configureCommonGreenButton()
+        let fontSize: CGFloat = UIScreen.width > 320 ? 17 : 14
+        self.loginAndRegisterButton.setTitleFont(font: AppFonts.SemiBold.withSize(fontSize), for: .normal)
+        self.loginAndRegisterButton.setTitleFont(font: AppFonts.SemiBold.withSize(fontSize), for: .selected)
+        self.loginAndRegisterButton.setTitleFont(font: AppFonts.SemiBold.withSize(fontSize), for: .highlighted)
         
     }
 }

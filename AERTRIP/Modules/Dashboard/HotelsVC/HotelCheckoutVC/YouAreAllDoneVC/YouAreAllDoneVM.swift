@@ -15,6 +15,10 @@ protocol YouAreAllDoneVMDelegate: class {
     func willGetBookingDetail()
     func getBookingDetailSucces()
     func getBookingDetailFaiure(error: ErrorCodes)
+    
+    func willGetPinnedTemplate()
+    func getPinnedTemplateSuccess()
+    func getPinnedTemplateFail()
 }
 
 class YouAreAllDoneVM: NSObject {
@@ -37,6 +41,10 @@ class YouAreAllDoneVM: NSObject {
     var whatNextValues: [String] = []
     var itId: String = "", bookingIds: [String] = [], cId: [String] = []
     var bookingDetail: BookingDetailModel?
+    var showWaletLoader = false
+    var sId: String = ""
+    var shareLinkURL = ""
+
     
     //Mark:- Functions
     //================
@@ -141,6 +149,25 @@ class YouAreAllDoneVM: NSObject {
                 }
             }
         }
+    
+    func getShareLinkAPI(completionBlock: @escaping(_ success: Bool)->Void ) {
+        var param = JSONDictionary()
+        param["hid[]"] = self.hotelReceiptData?.hid ?? ""
+        param[APIKeys.sid.rawValue] = self.sId
+        param["u"] = ""
+        
+        self.delegate?.willGetPinnedTemplate()
+        APICaller.shared.getShareLinkAPI(params: param) { [weak self] isSuccess, _, shareLinkUrl in
+            if isSuccess {
+                self?.shareLinkURL = shareLinkUrl
+                self?.delegate?.getPinnedTemplateSuccess()
+                completionBlock(true)
+            } else {
+                self?.delegate?.getPinnedTemplateFail()
+                completionBlock(false)
+            }
+        }
+    }
 }
 
 

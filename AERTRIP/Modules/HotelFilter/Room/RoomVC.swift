@@ -54,8 +54,9 @@ class RoomVC: UIViewController {
         tableView.dataSource = self
         roomSegmentedControl.selectedSegmentIndex = 0
         roomSegmentedControl.addTarget(self, action: #selector(indexChanged(_:)), for: .valueChanged)
-        roomSegmentedControl.setWidth(95, forSegmentAt: 0)
-        roomSegmentedControl.setWidth(95, forSegmentAt: 2)
+        let segmentTabWidth: CGFloat = self.view.width > 320 ? 95 : 70
+        roomSegmentedControl.setWidth(segmentTabWidth, forSegmentAt: 0)
+        roomSegmentedControl.setWidth(segmentTabWidth, forSegmentAt: 2)
         tableView.reloadData()
         if #available(iOS 13.0, *) {
 //            roomSegmentedControl.backgroundColor = AppColors.themeWhite

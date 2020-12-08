@@ -98,7 +98,7 @@ class HCEmailItinerariesTableViewCell: UITableViewCell {
     internal func configureCell(emailInfo: HCEmailItinerariesModel, name: String, firstName: String , lastName: String , profileImage: String) {
         self.nameLabel.text = name
         let placeholderImage = AppGlobals.shared.getImageFor(firstName: firstName, lastName: lastName , font: AppFonts.Regular.withSize(36.0), textColor: AppColors.themeGray60 , backGroundColor: AppColors.imageBackGroundColor)
-        self.profileImageView.setImageWithUrl(profileImage, placeholder: placeholderImage, showIndicator: true)
+        self.profileImageView.setImageWithUrl(profileImage, placeholder: placeholderImage, showIndicator: false)
         self.emailTextField.text = emailInfo.emailId
         self.emailTextField.isUserInteractionEnabled = true
         switch emailInfo.emailStatus {

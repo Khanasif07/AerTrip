@@ -163,7 +163,7 @@ extension FlightBookingsDetailsVC {
         if (self.viewModel.bookingDetail?.documents ?? []).count != 0{
             cell.paymentInfoTopConstraint.constant = 26
         }else{
-            cell.paymentInfoTopConstraint.constant = 5
+            cell.paymentInfoTopConstraint.constant = 10//5
         }
         cell.changeShadow()
         cell.clipsToBounds = true
@@ -261,7 +261,7 @@ extension FlightBookingsDetailsVC {
     func getAddToTripsCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingCommonActionTableViewCell.reusableIdentifier, for: indexPath) as? BookingCommonActionTableViewCell else { return UITableViewCell() }
         cell.usingFor = .addToTrips
-        cell.configureCell(buttonImage: #imageLiteral(resourceName: "greenAddToTripIcon"), buttonTitle: LocalizedString.AddToTrips.localized)
+        cell.configureCell(buttonImage: #imageLiteral(resourceName: "addToTripgreen"), buttonTitle: LocalizedString.AddToTrips.localized)
         return cell
     }
     
@@ -276,6 +276,7 @@ extension FlightBookingsDetailsVC {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingCommonActionTableViewCell.reusableIdentifier, for: indexPath) as? BookingCommonActionTableViewCell else { return UITableViewCell() }
         cell.usingFor = .addToAppleWallet
         cell.configureCell(buttonImage: #imageLiteral(resourceName: "AddToAppleWallet"), buttonTitle: LocalizedString.AddToAppleWallet.localized)
+        cell.backgroundViewTopConstraint.constant = 16
         cell.actionButton.isLoading = self.viewModel.showWaletLoader
         return cell
     }
@@ -304,11 +305,18 @@ extension FlightBookingsDetailsVC {
     
     func getWeatherInfoCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherInfoTableViewCell.reusableIdentifier, for: indexPath) as? WeatherInfoTableViewCell else { return UITableViewCell() }
+        
+        // For getting maximum label widths and setting - start
+        cell.cityAndDateLblWidth.constant = viewModel.weatherLabelWidths.dateLblWidth
+        cell.tempLblWidth.constant = viewModel.weatherLabelWidths.curTempLblWidth
+        cell.weatherLblWidth.constant = viewModel.weatherLabelWidths.highLowLblWidth
+        // For getting maximum label widths and setting - end
+        
         cell.usingFor = .flight
         if self.viewModel.isSeeAllWeatherButtonTapped || (self.viewModel.bookingDetail?.tripWeatherData.count ?? 0) < 5  {
             cell.isLastCell = (self.viewModel.bookingDetail?.weatherDisplayedWithin16Info ?? false ) ? false : indexPath.row == ((self.viewModel.bookingDetail?.tripWeatherData.count ?? 0))
         } else {
-            cell.isLastCell = (self.viewModel.bookingDetail?.weatherDisplayedWithin16Info ?? false ) ? false : (indexPath.row == (self.viewModel.bookingDetail?.tripWeatherData.count ?? 0) - 1)
+            cell.isLastCell = (self.viewModel.bookingDetail?.weatherDisplayedWithin16Info ?? false ) ? false : (indexPath.row == 5)
         }
         
         cell.weatherData = self.viewModel.bookingDetail?.tripWeatherData[indexPath.row - 1]

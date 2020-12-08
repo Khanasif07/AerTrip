@@ -20,6 +20,7 @@ enum Filters : Int,  CaseIterable{
     case Quality
     case Price
 //    case API
+    case Aircraft
 }
 
 
@@ -52,6 +53,9 @@ extension Filters {
             return PriceFilterViewController()
 //        case .API:
 //            return FlightAPIFilterViewController()
+        
+        case .Aircraft:
+            return AircraftFilterViewController()
         }
     }
     
@@ -76,6 +80,8 @@ extension Filters {
             return "Quality"
         case .Price:
             return "Price"
+        case .Aircraft:
+            return "Aircraft"
 //        case .API:
 //            return "API"
         }
@@ -96,6 +102,7 @@ enum UIFilters : Int,  CaseIterable {
     case originDestinationSame
     case originDestinationSelectedForReturnJourney
     case allAirlinesSelected
+    case priceRange
 }
 
 extension UIFilters {

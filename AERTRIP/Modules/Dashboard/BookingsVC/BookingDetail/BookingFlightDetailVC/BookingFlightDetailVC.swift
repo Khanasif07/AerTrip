@@ -33,6 +33,18 @@ class BookingFlightDetailVC: BaseVC {
     
     let viewModel = BookingDetailVM()
     
+    var presentingStatusBarStyle: UIStatusBarStyle = .darkContent, dismissalStatusBarStyle: UIStatusBarStyle = .darkContent
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        statusBarStyle = presentingStatusBarStyle
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        statusBarStyle = dismissalStatusBarStyle
+    }
+    
     override func initialSetup() {
         self.view.layoutIfNeeded()
         //self.viewModel.getBookingFees()
@@ -85,6 +97,7 @@ class BookingFlightDetailVC: BaseVC {
         let flightBaggageInfoVC = FlightBaggageInfoVC.instantiate(fromAppStoryboard: .Bookings)
         flightBaggageInfoVC.viewModel.bookingDetail = self.viewModel.bookingDetail
         flightBaggageInfoVC.viewModel.legSectionTap = self.viewModel.legSectionTap
+        flightBaggageInfoVC.dimesionDelegate = self
         self.allChildVCs.append(flightBaggageInfoVC)
         
         let flightFareInfoVC = FlightFareInfoVC.instantiate(fromAppStoryboard: .Bookings)
@@ -184,7 +197,15 @@ extension BookingFlightDetailVC : PagingViewControllerDataSource , PagingViewCon
         }
     }
 }
-extension BookingFlightDetailVC: BookingDetailVMDelegate {
+extension BookingFlightDetailVC: BookingDetailVMDelegate, BaggageDimesionPresentDelegate {
+    func dimesionButtonTapprd(with dimension: Dimension, weight: String) {
+        let baggageDimensionVC = BaggageDimensionsVC(nibName: "BaggageDimensionsVC", bundle: nil)
+        baggageDimensionVC.settingForBookingDetails = true
+        baggageDimensionVC.weight = weight
+        baggageDimensionVC.dimesionsObj = dimension
+        self.present(baggageDimensionVC, animated: true, completion: nil)
+    }
+    
     func willGetBookingFees() {}
     
     func getBookingFeesSuccess() {

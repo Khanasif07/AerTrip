@@ -51,7 +51,7 @@
                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C34-nC-igI">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C34-nC-igI" customClass="ATVerticalDividerView" customModule="AERTRIP" customModuleProvider="target">
                         <rect key="frame" x="393.5" y="10.5" width="0.5" height="43"/>
                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -59,7 +59,7 @@
                             <constraint firstAttribute="height" constant="43" id="tV3-f6-jDG"/>
                         </constraints>
                     </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dsS-WV-LeO" userLabel="LineView">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dsS-WV-LeO" userLabel="LineView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                         <rect key="frame" x="78" y="63.5" width="368" height="0.5"/>
                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>

@@ -18,8 +18,8 @@ struct Leg
     var descriptionOneFiveThree : NSAttributedString {
     
     
-    let sourcePro14 = UIFont(name: "SourceSansPro-Semibold", size: 14.0)!
-        let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Semibold", size: 14.0)! , NSAttributedString.Key.foregroundColor : UIColor.ONE_FIVE_THREE_COLOR]
+        let sourcePro14 = AppFonts.SemiBold.withSize(14)
+        let attributes =   [NSAttributedString.Key.font :AppFonts.SemiBold.withSize(14) , NSAttributedString.Key.foregroundColor : UIColor.ONE_FIVE_THREE_COLOR]
     
     let combinedString = NSMutableAttributedString(string: origin + " ", attributes: attributes)
     let destinationString = NSAttributedString(string: " " + destination, attributes: attributes)
@@ -44,7 +44,7 @@ struct Leg
     func getTitle(isCurrentlySelected : Bool , isFilterApplied: Bool) -> NSMutableAttributedString {
         
         let dot = " \u{2022}"
-        let font = UIFont(name: "SourceSansPro-Semibold", size: 14.0)!
+        let font = AppFonts.SemiBold.withSize(14)
         let aertripColorAttributes = [NSAttributedString.Key.font : font, NSAttributedString.Key.foregroundColor : UIColor.AertripColor]
         let whiteColorAttributes = [NSAttributedString.Key.font : font, NSAttributedString.Key.foregroundColor : UIColor.white]
         let clearColorAttributes = [NSAttributedString.Key.font : font, NSAttributedString.Key.foregroundColor : UIColor.clear]

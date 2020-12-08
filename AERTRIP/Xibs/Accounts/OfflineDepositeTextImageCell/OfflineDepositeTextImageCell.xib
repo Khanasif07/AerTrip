@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,11 +26,11 @@
                                     <constraint firstAttribute="height" constant="22" id="9My-Xs-avO"/>
                                     <constraint firstAttribute="width" secondItem="Pjr-Ax-EqS" secondAttribute="height" multiplier="1:1" id="gUV-se-Tb9"/>
                                 </constraints>
-                                <state key="normal" image="untick"/>
-                                <state key="selected" image="tick"/>
+                                <state key="normal" image="UncheckedGreenRadioButton"/>
+                                <state key="selected" image="CheckedGreenRadioButton"/>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label jhgf jsgf sfg jhgsdf ghsfg sjhgdf aghs dfs d fgjh dfkjgh jkahdg" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="drj-Ac-5Xf" customClass="ActiveLabel" customModule="ActiveLabel">
-                                <rect key="frame" x="32" y="0.0" width="228.5" height="73.5"/>
+                                <rect key="frame" x="32" y="0.0" width="228" height="73.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -43,7 +43,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="123123123" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FTn-oR-D1o">
-                                <rect key="frame" x="262.5" y="26.5" width="25.5" height="21"/>
+                                <rect key="frame" x="262" y="26.5" width="26" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -88,8 +88,13 @@
             <point key="canvasLocation" x="63.768115942028992" y="45.535714285714285"/>
         </tableViewCell>
     </objects>
+    <designables>
+        <designable name="drj-Ac-5Xf">
+            <size key="intrinsicContentSize" width="487" height="20"/>
+        </designable>
+    </designables>
     <resources>
-        <image name="tick" width="22" height="22"/>
-        <image name="untick" width="22" height="22"/>
+        <image name="CheckedGreenRadioButton" width="22" height="22"/>
+        <image name="UncheckedGreenRadioButton" width="22" height="22"/>
     </resources>
 </document>

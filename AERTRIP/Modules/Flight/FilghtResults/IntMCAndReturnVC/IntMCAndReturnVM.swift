@@ -13,17 +13,22 @@ class IntMCAndReturnVM {
     
     var resultTableState  = ResultTableViewState.showTemplateResults {
         didSet {
-            print(resultTableState)
+            printDebug(resultTableState)
         }
 }
     
     var results : InternationalJourneyResultsArray!
     var isConditionReverced = false
+    var appliedFilterLegIndex = -1
     var prevLegIndex = 0
     var sortOrder = Sort.Smart
     let dateFormatter = DateFormatter()
     var isSearchByAirlineCode = false
+    var flightSearchParameters = JSONDictionary()
+    var sharedFks : [String] = []
+    var isSharedFkmatched = false
 
+    
     
      func getInternationalDisplayArray( results : [IntMultiCityAndReturnWSResponse.Results.J]) -> [IntMultiCityAndReturnDisplay] {
         
@@ -143,13 +148,29 @@ class IntMCAndReturnVM {
 
     }
     
-    func applySorting(sortOrder : Sort, isConditionReverced : Bool, legIndex : Int){
+    func applySorting(sortOrder : Sort, isConditionReverced : Bool, legIndex : Int)
+    {
+        appliedFilterLegIndex = legIndex
      
         var sortArray = self.results.suggestedJourneyArray
             
                if self.resultTableState == .showExpensiveFlights{
                    sortArray = self.results.journeyArray
                }
+        
+        sortArray.sort(by: { (obj1, obj2) -> Bool in
+                return (obj1.journeyArray.first?.price ?? 0) < (obj2.journeyArray.first?.price ?? 0)
+        })
+        
+        
+        sortArray.sort(by: { (obj1, obj2) -> Bool in
+            
+            let firstObjDepartureTime = obj1.journeyArray.first?.legsWithDetail[self.prevLegIndex].dt
+            let secondObjDepartureTime = obj2.journeyArray.first?.legsWithDetail[self.prevLegIndex].dt
+                            
+                return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime ?? "") < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime ?? "")
+                
+        })
         
         
         switch  sortOrder {
@@ -280,4 +301,123 @@ extension IntMCAndReturnVM{
         }
         
     }
+    
+    
+    func setSharedFks() {
+        
+        guard let dict = flightSearchParameters as? JSONDictionary else { return }
+        
+        let pfKeys = dict.keys.filter( { $0.contains("PF") } )
+               
+        pfKeys.forEach { (key) in
+            if let fk = dict[key] as? String {
+                self.sharedFks.append(fk)
+            }
+        }
+
+    }
+    
+    
+    func updateRefundStatusInJourneys(fk: String, rfd: Int, rsc: Int) {
+        
+        self.results.journeyArray.enumerated().forEach { (index,journey) in
+            
+            if let jourInd = journey.journeyArray.firstIndex(where: { (jour) -> Bool in
+                return jour.fk == fk
+            }){
+         
+                self.results.journeyArray[index].journeyArray[jourInd].legsWithDetail.enumerated().forEach { (legInd, leg) in
+                    
+                    self.results.journeyArray[index].journeyArray[jourInd].legsWithDetail[legInd].fcp = 0
+                    
+                    self.results.journeyArray[index].journeyArray[jourInd].rfdPlcy.rfd.keys.forEach { (key) in
+                        
+                        self.results.journeyArray[index].journeyArray[jourInd].rfdPlcy.rfd[key] = rfd
+                        
+                    }
+                    
+                }
+            }
+            
+        }
+        
+        
+        self.results.allJourneys.enumerated().forEach { (index,journey) in
+            
+            if let jourInd = journey.journeyArray.firstIndex(where: { (jour) -> Bool in
+                return jour.fk == fk
+            }){
+         
+                self.results.journeyArray[index].journeyArray[jourInd].legsWithDetail.enumerated().forEach { (legInd, leg) in
+                    
+                    self.results.journeyArray[index].journeyArray[jourInd].legsWithDetail[legInd].fcp = 0
+                    
+                    self.results.journeyArray[index].journeyArray[jourInd].rfdPlcy.rfd.keys.forEach { (key) in
+                            
+                            self.results.journeyArray[index].journeyArray[jourInd].rfdPlcy.rfd[key] = rfd
+                            
+                        }
+                }
+            }
+            
+        }
+        
+        self.results.suggestedJourneyArray.enumerated().forEach { (index,journey) in
+            
+            if let jourInd = journey.journeyArray.firstIndex(where: { (jour) -> Bool in
+                return jour.fk == fk
+            }){
+         
+                self.results.journeyArray[index].journeyArray[jourInd].legsWithDetail.enumerated().forEach { (legInd, leg) in
+                    
+                    self.results.journeyArray[index].journeyArray[jourInd].legsWithDetail[legInd].fcp = 0
+                    
+                    self.results.journeyArray[index].journeyArray[jourInd].rfdPlcy.rfd.keys.forEach { (key) in
+                            
+                            self.results.journeyArray[index].journeyArray[jourInd].rfdPlcy.rfd[key] = rfd
+                            
+                        }
+                }
+            }
+            
+        }
+        
+        
+        if let jourInd = self.results.pinnedFlights.firstIndex(where: { (jour) -> Bool in
+                return jour.fk == fk
+            
+            }){
+            
+                self.results.pinnedFlights[jourInd].legsWithDetail.enumerated().forEach { (legInd, leg) in
+                self.results.pinnedFlights[jourInd].legsWithDetail[legInd].fcp = 0
+                            
+                    self.results.pinnedFlights[jourInd].rfdPlcy.rfd.keys.forEach { (key) in
+                            
+                            self.results.pinnedFlights[jourInd].rfdPlcy.rfd[key] = rfd
+                            
+                        }
+            }
+         }
+        
+        
+        if let jourInd = self.results.currentPinnedJourneys.firstIndex(where: { (jour) -> Bool in
+                 return jour.fk == fk
+             
+             }){
+             
+                 self.results.currentPinnedJourneys[jourInd].legsWithDetail.enumerated().forEach { (legInd, leg) in
+                 self.results.currentPinnedJourneys[jourInd].legsWithDetail[legInd].fcp = 0
+                             
+                     self.results.currentPinnedJourneys[jourInd].rfdPlcy.rfd.keys.forEach { (key) in
+                                        
+                        self.results.currentPinnedJourneys[jourInd].rfdPlcy.rfd[key] = rfd
+                                        
+                 }
+             }
+        
+        }
+        
+    }
+    
+    
 }

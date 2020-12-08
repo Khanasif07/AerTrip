@@ -30,13 +30,13 @@ class PostBookingAddonsPaymentVC: BaseVC{
     
     let cellIdentifier = "HotelFareSectionHeader"
     var isWallet: Bool = true // To check if using wallet or Not
-    var gradientColors: [UIColor] = [AppColors.shadowBlue, AppColors.themeGreen] {
+    var gradientColors: [UIColor] = AppConstants.appthemeGradientColors {
         didSet {
             self.viewDidLayoutSubviews()
         }
     }
     
-    var disabledGradientColors: [UIColor] = [AppColors.themeGray20, AppColors.themeGray20] {
+    var disabledGradientColors: [UIColor] = AppConstants.appthemeDisableGradientColors {
         didSet {
             self.viewDidLayoutSubviews()
         }
@@ -117,7 +117,9 @@ class PostBookingAddonsPaymentVC: BaseVC{
         self.payButton.titleLabel?.font = AppFonts.SemiBold.withSize(20.0)
         self.payButton.setImage(#imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .normal)
         self.payButton.setImage(#imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .highlighted)
-        self.payButton.bringSubviewToFront(self.payButton.imageView!)
+        if self.payButton.imageView != nil{
+            self.payButton.bringSubviewToFront(self.payButton.imageView!)
+        }
         self.payButton.spaceInTextAndImageOfButton(spacing: 2)
         self.payButton.setTitleColor(AppColors.themeWhite, for: .normal)
         self.setupPayButtonTitle()
@@ -135,7 +137,7 @@ class PostBookingAddonsPaymentVC: BaseVC{
     }
     
     private func manageLoader() {
-        self.activityLoader.style = .white
+        self.activityLoader.style = .medium//.white
         self.activityLoader.color = AppColors.themeWhite
         self.activityLoader.startAnimating()
         self.loaderView.addGredient(isVertical: false)
@@ -314,7 +316,7 @@ extension PostBookingAddonsPaymentVC:PostBookingAddonsPaymentVMDelegate{
     }
     
     func getPaymentResonseFail(error: ErrorCodes) {
-        AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
+        AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .payment)
         hideShowLoader(isHidden: true)
     }
     

@@ -54,6 +54,8 @@ class BookingAddOnRequestVC: BaseVC {
     }
     
     override func initialSetup() {
+        self.requestTableView.contentInset = UIEdgeInsets(top: topNavigationView.height + bookingStatusViewHeight.constant - 0.5, left: 0.0, bottom: 0.0, right: 0.0)
+
         self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
         self.progressView?.isHidden = true
         self.requestTableView.backgroundColor = AppColors.themeGray04
@@ -81,8 +83,13 @@ class BookingAddOnRequestVC: BaseVC {
     }
     
     override func dataChanged(_ note: Notification) {
-        if let noti = note.object as? ATNotification, noti == .myBookingCasesRequestStatusChanged {
-            self.viewModel.getCaseHistory(showProgress: true)
+        if let noti = note.object as? ATNotification {
+            switch noti {
+            case .myBookingCasesRequestStatusChanged:
+                self.viewModel.getCaseHistory(showProgress: true)
+            default:
+                break
+            }
         }
     }
     
@@ -132,7 +139,7 @@ class BookingAddOnRequestVC: BaseVC {
     }
     
     private func manageLoader(shouldStart: Bool) {
-        self.indicator.style = .white
+        self.indicator.style = .medium// .white
         self.indicator.color = AppColors.themeWhite
         if shouldStart{
             self.indicator.startAnimating()
@@ -159,6 +166,7 @@ class BookingAddOnRequestVC: BaseVC {
             bookingRequestStatusView.isHidden = true
             bookingStatusViewHeight.constant = 0
         }
+        self.requestTableView.contentInset = UIEdgeInsets(top: topNavigationView.height + bookingStatusViewHeight.constant - 0.5, left: 0.0, bottom: 0.0, right: 0.0)
         self.view.layoutIfNeeded()
     }
     func seupMakePaymentButton() {
@@ -289,6 +297,10 @@ class BookingAddOnRequestVC: BaseVC {
     }
     func stopProgress() {
         self.time += 1
+        if self.time <= 8  {
+            self.time = 9
+        }
+        self.timer?.invalidate()
         self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
     }
 }

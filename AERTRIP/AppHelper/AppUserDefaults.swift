@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import SwiftyJSON
+//import SwiftyJSON
 
 enum AppUserDefaults { }
 
@@ -47,25 +47,25 @@ extension AppUserDefaults {
         
         UserDefaults.standard.set(value, forKey: key.rawValue)
         UserDefaults.standard.synchronize()
+        
     }
     
     static func removeValue(forKey key : Key) {
         
         UserDefaults.standard.removeObject(forKey: key.rawValue)
         UserDefaults.standard.synchronize()
+        
     }
     
     static func removeAllValues() {
         
         let tutorial = AppUserDefaults.value(forKey: .tutorialDisplayed).stringValue
-        
-        let appDomain = Bundle.main.bundleIdentifier!
+        let appDomain = Bundle.main.bundleIdentifier ?? ""
         UserDefaults.standard.removePersistentDomain(forName: appDomain)
         UserDefaults.standard.synchronize()
-        
         AppUserDefaults.save(value: tutorial, forKey: .tutorialDisplayed)
+        
     }
-    
     
 }
 
@@ -79,6 +79,7 @@ extension AppUserDefaults {
         case isLogin
         case userData
         case userId
+        
     }
 }
 

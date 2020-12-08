@@ -132,7 +132,7 @@ struct IntMultiCityAndReturnWSResponse {
             }
         }
         
-        struct EqMaster {
+        struct EqMaster : Equatable, Codable {
             var name: String
             var quality: Int
             
@@ -311,7 +311,9 @@ struct IntMultiCityAndReturnWSResponse {
             }
             
             func endtimeWith(Size : CGFloat) -> NSAttributedString {
-                let attributes = [NSAttributedString.Key.font : UIFont(name: "SourceSansPro-SemiBold", size: (Size))!]
+//                let attributes = [NSAttributedString.Key.font : UIFont(name: "SourceSansPro-SemiBold", size: (Size))!]
+                let attributes = [NSAttributedString.Key.font : AppFonts.SemiBold.withSize(Size)]
+
                 let endTime = NSMutableAttributedString(string: at, attributes: attributes)
                 
                 let dateFormatter = DateFormatter()
@@ -331,7 +333,10 @@ struct IntMultiCityAndReturnWSResponse {
                 let numberOfDays = components.day ?? 0
                 
                 if numberOfDays >= 1 {
-                    let daysStringAttributes = [NSAttributedString.Key.font : UIFont(name: "SourceSansPro-SemiBold", size: 8.0)! , NSAttributedString.Key.baselineOffset :  NSNumber(6) ]
+//                    let daysStringAttributes = [NSAttributedString.Key.font : UIFont(name: "SourceSansPro-SemiBold", size: 8.0)! , NSAttributedString.Key.baselineOffset :  NSNumber(6) ]
+                    
+                    let daysStringAttributes = [NSAttributedString.Key.font : AppFonts.SemiBold.withSize(8) , NSAttributedString.Key.baselineOffset :  NSNumber(6) ]
+
                     let daysSuperscript = "+" + String(numberOfDays)
                     let daysSuperScript = NSAttributedString(string: daysSuperscript, attributes: daysStringAttributes)
                     endTime.append(daysSuperScript)
@@ -369,6 +374,8 @@ struct IntMultiCityAndReturnWSResponse {
                     return attributedSuperScript
                 }
                 
+//                print("baggageArray=",baggageArray)
+                
                 if baggageArray.allSatisfy({ $0 == firstValue }) {
                     
                     let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 9.0)! ,
@@ -377,6 +384,20 @@ struct IntMultiCityAndReturnWSResponse {
                     if let ADTBaggage = firstValue["ADT"] {
                         
                         let attributedSuperScript : NSAttributedString
+                        
+                        if let pieces = ADTBaggage.pieces, pieces != "" && pieces != "-9" && pieces != "-1" && pieces != "0 pc" && pieces != "0" {
+
+                              if pieces.containsIgnoringCase(find: " ") {
+                                  let numbers = pieces.components(separatedBy: " ")
+                                  attributedSuperScript = NSAttributedString(string:numbers.first! + "Pc" , attributes: attributes)
+                                  return attributedSuperScript
+                              } else {
+                                          attributedSuperScript = NSAttributedString(string: pieces + "Pc" , attributes: attributes)
+                                          return attributedSuperScript
+                              }
+                            
+                          }
+                        
                         
                         if let weight = ADTBaggage.weight {
                             
@@ -387,35 +408,62 @@ struct IntMultiCityAndReturnWSResponse {
                             }
                         }
                         
-                        if let pieces = ADTBaggage.pieces {
-                            
-                            if pieces.containsIgnoringCase(find: " ") {
-                                let numbers = pieces.components(separatedBy: " ")
-                                attributedSuperScript = NSAttributedString(string:numbers.first! + "P" , attributes: attributes)
-                                return attributedSuperScript
-                            }
-                        }
+  
                     }
                 } else {
 
-                    let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 16.0)! ,
-                                       NSAttributedString.Key.foregroundColor : UIColor.black]
+//                    let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 16.0)! ,
+//                                       NSAttributedString.Key.foregroundColor : UIColor.black]
+//
+//                    let attributedSuperScript = NSAttributedString(string: "*", attributes: attributes)
+//                    return attributedSuperScript
+                    
+                    
+                    
+                    if let ADTBaggage = firstValue["ADT"] {
+                        
+                        
+                        if let pieces = ADTBaggage.pieces, pieces != "" && pieces != "-9" && pieces != "-1" && pieces != "0 pc" && pieces != "0" {
+                            let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 16.0)! ,
+                                               NSAttributedString.Key.foregroundColor : UIColor.black]
 
-                    let attributedSuperScript = NSAttributedString(string: "*", attributes: attributes)
-                    return attributedSuperScript
+                            let attributedSuperScript = NSAttributedString(string: "*", attributes: attributes)
+                            return attributedSuperScript
+
+                        }else{
+                            let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 9.0)! ,
+                                                 NSAttributedString.Key.foregroundColor : UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)]
+                             let attributedSuperScript = NSAttributedString(string: "?", attributes: attributes)
+                             return attributedSuperScript
+                        }
+                    }else{
+                        let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 9.0)! ,
+                                             NSAttributedString.Key.foregroundColor : UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)]
+                         let attributedSuperScript = NSAttributedString(string: "?", attributes: attributes)
+                         return attributedSuperScript
+
+                    }
                  }
 
                 let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 9.0)! ,
                                      NSAttributedString.Key.foregroundColor : UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)]
                  let attributedSuperScript = NSAttributedString(string: "?", attributes: attributes)
                  return attributedSuperScript
+                
+                
+                
+                
+                
+                
+                
+                
             }
             
             var smartIconArray : [String] {
                 
                 var logoArray = [ String]()
                 
-                if coa == 1 { logoArray.append("redchangeAirport") }
+                if coa > 0 { logoArray.append("redchangeAirport") }
                             
                 if let changeOfflightClass = fcc {
                     
@@ -431,6 +479,7 @@ struct IntMultiCityAndReturnWSResponse {
                     default :
                         break
                     }
+                    
                 }
                 
                 if fsr > 0 {
@@ -914,14 +963,38 @@ struct IntMultiCityAndReturnWSResponse {
                             }
                         }
                     }
-                }
-                 else {
+                } else {
 
-                    let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 16.0)! ,
-                                       NSAttributedString.Key.foregroundColor : UIColor.black]
+//                    let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 16.0)! ,
+//                                       NSAttributedString.Key.foregroundColor : UIColor.black]
+//
+//                    let attributedSuperScript = NSAttributedString(string: "*", attributes: attributes)
+//                    return attributedSuperScript
+                    
+                    
+                    if let ADTBaggage = firstValue["ADT"] {
+                        
+                        
+                        if let pieces = ADTBaggage.pieces, pieces != "" && pieces != "-9" && pieces != "-1" && pieces != "0 pc" && pieces != "0" {
+                            let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 16.0)! ,
+                                               NSAttributedString.Key.foregroundColor : UIColor.black]
 
-                    let attributedSuperScript = NSAttributedString(string: "*", attributes: attributes)
-                    return attributedSuperScript
+                            let attributedSuperScript = NSAttributedString(string: "*", attributes: attributes)
+                            return attributedSuperScript
+
+                        }else{
+                            let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 9.0)! ,
+                                                 NSAttributedString.Key.foregroundColor : UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)]
+                             let attributedSuperScript = NSAttributedString(string: "?", attributes: attributes)
+                             return attributedSuperScript
+                        }
+                    }else{
+                        let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 9.0)! ,
+                                             NSAttributedString.Key.foregroundColor : UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)]
+                         let attributedSuperScript = NSAttributedString(string: "?", attributes: attributes)
+                         return attributedSuperScript
+
+                    }
                  }
 
                 let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 9.0)! ,
@@ -1061,6 +1134,7 @@ struct IntMultiCityAndReturnWSResponse {
             var ap: [String]
             var cityAp: [String: [String]]
             var allLayoversSelected = false
+            
             
             init(_ json: JSON) {
                 multiAl = json["multi_al"].intValue

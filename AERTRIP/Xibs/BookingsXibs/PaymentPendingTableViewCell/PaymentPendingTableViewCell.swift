@@ -24,25 +24,32 @@ class PaymentPendingTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configUI()
+        //Font
+        self.priceLabel.font = AppFonts.Regular.withSize(20.0)
+        
+        //Color
+        self.priceLabel.textColor = AppColors.themeWhite
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         self.configUI()
+        delay(seconds: 0.05) {
+            self.configUI()
+        }
     }
     
     
     //MARK:- Functions
     //MARK:===========
     private func configUI() {
-        //Font
-        self.priceLabel.font = AppFonts.Regular.withSize(20.0)
         
-        //Color
-        self.priceLabel.textColor = AppColors.themeWhite
         //self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.7, shadowRadius: 5.0)
-        self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
-        self.gradiyentView.addGredientWithScreenWidth(isVertical: true, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue], spacing: 16.0)
+//        self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
+//        self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMaxYCorner, .layerMinXMaxYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
+        let shadow = AppShadowProperties()
+        self.containerView.addShadow(cornerRadius: shadow.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMinXMaxYCorner], color: shadow.shadowColor, offset: shadow.offset, opacity: shadow.opecity, shadowRadius: shadow.shadowRadius)
+        self.gradiyentView.addGredientWithScreenWidth(isVertical: false, cornerRadius: 0.0, colors: AppConstants.appthemeGradientColors, spacing: 16.0)
         self.gradiyentView.roundBottomCorners(cornerRadius: 10.0)
         
     }

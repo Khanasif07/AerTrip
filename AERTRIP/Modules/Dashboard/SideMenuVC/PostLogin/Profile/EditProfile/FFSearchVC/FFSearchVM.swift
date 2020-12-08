@@ -31,7 +31,7 @@ class FFSearchVM {
                 self.delegate?.getSuccess(data)
             } else {
                 self.delegate?.getFail(errors: errorCode)
-                debugPrint(errorCode)
+                printDebug(errorCode)
             }
         })
     }

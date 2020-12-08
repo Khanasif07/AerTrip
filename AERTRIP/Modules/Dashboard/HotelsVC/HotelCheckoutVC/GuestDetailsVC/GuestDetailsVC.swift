@@ -40,11 +40,13 @@ class GuestDetailsVC: BaseVC {
     // travellers for managing on table view
     //var travellers: [TravellerModel] = []
     var keyboardHeight: CGFloat = 0.0
-    
+    private let oldGuestState = GuestDetailsVM.shared.guests
+
     // MARK: - View Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.guestDetailTableView.contentInset = UIEdgeInsets(top: topNavView.height, left: 0, bottom: 0, right: 0)
         self.viewModel.resetData()
         self.registerXib()
         self.doInitialSetup()
@@ -61,7 +63,7 @@ class GuestDetailsVC: BaseVC {
         //        delay(seconds: 1.3) { [weak self] in
         //              self?.makeTableViewIndexSelectable()
         //        }
-        
+        IQKeyboardManager.shared().shouldResignOnTouchOutside = false
         IQKeyboardManager.shared().isEnabled = false
         
     }
@@ -69,7 +71,7 @@ class GuestDetailsVC: BaseVC {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+        IQKeyboardManager.shared().shouldResignOnTouchOutside = true
         IQKeyboardManager.shared().isEnabled = true
     }
     
@@ -379,6 +381,7 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
 extension GuestDetailsVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
+        GuestDetailsVM.shared.guests = self.oldGuestState
         AppFlowManager.default.popViewController(animated: true)
     }
     
@@ -462,7 +465,7 @@ extension GuestDetailsVC: GuestDetailTableViewCellDelegate {
             if let index = self.indexPath {
                 yValue = index.row ==  GuestDetailsVM.shared.guests[index.section].count - 1 ? 81 : 83
             }
-            let offsetYValue = itemPosition.y - CGFloat(yValue)
+            let offsetYValue = itemPosition.y - CGFloat(CGFloat(yValue) + self.guestDetailTableView.contentInset.top)
             
             printDebug("self.guestDetailTableView.contentOffset: \(self.guestDetailTableView.contentOffset)")
             printDebug("itemPosition.y - CGFloat(yValue): \(offsetYValue)")

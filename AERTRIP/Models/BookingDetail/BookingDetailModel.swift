@@ -190,6 +190,11 @@ struct BookingDetailModel {
 //
 //            ]
             self.weatherInfo = WeatherInfo.getModels(json: obj)
+            let filtered = self.weatherInfo.filter({$0.maxTemperature != nil || $0.minTemperature != nil || $0.temperature != nil})
+            if filtered.count == 0{
+                self.weatherInfo = []
+            }
+
         }
         
         if self.product == "flight" {
@@ -235,7 +240,7 @@ struct BookingDetailModel {
             }
             
             for tripWeatherData in self.tripWeatherData {
-                if tripWeatherData.minTemperature == 0 || tripWeatherData.maxTemperature == 0 {
+                if tripWeatherData.minTemperature == nil || tripWeatherData.maxTemperature == nil {
                     self.weatherDisplayedWithin16Info = true
                     break
                 }
@@ -263,7 +268,7 @@ struct BookingDetailModel {
             }
             
             for tripWeatherData in self.tripWeatherData {
-                if tripWeatherData.temperature == 0 {
+                if tripWeatherData.temperature == nil {
                     self.weatherDisplayedWithin16Info = true
                     break
                 }
@@ -508,20 +513,32 @@ extension BookingDetailModel {
     
     var frequentFlyerDatas: [FrequentFlyerData] {
         var temp: [FrequentFlyerData] = []
+        let totalFlight = (self.bookingDetail?.leg ?? []).flatMap({$0.flight})
+        let pax = (self.bookingDetail?.leg ?? []).first?.pax ?? []
         
-        for leg in self.bookingDetail?.leg ?? [] {
-            for pax in leg.pax {
-                // need to remove duplicates
-                if !temp.contains(where: { (object) -> Bool in
-                    if  pax.paxId == object.passenger?.paxId {
-                        return true
-                    }
-                    return false
-                }) {
-                    temp.append(FrequentFlyerData(passenger: pax, flights: leg.flight))
+        for px in pax{
+            var newFF = FrequentFlyerData(passenger: px, flights: [])
+            for flight in totalFlight{
+                if !newFF.flights.contains(where: {$0.carrier == flight.carrier}){
+                    newFF.flights.append(flight)
                 }
             }
+            temp.append(newFF)
         }
+        
+//        for leg in self.bookingDetail?.leg ?? [] {
+//            for pax in leg.pax {
+//                // need to remove duplicates
+//                if !temp.contains(where: { (object) -> Bool in
+//                    if  pax.paxId == object.passenger?.paxId {
+//                        return true
+//                    }
+//                    return false
+//                }) {
+//                    temp.append(FrequentFlyerData(passenger: pax, flights: leg.flight))
+//                }
+//            }
+//        }
         
         return temp
     }
@@ -943,7 +960,7 @@ struct BookingLeg {
     }
     
     var cabinClass: String {
-        return self.flight.map { $0.cabinClass }.removeDuplicates().joined(separator: ",")
+        return self.flight.map { $0.cabinClass }.removeDuplicates().joined(separator: ", ")
     }
     
     var legDuration: Double {
@@ -1229,11 +1246,11 @@ struct BookingFlightDetail {
             self.fbn = "\(obj)".removeNull
         }
         
-        if let obj = json["cc"] {
+        if let obj = json["cabin_class"] {
             self.cc = "\(obj)".removeNull
         }
         
-        if let obj = json["bc"] {
+        if let obj = json["booking_class"] {
             self.bc = "\(obj)".removeNull
         }
         
@@ -1433,6 +1450,8 @@ struct BaggageInfo {
 
 struct Dimension {
     var cm: CM?
+    var inch: CM?
+    var weight = ""
     
     init() {
         self.init(json: [:])
@@ -1441,6 +1460,12 @@ struct Dimension {
     init(json: JSONDictionary) {
         if let obj = json["cm"] as? JSONDictionary {
             self.cm = CM(json: obj)
+        }
+        if let inch = json["in"] as? JSONDictionary{
+            self.inch = CM(json: inch)
+        }
+        if let weight = json["weight"]{
+            self.weight = "\(weight)".removeNull
         }
     }
 }
@@ -2282,11 +2307,11 @@ struct Codes {
 }
 
 struct WeatherInfo {
-    var maxTemperature: Int = 0
-    var minTemperature: Int = 0
+    var maxTemperature: Int?
+    var minTemperature: Int?
     var weather: String = ""
     var weatherIcon: String = ""
-    var temperature: Int = 0
+    var temperature: Int?
     var date: Date?
     var countryCode: String = ""
     var city: String = ""

@@ -13,6 +13,18 @@ class IntCombineFareInfoCell: UITableViewCell {
     @IBOutlet weak var noInfoView: UIView!
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
     
+    
+    
+    @IBOutlet weak var nonRefundableLabel: UILabel!//Non-refundable
+    @IBOutlet weak var nonReschedulableLabel: UILabel!//Non-reschedulable
+    @IBOutlet weak var messageLabel: UILabel!//*Cancellation Information is currently not available online. This itinerary may be non-reschedulable
+    @IBOutlet weak var nonRefundableImgTop: NSLayoutConstraint!
+    @IBOutlet weak var nonRefundableImgHeight: NSLayoutConstraint!
+    @IBOutlet weak var nonRefundableImgBottom: NSLayoutConstraint!
+    @IBOutlet weak var nonReschedulableImgHeight: NSLayoutConstraint!
+    @IBOutlet weak var nonReschedulableImgBottom: NSLayoutConstraint!
+    @IBOutlet weak var messageBottom: NSLayoutConstraint!
+
     var intAirlineCancellationFees = [String:IntTaxes.SubFares.Details.Fee]()
     var intAertripCancellationFees = [String:IntTaxes.SubFares.Details.Fee]()
     var intAirlineReschedulingFees = [String:IntTaxes.SubFares.Details.Fee]()
@@ -29,9 +41,7 @@ class IntCombineFareInfoCell: UITableViewCell {
     var count = 0
     var isNoInfoViewVisible = false
     var indexOfCell = 0
-    
-    weak var cellHeightDelegate:cellHeightDelegate?
-    
+        
     override func awakeFromNib()
     {
         super.awakeFromNib()
@@ -48,6 +58,31 @@ class IntCombineFareInfoCell: UITableViewCell {
     override func layoutSubviews() {
         self.combineFareTableView.layoutIfNeeded()
     }
+    
+    func setConstraint(isHidden: Bool){
+        if isHidden{
+            nonRefundableImgTop.constant = 0
+            nonRefundableImgHeight.constant = 0
+            nonRefundableImgBottom.constant = 0
+            nonReschedulableImgHeight.constant = 0
+            nonReschedulableImgBottom.constant = 0
+            messageBottom.constant = 0
+            nonRefundableLabel.text = ""
+            nonReschedulableLabel.text = ""
+            messageLabel.text = ""
+        }else{
+            nonRefundableImgTop.constant = 16
+            nonRefundableImgHeight.constant = 20
+            nonRefundableImgBottom.constant = 16
+            nonReschedulableImgHeight.constant = 20
+            nonReschedulableImgBottom.constant = 26
+            messageBottom.constant = 16
+            nonRefundableLabel.text = "Non-refundable"
+            nonReschedulableLabel.text = "Non-reschedulable"
+            messageLabel.text = "*Cancellation Information is currently not available online. This itinerary may be non-reschedulable"
+        }
+    }
+    
 }
 
 extension IntCombineFareInfoCell:UITableViewDataSource, UITableViewDelegate
@@ -79,22 +114,26 @@ extension IntCombineFareInfoCell:UITableViewDataSource, UITableViewDelegate
             footerView.addSubview(innerView)
             
             
-            let seperatorView = UIView(frame:CGRect(x: 0, y: 20, width: UIScreen.main.bounds.width, height: 0.6))
-            seperatorView.backgroundColor = UIColor(displayP3Red: (204.0/255.0), green: (204.0/255.0), blue: (204.0/255.0), alpha: 1.0)
+//            let seperatorView = UIView(frame:CGRect(x: 0, y: 20, width: UIScreen.main.bounds.width, height: 0.6))
+//            seperatorView.backgroundColor = UIColor(displayP3Red: (204.0/255.0), green: (204.0/255.0), blue: (204.0/255.0), alpha: 1.0)
+            
+            let seperatorView = ATDividerView()
+            seperatorView.frame = CGRect(x: 0, y: 20, width: UIScreen.main.bounds.width, height: 0.5)            
             footerView.addSubview(seperatorView)
             
-            return footerView
+            return (getNumberOfRowWithoutApi(section) != 0) ? footerView : nil
         }else{
-            return UIView()
+            return nil
         }
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat
     {
         if section == 1{
-            return 55
+            
+            return (getNumberOfRowWithoutApi(section) != 0) ? 55 : CGFloat.leastNonzeroMagnitude
         }else{
-            return 0
+            return CGFloat.leastNonzeroMagnitude
         }
     }
     //
@@ -109,21 +148,53 @@ extension IntCombineFareInfoCell:UITableViewDataSource, UITableViewDelegate
     }
     
     //MARK:- Format Price
-    func getPrice(price:Double) -> String{
+//    func getPrice(price:Double) -> String{
+//        let formatter = NumberFormatter()
+//        formatter.numberStyle = .currency
+//        formatter.maximumFractionDigits = 2
+//        formatter.locale = Locale(identifier: "en_IN")
+//        if var result = formatter.string(from: NSNumber(value: price)){
+//            if result.contains(find: ".00"){
+//                result = result.replacingOccurrences(of: ".00", with: "", options: .caseInsensitive, range: Range(NSRange(location:result.count-3,length:3), in: result) )
+//            }
+//            return result
+//        }else{
+//            return "\(price)"
+//        }
+//
+//
+//    }
+    
+    
+    func getPrice(price:Double) -> NSMutableAttributedString{
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         formatter.maximumFractionDigits = 2
         formatter.locale = Locale(identifier: "en_IN")
-        if var result = formatter.string(from: NSNumber(value: price)){
-            if result.contains(find: ".00"){
-                result = result.replacingOccurrences(of: ".00", with: "", options: .caseInsensitive, range: Range(NSRange(location:result.count-3,length:3), in: result) )
+        if let result = formatter.string(from: NSNumber(value: price)){
+//            let fontSize = 16
+//            let fontSizeSuper = 12
+//
+//            let displayFont = AppFonts.SemiBold.rawValue
+//            let displayFontSuper = AppFonts.SemiBold.rawValue
+            
+//            let font:UIFont? = UIFont(name: displayFont, size:CGFloat(fontSize))
+//            let fontSuper:UIFont? = UIFont(name: displayFontSuper, size:CGFloat(fontSizeSuper))
+
+            
+            let font:UIFont = AppFonts.SemiBold.withSize(16)
+            let fontSuper:UIFont = AppFonts.SemiBold.withSize(12)
+            let attString:NSMutableAttributedString = NSMutableAttributedString(string: result, attributes: [.font:font])
+            attString.setAttributes([.font:fontSuper,.baselineOffset:6], range: NSRange(location:result.count-3,length:3))
+            if attString.string.contains(find: ".00"){
+                attString.mutableString.replaceOccurrences(of: ".00", with: "", options: .caseInsensitive, range: NSRange(location:result.count-3,length:3))
             }
-            return result
+            return attString
         }else{
-            return "\(price)"
+            return NSMutableAttributedString(string: "\(price)")
         }
         
-        
+       
     }
 }
 
@@ -165,14 +236,14 @@ extension IntCombineFareInfoCell{
             slabCell.topSeperatorLabelTop.constant = 0
             slabCell.topSeperatorLabelBottom.constant = 10
             slabCell.topSeperatorLabel.isHidden = false
-            slabCell.titleLabel.text = "Cancellation Fee"
+            slabCell.titleLabel.text = "Cancellation"
             slabCell.titleView.isHidden = false
             slabCell.titleViewHeight.constant = 40
         }else if indexPath.section == 1 && indexPath.row == 0{
             slabCell.topSeperatorLabelTop.constant = 12
             slabCell.topSeperatorLabelBottom.constant = 8
             slabCell.topSeperatorLabel.isHidden = false
-            slabCell.titleLabel.text = "Rescheduling Fee"
+            slabCell.titleLabel.text = "Rescheduling"
             slabCell.titleView.isHidden = false
             slabCell.titleViewHeight.constant = 40
         }else{
@@ -250,9 +321,17 @@ extension IntCombineFareInfoCell{
                             }else{
                                 adtRafVal = (rafFees["ADT"] as? [String:Int])?.values.first ?? 0
                             }
-                            let displayValue = getPrice(price: Double(airlineValue + adtRafVal))
+                            
+                            if aertripValue > 0{
+                                let displayValue = getPrice(price: Double(airlineValue + adtRafVal + aertripValue))
+                                slabCell.statusLabel.attributedText = displayValue
+                            }else{
+                                let displayValue = getPrice(price: Double(airlineValue + adtRafVal))
 
-                            slabCell.statusLabel.text = displayValue + " + ₹ " + String(aertripValue)
+                                displayValue.append(NSAttributedString(string: " + "))
+                                displayValue.append(getPrice(price: Double(aertripValue)))
+                                slabCell.statusLabel.attributedText = displayValue
+                            }
                         }
                     }else{
                         if airlineValue == -9{
@@ -272,9 +351,16 @@ extension IntCombineFareInfoCell{
                             }else{
                                 adtRafVal = (rafFees["ADT"] as? [String:Int])?.values.first ?? 0
                             }
-                            let displayValue = getPrice(price: Double(airlineValue + adtRafVal))
-                            
-                            slabCell.perAdultAmountLabel.text = displayValue + " + ₹ " + String(aertripValue)
+
+                            if aertripValue > 0{
+                                let displayValue = getPrice(price: Double(airlineValue + adtRafVal + aertripValue))
+                                slabCell.perAdultAmountLabel.attributedText = displayValue
+                            }else{
+                                let displayValue = getPrice(price: Double(airlineValue + adtRafVal))
+                                displayValue.append(NSAttributedString(string: " + "))
+                                displayValue.append(getPrice(price: Double(aertripValue)))
+                                slabCell.perAdultAmountLabel.attributedText = displayValue
+                            }
                         }
                     }
                 }else{
@@ -312,9 +398,16 @@ extension IntCombineFareInfoCell{
                         }else{
                             chdRafVal = (rafFees["CHD"] as? [String:Int])?.values.first ?? 0
                         }
-                        let displayValue = getPrice(price: Double(value + chdRafVal))
-                        
-                        slabCell.perChildAmountLabel.text = displayValue + " + ₹ " +  String(aertripValue)
+
+                        if aertripValue > 0 {
+                            let displayValue = getPrice(price: Double(value + chdRafVal + aertripValue))
+                            slabCell.perChildAmountLabel.attributedText = displayValue
+                        }else{
+                            let displayValue = getPrice(price: Double(value + chdRafVal))
+                            displayValue.append(NSAttributedString(string: " + "))
+                            displayValue.append(getPrice(price: Double(aertripValue)))
+                            slabCell.perChildAmountLabel.attributedText = displayValue
+                        }
                     }
                 }else{
                     slabCell.perChildAmountLabel.text = "NA"
@@ -351,8 +444,16 @@ extension IntCombineFareInfoCell{
                         }else{
                             iNFRafVal = (rafFees["INF"] as? [String:Int])?.values.first ?? 0
                         }
-                        let displayValue = getPrice(price: Double(value + iNFRafVal))
-                        slabCell.perInfantAmountLabel.text = displayValue + " + ₹ " +  String(aertripValue)
+                        
+                        if aertripValue > 0{
+                            let displayValue = getPrice(price: Double(value + iNFRafVal + aertripValue))
+                            slabCell.perInfantAmountLabel.attributedText = displayValue
+                        }else{
+                            let displayValue = getPrice(price: Double(value + iNFRafVal))
+                            displayValue.append(NSAttributedString(string: " + "))
+                            displayValue.append(getPrice(price: Double(aertripValue)))
+                            slabCell.perInfantAmountLabel.attributedText = displayValue
+                        }
                     }
                 }else{
                     slabCell.perInfantAmountLabel.text = "NA"
@@ -420,8 +521,17 @@ extension IntCombineFareInfoCell{
                         }else{
                             slabCell.statusLabel.textColor = .black
                             
-                            let displayValue = getPrice(price: Double(value))
-                            slabCell.statusLabel.text = displayValue + " + ₹ " +  String(aertripValue)
+                            if aertripValue > 0{
+                                let displayValue = getPrice(price: Double(value + aertripValue))
+                                slabCell.statusLabel.attributedText = displayValue
+                            }else{
+                                let displayValue = getPrice(price: Double(value))
+                                displayValue.append(NSAttributedString(string: " + "))
+                                displayValue.append(getPrice(price: Double(aertripValue)))
+
+                                slabCell.statusLabel.attributedText = displayValue
+                            }
+
                         }
                     }else{
                         if value == -9{
@@ -436,9 +546,16 @@ extension IntCombineFareInfoCell{
                         }else{
                             slabCell.perAdultAmountLabel.textColor = .black
                             
-                            let displayValue = getPrice(price: Double(value))
-                            
-                            slabCell.perAdultAmountLabel.text = displayValue + " + ₹ " +  String(aertripValue)
+
+                            if aertripValue > 0{
+                                let displayValue = getPrice(price: Double(value + aertripValue))
+                                slabCell.perAdultAmountLabel.attributedText = displayValue
+                            }else{
+                                let displayValue = getPrice(price: Double(value))
+                                displayValue.append(NSAttributedString(string: " + "))
+                                displayValue.append(getPrice(price: Double(aertripValue)))
+                                slabCell.perAdultAmountLabel.attributedText = displayValue
+                            }
                         }
                     }
                 }else{
@@ -470,10 +587,16 @@ extension IntCombineFareInfoCell{
                         slabCell.perChildAmountLabel.text = "Free Rescheduling"
                     }else{
                         slabCell.perChildAmountLabel.textColor = .black
-                        
-                        let displayValue = getPrice(price: Double(value))
-                        
-                        slabCell.perChildAmountLabel.text = displayValue + " + ₹ " +  String(aertripValue)
+
+                        if aertripValue > 0 {
+                            let displayValue = getPrice(price: Double(value + aertripValue))
+                            slabCell.perChildAmountLabel.attributedText = displayValue
+                        }else{
+                            let displayValue = getPrice(price: Double(value))
+                            displayValue.append(NSAttributedString(string: " + "))
+                            displayValue.append(getPrice(price: Double(aertripValue)))
+                            slabCell.perChildAmountLabel.attributedText = displayValue
+                        }
                     }
                 }else{
                     slabCell.perChildAmountLabel.text = "NA"
@@ -504,9 +627,16 @@ extension IntCombineFareInfoCell{
                         slabCell.perInfantAmountLabel.text = "Free Rescheduling"
                     }else{
                         slabCell.perInfantAmountLabel.textColor = .black
-                        let displayValue = getPrice(price: Double(value))
                         
-                        slabCell.perInfantAmountLabel.text = displayValue + " + ₹ " +  String(aertripValue)
+                        if aertripValue > 0{
+                            let displayValue = getPrice(price: Double(value + aertripValue))
+                            slabCell.perInfantAmountLabel.attributedText = displayValue
+                        }else{
+                            let displayValue = getPrice(price: Double(value))
+                            displayValue.append(NSAttributedString(string: " + "))
+                            displayValue.append(getPrice(price: Double(aertripValue)))
+                            slabCell.perInfantAmountLabel.attributedText = displayValue
+                        }
                     }
                 }else{
                     slabCell.perInfantAmountLabel.text = "NA"

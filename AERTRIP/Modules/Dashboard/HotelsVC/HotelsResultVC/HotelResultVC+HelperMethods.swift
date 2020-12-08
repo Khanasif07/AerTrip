@@ -111,15 +111,16 @@ extension HotelResultVC {
             return
         }
         if self.time == 2 {
-            self.timer!.invalidate()
+            self.timer?.invalidate()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
                 self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
             }
         }
         
         if self.time >= 10 {
-            self.timer!.invalidate()
+            self.timer?.invalidate()
             delay(seconds: 0.8) {
+                self.timer?.invalidate()
                 self.progressView?.isHidden = true
             }
         }
@@ -473,13 +474,17 @@ extension HotelResultVC {
                 
                 var rect = self.headerContainerView.frame
                 
-                var yCordinate = rect.origin.y + invertedOffset
+//                var yCordinate = rect.origin.y + invertedOffset
+                var yCordinate = invertedOffset - 100.0
                 yCordinate = min ( 0,  yCordinate)
+                if self.tableViewVertical.contentOffset.y <= 0 || rect.origin.y == 20{
+                    yCordinate = 0
+                }
                 rect.origin.y = yCordinate
                 //printDebug("revealBlurredHeaderView.frame : \(self.headerContainerView.frame )")
                 if self.headerContainerViewTopConstraint.constant != yCordinate {
                     self.headerContainerViewTopConstraint.constant = yCordinate
-                    self.headerContainerView.layoutIfNeeded()
+                    self.view.layoutIfNeeded()
                 }
                 var value = self.topContentSpace - abs(yCordinate)
                 printDebug("revealBlurredHeaderView: \(value)")
@@ -554,7 +559,7 @@ extension HotelResultVC {
             UIView.animate(withDuration: 0.4, delay: 0.0, options: [.curveEaseInOut], animations: {
                 if self.headerContainerViewTopConstraint.constant != 0 {
                     self.headerContainerViewTopConstraint.constant = 0
-                    self.headerContainerView.layoutIfNeeded()
+                    self.view.layoutIfNeeded()
                 }
                 self.statusBarViewContainer.isHidden = true
                 //self.tableViewVertical.contentInset = UIEdgeInsets(top: self.topContentSpace, left: 0, bottom: 0, right: 0)

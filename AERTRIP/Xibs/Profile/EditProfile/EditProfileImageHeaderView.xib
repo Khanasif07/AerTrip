@@ -221,6 +221,15 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jRp-D1-IOP">
                                     <rect key="frame" x="0.0" y="35" width="375" height="60"/>
                                     <subviews>
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aAQ-mg-0AH">
+                                            <rect key="frame" x="0.0" y="0.5" width="350" height="59"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vz6-6u-PXK">
+                                            <rect key="frame" x="0.0" y="0.0" width="350" height="60"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="67i-IF-VbS" userLabel="topDividerView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="0.5"/>
                                             <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
@@ -260,17 +269,25 @@
                                         <constraint firstItem="uGN-oZ-Byn" firstAttribute="leading" secondItem="jRp-D1-IOP" secondAttribute="leading" id="0y4-qT-tbf"/>
                                         <constraint firstAttribute="bottom" secondItem="uGN-oZ-Byn" secondAttribute="bottom" id="35H-Kj-A6a"/>
                                         <constraint firstItem="L2V-ER-QOl" firstAttribute="leading" secondItem="1wN-Sw-RDN" secondAttribute="trailing" constant="16" id="4CZ-oE-aLw"/>
+                                        <constraint firstItem="aAQ-mg-0AH" firstAttribute="top" secondItem="67i-IF-VbS" secondAttribute="bottom" id="6IJ-Ae-APc"/>
                                         <constraint firstItem="1wN-Sw-RDN" firstAttribute="top" secondItem="ESK-xE-fzc" secondAttribute="bottom" id="6gs-dU-VnR"/>
                                         <constraint firstItem="uGN-oZ-Byn" firstAttribute="top" secondItem="1wN-Sw-RDN" secondAttribute="bottom" constant="9" id="D9g-a5-Vfu"/>
                                         <constraint firstAttribute="trailing" secondItem="ESK-xE-fzc" secondAttribute="trailing" constant="16" id="Fiq-hz-zQO"/>
                                         <constraint firstItem="67i-IF-VbS" firstAttribute="leading" secondItem="jRp-D1-IOP" secondAttribute="leading" id="Fjk-Ec-7g0"/>
+                                        <constraint firstItem="uGN-oZ-Byn" firstAttribute="top" secondItem="aAQ-mg-0AH" secondAttribute="bottom" id="IRB-GO-jKU"/>
                                         <constraint firstAttribute="trailing" secondItem="67i-IF-VbS" secondAttribute="trailing" id="NFA-ea-ksb"/>
+                                        <constraint firstItem="L2V-ER-QOl" firstAttribute="leading" secondItem="vz6-6u-PXK" secondAttribute="trailing" id="Obh-qF-lNE"/>
+                                        <constraint firstItem="L2V-ER-QOl" firstAttribute="leading" secondItem="aAQ-mg-0AH" secondAttribute="trailing" id="PQc-KA-DRA"/>
                                         <constraint firstItem="1wN-Sw-RDN" firstAttribute="leading" secondItem="jRp-D1-IOP" secondAttribute="leading" constant="16" id="PZX-EP-Tti"/>
                                         <constraint firstItem="1wN-Sw-RDN" firstAttribute="centerY" secondItem="L2V-ER-QOl" secondAttribute="centerY" id="RF7-N8-Hzf"/>
                                         <constraint firstAttribute="height" constant="60" id="Ukl-EU-xNd"/>
+                                        <constraint firstItem="vz6-6u-PXK" firstAttribute="top" secondItem="jRp-D1-IOP" secondAttribute="top" id="WzG-Pc-IEJ"/>
                                         <constraint firstItem="ESK-xE-fzc" firstAttribute="top" secondItem="67i-IF-VbS" secondAttribute="bottom" constant="8" id="gVY-6w-8Mw"/>
+                                        <constraint firstItem="vz6-6u-PXK" firstAttribute="leading" secondItem="jRp-D1-IOP" secondAttribute="leading" id="gyB-Ch-ybd"/>
                                         <constraint firstAttribute="trailing" secondItem="L2V-ER-QOl" secondAttribute="trailing" constant="16" id="h34-X7-W0A"/>
                                         <constraint firstItem="ESK-xE-fzc" firstAttribute="leading" secondItem="jRp-D1-IOP" secondAttribute="leading" constant="16" id="nNo-Nr-7kT"/>
+                                        <constraint firstItem="aAQ-mg-0AH" firstAttribute="leading" secondItem="jRp-D1-IOP" secondAttribute="leading" id="pKd-yo-mrd"/>
+                                        <constraint firstAttribute="bottom" secondItem="vz6-6u-PXK" secondAttribute="bottom" id="qrg-bm-ycW"/>
                                         <constraint firstAttribute="trailing" secondItem="uGN-oZ-Byn" secondAttribute="trailing" id="t8o-zK-5gz"/>
                                         <constraint firstItem="67i-IF-VbS" firstAttribute="top" secondItem="jRp-D1-IOP" secondAttribute="top" id="vIE-gX-e5a"/>
                                     </constraints>
@@ -321,6 +338,7 @@
                 <outlet property="firstNameTextField" destination="lm8-Lw-Y3n" id="9LM-eO-JkE"/>
                 <outlet property="genderTitleLabel" destination="VLK-QA-oW2" id="4Yu-yv-Mt2"/>
                 <outlet property="groupLabel" destination="1wN-Sw-RDN" id="pOY-j4-LbR"/>
+                <outlet property="groupTextField" destination="aAQ-mg-0AH" id="t5d-KW-cav"/>
                 <outlet property="groupTitleLabel" destination="ESK-xE-fzc" id="7TS-MS-Cpl"/>
                 <outlet property="lastNameTextField" destination="7xs-3o-QIb" id="Zc0-bB-zp8"/>
                 <outlet property="profileImageView" destination="AgY-Q3-eMG" id="yD1-6K-0VI"/>

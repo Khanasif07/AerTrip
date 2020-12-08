@@ -37,6 +37,7 @@ class HCCouponCodeVM {
     var itineraryId: String = ""
     var couponCode: String = ""
     var product = CouponFor.hotels
+    var isCouponApplied = false
     
     func searchCoupons(searchText: String) {
         if searchText.isEmpty {
@@ -73,11 +74,23 @@ class HCCouponCodeVM {
         APICaller.shared.applyCoupnCodeApi(params: params, loader: true) { [weak self] (success, errors, appliedCouponData) in
             guard let sSelf = self else { return }
             if success {
-                printDebug(appliedCouponData)
                 sSelf.appliedCouponData = appliedCouponData
                 sSelf.delegate?.applyCouponCodeSuccessful()
             } else {
                 printDebug(errors)
+                sSelf.delegate?.applyCouponCodeFailed(errors: errors)
+            }
+        }
+    }
+    
+    func removeCouponHotelCoupon() {
+        let params: [String : Any] = [ APIKeys.it_id.rawValue : self.itineraryId ]
+        APICaller.shared.removeCouponApi(params: params, loader: true) { [weak self] (success, errors, appliedCouponData) in
+            guard let sSelf = self else { return }
+            if success {
+                sSelf.appliedCouponData = appliedCouponData
+                sSelf.delegate?.applyCouponCodeSuccessful()
+            } else {
                 sSelf.delegate?.applyCouponCodeFailed(errors: errors)
             }
         }
@@ -88,7 +101,6 @@ class HCCouponCodeVM {
         APICaller.shared.applyFlightCoupnCodeApi(params: params, loader: true) { [weak self] (success, errors, appliedCouponData) in
             guard let sSelf = self else { return }
             if success {
-                printDebug(appliedCouponData)
                 sSelf.appliedDataForFlight = appliedCouponData
                 sSelf.delegate?.applyCouponCodeSuccessful()
             } else {
@@ -98,4 +110,17 @@ class HCCouponCodeVM {
         }
     }
     
+    func removeFlightCouponCode() {
+        let params: [String : Any] = [ APIKeys.it_id.rawValue : self.itineraryId]
+        APICaller.shared.removeFlightCouponApi(params: params, loader: true) { [weak self] (success, errors, appliedCouponData) in
+            guard let sSelf = self else { return }
+            if success {
+                sSelf.appliedDataForFlight = appliedCouponData
+                sSelf.delegate?.applyCouponCodeSuccessful()
+                
+            } else {
+                sSelf.delegate?.applyCouponCodeFailed(errors: errors)
+            }
+        }
+    }
 }

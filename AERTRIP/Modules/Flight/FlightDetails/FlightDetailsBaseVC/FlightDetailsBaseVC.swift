@@ -8,32 +8,25 @@
 
 protocol flightDetailsPinFlightDelegate : AnyObject {
     func reloadRowFromFlightDetails(fk:String,isPinned:Bool,isPinnedButtonClicked:Bool)
+    func updateRefundStatusIfPending(fk:String)
 }
 
-//protocol flightInfoViewDisplayDelegate:AnyObject {
-//    func updateView()
-//}
-
 protocol getBaggageDimentionsDelegate :AnyObject{
-    func getBaggageDimentions(baggage:[[NSDictionary]],sender:UIButton)
+    func getBaggageDimentions(baggage:[[JSONDictionary]],sender:UIButton)
 }
 
 protocol getFareRulesDelegate:AnyObject {
-    func getFareRulesData(fareRules:[NSDictionary])
+    func getFareRulesData(fareRules:[JSONDictionary])
 }
 
 protocol getArrivalPerformanceDelegate:AnyObject {
     func getArrivalPerformanceData(flight:FlightDetail)
 }
 
-
-
 import UIKit
-//import HMSegmentedControl
 import Parchment
 
-class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetailsSmartIconsDelegate, FareBreakupVCDelegate, flightDetailsBaggageDelegate, getBaggageDimentionsDelegate, getFareRulesDelegate, getSharableUrlDelegate, getArrivalPerformanceDelegate
-{
+class FlightDetailsBaseVC: BaseVC {
     
     //MARK:- Outlets
     @IBOutlet weak var blurView: UIView!
@@ -54,7 +47,7 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
     var journeyGroup: JourneyOnewayDisplay!
     var journey: [Journey]!
     var journeyCombo: [CombinationJourney]!
-
+    
     var titleString : NSAttributedString!
     var journeyArray : [JourneyOnewayDisplay]!
     var airportDetailsResult : [String : AirportDetailsWS]!
@@ -98,6 +91,9 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
     var flightSearchResultVM: FlightSearchResultVM?
     
     let getSharableLink = GetSharableUrl()
+    var isConditionReverced = false
+    var appliedFilterLegIndex = -1
+    private var parchmentLoaded = false
     
     //MARK:- Initial Display
     
@@ -110,13 +106,13 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         grabberView.layer.cornerRadius = 2
         
         self.navigationController?.navigationBar.isHidden = true
-
+        
         if isInternational || !(needToAddFareBreakup){
             self.setFlightDetailsForInternational()
         }else{
-           self.setFlightDetailsForDomestic()
+            self.setFlightDetailsForDomestic()
         }
-
+        
         getSharableLink.delegate = self
         
         setupInitialViews()
@@ -131,13 +127,30 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         clearCache.checkTimeAndClearUpgradeDataCache()
         clearCache.checkTimeAndClearFlightPerformanceResultCache(journey: journey)
         clearCache.checkTimeAndClearFlightBaggageResultCache()
+        let presentationStyle = presentingViewController?.modalPresentationStyle
+        
+        if presentationStyle == .overFullScreen {
+            statusBarStyle = .darkContent
+        } else {
+            statusBarStyle = .lightContent
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        statusBarStyle = .darkContent
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.parchmentView?.view.frame = self.displayView.bounds
-        self.parchmentView?.view.frame.size.height = self.dataDisplayView.height - innerControllerBottomConstraint
-        self.parchmentView?.loadViewIfNeeded()
+        if !parchmentLoaded {
+            DispatchQueue.delay(1) {
+                self.parchmentLoaded = true
+            }
+            self.parchmentView?.view.frame = self.displayView.bounds
+            self.parchmentView?.view.frame.size.height = self.dataDisplayView.height - innerControllerBottomConstraint
+            self.parchmentView?.loadViewIfNeeded()
+        }
     }
     
     //MARK:- Initialise Views
@@ -155,7 +168,8 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         initialDisplayView()
     }
     
-    func initialDisplayView(){
+    func initialDisplayView()
+    {
         if isInternational || !(needToAddFareBreakup){
             allChildVCs.append(addIntFlightInfoVC())
             allChildVCs.append(addIntBaggageVC())
@@ -165,7 +179,6 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
             allChildVCs.append(addBaggageVC())
             allChildVCs.append(addFareInfoVC())
         }
-        
     }
     
     func setupFarebreakupView(){        
@@ -208,8 +221,9 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
             height: 0.5,
             zIndex: Int.max - 1,
             insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
-        self.parchmentView?.font = UIFont(name: "SourceSansPro-Regular", size: 16.0)!
-        self.parchmentView?.selectedFont = UIFont(name: "SourceSansPro-Semibold", size: 16.0)!
+        
+        self.parchmentView?.font = AppFonts.Regular.withSize(16)
+        self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16)
         self.parchmentView?.indicatorColor = UIColor.AertripColor
         self.parchmentView?.selectedTextColor = .black
         self.parchmentView?.menuBackgroundColor = .white
@@ -226,16 +240,15 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
     }
     
     
-    //MARK:- initialDisplayViews
+    //MARK:- View Controllers to be added as child view controllers
     
     func addFlightInfoVC() -> UIViewController {
         
         let storyboard = UIStoryboard(name: "FlightInfoVC", bundle: nil)
         let flightInfoVC:FlightInfoVC =
             storyboard.instantiateViewController(withIdentifier: "FlightInfoVC") as!
-        FlightInfoVC
+            FlightInfoVC
         flightInfoVC.sid = sid
-//        flightInfoVC.flightInfoDelegate = self
         flightInfoVC.titleString = titleString
         flightInfoVC.journey = journey
         if isFSRVisible == true{
@@ -287,43 +300,6 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         return fareInfoVc
     }
     
-    
-
-    
-    
-    func reloadSmartIconsAtIndexPath() {
-        self.delegate?.reloadRowFromFlightDetails(fk: journey.first!.fk, isPinned: false, isPinnedButtonClicked:false)
-    }
-    
-    func reloadBaggageSuperScriptAtIndexPath() {
-        self.delegate?.reloadRowFromFlightDetails(fk: journey.first!.fk, isPinned: false,isPinnedButtonClicked:false)
-    }
-    
-    func getArrivalPerformanceData(flight:FlightDetail)
-    {
-        let arrivalPerformanceView = ArrivalPerformaceVC(nibName: "ArrivalPerformaceVC", bundle: nil)
-        
-            if flight.ontimePerformanceDataStoringTime != nil{
-
-                arrivalPerformanceView.observationCount = "\(flight.observationCount!)"
-                arrivalPerformanceView.averageDelay = "\(flight.averageDelay!)"
-                
-                arrivalPerformanceView.cancelledPerformanceInPercent = flight.cancelledPerformance!
-                arrivalPerformanceView.delayedPerformanceInPercent = flight.latePerformance!
-                arrivalPerformanceView.onTimePerformanceInPercent = flight.ontimePerformance!
-                
-                arrivalPerformanceView.view.frame = self.view.bounds
-                self.view.addSubview(arrivalPerformanceView.view)
-                self.addChild(arrivalPerformanceView)
-                arrivalPerformanceView.willMove(toParent: self)
-            }
-    }
-    
-    func returnEmailView(view: String) {
-        
-    }
-
-
     //MARK:- Button Actions
     
     @IBAction func closeButtonClicked(_ sender: Any)
@@ -360,7 +336,7 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
                 }
             }
             
-            self.delegate?.reloadRowFromFlightDetails(fk: journey.first!.fk, isPinned: isPinned, isPinnedButtonClicked: true)
+            self.delegate?.reloadRowFromFlightDetails(fk: journey.first?.fk ?? "", isPinned: isPinned, isPinnedButtonClicked: true)
         }else{
             if let journey = self.intJourney?.first{
                 if journey.isPinned{
@@ -378,177 +354,12 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
     
     @IBAction func addToTripButtonClicked(_ sender: Any){
         self.addToTrip()
-//        if !isInternational{
-//            let tripListVC = TripListVC(nibName: "TripListVC", bundle: nil)
-//            tripListVC.view.frame = self.view.frame
-//            tripListVC.journey = self.journey
-//            tripListVC.modalPresentationStyle = .overCurrentContext
-//            self.present(tripListVC, animated: true, completion: nil)
-//        }else{
-//
-//        }
-        
     }
     
-//    @IBAction func shareButtonClicked(_ sender: Any){
-//        guard !isInternational else {return}
-//        let flightAdultCount = bookFlightObject.flightAdultCount
-//        let flightChildrenCount = bookFlightObject.flightChildrenCount
-//        let flightInfantCount = bookFlightObject.flightInfantCount
-//
-//        let isDomestic = bookFlightObject.isDomestic
-//
-//        let cc = journey.first?.cc
-//        var trip_type = ""
-//
-//        var origin = ""
-//        var destination = ""
-//        var departureDate = ""
-//        var returnDate = ""
-//
-//        if journey.count == 1{
-//            origin.append("origin=\(journey[0].ap[0])&")
-//            destination.append("destination=\(journey[0].ap[1])&")
-//
-//            let inputFormatter = DateFormatter()
-//            inputFormatter.dateFormat = "yyyy-MM-dd"
-//            let showDate = inputFormatter.date(from: journey[0].ad)
-//            inputFormatter.dateFormat = "dd-MM-yyyy"
-//            let newAd = inputFormatter.string(from: showDate!)
-//
-//            departureDate.append("depart=\(newAd)&")
-//
-//            returnDate.append("return=&")
-//        }else{
-//            for i in 0..<journey.count{
-//                origin.append("origin[\(i)]=\(journey[i].ap[0])&")
-//                destination.append("destination[\(i)]=\(journey[i].ap[1])&")
-//
-//                let inputFormatter = DateFormatter()
-//                inputFormatter.dateFormat = "yyyy-MM-dd"
-//                let showDate = inputFormatter.date(from: journey[i].ad)
-//                inputFormatter.dateFormat = "dd-MM-yyyy"
-//                let newAd = inputFormatter.string(from: showDate!)
-//
-//                departureDate.append("depart[\(i)]=\(newAd)&")
-//
-//
-//                inputFormatter.dateFormat = "yyyy-MM-dd"
-//                let showDate1 = inputFormatter.date(from: journey[i].dd)
-//                inputFormatter.dateFormat = "dd-MM-yyyy"
-//                let newDd = inputFormatter.string(from: showDate1!)
-//
-//                returnDate.append("return[\(i)]=\(newDd)&")
-//            }
-//        }
-//
-//        if journey.count == 1{
-//            trip_type = "single"
-//        }else if journey.count > 2{
-//            trip_type = "multi"
-//        }else{
-//            trip_type = "return"
-//        }
-//
-//        if trip_type == "return"{
-//            origin.append("origin=\(journey[0].ap[0])&")
-//            destination.append("destination=\(journey[0].ap[1])&")
-//
-//            let inputFormatter = DateFormatter()
-//            inputFormatter.dateFormat = "yyyy-MM-dd"
-//            let showDate = inputFormatter.date(from: journey[0].ad)
-//            inputFormatter.dateFormat = "dd-MM-yyyy"
-//            let newAd = inputFormatter.string(from: showDate!)
-//
-//            departureDate.append("depart=\(newAd)&")
-//
-//            inputFormatter.dateFormat = "yyyy-MM-dd"
-//            let showDate1 = inputFormatter.date(from: journey[1].dd)
-//            inputFormatter.dateFormat = "dd-MM-yyyy"
-//            let newDd = inputFormatter.string(from: showDate1!)
-//
-//            returnDate.append("return=\(newDd)&")
-//        }
-//
-//        var pinnedFlightFK = ""
-//
-//        for i in 0..<journey.count{
-//            if i == journey.count-1{
-//                pinnedFlightFK.append("PF[\(i)]=\(journey[i].fk)")
-//            }else{
-//                pinnedFlightFK.append("PF[\(i)]=\(journey[i].fk)&")
-//            }
-//        }
-//
-//        let postData = NSMutableData()
-//        print("https://beta.aertrip.com/flights?trip_type=\(trip_type)&adult=\(flightAdultCount)&child=\(flightChildrenCount)&infant=\(flightInfantCount)&\(origin)\(destination)\(departureDate)\(returnDate)cabinclass=\(cc!)&pType=flight&isDomestic=\(isDomestic)&\(pinnedFlightFK)")
-//
-//        let parameters = [
-//            [
-//                "name": "u",
-//                "value": "https://beta.aertrip.com/flights?trip_type=\(trip_type)&adult=\(flightAdultCount)&child=\(flightChildrenCount)&infant=\(flightInfantCount)&\(origin)\(destination)\(departureDate)\(returnDate)cabinclass=\(cc!)&pType=flight&isDomestic=\(isDomestic)&\(pinnedFlightFK)"
-//            ]
-//        ]
-//
-//        let boundary = "----WebKitFormBoundary7MA4YWxkTrZu0gW"
-//
-//        var body = ""
-//        let _: NSError? = nil
-//        for param in parameters {
-//            let paramName = param["name"]!
-//            body += "--\(boundary)\r\n"
-//            body += "Content-Disposition:form-data; name=\"\(paramName)\""
-//            if let filename = param["fileName"] {
-//                let contentType = param["content-type"]!
-//                let fileContent = try! String(contentsOfFile: filename, encoding: String.Encoding.utf8)
-//                body += "; filename=\"\(filename)\"\r\n"
-//                body += "Content-Type: \(contentType)\r\n\r\n"
-//                body += fileContent
-//            } else if let paramValue = param["value"] {
-//                body += "\r\n\r\n\(paramValue)"
-//            }
-//        }
-//
-//        postData.append(body.data(using: String.Encoding.utf8)!)
-//
-//        let webservice = WebAPIService()
-//        webservice.executeAPI(apiServive: .getShareUrl(postData: postData as Data) , completionHandler: {    (data) in
-//
-//            let decoder = JSONDecoder()
-//            decoder.keyDecodingStrategy = .convertFromSnakeCase
-//
-//            do{
-//                let jsonResult:AnyObject?  = try JSONSerialization.jsonObject(with: data, options: []) as AnyObject
-//
-//                DispatchQueue.main.async {
-//                    if let result = jsonResult as? [String: AnyObject] {
-////                        print("result= ", result)
-//
-//                        if result["success"] as? Bool == true{
-//                            if let link = (result["data"] as? NSDictionary)?.value(forKey: "u") as? String{
-//
-//
-//                                let textToShare = [ link ]
-//                                let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
-//                                activityViewController.popoverPresentationController?.sourceView = self.view
-//
-//                                self.present(activityViewController, animated: true, completion: nil)
-//                            }
-//                        }
-//                    }
-//                }
-//            }catch{
-//            }
-//        } , failureHandler : { (error ) in
-//            print(error)
-//        })
-//    }
-    
-    // Monika
-    @IBAction func shareButtonClicked(_ sender: Any)
+    @IBAction func shareButtonClicked(_ sender: UIButton)
     {
-        
-        
+        shareButton.setImage(nil, for: .normal)
+        sender.displayLoadingIndicator(true)
         
         if isInternational{
             let intVC = IntMCAndReturnVC()
@@ -561,197 +372,38 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
                 valStr = intVC.generateCommonString(for: intJourney, flightObject: self.bookFlightObject)
             }
             
-            let filterStr = self.getSharableLink.getAppliedFiltersForSharingIntJourney(legs: self.flightSearchResultVM?.intFlightLegs ?? [])
+            let filterStr = self.getSharableLink.getAppliedFiltersForSharingIntJourney(legs: self.flightSearchResultVM?.intFlightLegs ?? [],isConditionReverced: isConditionReverced,appliedFilterLegIndex: appliedFilterLegIndex)
             valStr.append(filterStr)
             
-            self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, isInternational: true, journeyArray: [], valString: valStr, trip_type: "",filterString: filterStr)
+            self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, isInternational: true, journeyArray: [], valString: valStr, trip_type: "",filterString: filterStr,searchParam: flightSearchResultVM?.flightSearchParametersFromDeepLink)
         }else{
             let flightAdultCount = bookFlightObject.flightAdultCount
             let flightChildrenCount = bookFlightObject.flightChildrenCount
             let flightInfantCount = bookFlightObject.flightInfantCount
             
             let isDomestic = bookFlightObject.isDomestic
-
-            let filterStr = getSharableLink.getAppliedFiltersForSharingDomesticJourney(legs: self.flightSearchResultVM?.flightLegs ?? [])
+            
+            let filterStr = getSharableLink.getAppliedFiltersForSharingDomesticJourney(legs: self.flightSearchResultVM?.flightLegs ?? [],isConditionReverced:isConditionReverced)
             
             var tripType = ""
-            if bookFlightObject.isReturn == false && bookFlightObject.isMultyCity == false{
+            if self.bookFlightObject.flightSearchType == SINGLE_JOURNEY{
                 tripType = "single"
+            }else if self.bookFlightObject.flightSearchType == RETURN_JOURNEY{
+                tripType = "return"
             }else{
-                tripType = (self.bookFlightObject.flightSearchType == RETURN_JOURNEY) ? "return" : "multi"
+                tripType = "multi"
             }
             
-            self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, isInternational: false, journeyArray: journey, valString: "", trip_type: tripType,filterString: filterStr)
-        }
-//        guard !isInternational else {return}
-        
-    }
-    
-    func returnSharableUrl(url: String)
-    {
-        let textToShare = [ "Checkout my favourite flights on Aertrip!\n\(url)" ]
-        let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
-        activityViewController.popoverPresentationController?.sourceView = self.view
-
-        self.present(activityViewController, animated: true, completion: nil)
-    }
-    
-    func infoButtonTapped(isViewExpanded: Bool)
-    {
-        if isViewExpanded == true{
-            backgroundViewForFareBreakup.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-            
-            UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {
-                self.backgroundViewForFareBreakup.backgroundColor = UIColor(displayP3Red: 0.0/255.0, green: 0.0/255.0, blue: 0.0/255.0, alpha: 0.2)
-            })
-        }else{
-            UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {
-                self.backgroundViewForFareBreakup.backgroundColor = UIColor(displayP3Red: 0.0/255.0, green: 0.0/255.0, blue: 0.0/255.0, alpha: 0.0)
-            },completion: { _ in
-                self.backgroundViewForFareBreakup.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
-            })
+            self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, isInternational: false, journeyArray: journey, valString: "", trip_type: tripType,filterString: filterStr,searchParam: flightSearchResultVM?.flightSearchParametersFromDeepLink)
         }
     }
-    
-    func bookButtonTapped(journeyCombo: [CombinationJourney]?){
-        guard !self.isForCheckOut else {
-            self.dismiss(animated: true, completion: nil)
-            return
-        }
-        AppFlowManager.default.proccessIfUserLoggedInForFlight(verifyingFor: .loginVerificationForCheckout,presentViewController: true, vc: self) { [weak self](isGuest) in
-            guard let self = self else {return}
-            if #available(iOS 13.0, *) {
-                self.isModalInPresentation = true
-            }
-            if self.viewModel.journeyType == .domestic || self.intJourney == nil{
-                self.fareBreakup?.hideShowLoader(isHidden: false)
-                self.setupViewModel()
-            }else{
-                self.intFareBreakup?.hideShowLoader(isHidden: false)
-            }
-            let vc = PassengersSelectionVC.instantiate(fromAppStoryboard: .PassengersSelection)
-            vc.viewModel.taxesResult = self.taxesResult
-            vc.viewModel.sid = self.sid
-            vc.viewModel.intAirportDetailsResult = self.intAirportDetailsResult
-            vc.viewModel.intAirlineDetailsResult = self.intAirlineDetailsResult
-            vc.viewModel.bookingObject = self.bookFlightObject
-            vc.viewModel.journeyTitle = self.journeyTitle
-            vc.viewModel.journeyDate = self.journeyDate
-//            self.pushToPassenserSelectionVC(vc)
-            AppFlowManager.default.removeLoginConfirmationScreenFromStack()
-            self.pushToPassenserSelectionVC(vc)
-//            AppGlobals.shared.stopLoading()
-        }
-    }
-
-
-    func pushToPassenserSelectionVC(_ vc: PassengersSelectionVC){
-        self.presentedViewController?.dismiss(animated: false, completion: nil)
-        self.view.isUserInteractionEnabled = false
-        self.viewModel.fetchConfirmationData(){[weak self] success, errorCodes in
-            guard let self = self else {return}
-            self.view.isUserInteractionEnabled = true
-            if self.viewModel.journeyType == .domestic || self.intJourney == nil{
-                self.fareBreakup?.hideShowLoader(isHidden: true)
-            }else{
-                self.intFareBreakup?.hideShowLoader(isHidden: true)
-            }
-            if success{
-                if #available(iOS 13.0, *) {
-                    self.isModalInPresentation = false
-                }
-                DispatchQueue.main.async{[weak self] in
-                    guard let self = self else {return}
-                    vc.viewModel.newItineraryData = self.viewModel.itineraryData
-                    if let nav = AppFlowManager.default.currentNavigation{
-                        nav.pushViewController(vc, animated: true)
-                    }else{
-                        self.navigationContronller = UINavigationController(rootViewController: vc)
-                        self.navigationContronller?.modalPresentationStyle = .overFullScreen
-                        self.navigationContronller?.modalPresentationCapturesStatusBarAppearance = true
-                        vc.dismissController = {[weak self] in
-                            self?.navigationContronller = nil
-                        }
-                        guard let nav = self.navigationContronller else {return}
-                        self.present(nav, animated: true, completion: nil)
-                    }
-                }
-            }else{
-                AppGlobals.shared.showErrorOnToastView(withErrors: errorCodes, fromModule: .flights)
-            }
-        }
-    }
-    
-    func tapUpgradeButton(){
-        let vc = UpgradePlanContrainerVC.instantiate(fromAppStoryboard:.InternationalReturnAndMulticityDetails)
-        vc.viewModel.oldIntJourney = self.intJourney
-        vc.viewModel.sid = self.sid
-        vc.viewModel.isInternational = true
-        vc.viewModel.selectedJourneyFK = selectedJourneyFK
-        vc.viewModel.flightAdultCount = self.bookFlightObject.flightAdultCount
-        vc.viewModel.flightChildrenCount = self.bookFlightObject.flightAdultCount
-        vc.viewModel.flightInfantCount = self.bookFlightObject.flightAdultCount
-        vc.viewModel.bookingObject = self.bookFlightObject
-        vc.viewModel.taxesResult = self.taxesResult
-        self.present(vc, animated: true, completion: nil)
-    }
-    
-//    //Arrival Performance view hide & show
-//    func updateView() {
-//        backgroundButton.isHidden = false
-//    }
-    
-    @IBAction func backgroundButtonClicked(_ sender: Any)
-    {
-        
-
-    }
-    
-    //Present Baggage Dimensions screen
-    func getBaggageDimentions(baggage: [[NSDictionary]], sender: UIButton) {
-            let baggageDimensionVC = BaggageDimensionsVC(nibName: "BaggageDimensionsVC", bundle: nil)
-            
-            let section = sender.tag / 100
-            let row = sender.tag % 100
-            if let baggageData = baggage[section][row].value(forKey: "baggageData") as? NSDictionary{
-                if let cbgData = baggageData.value(forKey: "cbg") as? NSDictionary{
-                    if let adtCabinBaggage = cbgData.value(forKey: "ADT") as? NSDictionary{
-                        if let weight = adtCabinBaggage.value(forKey: "weight") as? String{
-                            baggageDimensionVC.weight = weight
-                        }
-                        if let dimension = adtCabinBaggage.value(forKey: "dimension") as? NSDictionary{
-                            if let cm = dimension.value(forKey: "cm") as? NSDictionary{
-                                baggageDimensionVC.dimensions = cm
-                            }
-                            
-                            if let inch = dimension.value(forKey: "in") as? NSDictionary{
-                                baggageDimensionVC.dimensions_inch = inch
-                            }
-                        }
-                        
-                        if let note = adtCabinBaggage.value(forKey: "note") as? String{
-                            baggageDimensionVC.note = note
-                        }
-                    }
-                }
-            }
-            
-            self.present(baggageDimensionVC, animated: true, completion: nil)
-        }
-    
-    //Present Fare Rules Screen
-    func getFareRulesData(fareRules: [NSDictionary]) {
-        let fareRulesVC = FareRulesVC(nibName: "FareRulesVC", bundle: nil)
-        fareRulesVC.fareRulesData = fareRules
-        self.present(fareRulesVC, animated: true, completion: nil)
-    }
-    
-
 }
+
+
+//MARK:- Paging VC methods
 
 extension FlightDetailsBaseVC: PagingViewControllerDataSource , PagingViewControllerDelegate, PagingViewControllerSizeDelegate
 {
-
     func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
         return PagingIndexItem(index: index, title:  self.allTabsStr[index])
     }
@@ -767,7 +419,11 @@ extension FlightDetailsBaseVC: PagingViewControllerDataSource , PagingViewContro
     
     func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat
     {
-        return 120.0
+        if isSEDevice{
+            return 112
+        }else{
+            return 120
+        }
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool){
@@ -777,7 +433,7 @@ extension FlightDetailsBaseVC: PagingViewControllerDataSource , PagingViewContro
     }
 }
 
-//Marks:- customs functions to make resulable for international return.
+//MARK:- customs functions to make resulable for international return.
 extension FlightDetailsBaseVC{
     
     func setFlightDetailsForDomestic(){
@@ -803,7 +459,7 @@ extension FlightDetailsBaseVC{
                 self.intFlights?.append(contentsOf: legs.flightsWithDetails)
             }
             let img = (journey.isPinned) ? UIImage(named: "FilledpinGreen") : UIImage(named: "pinGreen")
-             pinButton.setImage(img, for: .normal)
+            pinButton.setImage(img, for: .normal)
             isFSRVisible = (journey.fsr == 1)
         }
     }
@@ -874,6 +530,7 @@ extension FlightDetailsBaseVC{
         }else{
             vc.fewSeatsLeftViewHeight = 0
         }
+        vc.dimensionDelegate = self
         vc.isForDomestic = (self.bookFlightObject.isDomestic)
         vc.airportDetailsResult = intAirportDetailsResult
         return vc
@@ -883,7 +540,6 @@ extension FlightDetailsBaseVC{
         
         let vc = IntFareInfoVC.instantiate(fromAppStoryboard: .InternationalReturnAndMulticityDetails)
         vc.journey = [self.intJourney.first!]
-//        fareInfoVc.flights =
         vc.sid = sid
         if isFSRVisible == true{
             vc.fewSeatsLeftViewHeight = 40
@@ -891,6 +547,7 @@ extension FlightDetailsBaseVC{
             vc.fewSeatsLeftViewHeight = 0
         }
         vc.delegate = self
+        vc.fareRulesDelegate = self
         vc.selectedIndex = selectedIndex
         vc.refundDelegate = refundDelegate
         vc.flightAdultCount = bookFlightObject.flightAdultCount
@@ -908,10 +565,11 @@ extension FlightDetailsBaseVC{
     }
 }
 
+//MARK:- FlightDetailsVMDelegate
 
 extension FlightDetailsBaseVC : FlightDetailsVMDelegate, TripCancelDelegate{
     func manageLoader() {
-        self.addToTripIndicator.style = .gray
+        self.addToTripIndicator.style = .medium// .gray
         self.addToTripIndicator.color = AppColors.themeGreen
         self.addToTripIndicator.startAnimating()
         self.viewModel.delegate = self
@@ -931,15 +589,15 @@ extension FlightDetailsBaseVC : FlightDetailsVMDelegate, TripCancelDelegate{
     }
     
     func addToTrip(){
-        self.hideShowLoader(isHidden: false)
-         AppFlowManager.default.proccessIfUserLoggedInForFlight(verifyingFor: .loginVerificationForCheckout,presentViewController: true, vc: self) { [weak self](isGuest) in
-                   guard let self = self else {return}
+        AppFlowManager.default.proccessIfUserLoggedInForFlight(verifyingFor: .loginVerificationForCheckout,presentViewController: true, vc: self) { [weak self](isGuest) in
+            guard let self = self else {return}
             AppFlowManager.default.removeLoginConfirmationScreenFromStack()
             self.presentedViewController?.dismiss(animated: false, completion: nil)
             guard !isGuest else {
                 self.hideShowLoader(isHidden: true)
                 return
             }
+            self.hideShowLoader(isHidden: false)
             AppFlowManager.default.selectTrip(nil, tripType: .flight, cancelDelegate: self) { [weak self] (trip, details)  in
                 delay(seconds: 0.3, completion: { [weak self] in
                     guard let self = self else {return}
@@ -969,6 +627,223 @@ extension FlightDetailsBaseVC : FlightDetailsVMDelegate, TripCancelDelegate{
                 message = "journey has been added to \(tripName) trip"
             }
             AppToast.default.showToastMessage(message: message, onViewController: self)
+        }
+    }
+}
+
+//MARK:- Smart Icons Delegate
+extension FlightDetailsBaseVC : flightDetailsSmartIconsDelegate{
+    
+    func updateRefundStatusIfPending() {
+        self.delegate?.updateRefundStatusIfPending(fk: journey.first?.fk ?? "")
+    }
+    
+    func reloadSmartIconsAtIndexPath() {
+        self.delegate?.reloadRowFromFlightDetails(fk: journey.first!.fk, isPinned: false, isPinnedButtonClicked:false)
+    }
+}
+
+//MARK:- Fare Breakup Delegate
+extension FlightDetailsBaseVC : FareBreakupVCDelegate
+{
+    func bookButtonTapped(journeyCombo: [CombinationJourney]?){
+        guard !self.isForCheckOut else {
+            self.dismiss(animated: true, completion: nil)
+            return
+        }
+        AppFlowManager.default.proccessIfUserLoggedInForFlight(verifyingFor: .loginVerificationForCheckout,presentViewController: true, vc: self) { [weak self](isGuest) in
+            guard let self = self else {return}
+            if #available(iOS 13.0, *) {
+                self.isModalInPresentation = true
+            }
+            if self.viewModel.journeyType == .domestic || self.intJourney == nil{
+                self.fareBreakup?.hideShowLoader(isHidden: false)
+                self.setupViewModel()
+            }else{
+                self.intFareBreakup?.hideShowLoader(isHidden: false)
+            }
+            let vc = PassengersSelectionVC.instantiate(fromAppStoryboard: .PassengersSelection)
+            vc.viewModel.taxesResult = self.taxesResult
+            vc.viewModel.sid = self.sid
+            vc.viewModel.intAirportDetailsResult = self.intAirportDetailsResult
+            vc.viewModel.intAirlineDetailsResult = self.intAirlineDetailsResult
+            vc.viewModel.bookingObject = self.bookFlightObject
+            vc.viewModel.journeyTitle = self.journeyTitle
+            vc.viewModel.journeyDate = self.journeyDate
+            AppFlowManager.default.removeLoginConfirmationScreenFromStack()
+            self.pushToPassenserSelectionVC(vc)
+        }
+    }
+    
+    
+    func pushToPassenserSelectionVC(_ vc: PassengersSelectionVC){
+        self.presentedViewController?.dismiss(animated: false, completion: nil)
+        self.view.isUserInteractionEnabled = false
+        (UIApplication.shared.delegate as? AppDelegate)?.window?.isUserInteractionEnabled = false
+        self.viewModel.fetchConfirmationData(){[weak self] success, errorCodes in
+            guard let self = self else {return}
+            self.view.isUserInteractionEnabled = true
+            (UIApplication.shared.delegate as? AppDelegate)?.window?.isUserInteractionEnabled = true
+            if #available(iOS 13.0, *) {
+                self.isModalInPresentation = false
+            }
+            if self.viewModel.journeyType == .domestic || self.intJourney == nil{
+                self.fareBreakup?.hideShowLoader(isHidden: true)
+            }else{
+                self.intFareBreakup?.hideShowLoader(isHidden: true)
+            }
+            if success{
+                DispatchQueue.main.async{[weak self] in
+                    guard let self = self else {return}
+                    vc.viewModel.newItineraryData = self.viewModel.itineraryData
+                    if let nav = AppFlowManager.default.currentNavigation{
+                        nav.pushViewController(vc, animated: true)
+                    }else{
+                        self.navigationContronller = UINavigationController(rootViewController: vc)
+                        self.navigationContronller?.modalPresentationStyle = .overFullScreen
+                        self.navigationContronller?.modalPresentationCapturesStatusBarAppearance = true
+                        vc.dismissController = {[weak self] in
+                            self?.navigationContronller = nil
+                        }
+                        guard let nav = self.navigationContronller else {return}
+                        self.present(nav, animated: true, completion: nil)
+                    }
+                }
+            }else{
+                AppGlobals.shared.showErrorOnToastView(withErrors: errorCodes, fromModule: .flightConfirmation)
+            }
+        }
+    }
+    
+    func infoButtonTapped(isViewExpanded: Bool)
+    {
+        if isViewExpanded == true{
+            backgroundViewForFareBreakup.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+            
+            UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {
+                self.backgroundViewForFareBreakup.backgroundColor = UIColor(displayP3Red: 0.0/255.0, green: 0.0/255.0, blue: 0.0/255.0, alpha: 0.2)
+            })
+        }else{
+            UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {
+                self.backgroundViewForFareBreakup.backgroundColor = UIColor(displayP3Red: 0.0/255.0, green: 0.0/255.0, blue: 0.0/255.0, alpha: 0.0)
+            },completion: { _ in
+                self.backgroundViewForFareBreakup.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
+            })
+        }
+    }
+    
+    func tapUpgradeButton(){
+        let vc = UpgradePlanContrainerVC.instantiate(fromAppStoryboard:.InternationalReturnAndMulticityDetails)
+        vc.viewModel.oldIntJourney = self.intJourney
+        vc.viewModel.sid = self.sid
+        vc.viewModel.isInternational = true
+        vc.viewModel.selectedJourneyFK = selectedJourneyFK
+        vc.viewModel.flightAdultCount = self.bookFlightObject.flightAdultCount
+        vc.viewModel.flightChildrenCount = self.bookFlightObject.flightAdultCount
+        vc.viewModel.flightInfantCount = self.bookFlightObject.flightAdultCount
+        vc.viewModel.bookingObject = self.bookFlightObject
+        vc.viewModel.taxesResult = self.taxesResult
+        self.present(vc, animated: true, completion: nil)
+    }
+}
+
+
+//MARK:- Baggage Delegate
+extension FlightDetailsBaseVC : flightDetailsBaggageDelegate
+{
+    func reloadBaggageSuperScriptAtIndexPath() {
+        self.delegate?.reloadRowFromFlightDetails(fk: journey.first!.fk, isPinned: false,isPinnedButtonClicked:false)
+    }
+}
+
+//MARK:- Baggage Dimentions Delegate
+extension FlightDetailsBaseVC : getBaggageDimentionsDelegate
+{
+    func getBaggageDimentions(baggage: [[JSONDictionary]], sender: UIButton) {
+        let baggageDimensionVC = BaggageDimensionsVC(nibName: "BaggageDimensionsVC", bundle: nil)
+        
+        let section = sender.tag / 100
+        let row = sender.tag % 100
+        if let baggageData = baggage[section][row]["baggageData"] as? JSONDictionary{
+            if let cbgData = baggageData["cbg"] as? JSONDictionary{
+                if let adtCabinBaggage = cbgData["ADT"] as? JSONDictionary{
+                    if let weight = adtCabinBaggage["weight"] as? String{
+                        baggageDimensionVC.weight = weight
+                    }
+                    if let dimension = adtCabinBaggage["dimension"]as? JSONDictionary{
+                        if let cm = dimension["cm"] as? JSONDictionary{
+                            baggageDimensionVC.dimensions = cm
+                        }
+                        
+                        if let inch = dimension["in"] as? JSONDictionary{
+                            baggageDimensionVC.dimensions_inch = inch
+                        }
+                    }
+                    
+                    if let note = adtCabinBaggage["note"] as? String{
+                        baggageDimensionVC.note = note
+                    }
+                }
+            }
+        }
+        
+        self.present(baggageDimensionVC, animated: true, completion: nil)
+    }
+}
+
+//MARK:- Fare Rules Delegate
+extension FlightDetailsBaseVC : getFareRulesDelegate
+{
+    func getFareRulesData(fareRules: [JSONDictionary]) {
+        let fareRulesVC = FareRulesVC(nibName: "FareRulesVC", bundle: nil)
+        fareRulesVC.fareRulesData = fareRules
+        self.present(fareRulesVC, animated: true, completion: nil)
+    }
+}
+
+//MARK:- GetSharableUrlDelegate
+
+extension FlightDetailsBaseVC : GetSharableUrlDelegate
+{
+    func returnSharableUrl(url: String)
+    {
+        shareButton.setImage(UIImage(named: "ShareGreen"), for: .normal)
+        shareButton.displayLoadingIndicator(false)
+        
+        if url == "No Data"{
+            AertripToastView.toast(in: self.view, withText: "Something went wrong. Please try again.")
+        }else{
+            let textToShare = [ "Checkout my favourite flights on Aertrip!\n\(url)" ]
+            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            
+            self.present(activityViewController, animated: true, completion: nil)
+        }
+    }
+    
+    func returnEmailView(view: String) {}
+}
+
+//MARK:- Arrival Performance Delegate
+extension FlightDetailsBaseVC : getArrivalPerformanceDelegate
+{
+    func getArrivalPerformanceData(flight:FlightDetail)
+    {
+        let arrivalPerformanceView = ArrivalPerformaceVC(nibName: "ArrivalPerformaceVC", bundle: nil)
+        
+        if flight.ontimePerformanceDataStoringTime != nil{
+            
+            arrivalPerformanceView.observationCount = "\(flight.observationCount ?? 0)"
+            arrivalPerformanceView.averageDelay = "\(flight.averageDelay ?? 0)"
+            
+            arrivalPerformanceView.cancelledPerformanceInPercent = flight.cancelledPerformance ?? 0
+            arrivalPerformanceView.delayedPerformanceInPercent = flight.latePerformance ?? 0
+            arrivalPerformanceView.onTimePerformanceInPercent = flight.ontimePerformance ?? 0
+            
+            arrivalPerformanceView.view.frame = self.view.bounds
+            self.view.addSubview(arrivalPerformanceView.view)
+            self.addChild(arrivalPerformanceView)
+            arrivalPerformanceView.willMove(toParent: self)
         }
     }
 }

@@ -36,11 +36,13 @@ class ResultHeaderView: UIView {
     fileprivate func setupGrayViewShadow() {
         backgroundColor = .clear // very important
         self.grayView.layer.masksToBounds = false
-        self.grayView.layer.shadowOpacity = 0.5
-        self.grayView.layer.shadowRadius = 4
-        self.grayView.layer.shadowOffset = CGSize(width: 0, height: 0)
-        self.grayView.layer.shadowColor = UIColor.black.withAlphaComponent(0.3).cgColor
-        self.grayView.layer.cornerRadius = 10
+//        self.grayView.layer.shadowOpacity = 0.5
+//        self.grayView.layer.shadowRadius = 4
+//        self.grayView.layer.shadowOffset = CGSize(width: 0, height: 0)
+//        self.grayView.layer.shadowColor = UIColor.black.withAlphaComponent(0.3).cgColor
+//        self.grayView.layer.cornerRadius = 10
+        
+        self.grayView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
     }
     
 }

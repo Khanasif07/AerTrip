@@ -16,6 +16,8 @@ class YouAreAllDoneVC: BaseVC {
     //================
     let viewModel = YouAreAllDoneVM()
     var allIndexPath = [IndexPath]()
+    var needToShowLoaderOnShare:Bool = false
+
     //var tableFooterView: YouAreAllDoneFooterView?
     
     private var viewButton: ATButton?
@@ -54,7 +56,7 @@ class YouAreAllDoneVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.statusBarStyle = .default
+        self.statusBarStyle = .darkContent
         
         AppFlowManager.default.mainNavigationController.interactivePopGestureRecognizer?.isEnabled = false
     }
@@ -425,7 +427,7 @@ extension YouAreAllDoneVC: UITableViewDelegate, UITableViewDataSource {
 //            AppGlobals.shared.redirectToMap(sourceView: view, originLat: self.viewModel.originLat, originLong: self.viewModel.originLong, destLat: self.viewModel.hotelReceiptData?.lat ?? "", destLong: self.viewModel.hotelReceiptData?.long ?? "")
 //        }else
             if (indexPath.section != 0) && (indexPath.section < tableView.numberOfSections - 1){
-            AppFlowManager.default.moveToBookingHotelDetailVC(bookingDetail: nil, hotelTitle: getUpdatedTitle(), bookingId: self.viewModel.bookingIds.first ?? "", hotelName: self.viewModel.hotelReceiptData?.hname ?? "", taRating: self.viewModel.hotelReceiptData?.rating ?? 0.0, hotelStarRating: self.viewModel.hotelReceiptData?.star ?? 0.0)
+            AppFlowManager.default.moveToBookingHotelDetailVC(bookingDetail: nil, hotelTitle: getUpdatedTitle(), bookingId: self.viewModel.bookingIds.first ?? "", hotelName: self.viewModel.hotelReceiptData?.hname ?? "", taRating: self.viewModel.hotelReceiptData?.rating ?? 0.0, hotelStarRating: self.viewModel.hotelReceiptData?.star ?? 0.0, presentingStatusBarStyle: statusBarStyle, dismissalStatusBarStyle: statusBarStyle)
         }
         
         
@@ -492,6 +494,27 @@ extension YouAreAllDoneVC: YouAreAllDoneVMDelegate {
 //        }
         return updatedTitle
     }
+    
+    func willGetPinnedTemplate() {
+//        AppGlobals.shared.startLoading()
+         self.needToShowLoaderOnShare = true
+        self.allDoneTableView.reloadData()
+//        self.hotelTableView.reloadRow(at: IndexPath(row: 1, section: 0), with: .none)
+    }
+    
+    func getPinnedTemplateSuccess() {
+        delay(seconds: 0.5 ) {
+            self.needToShowLoaderOnShare = false
+            self.allDoneTableView.reloadData()
+//            self.hotelTableView.reloadRow(at: IndexPath(row: 1, section: 0), with: .none)
+        }
+    }
+    
+    func getPinnedTemplateFail() {
+        self.needToShowLoaderOnShare = false
+        self.allDoneTableView.reloadData()
+//        self.hotelTableView.reloadRow(at: IndexPath(row: 1, section: 0), with: .none)
+    }
 }
 
 //Mark:- HCGuestsTableViewCell Delegate
@@ -528,9 +551,7 @@ extension YouAreAllDoneVC: HCWhatNextTableViewCellDelegate {
         let shareString = "https://twitter.com/intent/tweet?text=\(tweetText)&url=\(tweetUrl)"
         
         // encode a space to %20 for example
-        let escapedShareString = shareString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
-        
-        if let url = URL(string: escapedShareString) {
+        if let escapedShareString = shareString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed), let url = URL(string: escapedShareString) {
             if UIApplication.shared.canOpenURL(url ) {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             } else {
@@ -541,8 +562,29 @@ extension YouAreAllDoneVC: HCWhatNextTableViewCellDelegate {
     
     func shareOnInstagram() {
         printDebug("Share On instagram")
+        //AppGlobals.shared.shareWithActivityViewController(VC: self , shareData: AppConstants.kAppStoreLink)
+        if !self.viewModel.shareLinkURL.isEmpty{
+            DispatchQueue.main.async {
+                self.willGetPinnedTemplate()
+                AppGlobals.shared.shareWithActivityViewController(VC: self , shareData: self.viewModel.shareLinkURL)
+                delay(seconds: 0.5) {
+                    self.getPinnedTemplateFail()
+                }
+            }
+        } else {
+            self.viewModel.getShareLinkAPI {[weak self] (sucess) in
+                guard let strongSelf = self else {return}
+                if sucess {
+                    if !strongSelf.viewModel.shareLinkURL.isEmpty{
+                       DispatchQueue.main.async {
+                            AppGlobals.shared.shareWithActivityViewController(VC: strongSelf, shareData: strongSelf.viewModel.shareLinkURL)
+                        }
+                    }
+                }
+            }
+        }
         
-        InstagramManager.sharedManager.postImageToInstagramWithCaption(imageInstagram: UIImage(named: "aertripGreenText")!, instagramCaption: "\(AppConstants.kAppName) Appstore Link: \(AppConstants.kAppStoreLink)", view: self.view)
+//        InstagramManager.sharedManager.postImageToInstagramWithCaption(imageInstagram: UIImage(named: "aertripGreenText")!, instagramCaption: "\(AppConstants.kAppName) Appstore Link: \(AppConstants.kAppStoreLink)", view: self.view)
 /*
         let image = UIImage(named: "aertripGreenText")
         let instagramURL = URL(string: "instagram://app")
@@ -554,7 +596,7 @@ extension YouAreAllDoneVC: HCWhatNextTableViewCellDelegate {
                 try imageData?.write(to: URL(string: saveImagePath)! , options: Data.WritingOptions(rawValue: 0))
                 //try imageData?.writeToFile(saveImagePath, options: NSData.WritingOptions(rawValue: 0))
             } catch {
-                print("Instagram sharing error")
+         printDebug("Instagram sharing error")
             }
             let imageURL = URL(fileURLWithPath: saveImagePath)
             let documentInteractionController = UIDocumentInteractionController()
@@ -564,7 +606,7 @@ extension YouAreAllDoneVC: HCWhatNextTableViewCellDelegate {
             
             
             if !documentInteractionController.presentPreview(animated: true) {
-                print("Instagram not found")
+         printDebug("Instagram not found")
             }
             
         }
@@ -578,13 +620,47 @@ extension YouAreAllDoneVC: HCWhatNextTableViewCellDelegate {
 //Mark:- HCWhatNextTableViewCell Delegate
 //=========================================
 extension YouAreAllDoneVC: YouAreAllDoneTableViewCellDelegate {
-    func addToAppleWalletTapped() {
-//        if (!PKAddPaymentPassViewController.canAddPaymentPass()){
-//          // use other payment method / alert user
-//        }
-//        let config = PKAddPaymentPassRequestConfiguration.init(encryptionScheme: PKEncryptionScheme.ECC_V2)
-//        let addPaymentPassVC = PKAddPaymentPassViewController.init(requestConfiguration: config!, delegate: self)
-//        self.present(addPaymentPassVC!, animated: true, completion: nil)
+    func addToAppleWalletTapped(button: ATButton) {
+        guard let indexPath = self.allDoneTableView.indexPath(forItem: button) else {return}
+        
+        printDebug("Add To Apple Wallet")
+        let endPoints = "\(APIEndPoint.pass.path)?booking_id=\(self.viewModel.bookingDetail?.id ?? "")"
+        printDebug("endPoints: \(endPoints)")
+        guard let url = URL(string: endPoints) else {return}
+        self.viewModel.showWaletLoader = true
+        if let cell = self.allDoneTableView.cellForRow(at: indexPath) as? YouAreAllDoneTableViewCell {
+            cell.addToAppleWalletButton.isLoading = true
+        } else {
+            self.allDoneTableView.reloadRow(at: indexPath, with: .none)
+        }
+        AppGlobals.shared.downloadWallet(fileURL: url, showLoader: false) {[weak self] (passUrl) in
+            DispatchQueue.main.async {
+                if let localURL = passUrl {
+                    printDebug("localURL: \(localURL)")
+                    self?.addWallet(passFilePath: localURL)
+                }
+                self?.viewModel.showWaletLoader = false
+                if let cell = self?.allDoneTableView.cellForRow(at: indexPath) as? YouAreAllDoneTableViewCell {
+                    cell.addToAppleWalletButton.isLoading = false
+                } else {
+                    self?.allDoneTableView.reloadRow(at: indexPath, with: .none)
+                }
+            }
+        }
+        
+    }
+    
+    private func addWallet(passFilePath: URL) {
+        // let filePath = Bundle.main.path(forResource: "DealsPasses", ofType: "pkpass")!
+        guard let passData = try? Data(contentsOf: passFilePath) else {return}
+        do {
+            let newpass = try PKPass.init(data: passData)
+            let addController =  PKAddPassesViewController(pass: newpass)
+            addController?.delegate = self
+            self.present(addController!, animated: true)
+        } catch {
+            printDebug(error)
+        }
     }
     
     func addToCallendarTapped() {
@@ -604,20 +680,12 @@ extension YouAreAllDoneVC: YouAreAllDoneTableViewCellDelegate {
     
     
 }
-extension YouAreAllDoneVC: PKAddPaymentPassViewControllerDelegate {
-    func addPaymentPassViewController(_ controller: PKAddPaymentPassViewController, generateRequestWithCertificateChain certificates: [Data], nonce: Data, nonceSignature: Data, completionHandler handler: @escaping (PKAddPaymentPassRequest) -> Void) {
 
-    }
-
-    func addPaymentPassViewController(_ controller: PKAddPaymentPassViewController, didFinishAdding pass: PKPaymentPass?, error: Error?) {
-      // pass added
-    }
-}
 //Mark:- HCBookingDetailsTableViewHeaderFooterView Delegate
 //=========================================================
 extension YouAreAllDoneVC: HCBookingDetailsTableViewHeaderFooterViewDelegate {
     func emailIternaryButtonTapped() {
-        AppFlowManager.default.presentHCEmailItinerariesVC(forBookingId: self.viewModel.bookingIds.first ?? "", travellers: self.viewModel.hotelReceiptData?.travellers.flatMap({ $0 }) ?? [])
+        AppFlowManager.default.presentHCEmailItinerariesVC(forBookingId: self.viewModel.bookingIds.first ?? "", travellers: self.viewModel.hotelReceiptData?.travellers.flatMap({ $0 }) ?? [], presentingStatusBarStyle: statusBarStyle, dismissalStatusBarStyle: statusBarStyle)
     }
     
 }
@@ -678,6 +746,9 @@ extension YouAreAllDoneVC{
         AppFlowManager.default.goToDashboard(toBeSelect: .flight)
         
     }
+}
+extension YouAreAllDoneVC: PKAddPassesViewControllerDelegate {
+    
 }
 /*
  how to call the apple wallet from ios app using swift

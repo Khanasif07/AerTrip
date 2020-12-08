@@ -11,7 +11,7 @@ import UIKit
 
 protocol APIProtocol {
     
-    func getUrlRequest() -> URLRequest
+    func getUrlRequest() -> URLRequest?
     
 //    var flightBaseUrl : String { get }
 
@@ -30,13 +30,17 @@ protocol APIProtocol {
 }
 
 class WebAPIService
-{    
+{
+    var textLog = TextLog()
+
     func executeAPI(apiServive : WebService, completionHandler : @escaping (Data) -> Void , failureHandler: @escaping (Error) -> Void )
     {
-        var urlRequest = apiServive.getUrlRequest()
+        guard var urlRequest = apiServive.getUrlRequest() else {return}
         urlRequest.httpBody = apiServive.data
         urlRequest.httpMethod = apiServive.httpMethod
-            
+        
+        let requestDate = Date.getCurrentDate()
+
         let session = URLSession.shared
         let task = session.dataTask(with: urlRequest) {  (data, response, error) in
             
@@ -54,11 +58,40 @@ class WebAPIService
                     failureHandler( NSError(domain:"", code:httpResponse.statusCode, userInfo:nil))
                     return
                 }
+                
+                
+                self.textLog.write("\nRESPONSE HEADER :::::::: \(requestDate)  ::::::::\n\n\(String(describing: httpResponse.allHeaderFields))\n")
+
+                
+                let keys = httpResponse.allHeaderFields
+                if let val = keys["Set-Cookie"] as? String{
+//                    let str = val.components(separatedBy: ";")
+//                    print("str0=",str[0])
+
+//                    if str.count > 0 {
+//                        if str[0].contains("AT_R_STAGE_SESSID"){
+                            UserDefaults.standard.set(val, forKey: "SearchResultCookie")
+//                        }
+//                    }
+                }
             }
             
             guard let responseData = data else {
                 return
             }
+            
+            do{
+                let jsonResult:AnyObject  = try JSONSerialization.jsonObject(with: responseData, options: []) as AnyObject
+                
+                self.textLog.write("\n##########################################################################################\nAPI URL :::\(String(describing: urlRequest.url))")
+
+                self.textLog.write("\nREQUEST HEADER :::::::: \(requestDate)  ::::::::\n\n\(String(describing: urlRequest.allHTTPHeaderFields))\n")
+
+                self.textLog.write("RESPONSE DATA ::::::::    \(Date.getCurrentDate()) ::::::::\(jsonResult)\n##########################################################################################\n")
+            }catch{
+                
+            }
+
             
             completionHandler (responseData)
         }
@@ -69,10 +102,11 @@ class WebAPIService
     
     func getJSONFileFromAPI(APIRequest : APIProtocol , completionHandler : @escaping (Data) -> Void , failureHandler: @escaping (Error) -> Void ){
         
-        let urlRequest = APIRequest.getUrlRequest()
+        guard let urlRequest = APIRequest.getUrlRequest() else {return}
         
         let session = URLSession.shared
         let task = session.downloadTask(with: urlRequest){ url , response, error in
+            
             
             guard error == nil else {
                 failureHandler( error!)
@@ -104,8 +138,8 @@ class WebAPIService
     }
     
     func getImageForPath( path:String , completionHandler: @escaping (() -> Void )) -> UIImage? {
-        
-        let urlRequest = URLRequest(url: URL(string: path)!)
+        guard let url = URL(string: path) else {return nil}
+        let urlRequest = URLRequest(url: url)
         if let responseObj = URLCache.shared.cachedResponse(for: urlRequest) {
             
             let image = UIImage(data: responseObj.data)

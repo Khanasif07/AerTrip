@@ -8,7 +8,7 @@
 
 import UIKit
 protocol YouAreAllDoneTableViewCellDelegate: class {
-    func addToAppleWalletTapped()
+    func addToAppleWalletTapped(button: ATButton)
     func addToCallendarTapped()
 }
 
@@ -44,6 +44,12 @@ class YouAreAllDoneTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         self.addToAppleWalletButton.isLoading = false
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.addToAppleWalletButton.layoutSubviews()
+        self.addToAppleWalletButton.layoutIfNeeded()
     }
     
     //Mark:- Functions
@@ -166,8 +172,8 @@ class YouAreAllDoneTableViewCell: UITableViewCell {
     
     //Mark:- IBActions
     //================
-    @IBAction func addToAppleWalletButtonAction(_ sender: UIButton) {
-        self.delegate?.addToAppleWalletTapped()
+    @IBAction func addToAppleWalletButtonAction(_ sender: ATButton) {
+        self.delegate?.addToAppleWalletTapped(button: sender)
     }
     @IBAction func addToCallendarButtonAction(_ sender: Any) {
         self.delegate?.addToCallendarTapped()

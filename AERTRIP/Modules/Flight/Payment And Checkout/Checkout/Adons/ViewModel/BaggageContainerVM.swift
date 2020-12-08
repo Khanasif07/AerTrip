@@ -67,6 +67,22 @@ class BaggageContainerVM {
         return totalPrice
     }
     
+    func isAnyThingSelected() -> Bool {
+        
+        var isAnyThingSelected = false
+        
+        allChildVCs.forEach { (child) in
+
+            child.selectBaggageVM.addonsDetails.addonsArray.enumerated().forEach { (bagId, bag) in
+                if !isAnyThingSelected {
+                    isAnyThingSelected = !bag.bagageSelectedFor.isEmpty
+                }
+            }
+        }
+        
+        return isAnyThingSelected
+    }
+    
     func updateBaggageToDataStore(){
        
         for (index,item) in self.allChildVCs.enumerated() {
@@ -89,7 +105,6 @@ class BaggageContainerVM {
                     if let calculatedVcIndex = self.allChildVCs.firstIndex(where: { (vc) -> Bool in
                         vc.selectBaggageVM.getCurrentFlightKey() == flight.flightId
                     }) {
-                        
                         
                         allChildVCs[calculatedVcIndex].selectBaggageVM.addonsDetails.addonsArray.enumerated().forEach { (baggageInd,bag) in
                         contacts.forEach { (contact) in
@@ -154,7 +169,8 @@ class BaggageContainerVM {
     
     private func getStringFromImage(name : String) -> NSAttributedString {
         let imageAttachment = NSTextAttachment()
-        let sourceSansPro18 = UIFont(name: "SourceSansPro-Semibold", size: 18.0)!
+//        let sourceSansPro18 = UIFont(name: "SourceSansPro-Semibold", size: 18.0)!
+        let sourceSansPro18 = AppFonts.SemiBold.withSize(18)
         let iconImage = UIImage(named: name )!
         imageAttachment.image = iconImage
         let yCordinate  = roundf(Float(sourceSansPro18.capHeight - iconImage.size.height) / 2.0)

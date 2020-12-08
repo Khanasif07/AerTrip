@@ -46,7 +46,7 @@ class UpgradePlanContrainerVC: BaseVC, UpgradePlanListVCDelegate {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.parchmentView?.view.frame = self.containerView.bounds
-        self.view.addGredient(isVertical: true, cornerRadius: 0, colors: [AppColors.themeGreen, AppColors.dashboardGradientColor])
+        self.view.addGredient(isVertical: true, cornerRadius: 0, colors: AppConstants.appthemeGradientColors.reversed()) // [AppColors.themeGreen, AppColors.dashboardGradientColor] To be Check Gradient Nitin
         self.parchmentView?.view.frame.size.height = self.containerView.height - innerControllerBottomConstraint
         self.parchmentView?.loadViewIfNeeded()
     }
@@ -123,7 +123,9 @@ class UpgradePlanContrainerVC: BaseVC, UpgradePlanListVCDelegate {
         self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
         self.parchmentView?.indicatorColor = AppColors.themeWhite
         self.parchmentView?.selectedTextColor = AppColors.themeWhite
-        self.containerView.addSubview(self.parchmentView!.view)
+        if self.parchmentView != nil{
+            self.containerView.addSubview(self.parchmentView!.view)
+        }
         
         self.parchmentView?.dataSource = self
         self.parchmentView?.delegate = self
@@ -152,7 +154,7 @@ class UpgradePlanContrainerVC: BaseVC, UpgradePlanListVCDelegate {
     private func getStringFromImage(name : String) -> NSAttributedString {
         let imageAttachment = NSTextAttachment()
         let sourceSansPro18 = AppFonts.SemiBold.withSize(18.0)
-        let iconImage = UIImage(named: name )!
+        let iconImage = UIImage(named: name ) ?? UIImage()
         imageAttachment.image = iconImage
         
         let yCordinate  = roundf(Float(sourceSansPro18.capHeight - iconImage.size.height) / 2.0)
@@ -368,17 +370,13 @@ extension UpgradePlanContrainerVC : FareBreakupVCDelegate{
                         self.isModalInPresentation = false
                     }
                     vc.viewModel.newItineraryData = self.viewModel.itineraryData
-                    if let nav = AppFlowManager.default.currentNavigation{
-                        nav.pushViewController(vc, animated: true)
-                    }else{
-                        let nav = UINavigationController(rootViewController: vc)
-                        nav.modalPresentationStyle = .fullScreen
-                        nav.modalPresentationCapturesStatusBarAppearance = true
-                        self.present(nav, animated: true, completion: nil)
-                    }
+                    let nav = UINavigationController(rootViewController: vc)
+                    nav.modalPresentationStyle = .fullScreen
+                    nav.modalPresentationCapturesStatusBarAppearance = true
+                    self.present(nav, animated: true, completion: nil)
                 }
             }else{
-                AppGlobals.shared.showErrorOnToastView(withErrors: errorCodes, fromModule: .hotelsSearch)
+                AppGlobals.shared.showErrorOnToastView(withErrors: errorCodes, fromModule: .flightConfirmation)
             }
 
         }

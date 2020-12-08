@@ -64,6 +64,7 @@ class MealsContainerVM {
         
         if self.checkIfReadOnlyValuesAreDifferent(flights: flightsWithCurrentAddon, forAdon: forAdon) {
             flightsToModify = flightsWithCurrentAddon
+           
             flightsToModify.forEach { (flight) in
                 
                 if let calculatedVcIndex = self.allChildVCs.firstIndex(where: { (vc) -> Bool in
@@ -106,6 +107,22 @@ class MealsContainerVM {
         
     }
     
+    
+    func isAnyThingSelected() -> Bool {
+        
+        var isAnyThingSelected = false
+        
+        allChildVCs.forEach { (child) in
+            
+            child.selectMealsVM.addonsDetails.addonsArray.enumerated().forEach { (mealId, meal) in
+                if !isAnyThingSelected {
+                    isAnyThingSelected = !meal.mealsSelectedFor.isEmpty
+                }
+            }
+        }
+        
+        return isAnyThingSelected
+    }
     
     func checkIfReadOnlyValuesAreDifferent(flights : [AddonsFlight], forAdon: AddonsDataCustom) -> Bool {
         
@@ -165,7 +182,8 @@ class MealsContainerVM {
     private func getStringFromImage(name : String) -> NSAttributedString {
         
         let imageAttachment = NSTextAttachment()
-        let sourceSansPro18 = UIFont(name: "SourceSansPro-Semibold", size: 18.0)!
+//        let sourceSansPro18 = UIFont(name: "SourceSansPro-Semibold", size: 18.0)!
+        let sourceSansPro18 = AppFonts.SemiBold.withSize(18)
         let iconImage = UIImage(named: name )!
         imageAttachment.image = iconImage
         

@@ -16,11 +16,11 @@ class MyViewController: UIViewController {
     
     
     func getAuthorsCount() {
-        print("the number of authors : \(authors.count)")
+        printDebug("the number of authors : \(authors.count)")
         
         // this for loop doesn't get excuted
         for author in authors {
-            print(author)
+            printDebug(author)
         }
     }
     
@@ -44,6 +44,6 @@ class MyViewController: UIViewController {
             }
         }
         getAuthorsCount()
-        print("-------------")
+        printDebug("-------------")
     }
 }

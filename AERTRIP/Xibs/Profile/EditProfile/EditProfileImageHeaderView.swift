@@ -11,7 +11,7 @@ import UIKit
 protocol EditProfileImageHeaderViewDelegate: class {
     func editButtonTapped()
     func salutationViewTapped(title: String)
-    func selectGroupTapped()
+    func selectGroupTapped(_ textfield: UITextField)
     func textFieldText(_ textfield: UITextField)
 }
 
@@ -25,6 +25,7 @@ class EditProfileImageHeaderView: UIView {
     @IBOutlet weak var groupLabel: UILabel!
     @IBOutlet weak var groupTitleLabel: UILabel!
     @IBOutlet weak var selectGroupDownArrow: UIImageView!
+    @IBOutlet weak var groupTextField: UITextField!
     
     @IBOutlet weak var genderTitleLabel: UILabel!
     @IBOutlet weak var selectGroupViewHeightConstraint: NSLayoutConstraint!
@@ -103,7 +104,7 @@ class EditProfileImageHeaderView: UIView {
     }
     
     @objc func selectGroupTapped(_ sender: UITapGestureRecognizer) {
-        delegate?.selectGroupTapped()
+        delegate?.selectGroupTapped(groupTextField)
     }
     
     @IBAction func changeSelectedIndex(_ sender: ATUnicodeSwitch) {

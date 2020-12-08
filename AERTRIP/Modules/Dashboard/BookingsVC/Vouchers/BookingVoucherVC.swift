@@ -27,6 +27,7 @@ class BookingVoucherVC: BaseVC {
     }
     
     override func initialSetup() {
+        self.voucherTableView.contentInset = UIEdgeInsets(top: topNavigationView.height - 0.5 , left: 0.0, bottom: 10.0, right: 0.0)
         self.voucherTableView.dataSource = self
         self.voucherTableView.delegate = self
         self.registerXib()

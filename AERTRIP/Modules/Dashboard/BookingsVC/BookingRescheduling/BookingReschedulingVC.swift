@@ -15,14 +15,13 @@ class BookingReschedulingVC: BaseVC {
     @IBOutlet weak var topNavBar: TopNavigationView!
     @IBOutlet weak var passengerLabel: UILabel!
     @IBOutlet weak var reschedulingTableView: ATTableView!
-    
     @IBOutlet weak var priceView: UIView!
     @IBOutlet weak var priceViewAndButtonContainerView: UIView!
     @IBOutlet weak var priceViewAndButtonContainerHeight: NSLayoutConstraint!
-    
     @IBOutlet weak var totalNetRefundLabel: UILabel!
     @IBOutlet weak var totalPriceLabel: UILabel!
     @IBOutlet weak var continueButton: ATButton!
+    @IBOutlet weak var headerContainer: UIView!
     
     // MARK: - Variables
     
@@ -43,7 +42,20 @@ class BookingReschedulingVC: BaseVC {
         super.viewWillLayoutSubviews()
         self.gradientView.addGredient(isVertical: false)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        statusBarStyle = .lightContent
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        statusBarStyle = .darkContent
+    }
+    
     override func initialSetup() {
+        self.reschedulingTableView.contentInset = UIEdgeInsets(top: headerContainer.height, left: 0, bottom: 0, right: 0)
+        self.continueButton.isShadowColorNeeded = true
         self.continueButton.shadowColor = AppColors.clear
         self.priceViewAndButtonContainerView.backgroundColor = AppColors.clear
         self.setupTotalRefundAndCont()
@@ -270,7 +282,6 @@ class BookingReschedulingVC: BaseVC {
             
             bookingAccordionCell.configureCell(passengerName: paxD.paxName, pnrNo: pnrNoStr, saleValue: paxD.amountPaid.amountInDelimeterWithSymbol, cancellationCharge: cancelationValueText, refundValue: self.viewModel.usingFor == .rescheduling ? paxD.netRefundForReschedule.amountInDelimeterWithSymbol : paxD.netRefundForCancellation.amountInDelimeterWithSymbol, age: age)
             bookingAccordionCell.delegate = self
-//            bookingAccordionCell.headerDividerView.isHidden = (legD.pax.count - 1) == (indexPath.row - (legD.flight.count))
             
             bookingAccordionCell.cancellationChargeLabel.text = self.viewModel.usingFor == .rescheduling ? LocalizedString.ReschedulingCharges.localized : LocalizedString.CancellationCharges.localized
 
@@ -281,6 +292,9 @@ class BookingReschedulingVC: BaseVC {
             //expandedIndexPaths
             bookingAccordionCell.headerDividerView.isHidden = (self.expandedIndexPaths.contains(indexPath) || (index == legD.pax.count - 1))
             bookingAccordionCell.bottomDividerView.isHidden = ((index == legD.pax.count - 1) || !self.expandedIndexPaths.contains(indexPath))
+            bookingAccordionCell.selectedTravellerButton.isEnabled = !(paxD.inProcess)
+            bookingAccordionCell.passengerNameLabel.isEnabled = !(paxD.inProcess)
+            bookingAccordionCell.togglePaxDetails(hidden: paxD.inProcess)
             return bookingAccordionCell
         }
     }
@@ -339,7 +353,7 @@ extension BookingReschedulingVC: UITableViewDataSource, UITableViewDelegate {
             return 60
         }
         else {
-            return self.expandedIndexPaths.contains(indexPath) ? 144.5 : 44.0
+            return self.expandedIndexPaths.contains(indexPath) ? UITableView.automaticDimension : 44.0
         }
     }
     
@@ -432,7 +446,7 @@ extension BookingReschedulingVC: BookingReschedulingHeaderViewDelegate {
         }
         else {
             //select all
-            legD.selectedPaxs = legD.pax
+            legD.selectedPaxs = legD.pax.filter({!($0.inProcess)})
         }
         
         self.viewModel.legsData.insert(legD, at: sender.tag)

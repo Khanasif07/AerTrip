@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -24,7 +21,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="141"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1Y3-XB-gGR" id="Rk5-UQ-OsX">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="140.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="141"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="selectOption" translatesAutoresizingMaskIntoConstraints="NO" id="yEu-0t-wO8">
@@ -52,7 +49,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XqP-8W-DeQ">
-                        <rect key="frame" x="16" y="44" width="343" height="53"/>
+                        <rect key="frame" x="16" y="44" width="343" height="53.5"/>
                         <string key="text">• ₹ 500 instant cashback will be applied to this booking.
 • ₹ 100 will be credited to your Aertrip Wallet within few
      hours of successful payment / travel date</string>
@@ -61,7 +58,7 @@
                         <string key="userLabel">• ₹ 500 instant cashback will be applied to this booking. • ₹ 100 will be credited to your Aertrip Wallet within few      hours of successful payment / travel date</string>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3JP-OF-OYF">
-                        <rect key="frame" x="16" y="107" width="70" height="20"/>
+                        <rect key="frame" x="16" y="107.5" width="70" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="GO3-Gl-E9Z"/>
                         </constraints>
@@ -71,13 +68,13 @@
                         </state>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ends: 31 Dec 2018" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yuf-RI-LfC">
-                        <rect key="frame" x="254.5" y="108" width="104.5" height="18"/>
+                        <rect key="frame" x="254.5" y="108.5" width="104.5" height="18"/>
                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="puU-Me-9f1" userLabel="LineView">
-                        <rect key="frame" x="16" y="140" width="343" height="0.5"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="puU-Me-9f1" userLabel="LineView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                        <rect key="frame" x="16" y="140.5" width="343" height="0.5"/>
                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="0.5" id="gfM-9b-N37"/>

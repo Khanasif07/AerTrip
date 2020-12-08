@@ -93,7 +93,8 @@ extension BaggageContainerVC {
         self.topNavBarView.delegate = self
         let isDivider = baggageContainerVM.allChildVCs.count > 1 ? false : true
         self.topNavBarView.configureNavBar(title: LocalizedString.Baggage.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false,isDivider : isDivider)
-        self.topNavBarView.configureLeftButton(normalTitle: LocalizedString.ClearAll.localized, normalColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18))
+        let clearStr = "  \(LocalizedString.ClearAll.localized)"
+        self.topNavBarView.configureLeftButton(normalTitle: clearStr, normalColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18), isLeftButtonEnabled : self.baggageContainerVM.isAnyThingSelected())
         self.topNavBarView.configureFirstRightButton(normalTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18))
     }
     
@@ -141,7 +142,9 @@ extension BaggageContainerVC {
         self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
         self.parchmentView?.indicatorColor = AppColors.themeGreen
         self.parchmentView?.selectedTextColor = AppColors.themeBlack
-        self.mealsContainerView.addSubview(self.parchmentView!.view)
+        if parchmentView != nil{
+            self.mealsContainerView.addSubview(self.parchmentView!.view)
+        }
         
         self.parchmentView?.dataSource = self
         self.parchmentView?.delegate = self
@@ -166,7 +169,9 @@ extension BaggageContainerVC: TopNavigationViewDelegate {
         self.baggageContainerVM.clearAll()
         calculateTotalAmount()
         let price = self.totalLabel.text ?? ""
-        self.delegate?.baggageUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))    }
+        self.delegate?.baggageUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))
+        configureNavigation()
+    }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
@@ -281,6 +286,8 @@ extension BaggageContainerVC : SelectBaggageDelegate {
             }
             self.present(vc, animated: false, completion: nil)
         }
+        configureNavigation()
+
     }
     
     func openBaggageTerms(){

@@ -151,7 +151,7 @@ enum AppColors {
     static let reviewGreen = UIColor(displayP3Red: 0, green: 0.667, blue: 0.424, alpha: 1)
     
     /// RGB -  41 176 182
-    static let dashboardGradientColor = UIColor(displayP3Red: 0.161, green: 0.690, blue: 0.714, alpha: 1)
+    //static let dashboardGradientColor = UIColor(displayP3Red: 0.161, green: 0.690, blue: 0.714, alpha: 1)
     
     /// RGB - 230, 230, 230, 0.6
     static let themeGray10WithAlpha  = UIColor(displayP3Red: 0.9019607843, green: 0.9019607843, blue: 0.9019607843, alpha: 0.6)
@@ -179,6 +179,9 @@ enum AppColors {
     // RGB - 246, 19, 114, 1.0
     static let instaButtonBottomColor =  UIColor(displayP3Red: 0.9647058824, green: 0.07450980392, blue: 0.4470588235, alpha: 0.4)
     
+    static var appShadowColor: UIColor {
+        return AppColors.themeRed.withAlphaComponent(0.30) //AppColors.themeBlack.withAlphaComponent(0.15)
+    }
     
     case headlines
     case body

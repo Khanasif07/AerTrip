@@ -43,6 +43,7 @@ enum AppConstants {
     static let fareRules = "https://beta.aertrip.com/terms"
     static let walletAmountUrl = "https://beta.aertrip.com/wallet"
     static let tripsUrl = "https://aertrip.com/trips"
+    static let travelSafetyLink = "https://aertrip.com/covid-guide"
 
     static let kSearchTextLimit = 3
     static let kNameTextLimit = 30
@@ -119,6 +120,20 @@ enum AppConstants {
     
     static let airlineMasterBaseUrl = "http://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/"
     
+    
+    // color for aap theme gradient color
+    static let appthemeGradientColors: [UIColor] = [AppColors.shadowBlue, AppColors.themeGreen] //AppColors.themeGreen
+    // color for aap disable gradient color
+    static let appthemeDisableGradientColors: [UIColor] = [AppColors.themeGray20, AppColors.themeGray20]
+
+    
 }
 
 
+struct AppShadowProperties {
+    let shadowRadius:CGFloat  = 4.0
+    let cornerRadius:CGFloat = 10.0
+    let opecity:Float = 1.0
+    let offset:CGSize = .zero
+    let shadowColor = AppColors.appShadowColor
+}

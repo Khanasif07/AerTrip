@@ -44,13 +44,13 @@ import UIKit
         }
     }
     
-    var gradientColors: [UIColor] = [AppColors.shadowBlue, AppColors.themeGreen] {
+    var gradientColors: [UIColor] = AppConstants.appthemeGradientColors {
         didSet {
             self.layoutSubviews()
         }
     }
     
-    var disabledGradientColors: [UIColor] = [AppColors.themeGray20, AppColors.themeGray20] {
+    var disabledGradientColors: [UIColor] = AppConstants.appthemeDisableGradientColors {
         didSet {
             self.layoutSubviews()
         }
@@ -104,7 +104,7 @@ import UIKit
             self.addGradientLayer()
         }
     }
-    
+    var isShadowColorNeeded = false
     var fontForTitle: UIFont = AppFonts.SemiBold.withSize(17.0) {
         didSet {
             self.titleLabel?.font = fontForTitle
@@ -145,12 +145,12 @@ import UIKit
         shadowLayer.fillColor = AppColors.clear.cgColor
         if self.isEnabled {
             if isEnabledShadow {
-                shadowLayer.shadowColor = AppColors.clear.cgColor
+                shadowLayer.shadowColor = AppShadowProperties().shadowColor.cgColor//AppColors.clear.cgColor
                 shadowLayer.shadowOffset = CGSize.zero
                 shadowLayer.shadowOpacity = 0.0
                 shadowLayer.shadowRadius = 0.0
             } else {
-            shadowLayer.shadowColor = shadowColor.cgColor
+                shadowLayer.shadowColor = (!isShadowColorNeeded) ? AppShadowProperties().shadowColor.cgColor : shadowColor.cgColor//shadowColor.cgColor
             shadowLayer.shadowPath  = shadowLayer.path
             shadowLayer.shadowOffset = CGSize(width: 0.0, height: self.isSocial ? 2.0 : 12.0)
             shadowLayer.shadowOpacity = self.isSocial ? 0.16 : 0.5
@@ -226,7 +226,7 @@ import UIKit
     override func setImage(_ image: UIImage?, for state: UIControl.State) {
         super.setImage(image?.withRenderingMode(.alwaysOriginal), for: .normal)
         super.setImage(image?.withRenderingMode(.alwaysOriginal), for: .highlighted)
-        if !self.isLoading {
+        if !self.isLoading, self.imageView != nil {
             self.bringSubviewToFront(self.imageView!)
         }
     }
@@ -271,10 +271,16 @@ import UIKit
             self.loaderContainer.autoresizingMask = [.flexibleWidth,.flexibleHeight]
             let size = min(self.frame.size.width, self.frame.size.height)
             self.loaderIndicator = UIActivityIndicatorView(frame: CGRect(x: (self.frame.size.width - size) / 2.0, y: 0.0, width: size, height: size))
-            self.loaderIndicator.style = .white
+            self.loaderIndicator.style = .medium//.white
             
             self.loaderContainer.addSubview(self.loaderIndicator)
             self.addSubview(self.loaderContainer)
+        }else{
+            self.loaderContainer.frame = self.bounds
+              let size = min(self.frame.size.width, self.frame.size.height)
+            loaderIndicator.frame = CGRect(x: (self.frame.size.width - size) / 2.0, y: 0.0, width: size, height: size)
+//            self.loaderContainer.center = self.center
+//            loaderIndicator.center = self.loaderContainer.center
         }
         
         self.loaderContainer.layer.cornerRadius = self.cornerradius

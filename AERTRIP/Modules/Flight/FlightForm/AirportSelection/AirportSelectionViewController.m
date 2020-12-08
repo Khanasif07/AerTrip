@@ -67,7 +67,7 @@
 
 @property (weak, nonatomic) IBOutlet UIVisualEffectView *switcherButtonBlurBackground;
 
-@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (weak, nonatomic) IBOutlet ATSearchBar *searchBar; // nitin change
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *noResultViewHeight;
 @property (weak, nonatomic) IBOutlet UIView *noResultView;
@@ -129,6 +129,7 @@
     else {
         [self configureInitialBottomViewPosition];
     }
+    [self.searchBar becomeFirstResponder];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -244,6 +245,8 @@
 
 
 - (void)setupInitials {
+    self.fromLabel.alpha = 0;
+    self.toLabel.alpha = 0;
     self.primaryDuration = 0.4;
     
     [self createPopularAirportArray];
@@ -323,15 +326,18 @@
 }
 
 - (void)addSearchBar {
-    self.searchBar.showsCancelButton = NO;
+   // self.searchBar.showsCancelButton = NO; // nitin change
     self.searchBar.delegate = self;
-    
+    self.dictationButton.hidden = YES;
+    // nitin change
+    /*
     if (@available(iOS 13, *)) {
         self.searchBar.searchTextField.font = [UIFont fontWithName:@"SourceSansPro-Regular" size:18.0];
     }else{
         UITextField *textField = [self.searchBar valueForKey: @"_searchField"];
         [textField setFont:[UIFont fontWithName:@"SourceSansPro-Regular" size:18.0]];
     }
+     */
 }
 
 - (void)setupTableView {
@@ -893,6 +899,7 @@
             [self.airportDisplayArray insertObject:@"" atIndex:0];
             [self.displaySections setObject:self.viewModel.fromFlightArray forKey:@""];
             [self hideTableViewHeader:YES];
+            [self.resultTableView reloadData];
             return;
         }else {
             if(isAirportNearMeSelectedInTo == true){
@@ -978,7 +985,7 @@
     });
     
     if ([searchText length] > 1 ){
-        self.dictationButton.hidden = YES;
+        //self.dictationButton.hidden = YES; // nitin change
         
         self.NoResultLabel.text = @"Searching..";
         
@@ -986,11 +993,14 @@
         
 //        [self performSelector:@selector(sendSearchRequest) withObject:searchText afterDelay:0.35f];
     }else {
+        // nitin change
+        /*
         if ([searchText length] > 0) {
             self.dictationButton.hidden = YES;
         } else {
             self.dictationButton.hidden = NO;
         }
+         */
         [self hideTableViewHeader:YES];
     }
     
@@ -1184,10 +1194,21 @@
                 cell.horizontalLineView.hidden = YES;
             }
             
+        } else if ([key  isEqual: @"RECENTLY SEARCHED AIRPORTS"]){
+            if ([[self.displaySections objectForKey:key] count] > 5){
+                count1 = 5;
+            }else{
+                count1 = [[self.displaySections objectForKey:key] count];
+            }
+            
+            if (indexPath.row == count1 - 1 ) {
+                cell.horizontalLineView.hidden = YES;
+            }
         }else{
             count1 = [[self.displaySections objectForKey:key] count];
         }
     }
+
     
     return cell;
 }
@@ -1644,10 +1665,11 @@
 
 - (void)setupFromAndToView
 {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    // Commented by Rishabh due to delay in setup
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self setupFromView];
         [self setupToView];
-    });
+//    });
     [self setupSwitcherButton];
     [self changeColorTab];
 }

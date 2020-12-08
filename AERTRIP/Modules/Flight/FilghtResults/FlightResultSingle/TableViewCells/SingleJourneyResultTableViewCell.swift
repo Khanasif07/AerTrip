@@ -34,6 +34,9 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
     @IBOutlet weak var priceWidth: NSLayoutConstraint!
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var smartIconCollectionView: UICollectionView!
+    
+    @IBOutlet weak var shadowView: UIView!
+    
     var pinnedRoundedLayer : CALayer?
     
     var smartIconsArray : [String]?
@@ -43,12 +46,15 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
     //MARK:- Setup Methods
     fileprivate func setupBaseView() {
         backgroundColor = .clear // very important
-        layer.masksToBounds = false
-        layer.shadowOpacity = 0.5
-        layer.shadowRadius = 4
-        layer.shadowOffset = CGSize(width: 0, height: 0)
-        layer.shadowColor = UIColor.black.withAlphaComponent(0.3).cgColor
+//        layer.masksToBounds = false
+//        layer.shadowOpacity = 0.5
+//        layer.shadowRadius = 4
+//        layer.shadowOffset = CGSize(width: 0, height: 0)
+//        layer.shadowColor = UIColor.black.withAlphaComponent(0.3).cgColor
         self.baseView.layer.cornerRadius = 10
+        let shadowProp = AppShadowProperties()
+        self.shadowView.addShadow(cornerRadius: shadowProp.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: shadowProp.shadowColor, offset: shadowProp.offset, opacity: shadowProp.opecity, shadowRadius: shadowProp.shadowRadius)
+//        self.shadowView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
     }
     
     override func awakeFromNib() {
@@ -59,8 +65,7 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
         dashedView.setupDashedView()
         setupGradientView()
         setupCollectionView()
-        
-   
+
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -75,8 +80,8 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
         smartIconCollectionView.dataSource = self
         smartIconCollectionView.delegate = self
     }
-    //MARK:-
     
+    //MARK:-
     fileprivate func setupGradientView( selectedColor : UIColor = UIColor.white) {
         let gradient = CAGradientLayer()
         let gradientViewRect = gradientView.bounds
@@ -118,6 +123,7 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
         }
     }
     
+    
     func setTitlesFrom( journey : Journey?) {
         guard let journey = journey else { return }
         
@@ -134,7 +140,9 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
 //        self.price.text = journey.priceAsString
         let amountText = NSMutableAttributedString.init(string: journey.priceAsString)
 
-        amountText.setAttributes([NSAttributedString.Key.font: UIFont(name: "SourceSansPro-Regular", size: 16)!], range: NSMakeRange(0, 1))
+//        amountText.setAttributes([NSAttributedString.Key.font: UIFont(name: "SourceSansPro-Regular", size: 16)!], range: NSMakeRange(0, 1))
+        
+        amountText.setAttributes([NSAttributedString.Key.font: AppFonts.Regular.withSize(16)], range: NSMakeRange(0, 1))
         self.price.attributedText = amountText
 
         self.priceWidth.constant =  self.price.intrinsicContentSize.width
@@ -148,7 +156,7 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
 //        }else if airlineTitle.text!.count > 12 {
 //            airlineTitleWidth.constant = 85
 //        }else{
-            airlineTitleWidth.constant = 70
+//            airlineTitleWidth.constant = 70
 //        }
 
         
@@ -164,15 +172,24 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
             self.intermediateAirports.isHidden = true
         }else{
             self.intermediateAirports.text = journey.intermediateAirports
-            if let font = UIFont(name: "SourceSansPro-Regular", size: 14 ) {
+//            if let font = UIFont(name: "SourceSansPro-Regular", size: 14 ) {
+            
+//            let fontAttributes = [NSAttributedString.Key.font: font]
+//                let myText = journey.intermediateAirports
+//                let size = (myText as NSString).size(withAttributes: fontAttributes)
+//                self.immediateAirportWidth.constant = size.width + 20
+//            }
+            
+                let font = AppFonts.Regular.withSize(14)
                 let fontAttributes = [NSAttributedString.Key.font: font]
                 let myText = journey.intermediateAirports
                 let size = (myText as NSString).size(withAttributes: fontAttributes)
                 self.immediateAirportWidth.constant = size.width + 20
-            }
+
         }
         
         baggageSuperScript = journey.baggageSuperScript
+        
         smartIconsArray = journey.smartIconArray
         smartIconCollectionView.reloadData()
 
@@ -183,6 +200,11 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
         logoOne.isHidden = false
         logoTwo.isHidden = false
         logoThree.isHidden = false
+        
+        logoOne.image = nil
+        logoTwo.image = nil
+        logoTwo.image = nil
+
         self.immediateAirportWidth.constant = 100
         self.intermediateAirports.isHidden = false
         
@@ -197,7 +219,9 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
     
     func textToImage(drawText text: String, diameter: CGFloat, color: UIColor ) -> UIImage {
         let textColor = UIColor.white
-        let textFont = UIFont(name: "SourceSansPro-Semibold", size: 16)!
+//        let textFont = UIFont(name: "SourceSansPro-Semibold", size: 16)!
+//
+        let textFont = AppFonts.SemiBold.withSize(16)
         
         let scale = UIScreen.main.scale
         UIGraphicsBeginImageContextWithOptions(CGSize(width: diameter, height: diameter), false, scale)
@@ -227,12 +251,13 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
 
 
 
-extension SingleJourneyResultTableViewCell : UICollectionViewDataSource , UICollectionViewDelegate {
+extension SingleJourneyResultTableViewCell : UICollectionViewDataSource , UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         
         if section == 0 {
-            if baggageSuperScript?.string == "0P" {
+            if baggageSuperScript?.string == "0P" || baggageSuperScript?.string == "0" || baggageSuperScript?.string == "?" {
                 return 0
             }
             else {
@@ -250,10 +275,12 @@ extension SingleJourneyResultTableViewCell : UICollectionViewDataSource , UIColl
         if indexPath.section == 0 {
             cell.imageView.image = UIImage(named: "checkingBaggageKg")
             cell.superScript.attributedText = baggageSuperScript
+//                    printDebug("baggageSuperScript...\(baggageSuperScript?.string)")
+//            cell.superScript.backgroundColor = UIColor.yellow
+//            cell.contentView.backgroundColor = UIColor.red
             cell.superScriptWidth.constant = 14
             cell.imageViewLeading.constant = 0
-        }
-        else {
+        } else {
             
             guard let imageName = smartIconsArray?[indexPath.row] else { return UICollectionViewCell() }
             
@@ -274,7 +301,8 @@ extension SingleJourneyResultTableViewCell : UICollectionViewDataSource , UIColl
             if imageName == "refundStatusPending" {
                 cell.superScript.text = "?"
                 cell.superScript.textColor = UIColor.AERTRIP_RED_COLOR
-                cell.superScript.font = UIFont(name: "SourceSansPro-Bold", size: 10.0)
+//                cell.superScript.font = UIFont(name: "SourceSansPro-Bold", size: 10.0)
+                cell.superScript.font = AppFonts.Bold.withSize(10)
                 cell.superScriptWidth.constant = 10
                 if indexPath.row == 0{
                     cell.imageViewLeading.constant = 0
@@ -301,8 +329,8 @@ extension SingleJourneyResultTableViewCell : UICollectionViewDataSource , UIColl
                                withReuseIdentifier: "smartIconHeaderView",
                                for: indexPath)
         
-        headerView.frame = CGRect(x: 33, y: 5, width: 1.0, height: collectionView.frame.height)
-        headerView.backgroundColor = UIColor(displayP3Red: ( 204.0 / 255.0), green: ( 204.0 / 255.0), blue: ( 204 / 255.0), alpha: 1.0)
+//        headerView.frame = CGRect(x: 33, y: 5, width: 1.0, height: collectionView.frame.height)
+//        headerView.backgroundColor = UIColor(displayP3Red: ( 204.0 / 255.0), green: ( 204.0 / 255.0), blue: ( 204 / 255.0), alpha: 1.0)
 
         return headerView
     }
@@ -315,11 +343,23 @@ extension SingleJourneyResultTableViewCell : UICollectionViewDataSource , UIColl
         return .zero
     }
     else {
-        if smartIconsArray?.count == 0  || baggageSuperScript?.string == "0P" {
+        if smartIconsArray?.count == 0  || baggageSuperScript?.string == "0P" || baggageSuperScript?.string == "0" || baggageSuperScript?.string == "?" {
             return .zero
         }
         return CGSize(width: 16.0, height:  23.0)
     }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: indexPath.section == 0 ? 30 : 26, height: 23)
+       }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
     }
     
 }

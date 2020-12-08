@@ -108,7 +108,7 @@ class AccountDetailsVC: BaseVC {
         
         self.topNavView.delegate = self
         
-        self.topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "ic_three_dots"), selectedImage: #imageLiteral(resourceName: "ic_three_dots"))
+        self.topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "greenPopOverButton"), selectedImage: #imageLiteral(resourceName: "greenPopOverButton"))
         self.topNavView.configureSecondRightButton(normalImage: #imageLiteral(resourceName: "bookingFilterIcon"), selectedImage: #imageLiteral(resourceName: "bookingFilterIconSelected"))
         
         //add search view in tableView header
@@ -160,13 +160,19 @@ class AccountDetailsVC: BaseVC {
         self.refreshControl.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControl.Event.valueChanged)
         self.refreshControl.tintColor = AppColors.themeGreen
         self.tableView.refreshControl = refreshControl
+        self.tableView.showsVerticalScrollIndicator = true
         
     }
     
     override func dataChanged(_ note: Notification) {
-        if let noti = note.object as? ATNotification, noti == .accountPaymentRegister, let usr = UserInfo.loggedInUser, usr.userCreditType == .regular {
+        if let noti = note.object as? ATNotification, let usr = UserInfo.loggedInUser, usr.userCreditType == .regular {
             //re-hit the details API
-            self.viewModel.getAccountDetails(showProgres: true)
+            switch noti {
+            case .accountPaymentRegister:
+                self.viewModel.getAccountDetails(showProgres: true)
+            default:
+                break
+            }
         }
     }
     
@@ -240,21 +246,26 @@ class AccountDetailsVC: BaseVC {
             return
         }
         if self.time == 2 {
-            self.timer!.invalidate()
+            self.timer?.invalidate()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
             }
         }
         
         if self.time >= 10 {
-            self.timer!.invalidate()
+            self.timer?.invalidate()
             delay(seconds: 0.5) {
+                self.timer?.invalidate()
                 self.progressView?.isHidden = true
             }
         }
     }
     func stopProgress() {
         self.time += 1
+        if self.time <= 8  {
+            self.time = 9
+        }
+        self.timer?.invalidate()
         self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
     }
     
@@ -577,8 +588,16 @@ extension AccountDetailsVC: AccountDetailsVMDelegate {
         self.refreshControl.endRefreshing()
         self.topNavView.firstRightButton.isUserInteractionEnabled = true
         self.topNavView.secondRightButton.isUserInteractionEnabled = true
+        if self.currentViewState == .filterApplied {
+            self.viewModel.applyFilter(searchText: self.mainSearchBar.text ?? "")
+        } else if self.currentViewState == .filterApplied {
+            self.viewModel.searchEvent(forText: self.mainSearchBar.text ?? "")
+        }
         self.reloadList()
         NotificationCenter.default.post(name: .accountDetailFetched, object: model)
+        
+        
+
     }
     
     func getAccountDetailsFail(showProgres: Bool) {

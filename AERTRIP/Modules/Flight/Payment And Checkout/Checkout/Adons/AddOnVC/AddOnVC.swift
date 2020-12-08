@@ -80,7 +80,7 @@ extension AddOnVC {
     
     private func configureTableView(){
         self.adonsTableView.register(UINib(nibName: "AdonsCell", bundle: nil), forCellReuseIdentifier: "AdonsCell")
-        self.adonsTableView.contentInset = UIEdgeInsets(top: -12, left: 0, bottom: 0, right: 0)
+        self.adonsTableView.contentInset = UIEdgeInsets(top: topNavView.height - 12, left: 0, bottom: 0, right: 0)
         self.adonsTableView.separatorStyle = .none
         //        self.adonsTableView.estimatedRowHeight = 104
         self.adonsTableView.rowHeight = UITableView.automaticDimension
@@ -92,7 +92,7 @@ extension AddOnVC {
         indicator.frame.size = CGSize(width: 25, height: 25)
         self.topNavView.addSubview(indicator)
         self.topNavView.bringSubviewToFront(indicator)
-        self.indicator.style = .gray
+        self.indicator.style = .medium// .gray
         self.indicator.tintColor = AppColors.themeGreen
         self.indicator.color = AppColors.themeGreen
         self.indicator.stopAnimating()

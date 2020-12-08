@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,7 +13,7 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FareRulesVC" customModule="Aertrip" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FareRulesVC" customModule="AERTRIP" customModuleProvider="target">
             <connections>
                 <outlet property="backgroundView" destination="Bc5-ZW-4wB" id="GiY-cY-Ce5"/>
                 <outlet property="dividerLabel" destination="bpQ-mS-X1K" id="blU-xL-pLx"/>
@@ -137,6 +137,7 @@ Rule - 003/5021 unless otherwise specified north/central pacific normal premium 
                     </wkWebViewConfiguration>
                 </wkWebView>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="iFI-dZ-FG8" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="1cI-VE-vgd"/>
@@ -156,7 +157,6 @@ Rule - 003/5021 unless otherwise specified north/central pacific normal premium 
                 <constraint firstAttribute="bottom" secondItem="J0g-Rz-0Yj" secondAttribute="bottom" id="tfL-13-mM6"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="-16" y="230.54187192118226"/>
         </view>
     </objects>

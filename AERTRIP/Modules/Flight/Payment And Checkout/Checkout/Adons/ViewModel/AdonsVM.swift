@@ -101,7 +101,7 @@ class AdonsVM  {
         addonsData.append(AdonsVM.AddonsData(type: .seat, heading: LocalizedString.Seat.localized, description: LocalizedString.Reserve_Seat.localized, complementString: getFreeSeatsString, shouldShowComp: isFreeSeatsAdded))
         
      //   if !flightsWithOthers.isEmpty{
-            addonsData.append(AdonsVM.AddonsData(type: .otheres, heading: LocalizedString.Other.localized, description: LocalizedString.PreBook_Services.localized, complementString: "", shouldShowComp: false))
+            addonsData.append(AdonsVM.AddonsData(type: .otheres, heading: LocalizedString.Other.localized, description: LocalizedString.Choose_Baggage.localized, complementString: "", shouldShowComp: false))
       //  }
         
     }
@@ -355,6 +355,18 @@ extension AdonsVM {
           }
           return isOtherSelected
       }
+    
+    func isSpecialRequestAdded() -> Bool {
+        let dataStore = AddonsDataStore.shared
+        var isSpecialRequestAdded = false
+
+        dataStore.flightsWithData.forEach { (flight) in
+            if !isSpecialRequestAdded{
+                isSpecialRequestAdded = !flight.specialRequest.isEmpty
+            }
+        }
+        return isSpecialRequestAdded
+    }
       
     
     func setOthersString() {
@@ -373,7 +385,6 @@ extension AdonsVM {
                     
                     othersTotal += other.price * other.othersSelectedFor.count
 
-                    
                     other.othersSelectedFor.forEach { (passenger) in
                         count += 1
 //                        guard let desc = other.ssrName?.name else { return }
@@ -381,7 +392,13 @@ extension AdonsVM {
                     }
                 }
             }
-            description = "\(LocalizedString.Total.localized) : ₹\(othersTotal.commaSeprated)"
+            description = "\(LocalizedString.Total.localized) : ₹\(othersTotal.commaSeprated) "
+        }
+        
+        if self.isSpecialRequestAdded() {
+            
+            let speReq = description.isEmpty ? "Special Request" : "+ Special Request"
+            description = description + speReq
         }
         
         if description.isEmpty {
@@ -576,7 +593,7 @@ extension AdonsVM {
                 return
             }
             
-            self.parmsForItinerary["flight_special_request[\(flight.flightId)]"] = flight.specialRequest
+            self.parmsForItinerary["flight_special_request[\(flight.legId)]"] = flight.specialRequest
             
 //                  let others = flight.special.addonsArray.filter { !$0.othersSelectedFor.isEmpty }
                  
@@ -591,7 +608,7 @@ extension AdonsVM {
                 
                 var rowStr: String {
                     if let number = Int(seatData.columnData.ssrCode.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()) {
-                        print(number)
+                        printDebug(number)
                         return "\(number)"
                     }
                     return ""

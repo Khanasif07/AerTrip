@@ -14,7 +14,6 @@ class FlightPaymentVC: BaseVC {
     @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var checkOutTableView: ATTableView!{
         didSet{
-            self.checkOutTableView.contentInset = UIEdgeInsets.zero
             self.checkOutTableView.delegate = self
             self.checkOutTableView.dataSource = self
             self.checkOutTableView.estimatedSectionFooterHeight = CGFloat.leastNonzeroMagnitude
@@ -29,13 +28,13 @@ class FlightPaymentVC: BaseVC {
     
     let cellIdentifier = "HotelFareSectionHeader"
     var isWallet: Bool = false // To check if using wallet or Not
-    var gradientColors: [UIColor] = [AppColors.shadowBlue, AppColors.themeGreen] {
+    var gradientColors: [UIColor] = AppConstants.appthemeGradientColors {
         didSet {
             self.viewDidLayoutSubviews()
         }
     }
     
-    var disabledGradientColors: [UIColor] = [AppColors.themeGray20, AppColors.themeGray20] {
+    var disabledGradientColors: [UIColor] = AppConstants.appthemeDisableGradientColors {
         didSet {
             self.viewDidLayoutSubviews()
         }
@@ -51,15 +50,16 @@ class FlightPaymentVC: BaseVC {
     // Boolean to check if convenienceFeeToAppliedOrNot
     var isConvenienceFeeApplied: Bool = false
     // Boolean to handle  coupon view expanded or not , By Default will be expanded
-    var isCouponSectionExpanded: Bool = true
+    var isCouponSectionExpanded: Bool = false
     //Is taxes and fee expended
-    var isTaxesAndFeeExpended = true
-    var isAddonsExpended = true
+    var isTaxesAndFeeExpended = false
+    var isAddonsExpended = false
     
    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.checkOutTableView.contentInset = UIEdgeInsets(top: topNavView.height - 1, left: 0, bottom: 0, right: 0)
         self.viewModel.taxesDataDisplay()
         self.checkOutTableView.separatorStyle = .none
         self.viewModel.taxesDataDisplay()
@@ -124,7 +124,9 @@ class FlightPaymentVC: BaseVC {
         self.payButton.titleLabel?.font = AppFonts.SemiBold.withSize(20.0)
         self.payButton.setImage(#imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .normal)
         self.payButton.setImage(#imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .highlighted)
-        self.payButton.bringSubviewToFront(self.payButton.imageView!)
+        if self.payButton.imageView != nil{
+            self.payButton.bringSubviewToFront(self.payButton.imageView!)
+        }
         self.payButton.spaceInTextAndImageOfButton(spacing: 2)
         self.payButton.setTitleColor(AppColors.themeWhite, for: .normal)
         self.setupPayButtonTitle()
@@ -132,22 +134,30 @@ class FlightPaymentVC: BaseVC {
     }
 
     func setupPayButtonTitle(){
-        let ttl = self.getTotalPayableAmount().amountInDelimeterWithSymbol
-        let amount = ttl.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
-        amount.addAttributes([.foregroundColor : AppColors.themeWhite], range: NSString(string: ttl).range(of: ttl))
-        let attributedTitle = NSMutableAttributedString(string: "  \(LocalizedString.Pay.localized) ", attributes: [.font: AppFonts.SemiBold.withSize(20), .foregroundColor: AppColors.themeWhite])
-        attributedTitle.append(amount)
-        self.payButton.setAttributedTitle(attributedTitle, for: .normal)
-        self.payButton.setAttributedTitle(attributedTitle, for: .highlighted)
-        
-//        let amount = self.getTotalPayableAmount().amountInDelimeterWithSymbol
-//        let title = " \(LocalizedString.Pay.localized)  \(amount)"
-//        self.payButton.setTitle(title , for: .normal)
-//        self.payButton.setTitle(title, for: .highlighted)
+        if self.getTotalPayableAmount() != 0.0{
+            let ttl = self.getTotalPayableAmount().amountInDelimeterWithSymbol
+            let amount = ttl.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
+            amount.addAttributes([.foregroundColor : AppColors.themeWhite], range: NSString(string: ttl).range(of: ttl))
+            let attributedTitle = NSMutableAttributedString(string: "  \(LocalizedString.Pay.localized) ", attributes: [.font: AppFonts.SemiBold.withSize(20), .foregroundColor: AppColors.themeWhite])
+            attributedTitle.append(amount)
+            self.payButton.setTitle(nil, for: .normal)
+            self.payButton.setTitle(nil, for: .highlighted)
+            self.payButton.setImage(#imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .normal)
+            self.payButton.setImage(#imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .highlighted)
+            self.payButton.setAttributedTitle(attributedTitle, for: .normal)
+            self.payButton.setAttributedTitle(attributedTitle, for: .highlighted)
+        }else{
+            self.payButton.setImage(nil, for: .normal)
+            self.payButton.setImage(nil, for: .highlighted)
+            self.payButton.setAttributedTitle(nil, for: .normal)
+            self.payButton.setAttributedTitle(nil, for: .highlighted)
+            self.payButton.setTitle(LocalizedString.ConfirmBooking.localized, for: .normal)
+            self.payButton.setTitle(LocalizedString.ConfirmBooking.localized, for: .highlighted)
+        }
     }
     
     private func manageLoader() {
-        self.activityLoader.style = .white
+        self.activityLoader.style = .medium//.white
         self.activityLoader.color = AppColors.themeWhite
         self.activityLoader.startAnimating()
         self.loaderView.addGredient(isVertical: false)
@@ -213,8 +223,10 @@ class FlightPaymentVC: BaseVC {
         }
         if diff > 0 {
             // increased
+            self.view.isUserInteractionEnabled = true
             FareUpdatedPopUpVC.showPopUp(isForIncreased: true, decreasedAmount: 0.0, increasedAmount: Double(diff), totalUpdatedAmount: Double(amount), continueButtonAction: { [weak self] in
                 guard let self = self else { return }
+                self.view.isUserInteractionEnabled = false
                 self.viewModel.makePayment(forAmount: self.getTotalPayableAmount(), useWallet: self.isWallet)
                 }, goBackButtonAction: { [weak self] in
                     guard let self = self else { return }
@@ -322,9 +334,8 @@ extension FlightPaymentVC : TopNavigationViewDelegate, HotelFareSectionHeaderDel
 //MARK:- Coupon selection delegate
 extension FlightPaymentVC: FlightCouponCodeVCDelegate {
     func appliedCouponData(_ appliedCouponData: FlightItineraryData) {
-        printDebug(appliedCouponData)
         self.viewModel.appliedCouponData = appliedCouponData
-        self.isCouponApplied = true
+        self.isCouponApplied = self.viewModel.appliedCouponData.isCouponAppied ?? false
         self.viewModel.taxesDataDisplay()
         self.viewModel.webServiceGetPaymentMethods(isWalletChnaged: true)
 //        self.viewModel.updateConvenienceFee()
@@ -418,7 +429,14 @@ extension FlightPaymentVC:FlightPaymentVMDelegate{
     
     func makePaymentFail(error: ErrorCodes) {
         self.hideShowLoader(isHidden:true)
-        AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .hotelsSearch)
+        if ((error.first ?? 0) != 2){
+            AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .payment)
+        }else{
+            AppFlowManager.default.moveToPaymentAmountHigh()
+//            let vc = OnlinePaymentLimitVC.instantiate(fromAppStoryboard: .FlightPayment)
+//            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        
     }
     
     func willGetPaymentResonse() {
@@ -428,7 +446,7 @@ extension FlightPaymentVC:FlightPaymentVMDelegate{
     func getPaymentResonseSuccess(bookingIds: [String], cid: [String]) {
         // send to you are all donr screen
        self.hideShowLoader(isHidden:true)
-        print(bookingIds)
+        printDebug(bookingIds)
         let vc = FlightPaymentBookingStatusVC.instantiate(fromAppStoryboard: .FlightPayment)
         vc.viewModel.apiBookingIds = bookingIds
         vc.viewModel.itId = self.viewModel.itinerary.id

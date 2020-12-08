@@ -67,9 +67,12 @@ class MyBookingsVC: BaseVC {
         MyBookingFilterVM.shared.searchText = ""
         MyBookingsVM.shared.isFetchingBooking = false
     }
+    
     override func dataChanged(_ note: Notification) {
         if let noti = note.object as? ATNotification {
-            if noti == .myBookingFilterApplied {
+            
+            switch noti {
+            case .myBookingFilterApplied:
                 if  MyBookingFilterVM.shared.isFilterAplied() {
                     self.topNavBar.firstRightButton.isSelected = true
                     self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "bookingFilterIconSelected"), selectedImage: #imageLiteral(resourceName: "bookingFilterIconSelected"))
@@ -77,14 +80,14 @@ class MyBookingsVC: BaseVC {
                     self.topNavBar.firstRightButton.isSelected = false
                     self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "bookingFilterIcon"), selectedImage: #imageLiteral(resourceName: "bookingFilterIcon"))
                 }
-            }
-            else if noti == .myBookingFilterCleared {
+            case .myBookingFilterCleared:
                 self.topNavBar.firstRightButton.isSelected = false
                 self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "bookingFilterIcon"), selectedImage: #imageLiteral(resourceName: "bookingFilterIcon"))
                 MyBookingFilterVM.shared.setToDefault()
-            }
-            else if noti == .myBookingCasesRequestStatusChanged {
+            case .myBookingCasesRequestStatusChanged:
                 MyBookingsVM.shared.getBookings(showProgress: true)
+            default:
+                break
             }
         }
     }
@@ -114,7 +117,7 @@ class MyBookingsVC: BaseVC {
         super.viewWillAppear(animated)
         //addCustomBackgroundBlurView()
         self.statusBarColor = AppColors.clear
-        self.statusBarStyle = .default
+        self.statusBarStyle = .darkContent
     }
         
     override func viewWillDisappear(_ animated: Bool) {
@@ -342,21 +345,26 @@ class MyBookingsVC: BaseVC {
             return
         }
         if self.time == 2 {
-            self.timer!.invalidate()
+            self.timer?.invalidate()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
             }
         }
         
         if self.time >= 10 {
-            self.timer!.invalidate()
+            self.timer?.invalidate()
             delay(seconds: 0.5) {
+                self.timer?.invalidate()
                 self.progressView?.isHidden = true
             }
         }
     }
     func stopProgress() {
         self.time += 1
+        if self.time <= 8  {
+            self.time = 9
+        }
+        self.timer?.invalidate()
         self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
     }
 }
@@ -415,8 +423,6 @@ extension MyBookingsVC : PagingViewControllerDataSource , PagingViewControllerDe
             let text = pagingIndexItem.title
             
             let font = isSelected ? AppFonts.SemiBold.withSize(16.0) : AppFonts.Regular.withSize(16.0)
-            print(text)
-            print("size: \(text.widthOfString(usingFont: font))")
             return text.widthOfString(usingFont: font)
         }
         

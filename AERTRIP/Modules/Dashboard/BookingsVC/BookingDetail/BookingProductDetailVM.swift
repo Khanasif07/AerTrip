@@ -16,6 +16,9 @@ protocol BookingProductDetailVMDelegate: class {
     func willGetTripOwner()
     func getBTripOwnerSucces()
     func getTripOwnerFaiure(error: ErrorCodes)
+    
+    func getBookingOutstandingPaymentSuccess()
+    func getBookingOutstandingPaymentFail()
 }
 
 class BookingProductDetailVM {
@@ -30,6 +33,14 @@ class BookingProductDetailVM {
     var allTrips: [TripModel] = []
     var isSeeAllWeatherButtonTapped: Bool = false
     var showWaletLoader = false
+    
+    // for weather
+    struct WeatherLabelWidths {
+        var dateLblWidth: CGFloat = 0
+        var curTempLblWidth: CGFloat = 0
+        var highLowLblWidth: CGFloat = 0
+    }
+    var weatherLabelWidths = WeatherLabelWidths()
     
     var noOfCellAboveHotelDetail: Int {
         var count = 1
@@ -120,8 +131,8 @@ class BookingProductDetailVM {
         
         self.sectionDataForHotelDetail.append([.flightsOptionsCell])
         
-        self.sectionDataForHotelDetail.append([.addToCalenderCell])
-        self.sectionDataForHotelDetail.append([.bookAnotherRoomCell])
+//        self.sectionDataForHotelDetail.append([.addToCalenderCell])
+//        self.sectionDataForHotelDetail.append([.bookAnotherRoomCell])
         if self.bookingDetail?.bookingStatus == .booked {
             self.sectionDataForHotelDetail.append([.addToAppleWallet])
         }
@@ -133,7 +144,7 @@ class BookingProductDetailVM {
         
         // logic for add weather Data
         var temp: [TableViewCellForHotel] = []
-        for (index, _) in (self.bookingDetail?.tripWeatherData.enumerated())! {
+        for (index, _) in ((self.bookingDetail?.tripWeatherData ?? []).enumerated()) {
             if index == 0 {
                 temp.append(.weatherHeaderCell)
                 temp.append(.weatherInfoCell)
@@ -171,7 +182,7 @@ class BookingProductDetailVM {
     var bookingId: String = "9705"
     var bookingDetail: BookingDetailModel?
     var tripCitiesStr: NSMutableAttributedString = NSMutableAttributedString(string: "")
-    
+    private(set) var itineraryData: DepositItinerary?
     enum TableViewCellForFlightProductType {
         case notesCell, requestCell, cancellationsReqCell, addOnRequestCell, reschedulingRequestCell, flightCarriersCell, flightBoardingAndDestinationCell, travellersPnrStatusTitleCell, travellersPnrStatusCell, documentCell, paymentInfoCell, bookingCell, addOnsCell, cancellationCell, paidCell, refundCell, paymentPendingCell, nameCell, emailCell, mobileCell, gstCell, billingAddressCell, flightsOptionsCell, weatherHeaderCell, weatherInfoCell, weatherFooterCell, tripChangeCell, addToCalenderCell, addToTripCell, bookSameFlightCell, addToAppleWallet
     }
@@ -267,12 +278,12 @@ class BookingProductDetailVM {
         self.sectionDataForFlightProductType.append([.flightsOptionsCell])
         
         
-        self.sectionDataForFlightProductType.append([.addToCalenderCell])
+//        self.sectionDataForFlightProductType.append([.addToCalenderCell])
         if self.bookingDetail?.tripInfo == nil {
             self.sectionDataForFlightProductType.append([.addToTripCell])
         }
         
-        self.sectionDataForFlightProductType.append([.bookSameFlightCell])
+//        self.sectionDataForFlightProductType.append([.bookSameFlightCell])
         if self.bookingDetail?.bookingStatus == .booked {
             self.sectionDataForFlightProductType.append([.addToAppleWallet])
         }
@@ -283,7 +294,7 @@ class BookingProductDetailVM {
         
         // logic for add weather Data
         var temp: [TableViewCellForFlightProductType] = []
-        for (index, _) in (self.bookingDetail?.tripWeatherData.enumerated())! {
+        for (index, _) in ((self.bookingDetail?.tripWeatherData ?? []).enumerated()) {
             if index == 0 {
                 temp.append(.weatherHeaderCell)
                 temp.append(.weatherInfoCell)
@@ -350,6 +361,7 @@ class BookingProductDetailVM {
             guard let sSelf = self else { return }
             if success {
                 sSelf.bookingDetail = bookingDetail
+                sSelf.calculateWeatherLabelWidths(usingFor: bookingDetail?.product == "flight" ? .flight : .hotel)
                 sSelf.delegate?.getBookingDetailSucces(showProgress: showProgress)
             } else {
                 sSelf.delegate?.getBookingDetailFaiure(error: errors, showProgress: showProgress)
@@ -371,5 +383,68 @@ class BookingProductDetailVM {
                 sSelf.delegate?.getTripOwnerFaiure(error: error)
             }
         }
+    }
+    
+    func getBookingOutstandingPayment() {
+        APICaller.shared.bookingOutstandingPaymentAPI(params: ["booking_id": bookingId]) { [weak self](success, errors, itiner) in
+            if success {
+                self?.itineraryData = itiner
+                self?.delegate?.getBookingOutstandingPaymentSuccess()
+            }
+            else {
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+                self?.delegate?.getBookingOutstandingPaymentFail()
+            }
+        }
+    }
+}
+
+// MARK: For weather label widths
+extension BookingProductDetailVM {
+    
+    private func calculateWeatherLabelWidths(usingFor: WeatherCellUsingFor) {
+        let lblForDateWidth = UILabel()
+        let lblForCurTempWidth = UILabel()
+        let lblForMaxMinTempWidth = UILabel()
+        bookingDetail?.tripWeatherData.forEach({ (weatherData) in
+            let cityNameCode: String = "\(weatherData.city), \(weatherData.countryCode)"
+            lblForDateWidth.attributedText = getWeatherDateString(cityName: usingFor == .hotel ? "" : cityNameCode, date: weatherData.date?.toString(dateFormat: usingFor == .hotel ? "E, d MMM" : "d MMM") ?? "", usingFor: usingFor)
+            if lblForDateWidth.intrinsicContentSize.width > weatherLabelWidths.dateLblWidth {
+                weatherLabelWidths.dateLblWidth = lblForDateWidth.intrinsicContentSize.width
+            }
+            
+            if weatherData.maxTemperature == nil || weatherData.minTemperature == nil {
+                lblForCurTempWidth.text = "-"
+            } else if let temp = weatherData.temperature {
+                lblForCurTempWidth.text = "\(temp)\u{00B0}C"
+            } else {
+                lblForCurTempWidth.text = ""
+            }
+            if lblForCurTempWidth.intrinsicContentSize.width > weatherLabelWidths.curTempLblWidth {
+                weatherLabelWidths.curTempLblWidth = lblForCurTempWidth.intrinsicContentSize.width
+            }
+            
+            let code: String = String(weatherData.weatherIcon.split(separator: "-").first ?? "")
+            
+            let iconWithText = AppGlobals.shared.getTextWithImage(startText: "", image: ATWeatherType(rawValue: code)!.icon, endText: "  \(weatherData.maxTemperature ?? 0) \u{00B0}/ \(weatherData.minTemperature ?? 0)\u{00B0}", font: AppFonts.Regular.withSize(18.0), isEndTextBold: false)
+            lblForMaxMinTempWidth.attributedText = weatherData.maxTemperature == nil ||
+                weatherData.minTemperature == nil ? NSAttributedString(string: "              -") : iconWithText
+            
+            if lblForMaxMinTempWidth.intrinsicContentSize.width > weatherLabelWidths.highLowLblWidth {
+                weatherLabelWidths.highLowLblWidth = lblForMaxMinTempWidth.intrinsicContentSize.width
+            }
+        })
+    }
+    
+    // get city name with date attributes
+    private func getWeatherDateString(cityName: String, date: String, usingFor: WeatherCellUsingFor) -> NSAttributedString {
+        let attributedString = NSMutableAttributedString()
+        let nameAttribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(18.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack] as [NSAttributedString.Key: Any]
+        let dateAtrribute = [NSAttributedString.Key.font: cityName.isEmpty ? AppFonts.Regular.withSize(18.0) : AppFonts.Regular.withSize(14.0), NSAttributedString.Key.foregroundColor: cityName.isEmpty ? AppColors.themeBlack : AppColors.themeGray40]
+        let nameAttributedString = NSAttributedString(string: cityName, attributes: nameAttribute)
+        let dateAttributedString = NSAttributedString(string: usingFor == .hotel ? ""  + date : " " + date, attributes: dateAtrribute)
+        attributedString.append(nameAttributedString)
+        attributedString.append(dateAttributedString)
+        return attributedString
     }
 }

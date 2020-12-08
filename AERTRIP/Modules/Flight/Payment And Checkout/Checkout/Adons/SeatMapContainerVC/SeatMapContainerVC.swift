@@ -151,8 +151,8 @@ class SeatMapContainerVC: UIViewController {
     
     private func setupNavBar() {
         topNavBarView.configureNavBar(title: LocalizedString.seatMap.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .clear)
-        
-        topNavBarView.configureLeftButton(normalTitle: LocalizedString.ClearAll.localized, normalColor: AppColors.themeGreen)
+        let clearStr = "  \(LocalizedString.ClearAll.localized)"
+        topNavBarView.configureLeftButton(normalTitle: clearStr, normalColor: AppColors.themeGreen)
         
         topNavBarView.configureFirstRightButton(normalTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen)
         
@@ -251,8 +251,9 @@ class SeatMapContainerVC: UIViewController {
         self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
         self.parchmentView?.indicatorColor = AppColors.themeGreen
         self.parchmentView?.selectedTextColor = AppColors.themeBlack
-        self.seatMapContainerView.addSubview(self.parchmentView!.view)
-        
+        if self.parchmentView != nil{
+            self.seatMapContainerView.addSubview(self.parchmentView!.view)
+        }
         self.parchmentView?.dataSource = self
         self.parchmentView?.delegate = self
         self.parchmentView?.sizeDelegate = self
@@ -276,7 +277,8 @@ class SeatMapContainerVC: UIViewController {
     
     private func getStringFromImage(name : String) -> NSAttributedString {
         let imageAttachment = NSTextAttachment()
-        let sourceSansPro18 = UIFont(name: "SourceSansPro-Semibold", size: 18.0)!
+//        let sourceSansPro18 = UIFont(name: "SourceSansPro-Semibold", size: 18.0)!
+        let sourceSansPro18 = AppFonts.SemiBold.withSize(18)
         let iconImage = UIImage(named: name )!
         imageAttachment.image = iconImage
         

@@ -61,6 +61,10 @@ public class ATCategoryNavBar: UIView {
     
     func addTopRoundedCornerToView(targetView:UIView?, desiredCurve:CGFloat?)
     {
+        
+        if targetView == nil || desiredCurve == nil {
+            return
+        }
         let offset:CGFloat =  targetView!.frame.width/desiredCurve!
         let bounds: CGRect = targetView!.bounds
         

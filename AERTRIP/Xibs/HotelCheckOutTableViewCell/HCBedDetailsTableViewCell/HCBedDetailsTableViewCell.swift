@@ -54,7 +54,9 @@ class HCBedDetailsTableViewCell: UITableViewCell {
         self.roomNameLabel.textColor = AppColors.themeBlack
         self.roomDescLabel.textColor = AppColors.themeBlack
         
-        self.shadowView.addShadow(cornerRadius: 0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 8.0)
+//        self.shadowView.addShadow(cornerRadius: 0, maskedCorners: [], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 8.0)
+        let shadow = AppShadowProperties()
+        self.shadowView.addShadow(cornerRadius: 0, maskedCorners:[], color: shadow.shadowColor, offset: shadow.offset, opacity: shadow.opecity, shadowRadius: shadow.shadowRadius)
     }
     
     ///Configure Cell
@@ -77,13 +79,17 @@ class HCBedDetailsTableViewCell: UITableViewCell {
             self.stackViewBottomConstraint.constant = 16
             self.containerBottomConstraint.constant = 26
             self.containerView.roundBottomCorners(cornerRadius: 10)
-            self.shadowView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 8.0)
+//            self.shadowView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 8.0)
+            let shadow = AppShadowProperties()
+            self.shadowView.addShadow(cornerRadius: shadow.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: shadow.shadowColor, offset: shadow.offset, opacity: shadow.opecity, shadowRadius: shadow.shadowRadius)
             self.dividerView.isHidden = false
         } else {
             self.stackViewBottomConstraint.constant = 8
             self.containerBottomConstraint.constant = 0
             self.containerView.roundBottomCorners(cornerRadius: 0)
-            self.shadowView.addShadow(cornerRadius: 0, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 8.0)
+//            self.shadowView.addShadow(cornerRadius: 0, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 8.0)
+            let shadow = AppShadowProperties()
+            self.shadowView.addShadow(cornerRadius: 0.0, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: shadow.shadowColor, offset: shadow.offset, opacity: shadow.opecity, shadowRadius: shadow.shadowRadius)
             self.dividerView.isHidden = true
         }
         self.contentView.layoutIfNeeded()

@@ -44,7 +44,7 @@ extension IntFareBreakupVC: UITableViewDelegate,UITableViewDataSource{
         switch indexPath.section
         {
         case 0:
-            let fareBreakupCell = tableView.dequeueReusableCell(withIdentifier: "FareBreakupCell") as! FareBreakupTableViewCell
+            guard let fareBreakupCell = tableView.dequeueReusableCell(withIdentifier: "FareBreakupCell") as? FareBreakupTableViewCell else  {return UITableViewCell()}
             fareBreakupCell.selectionStyle = .none
             
             if self.bookFlightObject.flightAdultCount == 0{
@@ -80,7 +80,7 @@ extension IntFareBreakupVC: UITableViewDelegate,UITableViewDataSource{
             return fareBreakupCell
             
         case 1:
-            let baseFareCell = tableView.dequeueReusableCell(withIdentifier: "BaseFareCell") as! BaseFareTableViewCell
+            guard let baseFareCell = tableView.dequeueReusableCell(withIdentifier: "BaseFareCell") as? BaseFareTableViewCell else {return UITableViewCell()}
             baseFareCell.selectionStyle = .none
             
             baseFareCell.titleLabelLeading.constant = 16
@@ -108,9 +108,14 @@ extension IntFareBreakupVC: UITableViewDelegate,UITableViewDataSource{
                 
                 
                 if !isTaxesSectionHidden{
-                    baseFareCell.upArrowImg.image = UIImage(named: "upGray.png")
-                }else{
+//                    baseFareCell.upArrowImg.image = UIImage(named: "upGray.png")
+                    
                     baseFareCell.upArrowImg.image = UIImage(named: "downGray.png")
+                }else{
+//                    baseFareCell.upArrowImg.image = UIImage(named: "downGray.png")
+                    
+                    baseFareCell.upArrowImg.image = UIImage(named: "upGray.png")
+
                 }
                 
                 baseFareCell.titleLabelLeading.constant = 16
@@ -135,9 +140,9 @@ extension IntFareBreakupVC: UITableViewDelegate,UITableViewDataSource{
                 baseFareCell.titleLabelLeading.constant = 31
                 
                 if taxAndFeesData.count > 0{
-                    baseFareCell.titleLabel.text = (taxAndFeesData[indexPath.row-1].value(forKey: "name") as! String)
-                    if (taxAndFeesData[indexPath.row-1].value(forKey: "value") as? Int) != nil{
-                        let amount : Double = Double(taxAndFeesData[indexPath.row-1].value(forKey: "value") as? Int ?? 0)
+                    baseFareCell.titleLabel.text = taxAndFeesData[indexPath.row-1]["name"] as? String
+                    if (taxAndFeesData[indexPath.row-1]["value"] as? Int) != nil{
+                        let amount : Double = Double(taxAndFeesData[indexPath.row-1]["value"] as? Int ?? 0)
                         
                         let price = displayPriceInFormat(price: amount, fromOption : "FareAmount")
                         baseFareCell.amountLable.attributedText = price
@@ -178,7 +183,7 @@ extension IntFareBreakupVC: UITableViewDelegate,UITableViewDataSource{
                 baseFareCell.dataDisplayViewBottom.constant = 0
                 return baseFareCell
             }else{
-                let baseFareCell = tableView.dequeueReusableCell(withIdentifier: "BaseFareCell") as! BaseFareTableViewCell
+                guard let baseFareCell = tableView.dequeueReusableCell(withIdentifier: "BaseFareCell") as? BaseFareTableViewCell else {return UITableViewCell()}
                 baseFareCell.selectionStyle = .none
                 baseFareCell.isHidden = isAddonsExpend
                 baseFareCell.titleLabelLeading.constant = 31
@@ -274,7 +279,7 @@ extension IntFareBreakupVC: UITableViewDelegate,UITableViewDataSource{
             }
         }
         
-        if isFSR && remainingSeats != ""{
+        if isFSR && remainingSeats != "" && self.fromScreen != "upgradePlan"{
             fewSeatsLeftView.isHidden = false
             fewSeatsLeftViewHeight.constant = 35
             
@@ -342,7 +347,7 @@ extension IntFareBreakupVC: UITableViewDelegate,UITableViewDataSource{
                 
             case 896: //11 & 11 Pro Max & Xs Max & Xr
                 if #available(iOS 13.0, *) {
-                    self.view.frame = CGRect(x: 0, y: screenSize.height-viewHeight - 60, width: screenSize.width, height:viewHeight + CGFloat(bottomInset))
+                    self.view.frame = CGRect(x: 0, y: screenSize.height-viewHeight - 54, width: screenSize.width, height:viewHeight + CGFloat(bottomInset))
                 }else{
                     self.view.frame = CGRect(x: 0, y: screenSize.height-viewHeight, width: screenSize.width, height:viewHeight + CGFloat(bottomInset))
                 }

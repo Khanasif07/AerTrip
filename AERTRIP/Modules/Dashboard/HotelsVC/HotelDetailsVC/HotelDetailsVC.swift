@@ -110,7 +110,7 @@ class HotelDetailsVC: BaseVC {
         self.statusBarColor = AppColors.clear
         if #available(iOS 13.0, *) {
             //            self.isModalInPresentation = true
-            self.statusBarStyle = .default
+            self.statusBarStyle = .darkContent
         }
     }
     
@@ -171,7 +171,7 @@ class HotelDetailsVC: BaseVC {
         guard self.hotelTableView.numberOfSections > 1 else{return}
         self.hotelTableView.scrollToRow(at: IndexPath(row: 0, section: 1), at: .top, animated: true)
         delay(seconds: 0.6) { [weak self] in
-            self?.manageHeaderView()
+            //self?.manageHeaderView()
             self?.manageBottomRateView()
         }
         
@@ -192,7 +192,7 @@ class HotelDetailsVC: BaseVC {
             //            self.hotelTableView.tableFooterView?.isHidden = false
             if let stickyView = self.stickyView {
                 stickyView.containerView.backgroundColor = AppColors.themeGreen
-                stickyView.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
+                stickyView.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: AppConstants.appthemeGradientColors)
                 stickyView.noRoomsAvailable.isHidden = true
                 stickyView.fromLabel.isHidden = false
                 stickyView.hotelFeesLabel.isHidden = false
@@ -311,7 +311,6 @@ class HotelDetailsVC: BaseVC {
         let buttonImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
         let selectedFevImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "save_icon_green")
         self.headerView.configureLeftButton(normalImage: buttonImage, selectedImage: selectedFevImage, normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil,isHideBackView: self.headerView.backView.isHidden)
-        
     }
     
     internal func getSavedFilter() {

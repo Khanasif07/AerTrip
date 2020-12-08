@@ -105,6 +105,7 @@ class CancelledVC: BaseVC {
         self.refreshControl.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControl.Event.valueChanged)
         self.refreshControl.tintColor = AppColors.themeGreen
         self.cancelledBookingsTableView.refreshControl = refreshControl
+        self.cancelledBookingsTableView.showsVerticalScrollIndicator = true
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -181,14 +182,16 @@ class CancelledVC: BaseVC {
         if let noti = note.object as? ATNotification {
             // refresh the data with filters
             
-            if noti == .myBookingFilterApplied || noti == .myBookingFilterCleared {
+            switch noti {
+            case .myBookingFilterApplied, .myBookingFilterCleared:
                 self.isComingFromFilter = true
                 self.loadSaveData()
                 self.reloadTable()
-            }
-            else if noti == .myBookingSearching {
+            case .myBookingSearching:
                 self.loadSaveData()
                 self.reloadTable()
+            default:
+                break
             }
         }
     }

@@ -17,6 +17,7 @@ extension YouAreAllDoneVC {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: YouAreAllDoneTableViewCell.reusableIdentifier, for: indexPath) as? YouAreAllDoneTableViewCell else { return nil }
         cell.configCell(forBookingId: self.viewModel.hotelReceiptData?.booking_number ?? "", forCid: self.viewModel.cId.first ?? LocalizedString.na.localized, isBookingPending: (self.viewModel.hotelReceiptData?.booking_status ?? .pending) == .pending)
         cell.delegate = self
+        cell.addToAppleWalletButton.isLoading = self.viewModel.showWaletLoader
         return cell
     }
     
@@ -26,7 +27,7 @@ extension YouAreAllDoneVC {
         cell.configCell(tripName: self.viewModel.hotelReceiptData?.trip_details?.name ?? "")
         cell.changeBtnHandler = {[weak self] in
             guard let strongSelf = self else {return}
-            AppFlowManager.default.selectTrip(strongSelf.viewModel.hotelReceiptData?.trip_details, tripType: .bookingTripChange) { [weak self] (tripModel, tripDetail) in
+            AppFlowManager.default.selectTrip(strongSelf.viewModel.hotelReceiptData?.trip_details, tripType: .bookingTripChange, presentingStatusBarStyle: strongSelf.statusBarStyle, dismissalStatusBarStyle: strongSelf.statusBarStyle) { [weak self] (tripModel, tripDetail) in
                 guard let strongSelf = self else {return}
                 printDebug(tripDetail)
                 if let detail = tripDetail {
@@ -189,6 +190,7 @@ extension YouAreAllDoneVC {
         cell.selectedWhatNext = {[weak self] index in
             self?.tapOnSeletedWhatNext(index: index)
         }
+        cell.instagramButton.isLoading = self.needToShowLoaderOnShare
         return cell
     }
 }

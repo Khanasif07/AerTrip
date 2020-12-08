@@ -21,7 +21,6 @@ class RequestReschedulingVC: BaseVC {
     @IBOutlet weak var totalRefundAmountLabel: UILabel!
     @IBOutlet weak var reschedulingTableView: UITableView! {
         didSet {
-            self.reschedulingTableView.contentInset = UIEdgeInsets(top: 2.0, left: 0.0, bottom: 0.0, right: 0.0)
             self.reschedulingTableView.estimatedRowHeight = UITableView.automaticDimension
             self.reschedulingTableView.backgroundColor = AppColors.themeGray04
 //            self.reschedulingTableView.rowHeight = UITableView.automaticDimension
@@ -42,11 +41,14 @@ class RequestReschedulingVC: BaseVC {
     }
     
     override func initialSetup() {
+        self.reschedulingTableView.contentInset = UIEdgeInsets(top: topNavBar.height + 2.0, left: 0.0, bottom: 0.0, right: 0.0)
+
         self.topNavBar.configureView(title: LocalizedString.newDate.localized, subTitle: LocalizedString.selectNewDepartingDate.localized, isleftButton: true, isRightButton: false)
         self.registerXibs()
         self.reschedulingTableView.delegate = self
         self.reschedulingTableView.dataSource = self
         self.topNavBar.delegate = self
+        self.requestReschedulingBtnOutlet.isShadowColorNeeded = true
         self.requestReschedulingBtnOutlet.shadowColor = AppColors.clear
         self.requestReschedulingBtnOutlet.shouldShowPressAnimation = false
         self.setTotalRefundAmount()

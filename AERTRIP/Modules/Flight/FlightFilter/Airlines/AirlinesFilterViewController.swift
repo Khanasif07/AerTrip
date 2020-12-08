@@ -47,6 +47,7 @@ class AirlinesFilterViewController: UIViewController , FilterViewController {
         airlinesTableView.separatorStyle = .none
         airlinesTableView.tableFooterView = UIView(frame: .zero)
         airlinesTableView.register(UINib(nibName: "RadioButtonTableViewCell", bundle: nil), forCellReuseIdentifier: "RadioButtonCell")
+        airlinesTableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
     }
     
     
@@ -77,8 +78,9 @@ class AirlinesFilterViewController: UIViewController , FilterViewController {
             stopButton.setTitleColor(UIColor.white, for: .selected)
             
             stopButton.addTarget(self, action: #selector(tappedOnMulticityButton(sender:)), for: .touchDown)
-            stopButton.titleLabel?.font = UIFont(name: "SourceSansPro-Regular", size: 16)
-            
+//            stopButton.titleLabel?.font = UIFont(name: "SourceSansPro-Regular", size: 16)
+            stopButton.titleLabel?.font = AppFonts.Regular.withSize(16)
+
             if i == 1 {
                 stopButton.isSelected = true
                 stopButton.backgroundColor = UIColor.AertripColor
@@ -302,6 +304,7 @@ extension AirlinesFilterViewController : UITableViewDataSource , UITableViewDele
         if let cell = tableView.dequeueReusableCell(withIdentifier: "RadioButtonCell") as? RadioButtonTableViewCell {
             cell.radioButton.setImage(#imageLiteral(resourceName: "selectOption"), for: .selected)
             cell.radioButton.setImage(#imageLiteral(resourceName: "UncheckedGreenRadioButton"), for: .normal)
+            cell.imageView?.image = nil
             cell.selectionStyle = .none
             if indexPath.section == 0 {
                 cell.textLabel?.text = "All Airlines"
@@ -311,6 +314,8 @@ extension AirlinesFilterViewController : UITableViewDataSource , UITableViewDele
                 if allAirlineSelectedByUserInteraction {
                    cell.radioButton.isSelected  = true
                 }
+                cell.imageView?.image = nil
+
             }
             if indexPath.section == 1 {
                 
@@ -320,10 +325,12 @@ extension AirlinesFilterViewController : UITableViewDataSource , UITableViewDele
                 cell.radioButton.setImage(#imageLiteral(resourceName: "selectOption"), for: .selected)
                 cell.radioButton.setImage(#imageLiteral(resourceName: "UncheckedGreenRadioButton"), for: .normal)
                 cell.radioButton.isSelected = currentSelectedAirlineFilter.hideMultipleAirline
+                cell.imageView?.image = nil
             }
             if indexPath.section == 2 {
                 let airline = currentSelectedAirlineFilter.airlinesArray[indexPath.row]
                 cell.textLabel?.text = airline.name
+                
                 if let image = tableView.resourceFor(urlPath: airline.iconImageURL , forView: indexPath.row) {
                     
                     let resizedImage = image.resizeImage(30.0, opaque: false)
@@ -337,13 +344,17 @@ extension AirlinesFilterViewController : UITableViewDataSource , UITableViewDele
                    cell.radioButton.isSelected  = true
                 }
             }
-            
-            
-            cell.radioButton.addTarget(self, action: #selector(airlineRadioButtonTapped(sender:)) , for: .touchDown)
+            cell.radioButton.isUserInteractionEnabled = false
+//            cell.radioButton.addTarget(self, action: #selector(airlineRadioButtonTapped(sender:)) , for: .touchDown)
             return cell
         }
 
         return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? RadioButtonTableViewCell else { return }
+        airlineRadioButtonTapped(sender: cell.radioButton)
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -357,8 +368,8 @@ extension AirlinesFilterViewController : UITableViewDataSource , UITableViewDele
             
             let footerView = UIView()
             
-            
-            let view = UIView(frame: CGRect(x: 16, y: 0, width: self.view.frame.size.width - 16, height: 0.5))
+            let view = ATDividerView()
+            view.frame = CGRect(x: 16, y: 0, width: self.view.frame.size.width - 16, height: 0.5)
             view.backgroundColor = UIColor.TWO_ZERO_FOUR_COLOR
             footerView.addSubview(view)
             return footerView

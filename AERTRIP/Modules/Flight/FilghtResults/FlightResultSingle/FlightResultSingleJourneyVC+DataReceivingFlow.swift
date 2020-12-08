@@ -16,18 +16,27 @@ extension FlightResultSingleJourneyVC {
             viewModel.resultTableState = .showRegularResults
         }
         
-        //        var sharedUrlPF = ""
-        //        if ((self.flightSearchParameters?["PF[]"] as? String) != nil){
-        //            sharedUrlPF = self.flightSearchParameters?["PF[]"] as? String ?? ""
-        //        }
-        //
-        //        if sharedUrlPF != ""{
-        //            for j in results{
-        //                if j.fk == sharedUrlPF{
-        //                    j.isPinned = true
-        //                }
-        //            }
-        //        }
+        
+        
+        printDebug("self.flightSearchParameters....\(self.viewModel.flightSearchParameters)")
+        
+//                var sharedUrlPF = ""
+//                if ((self.flightSearchParameters?["PF[]"] as? String) != nil){
+//                    sharedUrlPF = self.flightSearchParameters?["PF[]"] as? String ?? ""
+//                }
+//
+//        printDebug("flightSearchParameters...\(self.flightSearchParameters)")
+//
+//                if sharedUrlPF != ""{
+//                    for j in results{
+//                        if j.fk == sharedUrlPF{
+//                         //   j.isPinned = true
+//                        }
+//                    }
+//                }
+        
+        
+        
         
         let modifiedResult = results
         
@@ -46,7 +55,7 @@ extension FlightResultSingleJourneyVC {
             
             if !self.viewModel.airlineCode.isEmpty{
                 
-                printDebug("self.viewModel.airlineCode...\(self.viewModel.airlineCode)")
+//                printDebug("self.viewModel.airlineCode...\(self.viewModel.airlineCode)")
                 
                 modifiedResult.enumerated().forEach { (ind,jour) in
                     
@@ -70,6 +79,30 @@ extension FlightResultSingleJourneyVC {
                 }
             }
             
+            
+           
+            
+            if !self.viewModel.sharedFks.isEmpty {
+                
+                    modifiedResult.enumerated().forEach { (ind,jour) in
+                                    
+                        if self.viewModel.sharedFks.contains(jour.fk){
+                            
+                            self.viewModel.results.currentPinnedJourneys.append(jour)
+                            self.viewModel.results.currentPinnedJourneys = self.viewModel.results.currentPinnedJourneys.removeDuplicates()
+                            self.viewModel.isSharedFkmatched = true
+                            modifiedResult[ind].isPinned = true
+                            
+                        }
+                        
+                }
+                
+            }
+
+//            self.viewModel.sortOrder = .pric
+//            self.viewModel.isConditionReverced = true
+            
+            
             let groupedArray =   self.viewModel.getOnewayDisplayArray(results: modifiedResult)
             self.viewModel.results.journeyArray = groupedArray
             //            self.viewModel.setPinnedFlights(shouldApplySorting: true)
@@ -92,7 +125,7 @@ extension FlightResultSingleJourneyVC {
                         self.noResultScreen = nil
                     }
                     
-                    if self.viewModel.isSearchByAirlineCode {
+                    if self.viewModel.isSearchByAirlineCode || self.viewModel.isSharedFkmatched {
                         delay(seconds: 1) {
                             self.switchView.isOn = true
                             self.switcherDidChangeValue(switcher: self.switchView, value: true)

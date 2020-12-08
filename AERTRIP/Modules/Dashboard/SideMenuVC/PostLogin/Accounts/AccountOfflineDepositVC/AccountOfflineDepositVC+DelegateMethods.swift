@@ -306,7 +306,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
         }
         cell.dividerView.isHidden = true
         cell.isHiddenButton = false
-        cell.selectionButton.setImage(self.viewModel.userEnteredDetails.isAgreeToTerms ? #imageLiteral(resourceName: "tick") : #imageLiteral(resourceName: "untick"), for: .normal)
+        cell.selectionButton.setImage(self.viewModel.userEnteredDetails.isAgreeToTerms ? #imageLiteral(resourceName: "CheckedGreenRadioButton") : #imageLiteral(resourceName: "UncheckedGreenRadioButton"), for: .normal)
         cell.selectButtonTopConstraint.constant = 26.0
         let termsOfUse = ActiveType.custom(pattern: "\\s\(LocalizedString.terms_of_use.localized)\\b")
         
@@ -328,9 +328,10 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
             label.handleCustomTap(for: termsOfUse) { _ in
                 
                 guard let url = URL(string: AppConstants.termsOfUse) else { return }
-                let safariVC = SFSafariViewController(url: url)
-                AppFlowManager.default.mainNavigationController.present(safariVC, animated: true, completion: nil)
-                safariVC.delegate = self
+//                let safariVC = SFSafariViewController(url: url)
+//                AppFlowManager.default.mainNavigationController.present(safariVC, animated: true, completion: nil)
+//                safariVC.delegate = self
+                AppFlowManager.default.showURLOnATWebView(url, screenTitle: LocalizedString.terms_of_use.localized)
             }
         }
         return cell
@@ -489,7 +490,7 @@ extension AccountOfflineDepositVC {
                 case 8:
                     
                     if self.currentUsingAs == .fundTransfer {
-                        var pickerValue = ["NEFT", "IMPS"]
+                        var pickerValue = ["Same Bank Transfer", "NEFT", "IMPS"]
                         if self.viewModel.userEnteredDetails.depositAmount >= 200000{
                             pickerValue.append("RTGS")
                         }

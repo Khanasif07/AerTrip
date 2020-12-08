@@ -203,7 +203,7 @@ class HotelsSearchVC: BaseVC {
                 if parent.mainScrollView.contentOffset.y + parent.mainScrollView.height < parent.mainScrollView.contentSize.height{
                     if scrollView.contentOffset.y > 0.0 {
                         parent.mainScrollView.contentOffset.y = min(parent.mainScrollView.contentOffset.y + difference, parent.mainScrollView.contentSize.height - parent.mainScrollView.height)
-                        //scrollView.contentOffset = CGPoint.zero
+                        scrollView.contentOffset = CGPoint.zero
                     }
                 }
             } else {
@@ -229,15 +229,17 @@ class HotelsSearchVC: BaseVC {
     ///Shadow Set Up
     private func shadowSetUp() {
         // corner radius
-        self.containerView.layer.cornerRadius = 10
-        // border
-        //self.containerView.layer.borderWidth = 1.0
-        //        self.containerView.layer.borderColor = UIColor.black.cgColor
-        // shadow
-        self.containerView.layer.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16).cgColor// UIColor.black.cgColor
-        self.containerView.layer.shadowOffset = CGSize(width: 0, height: 16)
-        self.containerView.layer.shadowOpacity = 0.7
-        self.containerView.layer.shadowRadius = 6.0
+//        self.containerView.layer.cornerRadius = 10
+//        // border
+//        //self.containerView.layer.borderWidth = 1.0
+//        //        self.containerView.layer.borderColor = UIColor.black.cgColor
+//        // shadow
+//        self.containerView.layer.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16).cgColor// UIColor.black.cgColor
+//        self.containerView.layer.shadowOffset = CGSize(width: 0, height: 16)
+//        self.containerView.layer.shadowOpacity = 0.7
+//        self.containerView.layer.shadowRadius = 6.0
+        
+        self.containerView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize(width: 0, height: 16), opacity: 1, shadowRadius: 6.0)
     }
     
     ///ConfigureCheckInOutView
@@ -310,17 +312,20 @@ class HotelsSearchVC: BaseVC {
     }
     
     private func updateNearMeLocation() {
+        func fetchUpdatedLocation() {
+            LocationManager.shared.startUpdatingLocationWithCompletionHandler { [weak self] (location, error) in
+                LocationManager.shared.locationUpdate = nil
+                self?.viewModel.hotelsNearByMe()
+            }
+        }
         if self.viewModel.searchedFormData.destId.isEmpty {
             if let model = self.viewModel.nearMeLocation, !model.dest_id.isEmpty {
                 didSelectedDestination(hotel: model)
             } else {
-                LocationManager.shared.startUpdatingLocationWithCompletionHandler { [weak self] (location, error) in
-                    LocationManager.shared.locationUpdate = nil
-                    self?.viewModel.hotelsNearByMe()
-                }
-                
-                
+                fetchUpdatedLocation()
             }
+        } else if self.viewModel.searchedFormData.isHotelNearMeSelected {
+            fetchUpdatedLocation()
         }
     }
     
@@ -663,6 +668,7 @@ class HotelsSearchVC: BaseVC {
             }
         }
     }
+    
 }
 
 //Mark:- UICollectionView Delegate and Datasource
@@ -720,7 +726,7 @@ extension HotelsSearchVC: UICollectionViewDelegate , UICollectionViewDataSource 
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        print(indexPath.item)
+        printDebug(indexPath.item)
     }
 }
 

@@ -81,7 +81,7 @@ extension IntMCAndReturnVC : UITableViewDataSource , UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if viewModel.resultTableState == .showTemplateResults {
-            return getTemplateCell()
+            return getTemplateCell(isFirstCell: indexPath.row == 0)
         } else if viewModel.resultTableState == .showPinnedFlights {
             let journey = viewModel.results.pinnedFlights[indexPath.row]
             return getSingleJourneyCell(indexPath: indexPath ,journey: IntMultiCityAndReturnDisplay([journey]) )
@@ -116,6 +116,8 @@ extension IntMCAndReturnVC : UITableViewDataSource , UITableViewDelegate {
     @objc func samePriceOptionButtonTapped(sender : UIButton){
         guard let indexPath = self.resultsTableView.indexPath(forItem: sender), let cell = self.resultsTableView.cellForRow(at: indexPath) as? InternationalReturnTableViewCell else { return }
         let vc = IntMCAndReturnDetailsVC.instantiate(fromAppStoryboard: .InternationalReturnAndMulticityDetails)
+        vc.isConditionReverced = viewModel.isConditionReverced
+        vc.appliedFilterLegIndex = viewModel.appliedFilterLegIndex
         vc.viewModel.taxesResult = self.taxesResult
         vc.viewModel.headerArray = self.headerTitles
         vc.viewModel.numberOfLegs = self.headerTitles.count
@@ -184,36 +186,32 @@ extension IntMCAndReturnVC : UITableViewDataSource , UITableViewDelegate {
     }
     
     //MARK:- Methods to get different types of cells
-    func getTemplateCell() -> UITableViewCell {
+    func getTemplateCell(isFirstCell: Bool) -> UITableViewCell {
         if let cell =  resultsTableView.dequeueReusableCell(withIdentifier: "InternationalReturnTemplateTableViewCell") as? InternationalReturnTemplateTableViewCell {
             cell.numberOfLegs = self.numberOfLegs
             cell.selectionStyle = .none
             cell.populateData()
+            cell.isFirstCell = isFirstCell
             return cell
         }
         return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-//        let vc = SelectOtherAdonsContainerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
-//        self.navigationController?.pushViewController(vc, animated: true)
-        
-//        let vc = AddOnVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
-//        self.navigationController?.pushViewController(vc, animated: true)
-        
-//        let vc = BagageContainerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
-//
-//        self.navigationController?.pushViewController(vc, animated: true)
-        
-//        let vc = MealsContainerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
-//        self.navigationController?.pushViewController(vc, animated: true)
-        
+                
         
         if let journeyCell = tableView.cellForRow(at: indexPath) as? InternationalReturnTableViewCell {
             let curJourney = journeyCell.currentJourney
+            
+//            printDebug("curJourney.fk...\(curJourney.fk)")
+//
+//            printDebug("curJourney.baggageSuperScript....\(curJourney.baggageSuperScript)")
+
+            
             let vc = FlightDetailsBaseVC.instantiate(fromAppStoryboard: .FlightDetailsBaseVC)
             vc.delegate = self
+            vc.isConditionReverced = viewModel.isConditionReverced
+            vc.appliedFilterLegIndex = viewModel.appliedFilterLegIndex
             vc.isInternational = true
             vc.bookFlightObject = self.bookFlightObject
             vc.taxesResult = self.taxesResult

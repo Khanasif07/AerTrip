@@ -16,7 +16,7 @@ class AccountOutstandingLadgerVC: BaseVC {
         case selecting
         case normal
     }
-
+    
     //MARK:- IBOutlets
     //MARK:-
     @IBOutlet weak var topNavView: TopNavigationView!
@@ -74,7 +74,7 @@ class AccountOutstandingLadgerVC: BaseVC {
         newEmptyView.vType = .noAccountTransection
         return newEmptyView
     }()
-
+    
     lazy var noResultemptyView: EmptyScreenView = {
         let newEmptyView = EmptyScreenView()
         newEmptyView.vType = .noResult
@@ -113,7 +113,7 @@ class AccountOutstandingLadgerVC: BaseVC {
         self.tableView.registerCell(nibName: AccountDetailEventHeaderCell.reusableIdentifier)
         self.tableView.registerCell(nibName: AccountOutstandingEventDescriptionCell.reusableIdentifier)
         self.tableView.register(UINib(nibName: tableViewHeaderCellIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: tableViewHeaderCellIdentifier)
-
+        
         self.searchBar.isMicEnabled = true
         
         self.searchDataContainerView.backgroundColor = AppColors.clear
@@ -148,6 +148,9 @@ class AccountOutstandingLadgerVC: BaseVC {
         self.refreshControl.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControl.Event.valueChanged)
         self.refreshControl.tintColor = AppColors.themeGreen
         self.tableView.refreshControl = refreshControl
+        self.tableView.showsVerticalScrollIndicator = true
+        
+        addLongPressOnTableView()
     }
     
     override func bindViewModel() {
@@ -160,7 +163,7 @@ class AccountOutstandingLadgerVC: BaseVC {
         self.grossOutstandingLabel.font = AppFonts.Regular.withSize(16.0)
         self.onAccountLabel.font = AppFonts.Regular.withSize(16.0)
         self.netOutstandingLabel.font = AppFonts.Regular.withSize(16.0)
-
+        
         self.grossOutstandingValueLabel.font = AppFonts.Regular.withSize(16.0)
         self.onAccountValueLabel.font = AppFonts.Regular.withSize(16.0)
         self.netOutstandingValueLabel.font = AppFonts.Regular.withSize(16.0)
@@ -224,12 +227,12 @@ class AccountOutstandingLadgerVC: BaseVC {
     //MARK:- Private
     override func setupNavBar() {
         if self.currentViewState == .normal {
-            self.topNavView.configureNavBar(title: LocalizedString.OutstandingLedger.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .color(color: AppColors.themeWhite))
+            self.topNavView.configureNavBar(title: LocalizedString.OutstandingLedger.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: true, backgroundType: .color(color: AppColors.themeWhite))
             
-            self.topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "ic_three_dots"), selectedImage: #imageLiteral(resourceName: "ic_three_dots"), normalTitle: nil, selectedTitle: nil)
+            self.topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "greenPopOverButton"), selectedImage: #imageLiteral(resourceName: "greenPopOverButton"), normalTitle: nil, selectedTitle: nil)
         }
         else {
-            self.topNavView.configureNavBar(title: LocalizedString.SelectBooking.localized, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .color(color: AppColors.themeWhite))
+            self.topNavView.configureNavBar(title: LocalizedString.SelectBooking.localized, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: true, backgroundType: .color(color: AppColors.themeWhite))
             
             self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Cancel.localized, selectedTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
         }
@@ -237,7 +240,7 @@ class AccountOutstandingLadgerVC: BaseVC {
     }
     
     private func manageHeader(animated: Bool) {
-
+        
         if (self.currentViewState == .normal) {
             self.subHeaderContainer.isHidden = false
             self.view.endEditing(true)
@@ -265,23 +268,24 @@ class AccountOutstandingLadgerVC: BaseVC {
                 sSelf.subHeaderContainer.alpha = 1.0
                 sSelf.searchDataContainerView.alpha = 0.0
                 sSelf.searchModeSearchBarTopConstraint.constant = sSelf.searchModeSearchBarTopCurrent
+                sSelf.subheaderDetailsConstainer.isHidden = false
             }
             
             sSelf.view.layoutIfNeeded()
             
-            }, completion: { [weak self](isDone) in
-                guard let sSelf = self else {return}
-                sSelf.subHeaderContainer.isHidden = (sSelf.currentViewState == .searching)
-                sSelf.searchTableView.reloadData()
-                if (sSelf.currentViewState == .searching) {
-                    sSelf.searchDataContainerView.isHidden = false
-                    sSelf.mainSearchBar.becomeFirstResponder()
-                    sSelf.searchDataContainerView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.4)
-                }
-                else {
-                    sSelf.searchDataContainerView.isHidden = true
-                    sSelf.searchDataContainerView.backgroundColor = AppColors.clear
-                }
+        }, completion: { [weak self](isDone) in
+            guard let sSelf = self else {return}
+            sSelf.subHeaderContainer.isHidden = (sSelf.currentViewState == .searching)
+            sSelf.searchTableView.reloadData()
+            if (sSelf.currentViewState == .searching) {
+                sSelf.searchDataContainerView.isHidden = false
+                sSelf.mainSearchBar.becomeFirstResponder()
+                sSelf.searchDataContainerView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.4)
+            }
+            else {
+                sSelf.searchDataContainerView.isHidden = true
+                sSelf.searchDataContainerView.backgroundColor = AppColors.clear
+            }
         })
     }
     
@@ -364,11 +368,43 @@ class AccountOutstandingLadgerVC: BaseVC {
     }
     
     private func manageLoader(shouldStart: Bool) {
-        self.indicatorView.style = .white
+        self.indicatorView.style = .medium//.white
         self.indicatorView.color = AppColors.themeWhite
         self.indicatorView.startAnimating()
         self.makePaymentTitleLabel.text = shouldStart ? "" : "Make Payment"
         self.loaderContainer.isHidden = !shouldStart
+    }
+    
+    private func addLongPressOnTableView() {
+        let longPressGesture: UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(AccountOutstandingLadgerVC.handleLongPress(_:)))
+        longPressGesture.delegate = self
+        tableView.addGestureRecognizer(longPressGesture)
+    }
+    
+    @objc func handleLongPress(_ longPressGestureRecognizer: UILongPressGestureRecognizer) {
+        if longPressGestureRecognizer.state == UIGestureRecognizer.State.began {
+            
+            let touchPoint = longPressGestureRecognizer.location(in: tableView)
+            if let indexPath = tableView.indexPathForRow(at: touchPoint) {
+                printDebug(indexPath)
+                //                tableView.separatorStyle = .singleLine
+                func  selectRow() {
+                    self.tableView(self.tableView, didSelectRowAt: indexPath)
+                }
+                if self.currentViewState != .selecting {
+                    delay(seconds: 0.1) {
+                        selectRow()
+                    }
+                } else {
+                    selectRow()
+                }
+                //                tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+            }
+            if self.currentViewState != .selecting {
+                self.currentViewState = .selecting
+                self.reloadList()
+            }
+        }
     }
     
     //MARK:- Public
@@ -447,7 +483,7 @@ extension AccountOutstandingLadgerVC: UISearchBarDelegate {
             self.searchBarCancelButtonClicked(searchBar)
         }else{
             self.preserveSearchData()
-//        self.currentViewState = .normal
+            //        self.currentViewState = .normal
             self.view.endEditing(true)
             
         }
@@ -464,20 +500,20 @@ extension AccountOutstandingLadgerVC: UISearchBarDelegate {
             //searchText.count >= AppConstants.kSearchTextLimit
             self.viewModel.searchEvent(forText: searchText)
             if !searchText.isEmpty {
-            self.noResultemptyView.searchTextLabel.isHidden = false
-            self.noResultemptyView.searchTextLabel.text = "\(LocalizedString.For.localized) '\(searchText)'"
+                self.noResultemptyView.searchTextLabel.isHidden = false
+                self.noResultemptyView.searchTextLabel.text = "\(LocalizedString.For.localized) '\(searchText)'"
             } else {
                 self.clearSearchData()
             }
         }
         else {
             //reset tot the old state
-//            if (searchBar.text ?? "").isEmpty {
-//                self.clearSearchData()
-//            }
-//            else {
-//                self.reloadList()
-//            }
+            //            if (searchBar.text ?? "").isEmpty {
+            //                self.clearSearchData()
+            //            }
+            //            else {
+            //                self.reloadList()
+            //            }
         }
     }
 }
@@ -524,6 +560,7 @@ extension AccountOutstandingLadgerVC {
         let constToHide: CGFloat = -(self.subHeaderContainer.height)
         if isHidden, self.subHeaderContainerTopConstraint.constant == constToHide {
             //if already hidden then return
+            
             return
         }
         else if !isHidden, self.subHeaderContainerTopConstraint.constant == 0.0  {
@@ -536,16 +573,16 @@ extension AccountOutstandingLadgerVC {
             guard let sSelf = self else {return}
             let value = isHidden ? constToHide : 0.0
             if sSelf.subHeaderContainerTopConstraint.constant != value {
-            sSelf.subHeaderContainerTopConstraint.constant = value
-            sSelf.view.layoutIfNeeded()
+                sSelf.subHeaderContainerTopConstraint.constant = value
+                sSelf.view.layoutIfNeeded()
             }
-            }, completion: { [weak self](isDone) in
-                guard let sSelf = self else {return}
-
-                sSelf.subHeaderContainer.isHidden = isHidden
-                if !isHidden {
-                    sSelf.searchModeSearchBarTopConstraint.constant = ((sSelf.subHeaderContainer.height + sSelf.topNavView.height) - sSelf.mainSearchBar.height)
-                }
+        }, completion: { [weak self](isDone) in
+            guard let sSelf = self else {return}
+            
+            sSelf.subHeaderContainer.isHidden = isHidden
+            if !isHidden {
+                sSelf.searchModeSearchBarTopConstraint.constant = ((sSelf.subHeaderContainer.height + sSelf.topNavView.height) - sSelf.mainSearchBar.height)
+            }
         })
     }
     
@@ -568,16 +605,16 @@ extension AccountOutstandingLadgerVC {
             guard let sSelf = self else {return}
             let value = isHidden ? constToHide : constToShow
             if sSelf.subHeaderContainerTopConstraint.constant != value {
-            sSelf.subHeaderContainerTopConstraint.constant = value
-            sSelf.view.layoutIfNeeded()
+                sSelf.subHeaderContainerTopConstraint.constant = value
+                sSelf.view.layoutIfNeeded()
             }
-            }, completion: { [weak self](isDone) in
-                guard let sSelf = self else {return}
-                
-                sSelf.subHeaderContainer.isHidden = isHidden
-                if !isHidden {
-                    sSelf.searchModeSearchBarTopConstraint.constant = 44.0
-                }
+        }, completion: { [weak self](isDone) in
+            guard let sSelf = self else {return}
+            
+            sSelf.subHeaderContainer.isHidden = isHidden
+            if !isHidden {
+                sSelf.searchModeSearchBarTopConstraint.constant = 44.0
+            }
         })
     }
     
@@ -589,7 +626,7 @@ extension AccountOutstandingLadgerVC {
         
         let maxLimit = Int(scrollView.contentSize.height - scrollView.height)
         let yChanged = Int(self.oldOffset.y) - yOffset
-
+        
         guard maxLimit > 0, 0...maxLimit ~= yOffset, abs(yChanged) > 3 else {return}
         
         //checking for the boundry limits and returning
@@ -605,7 +642,6 @@ extension AccountOutstandingLadgerVC {
         }
         else {
             //if the offset is under the boundery limits
-            print(yChanged, yOffset)
             if (0...Int(self.subHeaderContainerHeightConstraint.constant)) ~= yOffset {
                 if yChanged > 0 {
                     //show full header
@@ -655,7 +691,7 @@ extension AccountOutstandingLadgerVC: AccountOutstandingLadgerVMDelegate {
                 //PayOfflineNRegister
                 AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .fundTransfer, usingToPaymentFor: .accountDeposit, paymentModeDetail: self.viewModel.itineraryData?.chequeOrDD, netAmount: self.viewModel.itineraryData?.netAmount ?? 0.0, bankMaster: self.viewModel.itineraryData?.bankMaster ?? [])
                 printDebug("PayOfflineNRegister")
-                                
+                
                 
             default:
                 printDebug("no need to implement")
@@ -671,7 +707,7 @@ extension AccountOutstandingLadgerVC: AccountOutstandingLadgerVMDelegate {
     func getOutstandingPaymentSuccess() {
         self.manageLoader(shouldStart: false)
         showDepositOptions()
-//        AppFlowManager.default.moveToAccountOnlineDepositVC(depositItinerary: self.viewModel.itineraryData, usingToPaymentFor: .accountDeposit)
+        //        AppFlowManager.default.moveToAccountOnlineDepositVC(depositItinerary: self.viewModel.itineraryData, usingToPaymentFor: .accountDeposit)
     }
     
     func getOutstandingPaymentFail() {

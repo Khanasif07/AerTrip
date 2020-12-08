@@ -8,6 +8,7 @@
 
 import UIKit
 import Contacts
+import FBSDKCoreKit
 
 class HCGuestListVC: BaseVC {
     
@@ -38,6 +39,7 @@ class HCGuestListVC: BaseVC {
     //MARK:-
     @IBOutlet weak var tableView: ATTableView!
     @IBOutlet weak var containerBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var apiProgressBar: UIProgressView!
     
     //MARK:- Properties
     //MARK:- Public
@@ -80,7 +82,18 @@ class HCGuestListVC: BaseVC {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        self.initialSetups()
+        self.apiProgressBar.progressTintColor = UIColor.AertripColor
+        self.apiProgressBar.trackTintColor = .clear
+        self.apiProgressBar.progress = 0.0
+        if self.currentlyUsingFor != .travellers{
+            delay(seconds: 0.5) {
+                self.initialSetups()
+            }
+        }else{
+            self.initialSetups()
+        }
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -100,6 +113,7 @@ class HCGuestListVC: BaseVC {
             self.noResultemptyView.messageLabel.text = "\(LocalizedString.noResults.localized + " " + LocalizedString.For.localized) '\(self.viewModel.searchText)'"
         }
         self.noResultemptyView.layoutSubviews()
+        self.allowEmptyView.layoutSubviews()
     }
     
     override func setupColors() {
@@ -113,6 +127,21 @@ class HCGuestListVC: BaseVC {
     
     override func bindViewModel() {
         self.viewModel.delegateList = self
+    }
+    
+    func showProgressView(){
+        self.apiProgressBar.isHidden = false
+        UIView.animate(withDuration: 2) {[weak self] in
+            guard let self = self else {return}
+            self.apiProgressBar.setProgress(0.25, animated: true)
+        }
+    }
+    
+    func animateProgressBar(){
+        self.apiProgressBar.setProgress(1.0, animated: true)
+        delay(seconds: 1){
+            self.apiProgressBar.isHidden = true
+        }
     }
     
     override func dataChanged(_ note: Notification) {
@@ -183,22 +212,39 @@ class HCGuestListVC: BaseVC {
 //                self.viewModel.fetchPhoneContacts(forVC: self)
 //            }
 //        }
-        if self.currentlyUsingFor == .contacts {
-            if self.viewModel.phoneContacts.isEmpty {
-                if CNContactStore.authorizationStatus(for: .contacts) == .authorized {
-                    delay(seconds: 0.4) { [weak self] in
-                        guard let strongSelf = self else {return}
-                        strongSelf.viewModel.fetchPhoneContacts(forVC: strongSelf)
+        DispatchQueue.main.async {
+            if self.currentlyUsingFor == .contacts {
+                if self.viewModel.phoneContacts.isEmpty {
+                    if CNContactStore.authorizationStatus(for: .contacts) == .authorized {
+                        delay(seconds: 0.4) { [weak self] in
+                            guard let strongSelf = self else {return}
+                            strongSelf.viewModel.fetchPhoneContacts(forVC: strongSelf)
+                        }
+                    } else {
+                        self.tableView.backgroundView = self.allowEmptyView
                     }
                 } else {
-                    self.tableView.backgroundView = self.allowEmptyView
+                    self.tableView.backgroundView = nil
+                }
+            }else if self.currentlyUsingFor == .facebook {
+                if self.viewModel.facebookContacts.isEmpty {
+                    if AccessToken.isCurrentAccessTokenActive {
+                        self.showProgressView()
+                        delay(seconds: 0.4) { [weak self] in
+                            guard let strongSelf = self else {return}
+                            strongSelf.viewModel.fetchFacebookContacts(forVC: strongSelf)
+                        }
+                    } else {
+                        self.tableView.backgroundView = self.allowEmptyView
+                    }
+                } else {
+                    self.tableView.backgroundView = nil
                 }
             } else {
-                tableView.backgroundView = nil
+                self.tableView.backgroundView = self.allowEmptyView
             }
-        } else {
-            self.tableView.backgroundView = self.allowEmptyView
         }
+        
         self.tableView.showsVerticalScrollIndicator = true
     }
     
@@ -537,6 +583,7 @@ extension HCGuestListVC: HCSelectGuestsVMDelegate {
             }
             
         case .facebook:
+            self.animateProgressBar()
             if !self.viewModel.isFacebookContactsAllowed {
                 tableView?.backgroundView = allowEmptyView
             }

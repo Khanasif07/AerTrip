@@ -12,7 +12,7 @@ import Parchment
 protocol SelectOtherDelegate : class {
     func addContactButtonTapped()
     func addPassengerToMeal(forAdon : AddonsDataCustom, vcIndex : Int, currentFlightKey : String, othersIndex: Int, selectedContacts : [ATContact])
-    func specialRequestUpdated()
+    func specialRequestUpdated(txt : String, currentFk : String, vcIndex : Int)
 }
 
 class SelectOtherAdonsContainerVC: BaseVC {
@@ -89,11 +89,12 @@ class SelectOtherAdonsContainerVC: BaseVC {
 
 extension SelectOtherAdonsContainerVC {
     
-    private func configureNavigation(){
+    private func configureNavigation() {
         self.topNavBarView.delegate = self
         let isDivider = othersContainerVM.allChildVCs.count > 1 ? false : true
         self.topNavBarView.configureNavBar(title: LocalizedString.Others.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false,isDivider : isDivider)
-        self.topNavBarView.configureLeftButton(normalTitle: LocalizedString.ClearAll.localized, normalColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18))
+        let clearStr = "  \(LocalizedString.ClearAll.localized)"
+        self.topNavBarView.configureLeftButton(normalTitle: clearStr, normalColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18), isLeftButtonEnabled : self.othersContainerVM.isAnyThingSelected())
         self.topNavBarView.configureFirstRightButton(normalTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18))
     }
     
@@ -139,8 +140,9 @@ extension SelectOtherAdonsContainerVC {
         self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
         self.parchmentView?.indicatorColor = AppColors.themeGreen
         self.parchmentView?.selectedTextColor = AppColors.themeBlack
-        self.mealsContainerView.addSubview(self.parchmentView!.view)
-        
+        if parchmentView != nil{
+            self.mealsContainerView.addSubview(self.parchmentView!.view)
+        }
         self.parchmentView?.dataSource = self
         self.parchmentView?.delegate = self
         self.parchmentView?.sizeDelegate = self
@@ -165,6 +167,7 @@ extension SelectOtherAdonsContainerVC: TopNavigationViewDelegate {
         calculateTotalAmount()
         let price = self.totalLabel.text ?? ""
         self.delegate?.othersUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))
+        configureNavigation()
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
@@ -178,7 +181,6 @@ extension SelectOtherAdonsContainerVC: PagingViewControllerDataSource , PagingVi
         func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
             
            if let pagingIndexItem = pagingItem as? LogoMenuItem, let text = pagingIndexItem.attributedTitle {
-               
                
                let attText = NSMutableAttributedString(attributedString: text)
                attText.addAttribute(.font, value: AppFonts.SemiBold.withSize(16), range: NSRange(location: 0, length: attText.length))
@@ -214,13 +216,24 @@ extension SelectOtherAdonsContainerVC: PagingViewControllerDataSource , PagingVi
             self.othersContainerVM.currentIndex = pagingIndexItem.index
         }
     }
+    
+    func pagingViewController(_ pagingViewController: PagingViewController, willScrollToItem pagingItem: PagingItem, startingViewController: UIViewController, destinationViewController: UIViewController) {
+
+        guard let startVc = startingViewController as? SelectOtherAdonsVC else { return }
+//
+//        self.othersContainerVM.updateSpecialRequest(txt: startVc.otherAdonsVm.specialRequest, currentFk: startVc.otherAdonsVm.getCurrentFlightKey(), vcIndex: startVc.otherAdonsVm.getVcIndex())
+
+    }
+    
 }
 
 
 extension SelectOtherAdonsContainerVC : SelectOtherDelegate {
-    
-    func specialRequestUpdated() {
+  
+    func specialRequestUpdated(txt: String, currentFk: String, vcIndex: Int) {
         self.specialRequestLabel.isHidden = !self.othersContainerVM.containsSpecialRequest()
+        self.othersContainerVM.updateSpecialRequest(txt: txt, currentFk: currentFk, vcIndex: vcIndex)
+        configureNavigation()
     }
     
     func addPassengerToMeal(forAdon: AddonsDataCustom, vcIndex: Int, currentFlightKey: String, othersIndex: Int, selectedContacts: [ATContact]) {
@@ -246,6 +259,7 @@ extension SelectOtherAdonsContainerVC : SelectOtherDelegate {
             }
             present(vc, animated: false, completion: nil)
         }
+        configureNavigation()
     }
     
     func addContactButtonTapped() {

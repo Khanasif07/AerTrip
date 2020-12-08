@@ -20,20 +20,26 @@ class CurrencyCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         self.selectionStyle = .none
-        currencyNameLabel.font = AppFonts.Regular.withSize(18)
-        currencyCodeLabel.font = AppFonts.Regular.withSize(18)
-        currencySymbolLabel.font = AppFonts.Regular.withSize(18)
+        setFonts()
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         self.currencySymbolLabel.attributedText = nil
         self.currencySymbolLabel.text = nil
+        setFonts()
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state
+    }
+    
+    private func setFonts(){
+        let fontSize: CGFloat = UIScreen.width > 320 ? 18 : 14
+        currencyNameLabel.font = AppFonts.Regular.withSize(fontSize)
+        currencyCodeLabel.font = AppFonts.Regular.withSize(fontSize)
+        currencySymbolLabel.font = AppFonts.Regular.withSize(fontSize)
     }
     
     func populateData(country : CurrencyModel, isSelected : Bool){

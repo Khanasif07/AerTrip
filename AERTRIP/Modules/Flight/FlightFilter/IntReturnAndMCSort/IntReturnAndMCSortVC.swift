@@ -18,6 +18,8 @@ class IntReturnAndMCSortVC: UIViewController, FilterViewController {
     var selectedSorting = Sort.Smart
     var airportsArr = [AirportLegFilter]()
     
+    var flightSearchParameters = JSONDictionary()
+    
     private var curSelectedIndex: Int?
     private var earliestFirstAtDepartArrive: [Int: Bool] = [:]
     
@@ -26,6 +28,7 @@ class IntReturnAndMCSortVC: UIViewController, FilterViewController {
     //MARK:- View Controller Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         initialSetup()
     }
 
@@ -47,11 +50,17 @@ class IntReturnAndMCSortVC: UIViewController, FilterViewController {
             
             var attributes : [NSAttributedString.Key : Any]
             if ( sortFilter == selectedSorting) {
-                attributes = [NSAttributedString.Key.font : UIFont(name: "SourceSansPro-Regular", size: 18)! ,
+//                attributes = [NSAttributedString.Key.font : UIFont(name: "SourceSansPro-Regular", size: 18)! ,
+//                              NSAttributedString.Key.foregroundColor : UIColor.AertripColor]
+                
+                attributes = [NSAttributedString.Key.font : AppFonts.Regular.withSize(18) ,
                               NSAttributedString.Key.foregroundColor : UIColor.AertripColor]
+
             }
             else {
-                attributes = [NSAttributedString.Key.font : UIFont(name: "SourceSansPro-Regular", size: 18)!]
+//                attributes = [NSAttributedString.Key.font : UIFont(name: "SourceSansPro-Regular", size: 18)!]
+                attributes = [NSAttributedString.Key.font : AppFonts.Regular.withSize(18)]
+
             }
             
             let attributedString = NSMutableAttributedString(string: sortFilter.title, attributes: attributes)
@@ -64,7 +73,7 @@ class IntReturnAndMCSortVC: UIViewController, FilterViewController {
             if index == 2 && durationLongestFirst {
                 substring = "  " + "Longest first"
             }
-            let substringAttributedString = NSAttributedString(string: substring, attributes: [NSAttributedString.Key.font : UIFont(name:"SourceSansPro-Regular" , size:14 )!, NSAttributedString.Key.foregroundColor : UIColor.ONE_FIVE_THREE_COLOR  ])
+            let substringAttributedString = NSAttributedString(string: substring, attributes: [NSAttributedString.Key.font : AppFonts.Regular.withSize(14), NSAttributedString.Key.foregroundColor : UIColor.ONE_FIVE_THREE_COLOR  ])
             attributedString.append(substringAttributedString)
          
             return attributedString
@@ -80,9 +89,15 @@ class IntReturnAndMCSortVC: UIViewController, FilterViewController {
         let learnMoreRange = (text as NSString).range(of: "Learn more")
         if gesture.didTapAttributedTextInLabel(label: label, inRange: learnMoreRange) {
         
-            let webviewController = WebViewController()
-            webviewController.urlPath = "https://aertrip.com/smart-sort"
-            self.parent?.present(webviewController, animated: true, completion: nil)
+//            let webviewController = WebViewController()
+//            webviewController.urlPath = "https://aertrip.com/smart-sort"
+//            self.parent?.present(webviewController, animated: true, completion: nil)
+        
+            if let url = URL(string: APIEndPoint.smartSort.rawValue) {
+                AppFlowManager.default.showURLOnATWebView(url, screenTitle:  "Smart Sort", presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
+            }
+
+        
         }
     }
     
@@ -138,11 +153,17 @@ extension IntReturnAndMCSortVC : UITableViewDataSource , UITableViewDelegate {
     private func getDepartArriveAttString(_ str: String,_ indexPath: IndexPath) -> NSAttributedString {
         var attributes : [NSAttributedString.Key : Any]
         if ( curSelectedIndex == indexPath.row) {
-            attributes = [NSAttributedString.Key.font : UIFont(name: "SourceSansPro-Regular", size: 18)! ,
+//            attributes = [NSAttributedString.Key.font : UIFont(name: "SourceSansPro-Regular", size: 18)! ,
+//                          NSAttributedString.Key.foregroundColor : UIColor.AertripColor]
+            
+            attributes = [NSAttributedString.Key.font : AppFonts.Regular.withSize(18) ,
                           NSAttributedString.Key.foregroundColor : UIColor.AertripColor]
+
         }
         else {
-            attributes = [NSAttributedString.Key.font : UIFont(name: "SourceSansPro-Regular", size: 18)!]
+//            attributes = [NSAttributedString.Key.font : UIFont(name: "SourceSansPro-Regular", size: 18)!]
+            attributes = [NSAttributedString.Key.font : AppFonts.Regular.withSize(18)]
+
         }
         let attributedString = NSMutableAttributedString(string: str, attributes: attributes)
         
@@ -152,7 +173,7 @@ extension IntReturnAndMCSortVC : UITableViewDataSource , UITableViewDelegate {
             substring = "  " + "Latest First"
         }
         
-        let substringAttributedString = NSAttributedString(string: substring, attributes: [NSAttributedString.Key.font : UIFont(name:"SourceSansPro-Regular" , size:14 )!, NSAttributedString.Key.foregroundColor : UIColor.ONE_FIVE_THREE_COLOR  ])
+        let substringAttributedString = NSAttributedString(string: substring, attributes: [NSAttributedString.Key.font : AppFonts.Regular.withSize(14), NSAttributedString.Key.foregroundColor : UIColor.ONE_FIVE_THREE_COLOR  ])
            attributedString.append(substringAttributedString)
         
         return attributedString

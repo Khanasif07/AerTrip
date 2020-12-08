@@ -39,15 +39,18 @@ class HotelsSearchVM: NSObject{
     }
     
     func canSetRecentSearch() -> Bool {
-        guard let lastSearchedData = self.recentSearchesData?.first else { return true }
+        // TODO: Remove this method for this pointer https://app.asana.com/0/1181922655927025/1199180703186773/f
+       // guard let lastSearchedData = self.recentSearchesData?.first else { return true }
         var canSetSearch = true
+        guard let lastSearchedData = recentSearchesData?.first else { return true }
+        
         if lastSearchedData.dest_id == self.searchedFormData.destId {
             printDebug("lastSearchedData.checkInDate \(lastSearchedData.checkInDate )")
             printDebug("lastSearchedData.checkOutDate \(lastSearchedData.checkOutDate)")
             printDebug("self.searchedFormData.checkInDateWithDay \(self.searchedFormData.checkInDateWithDay)")
             printDebug("self.searchedFormData.checkOutDateWithDay \(self.searchedFormData.checkOutDateWithDay)")
 
-            if lastSearchedData.checkInDate ==  self.searchedFormData.checkInDateWithDay  || lastSearchedData.checkOutDate ==  self.searchedFormData.checkOutDateWithDay{
+            if lastSearchedData.checkInDate ==  self.searchedFormData.checkInDateWithDay  && lastSearchedData.checkOutDate ==  self.searchedFormData.checkOutDateWithDay{
                 printDebug("lastSearchedData.room?.count \(lastSearchedData.room?.count ?? 0)")
                 printDebug("self.searchedFormData.adultsCount.count \(self.searchedFormData.adultsCount.count)")
 
@@ -58,16 +61,46 @@ class HotelsSearchVM: NSObject{
                         
                         if (lastSearchedData.room?[i].adultCounts ?? "0") == "\(self.searchedFormData.adultsCount[i])" {
                             canSetSearch = false
-                            //break
+                            break
                         } else {
                             canSetSearch = true
-                            break
+                            //break
                         }
                     }
                 }
             }
         }
         
+        
+//        self.recentSearchesData?.forEach({ (lastSearchedData) in
+        
+//        if lastSearchedData.dest_id == self.searchedFormData.destId {
+//            printDebug("lastSearchedData.checkInDate \(lastSearchedData.checkInDate )")
+//            printDebug("lastSearchedData.checkOutDate \(lastSearchedData.checkOutDate)")
+//            printDebug("self.searchedFormData.checkInDateWithDay \(self.searchedFormData.checkInDateWithDay)")
+//            printDebug("self.searchedFormData.checkOutDateWithDay \(self.searchedFormData.checkOutDateWithDay)")
+//
+//            if lastSearchedData.checkInDate ==  self.searchedFormData.checkInDateWithDay  || lastSearchedData.checkOutDate ==  self.searchedFormData.checkOutDateWithDay{
+//                printDebug("lastSearchedData.room?.count \(lastSearchedData.room?.count ?? 0)")
+//                printDebug("self.searchedFormData.adultsCount.count \(self.searchedFormData.adultsCount.count)")
+//
+//                if (lastSearchedData.room?.count ?? 0) == self.searchedFormData.adultsCount.count {
+//                    for i in 0..<(lastSearchedData.room?.count ?? 0) {
+//                      printDebug("lastSearchedData.room?[\(i)].adultCounts \(lastSearchedData.room?[i].adultCounts ?? "0")")
+//                        printDebug("self.searchedFormData.adultsCount[\(i)] \(self.searchedFormData.adultsCount[i])")
+//
+//                        if (lastSearchedData.room?[i].adultCounts ?? "0") == "\(self.searchedFormData.adultsCount[i])" {
+//                            canSetSearch = false
+//                            break
+//                        } else {
+//                            canSetSearch = true
+//                            //break
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        })
         return canSetSearch
     }
     
@@ -91,6 +124,30 @@ class HotelsSearchVM: NSObject{
                 sSelf.delegate?.getRecentSearchesDataFail()
             }
         }
+    }
+    
+    // To remove duplicates - not being used currently
+    private func removeRecentSearchDuplicates() {
+        guard let recentSearches = recentSearchesData, !recentSearches.isEmpty else { return }
+        var indicesToRemove = [Int]()
+        for index in 0..<recentSearches.count - 1 {
+            let toBeSearched = recentSearches[index]
+            for innerIndex in (index+1)..<recentSearches.count {
+                if indicesToRemove.contains(innerIndex) {
+                    continue
+                }
+                let innerIteratingSearch = recentSearches[innerIndex]
+                if toBeSearched.dest_id == innerIteratingSearch.dest_id && toBeSearched.checkInDate == innerIteratingSearch.checkInDate && toBeSearched.checkOutDate == innerIteratingSearch.checkOutDate {
+                    indicesToRemove.append(innerIndex)
+                }
+            }
+        }
+        indicesToRemove.sort()
+        indicesToRemove.reverse()
+        indicesToRemove.forEach { (index) in
+            recentSearchesData?.remove(at: index)
+        }
+        
     }
     
     func setRecentSearchesData() {
@@ -128,7 +185,6 @@ class HotelsSearchVM: NSObject{
         let filter: JSONDictionary = [APIKeys.star.rawValue : star]
         
         let query: JSONDictionary = [APIKeys.place.rawValue : place , APIKeys.checkInDate.rawValue : checkInDate , APIKeys.checkOutDate.rawValue : checkOutDate , APIKeys.nights.rawValue : nights , APIKeys.guests.rawValue : guests, APIKeys.room.rawValue : room , APIKeys.filter.rawValue : filter, APIKeys.lat.rawValue : self.searchedFormData.lat, APIKeys.lng.rawValue : self.searchedFormData.lng, APIKeys.search_nearby.rawValue : self.searchedFormData.isHotelNearMeSelected ]
-
         
         let params: JSONDictionary = [
             APIKeys.product.rawValue : "hotel",
@@ -136,6 +192,7 @@ class HotelsSearchVM: NSObject{
             "data[query]" : AppGlobals.shared.json(from: query) ?? ""
         ]
         printDebug(params)
+        
         APICaller.shared.setRecentHotelsSearchesApi(params: params) { [weak self] (success, response, errors) in
             guard let sSelf = self else { return }
             if success {
@@ -159,7 +216,10 @@ class HotelsSearchVM: NSObject{
             
             guard let sSelf = self else {return}
             
-            if success, let obj = hotel {
+            if success, var obj = hotel {
+                if sSelf.nearMeLocation?.isHotelNearMeSelected ?? false {
+                    obj.isHotelNearMeSelected = true
+                }
                 sSelf.nearMeLocation = obj
                 sSelf.delegate?.getMyLocationSuccess()
             }

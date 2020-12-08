@@ -16,7 +16,7 @@
 #import <CoreText/CoreText.h>
 #import "AertripToastView.h"
 
-@interface AertripCalendarViewController () <FSCalendarDelegate, FSCalendarDataSource>
+@interface AertripCalendarViewController () <FSCalendarDelegate, FSCalendarDataSource, UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet FSCalendar *customCalenderView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *customCalenderViewWidth;
@@ -67,6 +67,10 @@
     else {
         [self configureInitialBottomViewPosition];
     }
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//    selector:@selector(statusBarTappedAction:)
+//        name:@"statusBarTouched"
+//      object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -88,6 +92,8 @@
     if ([self isBeingDismissed]) {
         [self applyCalendarChanges];
     }
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"statusBarTouched" object:nil];
+
 }
 
 -(void)viewDidLayoutSubviews {
@@ -164,8 +170,8 @@
         self.customCalenderViewTrailing.constant = 0;
         self.customCalenderViewLeading.constant = 0;
     }else{
-        self.customCalenderViewLeading.constant = 2;
-        self.customCalenderViewTrailing.constant = 2;
+        self.customCalenderViewLeading.constant = 0;
+        self.customCalenderViewTrailing.constant = 0;
     }
 
     [self.view layoutIfNeeded];
@@ -198,6 +204,9 @@
         NSLog(@"Failed to load font: %@", errorDescription);
         CFRelease(errorDescription);
     }
+    CFRelease(font);
+    CFRelease(provider);
+
 }
 
 - (void)makeTopCornersRounded:(UIView *)view withRadius:(double)radius{
@@ -585,7 +594,11 @@
     
     
     //date cell
-    self.customCalenderView.rowHeight = 70.0;
+    if (self.view.frame.size.width > 320) {
+        self.customCalenderView.rowHeight = 70.0;
+    } else {
+        self.customCalenderView.rowHeight = 50.0;//70.0;
+    }
     self.customCalenderView.appearance.titleDefaultColor = [UIColor blackColor];
     self.customCalenderView.appearance.titleFont = [UIFont fontWithName:@"SourceSansPro-Regular" size:20.0];
     self.customCalenderView.swipeToChooseGesture.enabled = YES;
@@ -741,8 +754,8 @@
         self.customCalenderViewTrailing.constant = 0;
         self.customCalenderViewLeading.constant = 0;
     }else{
-        self.customCalenderViewLeading.constant = 2;
-        self.customCalenderViewTrailing.constant = 2;
+        self.customCalenderViewLeading.constant = 0;
+        self.customCalenderViewTrailing.constant = 0;
     }
     
     [self.view layoutIfNeeded];
@@ -1290,4 +1303,22 @@
     [self SwitchTapOfSingleLegTypeJourney];
 }
 
+//- (void)statusBarTappedAction:(NSNotification*)notification {
+//    NSLog(@"StatusBar tapped");
+//    //handle StatusBar tap here.
+//    NSDate *Date = [[NSDate alloc] init];
+//    //let month = Calendar.current.component(.month, from: currentPageDate)
+//    [self.customCalenderView setCurrentPage:Date animated:TRUE];
+//}
+
+
 @end
+
+//@implementation UIStatusBarManager (CAPHandleTapAction)
+//-(void)handleTapAction:(id)arg1 {
+//    // Your code here
+//    NSLog(@"StatusBar tapped");
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"statusBarTouched"
+//    object:nil];
+//}
+//@end

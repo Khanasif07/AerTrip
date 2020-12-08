@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina3_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,7 +15,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FlightAmenitiesCell" id="gTV-IL-0wX" customClass="FlightAmenitiesCollectionViewCell" customModule="Aertrip" customModuleProvider="target">
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FlightAmenitiesCell" id="gTV-IL-0wX" customClass="FlightAmenitiesCollectionViewCell" customModule="AERTRIP" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="182" height="145"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -26,14 +26,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="182" height="145"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FlightFilterAfternoon" translatesAutoresizingMaskIntoConstraints="NO" id="ZHo-9f-vhA">
-                                <rect key="frame" x="80.5" y="2" width="21" height="21"/>
+                                <rect key="frame" x="80.5" y="5" width="21" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="4f2-Rp-KqD"/>
                                     <constraint firstAttribute="width" constant="21" id="n4e-yg-u0I"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MAq-ad-lH6">
-                                <rect key="frame" x="0.0" y="28" width="182" height="0.0"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MAq-ad-lH6">
+                                <rect key="frame" x="0.0" y="31" width="182" height="0.0"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -45,12 +45,13 @@
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="MAq-ad-lH6" secondAttribute="bottom" id="Ckr-l2-kcm"/>
                             <constraint firstItem="MAq-ad-lH6" firstAttribute="leading" secondItem="cWn-p5-7fN" secondAttribute="leading" id="FnP-eW-26r"/>
                             <constraint firstItem="MAq-ad-lH6" firstAttribute="top" secondItem="ZHo-9f-vhA" secondAttribute="bottom" constant="5" id="lyJ-WU-Mf9"/>
-                            <constraint firstItem="ZHo-9f-vhA" firstAttribute="top" secondItem="cWn-p5-7fN" secondAttribute="top" constant="2" id="pRj-0e-aPI"/>
+                            <constraint firstItem="ZHo-9f-vhA" firstAttribute="top" secondItem="cWn-p5-7fN" secondAttribute="top" constant="5" id="pRj-0e-aPI"/>
                             <constraint firstAttribute="trailing" secondItem="MAq-ad-lH6" secondAttribute="trailing" id="tpQ-hn-Bkv"/>
                         </constraints>
                     </view>
                 </subviews>
             </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="cWn-p5-7fN" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="FDH-oe-XF6"/>
@@ -58,7 +59,6 @@
                 <constraint firstAttribute="trailing" secondItem="cWn-p5-7fN" secondAttribute="trailing" id="QF5-Tw-1fg"/>
                 <constraint firstAttribute="bottom" secondItem="cWn-p5-7fN" secondAttribute="bottom" id="geH-9J-FuA"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="182" height="145"/>
             <connections>
                 <outlet property="amenitiTitleLabel" destination="MAq-ad-lH6" id="Y8L-LJ-aQ1"/>

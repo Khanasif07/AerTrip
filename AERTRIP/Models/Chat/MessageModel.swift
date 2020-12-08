@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import SwiftyJSON
+//import SwiftyJSON
 
 struct MessageModel {
     
@@ -15,6 +15,7 @@ struct MessageModel {
         case me
         case other
         case typing
+        case seeResultsAgain
     }
     
     var msg : String
@@ -30,10 +31,13 @@ struct MessageModel {
     let adult : Int
     let child : Int
     let infant : Int
-    let tripType: String
+    var tripType: String
     let returnDate: String
     
     var shouldShowTypingContent = false
+    
+    /// To be enabled on tap to show extra details
+    var showDetails = false
         
     init(msg : String, source : MessageSource) {
         self.msg = msg

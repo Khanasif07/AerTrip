@@ -53,6 +53,7 @@ class HotlelBookingsDetailsVC: BaseVC {
             self.bookingDetailsTableView.estimatedSectionHeaderHeight = 0
             self.bookingDetailsTableView.sectionHeaderHeight = 0
             self.bookingDetailsTableView.backgroundColor = AppColors.screensBackground.color
+            bookingDetailsTableView.showsVerticalScrollIndicator = true
         }
     }
     
@@ -71,7 +72,9 @@ class HotlelBookingsDetailsVC: BaseVC {
         self.topNavBarHeightConstraint.constant = self.navBarHeight
         self.topNavBar.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: true, isDivider: false, backgroundType:.color(color: .white))
         self.topNavBar.configureLeftButton(normalImage: #imageLiteral(resourceName: "backGreen"), selectedImage: #imageLiteral(resourceName: "backGreen"))
-        self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "greenPopOverButton"), selectedImage: #imageLiteral(resourceName: "greenPopOverButton"))
+        //self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "greenPopOverButton"), selectedImage: #imageLiteral(resourceName: "greenPopOverButton"))
+        self.topNavBar.configureFirstRightButton(normalTitle: LocalizedString.Request.localized, normalColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18))
+
         self.topNavBar.navTitleLabel.numberOfLines = 1
         self.headerView = OtherBookingDetailsHeaderView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 147.0))
         self.configureTableHeaderView(hideDivider: true)
@@ -80,7 +83,7 @@ class HotlelBookingsDetailsVC: BaseVC {
         
         self.refreshControl.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControl.Event.valueChanged)
         self.refreshControl.tintColor = AppColors.themeGreen
-        self.bookingDetailsTableView.refreshControl = refreshControl
+        //self.bookingDetailsTableView.refreshControl = refreshControl
         
         // Call to get booking detail
         self.viewModel.getBookingDetail(showProgress: true)
@@ -107,8 +110,11 @@ class HotlelBookingsDetailsVC: BaseVC {
     
     override func dataChanged(_ note: Notification) {
         if let noti = note.object as? ATNotification {
-            if noti == .myBookingCasesRequestStatusChanged {
+            switch noti {
+            case .myBookingCasesRequestStatusChanged:
                 self.viewModel.getBookingDetail(showProgress: true)
+            default:
+                break
             }
         }
     }
@@ -140,7 +146,7 @@ class HotlelBookingsDetailsVC: BaseVC {
     
     private func configureTableHeaderView(hideDivider: Bool) {
         if let view = self.headerView {
-            view.configureUI(bookingEventTypeImage: self.eventTypeImage, bookingIdStr: self.viewModel.bookingDetail?.id ?? "", bookingIdNumbers: self.viewModel.bookingDetail?.bookingNumber ?? "", date: self.viewModel.bookingDetail?.bookingDate?.toString(dateFormat: "d MMM''yy") ?? "")
+            view.configureUI(bookingEventTypeImage: self.eventTypeImage, bookingIdStr: self.viewModel.bookingDetail?.id ?? "", bookingIdNumbers: self.viewModel.bookingDetail?.bookingNumber ?? "", date: self.viewModel.bookingDetail?.bookingDate?.toString(dateFormat: "d MMM’ yy") ?? "")
             
             //view.dividerView.isHidden = hideDivider //true
             view.isBottomStroke = false
@@ -166,7 +172,7 @@ class HotlelBookingsDetailsVC: BaseVC {
         self.bookingDetailsTableView.parallaxHeader.view = self.headerView
         self.bookingDetailsTableView.parallaxHeader.minimumHeight = parallexHeaderMinHeight
         self.bookingDetailsTableView.parallaxHeader.height = parallexHeaderHeight
-        self.bookingDetailsTableView.parallaxHeader.mode = MXParallaxHeaderMode.top
+        self.bookingDetailsTableView.parallaxHeader.mode = MXParallaxHeaderMode.fill
         self.bookingDetailsTableView.parallaxHeader.delegate = self
         self.view.bringSubviewToFront(self.topNavBar)
     }
@@ -191,6 +197,29 @@ class HotlelBookingsDetailsVC: BaseVC {
         self.bookingDetailsTableView.registerCell(nibName: TripChangeTableViewCell.reusableIdentifier)
         self.bookingDetailsTableView.registerCell(nibName: BookingCommonActionTableViewCell.reusableIdentifier)
     }
+    
+    
+    func showDepositOptions() {
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.PayOnline.localized, LocalizedString.PayOfflineNRegister.localized], colors: [AppColors.themeDarkGreen, AppColors.themeDarkGreen])
+        
+        _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
+            
+            switch index {
+            case 0:
+                //PayOnline
+                AppFlowManager.default.moveToAccountOnlineDepositVC(depositItinerary: self.viewModel.itineraryData, usingToPaymentFor: .booking)
+                
+            case 1:
+                //PayOfflineNRegister
+                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .fundTransfer, usingToPaymentFor: .addOns, paymentModeDetail: self.viewModel.itineraryData?.chequeOrDD, netAmount: self.viewModel.itineraryData?.netAmount ?? 0.0, bankMaster: self.viewModel.itineraryData?.bankMaster ?? [])
+                printDebug("PayOfflineNRegister")
+                
+            default:
+                printDebug("no need to implement")
+            }
+        }
+    }
+    
 }
 
 extension HotlelBookingsDetailsVC: BookingProductDetailVMDelegate {
@@ -234,4 +263,13 @@ extension HotlelBookingsDetailsVC: BookingProductDetailVMDelegate {
     func getTripOwnerFaiure(error: ErrorCodes) {
         self.bookingDetailsTableView.reloadData()
     }
+    
+    func getBookingOutstandingPaymentSuccess() {
+        self.showDepositOptions()
+    }
+    
+    func getBookingOutstandingPaymentFail() {
+//        self.payButtonRef?.isLoading = false
+    }
+    
 }

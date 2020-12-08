@@ -18,6 +18,7 @@ class FlightResultDisplayGroup {
         case departureTime
         case arrivalTime
     }
+    
     internal var initiatedFilters: Set<InitiatedFilters> = []
     
     /// For checking if any of the sub filter is applied
@@ -40,6 +41,9 @@ class FlightResultDisplayGroup {
     
     internal var isAPIResponseUpdated = false
 
+    var dynamicFilters = DynamicFilters()
+
+    
     //MARK:- Computed Properties
     var appliedFilters = Set<Filters>() {
         didSet{
@@ -108,10 +112,9 @@ class FlightResultDisplayGroup {
         }
     }
     
-    fileprivate func mergeFlightResults(_ flightsArray  : [Flights] )
-    {
+    fileprivate func mergeFlightResults(_ flightsArray  : [Flights] )    {
         
-        
+
         var currentJourneyArray = [Journey]()
         
         flightsArray.forEach { (flight) in
@@ -199,7 +202,7 @@ class FlightResultDisplayGroup {
     fileprivate func groupSimilarFlights(_ journey : [Journey] ) -> [Journey] {
         
         // Grouping of flights having same fare , Airline , number of stops and destination airport
-        let groupedFlights = Dictionary(grouping: journey, by: { String($0.farepr) + $0.al.first! + $0.stp + $0.ap.last!  })
+        let groupedFlights = Dictionary(grouping: journey, by: { String($0.farepr) + ($0.al.first ?? "") + $0.stp + ($0.ap.last ?? "")  })
         
         var modifiedJourneyArray = [Journey]()
         var index = 0
@@ -221,6 +224,7 @@ class FlightResultDisplayGroup {
                 for journey in sortedByTime {
                     
                     if minDuration == 0 {
+                        
                         index += 1
                         minDuration = Double(journey.duration)
                         let modifiedJourney = journey
@@ -235,8 +239,9 @@ class FlightResultDisplayGroup {
                         let modifiedJourney = journey
                         modifiedJourney.groupID = index
                         modifiedJourneyArray.append(modifiedJourney)
-                    }
-                    else {
+                        
+                    } else {
+                        
                         index += 1
                         minDuration = Double(journey.duration)
                         
@@ -337,7 +342,7 @@ class FlightResultDisplayGroup {
             return outputJourney
         }
         
-        let minHumanScore = outputArray.min { (first, second) in first.computedHumanScore! < second.computedHumanScore! }
+    let minHumanScore = outputArray.min { (first, second) in first.computedHumanScore ?? 0.0 < second.computedHumanScore ?? 0.0 }
         
         
         // set property above human score threadshold bool
@@ -346,7 +351,7 @@ class FlightResultDisplayGroup {
             
             let outputJourney = journey
             
-            if outputJourney.computedHumanScore! > ((minHumanScore?.computedHumanScore)! * 1.26) {
+            if outputJourney.computedHumanScore ?? 0.0 > (((minHumanScore?.computedHumanScore) ?? 0.0) * 1.26) {
                 outputJourney.isAboveHumanScore = true
             }
             else {
@@ -355,7 +360,7 @@ class FlightResultDisplayGroup {
             return outputJourney
         }
         
-        outputArray = outputArray.sorted(by: { $0.computedHumanScore!  < $1.computedHumanScore!  })
+    outputArray = outputArray.sorted(by: { $0.computedHumanScore ?? 0.0  < $1.computedHumanScore ?? 0.0  })
         
         return outputArray
     }
@@ -369,7 +374,39 @@ class FlightResultDisplayGroup {
         mergeFilters(flightsArray)
         updateUserFiltersFromDeepLink(flightSearchParam)
         processingOnCombinedSearchResult(searchType : searchType)
+        createDynamicFilters(flightsArray: flightsArray)
     }
+    
+    func createDynamicFilters(flightsArray: [Flights]){
+
+//      var allEqs : [String] = []
+        
+        var allAircrafts : [IntMultiCityAndReturnWSResponse.Results.EqMaster] = []
+
+//        allEqs.append(contentsOf: dynamicFilters.aircraft.allAircrafts)
+                    
+        allAircrafts.append(contentsOf: dynamicFilters.aircraft.allAircraftsArray)
+        
+        flightsArray.forEach { (flightMainObj) in
+            
+            allAircrafts.append(contentsOf: flightMainObj.results.eqMaster.compactMap { $0.value })
+
+            printDebug(flightMainObj.results.eqMaster.count)
+            
+//            printDebug("flightMainObj.results.eqMaster....\(flightMainObj.results.eqMaster)")
+            
+        }
+
+        
+        dynamicFilters.aircraft.allAircraftsArray = allAircrafts.removeDuplicates()
+
+//        printDebug("dynamicFilters.aircraft.allAircraftsArraycount....\(dynamicFilters.aircraft.allAircraftsArray.count)")
+
+        
+        self.delegate?.updateDynamicFilters(filters: dynamicFilters)
+        
+    }
+    
     
     private func updateUserFiltersFromDeepLink(_ flightSearchParam: JSONDictionary) {
         
@@ -394,28 +431,40 @@ class FlightResultDisplayGroup {
             self.appliedFilters.insert(.Duration)
             self.initiatedFilters.insert(.tripDuration)
             self.appliedSubFilters.insert(.tripDuration)
-            self.userSelectedFilters?.tt.minTime = tt
+            let userMin = Int(tt) ?? 0
+            let inputMin = (Int(self.inputFilter?.tt.minTime ?? "") ?? 0)/3600
+            let minTime = userMin < inputMin ? inputMin : userMin
+            self.userSelectedFilters?.tt.minTime = "\(minTime)"
         }
         
         if let tt = flightSearchParam["filters[\(self.index)][tt][1]"] as? String{
             self.appliedFilters.insert(.Duration)
             self.initiatedFilters.insert(.tripDuration)
             self.appliedSubFilters.insert(.tripDuration)
-            self.userSelectedFilters?.tt.maxTime = tt
+            let userMax = Int(tt) ?? 0
+            let inputMax = (Int(self.inputFilter?.tt.maxTime ?? "") ?? 0)/3600
+            let maxTime = userMax > inputMax ? inputMax : userMax
+            self.userSelectedFilters?.tt.maxTime = "\(maxTime)"
         }
         
         if let lott = flightSearchParam["filters[\(self.index)][lott][0]"] as? String{
             self.appliedFilters.insert(.Duration)
             self.initiatedFilters.insert(.layoverDuration)
             self.appliedSubFilters.insert(.layoverDuration)
-            self.userSelectedFilters?.lott?.minTime = lott
+            let userMin = Int(lott) ?? 0
+            let inputMin = (Int(self.inputFilter?.lott?.minTime ?? "") ?? 0)/3600
+            let minTime = userMin < inputMin ? inputMin : userMin
+            self.userSelectedFilters?.lott?.minTime = "\(minTime)"
         }
         
         if let lott = flightSearchParam["filters[\(self.index)][lott][1]"] as? String{
             self.appliedFilters.insert(.Duration)
             self.initiatedFilters.insert(.layoverDuration)
             self.appliedSubFilters.insert(.layoverDuration)
-            self.userSelectedFilters?.lott?.maxTime = lott
+            let userMax = Int(lott) ?? 0
+            let inputMax = (Int(self.inputFilter?.lott?.maxTime ?? "") ?? 0)/3600
+            let maxTime = userMax > inputMax ? inputMax : userMax
+            self.userSelectedFilters?.lott?.maxTime = "\(maxTime)"
         }
         
         if let ar_dt = flightSearchParam["filters[\(self.index)][ar_dt][0]"] as? String{
@@ -424,8 +473,8 @@ class FlightResultDisplayGroup {
             self.appliedSubFilters.insert(.arrivalTime)
             let newTime = floor((Float(ar_dt) ?? 0)/60)*60
             
-            let arrivalMin = inputFilter?.arDt.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)!
-            let userArrivalMin = dateFromTime(arrivalInputStartDate: arrivalMin!, interval: TimeInterval(newTime))
+            let arrivalMin = inputFilter?.arDt.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)
+            let userArrivalMin = dateFromTime(arrivalInputStartDate: arrivalMin ?? Date(), interval: TimeInterval(newTime))
             self.userSelectedFilters?.arDt.earliest = userArrivalMin.toString(dateFormat: "yyyy-MM-dd HH:mm")
         }
         
@@ -435,8 +484,8 @@ class FlightResultDisplayGroup {
             self.appliedSubFilters.insert(.arrivalTime)
             let newTime = ceil((Float(ar_dt) ?? 0)/60)*60
             
-            let arrivalMin = inputFilter?.arDt.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)!
-            let userArrivalMin = dateFromTime(arrivalInputStartDate: arrivalMin!, interval: TimeInterval(newTime))
+            let arrivalMin = inputFilter?.arDt.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)
+            let userArrivalMin = dateFromTime(arrivalInputStartDate: arrivalMin ?? Date(), interval: TimeInterval(newTime))
             self.userSelectedFilters?.arDt.latest = userArrivalMin.toString(dateFormat: "yyyy-MM-dd HH:mm")
         }
         
@@ -446,8 +495,8 @@ class FlightResultDisplayGroup {
             self.appliedSubFilters.insert(.departureTime)
             let newTime = floor((Float(dep_dt) ?? 0)/60)*60
             
-            let departureMin = inputFilter?.depDt.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)!
-            let userDepartureMin = dateFromTime(arrivalInputStartDate: departureMin!, interval: TimeInterval(newTime))
+            let departureMin = inputFilter?.depDt.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)
+            let userDepartureMin = dateFromTime(arrivalInputStartDate: departureMin ?? Date(), interval: TimeInterval(newTime))
             self.userSelectedFilters?.depDt.earliest = userDepartureMin.toString(dateFormat: "yyyy-MM-dd HH:mm")
             self.userSelectedFilters?.dt.earliest = userDepartureMin.toString(dateFormat: "HH:mm")
         }
@@ -458,10 +507,48 @@ class FlightResultDisplayGroup {
             self.appliedSubFilters.insert(.departureTime)
             let newTime = ceil((Float(dep_dt) ?? 0)/60)*60
             
-            let departureMin = inputFilter?.depDt.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)!
-            let userDepartureMin = dateFromTime(arrivalInputStartDate: departureMin!, interval: TimeInterval(newTime))
+            let departureMin = inputFilter?.depDt.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)
+            let userDepartureMin = dateFromTime(arrivalInputStartDate: departureMin ?? Date(), interval: TimeInterval(newTime))
             self.userSelectedFilters?.depDt.latest = userDepartureMin.toString(dateFormat: "yyyy-MM-dd HH:mm")
             self.userSelectedFilters?.dt.latest = userDepartureMin.toString(dateFormat: "HH:mm")
+        }
+        
+        
+        let airportsDict = flightSearchParam.filter { $0.key.contains("filters[\(self.index)][ap]") }
+        let airports = airportsDict.map { $0.value as? String ?? "" }
+
+        if airports.count > 0 {
+            if let cityApn = userSelectedFilters?.cityapN {
+                var fromCities = [String: [String]]()
+                cityApn.fr.forEach {
+                    let city = $0.key
+                    let cityAirports = $0.value
+                    let newAirports = cityAirports.filter { airports.contains($0) }
+                    if newAirports.count > 0 {
+                        fromCities[city] = newAirports
+                    }
+                }
+                var toCities = [String: [String]]()
+                cityApn.to.forEach {
+                    let city = $0.key
+                    let cityAirports = $0.value
+                    let newAirports = cityAirports.filter { airports.contains($0) }
+                    if newAirports.count > 0 {
+                        toCities[city] = newAirports
+                    }
+                }
+                
+                if !fromCities.isEmpty {
+                    self.appliedFilters.insert(.Airport)
+                    self.UIFilters.insert(.originAirports)
+                    userSelectedFilters?.cityapN.fr = fromCities
+                }
+                if !toCities.isEmpty {
+                    self.appliedFilters.insert(.Airport)
+                    self.UIFilters.insert(.destinationAirports)
+                    userSelectedFilters?.cityapN.to = toCities
+                }
+            }
         }
         
         let loapAirports = flightSearchParam.filter { $0.key.contains("filters[\(self.index)][loap]") }
@@ -474,12 +561,36 @@ class FlightResultDisplayGroup {
         
         if let pr = flightSearchParam["filters[\(self.index)][pr][0]"] as? String{
             self.appliedFilters.insert(.Price)
-            self.userSelectedFilters?.pr.minPrice = Int(pr) ?? 0
+            let userMin = Int(pr) ?? 0
+            let inputMin = self.inputFilter?.pr.minPrice ?? 0
+            let price = userMin < inputMin ? inputMin : userMin
+            self.userSelectedFilters?.pr.minPrice = price
         }
         
         if let pr = flightSearchParam["filters[\(self.index)][pr][1]"] as? String{
             self.appliedFilters.insert(.Price)
-            self.userSelectedFilters?.pr.maxPrice = Int(pr) ?? 0
+            let userMax = Int(pr) ?? 0
+            let inputMax = self.inputFilter?.pr.maxPrice ?? 0
+            let price = userMax > inputMax ? inputMax : userMax
+            self.userSelectedFilters?.pr.maxPrice = price
+        }
+        
+        let quality = flightSearchParam.filter { $0.key.contains("filters[\(self.index)][fq]") }
+        let qualityValues = quality.map { $0.value as? String ?? "" }
+        
+        if quality.count > 0 {
+            if qualityValues.contains("ovgtlo") {
+                self.UIFilters.insert(.hideOvernightLayover)
+                self.userSelectedFilters?.fq["ovgtlo"] = ""
+            }
+            if qualityValues.contains("ovgtf") {
+                self.UIFilters.insert(.hideOvernight)
+                self.userSelectedFilters?.fq["ovgtf"] = ""
+            }
+            if qualityValues.contains("coa") {
+                self.UIFilters.insert(.hideChangeAirport)
+                self.userSelectedFilters?.fq["coa"] = ""
+            }
         }
     }
     
@@ -493,7 +604,7 @@ class FlightResultDisplayGroup {
     
     private func mergeFilters(_ flightsArray  : [Flights]) {
         flightsArray.forEach { (flight) in
-            print("flight filters count: \(flight.results.f.count)")
+//            print("flight filters count: \(flight.results.f.count)")
             if inputFilter == nil {
                 inputFilter = flight.results.f.last
                 userSelectedFilters = flight.results.f.last

@@ -31,7 +31,6 @@ class HotelDetailsReviewsVC: BaseVC {
     @IBOutlet weak var cancelButtonOutlet: UIButton!
     @IBOutlet weak var reviewsTblView: UITableView! {
         didSet {
-            self.reviewsTblView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
             self.reviewsTblView.delegate = self
             self.reviewsTblView.dataSource = self
             self.reviewsTblView.estimatedRowHeight = UITableView.automaticDimension
@@ -50,6 +49,9 @@ class HotelDetailsReviewsVC: BaseVC {
     private var time: Float = 0.0
     private var timer: Timer?
     
+    var dismissalStatusBarStyle: UIStatusBarStyle = .darkContent
+    var presentingStatusBarStyle: UIStatusBarStyle = .darkContent
+    
     //Mark:- LifeCycle
     //================
     override func viewDidLoad() {
@@ -59,6 +61,11 @@ class HotelDetailsReviewsVC: BaseVC {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         self.setValue()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.timer?.invalidate()
     }
     override func setupColors() {
         self.reviewsLabel.textColor = AppColors.themeBlack
@@ -77,6 +84,7 @@ class HotelDetailsReviewsVC: BaseVC {
     }
     
     override func initialSetup() {
+        self.reviewsTblView.contentInset = UIEdgeInsets(top: headerContainerView.height, left: 0.0, bottom: 0.0, right: 0.0)
         headerContainerView.backgroundColor = .clear
         mainContainerView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
         self.view.backgroundColor = .clear
@@ -90,8 +98,8 @@ class HotelDetailsReviewsVC: BaseVC {
         
         //self.dividerView.isHidden = true
         self.registerNibs()
-        delay(seconds: 0.2) {
-            self.viewModel.getTripAdvisorDetails()
+        delay(seconds: 0.2) { [weak self] in
+            self?.viewModel.getTripAdvisorDetails()
         }
         
         self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
@@ -103,9 +111,15 @@ class HotelDetailsReviewsVC: BaseVC {
         self.viewModel.delegate = self
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.statusBarStyle = presentingStatusBarStyle
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.statusBarColor = AppColors.clear
+        self.statusBarStyle = dismissalStatusBarStyle
     }
     
     //Mark:- Functions
@@ -168,20 +182,30 @@ class HotelDetailsReviewsVC: BaseVC {
             return
         }
         if self.time == 2 {
-            self.timer!.invalidate()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            //self.timer?.invalidate()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
+                guard let self = self else {return}
+                self.timer?.invalidate()
                 self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
             }
         }
         
         if self.time >= 10 {
-            self.timer!.invalidate()
-            delay(seconds: 0.5) {
-                self.progressView?.isHidden = true
+            //self.timer?.invalidate()
+            delay(seconds: 0.5) { [weak self] in
+                self?.timer?.invalidate()
+                self?.progressView?.isHidden = true
             }
         }
     }
-    
+    func stopProgress() {
+        self.time += 1
+        if self.time <= 8  {
+            self.time = 9
+        }
+        self.timer?.invalidate()
+        self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+    }
     @IBAction func cancelButtonAction(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -265,7 +289,8 @@ extension HotelDetailsReviewsVC: UITableViewDelegate , UITableViewDataSource {
             default:
                 return
             }
-            AppFlowManager.default.showURLOnATWebView(URL(string: urlString)!, screenTitle: screenTitle)
+            guard let url = URL(string: urlString) else {return}
+            AppFlowManager.default.showURLOnATWebView(url, screenTitle: screenTitle, presentingStatusBarStyle: statusBarStyle, dismissalStatusBarStyle: statusBarStyle)
             //UIApplication.openSafariViewController(forUrlPath: urlString, delegate: nil, completion: nil)
         }
     }
@@ -294,7 +319,7 @@ extension HotelDetailsReviewsVC {
     
     internal func getTripAdviserReviewsCell(_ tableView: UITableView, indexPath: IndexPath,tripAdviserDetails: HotelDetailsReviewsModel) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ReviewTableViewCell", for: indexPath) as? ReviewTableViewCell else { return UITableViewCell() }
-        if var currentReview = tripAdviserDetails.reviewRatingCount[self.getReverseNumber(row: indexPath.row)] as? String {
+        if let currentReview = tripAdviserDetails.reviewRatingCount[self.getReverseNumber(row: indexPath.row)] as? String {
             cell.configCell(title: self.ratingNames[indexPath.row] ,totalNumbReviews: tripAdviserDetails.numReviews, currentReviews: currentReview)
             if indexPath.row == ratingNames.count - 1 {
                 cell.progressViewBottomConstraints.constant = 17
@@ -362,7 +387,8 @@ extension HotelDetailsReviewsVC {
     @objc func tapCellReviewBtn(_ sender: UIButton){
         let urlString = "https:\(self.viewModel.hotelTripAdvisorDetails?.webUrl ?? "")"
         let screenTitle = LocalizedString.ReadReviews.localized
-        AppFlowManager.default.showURLOnATWebView(URL(string: urlString)!, screenTitle: screenTitle)
+        guard let url = URL(string: urlString) else {return}
+        AppFlowManager.default.showURLOnATWebView(url, screenTitle: screenTitle, presentingStatusBarStyle: statusBarStyle, dismissalStatusBarStyle: statusBarStyle)
     }
     
 }
@@ -375,16 +401,14 @@ extension HotelDetailsReviewsVC: HotelTripAdvisorDetailsDelegate {
     
     func getHotelTripAdvisorDetailsSuccess() {
         self.viewModel.getTypeOfCellInSections()
-        self.time += 1
-        self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+        stopProgress()
         printDebug("Reviews")
         self.reviewsTblView.reloadData()
        // AppGlobals.shared.stopLoading()
     }
     
     func getHotelTripAdvisorFail() {
-        self.time += 1
-        self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+        stopProgress()
         printDebug("Api parsing failed")
        // AppGlobals.shared.stopLoading()
     }
@@ -441,13 +465,14 @@ extension HotelDetailsReviewsVC {
     
     @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
         func reset() {
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                self.view.transform = .identity
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: { [weak self] in
+                self?.view.transform = .identity
             })
         }
         
         func moveView() {
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: { [weak self] in
+                guard let self = self else {return}
                 self.view.transform = CGAffineTransform(translationX: 0, y: self.viewTranslation.y)
             })
         }

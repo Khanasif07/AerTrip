@@ -89,11 +89,11 @@ class FlightSortFilterViewController: UIViewController {
             
             var attributes : [NSAttributedString.Key : Any]
             if ( sortFilter == selectedSorting) {
-                attributes = [NSAttributedString.Key.font : UIFont(name: "SourceSansPro-Regular", size: 18)! ,
+                attributes = [NSAttributedString.Key.font : AppFonts.Regular.withSize(18),
                               NSAttributedString.Key.foregroundColor : UIColor.AertripColor]
             }
             else {
-                attributes = [NSAttributedString.Key.font : UIFont(name: "SourceSansPro-Regular", size: 18)!]
+                attributes = [NSAttributedString.Key.font : AppFonts.Regular.withSize(18)]
             }
             
             let attributedString = NSMutableAttributedString(string: sortFilter.title, attributes: attributes)
@@ -113,7 +113,7 @@ class FlightSortFilterViewController: UIViewController {
                 substring = "  " + "Latest first"
             }
 
-            let substringAttributedString = NSAttributedString(string: substring, attributes: [NSAttributedString.Key.font : UIFont(name:"SourceSansPro-Regular" , size:14 )!, NSAttributedString.Key.foregroundColor : UIColor.ONE_FIVE_THREE_COLOR  ])
+            let substringAttributedString = NSAttributedString(string: substring, attributes: [NSAttributedString.Key.font : AppFonts.Regular.withSize(14), NSAttributedString.Key.foregroundColor : UIColor.ONE_FIVE_THREE_COLOR  ])
             attributedString.append(substringAttributedString)
          
             return attributedString
@@ -125,12 +125,12 @@ class FlightSortFilterViewController: UIViewController {
     fileprivate func setupSortDescription() {
         
         let attributedString = NSMutableAttributedString(string: "Smart Sort enables you to select your flight from just the first few results. Flights are sorted after comparing price, duration and various other factors. Learn more", attributes: [
-            .font: UIFont(name: "SourceSansPro-Regular", size: 16.0)!,
+            .font: AppFonts.Regular.withSize(16),
             .foregroundColor: UIColor.black,
             .kern: 0.0
             ])
         attributedString.addAttributes([
-            .font: UIFont(name: "SourceSansPro-Semibold", size: 16.0)!,
+            .font: AppFonts.Regular.withSize(16),
             .foregroundColor: UIColor.appColor
             ], range: NSRange(location: 156, length: 10))
         self.smartSortDescription.attributedText = attributedString
@@ -148,9 +148,16 @@ class FlightSortFilterViewController: UIViewController {
         let learnMoreRange = (text as NSString).range(of: "Learn more")
         if gesture.didTapAttributedTextInLabel(label: label, inRange: learnMoreRange) {
         
-            let webviewController = WebViewController()
-            webviewController.urlPath = "https://aertrip.com/smart-sort"
-            self.parent?.present(webviewController, animated: true, completion: nil)
+//            let webviewController = WebViewController()
+//            webviewController.urlPath = "https://aertrip.com/smart-sort"
+//            self.parent?.present(webviewController, animated: true, completion: nil)
+            
+            
+            
+            if let url = URL(string: APIEndPoint.smartSort.rawValue) {
+                AppFlowManager.default.showURLOnATWebView(url, screenTitle:  "Smart Sort", presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
+            }
+
         }
     }
     
@@ -179,7 +186,7 @@ extension FlightSortFilterViewController : UITableViewDataSource , UITableViewDe
                 
                 if isInitialSetup == false
                 {
-                    let indicator = UIActivityIndicatorView(style: .gray)
+                    let indicator = UIActivityIndicatorView(style: .medium)
                     indicator.color = .AertripColor
                     indicator.startAnimating()
                     indicator.hidesWhenStopped = true

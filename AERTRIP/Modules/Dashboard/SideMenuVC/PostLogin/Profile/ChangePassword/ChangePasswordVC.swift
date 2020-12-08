@@ -54,7 +54,7 @@ class ChangePasswordVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        statusBarStyle = .default
+        statusBarStyle = .darkContent
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -254,7 +254,7 @@ extension ChangePasswordVC {
         if self.viewModel.isPasswordType == .setPassword {
             self.nextButton.isEnabledShadow = self.viewModel.password.checkInvalidity(.Password)
         } else {
-            self.nextButton.isEnabledShadow = (self.viewModel.password.checkInvalidity(.Password) || self.viewModel.oldPassword.checkValidity(.Password))
+            self.nextButton.isEnabledShadow = (self.viewModel.password.checkInvalidity(.Password) || self.viewModel.oldPassword.checkInvalidity(.Password))
         }
     }
     

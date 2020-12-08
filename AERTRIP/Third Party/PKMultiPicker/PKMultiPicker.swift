@@ -19,6 +19,7 @@ class PKMultiPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource 
     deinit {
         printDebug("deinit PKMultiPicker")
         doneBlock = nil
+        self.removeFromSuperview()
     }
     
     class func openMultiPickerIn(_ textField: UITextField? , firstComponentArray: [String], secondComponentArray: [String], firstComponent: String?, secondComponent: String?, titles: [String]?, toolBarTint: UIColor = UIColor.black, doneBlock: @escaping PickerDone) {
@@ -151,6 +152,10 @@ class PKMultiPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource 
     }
 }
 
+enum DatePickerError{
+    case maxExceed
+    case minExceed
+}
 
 class PKDatePicker: UIDatePicker {
     
@@ -171,9 +176,18 @@ class PKDatePicker: UIDatePicker {
         return dateFormatter
     }
     
+    //Picker with error in case of flight passenger details.
+    internal typealias PickerDoneWithError = (_ selection: String, _ isError:Bool, _ errorType:DatePickerError?) -> Void
+    private var doneBlockWithError: PickerDoneWithError?
+    private var minDate:Date?
+    private var maxDate:Date?
+    private var isErroType:Bool = false
+    
+    
     deinit {
         printDebug("deinit PKDatePicker")
         doneBlock = nil
+        self.removeFromSuperview()
     }
     
     class func openDatePickerIn(_ textField: UITextField?, outPutFormate: String, mode: UIDatePicker.Mode, minimumDate: Date? = nil, maximumDate: Date? = nil, minuteInterval: Int = 1, selectedDate: Date?, appearance: Appearance = .light, toolBarTint: UIColor? = nil, doneBlock: @escaping PickerDone) {
@@ -183,7 +197,12 @@ class PKDatePicker: UIDatePicker {
         picker.datePickerFormat = outPutFormate
         picker.datePickerMode = mode
         picker.dateFormatter.dateFormat = outPutFormate
-        
+        if #available(iOS 13.4, *) {
+            picker.preferredDatePickerStyle = .wheels
+        } else {
+            // Fallback on earlier versions
+        }
+
         if let sDate = selectedDate {
             picker.setDate(sDate, animated: false)
         }
@@ -203,6 +222,45 @@ class PKDatePicker: UIDatePicker {
         }
         
         picker.maximumDate = maximumDate
+        
+        picker.openDatePickerInTextField(textField, appearance: appearance, toolBarTint: toolBarTint)
+    }
+    
+    class func openDatePickerWithError(_ textField: UITextField?, outPutFormate: String, mode: UIDatePicker.Mode, minimumDate: Date? = nil, maximumDate: Date? = nil, minuteInterval: Int = 1, selectedDate: Date?, appearance: Appearance = .light, toolBarTint: UIColor? = nil, doneBlock: @escaping PickerDoneWithError) {
+        
+        let picker = PKDatePicker()
+        picker.doneBlockWithError = doneBlock
+        picker.datePickerFormat = outPutFormate
+        picker.datePickerMode = mode
+        picker.isErroType = true
+        picker.dateFormatter.dateFormat = outPutFormate
+        if #available(iOS 13.4, *) {
+            picker.preferredDatePickerStyle = .wheels
+        } else {
+            // Fallback on earlier versions
+        }
+
+        if let sDate = selectedDate {
+            picker.setDate(sDate, animated: false)
+        }
+        picker.minuteInterval = minuteInterval
+        
+        if let minDate = minimumDate, mode == .time {
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd MMM yyyy"
+            let today = dateFormatter.string(from: Date())
+            let minDay = dateFormatter.string(from: minDate)
+            picker.minDate = today.lowercased() == minDay.lowercased() ? Date() : minDate
+//            picker.minimumDate = today.lowercased() == minDay.lowercased() ? Date() : minDate
+        }
+        else {
+            picker.minDate = minimumDate
+//            picker.minimumDate = minimumDate
+        }
+        
+//        picker.maximumDate = maximumDate
+        picker.maxDate = maximumDate
         
         picker.openDatePickerInTextField(textField, appearance: appearance, toolBarTint: toolBarTint)
     }
@@ -259,8 +317,25 @@ class PKDatePicker: UIDatePicker {
     }
     
     @IBAction func datePickerChanged(_ sender: UIDatePicker) {
-        let selected = self.dateFormatter.string(from: sender.date)
-
+        var selected = self.dateFormatter.string(from: sender.date)
+        if self.isErroType{
+            var isError:Bool = false
+            var errorType:DatePickerError? = nil
+            if let mxDate = self.maxDate,  (sender.date > mxDate){
+                isError = true
+                errorType = .maxExceed
+                sender.setDate(mxDate, animated: true)
+                selected = self.dateFormatter.string(from: mxDate)
+            }else if let mnDate = self.minDate, (mnDate > sender.date){
+                isError = true
+                errorType = .minExceed
+                sender.setDate(mnDate, animated: true)
+                selected = self.dateFormatter.string(from: mnDate)
+            }
+            
+            self.doneBlockWithError?(selected,isError, errorType)
+            return
+        }
         self.doneBlock?(selected)
     }
     
@@ -272,6 +347,22 @@ class PKDatePicker: UIDatePicker {
         UIApplication.shared.keyWindow?.endEditing(true)
         
         let selected = self.dateFormatter.string(from: self.date)
+        if self.isErroType{
+            var isError:Bool = false
+            var errorType:DatePickerError? = nil
+            if let mxDate = self.maxDate,  (self.date > mxDate){
+                isError = true
+                errorType = .maxExceed
+                self.setDate(mxDate, animated: true)
+            }else if let mnDate = self.minDate, (mnDate > self.date){
+                isError = true
+                errorType = .minExceed
+                self.setDate(mnDate, animated: true)
+            }
+            
+            self.doneBlockWithError?(selected,isError, errorType)
+            return
+        }
         
         self.doneBlock?(selected)
     }

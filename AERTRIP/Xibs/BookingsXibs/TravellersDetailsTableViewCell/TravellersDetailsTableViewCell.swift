@@ -54,7 +54,7 @@ class TravellersDetailsTableViewCell: UITableViewCell {
     internal func configCell(travellersImage: String, travellerName: String,firstName: String,lastName: String, isLastTravellerInRoom: Bool, isLastTraveller: Bool, isOtherBookingData: Bool = false, dob: String, salutation: String, age: String, congigureForHotelDetail: Bool ) {
         //self.travellerName.text = travellerName
         self.travellerImgViewBottomConstraint.constant = (isLastTraveller || isLastTravellerInRoom) ? 16.0 : 4.0
-        self.containerViewBottomConstraint.constant = isLastTraveller ? 26.0 : 0.0
+        self.containerViewBottomConstraint.constant = isLastTraveller ? 16 : 0.0 // 21 : 0.0
         if !isOtherBookingData {
             self.lastCellShadowSetUp(isLastCell: isLastTraveller)
         }
@@ -92,9 +92,13 @@ class TravellersDetailsTableViewCell: UITableViewCell {
     
     private func lastCellShadowSetUp(isLastCell: Bool) {
         if isLastCell {
-            self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMaxYCorner, .layerMinXMaxYCorner], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
+//            self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMaxYCorner, .layerMinXMaxYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
+            let shadow = AppShadowProperties()
+            self.containerView.addShadow(cornerRadius: shadow.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMinXMaxYCorner], color: shadow.shadowColor, offset: shadow.offset, opacity: shadow.opecity, shadowRadius: shadow.shadowRadius)
         } else {
-            self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
+//            self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
+            let shadow = AppShadowProperties()
+            self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: shadow.shadowColor, offset: shadow.offset, opacity: shadow.opecity, shadowRadius: shadow.shadowRadius)
         }
     }
 }

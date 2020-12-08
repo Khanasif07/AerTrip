@@ -11,7 +11,7 @@ import MessageUI
 
 extension FlightResultSingleJourneyVC {
     
-    func setPinnedFlightAt(_ flightKey: String , isPinned : Bool) {
+    func setPinnedFlightAt(_ flightKey: String , isPinned : Bool, indexpath : IndexPath?) {
         
         var curJourneyArr = [JourneyOnewayDisplay]()
         
@@ -72,13 +72,52 @@ extension FlightResultSingleJourneyVC {
         }
         
         self.viewModel.setPinnedFlights()
+      
         resultsTableView.tableFooterView?.isHidden = true
+      
+//        if let ind = indexpath {
+//
+//            self.resultsTableView.reloadRow(at: ind, with: UITableView.RowAnimation.none)
+//
+//        }else{
+//            self.resultsTableView.reloadData()
+//        }
+
         self.resultsTableView.reloadData()
+
+        
+
+//        self.resultsTableView.reloadData()
+        
+    
+//        if let content = self.viewModel.contentOffset {
+//            self.resultsTableView.setContentOffset(content, animated: false)
+//            self.viewModel.contentOffset = nil
+//        }
+        
+//        guard let visibleIndexPaths = self.resultsTableView.indexPathsForVisibleRows else { return }
+//
+//        printDebug(self.viewModel.results.allJourneys.count)
+//        printDebug(self.viewModel.results.suggestedJourneyArray.count)
+//
+//        visibleIndexPaths.forEach { (path) in
+//            printDebug(path.row)
+//        }
+//
+//        self.resultsTableView.reloadRows(at: visibleIndexPaths, with: UITableView.RowAnimation.none)
+        
         delay(seconds: 0.5) {
+//            self.viewModel.contentOffset = nil
+
             self.resultsTableView.tableFooterView?.isHidden = false
         }
         showFooterView()
     }
+    
+}
+
+
+extension FlightResultSingleJourneyVC {
     
 
     
@@ -112,7 +151,6 @@ extension FlightResultSingleJourneyVC: ATSwitcherChangeValueDelegate {
             showFooterView()
         }
         
-        //        hidePinnedFlightOptions(!value)
         resultsTableView.reloadData()
         resultsTableView.setContentOffset(.zero, animated: false)
         showBluredHeaderViewCompleted()
@@ -178,13 +216,18 @@ extension FlightResultSingleJourneyVC {
                     currentJourney = journey
                     
                 }
+                
+                return self.makeMenusFor(journey : currentJourney ,fk : fk , markPinned : isPinned, indexpath: indexPath)
+
             }
             
-            return self.makeMenusFor(journey : currentJourney ,fk : fk , markPinned : isPinned)
+            return self.makeMenusFor(journey : currentJourney ,fk : fk , markPinned : isPinned, indexpath: nil)
+
+            
         }
     }
     
-    func makeMenusFor(journey : Journey? ,  fk: String? , markPinned : Bool) -> UIMenu {
+    func makeMenusFor(journey : Journey? ,  fk: String? , markPinned : Bool, indexpath : IndexPath?) -> UIMenu {
         
         guard let currentJourney = journey else {
             return UIMenu(title: "", children: [])
@@ -196,7 +239,7 @@ extension FlightResultSingleJourneyVC {
                 guard let flightKey = fk else {
                     return
                 }
-                self.setPinnedFlightAt(flightKey, isPinned: markPinned)
+                self.setPinnedFlightAt(flightKey, isPinned: markPinned, indexpath: indexpath)
             }
             let share = UIAction(title: "Share", image: UIImage(systemName: "square.and.arrow.up"), identifier: nil) {[weak self] (action) in
                 
@@ -240,18 +283,20 @@ extension FlightResultSingleJourneyVC {
         resultsTableView.setContentOffset(.zero, animated: true)
     }
     
- 
-    
-    func shareJourney(journey : [Journey]) {
-        
+    func shareJourney(journey : [Journey])
+    {
+        self.sharePinnedFilghts.setImage(UIImage(named: "OvHotelResult"), for: .normal)
+        sharePinnedFilghts.displayLoadingIndicator(true)
+
         let flightAdultCount = self.viewModel.bookFlightObject.flightAdultCount
         let flightChildrenCount = self.viewModel.bookFlightObject.flightChildrenCount
         let flightInfantCount = self.viewModel.bookFlightObject.flightInfantCount
         let isDomestic = self.viewModel.bookFlightObject.isDomestic
         
-        let filterStr = getSharableLink.getAppliedFiltersForSharingDomesticJourney(legs: self.flightSearchResultVM?.flightLegs ?? [])
+//        viewModel.isConditionReverced
+        let filterStr = getSharableLink.getAppliedFiltersForSharingDomesticJourney(legs: self.flightSearchResultVM?.flightLegs ?? [],isConditionReverced:viewModel.isConditionReverced)
         
-        self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, isInternational: false, journeyArray: journey, valString: "", trip_type: "single",filterString: filterStr)
+        self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, isInternational: false, journeyArray: journey, valString: "", trip_type: "single",filterString: filterStr,searchParam: flightSearchResultVM?.flightSearchParametersFromDeepLink)
         
     }
 }
@@ -260,17 +305,24 @@ extension FlightResultSingleJourneyVC : MFMailComposeViewControllerDelegate {
     
     func returnSharableUrl(url: String)
     {
-        
-        let textToShare = [ "Checkout my favourite flights on Aertrip!\n\(url)" ]
-        let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
-        activityViewController.popoverPresentationController?.sourceView = self.view
-        
-        self.present(activityViewController, animated: true, completion: nil)
+        sharePinnedFilghts.displayLoadingIndicator(false)
+        self.sharePinnedFilghts.setImage(UIImage(named: "SharePinned"), for: .normal)
+
+        if url == "No Data"{
+            AertripToastView.toast(in: self.view, withText: "Something went wrong. Please try again.")
+        }else{
+            let textToShare = [ "Checkout my favourite flights on Aertrip!\n\(url)" ]
+            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            
+            self.present(activityViewController, animated: true, completion: nil)
+        }
     }
     
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true, completion: nil)
     }
+    
 }
 
 
@@ -278,92 +330,73 @@ extension FlightResultSingleJourneyVC : MFMailComposeViewControllerDelegate {
 extension FlightResultSingleJourneyVC {
     
     //MARK:- Sharing Journey
-    func executeWebServiceForShare(with postData: Data , onCompletion:@escaping (String) -> ()) {
-        let webservice = WebAPIService()
-        
-        webservice.executeAPI(apiServive: .getShareUrl(postData: postData ) , completionHandler: {    (data) in
-            
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            
-            if let currentParsedResponse = parse(data: data, into: getPinnedURLResponse.self, with:decoder) {
-                let data = currentParsedResponse.data
-                if let link = data["u"] {
-                    onCompletion(link)
-                }
-            }
-        } , failureHandler : { (error ) in
-            print(error)
-        })
-    }
-    
-    func executeWebServiceForEmail(with postData: Data , onCompletion:@escaping (String) -> ()) {
-        let webservice = WebAPIService()
-        
-        webservice.executeAPI(apiServive: .getEmailUrl(postData: postData ) , completionHandler: {    (receivedData) in
-            
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            
-            if let currentParsedResponse = parse(data: receivedData, into: getPinnedURLResponse.self, with:decoder) {
-                let data = currentParsedResponse.data
-                if let view = data["view"] {
-                    onCompletion(view)
-                }
-            }
-        } , failureHandler : { (error ) in
-            print(error)
-        })
-    }
+//    func executeWebServiceForShare(with postData: Data , onCompletion:@escaping (String) -> ()) {
+//        let webservice = WebAPIService()
+//
+//        webservice.executeAPI(apiServive: .getShareUrl(postData: postData ) , completionHandler: {    (data) in
+//
+//            let decoder = JSONDecoder()
+//            decoder.keyDecodingStrategy = .convertFromSnakeCase
+//
+//            if let currentParsedResponse = parse(data: data, into: getPinnedURLResponse.self, with:decoder) {
+//                let data = currentParsedResponse.data
+//                if let link = data["u"] {
+//                    onCompletion(link)
+//                }
+//            }
+//        } , failureHandler : { (error ) in
+//            print(error)
+//        })
+//    }
     
     
-    func generatePostDataForEmail( for journey : [Journey] ) -> Data? {
-        
-        let flightAdultCount = self.viewModel.bookFlightObject.flightAdultCount
-        let flightChildrenCount = self.viewModel.bookFlightObject.flightChildrenCount
-        let flightInfantCount = self.viewModel.bookFlightObject.flightInfantCount
-        let isDomestic = self.viewModel.bookFlightObject.isDomestic
-        
-        guard let firstJourney = journey.first else { return nil}
-        
-        let cc = firstJourney.cc
-        let ap = firstJourney.ap
-        
-        let trip_type = "single"
-        
-        let inputFormatter = DateFormatter()
-        inputFormatter.dateFormat = "dd-MM-yyyy"
-        let departDate = inputFormatter.string(from: self.viewModel.bookFlightObject.onwardDate)
-        
-        var valueString = "https://beta.aertrip.com/flights?trip_type=\(trip_type)&adult=\(flightAdultCount)&child=\(flightChildrenCount)&infant=\(flightInfantCount)&origin=\(ap[0])&destination=\(ap[1])&depart=\(departDate)&cabinclass=\(cc)&pType=flight&isDomestic=\(isDomestic)"
-        
-        
-        for i in 0 ..< journey.count {
-            let tempJourney = journey[i]
-            valueString = valueString + "&PF[\(i)]=\(tempJourney.fk)"
-        }
-        
-        var parameters = [ "u": valueString , "sid": self.viewModel.bookFlightObject.sid ]
-        
-        
-        let fkArray = journey.map{ $0.fk }
-        
-        for i in 0 ..< fkArray.count {
-            let key = "fk%5B\(i)%5D"
-            parameters[key] = fkArray[i]
-        }
-        
-        
-        let parameterArray = parameters.map { (arg) -> String in
-            let (key, value) = arg
-            
-            let percentEscapeString = self.percentEscapeString(value!)
-            return "\(key)=\(percentEscapeString)"
-        }
-        
-        let data = parameterArray.joined(separator: "&").data(using: String.Encoding.utf8)
-        return data
-    }
+//    func generatePostDataForEmail( for journey : [Journey] ) -> Data? {
+//        
+//        let flightAdultCount = self.viewModel.bookFlightObject.flightAdultCount
+//        let flightChildrenCount = self.viewModel.bookFlightObject.flightChildrenCount
+//        let flightInfantCount = self.viewModel.bookFlightObject.flightInfantCount
+//        let isDomestic = self.viewModel.bookFlightObject.isDomestic
+//        
+//        guard let firstJourney = journey.first else { return nil}
+//        
+//        let cc = firstJourney.cc
+//        let ap = firstJourney.ap
+//        
+//        let trip_type = "single"
+//        
+//        let inputFormatter = DateFormatter()
+//        inputFormatter.dateFormat = "dd-MM-yyyy"
+//        let departDate = inputFormatter.string(from: self.viewModel.bookFlightObject.onwardDate)
+//        
+//        var valueString = "https://beta.aertrip.com/flights?trip_type=\(trip_type)&adult=\(flightAdultCount)&child=\(flightChildrenCount)&infant=\(flightInfantCount)&origin=\(ap[0])&destination=\(ap[1])&depart=\(departDate)&cabinclass=\(cc)&pType=flight&isDomestic=\(isDomestic)"
+//        
+//        
+//        for i in 0 ..< journey.count {
+//            let tempJourney = journey[i]
+//            valueString = valueString + "&PF[\(i)]=\(tempJourney.fk)"
+//        }
+//        
+//        var parameters = [ "u": valueString , "sid": self.viewModel.bookFlightObject.sid ]
+//        
+//        
+//        let fkArray = journey.map{ $0.fk }
+//        
+//        for i in 0 ..< fkArray.count {
+//            let key = "fk%5B\(i)%5D"
+//            parameters[key] = fkArray[i]
+//        }
+//        
+//        
+//        let parameterArray = parameters.map { (arg) -> String in
+//            let (key, value) = arg
+//            
+//            let percentEscapeString = self.percentEscapeString(value!)
+//            return "\(key)=\(percentEscapeString)"
+//        }
+//        
+//        let data = parameterArray.joined(separator: "&").data(using: String.Encoding.utf8)
+//        return data
+//    }
     
     func percentEscapeString(_ string: String) -> String {
         var characterSet = CharacterSet.alphanumerics
@@ -451,7 +484,7 @@ extension FlightResultSingleJourneyVC {
                    curJourneyArr = viewModel.results.allJourneys
                }
         
-        print(curJourneyArr.count)
+        printDebug(curJourneyArr.count)
         
            guard let index = curJourneyArr.firstIndex(where: {
                     

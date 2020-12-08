@@ -142,7 +142,7 @@
 "trips" = "Trips";
 "hiImAerin" = "Hi, I’m Aerin";
 "yourPersonalTravelAssistant" = "Your personal travel assistant";
-"tryAskingForFlightsFromMumbai" = "\"Try asking for \n Flights from Mumbai to Delhi on Christmas\"";
+"tryAskingForFlightsFromMumbai" = "\"Tap and try asking for \n Flights from Mumbai to Delhi on Christmas\"";
 "EnjoyAMorePersonalisedTravelExperience" = "Enjoy a more personalised \n travel experience";
 "LoginOrRegister" = "Login or Register";
 "WhyAertrip"    = "Why Aertrip";
@@ -581,7 +581,7 @@
 "PerInfant" = "Per Infant";
 "viewMorePhoto" = "More photos on TripAdvisor";
 "WeHaveNotedYourBookingRequirement" = "We have noted your booking requirement.";
-"WeHaveNotedYourBookingRequirementMessage" = " As per guideline, payments of more than ₹5,00,000 are not allowed online.
+"WeHaveNotedYourBookingRequirementMessage" = " As per guideline, payments of more than ₹11,00,000 are not allowed online.
 
 Not to worry! Your booking is our highest priority. Our customer support team shall contact you at earliest. Thank you.";
 
@@ -735,6 +735,7 @@ Not to worry! Your booking is our highest priority. Our customer support team sh
 "Rescheduling" = "Rescheduling";
 "AddOnRequestSent" = "Add-on Request has been sent";
 "AddOnRequestMesage" = "Our Customer Service Represenstative will contact you soon regarding this enquiry.";
+"requestInProcess" = "Another request already in process";
 "PNRNo" = "PNR No.";
 "SaleAmount" = "Sale Amount";
 "ConfirmationNo" = "Confirmation No.";
@@ -791,6 +792,8 @@ Not to worry! Your booking is our highest priority. Our customer support team sh
 "HelpMessage" = "How can I help you?";
 
 "ShowPendingActionsOnly" = "Show pending actions only";
+"hereAreYourResults" = "Here are your results...";
+"seeResultsAgain" = "See results again";
 
 //MARK: - Import Contact Screen
 "NoContactFoundInDevice" = "No contacts found in this phone.";
@@ -810,7 +813,7 @@ Not to worry! Your booking is our highest priority. Our customer support team sh
 "Class" = "Class";
 "TapToEdit" = "Tap to Edit";
 "ThingsYouCanAskMe" = "Things you can ask me…";
-"Listening" = "Listening...";
+"Listening" = "Listening";
 "FilterApplied" = "Filters have been applied";
 "WeatherFooterInfo" = "Weather info is displayed within 16 days of travel";
 
@@ -881,7 +884,8 @@ Not to worry! Your booking is our highest priority. Our customer support team sh
 "EnterUTRSwiftCode" = "Enter UTR/Swift Code";
 "DepositAmountErrorMessage" = "Deposit amount must be grater then 0";
 "ModeOfPayment" = "Mode of payment";
-
+"requestNoted" = "We have noted your booking requirement.";
+"maximumOnlineLimit" = " As per guideline, payments of more than ₹11,00,000 are not allowed online.\n\nNot to worry! Your booking is our highest priority. Our customer support team shall contact you at earliest. Thank you.";
 
 "Camera" = "Camera";
 "PhotoLibrary" = "Photo Library";
@@ -986,6 +990,16 @@ Not to worry! Your booking is our highest priority. Our customer support team sh
 "ImportingContacts" = "Importing contacts";
 "ThisMightTakeSomeTime" = "This might take some time";
 
+//MARK: - Passengers Selections
+"firstName3Char" = "Passenger first name should have atleast 3 character";
+"fistNameNumeric"  = "Passenger first name should not have any numeric or special character";
+"lastName3Char" = "Passenger first last should have atleast 3 character";
+"lastNameNumeric" = "Passenger last name should not have any numeric or special character";
+"fillContactDetails" = "Please fill the passenger contact details";
+"adultAgeError" = "Adult's age must be over 12 years";
+"childAgeError" = "Child's age must be between 2 and 12 years";
+"infantAgeError" = "Infant's age must be less than 2 years";
+
 
 //MARK:- Settings
 "Currency" = "Currency";
@@ -994,7 +1008,7 @@ Not to worry! Your booking is our highest priority. Our customer support team sh
 "GetNotifiedAboutYourTripEvents" = "Get notified about your trip events";
 "GetNotifiedAboutNewOffersAndDeals" = "Get notified about new offers and deals";
 "Ok" = "Ok";
-"AllEventSyncedToCalendarApp" = "All the events will be sync to calendar app.";
+"AllEventSyncedToCalendarApp" = "All events will sync to the Calendar app.";
 "ThisFunctionalityWillBeAvailableSoon" = "This feature is coming soon.";
 
 //Air in
@@ -1047,7 +1061,7 @@ Not to worry! Your booking is our highest priority. Our customer support team sh
 "Choose_Meal" = "Choose a meal from the menu.";
 "Choose_Baggage" = "Choose the extra baggage service and take everything you need.";
 "Reserve_Seat" = "Reserve a seat of your choice.";
-"PreBook_Services" = "Pre-book more services for a  convenient journey";
+"PreBook_Services" = "Pre-book more services for a convenient journey";
 
 "Complementary_Meal_Added" = "Complementary meal added";
 
@@ -1096,3 +1110,5 @@ Planning your trip will be easier than ever.\nStay tuned for the next update �
 "tripsNote" = "Note: you can still plan, manage and create new trips from Aertrip website
 www.aertrip.com/trip";
 "tripsLink" = "www.aertrip.com/trip";
+
+"reloadDetail" = "Reload Detail";

@@ -159,15 +159,16 @@ extension HotelsGroupExpendedVC: UICollectionViewDataSource, UICollectionViewDel
         cell.hotelListData = self.viewModel.samePlaceHotels[indexPath.item]
         cell.saveButton.isSelected = self.viewModel.samePlaceHotels[indexPath.item].fav == "0" ? false : true
         //        cell.hotelNameLabel.text = "\(indexPath.item + 1)"
-        //        cell.containerTopConstraint.constant = (indexPath.item == 0) ? 16.0 : 5.0
-        //        cell.containerBottomConstraint.constant = 5.0
+                cell.containerTopConstraint.constant = (indexPath.item == 0) ? 16.0 : 5.0
+        cell.containerBottomConstraint.constant = (indexPath.item == (self.viewModel.samePlaceHotels.count - 1)) ? 16.0 : 5.0
+        cell.layoutIfNeeded()
         cell.delegate = self
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let height = (indexPath.item == 0) ? 214.0 : 203.0
+        let height = ((indexPath.item == 0) || (indexPath.item == (self.viewModel.samePlaceHotels.count - 1))) ? 214.0 : 203.0
         return CGSize(width: UIDevice.screenWidth, height: CGFloat(height))
     }
     
@@ -217,7 +218,7 @@ extension HotelsGroupExpendedVC: UICollectionViewDataSource, UICollectionViewDel
         vc.backImage = img
         cell.freezeAnimations()
         let currentCellFrame = cell.layer.presentation()!.frame
-        let cardFrame = cell.superview!.convert(currentCellFrame, to: nil)
+        let cardFrame = cell.superview?.convert(currentCellFrame, to: nil) ?? CGRect.zero
         vc.modalPresentationStyle = .custom
         let frameWithoutTransform = { () -> CGRect in
             let center = cell.center
@@ -228,7 +229,7 @@ extension HotelsGroupExpendedVC: UICollectionViewDataSource, UICollectionViewDel
                 width: size.width,
                 height: size.height
             )
-            return cell.superview!.convert(r, to: nil)
+            return cell.superview?.convert(r, to: nil) ?? CGRect.zero
         }()
         
         let params = CardTransition.Params(fromCardFrame: cardFrame, fromCardFrameWithoutTransform: frameWithoutTransform, fromCell: cell, img: img)
@@ -286,7 +287,7 @@ extension HotelsGroupExpendedVC: HotelCardCollectionViewCellDelegate {
 
 extension HotelsGroupExpendedVC: HotelDetailsVCDelegate {
     func hotelFavouriteUpdated() {
-        print("favourite updated")
+        printDebug("favourite updated")
     }
     
     func imageUpdated() {

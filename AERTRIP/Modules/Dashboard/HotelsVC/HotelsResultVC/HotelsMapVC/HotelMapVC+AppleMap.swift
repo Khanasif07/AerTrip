@@ -215,7 +215,7 @@ extension HotelsMapVC : MKMapViewDelegate{
             isMapZoomNeedToSet = true
         }
         let visibleAnnotation = appleMap.annotations(in: self.appleMap.visibleMapRect).compactMap{($0 as! MyAnnotation)}
-        print( appleMap.getZoomLevel())
+        printDebug( appleMap.getZoomLevel())
 //        if appleMap.getZoomLevel() <= 14{//All annotation on zoom level 14
             self.removePreviouseSelected()
             if visibleAnnotation.count >= maxVisblePriceMarker{

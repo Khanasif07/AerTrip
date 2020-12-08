@@ -35,6 +35,7 @@ class AerinVC: BaseVC {
     @IBOutlet weak var travelSafetyLabel: UILabel!
     @IBOutlet weak var travelSafetyViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var aerinViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var travelSafetyLabelBottom: NSLayoutConstraint!
     
     private var previousOffSet = CGPoint.zero
     private var aerInPulsAnimator: PKPulseAnimation = PKPulseAnimation()
@@ -48,6 +49,15 @@ class AerinVC: BaseVC {
         // Do any additional setup after loading the view.
         containerScrollView.alwaysBounceVertical = true
         containerScrollView.delegate = self
+        
+        if isSEDevice{
+            bottomViewImage.contentMode = .scaleAspectFit
+            travelSafetyLabelBottom.constant = 40
+        }else{
+            bottomViewImage.contentMode = .scaleAspectFill
+            travelSafetyLabelBottom.constant = 16
+        }
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,6 +68,7 @@ class AerinVC: BaseVC {
         if !(AppFlowManager.default.sideMenuController?.isOpen ?? true) {
             // self.setupInitialAnimation()
         }
+        
     }
     
     override func viewWillLayoutSubviews() {
@@ -90,6 +101,14 @@ class AerinVC: BaseVC {
             }
         }
         
+        //Rishabh For card getting cut issue - start
+        if isSEDevice {
+            containerScrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -30, right: 0)
+        } else if view.window?.safeAreaInsets.bottom != 0 {
+            containerScrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
+        }
+        //Rishabh For card getting cut issue - end
+        
     }
     
     override func initialSetup() {
@@ -105,14 +124,18 @@ class AerinVC: BaseVC {
          self.bottomSecondView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.1)
          */
         self.bottomViewImage.cornerradius = 10
-        self.bottomCollectionView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 8.0)
+        self.bottomCollectionView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 8.0)
         setupAnimation()
     }
     
     override func setupFonts() {
         self.messageLabel.font = AppFonts.Regular.withSize(16.0)
         //self.weekendMessageLabel.font = AppFonts.Regular.withSize(17.0)
-        self.travelSafetyLabel.font = AppFonts.SemiBold.withSize(28.0)
+        if isSEDevice{
+            self.travelSafetyLabel.font = AppFonts.SemiBold.withSize(24.0)
+        }else{
+            self.travelSafetyLabel.font = AppFonts.SemiBold.withSize(28.0)
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -121,27 +144,27 @@ class AerinVC: BaseVC {
     }
     
     override func setupTexts() {
-        let greetingAttrTxt = NSMutableAttributedString(string: LocalizedString.hiImAerin.localized, attributes: [.font: AppFonts.ExtraLight.withSize(28.0), .foregroundColor: AppColors.themeTextColor])
+        let greetingAttrTxt = NSMutableAttributedString(string: LocalizedString.hiImAerin.localized, attributes: [.font: AppFonts.ExtraLight.withSize(28.0), .foregroundColor: AppColors.themeBlack])
         greetingAttrTxt.addAttribute(.font, value: AppFonts.Regular.withSize(28.0), range: (greetingAttrTxt.string as NSString).range(of: "Aerin"))
         self.greetingLabel.attributedText = greetingAttrTxt
         
         self.messageLabel.text = LocalizedString.yourPersonalTravelAssistant.localized
         
-        let commandAttrTxt = NSMutableAttributedString(string: LocalizedString.tryAskingForFlightsFromMumbai.localized, attributes: [.font: AppFonts.ExtraLight.withSize(16.0), .foregroundColor: AppColors.themeTextColor])
+        let commandAttrTxt = NSMutableAttributedString(string: LocalizedString.tryAskingForFlightsFromMumbai.localized, attributes: [.font: AppFonts.ExtraLight.withSize(16.0), .foregroundColor: AppColors.themeBlack])
         commandAttrTxt.addAttribute(.font, value: AppFonts.Regular.withSize(16.0), range: (commandAttrTxt.string as NSString).range(of: "Flights"))
         commandAttrTxt.addAttribute(.font, value: AppFonts.Regular.withSize(16.0), range: (commandAttrTxt.string as NSString).range(of: "Mumbai"))
         commandAttrTxt.addAttribute(.font, value: AppFonts.Regular.withSize(16.0), range: (commandAttrTxt.string as NSString).range(of: "Delhi"))
         commandAttrTxt.addAttribute(.font, value: AppFonts.Regular.withSize(16.0), range: (commandAttrTxt.string as NSString).range(of: "Christmas"))
         
-        let attributedString = NSMutableAttributedString(string: "Try asking for \n“Flights from Mumbai to Delhi on Christmas”", attributes: [
+        let attributedString = NSMutableAttributedString(string: "Tap and try asking for \n“Flights from Mumbai to Delhi on Christmas”", attributes: [
             .font: AppFonts.Regular.withSize(16.0),
-            .foregroundColor: AppColors.themeTextColor
+            .foregroundColor: AppColors.themeBlack
         ])
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 6
         paragraphStyle.alignment = .center
         
-        attributedString.addAttribute(.font, value: AppFonts.Regular.withSize(14.0), range: NSRange(location: 0, length: 14))
+//        attributedString.addAttribute(.font, value: AppFonts.Regular.withSize(14.0), range: NSRange(location: 0, length: 14))
         attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, attributedString.length))
         
         self.commandHintLabel.attributedText = attributedString
@@ -151,7 +174,7 @@ class AerinVC: BaseVC {
     }
     
     override func setupColors() {
-        self.messageLabel.textColor = AppColors.themeTextColor
+        self.messageLabel.textColor = AppColors.themeBlack
         //self.weekendMessageLabel.textColor = AppColors.themeWhite.withAlphaComponent(0.4)
         self.travelSafetyLabel.textColor = AppColors.themeTextColor
     }
@@ -262,14 +285,21 @@ class AerinVC: BaseVC {
         //             let obj = SelectTripVC.instantiate(fromAppStoryboard: .HotelResults)
         //            AppFlowManager.default.mainNavigationController.present(obj, animated: true)
         
-        let obj = ChatVC.instantiate(fromAppStoryboard: .Dashboard)
-        AppFlowManager.default.mainNavigationController.pushViewController(obj, animated: false)
+        let aerinPopoverVC = AerinCustomPopoverVC.instantiate(fromAppStoryboard: .Dashboard)
+        aerinPopoverVC.modalPresentationStyle = .overCurrentContext
+        AppFlowManager.default.mainNavigationController.present(aerinPopoverVC, animated: false, completion: nil)
+        
+//        let obj = ChatVC.instantiate(fromAppStoryboard: .Dashboard)
+//        AppFlowManager.default.mainNavigationController.pushViewController(obj, animated: false)
         
         //        }
     }
     
-    
     @IBAction func travelSafetyBtnTapped(_ sender: Any) {
-        AppToast.default.showToastMessage(message: LocalizedString.UnderDevelopment.localized)
+//        AppToast.default.showToastMessage(message: LocalizedString.UnderDevelopment.localized)
+        
+        if let url = URL(string: APIEndPoint.travelGuidelines.rawValue) {
+            AppFlowManager.default.showURLOnATWebView(url, screenTitle:  "Travel Safety Guidlines", presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
+        }
     }
 }

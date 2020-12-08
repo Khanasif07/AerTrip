@@ -18,7 +18,7 @@ class OtherBookingsDetailsVC: BaseVC {
     let viewModel = BookingProductDetailVM()
     var headerView: OtherBookingDetailsHeaderView?
     var eventTypeImage: UIImage {
-        return #imageLiteral(resourceName: "others")
+        return #imageLiteral(resourceName: "others_hotels")
     }
     
     private var navBarHeight: CGFloat {
@@ -46,7 +46,7 @@ class OtherBookingsDetailsVC: BaseVC {
         didSet {
             self.dataTableView.estimatedRowHeight = 100.0
             self.dataTableView.rowHeight = UITableView.automaticDimension
-            self.dataTableView.contentInset = UIEdgeInsets(top: 4.0, left: 0.0, bottom: 0.0, right: 0.0)
+            //self.dataTableView.contentInset = UIEdgeInsets(top: 4.0, left: 0.0, bottom: 0.0, right: 0.0)
             self.dataTableView.estimatedSectionHeaderHeight = 0
             self.dataTableView.sectionHeaderHeight = 0
             self.dataTableView.backgroundColor = AppColors.screensBackground.color
@@ -63,19 +63,21 @@ class OtherBookingsDetailsVC: BaseVC {
     
     override func initialSetup() {
         self.headerView = OtherBookingDetailsHeaderView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 147.0))
-        self.viewModel.getBookingDetail(showProgress: true)
-        self.statusBarStyle = .default
+        //self.statusBarStyle = .darkContent
         self.topNavBarHeightConstraint.constant = self.navBarHeight
         self.topNavBar.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false, backgroundType: .color(color: .white))
         self.topNavBar.configureLeftButton(normalImage: #imageLiteral(resourceName: "backGreen"), selectedImage: #imageLiteral(resourceName: "backGreen"))
         self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "greenPopOverButton"), selectedImage: #imageLiteral(resourceName: "greenPopOverButton"))
+        self.topNavBar.navTitleLabel.numberOfLines = 1
         self.setupParallaxHeader()
         self.registerNibs()
-        
+        self.configureTableHeaderView()
         self.refreshControl.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControl.Event.valueChanged)
         self.refreshControl.tintColor = AppColors.themeGreen
-        self.dataTableView.refreshControl = refreshControl
+        //self.dataTableView.refreshControl = refreshControl
         
+        self.viewModel.getBookingDetail(showProgress: true)
+
         NotificationCenter.default.addObserver(self, selector: #selector(bookingDetailFetched(_:)), name: .bookingDetailFetched, object: nil)
 
     }
@@ -128,7 +130,7 @@ class OtherBookingsDetailsVC: BaseVC {
     /// ConfigureCheckInOutView
     func configureTableHeaderView() {
         if let view = self.headerView {
-            view.configureUI(bookingEventTypeImage: self.eventTypeImage, bookingIdStr: self.viewModel.bookingDetail?.id ?? "", bookingIdNumbers: self.viewModel.bookingDetail?.bookingNumber ?? "", date: self.viewModel.bookingDetail?.bookingDate?.toString(dateFormat: "d MMM ''yy") ?? "")
+            view.configureUI(bookingEventTypeImage: self.eventTypeImage, bookingIdStr: self.viewModel.bookingDetail?.id ?? "", bookingIdNumbers: self.viewModel.bookingDetail?.bookingNumber ?? "", date: self.viewModel.bookingDetail?.bookingDate?.toString(dateFormat: "d MMM’ yy") ?? "")
             view.dividerView.isHidden = true
         }
     }
@@ -141,7 +143,7 @@ class OtherBookingsDetailsVC: BaseVC {
         self.dataTableView.parallaxHeader.view = self.headerView
         self.dataTableView.parallaxHeader.minimumHeight = parallexHeaderMinHeight
         self.dataTableView.parallaxHeader.height = parallexHeaderHeight
-        self.dataTableView.parallaxHeader.mode = MXParallaxHeaderMode.top
+        self.dataTableView.parallaxHeader.mode = MXParallaxHeaderMode.fill
         self.dataTableView.parallaxHeader.delegate = self
         self.view.bringSubviewToFront(self.topNavBar)
     }
@@ -155,7 +157,24 @@ class OtherBookingsDetailsVC: BaseVC {
         self.dataTableView.registerCell(nibName: TravellersDetailsTableViewCell.reusableIdentifier)
     }
     
-    // MARK: - IBActions
-    
-    // MARK: ===========
+    func showDepositOptions() {
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.PayOnline.localized, LocalizedString.PayOfflineNRegister.localized], colors: [AppColors.themeDarkGreen, AppColors.themeDarkGreen])
+        
+        _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
+            
+            switch index {
+            case 0:
+                //PayOnline
+                AppFlowManager.default.moveToAccountOnlineDepositVC(depositItinerary: self.viewModel.itineraryData, usingToPaymentFor: .booking)
+                
+            case 1:
+                //PayOfflineNRegister
+                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .fundTransfer, usingToPaymentFor: .addOns, paymentModeDetail: self.viewModel.itineraryData?.chequeOrDD, netAmount: self.viewModel.itineraryData?.netAmount ?? 0.0, bankMaster: self.viewModel.itineraryData?.bankMaster ?? [])
+                printDebug("PayOfflineNRegister")
+                
+            default:
+                printDebug("no need to implement")
+            }
+        }
+    }
 }

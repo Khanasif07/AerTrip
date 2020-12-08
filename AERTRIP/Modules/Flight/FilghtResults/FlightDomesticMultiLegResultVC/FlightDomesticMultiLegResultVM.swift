@@ -25,6 +25,10 @@ class FlightDomesticMultiLegResultVM {
     var isPinnedOn = false
     var isFewSeatsLeft = false
     var shouldDisplayToast = false
+    var isSearchByAirlineCode = false
+    var flightSearchParameters = JSONDictionary()
+    var sharedFks : [String] = []
+    var isSharedFkmatched = false
     
     init() {
         
@@ -131,6 +135,33 @@ class FlightDomesticMultiLegResultVM {
         var suggetedSortArray = self.results[tableIndex].suggestedJourneyArray
         
         var journeySortedArray = self.results[tableIndex].journeyArray
+        
+        suggetedSortArray.sort(by: { (obj1, obj2) -> Bool in
+                return obj1.price  < obj2.price
+        })
+        
+        journeySortedArray.sort(by: { (obj1, obj2) -> Bool in
+                return obj1.price  < obj2.price
+        })
+        
+        
+        suggetedSortArray.sort(by: { (obj1, obj2) -> Bool in
+            
+            let firstObjDepartureTime = obj1.dt
+            let secondObjDepartureTime = obj2.dt
+                
+                return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
+                
+        })
+        
+        journeySortedArray.sort(by: { (obj1, obj2) -> Bool in
+            
+            let firstObjDepartureTime = obj1.dt
+            let secondObjDepartureTime = obj2.dt
+
+                return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
+                
+        })
         
         switch  sortOrder {
             
@@ -418,5 +449,23 @@ class FlightDomesticMultiLegResultVM {
          return formatter.string(from: NSNumber(value: fare)) ?? ""
          
      }
+    
+    
+    func setSharedFks() {
+        
+        guard let dict = flightSearchParameters as? JSONDictionary else { return }
+        
+        let pfKeys = dict.keys.filter( { $0.contains("PF") } )
+       
+        printDebug("pfKeys...\(pfKeys)")
+        
+        pfKeys.forEach { (key) in
+            if let fk = dict[key] as? String {
+                self.sharedFks.append(fk)
+            }
+        }
+
+    }
+    
     
 }

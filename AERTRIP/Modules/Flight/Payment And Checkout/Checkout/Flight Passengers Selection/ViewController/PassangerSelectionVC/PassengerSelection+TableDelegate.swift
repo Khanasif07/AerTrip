@@ -99,7 +99,7 @@ extension PassengersSelectionVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if (indexPath.section == 2) && (indexPath.row == 0){
-            AppFlowManager.default.showURLOnATWebView(URL(string: "https://beta.aertrip.com/")!, screenTitle: "Travel Safety Guidlines")
+            AppFlowManager.default.showURLOnATWebView(URL(string: AppConstants.travelSafetyLink)!, screenTitle: "Travel Safety Guidlines")
         }
         
 //        if indexPath.row == 0 {
@@ -215,6 +215,7 @@ extension PassengersSelectionVC: PassengerGridSelectionDelegate{
         vc.viewModel.currentIndex = indexPath.row
         vc.viewModel.lastJourneyDate = self.viewModel.itineraryData.itinerary.searchParams.lastJourneyDate
         vc.viewModel.journeyEndDate = self.viewModel.itineraryData.itinerary.journeyEndDate
+        vc.viewModel.firstJourneyDate = self.viewModel.itineraryData.itinerary.searchParams.firstJourneyDate
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -225,7 +226,7 @@ extension PassengersSelectionVC: FlightContactCellDelegate, FlightEmailTextField
         self.viewModel.mobile = textField.nationalNumber
     }
     
-    func setIsdCode(_ countryDate:PKCountryModel,_ sender: UIButton){
+    func setIsdCode(_ countryDate:PKCountryModel){
         self.viewModel.isdCode = countryDate.ISOCode
         self.viewModel.manimumContactLimit = countryDate.minNSN
         self.viewModel.maximumContactLimit = countryDate.maxNSN
