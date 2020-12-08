@@ -100,7 +100,7 @@ extension AccountOutstandingLadgerVC: UITableViewDataSource, UITableViewDelegate
         }
         
         if let event = event {
-            let cell = self.getEventDescriptionCell(forData: event, index: indexPath, table: tableView) as! AccountOutstandingEventDescriptionCell
+            guard let cell = self.getEventDescriptionCell(forData: event, index: indexPath, table: tableView) as? AccountOutstandingEventDescriptionCell else {return UITableViewCell()}
             return cell
         }
         

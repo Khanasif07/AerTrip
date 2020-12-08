@@ -30,8 +30,10 @@ struct HotelFormPreviosSearchData: Codable {
         return totalAd + totalCh
     }
     var totalNights: Int {
-        if !self.checkInDate.isEmpty , !self.checkOutDate.isEmpty {
-            return self.checkOutDate.toDate(dateFormat: "yyyy-MM-dd")!.daysFrom(self.checkInDate.toDate(dateFormat: "yyyy-MM-dd")!)
+//        if !self.checkInDate.isEmpty , !self.checkOutDate.isEmpty {
+//            return self.checkOutDate.toDate(dateFormat: "yyyy-MM-dd")!.daysFrom(self.checkInDate.toDate(dateFormat: "yyyy-MM-dd")!)
+        if let checkOut = self.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), let checkIn = self.checkInDate.toDate(dateFormat: "yyyy-MM-dd"){
+          return checkOut.daysFrom(checkIn)
         }
         return 0
     }

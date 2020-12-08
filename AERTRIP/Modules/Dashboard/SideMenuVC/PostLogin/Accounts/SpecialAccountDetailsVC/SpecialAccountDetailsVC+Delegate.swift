@@ -431,6 +431,7 @@ class AccountSummeryCell: UITableViewCell {
     }
     
     private func configure(detail: String, amount: String, descp: String? = nil, symbol: String? = nil) {
+        guard self.event != nil else {return}
         self.resetAllSubViews()
         amountStackView.isHidden = false
         self.dividerView.isHidden = !(self.event!.isDevider)
@@ -481,6 +482,7 @@ class AccountSummeryCell: UITableViewCell {
     }
     
     private func configureNext(title: String) {
+        guard self.event != nil else {return}
         self.resetAllSubViews()
         amountStackView.isHidden = false
         self.dividerView.isHidden = false

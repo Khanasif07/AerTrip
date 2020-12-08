@@ -326,14 +326,15 @@ extension MailComposerVC: EmailComposeerHeaderViewDelegate {
     
     
     func updateHeightOfHeader(_ headerView: EmailComposerHeaderView, _ textView: UITextView) {
-        let minHeight = textView.font!.lineHeight * 1.0
-        let maxHeight = textView.font!.lineHeight * 5.0
+        guard let txtViewFont = textView.font else {return}
+        let minHeight = txtViewFont.lineHeight * 1.0
+        let maxHeight = txtViewFont.lineHeight * 5.0
         //for email textView (screenW-62)
         //for message textView (screenW-32)
         
         var emailHeight = headerView.emailContainerViewHeightConstraint.constant//headerView.toEmailTextView.text.sizeCount(withFont: textView.font!, bundingSize:         CGSize(width: (UIDevice.screenWidth - 62.0), height: 10000.0)).height
         
-        var msgHeight = headerView.messageSubjectTextView.text.sizeCount(withFont: textView.font!, bundingSize:         CGSize(width: (UIDevice.screenWidth - 22.0), height: 10000.0)).height
+        var msgHeight = headerView.messageSubjectTextView.text.sizeCount(withFont: txtViewFont, bundingSize:         CGSize(width: (UIDevice.screenWidth - 22.0), height: 10000.0)).height
         
         var labelHeight = headerView.messageSubjectTextView.text.sizeCount(withFont: AppFonts.Italic.withSize(18.0), bundingSize:         CGSize(width: (UIDevice.screenWidth - 32), height: 10000.0)).height
         if labelHeight < 25 {

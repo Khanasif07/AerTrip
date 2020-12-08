@@ -144,7 +144,7 @@ class BookingProductDetailVM {
         
         // logic for add weather Data
         var temp: [TableViewCellForHotel] = []
-        for (index, _) in (self.bookingDetail?.tripWeatherData.enumerated())! {
+        for (index, _) in ((self.bookingDetail?.tripWeatherData ?? []).enumerated()) {
             if index == 0 {
                 temp.append(.weatherHeaderCell)
                 temp.append(.weatherInfoCell)
@@ -294,7 +294,7 @@ class BookingProductDetailVM {
         
         // logic for add weather Data
         var temp: [TableViewCellForFlightProductType] = []
-        for (index, _) in (self.bookingDetail?.tripWeatherData.enumerated())! {
+        for (index, _) in ((self.bookingDetail?.tripWeatherData ?? []).enumerated()) {
             if index == 0 {
                 temp.append(.weatherHeaderCell)
                 temp.append(.weatherInfoCell)

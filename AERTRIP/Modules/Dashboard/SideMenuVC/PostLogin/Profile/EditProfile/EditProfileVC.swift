@@ -692,8 +692,8 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
             }
             
         case .country:
-            if sections[(self.indexPath?.section)!] == LocalizedString.PassportDetails.localized {
-                let indexPath = IndexPath(row: (self.indexPath?.row)!, section: (self.indexPath?.section)!)
+            if let indexPath = self.indexPath,sections[(indexPath.section)] == LocalizedString.PassportDetails.localized {
+                let indexPath = IndexPath(row: (indexPath.row), section: (indexPath.section))
                 guard let cell = self.tableView.cellForRow(at: indexPath) as? TextEditableTableViewCell else { fatalError("TextEditableTableViewCell not found") }
                 cell.editableTextField.text = pickerTitle
                 viewModel.passportCountryName = pickerTitle
@@ -702,12 +702,12 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
                 }
                 
                 viewModel.passportCountryName = pickerTitle
-            } else {
-                let indexPath = IndexPath(row: (self.indexPath?.row)!, section: (self.indexPath?.section)!)
+            } else if let indexPath = self.indexPath {
+                let indexPath = IndexPath(row: (indexPath.row), section: (indexPath.section))
                 guard let cell = self.tableView.cellForRow(at: indexPath) as? AddAddressTableViewCell else { fatalError("AddAddressTableViewCell not found") }
                 cell.countryLabel.text = pickerTitle
                 viewModel.addresses[indexPath.row].countryName = pickerTitle
-                viewModel.addresses[indexPath.row].country = viewModel.countries.someKey(forValue: pickerTitle)!
+                viewModel.addresses[indexPath.row].country = viewModel.countries.someKey(forValue: pickerTitle) ?? ""
             }
             
         case .addressTypes:
@@ -719,9 +719,9 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         case .groups:
             editProfileImageHeaderView.groupLabel.text = pickerTitle
             viewModel.label = pickerTitle
-        case .program:
+        case .program: break
             
-            let indexPath = IndexPath(row: (self.indexPath?.row)!, section: (self.indexPath?.section)!)
+//            let indexPath = IndexPath(row: (self.indexPath?.row)!, section: (self.indexPath?.section)!)
 //            self.viewModel.frequentFlyer[indexPath.row]. = pickerTitle
 //            self.viewModel.frequentFlyer[indexPath.row].country = viewModel.countries.someKey(forValue: pickerTitle)!
            // guard let cell = self.tableView.cellForRow(at: indexPath) as? FrequentFlyerTableViewCell else { fatalError("FrequentFlyerTableViewCell not found") }
@@ -846,13 +846,13 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     }
     
     @objc func valueChangedDatePicker(date: String) {
-        guard let selectedDate = date.toDate(dateFormat: "dd-MM-yyyy") else {return}
+        guard let selectedDate = date.toDate(dateFormat: "dd-MM-yyyy"), let indexPath = self.indexPath else {return}
 
         let formatter = DateFormatter()
         formatter.dateFormat = "dd MMMM yyyy"
-        switch sections[(self.indexPath?.section)!] {
+        switch sections[(indexPath.section)] {
         case LocalizedString.MoreInformation.localized:
-            let indexPath = IndexPath(row: (self.indexPath?.row)!, section: (self.indexPath?.section)!)
+            let indexPath = IndexPath(row: (indexPath.row), section: (indexPath.section))
             guard let cell = tableView.cellForRow(at: indexPath) as? TextEditableTableViewCell else {
                 printDebug("TextEditableTableViewCell not found")
                 return
@@ -864,7 +864,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
                 viewModel.dob = formatter.string(from: selectedDate)
             }
         case LocalizedString.PassportDetails.localized:
-            let indexPath = IndexPath(row: (self.indexPath?.row)!, section: (self.indexPath?.section)!)
+            let indexPath = IndexPath(row: (indexPath.row), section: (indexPath.section))
             guard let cell = tableView.cellForRow(at: indexPath) as? TwoPartEditTableViewCell else {
                 fatalError("TextEditableTableViewCell not found")
             }
@@ -920,9 +920,9 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     
     func compressAndSaveImage(_ image: UIImage, name: String) -> String? {
         let imageData = image.jpegData(compressionQuality: 0.2)
-        let docDir = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+        guard let docDir = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true) else {return nil}
         let imageURL = docDir.appendingPathComponent(name)
-        try! imageData?.write(to: imageURL)
+        try? imageData?.write(to: imageURL)
         
         return imageURL.absoluteString
     }
