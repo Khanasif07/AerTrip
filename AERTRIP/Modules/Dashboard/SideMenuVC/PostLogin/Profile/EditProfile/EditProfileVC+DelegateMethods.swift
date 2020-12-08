@@ -714,8 +714,10 @@ extension EditProfileVC {
         
         // Set photoImageView to display the selected image.
         editProfileImageHeaderView.profileImageView.image = selectedImage
-        let path = compressAndSaveImage(selectedImage, name: "\(UIApplication.shared.uniqueID).jpeg")
-        viewModel.filePath = path!
+        if let path = compressAndSaveImage(selectedImage, name: "\(UIApplication.shared.uniqueID).jpeg"){
+            viewModel.filePath = path
+        }
+        
         viewModel.imageSource = "aertrip"
         
         // Dismiss the picker.
