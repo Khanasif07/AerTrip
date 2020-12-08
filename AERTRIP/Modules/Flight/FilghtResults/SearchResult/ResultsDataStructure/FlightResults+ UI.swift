@@ -30,25 +30,15 @@ struct OnewayJourneyResultsArray {
     }
     
     var allJourneys : [JourneyOnewayDisplay] = []
-
     var suggestedJourneyArray: [JourneyOnewayDisplay] = []
-    
     var currentPinnedJourneys : [Journey] = []
-    
-
     var pinnedFlights : [Journey] = []
-    
     var sort : Sort
     var excludeExpensiveFlights = true
-    
-    
     var aboveHumanScoreCount : Int {
-        
-        let count = journeyArray.filter() { $0.isAboveHumanScore == true }.reduce(0) { $0 + $1.journeyArray.count }
+    let count = journeyArray.filter() { $0.isAboveHumanScore == true }.reduce(0) { $0 + $1.journeyArray.count }
         return count
-        
     }
-    
     var belowThresholdHumanScore : Int {
         return journeyArray.count - aboveHumanScoreCount
     }
@@ -56,11 +46,11 @@ struct OnewayJourneyResultsArray {
     var sortedArray : [Journey] {
         get {
             
-            var sortArray = journeyArray.reduce([]) { $0 + $1.journeyArray }
+    var sortArray = journeyArray.reduce([]) { $0 + $1.journeyArray }
 
-            if excludeExpensiveFlights {
-               sortArray =  sortArray.filter() { $0.isAboveHumanScore == false }
-            }
+        if excludeExpensiveFlights {
+            sortArray =  sortArray.filter() { $0.isAboveHumanScore == false }
+        }
             
             switch  sort {
             case .Price:
@@ -68,7 +58,7 @@ struct OnewayJourneyResultsArray {
             case .Duration:
                 sortArray.sort(by: {$0.duration < $1.duration })
             case .Smart :
-                sortArray.sort(by: {$0.computedHumanScore! < $1.computedHumanScore! })
+                sortArray.sort(by: {$0.computedHumanScore ?? 0.0 < $1.computedHumanScore ?? 0.0 })
             case .Depart:
                     sortArray.sort(by: {$0.departTimeInterval < $1.departTimeInterval })
             case .Arrival:
@@ -97,47 +87,14 @@ struct DomesticMultilegJourneyResultsArray {
     }
     
     var allJourneys : [Journey] = []
-
     var suggestedJourneyArray: [Journey] = []
-    
     var selectedJourney : Journey?
-
     var selectesIndex:Int?
     var isJourneySelectedByUser = false
-
-       
     var sort : Sort
     var excludeExpensiveFlights = true
-
     var currentPinnedJourneys : [Journey] = []
-    
     var pinnedFlights : [Journey] = []
-
-//
-//    var pinnedFlights : [Journey] {
-//        return journeyArray.filter{ $0.isPinned  ?? false }
-//    }
-    
-    
-    
-    
-//    var suggestedJourneyArray: [Journey]! { get {
-//        return journeyArray.filter(){ $0.isAboveHumanScore == false }
-//        }
-//        set (newJourneyArray){
-//        }
-//    }
-//
-    
-//    var expensiveJourneyArray : [Journey]! {
-//        get {
-//            return journeyArray.filter(){ $0.isAboveHumanScore == true }
-//        }
-//        set(newJourneyArray) {
-//        }
-//    }
-    
-
     
     var aboveHumanScoreCount : Int {
         let count = journeyArray.filter() { $0.isAboveHumanScore == true }.count
@@ -163,7 +120,7 @@ struct DomesticMultilegJourneyResultsArray {
             case .Duration:
                 sortArray.sort(by: {$0.duration < $1.duration })
             case .Smart :
-                sortArray.sort(by: {$0.computedHumanScore! < $1.computedHumanScore! })
+                sortArray.sort(by: {$0.computedHumanScore ?? 0.0 < $1.computedHumanScore ?? 0.0 })
             case .Depart:
                     sortArray.sort(by: {$0.departTimeInterval < $1.departTimeInterval })
             case .Arrival:
@@ -189,9 +146,6 @@ struct DomesticMultilegJourneyResultsArray {
 }
 
 
-
-
-
 struct InternationalJourneyResultsArray {
     
     var journeyArray : [IntMultiCityAndReturnDisplay]!{
@@ -205,25 +159,10 @@ struct InternationalJourneyResultsArray {
 
     var sort : Sort
     var excludeExpensiveFlights = true
-    
     var suggestedJourneyArray: [IntMultiCityAndReturnDisplay] = []
-    
-    
-//    var expensiveJourneyArray : [IntMultiCityAndReturnDisplay]! {
-//        get {
-//            return journeyArray.filter(){ $0.isAboveHumanScore == true }
-//        }
-//        set(newJourneyArray) {
-//        }
-//    }
-    
     var allJourneys : [IntMultiCityAndReturnDisplay] = []
-    
     var currentPinnedJourneys : [IntMultiCityAndReturnWSResponse.Results.J] = []
-
     var pinnedFlights : [IntMultiCityAndReturnWSResponse.Results.J] = []
-
-    
     var aboveHumanScoreCount : Int {
         let count = journeyArray.filter() { $0.isAboveHumanScore == true }.reduce(0) { $0 + $1.journeyArray.count }
         return count
@@ -251,7 +190,6 @@ struct InternationalJourneyResultsArray {
             
         }
     
-    
     var sortedArray : [IntMultiCityAndReturnWSResponse.Results.J] {
         get {
             
@@ -267,7 +205,7 @@ struct InternationalJourneyResultsArray {
             case .Duration:
                 sortArray.sort(by: {$0.duration < $1.duration })
             case .Smart :
-                sortArray.sort(by: {$0.computedHumanScore! < $1.computedHumanScore! })
+                sortArray.sort(by: {$0.computedHumanScore ?? 0.0 < $1.computedHumanScore ?? 0.0 })
             case .Depart:
                     sortArray.sort(by: {$0.departTimeInterval < $1.departTimeInterval })
             case .Arrival:

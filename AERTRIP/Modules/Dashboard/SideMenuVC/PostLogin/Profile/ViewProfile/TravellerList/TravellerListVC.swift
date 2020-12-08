@@ -499,7 +499,7 @@ class TravellerListVC: BaseVC {
                 fetchedResultsController.fetchRequest.predicate = nil//charactersPredicate()
             }
         } else {
-            if UserInfo.loggedInUser?.generalPref?.categorizeByGroup ?? false {
+            if UserInfo.loggedInUser?.generalPref?.categorizeByGroup ?? false,  labelPredicate() != nil{
                 fetchedResultsController.fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [labelPredicate()!,getSearchPredicates()])
             } else {
                 fetchedResultsController.fetchRequest.predicate = getSearchPredicates()
@@ -512,7 +512,7 @@ class TravellerListVC: BaseVC {
             tableSectionArray.removeAll()
             for section in fetchedResultsController.sections ?? [] {
                 if section.numberOfObjects > 0 {
-                    tableDataArray.append(section.objects as! [TravellerData])
+                    tableDataArray.append(section.objects as? [TravellerData] ?? [])
                     tableSectionArray.append(section.name )
                     printDebug("indexTitle: \(section.name)")
                 }

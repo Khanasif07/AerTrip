@@ -518,9 +518,10 @@ extension HotlelBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
         guard let passData = try? Data(contentsOf: passFilePath) else {return}
         do {
             let newpass = try PKPass.init(data: passData)
-            let addController =  PKAddPassesViewController(pass: newpass)
-            addController?.delegate = self
-            self.present(addController!, animated: true)
+            if let addController =  PKAddPassesViewController(pass: newpass){
+                addController.delegate = self
+                self.present(addController, animated: true)
+            }
         } catch {
             printDebug(error)
         }

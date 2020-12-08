@@ -216,7 +216,8 @@ public class Journey: Codable , Equatable {
     }
     
     func endtimeWith(Size : CGFloat) -> NSAttributedString {
-        let attributes = [NSAttributedString.Key.font : UIFont(name: "SourceSansPro-SemiBold", size: (Size))!]
+        let attributes = [NSAttributedString.Key.font : AppFonts.SemiBold.withSize(Size)]
+        
         let endTime = NSMutableAttributedString(string: at, attributes: attributes)
         
         let dateFormatter = DateFormatter()
@@ -236,7 +237,7 @@ public class Journey: Codable , Equatable {
         let numberOfDays = components.day ?? 0
         
         if numberOfDays >= 1 {
-            let daysStringAttributes = [NSAttributedString.Key.font : UIFont(name: "SourceSansPro-SemiBold", size: 8.0)! , NSAttributedString.Key.baselineOffset :  NSNumber(6) ]
+            let daysStringAttributes = [NSAttributedString.Key.font : AppFonts.SemiBold.withSize(8.0) , NSAttributedString.Key.baselineOffset :  NSNumber(6) ]
             let daysSuperscript = "+" + String(numberOfDays)
             let daysSuperScript = NSAttributedString(string: daysSuperscript, attributes: daysStringAttributes)
             endTime.append(daysSuperScript)
@@ -391,7 +392,7 @@ public class Journey: Codable , Equatable {
         // When Baggage data is not available from all flights , return baggage unknown status
         if flights.count > baggageArray.count {
 
-            let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 9.0)! ,
+            let attributes =   [NSAttributedString.Key.font : AppFonts.Regular.withSize(9) ,
                                 NSAttributedString.Key.foregroundColor : UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)]
             let attributedSuperScript = NSAttributedString(string: "?", attributes: attributes)
             return attributedSuperScript
@@ -400,7 +401,7 @@ public class Journey: Codable , Equatable {
 
         guard let firstValue = baggageArray.first else {
 
-            let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 9.0)! ,
+            let attributes =   [NSAttributedString.Key.font : AppFonts.Regular.withSize(9) ,
                                 NSAttributedString.Key.foregroundColor : UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)]
             let attributedSuperScript = NSAttributedString(string: "?", attributes: attributes)
             return attributedSuperScript
@@ -409,7 +410,7 @@ public class Journey: Codable , Equatable {
         
         if baggageArray.allSatisfy({ $0 == firstValue }) {
             
-            let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 9.0)! ,
+            let attributes =   [NSAttributedString.Key.font :AppFonts.Regular.withSize(9) ,
                                 NSAttributedString.Key.foregroundColor : UIColor.black]
             
             if let ADTBaggage = firstValue["ADT"] {
@@ -420,7 +421,8 @@ public class Journey: Codable , Equatable {
             
                             if pieces.containsIgnoringCase(find: " ") {
                                 let numbers = pieces.components(separatedBy: " ")
-                                attributedSuperScript = NSAttributedString(string:numbers.first! + "Pc" , attributes: attributes)
+                    
+                                attributedSuperScript = NSAttributedString(string:numbers.first ?? "" + "Pc" , attributes: attributes)
                                 return attributedSuperScript
                             } else {
                                 attributedSuperScript = NSAttributedString(string: pieces + "Pc" , attributes: attributes)
@@ -432,7 +434,7 @@ public class Journey: Codable , Equatable {
                     
                     if weight.containsIgnoringCase(find: " ") {
                         let numbers = weight.components(separatedBy: " ")
-                        attributedSuperScript = NSAttributedString(string:numbers.first!, attributes: attributes)
+                        attributedSuperScript = NSAttributedString(string:numbers.first ?? "", attributes: attributes)
                         return attributedSuperScript
                     }
                     
@@ -441,41 +443,32 @@ public class Journey: Codable , Equatable {
             }
         } else {
 
-//            print("baggageArray=",baggageArray)
-//            let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 16.0)! ,
-//                               NSAttributedString.Key.foregroundColor : UIColor.black]
-//
-//            let attributedSuperScript = NSAttributedString(string: "*", attributes: attributes)
-//            return attributedSuperScript
-            
-            
-            
             if let ADTBaggage = firstValue["ADT"] {
                 
                 
                 if let pieces = ADTBaggage.pieces, pieces != "" && pieces != "-9" && pieces != "-1" && pieces != "0 pc" && pieces != "0" {
-                    let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 16.0)! ,
+                    let attributes =   [NSAttributedString.Key.font : AppFonts.Regular.withSize(16) ,
                                        NSAttributedString.Key.foregroundColor : UIColor.black]
 
                     let attributedSuperScript = NSAttributedString(string: "*", attributes: attributes)
                     return attributedSuperScript
 
                 }else{
-                    let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 9.0)! ,
+                    let attributes =   [NSAttributedString.Key.font : AppFonts.Regular.withSize(9) ,
                                          NSAttributedString.Key.foregroundColor : UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)]
                      let attributedSuperScript = NSAttributedString(string: "?", attributes: attributes)
                      return attributedSuperScript
                 }
             }else{
-                let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 9.0)! ,
+                let attributes =   [NSAttributedString.Key.font :AppFonts.Regular.withSize(9) ,
                                      NSAttributedString.Key.foregroundColor : UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)]
                  let attributedSuperScript = NSAttributedString(string: "?", attributes: attributes)
                  return attributedSuperScript
-
+                
             }
          }
 
-        let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 9.0)! ,
+        let attributes =   [NSAttributedString.Key.font :AppFonts.Regular.withSize(9) ,
                              NSAttributedString.Key.foregroundColor : UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)]
          let attributedSuperScript = NSAttributedString(string: "?", attributes: attributes)
          return attributedSuperScript
@@ -536,7 +529,7 @@ class JourneyOnewayDisplay {
     
     var isCheapest : Bool {
         let sorted =  journeyArray.sorted(by: { $0.farepr < $1.farepr })
-        return sorted.first!.isCheapest ??  false
+        return sorted.first?.isCheapest ??  false
     }
     
     var isFastest : Bool {
@@ -569,9 +562,8 @@ class JourneyOnewayDisplay {
     }
     
     var fare : Int {
-        
         let sorted =  journeyArray.sorted(by: { $0.farepr < $1.farepr })
-        return sorted.first!.farepr
+        return sorted.first?.farepr ?? 0
     }
     
     
@@ -615,7 +607,7 @@ class JourneyOnewayDisplay {
     }
     
     func getJourneyWithLeastHumanScore () ->  Journey? {
-            let sorted =  journeyArray.sorted(by: { $0.computedHumanScore! < $1.computedHumanScore! })
+        let sorted =  journeyArray.sorted(by: { $0.computedHumanScore ?? 0.0 < $1.computedHumanScore ?? 0.0 })
             return sorted.first
     }
     

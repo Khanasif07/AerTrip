@@ -43,6 +43,7 @@ class AccountLadgerDetailsVM {
     //MARK:- Methods
     //MARK:- Private
     private func parseDataForDefault() {
+        guard self.ladgerEvent != nil else {return}
         if self.ladgerEvent!.dueDate != nil{
             let days = self.ladgerEvent!.overDueDays
             let daysStr = (days > 1) ? "days" : "day"
@@ -103,6 +104,7 @@ class AccountLadgerDetailsVM {
     
     private func parseDataForFlightSales() {
         //flight amount details
+        guard self.ladgerEvent != nil else {return}
         if self.ladgerEvent!.dueDate != nil{
             let days = self.ladgerEvent!.overDueDays
             let daysStr = (days > 1) ? "days" : "day"
@@ -218,7 +220,7 @@ class AccountLadgerDetailsVM {
     
     private func parseDataForHotelSales() {
         //self.ladgerDetails.removeAll()
-        
+        guard self.ladgerEvent != nil else {return}
         //amount details
         if self.ladgerEvent!.dueDate == nil{
             var section1 = [(title: String, value: String, age: String, isEmptyCell: Bool)]()

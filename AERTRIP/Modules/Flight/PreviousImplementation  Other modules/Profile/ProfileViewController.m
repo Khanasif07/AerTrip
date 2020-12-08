@@ -13,6 +13,7 @@
 //#import "AddTravellerViewController.h"
 
 
+
 @interface ProfileViewController ()
 @property (strong, nonatomic) UserDetails *userDetails;
 
@@ -78,7 +79,6 @@
     [self saveObjectToPreferences:self.userDetails.user forKey:USER_OBJECT];
     [self loadData];
     [self removeActivityIndicator];
-    
 }
 
 
@@ -94,6 +94,7 @@
 - (IBAction)goBack:(UIButton *)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 - (IBAction)editAction:(id)sender {
     // FILE NOT FOUND : WHILE CODE MERGE
 //    AddTravellerViewController *controller = (AddTravellerViewController *)[self getControllerForModule:ADD_TRAVELLER_CONTROLLER];

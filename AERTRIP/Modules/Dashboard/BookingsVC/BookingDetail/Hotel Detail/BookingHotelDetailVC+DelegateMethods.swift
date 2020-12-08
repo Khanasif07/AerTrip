@@ -164,7 +164,8 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
             if (self.viewModel.bookingDetail?.bookingDetail?.hotelId ?? "") == TAViewModel.shared.hotelId, let data = TAViewModel.shared.hotelTripAdvisorDetails{
                 let urlString = "https:\(data.seeAllPhotos)"
                 let screenTitle = LocalizedString.Photos.localized
-                AppFlowManager.default.showURLOnATWebView(URL(string: urlString)!, screenTitle: screenTitle)
+                guard let url = URL(string: urlString) else {return}
+                AppFlowManager.default.showURLOnATWebView(url, screenTitle: screenTitle)
             }
             
         }
