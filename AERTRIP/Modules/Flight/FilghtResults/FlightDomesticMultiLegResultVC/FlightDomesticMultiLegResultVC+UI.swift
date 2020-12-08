@@ -230,7 +230,7 @@ extension FlightDomesticMultiLegResultVC {
             }
         }
         
-        if isFSRVisible == true && remainingSeats != "" && Int(remainingSeats)! != 0{
+        if isFSRVisible == true && remainingSeats != "" && (Int(remainingSeats) ?? 0) != 0{
             fareBreakupVC.fewSeatsLeftViewHeightFromFlightDetails = 40
             self.viewModel.isFewSeatsLeft = true
         }else{
@@ -289,7 +289,7 @@ extension FlightDomesticMultiLegResultVC {
                 fareBreakupViewController.infoButtonTapped()
             }
             
-            if isFSRVisible == true && remainingSeats != "" && Int(remainingSeats)! != 0{
+            if isFSRVisible == true && remainingSeats != "" && (Int(remainingSeats) ?? 0) != 0{
                 fareBreakupViewController.fewSeatsLeftViewHeightFromFlightDetails = 40
                 self.viewModel.isFewSeatsLeft = true
 
@@ -452,7 +452,7 @@ extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetails
     }
     
     func infoButtonTapped(isViewExpanded: Bool) {
-        
+        guard fareBreakupVC != nil else {return}
         if isViewExpanded == true{
             testView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
             self.navigationController?.view.addSubview(fareBreakupVC!.view)
@@ -474,8 +474,8 @@ extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetails
     
     func bookButtonTapped(journeyCombo: [CombinationJourney]?) {
             let storyboard = UIStoryboard(name: "FlightDetailsBaseVC", bundle: nil)
-            let flightDetailsVC:FlightDetailsBaseVC =
-                storyboard.instantiateViewController(withIdentifier: "FlightDetailsBaseVC") as! FlightDetailsBaseVC
+            guard let flightDetailsVC:FlightDetailsBaseVC =
+                    storyboard.instantiateViewController(withIdentifier: "FlightDetailsBaseVC") as? FlightDetailsBaseVC else {return}
     
         flightDetailsVC.isConditionReverced = viewModel.isConditionReverced
             flightDetailsVC.delegate = self

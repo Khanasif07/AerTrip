@@ -1482,7 +1482,10 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                 intMCAndReturnVC.updateTaxesArray(resultVM.getTaxesDetailsArray())
                 intMCAndReturnVC.addPlaceholderTableHeaderView()
                 }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: filterUpdateWorkItem!)
+                if filterUpdateWorkItem != nil{
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: filterUpdateWorkItem!)
+                }
+                
             }
             
         case  MULTI_CITY:

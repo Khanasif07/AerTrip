@@ -86,7 +86,8 @@ extension HotelCheckoutDetailVC: UITableViewDelegate, UITableViewDataSource {
                 if (self.viewModel?.hid ?? "") == TAViewModel.shared.hotelId, let data = TAViewModel.shared.hotelTripAdvisorDetails{
                     let urlString = "https:\(data.seeAllPhotos)"
                     let screenTitle = LocalizedString.Photos.localized
-                    AppFlowManager.default.showURLOnATWebView(URL(string: urlString)!, screenTitle: screenTitle)
+                    guard let url = URL(string: urlString) else {return}
+                    AppFlowManager.default.showURLOnATWebView(url, screenTitle: screenTitle)
                 }
             case .addressCell:
                 guard let reqParams = self.requestParameters, let destParams = self.viewModel else { return }

@@ -520,7 +520,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     @objc func longPress(_ gesture: UILongPressGestureRecognizer) {
         if gesture.state == .began {
             printDebug("Long press tapped")
-            AppFlowManager.default.presentAerinTextSpeechVC()
+//            AppFlowManager.default.presentAerinTextSpeechVC()
         }
     }
     

@@ -439,7 +439,9 @@ class FinalCheckOutVC: BaseVC {
         if showImage {
             self.payButton.setImage( #imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .normal)
             self.payButton.setImage( #imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .highlighted)
-            self.payButton.bringSubviewToFront(self.payButton.imageView!)
+            if self.payButton.imageView != nil{
+                self.payButton.bringSubviewToFront(self.payButton.imageView!)
+            }
             self.payButton.spaceInTextAndImageOfButton(spacing: 2)
         } else {
             self.payButton.setImage(nil, for: .normal)
@@ -529,7 +531,7 @@ class FinalCheckOutVC: BaseVC {
         let adultCount = self.viewModel.hotelFormData.adultsCount.count
         var text = ""
         text += adultCount > 1 ? "\(adultCount) Rooms" : "\(adultCount) Room"
-        let totalNights = (self.viewModel.hotelFormData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd")!).daysFrom(self.viewModel.hotelFormData.checkInDate.toDate(dateFormat: "yyyy-MM-dd")!)
+        let totalNights = (self.viewModel.hotelFormData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd") ?? Date()).daysFrom(self.viewModel.hotelFormData.checkInDate.toDate(dateFormat: "yyyy-MM-dd") ?? Date())
         text += (totalNights == 1) ? " & \(totalNights) Night" : " & \(totalNights) Nights"
         
         return text

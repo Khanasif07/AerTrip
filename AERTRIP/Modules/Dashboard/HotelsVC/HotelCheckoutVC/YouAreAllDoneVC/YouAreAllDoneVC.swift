@@ -551,9 +551,7 @@ extension YouAreAllDoneVC: HCWhatNextTableViewCellDelegate {
         let shareString = "https://twitter.com/intent/tweet?text=\(tweetText)&url=\(tweetUrl)"
         
         // encode a space to %20 for example
-        let escapedShareString = shareString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
-        
-        if let url = URL(string: escapedShareString) {
+        if let escapedShareString = shareString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed), let url = URL(string: escapedShareString) {
             if UIApplication.shared.canOpenURL(url ) {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             } else {

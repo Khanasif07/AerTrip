@@ -118,7 +118,9 @@ extension IntMCAndReturnDetailsVC {
                         selectedIndex = indexPath
                         tableView.selectRow(at: selectedIndex , animated: true, scrollPosition: .none)
                     }
-                    self.updateSeleted(indexPath: selectedIndex!, table: tableView)
+                    if selectedIndex != nil{
+                        self.updateSeleted(indexPath: selectedIndex!, table: tableView)
+                    }
                     tableView.isScrollEnabled = true
                 }
             }

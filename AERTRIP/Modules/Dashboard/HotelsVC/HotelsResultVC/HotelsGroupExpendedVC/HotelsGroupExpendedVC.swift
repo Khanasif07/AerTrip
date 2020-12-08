@@ -218,7 +218,7 @@ extension HotelsGroupExpendedVC: UICollectionViewDataSource, UICollectionViewDel
         vc.backImage = img
         cell.freezeAnimations()
         let currentCellFrame = cell.layer.presentation()!.frame
-        let cardFrame = cell.superview!.convert(currentCellFrame, to: nil)
+        let cardFrame = cell.superview?.convert(currentCellFrame, to: nil) ?? CGRect.zero
         vc.modalPresentationStyle = .custom
         let frameWithoutTransform = { () -> CGRect in
             let center = cell.center
@@ -229,7 +229,7 @@ extension HotelsGroupExpendedVC: UICollectionViewDataSource, UICollectionViewDel
                 width: size.width,
                 height: size.height
             )
-            return cell.superview!.convert(r, to: nil)
+            return cell.superview?.convert(r, to: nil) ?? CGRect.zero
         }()
         
         let params = CardTransition.Params(fromCardFrame: cardFrame, fromCardFrameWithoutTransform: frameWithoutTransform, fromCell: cell, img: img)

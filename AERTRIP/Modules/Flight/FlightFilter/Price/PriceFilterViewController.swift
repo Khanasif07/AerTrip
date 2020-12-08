@@ -51,7 +51,7 @@ class PriceFilterViewController: UIViewController , FilterViewController {
     //MARK:- State Properties
     weak var delegate : PriceFilterDelegate?
     var currentActiveIndex : Int = 0
-    var allPriceFilters : [PriceFilter]!
+    var allPriceFilters = [PriceFilter]()
     var currentPriceFilter : PriceFilter!
     var legsArray = [Leg]()
     var flightResultArray : [FlightsResults]!
@@ -306,14 +306,12 @@ class PriceFilterViewController: UIViewController , FilterViewController {
     
     func resetFilter() {
         guard priceRangeSlider != nil else { return }
-        if let newPriceFilters = allPriceFilters {
-            let priceFilters = newPriceFilters.map { (priceFilter) -> PriceFilter in
-                var newPriceFilter = priceFilter
-                newPriceFilter.resetFilter()
-                return newPriceFilter
-            }
-            allPriceFilters = priceFilters
+        let priceFilters = allPriceFilters.map { (priceFilter) -> PriceFilter in
+            var newPriceFilter = priceFilter
+            newPriceFilter.resetFilter()
+            return newPriceFilter
         }
+        allPriceFilters = priceFilters
         setupUI()
     }
  

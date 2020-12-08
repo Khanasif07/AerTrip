@@ -289,7 +289,8 @@ extension HotelDetailsReviewsVC: UITableViewDelegate , UITableViewDataSource {
             default:
                 return
             }
-            AppFlowManager.default.showURLOnATWebView(URL(string: urlString)!, screenTitle: screenTitle, presentingStatusBarStyle: statusBarStyle, dismissalStatusBarStyle: statusBarStyle)
+            guard let url = URL(string: urlString) else {return}
+            AppFlowManager.default.showURLOnATWebView(url, screenTitle: screenTitle, presentingStatusBarStyle: statusBarStyle, dismissalStatusBarStyle: statusBarStyle)
             //UIApplication.openSafariViewController(forUrlPath: urlString, delegate: nil, completion: nil)
         }
     }
@@ -386,7 +387,8 @@ extension HotelDetailsReviewsVC {
     @objc func tapCellReviewBtn(_ sender: UIButton){
         let urlString = "https:\(self.viewModel.hotelTripAdvisorDetails?.webUrl ?? "")"
         let screenTitle = LocalizedString.ReadReviews.localized
-        AppFlowManager.default.showURLOnATWebView(URL(string: urlString)!, screenTitle: screenTitle, presentingStatusBarStyle: statusBarStyle, dismissalStatusBarStyle: statusBarStyle)
+        guard let url = URL(string: urlString) else {return}
+        AppFlowManager.default.showURLOnATWebView(url, screenTitle: screenTitle, presentingStatusBarStyle: statusBarStyle, dismissalStatusBarStyle: statusBarStyle)
     }
     
 }

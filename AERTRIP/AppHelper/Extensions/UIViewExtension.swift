@@ -324,16 +324,16 @@ extension UIView {
     }
 
     
-    func showBlurLoader(frame: CGRect) {
-        let blurLoader = BlurLoader(frame: frame)
-        self.addSubview(blurLoader)
-    }
-    
-    func removeBluerLoader() {
-        if let blurLoader = subviews.first(where: { $0 is BlurLoader }) {
-            blurLoader.removeFromSuperview()
-        }
-    }
+//    func showBlurLoader(frame: CGRect) {
+//        let blurLoader = BlurLoader(frame: frame)
+//        self.addSubview(blurLoader)
+//    }
+//    
+//    func removeBluerLoader() {
+//        if let blurLoader = subviews.first(where: { $0 is BlurLoader }) {
+//            blurLoader.removeFromSuperview()
+//        }
+//    }
     
     func collectionViewIndexPath(_ collectionView: UICollectionView) -> IndexPath? {
         if let cell = self.collectionViewCell {

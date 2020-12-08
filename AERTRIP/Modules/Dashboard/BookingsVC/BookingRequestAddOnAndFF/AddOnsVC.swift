@@ -66,7 +66,7 @@ class AddOnsVC: BaseVC {
             cell.configureCell(profileImage: user?.profileImage ?? "", salutationImage: AppGlobals.shared.getEmojiIcon(dob: dob, salutation: (user?.salutation ?? ""), dateFormatter: Date.DateFormat.yyyy_MM_dd.rawValue), passengerName: user?.paxName ?? "", age: age)
                 cell.isUserInteractionEnabled = !(pax?.inProcess ?? false)
                 cell.passengerNameLabel.isEnabled = !(pax?.inProcess ?? false)
-                
+                cell.dividerView.isHidden = (pax?.inProcess ?? false)
                 cell.requestInProcessLbl.isHidden = !(user?.inProcess ?? false)
                 
             return cell
