@@ -53,8 +53,6 @@
 		0C17B2A424F7C208004B721C /* FlightDomesticMultiLegResultVC+TableviewDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C17B2A324F7C208004B721C /* FlightDomesticMultiLegResultVC+TableviewDelegates.swift */; };
 		0C17B2A624F7E0B6004B721C /* FlightDomesticMultiLegResultVC+CollectionViewDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C17B2A524F7E0B6004B721C /* FlightDomesticMultiLegResultVC+CollectionViewDelegates.swift */; };
 		0C17B2A824F7EEFA004B721C /* FlightDomesticMultiLegResultVC+Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C17B2A724F7EEFA004B721C /* FlightDomesticMultiLegResultVC+Options.swift */; };
-		0C1AA59424AF0DDB0082FE7D /* ZFTokenField.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C1AA59224AF0DDB0082FE7D /* ZFTokenField.m */; };
-		0C1AA59624AF0FCD0082FE7D /* TokenView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C1AA59524AF0FCD0082FE7D /* TokenView.xib */; };
 		0C1B945C248789F600CA6B49 /* AddonsDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1B945B248789F600CA6B49 /* AddonsDataStore.swift */; };
 		0C22F44C2440559C00FD357F /* ThingsCanBeAskedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C22F44B2440559C00FD357F /* ThingsCanBeAskedVC.swift */; };
 		0C24D4D7242C747000CBFF92 /* CountryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C24D4D5242C747000CBFF92 /* CountryCell.swift */; };
@@ -1717,9 +1715,6 @@
 		0C17B2A524F7E0B6004B721C /* FlightDomesticMultiLegResultVC+CollectionViewDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlightDomesticMultiLegResultVC+CollectionViewDelegates.swift"; sourceTree = "<group>"; };
 		0C17B2A724F7EEFA004B721C /* FlightDomesticMultiLegResultVC+Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlightDomesticMultiLegResultVC+Options.swift"; sourceTree = "<group>"; };
 		0C181FBE22FABDAD0088E64A /* Bolts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Bolts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		0C1AA59224AF0DDB0082FE7D /* ZFTokenField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFTokenField.m; sourceTree = "<group>"; };
-		0C1AA59324AF0DDB0082FE7D /* ZFTokenField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFTokenField.h; sourceTree = "<group>"; };
-		0C1AA59524AF0FCD0082FE7D /* TokenView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TokenView.xib; sourceTree = "<group>"; };
 		0C1B945B248789F600CA6B49 /* AddonsDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddonsDataStore.swift; sourceTree = "<group>"; };
 		0C22F44B2440559C00FD357F /* ThingsCanBeAskedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThingsCanBeAskedVC.swift; sourceTree = "<group>"; };
 		0C24D4D5242C747000CBFF92 /* CountryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCell.swift; sourceTree = "<group>"; };
@@ -3596,24 +3591,6 @@
 				841F398D253F1F5F007C99B6 /* ChatVC+AerinCommunication.swift */,
 			);
 			path = Chat;
-			sourceTree = "<group>";
-		};
-		0C1AA59024AF0DDB0082FE7D /* ZFTokenField */ = {
-			isa = PBXGroup;
-			children = (
-				0C1AA59124AF0DDB0082FE7D /* Classes */,
-			);
-			path = ZFTokenField;
-			sourceTree = "<group>";
-		};
-		0C1AA59124AF0DDB0082FE7D /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				0C1AA59524AF0FCD0082FE7D /* TokenView.xib */,
-				0C1AA59224AF0DDB0082FE7D /* ZFTokenField.m */,
-				0C1AA59324AF0DDB0082FE7D /* ZFTokenField.h */,
-			);
-			path = Classes;
 			sourceTree = "<group>";
 		};
 		0C24D4D9242C74F600CBFF92 /* Settings */ = {
@@ -9072,7 +9049,6 @@
 			isa = PBXGroup;
 			children = (
 				841F3980253EE75B007C99B6 /* HeartLoadingView */,
-				0C1AA59024AF0DDB0082FE7D /* ZFTokenField */,
 				0CBADF0D2473C18800086EA7 /* FlightThirdParties */,
 				8463A5112456C7B200C70D8C /* GooleMapCluster */,
 				0CBDEA452429CDE9009D7849 /* ChatDots */,
@@ -9416,7 +9392,6 @@
 				84F983F421B51A070018DFED /* PreLogin.storyboard in Resources */,
 				182EB22322859BA8001BFB20 /* FlightInfoTableViewCell.xib in Resources */,
 				0C6E393824FE7B3C00D7383F /* FlightFilterBaseVC.xib in Resources */,
-				0C1AA59624AF0FCD0082FE7D /* TokenView.xib in Resources */,
 				84FFDFA421F9DBD8005CA257 /* Settings.storyboard in Resources */,
 				84A03EE3247FA2F900CD3743 /* PriceSliderCell.xib in Resources */,
 				180162EF2295707F007E5D43 /* BookingAddOnHeaderView.xib in Resources */,
@@ -10685,7 +10660,6 @@
 				849D6D222547EAB600647AC2 /* AerinCustomPopoverVC+SpeechRecognizer.swift in Sources */,
 				18999D9A21E4A8B600E66072 /* GroupTableViewCell.swift in Sources */,
 				183B71A22289588400A75B7F /* EconomySaverTableViewCell.swift in Sources */,
-				0C1AA59424AF0DDB0082FE7D /* ZFTokenField.m in Sources */,
 				18020B0D2282E1F200DE5FE0 /* AerinChatTableViewCell.swift in Sources */,
 				8472F104247CDF0B00A1CCD3 /* SeatMapModel.swift in Sources */,
 				844729022486A6CC00AFAF1B /* HCHotelPassengerView.swift in Sources */,
@@ -11258,7 +11232,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 214;
+				CURRENT_PROJECT_VERSION = 215;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;
@@ -11462,7 +11436,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 214;
+				CURRENT_PROJECT_VERSION = 215;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;
