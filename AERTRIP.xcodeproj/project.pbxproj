@@ -1573,10 +1573,6 @@
 		84E4BC7B22A1414100B72306 /* WeatherHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E4BC7922A1414100B72306 /* WeatherHeaderTableViewCell.swift */; };
 		84E4BC7C22A1414100B72306 /* WeatherHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84E4BC7A22A1414100B72306 /* WeatherHeaderTableViewCell.xib */; };
 		84E4BC7F22A1441000B72306 /* WeatherInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E4BC7E22A1441000B72306 /* WeatherInfoTableViewCell.swift */; };
-		84E4CC6421E3679B0015C306 /* PKViewPagerOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E4CC6021E3679B0015C306 /* PKViewPagerOptions.swift */; };
-		84E4CC6521E3679B0015C306 /* PKViewPagerTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E4CC6121E3679B0015C306 /* PKViewPagerTabView.swift */; };
-		84E4CC6621E3679B0015C306 /* PKViewPagerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E4CC6221E3679B0015C306 /* PKViewPagerController.swift */; };
-		84E4CC6721E3679B0015C306 /* PKViewPagerTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E4CC6321E3679B0015C306 /* PKViewPagerTab.swift */; };
 		84E4CC7521E389E20015C306 /* HotelsRemoveAllCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E4CC7321E389E20015C306 /* HotelsRemoveAllCollectionViewCell.swift */; };
 		84E4CC7621E389E20015C306 /* HotelsRemoveAllCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84E4CC7421E389E20015C306 /* HotelsRemoveAllCollectionViewCell.xib */; };
 		84E9FEFC22A008DB0059F911 /* AccountLedgerEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E9FEFA22A008DB0059F911 /* AccountLedgerEventCell.swift */; };
@@ -3378,10 +3374,6 @@
 		84E4BC7922A1414100B72306 /* WeatherHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		84E4BC7A22A1414100B72306 /* WeatherHeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeatherHeaderTableViewCell.xib; sourceTree = "<group>"; };
 		84E4BC7E22A1441000B72306 /* WeatherInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherInfoTableViewCell.swift; sourceTree = "<group>"; };
-		84E4CC6021E3679B0015C306 /* PKViewPagerOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKViewPagerOptions.swift; sourceTree = "<group>"; };
-		84E4CC6121E3679B0015C306 /* PKViewPagerTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKViewPagerTabView.swift; sourceTree = "<group>"; };
-		84E4CC6221E3679B0015C306 /* PKViewPagerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKViewPagerController.swift; sourceTree = "<group>"; };
-		84E4CC6321E3679B0015C306 /* PKViewPagerTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKViewPagerTab.swift; sourceTree = "<group>"; };
 		84E4CC7321E389E20015C306 /* HotelsRemoveAllCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelsRemoveAllCollectionViewCell.swift; sourceTree = "<group>"; };
 		84E4CC7421E389E20015C306 /* HotelsRemoveAllCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HotelsRemoveAllCollectionViewCell.xib; sourceTree = "<group>"; };
 		84E9FEFA22A008DB0059F911 /* AccountLedgerEventCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountLedgerEventCell.swift; sourceTree = "<group>"; };
@@ -8841,17 +8833,6 @@
 			path = WeatherHeaderTableViewCell;
 			sourceTree = "<group>";
 		};
-		84E4CC5F21E3679B0015C306 /* PKViewPager */ = {
-			isa = PBXGroup;
-			children = (
-				84E4CC6021E3679B0015C306 /* PKViewPagerOptions.swift */,
-				84E4CC6121E3679B0015C306 /* PKViewPagerTabView.swift */,
-				84E4CC6221E3679B0015C306 /* PKViewPagerController.swift */,
-				84E4CC6321E3679B0015C306 /* PKViewPagerTab.swift */,
-			);
-			path = PKViewPager;
-			sourceTree = "<group>";
-		};
 		84E9FEF922A008DB0059F911 /* AccountLedgerEventCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -9027,7 +9008,6 @@
 				1896D58E22095371003FC2B6 /* Multi Slider */,
 				1819D3D321FF4900006A367E /* Custom Shimmer Files */,
 				84698FCE21FB1E9B00A4A1F7 /* PKFloatLabelFields */,
-				84E4CC5F21E3679B0015C306 /* PKViewPager */,
 				8429C91C21BFEED9009C208E /* PKPulseAnimation */,
 				84D2FB7821BE351E00011000 /* PKCountryPicker */,
 				84D2FB8721BE353E00011000 /* PKSideMenuController */,
@@ -10084,7 +10064,6 @@
 				843FF4D924740231001F21B1 /* MealPreferenceCell.swift in Sources */,
 				1807A37B2297CBD100B78D47 /* BookingModel.swift in Sources */,
 				84DD0D1D220C0583004A6F91 /* BulkEnquirySuccessfulVC.swift in Sources */,
-				84E4CC6621E3679B0015C306 /* PKViewPagerController.swift in Sources */,
 				18020ADA2280546F00DE5FE0 /* SingleFlightResultTableViewCell.swift in Sources */,
 				843FF48624740230001F21B1 /* RecentSearchDisplayModel.m in Sources */,
 				84791ED5228195FF00472E54 /* AccountLadgerDetailsVC.swift in Sources */,
@@ -10146,7 +10125,6 @@
 				843FF4D624740231001F21B1 /* GSTINListCell.swift in Sources */,
 				84AFF97122A78B8800E91F14 /* HotelCancellationVC.swift in Sources */,
 				0C24D4E0242C74F600CBFF92 /* SettingsVM.swift in Sources */,
-				84E4CC6721E3679B0015C306 /* PKViewPagerTab.swift in Sources */,
 				843FF66B247409E3001F21B1 /* DropDownData.m in Sources */,
 				0C6E393E24FE7B4C00D7383F /* IntMCAndReturnFiltersBaseVC.swift in Sources */,
 				843FF48724740230001F21B1 /* FlightFormDataModel.m in Sources */,
@@ -10846,7 +10824,6 @@
 				843FF669247409E3001F21B1 /* TypeValueData.m in Sources */,
 				84F983D921B51A070018DFED /* Extensions.swift in Sources */,
 				843FF55424740232001F21B1 /* FlightResultDisplayGroup.swift in Sources */,
-				84E4CC6421E3679B0015C306 /* PKViewPagerOptions.swift in Sources */,
 				843FF68F247409E4001F21B1 /* SimpleLabelTableViewCell.m in Sources */,
 				18020B092282A74500DE5FE0 /* InternationalOneWayCardTableViewCell.swift in Sources */,
 				0C6E394124FE7CA700D7383F /* MenuItemFilterCollCell.swift in Sources */,
@@ -10954,7 +10931,6 @@
 				843FF693247409E4001F21B1 /* TwoImageViewAndLabelTableViewCell.m in Sources */,
 				0C162AC8242337E9001C2B10 /* MessageModel.swift in Sources */,
 				843FF4AA24740231001F21B1 /* FlightFilterViewController.m in Sources */,
-				84E4CC6521E3679B0015C306 /* PKViewPagerTabView.swift in Sources */,
 				183B71982289480800A75B7F /* FareBookingRulesVC.swift in Sources */,
 				843FF4CD24740231001F21B1 /* CommunicationTextCell.swift in Sources */,
 				843FF4D124740231001F21B1 /* PassengerDetailsCell.swift in Sources */,
