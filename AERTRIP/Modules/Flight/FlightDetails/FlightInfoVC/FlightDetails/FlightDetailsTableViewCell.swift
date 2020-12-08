@@ -295,7 +295,7 @@ extension FlightDetailsTableViewCell:UICollectionViewDelegate, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
-        let amenitiesCell = collectionView.dequeueReusableCell(withReuseIdentifier: "FlightAmenitiesCell", for: indexPath) as! FlightAmenitiesCollectionViewCell
+        guard let amenitiesCell = collectionView.dequeueReusableCell(withReuseIdentifier: "FlightAmenitiesCell", for: indexPath) as? FlightAmenitiesCollectionViewCell else{return UICollectionViewCell()}
         
         amenitiesCell.amenitiTitleLabel.textColor = AppColors.themeGray60
         amenitiesCell.amenitiTitleLabel.text = amenitiesData[indexPath.row]

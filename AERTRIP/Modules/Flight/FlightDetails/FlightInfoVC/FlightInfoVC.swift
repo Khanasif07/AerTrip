@@ -232,7 +232,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         if indexPath.section == journey.count{
-            let changeAirportCell = tableView.dequeueReusableCell(withIdentifier: "ChangeAirportCell") as! ChangeAirportTableViewCell
+            guard let changeAirportCell = tableView.dequeueReusableCell(withIdentifier: "ChangeAirportCell") as? ChangeAirportTableViewCell else { return UITableViewCell()}
             changeAirportCell.titleLabel.text = "Change of Airport"
             
             let myMutableString = NSMutableAttributedString(string: "While changing airports, re-checking baggage and going back through security may be necessary. Ensure you have ample time between transfers. Kindly check all terms regarding connection, baggage transfer, visas, etc. with the airlines directly before booking this itinerary.")
@@ -241,10 +241,10 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
             
             return changeAirportCell
         }else{
-            let count = journey[indexPath.section].leg.first?.flights.count
-            if count! > 0{
+            let count = journey[indexPath.section].leg.first?.flights.count ?? 0
+            if count > 0{
                 if indexPath.row % 2 == 0{
-                    let flightDetailsCell = tableView.dequeueReusableCell(withIdentifier: "FlightDetailsCell") as! FlightDetailsTableViewCell
+                    guard let flightDetailsCell = tableView.dequeueReusableCell(withIdentifier: "FlightDetailsCell") as? FlightDetailsTableViewCell else { return UITableViewCell()}
                     
                     var index = 0
                     if indexPath.row > 0{
@@ -583,7 +583,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                     }
                     return flightDetailsCell
                 }else{
-                    let layoverCell = tableView.dequeueReusableCell(withIdentifier: "LayoverViewCell") as! LayoverViewTableViewCell
+                    guard let layoverCell = tableView.dequeueReusableCell(withIdentifier: "LayoverViewCell") as? LayoverViewTableViewCell else{return UITableViewCell()}
                     
                     var index = 0
                     if indexPath.row > 0{

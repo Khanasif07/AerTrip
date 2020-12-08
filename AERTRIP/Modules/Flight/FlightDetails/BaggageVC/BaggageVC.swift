@@ -87,7 +87,7 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         if indexPath.section == journey.count{
-            let changeAirportCell = tableView.dequeueReusableCell(withIdentifier: "ChangeAirportCell") as! ChangeAirportTableViewCell
+            guard let changeAirportCell = tableView.dequeueReusableCell(withIdentifier: "ChangeAirportCell") as? ChangeAirportTableViewCell else {return UITableViewCell()}
             changeAirportCell.titleLabel.text = ""
             changeAirportCell.titleLabelHeight.constant = 0
             changeAirportCell.dataLabelTop.constant = 0
@@ -125,7 +125,7 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
             
             return changeAirportCell
         }else{
-            let baggageCell = tableView.dequeueReusableCell(withIdentifier: "BaggageDetailsPerFlightCell") as! BaggageDetailsPerFlightTableViewCell
+            guard let baggageCell = tableView.dequeueReusableCell(withIdentifier: "BaggageDetailsPerFlightCell") as? BaggageDetailsPerFlightTableViewCell else {return UITableViewCell()}
             
             if evaluatedBaggageResp.count > 0{
                 baggageCell.dimensionsButton.tag = (indexPath.section*100)+indexPath.row
@@ -515,10 +515,7 @@ extension String {
         
         guard let characterSpacing = characterSpacing else {return attributedString}
         
-        
         attributedString.addAttribute(NSAttributedString.Key.kern, value: characterSpacing, range: NSRange(location: 0, length: attributedString.length))
-        
-        
         
         return attributedString
     }

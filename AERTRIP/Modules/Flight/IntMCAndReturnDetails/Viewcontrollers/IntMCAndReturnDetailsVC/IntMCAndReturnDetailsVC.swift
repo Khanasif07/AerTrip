@@ -99,8 +99,6 @@ class IntMCAndReturnDetailsVC: UIViewController {
         }
     }
     
-    
-    
     //MARK:-  Private functions
     private func setupCollectionCellAndDelegate(){
         self.headerCollection.register(UINib(nibName: "IntHeaderCollectionCell", bundle: nil), forCellWithReuseIdentifier: "IntHeaderCollectionCell")
@@ -112,12 +110,10 @@ class IntMCAndReturnDetailsVC: UIViewController {
     
     private func setupTitleAndButton(){
         resultTitle = UILabel(frame: CGRect(x:  50, y:1.0 , width: (UIScreen.width - 100), height: 42))
-//        resultTitle.font = UIFont(name: "SourceSansPro-semibold", size: 18)!
         resultTitle.font = AppFonts.SemiBold.withSize(18)
         resultTitle.text = self.viewModel.largeTitle
         resultTitle.textAlignment = .center
         resultTitle.lineBreakMode = NSLineBreakMode.byTruncatingMiddle
-        
     }
     
     private func setupNavigation(){
@@ -244,16 +240,13 @@ extension IntMCAndReturnDetailsVC{
     }
 }
 
-extension IntMCAndReturnDetailsVC : flightDetailsPinFlightDelegate{
-    
-    func updateRefundStatusIfPending(fk: String) {
-        
+extension IntMCAndReturnDetailsVC : flightDetailsPinFlightDelegate
+{    
+    func updateRefundStatusIfPending(fk: String)
+    {
         if let _ = self.viewModel.internationalDataArray!.firstIndex(where: {$0.fk == fk}){
-
             self.pinnedDelegate?.updateRefundStatusIfPending(fk: fk)
-            
         }
-        
     }
     
     func reloadRowFromFlightDetails(fk: String, isPinned: Bool, isPinnedButtonClicked: Bool) {
@@ -264,9 +257,6 @@ extension IntMCAndReturnDetailsVC : flightDetailsPinFlightDelegate{
             journey.isPinned = !journey.isPinned
             self.viewModel.internationalDataArray![index] = journey
             self.pinnedDelegate?.reloadRowFromFlightDetails(fk: fk, isPinned: isPinned, isPinnedButtonClicked: false)
-            
-            
         }
     }
-
 }

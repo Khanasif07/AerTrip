@@ -197,9 +197,7 @@ class InternationalReturnDetailsCell: UITableViewCell {
     
     
     func textToImage(drawText text: String, diameter: CGFloat, color: UIColor ) -> UIImage {
-        let textColor = UIColor.white
-//        let textFont = UIFont(name: "SourceSansPro-Semibold", size: 16)!
-  
+        let textColor = UIColor.white  
         let textFont = AppFonts.SemiBold.withSize(16)
         let scale = UIScreen.main.scale
         UIGraphicsBeginImageContextWithOptions(CGSize(width: diameter, height: diameter), false, scale)
