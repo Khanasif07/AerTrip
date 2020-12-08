@@ -56,8 +56,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UserDefaults.standard.set(false, forKey: "NSAllowsDefaultLineBreakStrategy")
         
         IQKeyboardManager.shared().shouldResignOnTouchOutside = true
-        ImageCache.default.memoryStorage.config.totalCostLimit = 100
-        ImageCache.default.cleanExpiredCache()
+//        ImageCache.default.memoryStorage.config.totalCostLimit = 100
+//        ImageCache.default.cleanExpiredCache()
         
         
         if UIDevice.current.name.contains(find: "SE"){

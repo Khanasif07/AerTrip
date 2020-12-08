@@ -137,6 +137,7 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
             nav.navigationBar.isHidden = true
             nav.setNavigationBarHidden(true, animated: false)
         }
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
