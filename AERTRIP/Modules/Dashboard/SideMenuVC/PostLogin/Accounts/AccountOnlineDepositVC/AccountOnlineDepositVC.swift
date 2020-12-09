@@ -110,7 +110,9 @@ class AccountOnlineDepositVC: BaseVC {
     private func setUpImage() {
         self.payButton.setImage(#imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .normal)
         self.payButton.setImage(#imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .highlighted)
-        self.payButton.bringSubviewToFront(self.payButton.imageView!)
+        if payButton.imageView != nil{
+            self.payButton.bringSubviewToFront(self.payButton.imageView!)
+        }
         self.payButton.spaceInTextAndImageOfButton(spacing: 2)
     }
     
