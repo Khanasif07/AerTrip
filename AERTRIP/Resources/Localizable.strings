@@ -999,6 +999,11 @@ Not to worry! Your booking is our highest priority. Our customer support team sh
 "adultAgeError" = "Adult's age must be over 12 years";
 "childAgeError" = "Child's age must be between 2 and 12 years";
 "infantAgeError" = "Infant's age must be less than 2 years";
+"fillAllPassengerDetails" = "Please fill all the passenger details";
+"enterISD" = "Please enter ISD code";
+"enterGSTName" = "Please enter GSTIN company name";
+"enterGSTBillName" = "Please enter GSTIN billing name";
+"notValidGST" = "Kindly enter a valid GSTIN";
 
 
 //MARK:- Settings

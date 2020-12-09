@@ -491,6 +491,7 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
         //        self.updateForParallexProgress()
     }
     func updateProfileImageViewFrame(){
+        guard profileImageHeaderView != nil else {return}
         profileImageHeaderView!.profileImageView.layer.cornerRadius = profileImageHeaderView!.profileImageView.frame.size.width / 2
     }
     

@@ -217,7 +217,7 @@ extension HotelsGroupExpendedVC: UICollectionViewDataSource, UICollectionViewDel
         }
         vc.backImage = img
         cell.freezeAnimations()
-        let currentCellFrame = cell.layer.presentation()!.frame
+        let currentCellFrame = cell.layer.presentation()?.frame ?? CGRect.zero
         let cardFrame = cell.superview?.convert(currentCellFrame, to: nil) ?? CGRect.zero
         vc.modalPresentationStyle = .custom
         let frameWithoutTransform = { () -> CGRect in

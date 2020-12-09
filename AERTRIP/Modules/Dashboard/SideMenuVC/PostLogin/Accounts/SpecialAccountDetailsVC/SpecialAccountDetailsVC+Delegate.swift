@@ -133,7 +133,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
             //statement summery
             case 0:
                 //return getSummeryCell(withData: self.viewModel.statementSummery[indexPath.row])
-                let cell = getSummeryCell(withData: self.viewModel.statementSummery[indexPath.row], isForOther: false, isFirstCell: indexPath.row == 0) as! AccountSummeryCell
+                guard let cell = getSummeryCell(withData: self.viewModel.statementSummery[indexPath.row], isForOther: false, isFirstCell: indexPath.row == 0) as? AccountSummeryCell else {fatalError("AccountSummeryCell cell is not found.")}
                 
                 if indexPath.row == 1 {
                 //    cell.stackViewTop.constant = -4.0
@@ -179,7 +179,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
             switch indexPath.section {
             //topup summery
             case 0:
-                let cell = getSummeryCell(withData: self.viewModel.topUpSummery[indexPath.row], isForOther: false, isFirstCell: indexPath.row == 0) as! AccountSummeryCell
+                guard let cell = getSummeryCell(withData: self.viewModel.topUpSummery[indexPath.row], isForOther: false, isFirstCell: indexPath.row == 0) as? AccountSummeryCell else {fatalError("AccountSummeryCell cell is not found.")}
                 
                 if indexPath.row == 1 {
               //      cell.stackViewTop.constant = -4.0
@@ -220,7 +220,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
             switch indexPath.section {
             //bilwise summery
             case 0:
-                let cell = getSummeryCell(withData: self.viewModel.bilWiseSummery[indexPath.row], isForOther: false, isFirstCell: indexPath.row == 0) as! AccountSummeryCell
+                guard let cell = getSummeryCell(withData: self.viewModel.bilWiseSummery[indexPath.row], isForOther: false, isFirstCell: indexPath.row == 0) as? AccountSummeryCell else {fatalError("AccountSummeryCell cell is not found.")}
                 
                 if indexPath.row == 1 {
                //     cell.stackViewTop.constant = -4.0

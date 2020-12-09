@@ -98,8 +98,8 @@ extension PassengersSelectionVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if (indexPath.section == 2) && (indexPath.row == 0){
-            AppFlowManager.default.showURLOnATWebView(URL(string: AppConstants.travelSafetyLink)!, screenTitle: "Travel Safety Guidlines")
+        if ((indexPath.section == 2) && (indexPath.row == 0)), let url  = URL(string: AppConstants.travelSafetyLink){
+            AppFlowManager.default.showURLOnATWebView(url, screenTitle: "Travel Safety Guidlines")
         }
         
 //        if indexPath.row == 0 {
