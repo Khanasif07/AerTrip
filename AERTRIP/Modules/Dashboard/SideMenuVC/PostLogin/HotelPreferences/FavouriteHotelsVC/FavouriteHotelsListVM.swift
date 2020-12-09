@@ -72,5 +72,28 @@ class FavouriteHotelsListVM {
         }
     }
     
+    func goToSearchWithHotel(_ hotel: HotelsModel) {
+        return;
+        let hotelName = hotel.name
+        /*let address = booking?.hotelAddress let lat =  booking?.latitude, let long = booking?.longitude,*/
+        let city = hotel.city
+        let hotelId = hotel.hotelId
+        var hotelData = HotelFormPreviosSearchData()
+        hotelData.cityName = city
+        
+        hotelData.destType = "Hotel"
+        hotelData.destName = hotelName
+        hotelData.destId = "\(hotelId):gn"
+        
+        hotelData.checkInDate = Date().toString(dateFormat: "yyyy-MM-dd")
+        hotelData.checkOutDate = Date().add(years: 0, months: 0, days: 1, hours: 0, minutes: 0, seconds: 0)?.toString(dateFormat: "yyyy-MM-dd") ?? ""
+        
+        hotelData.roomNumber     =  1
+        hotelData.adultsCount    = [2]
+        HotelsSearchVM.hotelFormData = hotelData
+        AppFlowManager.default.goToDashboard(toBeSelect: .hotels)
+        
+    }
+    
     //MARK:- Action
 }
