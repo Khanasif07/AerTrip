@@ -67,7 +67,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
     var selectedJourneyFK = [String]()
     var fewSeatsLeftViewHeight = 0
     var isInternational = false//For International results.
-    
+    var flightInfoViewModel = FlightInfoVM()
     
     //MARK:- Initial Display Methods
     
@@ -552,7 +552,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         
                         flightDetailsCell.setJourneyTitle()
                         
-                        flightDetailsCell.count = count ?? 0
+                        flightDetailsCell.count = count
                         flightDetailsCell.halt = flight.halt
                         flightDetailsCell.durationTitle = journey.first?.durationTitle ?? ""
                         flightDetailsCell.ovgtf = flight.ovgtf
@@ -723,52 +723,88 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
     
     func callAPIforBaggageInfo(sid:String, fk:String)
     {
-        let webservice = WebAPIService()
-        webservice.executeAPI(apiServive: .baggageResult(sid: sid, fk: fk), completionHandler: {    (data) in
-            
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            
-            do{
-                let jsonResult:AnyObject?  = try JSONSerialization.jsonObject(with: data, options: []) as AnyObject
-                
-                DispatchQueue.main.async {
-                    if let result = jsonResult as? [String: AnyObject] {
-                        if let data = result["data"] as? JSONDictionary {
-                            
-                            let keys = data.keys
-                            if keys.count > 0{
-                                
-                                for key in keys{
-                                    if let datas = data["\(key)"] as? JSONDictionary
-                                    {
-                                        self.baggageData += [datas]
-                                    }
-                                }
-                            }
+        let url = APIEndPoint.baseUrlPath.rawValue+APIEndPoint.flightDetails_Baggage.rawValue+"sid=\(sid)&fk[]=\(fk)"
+        AppNetworking.GET(endPoint: url, success: { [weak self] (data) in
+            guard let sSelf = self else {return}
+
+            if let data = data["data"].object as? JSONDictionary {
+
+                let keys = data.keys
+                if keys.count > 0{
+
+                    for key in keys{
+                        if let datas = data["\(key)"] as? JSONDictionary
+                        {
+                            sSelf.baggageData += [datas]
                         }
                     }
-                    
-                    let date = Date()
-                    let calendar = Calendar.current
-                    let hour = calendar.component(.hour, from: date)
-                    let minutes = calendar.component(.minute, from: date)
-                    let seconds = calendar.component(.second, from: date)
-                    
-                    let newArr = ["Time":"\(hour):\(minutes):\(seconds)",
-                                  "selectedJourneyFK":self.selectedJourneyFK,
-                                  "BaggageDataResponse":self.baggageData] as [String : Any]
-                    self.appdelegate.flightBaggageMutableArray.add(newArr)
-                    self.flightInfoTableView.reloadData()
-                    delay(seconds: 0.3) {
-                        self.flightInfoTableView.reloadData()
-                    }
                 }
-            }catch{
             }
-        } , failureHandler : { (error ) in
+            
+            let date = Date()
+            let calendar = Calendar.current
+            let hour = calendar.component(.hour, from: date)
+            let minutes = calendar.component(.minute, from: date)
+            let seconds = calendar.component(.second, from: date)
+
+            let newArr = ["Time":"\(hour):\(minutes):\(seconds)",
+                          "selectedJourneyFK":sSelf.selectedJourneyFK,
+                          "BaggageDataResponse":sSelf.baggageData] as [String : Any]
+            sSelf.appdelegate.flightBaggageMutableArray.add(newArr)
+            sSelf.flightInfoTableView.reloadData()
+            delay(seconds: 0.3) {
+                sSelf.flightInfoTableView.reloadData()
+            }
+        }, failure: { (errors) in
         })
     }
+//    {
+//        let webservice = WebAPIService()
+//        webservice.executeAPI(apiServive: .baggageResult(sid: sid, fk: fk), completionHandler: {    (data) in
+//
+//            let decoder = JSONDecoder()
+//            decoder.keyDecodingStrategy = .convertFromSnakeCase
+//
+//            do{
+//                let jsonResult:AnyObject?  = try JSONSerialization.jsonObject(with: data, options: []) as AnyObject
+//
+//                DispatchQueue.main.async {
+//                    if let result = jsonResult as? [String: AnyObject] {
+//                        if let data = result["data"] as? JSONDictionary {
+//
+//                            let keys = data.keys
+//                            if keys.count > 0{
+//
+//                                for key in keys{
+//                                    if let datas = data["\(key)"] as? JSONDictionary
+//                                    {
+//                                        self.baggageData += [datas]
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//
+//                    let date = Date()
+//                    let calendar = Calendar.current
+//                    let hour = calendar.component(.hour, from: date)
+//                    let minutes = calendar.component(.minute, from: date)
+//                    let seconds = calendar.component(.second, from: date)
+//
+//                    let newArr = ["Time":"\(hour):\(minutes):\(seconds)",
+//                                  "selectedJourneyFK":self.selectedJourneyFK,
+//                                  "BaggageDataResponse":self.baggageData] as [String : Any]
+//                    self.appdelegate.flightBaggageMutableArray.add(newArr)
+//                    self.flightInfoTableView.reloadData()
+//                    delay(seconds: 0.3) {
+//                        self.flightInfoTableView.reloadData()
+//                    }
+//                }
+//            }catch{
+//            }
+//        } , failureHandler : { (error ) in
+//        })
+//    }
 }
 
 extension UILabel {

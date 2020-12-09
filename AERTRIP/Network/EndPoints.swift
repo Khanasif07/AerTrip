@@ -168,6 +168,10 @@ enum APIEndPoint: String {
     case addOnConfirmation = "addon/addon-confirmation"
     case getAddonsQuatation = "itinerary/get-quotation"
     case getAddonsReceipt = "receipt/get"
+    
+    
+    //Flight Details
+    case flightDetails_Baggage = "flights/baggage?"
 }
 
 // MARK: - endpoint extension for url -
