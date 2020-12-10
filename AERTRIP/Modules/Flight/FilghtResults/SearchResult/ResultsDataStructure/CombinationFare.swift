@@ -9,27 +9,50 @@
 import Foundation
 
 
-
-public struct ComboFlightSearchWSResponse : Codable {
+public struct ComboFlightSearchWSResponse  {
     var data : ComboResponseData?
+    
+    init(json : JSON){
+        
+        data = ComboResponseData(json: json["data"])
+        
+    }
+    
 }
 
 
-public struct ComboResponseData : Codable {
+public struct ComboResponseData  {
     let sid : String?
     var completed : Int?
     var flights : [ComboFlights]?
     let done : Bool?
+    
+    init(json : JSON){
+
+        sid = json["sid"].stringValue
+        completed = json["completed"].intValue
+        flights = json["flights"].arrayValue.map( { ComboFlights(json: $0) } )
+        done = json["done"].boolValue
+        
+    }
+    
 }
 
-public struct ComboFlights : Codable {
+public struct ComboFlights  {
+    
     var results : ComboFlightsResults
     var vcode : String
+    
+    init(json : JSON){
+        results = ComboFlightsResults(json: json["json"])
+        vcode = json["vcode"].stringValue
+    }
+    
 }
 
-public struct  ComboFlightsResults : Codable {
+public struct  ComboFlightsResults {
+    
     var c : [CombinationJourney]
-
     var apdet : [String : AirportDetailsWS]
     var taxes : [String : String]
     var aldet : [String : String]
@@ -46,72 +69,51 @@ public struct  ComboFlightsResults : Codable {
         taxSort = ""
     }
     
+    init(json : JSON) {
+        
+        c = json["c"].arrayValue.map( { CombinationJourney(json: $0) } )
+        
+        apdet = Dictionary(uniqueKeysWithValues: json["apdet"].map { ($0.0, AirportDetailsWS(json: $0.1)) })
+        
+        taxes = Dictionary(uniqueKeysWithValues: json["taxes"].map { ($0.0, $0.1.stringValue) })
+        
+        aldet = Dictionary(uniqueKeysWithValues: json["aldet"].map { ($0.0, $0.1.stringValue) })
+
+        alMaster = Dictionary(uniqueKeysWithValues: json["alMaster"].map { ($0.0, AirlineMasterWS(json: $0.1)) })
+
+        taxSort = json["taxSort"].stringValue
+        
+    }
+    
 }
 
 
-public class CombinationJourney: Codable {
+public class CombinationJourney {
+   
     let vendor : String
     let id : String
     let fk : [String]
     let ofk : String?
-    //    let invfk : Bool
-    //    let pricingsolutionKey: String
     let otherfares : Bool?
     let farepr : Int
     let iic : Bool
     let displaySeat : Bool
     var fare : Taxes
     
-//    let rfd : Int
-//    let rsc : Int
-//    let dt : String
-//    let at : String
-//    let tt : [Int]
-//    // slo : Short Layover
-//    let slo  : Int
-//    let slot : String
-//    //llow : Long layover
-//    let llow : Int
-//    let llowt : String
-//    let red : Int
-//    let redt : String
-//    let cot : Int
-//    let cop : Int
-//    let copt : String
-//    // FSR : Few Seats remaining
-//    let fsr : Int
-//    let seats : String?
-//    let al : [String]
-//    let stp : String
-//    let ap : [String]
-//    let loap : [String]
-//    //    let load : []
-//    let leg : [FlightLeg]
-//    let isLcc : Int
-    //    let hmnePrms :
-    //    let apc :
-//    let sict : Bool?
-    //    let fareBasis
-    //    let coat :
-//    let dspNoshow : Int
-    //    let rfdPlcy
-    //    let qid :
-//    let cc : String
-    //    let eqt : Int
-    // Fcc : Change of flight class. If flight is not available in seach class different / lower class flights is displayed
-//    let fcc : String?
-//    // lg = luggage , if lg == 1 lugguage is allowed  if lg == 0 luggauge is not allowed
-//    let lg : Int
-//    let ovngt : Int
-//    let ovngtt : String
-//    let ovgtf : Int
-//    let ovgtlo : Int
-//    let dd : String
-//    let ad : String
-//    let coa : Int
-//    let humaneScore : Float
-//    //    let humaneArr
-//    let humanePrice : Humanprice
+
+    init(json : JSON){
+
+        vendor = json["vendor"].stringValue
+        id = json["id"].stringValue
+        fk = json["fk"].arrayValue.map { $0.stringValue }
+        ofk = json["ofk"].stringValue
+        otherfares = json["otherfares"].boolValue
+        farepr = json["farepr"].intValue
+        iic = json["iic"].boolValue
+        displaySeat = json["displaySeat"].boolValue
+        fare = Taxes(json: json["fare"])
+        
+    }
     
     
 

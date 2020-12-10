@@ -160,15 +160,13 @@ public struct Humanprice : Codable {
     }
 }
 
-public struct FlightLeg : Codable {
+public struct FlightLeg  {
     
-    //    let tt : String
     let allAp : [ String]
     let dt : String
     let ad : String
     let ttl : [String]
     var flights : [FlightDetail]
-    // fcp : Fetch Cancellation Policy
     var fcp : Int?
     let loap : [String]
     let stp : String
@@ -178,14 +176,46 @@ public struct FlightLeg : Codable {
     let lfk : String
     let at : String
     let al : [ String]
-//    let fare : [String]?
     
     var totalLayOver : Int {
         return  lott.reduce(0){ $0 + $1 }
     }
+    
+    
+    init(json : JSON) {
+        
+        allAp = json["allAp"].arrayValue.map { $0.stringValue }
+        
+        dt = json["dt"].stringValue
+        
+        ad = json["ad"].stringValue
+
+        ttl = json["ttl"].arrayValue.map { $0.stringValue }
+
+        flights = json[""].arrayValue.map { FlightDetail(json: $0)  }
+        
+        fcp = json["fcp"].intValue
+        
+        loap = json["loap"].arrayValue.map { $0.stringValue }
+
+        stp = json["stp"].stringValue
+
+        lott = json["lott"].arrayValue.map { $0.intValue }
+
+        dd = json["dd"].stringValue
+
+        lfk = json["lfk"].stringValue
+
+        at = json["at"].stringValue
+
+      //  al = json["al"].arrayValue.map { $0.stringValue }
+
+        
+    }
+    
 }
 
-public struct FlightDetail : Codable {
+public struct FlightDetail  {
     let ffk : String
     let fr : String
     let to : String
@@ -242,9 +272,61 @@ public struct FlightDetail : Codable {
     var ADT_BG_max_pieces : String?
     var ADT_BG_max_weight : String?
 
+    init(json : JSON) {
+        
+        ffk = json["ffk"].stringValue
+        fr = json["fr"].stringValue
+        to = json["to"].stringValue
+        dd = json["dd"].stringValue
+        dt = json["dt"].stringValue
+        at = json["at"].stringValue
+        dmt = json["dmt"].stringValue
+        ad = json["ad"].stringValue
+        atm = json["atm"].stringValue
+        dtm = json["dtm"].stringValue
+        ft = json["ft"].intValue
+        al = json["al"].stringValue
+        fn = json["fn"].stringValue
+        oc = json["oc"].stringValue
+        eq = json["eq"].stringValue
+        eqQuality = json["eqQuality"].intValue
+        cc = json["cc"].stringValue
+        ccChg = json["ccChg"].intValue
+        bc = json["bc"].stringValue
+        lo = json["lo"].intValue
+        ovgtlo = json["ovgtlo"].intValue
+        ovgtf = json["ovgtf"].intValue
+        halt = json["halt"].stringValue
+        fbn = json["fbn"].stringValue
+        slo = json["slo"].intValue
+        llo = json["llo"].intValue
+        bg = Dictionary(uniqueKeysWithValues: json["bg"].map { ($0.0, baggageStruct(json: $0.1)) })
+        isLcc = json["isLcc"].intValue
+        isArrivalTerminalChange = json["isArrivalTerminalChange"].boolValue
+        isDepartureTerminalChange = json["isDepartureTerminalChange"].boolValue
+        isArrivalAirportChange = json["isArrivalAirportChange"].boolValue
+        isDepartureAirportChange = json["isDepartureAirportChange"].boolValue
+        isDepartureDateChange = json["isDepartureDateChange"].boolValue
+        ontimePerformance = json["ontimePerformance"].intValue
+        latePerformance = json["latePerformance"].intValue
+        cancelledPerformance = json["cancelledPerformance"].intValue
+        observationCount = json["observationCount"].intValue
+        averageDelay = json["averageDelay"].intValue
+        ontimePerformanceDataStoringTime = json["ontimePerformanceDataStoringTime"].stringValue
+        ADT_BG_max_pieces = json["ADT_BG_max_pieces"].stringValue
+        ADT_BG_weight = json["ADT_BG_weight"].stringValue
+        cm = json["cm"].stringValue
+        inch = json["inch"].stringValue
+        ADT_BG_note = json["ADT_BG_note"].stringValue
+        ADT_BG_max_pieces = json["ADT_BG_max_pieces"].stringValue
+        ADT_BG_max_weight = json["ADT_BG_max_weight"].stringValue
+        
+    }
+    
+    
 }
 
-public struct AirportDetailsWS : Codable {
+public struct AirportDetailsWS  {
     let n : String?
     let c : String?
     let cn : String?
@@ -256,12 +338,39 @@ public struct AirportDetailsWS : Codable {
     let tzOffset : String?
     let tzDisplay : String?
     let cname : String?
+    
+    
+    init(json : JSON) {
+        
+        n = json["n"].stringValue
+        c = json["c"].stringValue
+        cn = json["cn"].stringValue
+        lat = json["lat"].stringValue
+        long = json["long"].stringValue
+        hw = json["hw"].stringValue
+        tz = json["tz"].stringValue
+        tzShortname = json["tzShortname"].stringValue
+        tzOffset = json["tzOffset"].stringValue
+        tzDisplay = json["tzDisplay"].stringValue
+        cname = json["cname"].stringValue
+
+
+    }
+    
 }
 
-struct AirlineMasterWS : Codable {
+struct AirlineMasterWS  {
     let name : String
     let bgcolor : String
     let humaneScore : String
+    
+    
+    init( json : JSON) {
+        name = json["name"].stringValue
+        bgcolor = json["bgcolor"].stringValue
+        humaneScore = json["humaneScore"].stringValue
+    }
+    
 }
 
 
@@ -279,9 +388,18 @@ struct Taxes:Codable {
         cancellationCharges = cancellationChargesStruct()
         reschedulingCharges = reschedulingChargesStruct()
     }
+    
+    init( json : JSON) {
+        
+        taxes = TotalPayabelSubStruct(json: json["taxes"])
+        BF = TaxesSubStruct(json: json["BF"])
+        totalPayableNow = TaxesSubStruct(json: json["totalPayableNow"])
+        
+    }
+    
 }
 
-struct TaxesSubStruct:Codable {
+struct TaxesSubStruct {
     let name:String
     var value:Int
     
@@ -289,9 +407,14 @@ struct TaxesSubStruct:Codable {
         name = ""
         value = 0
     }
+    
+    init( json : JSON) {
+        name = json["name"].stringValue
+        value = json["value"].intValue
+    }
 }
 
-struct TotalPayabelSubStruct:Codable {
+struct TotalPayabelSubStruct {
     let name:String
     var value:Int
     
@@ -302,12 +425,19 @@ struct TotalPayabelSubStruct:Codable {
         value = 0
         details = [:]
     }
+    
+    init(json : JSON) {
+        name = json["name"].stringValue
+        value = json["value"].intValue
+        details = Dictionary(uniqueKeysWithValues: json["details"].map { ($0.0, $0.1.intValue) })
+        
+    }
+    
 }
 
-struct cancellationChargesStruct:Codable {
+struct cancellationChargesStruct {
     let name:String
     let value:Int
-    
     let details : cancellationDetailsStruct
     
     init() {
@@ -315,7 +445,13 @@ struct cancellationChargesStruct:Codable {
         value = 0
         details = cancellationDetailsStruct()
     }
-
+    
+    init(json : JSON) {
+        name = json["name"].stringValue
+        value = json["value"].intValue
+        //incomplete
+    }
+    
 }
 struct reschedulingChargesStruct:Codable {
     let details : reschedulingChargesDetailsStruct
@@ -348,30 +484,30 @@ struct reschedulingChargesDetailsStruct:Codable {
     }
 }
 
-struct cbgStruct:Codable {
+struct cbgStruct  {
     let weight : String?
+    
+    init(json : JSON) {
+        weight = json["weight"].stringValue
+    }
+    
 }
 
-struct baggageStruct:Codable  , Equatable {
+struct baggageStruct: Equatable {
     let weight : String?
     let pieces : String?
     let note : String?
+    
+    init(json : JSON) {
+        weight = json["weight"].stringValue
+        pieces = json["pieces"].stringValue
+        note = json["note"].stringValue
+
+    }
+    
 }
 
-//struct apiStruct:Codable{
-//    let Data : [String :newBGStruct]
-//}
-//struct newBGStruct:Codable{
-//    let Bg : [String:newBaggageStruct]
-//}
-//
-//struct newBaggageStruct:Codable {
-//    let pieces : String?
-//    let weight : String?
-//    let dimension : DimensionStruct?
-//    let note : String?
-//}
-//
+
 
 
 
@@ -384,6 +520,15 @@ struct cancellationDetailsStruct:Codable {
         RAF = [:]
         SPCFEE = [:]
         SUCFEE = [:]
+    }
+    
+    init(json : JSON) {
+        
+                
+        
+        Dictionary(uniqueKeysWithValues: json["RAF"].map({ $0.0, Dictionary(uniqueKeysWithValues: json[$0.0].map( { $0.0, $0.1 } ) )  }))
+
+        
     }
     
     
@@ -401,17 +546,32 @@ struct cancellationDetailsStruct:Codable {
 }
 
 
-struct cancellationSlabStruct:Codable{
+struct cancellationSlabStruct {
     let slab : Int?
     let sla : Int?
     let value : Int?
+    
+    init(json : JSON) {
+        
+        slab = json["slab"].intValue
+        sla = json["sla"].intValue
+        value = json["value"].intValue
+
+    }
+    
 }
 
-struct sucfeeValueStruct:Codable{
+struct sucfeeValueStruct {
     let value:Int?
+    
+    init(json : JSON) {
+        value = json["value"].intValue
+    }
+    
 }
 
-struct refundPolicyStruct:Codable {
+struct refundPolicyStruct {
+   
     var rfd:[String:Int]
     var rsc:[String:Int]
     
@@ -419,12 +579,32 @@ struct refundPolicyStruct:Codable {
         rfd = [:]
         rsc = [:]
     }
+    
+    init(json : JSON) {
+        
+        rfd = Dictionary(uniqueKeysWithValues: json["rfd"].map { ($0.0, $0.1.intValue) })
+        
+        rsc = Dictionary(uniqueKeysWithValues: json["rsc"].map { ($0.0, $0.1.intValue) })
+
+
+    }
+    
+    
 }
 
 
-struct getPinnedURLResponse : Codable {
+struct getPinnedURLResponse  {
+    
     let success : Bool
     let data :  [String : String]
+    
+    init(json : JSON)  {
+        success = json["success"].boolValue
+        data = Dictionary(uniqueKeysWithValues: json["data"].map { ($0.0, $0.1.stringValue) })
+    }
+   
+
+    
 }
 
 struct updatedFareInfoStruct:Codable{
