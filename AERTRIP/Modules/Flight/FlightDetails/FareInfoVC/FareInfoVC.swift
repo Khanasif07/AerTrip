@@ -510,43 +510,68 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     
     func getFareRulesAPICall(sid: String, fk: String, index:Int)
     {
-        let webservice = WebAPIService()
-        webservice.executeAPI(apiServive: .fareRulesResult(sid: sid, fk: fk), completionHandler: {    (data) in
+        let param = ["sid": sid, "fk[]": fk]
+        APICaller.shared.getFareRules(params: param) {[weak self] (data, error) in
+            guard let self = self , let fareRulesData = data else {
+                AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
+                return
+            }
             
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            
-            do{
-                let jsonResult:AnyObject?  = try JSONSerialization.jsonObject(with: data, options: []) as AnyObject
-                
-                DispatchQueue.main.async {
-                    if let result = jsonResult as? [String: AnyObject] {
-                        
-                        if let data = result["data"] as? JSONDictionary {
-                            
-                            let keys = data.keys
-                            if keys.count > 0{
-                                for key in keys{
-                                    
-                                    if let datas = data["\(key)"] as? JSONDictionary{
-                                        while self.fareRulesData.count <= index {
-                                            self.fareRulesData.append([:])
-                                        }
-                                        
-                                        self.fareRulesData[index] = datas
-                                    }
-                                }
-                            }
-                            self.fareInfoTableView.reloadData()
+            let keys = fareRulesData.keys
+            if keys.count > 0{
+                for key in keys{
+
+                    if let datas = fareRulesData["\(key)"] as? JSONDictionary{
+                        while self.fareRulesData.count <= index {
+                            self.fareRulesData.append([:])
                         }
+
+                        self.fareRulesData[index] = datas
                     }
                 }
-            }catch{
-                
             }
-        } , failureHandler : { (error ) in
-        })
+            self.fareInfoTableView.reloadData()
+        }
+
     }
+//    {
+//        let webservice = WebAPIService()
+//        webservice.executeAPI(apiServive: .fareRulesResult(sid: sid, fk: fk), completionHandler: {    (data) in
+//
+//            let decoder = JSONDecoder()
+//            decoder.keyDecodingStrategy = .convertFromSnakeCase
+//
+//            do{
+//                let jsonResult:AnyObject?  = try JSONSerialization.jsonObject(with: data, options: []) as AnyObject
+//
+//                DispatchQueue.main.async {
+//                    if let result = jsonResult as? [String: AnyObject] {
+//
+//                        if let data = result["data"] as? JSONDictionary {
+
+//                            let keys = data.keys
+//                            if keys.count > 0{
+//                                for key in keys{
+//
+//                                    if let datas = data["\(key)"] as? JSONDictionary{
+//                                        while self.fareRulesData.count <= index {
+//                                            self.fareRulesData.append([:])
+//                                        }
+//
+//                                        self.fareRulesData[index] = datas
+//                                    }
+//                                }
+//                            }
+//                            self.fareInfoTableView.reloadData()
+//                        }
+//                    }
+//                }
+//            }catch{
+//
+//            }
+//        } , failureHandler : { (error ) in
+//        })
+//    }
     
     
     func calculateTableHeight(table: UITableView)-> CGFloat{

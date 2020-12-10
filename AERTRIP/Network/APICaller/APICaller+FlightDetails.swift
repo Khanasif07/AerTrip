@@ -75,4 +75,25 @@ extension APICaller{
     }
 
     
+    func getFareRules(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ data: JSONDictionary?, _ errorCodes: ErrorCodes)->Void ){
+        AppNetworking.POST(endPoint: .flightDetails_FareRules, parameters: params, loader: loader) {[weak self] data in
+            guard let self = self else {return}
+            self.handleResponse(data) { (success, baggageData) in
+                completionBlock(data[APIKeys.data.rawValue].dictionaryObject, [])
+            } failure: { (errorCode) in
+                completionBlock(nil, errorCode)
+            }
+        } failure: { (error) in
+            if error.code == AppNetworking.noInternetError.code {
+                AppGlobals.shared.stopLoading()
+                AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
+                completionBlock(nil, [])
+            }
+            else {
+                AppToast.default.showToastMessage(message: ATErrorManager.LocalError.default.message)
+                completionBlock(nil, [])
+            }
+        }
+    }
+    
 }
