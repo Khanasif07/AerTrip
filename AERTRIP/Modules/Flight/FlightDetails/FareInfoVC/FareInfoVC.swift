@@ -466,7 +466,9 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             decoder.keyDecodingStrategy = .convertFromSnakeCase
 
             DispatchQueue.main.async {
-                if let currentParsedResponse = parse(data: data, into: updatedFareInfoStruct.self, with:decoder) {
+                if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any] {
+//                if let currentParsedResponse = parse(data: data, into: updatedFareInfoStruct.self, with:decoder) {
+                    let currentParsedResponse = updatedFareInfoStruct(json: JSON(json))
                     
                     if currentParsedResponse.success == true {
                         self.updatedFareInfo.append(currentParsedResponse.data.first!.value)

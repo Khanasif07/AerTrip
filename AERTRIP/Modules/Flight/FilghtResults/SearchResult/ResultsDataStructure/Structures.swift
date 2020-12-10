@@ -32,15 +32,15 @@ public struct FiltersWS  {
     
     
     init(json : JSON){
-        multiAl = json["multiAl"].intValue
+        multiAl = json["multiAl"].int
         cityapN  = cityWiseAirportCode(json: json["cityapN"])
         fares = json["fares"].arrayValue.map { $0.stringValue }
         fq =  Dictionary(uniqueKeysWithValues: json["fq"].map { ( $0.0, $0.1.stringValue ) } )
         pr = priceWS(json: json["pr"])
         stp = json["stp"].arrayValue.map { $0.stringValue }
         al = json["al"].arrayValue.map { $0.stringValue }
-        depDt = DateTime(json: json["depDt"])
-        arDt = DateTime(json: json["arDt"])
+        depDt = DateTime(json: json["dep_dt"])
+        arDt = DateTime(json: json["ar_dt"])
         dt = TimeRange24hoursWS(json: json["dt"])
         at = TimeRange24hoursWS(json: json["at"])
         tt = TimeRangeIntervalWS(json: json["tt"])
@@ -168,8 +168,8 @@ public struct TimeRangeIntervalWS : Equatable {
     var maxTime : String? = "0"
     
     init(json : JSON){
-        minTime = json["minTime"].stringValue
-        maxTime = json["maxTime"].stringValue
+        minTime = json["minTime"].string
+        maxTime = json["maxTime"].string
     }
 
     
@@ -256,11 +256,11 @@ public struct FlightLeg  {
         dt = json["dt"].stringValue
         ad = json["ad"].stringValue
         ttl = json["ttl"].arrayValue.map { $0.stringValue }
-        flights = json[""].arrayValue.map { FlightDetail(json: $0)  }
-        fcp = json["fcp"].intValue
+        flights = json["flights"].arrayValue.map { FlightDetail(json: $0)  }
+        fcp = json["fcp"].int
         loap = json["loap"].arrayValue.map { $0.stringValue }
         stp = json["stp"].stringValue
-        loap = json["loap"].arrayValue.map { $0.stringValue }
+        lott = json["lott"].arrayValue.map { $0.intValue }
         ap = json["ap"].arrayValue.map { $0.stringValue }
         dd = json["dd"].stringValue
         lfk = json["lfk"].stringValue
@@ -335,16 +335,16 @@ public struct FlightDetail  {
         dd = json["dd"].stringValue
         dt = json["dt"].stringValue
         at = json["at"].stringValue
-        dmt = json["dmt"].stringValue
+        dmt = json["dmt"].string
         ad = json["ad"].stringValue
         atm = json["atm"].stringValue
         dtm = json["dtm"].stringValue
         ft = json["ft"].intValue
         al = json["al"].stringValue
         fn = json["fn"].stringValue
-        oc = json["oc"].stringValue
-        eq = json["eq"].stringValue
-        eqQuality = json["eqQuality"].intValue
+        oc = json["oc"].string
+        eq = json["eq"].string
+        eqQuality = json["eqQuality"].int
         cc = json["cc"].stringValue
         ccChg = json["ccChg"].intValue
         bc = json["bc"].stringValue
@@ -357,24 +357,24 @@ public struct FlightDetail  {
         llo = json["llo"].intValue
         bg = Dictionary(uniqueKeysWithValues: json["bg"].map { ($0.0, baggageStruct(json: $0.1)) })
         isLcc = json["isLcc"].intValue
-        isArrivalTerminalChange = json["isArrivalTerminalChange"].boolValue
-        isDepartureTerminalChange = json["isDepartureTerminalChange"].boolValue
-        isArrivalAirportChange = json["isArrivalAirportChange"].boolValue
-        isDepartureAirportChange = json["isDepartureAirportChange"].boolValue
-        isDepartureDateChange = json["isDepartureDateChange"].boolValue
-        ontimePerformance = json["ontimePerformance"].intValue
-        latePerformance = json["latePerformance"].intValue
-        cancelledPerformance = json["cancelledPerformance"].intValue
-        observationCount = json["observationCount"].intValue
-        averageDelay = json["averageDelay"].intValue
-        ontimePerformanceDataStoringTime = json["ontimePerformanceDataStoringTime"].stringValue
-        ADT_BG_max_pieces = json["ADT_BG_max_pieces"].stringValue
-        ADT_BG_weight = json["ADT_BG_weight"].stringValue
-        cm = json["cm"].stringValue
-        inch = json["inch"].stringValue
-        ADT_BG_note = json["ADT_BG_note"].stringValue
-        ADT_BG_max_pieces = json["ADT_BG_max_pieces"].stringValue
-        ADT_BG_max_weight = json["ADT_BG_max_weight"].stringValue
+        isArrivalTerminalChange = json["isArrivalTerminalChange"].bool
+        isDepartureTerminalChange = json["isDepartureTerminalChange"].bool
+        isArrivalAirportChange = json["isArrivalAirportChange"].bool
+        isDepartureAirportChange = json["isDepartureAirportChange"].bool
+        isDepartureDateChange = json["isDepartureDateChange"].bool
+        ontimePerformance = json["ontimePerformance"].int
+        latePerformance = json["latePerformance"].int
+        cancelledPerformance = json["cancelledPerformance"].int
+        observationCount = json["observationCount"].int
+        averageDelay = json["averageDelay"].int
+        ontimePerformanceDataStoringTime = json["ontimePerformanceDataStoringTime"].string
+        ADT_BG_max_pieces = json["ADT_BG_max_pieces"].string
+        ADT_BG_weight = json["ADT_BG_weight"].string
+        cm = json["cm"].string
+        inch = json["inch"].string
+        ADT_BG_note = json["ADT_BG_note"].string
+        ADT_BG_max_pieces = json["ADT_BG_max_pieces"].string
+        ADT_BG_max_weight = json["ADT_BG_max_weight"].string
         
     }
     
@@ -397,17 +397,17 @@ public struct AirportDetailsWS  {
     
     init(json : JSON) {
         
-        n = json["n"].stringValue
-        c = json["c"].stringValue
-        cn = json["cn"].stringValue
-        lat = json["lat"].stringValue
-        long = json["long"].stringValue
-        hw = json["hw"].stringValue
-        tz = json["tz"].stringValue
-        tzShortname = json["tzShortname"].stringValue
-        tzOffset = json["tzOffset"].stringValue
-        tzDisplay = json["tzDisplay"].stringValue
-        cname = json["cname"].stringValue
+        n = json["n"].string
+        c = json["c"].string
+        cn = json["cn"].string
+        lat = json["lat"].string
+        long = json["long"].string
+        hw = json["hw"].string
+        tz = json["tz"].string
+        tzShortname = json["tzShortname"].string
+        tzOffset = json["tzOffset"].string
+        tzDisplay = json["tzDisplay"].string
+        cname = json["cname"].string
 
 
     }
@@ -429,7 +429,7 @@ struct AirlineMasterWS  {
 }
 
 
-struct Taxes:Codable {
+struct Taxes {
     var taxes : TotalPayabelSubStruct
     var BF : TaxesSubStruct
     var totalPayableNow : TaxesSubStruct
@@ -449,7 +449,8 @@ struct Taxes:Codable {
         taxes = TotalPayabelSubStruct(json: json["taxes"])
         BF = TaxesSubStruct(json: json["BF"])
         totalPayableNow = TaxesSubStruct(json: json["totalPayableNow"])
-        
+        cancellationCharges = cancellationChargesStruct(json: json["cancellationCharges"])
+        reschedulingCharges = reschedulingChargesStruct(json: json["reschedulingCharges"])
     }
     
 }
@@ -504,25 +505,43 @@ struct cancellationChargesStruct {
     init(json : JSON) {
         name = json["name"].stringValue
         value = json["value"].intValue
-        //incomplete
+        details = cancellationDetailsStruct(json: json["details"])
     }
     
 }
-struct reschedulingChargesStruct:Codable {
+struct reschedulingChargesStruct {
     let details : reschedulingChargesDetailsStruct
     
     init() {
         details = reschedulingChargesDetailsStruct()
     }
+    
+    init(json: JSON) {
+        details = reschedulingChargesDetailsStruct(json: json["details"])
+    }
 }
 
-struct reschedulingChargesDetailsStruct:Codable {
+struct reschedulingChargesDetailsStruct {
     let SPRFEE : [String:[String:[cancellationSlabStruct]]]
     let SURFEE : [String:[String:[sucfeeValueStruct]]]
     
     init() {
         SPRFEE = [:]
         SURFEE = [:]
+    }
+    
+    init(json: JSON) {
+        var sprfee = [String:[String:[cancellationSlabStruct]]]()
+        var surfee = [String:[String:[sucfeeValueStruct]]]()
+        for (key,val) in json["SPRFEE"] {
+            sprfee[key] = Dictionary(uniqueKeysWithValues: val.map { ($0.0, $0.1.arrayValue.map { cancellationSlabStruct(json: $0) }) })
+        }
+        SPRFEE = sprfee
+        for (key,val) in json["SURFEE"] {
+            surfee[key] = Dictionary(uniqueKeysWithValues: val.map { ($0.0, $0.1.arrayValue.map { sucfeeValueStruct(json: $0) }) })
+        }
+        SURFEE = surfee
+
     }
     
     func getAirlineReschedulingDataForAllFlights() -> [[String:[String:[cancellationSlabStruct]]]] {
@@ -552,17 +571,22 @@ struct baggageStruct: Equatable {
     let pieces : String?
     let note : String?
     
+    init(weight: String?, pieces: String?, note: String?) {
+        self.weight = weight
+        self.pieces = pieces
+        self.note = note
+    }
+    
     init(json : JSON) {
-        weight = json["weight"].stringValue
-        pieces = json["pieces"].stringValue
-        note = json["note"].stringValue
-
+        weight = json["weight"].string
+        pieces = json["pieces"].string
+        note = json["note"].string
     }
     
 }
 
 
-struct cancellationDetailsStruct:Codable {
+struct cancellationDetailsStruct {
     let RAF :  [String:[String:Int]]
     let SPCFEE : [String:[String:[cancellationSlabStruct]]]
     let SUCFEE : [String:[String:[sucfeeValueStruct]]]
@@ -574,12 +598,21 @@ struct cancellationDetailsStruct:Codable {
     }
     
     init(json : JSON) {
-        
-                
-        
-        Dictionary(uniqueKeysWithValues: json["RAF"].map({ $0.0, Dictionary(uniqueKeysWithValues: json[$0.0].map( { $0.0, $0.1 } ) )  }))
-
-        
+        var raf = [String:[String:Int]]()
+        var spcfee = [String:[String:[cancellationSlabStruct]]]()
+        var sucfee = [String:[String:[sucfeeValueStruct]]]()
+        json["RAF"].forEach {
+            raf[$0.0] = Dictionary(uniqueKeysWithValues: $0.1.map { ($0.0, $0.1.intValue) })
+        }
+        RAF = raf
+        json["SPCFEE"].forEach {
+            spcfee[$0.0] = Dictionary(uniqueKeysWithValues: $0.1.map { ($0.0, $0.1.arrayValue.map { cancellationSlabStruct(json: $0) }) })
+        }
+        SPCFEE = spcfee
+        json["SUCFEE"].forEach {
+            sucfee[$0.0] = Dictionary(uniqueKeysWithValues: $0.1.map { ($0.0, $0.1.arrayValue.map { sucfeeValueStruct(json: $0) }) })
+        }
+        SUCFEE = sucfee
     }
     
     
@@ -604,9 +637,9 @@ struct cancellationSlabStruct {
     
     init(json : JSON) {
         
-        slab = json["slab"].intValue
-        sla = json["sla"].intValue
-        value = json["value"].intValue
+        slab = json["slab"].int
+        sla = json["sla"].int
+        value = json["value"].int
 
     }
     
@@ -616,7 +649,7 @@ struct sucfeeValueStruct {
     let value:Int?
     
     init(json : JSON) {
-        value = json["value"].intValue
+        value = json["value"].int
     }
     
 }
@@ -654,15 +687,26 @@ struct getPinnedURLResponse  {
     
 }
 
-struct updatedFareInfoStruct:Codable{
+struct updatedFareInfoStruct {
     let success : Bool
     let data : [String : updatedFareInfoDataStruct]
+    
+    init(json: JSON) {
+        success = json["success"].boolValue
+        data = Dictionary(uniqueKeysWithValues: json["data"].map { ($0.0, updatedFareInfoDataStruct(json: $0.1)) })
+    }
 }
 
-struct updatedFareInfoDataStruct:Codable{
+struct updatedFareInfoDataStruct {
     let rfd : Int
     let rsc : Int
     let cp : cancellationChargesStruct
     let rscp : reschedulingChargesStruct
 
+    init(json: JSON) {
+        rfd = json["rfd"].intValue
+        rsc = json["rsc"].intValue
+        cp = cancellationChargesStruct(json: json["cp"])
+        rscp = reschedulingChargesStruct(json: json["rscp"])
+    }
 }

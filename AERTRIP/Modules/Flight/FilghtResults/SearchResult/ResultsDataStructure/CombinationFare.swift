@@ -29,10 +29,10 @@ public struct ComboResponseData  {
     
     init(json : JSON){
 
-        sid = json["sid"].stringValue
-        completed = json["completed"].intValue
+        sid = json["sid"].string
+        completed = json["completed"].int
         flights = json["flights"].arrayValue.map( { ComboFlights(json: $0) } )
-        done = json["done"].boolValue
+        done = json["done"].bool
         
     }
     
