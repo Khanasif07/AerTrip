@@ -412,15 +412,22 @@ extension FlightResultViewModelDelegate {
             } else {
                 
                 if displayGroup == 0 {
-                    if let currentParsedResponse = parse(data: data, into: ComboFlightSearchWSResponse.self, with:decoder) {
-                        self.handleComboWebService(response: currentParsedResponse, displayGroup: displayGroup)
+                    if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any] {
+                        let curParsedResponse = ComboFlightSearchWSResponse(json: JSON(json))
+                        self.handleComboWebService(response: curParsedResponse, displayGroup: displayGroup)
                     }
+//                    if let currentParsedResponse = parse(data: data, into: ComboFlightSearchWSResponse.self, with:decoder) {
+//                        self.handleComboWebService(response: currentParsedResponse, displayGroup: displayGroup)
+//                    }
                 }
                 else {
-                    
-                    if let currentParsedResponse = parse(data: data, into: FlightSearchWSResponse.self, with:decoder) {
-                        self.handleWebService(response: currentParsedResponse, displayGroup: displayGroup)
+                    if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any] {
+                        let curParsedResponse = FlightSearchWSResponse(json: JSON(json))
+                        self.handleWebService(response: curParsedResponse, displayGroup: displayGroup)
                     }
+//                    if let currentParsedResponse = parse(data: data, into: FlightSearchWSResponse.self, with:decoder) {
+//                        self.handleWebService(response: currentParsedResponse, displayGroup: displayGroup)
+//                    }
                 }
             }
 
