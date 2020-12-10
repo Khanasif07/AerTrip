@@ -259,7 +259,7 @@ public struct FlightLeg  {
         fcp = json["fcp"].intValue
         loap = json["loap"].arrayValue.map { $0.stringValue }
         stp = json["stp"].stringValue
-        loap = json["loap"].arrayValue.map { $0.stringValue }
+        lott = json["lott"].arrayValue.map { $0.intValue }
         ap = json["ap"].arrayValue.map { $0.stringValue }
         dd = json["dd"].stringValue
         lfk = json["lfk"].stringValue
@@ -504,7 +504,7 @@ struct cancellationChargesStruct {
     init(json : JSON) {
         name = json["name"].stringValue
         value = json["value"].intValue
-        //incomplete
+        details = cancellationDetailsStruct(json: json["details"])
     }
     
 }
@@ -521,11 +521,8 @@ struct reschedulingChargesStruct {
 }
 
 struct reschedulingChargesDetailsStruct {
-//    let SPRFEE : [String:[String:[cancellationSlabStruct]]]
-//    let SURFEE : [String:[String:[sucfeeValueStruct]]]
-    
-    let SPRFEE : [String:CancellationSlabStruct]
-    let SURFEE : [String:SucFeeValueStruct]
+    let SPRFEE : [String:[String:[cancellationSlabStruct]]]
+    let SURFEE : [String:[String:[sucfeeValueStruct]]]
     
     init() {
         SPRFEE = [:]
@@ -533,54 +530,28 @@ struct reschedulingChargesDetailsStruct {
     }
     
     init(json: JSON) {
-        SPRFEE = Dictionary(uniqueKeysWithValues: json["SPRFEE"].map { ($0.0, CancellationSlabStruct(json: $0.1)) })
-    }
-    
-    struct CancellationSlabStruct {
-        var cancellationStruct: [String:[cancellationSlabStruct]]
-        
-        init(json: JSON) {
-            cancellationStruct = Dictionary(uniqueKeysWithValues: json.map { ($0.0, $0.1.arrayValue.map { cancellationSlabStruct(json: $0) }) })
+        var sprfee = [String:[String:[cancellationSlabStruct]]]()
+        var surfee = [String:[String:[sucfeeValueStruct]]]()
+        for (key,val) in json["SPRFEE"] {
+            sprfee[key] = Dictionary(uniqueKeysWithValues: val.map { ($0.0, $0.1.arrayValue.map { cancellationSlabStruct(json: $0) }) })
         }
-    }
-    
-    struct SucFeeValueStruct {
-        var sucFeeStruct: [String:[sucfeeValueStruct]]
-        
-        init(json: JSON) {
-            sucFeeStruct = Dictionary(uniqueKeysWithValues: json.map { ($0.0, $0.1.arrayValue.map { sucfeeValueStruct(json: $0) }) })
+        SPRFEE = sprfee
+        for (key,val) in json["SURFEE"] {
+            surfee[key] = Dictionary(uniqueKeysWithValues: val.map { ($0.0, $0.1.arrayValue.map { sucfeeValueStruct(json: $0) }) })
         }
+        SURFEE = surfee
+
     }
     
-//    func getAirlineReschedulingDataForAllFlights() -> [[String:[String:[cancellationSlabStruct]]]] {
-//        var newVal = [[String:[String:[cancellationSlabStruct]]]]()
-//        newVal.append(SPRFEE)
-//        return newVal
-//    }
-    
-    func getAirlineReschedulingDataForAllFlights()-> [[String:[String:[cancellationSlabStruct]]]] {
+    func getAirlineReschedulingDataForAllFlights() -> [[String:[String:[cancellationSlabStruct]]]] {
         var newVal = [[String:[String:[cancellationSlabStruct]]]]()
-        var valToAppend = [String:[String:[cancellationSlabStruct]]]()
-        SPRFEE.forEach {
-            valToAppend[$0.key] = $0.value.cancellationStruct
-        }
-        newVal.append(valToAppend)
+        newVal.append(SPRFEE)
         return newVal
     }
     
-//    func getAertripReschedulingDataForAllFlights() -> [[String:[String:[sucfeeValueStruct]]]] {
-//        var newVal = [[String:[String:[sucfeeValueStruct]]]]()
-//        newVal.append(SURFEE)
-//        return newVal
-//    }
-    
     func getAertripReschedulingDataForAllFlights() -> [[String:[String:[sucfeeValueStruct]]]] {
         var newVal = [[String:[String:[sucfeeValueStruct]]]]()
-        var valToAppend = [String:[String:[sucfeeValueStruct]]]()
-        SURFEE.forEach {
-            valToAppend[$0.key] = $0.value.sucFeeStruct
-        }
-        newVal.append(valToAppend)
+        newVal.append(SURFEE)
         return newVal
     }
 }
@@ -609,7 +580,7 @@ struct baggageStruct: Equatable {
 }
 
 
-struct cancellationDetailsStruct:Codable {
+struct cancellationDetailsStruct {
     let RAF :  [String:[String:Int]]
     let SPCFEE : [String:[String:[cancellationSlabStruct]]]
     let SUCFEE : [String:[String:[sucfeeValueStruct]]]
@@ -621,12 +592,21 @@ struct cancellationDetailsStruct:Codable {
     }
     
     init(json : JSON) {
-        
-                
-        
-        Dictionary(uniqueKeysWithValues: json["RAF"].map({ $0.0, Dictionary(uniqueKeysWithValues: json[$0.0].map( { $0.0, $0.1 } ) )  }))
-
-        
+        var raf = [String:[String:Int]]()
+        var spcfee = [String:[String:[cancellationSlabStruct]]]()
+        var sucfee = [String:[String:[sucfeeValueStruct]]]()
+        json["RAF"].forEach {
+            raf[$0.0] = Dictionary(uniqueKeysWithValues: $0.1.map { ($0.0, $0.1.intValue) })
+        }
+        RAF = raf
+        json["SPCFEE"].forEach {
+            spcfee[$0.0] = Dictionary(uniqueKeysWithValues: $0.1.map { ($0.0, $0.1.arrayValue.map { cancellationSlabStruct(json: $0) }) })
+        }
+        SPCFEE = spcfee
+        json["SUCFEE"].forEach {
+            sucfee[$0.0] = Dictionary(uniqueKeysWithValues: $0.1.map { ($0.0, $0.1.arrayValue.map { sucfeeValueStruct(json: $0) }) })
+        }
+        SUCFEE = sucfee
     }
     
     
@@ -701,15 +681,26 @@ struct getPinnedURLResponse  {
     
 }
 
-struct updatedFareInfoStruct:Codable{
+struct updatedFareInfoStruct {
     let success : Bool
     let data : [String : updatedFareInfoDataStruct]
+    
+    init(json: JSON) {
+        success = json["success"].boolValue
+        data = Dictionary(uniqueKeysWithValues: json["data"].map { ($0.0, updatedFareInfoDataStruct(json: $0.1)) })
+    }
 }
 
-struct updatedFareInfoDataStruct:Codable{
+struct updatedFareInfoDataStruct {
     let rfd : Int
     let rsc : Int
     let cp : cancellationChargesStruct
     let rscp : reschedulingChargesStruct
 
+    init(json: JSON) {
+        rfd = json["rfd"].intValue
+        rsc = json["rsc"].intValue
+        cp = cancellationChargesStruct(json: json["cp"])
+        rscp = reschedulingChargesStruct(json: json["rscp"])
+    }
 }
