@@ -17,7 +17,7 @@ import UIKit
 //    case multipleValues
 //}
 
-public class Journey: Codable , Equatable {
+public class Journey: Equatable {
     let vendor : String
     let id : String
     var fk : String
@@ -127,6 +127,53 @@ public class Journey: Codable , Equatable {
         self.coa = 0
         self.humaneScore = 0
         self.humanePrice = Humanprice()
+    }
+    
+    init(json: JSON) {
+        vendor = json["vendor"].stringValue
+        id = json["id"].stringValue
+        fk = json["fk"].stringValue
+        ofk = json["ofk"].stringValue
+        otherfares = json["otherfares"].boolValue
+        farepr = json["farepr"].intValue
+        iic = json["iic"].boolValue
+        displaySeat = json["displaySeat"].boolValue
+        fare = Taxes(json: json["fare"])
+        rfdPlcy = refundPolicyStruct(json: json["rfdPlcy"])
+        dt = json["dt"].stringValue
+        at = json["at"].stringValue
+        tt = json["tt"].map { $0.1.intValue }
+        slo  = json["slo"].intValue
+        slot = json["slot"].stringValue
+        llow = json["llow"].intValue
+        llowt = json["llowt"].stringValue
+        red = json["red"].intValue
+        redt = json["redt"].stringValue
+        cot = json["cot"].intValue
+        cop = json["cop"].intValue
+        copt = json["copt"].stringValue
+        fsr = json["fsr"].intValue
+        seats = json["seats"].stringValue
+        al = json["al"].map { $0.1.stringValue }
+        stp = json["stp"].stringValue
+        ap = json["a"].map { $0.1.stringValue }
+        loap = json["loap"].map { $0.1.stringValue }
+        leg = json["leg"].map { FlightLeg(json: $0.1) }
+        isLcc = json["isLcc"].intValue
+        sict = json["sict"].boolValue
+        dspNoshow = json["dspNoshow"].intValue
+        cc = json["cc"].stringValue
+        fcc = json["fcc"].stringValue
+        lg = json["lg"].intValue
+        ovngt = json["ovngt"].intValue
+        ovngtt = json["ovngtt"].stringValue
+        ovgtf = json["ovgtf"].intValue
+        ovgtlo = json["ovgtlo"].intValue
+        dd = json["dd"].stringValue
+        ad = json["ad"].stringValue
+        coa = json["coa"].intValue
+        humaneScore = json["humaneScore"].floatValue
+        humanePrice = Humanprice()//Humanprice(json: json["humanePrice"])
     }
 
     // Computed properties for display and logic
