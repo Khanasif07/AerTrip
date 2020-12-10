@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-public struct FiltersWS : Codable {
+public struct FiltersWS  {
    
     var multiAl : Int?
     var cityapN : cityWiseAirportCode
@@ -31,9 +31,7 @@ public struct FiltersWS : Codable {
     var cityap : [String : [String]]
     
     
-    
     init(json : JSON){
-        
         multiAl = json["multiAl"].intValue
         cityapN  = cityWiseAirportCode(json: json["cityapN"])
         fares = json["fares"].arrayValue.map { $0.stringValue }
@@ -46,11 +44,13 @@ public struct FiltersWS : Codable {
         dt = TimeRange24hoursWS(json: json["dt"])
         at = TimeRange24hoursWS(json: json["at"])
         tt = TimeRangeIntervalWS(json: json["tt"])
-            
-        
-        
+        loap = json["loap"].arrayValue.map { $0.stringValue }
+        lott = TimeRangeIntervalWS(json: json["lott"])
+        originTz = TimeRangeTimeZone(json: json["originTz"])
+        destinationTz = TimeRangeTimeZone(json: json["destinationTz"])
+        ap = json["ap"].arrayValue.map { $0.stringValue }
+        cityap = Dictionary(uniqueKeysWithValues: json["cityap"].map( { ( $0.0, $0.1.arrayValue.map { $0.stringValue } ) } ))
         }
-        
     }
     
     
