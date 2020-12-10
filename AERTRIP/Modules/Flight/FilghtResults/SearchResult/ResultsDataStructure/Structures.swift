@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 public struct FiltersWS : Codable {
+   
     var multiAl : Int?
     var cityapN : cityWiseAirportCode
     var fares : [ String]
@@ -27,7 +28,32 @@ public struct FiltersWS : Codable {
     var originTz : TimeRangeTimeZone
     var destinationTz :TimeRangeTimeZone
     var ap : [String]
-    var cityap : [String : [String]]    
+    var cityap : [String : [String]]
+    
+    
+    
+    init(json : JSON){
+        
+        multiAl = json["multiAl"].intValue
+        cityapN  = cityWiseAirportCode(json: json["cityapN"])
+        fares = json["fares"].arrayValue.map { $0.stringValue }
+        fq =  Dictionary(uniqueKeysWithValues: json["fq"].map { ( $0.0, $0.1.stringValue ) } )
+        pr = priceWS(json: json["pr"])
+        stp = json["stp"].arrayValue.map { $0.stringValue }
+        al = json["al"].arrayValue.map { $0.stringValue }
+        depDt = DateTime(json: json["depDt"])
+        arDt = DateTime(json: json["arDt"])
+        dt = TimeRange24hoursWS(from: json["dt"])
+        at = TimeRange24hoursWS(from: json["at"])
+        tt = TimeRangeIntervalWS(json: json["tt"])
+            
+        
+        
+        }
+        
+    }
+    
+    
 }
 
 
@@ -73,6 +99,12 @@ public struct priceWS : Equatable {
 public struct TimeRange24hoursWS : Codable , Equatable {
     var earliest : String
     var latest: String
+    
+    
+    init(json : JSON){
+        earliest = json["earliest"].stringValue
+        latest = json["latest"].stringValue
+    }
     
     func convertFrom(timeInterval : TimeInterval ) -> String? {
         
@@ -496,7 +528,6 @@ struct reschedulingChargesDetailsStruct:Codable {
         SURFEE = [:]
     }
     
-    
     func getAirlineReschedulingDataForAllFlights() -> [[String:[String:[cancellationSlabStruct]]]] {
         var newVal = [[String:[String:[cancellationSlabStruct]]]]()
         newVal.append(SPRFEE)
@@ -532,9 +563,6 @@ struct baggageStruct: Equatable {
     }
     
 }
-
-
-
 
 
 struct cancellationDetailsStruct:Codable {
@@ -609,9 +637,7 @@ struct refundPolicyStruct {
     init(json : JSON) {
         
         rfd = Dictionary(uniqueKeysWithValues: json["rfd"].map { ($0.0, $0.1.intValue) })
-        
         rsc = Dictionary(uniqueKeysWithValues: json["rsc"].map { ($0.0, $0.1.intValue) })
-
 
     }
     
@@ -628,8 +654,6 @@ struct getPinnedURLResponse  {
         success = json["success"].boolValue
         data = Dictionary(uniqueKeysWithValues: json["data"].map { ($0.0, $0.1.stringValue) })
     }
-   
-
     
 }
 
