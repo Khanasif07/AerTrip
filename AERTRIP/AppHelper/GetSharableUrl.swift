@@ -147,7 +147,6 @@ class GetSharableUrl
             if isInternational{
                 let test = [
                     "key": "fk[\(i)]",
-//                    "value": (journeyArray as! [IntMultiCityAndReturnWSResponse.Results.J])[i].fk,
                     "value": (journeyArray as? [IntMultiCityAndReturnWSResponse.Results.J])?[i].fk ?? "",
                     "type": "text"
                 ]
@@ -156,7 +155,6 @@ class GetSharableUrl
             }else{
                 let test = [
                     "key": "fk[\(i)]",
-//                    "value": (journeyArray as! [Journey])[i].fk,
                     "value": (journeyArray as? [Journey])?[i].fk ?? "",
                     "type": "text"
                 ]
@@ -212,47 +210,8 @@ class GetSharableUrl
 
 
         var cookies = ""
-//        if (UserInfo.loggedInUser != nil){
-//            if let allCookies = UserDefaults.getCustomObject(forKey: UserDefaults.Key.currentUserCookies.rawValue) as? [HTTPCookie]
-//            {
-//                print("allCookies")
-//                if allCookies.count > 0{
-//                    let name = allCookies.first?.name ?? ""
-//                    let value = allCookies.first?.value ?? ""
-//                    if !name.isEmpty && !value.isEmpty || !name.isEmpty || !value.isEmpty{
-//                        cookies = name + "=" + value
-//                    }else{
-//                        cookies = "AT_R_STAGE_SESSID=cba8fbjvl52c316a4b24tuank4"
-//                    }
-//                }
-//            }
-//
-//        }else{
-//            cookies = "AT_R_STAGE_SESSID=cba8fbjvl52c316a4b24tuank4"
-//        }
         
         if (UserInfo.loggedInUser != nil){
-//            if let allCookies = UserDefaults.getCustomObject(forKey: UserDefaults.Key.currentUserCookies.rawValue) as? [HTTPCookie]
-//            {
-//                print("allCookies",allCookies.description)
-//
-////                AT_R_STAGE_SESSID=ikba8nlb4895sln3itliok513a; expires=Sat, 26-Dec-2020 10:50:10 GMT; Max-Age=2592000; path=/; domain=.aertrip.com; secure; HttpOnly
-//
-//
-//                if allCookies.count > 0{
-////                    let name = allCookies.first?.name ?? ""
-////                    let value = allCookies.first?.value ?? ""
-////                    if !name.isEmpty && !value.isEmpty || !name.isEmpty || !value.isEmpty{
-////                        cookies = name + "=" + value
-////                    }else{
-////                        cookies = "AT_R_STAGE_SESSID=cba8fbjvl52c316a4b24tuank4"
-////                    }
-//
-//                }
-//            }
-            
-            
-            
             if let loginCookie = UserDefaults.standard.value(forKey: "loginCookie") as? String{
                 cookies = loginCookie
             }else{
@@ -266,14 +225,11 @@ class GetSharableUrl
             }
         }
         
-        printDebug("cookies= \(cookies)")
         request.addValue(cookies, forHTTPHeaderField: "Cookie")
         
         request.httpMethod = "POST"
         request.httpBody = postData
-        
-//        print("postData=", String(data: postData!, encoding: .utf8)!)
-        
+                
         let requestDate = Date.getCurrentDate()
         var textLog = TextLog()
         

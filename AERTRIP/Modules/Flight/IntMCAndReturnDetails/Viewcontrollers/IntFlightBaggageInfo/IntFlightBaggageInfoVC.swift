@@ -38,7 +38,7 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
     //Indicator:---
     var indicator = UIActivityIndicatorView()
     weak var dimensionDelegate : getBaggageDimentionsDelegate?
-
+    
     //MARK:- Initialise Views
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -154,7 +154,7 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
                 
                 let attributedWithTextColor: NSAttributedString = displayTxt.attributedStringWithColor(strArray, color: UIColor.clear)
                 changeAirportCell.dataLabel.attributedText = attributedWithTextColor
-
+                
             }else{
                 displayTxt = displayTxt + "•   Baggage details are indicative and subject to change without prior notice."
                 
@@ -624,5 +624,4 @@ extension IntFlightBaggageInfoVC{
         }
         self.baggageTableView.reloadData()
     }
-    
 }

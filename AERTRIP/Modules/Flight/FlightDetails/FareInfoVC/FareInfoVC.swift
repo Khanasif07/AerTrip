@@ -181,7 +181,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         if indexPath.section == journey.count {
-            let changeAirportCell = tableView.dequeueReusableCell(withIdentifier: "ChangeAirportCell") as! ChangeAirportTableViewCell
+            guard let changeAirportCell = tableView.dequeueReusableCell(withIdentifier: "ChangeAirportCell") as? ChangeAirportTableViewCell else {return UITableViewCell()}
             changeAirportCell.titleLabel.text = ""
             changeAirportCell.titleLabelHeight.constant = 0
             changeAirportCell.dataLabelTop.constant = 0
@@ -193,7 +193,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         }else{
             if journey.count == 1{
                 if indexPath.row == 0{
-                    let fareInfoCell = tableView.dequeueReusableCell(withIdentifier: "FareInfoCell") as! FareInfoTableViewCell
+                    guard let fareInfoCell = tableView.dequeueReusableCell(withIdentifier: "FareInfoCell") as? FareInfoTableViewCell else{return UITableViewCell()}
                                         
                     let isFareRulesButtonVisible = fareInfoCell.setupFareRulesButton(fareRulesData: fareRulesData, index: indexPath.section)
                     
@@ -217,7 +217,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                     }
                     return fareInfoCell
                 }else if indexPath.row == 2 {
-                    let changeAirportCell = tableView.dequeueReusableCell(withIdentifier: "ChangeAirportCell") as! ChangeAirportTableViewCell
+                    guard let changeAirportCell = tableView.dequeueReusableCell(withIdentifier: "ChangeAirportCell") as? ChangeAirportTableViewCell else{return UITableViewCell()}
                     changeAirportCell.titleLabel.text = ""
                     changeAirportCell.titleLabelHeight.constant = 0
                     changeAirportCell.dataLabelTop.constant = 0
@@ -228,7 +228,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                     changeAirportCell.seperatorBottom.constant = 35
                     return changeAirportCell
                 }else{
-                    let fareInfoCell = tableView.dequeueReusableCell(withIdentifier: "CombineFareInfoCell") as! CombineFareInfoTableViewCell
+                    guard let fareInfoCell = tableView.dequeueReusableCell(withIdentifier: "CombineFareInfoCell") as? CombineFareInfoTableViewCell else{return UITableViewCell()}
                     
                     fareInfoCell.journey = journey
                     fareInfoCell.flightAdultCount = flightAdultCount
@@ -307,7 +307,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                 }
             }else{
                 if indexPath.row == 0{
-                    let fareInfoCell = tableView.dequeueReusableCell(withIdentifier: "FareInfoCell") as! FareInfoTableViewCell
+                    guard let fareInfoCell = tableView.dequeueReusableCell(withIdentifier: "FareInfoCell") as? FareInfoTableViewCell else{return UITableViewCell()}
                                         
                     let isFareRulesButtonVisible = fareInfoCell.setupFareRulesButton(fareRulesData: fareRulesData, index: indexPath.section)
                     
@@ -330,7 +330,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                     }
                     return fareInfoCell
                 }else{
-                    let fareInfoCell = tableView.dequeueReusableCell(withIdentifier: "CombineFareInfoCell") as! CombineFareInfoTableViewCell
+                    guard let fareInfoCell = tableView.dequeueReusableCell(withIdentifier: "CombineFareInfoCell") as? CombineFareInfoTableViewCell else{return UITableViewCell()}
                     
                     fareInfoCell.journey = journey
                     fareInfoCell.flightAdultCount = flightAdultCount

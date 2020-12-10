@@ -26,7 +26,6 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     var flightsResults  =  FlightsResults()
     
-    //    var amenitiesData = ["DirecTV", "Free Wi-Fi", "Personal televisions", "Open and closed suite", "The airline meal"]
     var baggageData = [JSONDictionary]()
     var isChangeOfAirport = false
     var sid = ""
@@ -339,27 +338,8 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                     cell.classNameLabel.layer.masksToBounds = true
                     
                     var bc = flight.bc
-//                    if bc != ""{
-//                        bc =  " (" + bc + ")"
-//                        if flight.ccChg == 1{
-//                            cell.classLabel.text = flight.al + " - " + flight.fn + "・"
-//
-//                            cell.classNameLabel.attributedText = cell.addAttributsForRange((" " + flight.cc + bc + " "), coloredString: (" " + flight.cc + bc + " "), color: AppColors.lightYellow)
-//                            cell.classNameLabel.textColor = UIColor.black
-//                        }else{
-//                            cell.classLabel.text = flight.al + " - " + flight.fn + "・"
-//
-//                            cell.classNameLabel.attributedText = cell.addAttributsForRange("" + flight.cc + bc + " ", coloredString: flight.cc, color: UIColor.clear)
-//                            cell.classNameLabel.textColor = AppColors.themeGray40
-//                        }
-//                    }else{
-//                        cell.classLabel.text = flight.al + " - " + flight.fn + "・"
-//                        cell.classNameLabel.text = flight.cc
-//                        cell.classNameLabel.textColor = AppColors.themeGray40
-//                    }
-                    
-
                     var cc = flight.cc
+                    
                     if cc == "Premium Economy"{
                         cc = "Premium E"
                     }
@@ -367,24 +347,20 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                     if bc != ""{
                         bc =  " (" + bc + ")"
                         if flight.ccChg == 1{
-                            cell.classLabel.text = ""// flight.al + " - " + flight.fn + "・"
-                            
+                            cell.classLabel.text = ""
 
                             let str = flight.al + " - " + flight.fn + "・" + " " + cc + bc + " "
-                            
+                        
                             cell.classNameLabel.attributedText = cell.addAttributsForRange(str, coloredString: (" " + flight.cc + bc + " "), color: AppColors.lightYellow)
                             cell.classNameLabel.textColor = UIColor.black
                         }else{
-                            cell.classLabel.text = ""//flight.al + " - " + flight.fn + "・"
+                            cell.classLabel.text = ""
                             
                             let str = flight.al + " - " + flight.fn + "・" + "" + cc + bc + " "
                             cell.classNameLabel.attributedText = cell.addAttributsForRange(str, coloredString: flight.cc, color: UIColor.clear)
                             cell.classNameLabel.textColor = AppColors.themeGray40
                         }
                     }else{
-//                        cell.classLabel.text = flight.al + " - " + flight.fn + "・"
-//                        cell.classNameLabel.text = flight.cc
-                        
                         let str  = flight.al + " - " + flight.fn + "・" + cc
                         cell.classNameLabel.text = str
                         cell.classNameLabel.textColor = AppColors.themeGray40
@@ -407,16 +383,11 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                     }else{
                         cell.arrivalAirportLabel.attributedText = cell.addAttributsForRange(flight.to, coloredString: flight.to, color: AppColors.clear)
                     }
-//                    cell.setClassNameLabelWidth()
                     
                     cell.arrivalPerformaceButton.isUserInteractionEnabled = false
                     cell.onArrivalPerformanceLabel.text = ""
                     cell.onArrivalPerformanceView.isHidden = true
                     cell.onArrivalPerformanceViewWidth.constant = 0
-                    
-                    
-                    
-                    
                     
                     if flight.ontimePerformanceDataStoringTime != nil{
                         if Double(flight.ontimePerformance ?? 0) > 90.0{
@@ -437,12 +408,8 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                         }
                         
                         cell.onArrivalPerformanceLabel.text = "\(flight.ontimePerformance ?? 0)\(ontimeText)"
-
                         cell.onArrivalPerformanceViewWidth.constant = viewWidth
-
                         cell.arrivalPerformaceButton.isUserInteractionEnabled = true
-                        
-                        
                         cell.onArrivalPerformanceView.isHidden = false
                         
                         let onTimePerformanceInPercent = flight.ontimePerformance ?? 0
@@ -486,9 +453,6 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                         cell.departureDateLabel.attributedText = nil
                         cell.departureDateLabel.text = cell.dateConverter(dateStr: flight.dd)
                     }
-                    
-//                    cell.arrivalTerminalLabel.text = flight.atm
-//                    cell.departureTerminalLabel.text = flight.dtm
                     
                     if flight.atm != ""{
                         if flight.isArrivalTerminalChange == true{
@@ -575,16 +539,6 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 
                     }
                     
-//                    if indexPath.section == 0 && indexPath.row == 0{
-//                        cell.topSeperatorViewHeight.constant = 0
-//                        cell.topSeperatorView.isHidden = true
-//                    }else if tableView.numberOfRows(inSection: indexPath.section) > 1{
-//                        cell.topSeperatorView.isHidden = !(indexPath.row == 0)
-//                        cell.topSeperatorViewHeight.constant = (indexPath.row == 0) ? 0.5 : 0
-//                    }else{
-//                        cell.topSeperatorViewHeight.constant = 0.5
-//                        cell.topSeperatorView.isHidden = false
-//                    }
                     return cell
                 }else{
                     guard let layoverCell = tableView.dequeueReusableCell(withIdentifier: "LayoverViewCell") as? LayoverViewTableViewCell else {return UITableViewCell()}
@@ -640,19 +594,6 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     //MARK:- Scrollview Delegate
     func scrollViewDidScroll(_ scrollView: UIScrollView)
     {
-//        var isHidden = false
-//        var viewHeight = 0.0
-//        if scrollView.contentOffset.y < 0{
-//            isHidden = false
-//            viewHeight = 0.5
-//        }else{
-//            isHidden = true
-//            viewHeight = 0
-//        }
-//        if let cell = flightInfoTableView.cellForRow(at: IndexPath(item: 0, section: 0)) as? FlightDetailsTableViewCell {
-//            cell.topSeperatorView.isHidden = isHidden
-//            cell.topSeperatorViewHeight.constant = CGFloat(viewHeight)
-//        }
     }
     
     //MARK:- Calculate Travelling Time
@@ -676,40 +617,9 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     
-//    func addAttributsForRange(_ text: String, coloredString:String, color: UIColor, isForground:Bool = false)-> NSAttributedString{
-//        
-//        let range = (text as NSString).range(of: coloredString)
-//        let attribute = NSMutableAttributedString.init(string: text)
-//        if isForground{
-//             attribute.addAttribute(NSAttributedString.Key.foregroundColor, value: color , range: range)
-//        }else{
-//             attribute.addAttribute(NSAttributedString.Key.backgroundColor, value: color , range: range)
-//        }
-//       
-//        return attribute
-//    }
-    
-    
-//    func dateConverter(dateStr:String)-> String{
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "yyyy-MM-dd"
-//        if let date = dateFormatter.date(from: dateStr){
-//            dateFormatter.dateFormat = "E, d MMM yyyy"
-//            return dateFormatter.string(from: date)
-//        }
-//        return ""
-//    }
-    
-    
     //MARK:- Set Image
     func setImageFromPath(urlPath : String  , to imageView : UIImageView){
         imageView.setImageWithUrl(urlPath, placeholder: UIImage(), showIndicator: false)//resourceFor(urlPath: urlPath)
-//        guard  let urlobj = URL(string: urlPath) else { return }
-//        let urlRequest = URLRequest(url: urlobj)
-//        if let responseObj = URLCache.shared.cachedResponse(for: urlRequest) {
-//            let image = UIImage(data: responseObj.data)
-//            imageView.image = image
-//        }
     }
     
     func getSelectedAmenities(amenitiesData:[String:String], index:Int, cellIndexPath: IndexPath){
@@ -732,10 +642,6 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                 arrivalPerformanceView.onTimePerformanceInPercent = flight.ontimePerformance ?? 0
                 arrivalPerformanceView.modalPresentationStyle = .overFullScreen
                 self.present(arrivalPerformanceView, animated: false, completion: nil)
-//                arrivalPerformanceView.view.frame = self.parent!.view.bounds
-//                self.parent!.view.addSubview(arrivalPerformanceView.view)
-//                self.parent!.addChild(arrivalPerformanceView)
-//                arrivalPerformanceView.willMove(toParent: self)
             }
         }
     }
@@ -805,12 +711,6 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                                         self.baggageData += [datas]
                                     }
                                 }
-//                                for j in 0...keys.count-1{
-//                                    let str = keys[j] as! String
-//                                    if let datas = data.value(forKey: str) as? JSONDictionary{
-//                                        self.baggageData += [datas]
-//                                    }
-//                                }
                             }
                         }
                     }
