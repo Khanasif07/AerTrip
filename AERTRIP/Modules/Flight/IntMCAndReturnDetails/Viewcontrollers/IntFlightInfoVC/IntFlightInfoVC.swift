@@ -649,47 +649,53 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     //MARK:- API Call
     func callAPIforFlightsOnTimePerformace(origin: String, destination: String, airline: String, flight_number: String, index:[Int],FFK:String, count:Int = 3){
         guard count > 0 else {return}
-        let webservice = WebAPIService()
-        webservice.executeAPI(apiServive: .flightPerformanceResult(origin: origin, destination: destination, airline: airline, flight_number: flight_number), completionHandler: {[weak self](data) in
+//        let webservice = WebAPIService()
+//        webservice.executeAPI(apiServive: .flightPerformanceResult(origin: origin, destination: destination, airline: airline, flight_number: flight_number), completionHandler: {[weak self](data) in
+        let param = ["origin": origin,"destination":destination,"airline":airline,"flight_number":flight_number]
+        APICaller.shared.getFlightPerformanceData(params: param){[weak self](prData, error) in
             guard let self = self else {return}
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            
-            DispatchQueue.main.async {
-                if var currentParsedResponse = parse(data: data, into: flightPerformaceResponse.self, with:decoder) {
-                    
-                    if currentParsedResponse.success == true{
-                        currentParsedResponse.data?.delayIndex?.index = index
+            if let data = prData{
+                let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                DispatchQueue.main.async {
+                    if var currentParsedResponse = parse(data: data, into: flightPerformaceResponse.self, with:decoder) {
                         
-                        let date = Date()
-                        let calendar = Calendar.current
-                        let hour = calendar.component(.hour, from: date)
-                        let minutes = calendar.component(.minute, from: date)
-                        let seconds = calendar.component(.second, from: date)
-                        guard let flight = self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]] else {return}
-                        
-                        if flight.ffk == FFK{
-                            self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]].ontimePerformance = Int((currentParsedResponse.data?.delayIndex?.ontime) ?? "0")
+                        if currentParsedResponse.success == true{
+                            currentParsedResponse.data?.delayIndex?.index = index
                             
-                            self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]].latePerformance = Int((currentParsedResponse.data?.delayIndex?.late) ?? "0")
+                            let date = Date()
+                            let calendar = Calendar.current
+                            let hour = calendar.component(.hour, from: date)
+                            let minutes = calendar.component(.minute, from: date)
+                            let seconds = calendar.component(.second, from: date)
+                            guard let flight = self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]] else {return}
                             
-                            self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]].cancelledPerformance = Int((currentParsedResponse.data?.delayIndex?.cancelled) ?? "0")
+                            if flight.ffk == FFK{
+                                self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]].ontimePerformance = Int((currentParsedResponse.data?.delayIndex?.ontime) ?? "0")
+                                
+                                self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]].latePerformance = Int((currentParsedResponse.data?.delayIndex?.late) ?? "0")
+                                
+                                self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]].cancelledPerformance = Int((currentParsedResponse.data?.delayIndex?.cancelled) ?? "0")
+                                
+                                self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]].observationCount = Int((currentParsedResponse.data?.delayIndex?.observationCount) ?? "0")
+                                
+                                self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]].averageDelay = Int((currentParsedResponse.data?.delayIndex?.averageDelay) ?? "0")
+                                self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]].ontimePerformanceDataStoringTime = "\(hour):\(minutes):\(seconds)"
+                            }
                             
-                            self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]].observationCount = Int((currentParsedResponse.data?.delayIndex?.observationCount) ?? "0")
-                            
-                            self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]].averageDelay = Int((currentParsedResponse.data?.delayIndex?.averageDelay) ?? "0")
-                            self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]].ontimePerformanceDataStoringTime = "\(hour):\(minutes):\(seconds)"
+                            self.flightInfoTableView.reloadData()
                         }
-                        
-                        self.flightInfoTableView.reloadData()
                     }
                 }
+            }else{
+                self.callAPIforFlightsOnTimePerformace(origin: origin, destination: destination, airline: airline, flight_number: flight_number, index:index, FFK:FFK,count:count - 1)
             }
-        } , failureHandler : {[weak self](error ) in
-            guard let self = self else {return}
-            self.callAPIforFlightsOnTimePerformace(origin: origin, destination: destination, airline: airline, flight_number: flight_number, index:index, FFK:FFK,count:count - 1)
-            printDebug(error)
-        })
+        }
+//        , failureHandler : {[weak self](error ) in
+//            guard let self = self else {return}
+//            self.callAPIforFlightsOnTimePerformace(origin: origin, destination: destination, airline: airline, flight_number: flight_number, index:index, FFK:FFK,count:count - 1)
+//            printDebug(error)
+//        })
     }
     
     func callAPIforBaggageInfo(sid:String, fk:String, count:Int = 3){

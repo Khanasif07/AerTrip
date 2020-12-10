@@ -434,47 +434,70 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
             self.tostDelegate?.showTost(msg: "Internet connection is not availble.", isLoaded: false)
             return
         }
-        guard count > 0 else { return }
+        let param = [APIKeys.sid.rawValue:sid, "fk[]":fk]
         self.addIndicator()
-        let webservice = WebAPIService()
-        webservice.executeAPI(apiServive: .baggageResult(sid: sid, fk: fk), completionHandler: {[weak self](data) in
+        APICaller.shared.getFlightbaggageDetails(params: param) {[weak self] (bgData, errorCodes) in
             guard let self = self else {return}
             self.removeIndicator()
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            
-            if let jsonResult:AnyObject  = try? JSONSerialization.jsonObject(with: data, options: []) as AnyObject{
-                
-                DispatchQueue.main.async {
-                    if let result = jsonResult as? [String: AnyObject] {
+            DispatchQueue.main.async {
+                if let data = bgData{
+                    let keys = data.keys
+                    if keys.count > 0{
                         
-                        if let data = result["data"] as? JSONDictionary {
-                            let keys = data.keys
-                            if keys.count > 0{
-                                
-                                for key in keys{
-                                    if let datas = data["\(key)"] as? JSONDictionary{
-                                        self.dataResp += [datas]
-                                    }
-                                }
-                                
-                                if self.dataResp.count != 0{
-                                    self.displaySetValues(baggage: self.dataResp)
-                                }
+                        for key in keys{
+                            if let datas = data["\(key)"] as? JSONDictionary{
+                                self.dataResp += [datas]
                             }
+                        }
+                        if self.dataResp.count != 0{
+                            self.displaySetValues(baggage: self.dataResp)
                         }
                     }
                 }
             }
-        }, failureHandler : {[weak self] (error ) in
-            guard let self = self else {return}
-            DispatchQueue.main.async {
-                self.tostDelegate?.showTost(msg: error.localizedDescription, isLoaded: true)
-                self.removeIndicator()
-                self.callAPIforBaggageInfo(sid:sid, fk:fk, journeyObj:journeyObj, count:count-1)
-            }
-            printDebug(error)
-        })
+        }
+        
+//        guard count > 0 else { return }
+//        self.addIndicator()
+//        let webservice = WebAPIService()
+//        webservice.executeAPI(apiServive: .baggageResult(sid: sid, fk: fk), completionHandler: {[weak self](data) in
+//            guard let self = self else {return}
+//            self.removeIndicator()
+//            let decoder = JSONDecoder()
+//            decoder.keyDecodingStrategy = .convertFromSnakeCase
+//
+//            if let jsonResult:AnyObject  = try? JSONSerialization.jsonObject(with: data, options: []) as AnyObject{
+//
+//                DispatchQueue.main.async {
+//                    if let result = jsonResult as? [String: AnyObject] {
+//
+//                        if let data = result["data"] as? JSONDictionary {
+//                            let keys = data.keys
+//                            if keys.count > 0{
+//
+//                                for key in keys{
+//                                    if let datas = data["\(key)"] as? JSONDictionary{
+//                                        self.dataResp += [datas]
+//                                    }
+//                                }
+//
+//                                if self.dataResp.count != 0{
+//                                    self.displaySetValues(baggage: self.dataResp)
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }, failureHandler : {[weak self] (error ) in
+//            guard let self = self else {return}
+//            DispatchQueue.main.async {
+//                self.tostDelegate?.showTost(msg: error.localizedDescription, isLoaded: true)
+//                self.removeIndicator()
+//                self.callAPIforBaggageInfo(sid:sid, fk:fk, journeyObj:journeyObj, count:count-1)
+//            }
+//            printDebug(error)
+//        })
     }
     
     func displaySetValues(baggage:[JSONDictionary]){
@@ -545,39 +568,59 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
 //Details on checkout page for domestic & oneway
 extension IntFlightBaggageInfoVC{
     func callAPIforBaggageInfoForDomestic(sid:String, fk:String, journeyObj:IntLeg){
-        let webservice = WebAPIService()
-        webservice.executeAPI(apiServive: .baggageResult(sid: sid, fk: fk), completionHandler: {    (data) in
-            
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            
-            do{
-                let jsonResult:AnyObject?  = try JSONSerialization.jsonObject(with: data, options: []) as AnyObject
-                
-                DispatchQueue.main.async {
-                    if let result = jsonResult as? [String: AnyObject] {
-                        
-                        if let data = result["data"] as? JSONDictionary {
-                            
-                            let keys = data.keys
-                            if keys.count > 0{
-                                for key in keys{
-                                    if let datas = data["\(key)"] as? JSONDictionary
-                                    {
-                                        self.dataResp += [datas]
-                                        self.displayForDomestic(journeyObj: journeyObj, baggage: self.dataResp)
-                                    }
-                                    
-                                }
+        let param = [APIKeys.sid.rawValue:sid, "fk[]":fk]
+        APICaller.shared.getFlightbaggageDetails(params: param) {[weak self] (bgData, errorCodes) in
+            guard let self = self else {return}
+            self.removeIndicator()
+            DispatchQueue.main.async {
+                if let data = bgData{
+                    let keys = data.keys
+                    if keys.count > 0{
+                        for key in keys{
+                            if let datas = data["\(key)"] as? JSONDictionary
+                            {
+                                self.dataResp += [datas]
+                                self.displayForDomestic(journeyObj: journeyObj, baggage: self.dataResp)
                             }
+                            
                         }
                     }
                 }
-            }catch{
             }
-        } , failureHandler : { (error ) in
-            printDebug(error)
-        })
+        }
+//        let webservice = WebAPIService()
+//        webservice.executeAPI(apiServive: .baggageResult(sid: sid, fk: fk), completionHandler: {    (data) in
+//
+//            let decoder = JSONDecoder()
+//            decoder.keyDecodingStrategy = .convertFromSnakeCase
+//
+//            do{
+//                let jsonResult:AnyObject?  = try JSONSerialization.jsonObject(with: data, options: []) as AnyObject
+//
+//                DispatchQueue.main.async {
+//                    if let result = jsonResult as? [String: AnyObject] {
+//
+//                        if let data = result["data"] as? JSONDictionary {
+//
+//                            let keys = data.keys
+//                            if keys.count > 0{
+//                                for key in keys{
+//                                    if let datas = data["\(key)"] as? JSONDictionary
+//                                    {
+//                                        self.dataResp += [datas]
+//                                        self.displayForDomestic(journeyObj: journeyObj, baggage: self.dataResp)
+//                                    }
+//
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }catch{
+//            }
+//        } , failureHandler : { (error ) in
+//            printDebug(error)
+//        })
     }
     
     func displayForDomestic(journeyObj:IntLeg, baggage:[JSONDictionary]){

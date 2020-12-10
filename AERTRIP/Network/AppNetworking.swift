@@ -30,6 +30,7 @@ enum AppNetworking {
     internal typealias Success = ((JSON) -> Void) //success response clouser
     internal typealias Failure = ((_ error : NSError) -> Void) //failure response clouser
     internal typealias Progress = ((Double) -> Void) //shows the upload progress
+    internal typealias SucessWithData = ((Data)->())?
     
     static let noInternetError = NSError(code: -4531, localizedDescription: LocalizedString.NoInternet.localized)
     //check device has internet connection or not
@@ -51,10 +52,12 @@ enum AppNetworking {
                      headers : HTTPHeaders = [:],
                      loader : Bool = true,
                      success : @escaping Success,
+                     successWithData : SucessWithData = nil,
                      failure : @escaping Failure){
         
         
-        request(URLString: endPoint.path, httpMethod: .post, parameters: parameters, headers: headers, success: success, failure: failure)
+//        request(URLString: endPoint.path, httpMethod: .post, parameters: parameters, headers: headers, success: success, failure: failure)
+        request(URLString: endPoint.path, httpMethod: .post, parameters: parameters, headers: headers, success: success, successWithData: successWithData, failure: failure)
     }
     
     static func POST(endPointPath : String,
@@ -62,6 +65,7 @@ enum AppNetworking {
                      headers : HTTPHeaders = [:],
                      loader : Bool = true,
                      success : @escaping Success,
+                     successWithData : SucessWithData = nil,
                      failure : @escaping Failure){
         
         
@@ -86,9 +90,10 @@ enum AppNetworking {
                     loader : Bool = true,
                     loaderContainerView: UIView? = nil,
                     success : @escaping Success,
+                    successWithData : SucessWithData = nil,
                     failure : @escaping Failure) {
         
-        request(URLString: endPoint.path, httpMethod: .get, parameters: parameters, encoding: URLEncoding.queryString, headers: headers, loaderContainerView: loaderContainerView, success: success, failure: failure)
+        request(URLString: endPoint.path, httpMethod: .get, parameters: parameters, encoding: URLEncoding.queryString, headers: headers, loaderContainerView: loaderContainerView, success: success, successWithData:successWithData,failure: failure)
     }
     static func GET(endPoint : String,
                     parameters : JSONDictionary = [:],
@@ -96,6 +101,7 @@ enum AppNetworking {
                     loader : Bool = true,
                     loaderContainerView: UIView? = nil,
                     success : @escaping Success,
+                    successWithData : SucessWithData = nil,
                     failure : @escaping Failure) {
         
         request(URLString: endPoint, httpMethod: .get, parameters: parameters, encoding: URLEncoding.queryString, headers: headers, loaderContainerView: loaderContainerView, success: success, failure: failure)
@@ -221,6 +227,7 @@ enum AppNetworking {
                                 loader : Bool = false,
                                 loaderContainerView: UIView? = nil,
                                 success : @escaping Success,
+                                successWithData : SucessWithData = nil,
                                 failure : @escaping Failure) {
         
         
@@ -337,6 +344,9 @@ enum AppNetworking {
                                 
                                 printDebug(jsonVal)
                                 success(jsonVal)
+                                if let responseData = response.data{
+                                    successWithData?(responseData)
+                                }
                                 
                             case .failure(let e):
                                 
