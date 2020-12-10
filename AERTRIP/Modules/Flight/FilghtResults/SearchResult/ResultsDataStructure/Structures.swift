@@ -31,6 +31,7 @@ public struct FiltersWS : Codable {
     var cityap : [String : [String]]
     
     
+    
     init(json : JSON){
         
         multiAl = json["multiAl"].intValue
