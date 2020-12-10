@@ -680,45 +680,71 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
     //MARK:- API Call
     func callAPIforFlightsOnTimePerformace(origin: String, destination: String, airline: String, flight_number: String, index:[Int],FFK:String)
     {
-        let webservice = WebAPIService()
-        webservice.executeAPI(apiServive: .flightPerformanceResult(origin: origin, destination: destination, airline: airline, flight_number: flight_number), completionHandler: {    (data) in
+        let param = ["origin": origin, "destination": destination, "airline":airline,"flight_number":flight_number]
+        APICaller.shared.getOnTimePerformanceDetails(params: param){[weak self] (data, error) in
+            guard let self = self , let performanceData = data else {return}
             
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            
-            DispatchQueue.main.async {
-                if var currentParsedResponse = parse(data: data, into: flightPerformaceResponse.self, with:decoder) {
-                    
-                    if currentParsedResponse.success == true{
-                        currentParsedResponse.data?.delayIndex?.index = index
-                        
-                        let date = Date()
-                        let calendar = Calendar.current
-                        let hour = calendar.component(.hour, from: date)
-                        let minutes = calendar.component(.minute, from: date)
-                        let seconds = calendar.component(.second, from: date)
-                        
-                        if self.journey[index[0]].leg.first?.flights[index[1]].ffk == FFK{
-                            self.journey[index[0]].leg[0].flights[index[1]].ontimePerformance = Int((currentParsedResponse.data?.delayIndex?.ontime) ?? "")
-                            
-                            self.journey[index[0]].leg[0].flights[index[1]].latePerformance = Int((currentParsedResponse.data?.delayIndex?.late) ?? "")
-                            
-                            self.journey[index[0]].leg[0].flights[index[1]].cancelledPerformance = Int((currentParsedResponse.data?.delayIndex?.cancelled) ?? "")
-                            
-                            self.journey[index[0]].leg[0].flights[index[1]].observationCount = Int((currentParsedResponse.data?.delayIndex?.observationCount) ?? "")
-                            
-                            self.journey[index[0]].leg[0].flights[index[1]].averageDelay = Int((currentParsedResponse.data?.delayIndex?.averageDelay) ?? "")
-                            
-                            self.journey[index[0]].leg[0].flights[index[1]].ontimePerformanceDataStoringTime = "\(hour):\(minutes):\(seconds)"
-                        }
-                        
-                        self.flightInfoTableView.reloadData()
-                    }
+            if let delay_index = performanceData["delay_index"] as? JSONDictionary
+            {
+                let date = Date()
+                let calendar = Calendar.current
+                let hour = calendar.component(.hour, from: date)
+                let minutes = calendar.component(.minute, from: date)
+                let seconds = calendar.component(.second, from: date)
+                
+                if self.journey[index[0]].leg.first?.flights[index[1]].ffk == FFK{
+                    self.journey[index[0]].leg[0].flights[index[1]].ontimePerformance = Int((delay_index["ontime"] as? String) ?? "")
+                    self.journey[index[0]].leg[0].flights[index[1]].latePerformance = Int((delay_index["late"] as? String) ?? "")
+                    self.journey[index[0]].leg[0].flights[index[1]].cancelledPerformance = Int((delay_index["cancelled"] as? String) ?? "")
+                    self.journey[index[0]].leg[0].flights[index[1]].observationCount = Int((delay_index["observation_count"] as? String) ?? "")
+                    self.journey[index[0]].leg[0].flights[index[1]].averageDelay = Int((delay_index["average_delay"] as? String) ?? "")
+                    self.journey[index[0]].leg[0].flights[index[1]].ontimePerformanceDataStoringTime = "\(hour):\(minutes):\(seconds)"
                 }
+
+                self.flightInfoTableView.reloadData()
             }
-        } , failureHandler : { (error ) in
-        })
+        }
     }
+//    {
+//        let webservice = WebAPIService()
+//        webservice.executeAPI(apiServive: .flightPerformanceResult(origin: origin, destination: destination, airline: airline, flight_number: flight_number), completionHandler: {    (data) in
+//
+//            let decoder = JSONDecoder()
+//            decoder.keyDecodingStrategy = .convertFromSnakeCase
+//
+//            DispatchQueue.main.async {
+//                if var currentParsedResponse = parse(data: data, into: flightPerformaceResponse.self, with:decoder) {
+//
+//                    if currentParsedResponse.success == true{
+//                        currentParsedResponse.data?.delayIndex?.index = index
+//
+//                        let date = Date()
+//                        let calendar = Calendar.current
+//                        let hour = calendar.component(.hour, from: date)
+//                        let minutes = calendar.component(.minute, from: date)
+//                        let seconds = calendar.component(.second, from: date)
+//
+//                        if self.journey[index[0]].leg.first?.flights[index[1]].ffk == FFK{
+//                            self.journey[index[0]].leg[0].flights[index[1]].ontimePerformance = Int((currentParsedResponse.data?.delayIndex?.ontime) ?? "")
+//
+//                            self.journey[index[0]].leg[0].flights[index[1]].latePerformance = Int((currentParsedResponse.data?.delayIndex?.late) ?? "")
+//
+//                            self.journey[index[0]].leg[0].flights[index[1]].cancelledPerformance = Int((currentParsedResponse.data?.delayIndex?.cancelled) ?? "")
+//
+//                            self.journey[index[0]].leg[0].flights[index[1]].observationCount = Int((currentParsedResponse.data?.delayIndex?.observationCount) ?? "")
+//
+//                            self.journey[index[0]].leg[0].flights[index[1]].averageDelay = Int((currentParsedResponse.data?.delayIndex?.averageDelay) ?? "")
+//
+//                            self.journey[index[0]].leg[0].flights[index[1]].ontimePerformanceDataStoringTime = "\(hour):\(minutes):\(seconds)"
+//                        }
+//
+//                        self.flightInfoTableView.reloadData()
+//                    }
+//                }
+//            }
+//        } , failureHandler : { (error ) in
+//        })
+//    }
     
     func callAPIforBaggageInfo(sid:String, fk:String){
         

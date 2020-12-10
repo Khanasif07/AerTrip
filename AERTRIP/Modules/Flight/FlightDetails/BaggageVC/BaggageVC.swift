@@ -396,30 +396,48 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
     }
     
     //MARK:- API Call
-    func callAPIforBaggageInfo(sid:String, fk:String, journeyObj:Journey)
-    {
-        let url = APIEndPoint.baseUrlPath.rawValue+APIEndPoint.flightDetails_Baggage.rawValue+"sid=\(sid)&fk[]=\(fk)"
-        AppNetworking.GET(endPoint: url, success: { [weak self] (data) in
-            guard let sSelf = self else {return}
-
-            if let data = data["data"].object as? JSONDictionary {
-                
-                let keys = data.keys
-                if keys.count > 0{
-
-                    for key in keys{
-                        if let datas = data["\(key)"] as? JSONDictionary
-                        {
-                            sSelf.dataResp += [datas]
-                            sSelf.displaySetValues(journeyObj: journeyObj, baggage: sSelf.dataResp)
-                        }
+    func callAPIforBaggageInfo(sid:String, fk:String, journeyObj:Journey){
+        let param = ["sid": sid, "fk[]": fk]
+        APICaller.shared.getFlightbaggageDetails(params: param) {[weak self] (data, error) in
+            guard let self = self , let bgData = data else {
+                AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
+                return
+            }
+            let keys = bgData.keys
+            if keys.count > 0{
+                for key in keys{
+                    if let datas = bgData["\(key)"] as? JSONDictionary
+                    {
+                        self.dataResp += [datas]
+                        self.displaySetValues(journeyObj: journeyObj, baggage: self.dataResp)
                     }
                 }
             }
-            
-        }, failure: { (errors) in
-        })
+        }
     }
+//    {
+//        let url = APIEndPoint.baseUrlPath.rawValue+APIEndPoint.flightDetails_Baggage.rawValue+"sid=\(sid)&fk[]=\(fk)"
+//        AppNetworking.GET(endPoint: url, success: { [weak self] (data) in
+//            guard let sSelf = self else {return}
+//
+//            if let data = data["data"].object as? JSONDictionary {
+//
+//                let keys = data.keys
+//                if keys.count > 0{
+//
+//                    for key in keys{
+//                        if let datas = data["\(key)"] as? JSONDictionary
+//                        {
+//                            sSelf.dataResp += [datas]
+//                            sSelf.displaySetValues(journeyObj: journeyObj, baggage: sSelf.dataResp)
+//                        }
+//                    }
+//                }
+//            }
+//
+//        }, failure: { (errors) in
+//        })
+//    }
 //    {
 //        let webservice = WebAPIService()
 //        webservice.executeAPI(apiServive: .baggageResult(sid: sid, fk: fk), completionHandler: {    (data) in
