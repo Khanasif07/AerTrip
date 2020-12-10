@@ -112,6 +112,7 @@ public struct TimeRange24hoursWS : Equatable {
         let startOfDay = calendar.startOfDay(for: Date())
         let tempDate = Date(timeInterval: timeInterval, since: startOfDay)
         let dateFormatter = DateFormatter()
+        
         dateFormatter.dateFormat = "HH:mm"
         let timeString = dateFormatter.string(from: tempDate)
         return timeString
