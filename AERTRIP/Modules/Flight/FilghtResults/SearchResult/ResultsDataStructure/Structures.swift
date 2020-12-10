@@ -32,22 +32,38 @@ public struct FiltersWS : Codable {
 
 
 
-public struct DateTime : Codable {
+public struct DateTime  {
     var earliest : String
     var latest : String
+    
+    init(json : JSON){
+        earliest = json["earliest"].stringValue
+        latest = json["latest"].stringValue
+    }
+    
 }
 
-public struct cityWiseAirportCode : Codable {
+public struct cityWiseAirportCode  {
     var fr : [ String : [String]]
     var to : [ String : [String]]
+    
+    init(json : JSON){
+        fr = Dictionary(uniqueKeysWithValues: json["fr"].map( { ( $0.0, $0.1.arrayValue.map { $0.stringValue } ) } ))
+        to = Dictionary(uniqueKeysWithValues: json["to"].map( { ( $0.0, $0.1.arrayValue.map { $0.stringValue } ) } ))
+    }
+    
 }
 
 
 
-public struct priceWS : Codable , Equatable {
+public struct priceWS : Equatable {
     var minPrice : Int
     var maxPrice : Int
     
+    init(json : JSON){
+        minPrice = json["minPrice"].intValue
+        maxPrice = json["maxPrice"].intValue
+    }
     
     public static func == (lhs : priceWS , rhs : priceWS ) -> Bool {
         return lhs.minPrice == rhs.minPrice && lhs.maxPrice == rhs.maxPrice
@@ -70,7 +86,6 @@ public struct TimeRange24hoursWS : Codable , Equatable {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
         let timeString = dateFormatter.string(from: tempDate)
-        
         return timeString
         
     }
@@ -119,9 +134,16 @@ public struct TimeRange24hoursWS : Codable , Equatable {
     }
 }
 
-public struct TimeRangeIntervalWS : Codable , Equatable {
+public struct TimeRangeIntervalWS : Equatable {
     var minTime : String? = "0"
     var maxTime : String? = "0"
+    
+    init(json : JSON){
+        minTime = json["minTime"].stringValue
+        maxTime = json["maxTime"].stringValue
+    }
+
+    
     
     public static func == (lhs : TimeRangeIntervalWS , rhs : TimeRangeIntervalWS ) -> Bool {
         
@@ -141,16 +163,28 @@ public struct TimeRangeIntervalWS : Codable , Equatable {
     }
 }
 
-public struct TimeRangeTimeZone : Codable {
+public struct TimeRangeTimeZone  {
     var max : String
     var min : String
+    
+    init(json : JSON){
+        max = json["max"].stringValue
+        min = json["min"].stringValue
+    }
+
+    
 }
 
-public struct airportCodes : Codable {
+public struct airportCodes  {
     let ap : [String]
+    
+    init(json : JSON){
+        ap = json["ap"].arrayValue.map { $0.stringValue }
+    }
+    
 }
 
-public struct Humanprice : Codable {
+public struct Humanprice  {
     let total : Float
     let breakup : [String : Float]
     
@@ -158,6 +192,12 @@ public struct Humanprice : Codable {
         total = 0
         breakup = [:]
     }
+    
+    init(json : JSON) {
+        total = json["total"].floatValue
+        breakup = Dictionary(uniqueKeysWithValues: json["breakup"].map { ($0.0, $0.1.floatValue )} )
+    }
+    
 }
 
 public struct FlightLeg  {
@@ -183,34 +223,20 @@ public struct FlightLeg  {
     
     
     init(json : JSON) {
-        
         allAp = json["allAp"].arrayValue.map { $0.stringValue }
-        
         dt = json["dt"].stringValue
-        
         ad = json["ad"].stringValue
-
         ttl = json["ttl"].arrayValue.map { $0.stringValue }
-
         flights = json[""].arrayValue.map { FlightDetail(json: $0)  }
-        
         fcp = json["fcp"].intValue
-        
         loap = json["loap"].arrayValue.map { $0.stringValue }
-
         stp = json["stp"].stringValue
-
-        lott = json["lott"].arrayValue.map { $0.intValue }
-
+        loap = json["loap"].arrayValue.map { $0.stringValue }
+        ap = json["ap"].arrayValue.map { $0.stringValue }
         dd = json["dd"].stringValue
-
         lfk = json["lfk"].stringValue
-
         at = json["at"].stringValue
-
-      //  al = json["al"].arrayValue.map { $0.stringValue }
-
-        
+        al = json["al"].arrayValue.map { $0.stringValue }
     }
     
 }
