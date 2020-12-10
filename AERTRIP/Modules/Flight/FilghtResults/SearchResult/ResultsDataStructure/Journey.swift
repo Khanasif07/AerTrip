@@ -173,7 +173,7 @@ public class Journey: Equatable {
         ad = json["ad"].stringValue
         coa = json["coa"].intValue
         humaneScore = json["humaneScore"].floatValue
-        humanePrice = Humanprice()//Humanprice(json: json["humanePrice"])
+        humanePrice = Humanprice(json: json["humanePrice"])
     }
 
     // Computed properties for display and logic
