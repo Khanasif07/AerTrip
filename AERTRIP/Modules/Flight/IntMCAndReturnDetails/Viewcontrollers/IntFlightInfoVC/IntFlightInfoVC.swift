@@ -693,47 +693,79 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     func callAPIforBaggageInfo(sid:String, fk:String, count:Int = 3){
-        guard count > 0 else {return}
-        let webservice = WebAPIService()
-        webservice.executeAPI(apiServive: .baggageResult(sid: sid, fk: fk), completionHandler: {[weak self](data) in
-            guard let self = self else {return}
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            do{
-                let jsonResult:AnyObject?  = try JSONSerialization.jsonObject(with: data, options: []) as AnyObject
-                DispatchQueue.main.async {
-                    if let result = jsonResult as? [String: AnyObject] {
-                        if let data = result["data"] as? JSONDictionary {
-                            let keys = data.keys
-                            if keys.count > 0{
-                                for key in keys{
-                                    if let datas = data["\(key)"] as? JSONDictionary{
-                                        self.baggageData += [datas]
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    let date = Date()
-                    let calendar = Calendar.current
-                    let hour = calendar.component(.hour, from: date)
-                    let minutes = calendar.component(.minute, from: date)
-                    let seconds = calendar.component(.second, from: date)
-                    let newArr = ["Time":"\(hour):\(minutes):\(seconds)",
-                        "selectedJourneyFK":self.selectedJourneyFK,
-                        "BaggageDataResponse":self.baggageData] as [String : Any]
-                    self.appdelegate.flightBaggageMutableArray.add(newArr)
-                    self.flightInfoTableView.reloadData()
-                    delay(seconds: 0.3) {
-                        self.flightInfoTableView.reloadData()
+        
+        let param = [APIKeys.sid.rawValue:sid, "fk[]":fk]
+        APICaller.shared.getFlightbaggageDetails(params: param) {[weak self] (data, error) in
+            guard let self = self , let bgData = data else {
+                AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
+                return
+            }
+            let keys = bgData.keys
+            if keys.count > 0{
+                for key in keys{
+                    if let datas = bgData["\(key)"] as? JSONDictionary{
+                        self.baggageData += [datas]
                     }
                 }
-            }catch{
             }
-        } , failureHandler : {[weak self](error ) in
-            guard let self = self else {return}
-            self.callAPIforBaggageInfo(sid:sid, fk:fk, count: count-1)
-            printDebug(error)
-        })
+            let date = Date()
+            let calendar = Calendar.current
+            let hour = calendar.component(.hour, from: date)
+            let minutes = calendar.component(.minute, from: date)
+            let seconds = calendar.component(.second, from: date)
+            
+            let newArr = ["Time":"\(hour):\(minutes):\(seconds)",
+                          "selectedJourneyFK":self.selectedJourneyFK,
+                          "BaggageDataResponse":self.baggageData] as [String : Any]
+            self.appdelegate.flightBaggageMutableArray.add(newArr)
+            self.flightInfoTableView.reloadData()
+            delay(seconds: 0.3) {
+                self.flightInfoTableView.reloadData()
+            }
+        }
+        
+        
+//        guard count > 0 else {return}
+//        let webservice = WebAPIService()
+//        webservice.executeAPI(apiServive: .baggageResult(sid: sid, fk: fk), completionHandler: {[weak self](data) in
+//            guard let self = self else {return}
+//            let decoder = JSONDecoder()
+//            decoder.keyDecodingStrategy = .convertFromSnakeCase
+//            do{
+//                let jsonResult:AnyObject?  = try JSONSerialization.jsonObject(with: data, options: []) as AnyObject
+//                DispatchQueue.main.async {
+//                    if let result = jsonResult as? [String: AnyObject] {
+//                        if let data = result["data"] as? JSONDictionary {
+//                            let keys = data.keys
+//                            if keys.count > 0{
+//                                for key in keys{
+//                                    if let datas = data["\(key)"] as? JSONDictionary{
+//                                        self.baggageData += [datas]
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                    let date = Date()
+//                    let calendar = Calendar.current
+//                    let hour = calendar.component(.hour, from: date)
+//                    let minutes = calendar.component(.minute, from: date)
+//                    let seconds = calendar.component(.second, from: date)
+//                    let newArr = ["Time":"\(hour):\(minutes):\(seconds)",
+//                        "selectedJourneyFK":self.selectedJourneyFK,
+//                        "BaggageDataResponse":self.baggageData] as [String : Any]
+//                    self.appdelegate.flightBaggageMutableArray.add(newArr)
+//                    self.flightInfoTableView.reloadData()
+//                    delay(seconds: 0.3) {
+//                        self.flightInfoTableView.reloadData()
+//                    }
+//                }
+//            }catch{
+//            }
+//        } , failureHandler : {[weak self](error ) in
+//            guard let self = self else {return}
+//            self.callAPIforBaggageInfo(sid:sid, fk:fk, count: count-1)
+//            printDebug(error)
+//        })
     }
 }

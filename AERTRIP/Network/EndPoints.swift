@@ -171,7 +171,7 @@ enum APIEndPoint: String {
     
     
     //Flight Details
-    case flightDetails_Baggage = "flights/baggage?"
+    case flightDetails_Baggage = "flights/baggage"
 }
 
 // MARK: - endpoint extension for url -

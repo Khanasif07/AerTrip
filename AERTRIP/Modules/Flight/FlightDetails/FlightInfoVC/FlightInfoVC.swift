@@ -720,42 +720,73 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
         })
     }
     
-    func callAPIforBaggageInfo(sid:String, fk:String)
-    {
-        let url = APIEndPoint.baseUrlPath.rawValue+APIEndPoint.flightDetails_Baggage.rawValue+"sid=\(sid)&fk[]=\(fk)"
-        AppNetworking.GET(endPoint: url, success: { [weak self] (data) in
-            guard let sSelf = self else {return}
-
-            if let data = data["data"].object as? JSONDictionary {
-
-                let keys = data.keys
-                if keys.count > 0{
-
-                    for key in keys{
-                        if let datas = data["\(key)"] as? JSONDictionary
-                        {
-                            sSelf.baggageData += [datas]
-                        }
+    func callAPIforBaggageInfo(sid:String, fk:String){
+        
+        let param = ["sid": sid, "fk[]": fk]
+        APICaller.shared.getFlightbaggageDetails(params: param) {[weak self] (data, error) in
+            guard let self = self , let bgData = data else {
+                AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
+                return
+            }
+            let keys = bgData.keys
+            if keys.count > 0{
+                for key in keys{
+                    if let datas = bgData["\(key)"] as? JSONDictionary
+                    {
+                        self.baggageData += [datas]
                     }
                 }
             }
-            
             let date = Date()
             let calendar = Calendar.current
             let hour = calendar.component(.hour, from: date)
             let minutes = calendar.component(.minute, from: date)
             let seconds = calendar.component(.second, from: date)
-
+            
             let newArr = ["Time":"\(hour):\(minutes):\(seconds)",
-                          "selectedJourneyFK":sSelf.selectedJourneyFK,
-                          "BaggageDataResponse":sSelf.baggageData] as [String : Any]
-            sSelf.appdelegate.flightBaggageMutableArray.add(newArr)
-            sSelf.flightInfoTableView.reloadData()
+                          "selectedJourneyFK":self.selectedJourneyFK,
+                          "BaggageDataResponse":self.baggageData] as [String : Any]
+            self.appdelegate.flightBaggageMutableArray.add(newArr)
+            self.flightInfoTableView.reloadData()
             delay(seconds: 0.3) {
-                sSelf.flightInfoTableView.reloadData()
+                self.flightInfoTableView.reloadData()
             }
-        }, failure: { (errors) in
-        })
+        }
+        
+//        let url = APIEndPoint.baseUrlPath.rawValue+APIEndPoint.flightDetails_Baggage.rawValue+"sid=\(sid)&fk[]=\(fk)"
+//        AppNetworking.GET(endPoint: url, success: { [weak self] (data) in
+//            guard let sSelf = self else {return}
+//
+//            if let data = data["data"].object as? JSONDictionary {
+//
+//                let keys = data.keys
+//                if keys.count > 0{
+//
+//                    for key in keys{
+//                        if let datas = data["\(key)"] as? JSONDictionary
+//                        {
+//                            sSelf.baggageData += [datas]
+//                        }
+//                    }
+//                }
+//            }
+//
+//            let date = Date()
+//            let calendar = Calendar.current
+//            let hour = calendar.component(.hour, from: date)
+//            let minutes = calendar.component(.minute, from: date)
+//            let seconds = calendar.component(.second, from: date)
+//
+//            let newArr = ["Time":"\(hour):\(minutes):\(seconds)",
+//                          "selectedJourneyFK":sSelf.selectedJourneyFK,
+//                          "BaggageDataResponse":sSelf.baggageData] as [String : Any]
+//            sSelf.appdelegate.flightBaggageMutableArray.add(newArr)
+//            sSelf.flightInfoTableView.reloadData()
+//            delay(seconds: 0.3) {
+//                sSelf.flightInfoTableView.reloadData()
+//            }
+//        }, failure: { (errors) in
+//        })
     }
 //    {
 //        let webservice = WebAPIService()
