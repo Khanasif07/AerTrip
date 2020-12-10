@@ -43,8 +43,8 @@ public struct FiltersWS : Codable {
         al = json["al"].arrayValue.map { $0.stringValue }
         depDt = DateTime(json: json["depDt"])
         arDt = DateTime(json: json["arDt"])
-        dt = TimeRange24hoursWS(from: json["dt"])
-        at = TimeRange24hoursWS(from: json["at"])
+        dt = TimeRange24hoursWS(json: json["dt"])
+        at = TimeRange24hoursWS(json: json["at"])
         tt = TimeRangeIntervalWS(json: json["tt"])
             
         
@@ -54,10 +54,6 @@ public struct FiltersWS : Codable {
     }
     
     
-}
-
-
-
 public struct DateTime  {
     var earliest : String
     var latest : String
@@ -96,7 +92,7 @@ public struct priceWS : Equatable {
     }
 }
 
-public struct TimeRange24hoursWS : Codable , Equatable {
+public struct TimeRange24hoursWS : Equatable {
     var earliest : String
     var latest: String
     
