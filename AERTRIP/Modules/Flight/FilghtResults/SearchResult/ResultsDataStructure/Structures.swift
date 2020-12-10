@@ -255,7 +255,7 @@ public struct FlightLeg  {
         dt = json["dt"].stringValue
         ad = json["ad"].stringValue
         ttl = json["ttl"].arrayValue.map { $0.stringValue }
-        flights = json[""].arrayValue.map { FlightDetail(json: $0)  }
+        flights = json["flights"].arrayValue.map { FlightDetail(json: $0)  }
         fcp = json["fcp"].intValue
         loap = json["loap"].arrayValue.map { $0.stringValue }
         stp = json["stp"].stringValue
@@ -428,7 +428,7 @@ struct AirlineMasterWS  {
 }
 
 
-struct Taxes:Codable {
+struct Taxes {
     var taxes : TotalPayabelSubStruct
     var BF : TaxesSubStruct
     var totalPayableNow : TaxesSubStruct
@@ -448,7 +448,8 @@ struct Taxes:Codable {
         taxes = TotalPayabelSubStruct(json: json["taxes"])
         BF = TaxesSubStruct(json: json["BF"])
         totalPayableNow = TaxesSubStruct(json: json["totalPayableNow"])
-        
+        cancellationCharges = cancellationChargesStruct(json: json["cancellationCharges"])
+        reschedulingCharges = reschedulingChargesStruct(json: json["reschedulingCharges"])
     }
     
 }
@@ -507,32 +508,79 @@ struct cancellationChargesStruct {
     }
     
 }
-struct reschedulingChargesStruct:Codable {
+struct reschedulingChargesStruct {
     let details : reschedulingChargesDetailsStruct
     
     init() {
         details = reschedulingChargesDetailsStruct()
     }
+    
+    init(json: JSON) {
+        details = reschedulingChargesDetailsStruct(json: json["details"])
+    }
 }
 
-struct reschedulingChargesDetailsStruct:Codable {
-    let SPRFEE : [String:[String:[cancellationSlabStruct]]]
-    let SURFEE : [String:[String:[sucfeeValueStruct]]]
+struct reschedulingChargesDetailsStruct {
+//    let SPRFEE : [String:[String:[cancellationSlabStruct]]]
+//    let SURFEE : [String:[String:[sucfeeValueStruct]]]
+    
+    let SPRFEE : [String:CancellationSlabStruct]
+    let SURFEE : [String:SucFeeValueStruct]
     
     init() {
         SPRFEE = [:]
         SURFEE = [:]
     }
     
-    func getAirlineReschedulingDataForAllFlights() -> [[String:[String:[cancellationSlabStruct]]]] {
+    init(json: JSON) {
+        SPRFEE = Dictionary(uniqueKeysWithValues: json["SPRFEE"].map { ($0.0, CancellationSlabStruct(json: $0.1)) })
+    }
+    
+    struct CancellationSlabStruct {
+        var cancellationStruct: [String:[cancellationSlabStruct]]
+        
+        init(json: JSON) {
+            cancellationStruct = Dictionary(uniqueKeysWithValues: json.map { ($0.0, $0.1.arrayValue.map { cancellationSlabStruct(json: $0) }) })
+        }
+    }
+    
+    struct SucFeeValueStruct {
+        var sucFeeStruct: [String:[sucfeeValueStruct]]
+        
+        init(json: JSON) {
+            sucFeeStruct = Dictionary(uniqueKeysWithValues: json.map { ($0.0, $0.1.arrayValue.map { sucfeeValueStruct(json: $0) }) })
+        }
+    }
+    
+//    func getAirlineReschedulingDataForAllFlights() -> [[String:[String:[cancellationSlabStruct]]]] {
+//        var newVal = [[String:[String:[cancellationSlabStruct]]]]()
+//        newVal.append(SPRFEE)
+//        return newVal
+//    }
+    
+    func getAirlineReschedulingDataForAllFlights()-> [[String:[String:[cancellationSlabStruct]]]] {
         var newVal = [[String:[String:[cancellationSlabStruct]]]]()
-        newVal.append(SPRFEE)
+        var valToAppend = [String:[String:[cancellationSlabStruct]]]()
+        SPRFEE.forEach {
+            valToAppend[$0.key] = $0.value.cancellationStruct
+        }
+        newVal.append(valToAppend)
         return newVal
     }
     
+//    func getAertripReschedulingDataForAllFlights() -> [[String:[String:[sucfeeValueStruct]]]] {
+//        var newVal = [[String:[String:[sucfeeValueStruct]]]]()
+//        newVal.append(SURFEE)
+//        return newVal
+//    }
+    
     func getAertripReschedulingDataForAllFlights() -> [[String:[String:[sucfeeValueStruct]]]] {
         var newVal = [[String:[String:[sucfeeValueStruct]]]]()
-        newVal.append(SURFEE)
+        var valToAppend = [String:[String:[sucfeeValueStruct]]]()
+        SURFEE.forEach {
+            valToAppend[$0.key] = $0.value.sucFeeStruct
+        }
+        newVal.append(valToAppend)
         return newVal
     }
 }
