@@ -175,7 +175,10 @@ enum APIEndPoint: String {
     case flightDetails_OnTimePerformance = "flights/delay-index"
     case flightDetails_FareInfo = "flights/get-minifare-rules"
     case flightDetails_FareRules = "flights/fare-rules"
-//    case flightPerformance = "flights/delay-index"
+    
+//    Share
+    case flights_getShortUrlForShare = "flights/get-pinned-url"
+    case flights_getPinnedTemplate = "flights/get-pinned-template"
 }
 
 // MARK: - endpoint extension for url -

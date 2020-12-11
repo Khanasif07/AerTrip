@@ -103,7 +103,6 @@ extension APICaller{
                 AppToast.default.showToastMessage(message: ATErrorManager.LocalError.default.message)
                 completionBlock(nil, [])
             }
-//        }
         })
     }
     
@@ -123,4 +122,19 @@ extension APICaller{
         })
     }
     
+
+
+
+    func getShortUrlForShare(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool,_ data: JSONDictionary?, _ errorCodes: ErrorCodes)->Void ){
+        AppNetworking.POST(endPoint: .flights_getShortUrlForShare, parameters: params, loader: loader) {[weak self] data in
+            guard let self = self else {return}
+            self.handleResponse(data) { (success, baggageData) in
+//                completionBlock(data[APIKeys.data.rawValue].dictionaryObject, [])
+                completionBlock(true,data[APIKeys.data.rawValue].dictionaryObject,[])
+            } failure: { (errorCode) in
+                completionBlock(false, nil, errorCode)
+            }
+        } failure: { (error) in
+        }
+    }
 }
