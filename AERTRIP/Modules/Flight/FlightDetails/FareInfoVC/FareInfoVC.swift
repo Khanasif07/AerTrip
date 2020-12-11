@@ -459,18 +459,21 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     
     //MARK:- API Call
     func getFareInfoAPICall(sid: String, fk: String,i:Int){
-        let webservice = WebAPIService()
-        webservice.executeAPI(apiServive: .fareInfoResult(sid: sid, fk: fk), completionHandler: {    (data) in
+        let param = [APIKeys.sid.rawValue: sid, "fk[]":fk]
+        APICaller.shared.getFlightFareInfo(params: param) {[weak self](fareData, error) in
+            guard let self = self else {return}
+            self.removeIndicator()
+            guard let data = fareData else {return}
             
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
 
             DispatchQueue.main.async {
                 if let currentParsedResponse = parse(data: data, into: updatedFareInfoStruct.self, with:decoder) {
-                    
+
                     if currentParsedResponse.success == true {
                         self.updatedFareInfo.append(currentParsedResponse.data.first!.value)
-                        
+
                         let num = 0.75/Float(self.journey.count)
                         self.progressBar.progress = Float(num+self.progressBar.progress)
 
@@ -482,19 +485,19 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                             self.confirmDelegate()
                         }
                         self.fareInfoTableView.reloadData()
-                        
+
                         if self.journey[i].smartIconArray.contains("refundStatusPending"){
                             self.journey[i].leg[0].fcp = 0
                             let rfd = currentParsedResponse.data.first?.value.rfd ?? 0
                             let rsc = currentParsedResponse.data.first?.value.rsc ?? 0
-                            
+
                             self.journey[i].rfdPlcy.rfd.keys.forEach { (key) in
                                 self.journey[i].rfdPlcy.rfd[key] = rfd
                             }
-                            
+
                             self.delegate?.updateRefundStatusIfPending()
                         }
-                        
+
                         DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
                          self.fareInfoTableView.reloadData()
                         }
@@ -504,24 +507,72 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                     }
                 }
             }
-        } , failureHandler : { (error ) in
-        })
+        }
     }
+//    {
+//        let webservice = WebAPIService()
+//        webservice.executeAPI(apiServive: .fareInfoResult(sid: sid, fk: fk), completionHandler: {    (data) in
+//
+//            let decoder = JSONDecoder()
+//            decoder.keyDecodingStrategy = .convertFromSnakeCase
+//
+//            DispatchQueue.main.async {
+//                if let currentParsedResponse = parse(data: data, into: updatedFareInfoStruct.self, with:decoder) {
+//
+//                    if currentParsedResponse.success == true {
+//                        self.updatedFareInfo.append(currentParsedResponse.data.first!.value)
+//
+//                        let num = 0.75/Float(self.journey.count)
+//                        self.progressBar.progress = Float(num+self.progressBar.progress)
+//
+//                        if self.progressBar.progress == 1.0{
+//                            self.progressBar.isHidden = true
+//                        }
+//                        self.apiCallCount += 1
+//                        if self.apiCallCount == self.journey.count{
+//                            self.confirmDelegate()
+//                        }
+//                        self.fareInfoTableView.reloadData()
+//
+//                        if self.journey[i].smartIconArray.contains("refundStatusPending"){
+//                            self.journey[i].leg[0].fcp = 0
+//                            let rfd = currentParsedResponse.data.first?.value.rfd ?? 0
+//                            let rsc = currentParsedResponse.data.first?.value.rsc ?? 0
+//
+//                            self.journey[i].rfdPlcy.rfd.keys.forEach { (key) in
+//                                self.journey[i].rfdPlcy.rfd[key] = rfd
+//                            }
+//
+//                            self.delegate?.updateRefundStatusIfPending()
+//                        }
+//
+//                        DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+//                         self.fareInfoTableView.reloadData()
+//                        }
+//                        DispatchQueue.main.async {
+//                            self.fareInfoTableView.reloadData()
+//                        }
+//                    }
+//                }
+//            }
+//        } , failureHandler : { (error ) in
+//        })
+//    }
     
     func getFareRulesAPICall(sid: String, fk: String, index:Int)
     {
         let param = ["sid": sid, "fk[]": fk]
         APICaller.shared.getFareRules(params: param) {[weak self] (data, error) in
-            guard let self = self , let fareRulesData = data else {
+            guard let self = self , let fareRulesdata = data else {
                 AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
                 return
             }
             
-            let keys = fareRulesData.keys
+            let keys = fareRulesdata.keys
             if keys.count > 0{
                 for key in keys{
 
-                    if let datas = fareRulesData["\(key)"] as? JSONDictionary{
+                    if let datas = fareRulesdata["\(key)"] as? JSONDictionary{
                         while self.fareRulesData.count <= index {
                             self.fareRulesData.append([:])
                         }
