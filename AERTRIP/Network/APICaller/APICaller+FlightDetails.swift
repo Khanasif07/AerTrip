@@ -11,14 +11,16 @@ import Foundation
 extension APICaller{
     
     func getFlightbaggageDetails(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ data: JSONDictionary?, _ errorCodes: ErrorCodes)->Void ){
-        AppNetworking.GET(endPoint: .flightDetails_Baggage, parameters: params) {[weak self] data in
+        AppNetworking.GET(endPoint: .flightDetails_Baggage, parameters: params,success: {[weak self] data in
             guard let self = self else {return}
             self.handleResponse(data) { (success, baggageData) in
                 completionBlock(data[APIKeys.data.rawValue].dictionaryObject, [])
             } failure: { (errorCode) in
                 completionBlock(nil, errorCode)
             }
-        } failure: { (error) in
+        }, successWithData: { data in
+            print(data)
+        },failure: { (error) in
             if error.code == AppNetworking.noInternetError.code {
                 AppGlobals.shared.stopLoading()
                 AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
@@ -28,7 +30,7 @@ extension APICaller{
                 AppToast.default.showToastMessage(message: ATErrorManager.LocalError.default.message)
                 completionBlock(nil, [])
             }
-        }
+        })
     }
     
     
@@ -84,6 +86,14 @@ extension APICaller{
                 completionBlock(nil, errorCode)
             }
         } failure: { (error) in
+        }
+    }
+    
+    
+    func getFlightPerformanceData(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ data: Data?, _ errorCodes: ErrorCodes)->Void ){
+        AppNetworking.POST(endPoint: .flightDetails_OnTimePerformance, parameters: params,success: {(_ _)in}, successWithData: { data in
+            completionBlock(data, [])
+        },failure: { (error) in
             if error.code == AppNetworking.noInternetError.code {
                 AppGlobals.shared.stopLoading()
                 AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
@@ -93,7 +103,7 @@ extension APICaller{
                 AppToast.default.showToastMessage(message: ATErrorManager.LocalError.default.message)
                 completionBlock(nil, [])
             }
-        }
+//        }
+        })
     }
-    
 }
