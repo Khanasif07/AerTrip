@@ -296,36 +296,53 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
     
     func getFareRulesAPICall(sid: String, fk: String, count:Int = 3){
-        let webservice = WebAPIService()
-        webservice.executeAPI(apiServive: .fareRulesResult(sid: sid, fk: fk), completionHandler: {[weak self](data) in
+        
+        let param = [APIKeys.sid.rawValue:sid, "fk[]":fk]
+        APICaller.shared.getFareRules(params: param) {[weak self] (fareRule, error) in
             guard let self = self else {return}
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            
-            do{
-                let jsonResult:AnyObject?  = try JSONSerialization.jsonObject(with: data, options: []) as AnyObject
-                
-                DispatchQueue.main.async {
-                    if let result = jsonResult as? [String: AnyObject] {
-                        
-                        if let data = result["data"] as? JSONDictionary {
-                            
-                            let keys = data.keys
-                            if let datas = data[keys.first ?? ""] as? JSONDictionary{
-                                self.fareRulesData.insert(datas, at: 0)
-                            }
-                            self.fareInfoTableView.reloadData()
-                        }
+            DispatchQueue.main.async {
+                if let data = fareRule{
+                    let keys = data.keys
+                    if let datas = data[keys.first ?? ""] as? JSONDictionary{
+                        self.fareRulesData.insert(datas, at: 0)
                     }
+                    self.fareInfoTableView.reloadData()
                 }
-            }catch{
-                
             }
-        } , failureHandler : {[weak self] (error ) in
-            guard let self = self else {return}
-            self.getFareRulesAPICall(sid: sid, fk: fk,count:count-1)
-            printDebug(error)
-        })
+        }
+        
+        
+        
+//        let webservice = WebAPIService()
+//        webservice.executeAPI(apiServive: .fareRulesResult(sid: sid, fk: fk), completionHandler: {[weak self](data) in
+//            guard let self = self else {return}
+//            let decoder = JSONDecoder()
+//            decoder.keyDecodingStrategy = .convertFromSnakeCase
+//
+//            do{
+//                let jsonResult:AnyObject?  = try JSONSerialization.jsonObject(with: data, options: []) as AnyObject
+//
+//                DispatchQueue.main.async {
+//                    if let result = jsonResult as? [String: AnyObject] {
+//
+//                        if let data = result["data"] as? JSONDictionary {
+//
+//                            let keys = data.keys
+//                            if let datas = data[keys.first ?? ""] as? JSONDictionary{
+//                                self.fareRulesData.insert(datas, at: 0)
+//                            }
+//                            self.fareInfoTableView.reloadData()
+//                        }
+//                    }
+//                }
+//            }catch{
+//
+//            }
+//        } , failureHandler : {[weak self] (error ) in
+//            guard let self = self else {return}
+//            self.getFareRulesAPICall(sid: sid, fk: fk,count:count-1)
+//            printDebug(error)
+//        })
     }
     
     //MARK:- Button Action

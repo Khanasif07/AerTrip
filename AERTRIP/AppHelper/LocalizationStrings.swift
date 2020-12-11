@@ -1195,6 +1195,9 @@ enum LocalizedString: String {
     case tripsLink = "tripsLink"
 
     case reloadDetail = "reloadDetail"
+    
+    //International return and multicity
+    case selectedFlightsGap
 
 }
 

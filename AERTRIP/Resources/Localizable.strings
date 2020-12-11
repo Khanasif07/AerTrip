@@ -1117,3 +1117,5 @@ www.aertrip.com/trip";
 "tripsLink" = "www.aertrip.com/trip";
 
 "reloadDetail" = "Reload Detail";
+//International return and multicity
+"selectedFlightsGap" = "Selected flights have less than 2 hrs of gap.";
