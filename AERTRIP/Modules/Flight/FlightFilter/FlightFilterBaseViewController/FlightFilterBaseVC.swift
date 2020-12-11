@@ -364,7 +364,7 @@ extension FlightFilterBaseVC {
     
     //MARK:- Sort
     func setSortVC(_ sortViewController : FlightSortFilterViewController) {
-        sortViewController.delegate = delegate as? SortFilterDelegate
+        sortViewController.viewModel.delegate = delegate as? SortFilterDelegate
     }
     
     // MARK:- Stops
