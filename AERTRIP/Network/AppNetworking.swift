@@ -345,6 +345,7 @@ enum AppNetworking {
                                 printDebug(jsonVal)
                                 success(jsonVal)
                                 if let responseData = response.data{
+                                    //For flight details where data is required for parser.
                                     successWithData?(responseData)
                                 }
                                 
