@@ -126,9 +126,7 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         super.viewWillAppear(animated)
         
         self.registerLogoutNotification()
-        
-        UIView.appearance().semanticContentAttribute = LanguageEnum.isLanguageEnglish ? .forceLeftToRight : .forceRightToLeft
-        
+                
         if let nav = self.navigationController, !nav.navigationBar.isHidden {
             //nav.isNavigationBarHidden = true
             nav.isNavigationBarHidden = true
