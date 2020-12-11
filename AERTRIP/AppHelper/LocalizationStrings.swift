@@ -1198,7 +1198,65 @@ enum LocalizedString: String {
     
     //International return and multicity
     case selectedFlightsGap
+    
+    //Location Manager
+    case placeNotFound
 
+    
+    //View Controller Extension
+    case chooseFromOption
+    case cameraNotAvailable
+    case restrictedCameraUse
+    case changeSettingForCameraUse
+    case changeSettingForLibraryUse
+    case restrictedLibraryUse
+    case changeSettingForContactsUse
+    case restrictedContactsUse
+    case noDataFound
+    
+    //AppFlowManager
+    case accessDenied
+    case microphoneAccessRequired
+    case allowMicAccess
+    
+    //AppEnum
+    case notLoggedIn
+    case emailRequired
+    case invalidEmail
+    case passwordRequired
+    case multipleAccountWithEmail
+    case incorrectEmailPassword
+    case linkExpired
+    case linkUsedToCreateUser
+    case userNotFound
+    case invalidUserData
+    case provideValidHashKey
+    case userAlreadyRegistered
+    case userAlreadyLoggedIn
+    case capchaLimitOver
+    case guestLoginNotPermitted
+    case somethingWentWrongTryAgain
+    case mobileAppOnly
+    case failedToRegisterEmailChangeRequest
+    case tokenExpired
+    case userAlreadyCreatedLink
+    case failedToCreateUser
+    case weakPassword
+    case provideNewPassword
+    case unableToSetNewPassword
+    case provideValidToken
+    case passwordAlreadyReset
+    case failedToResetPassword
+    case modeRequired
+    case enquiryRejectedByCSR
+    case failedtoUpdateStatusOfCorpEnquiry
+    case somethingWentWrongTryAfterSomeTime
+    case failedToSendEmail
+    case exceededMaximumAttemptsToResetPassword
+    case incorrectEmailId
+    
+    
+    //App Globals
+    case googleMapNotInstalled
+    case restrictedCalendarUse
 }
-
-

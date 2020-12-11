@@ -127,11 +127,11 @@ extension UIViewController{
                       optionsColor:UIColor = AppColors.themeGreen,
                       cameraDevice: UIImagePickerController.CameraDevice = .rear) {
         
-        let alertController = UIAlertController(title: "Choose from options", message: "", preferredStyle: UIAlertController.Style.actionSheet)
+        let alertController = UIAlertController(title: LocalizedString.chooseFromOption.localized, message: "", preferredStyle: UIAlertController.Style.actionSheet)
         
         if photoGallary {
             
-            let alertActionGallery = UIAlertAction(title: "Photo Library", style: UIAlertAction.Style.default) { (action:UIAlertAction) in
+            let alertActionGallery = UIAlertAction(title: LocalizedString.PhotoLibrary.localized, style: UIAlertAction.Style.default) { (action:UIAlertAction) in
                 self.checkAndOpenLibrary(delegate: delegate)
             }
             
@@ -140,7 +140,7 @@ extension UIViewController{
         }
         
         if camera{
-            let alertActionCamera = UIAlertAction(title: "Camera", style: UIAlertAction.Style.default) { (action:UIAlertAction) in
+            let alertActionCamera = UIAlertAction(title: LocalizedString.Camera.localized, style: UIAlertAction.Style.default) { (action:UIAlertAction) in
                 
                 !UIDevice.isSimulator ? self.checkAndOpenCamera(delegate: delegate, cameraDevice: cameraDevice):self.checkAndOpenLibrary(delegate: delegate)
             }
@@ -148,7 +148,7 @@ extension UIViewController{
             alertActionCamera.setValue(optionsColor, forKey: "titleTextColor")
             alertController.addAction(alertActionCamera)
         }
-        let alertActionCancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel) { (action:UIAlertAction) in
+        let alertActionCancel = UIAlertAction(title: LocalizedString.Cancel.localized, style: UIAlertAction.Style.cancel) { (action:UIAlertAction) in
             
         }
         
@@ -184,7 +184,7 @@ extension UIViewController{
             }
             else if !UIDevice.isSimulator{
                 
-                self.showAlert(title: "", message: "Camera not available", buttonTitle: "OK", onCompletion: nil)
+                self.showAlert(title: "", message: LocalizedString.cameraNotAvailable.localized, buttonTitle: LocalizedString.Ok.localized.capitalized, onCompletion: nil)
             }
         }
         else {
@@ -203,7 +203,7 @@ extension UIViewController{
                         self.present(image_picker, animated: true, completion: nil)
                     }
                     else if !UIDevice.isSimulator{
-                        self.showAlert(title: "", message: "Camera not available", buttonTitle: "OK", onCompletion: nil)
+                        self.showAlert(title: "", message: LocalizedString.cameraNotAvailable.localized, buttonTitle: LocalizedString.Ok.localized.capitalized, onCompletion: nil)
                     }
                     }
                     
@@ -214,12 +214,12 @@ extension UIViewController{
             else {
                 if authStatus == AVAuthorizationStatus.restricted {
                     
-                    let alertController = UIAlertController(title: "", message: "You have been restricted from using the camera on this device Without camera access this feature wont work", preferredStyle: UIAlertController.Style.alert)
+                    let alertController = UIAlertController(title: "", message: LocalizedString.restrictedCameraUse.localized, preferredStyle: UIAlertController.Style.alert)
                     
-                    let alertActionSettings = UIAlertAction(title: "Settings", style: UIAlertAction.Style.default) { (action:UIAlertAction) in
+                    let alertActionSettings = UIAlertAction(title: LocalizedString.Settings.localized, style: UIAlertAction.Style.default) { (action:UIAlertAction) in
                         UIApplication.openSettingsApp
                     }
-                    let alertActionCancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default) { (action:UIAlertAction) in
+                    let alertActionCancel = UIAlertAction(title: LocalizedString.Cancel.localized, style: UIAlertAction.Style.default) { (action:UIAlertAction) in
                     }
                     alertController.addAction(alertActionSettings)
                     alertController.addAction(alertActionCancel)
@@ -227,12 +227,12 @@ extension UIViewController{
                 }
                 else {
                     
-                    let alertController = UIAlertController(title: "", message: "Please change your privacy setting from the Settings app and allow access to camera", preferredStyle: UIAlertController.Style.alert)
+                    let alertController = UIAlertController(title: "", message: LocalizedString.changeSettingForCameraUse.localized, preferredStyle: UIAlertController.Style.alert)
                     
-                    let alertActionSettings = UIAlertAction(title: "Settings", style: UIAlertAction.Style.default) { (action:UIAlertAction) in
+                    let alertActionSettings = UIAlertAction(title: LocalizedString.Settings.localized, style: UIAlertAction.Style.default) { (action:UIAlertAction) in
                         UIApplication.openSettingsApp
                     }
-                    let alertActionCancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default) { (action:UIAlertAction) in
+                    let alertActionCancel = UIAlertAction(title: LocalizedString.Cancel.localized, style: UIAlertAction.Style.default) { (action:UIAlertAction) in
                     }
                     alertController.addAction(alertActionSettings)
                     alertController.addAction(alertActionCancel)
@@ -259,12 +259,12 @@ extension UIViewController{
         //handle authorized status
         case .denied:
             
-            let alertController = UIAlertController(title: "", message: "Please change your privacy setting from the Settings app and allow access to library", preferredStyle: UIAlertController.Style.alert)
+            let alertController = UIAlertController(title: "", message: LocalizedString.changeSettingForLibraryUse.localized, preferredStyle: UIAlertController.Style.alert)
             
-            let alertActionSettings = UIAlertAction(title: "Settings", style: UIAlertAction.Style.default) { (action:UIAlertAction) in
+            let alertActionSettings = UIAlertAction(title: LocalizedString.Settings.localized, style: UIAlertAction.Style.default) { (action:UIAlertAction) in
                 UIApplication.openSettingsApp
             }
-            let alertActionCancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default) { (action:UIAlertAction) in
+            let alertActionCancel = UIAlertAction(title: LocalizedString.Cancel.localized, style: UIAlertAction.Style.default) { (action:UIAlertAction) in
             }
             alertController.addAction(alertActionSettings)
             alertController.addAction(alertActionCancel)
@@ -272,12 +272,12 @@ extension UIViewController{
             
         case .restricted :
             
-            let alertController = UIAlertController(title: "", message: "You have been restricted from using the library on this device Without camera access this feature wont work", preferredStyle: UIAlertController.Style.alert)
+            let alertController = UIAlertController(title: "", message: LocalizedString.restrictedLibraryUse.localized, preferredStyle: UIAlertController.Style.alert)
             
-            let alertActionSettings = UIAlertAction(title: "Settings", style: UIAlertAction.Style.default) { (action:UIAlertAction) in
+            let alertActionSettings = UIAlertAction(title: LocalizedString.Settings.localized, style: UIAlertAction.Style.default) { (action:UIAlertAction) in
                 UIApplication.openSettingsApp
             }
-            let alertActionCancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default) { (action:UIAlertAction) in
+            let alertActionCancel = UIAlertAction(title: LocalizedString.Cancel.localized, style: UIAlertAction.Style.default) { (action:UIAlertAction) in
             }
             alertController.addAction(alertActionSettings)
             alertController.addAction(alertActionCancel)
@@ -363,14 +363,14 @@ extension UIViewController{
         if let phoneURL = uc.url {
             let alert = UIAlertController(title: phoneNumber, message: nil, preferredStyle: .alert)
             alert.view.tintColor = AppColors.themeGreen
-            alert.addAction(UIAlertAction(title: "Call", style: .default, handler: { _ in
+            alert.addAction(UIAlertAction(title: LocalizedString.Call.localized, style: .default, handler: { _ in
                 if UIApplication.shared.canOpenURL(phoneURL){
                     UIApplication.shared.open(phoneURL, options: [:], completionHandler: nil)
                 }else{
                     AppToast.default.showToastMessage(message: LocalizedString.callingNotAvailable.localized)
                 }
             }))
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: LocalizedString.Cancel.localized, style: .cancel, handler: nil))
             
             self.present(alert, animated: true, completion: nil)
         }
@@ -395,12 +395,12 @@ extension UIViewController {
         
         if CNContactStore.authorizationStatus(for: .contacts) == .denied {
             flag = false
-            let alertController = UIAlertController(title: "", message: "Please change your privacy setting from the Settings app and allow access to Contacts", preferredStyle: UIAlertController.Style.alert)
+            let alertController = UIAlertController(title: "", message: LocalizedString.changeSettingForContactsUse.localized, preferredStyle: UIAlertController.Style.alert)
             
-            let alertActionSettings = UIAlertAction(title: "Settings", style: UIAlertAction.Style.default) { (action:UIAlertAction) in
+            let alertActionSettings = UIAlertAction(title: LocalizedString.Settings.localized, style: UIAlertAction.Style.default) { (action:UIAlertAction) in
                 UIApplication.openSettingsApp
             }
-            let alertActionCancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default) { (action:UIAlertAction) in
+            let alertActionCancel = UIAlertAction(title: LocalizedString.Cancel.localized, style: UIAlertAction.Style.default) { (action:UIAlertAction) in
                 printDebug("Cancel tapped")
                 canceled?()
             }
@@ -410,12 +410,12 @@ extension UIViewController {
         }
         else if CNContactStore.authorizationStatus(for: .contacts) == .restricted {
             flag = false
-            let alertController = UIAlertController(title: "", message: "You have been restricted from accessing the contacts on this device without contacts access this feature wont work", preferredStyle: UIAlertController.Style.alert)
+            let alertController = UIAlertController(title: "", message: LocalizedString.restrictedContactsUse.localized, preferredStyle: UIAlertController.Style.alert)
             
-            let alertActionSettings = UIAlertAction(title: "Settings", style: UIAlertAction.Style.default) { (action:UIAlertAction) in
+            let alertActionSettings = UIAlertAction(title: LocalizedString.Settings.localized, style: UIAlertAction.Style.default) { (action:UIAlertAction) in
                 UIApplication.openSettingsApp
             }
-            let alertActionCancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default) { (action:UIAlertAction) in
+            let alertActionCancel = UIAlertAction(title: LocalizedString.Cancel.localized, style: UIAlertAction.Style.default) { (action:UIAlertAction) in
                 printDebug("Cancel tapped")
                 canceled?()
             }
