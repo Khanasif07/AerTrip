@@ -26,7 +26,7 @@ class GetSharableUrl
         self.searchParam = searchParam ?? [:]
         tripType = trip_type
         var valueString = ""
-                
+
         if !isInternational{
             let cc = journeyArray.first?.cc ?? ""
             let origin = getOrigin(journey: journeyArray)
@@ -34,93 +34,136 @@ class GetSharableUrl
             let departureDate = getDepartureDate(journey: journeyArray)
             let returnDate = getReturnDate(journey: journeyArray)
             let pinnedFlightFK = getPinnedFlightFK(journey: journeyArray)
-            
+
             valueString = "https://beta.aertrip.com/flights?trip_type=\(trip_type)&adult=\(adult)&child=\(child)&infant=\(infant)&\(origin)\(destination)\(departureDate)\(returnDate)cabinclass=\(cc)&pType=flight&isDomestic=\(isDomestic)&\(pinnedFlightFK)\(filterString)"
-            
+
         }
-        
-        let pinnedUrl = flightBaseUrl+"get-pinned-url"
-        var parameters = [[String : Any]]()
+
+        var param = JSONDictionary()
         if isInternational{
-            parameters = [
-                [
-                    "key": "u",
-                    "value": valString,
-                    "type": "text"
-                ]] as [[String : Any]]
+            param = ["u": valString]
         }else{
-            parameters = [
-                [
-                    "key": "u",
-                    "value": valueString,
-                    "type": "text"
-                ]] as [[String : Any]]
+            param = ["u": valueString]
         }
         
-        
-        let boundary = "Boundary-\(UUID().uuidString)"
-        var body = ""
-        var _: Error? = nil
-        for param in parameters {
-            if param["disabled"] == nil {
-                let paramName = param["key"] ?? ""
-                body += "--\(boundary)\r\n"
-                body += "Content-Disposition:form-data; name=\"\(paramName)\""
-                let paramType = param["type"] as? String ?? ""
-                if paramType == "text" {
-                    let paramValue = param["value"] as? String ?? ""
-                    body += "\r\n\r\n\(paramValue)\r\n"
-                }
-            }
-        }
-        body += "--\(boundary)--\r\n";
-        let postData = body.data(using: .utf8)
-        
-        guard let url = URL(string: pinnedUrl) else {return}
-        
-        var request = URLRequest(url: url,timeoutInterval: Double.infinity)
-        request.addValue(apiKey, forHTTPHeaderField: "api-key")
-        request.addValue("AT_R_STAGE_SESSID=cba8fbjvl52c316a4b24tuank4", forHTTPHeaderField: "Cookie")
-        request.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-        
-        request.httpMethod = "POST"
-        request.httpBody = postData
-        
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data else {
-                printDebug(String(describing: error))
+        APICaller.shared.getShortUrlForShare(params: param) {[weak self] (success,data, error) in
+            guard let self = self , let shortUrldata = data else {
+                AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
                 return
             }
             
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-                        
-            do{
-                let jsonResult:AnyObject?  = try JSONSerialization.jsonObject(with: data, options: []) as AnyObject
-                
-                DispatchQueue.main.async {
-                    if let result = jsonResult as? [String: AnyObject] {
-                        if result["success"] as? Bool == true{
-                            
-                            if let data = (result["data"] as? [String:Any]){
-                                if let link = data["u"] as? String{
-                                    self.delegate?.returnSharableUrl(url: link)
-                                }
-                            }
-                        }else{
-                            self.delegate?.returnSharableUrl(url: "No Data")
-                        }
+            if success{
+                if let shortUrl = shortUrldata["u"] as? String{
+                    if !shortUrl.isEmpty{
+                        self.delegate?.returnSharableUrl(url: shortUrl)
+                    }else{
+                        self.delegate?.returnSharableUrl(url: "No Data")
                     }
                 }
-            }catch{
+            }else{
+                self.delegate?.returnSharableUrl(url: "No Data")
             }
-            
-            self.semaphore.signal()
         }
-        
-        task.resume()
-        semaphore.wait()
     }
+//    {
+//        self.searchParam = searchParam ?? [:]
+//        tripType = trip_type
+//        var valueString = ""
+//
+//        if !isInternational{
+//            let cc = journeyArray.first?.cc ?? ""
+//            let origin = getOrigin(journey: journeyArray)
+//            let destination = getDestination(journey: journeyArray)
+//            let departureDate = getDepartureDate(journey: journeyArray)
+//            let returnDate = getReturnDate(journey: journeyArray)
+//            let pinnedFlightFK = getPinnedFlightFK(journey: journeyArray)
+//
+//            valueString = "https://beta.aertrip.com/flights?trip_type=\(trip_type)&adult=\(adult)&child=\(child)&infant=\(infant)&\(origin)\(destination)\(departureDate)\(returnDate)cabinclass=\(cc)&pType=flight&isDomestic=\(isDomestic)&\(pinnedFlightFK)\(filterString)"
+//
+//        }
+//
+//        let pinnedUrl = flightBaseUrl+"get-pinned-url"
+//        var parameters = [[String : Any]]()
+//        if isInternational{
+//            parameters = [
+//                [
+//                    "key": "u",
+//                    "value": valString,
+//                    "type": "text"
+//                ]] as [[String : Any]]
+//        }else{
+//            parameters = [
+//                [
+//                    "key": "u",
+//                    "value": valueString,
+//                    "type": "text"
+//                ]] as [[String : Any]]
+//        }
+//
+//
+//        let boundary = "Boundary-\(UUID().uuidString)"
+//        var body = ""
+//        var _: Error? = nil
+//        for param in parameters {
+//            if param["disabled"] == nil {
+//                let paramName = param["key"] ?? ""
+//                body += "--\(boundary)\r\n"
+//                body += "Content-Disposition:form-data; name=\"\(paramName)\""
+//                let paramType = param["type"] as? String ?? ""
+//                if paramType == "text" {
+//                    let paramValue = param["value"] as? String ?? ""
+//                    body += "\r\n\r\n\(paramValue)\r\n"
+//                }
+//            }
+//        }
+//        body += "--\(boundary)--\r\n";
+//        let postData = body.data(using: .utf8)
+//
+//        guard let url = URL(string: pinnedUrl) else {return}
+//
+//        var request = URLRequest(url: url,timeoutInterval: Double.infinity)
+//        request.addValue(apiKey, forHTTPHeaderField: "api-key")
+//        request.addValue("AT_R_STAGE_SESSID=cba8fbjvl52c316a4b24tuank4", forHTTPHeaderField: "Cookie")
+//        request.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+//
+//        request.httpMethod = "POST"
+//        request.httpBody = postData
+//
+//        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+//            guard let data = data else {
+//                printDebug(String(describing: error))
+//                return
+//            }
+//
+//            let decoder = JSONDecoder()
+//            decoder.keyDecodingStrategy = .convertFromSnakeCase
+//
+//            do{
+//                let jsonResult:AnyObject?  = try JSONSerialization.jsonObject(with: data, options: []) as AnyObject
+//
+//                DispatchQueue.main.async {
+//                    if let result = jsonResult as? [String: AnyObject] {
+//                        if result["success"] as? Bool == true{
+//
+//                            if let data = (result["data"] as? [String:Any]){
+//                                if let link = data["u"] as? String{
+//                                    self.delegate?.returnSharableUrl(url: link)
+//                                }
+//                            }
+//                        }else{
+//                            self.delegate?.returnSharableUrl(url: "No Data")
+//                        }
+//                    }
+//                }
+//            }catch{
+//            }
+//
+//            self.semaphore.signal()
+//        }
+//
+//        task.resume()
+//        semaphore.wait()
+//    }
     
     
     
@@ -128,7 +171,7 @@ class GetSharableUrl
     {
         tripType = trip_type
         let tempelteUrl = flightBaseUrl+"get-pinned-template"
-        
+
         var valueString = ""
         if !isInternational{
             let cc = (journeyArray as? [Journey])?.first?.cc ?? ""
@@ -137,11 +180,11 @@ class GetSharableUrl
             let departureDate = getDepartureDate(journey: (journeyArray as? [Journey]) ?? [])
             let returnDate = getReturnDate(journey: (journeyArray as? [Journey]) ?? [])
             let pinnedFlightFK = getPinnedFlightFK(journey: (journeyArray as? [Journey]) ?? [])
-            
-            
+
+
             valueString = "https://beta.aertrip.com/flights?trip_type=\(trip_type)&adult=\(adult)&child=\(child)&infant=\(infant)&\(origin)\(destination)\(departureDate)\(returnDate)cabinclass=\(cc)&pType=flight&isDomestic=\(isDomestic)&\(pinnedFlightFK)"
         }
-        
+
         var parameters = [[String : Any]]()
         for i in 0..<journeyArray.count{
             if isInternational{
@@ -150,7 +193,7 @@ class GetSharableUrl
                     "value": (journeyArray as? [IntMultiCityAndReturnWSResponse.Results.J])?[i].fk ?? "",
                     "type": "text"
                 ]
-                
+
                 parameters.append(test)
             }else{
                 let test = [
@@ -158,11 +201,11 @@ class GetSharableUrl
                     "value": (journeyArray as? [Journey])?[i].fk ?? "",
                     "type": "text"
                 ]
-                
+
                 parameters.append(test)
             }
         }
-        
+
         if isInternational{
             parameters.append([
                 "key": "u",
@@ -176,13 +219,13 @@ class GetSharableUrl
                 "type": "text"
             ])
         }
-        
+
         parameters.append([
             "key": "sid",
             "value": sid,
             "type": "text"
         ])
-        
+
         let boundary = "Boundary-\(UUID().uuidString)"
         var body = ""
         var _: Error? = nil
@@ -199,18 +242,18 @@ class GetSharableUrl
             }
         }
         body += "--\(boundary)--\r\n";
-                
+
         printDebug("body=\(body)")
-        
+
         let postData = body.data(using: .utf8)
-        
+
         var request = URLRequest(url: URL(string: tempelteUrl)!,timeoutInterval: Double.infinity)
         request.addValue(apiKey, forHTTPHeaderField: "api-key")
         request.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
 
 
         var cookies = ""
-        
+
         if (UserInfo.loggedInUser != nil){
             if let loginCookie = UserDefaults.standard.value(forKey: "loginCookie") as? String{
                 cookies = loginCookie
@@ -224,35 +267,35 @@ class GetSharableUrl
                 cookies = "AT_R_STAGE_SESSID=cba8fbjvl52c316a4b24tuank4"
             }
         }
-        
+
         request.addValue(cookies, forHTTPHeaderField: "Cookie")
-        
+
         request.httpMethod = "POST"
         request.httpBody = postData
-                
+
         let requestDate = Date.getCurrentDate()
         var textLog = TextLog()
-        
+
         textLog.write("\n##########################################################################################\nAPI URL :::\(tempelteUrl)")
-        
+
         textLog.write("\nREQUEST HEADER :::::::: \(requestDate)  ::::::::\n\n\(String(describing: request.allHTTPHeaderFields))\n")
         textLog.write("\nParameters :::::::: \(requestDate)  ::::::::\n\n\(parameters)\n")
-                
+
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data else {
                 printDebug(String(describing: error))
                 return
             }
-            
+
             do{
                 let jsonResult:AnyObject?  = try JSONSerialization.jsonObject(with: data, options: []) as AnyObject
-                
+
                 DispatchQueue.main.async {
                     if let result = jsonResult as? [String: AnyObject]
                     {
                         textLog.write("RESPONSE DATA ::::::::    \(Date.getCurrentDate()) ::::::::\(result)\n##########################################################################################\n")
-                        
-                        if result["success"] as? Bool == true{                            
+
+                        if result["success"] as? Bool == true{
                             if let data = (result["data"] as? [String:Any]){
                                 if let view = data["view"] as? String{
                                     self.delegate?.returnEmailView(view: view)
@@ -269,7 +312,7 @@ class GetSharableUrl
             }
             self.semaphore.signal()
         }
-        
+
         task.resume()
         semaphore.wait()
     }

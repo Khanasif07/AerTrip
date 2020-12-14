@@ -122,7 +122,7 @@ extension LocationManager {
             if let placeMarks = placemarks, let firstElement = placeMarks.first {
                 place(firstElement)
             } else {
-                placeError(error?.localizedDescription ?? "Place Not Found")
+                placeError(error?.localizedDescription ?? LocalizedString.placeNotFound.localized)//"Place Not Found")
             }
         })
     }
@@ -138,7 +138,7 @@ extension LocationManager {
             if let placeMarks = placemarks, let firstElement = placeMarks.first {
                 place(firstElement)
             } else {
-                placeError(error?.localizedDescription ?? "Place Not Found")
+                placeError(error?.localizedDescription ?? LocalizedString.placeNotFound.localized)//"Place Not Found")
             }
         }
     }
