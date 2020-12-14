@@ -21,29 +21,34 @@ class FlightDetailsInfoVM{
 
     weak var delegate: FlightInfoVMDelegate?
 
-    func callAPIforBaggageInfo(sid:String, fk:String){
-
+    func callAPIforBaggageInfo(sid:String, fk:String, count: Int = 3){
+        guard count >= 0 else {return}
         let param = [APIKeys.sid.rawValue:sid, "fk[]":fk]
         APICaller.shared.getFlightbaggageDetails(params: param) {[weak self] (data, error) in
-            guard let self = self , let bgData = data else {
-                AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
-                return
-            }
-            let keys = bgData.keys
-            var baggageData = [JSONDictionary]()
-            if keys.count > 0{
-                for key in keys{
-                    if let datas = bgData["\(key)"] as? JSONDictionary{
-                        baggageData += [datas]
+            guard let self = self else {return}
+            if let bgData = data {
+                //                AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
+                //                return
+                //            }
+                let keys = bgData.keys
+                var baggageData = [JSONDictionary]()
+                if keys.count > 0{
+                    for key in keys{
+                        if let datas = bgData["\(key)"] as? JSONDictionary{
+                            baggageData += [datas]
+                        }
                     }
                 }
+                self.delegate?.flightBaggageDetailsApiResponse(details: baggageData)
+            }else{
+                self.callAPIforBaggageInfo(sid: sid, fk: fk, count: (count - 1))
             }
-            self.delegate?.flightBaggageDetailsApiResponse(details: baggageData)
+            
         }
     }
 
     func callAPIforFlightsOnTimePerformace(origin: String, destination: String, airline: String, flight_number: String, index:[Int],FFK:String, count:Int = 3){
-        guard count > 0 else {return}
+        guard count >= 0 else {return}
         let param = ["origin": origin,"destination":destination,"airline":airline,"flight_number":flight_number]
         APICaller.shared.getFlightPerformanceData(params: param){[weak self](prData, error) in
             guard let self = self else {return}
@@ -58,6 +63,8 @@ class FlightDetailsInfoVM{
                         }
                     }
                 }
+            }else{
+                self.callAPIforFlightsOnTimePerformace(origin: origin, destination: destination, airline: airline, flight_number: flight_number, index: index, FFK:FFK, count: (count - 1))
             }
         }
     }

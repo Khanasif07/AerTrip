@@ -17,23 +17,33 @@ class FlightFareInfoVM{
     
     weak var delegate : FlightFareInfoVMDelegate?
     
-    func getFareInfoAPICall(sid: String, fk: String, index:Int){
+    func getFareInfoAPICall(sid: String, fk: String, index:Int, count: Int = 3){
+        guard count >= 0 else {return}
         let param = [APIKeys.sid.rawValue: sid, "fk[]":fk]
         APICaller.shared.getFlightFareInfo(params: param) {[weak self](fareData, error) in
-            guard let self = self, let data = fareData else {return}
-            self.delegate?.flightFareInfoData(data: data, index: index)
+            guard let self = self else {return}
+            if let data = fareData{
+                self.delegate?.flightFareInfoData(data: data, index: index)
+            }else{
+                self.getFareInfoAPICall(sid: sid, fk: fk, index:index, count: (count - 1))
             }
         }
+    }
     
-    func getFareRulesAPICall(sid: String, fk: String, index:Int){
+    func getFareRulesAPICall(sid: String, fk: String, index:Int, count: Int = 3){
+        guard count >= 0 else {
+//            AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
+            return
+        }
         let param = ["sid": sid, "fk[]": fk]
         APICaller.shared.getFareRules(params: param) {[weak self] (data, error) in
-            guard let self = self , let fareRulesdata = data else {
-                AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
-                return
+            guard let self = self else {return}
+            if let fareRulesdata = data {
+                self.delegate?.flightFareRules(data: fareRulesdata, index: index)
+                
+            }else{
+                self.getFareRulesAPICall(sid: sid, fk: fk, index:index, count: (count - 1))
             }
-            self.delegate?.flightFareRules(data: fareRulesdata, index: index)
-
         }
 
     }
