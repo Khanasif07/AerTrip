@@ -61,10 +61,8 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
         self.emailPinnedFlights.setImage(UIImage(named: "EmailPinned"), for: .normal)
         self.emailPinnedFlights.displayLoadingIndicator(false)
-
     }
     
     deinit {
@@ -109,7 +107,6 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         resultsTableView.estimatedRowHeight  = 123
         resultsTableView.rowHeight = UITableView.automaticDimension
     }
-    
     
     func setupPinnedFlightsOptionsView() {
         //        pinnedFlightOptionsTop.constant = 0
@@ -299,8 +296,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         self.getSharableLink.getUrlForMail(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, sid: viewModel.sid, isInternational: false, journeyArray: self.viewModel.results.pinnedFlights, valString: "", trip_type: "single")
     }
     
-    func returnEmailView(view: String)
-    {
+    func returnEmailView(view: String) {
         DispatchQueue.main.async {
             
             self.emailPinnedFlights.setImage(UIImage(named: "EmailPinned"), for: .normal)
@@ -325,7 +321,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     }
     
     //MARK:- Additional Tableview methods
-    func setImageto( imageView : UIImageView , url : String , index : Int ) {
+    func setImageto2( imageView : UIImageView , url : String , index : Int ) {
         if let image = resultsTableView.resourceFor(urlPath: url , forView: index) {
             
             let resizedImage = image.resizeImage(24.0, opaque: false)

@@ -180,7 +180,8 @@ enum AppColors {
     static let instaButtonBottomColor =  UIColor(displayP3Red: 0.9647058824, green: 0.07450980392, blue: 0.4470588235, alpha: 0.4)
     
     static var appShadowColor: UIColor {
-        return AppColors.themeRed.withAlphaComponent(0.30) //AppColors.themeBlack.withAlphaComponent(0.15)
+        return AppColors.themeBlack.withAlphaComponent(0.15)
+        //return AppColors.themeRed.withAlphaComponent(0.30)
     }
     
     case headlines

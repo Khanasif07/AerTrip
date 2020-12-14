@@ -45,10 +45,9 @@ class FlightResultSingleJourneyVM {
         var isSharedFkmatched = false
         var contentOffset : CGPoint?
     
-    
+    let getSharableLink = GetSharableUrl()
 
-    
-    
+
     
     func getOnewayDisplayArray( results : [Journey]) -> [JourneyOnewayDisplay] {
         
