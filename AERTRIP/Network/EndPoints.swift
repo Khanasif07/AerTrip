@@ -168,6 +168,17 @@ enum APIEndPoint: String {
     case addOnConfirmation = "addon/addon-confirmation"
     case getAddonsQuatation = "itinerary/get-quotation"
     case getAddonsReceipt = "receipt/get"
+    
+    
+    //Flight Details
+    case flightDetails_Baggage = "flights/baggage"
+    case flightDetails_OnTimePerformance = "flights/delay-index"
+    case flightDetails_FareInfo = "flights/get-minifare-rules"
+    case flightDetails_FareRules = "flights/fare-rules"
+    
+//    Share
+    case flights_getShortUrlForShare = "flights/get-pinned-url"
+    case flights_getPinnedTemplate = "flights/get-pinned-template"
 }
 
 // MARK: - endpoint extension for url -

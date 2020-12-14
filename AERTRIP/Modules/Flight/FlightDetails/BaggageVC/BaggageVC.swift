@@ -35,6 +35,7 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
     var fewSeatsLeftViewHeight = 0
     var dataResp = [JSONDictionary]()
     weak var dimensionDelegate : getBaggageDimentionsDelegate?
+    let viewModel = FlightBaggageVM()
 
     //MARK:- Initialise Views
     override func viewDidLoad() {
@@ -42,7 +43,7 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
         
         baggageTableView.register(UINib(nibName: "BaggageDetailsPerFlightTableViewCell", bundle: nil), forCellReuseIdentifier: "BaggageDetailsPerFlightCell")
         baggageTableView.register(UINib(nibName: "ChangeAirportTableViewCell", bundle: nil), forCellReuseIdentifier: "ChangeAirportCell")
-        
+        self.viewModel.delegate = self
         baggageTableView.rowHeight = UITableView.automaticDimension
         baggageTableView.estimatedRowHeight = 175
         baggageTableView.alwaysBounceVertical = true
@@ -50,7 +51,7 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
         if journey != nil{
             if journey.count > 0{
                 for i in 0..<journey.count{
-                    callAPIforBaggageInfo(sid: sid, fk: journey[i].fk, journeyObj: journey[i])
+                    self.viewModel.callAPIforBaggageInfo(sid: sid, fk: journey[i].fk, journeyObj: nil,journey: journey[i])
                 }
             }
         }
@@ -87,7 +88,7 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         if indexPath.section == journey.count{
-            let changeAirportCell = tableView.dequeueReusableCell(withIdentifier: "ChangeAirportCell") as! ChangeAirportTableViewCell
+            guard let changeAirportCell = tableView.dequeueReusableCell(withIdentifier: "ChangeAirportCell") as? ChangeAirportTableViewCell else {return UITableViewCell()}
             changeAirportCell.titleLabel.text = ""
             changeAirportCell.titleLabelHeight.constant = 0
             changeAirportCell.dataLabelTop.constant = 0
@@ -125,7 +126,7 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
             
             return changeAirportCell
         }else{
-            let baggageCell = tableView.dequeueReusableCell(withIdentifier: "BaggageDetailsPerFlightCell") as! BaggageDetailsPerFlightTableViewCell
+            guard let baggageCell = tableView.dequeueReusableCell(withIdentifier: "BaggageDetailsPerFlightCell") as? BaggageDetailsPerFlightTableViewCell else {return UITableViewCell()}
             
             if evaluatedBaggageResp.count > 0{
                 baggageCell.dimensionsButton.tag = (indexPath.section*100)+indexPath.row
@@ -396,41 +397,27 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
     }
     
     //MARK:- API Call
-    func callAPIforBaggageInfo(sid:String, fk:String, journeyObj:Journey)
-    {
-        let webservice = WebAPIService()
-        webservice.executeAPI(apiServive: .baggageResult(sid: sid, fk: fk), completionHandler: {    (data) in
-            
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            
-            do{
-                let jsonResult:AnyObject?  = try JSONSerialization.jsonObject(with: data, options: []) as AnyObject
-                
-                DispatchQueue.main.async {
-                    if let result = jsonResult as? [String: AnyObject] {
-                        
-                        if let data = result["data"] as? JSONDictionary {
-                            
-                            let keys = data.keys
-                            if keys.count > 0{
-                                
-                                for key in keys{
-                                    if let datas = data["\(key)"] as? JSONDictionary
-                                    {
-                                        self.dataResp += [datas]
-                                        self.displaySetValues(journeyObj: journeyObj, baggage: self.dataResp)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }catch{
-            }
-        } , failureHandler : { (error ) in
-        })
-    }
+//    func callAPIforBaggageInfo(sid:String, fk:String, journeyObj:Journey){
+//        let param = ["sid": sid, "fk[]": fk]
+//        APICaller.shared.getFlightbaggageDetails(params: param) {[weak self] (data, error) in
+//            guard let self = self , let bgData = data else {
+//                AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
+//                return
+//            }
+//            let keys = bgData.keys
+//            if keys.count > 0{
+//                for key in keys{
+//                    if let datas = bgData["\(key)"] as? JSONDictionary
+//                    {
+//                        self.dataResp += [datas]
+//                        self.displaySetValues(journeyObj: journeyObj, baggage: self.dataResp)
+//                    }
+//                }
+//            }
+//        }
+//    }
+
+    
     
     func displaySetValues(journeyObj:Journey, baggage:[JSONDictionary])
     {
@@ -515,11 +502,21 @@ extension String {
         
         guard let characterSpacing = characterSpacing else {return attributedString}
         
-        
         attributedString.addAttribute(NSAttributedString.Key.kern, value: characterSpacing, range: NSRange(location: 0, length: attributedString.length))
-        
-        
         
         return attributedString
     }
+}
+
+
+extension BaggageVC: FlightBaggageVMDelegate{
+    func flightBaggageDetailsApiResponse(details: [JSONDictionary], journeyObj: IntJourney?, journey: Journey?) {
+        guard let jrny =  journey else {return}
+        self.dataResp += details
+        self.displaySetValues(journeyObj: jrny, baggage: self.dataResp)
+    }
+    
+    
+    
+    
 }

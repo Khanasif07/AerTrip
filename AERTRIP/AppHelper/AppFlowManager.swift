@@ -1308,13 +1308,13 @@ extension AppFlowManager {
     
     func presentMicAccessPermissionPopup() {
         let alert = UIAlertController(
-            title: "Access Denied!",
-            message: "Microphone access required to start speech recognition!",
+            title: LocalizedString.accessDenied.localized,
+            message: LocalizedString.microphoneAccessRequired.localized,
             preferredStyle: .alert
         )
         guard let settingUrl = URL(string: UIApplication.openSettingsURLString) else {return}
-        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
-        alert.addAction(UIAlertAction(title: "Allow Mic Access", style: .cancel, handler: { (alert) -> Void in
+        alert.addAction(UIAlertAction(title: LocalizedString.Cancel.localized, style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: LocalizedString.allowMicAccess.localized, style: .cancel, handler: { (alert) -> Void in
             UIApplication.shared.open(settingUrl)
         }))
         UIApplication.topViewController()?.present(alert, animated: true, completion: nil)
