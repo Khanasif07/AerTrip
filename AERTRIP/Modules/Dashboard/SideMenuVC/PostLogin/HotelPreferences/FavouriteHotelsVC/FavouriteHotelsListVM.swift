@@ -73,7 +73,6 @@ class FavouriteHotelsListVM {
     }
     
     func goToSearchWithHotel(_ hotel: HotelsModel) {
-        return;
         let hotelName = hotel.name
         /*let address = booking?.hotelAddress let lat =  booking?.latitude, let long = booking?.longitude,*/
         let city = hotel.city
@@ -90,8 +89,10 @@ class FavouriteHotelsListVM {
         
         hotelData.roomNumber     =  1
         hotelData.adultsCount    = [2]
+        hotelData.isComingFromFavouriteHotels = true
         HotelsSearchVM.hotelFormData = hotelData
         AppFlowManager.default.goToDashboard(toBeSelect: .hotels)
+        
         
     }
     
