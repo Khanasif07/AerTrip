@@ -45,4 +45,195 @@ class FlightFilterTimesVM {
     var isHapticFeedbackProvided = false
     var enableOvernightFlightQualityFilter = [Bool]()
     
+    var panStartPos: CGFloat?
+    
+    func setDepartureSliderValues() {
+        let calendar = Calendar.current
+        let startOfDay = calendar.startOfDay(for: currentTimerFilter.departureMinTime)
+        
+        let startTime = currentTimerFilter.userSelectedStartTime.timeIntervalSince(startOfDay)
+        let roundedMinDeparture = 3600.0 * floor(startTime / 3600.0)
+        
+        departureStartTimeInterval = roundedMinDeparture
+        
+        let endTime = currentTimerFilter.userSelectedEndTime.timeIntervalSince(startOfDay)
+        departureEndTimeInterval = 3600.0 * ceil(endTime / 3600.0)
+    }
+    
+    func handleRightSidePan(minPosNumber: CGFloat, roundedMinDeparture: TimeInterval, roundedMaxDeparture: TimeInterval, curPosNumber: CGFloat) {
+        
+        switch minPosNumber {
+            case 0 :
+                if roundedMinDeparture > TimeInterval.startOfDay {
+                    departureStartTimeInterval = roundedMinDeparture
+                }
+                else {
+                    departureStartTimeInterval = TimeInterval.startOfDay
+                }
+            case 1 :
+                
+                if roundedMinDeparture > TimeInterval.sixAM {
+                    departureStartTimeInterval = roundedMinDeparture
+                }
+                else {
+                    departureStartTimeInterval = TimeInterval.sixAM
+                }
+            case 2 :
+                if roundedMinDeparture > TimeInterval.twelvePM {
+                    departureStartTimeInterval = roundedMinDeparture
+                }
+                else {
+                    departureStartTimeInterval = TimeInterval.twelvePM
+                }
+            case 3 :
+                
+                if roundedMinDeparture > TimeInterval.sixPM {
+                    departureStartTimeInterval = roundedMinDeparture
+                }
+                else {
+                    departureStartTimeInterval = TimeInterval.sixPM
+                }
+                
+            default:
+                printDebug("unknown state")
+        }
+        
+        switch curPosNumber {
+        case 1 :
+            if roundedMaxDeparture < TimeInterval.sixAM  {
+                departureEndTimeInterval = roundedMaxDeparture
+            }
+            else {
+                departureEndTimeInterval = TimeInterval.sixAM
+            }
+        case 2 :
+            if roundedMaxDeparture < TimeInterval.twelvePM {
+                departureEndTimeInterval = roundedMaxDeparture
+            }
+            else {
+                departureEndTimeInterval = TimeInterval.twelvePM
+            }
+        case 3 :
+            if roundedMaxDeparture < TimeInterval.sixPM {
+                departureEndTimeInterval = roundedMaxDeparture
+            }
+            else {
+                departureEndTimeInterval = TimeInterval.sixPM
+            }
+        case 4 , 5 :
+        
+            if roundedMaxDeparture < TimeInterval.endOfDay {
+                departureEndTimeInterval = roundedMaxDeparture
+            }
+            else {
+                departureEndTimeInterval = TimeInterval.endOfDay
+            }
+            
+        default:
+            printDebug("unknown state")
+        }
+        
+    }
+    
+    func handleLeftSidePan(maxPosNumber: CGFloat, roundedMinDeparture: TimeInterval, roundedMaxDeparture: TimeInterval, curPosNumber: CGFloat) {
+        
+        switch maxPosNumber {
+        case 1 :
+            if roundedMaxDeparture < TimeInterval.sixAM  {
+                departureEndTimeInterval = roundedMaxDeparture
+            }
+            else {
+                departureEndTimeInterval = TimeInterval.sixAM
+            }
+        case 2 :
+            if roundedMaxDeparture < TimeInterval.twelvePM {
+                departureEndTimeInterval = roundedMaxDeparture
+            }
+            else {
+                departureEndTimeInterval = TimeInterval.twelvePM
+            }
+        case 3 :
+            if roundedMaxDeparture < TimeInterval.sixPM {
+                departureEndTimeInterval = roundedMaxDeparture
+            }
+            else {
+                departureEndTimeInterval = TimeInterval.sixPM
+            }
+        case 4 , 5 :
+        
+            if roundedMaxDeparture < TimeInterval.endOfDay {
+                departureEndTimeInterval = roundedMaxDeparture
+            }
+                else {
+                    departureEndTimeInterval = TimeInterval.endOfDay
+            }
+            
+        default:
+            printDebug("unknown state")
+        }
+                
+        switch curPosNumber {
+            case 0 :
+                if roundedMinDeparture > TimeInterval.startOfDay {
+                    departureStartTimeInterval = roundedMinDeparture
+                }
+                else {
+                    departureStartTimeInterval = TimeInterval.startOfDay
+                }
+            case 1 :
+                
+                if roundedMinDeparture > TimeInterval.sixAM {
+                    departureStartTimeInterval = roundedMinDeparture
+                }
+                else {
+                    departureStartTimeInterval = TimeInterval.sixAM
+                }
+            case 2 :
+                if roundedMinDeparture > TimeInterval.twelvePM {
+                    departureStartTimeInterval = roundedMinDeparture
+                }
+                else {
+                    departureStartTimeInterval = TimeInterval.twelvePM
+                }
+            case 3 :
+                
+                if roundedMinDeparture > TimeInterval.sixPM {
+                    departureStartTimeInterval = roundedMinDeparture
+                }
+                else {
+                    departureStartTimeInterval = TimeInterval.sixPM
+                }
+                
+            default:
+                printDebug("unknown state")
+        }
+    }
+    
+    func toggleAvoidOvernight(_ selected: Bool) {
+        currentTimerFilter.qualityFilter.isSelected = selected
+        multiLegTimerFilter[currentActiveIndex] = currentTimerFilter
+        
+        if isIntMCOrReturnVC {
+            multiLegTimerFilter = multiLegTimerFilter.map {
+                var newFilter = $0
+                newFilter.qualityFilter = currentTimerFilter.qualityFilter
+                return newFilter
+            }
+        }
+        qualityFilterDelegate?.qualityFilterChangedAt(currentActiveIndex, filter: currentTimerFilter.qualityFilter)
+    }
+    
+    func getSegmentTitleFor(_ index: Int) -> String {
+        let currentFilter = multiLegTimerFilter[(index - 1)]
+        let isFilterApplied = currentFilter.filterApplied()
+        var title = "\(multiLegTimerFilter[index - 1].leg.origin) \u{279E} \(multiLegTimerFilter[index - 1].leg.destination)"
+        if multiLegTimerFilter.count > 3 {
+            title = "\(index)"
+        }
+        var segmentTitle = "\(title) "
+        if isFilterApplied {
+            segmentTitle = "\(title) •"
+        }
+        return segmentTitle
+    }
 }

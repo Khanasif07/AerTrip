@@ -18,7 +18,6 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         
     /// Used for day segments pan gesture
     var panGesture: UIPanGestureRecognizer?
-    var panStartPos: CGFloat?
     private var highlightedBtnArr = Set<UIButton>()
     
     //MARK:- multiLeg Outlets
@@ -113,16 +112,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     }
     
     fileprivate func setDepartureSliderValues() {
-        let calendar = Calendar.current
-        let startOfDay = calendar.startOfDay(for: viewModel.currentTimerFilter.departureMinTime)
-        
-        let startTime = viewModel.currentTimerFilter.userSelectedStartTime.timeIntervalSince(startOfDay)
-        let roundedMinDeparture = 3600.0 * floor(startTime / 3600.0)
-        
-        viewModel.departureStartTimeInterval = roundedMinDeparture
-        
-        let endTime = viewModel.currentTimerFilter.userSelectedEndTime.timeIntervalSince(startOfDay)
-        viewModel.departureEndTimeInterval = 3600.0 * ceil(endTime / 3600.0)
+        viewModel.setDepartureSliderValues()
         updateDepartureUIValues()
     }
     
@@ -204,12 +194,12 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
             return
         }
         
-        if let startPos = panStartPos {
+        if let startPos = viewModel.panStartPos {
             highlightButtonsInRange(mainRectView: senderView, startPos: startPos, curPos: location.x)
         }
         
         if sender.state == .began {
-            panStartPos = location.x
+            viewModel.panStartPos = location.x
         }
         
         if sender.state == .changed {
@@ -224,15 +214,15 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
             let width = senderView.frame.width
             let partWidth = width/4.0
             
-            let panStartPositionInNumber = (panStartPos ?? 0) / partWidth
+            let panStartPositionInNumber = (viewModel.panStartPos ?? 0) / partWidth
             
-            if location.x < (panStartPos ?? 0) {
+            if location.x < (viewModel.panStartPos ?? 0) {
                 let curPosInNumber = floor(location.x / partWidth)
-                handleLeftSidePan(maxPosNumber: ceil(panStartPositionInNumber), roundedMinDeparture: roundedMinDeparture, roundedMaxDeparture: roundedMaxDeparture, curPosNumber: curPosInNumber)
+                viewModel.handleLeftSidePan(maxPosNumber: ceil(panStartPositionInNumber), roundedMinDeparture: roundedMinDeparture, roundedMaxDeparture: roundedMaxDeparture, curPosNumber: curPosInNumber)
                 
             } else {
                 let curPosInNumber = ceil(location.x / partWidth)
-                handleRightSidePan(minPosNumber: floor(panStartPositionInNumber), roundedMinDeparture: roundedMinDeparture, roundedMaxDeparture: roundedMaxDeparture, curPosNumber: curPosInNumber)
+                viewModel.handleRightSidePan(minPosNumber: floor(panStartPositionInNumber), roundedMinDeparture: roundedMinDeparture, roundedMaxDeparture: roundedMaxDeparture, curPosNumber: curPosInNumber)
             }
             UIView.animate(withDuration: 0.3) {
                 self.updateDepartureUIValues()
@@ -331,155 +321,6 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
                     button.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
                 }
             }
-        }
-    }
-    
-    private func handleRightSidePan(minPosNumber: CGFloat, roundedMinDeparture: TimeInterval, roundedMaxDeparture: TimeInterval, curPosNumber: CGFloat) {
-        
-        switch minPosNumber {
-            case 0 :
-                if roundedMinDeparture > TimeInterval.startOfDay {
-                    viewModel.departureStartTimeInterval = roundedMinDeparture
-                }
-                else {
-                    viewModel.departureStartTimeInterval = TimeInterval.startOfDay
-                }
-            case 1 :
-                
-                if roundedMinDeparture > TimeInterval.sixAM {
-                    viewModel.departureStartTimeInterval = roundedMinDeparture
-                }
-                else {
-                    viewModel.departureStartTimeInterval = TimeInterval.sixAM
-                }
-            case 2 :
-                if roundedMinDeparture > TimeInterval.twelvePM {
-                    viewModel.departureStartTimeInterval = roundedMinDeparture
-                }
-                else {
-                    viewModel.departureStartTimeInterval = TimeInterval.twelvePM
-                }
-            case 3 :
-                
-                if roundedMinDeparture > TimeInterval.sixPM {
-                    viewModel.departureStartTimeInterval = roundedMinDeparture
-                }
-                else {
-                    viewModel.departureStartTimeInterval = TimeInterval.sixPM
-                }
-                
-            default:
-                printDebug("unknown state")
-        }
-        
-        switch curPosNumber {
-        case 1 :
-            if roundedMaxDeparture < TimeInterval.sixAM  {
-                viewModel.departureEndTimeInterval = roundedMaxDeparture
-            }
-            else {
-                viewModel.departureEndTimeInterval = TimeInterval.sixAM
-            }
-        case 2 :
-            if roundedMaxDeparture < TimeInterval.twelvePM {
-                viewModel.departureEndTimeInterval = roundedMaxDeparture
-            }
-            else {
-                viewModel.departureEndTimeInterval = TimeInterval.twelvePM
-            }
-        case 3 :
-            if roundedMaxDeparture < TimeInterval.sixPM {
-                viewModel.departureEndTimeInterval = roundedMaxDeparture
-            }
-            else {
-                viewModel.departureEndTimeInterval = TimeInterval.sixPM
-            }
-        case 4 , 5 :
-        
-            if roundedMaxDeparture < TimeInterval.endOfDay {
-                viewModel.departureEndTimeInterval = roundedMaxDeparture
-            }
-            else {
-                viewModel.departureEndTimeInterval = TimeInterval.endOfDay
-            }
-            
-        default:
-            printDebug("unknown state")
-        }
-        
-    }
-    
-    private func handleLeftSidePan(maxPosNumber: CGFloat, roundedMinDeparture: TimeInterval, roundedMaxDeparture: TimeInterval, curPosNumber: CGFloat) {
-        
-        switch maxPosNumber {
-        case 1 :
-            if roundedMaxDeparture < TimeInterval.sixAM  {
-                viewModel.departureEndTimeInterval = roundedMaxDeparture
-            }
-            else {
-                viewModel.departureEndTimeInterval = TimeInterval.sixAM
-            }
-        case 2 :
-            if roundedMaxDeparture < TimeInterval.twelvePM {
-                viewModel.departureEndTimeInterval = roundedMaxDeparture
-            }
-            else {
-                viewModel.departureEndTimeInterval = TimeInterval.twelvePM
-            }
-        case 3 :
-            if roundedMaxDeparture < TimeInterval.sixPM {
-                viewModel.departureEndTimeInterval = roundedMaxDeparture
-            }
-            else {
-                viewModel.departureEndTimeInterval = TimeInterval.sixPM
-            }
-        case 4 , 5 :
-        
-            if roundedMaxDeparture < TimeInterval.endOfDay {
-                viewModel.departureEndTimeInterval = roundedMaxDeparture
-            }
-                else {
-                    viewModel.departureEndTimeInterval = TimeInterval.endOfDay
-            }
-            
-        default:
-            printDebug("unknown state")
-        }
-                
-        switch curPosNumber {
-            case 0 :
-                if roundedMinDeparture > TimeInterval.startOfDay {
-                    viewModel.departureStartTimeInterval = roundedMinDeparture
-                }
-                else {
-                    viewModel.departureStartTimeInterval = TimeInterval.startOfDay
-                }
-            case 1 :
-                
-                if roundedMinDeparture > TimeInterval.sixAM {
-                    viewModel.departureStartTimeInterval = roundedMinDeparture
-                }
-                else {
-                    viewModel.departureStartTimeInterval = TimeInterval.sixAM
-                }
-            case 2 :
-                if roundedMinDeparture > TimeInterval.twelvePM {
-                    viewModel.departureStartTimeInterval = roundedMinDeparture
-                }
-                else {
-                    viewModel.departureStartTimeInterval = TimeInterval.twelvePM
-                }
-            case 3 :
-                
-                if roundedMinDeparture > TimeInterval.sixPM {
-                    viewModel.departureStartTimeInterval = roundedMinDeparture
-                }
-                else {
-                    viewModel.departureStartTimeInterval = TimeInterval.sixPM
-                }
-                
-            default:
-                printDebug("unknown state")
         }
     }
     
@@ -733,17 +574,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     }
     
     private func toggleAvoidOvernight(_ selected: Bool) {
-        viewModel.currentTimerFilter.qualityFilter.isSelected = selected
-        viewModel.multiLegTimerFilter[viewModel.currentActiveIndex] = viewModel.currentTimerFilter
-        
-        if viewModel.isIntMCOrReturnVC {
-            viewModel.multiLegTimerFilter = viewModel.multiLegTimerFilter.map {
-                var newFilter = $0
-                newFilter.qualityFilter = viewModel.currentTimerFilter.qualityFilter
-                return newFilter
-            }
-        }
-        viewModel.qualityFilterDelegate?.qualityFilterChangedAt(viewModel.currentActiveIndex, filter: viewModel.currentTimerFilter.qualityFilter)
+        viewModel.toggleAvoidOvernight(selected)
         resetAvoidOvernightBtn()
         
     }
@@ -780,7 +611,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         let numberOfStops = viewModel.multiLegTimerFilter.count
 
         for  index in 1...numberOfStops  {
-            let segmentTitle = getSegmentTitleFor(index)
+            let segmentTitle = viewModel.getSegmentTitleFor(index)
             multiLegSegmentControl.insertSegment(withTitle: segmentTitle, at: index-1, animated: false)
         }
         
@@ -821,23 +652,9 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
 
     }
     
-    private func getSegmentTitleFor(_ index: Int) -> String {
-        let currentFilter = viewModel.multiLegTimerFilter[(index - 1)]
-        let isFilterApplied = currentFilter.filterApplied()
-        var title = "\(viewModel.multiLegTimerFilter[index - 1].leg.origin) \u{279E} \(viewModel.multiLegTimerFilter[index - 1].leg.destination)"
-        if viewModel.multiLegTimerFilter.count > 3 {
-            title = "\(index)"
-        }
-        var segmentTitle = "\(title) "
-        if isFilterApplied {
-            segmentTitle = "\(title) •"
-        }
-        return segmentTitle
-    }
-    
     private func updateSegmentTitles() {
         for index in 0..<multiLegSegmentControl.numberOfSegments {
-            let segmentTitle = getSegmentTitleFor(index + 1)
+            let segmentTitle = viewModel.getSegmentTitleFor(index + 1)
             multiLegSegmentControl.setTitle(segmentTitle, forSegmentAt: index)
         }
     }
