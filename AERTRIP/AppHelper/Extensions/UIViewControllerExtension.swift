@@ -247,14 +247,15 @@ extension UIViewController{
         let status = PHPhotoLibrary.authorizationStatus()
         switch status {
         case .authorized:
-            
-            let image_picker = UIImagePickerController()
-            image_picker.delegate = delegate
-            image_picker.modalPresentationStyle = .fullScreen
-            let sourceType: UIImagePickerController.SourceType = UIImagePickerController.SourceType.photoLibrary
-            image_picker.sourceType = sourceType
-            image_picker.allowsEditing=true
-            self.present(image_picker, animated: true, completion: nil)
+            DispatchQueue.main.async {
+                let image_picker = UIImagePickerController()
+                image_picker.delegate = delegate
+                image_picker.modalPresentationStyle = .fullScreen
+                let sourceType: UIImagePickerController.SourceType = UIImagePickerController.SourceType.photoLibrary
+                image_picker.sourceType = sourceType
+                image_picker.allowsEditing=true
+                self.present(image_picker, animated: true, completion: nil)
+            }
             
         //handle authorized status
         case .denied:

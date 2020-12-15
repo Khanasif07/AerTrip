@@ -447,22 +447,22 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
             var reducedStops  = allLegsStops.reduce([], { $0 + $1.availableStops })
             let reducedStopsSet = Set(reducedStops)
             reducedStops = Array(reducedStopsSet).sorted()
-            stopsViewController.allStopsFilters = [StopsFilter(stops:reducedStops )]
-            stopsViewController.allLegNames = [legList[0]]
-            stopsViewController.showingForReturnJourney = true
+            stopsViewController.viewModel.allStopsFilters = [StopsFilter(stops:reducedStops )]
+            stopsViewController.viewModel.allLegNames = [legList[0]]
+            stopsViewController.viewModel.showingForReturnJourney = true
         }else {
-            stopsViewController.allStopsFilters = allLegsStops
-            stopsViewController.allLegNames = legList
-            stopsViewController.showingForReturnJourney = false
+            stopsViewController.viewModel.allStopsFilters = allLegsStops
+            stopsViewController.viewModel.allLegNames = legList
+            stopsViewController.viewModel.showingForReturnJourney = false
         }
-        stopsViewController.isIntMCOrReturnVC = true
-        stopsViewController.delegate = delegate as? FlightStopsFilterDelegate
-        stopsViewController.qualityFilterDelegate = delegate as? QualityFilterDelegate
+        stopsViewController.viewModel.isIntMCOrReturnVC = true
+        stopsViewController.viewModel.delegate = delegate as? FlightStopsFilterDelegate
+        stopsViewController.viewModel.qualityFilterDelegate = delegate as? QualityFilterDelegate
         if let qualityFilters = inputFilters.first?.fq {
-            if stopsViewController.enableOvernightFlightQualityFilter.indices.contains(0) {
-            stopsViewController.enableOvernightFlightQualityFilter[0] =  qualityFilters.values.contains(UIFilters.hideChangeAirport.title)
+            if stopsViewController.viewModel.enableOvernightFlightQualityFilter.indices.contains(0) {
+                stopsViewController.viewModel.enableOvernightFlightQualityFilter[0] =  qualityFilters.values.contains(UIFilters.hideChangeAirport.title)
             } else {
-                stopsViewController.enableOvernightFlightQualityFilter.insert(qualityFilters.values.contains(UIFilters.hideChangeAirport.title), at: 0)
+                stopsViewController.viewModel.enableOvernightFlightQualityFilter.insert(qualityFilters.values.contains(UIFilters.hideChangeAirport.title), at: 0)
             }
         }
     }
@@ -471,8 +471,8 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
     {
         if searchType == RETURN_JOURNEY {
             var qualityFilter: QualityFilter?
-            if stopsViewController.allStopsFilters.indices.contains(0) {
-                qualityFilter = stopsViewController.allStopsFilters[0].qualityFilter
+            if stopsViewController.viewModel.allStopsFilters.indices.contains(0) {
+                qualityFilter = stopsViewController.viewModel.allStopsFilters[0].qualityFilter
                 if userSelectedFilters[0].fq.keys.contains("coa") {
                     qualityFilter?.isSelected = userSelectedFilters[0].fq["coa"] == ""
                 }
@@ -488,22 +488,22 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
             var reducedStops  = allLegsStops.reduce([], { $0 + $1.availableStops })
             let reducedStopsSet = Set(reducedStops)
             reducedStops = Array(reducedStopsSet).sorted()
-            stopsViewController.allStopsFilters[0].availableStops = reducedStops
+            stopsViewController.viewModel.allStopsFilters[0].availableStops = reducedStops
             
             if appliedAndUIFilters?.appliedFilters[0].contains(.stops) ?? false {
                 let userStopsStringArray = userSelectedFilters[0].stp
                 let userStops : [Int] = userStopsStringArray.map({Int($0) ?? 0})
-                stopsViewController.allStopsFilters[0].userSelectedStops = userStops
+                stopsViewController.viewModel.allStopsFilters[0].userSelectedStops = userStops
             }
             if let quality = qualityFilter {
-                stopsViewController.allStopsFilters[0].qualityFilter = quality
+                stopsViewController.viewModel.allStopsFilters[0].qualityFilter = quality
             }
         } else {
             for index in 0..<inputFilters.count {
                 
                 var qualityFilter: QualityFilter?
-                if stopsViewController.allStopsFilters.indices.contains(index) {
-                    qualityFilter = stopsViewController.allStopsFilters[index].qualityFilter
+                if stopsViewController.viewModel.allStopsFilters.indices.contains(index) {
+                    qualityFilter = stopsViewController.viewModel.allStopsFilters[index].qualityFilter
                     if userSelectedFilters[index].fq.keys.contains("coa") {
                         qualityFilter?.isSelected = userSelectedFilters[index].fq["coa"] == ""
                     }
@@ -514,30 +514,30 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
                 let stops : [Int] = stopsStringArray.map({Int($0) ?? 0})
                 let stopFilter = StopsFilter(stops: stops)
                 
-                if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[0].contains(.stops), stopsViewController.allStopsFilters.indices.contains(index) {
-                    stopsViewController.allStopsFilters[index].availableStops = stopFilter.availableStops
+                if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[0].contains(.stops), stopsViewController.viewModel.allStopsFilters.indices.contains(index) {
+                    stopsViewController.viewModel.allStopsFilters[index].availableStops = stopFilter.availableStops
                     
                     let userStopsStringArray = userSelectedFilters[index].stp
                     let userStops : [Int] = userStopsStringArray.map({Int($0) ?? 0})
-                    stopsViewController.allStopsFilters[index].userSelectedStops = userStops
+                    stopsViewController.viewModel.allStopsFilters[index].userSelectedStops = userStops
                 } else {
-                    if !stopsViewController.allStopsFilters.indices.contains(index) {
-                        stopsViewController.allStopsFilters.insert(stopFilter, at: index)
+                    if !stopsViewController.viewModel.allStopsFilters.indices.contains(index) {
+                        stopsViewController.viewModel.allStopsFilters.insert(stopFilter, at: index)
                     } else {
-                        stopsViewController.allStopsFilters[index] = stopFilter
+                        stopsViewController.viewModel.allStopsFilters[index] = stopFilter
                     }
                 }
                 if let quality = qualityFilter {
-                    stopsViewController.allStopsFilters[index].qualityFilter = quality
+                    stopsViewController.viewModel.allStopsFilters[index].qualityFilter = quality
                 }
             }
         }
         
         if let qualityFilters = inputFilters.first?.fq {
-            if stopsViewController.enableOvernightFlightQualityFilter.indices.contains(0) {
-                stopsViewController.enableOvernightFlightQualityFilter[0] =  qualityFilters.values.contains(UIFilters.hideChangeAirport.title)
+            if stopsViewController.viewModel.enableOvernightFlightQualityFilter.indices.contains(0) {
+                stopsViewController.viewModel.enableOvernightFlightQualityFilter[0] =  qualityFilters.values.contains(UIFilters.hideChangeAirport.title)
             } else {
-                stopsViewController.enableOvernightFlightQualityFilter.insert(qualityFilters.values.contains(UIFilters.hideChangeAirport.title), at: 0)
+                stopsViewController.viewModel.enableOvernightFlightQualityFilter.insert(qualityFilters.values.contains(UIFilters.hideChangeAirport.title), at: 0)
             }
         }
         stopsViewController.updateUIPostLatestResults()
@@ -1076,11 +1076,11 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
     fileprivate func setAirlineVC( _ airlineViewController : AirlinesFilterViewController , inputFilters : [IntMultiCityAndReturnWSResponse.Results.F]) {
         
         let airlineFilters = self.createAirlineFiltersArray(inputFilters: inputFilters)
-        airlineViewController.airlinesFilterArray = airlineFilters
-        airlineViewController.currentSelectedAirlineFilter = airlineFilters[0]
-        airlineViewController.showingForReturnJourney = false
-        airlineViewController.isIntReturnOrMCJourney = true
-        airlineViewController.delegate = delegate as? AirlineFilterDelegate
+        airlineViewController.viewModel.airlinesFilterArray = airlineFilters
+        airlineViewController.viewModel.currentSelectedAirlineFilter = airlineFilters[0]
+        airlineViewController.viewModel.showingForReturnJourney = false
+        airlineViewController.viewModel.isIntReturnOrMCJourney = true
+        airlineViewController.viewModel.delegate = delegate as? AirlineFilterDelegate
     }
     
     fileprivate func createAirlineFilterForReturnJourney(inputFilters : [IntMultiCityAndReturnWSResponse.Results.F]) -> AirlineLegFilter {
@@ -1111,11 +1111,11 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
     fileprivate func setAirlineVCForReturnJourney( _ airlineViewController : AirlinesFilterViewController , inputFilters : [IntMultiCityAndReturnWSResponse.Results.F]) {
         
         let airlineLegFilter = self.createAirlineFilterForReturnJourney(inputFilters: inputFilters)
-        airlineViewController.airlinesFilterArray  = [airlineLegFilter]
-        airlineViewController.currentSelectedAirlineFilter = airlineLegFilter
-        airlineViewController.showingForReturnJourney = true
-        airlineViewController.isIntReturnOrMCJourney = true
-        airlineViewController.delegate = delegate as? AirlineFilterDelegate
+        airlineViewController.viewModel.airlinesFilterArray  = [airlineLegFilter]
+        airlineViewController.viewModel.currentSelectedAirlineFilter = airlineLegFilter
+        airlineViewController.viewModel.showingForReturnJourney = true
+        airlineViewController.viewModel.isIntReturnOrMCJourney = true
+        airlineViewController.viewModel.delegate = delegate as? AirlineFilterDelegate
         
     }
     
@@ -1129,14 +1129,14 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
             airlineFilters = self.createAirlineFiltersArray(inputFilters: filters)
         }
         
-        let curSelectedFilter = airlineVC.currentSelectedAirlineFilter
-        airlineVC.airlinesFilterArray = airlineFilters
-        airlineVC.currentSelectedAirlineFilter = airlineFilters[0]
+        let curSelectedFilter = airlineVC.viewModel.currentSelectedAirlineFilter
+        airlineVC.viewModel.airlinesFilterArray = airlineFilters
+        airlineVC.viewModel.currentSelectedAirlineFilter = airlineFilters[0]
         if appliedAndUIFilters?.appliedFilters[0].contains(.Airlines) ?? false {
             let selectedAirlines = userSelectedFilters.flatMap { $0.al }
             airlineVC.selectedAirlineArray = selectedAirlines
         }
-        airlineVC.currentSelectedAirlineFilter.hideMultipleAirline = curSelectedFilter?.hideMultipleAirline ?? false
+        airlineVC.viewModel.currentSelectedAirlineFilter.hideMultipleAirline = curSelectedFilter?.hideMultipleAirline ?? false
         airlineVC.updateUIPostLatestResults()
     }
     

@@ -1553,6 +1553,8 @@
 		84DD249B226734D80013F77E /* BookingPaymentDetailsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84DD2499226734D80013F77E /* BookingPaymentDetailsTableViewCell.xib */; };
 		84DD249F2267A6030013F77E /* PaymentInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD249D2267A6030013F77E /* PaymentInfoTableViewCell.swift */; };
 		84DD24A02267A6030013F77E /* PaymentInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84DD249E2267A6030013F77E /* PaymentInfoTableViewCell.xib */; };
+		84DF1B8E258878D50067C678 /* FlightStopsFilterVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DF1B8D258878D50067C678 /* FlightStopsFilterVM.swift */; };
+		84DF1B9025889CB60067C678 /* AirlinesFilterVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DF1B8F25889CB60067C678 /* AirlinesFilterVM.swift */; };
 		84E4BC22229BA21100B72306 /* FlightBookingsDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E4BC21229BA21100B72306 /* FlightBookingsDetailsVC.swift */; };
 		84E4BC27229C622700B72306 /* DownloadingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E4BC26229C622700B72306 /* DownloadingModel.swift */; };
 		84E4BC4C229E67CC00B72306 /* FlightCarriersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E4BC4A229E67CC00B72306 /* FlightCarriersTableViewCell.swift */; };
@@ -3356,6 +3358,8 @@
 		84DD2499226734D80013F77E /* BookingPaymentDetailsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookingPaymentDetailsTableViewCell.xib; sourceTree = "<group>"; };
 		84DD249D2267A6030013F77E /* PaymentInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentInfoTableViewCell.swift; sourceTree = "<group>"; };
 		84DD249E2267A6030013F77E /* PaymentInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentInfoTableViewCell.xib; sourceTree = "<group>"; };
+		84DF1B8D258878D50067C678 /* FlightStopsFilterVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightStopsFilterVM.swift; sourceTree = "<group>"; };
+		84DF1B8F25889CB60067C678 /* AirlinesFilterVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirlinesFilterVM.swift; sourceTree = "<group>"; };
 		84E4BC21229BA21100B72306 /* FlightBookingsDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightBookingsDetailsVC.swift; sourceTree = "<group>"; };
 		84E4BC26229C622700B72306 /* DownloadingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadingModel.swift; sourceTree = "<group>"; };
 		84E4BC4A229E67CC00B72306 /* FlightCarriersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightCarriersTableViewCell.swift; sourceTree = "<group>"; };
@@ -6311,6 +6315,7 @@
 			children = (
 				843FF3412474022F001F21B1 /* FlightStopsFilterViewController.xib */,
 				843FF3422474022F001F21B1 /* FlightStopsFilterViewController.swift */,
+				84DF1B8D258878D50067C678 /* FlightStopsFilterVM.swift */,
 			);
 			path = Stops;
 			sourceTree = "<group>";
@@ -6368,6 +6373,7 @@
 				843FF3542474022F001F21B1 /* AirlinesFilter.swift */,
 				843FF3552474022F001F21B1 /* AirlinesFilterViewController.swift */,
 				843FF3562474022F001F21B1 /* AirlinesFilterViewController.xib */,
+				84DF1B8F25889CB60067C678 /* AirlinesFilterVM.swift */,
 			);
 			path = Airlines;
 			sourceTree = "<group>";
@@ -9959,6 +9965,7 @@
 				84827650223A6DA5007B6A27 /* GuestDetailsVC.swift in Sources */,
 				18038D1D226DE73B00A4D1DD /* AerinCurrentStateTableViewCell.swift in Sources */,
 				842A56B122898C6E004FD51F /* AertripBankDetailsVM.swift in Sources */,
+				84DF1B8E258878D50067C678 /* FlightStopsFilterVM.swift in Sources */,
 				84DB3CC822A2737200216159 /* FlightStopsCollectionViewCell.swift in Sources */,
 				84085D1121F59C0E00F1E844 /* ImportContactVC.swift in Sources */,
 				1871B67822084B580066636E /* PriceVC.swift in Sources */,
@@ -10111,6 +10118,7 @@
 				841DD1EB2202DC690055FEBB /* BulkBookingVC.swift in Sources */,
 				84AD5F23222D51C60095EA5D /* SearchFavouriteHotelsVM.swift in Sources */,
 				8477163722843546000E1BB6 /* OnAccountDetailVC.swift in Sources */,
+				84DF1B9025889CB60067C678 /* AirlinesFilterVM.swift in Sources */,
 				846FB58D22250AFA007F70F9 /* PKBottomSheet.swift in Sources */,
 				18999D8E21E48D6500E66072 /* OrderTableViewCell.swift in Sources */,
 				18E61218234384FE00816250 /* UIPickerViewExtension.swift in Sources */,
