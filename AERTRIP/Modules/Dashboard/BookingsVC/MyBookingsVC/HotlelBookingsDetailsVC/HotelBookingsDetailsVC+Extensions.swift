@@ -441,7 +441,17 @@ extension HotlelBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
     }
     
     func share() {
-        
+        if let url = viewModel.bookingDetail?.shareUrl{
+            if !url.isEmpty{
+                let textToShare = [ "I have Booked the Hotel with Aertrip\n\(url)" ]
+                let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+                activityViewController.popoverPresentationController?.sourceView = self.view
+                
+                self.present(activityViewController, animated: true, completion: nil)
+            }
+
+        }
+
     }
     
     func bookSameFlightOrRoom() {
