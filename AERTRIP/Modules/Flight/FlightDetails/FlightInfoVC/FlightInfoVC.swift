@@ -91,8 +91,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
     
     //MARK:- Get Flight Info
     
-    func getFlightsInfo()
-    {
+    func getFlightsInfo() {
         if journey != nil{
             for j in 0..<journey.count{
                 

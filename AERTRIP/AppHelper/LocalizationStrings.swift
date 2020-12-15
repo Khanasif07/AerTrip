@@ -1056,6 +1056,11 @@ enum LocalizedString: String {
     case adultAgeError
     case childAgeError
     case infantAgeError
+    case fillAllPassengerDetails
+    case enterISD
+    case enterGSTName
+    case enterGSTBillName
+    case notValidGST
     
     
     // MARK: - Disconnect linkedin issue

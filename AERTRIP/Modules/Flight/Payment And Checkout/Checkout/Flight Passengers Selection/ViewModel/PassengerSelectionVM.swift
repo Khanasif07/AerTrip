@@ -297,39 +297,39 @@ class PassengerSelectionVM  {
         AddonsDataStore.shared.resetData()
         for contact in GuestDetailsVM.shared.guests[0]{
             if contact.firstName.removeAllWhitespaces.isEmpty || contact.firstName.count < 3  || !contact.firstName.isName || contact.lastName.removeAllWhitespaces.isEmpty || contact.lastName.count < 3 || !contact.lastName.isName || contact.salutation.isEmpty{
-                return (false, "Please fill all the passenger details")
+                return (false, LocalizedString.fillAllPassengerDetails.localized)
             }else if self.journeyType == .domestic{
                 if contact.passengerType == .Infant{
-                    return (!(contact.dob.isEmpty), "Please fill all the passenger details")
+                    return (!(contact.dob.isEmpty), LocalizedString.fillAllPassengerDetails.localized)
                 }
             }else{
                 if contact.dob.isEmpty || contact.nationality.isEmpty || contact.passportNumber.isEmpty || contact.passportExpiryDate.isEmpty{
-                    return (false, "Please fill all the passenger details")
+                    return (false, LocalizedString.fillAllPassengerDetails.localized)
                 }
             }
             if self.itineraryData.itinerary.isAllPaxInfoRequired && contact.passengerType == .Adult{
                 if contact.isd.isEmpty{
-                    return (false, "Please fill all the passenger details")
+                    return (false, LocalizedString.fillAllPassengerDetails.localized)
                 }else if (contact.contact.isEmpty || self.getOnlyIntiger(contact.contact).count < self.manimumContactLimit || self.getOnlyIntiger(contact.contact).count > self.maximumContactLimit){
-                    return (false, "Please fill all the passenger details")
+                    return (false, LocalizedString.fillAllPassengerDetails.localized)
                 }else if !(contact.emailLabel.checkValidity(.Email)){
-                    return (false, "Please fill all the passenger details")
+                    return (false, LocalizedString.fillAllPassengerDetails.localized)
                 }
             }
         }
         if self.isdCode.isEmpty{
-            return (false, "Please enter ISD code")
+            return (false, LocalizedString.enterISD.localized)
         }else if (self.mobile.isEmpty || self.mobile.count < self.manimumContactLimit || self.mobile.count > self.maximumContactLimit){
-            return (false, "Please enter valid mobile number")
+            return (false, LocalizedString.EnterValidMobileNumber.localized)
         }else if !(self.email.checkValidity(.Email)){
-            return (false, "Not a valid email address")
+            return (false, LocalizedString.EnterEmailAddressMessage.localized)
         }else if self.isSwitchOn{
             if (self.selectedGST.companyName.isEmpty){
-                return (false, "Please enter GSTIN company name")
+                return (false, LocalizedString.enterGSTName.localized)
             }else if (self.selectedGST.billingName.isEmpty){
-                return (false, "Please enter GSTIN billing name")
+                return (false, LocalizedString.enterGSTBillName.localized)
             }else if !(self.selectedGST.GSTInNo.checkValidity(.gst)){
-                return (false, "Kindly enter a valid GSTIN")
+                return (false, LocalizedString.notValidGST.localized)
             }
         }
         return (true, "")

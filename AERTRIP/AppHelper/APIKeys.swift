@@ -62,6 +62,7 @@ enum APIKeys: String {
     case hash_key
     case hotel_min_star
     case hotel_max_star
+    case hotel
     case hotels
     case hid
     case name

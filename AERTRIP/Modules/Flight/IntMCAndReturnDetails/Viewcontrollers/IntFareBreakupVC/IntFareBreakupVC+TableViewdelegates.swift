@@ -99,7 +99,7 @@ extension IntFareBreakupVC: UITableViewDelegate,UITableViewDataSource{
             
         case 2:
             if indexPath.row == 0{
-                let baseFareCell = tableView.dequeueReusableCell(withIdentifier: "BaseFareCell") as! BaseFareTableViewCell
+                guard let baseFareCell = tableView.dequeueReusableCell(withIdentifier: "BaseFareCell") as? BaseFareTableViewCell else {return UITableViewCell()}
                 baseFareCell.selectionStyle = .none
                 
                 if !isTaxesSectionHidden{
@@ -154,7 +154,7 @@ extension IntFareBreakupVC: UITableViewDelegate,UITableViewDataSource{
             }
             case 3:
             if indexPath.row == 0{
-                let baseFareCell = tableView.dequeueReusableCell(withIdentifier: "BaseFareCell") as! BaseFareTableViewCell
+                guard let baseFareCell = tableView.dequeueReusableCell(withIdentifier: "BaseFareCell") as? BaseFareTableViewCell else {fatalError("BaseFareTableViewCell not found.")}
                 baseFareCell.selectionStyle = .none
                 baseFareCell.isHidden = false
                 if !isAddonsExpend{

@@ -9,61 +9,11 @@
 import UIKit
 import SnapKit
 
-protocol  PriceFilterDelegate : FilterDelegate {
-    func priceSelectionChangedAt(_ index : Int , minFare : CGFloat , maxFare : CGFloat )
-    func onlyRefundableFares( selected : Bool , index : Int)
-}
-
-
-struct PriceFilter {
-    
-    var onlyRefundableFaresSelected : Bool = false
-    var inputFareMinValue : CGFloat
-    var inputFareMaxVaule : CGFloat
-    var userSelectedFareMinValue : CGFloat
-    var userSelectedFareMaxValue : CGFloat
-    
-    mutating func resetFilter() {
-        onlyRefundableFaresSelected = false
-        userSelectedFareMinValue = inputFareMinValue
-        userSelectedFareMaxValue = inputFareMaxVaule
-    }
-    
-    func filterApplied()-> Bool {
-        
-        if onlyRefundableFaresSelected {
-            return true
-        }
-        
-        if userSelectedFareMinValue > inputFareMinValue {
-            return true
-        }
-        
-        if userSelectedFareMaxValue < inputFareMaxVaule {
-            return true
-        }
-        
-        return false
-    }
-}
-
 class PriceFilterViewController: UIViewController , FilterViewController {
     //MARK:- State Properties
-    weak var delegate : PriceFilterDelegate?
-    var currentActiveIndex : Int = 0
-    var allPriceFilters = [PriceFilter]()
-    var currentPriceFilter : PriceFilter!
-    var legsArray = [Leg]()
-    var flightResultArray : [FlightsResults]!
-    var intFlightResultArray : [IntMultiCityAndReturnWSResponse.Results]!
-    var isInternational = false
     
     private var multiLegSegmentControl = UISegmentedControl()
-    
-    var priceDiffForFraction: CGFloat {
-        let diff = currentPriceFilter.inputFareMaxVaule - currentPriceFilter.inputFareMinValue
-        return diff == 0 ? 1 : diff
-    }
+    let viewModel = PriceFilterVM()
 
     //MARK:- Outlets
     @IBOutlet weak var multiLegView: UIView!
@@ -106,7 +56,7 @@ class PriceFilterViewController: UIViewController , FilterViewController {
     //MARK:- Additional UI Methods
     
     func updateFiltersFromAPI() {
-        currentPriceFilter = allPriceFilters[currentActiveIndex]
+        viewModel.currentPriceFilter = viewModel.allPriceFilters[viewModel.currentActiveIndex]
         initSetupForMLSubViews()
         guard priceRangeSlider != nil else { return }
         UIView.animate(withDuration: 0.3) {
@@ -120,18 +70,18 @@ class PriceFilterViewController: UIViewController , FilterViewController {
         
         initSetupForMLSubViews()
         
-        currentPriceFilter.userSelectedFareMinValue = currentPriceFilter.inputFareMinValue
-        currentPriceFilter.userSelectedFareMaxValue = currentPriceFilter.inputFareMaxVaule
+        viewModel.currentPriceFilter.userSelectedFareMinValue = viewModel.currentPriceFilter.inputFareMinValue
+        viewModel.currentPriceFilter.userSelectedFareMaxValue = viewModel.currentPriceFilter.inputFareMaxVaule
        
     }
     
     private func initSetupForMLSubViews() {
-        if isInternational {
+        if viewModel.isInternational {
             multicityViewHeight.constant = 0
             multiLegView.isHidden = true
             return
         }
-        switch  allPriceFilters.count {
+        switch  viewModel.allPriceFilters.count {
         case 1:
             multicityViewHeight.constant = 0
             multiLegView.isHidden = true
@@ -144,19 +94,19 @@ class PriceFilterViewController: UIViewController , FilterViewController {
             multiLegView.isHidden = false
             multicityViewHeight.constant = 60.0
             setupMultiLegSegmentControl()
-            JourneyTitle.attributedText = legsArray[currentActiveIndex].descriptionOneFiveThree
+            JourneyTitle.attributedText = viewModel.legsArray[viewModel.currentActiveIndex].descriptionOneFiveThree
         case 4 , 5 :
             multiLegView.isHidden = false
             multicityViewHeight.constant = 90.0
             setupMultiLegSegmentControl()
             JourneyTitle.isHidden = false
-            JourneyTitle.attributedText = legsArray[currentActiveIndex].descriptionOneFiveThree
+            JourneyTitle.attributedText = viewModel.legsArray[viewModel.currentActiveIndex].descriptionOneFiveThree
         default:
             multicityViewHeight.constant = 90.0
             setupMultiLegSegmentControl()
             multiLegView.isHidden = false
             JourneyTitle.isHidden = false
-            JourneyTitle.attributedText = legsArray[currentActiveIndex].descriptionOneFiveThree
+            JourneyTitle.attributedText = viewModel.legsArray[viewModel.currentActiveIndex].descriptionOneFiveThree
         }
     }
     
@@ -164,14 +114,14 @@ class PriceFilterViewController: UIViewController , FilterViewController {
                 
         multiLegSegmentControl.removeAllSegments()
         
-        let numberOfStops = allPriceFilters.count
+        let numberOfStops = viewModel.allPriceFilters.count
 
         for  index in 1...numberOfStops  {
             let segmentTitle = getSegmentTitleFor(index)
             multiLegSegmentControl.insertSegment(withTitle: segmentTitle, at: index-1, animated: false)
         }
         
-        multiLegSegmentControl.selectedSegmentIndex = currentActiveIndex
+        multiLegSegmentControl.selectedSegmentIndex = viewModel.currentActiveIndex
                 
         if multiLegSegmentControl.superview == nil && numberOfStops > 1 {
             let font: [NSAttributedString.Key : Any] = [.font : AppFonts.SemiBold.withSize(14)]
@@ -189,12 +139,12 @@ class PriceFilterViewController: UIViewController , FilterViewController {
     
     @objc func indexChanged(_ sender: UISegmentedControl) {
         
-        guard currentActiveIndex != sender.selectedSegmentIndex else { return }
+        guard viewModel.currentActiveIndex != sender.selectedSegmentIndex else { return }
         
-        allPriceFilters[currentActiveIndex] = currentPriceFilter
-        currentActiveIndex = sender.selectedSegmentIndex
-        currentPriceFilter = allPriceFilters[currentActiveIndex]
-        JourneyTitle.attributedText = legsArray[currentActiveIndex].descriptionOneFiveThree
+        viewModel.allPriceFilters[viewModel.currentActiveIndex] = viewModel.currentPriceFilter
+        viewModel.currentActiveIndex = sender.selectedSegmentIndex
+        viewModel.currentPriceFilter = viewModel.allPriceFilters[viewModel.currentActiveIndex]
+        JourneyTitle.attributedText = viewModel.legsArray[viewModel.currentActiveIndex].descriptionOneFiveThree
         
         checkRefundableFlights(index: sender.selectedSegmentIndex)
         setupPriceSlider()
@@ -203,10 +153,10 @@ class PriceFilterViewController: UIViewController , FilterViewController {
     }
     
     private func getSegmentTitleFor(_ index: Int) -> String {
-        let currentFilter = allPriceFilters[(index - 1)]
+        let currentFilter = viewModel.allPriceFilters[(index - 1)]
         let isFilterApplied = currentFilter.filterApplied()
-        var title = "\(legsArray[index - 1].origin) \u{279E} \(legsArray[index - 1].destination)"
-        if allPriceFilters.count > 3 {
+        var title = "\(viewModel.legsArray[index - 1].origin) \u{279E} \(viewModel.legsArray[index - 1].destination)"
+        if viewModel.allPriceFilters.count > 3 {
             title = "\(index)"
         }
         var segmentTitle = "\(title) "
@@ -225,14 +175,14 @@ class PriceFilterViewController: UIViewController , FilterViewController {
     
     fileprivate func setupPriceSlider() {
         
-        priceRangeSlider.set(leftValue: (currentPriceFilter.userSelectedFareMinValue - currentPriceFilter.inputFareMinValue)/priceDiffForFraction, rightValue: (currentPriceFilter.userSelectedFareMaxValue - currentPriceFilter.inputFareMinValue)/priceDiffForFraction)
+        priceRangeSlider.set(leftValue: (viewModel.currentPriceFilter.userSelectedFareMinValue - viewModel.currentPriceFilter.inputFareMinValue)/viewModel.priceDiffForFraction, rightValue: (viewModel.currentPriceFilter.userSelectedFareMaxValue - viewModel.currentPriceFilter.inputFareMinValue)/viewModel.priceDiffForFraction)
         
     }
 
     fileprivate func setupPriceLabels() {
         
-        fareMinValue.attributedText = attributedStringForPrice(price: currentPriceFilter.userSelectedFareMinValue, currency: "₹")
-        fareMaxValue.attributedText = attributedStringForPrice(price: currentPriceFilter.userSelectedFareMaxValue, currency: "₹")
+        fareMinValue.attributedText = attributedStringForPrice(price: viewModel.currentPriceFilter.userSelectedFareMinValue, currency: "₹")
+        fareMaxValue.attributedText = attributedStringForPrice(price: viewModel.currentPriceFilter.userSelectedFareMaxValue, currency: "₹")
     }
 
     
@@ -262,9 +212,9 @@ class PriceFilterViewController: UIViewController , FilterViewController {
     
     func setupUI() {
         
-        currentPriceFilter = allPriceFilters[currentActiveIndex]
+        viewModel.currentPriceFilter = viewModel.allPriceFilters[viewModel.currentActiveIndex]
         
-        priceRangeSlider.set(leftValue: (currentPriceFilter.userSelectedFareMinValue - currentPriceFilter.inputFareMinValue)/priceDiffForFraction, rightValue: (currentPriceFilter.userSelectedFareMaxValue - currentPriceFilter.inputFareMinValue)/priceDiffForFraction)
+        priceRangeSlider.set(leftValue: (viewModel.currentPriceFilter.userSelectedFareMinValue - viewModel.currentPriceFilter.inputFareMinValue)/viewModel.priceDiffForFraction, rightValue: (viewModel.currentPriceFilter.userSelectedFareMaxValue - viewModel.currentPriceFilter.inputFareMinValue)/viewModel.priceDiffForFraction)
         
         setupPriceLabels()
         refundableFaresButton.isSelected = false
@@ -306,32 +256,32 @@ class PriceFilterViewController: UIViewController , FilterViewController {
     
     func resetFilter() {
         guard priceRangeSlider != nil else { return }
-        let priceFilters = allPriceFilters.map { (priceFilter) -> PriceFilter in
+        let priceFilters = viewModel.allPriceFilters.map { (priceFilter) -> PriceFilter in
             var newPriceFilter = priceFilter
             newPriceFilter.resetFilter()
             return newPriceFilter
         }
-        allPriceFilters = priceFilters
+        viewModel.allPriceFilters = priceFilters
         setupUI()
     }
  
     //MARK:- IBAction Methods
     @objc fileprivate func priceRangeChanged() {
         
-        currentPriceFilter.userSelectedFareMinValue = ((priceRangeSlider.leftValue * priceDiffForFraction) + currentPriceFilter.inputFareMinValue).rounded(.down)
-        currentPriceFilter.userSelectedFareMaxValue = ((priceRangeSlider.rightValue * priceDiffForFraction) + currentPriceFilter.inputFareMinValue).rounded(.up)
+        viewModel.currentPriceFilter.userSelectedFareMinValue = ((priceRangeSlider.leftValue * viewModel.priceDiffForFraction) + viewModel.currentPriceFilter.inputFareMinValue).rounded(.down)
+        viewModel.currentPriceFilter.userSelectedFareMaxValue = ((priceRangeSlider.rightValue * viewModel.priceDiffForFraction) + viewModel.currentPriceFilter.inputFareMinValue).rounded(.up)
         
         setupPriceLabels()
     }
     
     @objc fileprivate func priceRangeUpdated() {
         
-        currentPriceFilter.userSelectedFareMinValue = ((priceRangeSlider.leftValue * priceDiffForFraction) + currentPriceFilter.inputFareMinValue).rounded(.down)
-        currentPriceFilter.userSelectedFareMaxValue = ((priceRangeSlider.rightValue * priceDiffForFraction) + currentPriceFilter.inputFareMinValue).rounded(.up)
+        viewModel.currentPriceFilter.userSelectedFareMinValue = ((priceRangeSlider.leftValue * viewModel.priceDiffForFraction) + viewModel.currentPriceFilter.inputFareMinValue).rounded(.down)
+        viewModel.currentPriceFilter.userSelectedFareMaxValue = ((priceRangeSlider.rightValue * viewModel.priceDiffForFraction) + viewModel.currentPriceFilter.inputFareMinValue).rounded(.up)
         
-        allPriceFilters[currentActiveIndex] = currentPriceFilter
+        viewModel.allPriceFilters[viewModel.currentActiveIndex] = viewModel.currentPriceFilter
         updateSegmentTitles()
-        delegate?.priceSelectionChangedAt(currentActiveIndex , minFare: currentPriceFilter.userSelectedFareMinValue, maxFare: currentPriceFilter.userSelectedFareMaxValue)
+        viewModel.delegate?.priceSelectionChangedAt(viewModel.currentActiveIndex , minFare: viewModel.currentPriceFilter.userSelectedFareMinValue, maxFare: viewModel.currentPriceFilter.userSelectedFareMaxValue)
     }
     
     
@@ -339,24 +289,24 @@ class PriceFilterViewController: UIViewController , FilterViewController {
         
         if sender.isSelected {
             sender.isSelected = false
-            currentPriceFilter.onlyRefundableFaresSelected = false
+            viewModel.currentPriceFilter.onlyRefundableFaresSelected = false
         }
         else {
             sender.isSelected = true
-            currentPriceFilter.onlyRefundableFaresSelected = true
+            viewModel.currentPriceFilter.onlyRefundableFaresSelected = true
         }
         
-        allPriceFilters[currentActiveIndex] = currentPriceFilter
+        viewModel.allPriceFilters[viewModel.currentActiveIndex] = viewModel.currentPriceFilter
         updateSegmentTitles()
-        delegate?.onlyRefundableFares(selected: currentPriceFilter.onlyRefundableFaresSelected, index:  currentActiveIndex)
+        viewModel.delegate?.onlyRefundableFares(selected: viewModel.currentPriceFilter.onlyRefundableFaresSelected, index:  viewModel.currentActiveIndex)
     }
     
     
     func checkRefundableFlights(index:Int){
-         if isInternational{
-             if intFlightResultArray.count > 0{
+        if viewModel.isInternational{
+            if viewModel.intFlightResultArray.count > 0{
                  var isRefundable = true
-                 let journey = intFlightResultArray[0].j
+                let journey = viewModel.intFlightResultArray[0].j
                  for j in journey{
                      if j.smartIconArray.contains("refundStatusPending") || j.smartIconArray.contains("noRefund") {
                          isRefundable = false
@@ -376,9 +326,9 @@ class PriceFilterViewController: UIViewController , FilterViewController {
                  }
              }
          } else {
-             if flightResultArray.count > 0{
+            if viewModel.flightResultArray.count > 0{
                  var isRefundable = true
-                 let journey = flightResultArray[index].j
+                let journey = viewModel.flightResultArray[index].j
                  for j in journey{
                      if j.smartIconArray.contains("refundStatusPending") || j.smartIconArray.contains("noRefund") {
                          isRefundable = false
@@ -398,6 +348,6 @@ class PriceFilterViewController: UIViewController , FilterViewController {
                  }
              }
          }
-        refundableFaresButton.isSelected = currentPriceFilter.onlyRefundableFaresSelected
+        refundableFaresButton.isSelected = viewModel.currentPriceFilter.onlyRefundableFaresSelected
      }
 }

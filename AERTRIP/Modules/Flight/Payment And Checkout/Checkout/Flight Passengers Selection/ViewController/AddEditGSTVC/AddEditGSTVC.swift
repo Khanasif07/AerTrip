@@ -95,6 +95,10 @@ extension AddEditGSTVC: UITextFieldDelegate{
     }
     
     @objc func changedText(_ textField: UITextField){
+        guard textField.text != nil else {
+            textField.text = ""
+            return
+        }
         if textField.text!.replacingOccurrences(of: " ", with: "").isEmpty{
             textField.text = ""
         }

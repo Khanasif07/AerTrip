@@ -7,53 +7,17 @@
 //
 
 import UIKit
-protocol FlightTimeFilterDelegate : FilterDelegate {
-    
-    func departureSelectionChangedAt(_ index : Int , minDuration : TimeInterval , maxDuration : TimeInterval)
-    func arrivalSelectionChangedAt(_ index : Int , minDate : Date , maxDate : Date)
-}
-
-
-extension TimeInterval  {
-    static let startOfDay = TimeInterval(0)
-    static let sixAM = TimeInterval(6 * 60 * 60)
-    static let twelvePM = TimeInterval(12 * 60 * 60)
-    static let sixPM = TimeInterval(18 * 60 * 60)
-    static let endOfDay = TimeInterval(24 * 60 * 60)
-}
 
 class FlightFilterTimesViewController : UIViewController , FilterViewController {
-
-    weak var  delegate : FlightTimeFilterDelegate?
-    weak var qualityFilterDelegate : QualityFilterDelegate?
     
     //MARK:- State Properties
-    var departureStartTimeInterval : TimeInterval = TimeInterval.startOfDay
-    var departureEndTimeInterval : TimeInterval = TimeInterval.endOfDay
-    var arrivalInputStartDate : Date!
-    var arrivalInputEndDate : Date!
-    var multiLegTimerFilter = [FlightLegTimeFilter]()
     
-    var currentTimerFilter : FlightLegTimeFilter!
-    var currentActiveIndex = 0
-    var numberOfLegs = 1
-    
-    var airportsArr = [AirportLegFilter]()
-    var isIntMCOrReturnVC = false
-
-    var arivalDifferenceInSeconds : TimeInterval = 1
-    
+    let viewModel = FlightFilterTimesVM()
     var onToastInitiation: ((String) -> ())?
-    
-    private var isHapticFeedbackProvided = false
-    
     private var multiLegSegmentControl = UISegmentedControl()
-    
-    var enableOvernightFlightQualityFilter = [Bool]()
-    
+        
     /// Used for day segments pan gesture
     var panGesture: UIPanGestureRecognizer?
-    var panStartPos: CGFloat?
     private var highlightedBtnArr = Set<UIButton>()
     
     //MARK:- multiLeg Outlets
@@ -101,8 +65,8 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     
     /// Updates UI if data is coming and filters
     func updateFiltersFromAPI() {
-        currentTimerFilter = multiLegTimerFilter[currentActiveIndex]
-        if multiLegTimerFilter.count == 1 {
+        viewModel.currentTimerFilter = viewModel.multiLegTimerFilter[viewModel.currentActiveIndex]
+        if viewModel.multiLegTimerFilter.count == 1 {
             multiLegViewHeight.constant = 0
             multiLegView.isHidden = true
         }
@@ -132,14 +96,14 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
 
         let departureTime  = NSMutableAttributedString(string: "Departure Time " , attributes: attributes)
         
-        if multiLegTimerFilter.count > 1 {
-            departureTime.append(currentTimerFilter.leg.descriptionOneFiveThree)
+        if viewModel.multiLegTimerFilter.count > 1 {
+            departureTime.append(viewModel.currentTimerFilter.leg.descriptionOneFiveThree)
         }
         departureTimeLabel.attributedText = departureTime
     }
     
     fileprivate func setDepartureLabel(){
-        let numberOfStops = multiLegTimerFilter.count
+        let numberOfStops = viewModel.multiLegTimerFilter.count
         if numberOfStops > 3 {
             setDepartureLabelAttributedString()
         } else {
@@ -148,16 +112,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     }
     
     fileprivate func setDepartureSliderValues() {
-        let calendar = Calendar.current
-        let startOfDay = calendar.startOfDay(for: currentTimerFilter.departureMinTime)
-        
-        let startTime = currentTimerFilter.userSelectedStartTime.timeIntervalSince(startOfDay)
-        let roundedMinDeparture = 3600.0 * floor(startTime / 3600.0)
-        
-        departureStartTimeInterval = roundedMinDeparture
-        
-        let endTime = currentTimerFilter.userSelectedEndTime.timeIntervalSince(startOfDay)
-        departureEndTimeInterval = 3600.0 * ceil(endTime / 3600.0)
+        viewModel.setDepartureSliderValues()
         updateDepartureUIValues()
     }
     
@@ -167,7 +122,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         departureRangeSlider.addTarget(self, action: #selector(departurnRangeUpdated), for: .touchUpInside)
         departureRangeSlider.createMarkersAt(positions: [0.25 , 0.5 , 0.75] )
         
-        if currentTimerFilter != nil{
+        if viewModel.currentTimerFilter != nil{
             setDepartureSliderValues()
         }
     }
@@ -187,9 +142,9 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         lateEveningButton.alpha = 1
         
         
-        let startDateTime = Calendar.current.startOfDay(for: currentTimerFilter.departureMinTime)
-        let minTimeInterval = currentTimerFilter.departureMinTime.timeIntervalSince(startDateTime)
-        let maxTimeInterval = currentTimerFilter.departureTimeMax.timeIntervalSince(startDateTime)
+        let startDateTime = Calendar.current.startOfDay(for: viewModel.currentTimerFilter.departureMinTime)
+        let minTimeInterval = viewModel.currentTimerFilter.departureMinTime.timeIntervalSince(startDateTime)
+        let maxTimeInterval = viewModel.currentTimerFilter.departureTimeMax.timeIntervalSince(startDateTime)
 
         let startTime = TimeInterval(3600 * floor(minTimeInterval / 3600))
 
@@ -239,35 +194,35 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
             return
         }
         
-        if let startPos = panStartPos {
+        if let startPos = viewModel.panStartPos {
             highlightButtonsInRange(mainRectView: senderView, startPos: startPos, curPos: location.x)
         }
         
         if sender.state == .began {
-            panStartPos = location.x
+            viewModel.panStartPos = location.x
         }
         
         if sender.state == .changed {
             
             let calendar = Calendar.current
-            let startTime = calendar.startOfDay(for: currentTimerFilter.departureMinTime)
-            let minDeparture = currentTimerFilter.departureMinTime.timeIntervalSince(startTime)
+            let startTime = calendar.startOfDay(for: viewModel.currentTimerFilter.departureMinTime)
+            let minDeparture = viewModel.currentTimerFilter.departureMinTime.timeIntervalSince(startTime)
             let roundedMinDeparture = TimeInterval(3600.0 * floor((minDeparture  / 3600 )))
-            let maxDeparture =  currentTimerFilter.departureTimeMax.timeIntervalSince(startTime)
+            let maxDeparture =  viewModel.currentTimerFilter.departureTimeMax.timeIntervalSince(startTime)
             let roundedMaxDeparture = TimeInterval(3600 * ceil(maxDeparture  / 3600 ))
             
             let width = senderView.frame.width
             let partWidth = width/4.0
             
-            let panStartPositionInNumber = (panStartPos ?? 0) / partWidth
+            let panStartPositionInNumber = (viewModel.panStartPos ?? 0) / partWidth
             
-            if location.x < (panStartPos ?? 0) {
+            if location.x < (viewModel.panStartPos ?? 0) {
                 let curPosInNumber = floor(location.x / partWidth)
-                handleLeftSidePan(maxPosNumber: ceil(panStartPositionInNumber), roundedMinDeparture: roundedMinDeparture, roundedMaxDeparture: roundedMaxDeparture, curPosNumber: curPosInNumber)
+                viewModel.handleLeftSidePan(maxPosNumber: ceil(panStartPositionInNumber), roundedMinDeparture: roundedMinDeparture, roundedMaxDeparture: roundedMaxDeparture, curPosNumber: curPosInNumber)
                 
             } else {
                 let curPosInNumber = ceil(location.x / partWidth)
-                handleRightSidePan(minPosNumber: floor(panStartPositionInNumber), roundedMinDeparture: roundedMinDeparture, roundedMaxDeparture: roundedMaxDeparture, curPosNumber: curPosInNumber)
+                viewModel.handleRightSidePan(minPosNumber: floor(panStartPositionInNumber), roundedMinDeparture: roundedMinDeparture, roundedMaxDeparture: roundedMaxDeparture, curPosNumber: curPosInNumber)
             }
             UIView.animate(withDuration: 0.3) {
                 self.updateDepartureUIValues()
@@ -277,13 +232,13 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         
         if sender.state == .ended || sender.state == .cancelled {
             checkToShowMsg()
-            delegate?.departureSelectionChangedAt(currentActiveIndex , minDuration:departureStartTimeInterval , maxDuration: departureEndTimeInterval)
+            viewModel.delegate?.departureSelectionChangedAt(viewModel.currentActiveIndex , minDuration: viewModel.departureStartTimeInterval , maxDuration: viewModel.departureEndTimeInterval)
             self.buttonReleased(sender: UIButton())
             let calendar = Calendar.current
-            let startOfDay = calendar.startOfDay(for: currentTimerFilter.departureMinTime)
-            currentTimerFilter.userSelectedStartTime = startOfDay.addingTimeInterval(departureStartTimeInterval)
-            currentTimerFilter.userSelectedEndTime = startOfDay.addingTimeInterval(departureEndTimeInterval)
-            multiLegTimerFilter[currentActiveIndex] = currentTimerFilter
+            let startOfDay = calendar.startOfDay(for: viewModel.currentTimerFilter.departureMinTime)
+            viewModel.currentTimerFilter.userSelectedStartTime = startOfDay.addingTimeInterval(viewModel.departureStartTimeInterval)
+            viewModel.currentTimerFilter.userSelectedEndTime = startOfDay.addingTimeInterval(viewModel.departureEndTimeInterval)
+            viewModel.multiLegTimerFilter[viewModel.currentActiveIndex] = viewModel.currentTimerFilter
             updateSegmentTitles()
         }
     }
@@ -293,9 +248,9 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         var leftFrameToExclude: CGRect = .zero
         var rightFrameToExclude: CGRect = .zero
         
-        let startDateTime = Calendar.current.startOfDay(for: currentTimerFilter.departureMinTime)
-        let minTimeInterval = currentTimerFilter.departureMinTime.timeIntervalSince(startDateTime)
-        let maxTimeInterval = currentTimerFilter.departureTimeMax.timeIntervalSince(startDateTime)
+        let startDateTime = Calendar.current.startOfDay(for: viewModel.currentTimerFilter.departureMinTime)
+        let minTimeInterval = viewModel.currentTimerFilter.departureMinTime.timeIntervalSince(startDateTime)
+        let maxTimeInterval = viewModel.currentTimerFilter.departureTimeMax.timeIntervalSince(startDateTime)
         
         let startTime = TimeInterval(3600 * floor(minTimeInterval / 3600))
         
@@ -369,169 +324,20 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         }
     }
     
-    private func handleRightSidePan(minPosNumber: CGFloat, roundedMinDeparture: TimeInterval, roundedMaxDeparture: TimeInterval, curPosNumber: CGFloat) {
-        
-        switch minPosNumber {
-            case 0 :
-                if roundedMinDeparture > TimeInterval.startOfDay {
-                    departureStartTimeInterval = roundedMinDeparture
-                }
-                else {
-                    departureStartTimeInterval = TimeInterval.startOfDay
-                }
-            case 1 :
-                
-                if roundedMinDeparture > TimeInterval.sixAM {
-                    departureStartTimeInterval = roundedMinDeparture
-                }
-                else {
-                    departureStartTimeInterval = TimeInterval.sixAM
-                }
-            case 2 :
-                if roundedMinDeparture > TimeInterval.twelvePM {
-                    departureStartTimeInterval = roundedMinDeparture
-                }
-                else {
-                    departureStartTimeInterval = TimeInterval.twelvePM
-                }
-            case 3 :
-                
-                if roundedMinDeparture > TimeInterval.sixPM {
-                    departureStartTimeInterval = roundedMinDeparture
-                }
-                else {
-                    departureStartTimeInterval = TimeInterval.sixPM
-                }
-                
-            default:
-                printDebug("unknown state")
-        }
-        
-        switch curPosNumber {
-        case 1 :
-            if roundedMaxDeparture < TimeInterval.sixAM  {
-                departureEndTimeInterval = roundedMaxDeparture
-            }
-            else {
-                departureEndTimeInterval = TimeInterval.sixAM
-            }
-        case 2 :
-            if roundedMaxDeparture < TimeInterval.twelvePM {
-                departureEndTimeInterval = roundedMaxDeparture
-            }
-            else {
-                departureEndTimeInterval = TimeInterval.twelvePM
-            }
-        case 3 :
-            if roundedMaxDeparture < TimeInterval.sixPM {
-                departureEndTimeInterval = roundedMaxDeparture
-            }
-            else {
-                departureEndTimeInterval = TimeInterval.sixPM
-            }
-        case 4 , 5 :
-        
-            if roundedMaxDeparture < TimeInterval.endOfDay {
-                departureEndTimeInterval = roundedMaxDeparture
-            }
-                else {
-                departureEndTimeInterval = TimeInterval.endOfDay
-            }
-            
-        default:
-            printDebug("unknown state")
-        }
-        
-    }
-    
-    private func handleLeftSidePan(maxPosNumber: CGFloat, roundedMinDeparture: TimeInterval, roundedMaxDeparture: TimeInterval, curPosNumber: CGFloat) {
-        
-        switch maxPosNumber {
-        case 1 :
-            if roundedMaxDeparture < TimeInterval.sixAM  {
-                departureEndTimeInterval = roundedMaxDeparture
-            }
-            else {
-                departureEndTimeInterval = TimeInterval.sixAM
-            }
-        case 2 :
-            if roundedMaxDeparture < TimeInterval.twelvePM {
-                departureEndTimeInterval = roundedMaxDeparture
-            }
-            else {
-                departureEndTimeInterval = TimeInterval.twelvePM
-            }
-        case 3 :
-            if roundedMaxDeparture < TimeInterval.sixPM {
-                departureEndTimeInterval = roundedMaxDeparture
-            }
-            else {
-                departureEndTimeInterval = TimeInterval.sixPM
-            }
-        case 4 , 5 :
-        
-            if roundedMaxDeparture < TimeInterval.endOfDay {
-                departureEndTimeInterval = roundedMaxDeparture
-            }
-                else {
-                departureEndTimeInterval = TimeInterval.endOfDay
-            }
-            
-        default:
-            printDebug("unknown state")
-        }
-                
-        switch curPosNumber {
-            case 0 :
-                if roundedMinDeparture > TimeInterval.startOfDay {
-                    departureStartTimeInterval = roundedMinDeparture
-                }
-                else {
-                    departureStartTimeInterval = TimeInterval.startOfDay
-                }
-            case 1 :
-                
-                if roundedMinDeparture > TimeInterval.sixAM {
-                    departureStartTimeInterval = roundedMinDeparture
-                }
-                else {
-                    departureStartTimeInterval = TimeInterval.sixAM
-                }
-            case 2 :
-                if roundedMinDeparture > TimeInterval.twelvePM {
-                    departureStartTimeInterval = roundedMinDeparture
-                }
-                else {
-                    departureStartTimeInterval = TimeInterval.twelvePM
-                }
-            case 3 :
-                
-                if roundedMinDeparture > TimeInterval.sixPM {
-                    departureStartTimeInterval = roundedMinDeparture
-                }
-                else {
-                    departureStartTimeInterval = TimeInterval.sixPM
-                }
-                
-            default:
-                printDebug("unknown state")
-        }
-    }
-    
     private func checkToShowMsg() {
         let calendar = Calendar.current
-        let startTime = calendar.startOfDay(for: currentTimerFilter.departureMinTime)
-        let minDeparture = currentTimerFilter.departureMinTime.timeIntervalSince(startTime)
+        let startTime = calendar.startOfDay(for: viewModel.currentTimerFilter.departureMinTime)
+        let minDeparture = viewModel.currentTimerFilter.departureMinTime.timeIntervalSince(startTime)
         let roundedMinDeparture = TimeInterval(3600.0 * floor((minDeparture  / 3600 )))
-        let maxDeparture =  currentTimerFilter.departureTimeMax.timeIntervalSince(startTime)
+        let maxDeparture =  viewModel.currentTimerFilter.departureTimeMax.timeIntervalSince(startTime)
         let roundedMaxDeparture = TimeInterval(3600 * ceil(maxDeparture  / 3600 ))
         
-        if roundedMinDeparture >= departureStartTimeInterval || roundedMaxDeparture <= departureEndTimeInterval {
+        if roundedMinDeparture >= viewModel.departureStartTimeInterval || roundedMaxDeparture <= viewModel.departureEndTimeInterval {
             let availableMinTime = TimeInterval(3600 * floor(roundedMinDeparture / 3600))
             let availabelMaxTime = TimeInterval(3600 * ceil(roundedMaxDeparture / 3600))
             
-            let curSelectedMinTime = TimeInterval( floor(departureStartTimeInterval / 3600))
-            let curSelectedMaxTime = TimeInterval( ceil(departureEndTimeInterval / 3600))
+            let curSelectedMinTime = TimeInterval( floor(viewModel.departureStartTimeInterval / 3600))
+            let curSelectedMaxTime = TimeInterval( ceil(viewModel.departureEndTimeInterval / 3600))
             
             
             if (curSelectedMinTime == 0 || curSelectedMinTime == 6 || curSelectedMinTime == 12 || curSelectedMinTime == 18) && (curSelectedMaxTime == 6 || curSelectedMaxTime == 12 || curSelectedMaxTime == 18 || curSelectedMaxTime == 24) {
@@ -560,23 +366,23 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         let endTimeInHour = endTime/3600
         
         if (startTimeInHour.truncatingRemainder(dividingBy: 6) == 0 && startTimeInHour != 0) || (endTimeInHour.truncatingRemainder(dividingBy: 6) == 0 && endTimeInHour != 24) {
-            if !isHapticFeedbackProvided {
+            if !viewModel.isHapticFeedbackProvided {
                 giveHapticFeedback()
             }
-            isHapticFeedbackProvided = true
+            viewModel.isHapticFeedbackProvided = true
         } else {
-            isHapticFeedbackProvided = false
+            viewModel.isHapticFeedbackProvided = false
         }
     }
     
     fileprivate func updateDepartureUIValues() {
         
-        let leftValue = departureStartTimeInterval / 86400.0
-        let rightValue = departureEndTimeInterval / 86400.0
+        let leftValue = viewModel.departureStartTimeInterval / 86400.0
+        let rightValue = viewModel.departureEndTimeInterval / 86400.0
         
         departureRangeSlider.set(leftValue: CGFloat(leftValue) , rightValue: CGFloat( rightValue) )
-        departureStartTime.text = stringFromTimeInterval(interval: departureStartTimeInterval)
-        departureEndTime.text = stringFromTimeInterval(interval: departureEndTimeInterval)
+        departureStartTime.text = stringFromTimeInterval(interval: viewModel.departureStartTimeInterval)
+        departureEndTime.text = stringFromTimeInterval(interval: viewModel.departureEndTimeInterval)
         setDepartureLabel()
     }
     
@@ -598,41 +404,41 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         var showMessage = false
         var message = String()
         
-        let startDateTime = Calendar.current.startOfDay(for: currentTimerFilter.departureMinTime)
-        let minTimeInterval = currentTimerFilter.departureMinTime.timeIntervalSince(startDateTime)
-        let maxTimeInterval = currentTimerFilter.departureTimeMax.timeIntervalSince(startDateTime)
+        let startDateTime = Calendar.current.startOfDay(for: viewModel.currentTimerFilter.departureMinTime)
+        let minTimeInterval = viewModel.currentTimerFilter.departureMinTime.timeIntervalSince(startDateTime)
+        let maxTimeInterval = viewModel.currentTimerFilter.departureTimeMax.timeIntervalSince(startDateTime)
 
         let startTime = TimeInterval(3600 * floor(minTimeInterval / 3600))
-        departureStartTimeInterval = TimeInterval(3600 * floor(leftValue / 3600))
+        viewModel.departureStartTimeInterval = TimeInterval(3600 * floor(leftValue / 3600))
         
         let endTime = 3600 * TimeInterval(ceil(maxTimeInterval  / 3600 ))
-        departureEndTimeInterval = TimeInterval(3600 * floor(rightValue / 3600))
+        viewModel.departureEndTimeInterval = TimeInterval(3600 * floor(rightValue / 3600))
 
         // MAX and MIN checks
         if leftValue < startTime {
-            departureStartTimeInterval = TimeInterval(startTime)
+            viewModel.departureStartTimeInterval = TimeInterval(startTime)
             showMessage = true
         }
         
         if leftValue >= endTime {
             let maxValForDeparture = (endTime/3600) - 2
-            departureStartTimeInterval = TimeInterval(maxValForDeparture * 3600)
+            viewModel.departureStartTimeInterval = TimeInterval(maxValForDeparture * 3600)
         }
 
         if rightValue > endTime {
-            departureEndTimeInterval = TimeInterval(endTime)
+            viewModel.departureEndTimeInterval = TimeInterval(endTime)
             showMessage = true
         }
         
         if rightValue <= startTime {
             let minValForDeparture = (startTime/3600) + 2
-            departureEndTimeInterval = TimeInterval(minValForDeparture * 3600)
+            viewModel.departureEndTimeInterval = TimeInterval(minValForDeparture * 3600)
         }
 
         let calendar = Calendar.current
-        let startOfDay = calendar.startOfDay(for: currentTimerFilter.departureMinTime)
-        currentTimerFilter.userSelectedStartTime = startOfDay.addingTimeInterval(departureStartTimeInterval)
-        currentTimerFilter.userSelectedEndTime = startOfDay.addingTimeInterval(departureEndTimeInterval)
+        let startOfDay = calendar.startOfDay(for: viewModel.currentTimerFilter.departureMinTime)
+        viewModel.currentTimerFilter.userSelectedStartTime = startOfDay.addingTimeInterval(viewModel.departureStartTimeInterval)
+        viewModel.currentTimerFilter.userSelectedEndTime = startOfDay.addingTimeInterval(viewModel.departureEndTimeInterval)
         
         updateDepartureUIValues()
         if showMessage {
@@ -645,16 +451,16 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
 //            return
         }
         
-        multiLegTimerFilter[currentActiveIndex] = currentTimerFilter
+        viewModel.multiLegTimerFilter[viewModel.currentActiveIndex] = viewModel.currentTimerFilter
         updateSegmentTitles()
-        delegate?.departureSelectionChangedAt(currentActiveIndex , minDuration:departureStartTimeInterval , maxDuration: departureEndTimeInterval)
+        viewModel.delegate?.departureSelectionChangedAt(viewModel.currentActiveIndex , minDuration: viewModel.departureStartTimeInterval , maxDuration: viewModel.departureEndTimeInterval)
     }
     
     
     @IBAction func departureSelectedByRangeButtons(_ sender: UIButton) {
         
         guard sender.alpha == 1 else {
-            let message = "Flights are available between " +  stringFromTimeInterval(interval: departureStartTimeInterval) + " and " + stringFromTimeInterval(interval: departureEndTimeInterval)
+            let message = "Flights are available between " +  stringFromTimeInterval(interval: viewModel.departureStartTimeInterval) + " and " + stringFromTimeInterval(interval: viewModel.departureEndTimeInterval)
             showToastMessageForAvailableDepartureRange(message)
             return
         }
@@ -663,88 +469,88 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         var message = String()
         var showMessage = false
         let calendar = Calendar.current
-        let startTime = calendar.startOfDay(for: currentTimerFilter.departureMinTime)
-        let minDeparture = currentTimerFilter.departureMinTime.timeIntervalSince(startTime)
+        let startTime = calendar.startOfDay(for: viewModel.currentTimerFilter.departureMinTime)
+        let minDeparture = viewModel.currentTimerFilter.departureMinTime.timeIntervalSince(startTime)
         let roundedMinDeparture = TimeInterval(3600.0 * floor((minDeparture  / 3600 )))
-        let maxDeparture =  currentTimerFilter.departureTimeMax.timeIntervalSince(startTime)
+        let maxDeparture =  viewModel.currentTimerFilter.departureTimeMax.timeIntervalSince(startTime)
         let roundedMaxDeparture = TimeInterval(3600 * ceil(maxDeparture  / 3600 ))
         
         switch buttonTag {
         case 1 :
             
             if roundedMinDeparture > TimeInterval.startOfDay {
-                departureStartTimeInterval = roundedMinDeparture
+                viewModel.departureStartTimeInterval = roundedMinDeparture
                 showMessage = true
             }
             else {
-                departureStartTimeInterval = TimeInterval.startOfDay
+                viewModel.departureStartTimeInterval = TimeInterval.startOfDay
             }
             if roundedMaxDeparture < TimeInterval.sixAM  {
-                departureEndTimeInterval = roundedMaxDeparture
+                viewModel.departureEndTimeInterval = roundedMaxDeparture
                 showMessage = true
             }
             else {
-                departureEndTimeInterval = TimeInterval.sixAM
+                viewModel.departureEndTimeInterval = TimeInterval.sixAM
             }
             
             
         case 2 :
             
             if roundedMinDeparture > TimeInterval.sixAM {
-                departureStartTimeInterval = roundedMinDeparture
+                viewModel.departureStartTimeInterval = roundedMinDeparture
                 showMessage = true
             }
             else {
-                departureStartTimeInterval = TimeInterval.sixAM
+                viewModel.departureStartTimeInterval = TimeInterval.sixAM
             }
             if roundedMaxDeparture < TimeInterval.twelvePM {
-                departureEndTimeInterval = roundedMaxDeparture
+                viewModel.departureEndTimeInterval = roundedMaxDeparture
                 showMessage = true
             }
             else {
-                departureEndTimeInterval = TimeInterval.twelvePM
+                viewModel.departureEndTimeInterval = TimeInterval.twelvePM
             }
         case 3 :
             if roundedMinDeparture > TimeInterval.twelvePM {
-                departureStartTimeInterval = roundedMinDeparture
+                viewModel.departureStartTimeInterval = roundedMinDeparture
                 showMessage = true
             }
             else {
-                departureStartTimeInterval = TimeInterval.twelvePM
+                viewModel.departureStartTimeInterval = TimeInterval.twelvePM
             }
             if roundedMaxDeparture < TimeInterval.sixPM {
-                departureEndTimeInterval = roundedMaxDeparture
+                viewModel.departureEndTimeInterval = roundedMaxDeparture
                 showMessage = true
             }
             else {
-                departureEndTimeInterval = TimeInterval.sixPM
+                viewModel.departureEndTimeInterval = TimeInterval.sixPM
             }
             
         case 4 :
             
             if roundedMinDeparture > TimeInterval.sixPM {
-                departureStartTimeInterval = roundedMinDeparture
+                viewModel.departureStartTimeInterval = roundedMinDeparture
                 showMessage = true
             }
             else {
-                departureStartTimeInterval = TimeInterval.sixPM
+                viewModel.departureStartTimeInterval = TimeInterval.sixPM
             }
             
             if roundedMaxDeparture < TimeInterval.endOfDay {
-                departureEndTimeInterval = roundedMaxDeparture
+                viewModel.departureEndTimeInterval = roundedMaxDeparture
                 showMessage = true
             }
             else {
-                departureEndTimeInterval = TimeInterval.endOfDay
+                viewModel.departureEndTimeInterval = TimeInterval.endOfDay
             }
         default:
             printDebug("unknown state")
         }
         
         
-        let startOfDay = calendar.startOfDay(for: currentTimerFilter.departureMinTime)
-        currentTimerFilter.userSelectedStartTime = startOfDay.addingTimeInterval(departureStartTimeInterval)
-        currentTimerFilter.userSelectedEndTime = startOfDay.addingTimeInterval(departureEndTimeInterval)
+        let startOfDay = calendar.startOfDay(for: viewModel.currentTimerFilter.departureMinTime)
+        viewModel.currentTimerFilter.userSelectedStartTime = startOfDay.addingTimeInterval(viewModel.departureStartTimeInterval)
+        viewModel.currentTimerFilter.userSelectedEndTime = startOfDay.addingTimeInterval(viewModel.departureEndTimeInterval)
 
         updateDepartureUIValues()
         if showMessage {
@@ -753,9 +559,9 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
             showToastMessageForAvailableDepartureRange(message)
         }
         
-        multiLegTimerFilter[currentActiveIndex] = currentTimerFilter
+        viewModel.multiLegTimerFilter[viewModel.currentActiveIndex] = viewModel.currentTimerFilter
         updateSegmentTitles()
-        delegate?.departureSelectionChangedAt(currentActiveIndex , minDuration:departureStartTimeInterval , maxDuration: departureEndTimeInterval)
+        viewModel.delegate?.departureSelectionChangedAt(viewModel.currentActiveIndex , minDuration: viewModel.departureStartTimeInterval , maxDuration: viewModel.departureEndTimeInterval)
         
         giveHapticFeedback()
         
@@ -768,24 +574,14 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     }
     
     private func toggleAvoidOvernight(_ selected: Bool) {
-        currentTimerFilter.qualityFilter.isSelected = selected
-        multiLegTimerFilter[currentActiveIndex] = currentTimerFilter
-        
-        if isIntMCOrReturnVC {
-            multiLegTimerFilter = multiLegTimerFilter.map {
-                var newFilter = $0
-                newFilter.qualityFilter = currentTimerFilter.qualityFilter
-                return newFilter
-            }
-        }
-        qualityFilterDelegate?.qualityFilterChangedAt(currentActiveIndex, filter: currentTimerFilter.qualityFilter)
+        viewModel.toggleAvoidOvernight(selected)
         resetAvoidOvernightBtn()
         
     }
     
     private func resetAvoidOvernightBtn() {
-        avoidOvernightBtn.isSelected = currentTimerFilter.qualityFilter.isSelected
-        if currentTimerFilter.qualityFilter.isSelected {
+        avoidOvernightBtn.isSelected = viewModel.currentTimerFilter.qualityFilter.isSelected
+        if viewModel.currentTimerFilter.qualityFilter.isSelected {
             avoidOvernightImgView.image = UIImage(named: "CheckedGreenRadioButton")
         }
         else {
@@ -794,13 +590,13 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     }
     
     private func hideShowOvernightView() {
-        if isIntMCOrReturnVC {
-            if enableOvernightFlightQualityFilter.indices.contains(0) {
-                avoidOvernightView.isHidden = !enableOvernightFlightQualityFilter[0]
+        if viewModel.isIntMCOrReturnVC {
+            if viewModel.enableOvernightFlightQualityFilter.indices.contains(0) {
+                avoidOvernightView.isHidden = !viewModel.enableOvernightFlightQualityFilter[0]
             }
         } else {
-            if enableOvernightFlightQualityFilter.indices.contains(currentActiveIndex) {
-                avoidOvernightView.isHidden = !enableOvernightFlightQualityFilter[currentActiveIndex]
+            if viewModel.enableOvernightFlightQualityFilter.indices.contains(viewModel.currentActiveIndex) {
+                avoidOvernightView.isHidden = !viewModel.enableOvernightFlightQualityFilter[viewModel.currentActiveIndex]
             }
         }
     }
@@ -812,14 +608,14 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
                 
         multiLegSegmentControl.removeAllSegments()
         
-        let numberOfStops = multiLegTimerFilter.count
+        let numberOfStops = viewModel.multiLegTimerFilter.count
 
         for  index in 1...numberOfStops  {
-            let segmentTitle = getSegmentTitleFor(index)
+            let segmentTitle = viewModel.getSegmentTitleFor(index)
             multiLegSegmentControl.insertSegment(withTitle: segmentTitle, at: index-1, animated: false)
         }
         
-        multiLegSegmentControl.selectedSegmentIndex = currentActiveIndex
+        multiLegSegmentControl.selectedSegmentIndex = viewModel.currentActiveIndex
                 
         if multiLegSegmentControl.superview == nil && numberOfStops > 1 {
             let font: [NSAttributedString.Key : Any] = [.font : AppFonts.SemiBold.withSize(14)]
@@ -837,15 +633,15 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     
     @objc func indexChanged(_ sender: UISegmentedControl) {
         
-        guard currentActiveIndex != sender.selectedSegmentIndex else { return }
-        multiLegTimerFilter[currentActiveIndex] = currentTimerFilter
-        currentActiveIndex = sender.selectedSegmentIndex
-        currentTimerFilter = multiLegTimerFilter[currentActiveIndex]
-        if currentTimerFilter != nil {
+        guard viewModel.currentActiveIndex != sender.selectedSegmentIndex else { return }
+        viewModel.multiLegTimerFilter[viewModel.currentActiveIndex] = viewModel.currentTimerFilter
+        viewModel.currentActiveIndex = sender.selectedSegmentIndex
+        viewModel.currentTimerFilter = viewModel.multiLegTimerFilter[viewModel.currentActiveIndex]
+        if viewModel.currentTimerFilter != nil {
             setDepartureSliderValues()
         }
         setDepartureLabel()
-        if currentTimerFilter != nil{
+        if viewModel.currentTimerFilter != nil{
             setArrivalSliderValues(userSelected: true)
         }
         setupDeparatureRangeButtons()
@@ -856,23 +652,9 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
 
     }
     
-    private func getSegmentTitleFor(_ index: Int) -> String {
-        let currentFilter = multiLegTimerFilter[(index - 1)]
-        let isFilterApplied = currentFilter.filterApplied()
-        var title = "\(multiLegTimerFilter[index - 1].leg.origin) \u{279E} \(multiLegTimerFilter[index - 1].leg.destination)"
-        if multiLegTimerFilter.count > 3 {
-            title = "\(index)"
-        }
-        var segmentTitle = "\(title) "
-        if isFilterApplied {
-            segmentTitle = "\(title) •"
-        }
-        return segmentTitle
-    }
-    
     private func updateSegmentTitles() {
         for index in 0..<multiLegSegmentControl.numberOfSegments {
-            let segmentTitle = getSegmentTitleFor(index + 1)
+            let segmentTitle = viewModel.getSegmentTitleFor(index + 1)
             multiLegSegmentControl.setTitle(segmentTitle, forSegmentAt: index)
         }
     }
@@ -882,29 +664,29 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     fileprivate func setArrivalSliderValues(userSelected:Bool ) {
         
         if userSelected {
-            arrivalInputStartDate = currentTimerFilter.userSelectedArrivalStartTime
-            arrivalInputEndDate = currentTimerFilter.userSelectedArrivalEndTime
+            viewModel.arrivalInputStartDate = viewModel.currentTimerFilter.userSelectedArrivalStartTime
+            viewModel.arrivalInputEndDate = viewModel.currentTimerFilter.userSelectedArrivalEndTime
         } else {
-            arrivalInputStartDate = currentTimerFilter.arrivalStartTime
-            arrivalInputEndDate = currentTimerFilter.arrivalEndTime
+            viewModel.arrivalInputStartDate = viewModel.currentTimerFilter.arrivalStartTime
+            viewModel.arrivalInputEndDate = viewModel.currentTimerFilter.arrivalEndTime
         }
         
-        let diff = currentTimerFilter.arrivalEndTime.timeIntervalSince(currentTimerFilter.arrivalStartTime)
+        let diff = viewModel.currentTimerFilter.arrivalEndTime.timeIntervalSince(viewModel.currentTimerFilter.arrivalStartTime)
         
-        self.arivalDifferenceInSeconds = diff == 0 ? 1 : diff
+        self.viewModel.arivalDifferenceInSeconds = diff == 0 ? 1 : diff
             
-        let startTimeInterval = arrivalInputStartDate.timeIntervalSince(currentTimerFilter.arrivalStartTime)
-        let endTimeInterval = arrivalInputEndDate.timeIntervalSince(currentTimerFilter.arrivalStartTime)
+        let startTimeInterval = viewModel.arrivalInputStartDate.timeIntervalSince(viewModel.currentTimerFilter.arrivalStartTime)
+        let endTimeInterval = viewModel.arrivalInputEndDate.timeIntervalSince(viewModel.currentTimerFilter.arrivalStartTime)
        
-        let startPosition = startTimeInterval / Double(arivalDifferenceInSeconds)
-        let endPosition = endTimeInterval / Double(arivalDifferenceInSeconds)
+        let startPosition = startTimeInterval / Double(viewModel.arivalDifferenceInSeconds)
+        let endPosition = endTimeInterval / Double(viewModel.arivalDifferenceInSeconds)
                 
         arrivalRangeSlider.set(leftValue: CGFloat(startPosition), rightValue: CGFloat(endPosition))
         
-        arrivalStartTime.text = dateStringFromTime(date: arrivalInputStartDate)
+        arrivalStartTime.text = dateStringFromTime(date: viewModel.arrivalInputStartDate)
         arrivalStartTimeWidth.constant = arrivalStartTime.intrinsicContentSize.width + 16.0
         
-        arrivalEndTime.text = dateStringFromTime(date: arrivalInputEndDate)
+        arrivalEndTime.text = dateStringFromTime(date: viewModel.arrivalInputEndDate)
         arrivalEndTimeWidth.constant = arrivalEndTime.intrinsicContentSize.width + 16.0
         
     }
@@ -914,7 +696,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         
         arrivalRangeSlider.addTarget(self, action: #selector(arrivalRangeChanged), for: .valueChanged)
         arrivalRangeSlider.addTarget(self, action: #selector(arrivalRangeUpdated), for: .touchUpInside)
-        if currentTimerFilter != nil{
+        if viewModel.currentTimerFilter != nil{
             setArrivalSliderValues(userSelected: true)
         }
         addDaysSeparatorInArrivalRangeSlider()
@@ -922,10 +704,10 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     }
     
     func addDaysSeparatorInArrivalRangeSlider(){
-        let startOfInputStartDay = Calendar.current.startOfDay(for: arrivalInputStartDate)
-        let startOfInputEndDay = Calendar.current.startOfDay(for: arrivalInputEndDate)
-        let diffFromStartOfDay = arrivalInputStartDate.timeIntervalSince(startOfInputStartDay)
-        let timeDifference = CGFloat(arrivalInputEndDate.timeIntervalSince(arrivalInputStartDate))
+        let startOfInputStartDay = Calendar.current.startOfDay(for: viewModel.arrivalInputStartDate)
+        let startOfInputEndDay = Calendar.current.startOfDay(for: viewModel.arrivalInputEndDate)
+        let diffFromStartOfDay = viewModel.arrivalInputStartDate.timeIntervalSince(startOfInputStartDay)
+        let timeDifference = CGFloat(viewModel.arrivalInputEndDate.timeIntervalSince(viewModel.arrivalInputStartDate))
 
         guard let numberOfDays = Calendar.current.dateComponents( [.day] , from: startOfInputStartDay, to: startOfInputEndDay).day else {
             assertionFailure("Failed to get numberOfDays")
@@ -954,19 +736,19 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         let leftValue =  arrivalRangeSlider.leftValue
         let rightValue = arrivalRangeSlider.rightValue
       
-        let timeDifference = currentTimerFilter.arrivalEndTime.timeIntervalSince(currentTimerFilter.arrivalStartTime)
+        let timeDifference = viewModel.currentTimerFilter.arrivalEndTime.timeIntervalSince(viewModel.currentTimerFilter.arrivalStartTime)
         
         var startTime = (TimeInterval(leftValue) * timeDifference)
         
         startTime =   (floor(startTime / 3600 ) ) * 3600
         
-        let addingDateInStart = currentTimerFilter.arrivalStartTime.addingTimeInterval(startTime)
+        let addingDateInStart = viewModel.currentTimerFilter.arrivalStartTime.addingTimeInterval(startTime)
         
         var endTime = (TimeInterval(rightValue) * timeDifference)
         
         endTime = (ceil(endTime / 3600 ) ) * 3600
 
-        let addingDateInEnd = currentTimerFilter.arrivalStartTime.addingTimeInterval(endTime)
+        let addingDateInEnd = viewModel.currentTimerFilter.arrivalStartTime.addingTimeInterval(endTime)
 
         return (addingDateInStart , addingDateInEnd)
         
@@ -994,22 +776,22 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         
         if arrivalEndTime.text!.contains(find: "00:00") || arrivalStartTime.text!.contains(find: "00:00")
          {
-            if !isHapticFeedbackProvided {
+            if !viewModel.isHapticFeedbackProvided {
                 giveHapticFeedback()
-                isHapticFeedbackProvided = true
+                viewModel.isHapticFeedbackProvided = true
             }
         } else {
-            isHapticFeedbackProvided = false
+            viewModel.isHapticFeedbackProvided = false
         }
     }
         
     @objc fileprivate func arrivalRangeUpdated() {
         let (startDate , endDate) = getArrivalDates()
-        currentTimerFilter.userSelectedArrivalStartTime = startDate
-        currentTimerFilter.userSelectedArrivalEndTime = endDate
-        multiLegTimerFilter[currentActiveIndex] = currentTimerFilter
+        viewModel.currentTimerFilter.userSelectedArrivalStartTime = startDate
+        viewModel.currentTimerFilter.userSelectedArrivalEndTime = endDate
+        viewModel.multiLegTimerFilter[viewModel.currentActiveIndex] = viewModel.currentTimerFilter
         updateSegmentTitles()
-        delegate?.arrivalSelectionChangedAt(currentActiveIndex, minDate: startDate, maxDate: endDate)
+        viewModel.delegate?.arrivalSelectionChangedAt(viewModel.currentActiveIndex, minDate: startDate, maxDate: endDate)
     }
 
     //MARK:- Date, time conversion methods
@@ -1023,7 +805,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     
     fileprivate func dateFromTime(interval : TimeInterval) -> Date {
         
-        var currentTimeInterval = arrivalInputStartDate.timeIntervalSince1970
+        var currentTimeInterval = viewModel.arrivalInputStartDate.timeIntervalSince1970
         currentTimeInterval = currentTimeInterval + interval
         currentTimeInterval = TimeInterval(3600 * Int(round(currentTimeInterval / 3600)))
         return Date(timeIntervalSince1970: currentTimeInterval)
@@ -1043,9 +825,9 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
        
         flightTimesScrollView.delegate = self
         
-        allSectorsLbl.isHidden = !isIntMCOrReturnVC
+        allSectorsLbl.isHidden = !viewModel.isIntMCOrReturnVC
                 
-        if multiLegTimerFilter.count == 1 {
+        if viewModel.multiLegTimerFilter.count == 1 {
             multiLegViewHeight.constant = 0
             multiLegView.isHidden = true
         } else {
@@ -1054,8 +836,8 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
             updateSegmentTitles()
         }
         
-        if multiLegTimerFilter.count > 0 {
-            currentTimerFilter = multiLegTimerFilter[0]
+        if viewModel.multiLegTimerFilter.count > 0 {
+            viewModel.currentTimerFilter = viewModel.multiLegTimerFilter[0]
         }
         initialSetupDepartureRangeSlider()
         setDepartureLabel()
@@ -1087,9 +869,9 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     @objc func buttonPressed(sender:UIButton)
     {
         if sender.alpha != 1 {
-            let startDateTime = Calendar.current.startOfDay(for: currentTimerFilter.departureMinTime)
-            let minTimeInterval = currentTimerFilter.departureMinTime.timeIntervalSince(startDateTime)
-            let maxTimeInterval = currentTimerFilter.departureTimeMax.timeIntervalSince(startDateTime)
+            let startDateTime = Calendar.current.startOfDay(for: viewModel.currentTimerFilter.departureMinTime)
+            let minTimeInterval = viewModel.currentTimerFilter.departureMinTime.timeIntervalSince(startDateTime)
+            let maxTimeInterval = viewModel.currentTimerFilter.departureTimeMax.timeIntervalSince(startDateTime)
             let message = "Flights are available between " +  stringFromTimeInterval(interval: minTimeInterval) + " and " + stringFromTimeInterval(interval: maxTimeInterval)
             showToastMessageForAvailableDepartureRange(message)
             return
@@ -1143,23 +925,23 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         resetAvoidOvernightBtn()
         
           let calendar = Calendar.current
-          let startOfDay = calendar.startOfDay(for: currentTimerFilter.departureMinTime)
-          let startTime = currentTimerFilter.departureMinTime.timeIntervalSince(startOfDay)
+          let startOfDay = calendar.startOfDay(for: viewModel.currentTimerFilter.departureMinTime)
+          let startTime = viewModel.currentTimerFilter.departureMinTime.timeIntervalSince(startOfDay)
         
           let roundedMinDeparture = 3600.0 * floor(startTime / 3600.0)
           
-          departureStartTimeInterval = roundedMinDeparture
+        viewModel.departureStartTimeInterval = roundedMinDeparture
           
-          let endTime = currentTimerFilter.departureTimeMax.timeIntervalSince(startOfDay)
-          departureEndTimeInterval = 3600.0 * ceil(endTime / 3600.0)
+          let endTime = viewModel.currentTimerFilter.departureTimeMax.timeIntervalSince(startOfDay)
+        viewModel.departureEndTimeInterval = 3600.0 * ceil(endTime / 3600.0)
           updateDepartureUIValues()
           
           
-        if currentTimerFilter != nil {
+        if viewModel.currentTimerFilter != nil {
             setArrivalSliderValues(userSelected: false)
         }
           
-        if multiLegTimerFilter.count == 1 {
+        if viewModel.multiLegTimerFilter.count == 1 {
               multiLegViewHeight.constant = 0   
               multiLegView.isHidden = true
           }
@@ -1178,13 +960,13 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
 
     func resetFilter() {
         
-        multiLegTimerFilter = multiLegTimerFilter.map {
+        viewModel.multiLegTimerFilter = viewModel.multiLegTimerFilter.map {
             var newFilter = $0
             newFilter.resetFilter()
             return newFilter
         }
         
-        currentTimerFilter.resetFilter()
+        viewModel.currentTimerFilter.resetFilter()
         guard departureRangeSlider != nil else { return }
         setUIValues()
         

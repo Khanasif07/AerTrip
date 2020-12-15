@@ -17,6 +17,8 @@ protocol SearchHoteslOnPreferencesDelegate: class {
     
     func getMyLocationSuccess()
     func getMyLocationFail()
+    
+    func favouriteHotelAPISuccess()
 }
 
 class HotelsSearchVM: NSObject{
@@ -228,6 +230,79 @@ class HotelsSearchVM: NSObject{
                 sSelf.delegate?.getMyLocationFail()
             }
         }
+    }
+}
+
+// MARK:- Favourite Hotels
+extension HotelsSearchVM {
+    func callSearchDestinationAPI(_ hotelDetails: HotelFormPreviosSearchData) {
+        var param = JSONDictionary()
+        param["q"] = hotelDetails.destName
+        APICaller.shared.getSearchedDestinationHotels(params: param) { [weak self] (success, errors, hotels) in
+            guard let self = self else {return}
+            
+            if success {
+                var isHotelFound = false
+                if let searchedHotelsArr = hotels[APIKeys.hotel.rawValue] as? [SearchedDestination] {
+                    for hotel in searchedHotelsArr {
+                        if hotel.dest_id == hotelDetails.destId {
+                            isHotelFound = true
+                            self.updateHotelDataFromFavourites(hotel, isHotelFound: true)
+                            self.delegate?.favouriteHotelAPISuccess()
+                            break
+                        }
+                    }
+                    if !isHotelFound {
+                        if let firstHotel = searchedHotelsArr.first {
+                            self.updateHotelDataFromFavourites(firstHotel)
+                        }
+                    }
+                }
+            }
+            else {
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
+//                sSelf.delegate?.searchDestinationFail()
+            }
+        }
+    }
+    
+    private func updateHotelDataFromFavourites(_ hotel: SearchedDestination, isHotelFound: Bool = false) {
+        let hotelName = hotel.dest_name
+        let address = hotel.label
+        let lat =  hotel.latitude
+        let long = hotel.longitude
+        let city = hotel.city
+        
+        var hotelData = HotelFormPreviosSearchData()
+        
+        hotelData.cityName = city
+        hotelData.destType = "Hotel"
+        var splittedStringArray = address.components(separatedBy: ",")
+        splittedStringArray.removeFirst()
+        let stateName = splittedStringArray.joined(separator: ",")
+        hotelData.stateName = stateName
+        
+        if isHotelFound {
+            hotelData.lat = lat
+            hotelData.lng = long
+            hotelData.destName = hotelName
+            hotelData.destId = hotel.dest_id
+        } else {
+            hotelData.destName = city
+            var destId = hotel.dest_id
+            if destId.suffix(3) == ":gn" {
+                destId.removeLast(3)
+            }
+            hotelData.destId = destId
+        }
+        
+        hotelData.checkInDate = Date().toString(dateFormat: "yyyy-MM-dd")
+        hotelData.checkOutDate = Date().add(years: 0, months: 0, days: 1, hours: 0, minutes: 0, seconds: 0)?.toString(dateFormat: "yyyy-MM-dd") ?? ""
+
+        hotelData.roomNumber     =  1
+        hotelData.adultsCount    = [2]
+
+        HotelsSearchVM.hotelFormData = hotelData
     }
 }
 

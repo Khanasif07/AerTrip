@@ -239,12 +239,11 @@ extension IntMCAndReturnDetailsVC{
         hideHeaderCellAt(index: index)
     }
 }
-
-extension IntMCAndReturnDetailsVC : flightDetailsPinFlightDelegate
-{    
-    func updateRefundStatusIfPending(fk: String)
-    {
-        if let _ = self.viewModel.internationalDataArray!.firstIndex(where: {$0.fk == fk}){
+extension IntMCAndReturnDetailsVC : flightDetailsPinFlightDelegate{
+    
+    func updateRefundStatusIfPending(fk: String) {
+        
+        if let _ = self.viewModel.internationalDataArray?.firstIndex(where: {$0.fk == fk}){
             self.pinnedDelegate?.updateRefundStatusIfPending(fk: fk)
         }
     }

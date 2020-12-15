@@ -75,7 +75,7 @@ extension BookingData {
 extension BookingData {
     var bookingTab: BookingTabCategory {
         get {
-            return BookingTabCategory(rawValue: Int(self.bookingTabType))!
+            return BookingTabCategory(rawValue: Int(self.bookingTabType)) ?? .completed
         }
         set {
             self.bookingTabType = Int16(newValue.rawValue)

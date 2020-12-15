@@ -129,6 +129,8 @@ extension FavouriteHotelsListVC: UICollectionViewDataSource, UICollectionViewDel
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if (indexPath.section == 1), (indexPath.item == 0) {
             self.delegate?.removeAllForCurrentPage()
+        } else {
+            viewModel.goToSearchWithHotel(self.viewModel.hotels[indexPath.item])
         }
     }
 }
