@@ -1143,7 +1143,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
     //MARK:- Price
     func setPriceVC(_ priceViewController : PriceFilterViewController , inputFilters : [IntMultiCityAndReturnWSResponse.Results.F])
     {
-        priceViewController.delegate = delegate as? PriceFilterDelegate
+        priceViewController.viewModel.delegate = delegate as? PriceFilterDelegate
         var priceFilters = [PriceFilter]()
         let priceWS = inputFilters[0].pr
         let priceFilter = PriceFilter(onlyRefundableFaresSelected: false,
@@ -1153,11 +1153,11 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
                                       userSelectedFareMaxValue: CGFloat(priceWS.maxPrice) )
         
         priceFilters.append(priceFilter)
-        priceViewController.intFlightResultArray = flightResultArray
-        priceViewController.isInternational = true
-        priceViewController.legsArray = legList
-        priceViewController.allPriceFilters = priceFilters
-        priceViewController.currentPriceFilter = priceFilters[0]
+        priceViewController.viewModel.intFlightResultArray = flightResultArray
+        priceViewController.viewModel.isInternational = true
+        priceViewController.viewModel.legsArray = legList
+        priceViewController.viewModel.allPriceFilters = priceFilters
+        priceViewController.viewModel.currentPriceFilter = priceFilters[0]
     }
     
     func updatePriceVC(_ priceViewController : PriceFilterViewController , inputFilters : [IntMultiCityAndReturnWSResponse.Results.F]) {
@@ -1172,29 +1172,29 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
             
             let userFilter = userSelectedFilters[index].pr
             
-            if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[0].contains(.Price), priceViewController.allPriceFilters.indices.contains(index) {
+            if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[0].contains(.Price), priceViewController.viewModel.allPriceFilters.indices.contains(index) {
                 
-                let onlyRefundable = priceViewController.allPriceFilters[index].onlyRefundableFaresSelected
+                let onlyRefundable = priceViewController.viewModel.allPriceFilters[index].onlyRefundableFaresSelected
                 
                 if userFilters.uiFilters[0].contains(.priceRange) {
-                    priceViewController.allPriceFilters[index].inputFareMinValue = newPriceFilter.inputFareMinValue
+                    priceViewController.viewModel.allPriceFilters[index].inputFareMinValue = newPriceFilter.inputFareMinValue
                     
-                    priceViewController.allPriceFilters[index].inputFareMaxVaule = newPriceFilter.inputFareMaxVaule
-                    priceViewController.allPriceFilters[index].userSelectedFareMinValue = CGFloat(userFilter.minPrice)
+                    priceViewController.viewModel.allPriceFilters[index].inputFareMaxVaule = newPriceFilter.inputFareMaxVaule
+                    priceViewController.viewModel.allPriceFilters[index].userSelectedFareMinValue = CGFloat(userFilter.minPrice)
                     
-                    priceViewController.allPriceFilters[index].userSelectedFareMaxValue = CGFloat(userFilter.maxPrice)
+                    priceViewController.viewModel.allPriceFilters[index].userSelectedFareMaxValue = CGFloat(userFilter.maxPrice)
                     
                 } else {
-                    priceViewController.allPriceFilters[index] = newPriceFilter
+                    priceViewController.viewModel.allPriceFilters[index] = newPriceFilter
                 }
                 
-                priceViewController.allPriceFilters[index].onlyRefundableFaresSelected = onlyRefundable
+                priceViewController.viewModel.allPriceFilters[index].onlyRefundableFaresSelected = onlyRefundable
                 
             } else {
-                if !priceViewController.allPriceFilters.indices.contains(index) {
-                    priceViewController.allPriceFilters.insert(newPriceFilter, at: index)
+                if !priceViewController.viewModel.allPriceFilters.indices.contains(index) {
+                    priceViewController.viewModel.allPriceFilters.insert(newPriceFilter, at: index)
                 } else {
-                    priceViewController.allPriceFilters[index] = newPriceFilter
+                    priceViewController.viewModel.allPriceFilters[index] = newPriceFilter
                 }
             }
         }
