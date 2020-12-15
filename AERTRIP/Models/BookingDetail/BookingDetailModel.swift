@@ -28,6 +28,7 @@ struct BookingDetailModel {
     var itineraryId: String = ""
     var cases: [Case] = []
     var receipt: Receipt?
+    var shareUrl : String = ""
     
     var totalAmountPaid: Double = 0.0
     var vCode: String = ""
@@ -155,6 +156,10 @@ struct BookingDetailModel {
             self.specialRequestAllowed = "\(obj)".toBool
         }
         
+        if let obj = json["shareUrl"]
+        {
+            self.shareUrl = "\(obj)".removeNull
+        }
         if let obj = json["weather_info"] as? [JSONDictionary] {
 //            let testData =   [
 //                [
