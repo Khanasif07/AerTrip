@@ -357,10 +357,10 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
     //MARK:- Sort
     func setSortVC(_ sortViewController : IntReturnAndMCSortVC, inputFilters : [IntMultiCityAndReturnWSResponse.Results.F]) {
         
-        sortViewController.flightSearchParameters = flightSearchParameters
-        sortViewController.delegate = delegate as? SortFilterDelegate
+        sortViewController.viewModel.flightSearchParameters = flightSearchParameters
+        sortViewController.viewModel.delegate = delegate as? SortFilterDelegate
         let airportLegFilters = getAirportLegFilters(inputFilters: inputFilters)
-        sortViewController.airportsArr = airportLegFilters
+        sortViewController.viewModel.airportsArr = airportLegFilters
     }
     
     private func getAirportLegFilters(inputFilters : [IntMultiCityAndReturnWSResponse.Results.F]) -> [AirportLegFilter] {
