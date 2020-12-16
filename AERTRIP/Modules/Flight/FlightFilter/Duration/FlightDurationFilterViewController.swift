@@ -8,106 +8,13 @@
 
 import UIKit
 
-
-protocol  FlightDurationFilterDelegate : FilterDelegate {
-    func tripDurationChangedAt(_ index: Int , min: CGFloat , max : CGFloat)
-    func layoverDurationChangedAt(_ index: Int , min: CGFloat , max : CGFloat)
-}
-
-
-struct DurationFilter {
-    
-    var leg : Leg
-    var tripDurationMinDuration : CGFloat  = 0.0
-    var tripDurationmaxDuration : CGFloat = CGFloat.greatestFiniteMagnitude
-    
-    var userSelectedTripMin : CGFloat = 0.0
-    var userSelectedTripMax : CGFloat = CGFloat.greatestFiniteMagnitude
-    
-    var layoverMinDuration : CGFloat = 0.0
-    var layoverMaxDuration : CGFloat = CGFloat.greatestFiniteMagnitude
-    
-    var userSelectedLayoverMin : CGFloat = 0.0
-    var userSelectedLayoverMax : CGFloat = CGFloat.greatestFiniteMagnitude
-    
-    var layoverDurationTimeFormat : String = ""
-    
-    var qualityFilter = QualityFilter(name: "Overnight Layover", filterKey: "ovgtlo", isSelected: false, filterID: .hideOvernightLayover)
-    
-    init(leg : Leg , tripMin : CGFloat , tripMax : CGFloat , layoverMin : CGFloat , layoverMax : CGFloat, layoverMinTimeFormat:String) {
-        
-        self.leg = leg
-        tripDurationMinDuration = tripMin
-        userSelectedTripMin = tripMin
-        tripDurationmaxDuration = tripMax
-        userSelectedTripMax = tripMax
-        
-        layoverMinDuration = layoverMin
-        userSelectedLayoverMin = layoverMin
-        layoverMaxDuration = layoverMax
-        userSelectedLayoverMax = layoverMax
-        layoverDurationTimeFormat = layoverMinTimeFormat
-        
-    }
-    
-    func filterApplied() -> Bool {
-        
-        if userSelectedTripMin > tripDurationMinDuration {
-            return true
-        }
-        if userSelectedTripMax < tripDurationmaxDuration {
-            return true
-        }
-        
-        if userSelectedLayoverMin > layoverMinDuration {
-            return true
-        }
-        
-        if layoverMaxDuration > userSelectedLayoverMax {
-            return true
-        }
-        
-        if qualityFilter.isSelected {
-            return true
-        }
-        
-        return false
-    }
-    
-    mutating func resetFilter() {
-        self.userSelectedTripMin = self.tripDurationMinDuration
-        self.userSelectedTripMax = self.tripDurationmaxDuration
-        self.userSelectedLayoverMin = self.layoverMinDuration
-        self.userSelectedLayoverMax = self.layoverMaxDuration
-        self.qualityFilter.isSelected = false
-    }
-}
-
 class FlightDurationFilterViewController : UIViewController , FilterViewController {
     
     //MARK:- State Properties
-    weak var delegate : FlightDurationFilterDelegate?
-    weak var qualityFilterDelegate : QualityFilterDelegate?
-    var currentDurationFilter : DurationFilter
-    var durationFilters = [DurationFilter]()
-    var legsArray = [Leg]()
-    var currentActiveIndex = 0
-    var showingForReturnJourney = false
-    var isFeedBackProvided = false
     
-    var tripDurationDiffForFraction: CGFloat {
-        let diff = currentDurationFilter.tripDurationmaxDuration - currentDurationFilter.tripDurationMinDuration
-        return diff == 0 ? 1 : diff
-    }
+    let viewModel = FlightDurationFilterVM()
     
-    var layoverDurationDiffForFraction: CGFloat {
-        let diff = currentDurationFilter.layoverMaxDuration - currentDurationFilter.layoverMinDuration
-        return diff == 0 ? 1 : diff
-    }
-    
-    var isIntMCOrReturnVC = false
     private var multiLegSegmentControl = UISegmentedControl()
-    var enableOvernightFlightQualityFilter = [Bool]()
     
     //MARK:- multiLeg Outlets
     @IBOutlet weak var multiLegViewHeight: NSLayoutConstraint!
@@ -124,19 +31,19 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     //MARK:- Initializers
     convenience init(delegate : FlightDurationFilterDelegate, durationFilters : [DurationFilter]) {
         self.init(nibName:nil, bundle:nil)
-        self.delegate = delegate
-        self.durationFilters = durationFilters
-        self.currentDurationFilter = durationFilters[0]
+        self.viewModel.delegate = delegate
+        self.viewModel.durationFilters = durationFilters
+        self.viewModel.currentDurationFilter = viewModel.durationFilters[0]
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        self.currentDurationFilter = DurationFilter(leg : Leg(origin: "", destination: "") , tripMin: 0.0, tripMax: 0.0, layoverMin: 0.0 , layoverMax: 0.0, layoverMinTimeFormat:"")
+        self.viewModel.currentDurationFilter = DurationFilter(leg : Leg(origin: "", destination: "") , tripMin: 0.0, tripMax: 0.0, layoverMin: 0.0 , layoverMax: 0.0, layoverMinTimeFormat:"")
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
     }
     
     required init?(coder aDecoder: NSCoder) {
-        self.currentDurationFilter = DurationFilter(leg : Leg(origin: "", destination: "") , tripMin: 0.0, tripMax: 0.0 , layoverMin: 0.0 , layoverMax: 0.0, layoverMinTimeFormat:"")
+        self.viewModel.currentDurationFilter = DurationFilter(leg : Leg(origin: "", destination: "") , tripMin: 0.0, tripMax: 0.0 , layoverMin: 0.0 , layoverMax: 0.0, layoverMinTimeFormat:"")
         super.init(coder: aDecoder)
         
     }
@@ -161,7 +68,7 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         super.viewDidLoad()
         
         
-        if durationFilters.count == 1 || durationFilters.count == 0 {
+        if viewModel.durationFilters.count == 1 || viewModel.durationFilters.count == 0 {
             multicityViewHeight.constant = 0.0
             multiLegView.isHidden = true
         }
@@ -177,45 +84,19 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     }
     
     private func addMarkersOnTripDuration() {
-        let minVal = currentDurationFilter.tripDurationMinDuration - currentDurationFilter.tripDurationMinDuration
-        let maxVal = currentDurationFilter.tripDurationmaxDuration - currentDurationFilter.tripDurationMinDuration
-        let diff = maxVal - minVal
-        var markerLocations = [CGFloat]()
-        for dayChangeTime in stride(from: 24, through: 240, by: 24) {
-            let markLoc = CGFloat(dayChangeTime) - currentDurationFilter.tripDurationMinDuration
-            let fraction = markLoc/diff
-            guard fraction < 1 else { break }
-            markerLocations.append(fraction)
-        }
-        tripDurationSlider.createMarkersAt(positions: markerLocations)
+        tripDurationSlider.createMarkersAt(positions: viewModel.getTripDurationMarkerLocations())
     }
     
     private func addMarkersOnLayoverDuration() {
-        let minVal = currentDurationFilter.layoverMinDuration - currentDurationFilter.layoverMinDuration
-        let maxVal = currentDurationFilter.tripDurationmaxDuration - currentDurationFilter.layoverMinDuration
-        let diff = maxVal - minVal
-        var markerLocations = [CGFloat]()
-        for dayChangeTime in stride(from: 24, through: 240, by: 24) {
-            let markLoc = CGFloat(dayChangeTime) - currentDurationFilter.layoverMinDuration
-            let fraction = markLoc/diff
-            guard fraction < 1 else { break }
-            markerLocations.append(fraction)
-        }
-        tripDurationSlider.createMarkersAt(positions: markerLocations)
+        tripDurationSlider.createMarkersAt(positions: viewModel.getLayoverDurationMarkerLocations())
     }
     
     //MARK:- Additional methods
     
     func initialSetup() {
         
-        allSectorsLbl.isHidden = !isIntMCOrReturnVC
-        
-        currentDurationFilter.userSelectedTripMin = currentDurationFilter.tripDurationMinDuration
-        currentDurationFilter.userSelectedTripMax = currentDurationFilter.tripDurationmaxDuration
-        
-        currentDurationFilter.userSelectedLayoverMin = currentDurationFilter.layoverMinDuration
-        currentDurationFilter.userSelectedLayoverMax = currentDurationFilter.layoverMaxDuration
-        
+        allSectorsLbl.isHidden = !viewModel.isIntMCOrReturnVC
+        viewModel.setInitialValues()
         setupTripDurationValues()
         setupLayoutDurationValues()
         setupOvernightFlightsView()
@@ -231,8 +112,8 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     }
     
     func updateFiltersFromAPI() {
-        currentDurationFilter = durationFilters[currentActiveIndex]
-        if durationFilters.count == 1 || durationFilters.count == 0 {
+        viewModel.setCurrentFilter()
+        if viewModel.durationFilters.count == 1 || viewModel.durationFilters.count == 0 {
             multicityViewHeight.constant = 0.0
             multiLegView.isHidden = true
         }
@@ -258,26 +139,26 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     
     func resetFilter() {
         
-        durationFilters = durationFilters.map {
+        viewModel.durationFilters = viewModel.durationFilters.map {
             var newFilter = $0
             newFilter.resetFilter()
             return newFilter
         }
-        currentDurationFilter.resetFilter()
+        viewModel.currentDurationFilter.resetFilter()
         
         guard tripDurationSlider != nil else { return }
-        tripDurationSlider.set(leftValue: (currentDurationFilter.tripDurationMinDuration - currentDurationFilter.tripDurationMinDuration)/tripDurationDiffForFraction, rightValue: (currentDurationFilter.tripDurationmaxDuration - currentDurationFilter.tripDurationMinDuration)/tripDurationDiffForFraction)
+        tripDurationSlider.set(leftValue: (viewModel.currentDurationFilter.tripDurationMinDuration - viewModel.currentDurationFilter.tripDurationMinDuration)/viewModel.tripDurationDiffForFraction, rightValue: (viewModel.currentDurationFilter.tripDurationmaxDuration - viewModel.currentDurationFilter.tripDurationMinDuration)/viewModel.tripDurationDiffForFraction)
         
-        tripDurationMinLabel.text = formattedStringWith(duration: currentDurationFilter.tripDurationMinDuration)
+        tripDurationMinLabel.text = formattedStringWith(duration: viewModel.currentDurationFilter.tripDurationMinDuration)
         tripDurationMinLabelWidth.constant = tripDurationMinLabel.intrinsicContentSize.width + 16.0
         
-        tripDurationMaxLabel.text = formattedStringWith(duration: currentDurationFilter.tripDurationmaxDuration)
+        tripDurationMaxLabel.text = formattedStringWith(duration: viewModel.currentDurationFilter.tripDurationmaxDuration)
         tripDurationMaxLabelWidth.constant = tripDurationMaxLabel.intrinsicContentSize.width + 16.0
         
-        layoverDurationSlider.set(leftValue: (currentDurationFilter.layoverMinDuration - currentDurationFilter.layoverMinDuration)/layoverDurationDiffForFraction, rightValue: (currentDurationFilter.layoverMaxDuration - currentDurationFilter.layoverMinDuration)/layoverDurationDiffForFraction)
-        layoverDurationMinLabel.text = formattedStringWith(duration: currentDurationFilter.layoverMinDuration)
+        layoverDurationSlider.set(leftValue: (viewModel.currentDurationFilter.layoverMinDuration - viewModel.currentDurationFilter.layoverMinDuration)/viewModel.layoverDurationDiffForFraction, rightValue: (viewModel.currentDurationFilter.layoverMaxDuration - viewModel.currentDurationFilter.layoverMinDuration)/viewModel.layoverDurationDiffForFraction)
+        layoverDurationMinLabel.text = formattedStringWith(duration: viewModel.currentDurationFilter.layoverMinDuration)
         layoverDurationMinLabelWidth.constant = layoverDurationMinLabel.intrinsicContentSize.width + 16.0
-        layoverDurationMaxLabel.text = formattedStringWith(duration: currentDurationFilter.layoverMaxDuration)
+        layoverDurationMaxLabel.text = formattedStringWith(duration: viewModel.currentDurationFilter.layoverMaxDuration)
         layoverDurationMaxLabelWidth.constant = layoverDurationMaxLabel.intrinsicContentSize.width + 16.0
         
         updateSegmentTitles()
@@ -289,14 +170,14 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
                 
         multiLegSegmentControl.removeAllSegments()
         
-        let numberOfStops = durationFilters.count
+        let numberOfStops = viewModel.durationFilters.count
 
         for  index in 1...numberOfStops  {
             let segmentTitle = getSegmentTitleFor(index)
             multiLegSegmentControl.insertSegment(withTitle: segmentTitle, at: index-1, animated: false)
         }
         
-        multiLegSegmentControl.selectedSegmentIndex = currentActiveIndex
+        multiLegSegmentControl.selectedSegmentIndex = viewModel.currentActiveIndex
                 
         if multiLegSegmentControl.superview == nil && numberOfStops > 1 {
             let font: [NSAttributedString.Key : Any] = [.font : AppFonts.SemiBold.withSize(14)]
@@ -314,11 +195,11 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     
     @objc func indexChanged(_ sender: UISegmentedControl) {
         
-        guard currentActiveIndex != sender.selectedSegmentIndex else { return }
+        guard viewModel.currentActiveIndex != sender.selectedSegmentIndex else { return }
         
-        durationFilters[currentActiveIndex] = currentDurationFilter
-        currentActiveIndex = sender.selectedSegmentIndex
-        currentDurationFilter = durationFilters[currentActiveIndex]
+        viewModel.durationFilters[viewModel.currentActiveIndex] = viewModel.currentDurationFilter
+        viewModel.currentActiveIndex = sender.selectedSegmentIndex
+        viewModel.setCurrentFilter()
         setupTripDurationValues()
         setupLayoutDurationValues()
         updateSegmentTitles()
@@ -329,10 +210,10 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     }
     
     private func getSegmentTitleFor(_ index: Int) -> String {
-        let currentFilter = durationFilters[(index - 1)]
+        let currentFilter = viewModel.durationFilters[(index - 1)]
         let isFilterApplied = currentFilter.filterApplied()
-        var title = "\(legsArray[index - 1].origin) \u{279E} \(legsArray[index - 1].destination)"
-        if durationFilters.count > 3 {
+        var title = "\(viewModel.legsArray[index - 1].origin) \u{279E} \(viewModel.legsArray[index - 1].destination)"
+        if viewModel.durationFilters.count > 3 {
             title = "\(index)"
         }
         var segmentTitle = "\(title) "
@@ -361,22 +242,22 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     }
     
     fileprivate func setupTripDurationValues() {
-        tripDurationSlider.set(leftValue: (currentDurationFilter.userSelectedTripMin - currentDurationFilter.tripDurationMinDuration)/tripDurationDiffForFraction, rightValue: (currentDurationFilter.userSelectedTripMax - currentDurationFilter.tripDurationMinDuration)/tripDurationDiffForFraction)
+        tripDurationSlider.set(leftValue: (viewModel.currentDurationFilter.userSelectedTripMin - viewModel.currentDurationFilter.tripDurationMinDuration)/viewModel.tripDurationDiffForFraction, rightValue: (viewModel.currentDurationFilter.userSelectedTripMax - viewModel.currentDurationFilter.tripDurationMinDuration)/viewModel.tripDurationDiffForFraction)
         
-        tripDurationMinLabel.text = formattedStringWith(duration:  currentDurationFilter.userSelectedTripMin)
+        tripDurationMinLabel.text = formattedStringWith(duration:  viewModel.currentDurationFilter.userSelectedTripMin)
         tripDurationMinLabelWidth.constant = tripDurationMinLabel.intrinsicContentSize.width + 16.0
-        tripDurationMaxLabel.text = formattedStringWith(duration:  currentDurationFilter.userSelectedTripMax)
+        tripDurationMaxLabel.text = formattedStringWith(duration:  viewModel.currentDurationFilter.userSelectedTripMax)
         tripDurationMaxLabelWidth.constant = tripDurationMaxLabel.intrinsicContentSize.width + 16.0
         
     }
     
     fileprivate func setupLayoutDurationValues() {
-        layoverDurationSlider.set(leftValue: (currentDurationFilter.userSelectedLayoverMin - currentDurationFilter.layoverMinDuration)/layoverDurationDiffForFraction, rightValue: (currentDurationFilter.userSelectedLayoverMax - currentDurationFilter.layoverMinDuration)/layoverDurationDiffForFraction)
+        layoverDurationSlider.set(leftValue: (viewModel.currentDurationFilter.userSelectedLayoverMin - viewModel.currentDurationFilter.layoverMinDuration)/viewModel.layoverDurationDiffForFraction, rightValue: (viewModel.currentDurationFilter.userSelectedLayoverMax - viewModel.currentDurationFilter.layoverMinDuration)/viewModel.layoverDurationDiffForFraction)
         
-        layoverDurationMinLabel.text = formattedStringWith(duration:  currentDurationFilter.userSelectedLayoverMin)
+        layoverDurationMinLabel.text = formattedStringWith(duration:  viewModel.currentDurationFilter.userSelectedLayoverMin)
         layoverDurationMinLabelWidth.constant = layoverDurationMinLabel.intrinsicContentSize.width + 16.0
         
-        layoverDurationMaxLabel.text = formattedStringWith(duration:  currentDurationFilter.userSelectedLayoverMax)
+        layoverDurationMaxLabel.text = formattedStringWith(duration:  viewModel.currentDurationFilter.userSelectedLayoverMax)
         layoverDurationMaxLabelWidth.constant = layoverDurationMaxLabel.intrinsicContentSize.width + 16.0
         
     }
@@ -384,22 +265,22 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     //MARK:- IBAction Methods
     @IBAction func tripDurationChanged(_ sender: AertripRangeSlider) {
         
-        currentDurationFilter.userSelectedTripMin = ((tripDurationSlider.leftValue * tripDurationDiffForFraction) + currentDurationFilter.tripDurationMinDuration).rounded(.down)
-        currentDurationFilter.userSelectedTripMax = ((tripDurationSlider.rightValue * tripDurationDiffForFraction) + currentDurationFilter.tripDurationMinDuration).rounded(.up)
+        viewModel.currentDurationFilter.userSelectedTripMin = ((tripDurationSlider.leftValue * viewModel.tripDurationDiffForFraction) + viewModel.currentDurationFilter.tripDurationMinDuration).rounded(.down)
+        viewModel.currentDurationFilter.userSelectedTripMax = ((tripDurationSlider.rightValue * viewModel.tripDurationDiffForFraction) + viewModel.currentDurationFilter.tripDurationMinDuration).rounded(.up)
         
-        if (((currentDurationFilter.userSelectedTripMin.truncatingRemainder(dividingBy: 24) == 0) && currentDurationFilter.userSelectedTripMin != currentDurationFilter.tripDurationMinDuration)) || ((currentDurationFilter.userSelectedTripMax.truncatingRemainder(dividingBy: 24) == 0) && currentDurationFilter.userSelectedTripMax != currentDurationFilter.tripDurationmaxDuration) {
-            if !isFeedBackProvided {
+        if (((viewModel.currentDurationFilter.userSelectedTripMin.truncatingRemainder(dividingBy: 24) == 0) && viewModel.currentDurationFilter.userSelectedTripMin != viewModel.currentDurationFilter.tripDurationMinDuration)) || ((viewModel.currentDurationFilter.userSelectedTripMax.truncatingRemainder(dividingBy: 24) == 0) && viewModel.currentDurationFilter.userSelectedTripMax != viewModel.currentDurationFilter.tripDurationmaxDuration) {
+            if !viewModel.isFeedBackProvided {
                generateHapticFeedback()
             }
-            isFeedBackProvided = true
+            viewModel.isFeedBackProvided = true
         } else {
-            isFeedBackProvided = false
+            viewModel.isFeedBackProvided = false
         }
         
-        tripDurationMinLabel.text = formattedStringWith(duration:  currentDurationFilter.userSelectedTripMin)
+        tripDurationMinLabel.text = formattedStringWith(duration:  viewModel.currentDurationFilter.userSelectedTripMin)
         tripDurationMinLabelWidth.constant = tripDurationMinLabel.intrinsicContentSize.width + 16.0
         
-        tripDurationMaxLabel.text = formattedStringWith(duration:  currentDurationFilter.userSelectedTripMax)
+        tripDurationMaxLabel.text = formattedStringWith(duration:  viewModel.currentDurationFilter.userSelectedTripMax)
         tripDurationMaxLabelWidth.constant = tripDurationMaxLabel.intrinsicContentSize.width + 16.0
         
     }
@@ -407,54 +288,54 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     
     @IBAction func tripDurationUpdated(_ sender: AertripRangeSlider) {
         
-        currentDurationFilter.userSelectedTripMin = floor((tripDurationSlider.leftValue * tripDurationDiffForFraction) + currentDurationFilter.tripDurationMinDuration)
-        currentDurationFilter.userSelectedTripMax = ceil((tripDurationSlider.rightValue * tripDurationDiffForFraction) + currentDurationFilter.tripDurationMinDuration)
-        durationFilters[currentActiveIndex] = currentDurationFilter
+        viewModel.currentDurationFilter.userSelectedTripMin = floor((tripDurationSlider.leftValue * viewModel.tripDurationDiffForFraction) + viewModel.currentDurationFilter.tripDurationMinDuration)
+        viewModel.currentDurationFilter.userSelectedTripMax = ceil((tripDurationSlider.rightValue * viewModel.tripDurationDiffForFraction) + viewModel.currentDurationFilter.tripDurationMinDuration)
+        viewModel.durationFilters[viewModel.currentActiveIndex] = viewModel.currentDurationFilter
         updateSegmentTitles()
         
-        if showingForReturnJourney {
-            delegate?.tripDurationChangedAt(0, min:  currentDurationFilter.userSelectedTripMin, max:  currentDurationFilter.userSelectedTripMax)
-            delegate?.tripDurationChangedAt(1, min:  currentDurationFilter.userSelectedTripMin, max:  currentDurationFilter.userSelectedTripMax)
+        if viewModel.showingForReturnJourney {
+            viewModel.delegate?.tripDurationChangedAt(0, min:  viewModel.currentDurationFilter.userSelectedTripMin, max:  viewModel.currentDurationFilter.userSelectedTripMax)
+            viewModel.delegate?.tripDurationChangedAt(1, min:  viewModel.currentDurationFilter.userSelectedTripMin, max:  viewModel.currentDurationFilter.userSelectedTripMax)
         }
         else {
-            delegate?.tripDurationChangedAt(currentActiveIndex, min:  currentDurationFilter.userSelectedTripMin, max:  currentDurationFilter.userSelectedTripMax)
+            viewModel.delegate?.tripDurationChangedAt(viewModel.currentActiveIndex, min:  viewModel.currentDurationFilter.userSelectedTripMin, max:  viewModel.currentDurationFilter.userSelectedTripMax)
         }
     }
     
     @IBAction func layoverDurationChanged(_ sender: MARKRangeSlider) {
         
-        currentDurationFilter.userSelectedLayoverMin = ((layoverDurationSlider.leftValue * layoverDurationDiffForFraction) + currentDurationFilter.layoverMinDuration).rounded(.down)
-        currentDurationFilter.userSelectedLayoverMax = ((layoverDurationSlider.rightValue * layoverDurationDiffForFraction) + currentDurationFilter.layoverMinDuration).rounded(.up)
+        viewModel.currentDurationFilter.userSelectedLayoverMin = ((layoverDurationSlider.leftValue * viewModel.layoverDurationDiffForFraction) + viewModel.currentDurationFilter.layoverMinDuration).rounded(.down)
+        viewModel.currentDurationFilter.userSelectedLayoverMax = ((layoverDurationSlider.rightValue * viewModel.layoverDurationDiffForFraction) + viewModel.currentDurationFilter.layoverMinDuration).rounded(.up)
         
-        layoverDurationMinLabel.text = formattedStringWith(duration:  currentDurationFilter.userSelectedLayoverMin)
+        layoverDurationMinLabel.text = formattedStringWith(duration:  viewModel.currentDurationFilter.userSelectedLayoverMin)
         layoverDurationMinLabelWidth.constant = layoverDurationMinLabel.intrinsicContentSize.width + 16.0
         
-        layoverDurationMaxLabel.text = formattedStringWith(duration:  currentDurationFilter.userSelectedLayoverMax)
+        layoverDurationMaxLabel.text = formattedStringWith(duration:  viewModel.currentDurationFilter.userSelectedLayoverMax)
         
         
-        if (((currentDurationFilter.userSelectedLayoverMin.truncatingRemainder(dividingBy: 24) == 0) && currentDurationFilter.userSelectedLayoverMin != currentDurationFilter.layoverMinDuration) || (currentDurationFilter.userSelectedLayoverMax.truncatingRemainder(dividingBy: 24) == 0) && currentDurationFilter.userSelectedLayoverMax != currentDurationFilter.layoverMaxDuration) {
-            if !isFeedBackProvided {
+        if (((viewModel.currentDurationFilter.userSelectedLayoverMin.truncatingRemainder(dividingBy: 24) == 0) && viewModel.currentDurationFilter.userSelectedLayoverMin != viewModel.currentDurationFilter.layoverMinDuration) || (viewModel.currentDurationFilter.userSelectedLayoverMax.truncatingRemainder(dividingBy: 24) == 0) && viewModel.currentDurationFilter.userSelectedLayoverMax != viewModel.currentDurationFilter.layoverMaxDuration) {
+            if !viewModel.isFeedBackProvided {
                generateHapticFeedback()
             }
-            isFeedBackProvided = true
+            viewModel.isFeedBackProvided = true
         } else {
-            isFeedBackProvided = false
+            viewModel.isFeedBackProvided = false
         }
         
     }
     
     @IBAction func layoverDurationUpdated(_ sender: MARKRangeSlider) {
         
-        currentDurationFilter.userSelectedLayoverMin = ((layoverDurationSlider.leftValue * layoverDurationDiffForFraction) + currentDurationFilter.layoverMinDuration).rounded(.down)
-        currentDurationFilter.userSelectedLayoverMax = ((layoverDurationSlider.rightValue * layoverDurationDiffForFraction) + currentDurationFilter.layoverMinDuration).rounded(.up)
-        durationFilters[currentActiveIndex] = currentDurationFilter
+        viewModel.currentDurationFilter.userSelectedLayoverMin = ((layoverDurationSlider.leftValue * viewModel.layoverDurationDiffForFraction) + viewModel.currentDurationFilter.layoverMinDuration).rounded(.down)
+        viewModel.currentDurationFilter.userSelectedLayoverMax = ((layoverDurationSlider.rightValue * viewModel.layoverDurationDiffForFraction) + viewModel.currentDurationFilter.layoverMinDuration).rounded(.up)
+        viewModel.durationFilters[viewModel.currentActiveIndex] = viewModel.currentDurationFilter
         
-        if showingForReturnJourney {
-            delegate?.layoverDurationChangedAt(0 ,min:  currentDurationFilter.userSelectedLayoverMin, max:  currentDurationFilter.userSelectedLayoverMax)
-            delegate?.layoverDurationChangedAt(1 ,min:  currentDurationFilter.userSelectedLayoverMin, max:  currentDurationFilter.userSelectedLayoverMax)
+        if viewModel.showingForReturnJourney {
+            viewModel.delegate?.layoverDurationChangedAt(0 ,min:  viewModel.currentDurationFilter.userSelectedLayoverMin, max:  viewModel.currentDurationFilter.userSelectedLayoverMax)
+            viewModel.delegate?.layoverDurationChangedAt(1 ,min:  viewModel.currentDurationFilter.userSelectedLayoverMin, max:  viewModel.currentDurationFilter.userSelectedLayoverMax)
         }
         else {
-            delegate?.layoverDurationChangedAt(currentActiveIndex ,min:  currentDurationFilter.userSelectedLayoverMin, max:  currentDurationFilter.userSelectedLayoverMax)
+            viewModel.delegate?.layoverDurationChangedAt(viewModel.currentActiveIndex ,min:  viewModel.currentDurationFilter.userSelectedLayoverMin, max:  viewModel.currentDurationFilter.userSelectedLayoverMax)
         }
     }
     
@@ -465,29 +346,29 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     }
     
     private func toggleAvoidOvernight(_ selected: Bool) {
-        currentDurationFilter.qualityFilter.isSelected = selected
-        durationFilters[currentActiveIndex] = currentDurationFilter
+        viewModel.currentDurationFilter.qualityFilter.isSelected = selected
+        viewModel.durationFilters[viewModel.currentActiveIndex] = viewModel.currentDurationFilter
         
-        if isIntMCOrReturnVC {
-            durationFilters = durationFilters.map {
+        if viewModel.isIntMCOrReturnVC {
+            viewModel.durationFilters = viewModel.durationFilters.map {
                 var newFilter = $0
-                newFilter.qualityFilter = currentDurationFilter.qualityFilter
+                newFilter.qualityFilter = viewModel.currentDurationFilter.qualityFilter
                 return newFilter
             }
         }
         
-        if showingForReturnJourney {
-            qualityFilterDelegate?.qualityFiltersChanged(currentDurationFilter.qualityFilter)
+        if viewModel.showingForReturnJourney {
+            viewModel.qualityFilterDelegate?.qualityFiltersChanged(viewModel.currentDurationFilter.qualityFilter)
         } else {
-            qualityFilterDelegate?.qualityFilterChangedAt(currentActiveIndex, filter: currentDurationFilter.qualityFilter)
+            viewModel.qualityFilterDelegate?.qualityFilterChangedAt(viewModel.currentActiveIndex, filter: viewModel.currentDurationFilter.qualityFilter)
         }
         resetAvoidOvernightBtn()
         
     }
     
     private func resetAvoidOvernightBtn() {
-        avoidOvernightBtn.isSelected = currentDurationFilter.qualityFilter.isSelected
-        if currentDurationFilter.qualityFilter.isSelected {
+        avoidOvernightBtn.isSelected = viewModel.currentDurationFilter.qualityFilter.isSelected
+        if viewModel.currentDurationFilter.qualityFilter.isSelected {
             avoidOvernightImgView.image = UIImage(named: "CheckedGreenRadioButton")
         }
         else {
@@ -496,13 +377,13 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     }
     
     private func hideShowOvernightView() {
-        if isIntMCOrReturnVC {
-            if enableOvernightFlightQualityFilter.indices.contains(0) {
-                avoidOvernightView.isHidden = !enableOvernightFlightQualityFilter[0]
+        if viewModel.isIntMCOrReturnVC {
+            if viewModel.enableOvernightFlightQualityFilter.indices.contains(0) {
+                avoidOvernightView.isHidden = !viewModel.enableOvernightFlightQualityFilter[0]
             }
         } else {
-            if enableOvernightFlightQualityFilter.indices.contains(currentActiveIndex) {
-                avoidOvernightView.isHidden = !enableOvernightFlightQualityFilter[currentActiveIndex]
+            if viewModel.enableOvernightFlightQualityFilter.indices.contains(viewModel.currentActiveIndex) {
+                avoidOvernightView.isHidden = !viewModel.enableOvernightFlightQualityFilter[viewModel.currentActiveIndex]
             }
         }
     }

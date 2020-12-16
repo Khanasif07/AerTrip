@@ -1555,6 +1555,7 @@
 		84DD24A02267A6030013F77E /* PaymentInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84DD249E2267A6030013F77E /* PaymentInfoTableViewCell.xib */; };
 		84DF1B8E258878D50067C678 /* FlightStopsFilterVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DF1B8D258878D50067C678 /* FlightStopsFilterVM.swift */; };
 		84DF1B9025889CB60067C678 /* AirlinesFilterVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DF1B8F25889CB60067C678 /* AirlinesFilterVM.swift */; };
+		84DF1B922589E8B90067C678 /* FlightDurationFilterVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DF1B912589E8B90067C678 /* FlightDurationFilterVM.swift */; };
 		84E4BC22229BA21100B72306 /* FlightBookingsDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E4BC21229BA21100B72306 /* FlightBookingsDetailsVC.swift */; };
 		84E4BC27229C622700B72306 /* DownloadingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E4BC26229C622700B72306 /* DownloadingModel.swift */; };
 		84E4BC4C229E67CC00B72306 /* FlightCarriersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E4BC4A229E67CC00B72306 /* FlightCarriersTableViewCell.swift */; };
@@ -3360,6 +3361,7 @@
 		84DD249E2267A6030013F77E /* PaymentInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentInfoTableViewCell.xib; sourceTree = "<group>"; };
 		84DF1B8D258878D50067C678 /* FlightStopsFilterVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightStopsFilterVM.swift; sourceTree = "<group>"; };
 		84DF1B8F25889CB60067C678 /* AirlinesFilterVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirlinesFilterVM.swift; sourceTree = "<group>"; };
+		84DF1B912589E8B90067C678 /* FlightDurationFilterVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightDurationFilterVM.swift; sourceTree = "<group>"; };
 		84E4BC21229BA21100B72306 /* FlightBookingsDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightBookingsDetailsVC.swift; sourceTree = "<group>"; };
 		84E4BC26229C622700B72306 /* DownloadingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadingModel.swift; sourceTree = "<group>"; };
 		84E4BC4A229E67CC00B72306 /* FlightCarriersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightCarriersTableViewCell.swift; sourceTree = "<group>"; };
@@ -6344,6 +6346,7 @@
 			children = (
 				843FF34B2474022F001F21B1 /* FlightDurationFilterViewController.swift */,
 				843FF34C2474022F001F21B1 /* FlightDurationFilterViewController.xib */,
+				84DF1B912589E8B90067C678 /* FlightDurationFilterVM.swift */,
 			);
 			path = Duration;
 			sourceTree = "<group>";
@@ -10849,6 +10852,7 @@
 				84BBFF8524C9D549008010EB /* ReloadResultPopupVC.swift in Sources */,
 				84BF46CB2212A762000AA6E3 /* HotelDetailsLoaderTableViewCell.swift in Sources */,
 				849D379B22893A4B00763AD8 /* AccountOfflineDepositVC+DelegateMethods.swift in Sources */,
+				84DF1B922589E8B90067C678 /* FlightDurationFilterVM.swift in Sources */,
 				843FF56C24740232001F21B1 /* AmenitiesDetailsVC.swift in Sources */,
 				844083C72578C5D400FB8B1F /* FirebaseAnalyticsController.swift in Sources */,
 				843FF58524740232001F21B1 /* FareInfoTableViewCell.swift in Sources */,
