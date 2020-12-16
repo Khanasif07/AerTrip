@@ -266,11 +266,22 @@ extension IntFlightResultDisplayGroup  {
         applyFilters(index: index)
     }
     
-    func allStopsSelected() {
-        userSelectedFilters.enumerated().forEach { (legIndex,obj) in
-            userSelectedFilters[legIndex].stp = inputFilter[legIndex].stp
+    func allStopsSelected(_ index: Int) {
+//        userSelectedFilters.enumerated().forEach { (legIndex,obj) in
+            userSelectedFilters[index].stp = inputFilter[index].stp
+//        }
+        var isFilterApplied = false
+        for (filterIndex, filter) in userSelectedFilters.enumerated() {
+            if filter.stp != inputFilter[filterIndex].stp {
+                isFilterApplied = true
+                break
+            }
         }
-        appliedFilters.remove(.stops)
+        if isFilterApplied {
+            appliedFilters.insert(.stops)
+        } else {
+            appliedFilters.remove(.stops)
+        }
         applyFilters(index: 0)
         
     }
