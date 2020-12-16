@@ -300,7 +300,6 @@ extension AirlinesFilterViewController : UITableViewDataSource , UITableViewDele
                 cell.radioButton.setImage(#imageLiteral(resourceName: "selectOption"), for: .selected)
                 cell.radioButton.setImage(#imageLiteral(resourceName: "UncheckedGreenRadioButton"), for: .normal)
                 cell.radioButton.isSelected = viewModel.currentSelectedAirlineFilter.hideMultipleAirline
-                cell.imageView?.image = nil
             }
             if indexPath.section == 2 {
                 let airline = viewModel.currentSelectedAirlineFilter.airlinesArray[indexPath.row]
