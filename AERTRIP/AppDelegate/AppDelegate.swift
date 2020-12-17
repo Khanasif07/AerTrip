@@ -120,6 +120,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
         
+        delay(seconds: 1) {
+            CustomToast.shared.showToast("continue userActivity")
+        }
+        
+      
         guard let url = userActivity.webpageURL else { return false }
         
         if url.absoluteString.contains("?ref") {
@@ -158,6 +163,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        
+            CustomToast.shared.showToast("open url")
+        
+            
         if url.scheme?.lowercased() == AppConstants.fbUrl {
             return ApplicationDelegate.shared.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
         }
@@ -200,7 +209,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             
             let str = url?.query
-            
+
             for pairString in str?.components(separatedBy: "&") ?? [] {
                 let pair = pairString.components(separatedBy: "=")
                 
