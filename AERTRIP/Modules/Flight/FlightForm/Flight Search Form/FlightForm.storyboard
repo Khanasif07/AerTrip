@@ -930,6 +930,7 @@
                         <outlet property="FromToView" destination="l7L-AN-5en" id="srP-pc-jIG"/>
                         <outlet property="ScrollView" destination="4zR-6f-czq" id="Dbs-lR-Wyt"/>
                         <outlet property="bulkFlightTravellingLabel" destination="He0-CA-PB7" id="ybz-t3-3vi"/>
+                        <outlet property="flightClassTitleLabel" destination="aGk-oJ-hhC" id="9CQ-lM-Shc"/>
                         <outlet property="flightClassTypeImageView" destination="Oas-dp-zs8" id="uyj-qb-3EX"/>
                         <outlet property="flightClassTypeLabel" destination="qAv-PB-wdX" id="9je-Nw-uFZ"/>
                         <outlet property="flightFormHeight" destination="pZK-rr-CUn" id="3iI-fJ-VQN"/>

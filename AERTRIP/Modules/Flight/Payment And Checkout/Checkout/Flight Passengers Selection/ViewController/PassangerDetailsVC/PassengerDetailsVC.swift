@@ -90,28 +90,7 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
         
         travellersTableView.tableFooterView = customView
     }
-    
-    //    private func setupTextView(){
-    //        let passportTextView = UITextView()
-    //        let txt = "Enter names and info as they appear on your Passport/Government issued ID. See Example"
-    //        let attributedText = NSMutableAttributedString(string: "")
-    //        let attributedString = NSAttributedString(string: txt, attributes: [NSAttributedString.Key.font : AppFonts.Regular.withSize(14), .foregroundColor: AppColors.themeGray40])
-    //        attributedText.append(attributedString)
-    //        attributedText.addAttributes([.link: "hgf", .foregroundColor: AppColors.themeGreen], range: NSString(string: txt).range(of: "See Example"))
-    //        passportTextView.attributedText = attributedText
-    //        passportTextView.linkTextAttributes = [.font: AppFonts.Regular.withSize(14), .foregroundColor: AppColors.themeGreen]
-    //        passportTextView.isEditable = false
-    //        passportTextView.isScrollEnabled = false
-    //        passportTextView.delegate = self
-    //        passportTextView.sizeToFit()
-    //        passportTextView.frame.size.width = UIScreen.width - 22
-    //        passportTextView.frame.origin = CGPoint(x: 11.0, y: 0)
-    //        passportTextView.sizeToFit()
-    //        self.showPassportView.addSubview(passportTextView)
-    //
-    //    }
-    
-    
+        
     private func editedGuest(_ travellerIndexPath: IndexPath) {
         if let indexPath = self.viewModel.editinIndexPath, let object = GuestDetailsVM.shared.contactForIndexPath(indexPath: travellerIndexPath) {
             self.viewModel.updatePassengerInfoWith(object, at: indexPath.section)

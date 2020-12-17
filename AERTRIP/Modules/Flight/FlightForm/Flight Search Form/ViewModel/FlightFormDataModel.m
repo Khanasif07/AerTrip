@@ -421,6 +421,13 @@
             return NO;
         }
     }
+    
+    if ( (self.flightClass.name == nil) || [self.flightClass.name isEqual: @""]){
+        [self.delegate  showErrorMessage:@"Please select a cabin class."];
+        [self.delegate shakeAnimation: CabinClass];
+        return  NO;
+    }
+    
      return YES;
 }
 
@@ -431,9 +438,13 @@
     for (int i = 0 ; i  < self.multiCityArray.count ; i++ ){
         
         MulticityFlightLeg * flightLeg = [self.multiCityArray objectAtIndex:i];
-                
-        [countryCodeArr addObject: [flightLeg.origin countryCode]];
-        [countryCodeArr addObject: [flightLeg.destination countryCode]];
+        if (flightLeg.origin.countryCode != nil){
+            [countryCodeArr addObject: [flightLeg.origin countryCode]];
+        }
+        if ((flightLeg.destination.countryCode) != nil){
+            [countryCodeArr addObject: [flightLeg.destination countryCode]];
+        }
+//        [countryCodeArr addObject: [flightLeg.destination countryCode]];
         
         if (i == self.multiCityArray.count - 1) {
             [self.delegate didFetchCountryCodes: countryCodeArr];
@@ -470,6 +481,11 @@
             return NO;
 
         }
+    }
+    if ( (self.flightClass.name == nil) || [self.flightClass.name isEqual: @""]){
+        [self.delegate  showErrorMessage:@"Please select a cabin class."];
+        [self.delegate shakeAnimation: CabinClass];
+        return  NO;
     }
     return YES;
 }

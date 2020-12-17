@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ActiveLabel
 protocol YouAreAllDoneTableViewCellDelegate: class {
     func addToAppleWalletTapped(button: ATButton)
     func addToCallendarTapped()
@@ -24,7 +25,7 @@ class YouAreAllDoneTableViewCell: UITableViewCell {
     @IBOutlet weak var youAreAllDoneLabel: UILabel!
     @IBOutlet weak var bookingIdAndDetailsLabel: UILabel!
     @IBOutlet weak var addToAppleWalletButton: ATButton!
-    @IBOutlet weak var importantNoteLabel: UILabel!
+    @IBOutlet weak var importantNoteLabel: ActiveLabel!
     @IBOutlet weak var dividerView: ATDividerView!
     @IBOutlet weak var tickMarKButton: ATButton!
     @IBOutlet weak var addToCalendarButton: UIButton!
@@ -32,6 +33,9 @@ class YouAreAllDoneTableViewCell: UITableViewCell {
     @IBOutlet weak var stackViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var youareAllDoneTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var tickmarkButtonHeightConstraint: NSLayoutConstraint!
+    
+    
+    var handler : (()->())?
     
     //Mark:- Lifecycle
     //================
@@ -146,7 +150,8 @@ class YouAreAllDoneTableViewCell: UITableViewCell {
         } else {
             self.youAreAllDoneLabel.text = LocalizedString.BookingIsInProcess.localized
         self.bookingIdAndDetailsLabel.attributedText = self.attributeLabelSetUp(prefixText: LocalizedString.YourBookingID.localized, id: forBookingId , postfixText: LocalizedString.AndAllDetailsWillBeSentToYourEmail.localized)
-            self.importantNoteLabel.attributedText = self.attributeLabelSetUp(prefixText: "", prefixTextColor: AppColors.themeRed, prefixFont: AppFonts.SemiBold.withSize(16.0)  , id: LocalizedString.YourBookingIdStmt.localized, middleTextColor: AppColors.themeBlack , middleFont: AppFonts.Regular.withSize(16.0), postfixText: LocalizedString.AertripEmailId.localized , postfixTextColor: AppColors.themeBlack , postfixFont: AppFonts.SemiBold.withSize(16.0), image: #imageLiteral(resourceName: "infoOrange"))
+//            self.importantNoteLabel.attributedText = self.attributeLabelSetUp(prefixText: "", prefixTextColor: AppColors.themeRed, prefixFont: AppFonts.SemiBold.withSize(16.0)  , id: LocalizedString.YourBookingIdStmt.localized, middleTextColor: AppColors.themeBlack , middleFont: AppFonts.Regular.withSize(16.0), postfixText: LocalizedString.AertripEmailId.localized , postfixTextColor: AppColors.themeBlack , postfixFont: AppFonts.SemiBold.withSize(16.0), image: #imageLiteral(resourceName: "infoOrange"))
+            self.setImportentLabel(withLabel: self.importantNoteLabel)
             self.importantNoteLabel.isHidden = false
             self.addToAppleWalletButton.isHidden = true
             self.addToCalendarButton.isHidden = true
@@ -168,6 +173,33 @@ class YouAreAllDoneTableViewCell: UITableViewCell {
         self.addToAppleWalletButton.setTitleColor(AppColors.themeWhite, for: .normal)
         self.addToAppleWalletButton.setTitleColor(AppColors.themeWhite, for: .selected)
         self.addToAppleWalletButton.gradientColors = [AppColors.themeBlack, AppColors.themeBlack]
+    }
+    
+    
+    func setImportentLabel(withLabel: ActiveLabel){
+        
+        let seeExample = ActiveType.custom(pattern: "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}")
+        
+        
+        let allTypes: [ActiveType] = [seeExample]
+        let textToDisplay = self.attributeLabelSetUp(prefixText: "", prefixTextColor: AppColors.themeRed, prefixFont: AppFonts.SemiBold.withSize(16.0)  , id: LocalizedString.YourBookingIdStmt.localized, middleTextColor: AppColors.themeBlack , middleFont: AppFonts.Regular.withSize(16.0), postfixText: LocalizedString.AertripEmailId.localized , postfixTextColor: AppColors.themeBlack , postfixFont: AppFonts.SemiBold.withSize(16.0), image: #imageLiteral(resourceName: "infoOrange"))
+        withLabel.textColor = AppColors.themeBlack
+        withLabel.enabledTypes = allTypes
+        withLabel.customize { label in
+            label.font = AppFonts.Regular.withSize(16.0)
+            label.attributedText = textToDisplay
+            for item in allTypes {
+                label.customColor[item] = AppColors.themeBlack
+                label.customSelectedColor[item] = AppColors.themeBlack
+                
+            }
+            label.highlightFontName = AppFonts.SemiBold.rawValue
+            label.highlightFontSize = 16.0
+            label.handleCustomTap(for: seeExample) {[weak self] _ in
+                self?.handler?()
+            }
+            
+        }
     }
     
     //Mark:- IBActions

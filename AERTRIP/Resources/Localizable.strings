@@ -423,6 +423,7 @@
 "ResetFilter" = "Reset Filter";
 "NoRoomsAvailable" = "No Rooms Available";
 "Reviews" = "Reviews";
+"ConvenienceFeeNonRefundables" = "Convenience Fee (Non Refundable)";
 
 // Others
 "FreeWifi" = "Free Wifi";

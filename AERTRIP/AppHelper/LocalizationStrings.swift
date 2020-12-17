@@ -716,7 +716,7 @@ enum LocalizedString: String {
     case PleaseEnterCouponCode
     case BookingConfirmed
     case BookingIsInProcess
-
+    case ConvenienceFeeNonRefundables
     
     case EnterIsdMessage
     case GuestDetailsMessage

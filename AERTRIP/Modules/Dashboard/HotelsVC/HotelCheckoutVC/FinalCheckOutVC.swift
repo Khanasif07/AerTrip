@@ -253,7 +253,7 @@ class FinalCheckOutVC: BaseVC {
             convenieneCell.aertripWalletTitleLabel.textColor = AppColors.themeBlack
             let amount = isWallet ? self.convenienceFeesWallet : self.convenienceRate
             if self.isConvenienceFeeApplied {
-                convenieneCell.aertripWalletTitleLabel.text = LocalizedString.ConvenienceFee.localized
+                convenieneCell.aertripWalletTitleLabel.text = LocalizedString.ConvenienceFeeNonRefundables.localized
                 convenieneCell.walletAmountLabel.attributedText = amount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
                 convenieneCell.labelBottomConstraint.constant = self.isWallet ? 0 : 11
                 if self.isCouponApplied, self.isCouponSectionExpanded {

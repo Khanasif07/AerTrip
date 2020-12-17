@@ -9,6 +9,7 @@
 import Foundation
 import PassKit
 import FBSDKShareKit
+import MessageUI
 
 extension FlightPaymentBookingStatusVC{
     
@@ -17,6 +18,9 @@ extension FlightPaymentBookingStatusVC{
         
         cell.configCell(forBookingId: self.viewModel.itinerary.bookingNumber, forCid: LocalizedString.na.localized, isBookingPending: (self.viewModel.itinerary.bookingStatus.status.lowercased() != "booked"))
         cell.delegate = self
+        cell.handler = {[weak self] in
+            self?.sendEmail()
+        }
         cell.addToAppleWalletButton.isLoading = self.viewModel.isLoadingWallet
         return cell
     }
@@ -385,6 +389,27 @@ extension FlightPaymentBookingStatusVC : HCBookingDetailsTableViewHeaderFooterVi
         obj.viewModel.bookingId = self.viewModel.apiBookingIds.first ?? ""
         obj.viewModel.flightTraveller = self.viewModel.itinerary.travellerDetails.t
         self.present(obj, animated: true, completion: nil)
+    }
+    
+}
+
+extension FlightPaymentBookingStatusVC: MFMailComposeViewControllerDelegate{
+    
+    func sendEmail() {
+        if MFMailComposeViewController.canSendMail() {
+            let mail = MFMailComposeViewController()
+            mail.mailComposeDelegate = self
+            mail.setToRecipients([LocalizedString.AertripEmailId.localized])
+            mail.setMessageBody("", isHTML: true)
+
+            present(mail, animated: true)
+        } else {
+            // show failure alert
+        }
+    }
+
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true)
     }
     
 }
