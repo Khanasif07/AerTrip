@@ -124,6 +124,8 @@ class FlightSortFilterViewController: UIViewController {
         setupTableView()
         setupSortDescription()
         viewModel.selectedSorting = Sort.Smart
+        viewModel.vmDelegate = self
+        viewModel.setAppliedSortFromDeepLink()
     }
 }
 
@@ -264,5 +266,11 @@ extension FlightSortFilterViewController : UITableViewDataSource , UITableViewDe
         self.sortTableview.reloadData()
         
         return indexPath
+    }
+}
+
+extension FlightSortFilterViewController: FlightsSortVMDelegate {
+    func selectRow(row: Int) {
+        sortTableview.selectRow(at: IndexPath(row: row, section: 0), animated: false, scrollPosition: .none)
     }
 }

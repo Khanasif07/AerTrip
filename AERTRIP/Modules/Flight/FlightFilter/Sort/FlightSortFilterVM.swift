@@ -42,6 +42,8 @@ class FlightSortFilterVM {
     var  arrivalModeLatestFirst : Bool = false
     var  priceHighToLow : Bool = false
     var  durationLogestFirst : Bool = false
+    var flightSearchParameters = JSONDictionary()
+    weak var vmDelegate: FlightsSortVMDelegate?
 
     weak var delegate : SortFilterDelegate?
     var selectedSorting = Sort.Smart
@@ -57,4 +59,72 @@ class FlightSortFilterVM {
         selectedSorting = Sort.Smart
         delegate?.sortFilterChanged(sort: selectedSorting)
     }
+    
+    func setAppliedSortFromDeepLink() {
+        let sharedSortOrder = flightSearchParameters["sort[]"] as? String ?? ""
+        let order = FlightResultBaseViewController.SortingValuesWhenShared(rawValue: sharedSortOrder) ?? FlightResultBaseViewController.SortingValuesWhenShared.smart
+        
+        func getOrder() -> (Sort, Bool) {
+            switch order {
+            
+            case .priceLowToHigh:
+                return (Sort.Price, false)
+                
+            case .priceHighToLow:
+                return (Sort.Price, true)
+                
+            case .durationLowToHigh:
+                return (Sort.Duration, false)
+                
+            case .durationHighToLow:
+                return (Sort.Duration, true)
+                
+            case .departureLowToHigh:
+                return (Sort.Depart, false)
+                
+            case .departureHighToLow:
+                return (Sort.Depart, true)
+                
+            case .arivalLowToHigh:
+                return (Sort.Arrival, false)
+                
+            case .arivalHighToLow:
+                return (Sort.Arrival, true)
+                
+            default:
+                return (Sort.Smart, false)
+            }
+        }
+        
+        let sortType = getOrder().0
+        let isDescending = getOrder().1
+        
+        selectedSorting = sortType
+        
+        switch sortType {
+        case .Price:
+            priceHighToLow = isDescending
+            delegate?.priceFilterChangedWith(priceHighToLow)
+            selectedIndex = 1
+            vmDelegate?.selectRow(row: 1)
+        case .Duration:
+            durationLogestFirst = isDescending
+            delegate?.durationFilterChangedWith(durationLogestFirst)
+            selectedIndex = 2
+            vmDelegate?.selectRow(row: 2)
+        case .Depart:
+            departModeLatestFirst = isDescending
+            delegate?.departSortFilterChanged(departMode: departModeLatestFirst)
+            selectedIndex = 3
+            vmDelegate?.selectRow(row: 3)
+        case .Arrival:
+            arrivalModeLatestFirst = isDescending
+            delegate?.departSortFilterChanged(departMode: arrivalModeLatestFirst)
+            selectedIndex = 4
+            vmDelegate?.selectRow(row: 4)
+        default:
+            break
+        }
+    }
+    
 }
