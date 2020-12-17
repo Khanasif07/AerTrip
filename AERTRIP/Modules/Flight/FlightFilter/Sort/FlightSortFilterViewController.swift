@@ -12,48 +12,12 @@ import UIKit
 //    func resetSort()
 //}
 
-protocol SortFilterDelegate : FilterDelegate {
-
-    func resetSort()
-    func sortFilterChanged(sort : Sort )
-    func departSortFilterChanged( departMode  : Bool )
-    func arrivalSortFilterChanged( arrivalMode : Bool)
-    func durationSortFilterChanged( longestFirst : Bool)
-    
-    func priceFilterChangedWith(_ highToLow: Bool)
-    func durationFilterChangedWith(_ longestFirst: Bool)
-    func departSortFilterChangedWith(_ index: Int,_ earliestFirst: Bool)
-    func arrivalSortFilterChangedWith(_ index: Int,_ earliestFirst: Bool)
-}
-
-extension SortFilterDelegate {
-    func priceFilterChangedWith(_ highToLow: Bool) { }
-    func durationFilterChangedWith(_ latestFirst: Bool) { }
-    func departSortFilterChangedWith(_ index: Int,_ earliestFirst: Bool) { }
-    func arrivalSortFilterChangedWith(_ index: Int,_ earliestFirst: Bool) { }
-}
-
-protocol FilterViewController : UIViewController {
-    func initialSetup()
-    func resetFilter()
-    func updateUIPostLatestResults()
-}
-
 class FlightSortFilterViewController: UIViewController {
 
     @IBOutlet weak var smartSortDescription: UILabel!
     @IBOutlet weak var sortTableview: UITableView!
     
-    var  departModeLatestFirst : Bool = false
-    var  arrivalModeLatestFirst : Bool = false
-    var  priceHighToLow : Bool = false
-    var  durationLogestFirst : Bool = false
-
-    weak var delegate : SortFilterDelegate?
-    var selectedSorting = Sort.Smart
-    var isInitialSetup = true
-    var isFirstIndexSelected = true
-    var selectedIndex = 0
+    let viewModel = FlightSortFilterVM()
     
     //MARK:- View Controller Life Cycle Methods
     override func viewDidLoad() {
@@ -72,12 +36,7 @@ class FlightSortFilterViewController: UIViewController {
     
     func resetSort()
     {
-        departModeLatestFirst = false
-        arrivalModeLatestFirst = false
-        priceHighToLow = false
-        durationLogestFirst = false
-        selectedSorting = Sort.Smart
-        delegate?.sortFilterChanged(sort: selectedSorting)
+        viewModel.resetSort()
         self.sortTableview.reloadData()
     }
     
@@ -88,7 +47,7 @@ class FlightSortFilterViewController: UIViewController {
             
             
             var attributes : [NSAttributedString.Key : Any]
-            if ( sortFilter == selectedSorting) {
+            if ( sortFilter == viewModel.selectedSorting) {
                 attributes = [NSAttributedString.Key.font : AppFonts.Regular.withSize(18),
                               NSAttributedString.Key.foregroundColor : UIColor.AertripColor]
             }
@@ -100,16 +59,16 @@ class FlightSortFilterViewController: UIViewController {
             
             var substring = "  " + sortFilter.subTitle
             
-            if index == 1 && priceHighToLow {
+            if index == 1 && viewModel.priceHighToLow {
                 substring = "  " + "High to low"
             }
-            if index == 2  && durationLogestFirst {
+            if index == 2  && viewModel.durationLogestFirst {
                 substring = "  "  + "Longest first"
             }
-            if index == 3 && departModeLatestFirst{
+            if index == 3 && viewModel.departModeLatestFirst{
                 substring = "  " + "Latest first"
             }
-            if index == 4 && arrivalModeLatestFirst  {
+            if index == 4 && viewModel.arrivalModeLatestFirst  {
                 substring = "  " + "Latest first"
             }
 
@@ -164,7 +123,9 @@ class FlightSortFilterViewController: UIViewController {
     func initialSetup() {
         setupTableView()
         setupSortDescription()
-        selectedSorting = Sort.Smart
+        viewModel.selectedSorting = Sort.Smart
+        viewModel.vmDelegate = self
+        viewModel.setAppliedSortFromDeepLink()
     }
 }
 
@@ -181,10 +142,10 @@ extension FlightSortFilterViewController : UITableViewDataSource , UITableViewDe
         cell.accessoryView = nil
         if  let sortFilter = Sort(rawValue: indexPath.row) {
             
-            if sortFilter == selectedSorting {
+            if sortFilter == viewModel.selectedSorting {
 //                cell.accessoryView = UIImageView(image: UIImage(named: "greenTick"))
                 
-                if isInitialSetup == false
+                if viewModel.isInitialSetup == false
                 {
                     let indicator = UIActivityIndicatorView(style: .medium)
                     indicator.color = .AertripColor
@@ -210,19 +171,19 @@ extension FlightSortFilterViewController : UITableViewDataSource , UITableViewDe
     func tableView(_ tableView: UITableView, willDeselectRowAt indexPath: IndexPath) -> IndexPath? {
         
         if indexPath.row == 1 {
-            priceHighToLow = false
+            viewModel.priceHighToLow = false
         }
         
         if indexPath.row == 2 {
-            durationLogestFirst = false
+            viewModel.durationLogestFirst = false
         }
         
         if indexPath.row == 3 {
-            departModeLatestFirst = false
+            viewModel.departModeLatestFirst = false
         }
         
         if indexPath.row == 4{
-            arrivalModeLatestFirst = false
+            viewModel.arrivalModeLatestFirst = false
         }
 
         return indexPath
@@ -232,83 +193,84 @@ extension FlightSortFilterViewController : UITableViewDataSource , UITableViewDe
     {
 
         if indexPath.row == 0{
-            if selectedIndex == indexPath.row{
+            if viewModel.selectedIndex == indexPath.row{
                 return indexPath
             }
         }
-        selectedIndex = indexPath.row
+        viewModel.selectedIndex = indexPath.row
 
-        isInitialSetup = false
+        viewModel.isInitialSetup = false
         
         if indexPath.row != 1 {
-            priceHighToLow = false
+            viewModel.priceHighToLow = false
         }
         
         if indexPath.row != 2 {
-            durationLogestFirst = false
+            viewModel.durationLogestFirst = false
         }
         
         if indexPath.row != 3 {
-            departModeLatestFirst = false
+            viewModel.departModeLatestFirst = false
         }
         
         if indexPath.row != 4{
-            arrivalModeLatestFirst = false
+            viewModel.arrivalModeLatestFirst = false
         }
         
         
         if tableView.indexPathForSelectedRow == indexPath {
             
             if indexPath.row == 1{
-                priceHighToLow.toggle()
+                viewModel.priceHighToLow.toggle()
             }
             
             if indexPath.row == 2 {
-                durationLogestFirst.toggle()
+                viewModel.durationLogestFirst.toggle()
             }
             
             if indexPath.row == 3 {
-                departModeLatestFirst.toggle()
+                viewModel.departModeLatestFirst.toggle()
             }
             
             if indexPath.row == 4{
-                arrivalModeLatestFirst.toggle()
+                viewModel.arrivalModeLatestFirst.toggle()
             }
         }
         
         if let sortFilter = Sort(rawValue: indexPath.row) {
            
-            self.selectedSorting = sortFilter
+            self.viewModel.selectedSorting = sortFilter
             
             switch  indexPath.row
             {
           
             case 0:
-                delegate?.sortFilterChanged(sort: .Smart)
+                viewModel.delegate?.sortFilterChanged(sort: .Smart)
             
             case 1:
-                delegate?.priceFilterChangedWith(priceHighToLow)
+                viewModel.delegate?.priceFilterChangedWith(viewModel.priceHighToLow)
                 
             case 2 :
-                delegate?.durationFilterChangedWith(durationLogestFirst)
+                viewModel.delegate?.durationFilterChangedWith(viewModel.durationLogestFirst)
 
             case 3 :
-                delegate?.departSortFilterChanged(departMode: departModeLatestFirst)
+                viewModel.delegate?.departSortFilterChanged(departMode: viewModel.departModeLatestFirst)
                 
             case 4 :
-                delegate?.arrivalSortFilterChanged(arrivalMode: arrivalModeLatestFirst)
+                viewModel.delegate?.arrivalSortFilterChanged(arrivalMode: viewModel.arrivalModeLatestFirst)
                 
             default :
                 break
-//                if indexPath.row == 1 && priceHighToLow == true{
-//                    delegate?.sortFilterChanged(sort: Sort(rawValue: 7)!)
-//                }else{
-//                    delegate?.sortFilterChanged(sort: sortFilter)
-//                }
             }
         }
         self.sortTableview.reloadData()
         
         return indexPath
+    }
+}
+
+extension FlightSortFilterViewController: FlightsSortVMDelegate {
+    func selectRow(row: Int) {
+        sortTableview.selectRow(at: IndexPath(row: row, section: 0), animated: false, scrollPosition: .none)
     }
 }

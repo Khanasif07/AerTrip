@@ -171,7 +171,7 @@ extension FlightSearchResultVM :  FlightStopsFilterDelegate {
     func allStopsSelectedAt(_ index: Int) {
         
         if isIntMCOrReturnJourney {
-            intFlightLegs[0].allStopsSelected()
+            intFlightLegs[0].allStopsSelected(index)
             return
         }
         

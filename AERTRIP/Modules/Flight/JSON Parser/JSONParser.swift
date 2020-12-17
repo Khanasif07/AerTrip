@@ -31,6 +31,10 @@ func parse <T: Decodable >(data: Data ,into type: T.Type , with decoder : JSONDe
         
 
     } catch let DecodingError.keyNotFound(key, context) {
+        
+        printDebug("~~~~~~~~~~JSON PARSING ERROR~~~~~~~~~~~")
+        printDebug(context)
+        printDebug("~~~~~~~~~~JSON PARSING ERROR~~~~~~~~~~~")
 
         for element in context.codingPath {
 
@@ -39,12 +43,20 @@ func parse <T: Decodable >(data: Data ,into type: T.Type , with decoder : JSONDe
 
     } catch let DecodingError.valueNotFound(value, context) {
         
+        printDebug("~~~~~~~~~~JSON PARSING ERROR~~~~~~~~~~~")
+        printDebug(context)
+        printDebug("~~~~~~~~~~JSON PARSING ERROR~~~~~~~~~~~")
+        
         for element in context.codingPath {
         }
         
         saveToFile(data.prettyPrintedJSONString as? String ?? "")
 
     } catch let DecodingError.typeMismatch(type, context)  {
+        
+        printDebug("~~~~~~~~~~JSON PARSING ERROR~~~~~~~~~~~")
+        printDebug(context)
+        printDebug("~~~~~~~~~~JSON PARSING ERROR~~~~~~~~~~~")
         
         for element in context.codingPath {
         }

@@ -73,7 +73,7 @@ class IntMCAndReturnVM {
     
     
      func setPinnedFlights(shouldApplySorting : Bool = false) {
-        
+        guard results.journeyArray != nil else { return }
         var sortArray = self.results.journeyArray.reduce([]) { $0 + $1.pinnedFlights }
 
         switch  sortOrder {

@@ -312,6 +312,9 @@ class HotelsSearchVC: BaseVC {
     }
     
     private func updateNearMeLocation() {
+        if HotelsSearchVM.hotelFormData.isComingFromFavouriteHotels {
+            return
+        }
         func fetchUpdatedLocation() {
             LocationManager.shared.startUpdatingLocationWithCompletionHandler { [weak self] (location, error) in
                 LocationManager.shared.locationUpdate = nil
@@ -342,6 +345,10 @@ class HotelsSearchVC: BaseVC {
         if olddata != nil {
             self.viewModel.searchedFormData = olddata ?? HotelFormPreviosSearchData()
         } else {
+            if oldData.isComingFromFavouriteHotels {
+                viewModel.callSearchDestinationAPI(oldData)
+                return
+            }
             self.viewModel.searchedFormData = oldData
         }
         
@@ -646,6 +653,7 @@ class HotelsSearchVC: BaseVC {
 //                        UserInfo.hotelFilterApplied = nil
 //                        UserDefaults.setObject(false, forKey: "shouldApplyFormStars")
 //                    }
+                    print(self.viewModel.searchedFormData)
                     if AppGlobals.shared.isNetworkRechable() {
                         AppFlowManager.default.moveToHotelsResultVc(withFormData: HotelsSearchVM.hotelFormData)
                     }
@@ -868,6 +876,12 @@ extension HotelsSearchVC: SelectDestinationVCDelegate {
 //MARK:- SearchHoteslOnPreferencesDelegate
 //========================================
 extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
+    
+    func favouriteHotelAPISuccess() {
+        HotelsSearchVM.hotelFormData.isComingFromFavouriteHotels = false
+        setDataFromPreviousSearch()
+    }
+    
     func getMyLocationSuccess() {
         if let model = self.viewModel.nearMeLocation {
             didSelectedDestination(hotel: model)
