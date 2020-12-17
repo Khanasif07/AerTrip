@@ -26,7 +26,6 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     var flightsResults  =  FlightsResults()
     
-    //    var amenitiesData = ["DirecTV", "Free Wi-Fi", "Personal televisions", "Open and closed suite", "The airline meal"]
     var baggageData = [JSONDictionary]()
     var isChangeOfAirport = false
     var sid = ""
@@ -36,6 +35,7 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     var selectedIndex : IndexPath!
     var selectedJourneyFK = [String]()
     var fewSeatsLeftViewHeight = 0
+    let viewModel = FlightDetailsInfoVM()
 
 
     //MARK:- Initial Display Methods
@@ -45,7 +45,7 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         
         self.journey = clearCache.checkTimeAndClearIntFlightPerformanceResultCache(journey: journey)
         clearCache.checkTimeAndClearFlightBaggageResultCache()
-        
+        self.viewModel.delegate = self
         getFlightsInfo()
         flightInfoTableView.estimatedRowHeight = UITableView.automaticDimension
         flightInfoTableView.alwaysBounceVertical = true
@@ -85,7 +85,7 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
             for j in 0..<legs.count{
 
                 if appdelegate.flightBaggageMutableArray.count == 0{
-                    callAPIforBaggageInfo(sid: sid, fk: journey?.fk ?? "")
+                    self.viewModel.callAPIforBaggageInfo(sid: sid, fk: journey?.fk ?? "")
                 }else{
                     for i in 0..<self.appdelegate.flightBaggageMutableArray.count{
                         if let baggageArray = self.appdelegate.flightBaggageMutableArray[i] as? JSONDictionary
@@ -99,7 +99,7 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                     }
 
                     if self.baggageData.count == 0{
-                        callAPIforBaggageInfo(sid: sid, fk: journey?.fk ?? "")
+                        self.viewModel.callAPIforBaggageInfo(sid: sid, fk: journey?.fk ?? "")
                     }
                 }
 
@@ -108,7 +108,7 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                         let flight = allFlights[k]
 
                         if flight.ontimePerformanceDataStoringTime == nil{
-                            callAPIforFlightsOnTimePerformace(origin: flight.fr, destination: flight.to, airline: flight.al, flight_number: flight.fn, index: [j,k], FFK:flight.ffk)
+                            self.viewModel.callAPIforFlightsOnTimePerformace(origin: flight.fr, destination: flight.to, airline: flight.al, flight_number: flight.fn, index: [j,k], FFK:flight.ffk)
                         }
 
                         if k > 0{
@@ -339,27 +339,8 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                     cell.classNameLabel.layer.masksToBounds = true
                     
                     var bc = flight.bc
-//                    if bc != ""{
-//                        bc =  " (" + bc + ")"
-//                        if flight.ccChg == 1{
-//                            cell.classLabel.text = flight.al + " - " + flight.fn + "・"
-//
-//                            cell.classNameLabel.attributedText = cell.addAttributsForRange((" " + flight.cc + bc + " "), coloredString: (" " + flight.cc + bc + " "), color: AppColors.lightYellow)
-//                            cell.classNameLabel.textColor = UIColor.black
-//                        }else{
-//                            cell.classLabel.text = flight.al + " - " + flight.fn + "・"
-//
-//                            cell.classNameLabel.attributedText = cell.addAttributsForRange("" + flight.cc + bc + " ", coloredString: flight.cc, color: UIColor.clear)
-//                            cell.classNameLabel.textColor = AppColors.themeGray40
-//                        }
-//                    }else{
-//                        cell.classLabel.text = flight.al + " - " + flight.fn + "・"
-//                        cell.classNameLabel.text = flight.cc
-//                        cell.classNameLabel.textColor = AppColors.themeGray40
-//                    }
-                    
-
                     var cc = flight.cc
+                    
                     if cc == "Premium Economy"{
                         cc = "Premium E"
                     }
@@ -367,24 +348,20 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                     if bc != ""{
                         bc =  " (" + bc + ")"
                         if flight.ccChg == 1{
-                            cell.classLabel.text = ""// flight.al + " - " + flight.fn + "・"
-                            
+                            cell.classLabel.text = ""
 
                             let str = flight.al + " - " + flight.fn + "・" + " " + cc + bc + " "
-                            
+                        
                             cell.classNameLabel.attributedText = cell.addAttributsForRange(str, coloredString: (" " + flight.cc + bc + " "), color: AppColors.lightYellow)
                             cell.classNameLabel.textColor = UIColor.black
                         }else{
-                            cell.classLabel.text = ""//flight.al + " - " + flight.fn + "・"
+                            cell.classLabel.text = ""
                             
                             let str = flight.al + " - " + flight.fn + "・" + "" + cc + bc + " "
                             cell.classNameLabel.attributedText = cell.addAttributsForRange(str, coloredString: flight.cc, color: UIColor.clear)
                             cell.classNameLabel.textColor = AppColors.themeGray40
                         }
                     }else{
-//                        cell.classLabel.text = flight.al + " - " + flight.fn + "・"
-//                        cell.classNameLabel.text = flight.cc
-                        
                         let str  = flight.al + " - " + flight.fn + "・" + cc
                         cell.classNameLabel.text = str
                         cell.classNameLabel.textColor = AppColors.themeGray40
@@ -407,16 +384,11 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                     }else{
                         cell.arrivalAirportLabel.attributedText = cell.addAttributsForRange(flight.to, coloredString: flight.to, color: AppColors.clear)
                     }
-//                    cell.setClassNameLabelWidth()
                     
                     cell.arrivalPerformaceButton.isUserInteractionEnabled = false
                     cell.onArrivalPerformanceLabel.text = ""
                     cell.onArrivalPerformanceView.isHidden = true
                     cell.onArrivalPerformanceViewWidth.constant = 0
-                    
-                    
-                    
-                    
                     
                     if flight.ontimePerformanceDataStoringTime != nil{
                         if Double(flight.ontimePerformance ?? 0) > 90.0{
@@ -437,12 +409,8 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                         }
                         
                         cell.onArrivalPerformanceLabel.text = "\(flight.ontimePerformance ?? 0)\(ontimeText)"
-
                         cell.onArrivalPerformanceViewWidth.constant = viewWidth
-
                         cell.arrivalPerformaceButton.isUserInteractionEnabled = true
-                        
-                        
                         cell.onArrivalPerformanceView.isHidden = false
                         
                         let onTimePerformanceInPercent = flight.ontimePerformance ?? 0
@@ -486,9 +454,6 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                         cell.departureDateLabel.attributedText = nil
                         cell.departureDateLabel.text = cell.dateConverter(dateStr: flight.dd)
                     }
-                    
-//                    cell.arrivalTerminalLabel.text = flight.atm
-//                    cell.departureTerminalLabel.text = flight.dtm
                     
                     if flight.atm != ""{
                         if flight.isArrivalTerminalChange == true{
@@ -575,16 +540,6 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 
                     }
                     
-//                    if indexPath.section == 0 && indexPath.row == 0{
-//                        cell.topSeperatorViewHeight.constant = 0
-//                        cell.topSeperatorView.isHidden = true
-//                    }else if tableView.numberOfRows(inSection: indexPath.section) > 1{
-//                        cell.topSeperatorView.isHidden = !(indexPath.row == 0)
-//                        cell.topSeperatorViewHeight.constant = (indexPath.row == 0) ? 0.5 : 0
-//                    }else{
-//                        cell.topSeperatorViewHeight.constant = 0.5
-//                        cell.topSeperatorView.isHidden = false
-//                    }
                     return cell
                 }else{
                     guard let layoverCell = tableView.dequeueReusableCell(withIdentifier: "LayoverViewCell") as? LayoverViewTableViewCell else {return UITableViewCell()}
@@ -640,19 +595,6 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     //MARK:- Scrollview Delegate
     func scrollViewDidScroll(_ scrollView: UIScrollView)
     {
-//        var isHidden = false
-//        var viewHeight = 0.0
-//        if scrollView.contentOffset.y < 0{
-//            isHidden = false
-//            viewHeight = 0.5
-//        }else{
-//            isHidden = true
-//            viewHeight = 0
-//        }
-//        if let cell = flightInfoTableView.cellForRow(at: IndexPath(item: 0, section: 0)) as? FlightDetailsTableViewCell {
-//            cell.topSeperatorView.isHidden = isHidden
-//            cell.topSeperatorViewHeight.constant = CGFloat(viewHeight)
-//        }
     }
     
     //MARK:- Calculate Travelling Time
@@ -676,40 +618,9 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     
-//    func addAttributsForRange(_ text: String, coloredString:String, color: UIColor, isForground:Bool = false)-> NSAttributedString{
-//        
-//        let range = (text as NSString).range(of: coloredString)
-//        let attribute = NSMutableAttributedString.init(string: text)
-//        if isForground{
-//             attribute.addAttribute(NSAttributedString.Key.foregroundColor, value: color , range: range)
-//        }else{
-//             attribute.addAttribute(NSAttributedString.Key.backgroundColor, value: color , range: range)
-//        }
-//       
-//        return attribute
-//    }
-    
-    
-//    func dateConverter(dateStr:String)-> String{
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "yyyy-MM-dd"
-//        if let date = dateFormatter.date(from: dateStr){
-//            dateFormatter.dateFormat = "E, d MMM yyyy"
-//            return dateFormatter.string(from: date)
-//        }
-//        return ""
-//    }
-    
-    
     //MARK:- Set Image
     func setImageFromPath(urlPath : String  , to imageView : UIImageView){
         imageView.setImageWithUrl(urlPath, placeholder: UIImage(), showIndicator: false)//resourceFor(urlPath: urlPath)
-//        guard  let urlobj = URL(string: urlPath) else { return }
-//        let urlRequest = URLRequest(url: urlobj)
-//        if let responseObj = URLCache.shared.cachedResponse(for: urlRequest) {
-//            let image = UIImage(data: responseObj.data)
-//            imageView.image = image
-//        }
     }
     
     func getSelectedAmenities(amenitiesData:[String:String], index:Int, cellIndexPath: IndexPath){
@@ -732,108 +643,137 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                 arrivalPerformanceView.onTimePerformanceInPercent = flight.ontimePerformance ?? 0
                 arrivalPerformanceView.modalPresentationStyle = .overFullScreen
                 self.present(arrivalPerformanceView, animated: false, completion: nil)
-//                arrivalPerformanceView.view.frame = self.parent!.view.bounds
-//                self.parent!.view.addSubview(arrivalPerformanceView.view)
-//                self.parent!.addChild(arrivalPerformanceView)
-//                arrivalPerformanceView.willMove(toParent: self)
             }
         }
     }
     
     //MARK:- API Call
-    func callAPIforFlightsOnTimePerformace(origin: String, destination: String, airline: String, flight_number: String, index:[Int],FFK:String, count:Int = 3){
-        guard count > 0 else {return}
-        let webservice = WebAPIService()
-        webservice.executeAPI(apiServive: .flightPerformanceResult(origin: origin, destination: destination, airline: airline, flight_number: flight_number), completionHandler: {[weak self](data) in
-            guard let self = self else {return}
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            
-            DispatchQueue.main.async {
-                if var currentParsedResponse = parse(data: data, into: flightPerformaceResponse.self, with:decoder) {
-                    
-                    if currentParsedResponse.success == true{
-                        currentParsedResponse.data?.delayIndex?.index = index
-                        
-                        let date = Date()
-                        let calendar = Calendar.current
-                        let hour = calendar.component(.hour, from: date)
-                        let minutes = calendar.component(.minute, from: date)
-                        let seconds = calendar.component(.second, from: date)
-                        guard let flight = self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]] else {return}
-                        
-                        if flight.ffk == FFK{
-                            self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]].ontimePerformance = Int((currentParsedResponse.data?.delayIndex?.ontime) ?? "0")
-                            
-                            self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]].latePerformance = Int((currentParsedResponse.data?.delayIndex?.late) ?? "0")
-                            
-                            self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]].cancelledPerformance = Int((currentParsedResponse.data?.delayIndex?.cancelled) ?? "0")
-                            
-                            self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]].observationCount = Int((currentParsedResponse.data?.delayIndex?.observationCount) ?? "0")
-                            
-                            self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]].averageDelay = Int((currentParsedResponse.data?.delayIndex?.averageDelay) ?? "0")
-                            self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]].ontimePerformanceDataStoringTime = "\(hour):\(minutes):\(seconds)"
-                        }
-                        
-                        self.flightInfoTableView.reloadData()
-                    }
-                }
-            }
-        } , failureHandler : {[weak self](error ) in
-            guard let self = self else {return}
-            self.callAPIforFlightsOnTimePerformace(origin: origin, destination: destination, airline: airline, flight_number: flight_number, index:index, FFK:FFK,count:count - 1)
-            printDebug(error)
-        })
+//    func callAPIforFlightsOnTimePerformace(origin: String, destination: String, airline: String, flight_number: String, index:[Int],FFK:String, count:Int = 3){
+//        guard count > 0 else {return}
+//        let param = ["origin": origin,"destination":destination,"airline":airline,"flight_number":flight_number]
+//        APICaller.shared.getFlightPerformanceData(params: param){[weak self](prData, error) in
+//            guard let self = self else {return}
+//            if let data = prData{
+//                let decoder = JSONDecoder()
+//                decoder.keyDecodingStrategy = .convertFromSnakeCase
+//                DispatchQueue.main.async {
+//                    if var currentParsedResponse = parse(data: data, into: flightPerformaceResponse.self, with:decoder) {
+//
+//                        if currentParsedResponse.success == true{
+//                            currentParsedResponse.data?.delayIndex?.index = index
+//
+//                            let date = Date()
+//                            let calendar = Calendar.current
+//                            let hour = calendar.component(.hour, from: date)
+//                            let minutes = calendar.component(.minute, from: date)
+//                            let seconds = calendar.component(.second, from: date)
+//                            guard let flight = self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]] else {return}
+//
+//                            if flight.ffk == FFK{
+//                                self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]].ontimePerformance = Int((currentParsedResponse.data?.delayIndex?.ontime) ?? "0")
+//
+//                                self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]].latePerformance = Int((currentParsedResponse.data?.delayIndex?.late) ?? "0")
+//
+//                                self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]].cancelledPerformance = Int((currentParsedResponse.data?.delayIndex?.cancelled) ?? "0")
+//
+//                                self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]].observationCount = Int((currentParsedResponse.data?.delayIndex?.observationCount) ?? "0")
+//
+//                                self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]].averageDelay = Int((currentParsedResponse.data?.delayIndex?.averageDelay) ?? "0")
+//                                self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]].ontimePerformanceDataStoringTime = "\(hour):\(minutes):\(seconds)"
+//                            }
+//
+//                            self.flightInfoTableView.reloadData()
+//                        }
+//                    }
+//                }
+//            }else{
+//                self.callAPIforFlightsOnTimePerformace(origin: origin, destination: destination, airline: airline, flight_number: flight_number, index:index, FFK:FFK,count:count - 1)
+//            }
+//        }
+//    }
+    
+//    func callAPIforBaggageInfo(sid:String, fk:String, count:Int = 3){
+//
+//        let param = [APIKeys.sid.rawValue:sid, "fk[]":fk]
+//        APICaller.shared.getFlightbaggageDetails(params: param) {[weak self] (data, error) in
+//            guard let self = self , let bgData = data else {
+//                AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
+//                return
+//            }
+//            let keys = bgData.keys
+//            if keys.count > 0{
+//                for key in keys{
+//                    if let datas = bgData["\(key)"] as? JSONDictionary{
+//                        self.baggageData += [datas]
+//                    }
+//                }
+//            }
+//            let date = Date()
+//            let calendar = Calendar.current
+//            let hour = calendar.component(.hour, from: date)
+//            let minutes = calendar.component(.minute, from: date)
+//            let seconds = calendar.component(.second, from: date)
+//
+//            let newArr = ["Time":"\(hour):\(minutes):\(seconds)",
+//                          "selectedJourneyFK":self.selectedJourneyFK,
+//                          "BaggageDataResponse":self.baggageData] as [String : Any]
+//            self.appdelegate.flightBaggageMutableArray.add(newArr)
+//            self.flightInfoTableView.reloadData()
+//            delay(seconds: 0.3) {
+//                self.flightInfoTableView.reloadData()
+//            }
+//        }
+//    }
+}
+
+
+extension IntFlightInfoVC : FlightInfoVMDelegate{
+    func flightBaggageDetailsApiResponse(details: [JSONDictionary]) {
+        self.baggageData += details
+        let date = Date()
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: date)
+        let minutes = calendar.component(.minute, from: date)
+        let seconds = calendar.component(.second, from: date)
+        
+        let newArr = ["Time":"\(hour):\(minutes):\(seconds)",
+                      "selectedJourneyFK":self.selectedJourneyFK,
+                      "BaggageDataResponse":self.baggageData] as [String : Any]
+        self.appdelegate.flightBaggageMutableArray.add(newArr)
+        self.flightInfoTableView.reloadData()
+        delay(seconds: 0.3) {
+            self.flightInfoTableView.reloadData()
+        }
+        
     }
     
-    func callAPIforBaggageInfo(sid:String, fk:String, count:Int = 3){
-        guard count > 0 else {return}
-        let webservice = WebAPIService()
-        webservice.executeAPI(apiServive: .baggageResult(sid: sid, fk: fk), completionHandler: {[weak self](data) in
-            guard let self = self else {return}
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            do{
-                let jsonResult:AnyObject?  = try JSONSerialization.jsonObject(with: data, options: []) as AnyObject
-                DispatchQueue.main.async {
-                    if let result = jsonResult as? [String: AnyObject] {
-                        if let data = result["data"] as? JSONDictionary {
-                            let keys = data.keys
-                            if keys.count > 0{
-                                for key in keys{
-                                    if let datas = data["\(key)"] as? JSONDictionary{
-                                        self.baggageData += [datas]
-                                    }
-                                }
-//                                for j in 0...keys.count-1{
-//                                    let str = keys[j] as! String
-//                                    if let datas = data.value(forKey: str) as? JSONDictionary{
-//                                        self.baggageData += [datas]
-//                                    }
-//                                }
-                            }
-                        }
-                    }
-                    let date = Date()
-                    let calendar = Calendar.current
-                    let hour = calendar.component(.hour, from: date)
-                    let minutes = calendar.component(.minute, from: date)
-                    let seconds = calendar.component(.second, from: date)
-                    let newArr = ["Time":"\(hour):\(minutes):\(seconds)",
-                        "selectedJourneyFK":self.selectedJourneyFK,
-                        "BaggageDataResponse":self.baggageData] as [String : Any]
-                    self.appdelegate.flightBaggageMutableArray.add(newArr)
-                    self.flightInfoTableView.reloadData()
-                    delay(seconds: 0.3) {
-                        self.flightInfoTableView.reloadData()
-                    }
-                }
-            }catch{
+    func flightPerformance(performanceData: flightPerfomanceResultData, index: [Int], fkk:String) {
+        
+            var currentParsedResponse = performanceData
+            currentParsedResponse.index = index
+            let date = Date()
+            let calendar = Calendar.current
+            let hour = calendar.component(.hour, from: date)
+            let minutes = calendar.component(.minute, from: date)
+            let seconds = calendar.component(.second, from: date)
+            guard let flight = self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]] else {return}
+            if flight.ffk == fkk{
+                self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]].ontimePerformance = Int((currentParsedResponse.ontime) ?? "0")
+                
+                self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]].latePerformance = Int((currentParsedResponse.late) ?? "0")
+                
+                self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]].cancelledPerformance = Int((currentParsedResponse.cancelled) ?? "0")
+                
+                self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]].observationCount = Int((currentParsedResponse.observationCount) ?? "0")
+                
+                self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]].averageDelay = Int((currentParsedResponse.averageDelay) ?? "0")
+                self.journey?.legsWithDetail[index[0]].flightsWithDetails[index[1]].ontimePerformanceDataStoringTime = "\(hour):\(minutes):\(seconds)"
             }
-        } , failureHandler : {[weak self](error ) in
-            guard let self = self else {return}
-            self.callAPIforBaggageInfo(sid:sid, fk:fk, count: count-1)
-            printDebug(error)
-        })
+            self.flightInfoTableView.reloadData()
+        
     }
+    
+    
+    
+    
 }

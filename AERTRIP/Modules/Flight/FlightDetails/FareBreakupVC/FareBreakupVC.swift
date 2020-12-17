@@ -382,7 +382,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         switch indexPath.section
         {
         case 0:
-            let fareBreakupCell = tableView.dequeueReusableCell(withIdentifier: "FareBreakupCell") as! FareBreakupTableViewCell
+            guard let fareBreakupCell = tableView.dequeueReusableCell(withIdentifier: "FareBreakupCell") as? FareBreakupTableViewCell else {return UITableViewCell()}
             fareBreakupCell.selectionStyle = .none
             
             if flightAdultCount == 0{
@@ -418,7 +418,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             return fareBreakupCell
             
         case 1:
-            let baseFareCell = tableView.dequeueReusableCell(withIdentifier: "BaseFareCell") as! BaseFareTableViewCell
+            guard let baseFareCell = tableView.dequeueReusableCell(withIdentifier: "BaseFareCell") as? BaseFareTableViewCell else{return UITableViewCell()}
             baseFareCell.selectionStyle = .none
             
             baseFareCell.titleLabelLeading.constant = 16
@@ -450,7 +450,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             
         case 2:
             if indexPath.row == 0{
-                let baseFareCell = tableView.dequeueReusableCell(withIdentifier: "BaseFareCell") as! BaseFareTableViewCell
+                guard let baseFareCell = tableView.dequeueReusableCell(withIdentifier: "BaseFareCell") as? BaseFareTableViewCell else {return UITableViewCell()}
                 baseFareCell.selectionStyle = .none
                 
                 if isTaxesSectionHidden == false{
@@ -489,7 +489,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 
                 return baseFareCell
             }else{
-                let baseFareCell = tableView.dequeueReusableCell(withIdentifier: "BaseFareCell") as! BaseFareTableViewCell
+                guard let baseFareCell = tableView.dequeueReusableCell(withIdentifier: "BaseFareCell") as? BaseFareTableViewCell else {return UITableViewCell()}
                 baseFareCell.selectionStyle = .none
                 
                 if isTaxesSectionHidden == false{

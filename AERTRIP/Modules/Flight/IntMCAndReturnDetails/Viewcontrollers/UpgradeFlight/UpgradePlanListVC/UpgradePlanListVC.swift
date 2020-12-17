@@ -38,14 +38,11 @@ class UpgradePlanListVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         planCollectionView.register( UINib(nibName: "PlansCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "plansCell")
-//        self.planCollectionView.isPagingEnabled = true
         self.planCollectionView.delegate = self
         self.planCollectionView.dataSource = self
-//        self.setupDisplayView()
         self.setupPageController()
         self.setupIndicator()
         self.setNoDataLabel()
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,7 +66,6 @@ class UpgradePlanListVC: BaseVC {
     
     func setupPageController(){
         self.journeyPageControl.numberOfPages = 0
-//        journeyPageControl.hidesForSinglePage = true
         self.journeyPageControl.currentPage = 0
         self.journeyPageControl.inactiveTransparency = 1.0
         self.journeyPageControl.inactiveTintColor = AppColors.themeGray220

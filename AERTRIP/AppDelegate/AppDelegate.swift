@@ -46,7 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         GoogleLoginController.shared.configure()
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
-        GMSServices.provideAPIKey(AppConstants.kGoogleAPIKey)
+        GMSServices.provideAPIKey(AppKeys.kGoogleAPIKey)
         UITextView.appearance().tintColor = AppColors.themeGreen
         UITextField.appearance().tintColor = AppColors.themeGreen
         
@@ -120,11 +120,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
         
-        delay(seconds: 1) {
-            CustomToast.shared.showToast("continue userActivity")
-        }
-        
-      
         guard let url = userActivity.webpageURL else { return false }
         
         if url.absoluteString.contains("?ref") {
@@ -163,14 +158,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        
-            CustomToast.shared.showToast("open url")
-        
-            
-        if url.scheme?.lowercased() == AppConstants.fbUrl {
+        if url.scheme?.lowercased() == AppKeys.fbUrl {
             return ApplicationDelegate.shared.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
         }
-        else if url.scheme?.lowercased() == AppConstants.googleUrl {
+        else if url.scheme?.lowercased() == AppKeys.googleUrl {
             return GIDSignIn.sharedInstance().handle(url)
             
         } else {
@@ -209,7 +200,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             
             let str = url?.query
-
+            
             for pairString in str?.components(separatedBy: "&") ?? [] {
                 let pair = pairString.components(separatedBy: "=")
                 

@@ -62,7 +62,11 @@ class FlightPaymentBookingStatusVM{
     func getSectionData(){
         
         // AllDone Section Cells
-        self.sectionData.append([.allDoneCell, .eventSharedCell])
+        var firstdata:[TableViewCellType] = [.allDoneCell]
+        if UserInfo.loggedInUser != nil{
+            firstdata.append(.eventSharedCell)
+        }
+        self.sectionData.append(firstdata)
         
         //Adding section according to legs and passenger count
         for _ in self.itinerary.details.legsWithDetail{

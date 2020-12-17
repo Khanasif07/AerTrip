@@ -88,11 +88,7 @@ extension IntFareBreakupVC: UITableViewDelegate,UITableViewDataSource{
             baseFareCell.titleLabel.text = "Base Fare"
             if taxesData != nil{
                 var amount = 0
-//                if journeyCombo != nil{
-//                    amount = journeyCombo.reduce(0) { $0 + $1.fare.BF.value }
-//                }else{
                 amount = journey.first?.fare.bf.value ?? 0
-//                }
                 
                 let price = displayPriceInFormat(price: Double(amount), fromOption : "FareAmount")
                 baseFareCell.amountLable.attributedText = price
@@ -106,16 +102,10 @@ extension IntFareBreakupVC: UITableViewDelegate,UITableViewDataSource{
                 guard let baseFareCell = tableView.dequeueReusableCell(withIdentifier: "BaseFareCell") as? BaseFareTableViewCell else {return UITableViewCell()}
                 baseFareCell.selectionStyle = .none
                 
-                
                 if !isTaxesSectionHidden{
-//                    baseFareCell.upArrowImg.image = UIImage(named: "upGray.png")
-                    
                     baseFareCell.upArrowImg.image = UIImage(named: "downGray.png")
                 }else{
-//                    baseFareCell.upArrowImg.image = UIImage(named: "downGray.png")
-                    
                     baseFareCell.upArrowImg.image = UIImage(named: "upGray.png")
-
                 }
                 
                 baseFareCell.titleLabelLeading.constant = 16
@@ -156,10 +146,8 @@ extension IntFareBreakupVC: UITableViewDelegate,UITableViewDataSource{
                 
                 
                 if indexPath.row == taxAndFeesData.count && (self.addonsData.count == 0){
-                    //                    baseFareCell.dataDisplayViewBottom.constant = 15
                     baseFareCell.titleLabelYPosition.constant = -7
                 }else{
-                    //                    baseFareCell.dataDisplayViewBottom.constant = 0
                     baseFareCell.titleLabelYPosition.constant = 0
                 }
                 return baseFareCell

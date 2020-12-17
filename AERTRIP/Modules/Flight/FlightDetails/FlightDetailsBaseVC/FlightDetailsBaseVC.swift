@@ -428,8 +428,9 @@ extension FlightDetailsBaseVC: PagingViewControllerDataSource , PagingViewContro
     
     func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool){
         
-        let pagingIndexItem = pagingItem as! PagingIndexItem
-        self.currentIndex = pagingIndexItem.index
+        if let pagingIndexItem = pagingItem as? PagingIndexItem{
+            self.currentIndex = pagingIndexItem.index
+        }
     }
 }
 
@@ -752,7 +753,7 @@ extension FlightDetailsBaseVC : FareBreakupVCDelegate
 extension FlightDetailsBaseVC : flightDetailsBaggageDelegate
 {
     func reloadBaggageSuperScriptAtIndexPath() {
-        self.delegate?.reloadRowFromFlightDetails(fk: journey.first!.fk, isPinned: false,isPinnedButtonClicked:false)
+        self.delegate?.reloadRowFromFlightDetails(fk: journey.first?.fk ?? "", isPinned: false,isPinnedButtonClicked:false)
     }
 }
 

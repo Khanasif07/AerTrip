@@ -136,6 +136,12 @@ extension IntMCAndReturnVC {
     }
     
     func setExpandedStateFooter() {
+        
+        if viewModel.results.aboveScoreCount == 0 || viewModel.resultTableState == .showPinnedFlights {
+            resultsTableView.tableFooterView = nil
+            return
+        }
+        
         let footerViewRect = CGRect(x: 0, y: 0, width: resultsTableView.frame.width, height: 95)
         let expandedFooterView = UIView(frame: footerViewRect)
         expandedFooterView.isUserInteractionEnabled = true
