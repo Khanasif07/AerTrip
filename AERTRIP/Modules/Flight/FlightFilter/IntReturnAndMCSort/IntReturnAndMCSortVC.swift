@@ -55,6 +55,8 @@ class IntReturnAndMCSortVC: UIViewController, FilterViewController {
         setupTableView()
         viewModel.selectedSorting = Sort.Smart
         viewModel.curSelectedIndex = 0
+        viewModel.vmDelegate = self
+        viewModel.setAppliedSortFromDeepLink()
     }
     
     func resetFilter() {
@@ -67,6 +69,7 @@ class IntReturnAndMCSortVC: UIViewController, FilterViewController {
     func updateUIPostLatestResults() {
         
     }
+    
 }
 
 extension IntReturnAndMCSortVC : UITableViewDataSource , UITableViewDelegate {
@@ -173,5 +176,11 @@ extension IntReturnAndMCSortVC : UITableViewDataSource , UITableViewDelegate {
         self.sortTableview.reloadData()
         
         return indexPath
+    }
+}
+
+extension IntReturnAndMCSortVC: FlightsSortVMDelegate {
+    func selectRow(row: Int) {
+        sortTableview.selectRow(at: IndexPath(row: row, section: 0), animated: false, scrollPosition: .none)
     }
 }

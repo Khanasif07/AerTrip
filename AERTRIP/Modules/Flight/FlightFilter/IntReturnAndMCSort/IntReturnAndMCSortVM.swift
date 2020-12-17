@@ -8,6 +8,10 @@
 
 import Foundation
 
+protocol FlightsSortVMDelegate: AnyObject {
+    func selectRow(row: Int)
+}
+
 class IntReturnAndMCSortVM {
     var  priceHighToLow : Bool = false
     var  durationLongestFirst : Bool = false
@@ -16,10 +20,11 @@ class IntReturnAndMCSortVM {
     var airportsArr = [AirportLegFilter]()
     
     var flightSearchParameters = JSONDictionary()
+    weak var vmDelegate: FlightsSortVMDelegate?
     
     var curSelectedIndex: Int?
     var earliestFirstAtDepartArrive: [Int: Bool] = [:]
-    
+        
     func getAttributedStringFor(index : Int) ->NSAttributedString? {
         
         if  let sortFilter = Sort(rawValue: index) {
@@ -78,5 +83,58 @@ class IntReturnAndMCSortVM {
            attributedString.append(substringAttributedString)
         
         return attributedString
+    }
+    
+    func setAppliedSortFromDeepLink() {
+        let sharedSortOrder = flightSearchParameters["sort[]"] as? String ?? ""
+        let order = FlightResultBaseViewController.SortingValuesWhenShared(rawValue: sharedSortOrder) ?? FlightResultBaseViewController.SortingValuesWhenShared.smart
+        
+        func getOrder() -> (Sort, Bool) {
+            switch order {
+            
+            case .priceLowToHigh:
+                return (Sort.Price, false)
+                
+            case .priceHighToLow:
+                return (Sort.Price, true)
+                
+            case .durationLowToHigh:
+                return (Sort.Duration, false)
+                
+            case .durationHighToLow:
+                return (Sort.Duration, true)
+                
+            case .departureLowToHigh:
+                return (Sort.Depart, false)
+                
+            case .departureHighToLow:
+                return (Sort.Depart, true)
+                
+            case .arivalLowToHigh:
+                return (Sort.Arrival, false)
+                
+            case .arivalHighToLow:
+                return (Sort.Arrival, true)
+                
+            default:
+                return (Sort.Smart, false)
+            }
+        }
+        
+        let sortType = getOrder().0
+        let isDescending = getOrder().1
+        
+        selectedSorting = sortType
+        if sortType == .Price {
+            priceHighToLow = isDescending
+            delegate?.priceFilterChangedWith(priceHighToLow)
+            curSelectedIndex = 1
+            vmDelegate?.selectRow(row: 1)
+        } else if sortType == .Duration {
+            durationLongestFirst = isDescending
+            delegate?.durationFilterChangedWith(durationLongestFirst)
+            curSelectedIndex = 2
+            vmDelegate?.selectRow(row: 2)
+        }
     }
 }
