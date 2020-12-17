@@ -28,7 +28,7 @@ extension OnAccountDetailVC: UITableViewDataSource, UITableViewDelegate {
         headerView.topSeparatorView.isHidden = false
         
         var dateStr = ""
-        if let event = self.getEvent(forIndexPath: IndexPath(row: 0, section: section), forTableView: tableView).event {
+        if let event = self.getEvent(forIndexPath: IndexPath(row: 0, section: section)).event {
             dateStr = event.onAccountDate?.toString(dateFormat: "dd MMM YYYY") ?? ""
         }
         headerView.headerLabel.text = dateStr.uppercased()
@@ -51,7 +51,7 @@ extension OnAccountDetailVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let (currentEvent, allCount) = self.getEvent(forIndexPath: indexPath, forTableView: tableView)
+        let (currentEvent, allCount) = self.getEvent(forIndexPath: indexPath)
 
         guard let event = currentEvent, let cell = self.tableView.dequeueReusableCell(withIdentifier: OnAccountEventCell.reusableIdentifier) as? OnAccountEventCell else {
             return UITableViewCell()
@@ -72,7 +72,7 @@ extension OnAccountDetailVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let (currentEvent, _) = self.getEvent(forIndexPath: indexPath, forTableView: tableView)
+        let (currentEvent, _) = self.getEvent(forIndexPath: indexPath)
         AppFlowManager.default.emoveToAccountLadgerDetailsForOnAccount(forEvent: currentEvent, detailType: .outstandingLadger)
         
 //        if let bID = currentEvent?.transactionId, !bID.isEmpty {
@@ -83,7 +83,7 @@ extension OnAccountDetailVC: UITableViewDataSource, UITableViewDelegate {
 //        }
     }
     
-    func getEvent(forIndexPath indexPath: IndexPath, forTableView: UITableView) -> (event: OnAccountLedgerEvent?, allCount: Int){
+    func getEvent(forIndexPath indexPath: IndexPath) -> (event: OnAccountLedgerEvent?, allCount: Int){
         
         guard !self.viewModel.accountDetails.isEmpty else {
             return (nil, 0)

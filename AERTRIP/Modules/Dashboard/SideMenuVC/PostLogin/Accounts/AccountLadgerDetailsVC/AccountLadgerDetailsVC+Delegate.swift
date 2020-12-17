@@ -80,7 +80,10 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
             }else if indexPath.row == self.viewModel.sectionArray[indexPath.section - 1].count-2{
                 return 36.0
             }else{
-               return 30.0
+                let section = indexPath.section - 1
+                let model = self.viewModel.sectionArray[section][indexPath.row]
+                
+                return (model.title == "Room" || model.title == " ") ? UITableView.automaticDimension : 30.0
             }
             
         }
@@ -338,7 +341,8 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
         guard let cell = self.tableView.dequeueReusableCell(withIdentifier: AccountLadgerDetailCell.reusableIdentifier) as? AccountLadgerDetailCell else {
             return UITableViewCell()
         }
-        
+        cell.descLabel.numberOfLines = 1
+        cell.titleLabel.contentMode = .center
         if title == "Balance" || title == "Amount" || title == "Total Amount"  || title == "Pending Amount"{
             var desc = description
             var suffix: NSMutableAttributedString?
@@ -357,6 +361,11 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
             printDebug("\(title)...\(val.string)....\(suffix)....\(desc)")
             cell.configureCellWithAttributedText(title: title, description: val)
         }else{
+            if title == "Room" || title == " "{
+                cell.descLabel.numberOfLines = 0
+                cell.titleLabel.contentMode = .top
+//                cell.descLabel.textAlignment = .right
+            }
             cell.configure(title: title, description: description, age: age)
         }
         

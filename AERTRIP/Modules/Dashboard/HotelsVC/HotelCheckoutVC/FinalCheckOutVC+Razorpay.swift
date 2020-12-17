@@ -12,7 +12,7 @@ import Razorpay
 extension FinalCheckOutVC: RazorpayPaymentCompletionProtocolWithData {
     
     func initializePayment(withOptions options: JSONDictionary) {
-        let razorpay: RazorpayCheckout = RazorpayCheckout.initWithKey(AppConstants.kRazorpayPublicKey, andDelegateWithData: self)
+        let razorpay: RazorpayCheckout = RazorpayCheckout.initWithKey(AppKeys.kRazorpayPublicKey, andDelegateWithData: self)
         //razorpay.open(options)
         razorpay.open(options, displayController: self)
     }

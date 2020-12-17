@@ -275,7 +275,7 @@ class AccountLadgerDetailsVM {
                 section3.append((title: "Room", value: value, age: "", isEmptyCell: false))
             }
             else {
-                section3.append((title: "", value: value, age: "", isEmptyCell: false))
+                section3.append((title: " ", value: value, age: "", isEmptyCell: false))
             }
         }
         

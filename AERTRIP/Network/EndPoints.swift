@@ -147,8 +147,8 @@ enum APIEndPoint: String {
     
     case whyAertrip = "https://beta.aertrip.com/why"
     case smartSort = "https://beta.aertrip.com/smart-sort"
-    case offers = "https://beta.aertrip.com/offers"
-    case contact = "https://beta.aertrip.com/contact"
+    case offers = "https://aertrip.com/offers"//"https://beta.aertrip.com/offers"
+    case contact = " https://aertrip.com/contactus"//"https://beta.aertrip.com/contact"
 
     //Flights
     case fareConfirmation = "flights/confirmation"
