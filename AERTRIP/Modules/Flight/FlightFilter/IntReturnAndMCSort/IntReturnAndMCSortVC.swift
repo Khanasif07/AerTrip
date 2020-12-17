@@ -12,17 +12,7 @@ class IntReturnAndMCSortVC: UIViewController, FilterViewController {
 
     @IBOutlet weak var sortTableview: UITableView!
         
-    var  priceHighToLow : Bool = false
-    var  durationLongestFirst : Bool = false
-    weak var delegate : SortFilterDelegate?
-    var selectedSorting = Sort.Smart
-    var airportsArr = [AirportLegFilter]()
-    
-    var flightSearchParameters = JSONDictionary()
-    
-    private var curSelectedIndex: Int?
-    private var earliestFirstAtDepartArrive: [Int: Bool] = [:]
-    
+    let viewModel = IntReturnAndMCSortVM()
     private let whySmartSortView = WhySmartSortView()
     
     //MARK:- View Controller Life Cycle Methods
@@ -44,84 +34,47 @@ class IntReturnAndMCSortVC: UIViewController, FilterViewController {
         sortTableview.tableFooterView = whySmartSortView
     }
     
-    fileprivate func getAttributedStringFor(index : Int) ->NSAttributedString? {
-        
-        if  let sortFilter = Sort(rawValue: index) {
-            
-            var attributes : [NSAttributedString.Key : Any]
-            if ( sortFilter == selectedSorting) {
-//                attributes = [NSAttributedString.Key.font : UIFont(name: "SourceSansPro-Regular", size: 18)! ,
-//                              NSAttributedString.Key.foregroundColor : UIColor.AertripColor]
-                
-                attributes = [NSAttributedString.Key.font : AppFonts.Regular.withSize(18) ,
-                              NSAttributedString.Key.foregroundColor : UIColor.AertripColor]
-
-            }
-            else {
-//                attributes = [NSAttributedString.Key.font : UIFont(name: "SourceSansPro-Regular", size: 18)!]
-                attributes = [NSAttributedString.Key.font : AppFonts.Regular.withSize(18)]
-
-            }
-            
-            let attributedString = NSMutableAttributedString(string: sortFilter.title, attributes: attributes)
-            
-            var substring = "  " + sortFilter.subTitle
-            
-            if index == 1  && priceHighToLow {
-                substring = "  "  + "High to Low"
-            }
-            if index == 2 && durationLongestFirst {
-                substring = "  " + "Longest first"
-            }
-            let substringAttributedString = NSAttributedString(string: substring, attributes: [NSAttributedString.Key.font : AppFonts.Regular.withSize(14), NSAttributedString.Key.foregroundColor : UIColor.ONE_FIVE_THREE_COLOR  ])
-            attributedString.append(substringAttributedString)
-         
-            return attributedString
-        }
-        return nil
-    }
-
-    
     private func tapLabel(gesture: UITapGestureRecognizer){
-   
+        
         guard let label = gesture.view as? UILabel  else { return }
         guard  let text = label.text else { return }
         let learnMoreRange = (text as NSString).range(of: "Learn more")
         if gesture.didTapAttributedTextInLabel(label: label, inRange: learnMoreRange) {
-        
-//            let webviewController = WebViewController()
-//            webviewController.urlPath = "https://aertrip.com/smart-sort"
-//            self.parent?.present(webviewController, animated: true, completion: nil)
-        
+            
+            //            let webviewController = WebViewController()
+            //            webviewController.urlPath = "https://aertrip.com/smart-sort"
+            //            self.parent?.present(webviewController, animated: true, completion: nil)
+            
             if let url = URL(string: APIEndPoint.smartSort.rawValue) {
                 AppFlowManager.default.showURLOnATWebView(url, screenTitle:  "Smart Sort", presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
             }
-
-        
         }
     }
     
     func initialSetup() {
         setupTableView()
-        selectedSorting = Sort.Smart
-        curSelectedIndex = 0
+        viewModel.selectedSorting = Sort.Smart
+        viewModel.curSelectedIndex = 0
+        viewModel.vmDelegate = self
+        viewModel.setAppliedSortFromDeepLink()
     }
     
     func resetFilter() {
-        selectedSorting = Sort.Smart
-        curSelectedIndex = 0
-        delegate?.sortFilterChanged(sort: selectedSorting)
+        viewModel.selectedSorting = Sort.Smart
+        viewModel.curSelectedIndex = 0
+        viewModel.delegate?.sortFilterChanged(sort: viewModel.selectedSorting)
         sortTableview.reloadData()
     }
     
     func updateUIPostLatestResults() {
         
     }
+    
 }
 
 extension IntReturnAndMCSortVC : UITableViewDataSource , UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3 + (airportsArr.count*2)
+        return 3 + (viewModel.airportsArr.count*2)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -130,129 +83,104 @@ extension IntReturnAndMCSortVC : UITableViewDataSource , UITableViewDelegate {
         cell.selectionStyle = .none
         switch indexPath.row {
         case 0..<3:
-            cell.textLabel?.attributedText = self.getAttributedStringFor(index: indexPath.row)
-        case 3..<(airportsArr.count + 3):
-            let attStr = getDepartArriveAttString("Departure from " + airportsArr[indexPath.row - 3].leg.origin, indexPath)
+            cell.textLabel?.attributedText = self.viewModel.getAttributedStringFor(index: indexPath.row)
+        case 3..<(viewModel.airportsArr.count + 3):
+            let attStr = viewModel.getDepartArriveAttString("Departure from " + viewModel.airportsArr[indexPath.row - 3].leg.origin, indexPath)
             cell.textLabel?.attributedText = attStr
-        case (airportsArr.count + 3)..<((airportsArr.count*2) + 3):
-            let attStr = getDepartArriveAttString("Arrival at " + airportsArr[indexPath.row - (airportsArr.count + 3)].leg.destination, indexPath)
+        case (viewModel.airportsArr.count + 3)..<((viewModel.airportsArr.count*2) + 3):
+            let attStr = viewModel.getDepartArriveAttString("Arrival at " + viewModel.airportsArr[indexPath.row - (viewModel.airportsArr.count + 3)].leg.destination, indexPath)
             cell.textLabel?.attributedText = attStr
         default:
-           cell.textLabel?.attributedText = self.getAttributedStringFor(index: indexPath.row - ((airportsArr.count*2) + 3))
+            cell.textLabel?.attributedText = self.viewModel.getAttributedStringFor(index: indexPath.row - ((viewModel.airportsArr.count*2) + 3))
         }
         cell.accessoryView = nil
         
-        if curSelectedIndex == indexPath.row {
+        if viewModel.curSelectedIndex == indexPath.row {
             cell.accessoryView = UIImageView(image: UIImage(named: "greenTick"))
         }
         
         return cell
     }
     
-    
-    private func getDepartArriveAttString(_ str: String,_ indexPath: IndexPath) -> NSAttributedString {
-        var attributes : [NSAttributedString.Key : Any]
-        if ( curSelectedIndex == indexPath.row) {
-//            attributes = [NSAttributedString.Key.font : UIFont(name: "SourceSansPro-Regular", size: 18)! ,
-//                          NSAttributedString.Key.foregroundColor : UIColor.AertripColor]
-            
-            attributes = [NSAttributedString.Key.font : AppFonts.Regular.withSize(18) ,
-                          NSAttributedString.Key.foregroundColor : UIColor.AertripColor]
-
-        }
-        else {
-//            attributes = [NSAttributedString.Key.font : UIFont(name: "SourceSansPro-Regular", size: 18)!]
-            attributes = [NSAttributedString.Key.font : AppFonts.Regular.withSize(18)]
-
-        }
-        let attributedString = NSMutableAttributedString(string: str, attributes: attributes)
-        
-        var substring = "  " + "Earliest First"
-        
-        if earliestFirstAtDepartArrive[indexPath.row] == false {
-            substring = "  " + "Latest First"
-        }
-        
-        let substringAttributedString = NSAttributedString(string: substring, attributes: [NSAttributedString.Key.font : AppFonts.Regular.withSize(14), NSAttributedString.Key.foregroundColor : UIColor.ONE_FIVE_THREE_COLOR  ])
-           attributedString.append(substringAttributedString)
-        
-        return attributedString
-    }
-
-    
     func tableView(_ tableView: UITableView, willDeselectRowAt indexPath: IndexPath) -> IndexPath? {
         
         if indexPath.row == 1 {
-            priceHighToLow = false
+            viewModel.priceHighToLow = false
         }
         
         if indexPath.row == 2 {
-            durationLongestFirst = false
+            viewModel.durationLongestFirst = false
         }
         return indexPath
     }
 
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         
-        if earliestFirstAtDepartArrive[indexPath.row] == nil {
-            earliestFirstAtDepartArrive[indexPath.row] = false
+        if viewModel.earliestFirstAtDepartArrive[indexPath.row] == nil {
+            viewModel.earliestFirstAtDepartArrive[indexPath.row] = false
         }
         
-        earliestFirstAtDepartArrive.forEach { (key, val) in
-            if key == indexPath.row && curSelectedIndex == indexPath.row {
-                earliestFirstAtDepartArrive.updateValue(!val, forKey: key)
+        viewModel.earliestFirstAtDepartArrive.forEach { (key, val) in
+            if key == indexPath.row && viewModel.curSelectedIndex == indexPath.row {
+                viewModel.earliestFirstAtDepartArrive.updateValue(!val, forKey: key)
             } else {
-                earliestFirstAtDepartArrive.updateValue(true, forKey: key)
+                viewModel.earliestFirstAtDepartArrive.updateValue(true, forKey: key)
             }
         }
-        curSelectedIndex = indexPath.row
+        viewModel.curSelectedIndex = indexPath.row
                 
         if indexPath.row != 1 {
-            priceHighToLow = false
+            viewModel.priceHighToLow = false
         }
         
         if indexPath.row != 2 {
-            durationLongestFirst = false
+            viewModel.durationLongestFirst = false
         }
         
         
         if tableView.indexPathForSelectedRow == indexPath {
             
             if indexPath.row == 1 {
-                priceHighToLow.toggle()
+                viewModel.priceHighToLow.toggle()
             }
             
             if indexPath.row == 2 {
-                durationLongestFirst.toggle()
+                viewModel.durationLongestFirst.toggle()
             }
         }
         
         switch  indexPath.row {
         case 0:
-            delegate?.sortFilterChanged(sort: .Smart)
+            viewModel.delegate?.sortFilterChanged(sort: .Smart)
         case 1 :
-            delegate?.priceFilterChangedWith(priceHighToLow)
+            viewModel.delegate?.priceFilterChangedWith(viewModel.priceHighToLow)
         case 2 :
-            delegate?.durationFilterChangedWith(durationLongestFirst)
+            viewModel.delegate?.durationFilterChangedWith(viewModel.durationLongestFirst)
             
-        case 3..<(airportsArr.count+3):
+        case 3..<(viewModel.airportsArr.count+3):
             let curLegIndex = indexPath.row - 3
-            delegate?.departSortFilterChangedWith(curLegIndex, earliestFirstAtDepartArrive[indexPath.row] ?? true)
+            viewModel.delegate?.departSortFilterChangedWith(curLegIndex, viewModel.earliestFirstAtDepartArrive[indexPath.row] ?? true)
             
-        case (airportsArr.count+3)..<((airportsArr.count*2) + 3):
-            let curLegIndex = indexPath.row - (airportsArr.count+3)
-            delegate?.arrivalSortFilterChangedWith(curLegIndex, earliestFirstAtDepartArrive[indexPath.row] ?? true)
+        case (viewModel.airportsArr.count+3)..<((viewModel.airportsArr.count*2) + 3):
+            let curLegIndex = indexPath.row - (viewModel.airportsArr.count+3)
+            viewModel.delegate?.arrivalSortFilterChangedWith(curLegIndex, viewModel.earliestFirstAtDepartArrive[indexPath.row] ?? true)
         default :
             break
         }
         
         if let sortFilter = Sort(rawValue: indexPath.row) {
            
-            self.selectedSorting = sortFilter
+            self.viewModel.selectedSorting = sortFilter
 
         }
         self.sortTableview.reloadData()
         
         return indexPath
+    }
+}
+
+extension IntReturnAndMCSortVC: FlightsSortVMDelegate {
+    func selectRow(row: Int) {
+        sortTableview.selectRow(at: IndexPath(row: row, section: 0), animated: false, scrollPosition: .none)
     }
 }

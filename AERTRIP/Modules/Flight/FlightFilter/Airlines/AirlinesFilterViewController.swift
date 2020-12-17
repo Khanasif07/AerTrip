@@ -8,24 +8,10 @@
 
 import UIKit
 
-
-protocol AirlineFilterDelegate : FilterDelegate {
-    func allAirlinesSelected(_ status: Bool)
-    func hideMultiAirlineItineraryUpdated(_ filter: AirlineLegFilter )
-    func airlineFilterUpdated(_ filter : AirlineLegFilter)
-}
-
 class AirlinesFilterViewController: UIViewController , FilterViewController {
     
     //MARK:- State Properties
-    var currentSelectedMultiCityIndex = 0
-    var showMultiAirlineItineraryUI = true
-    var showingForReturnJourney = false 
-    var airlinesFilterArray = [ AirlineLegFilter]()
-    var currentSelectedAirlineFilter : AirlineLegFilter!
-    var allAirlineSelectedByUserInteraction = false
-    var isIntReturnOrMCJourney = false
-    weak var delegate : AirlineFilterDelegate?
+    let viewModel = AirlinesFilterVM()
     
     //MARK:- Outlets
     @IBOutlet weak var airlinesTableView: UITableView!
@@ -60,7 +46,7 @@ class AirlinesFilterViewController: UIViewController , FilterViewController {
         multicitySegmentView.layer.borderWidth = 1.0
         multicitySegmentView.clipsToBounds = true
         
-        let numberOfStops = airlinesFilterArray.count
+        let numberOfStops = viewModel.airlinesFilterArray.count
         
         for  i in 1...numberOfStops  {
             
@@ -106,10 +92,10 @@ class AirlinesFilterViewController: UIViewController , FilterViewController {
         
         heightConstraintForMulticityView.constant = 0
         multicitySegmentView.isHidden = true
-        currentSelectedAirlineFilter = airlinesFilterArray[0]
-        showMultiAirlineItineraryUI = currentSelectedAirlineFilter.multiAl == 0 ? false : true
-        if isIntReturnOrMCJourney {
-            showMultiAirlineItineraryUI = airlinesFilterArray.map { $0.multiAl }.reduce(0, +) > 0
+        viewModel.currentSelectedAirlineFilter = viewModel.airlinesFilterArray[0]
+        viewModel.showMultiAirlineItineraryUI = viewModel.currentSelectedAirlineFilter.multiAl == 0 ? false : true
+        if viewModel.isIntReturnOrMCJourney {
+            viewModel.showMultiAirlineItineraryUI = viewModel.airlinesFilterArray.map { $0.multiAl }.reduce(0, +) > 0
         }
         setupTableView()
         setmultiLegSubviews()
@@ -119,12 +105,12 @@ class AirlinesFilterViewController: UIViewController , FilterViewController {
     
     func updateUIPostLatestResults() {
         
-        for i in 0..<currentSelectedAirlineFilter.airlinesArray.count{
+        for i in 0..<viewModel.currentSelectedAirlineFilter.airlinesArray.count{
             for airline in selectedAirlineArray{
-                if (currentSelectedAirlineFilter.airlinesArray[i].name == airline) || (currentSelectedAirlineFilter.airlinesArray[i].code == airline){
-                    currentSelectedAirlineFilter.airlinesArray[i].isSelected = true
+                if (viewModel.currentSelectedAirlineFilter.airlinesArray[i].name == airline) || (viewModel.currentSelectedAirlineFilter.airlinesArray[i].code == airline){
+                    viewModel.currentSelectedAirlineFilter.airlinesArray[i].isSelected = true
                 }else{
-                    //                    currentSelectedAirlineFilter.airlinesArray[i].isSelected = false
+                    //                    viewModel.currentSelectedAirlineFilter.airlinesArray[i].isSelected = false
                 }
             }
         }
@@ -134,18 +120,7 @@ class AirlinesFilterViewController: UIViewController , FilterViewController {
     
     func resetFilter() {
         selectedAirlineArray.removeAll()
-        currentSelectedAirlineFilter.airlinesArray = currentSelectedAirlineFilter.airlinesArray.map{
-            var airline = $0
-            airline.isSelected = false
-            return airline
-        }
-        showMultiAirlineItineraryUI = currentSelectedAirlineFilter.multiAl == 0 ? false : true
-        if isIntReturnOrMCJourney {
-            showMultiAirlineItineraryUI = airlinesFilterArray.map { $0.multiAl }.reduce(0, +) > 0
-        }
-        currentSelectedAirlineFilter.allAirlinesSelected = false
-        currentSelectedAirlineFilter.hideMultipleAirline = false
-        allAirlineSelectedByUserInteraction = false
+        viewModel.resetFilter()
         guard airlinesTableView != nil else { return }
         self.airlinesTableView.reloadData()
     }
@@ -155,13 +130,13 @@ class AirlinesFilterViewController: UIViewController , FilterViewController {
         
         let tag = sender.tag
         
-        if tag == currentSelectedMultiCityIndex {
+        if tag == viewModel.currentSelectedMultiCityIndex {
             return
         }
         else {
             
-            airlinesFilterArray[currentSelectedMultiCityIndex] = currentSelectedAirlineFilter
-            currentSelectedMultiCityIndex = tag
+            viewModel.airlinesFilterArray[viewModel.currentSelectedMultiCityIndex] = viewModel.currentSelectedAirlineFilter
+            viewModel.currentSelectedMultiCityIndex = tag
         }
         
         
@@ -183,12 +158,12 @@ class AirlinesFilterViewController: UIViewController , FilterViewController {
             sender.backgroundColor = UIColor.AertripColor
         }
         
-        currentSelectedAirlineFilter = airlinesFilterArray[currentSelectedMultiCityIndex]
-        showMultiAirlineItineraryUI = currentSelectedAirlineFilter.multiAl == 0 ? false : true
-        if isIntReturnOrMCJourney {
-            showMultiAirlineItineraryUI = airlinesFilterArray.map { $0.multiAl }.reduce(0, +) > 0
+        viewModel.currentSelectedAirlineFilter = viewModel.airlinesFilterArray[viewModel.currentSelectedMultiCityIndex]
+        viewModel.showMultiAirlineItineraryUI = viewModel.currentSelectedAirlineFilter.multiAl == 0 ? false : true
+        if viewModel.isIntReturnOrMCJourney {
+            viewModel.showMultiAirlineItineraryUI = viewModel.airlinesFilterArray.map { $0.multiAl }.reduce(0, +) > 0
         }
-        JourneyTitle.attributedText = currentSelectedAirlineFilter.leg.descriptionOneFiveThree
+        JourneyTitle.attributedText = viewModel.currentSelectedAirlineFilter.leg.descriptionOneFiveThree
         self.airlinesTableView.reloadData()
         
         
@@ -199,36 +174,36 @@ class AirlinesFilterViewController: UIViewController , FilterViewController {
         sender.isSelected = !sender.isSelected
         
         if sender.tag == 1 {
-            currentSelectedAirlineFilter.allAirlinesSelected = sender.isSelected
-            currentSelectedAirlineFilter.airlinesArray = currentSelectedAirlineFilter.airlinesArray.map {
+            viewModel.currentSelectedAirlineFilter.allAirlinesSelected = sender.isSelected
+            viewModel.currentSelectedAirlineFilter.airlinesArray = viewModel.currentSelectedAirlineFilter.airlinesArray.map {
                 var airline = $0
                 airline.isSelected = sender.isSelected
                 return airline
             }
-            allAirlineSelectedByUserInteraction = sender.isSelected
+            viewModel.allAirlineSelectedByUserInteraction = sender.isSelected
             if sender.isSelected == false{
                 selectedAirlineArray.removeAll()
             }
             airlinesTableView.reloadData()
             
-            if showingForReturnJourney {
-                self.delegate?.allAirlinesSelected(sender.isSelected)
-                self.delegate?.allAirlinesSelected(sender.isSelected)
+            if viewModel.showingForReturnJourney {
+                self.viewModel.delegate?.allAirlinesSelected(sender.isSelected)
+                self.viewModel.delegate?.allAirlinesSelected(sender.isSelected)
             }
             else {
-                self.delegate?.allAirlinesSelected(sender.isSelected)
+                self.viewModel.delegate?.allAirlinesSelected(sender.isSelected)
             }
             return
         }
         if sender.tag == 2 {
-            currentSelectedAirlineFilter.hideMultipleAirline = sender.isSelected
+            viewModel.currentSelectedAirlineFilter.hideMultipleAirline = sender.isSelected
             
-            if showingForReturnJourney {
-                self.delegate?.hideMultiAirlineItineraryUpdated(currentSelectedAirlineFilter)
-                self.delegate?.hideMultiAirlineItineraryUpdated(currentSelectedAirlineFilter)
+            if viewModel.showingForReturnJourney {
+                self.viewModel.delegate?.hideMultiAirlineItineraryUpdated(viewModel.currentSelectedAirlineFilter)
+                self.viewModel.delegate?.hideMultiAirlineItineraryUpdated(viewModel.currentSelectedAirlineFilter)
             }
             else {
-                self.delegate?.hideMultiAirlineItineraryUpdated(currentSelectedAirlineFilter)
+                self.viewModel.delegate?.hideMultiAirlineItineraryUpdated(viewModel.currentSelectedAirlineFilter)
             }
             return
         }
@@ -236,9 +211,9 @@ class AirlinesFilterViewController: UIViewController , FilterViewController {
         if sender.tag >= 1000 {
             
             let selectedRow = sender.tag - 1000
-            var airline = currentSelectedAirlineFilter.airlinesArray[selectedRow]
+            var airline = viewModel.currentSelectedAirlineFilter.airlinesArray[selectedRow]
             airline.isSelected = sender.isSelected
-            currentSelectedAirlineFilter.airlinesArray[selectedRow] = airline
+            viewModel.currentSelectedAirlineFilter.airlinesArray[selectedRow] = airline
             
             if !selectedAirlineArray.contains(airline.name){
                 selectedAirlineArray.append(airline.name)
@@ -246,26 +221,26 @@ class AirlinesFilterViewController: UIViewController , FilterViewController {
                 selectedAirlineArray.removeAll(){$0 == airline.name}
             }
             
-            let combinedSelection = currentSelectedAirlineFilter.airlinesArray.reduce(true) { (result, next) -> Bool in
+            let combinedSelection = viewModel.currentSelectedAirlineFilter.airlinesArray.reduce(true) { (result, next) -> Bool in
                 return result &&  next.isSelected
             }
             
-            currentSelectedAirlineFilter.allAirlinesSelected = combinedSelection
-            allAirlineSelectedByUserInteraction = combinedSelection
+            viewModel.currentSelectedAirlineFilter.allAirlinesSelected = combinedSelection
+            viewModel.allAirlineSelectedByUserInteraction = combinedSelection
             airlinesTableView.reloadRows(at: [IndexPath(row: selectedRow, section: 2) , IndexPath(row: 0, section: 0)], with: .none)
             
             // if airlineArray contains only one element , applying airline filter does not affect filtered flight results
-            if currentSelectedAirlineFilter.airlinesArray.count == 1 {
+            if viewModel.currentSelectedAirlineFilter.airlinesArray.count == 1 {
                 return
             }
         }
         
         
-        if showingForReturnJourney {
-            self.delegate?.airlineFilterUpdated(currentSelectedAirlineFilter)
+        if viewModel.showingForReturnJourney {
+            self.viewModel.delegate?.airlineFilterUpdated(viewModel.currentSelectedAirlineFilter)
         }
         else {
-            self.delegate?.airlineFilterUpdated(currentSelectedAirlineFilter)
+            self.viewModel.delegate?.airlineFilterUpdated(viewModel.currentSelectedAirlineFilter)
         }
     }
     
@@ -282,7 +257,7 @@ extension AirlinesFilterViewController : UITableViewDataSource , UITableViewDele
         
         if section == 0 {
         // if airlineArray contains only one element , footer separator for 'All Airlines' option is hidden
-            if currentSelectedAirlineFilter.airlinesArray.count == 1 {
+            if viewModel.currentSelectedAirlineFilter.airlinesArray.count == 1 {
                 return 0
             }
             return 1
@@ -290,13 +265,13 @@ extension AirlinesFilterViewController : UITableViewDataSource , UITableViewDele
         
         if section == 1 {
             
-            if showMultiAirlineItineraryUI {
+            if viewModel.showMultiAirlineItineraryUI {
                 return 1
             }else {
                 return 0
             }
         }
-     return currentSelectedAirlineFilter.airlinesArray.count
+     return viewModel.currentSelectedAirlineFilter.airlinesArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -309,9 +284,9 @@ extension AirlinesFilterViewController : UITableViewDataSource , UITableViewDele
             if indexPath.section == 0 {
                 cell.textLabel?.text = "All Airlines"
                 cell.radioButton.tag = 1
-                cell.radioButton.isSelected = currentSelectedAirlineFilter.allAirlinesSelected
+                cell.radioButton.isSelected = viewModel.currentSelectedAirlineFilter.allAirlinesSelected
                 
-                if allAirlineSelectedByUserInteraction {
+                if viewModel.allAirlineSelectedByUserInteraction {
                    cell.radioButton.isSelected  = true
                 }
                 cell.imageView?.image = nil
@@ -324,11 +299,10 @@ extension AirlinesFilterViewController : UITableViewDataSource , UITableViewDele
                 cell.radioButton.tag = 2
                 cell.radioButton.setImage(#imageLiteral(resourceName: "selectOption"), for: .selected)
                 cell.radioButton.setImage(#imageLiteral(resourceName: "UncheckedGreenRadioButton"), for: .normal)
-                cell.radioButton.isSelected = currentSelectedAirlineFilter.hideMultipleAirline
-                cell.imageView?.image = nil
+                cell.radioButton.isSelected = viewModel.currentSelectedAirlineFilter.hideMultipleAirline
             }
             if indexPath.section == 2 {
-                let airline = currentSelectedAirlineFilter.airlinesArray[indexPath.row]
+                let airline = viewModel.currentSelectedAirlineFilter.airlinesArray[indexPath.row]
                 cell.textLabel?.text = airline.name
                 
                 if let image = tableView.resourceFor(urlPath: airline.iconImageURL , forView: indexPath.row) {
@@ -340,7 +314,7 @@ extension AirlinesFilterViewController : UITableViewDataSource , UITableViewDele
                 cell.radioButton.tag = 1000 + indexPath.row
                 cell.radioButton.isSelected = airline.isSelected
                 
-                if allAirlineSelectedByUserInteraction {
+                if viewModel.allAirlineSelectedByUserInteraction {
                    cell.radioButton.isSelected  = true
                 }
             }
@@ -362,7 +336,7 @@ extension AirlinesFilterViewController : UITableViewDataSource , UITableViewDele
         if section == 0 {
             
             // if airlineArray contains only one element , footer separator for 'All Airlines' option is hidden and separator below it is not required
-            if currentSelectedAirlineFilter.airlinesArray.count == 1 {
+            if viewModel.currentSelectedAirlineFilter.airlinesArray.count == 1 {
                 return nil
             }
             
@@ -383,7 +357,7 @@ extension AirlinesFilterViewController : UITableViewDataSource , UITableViewDele
         if section == 0 {
 
             // if airlineArray contains only one element , footer separator for 'All Airlines' option is hidden and separator below it is not required
-            if currentSelectedAirlineFilter.airlinesArray.count == 1 {
+            if viewModel.currentSelectedAirlineFilter.airlinesArray.count == 1 {
                 return 0
             }
             

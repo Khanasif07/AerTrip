@@ -8,44 +8,6 @@
 
 import UIKit
 
-
-protocol  FlightStopsFilterDelegate : FilterDelegate {
-    func stopsSelectionChangedAt(_ index: Int, stops : [Int])
-    func allStopsSelectedAt(_ index: Int)
-}
-
-
-struct StopsFilter{
-    var availableStops : [Int]
-    var userSelectedStops = [Int]()
-    
-    var leastStop : Int {
-        if availableStops.count > 0 {
-            return availableStops.min() ?? 0
-        }
-        else {
-            assertionFailure("Invalid least stops state")
-            return -1
-        }
-    }
-    
-    var numberofAvailableStops : Int {
-        return availableStops.count
-    }
-    
-    var qualityFilter = QualityFilter(name: "Change of Airports", filterKey: "coa", isSelected: false, filterID: .hideChangeAirport)
-    
-    init( stops : [Int]) {
-        availableStops = stops
-    }
-    
-    
-    mutating func resetFilter() {
-        userSelectedStops.removeAll()
-        qualityFilter.isSelected = false
-    }
-}
-
 class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     
     //MARK:- Outlets
@@ -67,27 +29,19 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     @IBOutlet weak var avoidChangeOfAirportsBtn: UIButton!
     
     //MARK:- State Properties
-    weak var delegate : FlightStopsFilterDelegate?
-    weak var qualityFilterDelegate : QualityFilterDelegate?
-    var currentActiveIndex = 0
-    var allStopsFilters = [StopsFilter]()
-    var currentStopFilter : StopsFilter?
-    var allLegNames  = [Leg]()
-    var stopsButtonsArray = [UIButton]()
-    var showingForReturnJourney = false
     
+    let viewModel = FlightStopsFilterVM()
+    var stopsButtonsArray = [UIButton]()
     private var multiLegSegmentControl = UISegmentedControl()
-    var enableOvernightFlightQualityFilter = [Bool]()
-    var isIntMCOrReturnVC = false
     
     //MARK:- View Controller methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        allSectorsLbl.isHidden = !isIntMCOrReturnVC
+        allSectorsLbl.isHidden = !viewModel.isIntMCOrReturnVC
         
-        if allStopsFilters.count > 0 {
-            currentStopFilter = allStopsFilters[0]
+        if viewModel.allStopsFilters.count > 0 {
+            viewModel.currentStopFilter = viewModel.allStopsFilters[0]
         }
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapOnLeastStopsView))
@@ -95,7 +49,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
         leastStopTapGestureView.addGestureRecognizer(tapGestureRecognizer)
         setupStopsBaseView()
         
-        if allStopsFilters.count == 1 {
+        if viewModel.allStopsFilters.count == 1 {
             multiLegViewHeight.constant = 0
             multiLegJourney.isHidden = true
             stopsBaseViewTopConstant.constant = 17
@@ -121,9 +75,9 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     }
     
     func updateUIPostLatestResults() {
-        currentStopFilter = allStopsFilters[currentActiveIndex]
+        viewModel.currentStopFilter = viewModel.allStopsFilters[viewModel.currentActiveIndex]
         setupStopsBaseView()
-        if allStopsFilters.count == 1 {
+        if viewModel.allStopsFilters.count == 1 {
             multiLegViewHeight.constant = 0
             multiLegJourney.isHidden = true
             stopsBaseViewTopConstant.constant = 17
@@ -140,13 +94,8 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     
     func resetFilter() {
         selectAllStops()
-        currentStopFilter?.userSelectedStops.removeAll()
+        viewModel.resetFilter()
         leastStopsButton.isSelected = false
-        for i in 0 ..< allStopsFilters.count {
-            var filter = allStopsFilters[i]
-            filter.resetFilter()
-            allStopsFilters[i] = filter
-        }
         updateSegmentTitles()
     }
     
@@ -157,7 +106,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
         stopsBaseView.layer.borderColor = UIColor.TWO_THREE_ZERO_COLOR.cgColor
         stopsBaseView.layer.cornerRadius = 10.0
         stopsBaseView.clipsToBounds = true
-        if currentStopFilter != nil{
+        if viewModel.currentStopFilter != nil{
             setStopsSubviews()
         }
     }
@@ -167,9 +116,9 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
         stopsBaseView.subviews.forEach { $0.removeFromSuperview() }
         stopsButtonsArray.removeAll()
         
-        let baseStopCount = currentStopFilter?.leastStop ?? 0
+        let baseStopCount = viewModel.currentStopFilter?.leastStop ?? 0
         var stopCount = baseStopCount
-        let numberOfAvailableStops = min(currentStopFilter?.numberofAvailableStops ?? 0 , 4)
+        let numberOfAvailableStops = min(viewModel.currentStopFilter?.numberofAvailableStops ?? 0 , 4)
         for  i in 1...numberOfAvailableStops  {
             let segmentViewWidth = UIScreen.main.bounds.size.width - 32
             
@@ -213,12 +162,12 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
             
             stopButton.isSelected = false
             
-            if currentStopFilter?.userSelectedStops.contains(stopCount) ?? false {
+            if viewModel.currentStopFilter?.userSelectedStops.contains(stopCount) ?? false {
                 selectionStateUIFor(stopButton)
                 stopButton.isSelected = true
             }
             else {
-                if currentStopFilter?.userSelectedStops.count != 0 {
+                if viewModel.currentStopFilter?.userSelectedStops.count != 0 {
                     deselectionStateUIFor(stopButton)
                 }
             }
@@ -254,7 +203,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     
     fileprivate func setLeastStopsTitle() {
         
-        let leastStop = allStopsFilters.reduce( 0 , { $0 + $1.leastStop })
+        let leastStop = viewModel.allStopsFilters.reduce( 0 , { $0 + $1.leastStop })
         if leastStop == 0 {
             LeastStopsTitle.text = "Non-stop only"
             LeastStopsTitleWidth.constant = LeastStopsTitle.intrinsicContentSize.width
@@ -269,14 +218,14 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
                 
         multiLegSegmentControl.removeAllSegments()
         
-        let numberOfStops = allStopsFilters.count
+        let numberOfStops = viewModel.allStopsFilters.count
 
         for  index in 1...numberOfStops  {
             let segmentTitle = getSegmentTitleFor(index)
             multiLegSegmentControl.insertSegment(withTitle: segmentTitle, at: index-1, animated: false)
         }
         
-        multiLegSegmentControl.selectedSegmentIndex = currentActiveIndex
+        multiLegSegmentControl.selectedSegmentIndex = viewModel.currentActiveIndex
                 
         if multiLegSegmentControl.superview == nil && numberOfStops > 1 {
             let font: [NSAttributedString.Key : Any] = [.font : AppFonts.SemiBold.withSize(14)]
@@ -294,11 +243,11 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     
     @objc func indexChanged(_ sender: UISegmentedControl) {
         
-        guard currentActiveIndex != sender.selectedSegmentIndex, let curFilter = currentStopFilter else { return }
+        guard viewModel.currentActiveIndex != sender.selectedSegmentIndex, let curFilter = viewModel.currentStopFilter else { return }
         
-        allStopsFilters[currentActiveIndex] = curFilter
-        currentActiveIndex = sender.selectedSegmentIndex
-        currentStopFilter = allStopsFilters[currentActiveIndex]
+        viewModel.allStopsFilters[viewModel.currentActiveIndex] = curFilter
+        viewModel.currentActiveIndex = sender.selectedSegmentIndex
+        viewModel.currentStopFilter = viewModel.allStopsFilters[viewModel.currentActiveIndex]
         setStopsSubviews()
         updateSegmentTitles()
         hideShowOvernightView()
@@ -306,10 +255,10 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     }
     
     private func getSegmentTitleFor(_ index: Int) -> String {
-        let currentFilter = allStopsFilters[(index - 1)]
+        let currentFilter = viewModel.allStopsFilters[(index - 1)]
         let isFilterApplied = currentFilter.userSelectedStops.count > 0
-        var title = "\(allLegNames[index - 1].origin) \u{279E} \(allLegNames[index - 1].destination)"
-        if allStopsFilters.count > 3 {
+        var title = "\(viewModel.allLegNames[index - 1].origin) \u{279E} \(viewModel.allLegNames[index - 1].destination)"
+        if viewModel.allStopsFilters.count > 3 {
             title = "\(index)"
         }
         var segmentTitle = "\(title) "
@@ -348,24 +297,24 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     
     fileprivate func selectLeastStopsForAllLegs() {
         let leastBtnState = leastStopsButton.isSelected
-        for index in 0 ..< allStopsFilters.count {
+        for index in 0 ..< viewModel.allStopsFilters.count {
             
-            var filter = allStopsFilters[index]
+            var filter = viewModel.allStopsFilters[index]
             let leastStop = filter.leastStop
             filter.userSelectedStops.removeAll()
             filter.userSelectedStops = [leastStop]
-            allStopsFilters[index] = filter
+            viewModel.allStopsFilters[index] = filter
             
-            if index == currentActiveIndex {
+            if index == viewModel.currentActiveIndex {
                 
-                currentStopFilter = filter
+                viewModel.currentStopFilter = filter
                 setStopsSubviews()
                 if let button = stopsBaseView.viewWithTag(1000) as? UIButton {
                     button.isSelected = false
                     tappedOnStopButton(sender: button)
                 }
             }
-            delegate?.stopsSelectionChangedAt(index, stops: [allStopsFilters[index].leastStop])
+            viewModel.delegate?.stopsSelectionChangedAt(index, stops: [viewModel.allStopsFilters[index].leastStop])
         }
         updateSegmentTitles()
         leastStopsButton.isSelected = leastBtnState
@@ -424,8 +373,8 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
         
         let isSelected = sender.isSelected
         
-        if currentStopFilter?.numberofAvailableStops == 1 { return }
-        var currentLegStopsSelection = currentStopFilter?.userSelectedStops ?? []
+        if viewModel.currentStopFilter?.numberofAvailableStops == 1 { return }
+        var currentLegStopsSelection = viewModel.currentStopFilter?.userSelectedStops ?? []
         
         let tag = sender.tag - 1000
         
@@ -449,9 +398,9 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
                     currentLegStopsSelection.remove(at: index)
                 }
                 
-                currentStopFilter?.userSelectedStops = currentLegStopsSelection
-                if let curFilter = currentStopFilter {
-                    allStopsFilters[currentActiveIndex] = curFilter
+                viewModel.currentStopFilter?.userSelectedStops = currentLegStopsSelection
+                if let curFilter = viewModel.currentStopFilter {
+                    viewModel.allStopsFilters[viewModel.currentActiveIndex] = curFilter
                 }
             }
             
@@ -463,7 +412,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
             if !currentLegStopsSelection.contains(tag) {
                 
                 if tag == 3 {
-                    let allQualifyingStops = currentStopFilter?.availableStops.filter { $0 >= tag } ?? []
+                    let allQualifyingStops = viewModel.currentStopFilter?.availableStops.filter { $0 >= tag } ?? []
                     currentLegStopsSelection.append(contentsOf: allQualifyingStops)
 
                 }
@@ -471,18 +420,18 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
                     currentLegStopsSelection.append(tag)
                 }
                 
-                currentStopFilter?.userSelectedStops = currentLegStopsSelection
-                if let curFilter = currentStopFilter {
-                    allStopsFilters[currentActiveIndex] = curFilter
+                viewModel.currentStopFilter?.userSelectedStops = currentLegStopsSelection
+                if let curFilter = viewModel.currentStopFilter {
+                    viewModel.allStopsFilters[viewModel.currentActiveIndex] = curFilter
                 }
             }
         }
         
-        if currentStopFilter?.userSelectedStops.count ?? 0 > 1 || (currentStopFilter?.userSelectedStops.isEmpty ?? false) {
+        if viewModel.currentStopFilter?.userSelectedStops.count ?? 0 > 1 || (viewModel.currentStopFilter?.userSelectedStops.isEmpty ?? false) {
             leastStopsButton.isSelected = false
             
-        }else if currentStopFilter?.userSelectedStops.count == 1 {
-            for filter in allStopsFilters {
+        }else if viewModel.currentStopFilter?.userSelectedStops.count == 1 {
+            for filter in viewModel.allStopsFilters {
                 
                 if filter.userSelectedStops.count == 1 && filter.userSelectedStops.contains(filter.leastStop){
                     leastStopsButton.isSelected = true
@@ -495,34 +444,34 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
         }
         
         
-//        if currentLegStopsSelection.count == 0  || currentLegStopsSelection.count == currentStopFilter.numberofAvailableStops{
-//            currentStopFilter.userSelectedStops.removeAll()
+//        if currentLegStopsSelection.count == 0  || currentLegStopsSelection.count == viewModel.currentStopFilter.numberofAvailableStops{
+//            viewModel.currentStopFilter.userSelectedStops.removeAll()
 //            selectAllStops()
 //            leastStopsButton.isSelected = false
 //            if showingForReturnJourney {
-//                delegate?.allStopsSelectedAt(0)
-//                delegate?.allStopsSelectedAt(1)
+//                viewModel.delegate?.allStopsSelectedAt(0)
+//                viewModel.delegate?.allStopsSelectedAt(1)
 //            } else {
-//                delegate?.allStopsSelectedAt(currentActiveIndex)
+//                viewModel.delegate?.allStopsSelectedAt(viewModel.currentActiveIndex)
 //            }
 //        } else {
             
-            if showingForReturnJourney {
-                delegate?.stopsSelectionChangedAt(0, stops: currentLegStopsSelection)
-                delegate?.stopsSelectionChangedAt(1, stops: currentLegStopsSelection)
+        if viewModel.showingForReturnJourney {
+                viewModel.delegate?.stopsSelectionChangedAt(0, stops: currentLegStopsSelection)
+                viewModel.delegate?.stopsSelectionChangedAt(1, stops: currentLegStopsSelection)
             }else {
-//                delegate?.stopsSelectionChangedAt(currentActiveIndex, stops: currentLegStopsSelection)
+//                viewModel.delegate?.stopsSelectionChangedAt(viewModel.currentActiveIndex, stops: currentLegStopsSelection)
                 
-                allStopsFilters.enumerated().forEach { (index, filter) in
+                viewModel.allStopsFilters.enumerated().forEach { (index, filter) in
                     if filter.userSelectedStops.count == 0{
-                        delegate?.allStopsSelectedAt(index)
+                        viewModel.delegate?.allStopsSelectedAt(index)
                     }else{
-                        delegate?.stopsSelectionChangedAt(index, stops: filter.userSelectedStops)
+                        viewModel.delegate?.stopsSelectionChangedAt(index, stops: filter.userSelectedStops)
                     }
                 }
             }
-        if let curFilter = currentStopFilter {
-            allStopsFilters[currentActiveIndex] = curFilter
+        if let curFilter = viewModel.currentStopFilter {
+            viewModel.allStopsFilters[viewModel.currentActiveIndex] = curFilter
         }
         updateSegmentTitles()
     }
@@ -534,25 +483,14 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     }
     
     private func toggleAvoidChangeOfAirports(_ selected: Bool) {
-        guard let curFilter = currentStopFilter else { return }
-        currentStopFilter?.qualityFilter.isSelected = selected
-        allStopsFilters[currentActiveIndex] = curFilter
-        
-        if isIntMCOrReturnVC {
-            allStopsFilters = allStopsFilters.map {
-                var newFilter = $0
-                newFilter.qualityFilter = curFilter.qualityFilter
-                return newFilter
-            }
-        }
-        qualityFilterDelegate?.qualityFilterChangedAt(currentActiveIndex, filter: curFilter.qualityFilter)
+        viewModel.toggleAvoidChangeOfAirports(selected)
         resetAvoidChangeOfAirportsBtn()
         
     }
     
     private func resetAvoidChangeOfAirportsBtn() {
-        avoidChangeOfAirportsBtn.isSelected = currentStopFilter?.qualityFilter.isSelected ?? false
-        if currentStopFilter?.qualityFilter.isSelected ?? false {
+        avoidChangeOfAirportsBtn.isSelected = viewModel.currentStopFilter?.qualityFilter.isSelected ?? false
+        if viewModel.currentStopFilter?.qualityFilter.isSelected ?? false {
             avoidChangeOfAirportsImgView.image = UIImage(named: "CheckedGreenRadioButton")
         }
         else {
@@ -561,13 +499,13 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     }
     
     private func hideShowOvernightView() {
-        if isIntMCOrReturnVC {
-            if enableOvernightFlightQualityFilter.indices.contains(0) {
-                avoidChangeOfAirportsView.isHidden = !enableOvernightFlightQualityFilter[0]
+        if viewModel.isIntMCOrReturnVC {
+            if viewModel.enableOvernightFlightQualityFilter.indices.contains(0) {
+                avoidChangeOfAirportsView.isHidden = !viewModel.enableOvernightFlightQualityFilter[0]
             }
         } else {
-            if enableOvernightFlightQualityFilter.indices.contains(currentActiveIndex) {
-                avoidChangeOfAirportsView.isHidden = !enableOvernightFlightQualityFilter[currentActiveIndex]
+            if viewModel.enableOvernightFlightQualityFilter.indices.contains(viewModel.currentActiveIndex) {
+                avoidChangeOfAirportsView.isHidden = !viewModel.enableOvernightFlightQualityFilter[viewModel.currentActiveIndex]
             }
         }
     }
