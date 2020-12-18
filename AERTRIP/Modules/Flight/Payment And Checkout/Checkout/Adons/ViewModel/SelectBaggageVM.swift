@@ -41,6 +41,7 @@ class SelectBaggageVM {
             return newAddon
         }
         
+        
         let allInternational = addonsDetails.addonsArray.filter { $0.adonsName.contains("_IN") }
         let allDomestic = addonsDetails.addonsArray.filter { !$0.adonsName.contains("_IN") }
 
