@@ -54,6 +54,7 @@ class HCDataSelectionVM {
     var minContactLimit = 10
     var maxContactLimit = 10
     var canShowErrorForEmailPhone = false
+    var isContinueButtonTapped = false
     
     // MARK: - Private
     

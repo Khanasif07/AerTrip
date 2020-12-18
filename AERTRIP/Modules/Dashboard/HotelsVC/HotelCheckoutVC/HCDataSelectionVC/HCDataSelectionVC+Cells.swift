@@ -19,6 +19,7 @@ class HCDataSelectionRoomDetailCell: UITableViewCell {
     private(set) var forIndex: IndexPath?
     private let hotelFormData = HotelsSearchVM.hotelFormData
     private var lineSpacing: CGFloat = 5
+    var isContinueButtonTapped = false
     // Mark:- LifeCycles
     // Mark:-
     override func awakeFromNib() {
@@ -97,7 +98,7 @@ extension HCDataSelectionRoomDetailCell: UICollectionViewDataSource, UICollectio
         guard let forIdx = forIndex, let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HCDataSelectionRoomDetailsCollectionCell.reusableIdentifier, for: indexPath) as? HCDataSelectionRoomDetailsCollectionCell else {
             return UICollectionViewCell()
         }
-        
+        cell.isContinueButtonTapped = self.isContinueButtonTapped
         if GuestDetailsVM.shared.guests.count > forIdx.row, GuestDetailsVM.shared.guests[forIdx.row].count > indexPath.item {
             cell.contact = GuestDetailsVM.shared.guests[forIdx.row][indexPath.item]
         }
@@ -222,7 +223,7 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
     @IBOutlet weak var lastNameAgeContainer: UIView!
     @IBOutlet weak var ageLabel: UILabel!
     
-    
+    var isContinueButtonTapped = false
     private(set) var isForAdult: Bool = false
     
     var contact: ATContact? {
@@ -274,7 +275,7 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
     private func configData() {
         
         func setupForAdd() {
-            infoImageView.image = #imageLiteral(resourceName: "greenFilledAdd")
+            infoImageView.image = (!self.isContinueButtonTapped) ? #imageLiteral(resourceName: "greenFilledAdd") : #imageLiteral(resourceName: "ic_info_incomplete")
             var finalText = ""
             if let type = self.contact?.passengerType {
                 iconImageView.image = (type == .Adult) ? #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult") : #imageLiteral(resourceName: "ic_deselected_hotel_guest_child")

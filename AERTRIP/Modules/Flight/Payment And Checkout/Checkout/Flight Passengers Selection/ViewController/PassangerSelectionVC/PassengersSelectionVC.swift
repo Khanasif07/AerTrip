@@ -175,6 +175,8 @@ extension PassengersSelectionVC: UseGSTINCellDelegate, FareBreakupVCDelegate, Jo
         if validation.success{
             self.viewModel.checkValidationForNextScreen()
         }else{
+            self.viewModel.isContinueButtonTapped = true
+            self.passengerTableview.reloadData()
             AppToast.default.showToastMessage(message: validation.msg)
         }
     }

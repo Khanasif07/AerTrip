@@ -423,7 +423,7 @@
 "ResetFilter" = "Reset Filter";
 "NoRoomsAvailable" = "No Rooms Available";
 "Reviews" = "Reviews";
-"ConvenienceFeeNonRefundables" = "Convenience Fee (Non Refundable)";
+"ConvenienceFeeNonRefundables" = "Convenience Fee\n(Non Refundable)";
 
 // Others
 "FreeWifi" = "Free Wifi";
@@ -654,7 +654,7 @@ Not to worry! Your booking is our highest priority. Our customer support team sh
 "EnterEmailAddressMessage" = "Not a valid email address";
 "UnableToGetMail" = "Unable to get email of selected person";
 "ImportantNote" = "Important Note:";
-"YourBookingIdStmt" = " Your booking details will be delivered to your inbox within few hours. If you do not receive an email please check your junk/spam folder or email us on ";
+"YourBookingIdStmt" = " Your booking details will be delivered to your inbox within few hours. If you do not receive an email please check your junk/spam folder or email us on";
 "AertripEmailId" = "support@aertrip.com";
 "ThankYouStmtForBookingId" = "Thank you for booking with Aertrip. Use the above booking id for all future communication with Aertrip.";
 "ThankYouStmtForCId" = "Thank you for booking with Aertrip. Use the above case id for all future communication with Aertrip.";

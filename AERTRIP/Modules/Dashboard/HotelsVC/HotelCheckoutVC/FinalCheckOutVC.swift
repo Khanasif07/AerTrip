@@ -249,6 +249,7 @@ class FinalCheckOutVC: BaseVC {
                 printDebug("WallletAmountCellTableViewCell not found")
                 return UITableViewCell()
             }
+            convenieneCell.aertripWalletTitleLabel.numberOfLines = 2
             convenieneCell.walletAmountLabel.textColor = AppColors.themeBlack
             convenieneCell.aertripWalletTitleLabel.textColor = AppColors.themeBlack
             let amount = isWallet ? self.convenienceFeesWallet : self.convenienceRate
@@ -275,7 +276,7 @@ class FinalCheckOutVC: BaseVC {
                 printDebug("WallletAmountCellTableViewCell not found")
                 return UITableViewCell()
             }
-            
+            walletAmountCell.aertripWalletTitleLabel.numberOfLines = 2
             if self.isWallet {
                 var amount = getGrossAmount()
                 var amountFromWallet: Double = 0.0
