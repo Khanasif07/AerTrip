@@ -752,32 +752,32 @@ class GetSharableUrl
                         
             for i in 0..<userSelectedFilters.count
             {
-                filterString.append("&")
+                filterString.append("")
                 
                 //Quality
                 var fqArray = [String]()
                 
                 if uiFilters.contains(.hideOvernightLayover){
-                    fqArray.append("ovgtlo")
+                    fqArray.append("&ovgtlo")
                 }
                 
                 if uiFilters.contains(.hideOvernight){
-                    fqArray.append("ovgtf")
+                    fqArray.append("&ovgtf")
                 }
                 
                 if uiFilters.contains(.hideChangeAirport){
-                    fqArray.append("coa")
+                    fqArray.append("&coa")
                 }
                 
                 if uiFilters.contains(.hideLongerOrExpensive){
-                    fqArray.append("aht")
+                    fqArray.append("&aht")
                 }
                 
                 var quality = ""
                 
                 if fqArray.count > 0{
                     for n in 0..<fqArray.count{
-                        quality.append("filters[\(i)][fq][\(n)]=\(fqArray[n])&")
+                        quality.append("&filters[\(i)][fq][\(n)]=\(fqArray[n])")
                     }
                     filterString.append(quality)
                 }
@@ -793,17 +793,17 @@ class GetSharableUrl
                         let earliest = userSelectedFilters[i].dt.earliest
                         if let earliestTimeInverval = convertFrom(string: earliest){
                             let intEarliestTime = Int(earliestTimeInverval/60)
-                            depTime.append("filters[\(i)][dep_dt][0]=\(intEarliestTime)&")
+                            depTime.append("&filters[\(i)][dep_dt][0]=\(intEarliestTime)")
                         }
                         
                         
                         let latest = userSelectedFilters[i].dt.latest
                         if let latestTimeInverval = convertFrom(string: latest){
                             let intLatestTime = Int(latestTimeInverval/60)
-                            depTime.append("filters[\(i)][dep_dt][1]=\(intLatestTime)")
+                            depTime.append("&filters[\(i)][dep_dt][1]=\(intLatestTime)")
                         }
                         
-                        filterString.append("\(depTime)&")
+                        filterString.append("\(depTime)")
                         
                     }
                     
@@ -825,7 +825,7 @@ class GetSharableUrl
                         }
                         if let earliestArrivalTimeInverval = convertFrom(string: earliestArrival[1]){
                             let intArrivalTime = Int(earliestArrivalTimeInverval/60)
-                            arrivalTime.append("filters[\(i)][ar_dt][0]=\(intArrivalTime)&")
+                            arrivalTime.append("&filters[\(i)][ar_dt][0]=\(intArrivalTime)")
                         }
                         
                         
@@ -848,16 +848,16 @@ class GetSharableUrl
                             if let latestTimeInverval = convertFrom(string: latestArrival[1]){
                                 var intTime = Int(latestTimeInverval/60)
                                 intTime = intTime+newDay
-                                arrivalTime.append("filters[\(i)][ar_dt][1]=\(intTime)&")
+                                arrivalTime.append("&filters[\(i)][ar_dt][1]=\(intTime)")
                             }
                         }else{
                             if let latestTimeInverval = convertFrom(string: latestArrival[1]){
                                 let intTime = Int(latestTimeInverval/60)
-                                arrivalTime.append("filters[\(i)][ar_dt][1]=\(intTime)&")
+                                arrivalTime.append("&filters[\(i)][ar_dt][1]=\(intTime)")
                             }
                         }
                         
-                        filterString.append("\(arrivalTime)&")
+                        filterString.append("\(arrivalTime)")
                         
                     }
                     
@@ -874,13 +874,13 @@ class GetSharableUrl
                         var tripDuration = ""
                         if let tripMinTime = Int(userSelectedFilters[i].tt.minTime ?? "0"){
                             let minTime = tripMinTime/3600
-                            tripDuration.append("filters[\(i)][tt][0]=\(minTime)&")
+                            tripDuration.append("&filters[\(i)][tt][0]=\(minTime)")
                         }
                         if let tripMaxTime = Int(userSelectedFilters[i].tt.maxTime ?? "0"){
                             let maxTime = tripMaxTime/3600
-                            tripDuration.append("filters[\(i)][tt][1]=\(maxTime)")
+                            tripDuration.append("&filters[\(i)][tt][1]=\(maxTime)")
                         }
-                        filterString.append("\(tripDuration)&")
+                        filterString.append("\(tripDuration)")
                     }
                     
                     
@@ -891,15 +891,15 @@ class GetSharableUrl
                         var layoverDuration = ""
                         if let layoverMinTime = Int(userSelectedFilters[i].lott.minTime ?? "0"){
                             let minTime = layoverMinTime/3600
-                            layoverDuration.append("filters[\(i)][lott][0]=\(minTime)&")
+                            layoverDuration.append("&filters[\(i)][lott][0]=\(minTime)")
                         }
                         
                         if let layoverMaxTime = Int(userSelectedFilters[i].lott.maxTime ?? "0"){
                             let maxTime = layoverMaxTime/3600
-                            layoverDuration.append("filters[\(i)][lott][1]=\(maxTime)&")
+                            layoverDuration.append("&filters[\(i)][lott][1]=\(maxTime)")
                         }
                         
-                        filterString.append("\(layoverDuration)&")
+                        filterString.append("\(layoverDuration)")
                     }
                 }
                 
@@ -909,7 +909,7 @@ class GetSharableUrl
                 {
                     var airline = ""
                     for n in 0..<userSelectedFilters[0].al.count{
-                        airline.append("filters[\(i)][al][\(n)]=\(userSelectedFilters[0].al[n])&")
+                        airline.append("&filters[\(i)][al][\(n)]=\(userSelectedFilters[0].al[n])")
                     }
                     
                     
@@ -925,7 +925,7 @@ class GetSharableUrl
                     var airport = ""
                     
                     for n in 0..<userSelectedFilters[i].loap.count{
-                        airport.append("filters[\(i)][loap][\(n)]=\(userSelectedFilters[i].loap[n])&")
+                        airport.append("&filters[\(i)][loap][\(n)]=\(userSelectedFilters[i].loap[n])")
                     }
                     
                     filterString.append(airport)
@@ -971,7 +971,7 @@ class GetSharableUrl
 
                     
                     for n in 0..<airportsArray.count{
-                        airport.append("filters[\(i)][ap][\(n)]=\(airportsArray[n])&")
+                        airport.append("&filters[\(i)][ap][\(n)]=\(airportsArray[n])")
                     }
                     
                     filterString.append(airport)
@@ -987,20 +987,11 @@ class GetSharableUrl
                     
                     let fqArray = Array(userSelectedFilters[i].fq.keys)
                     for n in 0..<fqArray.count{
-                        quality.append("filters[\(i)][fq][\(n)]=\(fqArray[n])&")
+                        quality.append("&filters[\(i)][fq][\(n)]=\(fqArray[n])")
                     }
                     
                     filterString.append(quality)
                 }
-                
-                
-//                //     Price
-//                if (appliedFilters.contains(.Price))
-//                {
-//                    let price = "filters[\(i)][pr][0]=\(userSelectedFilters[i].pr.minPrice)&filters[\(i)][pr][1]=\(userSelectedFilters[i].pr.maxPrice)&"
-//
-//                    filterString.append(price)
-//                }
                 
                 
                 //     Stops
@@ -1009,11 +1000,11 @@ class GetSharableUrl
                     var stops = ""
                     
                     for n in 0..<userSelectedFilters[i].stp.count{
-                        if n == userSelectedFilters[i].stp.count-1{
-                            stops.append("filters[\(i)][stp][\(n)]=\(userSelectedFilters[i].stp[n])")
-                        }else{
-                            stops.append("filters[\(i)][stp][\(n)]=\(userSelectedFilters[i].stp[n])&")
-                        }
+//                        if n == userSelectedFilters[i].stp.count-1{
+                            stops.append("&filters[\(i)][stp][\(n)]=\(userSelectedFilters[i].stp[n])")
+//                        }else{
+//                            stops.append("filters[\(i)][stp][\(n)]=\(userSelectedFilters[i].stp[n])&")
+//                        }
                     }
                     
                     filterString.append(stops)
@@ -1024,7 +1015,7 @@ class GetSharableUrl
             //     Price
             if (appliedFilters.contains(.Price))
             {
-                let price = "&filters[\(appliedFilterLegIndex)][pr][0]=\(userSelectedFilters[appliedFilterLegIndex].pr.minPrice)&filters[\(appliedFilterLegIndex)][pr][1]=\(userSelectedFilters[appliedFilterLegIndex].pr.maxPrice)&"
+                let price = "&filters[\(appliedFilterLegIndex)][pr][0]=\(userSelectedFilters[appliedFilterLegIndex].pr.minPrice)&filters[\(appliedFilterLegIndex)][pr][1]=\(userSelectedFilters[appliedFilterLegIndex].pr.maxPrice)"
                 
                 filterString.append(price)
             }
@@ -1033,7 +1024,7 @@ class GetSharableUrl
             if dynamicFilters.aircraft.selectedAircraftsArray.count > 0{
                 var aircraft = ""
                 for n in 0..<dynamicFilters.aircraft.selectedAircraftsArray.count{
-                    aircraft.append("filters[0][aircraft][\(n)]=\(dynamicFilters.aircraft.selectedAircraftsArray[n].name)&")
+                    aircraft.append("&filters[0][aircraft][\(n)]=\(dynamicFilters.aircraft.selectedAircraftsArray[n].name)")
                 }
                 
                 filterString.append(aircraft)
