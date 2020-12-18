@@ -22,7 +22,7 @@ func printDebug<T>(_ obj: T) {
     //        print(obj)
     //    }
     #if DEBUG
-    print(obj)
+//    print(obj)
     #endif
 }
 
