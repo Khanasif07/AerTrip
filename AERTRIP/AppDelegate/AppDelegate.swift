@@ -136,7 +136,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             guard let token = url.absoluteString.components(separatedBy: "&token=").last else { return false}
             AppFlowManager.default.deeplinkToRegistrationSuccefullyVC(type: .deeplinkResetPassword, email: "", refId: ref, token: token)
         } else {
-            checkForFlightsDeepLink(url: url)
+            checkForFlightsAndHotelsDeepLink(url: url)
         }
         
         return true
@@ -167,7 +167,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return GIDSignIn.sharedInstance().handle(url)
             
         } else {
-            checkForFlightsDeepLink(url: url)
+            checkForFlightsAndHotelsDeepLink(url: url)
         }
         
         
@@ -179,7 +179,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    func checkForFlightsDeepLink(url: URL?) {
+    func checkForFlightsAndHotelsDeepLink(url: URL?) {
         let str = url?.absoluteString
         var newStr: String?
         
@@ -193,47 +193,60 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let newUrl = URL(string: newStr ?? "")
         
-        var pairs: [String : Any] = [:]
-        
-        
-        newUrl?.expandURLWithCompletionHandler(completionHandler: { url in
+        newUrl?.expandURLWithCompletionHandler(completionHandler: {[weak self] url in
+            guard let self = self else { return }
             if let url = url {
                 printDebug("expandedUrl=\(url)")
             }
             
             let str = url?.query ?? ""
             let decodedUrl = str.removingPercentEncoding
-                        
-            for pairString in decodedUrl?.components(separatedBy: "&") ?? [] {
-                let pair = pairString.components(separatedBy: "=")
-                
-                if pair.count != 2 {
-                    continue
-                }
-                
-                let key = pair[0]
-                let val = pair[1]
-                
-                if val.isEmpty {
-                    continue
-                }
-
-                pairs[key] = val
-            }
             
-            DispatchQueue.main.async {
-                
-                if let rootVC = self.window?.rootViewController as? UINavigationController {
-                    if let vc = rootVC.viewControllers.first(where: {$0.isKind(of: FlightResultBaseViewController.self)}) as? FlightResultBaseViewController{
-                        vc.popToPreviousScreen(sender: UIButton())
-                        rootVC.dismiss(animated: true, completion: nil)
-                    }
-                }
-            }
-            
-            DispatchQueue.delay(1) {
-                SwiftObjCBridgingController.shared.sendFlightFormData(pairs)
+            if url?.absoluteString.contains("flights") ?? false {
+                self.searchFlightsWithDeepLink(decodedUrl: decodedUrl)
+            } else if url?.absoluteString.contains("hotels") ?? false {
+                self.searchHotelsWithDeepLink(decodedUrl: decodedUrl)
             }
         })
+    }
+    
+    func searchFlightsWithDeepLink(decodedUrl: String?) {
+        
+        var pairs: [String : Any] = [:]
+        
+        for pairString in decodedUrl?.components(separatedBy: "&") ?? [] {
+            let pair = pairString.components(separatedBy: "=")
+            
+            if pair.count != 2 {
+                continue
+            }
+            
+            let key = pair[0]
+            let val = pair[1]
+            
+            if val.isEmpty {
+                continue
+            }
+
+            pairs[key] = val
+        }
+        
+        DispatchQueue.main.async {
+            
+            if let rootVC = self.window?.rootViewController as? UINavigationController {
+                if let vc = rootVC.viewControllers.first(where: {$0.isKind(of: FlightResultBaseViewController.self)}) as? FlightResultBaseViewController{
+                    vc.popToPreviousScreen(sender: UIButton())
+                    rootVC.dismiss(animated: true, completion: nil)
+                }
+            }
+        }
+        
+        DispatchQueue.delay(1) {
+            SwiftObjCBridgingController.shared.sendFlightFormData(pairs)
+        }
+    }
+    
+    func searchHotelsWithDeepLink(decodedUrl: String?) {
+        
     }
 }
