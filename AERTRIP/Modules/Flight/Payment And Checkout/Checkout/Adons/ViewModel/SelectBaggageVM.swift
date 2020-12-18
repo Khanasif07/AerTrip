@@ -37,13 +37,13 @@ class SelectBaggageVM {
         
        self.addonsDetails.addonsArray = self.addonsDetails.addonsArray.map { (addon) -> AddonsDataCustom in
             var newAddon = addon
-            newAddon.isInternational = newAddon.adonsName.contains("_IN")
+            newAddon.isInternational = newAddon.adonsName.contains("IN")
             return newAddon
         }
         
         
-        let allInternational = addonsDetails.addonsArray.filter { $0.adonsName.contains("_IN") }
-        let allDomestic = addonsDetails.addonsArray.filter { !$0.adonsName.contains("_IN") }
+        let allInternational = addonsDetails.addonsArray.filter { $0.adonsName.contains("IN") }
+        let allDomestic = addonsDetails.addonsArray.filter { !$0.adonsName.contains("IN") }
 
              if !allDomestic.isEmpty && !allInternational.isEmpty{
                  sagrigatedData[0] = allDomestic
