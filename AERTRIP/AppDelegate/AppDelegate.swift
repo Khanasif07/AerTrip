@@ -46,7 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         GoogleLoginController.shared.configure()
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
-        GMSServices.provideAPIKey(AppConstants.kGoogleAPIKey)
+        GMSServices.provideAPIKey(AppKeys.kGoogleAPIKey)
         UITextView.appearance().tintColor = AppColors.themeGreen
         UITextField.appearance().tintColor = AppColors.themeGreen
         
@@ -160,10 +160,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        if url.scheme?.lowercased() == AppConstants.fbUrl {
+        if url.scheme?.lowercased() == AppKeys.fbUrl {
             return ApplicationDelegate.shared.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
         }
-        else if url.scheme?.lowercased() == AppConstants.googleUrl {
+        else if url.scheme?.lowercased() == AppKeys.googleUrl {
             return GIDSignIn.sharedInstance().handle(url)
             
         } else {

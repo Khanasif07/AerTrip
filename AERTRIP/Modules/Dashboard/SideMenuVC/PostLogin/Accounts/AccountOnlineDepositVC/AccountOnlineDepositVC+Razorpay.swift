@@ -12,7 +12,7 @@ import Razorpay
 extension AccountOnlineDepositVC: RazorpayPaymentCompletionProtocolWithData {
     
     func initializePayment(withOptions options: JSONDictionary) {
-        let razorpay: RazorpayCheckout = RazorpayCheckout.initWithKey(AppConstants.kRazorpayPublicKey, andDelegateWithData: self)
+        let razorpay: RazorpayCheckout = RazorpayCheckout.initWithKey(AppKeys.kRazorpayPublicKey, andDelegateWithData: self)
         razorpay.open(options)
     }
     func onPaymentError(_ code: Int32, description str: String, andData response: [AnyHashable : Any]?) {

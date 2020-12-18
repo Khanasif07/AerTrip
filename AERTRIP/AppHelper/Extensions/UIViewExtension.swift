@@ -240,13 +240,13 @@ extension UIView {
         return nil
     }
     
-    func addNoDataLable(_ withDataCount: Int, withMessage: String = "No Data Found", withFont: UIFont = UIFont.systemFont(ofSize: 18.0), textColor: UIColor = UIColor.lightGray) {
+    func addNoDataLable(_ withDataCount: Int, withMessage: String = LocalizedString.noDataFound.localized, withFont: UIFont = UIFont.systemFont(ofSize: 18.0), textColor: UIColor = UIColor.lightGray) {
         self.removeNoDataLabel()
         
         if withDataCount <= 0 {
             let msgLabel = UILabel()
             msgLabel.frame = self.bounds
-            msgLabel.text = withMessage.isEmpty ? "No Data Found" : withMessage
+            msgLabel.text = withMessage.isEmpty ? LocalizedString.noDataFound.localized : withMessage
             msgLabel.textAlignment = NSTextAlignment.center
             msgLabel.tag = 862548
             msgLabel.font = withFont

@@ -29,7 +29,7 @@ typealias IntFlightDetail = IntMultiCityAndReturnWSResponse.Results.Fdet
 
 typealias IntLeg = IntMultiCityAndReturnWSResponse.Results.Ldet
 
-let msgForLessThen2Hr = "Selected flights have less than 2 hrs of gap."
+let msgForLessThen2Hr = LocalizedString.selectedFlightsGap.localized//"Selected flights have less than 2 hrs of gap."
 let msgForOverlapTime = "Flight timings are not compatible. Select a different flight."
 
 

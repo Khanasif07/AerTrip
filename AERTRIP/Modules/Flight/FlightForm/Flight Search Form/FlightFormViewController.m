@@ -66,6 +66,7 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *flightClassTypeImageView;
 @property (weak, nonatomic) IBOutlet UILabel *flightClassTypeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *flightClassTitleLabel;
 
 @property (weak, nonatomic) IBOutlet UIView *flightSearchOuterView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *flightSearchActivityIndicator;
@@ -855,6 +856,8 @@
         case ArrivalDateLabel :
             [self.returnLabel nudgeAnimation];
             break;
+        case CabinClass :
+            [self.flightClassTitleLabel nudgeAnimation];
         default:
             break;
     }

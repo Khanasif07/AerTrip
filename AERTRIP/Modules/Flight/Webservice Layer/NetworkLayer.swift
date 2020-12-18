@@ -51,9 +51,7 @@ class WebAPIService
             
             
             if let httpResponse = response as? HTTPURLResponse {
-                
-                //                    if httpResponse.statusCode != strongSelf.APIService.successCode {
-                if httpResponse.statusCode != apiServive.successCode {
+                    if httpResponse.statusCode != apiServive.successCode {
                     
                     failureHandler( NSError(domain:"", code:httpResponse.statusCode, userInfo:nil))
                     return
@@ -65,14 +63,7 @@ class WebAPIService
                 
                 let keys = httpResponse.allHeaderFields
                 if let val = keys["Set-Cookie"] as? String{
-//                    let str = val.components(separatedBy: ";")
-//                    print("str0=",str[0])
-
-//                    if str.count > 0 {
-//                        if str[0].contains("AT_R_STAGE_SESSID"){
-                            UserDefaults.standard.set(val, forKey: "SearchResultCookie")
-//                        }
-//                    }
+                    UserDefaults.standard.set(val, forKey: "SearchResultCookie")
                 }
             }
             

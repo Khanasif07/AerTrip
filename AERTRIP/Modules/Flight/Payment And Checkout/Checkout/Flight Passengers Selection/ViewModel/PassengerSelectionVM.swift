@@ -46,6 +46,7 @@ class PassengerSelectionVM  {
     var manimumContactLimit = 10
     var maximumContactLimit = 10
     var isTravelSefetyRequired  = true
+    var isContinueButtonTapped = false
     var itineraryData = FlightItineraryData()
     var newItineraryData = FlightItineraryData()
     weak var delegate:PassengerSelectionVMDelegate?

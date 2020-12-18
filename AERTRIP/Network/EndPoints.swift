@@ -147,8 +147,8 @@ enum APIEndPoint: String {
     
     case whyAertrip = "https://beta.aertrip.com/why"
     case smartSort = "https://beta.aertrip.com/smart-sort"
-    case offers = "https://beta.aertrip.com/offers"
-    case contact = "https://beta.aertrip.com/contact"
+    case offers = "https://aertrip.com/offers"//"https://beta.aertrip.com/offers"
+    case contact = "https://aertrip.com/contactus"//"https://beta.aertrip.com/contact"
 
     //Flights
     case fareConfirmation = "flights/confirmation"
@@ -168,6 +168,17 @@ enum APIEndPoint: String {
     case addOnConfirmation = "addon/addon-confirmation"
     case getAddonsQuatation = "itinerary/get-quotation"
     case getAddonsReceipt = "receipt/get"
+    
+    
+    //Flight Details
+    case flightDetails_Baggage = "flights/baggage"
+    case flightDetails_OnTimePerformance = "flights/delay-index"
+    case flightDetails_FareInfo = "flights/get-minifare-rules"
+    case flightDetails_FareRules = "flights/fare-rules"
+    
+//    Share
+    case flights_getShortUrlForShare = "flights/get-pinned-url"
+    case flights_getPinnedTemplate = "flights/get-pinned-template"
 }
 
 // MARK: - endpoint extension for url -

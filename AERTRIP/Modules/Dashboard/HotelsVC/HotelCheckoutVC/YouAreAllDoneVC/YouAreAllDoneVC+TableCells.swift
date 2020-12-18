@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import MessageUI
 //Mark:- UITableView Cell
 //=======================
 extension YouAreAllDoneVC {
@@ -17,6 +17,9 @@ extension YouAreAllDoneVC {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: YouAreAllDoneTableViewCell.reusableIdentifier, for: indexPath) as? YouAreAllDoneTableViewCell else { return nil }
         cell.configCell(forBookingId: self.viewModel.hotelReceiptData?.booking_number ?? "", forCid: self.viewModel.cId.first ?? LocalizedString.na.localized, isBookingPending: (self.viewModel.hotelReceiptData?.booking_status ?? .pending) == .pending)
         cell.delegate = self
+        cell.handler = {[weak self] in
+            self?.sendEmail()
+        }
         cell.addToAppleWalletButton.isLoading = self.viewModel.showWaletLoader
         return cell
     }
@@ -193,4 +196,25 @@ extension YouAreAllDoneVC {
         cell.instagramButton.isLoading = self.needToShowLoaderOnShare
         return cell
     }
+}
+
+extension YouAreAllDoneVC: MFMailComposeViewControllerDelegate{
+    
+    func sendEmail() {
+        if MFMailComposeViewController.canSendMail() {
+            let mail = MFMailComposeViewController()
+            mail.mailComposeDelegate = self
+            mail.setToRecipients([LocalizedString.AertripEmailId.localized])
+            mail.setMessageBody("", isHTML: true)
+
+            present(mail, animated: true)
+        } else {
+            // show failure alert
+        }
+    }
+
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true)
+    }
+    
 }

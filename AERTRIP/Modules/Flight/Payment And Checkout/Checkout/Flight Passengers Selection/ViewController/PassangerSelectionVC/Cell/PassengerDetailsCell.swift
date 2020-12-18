@@ -23,6 +23,7 @@ class PassengerDetailsCell: UICollectionViewCell {
     var journeyType:JourneyType = .domestic
     var lastJourneyDate = Date()
     var isAllPaxInfoRequired = false
+    var isContinueButtonTapped = false
     var minMNS = 10
     var maxMNS = 10
     var innerCellIndex:IndexPath?
@@ -77,7 +78,7 @@ class PassengerDetailsCell: UICollectionViewCell {
     private func configData() {
         
         func setupForAdd() {
-            infoImageView.image = #imageLiteral(resourceName: "greenFilledAdd")
+            infoImageView.image = (!self.isContinueButtonTapped) ?  #imageLiteral(resourceName: "greenFilledAdd") : #imageLiteral(resourceName: "ic_info_incomplete")
             var finalText = ""
             if let type = self.contact?.passengerType {
                 switch type{

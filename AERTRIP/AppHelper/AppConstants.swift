@@ -8,6 +8,27 @@
 
 import Foundation
 
+struct AppKeys{
+    
+    static var googleUrl : String{
+        !AppConstants.isReleasingToClient ? "com.googleusercontent.apps.175392921069-agcdbrcffqcbhl1cbeatvjafd35335gm" : "com.googleusercontent.apps.175392921069-agcdbrcffqcbhl1cbeatvjafd35335gm"
+    }
+    
+    static var kRazorpayPublicKey : String{
+        !AppConstants.isReleasingToClient ? "rzp_test_QJYU8TtB6deJgb" : "rzp_live_asjI4DvIbYfP6p"
+    }
+    
+    static var kGoogleAPIKey : String {
+        !AppConstants.isReleasingToClient ? "AIzaSyD_W5hNOfKdR3xbEEkbX1rI2sJ3nDv1E64" : ""
+    }
+    
+    static var fbUrl : String{
+        !AppConstants.isReleasingToClient ? "fb1080161318756977" : ""
+    }
+    
+}
+
+
 enum AppConstants {
     
     static let isReleasingToClient: Bool = false
@@ -31,13 +52,13 @@ enum AppConstants {
     static let kOtpTimeOutSeconds = 60
     static let kMaxDescriptionLength = 250
     
-    static let fbUrl = "fb1080161318756977"
-    static let googleUrl = "com.googleusercontent.apps.175392921069-agcdbrcffqcbhl1cbeatvjafd35335gm"
-    static let linkedIn_Client_Id = "81zznun7zyml11"
-    static let linkedIn_ClientSecret = "B4ELw2GOTv5tcnPA"
-    static let linkedIn_States = "linkedin\(Int(NSDate().timeIntervalSince1970))"
-    static let linkedIn_Permissions = ["r_basicprofile", "r_emailaddress"]
-    static let linkedIn_redirectUri = "http://beta.aertrip.com/api/v1/linkedin/linksocial"
+//    static let fbUrl = "fb1080161318756977"
+//    static let googleUrl = "com.googleusercontent.apps.175392921069-agcdbrcffqcbhl1cbeatvjafd35335gm"
+//    static let linkedIn_Client_Id = "81zznun7zyml11"
+//    static let linkedIn_ClientSecret = "B4ELw2GOTv5tcnPA"
+//    static let linkedIn_States = "linkedin\(Int(NSDate().timeIntervalSince1970))"
+//    static let linkedIn_Permissions = ["r_basicprofile", "r_emailaddress"]
+//    static let linkedIn_redirectUri = "http://beta.aertrip.com/api/v1/linkedin/linksocial"
     static let privacyPolicy = "https://beta.aertrip.com/privacy"
     static let termsOfUse = "https://beta.aertrip.com/terms"
     static let fareRules = "https://beta.aertrip.com/terms"
@@ -67,12 +88,12 @@ enum AppConstants {
     
     static let profileViewBackgroundNameIntialsFont = AppFonts.Regular.withSize(40.0)
     
-    static let kGoogleAPIKey = "AIzaSyD_W5hNOfKdR3xbEEkbX1rI2sJ3nDv1E64" // "AIzaSyBR5AMB7FJUqlRBZv93B4aVhY-Xt13weaU"
+//    static let kGoogleAPIKey = "AIzaSyD_W5hNOfKdR3xbEEkbX1rI2sJ3nDv1E64" // "AIzaSyBR5AMB7FJUqlRBZv93B4aVhY-Xt13weaU"
     static let kRuppeeSymbol = "\u{20B9} "
     static let kCopyrightSymbol = "\u{00A9}"
     
     // razor pay key
-    static let kRazorpayPublicKey = "rzp_test_QJYU8TtB6deJgb"
+//    static let kRazorpayPublicKey = "rzp_test_QJYU8TtB6deJgb"
     
     // CellIdentifier
     

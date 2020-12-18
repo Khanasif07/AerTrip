@@ -26,6 +26,7 @@ class PassengerGridCell: UITableViewCell{
     weak var delegate: PassengerGridSelectionDelegate?
     var minMNS = 10
     var maxMNS = 10
+    var isContinueButtonTapped = false
     // Mark:- LifeCycles
     // Mark:-
     override func awakeFromNib() {
@@ -87,6 +88,7 @@ extension PassengerGridCell: UICollectionViewDataSource, UICollectionViewDelegat
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PassengerDetailsCell", for: indexPath) as? PassengerDetailsCell else {
             return UICollectionViewCell()
         }
+        cell.isContinueButtonTapped = self.isContinueButtonTapped
         cell.journeyType = self.journeyType
         if GuestDetailsVM.shared.guests.count > forIdx.row, GuestDetailsVM.shared.guests[forIdx.row].count > indexPath.item {
             cell.innerCellIndex = indexPath

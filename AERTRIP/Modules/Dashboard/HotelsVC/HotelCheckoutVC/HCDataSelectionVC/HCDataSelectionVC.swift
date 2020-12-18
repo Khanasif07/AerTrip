@@ -366,6 +366,7 @@ class HCDataSelectionVC: BaseVC {
                 self.viewModel.logInUserApi()
             }
         } else {
+            self.viewModel.isContinueButtonTapped = true
             viewModel.canShowErrorForEmailPhone = true
             self.tableView.reloadData()
         }
@@ -758,6 +759,7 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: HCDataSelectionRoomDetailCell.reusableIdentifier) as? HCDataSelectionRoomDetailCell else {
                 return UITableViewCell()
             }
+            cell.isContinueButtonTapped = self.viewModel.isContinueButtonTapped
             cell.configData(forIndexPath: indexPath)
             
             return cell

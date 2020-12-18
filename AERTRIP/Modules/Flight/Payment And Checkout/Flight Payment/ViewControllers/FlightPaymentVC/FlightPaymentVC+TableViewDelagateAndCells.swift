@@ -313,11 +313,12 @@ extension FlightPaymentVC{
                 printDebug("WallletAmountCellTableViewCell not found")
                 return UITableViewCell()
             }
+            convenieneCell.aertripWalletTitleLabel.numberOfLines = 2
             convenieneCell.walletAmountLabel.textColor = AppColors.themeBlack
             convenieneCell.aertripWalletTitleLabel.textColor = AppColors.themeBlack
             let amount = isWallet ? self.convenienceFeesWallet : self.convenienceRate
             if self.isConvenienceFeeApplied {
-                convenieneCell.aertripWalletTitleLabel.text = LocalizedString.ConvenienceFee.localized
+                convenieneCell.aertripWalletTitleLabel.text = LocalizedString.ConvenienceFeeNonRefundables.localized//LocalizedString.ConvenienceFee.localized
                 convenieneCell.walletAmountLabel.attributedText = amount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
                 return convenieneCell
             } else {
@@ -330,6 +331,7 @@ extension FlightPaymentVC{
                 printDebug("WallletAmountCellTableViewCell not found")
                 return UITableViewCell()
             }
+            walletAmountCell.aertripWalletTitleLabel.numberOfLines = 1
             walletAmountCell.callForReuse()
             if self.isWallet {
                 let amount = Double(self.viewModel.itinerary.details.farepr)

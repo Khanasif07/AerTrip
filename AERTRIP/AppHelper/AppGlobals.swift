@@ -398,7 +398,7 @@ class AppGlobals {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
         } else {
-            AppToast.default.showToastMessage(message: "Google Maps is not installed on your device.")
+            AppToast.default.showToastMessage(message: LocalizedString.googleMapNotInstalled.localized)
         }
         
         //        if UIApplication.shared.canOpenURL(URL(string: "comgooglemaps://")!) {
@@ -521,12 +521,12 @@ class AppGlobals {
             }
         }
         else {
-            let alertController = UIAlertController(title: "", message: "You have been restricted from using the calendar on this device without calendar access this feature wont work.", preferredStyle: UIAlertController.Style.alert)
+            let alertController = UIAlertController(title: "", message: LocalizedString.restrictedCalendarUse.localized, preferredStyle: UIAlertController.Style.alert)
             
-            let alertActionSettings = UIAlertAction(title: "Settings", style: UIAlertAction.Style.default) { (action:UIAlertAction) in
+            let alertActionSettings = UIAlertAction(title: LocalizedString.Settings.localized, style: UIAlertAction.Style.default) { (action:UIAlertAction) in
                 UIApplication.openSettingsApp
             }
-            let alertActionCancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default) { (action:UIAlertAction) in
+            let alertActionCancel = UIAlertAction(title: LocalizedString.Cancel.localized, style: UIAlertAction.Style.default) { (action:UIAlertAction) in
             }
             alertController.addAction(alertActionSettings)
             alertController.addAction(alertActionCancel)

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -62,7 +63,7 @@ Your booking ID is 2324354657 and all details have been sent to your email.</str
                         <nil key="highlightedColor"/>
                     </label>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="FTr-tR-uPT">
-                        <rect key="frame" x="16" y="314" width="343" height="122"/>
+                        <rect key="frame" x="16" y="314" width="343" height="136"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AVC-8D-YhN" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="343" height="45"/>
@@ -90,8 +91,8 @@ Your booking ID is 2324354657 and all details have been sent to your email.</str
                                     <action selector="addToCallendarButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="fVT-pY-fv8"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rui-2D-zSr">
-                                <rect key="frame" x="0.0" y="122" width="343" height="0.0"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rui-2D-zSr" customClass="ActiveLabel" customModule="ActiveLabel">
+                                <rect key="frame" x="0.0" y="122" width="343" height="14"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -99,7 +100,7 @@ Your booking ID is 2324354657 and all details have been sent to your email.</str
                         </subviews>
                     </stackView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xAo-jX-ddG" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="462" width="375" height="0.5"/>
+                        <rect key="frame" x="0.0" y="476" width="375" height="0.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="0.5" id="ISA-Y6-s9L"/>
@@ -143,6 +144,11 @@ Your booking ID is 2324354657 and all details have been sent to your email.</str
             <point key="canvasLocation" x="136.80000000000001" y="172.26386806596702"/>
         </tableViewCell>
     </objects>
+    <designables>
+        <designable name="rui-2D-zSr">
+            <size key="intrinsicContentSize" width="0.0" height="14"/>
+        </designable>
+    </designables>
     <resources>
         <image name="AddToAppleWallet" width="30" height="22"/>
         <image name="Checkmark" width="23" height="18.5"/>

@@ -38,11 +38,13 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
     //Indicator:---
     var indicator = UIActivityIndicatorView()
     weak var dimensionDelegate : getBaggageDimentionsDelegate?
-
+    let viewModel = FlightBaggageVM()
+    
     //MARK:- Initialise Views
     override func viewDidLoad() {
         super.viewDidLoad()
         setLoader()
+        self.viewModel.delegate = self
         self.baggageTableView.backgroundColor = AppColors.themeGray04
         baggageTableView.register(UINib(nibName: "BaggageDetailsPerFlightTableViewCell", bundle: nil), forCellReuseIdentifier: "BaggageDetailsPerFlightCell")
         baggageTableView.register(UINib(nibName: "ChangeAirportTableViewCell", bundle: nil), forCellReuseIdentifier: "ChangeAirportCell")
@@ -55,10 +57,10 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
         if let journey = journey{
             if journey.legsWithDetail.count > 0{
                 if !self.isForDomestic{
-                    callAPIforBaggageInfo(sid: sid, fk: journey.fk, journeyObj: journey)
+                    self.viewModel.callAPIforBaggageInfo(sid: sid, fk: journey.fk, journeyObj: journey, journey: nil)
                 }else{
                     for legs in journey.legsWithDetail{
-                        self.callAPIforBaggageInfoForDomestic(sid: sid, fk: legs.lfk, journeyObj: legs)
+                        self.viewModel.callAPIforBaggageInfoForDomestic(sid: sid, fk: legs.lfk, journeyObj: legs)
                     }
                 }
             }
@@ -154,7 +156,7 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
                 
                 let attributedWithTextColor: NSAttributedString = displayTxt.attributedStringWithColor(strArray, color: UIColor.clear)
                 changeAirportCell.dataLabel.attributedText = attributedWithTextColor
-
+                
             }else{
                 displayTxt = displayTxt + "•   Baggage details are indicative and subject to change without prior notice."
                 
@@ -427,55 +429,6 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
         self.dimensionDelegate?.getBaggageDimentions(baggage: evaluatedBaggageResp, sender: sender)
     }
     
-    //MARK:- API Call
-    func callAPIforBaggageInfo(sid:String, fk:String, journeyObj:IntJourney, count:Int = 3){
-        let reachability = AFNetworkReachabilityManager.shared()
-        guard reachability.isReachable || reachability.isReachableViaWiFi || reachability.isReachableViaWWAN else{
-            self.tostDelegate?.showTost(msg: "Internet connection is not availble.", isLoaded: false)
-            return
-        }
-        guard count > 0 else { return }
-        self.addIndicator()
-        let webservice = WebAPIService()
-        webservice.executeAPI(apiServive: .baggageResult(sid: sid, fk: fk), completionHandler: {[weak self](data) in
-            guard let self = self else {return}
-            self.removeIndicator()
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            
-            if let jsonResult:AnyObject  = try? JSONSerialization.jsonObject(with: data, options: []) as AnyObject{
-                
-                DispatchQueue.main.async {
-                    if let result = jsonResult as? [String: AnyObject] {
-                        
-                        if let data = result["data"] as? JSONDictionary {
-                            let keys = data.keys
-                            if keys.count > 0{
-                                
-                                for key in keys{
-                                    if let datas = data["\(key)"] as? JSONDictionary{
-                                        self.dataResp += [datas]
-                                    }
-                                }
-                                
-                                if self.dataResp.count != 0{
-                                    self.displaySetValues(baggage: self.dataResp)
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }, failureHandler : {[weak self] (error ) in
-            guard let self = self else {return}
-            DispatchQueue.main.async {
-                self.tostDelegate?.showTost(msg: error.localizedDescription, isLoaded: true)
-                self.removeIndicator()
-                self.callAPIforBaggageInfo(sid:sid, fk:fk, journeyObj:journeyObj, count:count-1)
-            }
-            printDebug(error)
-        })
-    }
     
     func displaySetValues(baggage:[JSONDictionary]){
         guard let journey = self.journey else {return}
@@ -544,41 +497,6 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
 
 //Details on checkout page for domestic & oneway
 extension IntFlightBaggageInfoVC{
-    func callAPIforBaggageInfoForDomestic(sid:String, fk:String, journeyObj:IntLeg){
-        let webservice = WebAPIService()
-        webservice.executeAPI(apiServive: .baggageResult(sid: sid, fk: fk), completionHandler: {    (data) in
-            
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            
-            do{
-                let jsonResult:AnyObject?  = try JSONSerialization.jsonObject(with: data, options: []) as AnyObject
-                
-                DispatchQueue.main.async {
-                    if let result = jsonResult as? [String: AnyObject] {
-                        
-                        if let data = result["data"] as? JSONDictionary {
-                            
-                            let keys = data.keys
-                            if keys.count > 0{
-                                for key in keys{
-                                    if let datas = data["\(key)"] as? JSONDictionary
-                                    {
-                                        self.dataResp += [datas]
-                                        self.displayForDomestic(journeyObj: journeyObj, baggage: self.dataResp)
-                                    }
-                                    
-                                }
-                            }
-                        }
-                    }
-                }
-            }catch{
-            }
-        } , failureHandler : { (error ) in
-            printDebug(error)
-        })
-    }
     
     func displayForDomestic(journeyObj:IntLeg, baggage:[JSONDictionary]){
         var baggageStringArray = [String]()
@@ -623,6 +541,23 @@ extension IntFlightBaggageInfoVC{
             }
         }
         self.baggageTableView.reloadData()
+    }
+}
+
+extension IntFlightBaggageInfoVC: FlightBaggageVMDelegate{
+    func flightBaggageDetailsApiResponse(details: [JSONDictionary], journeyObj: IntJourney?, journey: Journey?) {
+        self.dataResp += details
+        
+        if self.dataResp.count != 0{
+            self.displaySetValues(baggage: self.dataResp)
+        }
+    }
+    
+
+    
+    func flightBaggageDetailsResDomestic(details: [JSONDictionary], journeyObj: IntLeg) {
+        self.dataResp += details
+        self.displayForDomestic(journeyObj: journeyObj, baggage: self.dataResp)
     }
     
 }

@@ -43,6 +43,8 @@ class FareInfoTableViewCell: UITableViewCell
     @IBOutlet weak var titleLabelTop: NSLayoutConstraint!
     @IBOutlet weak var fareRulesView: UIView!
     @IBOutlet weak var fareRulesViewHeight: NSLayoutConstraint!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

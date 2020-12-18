@@ -17,7 +17,8 @@ typedef enum : NSUInteger {
     FromLabel,
     ToLabel,
     DepartureDateLabel,
-    ArrivalDateLabel
+    ArrivalDateLabel,
+    CabinClass
 } PlaceholderLabels;
 
 @protocol MultiCityFlightCellHandler

@@ -35,7 +35,7 @@ class IntFareBreakupVC: BaseVC {
     @IBOutlet weak var totalPayableAmountLabel: UILabel!
     
     @IBOutlet weak var bookButton: UIButton!
-
+    
     @IBOutlet weak var strikeOutAmountLabel: UILabel!
     @IBOutlet weak var strikeOutAmountLabelTrailing: NSLayoutConstraint!
     @IBOutlet weak var bookingAmountLabel: UILabel!
@@ -46,7 +46,7 @@ class IntFareBreakupVC: BaseVC {
     @IBOutlet weak var bookingView: UIView!
     @IBOutlet weak var bookingDataDisplayView: UIView!
     @IBOutlet weak var bookingDataDisplayViewHeight: NSLayoutConstraint!
-   
+    
     @IBOutlet weak var bookingTitleAndDateView: UIView!
     @IBOutlet weak var detailsButton: UIButton!
     @IBOutlet weak var bookingTitleLabel: UILabel!
@@ -61,14 +61,12 @@ class IntFareBreakupVC: BaseVC {
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     
     
-    
-    
     //MARK:- Variable Declaration
     var taxesResult : [String : String]!
     var intFlights : [IntFlightDetail]?
     var journey: [IntJourney]!
     var journeyCombo: [CombinationJourney]!
-
+    
     var taxesData : IntTaxes?
     var taxesDetails : [String:Int] = [String:Int]()
     var taxAndFeesData = [JSONDictionary]()
@@ -137,7 +135,6 @@ class IntFareBreakupVC: BaseVC {
     override func viewDidLayoutSubviews(){
         if fromScreen == "upgradePlanCollapse"
         {
-            
             if let subLayers = bookingDataDisplayView.layer.sublayers{
                 if subLayers.count > 0{
                     for layer in subLayers {
@@ -150,7 +147,7 @@ class IntFareBreakupVC: BaseVC {
             
             bookingDataDisplayView.removeGredient()
             fromScreen = "upgradePlan"
-
+            
         }else if fromScreen == "upgradePlan" {
             self.view.backgroundColor = .clear
             
@@ -167,7 +164,6 @@ class IntFareBreakupVC: BaseVC {
                     guard let self = self else {return}
                     self.fareDataDisplayView.addGredient(isVertical: false)
                 })
-                
             }else{
                 fareDataDisplayView.removeGredient()
                 fareDataDisplayView.backgroundColor = .white
@@ -212,7 +208,7 @@ class IntFareBreakupVC: BaseVC {
     
     private func creaateDateTitle()-> String{
         guard let date = self.bookFlightObject.subTitleString.components(separatedBy: " •").first else{return ""}
-            return date
+        return date
     }
     
     private func getTitleToshow()-> NSAttributedString{
@@ -227,7 +223,6 @@ class IntFareBreakupVC: BaseVC {
         }else{
             return self.bookFlightObject.titleString
         }
-        
     }
     
     func setupUpgradeButton(isHidden: Bool){
@@ -268,6 +263,7 @@ class IntFareBreakupVC: BaseVC {
     @IBAction func tappedUpgradeButton(_ sender: UIButton) {
         self.delegate?.tapUpgradeButton()
     }
+    
     func setPassengerCount(){
     }
     
@@ -307,7 +303,6 @@ class IntFareBreakupVC: BaseVC {
                     let newArr = ["name" : key,
                                   "value":newTaxVal] as JSONDictionary
                     taxAndFeesData.append(newArr)
-                    
                 }
             }else{
                 for key in sortOrderArray {
@@ -335,11 +330,8 @@ class IntFareBreakupVC: BaseVC {
             bookingAmountLabel.attributedText = price1
             
             baseFareTableview.reloadData()
-            
         }
     }
-    
-    
     
     func displayCollapseView(){
         self.isBackgroundVisible = false
@@ -453,7 +445,7 @@ class IntFareBreakupVC: BaseVC {
             isTaxesSectionHidden = true
             baseFareTableview.reloadData()
         }
-
+        
         if isTaxesSectionHidden{
             baseFareTableview.bounces = false
             baseFareTableview.alwaysBounceVertical = false
@@ -463,7 +455,7 @@ class IntFareBreakupVC: BaseVC {
             baseFareTableview.alwaysBounceVertical = true
             sectionHeight = self.baseFareTableview.numberOfSections * 37
         }
-
+        
         var cellHeight = 0
         var totalAddonsCellHeight = 0
         var extraSpace = 17
@@ -487,7 +479,7 @@ class IntFareBreakupVC: BaseVC {
             }
             extraSpace = 17
         }
-
+        
         var totalHeight = 0
         let bottomInset = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
         
@@ -503,7 +495,7 @@ class IntFareBreakupVC: BaseVC {
         if totalHeight > thresoldHeight{
             totalHeight = thresoldHeight
         }
-
+        
         if self.journey != nil{
             // Display few seats left view if fsr != 0
             var isFSR = false
@@ -512,11 +504,11 @@ class IntFareBreakupVC: BaseVC {
                     isFSR = true
                 }
             }
-
+            
             if isFSR == true && (self.fromScreen != "upgradePlan"){
                 self.fewSeatsLeftView.isHidden = false
                 self.fewSeatsLeftViewHeight.constant = 35
-
+                
                 if bottomInset == 0{
                     self.fareDataDisplayViewHeight.constant = CGFloat(totalHeight+143) + heightForBookingTitleView
                 }else{
@@ -525,7 +517,7 @@ class IntFareBreakupVC: BaseVC {
             }else{
                 self.fewSeatsLeftView.isHidden = true
                 self.fewSeatsLeftViewHeight.constant = 0
-
+                
                 if bottomInset == 0{
                     self.fareDataDisplayViewHeight.constant = CGFloat(totalHeight+108) + heightForBookingTitleView
                 }else{
@@ -533,7 +525,7 @@ class IntFareBreakupVC: BaseVC {
                 }
             }
         }
-
+        
         self.bookingDataDisplayViewHeight.constant = 50
         self.totalPayableView.isHidden = false
         self.totalPayableViewHeight.constant = 50
@@ -541,7 +533,7 @@ class IntFareBreakupVC: BaseVC {
         self.baseFareTableview.isHidden = false
         self.baseFareTableviewHeight.constant = 50
         self.fareDataDisplayViewBottom.constant = 40
-
+        
         switch UIScreen.main.bounds.height{
         case 568: //iPhone SE | 5S
             if isFromFlightDetails == true{
@@ -554,7 +546,7 @@ class IntFareBreakupVC: BaseVC {
                 self.fareDataDisplayViewBottom.constant = 0
             }
             break
-
+            
         case 667: //iPhone 8 | 6 | 6s | 7
             if isFromFlightDetails == true{
                 if #available(iOS 13.0, *) {
@@ -566,7 +558,7 @@ class IntFareBreakupVC: BaseVC {
                 self.fareDataDisplayViewBottom.constant = 0
             }
             break
-
+            
         case 736: //iPhone 6 Plus | 8 plus | 6s plus | 7 Plus
             if isFromFlightDetails == true{
                 if #available(iOS 13.0, *) {
@@ -578,7 +570,7 @@ class IntFareBreakupVC: BaseVC {
                 self.fareDataDisplayViewBottom.constant = 0
             }
             break
-
+            
         case 812: //11 Pro | X | Xs
             if isFromFlightDetails == true{
                 if #available(iOS 13.0, *) {
@@ -590,7 +582,7 @@ class IntFareBreakupVC: BaseVC {
                 self.fareDataDisplayViewBottom.constant = 0
             }
             break
-
+            
         case 896: //11 & 11 Pro Max & Xs Max & Xr
             if isFromFlightDetails == true{
                 if #available(iOS 13.0, *) {
@@ -602,12 +594,12 @@ class IntFareBreakupVC: BaseVC {
                 self.fareDataDisplayViewBottom.constant = 0
             }
             break
-
+            
         default :
             self.fareDataDisplayViewBottom.constant = 0
             break
         }
-
+        
         self.bookingInfoArrowImg.image = UIImage(named: "down.png")
         if self.isBackgroundVisible == false{
             self.view.backgroundColor = .clear
@@ -617,17 +609,9 @@ class IntFareBreakupVC: BaseVC {
         let y = UIScreen.main.bounds.height - hightOfView
         self.detailsDelegate?.updateHeight(to: hightOfView)
         
-//        UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {[weak self] in
-//            guard let self = self else {return}
-//            self.view.frame = CGRect(x: 0, y: y, width: UIScreen.main.bounds.width, height: hightOfView)
-//
-//            self.view.layoutSubviews()
-//            self.view.setNeedsLayout()
-//        })
-        
         UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {
             self.view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height:UIScreen.main.bounds.height)
-
+            
             self.view.layoutIfNeeded()
             self.view.setNeedsLayout()
         })
@@ -660,24 +644,21 @@ class IntFareBreakupVC: BaseVC {
     }
     
     @objc func infoButtonTapped(){
-//        if fromScreen != "upgradePlan"{
+        if !isInfoViewHidden{
+            self.isFareBreakupExpanded = true
+            displayExpandedView(fromSelection: "info")
+            self.delegate?.infoButtonTapped(isViewExpanded: true)
             
-            if !isInfoViewHidden{
-                self.isFareBreakupExpanded = true
-                displayExpandedView(fromSelection: "info")
-                self.delegate?.infoButtonTapped(isViewExpanded: true)
-                
-            }else{
-                self.isFareBreakupExpanded = false
-                displayCollapseView()
-                self.bookingInfoArrowImg.image = UIImage(named: "up.png")
-                self.delegate?.infoButtonTapped(isViewExpanded: false)
-                
-            }
+        }else{
+            self.isFareBreakupExpanded = false
+            displayCollapseView()
+            self.bookingInfoArrowImg.image = UIImage(named: "up.png")
+            self.delegate?.infoButtonTapped(isViewExpanded: false)
             
-            isInfoViewHidden = !isInfoViewHidden
-            
-//        }
+        }
+        
+        isInfoViewHidden = !isInfoViewHidden
+        
     }
     
     @IBAction func panGestureRecognizerHandler(_ sender: UIPanGestureRecognizer) {
@@ -718,10 +699,10 @@ class IntFareBreakupVC: BaseVC {
         if let result = formatter.string(from: NSNumber(value: price)){
             var fontSize = 10
             var fontSizeSuper = 10
-
+            
             var displayFont = AppFonts.Regular.rawValue
             var displayFontSuper = AppFonts.Regular.rawValue
-
+            
             if fromOption == "FareAmount"{
                 fontSize = 16
                 fontSizeSuper = 10
@@ -746,7 +727,7 @@ class IntFareBreakupVC: BaseVC {
                 
                 displayFont = AppFonts.Regular.rawValue
                 displayFontSuper = AppFonts.Regular.rawValue
-
+                
             }
             
             let font:UIFont = UIFont(name: displayFont, size:CGFloat(fontSize)) ?? UIFont.systemFont(ofSize: 18)

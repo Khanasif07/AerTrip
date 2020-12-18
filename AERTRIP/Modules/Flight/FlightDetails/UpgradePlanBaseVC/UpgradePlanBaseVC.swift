@@ -349,7 +349,7 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "plansCell", for: indexPath) as! PlansCollectionViewCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "plansCell", for: indexPath) as? PlansCollectionViewCell else{ return UICollectionViewCell()}
         
         if updatedJourneyArray.first?.fsr == 0{
             cell.dataDisplayViewBottom.constant = 50

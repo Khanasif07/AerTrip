@@ -127,6 +127,7 @@ extension PassengersSelectionVC: UITableViewDelegate, UITableViewDataSource {
             cell.delegate = self
             cell.lastJourneyDate = self.viewModel.itineraryData.itinerary.searchParams.lastJourneyDate
             cell.isAllPaxInfoRequired = self.viewModel.itineraryData.itinerary.isAllPaxInfoRequired
+            cell.isContinueButtonTapped = self.viewModel.isContinueButtonTapped
             cell.minMNS = self.viewModel.manimumContactLimit
             cell.maxMNS = self.viewModel.maximumContactLimit
             return cell

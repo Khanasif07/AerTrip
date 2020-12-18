@@ -122,166 +122,167 @@ enum AppErrorCodeFor: Int {
             return LocalizedString.ParsingError.localized
             
         case .NotLoggedIn:
-            return "Not Logged In"
+            return LocalizedString.notLoggedIn.localized
             
         case .emailRequired:
-            return "Email ID is required"
+            return LocalizedString.emailRequired.localized
             
         case .invalidEmailFormat:
-            return "Kindly provide a valid email ID"
+            return LocalizedString.invalidEmail.localized
             
         case .passwordIsRequired:
-            return "password is required"
+            return LocalizedString.passwordRequired.localized
             
         case .MultipleUserAccountsWithThisEmailId:
-            return "Multiple user accounts with this email id"
+            return LocalizedString.multipleAccountWithEmail.localized
             
         case .NoUserAccountWithThisEmailId:
-            return "The email ID and / or password you have entered is incorrect."
+            return LocalizedString.incorrectEmailPassword.localized
             
         case .userTypeNotMatched:
-            return "The email ID and / or password you have entered is incorrect."
+            return LocalizedString.incorrectEmailPassword.localized
             
         case .InvalidPassword:
-            return "The email ID and / or password you have entered is incorrect."
+            return LocalizedString.incorrectEmailPassword.localized
             
         case .userNotFound:
-            return "The email ID and / or password you have entered is incorrect."
+            return LocalizedString.incorrectEmailPassword.localized
             
         case .linkHasBeenExpired:
-            return "Link has been expired"
+            return LocalizedString.linkExpired.localized
             
         case .LinkAlreadyUsedToCreateAUser:
-            return "Link already used to create a user"
+            return LocalizedString.linkUsedToCreateUser.localized
             
         case .userIdRequired:
-            return "User not found"
+            return LocalizedString.userNotFound.localized
             
         case .accountMasterIdRequired:
-            return "Invalid user data"
+            return LocalizedString.invalidUserData.localized
             
         case .userTypeIdRequired:
-            return "Invalid user data"
+            return LocalizedString.invalidUserData.localized
             
         case .userGroupIdRequired:
-            return "Invalid user data"
+            return LocalizedString.invalidUserData.localized
             
         case .userTypeCodeRequired:
-            return "Invalid user data"
+            return LocalizedString.invalidUserData.localized
             
         case .userMemberIdRequired:
-            return "Invalid user data"
+            return LocalizedString.invalidUserData.localized
             
         case .membershipNumberRequired:
-            return "Invalid user data"
+            return LocalizedString.invalidUserData.localized
             
         case .hashKeyIsRequired:
-            return "Please provide valid hash key"
+            return LocalizedString.provideValidHashKey.localized
             
         case .passengerIdRequired:
-            return "Invalid user data"
+            return LocalizedString.invalidUserData.localized
             
         case .contactSourceIdRequired:
-            return "Invalid user data"
+            return LocalizedString.invalidUserData.localized
             
         case .billingNameRequired:
-            return "Invalid user data"
+            return LocalizedString.invalidUserData.localized
             
         case .billingAddressIdRequired:
-            return "Invalid user data"
+            return LocalizedString.invalidUserData.localized
             
         case .creditTypeRequired:
-            return "Invalid user data"
+            return LocalizedString.invalidUserData.localized
             
         case .defaultCountryRequired:
-            return "Invalid user data"
+            return LocalizedString.invalidUserData.localized
             
         case .preferredCurrencyRequired:
-            return "Invalid user data"
+            return LocalizedString.invalidUserData.localized
             
         case .refundModeRequired:
-            return "Invalid user data"
+            return LocalizedString.invalidUserData.localized
             
         case .userAlreadyRegisterdWithThisEmailId:
-            return "User already registered with this email address"
+            return LocalizedString.userAlreadyRegistered.localized
             
         case .emailActiveAsSocialUser:
-            return "User already registered with this email address"
+            return LocalizedString.userAlreadyRegistered.localized
             
         case .userWithNoPasswordAndNotInSocial:
-            return "User already registered with this email address"
+            return LocalizedString.userAlreadyRegistered.localized
             
         case .userAlreadyLoggedIn:
-            return "user already logged in"
+            return LocalizedString.userAlreadyLoggedIn.localized
             
         case .capchaAtemptsLimitOver:
-            return "capcha atempts limit over"
+            return LocalizedString.capchaLimitOver.localized
             
         case .guestLoginIsNotPermittedForThisUser:
-            return "guest login is not permitted for this user"
+            return LocalizedString.guestLoginNotPermitted.localized
             
         case .somethingWentWrongPleaseTryAgain:
-            return "something went wrong. please try again"
+            return LocalizedString.somethingWentWrongTryAgain.localized
             
         case .forMobileAppOnly:
-            return "For Mobile App only"
+            return LocalizedString.mobileAppOnly.localized
             
         case .failedToRegisterEmailChangeRequest:
-            return "Failed to register Email Change Request"
+            return LocalizedString.failedToRegisterEmailChangeRequest.localized
             
         case .TokenHasBeenExpired:
-            return "Token has been expired"
+            return LocalizedString.tokenExpired.localized
             
         case .userAlreadyCreatedUsingThisLink:
-            return "User already created using this link"
+            return LocalizedString.userAlreadyCreatedLink.localized
             
         case .failedToCreateAccountMaster:
-            return "Failed to create user"
+            return LocalizedString.failedToCreateUser.localized
             
         case .failedToCreateUser:
-            return "Failed to create user"
+            return LocalizedString.failedToCreateUser.localized
             
         case .passwordIsWeak:
-            return "Password is weak. Please set a stronger password."
+            return LocalizedString.weakPassword.localized
             
         case .newPasswordIsRequired:
-            return "Please provide a valid new password"
+            return LocalizedString.provideNewPassword.localized
             
         case .unableToSetNewPassword:
-            return "Unable to set new password"
+            return LocalizedString.unableToSetNewPassword.localized
             
         case .tokenIsRequired:
-            return "Please provide valid token"
+            return LocalizedString.provideValidToken.localized
             
         case .invalidToken:
-            return "Please provide valid token"
+            return LocalizedString.provideValidToken.localized
             
         case .passowrdHasAlreadyBeenResetUsingThisLink:
-            return "Passowrd has already been reset using this link"
+            return LocalizedString.passwordAlreadyReset.localized
             
         case .failedToResetPassword:
-            return "Failed to reset password"
+            return LocalizedString.failedToResetPassword.localized
             
         case .modeIsRequired:
-            return "mode is required"
+            return LocalizedString.modeRequired.localized
             
         case .thePreviousEnquiryForThisEmailIdWasREJECTEDBYCSR:
-            return "The previous enquiry for this email id was REJECTED BY CSR"
+            return LocalizedString.enquiryRejectedByCSR.localized
             
         case .failedToUpdateStatusOfCorpEnquiry:
-            return "Failed to update status of Corp Enquiry"
+            return LocalizedString.failedtoUpdateStatusOfCorpEnquiry.localized
             
         case .SomethingWentWrong:
-            return "Something went wrong. Please try again after some time"
+            return LocalizedString.somethingWentWrongTryAfterSomeTime.localized
             
         case .failedToSendRegistrationEmail:
-            return "Failed to send registration email"
+            return LocalizedString.failedToSendEmail.localized
             
         case .youHaveExceededMaximumAttemptsToResetPassword:
-            return "You have exceeded maximum attempts to Reset Password for the day. Please try again tomorrow.            "
+            return LocalizedString.exceededMaximumAttemptsToResetPassword.localized
             
         case .user_Not_Found, .user_type_not_matched:
-            return "The email ID provided is incorrect"
+            return LocalizedString.incorrectEmailId.localized
+            
         default:
             return ""
         }

@@ -89,7 +89,7 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let slabCell = tableView.dequeueReusableCell(withIdentifier: "PerSlabFareInfoCell") as! PerSlabFareInfoTableViewCell
+        guard let slabCell = tableView.dequeueReusableCell(withIdentifier: "PerSlabFareInfoCell") as? PerSlabFareInfoTableViewCell else{return UITableViewCell()}
         
         if indexPath.section == 0 && indexPath.row == 0{
             slabCell.topSeperatorLabelTop.constant = 0
