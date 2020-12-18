@@ -135,6 +135,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             guard let ref = url.absoluteString.slice(from: "?key=", to: "&token=") else { return false}
             guard let token = url.absoluteString.components(separatedBy: "&token=").last else { return false}
             AppFlowManager.default.deeplinkToRegistrationSuccefullyVC(type: .deeplinkResetPassword, email: "", refId: ref, token: token)
+        } else {
+            checkForFlightsDeepLink(url: url)
         }
         
         return true
@@ -199,35 +201,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 printDebug("expandedUrl=\(url)")
             }
             
-            let str = url?.query
-            
-            for pairString in str?.components(separatedBy: "&") ?? [] {
+            let str = url?.query ?? ""
+            let decodedUrl = str.removingPercentEncoding
+                        
+            for pairString in decodedUrl?.components(separatedBy: "&") ?? [] {
                 let pair = pairString.components(separatedBy: "=")
                 
                 if pair.count != 2 {
                     continue
                 }
                 
-                var key = pair[0]
-                var val = pair[1]
-                if key.contains("%5B") {
-                    key = key.replacingOccurrences(
-                        of: "%5B",
-                        with: "[")
-                }
+                let key = pair[0]
+                let val = pair[1]
                 
-                
-                if key.contains("%5D") {
-                    key = key.replacingOccurrences(
-                        of: "%5D",
-                        with: "]")
+                if val.isEmpty {
+                    continue
                 }
-                
-                if val.contains("%2C") {
-                    val = val.replacingOccurrences(
-                        of: "%2C",
-                        with: ",")
-                }
+
                 pairs[key] = val
             }
             

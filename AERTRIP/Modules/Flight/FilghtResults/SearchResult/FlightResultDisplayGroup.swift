@@ -431,40 +431,44 @@ class FlightResultDisplayGroup {
             self.appliedFilters.insert(.Duration)
             self.initiatedFilters.insert(.tripDuration)
             self.appliedSubFilters.insert(.tripDuration)
+            // needs to be in hours
             let userMin = Int(tt) ?? 0
             let inputMin = (Int(self.inputFilter?.tt.minTime ?? "") ?? 0)/3600
             let minTime = userMin < inputMin ? inputMin : userMin
-            self.userSelectedFilters?.tt.minTime = "\(minTime)"
+            self.userSelectedFilters?.tt.minTime = "\(minTime*3600)"
         }
         
         if let tt = flightSearchParam["filters[\(self.index)][tt][1]"] as? String{
             self.appliedFilters.insert(.Duration)
             self.initiatedFilters.insert(.tripDuration)
             self.appliedSubFilters.insert(.tripDuration)
+            // needs to be in hours
             let userMax = Int(tt) ?? 0
             let inputMax = (Int(self.inputFilter?.tt.maxTime ?? "") ?? 0)/3600
             let maxTime = userMax > inputMax ? inputMax : userMax
-            self.userSelectedFilters?.tt.maxTime = "\(maxTime)"
+            self.userSelectedFilters?.tt.maxTime = "\(maxTime*3600)"
         }
         
         if let lott = flightSearchParam["filters[\(self.index)][lott][0]"] as? String{
             self.appliedFilters.insert(.Duration)
             self.initiatedFilters.insert(.layoverDuration)
             self.appliedSubFilters.insert(.layoverDuration)
+            // needs to be in hours
             let userMin = Int(lott) ?? 0
             let inputMin = (Int(self.inputFilter?.lott?.minTime ?? "") ?? 0)/3600
             let minTime = userMin < inputMin ? inputMin : userMin
-            self.userSelectedFilters?.lott?.minTime = "\(minTime)"
+            self.userSelectedFilters?.lott?.minTime = "\(minTime*3600)"
         }
         
         if let lott = flightSearchParam["filters[\(self.index)][lott][1]"] as? String{
             self.appliedFilters.insert(.Duration)
             self.initiatedFilters.insert(.layoverDuration)
             self.appliedSubFilters.insert(.layoverDuration)
+            // needs to be in hours
             let userMax = Int(lott) ?? 0
             let inputMax = (Int(self.inputFilter?.lott?.maxTime ?? "") ?? 0)/3600
             let maxTime = userMax > inputMax ? inputMax : userMax
-            self.userSelectedFilters?.lott?.maxTime = "\(maxTime)"
+            self.userSelectedFilters?.lott?.maxTime = "\(maxTime*3600)"
         }
         
         if let ar_dt = flightSearchParam["filters[\(self.index)][ar_dt][0]"] as? String{

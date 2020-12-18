@@ -420,14 +420,14 @@ extension FlightResultDisplayGroup  {
                 
                 let journeyDuration = $0.duration
                 
-                var minTripDuration = Int(userSelectedFilters?.tt.minTime ?? "0" ) ?? 0
-                var maxTripDuration = Int(userSelectedFilters?.tt.maxTime ?? "0" ) ?? 0
+                let minTripDuration = Int(userSelectedFilters?.tt.minTime ?? "0" ) ?? 0
+                let maxTripDuration = Int(userSelectedFilters?.tt.maxTime ?? "0" ) ?? 0
                 
-                // Check for deep-linking as time comes in hours
-                if minTripDuration - 3600 < 0 && maxTripDuration - 3600 < 0 {
-                    minTripDuration *= 3600
-                    maxTripDuration *= 3600
-                }
+//                // Check for deep-linking as time comes in hours
+//                if minTripDuration - 3600 < 0 && maxTripDuration - 3600 < 0 {
+//                    minTripDuration *= 3600
+//                    maxTripDuration *= 3600
+//                }
                 
                 
                 if journeyDuration >= minTripDuration && journeyDuration <= maxTripDuration {
@@ -447,14 +447,14 @@ extension FlightResultDisplayGroup  {
                     return true
                 }
                 
-                var minLayoverDuration = Int(userSelectedFilters?.lott?.minTime ?? "0" ) ?? 0
-                var maxLayoverDuration = Int(userSelectedFilters?.lott?.maxTime ?? "0" ) ?? 0
-                
-                // Check for deep-linking as time comes in hours
-                if minLayoverDuration - 3600 < 0 && maxLayoverDuration - 3600 < 0 {
-                    minLayoverDuration *= 3600
-                    maxLayoverDuration *= 3600
-                }
+                let minLayoverDuration = Int(userSelectedFilters?.lott?.minTime ?? "0" ) ?? 0
+                let maxLayoverDuration = Int(userSelectedFilters?.lott?.maxTime ?? "0" ) ?? 0
+//
+//                // Check for deep-linking as time comes in hours
+//                if minLayoverDuration - 3600 < 0 && maxLayoverDuration - 3600 < 0 {
+//                    minLayoverDuration *= 3600
+//                    maxLayoverDuration *= 3600
+//                }
                 
                 if journeyLayoverDuration >= minLayoverDuration && journeyLayoverDuration <= maxLayoverDuration {
                     return true

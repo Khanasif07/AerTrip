@@ -606,7 +606,7 @@ class IntFlightResultDisplayGroup {
                 let userMin = Int(tt) ?? 0
                 let inputMin = (Int(self.inputFilter[index].tt.minTime ?? "") ?? 0)/3600
                 let minTime = userMin < inputMin ? inputMin : userMin
-                self.userSelectedFilters[index].tt.minTime = "\(minTime)"
+                self.userSelectedFilters[index].tt.minTime = "\(minTime*3600)"
             }
             
             if let tt = flightSearchParam["filters[\(index)][tt][1]"] as? String{
@@ -616,7 +616,7 @@ class IntFlightResultDisplayGroup {
                 let userMax = Int(tt) ?? 0
                 let inputMax = (Int(self.inputFilter[index].tt.maxTime ?? "") ?? 0)/3600
                 let maxTime = userMax > inputMax ? inputMax : userMax
-                self.userSelectedFilters[index].tt.maxTime = "\(maxTime)"
+                self.userSelectedFilters[index].tt.maxTime = "\(maxTime*3600)"
             }
             
             if let lott = flightSearchParam["filters[\(index)][lott][0]"] as? String{
@@ -626,7 +626,7 @@ class IntFlightResultDisplayGroup {
                 let userMin = Int(lott) ?? 0
                 let inputMin = (Int(self.inputFilter[index].lott.minTime ?? "") ?? 0)/3600
                 let minTime = userMin < inputMin ? inputMin : userMin
-                self.userSelectedFilters[index].lott.minTime = "\(minTime)"
+                self.userSelectedFilters[index].lott.minTime = "\(minTime*3600)"
             }
             
             if let lott = flightSearchParam["filters[\(index)][lott][1]"] as? String{
@@ -636,7 +636,7 @@ class IntFlightResultDisplayGroup {
                 let userMax = Int(lott) ?? 0
                 let inputMax = (Int(self.inputFilter[index].lott.maxTime ?? "") ?? 0)/3600
                 let maxTime = userMax > inputMax ? inputMax : userMax
-                self.userSelectedFilters[index].lott.maxTime = "\(maxTime)"
+                self.userSelectedFilters[index].lott.maxTime = "\(maxTime*3600)"
             }
             
             if let ar_dt = flightSearchParam["filters[\(index)][ar_dt][0]"]  as? String{

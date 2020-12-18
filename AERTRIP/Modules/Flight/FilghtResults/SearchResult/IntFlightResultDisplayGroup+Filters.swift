@@ -538,13 +538,13 @@ extension IntFlightResultDisplayGroup  {
                 
             userSelectedFilters.enumerated().forEach { (legIndex, obj) in
                 
-                var minTripDuration = Int(obj.tt.minTime ?? "") ?? 0
-                var maxTripDuration = Int(obj.tt.maxTime ?? "") ?? 0
+                let minTripDuration = Int(obj.tt.minTime ?? "") ?? 0
+                let maxTripDuration = Int(obj.tt.maxTime ?? "") ?? 0
                 
-                if minTripDuration < 3600 && maxTripDuration < 3600 {
-                    minTripDuration *= 3600
-                    maxTripDuration *= 3600
-                }
+//                if minTripDuration < 3600 && maxTripDuration < 3600 {
+//                    minTripDuration *= 3600
+//                    maxTripDuration *= 3600
+//                }
                 
                 if appliedSubFilters[legIndex]?.contains(.tripDuration) ?? false {
                     
@@ -558,13 +558,13 @@ extension IntFlightResultDisplayGroup  {
             
             userSelectedFilters.enumerated().forEach { (legIndex, obj) in
                 
-                var minLayoverDuration = Int(obj.lott.minTime ?? "") ?? 0
-                var maxLayoverDuration = Int(obj.lott.maxTime ?? "") ?? 0
+                let minLayoverDuration = Int(obj.lott.minTime ?? "") ?? 0
+                let maxLayoverDuration = Int(obj.lott.maxTime ?? "") ?? 0
                 
-                if minLayoverDuration < 3600 && maxLayoverDuration < 3600 {
-                    minLayoverDuration *= 3600
-                    maxLayoverDuration *= 3600
-                }
+//                if minLayoverDuration < 3600 && maxLayoverDuration < 3600 {
+//                    minLayoverDuration *= 3600
+//                    maxLayoverDuration *= 3600
+//                }
                 
                 if appliedSubFilters[legIndex]?.contains(.layoverDuration) ?? false {
                     
