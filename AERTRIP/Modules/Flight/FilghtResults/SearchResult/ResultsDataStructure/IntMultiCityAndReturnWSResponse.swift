@@ -389,7 +389,7 @@ struct IntMultiCityAndReturnWSResponse {
 
                               if pieces.containsIgnoringCase(find: " ") {
                                   let numbers = pieces.components(separatedBy: " ")
-                                  attributedSuperScript = NSAttributedString(string:numbers.first! + "Pc" , attributes: attributes)
+                                  attributedSuperScript = NSAttributedString(string:(numbers.first ?? "") + "Pc" , attributes: attributes)
                                   return attributedSuperScript
                               } else {
                                           attributedSuperScript = NSAttributedString(string: pieces + "Pc" , attributes: attributes)
@@ -958,7 +958,7 @@ struct IntMultiCityAndReturnWSResponse {
                             
                             if pieces.containsIgnoringCase(find: " ") {
                                 let numbers = pieces.components(separatedBy: " ")
-                                attributedSuperScript = NSAttributedString(string:numbers.first! + "P" , attributes: attributes)
+                                attributedSuperScript = NSAttributedString(string:(numbers.first ?? "")  + "Pc" , attributes: attributes)
                                 return attributedSuperScript
                             }
                         }

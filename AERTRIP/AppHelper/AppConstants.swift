@@ -25,7 +25,6 @@ struct AppKeys{
     static var fbUrl : String{
         !AppConstants.isReleasingToClient ? "fb1080161318756977" : ""
     }
-    
 }
 
 

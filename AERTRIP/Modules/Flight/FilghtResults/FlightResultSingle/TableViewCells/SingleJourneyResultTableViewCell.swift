@@ -193,10 +193,16 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
         smartIconsArray = journey.smartIconArray
         smartIconCollectionView.reloadData()
 
+        if journey.farepr ==  4006 {
+            print("baggageSuperScript....\(journey.baggageSuperScript?.string)....\(journey.priceAsString)")
+        }
+        
+//        print("baggageSuperScript....\(baggageSuperScript?.string)....\(journey.priceAsString)")
+        
     }
     
+    
     override func prepareForReuse() {
-        
         logoOne.isHidden = false
         logoTwo.isHidden = false
         logoThree.isHidden = false
@@ -347,7 +353,7 @@ extension SingleJourneyResultTableViewCell : UICollectionViewDataSource , UIColl
             return .zero
         }
         return CGSize(width: 16.0, height:  23.0)
-    }
+     }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

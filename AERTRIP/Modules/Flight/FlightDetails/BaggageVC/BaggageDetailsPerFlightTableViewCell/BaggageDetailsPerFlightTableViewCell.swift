@@ -119,6 +119,7 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
                 perAdultCheckinLabel.attributedText = attString
             }
             
+            //30 kg (2 pc x 15 kg): Max 2 pieces of 15 kg each can be carried weighing total 30 kg.)
             if pieces != "" && max_weight != ""
             {
                 if pieces != "0 pc"{
@@ -133,16 +134,17 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
                                 
                                 if isSEDevice{
                                     isNewLineAdded = true
-                                    str2 = "\n(\(intPieces) pc X \(intmax_weight) kg)"
+                                    str2 = "\n(\(intPieces) pc X \(intmax_weight) kg)*"
                                 }else{
                                     isNewLineAdded = false
-                                    str2 = " (\(intPieces) pc X \(intmax_weight) kg)"
+                                    str2 = " (\(intPieces) pc X \(intmax_weight) kg)*"
                                 }
                                 let font = AppFonts.SemiBold.withSize(16)
                                 let fontSuper = AppFonts.Regular.withSize(14)
                                 let attString:NSMutableAttributedString = NSMutableAttributedString(string: str1, attributes: [.font:font])
                                 let attString1:NSMutableAttributedString = NSMutableAttributedString(string: str2, attributes: [.font:fontSuper])
-                                
+                                attString1.setAttributes([.baselineOffset:5], range: NSRange(location:str2.count-1,length:1))
+
                                 attString.append(attString1)
                                 perAdultCheckinLabel.attributedText = attString
                             }else{
@@ -232,16 +234,16 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
                                 var str2 = ""
                                 if isSEDevice{
                                     isNewLineAdded = true
-                                    str2 = "\n(\(intPieces) pc X \(intmax_weight) kg)"
+                                    str2 = "\n(\(intPieces) pc X \(intmax_weight) kg)*"
                                 }else{
                                     isNewLineAdded = false
-                                    str2 = " (\(intPieces) pc X \(intmax_weight) kg)"
+                                    str2 = " (\(intPieces) pc X \(intmax_weight) kg)*"
                                 }
                                 let font = AppFonts.SemiBold.withSize(16)
                                 let fontSuper = AppFonts.Regular.withSize(14)
                                 let attString:NSMutableAttributedString = NSMutableAttributedString(string: str1, attributes: [.font:font])
                                 let attString1:NSMutableAttributedString = NSMutableAttributedString(string: str2, attributes: [.font:fontSuper])
-                                
+                                attString1.setAttributes([.baselineOffset:5], range: NSRange(location:str2.count-1,length:1))
                                 attString.append(attString1)
                                 perChildCheckInLabel.attributedText = attString
                             }else{
@@ -334,16 +336,16 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
                                 
                                 if isSEDevice{
                                     isNewLineAdded = true
-                                    str2 = "\n(\(intPieces) pc X \(intmax_weight) kg)"
+                                    str2 = "\n(\(intPieces) pc X \(intmax_weight) kg)*"
                                 }else{
                                     isNewLineAdded = false
-                                    str2 = " (\(intPieces) pc X \(intmax_weight) kg)"
+                                    str2 = " (\(intPieces) pc X \(intmax_weight) kg)*"
                                 }
                                 let font = AppFonts.SemiBold.withSize(16)
                                 let fontSuper = AppFonts.Regular.withSize(14)
                                 let attString:NSMutableAttributedString = NSMutableAttributedString(string: str1, attributes: [.font:font])
                                 let attString1:NSMutableAttributedString = NSMutableAttributedString(string: str2, attributes: [.font:fontSuper])
-                                
+                                attString1.setAttributes([.baselineOffset:5], range: NSRange(location:str2.count-1,length:1))
                                 attString.append(attString1)
                                 perInfantCheckInLabel.attributedText = attString
                             }else{
