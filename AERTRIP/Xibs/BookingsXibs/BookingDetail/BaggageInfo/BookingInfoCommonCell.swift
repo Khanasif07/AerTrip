@@ -246,7 +246,7 @@ class BookingInfoCommonCell: ATTableViewCell {
                     if let intmax_weight = Int(weights[0]), let intPieces = Int(pc[0]){
                         if intmax_weight != 0{
                             let str1 = "\(intmax_weight*intPieces) kg"
-                            let str2 = " (\(intPieces) pc X \(intmax_weight) kg)"
+                            let str2 = " (\(intPieces) pc X \(intmax_weight) kg)*"
                             returnText = str1 + str2
                         }else{
                             returnText = LocalizedString.NoBaggage.localized

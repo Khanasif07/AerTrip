@@ -100,7 +100,7 @@ class BookingInfoNotesCellTableViewCell: UITableViewCell {
             let index: Int = displayTxt.distance(from: displayTxt.startIndex, to: inx!.lowerBound)
             
             let font:UIFont = AppFonts.SemiBold.withSize(14)
-            title.addAttributes([.font:font], range: NSRange(location: 0, length: index+6))
+            title.addAttributes([.font:font], range: NSRange(location: 0, length: index))
         }
         
         noteLabel.attributedText = title
@@ -162,7 +162,34 @@ class BookingInfoNotesCellTableViewCell: UITableViewCell {
                 }
             }
 
-            return "Max \(pc) pieces can be carried weighing total \(weight)"
+            return "\(weight) : Max \(pc) pieces can be carried weighing total \(weight)"
+        }
+        
+        if pieces != "" && max_weight != ""
+        {
+            if pieces != "0 pc"{
+                let pc = pieces.components(separatedBy: " ")
+                let weights = max_weight.components(separatedBy: " ")
+                
+                if pc.count > 0, weights.count > 0{
+                    if let intmax_weight = Int(weights[0]), let intPieces = Int(pc[0]){
+                        if intmax_weight != 0{
+                            let str1 = "\(intmax_weight*intPieces) kg"
+                            let str2 = " (\(intPieces) pc X \(intmax_weight) kg)"
+                            
+                            var displayNote = ""
+                            
+                            if intPieces == 1{
+                                displayNote = "\(str1)\(str2) : Max \(intPieces) piece of \(intmax_weight) kg each can be carried weighing total \(str1)."
+                            }else{
+                                displayNote = "\(str1)\(str2) : Max \(intPieces) pieces of \(intmax_weight) kg each can be carried weighing total \(str1)."
+                            }
+                            
+                            return displayNote
+                        }
+                    }
+                }
+            }
         }
         
         return ""
