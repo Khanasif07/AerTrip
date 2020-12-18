@@ -225,6 +225,41 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
                                         combineString.append(str)
                                     }
                                 }
+                                
+                                
+                                if pieces != "" && max_weight != ""
+                                {
+                                    if pieces != "0 pc"{
+                                        let pc = pieces.components(separatedBy: " ")
+                                        let weights = max_weight.components(separatedBy: " ")
+                                        
+                                        if pc.count > 0, weights.count > 0{
+                                            if let intmax_weight = Int(weights[0]), let intPieces = Int(pc[0]){
+                                                if intmax_weight != 0{
+                                                    let str1 = "\(intmax_weight*intPieces) kg"
+                                                    let str2 = " (\(intPieces) pc X \(intmax_weight) kg)"
+                                                    
+                                                    var displayNote = ""
+                                                    
+                                                    if intPieces == 1{
+                                                        displayNote = "\(str1)\(str2) : Max \(intPieces) piece of \(intmax_weight) kg each can be carried weighing total \(str1)."
+                                                    }else{
+                                                        displayNote = "\(str1)\(str2) : Max \(intPieces) pieces of \(intmax_weight) kg each can be carried weighing total \(str1)."
+                                                    }
+                                                    
+                                                    if !attStringArray.contains(displayNote){
+                                                        attStringArray.append(displayNote)
+                                                        if combineString != ""{
+                                                            combineString.append("\n     ")
+                                                        }
+                                                        combineString.append(displayNote)
+                                                    }
+                                                    
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }else{
                             baggageCell.perAdultView.isHidden = true
@@ -269,6 +304,40 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
                                             combineString.append("\n     ")
                                         }
                                         combineString.append(str)
+                                    }
+                                }
+                                
+                                if pieces != "" && max_weight != ""
+                                {
+                                    if pieces != "0 pc"{
+                                        let pc = pieces.components(separatedBy: " ")
+                                        let weights = max_weight.components(separatedBy: " ")
+                                        
+                                        if pc.count > 0, weights.count > 0{
+                                            if let intmax_weight = Int(weights[0]), let intPieces = Int(pc[0]){
+                                                if intmax_weight != 0{
+                                                    let str1 = "\(intmax_weight*intPieces) kg"
+                                                    let str2 = " (\(intPieces) pc X \(intmax_weight) kg)"
+                                                    
+                                                    var displayNote = ""
+                                                    
+                                                    if intPieces == 1{
+                                                        displayNote = "\(str1)\(str2) : Max \(intPieces) piece of \(intmax_weight) kg each can be carried weighing total \(str1)."
+                                                    }else{
+                                                        displayNote = "\(str1)\(str2) : Max \(intPieces) pieces of \(intmax_weight) kg each can be carried weighing total \(str1)."
+                                                    }
+                                                    
+                                                    if !attStringArray.contains(displayNote){
+                                                        attStringArray.append(displayNote)
+                                                        if combineString != ""{
+                                                            combineString.append("\n     ")
+                                                        }
+                                                        combineString.append(displayNote)
+                                                    }
+                                                    
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -319,6 +388,40 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
                                             combineString.append("\n     ")
                                         }
                                         combineString.append(str)
+                                    }
+                                }
+                                
+                                if pieces != "" && max_weight != ""
+                                {
+                                    if pieces != "0 pc"{
+                                        let pc = pieces.components(separatedBy: " ")
+                                        let weights = max_weight.components(separatedBy: " ")
+                                        
+                                        if pc.count > 0, weights.count > 0{
+                                            if let intmax_weight = Int(weights[0]), let intPieces = Int(pc[0]){
+                                                if intmax_weight != 0{
+                                                    let str1 = "\(intmax_weight*intPieces) kg"
+                                                    let str2 = " (\(intPieces) pc X \(intmax_weight) kg)"
+                                                    
+                                                    var displayNote = ""
+                                                    
+                                                    if intPieces == 1{
+                                                        displayNote = "\(str1)\(str2) : Max \(intPieces) piece of \(intmax_weight) kg each can be carried weighing total \(str1)."
+                                                    }else{
+                                                        displayNote = "\(str1)\(str2) : Max \(intPieces) pieces of \(intmax_weight) kg each can be carried weighing total \(str1)."
+                                                    }
+                                                    
+                                                    if !attStringArray.contains(displayNote){
+                                                        attStringArray.append(displayNote)
+                                                        if combineString != ""{
+                                                            combineString.append("\n     ")
+                                                        }
+                                                        combineString.append(displayNote)
+                                                    }
+                                                    
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
