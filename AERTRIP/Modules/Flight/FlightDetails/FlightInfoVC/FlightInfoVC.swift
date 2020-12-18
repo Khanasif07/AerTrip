@@ -67,7 +67,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
     var selectedJourneyFK = [String]()
     var fewSeatsLeftViewHeight = 0
     var isInternational = false//For International results.
-    
+    var viewModel = FlightDetailsInfoVM()
     
     //MARK:- Initial Display Methods
     
@@ -78,6 +78,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
         clearCache.checkTimeAndClearFlightBaggageResultCache()
         
         getFlightsInfo()
+        self.viewModel.delegate = self
         flightInfoTableView.estimatedRowHeight = UITableView.automaticDimension
         flightInfoTableView.alwaysBounceVertical = true
         
@@ -96,7 +97,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
             for j in 0..<journey.count{
                 
                 if appdelegate.flightBaggageMutableArray.count == 0{
-                    callAPIforBaggageInfo(sid: sid, fk: journey[j].fk)
+                    self.viewModel.callAPIforBaggageInfo(sid: sid, fk: journey[j].fk)
                 }else{
                     for i in 0..<self.appdelegate.flightBaggageMutableArray.count{
                         if let baggageArray = self.appdelegate.flightBaggageMutableArray[i] as? JSONDictionary
@@ -110,7 +111,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                     }
                     
                     if self.baggageData.count == 0{
-                        callAPIforBaggageInfo(sid: sid, fk: journey[j].fk)
+                        self.viewModel.callAPIforBaggageInfo(sid: sid, fk: journey[j].fk)
                     }
                 }
                 
@@ -119,7 +120,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         let flight = allFlights[k]
                         
                         if flight.ontimePerformanceDataStoringTime == nil{
-                            callAPIforFlightsOnTimePerformace(origin: flight.fr, destination: flight.to, airline: flight.al, flight_number: flight.fn, index: [j,k], FFK:flight.ffk)
+                            self.viewModel.callAPIforFlightsOnTimePerformace(origin: flight.fr, destination: flight.to, airline: flight.al, flight_number: flight.fn, index: [j,k], FFK:flight.ffk)
                         }
                         
                         if k > 0{
@@ -551,7 +552,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         
                         flightDetailsCell.setJourneyTitle()
                         
-                        flightDetailsCell.count = count ?? 0
+                        flightDetailsCell.count = count
                         flightDetailsCell.halt = flight.halt
                         flightDetailsCell.durationTitle = journey.first?.durationTitle ?? ""
                         flightDetailsCell.ovgtf = flight.ovgtf
@@ -678,97 +679,247 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
     }
     
     //MARK:- API Call
-    func callAPIforFlightsOnTimePerformace(origin: String, destination: String, airline: String, flight_number: String, index:[Int],FFK:String)
-    {
-        let webservice = WebAPIService()
-        webservice.executeAPI(apiServive: .flightPerformanceResult(origin: origin, destination: destination, airline: airline, flight_number: flight_number), completionHandler: {    (data) in
-            
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            
-            DispatchQueue.main.async {
-                if var currentParsedResponse = parse(data: data, into: flightPerformaceResponse.self, with:decoder) {
-                    
-                    if currentParsedResponse.success == true{
-                        currentParsedResponse.data?.delayIndex?.index = index
-                        
-                        let date = Date()
-                        let calendar = Calendar.current
-                        let hour = calendar.component(.hour, from: date)
-                        let minutes = calendar.component(.minute, from: date)
-                        let seconds = calendar.component(.second, from: date)
-                        
-                        if self.journey[index[0]].leg.first?.flights[index[1]].ffk == FFK{
-                            self.journey[index[0]].leg[0].flights[index[1]].ontimePerformance = Int((currentParsedResponse.data?.delayIndex?.ontime) ?? "")
-                            
-                            self.journey[index[0]].leg[0].flights[index[1]].latePerformance = Int((currentParsedResponse.data?.delayIndex?.late) ?? "")
-                            
-                            self.journey[index[0]].leg[0].flights[index[1]].cancelledPerformance = Int((currentParsedResponse.data?.delayIndex?.cancelled) ?? "")
-                            
-                            self.journey[index[0]].leg[0].flights[index[1]].observationCount = Int((currentParsedResponse.data?.delayIndex?.observationCount) ?? "")
-                            
-                            self.journey[index[0]].leg[0].flights[index[1]].averageDelay = Int((currentParsedResponse.data?.delayIndex?.averageDelay) ?? "")
-                            
-                            self.journey[index[0]].leg[0].flights[index[1]].ontimePerformanceDataStoringTime = "\(hour):\(minutes):\(seconds)"
-                        }
-                        
-                        self.flightInfoTableView.reloadData()
-                    }
-                }
-            }
-        } , failureHandler : { (error ) in
-        })
+//    func callAPIforFlightsOnTimePerformace(origin: String, destination: String, airline: String, flight_number: String, index:[Int],FFK:String)
+//    {
+//        let param = ["origin": origin, "destination": destination, "airline":airline,"flight_number":flight_number]
+//        APICaller.shared.getOnTimePerformanceDetails(params: param){[weak self] (data, error) in
+//            guard let self = self , let performanceData = data else {return}
+//
+//            if let delay_index = performanceData["delay_index"] as? JSONDictionary
+//            {
+//                let date = Date()
+//                let calendar = Calendar.current
+//                let hour = calendar.component(.hour, from: date)
+//                let minutes = calendar.component(.minute, from: date)
+//                let seconds = calendar.component(.second, from: date)
+//
+//                if self.journey[index[0]].leg.first?.flights[index[1]].ffk == FFK{
+//                    self.journey[index[0]].leg[0].flights[index[1]].ontimePerformance = Int((delay_index["ontime"] as? String) ?? "")
+//                    self.journey[index[0]].leg[0].flights[index[1]].latePerformance = Int((delay_index["late"] as? String) ?? "")
+//                    self.journey[index[0]].leg[0].flights[index[1]].cancelledPerformance = Int((delay_index["cancelled"] as? String) ?? "")
+//                    self.journey[index[0]].leg[0].flights[index[1]].observationCount = Int((delay_index["observation_count"] as? String) ?? "")
+//                    self.journey[index[0]].leg[0].flights[index[1]].averageDelay = Int((delay_index["average_delay"] as? String) ?? "")
+//                    self.journey[index[0]].leg[0].flights[index[1]].ontimePerformanceDataStoringTime = "\(hour):\(minutes):\(seconds)"
+//                }
+//
+//                self.flightInfoTableView.reloadData()
+//            }
+//        }
+//    }
+//    {
+//        let webservice = WebAPIService()
+//        webservice.executeAPI(apiServive: .flightPerformanceResult(origin: origin, destination: destination, airline: airline, flight_number: flight_number), completionHandler: {    (data) in
+//
+//            let decoder = JSONDecoder()
+//            decoder.keyDecodingStrategy = .convertFromSnakeCase
+//
+//            DispatchQueue.main.async {
+//                if var currentParsedResponse = parse(data: data, into: flightPerformaceResponse.self, with:decoder) {
+//
+//                    if currentParsedResponse.success == true{
+//                        currentParsedResponse.data?.delayIndex?.index = index
+//
+//                        let date = Date()
+//                        let calendar = Calendar.current
+//                        let hour = calendar.component(.hour, from: date)
+//                        let minutes = calendar.component(.minute, from: date)
+//                        let seconds = calendar.component(.second, from: date)
+//
+//                        if self.journey[index[0]].leg.first?.flights[index[1]].ffk == FFK{
+//                            self.journey[index[0]].leg[0].flights[index[1]].ontimePerformance = Int((currentParsedResponse.data?.delayIndex?.ontime) ?? "")
+//
+//                            self.journey[index[0]].leg[0].flights[index[1]].latePerformance = Int((currentParsedResponse.data?.delayIndex?.late) ?? "")
+//
+//                            self.journey[index[0]].leg[0].flights[index[1]].cancelledPerformance = Int((currentParsedResponse.data?.delayIndex?.cancelled) ?? "")
+//
+//                            self.journey[index[0]].leg[0].flights[index[1]].observationCount = Int((currentParsedResponse.data?.delayIndex?.observationCount) ?? "")
+//
+//                            self.journey[index[0]].leg[0].flights[index[1]].averageDelay = Int((currentParsedResponse.data?.delayIndex?.averageDelay) ?? "")
+//
+//                            self.journey[index[0]].leg[0].flights[index[1]].ontimePerformanceDataStoringTime = "\(hour):\(minutes):\(seconds)"
+//                        }
+//
+//                        self.flightInfoTableView.reloadData()
+//                    }
+//                }
+//            }
+//        } , failureHandler : { (error ) in
+//        })
+//    }
+    
+//    func callAPIforBaggageInfo(sid:String, fk:String){
+//
+//        let param = ["sid": sid, "fk[]": fk]
+//        APICaller.shared.getFlightbaggageDetails(params: param) {[weak self] (data, error) in
+//            guard let self = self , let bgData = data else {
+//                AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
+//                return
+//            }
+//            let keys = bgData.keys
+//            if keys.count > 0{
+//                for key in keys{
+//                    if let datas = bgData["\(key)"] as? JSONDictionary
+//                    {
+//                        self.baggageData += [datas]
+//                    }
+//                }
+//            }
+//            let date = Date()
+//            let calendar = Calendar.current
+//            let hour = calendar.component(.hour, from: date)
+//            let minutes = calendar.component(.minute, from: date)
+//            let seconds = calendar.component(.second, from: date)
+//
+//            let newArr = ["Time":"\(hour):\(minutes):\(seconds)",
+//                          "selectedJourneyFK":self.selectedJourneyFK,
+//                          "BaggageDataResponse":self.baggageData] as [String : Any]
+//            self.appdelegate.flightBaggageMutableArray.add(newArr)
+//            self.flightInfoTableView.reloadData()
+//            delay(seconds: 0.3) {
+//                self.flightInfoTableView.reloadData()
+//            }
+//        }
+        
+//        let url = APIEndPoint.baseUrlPath.rawValue+APIEndPoint.flightDetails_Baggage.rawValue+"sid=\(sid)&fk[]=\(fk)"
+//        AppNetworking.GET(endPoint: url, success: { [weak self] (data) in
+//            guard let sSelf = self else {return}
+//
+//            if let data = data["data"].object as? JSONDictionary {
+//
+//                let keys = data.keys
+//                if keys.count > 0{
+//
+//                    for key in keys{
+//                        if let datas = data["\(key)"] as? JSONDictionary
+//                        {
+//                            sSelf.baggageData += [datas]
+//                        }
+//                    }
+//                }
+//            }
+//
+//            let date = Date()
+//            let calendar = Calendar.current
+//            let hour = calendar.component(.hour, from: date)
+//            let minutes = calendar.component(.minute, from: date)
+//            let seconds = calendar.component(.second, from: date)
+//
+//            let newArr = ["Time":"\(hour):\(minutes):\(seconds)",
+//                          "selectedJourneyFK":sSelf.selectedJourneyFK,
+//                          "BaggageDataResponse":sSelf.baggageData] as [String : Any]
+//            sSelf.appdelegate.flightBaggageMutableArray.add(newArr)
+//            sSelf.flightInfoTableView.reloadData()
+//            delay(seconds: 0.3) {
+//                sSelf.flightInfoTableView.reloadData()
+//            }
+//        }, failure: { (errors) in
+//        })
+    }
+//    {
+//        let webservice = WebAPIService()
+//        webservice.executeAPI(apiServive: .baggageResult(sid: sid, fk: fk), completionHandler: {    (data) in
+//
+//            let decoder = JSONDecoder()
+//            decoder.keyDecodingStrategy = .convertFromSnakeCase
+//
+//            do{
+//                let jsonResult:AnyObject?  = try JSONSerialization.jsonObject(with: data, options: []) as AnyObject
+//
+//                DispatchQueue.main.async {
+//                    if let result = jsonResult as? [String: AnyObject] {
+//                        if let data = result["data"] as? JSONDictionary {
+//
+//                            let keys = data.keys
+//                            if keys.count > 0{
+//
+//                                for key in keys{
+//                                    if let datas = data["\(key)"] as? JSONDictionary
+//                                    {
+//                                        self.baggageData += [datas]
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//
+//                    let date = Date()
+//                    let calendar = Calendar.current
+//                    let hour = calendar.component(.hour, from: date)
+//                    let minutes = calendar.component(.minute, from: date)
+//                    let seconds = calendar.component(.second, from: date)
+//
+//                    let newArr = ["Time":"\(hour):\(minutes):\(seconds)",
+//                                  "selectedJourneyFK":self.selectedJourneyFK,
+//                                  "BaggageDataResponse":self.baggageData] as [String : Any]
+//                    self.appdelegate.flightBaggageMutableArray.add(newArr)
+//                    self.flightInfoTableView.reloadData()
+//                    delay(seconds: 0.3) {
+//                        self.flightInfoTableView.reloadData()
+//                    }
+//                }
+//            }catch{
+//            }
+//        } , failureHandler : { (error ) in
+//        })
+//    }
+//}
+
+
+extension FlightInfoVC : FlightInfoVMDelegate{
+    func flightBaggageDetailsApiResponse(details: [JSONDictionary]) {
+        self.baggageData += details
+        let date = Date()
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: date)
+        let minutes = calendar.component(.minute, from: date)
+        let seconds = calendar.component(.second, from: date)
+        
+        let newArr = ["Time":"\(hour):\(minutes):\(seconds)",
+                      "selectedJourneyFK":self.selectedJourneyFK,
+                      "BaggageDataResponse":self.baggageData] as [String : Any]
+        self.appdelegate.flightBaggageMutableArray.add(newArr)
+        self.flightInfoTableView.reloadData()
+        delay(seconds: 0.3) {
+            self.flightInfoTableView.reloadData()
+        }
+        
     }
     
-    func callAPIforBaggageInfo(sid:String, fk:String)
-    {
-        let webservice = WebAPIService()
-        webservice.executeAPI(apiServive: .baggageResult(sid: sid, fk: fk), completionHandler: {    (data) in
+    func flightPerformance(performanceData: flightPerfomanceResultData, index: [Int], fkk:String) {
+        
+        var currentParsedResponse = performanceData
+        
+        currentParsedResponse.index = index
+        
+        let date = Date()
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: date)
+        let minutes = calendar.component(.minute, from: date)
+        let seconds = calendar.component(.second, from: date)
+        if self.journey[index[0]].leg.first?.flights[index[1]].ffk == fkk{
+            self.journey[index[0]].leg[0].flights[index[1]].ontimePerformance = Int((currentParsedResponse.ontime) ?? "")
             
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            self.journey[index[0]].leg[0].flights[index[1]].latePerformance = Int((currentParsedResponse.late) ?? "")
             
-            do{
-                let jsonResult:AnyObject?  = try JSONSerialization.jsonObject(with: data, options: []) as AnyObject
-                
-                DispatchQueue.main.async {
-                    if let result = jsonResult as? [String: AnyObject] {
-                        if let data = result["data"] as? JSONDictionary {
-                            
-                            let keys = data.keys
-                            if keys.count > 0{
-                                
-                                for key in keys{
-                                    if let datas = data["\(key)"] as? JSONDictionary
-                                    {
-                                        self.baggageData += [datas]
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    
-                    let date = Date()
-                    let calendar = Calendar.current
-                    let hour = calendar.component(.hour, from: date)
-                    let minutes = calendar.component(.minute, from: date)
-                    let seconds = calendar.component(.second, from: date)
-                    
-                    let newArr = ["Time":"\(hour):\(minutes):\(seconds)",
-                                  "selectedJourneyFK":self.selectedJourneyFK,
-                                  "BaggageDataResponse":self.baggageData] as [String : Any]
-                    self.appdelegate.flightBaggageMutableArray.add(newArr)
-                    self.flightInfoTableView.reloadData()
-                    delay(seconds: 0.3) {
-                        self.flightInfoTableView.reloadData()
-                    }
-                }
-            }catch{
-            }
-        } , failureHandler : { (error ) in
-        })
+            self.journey[index[0]].leg[0].flights[index[1]].cancelledPerformance = Int((currentParsedResponse.cancelled) ?? "")
+            
+            self.journey[index[0]].leg[0].flights[index[1]].observationCount = Int((currentParsedResponse.observationCount) ?? "")
+            
+            self.journey[index[0]].leg[0].flights[index[1]].averageDelay = Int((currentParsedResponse.averageDelay) ?? "")
+            
+            self.journey[index[0]].leg[0].flights[index[1]].ontimePerformanceDataStoringTime = "\(hour):\(minutes):\(seconds)"
+        }
+        self.flightInfoTableView.reloadData()
+        
     }
+    
+    
+    
+    
 }
+    
+    
+    
 
 extension UILabel {
     func calculateMaxLines() -> Int {

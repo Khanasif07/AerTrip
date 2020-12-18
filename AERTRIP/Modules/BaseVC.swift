@@ -104,7 +104,6 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         IQKeyboardManager.shared().isEnabled = true
         IQKeyboardManager.shared().isEnableAutoToolbar = true
         
-        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(checkForReachability(_:)), name: Notification.Name(rawValue: ReachabilityDidChangeNotificationName), object: nil)
@@ -138,7 +137,6 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated);
-        
         self.deRegisterLogoutNotification()
     }
     
@@ -166,6 +164,7 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
     }
     
     func bindViewModel() {
+        
     }
     
     override var shouldAutorotate: Bool{
@@ -185,13 +184,9 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
     private func deRegisterLogoutNotification() {
         NotificationCenter.default.removeObserver(self, name: .sessionExpired, object: nil)
         NotificationCenter.default.removeObserver(self, name: .logOut, object: nil)
-        
     }
     
-    
-    
     final func addTapGestureOnView(view:UIView) {
-        
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard(_:)))
         // prevents the scroll view from swallowing up the touch event of child buttons
         tapGesture.cancelsTouchesInView = true

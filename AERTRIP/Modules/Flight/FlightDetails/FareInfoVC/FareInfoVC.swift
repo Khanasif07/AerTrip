@@ -51,6 +51,8 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     var isProgressBarHidden = false
     var isAPICalled = false
     
+    let viewModel = FlightFareInfoVM()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -58,6 +60,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         progressBar.tintColor = .AertripColor
         progressBar.isHidden = true
         self.setLoader()
+        self.viewModel.delegate = self
         self.addIndicator()
         fareInfoTableView.register(UINib(nibName: "FareInfoTableViewCell", bundle: nil), forCellReuseIdentifier: "FareInfoCell")
         fareInfoTableView.register(UINib(nibName: "ChangeAirportTableViewCell", bundle: nil), forCellReuseIdentifier: "ChangeAirportCell")
@@ -78,7 +81,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                 
                 if journey[i].leg[0].fcp == 1{
                     self.isAPICalled = true
-                    self.getFareInfoAPICall(sid: self.sid, fk: self.journey[i].fk,i:i)
+                    self.viewModel.getFareInfoAPICall(sid: self.sid, fk: self.journey[i].fk, index:i)
                     self.initialFCPArray.append(1)
                 }else{
                     self.apiCallCount += 1
@@ -96,7 +99,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                 let airlineReschedulingData = fare.reschedulingCharges.details.getAirlineReschedulingDataForAllFlights()
                 combineAirlineReschedulingFees.append(airlineReschedulingData)
                 
-                self.getFareRulesAPICall(sid: self.sid, fk: self.journey[i].fk, index: i)
+                self.viewModel.getFareRulesAPICall(sid: self.sid, fk: self.journey[i].fk, index: i)
                 
                 if let flight = journey[i].leg.first?.flights{
                     flights?.append(flight.first!)
@@ -457,98 +460,6 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         }
     }
     
-    //MARK:- API Call
-    func getFareInfoAPICall(sid: String, fk: String,i:Int){
-        let webservice = WebAPIService()
-        webservice.executeAPI(apiServive: .fareInfoResult(sid: sid, fk: fk), completionHandler: {    (data) in
-            
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-
-            DispatchQueue.main.async {
-                if let currentParsedResponse = parse(data: data, into: updatedFareInfoStruct.self, with:decoder) {
-                    
-                    if currentParsedResponse.success == true {
-                        self.updatedFareInfo.append(currentParsedResponse.data.first!.value)
-                        
-                        let num = 0.75/Float(self.journey.count)
-                        self.progressBar.progress = Float(num+self.progressBar.progress)
-
-                        if self.progressBar.progress == 1.0{
-                            self.progressBar.isHidden = true
-                        }
-                        self.apiCallCount += 1
-                        if self.apiCallCount == self.journey.count{
-                            self.confirmDelegate()
-                        }
-                        self.fareInfoTableView.reloadData()
-                        
-                        if self.journey[i].smartIconArray.contains("refundStatusPending"){
-                            self.journey[i].leg[0].fcp = 0
-                            let rfd = currentParsedResponse.data.first?.value.rfd ?? 0
-                            let rsc = currentParsedResponse.data.first?.value.rsc ?? 0
-                            
-                            self.journey[i].rfdPlcy.rfd.keys.forEach { (key) in
-                                self.journey[i].rfdPlcy.rfd[key] = rfd
-                            }
-                            
-                            self.delegate?.updateRefundStatusIfPending()
-                        }
-                        
-                        DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
-                         self.fareInfoTableView.reloadData()
-                        }
-                        DispatchQueue.main.async {
-                            self.fareInfoTableView.reloadData()
-                        }
-                    }
-                }
-            }
-        } , failureHandler : { (error ) in
-        })
-    }
-    
-    func getFareRulesAPICall(sid: String, fk: String, index:Int)
-    {
-        let webservice = WebAPIService()
-        webservice.executeAPI(apiServive: .fareRulesResult(sid: sid, fk: fk), completionHandler: {    (data) in
-            
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            
-            do{
-                let jsonResult:AnyObject?  = try JSONSerialization.jsonObject(with: data, options: []) as AnyObject
-                
-                DispatchQueue.main.async {
-                    if let result = jsonResult as? [String: AnyObject] {
-                        
-                        if let data = result["data"] as? JSONDictionary {
-                            
-                            let keys = data.keys
-                            if keys.count > 0{
-                                for key in keys{
-                                    
-                                    if let datas = data["\(key)"] as? JSONDictionary{
-                                        while self.fareRulesData.count <= index {
-                                            self.fareRulesData.append([:])
-                                        }
-                                        
-                                        self.fareRulesData[index] = datas
-                                    }
-                                }
-                            }
-                            self.fareInfoTableView.reloadData()
-                        }
-                    }
-                }
-            }catch{
-                
-            }
-        } , failureHandler : { (error ) in
-        })
-    }
-    
-    
     func calculateTableHeight(table: UITableView)-> CGFloat{
         var height: CGFloat = 0
         for i in 0..<table.numberOfSections{
@@ -601,3 +512,70 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         return attString
     }
 }
+
+
+extension FareInfoVC : FlightFareInfoVMDelegate{
+    func flightFareInfoData(data: Data, index:Int) {
+        self.removeIndicator()
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+
+        DispatchQueue.main.async {
+            if let currentParsedResponse = parse(data: data, into: updatedFareInfoStruct.self, with:decoder) {
+
+                if currentParsedResponse.success == true {
+                    self.updatedFareInfo.append(currentParsedResponse.data.first!.value)
+
+                    let num = 0.75/Float(self.journey.count)
+                    self.progressBar.progress = Float(num+self.progressBar.progress)
+
+                    if self.progressBar.progress == 1.0{
+                        self.progressBar.isHidden = true
+                    }
+                    self.apiCallCount += 1
+                    if self.apiCallCount == self.journey.count{
+                        self.confirmDelegate()
+                    }
+                    self.fareInfoTableView.reloadData()
+
+                    if self.journey[index].smartIconArray.contains("refundStatusPending"){
+                        self.journey[index].leg[0].fcp = 0
+                        let rfd = currentParsedResponse.data.first?.value.rfd ?? 0
+                        let rsc = currentParsedResponse.data.first?.value.rsc ?? 0
+
+                        self.journey[index].rfdPlcy.rfd.keys.forEach { (key) in
+                            self.journey[index].rfdPlcy.rfd[key] = rfd
+                        }
+
+                        self.delegate?.updateRefundStatusIfPending()
+                    }
+
+                    DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+                     self.fareInfoTableView.reloadData()
+                    }
+                    DispatchQueue.main.async {
+                        self.fareInfoTableView.reloadData()
+                    }
+                }
+            }
+        }
+    }
+    
+    func flightFareRules(data: JSONDictionary, index: Int) {
+        let keys = data.keys
+        if keys.count > 0{
+            for key in keys{
+
+                if let datas = data["\(key)"] as? JSONDictionary{
+                    while self.fareRulesData.count <= index {
+                        self.fareRulesData.append([:])
+                    }
+
+                    self.fareRulesData[index] = datas
+                }
+            }
+        }
+        self.fareInfoTableView.reloadData()
+    }
+}
+

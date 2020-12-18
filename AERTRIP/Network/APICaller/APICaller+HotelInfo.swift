@@ -41,7 +41,7 @@ extension APICaller {
     //
     
     func getHotelDistanceAndTravelTime (originLat: String,originLong: String , destinationLat: String, destinationLong : String, mode: String, completionBlock: @escaping (_ success: Bool, _ response: PlaceModel?) -> Void) {
-        let endPoint = "https://maps.googleapis.com/maps/api/directions/json?origin=\(originLat),\(originLong)&destination=\(destinationLat),\(destinationLong)&travelMode=\(mode)&key=\(AppConstants.kGoogleAPIKey)&sensor=false"
+        let endPoint = "https://maps.googleapis.com/maps/api/directions/json?origin=\(originLat),\(originLong)&destination=\(destinationLat),\(destinationLong)&travelMode=\(mode)&key=\(AppKeys.kGoogleAPIKey)&sensor=false"
         AppNetworking.POSTWithString (endPoint: endPoint, success: { (json) in
             if let data = json[APIKeys.routes.rawValue].arrayObject as? JSONDictionaryArray, let routes = data.first, let legs = routes[APIKeys.legs.rawValue] as? JSONDictionaryArray , let finalRouteData = legs.first {
                 let placeData = PlaceModel.placeInfo(response: finalRouteData)
