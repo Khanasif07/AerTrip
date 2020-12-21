@@ -18,11 +18,13 @@ class OnAccountDetailVM: NSObject {
     //MARK:- Properties
     //MARK:- Public
     var accountDetails: JSONDictionary = JSONDictionary()
-    var allDates: [String] {
-        var arr = Array(accountDetails.keys)
-        arr.sort { ($0.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0) < ($1.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0)}
-        return arr
-    }
+    var allDates: [String] = []
+    
+  //  {
+//        var arr = Array(accountDetails.keys)
+//        arr.sort { ($0.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0) < ($1.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0)}
+//        return arr
+//    }
     weak var delegate: OnAccountDetailVMDelegate? = nil
     
     var outstanding: AccountOutstanding? = nil {
@@ -40,4 +42,11 @@ class OnAccountDetailVM: NSObject {
     //MARK:- Public
     
     //MARK:- Private
+    
+    func sortByDate(){
+        var arr = Array(accountDetails.keys)
+        arr.sort { ($0.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0) < ($1.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0)}
+        allDates = arr
+    }
+    
 }

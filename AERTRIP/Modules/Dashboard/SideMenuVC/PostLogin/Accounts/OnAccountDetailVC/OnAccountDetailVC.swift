@@ -36,6 +36,8 @@ class OnAccountDetailVC: BaseVC {
 
         self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: true)
         
+        viewModel.sortByDate()
+        
         self.setScreenTitle()
         self.topNavView.delegate = self
 

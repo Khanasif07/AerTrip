@@ -208,7 +208,7 @@ extension IntMCAndReturnVC: ATSwitcherChangeValueDelegate {
                
             viewModel.results.journeyArray[i] = newJourneyGroup
            }
-           
+                   
            switchView.isOn = false
            hidePinnedFlightOptions(true)
           viewModel.resultTableState = stateBeforePinnedFlight
