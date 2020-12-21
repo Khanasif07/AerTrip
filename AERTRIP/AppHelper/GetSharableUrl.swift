@@ -35,7 +35,7 @@ class GetSharableUrl
             let returnDate = getReturnDate(journey: journeyArray)
             let pinnedFlightFK = getPinnedFlightFK(journey: journeyArray)
 
-            valueString = "https://beta.aertrip.com/flights?trip_type=\(trip_type)&adult=\(adult)&child=\(child)&infant=\(infant)&\(origin)\(destination)\(departureDate)\(returnDate)cabinclass=\(cc)&pType=flight&isDomestic=\(isDomestic)&\(pinnedFlightFK)\(filterString)"
+            valueString = "\(APIEndPoint.shareableBaseUrl.rawValue)flights?trip_type=\(trip_type)&adult=\(adult)&child=\(child)&infant=\(infant)&\(origin)\(destination)\(departureDate)\(returnDate)cabinclass=\(cc)&pType=flight&isDomestic=\(isDomestic)&\(pinnedFlightFK)\(filterString)"
 
         }
 
@@ -182,7 +182,7 @@ class GetSharableUrl
             let pinnedFlightFK = getPinnedFlightFK(journey: (journeyArray as? [Journey]) ?? [])
 
 
-            valueString = "https://beta.aertrip.com/flights?trip_type=\(trip_type)&adult=\(adult)&child=\(child)&infant=\(infant)&\(origin)\(destination)\(departureDate)\(returnDate)cabinclass=\(cc)&pType=flight&isDomestic=\(isDomestic)&\(pinnedFlightFK)"
+            valueString = "\(APIEndPoint.shareableBaseUrl.rawValue)flights?trip_type=\(trip_type)&adult=\(adult)&child=\(child)&infant=\(infant)&\(origin)\(destination)\(departureDate)\(returnDate)cabinclass=\(cc)&pType=flight&isDomestic=\(isDomestic)&\(pinnedFlightFK)"
         }
 
         var parameters = [[String : Any]]()
