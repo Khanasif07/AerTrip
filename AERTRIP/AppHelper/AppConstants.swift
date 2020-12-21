@@ -14,10 +14,6 @@ struct AppKeys{
         !AppConstants.isReleasingToClient ? "com.googleusercontent.apps.175392921069-agcdbrcffqcbhl1cbeatvjafd35335gm" : "com.googleusercontent.apps.175392921069-agcdbrcffqcbhl1cbeatvjafd35335gm"
     }
     
-    static var kRazorpayPublicKey : String{
-        !AppConstants.isReleasingToClient ? "rzp_test_QJYU8TtB6deJgb" : "rzp_live_asjI4DvIbYfP6p"
-    }
-    
     static var kGoogleAPIKey : String {
         !AppConstants.isReleasingToClient ? "AIzaSyD_W5hNOfKdR3xbEEkbX1rI2sJ3nDv1E64" : ""
     }
@@ -25,6 +21,27 @@ struct AppKeys{
     static var fbUrl : String{
         !AppConstants.isReleasingToClient ? "fb1080161318756977" : ""
     }
+    
+    static var kRazorpayPublicKey : String{
+        !AppConstants.isReleasingToClient ? "rzp_test_QJYU8TtB6deJgb" : "rzp_live_asjI4DvIbYfP6p"
+    }
+    
+    static let airlineMasterBaseUrl = "http://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/"
+
+    static let dummyTextPdfLink = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+
+    static let kAppStoreLink = "https://itunes.apple.com/app/id\(1369238862)?action=write-review"
+
+    static let privacyPolicy = "https://beta.aertrip.com/privacy"
+    static let termsOfUse = "https://beta.aertrip.com/terms"
+    static let fareRules = "https://beta.aertrip.com/terms"
+    static let walletAmountUrl = "https://beta.aertrip.com/wallet"
+    static let tripsUrl = "https://aertrip.com/trips"
+    static let travelSafetyLink = "https://aertrip.com/covid-guide"
+    
+    
+    static let baseUrl = "https://beta.aertrip.com/"
+    
 }
 
 
@@ -58,12 +75,7 @@ enum AppConstants {
 //    static let linkedIn_States = "linkedin\(Int(NSDate().timeIntervalSince1970))"
 //    static let linkedIn_Permissions = ["r_basicprofile", "r_emailaddress"]
 //    static let linkedIn_redirectUri = "http://beta.aertrip.com/api/v1/linkedin/linksocial"
-    static let privacyPolicy = "https://beta.aertrip.com/privacy"
-    static let termsOfUse = "https://beta.aertrip.com/terms"
-    static let fareRules = "https://beta.aertrip.com/terms"
-    static let walletAmountUrl = "https://beta.aertrip.com/wallet"
-    static let tripsUrl = "https://aertrip.com/trips"
-    static let travelSafetyLink = "https://aertrip.com/covid-guide"
+
 
     static let kSearchTextLimit = 3
     static let kNameTextLimit = 30
@@ -99,7 +111,6 @@ enum AppConstants {
     static let ktableViewHeaderViewIdentifier = "ViewProfileDetailTableViewSectionView"
     
     
-    static let dummyTextPdfLink = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
     static let kPending = "pending"
     static let kBooked = "(Booked)"
     static let PNR = "PNR"
@@ -135,10 +146,8 @@ enum AppConstants {
     static let kMaleSalutaion = ["Mr","Mast"]
     static let kFemaleSalutaion = ["Ms","Miss","Mrs"]
     
-    static let kAppStoreLink = "https://itunes.apple.com/app/id\(1369238862)?action=write-review"
 
     
-    static let airlineMasterBaseUrl = "http://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/"
     
     
     // color for aap theme gradient color

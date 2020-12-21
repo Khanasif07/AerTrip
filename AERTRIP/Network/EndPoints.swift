@@ -18,7 +18,15 @@ enum APIEndPoint: String {
    // case baseUrlPath  = "https://beta.aertrip.com/api/v1/"
     
     //beta-rz
-    case baseUrlPath = "https://beta-rz.aertrip.com/"
+    case baseUrlPath = "https://beta-rz.aertrip.com/api/v1/"
+    
+    //dev
+//    case shareableBaseUrl = "https://beta.aertrip.com/"
+    
+    //beta-rz
+    case shareableBaseUrl = "https://beta-rz.aertrip.com/"
+
+    
     
     
     //MARK: - Account URLs -

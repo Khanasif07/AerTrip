@@ -16,7 +16,7 @@ import EventKit
 func printDebug<T>(_ obj: T) {
     //    if AppConstants.isReleasingToClient {
     //        if UIDevice.isSimulator {
-//                print(obj)
+                print(obj)
     //        }
     //    } else {
     //        print(obj)
