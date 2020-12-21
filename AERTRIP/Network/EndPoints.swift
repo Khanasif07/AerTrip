@@ -13,8 +13,14 @@ enum APIEndPoint: String {
     
     //MARK: - Base URLs
     case apiKey       = "3a457a74be76d6c3603059b559f6addf"
-    case baseUrlPath  = "https://beta.aertrip.com/api/v1/"
-
+    
+    //dev
+   // case baseUrlPath  = "https://beta.aertrip.com/api/v1/"
+    
+    //beta-rz
+    case baseUrlPath = "https://beta-rz.aertrip.com/"
+    
+    
     //MARK: - Account URLs -
 
     case isActiveUser                  = "users/is-active-user"
