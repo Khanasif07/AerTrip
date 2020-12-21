@@ -653,7 +653,7 @@ class HotelsSearchVC: BaseVC {
 //                        UserInfo.hotelFilterApplied = nil
 //                        UserDefaults.setObject(false, forKey: "shouldApplyFormStars")
 //                    }
-                    print(self.viewModel.searchedFormData)
+                    printDebug(self.viewModel.searchedFormData)
                     if AppGlobals.shared.isNetworkRechable() {
                         AppFlowManager.default.moveToHotelsResultVc(withFormData: HotelsSearchVM.hotelFormData)
                     }

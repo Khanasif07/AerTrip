@@ -202,34 +202,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let str = url?.query ?? ""
             let decodedUrl = str.removingPercentEncoding
             
+            var pairs: [String : Any] = [:]
+            
+            for pairString in decodedUrl?.components(separatedBy: "&") ?? [] {
+                let pair = pairString.components(separatedBy: "=")
+                
+                if pair.count != 2 {
+                    continue
+                }
+                
+                let key = pair[0]
+                let val = pair[1]
+                
+                if val.isEmpty {
+                    continue
+                }
+
+                pairs[key] = val
+            }
+            
             if url?.absoluteString.contains("flights") ?? false {
-                self.searchFlightsWithDeepLink(decodedUrl: decodedUrl)
+                self.searchFlightsWithDeepLink(dict: pairs)
             } else if url?.absoluteString.contains("hotels") ?? false {
-                self.searchHotelsWithDeepLink(decodedUrl: decodedUrl)
+                self.searchHotelsWithDeepLink(dict: pairs)
             }
         })
     }
     
-    func searchFlightsWithDeepLink(decodedUrl: String?) {
-        
-        var pairs: [String : Any] = [:]
-        
-        for pairString in decodedUrl?.components(separatedBy: "&") ?? [] {
-            let pair = pairString.components(separatedBy: "=")
-            
-            if pair.count != 2 {
-                continue
-            }
-            
-            let key = pair[0]
-            let val = pair[1]
-            
-            if val.isEmpty {
-                continue
-            }
-
-            pairs[key] = val
-        }
+    func searchFlightsWithDeepLink(dict: JSONDictionary) {
         
         DispatchQueue.main.async {
             
@@ -242,11 +242,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         DispatchQueue.delay(1) {
-            SwiftObjCBridgingController.shared.sendFlightFormData(pairs)
+            SwiftObjCBridgingController.shared.sendFlightFormData(dict)
         }
     }
     
-    func searchHotelsWithDeepLink(decodedUrl: String?) {
+    func searchHotelsWithDeepLink(dict: JSONDictionary) {
+        let formJson = JSON(dict)
+        let searchFormData = HotelFormPreviosSearchData()
         
     }
 }
