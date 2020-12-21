@@ -136,14 +136,14 @@ class IntReturnAndMCSortVM {
             curSelectedIndex = 2
             vmDelegate?.selectRow(row: 2)
         case .Depart:
-            earliestFirstAtDepartArrive[3] = isDescending
-            delegate?.departSortFilterChangedWith(0, isDescending)
+            earliestFirstAtDepartArrive[3] = !isDescending
+            delegate?.departSortFilterChangedWith(0, !isDescending)
             curSelectedIndex = 3
             vmDelegate?.selectRow(row: 3)
         case .Arrival:
             let firstIndex = 3 + airportsArr.count
-            earliestFirstAtDepartArrive[firstIndex] = isDescending
-            delegate?.arrivalSortFilterChangedWith(0, isDescending)
+            earliestFirstAtDepartArrive[firstIndex] = !isDescending
+            delegate?.arrivalSortFilterChangedWith(0, !isDescending)
             curSelectedIndex = firstIndex
             vmDelegate?.selectRow(row: firstIndex)
         default: break
