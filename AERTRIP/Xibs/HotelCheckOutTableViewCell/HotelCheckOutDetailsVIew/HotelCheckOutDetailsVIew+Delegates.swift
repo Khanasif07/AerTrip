@@ -232,7 +232,7 @@ extension HotelCheckOutDetailsVIew: ATGalleryViewDelegate, ATGalleryViewDatasour
 extension HotelCheckOutDetailsVIew: HotelRatingInfoCellDelegate {
     func shareButtonAction(_ sender: UIButton) {
         if let parentVC = self.parentViewController {
-            AppGlobals.shared.shareWithActivityViewController(VC: parentVC, shareData: "https://beta.aertrip.com")
+            AppGlobals.shared.shareWithActivityViewController(VC: parentVC, shareData: AppKeys.baseUrl)
         }
     }
 }

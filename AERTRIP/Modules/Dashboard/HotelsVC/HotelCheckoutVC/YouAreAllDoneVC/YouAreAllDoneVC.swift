@@ -277,7 +277,7 @@ class YouAreAllDoneVC: BaseVC {
         
         if let bId = self.viewModel.bookingIds.first {
             sender.isLoading = true
-            AppGlobals.shared.viewPdf(urlPath: "https://beta.aertrip.com/api/v1/dashboard/booking-action?type=pdf&booking_id=\(bId)", screenTitle: LocalizedString.ConfirmationVoucher.localized, showLoader: false)
+            AppGlobals.shared.viewPdf(urlPath: "\(AppKeys.baseUrl)api/v1/dashboard/booking-action?type=pdf&booking_id=\(bId)", screenTitle: LocalizedString.ConfirmationVoucher.localized, showLoader: false)
         }
     }
     
@@ -532,7 +532,7 @@ extension YouAreAllDoneVC: HCWhatNextTableViewCellDelegate {
     func shareOnFaceBook() {
         printDebug("Share On FaceBook")
         
-        guard let url = URL(string: AppConstants.kAppStoreLink) else { return }
+        guard let url = URL(string: AppKeys.kAppStoreLink) else { return }
         let content = ShareLinkContent()
         content.contentURL = url
         let dialog = ShareDialog(
@@ -547,7 +547,7 @@ extension YouAreAllDoneVC: HCWhatNextTableViewCellDelegate {
     func shareOnTwitter() {
         printDebug("Share On Twitter")
         let tweetText = "\(AppConstants.kAppName) Appstore Link: "
-        let tweetUrl = AppConstants.kAppStoreLink
+        let tweetUrl = AppKeys.kAppStoreLink
         let shareString = "https://twitter.com/intent/tweet?text=\(tweetText)&url=\(tweetUrl)"
         
         // encode a space to %20 for example

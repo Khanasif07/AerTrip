@@ -36,7 +36,7 @@ extension SeatMapContainerVC: PagingViewControllerDataSource , PagingViewControl
     
     func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
         
-        return LogoMenuItem(index: index, isSelected: true, attributedTitle: viewModel.allTabsStr[index], logoUrl: AppConstants.airlineMasterBaseUrl + viewModel.allFlightsData[index].al + ".png")
+        return LogoMenuItem(index: index, isSelected: true, attributedTitle: viewModel.allTabsStr[index], logoUrl: AppKeys.airlineMasterBaseUrl + viewModel.allFlightsData[index].al + ".png")
         
 //        return MenuItem(title: "", index: index, isSelected:true, attributedTitle: viewModel.allTabsStr[index])
     }

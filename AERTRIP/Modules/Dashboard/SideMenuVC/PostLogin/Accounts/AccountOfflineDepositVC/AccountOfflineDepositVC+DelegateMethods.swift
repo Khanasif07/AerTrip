@@ -327,7 +327,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
             
             label.handleCustomTap(for: termsOfUse) { _ in
                 
-                guard let url = URL(string: AppConstants.termsOfUse) else { return }
+                guard let url = URL(string: AppKeys.termsOfUse) else { return }
 //                let safariVC = SFSafariViewController(url: url)
 //                AppFlowManager.default.mainNavigationController.present(safariVC, animated: true, completion: nil)
 //                safariVC.delegate = self

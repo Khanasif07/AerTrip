@@ -213,7 +213,7 @@ extension MealsContainerVC: PagingViewControllerDataSource , PagingViewControlle
             return LogoMenuItem(index: index, isSelected:true)
         }
         
-        return LogoMenuItem(index: index, isSelected: true, attributedTitle: self.mealsContainerVM.createAttHeaderTitle(firstFlight.fr, firstFlight.to), logoUrl: AppConstants.airlineMasterBaseUrl + firstFlight.al + ".png")
+        return LogoMenuItem(index: index, isSelected: true, attributedTitle: self.mealsContainerVM.createAttHeaderTitle(firstFlight.fr, firstFlight.to), logoUrl: AppKeys.airlineMasterBaseUrl + firstFlight.al + ".png")
 
 //        return MenuItem(title: "", index: index, isSelected: true, attributedTitle: self.mealsContainerVM.createAttHeaderTitle(firstFlight.fr, firstFlight.to))
         

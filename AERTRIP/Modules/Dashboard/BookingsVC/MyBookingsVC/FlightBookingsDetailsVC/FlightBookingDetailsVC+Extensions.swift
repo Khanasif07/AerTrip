@@ -231,7 +231,7 @@ extension FlightBookingsDetailsVC: TopNavigationViewDelegate {
                 printDebug("Present Request Cancellation")
             } else if index == 3 {
                 printDebug("Present Download")
-                let endPoints = "https://beta.aertrip.com/api/v1/dashboard/booking-action?type=pdf&booking_id=\(self?.viewModel.bookingDetail?.id ?? "")"
+                let endPoints = "\(APIEndPoint.baseUrlPath.rawValue)dashboard/booking-action?type=pdf&booking_id=\(self?.viewModel.bookingDetail?.id ?? "")"
                 AppGlobals.shared.viewPdf(urlPath: endPoints, screenTitle: LocalizedString.ETicket.localized)
             } else if index == 4 {
                 // Present Resend Confirmation Email  

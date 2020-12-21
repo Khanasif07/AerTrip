@@ -65,7 +65,7 @@ class WalletTableViewCell: UITableViewCell {
     
     
     @IBAction func infoButtonTaped(_ sender: Any) {
-        guard let url = URL(string: AppConstants.walletAmountUrl) else { return }
+        guard let url = URL(string: AppKeys.walletAmountUrl) else { return }
         AppFlowManager.default.showURLOnATWebView(url, screenTitle: LocalizedString.AertripWallet.localized)
     }
     

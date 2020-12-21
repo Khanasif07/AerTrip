@@ -256,7 +256,7 @@ extension HotlelBookingsDetailsVC: TopNavigationViewDelegate {
                 
             case 2:
                 printDebug("Download ")
-                let endPoint = "https://beta.aertrip.com/api/v1/dashboard/booking-action?type=pdf&booking_id=\(self?.viewModel.bookingDetail?.id ?? "")"
+                let endPoint = "\(APIEndPoint.baseUrlPath.rawValue)dashboard/booking-action?type=pdf&booking_id=\(self?.viewModel.bookingDetail?.id ?? "")"
                 AppGlobals.shared.viewPdf(urlPath: endPoint, screenTitle: LocalizedString.Voucher.localized)
             case 3:
                 printDebug("Resend Confirmation mail ")

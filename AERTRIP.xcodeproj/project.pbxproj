@@ -1981,7 +1981,6 @@
 		1835E50823EAC1F000F6EEA1 /* StatusBarAnimatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarAnimatable.swift; sourceTree = "<group>"; };
 		1835E50923EAC1F000F6EEA1 /* StatusBarAnimatableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarAnimatableViewController.swift; sourceTree = "<group>"; };
 		1835E50E23EAE3E900F6EEA1 /* AppStoreAnimationCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppStoreAnimationCollectionCell.swift; path = AERTRIP/AppHelper/PresetationTransition/AppStoreAnimationCollectionCell.swift; sourceTree = SOURCE_ROOT; };
-		183771B224CEE99D005E3CA3 /* BookingReceipt.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = BookingReceipt.json; sourceTree = "<group>"; };
 		1838557B229BE93F00D59A4E /* BookingData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookingData+CoreDataClass.swift"; sourceTree = "<group>"; };
 		1838557C229BE93F00D59A4E /* BookingData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookingData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		183B71972289480800A75B7F /* FareBookingRulesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FareBookingRulesVC.swift; sourceTree = "<group>"; };
@@ -7893,7 +7892,6 @@
 			children = (
 				18A01E4521CA765D0071E772 /* AERTRIP.entitlements */,
 				1806329E224E2793008B1F32 /* ResponseForTesting.swift */,
-				183771B224CEE99D005E3CA3 /* BookingReceipt.json */,
 				84F9837021B51A070018DFED /* AppDelegate */,
 				84F9838421B51A070018DFED /* AppHelper */,
 				84F983B821B51A070018DFED /* AppStoryboards */,

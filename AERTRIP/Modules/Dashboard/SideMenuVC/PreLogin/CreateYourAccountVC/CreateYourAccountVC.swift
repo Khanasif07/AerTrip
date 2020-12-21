@@ -169,7 +169,7 @@ private extension CreateYourAccountVC {
             
             label.handleCustomTap(for: privacyPolicy) { element in
                 
-                guard let url = URL(string: AppConstants.privacyPolicy) else {return}
+                guard let url = URL(string: AppKeys.privacyPolicy) else {return}
 //                let safariVC = SFSafariViewController(url: url)
 //                self.present(safariVC, animated: true, completion: nil)
 //                safariVC.delegate = self
@@ -178,7 +178,7 @@ private extension CreateYourAccountVC {
             
             label.handleCustomTap(for: termsOfUse) { element in
                 
-                guard let url = URL(string: AppConstants.termsOfUse) else {return}
+                guard let url = URL(string: AppKeys.termsOfUse) else {return}
 //                let safariVC = SFSafariViewController(url: url)
 //                self.present(safariVC, animated: true, completion: nil)
 //                safariVC.delegate = self

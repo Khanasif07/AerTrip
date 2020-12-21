@@ -246,7 +246,7 @@ extension IntMCAndReturnVC: ATSwitcherChangeValueDelegate {
         
         
         let tripType = (flightObject.flightSearchType == RETURN_JOURNEY) ? "return" : "multi"
-        var valueString = "https://beta.aertrip.com/flights?trip_type=\(tripType)&"
+        var valueString = "\(AppKeys.baseUrl)flights?trip_type=\(tripType)&"
 
         // Adding Passanger Count
         let flightAdultCount = flightObject.flightAdultCount

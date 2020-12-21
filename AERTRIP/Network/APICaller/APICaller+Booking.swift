@@ -238,7 +238,7 @@ extension APICaller {
     // Get Email Api
     
     func sendConfirmationEmailApi(bookingID: String, params: JSONDictionary, loader: Bool = false, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes, _ successMessage: String) -> Void) {
-        let endPoint = "https://beta.aertrip.com/api/v1/dashboard/booking-action?type=email&booking_id=\(bookingID)"
+        let endPoint = "\(APIEndPoint.baseUrlPath.rawValue)dashboard/booking-action?type=email&booking_id=\(bookingID)"
         AppNetworking.POST(endPointPath: endPoint, parameters: params, success: { [weak self] json in
             guard let sSelf = self else { return }
             
