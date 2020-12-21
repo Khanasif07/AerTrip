@@ -618,7 +618,7 @@ struct AccountDetailEvent {
             }
             $0[obj.creationDateStr ?? "", default: [AccountDetailEvent]()].append(obj)
         }
-        
+        vchrType.sort()
         return (temp, vchrType)
         
         //        var temp = JSONDictionary()

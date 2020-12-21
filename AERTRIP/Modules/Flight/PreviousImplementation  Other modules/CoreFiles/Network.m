@@ -11,7 +11,11 @@
 #import "CCache.h"
 #import "TextLogObjC.h"
 
+
+
 @implementation Network
+
+
 
 + (id)sharedNetwork {
         static Network *network = nil;
@@ -32,7 +36,9 @@
     if ([BaseViewController isReachable]) {
         
         //NSString *apiURL = [self getValueForKey:ApiURL_KEY];
-        NSString *url = [NSString stringWithFormat:@"%@%@",ApiURL,apiName];
+//        NSString *url = [NSString stringWithFormat:@"%@%@",ApiURL,apiName]; // Commented when chenged to beta-rz url(Golu)
+        NSString *baseUrl = AppKeys.baseUrlWithVersion;
+        NSString *url = [NSString stringWithFormat:@"%@%@",baseUrl,apiName];
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
         manager.responseSerializer = [AFJSONResponseSerializer serializer];
         [manager POST:url parameters:parameters headers:nil progress:nil success:success failure:failure];
@@ -53,7 +59,9 @@
          failure:(void (^)(NSString *error,BOOL popup))failure {
    
     NSLog(@"Parameter: %@ API: %@", parameters, apiName);
-    NSString *url = [NSString stringWithFormat:@"%@%@",ApiURL,apiName];
+//    NSString *url = [NSString stringWithFormat:@"%@%@",ApiURL,apiName]; // Commented when chenged to beta-rz url(Golu)
+    NSString *baseUrl = AppKeys.baseUrlWithVersion;
+    NSString *url = [NSString stringWithFormat:@"%@%@",baseUrl,apiName];
 
     TextLogObjC *textLog = [[TextLogObjC alloc] init];
     
@@ -163,7 +171,9 @@
          success:(void (^)(NSDictionary* dataDictionary))success
          failure:(void (^)(NSString *error,BOOL popup))failure {
     
-    NSString *url = [NSString stringWithFormat:@"%@%@",ApiURL,apiName];
+//    NSString *url = [NSString stringWithFormat:@"%@%@",ApiURL,apiName]; // Commented when chenged to beta-rz url(Golu)
+    NSString *baseUrl = AppKeys.baseUrlWithVersion;
+    NSString *url = [NSString stringWithFormat:@"%@%@",baseUrl,apiName];
 
     TextLogObjC *textLog = [[TextLogObjC alloc] init];
     
@@ -258,7 +268,9 @@
              parameters:(NSDictionary *)parameters
                 expires:(BOOL)expires{
     NSString *cacheKey = [CCache getKeyForParameters:parameters andAPI:apiName];
-    NSString *url = [NSString stringWithFormat:@"%@%@",ApiURL,apiName];
+//    NSString *url = [NSString stringWithFormat:@"%@%@",ApiURL,apiName];// Commented when chenged to beta-rz url(Golu)
+    NSString *baseUrl = AppKeys.baseUrlWithVersion;
+    NSString *url = [NSString stringWithFormat:@"%@%@",baseUrl,apiName];
 
     TextLogObjC *textLog = [[TextLogObjC alloc] init];
     
@@ -316,7 +328,9 @@
           parameters:(NSDictionary *)parameters
              expires:(BOOL)expires{
     NSString *cacheKey = [CCache getKeyForParameters:parameters andAPI:apiName];
-    NSString *url = [NSString stringWithFormat:@"%@%@",ApiURL,apiName];
+//    NSString *url = [NSString stringWithFormat:@"%@%@",ApiURL,apiName]; // Commented when chenged to beta-rz url(Golu)
+    NSString *baseUrl = AppKeys.baseUrlWithVersion;
+    NSString *url = [NSString stringWithFormat:@"%@%@",baseUrl,apiName];
     
     TextLogObjC *textLog = [[TextLogObjC alloc] init];
     
@@ -382,7 +396,9 @@
     
     if ([BaseViewController isReachable]) {
         
-        NSString *url = [NSString stringWithFormat:@"%@%@",ApiURL,apiName];
+//        NSString *url = [NSString stringWithFormat:@"%@%@",ApiURL,apiName]; // Commented when chenged to beta-rz url(Golu)
+        NSString *baseUrl = AppKeys.baseUrlWithVersion;
+        NSString *url = [NSString stringWithFormat:@"%@%@",baseUrl,apiName];
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
         [manager.requestSerializer setValue:API_KEY forHTTPHeaderField:@"api-key"];

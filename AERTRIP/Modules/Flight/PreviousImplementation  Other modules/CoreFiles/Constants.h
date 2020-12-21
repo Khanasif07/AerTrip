@@ -11,7 +11,8 @@
 #define Headers = @["Content-type application":"json"]
 
 //#define ApiURL @"https://aertrip.com/api/v1/"
-#define ApiURL @"https://beta.aertrip.com/api/v1/"
+
+//#define ApiURL @"https://beta.aertrip.com/api/v1/"// Commented url when chenged to beta-rz url(Golu)
 #define iTUNE_LINK @"https://itunes.apple.com/app/id1086643190"
 #define ApiURL_KEY @"apiURLKey"
 

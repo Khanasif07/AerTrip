@@ -283,7 +283,7 @@
 "Mobile" = "Mobile";
 "Default" = "Default";
 "Email" = "Email";
-"EnterValidMobileNumber" = "Please enter valid mobile number";
+"EnterValidMobileNumber" = "Please enter a valid mobile number";
 "AllMobileNumberShouldUnique" = "All mobile number should be unique";
 "EnterAllValidMobileNumber" = "Please enter all valid mobile numbers.";
 "EnterAirlineNumberForAllFrequentFlyer" = "Please enter the airline number for all frequent flyer.";
@@ -424,6 +424,7 @@
 "NoRoomsAvailable" = "No Rooms Available";
 "Reviews" = "Reviews";
 "ConvenienceFeeNonRefundables" = "Convenience Fee\n(Non Refundable)";
+"non_Refundable" = "(Non Refundable)";
 
 // Others
 "FreeWifi" = "Free Wifi";
@@ -650,7 +651,7 @@ Not to worry! Your booking is our highest priority. Our customer support team sh
 
 "EnterIsdMessage" = "Please enter Isd";
 "GuestDetailsMessage" = "Please fill all guest details";
-"EnterMobileNumberMessage" = "Please enter valid mobile number";
+"EnterMobileNumberMessage" = "Please enter a valid mobile number";
 "EnterEmailAddressMessage" = "Not a valid email address";
 "UnableToGetMail" = "Unable to get email of selected person";
 "ImportantNote" = "Important Note:";
@@ -878,7 +879,7 @@ Not to worry! Your booking is our highest priority. Our customer support team sh
 "AertripBankName" = "Aertrip Bank Name";
 "SeeBankDetails" = "See Bank Details";
 "UploadDepositConfirmationSlip" = "Upload deposit confirmation slip (Stamped by bank)";
-"OffileDepositTerms" = "I understand and agree to the rules and restrictions of this Terms of use of Aertrip.";
+"OffileDepositTerms" = "I understand and agree to Aertrip's Terms of use.";//"I understand and agree to the rules and restrictions of this Terms of use of Aertrip.";
 "StepsForOfflinePayment" = "5 steps for Offline Payment";
 "DepositDate" = "Deposit Date";
 "TransferType" = "Transfer Type";
