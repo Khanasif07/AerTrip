@@ -169,13 +169,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             checkForFlightsAndHotelsDeepLink(url: url)
         }
-        
-        
-        /*
-         else if LinkedinSwiftHelper.shouldHandle(url) {
-         return LinkedinSwiftHelper.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
-         }
-         */
+
         return true
     }
     
