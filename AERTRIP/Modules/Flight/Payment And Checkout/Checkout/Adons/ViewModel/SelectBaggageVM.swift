@@ -23,15 +23,14 @@ class SelectBaggageVM {
             
         }
     
-    var sagrigatedData : [Int:[AddonsDataCustom]] = [:]
+        var sagrigatedData : [Int:[AddonsDataCustom]] = [:]
     
-    
-    init(vcIndex : Int, currentFlightKey : String, addonsDetails : AddonsDetails){
-        self.vcIndex = vcIndex
-        self.currentFlightKey = currentFlightKey
-        self.addonsDetails = addonsDetails
-        self.formatData()
-    }
+        init(vcIndex : Int, currentFlightKey : String, addonsDetails : AddonsDetails){
+            self.vcIndex = vcIndex
+            self.currentFlightKey = currentFlightKey
+            self.addonsDetails = addonsDetails
+            self.formatData()
+        }
     
     func formatData(){
         
