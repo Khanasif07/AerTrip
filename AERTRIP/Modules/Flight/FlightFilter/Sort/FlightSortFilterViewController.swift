@@ -113,7 +113,7 @@ class FlightSortFilterViewController: UIViewController {
             
             
             
-            if let url = URL(string: APIEndPoint.smartSort.rawValue) {
+            if let url = URL(string: AppKeys.smartSort) {
                 AppFlowManager.default.showURLOnATWebView(url, screenTitle:  "Smart Sort", presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
             }
 
