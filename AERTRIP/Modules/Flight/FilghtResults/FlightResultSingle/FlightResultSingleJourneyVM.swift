@@ -251,7 +251,6 @@ class FlightResultSingleJourneyVM {
                                    self.results.journeyArray[index].selectedFK = self.results.journeyArray[index].journeyArray[ind].fk
                                 self.results.journeyArray[index].currentSelectedIndex = ind
                                }
-                               
                            }
                            
                        case .Depart:

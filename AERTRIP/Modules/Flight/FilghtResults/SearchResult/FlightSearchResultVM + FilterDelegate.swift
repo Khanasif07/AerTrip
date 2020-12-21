@@ -116,12 +116,12 @@ extension FlightSearchResultVM : SortFilterDelegate {
     
     func departSortFilterChangedWith(_ index: Int,_ earliestFirst: Bool){
         intFlightLegs[0].sortFilterChanged(sort: Sort.Depart)
-        self.delegate?.applySorting(sortOrder: Sort.Depart, isConditionReverced: earliestFirst, legIndex: index)
+        self.delegate?.applySorting(sortOrder: Sort.Depart, isConditionReverced: !earliestFirst, legIndex: index)
     }
     
     func arrivalSortFilterChangedWith(_ index: Int,_ earliestFirst: Bool){
         intFlightLegs[0].sortFilterChanged(sort: Sort.Arrival)
-        self.delegate?.applySorting(sortOrder: Sort.Arrival, isConditionReverced: earliestFirst, legIndex: index)
+        self.delegate?.applySorting(sortOrder: Sort.Arrival, isConditionReverced: !earliestFirst, legIndex: index)
     }
     
     func departSortFilterChanged(departMode: Bool ) {
