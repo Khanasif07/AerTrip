@@ -112,10 +112,10 @@ class IntMCAndReturnVM {
                 
                 if isConditionReverced {
                     
-                    return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
+                    return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) > self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
                     
                 }else{
-                    return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) > self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
+                    return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
                     
                 }
             })
@@ -132,9 +132,9 @@ class IntMCAndReturnVM {
                 let secondObjTimeInterval = self.getTimeIntervalFromArivalDateString(dt: secondObjDepartureTime)
                 
                 if isConditionReverced {
-                    return firstObjTimeInterval < secondObjTimeInterval
-                }else{
                     return firstObjTimeInterval > secondObjTimeInterval
+                }else{
+                    return firstObjTimeInterval < secondObjTimeInterval
                 }
             })
             
@@ -167,9 +167,13 @@ class IntMCAndReturnVM {
             
             let firstObjDepartureTime = obj1.journeyArray.first?.legsWithDetail[self.prevLegIndex].dt
             let secondObjDepartureTime = obj2.journeyArray.first?.legsWithDetail[self.prevLegIndex].dt
-                            
-                return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime ?? "") < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime ?? "")
-                
+             
+            return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime ?? "") < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime ?? "")
+        })
+        
+        
+        sortArray.sort(by: { (obj1, obj2) -> Bool in
+            return (obj1.journeyArray.first?.duration ?? 0) < (obj2.journeyArray.first?.duration ?? 0)
         })
         
         
@@ -207,12 +211,9 @@ class IntMCAndReturnVM {
                 let secondObjDepartureTime = obj2.journeyArray.first?.legsWithDetail[self.prevLegIndex].dt
                 
                 if isConditionReverced {
-                    
-                    return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime ?? "") < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime ?? "")
-                    
-                }else{
                     return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime ?? "") > self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime ?? "")
-                    
+                }else{
+                    return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime ?? "") < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime ?? "")
                 }
             })
             
@@ -228,9 +229,9 @@ class IntMCAndReturnVM {
                 let secondObjTimeInterval = self.getTimeIntervalFromArivalDateString(dt: secondObjDepartureTime)
                 
                 if isConditionReverced {
-                    return firstObjTimeInterval < secondObjTimeInterval
-                }else{
                     return firstObjTimeInterval > secondObjTimeInterval
+                }else{
+                    return firstObjTimeInterval < secondObjTimeInterval
                 }
             })
             
