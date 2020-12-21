@@ -24,11 +24,11 @@ class WebViewVM {
         
         switch webViewType{
             
-            case .aboutUs: return APIEndPoint.about.rawValue
+            case .aboutUs: return AppKeys.about
             
-            case .legal: return APIEndPoint.legal.rawValue
+            case .legal: return AppKeys.legal
             
-            case .privacypolicy: return APIEndPoint.privacy.rawValue
+            case .privacypolicy: return AppKeys.privacy
                         
         }
         

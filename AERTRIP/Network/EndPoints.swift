@@ -155,14 +155,14 @@ enum APIEndPoint: String {
 //    case currencies = "default/currencies"
 
     
-    case privacy = "https://beta.aertrip.com/privacy"
-    case about = "https://beta.aertrip.com/about"
-    case legal = "https://beta.aertrip.com/legal"
-    
-    case whyAertrip = "https://beta.aertrip.com/why"
-    case smartSort = "https://beta.aertrip.com/smart-sort"
-    case offers = "https://aertrip.com/offers"//"https://beta.aertrip.com/offers"
-    case contact = "https://aertrip.com/contactus"//"https://beta.aertrip.com/contact"
+//    case privacy = "https://beta.aertrip.com/privacy"
+//    case about = "https://beta.aertrip.com/about"
+//    case legal = "https://beta.aertrip.com/legal"
+//    
+//    case whyAertrip = "https://beta.aertrip.com/why"
+//    case smartSort = "https://beta.aertrip.com/smart-sort"
+//    case offers = "https://aertrip.com/offers"//"https://beta.aertrip.com/offers"
+//    case contact = "https://aertrip.com/contactus"//"https://beta.aertrip.com/contact"
 
     //Flights
     case fareConfirmation = "flights/confirmation"

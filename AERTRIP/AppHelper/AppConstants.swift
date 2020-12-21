@@ -41,6 +41,15 @@ import Foundation
     static let tripsUrl = "https://aertrip.com/trips"
     static let travelSafetyLink = "https://aertrip.com/covid-guide"
     
+    static let privacy = "\(AppKeys.baseUrl)privacy"
+    static let about = "\(AppKeys.baseUrl)about"
+    static let legal = "\(AppKeys.baseUrl)legal"
+    
+    static let whyAertrip = "\(AppKeys.baseUrl)why"
+    static let smartSort = "\(AppKeys.baseUrl)smart-sort"
+    
+    static let offers = "https://aertrip.com/offers"//"https://beta.aertrip.com/offers"
+    static let contact = "https://aertrip.com/contactus"//"https://beta.aertrip.com/contact"
     
     @objc static let baseUrl = APIEndPoint.shareableBaseUrl.rawValue
     @objc static let baseUrlWithVersion = APIEndPoint.baseUrlPath.rawValue

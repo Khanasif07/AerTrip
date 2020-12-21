@@ -376,7 +376,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 
             case 3:
                 // Offers
-                if let url = URL(string: APIEndPoint.offers.rawValue) {
+                if let url = URL(string: AppKeys.offers) {
                     AppFlowManager.default.showURLOnATWebView(url, screenTitle:  self.viewModel.cellForLoginUser[indexPath.row - 2], presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
                 }
             case 4:
@@ -389,7 +389,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 
             case 7:
                 //Support
-                if let url = URL(string: APIEndPoint.contact.rawValue) {
+                if let url = URL(string: AppKeys.contact) {
                     AppFlowManager.default.showURLOnATWebView(url, screenTitle:  self.viewModel.cellForLoginUser[indexPath.row - 2], presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
                 }
                 
@@ -409,22 +409,22 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 break
             case 1:
                 //why Aertrip
-                if let url = URL(string: APIEndPoint.whyAertrip.rawValue) {
+                if let url = URL(string: AppKeys.whyAertrip) {
                     AppFlowManager.default.showURLOnATWebView(url, screenTitle:  self.viewModel.displayCellsForGuest[indexPath.row - 1], presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
                 }
             case 2:
                 //Smart Sort
-                if let url = URL(string: APIEndPoint.smartSort.rawValue) {
+                if let url = URL(string: AppKeys.smartSort) {
                     AppFlowManager.default.showURLOnATWebView(url, screenTitle:  self.viewModel.displayCellsForGuest[indexPath.row - 1], presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
                 }
             case 3:
                 //offers
-                if let url = URL(string: APIEndPoint.offers.rawValue) {
+                if let url = URL(string: AppKeys.offers) {
                     AppFlowManager.default.showURLOnATWebView(url, screenTitle:  self.viewModel.displayCellsForGuest[indexPath.row - 1], presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
                 }
             case 4:
                 //contact us
-                if let url = URL(string: APIEndPoint.contact.rawValue) {
+                if let url = URL(string: AppKeys.contact) {
                     AppFlowManager.default.showURLOnATWebView(url, screenTitle:  self.viewModel.displayCellsForGuest[indexPath.row - 1], presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
                 }
             case 5:
