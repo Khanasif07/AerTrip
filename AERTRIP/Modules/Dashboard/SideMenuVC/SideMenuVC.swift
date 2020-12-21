@@ -395,7 +395,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 
             case 8:
                 //RateUs
-                self.openUrl(AppConstants.kAppStoreLink)
+                self.openUrl(AppKeys.kAppStoreLink)
                 
             default:
                 AppToast.default.showToastMessage(message: "This feature is coming soon")

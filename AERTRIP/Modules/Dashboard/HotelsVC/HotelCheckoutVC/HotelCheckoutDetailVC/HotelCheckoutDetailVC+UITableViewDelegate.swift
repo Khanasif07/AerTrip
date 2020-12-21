@@ -280,7 +280,7 @@ extension HotelCheckoutDetailVC: ATGalleryViewDelegate, ATGalleryViewDatasource 
 extension HotelCheckoutDetailVC: HotelRatingInfoCellDelegate {
     func shareButtonAction(_ sender: UIButton) {
 //        if let parentVC = self.parent {
-            AppGlobals.shared.shareWithActivityViewController(VC: self, shareData: "https://beta.aertrip.com")
+            AppGlobals.shared.shareWithActivityViewController(VC: self, shareData: AppKeys.baseUrl)
 //        }
     }
 }

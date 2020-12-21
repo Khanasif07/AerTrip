@@ -12,7 +12,7 @@ extension APICaller{
     
     func getAddonsMaster(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ data: AddonsMaster)->Void ) {
         
-         let endPoints = "https://beta.aertrip.com/api/v1/flights/addons-master?\(APIKeys.it_id.rawValue)=\(params[APIKeys.it_id.rawValue] as? String ?? "")"
+         let endPoints = "\(APIEndPoint.baseUrlPath.rawValue)flights/addons-master?\(APIKeys.it_id.rawValue)=\(params[APIKeys.it_id.rawValue] as? String ?? "")"
         AppNetworking.GET(endPoint: endPoints,success: { [weak self] (json) in
             guard let sSelf = self else {return}
             printDebug(json)

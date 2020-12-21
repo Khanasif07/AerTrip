@@ -208,7 +208,7 @@ extension SelectOtherAdonsContainerVC: PagingViewControllerDataSource , PagingVi
             return LogoMenuItem(index: index, isSelected:true)
         }
         
-        return LogoMenuItem(index: index, isSelected: true, attributedTitle: self.othersContainerVM.createAttHeaderTitle(firstFlight.fr, firstFlight.to), logoUrl: AppConstants.airlineMasterBaseUrl + firstFlight.al + ".png")
+        return LogoMenuItem(index: index, isSelected: true, attributedTitle: self.othersContainerVM.createAttHeaderTitle(firstFlight.fr, firstFlight.to), logoUrl: AppKeys.airlineMasterBaseUrl + firstFlight.al + ".png")
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool)  {

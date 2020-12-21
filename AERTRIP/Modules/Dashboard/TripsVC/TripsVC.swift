@@ -87,7 +87,7 @@ class TripsVC: BaseVC {
             
             label.handleCustomTap(for: trips) { _ in
                 
-                guard let url = URL(string: AppConstants.tripsUrl) else { return }
+                guard let url = URL(string: AppKeys.tripsUrl) else { return }
                 AppFlowManager.default.showURLOnATWebView(url, screenTitle: "Trips")
             }
         }

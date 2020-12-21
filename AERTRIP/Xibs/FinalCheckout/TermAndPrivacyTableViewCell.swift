@@ -83,19 +83,19 @@ extension TermAndPrivacyTableViewCell {
             
             label.handleCustomTap(for: fareRules) { _ in
                 
-                guard let url = URL(string: AppConstants.fareRules) else { return }
+                guard let url = URL(string: AppKeys.fareRules) else { return }
                 AppFlowManager.default.showURLOnATWebView(url, screenTitle: "Fare Rules")
             }
             
             label.handleCustomTap(for: privacyPolicy) { _ in
                 
-                guard let url = URL(string: AppConstants.privacyPolicy) else { return }
+                guard let url = URL(string: AppKeys.privacyPolicy) else { return }
                  AppFlowManager.default.showURLOnATWebView(url, screenTitle: "Privacy Policy")
             }
             
             label.handleCustomTap(for: termsOfUse) { _ in
                 
-                guard let url = URL(string: AppConstants.termsOfUse) else { return }
+                guard let url = URL(string: AppKeys.termsOfUse) else { return }
                  AppFlowManager.default.showURLOnATWebView(url, screenTitle: "Terms of Use")
             }
         }

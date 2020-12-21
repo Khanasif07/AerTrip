@@ -8,7 +8,9 @@
 
 import Foundation
 
-struct AppKeys{
+@objc class AppKeys : NSObject{
+    
+    private override init(){}
     
     static var googleUrl : String{
         !AppConstants.isReleasingToClient ? "com.googleusercontent.apps.175392921069-agcdbrcffqcbhl1cbeatvjafd35335gm" : "com.googleusercontent.apps.175392921069-agcdbrcffqcbhl1cbeatvjafd35335gm"
@@ -32,15 +34,15 @@ struct AppKeys{
 
     static let kAppStoreLink = "https://itunes.apple.com/app/id\(1369238862)?action=write-review"
 
-    static let privacyPolicy = "https://beta.aertrip.com/privacy"
-    static let termsOfUse = "https://beta.aertrip.com/terms"
-    static let fareRules = "https://beta.aertrip.com/terms"
-    static let walletAmountUrl = "https://beta.aertrip.com/wallet"
+    static let privacyPolicy = "\(AppKeys.baseUrl)privacy"
+    static let termsOfUse = "\(AppKeys.baseUrl)terms"
+    static let fareRules = "\(AppKeys.baseUrl)terms"
+    static let walletAmountUrl = "\(AppKeys.baseUrl)wallet"
     static let tripsUrl = "https://aertrip.com/trips"
     static let travelSafetyLink = "https://aertrip.com/covid-guide"
     
     
-    static let baseUrl = "https://beta.aertrip.com/"
+    @objc static let baseUrl = APIEndPoint.shareableBaseUrl.rawValue
     
 }
 

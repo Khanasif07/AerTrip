@@ -881,7 +881,7 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
         if let _ = tableView.cellForRow(at: indexPath) as? HCDataSelectionPrefrencesCell, let specialRequests = self.viewModel.itineraryData?.special_requests {
             AppFlowManager.default.presentHCSpecialRequestsVC(specialRequests: specialRequests,selectedRequestIds: self.viewModel.selectedSpecialRequest, selectedRequestNames: self.viewModel.selectedRequestsName, other: self.viewModel.other, specialRequest: self.viewModel.specialRequest,delegate: self)
         } else if let _ = tableView.cellForRow(at: indexPath) as? HCDataSelectionTravelSafetyCell {
-            guard let url = URL(string: AppConstants.travelSafetyLink) else {return}
+            guard let url = URL(string: AppKeys.travelSafetyLink) else {return}
             AppFlowManager.default.showURLOnATWebView(url, screenTitle: "Travel Safety Guidlines")
         }
     }

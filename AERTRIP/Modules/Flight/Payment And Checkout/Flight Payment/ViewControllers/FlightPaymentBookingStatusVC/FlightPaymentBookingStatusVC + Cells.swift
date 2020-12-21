@@ -244,7 +244,7 @@ extension FlightPaymentBookingStatusVC : HCWhatNextTableViewCellDelegate
     func shareOnFaceBook() {
         printDebug("Share On FaceBook")
         
-        guard let url = URL(string: AppConstants.kAppStoreLink) else { return }
+        guard let url = URL(string: AppKeys.kAppStoreLink) else { return }
         let content = ShareLinkContent()
         content.contentURL = url
         let dialog = ShareDialog(
@@ -259,7 +259,7 @@ extension FlightPaymentBookingStatusVC : HCWhatNextTableViewCellDelegate
     func shareOnTwitter() {
         printDebug("Share On Twitter")
         let tweetText = "\(AppConstants.kAppName) Appstore Link: "
-        let tweetUrl = AppConstants.kAppStoreLink
+        let tweetUrl = AppKeys.kAppStoreLink
         let shareString = "https://twitter.com/intent/tweet?text=\(tweetText)&url=\(tweetUrl)"
         
         // encode a space to %20 for example
