@@ -43,6 +43,7 @@ import Foundation
     
     
     @objc static let baseUrl = APIEndPoint.shareableBaseUrl.rawValue
+    @objc static let baseUrlWithVersion = APIEndPoint.baseUrlPath.rawValue
     
 }
 

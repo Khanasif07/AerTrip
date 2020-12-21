@@ -44,4 +44,11 @@ class WallletAmountCellTableViewCell: UITableViewCell {
         self.aertripWalletTitleLabel.textColor = AppColors.themeGreen
         self.walletAmountLabel.textColor = AppColors.themeGreen
     }
+    
+    func setForConvenienceFee(){
+        let atText = NSMutableAttributedString(string: LocalizedString.ConvenienceFeeNonRefundables.localized, attributes: [.foregroundColor: AppColors.themeBlack, .font: AppFonts.Regular.withSize(16)])
+        let rang = NSString(string: LocalizedString.ConvenienceFeeNonRefundables.localized).range(of: LocalizedString.non_Refundable.localized)
+        atText.addAttribute(.font, value: AppFonts.Regular.withSize(14), range: rang)
+        self.aertripWalletTitleLabel.attributedText = atText
+    }
 }

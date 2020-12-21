@@ -221,10 +221,15 @@ class FinalCheckOutVC: BaseVC {
             
             if self.isCouponApplied {
                 hotelFareTableViewCell.discountViewHeightConstraint.constant = 27
-                hotelFareTableViewCell.discountTitleLabelTopConstraint.constant = -1
+//                hotelFareTableViewCell.discountTitleLabelTopConstraint.constant = -1
             } else {
                 hotelFareTableViewCell.discountViewHeightConstraint.constant = 0
                 hotelFareTableViewCell.clipsToBounds = true
+            }
+            if self.isCouponApplied, !self.isCouponSectionExpanded {
+                hotelFareTableViewCell.dicountLabelBottomConstraints.constant = 0
+            }else{
+                hotelFareTableViewCell.dicountLabelBottomConstraints.constant = 3.0
             }
             hotelFareTableViewCell.grossPriceLabel.attributedText = "\(self.getGrossAmount().amountInDelimeterWithSymbol)".asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
             return hotelFareTableViewCell
@@ -250,16 +255,20 @@ class FinalCheckOutVC: BaseVC {
                 return UITableViewCell()
             }
             convenieneCell.aertripWalletTitleLabel.numberOfLines = 2
+            convenieneCell.aertripWalletTitleLabel.font = AppFonts.Regular.withSize(14)
             convenieneCell.walletAmountLabel.textColor = AppColors.themeBlack
             convenieneCell.aertripWalletTitleLabel.textColor = AppColors.themeBlack
             let amount = isWallet ? self.convenienceFeesWallet : self.convenienceRate
             if self.isConvenienceFeeApplied {
-                convenieneCell.aertripWalletTitleLabel.text = LocalizedString.ConvenienceFeeNonRefundables.localized
+//                convenieneCell.aertripWalletTitleLabel.text = LocalizedString.ConvenienceFeeNonRefundables.localized
                 convenieneCell.walletAmountLabel.attributedText = amount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+                convenieneCell.setForConvenienceFee()
                 convenieneCell.labelBottomConstraint.constant = self.isWallet ? 0 : 11
                 if self.isCouponApplied, self.isCouponSectionExpanded {
                     convenieneCell.labelTopConstraint.constant = 4
-                } else {
+                }else if self.isCouponApplied{
+                    convenieneCell.labelTopConstraint.constant = -5
+                }else{
                     convenieneCell.labelTopConstraint.constant = 11
                 }
                 return convenieneCell
@@ -276,7 +285,8 @@ class FinalCheckOutVC: BaseVC {
                 printDebug("WallletAmountCellTableViewCell not found")
                 return UITableViewCell()
             }
-            walletAmountCell.aertripWalletTitleLabel.numberOfLines = 2
+            walletAmountCell.aertripWalletTitleLabel.numberOfLines = 1
+            walletAmountCell.callForReuse()
             if self.isWallet {
                 var amount = getGrossAmount()
                 var amountFromWallet: Double = 0.0

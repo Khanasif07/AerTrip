@@ -65,7 +65,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
                 }
                 else if newIndex == 1 {
                     //terms of use
-                    return 110.0
+                    return 90.0
                 }else if newIndex == 2 {
                     //blank gap
                     return 35.0

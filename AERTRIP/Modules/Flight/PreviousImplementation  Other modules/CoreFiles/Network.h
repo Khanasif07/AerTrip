@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "BaseViewController.h"
+
+@class Appkeys;
+
 @interface Network : NSObject
 + (id)sharedNetwork;
 - (void) callApi:(NSString *) apiName

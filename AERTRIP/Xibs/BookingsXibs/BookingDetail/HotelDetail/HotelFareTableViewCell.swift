@@ -24,6 +24,7 @@ class HotelFareTableViewCell: UITableViewCell {
     @IBOutlet weak var discountViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var grossFareTitleTopConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var dicountLabelBottomConstraints: NSLayoutConstraint!
     @IBOutlet weak var discountTitleLabelTopConstraint: NSLayoutConstraint!
     
     

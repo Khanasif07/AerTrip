@@ -177,9 +177,9 @@ extension FlightPaymentVC{
         switch indexPath.row {
         case 0: // Convenince Fee Cell
             if self.isConvenienceFeeApplied {
-                return 36.0
+                return UITableView.automaticDimension
             } else {
-                return 0.0
+                return CGFloat.leastNonzeroMagnitude
             }
             
         case 1: // Wallet amount Cell
@@ -314,12 +314,16 @@ extension FlightPaymentVC{
                 return UITableViewCell()
             }
             convenieneCell.aertripWalletTitleLabel.numberOfLines = 2
+            convenieneCell.aertripWalletTitleLabel.font = AppFonts.Regular.withSize(14)
             convenieneCell.walletAmountLabel.textColor = AppColors.themeBlack
             convenieneCell.aertripWalletTitleLabel.textColor = AppColors.themeBlack
             let amount = isWallet ? self.convenienceFeesWallet : self.convenienceRate
             if self.isConvenienceFeeApplied {
-                convenieneCell.aertripWalletTitleLabel.text = LocalizedString.ConvenienceFeeNonRefundables.localized//LocalizedString.ConvenienceFee.localized
+//                convenieneCell.aertripWalletTitleLabel.text = LocalizedString.ConvenienceFeeNonRefundables.localized//LocalizedString.ConvenienceFee.localized
+                convenieneCell.setForConvenienceFee()
                 convenieneCell.walletAmountLabel.attributedText = amount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+                convenieneCell.aertripWalletTitleLabel.numberOfLines = 2
+                convenieneCell.labelTopConstraint.constant = 0.0
                 return convenieneCell
             } else {
                 convenieneCell.clipsToBounds = true

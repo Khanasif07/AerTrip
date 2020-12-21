@@ -586,7 +586,7 @@ class HotelsSearchVC: BaseVC {
     private func validateData() -> Bool {
         var flag = true
         if self.viewModel.searchedFormData.destName.isEmpty {
-            AppToast.default.showToastMessage(message: "Please select destination name.")
+            AppToast.default.showToastMessage(message: "Please select a destination.")
             flag = false
             self.whereLabel.nudgeAnimation()
         }
