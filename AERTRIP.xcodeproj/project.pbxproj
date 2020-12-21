@@ -692,7 +692,6 @@
 		841AA51724744CA200B66720 /* HomeDummyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 841AA51524744CA100B66720 /* HomeDummyViewController.xib */; };
 		841AA51E24744E0A00B66720 /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = 841AA51924744E0900B66720 /* LICENSE.md */; };
 		841AA51F24744E0A00B66720 /* HMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 841AA51C24744E0900B66720 /* HMSegmentedControl.m */; };
-		841AA52024744E0A00B66720 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 841AA51D24744E0900B66720 /* README.md */; };
 		841AA52B24744F0700B66720 /* HMSegmentedControl.release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 841AA52224744F0500B66720 /* HMSegmentedControl.release.xcconfig */; };
 		841AA52C24744F0700B66720 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 841AA52424744F0600B66720 /* Info.plist */; };
 		841AA52D24744F0700B66720 /* HMSegmentedControl-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 841AA52524744F0600B66720 /* HMSegmentedControl-Info.plist */; };
@@ -721,7 +720,6 @@
 		841F3989253EE75B007C99B6 /* UIBezierPath+Heart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841F3984253EE75B007C99B6 /* UIBezierPath+Heart.swift */; };
 		841F398A253EE75B007C99B6 /* Int+Radians.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841F3985253EE75B007C99B6 /* Int+Radians.swift */; };
 		841F398B253EE75B007C99B6 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 841F3986253EE75B007C99B6 /* LICENSE */; };
-		841F398C253EE75B007C99B6 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 841F3987253EE75B007C99B6 /* README.md */; };
 		841F398E253F1F5F007C99B6 /* ChatVC+AerinCommunication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841F398D253F1F5F007C99B6 /* ChatVC+AerinCommunication.swift */; };
 		841F39A425415252007C99B6 /* AerinCustomPopoverVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841F39A325415252007C99B6 /* AerinCustomPopoverVC.swift */; };
 		841FA50B22324F3300DE9FE9 /* TripModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841FA50A22324F3300DE9FE9 /* TripModel.swift */; };
@@ -2364,7 +2362,6 @@
 		841AA51924744E0900B66720 /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		841AA51B24744E0900B66720 /* HMSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMSegmentedControl.h; sourceTree = "<group>"; };
 		841AA51C24744E0900B66720 /* HMSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMSegmentedControl.m; sourceTree = "<group>"; };
-		841AA51D24744E0900B66720 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		841AA52224744F0500B66720 /* HMSegmentedControl.release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = HMSegmentedControl.release.xcconfig; sourceTree = "<group>"; };
 		841AA52324744F0500B66720 /* HMSegmentedControl.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = HMSegmentedControl.modulemap; sourceTree = "<group>"; };
 		841AA52424744F0600B66720 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -2397,7 +2394,6 @@
 		841F3984253EE75B007C99B6 /* UIBezierPath+Heart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBezierPath+Heart.swift"; sourceTree = "<group>"; };
 		841F3985253EE75B007C99B6 /* Int+Radians.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+Radians.swift"; sourceTree = "<group>"; };
 		841F3986253EE75B007C99B6 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		841F3987253EE75B007C99B6 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		841F398D253F1F5F007C99B6 /* ChatVC+AerinCommunication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatVC+AerinCommunication.swift"; sourceTree = "<group>"; };
 		841F39A325415252007C99B6 /* AerinCustomPopoverVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AerinCustomPopoverVC.swift; sourceTree = "<group>"; };
 		841FA50A22324F3300DE9FE9 /* TripModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripModel.swift; sourceTree = "<group>"; };
@@ -5472,7 +5468,6 @@
 			children = (
 				841AA51924744E0900B66720 /* LICENSE.md */,
 				841AA51A24744E0900B66720 /* HMSegmentedControl */,
-				841AA51D24744E0900B66720 /* README.md */,
 			);
 			path = HMSegmentedControl;
 			sourceTree = "<group>";
@@ -5621,7 +5616,6 @@
 			children = (
 				841F3981253EE75B007C99B6 /* HeartLoadingView */,
 				841F3986253EE75B007C99B6 /* LICENSE */,
-				841F3987253EE75B007C99B6 /* README.md */,
 			);
 			path = HeartLoadingView;
 			sourceTree = "<group>";
@@ -9377,7 +9371,6 @@
 				843FF4EB24740231001F21B1 /* FlightAmenitiesTableViewCell.xib in Resources */,
 				843FF4AD24740231001F21B1 /* FlightDurationFilterViewController.xib in Resources */,
 				843FF4D524740231001F21B1 /* GSTINListCell.xib in Resources */,
-				841AA52024744E0A00B66720 /* README.md in Resources */,
 				8445B53022A5371700DDBC7F /* CustomerContactCellTableViewCell.xib in Resources */,
 				843FF56B24740232001F21B1 /* AmenitiesDetailsVC.xib in Resources */,
 				0C024047248044C300B06AEC /* SelectPassengerCell.xib in Resources */,
@@ -9649,7 +9642,6 @@
 				8483AFA722118549009F7600 /* HotelRatingInfoCell.xib in Resources */,
 				84BBEEA52214235900844034 /* HotelDetailsInclusionTableViewCell.xib in Resources */,
 				843FF54724740232001F21B1 /* FlightResultSingleJourneyVC.xib in Resources */,
-				841F398C253EE75B007C99B6 /* README.md in Resources */,
 				84DD24A02267A6030013F77E /* PaymentInfoTableViewCell.xib in Resources */,
 				18A8814D21C7CF3600864077 /* SlideMenuProfileImageHeaderView.xib in Resources */,
 				8491D1F2222D3FC2001D0313 /* SourceSansPro-SemiBoldItalic.ttf in Resources */,
