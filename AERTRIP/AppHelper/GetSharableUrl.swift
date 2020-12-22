@@ -457,14 +457,14 @@ class GetSharableUrl
             }
             
             //Aircraft
-            if dynamicFilters.aircraft.selectedAircraftsArray.count > 0{
-                var aircraft = ""
-                for n in 0..<dynamicFilters.aircraft.selectedAircraftsArray.count{
-                    aircraft.append("filters[\(i)][aircraft][\(n)]=\(dynamicFilters.aircraft.selectedAircraftsArray[n].name)&")
-                }
-                
-                filterString.append(aircraft)
-            }
+//            if dynamicFilters.aircraft.selectedAircraftsArray.count > 0{
+//                var aircraft = ""
+//                for n in 0..<dynamicFilters.aircraft.selectedAircraftsArray.count{
+//                    aircraft.append("filters[\(i)][aircraft][\(n)]=\(dynamicFilters.aircraft.selectedAircraftsArray[n].name)&")
+//                }
+//
+//                filterString.append(aircraft)
+//            }
             
             //isConditionReverced - true= desc & false = asc(lowto high/earlist first)
             //Sort
@@ -1021,14 +1021,14 @@ class GetSharableUrl
             }
             
             //Aircraft
-            if dynamicFilters.aircraft.selectedAircraftsArray.count > 0{
-                var aircraft = ""
-                for n in 0..<dynamicFilters.aircraft.selectedAircraftsArray.count{
-                    aircraft.append("&filters[0][aircraft][\(n)]=\(dynamicFilters.aircraft.selectedAircraftsArray[n].name)")
-                }
-                
-                filterString.append(aircraft)
-            }
+//            if dynamicFilters.aircraft.selectedAircraftsArray.count > 0{
+//                var aircraft = ""
+//                for n in 0..<dynamicFilters.aircraft.selectedAircraftsArray.count{
+//                    aircraft.append("&filters[0][aircraft][\(n)]=\(dynamicFilters.aircraft.selectedAircraftsArray[n].name)")
+//                }
+//                
+//                filterString.append(aircraft)
+//            }
             
 //            Example - Applied departure sort to DXB i.e. for 2nd leg so sort will be share as sort[]=depart-sorting_asc & for other 2 it will be empty as sort[]=
 //            https://beta.aertrip.com/flights?trip_type=multi&adult=1&child=0&infant=0&origin[]=BOM&origin[]=DXB&origin[]=DEL&destination[]=DXB&destination[]=DEL&destination[]=BOM&depart[]=04-11-2020&depart[]=05-11-2020&depart[]=06-11-2020&return=04-11-2020&cabinclass=Economy&pType=flight&isDomestic=false&PF[]=4f954a946c599e1d04b703dcee38ab72~f9b57244b44a50eee292513b5698b341~c585b8d58885d758acb516adaea93474&sort[]=&sort[]=depart-sorting_asc&sort[]=
