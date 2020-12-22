@@ -15,16 +15,16 @@ enum APIEndPoint: String {
     case apiKey       = "3a457a74be76d6c3603059b559f6addf"
     
     //dev
-   // case baseUrlPath  = "https://beta.aertrip.com/api/v1/"
+    case baseUrlPath  = "https://beta.aertrip.com/api/v1/"
     
     //beta-rz
-    case baseUrlPath = "https://beta-rz.aertrip.com/api/v1/"
+//    case baseUrlPath = "https://beta-rz.aertrip.com/api/v1/"
     
     //dev
-//    case shareableBaseUrl = "https://beta.aertrip.com/"
+    case shareableBaseUrl = "https://beta.aertrip.com/"
     
     //beta-rz
-    case shareableBaseUrl = "https://beta-rz.aertrip.com/"
+//    case shareableBaseUrl = "https://beta-rz.aertrip.com/"
 
     
     
