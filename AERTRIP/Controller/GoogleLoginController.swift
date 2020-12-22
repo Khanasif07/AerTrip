@@ -27,7 +27,7 @@ class GoogleLoginController : NSObject {
     private override init() {}
     
     func configure() {
-        let clientId = "175392921069-agcdbrcffqcbhl1cbeatvjafd35335gm.apps.googleusercontent.com"
+        let clientId = AppKeys.googleClientID
         GIDSignIn.sharedInstance().clientID = clientId
         GIDSignIn.sharedInstance().delegate = self
     }

@@ -13,11 +13,13 @@ import Foundation
     private override init(){}
     
     static var googleUrl : String{
-        !AppConstants.isReleasingToClient ? "com.googleusercontent.apps.175392921069-agcdbrcffqcbhl1cbeatvjafd35335gm" : "com.googleusercontent.apps.175392921069-agcdbrcffqcbhl1cbeatvjafd35335gm"
+        !AppConstants.isReleasingToClient ? "com.googleusercontent.apps.683481048334-568us2uci4j08mp801obq615lsr31pkj" : "com.googleusercontent.apps.683481048334-568us2uci4j08mp801obq615lsr31pkj"
     }
     
+    static var googleClientID: String { "683481048334-568us2uci4j08mp801obq615lsr31pkj.apps.googleusercontent.com" }
+    
     static var kGoogleAPIKey : String {
-        !AppConstants.isReleasingToClient ? "AIzaSyD_W5hNOfKdR3xbEEkbX1rI2sJ3nDv1E64" : ""
+        !AppConstants.isReleasingToClient ? "AIzaSyBzr3tjY7rM37HneYJjMedi60o_73j6-vU" : "AIzaSyBzr3tjY7rM37HneYJjMedi60o_73j6-vU"
     }
     
     static var fbUrl : String{
