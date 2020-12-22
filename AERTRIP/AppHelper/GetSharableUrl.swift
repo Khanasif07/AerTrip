@@ -457,14 +457,14 @@ class GetSharableUrl
             }
             
             //Aircraft
-//            if dynamicFilters.aircraft.selectedAircraftsArray.count > 0{
-//                var aircraft = ""
-//                for n in 0..<dynamicFilters.aircraft.selectedAircraftsArray.count{
-//                    aircraft.append("filters[\(i)][aircraft][\(n)]=\(dynamicFilters.aircraft.selectedAircraftsArray[n].name)&")
-//                }
-//
-//                filterString.append(aircraft)
-//            }
+            if dynamicFilters.aircraft.selectedAircraftsArray.count > 0{
+                var aircraft = ""
+                for n in 0..<dynamicFilters.aircraft.selectedAircraftsArray.count{
+                    aircraft.append("filters[\(i)][aircraft][\(n)]=\(dynamicFilters.aircraft.selectedAircraftsArray[n].name)&")
+                }
+                
+                filterString.append(aircraft)
+            }
             
             //isConditionReverced - true= desc & false = asc(lowto high/earlist first)
             //Sort
