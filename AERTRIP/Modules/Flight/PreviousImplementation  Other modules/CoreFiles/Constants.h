@@ -216,7 +216,7 @@
 #define REGISTER_EMAIL_ID @"RegisterEmailID"
 #define OPEN_DEEPLINK @"openDeepLink"
 //#define API_KEY @"7472e9071e9cf87bf2c12876a1fe2006"
-#define API_KEY @"3a457a74be76d6c3603059b559f6addf"
+//#define API_KEY @"3a457a74be76d6c3603059b559f6addf"
 #define DEEP_LINK_KEY @"deepLinkKey"
 #define DEEP_LINK_TOKEN @"deepLinkToken"
 #define IS_RESET_DEEP_LINK @"isResetDeepLink"

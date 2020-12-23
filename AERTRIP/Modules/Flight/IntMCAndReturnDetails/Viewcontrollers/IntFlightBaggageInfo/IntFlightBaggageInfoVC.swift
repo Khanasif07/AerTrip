@@ -176,10 +176,10 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
                 }
                 
                 if let flightIcon = evaluatedBaggageResp[indexPath.section][indexPath.row]["flightIcon"] as? NSArray, let icon = flightIcon[indexPath.row] as? String{
-                    let logoURL = "http://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/" + icon.uppercased() + ".png"
+                    let logoURL = AppKeys.airlineMasterBaseUrl + icon.uppercased() + ".png"
                     setImageFromPath(urlPath : logoURL , to: baggageCell.airlineLogoImageView)
                 }else if let flightIconStr = evaluatedBaggageResp[indexPath.section][indexPath.row]["flightIcon"] as? String{
-                    let logoURL = "http://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/" + flightIconStr.uppercased() + ".png"
+                    let logoURL = AppKeys.airlineMasterBaseUrl + flightIconStr.uppercased() + ".png"
                     setImageFromPath(urlPath : logoURL , to: baggageCell.airlineLogoImageView)
                 }
                 

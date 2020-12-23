@@ -80,7 +80,8 @@
        // manager.responseSerializer = [AFJSONResponseSerializer serializer];
             manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
             
-            [manager.requestSerializer setValue:API_KEY forHTTPHeaderField:@"api-key"];
+//            [manager.requestSerializer setValue:API_KEY forHTTPHeaderField:@"api-key"];
+            [manager.requestSerializer setValue: AppKeys.apiKey forHTTPHeaderField:@"api-key"];
             
             
             
@@ -194,7 +195,8 @@
             manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
           //  manager.requestSerializer = [AFJSONRequestSerializer serializer];
 
-            [manager.requestSerializer setValue:API_KEY forHTTPHeaderField:@"api-key"];
+//            [manager.requestSerializer setValue:API_KEY forHTTPHeaderField:@"api-key"];
+            [manager.requestSerializer setValue:AppKeys.apiKey forHTTPHeaderField:@"api-key"];
 
             [manager GET:url parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
                 NSDictionary *responseDictionary = (NSDictionary *)responseObject;
@@ -279,7 +281,9 @@
 //    manager.responseSerializer = [AFJSONResponseSerializer serializer];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    [manager.requestSerializer setValue:API_KEY forHTTPHeaderField:@"api-key"];
+    
+//    [manager.requestSerializer setValue:API_KEY forHTTPHeaderField:@"api-key"];
+    [manager.requestSerializer setValue:AppKeys.apiKey forHTTPHeaderField:@"api-key"];
     
     [manager GET:url parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         NSDictionary *responseDictionary = (NSDictionary *)responseObject;
@@ -339,7 +343,8 @@
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     // manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    [manager.requestSerializer setValue:API_KEY forHTTPHeaderField:@"api-key"];
+//    [manager.requestSerializer setValue:API_KEY forHTTPHeaderField:@"api-key"];
+    [manager.requestSerializer setValue:AppKeys.apiKey forHTTPHeaderField:@"api-key"];
 
     [manager POST:url parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         NSDictionary *responseDictionary = (NSDictionary *)responseObject;
@@ -401,7 +406,9 @@
         NSString *url = [NSString stringWithFormat:@"%@%@",baseUrl,apiName];
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-        [manager.requestSerializer setValue:API_KEY forHTTPHeaderField:@"api-key"];
+//        [manager.requestSerializer setValue:API_KEY forHTTPHeaderField:@"api-key"];
+        
+        [manager.requestSerializer setValue:AppKeys.apiKey forHTTPHeaderField:@"api-key"];
         [manager POST:url parameters:parameters headers:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
             float actualImageSize = UIImageJPEGRepresentation(image,1.0f).length;
             float destinationFileSize = 2000000.0;
