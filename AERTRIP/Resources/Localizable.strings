@@ -106,6 +106,7 @@
 "Program" = "Program";
 "Please_enter_Current_Password" = "Please enter current Password";
 "Please_enter_Valid_Password" = "Please enter a valid Password";
+"Password_must_qualify_conditions" = "Password must qualify all conditions";
 
 // MARK:- CreateProfileVC
 //MARK:-

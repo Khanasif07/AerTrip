@@ -33,7 +33,7 @@ class ChangePasswordVM {
                 return false
             }
             if self.oldPassword.checkInvalidity(.Password) {
-                AppToast.default.showToastMessage(message: LocalizedString.Please_enter_Valid_Password.localized)
+                AppToast.default.showToastMessage(message: LocalizedString.Password_must_qualify_conditions.localized)
                 return false
             }
             if self.password.checkInvalidity(.Password) {
