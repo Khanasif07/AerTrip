@@ -462,7 +462,6 @@ extension FlightResultSingleJourneyVC {
             }
         }
         
-        
         guard let bodyData = body.data(using: String.Encoding.utf8) else { return nil }
         postData.append(bodyData)
         

@@ -41,7 +41,6 @@ import Foundation
     static let tripsUrl = "https://aertrip.com/trips"
     static let travelSafetyLink = "https://aertrip.com/covid-guide"
     
-    
     @objc static let baseUrl = APIEndPoint.shareableBaseUrl.rawValue
     @objc static let baseUrlWithVersion = APIEndPoint.baseUrlPath.rawValue
     
@@ -51,9 +50,9 @@ import Foundation
 enum AppConstants {
     
     static let isReleasingToClient: Bool = false
-    
+    static let logsEnabled: Bool = false
+
     static let kCurrency = ""
-    
     static let kAppName = "Aertrip"
     static let kGoogleClientID = ""
     static let kGoogleUrlScheme = ""

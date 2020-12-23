@@ -16,7 +16,7 @@ import EventKit
 func printDebug<T>(_ obj: T) {
     //    if AppConstants.isReleasingToClient {
     //        if UIDevice.isSimulator {
-//                print(obj)
+                print(obj)
     //        }
     //    } else {
     //        print(obj)
@@ -283,7 +283,7 @@ class AppGlobals {
         image1Attachment.image = image
         
         // wrap the attachment in its own attributed string so we can append it
-        
+
         let image1String = NSAttributedString(attachment: image1Attachment)
         
         // add the NSTextAttachment wrapper to our full string, then add some more text.
@@ -347,8 +347,6 @@ class AppGlobals {
         VC.present(fakeViewController, animated: true) { [weak fakeViewController] in
             fakeViewController?.present(activityViewController, animated: true, completion: nil)
         }
-        
-        
     }
     
     ///GET TEXT SIZE
