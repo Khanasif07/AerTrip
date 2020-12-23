@@ -1050,4 +1050,3 @@ var statusBarHeight : CGFloat {
     return UIApplication.shared.isStatusBarHidden ? CGFloat(0) : UIApplication.shared.statusBarFrame.height
 }
 
-

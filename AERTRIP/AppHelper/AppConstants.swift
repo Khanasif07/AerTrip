@@ -112,7 +112,6 @@ enum AppConstants {
     static let OnlineDepositeAmountLimit: Double = 1050000 //10,50,000 in online (bcoz of Convenience fee)
     static let OfflineDepositeAmountLimit: Double = 999999999 //99,99,99,999
 
-    
     static let profileViewBackgroundNameIntialsFont = AppFonts.Regular.withSize(40.0)
     
 //    static let kGoogleAPIKey = "AIzaSyD_W5hNOfKdR3xbEEkbX1rI2sJ3nDv1E64" // "AIzaSyBR5AMB7FJUqlRBZv93B4aVhY-Xt13weaU"

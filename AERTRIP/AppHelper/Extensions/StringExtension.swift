@@ -1054,3 +1054,27 @@ extension String {
     
     
 }
+
+extension String {
+    var stringIn_ddMMyyyy: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-mm-dd"
+        if let date = dateFormatter.date(from: self) {
+            dateFormatter.dateFormat = "dd-mm-yyyy"
+            return dateFormatter.string(from: date)
+        } else {
+            return self
+        }
+    }
+    
+    var stringIn_yyyyMMdd: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-mm-yyyy"
+        if let date = dateFormatter.date(from: self) {
+            dateFormatter.dateFormat = "yyyy-mm-dd"
+            return dateFormatter.string(from: date)
+        } else {
+            return self
+        }
+    }
+}

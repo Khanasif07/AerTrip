@@ -743,7 +743,6 @@
 		84254F4A223B8BDF00E3D120 /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84254F49223B8BDF00E3D120 /* UITextFieldExtension.swift */; };
 		84254F4C223B97FD00E3D120 /* Api+HotelCheckOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84254F4B223B97FD00E3D120 /* Api+HotelCheckOut.swift */; };
 		84254F4E223BD86100E3D120 /* HCEmailItinerariesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84254F4D223BD86100E3D120 /* HCEmailItinerariesModel.swift */; };
-		84269063228E9EF700CFCBFC /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 84269061228E9EF700CFCBFC /* LICENSE */; };
 		84269064228E9EF700CFCBFC /* PKMultiPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84269062228E9EF700CFCBFC /* PKMultiPicker.swift */; };
 		8426D8B022AE6B9D0081C9D8 /* DoubleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8426D8AF22AE6B9D0081C9D8 /* DoubleExtension.swift */; };
 		84271E8022379E4F00C1A70D /* HotelCheckout.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84271E7F22379E4F00C1A70D /* HotelCheckout.storyboard */; };
@@ -2416,7 +2415,6 @@
 		84254F49223B8BDF00E3D120 /* UITextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtension.swift; sourceTree = "<group>"; };
 		84254F4B223B97FD00E3D120 /* Api+HotelCheckOut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Api+HotelCheckOut.swift"; sourceTree = "<group>"; };
 		84254F4D223BD86100E3D120 /* HCEmailItinerariesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCEmailItinerariesModel.swift; sourceTree = "<group>"; };
-		84269061228E9EF700CFCBFC /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		84269062228E9EF700CFCBFC /* PKMultiPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKMultiPicker.swift; sourceTree = "<group>"; };
 		8426D8AF22AE6B9D0081C9D8 /* DoubleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleExtension.swift; sourceTree = "<group>"; };
 		84271E7F22379E4F00C1A70D /* HotelCheckout.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HotelCheckout.storyboard; sourceTree = "<group>"; };
@@ -5715,7 +5713,6 @@
 		84269060228E9EF700CFCBFC /* PKMultiPicker */ = {
 			isa = PBXGroup;
 			children = (
-				84269061228E9EF700CFCBFC /* LICENSE */,
 				84269062228E9EF700CFCBFC /* PKMultiPicker.swift */,
 			);
 			path = PKMultiPicker;
@@ -9621,7 +9618,6 @@
 				84D1580022660B3900393528 /* AccountDetailEventDescriptionCell.xib in Resources */,
 				84100A9122391B60006A05EC /* ContactTableCell.xib in Resources */,
 				8446C90322A7D55E0077556B /* HotleCancellationChargesCollectionViewCell.xib in Resources */,
-				84269063228E9EF700CFCBFC /* LICENSE in Resources */,
 				8491D1F7222D3FC2001D0313 /* SourceSansPro-Black.ttf in Resources */,
 				182D4865228B03F3004796A2 /* BookingCheckinCheckOutTableViewCell.xib in Resources */,
 				18999D9B21E4A8B600E66072 /* GroupTableViewCell.xib in Resources */,
