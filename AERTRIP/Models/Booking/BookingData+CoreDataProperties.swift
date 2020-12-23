@@ -163,7 +163,8 @@ extension BookingData {
                         
                         let attributedStr1 = NSMutableAttributedString(string: routeStr)
                         if travLastIndex > 0 {
-                            attributedStr1.addAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeGray20], range: NSRange(location: 0, length: travLastIndex+3))
+//                            attributedStr1.addAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeGray20], range: NSRange(location: 0, length: travLastIndex+3))
+                            attributedStr1.addAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeGray20], range: NSRange(location: 0, length: travLastIndex))
                         }
                         return attributedStr1
                     }
@@ -254,7 +255,8 @@ extension BookingData {
                         
                         let attributedStr1 = NSMutableAttributedString(string: routeStr)
                         if travLastIndex > 0 {
-                            attributedStr1.addAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeGray20], range: NSRange(location: 0, length: travLastIndex+3))
+//                            attributedStr1.addAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeGray20], range: NSRange(location: 0, length: travLastIndex+3))
+                            attributedStr1.addAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeGray20], range: NSRange(location: 0, length: travLastIndex))
                         }
                         return attributedStr1
                     }
