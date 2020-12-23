@@ -141,6 +141,7 @@ extension FlightSearchResultVM : SortFilterDelegate {
     }
     
     func arrivalSortFilterChanged(arrivalMode: Bool ) {
+        
         if isIntMCOrReturnJourney {
             //intFlightLegs[0].arrivalSortFilterChanged(arrivalMode: arrivalMode)
             return

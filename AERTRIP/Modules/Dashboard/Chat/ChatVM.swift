@@ -387,35 +387,35 @@ class ChatVM {
         }
         
         if let minTime = oneWayFilters["duration"]["min"].int {
-            jsonDict["filters[0][tt][0]"] = ((minTime)/216000).toString
+            jsonDict["filters[0][tt][0]"] = ((minTime)/3600).toString
         }
         
         if let maxTime = oneWayFilters["duration"]["max"].int {
-            jsonDict["filters[0][tt][1]"] = ((maxTime)/216000).toString
+            jsonDict["filters[0][tt][1]"] = ((maxTime)/3600).toString
         }
         
         if let minTime = oneWayFilters["layoverDuration"]["min"].int {
-            jsonDict["filters[0][lott][0]"] = ((minTime)/216000).toString
+            jsonDict["filters[0][lott][0]"] = ((minTime)/3600).toString
         }
         
         if let maxTime = oneWayFilters["layoverDuration"]["max"].int {
-            jsonDict["filters[0][lott][1]"] = ((maxTime)/216000).toString
+            jsonDict["filters[0][lott][1]"] = ((maxTime)/3600).toString
         }
         
         if let minTime = returnFilters["duration"]["min"].int {
-            jsonDict["filters[1][tt][0]"] = ((minTime)/216000).toString
+            jsonDict["filters[1][tt][0]"] = ((minTime)/3600).toString
         }
         
         if let maxTime = returnFilters["duration"]["max"].int {
-            jsonDict["filters[1][tt][1]"] = ((maxTime)/216000).toString
+            jsonDict["filters[1][tt][1]"] = ((maxTime)/3600).toString
         }
         
         if let minTime = returnFilters["layoverDuration"]["min"].int {
-            jsonDict["filters[1][lott][0]"] = ((minTime)/216000).toString
+            jsonDict["filters[1][lott][0]"] = ((minTime)/3600).toString
         }
         
         if let maxTime = returnFilters["layoverDuration"]["max"].int {
-            jsonDict["filters[1][lott][1]"] = ((maxTime)/216000).toString
+            jsonDict["filters[1][lott][1]"] = ((maxTime)/3600).toString
         }
         
         if let price = oneWayFilters["pr"].array {

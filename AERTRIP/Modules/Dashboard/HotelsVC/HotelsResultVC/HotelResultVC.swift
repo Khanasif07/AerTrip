@@ -63,7 +63,7 @@ class HotelResultVC: BaseVC {
             self.tableViewVertical.showsVerticalScrollIndicator = true
             self.tableViewVertical.showsHorizontalScrollIndicator = false
             self.tableViewVertical.contentInset = UIEdgeInsets(top: topContentSpace, left: 0, bottom: 0, right: 0)
-            self.tableViewVertical.tableHeaderView = searchResultHeaderView
+//            self.tableViewVertical.tableHeaderView = searchResultHeaderView
             self.tableViewVertical.sectionHeaderHeight = CGFloat.leastNormalMagnitude
         }
     }

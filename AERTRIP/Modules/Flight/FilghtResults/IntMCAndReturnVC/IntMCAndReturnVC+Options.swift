@@ -196,7 +196,7 @@ extension IntMCAndReturnVC: ATSwitcherChangeValueDelegate {
      
 
      func performUnpinnedAllAction() {
-        for i in 0 ..< viewModel.results.allJourneys.count {
+        for i in 0 ..< viewModel.results.journeyArray.count {
                
             let journeyGroup = viewModel.results.journeyArray[i]
                let newJourneyGroup = journeyGroup
