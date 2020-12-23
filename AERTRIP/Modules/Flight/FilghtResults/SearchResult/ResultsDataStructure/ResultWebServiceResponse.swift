@@ -68,7 +68,7 @@ public struct  FlightsResults : Codable {
             
             var logoArray = [String]()
             for airline in airlineArray {
-                let logoURL = "http://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/" + airline.uppercased() + ".png"
+                let logoURL = AppKeys.airlineMasterBaseUrl + airline.uppercased() + ".png"
                 logoArray.append(logoURL)
             }
             newJourney.airlineLogoArray = logoArray

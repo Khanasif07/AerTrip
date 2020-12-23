@@ -308,7 +308,7 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                     }
                     
                     
-                    let logoURL = "http://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/" + flight.al.uppercased() + ".png"
+                    let logoURL = AppKeys.airlineMasterBaseUrl + flight.al.uppercased() + ".png"
                     cell.setAirlineImage(with: logoURL)
                     
                     if indexPath.row == 0{

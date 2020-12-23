@@ -251,8 +251,9 @@ enum AppNetworking {
                 header["Access-Token"] = accessToken
             }
             else {
-                header["api-key"] = APIEndPoint.apiKey.rawValue
-                printDebug("Api-Key: \(APIEndPoint.apiKey.rawValue)")
+                header["api-key"] = AppKeys.apiKey//APIEndPoint.apiKey.rawValue
+                printDebug("Api-Key: \(AppKeys.apiKey)")
+//                printDebug("Api-Key: \(APIEndPoint.apiKey.rawValue)")
             }
             
             
@@ -415,8 +416,10 @@ enum AppNetworking {
             printDebug("Access-Token: \(accessToken)")
         }
         else {
-            header["Api-Key"] = APIEndPoint.apiKey.rawValue
-            printDebug("Api-Key: \(APIEndPoint.apiKey.rawValue)")
+//            header["Api-Key"] = APIEndPoint.apiKey.rawValue
+//            printDebug("Api-Key: \(APIEndPoint.apiKey.rawValue)")
+            header["Api-Key"] = AppKeys.apiKey
+            printDebug("Api-Key: \(AppKeys.apiKey)")
         }
         
         for head in headers {

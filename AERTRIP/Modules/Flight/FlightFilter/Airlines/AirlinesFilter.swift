@@ -15,7 +15,7 @@ struct  Airline : Hashable {
     let code : String
     var iconImageURL : String {
         
-        return "http://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/" + self.code.uppercased() + ".png"
+        return AppKeys.airlineMasterBaseUrl + self.code.uppercased() + ".png"
     }
     
     init(name : String , code : String , isSelected : Bool = false) {

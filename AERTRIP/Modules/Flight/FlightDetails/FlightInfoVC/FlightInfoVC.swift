@@ -348,7 +348,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         let flightName = airlineDetailsResult[flight.al]?.name
                         flightDetailsCell.flightNameLabel.text = flightName
                         
-                        let logoURL = "http://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/" + flight.al.uppercased() + ".png"
+                        let logoURL = AppKeys.airlineMasterBaseUrl + flight.al.uppercased() + ".png"
                         flightDetailsCell.setAirlineImage(with: logoURL)
                         
                         if indexPath.row == 0{

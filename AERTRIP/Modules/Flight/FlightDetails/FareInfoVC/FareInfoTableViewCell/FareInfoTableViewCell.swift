@@ -160,7 +160,7 @@ class FareInfoTableViewCell: UITableViewCell
                 
                 let al = journey[index].al.first ?? ""
                 
-                let logoURL = "http://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/" + al.uppercased() + ".png"
+                let logoURL = AppKeys.airlineMasterBaseUrl + al.uppercased() + ".png"
                 setAirlineImage(with: logoURL)
                 
             }
