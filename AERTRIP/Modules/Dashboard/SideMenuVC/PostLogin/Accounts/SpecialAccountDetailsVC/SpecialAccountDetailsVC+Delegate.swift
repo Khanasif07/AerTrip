@@ -151,7 +151,8 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
             //deposit cell
             case 2:
                 
-                var amount = UserInfo.loggedInUser?.accountData?.statements?.beforeAmountDue?.amount ?? 0.0
+//                var amount = UserInfo.loggedInUser?.accountData?.statements?.beforeAmountDue?.amount ?? 0.0
+                var amount = UserInfo.loggedInUser?.accountData?.statements?.amountDue ?? 0.0
                 if amount < 0 {
                     amount = 0.0
                 }
