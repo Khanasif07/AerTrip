@@ -128,30 +128,6 @@ class HotelsSearchVM: NSObject{
         }
     }
     
-    // To remove duplicates - not being used currently
-    private func removeRecentSearchDuplicates() {
-        guard let recentSearches = recentSearchesData, !recentSearches.isEmpty else { return }
-        var indicesToRemove = [Int]()
-        for index in 0..<recentSearches.count - 1 {
-            let toBeSearched = recentSearches[index]
-            for innerIndex in (index+1)..<recentSearches.count {
-                if indicesToRemove.contains(innerIndex) {
-                    continue
-                }
-                let innerIteratingSearch = recentSearches[innerIndex]
-                if toBeSearched.dest_id == innerIteratingSearch.dest_id && toBeSearched.checkInDate == innerIteratingSearch.checkInDate && toBeSearched.checkOutDate == innerIteratingSearch.checkOutDate {
-                    indicesToRemove.append(innerIndex)
-                }
-            }
-        }
-        indicesToRemove.sort()
-        indicesToRemove.reverse()
-        indicesToRemove.forEach { (index) in
-            recentSearchesData?.remove(at: index)
-        }
-        
-    }
-    
     func setRecentSearchesData() {
         guard self.canSetRecentSearch() else { return}
         
@@ -190,7 +166,7 @@ class HotelsSearchVM: NSObject{
         
         let params: JSONDictionary = [
             APIKeys.product.rawValue : "hotel",
-            "data[start_date]" : self.searchedFormData.checkInDate,
+            "data[start_date]" : self.searchedFormData.checkInDate.stringIn_ddMMyyyy,
             "data[query]" : AppGlobals.shared.json(from: query) ?? ""
         ]
         printDebug(params)
