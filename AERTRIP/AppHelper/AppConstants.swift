@@ -56,6 +56,7 @@ import Foundation
 
     @objc static let baseUrl = APIEndPoint.shareableBaseUrl.rawValue
     @objc static let baseUrlWithVersion = APIEndPoint.baseUrlPath.rawValue
+    @objc static var apiKey:String {!AppConstants.isReleasingToClient ? APIEndPoint.apiKey.rawValue : APIEndPoint.apiKeyProd.rawValue}
     
 }
 
