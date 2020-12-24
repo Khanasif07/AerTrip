@@ -344,7 +344,6 @@ class FlightResultDisplayGroup {
         
     let minHumanScore = outputArray.min { (first, second) in first.computedHumanScore ?? 0.0 < second.computedHumanScore ?? 0.0 }
         
-        
         // set property above human score threadshold bool
         
         outputArray = outputArray.map { (journey) -> Journey in
@@ -365,10 +364,7 @@ class FlightResultDisplayGroup {
         return outputArray
     }
     
-    
-    
     //MARK:- Public Methods
-    
     func workingOnReceived( flightsArray: [Flights] ,searchType : FlightSearchType, flightSearchParam: JSONDictionary) {
         mergeFlightResults( flightsArray)
         mergeFilters(flightsArray)
@@ -389,11 +385,17 @@ class FlightResultDisplayGroup {
         
         flightsArray.forEach { (flightMainObj) in
             
-            allAircrafts.append(contentsOf: flightMainObj.results.eqMaster.compactMap { $0.value })
-
-            printDebug(flightMainObj.results.eqMaster.count)
+            flightMainObj.results.eqMaster.forEach { (key, value) in
+                var aircraft = IntMultiCityAndReturnWSResponse.Results.EqMaster()
+                aircraft.eqCode = key
+                allAircrafts.append(aircraft)
+            }
             
-//            printDebug("flightMainObj.results.eqMaster....\(flightMainObj.results.eqMaster)")
+//            allAircrafts.append(contentsOf: flightMainObj.results.eqMaster.compactMap {
+//                                    $0.value
+//
+//            })
+            
             
         }
 
