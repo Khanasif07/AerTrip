@@ -1260,4 +1260,11 @@ enum LocalizedString: String {
     //App Globals
     case googleMapNotInstalled
     case restrictedCalendarUse
+    
+    //OTP varification
+    case oneTimePassword
+    case toProceedWalletBalance
+    case waitAminToOtp
+    case didntGetOtp
+    case enterOtp
 }

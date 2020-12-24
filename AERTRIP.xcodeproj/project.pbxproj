@@ -84,6 +84,8 @@
 		0C30BC1524A9F92A004BF7E0 /* LabelWithBulletCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C30BC1324A9F92A004BF7E0 /* LabelWithBulletCell.xib */; };
 		0C30BC1724AA0112004BF7E0 /* BaggageTermsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C30BC1624AA0112004BF7E0 /* BaggageTermsVM.swift */; };
 		0C32DC06232F70FC008033B5 /* QuickPayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C32DC05232F70FC008033B5 /* QuickPayVC.swift */; };
+		0C3955C02594A7ED008B5344 /* OTPAndVarification.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C3955BF2594A7EC008B5344 /* OTPAndVarification.storyboard */; };
+		0C3955C62594B313008B5344 /* OTPVarificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3955C52594B313008B5344 /* OTPVarificationVC.swift */; };
 		0C3F21DA25504F130022F95E /* payment.csv in Resources */ = {isa = PBXBuildFile; fileRef = 0C3F21D925504F120022F95E /* payment.csv */; };
 		0C4CB41025022C9F000C3904 /* TAViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4CB40F25022C9E000C3904 /* TAViewModel.swift */; };
 		0C4CB41225022CE5000C3904 /* CurrencyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4CB41125022CE4000C3904 /* CurrencyModel.swift */; };
@@ -1743,6 +1745,8 @@
 		0C30BC1324A9F92A004BF7E0 /* LabelWithBulletCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LabelWithBulletCell.xib; sourceTree = "<group>"; };
 		0C30BC1624AA0112004BF7E0 /* BaggageTermsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaggageTermsVM.swift; sourceTree = "<group>"; };
 		0C32DC05232F70FC008033B5 /* QuickPayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickPayVC.swift; sourceTree = "<group>"; };
+		0C3955BF2594A7EC008B5344 /* OTPAndVarification.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OTPAndVarification.storyboard; sourceTree = "<group>"; };
+		0C3955C52594B313008B5344 /* OTPVarificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPVarificationVC.swift; sourceTree = "<group>"; };
 		0C3F21D925504F120022F95E /* payment.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = payment.csv; sourceTree = "<group>"; };
 		0C4CB40F25022C9E000C3904 /* TAViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TAViewModel.swift; sourceTree = "<group>"; };
 		0C4CB41125022CE4000C3904 /* CurrencyModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyModel.swift; sourceTree = "<group>"; };
@@ -3691,6 +3695,47 @@
 			path = QuickPay;
 			sourceTree = "<group>";
 		};
+		0C3955BE2594A7BB008B5344 /* OTPAndVarification */ = {
+			isa = PBXGroup;
+			children = (
+				0C3955C22594B046008B5344 /* OTPVarificationVC */,
+				0C3955BF2594A7EC008B5344 /* OTPAndVarification.storyboard */,
+			);
+			path = OTPAndVarification;
+			sourceTree = "<group>";
+		};
+		0C3955C12594B035008B5344 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				0C3955C52594B313008B5344 /* OTPVarificationVC.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		0C3955C22594B046008B5344 /* OTPVarificationVC */ = {
+			isa = PBXGroup;
+			children = (
+				0C3955C42594B05A008B5344 /* Models */,
+				0C3955C12594B035008B5344 /* ViewControllers */,
+				0C3955C32594B04E008B5344 /* ViewModels */,
+			);
+			path = OTPVarificationVC;
+			sourceTree = "<group>";
+		};
+		0C3955C32594B04E008B5344 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		0C3955C42594B05A008B5344 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		0C4CB40E25022C9E000C3904 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -5046,6 +5091,7 @@
 		84085C6C21F59C0C00F1E844 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				0C3955BE2594A7BB008B5344 /* OTPAndVarification */,
 				84816E5C2518833200D0C256 /* SplashAnimation */,
 				843FF2E62474022F001F21B1 /* Flight */,
 				18B435622202C9AA000C5E31 /* HotelFilter */,
@@ -9461,6 +9507,7 @@
 				1841AF8B21C8B6A10038111D /* Profile.storyboard in Resources */,
 				183E3F6921D9F1D70032DEBA /* HotelCardCollectionViewCell.xib in Resources */,
 				18930A1D21D2B831005442C8 /* SearchTableViewCell.xib in Resources */,
+				0C3955C02594A7ED008B5344 /* OTPAndVarification.storyboard in Resources */,
 				84323D3A222FE42300DA7581 /* AmenitiesDescriptionTableViewCell.xib in Resources */,
 				18D34EC42424F0F0007D32D8 /* TotalPayableNowWithIconCell.xib in Resources */,
 				1820F0ED228D46CD0019B8BB /* BookingRequestAddOnTableViewCell.xib in Resources */,
@@ -10189,6 +10236,7 @@
 				18E09F9F22EB089E0065CEB2 /* PKCategoryButton.swift in Sources */,
 				18FD917622968CF300D005E9 /* BookingSchedulingPassengerDetailTableViewCell.swift in Sources */,
 				186FD6EB2489019B00335353 /* FlightPaymentBookingStatusVM.swift in Sources */,
+				0C3955C62594B313008B5344 /* OTPVarificationVC.swift in Sources */,
 				8460DCDE251C6FE400DDB7CB /* IntMCAndReturnVC+DataReceivingFlow.swift in Sources */,
 				1870AD1D220C769400FB32C8 /* TravellerData+CoreDataClass.swift in Sources */,
 				840DDE91220D7C0800F8BA92 /* HotelDetailsImageCollectionCell.swift in Sources */,

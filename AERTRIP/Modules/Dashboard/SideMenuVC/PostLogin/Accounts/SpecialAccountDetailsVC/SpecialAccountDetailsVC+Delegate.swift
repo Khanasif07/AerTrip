@@ -559,10 +559,10 @@ class AccountDepositCell: UITableViewCell {
         self.depositButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
         self.depositButton.setTitle("Deposit", for: .normal)
         self.depositButton.setTitle("Deposit", for: .selected)
-        self.depositButton.shadowColor = AppColors.themeBlack
+        self.depositButton.shadowColor = AppColors.appShadowColor
         self.depositButton.setTitleColor(AppColors.themeWhite, for: .normal)
         self.depositButton.setTitleColor(AppColors.themeWhite, for: .selected)
-        self.depositButton.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
+        self.depositButton.shadowColor = AppColors.appShadowColor//themeBlack.withAlphaComponent(0.16)
         self.depositButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
     }
     
