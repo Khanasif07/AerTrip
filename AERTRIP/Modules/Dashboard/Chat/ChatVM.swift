@@ -223,16 +223,7 @@ class ChatVM {
     }
     
     func createFlightSearchDictionaryAndPushToVC(_ model: MessageModel) {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyyMMdd"
-        var departDate = dateFormatter.date(from: model.depart)
-        if departDate == nil {
-            dateFormatter.dateFormat = "yyyy-MM-dd"
-            departDate = dateFormatter.date(from: model.depart)
-        }
-        let newDepartDate = departDate?.toString(dateFormat: "dd-MM-yyyy") ?? ""
-        
+
         var newModel = model
         
         var jsonDict = JSONDictionary()
@@ -248,18 +239,14 @@ class ChatVM {
                 jsonDict["trip_type"] = "return"
                 newModel.tripType = "return"
             }
+        } else if newModel.tripType.lowercased() == "one way" {
+            jsonDict["trip_type"] = "single"
         }
         jsonDict["origin"] = newModel.origin
         jsonDict["destination"] = newModel.destination
-        jsonDict["depart"] = newDepartDate
+        jsonDict["depart"] = newModel.depart.stringIn_ddMMyyyy
         if newModel.tripType.lowercased() == "return" {
-            dateFormatter.dateFormat = "yyyyMMdd"
-            var returnDate = dateFormatter.date(from: newModel.returnDate)
-            if returnDate == nil {
-                dateFormatter.dateFormat = "yyyy-MM-dd"
-                returnDate = dateFormatter.date(from: newModel.returnDate)
-            }
-            let newReturnDate = returnDate?.toString(dateFormat: "dd-MM-yyyy") ?? ""
+            let newReturnDate = newModel.returnDate.stringIn_ddMMyyyy
             jsonDict["return"] = newReturnDate
         } else {
             jsonDict["totalLegs"] = 1
