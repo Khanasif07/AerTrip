@@ -310,7 +310,7 @@ extension IntCombineFareInfoCell{
                         }else if airlineValue == -1{
                             slabCell.statusLabel.textColor = .black
                             slabCell.statusLabel.text = "Non-refundable"
-                        }else if airlineValue == 0{
+                        }else if airlineValue == 0 && aertripValue == 0{
                             slabCell.statusLabel.textColor = UIColor(displayP3Red: 255.0/255.0, green: 144.0/255.0, blue: 0.0/255.0, alpha: 1.0)
                             slabCell.statusLabel.text = "Free Cancellation"
                         }else{
@@ -340,7 +340,7 @@ extension IntCombineFareInfoCell{
                         }else if airlineValue == -1{
                             slabCell.perAdultAmountLabel.textColor = .black
                             slabCell.perAdultAmountLabel.text = "Non-refundable"
-                        }else if airlineValue == 0{
+                        }else if airlineValue == 0 && aertripValue == 0{
                             slabCell.perAdultAmountLabel.textColor = UIColor(displayP3Red: 255.0/255.0, green: 144.0/255.0, blue: 0.0/255.0, alpha: 1.0)
                             slabCell.perAdultAmountLabel.text = "Free Cancellation"
                         }else{
@@ -387,7 +387,7 @@ extension IntCombineFareInfoCell{
                     }else if value == -1{
                         slabCell.perChildAmountLabel.textColor = .black
                         slabCell.perChildAmountLabel.text = "Non-refundable"
-                    }else if value == 0{
+                    }else if value == 0 && aertripValue == 0{
                         slabCell.perChildAmountLabel.textColor = UIColor(displayP3Red: 255.0/255.0, green: 144.0/255.0, blue: 0.0/255.0, alpha: 1.0)
                         slabCell.perChildAmountLabel.text = "Free Cancellation"
                     }else{
@@ -433,7 +433,7 @@ extension IntCombineFareInfoCell{
                     }else if value == -1{
                         slabCell.perInfantAmountLabel.textColor = .black
                         slabCell.perInfantAmountLabel.text = "Non-refundable"
-                    }else if value == 0{
+                    }else if value == 0 && aertripValue == 0{
                         slabCell.perInfantAmountLabel.textColor = UIColor(displayP3Red: 255.0/255.0, green: 144.0/255.0, blue: 0.0/255.0, alpha: 1.0)
                         slabCell.perInfantAmountLabel.text = "Free Cancellation"
                     }else{
@@ -515,7 +515,7 @@ extension IntCombineFareInfoCell{
                         }else if value == -1{
                             slabCell.statusLabel.textColor = .black
                             slabCell.statusLabel.text = "Not Permitted"
-                        }else if value == 0{
+                        }else if value == 0 && aertripValue == 0{
                             slabCell.statusLabel.textColor = UIColor(displayP3Red: 255.0/255.0, green: 144.0/255.0, blue: 0.0/255.0, alpha: 1.0)
                             slabCell.statusLabel.text = "Free Rescheduling"
                         }else{
@@ -540,7 +540,7 @@ extension IntCombineFareInfoCell{
                         }else if value == -1{
                             slabCell.perAdultAmountLabel.textColor = .black
                             slabCell.perAdultAmountLabel.text = "Not Permitted"
-                        }else if value == 0{
+                        }else if value == 0 && aertripValue == 0{
                             slabCell.perAdultAmountLabel.textColor =  UIColor(displayP3Red: 255.0/255.0, green: 144.0/255.0, blue: 0.0/255.0, alpha: 1.0)
                             slabCell.perAdultAmountLabel.text = "Free Rescheduling"
                         }else{
@@ -582,7 +582,7 @@ extension IntCombineFareInfoCell{
                     }else if value == -1{
                         slabCell.perChildAmountLabel.textColor = .black
                         slabCell.perChildAmountLabel.text = "Not Permitted"
-                    }else if value == 0{
+                    }else if value == 0 && aertripValue == 0{
                         slabCell.perChildAmountLabel.textColor =  UIColor(displayP3Red: 255.0/255.0, green: 144.0/255.0, blue: 0.0/255.0, alpha: 1.0)
                         slabCell.perChildAmountLabel.text = "Free Rescheduling"
                     }else{
@@ -622,7 +622,7 @@ extension IntCombineFareInfoCell{
                     }else if value == -1{
                         slabCell.perInfantAmountLabel.textColor = .black
                         slabCell.perInfantAmountLabel.text = "Not Permitted"
-                    }else if value == 0{
+                    }else if value == 0 && aertripValue == 0{
                         slabCell.perInfantAmountLabel.textColor =  UIColor(displayP3Red: 255.0/255.0, green: 144.0/255.0, blue: 0.0/255.0, alpha: 1.0)
                         slabCell.perInfantAmountLabel.text = "Free Rescheduling"
                     }else{

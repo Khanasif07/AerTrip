@@ -1186,3 +1186,10 @@ www.aertrip.com/trip";
 //App Globals
 "googleMapNotInstalled" = "Google Maps is not installed on your device.";
 "restrictedCalendarUse" = "You have been restricted from using the calendar on this device without calendar access this feature wont work.";
+
+//OTP Varification
+"oneTimePassword" = "One Time Password";
+"toProceedWalletBalance" = "To Proceed with 'Wallet Balance'\nkindly enter the OTP sent to your mobile.";
+"waitAminToOtp" = "Wait a minute to get the OTP.";
+"didntGetOtp" = "Didn't get OTP yet? Resend OTP";
+"enterOtp" = "Enter OTP";
