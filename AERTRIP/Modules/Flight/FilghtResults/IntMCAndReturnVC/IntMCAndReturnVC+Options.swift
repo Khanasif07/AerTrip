@@ -209,6 +209,10 @@ extension IntMCAndReturnVC: ATSwitcherChangeValueDelegate {
             viewModel.results.journeyArray[i] = newJourneyGroup
            }
                    
+        self.applySorting(sortOrder: self.viewModel.sortOrder, isConditionReverced: self.viewModel.isConditionReverced, legIndex: self.viewModel.prevLegIndex) {
+            
+        }
+        
            switchView.isOn = false
            hidePinnedFlightOptions(true)
           viewModel.resultTableState = stateBeforePinnedFlight

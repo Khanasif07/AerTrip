@@ -68,7 +68,7 @@ struct RecentSearchesModel {
     init(json: JSONDictionary) {
         
         if let obj = json[APIKeys.startDate.rawValue] {
-            self.startDate = "\(obj)".removeNull
+            self.startDate = "\(obj)".removeNull.stringIn_yyyyMMdd
         }
         if let added_on = json[APIKeys.added_on.rawValue] as? Int64 {
             self.added_on = added_on

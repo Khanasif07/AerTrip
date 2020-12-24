@@ -19,7 +19,7 @@ protocol PassengerSelectionVMDelegate:NSObjectProtocol {
     func getResponseFromLogin(_ success:Bool, error:ErrorCodes)
 }
 
-var logoUrl = "http://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/"
+var logoUrl = AppKeys.airlineMasterBaseUrl
 
 class PassengerSelectionVM  {
     //Common varialbles....

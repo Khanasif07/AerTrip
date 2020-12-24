@@ -667,7 +667,7 @@ extension IntFareInfoVC{
                 fareInfoCell.journeyNameLabel.text = location
                 
                 let al = legs[indexPath.section].al.first ?? ""
-                let logoURL = "http://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/" + al.uppercased() + ".png"
+                let logoURL = AppKeys.airlineMasterBaseUrl + al.uppercased() + ".png"
                 fareInfoCell.setAirlineImage(with: logoURL)
                 
             }

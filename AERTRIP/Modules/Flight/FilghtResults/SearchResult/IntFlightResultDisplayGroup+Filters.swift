@@ -63,17 +63,12 @@ extension IntFlightResultDisplayGroup  {
         self.dynamicFilters.aircraft.selectedAircraftsArray = filter.selectedAircraftsArray
         
         if !filter.selectedAircraftsArray.isEmpty{
-            
             appliedFilters.insert(.Aircraft)
-
         } else {
-            
             appliedFilters.remove(.Aircraft)
-
         }
         
         applyFilters(index: 0)
-
         
     }
     

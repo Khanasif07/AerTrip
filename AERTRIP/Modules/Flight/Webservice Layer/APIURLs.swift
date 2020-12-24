@@ -8,7 +8,7 @@
 
 import Foundation
 
-let apiKey = "3a457a74be76d6c3603059b559f6addf"
+let apiKey = AppKeys.apiKey//"3a457a74be76d6c3603059b559f6addf"
 
 let flightBaseUrl = "\(AppKeys.baseUrl)api/v1/flights/"
 let tripsBaseUrl = "\(AppKeys.baseUrl)api/v1/trips/"
