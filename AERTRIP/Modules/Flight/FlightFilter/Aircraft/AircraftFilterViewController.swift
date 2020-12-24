@@ -155,7 +155,6 @@ extension AircraftFilterViewController : UITableViewDataSource , UITableViewDele
                 
                 cell.radioButton.setImage(self.aircraftFilter.selectedAircraftsArray.count == self.aircraftFilter.allAircraftsArray.count ? #imageLiteral(resourceName: "selectOption") : #imageLiteral(resourceName: "UncheckedGreenRadioButton"), for: .normal)
            
-                
             } else {
                 
                // cell.configureAircraftCell(title: self.aircraftFilter.allAircrafts[indexPath.row])
@@ -175,7 +174,6 @@ extension AircraftFilterViewController : UITableViewDataSource , UITableViewDele
         cell.textLabel?.text = self.aircraftFilter.allAircraftsArray[indexPath.row].quality == 1 ? "⭑ \(self.aircraftFilter.allAircraftsArray[indexPath.row].name)" : self.aircraftFilter.allAircraftsArray[indexPath.row].name
 
             }
-
             
             cell.radioButton.isUserInteractionEnabled = false
             
@@ -185,7 +183,6 @@ extension AircraftFilterViewController : UITableViewDataSource , UITableViewDele
         return UITableViewCell()
     }
     
-
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if indexPath.section == 0 {
@@ -202,14 +199,13 @@ extension AircraftFilterViewController : UITableViewDataSource , UITableViewDele
                 return item.name == self.aircraftFilter.allAircraftsArray[indexPath.row].name
                }) {
                    self.aircraftFilter.selectedAircraftsArray.remove(at: ind)
-               } else{
+               } else {
                    self.aircraftFilter.selectedAircraftsArray.append(self.aircraftFilter.allAircraftsArray[indexPath.row])
                }
                
         }
         
         aircraftTableView.reloadData()
-
         self.delegate?.aircraftFilterUpdated(self.aircraftFilter)
         
     }
