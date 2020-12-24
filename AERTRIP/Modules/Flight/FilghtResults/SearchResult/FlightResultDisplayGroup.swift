@@ -565,6 +565,7 @@ class FlightResultDisplayGroup {
         
         if let pr = flightSearchParam["filters[\(self.index)][pr][0]"] as? String{
             self.appliedFilters.insert(.Price)
+            self.UIFilters.insert(.priceRange)
             let userMin = Int(pr) ?? 0
             let inputMin = self.inputFilter?.pr.minPrice ?? 0
             let price = userMin < inputMin ? inputMin : userMin
@@ -573,6 +574,7 @@ class FlightResultDisplayGroup {
         
         if let pr = flightSearchParam["filters[\(self.index)][pr][1]"] as? String{
             self.appliedFilters.insert(.Price)
+            self.UIFilters.insert(.priceRange)
             let userMax = Int(pr) ?? 0
             let inputMax = self.inputFilter?.pr.maxPrice ?? 0
             let price = userMax > inputMax ? inputMax : userMax
