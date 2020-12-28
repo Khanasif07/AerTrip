@@ -345,7 +345,8 @@ int alreadySelectedComponent = 0;
         
         //        [AertripToastView toastInView:self.view withText:message];
         
-        [self displayToastWithMessage:@"Total passengers cannot be more than 9" component:1];
+//        [self displayToastWithMessage:@"Total passengers cannot be more than 9" component:1];
+        [self displayToastWithMessage:@"Total passengers can not be more than 9. For more passengers use bulk booking." component:1];
         
         
         NSUInteger selection;

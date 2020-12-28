@@ -164,10 +164,11 @@ class SpeechRecognizer: NSObject {
         
         let recordingFormat = inputNode.outputFormat(forBus: 0)
         inputNode.removeTap(onBus: 0)
-        inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { (buffer, when) in
-            self.recognitionRequest?.append(buffer)
+        if recordingFormat.sampleRate > 0 {
+            inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { (buffer, when) in
+                self.recognitionRequest?.append(buffer)
+            }
         }
-        
         audioEngine.prepare()
         
         do {

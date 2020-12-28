@@ -133,7 +133,7 @@ enum LocalizedString: String {
     case Current_Password
     case Please_enter_Current_Password
     case Please_enter_Valid_Password
-
+    case Password_must_qualify_conditions
     
     // MARK: - CreateProfileVC
     
@@ -1260,4 +1260,11 @@ enum LocalizedString: String {
     //App Globals
     case googleMapNotInstalled
     case restrictedCalendarUse
+    
+    //OTP varification
+    case oneTimePassword
+    case toProceedWalletBalance
+    case waitAminToOtp
+    case didntGetOtp
+    case enterOtp
 }

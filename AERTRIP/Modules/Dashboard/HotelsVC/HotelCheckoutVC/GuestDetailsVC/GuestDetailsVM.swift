@@ -86,9 +86,31 @@ class GuestDetailsVM: NSObject {
     
     func checkForDoneValidation() -> Bool {
         for guest in GuestDetailsVM.shared.guests.flatMap({return $0}) {
-            if !guest.firstName.isEmpty || !guest.lastName.isEmpty {
-                if guest.firstName.count < 3 || guest.lastName.count < 3 {
+//            if !guest.firstName.isEmpty || !guest.lastName.isEmpty {
+//                if guest.firstName.count < 3 || guest.lastName.count < 3 {
+//                    AppToast.default.showToastMessage(message: LocalizedString.FirstLastNameCharacterLimitMessage.localized)
+//                    return false
+//                }
+//            }
+            if !guest.firstName.removeAllWhitespaces.isEmpty{
+                if guest.firstName.count < 3 {
+//                    return (false, LocalizedString.firstName3Char.localized)
                     AppToast.default.showToastMessage(message: LocalizedString.FirstLastNameCharacterLimitMessage.localized)
+                    return false
+                } else if !guest.firstName.isName {
+//                    return (false, LocalizedString.fistNameNumeric.localized)
+                    AppToast.default.showToastMessage(message: LocalizedString.fistNameNumeric.localized)
+                    return false
+                }
+            }
+            if (!guest.lastName.removeAllWhitespaces.isEmpty) {
+                if  guest.lastName.count < 3 {
+//                    return (false, LocalizedString.lastName3Char.localized)
+                    AppToast.default.showToastMessage(message: LocalizedString.lastName3Char.localized)
+                    return false
+                }else if !guest.lastName.isName {
+//                    return (false, LocalizedString.lastNameNumeric.localized)
+                    AppToast.default.showToastMessage(message: LocalizedString.lastNameNumeric.localized)
                     return false
                 }
             }

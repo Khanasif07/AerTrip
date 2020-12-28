@@ -159,9 +159,8 @@ class IntMCAndReturnVM {
                }
         
         sortArray.sort(by: { (obj1, obj2) -> Bool in
-                return (obj1.journeyArray.first?.price ?? 0) < (obj2.journeyArray.first?.price ?? 0)
+            return (obj1.journeyArray.first?.duration ?? 0) < (obj2.journeyArray.first?.duration ?? 0)
         })
-        
         
         sortArray.sort(by: { (obj1, obj2) -> Bool in
             
@@ -171,9 +170,8 @@ class IntMCAndReturnVM {
             return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime ?? "") < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime ?? "")
         })
         
-        
         sortArray.sort(by: { (obj1, obj2) -> Bool in
-            return (obj1.journeyArray.first?.duration ?? 0) < (obj2.journeyArray.first?.duration ?? 0)
+                return (obj1.journeyArray.first?.price ?? 0) < (obj2.journeyArray.first?.price ?? 0)
         })
         
         

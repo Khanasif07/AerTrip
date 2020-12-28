@@ -116,7 +116,8 @@ class PassengerDetailsVM {
                 } else if !contact.firstName.isName {
                     return (false, LocalizedString.fistNameNumeric.localized)
                 }
-            }else if !contact.lastName.removeAllWhitespaces.isEmpty {
+            }
+            if !contact.lastName.removeAllWhitespaces.isEmpty {
                 if  contact.lastName.count < 3 {
                     return (false, LocalizedString.lastName3Char.localized)
                 }else if !contact.lastName.isName {

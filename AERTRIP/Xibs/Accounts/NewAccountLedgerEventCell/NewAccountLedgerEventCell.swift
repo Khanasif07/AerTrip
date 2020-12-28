@@ -103,11 +103,14 @@ class NewAccountLedgerEventCell: UITableViewCell {
             self.titleLabel.attributedText = atbTxt
         }else{
             self.titleLabel.attributedText = nil
-            self.titleLabel.text = self.event?.title
+            if !(self.event?.title.isEmpty ?? false){
+                self.titleLabel.text = self.event?.title
+            }else{
+                self.titleLabel.text = self.event?.voucherName
+            }
         }
         
         
-        self.voucherTitleLabel.text = self.event?.voucherName ?? ""
         
         let suff = (self.event?.amount ?? 0.0) > 0 ? LocalizedString.CreditShort.localized : LocalizedString.DebitShort.localized
 //         "\(abs(self.ladgerEvent!.amount).amountInDelimeterWithSymbol) \(suff)", age: "", isEmptyCell: false))
