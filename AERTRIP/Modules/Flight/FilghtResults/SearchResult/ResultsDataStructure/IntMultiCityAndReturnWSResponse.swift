@@ -82,7 +82,7 @@ struct IntMultiCityAndReturnWSResponse {
             taxes = Dictionary(uniqueKeysWithValues: json["taxes"].map { ($0.0, $0.1.stringValue) })
             aldet = Dictionary(uniqueKeysWithValues: json["aldet"].map { ($0.0, $0.1.stringValue) })
             alMaster = Dictionary(uniqueKeysWithValues: json["alMaster"].map { ($0.0, ALMaster($0.1)) })
-            eqMaster = Dictionary(uniqueKeysWithValues: json["eqMaster"].map { ($0.0, EqMaster(code: $0.0,$0.1)) })
+            eqMaster = Dictionary(uniqueKeysWithValues: json["eqMaster"].map { ($0.0, EqMaster($0.1)) })
             vcodeMaster = Dictionary(uniqueKeysWithValues: json["vcodeMaster"].map { ($0.0, $0.1.stringValue) })
             rsid = json["rsid"].stringValue
             
@@ -135,19 +135,10 @@ struct IntMultiCityAndReturnWSResponse {
         struct EqMaster : Equatable, Codable {
             var name: String
             var quality: Int
-            var eqCode : String
             
-            init(){
-                name = ""
-                quality = 0
-                eqCode = ""
-            }
-            
-            init(code : String,_ json: JSON) {
+            init(_ json: JSON) {
                 name = json["name"].stringValue
                 quality = json["quality"].intValue
-                eqCode = code
-            
             }
         }
         
