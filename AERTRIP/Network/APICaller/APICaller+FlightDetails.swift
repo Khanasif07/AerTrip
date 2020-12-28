@@ -18,8 +18,8 @@ extension APICaller{
             } failure: { (errorCode) in
                 completionBlock(nil, errorCode)
             }
-        }, successWithData: { data in
-            print(data)
+        }, successWithData: { _ in
+//            print(data)
         },failure: { (error) in
             if error.code == AppNetworking.noInternetError.code {
                 AppGlobals.shared.stopLoading()

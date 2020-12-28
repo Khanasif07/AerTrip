@@ -805,8 +805,23 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
                 }
             }
             else{
-                self.viewModel.makePayment(forAmount: self.getTotalPayableAmount(), useWallet: self.isWallet)
+//                self.viewModel.makePayment(forAmount: self.getTotalPayableAmount(), useWallet: self.isWallet)
+                self.checkForWalletOTP()
             }
+        }
+    }
+    
+    func checkForWalletOTP(){
+
+        if self.isWallet && self.getWalletAmount() > 100{
+
+            let vc = OTPVarificationVC.instantiate(fromAppStoryboard: .OTPAndVarification)
+            vc.modalPresentationStyle = .overFullScreen
+            self.present(vc, animated: true, completion: nil)
+
+
+        }else{
+            self.viewModel.makePayment(forAmount: self.getTotalPayableAmount(), useWallet: self.isWallet)
         }
     }
     

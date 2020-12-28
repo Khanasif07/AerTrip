@@ -38,7 +38,7 @@ class ViewProfileVC: BaseVC {
     let viewProfileFooterView = "ViewProfileFooterView"
     var sections = ["details", "logOut"]
     var details = [LocalizedString.TravellerList.localized, LocalizedString.HotelPreferences.localized,  LocalizedString.QuickPay.localized, LocalizedString.LinkedAccounts.localized]
-    var logOut = [LocalizedString.ChangePassword,LocalizedString.LogOut]
+    var logOut = [LocalizedString.ChangePassword, LocalizedString.changeMobileNumber, LocalizedString.LogOut]
     var profileImageHeaderView: SlideMenuProfileImageHeaderView?
     
     var maxValue: CGFloat = 1.0
@@ -346,6 +346,8 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
                 AppFlowManager.default.moveToChangePasswordVC(type: (UserInfo.loggedInUser?.hasPassword == true) ? .changePassword : .setPassword, delegate: self)
                 
             // show logout option
+            case LocalizedString.changeMobileNumber:break;
+                
             case LocalizedString.LogOut:
                 let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.LogOut.localized], colors: [AppColors.themeRed])
                 _ = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.DoYouWantToLogout.localized, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
