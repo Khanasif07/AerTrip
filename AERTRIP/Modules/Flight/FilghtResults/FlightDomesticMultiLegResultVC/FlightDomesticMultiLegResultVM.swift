@@ -11,7 +11,11 @@ import UIKit
 class FlightDomesticMultiLegResultVM {
     
     var numberOfLegs : Int = 0
-    var resultsTableStates =  [ResultTableViewState]()
+    var resultsTableStates =  [ResultTableViewState](){
+        didSet {
+            printDebug("resultsTableStates...\(resultsTableStates)")
+        }
+    }
     var stateBeforePinnedFlight = [ResultTableViewState]()
     var taxesResult : [String : String] = [:]
     var airportDetailsResult : [String : AirportDetailsWS] = [:]

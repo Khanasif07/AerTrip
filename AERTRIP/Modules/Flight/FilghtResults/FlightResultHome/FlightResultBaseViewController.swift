@@ -223,6 +223,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
                 make.height.equalTo(0.5)
             }
         }else{
+            
             ApiProgress.isHidden = true
             
             separatorView.snp.makeConstraints { (make) in
@@ -231,6 +232,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
                 make.width.equalToSuperview()
                 make.height.equalTo(0.5)
             }
+            
         }
         
         navigationItem.hidesBackButton = true

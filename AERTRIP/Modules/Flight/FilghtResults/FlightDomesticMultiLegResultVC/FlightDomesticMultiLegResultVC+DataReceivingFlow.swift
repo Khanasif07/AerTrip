@@ -19,7 +19,7 @@ extension FlightDomesticMultiLegResultVC {
     //            }
     //        }
             
-            if viewModel.resultsTableStates[index] == .showTemplateResults {
+            if viewModel.resultsTableStates[index] == .showTemplateResults   {
                 viewModel.resultsTableStates[index] = .showRegularResults
             }
             
