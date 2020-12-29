@@ -72,6 +72,9 @@ class HotelSearchResultHeaderView: UIView {
         if heightConstraint.constant != height {
             heightConstraint.constant = height
             self.layoutIfNeeded()
+            if let tableView = self.superview as? UITableView {
+                tableView.reloadData()
+            }
         }
     }
     
