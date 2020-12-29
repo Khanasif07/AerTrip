@@ -10,7 +10,7 @@ import Foundation
 
 protocol OTPVarificationVMDelegate: NSObjectProtocol {
     func getSendOTPResponse()
-    func comoletedValidation()
+    func comoletedValidation(_ isSucess: Bool)
 }
 
 enum OTPVerificationType{
@@ -25,25 +25,71 @@ class OTPVarificationVM{
     
     var itId = ""
     var varificationType: OTPVerificationType = .none
+    var preSelectedCountry: PKCountryModel?
+    var isdCode = ""
+    var mobile = ""
+    var maxMNS = 10
+    var minMNS = 10
     weak var delegate: OTPVarificationVMDelegate?
     
+    enum CurrenState{
+        case otpToOldNumber
+        case enterNewNumber
+        case otpForNewNumnber
+    }
+    var state : CurrenState = .otpToOldNumber
+    
     func sendOtpToUser(){
-        APICaller.shared.sendOTPOnMobile {[weak self] (data, error) in
+        APICaller.shared.sendOTPOnMobile {[weak self] (success, error) in
             guard let self = self else {return}
             self.delegate?.getSendOTPResponse()
-            print(data ?? [:])
+            if !success{
+                AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .otp)
+            }
         }
     }
     
     func validateOTP(with otp:String){
-        let param = ["" : otp, APIKeys.it_id.rawValue: self.itId]
+        let param = ["otp" : otp, APIKeys.it_id.rawValue: self.itId]
         APICaller.shared.validateOTP(params: param) {[weak self] (success, error) in
             guard let self = self else {return}
-            print(success ?? [:])
+            self.delegate?.comoletedValidation(success)
+            if !success{
+                AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .otp)
+            }
         }
         
     }
     
+    func sendOTPForNumberChange(on mobile: String, isd: String, isNeedParam: Bool){
+        var param:JSONDictionary = [:]
+        if isNeedParam{
+            param = ["mobile":mobile, "isd": isd]
+        }
+        APICaller.shared.sendOTPOnMobileForUpdate(params: param){[weak self] (success, error) in
+            guard let self = self else {return}
+            if isNeedParam{
+                self.state = .enterNewNumber
+            }else{
+                self.state = .otpForNewNumnber
+            }
+            self.delegate?.getSendOTPResponse()
+            if !success{
+                AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .otp)
+            }
+        }
+    }
     
+    func validateOTPForMobile(with otp:String){
+        let param = ["otp" : otp, APIKeys.it_id.rawValue: self.itId]
+        APICaller.shared.validateOTP(params: param) {[weak self] (success, error) in
+            guard let self = self else {return}
+            self.delegate?.comoletedValidation((success))
+            if !success{
+                AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .otp)
+            }
+        }
+        
+    }
     
 }

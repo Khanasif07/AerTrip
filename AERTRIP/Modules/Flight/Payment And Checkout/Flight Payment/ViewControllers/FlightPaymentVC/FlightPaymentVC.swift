@@ -227,7 +227,8 @@ class FlightPaymentVC: BaseVC {
             FareUpdatedPopUpVC.showPopUp(isForIncreased: true, decreasedAmount: 0.0, increasedAmount: Double(diff), totalUpdatedAmount: Double(amount), continueButtonAction: { [weak self] in
                 guard let self = self else { return }
                 self.view.isUserInteractionEnabled = false
-                self.viewModel.makePayment(forAmount: self.getTotalPayableAmount(), useWallet: self.isWallet)
+//                self.viewModel.makePayment(forAmount: self.getTotalPayableAmount(), useWallet: self.isWallet)
+                self.checkForWalletOTP()
                 }, goBackButtonAction: { [weak self] in
                     guard let self = self else { return }
                     self.getListingController()
@@ -240,25 +241,24 @@ class FlightPaymentVC: BaseVC {
 //                guard let self = self else { return }
 //            }
         }else{
-//            self.checkForWalletOTP()
-            self.viewModel.makePayment(forAmount: self.getTotalPayableAmount(), useWallet: self.isWallet)
+            self.checkForWalletOTP()
+//            self.viewModel.makePayment(forAmount: self.getTotalPayableAmount(), useWallet: self.isWallet)
         }
     }
     
     
-//    func checkForWalletOTP(){
-//
-//        if self.isWallet && self.getWalletAmount() > 100{
-//
-//            let vc = OTPVarificationVC.instantiate(fromAppStoryboard: .OTPAndVarification)
-//            vc.modalPresentationStyle = .overFullScreen
-//            self.present(vc, animated: true, completion: nil)
-//
-//
-//        }else{
-//            self.viewModel.makePayment(forAmount: self.getTotalPayableAmount(), useWallet: self.isWallet)
-//        }
-//    }
+    func checkForWalletOTP(){
+        if self.isWallet && self.getWalletAmount() > 100{
+            let vc = OTPVarificationVC.instantiate(fromAppStoryboard: .OTPAndVarification)
+            vc.modalPresentationStyle = .overFullScreen
+            vc.viewModel.itId = self.viewModel.appliedCouponData.itinerary.id
+            vc.viewModel.varificationType = .walletOtp
+            vc.delegate = self
+            self.present(vc, animated: true, completion: nil)
+        }else{
+            self.viewModel.makePayment(forAmount: self.getTotalPayableAmount(), useWallet: self.isWallet)
+        }
+    }
     
     
     func getListingController(){
@@ -535,3 +535,21 @@ extension FlightPaymentVC : RazorpayPaymentCompletionProtocolWithData {
         }
     }
 }
+
+
+//MARK:- OTP Varification validation.
+
+extension FlightPaymentVC : OtpConfirmationDelegate{
+    func otpValidationCompleted(_ isSuccess: Bool) {
+        if isSuccess{
+            self.viewModel.makePayment(forAmount: self.getTotalPayableAmount(), useWallet: self.isWallet)
+        }else{
+            self.hideShowLoader(isHidden:true)
+            self.view.isUserInteractionEnabled = true
+            self.isWallet =  false
+            self.setConvenienceFeeToBeApplied()
+            self.updateAllData()
+        }
+    }
+}
+

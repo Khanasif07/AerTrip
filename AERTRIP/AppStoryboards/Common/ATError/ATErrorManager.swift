@@ -20,6 +20,7 @@ class ATErrorManager {
         case flights
         case flightConfirmation
         case payment
+        case otp
     }
     
     enum LocalError: Int {

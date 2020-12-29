@@ -1271,4 +1271,5 @@ enum LocalizedString: String {
     case veryItsYou
     case tochangeMobileNumber
     case proceed
+    case kindlyEnterOtp
 }
