@@ -222,8 +222,9 @@ extension FlightDomesticMultiLegResultVC {
           func updateUI(index : Int , updatedArray : [Journey] , sortOrder : Sort) {
            
                let currentState =  viewModel.resultsTableStates[index]
-               if currentState == .showTemplateResults || currentState == .showNoResults {
-                   if updatedArray.count == 0 {
+            if (currentState == .showTemplateResults || currentState == .showNoResults) && !self.viewModel.isPinnedOn {
+                   
+                if updatedArray.count == 0 {
                        return
                    }
                 
