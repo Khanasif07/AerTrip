@@ -66,6 +66,7 @@ class TopNavigationView: PassthroughView {
         }
     }
     
+    var isNeedExtraSpace  = false
     
     //MARK:- View Life Cycle
     //MARK:-
@@ -170,6 +171,9 @@ class TopNavigationView: PassthroughView {
         
         if !self.firstRightButton.isHidden {
             trail = self.firstRightButton.width
+        }
+        if self.isNeedExtraSpace{
+            trail += 5.0
         }
         if !self.secondRightButton.isHidden {
             trail += self.secondRightButton.width

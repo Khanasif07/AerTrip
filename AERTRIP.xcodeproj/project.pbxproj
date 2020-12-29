@@ -87,6 +87,8 @@
 		0C3955C02594A7ED008B5344 /* OTPAndVarification.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C3955BF2594A7EC008B5344 /* OTPAndVarification.storyboard */; };
 		0C3955C62594B313008B5344 /* OTPVarificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3955C52594B313008B5344 /* OTPVarificationVC.swift */; };
 		0C3F21DA25504F130022F95E /* payment.csv in Resources */ = {isa = PBXBuildFile; fileRef = 0C3F21D925504F120022F95E /* payment.csv */; };
+		0C402E072599CBF9001FDC54 /* APICaller+OPTVarification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C402E062599CBF9001FDC54 /* APICaller+OPTVarification.swift */; };
+		0C402E092599CE54001FDC54 /* OTPVarificationVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C402E082599CE54001FDC54 /* OTPVarificationVM.swift */; };
 		0C4CB41025022C9F000C3904 /* TAViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4CB40F25022C9E000C3904 /* TAViewModel.swift */; };
 		0C4CB41225022CE5000C3904 /* CurrencyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4CB41125022CE4000C3904 /* CurrencyModel.swift */; };
 		0C4CB41425022D33000C3904 /* OtherFareModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4CB41325022D33000C3904 /* OtherFareModel.swift */; };
@@ -1748,6 +1750,8 @@
 		0C3955BF2594A7EC008B5344 /* OTPAndVarification.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OTPAndVarification.storyboard; sourceTree = "<group>"; };
 		0C3955C52594B313008B5344 /* OTPVarificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPVarificationVC.swift; sourceTree = "<group>"; };
 		0C3F21D925504F120022F95E /* payment.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = payment.csv; sourceTree = "<group>"; };
+		0C402E062599CBF9001FDC54 /* APICaller+OPTVarification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APICaller+OPTVarification.swift"; sourceTree = "<group>"; };
+		0C402E082599CE54001FDC54 /* OTPVarificationVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPVarificationVM.swift; sourceTree = "<group>"; };
 		0C4CB40F25022C9E000C3904 /* TAViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TAViewModel.swift; sourceTree = "<group>"; };
 		0C4CB41125022CE4000C3904 /* CurrencyModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyModel.swift; sourceTree = "<group>"; };
 		0C4CB41325022D33000C3904 /* OtherFareModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherFareModel.swift; sourceTree = "<group>"; };
@@ -3725,6 +3729,7 @@
 		0C3955C32594B04E008B5344 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				0C402E082599CE54001FDC54 /* OTPVarificationVM.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -9220,6 +9225,7 @@
 				182456B42491273A0095B6DC /* APICaller+FlightPayment.swift */,
 				1892EE8C24AF568400C7FCFB /* APICaller+FlightPending.swift */,
 				0C9BF1CB2581FDB500BAFF3B /* APICaller+FlightDetails.swift */,
+				0C402E062599CBF9001FDC54 /* APICaller+OPTVarification.swift */,
 			);
 			path = APICaller;
 			sourceTree = "<group>";
@@ -9951,6 +9957,7 @@
 				84323D412230563800DA7581 /* HotelDetailsSearchTagTableCell.swift in Sources */,
 				8477163E22844AC0000E1BB6 /* PeriodicStatementListVM.swift in Sources */,
 				843FF4F524740231001F21B1 /* IntMCAndReturnDetailsVM.swift in Sources */,
+				0C402E072599CBF9001FDC54 /* APICaller+OPTVarification.swift in Sources */,
 				8463A5782456D4BB00C70D8C /* HotelShimmerView.swift in Sources */,
 				18FD916C229678FE00D005E9 /* BookingReschedulingHeaderView.swift in Sources */,
 				0C14B8FB249343EA00C2D19A /* SelectOtherAdonsContainerVM.swift in Sources */,
@@ -10346,6 +10353,7 @@
 				846CF55E248FF34600932906 /* LayoutSeatCollCell.swift in Sources */,
 				0C0AB202247C439F005E5E99 /* SelectBagageCell.swift in Sources */,
 				843FF4B824740231001F21B1 /* AirportSelectionCell.swift in Sources */,
+				0C402E092599CE54001FDC54 /* OTPVarificationVM.swift in Sources */,
 				84B6DEA0228018DC0042D902 /* SpecialAccountDetailsVM.swift in Sources */,
 				84EAABED21DA0A96006B757F /* SideMenuLogoView.swift in Sources */,
 				842EDE96223A2CAA00E99409 /* HCSpecialRequestsVC.swift in Sources */,

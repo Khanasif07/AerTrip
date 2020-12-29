@@ -9,6 +9,10 @@
 import UIKit
 import ActiveLabel
 
+protocol  OtpConfirmationDelegate:NSObject {
+    func otpValidationCompleted(_ isSuccess: Bool)
+}
+
 class OTPVarificationVC: BaseVC {
 
     @IBOutlet weak var transparentBackView: UIView!
@@ -20,11 +24,17 @@ class OTPVarificationVC: BaseVC {
     @IBOutlet weak var resendLabel: ActiveLabel!
     @IBOutlet weak var nextButton: ATButton!
     
+    var viewModel = OTPVarificationVM()
+    weak var delegate:OtpConfirmationDelegate?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpSubView()
         self.setNextButton()
         self.setOptTextField()
+        self.viewModel.sendOtpToUser()
+        self.viewModel.delegate = self
         self.linkSetupForResend(withLabel: self.resendLabel, isResend: false)
     }
     
@@ -35,7 +45,6 @@ class OTPVarificationVC: BaseVC {
     
     override func setupFonts() {
         self.cancelButton.titleLabel?.font = AppFonts.Regular.withSize(16.0)
-        self.cancelButton.addTarget(self, action: #selector(self.tapCancelButton), for: .touchUpInside)
         self.oneTimePassLabel.font = AppFonts.Regular.withSize(24.0)
         self.descriptionLabel.font = AppFonts.Regular.withSize(14.0)
         self.setOptTextField()
@@ -49,9 +58,16 @@ class OTPVarificationVC: BaseVC {
     
     override func setupTexts() {
         self.cancelButton.setTitle(LocalizedString.Cancel.localized, for: .normal)
-        self.oneTimePassLabel.text = LocalizedString.oneTimePassword.localized
-        self.descriptionLabel.text = LocalizedString.toProceedWalletBalance.localized
         self.resendLabel.text = LocalizedString.oneTimePassword.localized
+        switch self.viewModel.varificationType{
+        case .walletOtp:
+            self.oneTimePassLabel.text = LocalizedString.oneTimePassword.localized
+            self.descriptionLabel.text = LocalizedString.toProceedWalletBalance.localized
+        case .phoneNumberChangeOtp:
+            self.oneTimePassLabel.text = LocalizedString.veryItsYou.localized
+            self.descriptionLabel.text = LocalizedString.tochangeMobileNumber.localized + " \(UserInfo.loggedInUser?.mobileWithISD ?? "")."
+        default: break;
+        }
 
     }
     func setUpSubView(){
@@ -95,8 +111,10 @@ class OTPVarificationVC: BaseVC {
             }
             label.highlightFontName = AppFonts.SemiBold.rawValue
             label.highlightFontSize = 14.0
-            label.handleCustomTap(for: seeExample) { _ in
-                
+            label.handleCustomTap(for: seeExample) {[weak self] _ in
+                guard let self = self else {return}
+                self.viewModel.sendOtpToUser()
+                self.linkSetupForResend(withLabel: self.resendLabel, isResend: false)
             }
         }
     }
@@ -124,18 +142,47 @@ class OTPVarificationVC: BaseVC {
         self.nextButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
         self.nextButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
         self.nextButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
-        self.nextButton.setTitle(LocalizedString.Next.localized, for: .normal)
-        self.nextButton.setTitle(LocalizedString.Next.localized, for: .selected)
         self.nextButton.shadowColor = AppColors.appShadowColor
         self.nextButton.setTitleColor(AppColors.themeWhite, for: .normal)
         self.nextButton.setTitleColor(AppColors.themeWhite, for: .selected)
         self.nextButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
+        switch self.viewModel.varificationType{
+        case .walletOtp:
+            self.nextButton.setTitle(LocalizedString.Next.localized, for: .normal)
+            self.nextButton.setTitle(LocalizedString.Next.localized, for: .selected)
+        case .phoneNumberChangeOtp:
+            self.nextButton.setTitle(LocalizedString.proceed.localized, for: .normal)
+            self.nextButton.setTitle(LocalizedString.proceed.localized, for: .selected)
+        default: break;
+        }
 
     }
     
     
-    @objc func tapCancelButton(_ sender: UIButton){
+    @IBAction func cancelButtonTapped(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func nextButtonTapped(_ sender: Any) {
+        
+        self.nextButton.isLoading = true
+        
+        
+    }
+    
+}
+
+
+extension OTPVarificationVC : OTPVarificationVMDelegate{
+    func comoletedValidation() {
+        
+    }
+    
+    
+    func getSendOTPResponse() {
+        delay(seconds: 60) {
+            self.linkSetupForResend(withLabel: self.resendLabel, isResend: true)
+        }
     }
     
 }

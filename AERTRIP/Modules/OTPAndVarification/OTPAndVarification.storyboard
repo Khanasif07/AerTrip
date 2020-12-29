@@ -26,6 +26,9 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="spm-Q5-GiI">
                                                 <rect key="frame" x="350" y="10" width="48" height="30"/>
                                                 <state key="normal" title="Cancel"/>
+                                                <connections>
+                                                    <action selector="cancelButtonTapped:" destination="GtP-MJ-eBe" eventType="touchUpInside" id="TTU-1L-Ppa"/>
+                                                </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="One Time Password" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Ty-qi-74N">
                                                 <rect key="frame" x="0.0" y="56" width="414" height="27.5"/>
@@ -60,6 +63,9 @@
                                                     <constraint firstAttribute="height" constant="50" id="lzJ-K4-ztI"/>
                                                 </constraints>
                                                 <state key="normal" title="Button"/>
+                                                <connections>
+                                                    <action selector="nextButtonTapped:" destination="GtP-MJ-eBe" eventType="touchUpInside" id="gSJ-jv-eQB"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>

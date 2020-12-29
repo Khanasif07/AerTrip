@@ -77,6 +77,7 @@ class FlightBookingsDetailsVC: BaseVC {
         self.topNavBar.navTitleLabel.numberOfLines = 1
         //self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "greenPopOverButton"), selectedImage: #imageLiteral(resourceName: "greenPopOverButton"))
         self.topNavBar.configureFirstRightButton(normalTitle: LocalizedString.Request.localized, normalColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18))
+        self.topNavBar.isNeedExtraSpace = true
         self.headerView = OtherBookingDetailsHeaderView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 147.0))
         self.configureTableHeaderView(hideDivider: true)
         self.setupParallaxHeader()

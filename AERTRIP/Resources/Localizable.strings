@@ -183,6 +183,7 @@
 //"GSTIN" = "GSTIN";
 "ChangePassword" = "Change Password";
 "Current_Password" = "Current Password";
+"changeMobileNumber" = "Change Mobile Number";
 
 //MARK:- Hotel Search
 //MARK:-
@@ -1194,3 +1195,6 @@ www.aertrip.com/trip";
 "waitAminToOtp" = "Wait a minute to get the OTP.";
 "didntGetOtp" = "Didn't get OTP yet? Resend OTP";
 "enterOtp" = "Enter OTP";
+"veryItsYou" = "Verify its you";
+"tochangeMobileNumber" = "To change mobile number,\nkindly enter the OTP received on";
+"proceed" = "Proceed";

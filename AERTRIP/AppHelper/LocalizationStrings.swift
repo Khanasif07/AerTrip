@@ -233,6 +233,7 @@ enum LocalizedString: String {
     case Female
     //case GSTIN
     case ChangePassword
+    case changeMobileNumber
 
     
     
@@ -1267,4 +1268,7 @@ enum LocalizedString: String {
     case waitAminToOtp
     case didntGetOtp
     case enterOtp
+    case veryItsYou
+    case tochangeMobileNumber
+    case proceed
 }
