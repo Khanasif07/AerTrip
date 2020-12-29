@@ -10,6 +10,7 @@ import Foundation
 
 protocol OTPVarificationVMDelegate: NSObjectProtocol {
     func getSendOTPResponse()
+    func comoletedValidation()
 }
 
 enum OTPVerificationType{

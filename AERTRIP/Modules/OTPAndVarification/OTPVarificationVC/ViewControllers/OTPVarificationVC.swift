@@ -174,6 +174,10 @@ class OTPVarificationVC: BaseVC {
 
 
 extension OTPVarificationVC : OTPVarificationVMDelegate{
+    func comoletedValidation() {
+        
+    }
+    
     
     func getSendOTPResponse() {
         delay(seconds: 60) {
