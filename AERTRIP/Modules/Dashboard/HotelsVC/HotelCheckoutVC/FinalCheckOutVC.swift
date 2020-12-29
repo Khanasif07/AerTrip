@@ -791,7 +791,8 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
                     // increased
                     FareUpdatedPopUpVC.showPopUp(isForIncreased: true, decreasedAmount: 0.0, increasedAmount: diff, totalUpdatedAmount: newAmount, continueButtonAction: { [weak self] in
                         guard let sSelf = self else { return }
-                        sSelf.viewModel.makePayment(forAmount: sSelf.getTotalPayableAmount(), useWallet: sSelf.isWallet)
+//                        sSelf.viewModel.makePayment(forAmount: sSelf.getTotalPayableAmount(), useWallet: sSelf.isWallet)
+                        sSelf.checkForWalletOTP()
                         }, goBackButtonAction: { [weak self] in
                             guard let sSelf = self else { return }
                             sSelf.topNavBarLeftButtonAction(sSelf.topNavView.leftButton)
@@ -799,9 +800,11 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
                 } else if diff < 0 {
                     // dipped
                     FareUpdatedPopUpVC.showPopUp(isForIncreased: false, decreasedAmount: -diff, increasedAmount: 0, totalUpdatedAmount: 0, continueButtonAction: nil, goBackButtonAction: nil)
-                    self.viewModel.makePayment(forAmount: self.getTotalPayableAmount(), useWallet: self.isWallet)
+//                    self.viewModel.makePayment(forAmount: self.getTotalPayableAmount(), useWallet: self.isWallet)
+                    self.checkForWalletOTP()
                 } else {
-                    self.viewModel.makePayment(forAmount: self.getTotalPayableAmount(), useWallet: self.isWallet)
+//                    self.viewModel.makePayment(forAmount: self.getTotalPayableAmount(), useWallet: self.isWallet)
+                    self.checkForWalletOTP()
                 }
             }
             else{
@@ -812,14 +815,13 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
     }
     
     func checkForWalletOTP(){
-
         if self.isWallet && self.getWalletAmount() > 100{
-
             let vc = OTPVarificationVC.instantiate(fromAppStoryboard: .OTPAndVarification)
             vc.modalPresentationStyle = .overFullScreen
+            vc.viewModel.itId = self.viewModel.itineraryData?.it_id ?? ""
+            vc.viewModel.varificationType = .walletOtp
+            vc.delegate = self
             self.present(vc, animated: true, completion: nil)
-
-
         }else{
             self.viewModel.makePayment(forAmount: self.getTotalPayableAmount(), useWallet: self.isWallet)
         }
@@ -881,6 +883,20 @@ extension FinalCheckOutVC: HCCouponCodeVCDelegate {
         delay(seconds: 0.3) { [weak self] in
             self?.viewModel.webServiceGetPaymentMethods()
 //            self?.updateAllData()
+        }
+    }
+}
+
+//MARK:- OTP Varification validation.
+
+extension FinalCheckOutVC : OtpConfirmationDelegate{
+    func otpValidationCompleted(_ isSuccess: Bool) {
+        if isSuccess{
+            self.viewModel.makePayment(forAmount: self.getTotalPayableAmount(), useWallet: self.isWallet)
+        }else{
+            self.isWallet =  false
+            self.setConvenienceFeeToBeApplied()
+            self.updateAllData()
         }
     }
 }

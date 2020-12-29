@@ -8,6 +8,8 @@
 
 import UIKit
 import ActiveLabel
+import PhoneNumberKit
+import IQKeyboardManager
 
 protocol  OtpConfirmationDelegate:NSObject {
     func otpValidationCompleted(_ isSuccess: Bool)
@@ -23,6 +25,18 @@ class OTPVarificationVC: BaseVC {
     @IBOutlet weak var otpTextField: PKFloatLabelTextField!
     @IBOutlet weak var resendLabel: ActiveLabel!
     @IBOutlet weak var nextButton: ATButton!
+    @IBOutlet weak var mobileAndISDView: UIView!
+    @IBOutlet weak var flagImageView: UIImageView!
+    @IBOutlet weak var countryCodeLabel: UILabel!
+    @IBOutlet weak var contactNumberTextField: PhoneNumberTextField!
+    @IBOutlet weak var dividerView: ATDividerView!
+    //Constraints Outlet
+    @IBOutlet weak var containerViewHeightConstraints: NSLayoutConstraint!
+    @IBOutlet weak var descriptionTopConstraints: NSLayoutConstraint!
+    @IBOutlet weak var resendLabelTopConstraints: NSLayoutConstraint!
+    
+    
+    
     
     var viewModel = OTPVarificationVM()
     weak var delegate:OtpConfirmationDelegate?
@@ -33,8 +47,14 @@ class OTPVarificationVC: BaseVC {
         self.setUpSubView()
         self.setNextButton()
         self.setOptTextField()
-        self.viewModel.sendOtpToUser()
+        self.mobileAndISDView.isHidden = true
+        switch self.viewModel.varificationType{
+        case .walletOtp: self.viewModel.sendOtpToUser()
+        case .phoneNumberChangeOtp: break;
+        default: break;
+        }
         self.viewModel.delegate = self
+        IQKeyboardManager.shared().isEnableAutoToolbar = false
         self.linkSetupForResend(withLabel: self.resendLabel, isResend: false)
     }
     
@@ -58,21 +78,21 @@ class OTPVarificationVC: BaseVC {
     
     override func setupTexts() {
         self.cancelButton.setTitle(LocalizedString.Cancel.localized, for: .normal)
-        self.resendLabel.text = LocalizedString.oneTimePassword.localized
         switch self.viewModel.varificationType{
         case .walletOtp:
             self.oneTimePassLabel.text = LocalizedString.oneTimePassword.localized
-            self.descriptionLabel.text = LocalizedString.toProceedWalletBalance.localized
+            self.descriptionLabel.text = LocalizedString.toProceedWalletBalance.localized + LocalizedString.kindlyEnterOtp.localized + " \(UserInfo.loggedInUser?.mobileWithISD ?? "")"
         case .phoneNumberChangeOtp:
             self.oneTimePassLabel.text = LocalizedString.veryItsYou.localized
-            self.descriptionLabel.text = LocalizedString.tochangeMobileNumber.localized + " \(UserInfo.loggedInUser?.mobileWithISD ?? "")."
+            self.descriptionLabel.text = LocalizedString.tochangeMobileNumber.localized + LocalizedString.kindlyEnterOtp.localized + " \(UserInfo.loggedInUser?.mobileWithISD ?? "")."
         default: break;
         }
 
     }
-    func setUpSubView(){
-        self.transparentBackView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        self.transparentBackView.layer.masksToBounds = true
+    private func setUpSubView(){
+        self.containerView.layer.masksToBounds = true
+        self.containerView.layer.cornerRadius = 13.0
+        self.containerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         self.transparentBackView.backgroundColor = UIColor.clear
         self.transparentBackView.transform = CGAffineTransform(translationX: 0, y: transparentBackView.height)
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
@@ -84,19 +104,9 @@ class OTPVarificationVC: BaseVC {
             self.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         })
     }
-    private func performDoneBtnAction(_ animationDuration: TimeInterval = 0.3) {
-        UIView.animate(withDuration: animationDuration, animations: {
-            self.transparentBackView.transform = CGAffineTransform(translationX: 0, y: self.transparentBackView.height)
-            self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
-        }) { (success) in
-            self.dismiss(animated: false, completion: {
-//                self.onDismissCompletion?()
-            })
-        }
-        
-    }
     
-    func linkSetupForResend(withLabel: ActiveLabel, isResend: Bool) {
+    
+    private func linkSetupForResend(withLabel: ActiveLabel, isResend: Bool) {
         let seeExample = ActiveType.custom(pattern: "\\sResend OTP\\b")
         let allTypes: [ActiveType] = [seeExample]
         let textToDisplay = !isResend ? LocalizedString.waitAminToOtp.localized : LocalizedString.didntGetOtp.localized
@@ -134,6 +144,7 @@ class OTPVarificationVC: BaseVC {
         otpTextField.lineErrorColor = AppColors.themeRed
         otpTextField.autocorrectionType = .no
         otpTextField.keyboardType = .numberPad
+        otpTextField.delegate = self
         otpTextField.placeholder = LocalizedString.enterOtp.localized
     }
 
@@ -158,31 +169,212 @@ class OTPVarificationVC: BaseVC {
 
     }
     
+    private func setPhoneNumberSection(){
+        countryCodeLabel.font = AppFonts.Regular.withSize(18.0)
+        countryCodeLabel.textColor = AppColors.themeBlack
+        
+        dividerView.backgroundColor = AppColors.divider.color
+         contactNumberTextField.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
+        contactNumberTextField.font = AppFonts.Regular.withSize(18.0)
+        contactNumberTextField.textColor = AppColors.themeBlack
+        contactNumberTextField.placeholder = "Mobile"
+        
+        if let current = PKCountryPicker.default.getCountryData(forISDCode: "+91") {
+            self.viewModel.preSelectedCountry = current
+            flagImageView.image = current.flagImage
+            countryCodeLabel.text = current.countryCode
+        }
+        contactNumberTextField.delegate = self
+        self.setIntitialISD()
+    }
+
+    
+    private func setIntitialISD(){
+        let isd = (self.viewModel.isdCode != "") ? self.viewModel.isdCode : "+91"
+        if let current = PKCountryPicker.default.getCountryData(forISDCode: isd) {
+            self.viewModel.preSelectedCountry = current
+            flagImageView.image = current.flagImage
+            countryCodeLabel.text = current.countryCode
+        }
+        self.contactNumberTextField.text = self.viewModel.mobile
+    }
+    
+    func setUIForMobileNumber(_ isUsingForPhone: Bool){
+        
+        if isUsingForPhone{
+            UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseOut) {
+                self.containerViewHeightConstraints.constant = 270.0
+                self.descriptionTopConstraints.constant = 0.0
+                self.resendLabelTopConstraints.constant = 0.0
+                self.updateText()
+                self.otpTextField.alpha = 0.0
+                self.mobileAndISDView.alpha = 1.0
+            } completion: { (_) in
+                self.otpTextField.isHidden = true
+                self.mobileAndISDView.isHidden = false
+            }
+
+        }else{
+            UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseOut) {
+                self.containerViewHeightConstraints.constant = 360.0
+                self.descriptionTopConstraints.constant = 16.0
+                self.resendLabelTopConstraints.constant = 8.0
+                self.updateText()
+                self.otpTextField.alpha = 1.0
+                self.mobileAndISDView.alpha = 0.0
+            } completion: { (_) in
+                self.otpTextField.isHidden = false
+                self.mobileAndISDView.isHidden = true
+            }
+        }
+    }
+    
+    
+    func updateText(){
+        
+        switch self.viewModel.varificationType{
+        case .walletOtp:
+            self.oneTimePassLabel.text = LocalizedString.oneTimePassword.localized
+            self.descriptionLabel.text = LocalizedString.toProceedWalletBalance.localized + LocalizedString.kindlyEnterOtp.localized + " \(UserInfo.loggedInUser?.mobileWithISD ?? "")"
+        case .phoneNumberChangeOtp:
+            switch self.viewModel.state{
+            case .otpToOldNumber:
+                self.oneTimePassLabel.text = LocalizedString.veryItsYou.localized
+                self.descriptionLabel.text = LocalizedString.tochangeMobileNumber.localized + LocalizedString.kindlyEnterOtp.localized + " \(UserInfo.loggedInUser?.mobileWithISD ?? "")."
+                self.linkSetupForResend(withLabel: self.resendLabel, isResend: false)
+            case .enterNewNumber:
+                self.oneTimePassLabel.text = "New Mobile Number"
+                self.descriptionLabel.text = ""
+                self.resendLabel.text = ""
+            case .otpForNewNumnber:
+                self.oneTimePassLabel.text = LocalizedString.oneTimePassword.localized
+                self.descriptionLabel.text = LocalizedString.kindlyEnterOtp.localized.capitalized + " \(UserInfo.loggedInUser?.mobileWithISD ?? "")."
+                self.linkSetupForResend(withLabel: self.resendLabel, isResend: false)
+            }
+            
+        default: break;
+        }
+        
+    }
+    
     
     @IBAction func cancelButtonTapped(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        IQKeyboardManager.shared().isEnableAutoToolbar = true
+        self.dismiss(animated: true){
+            self.delegate?.otpValidationCompleted(false)
+        }
     }
     
     @IBAction func nextButtonTapped(_ sender: Any) {
         
-        self.nextButton.isLoading = true
+        switch self.viewModel.varificationType{
+        case .walletOtp: break;
+        case .phoneNumberChangeOtp: break;
+        default: break;
+        }
         
         
+        
+        if !((self.otpTextField.text ?? "").isEmpty){
+            self.nextButton.isLoading = true
+            self.viewModel.validateOTP(with: (self.otpTextField.text ?? ""))
+        }else{
+            self.otpTextField.isError = true
+            AppToast.default.showToastMessage(message: "Please enter the valid otp.")
+        }
     }
     
+    
+    @IBAction func countryCodeButtonTapped(_ sender: Any) {
+        if let prevSectdContry = self.viewModel.preSelectedCountry {
+            PKCountryPicker.default.chooseCountry(onViewController: self, preSelectedCountry: prevSectdContry) { [weak self] (selectedCountry,closePicker) in
+                guard let self = self else {return}
+                self.viewModel.preSelectedCountry = selectedCountry
+                self.flagImageView.image = selectedCountry.flagImage
+                self.countryCodeLabel.text = selectedCountry.countryCode
+                self.contactNumberTextField.defaultRegion = selectedCountry.ISOCode
+                self.contactNumberTextField.text = self.contactNumberTextField.nationalNumber
+            }
+        }
+    }
 }
 
 
 extension OTPVarificationVC : OTPVarificationVMDelegate{
-    func comoletedValidation() {
+    func comoletedValidation(_ isSucess: Bool) {
+        self.nextButton.isLoading = false
+        switch self.viewModel.varificationType{
+        case .walletOtp:
+            if isSucess{
+                IQKeyboardManager.shared().isEnableAutoToolbar = true
+                self.dismiss(animated: true) {
+                    self.delegate?.otpValidationCompleted(true)
+                }
+            }else{
+                self.otpTextField.isError = true
+            }
+        case .phoneNumberChangeOtp:
+            if isSucess{
+                if self.viewModel.state == .otpToOldNumber{
+                    self.setUIForMobileNumber(true)
+                    self.updateText()
+                }else{
+                    IQKeyboardManager.shared().isEnableAutoToolbar = true
+                    self.dismiss(animated: true) {
+                        self.delegate?.otpValidationCompleted(true)
+                    }
+                }
+            }else{
+                self.otpTextField.isError = true
+            }
+        default: break
+        }
+        
         
     }
     
-    
     func getSendOTPResponse() {
-        delay(seconds: 60) {
-            self.linkSetupForResend(withLabel: self.resendLabel, isResend: true)
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.updateResendText), object: nil)
+        self.perform(#selector(self.updateResendText), with: nil, afterDelay: 60)
+        switch self.viewModel.varificationType{
+        case .walletOtp: break;
+        case .phoneNumberChangeOtp:
+            self.nextButton.isLoading = false
+            if self.viewModel.state == .otpForNewNumnber{
+                self.setUIForMobileNumber(false)
+            }
+        default: break;
         }
     }
     
+    @objc func updateResendText(){
+        self.linkSetupForResend(withLabel: self.resendLabel, isResend: true)
+    }
+    
+}
+
+extension OTPVarificationVC  {
+    @objc func textFieldDidChanged(_ textField: PhoneNumberTextField) {
+        
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        PKCountryPicker.default.closePicker()
+        if textField == self.otpTextField{
+            IQKeyboardManager.shared().isEnableAutoToolbar = false
+        }else if textField == self.contactNumberTextField{
+            IQKeyboardManager.shared().isEnableAutoToolbar = true
+        }
+        return true
+    }
+    
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == self.otpTextField{
+            return ((textField.text?.count ?? 0) < 6) || string == ""
+        }else if textField == self.contactNumberTextField{
+            return ((textField.text?.count ?? 0) < self.viewModel.maxMNS) || string == ""
+        }
+        return true
+    }
 }
