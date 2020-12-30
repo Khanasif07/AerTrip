@@ -27,7 +27,7 @@ extension FlightSearchResultVM {
         }
     }
     
-    func getAppliedFiltersForSharingDomesticJourney(legs:[FlightResultDisplayGroup], isConditionReversed:Bool) -> [JSONDictionary]
+    func getAppliedFiltersForSharingDomesticJourney(legs:[FlightResultDisplayGroup]) -> [JSONDictionary]
     {
         var filterArr = [JSONDictionary]()
         
@@ -71,45 +71,6 @@ extension FlightSearchResultVM {
 //
 //                filterString.append(aircraft)
 //            }
-            
-            //isConditionReverced - true= desc & false = asc(lowto high/earlist first)
-            //Sort
-            if legs[i].sortOrder == .Smart{
-//                filterString.append("sort[]=humane-sorting_asc&")
-            }
-            
-            if legs[i].sortOrder == .Price{
-                if isConditionReversed{
-//                    filterString.append("sort[]=price-sorting_desc&")
-                }else{
-//                    filterString.append("sort[]=price-sorting_asc&")
-                }
-            }
-            
-            if legs[i].sortOrder == .Duration{
-                if isConditionReversed{
-//                    filterString.append("sort[]=duration-sorting_desc&")
-                }else{
-//                    filterString.append("sort[]=duration-sorting_asc&")
-                }
-            }
-            
-            if legs[i].sortOrder == .Depart{
-                if isConditionReversed{
-//                    filterString.append("sort[]=depart-sorting_desc&")
-                }else{
-//                    filterString.append("sort[]=depart-sorting_asc&")
-                }
-            }
-            
-            if legs[i].sortOrder == .Arrival{
-                if isConditionReversed{
-//                    filterString.append("sort[]=arrive-sorting_desc&")
-                }else{
-//                    filterString.append("sort[]=arrive-sorting_asc&")
-                }
-            }
-            
             
             //     Times
             if (appliedFilters.contains(.Times))
