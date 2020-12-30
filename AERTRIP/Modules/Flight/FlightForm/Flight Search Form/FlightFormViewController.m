@@ -569,7 +569,7 @@
     
 }
 
--(void)showFlightSearchResult:(BookFlightObject*)bookflightObject flightSearchParameters:(NSDictionary*)flightSearchParameters {
+-(void)showFlightSearchResult:(BookFlightObject*)bookflightObject flightSearchParameters:(NSDictionary*)flightSearchParameters recentSearchParameters:(NSDictionary*)recentSearchParameters {
     [self hideLoaderIndicatorForFilghtSearch];
     
     self.isInternationalJourney = !bookflightObject.isDomestic && bookflightObject.flightSearchType != SINGLE_JOURNEY;
@@ -611,7 +611,7 @@
     
     
     
-    FlightSearchResultVM * flightSearchResponse = [[FlightSearchResultVM alloc] initWithDisplayGroups:values sid:sid bookFlightObject:bookflightObject isInternationalJourney:self.isInternationalJourney numberOfLegs: numberOfLegs flightSearchParameters: flightSearchParameters];
+    FlightSearchResultVM * flightSearchResponse = [[FlightSearchResultVM alloc] initWithDisplayGroups:values sid:sid bookFlightObject:bookflightObject isInternationalJourney:self.isInternationalJourney numberOfLegs: numberOfLegs flightSearchParameters: flightSearchParameters recentSearchParameters: recentSearchParameters];
     
     FlightResultBaseViewController * flightResultView = [[FlightResultBaseViewController alloc] initWithFlightSearchResultVM:flightSearchResponse flightSearchParameters:flightSearchParameters isIntReturnOrMCJourney:self.isInternationalJourney airlineCode:self.viewModel.airlineCode];
     

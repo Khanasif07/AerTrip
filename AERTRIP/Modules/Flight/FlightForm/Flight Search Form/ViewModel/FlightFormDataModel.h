@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)showErrorMessage:(NSString*)errorMessage;
 -(void)showLoaderIndicatorForFilghtSearch;
 -(void)hideLoaderIndicatorForFilghtSearch;
--(void)showFlightSearchResult:(BookFlightObject*)bookflightObject flightSearchParameters:(NSDictionary*)flightSearchParameters;
+-(void)showFlightSearchResult:(BookFlightObject*)bookflightObject flightSearchParameters:(NSDictionary*)flightSearchParameters recentSearchParameters:(NSDictionary*)recentSearchParameters;
 -(void)setupFromAndToView;
 -(void)datesSelectedIsReturn:(BOOL)isReturn;
 -(void)setupDatesInOnwardsReturnView;

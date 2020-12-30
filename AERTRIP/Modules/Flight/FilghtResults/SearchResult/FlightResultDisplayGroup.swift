@@ -43,6 +43,7 @@ class FlightResultDisplayGroup {
 
     var dynamicFilters = DynamicFilters()
 
+    var onFilterUpdate: (() -> ())?
     
     //MARK:- Computed Properties
     var appliedFilters = Set<Filters>() {
@@ -58,6 +59,7 @@ class FlightResultDisplayGroup {
                 appliedSubFilters.remove(.tripDuration)
                 appliedSubFilters.remove(.layoverDuration)
             }
+            onFilterUpdate?()
         }
     }
     
@@ -65,6 +67,7 @@ class FlightResultDisplayGroup {
         didSet {
             let filterApplied =  appliedFilters.count > 0 || UIFilters.count > 0
             self.delegate?.filtersApplied(filterApplied)
+            onFilterUpdate?()
         }
     }
     

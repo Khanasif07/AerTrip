@@ -523,7 +523,7 @@
         NSDictionary * recentSearchParams = [weakSelf getRecentSearchParameters:flightSearchParameters];
         
          dispatch_async(dispatch_get_main_queue(), ^{
-                      [weakSelf.delegate showFlightSearchResult:bookingObject flightSearchParameters:flightSearchParameters];
+                      [weakSelf.delegate showFlightSearchResult:bookingObject flightSearchParameters:flightSearchParameters recentSearchParameters:recentSearchParams];
          });
          
 

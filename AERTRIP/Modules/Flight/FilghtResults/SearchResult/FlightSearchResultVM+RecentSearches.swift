@@ -11,8 +11,20 @@ import Foundation
 extension FlightSearchResultVM {
     
     func updateDomesticRecentSearches() {
+        print("~~~~~~~~~~~~~~~~~~~ FLIGHTS RECENT FILTERS ~~~~~~~~~~~~~~~~~~~")
         let filtersDict = getAppliedFiltersForSharingDomesticJourney(legs: flightLegs, isConditionReversed: false)
-        
+        var recentSearchParamsWithFilters = recentSearchParameters
+        if let dataQueryStr = recentSearchParameters["data[query]"] as? String {
+            if var dataQuery = convertStringToDictionary(text: dataQueryStr) {
+                dataQuery["filters"] = filtersDict//.map { convertDictionaryToString(dict: $0).removeAllWhiteSpacesAndNewLines }
+                recentSearchParamsWithFilters["data[query]"] = convertDictionaryToString(dict: dataQuery)
+            }
+        }
+            
+      
+        APICaller.shared.updateFlightsRecentSearch(params: recentSearchParamsWithFilters) { (dict, err) in
+            
+        }
     }
     
     func getAppliedFiltersForSharingDomesticJourney(legs:[FlightResultDisplayGroup], isConditionReversed:Bool) -> [JSONDictionary]
@@ -310,5 +322,23 @@ extension FlightSearchResultVM {
         let timeInverval = date.timeIntervalSince(startOfDay)
         return timeInverval
         
+    }
+    
+    func convertStringToDictionary(text: String) -> [String:Any]? {
+       if let data = text.data(using: .utf8) {
+           do {
+               let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:AnyObject]
+               return json
+           } catch {
+               print("Something went wrong")
+           }
+       }
+       return nil
+   }
+    
+    func convertDictionaryToString(dict: JSONDictionary) -> String {
+        let data = try! JSONSerialization.data(withJSONObject: dict, options: [])
+        let jsonStr = String(data: data, encoding: .utf8) ?? ""
+        return jsonStr
     }
 }
