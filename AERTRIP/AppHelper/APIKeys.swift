@@ -460,5 +460,9 @@ enum APIKeys: String {
     case emailAddress = "emailAddress"
     case birthday = "birthday"
     case profile = "profile"
-
+    
+    case deviceId = "device_id"
+    case version = "version"
+    case deviceType = "device_type"
+    
 }
