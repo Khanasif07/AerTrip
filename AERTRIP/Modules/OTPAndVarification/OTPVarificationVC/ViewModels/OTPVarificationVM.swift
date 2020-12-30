@@ -69,9 +69,9 @@ class OTPVarificationVM{
         APICaller.shared.sendOTPOnMobileForUpdate(params: param){[weak self] (success, error) in
             guard let self = self else {return}
             if isNeedParam{
-                self.state = .enterNewNumber
-            }else{
                 self.state = .otpForNewNumnber
+            }else{
+                self.state = .otpToOldNumber
             }
             self.delegate?.getSendOTPResponse()
             if !success{
@@ -81,15 +81,18 @@ class OTPVarificationVM{
     }
     
     func validateOTPForMobile(with otp:String){
-        let param = ["otp" : otp, APIKeys.it_id.rawValue: self.itId]
-        APICaller.shared.validateOTP(params: param) {[weak self] (success, error) in
+        let param = ["otp" : otp]
+        APICaller.shared.validateOTPForMobile(params: param) {[weak self] (success, error) in
             guard let self = self else {return}
             self.delegate?.comoletedValidation((success))
             if !success{
                 AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .otp)
             }
         }
-        
+    }
+    
+    func cancelValidation(){
+        APICaller.shared.cancelValidationAPI(params: [:]) {(success, error) in}
     }
     
 }

@@ -50,7 +50,9 @@ class OTPVarificationVC: BaseVC {
         self.mobileAndISDView.isHidden = true
         switch self.viewModel.varificationType{
         case .walletOtp: self.viewModel.sendOtpToUser()
-        case .phoneNumberChangeOtp: break;
+        case .phoneNumberChangeOtp:
+            self.setPhoneNumberSection()
+            self.viewModel.sendOTPForNumberChange(on: "", isd: "", isNeedParam: false);
         default: break;
         }
         self.viewModel.delegate = self
@@ -123,10 +125,29 @@ class OTPVarificationVC: BaseVC {
             label.highlightFontSize = 14.0
             label.handleCustomTap(for: seeExample) {[weak self] _ in
                 guard let self = self else {return}
-                self.viewModel.sendOtpToUser()
-                self.linkSetupForResend(withLabel: self.resendLabel, isResend: false)
+                self.resendOtp()
             }
         }
+    }
+    
+    
+    private func resendOtp(){
+        switch self.viewModel.varificationType{
+        case .walletOtp:
+            self.viewModel.sendOtpToUser()
+            self.linkSetupForResend(withLabel: self.resendLabel, isResend: false)
+        case .phoneNumberChangeOtp:
+            switch self.viewModel.state {
+            case .otpToOldNumber:
+                self.viewModel.sendOTPForNumberChange(on: "", isd: "", isNeedParam: false)
+            case .otpForNewNumnber:
+                self.viewModel.sendOTPForNumberChange(on: self.viewModel.mobile, isd: self.viewModel.isdCode, isNeedParam: true)
+            default: break;
+            }
+        default: break;
+        }
+        
+        
     }
     
     private func setOptTextField(){
@@ -202,6 +223,7 @@ class OTPVarificationVC: BaseVC {
     func setUIForMobileNumber(_ isUsingForPhone: Bool){
         
         if isUsingForPhone{
+            self.viewModel.state = .enterNewNumber
             UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseOut) {
                 self.containerViewHeightConstraints.constant = 270.0
                 self.descriptionTopConstraints.constant = 0.0
@@ -209,7 +231,9 @@ class OTPVarificationVC: BaseVC {
                 self.updateText()
                 self.otpTextField.alpha = 0.0
                 self.mobileAndISDView.alpha = 1.0
+                self.resendLabel.alpha = 0.0
             } completion: { (_) in
+                self.resendLabel.isHidden = true
                 self.otpTextField.isHidden = true
                 self.mobileAndISDView.isHidden = false
             }
@@ -222,7 +246,9 @@ class OTPVarificationVC: BaseVC {
                 self.updateText()
                 self.otpTextField.alpha = 1.0
                 self.mobileAndISDView.alpha = 0.0
+                self.resendLabel.alpha = 1.0
             } completion: { (_) in
+                self.resendLabel.isHidden = false
                 self.otpTextField.isHidden = false
                 self.mobileAndISDView.isHidden = true
             }
@@ -260,28 +286,56 @@ class OTPVarificationVC: BaseVC {
     
     @IBAction func cancelButtonTapped(_ sender: Any) {
         IQKeyboardManager.shared().isEnableAutoToolbar = true
-        self.dismiss(animated: true){
-            self.delegate?.otpValidationCompleted(false)
+        switch self.viewModel.varificationType{
+        case .walletOtp:
+            self.dismiss(animated: true){
+                self.delegate?.otpValidationCompleted(false)
+            }
+        case .phoneNumberChangeOtp:
+            self.viewModel.cancelValidation()
+            self.dismiss(animated: true){
+                self.delegate?.otpValidationCompleted(false)
+            }
+        default: break;
         }
     }
     
     @IBAction func nextButtonTapped(_ sender: Any) {
         
         switch self.viewModel.varificationType{
-        case .walletOtp: break;
-        case .phoneNumberChangeOtp: break;
+        case .walletOtp:
+            if !((self.otpTextField.text ?? "").isEmpty){
+                self.nextButton.isLoading = true
+                self.viewModel.validateOTP(with: (self.otpTextField.text ?? ""))
+            }else{
+                self.otpTextField.isError = true
+                AppToast.default.showToastMessage(message: "Please enter the valid otp.")
+            }
+        case .phoneNumberChangeOtp:
+            switch self.viewModel.state {
+            case .otpToOldNumber, .otpForNewNumnber:
+                if !((self.otpTextField.text ?? "").isEmpty){
+                    self.nextButton.isLoading = true
+                    self.viewModel.validateOTPForMobile(with: (self.otpTextField.text ?? ""))
+                }else{
+                    self.otpTextField.isError = true
+                    AppToast.default.showToastMessage(message: "Please enter the valid otp.")
+                }
+            case .enterNewNumber:
+                if ((!self.viewModel.mobile.isEmpty) && self.viewModel.mobile.getOnlyIntiger.count < self.viewModel.minMNS || self.viewModel.mobile.getOnlyIntiger.count > self.viewModel.maxMNS){
+                    AppToast.default.showToastMessage(message: LocalizedString.fillContactDetails.localized)
+                    
+                }else{
+                    self.otpTextField.isError = true
+                    self.viewModel.sendOTPForNumberChange(on: self.viewModel.mobile, isd: self.viewModel.isdCode, isNeedParam: true)
+                }
+            }
         default: break;
         }
         
         
         
-        if !((self.otpTextField.text ?? "").isEmpty){
-            self.nextButton.isLoading = true
-            self.viewModel.validateOTP(with: (self.otpTextField.text ?? ""))
-        }else{
-            self.otpTextField.isError = true
-            AppToast.default.showToastMessage(message: "Please enter the valid otp.")
-        }
+        
     }
     
     
@@ -292,6 +346,9 @@ class OTPVarificationVC: BaseVC {
                 self.viewModel.preSelectedCountry = selectedCountry
                 self.flagImageView.image = selectedCountry.flagImage
                 self.countryCodeLabel.text = selectedCountry.countryCode
+                self.viewModel.isdCode = selectedCountry.countryCode
+                self.viewModel.maxMNS = selectedCountry.maxNSN
+                self.viewModel.minMNS = selectedCountry.minNSN
                 self.contactNumberTextField.defaultRegion = selectedCountry.ISOCode
                 self.contactNumberTextField.text = self.contactNumberTextField.nationalNumber
             }
@@ -314,6 +371,7 @@ extension OTPVarificationVC : OTPVarificationVMDelegate{
                 self.otpTextField.isError = true
             }
         case .phoneNumberChangeOtp:
+            self.otpTextField.text = ""
             if isSucess{
                 if self.viewModel.state == .otpToOldNumber{
                     self.setUIForMobileNumber(true)
@@ -355,7 +413,7 @@ extension OTPVarificationVC : OTPVarificationVMDelegate{
 
 extension OTPVarificationVC  {
     @objc func textFieldDidChanged(_ textField: PhoneNumberTextField) {
-        
+        self.viewModel.mobile = textField.nationalNumber ?? ""
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
@@ -372,9 +430,10 @@ extension OTPVarificationVC  {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField == self.otpTextField{
             return ((textField.text?.count ?? 0) < 6) || string == ""
-        }else if textField == self.contactNumberTextField{
-            return ((textField.text?.count ?? 0) < self.viewModel.maxMNS) || string == ""
         }
+//        else if textField == self.contactNumberTextField{
+//            return ((textField.text?.count ?? 0) < self.viewModel.maxMNS) || string == ""
+//        }
         return true
     }
 }

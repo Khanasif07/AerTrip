@@ -98,7 +98,7 @@ extension APICaller{
     }
     
     func cancelValidationAPI(params: JSONDictionary, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes)->Void ){
-        AppNetworking.POST(endPoint: .cancelOtpValidation, parameters: params) {[weak self] data in
+        AppNetworking.GET(endPoint: .cancelOtpValidation, parameters: params) {[weak self] data in
             guard let self = self else {return}
             self.handleResponse(data) { (success, baggageData) in
                 completionBlock(true, [])
