@@ -47,7 +47,7 @@ extension HotelResultVC: UISearchBarDelegate {
             noResultemptyView.searchTextLabel.text = ""
             noResultemptyViewVerticalTableView.searchTextLabel.text = ""
         } else { //else if searchText.count >= AppConstants.kSearchTextLimit {
-            self.searchResultHeaderView.updateHeight(height: HotelSearchResultHeaderViewHeight)
+//            self.searchResultHeaderView.updateHeight(height: HotelSearchResultHeaderViewHeight)
             self.tableViewVertical.sectionHeaderHeight = HotelSearchResultHeaderViewHeight
             noResultemptyView.searchTextLabel.isHidden = false
             noResultemptyView.searchTextLabel.text = "for \(searchText.quoted)"
@@ -72,6 +72,7 @@ extension HotelResultVC: UISearchBarDelegate {
         //        } else {
         //            return
         //        }
+        self.searchResultHeaderView.updateHeight(height: HotelSearchResultHeaderViewHeight)
         self.hideSearchAnimation()
         self.reloadHotelList()
     }

@@ -11,14 +11,14 @@ import Foundation
 extension APICaller{
 
     
-    func checkFOrUpdates(params: JSONDictionary, completionBlock: @escaping(_ data: JSONDictionary?, _ errorCodes: ErrorCodes)->Void ){
+    func checkFOrUpdates(params: JSONDictionary, completionBlock: @escaping(_ data: VersionControlData?, _ errorCodes: ErrorCodes)->Void ){
         AppNetworking.POST(endPoint: .versionControl,parameters: params,success: {[weak self] data in
             guard let self = self else {return}
             self.handleResponse(data) { (success, versionData) in
             
-                printDebug(versionData)
-                
-//                completionBlock(data[APIKeys.data.rawValue].dictionaryObject, [])
+//                printDebug(versionData)
+         
+                completionBlock(VersionControlData(json: versionData[APIKeys.data.rawValue]), [])
            
             } failure: { (errorCode) in
                 completionBlock(nil, errorCode)

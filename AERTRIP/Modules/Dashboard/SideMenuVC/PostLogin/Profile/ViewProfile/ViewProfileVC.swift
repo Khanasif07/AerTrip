@@ -346,8 +346,7 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
                 AppFlowManager.default.moveToChangePasswordVC(type: (UserInfo.loggedInUser?.hasPassword == true) ? .changePassword : .setPassword, delegate: self)
                 
             // show logout option
-            case LocalizedString.changeMobileNumber:break;
-                
+            case LocalizedString.changeMobileNumber: self.changeMobileNumber()
             case LocalizedString.LogOut:
                 let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.LogOut.localized], colors: [AppColors.themeRed])
                 _ = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.DoYouWantToLogout.localized, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
@@ -376,6 +375,15 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
             return footerView
         }
             return nil
+    }
+    
+    func changeMobileNumber(){
+        let vc = OTPVarificationVC.instantiate(fromAppStoryboard: .OTPAndVarification)
+        vc.modalPresentationStyle = .overFullScreen
+//        vc.viewModel.itId = self.viewModel.appliedCouponData.itinerary.id
+        vc.viewModel.varificationType = .phoneNumberChangeOtp
+//        vc.delegate = self
+        self.present(vc, animated: true, completion: nil)
     }
 }
 

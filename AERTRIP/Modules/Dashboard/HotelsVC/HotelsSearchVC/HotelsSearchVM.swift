@@ -62,7 +62,7 @@ class HotelsSearchVM: NSObject{
                         printDebug("self.searchedFormData.adultsCount[\(i)] \(self.searchedFormData.adultsCount[i])")
                         
                         if (lastSearchedData.room?[i].adultCounts ?? "0") == "\(self.searchedFormData.adultsCount[i])" {
-                            canSetSearch = false
+                            canSetSearch = true
                             break
                         } else {
                             canSetSearch = true
@@ -135,7 +135,7 @@ class HotelsSearchVM: NSObject{
         let checkInDate: JSONDictionary = [APIKeys.value.rawValue : self.searchedFormData.checkInDateWithDay, APIKeys.error.rawValue : false , APIKeys.errorMsg.rawValue : ""]
         let checkOutDate: JSONDictionary = [APIKeys.value.rawValue : self.searchedFormData.checkOutDateWithDay, APIKeys.error.rawValue : false , APIKeys.errorMsg.rawValue : ""]
         let nights: JSONDictionary = [APIKeys.value.rawValue : self.searchedFormData.totalNights, APIKeys.error.rawValue : false , APIKeys.errorMsg.rawValue : ""]
-        let guests: JSONDictionary = [APIKeys.value.rawValue : "\(self.searchedFormData.adultsCount.count) Room,\(self.searchedFormData.totalGuestCount) Guests", APIKeys.error.rawValue : false , APIKeys.errorMsg.rawValue : ""]
+        let guests: JSONDictionary = [APIKeys.value.rawValue : "\(self.searchedFormData.adultsCount.count) Room, \(self.searchedFormData.totalGuestCount) Guests", APIKeys.error.rawValue : false , APIKeys.errorMsg.rawValue : ""]
         
         var room: JSONDictionaryArray = []
         for (index,adultData) in self.searchedFormData.adultsCount.enumerated() {

@@ -240,7 +240,7 @@ class HCGuestListVC: BaseVC {
                 } else {
                     self.tableView.backgroundView = nil
                 }
-            } else {
+            } else if self.currentlyUsingFor == .google{
                 self.tableView.backgroundView = self.allowEmptyView
             }
         }

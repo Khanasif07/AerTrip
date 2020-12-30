@@ -12,22 +12,22 @@ import Foundation
     
     private override init(){}
     
-    static var googleUrl : String{
-        !AppConstants.isReleasingToClient ? "com.googleusercontent.apps.683481048334-568us2uci4j08mp801obq615lsr31pkj" : "com.googleusercontent.apps.683481048334-568us2uci4j08mp801obq615lsr31pkj"
+    static var googleUrl : String {
+        "com.googleusercontent.apps.683481048334-568us2uci4j08mp801obq615lsr31pkj"
     }
     
     static var googleClientID: String { "683481048334-568us2uci4j08mp801obq615lsr31pkj.apps.googleusercontent.com" }
     
     static var kGoogleAPIKey : String {
-        !AppConstants.isReleasingToClient ? "AIzaSyBzr3tjY7rM37HneYJjMedi60o_73j6-vU" : "AIzaSyBzr3tjY7rM37HneYJjMedi60o_73j6-vU"
+        "AIzaSyBzr3tjY7rM37HneYJjMedi60o_73j6-vU"
     }
     
     static var fbUrl : String{
-        !AppConstants.isReleasingToClient ? "fb1080161318756977" : ""
+        "fb1080161318756977"
     }
     
     static var kRazorpayPublicKey : String{
-        !AppConstants.isReleasingToClient ? "rzp_test_QJYU8TtB6deJgb" : "rzp_live_asjI4DvIbYfP6p"
+        AppConstants.isReleasingToClient ? "rzp_live_asjI4DvIbYfP6p" : "rzp_test_QJYU8TtB6deJgb"
     }
     
     static let airlineMasterBaseUrl = "http://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/"

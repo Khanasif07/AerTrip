@@ -465,4 +465,8 @@ enum APIKeys: String {
     case version = "version"
     case deviceType = "device_type"
     
+    case userInstalledVersion = "user_installed_version"
+    case currentLatestVersion = "current_latest_version"
+    case updateRequired = "update_required"
+    
 }
