@@ -383,6 +383,16 @@ extension FlightResultViewModelDelegate {
             if isIntMCOrReturnJourney {
                 let flightLeg = IntFlightResultDisplayGroup(index: displayGroup - 1, numberOfLegs: numberOfLegs)
                 flightLeg.delegate = self.delegate
+                
+                //MARK: For Recent Searches
+                flightLeg.onFilterUpdate = { [weak self] in
+                    guard let self = self else { return }
+                    self.recentSearchWorkItem?.cancel()
+                    self.recentSearchWorkItem = nil
+                    self.recentSearchWorkItem = DispatchWorkItem(block: self.updateInternationalRecentSearches)
+                    DispatchQueue.main.asyncAfter(deadline: .now()+0.5, execute: self.recentSearchWorkItem!)
+                }
+                
                 self.intFlightLegs.append(flightLeg)
             }
             

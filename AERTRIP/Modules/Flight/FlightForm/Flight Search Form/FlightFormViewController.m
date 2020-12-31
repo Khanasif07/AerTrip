@@ -108,6 +108,7 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self.ScrollView setContentOffset:CGPointZero animated:FALSE];
+    [self.viewModel getRecentSearches];
 }
 
 -(void)setupMainView

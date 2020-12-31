@@ -11,24 +11,38 @@ import Foundation
 extension FlightSearchResultVM {
     
     func updateDomesticRecentSearches() {
-        print("~~~~~~~~~~~~~~~~~~~ FLIGHTS RECENT FILTERS ~~~~~~~~~~~~~~~~~~~")
-        let filtersDict = getAppliedFiltersForSharingDomesticJourney(legs: flightLegs, isConditionReversed: false)
+        print("~~~~~~~~~~~~~~~~~~~ FLIGHTS DOMESTIC RECENT FILTERS ~~~~~~~~~~~~~~~~~~~")
+        let filtersDict = getAppliedFiltersForSharingDomesticJourney(legs: flightLegs)
         var recentSearchParamsWithFilters = recentSearchParameters
         if let dataQueryStr = recentSearchParameters["data[query]"] as? String {
             if var dataQuery = convertStringToDictionary(text: dataQueryStr) {
-                dataQuery["filters"] = filtersDict//.map { convertDictionaryToString(dict: $0).removeAllWhiteSpacesAndNewLines }
+                dataQuery["filters"] = filtersDict
                 recentSearchParamsWithFilters["data[query]"] = convertDictionaryToString(dict: dataQuery)
             }
         }
             
-      
         APICaller.shared.updateFlightsRecentSearch(params: recentSearchParamsWithFilters) { (dict, err) in
             
         }
     }
     
-    func getAppliedFiltersForSharingDomesticJourney(legs:[FlightResultDisplayGroup]) -> [JSONDictionary]
-    {
+    func updateInternationalRecentSearches() {
+        print("~~~~~~~~~~~~~~~~~~~ FLIGHTS INTERNATIONAL RECENT FILTERS ~~~~~~~~~~~~~~~~~~~")
+        let filtersDict = getAppliedFiltersForSharingInternationalJourney(legs: intFlightLegs)
+        var recentSearchParamsWithFilters = recentSearchParameters
+        if let dataQueryStr = recentSearchParameters["data[query]"] as? String {
+            if var dataQuery = convertStringToDictionary(text: dataQueryStr) {
+                dataQuery["filters"] = filtersDict
+                recentSearchParamsWithFilters["data[query]"] = convertDictionaryToString(dict: dataQuery)
+            }
+        }
+            
+        APICaller.shared.updateFlightsRecentSearch(params: recentSearchParamsWithFilters) { (dict, err) in
+            
+        }
+    }
+    
+    func getAppliedFiltersForSharingDomesticJourney(legs:[FlightResultDisplayGroup]) -> [JSONDictionary] {
         var filterArr = [JSONDictionary]()
         
         for i in 0..<legs.count{
@@ -264,6 +278,238 @@ extension FlightSearchResultVM {
                 }
             }
             filterArr.append(filterDict)
+        }
+        return filterArr
+    }
+    
+    func getAppliedFiltersForSharingInternationalJourney(legs:[IntFlightResultDisplayGroup]) -> [JSONDictionary] {
+        
+        var filterArr = [JSONDictionary]()
+        
+        if legs.count > 0{
+            let userSelectedFilters = legs[0].userSelectedFilters
+            let appliedFilters = legs[0].appliedFilters
+            let appliedSubFilters = legs[0].appliedSubFilters
+            let uiFilters = legs[0].UIFilters
+            let dynamicFilters = legs[0].dynamicFilters
+            let numberOfLegs = legs[0].numberOfLegs
+                        
+            for i in 0..<userSelectedFilters.count
+            {
+                var filterDict = JSONDictionary()
+                
+                //Quality
+                var fqArray = [String]()
+                
+                if uiFilters.contains(.hideOvernightLayover){
+                    fqArray.append("&ovgtlo")
+                }
+                
+                if uiFilters.contains(.hideOvernight){
+                    fqArray.append("&ovgtf")
+                }
+                
+                if uiFilters.contains(.hideChangeAirport){
+                    fqArray.append("&coa")
+                }
+                
+                if uiFilters.contains(.hideLongerOrExpensive){
+                    fqArray.append("&aht")
+                }
+                
+                if fqArray.count > 0{
+                    filterDict["fq"] = fqArray
+                }
+                
+                //     Times
+                if (appliedFilters.contains(.Times))
+                {
+                    //     Departure Time
+                    if ((appliedSubFilters[0]?.contains(.departureTime)) != nil){
+                        var depTimeArr = [Int]()
+                        let earliest = userSelectedFilters[i].dt.earliest
+                        if let earliestTimeInverval = convertFrom(string: earliest){
+                            let intEarliestTime = Int(earliestTimeInverval/60)
+                            depTimeArr.append(intEarliestTime)
+                        }
+                        
+                        let latest = userSelectedFilters[i].dt.latest
+                        if let latestTimeInverval = convertFrom(string: latest){
+                            let intLatestTime = Int(latestTimeInverval/60)
+                            depTimeArr.append(intLatestTime)
+                        }
+                        
+                        filterDict["dep_dt"] = depTimeArr
+                    }
+                    
+                    
+                    //     Arrival Time
+                    
+                    if ((appliedSubFilters[0]?.contains(.arrivalTime)) != nil)
+                    {
+                        var arDt = [Int]()
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.dateFormat = "yyyy-MM-dd"
+                        var earlistDate = Date()
+                        var latestDate = Date()
+                        
+                        let arrivalDateEarliest = userSelectedFilters[i].arDt.earliest
+                        let earliestArrival = arrivalDateEarliest.components(separatedBy: " ")
+                        if let date = dateFormatter.date(from:earliestArrival[0]){
+                            earlistDate = date
+                        }
+                        if let earliestArrivalTimeInverval = convertFrom(string: earliestArrival[1]){
+                            let intArrivalTime = Int(earliestArrivalTimeInverval/60)
+                            arDt.append(intArrivalTime)
+                        }
+                        
+                        
+                        let arrivalDateLatest = userSelectedFilters[i].arDt.latest
+                        
+                        let latestArrival = arrivalDateLatest.components(separatedBy: " ")
+                        if let date = dateFormatter.date(from:latestArrival[0]){
+                            latestDate = date
+                        }
+                        
+                        let dayHourMinuteSecond: Set<Calendar.Component> = [.day]
+                        let difference = NSCalendar.current.dateComponents(dayHourMinuteSecond, from: earlistDate, to: latestDate)
+                        
+                        let day = difference.day ?? 0
+                        
+                        if day > 0{
+                            
+                            //Add 1440 to time to add 24 hours
+                            let newDay = 1440*day
+                            if let latestTimeInverval = convertFrom(string: latestArrival[1]){
+                                var intTime = Int(latestTimeInverval/60)
+                                intTime = intTime+newDay
+                                arDt.append(intTime)
+                            }
+                        }else{
+                            if let latestTimeInverval = convertFrom(string: latestArrival[1]){
+                                let intTime = Int(latestTimeInverval/60)
+                                arDt.append(intTime)
+                            }
+                        }
+                        
+                        filterDict["ar_dt"] = arDt
+                    }
+                }
+                
+                
+                //     Duration
+                if (appliedFilters.contains(.Duration))
+                {
+                    //     Trip Duration
+                    if ((appliedSubFilters[0]?.contains(.tripDuration)) != nil)
+                    {
+                        var tripDuration = [Int]()
+                        if let tripMinTime = Int(userSelectedFilters[i].tt.minTime ?? "0"){
+                            let minTime = tripMinTime/3600
+                            tripDuration.append(minTime)
+                        }
+                        if let tripMaxTime = Int(userSelectedFilters[i].tt.maxTime ?? "0"){
+                            let maxTime = tripMaxTime/3600
+                            tripDuration.append(maxTime)
+                        }
+                        filterDict["tt"] = tripDuration
+                    }
+                    
+                    //     Layover Duration
+                    if ((appliedSubFilters[0]?.contains(.layoverDuration)) != nil)
+                    {
+                        var layoverDuration = [Int]()
+                        if let layoverMinTime = Int(userSelectedFilters[i].lott.minTime ?? "0"){
+                            let minTime = layoverMinTime/3600
+                            layoverDuration.append(minTime)
+                        }
+                        
+                        if let layoverMaxTime = Int(userSelectedFilters[i].lott.maxTime ?? "0"){
+                            let maxTime = layoverMaxTime/3600
+                            layoverDuration.append(maxTime)
+                        }
+                        
+                        filterDict["lott"] = layoverDuration
+                    }
+                }
+                
+                
+                //     Airline
+                if (appliedFilters.contains(.Airlines))
+                {
+                    filterDict["al"] = userSelectedFilters[0].al
+                }
+                
+                
+                //     Airport
+                if (appliedFilters.contains(.Airport))
+                {
+                    filterDict["loap"] = userSelectedFilters[i].loap
+                }
+                
+                //     Airport - originDestinationSelectedForReturnJourney
+
+                if uiFilters.contains(.originDestinationSelectedForReturnJourney)
+                {
+                    var airportsArray = [String]()
+                    
+                    let returnOriginAirports = userSelectedFilters[i].cityapn.returnOriginAirports
+
+                    if returnOriginAirports.count > 0{
+                        
+                        for i in 0..<returnOriginAirports.count{
+                            airportsArray.append(returnOriginAirports[i])
+                        }
+                    }else{
+                        let fr = userSelectedFilters[i].cityapn.fr
+                        
+                        if let originAirport = fr.values.first{
+                            airportsArray.append(contentsOf: originAirport)
+                        }
+                    }
+                    
+                    
+                    
+                    
+                    let returnDestinationAirports = userSelectedFilters[i].cityapn.returnDestinationAirports
+                    if returnDestinationAirports.count > 0 {
+                        for i in 0..<returnDestinationAirports.count{
+                            airportsArray.append(returnDestinationAirports[i])
+                        }
+                    }else{
+                        let to = userSelectedFilters[i].cityapn.to
+                        
+                        if let destinationAirport = to.values.first{
+                            airportsArray.append(contentsOf: destinationAirport)
+                        }
+                    }
+                    
+                    filterDict["ap"] = airportsArray
+                }
+                
+                
+                
+                //     Quality
+                if (appliedFilters.contains(.Quality))
+                {
+                    let fqArray = Array(userSelectedFilters[i].fq.keys)
+                    filterDict["fq"] = fqArray
+                }
+                
+                
+                //     Stops
+                if (appliedFilters.contains(.stops))
+                {
+                    filterDict["stp"] = userSelectedFilters[i].stp
+                }
+                
+                //     Price
+                if (appliedFilters.contains(.Price))
+                {
+                    filterDict["pr"] = [userSelectedFilters[i].pr.minPrice, userSelectedFilters[i].pr.maxPrice]
+                }
+                filterArr.append(filterDict)
+            }
         }
         return filterArr
     }

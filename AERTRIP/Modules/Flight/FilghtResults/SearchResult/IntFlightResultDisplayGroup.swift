@@ -63,11 +63,14 @@ class IntFlightResultDisplayGroup {
     
     private var filterUpdatedFromDeepLink = false
     
+    var onFilterUpdate: (() -> ())?
+    
     //MARK:- Computed Properties
     var appliedFilters = Set<Filters>() {
         didSet{
             let filterApplied =  appliedFilters.count > 0 || UIFilters.count > 0
             self.delegate?.filtersApplied(filterApplied)
+            onFilterUpdate?()
         }
     }
     
@@ -75,6 +78,7 @@ class IntFlightResultDisplayGroup {
         didSet {
             let filterApplied =  appliedFilters.count > 0 || UIFilters.count > 0
             self.delegate?.filtersApplied(filterApplied)
+            onFilterUpdate?()
         }
     }
     
