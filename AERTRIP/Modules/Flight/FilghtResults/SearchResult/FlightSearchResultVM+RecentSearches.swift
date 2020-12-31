@@ -6,12 +6,13 @@
 //  Copyright © 2020 Pramod Kumar. All rights reserved.
 //
 
+
+// MARK: Used to update filters in recent searches
 import Foundation
 
 extension FlightSearchResultVM {
     
     func updateDomesticRecentSearches() {
-        print("~~~~~~~~~~~~~~~~~~~ FLIGHTS DOMESTIC RECENT FILTERS ~~~~~~~~~~~~~~~~~~~")
         let filtersDict = getAppliedFiltersForSharingDomesticJourney(legs: flightLegs)
         var recentSearchParamsWithFilters = recentSearchParameters
         if let dataQueryStr = recentSearchParameters["data[query]"] as? String {
@@ -27,7 +28,6 @@ extension FlightSearchResultVM {
     }
     
     func updateInternationalRecentSearches() {
-        print("~~~~~~~~~~~~~~~~~~~ FLIGHTS INTERNATIONAL RECENT FILTERS ~~~~~~~~~~~~~~~~~~~")
         let filtersDict = getAppliedFiltersForSharingInternationalJourney(legs: intFlightLegs)
         var recentSearchParamsWithFilters = recentSearchParameters
         if let dataQueryStr = recentSearchParameters["data[query]"] as? String {
