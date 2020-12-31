@@ -74,6 +74,7 @@ class DashboardVC: BaseVC {
     var isLaunchThroughSplash = false
     private var isScrollHeightSet = false
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         resetItems()
@@ -137,6 +138,8 @@ class DashboardVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        VersionControler.shared.checkForUpdate()
         
         registerBulkEnquiryNotification()
         

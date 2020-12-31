@@ -292,7 +292,10 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
             if self.logOut[indexPath.row].localized == LocalizedString.ChangePassword.localized {
                 let title = (UserInfo.loggedInUser?.hasPassword == true) ? LocalizedString.ChangePassword.localized : LocalizedString.Set_password.localized
                 cell.configureCell(title)
-            } else {
+            } else if self.logOut[indexPath.row].localized == LocalizedString.changeMobileNumber.localized{
+                let title = (UserInfo.loggedInUser?.mobile != "" ) ? LocalizedString.changeMobileNumber.localized : LocalizedString.setMobileNumner.localized
+                cell.configureCell(title)
+            }else{
                 cell.configureCell(self.logOut[indexPath.row].localized)
             }
             cell.contentView.layoutIfNeeded()
@@ -346,8 +349,7 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
                 AppFlowManager.default.moveToChangePasswordVC(type: (UserInfo.loggedInUser?.hasPassword == true) ? .changePassword : .setPassword, delegate: self)
                 
             // show logout option
-            case LocalizedString.changeMobileNumber:break;
-                
+            case LocalizedString.changeMobileNumber: self.changeMobileNumber()
             case LocalizedString.LogOut:
                 let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.LogOut.localized], colors: [AppColors.themeRed])
                 _ = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.DoYouWantToLogout.localized, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
@@ -376,6 +378,30 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
             return footerView
         }
             return nil
+    }
+    
+    func changeMobileNumber(){
+        if (UserInfo.loggedInUser?.mobile.isEmpty ?? false){
+            if (UserInfo.loggedInUser?.hasPassword == true){
+                let vc = OTPVarificationVC.instantiate(fromAppStoryboard: .OTPAndVarification)
+                vc.modalPresentationStyle = .overFullScreen
+        //        vc.viewModel.itId = self.viewModel.appliedCouponData.itinerary.id
+                vc.viewModel.varificationType = .setMobileNumber
+                vc.delegate = self
+                self.present(vc, animated: true, completion: nil)
+            }else{
+                AppToast.default.showToastMessage(message: "Please set your account password!")
+            }
+            
+        }else{
+            let vc = OTPVarificationVC.instantiate(fromAppStoryboard: .OTPAndVarification)
+            vc.modalPresentationStyle = .overFullScreen
+    //        vc.viewModel.itId = self.viewModel.appliedCouponData.itinerary.id
+            vc.viewModel.varificationType = .phoneNumberChangeOtp
+            vc.delegate = self
+            self.present(vc, animated: true, completion: nil)
+        }
+
     }
 }
 
@@ -564,7 +590,12 @@ extension ViewProfileVC: ViewProfileDetailVMDelegate {
     }
 }
 
-extension ViewProfileVC: ChangePasswordVCDelegate {
+extension ViewProfileVC: ChangePasswordVCDelegate, OtpConfirmationDelegate {
+    func otpValidationCompleted(_ isSuccess: Bool) {
+        self.updateUserData()
+        self.tableView.reloadData()
+    }
+    
     
     func passowordChangedSuccessFully() {
         self.tableView.reloadData()

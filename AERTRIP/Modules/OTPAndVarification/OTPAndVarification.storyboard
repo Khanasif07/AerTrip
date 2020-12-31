@@ -42,7 +42,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To Proceed with 'wallet balance',  kindly enter the otp sent to your mobile." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bta-mX-VKf">
-                                                <rect key="frame" x="40" y="99.5" width="334" height="41"/>
+                                                <rect key="frame" x="16" y="99.5" width="382" height="41"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -173,7 +173,7 @@
                                             <constraint firstItem="OZn-O6-3WW" firstAttribute="leading" secondItem="AHD-Ly-q9J" secondAttribute="leading" constant="16" id="3e4-og-eLW"/>
                                             <constraint firstItem="6Ty-qi-74N" firstAttribute="leading" secondItem="AHD-Ly-q9J" secondAttribute="leading" id="8in-OP-Her"/>
                                             <constraint firstAttribute="trailing" secondItem="6Ty-qi-74N" secondAttribute="trailing" id="HNK-6R-UT5"/>
-                                            <constraint firstAttribute="trailing" secondItem="Bta-mX-VKf" secondAttribute="trailing" constant="40" id="HoB-Ga-IX4"/>
+                                            <constraint firstAttribute="trailing" secondItem="Bta-mX-VKf" secondAttribute="trailing" constant="16" id="HoB-Ga-IX4"/>
                                             <constraint firstAttribute="trailing" secondItem="OZn-O6-3WW" secondAttribute="trailing" constant="16" id="Iak-vB-Ajb"/>
                                             <constraint firstItem="rhf-zm-oZ0" firstAttribute="centerX" secondItem="AHD-Ly-q9J" secondAttribute="centerX" id="Pva-1C-xTX"/>
                                             <constraint firstAttribute="trailing" secondItem="spm-Q5-GiI" secondAttribute="trailing" constant="16" id="QAa-as-3tr"/>
@@ -186,7 +186,7 @@
                                             <constraint firstAttribute="height" constant="360" id="mKh-MR-23T"/>
                                             <constraint firstItem="spm-Q5-GiI" firstAttribute="top" secondItem="AHD-Ly-q9J" secondAttribute="top" constant="10" id="oau-HZ-XFc"/>
                                             <constraint firstItem="OZn-O6-3WW" firstAttribute="top" secondItem="Bta-mX-VKf" secondAttribute="bottom" constant="16" id="rG2-1T-Lcy"/>
-                                            <constraint firstItem="Bta-mX-VKf" firstAttribute="leading" secondItem="AHD-Ly-q9J" secondAttribute="leading" constant="40" id="zVQ-CE-qNc"/>
+                                            <constraint firstItem="Bta-mX-VKf" firstAttribute="leading" secondItem="AHD-Ly-q9J" secondAttribute="leading" constant="16" id="zVQ-CE-qNc"/>
                                         </constraints>
                                     </view>
                                 </subviews>

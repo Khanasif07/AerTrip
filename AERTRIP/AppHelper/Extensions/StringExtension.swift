@@ -260,7 +260,11 @@ extension String {
         }
         return false
     }
-    
+    var getOnlyIntiger: String{
+        let newStr = self.lowercased()
+        let okayChars = Set("1234567890")
+        return newStr.filter {okayChars.contains($0) }
+    }
     // EZSE: remove Multiple Spaces And New Lines
     var removeAllWhiteSpacesAndNewLines: String {
         let components = self.components(separatedBy: NSCharacterSet.whitespacesAndNewlines)
