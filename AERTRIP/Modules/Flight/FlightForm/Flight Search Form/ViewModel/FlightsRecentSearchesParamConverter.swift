@@ -52,20 +52,22 @@ class FlightsRecentSearchesParamConverter: NSObject {
             }
         }
         
-        if let minTime = filter["duration"]["min"].int {
-            jsonDict["filters[\(filterIndex)][tt][0]"] = ((minTime)/3600).toString
+        if let tt = filter["tt"].array {
+            if let leftVal = tt[0].int {
+                jsonDict["filters[\(filterIndex)][tt][0]"] = leftVal.toString
+            }
+            if let rightVal = tt[1].int {
+                jsonDict["filters[\(filterIndex)][tt][1]"] = rightVal.toString
+            }
         }
         
-        if let maxTime = filter["duration"]["max"].int {
-            jsonDict["filters[\(filterIndex)][tt][1]"] = ((maxTime)/3600).toString
-        }
-        
-        if let minTime = filter["layoverDuration"]["min"].int {
-            jsonDict["filters[\(filterIndex)][lott][0]"] = ((minTime)/3600).toString
-        }
-        
-        if let maxTime = filter["layoverDuration"]["max"].int {
-            jsonDict["filters[\(filterIndex)][lott][1]"] = ((maxTime)/3600).toString
+        if let lott = filter["lott"].array {
+            if let leftVal = lott[0].int {
+                jsonDict["filters[\(filterIndex)][lott][0]"] = leftVal.toString
+            }
+            if let rightVal = lott[1].int {
+                jsonDict["filters[\(filterIndex)][lott][1]"] = rightVal.toString
+            }
         }
         
         if let price = filter["pr"].array {

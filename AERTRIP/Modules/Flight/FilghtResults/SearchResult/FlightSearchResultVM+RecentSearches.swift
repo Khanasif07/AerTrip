@@ -73,8 +73,10 @@ extension FlightSearchResultVM {
             if uiFilters.contains(.hideLongerOrExpensive){
                 fqArray.append("aht")
             }
-                        
-            filterDict["fq"] = fqArray
+             
+            if !fqArray.isEmpty {
+                filterDict["fq"] = fqArray
+            }
                         
             //Aircraft
 //            if dynamicFilters.aircraft.selectedAircraftsArray.count > 0{
@@ -317,7 +319,7 @@ extension FlightSearchResultVM {
                     fqArray.append("&aht")
                 }
                 
-                if fqArray.count > 0{
+                if !fqArray.isEmpty {
                     filterDict["fq"] = fqArray
                 }
                 
@@ -325,7 +327,7 @@ extension FlightSearchResultVM {
                 if (appliedFilters.contains(.Times))
                 {
                     //     Departure Time
-                    if ((appliedSubFilters[0]?.contains(.departureTime)) != nil){
+                    if ((appliedSubFilters[i]?.contains(.departureTime)) ?? false){
                         var depTimeArr = [Int]()
                         let earliest = userSelectedFilters[i].dt.earliest
                         if let earliestTimeInverval = convertFrom(string: earliest){
@@ -345,7 +347,7 @@ extension FlightSearchResultVM {
                     
                     //     Arrival Time
                     
-                    if ((appliedSubFilters[0]?.contains(.arrivalTime)) != nil)
+                    if ((appliedSubFilters[i]?.contains(.arrivalTime)) ?? false)
                     {
                         var arDt = [Int]()
                         let dateFormatter = DateFormatter()
@@ -401,34 +403,49 @@ extension FlightSearchResultVM {
                 if (appliedFilters.contains(.Duration))
                 {
                     //     Trip Duration
-                    if ((appliedSubFilters[0]?.contains(.tripDuration)) != nil)
+                    if ((appliedSubFilters[i]?.contains(.tripDuration)) ?? false)
                     {
                         var tripDuration = [Int]()
-                        if let tripMinTime = Int(userSelectedFilters[i].tt.minTime ?? "0"){
-                            let minTime = tripMinTime/3600
-                            tripDuration.append(minTime)
-                        }
-                        if let tripMaxTime = Int(userSelectedFilters[i].tt.maxTime ?? "0"){
-                            let maxTime = tripMaxTime/3600
-                            tripDuration.append(maxTime)
+                        if bookFlightObject.flightSearchType.rawValue == 1 {
+                            let departTime = userSelectedFilters[0].tt
+                            let returnTime = userSelectedFilters[1].tt
+                            let minTime = Int(departTime.minTime ?? "0") ?? 0 < Int(returnTime.minTime ?? "0") ?? 0 ? Int(departTime.minTime ?? "0") ?? 0 : Int(returnTime.minTime ?? "0") ?? 0
+                            let maxTime = Int(departTime.maxTime ?? "0") ?? 0 > Int(returnTime.maxTime ?? "0") ?? 0 ? Int(departTime.maxTime ?? "0") ?? 0 : Int(returnTime.maxTime ?? "0") ?? 0
+                            tripDuration = [minTime/3600, maxTime/3600]
+                        } else {
+                            if let tripMinTime = Int(userSelectedFilters[i].tt.minTime ?? "0"){
+                                let minTime = tripMinTime/3600
+                                tripDuration.append(minTime)
+                            }
+                            if let tripMaxTime = Int(userSelectedFilters[i].tt.maxTime ?? "0"){
+                                let maxTime = tripMaxTime/3600
+                                tripDuration.append(maxTime)
+                            }
                         }
                         filterDict["tt"] = tripDuration
                     }
                     
                     //     Layover Duration
-                    if ((appliedSubFilters[0]?.contains(.layoverDuration)) != nil)
+                    if ((appliedSubFilters[i]?.contains(.layoverDuration)) ?? false)
                     {
                         var layoverDuration = [Int]()
-                        if let layoverMinTime = Int(userSelectedFilters[i].lott.minTime ?? "0"){
-                            let minTime = layoverMinTime/3600
-                            layoverDuration.append(minTime)
+                        if bookFlightObject.flightSearchType.rawValue == 1 {
+                            let departTime = userSelectedFilters[0].lott
+                            let returnTime = userSelectedFilters[1].lott
+                            let minTime = Int(departTime.minTime ?? "0") ?? 0 < Int(returnTime.minTime ?? "0") ?? 0 ? Int(departTime.minTime ?? "0") ?? 0 : Int(returnTime.minTime ?? "0") ?? 0
+                            let maxTime = Int(departTime.maxTime ?? "0") ?? 0 > Int(returnTime.maxTime ?? "0") ?? 0 ? Int(departTime.maxTime ?? "0") ?? 0 : Int(returnTime.maxTime ?? "0") ?? 0
+                            layoverDuration = [minTime/3600, maxTime/3600]
+                        } else {
+                            if let layoverMinTime = Int(userSelectedFilters[i].lott.minTime ?? "0"){
+                                let minTime = layoverMinTime/3600
+                                layoverDuration.append(minTime)
+                            }
+                            
+                            if let layoverMaxTime = Int(userSelectedFilters[i].lott.maxTime ?? "0"){
+                                let maxTime = layoverMaxTime/3600
+                                layoverDuration.append(maxTime)
+                            }
                         }
-                        
-                        if let layoverMaxTime = Int(userSelectedFilters[i].lott.maxTime ?? "0"){
-                            let maxTime = layoverMaxTime/3600
-                            layoverDuration.append(maxTime)
-                        }
-                        
                         filterDict["lott"] = layoverDuration
                     }
                 }
@@ -448,13 +465,13 @@ extension FlightSearchResultVM {
                 }
                 
                 //     Airport - originDestinationSelectedForReturnJourney
-
+                
                 if uiFilters.contains(.originDestinationSelectedForReturnJourney)
                 {
                     var airportsArray = [String]()
                     
                     let returnOriginAirports = userSelectedFilters[i].cityapn.returnOriginAirports
-
+                    
                     if returnOriginAirports.count > 0{
                         
                         for i in 0..<returnOriginAirports.count{
@@ -504,9 +521,13 @@ extension FlightSearchResultVM {
                 }
                 
                 //     Price
-                if (appliedFilters.contains(.Price))
+                if appliedFilters.contains(.Price)
                 {
                     filterDict["pr"] = [userSelectedFilters[i].pr.minPrice, userSelectedFilters[i].pr.maxPrice]
+                    
+                    if bookFlightObject.flightSearchType.rawValue == 1 {
+                        filterDict["pr"] = [userSelectedFilters[0].pr.minPrice, userSelectedFilters[0].pr.maxPrice]
+                    }
                 }
                 filterArr.append(filterDict)
             }
