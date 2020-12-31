@@ -184,6 +184,7 @@
 "ChangePassword" = "Change Password";
 "Current_Password" = "Current Password";
 "changeMobileNumber" = "Change Mobile Number";
+"setMobileNumner" = "Set Mobile Number";
 
 //MARK:- Hotel Search
 //MARK:-
@@ -1199,3 +1200,4 @@ www.aertrip.com/trip";
 "tochangeMobileNumber" = "To change mobile number,\n";
 "kindlyEnterOtp" = "kindly enter the OTP received on";
 "proceed" = "Proceed";
+"toChangeMobileNumber" = "To change mobile number,\nkindly enter your existing password.";

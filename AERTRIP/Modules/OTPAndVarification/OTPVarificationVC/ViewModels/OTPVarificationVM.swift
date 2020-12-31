@@ -9,7 +9,7 @@
 import Foundation
 
 protocol OTPVarificationVMDelegate: NSObjectProtocol {
-    func getSendOTPResponse()
+    func getSendOTPResponse(_ isSucess: Bool)
     func comoletedValidation(_ isSucess: Bool)
 }
 
@@ -17,6 +17,7 @@ enum OTPVerificationType{
     case walletOtp
     case phoneNumberChangeOtp
     case passwordChnage
+    case setMobileNumber
     case none
 }
 
@@ -26,14 +27,14 @@ class OTPVarificationVM{
     var itId = ""
     var varificationType: OTPVerificationType = .none
     var preSelectedCountry: PKCountryModel?
-    var isdCode = ""
+    var isdCode = "+91"
     var mobile = ""
     var maxMNS = 10
     var minMNS = 10
     weak var delegate: OTPVarificationVMDelegate?
     
     enum CurrenState{
-        case otpToOldNumber
+        case otpToOldNumber//verify password in case of set mobile.
         case enterNewNumber
         case otpForNewNumnber
     }
@@ -42,7 +43,7 @@ class OTPVarificationVM{
     func sendOtpToUser(){
         APICaller.shared.sendOTPOnMobile {[weak self] (success, error) in
             guard let self = self else {return}
-            self.delegate?.getSendOTPResponse()
+            self.delegate?.getSendOTPResponse(success)
             if !success{
                 AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .otp)
             }
@@ -73,16 +74,16 @@ class OTPVarificationVM{
             }else{
                 self.state = .otpToOldNumber
             }
-            self.delegate?.getSendOTPResponse()
+            self.delegate?.getSendOTPResponse(success)
             if !success{
                 AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .otp)
             }
         }
     }
     
-    func validateOTPForMobile(with otp:String){
+    func validateOTPForMobile(with otp:String, isForUpdate: Bool){
         let param = ["otp" : otp]
-        APICaller.shared.validateOTPForMobile(params: param) {[weak self] (success, error) in
+        APICaller.shared.validateOTPForMobile(params: param, isForUpdate: isForUpdate) {[weak self] (success, error) in
             guard let self = self else {return}
             self.delegate?.comoletedValidation((success))
             if !success{
@@ -91,8 +92,37 @@ class OTPVarificationVM{
         }
     }
     
-    func cancelValidation(){
-        APICaller.shared.cancelValidationAPI(params: [:]) {(success, error) in}
+    
+    func validatePassword(with passcode: String){
+        let param = ["passcode" : passcode]
+        APICaller.shared.validatePassword(params: param) {[weak self] (success, error) in
+            guard let self = self else {return}
+            if success{
+                self.state = .enterNewNumber
+            }
+            self.delegate?.comoletedValidation((success))
+            if !success{
+                AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .otp)
+            }
+        }
+    }
+    
+    func setMobileNumber(){
+        let param:JSONDictionary = ["mobile":self.mobile, "isd": self.isdCode]
+        APICaller.shared.sendOTPOnMobileForSet(params: param) {[weak self] (success, error) in
+            guard let self = self else {return}
+            if success{
+                self.state = .otpForNewNumnber
+            }
+            self.delegate?.getSendOTPResponse(success)
+            if !success{
+                AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .otp)
+            }
+        }
+    }
+    
+    func cancelValidation(isForUpdate: Bool){
+        APICaller.shared.cancelValidationAPI(params: [:], isForUpdate: isForUpdate) {(success, error) in}
     }
     
 }

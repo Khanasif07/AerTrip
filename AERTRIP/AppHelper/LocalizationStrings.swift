@@ -234,6 +234,7 @@ enum LocalizedString: String {
     //case GSTIN
     case ChangePassword
     case changeMobileNumber
+    case setMobileNumner
 
     
     
@@ -1272,4 +1273,5 @@ enum LocalizedString: String {
     case tochangeMobileNumber
     case proceed
     case kindlyEnterOtp
+    case toChangeMobileNumber
 }

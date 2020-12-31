@@ -111,6 +111,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                     //make disable
                     cell.deleteButton.isHidden = true
                     cell.leftView.isUserInteractionEnabled = false
+                    cell.rightViewTextField.isUserInteractionEnabled = !(self.viewModel.travelData?.id == UserInfo.loggedInUser?.paxId)
                     cell.leftTitleLabel.textColor = AppColors.themeGray40
                     cell.blackDownImageView.isHidden = true
                     

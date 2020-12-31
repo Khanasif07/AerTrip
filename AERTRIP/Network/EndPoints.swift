@@ -205,8 +205,10 @@ enum APIEndPoint: String {
     case sendOtpForMobile = "users/user-default-mobile"
     case validateOtpForMobile = "users/validate-profile-otp"
     case cancelOtpValidation = "users/validation-cancel"
-    case setUserMObileCheck = "users/set-user-mobile-check"
+    case setUserMobileCheck = "users/set-user-mobile-check"
     case setUserMobile = "users/set-user-mobile"
+    case validateOtpForSetMobile = "users/user-mobile-validate-otp"
+    case cancelOtpForSetMobile = "users/user-mobile-validation-cancel"
 }
 
 // MARK: - endpoint extension for url -
