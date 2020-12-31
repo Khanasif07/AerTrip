@@ -537,7 +537,7 @@ extension FlightSearchResultVM {
     
     func convertFrom(string : String) ->  TimeInterval? {
         
-        if string == "24.00" {
+        if string == "24.00" || string == "24:00" {
             return 86400.0
         }
         
