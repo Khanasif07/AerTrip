@@ -1258,7 +1258,6 @@ enum LocalizedString: String {
     case exceededMaximumAttemptsToResetPassword
     case incorrectEmailId
     
-    
     //App Globals
     case googleMapNotInstalled
     case restrictedCalendarUse
@@ -1273,7 +1272,6 @@ enum LocalizedString: String {
     case tochangeMobileNumber
     case proceed
     case kindlyEnterOtp
-<<<<<<< HEAD
     
     case Update_Aertrip = "Update_Aertrip"
     case Soft_Update_Msg = "Soft_Update_Msg"
@@ -1282,7 +1280,5 @@ enum LocalizedString: String {
     case Update_Later = "Update_Later"
     
     
-=======
     case toChangeMobileNumber
->>>>>>> ed812c20728a9bf024409e1672380a251b68532d
 }
