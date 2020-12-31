@@ -254,7 +254,40 @@ class UserInfo {
             
         }
         
-        
+        init(recentSearchFilter: RecentSearchesFilter) {
+            ratingCount =  recentSearchFilter.stars
+            var taRatings = [Int]()
+            if recentSearchFilter.noTripAdvisorStar {
+                taRatings = [1, 2, 3, 4, 5]
+            } else {
+                if recentSearchFilter.firstTripAdvisorStar { taRatings.append(1) }
+                if recentSearchFilter.secondTripAdvisorStar { taRatings.append(2) }
+                if recentSearchFilter.thirdTripAdvisorStar { taRatings.append(3) }
+                if recentSearchFilter.fourthTripAdvisorStar { taRatings.append(4) }
+                if recentSearchFilter.fifthTripAdvisorStar { taRatings.append(5) }
+            }
+            if taRatings.isEmpty { taRatings = [1, 2, 3, 4, 5] }
+            tripAdvisorRatingCount  = taRatings
+            isIncludeUnrated  = true
+            distanceRange  = 25
+            minimumPrice  = Double(recentSearchFilter.minPrice)
+            maximumPrice  = Double(recentSearchFilter.maxPrice)
+            leftRangePrice = Double(recentSearchFilter.boundaryMinPrice)
+            rightRangePrice = Double(recentSearchFilter.boundaryMaxPrice)
+            amentities  = recentSearchFilter.amenities.map { $0.key }
+            var roomMeals = [String]()
+            if recentSearchFilter.no_meals { roomMeals.append(APIKeys.no_meals.rawValue) }
+            if recentSearchFilter.breakfast { roomMeals.append(APIKeys.breakfast.rawValue) }
+            if recentSearchFilter.full_board { roomMeals.append(APIKeys.full_board.rawValue) }
+            if recentSearchFilter.half_board { roomMeals.append(APIKeys.half_board.rawValue) }
+            if recentSearchFilter.otherMeals { roomMeals.append(APIKeys.others.rawValue) }
+            roomMeal  = roomMeals
+            roomCancelation  = []
+            roomOther  = []
+            sortUsing = .BestSellers
+            priceType = .Total
+           isFilterAppliedForDestinetionFlow = false
+        }
         
     }
     

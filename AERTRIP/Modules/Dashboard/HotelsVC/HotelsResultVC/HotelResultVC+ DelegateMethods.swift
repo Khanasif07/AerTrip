@@ -320,6 +320,12 @@ extension HotelResultVC: HotelResultDelegate {
         } else {
             loadFinalDataOnScreen()
         }
+        
+        if let recentSearchFilter = viewModel.getConvertedRecentSearchFilter() {
+            self.viewModel.fetchRequestType = .FilterApplied
+            self.viewModel.filterApplied = recentSearchFilter
+            self.viewModel.isFilterApplied = true
+        }
     }
     
     func getAllHotelsListResultFail(errors: ErrorCodes) {

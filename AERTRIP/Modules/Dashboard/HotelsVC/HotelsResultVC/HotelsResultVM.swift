@@ -88,6 +88,14 @@ class HotelsResultVM: NSObject {
     var isFavouriteOn: Bool = false
     var tempHotelFilter: UserInfo.HotelFilter? = nil
     
+    var recentSearchFilters: RecentSearchesFilter?
+    
+    func getConvertedRecentSearchFilter() -> UserInfo.HotelFilter? {
+        guard let recentSearchFilter = recentSearchFilters else { return nil }
+        let recentFilter = UserInfo.HotelFilter(recentSearchFilter: recentSearchFilter)
+        return recentFilter
+    }
+    
     func searchHotel(forText: String) {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         perform(#selector(self.callSearchHotel(_:)), with: forText, afterDelay: 0.5)
