@@ -184,6 +184,7 @@
 "ChangePassword" = "Change Password";
 "Current_Password" = "Current Password";
 "changeMobileNumber" = "Change Mobile Number";
+"setMobileNumner" = "Set Mobile Number";
 
 //MARK:- Hotel Search
 //MARK:-
@@ -1205,4 +1206,4 @@ www.aertrip.com/trip";
 "Force_Update_Msg" = "Looks like you are using an old version of the Aertrip app. Kindly update the app to the latest version to enjoy the best experience.";
 "Update_Now" = "Update Now";
 "Update_Later" = "Update Later";
-
+"toChangeMobileNumber" = "To change mobile number,\nkindly enter your existing password.";
