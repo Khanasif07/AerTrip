@@ -255,7 +255,7 @@ extension APICaller {
         
         AppNetworking.POST(endPoint: APIEndPoint.updateUserDetail, parameters: params, loader: loader, success: { [weak self] (data) in
             guard let sSelf = self else {return}
-            
+            print(data)
             sSelf.handleResponse(data, success: { (sucess, jsonData) in
                 if var userData = jsonData[APIKeys.data.rawValue].dictionaryObject, let id = jsonData[APIKeys.data.rawValue][APIKeys.paxId.rawValue].int {
                     

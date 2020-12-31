@@ -385,10 +385,10 @@ class OTPVarificationVC: BaseVC {
                 }
             case .enterNewNumber:
                 if ((!self.viewModel.mobile.isEmpty) && self.viewModel.mobile.getOnlyIntiger.count < self.viewModel.minMNS || self.viewModel.mobile.getOnlyIntiger.count > self.viewModel.maxMNS){
+                    self.otpTextField.isError = true
                     AppToast.default.showToastMessage(message: LocalizedString.fillContactDetails.localized)
                     
                 }else{
-                    self.otpTextField.isError = true
                     self.viewModel.sendOTPForNumberChange(on: self.viewModel.mobile, isd: self.viewModel.isdCode, isNeedParam: true)
                 }
             }
@@ -404,10 +404,11 @@ class OTPVarificationVC: BaseVC {
                 }
             case .enterNewNumber:
                 if ((!self.viewModel.mobile.isEmpty) && self.viewModel.mobile.getOnlyIntiger.count < self.viewModel.minMNS || self.viewModel.mobile.getOnlyIntiger.count > self.viewModel.maxMNS){
+                    self.otpTextField.isError = true
                     AppToast.default.showToastMessage(message: LocalizedString.fillContactDetails.localized)
                     
                 }else{
-                    self.otpTextField.isError = true
+//                    self.otpTextField.isError = true
                     self.viewModel.setMobileNumber()
                 }
             case .otpForNewNumnber:

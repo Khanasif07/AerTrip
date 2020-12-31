@@ -105,6 +105,8 @@
 		0C4CB4322502319B000C3904 /* PhotoGalleryFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C4CB4302502319B000C3904 /* PhotoGalleryFooterView.xib */; };
 		0C4CB4332502319B000C3904 /* PhotoGalleryFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4CB4312502319B000C3904 /* PhotoGalleryFooterView.swift */; };
 		0C4CC67E259B791200BBAA68 /* otp.csv in Resources */ = {isa = PBXBuildFile; fileRef = 0C4CC67D259B791200BBAA68 /* otp.csv */; };
+		0C60BC3F259DDE4A00CB2CAC /* EnableDisableWalletOTPVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C60BC3E259DDE4A00CB2CAC /* EnableDisableWalletOTPVC.swift */; };
+		0C60BC41259DDE6700CB2CAC /* EnableDisableWalletOTPVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C60BC40259DDE6700CB2CAC /* EnableDisableWalletOTPVM.swift */; };
 		0C6666AE22D472F0009DFACD /* TripChangeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6666AC22D472F0009DFACD /* TripChangeTableViewCell.swift */; };
 		0C6666AF22D472F1009DFACD /* TripChangeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C6666AD22D472F0009DFACD /* TripChangeTableViewCell.xib */; };
 		0C6666B722D486A2009DFACD /* BookingCommonActionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6666B522D486A2009DFACD /* BookingCommonActionTableViewCell.swift */; };
@@ -1772,6 +1774,8 @@
 		0C4CB4302502319B000C3904 /* PhotoGalleryFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoGalleryFooterView.xib; sourceTree = "<group>"; };
 		0C4CB4312502319B000C3904 /* PhotoGalleryFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoGalleryFooterView.swift; sourceTree = "<group>"; };
 		0C4CC67D259B791200BBAA68 /* otp.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = otp.csv; sourceTree = "<group>"; };
+		0C60BC3E259DDE4A00CB2CAC /* EnableDisableWalletOTPVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnableDisableWalletOTPVC.swift; sourceTree = "<group>"; };
+		0C60BC40259DDE6700CB2CAC /* EnableDisableWalletOTPVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnableDisableWalletOTPVM.swift; sourceTree = "<group>"; };
 		0C6666AC22D472F0009DFACD /* TripChangeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripChangeTableViewCell.swift; sourceTree = "<group>"; };
 		0C6666AD22D472F0009DFACD /* TripChangeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TripChangeTableViewCell.xib; sourceTree = "<group>"; };
 		0C6666B522D486A2009DFACD /* BookingCommonActionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingCommonActionTableViewCell.swift; sourceTree = "<group>"; };
@@ -3720,6 +3724,7 @@
 			isa = PBXGroup;
 			children = (
 				0C3955C52594B313008B5344 /* OTPVarificationVC.swift */,
+				0C60BC3E259DDE4A00CB2CAC /* EnableDisableWalletOTPVC.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -3738,6 +3743,7 @@
 			isa = PBXGroup;
 			children = (
 				0C402E082599CE54001FDC54 /* OTPVarificationVM.swift */,
+				0C60BC40259DDE6700CB2CAC /* EnableDisableWalletOTPVM.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -10607,6 +10613,7 @@
 				843FF65D247409E3001F21B1 /* AirportSearch.m in Sources */,
 				843FF49C24740231001F21B1 /* FlightFilterTimesViewController.swift in Sources */,
 				18637D66249C98EA001325CD /* FlightPaymentPendingRequestSuccessVC.swift in Sources */,
+				0C60BC3F259DDE4A00CB2CAC /* EnableDisableWalletOTPVC.swift in Sources */,
 				8452D37221E6151500927287 /* CoreDataManager.swift in Sources */,
 				84534EAD2248E099009FF536 /* HCBedDetailsTableViewCell.swift in Sources */,
 				843FF47C24740230001F21B1 /* HomeFlightAddClassViewController.m in Sources */,
@@ -10850,6 +10857,7 @@
 				84F983C421B51A070018DFED /* PKTextView.swift in Sources */,
 				841F398E253F1F5F007C99B6 /* ChatVC+AerinCommunication.swift in Sources */,
 				18C31F082227CBAA0052162C /* HotelMailComposerCardViewTableViewCell.swift in Sources */,
+				0C60BC41259DDE6700CB2CAC /* EnableDisableWalletOTPVM.swift in Sources */,
 				1846EFD024A501AD001D93A2 /* SeatBookingStatusCell.swift in Sources */,
 				18F967FF2233945400B163C8 /* EmptyTableViewCell.swift in Sources */,
 				843FF67E247409E3001F21B1 /* ProfileViewController.m in Sources */,
