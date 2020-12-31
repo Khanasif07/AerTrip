@@ -1272,4 +1272,12 @@ enum LocalizedString: String {
     case tochangeMobileNumber
     case proceed
     case kindlyEnterOtp
+    
+    case Update_Aertrip = "Update_Aertrip"
+    case Soft_Update_Msg = "Soft_Update_Msg"
+    case Force_Update_Msg = "Force_Update_Msg"
+    case Update_Now = "Update_Now"
+    case Update_Later = "Update_Later"
+    
+    
 }

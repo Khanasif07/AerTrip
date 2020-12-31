@@ -1199,3 +1199,10 @@ www.aertrip.com/trip";
 "tochangeMobileNumber" = "To change mobile number,\n";
 "kindlyEnterOtp" = "kindly enter the OTP received on";
 "proceed" = "Proceed";
+
+"Update_Aertrip" = "Update Aertrip";
+"Soft_Update_Msg" = "Aertrip recommends that you update the app to the latest version to enjoy the best experience.";
+"Force_Update_Msg" = "Looks like you are using an old version of the Aertrip app. Kindly update the app to the latest version to enjoy the best experience.";
+"Update_Now" = "Update Now";
+"Update_Later" = "Update Later";
+

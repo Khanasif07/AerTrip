@@ -73,7 +73,6 @@ class DashboardVC: BaseVC {
     var backView : UIView!
     var isLaunchThroughSplash = false
     private var isScrollHeightSet = false
-    let versionControler = VersionControler()
     
     
     override func viewDidLoad() {
@@ -140,7 +139,7 @@ class DashboardVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        versionControler.checkForUpdate()
+        VersionControler.shared.checkForUpdate()
         
         registerBulkEnquiryNotification()
         

@@ -192,8 +192,7 @@ class MainHomeVC: BaseVC {
         if sender.state == .began, self.isPushedToNext {
             if UserInfo.loggedInUserId == nil {
                 self.popLogoAnimation()
-            }
-            else {
+            } else {
                 self.popProfileAnimation()
             }
         }
