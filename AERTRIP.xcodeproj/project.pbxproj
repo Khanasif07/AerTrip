@@ -1344,6 +1344,9 @@
 		8477755F2265DE7100EAB8B0 /* AccountDetailsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477755E2265DE7100EAB8B0 /* AccountDetailsVM.swift */; };
 		847775632265EB2800EAB8B0 /* AccountDetailsVC+Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847775622265EB2800EAB8B0 /* AccountDetailsVC+Delegates.swift */; };
 		847790C023ED70A6004EBC45 /* AppGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847790BF23ED70A6004EBC45 /* AppGradientView.swift */; };
+		8477DE48259E0571001B7505 /* FlightSearchResultVM+RecentSearches.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477DE47259E0571001B7505 /* FlightSearchResultVM+RecentSearches.swift */; };
+		8477DE4A259E058B001B7505 /* APICaller+RecentSearches.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477DE49259E058A001B7505 /* APICaller+RecentSearches.swift */; };
+		8477DE4C259E0687001B7505 /* FlightsRecentSearchesParamConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477DE4B259E0686001B7505 /* FlightsRecentSearchesParamConverter.swift */; };
 		84791ED5228195FF00472E54 /* AccountLadgerDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84791ED4228195FE00472E54 /* AccountLadgerDetailsVC.swift */; };
 		84791ED722819FE700472E54 /* AccountLadgerDetailsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84791ED622819FE700472E54 /* AccountLadgerDetailsVM.swift */; };
 		84791ED92281A04900472E54 /* AccountLadgerDetailsVC+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84791ED82281A04900472E54 /* AccountLadgerDetailsVC+Delegate.swift */; };
@@ -3157,6 +3160,9 @@
 		8477755E2265DE7100EAB8B0 /* AccountDetailsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsVM.swift; sourceTree = "<group>"; };
 		847775622265EB2800EAB8B0 /* AccountDetailsVC+Delegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccountDetailsVC+Delegates.swift"; sourceTree = "<group>"; };
 		847790BF23ED70A6004EBC45 /* AppGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGradientView.swift; sourceTree = SOURCE_ROOT; };
+		8477DE47259E0571001B7505 /* FlightSearchResultVM+RecentSearches.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FlightSearchResultVM+RecentSearches.swift"; sourceTree = "<group>"; };
+		8477DE49259E058A001B7505 /* APICaller+RecentSearches.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "APICaller+RecentSearches.swift"; sourceTree = "<group>"; };
+		8477DE4B259E0686001B7505 /* FlightsRecentSearchesParamConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightsRecentSearchesParamConverter.swift; sourceTree = "<group>"; };
 		84791ED4228195FE00472E54 /* AccountLadgerDetailsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountLadgerDetailsVC.swift; sourceTree = "<group>"; };
 		84791ED622819FE700472E54 /* AccountLadgerDetailsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountLadgerDetailsVM.swift; sourceTree = "<group>"; };
 		84791ED82281A04900472E54 /* AccountLadgerDetailsVC+Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccountLadgerDetailsVC+Delegate.swift"; sourceTree = "<group>"; };
@@ -6224,6 +6230,7 @@
 		843FF3092474022F001F21B1 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				8477DE4B259E0686001B7505 /* FlightsRecentSearchesParamConverter.swift */,
 				843FF30A2474022F001F21B1 /* RecentSearchDataModel.m */,
 				843FF30B2474022F001F21B1 /* RecentSearchDisplayModel.m */,
 				843FF30C2474022F001F21B1 /* FlightFormDataModel.m */,
@@ -6980,6 +6987,7 @@
 		843FF41F24740230001F21B1 /* SearchResult */ = {
 			isa = PBXGroup;
 			children = (
+				8477DE47259E0571001B7505 /* FlightSearchResultVM+RecentSearches.swift */,
 				843FF42024740230001F21B1 /* FlightSearchResultVM + FilterDelegate.swift */,
 				843FF42124740230001F21B1 /* ResultsDataStructure */,
 				843FF42A24740230001F21B1 /* IntFlightResultDisplayGroup+Filters.swift */,
@@ -9226,6 +9234,7 @@
 		84F983AD21B51A070018DFED /* APICaller */ = {
 			isa = PBXGroup;
 			children = (
+				8477DE49259E058A001B7505 /* APICaller+RecentSearches.swift */,
 				84457BF2259C968400D35EAE /* APICaller+OPTVarification+VersionControl.swift */,
 				84F983F821B540370018DFED /* APICaller+Login.swift */,
 				84F983B121B51A070018DFED /* APICaller.swift */,
@@ -10384,6 +10393,7 @@
 				843FF4B824740231001F21B1 /* AirportSelectionCell.swift in Sources */,
 				0C402E092599CE54001FDC54 /* OTPVarificationVM.swift in Sources */,
 				84B6DEA0228018DC0042D902 /* SpecialAccountDetailsVM.swift in Sources */,
+				8477DE4A259E058B001B7505 /* APICaller+RecentSearches.swift in Sources */,
 				84EAABED21DA0A96006B757F /* SideMenuLogoView.swift in Sources */,
 				842EDE96223A2CAA00E99409 /* HCSpecialRequestsVC.swift in Sources */,
 				84F983E121B51A070018DFED /* UserDefaultsExtension.swift in Sources */,
@@ -10815,6 +10825,7 @@
 				18611786242B7CC600BE1306 /* HCDataHotelRatingInfoTableViewCell.swift in Sources */,
 				849D37922289397200763AD8 /* AccountOnlineDepositVC+Razorpay.swift in Sources */,
 				18FDF3272236A9A5009CC909 /* ATEmailSelectorTextView.swift in Sources */,
+				8477DE48259E0571001B7505 /* FlightSearchResultVM+RecentSearches.swift in Sources */,
 				849DA81423E2B6C600C2E9D8 /* ATCategoryView.swift in Sources */,
 				843FF55324740232001F21B1 /* FlightResultDisplayGroup + Filters.swift in Sources */,
 				84085D0521F59C0E00F1E844 /* FFSearchVM.swift in Sources */,
@@ -10995,6 +11006,7 @@
 				84F983E821B51A070018DFED /* AppFonts.swift in Sources */,
 				84085CDE21F59C0E00F1E844 /* FlightsVC.swift in Sources */,
 				0C24D4E6242C754200CBFF92 /* CountryVC+TableViewDelegates.swift in Sources */,
+				8477DE4C259E0687001B7505 /* FlightsRecentSearchesParamConverter.swift in Sources */,
 				843FF58324740232001F21B1 /* FareRulesVC.swift in Sources */,
 				843FF4A724740231001F21B1 /* FlightStopsFilterViewController.swift in Sources */,
 				843FF47624740230001F21B1 /* MulticityCalendarVM.m in Sources */,

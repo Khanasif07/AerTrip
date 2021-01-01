@@ -43,6 +43,7 @@ class FlightResultDisplayGroup {
 
     var dynamicFilters = DynamicFilters()
 
+    var onFilterUpdate: (() -> ())?
     
     //MARK:- Computed Properties
     var appliedFilters = Set<Filters>() {
@@ -58,6 +59,7 @@ class FlightResultDisplayGroup {
                 appliedSubFilters.remove(.tripDuration)
                 appliedSubFilters.remove(.layoverDuration)
             }
+            onFilterUpdate?()
         }
     }
     
@@ -65,6 +67,7 @@ class FlightResultDisplayGroup {
         didSet {
             let filterApplied =  appliedFilters.count > 0 || UIFilters.count > 0
             self.delegate?.filtersApplied(filterApplied)
+            onFilterUpdate?()
         }
     }
     
@@ -565,6 +568,7 @@ class FlightResultDisplayGroup {
         
         if let pr = flightSearchParam["filters[\(self.index)][pr][0]"] as? String{
             self.appliedFilters.insert(.Price)
+            self.UIFilters.insert(.priceRange)
             let userMin = Int(pr) ?? 0
             let inputMin = self.inputFilter?.pr.minPrice ?? 0
             let price = userMin < inputMin ? inputMin : userMin
@@ -573,6 +577,7 @@ class FlightResultDisplayGroup {
         
         if let pr = flightSearchParam["filters[\(self.index)][pr][1]"] as? String{
             self.appliedFilters.insert(.Price)
+            self.UIFilters.insert(.priceRange)
             let userMax = Int(pr) ?? 0
             let inputMax = self.inputFilter?.pr.maxPrice ?? 0
             let price = userMax > inputMax ? inputMax : userMax

@@ -47,6 +47,9 @@ extension FlightResultViewModelDelegate {
 
     var flightSearchParametersFromDeepLink = JSONDictionary()
     
+    var recentSearchParameters = JSONDictionary()
+    var recentSearchWorkItem: DispatchWorkItem?
+    
     func cancelAllWebserviceCalls() {
         
         for workItem in workItems {
@@ -204,15 +207,16 @@ extension FlightResultViewModelDelegate {
     
     //MARK:- Methods
     
-    @objc  init(displayGroups : [Int], sid : String , bookFlightObject : BookFlightObject, isInternationalJourney: Bool, numberOfLegs: Int, flightSearchParameters: NSDictionary) {
+    @objc  init(displayGroups : [Int], sid : String , bookFlightObject : BookFlightObject, isInternationalJourney: Bool, numberOfLegs: Int, flightSearchParameters: NSDictionary, recentSearchParameters: NSDictionary) {
         self.displayGroups = displayGroups
         self.sid = sid
         self.bookFlightObject = bookFlightObject
         self.isIntMCOrReturnJourney = isInternationalJourney
         self.numberOfLegs = numberOfLegs
         
-        guard let dict = flightSearchParameters as? JSONDictionary else { return }
-        self.flightSearchParametersFromDeepLink = dict
+        guard let flightParams = flightSearchParameters as? JSONDictionary, let recentSearchParams = recentSearchParameters as? JSONDictionary else { return }
+        self.flightSearchParametersFromDeepLink = flightParams
+        self.recentSearchParameters = recentSearchParams
 
     }
     
@@ -379,11 +383,30 @@ extension FlightResultViewModelDelegate {
             if isIntMCOrReturnJourney {
                 let flightLeg = IntFlightResultDisplayGroup(index: displayGroup - 1, numberOfLegs: numberOfLegs)
                 flightLeg.delegate = self.delegate
+                
+                //MARK: For Recent Searches
+                flightLeg.onFilterUpdate = { [weak self] in
+                    guard let self = self else { return }
+                    self.recentSearchWorkItem?.cancel()
+                    self.recentSearchWorkItem = nil
+                    self.recentSearchWorkItem = DispatchWorkItem(block: self.updateInternationalRecentSearches)
+                    DispatchQueue.main.asyncAfter(deadline: .now()+0.5, execute: self.recentSearchWorkItem!)
+                }
+                
                 self.intFlightLegs.append(flightLeg)
             }
             
             let flightLeg = FlightResultDisplayGroup(index: (displayGroup - 1))
             flightLeg.delegate = self.delegate
+            
+            //MARK: For Recent Searches
+            flightLeg.onFilterUpdate = { [weak self] in
+                guard let self = self else { return }
+                self.recentSearchWorkItem?.cancel()
+                self.recentSearchWorkItem = nil
+                self.recentSearchWorkItem = DispatchWorkItem(block: self.updateDomesticRecentSearches)
+                DispatchQueue.main.asyncAfter(deadline: .now()+0.5, execute: self.recentSearchWorkItem!)
+            }
             
             if displayGroup != 0 {
                 self.flightLegs.append( flightLeg)

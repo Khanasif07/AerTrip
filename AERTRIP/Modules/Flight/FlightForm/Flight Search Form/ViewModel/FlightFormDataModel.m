@@ -519,9 +519,11 @@
         if (!weakSelf) { return; }
         [weakSelf addToRecentSearch:flightSearchParameters];
          BookFlightObject * bookingObject = [self handleResponseForFlightSearch:dataDictionary flightSearchParameters:flightSearchParameters];
-         
+        
+        NSDictionary * recentSearchParams = [weakSelf getRecentSearchParameters:flightSearchParameters];
+        
          dispatch_async(dispatch_get_main_queue(), ^{
-                      [weakSelf.delegate showFlightSearchResult:bookingObject flightSearchParameters:flightSearchParameters];
+                      [weakSelf.delegate showFlightSearchResult:bookingObject flightSearchParameters:flightSearchParameters recentSearchParameters:recentSearchParams];
          });
          
 
@@ -955,6 +957,13 @@
         }
         [queryDictionay removeObjectsForKeys:[NSArray arrayWithObjects:@"depart", @"destination", @"origin", nil]];
     }
+    
+    NSArray * filters = [queryDictionay valueForKey:@"filters"];
+    
+    FlightsRecentSearchesParamConverter *converter = [[FlightsRecentSearchesParamConverter alloc] init];
+    
+    NSDictionary * filterParam = [converter convertParam:filters];
+    [queryDictionay addEntriesFromDictionary:filterParam];
     [self performFlightSearchWebServiceCall:queryDictionay];
 }
 
@@ -1208,9 +1217,8 @@
 
 //MARK:- Recent Searches
 
--(void)addToRecentSearch:(NSDictionary*)flightSearchParameters
+-(NSDictionary*)getRecentSearchParameters:(NSDictionary*)flightSearchParameters
 {
-    
     NSMutableDictionary * flightParameters = [NSMutableDictionary dictionaryWithDictionary:flightSearchParameters];
     
     NSError *error;
@@ -1292,6 +1300,13 @@
     [parametersDynamic setObject:@"flight" forKey:@"product"];
     [parametersDynamic setObject:[self dateFormattedForAPIRequest:self.onwardsDate] forKey:@"data[start_date]"];
     [parametersDynamic setObject:jsonString forKey:@"data[query]"];
+    return parametersDynamic;
+}
+
+-(void)addToRecentSearch:(NSDictionary*)flightSearchParameters
+{
+    
+    NSDictionary * parametersDynamic = [self getRecentSearchParameters:flightSearchParameters];
     
     __weak typeof(self) weakSelf = self;
 
