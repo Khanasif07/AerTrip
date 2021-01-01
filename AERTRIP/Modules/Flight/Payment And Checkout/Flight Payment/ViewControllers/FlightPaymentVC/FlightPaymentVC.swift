@@ -248,7 +248,7 @@ class FlightPaymentVC: BaseVC {
     
     
     func checkForWalletOTP(){
-        if self.isWallet && self.getWalletAmount() > 100{
+        if (self.isWallet && self.getWalletAmount() > 100) && (UserInfo.loggedInUser?.isWalletEnable ?? false){
             let vc = OTPVarificationVC.instantiate(fromAppStoryboard: .OTPAndVarification)
             vc.modalPresentationStyle = .overFullScreen
             vc.viewModel.itId = self.viewModel.appliedCouponData.itinerary.id

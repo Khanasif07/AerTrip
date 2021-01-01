@@ -235,6 +235,7 @@ enum LocalizedString: String {
     case ChangePassword
     case changeMobileNumber
     case setMobileNumner
+    case disableWalletOtp
 
     
     
