@@ -84,6 +84,20 @@ extension SettingsVC : UITableViewDelegate, UITableViewDataSource {
         case .notification:
             AppFlowManager.default.moveToNotificationSettingsVC()
 
+        case .changeAertripId:
+            printDebug("changeAertripId")
+
+            
+        case .changePassword:
+            AppFlowManager.default.moveToChangePasswordVC(type: (UserInfo.loggedInUser?.hasPassword == true) ? .changePassword : .setPassword, delegate: self)
+
+        case .changeMobileNumber:
+            self.changeMobileNumber()
+            
+        case .disableWalletOtp:
+            printDebug("disableWalletOtp")
+            
+            
         case .aboutUs:
             if let pageUrl = URL(string: AppKeys.about) {
                 AppFlowManager.default.showURLOnATWebView(pageUrl, screenTitle:  self.settingsVm.getSettingsType(key: indexPath.section, index: indexPath.row).rawValue, presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
@@ -115,4 +129,48 @@ extension SettingsVC : UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+}
+
+
+extension SettingsVC: ChangePasswordVCDelegate, OtpConfirmationDelegate {
+    func otpValidationCompleted(_ isSuccess: Bool) {
+//        self.updateUserData()
+        self.settingsTableView.reloadData()
+    }
+    
+    
+    func passowordChangedSuccessFully() {
+        self.settingsTableView.reloadData()
+    }
+    
+}
+
+
+extension SettingsVC {
+    
+    func changeMobileNumber(){
+        if (UserInfo.loggedInUser?.mobile.isEmpty ?? false){
+            if (UserInfo.loggedInUser?.hasPassword == true){
+                let vc = OTPVarificationVC.instantiate(fromAppStoryboard: .OTPAndVarification)
+                vc.modalPresentationStyle = .overFullScreen
+        //        vc.viewModel.itId = self.viewModel.appliedCouponData.itinerary.id
+                vc.viewModel.varificationType = .setMobileNumber
+                vc.delegate = self
+                self.present(vc, animated: true, completion: nil)
+            }else{
+                AppToast.default.showToastMessage(message: "Please set your account password!")
+            }
+            
+        }else{
+            let vc = OTPVarificationVC.instantiate(fromAppStoryboard: .OTPAndVarification)
+            vc.modalPresentationStyle = .overFullScreen
+    //        vc.viewModel.itId = self.viewModel.appliedCouponData.itinerary.id
+            vc.viewModel.varificationType = .phoneNumberChangeOtp
+            vc.delegate = self
+            self.present(vc, animated: true, completion: nil)
+        }
+    
+    
+}
+
 }
