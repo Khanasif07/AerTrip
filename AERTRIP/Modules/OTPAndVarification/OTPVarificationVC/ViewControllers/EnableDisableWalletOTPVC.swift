@@ -177,22 +177,35 @@ class EnableDisableWalletOTPVC: BaseVC {
         self.nextButton.setTitle(LocalizedString.Submit.localized, for: .selected)
     }
     
-
+    @IBAction func transparentViewTapped(_ sender: Any) {
+    }
+    
     @IBAction func cancelButtonTapped(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+//        self.dismiss(animated: true, completion: nil)
+        UIView.animate(withDuration: 0.3, animations: {
+            self.transparentBackView.transform = CGAffineTransform(translationX: 0, y: self.transparentBackView.height)
+            self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
+        }) { (success) in
+            self.dismiss(animated: false, completion: {
+//                self.onDismissCompletion?()
+                self.viewModel.cancelValidation()
+            })
+        }
     }
     
     @IBAction func nextButtonTapped(_ sender: Any) {
-        self.nextButton.isLoading = true
         if (UserInfo.loggedInUser?.isWalletEnable ?? true){
             if (self.passwordTextField.text?.isEmpty ?? true){
                 self.passwordTextField.isError = true
                 AppToast.default.showToastMessage(message: "Please enter your account password.")
             }else if (self.otpPhoneTextField.text?.isEmpty ?? true){
+                self.otpPhoneTextField.isError = true
                 AppToast.default.showToastMessage(message: "Please enter the valid mobile otp.")
             }else if (self.otpEmailTextField.text?.isEmpty ?? true){
+                self.otpEmailTextField.isError = true
                 AppToast.default.showToastMessage(message: "Please enter the valid email otp.")
             }else{
+                self.nextButton.isLoading = true
                 let dict : JSONDictionary = [
                     "passcode" : self.passwordTextField.text ?? "",
                     "mobile_otp" : self.otpPhoneTextField.text ?? "",
@@ -205,6 +218,7 @@ class EnableDisableWalletOTPVC: BaseVC {
                 self.passwordTextField.isError = true
                 AppToast.default.showToastMessage(message: "Please enter your account password.")
             }else{
+                self.nextButton.isLoading = true
                 let dict : JSONDictionary = ["passcode" : self.passwordTextField.text ?? ""]
                 self.viewModel.sendOTPValidation(params: dict, type: .passwordValidation)
             }

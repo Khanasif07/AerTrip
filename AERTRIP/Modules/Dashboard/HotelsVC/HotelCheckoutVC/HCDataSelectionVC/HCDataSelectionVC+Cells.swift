@@ -306,7 +306,7 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
                 setupForAdd()
             }
             else {
-                infoImageView.isHidden = !((fName.isEmpty || fName.count < 3) || (lName.isEmpty || lName.count < 3) || saltn.isEmpty)
+                infoImageView.isHidden = !((fName.isEmpty || fName.count < 1) || (lName.isEmpty || lName.count < 1) || saltn.isEmpty)
                 firstNameLabel.text = fName
                 lastNameLabel.text = lName
                 if !lName.isEmpty {

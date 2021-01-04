@@ -297,7 +297,7 @@ class PassengerSelectionVM  {
     func validateGuestData()->(success:Bool, msg:String){
         AddonsDataStore.shared.resetData()
         for contact in GuestDetailsVM.shared.guests[0]{
-            if contact.firstName.removeAllWhitespaces.isEmpty || contact.firstName.count < 3  || !contact.firstName.isName || contact.lastName.removeAllWhitespaces.isEmpty || contact.lastName.count < 3 || !contact.lastName.isName || contact.salutation.isEmpty{
+            if contact.firstName.removeAllWhitespaces.isEmpty || contact.firstName.count < 1  || !contact.firstName.isName || contact.lastName.removeAllWhitespaces.isEmpty || contact.lastName.count < 1 || !contact.lastName.isName || contact.salutation.isEmpty{
                 return (false, LocalizedString.fillAllPassengerDetails.localized)
             }else if self.journeyType == .domestic{
                 if contact.passengerType == .Infant{

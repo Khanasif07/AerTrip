@@ -25,6 +25,12 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G6O-7f-w2h">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="txt-zl-THI">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                        <connections>
+                                            <action selector="transparentViewTapped:" destination="GtP-MJ-eBe" eventType="touchUpInside" id="aUV-16-izT"/>
+                                        </connections>
+                                    </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AHD-Ly-q9J">
                                         <rect key="frame" x="0.0" y="536" width="414" height="360"/>
                                         <subviews>
@@ -192,9 +198,13 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="txt-zl-THI" firstAttribute="leading" secondItem="G6O-7f-w2h" secondAttribute="leading" id="0Zs-BY-T0A"/>
                                     <constraint firstAttribute="bottom" secondItem="AHD-Ly-q9J" secondAttribute="bottom" id="2QC-Tz-w5Z"/>
+                                    <constraint firstAttribute="trailing" secondItem="txt-zl-THI" secondAttribute="trailing" id="BJE-EG-PxR"/>
+                                    <constraint firstItem="txt-zl-THI" firstAttribute="top" secondItem="G6O-7f-w2h" secondAttribute="top" id="SNT-Wd-eQs"/>
                                     <constraint firstItem="AHD-Ly-q9J" firstAttribute="leading" secondItem="G6O-7f-w2h" secondAttribute="leading" id="bE5-Xm-d6g"/>
                                     <constraint firstAttribute="trailing" secondItem="AHD-Ly-q9J" secondAttribute="trailing" id="gjA-XS-JJL"/>
+                                    <constraint firstAttribute="bottom" secondItem="txt-zl-THI" secondAttribute="bottom" id="y92-P3-rPh"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -228,7 +238,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nhu-9e-j38" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-801" y="252"/>
+            <point key="canvasLocation" x="-801.44927536231887" y="251.78571428571428"/>
         </scene>
         <!--Enable Disable WalletOTPVC-->
         <scene sceneID="SQy-Kg-HJh">
@@ -241,6 +251,12 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8vj-Ov-CLE">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xDR-nF-mrP">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                        <connections>
+                                            <action selector="cancelButtonTapped:" destination="k8q-Xm-lJf" eventType="touchUpInside" id="JJy-9A-sF8"/>
+                                        </connections>
+                                    </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l95-TV-OQK">
                                         <rect key="frame" x="0.0" y="396" width="414" height="500"/>
                                         <subviews>
@@ -379,9 +395,13 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="xDR-nF-mrP" secondAttribute="bottom" id="Puc-H8-jbh"/>
                                     <constraint firstAttribute="trailing" secondItem="l95-TV-OQK" secondAttribute="trailing" id="SWR-P4-uQF"/>
+                                    <constraint firstItem="xDR-nF-mrP" firstAttribute="top" secondItem="8vj-Ov-CLE" secondAttribute="top" id="TGD-bK-PHb"/>
                                     <constraint firstItem="l95-TV-OQK" firstAttribute="leading" secondItem="8vj-Ov-CLE" secondAttribute="leading" id="gGU-Ui-G1x"/>
+                                    <constraint firstAttribute="trailing" secondItem="xDR-nF-mrP" secondAttribute="trailing" id="ty6-5O-KMs"/>
                                     <constraint firstAttribute="bottom" secondItem="l95-TV-OQK" secondAttribute="bottom" id="u3g-GJ-spf"/>
+                                    <constraint firstItem="xDR-nF-mrP" firstAttribute="leading" secondItem="8vj-Ov-CLE" secondAttribute="leading" id="xY3-et-6Ar"/>
                                 </constraints>
                             </view>
                         </subviews>

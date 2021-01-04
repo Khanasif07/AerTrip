@@ -37,7 +37,7 @@ class OTPVarificationVC: BaseVC {
     
     
     
-    
+    var anomationDuration:TimeInterval = 0.5
     var viewModel = OTPVarificationVM()
     weak var delegate:OtpConfirmationDelegate?
     
@@ -108,7 +108,7 @@ class OTPVarificationVC: BaseVC {
     }
     
     private func transformViewToOriginalState() {
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: self.anomationDuration, animations: {
             self.transparentBackView.transform = CGAffineTransform.identity
             self.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         })
@@ -253,7 +253,7 @@ class OTPVarificationVC: BaseVC {
         
         if isUsingForPhone{
             self.viewModel.state = .enterNewNumber
-            UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseOut) {
+            UIView.animate(withDuration: self.anomationDuration, delay: 0.0, options: .curveEaseOut) {
                 self.containerViewHeightConstraints.constant = 270.0
                 self.descriptionTopConstraints.constant = 0.0
                 self.resendLabelTopConstraints.constant = 0.0
@@ -268,7 +268,7 @@ class OTPVarificationVC: BaseVC {
             }
 
         }else{
-            UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseOut) {
+            UIView.animate(withDuration: self.anomationDuration, delay: 0.0, options: .curveEaseOut) {
                 self.containerViewHeightConstraints.constant = 360.0
                 self.descriptionTopConstraints.constant = 16.0
                 self.resendLabelTopConstraints.constant = 8.0
@@ -341,23 +341,46 @@ class OTPVarificationVC: BaseVC {
     }
     
     
+    func performDismissAnimation(){
+        UIView.animate(withDuration: self.anomationDuration, animations: {
+            self.transparentBackView.transform = CGAffineTransform(translationX: 0, y: self.transparentBackView.height)
+            self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
+        }) { (success) in
+            self.dismiss(animated: false, completion: {
+                self.delegate?.otpValidationCompleted(false)
+            })
+        }
+    }
+    
+    @IBAction func transparentViewTapped(_ sender: Any) {
+        
+        IQKeyboardManager.shared().isEnableAutoToolbar = true
+        switch self.viewModel.varificationType{
+        case .walletOtp:break;
+        case .phoneNumberChangeOtp:
+            self.viewModel.cancelValidation(isForUpdate: true)
+            self.performDismissAnimation()
+        case .setMobileNumber:
+            self.viewModel.cancelValidation(isForUpdate: false)
+            self.performDismissAnimation()
+        default: break;
+        }
+        
+        
+    }
+    
+    
     @IBAction func cancelButtonTapped(_ sender: Any) {
         IQKeyboardManager.shared().isEnableAutoToolbar = true
         switch self.viewModel.varificationType{
         case .walletOtp:
-            self.dismiss(animated: true){
-                self.delegate?.otpValidationCompleted(false)
-            }
+            self.performDismissAnimation()
         case .phoneNumberChangeOtp:
             self.viewModel.cancelValidation(isForUpdate: true)
-            self.dismiss(animated: true){
-                self.delegate?.otpValidationCompleted(false)
-            }
+            self.performDismissAnimation()
         case .setMobileNumber:
             self.viewModel.cancelValidation(isForUpdate: false)
-            self.dismiss(animated: true){
-                self.delegate?.otpValidationCompleted(false)
-            }
+            self.performDismissAnimation()
         default: break;
         }
     }
