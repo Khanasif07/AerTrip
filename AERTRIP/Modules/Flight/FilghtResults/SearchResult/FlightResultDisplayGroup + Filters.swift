@@ -378,7 +378,7 @@ extension FlightResultDisplayGroup  {
     }
     
     private func isTripDurationFilterApplied() -> Bool {
-        guard let userSel = userSelectedFilters, let inputFil = inputFilter else { return false }
+        guard let userSel = userSelectedFilters, let inputFil = inputFilter, initiatedFilters.contains(.tripDuration) else { return false }
         
         let userSelectedMinTime = Int(userSel.tt.minTime ?? "") ?? 0,
         userSelectedMaxTime = Int(userSel.tt.maxTime ?? "") ?? 0,
@@ -395,7 +395,7 @@ extension FlightResultDisplayGroup  {
     }
     
     private func isLayoverDurationFilterApplied() -> Bool {
-        guard let userSel = userSelectedFilters, let inputFil = inputFilter else { return false }
+        guard let userSel = userSelectedFilters, let inputFil = inputFilter, initiatedFilters.contains(.layoverDuration) else { return false }
         
         let userSelectedMinTime = Int(userSel.lott?.minTime ?? "") ?? 0,
         userSelectedMaxTime = Int(userSel.lott?.maxTime ?? "") ?? 0,
@@ -532,7 +532,7 @@ extension FlightResultDisplayGroup  {
     }
     
     private func isDepartureTimeFilterApplied() -> Bool {
-        guard let userFil = userSelectedFilters, let inputFil = inputFilter else { return false }
+        guard let userFil = userSelectedFilters, let inputFil = inputFilter, initiatedFilters.contains(.departureTime) else { return false }
         let departFilterCheck = !(userFil.dt.earliest <= inputFil.dt.earliest && userFil.dt.latest >= inputFil.dt.latest)
         if departFilterCheck {
             appliedSubFilters.insert(.departureTime)
@@ -543,7 +543,7 @@ extension FlightResultDisplayGroup  {
     }
     
     private func isArrivalTimeFilterApplied() -> Bool {
-        guard let userFil = userSelectedFilters, let inputFil = inputFilter else { return false }
+        guard let userFil = userSelectedFilters, let inputFil = inputFilter, initiatedFilters.contains(.arrivalTime) else { return false }
         let arrivalFilterCheck = !(userFil.arDt.earliest <= inputFil.arDt.earliest && userFil.arDt.latest >= inputFil.arDt.latest)
         if arrivalFilterCheck {
             appliedSubFilters.insert(.arrivalTime)

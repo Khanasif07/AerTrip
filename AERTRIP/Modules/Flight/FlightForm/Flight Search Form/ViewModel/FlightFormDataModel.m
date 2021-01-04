@@ -958,12 +958,6 @@
         [queryDictionay removeObjectsForKeys:[NSArray arrayWithObjects:@"depart", @"destination", @"origin", nil]];
     }
     
-    NSArray * filters = [queryDictionay valueForKey:@"filters"];
-    
-    FlightsRecentSearchesParamConverter *converter = [[FlightsRecentSearchesParamConverter alloc] init];
-    
-    NSDictionary * filterParam = [converter convertParam:filters];
-    [queryDictionay addEntriesFromDictionary:filterParam];
     [self performFlightSearchWebServiceCall:queryDictionay];
 }
 
