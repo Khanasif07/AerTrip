@@ -322,9 +322,11 @@ extension HotelResultVC: HotelResultDelegate {
         }
         
         if let recentSearchFilter = viewModel.getConvertedRecentSearchFilter() {
+            self.applyButtonTapped = true
+            UserDefaults.setObject(false, forKey: "shouldApplyFormStars")
             self.viewModel.fetchRequestType = .FilterApplied
-            self.viewModel.filterApplied = recentSearchFilter
-            self.viewModel.isFilterApplied = true
+            HotelFilterVM.shared.setData(from: recentSearchFilter)
+            self.doneButtonTapped()
         }
     }
     

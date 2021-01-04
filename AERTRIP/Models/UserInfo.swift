@@ -274,16 +274,37 @@ class UserInfo {
             maximumPrice  = Double(recentSearchFilter.maxPrice)
             leftRangePrice = Double(recentSearchFilter.boundaryMinPrice)
             rightRangePrice = Double(recentSearchFilter.boundaryMaxPrice)
-            amentities  = recentSearchFilter.amenities.map { $0.key }
+            var amenities = [String]()
+            recentSearchFilter.amenities.values.forEach { (val) in
+                if let value = val as? JSONDictionary {
+                    if let id = value["id"] as? String {
+                        amenities.append(id)
+                    }
+                }
+            }
+            amentities  = amenities
             var roomMeals = [String]()
-            if recentSearchFilter.no_meals { roomMeals.append(APIKeys.no_meals.rawValue) }
-            if recentSearchFilter.breakfast { roomMeals.append(APIKeys.breakfast.rawValue) }
-            if recentSearchFilter.full_board { roomMeals.append(APIKeys.full_board.rawValue) }
-            if recentSearchFilter.half_board { roomMeals.append(APIKeys.half_board.rawValue) }
-            if recentSearchFilter.otherMeals { roomMeals.append(APIKeys.others.rawValue) }
+            if recentSearchFilter.no_meals { roomMeals.append(LocalizedString.RoomOnly.localized) }
+            if recentSearchFilter.breakfast { roomMeals.append(LocalizedString.Breakfast.localized) }
+            if recentSearchFilter.full_board { roomMeals.append(LocalizedString.FullBoard.localized) }
+            if recentSearchFilter.half_board { roomMeals.append(LocalizedString.HalfBoard.localized) }
+            if recentSearchFilter.otherMeals { roomMeals.append(LocalizedString.Others.localized) }
             roomMeal  = roomMeals
-            roomCancelation  = []
-            roomOther  = []
+            var cancellationArr = [String]()
+            if recentSearchFilter.refundable { cancellationArr.append(LocalizedString.Refundable.localized) }
+            if recentSearchFilter.partiallyRefundable { cancellationArr.append(LocalizedString.PartRefundable.localized) }
+            if recentSearchFilter.nonRefundable { cancellationArr.append(LocalizedString.NonRefundable.localized) }
+            roomCancelation  = cancellationArr
+            
+            var othersArr = [String]()
+
+            if let wifi = recentSearchFilter.others["wifi"] as? Bool, wifi {
+                    othersArr.append(LocalizedString.FreeWifi.localized)
+                }
+            if let tranfer = recentSearchFilter.others["transfer"] as? Bool, tranfer {
+                othersArr.append(LocalizedString.TransferInclusive.localized)
+            }
+            roomOther  = othersArr
             sortUsing = .BestSellers
             priceType = .Total
            isFilterAppliedForDestinetionFlow = false
