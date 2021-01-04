@@ -510,9 +510,12 @@
     [self.delegate showLoaderIndicatorForFilghtSearch];
     __weak typeof(self) weakSelf = self;
 
+    NSMutableDictionary * searchParamsWithoutFilters = [flightSearchParameters mutableCopy];
+    [searchParamsWithoutFilters removeObjectForKey:@"filters"];
+    
     [[Network sharedNetwork]
      callGETApi:FLIGHT_SEARCH_API
-     parameters:flightSearchParameters
+     parameters:searchParamsWithoutFilters
      loadFromCache:NO
      expires:YES
      success:^(NSDictionary *dataDictionary) {
