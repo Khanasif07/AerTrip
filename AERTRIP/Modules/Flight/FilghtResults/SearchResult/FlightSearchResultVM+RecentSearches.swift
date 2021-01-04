@@ -33,6 +33,7 @@ extension FlightSearchResultVM {
         var recentSearchParamsWithFilters = recentSearchParameters
         if let dataQueryStr = recentSearchParameters["data[query]"] as? String {
             if var dataQuery = convertStringToDictionary(text: dataQueryStr) {
+                dataQuery = dataQuery.filter { !$0.key.contains("filters") }
                 dataQuery["filters"] = filtersDict
                 recentSearchParamsWithFilters["data[query]"] = convertDictionaryToString(dict: dataQuery)
             }
