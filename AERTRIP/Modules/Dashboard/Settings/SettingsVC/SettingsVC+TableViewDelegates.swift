@@ -89,9 +89,13 @@ extension SettingsVC : UITableViewDelegate, UITableViewDataSource {
 
             
         case .changePassword:
+            printDebug("changePassword")
+
             AppFlowManager.default.moveToChangePasswordVC(type: (UserInfo.loggedInUser?.hasPassword == true) ? .changePassword : .setPassword, delegate: self)
 
         case .changeMobileNumber:
+            printDebug("changeMobileNumber")
+
             self.changeMobileNumber()
             
         case .disableWalletOtp:

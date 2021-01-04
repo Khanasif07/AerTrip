@@ -16,7 +16,7 @@ enum APIEndPoint: String {
 //    case apiKey       = "3a457a74be76d6c3603059b559f6addf"//prod Android:- 7472e9071e9cf87bf2c12876a1fe2006
     
     case apiKey = "tN601pBsSsAdurccNv3wRfBjoATkgf7i"
-    
+     
     case apiKeyProd = "xuGAG03GMx75Ey1b6E0HYyK6PLEAX60V"
     
     //dev
