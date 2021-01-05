@@ -432,6 +432,9 @@ enum APIKeys: String {
     case creationDate
     case currentEvent
     
+    case transfer = "transfer"
+    case wifi = "wifi"
+    
     // MARK: - Booking module
     case bid
     case booking_date

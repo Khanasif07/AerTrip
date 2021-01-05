@@ -386,6 +386,7 @@ extension HotelsMapVC: HotelFilteVCDelegate {
         self.viewModel.loadSaveData()
         resetAllMarker()
         
+        viewModel.updateRecentSearch()
         //manage switch button when clear all filters
         // nitin self.getFavouriteHotels(shouldReloadData: false)
     }
@@ -416,7 +417,7 @@ extension HotelsMapVC: HotelFilteVCDelegate {
         self.filterButton.isSelected =  !(HotelFilterVM.shared.isSortingApplied || self.viewModel.isFilterApplied) ? false : true
         resetAllMarker()
         
-        
+        viewModel.updateRecentSearch()
     }
 }
 

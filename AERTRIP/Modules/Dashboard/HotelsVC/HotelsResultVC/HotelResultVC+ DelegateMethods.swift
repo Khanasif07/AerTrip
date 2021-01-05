@@ -421,7 +421,7 @@ extension HotelResultVC: HotelFilteVCDelegate {
         self.filterCollectionView.reloadData()
         //manage switch button when clear all filters
         // nitin self.getFavouriteHotels(shouldReloadData: false)
-        
+        viewModel.updateRecentSearch()
     }
     
     func doneButtonTapped() {
@@ -452,6 +452,8 @@ extension HotelResultVC: HotelFilteVCDelegate {
         // self.filterButton.isSelected =  !(HotelFilterVM.shared.isSortingApplied || self.viewModel.isFilterApplied) ? false : true
         self.filterButton.isSelected = HotelFilterVM.shared.isFilterApplied
         self.filterCollectionView.reloadData()
+        
+        viewModel.updateRecentSearch()
     }
 }
 

@@ -88,10 +88,10 @@ class HotelsResultVM: NSObject {
     var isFavouriteOn: Bool = false
     var tempHotelFilter: UserInfo.HotelFilter? = nil
     
-    var recentSearchFilters: RecentSearchesFilter?
+    var recentSearchModel: RecentSearchesModel?
     
     func getConvertedRecentSearchFilter() -> UserInfo.HotelFilter? {
-        guard let recentSearchFilter = recentSearchFilters else { return nil }
+        guard let recentSearchFilter = recentSearchModel?.filter else { return nil }
         let recentFilter = UserInfo.HotelFilter(recentSearchFilter: recentSearchFilter)
         return recentFilter
     }

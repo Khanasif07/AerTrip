@@ -270,14 +270,14 @@ class UserInfo {
             tripAdvisorRatingCount  = taRatings
             isIncludeUnrated  = true
             distanceRange  = 25
-            minimumPrice  = Double(recentSearchFilter.minPrice)
-            maximumPrice  = Double(recentSearchFilter.maxPrice)
-            leftRangePrice = Double(recentSearchFilter.boundaryMinPrice)
-            rightRangePrice = Double(recentSearchFilter.boundaryMaxPrice)
+            minimumPrice  = Double(recentSearchFilter.boundaryMinPrice)
+            maximumPrice  = Double(recentSearchFilter.boundaryMaxPrice)
+            leftRangePrice = Double(recentSearchFilter.minPrice)
+            rightRangePrice = Double(recentSearchFilter.maxPrice)
             var amenities = [String]()
             recentSearchFilter.amenities.values.forEach { (val) in
                 if let value = val as? JSONDictionary {
-                    if let id = value["id"] as? String {
+                    if let id = value[APIKeys.id.rawValue] as? String, let isChecked = value[APIKeys.isChecked.rawValue] as? Bool, isChecked {
                         amenities.append(id)
                     }
                 }
@@ -298,10 +298,10 @@ class UserInfo {
             
             var othersArr = [String]()
 
-            if let wifi = recentSearchFilter.others["wifi"] as? Bool, wifi {
+            if let wifi = recentSearchFilter.others[APIKeys.wifi.rawValue] as? Bool, wifi {
                     othersArr.append(LocalizedString.FreeWifi.localized)
                 }
-            if let tranfer = recentSearchFilter.others["transfer"] as? Bool, tranfer {
+            if let tranfer = recentSearchFilter.others[APIKeys.transfer.rawValue] as? Bool, tranfer {
                 othersArr.append(LocalizedString.TransferInclusive.localized)
             }
             roomOther  = othersArr

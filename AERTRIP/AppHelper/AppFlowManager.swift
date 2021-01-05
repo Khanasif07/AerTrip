@@ -411,10 +411,10 @@ extension AppFlowManager {
         
     }
     
-    func moveToHotelsResultVc(withFormData: HotelFormPreviosSearchData, recentSearchFilter: RecentSearchesFilter?) {
+    func moveToHotelsResultVc(withFormData: HotelFormPreviosSearchData, recentSearchModel: RecentSearchesModel?) {
         let obj = HotelResultVC.instantiate(fromAppStoryboard: .HotelsSearch)
         obj.viewModel.searchedFormData = withFormData
-        obj.viewModel.recentSearchFilters = recentSearchFilter
+        obj.viewModel.recentSearchModel = recentSearchModel
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
