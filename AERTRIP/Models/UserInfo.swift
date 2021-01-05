@@ -254,7 +254,61 @@ class UserInfo {
             
         }
         
-        
+        init(recentSearchFilter: RecentSearchesFilter) {
+            ratingCount =  recentSearchFilter.stars
+            var taRatings = [Int]()
+            if recentSearchFilter.noTripAdvisorStar {
+                taRatings = [1, 2, 3, 4, 5]
+            } else {
+                if recentSearchFilter.firstTripAdvisorStar { taRatings.append(1) }
+                if recentSearchFilter.secondTripAdvisorStar { taRatings.append(2) }
+                if recentSearchFilter.thirdTripAdvisorStar { taRatings.append(3) }
+                if recentSearchFilter.fourthTripAdvisorStar { taRatings.append(4) }
+                if recentSearchFilter.fifthTripAdvisorStar { taRatings.append(5) }
+            }
+            if taRatings.isEmpty { taRatings = [1, 2, 3, 4, 5] }
+            tripAdvisorRatingCount  = taRatings
+            isIncludeUnrated  = true
+            distanceRange  = 25
+            minimumPrice  = Double(recentSearchFilter.boundaryMinPrice)
+            maximumPrice  = Double(recentSearchFilter.boundaryMaxPrice)
+            leftRangePrice = Double(recentSearchFilter.minPrice)
+            rightRangePrice = Double(recentSearchFilter.maxPrice)
+            var amenities = [String]()
+            recentSearchFilter.amenities.values.forEach { (val) in
+                if let value = val as? JSONDictionary {
+                    if let id = value[APIKeys.id.rawValue] as? String, let isChecked = value[APIKeys.isChecked.rawValue] as? Bool, isChecked {
+                        amenities.append(id)
+                    }
+                }
+            }
+            amentities  = amenities
+            var roomMeals = [String]()
+            if recentSearchFilter.no_meals { roomMeals.append(LocalizedString.RoomOnly.localized) }
+            if recentSearchFilter.breakfast { roomMeals.append(LocalizedString.Breakfast.localized) }
+            if recentSearchFilter.full_board { roomMeals.append(LocalizedString.FullBoard.localized) }
+            if recentSearchFilter.half_board { roomMeals.append(LocalizedString.HalfBoard.localized) }
+            if recentSearchFilter.otherMeals { roomMeals.append(LocalizedString.Others.localized) }
+            roomMeal  = roomMeals
+            var cancellationArr = [String]()
+            if recentSearchFilter.refundable { cancellationArr.append(LocalizedString.Refundable.localized) }
+            if recentSearchFilter.partiallyRefundable { cancellationArr.append(LocalizedString.PartRefundable.localized) }
+            if recentSearchFilter.nonRefundable { cancellationArr.append(LocalizedString.NonRefundable.localized) }
+            roomCancelation  = cancellationArr
+            
+            var othersArr = [String]()
+
+            if let wifi = recentSearchFilter.others[APIKeys.wifi.rawValue] as? Bool, wifi {
+                    othersArr.append(LocalizedString.FreeWifi.localized)
+                }
+            if let tranfer = recentSearchFilter.others[APIKeys.transfer.rawValue] as? Bool, tranfer {
+                othersArr.append(LocalizedString.TransferInclusive.localized)
+            }
+            roomOther  = othersArr
+            sortUsing = .BestSellers
+            priceType = .Total
+           isFilterAppliedForDestinetionFlow = false
+        }
         
     }
     

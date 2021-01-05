@@ -321,6 +321,14 @@ extension HotelResultVC: HotelResultDelegate {
         } else {
             loadFinalDataOnScreen()
         }
+        
+        if let recentSearchFilter = viewModel.getConvertedRecentSearchFilter() {
+            self.applyButtonTapped = true
+            UserDefaults.setObject(false, forKey: "shouldApplyFormStars")
+            self.viewModel.fetchRequestType = .FilterApplied
+            HotelFilterVM.shared.setData(from: recentSearchFilter)
+            self.doneButtonTapped()
+        }
     }
     
     func getAllHotelsListResultFail(errors: ErrorCodes) {
@@ -414,7 +422,7 @@ extension HotelResultVC: HotelFilteVCDelegate {
         self.filterCollectionView.reloadData()
         //manage switch button when clear all filters
         // nitin self.getFavouriteHotels(shouldReloadData: false)
-        
+        viewModel.updateRecentSearch()
     }
     
     func doneButtonTapped() {
@@ -445,6 +453,8 @@ extension HotelResultVC: HotelFilteVCDelegate {
         // self.filterButton.isSelected =  !(HotelFilterVM.shared.isSortingApplied || self.viewModel.isFilterApplied) ? false : true
         self.filterButton.isSelected = HotelFilterVM.shared.isFilterApplied
         self.filterCollectionView.reloadData()
+        
+        viewModel.updateRecentSearch()
     }
 }
 
