@@ -66,7 +66,7 @@ class ChangeEmailVC: BaseVC {
     }
     
     @IBAction func cancelButtonTapped(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        self.performDismissAnimation()
     }
     
     @IBAction func nextButtonTapped(_ sender: Any) {
@@ -137,6 +137,17 @@ class ChangeEmailVC: BaseVC {
         self.passwordTextField.placeholder = LocalizedString.Password.localized
     }
     
+    func performDismissAnimation(){
+        UIView.animate(withDuration: 0.5, animations: {
+            self.transparentBackView.transform = CGAffineTransform(translationX: 0, y: self.transparentBackView.height)
+            self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
+        }) { (success) in
+            self.dismiss(animated: false, completion: {
+//                self.delegate?.otpValidationCompleted(false)
+            })
+        }
+    }
+    
 }
 
 
@@ -162,7 +173,7 @@ extension ChangeEmailVC : ChangeEmailDelegate {
     
     func changeEmailSuccess() {
         self.nextButton.isLoading = false
-        self.dismiss(animated: true, completion: nil)
+        self.performDismissAnimation()
         AppToast.default.showToastMessage(message: "Email changed successfully.")
 
     }
