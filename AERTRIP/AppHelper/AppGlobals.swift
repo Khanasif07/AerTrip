@@ -740,7 +740,8 @@ extension AppGlobals {
     }
     
     func getAirlineCodeImageUrl(code: String) -> String {
-        return "https://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/\(code.uppercased()).png"
+        return "\(AppKeys.airlineMasterBaseUrl)\(code.uppercased()).png"
+        //"https://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/\(code.uppercased()).png"
     }
     
     func getBlurView(forView: UIView, isDark: Bool) -> UIVisualEffectView {
