@@ -147,9 +147,7 @@ class ChangeEmailVC: BaseVC {
             })
         }
     }
-    
 }
-
 
 extension ChangeEmailVC  {
     

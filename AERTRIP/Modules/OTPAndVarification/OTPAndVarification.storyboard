@@ -157,13 +157,13 @@
                                                 </subviews>
                                             </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YUA-Gc-l4m" customClass="ActiveLabel" customModule="ActiveLabel">
-                                                <rect key="frame" x="16" y="269.5" width="382" height="20.5"/>
+                                                <rect key="frame" x="16" y="269.5" width="382" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rhf-zm-oZ0" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="132" y="306" width="150" height="50"/>
+                                                <rect key="frame" x="132" y="306.5" width="150" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="150" id="fxp-JL-RtX"/>
                                                     <constraint firstAttribute="height" constant="50" id="lzJ-K4-ztI"/>
@@ -583,22 +583,22 @@
     </scenes>
     <designables>
         <designable name="4jy-Ri-TrP">
-            <size key="intrinsicContentSize" width="4" height="19"/>
+            <size key="intrinsicContentSize" width="4" height="18.5"/>
         </designable>
         <designable name="FgI-Lp-Fw0">
-            <size key="intrinsicContentSize" width="4" height="19"/>
+            <size key="intrinsicContentSize" width="4" height="18.5"/>
         </designable>
         <designable name="Hqn-Xw-Ktj">
             <size key="intrinsicContentSize" width="4" height="19"/>
         </designable>
         <designable name="Jj2-wh-1Yu">
-            <size key="intrinsicContentSize" width="4" height="19"/>
+            <size key="intrinsicContentSize" width="4" height="18.5"/>
         </designable>
         <designable name="LW2-o7-uio">
             <size key="intrinsicContentSize" width="4" height="19"/>
         </designable>
         <designable name="MIP-Ho-8Lf">
-            <size key="intrinsicContentSize" width="4" height="19"/>
+            <size key="intrinsicContentSize" width="4" height="18.5"/>
         </designable>
         <designable name="YUA-Gc-l4m">
             <size key="intrinsicContentSize" width="42" height="21"/>
