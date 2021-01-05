@@ -71,6 +71,7 @@ class ChangeEmailVC: BaseVC {
     
     @IBAction func nextButtonTapped(_ sender: Any) {
         self.nextButton.isLoading = true
+        self.view.endEditing(true)
         self.viewModel.changeEmail(email: self.newEmailTextField.text ?? "", password: self.passwordTextField.text ?? "")
     }
     
@@ -149,7 +150,7 @@ extension ChangeEmailVC  {
 
 
 extension ChangeEmailVC : ChangeEmailDelegate {
-    
+   
     func validate(isValid: Bool, msg: String) {
         self.nextButton.isLoading = false
         AppToast.default.showToastMessage(message: msg)
@@ -161,12 +162,18 @@ extension ChangeEmailVC : ChangeEmailDelegate {
     
     func changeEmailSuccess() {
         self.nextButton.isLoading = false
+        self.dismiss(animated: true, completion: nil)
+        AppToast.default.showToastMessage(message: "Email changed successfully.")
 
     }
     
-    func errorInChangingEmail(msg : String) {
+    func errorInChangingEmail(error : ErrorCodes) {
         self.nextButton.isLoading = false
-        AppToast.default.showToastMessage(message: msg)
+//        AppToast.default.showToastMessage(message: msg)
+        AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .otp)
+
+
+
     }
     
 }
