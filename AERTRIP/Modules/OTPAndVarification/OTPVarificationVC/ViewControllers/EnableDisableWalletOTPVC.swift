@@ -79,8 +79,8 @@ class EnableDisableWalletOTPVC: BaseVC {
         }else{
             self.descriptionLabel.text = LocalizedString.enableOtpVerificationMsg.localized
         }
-        
     }
+    
     private func setUpSubView(){
         self.containerView.layer.masksToBounds = true
         self.containerView.layer.cornerRadius = 13.0
