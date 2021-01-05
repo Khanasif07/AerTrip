@@ -1189,6 +1189,7 @@
 		84432AEA2420F7B100E7A387 /* UIPanGestureRecognizerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84432AE92420F7B100E7A387 /* UIPanGestureRecognizerExtension.swift */; };
 		8443EAA325A31BF900CA3B65 /* ChangeEmailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8443EAA225A31BF900CA3B65 /* ChangeEmailVC.swift */; };
 		8443EAA525A348A900CA3B65 /* ChangeEmailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8443EAA425A348A900CA3B65 /* ChangeEmailVM.swift */; };
+		8443EAA725A46B5000CA3B65 /* ApiCaller+ChangeEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8443EAA625A46B5000CA3B65 /* ApiCaller+ChangeEmail.swift */; };
 		84457BF1259C93C100D35EAE /* VersionControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84457BF0259C93C000D35EAE /* VersionControler.swift */; };
 		84457BF3259C968500D35EAE /* APICaller+OPTVarification+VersionControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84457BF2259C968400D35EAE /* APICaller+OPTVarification+VersionControl.swift */; };
 		84457BF5259D008100D35EAE /* VersionControlData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84457BF4259D008100D35EAE /* VersionControlData.swift */; };
@@ -2966,6 +2967,7 @@
 		84432AE92420F7B100E7A387 /* UIPanGestureRecognizerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPanGestureRecognizerExtension.swift; sourceTree = "<group>"; };
 		8443EAA225A31BF900CA3B65 /* ChangeEmailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailVC.swift; sourceTree = "<group>"; };
 		8443EAA425A348A900CA3B65 /* ChangeEmailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailVM.swift; sourceTree = "<group>"; };
+		8443EAA625A46B5000CA3B65 /* ApiCaller+ChangeEmail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ApiCaller+ChangeEmail.swift"; sourceTree = "<group>"; };
 		84457BF0259C93C000D35EAE /* VersionControler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionControler.swift; sourceTree = "<group>"; };
 		84457BF2259C968400D35EAE /* APICaller+OPTVarification+VersionControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "APICaller+OPTVarification+VersionControl.swift"; sourceTree = "<group>"; };
 		84457BF4259D008100D35EAE /* VersionControlData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionControlData.swift; sourceTree = "<group>"; };
@@ -9275,6 +9277,7 @@
 				1892EE8C24AF568400C7FCFB /* APICaller+FlightPending.swift */,
 				0C9BF1CB2581FDB500BAFF3B /* APICaller+FlightDetails.swift */,
 				0C402E062599CBF9001FDC54 /* APICaller+OPTVarification.swift */,
+				8443EAA625A46B5000CA3B65 /* ApiCaller+ChangeEmail.swift */,
 			);
 			path = APICaller;
 			sourceTree = "<group>";
@@ -10351,6 +10354,7 @@
 				1879C49B2292BD2600897CED /* DownloadInvoiceTableViewCell.swift in Sources */,
 				0C1238DF24CB25D1004828AE /* FlightFormViewController.m in Sources */,
 				84085CE321F59C0E00F1E844 /* SuccessPopupVC.swift in Sources */,
+				8443EAA725A46B5000CA3B65 /* ApiCaller+ChangeEmail.swift in Sources */,
 				841AA5102474496600B66720 /* MARKRangeSlider+Extension.swift in Sources */,
 				189EF58822B7B7C600D5E055 /* AdditionalInformationModel.swift in Sources */,
 				8463A5652456C7B200C70D8C /* GMUHeatmapTileLayer.m in Sources */,

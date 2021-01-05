@@ -155,4 +155,18 @@ extension ChangeEmailVC : ChangeEmailDelegate {
         AppToast.default.showToastMessage(message: msg)
     }
     
+    func willChnageEmail() {
+
+    }
+    
+    func changeEmailSuccess() {
+        self.nextButton.isLoading = false
+
+    }
+    
+    func errorInChangingEmail(msg : String) {
+        self.nextButton.isLoading = false
+        AppToast.default.showToastMessage(message: msg)
+    }
+    
 }

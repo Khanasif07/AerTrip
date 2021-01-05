@@ -9,9 +9,10 @@
 import Foundation
 
 protocol ChangeEmailDelegate : class {
-    
     func validate(isValid: Bool, msg : String)
-    
+    func willChnageEmail()
+    func changeEmailSuccess()
+    func errorInChangingEmail(error : ErrorCodes)
 }
 
 class ChangeEmailVM {
@@ -22,7 +23,7 @@ class ChangeEmailVM {
     func changeEmail(email : String, password : String){
         
         if checkIfValid(email: email, password: password) {
-            
+            self.changeEmailApi(email: email, password: password)
         }
         
     }
@@ -43,5 +44,19 @@ class ChangeEmailVM {
         return true
     }
     
+    
+    func changeEmailApi(email : String, password : String) {
+    
+        let params : JSONDictionary = ["new_email" : email, "password" : password]
+        
+        APICaller.shared.changeEmail(params: params) { (success, codes) in
+            if success {
+                self.delegate?.changeEmailSuccess()
+            } else {
+                self.delegate?.errorInChangingEmail(error: codes)
+            }
+        }
+        
+    }
     
 }
