@@ -43,7 +43,8 @@ class ImportContactVC: BaseVC {
         }
     }
     
-    private let allTabsStr: [String] = [LocalizedString.Contacts.localized, LocalizedString.Facebook.localized, LocalizedString.Google.localized]
+    private let allTabsStr: [String] = [LocalizedString.Contacts.localized, LocalizedString.Google.localized]
+    //[LocalizedString.Contacts.localized, LocalizedString.Facebook.localized, LocalizedString.Google.localized]
     
     
     var allChildVCs: [ContactListVC] = [ContactListVC]()

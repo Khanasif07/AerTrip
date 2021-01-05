@@ -13,8 +13,8 @@ class ContactListVC: BaseVC {
     
     enum UsingFor: Int {
         case contacts = 0
-        case facebook = 1
-        case google = 2
+        case facebook = 2
+        case google = 1
     }
     
     //MARK:- IBOutlets

@@ -117,7 +117,7 @@ class PassengerDetailsCell: UICollectionViewCell {
                 setupForAdd()
             }
             else {
-                infoImageView.isHidden = !((fName.removeAllWhitespaces.isEmpty || fName.count < 3 || !fName.isName) || (lName.removeAllWhitespaces.isEmpty || lName.count < 3 || !lName.isName) || saltn.isEmpty)
+                infoImageView.isHidden = !((fName.removeAllWhitespaces.isEmpty || fName.count < 1 || !fName.isName) || (lName.removeAllWhitespaces.isEmpty || lName.count < 1 || !lName.isName) || saltn.isEmpty)
                 firstNameLabel.text = fName
                 lastNameLabel.text = lName
                 if !lName.isEmpty {

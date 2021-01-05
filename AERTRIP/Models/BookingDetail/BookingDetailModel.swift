@@ -391,7 +391,7 @@ extension BookingDetailModel {
                     }
                     
                     let attributedStr1 = NSMutableAttributedString(string: routeStr)
-                    if travLastIndex > 0 {
+                    if travLastIndex > 0 && (self.bookingDetail?.journeyCompleted != 1){
                         attributedStr1.addAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeGray20], range: NSRange(location: 0, length: travLastIndex + 2))
                     }
                     return attributedStr1

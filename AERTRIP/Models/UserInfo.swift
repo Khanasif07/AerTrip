@@ -374,6 +374,16 @@ class UserInfo {
         }
     }
     
+    var isWalletEnable: Bool{
+        get{
+            return ((userData?["disable_wallet_otp"] as? String ?? "0") == "0")
+        }
+        set{
+            
+            updateInfo(withData: ["disable_wallet_otp":(newValue ? "0" : "1")])
+        }
+    }
+    
     var hasPassword: Bool {
         get{
             if let value = userData?["has_password"] as? Bool {

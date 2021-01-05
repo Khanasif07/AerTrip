@@ -214,7 +214,7 @@ extension String {
     }
     
     var isName:Bool{
-        let name = "[A-Z a-z]{3,}"
+        let name = "[A-Z a-z]{1,}"
         let nameTest = NSPredicate(format: "SELF MATCHES %@", name)
         return nameTest.evaluate(with: self)
        

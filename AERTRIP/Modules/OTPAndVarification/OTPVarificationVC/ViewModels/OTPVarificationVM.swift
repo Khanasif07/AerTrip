@@ -40,6 +40,66 @@ class OTPVarificationVM{
     }
     var state : CurrenState = .otpToOldNumber
     
+    
+    func validateAndApiCall(with otpText: String) -> (isSucces: Bool, errorMsg : String){
+        
+        switch self.varificationType{
+        case .walletOtp:
+            if !(otpText.isEmpty){
+                self.validateOTP(with: otpText)
+                return (true, "")
+            }else{
+                return (false, LocalizedString.validOtpMsg.localized)
+            }
+        case .phoneNumberChangeOtp:
+            switch self.state {
+            case .otpToOldNumber, .otpForNewNumnber:
+                if !(otpText.isEmpty){
+                    self.validateOTPForMobile(with: otpText, isForUpdate: true)
+                    return (true, "")
+                }else{
+                    return (false, LocalizedString.validOtpMsg.localized)
+                }
+            case .enterNewNumber:
+                if ((!self.mobile.isEmpty) && self.mobile.getOnlyIntiger.count < self.minMNS || self.mobile.getOnlyIntiger.count > self.maxMNS){
+                    return (false, LocalizedString.fillContactDetails.localized)
+                    
+                }else{
+                    self.sendOTPForNumberChange(on: self.mobile, isd: self.isdCode, isNeedParam: true)
+                    return (true, "")
+                }
+            }
+        case .setMobileNumber:
+            switch self.state {
+            case .otpToOldNumber:
+                if !(otpText.isEmpty){
+                    self.validatePassword(with: otpText)
+                    return (true, "")
+                }else{
+                    return (false, LocalizedString.enterAccountPasswordMsg.localized)
+                    
+                }
+            case .enterNewNumber:
+                if ((!self.mobile.isEmpty) && self.mobile.getOnlyIntiger.count < self.minMNS || self.mobile.getOnlyIntiger.count > self.maxMNS){
+                    return (false, LocalizedString.fillContactDetails.localized)
+                    
+                }else{
+                    self.setMobileNumber()
+                    return (true, "")
+                }
+            case .otpForNewNumnber:
+                if !(otpText.isEmpty){
+                    self.validateOTPForMobile(with: otpText, isForUpdate: false)
+                    return (true, "")
+                }else{
+                    return (false, LocalizedString.validOtpMsg.localized)
+                }
+            }
+        default: return (true, "")
+        }
+    }
+    
+    
     func sendOtpToUser(){
         APICaller.shared.sendOTPOnMobile {[weak self] (success, error) in
             guard let self = self else {return}

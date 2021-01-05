@@ -111,14 +111,14 @@ class PassengerDetailsVM {
         
         for contact in GuestDetailsVM.shared.guests[0]{
             if !contact.firstName.removeAllWhitespaces.isEmpty{
-                if contact.firstName.count < 3 {
+                if contact.firstName.count < 1 {
                     return (false, LocalizedString.firstName3Char.localized)
                 } else if !contact.firstName.isName {
                     return (false, LocalizedString.fistNameNumeric.localized)
                 }
             }
             if !contact.lastName.removeAllWhitespaces.isEmpty {
-                if  contact.lastName.count < 3 {
+                if  contact.lastName.count < 1 {
                     return (false, LocalizedString.lastName3Char.localized)
                 }else if !contact.lastName.isName {
                     return (false, LocalizedString.lastNameNumeric.localized)

@@ -235,6 +235,7 @@ enum LocalizedString: String {
     case ChangePassword
     case changeMobileNumber
     case setMobileNumner
+    case disableWalletOtp
 
     
     
@@ -1272,6 +1273,16 @@ enum LocalizedString: String {
     case tochangeMobileNumber
     case proceed
     case kindlyEnterOtp
+    case verifyYourCredential
+    case enterAccountPasswordMsg
+    case disableOtpVerificationMsg
+    case enableOtpVerificationMsg
+    case enterMobileOtpMsg
+    case enterEmailOtpMsg
+    case enterMobileOtp
+    case enterEmailOtp
+    case newMobileNumber
+    case validOtpMsg
     
     case Update_Aertrip = "Update_Aertrip"
     case Soft_Update_Msg = "Soft_Update_Msg"

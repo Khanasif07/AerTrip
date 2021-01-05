@@ -16,7 +16,7 @@ enum APIEndPoint: String {
 //    case apiKey       = "3a457a74be76d6c3603059b559f6addf"//prod Android:- 7472e9071e9cf87bf2c12876a1fe2006
     
     case apiKey = "tN601pBsSsAdurccNv3wRfBjoATkgf7i"
-    
+     
     case apiKeyProd = "xuGAG03GMx75Ey1b6E0HYyK6PLEAX60V"
     
     //dev
@@ -208,9 +208,14 @@ enum APIEndPoint: String {
     case setUserMobileCheck = "users/set-user-mobile-check"
     case setUserMobile = "users/set-user-mobile"
     case versionControl = "users/version-control"
-    
+//    case getUserData = "users/meta"
     case validateOtpForSetMobile = "users/user-mobile-validate-otp"
     case cancelOtpForSetMobile = "users/user-mobile-validation-cancel"
+    case enableDesableWalletOtp = "users/status-wallet-otp"
+    case validateDisableOtp = "users/disable-wallet-otp"
+    case cancelWalletEnableDisable = "users/user-disable-wallet-otp-cancel"
+    case changeLogin = "users/change-login"
+    
 }
 
 // MARK: - endpoint extension for url -
