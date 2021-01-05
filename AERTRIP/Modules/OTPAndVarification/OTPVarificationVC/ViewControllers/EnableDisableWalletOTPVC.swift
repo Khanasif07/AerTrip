@@ -73,11 +73,11 @@ class EnableDisableWalletOTPVC: BaseVC {
     
     override func setupTexts() {
         self.cancelButton.setTitle(LocalizedString.Cancel.localized, for: .normal)
-        self.verifyYourCredential.text = "Verify your credentials"
+        self.verifyYourCredential.text = LocalizedString.verifyYourCredential.localized
         if (UserInfo.loggedInUser?.isWalletEnable ?? true){
-            self.descriptionLabel.text = "To Disable the OTP verification flow on wallet payment,\nplease enter your password and OTPs sent to your registered email and mobile"
+            self.descriptionLabel.text = LocalizedString.disableOtpVerificationMsg.localized
         }else{
-            self.descriptionLabel.text = "To Enable the OTP verification flow on wallet payment,\nplease enter your password "
+            self.descriptionLabel.text = LocalizedString.enableOtpVerificationMsg.localized
         }
         
     }
@@ -197,13 +197,13 @@ class EnableDisableWalletOTPVC: BaseVC {
         if (UserInfo.loggedInUser?.isWalletEnable ?? true){
             if (self.passwordTextField.text?.isEmpty ?? true){
                 self.passwordTextField.isError = true
-                AppToast.default.showToastMessage(message: "Please enter your account password.")
+                AppToast.default.showToastMessage(message: LocalizedString.enterAccountPasswordMsg.localized)
             }else if (self.otpPhoneTextField.text?.isEmpty ?? true){
                 self.otpPhoneTextField.isError = true
-                AppToast.default.showToastMessage(message: "Please enter the valid mobile otp.")
+                AppToast.default.showToastMessage(message: LocalizedString.enterMobileOtpMsg.localized)
             }else if (self.otpEmailTextField.text?.isEmpty ?? true){
                 self.otpEmailTextField.isError = true
-                AppToast.default.showToastMessage(message: "Please enter the valid email otp.")
+                AppToast.default.showToastMessage(message: LocalizedString.enterEmailOtpMsg.localized)
             }else{
                 self.nextButton.isLoading = true
                 let dict : JSONDictionary = [
@@ -216,7 +216,7 @@ class EnableDisableWalletOTPVC: BaseVC {
         }else{
             if (self.passwordTextField.text?.isEmpty ?? true){
                 self.passwordTextField.isError = true
-                AppToast.default.showToastMessage(message: "Please enter your account password.")
+                AppToast.default.showToastMessage(message: LocalizedString.enterAccountPasswordMsg.localized)
             }else{
                 self.nextButton.isLoading = true
                 let dict : JSONDictionary = ["passcode" : self.passwordTextField.text ?? ""]

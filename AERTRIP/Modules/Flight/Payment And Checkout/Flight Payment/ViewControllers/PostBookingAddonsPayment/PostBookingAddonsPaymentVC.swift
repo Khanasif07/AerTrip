@@ -86,6 +86,19 @@ class PostBookingAddonsPaymentVC: BaseVC{
         self.viewModel.makePayment(forAmount: self.getTotalPayableAmount(), useWallet: self.isWallet)
     }
     
+//    func checkForWalletOTP(){
+//        if (self.isWallet && self.getWalletAmount() > 100) && (UserInfo.loggedInUser?.isWalletEnable ?? false){
+//            let vc = OTPVarificationVC.instantiate(fromAppStoryboard: .OTPAndVarification)
+//            vc.modalPresentationStyle = .overFullScreen
+//            vc.viewModel.itId = self.viewModel.appliedCouponData.itinerary.id
+//            vc.viewModel.varificationType = .walletOtp
+//            vc.delegate = self
+//            self.present(vc, animated: true, completion: nil)
+//        }else{
+//            self.viewModel.makePayment(forAmount: self.getTotalPayableAmount(), useWallet: self.isWallet)
+//        }
+//    }
+    
     
     // Registe all Xib file to checkOut table view
     private func registerXib() {

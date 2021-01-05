@@ -162,7 +162,7 @@ extension BookingData {
                         }
                         
                         let attributedStr1 = NSMutableAttributedString(string: routeStr)
-                        if travLastIndex > 0 {
+                        if travLastIndex > 0 && self.bookingTabType == 1{
 //                            attributedStr1.addAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeGray20], range: NSRange(location: 0, length: travLastIndex+3))
                             attributedStr1.addAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeGray20], range: NSRange(location: 0, length: travLastIndex))
                         }
@@ -178,6 +178,48 @@ extension BookingData {
             return NSMutableAttributedString(string: self.serviceType ?? LocalizedString.dash.localized)
         }
     }
+    
+    
+//    func createNameForMulticity() -> NSMutableAttributedString{
+//        //multi flight case
+//        if let routes = self.routes as? [[String]], let travledCity = self.travelledCities as? [String] {
+//
+//            //travlled some where
+//            var routeStr = ""
+//            var travLastIndex: Int = 0
+//            var prevCount: Int = 0
+//            for route in routes {
+//                var temp = route.joined(separator: " → ")
+//
+//                if !routeStr.isEmpty {
+//                    temp = ", \(temp)"
+//                }
+//
+//                for (idx, ct) in route.enumerated() {
+//                    let newIdx = idx + prevCount
+//                    if travledCity.count > newIdx, travledCity[newIdx] == ct {
+//                        //travelled through this city
+//                        var currentCityTemp = " \(ct) →"
+//                        if !routeStr.isEmpty, idx == 0 {
+//                            currentCityTemp = ", \(ct) →"
+//                        }
+//                        travLastIndex = routeStr.count + currentCityTemp.count
+//                    }
+//                }
+//                routeStr += temp
+//                prevCount = route.count
+//            }
+//
+//            let attributedStr1 = NSMutableAttributedString(string: routeStr)
+//            if travLastIndex > 0 && self.bookingTabType == 1{
+//                //                            attributedStr1.addAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeGray20], range: NSRange(location: 0, length: travLastIndex+3))
+//                attributedStr1.addAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeGray20], range: NSRange(location: 0, length: travLastIndex))
+//            }
+//            return attributedStr1
+//
+//        }
+//        return NSMutableAttributedString(string: LocalizedString.dash.localized)
+//    }
     
     var flightBookingTitle:NSMutableAttributedString?{
         
