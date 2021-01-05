@@ -57,6 +57,24 @@ class SettingsCell: UITableViewCell {
             self.arrowImageView.isHidden = true
             self.switch.setOn(toggleSettings.calenderSyncSettings, animated: false)
 
+        case .changePassword:
+            self.settingsValueLavel.isHidden = false
+            self.settingsValueLavel.text = ""
+            let title = (UserInfo.loggedInUser?.hasPassword == true) ? LocalizedString.ChangePassword.localized : LocalizedString.Set_password.localized
+            settingsLabel.text = title
+            
+        case .changeMobileNumber:
+            self.settingsValueLavel.isHidden = false
+            self.settingsValueLavel.text = ""
+            let title = (UserInfo.loggedInUser?.mobile != "" ) ? LocalizedString.changeMobileNumber.localized : LocalizedString.setMobileNumner.localized
+            settingsLabel.text = title
+            
+        case .disableWalletOtp:
+            self.settingsValueLavel.isHidden = false
+            self.settingsValueLavel.text = ""
+            let title = (UserInfo.loggedInUser?.isWalletEnable == true) ? "Disable Wallet OTP" : "Enable Wallet OTP"
+            settingsLabel.text = title
+            
         default:
             self.settingsValueLavel.isHidden = true
 

@@ -79,8 +79,8 @@ class EnableDisableWalletOTPVC: BaseVC {
         }else{
             self.descriptionLabel.text = "To Enable the OTP verification flow on wallet payment,\nplease enter your password "
         }
-        
     }
+    
     private func setUpSubView(){
         self.containerView.layer.masksToBounds = true
         self.containerView.layer.cornerRadius = 13.0

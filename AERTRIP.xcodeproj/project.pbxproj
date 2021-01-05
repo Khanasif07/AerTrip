@@ -1187,6 +1187,8 @@
 		8441B24224C6B3D9001A465F /* SnappingCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8441B24124C6B3D8001A465F /* SnappingCollectionViewLayout.swift */; };
 		8441BFAC22AA6E7A0046830B /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8441BFAB22AA6E7A0046830B /* MyViewController.swift */; };
 		84432AEA2420F7B100E7A387 /* UIPanGestureRecognizerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84432AE92420F7B100E7A387 /* UIPanGestureRecognizerExtension.swift */; };
+		8443EAA325A31BF900CA3B65 /* ChangeEmailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8443EAA225A31BF900CA3B65 /* ChangeEmailVC.swift */; };
+		8443EAA525A348A900CA3B65 /* ChangeEmailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8443EAA425A348A900CA3B65 /* ChangeEmailVM.swift */; };
 		84457BF1259C93C100D35EAE /* VersionControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84457BF0259C93C000D35EAE /* VersionControler.swift */; };
 		84457BF3259C968500D35EAE /* APICaller+OPTVarification+VersionControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84457BF2259C968400D35EAE /* APICaller+OPTVarification+VersionControl.swift */; };
 		84457BF5259D008100D35EAE /* VersionControlData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84457BF4259D008100D35EAE /* VersionControlData.swift */; };
@@ -2962,6 +2964,8 @@
 		8441B24124C6B3D8001A465F /* SnappingCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnappingCollectionViewLayout.swift; sourceTree = "<group>"; };
 		8441BFAB22AA6E7A0046830B /* MyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewController.swift; sourceTree = "<group>"; };
 		84432AE92420F7B100E7A387 /* UIPanGestureRecognizerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPanGestureRecognizerExtension.swift; sourceTree = "<group>"; };
+		8443EAA225A31BF900CA3B65 /* ChangeEmailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailVC.swift; sourceTree = "<group>"; };
+		8443EAA425A348A900CA3B65 /* ChangeEmailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailVM.swift; sourceTree = "<group>"; };
 		84457BF0259C93C000D35EAE /* VersionControler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionControler.swift; sourceTree = "<group>"; };
 		84457BF2259C968400D35EAE /* APICaller+OPTVarification+VersionControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "APICaller+OPTVarification+VersionControl.swift"; sourceTree = "<group>"; };
 		84457BF4259D008100D35EAE /* VersionControlData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionControlData.swift; sourceTree = "<group>"; };
@@ -5358,6 +5362,7 @@
 		84085CB521F59C0D00F1E844 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				8443EAA125A31BB000CA3B65 /* ChangeEmail */,
 				84D503782475310000527C77 /* ChangePassword */,
 				84085CB621F59C0D00F1E844 /* EditProfile */,
 				84085CBD21F59C0D00F1E844 /* ViewProfile */,
@@ -7549,6 +7554,15 @@
 				843FF63D247409E2001F21B1 /* LoginRegisterComplete copy.storyboard */,
 			);
 			path = LoginRegisterComplete;
+			sourceTree = "<group>";
+		};
+		8443EAA125A31BB000CA3B65 /* ChangeEmail */ = {
+			isa = PBXGroup;
+			children = (
+				8443EAA225A31BF900CA3B65 /* ChangeEmailVC.swift */,
+				8443EAA425A348A900CA3B65 /* ChangeEmailVM.swift */,
+			);
+			path = ChangeEmail;
 			sourceTree = "<group>";
 		};
 		84457BEF259C93C000D35EAE /* Version Controler */ = {
@@ -10544,6 +10558,7 @@
 				84791ED92281A04900472E54 /* AccountLadgerDetailsVC+Delegate.swift in Sources */,
 				845B619324C0226C00369CC1 /* WebCheckinVC.swift in Sources */,
 				843FF4CF24740231001F21B1 /* UseGSTINCell.swift in Sources */,
+				8443EAA325A31BF900CA3B65 /* ChangeEmailVC.swift in Sources */,
 				84B6DEA722805D680042D902 /* AccountChargeInfoVM.swift in Sources */,
 				18D4C417220AC515005E1E37 /* RoomVC.swift in Sources */,
 				843FF4FE24740231001F21B1 /* IntHeaderCollectionCell.swift in Sources */,
@@ -11147,6 +11162,7 @@
 				8483AFAA22119A44009F7600 /* HotelInfoAddressCell.swift in Sources */,
 				84E4BC6422A0EE6D00B72306 /* FlightBookingsDetailsVC+TableCells.swift in Sources */,
 				1809A47621CD057D0018AB2F /* EditProfileImageHeaderView.swift in Sources */,
+				8443EAA525A348A900CA3B65 /* ChangeEmailVM.swift in Sources */,
 				84E4BC6722A1032A00B72306 /* PaymentPendingTableViewCell.swift in Sources */,
 				18D4C419220AC6A9005E1E37 /* RoomVM.swift in Sources */,
 				8438B44A245AB47C00F7320B /* FlightFareInfoVC+HelperMethods.swift in Sources */,

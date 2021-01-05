@@ -86,7 +86,7 @@ extension SettingsVC : UITableViewDelegate, UITableViewDataSource {
 
         case .changeAertripId:
             printDebug("changeAertripId")
-
+            navigateToChangeEmailVc()
             
         case .changePassword:
             printDebug("changePassword")
@@ -95,10 +95,10 @@ extension SettingsVC : UITableViewDelegate, UITableViewDataSource {
 
         case .changeMobileNumber:
             printDebug("changeMobileNumber")
-
             self.changeMobileNumber()
             
         case .disableWalletOtp:
+            self.enableDisableOtp()
             printDebug("disableWalletOtp")
             
             
@@ -136,7 +136,7 @@ extension SettingsVC : UITableViewDelegate, UITableViewDataSource {
 }
 
 
-extension SettingsVC: ChangePasswordVCDelegate, OtpConfirmationDelegate {
+extension SettingsVC: ChangePasswordVCDelegate, OtpConfirmationDelegate, WalletEnableDisableDelegate {
     func otpValidationCompleted(_ isSuccess: Bool) {
 //        self.updateUserData()
         self.settingsTableView.reloadData()
@@ -144,6 +144,10 @@ extension SettingsVC: ChangePasswordVCDelegate, OtpConfirmationDelegate {
     
     
     func passowordChangedSuccessFully() {
+        self.settingsTableView.reloadData()
+    }
+ 
+    func otpEnableDisableCompleted(_ isSuccess: Bool){
         self.settingsTableView.reloadData()
     }
     
@@ -173,8 +177,19 @@ extension SettingsVC {
             vc.delegate = self
             self.present(vc, animated: true, completion: nil)
         }
-    
-    
 }
+    
+    func enableDisableOtp(){
+        let vc = EnableDisableWalletOTPVC.instantiate(fromAppStoryboard: .OTPAndVarification)
+        vc.modalPresentationStyle = .overFullScreen
+        vc.delegate = self
+        self.present(vc, animated: true, completion: nil)
+    }
+    
+    func navigateToChangeEmailVc(){
+        let vc = ChangeEmailVC.instantiate(fromAppStoryboard: .OTPAndVarification)
+        vc.modalPresentationStyle = .overFullScreen
+        self.present(vc, animated: true, completion: nil)
+    }
 
 }
