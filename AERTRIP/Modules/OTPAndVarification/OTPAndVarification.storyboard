@@ -25,6 +25,12 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G6O-7f-w2h">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZF8-Qq-Yf6">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                        <connections>
+                                            <action selector="transparentViewTapped:" destination="GtP-MJ-eBe" eventType="touchUpInside" id="jpn-c5-8J3"/>
+                                        </connections>
+                                    </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AHD-Ly-q9J">
                                         <rect key="frame" x="0.0" y="536" width="414" height="360"/>
                                         <subviews>
@@ -151,13 +157,13 @@
                                                 </subviews>
                                             </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YUA-Gc-l4m" customClass="ActiveLabel" customModule="ActiveLabel">
-                                                <rect key="frame" x="16" y="269.5" width="382" height="21"/>
+                                                <rect key="frame" x="16" y="269.5" width="382" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rhf-zm-oZ0" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="132" y="306.5" width="150" height="50"/>
+                                                <rect key="frame" x="132" y="306" width="150" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="150" id="fxp-JL-RtX"/>
                                                     <constraint firstAttribute="height" constant="50" id="lzJ-K4-ztI"/>
@@ -193,8 +199,12 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="AHD-Ly-q9J" secondAttribute="bottom" id="2QC-Tz-w5Z"/>
+                                    <constraint firstAttribute="trailing" secondItem="ZF8-Qq-Yf6" secondAttribute="trailing" id="7XK-19-aqE"/>
+                                    <constraint firstItem="ZF8-Qq-Yf6" firstAttribute="leading" secondItem="G6O-7f-w2h" secondAttribute="leading" id="JGb-Hc-hnQ"/>
+                                    <constraint firstItem="ZF8-Qq-Yf6" firstAttribute="top" secondItem="G6O-7f-w2h" secondAttribute="top" id="Nnu-in-ewB"/>
                                     <constraint firstItem="AHD-Ly-q9J" firstAttribute="leading" secondItem="G6O-7f-w2h" secondAttribute="leading" id="bE5-Xm-d6g"/>
                                     <constraint firstAttribute="trailing" secondItem="AHD-Ly-q9J" secondAttribute="trailing" id="gjA-XS-JJL"/>
+                                    <constraint firstAttribute="bottom" secondItem="ZF8-Qq-Yf6" secondAttribute="bottom" id="saj-Qj-RDl"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -228,7 +238,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nhu-9e-j38" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-914" y="266"/>
+            <point key="canvasLocation" x="-914.49275362318849" y="265.84821428571428"/>
         </scene>
         <!--Enable Disable WalletOTPVC-->
         <scene sceneID="SQy-Kg-HJh">
@@ -241,6 +251,12 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8vj-Ov-CLE">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8l1-Z2-JC5">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                        <connections>
+                                            <action selector="cancelButtonTapped:" destination="k8q-Xm-lJf" eventType="touchUpInside" id="np0-Nc-E45"/>
+                                        </connections>
+                                    </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l95-TV-OQK">
                                         <rect key="frame" x="0.0" y="396" width="414" height="500"/>
                                         <subviews>
@@ -379,8 +395,12 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="8l1-Z2-JC5" secondAttribute="trailing" id="4M7-f4-0YL"/>
+                                    <constraint firstItem="8l1-Z2-JC5" firstAttribute="top" secondItem="8vj-Ov-CLE" secondAttribute="top" id="60e-xm-QSv"/>
                                     <constraint firstAttribute="trailing" secondItem="l95-TV-OQK" secondAttribute="trailing" id="SWR-P4-uQF"/>
+                                    <constraint firstAttribute="bottom" secondItem="8l1-Z2-JC5" secondAttribute="bottom" id="W5C-w0-BUn"/>
                                     <constraint firstItem="l95-TV-OQK" firstAttribute="leading" secondItem="8vj-Ov-CLE" secondAttribute="leading" id="gGU-Ui-G1x"/>
+                                    <constraint firstItem="8l1-Z2-JC5" firstAttribute="leading" secondItem="8vj-Ov-CLE" secondAttribute="leading" id="qTu-t2-VfA"/>
                                     <constraint firstAttribute="bottom" secondItem="l95-TV-OQK" secondAttribute="bottom" id="u3g-GJ-spf"/>
                                 </constraints>
                             </view>
@@ -419,7 +439,6 @@
         <!--Change EmailVC-->
         <scene sceneID="obq-er-pjH">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="WPJ-WJ-hvK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="ChangeEmailVC" id="Q96-fT-JJ6" customClass="ChangeEmailVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XPB-P1-rUh">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -557,6 +576,7 @@
                         <outlet property="transparentBackView" destination="u5e-mb-qZb" id="zul-en-G6N"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WPJ-WJ-hvK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="549" y="283"/>
         </scene>

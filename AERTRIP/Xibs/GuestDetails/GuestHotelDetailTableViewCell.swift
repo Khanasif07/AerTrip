@@ -144,12 +144,12 @@ class GuestHotelDetailTableViewCell: UITableViewCell {
     
     func showErrorForFirstLastName() {
         guard  self.canShowSalutationError else {return}
-        let isValidFirstName = !((self.firstNameTextField.text ?? "").count < 3)
+        let isValidFirstName = !((self.firstNameTextField.text ?? "").count < 1)
         self.firstNameTextField.isError = !isValidFirstName
         let firstName = self.firstNameTextField.placeholder ?? ""
         self.firstNameTextField.attributedPlaceholder = NSAttributedString(string: firstName, attributes: [NSAttributedString.Key.foregroundColor: isValidFirstName ? AppColors.themeGray40 :  AppColors.themeRed])
         
-        let isValidLastName = !((self.lastNameTextField.text ?? "").count < 3)
+        let isValidLastName = !((self.lastNameTextField.text ?? "").count < 1)
         self.lastNameTextField.isError = !isValidLastName
         let lastName = self.lastNameTextField.placeholder ?? ""
         self.lastNameTextField.attributedPlaceholder = NSAttributedString(string: lastName, attributes: [NSAttributedString.Key.foregroundColor: isValidLastName ? AppColors.themeGray40 :  AppColors.themeRed])

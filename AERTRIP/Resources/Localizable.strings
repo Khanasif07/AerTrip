@@ -1200,6 +1200,15 @@ www.aertrip.com/trip";
 "tochangeMobileNumber" = "To change mobile number,\n";
 "kindlyEnterOtp" = "kindly enter the OTP received on";
 "proceed" = "Proceed";
+"verifyYourCredential" = "Verify your credentials";
+"disableOtpVerificationMsg" = "To Disable the OTP verification flow on wallet payment,\nplease enter your password and OTPs sent to your registered email and mobile";
+"enableOtpVerificationMsg" = "To Enable the OTP verification flow on wallet payment,\nplease enter your password ";
+"enterAccountPasswordMsg" = "Please enter your account password.";
+"enterMobileOtpMsg" = "Please enter the valid mobile otp.";
+"enterEmailOtpMsg" = "Please enter the valid email otp.";
+"enterMobileOtp" = "Enter Mobile OTP";
+"enterEmailOtp" = "Enter Email OTP";
+
 
 "Update_Aertrip" = "Update Aertrip";
 "Soft_Update_Msg" = "Aertrip recommends that you update the app to the latest version to enjoy the best experience.";

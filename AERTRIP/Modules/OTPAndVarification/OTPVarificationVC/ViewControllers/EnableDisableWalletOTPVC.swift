@@ -73,11 +73,11 @@ class EnableDisableWalletOTPVC: BaseVC {
     
     override func setupTexts() {
         self.cancelButton.setTitle(LocalizedString.Cancel.localized, for: .normal)
-        self.verifyYourCredential.text = "Verify your credentials"
+        self.verifyYourCredential.text = LocalizedString.verifyYourCredential.localized
         if (UserInfo.loggedInUser?.isWalletEnable ?? true){
-            self.descriptionLabel.text = "To Disable the OTP verification flow on wallet payment,\nplease enter your password and OTPs sent to your registered email and mobile"
+            self.descriptionLabel.text = LocalizedString.disableOtpVerificationMsg.localized
         }else{
-            self.descriptionLabel.text = "To Enable the OTP verification flow on wallet payment,\nplease enter your password "
+            self.descriptionLabel.text = LocalizedString.enableOtpVerificationMsg.localized
         }
     }
     
@@ -177,22 +177,35 @@ class EnableDisableWalletOTPVC: BaseVC {
         self.nextButton.setTitle(LocalizedString.Submit.localized, for: .selected)
     }
     
-
+    @IBAction func transparentViewTapped(_ sender: Any) {
+    }
+    
     @IBAction func cancelButtonTapped(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+//        self.dismiss(animated: true, completion: nil)
+        UIView.animate(withDuration: 0.3, animations: {
+            self.transparentBackView.transform = CGAffineTransform(translationX: 0, y: self.transparentBackView.height)
+            self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
+        }) { (success) in
+            self.dismiss(animated: false, completion: {
+//                self.onDismissCompletion?()
+                self.viewModel.cancelValidation()
+            })
+        }
     }
     
     @IBAction func nextButtonTapped(_ sender: Any) {
-        self.nextButton.isLoading = true
         if (UserInfo.loggedInUser?.isWalletEnable ?? true){
             if (self.passwordTextField.text?.isEmpty ?? true){
                 self.passwordTextField.isError = true
-                AppToast.default.showToastMessage(message: "Please enter your account password.")
+                AppToast.default.showToastMessage(message: LocalizedString.enterAccountPasswordMsg.localized)
             }else if (self.otpPhoneTextField.text?.isEmpty ?? true){
-                AppToast.default.showToastMessage(message: "Please enter the valid mobile otp.")
+                self.otpPhoneTextField.isError = true
+                AppToast.default.showToastMessage(message: LocalizedString.enterMobileOtpMsg.localized)
             }else if (self.otpEmailTextField.text?.isEmpty ?? true){
-                AppToast.default.showToastMessage(message: "Please enter the valid email otp.")
+                self.otpEmailTextField.isError = true
+                AppToast.default.showToastMessage(message: LocalizedString.enterEmailOtpMsg.localized)
             }else{
+                self.nextButton.isLoading = true
                 let dict : JSONDictionary = [
                     "passcode" : self.passwordTextField.text ?? "",
                     "mobile_otp" : self.otpPhoneTextField.text ?? "",
@@ -203,8 +216,9 @@ class EnableDisableWalletOTPVC: BaseVC {
         }else{
             if (self.passwordTextField.text?.isEmpty ?? true){
                 self.passwordTextField.isError = true
-                AppToast.default.showToastMessage(message: "Please enter your account password.")
+                AppToast.default.showToastMessage(message: LocalizedString.enterAccountPasswordMsg.localized)
             }else{
+                self.nextButton.isLoading = true
                 let dict : JSONDictionary = ["passcode" : self.passwordTextField.text ?? ""]
                 self.viewModel.sendOTPValidation(params: dict, type: .passwordValidation)
             }

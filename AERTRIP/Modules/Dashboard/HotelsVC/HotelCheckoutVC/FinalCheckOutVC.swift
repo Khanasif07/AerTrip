@@ -815,7 +815,7 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
     }
     
     func checkForWalletOTP(){
-        if (self.isWallet && self.getWalletAmount() > 100) && (UserInfo.loggedInUser?.isWalletEnable ?? false){
+        if (self.isWallet && self.getWalletAmount() > 100) && (UserInfo.loggedInUser?.isWalletEnable ?? false) && (self.getGrossAmount() > 100){
             let vc = OTPVarificationVC.instantiate(fromAppStoryboard: .OTPAndVarification)
             vc.modalPresentationStyle = .overFullScreen
             vc.viewModel.itId = self.viewModel.itineraryData?.it_id ?? ""

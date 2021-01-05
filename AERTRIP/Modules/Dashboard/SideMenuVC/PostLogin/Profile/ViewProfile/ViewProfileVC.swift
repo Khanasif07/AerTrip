@@ -38,7 +38,8 @@ class ViewProfileVC: BaseVC {
     let viewProfileFooterView = "ViewProfileFooterView"
     var sections = ["details", "logOut"]
     var details = [LocalizedString.TravellerList.localized, LocalizedString.HotelPreferences.localized,  LocalizedString.QuickPay.localized, LocalizedString.LinkedAccounts.localized]
-    var logOut = [LocalizedString.ChangePassword, LocalizedString.changeMobileNumber, LocalizedString.disableWalletOtp, LocalizedString.LogOut]
+    var logOut = [LocalizedString.ChangePassword, LocalizedString.LogOut]
+    //[LocalizedString.ChangePassword, LocalizedString.changeMobileNumber, LocalizedString.disableWalletOtp, LocalizedString.LogOut]
     var profileImageHeaderView: SlideMenuProfileImageHeaderView?
     
     var maxValue: CGFloat = 1.0
@@ -292,12 +293,12 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
             case LocalizedString.ChangePassword:
                 let title = (UserInfo.loggedInUser?.hasPassword == true) ? LocalizedString.ChangePassword.localized : LocalizedString.Set_password.localized
                 cell.configureCell(title)
-            case LocalizedString.changeMobileNumber:
-                let title = (UserInfo.loggedInUser?.mobile != "" ) ? LocalizedString.changeMobileNumber.localized : LocalizedString.setMobileNumner.localized
-                cell.configureCell(title)
-            case LocalizedString.disableWalletOtp:
-                let title = (UserInfo.loggedInUser?.isWalletEnable == true) ? "Disable Wallet OTP" : "Enable Wallet OTP"
-                cell.configureCell(title)
+//            case LocalizedString.changeMobileNumber:
+//                let title = (UserInfo.loggedInUser?.mobile != "" ) ? LocalizedString.changeMobileNumber.localized : LocalizedString.setMobileNumner.localized
+//                cell.configureCell(title)
+//            case LocalizedString.disableWalletOtp:
+//                let title = (UserInfo.loggedInUser?.isWalletEnable == true) ? "Disable Wallet OTP" : "Enable Wallet OTP"
+//                cell.configureCell(title)
             default: cell.configureCell(self.logOut[indexPath.row].localized)
             
             }
@@ -362,8 +363,8 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
                 AppFlowManager.default.moveToChangePasswordVC(type: (UserInfo.loggedInUser?.hasPassword == true) ? .changePassword : .setPassword, delegate: self)
                 
             // show logout option
-            case LocalizedString.changeMobileNumber: self.changeMobileNumber()
-            case LocalizedString.disableWalletOtp: self.enableDisableOtp()
+//            case LocalizedString.changeMobileNumber: self.changeMobileNumber()
+//            case LocalizedString.disableWalletOtp: self.enableDisableOtp()
             case LocalizedString.LogOut:
                 let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.LogOut.localized], colors: [AppColors.themeRed])
                 _ = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.DoYouWantToLogout.localized, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
@@ -394,36 +395,36 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
             return nil
     }
     
-    func changeMobileNumber(){
-        if (UserInfo.loggedInUser?.mobile.isEmpty ?? false){
-            if (UserInfo.loggedInUser?.hasPassword == true){
-                let vc = OTPVarificationVC.instantiate(fromAppStoryboard: .OTPAndVarification)
-                vc.modalPresentationStyle = .overFullScreen
-        //        vc.viewModel.itId = self.viewModel.appliedCouponData.itinerary.id
-                vc.viewModel.varificationType = .setMobileNumber
-                vc.delegate = self
-                self.present(vc, animated: true, completion: nil)
-            }else{
-                AppToast.default.showToastMessage(message: "Please set your account password!")
-            }
-            
-        }else{
-            let vc = OTPVarificationVC.instantiate(fromAppStoryboard: .OTPAndVarification)
-            vc.modalPresentationStyle = .overFullScreen
-    //        vc.viewModel.itId = self.viewModel.appliedCouponData.itinerary.id
-            vc.viewModel.varificationType = .phoneNumberChangeOtp
-            vc.delegate = self
-            self.present(vc, animated: true, completion: nil)
-        }
-
-    }
+//    func changeMobileNumber(){
+//        if (UserInfo.loggedInUser?.mobile.isEmpty ?? false){
+//            if (UserInfo.loggedInUser?.hasPassword == true){
+//                let vc = OTPVarificationVC.instantiate(fromAppStoryboard: .OTPAndVarification)
+//                vc.modalPresentationStyle = .overFullScreen
+//        //        vc.viewModel.itId = self.viewModel.appliedCouponData.itinerary.id
+//                vc.viewModel.varificationType = .setMobileNumber
+//                vc.delegate = self
+//                self.present(vc, animated: true, completion: nil)
+//            }else{
+//                AppToast.default.showToastMessage(message: "Please set your account password!")
+//            }
+//
+//        }else{
+//            let vc = OTPVarificationVC.instantiate(fromAppStoryboard: .OTPAndVarification)
+//            vc.modalPresentationStyle = .overFullScreen
+//    //        vc.viewModel.itId = self.viewModel.appliedCouponData.itinerary.id
+//            vc.viewModel.varificationType = .phoneNumberChangeOtp
+//            vc.delegate = self
+//            self.present(vc, animated: true, completion: nil)
+//        }
+//
+//    }
     
-    func enableDisableOtp(){
-        let vc = EnableDisableWalletOTPVC.instantiate(fromAppStoryboard: .OTPAndVarification)
-        vc.modalPresentationStyle = .overFullScreen
-        vc.delegate = self
-        self.present(vc, animated: true, completion: nil)
-    }
+//    func enableDisableOtp(){
+//        let vc = EnableDisableWalletOTPVC.instantiate(fromAppStoryboard: .OTPAndVarification)
+//        vc.modalPresentationStyle = .overFullScreen
+//        vc.delegate = self
+//        self.present(vc, animated: true, completion: nil)
+//    }
     
 }
 
@@ -612,16 +613,16 @@ extension ViewProfileVC: ViewProfileDetailVMDelegate {
     }
 }
 
-extension ViewProfileVC: ChangePasswordVCDelegate, OtpConfirmationDelegate, WalletEnableDisableDelegate {
-    func otpValidationCompleted(_ isSuccess: Bool) {
-        self.updateUserData()
-        self.tableView.reloadData()
-    }
-    
-    func otpEnableDisableCompleted(_ isSuccess: Bool){
-        self.tableView.reloadData()
-    }
-    
+extension ViewProfileVC: ChangePasswordVCDelegate{//, OtpConfirmationDelegate, WalletEnableDisableDelegate {
+//    func otpValidationCompleted(_ isSuccess: Bool) {
+//        self.updateUserData()
+//        self.tableView.reloadData()
+//    }
+//
+//    func otpEnableDisableCompleted(_ isSuccess: Bool){
+//        self.tableView.reloadData()
+//    }
+//
     func passowordChangedSuccessFully() {
         self.tableView.reloadData()
     }

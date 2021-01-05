@@ -93,7 +93,7 @@ class GuestDetailsVM: NSObject {
 //                }
 //            }
             if !guest.firstName.removeAllWhitespaces.isEmpty{
-                if guest.firstName.count < 3 {
+                if guest.firstName.count < 1 {
 //                    return (false, LocalizedString.firstName3Char.localized)
                     AppToast.default.showToastMessage(message: LocalizedString.FirstLastNameCharacterLimitMessage.localized)
                     return false
@@ -104,7 +104,7 @@ class GuestDetailsVM: NSObject {
                 }
             }
             if (!guest.lastName.removeAllWhitespaces.isEmpty) {
-                if  guest.lastName.count < 3 {
+                if  guest.lastName.count < 1 {
 //                    return (false, LocalizedString.lastName3Char.localized)
                     AppToast.default.showToastMessage(message: LocalizedString.lastName3Char.localized)
                     return false

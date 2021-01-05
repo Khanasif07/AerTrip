@@ -46,7 +46,7 @@ class EnableDisableWalletOTPVM {
         }
     }
     
-    func cancelValidation(isForUpdate: Bool){
+    func cancelValidation(){
         APICaller.shared.cancelEnableDisableWalletOtp(params: [:]) {(success, error) in}
     }
     
