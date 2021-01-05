@@ -1208,6 +1208,8 @@ www.aertrip.com/trip";
 "enterEmailOtpMsg" = "Please enter the valid email otp.";
 "enterMobileOtp" = "Enter Mobile OTP";
 "enterEmailOtp" = "Enter Email OTP";
+"newMobileNumber" = "New Mobile Number";
+"validOtpMsg" = "Please enter the valid otp.";
 
 
 "Update_Aertrip" = "Update Aertrip";

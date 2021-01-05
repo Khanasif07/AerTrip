@@ -610,9 +610,15 @@
         bookflightObject.isDomestic = true;
     }
     
+    NSMutableDictionary * queryDict = [flightSearchParameters mutableCopy];
+    NSArray * filters = [queryDict valueForKey:@"filters"];
     
+    FlightsRecentSearchesParamConverter *converter = [[FlightsRecentSearchesParamConverter alloc] init];
     
-    FlightSearchResultVM * flightSearchResponse = [[FlightSearchResultVM alloc] initWithDisplayGroups:values sid:sid bookFlightObject:bookflightObject isInternationalJourney:self.isInternationalJourney numberOfLegs: numberOfLegs flightSearchParameters: flightSearchParameters recentSearchParameters: recentSearchParameters];
+    NSDictionary * filterParam = [converter convertParam:filters];
+    [queryDict addEntriesFromDictionary:filterParam];
+    
+    FlightSearchResultVM * flightSearchResponse = [[FlightSearchResultVM alloc] initWithDisplayGroups:values sid:sid bookFlightObject:bookflightObject isInternationalJourney:self.isInternationalJourney numberOfLegs: numberOfLegs flightSearchParameters: queryDict recentSearchParameters: recentSearchParameters];
     
     FlightResultBaseViewController * flightResultView = [[FlightResultBaseViewController alloc] initWithFlightSearchResultVM:flightSearchResponse flightSearchParameters:flightSearchParameters isIntReturnOrMCJourney:self.isInternationalJourney airlineCode:self.viewModel.airlineCode];
     

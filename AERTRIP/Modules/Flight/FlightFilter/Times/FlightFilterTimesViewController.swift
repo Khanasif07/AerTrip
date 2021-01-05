@@ -79,7 +79,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         setupDeparatureRangeButtons()
         UIView.animate(withDuration: 0.3) {
             self.setDepartureSliderValues()
-            self.setArrivalSliderValues(userSelected: false)
+//            self.setArrivalSliderValues(userSelected: false)
             self.setArrivalSliderValues(userSelected: true)
             self.departureRangeSlider.layoutIfNeeded()
             self.arrivalRangeSlider.layoutIfNeeded()

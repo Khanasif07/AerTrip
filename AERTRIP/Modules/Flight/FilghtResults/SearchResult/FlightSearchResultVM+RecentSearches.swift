@@ -17,6 +17,7 @@ extension FlightSearchResultVM {
         var recentSearchParamsWithFilters = recentSearchParameters
         if let dataQueryStr = recentSearchParameters["data[query]"] as? String {
             if var dataQuery = convertStringToDictionary(text: dataQueryStr) {
+                dataQuery = dataQuery.filter { !$0.key.contains("filters") }
                 dataQuery["filters"] = filtersDict
                 recentSearchParamsWithFilters["data[query]"] = convertDictionaryToString(dict: dataQuery)
             }
@@ -32,6 +33,7 @@ extension FlightSearchResultVM {
         var recentSearchParamsWithFilters = recentSearchParameters
         if let dataQueryStr = recentSearchParameters["data[query]"] as? String {
             if var dataQuery = convertStringToDictionary(text: dataQueryStr) {
+                dataQuery = dataQuery.filter { !$0.key.contains("filters") }
                 dataQuery["filters"] = filtersDict
                 recentSearchParamsWithFilters["data[query]"] = convertDictionaryToString(dict: dataQuery)
             }
@@ -79,14 +81,9 @@ extension FlightSearchResultVM {
             }
                         
             //Aircraft
-//            if dynamicFilters.aircraft.selectedAircraftsArray.count > 0{
-//                var aircraft = ""
-//                for n in 0..<dynamicFilters.aircraft.selectedAircraftsArray.count{
-//                    aircraft.append("filters[\(i)][aircraft][\(n)]=\(dynamicFilters.aircraft.selectedAircraftsArray[n].name)&")
-//                }
-//
-//                filterString.append(aircraft)
-//            }
+            if !dynamicFilters.aircraft.selectedAircraftsArray.isEmpty {
+//                filterDict["aircraft"] = dynamicFilters.aircraft.selectedAircrafts
+            }
             
             //     Times
             if (appliedFilters.contains(.Times))
@@ -321,6 +318,11 @@ extension FlightSearchResultVM {
                 
                 if !fqArray.isEmpty {
                     filterDict["fq"] = fqArray
+                }
+                
+                //Aircraft
+                if !dynamicFilters.aircraft.selectedAircraftsArray.isEmpty {
+//                    filterDict["aircraft"] = dynamicFilters.aircraft.selectedAircrafts
                 }
                 
                 //     Times

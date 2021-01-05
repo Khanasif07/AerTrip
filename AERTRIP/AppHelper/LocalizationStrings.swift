@@ -1281,6 +1281,8 @@ enum LocalizedString: String {
     case enterEmailOtpMsg
     case enterMobileOtp
     case enterEmailOtp
+    case newMobileNumber
+    case validOtpMsg
     
     case Update_Aertrip = "Update_Aertrip"
     case Soft_Update_Msg = "Soft_Update_Msg"

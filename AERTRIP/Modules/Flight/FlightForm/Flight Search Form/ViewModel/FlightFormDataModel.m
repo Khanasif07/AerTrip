@@ -510,9 +510,12 @@
     [self.delegate showLoaderIndicatorForFilghtSearch];
     __weak typeof(self) weakSelf = self;
 
+    NSMutableDictionary * searchParamsWithoutFilters = [flightSearchParameters mutableCopy];
+    [searchParamsWithoutFilters removeObjectForKey:@"filters"];
+    
     [[Network sharedNetwork]
      callGETApi:FLIGHT_SEARCH_API
-     parameters:flightSearchParameters
+     parameters:searchParamsWithoutFilters
      loadFromCache:NO
      expires:YES
      success:^(NSDictionary *dataDictionary) {
@@ -958,12 +961,6 @@
         [queryDictionay removeObjectsForKeys:[NSArray arrayWithObjects:@"depart", @"destination", @"origin", nil]];
     }
     
-    NSArray * filters = [queryDictionay valueForKey:@"filters"];
-    
-    FlightsRecentSearchesParamConverter *converter = [[FlightsRecentSearchesParamConverter alloc] init];
-    
-    NSDictionary * filterParam = [converter convertParam:filters];
-    [queryDictionay addEntriesFromDictionary:filterParam];
     [self performFlightSearchWebServiceCall:queryDictionay];
 }
 

@@ -38,7 +38,7 @@ class ViewProfileVC: BaseVC {
     let viewProfileFooterView = "ViewProfileFooterView"
     var sections = ["details", "logOut"]
     var details = [LocalizedString.TravellerList.localized, LocalizedString.HotelPreferences.localized,  LocalizedString.QuickPay.localized, LocalizedString.LinkedAccounts.localized]
-    var logOut = [LocalizedString.ChangePassword, LocalizedString.LogOut]
+    var logOut = [LocalizedString.LogOut]
     //[LocalizedString.ChangePassword, LocalizedString.changeMobileNumber, LocalizedString.disableWalletOtp, LocalizedString.LogOut]
     var profileImageHeaderView: SlideMenuProfileImageHeaderView?
     

@@ -629,6 +629,10 @@ class HotelsSearchVC: BaseVC {
     
     
     @IBAction func searchButtonAction(_ sender: ATButton?) {
+        performSearch(sender)
+    }
+    
+    private func performSearch(_ sender: ATButton?, recentSearchModel: RecentSearchesModel? = nil) {
         if validateData() {
             delay(seconds: 0.1) {
                 sender?.isLoading = true
@@ -655,7 +659,7 @@ class HotelsSearchVC: BaseVC {
 //                    }
                     printDebug(self.viewModel.searchedFormData)
                     if AppGlobals.shared.isNetworkRechable() {
-                        AppFlowManager.default.moveToHotelsResultVc(withFormData: HotelsSearchVM.hotelFormData)
+                        AppFlowManager.default.moveToHotelsResultVc(withFormData: HotelsSearchVM.hotelFormData, recentSearchModel: recentSearchModel)
                     }
                     sender?.isLoading = false
                 }
@@ -965,7 +969,7 @@ extension HotelsSearchVC: RecentHotelSearcheViewDelegate {
         self.viewModel.searchedFormData.isHotelNearMeSelected = false
         
         self.setDataFromPreviousSearch(olddata: self.viewModel.searchedFormData, isSettingForFirstTime: true)
-        self.searchButtonAction(self.searchBtnOutlet)
+        self.performSearch(self.searchBtnOutlet, recentSearchModel: recentSearch)
         //        HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
         //open result screen for the recent
         //        AppFlowManager.default.moveToHotelsResultVc(withFormData: self.viewModel.searchedFormData)

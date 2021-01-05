@@ -836,6 +836,8 @@ extension FlightFilterBaseVC {
             } else {
                 durationViewController.viewModel.durationFilters[0].tripDurationMinDuration = tripDurationMin
                 durationViewController.viewModel.durationFilters[0].tripDurationmaxDuration = tripDurationMax
+                durationViewController.viewModel.durationFilters[0].userSelectedTripMin = tripDurationMin
+                durationViewController.viewModel.durationFilters[0].userSelectedTripMax = tripDurationMax
             }
             
             if userFilters.appliedSubFilters[0].contains(.layoverDuration) {
@@ -849,6 +851,8 @@ extension FlightFilterBaseVC {
             } else {
                 durationViewController.viewModel.durationFilters[0].layoverMinDuration = layoverDurationMin
                 durationViewController.viewModel.durationFilters[0].layoverMaxDuration = layoverMaxDuration
+                durationViewController.viewModel.durationFilters[0].userSelectedLayoverMin = layoverDurationMin
+                durationViewController.viewModel.durationFilters[0].userSelectedLayoverMax = layoverMaxDuration
             }
             
         } else {
