@@ -135,10 +135,13 @@ struct IntMultiCityAndReturnWSResponse {
         struct EqMaster : Equatable, Codable {
             var name: String
             var quality: Int
+            var code : String
             
             init(_ json: JSON) {
                 name = json["name"].stringValue
                 quality = json["quality"].intValue
+                code = json["code"].stringValue
+
             }
         }
         
