@@ -62,7 +62,7 @@ extension HotelsResultVM {
         
     }
     
-    private func getFilterParams() -> JSONDictionary {
+    func getFilterParams() -> JSONDictionary {
         var filterParams = JSONDictionary()
         
         // Price
@@ -166,7 +166,9 @@ extension HotelsResultVM {
         var sort = JSONDictionary()
         sort[APIKeys.sortType.rawValue] = sortType
         sort[APIKeys.orderAscending.rawValue] = sortAcending
-        filterParams[APIKeys.sort.rawValue] = sort
+        
+        // Removed after discussion with Mahak and Girish
+//        filterParams[APIKeys.sort.rawValue] = sort
         
         return filterParams
     }

@@ -601,6 +601,14 @@ class FlightResultDisplayGroup {
                 self.userSelectedFilters?.fq["coa"] = ""
             }
         }
+        
+        let aircrafts = flightSearchParam.filter { $0.key.contains("filters[0][aircraft]") }
+        if aircrafts.count > 0 {
+            self.appliedFilters.insert(.Aircraft)
+            let aircraftsArr = aircrafts.map { $0.value as? String ?? "" }
+            dynamicFilters.aircraft.selectedAircraftCodes = aircraftsArr
+        }
+        
     }
     
     fileprivate func dateFromTime(arrivalInputStartDate: Date, interval : TimeInterval) -> Date {
