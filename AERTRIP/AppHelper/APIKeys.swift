@@ -144,6 +144,10 @@ enum APIKeys: String {
     case amenities = "amenities"
     case title = "title"
     case lng = "lng"
+    case priceType = "priceType"
+    case sort = "sort"
+    case sortType = "sortType"
+    case orderAscending = "orderAscending"
     
     //BulkBookings
     case source = "source"

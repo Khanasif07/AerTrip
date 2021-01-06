@@ -11,6 +11,14 @@ import UIKit
 enum Price {
     case PerNight
     case Total
+    
+    func stringValue() -> String {
+        if self == .PerNight {
+            return "perNight"
+        } else {
+            return "total"
+        }
+    }
 }
 
 class PriceVC: BaseVC {

@@ -269,7 +269,7 @@ class UserInfo {
             if taRatings.isEmpty { taRatings = [1, 2, 3, 4, 5] }
             tripAdvisorRatingCount  = taRatings
             isIncludeUnrated  = true
-            distanceRange  = 25
+            distanceRange  = recentSearchFilter.distance.toDouble
             minimumPrice  = Double(recentSearchFilter.boundaryMinPrice)
             maximumPrice  = Double(recentSearchFilter.boundaryMaxPrice)
             leftRangePrice = Double(recentSearchFilter.minPrice)
@@ -305,8 +305,8 @@ class UserInfo {
                 othersArr.append(LocalizedString.TransferInclusive.localized)
             }
             roomOther  = othersArr
-            sortUsing = .BestSellers
-            priceType = .Total
+            sortUsing = recentSearchFilter.sort
+            priceType = recentSearchFilter.priceType
            isFilterAppliedForDestinetionFlow = false
         }
         

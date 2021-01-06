@@ -138,6 +138,36 @@ extension HotelsResultVM {
         others[APIKeys.wifi.rawValue] = filterApplied.roomOther.contains(LocalizedString.FreeWifi.localized)
         filterParams[APIKeys.others.rawValue] = others
         
+        //Distance
+        filterParams[APIKeys.distance.rawValue] = filterApplied.distanceRange.toInt
+        
+        //Price Type
+        filterParams[APIKeys.priceType.rawValue] = filterApplied.priceType.stringValue()
+        
+        //Sort
+        var sortType = ""
+        var sortAcending = true
+        switch filterApplied.sortUsing {
+        case .BestSellers:
+            sortType = "bestSellers"
+        case .PriceLowToHigh(let isAscending):
+            sortType = "priceLowToHigh"
+            sortAcending = isAscending
+        case .TripAdvisorRatingHighToLow(let isAscending):
+            sortType = "taRatingHighToLow"
+            sortAcending = isAscending
+        case .StartRatingHighToLow(let isAscending):
+            sortType = "starRatingHighToLow"
+            sortAcending = isAscending
+        case .DistanceNearestFirst(let isAscending):
+            sortType = "distanceNearestFirst"
+            sortAcending = isAscending
+        }
+        var sort = JSONDictionary()
+        sort[APIKeys.sortType.rawValue] = sortType
+        sort[APIKeys.orderAscending.rawValue] = sortAcending
+        filterParams[APIKeys.sort.rawValue] = sort
+        
         return filterParams
     }
 }
