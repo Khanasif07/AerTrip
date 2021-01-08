@@ -149,8 +149,8 @@ class ImportContactVC: BaseVC {
     private func setupParchmentPageController(){
         
         self.parchmentView = PagingViewController()
-        self.parchmentView?.menuItemSpacing = (self.view.width - 251.5) / 2
-        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 33.0, bottom: 0.0, right: 38.0)
+        self.parchmentView?.menuItemSpacing = 0.0//(self.view.width - 251.5) / 2
+        self.parchmentView?.menuInsets = UIEdgeInsets.zero//(top: 0.0, left: 33.0, bottom: 0.0, right: 38.0)
         self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 40)
         self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets.zero)
         self.parchmentView?.borderOptions = PagingBorderOptions.visible(
@@ -576,14 +576,14 @@ class ContactListCollectionFlowLayout: UICollectionViewFlowLayout {
 extension ImportContactVC: PagingViewControllerDataSource , PagingViewControllerDelegate ,PagingViewControllerSizeDelegate{
     func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
         
-        if let pagingIndexItem = pagingItem as? MenuItem{
-            let text = pagingIndexItem.title
-            
-            let font = isSelected ? AppFonts.SemiBold.withSize(16.0) : AppFonts.Regular.withSize(16.0)
-            return text.widthOfString(usingFont: font)
-        }
+//        if let pagingIndexItem = pagingItem as? MenuItem{
+//            let text = pagingIndexItem.title
+//
+//            let font = isSelected ? AppFonts.SemiBold.withSize(16.0) : AppFonts.Regular.withSize(16.0)
+//            return text.widthOfString(usingFont: font)
+//        }
         
-        return 100.0
+        return UIScreen.width/2//100.0
     }
     
     
@@ -596,7 +596,7 @@ extension ImportContactVC: PagingViewControllerDataSource , PagingViewController
     }
     
     func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
-        return MenuItem(title: self.allTabsStr[index], index: index, isSelected:false)
+        return MenuItem(title: self.allTabsStr[index], index: index, isSelected:true)
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool)  {

@@ -44,12 +44,12 @@ class EnableDisableWalletOTPVC: BaseVC {
         if !(UserInfo.loggedInUser?.isWalletEnable ?? true){
             self.emailView.isHidden = true
             self.phoneView.isHidden = true
-            self.containerViewHeightConstraint.constant = 320
+            self.containerViewHeightConstraint.constant = 340
         }else{
             self.viewModel.sendOTPValidation(params: [:], type: .both)
             self.linkSetupForResend(withLabel: self.resendEmailLabel, isResend: false, useringFor: "email")
             self.linkSetupForResend(withLabel: self.resendPhoneLabel, isResend: false, useringFor: "phone")
-            self.containerViewHeightConstraint.constant = 500
+            self.containerViewHeightConstraint.constant = 520
         }
     }
     

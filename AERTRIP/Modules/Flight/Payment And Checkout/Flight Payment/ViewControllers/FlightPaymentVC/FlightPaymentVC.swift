@@ -90,7 +90,8 @@ class FlightPaymentVC: BaseVC {
 
     @IBAction func payButtonTapped(_ sender: UIButton) {
         self.hideShowLoader(isHidden:false)
-        self.viewModel.reconfirmationAPI()
+        let useWallet = (self.isWallet && (self.getTotalPayableAmount() <= 0.0))
+        self.viewModel.reconfirmationAPI(useWallet: useWallet)
     }
     
     
