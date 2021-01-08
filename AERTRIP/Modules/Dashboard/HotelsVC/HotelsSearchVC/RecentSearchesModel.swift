@@ -328,6 +328,11 @@ struct RecentSearchesFilter {
     //Others
     var others: [String : Any] = [:]//others
     
+    //Distance
+    var distance: Int = 0
+    var sort: SortUsing = .BestSellers
+    var priceType: Price = .Total
+    
     //Mark:- Initialization
     //=====================
     init() {
@@ -417,6 +422,29 @@ struct RecentSearchesFilter {
         
         if let othersData = json[APIKeys.others.rawValue] as? JSONDictionary {
             self.others = othersData
+        }
+        
+        let jsonData = JSON(json)
+        
+        distance = jsonData[APIKeys.distance.rawValue].intValue
+        priceType = jsonData[APIKeys.priceType.rawValue].stringValue == Price.Total.stringValue() ? .Total : .PerNight
+        
+        let sortType = jsonData[APIKeys.sort.rawValue][APIKeys.sortType.rawValue].stringValue
+        let isAscending = jsonData[APIKeys.sort.rawValue][APIKeys.orderAscending.rawValue].boolValue
+        
+        switch sortType {
+        case "bestSellers":
+            sort = .BestSellers
+        case "priceLowToHigh":
+            sort = .PriceLowToHigh(ascending: isAscending)
+        case "taRatingHighToLow":
+            sort = .TripAdvisorRatingHighToLow(ascending: isAscending)
+        case "starRatingHighToLow":
+            sort = .StartRatingHighToLow(ascending: isAscending)
+        case "distanceNearestFirst":
+            sort = .DistanceNearestFirst(ascending: isAscending)
+        default:
+            sort = .BestSellers
         }
     }
     

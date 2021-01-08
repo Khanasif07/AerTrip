@@ -339,9 +339,10 @@ class HotelsResultVM: NSObject {
         if self.searchedFormData.ratingCount.isEmpty || self.searchedFormData.ratingCount.count == 5 {
             self.searchedFormData.ratingCount = [1,2,3,4,5]
         }
-        for (idx, _) in  self.searchedFormData.ratingCount.enumerated() {
-            params["filter[star][\(idx+1)star]"] = true
-        }
+//        for (idx, _) in  self.searchedFormData.ratingCount.enumerated() {
+//            params["filter[star][\(idx+1)star]"] = true
+//        }
+        params["filter"] = getFilterParams()
         let _adultsCount = self.searchedFormData.adultsCount
         let _chidrenAge = self.searchedFormData.childrenAge
         params["p"] = "hotels"
@@ -351,7 +352,7 @@ class HotelsResultVM: NSObject {
         params["dest_type"] = self.hotelSearchRequest?.requestParameters.destType
         params["dest_name"]  = self.hotelSearchRequest?.requestParameters.destName
         params["lat"] = self.hotelSearchRequest?.requestParameters.latitude
-        params["long"] = self.hotelSearchRequest?.requestParameters.longitude
+        params["lng"] = self.hotelSearchRequest?.requestParameters.longitude
         params["checkout"] = self.hotelSearchRequest?.requestParameters.checkOut
         
         // get number of adult count

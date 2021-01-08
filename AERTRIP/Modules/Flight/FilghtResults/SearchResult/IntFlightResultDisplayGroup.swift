@@ -20,6 +20,8 @@ struct DynamicFilters {
 
 struct AircraftFilter {
     
+    var selectedAircraftCodes: [String] = []
+    
     var selectedAircrafts : [String] = []
     var allAircrafts : [String] = []
     
@@ -602,7 +604,7 @@ class IntFlightResultDisplayGroup {
                 self.appliedFilters.insert(.Airlines)
                 self.userSelectedFilters[index].al = airlines.map { $0.value as? String ?? "" }
             }
-            
+                        
             if let tt = flightSearchParam["filters[\(index)][tt][0]"] as? String{
                 self.appliedFilters.insert(.Duration)
                 self.initiatedFilters[index]?.insert(.tripDuration)
@@ -778,6 +780,13 @@ class IntFlightResultDisplayGroup {
                     self.userSelectedFilters[index].fq["coa"] = ""
                 }
             }
+        }
+        
+        let aircrafts = flightSearchParam.filter { $0.key.contains("filters[0][aircraft]") }
+        if aircrafts.count > 0 {
+            self.appliedFilters.insert(.Aircraft)
+            let aircraftsArr = aircrafts.map { $0.value as? String ?? "" }
+            dynamicFilters.aircraft.selectedAircraftCodes = aircraftsArr
         }
     }
     
