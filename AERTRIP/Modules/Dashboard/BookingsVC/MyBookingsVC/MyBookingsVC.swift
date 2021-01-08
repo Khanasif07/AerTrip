@@ -435,6 +435,18 @@ extension MyBookingsVC : PagingViewControllerDataSource , PagingViewControllerDe
             self.currentIndex = pagingIndexItem.index
         }
     }
+    
+    func pagingViewController(_ pagingViewController: PagingViewController, didSelectItem pagingItem: PagingItem) {
+        guard let pagingIndexItem = pagingItem as? MenuItem else {return}
+        let bookingTab:String
+        switch self.allChildVCs[pagingIndexItem.index].self{
+        case is UpcomingBookingsVC: bookingTab = "upcoming"
+        case is CompletedVC: bookingTab = "comleted"
+        case is CancelledVC: bookingTab = "cancelled"
+        default: bookingTab = ""
+        }
+        FirebaseAnalyticsController.shared.logEvent(name: "BOOKINGS_LIST_SCREEN", params: ["ScreenName":"MyBooking", "ScreenClass":"MyBookingsVC", "BookingTabType":bookingTab])
+    }
 }
 
 

@@ -197,8 +197,8 @@ class HCSelectGuestsVC: BaseVC {
     private func setupParchmentPageController(){
         
         self.parchmentView = PagingViewController()
-        self.parchmentView?.menuItemSpacing = allTabsStr.count == 4 ? (self.view.width - 274.0) / 3 : (self.view.width - 208.0) / 2
-        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 0.0, right: 16.0)
+        self.parchmentView?.menuItemSpacing = 0.0//allTabsStr.count == 4 ? (self.view.width - 274.0) / 3 : (self.view.width - 208.0) / 2
+        self.parchmentView?.menuInsets = UIEdgeInsets.zero//(top: 0.0, left: 16.0, bottom: 0.0, right: 16.0)
         self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 100, height: 49)
         self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets.zero)
         self.parchmentView?.borderOptions = PagingBorderOptions.visible(
@@ -711,7 +711,7 @@ extension HCSelectGuestsVC: SelectedContactCollectionCellDelegate {
 
 extension HCSelectGuestsVC: PagingViewControllerDataSource , PagingViewControllerDelegate, PagingViewControllerSizeDelegate {
     func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
-        return MenuItem(title: self.allTabsStr[index].title, index: index, isSelected:false)
+        return MenuItem(title: self.allTabsStr[index].title, index: index, isSelected: true)
     }
     
     func numberOfViewControllers(in pagingViewController: PagingViewController) -> Int {
@@ -725,14 +725,14 @@ extension HCSelectGuestsVC: PagingViewControllerDataSource , PagingViewControlle
     func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
         
         // depending onthe text size, give the width of the menu item
-        if let pagingIndexItem = pagingItem as? MenuItem{
-            let text = pagingIndexItem.title
-            
-            let font = isSelected ? AppFonts.SemiBold.withSize(16.0) : AppFonts.Regular.withSize(16.0)
-            return text.widthOfString(usingFont: font)
-        }
+//        if let pagingIndexItem = pagingItem as? MenuItem{
+//            let text = pagingIndexItem.title
+//
+//            let font = isSelected ? AppFonts.SemiBold.withSize(16.0) : AppFonts.Regular.withSize(16.0)
+//            return text.widthOfString(usingFont: font)
+//        }
         
-        return 100.0
+        return UIScreen.width/CGFloat(self.allTabsStr.count)//100.0
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool)  {

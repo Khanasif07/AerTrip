@@ -220,8 +220,13 @@ extension FlightPaymentVM{
     }
     
     
-    func reconfirmationAPI() {
-        let params: [String : Any] = [ APIKeys.it_id.rawValue : self.itinerary.id ]
+    func reconfirmationAPI(useWallet: Bool) {
+        var params: [String : Any] = [ APIKeys.it_id.rawValue : self.itinerary.id ]
+        if useWallet{
+            params["via_wallet"] = 1
+        }else{
+            params["via_wallet"] = 0
+        }
         APICaller.shared.flightReconfirmationApi(params: params, loader: true) { [weak self] (success, errors, appliedCouponData) in
             guard let self = self else { return }
             if success {

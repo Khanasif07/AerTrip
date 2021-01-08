@@ -83,7 +83,7 @@ extension AertripBankDetailsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 7 {
+        if indexPath.row == 7 && !self.viewModel.allBanks[indexPath.section].depositSlip.isEmpty{
             //download slip
             AppGlobals.shared.viewPdf(urlPath: self.viewModel.allBanks[indexPath.section].depositSlip, screenTitle: "Slip")
         }
