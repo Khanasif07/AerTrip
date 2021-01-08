@@ -11,7 +11,7 @@ import Foundation
 protocol ChangeEmailDelegate : class {
     func validate(isValid: Bool, msg : String)
     func willChnageEmail()
-    func changeEmailSuccess()
+    func changeEmailSuccess(email : String)
     func errorInChangingEmail(error : ErrorCodes)
 }
 
@@ -51,7 +51,7 @@ class ChangeEmailVM {
         
         APICaller.shared.changeEmail(params: params) { (success, codes) in
             if success {
-                self.delegate?.changeEmailSuccess()
+                self.delegate?.changeEmailSuccess(email : email)
             } else {
                 self.delegate?.errorInChangingEmail(error: codes)
             }

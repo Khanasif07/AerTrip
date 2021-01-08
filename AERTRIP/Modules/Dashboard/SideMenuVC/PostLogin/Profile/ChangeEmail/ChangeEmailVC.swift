@@ -21,7 +21,12 @@ class ChangeEmailVC: BaseVC {
     @IBOutlet weak var passwordTextField: PKFloatLabelTextField!
     @IBOutlet weak var nextButton: ATButton!
     @IBOutlet weak var containerViewHeightConstraint: NSLayoutConstraint!
-
+    @IBOutlet weak var verifyEmailView: UIView!
+    @IBOutlet weak var verifyEmailHeadingLabel: UILabel!
+    @IBOutlet weak var verifyEmailDescription: UILabel!
+    @IBOutlet weak var dismisButton: UIButton!
+    
+    
     let viewModel = ChangeEmailVM()
     
     override func viewDidLoad() {
@@ -44,6 +49,8 @@ class ChangeEmailVC: BaseVC {
         self.cancelButton.titleLabel?.font = AppFonts.Regular.withSize(16.0)
         self.headingLabel.font = AppFonts.Regular.withSize(24.0)
         self.descriptionLabel.font = AppFonts.Regular.withSize(14.0)
+        self.verifyEmailHeadingLabel.font = AppFonts.SemiBold.withSize(24.0)
+        self.verifyEmailDescription.font = AppFonts.Regular.withSize(14.0)
         self.setOptTextField()
     }
     
@@ -69,6 +76,10 @@ class ChangeEmailVC: BaseVC {
         self.performDismissAnimation()
     }
     
+    @IBAction func dismisButtonTapped(_ sender: UIButton) {
+        self.performDismissAnimation()
+    }
+    
     @IBAction func nextButtonTapped(_ sender: Any) {
         self.nextButton.isLoading = true
         self.view.endEditing(true)
@@ -76,13 +87,14 @@ class ChangeEmailVC: BaseVC {
     }
     
 
-    private func setUpSubView(){
+    private func setUpSubView() {
         self.containerView.layer.masksToBounds = true
         self.containerView.layer.cornerRadius = 13.0
         self.containerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         self.transparentBackView.backgroundColor = UIColor.clear
         self.transparentBackView.transform = CGAffineTransform(translationX: 0, y: transparentBackView.height)
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
+        self.verifyEmailView.isHidden = true
     }
     
     private func transformViewToOriginalState() {
@@ -159,7 +171,7 @@ extension ChangeEmailVC  {
 
 
 extension ChangeEmailVC : ChangeEmailDelegate {
-   
+    
     func validate(isValid: Bool, msg: String) {
         self.nextButton.isLoading = false
         AppToast.default.showToastMessage(message: msg)
@@ -169,20 +181,27 @@ extension ChangeEmailVC : ChangeEmailDelegate {
 
     }
     
-    func changeEmailSuccess() {
+    func changeEmailSuccess(email : String) {
         self.nextButton.isLoading = false
-        self.performDismissAnimation()
-        AppToast.default.showToastMessage(message: "Email changed successfully.")
+//        self.performDismissAnimation()
+        UIView.animate(withDuration: 0.5) {
+            self.containerViewHeightConstraint.constant = 200
+            self.view.layoutIfNeeded()
+        }
+        self.verifyEmailView.isHidden = false
+        
+        var desc = "An email has been sent to mail@mail.com to make sure it is a valid address."
+        desc = desc.replacingOccurrences(of: "mail@mail.com", with: email)
+        self.verifyEmailDescription.attributedText = desc.attributeStringWithColors(subString: [email], strClr: UIColor.black, substrClr: UIColor.black, strFont: AppFonts.Regular.withSize(14), subStrFont: AppFonts.SemiBold.withSize(16))
+//        AppToast.default.showToastMessage(message: "Email changed successfully.")
+//
 
     }
     
     func errorInChangingEmail(error : ErrorCodes) {
         self.nextButton.isLoading = false
 //        AppToast.default.showToastMessage(message: msg)
-        AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .otp)
-
-
-
+        AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .profile)
     }
     
 }

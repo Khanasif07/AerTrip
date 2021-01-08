@@ -45,7 +45,9 @@ class CurrencyVC: BaseVC {
         configureTableView()
         setUpViewAttributes()
 //        self.currencyVm.getCurrencies()
-        self.currencyVm.getCurrenciesFromApi()
+        delay(seconds: 0.1) {
+            self.currencyVm.getCurrenciesFromApi()
+        }
         self.searchBar.cornerradius = 10.0
         self.searchBar.clipsToBounds = true
         self.currencyTableView.contentInset = UIEdgeInsets(top: topNavView.height + self.searchBarContainer.height, left: 0, bottom: 0, right: 0)
