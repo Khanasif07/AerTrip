@@ -31,7 +31,7 @@ class FlightDetailsVM{
                 param["fk[]"] = self.journey?.first?.fk ?? ""
             }else{
                 param["old_farepr[]"] = self.intJourney?.first?.farepr ?? 0
-                param["fk[]"] = self.intJourney?.first?.fk ?? ""
+                param["fk[0]"] = self.intJourney?.first?.fk ?? ""
                 param["combo"] = true
             }
         }else{
