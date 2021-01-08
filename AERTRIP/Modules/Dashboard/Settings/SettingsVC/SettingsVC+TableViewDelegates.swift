@@ -11,7 +11,7 @@ import Foundation
 extension SettingsVC : UITableViewDelegate, UITableViewDataSource {
   
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return self.settingsVm.settingsDataToPopulate.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -25,7 +25,7 @@ extension SettingsVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
         switch section {
-        case 0,1:
+        case 0,1,3:
             return 35
         default:
             return CGFloat.leastNormalMagnitude

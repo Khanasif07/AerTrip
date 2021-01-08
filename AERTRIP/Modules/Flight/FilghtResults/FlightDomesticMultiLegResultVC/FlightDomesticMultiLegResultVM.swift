@@ -130,10 +130,6 @@ class FlightDomesticMultiLegResultVM {
           
       }
     
-    
-    
-    
-    
     func applySorting(tableIndex : Int, sortOrder : Sort, isConditionReverced : Bool, legIndex : Int) {
         
         var suggetedSortArray = self.results[tableIndex].suggestedJourneyArray
@@ -141,11 +137,13 @@ class FlightDomesticMultiLegResultVM {
         var journeySortedArray = self.results[tableIndex].journeyArray
         
         suggetedSortArray.sort(by: { (obj1, obj2) -> Bool in
-                return obj1.price  < obj2.price
+            
+            return obj1.duration < obj2.duration
+
         })
         
         journeySortedArray.sort(by: { (obj1, obj2) -> Bool in
-                return obj1.price  < obj2.price
+            return obj1.duration < obj2.duration
         })
         
         
@@ -165,6 +163,15 @@ class FlightDomesticMultiLegResultVM {
 
                 return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
                 
+        })
+        
+        
+        suggetedSortArray.sort(by: { (obj1, obj2) -> Bool in
+                return obj1.price  < obj2.price
+        })
+        
+        journeySortedArray.sort(by: { (obj1, obj2) -> Bool in
+                return obj1.price  < obj2.price
         })
         
         switch  sortOrder {
