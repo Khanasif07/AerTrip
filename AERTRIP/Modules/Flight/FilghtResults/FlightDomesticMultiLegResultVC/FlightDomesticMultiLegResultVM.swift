@@ -152,7 +152,7 @@ class FlightDomesticMultiLegResultVM {
             let firstObjDepartureTime = obj1.dt
             let secondObjDepartureTime = obj2.dt
                 
-                return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
+            return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
                 
         })
         
@@ -160,8 +160,8 @@ class FlightDomesticMultiLegResultVM {
             
             let firstObjDepartureTime = obj1.dt
             let secondObjDepartureTime = obj2.dt
-
-                return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
+            
+            return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
                 
         })
         

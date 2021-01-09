@@ -164,7 +164,7 @@ extension SettingsVC {
         //        vc.viewModel.itId = self.viewModel.appliedCouponData.itinerary.id
                 vc.viewModel.varificationType = .setMobileNumber
                 vc.delegate = self
-                self.present(vc, animated: true, completion: nil)
+                self.present(vc, animated: false, completion: nil)
             }else{
                 AppToast.default.showToastMessage(message: "Please set your account password!")
             }
@@ -175,7 +175,7 @@ extension SettingsVC {
     //        vc.viewModel.itId = self.viewModel.appliedCouponData.itinerary.id
             vc.viewModel.varificationType = .phoneNumberChangeOtp
             vc.delegate = self
-            self.present(vc, animated: true, completion: nil)
+            self.present(vc, animated: false, completion: nil)
         }
 }
     
@@ -183,13 +183,13 @@ extension SettingsVC {
         let vc = EnableDisableWalletOTPVC.instantiate(fromAppStoryboard: .OTPAndVarification)
         vc.modalPresentationStyle = .overFullScreen
         vc.delegate = self
-        self.present(vc, animated: true, completion: nil)
+        self.present(vc, animated: false, completion: nil)
     }
     
     func navigateToChangeEmailVc(){
         let vc = ChangeEmailVC.instantiate(fromAppStoryboard: .OTPAndVarification)
         vc.modalPresentationStyle = .overFullScreen
-        self.present(vc, animated: true, completion: nil)
+        self.present(vc, animated: false, completion: nil)
     }
 
 }
