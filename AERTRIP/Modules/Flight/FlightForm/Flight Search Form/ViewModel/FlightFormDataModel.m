@@ -55,7 +55,7 @@
     
     self.onwardsDate = [NSDate date];
     [self setupLocationService];
-    [self getRecentSearches];
+//    [self getRecentSearches];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(appDidEnterForground:)
@@ -199,7 +199,8 @@
         if (self.flightSearchType == MULTI_CITY) {
 
             [parametersDynamic setObject:@"multi" forKey:@"trip_type"];
-
+            NSInteger numberOflet = [self.multiCityArray count];
+            [parametersDynamic setObject: [self parseString:[NSString stringWithFormat:@"%d",(int)numberOflet]] forKey:@"totalLegs"];
             
             for (int i = 0 ; i  < self.multiCityArray.count ; i++ ){
                 
@@ -258,6 +259,7 @@
                     returnString = [inputDateFormatter stringFromDate:self.returnDate];
                 }
                 [parametersDynamic setObject:returnString forKey:@"return"];
+                [parametersDynamic setObject: [self parseString:[NSString stringWithFormat:@"%d",2]] forKey:@"totalLegs"];
             }else {
                 [parametersDynamic setObject:@"1" forKey:@"totalLegs"];
 
@@ -945,7 +947,8 @@
         NSArray * originArray = [queryDictionay objectForKey:@"origin"];
         NSArray * destinationArray = [queryDictionay objectForKey:@"destination"];
         NSArray * departArray = [queryDictionay objectForKey:@"depart"];
-
+        NSInteger numberOflet = [originArray count];
+        [queryDictionay setObject: [self parseString:[NSString stringWithFormat:@"%d",(int)numberOflet]] forKey:@"totalLegs"];
         for (int i = 0;  i < originArray.count; i++) {
 
             NSString *nameOriginKey = [NSString stringWithFormat:@"origin[%i]",i];

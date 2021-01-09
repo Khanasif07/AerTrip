@@ -141,7 +141,7 @@ extension APICaller {
             guard let sSelf = self else {return}
             
             sSelf.handleResponse(json, success: { (sucess, jsonData) in
-                if sucess, let response = jsonData[APIKeys.response.rawValue].dictionaryObject {
+                if sucess, let response = jsonData[APIKeys.data.rawValue].dictionaryObject {
                     let shortUrl = response[APIKeys.shortUrl.rawValue] as? String
                     completionBlock(true, [],shortUrl ?? "")
                 } else {
