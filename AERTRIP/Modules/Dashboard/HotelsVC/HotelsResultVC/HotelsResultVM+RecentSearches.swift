@@ -27,7 +27,9 @@ extension HotelsResultVM {
         let checkInDate: JSONDictionary = [APIKeys.value.rawValue : self.searchedFormData.checkInDateWithDay, APIKeys.error.rawValue : false , APIKeys.errorMsg.rawValue : ""]
         let checkOutDate: JSONDictionary = [APIKeys.value.rawValue : self.searchedFormData.checkOutDateWithDay, APIKeys.error.rawValue : false , APIKeys.errorMsg.rawValue : ""]
         let nights: JSONDictionary = [APIKeys.value.rawValue : self.searchedFormData.totalNights, APIKeys.error.rawValue : false , APIKeys.errorMsg.rawValue : ""]
-        let guests: JSONDictionary = [APIKeys.value.rawValue : "\(self.searchedFormData.adultsCount.count) Room,\(self.searchedFormData.totalGuestCount) Guests", APIKeys.error.rawValue : false , APIKeys.errorMsg.rawValue : ""]
+        let roomStr = searchedFormData.adultsCount.count < 2 ? "Room" : "Rooms"
+        let guestStr = searchedFormData.totalGuestCount < 2 ? "Guest" : "Guests"
+        let guests: JSONDictionary = [APIKeys.value.rawValue : "\(self.searchedFormData.adultsCount.count) \(roomStr), \(self.searchedFormData.totalGuestCount) \(guestStr)", APIKeys.error.rawValue : false , APIKeys.errorMsg.rawValue : ""]
         
         var room: JSONDictionaryArray = []
         for (index,adultData) in self.searchedFormData.adultsCount.enumerated() {
@@ -63,6 +65,9 @@ extension HotelsResultVM {
     }
     
     func getFilterParams() -> JSONDictionary {
+        
+        guard let _ = UserInfo.hotelFilter else { return [:] }
+        
         var filterParams = JSONDictionary()
         
         // Price

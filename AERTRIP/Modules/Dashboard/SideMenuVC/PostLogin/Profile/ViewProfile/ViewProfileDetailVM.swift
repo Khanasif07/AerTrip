@@ -22,6 +22,7 @@ class ViewProfileDetailVM {
     weak var delegate: ViewProfileDetailVMDelegate?
     var travelData: TravelDetailModel?
     var currentlyUsingFor: EditProfileVM.UsingFor = .viewProfile
+    var isComingFromDeepLink = false
     
     func webserviceForGetTravelDetail(isShowLoader: Bool = false) {
         var params = JSONDictionary()

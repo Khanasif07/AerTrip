@@ -322,8 +322,9 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
-    func moveToViewProfileVC() {
+    func moveToViewProfileVC(comingfromDeepLink: Bool = false) {
         let ob = ViewProfileVC.instantiate(fromAppStoryboard: .Profile)
+        ob.viewModel.isComingFromDeepLink = comingfromDeepLink
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
