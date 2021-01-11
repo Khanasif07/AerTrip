@@ -236,6 +236,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         DispatchQueue.delay(1) {
+            let win = self.window
+            guard let dashboardVC = (win?.rootViewController as? UINavigationController)?.viewControllers.first?.children.first?.children.first as? DashboardVC else { return }
+            dashboardVC.flightsAction(UIButton())
             SwiftObjCBridgingController.shared.sendFlightFormData(dict)
         }
     }
@@ -273,6 +276,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         recentSearchModel.room = roomArr
+        recentSearchModel.checkInDate = formJson[APIKeys.checkin.rawValue].stringValue
+        recentSearchModel.checkOutDate = formJson[APIKeys.checkout.rawValue].stringValue
+        recentSearchModel.dest_id = formJson[APIKeys.dest_id.rawValue].stringValue
+        recentSearchModel.dest_type = formJson[APIKeys.dest_type.rawValue].stringValue
+        recentSearchModel.dest_name = formJson[APIKeys.dest_name.rawValue].stringValue
+        recentSearchModel.totalNights = formJson[APIKeys.nights.rawValue].intValue
+        recentSearchModel.guestsValue = formJson[APIKeys.guests.rawValue].stringValue
+        recentSearchModel.lat = formJson[APIKeys.lat.rawValue].stringValue
+        recentSearchModel.lng = formJson[APIKeys.lng.rawValue].stringValue
+        recentSearchModel.type = .hotel
         
+        if let filterDict = AppGlobals.shared.object(from: formJson[APIKeys.filter.rawValue].stringValue) as? JSONDictionary {
+            recentSearchModel.filter = RecentSearchesFilter(json: filterDict)
+        }
+        DispatchQueue.delay(1) {
+            let win = self.window
+            guard let dashboardVC = (win?.rootViewController as? UINavigationController)?.viewControllers.first?.children.first?.children.first as? DashboardVC else { return }
+            dashboardVC.hotelsAction(UIButton())
+            dashboardVC.children.forEach { (viewCon) in
+                if let searchVC = viewCon as? HotelsSearchVC {
+                    delay(seconds: 1.0) {
+                        searchVC.passRecentSearchesData(recentSearch: recentSearchModel)
+                    }
+                }
+            }
+        }
     }
 }
