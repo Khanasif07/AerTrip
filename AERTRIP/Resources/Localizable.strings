@@ -226,6 +226,7 @@
 "HotelPreferences" = "Favourite Hotels";
 "QuickPay" = "QuickPay";
 "LinkedAccounts" = "Linked Accounts";
+"AccountDetails" = "Account Details";
 "NewsLetters" = "Newsletters";
 "Notifications"  = "Notifications";
 "LogOut" = "Log Out";

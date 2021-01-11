@@ -37,8 +37,8 @@ class ViewProfileVC: BaseVC {
     let cellIdentifier = "ViewProfileTableViewCell"
     let viewProfileFooterView = "ViewProfileFooterView"
     var sections = ["details", "logOut"]
-    var details = [LocalizedString.TravellerList.localized, LocalizedString.HotelPreferences.localized,  LocalizedString.QuickPay.localized, LocalizedString.LinkedAccounts.localized]
-    var logOut = [LocalizedString.LogOut]
+    var details = [LocalizedString.TravellerList.localized, LocalizedString.HotelPreferences.localized,  LocalizedString.QuickPay.localized,  LocalizedString.LinkedAccounts.localized, LocalizedString.AccountDetails.localized]
+    var logOut = [LocalizedString.Settings,  LocalizedString.LogOut]
     //[LocalizedString.ChangePassword, LocalizedString.changeMobileNumber, LocalizedString.disableWalletOtp, LocalizedString.LogOut]
     var profileImageHeaderView: SlideMenuProfileImageHeaderView?
     
@@ -281,7 +281,7 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
         switch self.sections[indexPath.section] {
         case "details":
             cell.bottomViewHeightConst.constant =  indexPath.row == self.details.count - 1 ? 18 : 0
-            cell.separatorView.isHidden = self.details[indexPath.row] != LocalizedString.LinkedAccounts.localized
+            cell.separatorView.isHidden = self.details[indexPath.row] != LocalizedString.AccountDetails.localized
             cell.menuOptionLabel.isHidden = false
             cell.configureCell(self.details[indexPath.row])
             cell.contentView.layoutIfNeeded()
@@ -373,6 +373,8 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
                         self.viewModel.webserviceForLogOut()
                     }
                 }
+            case LocalizedString.Settings: AppFlowManager.default.moveToSettingsVC()
+                
             default:
                 AppToast.default.showToastMessage(message: "This feature is coming soon")
                 break

@@ -225,6 +225,7 @@ enum LocalizedString: String {
     case HotelPreferences
     case QuickPay
     case LinkedAccounts
+    case AccountDetails
     case NewsLetters = "Newsletters"
     case Notifications
     case LogOut = "Log Out"
