@@ -234,10 +234,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         }
-        
+        moveToRootVC()
         DispatchQueue.delay(1) {
-            let win = self.window
-            guard let dashboardVC = (win?.rootViewController as? UINavigationController)?.viewControllers.first?.children.first?.children.first as? DashboardVC else { return }
+            guard let dashboardVC = (self.window?.rootViewController as? UINavigationController)?.viewControllers.first?.children.first?.children.first as? DashboardVC else { return }
             dashboardVC.flightsAction(UIButton())
             SwiftObjCBridgingController.shared.sendFlightFormData(dict)
         }
@@ -290,9 +289,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let filterDict = AppGlobals.shared.object(from: formJson[APIKeys.filter.rawValue].stringValue) as? JSONDictionary {
             recentSearchModel.filter = RecentSearchesFilter(json: filterDict)
         }
+        moveToRootVC()
         DispatchQueue.delay(1) {
-            let win = self.window
-            guard let dashboardVC = (win?.rootViewController as? UINavigationController)?.viewControllers.first?.children.first?.children.first as? DashboardVC else { return }
+            guard let dashboardVC = (self.window?.rootViewController as? UINavigationController)?.viewControllers.first?.children.first?.children.first as? DashboardVC else { return }
+            
             dashboardVC.hotelsAction(UIButton())
             dashboardVC.children.forEach { (viewCon) in
                 if let searchVC = viewCon as? HotelsSearchVC {
@@ -302,5 +302,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         }
+    }
+    
+    private func moveToRootVC() {
+        (window?.rootViewController as? UINavigationController)?.dismiss(animated: true, completion: {
+            (self.window?.rootViewController as? UINavigationController)?.popToRootViewController(animated: true)
+        })
     }
 }
