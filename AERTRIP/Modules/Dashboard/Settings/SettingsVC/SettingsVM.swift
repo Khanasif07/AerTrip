@@ -25,9 +25,10 @@ class SettingsVM {
     }
     
     let settingsDataToPopulate = [
-        0 : [SettingsOptions.country, SettingsOptions.currency, SettingsOptions.notification, SettingsOptions.changeAertripId,SettingsOptions.changePassword,SettingsOptions.changeMobileNumber, SettingsOptions.disableWalletOtp],
+        0 : [SettingsOptions.country, SettingsOptions.currency, SettingsOptions.notification],
         1 : [SettingsOptions.calenderSync],
-        2 : [SettingsOptions.aboutUs, SettingsOptions.legal, SettingsOptions.privacyPolicy]
+        2 : [SettingsOptions.changeAertripId,SettingsOptions.changeMobileNumber,SettingsOptions.changePassword, SettingsOptions.disableWalletOtp],
+        3 : [SettingsOptions.aboutUs, SettingsOptions.legal, SettingsOptions.privacyPolicy]
     ]
     
     
@@ -42,11 +43,13 @@ class SettingsVM {
     }
     
     func isSepratorHidden(section : Int, row : Int) -> Bool {
-        if section == 0 && row == 6{
+        if section == 0 && row == 2{
             return true
         }else if section == 1 {
             return true
-        }else if section == 2 && row == 2 {
+        }else if section == 2 && row == 3 {
+            return true
+        }else if section == 3 && row == 2 {
             return true
         }else{
             return false

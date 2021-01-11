@@ -307,6 +307,48 @@ class FlightResultSingleJourneyVM {
                 
           var journeySortedArray = self.results.journeyArray
 
+        
+        suggetedSortArray.sort(by: { (obj1, obj2) -> Bool in
+            return (obj1.journeyArray[obj1.currentSelectedIndex].duration) < (obj2.journeyArray[obj2.currentSelectedIndex].duration)
+        })
+      
+      journeySortedArray.sort(by: { (obj1, obj2) -> Bool in
+        return (obj1.journeyArray[obj1.currentSelectedIndex].duration) < (obj2.journeyArray[obj2.currentSelectedIndex].duration)
+
+            })
+        
+        
+        
+        suggetedSortArray.sort(by: { (obj1, obj2) -> Bool in
+            
+          let firstObjDepartureTime = obj1.journeyArray[obj1.currentSelectedIndex].leg[0].dt
+          let secondObjDepartureTime = obj2.journeyArray[obj2.currentSelectedIndex].leg[0].dt
+            
+            return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
+
+        })
+      
+      journeySortedArray.sort(by: { (obj1, obj2) -> Bool in
+          
+          let firstObjDepartureTime = obj1.journeyArray[obj1.currentSelectedIndex].leg[0].dt
+          let secondObjDepartureTime = obj2.journeyArray[obj2.currentSelectedIndex].leg[0].dt
+          
+        return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
+
+      })
+        
+        
+        suggetedSortArray.sort(by: { (obj1, obj2) -> Bool in
+            return (obj1.journeyArray[obj1.currentSelectedIndex].price) < (obj2.journeyArray[obj2.currentSelectedIndex].price)
+
+        })
+      
+      journeySortedArray.sort(by: { (obj1, obj2) -> Bool in
+        return (obj1.journeyArray[obj1.currentSelectedIndex].price) < (obj2.journeyArray[obj2.currentSelectedIndex].price)
+
+           })
+
+        
           switch  sortOrder {
               
           case .Smart:
