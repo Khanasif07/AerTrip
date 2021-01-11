@@ -47,13 +47,9 @@ class AircraftFilterViewController: UIViewController , FilterViewController {
    
     }
     
-    
     func resetFilter(){
-        
-        self.aircraftFilter.selectedAircrafts.removeAll()
         self.aircraftFilter.selectedAircraftsArray.removeAll()
         self.aircraftTableView.reloadData()
-
     }
     
     
@@ -88,7 +84,7 @@ class AircraftFilterViewController: UIViewController , FilterViewController {
         combinedArray.append(contentsOf: withoutStarAircrafts)
         
         self.aircraftFilter.allAircraftsArray = combinedArray
-
+        self.aircraftFilter.selectedAircraftsArray = filter.selectedAircraftsArray
         
 //        printDebug("aircraftFilter in vc...\(self.aircraftFilter.allAircrafts)")
 

@@ -21,10 +21,6 @@ struct DynamicFilters {
 struct AircraftFilter {
     
     var selectedAircraftCodes: [String] = []
-    
-    var selectedAircrafts : [String] = []
-    var allAircrafts : [String] = []
-    
     var allAircraftsArray : [IntMultiCityAndReturnWSResponse.Results.EqMaster] = []
     var selectedAircraftsArray : [IntMultiCityAndReturnWSResponse.Results.EqMaster] = []
 
@@ -527,46 +523,28 @@ class IntFlightResultDisplayGroup {
     
     
     func createDynamicFilters(flightsArray: [IntMultiCityAndReturnWSResponse.Flight]){
-     
-        var allEqs : [String] = []
-        
+             
         var allAircrafts : [IntMultiCityAndReturnWSResponse.Results.EqMaster] = []
-        
-        allEqs.append(contentsOf: dynamicFilters.aircraft.allAircrafts)
-        
+                
         flightsArray.forEach { (flightResult) in
             
             flightResult.results.fdet.keys.forEach { (key) in
                 if let fdet = flightResult.results.fdet[key] {
-                    
-//                    printDebug("eqMaster....\(flightResult.results.eqMaster)")
-    
-                    allAircrafts.append(contentsOf: flightResult.results.eqMaster.compactMap { $0.value })
-                    
-                    allEqs.append(fdet.eq)
                         
+                    allAircrafts.append(contentsOf: flightResult.results.eqMaster.compactMap { $0.value })
+                                            
                 }
             }
-            
         }
         
-        dynamicFilters.aircraft.allAircrafts = allEqs.removeDuplicates()
-      
-//        var tempAircraftsArray : [IntMultiCityAndReturnWSResponse.Results.EqMaster] = []
-//
-//
-//        allAircrafts.forEach { (craft) in
-//
-//            if !tempAircraftsArray.contains(where: { (tempCraft) -> Bool in
-//                tempCraft.name == craft.name
-//            }) {
-//                tempAircraftsArray.append(craft)
-//            }
-//
-//        }
-        
         dynamicFilters.aircraft.allAircraftsArray = allAircrafts.removeDuplicates()
-
+        
+        dynamicFilters.aircraft.selectedAircraftCodes.forEach { (code) in
+            dynamicFilters.aircraft.selectedAircraftsArray.append(contentsOf: dynamicFilters.aircraft.allAircraftsArray.filter { $0.code == code })
+        }
+        
+        dynamicFilters.aircraft.selectedAircraftsArray = dynamicFilters.aircraft.selectedAircraftsArray.removeDuplicates()
+        
         self.delegate?.updateDynamicFilters(filters: dynamicFilters)
         
     }
