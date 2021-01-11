@@ -212,7 +212,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     continue
                 }
 
-                pairs[key] = val
+                pairs[key] = val.replacingOccurrences(of: "+", with: " ")
             }
             
             if url?.absoluteString.contains("flights") ?? false {
@@ -242,7 +242,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func searchHotelsWithDeepLink(dict: JSONDictionary) {
         let formJson = JSON(dict)
-        let searchFormData = HotelFormPreviosSearchData()
+        var recentSearchModel = RecentSearchesModel()
+        var searchFormData = HotelFormPreviosSearchData()
+        var adultsArr = [Int]()
+        for index in 0..<4 {
+            if formJson["r\(index)a"].stringValue.isEmpty { break } else {
+                adultsArr.append(formJson["r\(index)a"].intValue)
+            }
+        }
+        searchFormData.adultsCount = adultsArr
         
     }
 }

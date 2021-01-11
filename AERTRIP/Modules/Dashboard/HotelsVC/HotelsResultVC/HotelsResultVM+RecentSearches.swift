@@ -63,6 +63,9 @@ extension HotelsResultVM {
     }
     
     func getFilterParams() -> JSONDictionary {
+        
+        guard let _ = UserInfo.hotelFilter else { return [:] }
+        
         var filterParams = JSONDictionary()
         
         // Price
