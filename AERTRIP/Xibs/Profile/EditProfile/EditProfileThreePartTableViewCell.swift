@@ -50,6 +50,16 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
         rightViewTextField.placeholder = LocalizedString.Phone.localized
     }
     
+    var isSettingForEdit:Bool = false{
+        didSet{
+            if isSettingForEdit{
+                self.deleteButton.setImage(#imageLiteral(resourceName: "editPencel"), for: .normal)
+            }else{
+                self.deleteButton.setImage(#imageLiteral(resourceName: "redMinusButton"), for: .normal)
+            }
+        }
+    }
+    
     // MARK : - Helper methods
     
     func configureCell(_ isd:String,_ label : String, _ value: String) {

@@ -161,7 +161,6 @@ extension SettingsVC {
             if (UserInfo.loggedInUser?.hasPassword == true){
                 let vc = OTPVarificationVC.instantiate(fromAppStoryboard: .OTPAndVarification)
                 vc.modalPresentationStyle = .overFullScreen
-        //        vc.viewModel.itId = self.viewModel.appliedCouponData.itinerary.id
                 vc.viewModel.varificationType = .setMobileNumber
                 vc.delegate = self
                 self.present(vc, animated: false, completion: nil)
@@ -172,7 +171,6 @@ extension SettingsVC {
         }else{
             let vc = OTPVarificationVC.instantiate(fromAppStoryboard: .OTPAndVarification)
             vc.modalPresentationStyle = .overFullScreen
-    //        vc.viewModel.itId = self.viewModel.appliedCouponData.itinerary.id
             vc.viewModel.varificationType = .phoneNumberChangeOtp
             vc.delegate = self
             self.present(vc, animated: false, completion: nil)

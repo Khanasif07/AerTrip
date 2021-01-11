@@ -43,6 +43,16 @@ class EditProfileTwoPartTableViewCell: UITableViewCell {
         }
     }
     
+    var isSettingForEdit:Bool = false{
+        didSet{
+            if isSettingForEdit{
+                self.deleteButton.setImage(#imageLiteral(resourceName: "editPencel"), for: .normal)
+            }else{
+                self.deleteButton.setImage(#imageLiteral(resourceName: "redMinusButton"), for: .normal)
+            }
+        }
+    }
+    
     
     // MARK: - View Life cycle methods
     

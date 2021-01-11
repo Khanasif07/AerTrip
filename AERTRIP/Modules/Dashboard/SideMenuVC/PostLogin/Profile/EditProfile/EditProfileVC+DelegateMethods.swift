@@ -65,16 +65,17 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: editTwoPartCellIdentifier, for: indexPath) as? EditProfileTwoPartTableViewCell else {
                     fatalError("EditProfileTwoPartTableViewCell not found")
                 }
-                
+                cell.isSettingForEdit = false
                 cell.editProfilTwoPartTableViewCelldelegate = self
                 if indexPath.row == 0, self.viewModel.currentlyUsinfFor == .viewProfile {
                     //make disable
                     cell.rightViewTextField.isEnabled = false
-                    cell.deleteButton.isHidden = true
+//                    cell.deleteButton.isHidden = true
                     cell.leftView.isUserInteractionEnabled = false
                     cell.leftTitleLabel.textColor = AppColors.themeGray40
                     cell.rightViewTextField.textColor = AppColors.themeGray40
-                    cell.blackDownImageView.isHidden = true
+                    cell.blackDownImageView.isHidden = false
+                    cell.isSettingForEdit = true
                 } else {
                     //make enable
                     cell.rightViewTextField.delegate = self
@@ -89,6 +90,9 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 cell.rightViewTextField.keyboardType = .emailAddress
                 cell.email = self.viewModel.email[indexPath.row]
                 cell.social = nil
+                if indexPath.row == 0, self.viewModel.currentlyUsinfFor == .viewProfile {
+                    cell.leftTitleLabel.text = "Aertrip ID"
+                }
                 cell.leftSeparatorView.isHidden = indexPath.row + 1 == self.viewModel.email.count
                 cell.rightSeparatorView.isHidden = indexPath.row + 1 == self.viewModel.email.count
                 return cell
@@ -107,9 +111,16 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                     fatalError("EditProfileThreePartTableViewCell not found")
                 }
                 cell.delegate = self
+                cell.isSettingForEdit = false
                 if indexPath.row == 0 {
+                    if self.viewModel.currentlyUsinfFor == .viewProfile{
+                        cell.isSettingForEdit = true
+                        cell.deleteButton.isHidden = false
+                    }else{
+                        cell.deleteButton.isHidden = true
+                    }
                     //make disable
-                    cell.deleteButton.isHidden = true
+                    
                     cell.leftView.isUserInteractionEnabled = false
                     cell.rightViewTextField.isUserInteractionEnabled = !(self.viewModel.travelData?.id == UserInfo.loggedInUser?.paxId)
                     cell.leftTitleLabel.textColor = AppColors.themeGray40
@@ -793,17 +804,25 @@ extension EditProfileVC: EditProfileTwoPartTableViewCellDelegate {
         
         switch self.sections[indexPath.section] {
         case LocalizedString.EmailAddress.localized:
-            if self.viewModel.email[indexPath.row].value.isEmpty {
-                self.viewModel.email.remove(at: indexPath.row)
-                self.tableView.reloadData()
+            if self.viewModel.currentlyUsinfFor == .viewProfile && indexPath.row == 0{
+                self.navigateToChangeEmailVc()
                 return
+            }else{
+                if self.viewModel.email[indexPath.row].value.isEmpty {
+                    self.viewModel.email.remove(at: indexPath.row)
+                    self.tableView.reloadData()
+                    return
+                }
             }
-            
         case LocalizedString.SocialAccounts.localized:
-            if self.viewModel.social[indexPath.row].value.isEmpty {
-                self.viewModel.social.remove(at: indexPath.row)
-                self.tableView.reloadData()
+            if self.viewModel.currentlyUsinfFor == .viewProfile && indexPath.row == 0{
                 return
+            }else{
+                if self.viewModel.social[indexPath.row].value.isEmpty {
+                    self.viewModel.social.remove(at: indexPath.row)
+                    self.tableView.reloadData()
+                    return
+                }
             }
         default:
             break
@@ -923,6 +942,9 @@ extension EditProfileVC: EditProfileThreePartTableViewCellDelegate {
     }
     
     func editProfileThreePartDeleteCellTapped(_ indexPath: IndexPath) {
+        if self.viewModel.currentlyUsinfFor == .viewProfile && indexPath.row == 0{
+            self.changeMobileNumber()
+        }
         guard indexPath.row != 0 else {return}
         self.indexPath = indexPath
         if self.viewModel.mobile[indexPath.row].value.isEmpty {
@@ -1254,8 +1276,41 @@ extension EditProfileVC {
         controller.defaultAirlines = defaultAirlines
         self.present(controller, animated: true, completion: nil)
     }
+    
+    func navigateToChangeEmailVc(){
+        let vc = ChangeEmailVC.instantiate(fromAppStoryboard: .OTPAndVarification)
+        vc.modalPresentationStyle = .overFullScreen
+        self.present(vc, animated: false, completion: nil)
+    }
+    
+    func changeMobileNumber(){
+        if (UserInfo.loggedInUser?.mobile.isEmpty ?? false){
+            if (UserInfo.loggedInUser?.hasPassword == true){
+                let vc = OTPVarificationVC.instantiate(fromAppStoryboard: .OTPAndVarification)
+                vc.modalPresentationStyle = .overFullScreen
+                vc.viewModel.varificationType = .setMobileNumber
+                vc.delegate = self
+                self.present(vc, animated: false, completion: nil)
+            }else{
+                AppToast.default.showToastMessage(message: "Please set your account password!")
+            }
+            
+        }else{
+            let vc = OTPVarificationVC.instantiate(fromAppStoryboard: .OTPAndVarification)
+            vc.modalPresentationStyle = .overFullScreen
+            vc.viewModel.varificationType = .phoneNumberChangeOtp
+            vc.delegate = self
+            self.present(vc, animated: false, completion: nil)
+        }
+    }
+    
 }
-
+extension EditProfileVC : OtpConfirmationDelegate {
+    func otpValidationCompleted(_ isSuccess: Bool) {
+//        self.updateUserData()
+        self.tableView.reloadData()
+    }
+}
 
 /*
  self.viewModel.notes = textView.text
