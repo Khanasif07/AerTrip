@@ -243,14 +243,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func searchHotelsWithDeepLink(dict: JSONDictionary) {
         let formJson = JSON(dict)
         var recentSearchModel = RecentSearchesModel()
-        var searchFormData = HotelFormPreviosSearchData()
-        var adultsArr = [Int]()
-        for index in 0..<4 {
-            if formJson["r\(index)a"].stringValue.isEmpty { break } else {
-                adultsArr.append(formJson["r\(index)a"].intValue)
+        var adultsArr = [String]()
+        var childArr = [[Child]]()
+        for roomIndex in 0..<4 {
+            if formJson["r\(roomIndex)a"].stringValue.isEmpty { break } else {
+                adultsArr.append(formJson["r\(roomIndex)a"].stringValue)
             }
+            var roomChildArr = [Child]()
+            for childIndex in 0..<4 {
+                if formJson["r\(roomIndex)c\(childIndex)"].stringValue.isEmpty { break }
+                var child = Child()
+                child.childAge = formJson["r\(roomIndex)c\(childIndex)"].intValue
+                child.isPresent = true
+                child.error = false
+                roomChildArr.append(child)
+            }
+            childArr.append(roomChildArr)
         }
-        searchFormData.adultsCount = adultsArr
+        
+        var roomArr = [RecentRoom]()
+        adultsArr.enumerated().forEach { (index, adultCount) in
+            var room = RecentRoom()
+            room.adultCounts = adultCount
+            if childArr.indices.contains(index) {
+                room.child = childArr[index]
+            }
+            room.isPresent = true
+            roomArr.append(room)
+        }
+        
+        recentSearchModel.room = roomArr
         
     }
 }
