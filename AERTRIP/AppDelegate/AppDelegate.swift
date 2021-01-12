@@ -305,10 +305,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func moveToRootVC() {
         DispatchQueue.main.async {
+            
+            if AppFlowManager.default.sideMenuController?.isOpen ?? false {
+                AppFlowManager.default.sideMenuController?.closeMenu()
+            }
+            
             let nvc = self.window?.rootViewController as? UINavigationController
+            
             nvc?.dismiss(animated: true, completion: {
                 nvc?.popToRootViewController(animated: true)
             })
+            
+//            guard let dashboardVC = nvc?.viewControllers.first?.children.first?.children.first as? DashboardVC else { return }
+//            if dashboardVC.mainScrollView.contentOffset.x > 0 {
+//                ma
+//            }
         }
     }
 }
