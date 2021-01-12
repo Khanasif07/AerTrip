@@ -393,18 +393,17 @@ class FlightResultDisplayGroup {
         flightsArray.forEach { (flightMainObj) in
             
             allAircrafts.append(contentsOf: flightMainObj.results.eqMaster.compactMap { $0.value })
-
-            printDebug(flightMainObj.results.eqMaster.count)
-            
-//            printDebug("flightMainObj.results.eqMaster....\(flightMainObj.results.eqMaster)")
             
         }
 
         
         dynamicFilters.aircraft.allAircraftsArray = allAircrafts.removeDuplicates()
 
-//        printDebug("dynamicFilters.aircraft.allAircraftsArraycount....\(dynamicFilters.aircraft.allAircraftsArray.count)")
-
+        dynamicFilters.aircraft.selectedAircraftCodes.forEach { (code) in
+            dynamicFilters.aircraft.selectedAircraftsArray.append(contentsOf: dynamicFilters.aircraft.allAircraftsArray.filter { $0.code == code })
+        }
+        
+        dynamicFilters.aircraft.selectedAircraftsArray = dynamicFilters.aircraft.selectedAircraftsArray.removeDuplicates()
         
         self.delegate?.updateDynamicFilters(filters: dynamicFilters)
         

@@ -213,6 +213,10 @@ class ViewProfileVC: BaseVC {
 
 extension ViewProfileVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
+        if viewModel.isComingFromDeepLink {
+            navigationController?.popViewController(animated: true)
+            return
+        }
         isBackBtnTapped = true
         self.delegate?.backButtonAction(sender)
         self.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)

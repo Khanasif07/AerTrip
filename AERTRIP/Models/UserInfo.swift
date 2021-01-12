@@ -269,7 +269,8 @@ class UserInfo {
             if taRatings.isEmpty { taRatings = [1, 2, 3, 4, 5] }
             tripAdvisorRatingCount  = taRatings
             isIncludeUnrated  = true
-            distanceRange  = recentSearchFilter.distance.toDouble
+            let distance = recentSearchFilter.distance == 0 ? 25 : recentSearchFilter.distance.toDouble
+            distanceRange  = distance
             minimumPrice  = Double(recentSearchFilter.boundaryMinPrice)
             maximumPrice  = Double(recentSearchFilter.boundaryMaxPrice)
             leftRangePrice = Double(recentSearchFilter.minPrice)

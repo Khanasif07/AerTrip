@@ -212,7 +212,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     continue
                 }
 
-                pairs[key] = val
+                pairs[key] = val.replacingOccurrences(of: "+", with: " ")
             }
             
             if url?.absoluteString.contains("flights") ?? false {
@@ -234,15 +234,80 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         }
-        
+        moveToRootVC()
         DispatchQueue.delay(1) {
+            guard let dashboardVC = (self.window?.rootViewController as? UINavigationController)?.viewControllers.first?.children.first?.children.first as? DashboardVC else { return }
+            dashboardVC.flightsAction(UIButton())
             SwiftObjCBridgingController.shared.sendFlightFormData(dict)
         }
     }
     
     func searchHotelsWithDeepLink(dict: JSONDictionary) {
         let formJson = JSON(dict)
-        let searchFormData = HotelFormPreviosSearchData()
+        var recentSearchModel = RecentSearchesModel()
+        var adultsArr = [String]()
+        var childArr = [[Child]]()
+        for roomIndex in 0..<4 {
+            if formJson["r\(roomIndex)a"].stringValue.isEmpty { break } else {
+                adultsArr.append(formJson["r\(roomIndex)a"].stringValue)
+            }
+            var roomChildArr = [Child]()
+            for childIndex in 0..<4 {
+                if formJson["r\(roomIndex)c\(childIndex)"].stringValue.isEmpty { break }
+                var child = Child()
+                child.childAge = formJson["r\(roomIndex)c\(childIndex)"].intValue
+                child.isPresent = true
+                child.error = false
+                roomChildArr.append(child)
+            }
+            childArr.append(roomChildArr)
+        }
         
+        var roomArr = [RecentRoom]()
+        adultsArr.enumerated().forEach { (index, adultCount) in
+            var room = RecentRoom()
+            room.adultCounts = adultCount
+            if childArr.indices.contains(index) {
+                room.child = childArr[index]
+            }
+            room.isPresent = true
+            roomArr.append(room)
+        }
+        
+        recentSearchModel.room = roomArr
+        recentSearchModel.checkInDate = formJson[APIKeys.checkin.rawValue].stringValue
+        recentSearchModel.checkOutDate = formJson[APIKeys.checkout.rawValue].stringValue
+        recentSearchModel.dest_id = formJson[APIKeys.dest_id.rawValue].stringValue
+        recentSearchModel.dest_type = formJson[APIKeys.dest_type.rawValue].stringValue
+        recentSearchModel.dest_name = formJson[APIKeys.dest_name.rawValue].stringValue
+        recentSearchModel.totalNights = formJson[APIKeys.nights.rawValue].intValue
+        recentSearchModel.guestsValue = formJson[APIKeys.guests.rawValue].stringValue
+        recentSearchModel.lat = formJson[APIKeys.lat.rawValue].stringValue
+        recentSearchModel.lng = formJson[APIKeys.lng.rawValue].stringValue
+        recentSearchModel.type = .hotel
+        
+        if let filterDict = AppGlobals.shared.object(from: formJson[APIKeys.filter.rawValue].stringValue) as? JSONDictionary {
+            recentSearchModel.filter = RecentSearchesFilter(json: filterDict)
+        }
+        moveToRootVC()
+        DispatchQueue.delay(1) {
+            guard let dashboardVC = (self.window?.rootViewController as? UINavigationController)?.viewControllers.first?.children.first?.children.first as? DashboardVC else { return }
+            
+            dashboardVC.hotelsAction(UIButton())
+            dashboardVC.children.forEach { (viewCon) in
+                if let searchVC = viewCon as? HotelsSearchVC {
+                    delay(seconds: 1.0) {
+                        searchVC.passRecentSearchesData(recentSearch: recentSearchModel)
+                    }
+                }
+            }
+        }
+    }
+    
+    private func moveToRootVC() {
+        let nvc = window?.rootViewController as? UINavigationController
+        nvc?.dismiss(animated: true, completion: {
+            nvc?.popToRootViewController(animated: true)
+        })
     }
 }

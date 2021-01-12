@@ -342,9 +342,11 @@ class HotelsResultVM: NSObject {
 //        for (idx, _) in  self.searchedFormData.ratingCount.enumerated() {
 //            params["filter[star][\(idx+1)star]"] = true
 //        }
-        params["filter"] = getFilterParams()
+        let filter = getFilterParams()
+        if !filter.keys.isEmpty {
+            params["filter"] = AppGlobals.shared.json(from: filter)
+        }
         let _adultsCount = self.searchedFormData.adultsCount
-        let _chidrenAge = self.searchedFormData.childrenAge
         params["p"] = "hotels"
         params["dest_id"] = self.hotelSearchRequest?.requestParameters.destinationId
         params["check_in"] = self.hotelSearchRequest?.requestParameters.checkIn
@@ -353,7 +355,8 @@ class HotelsResultVM: NSObject {
         params["dest_name"]  = self.hotelSearchRequest?.requestParameters.destName
         params["lat"] = self.hotelSearchRequest?.requestParameters.latitude
         params["lng"] = self.hotelSearchRequest?.requestParameters.longitude
-        params["checkout"] = self.hotelSearchRequest?.requestParameters.checkOut
+//        params["checkout"] = self.hotelSearchRequest?.requestParameters.checkOut
+            
         
         // get number of adult count
         
@@ -362,13 +365,22 @@ class HotelsResultVM: NSObject {
         }
         
         // get number of children
-        for (idx , dataX) in _chidrenAge.enumerated() {
-            for (idy , dataY) in dataX.enumerated() {
-                if dataY != 0 {
-                    params["r[\(idx)][c][\(idy)]"] = dataY
-                }
+        for (room, children) in searchedFormData.childrenCounts.enumerated() {
+            if children < 1 { continue }
+            let roomChildrenAges = searchedFormData.childrenAge[room]
+            for index in 0..<children {
+                params["r[\(room)][c][\(index)]"] = roomChildrenAges[index]
             }
         }
+        
+        // Replaced previously written logic with the one above
+//        for (idx , dataX) in _chidrenAge.enumerated() {
+//            for (idy , dataY) in dataX.enumerated() {
+//                if dataY != 0 {
+//                    params["r[\(idx)][c][\(idy)]"] = dataY
+//                }
+//            }
+//        }
         
         // Get share text Api
         
