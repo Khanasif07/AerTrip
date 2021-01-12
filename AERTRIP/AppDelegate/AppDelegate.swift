@@ -215,6 +215,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 pairs[key] = val.replacingOccurrences(of: "+", with: " ")
             }
             
+            self.moveToRootVC()
             if url?.absoluteString.contains("flights") ?? false {
                 self.searchFlightsWithDeepLink(dict: pairs)
             } else if url?.absoluteString.contains("hotels") ?? false {
@@ -234,7 +235,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         }
-        moveToRootVC()
         DispatchQueue.delay(1) {
             guard let dashboardVC = (self.window?.rootViewController as? UINavigationController)?.viewControllers.first?.children.first?.children.first as? DashboardVC else { return }
             dashboardVC.flightsAction(UIButton())
@@ -289,7 +289,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let filterDict = AppGlobals.shared.object(from: formJson[APIKeys.filter.rawValue].stringValue) as? JSONDictionary {
             recentSearchModel.filter = RecentSearchesFilter(json: filterDict)
         }
-        moveToRootVC()
         DispatchQueue.delay(1) {
             guard let dashboardVC = (self.window?.rootViewController as? UINavigationController)?.viewControllers.first?.children.first?.children.first as? DashboardVC else { return }
             
