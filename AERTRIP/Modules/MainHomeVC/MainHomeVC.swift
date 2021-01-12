@@ -317,7 +317,7 @@ class MainHomeVC: BaseVC {
         animator.startAnimation()
     }
     
-    private func popProfileAnimation() {
+    func popProfileAnimation() {
         self.statusBarStyle = .darkContent
         let popPoint = CGPoint(x: 0.0, y: 0.0)
         

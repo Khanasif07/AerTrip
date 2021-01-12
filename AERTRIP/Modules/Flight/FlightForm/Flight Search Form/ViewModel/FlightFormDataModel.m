@@ -188,10 +188,14 @@
     
     NSMutableDictionary *parametersDynamic = [[NSMutableDictionary alloc] init];
     
-    [parametersDynamic setObject:[self parseString:[NSString stringWithFormat:@"%ld",(long)self.travellerCount.flightAdultCount]] forKey:@"adult"];
-    [parametersDynamic setObject:[self parseString:[NSString stringWithFormat:@"%ld",(long)self.travellerCount.flightChildrenCount]] forKey:@"child"];
-    [parametersDynamic setObject:[self parseString:[NSString stringWithFormat:@"%ld",(long)self.travellerCount.flightInfantCount]] forKey:@"infant"];
+//    [parametersDynamic setObject:[self parseString:[NSString stringWithFormat:@"%ld",(long)self.travellerCount.flightAdultCount]] forKey:@"adult"];
+//    [parametersDynamic setObject:[self parseString:[NSString stringWithFormat:@"%ld",(long)self.travellerCount.flightChildrenCount]] forKey:@"child"];
+//    [parametersDynamic setObject:[self parseString:[NSString stringWithFormat:@"%ld",(long)self.travellerCount.flightInfantCount]] forKey:@"infant"];
  
+    // sending as integer as requested by Rahul - backend
+    [parametersDynamic setValue:[NSNumber numberWithLong:self.travellerCount.flightAdultCount] forKey:@"adult"];
+    [parametersDynamic setValue:[NSNumber numberWithLong:self.travellerCount.flightChildrenCount] forKey:@"child"];
+    [parametersDynamic setValue:[NSNumber numberWithLong:self.travellerCount.flightInfantCount] forKey:@"infant"];
 
     [parametersDynamic setObject:[self.flightClass.name capitalizedString] forKey:@"cabinclass"];
     
@@ -1307,7 +1311,7 @@
 {
     
     NSDictionary * parametersDynamic = [self getRecentSearchParameters:flightSearchParameters];
-    
+        
     __weak typeof(self) weakSelf = self;
 
     [[Network sharedNetwork] callApi:RECENT_SEARCH_SET_API parameters:parametersDynamic loadFromCache:NO expires:YES success:^(NSDictionary *dataDictionary) {

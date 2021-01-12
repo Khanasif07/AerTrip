@@ -19,6 +19,9 @@ extension FlightSearchResultVM {
             if var dataQuery = convertStringToDictionary(text: dataQueryStr) {
                 dataQuery = dataQuery.filter { !$0.key.contains("filters") }
                 dataQuery["filters"] = filtersDict
+                dataQuery["adult"] = Int(dataQuery["adult"] as? String ?? "0") ?? 0
+                dataQuery["child"] = Int(dataQuery["child"] as? String ?? "0") ?? 0
+                dataQuery["infant"] = Int(dataQuery["infant"] as? String ?? "0") ?? 0
                 recentSearchParamsWithFilters["data[query]"] = convertDictionaryToString(dict: dataQuery)
             }
         }
@@ -35,6 +38,9 @@ extension FlightSearchResultVM {
             if var dataQuery = convertStringToDictionary(text: dataQueryStr) {
                 dataQuery = dataQuery.filter { !$0.key.contains("filters") }
                 dataQuery["filters"] = filtersDict
+                dataQuery["adult"] = Int(dataQuery["adult"] as? String ?? "0") ?? 0
+                dataQuery["child"] = Int(dataQuery["child"] as? String ?? "0") ?? 0
+                dataQuery["infant"] = Int(dataQuery["infant"] as? String ?? "0") ?? 0
                 recentSearchParamsWithFilters["data[query]"] = convertDictionaryToString(dict: dataQuery)
             }
         }
