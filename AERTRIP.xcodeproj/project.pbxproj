@@ -755,6 +755,8 @@
 		84271E8022379E4F00C1A70D /* HotelCheckout.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84271E7F22379E4F00C1A70D /* HotelCheckout.storyboard */; };
 		84271E832237A10700C1A70D /* HCDataSelectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84271E822237A10700C1A70D /* HCDataSelectionVC.swift */; };
 		84271E852237A13F00C1A70D /* HCDataSelectionVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84271E842237A13F00C1A70D /* HCDataSelectionVM.swift */; };
+		8427D41A25ADB5760091CE9F /* UserAccountDetailsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8427D41925ADB5760091CE9F /* UserAccountDetailsVM.swift */; };
+		8427D41C25ADB6840091CE9F /* UserAccountDetailsVC+UITableViewDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8427D41B25ADB6840091CE9F /* UserAccountDetailsVC+UITableViewDelegates.swift */; };
 		842995C1249E1DD9002E1A64 /* HotelFareTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842995BF249E1DD9002E1A64 /* HotelFareTableViewCell.swift */; };
 		842995C2249E1DD9002E1A64 /* HotelFareTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 842995C0249E1DD9002E1A64 /* HotelFareTableViewCell.xib */; };
 		8429C91E21BFEED9009C208E /* PKPulseAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8429C91D21BFEED9009C208E /* PKPulseAnimation.swift */; };
@@ -839,6 +841,8 @@
 		843C48072248E9FC00E71887 /* HCRefundRequestedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843C48062248E9FC00E71887 /* HCRefundRequestedVC.swift */; };
 		843D17192208268D00072BAE /* SwipeNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843D17182208268D00072BAE /* SwipeNavigationController.swift */; };
 		843E63202292782F00A04248 /* DepositItinerary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843E631F2292782F00A04248 /* DepositItinerary.swift */; };
+		843E86B125ADE224007D0C14 /* UserAccountDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843E86AF25ADE224007D0C14 /* UserAccountDetailsCell.swift */; };
+		843E86B225ADE224007D0C14 /* UserAccountDetailsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 843E86B025ADE224007D0C14 /* UserAccountDetailsCell.xib */; };
 		843FF47624740230001F21B1 /* MulticityCalendarVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 843FF2EC2474022F001F21B1 /* MulticityCalendarVM.m */; };
 		843FF47724740230001F21B1 /* CalendarVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 843FF2ED2474022F001F21B1 /* CalendarVM.m */; };
 		843FF47824740230001F21B1 /* AertripCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 843FF2F22474022F001F21B1 /* AertripCalendarViewController.m */; };
@@ -1471,6 +1475,7 @@
 		84B23F74222FA39B00C952ED /* CityMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B23F72222FA39B00C952ED /* CityMarkerView.swift */; };
 		84B23F78222FFA9E00C952ED /* ClusterMarkerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B23F76222FFA9E00C952ED /* ClusterMarkerView.xib */; };
 		84B23F79222FFA9E00C952ED /* ClusterMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B23F77222FFA9E00C952ED /* ClusterMarkerView.swift */; };
+		84B366D425AD7A4800D414DB /* UserAccountDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B366D325AD7A4800D414DB /* UserAccountDetailsVC.swift */; };
 		84B5089F229528DB00D4D371 /* PeriodicStatementEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B5089E229528DB00D4D371 /* PeriodicStatementEvent.swift */; };
 		84B6DE9E228018D10042D902 /* SpecialAccountDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B6DE9D228018D10042D902 /* SpecialAccountDetailsVC.swift */; };
 		84B6DEA0228018DC0042D902 /* SpecialAccountDetailsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B6DE9F228018DC0042D902 /* SpecialAccountDetailsVM.swift */; };
@@ -2444,6 +2449,8 @@
 		84271E7F22379E4F00C1A70D /* HotelCheckout.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HotelCheckout.storyboard; sourceTree = "<group>"; };
 		84271E822237A10700C1A70D /* HCDataSelectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCDataSelectionVC.swift; sourceTree = "<group>"; };
 		84271E842237A13F00C1A70D /* HCDataSelectionVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCDataSelectionVM.swift; sourceTree = "<group>"; };
+		8427D41925ADB5760091CE9F /* UserAccountDetailsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountDetailsVM.swift; sourceTree = "<group>"; };
+		8427D41B25ADB6840091CE9F /* UserAccountDetailsVC+UITableViewDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserAccountDetailsVC+UITableViewDelegates.swift"; sourceTree = "<group>"; };
 		842995BF249E1DD9002E1A64 /* HotelFareTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelFareTableViewCell.swift; sourceTree = "<group>"; };
 		842995C0249E1DD9002E1A64 /* HotelFareTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HotelFareTableViewCell.xib; sourceTree = "<group>"; };
 		8429C91D21BFEED9009C208E /* PKPulseAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKPulseAnimation.swift; sourceTree = "<group>"; };
@@ -2528,6 +2535,8 @@
 		843C48062248E9FC00E71887 /* HCRefundRequestedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCRefundRequestedVC.swift; sourceTree = "<group>"; };
 		843D17182208268D00072BAE /* SwipeNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeNavigationController.swift; sourceTree = "<group>"; };
 		843E631F2292782F00A04248 /* DepositItinerary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepositItinerary.swift; sourceTree = "<group>"; };
+		843E86AF25ADE224007D0C14 /* UserAccountDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountDetailsCell.swift; sourceTree = "<group>"; };
+		843E86B025ADE224007D0C14 /* UserAccountDetailsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserAccountDetailsCell.xib; sourceTree = "<group>"; };
 		843FF2E92474022F001F21B1 /* CalendarVM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarVM.h; sourceTree = "<group>"; };
 		843FF2EA2474022F001F21B1 /* CalendarDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarDataModel.h; sourceTree = "<group>"; };
 		843FF2EB2474022F001F21B1 /* CalendarDataHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarDataHandler.h; sourceTree = "<group>"; };
@@ -3295,6 +3304,7 @@
 		84B23F72222FA39B00C952ED /* CityMarkerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityMarkerView.swift; sourceTree = "<group>"; };
 		84B23F76222FFA9E00C952ED /* ClusterMarkerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ClusterMarkerView.xib; sourceTree = "<group>"; };
 		84B23F77222FFA9E00C952ED /* ClusterMarkerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClusterMarkerView.swift; sourceTree = "<group>"; };
+		84B366D325AD7A4800D414DB /* UserAccountDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountDetailsVC.swift; sourceTree = "<group>"; };
 		84B5089E229528DB00D4D371 /* PeriodicStatementEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodicStatementEvent.swift; sourceTree = "<group>"; };
 		84B6DE9D228018D10042D902 /* SpecialAccountDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialAccountDetailsVC.swift; sourceTree = "<group>"; };
 		84B6DE9F228018DC0042D902 /* SpecialAccountDetailsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialAccountDetailsVM.swift; sourceTree = "<group>"; };
@@ -5366,6 +5376,7 @@
 		84085CB521F59C0D00F1E844 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				84B366D225AD783100D414DB /* Account Details */,
 				8443EAA125A31BB000CA3B65 /* ChangeEmail */,
 				84D503782475310000527C77 /* ChangePassword */,
 				84085CB621F59C0D00F1E844 /* EditProfile */,
@@ -6125,6 +6136,15 @@
 				843D17182208268D00072BAE /* SwipeNavigationController.swift */,
 			);
 			path = SwipeNavigationController;
+			sourceTree = "<group>";
+		};
+		843E86AC25ADE1D0007D0C14 /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				843E86AF25ADE224007D0C14 /* UserAccountDetailsCell.swift */,
+				843E86B025ADE224007D0C14 /* UserAccountDetailsCell.xib */,
+			);
+			path = TableViewCells;
 			sourceTree = "<group>";
 		};
 		843FF2E62474022F001F21B1 /* Flight */ = {
@@ -8466,6 +8486,18 @@
 			path = ClusterMarkerView;
 			sourceTree = "<group>";
 		};
+		84B366D225AD783100D414DB /* Account Details */ = {
+			isa = PBXGroup;
+			children = (
+				843E86AC25ADE1D0007D0C14 /* TableViewCells */,
+				84B366D325AD7A4800D414DB /* UserAccountDetailsVC.swift */,
+				8427D41925ADB5760091CE9F /* UserAccountDetailsVM.swift */,
+				8427D41B25ADB6840091CE9F /* UserAccountDetailsVC+UITableViewDelegates.swift */,
+			);
+			name = "Account Details";
+			path = "AERTRIP/Modules/Dashboard/SideMenuVC/PostLogin/Account Details";
+			sourceTree = SOURCE_ROOT;
+		};
 		84B6DE9C228018B00042D902 /* SpecialAccountDetailsVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -9670,6 +9702,7 @@
 				8491D1F6222D3FC2001D0313 /* SourceSansPro-Light.ttf in Resources */,
 				0C6E393C24FE7B4C00D7383F /* IntMCAndReturnFiltersBaseVC.xib in Resources */,
 				1879C4AA2293CD6600897CED /* BookingDirectionTableViewCell.xib in Resources */,
+				843E86B225ADE224007D0C14 /* UserAccountDetailsCell.xib in Resources */,
 				84323D422230563800DA7581 /* HotelDetailsSearchTagTableCell.xib in Resources */,
 				846856AD2233A482001B9E13 /* AdvisorRatingTableViewCell.xib in Resources */,
 				18DEFE8324A1A98500E64260 /* RetryView.xib in Resources */,
@@ -10366,6 +10399,7 @@
 				84981CD821F74EC9002E68C7 /* AddRoomPictureCell.swift in Sources */,
 				843FF4FA24740231001F21B1 /* IntMCAndReturnDetailsVC.swift in Sources */,
 				843FF668247409E3001F21B1 /* FlightPreferencesDropDown.m in Sources */,
+				84B366D425AD7A4800D414DB /* UserAccountDetailsVC.swift in Sources */,
 				18930A2D21D46E0D005442C8 /* TwoPartEditTableViewCell.swift in Sources */,
 				84FD0DD0228AB66800915A09 /* APICaller+Account.swift in Sources */,
 				1827542224A9D09F00E83472 /* FlightPaymentPendingVM.swift in Sources */,
@@ -10637,6 +10671,7 @@
 				18889C9424B706CB001C01D6 /* NewAccountLedgerEventCell.swift in Sources */,
 				84D1580322660B4F00393528 /* AccountDetailEventHeaderCell.swift in Sources */,
 				843FF54924740232001F21B1 /* FlightSearchResultVM + FilterDelegate.swift in Sources */,
+				8427D41A25ADB5760091CE9F /* UserAccountDetailsVM.swift in Sources */,
 				1804888D21CA6BAA00437C81 /* ViewProfileDetailTableViewCell.swift in Sources */,
 				842E048A221583F000C482DC /* RecentHotelSearcheView.swift in Sources */,
 				84F92889221A9BF700679349 /* TripAdviserReviewsCell.swift in Sources */,
@@ -10866,6 +10901,7 @@
 				182D4853228ACD5B004796A2 /* APICaller+Booking.swift in Sources */,
 				84FD0DCD228A8E4800915A09 /* AccountModel.swift in Sources */,
 				0C4CB41B25022E89000C3904 /* CommunicationVC.swift in Sources */,
+				843E86B125ADE224007D0C14 /* UserAccountDetailsCell.swift in Sources */,
 				1870AD33220D64C000FB32C8 /* HotelSearched+CoreDataProperties.swift in Sources */,
 				84085CE621F59C0E00F1E844 /* CreateProfileVM.swift in Sources */,
 				843FF52324740231001F21B1 /* FlightDomesticMultiLegResultVC+UI.swift in Sources */,
@@ -11171,6 +11207,7 @@
 				84E4BC6422A0EE6D00B72306 /* FlightBookingsDetailsVC+TableCells.swift in Sources */,
 				1809A47621CD057D0018AB2F /* EditProfileImageHeaderView.swift in Sources */,
 				8443EAA525A348A900CA3B65 /* ChangeEmailVM.swift in Sources */,
+				8427D41C25ADB6840091CE9F /* UserAccountDetailsVC+UITableViewDelegates.swift in Sources */,
 				84E4BC6722A1032A00B72306 /* PaymentPendingTableViewCell.swift in Sources */,
 				18D4C419220AC6A9005E1E37 /* RoomVM.swift in Sources */,
 				8438B44A245AB47C00F7320B /* FlightFareInfoVC+HelperMethods.swift in Sources */,

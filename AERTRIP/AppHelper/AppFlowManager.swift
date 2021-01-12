@@ -340,6 +340,11 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
+    func moveToAccountDetailsVC() {
+        let ob = UserAccountDetailsVC.instantiate(fromAppStoryboard: .Profile)
+        self.mainNavigationController.pushViewController(ob, animated: true)
+    }
+    
     func moveToFFSearchVC(defaultAirlines: [FlyerModel], delegate: SearchVCDelegate?) {
         let controller = FFSearchVC.instantiate(fromAppStoryboard: .Profile)
         controller.modalPresentationStyle = .fullScreen
@@ -1529,3 +1534,5 @@ extension AppFlowManager : UIGestureRecognizerDelegate {
         return false
     }
 }
+
+

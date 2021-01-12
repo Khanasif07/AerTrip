@@ -1290,7 +1290,8 @@ enum LocalizedString: String {
     case Force_Update_Msg = "Force_Update_Msg"
     case Update_Now = "Update_Now"
     case Update_Later = "Update_Later"
-    
-    
     case toChangeMobileNumber
+    
+    case Account_Details = "Account_Details"
+    
 }

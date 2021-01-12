@@ -346,6 +346,11 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
                     case LocalizedString.LinkedAccounts.localized:
                         AppFlowManager.default.moveToLinkedAccountsVC()
                 
+                    case LocalizedString.AccountDetails.localized:
+//                        AppFlowManager.default.moveToAccountDetailsVC()
+                        AppToast.default.showToastMessage(message: "This feature is coming soon")
+
+                        
                     default:
                         AppToast.default.showToastMessage(message: "This feature is coming soon")
                         break

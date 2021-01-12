@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="91" id="KGk-i7-Jjw" customClass="UserAccountDetailsCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="444" height="91"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="444" height="91"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow" translatesAutoresizingMaskIntoConstraints="NO" id="I39-Il-pmO">
+                        <rect key="frame" x="409" y="30.5" width="30" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="niv-L6-SKc"/>
+                            <constraint firstAttribute="width" constant="30" id="rCq-9y-wZ4"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Default" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0dw-yG-m6w">
+                        <rect key="frame" x="16" y="10" width="54.5" height="23"/>
+                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Akshya Nagar 1st Block 1st Cross,  sjdfhsdhjfksd sdfjhsdkf" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dmc-Yy-6uV">
+                        <rect key="frame" x="148.5" y="10" width="255.5" height="71"/>
+                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="0dw-yG-m6w" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="I1y-1T-rcL"/>
+                    <constraint firstItem="Dmc-Yy-6uV" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="0dw-yG-m6w" secondAttribute="trailing" constant="20" id="LiA-PU-vVM"/>
+                    <constraint firstItem="Dmc-Yy-6uV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="MDq-fM-jfU"/>
+                    <constraint firstAttribute="trailing" secondItem="I39-Il-pmO" secondAttribute="trailing" constant="5" id="TXV-gh-zip"/>
+                    <constraint firstItem="0dw-yG-m6w" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="dLD-u7-D43"/>
+                    <constraint firstItem="I39-Il-pmO" firstAttribute="leading" secondItem="Dmc-Yy-6uV" secondAttribute="trailing" constant="5" id="dqx-Eb-d3z"/>
+                    <constraint firstAttribute="bottom" secondItem="Dmc-Yy-6uV" secondAttribute="bottom" constant="10" id="gkk-rC-hPh"/>
+                    <constraint firstItem="I39-Il-pmO" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="jtq-PG-Wrf"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="desctiptionLabel" destination="Dmc-Yy-6uV" id="iwb-ld-nYW"/>
+                <outlet property="headingLabel" destination="0dw-yG-m6w" id="7l3-kH-bx4"/>
+            </connections>
+            <point key="canvasLocation" x="-114.49275362318842" y="68.638392857142847"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="arrow" width="8" height="14"/>
+    </resources>
+</document>
