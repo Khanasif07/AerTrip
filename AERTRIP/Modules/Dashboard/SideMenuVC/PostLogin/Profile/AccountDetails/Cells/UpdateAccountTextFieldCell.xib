@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UpdateAccountTextFieldCell" rowHeight="64" id="KGk-i7-Jjw" customClass="UpdateAccountTextFieldCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="333" height="64"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="333" height="64"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="p8p-cM-kTL">
+                        <rect key="frame" x="16" y="0.0" width="301" height="60"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Aadhar Number" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="r2y-lz-NdG" customClass="PKFloatLabelTextField" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="301" height="60"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words" keyboardType="emailAddress"/>
+                            </textField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="60" id="h4D-ya-7ps"/>
+                        </constraints>
+                    </stackView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sQ6-4N-hgG" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="63.5" width="333" height="0.5"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="b5F-Xu-zSK"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="p8p-cM-kTL" secondAttribute="trailing" constant="16" id="0Bz-Rh-cFE"/>
+                    <constraint firstAttribute="trailing" secondItem="sQ6-4N-hgG" secondAttribute="trailing" id="EwO-HG-VFo"/>
+                    <constraint firstItem="p8p-cM-kTL" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Gzx-SG-43g"/>
+                    <constraint firstItem="p8p-cM-kTL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="bvB-8f-rzX"/>
+                    <constraint firstAttribute="bottom" secondItem="sQ6-4N-hgG" secondAttribute="bottom" id="nlR-dN-fgU"/>
+                    <constraint firstItem="sQ6-4N-hgG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="rLd-dS-92R"/>
+                    <constraint firstItem="sQ6-4N-hgG" firstAttribute="top" secondItem="p8p-cM-kTL" secondAttribute="bottom" constant="3.5" id="zCl-KJ-V6H"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="deviderView" destination="sQ6-4N-hgG" id="n3Q-t7-rpc"/>
+                <outlet property="updateTextField" destination="r2y-lz-NdG" id="lm3-TM-7yN"/>
+            </connections>
+            <point key="canvasLocation" x="-136.95652173913044" y="79.6875"/>
+        </tableViewCell>
+    </objects>
+    <designables>
+        <designable name="r2y-lz-NdG">
+            <size key="intrinsicContentSize" width="102" height="19"/>
+        </designable>
+    </designables>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

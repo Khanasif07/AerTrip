@@ -243,6 +243,7 @@ extension PassengersSelectionVC: UseGSTINCellDelegate, FareBreakupVCDelegate, Jo
         vc.taxesResult = self.viewModel.taxesResult
         vc.isForCheckOut = true
         vc.sid = self.viewModel.sid
+        vc.itineraryId = self.viewModel.itineraryData.itinerary.id
         vc.airlineData = self.viewModel.itineraryData.itinerary.details.aldet
         vc.intJourney = [self.viewModel.itineraryData.itinerary.details]
         vc.intAirportDetailsResult = self.viewModel.intAirportDetailsResult

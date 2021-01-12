@@ -112,10 +112,15 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 }
                 cell.delegate = self
                 cell.isSettingForEdit = false
+                cell.isSettingForSetMobileNumber(isSettingMobile: false)
                 if indexPath.row == 0 {
                     if self.viewModel.currentlyUsinfFor == .viewProfile{
                         cell.isSettingForEdit = true
                         cell.deleteButton.isHidden = false
+                        if (UserInfo.loggedInUser?.mobile.isEmpty ?? false){
+                            cell.isSettingForSetMobileNumber(isSettingMobile: true)
+                        }
+                        
                     }else{
                         cell.deleteButton.isHidden = true
                     }
@@ -414,6 +419,12 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
             break
             
         case LocalizedString.ContactNumber.localized:
+            if self.viewModel.currentlyUsinfFor == .viewProfile && indexPath.row == 0{
+                if (UserInfo.loggedInUser?.mobile.isEmpty ?? false){
+                    self.changeMobileNumber()
+                    return
+                }
+            }
             if indexPath.row == self.viewModel.mobile.count {
                 self.indexPath = indexPath
                 var mobile = Mobile()
@@ -977,7 +988,9 @@ extension EditProfileVC: EditProfileThreePartTableViewCellDelegate {
     func middleViewTap(_ indexPath: IndexPath,_ gesture: UITapGestureRecognizer) {
         
         //self.closeGenricAndDatePicker(completion: nil)
-        
+        if self.viewModel.currentlyUsinfFor == .viewProfile && indexPath.row == 0{
+            return
+        }
         PKCountryPickerSettings.shouldShowCountryCode = true
         PKCountryPicker.default.chooseCountry(onViewController: self, preSelectedCountry: PKCountryPicker.default.getCountryData(forISDCode: self.viewModel.mobile[indexPath.row].isd)) { [weak self] (selectedCountry,closePicker) in
             printDebug("selected country data: \(selectedCountry)")

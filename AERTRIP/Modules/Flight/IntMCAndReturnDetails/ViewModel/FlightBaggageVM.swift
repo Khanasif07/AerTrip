@@ -17,12 +17,15 @@ extension FlightBaggageVMDelegate{
 }
 
 class FlightBaggageVM{
-    
+    var itineraryId = ""
     weak var delegate: FlightBaggageVMDelegate?
 
     func callAPIforBaggageInfo(sid:String, fk:String, journeyObj:IntJourney?, journey: Journey?, count: Int = 3){
         guard count >= 0 else {return}
-        let param = [APIKeys.sid.rawValue:sid, "fk[]":fk]
+        var param = [APIKeys.sid.rawValue:sid, "fk[]":fk]
+        if !self.itineraryId.isEmpty{
+            param[APIKeys.it_id.rawValue] = self.itineraryId
+        }
         APICaller.shared.getFlightbaggageDetails(params: param) {[weak self] (data, error) in
             guard let self = self else {return}
             if let bgData = data{
@@ -45,7 +48,11 @@ class FlightBaggageVM{
     
     func callAPIforBaggageInfoForDomestic(sid:String, fk:String, journeyObj:IntLeg,  count: Int = 3){
         guard count >= 0 else {return}
-        let param = [APIKeys.sid.rawValue:sid, "fk[]":fk]
+//        let param = [APIKeys.sid.rawValue:sid, "fk[]":fk]
+        var param = [APIKeys.sid.rawValue:sid, "fk[]":fk]
+        if !self.itineraryId.isEmpty{
+            param[APIKeys.it_id.rawValue] = self.itineraryId
+        }
         APICaller.shared.getFlightbaggageDetails(params: param) {[weak self] (data, error) in
             guard let self = self else {return}
             if let bgData = data {

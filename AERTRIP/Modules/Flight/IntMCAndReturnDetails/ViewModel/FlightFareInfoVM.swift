@@ -16,6 +16,7 @@ protocol  FlightFareInfoVMDelegate: NSObjectProtocol{
 class FlightFareInfoVM{
     
     weak var delegate : FlightFareInfoVMDelegate?
+    var itineraryId = ""
     
     func getFareInfoAPICall(sid: String, fk: String, index:Int, count: Int = 3){
         guard count >= 0 else {return}
