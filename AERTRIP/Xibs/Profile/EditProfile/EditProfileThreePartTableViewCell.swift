@@ -26,6 +26,8 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
     @IBOutlet weak var leftSeparatorView: ATDividerView!
     @IBOutlet weak var leftViewTextField: UITextField!
     
+    @IBOutlet weak var rightView: UIView!
+    
     @IBOutlet weak var rightViewTextField: PhoneNumberTextField!
     
     @IBOutlet weak var rightSeparatorView: ATDividerView!
@@ -36,6 +38,7 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
     @IBOutlet weak var flagImageView: UIImageView!
     @IBOutlet weak var countryCodeLabel: UILabel!
     
+    @IBOutlet weak var setMobileNumberLabel: UILabel!
     
     // MARK : - Variables
     weak var delegate : EditProfileThreePartTableViewCellDelegate?
@@ -48,6 +51,9 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
         self.setUpFonts()
         leftView.isUserInteractionEnabled = true
         rightViewTextField.placeholder = LocalizedString.Phone.localized
+        self.setMobileNumberLabel.textColor = AppColors.themeGreen
+        self.setMobileNumberLabel.text = "Set Mobile Number"
+        self.setMobileNumberLabel.font = AppFonts.Regular.withSize(18.0)
     }
     
     var isSettingForEdit:Bool = false{
@@ -110,6 +116,18 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
         }
         printDebug("middle view tapped")
         
+    }
+    
+    func isSettingForSetMobileNumber(isSettingMobile: Bool){
+        if isSettingMobile{
+            self.middleView.isHidden = true
+            self.rightView.isHidden = true
+            self.setMobileNumberLabel.isHidden = false
+        }else{
+            self.middleView.isHidden = false
+            self.rightView.isHidden = false
+            self.setMobileNumberLabel.isHidden = true
+        }
     }
     
     

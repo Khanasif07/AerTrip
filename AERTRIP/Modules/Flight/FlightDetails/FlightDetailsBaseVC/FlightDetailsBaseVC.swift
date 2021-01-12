@@ -76,6 +76,7 @@ class FlightDetailsBaseVC: BaseVC {
     var intFlights : [IntFlightDetail]?
     var needToAddFareBreakup = true
     weak var refundDelegate:UpdateRefundStatusDelegate?
+    var itineraryId = ""
     
     fileprivate var parchmentView : PagingViewController?
     var allTabsStr = ["Flight Info", "Baggage", "Fare Info"]
@@ -256,6 +257,7 @@ class FlightDetailsBaseVC: BaseVC {
         }else{
             flightInfoVC.fewSeatsLeftViewHeight = 0
         }
+        flightInfoVC.viewModel.itineraryId = self.itineraryId
         flightInfoVC.selectedIndex = selectedIndex
         flightInfoVC.airportDetailsResult = airportDetailsResult
         flightInfoVC.airlineDetailsResult = airlineDetailsResult
@@ -274,7 +276,7 @@ class FlightDetailsBaseVC: BaseVC {
         }else{
             baggageVC.fewSeatsLeftViewHeight = 0
         }
-        
+        baggageVC.viewModel.itineraryId = self.itineraryId
         baggageVC.airportDetailsResult = airportDetailsResult
         return baggageVC
     }
@@ -514,6 +516,7 @@ extension FlightDetailsBaseVC{
         }else{
             vc.fewSeatsLeftViewHeight = 0
         }
+        vc.viewModel.itineraryId = self.itineraryId
         vc.selectedIndex = selectedIndex
         vc.airportDetailsResult = intAirportDetailsResult
         vc.airlineDetailsResult = intAirlineDetailsResult
@@ -531,6 +534,7 @@ extension FlightDetailsBaseVC{
         }else{
             vc.fewSeatsLeftViewHeight = 0
         }
+        vc.viewModel.itineraryId = self.itineraryId
         vc.dimensionDelegate = self
         vc.isForDomestic = (self.bookFlightObject.isDomestic)
         vc.airportDetailsResult = intAirportDetailsResult

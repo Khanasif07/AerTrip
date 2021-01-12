@@ -20,10 +20,14 @@ extension FlightInfoVMDelegate{
 class FlightDetailsInfoVM{
 
     weak var delegate: FlightInfoVMDelegate?
+    var itineraryId = ""
 
     func callAPIforBaggageInfo(sid:String, fk:String, count: Int = 3){
         guard count >= 0 else {return}
-        let param = [APIKeys.sid.rawValue:sid, "fk[]":fk]
+        var param = [APIKeys.sid.rawValue:sid, "fk[]":fk]
+        if !self.itineraryId.isEmpty{
+            param[APIKeys.it_id.rawValue] = self.itineraryId
+        }
         APICaller.shared.getFlightbaggageDetails(params: param) {[weak self] (data, error) in
             guard let self = self else {return}
             if let bgData = data {

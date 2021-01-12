@@ -81,7 +81,7 @@
                                                                                 </constraints>
                                                                             </imageView>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZF9-Bb-7cU">
-                                                                                <rect key="frame" x="25" y="11" width="18" height="23"/>
+                                                                                <rect key="frame" x="25" y="12" width="20.5" height="21"/>
                                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                                 <nil key="highlightedColor"/>
@@ -623,20 +623,57 @@
             </objects>
             <point key="canvasLocation" x="547.82608695652175" y="282.58928571428572"/>
         </scene>
-        <!--View Controller-->
+        <!--Update Account DetailsVC-->
         <scene sceneID="wZr-fp-wRV">
             <objects>
-                <viewController id="3Kw-Rz-fe4" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UpdateAccountDetailsVC" id="3Kw-Rz-fe4" customClass="UpdateAccountDetailsVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3zm-qi-K9D">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="omn-nK-n8h" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kox-et-U2g" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ifW-6g-M55" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="ILo-nF-p6m"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="XFB-zn-pvZ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Kox-et-U2g" firstAttribute="trailing" secondItem="XFB-zn-pvZ" secondAttribute="trailing" id="61D-Zm-IeR"/>
+                            <constraint firstItem="ifW-6g-M55" firstAttribute="top" secondItem="XFB-zn-pvZ" secondAttribute="top" id="CCp-Ss-6vl"/>
+                            <constraint firstItem="ifW-6g-M55" firstAttribute="leading" secondItem="XFB-zn-pvZ" secondAttribute="leading" id="Dps-Mu-WKC"/>
+                            <constraint firstItem="omn-nK-n8h" firstAttribute="trailing" secondItem="XFB-zn-pvZ" secondAttribute="trailing" id="Dq1-kP-m0f"/>
+                            <constraint firstItem="Kox-et-U2g" firstAttribute="bottom" secondItem="ifW-6g-M55" secondAttribute="bottom" id="Eo2-MD-JP9"/>
+                            <constraint firstItem="ifW-6g-M55" firstAttribute="trailing" secondItem="XFB-zn-pvZ" secondAttribute="trailing" id="NYa-89-d7X"/>
+                            <constraint firstAttribute="bottom" secondItem="omn-nK-n8h" secondAttribute="bottom" id="PAJ-QJ-tCu"/>
+                            <constraint firstItem="Kox-et-U2g" firstAttribute="top" secondItem="3zm-qi-K9D" secondAttribute="top" id="S5Q-jp-7OQ"/>
+                            <constraint firstItem="Kox-et-U2g" firstAttribute="leading" secondItem="XFB-zn-pvZ" secondAttribute="leading" id="TeY-Hv-9vn"/>
+                            <constraint firstItem="Kox-et-U2g" firstAttribute="leading" secondItem="ifW-6g-M55" secondAttribute="leading" id="WIs-lX-I0X"/>
+                            <constraint firstItem="omn-nK-n8h" firstAttribute="leading" secondItem="XFB-zn-pvZ" secondAttribute="leading" id="g2V-9H-8q1"/>
+                            <constraint firstItem="Kox-et-U2g" firstAttribute="bottom" secondItem="ifW-6g-M55" secondAttribute="bottom" id="iVa-1g-txa"/>
+                            <constraint firstItem="Kox-et-U2g" firstAttribute="trailing" secondItem="ifW-6g-M55" secondAttribute="trailing" id="wzY-L6-KEY"/>
+                            <constraint firstItem="omn-nK-n8h" firstAttribute="top" secondItem="Kox-et-U2g" secondAttribute="bottom" id="y6G-oE-bNE"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="accountTableView" destination="omn-nK-n8h" id="5Dg-k4-NxT"/>
+                        <outlet property="navView" destination="ifW-6g-M55" id="ZA2-T1-tgc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V3S-E9-avd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1372" y="276"/>
+            <point key="canvasLocation" x="1371.0144927536232" y="275.22321428571428"/>
         </scene>
     </scenes>
     <designables>

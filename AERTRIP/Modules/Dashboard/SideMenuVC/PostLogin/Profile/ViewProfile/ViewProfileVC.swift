@@ -346,6 +346,8 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
                     case LocalizedString.LinkedAccounts.localized:
                         AppFlowManager.default.moveToLinkedAccountsVC()
                 
+                    case LocalizedString.AccountDetails.localized: self.openUpdateAccount()
+                        
                     default:
                         AppToast.default.showToastMessage(message: "This feature is coming soon")
                         break
@@ -399,6 +401,15 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
             return footerView
         }
             return nil
+    }
+    
+    func openUpdateAccount(){
+        
+        let vc = UpdateAccountDetailsVC.instantiate(fromAppStoryboard: .OTPAndVarification)
+        vc.viewModel.updationType = .defaultRefundMode
+        vc.modalPresentationStyle = .overFullScreen
+        self.present(vc, animated: true, completion: nil)
+        
     }
     
 //    func changeMobileNumber(){

@@ -110,7 +110,7 @@ class NewAccountLedgerEventCell: UITableViewCell {
             }
         }
         
-        
+        self.voucherTitleLabel.text = self.event?.voucherName ?? ""
         
         let suff = (self.event?.amount ?? 0.0) > 0 ? LocalizedString.CreditShort.localized : LocalizedString.DebitShort.localized
 //         "\(abs(self.ladgerEvent!.amount).amountInDelimeterWithSymbol) \(suff)", age: "", isEmptyCell: false))
