@@ -305,9 +305,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private func moveToRootVC() {
-        let nvc = window?.rootViewController as? UINavigationController
-        nvc?.dismiss(animated: true, completion: {
-            nvc?.popToRootViewController(animated: true)
-        })
+        DispatchQueue.main.async {
+            let nvc = self.window?.rootViewController as? UINavigationController
+            nvc?.dismiss(animated: true, completion: {
+                nvc?.popToRootViewController(animated: true)
+            })
+        }
     }
 }
