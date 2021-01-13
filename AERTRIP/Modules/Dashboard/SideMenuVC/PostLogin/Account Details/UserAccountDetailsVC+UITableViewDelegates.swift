@@ -40,8 +40,10 @@ extension UserAccountDetailsVC : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "UserAccountDetailsCell", for: indexPath) as? UserAccountDetailsCell else { fatalError("UserAccountDetailsCell not found") }
- 
-        cell.populateData(type: self.viewModel.accountDetailsDict[indexPath.section]?[indexPath.row] ?? .pan)
+        
+        let type = self.viewModel.accountDetailsDict[indexPath.section]?[indexPath.row] ?? .pan
+        cell.dividerView.isHidden = type == .gSTIN
+        cell.populateData(type: type)
         return cell
       }
     
