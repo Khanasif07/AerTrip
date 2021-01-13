@@ -109,7 +109,7 @@ enum AppConstants {
     static let AddOnRequestTextLimit = 60
     static let AbortRequestTextLimit = 500
 
-    static let OnlineDepositeAmountLimit: Double = 1050000 //10,50,000 in online (bcoz of Convenience fee)
+    static let OnlineDepositeAmountLimit: Double = 1100000 //10,50,000 in online (bcoz of Convenience fee)
     static let OfflineDepositeAmountLimit: Double = 999999999 //99,99,99,999
 
     static let profileViewBackgroundNameIntialsFont = AppFonts.Regular.withSize(40.0)
