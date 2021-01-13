@@ -31,6 +31,8 @@ class UserAccountDetailsCell: UITableViewCell {
     
     func populateData(type : AccountUpdationType) {
         
+        self.desctiptionLabel.text = " "
+        
         switch type {
         
         case .pan:
