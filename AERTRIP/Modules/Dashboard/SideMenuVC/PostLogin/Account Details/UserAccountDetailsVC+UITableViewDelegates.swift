@@ -47,14 +47,14 @@ extension UserAccountDetailsVC : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        
+        self.openUpdateAccount(type: self.viewModel.accountDetailsDict[indexPath.section]?[indexPath.row] ?? .pan)
     }
     
     
-    func openUpdateAccount(){
+    func openUpdateAccount(type : AccountUpdationType){
         
         let vc = UpdateAccountDetailsVC.instantiate(fromAppStoryboard: .OTPAndVarification)
-        vc.viewModel.updationType = .defaultRefundMode
+        vc.viewModel.updationType = type
         vc.modalPresentationStyle = .overFullScreen
         self.present(vc, animated: true, completion: nil)
         
