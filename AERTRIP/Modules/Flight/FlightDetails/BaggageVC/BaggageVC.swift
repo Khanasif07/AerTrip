@@ -382,6 +382,7 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
             baggageCell.notesView.isHidden = true
             baggageCell.notesLabelTop.constant = 0
             baggageCell.notesLabelBottom.constant = 0
+            baggageCell.noteLabelBottomConstraints.constant = (evaluatedBaggageResp[indexPath.section].count - 1 == indexPath.row) ? 26 : 0
             
             if baggageCell.perAdultView.isHidden == true && baggageCell.perChildView.isHidden == true && baggageCell.perInfantView.isHidden == true{
                 baggageCell.baggageDataDisplayView.isHidden = true

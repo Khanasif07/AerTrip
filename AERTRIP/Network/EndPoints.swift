@@ -215,6 +215,8 @@ enum APIEndPoint: String {
     case validateDisableOtp = "users/disable-wallet-otp"
     case cancelWalletEnableDisable = "users/user-disable-wallet-otp-cancel"
     case changeLogin = "users/change-login"
+    case updateAccountDetails = "users/edit-user-details"
+    case updateRefundMode = "users/update-refund-mode"
     
     case userMeta = "users/meta"
 }

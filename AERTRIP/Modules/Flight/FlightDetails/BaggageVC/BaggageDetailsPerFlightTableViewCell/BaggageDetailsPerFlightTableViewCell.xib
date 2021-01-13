@@ -3,7 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -332,6 +332,7 @@ Baggage details are indicative and subject to change without prior notice.</stri
                 <outlet property="flightDetailsView" destination="1OO-eB-2EU" id="UUe-Mk-YaU"/>
                 <outlet property="flightDetailsViewHeight" destination="tVw-Dx-xSS" id="0ef-T4-pSP"/>
                 <outlet property="journeyTitleLabel" destination="AfT-YN-h3e" id="4kv-j6-vrT"/>
+                <outlet property="noteLabelBottomConstraints" destination="7JY-sW-V9u" id="AsM-8I-HPZ"/>
                 <outlet property="notesLabel" destination="bwY-cL-q1E" id="V6N-Rh-weU"/>
                 <outlet property="notesLabelBottom" destination="0d5-9H-ivK" id="MTh-SQ-iRx"/>
                 <outlet property="notesLabelTop" destination="uYF-yr-zoi" id="2lJ-f6-G1S"/>

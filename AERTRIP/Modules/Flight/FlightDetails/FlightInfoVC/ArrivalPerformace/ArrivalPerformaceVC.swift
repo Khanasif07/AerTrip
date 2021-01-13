@@ -41,7 +41,7 @@ class ArrivalPerformaceVC: UIViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        
+        self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
         performaceDisplayView.layer.cornerRadius = 10
         
         self.onTimeProgressDisplayView.layer.cornerRadius = onTimeProgressDisplayView.frame.height/2
@@ -100,20 +100,35 @@ class ArrivalPerformaceVC: UIViewController
             self.cancelledProgressDisplayView.addSubview(self.cancelledPerformanceSubView)
         })
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        UIView.animate(withDuration: 0.3) {
+            self.view.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+        }
+    }
 
     //MARK:- Guesture
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
     {
         let touch: UITouch? = touches.first
         if touch?.view == backgroundDisplayView {
-            self.dismiss(animated: false, completion: nil)
+            self.dismissWithAnimation()
         }
     }
 
+    func dismissWithAnimation(){
+        UIView.animate(withDuration: 0.3) {
+            self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
+        } completion: { (_) in
+            self.dismiss(animated: false, completion: nil)
+        }
+    }
+    
     //MARK:- Button Action
 
     @IBAction func closeButtonClicked(_ sender: Any)
     {
-        self.dismiss(animated: false, completion: nil)
+        self.dismissWithAnimation()
     }
 }

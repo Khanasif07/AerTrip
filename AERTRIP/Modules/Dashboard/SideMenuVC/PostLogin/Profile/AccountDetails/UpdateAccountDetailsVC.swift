@@ -94,8 +94,21 @@ extension UpdateAccountDetailsVC:TopNavigationViewDelegate{
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
+        self.navView.activityIndicatorView.startAnimating()
         
     }
+    
+}
+
+extension UpdateAccountDetailsVC: UpdateAccountDetailsVMDelegates{
+    func updateAccountDetailsSuccess() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func updateAccountDetailsFailure(errorCode: ErrorCodes) {
+        AppGlobals.shared.showErrorOnToastView(withErrors: errorCode, fromModule: .profile)
+    }
+    
     
 }
 
