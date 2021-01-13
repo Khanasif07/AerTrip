@@ -20,8 +20,10 @@ class UserAccountDetailsVM {
         case billingAddress
     }
     
-    let accountDetailsDict = [0 : [UserAccountDetailsOptions.pan,UserAccountDetailsOptions.adhar,UserAccountDetailsOptions.gstin],
-                              1 : [UserAccountDetailsOptions.defaultRefundMode,UserAccountDetailsOptions.billingName,UserAccountDetailsOptions.billingAddress]
+    
+    
+    let accountDetailsDict = [0 : [AccountUpdationType.pan,AccountUpdationType.aadhar,AccountUpdationType.gSTIN],
+                              1 : [AccountUpdationType.defaultRefundMode,AccountUpdationType.billingName,AccountUpdationType.billingAddress]
     ]
     
     

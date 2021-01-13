@@ -340,7 +340,6 @@ class FlightResultSingleJourneyVM {
         
         suggetedSortArray.sort(by: { (obj1, obj2) -> Bool in
             return (obj1.journeyArray[obj1.currentSelectedIndex].price) < (obj2.journeyArray[obj2.currentSelectedIndex].price)
-
         })
       
       journeySortedArray.sort(by: { (obj1, obj2) -> Bool in

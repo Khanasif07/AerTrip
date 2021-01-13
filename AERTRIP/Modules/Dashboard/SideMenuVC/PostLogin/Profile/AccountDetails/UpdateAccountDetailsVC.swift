@@ -94,18 +94,30 @@ extension UpdateAccountDetailsVC:TopNavigationViewDelegate{
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
         self.navView.activityIndicatorView.startAnimating()
-        
+        switch self.viewModel.updationType{
+        case .aadhar, .billingName, .gSTIN, .pan:
+            let validate = self.viewModel.isValidDetails(with: self.viewModel.updateValue)
+            if validate.success{
+                self.viewModel.updateAccountDetails(self.viewModel.updateValue)
+            }else{
+                AppToast.default.showToastMessage(message: validate.msg)
+            }
+        case .billingAddress, .defaultRefundMode: break;
+        }
     }
     
 }
 
 extension UpdateAccountDetailsVC: UpdateAccountDetailsVMDelegates{
     func updateAccountDetailsSuccess() {
+        self.navView.activityIndicatorView.stopAnimating()
         self.dismiss(animated: true, completion: nil)
     }
     
     func updateAccountDetailsFailure(errorCode: ErrorCodes) {
+        self.navView.activityIndicatorView.stopAnimating()
         AppGlobals.shared.showErrorOnToastView(withErrors: errorCode, fromModule: .profile)
     }
     
@@ -148,7 +160,7 @@ extension UpdateAccountDetailsVC{
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        
+        self.viewModel.updateValue = textField.text ?? ""
     }
     
     @objc func textFieldDidChanged(_ textField: UITextField) {

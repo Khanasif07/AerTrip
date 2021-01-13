@@ -17,6 +17,10 @@ class UserAccountDetailsCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        desctiptionLabel.textColor = AppColors.themeGray40
+        self.selectionStyle = .none
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -25,7 +29,31 @@ class UserAccountDetailsCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func populateData() {
+    func populateData(type : AccountUpdationType) {
+        
+        switch type {
+        
+        case .pan:
+            
+            headingLabel.text = LocalizedString.PAN.localized
+            
+        case .aadhar:
+            headingLabel.text = LocalizedString.Aadhaar.localized
+
+        case .gSTIN:
+            headingLabel.text = LocalizedString.GSTIN.localized
+
+        case .defaultRefundMode:
+            headingLabel.text = LocalizedString.Default_Refund_Mode.localized
+
+        case .billingName:
+            headingLabel.text = LocalizedString.BillingName.localized
+
+        case .billingAddress:
+            headingLabel.text = LocalizedString.BillingAddress.localized
+
+        }
+        
         
     }
     

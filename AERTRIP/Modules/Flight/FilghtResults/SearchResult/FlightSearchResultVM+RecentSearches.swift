@@ -19,6 +19,10 @@ extension FlightSearchResultVM {
             if var dataQuery = convertStringToDictionary(text: dataQueryStr) {
                 dataQuery = dataQuery.filter { !$0.key.contains("filters") }
                 dataQuery["filters"] = filtersDict
+                //Golu Update causing adult count 0
+                dataQuery["adult"] = Int(String(describing: dataQuery["adult"] ?? "0")) ?? 0
+                dataQuery["child"] = Int(String(describing: dataQuery["child"] ?? "0")) ?? 0
+                dataQuery["infant"] = Int(String(describing: dataQuery["infant"] ?? "0")) ?? 0
                 recentSearchParamsWithFilters["data[query]"] = convertDictionaryToString(dict: dataQuery)
             }
         }
@@ -35,6 +39,10 @@ extension FlightSearchResultVM {
             if var dataQuery = convertStringToDictionary(text: dataQueryStr) {
                 dataQuery = dataQuery.filter { !$0.key.contains("filters") }
                 dataQuery["filters"] = filtersDict
+                //Golu Update causing adult count 0
+                dataQuery["adult"] = Int(String(describing: dataQuery["adult"] ?? "0")) ?? 0
+                dataQuery["child"] = Int(String(describing: dataQuery["child"] ?? "0")) ?? 0
+                dataQuery["infant"] = Int(String(describing: dataQuery["infant"] ?? "0")) ?? 0
                 recentSearchParamsWithFilters["data[query]"] = convertDictionaryToString(dict: dataQuery)
             }
         }

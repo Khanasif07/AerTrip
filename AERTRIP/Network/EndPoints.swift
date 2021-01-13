@@ -218,6 +218,7 @@ enum APIEndPoint: String {
     case updateAccountDetails = "users/edit-user-details"
     case updateRefundMode = "users/update-refund-mode"
     
+    case userMeta = "users/meta"
 }
 
 // MARK: - endpoint extension for url -

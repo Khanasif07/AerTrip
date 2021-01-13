@@ -25,6 +25,7 @@ protocol UpdateAccountDetailsVMDelegates:NSObjectProtocol {
 class UpdateAccountDetailsVM{
     
     var updationType: AccountUpdationType = .pan
+    var updateValue:String = ""
     weak var delegate: UpdateAccountDetailsVMDelegates?
     
     

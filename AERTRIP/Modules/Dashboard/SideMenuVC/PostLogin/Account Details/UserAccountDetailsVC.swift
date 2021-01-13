@@ -41,6 +41,7 @@ class UserAccountDetailsVC : BaseVC {
         configureTableView()
         self.accountDetailsTableView.backgroundColor = AppColors.themeGray04
         self.accountDetailsTableView.contentInset = UIEdgeInsets(top: topNavView.height, left: 0, bottom: 0, right: 0)
+    
     }
     
     private func configureTableView(){

@@ -1165,7 +1165,6 @@
 		843FF678247409E3001F21B1 /* Checkout.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843FF5F2247409E2001F21B1 /* Checkout.storyboard */; };
 		843FF679247409E3001F21B1 /* RefundPopup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843FF5F4247409E2001F21B1 /* RefundPopup.storyboard */; };
 		843FF67A247409E3001F21B1 /* RefundPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 843FF5F5247409E2001F21B1 /* RefundPopupViewController.m */; };
-		843FF67D247409E3001F21B1 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843FF5FC247409E2001F21B1 /* Profile.storyboard */; };
 		843FF67E247409E3001F21B1 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 843FF5FE247409E2001F21B1 /* ProfileViewController.m */; };
 		843FF67F247409E3001F21B1 /* AssignToPassenger.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843FF601247409E2001F21B1 /* AssignToPassenger.storyboard */; };
 		843FF680247409E3001F21B1 /* AssignToPassengerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 843FF602247409E2001F21B1 /* AssignToPassengerViewController.m */; };
@@ -2936,7 +2935,6 @@
 		843FF5F4247409E2001F21B1 /* RefundPopup.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = RefundPopup.storyboard; sourceTree = "<group>"; };
 		843FF5F5247409E2001F21B1 /* RefundPopupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RefundPopupViewController.m; sourceTree = "<group>"; };
 		843FF5F6247409E2001F21B1 /* RefundPopupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RefundPopupViewController.h; sourceTree = "<group>"; };
-		843FF5FC247409E2001F21B1 /* Profile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		843FF5FD247409E2001F21B1 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		843FF5FE247409E2001F21B1 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		843FF600247409E2001F21B1 /* AssignToPassengerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssignToPassengerViewController.h; sourceTree = "<group>"; };
@@ -7495,7 +7493,6 @@
 		843FF5FB247409E2001F21B1 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				843FF5FC247409E2001F21B1 /* Profile.storyboard */,
 				843FF5FD247409E2001F21B1 /* ProfileViewController.h */,
 				843FF5FE247409E2001F21B1 /* ProfileViewController.m */,
 			);
@@ -9614,7 +9611,6 @@
 				843FF53E24740232001F21B1 /* SingleJourneyResultTemplateCell.xib in Resources */,
 				84DD24742265BB300013F77E /* SpaceTableViewCell.xib in Resources */,
 				84981CDD21F759A1002E68C7 /* AddRoomCell.xib in Resources */,
-				843FF67D247409E3001F21B1 /* Profile.storyboard in Resources */,
 				8480703922295A1B0061C642 /* HotelGroupCardCollectionViewCell.xib in Resources */,
 				183B71A32289588400A75B7F /* EconomySaverTableViewCell.xib in Resources */,
 				0C4CC67E259B791200BBAA68 /* otp.csv in Resources */,
@@ -11386,7 +11382,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 226;
+				CURRENT_PROJECT_VERSION = 229;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;
@@ -11590,7 +11586,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 226;
+				CURRENT_PROJECT_VERSION = 229;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;
