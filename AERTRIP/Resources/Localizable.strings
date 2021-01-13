@@ -180,7 +180,6 @@
 "Gender" = "Gender";
 "Male" = "Male";
 "Female" = "Female";
-//"GSTIN" = "GSTIN";
 "ChangePassword" = "Change Password";
 "Current_Password" = "Current Password";
 "changeMobileNumber" = "Change Mobile Number";
@@ -922,7 +921,6 @@ Not to worry! Your booking is our highest priority. Our customer support team sh
 
 "BillingName" = "Billing Name";
 "BillingAddress" = "Billing Address";
-"GSTIN" = "GSTIN";
 "CancellationHasBeenProcessed" = "Cancellation has been processed";
 "SpecialRequestHasBeenSent" = "Special Request has been sent";
 "WriteAboutYourSpecialRequest" = "Write about your special request...";
@@ -1222,3 +1220,10 @@ www.aertrip.com/trip";
 
 
 "Account_Details" = "Account Details";
+
+"PAN" = "PAN";
+"Aadhaar" = "Aadhaar";
+"GSTIN" = "GSTIN";
+"Default_Refund Mode" = "Default Refund Mode";
+"Billing_Name" = "Billing Name";
+"Billng_Address" = "Billng Address";

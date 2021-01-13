@@ -216,6 +216,7 @@ enum APIEndPoint: String {
     case cancelWalletEnableDisable = "users/user-disable-wallet-otp-cancel"
     case changeLogin = "users/change-login"
     
+    case userMeta = "users/meta"
 }
 
 // MARK: - endpoint extension for url -

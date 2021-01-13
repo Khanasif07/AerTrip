@@ -41,7 +41,7 @@ extension UserAccountDetailsVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "UserAccountDetailsCell", for: indexPath) as? UserAccountDetailsCell else { fatalError("UserAccountDetailsCell not found") }
  
-        
+        cell.populateData(type: self.viewModel.accountDetailsDict[indexPath.section]?[indexPath.row] ?? .pan)
         return cell
       }
     
@@ -50,5 +50,14 @@ extension UserAccountDetailsVC : UITableViewDelegate, UITableViewDataSource {
         
     }
     
+    
+    func openUpdateAccount(){
+        
+        let vc = UpdateAccountDetailsVC.instantiate(fromAppStoryboard: .OTPAndVarification)
+        vc.viewModel.updationType = .defaultRefundMode
+        vc.modalPresentationStyle = .overFullScreen
+        self.present(vc, animated: true, completion: nil)
+        
+    }
     
 }

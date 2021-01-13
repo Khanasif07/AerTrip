@@ -232,7 +232,6 @@ enum LocalizedString: String {
     case Gender
     case Male
     case Female
-    //case GSTIN
     case ChangePassword
     case changeMobileNumber
     case setMobileNumner
@@ -1293,5 +1292,11 @@ enum LocalizedString: String {
     case toChangeMobileNumber
     
     case Account_Details = "Account_Details"
+    case PAN = "PAN"
+    case Aadhaar = "Aadhaar"
+    case Default_Refund_Mode = "Default_Refund_Mode"
+    case Billing_Name = "Billing_Name"
+    case Billng_Address = "Billng_Address"
     
+
 }
