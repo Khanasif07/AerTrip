@@ -31,6 +31,7 @@ class UpdateAccountDetailsVC: BaseVC {
     override func setupNavBar() {
         super.setupNavBar()
         navView.delegate = self
+        self.viewModel.delegate = self
         let title:String
         switch self.viewModel.updationType {
         case .billingName, .billingAddress, .defaultRefundMode:
@@ -45,6 +46,16 @@ class UpdateAccountDetailsVC: BaseVC {
         navView.dividerView.isHidden = false
     }
     
+    func manageLoader(isNeeded: Bool){
+        self.navView.isToShowIndicatorView = isNeeded
+        self.navView.firstRightButton.isHidden = isNeeded
+        if isNeeded{
+            self.navView.activityIndicatorView.startAnimating()
+        }else{
+            self.navView.activityIndicatorView.stopAnimating()
+        }
+        
+    }
 
 }
 
@@ -74,12 +85,14 @@ extension UpdateAccountDetailsVC: UITableViewDelegate, UITableViewDataSource{
                     fatalError("UpdateAccountDropdownCell not found.")
                 }
                 cell.setPlaceHolderAndDelegate(with: self.viewModel.updationType.rawValue, textFieldDelegate: self)
+                cell.updateTextField.text = self.viewModel.updateValue
                 return cell
             case .billingName, .aadhar, .pan, .gSTIN:
                 guard  let cell = self.accountTableView.dequeueReusableCell(withIdentifier: UpdateAccountTextFieldCell.reusableIdentifier) as? UpdateAccountTextFieldCell else {
                     fatalError("UpdateAccountTextFieldCell not found.")
                 }
                 cell.setPlaceHolderAndDelegate(with: self.viewModel.updationType.rawValue, textFieldDelegate: self, isForAadhar: (self.viewModel.updationType == .aadhar))
+                cell.updateTextField.text = self.viewModel.updateValue
                 return cell
             }
         }
@@ -94,18 +107,30 @@ extension UpdateAccountDetailsVC:TopNavigationViewDelegate{
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-        self.navView.activityIndicatorView.startAnimating()
-        
+        self.view.endEditing(true)
+        switch self.viewModel.updationType{
+        case .aadhar, .billingName, .gSTIN, .pan:
+            let validate = self.viewModel.isValidDetails(with: self.viewModel.updateValue)
+            if validate.success{
+                self.manageLoader(isNeeded: true)
+                self.viewModel.updateAccountDetails(self.viewModel.updateValue)
+            }else{
+                AppToast.default.showToastMessage(message: validate.msg)
+            }
+        case .billingAddress, .defaultRefundMode: break;
+        }
     }
     
 }
 
 extension UpdateAccountDetailsVC: UpdateAccountDetailsVMDelegates{
     func updateAccountDetailsSuccess() {
+        self.manageLoader(isNeeded: false)
         self.dismiss(animated: true, completion: nil)
     }
     
     func updateAccountDetailsFailure(errorCode: ErrorCodes) {
+        self.manageLoader(isNeeded: false)
         AppGlobals.shared.showErrorOnToastView(withErrors: errorCode, fromModule: .profile)
     }
     
@@ -148,7 +173,7 @@ extension UpdateAccountDetailsVC{
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        
+        self.viewModel.updateValue = (textField.text ?? "").removeLeadingTrailingWhitespaces
     }
     
     @objc func textFieldDidChanged(_ textField: UITextField) {
