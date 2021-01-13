@@ -27,4 +27,14 @@ class UserAccountDetailsVM {
     ]
     
     
+    func getProfilData() {
+        
+        APICaller.shared.getUserMeta(params: [:]) { (success, error) in
+            
+            
+        }
+        
+    }
+    
+    
 }
