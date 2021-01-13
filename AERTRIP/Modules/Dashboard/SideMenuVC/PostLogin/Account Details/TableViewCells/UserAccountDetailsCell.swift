@@ -12,7 +12,7 @@ class UserAccountDetailsCell: UITableViewCell {
 
     @IBOutlet weak var headingLabel: UILabel!
     @IBOutlet weak var desctiptionLabel: UILabel!
-    
+    @IBOutlet weak var dividerView: ATDividerView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -47,6 +47,7 @@ class UserAccountDetailsVC : BaseVC {
     private func configureTableView(){
         self.accountDetailsTableView.register(UINib(nibName: "UserAccountDetailsCell", bundle: nil), forCellReuseIdentifier: "UserAccountDetailsCell")
         self.accountDetailsTableView.register(UINib(nibName: "SettingsHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "SettingsHeaderView")
+        self.accountDetailsTableView.separatorStyle = .none
         self.accountDetailsTableView.rowHeight = UITableView.automaticDimension
         self.accountDetailsTableView.estimatedRowHeight = 44
         self.accountDetailsTableView.dataSource = self
