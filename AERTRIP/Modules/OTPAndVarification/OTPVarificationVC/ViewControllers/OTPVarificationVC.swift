@@ -37,7 +37,7 @@ class OTPVarificationVC: BaseVC {
     
     
     
-    var anomationDuration:TimeInterval = 0.5
+    var anomationDuration:TimeInterval = 0.3
     var viewModel = OTPVarificationVM()
     weak var delegate:OtpConfirmationDelegate?
     

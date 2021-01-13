@@ -51,6 +51,7 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
     @IBOutlet weak var baggageDataDisplayView: UIView!
     @IBOutlet weak var baggageDataDisplayViewHeight: NSLayoutConstraint!
     
+    @IBOutlet weak var noteLabelBottomConstraints: NSLayoutConstraint!
     override func awakeFromNib() {
         super.awakeFromNib()
         

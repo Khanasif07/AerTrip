@@ -72,7 +72,7 @@ class SettingsCell: UITableViewCell {
         case .disableWalletOtp:
             self.settingsValueLavel.isHidden = false
             self.settingsValueLavel.text = ""
-            let title = (UserInfo.loggedInUser?.isWalletEnable == true) ? "Disable Wallet OTP" : "Enable Wallet OTP"
+            let title = (UserInfo.loggedInUser?.isWalletEnable == true) ? "Disable OTP for Wallet Payments" : "Enable OTP for Wallet Payments"
             settingsLabel.text = title
             
         default:

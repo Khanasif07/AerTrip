@@ -113,9 +113,11 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 cell.delegate = self
                 cell.isSettingForEdit = false
                 cell.isSettingForSetMobileNumber(isSettingMobile: false)
+                cell.setupForGrayColor(false)
                 if indexPath.row == 0 {
                     if self.viewModel.currentlyUsinfFor == .viewProfile{
                         cell.isSettingForEdit = true
+                        cell.setupForGrayColor(true)
                         cell.deleteButton.isHidden = false
                         if (UserInfo.loggedInUser?.mobile.isEmpty ?? false){
                             cell.isSettingForSetMobileNumber(isSettingMobile: true)
