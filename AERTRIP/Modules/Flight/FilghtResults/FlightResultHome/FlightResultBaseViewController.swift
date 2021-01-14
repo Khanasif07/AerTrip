@@ -1217,6 +1217,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                     var currentData = filterVc.updatedAircraftFilter
                     currentData.allAircraftsArray.append(contentsOf: filters.aircraft.allAircraftsArray.removeDuplicates())
                     currentData.allAircraftsArray = currentData.allAircraftsArray.removeDuplicates()
+                    currentData.selectedAircraftsArray = filters.aircraft.selectedAircraftsArray
                     self.flightFilterVC?.updatedAircraftFilter = currentData
                 }
             
@@ -1228,6 +1229,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                   var currentData = filterVc.updatedAircraftFilter
                     currentData.allAircraftsArray.append(contentsOf: filters.aircraft.allAircraftsArray.removeDuplicates())
                     currentData.allAircraftsArray = currentData.allAircraftsArray.removeDuplicates()
+                    currentData.selectedAircraftsArray = filters.aircraft.selectedAircraftsArray
                     self.flightFilterVC?.updatedAircraftFilter = currentData
                 }
                 
@@ -1248,6 +1250,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                     var currentData = filterVc.updatedAircraftFilter
                     currentData.allAircraftsArray.append(contentsOf: filters.aircraft.allAircraftsArray.removeDuplicates())
                     currentData.allAircraftsArray = currentData.allAircraftsArray.removeDuplicates()
+                    currentData.selectedAircraftsArray = filters.aircraft.selectedAircraftsArray
                     self.flightFilterVC?.updatedAircraftFilter = currentData
                 }
                 
