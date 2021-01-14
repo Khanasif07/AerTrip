@@ -90,7 +90,7 @@ extension FlightSearchResultVM {
                         
             //Aircraft
             if !dynamicFilters.aircraft.selectedAircraftsArray.isEmpty {
-                filterDict["aircraft"] = dynamicFilters.aircraft.selectedAircraftsArray.map { $0.code }
+                filterDict["eq"] = dynamicFilters.aircraft.selectedAircraftsArray.map { $0.code }
             }
             
             //     Times
@@ -330,7 +330,7 @@ extension FlightSearchResultVM {
                 
                 //Aircraft
                 if !dynamicFilters.aircraft.selectedAircraftsArray.isEmpty {
-                    filterDict["aircraft"] = dynamicFilters.aircraft.selectedAircraftsArray.map { $0.code }
+                    filterDict["eq"] = dynamicFilters.aircraft.selectedAircraftsArray.map { $0.code }
                 }
                 
                 //     Times

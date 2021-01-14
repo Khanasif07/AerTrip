@@ -81,9 +81,9 @@ class FlightsRecentSearchesParamConverter: NSObject {
             }
         }
         
-        if let aircraft = filter["aircraft"].array {
+        if let aircraft = filter["eq"].array {
             aircraft.enumerated().forEach { (index, airline) in
-                jsonDict["filters[\(filterIndex)][aircraft][\(index)]"] = airline.stringValue
+                jsonDict["filters[\(filterIndex)][eq][\(index)]"] = airline.stringValue
             }
         }
         

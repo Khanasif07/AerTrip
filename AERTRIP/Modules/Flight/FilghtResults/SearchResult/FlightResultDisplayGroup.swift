@@ -601,7 +601,7 @@ class FlightResultDisplayGroup {
             }
         }
         
-        let aircrafts = flightSearchParam.filter { $0.key.contains("filters[0][aircraft]") }
+        let aircrafts = flightSearchParam.filter { $0.key.contains("filters[0][eq]") }
         if aircrafts.count > 0 {
             self.appliedFilters.insert(.Aircraft)
             let aircraftsArr = aircrafts.map { $0.value as? String ?? "" }
