@@ -523,7 +523,9 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
                 }
             }
         } else {
-            if let parent = self.parent as? BaseVC {
+            if navigationController?.viewControllers.last is FlightResultBaseViewController {
+                
+            } else if let parent = self.parent as? BaseVC {
                 parent.statusBarStyle = isBackBtnTapped ? .darkContent : .lightContent
             }
             
