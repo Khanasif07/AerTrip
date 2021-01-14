@@ -150,7 +150,6 @@ class AppGlobals {
         if let date = inputFormatter.date(from: dateString) {
             let outputFormatter = DateFormatter()
             outputFormatter.dateFormat = outputFormat
-            
             return outputFormatter.string(from: date)
         }
         
