@@ -18,7 +18,7 @@ struct FlightReceptModelData {
 
 // MARK: - Receipt
 struct FlightRecept {
-    var id, sid, search_url: String
+    var id, sid, search_url, shareUrl: String
     var details: IntJourney
     var bookingStatus: BookingStatus
     var partPayment: PartPayment
@@ -36,6 +36,7 @@ struct FlightRecept {
         id = json["id"].stringValue
         sid = json["sid"].stringValue
         search_url = json["search_url"].stringValue
+        shareUrl = json["shareUrl"].stringValue
         details = IntJourney(jsonData: json["details"])
         bookingStatus = BookingStatus(json["booking_status"])
         partPayment = PartPayment(json["part_payment"])
