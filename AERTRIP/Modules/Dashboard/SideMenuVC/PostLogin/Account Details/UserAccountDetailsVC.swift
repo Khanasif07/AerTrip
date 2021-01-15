@@ -104,7 +104,6 @@ extension UserAccountDetailsVC : GetAccountDetailsDelegate  {
              self.progressView.setProgress(0.25, animated: true)
          }
             
-            
             UIView.animate(withDuration: 2) {
                 self.progressView.setProgress(0.25, animated: true)
 
@@ -132,6 +131,15 @@ extension UserAccountDetailsVC : GetAccountDetailsDelegate  {
     
     func failedToGetAccountDetails() {
         self.hideProgressView()
+    }
+    
+}
+
+extension UserAccountDetailsVC : GetUpdatedAccountDetailsBack {
+    
+    func updatedDetails(details : UserAccountDetail) {
+        self.viewModel.details = details
+        self.accountDetailsTableView.reloadData()
     }
     
 }

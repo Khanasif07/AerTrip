@@ -50,15 +50,15 @@ class UserAccountDetailsCell: UITableViewCell {
 
         case .defaultRefundMode:
             headingLabel.text = LocalizedString.Default_Refund_Mode.localized
-            desctiptionLabel.text = details.refundMode
-
+            desctiptionLabel.text = details.refundMode.lowercased() == LocalizedString.Wallet.localized.lowercased() ? LocalizedString.Wallet.localized : LocalizedString.Chosen_Mode_Of_Payment.localized
+            
         case .billingName:
             headingLabel.text = LocalizedString.BillingName.localized
             desctiptionLabel.text = details.billingName
 
         case .billingAddress:
             headingLabel.text = LocalizedString.BillingAddress.localized
-            desctiptionLabel.text =  String(describing: details.billingAddress)
+            desctiptionLabel.text = details.billingAddressString
 
         }
         

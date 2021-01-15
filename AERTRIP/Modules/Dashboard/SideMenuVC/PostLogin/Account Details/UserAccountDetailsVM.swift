@@ -14,7 +14,7 @@ struct UserAccountDetail {
     
     var pan : String
     let addresses : JSONDictionary
-    var billingAddress : JSONDictionary
+    var billingAddress : JSON
     var gst : String
     var aadhar : String
     var refundMode : String
@@ -27,7 +27,7 @@ struct UserAccountDetail {
         pan = json["pan_number"].stringValue
         aadhar = json["aadhar_number"].stringValue
         billingName = json["billing_name"].stringValue
-        billingAddress = json["billing_address"].dictionaryValue
+        billingAddress = json["billing_address"]
         addresses = json["addresses"].dictionaryValue
         gst = json["gst"].stringValue
         refundMode = json["refund_mode"].stringValue
@@ -45,6 +45,52 @@ struct UserAccountDetail {
         
 //        billing_name
     }
+    
+    
+    var billingAddressString : String {
+        
+        let line1 = billingAddress[APIKeys.line1.rawValue].stringValue
+        let line2 = billingAddress[APIKeys.line2.rawValue].stringValue
+        let line3 = billingAddress[APIKeys.line3.rawValue].stringValue
+        let city = billingAddress[APIKeys.city.rawValue].stringValue
+        let state = billingAddress[APIKeys.state.rawValue].stringValue
+        let country = billingAddress[APIKeys.country_name.rawValue].stringValue
+        let postalCode = billingAddress[APIKeys.postal_code.rawValue].stringValue
+
+        
+        var addressStr = ""
+        
+        if !line1.isEmpty{
+            addressStr.append(line1 + ", ")
+        }
+        
+        if !line2.isEmpty {
+            addressStr.append(line2 + ", ")
+        }
+        
+        if !line3.isEmpty{
+            addressStr.append(line3 + ", ")
+        }
+        
+        if !city.isEmpty{
+            addressStr.append(city + ", ")
+        }
+        
+        if !postalCode.isEmpty{
+            addressStr.append(postalCode + ", ")
+        }
+        
+        if !state.isEmpty{
+            addressStr.append(state + ", ")
+        }
+        
+        if !country.isEmpty{
+            addressStr.append(country + ", ")
+        }
+        
+        return addressStr
+    }
+    
     
 }
 

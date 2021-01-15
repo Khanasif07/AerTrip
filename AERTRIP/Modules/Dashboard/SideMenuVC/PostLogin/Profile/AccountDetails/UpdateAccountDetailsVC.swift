@@ -8,11 +8,18 @@
 
 import UIKit
 
+protocol GetUpdatedAccountDetailsBack : NSObjectProtocol {
+    
+    func updatedDetails(details : UserAccountDetail)
+    
+}
+
 class UpdateAccountDetailsVC: BaseVC {
     @IBOutlet weak var navView: TopNavigationView!
     @IBOutlet weak var accountTableView: ATTableView!
     
     var viewModel = UpdateAccountDetailsVM()
+    weak var delegate : GetUpdatedAccountDetailsBack?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +51,7 @@ class UpdateAccountDetailsVC: BaseVC {
         navView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.DoneWithSpace.localized, selectedTitle: LocalizedString.DoneWithSpace.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
         navView.configureLeftButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.CancelWithSpace.localized, selectedTitle: LocalizedString.CancelWithSpace.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
         navView.dividerView.isHidden = false
+        setInitialValues()
     }
     
     func manageLoader(isNeeded: Bool){
@@ -56,6 +64,39 @@ class UpdateAccountDetailsVC: BaseVC {
         }
         
     }
+    
+    
+    func setInitialValues(){
+        
+        switch self.viewModel.updationType {
+        case .pan:
+            self.viewModel.updateValue = self.viewModel.details.pan
+            
+        case .billingName :
+            
+            self.viewModel.updateValue = self.viewModel.details.billingName
+
+        case .aadhar:
+            
+            self.viewModel.updateValue = self.viewModel.details.aadhar
+            
+        case .gSTIN:
+            
+            self.viewModel.updateValue = self.viewModel.details.gst
+            
+        case .defaultRefundMode:
+            
+            self.viewModel.setSelectedMode(selectedVal: self.viewModel.details.refundMode)
+
+            
+        default:
+            break
+        }
+        
+        self.accountTableView.reloadData()
+        
+    }
+    
 
 }
 
@@ -108,16 +149,31 @@ extension UpdateAccountDetailsVC:TopNavigationViewDelegate{
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
+        
+        let validate = self.viewModel.isValidDetails(with: self.viewModel.updateValue)
+        
         switch self.viewModel.updationType{
         case .aadhar, .billingName, .gSTIN, .pan:
-            let validate = self.viewModel.isValidDetails(with: self.viewModel.updateValue)
+ 
             if validate.success{
                 self.manageLoader(isNeeded: true)
                 self.viewModel.updateAccountDetails(self.viewModel.updateValue)
             }else{
                 AppToast.default.showToastMessage(message: validate.msg)
             }
-        case .billingAddress, .defaultRefundMode: break;
+            
+        case .defaultRefundMode:
+        
+            if validate.success{
+                self.manageLoader(isNeeded: true)
+                self.viewModel.updateRefundModes()
+            }else{
+                AppToast.default.showToastMessage(message: validate.msg)
+            }
+            
+            
+        case .billingAddress:
+        break;
         }
     }
     
@@ -126,6 +182,7 @@ extension UpdateAccountDetailsVC:TopNavigationViewDelegate{
 extension UpdateAccountDetailsVC: UpdateAccountDetailsVMDelegates{
     func updateAccountDetailsSuccess() {
         self.manageLoader(isNeeded: false)
+        self.delegate?.updatedDetails(details: self.viewModel.details)
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -140,8 +197,7 @@ extension UpdateAccountDetailsVC: UpdateAccountDetailsVMDelegates{
 //MARK: UITextField Delegates
 
 extension UpdateAccountDetailsVC{
-    
-    
+
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         
         switch self.viewModel.updationType{
@@ -150,17 +206,33 @@ extension UpdateAccountDetailsVC{
             let selectionArray = [String]()
             PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: selectionArray, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [unowned self] (firstSelect, secondSelect) in
                 textField.text = firstSelect
-//                self.viewModel.userEnteredDetails.aertripBank = firstSelect
+                self.viewModel.setSelectedMode(selectedVal: firstSelect)
             }
+            
+            PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: selectionArray, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen, doneBlock: {_,_ in }) { [weak self] (index1, index2) in
+                
+                guard let ind = index1 else { return }
+                
+                
+                
+            }
+            
+            
+            
             textField.tintColor = AppColors.clear
         case .defaultRefundMode:
             PKMultiPicker.noOfComponent = 1
-            let selectionArray = [String]()
-            PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: selectionArray, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [unowned self] (firstSelect, secondSelect) in
+            let selectionArray = self.viewModel.paymentOptions
+            PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: selectionArray, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [weak self] (firstSelect, secondSelect) in
                 textField.text = firstSelect
-//                self.viewModel.userEnteredDetails.aertripBank = firstSelect
+
+                self?.viewModel.setSelectedMode(selectedVal: firstSelect)
+                
             }
             textField.tintColor = AppColors.clear
+            
+            
+
         case .aadhar, .billingName,.gSTIN,.pan: return true
             
         }

@@ -58,6 +58,7 @@ extension UserAccountDetailsVC : UITableViewDelegate, UITableViewDataSource {
         vc.viewModel.updationType = type
         vc.modalPresentationStyle = .overFullScreen
         vc.viewModel.details = self.viewModel.details
+        vc.delegate = self
         self.present(vc, animated: true, completion: nil)
         
     }
