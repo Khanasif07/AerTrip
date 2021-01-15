@@ -892,16 +892,25 @@
                                     <constraint firstAttribute="height" constant="44" id="F52-fb-rxv"/>
                                 </constraints>
                             </view>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="sWA-Ap-SHK">
+                                <rect key="frame" x="0.0" y="44" width="375" height="1"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="QzZ-ja-vd6"/>
+                                </constraints>
+                            </progressView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="mSR-XG-8MY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="VmE-hF-skA" firstAttribute="top" secondItem="rjS-Ue-2Ee" secondAttribute="top" id="0QE-uZ-gFc"/>
                             <constraint firstItem="hva-w9-nq6" firstAttribute="top" secondItem="q2e-jR-rEr" secondAttribute="bottom" id="6vX-ch-9dZ"/>
+                            <constraint firstAttribute="trailing" secondItem="sWA-Ap-SHK" secondAttribute="trailing" id="N6c-Nj-7kH"/>
                             <constraint firstItem="q2e-jR-rEr" firstAttribute="top" secondItem="NiN-M3-Deg" secondAttribute="bottom" id="NGU-Ho-cmK"/>
                             <constraint firstItem="VmE-hF-skA" firstAttribute="leading" secondItem="UbS-cB-gzm" secondAttribute="leading" id="NfT-iQ-6hD"/>
                             <constraint firstItem="UbS-cB-gzm" firstAttribute="top" secondItem="NiN-M3-Deg" secondAttribute="bottom" id="Ooa-2U-cEy"/>
+                            <constraint firstItem="sWA-Ap-SHK" firstAttribute="leading" secondItem="rjS-Ue-2Ee" secondAttribute="leading" id="Qbs-uQ-7fq"/>
                             <constraint firstAttribute="trailing" secondItem="q2e-jR-rEr" secondAttribute="trailing" id="Tqj-hh-7Kz"/>
+                            <constraint firstItem="sWA-Ap-SHK" firstAttribute="top" secondItem="VmE-hF-skA" secondAttribute="bottom" id="XUV-Iq-lLr"/>
                             <constraint firstItem="q2e-jR-rEr" firstAttribute="leading" secondItem="rjS-Ue-2Ee" secondAttribute="leading" id="fza-Yo-Sst"/>
                             <constraint firstItem="UbS-cB-gzm" firstAttribute="leading" secondItem="rjS-Ue-2Ee" secondAttribute="leading" id="hpT-1c-aWS"/>
                             <constraint firstAttribute="trailing" secondItem="UbS-cB-gzm" secondAttribute="trailing" id="jcV-RN-Ngh"/>
@@ -911,6 +920,8 @@
                     </view>
                     <connections>
                         <outlet property="accountDetailsTableView" destination="q2e-jR-rEr" id="gWI-la-P9D"/>
+                        <outlet property="progressView" destination="sWA-Ap-SHK" id="ivg-tw-g5A"/>
+                        <outlet property="progressViewHeight" destination="QzZ-ja-vd6" id="cZL-ag-Os2"/>
                         <outlet property="topNavView" destination="UbS-cB-gzm" id="8du-dM-wdY"/>
                     </connections>
                 </viewController>

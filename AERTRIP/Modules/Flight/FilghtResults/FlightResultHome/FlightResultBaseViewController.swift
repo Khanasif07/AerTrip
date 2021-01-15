@@ -1459,7 +1459,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
             domesticMultiLegResultVC?.updatedApiProgress = updatedApiProgress
             domesticMultiLegResultVC?.viewModel.airlineCode = airlineCode
             if flightSearchResultVM.isDomestic {
-                filterUpdateWorkItem?.cancel()
+//                filterUpdateWorkItem?.cancel()
                 if let domesticMLResultVC = domesticMultiLegResultVC {
                     filterUpdateWorkItem = DispatchWorkItem {
                         let journeyArray = resultVM.getJourneyDisplayArrayFor(index:  index)

@@ -43,7 +43,7 @@ extension UserAccountDetailsVC : UITableViewDelegate, UITableViewDataSource {
         
         let type = self.viewModel.accountDetailsDict[indexPath.section]?[indexPath.row] ?? .pan
         cell.dividerView.isHidden = type == .gSTIN
-        cell.populateData(type: type)
+        cell.populateData(type: type, details: self.viewModel.details)
         return cell
       }
     
@@ -54,10 +54,10 @@ extension UserAccountDetailsVC : UITableViewDelegate, UITableViewDataSource {
     
     
     func openUpdateAccount(type : AccountUpdationType){
-        
         let vc = UpdateAccountDetailsVC.instantiate(fromAppStoryboard: .OTPAndVarification)
         vc.viewModel.updationType = type
         vc.modalPresentationStyle = .overFullScreen
+        vc.viewModel.details = self.viewModel.details
         self.present(vc, animated: true, completion: nil)
         
     }

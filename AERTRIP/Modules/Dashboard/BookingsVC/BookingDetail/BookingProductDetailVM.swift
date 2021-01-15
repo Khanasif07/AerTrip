@@ -333,7 +333,6 @@ class BookingProductDetailVM {
     func getSectionDataForOtherProductType() {
         
         self.sectionDataForOtherProductType.removeAll()
-        
         self.sectionDataForOtherProductType.append([.insurenceCell, .policyDetailCell])
         var tempTravellers: [TableViewCellForOtherProductType] = []
         for _ in self.bookingDetail?.bookingDetail?.travellers ?? [] {

@@ -29,7 +29,8 @@ class UpdateAccountDetailsVM{
     var updatedId:String = ""
     weak var delegate: UpdateAccountDetailsVMDelegates?
     
-    
+    var details = UserAccountDetail()
+
     
     func isValidDetails(with txt:String)-> (success: Bool, msg:String){
         
