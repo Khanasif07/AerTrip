@@ -33,7 +33,7 @@ class PKMultiPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource 
         
         let picker = PKMultiPicker()
         picker.doneBlock = doneBlock
-        
+        picker.doneBlockWithIndex = doneWithIndex
         picker.openPickerInTextField(textField, firstComponentArray: firstComponentArray, secondComponentArray: secondComponentArray, firstComponent: firstComponent, secondComponent: secondComponent, toolBarTint: toolBarTint)
         
         if titles != nil {
@@ -126,8 +126,8 @@ class PKMultiPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource 
             secondValue = secondValueArray[index2]
         }
         
-        self.doneBlock?((firstValue ?? ""), (secondValue ?? ""))
         self.doneBlockWithIndex?(index1,index2)
+        self.doneBlock?((firstValue ?? ""), (secondValue ?? ""))
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {

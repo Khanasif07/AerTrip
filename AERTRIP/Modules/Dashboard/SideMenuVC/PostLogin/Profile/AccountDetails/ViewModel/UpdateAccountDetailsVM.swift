@@ -131,9 +131,6 @@ class UpdateAccountDetailsVM{
                 case .billingName:
                     self.details.billingName = paramsText
                     
-                case .billingAddress:
-                    self.details.billingAddress = JSON(self.details.addresses[paramsText] ?? JSON())
-               
                     
                 default:
                     break

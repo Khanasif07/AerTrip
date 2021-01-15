@@ -25,6 +25,8 @@ class UpdateAccountDetailsVC: BaseVC {
         super.viewDidLoad()
         self.registerCell()
         self.accountTableView.backgroundColor = AppColors.themeGray04
+        self.accountTableView.rowHeight = UITableView.automaticDimension
+        self.accountTableView.estimatedRowHeight = 50
         self.accountTableView.delegate = self
         self.accountTableView.dataSource = self
     }
@@ -88,9 +90,9 @@ class UpdateAccountDetailsVC: BaseVC {
             
             self.viewModel.setSelectedMode(selectedVal: self.viewModel.details.refundMode)
 
-            
-        default:
-            break
+        case .billingAddress:
+            self.viewModel.updateValue = self.viewModel.details.billingAddress.label
+
         }
         
         self.accountTableView.reloadData()
@@ -113,6 +115,7 @@ extension UpdateAccountDetailsVC: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return (indexPath.row == 0) ? 35 : UITableView.automaticDimension
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0{
             guard  let cell = self.accountTableView.dequeueReusableCell(withIdentifier: EmptyTableViewCell.reusableIdentifier) as? EmptyTableViewCell else {
@@ -127,7 +130,13 @@ extension UpdateAccountDetailsVC: UITableViewDelegate, UITableViewDataSource{
                 }
                 cell.setPlaceHolderAndDelegate(with: self.viewModel.updationType.rawValue, textFieldDelegate: self)
                 cell.updateTextField.text = self.viewModel.updateValue
+                cell.addressView.isHidden = self.viewModel.updationType != .billingAddress
+                cell.addressLabel.text = self.viewModel.details.billingAddressString
+                
                 return cell
+                
+                
+          
             case .billingName, .aadhar, .pan, .gSTIN:
                 guard  let cell = self.accountTableView.dequeueReusableCell(withIdentifier: UpdateAccountTextFieldCell.reusableIdentifier) as? UpdateAccountTextFieldCell else {
                     fatalError("UpdateAccountTextFieldCell not found.")
@@ -173,6 +182,14 @@ extension UpdateAccountDetailsVC:TopNavigationViewDelegate{
             
             
         case .billingAddress:
+            
+            if validate.success{
+                self.manageLoader(isNeeded: true)
+                self.viewModel.updateAccountDetails("\(self.viewModel.details.billingAddress.id)")
+            }else{
+                AppToast.default.showToastMessage(message: validate.msg)
+            }
+            
         break;
         }
     }
@@ -202,24 +219,24 @@ extension UpdateAccountDetailsVC{
         
         switch self.viewModel.updationType{
         case .billingAddress:
+            textField.tintColor = AppColors.clear
+
             PKMultiPicker.noOfComponent = 1
-            let selectionArray = [String]()
-            PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: selectionArray, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [unowned self] (firstSelect, secondSelect) in
-                textField.text = firstSelect
-                self.viewModel.setSelectedMode(selectedVal: firstSelect)
-            }
+            let selectionArray = self.viewModel.details.addresses.map { $0.label }
             
             PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: selectionArray, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen, doneBlock: {_,_ in }) { [weak self] (index1, index2) in
                 
-                guard let ind = index1 else { return }
+                guard let ind = index1, let weakSelf = self else { return }
+        
+                textField.text = selectionArray[ind]
+                weakSelf.viewModel.updateValue = selectionArray[ind]
+                weakSelf.viewModel.details.billingAddress = weakSelf.viewModel.details.addresses[ind]
                 
-                
+                guard let cell = weakSelf.accountTableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? UpdateAccountDropdownCell else { return }
+                cell.addressLabel.text = weakSelf.viewModel.details.billingAddressString
                 
             }
             
-            
-            
-            textField.tintColor = AppColors.clear
         case .defaultRefundMode:
             PKMultiPicker.noOfComponent = 1
             let selectionArray = self.viewModel.paymentOptions
@@ -246,6 +263,8 @@ extension UpdateAccountDetailsVC{
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         self.viewModel.updateValue = (textField.text ?? "").removeLeadingTrailingWhitespaces
+        self.accountTableView.reloadData()
+
     }
     
     @objc func textFieldDidChanged(_ textField: UITextField) {
