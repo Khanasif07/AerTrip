@@ -292,7 +292,7 @@ class UserInfo {
             if recentSearchFilter.otherMeals { roomMeals.append(LocalizedString.Others.localized) }
             roomMeal  = roomMeals
             var cancellationArr = [String]()
-            if recentSearchFilter.refundable { cancellationArr.append(LocalizedString.Refundable.localized) }
+            if recentSearchFilter.refundable { cancellationArr.append(LocalizedString.FreeCancellation.localized) }
             if recentSearchFilter.partiallyRefundable { cancellationArr.append(LocalizedString.PartRefundable.localized) }
             if recentSearchFilter.nonRefundable { cancellationArr.append(LocalizedString.NonRefundable.localized) }
             roomCancelation  = cancellationArr

@@ -464,9 +464,10 @@ class HotelResultVC: BaseVC {
 //                }
 //            }
         }
-        AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginVerificationForBulkbooking) { (_) in
+        AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginFromEmailShare) { (_) in
             guard AppGlobals.shared.isNetworkRechable(showMessage: true) else {return}
             showEmailComposer()
+            self.viewModel.updateRecentSearch()
         }
         
     }

@@ -385,8 +385,14 @@ struct RecentSearchesFilter {
             if let obj = priceData[APIKeys.minPrice.rawValue] as? Int {
                 self.minPrice = obj
             }
+            if let obj = priceData[APIKeys.minPrice.rawValue] as? String {
+                self.minPrice = obj.toInt ?? 0
+            }
             if let obj = priceData[APIKeys.maxPrice.rawValue] as? Int {
                 self.maxPrice = obj
+            }
+            if let obj = priceData[APIKeys.maxPrice.rawValue] as? String {
+                self.maxPrice = obj.toInt ?? 0
             }
         }
         

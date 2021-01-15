@@ -470,6 +470,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
                 }
                 
                 self.callAPIToGetMailTemplate()
+                self.flightSearchResultVM.updateDomesticRecentSearches()
             })
         }
     }

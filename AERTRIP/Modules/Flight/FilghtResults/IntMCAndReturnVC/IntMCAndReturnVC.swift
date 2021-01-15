@@ -251,6 +251,7 @@ extension IntMCAndReturnVC {
                 }
                 
                 self.callAPIToGetMailTemplate()
+                self.flightSearchResultVM?.updateInternationalRecentSearches()
             })
         }
     }
