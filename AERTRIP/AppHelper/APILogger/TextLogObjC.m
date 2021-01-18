@@ -10,7 +10,7 @@
 #import "TextLogObjC.h"
 
 //@implementation TextLogObjC
-//
+////
 //- (void)logText:(NSString *)text{
 //
 //    NSString *stringURL = @"http://www.somewhere.com/thefile.png";
@@ -35,7 +35,7 @@
 - (void)logTextToFile:(NSString *)data
 {
 //    if(data){
-//        
+//
 //        NSArray       *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 //        NSString  *documentsDirectory = [paths objectAtIndex:0];
 //        NSString  *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory,@"log.txt"];
@@ -46,7 +46,7 @@
 //        }else{
 //            contents = [contents stringByAppendingString:data];
 //        }
-//        
+//
 //        contents = [contents stringByAppendingString:@"\n\n"];
 //
 //        [contents writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
