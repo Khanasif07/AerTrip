@@ -131,7 +131,7 @@ extension UpdateAccountDetailsVC: UITableViewDelegate, UITableViewDataSource{
                 cell.setPlaceHolderAndDelegate(with: self.viewModel.updationType.rawValue, textFieldDelegate: self)
                 cell.updateTextField.text = self.viewModel.updateValue
                 cell.addressView.isHidden = self.viewModel.updationType != .billingAddress
-                cell.addressLabel.text = self.viewModel.details.billingAddressString
+                cell.addressLabel.text = self.viewModel.details.billingAddressStringWithNewLines
                 
                 return cell
                 
