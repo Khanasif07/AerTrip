@@ -601,6 +601,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
     func updateFlightLegTimeFilters(_ timesViewController : FlightFilterTimesViewController, inputFilters : [IntMultiCityAndReturnWSResponse.Results.F]) {
         
         for index in 0 ..< inputFilters.count {
+
             
             var qualityFilter: QualityFilter?
             if timesViewController.viewModel.multiLegTimerFilter.indices.contains(index) {
