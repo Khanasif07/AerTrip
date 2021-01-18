@@ -330,7 +330,8 @@ class PriceFilterViewController: UIViewController , FilterViewController {
                  var isRefundable = true
                 let journey = viewModel.flightResultArray[index].j
                  for j in journey{
-                     if j.smartIconArray.contains("refundStatusPending") || j.smartIconArray.contains("noRefund") {
+//                    if j.smartIconArray.contains("refundStatusPending") || j.smartIconArray.contains("noRefund") {
+                        if j.smartIconArray.contains("noRefund") {
                          isRefundable = false
                      }
                  }
