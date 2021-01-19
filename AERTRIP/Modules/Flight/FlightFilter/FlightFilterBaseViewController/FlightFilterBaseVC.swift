@@ -565,6 +565,13 @@ extension FlightFilterBaseVC {
             let userArrivalMin = userArrivalTime?.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)
             let userArrivalMax = userArrivalTime?.latest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: true, interval: 3600)
             
+            if !timesViewController.viewModel.multiLegTimerFilter.indices.contains(index) {
+                timesViewController.viewModel.multiLegTimerFilter.insert(newFlightLegFilter, at: index)
+            } else {
+                timesViewController.viewModel.multiLegTimerFilter[index] = newFlightLegFilter
+            }
+            
+            
             if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[index].contains(.Times), timesViewController.viewModel.multiLegTimerFilter.indices.contains(index) {
                 
                 timesViewController.viewModel.multiLegTimerFilter[index].departureMinTime = newFlightLegFilter.departureMinTime
@@ -605,12 +612,6 @@ extension FlightFilterBaseVC {
                     timesViewController.viewModel.multiLegTimerFilter[index].userSelectedArrivalEndTime = newFlightLegFilter.arrivalEndTime
                 }
                 
-            } else {
-                if !timesViewController.viewModel.multiLegTimerFilter.indices.contains(index) {
-                    timesViewController.viewModel.multiLegTimerFilter.insert(newFlightLegFilter, at: index)
-                } else {
-                    timesViewController.viewModel.multiLegTimerFilter[index] = newFlightLegFilter
-                }
             }
             
             if let quality = qualityFilter {
@@ -1129,7 +1130,13 @@ extension FlightFilterBaseVC {
         
         for (index, filter) in inputFilters.enumerated() {
             let newPriceWS = filter.pr
-            let newPriceFilter = PriceFilter(onlyRefundableFaresSelected: false,
+            
+            var onlyRefundableSelected = false
+            if let userFilters = appliedAndUIFilters, userFilters.uiFilters[index].contains(.refundableFares) {
+                onlyRefundableSelected = true
+            }
+
+            let newPriceFilter = PriceFilter(onlyRefundableFaresSelected: onlyRefundableSelected,
                                              inputFareMinValue: CGFloat(newPriceWS.minPrice) ,
                                              inputFareMaxVaule: CGFloat(newPriceWS.maxPrice) ,
                                              userSelectedFareMinValue: CGFloat(newPriceWS.minPrice) ,
@@ -1139,8 +1146,12 @@ extension FlightFilterBaseVC {
             if userSelectedFilters.indices.contains(index) {
                 userFilter = userSelectedFilters[index].pr
             }
-                
+            
             if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[index].contains(.Price), priceViewController.viewModel.allPriceFilters.indices.contains(index) {
+                
+                if userFilters.uiFilters[index].contains(.refundableFares){
+                    priceViewController.viewModel.allPriceFilters[index].onlyRefundableFaresSelected = true
+                }
                 
                 let onlyRefundable = priceViewController.viewModel.allPriceFilters[index].onlyRefundableFaresSelected
                 

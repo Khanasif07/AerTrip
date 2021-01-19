@@ -257,15 +257,11 @@ class UserInfo {
         init(recentSearchFilter: RecentSearchesFilter) {
             ratingCount =  recentSearchFilter.stars
             var taRatings = [Int]()
-            if recentSearchFilter.noTripAdvisorStar {
-                taRatings = [1, 2, 3, 4, 5]
-            } else {
-                if recentSearchFilter.firstTripAdvisorStar { taRatings.append(1) }
-                if recentSearchFilter.secondTripAdvisorStar { taRatings.append(2) }
-                if recentSearchFilter.thirdTripAdvisorStar { taRatings.append(3) }
-                if recentSearchFilter.fourthTripAdvisorStar { taRatings.append(4) }
-                if recentSearchFilter.fifthTripAdvisorStar { taRatings.append(5) }
-            }
+            if recentSearchFilter.firstTripAdvisorStar { taRatings.append(1) }
+            if recentSearchFilter.secondTripAdvisorStar { taRatings.append(2) }
+            if recentSearchFilter.thirdTripAdvisorStar { taRatings.append(3) }
+            if recentSearchFilter.fourthTripAdvisorStar { taRatings.append(4) }
+            if recentSearchFilter.fifthTripAdvisorStar { taRatings.append(5) }
             if taRatings.isEmpty { taRatings = [1, 2, 3, 4, 5] }
             tripAdvisorRatingCount  = taRatings
             isIncludeUnrated  = true

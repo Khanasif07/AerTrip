@@ -807,6 +807,8 @@ extension IntFlightResultDisplayGroup  {
     
     func priceSelectionChangedAt(minFare: CGFloat, maxFare: CGFloat) {
         
+        initiatedFilters[index]?.insert(.price)
+        
         userSelectedFilters[0].pr.minPrice = Int(minFare)
         userSelectedFilters[0].pr.maxPrice = Int(maxFare)
         
@@ -846,9 +848,11 @@ extension IntFlightResultDisplayGroup  {
         applyFilters(index: 0)
     }
     
-    func applyPriceFilter(_ inputArray: [IntMultiCityAndReturnWSResponse.Results.J]) -> [IntMultiCityAndReturnWSResponse.Results.J]{
+    func applyPriceFilter(index: Int, _ inputArray: [IntMultiCityAndReturnWSResponse.Results.J]) -> [IntMultiCityAndReturnWSResponse.Results.J]{
         
-        guard UIFilters.contains(.priceRange) else { return inputArray }
+        let initiated = initiatedFilters[index]?.contains(.price) ?? false
+        
+        guard UIFilters.contains(.priceRange), initiated else { return inputArray }
         let outputArray = inputArray.filter{  $0.farepr >= userSelectedFilters[0].pr.minPrice && $0.farepr <= userSelectedFilters[0].pr.maxPrice  }
         return outputArray
     }
@@ -1225,6 +1229,7 @@ extension IntFlightResultDisplayGroup  {
         self.isAPIResponseUpdated = isAPIResponseUpdated
         // DispatchQueue.global(qos: .background).async {
         
+        print("self.UIFilters=",UIFilters)
         var inputForFilter = self.processedJourneyArray
         
         for filter in self.appliedFilters {
@@ -1253,7 +1258,7 @@ extension IntFlightResultDisplayGroup  {
                 continue
             case .Price:
                 //done
-                inputForFilter = self.applyPriceFilter(inputForFilter)
+                inputForFilter = self.applyPriceFilter(index: index, inputForFilter)
                 
             case .Aircraft:
                 inputForFilter = self.applyAircraftFilter(index: index, inputForFilter)

@@ -267,7 +267,7 @@ extension FlightSearchResultVM {
             //     Price
             if (appliedFilters.contains(.Price))
             {
-                if let pr = userSelectedFilters?.pr{
+                if let pr = userSelectedFilters?.pr, legs[i].initiatedFilters.contains(.price) {
                     let price = [pr.minPrice, pr.maxPrice]
                     filterDict["pr"] = price
                 }
@@ -309,19 +309,19 @@ extension FlightSearchResultVM {
                 var fqArray = [String]()
                 
                 if uiFilters.contains(.hideOvernightLayover){
-                    fqArray.append("&ovgtlo")
+                    fqArray.append("ovgtlo")
                 }
                 
                 if uiFilters.contains(.hideOvernight){
-                    fqArray.append("&ovgtf")
+                    fqArray.append("ovgtf")
                 }
                 
                 if uiFilters.contains(.hideChangeAirport){
-                    fqArray.append("&coa")
+                    fqArray.append("coa")
                 }
                 
                 if uiFilters.contains(.hideLongerOrExpensive){
-                    fqArray.append("&aht")
+                    fqArray.append("aht")
                 }
                 
                 if !fqArray.isEmpty {
@@ -533,10 +533,22 @@ extension FlightSearchResultVM {
                 //     Price
                 if appliedFilters.contains(.Price)
                 {
+                    if legs[0].initiatedFilters[i]?.contains(.price) ?? false {
+                        
                     filterDict["pr"] = [userSelectedFilters[i].pr.minPrice, userSelectedFilters[i].pr.maxPrice]
+                        
+                    }
                     
-                    if bookFlightObject.flightSearchType.rawValue == 1 {
-                        filterDict["pr"] = [userSelectedFilters[0].pr.minPrice, userSelectedFilters[0].pr.maxPrice]
+                    if legs[0].initiatedFilters[0]?.contains(.price) ?? false {
+                        
+                        if bookFlightObject.flightSearchType.rawValue == 1 {
+                            filterDict["pr"] = [userSelectedFilters[0].pr.minPrice, userSelectedFilters[0].pr.maxPrice]
+                        }
+                        
+                    }
+                    
+                    if uiFilters.contains(.refundableFares){
+                        filterDict["fares[]"] = 1
                     }
                 }
                 filterArr.append(filterDict)

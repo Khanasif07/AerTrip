@@ -112,6 +112,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         setupNavigationBar()
         createFilterTitle()
         
+        print("flightSearchParameters=",flightSearchParameters)
         setupSegmentView()
         self.filterSegmentView.sectionTitles = flightSearchResultVM.segmentTitles(showSelection: false, selectedIndex: filterSegmentView.selectedSegmentIndex)
         self.filterSegmentView.selectedSegmentIndex = HMSegmentedControlNoSegment
@@ -1404,28 +1405,29 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
         
         if isAPIResponseUpdated {
             // for other searches except ones mentioned below
-            self.flightFilterVC?.flightResultArray = self.flightSearchResultVM.flightResultArray
             DispatchQueue.main.async {
+                self.flightFilterVC?.flightResultArray = self.flightSearchResultVM.flightResultArray
                 self.flightFilterVC?.appliedAndUIFilters =  self.flightSearchResultVM.flightLegsAppliedFilters
                 self.flightFilterVC?.userSelectedFilters = self.flightSearchResultVM.getUserSelectedFilters()
                 self.flightFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.flightResultArray)
             }
             
             // For updating UI from deep linking filters // might not get set at the first time
-            DispatchQueue.delay(0.2, closure: {
-                self.flightFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.flightResultArray)
+            DispatchQueue.delay(0.3, closure: {
+//                self.flightFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.flightResultArray)
             })
             
-            self.intMCAndReturnFilterVC?.flightResultArray = self.flightSearchResultVM.intFlightResultArray
             DispatchQueue.main.async {
+                self.intMCAndReturnFilterVC?.flightResultArray = self.flightSearchResultVM.intFlightResultArray
+
                 self.intMCAndReturnFilterVC?.appliedAndUIFilters = self.flightSearchResultVM.intFlightLegsAppliedFilters
                 self.intMCAndReturnFilterVC?.userSelectedFilters = self.flightSearchResultVM.getIntUserSelectedFilters()
             self.intMCAndReturnFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.intFlightResultArray)
             }
             
             // For updating UI from deep linking filters // might not get set at the first time
-            DispatchQueue.delay(0.2, closure: {
-                self.intMCAndReturnFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.intFlightResultArray)
+            DispatchQueue.delay(0.3, closure: {
+//                self.intMCAndReturnFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.intFlightResultArray)
             })
             
             // To check if filters are pre applied and update dots
