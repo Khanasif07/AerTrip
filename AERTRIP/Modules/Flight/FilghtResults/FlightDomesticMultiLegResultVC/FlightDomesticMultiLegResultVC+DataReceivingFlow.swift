@@ -12,13 +12,6 @@ extension FlightDomesticMultiLegResultVC {
     
         func updatewithArray(index : Int , updatedArray : [Journey] , sortOrder : Sort) {
             
-    //        for j in updatedArray{
-    //            let flightNum = j.leg.first!.flights.first!.al + j.leg.first!.flights.first!.fn
-    //            if flightNum.uppercased() == airlineCode.uppercased(){
-    //                j.isPinned = true
-    //            }
-    //        }
-            
             if viewModel.resultsTableStates[index] == .showTemplateResults   {
                 viewModel.resultsTableStates[index] = .showRegularResults
             }
@@ -255,39 +248,8 @@ extension FlightDomesticMultiLegResultVC {
                     let headerRect = CGRect(x: 0, y: 0, width: width, height: 138.0)
                     tableView.tableHeaderView = UIView(frame: headerRect)
 
-                    //selecting tableview cell
-//                    if (selectedIndex != nil) {
-//                        tableView.selectRow(at:selectedIndex, animated: false, scrollPosition: .none)
-//                    }
-//
-//                    let indexPath : IndexPath
-//                    if (self.viewModel.results[index].suggestedJourneyArray.count > 0 ) {
-//                        indexPath = IndexPath(row: 0, section: 0)
-//                        tableView.selectRow(at: indexPath , animated: false, scrollPosition: .none)
-//                        self.hideHeaderCellAt(index: index)
-//                    } else  {
-//                        if (self.viewModel.results[index].allJourneys.count > 0 ){
-//                            indexPath = IndexPath(row: 0, section: 0)
-//                            tableView.selectRow(at: indexPath , animated: false, scrollPosition: .none)
-//                            self.hideHeaderCellAt(index: index)
-//                        }
-//                        else {
-//                            print("Into Else else")
-//                        }
-//                    }
-//
-                
-//                if self.viewModel.results[index].selectedJourney == nil{
-//                    self.viewModel.results[index].selectedJourney = self.viewModel.results[index].suggestedJourneyArray.first
-//
-//                }
-            
                     tableView.isScrollEnabled = true
-                
-                ///............
-                
-                //setting footer for table view
-                
+                                            
                 if self.viewModel.results[index].suggestedJourneyArray.isEmpty && (self.viewModel.resultsTableStates[index] != .showPinnedFlights  ) { self.viewModel.resultsTableStates[index] = .showExpensiveFlights
                 }
                 
@@ -326,24 +288,7 @@ extension FlightDomesticMultiLegResultVC {
                 tableView.scrollsToTop = true
                 tableView.reloadData()
                 
-                
-    //            if self.viewModel.resultsTableStates[index] == .showExpensiveFlights {
-    //                self.setExpandedStateFooterAt(index: index)
-    //            }else if self.viewModel.resultsTableStates[index] != .showPinnedFlights{
-    //                if self.results[index].suggestedJourneyArray.count == 0{
-    //                    let invisibleView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-    //                    invisibleView.tag = index
-    //                    let tap = UITapGestureRecognizer()
-    //                    invisibleView.addGestureRecognizer(tap)
-    //                    self.tappedOnGroupedFooterView(tap)
-    //
-    //                    if let tableView = self.baseScrollView.viewWithTag( 1000 + index) as? UITableView {
-    //                        tableView.tableFooterView = nil
-    //                    }
-    //                }else{
-    //                    self.setGroupedFooterViewAt(index: index)
-    //                }
-    //            }
+            
                 
                 self.setTotalFare()
             }

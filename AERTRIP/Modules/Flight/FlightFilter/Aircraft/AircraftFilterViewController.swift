@@ -71,7 +71,6 @@ class AircraftFilterViewController: UIViewController , FilterViewController {
         
 //        printDebug("aircraft filter count....\(filter.allAircrafts.count)")
         
-        
         let starAircrafts = filter.allAircraftsArray.filter { $0.quality == 1 }.sorted { (craft1, craft2) -> Bool in
             craft1.name < craft2.name
         }
