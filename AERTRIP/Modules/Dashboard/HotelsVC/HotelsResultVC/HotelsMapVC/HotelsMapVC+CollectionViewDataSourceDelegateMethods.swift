@@ -72,7 +72,7 @@ extension HotelsMapVC: UICollectionViewDataSource, UICollectionViewDelegate, UIC
              //--------------------------- Golu Change ---------------------
             self.selectedIndexPath = indexPath
 //            presentControllerDefault(cell: cell, hotelInfo: data, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
-            AppFlowManager.default.presentHotelDetailsVC(self, hotelInfo: data, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
+            AppFlowManager.default.presentHotelDetailsVC(self, hotelInfo: data, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest, filterParams: viewModel.getFilterParams(), searchFormData: viewModel.searchedFormData)
             
         }
          //--------------------------- End ---------------------
