@@ -626,6 +626,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
             let userSelectedFilter = userSelectedFilters[index]
             let userDepartureTime = userSelectedFilter.depDt
             let userArrivalTime = userSelectedFilter.arDt
+            
 
             let userDepartureMin = userDepartureTime.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600) ?? Date()
             let userDepartureMax = userDepartureTime.latest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: true, interval: 3600) ?? Date()
@@ -645,6 +646,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
                     timesViewController.viewModel.multiLegTimerFilter[index].userSelectedStartTime = userDepartureMin
 
                     timesViewController.viewModel.multiLegTimerFilter[index].userSelectedEndTime = userDepartureMax
+                    
                 } else {
                     timesViewController.viewModel.multiLegTimerFilter[index].userSelectedStartTime = newFlightLegFilter.departureMinTime
                     
@@ -660,6 +662,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
                     timesViewController.viewModel.multiLegTimerFilter[index].userSelectedArrivalStartTime = userArrivalMin
 
                     timesViewController.viewModel.multiLegTimerFilter[index].userSelectedArrivalEndTime = userArrivalMax
+                    
                 } else {
                     timesViewController.viewModel.multiLegTimerFilter[index].userSelectedArrivalStartTime = newFlightLegFilter.arrivalStartTime
                     

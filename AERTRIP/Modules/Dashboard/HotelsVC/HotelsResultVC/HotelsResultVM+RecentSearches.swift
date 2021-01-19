@@ -88,7 +88,7 @@ extension HotelsResultVM {
         //TA Ratings
         var taStar = JSONDictionary()
         for count in 0...5 {
-            taStar["\(count)"+APIKeys.star.rawValue] = filterApplied.ratingCount.contains(count)
+            taStar["\(count)"+APIKeys.star.rawValue] = filterApplied.tripAdvisorRatingCount.contains(count)
         }
         filterParams[APIKeys.tripAdvisorRatings.rawValue] = taStar
         

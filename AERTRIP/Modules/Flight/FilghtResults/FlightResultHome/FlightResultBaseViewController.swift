@@ -1408,7 +1408,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
             DispatchQueue.main.async {
                 self.flightFilterVC?.appliedAndUIFilters =  self.flightSearchResultVM.flightLegsAppliedFilters
                 self.flightFilterVC?.userSelectedFilters = self.flightSearchResultVM.getUserSelectedFilters()
-                self.flightFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.flightResultArray)
+//                self.flightFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.flightResultArray)
             }
             
             // For updating UI from deep linking filters // might not get set at the first time
@@ -1420,7 +1420,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
             DispatchQueue.main.async {
                 self.intMCAndReturnFilterVC?.appliedAndUIFilters = self.flightSearchResultVM.intFlightLegsAppliedFilters
                 self.intMCAndReturnFilterVC?.userSelectedFilters = self.flightSearchResultVM.getIntUserSelectedFilters()
-            self.intMCAndReturnFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.intFlightResultArray)
+//            self.intMCAndReturnFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.intFlightResultArray)
             }
             
             // For updating UI from deep linking filters // might not get set at the first time
