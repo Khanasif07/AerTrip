@@ -799,6 +799,8 @@ extension IntFlightResultDisplayGroup  {
     
     func priceSelectionChangedAt(minFare: CGFloat, maxFare: CGFloat) {
         
+        initiatedFilters[index]?.insert(.price)
+        
         userSelectedFilters[0].pr.minPrice = Int(minFare)
         userSelectedFilters[0].pr.maxPrice = Int(maxFare)
         

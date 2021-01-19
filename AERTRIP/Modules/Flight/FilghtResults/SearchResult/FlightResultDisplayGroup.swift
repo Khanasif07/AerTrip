@@ -17,6 +17,7 @@ class FlightResultDisplayGroup {
         case layoverDuration
         case departureTime
         case arrivalTime
+        case price
     }
     
     internal var initiatedFilters: Set<InitiatedFilters> = []
