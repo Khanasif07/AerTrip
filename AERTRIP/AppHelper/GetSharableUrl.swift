@@ -701,7 +701,7 @@ class GetSharableUrl
             //     Price
             if (appliedFilters.contains(.Price))
             {
-                if let pr = userSelectedFilters?.pr{
+                if let pr = userSelectedFilters?.pr, legs[i].initiatedFilters.contains(.price) {
                     let price = "filters[\(i)][pr][0]=\(pr.minPrice)&filters[\(i)][pr][1]=\(pr.maxPrice)&"
 
                     filterString.append(price)
