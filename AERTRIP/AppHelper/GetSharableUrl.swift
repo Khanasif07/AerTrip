@@ -788,7 +788,7 @@ class GetSharableUrl
                 if (appliedFilters.contains(.Times))
                 {
                     //     Departure Time
-                    if ((appliedSubFilters[0]?.contains(.departureTime)) != nil){
+                    if (appliedSubFilters[0]?.contains(.departureTime) ?? false){
                         var depTime = ""
                         let earliest = userSelectedFilters[i].dt.earliest
                         if let earliestTimeInverval = convertFrom(string: earliest){
@@ -810,7 +810,7 @@ class GetSharableUrl
                     
                     //     Arrival Time
                     
-                    if ((appliedSubFilters[0]?.contains(.arrivalTime)) != nil)
+                    if (appliedSubFilters[0]?.contains(.arrivalTime) ?? false)
                     {
                         var arrivalTime = ""
                         let dateFormatter = DateFormatter()
@@ -869,7 +869,7 @@ class GetSharableUrl
                 if (appliedFilters.contains(.Duration))
                 {
                     //     Trip Duration
-                    if ((appliedSubFilters[0]?.contains(.tripDuration)) != nil)
+                    if (appliedSubFilters[0]?.contains(.tripDuration) ?? false)
                     {
                         var tripDuration = ""
                         if let tripMinTime = Int(userSelectedFilters[i].tt.minTime ?? "0"){
@@ -886,7 +886,7 @@ class GetSharableUrl
                     
                     
                     //     Layover Duration
-                    if ((appliedSubFilters[0]?.contains(.layoverDuration)) != nil)
+                    if (appliedSubFilters[0]?.contains(.layoverDuration) ?? false)
                     {
                         var layoverDuration = ""
                         if let layoverMinTime = Int(userSelectedFilters[i].lott.minTime ?? "0"){
