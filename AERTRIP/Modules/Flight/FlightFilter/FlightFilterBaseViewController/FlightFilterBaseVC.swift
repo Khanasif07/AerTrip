@@ -565,6 +565,13 @@ extension FlightFilterBaseVC {
             let userArrivalMin = userArrivalTime?.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600)
             let userArrivalMax = userArrivalTime?.latest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: true, interval: 3600)
             
+            if !timesViewController.viewModel.multiLegTimerFilter.indices.contains(index) {
+                timesViewController.viewModel.multiLegTimerFilter.insert(newFlightLegFilter, at: index)
+            } else {
+                timesViewController.viewModel.multiLegTimerFilter[index] = newFlightLegFilter
+            }
+            
+            
             if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[index].contains(.Times), timesViewController.viewModel.multiLegTimerFilter.indices.contains(index) {
                 
                 timesViewController.viewModel.multiLegTimerFilter[index].departureMinTime = newFlightLegFilter.departureMinTime
@@ -605,12 +612,6 @@ extension FlightFilterBaseVC {
                     timesViewController.viewModel.multiLegTimerFilter[index].userSelectedArrivalEndTime = newFlightLegFilter.arrivalEndTime
                 }
                 
-            } else {
-                if !timesViewController.viewModel.multiLegTimerFilter.indices.contains(index) {
-                    timesViewController.viewModel.multiLegTimerFilter.insert(newFlightLegFilter, at: index)
-                } else {
-                    timesViewController.viewModel.multiLegTimerFilter[index] = newFlightLegFilter
-                }
             }
             
             if let quality = qualityFilter {

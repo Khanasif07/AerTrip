@@ -627,12 +627,17 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
             let userSelectedFilter = userSelectedFilters[index]
             let userDepartureTime = userSelectedFilter.depDt
             let userArrivalTime = userSelectedFilter.arDt
-            
 
             let userDepartureMin = userDepartureTime.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600) ?? Date()
             let userDepartureMax = userDepartureTime.latest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: true, interval: 3600) ?? Date()
             let userArrivalMin = userArrivalTime.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600) ?? Date()
             let userArrivalMax = userArrivalTime.latest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: true, interval: 3600) ?? Date()
+            
+            if !timesViewController.viewModel.multiLegTimerFilter.indices.contains(index) {
+                timesViewController.viewModel.multiLegTimerFilter.insert(newFlightLegFilter, at: index)
+            } else {
+                timesViewController.viewModel.multiLegTimerFilter[index] = newFlightLegFilter
+            }
             
             if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[0].contains(.Times),
                userFilters.appliedSubFilters.indices.contains(index), timesViewController.viewModel.multiLegTimerFilter.indices.contains(index) {
@@ -670,12 +675,6 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
                     timesViewController.viewModel.multiLegTimerFilter[index].userSelectedArrivalEndTime = newFlightLegFilter.arrivalEndTime
                 }
                 
-            } else {
-                if !timesViewController.viewModel.multiLegTimerFilter.indices.contains(index) {
-                    timesViewController.viewModel.multiLegTimerFilter.insert(newFlightLegFilter, at: index)
-                } else {
-                    timesViewController.viewModel.multiLegTimerFilter[index] = newFlightLegFilter
-                }
             }
             if let quality = qualityFilter {
                 timesViewController.viewModel.multiLegTimerFilter[index].qualityFilter = quality
