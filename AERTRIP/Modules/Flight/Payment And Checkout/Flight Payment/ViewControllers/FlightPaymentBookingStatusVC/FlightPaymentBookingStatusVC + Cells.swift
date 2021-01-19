@@ -244,7 +244,7 @@ extension FlightPaymentBookingStatusVC : HCWhatNextTableViewCellDelegate
     func shareOnFaceBook() {
         printDebug("Share On FaceBook")
         
-        guard let url = URL(string: AppKeys.kAppStoreLink) else { return }
+        guard let url = URL(string: self.viewModel.itinerary.shareUrl) else { return }// (string: AppKeys.kAppStoreLink)
         let content = ShareLinkContent()
         content.contentURL = url
         let dialog = ShareDialog(
@@ -258,7 +258,7 @@ extension FlightPaymentBookingStatusVC : HCWhatNextTableViewCellDelegate
     
     func shareOnTwitter() {
         printDebug("Share On Twitter")
-        let tweetText = "\(AppConstants.kAppName) Appstore Link: "
+        let tweetText = "\(self.viewModel.itinerary.shareUrl) Appstore Link: "//(AppConstants.kAppName)
         let tweetUrl = AppKeys.kAppStoreLink
         let shareString = "https://twitter.com/intent/tweet?text=\(tweetText)&url=\(tweetUrl)"
         

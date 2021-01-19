@@ -1297,6 +1297,8 @@ enum LocalizedString: String {
     case Default_Refund_Mode = "Default_Refund_Mode"
     case Billing_Name = "Billing_Name"
     case Billng_Address = "Billng_Address"
-    
+    case Wallet = "Wallet"
+    case Chosen_Mode_Of_Payment = "Chosen_Mode_Of_Payment"
+  
 
 }

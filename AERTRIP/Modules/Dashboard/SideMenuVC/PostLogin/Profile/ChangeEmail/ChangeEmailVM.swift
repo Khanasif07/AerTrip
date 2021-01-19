@@ -22,27 +22,14 @@ class ChangeEmailVM {
     
     func changeEmail(email : String, password : String){
         
-        if checkIfValid(email: email, password: password) {
-            self.changeEmailApi(email: email, password: password)
-        }
+//        if checkIfValid(email: email, password: password) {
+//            self.changeEmailApi(email: email, password: password)
+//        }
         
     }
     
     
-    func checkIfValid(email : String, password : String) -> Bool {
-        
-        if email.isEmpty {
-            self.delegate?.validate(isValid: false, msg: "Please enter email.")
-            return false
-        } else if !email.isEmail {
-            self.delegate?.validate(isValid: false, msg: "Please enter a valid email.")
-            return false
-        } else if password.isEmpty {
-            self.delegate?.validate(isValid: false, msg: "Please enter password.")
-            return false
-        }
-        return true
-    }
+
     
     
     func changeEmailApi(email : String, password : String) {

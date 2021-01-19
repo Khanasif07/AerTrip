@@ -11,68 +11,93 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UpdateAccountDropdownCell" rowHeight="64" id="KGk-i7-Jjw" customClass="UpdateAccountDropdownCell" customModule="AERTRIP" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="332" height="64"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UpdateAccountDropdownCell" rowHeight="266" id="KGk-i7-Jjw" customClass="UpdateAccountDropdownCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="555" height="266"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="332" height="64"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="555" height="266"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="KrR-UR-P86">
-                        <rect key="frame" x="16" y="0.0" width="300" height="60"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="KrR-UR-P86">
+                        <rect key="frame" x="0.0" y="0.0" width="555" height="266"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lvd-1w-Sg2">
-                                <rect key="frame" x="0.0" y="0.0" width="300" height="60"/>
+                                <rect key="frame" x="0.0" y="0.0" width="555" height="60"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Nationality" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qi6-9a-ak6" customClass="PKFloatLabelTextField" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="300" height="60"/>
+                                        <rect key="frame" x="16" y="0.0" width="523" height="60"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                     </textField>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="downArrow" translatesAutoresizingMaskIntoConstraints="NO" id="E3s-PU-npp">
-                                        <rect key="frame" x="291" y="38" width="9" height="6"/>
+                                        <rect key="frame" x="530" y="38" width="9" height="6"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="Qi6-9a-ak6" secondAttribute="trailing" id="EFR-cT-P9Z"/>
+                                    <constraint firstAttribute="trailing" secondItem="Qi6-9a-ak6" secondAttribute="trailing" constant="16" id="EFR-cT-P9Z"/>
+                                    <constraint firstAttribute="height" constant="60" id="Gh1-ul-DaQ"/>
                                     <constraint firstItem="Qi6-9a-ak6" firstAttribute="top" secondItem="lvd-1w-Sg2" secondAttribute="top" id="JcN-cQ-aYX"/>
-                                    <constraint firstItem="Qi6-9a-ak6" firstAttribute="leading" secondItem="lvd-1w-Sg2" secondAttribute="leading" id="Kkz-hh-5Ht"/>
+                                    <constraint firstItem="Qi6-9a-ak6" firstAttribute="leading" secondItem="lvd-1w-Sg2" secondAttribute="leading" constant="16" id="Kkz-hh-5Ht"/>
                                     <constraint firstItem="E3s-PU-npp" firstAttribute="centerY" secondItem="Qi6-9a-ak6" secondAttribute="centerY" constant="11" id="SfZ-GC-xkB"/>
-                                    <constraint firstAttribute="trailing" secondItem="E3s-PU-npp" secondAttribute="trailing" id="ifV-4g-OeP"/>
+                                    <constraint firstAttribute="trailing" secondItem="E3s-PU-npp" secondAttribute="trailing" constant="16" id="ifV-4g-OeP"/>
                                     <constraint firstAttribute="bottom" secondItem="Qi6-9a-ak6" secondAttribute="bottom" id="zXk-kH-Xt7"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DUg-t3-B3z" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="60" width="555" height="0.5"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="0.5" id="Atp-Wa-k1S"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xqh-tt-QW4">
+                                <rect key="frame" x="0.0" y="60.5" width="555" height="205.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NA6-la-zq2">
+                                        <rect key="frame" x="16" y="16" width="523" height="173.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sqK-0Q-1sB" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="205" width="555" height="0.5"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="0.5" id="ShU-aC-gwU"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="NA6-la-zq2" secondAttribute="trailing" constant="16" id="Bkh-TL-TNt"/>
+                                    <constraint firstAttribute="bottom" secondItem="NA6-la-zq2" secondAttribute="bottom" constant="16" id="D1T-xh-sBH"/>
+                                    <constraint firstAttribute="bottom" secondItem="sqK-0Q-1sB" secondAttribute="bottom" id="FIw-ZW-IVE"/>
+                                    <constraint firstItem="NA6-la-zq2" firstAttribute="leading" secondItem="xqh-tt-QW4" secondAttribute="leading" constant="16" id="Qkm-1r-U8m"/>
+                                    <constraint firstAttribute="trailing" secondItem="sqK-0Q-1sB" secondAttribute="trailing" id="WCb-Ui-SwF"/>
+                                    <constraint firstItem="sqK-0Q-1sB" firstAttribute="leading" secondItem="xqh-tt-QW4" secondAttribute="leading" id="jch-aP-WhQ"/>
+                                    <constraint firstItem="NA6-la-zq2" firstAttribute="top" secondItem="xqh-tt-QW4" secondAttribute="top" constant="16" id="zUi-0X-7V5"/>
+                                </constraints>
+                            </view>
                         </subviews>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="60" id="Cpd-Z1-5vp"/>
-                        </constraints>
                     </stackView>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DUg-t3-B3z" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="60" width="332" height="0.5"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="0.5" id="Atp-Wa-k1S"/>
-                        </constraints>
-                    </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="KrR-UR-P86" secondAttribute="trailing" constant="16" id="ONY-o6-E1O"/>
-                    <constraint firstAttribute="trailing" secondItem="DUg-t3-B3z" secondAttribute="trailing" id="k56-Sb-kUn"/>
-                    <constraint firstAttribute="bottom" secondItem="DUg-t3-B3z" secondAttribute="bottom" id="lfk-7K-hr9"/>
-                    <constraint firstItem="DUg-t3-B3z" firstAttribute="top" secondItem="KrR-UR-P86" secondAttribute="bottom" id="mQb-dN-V2U"/>
-                    <constraint firstItem="KrR-UR-P86" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="smn-N5-P3G"/>
-                    <constraint firstItem="DUg-t3-B3z" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="yO5-70-Akv"/>
+                    <constraint firstAttribute="trailing" secondItem="KrR-UR-P86" secondAttribute="trailing" id="ONY-o6-E1O"/>
+                    <constraint firstItem="KrR-UR-P86" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="smn-N5-P3G"/>
+                    <constraint firstAttribute="bottom" secondItem="KrR-UR-P86" secondAttribute="bottom" id="udT-ah-R1b"/>
                     <constraint firstItem="KrR-UR-P86" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="zij-3D-Bwy"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="addressLabel" destination="NA6-la-zq2" id="i79-Nz-vlt"/>
+                <outlet property="addressView" destination="xqh-tt-QW4" id="oXp-dj-Da9"/>
                 <outlet property="deviderView" destination="DUg-t3-B3z" id="h0u-nG-uut"/>
                 <outlet property="updateTextField" destination="Qi6-9a-ak6" id="2BQ-qw-3Fn"/>
             </connections>
-            <point key="canvasLocation" x="146.37681159420291" y="79.6875"/>
+            <point key="canvasLocation" x="221.01449275362322" y="142.63392857142856"/>
         </tableViewCell>
     </objects>
     <designables>

@@ -10,7 +10,14 @@ import UIKit
 class PKMultiPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource {
     
     internal typealias PickerDone = (_ firstValue: String, _ secondValue: String) -> Void
+    
+    internal typealias PickerDoneWithIndex = (_ firstValue: Int?, _ secondValue: Int?) -> Void
+
+    
     private var doneBlock : PickerDone?
+    
+    private var doneBlockWithIndex : PickerDoneWithIndex?
+
     
     private var firstValueArray : [String]?
     private var secondValueArray = [String]()
@@ -22,11 +29,11 @@ class PKMultiPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource 
         self.removeFromSuperview()
     }
     
-    class func openMultiPickerIn(_ textField: UITextField? , firstComponentArray: [String], secondComponentArray: [String], firstComponent: String?, secondComponent: String?, titles: [String]?, toolBarTint: UIColor = UIColor.black, doneBlock: @escaping PickerDone) {
+    class func openMultiPickerIn(_ textField: UITextField? , firstComponentArray: [String], secondComponentArray: [String], firstComponent: String?, secondComponent: String?, titles: [String]?, toolBarTint: UIColor = UIColor.black, doneBlock: @escaping PickerDone, doneWithIndex : PickerDoneWithIndex? = nil) {
         
         let picker = PKMultiPicker()
         picker.doneBlock = doneBlock
-        
+        picker.doneBlockWithIndex = doneWithIndex
         picker.openPickerInTextField(textField, firstComponentArray: firstComponentArray, secondComponentArray: secondComponentArray, firstComponent: firstComponent, secondComponent: secondComponent, toolBarTint: toolBarTint)
         
         if titles != nil {
@@ -118,6 +125,8 @@ class PKMultiPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource 
             index2 = self.selectedRow(inComponent: 1)
             secondValue = secondValueArray[index2]
         }
+        
+        self.doneBlockWithIndex?(index1,index2)
         self.doneBlock?((firstValue ?? ""), (secondValue ?? ""))
     }
     

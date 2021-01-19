@@ -22,14 +22,39 @@ protocol UpdateAccountDetailsVMDelegates:NSObjectProtocol {
     func updateAccountDetailsFailure(errorCode: ErrorCodes)
 }
 
+
+
 class UpdateAccountDetailsVM{
+    
+    enum PaymentMode  {
+        case wallet
+        case asPerMode
+        
+    }
     
     var updationType: AccountUpdationType = .pan
     var updateValue:String = ""
     var updatedId:String = ""
     weak var delegate: UpdateAccountDetailsVMDelegates?
     
+    var details = UserAccountDetail()
     
+    let paymentOptions = [LocalizedString.Wallet.localized, LocalizedString.Chosen_Mode_Of_Payment.localized]
+
+    
+    func setSelectedMode(selectedVal : String) {
+        
+        if selectedVal.lowercased() == LocalizedString.Wallet.localized.lowercased() {
+            updateValue = "wallet"
+            updatedId = "1"
+            self.updateValue = LocalizedString.Wallet.localized
+        } else {
+            updateValue = "as_transaction"
+            updatedId = "2"
+            self.updateValue = LocalizedString.Chosen_Mode_Of_Payment.localized
+        }
+        
+    }
     
     func isValidDetails(with txt:String)-> (success: Bool, msg:String){
         
@@ -91,6 +116,27 @@ class UpdateAccountDetailsVM{
         APICaller.shared.updateAccountDetails(params: param) {[weak self] (success, error) in
             guard let self = self else {return}
             if success{
+                
+                switch self.updationType{
+
+                case .pan:
+                    self.details.pan = paramsText
+                
+                case .aadhar:
+                    self.details.aadhar = paramsText
+                    
+                case .gSTIN:
+                    self.details.gst = paramsText
+                    
+                case .billingName:
+                    self.details.billingName = paramsText
+                    
+                    
+                default:
+                    break
+                    
+                }
+    
                 self.delegate?.updateAccountDetailsSuccess()
             }else{
                 self.delegate?.updateAccountDetailsFailure(errorCode: error)
@@ -99,12 +145,13 @@ class UpdateAccountDetailsVM{
     }
     
     
-    func updateRefundModes(_ paramsText: String){
-        let param:JSONDictionary = ["mode": paramsText]
+    func updateRefundModes(){
+        let param:JSONDictionary = ["mode": updatedId]
         
         APICaller.shared.updateUserRefundMode(params: param) {[weak self] (success, error) in
             guard let self = self else {return}
             if success{
+                self.details.refundMode = self.updateValue
                 self.delegate?.updateAccountDetailsSuccess()
             }else{
                 self.delegate?.updateAccountDetailsFailure(errorCode: error)

@@ -475,5 +475,10 @@ enum APIKeys: String {
     case userInstalledVersion = "user_installed_version"
     case currentLatestVersion = "current_latest_version"
     case updateRequired = "update_required"
-    
+ 
+    case line3 = "line3"
+    case country_name = "country_name"
+    case line2 = "postal_code"
+    case postal_code = "line2"
+    case line1 = "line1"
 }

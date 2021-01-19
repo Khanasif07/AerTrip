@@ -12,6 +12,7 @@ class VersionControler {
     
     static let shared = VersionControler()
     var shouldCheckForUpdate : Bool
+    var isForceUpdate = false
     
     init(){
         shouldCheckForUpdate = true
@@ -23,12 +24,14 @@ class VersionControler {
         
         APICaller.shared.checkFOrUpdates(params: params) { (data, codes) in
             
-            self.shouldCheckForUpdate = false
          
             guard let version = data else { return }
             if version.latestVersion == version.installedVersion { return }
             
             if version.updateRequired == "1" {
+                
+                self.isForceUpdate = true
+                self.shouldCheckForUpdate = true
                 
                _ = ATAlertController.alert(title: LocalizedString.Update_Aertrip.localized, message: LocalizedString.Force_Update_Msg.localized, buttons: [LocalizedString.Update_Now.localized]){ (action, index) in
                             
@@ -38,7 +41,9 @@ class VersionControler {
                     }
                 
             } else{
-                
+                self.isForceUpdate = false
+                self.shouldCheckForUpdate = false
+
                 _ = ATAlertController.alert(title: LocalizedString.Update_Aertrip.localized, message: LocalizedString.Force_Update_Msg.localized, buttons: [LocalizedString.Update_Later.localized,LocalizedString.Update_Now.localized]){ (action, index) in
             
                     if index == 1{

@@ -149,6 +149,9 @@ extension FlightResultSingleJourneyVC: ATSwitcherChangeValueDelegate {
                 viewModel.resultTableState = viewModel.stateBeforePinnedFlight
             }
             showFooterView()
+            self.noResultScreen?.view.removeFromSuperview()
+            self.noResultScreen?.removeFromParent()
+            self.noResultScreen = nil
         }
         
         resultsTableView.reloadData()

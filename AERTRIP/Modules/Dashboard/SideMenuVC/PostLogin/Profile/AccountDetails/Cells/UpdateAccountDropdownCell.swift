@@ -11,6 +11,9 @@ import UIKit
 class UpdateAccountDropdownCell: UITableViewCell {
     @IBOutlet weak var updateTextField: PKFloatLabelTextField!
     @IBOutlet weak var deviderView: ATDividerView!
+    @IBOutlet weak var addressView: UIView!
+    @IBOutlet weak var addressLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
@@ -44,7 +47,8 @@ class UpdateAccountDropdownCell: UITableViewCell {
         updateTextField.lineColor = AppColors.clear//divider.color
         updateTextField.lineErrorColor = AppColors.clear
         updateTextField.autocorrectionType = .no
-        
+        addressLabel.font = AppFonts.Regular.withSize(14)
+        addressLabel.textColor = AppColors.themeGray40
     }
     
     func setPlaceHolderAndDelegate(with txt: String, textFieldDelegate: UITextFieldDelegate){
