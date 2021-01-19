@@ -26,6 +26,12 @@ class FlightsRecentSearchesParamConverter: NSObject {
         var jsonDict = JSONDictionary()
         let filter = filterJSON
 
+        if let fq = filter["fq"].array {
+            fq.enumerated().forEach { (index, fq1) in
+                jsonDict["filters[\(filterIndex)][fq][\(index)]"] = fq1.stringValue
+            }
+        }
+        
         if let stops = filter["stp"].array {
             stops.enumerated().forEach { (index, stop) in
                 jsonDict["filters[\(filterIndex)][stp][\(index)]"] = stop.stringValue
