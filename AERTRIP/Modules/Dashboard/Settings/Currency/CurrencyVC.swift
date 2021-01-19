@@ -21,7 +21,9 @@ class CurrencyVC: BaseVC {
         }
     }
     @IBOutlet weak var searchBarContainer: UIView!
-
+    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var progressViewHeight: NSLayoutConstraint!
+    
     //MARK:- Properties
     let currencyVm = CurrencyVM()
     lazy var noResultemptyView: EmptyScreenView = {
@@ -51,7 +53,9 @@ class CurrencyVC: BaseVC {
         self.searchBar.cornerradius = 10.0
         self.searchBar.clipsToBounds = true
         self.currencyTableView.contentInset = UIEdgeInsets(top: topNavView.height + self.searchBarContainer.height, left: 0, bottom: 0, right: 0)
-
+        self.progressView.progressTintColor = UIColor.AertripColor
+        self.progressView.trackTintColor = .clear
+        self.currencyTableView.isHidden = true
     }
     
     func setUpViewAttributes(){
@@ -89,6 +93,22 @@ class CurrencyVC: BaseVC {
         self.currencyTableView.delegate = self
         self.currencyTableView.backgroundView = noResultemptyView
     }
+    
+    func showProgressView(){
+        UIView.animate(withDuration: 2) {[weak self] in
+            guard let self = self else {return}
+            self.progressView.isHidden = false
+            self.progressViewHeight.constant = 1
+        }
+    }
+    
+    func hideProgressView(){
+        UIView.animate(withDuration: 2) {[weak self] in
+        guard let self = self else {return}
+            self.progressViewHeight.constant = 0
+            self.progressView.isHidden = true
+        }
+    }
 }
 
 extension CurrencyVC: TopNavigationViewDelegate {
@@ -121,16 +141,46 @@ extension CurrencyVC: TopNavigationViewDelegate {
 extension CurrencyVC : CurrencyVcDelegate {
     
     func willGetCurrencies() {
-        AppGlobals.shared.startLoading()
+//        AppGlobals.shared.startLoading()
+        
+        delay(seconds: 0.5){[weak self] in
+        guard let self = self else {return}
+         UIView.animate(withDuration: 2){[weak self] in
+         guard let self = self else {return}
+             self.progressView.setProgress(0.25, animated: true)
+         }
+            
+            UIView.animate(withDuration: 2) {
+                self.progressView.setProgress(0.25, animated: true)
+
+            } completion: { (success) in
+                
+                UIView.animate(withDuration: 2) {
+                    self.progressView.setProgress(0.50, animated: true)
+                } completion: { (success) in
+                    
+                }
+            }
+        }
+        
     }
     
     func getCurrenciesSuccessFull() {
-        AppGlobals.shared.stopLoading()
-        self.currencyTableView.reloadData()
+//        AppGlobals.shared.stopLoading()
+        
+        UIView.animate(withDuration: 2) {
+            self.progressView.setProgress(1, animated: true)
+        } completion: { (success) in
+                self.currencyTableView.isHidden = false
+                self.hideProgressView()
+            self.currencyTableView.reloadData()
+        }
+        
     }
     
     func failedToGetCurrencies() {
-        AppGlobals.shared.stopLoading()
+//        AppGlobals.shared.stopLoading()
+        self.hideProgressView()
         self.currencyVm.preSelectIndia()
         self.currencyTableView.reloadData()
     }

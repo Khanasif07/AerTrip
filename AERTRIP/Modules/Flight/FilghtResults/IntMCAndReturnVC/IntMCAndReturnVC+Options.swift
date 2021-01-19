@@ -117,6 +117,10 @@ extension IntMCAndReturnVC: ATSwitcherChangeValueDelegate {
            viewModel.resultTableState = stateBeforePinnedFlight
             
             showFooterView()
+            self.noResultScreen?.view.removeFromSuperview()
+            self.noResultScreen?.removeFromParent()
+            self.noResultScreen = nil
+            
         }
         
 //        hidePinnedFlightOptions(!value)
