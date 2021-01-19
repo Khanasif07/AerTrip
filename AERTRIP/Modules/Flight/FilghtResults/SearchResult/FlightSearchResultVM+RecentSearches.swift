@@ -267,7 +267,7 @@ extension FlightSearchResultVM {
             //     Price
             if (appliedFilters.contains(.Price))
             {
-                if let pr = userSelectedFilters?.pr{
+                if let pr = userSelectedFilters?.pr, legs[i].initiatedFilters.contains(.price) {
                     let price = [pr.minPrice, pr.maxPrice]
                     filterDict["pr"] = price
                 }

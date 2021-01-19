@@ -61,12 +61,22 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sqK-0Q-1sB" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="205" width="555" height="0.5"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="0.5" id="ShU-aC-gwU"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="NA6-la-zq2" secondAttribute="trailing" constant="16" id="Bkh-TL-TNt"/>
                                     <constraint firstAttribute="bottom" secondItem="NA6-la-zq2" secondAttribute="bottom" constant="16" id="D1T-xh-sBH"/>
+                                    <constraint firstAttribute="bottom" secondItem="sqK-0Q-1sB" secondAttribute="bottom" id="FIw-ZW-IVE"/>
                                     <constraint firstItem="NA6-la-zq2" firstAttribute="leading" secondItem="xqh-tt-QW4" secondAttribute="leading" constant="16" id="Qkm-1r-U8m"/>
+                                    <constraint firstAttribute="trailing" secondItem="sqK-0Q-1sB" secondAttribute="trailing" id="WCb-Ui-SwF"/>
+                                    <constraint firstItem="sqK-0Q-1sB" firstAttribute="leading" secondItem="xqh-tt-QW4" secondAttribute="leading" id="jch-aP-WhQ"/>
                                     <constraint firstItem="NA6-la-zq2" firstAttribute="top" secondItem="xqh-tt-QW4" secondAttribute="top" constant="16" id="zUi-0X-7V5"/>
                                 </constraints>
                             </view>

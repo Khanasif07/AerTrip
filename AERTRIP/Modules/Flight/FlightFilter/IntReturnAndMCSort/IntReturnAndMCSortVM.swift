@@ -30,7 +30,9 @@ class IntReturnAndMCSortVM {
         if  let sortFilter = Sort(rawValue: index) {
             
             var attributes : [NSAttributedString.Key : Any]
-            if ( sortFilter == selectedSorting) {
+            
+            if index == curSelectedIndex{
+//            if ( sortFilter == selectedSorting) {
                 
                 attributes = [NSAttributedString.Key.font : AppFonts.Regular.withSize(18) ,
                               NSAttributedString.Key.foregroundColor : UIColor.AertripColor]
