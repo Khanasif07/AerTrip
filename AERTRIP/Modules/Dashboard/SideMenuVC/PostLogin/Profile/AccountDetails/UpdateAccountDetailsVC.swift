@@ -233,7 +233,7 @@ extension UpdateAccountDetailsVC{
                 weakSelf.viewModel.details.billingAddress = weakSelf.viewModel.details.addresses[ind]
                 
                 guard let cell = weakSelf.accountTableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? UpdateAccountDropdownCell else { return }
-                cell.addressLabel.text = weakSelf.viewModel.details.billingAddressString
+                cell.addressLabel.text = weakSelf.viewModel.details.billingAddressStringWithNewLines
                 
             }
             
