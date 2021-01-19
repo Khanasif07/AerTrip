@@ -38,12 +38,8 @@ class FlightsRecentSearchesParamConverter: NSObject {
         }
         
         if let arDt = filter["ar_dt"].array {
-            if let leftVal = arDt[0].int {
-                jsonDict["filters[\(filterIndex)][ar_dt][0]"] = leftVal.toString
-            }
-            if let rightVal = arDt[1].int {
-                jsonDict["filters[\(filterIndex)][ar_dt][1]"] = rightVal.toString
-            }
+            jsonDict["filters[\(filterIndex)][ar_dt][0]"] = arDt[0].stringValue
+            jsonDict["filters[\(filterIndex)][ar_dt][1]"] = arDt[1].stringValue
         }
         
         if let airlines = filter["al"].array {
@@ -53,21 +49,13 @@ class FlightsRecentSearchesParamConverter: NSObject {
         }
         
         if let tt = filter["tt"].array {
-            if let leftVal = tt[0].int {
-                jsonDict["filters[\(filterIndex)][tt][0]"] = leftVal.toString
-            }
-            if let rightVal = tt[1].int {
-                jsonDict["filters[\(filterIndex)][tt][1]"] = rightVal.toString
-            }
+            jsonDict["filters[\(filterIndex)][tt][0]"] = tt[0].stringValue
+            jsonDict["filters[\(filterIndex)][tt][1]"] = tt[1].stringValue
         }
         
         if let lott = filter["lott"].array {
-            if let leftVal = lott[0].int {
-                jsonDict["filters[\(filterIndex)][lott][0]"] = leftVal.toString
-            }
-            if let rightVal = lott[1].int {
-                jsonDict["filters[\(filterIndex)][lott][1]"] = rightVal.toString
-            }
+            jsonDict["filters[\(filterIndex)][lott][0]"] = lott[0].stringValue
+            jsonDict["filters[\(filterIndex)][lott][1]"] = lott[1].stringValue
         }
         
         if let price = filter["pr"].array {

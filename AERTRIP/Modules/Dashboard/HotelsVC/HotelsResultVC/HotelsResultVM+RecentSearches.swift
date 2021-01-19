@@ -133,7 +133,7 @@ extension HotelsResultVM {
         //Cancellation Policy
         var cancellationPolicy = JSONDictionary()
         cancellationPolicy[APIKeys.nonRefundable.rawValue] = filterApplied.roomCancelation.contains(LocalizedString.NonRefundable.localized)
-        cancellationPolicy[APIKeys.refundable.rawValue] = filterApplied.roomCancelation.contains(LocalizedString.Refundable.localized)
+        cancellationPolicy[APIKeys.refundable.rawValue] = filterApplied.roomCancelation.contains(LocalizedString.FreeCancellation.localized)
         cancellationPolicy[APIKeys.partiallyRefundable.rawValue] = filterApplied.roomCancelation.contains(LocalizedString.PartRefundable.localized)
         filterParams[APIKeys.cancellation_policy.rawValue] = cancellationPolicy
         
