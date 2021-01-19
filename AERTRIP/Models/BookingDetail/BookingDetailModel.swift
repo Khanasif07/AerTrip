@@ -365,41 +365,90 @@ extension BookingDetailModel {
                     return NSMutableAttributedString(string: temp)
                 }
                 else {
-                    var routeStr = ""
-                    var travLastIndex: Int = 0
-                    var prevCount: Int = 0
-                    for route in routes {
-                        var temp = route.joined(separator: " → ")
-                        
-                        if !routeStr.isEmpty {
-                            temp = ", \(temp)"
-                        }
-                        
-                        for (idx, ct) in route.enumerated() {
-                            let newIdx = idx + prevCount
-                            if travledCity.count > newIdx, travledCity[newIdx] == ct {
-                                //travelled through this city
-                                var currentCityTemp = " \(ct) →"
-                                if !routeStr.isEmpty, idx == 0 {
-                                    currentCityTemp = ", \(ct) →"
-                                }
-                                travLastIndex = routeStr.count + currentCityTemp.count
-                            }
-                        }
-                        routeStr += temp
-                        prevCount = route.count
-                    }
-                    
-                    let attributedStr1 = NSMutableAttributedString(string: routeStr)
-                    if travLastIndex > 0 && (self.bookingDetail?.journeyCompleted != 1){
-                        attributedStr1.addAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeGray20], range: NSRange(location: 0, length: travLastIndex + 2))
-                    }
-                    return attributedStr1
+                    return self.createNameForMulticity(routes: routes, travelledCity: travledCity)
+//                    var routeStr = ""
+//                    var travLastIndex: Int = 0
+//                    var prevCount: Int = 0
+//                    for route in routes {
+//                        var temp = route.joined(separator: " → ")
+//
+//                        if !routeStr.isEmpty {
+//                            temp = ", \(temp)"
+//                        }
+//
+//                        for (idx, ct) in route.enumerated() {
+//                            let newIdx = idx + prevCount
+//                            if travledCity.count > newIdx, travledCity[newIdx] == ct {
+//                                //travelled through this city
+//                                var currentCityTemp = " \(ct) →"
+//                                if !routeStr.isEmpty, idx == 0 {
+//                                    currentCityTemp = ", \(ct) →"
+//                                }
+//                                travLastIndex = routeStr.count + currentCityTemp.count
+//                            }
+//                        }
+//                        routeStr += temp
+//                        prevCount = route.count
+//                    }
+//
+//                    let attributedStr1 = NSMutableAttributedString(string: routeStr)
+//                    if travLastIndex > 0 && (self.bookingDetail?.journeyCompleted != 1){
+//                        attributedStr1.addAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeGray20], range: NSRange(location: 0, length: travLastIndex + 2))
+//                    }
+//                    return attributedStr1
                 }
             }
             return NSMutableAttributedString(string: LocalizedString.dash.localized)
         }
     }
+    
+    func createNameForMulticity(routes: [[String]], travelledCity:[String]) -> NSMutableAttributedString{
+        
+//        let routes = self.bookingDetail?.routes ?? []
+        var routeStr = ""
+        var grayString = ""
+        
+        for route in routes{
+            if routeStr.isEmpty{
+                routeStr += route.joined(separator: " → ")
+            }else{
+                routeStr += ", \(route.joined(separator: " → "))"
+            }
+        }
+        
+        var totalCityCount = 0
+        
+        for (upperIndex, route) in routes.enumerated(){
+            var newRoutes = route
+            if upperIndex != 0{
+                totalCityCount += routes[upperIndex - 1].count - 1
+            }
+            newRoutes.removeLast()
+            for (index, _) in newRoutes.enumerated(){
+                let travelledCityIndex = index + totalCityCount
+                if travelledCity.count > travelledCityIndex{
+                    grayString += "\(travelledCity[travelledCityIndex]) → "
+                    if (index == newRoutes.count - 1){
+                        if (upperIndex != (routes.count - 1)){
+                            grayString += "\(route.last ?? ""), "
+                        }else{
+                            grayString += "\(route.last ?? "")"
+                        }
+                    }
+                }else{
+                    continue
+                }
+            }
+        }
+        let attributedStr1 = NSMutableAttributedString(string: routeStr)
+        if grayString != routeStr{
+            let range = NSString(string: routeStr).range(of: grayString)
+            attributedStr1.addAttributes([.foregroundColor: AppColors.themeGray20], range: range)
+        }
+        return attributedStr1
+    }
+    
+    
     
     /*
      Loop through the vouchers array, consider the object that has

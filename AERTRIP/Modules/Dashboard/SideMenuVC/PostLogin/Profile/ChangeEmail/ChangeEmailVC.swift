@@ -83,12 +83,12 @@ class ChangeEmailVC: BaseVC {
     @IBAction func nextButtonTapped(_ sender: Any) {
         self.nextButton.isLoading = true
         self.view.endEditing(true)
-        
-        let email = self.newEmailTextField.text ?? ""
-        let pass = self.passwordTextField.text ?? ""
-        if checkIfValid(email: email, password: pass) {
-            self.viewModel.changeEmailApi(email: email, password: pass)
-        }
+        self.viewModel.validate()
+//        let email = self.newEmailTextField.text ?? ""
+//        let pass = self.passwordTextField.text ?? ""
+//        if checkIfValid(email: email, password: pass) {
+//            self.viewModel.changeEmailApi(email: email, password: pass)
+//        }
         
     }
     
@@ -195,10 +195,34 @@ extension ChangeEmailVC  {
      return true
     }
     
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        switch textField {
+        case self.newEmailTextField: self.viewModel.details.email = textField.text ?? ""
+        case self.passwordTextField: self.viewModel.details.password = textField.text ?? ""
+        default:break
+        }
+    }
+    
 }
 
 
 extension ChangeEmailVC : ChangeEmailDelegate {
+    
+    func showErrorState(with errorState: ChangeEmailValidationState) {
+        self.nextButton.isLoading = false
+        switch errorState{
+        case .password(_,_): self.passwordTextField.isError = true
+        case .email(_,_): self.newEmailTextField.isError = true
+        }
+    }
+    
+    func showErrorMessage(with errorState: ChangeEmailValidationState) {
+        self.nextButton.isLoading = false
+        switch errorState{
+        case .password(_,let msg), .email(_,let msg):
+            AppToast.default.showToastMessage(message: msg)
+        }
+    }
     
     func validate(isValid: Bool, msg: String) {
         self.nextButton.isLoading = false
