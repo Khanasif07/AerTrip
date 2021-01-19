@@ -538,6 +538,10 @@ extension FlightSearchResultVM {
                     if bookFlightObject.flightSearchType.rawValue == 1 {
                         filterDict["pr"] = [userSelectedFilters[0].pr.minPrice, userSelectedFilters[0].pr.maxPrice]
                     }
+                    
+                    if uiFilters.contains(.refundableFares){
+                        filterDict["fares[]"] = 1
+                    }
                 }
                 filterArr.append(filterDict)
             }
