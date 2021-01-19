@@ -915,6 +915,7 @@ extension FlightResultDisplayGroup  {
             
         }
         
+        
         for filter in self.UIFilters {
             
             switch filter {

@@ -309,19 +309,19 @@ extension FlightSearchResultVM {
                 var fqArray = [String]()
                 
                 if uiFilters.contains(.hideOvernightLayover){
-                    fqArray.append("&ovgtlo")
+                    fqArray.append("ovgtlo")
                 }
                 
                 if uiFilters.contains(.hideOvernight){
-                    fqArray.append("&ovgtf")
+                    fqArray.append("ovgtf")
                 }
                 
                 if uiFilters.contains(.hideChangeAirport){
-                    fqArray.append("&coa")
+                    fqArray.append("coa")
                 }
                 
                 if uiFilters.contains(.hideLongerOrExpensive){
-                    fqArray.append("&aht")
+                    fqArray.append("aht")
                 }
                 
                 if !fqArray.isEmpty {

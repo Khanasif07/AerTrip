@@ -58,6 +58,7 @@ class PriceFilterViewController: UIViewController , FilterViewController {
     func updateFiltersFromAPI() {
         viewModel.currentPriceFilter = viewModel.allPriceFilters[viewModel.currentActiveIndex]
         initSetupForMLSubViews()
+        refundableFaresButton.isSelected = viewModel.currentPriceFilter.onlyRefundableFaresSelected
         guard priceRangeSlider != nil else { return }
         UIView.animate(withDuration: 0.3) {
             self.setupPriceSlider()
@@ -308,7 +309,8 @@ class PriceFilterViewController: UIViewController , FilterViewController {
                  var isRefundable = true
                 let journey = viewModel.intFlightResultArray[0].j
                  for j in journey{
-                     if j.smartIconArray.contains("refundStatusPending") || j.smartIconArray.contains("noRefund") {
+//                     if j.smartIconArray.contains("refundStatusPending") || j.smartIconArray.contains("noRefund") {
+                    if j.smartIconArray.contains("noRefund") {
                          isRefundable = false
                      }
                  }
@@ -330,7 +332,8 @@ class PriceFilterViewController: UIViewController , FilterViewController {
                  var isRefundable = true
                 let journey = viewModel.flightResultArray[index].j
                  for j in journey{
-                     if j.smartIconArray.contains("refundStatusPending") || j.smartIconArray.contains("noRefund") {
+//                    if j.smartIconArray.contains("refundStatusPending") || j.smartIconArray.contains("noRefund") {
+                        if j.smartIconArray.contains("noRefund") {
                          isRefundable = false
                      }
                  }

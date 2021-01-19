@@ -416,6 +416,12 @@ class FlightResultDisplayGroup {
         guard !filterUpdatedFromDeepLink else { return }
         filterUpdatedFromDeepLink = true
         
+        let fares = flightSearchParam.filter { $0.key.contains("filters[\(self.index)][fares][]") }
+        if fares.count > 0{
+            self.appliedFilters.insert(.Price)
+            self.UIFilters.insert(.refundableFares)
+        }
+        
         let stops = flightSearchParam.filter { $0.key.contains("filters[\(self.index)][stp]") }
         
         if stops.count > 0 {

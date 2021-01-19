@@ -176,7 +176,7 @@ enum AppNetworking {
             printDebug(e.localizedDescription)
             
             if (e as NSError).code == NSURLErrorNotConnectedToInternet {
-                printDebug("response: \(e)\nresponse url: \(URLString)")
+//                printDebug("response: \(e)\nresponse url: \(URLString)")
             }
             failure(e as NSError)
             
@@ -238,7 +238,7 @@ enum AppNetworking {
         
         if isLocalServerUrl{
             
-            printDebug("request params: \(addMandatoryParams(toExistingParams: parameters))\nrequest url: \(URLString)\nmethod: \(httpMethod)")
+//            printDebug("request params: \(addMandatoryParams(toExistingParams: parameters))\nrequest url: \(URLString)\nmethod: \(httpMethod)")
             
             guard let data = "\(username):\(password)".data(using: String.Encoding.utf8) else { return  }
             
@@ -252,7 +252,7 @@ enum AppNetworking {
             }
             else {
                 header["api-key"] = AppKeys.apiKey//APIEndPoint.apiKey.rawValue
-                printDebug("Api-Key: \(AppKeys.apiKey)")
+//                printDebug("Api-Key: \(AppKeys.apiKey)")
 //                printDebug("Api-Key: \(APIEndPoint.apiKey.rawValue)")
             }
             
@@ -262,7 +262,7 @@ enum AppNetworking {
             }
         }
         else{
-            printDebug("request params: \(parameters)\nrequest url: \(URLString)\nmethod: \(httpMethod)")
+//            printDebug("request params: \(parameters)\nrequest url: \(URLString)\nmethod: \(httpMethod)")
         }
         
         guard self.isConnectedToNetwork else {
@@ -275,7 +275,7 @@ enum AppNetworking {
             header["X-Auth-Token"] = xToken
         }
         
-        printDebug("headers: \(header)")
+//        printDebug("headers: \(header)")
         AF.session.configuration.timeoutIntervalForRequest = 200
         AF.session.configuration.timeoutIntervalForResource = 200
         
@@ -299,7 +299,7 @@ enum AppNetworking {
             if let headers = response.response?.allHeaderFields, let xToken = headers["X-Auth-Token"] {
                 UserDefaults.setObject("\(xToken)", forKey: UserDefaults.Key.xAuthToken.rawValue)
             }
-            printDebug("Cookies:--\(HTTPCookieStorage.shared.cookies(for: request.request!.url!))")
+//            printDebug("Cookies:--\(HTTPCookieStorage.shared.cookies(for: request.request!.url!))")
             
             AppNetworking.saveCookies(fromUrl: response.response?.url)
                         
@@ -324,10 +324,10 @@ enum AppNetworking {
                                 
                             case .success(let value):
                                 if value.isEmpty, let resData = response.data, let string = String(data: resData, encoding: String.Encoding.utf8) {
-                                    printDebug("response: \(string)\nresponse url: \(URLString)")
+//                                    printDebug("response: \(string)\nresponse url: \(URLString)")
                                 }
                                 else {
-                                    printDebug("response: \(value)\nresponse url: \(URLString)")
+//                                    printDebug("response: \(value)\nresponse url: \(URLString)")
                                 }
                                 
                                 let jsonVal = JSON(value)
@@ -343,7 +343,7 @@ enum AppNetworking {
                                 // Logger for response
                                 self.textLog.write("RESPONSE DATA ::::::::    \(Date.getCurrentDate()) ::::::::\(jsonVal)\n##########################################################################################\n")
                                 
-                                printDebug(jsonVal)
+//                                printDebug(jsonVal)
                                 success(jsonVal)
                                 if let responseData = response.data{
                                     //For flight details where data is required for parser.

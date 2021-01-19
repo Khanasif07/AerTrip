@@ -757,20 +757,21 @@ class GetSharableUrl
                 //Quality
                 var fqArray = [String]()
                 
+                print("uiFilters=",uiFilters)
                 if uiFilters.contains(.hideOvernightLayover){
-                    fqArray.append("&ovgtlo")
+                    fqArray.append("ovgtlo")
                 }
                 
                 if uiFilters.contains(.hideOvernight){
-                    fqArray.append("&ovgtf")
+                    fqArray.append("ovgtf")
                 }
                 
                 if uiFilters.contains(.hideChangeAirport){
-                    fqArray.append("&coa")
+                    fqArray.append("coa")
                 }
                 
                 if uiFilters.contains(.hideLongerOrExpensive){
-                    fqArray.append("&aht")
+                    fqArray.append("aht")
                 }
                 
                 var quality = ""
@@ -782,7 +783,7 @@ class GetSharableUrl
                     filterString.append(quality)
                 }
                 
-                
+                print("filterString=",filterString)
                 
                 //     Times
                 if (appliedFilters.contains(.Times))

@@ -1221,6 +1221,7 @@ extension IntFlightResultDisplayGroup  {
         self.isAPIResponseUpdated = isAPIResponseUpdated
         // DispatchQueue.global(qos: .background).async {
         
+        print("self.UIFilters=",UIFilters)
         var inputForFilter = self.processedJourneyArray
         
         for filter in self.appliedFilters {
