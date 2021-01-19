@@ -569,6 +569,13 @@ class IntFlightResultDisplayGroup {
         
         for index in 0..<inputFilter.count {
             
+            print("flightSearchParam=",flightSearchParam)
+            let fares = flightSearchParam.filter { $0.key.contains("filters[\(index)][fares][]") }
+            if fares.count > 0{
+                self.appliedFilters.insert(.Price)
+                self.UIFilters.insert(.refundableFares)
+            }
+
             let stops = flightSearchParam.filter { $0.key.contains("filters[\(index)][stp]") }
             
             if stops.count > 0 {
