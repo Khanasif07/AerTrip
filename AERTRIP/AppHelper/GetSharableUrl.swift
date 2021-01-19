@@ -1016,9 +1016,13 @@ class GetSharableUrl
             //     Price
             if (appliedFilters.contains(.Price))
             {
-                let price = "&filters[\(appliedFilterLegIndex)][pr][0]=\(userSelectedFilters[appliedFilterLegIndex].pr.minPrice)&filters[\(appliedFilterLegIndex)][pr][1]=\(userSelectedFilters[appliedFilterLegIndex].pr.maxPrice)"
-                
-                filterString.append(price)
+                if legs[0].initiatedFilters[0]?.contains(.price) {
+                    
+                    let price = "&filters[\(appliedFilterLegIndex)][pr][0]=\(userSelectedFilters[appliedFilterLegIndex].pr.minPrice)&filters[\(appliedFilterLegIndex)][pr][1]=\(userSelectedFilters[appliedFilterLegIndex].pr.maxPrice)"
+                    
+                    filterString.append(price)
+                    
+                }
             }
             
             //Aircraft

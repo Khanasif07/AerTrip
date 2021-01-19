@@ -533,10 +533,18 @@ extension FlightSearchResultVM {
                 //     Price
                 if appliedFilters.contains(.Price)
                 {
+                    if legs[0].initiatedFilters[i]?.contains(.price) ?? false {
+                        
                     filterDict["pr"] = [userSelectedFilters[i].pr.minPrice, userSelectedFilters[i].pr.maxPrice]
+                        
+                    }
                     
-                    if bookFlightObject.flightSearchType.rawValue == 1 {
-                        filterDict["pr"] = [userSelectedFilters[0].pr.minPrice, userSelectedFilters[0].pr.maxPrice]
+                    if legs[0].initiatedFilters[0]?.contains(.price) ?? false {
+                        
+                        if bookFlightObject.flightSearchType.rawValue == 1 {
+                            filterDict["pr"] = [userSelectedFilters[0].pr.minPrice, userSelectedFilters[0].pr.maxPrice]
+                        }
+                        
                     }
                     
                     if uiFilters.contains(.refundableFares){
