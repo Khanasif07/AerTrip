@@ -341,13 +341,14 @@ class OTPVarificationVC: BaseVC {
     }
     
     
-    func performDismissAnimation(){
+    func performDismissAnimation(isValidationComleted: Bool){
         UIView.animate(withDuration: self.anomationDuration, animations: {
             self.transparentBackView.transform = CGAffineTransform(translationX: 0, y: self.transparentBackView.height)
             self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
         }) { (success) in
             self.dismiss(animated: false, completion: {
-                self.delegate?.otpValidationCompleted(false)
+                CustomToast.shared.fadeAllToasts()
+                self.delegate?.otpValidationCompleted(isValidationComleted)
             })
         }
     }
@@ -359,10 +360,10 @@ class OTPVarificationVC: BaseVC {
         case .walletOtp:break;
         case .phoneNumberChangeOtp:
             self.viewModel.cancelValidation(isForUpdate: true)
-            self.performDismissAnimation()
+            self.performDismissAnimation(isValidationComleted: false)
         case .setMobileNumber:
             self.viewModel.cancelValidation(isForUpdate: false)
-            self.performDismissAnimation()
+            self.performDismissAnimation(isValidationComleted: false)
         default: break;
         }
         
@@ -374,13 +375,13 @@ class OTPVarificationVC: BaseVC {
         IQKeyboardManager.shared().isEnableAutoToolbar = true
         switch self.viewModel.varificationType{
         case .walletOtp:
-            self.performDismissAnimation()
+            self.performDismissAnimation(isValidationComleted: false)
         case .phoneNumberChangeOtp:
             self.viewModel.cancelValidation(isForUpdate: true)
-            self.performDismissAnimation()
+            self.performDismissAnimation(isValidationComleted: false)
         case .setMobileNumber:
             self.viewModel.cancelValidation(isForUpdate: false)
-            self.performDismissAnimation()
+            self.performDismissAnimation(isValidationComleted: false)
         default: break;
         }
     }
@@ -486,9 +487,7 @@ extension OTPVarificationVC : OTPVarificationVMDelegate{
         case .walletOtp:
             if isSucess{
                 IQKeyboardManager.shared().isEnableAutoToolbar = true
-                self.dismiss(animated: true) {
-                    self.delegate?.otpValidationCompleted(true)
-                }
+                self.performDismissAnimation(isValidationComleted: true)
             }else{
                 self.otpTextField.isError = true
             }
@@ -502,9 +501,7 @@ extension OTPVarificationVC : OTPVarificationVMDelegate{
                     IQKeyboardManager.shared().isEnableAutoToolbar = true
                     UserInfo.loggedInUser?.mobile = self.viewModel.mobile
                     UserInfo.loggedInUser?.isd = self.viewModel.isdCode
-                    self.dismiss(animated: true) {
-                        self.delegate?.otpValidationCompleted(true)
-                    }
+                    self.performDismissAnimation(isValidationComleted: true)
                 }
             }else{
                 self.otpTextField.isError = true
@@ -519,9 +516,7 @@ extension OTPVarificationVC : OTPVarificationVMDelegate{
                     IQKeyboardManager.shared().isEnableAutoToolbar = true
                     UserInfo.loggedInUser?.mobile = self.viewModel.mobile
                     UserInfo.loggedInUser?.isd = self.viewModel.isdCode
-                    self.dismiss(animated: true) {
-                        self.delegate?.otpValidationCompleted(true)
-                    }
+                    self.performDismissAnimation(isValidationComleted: true)
                 }
             }else{
                 self.otpTextField.isError = true
