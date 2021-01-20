@@ -18,7 +18,7 @@ class IntMCAndReturnVC : UIViewController, GetSharableUrlDelegate
     @IBOutlet weak var emailPinnedFlights: UIButton!
     @IBOutlet weak var sharePinnedFilghts: UIButton!
     @IBOutlet weak var resultTableViewTop: NSLayoutConstraint!
-    
+    @IBOutlet weak var passthroughView: PassthroughView!
     
     var airlineCode = ""
     var bannerView : ResultHeaderView?
@@ -153,7 +153,7 @@ extension IntMCAndReturnVC {
         let frame = self.view.frame
         noResultScreen?.view.frame = frame
         noResultScreen?.noFilteredResults()
-        //        self.noResultScreen = noResultScreenForFilter
+        self.view.bringSubviewToFront(self.passthroughView)
     }
     
      func animateTableHeader() {

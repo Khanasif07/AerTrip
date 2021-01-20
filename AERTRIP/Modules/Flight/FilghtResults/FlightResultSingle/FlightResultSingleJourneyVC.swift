@@ -28,6 +28,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     @IBOutlet weak var sharePinnedFilghts: UIButton!
     @IBOutlet weak var switchGradientView: UIView!
     @IBOutlet weak var resultsTableViewTop: NSLayoutConstraint!
+    @IBOutlet weak var passThroughView: PassthroughView!
     
     //MARK:- Properties
     var noResultScreen : NoResultsScreenViewController?
@@ -84,6 +85,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
                     noResultScreenForFilter.view.frame = frame
                     noResultScreenForFilter.noFilteredResults()
                     self.noResultScreen = noResultScreenForFilter
+                    self.view.bringSubviewToFront(self.passThroughView)
                 }
             }
         }else{
@@ -95,6 +97,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             noResultScreenForFilter.view.frame = frame
             noResultScreenForFilter.noFilteredResults()
             self.noResultScreen = noResultScreenForFilter
+            self.view.bringSubviewToFront(self.passThroughView)
         }
     }
     
