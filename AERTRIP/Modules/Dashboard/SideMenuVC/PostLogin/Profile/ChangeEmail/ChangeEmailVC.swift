@@ -161,7 +161,7 @@ class ChangeEmailVC: BaseVC {
             self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
         }) { (success) in
             self.dismiss(animated: false, completion: {
-//                self.delegate?.otpValidationCompleted(false)
+                CustomToast.shared.fadeAllToasts()
             })
         }
     }
