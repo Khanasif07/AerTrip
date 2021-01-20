@@ -59,7 +59,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
     }
     private var isIntReturnOrMCJourney = false
     
-    private var filterUpdateWorkItem : DispatchWorkItem!
+    private var filterUpdateWorkItem : [DispatchWorkItem?] = []
     private var showDepartReturnSame = false
     private var curSelectedFilterIndex = 0
     
@@ -92,6 +92,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         self.airlineCode = airlineCode
         guard let dict = flightSearchParameters as? JSONDictionary else { return }
         self.flightSearchParameters = dict
+        
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -119,6 +120,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(updateFilterScreenText), name: NSNotification.Name("updateFilterScreenText"), object: nil)
         setupResultView()
         addFilterBackView()
+        filterUpdateWorkItem = Array(repeating: nil, count: self.numberOfLegs)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -1438,10 +1440,10 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
         
         switch flightType {
         case SINGLE_JOURNEY:
-            filterUpdateWorkItem?.cancel()
+            filterUpdateWorkItem[index]?.cancel()
             if let singleJourneyVC = self.singleJourneyResultVC {
                 
-                filterUpdateWorkItem = DispatchWorkItem {
+                filterUpdateWorkItem[index] = DispatchWorkItem {
                     singleJourneyVC.viewModel.updatedApiProgress = self.updatedApiProgress
                     singleJourneyVC.viewModel.airlineCode = self.airlineCode
                     
@@ -1453,17 +1455,18 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                     singleJourneyVC.updateTaxesArray(resultVM.getTaxesDetailsArray())
                     singleJourneyVC.addPlaceholderTableHeaderView()
                 }
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: filterUpdateWorkItem)
+                if let item = filterUpdateWorkItem[index]{
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: item)
+                }
             }
             
         case RETURN_JOURNEY:
             domesticMultiLegResultVC?.updatedApiProgress = updatedApiProgress
             domesticMultiLegResultVC?.viewModel.airlineCode = airlineCode
             if flightSearchResultVM.isDomestic {
-//                filterUpdateWorkItem?.cancel()
+                filterUpdateWorkItem[index]?.cancel()
                 if let domesticMLResultVC = domesticMultiLegResultVC {
-                    filterUpdateWorkItem = DispatchWorkItem {
+                    filterUpdateWorkItem[index] = DispatchWorkItem {
                         let journeyArray = resultVM.getJourneyDisplayArrayFor(index:  index)
                         let sharedSortOrder = self.calculateSortOrder()
                         domesticMLResultVC.updatewithArray(index: index , updatedArray: journeyArray, sortOrder: sharedSortOrder.0)
@@ -1475,11 +1478,13 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                             domesticMLResultVC.comboResults = resultVM.comboResults
                         }
                     }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: filterUpdateWorkItem)
+                    if let item = filterUpdateWorkItem[index]{
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: item)
+                    }
                 }
             } else {
-            filterUpdateWorkItem?.cancel()
-            filterUpdateWorkItem = DispatchWorkItem {
+            filterUpdateWorkItem[index]?.cancel()
+            filterUpdateWorkItem[index] = DispatchWorkItem {
                 let journeyArray = resultVM.getIntJourneyDisplayArrayFor(index: index)
                 guard let intMCAndReturnVC = self.intMultiLegResultVC else { return }
                 intMCAndReturnVC.airlineCode = self.airlineCode
@@ -1490,8 +1495,8 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                 intMCAndReturnVC.updateTaxesArray(resultVM.getTaxesDetailsArray())
                 intMCAndReturnVC.addPlaceholderTableHeaderView()
                 }
-                if filterUpdateWorkItem != nil{
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: filterUpdateWorkItem!)
+                if let item = filterUpdateWorkItem[index]{
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: item)
                 }
                 
             }
@@ -1499,8 +1504,8 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
         case  MULTI_CITY:
             domesticMultiLegResultVC?.updatedApiProgress = updatedApiProgress
             if flightSearchResultVM.isDomestic {
-                filterUpdateWorkItem?.cancel()
-                filterUpdateWorkItem = DispatchWorkItem {
+                filterUpdateWorkItem[index]?.cancel()
+                filterUpdateWorkItem[index] = DispatchWorkItem {
                     guard let domesticMLResultVC = self.domesticMultiLegResultVC else { return }
                     let journeyArray = self.flightSearchResultVM.getJourneyDisplayArrayFor(index: index )
                     let sharedSortOrder = self.calculateSortOrder()
@@ -1510,11 +1515,12 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                     domesticMLResultVC.updateTaxesArray(resultVM.getTaxesDetailsArray())
                     domesticMLResultVC.viewModel.airlineCode = self.airlineCode
                 }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: filterUpdateWorkItem)
-            }
+                if let item = filterUpdateWorkItem[index]{
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: item)
+                }            }
             else {
-                filterUpdateWorkItem?.cancel()
-                filterUpdateWorkItem = DispatchWorkItem(block: {
+                filterUpdateWorkItem[index]?.cancel()
+                filterUpdateWorkItem[index] = DispatchWorkItem(block: {
                     let journeyArray = resultVM.getIntJourneyDisplayArrayFor(index: index)
                     guard let intMCAndReturnVC = self.intMultiLegResultVC else { return }
                     let sharedSortOrder = self.calculateSortOrder()
@@ -1525,8 +1531,9 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                     intMCAndReturnVC.addPlaceholderTableHeaderView()
                     intMCAndReturnVC.airlineCode = self.airlineCode
                 })
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: filterUpdateWorkItem)
-            }
+                if let item = filterUpdateWorkItem[index]{
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: item)
+                }            }
             
         default:
             return
