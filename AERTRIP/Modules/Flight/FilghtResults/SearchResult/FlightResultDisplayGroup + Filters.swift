@@ -624,6 +624,8 @@ extension FlightResultDisplayGroup  {
     
     func priceSelectionChangedAt( minFare: CGFloat, maxFare: CGFloat) {
         
+        initiatedFilters.insert(.price)
+        
         userSelectedFilters?.pr.minPrice = Int(minFare)
         userSelectedFilters?.pr.maxPrice = Int(maxFare)
         
@@ -663,7 +665,7 @@ extension FlightResultDisplayGroup  {
     }
     
     func applyPriceFilter(_ inputArray: [Journey]) -> [Journey]{
-        guard let userFil = userSelectedFilters, UIFilters.contains(.priceRange) else { return inputArray }
+        guard let userFil = userSelectedFilters, UIFilters.contains(.priceRange), initiatedFilters.contains(.price) else { return inputArray }
         let outputArray = inputArray.filter{  $0.farepr >= userFil.pr.minPrice && $0.farepr <= userFil.pr.maxPrice  }
         return outputArray
     }
@@ -917,6 +919,7 @@ extension FlightResultDisplayGroup  {
             }
             
         }
+        
         
         for filter in self.UIFilters {
             

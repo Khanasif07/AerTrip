@@ -61,6 +61,9 @@ class HotelDetailsVM {
     var isBookLoaderHidden = true
     var isAllImageDownloadFails = false
     
+    var filterParams = JSONDictionary()
+    var searchedFormData: HotelFormPreviosSearchData = HotelFormPreviosSearchData()
+    
     private let defaultCheckInTime = "07:00"
     private let defaultCheckOutTime = "07:00"
     
@@ -475,15 +478,61 @@ class HotelDetailsVM {
     }
     
     func getShareLinkAPI(completionBlock: @escaping(_ success: Bool)->Void ) {
-        var param = JSONDictionary()
-        param["hid[]"] = self.hotelInfo?.hid ?? ""
-        param[APIKeys.sid.rawValue] = self.hotelSearchRequest?.sid
-        param["u"] = ""
+        
+        // create params
+        var params = JSONDictionary()
+        if self.searchedFormData.ratingCount.isEmpty || self.searchedFormData.ratingCount.count == 5 {
+            self.searchedFormData.ratingCount = [1,2,3,4,5]
+        }
+//        for (idx, _) in  self.searchedFormData.ratingCount.enumerated() {
+//            params["filter[star][\(idx+1)star]"] = true
+//        }
+        let filter = filterParams
+        if !filter.keys.isEmpty {
+            params["filter"] = AppGlobals.shared.json(from: filter)
+        }
+        let _adultsCount = self.searchedFormData.adultsCount
+        params["p"] = "hotels"
+        params["dest_id"] = self.hotelSearchRequest?.requestParameters.destinationId
+        params["check_in"] = self.hotelSearchRequest?.requestParameters.checkIn
+        params["check_out"] = self.hotelSearchRequest?.requestParameters.checkOut
+        params["dest_type"] = self.hotelSearchRequest?.requestParameters.destType
+        params["dest_name"]  = self.hotelSearchRequest?.requestParameters.destName
+        params["lat"] = self.hotelSearchRequest?.requestParameters.latitude
+        params["lng"] = self.hotelSearchRequest?.requestParameters.longitude
+//        params["checkout"] = self.hotelSearchRequest?.requestParameters.checkOut
+            
+        
+        // get number of adult count
+        
+        for (idx ,  data) in _adultsCount.enumerated() {
+            params["r[\(idx)][a]"] = data
+        }
+        
+        // get number of children
+        for (room, children) in searchedFormData.childrenCounts.enumerated() {
+            if children < 1 { continue }
+            let roomChildrenAges = searchedFormData.childrenAge[room]
+            for index in 0..<children {
+                params["r[\(room)][c][\(index)]"] = roomChildrenAges[index]
+            }
+        }
+        
+        // Replaced previously written logic with the one above
+//        for (idx , dataX) in _chidrenAge.enumerated() {
+//            for (idy , dataY) in dataX.enumerated() {
+//                if dataY != 0 {
+//                    params["r[\(idx)][c][\(idy)]"] = dataY
+//                }
+//            }
+//        }
+        
+        // Get share text Api
         
         self.delegate?.willGetPinnedTemplate()
-        APICaller.shared.getShareLinkAPI(params: param) { [weak self] isSuccess, _, shareLinkUrl in
-            if isSuccess {
-                self?.shareLinkURL = shareLinkUrl
+        APICaller.shared.callShareTextAPI(params: params) { [weak self ] (success, error, message,shareText) in
+            if success {
+                self?.shareLinkURL = shareText
                 self?.delegate?.getPinnedTemplateSuccess()
                 completionBlock(true)
             } else {
@@ -491,6 +540,24 @@ class HotelDetailsVM {
                 completionBlock(false)
             }
         }
+       
+        // Previous Implementation
+//        var param = JSONDictionary()
+//        param["hid[]"] = self.hotelInfo?.hid ?? ""
+//        param[APIKeys.sid.rawValue] = self.hotelSearchRequest?.sid
+//        param["u"] = ""
+//
+//        self.delegate?.willGetPinnedTemplate()
+//        APICaller.shared.getShareLinkAPI(params: param) { [weak self] isSuccess, _, shareLinkUrl in
+//            if isSuccess {
+//                self?.shareLinkURL = shareLinkUrl
+//                self?.delegate?.getPinnedTemplateSuccess()
+//                completionBlock(true)
+//            } else {
+//                self?.delegate?.getPinnedTemplateFail()
+//                completionBlock(false)
+//            }
+//        }
     }
     
     ///Hotel confirmation Api

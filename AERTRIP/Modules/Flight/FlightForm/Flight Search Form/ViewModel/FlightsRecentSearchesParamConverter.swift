@@ -26,6 +26,17 @@ class FlightsRecentSearchesParamConverter: NSObject {
         var jsonDict = JSONDictionary()
         let filter = filterJSON
 
+        print("filter=",filter)
+        if let fq = filter["fq"].array {
+            fq.enumerated().forEach { (index, fq1) in
+                jsonDict["filters[\(filterIndex)][fq][\(index)]"] = fq1.stringValue
+            }
+        }
+        
+        if filter["fares[]"].boolValue{
+            jsonDict["filters[\(filterIndex)][fares][]"] = true
+        }
+        
         if let stops = filter["stp"].array {
             stops.enumerated().forEach { (index, stop) in
                 jsonDict["filters[\(filterIndex)][stp][\(index)]"] = stop.stringValue
@@ -38,12 +49,8 @@ class FlightsRecentSearchesParamConverter: NSObject {
         }
         
         if let arDt = filter["ar_dt"].array {
-            if let leftVal = arDt[0].int {
-                jsonDict["filters[\(filterIndex)][ar_dt][0]"] = leftVal.toString
-            }
-            if let rightVal = arDt[1].int {
-                jsonDict["filters[\(filterIndex)][ar_dt][1]"] = rightVal.toString
-            }
+            jsonDict["filters[\(filterIndex)][ar_dt][0]"] = arDt[0].stringValue
+            jsonDict["filters[\(filterIndex)][ar_dt][1]"] = arDt[1].stringValue
         }
         
         if let airlines = filter["al"].array {
@@ -53,26 +60,24 @@ class FlightsRecentSearchesParamConverter: NSObject {
         }
         
         if let tt = filter["tt"].array {
-            if let leftVal = tt[0].int {
-                jsonDict["filters[\(filterIndex)][tt][0]"] = leftVal.toString
-            }
-            if let rightVal = tt[1].int {
-                jsonDict["filters[\(filterIndex)][tt][1]"] = rightVal.toString
-            }
+            jsonDict["filters[\(filterIndex)][tt][0]"] = tt[0].stringValue
+            jsonDict["filters[\(filterIndex)][tt][1]"] = tt[1].stringValue
         }
         
         if let lott = filter["lott"].array {
-            if let leftVal = lott[0].int {
-                jsonDict["filters[\(filterIndex)][lott][0]"] = leftVal.toString
-            }
-            if let rightVal = lott[1].int {
-                jsonDict["filters[\(filterIndex)][lott][1]"] = rightVal.toString
-            }
+            jsonDict["filters[\(filterIndex)][lott][0]"] = lott[0].stringValue
+            jsonDict["filters[\(filterIndex)][lott][1]"] = lott[1].stringValue
         }
         
         if let price = filter["pr"].array {
             jsonDict["filters[\(filterIndex)][pr][0]"] = price[0].stringValue
             jsonDict["filters[\(filterIndex)][pr][1]"] = price[1].stringValue
+        }
+        
+        if let ap = filter["ap"].array {
+            ap.enumerated().forEach { (index, airport) in
+                jsonDict["filters[\(filterIndex)][ap][\(index)]"] = airport.stringValue
+            }
         }
         
         if let loap = filter["loap"].array {

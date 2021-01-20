@@ -701,7 +701,7 @@ class GetSharableUrl
             //     Price
             if (appliedFilters.contains(.Price))
             {
-                if let pr = userSelectedFilters?.pr{
+                if let pr = userSelectedFilters?.pr, legs[i].initiatedFilters.contains(.price) {
                     let price = "filters[\(i)][pr][0]=\(pr.minPrice)&filters[\(i)][pr][1]=\(pr.maxPrice)&"
 
                     filterString.append(price)
@@ -757,20 +757,21 @@ class GetSharableUrl
                 //Quality
                 var fqArray = [String]()
                 
+                print("uiFilters=",uiFilters)
                 if uiFilters.contains(.hideOvernightLayover){
-                    fqArray.append("&ovgtlo")
+                    fqArray.append("ovgtlo")
                 }
                 
                 if uiFilters.contains(.hideOvernight){
-                    fqArray.append("&ovgtf")
+                    fqArray.append("ovgtf")
                 }
                 
                 if uiFilters.contains(.hideChangeAirport){
-                    fqArray.append("&coa")
+                    fqArray.append("coa")
                 }
                 
                 if uiFilters.contains(.hideLongerOrExpensive){
-                    fqArray.append("&aht")
+                    fqArray.append("aht")
                 }
                 
                 var quality = ""
@@ -782,13 +783,13 @@ class GetSharableUrl
                     filterString.append(quality)
                 }
                 
-                
+                print("filterString=",filterString)
                 
                 //     Times
                 if (appliedFilters.contains(.Times))
                 {
                     //     Departure Time
-                    if ((appliedSubFilters[0]?.contains(.departureTime)) != nil){
+                    if (appliedSubFilters[0]?.contains(.departureTime) ?? false){
                         var depTime = ""
                         let earliest = userSelectedFilters[i].dt.earliest
                         if let earliestTimeInverval = convertFrom(string: earliest){
@@ -810,7 +811,7 @@ class GetSharableUrl
                     
                     //     Arrival Time
                     
-                    if ((appliedSubFilters[0]?.contains(.arrivalTime)) != nil)
+                    if (appliedSubFilters[0]?.contains(.arrivalTime) ?? false)
                     {
                         var arrivalTime = ""
                         let dateFormatter = DateFormatter()
@@ -869,7 +870,7 @@ class GetSharableUrl
                 if (appliedFilters.contains(.Duration))
                 {
                     //     Trip Duration
-                    if ((appliedSubFilters[0]?.contains(.tripDuration)) != nil)
+                    if (appliedSubFilters[0]?.contains(.tripDuration) ?? false)
                     {
                         var tripDuration = ""
                         if let tripMinTime = Int(userSelectedFilters[i].tt.minTime ?? "0"){
@@ -886,7 +887,7 @@ class GetSharableUrl
                     
                     
                     //     Layover Duration
-                    if ((appliedSubFilters[0]?.contains(.layoverDuration)) != nil)
+                    if (appliedSubFilters[0]?.contains(.layoverDuration) ?? false)
                     {
                         var layoverDuration = ""
                         if let layoverMinTime = Int(userSelectedFilters[i].lott.minTime ?? "0"){
@@ -1015,9 +1016,13 @@ class GetSharableUrl
             //     Price
             if (appliedFilters.contains(.Price))
             {
-                let price = "&filters[\(appliedFilterLegIndex)][pr][0]=\(userSelectedFilters[appliedFilterLegIndex].pr.minPrice)&filters[\(appliedFilterLegIndex)][pr][1]=\(userSelectedFilters[appliedFilterLegIndex].pr.maxPrice)"
-                
-                filterString.append(price)
+                if legs[0].initiatedFilters[0]?.contains(.price) ?? false {
+                    
+                    let price = "&filters[\(appliedFilterLegIndex)][pr][0]=\(userSelectedFilters[appliedFilterLegIndex].pr.minPrice)&filters[\(appliedFilterLegIndex)][pr][1]=\(userSelectedFilters[appliedFilterLegIndex].pr.maxPrice)"
+                    
+                    filterString.append(price)
+                    
+                }
             }
             
             //Aircraft

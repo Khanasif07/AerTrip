@@ -601,6 +601,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
     func updateFlightLegTimeFilters(_ timesViewController : FlightFilterTimesViewController, inputFilters : [IntMultiCityAndReturnWSResponse.Results.F]) {
         
         for index in 0 ..< inputFilters.count {
+
             
             var qualityFilter: QualityFilter?
             if timesViewController.viewModel.multiLegTimerFilter.indices.contains(index) {
@@ -632,6 +633,12 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
             let userArrivalMin = userArrivalTime.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600) ?? Date()
             let userArrivalMax = userArrivalTime.latest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: true, interval: 3600) ?? Date()
             
+            if !timesViewController.viewModel.multiLegTimerFilter.indices.contains(index) {
+                timesViewController.viewModel.multiLegTimerFilter.insert(newFlightLegFilter, at: index)
+            } else {
+                timesViewController.viewModel.multiLegTimerFilter[index] = newFlightLegFilter
+            }
+            
             if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[0].contains(.Times),
                userFilters.appliedSubFilters.indices.contains(index), timesViewController.viewModel.multiLegTimerFilter.indices.contains(index) {
                 
@@ -645,6 +652,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
                     timesViewController.viewModel.multiLegTimerFilter[index].userSelectedStartTime = userDepartureMin
 
                     timesViewController.viewModel.multiLegTimerFilter[index].userSelectedEndTime = userDepartureMax
+                    
                 } else {
                     timesViewController.viewModel.multiLegTimerFilter[index].userSelectedStartTime = newFlightLegFilter.departureMinTime
                     
@@ -660,18 +668,13 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
                     timesViewController.viewModel.multiLegTimerFilter[index].userSelectedArrivalStartTime = userArrivalMin
 
                     timesViewController.viewModel.multiLegTimerFilter[index].userSelectedArrivalEndTime = userArrivalMax
+                    
                 } else {
                     timesViewController.viewModel.multiLegTimerFilter[index].userSelectedArrivalStartTime = newFlightLegFilter.arrivalStartTime
                     
                     timesViewController.viewModel.multiLegTimerFilter[index].userSelectedArrivalEndTime = newFlightLegFilter.arrivalEndTime
                 }
                 
-            } else {
-                if !timesViewController.viewModel.multiLegTimerFilter.indices.contains(index) {
-                    timesViewController.viewModel.multiLegTimerFilter.insert(newFlightLegFilter, at: index)
-                } else {
-                    timesViewController.viewModel.multiLegTimerFilter[index] = newFlightLegFilter
-                }
             }
             if let quality = qualityFilter {
                 timesViewController.viewModel.multiLegTimerFilter[index].qualityFilter = quality
@@ -1164,7 +1167,13 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
         
         for (index, filter) in inputFilters.enumerated() {
             let newPriceWS = filter.pr
-            let newPriceFilter = PriceFilter(onlyRefundableFaresSelected: false,
+            
+            var onlyRefundableSelected = false
+            if let userFilters = appliedAndUIFilters, userFilters.uiFilters[0].contains(.refundableFares) {
+                onlyRefundableSelected = true
+            }
+
+            let newPriceFilter = PriceFilter(onlyRefundableFaresSelected: onlyRefundableSelected,
                                              inputFareMinValue: CGFloat(newPriceWS.minPrice) ,
                                              inputFareMaxVaule: CGFloat(newPriceWS.maxPrice) ,
                                              userSelectedFareMinValue: CGFloat(newPriceWS.minPrice) ,
@@ -1174,6 +1183,10 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
             
             if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[0].contains(.Price), priceViewController.viewModel.allPriceFilters.indices.contains(index) {
                 
+                if userFilters.uiFilters[0].contains(.refundableFares){
+                    priceViewController.viewModel.allPriceFilters[index].onlyRefundableFaresSelected = true
+                }
+
                 let onlyRefundable = priceViewController.viewModel.allPriceFilters[index].onlyRefundableFaresSelected
                 
                 if userFilters.uiFilters[0].contains(.priceRange) {
