@@ -58,14 +58,22 @@ extension IntFlightResultDisplayGroup  {
     }
     
     
-    func aircraftFilterUpdated(_ filter: AircraftFilter) {
+    func aircraftFilterUpdated(allAircraftsSelected : Bool, _ filter: AircraftFilter) {
 
         self.dynamicFilters.aircraft.selectedAircraftsArray = filter.selectedAircraftsArray
         
-        if !filter.selectedAircraftsArray.isEmpty{
-            appliedFilters.insert(.Aircraft)
-        } else {
+        if allAircraftsSelected {
+        
             appliedFilters.remove(.Aircraft)
+      
+        } else if !filter.selectedAircraftsArray.isEmpty{
+            
+            appliedFilters.insert(.Aircraft)
+
+        } else {
+            
+            appliedFilters.remove(.Aircraft)
+
         }
         
         applyFilters(index: 0)

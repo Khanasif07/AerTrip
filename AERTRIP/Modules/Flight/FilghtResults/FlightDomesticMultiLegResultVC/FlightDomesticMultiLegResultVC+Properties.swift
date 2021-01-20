@@ -37,6 +37,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
     @IBOutlet weak var miniHeaderScrollView: UIScrollView!
     @IBOutlet weak var miniHeaderTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var collectionContainerView: UIView!
+    @IBOutlet weak var passthroughView: PassthroughView!
     
     //MARK:- State Properties
     

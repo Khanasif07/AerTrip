@@ -12,7 +12,7 @@ import UIKit
 protocol AircraftFilterDelegate : FilterDelegate {
 //    func allAirlinesSelected(_ status: Bool)
 //    func hideMultiAirlineItineraryUpdated(_ filter: AirlineLegFilter )
-    func aircraftFilterUpdated(_ filter : AircraftFilter)
+    func aircraftFilterUpdated(allAircraftsSelected : Bool, _ filter : AircraftFilter)
 }
 
 class AircraftFilterViewController: UIViewController , FilterViewController {
@@ -20,7 +20,7 @@ class AircraftFilterViewController: UIViewController , FilterViewController {
     
     @IBOutlet weak var aircraftTableView: UITableView!
     
-    var selectAllAircrafts = false
+//    var selectAllAircrafts = false
     var aircraftArray = [[String:Any]]()
 
     var aircraftFilter = AircraftFilter()
@@ -70,7 +70,6 @@ class AircraftFilterViewController: UIViewController , FilterViewController {
     func updateAircraftList(filter : AircraftFilter){
         
 //        printDebug("aircraft filter count....\(filter.allAircrafts.count)")
-        
         
         let starAircrafts = filter.allAircraftsArray.filter { $0.quality == 1 }.sorted { (craft1, craft2) -> Bool in
             craft1.name < craft2.name
@@ -202,7 +201,7 @@ extension AircraftFilterViewController : UITableViewDataSource , UITableViewDele
         }
         
         aircraftTableView.reloadData()
-        self.delegate?.aircraftFilterUpdated(self.aircraftFilter)
+        self.delegate?.aircraftFilterUpdated(allAircraftsSelected: self.aircraftFilter.selectedAircraftsArray.count == self.aircraftFilter.allAircraftsArray.count, self.aircraftFilter)
         
     }
     

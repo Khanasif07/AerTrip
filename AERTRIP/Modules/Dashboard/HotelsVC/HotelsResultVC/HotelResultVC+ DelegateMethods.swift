@@ -237,7 +237,9 @@ extension HotelResultVC: HotelResultDelegate {
         self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
         //self.updateMarkers()
         
-        if self.viewModel.tempHotelFilter != nil, !ignorePreviousFilter {
+        let isSelectedFirstRecentSearch = (self.viewModel.recentSearchModel?.currentIndexInList != nil)//Ingnore previouse applied filter in case search is performed from resecent search first index.
+        
+        if self.viewModel.tempHotelFilter != nil, !ignorePreviousFilter, !isSelectedFirstRecentSearch {
          //   self.getSavedFilter()
             // Apply previous filter
             self.applyPreviousFilter()

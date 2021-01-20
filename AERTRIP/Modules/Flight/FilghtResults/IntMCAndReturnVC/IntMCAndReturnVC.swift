@@ -18,7 +18,7 @@ class IntMCAndReturnVC : UIViewController, GetSharableUrlDelegate
     @IBOutlet weak var emailPinnedFlights: UIButton!
     @IBOutlet weak var sharePinnedFilghts: UIButton!
     @IBOutlet weak var resultTableViewTop: NSLayoutConstraint!
-    
+    @IBOutlet weak var passthroughView: PassthroughView!
     
     var airlineCode = ""
     var bannerView : ResultHeaderView?
@@ -96,8 +96,9 @@ extension IntMCAndReturnVC {
     
     func addBannerTableHeaderView() {
         DispatchQueue.main.async {
-            let rect = CGRect(x: 0, y: 82, width: UIScreen.main.bounds.size.width, height: 154)
+            let rect = CGRect(x: 0, y: 86, width: UIScreen.main.bounds.size.width, height: 158)
             self.bannerView = ResultHeaderView(frame: rect)
+            self.bannerView?.bottomHeightConstrints.constant = 8.0
             self.bannerView?.frame = rect
             self.bannerView?.lineView.isHidden = true
             self.view.addSubview(self.bannerView!)
@@ -152,7 +153,7 @@ extension IntMCAndReturnVC {
         let frame = self.view.frame
         noResultScreen?.view.frame = frame
         noResultScreen?.noFilteredResults()
-        //        self.noResultScreen = noResultScreenForFilter
+        self.view.bringSubviewToFront(self.passthroughView)
     }
     
      func animateTableHeader() {

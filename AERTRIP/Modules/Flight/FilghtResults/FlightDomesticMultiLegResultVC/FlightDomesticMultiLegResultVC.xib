@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -25,6 +26,7 @@
                 <outlet property="headerCollectionViewTop" destination="7g4-o1-5cj" id="1to-vA-Mug"/>
                 <outlet property="miniHeaderScrollView" destination="LJS-OI-Y27" id="7OO-zY-vQE"/>
                 <outlet property="miniHeaderTopConstraint" destination="W9k-IP-Wm8" id="AJ7-2k-yhM"/>
+                <outlet property="passthroughView" destination="tll-1e-5pm" id="CfC-wa-zuF"/>
                 <outlet property="pinedswitchOptionsBackViewBottom" destination="bfd-QT-7Oh" id="tbx-UW-Haa"/>
                 <outlet property="pinnedFlightOptionView" destination="gN9-4w-we1" id="Bnk-1Q-cCM"/>
                 <outlet property="pinnedSwitchOptionsBackViewHeight" destination="1hU-eP-lIC" id="vMj-ll-rMJ"/>
@@ -131,7 +133,7 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fc4-e0-bG7">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fc4-e0-bG7">
                             <rect key="frame" x="26" y="0.0" width="23" height="50"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="23" id="2I7-YV-Pa3"/>
@@ -249,6 +251,7 @@
                             </constraints>
                         </view>
                     </subviews>
+                    <viewLayoutGuide key="safeArea" id="GL6-jf-sDD"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="gN9-4w-we1" firstAttribute="top" secondItem="tll-1e-5pm" secondAttribute="top" id="10Y-Ha-AsY"/>
@@ -256,9 +259,9 @@
                         <constraint firstItem="gN9-4w-we1" firstAttribute="leading" secondItem="tll-1e-5pm" secondAttribute="leading" id="Lgf-QH-YXP"/>
                         <constraint firstItem="GL6-jf-sDD" firstAttribute="trailing" secondItem="gN9-4w-we1" secondAttribute="trailing" constant="86" id="jU4-OG-LCq"/>
                     </constraints>
-                    <viewLayoutGuide key="safeArea" id="GL6-jf-sDD"/>
                 </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="wWJ-fy-eFq" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="3pU-2b-A2Z"/>
@@ -286,7 +289,6 @@
                 <constraint firstItem="LGB-Tb-cm6" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="kcx-wW-xNf"/>
                 <constraint firstItem="wWJ-fy-eFq" firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottom" id="xIa-t6-PEo"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="136.80000000000001" y="152.21674876847291"/>
         </view>
     </objects>

@@ -188,41 +188,45 @@ class EnableDisableWalletOTPVC: BaseVC {
         }) { (success) in
             self.dismiss(animated: false, completion: {
 //                self.onDismissCompletion?()
+                CustomToast.shared.fadeAllToasts()
                 self.viewModel.cancelValidation()
             })
         }
     }
     
     @IBAction func nextButtonTapped(_ sender: Any) {
-        if (UserInfo.loggedInUser?.isWalletEnable ?? true){
-            if (self.passwordTextField.text?.isEmpty ?? true){
-                self.passwordTextField.isError = true
-                AppToast.default.showToastMessage(message: LocalizedString.enterAccountPasswordMsg.localized)
-            }else if (self.otpPhoneTextField.text?.isEmpty ?? true){
-                self.otpPhoneTextField.isError = true
-                AppToast.default.showToastMessage(message: LocalizedString.enterMobileOtpMsg.localized)
-            }else if (self.otpEmailTextField.text?.isEmpty ?? true){
-                self.otpEmailTextField.isError = true
-                AppToast.default.showToastMessage(message: LocalizedString.enterEmailOtpMsg.localized)
-            }else{
-                self.nextButton.isLoading = true
-                let dict : JSONDictionary = [
-                    "passcode" : self.passwordTextField.text ?? "",
-                    "mobile_otp" : self.otpPhoneTextField.text ?? "",
-                    "email_otp" : self.otpEmailTextField.text ?? ""
-                ]
-                self.viewModel.validatePassword(with: dict)
-            }
-        }else{
-            if (self.passwordTextField.text?.isEmpty ?? true){
-                self.passwordTextField.isError = true
-                AppToast.default.showToastMessage(message: LocalizedString.enterAccountPasswordMsg.localized)
-            }else{
-                self.nextButton.isLoading = true
-                let dict : JSONDictionary = ["passcode" : self.passwordTextField.text ?? ""]
-                self.viewModel.sendOTPValidation(params: dict, type: .passwordValidation)
-            }
-        }
+        
+        self.viewModel.validate()
+        
+//        if (UserInfo.loggedInUser?.isWalletEnable ?? true){
+//            if (self.passwordTextField.text?.isEmpty ?? true){
+//                self.passwordTextField.isError = true
+//                AppToast.default.showToastMessage(message: LocalizedString.enterAccountPasswordMsg.localized)
+//            }else if (self.otpPhoneTextField.text?.isEmpty ?? true){
+//                self.otpPhoneTextField.isError = true
+//                AppToast.default.showToastMessage(message: LocalizedString.enterMobileOtpMsg.localized)
+//            }else if (self.otpEmailTextField.text?.isEmpty ?? true){
+//                self.otpEmailTextField.isError = true
+//                AppToast.default.showToastMessage(message: LocalizedString.enterEmailOtpMsg.localized)
+//            }else{
+//                self.nextButton.isLoading = true
+//                let dict : JSONDictionary = [
+//                    "passcode" : self.passwordTextField.text ?? "",
+//                    "mobile_otp" : self.otpPhoneTextField.text ?? "",
+//                    "email_otp" : self.otpEmailTextField.text ?? ""
+//                ]
+//                self.viewModel.validatePassword(with: dict)
+//            }
+//        }else{
+//            if (self.passwordTextField.text?.isEmpty ?? true){
+//                self.passwordTextField.isError = true
+//                AppToast.default.showToastMessage(message: LocalizedString.enterAccountPasswordMsg.localized)
+//            }else{
+//                self.nextButton.isLoading = true
+//                let dict : JSONDictionary = ["passcode" : self.passwordTextField.text ?? ""]
+//                self.viewModel.sendOTPValidation(params: dict, type: .passwordValidation)
+//            }
+//        }
         
     }
 }
@@ -260,6 +264,22 @@ extension EnableDisableWalletOTPVC : EnableDisableWalletOTPVMDelegate{
         }
     }
 
+    func showErrorState(with errorState: ValidationState) {
+        self.nextButton.isLoading = false
+        switch errorState{
+        case .password(_,_): self.passwordTextField.isError = true
+        case .phoneOtp(_,_): self.otpPhoneTextField.isError = true
+        case .emailOtp(_,_): self.otpEmailTextField.isError = true
+        }
+    }
+    
+    func showErrorMessage(with errorState: ValidationState) {
+        self.nextButton.isLoading = false
+        switch errorState{
+        case .password(_,let msg), .phoneOtp(_,let msg), .emailOtp(_,let msg):
+            AppToast.default.showToastMessage(message: msg)
+        }
+    }
 
     @objc func updatePhoneResendText(){
         self.linkSetupForResend(withLabel: self.resendPhoneLabel, isResend: true, useringFor: "phone")
@@ -279,5 +299,19 @@ extension EnableDisableWalletOTPVC  {
         }
         
         return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        switch textField {
+        case self.passwordTextField:
+            self.viewModel.details.password = textField.text ?? ""
+        case self.otpPhoneTextField:
+            self.viewModel.details.phoneOtp = textField.text ?? ""
+        case self.otpEmailTextField:
+            self.viewModel.details.emailOtp = textField.text ?? ""
+        default:break
+        }
+    
+        
     }
 }

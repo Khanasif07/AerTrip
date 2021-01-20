@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -79,7 +80,7 @@
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gdg-f4-f3X" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zEc-Oe-p41" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -89,6 +90,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="jcT-ab-lF8"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="gdg-f4-f3X" firstAttribute="top" secondItem="ARu-mU-9lN" secondAttribute="top" id="5li-Yd-IBf"/>
@@ -103,7 +105,6 @@
                             <constraint firstItem="zEc-Oe-p41" firstAttribute="top" secondItem="jcT-ab-lF8" secondAttribute="top" id="sZG-Ld-fj7"/>
                             <constraint firstItem="jcT-ab-lF8" firstAttribute="trailing" secondItem="zEc-Oe-p41" secondAttribute="trailing" id="vbE-nl-sUJ"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="jcT-ab-lF8"/>
                     </view>
                     <connections>
                         <outlet property="copyRightLabel" destination="gCL-ZI-6RO" id="7Hc-cQ-HK2"/>
@@ -132,7 +133,7 @@
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tnz-F1-eeZ" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="je3-Vo-fAu" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -170,6 +171,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="kcg-Ig-V90"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Tnz-F1-eeZ" firstAttribute="leading" secondItem="kcg-Ig-V90" secondAttribute="leading" id="1z4-5W-9qQ"/>
@@ -187,7 +189,6 @@
                             <constraint firstItem="Grc-nl-Gvn" firstAttribute="leading" secondItem="kcg-Ig-V90" secondAttribute="leading" id="udK-Pq-QUC"/>
                             <constraint firstItem="Tnz-F1-eeZ" firstAttribute="trailing" secondItem="kcg-Ig-V90" secondAttribute="trailing" id="x9q-se-OvI"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="kcg-Ig-V90"/>
                     </view>
                     <connections>
                         <outlet property="countryTableView" destination="ORh-v3-htr" id="Ntj-4a-509"/>
@@ -216,7 +217,7 @@
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g2w-zE-NKr" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="87"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yDI-Q3-4IA" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -253,28 +254,39 @@
                                     <constraint firstItem="Ozx-OB-bR7" firstAttribute="leading" secondItem="6Qh-Hh-DoL" secondAttribute="leading" id="ufm-XU-kNE"/>
                                 </constraints>
                             </view>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="BPm-xh-7yd">
+                                <rect key="frame" x="0.0" y="87" width="375" height="1"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="f6b-he-V6i"/>
+                                </constraints>
+                            </progressView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="4Bv-2i-N2k"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="6Qh-Hh-DoL" firstAttribute="bottom" secondItem="g2w-zE-NKr" secondAttribute="bottom" id="EZo-ge-asY"/>
                             <constraint firstItem="4Bv-2i-N2k" firstAttribute="trailing" secondItem="Erc-5Z-ktL" secondAttribute="trailing" id="FVh-GT-Uv7"/>
+                            <constraint firstItem="BPm-xh-7yd" firstAttribute="top" secondItem="g2w-zE-NKr" secondAttribute="bottom" id="Jlf-td-6br"/>
                             <constraint firstItem="g2w-zE-NKr" firstAttribute="trailing" secondItem="4Bv-2i-N2k" secondAttribute="trailing" id="Poj-fs-NBj"/>
+                            <constraint firstAttribute="trailing" secondItem="BPm-xh-7yd" secondAttribute="trailing" id="TEx-lM-4Xm"/>
                             <constraint firstItem="g2w-zE-NKr" firstAttribute="top" secondItem="2PK-Ss-sI3" secondAttribute="top" id="V3W-n9-f5W"/>
                             <constraint firstItem="6Qh-Hh-DoL" firstAttribute="leading" secondItem="2PK-Ss-sI3" secondAttribute="leading" id="X9d-cX-0P7"/>
                             <constraint firstItem="Erc-5Z-ktL" firstAttribute="leading" secondItem="4Bv-2i-N2k" secondAttribute="leading" id="Ybn-7V-GrV"/>
                             <constraint firstItem="yDI-Q3-4IA" firstAttribute="top" secondItem="4Bv-2i-N2k" secondAttribute="top" id="ZNu-d5-pmY"/>
                             <constraint firstItem="g2w-zE-NKr" firstAttribute="leading" secondItem="4Bv-2i-N2k" secondAttribute="leading" id="cXs-VT-HtS"/>
                             <constraint firstItem="Erc-5Z-ktL" firstAttribute="top" secondItem="4Bv-2i-N2k" secondAttribute="top" id="d9x-Ax-zae"/>
+                            <constraint firstItem="BPm-xh-7yd" firstAttribute="leading" secondItem="2PK-Ss-sI3" secondAttribute="leading" id="dw0-DO-Zv6"/>
                             <constraint firstItem="4Bv-2i-N2k" firstAttribute="trailing" secondItem="yDI-Q3-4IA" secondAttribute="trailing" id="lIu-Rs-KKM"/>
                             <constraint firstItem="6Qh-Hh-DoL" firstAttribute="top" secondItem="yDI-Q3-4IA" secondAttribute="bottom" constant="-9" id="oKK-6d-N4w"/>
                             <constraint firstAttribute="bottom" secondItem="Erc-5Z-ktL" secondAttribute="bottom" id="r8G-Uz-4rs"/>
                             <constraint firstItem="4Bv-2i-N2k" firstAttribute="trailing" secondItem="6Qh-Hh-DoL" secondAttribute="trailing" id="rEu-FO-AaL"/>
                             <constraint firstItem="yDI-Q3-4IA" firstAttribute="leading" secondItem="4Bv-2i-N2k" secondAttribute="leading" id="wfa-x5-8Rl"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="4Bv-2i-N2k"/>
                     </view>
                     <connections>
                         <outlet property="currencyTableView" destination="Erc-5Z-ktL" id="mo7-gz-JsU"/>
+                        <outlet property="progressView" destination="BPm-xh-7yd" id="wlv-Ay-67x"/>
+                        <outlet property="progressViewHeight" destination="f6b-he-V6i" id="nIL-pn-lBQ"/>
                         <outlet property="searchBar" destination="Ib0-Hu-tyP" id="hOL-ph-ssW"/>
                         <outlet property="searchBarContainer" destination="6Qh-Hh-DoL" id="Jf6-yd-zmA"/>
                         <outlet property="searchBarSepratorView" destination="Ozx-OB-bR7" id="qhw-Ja-rEg"/>
@@ -315,7 +327,7 @@
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JLE-oT-cxs" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nga-dw-0gY" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -325,6 +337,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="jpH-nX-bbb"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="JLE-oT-cxs" firstAttribute="leading" secondItem="jpH-nX-bbb" secondAttribute="leading" id="5iQ-kg-GVo"/>
@@ -339,7 +352,6 @@
                             <constraint firstItem="jpH-nX-bbb" firstAttribute="trailing" secondItem="iaF-oq-xOr" secondAttribute="trailing" id="tOg-2R-VDe"/>
                             <constraint firstItem="jpH-nX-bbb" firstAttribute="trailing" secondItem="nga-dw-0gY" secondAttribute="trailing" id="u5Q-YF-qlo"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="jpH-nX-bbb"/>
                     </view>
                     <connections>
                         <outlet property="notificationSettingsTableView" destination="iaF-oq-xOr" id="9Vs-jC-f3U"/>
@@ -374,6 +386,7 @@
                                 </wkWebViewConfiguration>
                             </wkWebView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="ZUC-am-U1K"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="HAs-w1-4WN" secondAttribute="bottom" id="BLa-WV-pYs"/>
@@ -384,7 +397,6 @@
                             <constraint firstItem="5mP-38-vfU" firstAttribute="leading" secondItem="ZUC-am-U1K" secondAttribute="leading" id="utm-u5-3oo"/>
                             <constraint firstItem="5mP-38-vfU" firstAttribute="top" secondItem="ZUC-am-U1K" secondAttribute="top" id="zcg-P9-AeU"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="ZUC-am-U1K"/>
                     </view>
                     <connections>
                         <outlet property="topNavView" destination="5mP-38-vfU" id="XcW-4K-yEz"/>
@@ -396,4 +408,9 @@
             <point key="canvasLocation" x="4642" y="218"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

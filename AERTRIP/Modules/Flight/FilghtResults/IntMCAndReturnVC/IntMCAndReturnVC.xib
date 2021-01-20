@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -11,6 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="IntMCAndReturnVC" customModule="AERTRIP" customModuleProvider="target">
             <connections>
                 <outlet property="emailPinnedFlights" destination="yS5-oZ-tkl" id="ezx-nI-BQF"/>
+                <outlet property="passthroughView" destination="L1K-56-tzQ" id="isn-VS-bec"/>
                 <outlet property="pinnedFlightsOptionsView" destination="BM3-XS-cLM" id="rwr-5W-sv6"/>
                 <outlet property="resultTableViewTop" destination="zPE-IE-hr7" id="JsY-Q4-lhR"/>
                 <outlet property="resultsTableView" destination="UzE-61-hhV" id="0EI-Hq-HS1"/>
@@ -121,6 +122,7 @@
                             </constraints>
                         </view>
                     </subviews>
+                    <viewLayoutGuide key="safeArea" id="mj3-eA-8VB"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="BM3-XS-cLM" firstAttribute="top" secondItem="L1K-56-tzQ" secondAttribute="top" id="DtP-Q5-dQy"/>
@@ -129,9 +131,9 @@
                         <constraint firstItem="mj3-eA-8VB" firstAttribute="trailing" secondItem="BM3-XS-cLM" secondAttribute="trailing" constant="86" id="f9L-g9-aaO"/>
                         <constraint firstAttribute="bottom" secondItem="BM3-XS-cLM" secondAttribute="bottom" id="yy5-sR-UaK"/>
                     </constraints>
-                    <viewLayoutGuide key="safeArea" id="mj3-eA-8VB"/>
                 </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <constraints>
                 <constraint firstItem="L1K-56-tzQ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="584-d7-pGl"/>
                 <constraint firstItem="yJ8-EJ-tsk" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="5L8-nA-vFN"/>
@@ -144,7 +146,6 @@
                 <constraint firstItem="UzE-61-hhV" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="twA-m7-Vs6"/>
                 <constraint firstItem="UzE-61-hhV" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="148" id="zPE-IE-hr7"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="137.68115942028987" y="125.22321428571428"/>
         </view>
     </objects>

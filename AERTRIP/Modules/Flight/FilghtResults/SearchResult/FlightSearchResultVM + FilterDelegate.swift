@@ -366,19 +366,19 @@ extension FlightSearchResultVM : QualityFilterDelegate {
 
 extension FlightSearchResultVM : AircraftFilterDelegate {
  
-    func aircraftFilterUpdated(_ filter : AircraftFilter) {
+    func aircraftFilterUpdated(allAircraftsSelected : Bool, _ filter : AircraftFilter) {
         
         
         if isIntMCOrReturnJourney {
 
-            intFlightLegs[0].aircraftFilterUpdated(filter)
+            intFlightLegs[0].aircraftFilterUpdated(allAircraftsSelected : allAircraftsSelected ,filter)
 
             return
         }
         
         for flightLeg in flightLegs {
             
-            flightLeg.aircraftFilterUpdated(filter)
+            flightLeg.aircraftFilterUpdated(allAircraftsSelected : allAircraftsSelected , filter)
             
          }
         

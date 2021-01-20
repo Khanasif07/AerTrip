@@ -78,7 +78,7 @@ class UpdateAccountDetailsVM{
             }
         case .pan://!self.panCard.checkValidity(.PanCard)
             if txt.isEmpty || !txt.checkValidity(.PanCard){
-               msg = "Please enter a PAN number"
+               msg = "Please enter a valid PAN number"
             }
         case .defaultRefundMode:
             if txt.isEmpty{

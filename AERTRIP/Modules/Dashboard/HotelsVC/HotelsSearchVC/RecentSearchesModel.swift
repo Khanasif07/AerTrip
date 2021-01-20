@@ -43,6 +43,7 @@ struct RecentSearchesModel {
     var flight: RecentSearchDisplayModel?
     
     
+    var currentIndexInList:Int?//For checking selected index is first or not for ingnoring previouse applied filter.
     //Mark:- Initialization
     //=====================
     init() {

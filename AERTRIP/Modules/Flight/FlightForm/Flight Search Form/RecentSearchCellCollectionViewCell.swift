@@ -33,6 +33,7 @@ class RecentSearchCellCollectionViewCell: UICollectionViewCell {
         blurView.layer.cornerRadius = 10.0;
         blurView.clipsToBounds = true;
         planeIcon.image = UIImage (named: "plane")?.withRenderingMode(.alwaysTemplate)
+        planeIcon.tintColor = AppColors.recentSeachesSearchTypeBlue
     }
     
    @objc func setProperties( recentSearch : RecentSearchDisplayModel )

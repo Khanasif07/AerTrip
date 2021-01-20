@@ -224,30 +224,22 @@ extension FlightDomesticMultiLegResultVC: ATSwitcherChangeValueDelegate {
             viewModel.resultsTableStates = viewModel.stateBeforePinnedFlight
               
             for index in 0 ..< self.viewModel.numberOfLegs {
-                      if let errorView = self.baseScrollView.viewWithTag( 500 + index) {
-                          errorView.removeFromSuperview()
-                      }
-                      self.updateUIForTableviewAt(index)
-                  }
-            
+                if let errorView = self.baseScrollView.viewWithTag( 500 + index) {
+                    errorView.removeFromSuperview()
+                }
+                self.updateUIForTableviewAt(index)
+            }
         }
         
         self.viewModel.isPinnedOn = value
+      
         self.setTotalFare()
+       
         let containsPinnedFlight = self.viewModel.results.reduce(false) { $0 || $1.containsPinnedFlight }
-//        self.showPinnedFlightSwitch(containsPinnedFlight)
+        
         self.showPinnedFlightsOption(containsPinnedFlight)
-
         self.checkForOverlappingFlights()
-        
-        
-        
-        
-        //        hidePinnedFlightOptions(!value)
-//        showBluredHeaderViewCompleted()
-        
-        //        tableViewVertical.setContentOffset(CGPoint(x: 0, y: -topContentSpace), animated: false)
-        //showBluredHeaderViewCompleted()
+
     }
     
     func hideOrShowPinnedButtons(show : Bool){
@@ -261,6 +253,6 @@ extension FlightDomesticMultiLegResultVC: ATSwitcherChangeValueDelegate {
         func showPinnedFlightsOption(_ show  : Bool) {
               manageSwitchContainer(isHidden: !show)
               
-          }
+        }
     
 }

@@ -55,11 +55,16 @@ extension FlightResultDisplayGroup  {
     }
     
     
-    func aircraftFilterUpdated(_ filter: AircraftFilter) {
+    func aircraftFilterUpdated(allAircraftsSelected : Bool, _ filter: AircraftFilter) {
 
         self.dynamicFilters.aircraft.selectedAircraftsArray = filter.selectedAircraftsArray
         
-        if !filter.selectedAircraftsArray.isEmpty{
+        
+        if allAircraftsSelected {
+        
+            appliedFilters.remove(.Aircraft)
+      
+        } else if !filter.selectedAircraftsArray.isEmpty{
             
             appliedFilters.insert(.Aircraft)
 
