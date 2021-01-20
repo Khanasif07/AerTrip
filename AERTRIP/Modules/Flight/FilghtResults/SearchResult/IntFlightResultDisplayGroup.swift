@@ -680,7 +680,7 @@ class IntFlightResultDisplayGroup {
             let airports = airportsDict.map { $0.value as? String ?? "" }
 
             if airports.count > 0 {
-                let cityApn = userSelectedFilters[index].cityapn
+                let cityApn = inputFilter[index].cityapn
                 var fromCities = [String: [String]]()
                 cityApn.fr.forEach {
                     let city = $0.key
