@@ -197,8 +197,9 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         
         DispatchQueue.main.async {
             
-            let rect = CGRect(x: 0, y: 81, width: UIScreen.main.bounds.size.width, height: 154)
+            let rect = CGRect(x: 0, y: 86, width: UIScreen.main.bounds.size.width, height: 158)
             self.bannerView = ResultHeaderView(frame: rect)
+            self.bannerView?.bottomHeightConstrints.constant = 8.0
             self.bannerView?.frame = rect
             self.bannerView?.lineView.isHidden = true
             self.view.addSubview(self.bannerView ?? UIView())

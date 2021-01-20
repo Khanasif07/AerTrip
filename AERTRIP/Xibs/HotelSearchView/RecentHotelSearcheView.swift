@@ -89,7 +89,11 @@ extension RecentHotelSearcheView: UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.delegate?.passRecentSearchesData(recentSearch: self.recentSearchesData?[indexPath.row] ?? RecentSearchesModel())
+        var recentSerach = self.recentSearchesData?[indexPath.row] ?? RecentSearchesModel()
+        if indexPath.row == 0{
+            recentSerach.currentIndexInList = 0
+        }
+        self.delegate?.passRecentSearchesData(recentSearch: recentSerach)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
