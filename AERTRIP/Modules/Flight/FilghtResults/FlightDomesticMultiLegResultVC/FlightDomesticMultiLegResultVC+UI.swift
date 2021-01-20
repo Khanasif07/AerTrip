@@ -143,7 +143,7 @@ extension FlightDomesticMultiLegResultVC {
     {
         if let tableview = baseScrollView.viewWithTag(1000 + index) as? UITableView {
             
-            viewModel.resultsTableStates[index] = .showNoResults
+//            viewModel.resultsTableStates[index] = .showNoResults
             tableview.tableFooterView = nil
             tableview.reloadData()
         }
@@ -163,13 +163,13 @@ extension FlightDomesticMultiLegResultVC {
             rect.size.width = width - 2.0
             
             noResultsView = NoResultScreenView(frame: rect)
-            let state = viewModel.resultsTableStates[index]
-            if state == .showPinnedFlights {
-                noResultsView.delegate = self
-            }
-            else {
+          //  let state = viewModel.resultsTableStates[index]
+          //  if state == .showPinnedFlights {
+//                noResultsView.delegate = self
+           // }
+//            else {
                 noResultsView.delegate = self.parent as? NoResultScreenDelegate
-            }
+//            }
             noResultsView.frame = rect
             noResultsView.tag = ( 500 + index)
             baseScrollView.addSubview(noResultsView)

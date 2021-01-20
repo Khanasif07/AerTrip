@@ -138,9 +138,12 @@ struct DomesticMultilegJourneyResultsArray {
     
     var containsPinnedFlight : Bool {
         get {
-            return journeyArray.reduce(false) {
-                return $0 || $1.isPinned ?? false
-            }
+            
+            return !self.currentPinnedJourneys.isEmpty
+            
+//            return journeyArray.reduce(false) {
+//                return $0 || $1.isPinned ?? false
+//            }
         }
     }
 }
