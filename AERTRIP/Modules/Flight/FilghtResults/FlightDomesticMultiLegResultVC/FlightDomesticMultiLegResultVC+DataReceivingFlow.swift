@@ -12,6 +12,8 @@ extension FlightDomesticMultiLegResultVC {
     
         func updatewithArray(index : Int , updatedArray : [Journey] , sortOrder : Sort) {
             
+            print("called for....\(index)")
+            
             if viewModel.resultsTableStates[index] == .showTemplateResults   {
                 viewModel.resultsTableStates[index] = .showRegularResults
             }
@@ -29,10 +31,13 @@ extension FlightDomesticMultiLegResultVC {
                 self.viewModel.results[index].sort = sortOrder
                 self.viewModel.sortOrder = sortOrder
                 
+                printDebug("self.viewModel.results[index].currentPinnedJourneys....\(self.viewModel.results[index].currentPinnedJourneys)")
+                
                 self.viewModel.results[index].currentPinnedJourneys.forEach { (pinedJourney) in
                                if let resultIndex = updatedArray.firstIndex(where: { (resultJourney) -> Bool in
-                                   return pinedJourney.id == resultJourney.id
+                                   return pinedJourney.fk == resultJourney.fk
                                }){
+                                
                                    modifiedResult[resultIndex].isPinned = true
                                }
                            }
@@ -92,13 +97,21 @@ extension FlightDomesticMultiLegResultVC {
                 self.applySorting(sortOrder: self.viewModel.sortOrder, isConditionReverced: self.viewModel.isConditionReverced, legIndex: index, completion: {
                     DispatchQueue.main.async {
                     self.animateTableBanner(index: index , updatedArray: updatedArray, sortOrder: sortOrder)
-                        
-//                        if (self.viewModel.resultTableState[index] == .showPinnedFlights) ||
-//                            (self.viewModel.results.suggestedJourneyArray.isEmpty) ||
-//                            (self.viewModel.results.suggestedJourneyArray.count == self.viewModel.results.journeyArray.count) {
-//                            self.resultsTableView.tableFooterView = nil
-//                        }
-                        
+    
+                        if self.viewModel.resultsTableStates[index] == .showPinnedFlights && self.viewModel.results[index].pinnedFlights.isEmpty {
+
+                            self.addErrorScreenAtIndex(index: index, forFilteredResults: true)
+                            
+                        } else if modifiedResult.count > 0 {
+                            
+                            if let errorView = self.baseScrollView.viewWithTag( 500 + index) {
+                                if updatedArray.count > 0  {
+                                    errorView.removeFromSuperview()
+                                }
+                            
+                            }
+                        }
+        
                         if self.viewModel.isSearchByAirlineCode || self.viewModel.isSharedFkmatched {
                             delay(seconds: 1) {
                                 self.switchView.isOn = true
@@ -114,45 +127,7 @@ extension FlightDomesticMultiLegResultVC {
         }
     
     
-    func updateSelectedJourney(index: Int){
-      
-        let newArray = self.viewModel.currentDataSource(tableIndex: index)
 
-        DispatchQueue.main.async {
-            if newArray.count == 0{
-                self.viewModel.results[index].selectedJourney = nil
-                self.journeyHeaderViewArray[index].isHidden = true
-                return
-            }
-            if let selectedResult = self.viewModel.results[index].selectedJourney{
-                if !newArray.contains(where: {$0.fk == selectedResult.fk}) || !self.viewModel.results[index].isJourneySelectedByUser {
-                    let isSelectedJourney = self.viewModel.results[index].isJourneySelectedByUser
-                    self.viewModel.setSelectedJourney(tableIndex: index, journeyIndex: 0)
-                    self.setTotalFare()
-                    self.isHiddingHeader = false
-                    if let tableView = self.baseScrollView.viewWithTag(1000 + index) as? UITableView{
-                        tableView.reloadData()
-                        self.setTableViewHeaderAfterSelection(tableView: tableView)
-                        self.animateJourneyCompactView(for: tableView, isHeaderNeedToSet: true)
-                    }
-                    if !isSelectedJourney{
-                        self.viewModel.results[index].isJourneySelectedByUser = false
-                    }
-                }else if let tableView = self.baseScrollView.viewWithTag(1000 + index) as? UITableView, let selectedIndex = newArray.firstIndex(where:{$0.fk == selectedResult.fk}){
-                    let isSelectedJourney = self.viewModel.results[index].isJourneySelectedByUser
-                    self.viewModel.setSelectedJourney(tableIndex: index, journeyIndex: selectedIndex)
-                    self.isHiddingHeader = false
-                    self.setTotalFare()
-                    tableView.reloadData()
-                    self.setTableViewHeaderAfterSelection(tableView: tableView)
-                    self.animateJourneyCompactView(for: tableView, isHeaderNeedToSet: true)
-                    if !isSelectedJourney{
-                        self.viewModel.results[index].isJourneySelectedByUser = false
-                    }
-                }
-            }
-        }
-    }
     
     func applySorting(sortOrder : Sort, isConditionReverced : Bool, legIndex : Int, shouldReload : Bool = false, completion : (()-> Void)){
 //        previousRequest?.cancel()
@@ -214,26 +189,25 @@ extension FlightDomesticMultiLegResultVC {
        
           func updateUI(index : Int , updatedArray : [Journey] , sortOrder : Sort) {
            
-               let currentState =  viewModel.resultsTableStates[index]
-            if (currentState == .showTemplateResults || currentState == .showNoResults) && !self.viewModel.isPinnedOn {
-                   
-                if updatedArray.count == 0 {
-                       return
-                   }
-                
-                   viewModel.resultsTableStates[index] = .showRegularResults
-               
-            }
+//               let currentState =  viewModel.resultsTableStates[index]
+//            if (currentState == .showTemplateResults || currentState == .showNoResults) && !self.viewModel.isPinnedOn {
+//
+//                if updatedArray.count == 0 {
+//                       return
+//                   }
+//
+//                   viewModel.resultsTableStates[index] = .showRegularResults
+//
+//            }
            
                DispatchQueue.main.async {
-                   if let errorView = self.baseScrollView.viewWithTag( 500 + index) {
-                       if updatedArray.count > 0 {
-                           errorView.removeFromSuperview()
-                       }
-                   }
+//                   if let errorView = self.baseScrollView.viewWithTag( 500 + index) {
+//                       if updatedArray.count > 0  {
+//                           errorView.removeFromSuperview()
+//                       }
+//                   }
                        self.updateUIForTableviewAt(index)
-                       
-
+   
                }
            }
     
@@ -295,7 +269,45 @@ extension FlightDomesticMultiLegResultVC {
         }
     
     
-    
+    func updateSelectedJourney(index: Int){
+      
+        let newArray = self.viewModel.currentDataSource(tableIndex: index)
+
+        DispatchQueue.main.async {
+            if newArray.count == 0{
+                self.viewModel.results[index].selectedJourney = nil
+                self.journeyHeaderViewArray[index].isHidden = true
+                return
+            }
+            if let selectedResult = self.viewModel.results[index].selectedJourney{
+                if !newArray.contains(where: {$0.fk == selectedResult.fk}) || !self.viewModel.results[index].isJourneySelectedByUser {
+                    let isSelectedJourney = self.viewModel.results[index].isJourneySelectedByUser
+                    self.viewModel.setSelectedJourney(tableIndex: index, journeyIndex: 0)
+                    self.setTotalFare()
+                    self.isHiddingHeader = false
+                    if let tableView = self.baseScrollView.viewWithTag(1000 + index) as? UITableView{
+                        tableView.reloadData()
+                        self.setTableViewHeaderAfterSelection(tableView: tableView)
+                        self.animateJourneyCompactView(for: tableView, isHeaderNeedToSet: true)
+                    }
+                    if !isSelectedJourney{
+                        self.viewModel.results[index].isJourneySelectedByUser = false
+                    }
+                }else if let tableView = self.baseScrollView.viewWithTag(1000 + index) as? UITableView, let selectedIndex = newArray.firstIndex(where:{$0.fk == selectedResult.fk}){
+                    let isSelectedJourney = self.viewModel.results[index].isJourneySelectedByUser
+                    self.viewModel.setSelectedJourney(tableIndex: index, journeyIndex: selectedIndex)
+                    self.isHiddingHeader = false
+                    self.setTotalFare()
+                    tableView.reloadData()
+                    self.setTableViewHeaderAfterSelection(tableView: tableView)
+                    self.animateJourneyCompactView(for: tableView, isHeaderNeedToSet: true)
+                    if !isSelectedJourney{
+                        self.viewModel.results[index].isJourneySelectedByUser = false
+                    }
+                }
+            }
+        }
+    }
     
     
     

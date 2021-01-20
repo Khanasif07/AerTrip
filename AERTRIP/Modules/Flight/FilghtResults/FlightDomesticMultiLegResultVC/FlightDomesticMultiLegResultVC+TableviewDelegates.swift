@@ -21,7 +21,7 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
            
            let tableState = viewModel.resultsTableStates[index]
         
-//        printDebug("state...\(index)...\(tableState)")
+        printDebug("state...\(index)...\(tableState)")
         
            if tableState == .showTemplateResults{
                return 10
