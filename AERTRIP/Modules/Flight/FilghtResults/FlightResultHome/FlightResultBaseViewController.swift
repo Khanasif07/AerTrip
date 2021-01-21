@@ -1440,7 +1440,12 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
         
         switch flightType {
         case SINGLE_JOURNEY:
-            filterUpdateWorkItem[index]?.cancel()
+          
+            
+            if filterUpdateWorkItem.indices.contains(index), let item = filterUpdateWorkItem[index] {
+                item.cancel()
+            }
+                       
             if let singleJourneyVC = self.singleJourneyResultVC {
                 
                 filterUpdateWorkItem[index] = DispatchWorkItem {
@@ -1455,7 +1460,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                     singleJourneyVC.updateTaxesArray(resultVM.getTaxesDetailsArray())
                     singleJourneyVC.addPlaceholderTableHeaderView()
                 }
-                if let item = filterUpdateWorkItem[index]{
+                if filterUpdateWorkItem.indices.contains(index), let item = filterUpdateWorkItem[index]{
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: item)
                 }
             }
@@ -1463,8 +1468,12 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
         case RETURN_JOURNEY:
             domesticMultiLegResultVC?.updatedApiProgress = updatedApiProgress
             domesticMultiLegResultVC?.viewModel.airlineCode = airlineCode
+           
             if flightSearchResultVM.isDomestic {
-                filterUpdateWorkItem[index]?.cancel()
+                if filterUpdateWorkItem.indices.contains(index), let item = filterUpdateWorkItem[index] {
+                    item.cancel()
+                }
+                
                 if let domesticMLResultVC = domesticMultiLegResultVC {
                     filterUpdateWorkItem[index] = DispatchWorkItem {
                         let journeyArray = resultVM.getJourneyDisplayArrayFor(index:  index)
@@ -1478,13 +1487,17 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                             domesticMLResultVC.comboResults = resultVM.comboResults
                         }
                     }
-                    if let item = filterUpdateWorkItem[index]{
+                    if filterUpdateWorkItem.indices.contains(index), let item = filterUpdateWorkItem[index]{
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: item)
                     }
                 }
             } else {
-            filterUpdateWorkItem[index]?.cancel()
-            filterUpdateWorkItem[index] = DispatchWorkItem {
+                
+                if filterUpdateWorkItem.indices.contains(index), let item = filterUpdateWorkItem[index] {
+                    item.cancel()
+                }
+                
+                filterUpdateWorkItem[index] = DispatchWorkItem {
                 let journeyArray = resultVM.getIntJourneyDisplayArrayFor(index: index)
                 guard let intMCAndReturnVC = self.intMultiLegResultVC else { return }
                 intMCAndReturnVC.airlineCode = self.airlineCode
@@ -1495,7 +1508,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                 intMCAndReturnVC.updateTaxesArray(resultVM.getTaxesDetailsArray())
                 intMCAndReturnVC.addPlaceholderTableHeaderView()
                 }
-                if let item = filterUpdateWorkItem[index]{
+                if filterUpdateWorkItem.indices.contains(index), let item = filterUpdateWorkItem[index]{
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: item)
                 }
                 
@@ -1504,7 +1517,11 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
         case  MULTI_CITY:
             domesticMultiLegResultVC?.updatedApiProgress = updatedApiProgress
             if flightSearchResultVM.isDomestic {
-                filterUpdateWorkItem[index]?.cancel()
+               
+                if filterUpdateWorkItem.indices.contains(index), let item = filterUpdateWorkItem[index] {
+                    item.cancel()
+                }
+               
                 filterUpdateWorkItem[index] = DispatchWorkItem {
                     guard let domesticMLResultVC = self.domesticMultiLegResultVC else { return }
                     let journeyArray = self.flightSearchResultVM.getJourneyDisplayArrayFor(index: index )
@@ -1515,11 +1532,15 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                     domesticMLResultVC.updateTaxesArray(resultVM.getTaxesDetailsArray())
                     domesticMLResultVC.viewModel.airlineCode = self.airlineCode
                 }
-                if let item = filterUpdateWorkItem[index]{
+                if filterUpdateWorkItem.indices.contains(index), let item = filterUpdateWorkItem[index]{
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: item)
                 }            }
             else {
-                filterUpdateWorkItem[index]?.cancel()
+               
+                if filterUpdateWorkItem.indices.contains(index), let item = filterUpdateWorkItem[index] {
+                    item.cancel()
+                }
+               
                 filterUpdateWorkItem[index] = DispatchWorkItem(block: {
                     let journeyArray = resultVM.getIntJourneyDisplayArrayFor(index: index)
                     guard let intMCAndReturnVC = self.intMultiLegResultVC else { return }
@@ -1531,7 +1552,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                     intMCAndReturnVC.addPlaceholderTableHeaderView()
                     intMCAndReturnVC.airlineCode = self.airlineCode
                 })
-                if let item = filterUpdateWorkItem[index]{
+                if filterUpdateWorkItem.indices.contains(index), let item = filterUpdateWorkItem[index]{
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: item)
                 }            }
             

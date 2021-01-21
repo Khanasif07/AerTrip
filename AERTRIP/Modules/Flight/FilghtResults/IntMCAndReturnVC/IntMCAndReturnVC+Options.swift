@@ -108,6 +108,13 @@ extension IntMCAndReturnVC: ATSwitcherChangeValueDelegate {
             }
             
         } else {
+            
+            self.viewModel.sharedFks.removeAll()
+            self.viewModel.isSharedFkmatched = false
+            
+            self.airlineCode = ""
+            self.viewModel.isSearchByAirlineCode = false
+            
             self.hideFavsButtons(isAnimated: true)
             
             if stateBeforePinnedFlight == .showPinnedFlights{
