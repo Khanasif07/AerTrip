@@ -24,7 +24,6 @@ class VersionControler {
                 
         APICaller.shared.checkFOrUpdates(params: params) { (data, codes) in
             
-         
             guard let version = data else { return }
             if version.latestVersion == version.installedVersion { return }
             
