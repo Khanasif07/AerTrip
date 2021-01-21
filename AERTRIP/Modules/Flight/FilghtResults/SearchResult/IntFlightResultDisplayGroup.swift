@@ -713,14 +713,14 @@ class IntFlightResultDisplayGroup {
                         }
                     }
                     
-                    if !fromCities.isEmpty {
+                    if !fromCities.isEmpty, inputFilter[index].cityapn.fr.values.flatMap({$0}).count != fromCities.values.flatMap({$0}).count {
                         self.appliedFilters.insert(.Airport)
                         self.UIFilters.insert(.originAirports)
                         appliedSubFilters[index]?.insert(.originAirports)
                         userSelectedFilters[index].cityapn.returnOriginAirports = fromCities.values.flatMap { $0 }
                         userSelectedFilters[index].cityapn.fr = fromCities
                     }
-                    if !toCities.isEmpty {
+                    if !toCities.isEmpty, inputFilter[index].cityapn.to.values.flatMap({$0}).count != toCities.values.flatMap({$0}).count {
                         self.appliedFilters.insert(.Airport)
                         self.UIFilters.insert(.destinationAirports)
                         appliedSubFilters[index]?.insert(.destAirports)
