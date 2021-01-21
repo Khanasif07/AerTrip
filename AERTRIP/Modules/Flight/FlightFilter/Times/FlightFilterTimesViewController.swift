@@ -678,8 +678,12 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         let startTimeInterval = viewModel.arrivalInputStartDate.timeIntervalSince(viewModel.currentTimerFilter.arrivalStartTime)
         let endTimeInterval = viewModel.arrivalInputEndDate.timeIntervalSince(viewModel.currentTimerFilter.arrivalStartTime)
        
-        let startPosition = startTimeInterval / Double(viewModel.arivalDifferenceInSeconds)
-        let endPosition = endTimeInterval / Double(viewModel.arivalDifferenceInSeconds)
+        var startPosition = startTimeInterval / Double(viewModel.arivalDifferenceInSeconds)
+        var endPosition = endTimeInterval / Double(viewModel.arivalDifferenceInSeconds)
+        
+        // MARK: For out of range values
+        startPosition = startPosition < 0 ? 0 : startPosition
+        endPosition = endPosition > 1 ? 1 : endPosition
                 
         arrivalRangeSlider.set(leftValue: CGFloat(startPosition), rightValue: CGFloat(endPosition))
         

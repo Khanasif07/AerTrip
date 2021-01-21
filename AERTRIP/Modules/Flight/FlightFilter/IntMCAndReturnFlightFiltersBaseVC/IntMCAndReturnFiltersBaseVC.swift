@@ -627,11 +627,12 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
             let userSelectedFilter = userSelectedFilters[index]
             let userDepartureTime = userSelectedFilter.depDt
             let userArrivalTime = userSelectedFilter.arDt
+            
 
-            let userDepartureMin = userDepartureTime.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600) ?? Date()
-            let userDepartureMax = userDepartureTime.latest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: true, interval: 3600) ?? Date()
-            let userArrivalMin = userArrivalTime.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600) ?? Date()
-            let userArrivalMax = userArrivalTime.latest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: true, interval: 3600) ?? Date()
+            guard let userDepartureMin = userDepartureTime.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600),
+            let userDepartureMax = userDepartureTime.latest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: true, interval: 3600),
+            let userArrivalMin = userArrivalTime.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600),
+            let userArrivalMax = userArrivalTime.latest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: true, interval: 3600) else { return }
             
             if !timesViewController.viewModel.multiLegTimerFilter.indices.contains(index) {
                 timesViewController.viewModel.multiLegTimerFilter.insert(newFlightLegFilter, at: index)

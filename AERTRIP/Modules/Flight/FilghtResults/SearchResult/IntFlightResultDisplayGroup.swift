@@ -680,45 +680,100 @@ class IntFlightResultDisplayGroup {
             let airports = airportsDict.map { $0.value as? String ?? "" }
 
             if airports.count > 0 {
-                let cityApn = userSelectedFilters[index].cityapn
-                var fromCities = [String: [String]]()
-                cityApn.fr.forEach {
-                    let city = $0.key
-                    let cityAirports = $0.value
-                    let newAirports = cityAirports.filter { airports.contains($0) }
-                    if newAirports.count > 0 {
-                        fromCities[city] = newAirports
+                if isReturnJourney {
+                    let originCityApn = inputFilter[0].cityapn
+                    let destCityApn = inputFilter[1].cityapn
+                    var fromCities = [String: [String]]()
+                    originCityApn.fr.forEach {
+                        let city = $0.key
+                        let cityAirports = $0.value
+                        let newAirports = cityAirports.filter { airports.contains($0) }
+                        if newAirports.count > 0 {
+                            fromCities[city] = newAirports
+                        }
                     }
-                }
-                var toCities = [String: [String]]()
-                cityApn.to.forEach {
-                    let city = $0.key
-                    let cityAirports = $0.value
-                    let newAirports = cityAirports.filter { airports.contains($0) }
-                    if newAirports.count > 0 {
-                        toCities[city] = newAirports
+                    destCityApn.to.forEach {
+                        let city = $0.key
+                        let cityAirports = $0.value
+                        let newAirports = cityAirports.filter { airports.contains($0) }
+                        if newAirports.count > 0 {
+                            if var fromCity = fromCities[city] {
+                                fromCity = Array(Set(fromCity + newAirports))
+                                fromCities[city] = fromCity
+                            } else {
+                                fromCities[city] = newAirports
+                            }
+                        }
                     }
-                }
-                
-                if !fromCities.isEmpty {
-                    if isReturnJourney {
+                    
+                    var toCities = [String: [String]]()
+                    originCityApn.to.forEach {
+                        let city = $0.key
+                        let cityAirports = $0.value
+                        let newAirports = cityAirports.filter { airports.contains($0) }
+                        if newAirports.count > 0 {
+                            toCities[city] = newAirports
+                        }
+                    }
+                    destCityApn.fr.forEach {
+                        let city = $0.key
+                        let cityAirports = $0.value
+                        let newAirports = cityAirports.filter { airports.contains($0) }
+                        if newAirports.count > 0 {
+                            if var toCity = toCities[city] {
+                                toCity = Array(Set(toCity + newAirports))
+                                toCities[city] = toCity
+                            } else {
+                                toCities[city] = newAirports
+                            }
+                        }
+                    }
+                    
+                    if !fromCities.isEmpty {
                         self.UIFilters.insert(.originDestinationSelectedForReturnJourney)
-                    } else {
+
+                        userSelectedFilters[0].cityapn.returnOriginAirports = fromCities.values.flatMap { $0 }
+                        userSelectedFilters[0].cityapn.fr = fromCities
+                    }
+                    if !toCities.isEmpty {
+                        self.UIFilters.insert(.originDestinationSelectedForReturnJourney)
+                        userSelectedFilters[0].cityapn.returnDestinationAirports = toCities.values.flatMap { $0 }
+                        userSelectedFilters[0].cityapn.to = toCities
+                    }
+                    
+                } else {
+                    let cityApn = inputFilter[index].cityapn
+                    var fromCities = [String: [String]]()
+                    cityApn.fr.forEach {
+                        let city = $0.key
+                        let cityAirports = $0.value
+                        let newAirports = cityAirports.filter { airports.contains($0) }
+                        if newAirports.count > 0 {
+                            fromCities[city] = newAirports
+                        }
+                    }
+                    var toCities = [String: [String]]()
+                    cityApn.to.forEach {
+                        let city = $0.key
+                        let cityAirports = $0.value
+                        let newAirports = cityAirports.filter { airports.contains($0) }
+                        if newAirports.count > 0 {
+                            toCities[city] = newAirports
+                        }
+                    }
+                    
+                    if !fromCities.isEmpty {
                         self.appliedFilters.insert(.Airport)
                         self.UIFilters.insert(.originAirports)
+                        userSelectedFilters[index].cityapn.returnOriginAirports = fromCities.values.flatMap { $0 }
+                        userSelectedFilters[index].cityapn.fr = fromCities
                     }
-                    userSelectedFilters[index].cityapn.returnOriginAirports = fromCities.values.flatMap { $0 }
-                    userSelectedFilters[index].cityapn.fr = fromCities
-                }
-                if !toCities.isEmpty {
-                    if isReturnJourney {
-                        self.UIFilters.insert(.originDestinationSelectedForReturnJourney)
-                    } else {
+                    if !toCities.isEmpty {
                         self.appliedFilters.insert(.Airport)
                         self.UIFilters.insert(.destinationAirports)
+                        userSelectedFilters[index].cityapn.returnDestinationAirports = toCities.values.flatMap { $0 }
+                        userSelectedFilters[index].cityapn.to = toCities
                     }
-                    userSelectedFilters[index].cityapn.returnDestinationAirports = toCities.values.flatMap { $0 }
-                    userSelectedFilters[index].cityapn.to = toCities
                 }
             }
             
