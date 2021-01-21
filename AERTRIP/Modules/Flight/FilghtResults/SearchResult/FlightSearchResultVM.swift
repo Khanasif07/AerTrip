@@ -169,7 +169,13 @@ extension FlightResultViewModelDelegate {
         var filters = AppliedAndUIFilters()
         var appliedFilters = intFlightLegs.map { $0.appliedFilters }
         let uiFilters = intFlightLegs.map { $0.UIFilters }
-        let appliedSubFilters = intFlightLegs[0].appliedSubFilters.map { $0.value }
+        
+        var appliedSubFilters = [Set<FlightResultDisplayGroup.InitiatedFilters>]()
+        for index in 0..<intFlightLegs[0].appliedSubFilters.count {
+            if let filtersAtIndex = intFlightLegs[0].appliedSubFilters[index] {
+                appliedSubFilters.append(filtersAtIndex)
+            }
+        }
         
         var containsAirport = false, containsQuality = false
         for uiFilter in uiFilters {
