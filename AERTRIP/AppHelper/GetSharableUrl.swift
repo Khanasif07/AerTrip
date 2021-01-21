@@ -933,51 +933,81 @@ class GetSharableUrl
                 }
                 
                 //     Airport - originDestinationSelectedForReturnJourney
-
-                if uiFilters.contains(.originDestinationSelectedForReturnJourney)
-                {
+                
+                if uiFilters.contains(.originDestinationSelectedForReturnJourney) {
+                    var airport = ""
+                    let selectedAp = Array(Set(userSelectedFilters[0].cityapn.returnOriginAirports + userSelectedFilters[0].cityapn.returnDestinationAirports))
+                    
+                    for n in 0..<selectedAp.count{
+                        airport.append("&filters[\(i)][ap][\(n)]=\(selectedAp[n])")
+                    }
+                    
+                    filterString.append(airport)
+                    
+                } else if ((appliedSubFilters[i]?.contains(.originAirports) ?? false) || (appliedSubFilters[i]?.contains(.destAirports)) ?? false) {
+                    
                     var airport = ""
                     var airportsArray = [String]()
                     
-                    let returnOriginAirports = userSelectedFilters[i].cityapn.returnOriginAirports
-
-                    if returnOriginAirports.count > 0{
-                        
-                        for i in 0..<returnOriginAirports.count{
-                            airportsArray.append(returnOriginAirports[i])
-                        }
-                    }else{
-                        let fr = userSelectedFilters[i].cityapn.fr
-                        
-                        if let originAirport = fr.values.first{
-                            airportsArray.append(contentsOf: originAirport)
-                        }
-                    }
+                    let fr = userSelectedFilters[i].cityapn.fr
+                    let to = userSelectedFilters[i].cityapn.to
                     
-                    
-                    
-                    
-                    let returnDestinationAirports = userSelectedFilters[i].cityapn.returnDestinationAirports
-                    if returnDestinationAirports.count > 0 {
-                        for i in 0..<returnDestinationAirports.count{
-                            airportsArray.append(returnDestinationAirports[i])
-                        }
-                    }else{
-                        let to = userSelectedFilters[i].cityapn.to
-                        
-                        if let destinationAirport = to.values.first{
-                            airportsArray.append(contentsOf: destinationAirport)
-                        }
-                    }
-
+                    airportsArray.append(contentsOf: fr.flatMap { $0.value } )
+                    airportsArray.append(contentsOf: to.flatMap { $0.value } )
+                    airportsArray = Array(Set(airportsArray))
                     
                     for n in 0..<airportsArray.count{
                         airport.append("&filters[\(i)][ap][\(n)]=\(airportsArray[n])")
                     }
                     
                     filterString.append(airport)
-
                 }
+                
+
+//                if uiFilters.contains(.originDestinationSelectedForReturnJourney)
+//                {
+//                    var airport = ""
+//                    var airportsArray = [String]()
+//
+//                    let returnOriginAirports = userSelectedFilters[i].cityapn.returnOriginAirports
+//
+//                    if returnOriginAirports.count > 0{
+//
+//                        for i in 0..<returnOriginAirports.count{
+//                            airportsArray.append(returnOriginAirports[i])
+//                        }
+//                    }else{
+//                        let fr = userSelectedFilters[i].cityapn.fr
+//
+//                        if let originAirport = fr.values.first{
+//                            airportsArray.append(contentsOf: originAirport)
+//                        }
+//                    }
+//
+//
+//
+//
+//                    let returnDestinationAirports = userSelectedFilters[i].cityapn.returnDestinationAirports
+//                    if returnDestinationAirports.count > 0 {
+//                        for i in 0..<returnDestinationAirports.count{
+//                            airportsArray.append(returnDestinationAirports[i])
+//                        }
+//                    }else{
+//                        let to = userSelectedFilters[i].cityapn.to
+//
+//                        if let destinationAirport = to.values.first{
+//                            airportsArray.append(contentsOf: destinationAirport)
+//                        }
+//                    }
+//
+//
+//                    for n in 0..<airportsArray.count{
+//                        airport.append("&filters[\(i)][ap][\(n)]=\(airportsArray[n])")
+//                    }
+//
+//                    filterString.append(airport)
+//
+//                }
                 
                 
                 

@@ -275,8 +275,9 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         
+        
         cell.configure(amount: amount, dateStr: dateStr)
-        self.depositButton = cell.depositButton
+        self.depositButton = cell.depositButton        
         cell.depositButton.addTarget(self, action: #selector(self.depositButtonAction(_:)), for: .touchUpInside)
         
         return cell

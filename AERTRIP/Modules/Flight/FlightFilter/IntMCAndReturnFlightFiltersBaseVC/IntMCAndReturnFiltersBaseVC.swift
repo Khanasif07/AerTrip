@@ -1530,7 +1530,6 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
             
             if let userFilters = appliedAndUIFilters, userFilters.appliedFilters[0].contains(.Airport), airportViewController.airportFilterArray.indices.contains(index) {
                 let curAiportFilter = airportViewController.airportFilterArray[index]
-                let selectedAirports = curAiportFilter.allSelectedAirports
                 
                 let allLayoversSelected = curAiportFilter.allLayoverSelectedByUserInteraction
                 
@@ -1543,13 +1542,12 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
                 let inputLayoverAirports = inputFilters[index].loap
                 let userSelectedLayoverAirports = userSelectedFilters[index].loap
                 
-                if inputOriginAirports.count != originSelectedAirports.count  && (userFilters.uiFilters[0].contains(.originAirports)  || userFilters.uiFilters[0].contains(.originDestinationSelectedForReturnJourney)) {
+                if (userFilters.uiFilters[0].contains(.originAirports)) {
                     airportLegFilter.originCities = airportLegFilter.originCities.map { (city) in
                         var newCity = city
                         newCity.airports = newCity.airports.map({ (airport) in
                             var newAirport = airport
-//                            if let _ = selectedAirports.first(where: { $0.IATACode == newAirport.IATACode }) {
-                            if originSelectedAirports.contains(newAirport.IATACode) {
+                            if (originSelectedAirports.contains(newAirport.IATACode) && inputOriginAirports.count != originSelectedAirports.count) {
                                 newAirport.isSelected = true
                             }
                             return newAirport
@@ -1558,13 +1556,12 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
                     }
                 }
                 
-                if inputDestAirports.count != destSelectedAirports.count  && (userFilters.uiFilters[0].contains(.destinationAirports)  || userFilters.uiFilters[0].contains(.originDestinationSelectedForReturnJourney)) {
+                if (userFilters.uiFilters[0].contains(.destinationAirports)) {
                     airportLegFilter.destinationCities = airportLegFilter.destinationCities.map { (city) in
                         var newCity = city
                         newCity.airports = newCity.airports.map({ (airport) in
                             var newAirport = airport
-//                            if let _ = selectedAirports.first(where: { $0.IATACode == newAirport.IATACode }) {
-                            if destSelectedAirports.contains(newAirport.IATACode) {
+                            if (destSelectedAirports.contains(newAirport.IATACode) && inputDestAirports.count != destSelectedAirports.count) {
                                 newAirport.isSelected = true
                             }
                             return newAirport
@@ -1587,7 +1584,39 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
                     }
                 }
                 airportLegFilter.allLayoverSelectedByUserInteraction = allLayoversSelected
+                
                 airportViewController.airportFilterArray[index] = airportLegFilter
+                
+                // For setting pre-selected airports in return filter
+                if userFilters.uiFilters[0].contains(.originDestinationSelectedForReturnJourney) {
+                    let returnOriginAP = userSelectedFilters[0].cityapn.returnOriginAirports
+                    let returnDestAP = userSelectedFilters[0].cityapn.returnDestinationAirports
+                
+                    
+                    airportViewController.airportFilterArray[0].originCities = airportViewController.airportFilterArray[0].originCities.map { (city) in
+                        var newCity = city
+                        newCity.airports = newCity.airports.map({ (airport) in
+                            var newAirport = airport
+                            if (returnOriginAP.contains(newAirport.IATACode)) {
+                                newAirport.isSelected = true
+                            }
+                            return newAirport
+                        })
+                        return newCity
+                    }
+                    
+                    airportViewController.airportFilterArray[0].destinationCities = airportViewController.airportFilterArray[0].destinationCities.map { (city) in
+                        var newCity = city
+                        newCity.airports = newCity.airports.map({ (airport) in
+                            var newAirport = airport
+                            if (returnDestAP.contains(newAirport.IATACode)) {
+                                newAirport.isSelected = true
+                            }
+                            return newAirport
+                        })
+                        return newCity
+                    }
+                }
                 
                 
             } else {

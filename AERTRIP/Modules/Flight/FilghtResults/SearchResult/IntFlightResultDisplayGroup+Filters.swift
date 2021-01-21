@@ -976,9 +976,11 @@ extension IntFlightResultDisplayGroup  {
             return obj.cityapn.fr != inputFilter[legIndex].cityapn.fr && !obj.cityapn.fr.isEmpty
         }){
             UIFilters.insert(.originAirports)
+            appliedSubFilters[index]?.insert(.originAirports)
         }else{
             //working fine
             UIFilters.remove(.originAirports)
+            appliedSubFilters[index]?.remove(.originAirports)
         }
         
 //        print("UIFilters...\(UIFilters)")
@@ -1030,9 +1032,11 @@ extension IntFlightResultDisplayGroup  {
             return obj.cityapn.to != inputFilter[legIndex].cityapn.to && !obj.cityapn.to.isEmpty
         }){
             UIFilters.insert(.destinationAirports)
+            appliedSubFilters[index]?.insert(.destAirports)
         }else{
             //working fine
             UIFilters.remove(.destinationAirports)
+            appliedSubFilters[index]?.remove(.destAirports)
         }
         checkForAirportsFilter()
         applyFilters(index: index)

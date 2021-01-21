@@ -18,6 +18,8 @@ class FlightResultDisplayGroup {
         case departureTime
         case arrivalTime
         case price
+        case originAirports
+        case destAirports
     }
     
     internal var initiatedFilters: Set<InitiatedFilters> = []
@@ -531,7 +533,7 @@ class FlightResultDisplayGroup {
         let airports = airportsDict.map { $0.value as? String ?? "" }
 
         if airports.count > 0 {
-            if let cityApn = userSelectedFilters?.cityapN {
+            if let cityApn = inputFilter?.cityapN {
                 var fromCities = [String: [String]]()
                 cityApn.fr.forEach {
                     let city = $0.key

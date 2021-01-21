@@ -1415,8 +1415,8 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
             }
             
             // For updating UI from deep linking filters // might not get set at the first time
-            DispatchQueue.delay(0.3, closure: {
-//                self.flightFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.flightResultArray)
+            DispatchQueue.delay(0.5, closure: {
+                self.flightFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.flightResultArray)
             })
             
             DispatchQueue.main.async {
@@ -1428,8 +1428,8 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
             }
             
             // For updating UI from deep linking filters // might not get set at the first time
-            DispatchQueue.delay(0.3, closure: {
-//                self.intMCAndReturnFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.intFlightResultArray)
+            DispatchQueue.delay(0.5, closure: {
+                self.intMCAndReturnFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.intFlightResultArray)
             })
             
             // To check if filters are pre applied and update dots

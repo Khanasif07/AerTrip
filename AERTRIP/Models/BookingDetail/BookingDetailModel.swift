@@ -61,7 +61,7 @@ struct BookingDetailModel {
     
     init(json: JSONDictionary)
     {
-        if let obj = json["shareUrl"]
+        if let obj = json["search_url"]
         {
             self.shareUrl = "\(obj)".removeNull
         }
