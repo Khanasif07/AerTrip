@@ -1328,6 +1328,14 @@ extension AppFlowManager {
         }))
         UIApplication.topViewController()?.present(alert, animated: true, completion: nil)
     }
+    
+    func moveToSpeechToText(with speechToTextDelegate: SpeechToTextVCDelegate ){
+        let vc = SpeechToTextVC.instantiate(fromAppStoryboard: .Common)
+        vc.modalPresentationStyle = .overFullScreen
+        vc.delegate = speechToTextDelegate
+        (speechToTextDelegate as? UIViewController)?.present(vc, animated: true, completion: nil)
+    }
+    
 }
 
 // MARK: - Select Trip Flow Methods

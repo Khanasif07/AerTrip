@@ -173,6 +173,7 @@
 		0CE3E8A424409E50005E015E /* ThingsCanBeAskedVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE3E8A324409E50005E015E /* ThingsCanBeAskedVM.swift */; };
 		0CE3E8A62440C14D005E015E /* ThingsToAskHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE3E8A52440C14D005E015E /* ThingsToAskHeader.swift */; };
 		0CE3E8A82440C161005E015E /* ThingsToAskHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0CE3E8A72440C161005E015E /* ThingsToAskHeader.xib */; };
+		0CF257B525B86F1A00FB8182 /* SpeechToTextVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF257B425B86F1A00FB8182 /* SpeechToTextVC.swift */; };
 		1800FC6521EF1FA20006D6D1 /* AddNotesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1800FC6321EF1FA20006D6D1 /* AddNotesTableViewCell.swift */; };
 		1800FC6621EF1FA20006D6D1 /* AddNotesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1800FC6421EF1FA20006D6D1 /* AddNotesTableViewCell.xib */; };
 		180162ED2295706C007E5D43 /* BookingAddOnHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180162EC2295706C007E5D43 /* BookingAddOnHeaderView.swift */; };
@@ -1868,6 +1869,7 @@
 		0CE3E8A324409E50005E015E /* ThingsCanBeAskedVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThingsCanBeAskedVM.swift; sourceTree = "<group>"; };
 		0CE3E8A52440C14D005E015E /* ThingsToAskHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThingsToAskHeader.swift; sourceTree = "<group>"; };
 		0CE3E8A72440C161005E015E /* ThingsToAskHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ThingsToAskHeader.xib; sourceTree = "<group>"; };
+		0CF257B425B86F1A00FB8182 /* SpeechToTextVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechToTextVC.swift; sourceTree = "<group>"; };
 		1800FC6321EF1FA20006D6D1 /* AddNotesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNotesTableViewCell.swift; sourceTree = "<group>"; };
 		1800FC6421EF1FA20006D6D1 /* AddNotesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddNotesTableViewCell.xib; sourceTree = "<group>"; };
 		180162EC2295706C007E5D43 /* BookingAddOnHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingAddOnHeaderView.swift; sourceTree = "<group>"; };
@@ -3999,6 +4001,14 @@
 				0CD644B6234B0AED00D71709 /* ATUnicodeSwitch.swift */,
 			);
 			path = ATUnicodeSwitch;
+			sourceTree = "<group>";
+		};
+		0CF257B325B86E9600FB8182 /* SpeechToTextController */ = {
+			isa = PBXGroup;
+			children = (
+				0CF257B425B86F1A00FB8182 /* SpeechToTextVC.swift */,
+			);
+			path = SpeechToTextController;
 			sourceTree = "<group>";
 		};
 		180162EB22956FE0007E5D43 /* AddOns */ = {
@@ -8347,6 +8357,7 @@
 		84956FB721B65C4300BF1183 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				0CF257B325B86E9600FB8182 /* SpeechToTextController */,
 				0C0506CE2435CEDC00BC4703 /* ATAlertController.swift */,
 				849DA81223E2B66500C2E9D8 /* ATCategoryVC */,
 				848D327A225B550B009DB1CE /* ATWebViewVC */,
@@ -10435,6 +10446,7 @@
 				843FF668247409E3001F21B1 /* FlightPreferencesDropDown.m in Sources */,
 				18930A2D21D46E0D005442C8 /* TwoPartEditTableViewCell.swift in Sources */,
 				84FD0DD0228AB66800915A09 /* APICaller+Account.swift in Sources */,
+				0CF257B525B86F1A00FB8182 /* SpeechToTextVC.swift in Sources */,
 				1827542224A9D09F00E83472 /* FlightPaymentPendingVM.swift in Sources */,
 				84534EC522490D15009FF536 /* HCConfirmationVoucherTableViewCell.swift in Sources */,
 				843FF680247409E3001F21B1 /* AssignToPassengerViewController.m in Sources */,
