@@ -67,7 +67,7 @@ func parse <T: Decodable >(data: Data ,into type: T.Type , with decoder : JSONDe
         
         saveToFile(data.prettyPrintedJSONString as? String ?? "")
 
-//        print("error: ", error)
+        print("error: ", error)
     }
     
     return nil
