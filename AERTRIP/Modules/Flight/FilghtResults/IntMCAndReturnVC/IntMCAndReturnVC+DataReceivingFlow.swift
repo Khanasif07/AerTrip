@@ -42,7 +42,7 @@ extension IntMCAndReturnVC {
                 
                 self.viewModel.results.currentPinnedJourneys.forEach { (pinedJourney) in
                     if let resultIndex = results.firstIndex(where: { (resultJourney) -> Bool in
-                        return pinedJourney.id == resultJourney.id
+                        return pinedJourney.fk == resultJourney.fk
                     }){
                         modifiedResult[resultIndex].isPinned = true
                     }
@@ -84,7 +84,7 @@ extension IntMCAndReturnVC {
                                       
                                         self.viewModel.results.currentPinnedJourneys.append(jour)
                                         self.viewModel.results.currentPinnedJourneys = self.viewModel.results.currentPinnedJourneys.removeDuplicates()
-                                        self.viewModel.isSearchByAirlineCode = true
+                                    self.viewModel.isSharedFkmatched = true
                                         modifiedResult[ind].isPinned = true
                                       
                                   }

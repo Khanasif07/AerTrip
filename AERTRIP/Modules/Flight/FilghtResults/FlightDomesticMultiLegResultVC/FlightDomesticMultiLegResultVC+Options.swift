@@ -220,8 +220,16 @@ extension FlightDomesticMultiLegResultVC: ATSwitcherChangeValueDelegate {
         } else {
             self.hidePinnedButtons(withAnimation: true)
          
+    
+            viewModel.stateBeforePinnedFlight.enumerated().forEach { (index, value) in
+                if value == .showPinnedFlights{
+                    viewModel.resultsTableStates[index] = .showRegularResults
+                } else {
+                    viewModel.resultsTableStates[index] = value
+                }
+            }
             
-            viewModel.resultsTableStates = viewModel.stateBeforePinnedFlight
+//            viewModel.resultsTableStates = viewModel.stateBeforePinnedFlight
               
             for index in 0 ..< self.viewModel.numberOfLegs {
                 if let errorView = self.baseScrollView.viewWithTag( 500 + index) {

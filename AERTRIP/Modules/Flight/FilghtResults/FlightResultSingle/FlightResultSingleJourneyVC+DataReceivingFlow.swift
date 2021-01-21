@@ -47,7 +47,7 @@ extension FlightResultSingleJourneyVC {
             
             self.viewModel.results.currentPinnedJourneys.forEach { (pinedJourney) in
                 if let resultIndex = results.firstIndex(where: { (resultJourney) -> Bool in
-                    return pinedJourney.id == resultJourney.id
+                    return pinedJourney.fk == resultJourney.fk
                 }){
                     modifiedResult[resultIndex].isPinned = true
                 }

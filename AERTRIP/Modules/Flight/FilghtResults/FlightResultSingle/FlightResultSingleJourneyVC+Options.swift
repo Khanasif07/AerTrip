@@ -142,6 +142,13 @@ extension FlightResultSingleJourneyVC: ATSwitcherChangeValueDelegate {
             }
             
         } else {
+            
+            self.viewModel.sharedFks.removeAll()
+            self.viewModel.isSharedFkmatched = false
+            
+            self.viewModel.airlineCode = ""
+            self.viewModel.isSearchByAirlineCode = false
+            
             self.hidePinnedButtons(withAnimation: true)
             if viewModel.stateBeforePinnedFlight == ResultTableViewState.showPinnedFlights{
                 viewModel.resultTableState = ResultTableViewState.showRegularResults
