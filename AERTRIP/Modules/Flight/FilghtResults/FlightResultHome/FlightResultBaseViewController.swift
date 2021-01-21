@@ -52,7 +52,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
     
     private var filterBackView = UIView()
     
-    private var numberOfLegs = 0 {
+    private var numberOfLegs = 1 {
         didSet {
             self.flightSearchResultVM.numberOfLegs = numberOfLegs
         }
