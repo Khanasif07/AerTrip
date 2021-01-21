@@ -15,7 +15,7 @@ extension MyBookingsVC: UISearchBarDelegate {
         perform(#selector(search(_:)), with: searchText, afterDelay: 0.5)
     }
     
-    @objc private func search(_ forText: String) {
+    @objc func search(_ forText: String) {
         printDebug(forText)
         MyBookingFilterVM.shared.searchText = forText.removeLeadingTrailingWhitespaces
         self.sendDataChangedNotification(data: ATNotification.myBookingSearching)
@@ -23,6 +23,9 @@ extension MyBookingsVC: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.view.endEditing(true)
+    }
+    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar){
+        AppFlowManager.default.moveToSpeechToText(with: self)
     }
 }
 
@@ -66,4 +69,15 @@ extension MyBookingsVC: MyBookingsVMDelegate {
             stopProgress()
         }
     }
+}
+
+extension MyBookingsVC: SpeechToTextVCDelegate{
+    func getSpeechToText(_ text: String) {
+        guard !text.isEmpty else {return}
+        self.searchBar.text = text
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
+        perform(#selector(search(_:)), with: text, afterDelay: 0.5)
+    }
+
+    
 }
