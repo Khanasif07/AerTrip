@@ -139,7 +139,7 @@ class DashboardVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-//        VersionControler.shared.checkForUpdate()
+        VersionControler.shared.checkForUpdate()
         
         registerBulkEnquiryNotification()
         
