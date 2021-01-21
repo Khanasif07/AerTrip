@@ -121,10 +121,10 @@
                                 <rect key="frame" x="0.0" y="397" width="375" height="270"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gfl-AV-xOy" userLabel="AlignmentView">
-                                        <rect key="frame" x="0.0" y="120" width="375" height="150"/>
+                                        <rect key="frame" x="0.0" y="90" width="375" height="180"/>
                                         <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="150" id="IsN-CX-Zrt"/>
+                                            <constraint firstAttribute="height" constant="180" id="IsN-CX-Zrt"/>
                                         </constraints>
                                     </view>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="aerinWhiteBGIcon" translatesAutoresizingMaskIntoConstraints="NO" id="eG6-cV-dDN">
@@ -135,19 +135,19 @@
                                         </constraints>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hSF-xN-kRV">
-                                        <rect key="frame" x="-187.5" y="120" width="750" height="150"/>
+                                        <rect key="frame" x="-187.5" y="90" width="750" height="180"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wavesBackGradientImg" translatesAutoresizingMaskIntoConstraints="NO" id="RzJ-cI-UAq">
-                                                <rect key="frame" x="187.5" y="34.5" width="375" height="115.5"/>
+                                                <rect key="frame" x="187.5" y="41.5" width="375" height="138.5"/>
                                             </imageView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OVB-rt-n8B">
-                                                <rect key="frame" x="187.5" y="0.0" width="375" height="150"/>
+                                                <rect key="frame" x="187.5" y="0.0" width="375" height="180"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="diz-sk-Ad5">
-                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="180"/>
                                                     </button>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qFA-S6-7p7">
-                                                        <rect key="frame" x="147" y="100" width="81.5" height="40.5"/>
+                                                        <rect key="frame" x="147" y="124" width="81.5" height="40.5"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aSa-ai-rkg">
                                                                 <rect key="frame" x="20" y="10" width="41.5" height="20.5"/>
@@ -192,7 +192,7 @@
                                             <constraint firstItem="RzJ-cI-UAq" firstAttribute="trailing" secondItem="OVB-rt-n8B" secondAttribute="trailing" id="KYo-wf-ugF"/>
                                             <constraint firstAttribute="bottom" secondItem="OVB-rt-n8B" secondAttribute="bottom" id="RGD-jN-jQ0"/>
                                             <constraint firstItem="OVB-rt-n8B" firstAttribute="centerX" secondItem="hSF-xN-kRV" secondAttribute="centerX" id="V24-1a-kaJ"/>
-                                            <constraint firstAttribute="height" constant="150" id="XoE-3T-MBt"/>
+                                            <constraint firstAttribute="height" constant="180" id="XoE-3T-MBt"/>
                                             <constraint firstItem="OVB-rt-n8B" firstAttribute="top" secondItem="hSF-xN-kRV" secondAttribute="top" id="ZxJ-Kx-9Op"/>
                                             <constraint firstItem="RzJ-cI-UAq" firstAttribute="bottom" secondItem="OVB-rt-n8B" secondAttribute="bottom" id="eDw-8E-4Po"/>
                                         </constraints>

@@ -119,6 +119,7 @@ class HotelsSearchVM: NSObject{
             guard let sSelf = self else { return }
             if success {
                 sSelf.recentSearchesData = recentSearchesHotels
+                sSelf.setupRecentlySearchedDestination()
                 sSelf.delegate?.getRecentSearchesDataSuccess()
             } else {
                 printDebug(errors)
@@ -126,6 +127,23 @@ class HotelsSearchVM: NSObject{
                 sSelf.delegate?.getRecentSearchesDataFail()
             }
         }
+    }
+    
+    func setupRecentlySearchedDestination(){
+        guard let recentSearches = self.recentSearchesData else {return}
+        let destinationData = recentSearches.map({SearchedDestination(wirh: $0)})
+        var destinations = [SearchedDestination]()
+        var dict:[String:Int] = [:]
+        destinationData.forEach { dest in
+            if dict[dest.dest_id] == nil{
+                dict[dest.dest_id] = 1
+                destinations.append(dest)
+            }
+        }
+        if let data = try? PropertyListEncoder().encode(destinations){
+            UserDefaults.setObject(data, forKey: "recentSearches")
+        }
+        
     }
     
     func setRecentSearchesData() {

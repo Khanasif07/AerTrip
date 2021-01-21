@@ -49,7 +49,7 @@ class SpeechToTextVC: BaseVC {
     var secondWaveView: HeartLoadingView?
     
     private var waveContainerHeightConstant: CGFloat {
-        let waveContainerHeight: CGFloat = 150
+        let waveContainerHeight: CGFloat = 180
         return waveContainerHeight + view.safeAreaInsets.bottom
     }
     
@@ -72,6 +72,9 @@ class SpeechToTextVC: BaseVC {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         setWaveContainerView()
+        UIView.animate(withDuration: 0.3) {
+            self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -188,6 +191,7 @@ class SpeechToTextVC: BaseVC {
     private func setWaveContainerView() {
         waveAnimationContainerView.backgroundColor = .clear
         waveAnimationContainerViewHeight.constant = waveContainerHeightConstant
+        alignmentViewHeight.constant = waveContainerHeightConstant
         waveAnimationContainerViewBottom.constant = view.safeAreaInsets.bottom
     }
         
@@ -222,7 +226,6 @@ class SpeechToTextVC: BaseVC {
     func startDismissAnimation(_ animationDuration: TimeInterval = 0.3) {
         UIView.animate(withDuration: animationDuration, animations:  {
             self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
-//            self.popoverViewTop.constant = self.minPoint
             self.view.layoutIfNeeded()
         }, completion: { _ in
             self.dismiss(animated: false, completion: nil)
@@ -283,15 +286,20 @@ extension SpeechToTextVC: SpeechRecognizerDelegate {
     func recordButtonState(_ toEnable: Bool) {
         guard let msg = listeningLbl.text else { return }
         giveSuccessHapticFeedback()
-        if msg == LocalizedString.Listening.localized + "..." {
-            if self.setupForView != .communicationControls {
-                self.setupForView = .communicationControls
-                self.listeningLblBackView.isHidden = true
-            }
-            return
-        }
+//        if msg == LocalizedString.Listening.localized + "..." {
+//            if self.setupForView != .communicationControls {
+//                self.setupForView = .communicationControls
+//                self.listeningLblBackView.isHidden = true
+//            }
+//            self.animateCellForSpeechRecognizer(text : "")
+//            return
+//        }
         delay(seconds: 0.27) {
-            self.animateCellForSpeechRecognizer(text : msg)
+            if msg == LocalizedString.Listening.localized + "..." {
+                self.animateCellForSpeechRecognizer(text : "")
+            }else{
+                self.animateCellForSpeechRecognizer(text : msg)
+            }
             self.setupForView = .communicationControls
             self.listeningLblBackView.isHidden = true
         }

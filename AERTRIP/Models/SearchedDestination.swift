@@ -72,6 +72,19 @@ struct SearchedDestination: Codable {
         }
     }
     
+    init(wirh recentSerarchData: RecentSearchesModel) {
+        self.dest_id = recentSerarchData.dest_id
+        self.dest_type = recentSerarchData.dest_type
+//        self.category = ""
+        self.dest_name = recentSerarchData.dest_name
+        self.latitude = recentSerarchData.lat
+        self.longitude = recentSerarchData.lng
+//        self.city = recentSerarchDat
+//        self.country = recentSerarchData.dest_id
+        self.label = recentSerarchData.dest_name
+        self.value = recentSerarchData.dest_name
+    }
+    
     static func modelsDict(jsonArr: [JSONDictionary]) -> JSONDictionary {
         
         var temp: JSONDictionary = JSONDictionary()

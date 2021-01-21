@@ -35,27 +35,10 @@ extension HotelResultVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.viewModel.fetchRequestType = .Searching
         if searchText.isEmpty {
-                    self.searchResultHeaderView.updateHeight(height: CGFloat.leastNormalMagnitude)
-                    self.tableViewVertical.sectionHeaderHeight = CGFloat.leastNormalMagnitude
-            searchResultHeaderView.configureView(searhText: "")
-            self.viewModel.searchTextStr = ""
-            
-            self.viewModel.fetchRequestType = self.filterButton.isSelected ? .FilterApplied : .normalInSearching //for getting all the data in search mode when the search text is blank
-            self.viewModel.loadSaveData()
-            self.searchForText("", shouldPerformAction: false) //cancel all the previous operation
-            self.reloadHotelList()
-            noResultemptyView.searchTextLabel.text = ""
-            noResultemptyViewVerticalTableView.searchTextLabel.text = ""
+            self.setupSearchWithEmptyText()
         } else { //else if searchText.count >= AppConstants.kSearchTextLimit {
 //            self.searchResultHeaderView.updateHeight(height: HotelSearchResultHeaderViewHeight)
-            self.tableViewVertical.sectionHeaderHeight = HotelSearchResultHeaderViewHeight
-            noResultemptyView.searchTextLabel.isHidden = false
-            noResultemptyView.searchTextLabel.text = "for \(searchText.quoted)"
-            noResultemptyViewVerticalTableView.searchTextLabel.isHidden = false
-            noResultemptyViewVerticalTableView.searchTextLabel.text = "for \(searchText.quoted)"
-            self.viewModel.searchTextStr = searchBar.text ?? ""
-            searchResultHeaderView.configureView(searhText: searchText)
-            self.searchForText(searchText)
+            self.performSearch(with: searchText)
         }
     }
     
@@ -76,7 +59,48 @@ extension HotelResultVC: UISearchBarDelegate {
         self.hideSearchAnimation()
         self.reloadHotelList()
     }
+    
+    func performSearch(with searchText: String){
+        self.tableViewVertical.sectionHeaderHeight = HotelSearchResultHeaderViewHeight
+        noResultemptyView.searchTextLabel.isHidden = false
+        noResultemptyView.searchTextLabel.text = "for \(searchText.quoted)"
+        noResultemptyViewVerticalTableView.searchTextLabel.isHidden = false
+        noResultemptyViewVerticalTableView.searchTextLabel.text = "for \(searchText.quoted)"
+        self.viewModel.searchTextStr = searchBar.text ?? ""
+        searchResultHeaderView.configureView(searhText: searchText)
+        self.searchForText(searchText)
+    }
+    
+    func setupSearchWithEmptyText(){
+        self.searchResultHeaderView.updateHeight(height: CGFloat.leastNormalMagnitude)
+        self.tableViewVertical.sectionHeaderHeight = CGFloat.leastNormalMagnitude
+        searchResultHeaderView.configureView(searhText: "")
+        self.viewModel.searchTextStr = ""
+        
+        self.viewModel.fetchRequestType = self.filterButton.isSelected ? .FilterApplied : .normalInSearching //for getting all the data in search mode when the search text is blank
+        self.viewModel.loadSaveData()
+        self.searchForText("", shouldPerformAction: false) //cancel all the previous operation
+        self.reloadHotelList()
+        noResultemptyView.searchTextLabel.text = ""
+        noResultemptyViewVerticalTableView.searchTextLabel.text = ""
+    }
+    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        AppFlowManager.default.moveToSpeechToText(with: self)
+    }
 }
+
+//MARK: - SpeechToTextDelegate
+
+extension HotelResultVC:SpeechToTextVCDelegate{
+    func getSpeechToText(_ text: String) {
+        self.viewModel.fetchRequestType = .Searching
+        guard !text.isEmpty else{ return }
+        self.searchBar.text = text
+        self.performSearch(with: text)
+    }
+}
+
 
 // MARK: - ATSwitchedChangeValueDelegate methods
 
