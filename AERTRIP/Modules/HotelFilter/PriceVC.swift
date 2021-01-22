@@ -144,7 +144,10 @@ extension PriceVC: UITableViewDataSource, UITableViewDelegate {
             default:
                 return
             }
-            self.tableView.reloadData()
+            // reloading table was resetting sliders to 0
+            // self.tableView.reloadData()
+            tableView.reloadSections([1], with: .none)
+            
             HotelFilterVM.shared.delegate?.updateFiltersTabs()
         }
     }
