@@ -126,7 +126,7 @@ class FlightDetailsBaseVC: BaseVC {
         super.viewWillAppear(true)
         
         clearCache.checkTimeAndClearUpgradeDataCache()
-        clearCache.checkTimeAndClearFlightPerformanceResultCache(journey: journey)
+        clearCache.checkTimeAndClearFlightPerformanceResultCache(journey: &journey)
         clearCache.checkTimeAndClearFlightBaggageResultCache()
         let presentationStyle = presentingViewController?.modalPresentationStyle
         

@@ -275,7 +275,8 @@ extension FlightResultSingleJourneyVC {
             let journeyGroup = viewModel.results.journeyArray[i]
             let newJourneyGroup = journeyGroup
             newJourneyGroup.journeyArray = journeyGroup.journeyArray.map{
-                let journey = $0
+                //clas to structure
+                var journey = $0
                 journey.isPinned = false
                 return journey
             }

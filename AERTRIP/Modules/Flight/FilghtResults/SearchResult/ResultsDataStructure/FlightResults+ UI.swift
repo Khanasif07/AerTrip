@@ -79,10 +79,12 @@ struct DomesticMultilegJourneyResultsArray {
     
     var journeyArray : [Journey] = [] {
         didSet {
+                
             self.allJourneys = journeyArray
-            self.suggestedJourneyArray = journeyArray.filter(){
-                $0.isAboveHumanScore == false
-            }
+                self.suggestedJourneyArray = journeyArray.filter(){
+                    $0.isAboveHumanScore == false
+                }
+            
         }
     }
     

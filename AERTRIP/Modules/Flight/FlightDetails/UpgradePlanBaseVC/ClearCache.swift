@@ -43,7 +43,7 @@ class ClearCache: NSObject
         }
     }
     
-    func checkTimeAndClearFlightPerformanceResultCache(journey: [Journey]?){
+    func checkTimeAndClearFlightPerformanceResultCache(journey: inout [Journey]?){
         let date = Date()
         let calendar = Calendar.current
         let hour = calendar.component(.hour, from: date)

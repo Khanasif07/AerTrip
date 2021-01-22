@@ -434,7 +434,8 @@ class GroupedFlightsDetailsViewController: UIViewController, UITableViewDataSour
     @IBAction func unpinnedAllTapped(_ sender: Any) {
         
         journeyGroup.journeyArray =  journeyGroup.journeyArray.map{
-            let journey = $0
+            //class to structure
+            var journey = $0
             journey.isPinned = false
             return journey
         }

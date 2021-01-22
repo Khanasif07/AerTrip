@@ -72,7 +72,9 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
     var updatedApiProgress : Float = 0
 
     let getSharableLink = GetSharableUrl()
-    var previousRequest : [DispatchWorkItem?] = []
+    var reloadRequestForapplySorting : [DispatchWorkItem?] = []
+    var reloadRequestForInitialFlow : [DispatchWorkItem?] = []
+
     var isNeedToUpdateLayout = true
     var initialHeader:CGFloat = 138.0
     var isHiddingHeader = false
@@ -90,7 +92,9 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         sortedJourneyArray = Array(repeating: [Journey](), count: numberOfLegs)
         viewModel.resultsTableStates =  Array(repeating: .showTemplateResults , count: numberOfLegs)
         viewModel.stateBeforePinnedFlight = Array(repeating: .showRegularResults, count: numberOfLegs)
-        previousRequest = Array(repeating: nil, count: numberOfLegs)
+        reloadRequestForapplySorting = Array(repeating: nil, count: numberOfLegs)
+        reloadRequestForInitialFlow = Array(repeating: nil, count: numberOfLegs)
+
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -100,7 +104,6 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         self.viewModel.results = Array(repeating: DomesticMultilegJourneyResultsArray(sort: .Smart), count: 0)
         sortedJourneyArray = Array(repeating: [Journey](), count: 0)
         viewModel.resultsTableStates =  Array(repeating: .showTemplateResults , count: 0)
-        previousRequest = Array(repeating: nil, count: 0)
 
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
@@ -112,13 +115,14 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         self.viewModel.results = Array(repeating: DomesticMultilegJourneyResultsArray(sort: .Smart), count: 0)
         sortedJourneyArray = Array(repeating: [Journey](), count: 0)
         viewModel.resultsTableStates =  Array(repeating: .showTemplateResults , count: 0)
-        previousRequest = Array(repeating: nil, count: 0)
         super.init(coder: aDecoder)
     }
     
     //MARK:- View Controller Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        reloadRequestForapplySorting = Array(repeating: nil, count: self.viewModel.numberOfLegs)
+        reloadRequestForInitialFlow = Array(repeating: nil, count: self.viewModel.numberOfLegs)
         setupCollectionView()
         setupHeaderView()
         setupScrollView()
@@ -592,7 +596,8 @@ extension FlightDomesticMultiLegResultVC {
             return
         }
         
-        let journeyToToggle = journeyArray[index]
+        //class to structure
+        var journeyToToggle = journeyArray[index]
 //        journeyToToggle.isPinned = isPinned
         journeyToToggle.farepr = changeResult.farepr
         journeyToToggle.fare.BF.value = changeResult.fare.bf.value

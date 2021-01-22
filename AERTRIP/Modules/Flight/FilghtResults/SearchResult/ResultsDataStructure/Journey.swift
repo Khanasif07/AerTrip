@@ -17,7 +17,7 @@ import UIKit
 //    case multipleValues
 //}
 
-public class Journey: Codable , Equatable {
+public struct Journey: Codable , Equatable {
     let vendor : String
     let id : String
     var fk : String

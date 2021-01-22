@@ -52,7 +52,8 @@ public struct  FlightsResults : Codable {
     func setAirlinesToJourney (_ journey : [Journey] ,  airlineMasterTable : [ String :AirlineMasterWS] ) -> [Journey] {
         
         let modifiedJourneyArray = journey.map({ (journey) -> Journey in
-            let newJourney = journey
+            //class to struct
+            var newJourney = journey
             let airlineArray = journey.al
             
 //            printDebug("airlineArray...\(airlineArray)")

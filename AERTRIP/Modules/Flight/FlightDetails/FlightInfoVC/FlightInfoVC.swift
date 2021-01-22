@@ -74,7 +74,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        clearCache.checkTimeAndClearFlightPerformanceResultCache(journey: journey)
+        clearCache.checkTimeAndClearFlightPerformanceResultCache(journey: &journey)
         clearCache.checkTimeAndClearFlightBaggageResultCache()
         
         getFlightsInfo()

@@ -26,7 +26,7 @@ class HomeDummyViewController: UIViewController {
         super.viewWillAppear(animated)
         
         clearCache.checkTimeAndClearUpgradeDataCache()
-        clearCache.checkTimeAndClearFlightPerformanceResultCache(journey: nil)
+//        clearCache.checkTimeAndClearFlightPerformanceResultCache(journey: nil)
         _ = clearCache.checkTimeAndClearIntFlightPerformanceResultCache(journey: nil)
         clearCache.checkTimeAndClearFlightBaggageResultCache()
 

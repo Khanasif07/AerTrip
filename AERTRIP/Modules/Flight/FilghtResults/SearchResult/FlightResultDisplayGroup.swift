@@ -131,8 +131,8 @@ class FlightResultDisplayGroup {
             var newJourneyArray = currentResult.setAirlinesToJourney(currentResult.j, airlineMasterTable: currentResult.alMaster)
             
             newJourneyArray = newJourneyArray.map{
-                
-                let journey = $0
+                //Class to struct
+                var journey = $0
                 journey.isPinned = false
                 return journey
             }
@@ -167,8 +167,8 @@ class FlightResultDisplayGroup {
         }
         
         processedJourneyArray = InputJourneyArray.map({ (journey) in
-            
-            let modifiedJourney = journey
+            //class to struct
+            var modifiedJourney = journey
             if modifiedJourney.farepr == CheapestFareJourney.farepr {
                 modifiedJourney.isCheapest = true
             }
@@ -190,8 +190,8 @@ class FlightResultDisplayGroup {
             return -1
         }
         processedJourneyArray = processedJourneyArray.map({ (journey) in
-            
-            let modifiedJourney = journey
+            //class to struct
+            var modifiedJourney = journey
             if modifiedJourney.duration == fastestJourney.duration {
                 modifiedJourney.isFastest = true
             }
@@ -217,8 +217,8 @@ class FlightResultDisplayGroup {
             
             if journeyArray.count == 1 && index != 0 {
                 index += 1
-                
-                let modifiedJourney = journeyArray.first!
+                //class to struct
+                var modifiedJourney = journeyArray.first!
                 modifiedJourney.groupID = index
                 modifiedJourneyArray.append(modifiedJourney)
             }
@@ -233,7 +233,8 @@ class FlightResultDisplayGroup {
                         
                         index += 1
                         minDuration = Double(journey.duration)
-                        let modifiedJourney = journey
+                        
+                        var modifiedJourney = journey
                         modifiedJourney.groupID = index
                         modifiedJourneyArray.append(modifiedJourney)
                         
@@ -241,8 +242,8 @@ class FlightResultDisplayGroup {
                     }
                     
                     if ( minDuration * 1.2) >= Double(journey.duration) {
-                        
-                        let modifiedJourney = journey
+                        //class to struct
+                        var modifiedJourney = journey
                         modifiedJourney.groupID = index
                         modifiedJourneyArray.append(modifiedJourney)
                         
@@ -250,8 +251,8 @@ class FlightResultDisplayGroup {
                         
                         index += 1
                         minDuration = Double(journey.duration)
-                        
-                        let modifiedJourney = journey
+                        //class to struct
+                        var modifiedJourney = journey
                         modifiedJourney.groupID = index
                         modifiedJourneyArray.append(modifiedJourney)
                         
@@ -310,8 +311,8 @@ class FlightResultDisplayGroup {
             if let ofk = coorporateJourney.ofk {
                 
                 for index in 0 ..< journey.count {
-                    
-                    let currentJourney = journey[index]
+                    //class tu struct
+                    var currentJourney = journey[index]
                     
                     if currentJourney.fk.caseInsensitiveCompare(ofk) == .orderedSame {
                         
@@ -339,8 +340,8 @@ class FlightResultDisplayGroup {
         
         
         var outputArray = journey.map { (journey) -> Journey in
-            
-            let outputJourney = journey
+            //class to struct
+            var outputJourney = journey
             var points = Float(outputJourney.humaneScore)
             points += (journey.humanePrice.total / minFare) * 1200
             points += Float(journey.duration) / Float(minDuration) * 1000
@@ -354,8 +355,8 @@ class FlightResultDisplayGroup {
         // set property above human score threadshold bool
         
         outputArray = outputArray.map { (journey) -> Journey in
-            
-            let outputJourney = journey
+            //class to struct
+            var outputJourney = journey
             
             if outputJourney.computedHumanScore ?? 0.0 > (((minHumanScore?.computedHumanScore) ?? 0.0) * 1.26) {
                 outputJourney.isAboveHumanScore = true

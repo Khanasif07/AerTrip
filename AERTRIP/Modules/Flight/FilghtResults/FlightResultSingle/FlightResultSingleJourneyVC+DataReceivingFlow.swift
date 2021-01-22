@@ -37,8 +37,8 @@ extension FlightResultSingleJourneyVC {
         
         
         
-        
-        let modifiedResult = results
+        //class to structure
+        var modifiedResult = results
         
         DispatchQueue.global(qos: .userInteractive).async {
             

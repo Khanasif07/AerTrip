@@ -19,15 +19,20 @@ extension FlightDomesticMultiLegResultVC {
             }
             
             self.flightSearchResultVM.flightLegs[index].updatedFilterResultCount = 0
+            //class t0 structure
+            
+            var modifiedResult = updatedArray
 
-         let modifiedResult = updatedArray
+            
             if modifiedResult.isEmpty{
-                self.viewModel.results[index].selectedJourney = nil
-                self.journeyHeaderViewArray[index].isHidden = true
-            }
-
+               self.viewModel.results[index].selectedJourney = nil
+               self.journeyHeaderViewArray[index].isHidden = true
+           }
+        
+ 
             DispatchQueue.global(qos: .userInteractive).async {
-
+               // DispatchQueue.main.async {
+                
                 self.viewModel.results[index].sort = sortOrder
                 self.viewModel.sortOrder = sortOrder
                 
@@ -89,8 +94,10 @@ extension FlightDomesticMultiLegResultVC {
                 }
                 
                 
-
-                self.viewModel.results[index].journeyArray = modifiedResult
+                DispatchQueue.main.async {
+                    self.viewModel.results[index].journeyArray = modifiedResult
+                }
+                
                 
 //                self.viewModel.setPinnedFlights(tableIndex: index)
                 
@@ -130,7 +137,7 @@ extension FlightDomesticMultiLegResultVC {
 
     
     func applySorting(sortOrder : Sort, isConditionReverced : Bool, legIndex : Int, shouldReload : Bool = false, completion : (()-> Void)){
-//        previousRequest?.cancel()
+        reloadRequestForapplySorting[legIndex]?.cancel()
         self.viewModel.sortOrder = sortOrder
         self.viewModel.isConditionReverced = isConditionReverced
         self.viewModel.prevLegIndex = legIndex
@@ -141,12 +148,12 @@ extension FlightDomesticMultiLegResultVC {
             if shouldReload {
                 guard let tableView = self.baseScrollView.viewWithTag( 1000 + legIndex) as? UITableView else { return }
                 tableView.reloadData()
+  
             }
         }
-        
         completion()
-//        previousRequest = newRequest
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.0, execute: newRequest)
+        reloadRequestForapplySorting[legIndex] = newRequest
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: newRequest)
     }
     
     
@@ -213,6 +220,8 @@ extension FlightDomesticMultiLegResultVC {
     
      func updateUIForTableviewAt(_ index: Int) {
             DispatchQueue.main.async {
+                
+                self.reloadRequestForInitialFlow[index]?.cancel()
                 guard let tableView = self.baseScrollView.viewWithTag( 1000 + index) as? UITableView else { return }
 //                let selectedIndex = tableView.indexPathForSelectedRow
 //                tableView.reloadData()
@@ -260,9 +269,15 @@ extension FlightDomesticMultiLegResultVC {
                 
                 tableView.isScrollEnabled = true
                 tableView.scrollsToTop = true
-                tableView.reloadData()
+               
                 
-            
+                
+                let newRequest = DispatchWorkItem {
+                    tableView.reloadData()
+                }
+
+                self.reloadRequestForInitialFlow[index] = newRequest
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: newRequest)
                 
                 self.setTotalFare()
             }

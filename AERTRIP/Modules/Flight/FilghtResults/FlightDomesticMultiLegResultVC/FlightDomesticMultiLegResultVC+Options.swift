@@ -21,8 +21,8 @@ extension FlightDomesticMultiLegResultVC : MFMailComposeViewControllerDelegate {
         }) else {
             return
         }
-        
-        let journeyToToggle = journeyArray[journeyIndex]
+        //class to structure
+        var journeyToToggle = journeyArray[journeyIndex]
         journeyToToggle.isPinned = isPinned
         journeyArray[journeyIndex] = journeyToToggle
         self.viewModel.results[tableIndex].journeyArray = journeyArray
@@ -86,7 +86,8 @@ extension FlightDomesticMultiLegResultVC : MFMailComposeViewControllerDelegate {
                 var journeyArray = legArray.journeyArray
                    
                    for j in 0 ..<  journeyArray.count {
-                       let journey = journeyArray[j]
+                    //class to structure
+                       var journey = journeyArray[j]
                        journey.isPinned = false
                        journeyArray[j] = journey
                    }
