@@ -19,7 +19,8 @@ class MyBookingFilterVC: BaseVC {
     //        return [travelDateButton, eventTypeButton, bookingDateButton]
     //    }
     
-    private var minDate: Date?
+    var minDate: Date?
+    var maxDate: Date?
     // Parchment View
     fileprivate var parchmentView : PagingViewController?
     private var allChildVCs :[UIViewController] = []
@@ -44,6 +45,7 @@ class MyBookingFilterVC: BaseVC {
     override func initialSetup() {
         self.mainContainerHeightConstraint.constant = 498 + UIApplication.shared.statusBarFrame.height
         self.fetchMinDateFromCoreData()
+        self.fetchMaxDateFromCoreData()
         self.setCounts()
         
         self.topNavBar.configureNavBar(title: "\(MyBookingFilterVM.shared.filteredResultCount) of \(MyBookingFilterVM.shared.totalResultCount) Results", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .clear)
@@ -135,6 +137,14 @@ class MyBookingFilterVC: BaseVC {
             //2019-08-07 00:00:00
             printDebug("Min date \(minDt)")
             self.minDate = minDt.toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
+        }
+    }
+    
+    private func fetchMaxDateFromCoreData() {
+        if let dict = CoreDataManager.shared.fetchData(fromEntity: "BookingData", forAttribute: "dateHeader", usingFunction: "max").first, let maxDt = dict["max"] as? String {
+            
+            printDebug("Max date \(maxDt)")
+            self.maxDate = maxDt.toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
         }
     }
     private func show(animated: Bool) {
@@ -293,6 +303,8 @@ extension MyBookingFilterVC {
         let vc = TravelDateVC.instantiate(fromAppStoryboard: .Bookings)
         vc.delegate = self
         vc.minFromDate = minDate
+        vc.bookingsMinDate = minDate
+        vc.bookingsMaxDate = maxDate
         vc.oldFromDate = MyBookingFilterVM.shared.bookingFromDate
         vc.oldToDate = MyBookingFilterVM.shared.bookingToDate
         vc.currentlyUsingAs = .bookingDate

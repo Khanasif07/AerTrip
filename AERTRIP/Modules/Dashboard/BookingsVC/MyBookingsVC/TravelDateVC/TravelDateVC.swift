@@ -54,7 +54,11 @@ class TravelDateVC: BaseVC {
     var oldFromDate: Date?
     var oldToDate: Date?
     var minFromDate: Date?
+
     
+    var bookingsMinDate: Date?
+    var bookingsMaxDate: Date?
+
     private let dateFormate = "E, dd MMM YYYY"
     
     private let closedHeight: CGFloat = 45.0, openedHeight: CGFloat = 259.0
@@ -251,13 +255,22 @@ class TravelDateVC: BaseVC {
 //                self.closeBothPicker(animated: false)
 //            }
             
-            self.fromDatePicker?.minimumDate = self.minFromDate
+//            self.fromDatePicker?.minimumDate = self.minFromDate
 //            self.fromDatePicker.minimumDate = Date().add(years: -2)
-            self.fromDatePicker?.maximumDate = Date().add(years: 2)
+//            self.fromDatePicker?.maximumDate = Date().add(years: 2)
             
-            self.toDatePicker?.minimumDate = self.minFromDate
+//            self.toDatePicker?.minimumDate = self.minFromDate
 //            self.toDatePicker.minimumDate = Date().add(years: -2)
-            self.toDatePicker?.maximumDate = Date().add(years: 2)
+//            self.toDatePicker?.maximumDate = Date().add(years: 2)
+            
+            
+            
+            self.fromDatePicker.minimumDate = self.bookingsMinDate
+            self.fromDatePicker.maximumDate = self.bookingsMaxDate
+            
+            self.toDatePicker.minimumDate = self.bookingsMinDate
+            self.toDatePicker.maximumDate = self.bookingsMaxDate
+
             
             self.fromDatePicker?.setDate(self.oldFromDate ?? Date(), animated: false)
             self.toDatePicker?.setDate(self.oldToDate ?? Date(), animated: false)

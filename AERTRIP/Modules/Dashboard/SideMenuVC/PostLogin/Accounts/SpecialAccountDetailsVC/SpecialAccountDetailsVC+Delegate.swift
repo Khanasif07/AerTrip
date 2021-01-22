@@ -141,7 +141,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
 //                else if let sym = self.viewModel.statementSummery[indexPath.row].symbol, sym == "=" {
 //                    cell.stackViewTop.constant = 2.0
 //                }
-                
+                                
                 return cell
                 
             //credit summery
@@ -262,9 +262,32 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
         
         cell.event = withData
         if isForOther{
+//            cell.shimmerView.addShimmerEffect(to: [cell.shimmerView])
+            cell.shimmerView.backgroundColor = UIColor(displayP3Red: (238.0/255.0), green: (239.0/255.0), blue: (242.0/255.0), alpha: 1)
+
+            
+            if self.time > 0.8{
+                cell.titleLabel.isHidden = false
+                cell.shimmerView.isHidden = true
+                cell.shimmerView.stopShimmer()
+            }else{
+                cell.titleLabel.isHidden = true
+                cell.shimmerView.isHidden = false
+                cell.shimmerView.startShimmer()
+            }
             cell.mainStackHeight.constant = 42
         }else{
             cell.mainStackHeight.constant = 35
+            
+            if self.time > 0.8{
+                cell.amountLabel.textColor = .themeBlack
+                cell.amountLabel.backgroundColor = .clear
+                cell.amountLabel.stopShimmer()
+            }else{
+                cell.amountLabel.textColor = .clear
+                cell.amountLabel.backgroundColor = UIColor(displayP3Red: (238.0/255.0), green: (239.0/255.0), blue: (242.0/255.0), alpha: 1)
+                cell.amountLabel.startShimmer()
+            }
         }
         cell.topDividerView.isHidden = !isFirstCell
         return cell
@@ -275,11 +298,19 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         
-        
         cell.configure(amount: amount, dateStr: dateStr)
-        self.depositButton = cell.depositButton        
+        self.depositButton = cell.depositButton
         cell.depositButton.addTarget(self, action: #selector(self.depositButtonAction(_:)), for: .touchUpInside)
         
+        if self.time > 0.8{
+            cell.amountLabel.textColor = .themeBlack
+            cell.amountLabel.backgroundColor = .clear
+            cell.amountLabel.stopShimmer()
+        }else{
+            cell.amountLabel.textColor = .clear
+            cell.amountLabel.backgroundColor = UIColor(displayP3Red: (238.0/255.0), green: (239.0/255.0), blue: (242.0/255.0), alpha: 1)
+            cell.amountLabel.startShimmer()
+        }
         return cell
     }
     
@@ -358,6 +389,8 @@ class AccountSummeryCell: UITableViewCell {
     @IBOutlet weak var mainStackHeight: NSLayoutConstraint!
     @IBOutlet weak var topDividerView: ATDividerView!
     
+    @IBOutlet weak var shimmerView: UIView!
+
     //MARK:- Life Cycle
     //MARK:-
     override func awakeFromNib() {

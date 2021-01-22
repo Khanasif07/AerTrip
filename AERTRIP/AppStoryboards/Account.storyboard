@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -1095,6 +1095,10 @@
                                                         <constraint firstAttribute="height" constant="35" id="TST-F2-19g"/>
                                                     </constraints>
                                                 </stackView>
+                                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lgy-7f-ZuP">
+                                                    <rect key="frame" x="16" y="7" width="382" height="35"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qQF-Bc-zo2" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="0.5"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1104,13 +1108,17 @@
                                                 </view>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="Lgy-7f-ZuP" firstAttribute="top" secondItem="qv2-5j-sRR" secondAttribute="top" constant="5" id="J62-lZ-fSR"/>
                                                 <constraint firstItem="qQF-Bc-zo2" firstAttribute="leading" secondItem="dNa-f9-Cfc" secondAttribute="leading" id="JFA-Bi-AjS"/>
+                                                <constraint firstItem="Lgy-7f-ZuP" firstAttribute="bottom" secondItem="qv2-5j-sRR" secondAttribute="bottom" constant="5" id="Mqg-FM-27Y"/>
                                                 <constraint firstAttribute="trailing" secondItem="qv2-5j-sRR" secondAttribute="trailing" constant="16" id="PC4-7H-rWT"/>
                                                 <constraint firstItem="qv2-5j-sRR" firstAttribute="top" secondItem="dNa-f9-Cfc" secondAttribute="top" constant="2" id="Psu-Xr-mjU"/>
+                                                <constraint firstItem="Lgy-7f-ZuP" firstAttribute="leading" secondItem="qv2-5j-sRR" secondAttribute="leading" id="QeX-se-81p"/>
                                                 <constraint firstItem="qQF-Bc-zo2" firstAttribute="top" secondItem="dNa-f9-Cfc" secondAttribute="top" id="R8p-Kp-frp"/>
                                                 <constraint firstAttribute="bottom" secondItem="Li4-hx-RnE" secondAttribute="bottom" id="bVm-xC-pak"/>
                                                 <constraint firstAttribute="trailing" secondItem="qQF-Bc-zo2" secondAttribute="trailing" id="f36-bx-dPw"/>
                                                 <constraint firstItem="qv2-5j-sRR" firstAttribute="leading" secondItem="dNa-f9-Cfc" secondAttribute="leading" constant="16" id="oCM-MP-Glc"/>
+                                                <constraint firstAttribute="trailing" secondItem="Lgy-7f-ZuP" secondAttribute="trailing" constant="16" id="tmk-kb-rQm"/>
                                                 <constraint firstItem="Li4-hx-RnE" firstAttribute="leading" secondItem="dNa-f9-Cfc" secondAttribute="leading" constant="16" id="uLd-Nc-tKS"/>
                                                 <constraint firstAttribute="trailing" secondItem="Li4-hx-RnE" secondAttribute="trailing" constant="16" id="zGT-tx-TWA"/>
                                             </constraints>
@@ -1125,6 +1133,7 @@
                                             <outlet property="dividerViewLeadingConstraint" destination="uLd-Nc-tKS" id="FUT-Ht-eu4"/>
                                             <outlet property="dividerViewTrailingConstraint" destination="zGT-tx-TWA" id="udn-Vr-wFA"/>
                                             <outlet property="mainStackHeight" destination="TST-F2-19g" id="hu8-EB-UXq"/>
+                                            <outlet property="shimmerView" destination="Lgy-7f-ZuP" id="gCr-Et-pin"/>
                                             <outlet property="stackViewTop" destination="Psu-Xr-mjU" id="FWd-gq-yhz"/>
                                             <outlet property="symbolLabel" destination="Tze-0q-rn3" id="8JB-LP-XIC"/>
                                             <outlet property="titleLabel" destination="tNL-Gp-xSs" id="47v-np-hhe"/>
