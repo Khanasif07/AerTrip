@@ -1451,7 +1451,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                 filterUpdateWorkItem[index] = DispatchWorkItem {
                     singleJourneyVC.viewModel.updatedApiProgress = self.updatedApiProgress
                     singleJourneyVC.viewModel.airlineCode = self.airlineCode
-                    
+                    self.airlineCode = ""
                     let sharedSortOrder = self.calculateSortOrder()
 
                     singleJourneyVC.updateWithArray( resultVM.getOnewayJourneyDisplayArray(), sortOrder: sharedSortOrder.0)
@@ -1467,8 +1467,9 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
             
         case RETURN_JOURNEY:
             domesticMultiLegResultVC?.updatedApiProgress = updatedApiProgress
-            domesticMultiLegResultVC?.viewModel.airlineCode = airlineCode
-           
+            domesticMultiLegResultVC?.viewModel.airlineCode = self.airlineCode
+            self.airlineCode = ""
+
             if flightSearchResultVM.isDomestic {
                 if filterUpdateWorkItem.indices.contains(index), let item = filterUpdateWorkItem[index] {
                     item.cancel()
@@ -1501,6 +1502,8 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                 let journeyArray = resultVM.getIntJourneyDisplayArrayFor(index: index)
                 guard let intMCAndReturnVC = self.intMultiLegResultVC else { return }
                 intMCAndReturnVC.airlineCode = self.airlineCode
+                self.airlineCode = ""
+
                 let sharedSortOrder = self.calculateSortOrder()
                 intMCAndReturnVC.updateWithArray( journeyArray, sortOrder: sharedSortOrder.0)
                 intMCAndReturnVC.updateAirportDetailsArray(resultVM.getAllIntAirportsArray())

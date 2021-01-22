@@ -104,7 +104,7 @@ extension APICaller {
         AppNetworking.GET(endPoint: .userMeta,parameters: params,success: {[weak self] data in
             guard let self = self else {return}
             self.handleResponse(data) { (success, data) in
-    
+                printDebug(data[APIKeys.data.rawValue])
                 completionBlock(true,UserAccountDetail(json: data[APIKeys.data.rawValue])  , [])
             } failure: { (errorCode) in
                 completionBlock(false, nil ,errorCode)

@@ -88,10 +88,11 @@ extension FlightDomesticMultiLegResultVC {
                     
                 }
                 
-                
+               
+                DispatchQueue.main.async {
+                    self.viewModel.results[index].journeyArray = modifiedResult
+                }
 
-                self.viewModel.results[index].journeyArray = modifiedResult
-                
 //                self.viewModel.setPinnedFlights(tableIndex: index)
                 
                 self.applySorting(sortOrder: self.viewModel.sortOrder, isConditionReverced: self.viewModel.isConditionReverced, legIndex: index, completion: {

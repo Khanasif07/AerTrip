@@ -98,7 +98,7 @@ struct UserAccountDetail {
         }
         
         if !billingAddress.city.isEmpty{
-            addressStr.append(billingAddress.city + ",\n")
+            addressStr.append(billingAddress.city + " ")
         }
         
         if !billingAddress.postalCode.isEmpty{
@@ -106,7 +106,7 @@ struct UserAccountDetail {
         }
         
         if !billingAddress.state.isEmpty{
-            addressStr.append(billingAddress.state + ",\n")
+            addressStr.append(billingAddress.state + ", ")
         }
         
         if !billingAddress.countryName.isEmpty{
