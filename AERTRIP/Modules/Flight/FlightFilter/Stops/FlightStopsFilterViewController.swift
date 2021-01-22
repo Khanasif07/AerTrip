@@ -90,6 +90,23 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
         }
         hideShowOvernightView()
         resetAvoidChangeOfAirportsBtn()
+        checkIfLeastStopsSelected()
+    }
+    
+    private func checkIfLeastStopsSelected() {
+        var isSelected = true
+        for filter in viewModel.allStopsFilters {
+            if filter.userSelectedStops.count == 1 {
+                if !filter.userSelectedStops.contains(filter.availableStops.sorted().first ?? 0) {
+                    isSelected = false
+                    break
+                }
+            } else {
+                isSelected = false
+                break
+            }
+        }
+        leastStopsButton.isSelected = isSelected
     }
     
     func resetFilter() {
