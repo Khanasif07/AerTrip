@@ -262,34 +262,14 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
         
         cell.event = withData
         if isForOther{
-//            cell.shimmerView.addShimmerEffect(to: [cell.shimmerView])
-            cell.shimmerView.backgroundColor = UIColor(displayP3Red: (238.0/255.0), green: (239.0/255.0), blue: (242.0/255.0), alpha: 1)
-
-            
-            if self.time > 0.8{
-                cell.titleLabel.isHidden = false
-                cell.shimmerView.isHidden = true
-                cell.shimmerView.stopShimmer()
-            }else{
-                cell.titleLabel.isHidden = true
-                cell.shimmerView.isHidden = false
-                cell.shimmerView.startShimmer()
-            }
             cell.mainStackHeight.constant = 42
         }else{
             cell.mainStackHeight.constant = 35
-            
-            if self.time > 0.8{
-                cell.amountLabel.textColor = .themeBlack
-                cell.amountLabel.backgroundColor = .clear
-                cell.amountLabel.stopShimmer()
-            }else{
-                cell.amountLabel.textColor = .clear
-                cell.amountLabel.backgroundColor = UIColor(displayP3Red: (238.0/255.0), green: (239.0/255.0), blue: (242.0/255.0), alpha: 1)
-                cell.amountLabel.startShimmer()
-            }
         }
+
         cell.topDividerView.isHidden = !isFirstCell
+        
+        cell.displayShimmer(time: time, isForOther: isForOther)
         return cell
     }
     
@@ -302,15 +282,8 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
         self.depositButton = cell.depositButton
         cell.depositButton.addTarget(self, action: #selector(self.depositButtonAction(_:)), for: .touchUpInside)
         
-        if self.time > 0.8{
-            cell.amountLabel.textColor = .themeBlack
-            cell.amountLabel.backgroundColor = .clear
-            cell.amountLabel.stopShimmer()
-        }else{
-            cell.amountLabel.textColor = .clear
-            cell.amountLabel.backgroundColor = UIColor(displayP3Red: (238.0/255.0), green: (239.0/255.0), blue: (242.0/255.0), alpha: 1)
-            cell.amountLabel.startShimmer()
-        }
+        cell.displayDepositeShimmer(time: self.time)
+        
         return cell
     }
     
@@ -456,6 +429,33 @@ class AccountSummeryCell: UITableViewCell {
     }
     
     //MARK:- Public
+    
+    func displayShimmer(time:Float,isForOther:Bool){
+        if isForOther{
+            shimmerView.backgroundColor = UIColor(displayP3Red: (238.0/255.0), green: (239.0/255.0), blue: (242.0/255.0), alpha: 1)
+
+            if time > 0.8{
+                titleLabel.isHidden = false
+                shimmerView.isHidden = true
+                shimmerView.stopShimmer()
+            }else{
+                titleLabel.isHidden = true
+                shimmerView.isHidden = false
+                shimmerView.startShimmer()
+            }
+        }else{
+            if time > 0.8{
+                amountLabel.textColor = .themeBlack
+                amountLabel.backgroundColor = .clear
+                amountLabel.stopShimmer()
+            }else{
+                amountLabel.textColor = .clear
+                amountLabel.backgroundColor = UIColor(displayP3Red: (238.0/255.0), green: (239.0/255.0), blue: (242.0/255.0), alpha: 1)
+                amountLabel.startShimmer()
+            }
+        }
+    }
+    
     private func configureHeader(title: String) {
         self.resetAllSubViews()
         amountStackView.isHidden = false
@@ -570,7 +570,22 @@ class AccountDepositCell: UITableViewCell {
     
     //MARK:- Public
     
-    
+    func displayDepositeShimmer(time:Float){
+        if time > 0.8{
+            amountLabel.textColor = .themeBlack
+            amountLabel.backgroundColor = .clear
+            amountLabel.stopShimmer()
+            
+            self.depositButton.isEnabled = true
+
+        }else{
+            amountLabel.textColor = .clear
+            amountLabel.backgroundColor = UIColor(displayP3Red: (238.0/255.0), green: (239.0/255.0), blue: (242.0/255.0), alpha: 1)
+            amountLabel.startShimmer()
+            
+            self.depositButton.isEnabled = false
+        }
+    }
     //MARK:- Methods
     //MARK:- Private
     func configure(amount: Double, dateStr: String) {
