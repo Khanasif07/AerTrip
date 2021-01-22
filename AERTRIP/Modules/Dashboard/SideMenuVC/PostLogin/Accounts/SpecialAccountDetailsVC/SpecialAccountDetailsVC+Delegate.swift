@@ -268,12 +268,10 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
             
             if self.time > 0.8{
                 cell.titleLabel.isHidden = false
-                cell.symbolLabel.isHidden = false
                 cell.shimmerView.isHidden = true
                 cell.shimmerView.stopShimmer()
             }else{
                 cell.titleLabel.isHidden = true
-                cell.symbolLabel.isHidden = true
                 cell.shimmerView.isHidden = false
                 cell.shimmerView.startShimmer()
             }
@@ -281,17 +279,15 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
         }else{
             cell.mainStackHeight.constant = 35
             
-//            if self.time > 0.8{
-//                cell.amountLabel.textColor = .themeBlack
-//                cell.amountLabel.backgroundColor = .clear
-//                cell.amountLabel.stopShimmer()
-//            }else{
-//                cell.amountLabel.textColor = .clear
-//                cell.amountLabel.backgroundColor = UIColor(displayP3Red: (238.0/255.0), green: (239.0/255.0), blue: (242.0/255.0), alpha: 1)
-//                cell.amountLabel.startShimmer()
-//            }
-            
-//            cell.amountLabel.addShimmerEffect(to: [cell.amountLabel])
+            if self.time > 0.8{
+                cell.amountLabel.textColor = .themeBlack
+                cell.amountLabel.backgroundColor = .clear
+                cell.amountLabel.stopShimmer()
+            }else{
+                cell.amountLabel.textColor = .clear
+                cell.amountLabel.backgroundColor = UIColor(displayP3Red: (238.0/255.0), green: (239.0/255.0), blue: (242.0/255.0), alpha: 1)
+                cell.amountLabel.startShimmer()
+            }
         }
         cell.topDividerView.isHidden = !isFirstCell
         return cell
@@ -305,7 +301,6 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
         cell.configure(amount: amount, dateStr: dateStr)
         self.depositButton = cell.depositButton
         cell.depositButton.addTarget(self, action: #selector(self.depositButtonAction(_:)), for: .touchUpInside)
-        
         
         if self.time > 0.8{
             cell.amountLabel.textColor = .themeBlack
@@ -410,17 +405,6 @@ class AccountSummeryCell: UITableViewCell {
         }
     }
     
-//
-//    override func layoutIfNeeded() {
-//        self.addShimmerEffect(to: [self.amountLabel])
-//
-//    }
-//
-//    override func layoutSubviews() {
-//        self.addShimmerEffect(to: [self.amountLabel])
-//
-//    }
-    
     //MARK:- Properties
     //MARK:- Private
     private func resetAllSubViews() {
@@ -511,11 +495,6 @@ class AccountSummeryCell: UITableViewCell {
         self.amountLabel.font = AppFonts.Regular.withSize(16.0)
         self.amountLabel.textColor = AppColors.themeBlack
         self.amountLabel.attributedText = amount.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
-        
-//        self.amountLabel.addShimmerEffect(to: [s.amountLabel])
-
-        self.addShimmerEffect(to: [self.amountLabel])
-        self.layoutIfNeeded()
     }
     
     private func configureGrandTotal(title: String, totalAmount: String) {
@@ -535,9 +514,6 @@ class AccountSummeryCell: UITableViewCell {
         self.amountLabel.font = AppFonts.SemiBold.withSize(16.0)
         self.amountLabel.textColor = AppColors.themeBlack
         self.amountLabel.attributedText = totalAmount.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
-        
-        self.addShimmerEffect(to: [self.amountLabel])
-        self.layoutIfNeeded()
     }
     
     private func configureNext(title: String) {
