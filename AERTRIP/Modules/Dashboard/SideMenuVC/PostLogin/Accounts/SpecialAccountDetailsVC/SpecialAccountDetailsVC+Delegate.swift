@@ -141,7 +141,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
 //                else if let sym = self.viewModel.statementSummery[indexPath.row].symbol, sym == "=" {
 //                    cell.stackViewTop.constant = 2.0
 //                }
-                
+                                
                 return cell
                 
             //credit summery
@@ -262,8 +262,20 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
         
         cell.event = withData
         if isForOther{
+            cell.shimmerView.addShimmerEffect(to: [cell.shimmerView])
+
+            
+            if self.time > 0.8{
+                cell.shimmerView.isHidden = true
+            }else{
+                cell.shimmerView.isHidden = false
+            }
             cell.mainStackHeight.constant = 42
         }else{
+
+//            cell.amountLabel.text = "        "
+//            cell.amountLabel.addShimmerEffect(to: [cell.amountLabel])
+            
             cell.mainStackHeight.constant = 35
         }
         cell.topDividerView.isHidden = !isFirstCell
@@ -275,9 +287,8 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         
-        
         cell.configure(amount: amount, dateStr: dateStr)
-        self.depositButton = cell.depositButton        
+        self.depositButton = cell.depositButton
         cell.depositButton.addTarget(self, action: #selector(self.depositButtonAction(_:)), for: .touchUpInside)
         
         return cell
@@ -358,6 +369,8 @@ class AccountSummeryCell: UITableViewCell {
     @IBOutlet weak var mainStackHeight: NSLayoutConstraint!
     @IBOutlet weak var topDividerView: ATDividerView!
     
+    @IBOutlet weak var shimmerView: UIView!
+
     //MARK:- Life Cycle
     //MARK:-
     override func awakeFromNib() {
