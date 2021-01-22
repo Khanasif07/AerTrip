@@ -68,6 +68,10 @@ extension BookingData {
     
     //Requests
     @NSManaged public var stepsArray: Array<String>?
+    
+    //Searched By Flight number
+    @NSManaged public var flightNumbers: String?
+    @NSManaged public var airlines: String?
 }
 
 

@@ -181,6 +181,11 @@ public class BookingData: NSManagedObject {
             if let date = obj["event_start_date"] as? String, let endDate = obj["event_end_date"] as? String ,let status = booking?.bookingStatus {
                 booking?.bookingTabType = bookingType(forDate: date, date: endDate, bstatus: status)
             }
+            //Searched By Flight number
+            booking?.flightNumbers = (obj["flight_number"] as? [String])?.joined(separator: ",")
+            if let airlines = obj["airlines"] as? JSONDictionary {
+                booking?.airlines = airlines.map({"\($0.0) \($0.1 as? String ?? "")"}).joined(separator: ",")
+            }
         }
         
         //manage the header date
