@@ -345,6 +345,7 @@ class HotelFilterVC: BaseVC {
     
     @IBAction func clearAllButtonTapped(_ sender: Any) {
         // self.hide(animated: true, shouldRemove: true)
+        UserInfo.hotelFilter = nil
         delegate?.clearAllButtonTapped()
         reloadMenu()
         self.allChildVCs.forEach { (viewController) in

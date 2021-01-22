@@ -66,6 +66,7 @@ class RatingVC: BaseVC {
     
     func setFilterValues() {
         guard let filter = UserInfo.hotelFilter else {
+            self.filterApplied = UserInfo.HotelFilter()
             printDebug("filter not found")
             HotelFilterVM.shared.resetToDefault()
             //HotelFilterVM.shared.ratingCount.removeAll()
