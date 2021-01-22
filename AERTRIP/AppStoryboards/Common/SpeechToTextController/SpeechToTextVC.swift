@@ -50,12 +50,12 @@ class SpeechToTextVC: BaseVC {
     
     private var waveContainerHeightConstant: CGFloat {
         let waveContainerHeight: CGFloat = 180
-        return waveContainerHeight + view.safeAreaInsets.bottom
+        return waveContainerHeight //+ view.safeAreaInsets.bottom
     }
     
     private var heightOfPopOverView:CGFloat{
         let popOverViewHeight: CGFloat = 270
-        return popOverViewHeight + view.safeAreaInsets.bottom
+        return popOverViewHeight //+ view.safeAreaInsets.bottom
     }
     
     var setupForView: SetupForViewType = .waveAnimation {
@@ -72,14 +72,17 @@ class SpeechToTextVC: BaseVC {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         setWaveContainerView()
-        UIView.animate(withDuration: 0.3) {
-            self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
-        }
+//        UIView.animate(withDuration: 0.3) {
+//            self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 //        self.statusBarStyle = .darkConten
+        UIView.animate(withDuration: 0.7) {
+            self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -113,6 +116,7 @@ class SpeechToTextVC: BaseVC {
     internal override func initialSetup() {
         view.backgroundColor = UIColor.black.withAlphaComponent(0)
 //        messageTextView.delegate = self
+        setWaveContainerView()
         speechRecognizer.delegate = self
         setupSubViews()
     }
@@ -190,9 +194,10 @@ class SpeechToTextVC: BaseVC {
     
     private func setWaveContainerView() {
         waveAnimationContainerView.backgroundColor = .clear
-        waveAnimationContainerViewHeight.constant = waveContainerHeightConstant
-        alignmentViewHeight.constant = waveContainerHeightConstant
-        waveAnimationContainerViewBottom.constant = view.safeAreaInsets.bottom
+//        waveAnimationContainerViewHeight.constant = waveContainerHeightConstant
+//        alignmentViewHeight.constant = waveContainerHeightConstant
+//        waveAnimationContainerViewBottom.constant = 0//view.safeAreaInsets.bottom
+        self.view.layoutIfNeeded()
     }
         
     private func setUpAttributes(){

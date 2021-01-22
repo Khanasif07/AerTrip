@@ -24,7 +24,7 @@ extension HotelsMapVC: UITableViewDataSource, UITableViewDelegate {
         }
         else if (self.viewModel.fetchRequestType == .Searching) {
             self.manageFloatingView(isHidden: true)
-            self.hotelSearchView.isHidden = !searchBar.isFirstResponder//false
+            self.hotelSearchView.isHidden = false//!searchBar.isFirstResponder//false
             self.hotelSearchTableView.backgroundView = self.noResultemptyView
             if !self.viewModel.searchedHotels.isEmpty {
                 self.hotelSearchTableView.backgroundView?.isHidden = true
