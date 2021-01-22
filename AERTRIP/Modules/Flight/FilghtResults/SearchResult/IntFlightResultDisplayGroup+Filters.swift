@@ -1003,12 +1003,12 @@ extension IntFlightResultDisplayGroup  {
             if selectedOriginAirports.isEmpty && selectedDestinationAirports.isEmpty {
                 return true
             } else if selectedOriginAirports.isEmpty {
-                return selectedDestinationAirports.contains(journey.legsWithDetail[0].destinationIATACode) && selectedDestinationAirports.contains(journey.legsWithDetail[1].originIATACode)
+                return selectedDestinationAirports.contains(journey.legsWithDetail[0].destinationIATACode) || selectedDestinationAirports.contains(journey.legsWithDetail[1].originIATACode)
                 
             } else if selectedDestinationAirports.isEmpty {
-                return selectedOriginAirports.contains(journey.legsWithDetail[0].originIATACode) && selectedOriginAirports.contains(journey.legsWithDetail[1].destinationIATACode)
+                return selectedOriginAirports.contains(journey.legsWithDetail[0].originIATACode) || selectedOriginAirports.contains(journey.legsWithDetail[1].destinationIATACode)
             } else {
-                return selectedDestinationAirports.contains(journey.legsWithDetail[0].destinationIATACode) && selectedDestinationAirports.contains(journey.legsWithDetail[1].originIATACode) && selectedOriginAirports.contains(journey.legsWithDetail[0].originIATACode) && selectedOriginAirports.contains(journey.legsWithDetail[1].destinationIATACode)
+                return selectedDestinationAirports.contains(journey.legsWithDetail[0].destinationIATACode) && selectedDestinationAirports.contains(journey.legsWithDetail[1].originIATACode) || selectedOriginAirports.contains(journey.legsWithDetail[0].originIATACode) && selectedOriginAirports.contains(journey.legsWithDetail[1].destinationIATACode)
             }
         })
         
