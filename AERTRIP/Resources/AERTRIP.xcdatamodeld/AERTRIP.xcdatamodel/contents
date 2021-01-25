@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19F101" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17192" systemVersion="19G73" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="BookingData" representedClassName="BookingData" syncable="YES">
         <attribute name="actionRequired" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="airlines" optional="YES" attributeType="String"/>
         <attribute name="bookingDate" optional="YES" attributeType="String"/>
         <attribute name="bookingId" optional="YES" attributeType="String"/>
         <attribute name="bookingNumber" optional="YES" attributeType="String"/>
@@ -17,6 +18,7 @@
         <attribute name="eventEndDate" optional="YES" attributeType="String"/>
         <attribute name="eventStartDate" optional="YES" attributeType="String"/>
         <attribute name="eventType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="flightNumbers" optional="YES" attributeType="String"/>
         <attribute name="guestCount" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="hotelName" optional="YES" attributeType="String"/>
         <attribute name="isContainsPending" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -89,7 +91,7 @@
         <attribute name="salutation" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="BookingData" positionX="72" positionY="-225" width="128" height="553"/>
+        <element name="BookingData" positionX="72" positionY="-225" width="128" height="583"/>
         <element name="HotelSearched" positionX="200.703125" positionY="-343.6796875" width="128" height="553"/>
         <element name="TravellerData" positionX="-55.05078125" positionY="-381.27734375" width="128" height="253"/>
     </elements>

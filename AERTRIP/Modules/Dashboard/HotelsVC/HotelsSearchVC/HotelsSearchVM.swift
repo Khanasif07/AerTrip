@@ -30,7 +30,7 @@ class HotelsSearchVM: NSObject{
     var recentSearchesData: [RecentSearchesModel]?
     var searchedFormData: HotelFormPreviosSearchData = HotelFormPreviosSearchData()
     var nearMeLocation: SearchedDestination?
-
+    static var isComminFromRecentWhatNext = false
     class var hotelFormData: HotelFormPreviosSearchData {
         get {
             return UserDefaults.standard.retrieve(objectType: HotelFormPreviosSearchData.self, fromKey: APIKeys.hotelFormPreviosSearchData.rawValue) ?? HotelFormPreviosSearchData()
@@ -38,6 +38,39 @@ class HotelsSearchVM: NSObject{
         set {
             UserDefaults.standard.save(customObject: newValue, inKey: APIKeys.hotelFormPreviosSearchData.rawValue)
         }
+    }
+    
+    func createSearchedFormDataFromRecentRearch()-> HotelFormPreviosSearchData?{
+        
+        if let recentSearch = self.recentSearchesData?.first, !HotelsSearchVM.isComminFromRecentWhatNext{
+            var seachedData = HotelFormPreviosSearchData()
+            seachedData.destId = recentSearch.dest_id
+//            seachedData.cityName = recentSearch.
+            seachedData.destType = recentSearch.dest_type
+            var splittedStringArray = recentSearch.dest_name.components(separatedBy: ",")
+            let city = splittedStringArray.removeFirst()
+            if seachedData.destType != "Hotel"{
+                seachedData.cityName = city
+            }
+            let stateName = splittedStringArray.joined(separator: ",")
+            seachedData.stateName = stateName
+            seachedData.lat = recentSearch.lat
+            seachedData.lng = recentSearch.lng
+            seachedData.destName = recentSearch.dest_name
+            seachedData.destId = recentSearch.dest_id
+            
+            seachedData.checkInDate = Date().toString(dateFormat: "yyyy-MM-dd")
+            seachedData.checkOutDate = Date().add(years: 0, months: 0, days: 1, hours: 0, minutes: 0, seconds: 0)?.toString(dateFormat: "yyyy-MM-dd") ?? ""
+
+            seachedData.roomNumber     =  1
+            seachedData.adultsCount    = [2]
+            HotelsSearchVM.isComminFromRecentWhatNext = false
+            return seachedData
+//            HotelsSearchVM.hotelFormData = seachedData
+        }
+        
+        return nil
+        
     }
     
     func canSetRecentSearch() -> Bool {

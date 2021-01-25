@@ -146,7 +146,17 @@ class HotlelBookingsDetailsVC: BaseVC {
     
     private func configureTableHeaderView(hideDivider: Bool) {
         if let view = self.headerView {
-            view.configureUI(bookingEventTypeImage: self.eventTypeImage, bookingIdStr: self.viewModel.bookingDetail?.id ?? "", bookingIdNumbers: self.viewModel.bookingDetail?.bookingNumber ?? "", date: self.viewModel.bookingDetail?.bookingDate?.toString(dateFormat: "d MMM’ yy") ?? "")
+            
+            var dateToDisplay = ""
+            let date = self.viewModel.bookingDetail?.bookingDate?.toString(dateFormat: "d MMM yy") ?? ""
+            if !date.isEmpty{
+                var newDate = date
+                newDate.insert(contentsOf: "’", at: newDate.index(newDate.startIndex, offsetBy: newDate.count-2))
+                dateToDisplay = newDate
+            }
+            
+            view.configureUI(bookingEventTypeImage: self.eventTypeImage, bookingIdStr: self.viewModel.bookingDetail?.id ?? "", bookingIdNumbers: self.viewModel.bookingDetail?.bookingNumber ?? "", date: dateToDisplay)
+            //self.viewModel.bookingDetail?.bookingDate?.toString(dateFormat: "d MMM’ yy") ?? "")
             
             //view.dividerView.isHidden = hideDivider //true
             view.isBottomStroke = false

@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -35,6 +36,10 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="THK-DK-Zyp">
                     <rect key="frame" x="0.0" y="0.0" width="422" height="166"/>
                     <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1ne-Za-ECP">
+                            <rect key="frame" x="0.0" y="0.0" width="422" height="158"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Utx-fw-8ZA">
                             <rect key="frame" x="8" y="118" width="406" height="38"/>
                             <subviews>
@@ -145,9 +150,10 @@ Fees</string>
                             </constraints>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="GzG-eT-Nq9" secondAttribute="trailing" id="1SC-Ow-Nac"/>
+                        <constraint firstItem="1ne-Za-ECP" firstAttribute="bottom" secondItem="Utx-fw-8ZA" secondAttribute="bottom" constant="2" id="6e5-Zs-DyW"/>
                         <constraint firstItem="Utx-fw-8ZA" firstAttribute="leading" secondItem="THK-DK-Zyp" secondAttribute="leading" constant="8" id="9rv-Bt-v4X"/>
                         <constraint firstItem="GzG-eT-Nq9" firstAttribute="leading" secondItem="THK-DK-Zyp" secondAttribute="leading" id="DCZ-Gi-NzA"/>
                         <constraint firstItem="dXJ-Sz-lnR" firstAttribute="centerX" secondItem="THK-DK-Zyp" secondAttribute="centerX" id="Fpz-lL-rGe"/>
@@ -155,9 +161,12 @@ Fees</string>
                         <constraint firstAttribute="height" constant="166" id="Odo-bo-120"/>
                         <constraint firstAttribute="bottom" secondItem="GzG-eT-Nq9" secondAttribute="bottom" constant="-1.3999999999999999" id="Si6-od-Xio"/>
                         <constraint firstAttribute="trailing" secondItem="dXJ-Sz-lnR" secondAttribute="trailing" constant="8" id="Ykz-ss-rXh"/>
+                        <constraint firstAttribute="trailing" secondItem="1ne-Za-ECP" secondAttribute="trailing" id="d49-H9-1fn"/>
                         <constraint firstItem="Utx-fw-8ZA" firstAttribute="top" secondItem="dXJ-Sz-lnR" secondAttribute="bottom" constant="10" id="isz-IF-Mez"/>
                         <constraint firstAttribute="bottom" secondItem="Utx-fw-8ZA" secondAttribute="bottom" constant="10" id="ivD-nP-W5p"/>
+                        <constraint firstItem="1ne-Za-ECP" firstAttribute="leading" secondItem="THK-DK-Zyp" secondAttribute="leading" id="ke3-o8-f1S"/>
                         <constraint firstItem="dXJ-Sz-lnR" firstAttribute="top" secondItem="THK-DK-Zyp" secondAttribute="top" constant="16" id="qbv-s3-aDk"/>
+                        <constraint firstItem="1ne-Za-ECP" firstAttribute="top" secondItem="THK-DK-Zyp" secondAttribute="top" id="tWb-wR-6Fl"/>
                         <constraint firstAttribute="trailing" secondItem="Utx-fw-8ZA" secondAttribute="trailing" constant="8" id="zGX-KY-yEE"/>
                     </constraints>
                 </view>
@@ -174,4 +183,9 @@ Fees</string>
             <point key="canvasLocation" x="143.47826086956522" y="158.1521739130435"/>
         </view>
     </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

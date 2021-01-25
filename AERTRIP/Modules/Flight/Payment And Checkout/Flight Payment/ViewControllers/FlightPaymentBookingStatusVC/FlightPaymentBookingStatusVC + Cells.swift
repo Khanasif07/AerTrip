@@ -198,6 +198,7 @@ extension FlightPaymentBookingStatusVC{
             splittedStringArray.removeFirst()
             let stateName = splittedStringArray.joined(separator: ",")
             hotelData.stateName = stateName
+            HotelsSearchVM.isComminFromRecentWhatNext = true
             HotelsSearchVM.hotelFormData = hotelData
             AppFlowManager.default.goToDashboard(toBeSelect: .hotels)
         }

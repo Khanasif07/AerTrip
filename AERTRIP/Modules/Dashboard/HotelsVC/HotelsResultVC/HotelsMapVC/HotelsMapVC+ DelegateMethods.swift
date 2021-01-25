@@ -52,6 +52,16 @@ extension HotelsMapVC: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
     }
     
+    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
+        self.searchBar.resignFirstResponder()
+        animateHeaderToMapView()
+        self.viewModel.fetchRequestType = .Searching
+        self.hotelSearchTableView.backgroundView = nil
+        self.showSearchAnimation()
+        self.reloadHotelList()
+        AppFlowManager.default.moveToSpeechToText(with: self)
+    }
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.view.endEditing(true)
         //        if viewModel.searchedHotels.count > 0 {
@@ -66,6 +76,18 @@ extension HotelsMapVC: UISearchBarDelegate {
         
         //self.hideSearchAnimation()
         self.reloadHotelList()
+    }
+}
+
+extension HotelsMapVC : SpeechToTextVCDelegate{
+    func getSpeechToText(_ text: String) {
+        guard !text.isEmpty else {return}
+        self.viewModel.fetchRequestType = .Searching
+        self.searchBar.text = text
+        noResultemptyView.searchTextLabel.isHidden = false
+        noResultemptyView.searchTextLabel.text = "for \(text)"
+        self.viewModel.searchTextStr = text
+        self.searchForText(text)
     }
 }
 

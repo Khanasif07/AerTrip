@@ -41,6 +41,9 @@ class WebAPIService
         
         let requestDate = Date.getCurrentDate()
 
+        AppNetworking.addCookies(forUrl: urlRequest.url)
+
+        
         let session = URLSession.shared
         let task = session.dataTask(with: urlRequest) {  (data, response, error) in
             
@@ -48,6 +51,8 @@ class WebAPIService
                 failureHandler( error!)
                 return
             }
+            
+//            HTTPCookie
             
             
             if let httpResponse = response as? HTTPURLResponse {
@@ -57,6 +62,7 @@ class WebAPIService
                     return
                 }
                 
+                AppNetworking.saveCookies(fromUrl: httpResponse.url)
                 
                 self.textLog.write("\nRESPONSE HEADER :::::::: \(requestDate)  ::::::::\n\n\(String(describing: httpResponse.allHeaderFields))\n")
 

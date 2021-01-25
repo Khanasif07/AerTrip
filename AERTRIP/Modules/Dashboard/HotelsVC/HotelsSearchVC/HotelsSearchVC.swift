@@ -339,7 +339,7 @@ class HotelsSearchVC: BaseVC {
         }
     }
     ///GetDataFromPreviousSearch
-    private func setDataFromPreviousSearch(olddata: HotelFormPreviosSearchData? = nil, isSettingForFirstTime: Bool = false) {
+     fileprivate func setDataFromPreviousSearch(olddata: HotelFormPreviosSearchData? = nil, isSettingForFirstTime: Bool = false) {
         let date = Date()
         var oldData = olddata ?? HotelsSearchVM.hotelFormData
         if olddata != nil {
@@ -888,7 +888,9 @@ extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
     
     func getMyLocationSuccess() {
         if let model = self.viewModel.nearMeLocation {
-            didSelectedDestination(hotel: model)
+            if self.viewModel.createSearchedFormDataFromRecentRearch() == nil{
+                didSelectedDestination(hotel: model)
+            }
         }
     }
     
@@ -909,7 +911,9 @@ extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
         }
         self.needToGetRecentSearches = true
         printDebug(self.viewModel.recentSearchesData)
-        HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
+//        HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
+        self.setDataFromPreviousSearch(olddata: self.viewModel.createSearchedFormDataFromRecentRearch())
+        
     }
     
     func getRecentSearchesDataFail() {

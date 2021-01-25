@@ -36,8 +36,8 @@ class SpecialAccountDetailsVC: BaseVC {
         
         return bView
     }
-    private var time: Float = 0.0
-    private var timer: Timer?
+    var time: Float = 0.0
+    var timer: Timer?
     private let refreshControl = UIRefreshControl()
     
     
