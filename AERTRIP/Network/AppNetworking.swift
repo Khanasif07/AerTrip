@@ -594,20 +594,20 @@ enum AppNetworking {
 
 extension AppNetworking {
     static func addCookies(forUrl: URL?, from : String) {
-        printDebug("fetch cookie from...\(from)")
+//        printDebug("fetch cookie from...\(from)")
         if let allCookies = UserDefaults.getCustomObject(forKey: UserDefaults.Key.currentUserCookies.rawValue) as? [HTTPCookie] {
             for cookie in allCookies {
                 HTTPCookieStorage.shared.setCookie(cookie)
-                printDebug("cookie added from \(from)....\(cookie)")
+//                printDebug("cookie added from \(from)....\(cookie)")
             }
         }
     }
     
      static func saveCookies(fromUrl: URL?, from : String) {
-        printDebug("save cookie from....\(from)")
+//        printDebug("save cookie from....\(from)")
         if let cookies = HTTPCookieStorage.shared.cookies {
             UserDefaults.saveCustomObject(customObject: cookies, forKey: UserDefaults.Key.currentUserCookies.rawValue)
-            printDebug("cookie saved from \(from)....\(cookies)")
+//            printDebug("cookie saved from \(from)....\(cookies)")
         }
     }
 }
