@@ -824,8 +824,9 @@ extension AppFlowManager {
     
     // MARK: ----
     
-    func moveToMyBookingsVC() {
+    func moveToMyBookingsVC(bookingId:String = "") {
         let obj = MyBookingsVC.instantiate(fromAppStoryboard: .Bookings)
+        MyBookingsVM.shared.deepLinkBookingId = bookingId
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
@@ -848,21 +849,24 @@ extension AppFlowManager {
     
     // MARK: -
     
-    func moveToOtherBookingsDetailsVC(bookingId: String) {
+    func moveToOtherBookingsDetailsVC(bookingId: String, isForDeepLink:Bool = false, bookingDetails: BookingDetailModel? = nil) {
         let obj = OtherBookingsDetailsVC.instantiate(fromAppStoryboard: .Bookings)
+        obj.viewModel.bookingDetail = bookingDetails
         obj.viewModel.bookingId = bookingId
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-    func moveToFlightBookingsDetailsVC(bookingId: String, tripCitiesStr: NSMutableAttributedString?) {
+    func moveToFlightBookingsDetailsVC(bookingId: String, tripCitiesStr: NSMutableAttributedString?, isForDeepLink:Bool = false, bookingDetails: BookingDetailModel? = nil) {
         let obj = FlightBookingsDetailsVC.instantiate(fromAppStoryboard: .Bookings)
+        obj.viewModel.bookingDetail = bookingDetails
         obj.viewModel.bookingId = bookingId
         obj.viewModel.tripCitiesStr = tripCitiesStr ?? NSMutableAttributedString(string: "")
         self.currentNavigation?.pushViewController(obj, animated: true)
     }
     
-    func moveToHotelBookingsDetailsVC(bookingId: String) {
+    func moveToHotelBookingsDetailsVC(bookingId: String, isForDeepLink:Bool = false, bookingDetails: BookingDetailModel? = nil) {
         let obj = HotlelBookingsDetailsVC.instantiate(fromAppStoryboard: .Bookings)
+        obj.viewModel.bookingDetail = bookingDetails
         obj.viewModel.bookingId = bookingId
         self.currentNavigation?.pushViewController(obj, animated: true)
     }

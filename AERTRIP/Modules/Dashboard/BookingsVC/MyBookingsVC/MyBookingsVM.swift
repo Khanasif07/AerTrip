@@ -12,6 +12,7 @@ protocol MyBookingsVMDelegate: class {
     func willGetBookings(showProgress: Bool)
     func getBookingsDetailSuccess(showProgress: Bool)
     func getBookingDetailFail(error: ErrorCodes,showProgress: Bool)
+    func getDeepLinkDetailsSuccess(_ bookingDetailModel: BookingDetailModel)
 }
 
 class MyBookingsVM {
@@ -33,7 +34,8 @@ class MyBookingsVM {
     //
     //    }
     //
-    
+    var deepLinkBookingId  = ""
+    var bookingListAPIResponse :(Bool, ErrorCodes)?
     private init() {}
     
     func getBookings(showProgress: Bool) {
@@ -47,14 +49,45 @@ class MyBookingsVM {
         delgate?.willGetBookings(showProgress: showProgress)
         APICaller.shared.getBookingList(params: params) { [weak self] success, error in
             DispatchQueue.mainAsync { [weak self] in
-                guard let sSelf = self else { return }
-                if success {
-                    sSelf.delgate?.getBookingsDetailSuccess(showProgress: showProgress)
-                } else {
-                    sSelf.delgate?.getBookingDetailFail(error: error, showProgress: showProgress)
+                guard let self = self else { return }
+                if self.deepLinkBookingId.isEmpty{
+                    if success {
+                        self.delgate?.getBookingsDetailSuccess(showProgress: showProgress)
+                    } else {
+                        self.delgate?.getBookingDetailFail(error: error, showProgress: showProgress)
+                    }
+                    self.isFetchingBooking = false
+                }else{
+                    self.bookingListAPIResponse = (success, error)
                 }
-                sSelf.isFetchingBooking = false
             }
         }
     }
+    
+    func getBookingDetails(showProgress: Bool){
+        let params: JSONDictionary = ["booking_id": self.deepLinkBookingId]
+
+        APICaller.shared.getBookingDetail(params: params) { [weak self] success, errors, bookingDetail in
+            guard let self = self else { return }
+            self.deepLinkBookingId = ""
+            if success , let bookingDetails = bookingDetail{
+                self.delgate?.getDeepLinkDetailsSuccess(bookingDetails)
+                guard let bookingResponse = self.bookingListAPIResponse else {return}
+                if (bookingResponse.0){
+                    self.delgate?.getBookingsDetailSuccess(showProgress: showProgress)
+                }else{
+                    self.delgate?.getBookingDetailFail(error: bookingResponse.1, showProgress: showProgress)
+                }
+            } else {
+                guard let bookingResponse = self.bookingListAPIResponse else {return}
+                if (bookingResponse.0){
+                    self.delgate?.getBookingsDetailSuccess(showProgress: showProgress)
+                }else{
+                    self.delgate?.getBookingDetailFail(error: bookingResponse.1, showProgress: showProgress)
+                }
+            }
+        }
+    }
+    
+    
 }

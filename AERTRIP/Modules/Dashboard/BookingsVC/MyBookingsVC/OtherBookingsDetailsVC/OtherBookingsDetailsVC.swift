@@ -75,8 +75,13 @@ class OtherBookingsDetailsVC: BaseVC {
         self.refreshControl.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControl.Event.valueChanged)
         self.refreshControl.tintColor = AppColors.themeGreen
         //self.dataTableView.refreshControl = refreshControl
-        
-        self.viewModel.getBookingDetail(showProgress: true)
+        if self.viewModel.bookingDetail == nil{//Don't Hit API when comming from deep link
+            self.viewModel.getBookingDetail(showProgress: true)
+            self.viewModel.calculateWeatherLabelWidths(usingFor: self.viewModel.bookingDetail?.product == "flight" ? .flight : .hotel)
+
+        }else{
+            self.getBookingDetailSucces(showProgress: false)
+        }
 
         NotificationCenter.default.addObserver(self, selector: #selector(bookingDetailFetched(_:)), name: .bookingDetailFetched, object: nil)
 

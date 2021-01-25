@@ -88,7 +88,12 @@ class FlightBookingsDetailsVC: BaseVC {
         //self.bookingDetailsTableView.refreshControl = refreshControl
         
         // Call to get booking detail
-        self.viewModel.getBookingDetail(showProgress: true)
+        if self.viewModel.bookingDetail == nil{//Don't Hit API when comming from deep link
+            self.viewModel.getBookingDetail(showProgress: true)
+        }else{
+            self.viewModel.calculateWeatherLabelWidths(usingFor: self.viewModel.bookingDetail?.product == "flight" ? .flight : .hotel)
+            self.getBookingDetailSucces(showProgress: false)
+        }
         
         NotificationCenter.default.addObserver(self, selector: #selector(bookingDetailFetched(_:)), name: .bookingDetailFetched, object: nil)
 
