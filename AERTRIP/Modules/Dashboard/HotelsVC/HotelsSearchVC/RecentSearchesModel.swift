@@ -453,6 +453,7 @@ struct RecentSearchesFilter {
         default:
             sort = .BestSellers
         }
+        
     }
     
     //Mark:- Functions
