@@ -503,6 +503,10 @@ extension AccountDetailsVC: UISearchBarDelegate {
 //            }
 //        }
     }
+    
+    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
+        AppFlowManager.default.moveToSpeechToText(with: self)
+    }
 }
 
 //MARK:- Nav bar delegate methods
@@ -610,4 +614,15 @@ extension AccountDetailsVC: AccountDetailsVMDelegate {
     func searchEventsSuccess() {
         self.reloadList()
     }
+}
+
+extension AccountDetailsVC: SpeechToTextVCDelegate{
+    func getSpeechToText(_ text: String) {
+        guard !text.isEmpty else {return}
+        self.currentViewState = .searching
+        self.mainSearchBar.text = text
+        viewModel.searchEvent(forText: text)
+    }
+
+    
 }

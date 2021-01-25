@@ -267,10 +267,16 @@ class UserInfo {
             isIncludeUnrated  = true
             let distance = recentSearchFilter.distance == 0 ? 25 : recentSearchFilter.distance.toDouble
             distanceRange  = distance
-            minimumPrice  = Double(recentSearchFilter.boundaryMinPrice)
-            maximumPrice  = Double(recentSearchFilter.boundaryMaxPrice)
-            leftRangePrice = Double(recentSearchFilter.minPrice)
-            rightRangePrice = Double(recentSearchFilter.maxPrice)
+            
+            minimumPrice = HotelFilterVM.shared.minimumPrice
+            maximumPrice = HotelFilterVM.shared.maximumPrice
+                        
+            let recentLeftPrice = Double(recentSearchFilter.minPrice),
+                recentRightPrice = Double(recentSearchFilter.maxPrice)
+            
+            leftRangePrice = recentLeftPrice < minimumPrice ? minimumPrice : recentLeftPrice
+            rightRangePrice = (recentRightPrice > maximumPrice || recentRightPrice == 0) ? maximumPrice : recentRightPrice
+            
             var amenities = [String]()
             recentSearchFilter.amenities.values.forEach { (val) in
                 if let value = val as? JSONDictionary {
