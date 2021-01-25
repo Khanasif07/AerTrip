@@ -69,6 +69,21 @@ extension MyBookingsVC: MyBookingsVMDelegate {
             stopProgress()
         }
     }
+    
+    func getDeepLinkDetailsSuccess(_ bookingDetailModel: BookingDetailModel){
+        
+        switch bookingDetailModel.product.lowercased(){
+        case "hotel":
+            AppFlowManager.default.moveToHotelBookingsDetailsVC(bookingId: bookingDetailModel.id, isForDeepLink: true, bookingDetails: bookingDetailModel)
+        case "flight":
+            AppFlowManager.default.moveToFlightBookingsDetailsVC(bookingId: bookingDetailModel.id, tripCitiesStr: bookingDetailModel.tripCitiesStr, isForDeepLink: true, bookingDetails: bookingDetailModel)
+        default:
+            AppFlowManager.default.moveToOtherBookingsDetailsVC(bookingId: bookingDetailModel.id, isForDeepLink: true, bookingDetails: bookingDetailModel)
+        }
+        
+    }
+    
+    
 }
 
 extension MyBookingsVC: SpeechToTextVCDelegate{

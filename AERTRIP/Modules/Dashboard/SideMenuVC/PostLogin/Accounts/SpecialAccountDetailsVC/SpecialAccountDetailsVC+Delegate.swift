@@ -451,7 +451,10 @@ class AccountSummeryCell: UITableViewCell {
             }else{
                 amountLabel.textColor = .clear
                 amountLabel.backgroundColor = UIColor(displayP3Red: (238.0/255.0), green: (239.0/255.0), blue: (242.0/255.0), alpha: 1)
-                amountLabel.startShimmer()
+                delay(seconds: 0.05) {
+                    self.amountLabel.startShimmer()
+                }
+                
             }
         }
     }

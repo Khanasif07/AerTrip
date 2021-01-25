@@ -324,4 +324,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            }
         }
     }
+    
+    
+    func openAccountVCFromDeepLink(){
+        self.moveToRootVC()
+        delay(seconds: 1) {
+            guard let dashboardVC = (self.window?.rootViewController as? UINavigationController)?.viewControllers.first?.children.first?.children.first as? DashboardVC else { return }
+            dashboardVC.profileButtonAction(ATNotificationButton())
+            AppFlowManager.default.moveToAccountDetailsScreen()
+        }
+    }
+    
+    
+    func openMyBookingVCFromDeepLink(bookingId: String){
+        self.moveToRootVC()
+        delay(seconds: 1) {
+            guard let dashboardVC = (self.window?.rootViewController as? UINavigationController)?.viewControllers.first?.children.first?.children.first as? DashboardVC else { return }
+            dashboardVC.profileButtonAction(ATNotificationButton())
+            AppFlowManager.default.moveToMyBookingsVC(bookingId: bookingId)
+        }
+    }
+
 }

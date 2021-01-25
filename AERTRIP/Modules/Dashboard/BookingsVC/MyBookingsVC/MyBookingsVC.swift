@@ -92,6 +92,14 @@ class MyBookingsVC: BaseVC {
         }
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        if !MyBookingsVM.shared.deepLinkBookingId.isEmpty{
+            MyBookingsVM.shared.getBookingDetails(showProgress: true)
+        }
+        
+    }
+    
     // MARK:- Override methods
     override func viewDidLayoutSubviews() {
         if allTabsStr.count > 1 {

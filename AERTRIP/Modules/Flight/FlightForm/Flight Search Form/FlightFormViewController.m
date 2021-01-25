@@ -661,43 +661,26 @@
 
 - (IBAction)onwardsAction:(id)sender {
     
-    
-//    NSBundle * calendarBundle = [NSBundle bundleForClass:AertripCalendarViewController.class];
-//    UIStoryboard *storyboard = [UIStoryboard   storyboardWithName:@"AertripCalendar" bundle:calendarBundle];
-//    AertripCalendarViewController * controller = [storyboard instantiateViewControllerWithIdentifier:@"AertripCalendarViewController"];
-//
-//    if ( self.flightSegmentedControl.selectedSegmentIndex == 0) {
-//        controller.viewModel = [self.viewModel VMForDateSelectionIsOnwardsSelection:YES forReturnMode:NO];
-//    }
-//    else {
-//        controller.viewModel = [self.viewModel VMForDateSelectionIsOnwardsSelection:YES forReturnMode:YES];
-//    }
-//
-//    if (@available(iOS 13.0, *)) {
-//        [self presentViewController:controller animated:YES completion:nil];
-//    }
-//    else {
-//        [self presentViewController:controller animated:NO completion:nil];
-//    }
-//
-    
     NSBundle * calendarBundle = [NSBundle bundleForClass:AertripCalendarViewController.class];
     UIStoryboard *storyboard = [UIStoryboard   storyboardWithName:@"AertripCalendar" bundle:calendarBundle];
     AertripCalendarViewController * controller = [storyboard instantiateViewControllerWithIdentifier:@"AertripCalendarViewController"];
    
-    if ( self.flightSegmentedControl.selectedSegmentIndex == 0) {
-        controller.viewModel = [self.viewModel VMForDateSelectionIsOnwardsSelection:YES forReturnMode:NO];
-    }
-    else {
-        controller.viewModel = [self.viewModel VMForDateSelectionIsOnwardsSelection:YES forReturnMode:YES];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ( self.flightSegmentedControl.selectedSegmentIndex == 0) {
+            controller.viewModel = [self.viewModel VMForDateSelectionIsOnwardsSelection:YES forReturnMode:NO];
+        }
+        else {
+            controller.viewModel = [self.viewModel VMForDateSelectionIsOnwardsSelection:YES forReturnMode:YES];
+        }
+        if (@available(iOS 13.0, *)) {
+            [self presentViewController:controller animated:YES completion:nil];
+        }
+        else {
+            [self presentViewController:controller animated:NO completion:nil];
+        }
+    });
     
-    if (@available(iOS 13.0, *)) {
-        [self presentViewController:controller animated:YES completion:nil];
-    }
-    else {
-        [self presentViewController:controller animated:NO completion:nil];
-    }
+    
     
     
     
@@ -715,15 +698,17 @@
     NSBundle * calendarBundle = [NSBundle bundleForClass:AertripCalendarViewController.class];
     UIStoryboard *storyboard = [UIStoryboard   storyboardWithName:@"AertripCalendar" bundle:calendarBundle];
     AertripCalendarViewController * controller = [storyboard instantiateViewControllerWithIdentifier:@"AertripCalendarViewController"];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        controller.viewModel = [self.viewModel VMForDateSelectionIsOnwardsSelection:NO forReturnMode:YES];
+        if (@available(iOS 13.0, *)) {
+            [self presentViewController:controller animated:YES completion:nil];
+        }
+        else {
+            [self presentViewController:controller animated:NO completion:nil];
+        }
+    });
     
-    controller.viewModel = [self.viewModel VMForDateSelectionIsOnwardsSelection:NO forReturnMode:YES];
     
-    if (@available(iOS 13.0, *)) {
-        [self presentViewController:controller animated:YES completion:nil];
-    }
-    else {
-        [self presentViewController:controller animated:NO completion:nil];
-    }
 }
 
 - (IBAction)passengersAction:(id)sender {

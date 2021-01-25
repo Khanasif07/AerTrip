@@ -59,11 +59,31 @@ class HotelsSearchVM: NSObject{
             seachedData.destName = recentSearch.dest_name
             seachedData.destId = recentSearch.dest_id
             
-            seachedData.checkInDate = Date().toString(dateFormat: "yyyy-MM-dd")
-            seachedData.checkOutDate = Date().add(years: 0, months: 0, days: 1, hours: 0, minutes: 0, seconds: 0)?.toString(dateFormat: "yyyy-MM-dd") ?? ""
+            if let checkIn = recentSearch.checkInDate.toDate(dateFormat: "E, dd MMM yy"), let checkOut = recentSearch.checkOutDate.toDate(dateFormat: "E, dd MMM yy"), checkIn > Date(){
+                seachedData.checkInDate = checkIn.toString(dateFormat: "yyyy-MM-dd")
+                seachedData.checkOutDate = checkOut.toString(dateFormat: "yyyy-MM-dd")
+            }else if let checkIn = recentSearch.checkInDate.toDate(dateFormat: "yyyy-MM-dd"), checkIn > Date(){
+                seachedData.checkInDate = recentSearch.checkInDate
+                seachedData.checkOutDate = recentSearch.checkOutDate
+            }else{
+                seachedData.checkInDate = Date().toString(dateFormat: "yyyy-MM-dd")
+                seachedData.checkOutDate = Date().add(years: 0, months: 0, days: 1, hours: 0, minutes: 0, seconds: 0)?.toString(dateFormat: "yyyy-MM-dd") ?? ""
+            }
+            
+            
 
-            seachedData.roomNumber     =  1
-            seachedData.adultsCount    = [2]
+            seachedData.roomNumber     =  recentSearch.room?.count ?? 1
+            var roomAdults = [Int]()
+            var roomChid = [Int]()
+            var roomChildAge = [[Int]]()
+            for room in recentSearch.room ?? []{
+                roomAdults.append(room.adultCounts.toInt ?? 2)
+                roomChid.append(room.child.count)
+                roomChildAge.append(room.child.map{$0.childAge})
+            }
+            seachedData.adultsCount  = (roomAdults.isEmpty) ? [2] : roomAdults
+            seachedData.childrenCounts = roomChid
+            seachedData.childrenAge = roomChildAge
             HotelsSearchVM.isComminFromRecentWhatNext = false
             return seachedData
 //            HotelsSearchVM.hotelFormData = seachedData

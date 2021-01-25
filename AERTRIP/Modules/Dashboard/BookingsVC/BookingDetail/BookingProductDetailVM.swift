@@ -401,7 +401,7 @@ class BookingProductDetailVM {
 // MARK: For weather label widths
 extension BookingProductDetailVM {
     
-    private func calculateWeatherLabelWidths(usingFor: WeatherCellUsingFor) {
+     func calculateWeatherLabelWidths(usingFor: WeatherCellUsingFor) {
         let lblForDateWidth = UILabel()
         let lblForCurTempWidth = UILabel()
         let lblForMaxMinTempWidth = UILabel()
