@@ -33,16 +33,16 @@ class WebAPIService
 {
     var textLog = TextLog()
 
-    func executeAPI(apiServive : WebService, completionHandler : @escaping (Data) -> Void , failureHandler: @escaping (Error) -> Void )
-    {
+    func executeAPI(apiServive : WebService, completionHandler : @escaping (Data) -> Void , failureHandler: @escaping (Error) -> Void ) {
         guard var urlRequest = apiServive.getUrlRequest() else {return}
         urlRequest.httpBody = apiServive.data
         urlRequest.httpMethod = apiServive.httpMethod
         
         let requestDate = Date.getCurrentDate()
 
-        AppNetworking.addCookies(forUrl: urlRequest.url)
-
+        AppNetworking.addCookies(forUrl: urlRequest.url, from: "NetworkLayer")
+        
+        
         
         let session = URLSession.shared
         let task = session.dataTask(with: urlRequest) {  (data, response, error) in
@@ -62,7 +62,7 @@ class WebAPIService
                     return
                 }
                 
-                AppNetworking.saveCookies(fromUrl: httpResponse.url)
+                AppNetworking.saveCookies(fromUrl: httpResponse.url, from : "AppNetworking")
                 
                 self.textLog.write("\nRESPONSE HEADER :::::::: \(requestDate)  ::::::::\n\n\(String(describing: httpResponse.allHeaderFields))\n")
 

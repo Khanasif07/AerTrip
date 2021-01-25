@@ -268,6 +268,7 @@ class GetSharableUrl
             }
         }
 
+        
         request.addValue(cookies, forHTTPHeaderField: "Cookie")
 
         request.httpMethod = "POST"
@@ -281,6 +282,9 @@ class GetSharableUrl
         textLog.write("\nREQUEST HEADER :::::::: \(requestDate)  ::::::::\n\n\(String(describing: request.allHTTPHeaderFields))\n")
         textLog.write("\nParameters :::::::: \(requestDate)  ::::::::\n\n\(parameters)\n")
 
+        AppNetworking.addCookies(forUrl: request.url, from: "GetSharableUrl")
+
+        
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data else {
                 printDebug(String(describing: error))
@@ -294,6 +298,8 @@ class GetSharableUrl
                     if let result = jsonResult as? [String: AnyObject]
                     {
                         textLog.write("RESPONSE DATA ::::::::    \(Date.getCurrentDate()) ::::::::\(result)\n##########################################################################################\n")
+                        
+                        AppNetworking.saveCookies(fromUrl: response?.url, from: "GetSharableUrl")
 
                         if result["success"] as? Bool == true{
                             if let data = (result["data"] as? [String:Any]){

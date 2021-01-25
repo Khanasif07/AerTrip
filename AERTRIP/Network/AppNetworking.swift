@@ -288,7 +288,7 @@ enum AppNetworking {
             //printDebug(data)
         }
         
-        self.addCookies(forUrl: request.request?.url)
+        self.addCookies(forUrl: request.request?.url, from: "AppNetworking")
         
         let requestDate = Date.getCurrentDate()
 
@@ -301,7 +301,7 @@ enum AppNetworking {
 //            printDebug("Cookies:--\(HTTPCookieStorage.shared.cookies(for: request.request!.url!))")
             
             
-            AppNetworking.saveCookies(fromUrl: response.response?.url)
+            AppNetworking.saveCookies(fromUrl: response.response?.url, from: "AppNetworking")
                         
             if let url = response.response?.url?.absoluteString{
                 if url.contains(APIEndPoint.login.rawValue)
@@ -434,7 +434,7 @@ enum AppNetworking {
             return
         }
         
-        self.addCookies(forUrl: url.url)
+        self.addCookies(forUrl: url.url, from: "AppNetworking")
         
         
 
@@ -473,7 +473,7 @@ enum AppNetworking {
               method: httpMethod,
               headers: header).response{ response in
                 
-                AppNetworking.saveCookies(fromUrl: response.response?.url)
+                AppNetworking.saveCookies(fromUrl: response.response?.url, from: "AppNetworking")
                 switch response.result{
                     
                 case .success(let value):
@@ -593,17 +593,21 @@ enum AppNetworking {
 
 
 extension AppNetworking {
-     static func addCookies(forUrl: URL?) {
+    static func addCookies(forUrl: URL?, from : String) {
+        printDebug("fetch cookie from...\(from)")
         if let allCookies = UserDefaults.getCustomObject(forKey: UserDefaults.Key.currentUserCookies.rawValue) as? [HTTPCookie] {
             for cookie in allCookies {
                 HTTPCookieStorage.shared.setCookie(cookie)
+                printDebug("cookie added from \(from)....\(cookie)")
             }
         }
     }
     
-     static func saveCookies(fromUrl: URL?) {
+     static func saveCookies(fromUrl: URL?, from : String) {
+        printDebug("save cookie from....\(from)")
         if let cookies = HTTPCookieStorage.shared.cookies {
             UserDefaults.saveCustomObject(customObject: cookies, forKey: UserDefaults.Key.currentUserCookies.rawValue)
+            printDebug("cookie saved from \(from)....\(cookies)")
         }
     }
 }
