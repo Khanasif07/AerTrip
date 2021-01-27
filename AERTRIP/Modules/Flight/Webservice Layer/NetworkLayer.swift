@@ -68,9 +68,9 @@ class WebAPIService
 
                 
                 let keys = httpResponse.allHeaderFields
-                if let val = keys["Set-Cookie"] as? String{
-                    UserDefaults.standard.set(val, forKey: "SearchResultCookie")
-                }
+//                if let val = keys["Set-Cookie"] as? String{
+//                    UserDefaults.standard.set(val, forKey: "SearchResultCookie")
+//                }
             }
             
             guard let responseData = data else {

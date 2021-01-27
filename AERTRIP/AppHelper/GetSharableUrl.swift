@@ -252,24 +252,24 @@ class GetSharableUrl
         request.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
 
 
-        var cookies = ""
+//        var cookies = ""
 
-        if (UserInfo.loggedInUser != nil){
-            if let loginCookie = UserDefaults.standard.value(forKey: "loginCookie") as? String{
-                cookies = loginCookie
-            }else{
-                cookies = "AT_R_STAGE_SESSID=cba8fbjvl52c316a4b24tuank4"
-            }
-        }else{
-            if let SearchResultCookie = UserDefaults.standard.value(forKey: "SearchResultCookie") as? String{
-                cookies = SearchResultCookie
-            }else{
-                cookies = "AT_R_STAGE_SESSID=cba8fbjvl52c316a4b24tuank4"
-            }
-        }
+//        if (UserInfo.loggedInUser != nil){
+//            if let loginCookie = UserDefaults.standard.value(forKey: "loginCookie") as? String{
+//                cookies = loginCookie
+//            }else{
+//                cookies = "AT_R_STAGE_SESSID=cba8fbjvl52c316a4b24tuank4"
+//            }
+//        }else{
+//            if let SearchResultCookie = UserDefaults.standard.value(forKey: "SearchResultCookie") as? String{
+//                cookies = SearchResultCookie
+//            }else{
+//                cookies = "AT_R_STAGE_SESSID=cba8fbjvl52c316a4b24tuank4"
+//            }
+//        }
 
         
-        request.addValue(cookies, forHTTPHeaderField: "Cookie")
+//        request.addValue(cookies, forHTTPHeaderField: "Cookie")
 
         request.httpMethod = "POST"
         request.httpBody = postData

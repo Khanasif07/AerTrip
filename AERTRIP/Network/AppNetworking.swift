@@ -303,17 +303,17 @@ enum AppNetworking {
             
             AppNetworking.saveCookies(fromUrl: response.response?.url, from: "AppNetworking")
                         
-            if let url = response.response?.url?.absoluteString{
-                if url.contains(APIEndPoint.login.rawValue)
-                {
-                    if let keys = response.response?.allHeaderFields {
-                        if let val = keys["Set-Cookie"] as? String{
-                            UserDefaults.standard.set(val, forKey: "loginCookie")
-                        }
-                    }
-                }
-            }
-            
+//            if let url = response.response?.url?.absoluteString{
+//                if url.contains(APIEndPoint.login.rawValue)
+//                {
+//                    if let keys = response.response?.allHeaderFields {
+//                        if let val = keys["Set-Cookie"] as? String{
+//                            UserDefaults.standard.set(val, forKey: "loginCookie")
+//                        }
+//                    }
+//                }
+//            }
+//
             
             
             
