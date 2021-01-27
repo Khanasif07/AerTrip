@@ -13,10 +13,10 @@
 
 @interface Network : NSObject
 + (id)sharedNetwork;
-- (void) callApi:(NSString *) apiName
-      parameters:(NSDictionary *)parameters
-         success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
-         failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure;
+//- (void) callApi3:(NSString *) apiName
+//      parameters:(NSDictionary *)parameters
+//         success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
+//         failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure;
 
 
 - (void) callApi:(NSString *) apiName
@@ -28,10 +28,10 @@
 
 // Only for Local Testing
 
-- (void) callLocalApi:(NSString *) apiName
-           parameters:(NSDictionary *)parameters
-              success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
-              failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure;
+//- (void) callLocalApi:(NSString *) apiName
+//           parameters:(NSDictionary *)parameters
+//              success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
+//              failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure;
 
 
 //Get API
@@ -44,11 +44,11 @@
 
 
 //image upload api
-- (void) callApi:(NSString *) apiName
-      parameters:(NSDictionary *)parameters
- imageAttachment:(UIImage *)image
-   imageFileName:(NSString *)imageFilename
-         success:(void (^)(NSDictionary* dataDictionary))success
-         failure:(void (^)(NSString *error,BOOL popup))failure ;
+//- (void) callApi2:(NSString *) apiName
+//      parameters:(NSDictionary *)parameters
+// imageAttachment:(UIImage *)image
+//   imageFileName:(NSString *)imageFilename
+//         success:(void (^)(NSDictionary* dataDictionary))success
+//         failure:(void (^)(NSString *error,BOOL popup))failure ;
 
 @end

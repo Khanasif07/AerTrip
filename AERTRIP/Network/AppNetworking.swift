@@ -290,6 +290,7 @@ enum AppNetworking {
         
         self.addCookies(forUrl: request.request?.url, from: "AppNetworking")
         
+        
         let requestDate = Date.getCurrentDate()
 
         request.responseData { (response:DataResponse) in
@@ -303,6 +304,8 @@ enum AppNetworking {
             
             AppNetworking.saveCookies(fromUrl: response.response?.url, from: "AppNetworking")
                         
+            
+            
 //            if let url = response.response?.url?.absoluteString{
 //                if url.contains(APIEndPoint.login.rawValue)
 //                {
@@ -335,6 +338,9 @@ enum AppNetworking {
                                 self.textLog.write("\n##########################################################################################\nAPI URL :::\(String(describing: request.request?.url))")
 
                                 self.textLog.write("\nREQUEST HEADER :::::::: \(requestDate)  ::::::::\n\n\(String(describing: request.request?.allHTTPHeaderFields))\n")
+                                
+                                self.textLog.write("\nREQUEST HEADER DESCRIPTION :::::::: \(requestDate)  ::::::::\n\n\(String(describing: request.cURLDescription()))\n")
+
                                 
                                 
                                 self.textLog.write("\nRESPONSE HEADER :::::::: \(requestDate)  ::::::::\n\n\(String(describing: response.response?.allHeaderFields))\n")
@@ -593,6 +599,7 @@ enum AppNetworking {
 
 
 extension AppNetworking {
+    
     static func addCookies(forUrl: URL?, from : String) {
 //        printDebug("fetch cookie from...\(from)")
         if let allCookies = UserDefaults.getCustomObject(forKey: UserDefaults.Key.currentUserCookies.rawValue) as? [HTTPCookie] {
