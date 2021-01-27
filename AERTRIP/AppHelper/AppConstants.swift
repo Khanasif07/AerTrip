@@ -27,7 +27,7 @@ import Foundation
     }
     
     static var kRazorpayPublicKey : String{
-        AppConstants.isReleasingToClient ? "rzp_live_asjI4DvIbYfP6p" : "rzp_test_QJYU8TtB6deJgb"
+        AppConstants.isReleasingForCustomers ? "rzp_live_asjI4DvIbYfP6p" : "rzp_test_QJYU8TtB6deJgb"
     }
     
     static let airlineMasterBaseUrl = "http://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/"
@@ -56,14 +56,14 @@ import Foundation
 
     @objc static let baseUrl = APIEndPoint.shareableBaseUrl.rawValue
     @objc static let baseUrlWithVersion = APIEndPoint.baseUrlPath.rawValue
-    @objc static var apiKey:String {!AppConstants.isReleasingToClient ? APIEndPoint.apiKey.rawValue : APIEndPoint.apiKeyProd.rawValue}
+    @objc static var apiKey:String {!AppConstants.isReleasingForCustomers ? APIEndPoint.apiKey.rawValue : APIEndPoint.apiKeyProd.rawValue}
     
 }
 
 
 enum AppConstants {
     
-    static let isReleasingToClient: Bool = false
+    static let isReleasingForCustomers : Bool = false
     static let logsEnabled: Bool = false
 
     static let kCurrency = ""
