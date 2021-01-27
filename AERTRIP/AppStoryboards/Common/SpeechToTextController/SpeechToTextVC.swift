@@ -69,20 +69,19 @@ class SpeechToTextVC: BaseVC {
 
     // MARK: View life cycle
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.popoverView.transform = CGAffineTransform(translationX: 0, y: 270)
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         setWaveContainerView()
-//        UIView.animate(withDuration: 0.3) {
-//            self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
-//        }
+        self.presentAnimation()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        self.statusBarStyle = .darkConten
-        UIView.animate(withDuration: 0.7) {
-            self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
-        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -101,10 +100,21 @@ class SpeechToTextVC: BaseVC {
         printDebug("AERIN POPOVER DEINIT")
     }
     
-    // MARK: Actions
+    private func presentAnimation(){
+        let midPoint:CGFloat = view.bounds.height * 0.4
+        let minPoint:CGFloat = view.bounds.height
+        let maxViewColorAlpha:CGFloat = 0.4
+        UIView.animate(withDuration: 0.33) {
+            let fractionForAlpha = maxViewColorAlpha - ((midPoint/minPoint) * maxViewColorAlpha)
+            self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(fractionForAlpha)
+            self.popoverView.transform = .identity
+            self.view.layoutIfNeeded()
+        }
+    }
     
+    
+    // MARK: Actions
     @IBAction func dismissBtnAction(_ sender: UIButton) {
-//        messageTextView.resignFirstResponder()
         startDismissAnimation()
     }
     
@@ -166,7 +176,7 @@ class SpeechToTextVC: BaseVC {
             self.popoverView.layoutIfNeeded()
         }) { _ in
             if hidden {
-//                self.waveAnimationContainerView.alpha = 0
+
             }
         }
     }
@@ -180,13 +190,7 @@ class SpeechToTextVC: BaseVC {
         addWaveAnimation()
         
         if speechRecognizer.authStatus() == .denied {
-//            self.waveAnimationContainerView.isHidden = true
-//            setupForView = .textView
-//            startPoint = .top
-//            delay(seconds: 0.3) {
-//                self.setupForView = .textViewOpen
-//                self.waveAnimationContainerView.isHidden = false
-//            }
+        
         } else {
             setupForView = .waveAnimation
         }
@@ -230,6 +234,7 @@ class SpeechToTextVC: BaseVC {
     
     func startDismissAnimation(_ animationDuration: TimeInterval = 0.3) {
         UIView.animate(withDuration: animationDuration, animations:  {
+            self.popoverView.transform = CGAffineTransform(translationX: 0, y: 270)
             self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
             self.view.layoutIfNeeded()
         }, completion: { _ in
