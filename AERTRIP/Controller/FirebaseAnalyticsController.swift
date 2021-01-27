@@ -18,3 +18,15 @@ class FirebaseAnalyticsController {
     }
     
 }
+
+enum AnalyticsKeys: String {
+    
+    //MARK: Firebase event names
+    case FlightFilters = "FlightFilters"
+    
+    //MARK: Firebase Log Event Keys
+    case FilterName = "FilterName"
+    case FilterType = "FilterType"
+    case Values = "Values"
+    
+}
