@@ -30,7 +30,7 @@ class FacebookController {
             facebookLogout()
         }
         
-        var permissions = [ "email", "public_profile", "user_friends"]
+        let permissions = [ "email", "public_profile"]
         
 //        if shouldFetchFriends {
 //            permissions.append("user_friends")

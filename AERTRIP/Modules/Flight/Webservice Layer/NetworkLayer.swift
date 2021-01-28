@@ -64,6 +64,9 @@ class WebAPIService
                 
                 AppNetworking.saveCookies(fromUrl: httpResponse.url, from : "AppNetworking")
                 
+                self.textLog.write("\nRESPONSE COOKIE DESCRIPTION :::::::: \(requestDate)  ::::::::\n\n\(String(describing: HTTPCookieStorage.shared.cookies))\n")
+
+                
                 self.textLog.write("\nRESPONSE HEADER :::::::: \(requestDate)  ::::::::\n\n\(String(describing: httpResponse.allHeaderFields))\n")
 
 
@@ -84,7 +87,7 @@ class WebAPIService
                 self.textLog.write("\n##########################################################################################\nAPI URL :::\(String(describing: urlRequest.url))")
 
                 
-                self.textLog.write("\nREQUEST HEADER DESCRIPTION :::::::: \(requestDate)  ::::::::\n\n\(String(describing: urlRequest.description))\n")
+                self.textLog.write("\nCOOKIE DESCRIPTION :::::::: \(requestDate)  ::::::::\n\n\(String(describing: HTTPCookieStorage.shared.cookies))\n")
 
                 
                 self.textLog.write("\nREQUEST HEADER :::::::: \(requestDate)  ::::::::\n\n\(String(describing: urlRequest.allHTTPHeaderFields))\n")

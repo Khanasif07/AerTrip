@@ -317,7 +317,7 @@ class OTPVarificationVC: BaseVC {
                 self.resendLabel.text = ""
             case .otpForNewNumnber:
                 self.oneTimePassLabel.text = LocalizedString.oneTimePassword.localized
-                self.descriptionLabel.text = LocalizedString.kindlyEnterOtp.localized.capitalized + " \(UserInfo.loggedInUser?.mobileWithISD ?? "")."
+                self.descriptionLabel.text = LocalizedString.kindlyEnterOtp.localized.capitalized + " \(self.viewModel.isdCode) \(self.viewModel.mobile)."
                 self.linkSetupForResend(withLabel: self.resendLabel, isResend: false)
             }
         case .setMobileNumber:
