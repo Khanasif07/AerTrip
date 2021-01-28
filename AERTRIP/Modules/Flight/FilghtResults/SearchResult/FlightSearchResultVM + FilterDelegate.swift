@@ -243,22 +243,53 @@ extension FlightSearchResultVM : FlightDurationFilterDelegate {
     
     func tripDurationChangedAt(_ index: Int , min: CGFloat, max: CGFloat) {
         
+        var values = ""
+        
         if isIntMCOrReturnJourney {
             intFlightLegs[0].tripDurationChanged(index: index, min: min, max: max, searchType: bookFlightObject.flightSearchType)
-            return
+            let tt = intFlightLegs[0].userSelectedFilters[index].tt
+            if let min = Int(tt.minTime ?? ""), let max = Int(tt.maxTime ?? "") {
+                values += "min\(min/3600)hrs, max\(max/3600)hrs"
+            }
+        } else {
+            flightLegs[index].tripDurationChanged(min: min, max: max)
+            
+            if let tt = flightLegs[index].userSelectedFilters?.tt {
+                if let min = Int(tt.minTime ?? ""), let max = Int(tt.maxTime ?? "") {
+                    values += "min\(min/3600)hrs, max\(max/3600)hrs"
+                }
+            }
         }
         
-        flightLegs[index].tripDurationChanged(min: min, max: max)
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Duration", AnalyticsKeys.FilterType.rawValue : "TripDuration", AnalyticsKeys.Values.rawValue : values]
+        
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsKeys.FlightFilters.rawValue, params: eventLogParams)
+        // analytics end
     }
     
     func layoverDurationChangedAt(_ index: Int ,min: CGFloat, max: CGFloat) {
         
+        var values = ""
+        
         if isIntMCOrReturnJourney {
             intFlightLegs[0].layoverDurationChanged(index: index, min: min, max: max, searchType: bookFlightObject.flightSearchType)
-            return
+            let lott = intFlightLegs[0].userSelectedFilters[index].lott
+            if let min = Int(lott.minTime ?? ""), let max = Int(lott.maxTime ?? "") {
+                values += "min\(min/3600)hrs, max\(max/3600)hrs"
+            }
+        } else {
+            flightLegs[index].layoverDurationChanged(min: min, max: max)
+            if let lott = flightLegs[index].userSelectedFilters?.lott {
+                if let min = Int(lott.minTime ?? ""), let max = Int(lott.maxTime ?? "") {
+                    values += "min\(min/3600)hrs, max\(max/3600)hrs"
+                }
+            }
         }
         
-        flightLegs[index].layoverDurationChanged(min: min, max: max)
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Duration", AnalyticsKeys.FilterType.rawValue : "LayoverDuration", AnalyticsKeys.Values.rawValue : values]
+        
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsKeys.FlightFilters.rawValue, params: eventLogParams)
+        // analytics end
     }
 }
 
