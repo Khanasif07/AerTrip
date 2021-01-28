@@ -141,7 +141,9 @@ extension WebService : APIProtocol {
     {
         switch self {
         case .flightSearchResult( _ , _):
-            return nil
+            return [
+                "api-key": apiKey
+            ]
             
         case .flightPerformanceResult(origin: _, destination: _, airline: _, flight_number: _):
             let headers = [
