@@ -245,7 +245,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DispatchQueue.delay(1) {
             guard let dashboardVC = (self.window?.rootViewController as? UINavigationController)?.viewControllers.first?.children.first?.children.first as? DashboardVC else { return }
             dashboardVC.flightsAction(UIButton())
-            SwiftObjCBridgingController.shared.sendFlightFormData(dict)
+            if !dict.isEmpty {
+                SwiftObjCBridgingController.shared.sendFlightFormData(dict)
+            }
         }
     }
     
@@ -301,7 +303,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             dashboardVC.hotelsAction(UIButton())
             dashboardVC.children.forEach { (viewCon) in
-                if let searchVC = viewCon as? HotelsSearchVC {
+                if let searchVC = viewCon as? HotelsSearchVC, !dict.isEmpty {
                     delay(seconds: 1.0) {
                         searchVC.passRecentSearchesData(recentSearch: recentSearchModel)
                     }
