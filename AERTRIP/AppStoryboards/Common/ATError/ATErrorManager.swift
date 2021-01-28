@@ -122,6 +122,10 @@ class ATErrorManager {
             let allCol = row.components(separatedBy: ",")
             if allCol.count > 4, !allCol[4].isEmpty {
                 error.message = allCol[4].isEmpty ? LocalError.default.message : "\(allCol[4])"
+                if allCol.count > 5, !allCol[5].isEmpty{
+                    error.message = allCol[5].isEmpty ? LocalError.default.message : "\(allCol[4]), \(allCol[5])"
+                }
+                
             }
             
             if allCol.count > 3, !allCol[3].isEmpty {
