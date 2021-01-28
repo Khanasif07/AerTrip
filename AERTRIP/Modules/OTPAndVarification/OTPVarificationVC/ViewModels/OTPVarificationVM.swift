@@ -129,15 +129,19 @@ class OTPVarificationVM{
         }
         APICaller.shared.sendOTPOnMobileForUpdate(params: param){[weak self] (success, error) in
             guard let self = self else {return}
-            if isNeedParam{
-                self.state = .otpForNewNumnber
-            }else{
-                self.state = .otpToOldNumber
-            }
-            self.delegate?.getSendOTPResponse(success)
-            if !success{
+          
+            if success{
+                if isNeedParam{
+                    self.state = .otpForNewNumnber
+                }else{
+                    self.state = .otpToOldNumber
+                }
+            } else{
                 AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .otp)
             }
+            
+            self.delegate?.getSendOTPResponse(success)
+    
         }
     }
     

@@ -447,6 +447,7 @@ class OTPVarificationVC: BaseVC {
 //        default: break;
 //        }
         
+        self.view.endEditing(true)
         let validation = self.viewModel.validateAndApiCall(with: (self.otpTextField.text ?? ""))
         
         if validation.isSucces{

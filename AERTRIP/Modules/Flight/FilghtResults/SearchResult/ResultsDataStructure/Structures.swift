@@ -269,15 +269,15 @@ struct Taxes:Codable {
     var taxes : TotalPayabelSubStruct
     var BF : TaxesSubStruct
     var totalPayableNow : TaxesSubStruct
-    let cancellationCharges : cancellationChargesStruct
-    let reschedulingCharges : reschedulingChargesStruct
+//    let cancellationCharges : cancellationChargesStruct
+//    let reschedulingCharges : reschedulingChargesStruct
     
     init() {
         taxes = TotalPayabelSubStruct()
         BF = TaxesSubStruct()
         totalPayableNow = TaxesSubStruct()
-        cancellationCharges = cancellationChargesStruct()
-        reschedulingCharges = reschedulingChargesStruct()
+//        cancellationCharges = cancellationChargesStruct()
+//        reschedulingCharges = reschedulingChargesStruct()
     }
 }
 
@@ -414,10 +414,14 @@ struct sucfeeValueStruct:Codable{
 struct refundPolicyStruct:Codable {
     var rfd:[String:Int]
     var rsc:[String:Int]
+    var cp : cancellationDetailsStruct
+    var rscp : reschedulingChargesDetailsStruct
     
     init() {
         rfd = [:]
         rsc = [:]
+        cp = cancellationDetailsStruct()
+        rscp = reschedulingChargesDetailsStruct()
     }
 }
 
