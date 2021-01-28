@@ -222,6 +222,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 self.searchFlightsWithDeepLink(dict: pairs)
             } else if url?.absoluteString.contains("hotels") ?? false {
                 self.searchHotelsWithDeepLink(dict: pairs)
+            }else if url?.absoluteString.contains("booking") ?? false {
+                let bookingId = pairs["bid"] as? String ?? ""
+                self.openMyBookingVCFromDeepLink(bookingId: bookingId)
+            }else if url?.absoluteString.contains("account") ?? false{
+                self.openAccountVCFromDeepLink()
             }
         })
     }

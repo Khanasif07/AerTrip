@@ -37,7 +37,7 @@ class AppBeautifier {
     }
     
     func printDebug <T> (_ object: T, lineNo: Int = #line, fileName: String = #file) {
-        print("\(object) at line \(lineNo) in file \(fileName)")
+      //  print("\(object) at line \(lineNo) in file \(fileName)")
     }
     
     //MARK:- Public Methods

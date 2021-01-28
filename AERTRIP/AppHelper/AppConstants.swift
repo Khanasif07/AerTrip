@@ -27,7 +27,7 @@ import Foundation
     }
     
     static var kRazorpayPublicKey : String{
-        AppConstants.isReleasingToClient ? "rzp_live_asjI4DvIbYfP6p" : "rzp_test_QJYU8TtB6deJgb"
+        AppConstants.isReleasingForCustomers ? "rzp_live_asjI4DvIbYfP6p" : "rzp_test_QJYU8TtB6deJgb"
     }
     
     static let airlineMasterBaseUrl = "http://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/"
@@ -50,20 +50,20 @@ import Foundation
     static let whyAertrip = "\(AppKeys.baseUrl)why"
     static let smartSort = "\(AppKeys.baseUrl)smart-sort"
     
-    static let offers = "https://aertrip.com/offers"//"https://beta.aertrip.com/offers"
-    static let contact = "https://aertrip.com/contactus"//"https://beta.aertrip.com/contact"
+    static let offers = "https://aertrip.com/offers"
+    static let contact = "https://aertrip.com/contactus"
     
 
     @objc static let baseUrl = APIEndPoint.shareableBaseUrl.rawValue
     @objc static let baseUrlWithVersion = APIEndPoint.baseUrlPath.rawValue
-    @objc static var apiKey:String {!AppConstants.isReleasingToClient ? APIEndPoint.apiKey.rawValue : APIEndPoint.apiKeyProd.rawValue}
+    @objc static var apiKey:String {!AppConstants.isReleasingForCustomers ? APIEndPoint.apiKey.rawValue : APIEndPoint.apiKeyProd.rawValue}
     
 }
 
 
 enum AppConstants {
     
-    static let isReleasingToClient: Bool = false
+    static let isReleasingForCustomers : Bool = false
     static let logsEnabled: Bool = false
 
     static let kCurrency = ""
@@ -90,7 +90,6 @@ enum AppConstants {
 //    static let linkedIn_ClientSecret = "B4ELw2GOTv5tcnPA"
 //    static let linkedIn_States = "linkedin\(Int(NSDate().timeIntervalSince1970))"
 //    static let linkedIn_Permissions = ["r_basicprofile", "r_emailaddress"]
-//    static let linkedIn_redirectUri = "http://beta.aertrip.com/api/v1/linkedin/linksocial"
 
 
     static let kSearchTextLimit = 3

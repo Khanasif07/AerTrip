@@ -66,11 +66,11 @@ class WebAPIService
                 
                 self.textLog.write("\nRESPONSE HEADER :::::::: \(requestDate)  ::::::::\n\n\(String(describing: httpResponse.allHeaderFields))\n")
 
-                
+
                 let keys = httpResponse.allHeaderFields
-                if let val = keys["Set-Cookie"] as? String{
-                    UserDefaults.standard.set(val, forKey: "SearchResultCookie")
-                }
+//                if let val = keys["Set-Cookie"] as? String{
+//                    UserDefaults.standard.set(val, forKey: "SearchResultCookie")
+//                }
             }
             
             guard let responseData = data else {
@@ -79,9 +79,14 @@ class WebAPIService
             
             do{
                 let jsonResult:AnyObject  = try JSONSerialization.jsonObject(with: responseData, options: []) as AnyObject
-                
+            
+
                 self.textLog.write("\n##########################################################################################\nAPI URL :::\(String(describing: urlRequest.url))")
 
+                
+                self.textLog.write("\nREQUEST HEADER DESCRIPTION :::::::: \(requestDate)  ::::::::\n\n\(String(describing: urlRequest.description))\n")
+
+                
                 self.textLog.write("\nREQUEST HEADER :::::::: \(requestDate)  ::::::::\n\n\(String(describing: urlRequest.allHTTPHeaderFields))\n")
 
                 self.textLog.write("RESPONSE DATA ::::::::    \(Date.getCurrentDate()) ::::::::\(jsonResult)\n##########################################################################################\n")

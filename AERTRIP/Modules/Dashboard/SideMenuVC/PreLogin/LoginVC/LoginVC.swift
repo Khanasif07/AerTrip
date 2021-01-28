@@ -193,7 +193,7 @@ private extension LoginVC {
     func initialSetups() {
         
 //        self.creditTypeButtonContainer.backgroundColor = AppColors.clear
-        self.creditTypeButtonContainer.isHidden = AppConstants.isReleasingToClient
+        self.creditTypeButtonContainer.isHidden = AppConstants.isReleasingForCustomers
         
         self.view.backgroundColor = AppColors.screensBackground.color
         

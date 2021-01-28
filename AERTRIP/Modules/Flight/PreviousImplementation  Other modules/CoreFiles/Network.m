@@ -27,31 +27,6 @@
 }
 
 - (void) callApi:(NSString *) apiName
-          parameters:(NSDictionary *)parameters
-          success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
-             failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure {
-    
-    NSLog(@"Parameter: %@ API: %@", parameters, apiName);
-    
-    if ([BaseViewController isReachable]) {
-        
-        //NSString *apiURL = [self getValueForKey:ApiURL_KEY];
-//        NSString *url = [NSString stringWithFormat:@"%@%@",ApiURL,apiName]; // Commented when chenged to beta-rz url(Golu)
-        NSString *baseUrl = AppKeys.baseUrlWithVersion;
-        NSString *url = [NSString stringWithFormat:@"%@%@",baseUrl,apiName];
-        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-        manager.responseSerializer = [AFJSONResponseSerializer serializer];
-        [manager POST:url parameters:parameters headers:nil progress:nil success:success failure:failure];
-        //[manager POST:url parameters:parameters progress:nil success:success failure:failure];
-        
-    }
-    else {
-        [BaseViewController notifyNoInternetIssue];
-    }
-}
-
-
-- (void) callApi:(NSString *) apiName
       parameters:(NSDictionary *)parameters
    loadFromCache:(BOOL) loadFromCache
          expires: (BOOL) expires
@@ -83,8 +58,8 @@
 //            [manager.requestSerializer setValue:API_KEY forHTTPHeaderField:@"api-key"];
             [manager.requestSerializer setValue: AppKeys.apiKey forHTTPHeaderField:@"api-key"];
             
-            
-            
+            [self addCookies];
+ 
         [manager POST:url parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
             NSDictionary *responseDictionary = (NSDictionary *)responseObject;
             NSLog(@"%@",responseDictionary);
@@ -93,6 +68,9 @@
                 if (loadFromCache) {
                     [CCache saveDictionary:dataDictionary forKey:cacheKey expires:expires];
                 }
+                
+                [self saveCookies];
+                
                 success(dataDictionary);
                 
                 // Logger request
@@ -198,6 +176,9 @@
 //            [manager.requestSerializer setValue:API_KEY forHTTPHeaderField:@"api-key"];
             [manager.requestSerializer setValue:AppKeys.apiKey forHTTPHeaderField:@"api-key"];
 
+            [self addCookies];
+
+                
             [manager GET:url parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
                 NSDictionary *responseDictionary = (NSDictionary *)responseObject;
                 if ([Parser checkForSuccess:responseDictionary]) {
@@ -205,6 +186,9 @@
                     if (loadFromCache) {
                         [CCache saveDictionary:dataDictionary forKey:cacheKey expires:expires];
                     }
+                    
+                    [self saveCookies];
+                    
 //                    NSLog(@"Response:%@",dataDictionary);
                     
                     NSString *apiUrl=[NSString stringWithFormat:@"##########################################################################################\nAPI URL :::\n%@",url];
@@ -285,11 +269,16 @@
 //    [manager.requestSerializer setValue:API_KEY forHTTPHeaderField:@"api-key"];
     [manager.requestSerializer setValue:AppKeys.apiKey forHTTPHeaderField:@"api-key"];
     
+    [self addCookies];
+
+    
     [manager GET:url parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         NSDictionary *responseDictionary = (NSDictionary *)responseObject;
         if ([Parser checkForSuccess:responseDictionary]) {
             NSDictionary *dataDictionary = [Parser getData:responseDictionary];
             [CCache saveDictionary:dataDictionary forKey:cacheKey expires:expires];
+            
+            [self saveCookies];
             
             NSString *apiUrl=[NSString stringWithFormat:@"##########################################################################################\nAPI URL :::%@",url];
             [textLog logTextToFile:apiUrl];
@@ -346,11 +335,15 @@
 //    [manager.requestSerializer setValue:API_KEY forHTTPHeaderField:@"api-key"];
     [manager.requestSerializer setValue:AppKeys.apiKey forHTTPHeaderField:@"api-key"];
 
+    [self addCookies];
+    
     [manager POST:url parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         NSDictionary *responseDictionary = (NSDictionary *)responseObject;
         if ([Parser checkForSuccess:responseDictionary]) {
             NSDictionary *dataDictionary = [Parser getData:responseDictionary];
             [CCache saveDictionary:dataDictionary forKey:cacheKey expires:expires];
+            
+            [self saveCookies];
             
             NSString *apiUrl=[NSString stringWithFormat:@"##########################################################################################\nAPI URL :::\n%@",url];
             [textLog logTextToFile:apiUrl];
@@ -389,90 +382,7 @@
 
 
 
-- (void) callApi:(NSString *) apiName
-      parameters:(NSDictionary *)parameters
- imageAttachment:(UIImage *)image
-   imageFileName:(NSString *)imageFilename
-         success:(void (^)(NSDictionary* dataDictionary))success
-         failure:(void (^)(NSString *error,BOOL popup))failure {
-    
-    
-    NSLog(@"Parameter: %@ API: %@", parameters, apiName);
-    
-    if ([BaseViewController isReachable]) {
-        
-//        NSString *url = [NSString stringWithFormat:@"%@%@",ApiURL,apiName]; // Commented when chenged to beta-rz url(Golu)
-        NSString *baseUrl = AppKeys.baseUrlWithVersion;
-        NSString *url = [NSString stringWithFormat:@"%@%@",baseUrl,apiName];
-        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-//        [manager.requestSerializer setValue:API_KEY forHTTPHeaderField:@"api-key"];
-        
-        [manager.requestSerializer setValue:AppKeys.apiKey forHTTPHeaderField:@"api-key"];
-        [manager POST:url parameters:parameters headers:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-            float actualImageSize = UIImageJPEGRepresentation(image,1.0f).length;
-            float destinationFileSize = 2000000.0;
-            float percentage = destinationFileSize / actualImageSize;
-            
-            NSData *imageData = UIImageJPEGRepresentation(image,percentage);
-            NSLog(@"File Size in byte: %lu", (unsigned long)imageData.length);
-            
-            [formData appendPartWithFileData:imageData
-                                        name:imageFilename
-                                    fileName:@"image.jpg"
-                                    mimeType:@"image/jpeg"];
-        } progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-            
-            NSDictionary *responseDictionary = (NSDictionary *)responseObject;
-            NSLog(@"Response %@",responseDictionary);
-            
-            if ([Parser checkForSuccess:responseDictionary]) {
-                
-                NSDictionary *dataDictionary = [Parser getData:responseDictionary];
-                success(dataDictionary);
-                
-            }
-            else {
-                
-                NSString *failureText = [Parser getErrorFromDictionary:responseDictionary];
-                failure(failureText,YES);
-            }
-            [manager invalidateSessionCancelingTasks:YES resetSession:YES];
-        } failure:^(NSURLSessionDataTask *task, NSError *error) {
-            
-            NSString* ErrorResponse = [[NSString alloc] initWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] encoding:NSUTF8StringEncoding];
-            NSLog(@"Error : %@", ErrorResponse);
-            failure(OOPS_ERROR_MESSAGE,NO);
-            [manager invalidateSessionCancelingTasks:YES resetSession:YES];
-        }];
-        
-    }
-    else {
-        
-        [BaseViewController notifyNoInternetIssue];
-        
-    }
-}
 
-
-
-
-- (void) callLocalApi:(NSString *) apiName
-      parameters:(NSDictionary *)parameters
-         success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
-         failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure {
-
-    if ([BaseViewController isReachable]) {
-        NSString *localAPI = @"http://192.168.0.132:8000/api/";
-        NSString *url = [NSString stringWithFormat:@"%@%@",localAPI,apiName];
-        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-        manager.responseSerializer = [AFJSONResponseSerializer serializer];
-        [manager POST:url parameters:parameters headers:nil progress:nil success:success failure:failure];
-    }
-    else {
-        [BaseViewController notifyNoInternetIssue];
-    }
-}
 
 
 
@@ -496,11 +406,61 @@
     
     return [defaults valueForKey:key];
 }
+
+
+-(void) addCookies
+{
+    NSArray *cookies = [self getArrayeanForKey:@"currentUserCookies"];
+    
+    for (NSHTTPCookie* cookie in cookies) {
+        [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
+    }
+}
+
+//send
+-(NSArray *) getArrayeanForKey:(NSString *)key
+{
+    
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+
+    if ([defaults objectForKey:key]) {
+        return (NSArray*) [NSKeyedUnarchiver unarchiveObjectWithData:[defaults objectForKey:key]];
+    }
+    return nil;
+    
+    
+    
+    return [defaults arrayForKey:key];
+}
+
+
+//save
+-(void) saveCookies {
+    NSArray *cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage.cookies;
+    
+    if (cookies != nil) {
+        [self saveArray:cookies forKey: @"currentUserCookies"];
+    }
+}
+
+-(void) saveArray:(NSArray *) array forKey:(NSString *) key{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSData *dataArray = [NSKeyedArchiver archivedDataWithRootObject:array];
+    [defaults setObject:dataArray forKey:key];
+    [defaults synchronize];
+}
+
+
+
+
+
+
 -(BOOL) getBooleanForKey:(NSString *)key
 {
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     return [defaults boolForKey:key];
 }
+
 -(id )loadObjectFromPreferences:(NSString*)key
 {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -508,6 +468,7 @@
     id obj = [NSKeyedUnarchiver unarchiveObjectWithData: myEncodedObject];
     return obj;
 }
+
 - (BOOL)exists:(NSString *)value
 {
     if (value) {
@@ -518,7 +479,6 @@
     }
     return false;
 }
-
 
 
 
