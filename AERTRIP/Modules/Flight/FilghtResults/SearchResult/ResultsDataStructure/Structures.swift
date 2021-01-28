@@ -305,14 +305,14 @@ struct TotalPayabelSubStruct:Codable {
 }
 
 struct cancellationChargesStruct:Codable {
-    let name:String
-    let value:Int
+//    let name:String
+//    let value:Int
     
     let details : cancellationDetailsStruct
     
     init() {
-        name = ""
-        value = 0
+//        name = ""
+//        value = 0
         details = cancellationDetailsStruct()
     }
 
