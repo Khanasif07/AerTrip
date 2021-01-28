@@ -266,22 +266,51 @@ extension FlightSearchResultVM : FlightDurationFilterDelegate {
 extension FlightSearchResultVM : FlightTimeFilterDelegate {
     func departureSelectionChangedAt(_ index: Int, minDuration: TimeInterval, maxDuration: TimeInterval) {
         
+        var analyticsValues = ""
+        
         if isIntMCOrReturnJourney {
             intFlightLegs[0].departureSelectionChangedAt(index : index, minDuration: minDuration, maxDuration: maxDuration)
-            return
+            
+            let dt = intFlightLegs[0].userSelectedFilters[index].dt
+            analyticsValues = "min\(dt.earliest), max\(dt.latest)"
+        } else {
+            flightLegs[index].departureSelectionChangedAt(minDuration: minDuration, maxDuration: maxDuration)
+            
+            if let dt = flightLegs[index].userSelectedFilters?.dt {
+                analyticsValues = "min\(dt.earliest), max\(dt.latest)"
+            }
         }
         
-        flightLegs[index].departureSelectionChangedAt(minDuration: minDuration, maxDuration: maxDuration)
+        // analytics start
+        
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Times", AnalyticsKeys.FilterType.rawValue : "DepartureTime", AnalyticsKeys.Values.rawValue : analyticsValues]
+        
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsKeys.FlightFilters.rawValue, params: eventLogParams)
+        // analytics end
+        
     }
     
     func arrivalSelectionChangedAt(_ index: Int, minDate: Date, maxDate: Date) {
         
+        var analyticsValues = ""
+        
         if isIntMCOrReturnJourney {
             intFlightLegs[0].arrivalSelectionChanged(index: index, minDate: minDate, maxDate: maxDate)
-            return
+            let arDt = intFlightLegs[0].userSelectedFilters[index].arDt
+            analyticsValues = "min\(arDt.earliest), max\(arDt.latest)"
+        } else {
+            flightLegs[index].arrivalSelectionChanged(minDate: minDate, maxDate: maxDate)
+            if let arDt = flightLegs[index].userSelectedFilters?.arDt {
+                analyticsValues = "min\(arDt.earliest), max\(arDt.latest)"
+            }
         }
         
-        flightLegs[index].arrivalSelectionChanged(minDate: minDate, maxDate: maxDate)
+        // analytics start
+        
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Times", AnalyticsKeys.FilterType.rawValue : "ArrivalTime", AnalyticsKeys.Values.rawValue : analyticsValues]
+        
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsKeys.FlightFilters.rawValue, params: eventLogParams)
+        // analytics end
     }
 
 }
