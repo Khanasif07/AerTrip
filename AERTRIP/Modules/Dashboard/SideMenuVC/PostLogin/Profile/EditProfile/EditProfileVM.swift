@@ -227,7 +227,7 @@ class EditProfileVM {
                 
             } else {
                 self.delegate?.getFail(errors: errorCode)
-                debugPrint(errorCode)
+//                debugPrint(errorCode)
             }
         }
     }

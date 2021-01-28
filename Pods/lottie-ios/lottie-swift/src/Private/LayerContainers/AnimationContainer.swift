@@ -46,7 +46,7 @@ final class AnimationContainer: CALayer {
   }
   
   func logHierarchyKeypaths() {
-    print("Lottie: Logging Animation Keypaths")
+//    print("Lottie: Logging Animation Keypaths")
     animationLayers.forEach({ $0.logKeypaths(for: nil) })
   }
   

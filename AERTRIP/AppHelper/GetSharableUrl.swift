@@ -761,7 +761,7 @@ class GetSharableUrl
                 //Quality
                 var fqArray = [String]()
                 
-                print("uiFilters=",uiFilters)
+//                print("uiFilters=",uiFilters)
                 if uiFilters.contains(.hideOvernightLayover){
                     fqArray.append("ovgtlo")
                 }
@@ -787,7 +787,7 @@ class GetSharableUrl
                     filterString.append(quality)
                 }
                 
-                print("filterString=",filterString)
+//                print("filterString=",filterString)
                 
                 //     Times
                 if (appliedFilters.contains(.Times))

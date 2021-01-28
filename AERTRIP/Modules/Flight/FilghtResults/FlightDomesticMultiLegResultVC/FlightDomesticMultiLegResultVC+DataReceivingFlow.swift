@@ -14,7 +14,7 @@ extension FlightDomesticMultiLegResultVC {
         
         
         
-        print("called for....\(index)")
+//        print("called for....\(index)")
         
         if viewModel.resultsTableStates[index] == .showTemplateResults   {
             viewModel.resultsTableStates[index] = .showRegularResults

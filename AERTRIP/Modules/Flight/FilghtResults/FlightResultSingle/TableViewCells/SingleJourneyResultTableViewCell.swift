@@ -194,7 +194,7 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
         smartIconCollectionView.reloadData()
 
         if journey.farepr ==  4006 {
-            print("baggageSuperScript....\(journey.baggageSuperScript?.string)....\(journey.priceAsString)")
+//            print("baggageSuperScript....\(journey.baggageSuperScript?.string)....\(journey.priceAsString)")
         }
         
 //        print("baggageSuperScript....\(baggageSuperScript?.string)....\(journey.priceAsString)")

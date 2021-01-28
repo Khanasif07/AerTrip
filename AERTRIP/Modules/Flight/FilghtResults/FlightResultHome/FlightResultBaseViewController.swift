@@ -113,7 +113,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         setupNavigationBar()
         createFilterTitle()
         
-        print("flightSearchParameters=",flightSearchParameters)
+//        print("flightSearchParameters=",flightSearchParameters)
         setupSegmentView()
         self.filterSegmentView.sectionTitles = flightSearchResultVM.segmentTitles(showSelection: false, selectedIndex: filterSegmentView.selectedSegmentIndex)
         self.filterSegmentView.selectedSegmentIndex = HMSegmentedControlNoSegment
