@@ -172,11 +172,13 @@ class HotelCardTableViewCell: AppStoreAnimationTableViewCell {
             self.greenCircleRatingView.rating = hotel.rating
         }
         
-        var listPrice = hotel.listPrice
-        var price : Double = hotel.price
-        if  let filter = UserInfo.hotelFilter, filter.priceType == .PerNight  {
-            price = hotel.perNightPrice
-            listPrice = hotel.perNightListPrice
+        var listPrice = hotel.perNightListPrice
+        var price : Double = hotel.perNightPrice
+        
+        
+        if  let filter = UserInfo.hotelFilter, filter.priceType == .Total  {
+            price = hotel.listPrice
+            listPrice = hotel.price
         }
 
         if listPrice == 0{

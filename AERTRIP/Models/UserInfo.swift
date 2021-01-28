@@ -192,7 +192,7 @@ class UserInfo {
         var roomCancelation : [String] = []
         var roomOther : [String] = []
         var sortUsing : SortUsing = .BestSellers
-        var priceType : Price = .Total
+        var priceType : Price = .PerNight
         var isFilterAppliedForDestinetionFlow : Bool = false
         
         init() {
@@ -209,7 +209,7 @@ class UserInfo {
             roomCancelation  = []
             roomOther  = []
             sortUsing = .BestSellers
-            priceType = .Total
+            priceType = .PerNight
            isFilterAppliedForDestinetionFlow = false
         }
         
