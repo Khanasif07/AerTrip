@@ -366,7 +366,6 @@ class AccountDetailsVC: BaseVC {
                 self.viewModel.sendEmailForLedger(onVC: self)
             } else {
                 //download pdf tapped
-//                AppGlobals.shared.viewPdf(urlPath: "https://beta.aertrip.com/api/v1/user-accounts/report-action?action=pdf&type=ledger", screenTitle: LocalizedString.AccountsLegder.localized)
                 self.topNavView.isToShowIndicatorView = true
                 self.topNavView.startActivityIndicaorLoading()
                 self.topNavView.firstRightButton.isHidden = true

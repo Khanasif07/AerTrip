@@ -50,8 +50,8 @@ import Foundation
     static let whyAertrip = "\(AppKeys.baseUrl)why"
     static let smartSort = "\(AppKeys.baseUrl)smart-sort"
     
-    static let offers = "https://aertrip.com/offers"//"https://beta.aertrip.com/offers"
-    static let contact = "https://aertrip.com/contactus"//"https://beta.aertrip.com/contact"
+    static let offers = "https://aertrip.com/offers"
+    static let contact = "https://aertrip.com/contactus"
     
 
     @objc static let baseUrl = APIEndPoint.shareableBaseUrl.rawValue
@@ -63,8 +63,8 @@ import Foundation
 
 enum AppConstants {
     
-    static let isReleasingForCustomers : Bool = false
-    static let logsEnabled: Bool = false
+    static let isReleasingForCustomers : Bool = true
+    static let logsEnabled: Bool = true
 
     static let kCurrency = ""
     static let kAppName = "Aertrip"
@@ -90,7 +90,6 @@ enum AppConstants {
 //    static let linkedIn_ClientSecret = "B4ELw2GOTv5tcnPA"
 //    static let linkedIn_States = "linkedin\(Int(NSDate().timeIntervalSince1970))"
 //    static let linkedIn_Permissions = ["r_basicprofile", "r_emailaddress"]
-//    static let linkedIn_redirectUri = "http://beta.aertrip.com/api/v1/linkedin/linksocial"
 
 
     static let kSearchTextLimit = 3
