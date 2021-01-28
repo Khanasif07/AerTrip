@@ -16,7 +16,7 @@ extension APICaller{
             guard let self = self else {return}
             self.handleResponse(data) { (success, versionData) in
             
-//                printDebug(versionData)
+                printDebug(versionData)
          
                 completionBlock(VersionControlData(json: versionData[APIKeys.data.rawValue]), [])
            
