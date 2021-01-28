@@ -91,12 +91,12 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                     isAPICalled = false
                 }
                 
-                let fare = self.journey[i].fare
+                let fare = self.journey[i].rfdPlcy
                 
-                let airlineCancellationData = fare.cancellationCharges.details.getAirlineCancellationDataForAllFlights()
+                let airlineCancellationData = fare.cp.getAirlineCancellationDataForAllFlights()
                 combineAirlineCancellationFees.append(airlineCancellationData)
                 
-                let airlineReschedulingData = fare.reschedulingCharges.details.getAirlineReschedulingDataForAllFlights()
+                let airlineReschedulingData = fare.rscp.getAirlineReschedulingDataForAllFlights()
                 combineAirlineReschedulingFees.append(airlineReschedulingData)
                 
                 self.viewModel.getFareRulesAPICall(sid: self.sid, fk: self.journey[i].fk, index: i)
@@ -273,22 +273,22 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                     }else{
                         
                         
-                        let airlineCancellationData = journey[indexPath.section].fare.cancellationCharges.details.getAirlineCancellationDataForAllFlights()
+                        let airlineCancellationData = journey[indexPath.section].rfdPlcy.cp.getAirlineCancellationDataForAllFlights()
                         fareInfoCell.airlineCancellationFees = airlineCancellationData
                         
-                        let aertripCancellationData = journey[indexPath.section].fare.cancellationCharges.details.getAertripCancellationDataForAllFlights()
+                        let aertripCancellationData = journey[indexPath.section].rfdPlcy.cp.getAertripCancellationDataForAllFlights()
                         fareInfoCell.aertripCancellationFees = aertripCancellationData
                         
-                        let airlineReschedulingData = journey[indexPath.section].fare.reschedulingCharges.details.getAirlineReschedulingDataForAllFlights()
+                        let airlineReschedulingData = journey[indexPath.section].rfdPlcy.rscp.getAirlineReschedulingDataForAllFlights()
                         fareInfoCell.airlineReschedulingFees = airlineReschedulingData
                         
-                        let aertripReschedulingData = journey[indexPath.section].fare.reschedulingCharges.details.getAertripReschedulingDataForAllFlights()
+                        let aertripReschedulingData = journey[indexPath.section].rfdPlcy.rscp.getAertripReschedulingDataForAllFlights()
                         fareInfoCell.aertripReschedulingFees = aertripReschedulingData
                         
                         fareInfoCell.combineAirlineCancellationFees = combineAirlineCancellationFees
                         fareInfoCell.combineAirlineReschedulingFees = combineAirlineReschedulingFees
                         
-                        let rafFeesData = journey[indexPath.section].fare.cancellationCharges.details.RAF
+                        let rafFeesData = journey[indexPath.section].rfdPlcy.cp.RAF
                         
                         fareInfoCell.rafFees = rafFeesData
                     }
@@ -392,23 +392,23 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                         }
                     }else{
                         
-                        let airlineCancellationData = journey[indexPath.section].fare.cancellationCharges.details.getAirlineCancellationDataForAllFlights()
+                        let airlineCancellationData = journey[indexPath.section].rfdPlcy.cp.getAirlineCancellationDataForAllFlights()
                         
                         fareInfoCell.airlineCancellationFees = airlineCancellationData
                         
-                        let aertripCancellationData = journey[indexPath.section].fare.cancellationCharges.details.getAertripCancellationDataForAllFlights()
+                        let aertripCancellationData = journey[indexPath.section].rfdPlcy.cp.getAertripCancellationDataForAllFlights()
                         fareInfoCell.aertripCancellationFees = aertripCancellationData
                         
-                        let airlineReschedulingData = journey[indexPath.section].fare.reschedulingCharges.details.getAirlineReschedulingDataForAllFlights()
+                        let airlineReschedulingData = journey[indexPath.section].rfdPlcy.rscp.getAirlineReschedulingDataForAllFlights()
                         fareInfoCell.airlineReschedulingFees = airlineReschedulingData
                         
-                        let aertripReschedulingData = journey[indexPath.section].fare.reschedulingCharges.details.getAertripReschedulingDataForAllFlights()
+                        let aertripReschedulingData = journey[indexPath.section].rfdPlcy.rscp.getAertripReschedulingDataForAllFlights()
                         fareInfoCell.aertripReschedulingFees = aertripReschedulingData
                         
                         fareInfoCell.combineAirlineCancellationFees = combineAirlineCancellationFees
                         fareInfoCell.combineAirlineReschedulingFees = combineAirlineReschedulingFees
                         
-                        let rafFeesData = journey[indexPath.section].fare.cancellationCharges.details.RAF
+                        let rafFeesData = journey[indexPath.section].rfdPlcy.cp.RAF
                         
                         fareInfoCell.rafFees = rafFeesData
                     }
