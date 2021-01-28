@@ -68,8 +68,8 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             self.progressBar.isHidden = true
 
             var fareInfo = IntFareInfo(JSON())
-            fareInfo.cp = journey.fare.cancellationCharges
-            fareInfo.rscp = journey.fare.reschedulingCharges
+            fareInfo.cp.details = journey.rfdPlcy.cp//journey.fare.cancellationCharges
+            fareInfo.rscp.details = journey.rfdPlcy.rscp//journey.fare.reschedulingCharges
             self.updatedFareInfo = IntFlightFareInfoResponse(JSON())
             updatedFareInfo?.updatedFareInfo = [fareInfo]
             self.showAccordingTolegs = (self.updatedFareInfo?.updatedFareInfo.first?.cp.details.spcFee["ADT"]?.feeDetail.values.count == self.journey.first?.legsWithDetail.count)
@@ -519,19 +519,19 @@ extension IntFareInfoVC{
                 }
             }else{
                 fareInfoCell.withApi = false
-                let airlineCancellationData = journey[indexPath.section].fare.cancellationCharges.details.spcFee
+                let airlineCancellationData = journey[indexPath.section].rfdPlcy.cp.spcFee
                 fareInfoCell.intAirlineCancellationFees = airlineCancellationData
                 
-                let aertripCancellationData = journey[indexPath.section].fare.cancellationCharges.details.sucFee
+                let aertripCancellationData = journey[indexPath.section].rfdPlcy.cp.sucFee
                 fareInfoCell.intAertripCancellationFees = aertripCancellationData
                 
-                let airlineReschedulingData = journey[indexPath.section].fare.reschedulingCharges.details.spcFee
+                let airlineReschedulingData = journey[indexPath.section].rfdPlcy.rscp.spcFee
                 fareInfoCell.intAirlineReschedulingFees = airlineReschedulingData
                 
-                let aertripReschedulingData = journey[indexPath.section].fare.reschedulingCharges.details.sucFee
+                let aertripReschedulingData = journey[indexPath.section].rfdPlcy.rscp.sucFee
                 fareInfoCell.intAertripReschedulingFees = aertripReschedulingData
                 
-                let rafFeesData = journey[indexPath.section].fare.cancellationCharges.details.raf
+                let rafFeesData = journey[indexPath.section].rfdPlcy.cp.raf
                 
                 fareInfoCell.rafFees = rafFeesData
             }
@@ -746,19 +746,19 @@ extension IntFareInfoVC{
             }
         }else{
             fareInfoCell.withApi = false
-            let airlineCancellationData = jrny.fare.cancellationCharges.details.spcFee
+            let airlineCancellationData = jrny.rfdPlcy.cp.spcFee
             fareInfoCell.intAirlineCancellationFees = airlineCancellationData
             
-            let aertripCancellationData = jrny.fare.cancellationCharges.details.sucFee
+            let aertripCancellationData = jrny.rfdPlcy.cp.sucFee
             fareInfoCell.intAertripCancellationFees = aertripCancellationData
             
-            let airlineReschedulingData = jrny.fare.reschedulingCharges.details.spcFee
+            let airlineReschedulingData = jrny.rfdPlcy.rscp.spcFee
             fareInfoCell.intAirlineReschedulingFees = airlineReschedulingData
             
-            let aertripReschedulingData = jrny.fare.reschedulingCharges.details.sucFee
+            let aertripReschedulingData = jrny.rfdPlcy.rscp.sucFee
             fareInfoCell.intAertripReschedulingFees = aertripReschedulingData
             
-            let rafFeesData = jrny.fare.cancellationCharges.details.raf
+            let rafFeesData = jrny.rfdPlcy.cp.raf
             
             fareInfoCell.rafFees = rafFeesData
         }

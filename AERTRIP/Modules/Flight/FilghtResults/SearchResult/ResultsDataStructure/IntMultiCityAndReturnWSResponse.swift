@@ -619,8 +619,8 @@ struct IntMultiCityAndReturnWSResponse {
                 var grandTotal: Taxes
                 var totalPayableNow: Taxes
                 var netEffectiveFare: Taxes
-                var cancellationCharges: SubFares
-                var reschedulingCharges: SubFares//.Details.Fee
+//                var cancellationCharges: SubFares
+//                var reschedulingCharges: SubFares//.Details.Fee
                 //Added for IteneraryDetails:---
                 var addons:Taxes?
                 var discount:Taxes?
@@ -633,8 +633,8 @@ struct IntMultiCityAndReturnWSResponse {
                     grandTotal = Taxes(json["grand_total"])
                     totalPayableNow = Taxes(json["total_payable_now"])
                     netEffectiveFare = Taxes(json["net_effective_fare"])
-                    cancellationCharges = SubFares(json["cancellation_charges"])
-                    reschedulingCharges = SubFares(json["rescheduling_charges"])
+//                    cancellationCharges = SubFares(json["cancellation_charges"])
+//                    reschedulingCharges = SubFares(json["rescheduling_charges"])
                     if json["addons"].dictionary != nil{
                         addons = Taxes(json["addons"])
                     }
@@ -716,13 +716,13 @@ struct IntMultiCityAndReturnWSResponse {
             
             struct RfdPlcy {
                 var cp: Fare.SubFares.Details
-                var rscp: Rscp
+                var rscp: Fare.SubFares.Details
                 var rfd: [String: Int]
                 var rsc: [String: Int]
                 
                 init(_ json: JSON) {
                     cp = Fare.SubFares.Details(json["cp"])
-                    rscp = Rscp(json["rscp"])
+                    rscp = Fare.SubFares.Details(json["rscp"])
                     rfd = Dictionary(uniqueKeysWithValues: json["rfd"].map { ($0.0, $0.1.intValue) })
                     rsc = Dictionary(uniqueKeysWithValues: json["rsc"].map { ($0.0, $0.1.intValue) })
                 }

@@ -332,7 +332,7 @@ struct RecentSearchesFilter {
     //Distance
     var distance: Int = 0
     var sort: SortUsing = .BestSellers
-    var priceType: Price = .Total
+    var priceType: Price = .PerNight
     
     //Mark:- Initialization
     //=====================

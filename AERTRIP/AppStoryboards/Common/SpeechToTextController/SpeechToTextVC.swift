@@ -190,7 +190,7 @@ class SpeechToTextVC: BaseVC {
         addWaveAnimation()
         
         if speechRecognizer.authStatus() == .denied {
-        
+            speechRecognizer.requestTranscribePermissions()
         } else {
             setupForView = .waveAnimation
         }

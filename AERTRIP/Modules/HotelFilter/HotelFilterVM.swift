@@ -40,7 +40,7 @@ class HotelFilterVM {
     var defaultRoomCancelation: [String] = []
     var defaultRoomOther: [String] = []
     var defaultSortUsing: SortUsing = .BestSellers
-    var defaultPriceType: Price = .Total
+    var defaultPriceType: Price = .PerNight
     
     var ratingCount: [Int] = [1,2,3,4,5]
     var tripAdvisorRatingCount: [Int] = [1,2,3,4,5]
@@ -55,7 +55,7 @@ class HotelFilterVM {
     var roomCancelation: [String] = []
     var roomOther: [String] = []
     var sortUsing: SortUsing = .BestSellers
-    var priceType: Price = .Total
+    var priceType: Price = .PerNight
     var totalHotelCount: Int = 0
     var showIncludeUnrated: Bool = true
     
