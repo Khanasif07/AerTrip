@@ -181,6 +181,21 @@ extension FlightSearchResultVM :  FlightStopsFilterDelegate {
    
     func stopsSelectionChangedAt(_ index: Int, stops: [Int]) {
         
+        // analytics start
+        var values = ""
+        
+        stops.sorted().forEach { (stop) in
+            values.append("\(stop) Stops, ")
+        }
+        if values.suffix(2) == ", " {
+            values.removeLast(2)
+        }
+        
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Stops", AnalyticsKeys.FilterType.rawValue : "n/a", AnalyticsKeys.Values.rawValue : values]
+        
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsKeys.FlightFilters.rawValue, params: eventLogParams)
+        // analytics end
+        
         if isIntMCOrReturnJourney {
             intFlightLegs[0].stopsSelectionChangedAt(index : index, stops: stops)
             return
@@ -192,12 +207,34 @@ extension FlightSearchResultVM :  FlightStopsFilterDelegate {
     
     func allStopsSelectedAt(_ index: Int) {
         
+        // analytics start
+        var values = ""
+        
         if isIntMCOrReturnJourney {
             intFlightLegs[0].allStopsSelected(index)
-            return
+            
+            intFlightLegs[0].inputFilter[index].stp.sorted().forEach { (stop) in
+                values.append("\(stop) Stops, ")
+            }
+            if values.suffix(2) == ", " {
+                values.removeLast(2)
+            }
+    
+        } else {
+            flightLegs[index].allStopsSelected()
+            
+            flightLegs[index].inputFilter?.stp.sorted().forEach { (stop) in
+                values.append("\(stop) Stops, ")
+            }
+            if values.suffix(2) == ", " {
+                values.removeLast(2)
+            }
         }
         
-        flightLegs[index].allStopsSelected()
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Stops", AnalyticsKeys.FilterType.rawValue : "n/a", AnalyticsKeys.Values.rawValue : values]
+        
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsKeys.FlightFilters.rawValue, params: eventLogParams)
+        // analytics end
     }
 }
 
