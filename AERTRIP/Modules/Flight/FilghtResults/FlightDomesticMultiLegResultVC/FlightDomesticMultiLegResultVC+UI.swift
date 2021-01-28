@@ -486,6 +486,7 @@ extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetails
             flightDetailsVC.titleString = titleString
             flightDetailsVC.airportDetailsResult = self.viewModel.airportDetailsResult
             flightDetailsVC.airlineDetailsResult = self.viewModel.airlineDetailsResult
+        flightDetailsVC.flightSearchResultVM = self.flightSearchResultVM
     
             if let allJourneyObj = self.viewModel.getSelectedJourneyForAllLegs(){
                 for i in 0..<allJourneyObj.count{

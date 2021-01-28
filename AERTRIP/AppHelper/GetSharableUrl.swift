@@ -358,8 +358,6 @@ class GetSharableUrl
         if tripType == "single" || tripType == "return"{
             if self.searchParam.count > 0{
                 departureDate.append("depart=\(searchParam["depart"] ?? "")&")
-            }else{
-                departureDate.append("depart=&")
             }
         }else{
             let depart = searchParam.filter { $0.key.contains("depart") }
