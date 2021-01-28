@@ -495,19 +495,7 @@ extension BookingInvoiceVC: UITableViewDataSource, UITableViewDelegate {
                 }
             }
         }
-        
-        /*
-         check for event key for name
-         
-         voucher_type = reschedule_sales_return_jv || sales_return_jv
-         
-         for cancelation
-         https://beta.aertrip.com/api/v1/dashboard/credit-note-download?transaction_id=21205&booking_id=12816
-         
-         voucher_type = sales_addon
-         for addon
-         https://beta.aertrip.com/api/v1/dashboard/download-voucher?id=21828
-         */
+ 
     }
     
     

@@ -49,7 +49,8 @@ class HCDataSelectionVM {
     // following properties will use to hit the confirmation API, will passed from where this class is being initiated
     var sId = "", hId = "", qId = ""
     var locid = ""
-    var panCard: String = "CEQPK4956K"
+//    var panCard: String = "CEQPK4956K"
+    var panCard: String = ""
     var detailPageRoomRate: Rates?
     var minContactLimit = 10
     var maxContactLimit = 10
