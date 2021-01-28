@@ -602,6 +602,7 @@ extension FlightDetailsBaseVC : FlightDetailsVMDelegate, TripCancelDelegate{
                 self.hideShowLoader(isHidden: true)
                 return
             }
+
             self.hideShowLoader(isHidden: false)
             AppFlowManager.default.selectTrip(nil, tripType: .flight, cancelDelegate: self) { [weak self] (trip, details)  in
                 delay(seconds: 0.3, completion: { [weak self] in
@@ -609,6 +610,10 @@ extension FlightDetailsBaseVC : FlightDetailsVMDelegate, TripCancelDelegate{
                     self.viewModel.selectedTrip = trip
                     self.viewModel.addToTrip()
                 })
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                self.hideShowLoader(isHidden: true)
             }
         }
     }
