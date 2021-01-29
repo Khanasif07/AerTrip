@@ -36,6 +36,8 @@ class GetSharableUrl
             let pinnedFlightFK = getPinnedFlightFK(journey: journeyArray)
 
             valueString = "\(APIEndPoint.shareableBaseUrl.rawValue)flights?trip_type=\(trip_type)&adult=\(adult)&child=\(child)&infant=\(infant)&\(origin)\(destination)\(departureDate)\(returnDate)cabinclass=\(cc)&pType=flight&isDomestic=\(isDomestic)&\(pinnedFlightFK)\(filterString)"
+            
+            printDebug(valueString)
 
         }
 
