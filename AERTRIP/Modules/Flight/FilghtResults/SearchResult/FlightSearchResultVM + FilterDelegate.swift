@@ -13,14 +13,24 @@ extension FlightSearchResultVM : AirlineFilterDelegate {
    
     func allAirlinesSelected(_ status: Bool) {
         
+        var values = ""
+        
         if isIntMCOrReturnJourney {
             intFlightLegs[0].allAirlinesSelected(status)
-            return
+        } else {
+            for flightLeg in flightLegs {
+                flightLeg.allAirlinesSelected(selected: status)
+            }
+            let al = flightLegs.flatMap { $0.inputFilter?.al }
+            let newAl = Array(Set(al.flatMap { $0 }))
+            newAl.forEach { (airlineCode) in
+                
+            }
         }
         
-        for flightLeg in flightLegs {
-            flightLeg.allAirlinesSelected(selected: status)
-        }
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Airlines", AnalyticsKeys.FilterType.rawValue : "n/a", AnalyticsKeys.Values.rawValue : status]
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
+        
     }
     
     func hideMultiAirlineItineraryUpdated(_ filter: AirlineLegFilter) {
@@ -71,7 +81,7 @@ extension FlightSearchResultVM : SortFilterDelegate {
     func sortFilterChanged(sort: Sort ) {
         
         let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Sort", AnalyticsKeys.FilterType.rawValue : "Smart", AnalyticsKeys.Values.rawValue : "n/a"]
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsKeys.FlightFilters.rawValue, params: eventLogParams)
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
         
         if isIntMCOrReturnJourney {
             intFlightLegs[0].sortFilterChanged(sort: sort)
@@ -98,7 +108,7 @@ extension FlightSearchResultVM : SortFilterDelegate {
         }
         
         let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Sort", AnalyticsKeys.FilterType.rawValue : "Price", AnalyticsKeys.Values.rawValue : highToLow ? "High to Low" : "Low to High"]
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsKeys.FlightFilters.rawValue, params: eventLogParams)
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
     }
     
     func durationFilterChangedWith(_ longestFirst: Bool){
@@ -118,7 +128,7 @@ extension FlightSearchResultVM : SortFilterDelegate {
         }
         
         let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Sort", AnalyticsKeys.FilterType.rawValue : "Duration", AnalyticsKeys.Values.rawValue : longestFirst ? "Longest First" : "Shortest First"]
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsKeys.FlightFilters.rawValue, params: eventLogParams)
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
         
     }
     
@@ -128,7 +138,7 @@ extension FlightSearchResultVM : SortFilterDelegate {
         self.delegate?.applySorting(sortOrder: Sort.Depart, isConditionReverced: !earliestFirst, legIndex: index)
         
         let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Sort", AnalyticsKeys.FilterType.rawValue : "Depart", AnalyticsKeys.Values.rawValue : earliestFirst ? "Earliest First" : "Latest First"]
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsKeys.FlightFilters.rawValue, params: eventLogParams)
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
     }
     
     func arrivalSortFilterChangedWith(_ index: Int,_ earliestFirst: Bool){
@@ -136,7 +146,7 @@ extension FlightSearchResultVM : SortFilterDelegate {
         self.delegate?.applySorting(sortOrder: Sort.Arrival, isConditionReverced: !earliestFirst, legIndex: index)
         
         let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Sort", AnalyticsKeys.FilterType.rawValue : "Arrival", AnalyticsKeys.Values.rawValue : earliestFirst ? "Earliest First" : "Latest First"]
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsKeys.FlightFilters.rawValue, params: eventLogParams)
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
     }
     
     func departSortFilterChanged(departMode: Bool ) {
@@ -155,7 +165,7 @@ extension FlightSearchResultVM : SortFilterDelegate {
         }
         
         let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Sort", AnalyticsKeys.FilterType.rawValue : "Depart", AnalyticsKeys.Values.rawValue : departMode ? "Latest First" : "Earliest First"]
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsKeys.FlightFilters.rawValue, params: eventLogParams)
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
     }
     
     func arrivalSortFilterChanged(arrivalMode: Bool ) {
@@ -172,7 +182,7 @@ extension FlightSearchResultVM : SortFilterDelegate {
         }
         
         let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Sort", AnalyticsKeys.FilterType.rawValue : "Arrival", AnalyticsKeys.Values.rawValue : arrivalMode ? "Latest First" : "Earliest First"]
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsKeys.FlightFilters.rawValue, params: eventLogParams)
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
     }
 }
 
@@ -193,7 +203,7 @@ extension FlightSearchResultVM :  FlightStopsFilterDelegate {
         
         let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Stops", AnalyticsKeys.FilterType.rawValue : "n/a", AnalyticsKeys.Values.rawValue : values]
         
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsKeys.FlightFilters.rawValue, params: eventLogParams)
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
         // analytics end
         
         if isIntMCOrReturnJourney {
@@ -233,7 +243,7 @@ extension FlightSearchResultVM :  FlightStopsFilterDelegate {
         
         let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Stops", AnalyticsKeys.FilterType.rawValue : "n/a", AnalyticsKeys.Values.rawValue : values]
         
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsKeys.FlightFilters.rawValue, params: eventLogParams)
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
         // analytics end
     }
 }
@@ -263,7 +273,7 @@ extension FlightSearchResultVM : FlightDurationFilterDelegate {
         
         let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Duration", AnalyticsKeys.FilterType.rawValue : "TripDuration", AnalyticsKeys.Values.rawValue : values]
         
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsKeys.FlightFilters.rawValue, params: eventLogParams)
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
         // analytics end
     }
     
@@ -288,7 +298,7 @@ extension FlightSearchResultVM : FlightDurationFilterDelegate {
         
         let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Duration", AnalyticsKeys.FilterType.rawValue : "LayoverDuration", AnalyticsKeys.Values.rawValue : values]
         
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsKeys.FlightFilters.rawValue, params: eventLogParams)
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
         // analytics end
     }
 }
@@ -316,7 +326,7 @@ extension FlightSearchResultVM : FlightTimeFilterDelegate {
         
         let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Times", AnalyticsKeys.FilterType.rawValue : "DepartureTime", AnalyticsKeys.Values.rawValue : analyticsValues]
         
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsKeys.FlightFilters.rawValue, params: eventLogParams)
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
         // analytics end
         
     }
@@ -340,7 +350,7 @@ extension FlightSearchResultVM : FlightTimeFilterDelegate {
         
         let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Times", AnalyticsKeys.FilterType.rawValue : "ArrivalTime", AnalyticsKeys.Values.rawValue : analyticsValues]
         
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsKeys.FlightFilters.rawValue, params: eventLogParams)
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
         // analytics end
     }
 

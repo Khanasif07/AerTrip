@@ -14,15 +14,18 @@ class FirebaseAnalyticsController {
     static let shared = FirebaseAnalyticsController()
     
     func logEvent(name: String, params: JSONDictionary? = nil) {
-//        Analytics.logEvent(name, parameters: params)
+        Analytics.logEvent(name, parameters: params)
     }
     
 }
 
-enum AnalyticsKeys: String {
-    
+enum AnalyticsEvents: String {
     //MARK: Firebase event names
     case FlightFilters = "FlightFilters"
+    
+}
+
+enum AnalyticsKeys: String {
     
     //MARK: Firebase Log Event Keys
     case FilterName = "FilterName"
