@@ -94,7 +94,7 @@ class UpdateAccountDetailsVC: BaseVC {
             self.viewModel.updateValue = self.viewModel.details.billingAddress.label
 
         }
-        
+        self.viewModel.isHasInitialValue = !self.viewModel.updateValue.isEmpty
         self.accountTableView.reloadData()
         
     }

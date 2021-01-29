@@ -38,6 +38,7 @@ class UpdateAccountDetailsVM{
     weak var delegate: UpdateAccountDetailsVMDelegates?
     
     var details = UserAccountDetail()
+    var isHasInitialValue = false
     
     let paymentOptions = [LocalizedString.Wallet.localized, LocalizedString.Chosen_Mode_Of_Payment.localized]
 
@@ -136,7 +137,7 @@ class UpdateAccountDetailsVM{
                     break
                     
                 }
-    
+                self.addAnalytics()
                 self.delegate?.updateAccountDetailsSuccess()
             }else{
                 self.delegate?.updateAccountDetailsFailure(errorCode: error)
@@ -152,6 +153,7 @@ class UpdateAccountDetailsVM{
             guard let self = self else {return}
             if success{
                 self.details.refundMode = self.updateValue
+                self.addAnalytics()
                 self.delegate?.updateAccountDetailsSuccess()
             }else{
                 self.delegate?.updateAccountDetailsFailure(errorCode: error)
@@ -159,5 +161,32 @@ class UpdateAccountDetailsVM{
         }
     }
     
+    
+    private func addAnalytics(){
+        var eventType = ""
+        var eventDetails = "n/a"
+        var value = "n/a"
+        switch self.updationType{
+        case.aadhar:
+            eventType = "Aadhar"
+            eventDetails = self.isHasInitialValue ? "UpdateAadhar" : "InsertAadhar"
+        case .pan:
+            eventType = "PAN"
+            eventDetails = self.isHasInitialValue ? "UpdatePAN" : "InsertPAN"
+        case .gSTIN:
+            eventType = "GSTIN"
+            eventDetails = self.isHasInitialValue ? "UpdateGSTIN" : "InsertGSTIN"
+        case .defaultRefundMode:
+            eventType = "ChangeDefaultRefundMode"
+            value = (self.updatedId == "1") ? "Change default refund to Wallet" : "Change default refund to Online"
+        case .billingName:
+            eventType = "BillingName"
+            eventDetails = "UpdateBillingName"
+        case .billingAddress:
+            eventType = "BillingAddress"
+            eventDetails = "UpdateBillingAddress"
+        }
+        FirebaseAnalyticsController.shared.logEvent(name: "AccountDetails", params: ["FilterName":eventType, "FilterType":eventDetails, "Values":value])
+    }
     
 }
