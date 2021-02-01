@@ -843,11 +843,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         if viewModel.multiLegTimerFilter.count > 0 {
             viewModel.currentTimerFilter = viewModel.multiLegTimerFilter[0]
         }
-        initialSetupDepartureRangeSlider()
-        setDepartureLabel()
-        setupDeparatureRangeButtons()
-        setupArrivalRangeSlider()
-        setupOvernightFlightsView()
+
         earlyMorningButton.addTarget(self, action: #selector(buttonPressed), for: .touchDown)
         earlyMorningButton.addTarget(self, action: #selector(buttonReleased), for: .touchUpInside)
         
@@ -859,6 +855,14 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         
         lateEveningButton.addTarget(self, action: #selector(buttonPressed), for: .touchDown)
         lateEveningButton.addTarget(self, action: #selector(buttonReleased), for: .touchUpInside)
+        
+        initialSetupDepartureRangeSlider()
+        setDepartureLabel()
+        
+        guard viewModel.currentTimerFilter != nil else { return }
+        setupDeparatureRangeButtons()
+        setupArrivalRangeSlider()
+        setupOvernightFlightsView()
     }
     
     
