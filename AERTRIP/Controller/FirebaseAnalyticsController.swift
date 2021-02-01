@@ -14,7 +14,7 @@ class FirebaseAnalyticsController {
     static let shared = FirebaseAnalyticsController()
     
     func logEvent(name: String, params: JSONDictionary? = nil) {
-//        Analytics.logEvent(name, parameters: params)
+        Analytics.logEvent(name, parameters: params)
     }
     
 }
