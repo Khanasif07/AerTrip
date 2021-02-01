@@ -118,7 +118,7 @@ class BookingCancellationPolicyVC: BaseVC {
         }
         
         guard let canc = self.viewModel.bookingDetail?.bookingDetail?.cancellation, !canc.charges.isEmpty else {
-            cancellationPolicy.configureCell(cancellationTimePeriod: "cancellation not allowed.", cancellationAmount: "", cancellationType: .nonRefundable)
+            cancellationPolicy.configureCell(cancellationTimePeriod: "Cancellation not allowed", cancellationAmount: "", cancellationType: .nonRefundable)
             return cancellationPolicy
         }
         

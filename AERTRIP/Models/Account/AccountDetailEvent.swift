@@ -474,7 +474,7 @@ struct AccountDetailEvent {
     
     private mutating func parseForOtherSales(details: JSONDictionary) {
         
-        self.iconImage = #imageLiteral(resourceName: "others_hotels")
+        self.iconImage = #imageLiteral(resourceName: "ic_acc_journalVoucher") //#imageLiteral(resourceName: "others_hotels")
         
         //booking date
         if let obj = details["booking_date"] {

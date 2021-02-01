@@ -294,7 +294,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 if (UserInfo.loggedInUser?.userCreditType ?? .statement  == .topup) || (UserInfo.loggedInUser?.userCreditType ?? .statement  == .statement) ||  (UserInfo.loggedInUser?.userCreditType ?? .statement  == .billwise){
                     cell.totalDueAmountLabel.text = "Amount Due"
                 } else {
-                    cell.totalDueAmountLabel.text = "Account Balance"
+                    cell.totalDueAmountLabel.text = "Wallet Balance"
                 }
                 return cell
                 
