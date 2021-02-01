@@ -186,7 +186,7 @@ class UpdateAccountDetailsVM{
             eventType = "BillingAddress"
             eventDetails = "UpdateBillingAddress"
         }
-        FirebaseAnalyticsController.shared.logEvent(name: "AccountDetails", params: ["FilterName":eventType, "FilterType":eventDetails, "Values":value])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountDetails.rawValue, params: [AnalyticsKeys.FilterName.rawValue:eventType, AnalyticsKeys.FilterType.rawValue:eventDetails, AnalyticsKeys.Values.rawValue:value])
     }
     
 }

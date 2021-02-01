@@ -22,6 +22,7 @@ class FirebaseAnalyticsController {
 enum AnalyticsEvents: String {
     //MARK: Firebase event names
     case FlightFilters = "FlightFilters"
+    case AccountDetails
     
 }
 

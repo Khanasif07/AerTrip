@@ -578,6 +578,11 @@ class AccountDepositCell: UITableViewCell {
             amountLabel.textColor = .themeBlack
             amountLabel.backgroundColor = .clear
             amountLabel.stopShimmer()
+            if !(self.dateLabel.text?.isEmpty ?? true){
+                self.dateLabel.textColor = AppColors.themeRed
+                self.dateLabel.backgroundColor = .clear
+                self.dateLabel.stopShimmer()
+            }
             
             self.depositButton.isEnabled = true
 
@@ -585,7 +590,11 @@ class AccountDepositCell: UITableViewCell {
             amountLabel.textColor = .clear
             amountLabel.backgroundColor = UIColor(displayP3Red: (238.0/255.0), green: (239.0/255.0), blue: (242.0/255.0), alpha: 1)
             amountLabel.startShimmer()
-            
+            if !(self.dateLabel.text?.isEmpty ?? true){
+                self.dateLabel.textColor = .clear
+                self.dateLabel.backgroundColor =  UIColor(displayP3Red: (238.0/255.0), green: (239.0/255.0), blue: (242.0/255.0), alpha: 1)
+                self.dateLabel.startShimmer()
+            }
             self.depositButton.isEnabled = false
         }
     }

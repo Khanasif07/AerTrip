@@ -191,3 +191,50 @@ extension SettingsVC {
     }
 
 }
+
+//MARK: Add Analytics
+extension SettingsVC {
+    
+    func addAnalytics(with indexPath: IndexPath){
+        var eventType = ""
+        var eventDetails = "n/a"
+        switch self.settingsVm.getSettingsType(key: indexPath.section, index: indexPath.row) {
+        case .country:
+            eventType = ""
+            eventDetails = "n/a"
+        case .currency:
+            eventType = ""
+            eventDetails = "n/a"
+        case .notification:
+            eventType = ""
+            eventDetails = "n/a"
+        case .changeAertripId:
+            eventType = ""
+            eventDetails = "n/a"
+        case .changePassword:
+            eventType = ""
+            eventDetails = "n/a"
+        case .changeMobileNumber:
+            eventType = ""
+            eventDetails = "n/a"
+        case .disableWalletOtp:
+            eventType = ""
+            eventDetails = "n/a"
+        case .aboutUs:
+            eventType = ""
+            eventDetails = "n/a"
+            
+        case .privacyPolicy:
+            eventType = ""
+            eventDetails = "n/a"
+            
+        case .legal:
+            eventType = ""
+            eventDetails = "n/a"
+        default:
+            break
+        }
+        
+    }
+    
+}

@@ -104,7 +104,8 @@ class SpecialAccountDetailsVM {
                         let dateStr = date.toString(dateFormat: "EE, dd MMM YYYY")
                         obj.description = dateStr.isEmpty ? "" : "Up to \(dateStr)"
                     }
-                    obj.amount = abs(event.amount).amountInDelimeterWithSymbol
+                    obj.amount = event.amount.amountInDelimeterWithSymbol
+                    //abs(event.amount).amountInDelimeterWithSymbol
                 }
             }
 //            else if idx == 2 {
