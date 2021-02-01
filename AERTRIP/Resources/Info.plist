@@ -146,21 +146,21 @@
 		</dict>
 	</dict>
 	<key>NSCalendarsUsageDescription</key>
-	<string>This app need the access to your calander in order to create events.</string>
+	<string>Aertrip requires calander permission to create events.</string>
 	<key>NSCameraUsageDescription</key>
-	<string>This app will need the access to your camera.</string>
+	<string>Aertrip requires camera permission to set profile image.</string>
 	<key>NSContactsUsageDescription</key>
-	<string>This app will need the access to your contacts.</string>
+	<string>Aertrip requires contacts permission to add your contacts to traveller list..</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>This app will need the access to your location</string>
+	<string>Aertrip uses your location to help you find the nearest hotels and airports.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app will need the access to your location</string>
+	<string>Aertrip uses your location to help you find the nearest hotels and airports.</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>This app will need the access to Microphone</string>
+	<string>Aerin requires microphone permission to perform voice searches.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This app will need the access to photo library.</string>
+	<string>Aertrip requires photo library permission to set profile image.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>This app will need the access to speech recognition</string>
+	<string>Aertrip requires speech recognition permission to recognize speech and perform search.</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>REVERSED_CLIENT_ID</key>
