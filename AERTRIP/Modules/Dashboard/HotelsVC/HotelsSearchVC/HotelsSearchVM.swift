@@ -260,8 +260,14 @@ class HotelsSearchVM: NSObject{
     
     func hotelsNearByMe() {
         var params = JSONDictionary()
-        if let value = LocationManager.shared.lastUpdatedCoordinate {
+        if var value = LocationManager.shared.lastUpdatedCoordinate {
+            if value.latitude == LocationManager.defaultCoordinate.latitude && value.longitude == LocationManager.defaultCoordinate.longitude {
+                value = CLLocationCoordinate2D(latitude: 19.075989, longitude: 72.8773928)
+            }
             params["latLong"] = "\(value.latitude),\(value.longitude)"
+        } else {
+            // default set to Mumbai
+            params["latLong"] = "19.0759899, 72.8773928"
         }
         
         APICaller.shared.getHotelsNearByMe(params: params) { [weak self] (success, error, hotel) in
