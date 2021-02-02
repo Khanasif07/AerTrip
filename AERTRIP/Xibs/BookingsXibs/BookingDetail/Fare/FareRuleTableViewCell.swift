@@ -72,13 +72,17 @@ extension FareRuleTableViewCell: WKNavigationDelegate {
         webView.frame.size = webView.sizeThatFits(.zero)
         webView.scrollView.isScrollEnabled = true
         webView.evaluateJavaScript("document.body.scrollHeight") { (height, error) in
-            if error != nil {
-                if let height = height {
+            if error == nil {
+                if let height = height as? Int {
                     printDebug(height)
 //                    if let heightInt = Int(height) {
-//                        let heightFloat = Float(heightInt)
-//
-//                        webViewHeightConstraint.constant = CGFloat(heightFloat)
+//                        let heightFloat = Float(height)
+                    if let parentHeight = self.parentViewController?.view.height, (CGFloat(height) > (parentHeight - 60)){
+                        self.webViewHeightConstraint.constant = CGFloat(parentHeight - 60)
+                    }else{
+                        self.webViewHeightConstraint.constant = CGFloat(height)
+                    }
+                        
 //                    }
                 }
             }

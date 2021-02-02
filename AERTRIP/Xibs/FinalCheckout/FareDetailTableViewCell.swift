@@ -38,7 +38,7 @@ class FareDetailTableViewCell: UITableViewCell {
     }
     
     internal func setupForFinalCheckOutScreen(text: String) {
-        self.fareDetailTitleLabel.text = "\(LocalizedString.FareDetails.localized) (\(text))"
+        self.fareDetailTitleLabel.text = "\(LocalizedString.FareBreakup.localized) (\(text))"
         self.numberOfRoomAndLabel.isHidden = true
         self.dividerView.isHidden = false
     }

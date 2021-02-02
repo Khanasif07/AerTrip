@@ -689,7 +689,7 @@ extension IntFareInfoVC{
     func getCombineFareWithLegs(at indexPath:IndexPath)-> UITableViewCell{
         guard let jrny = self.journey.first, let legs = self.journey.first?.legsWithDetail, let fareInfoCell = fareInfoTableView.dequeueReusableCell(withIdentifier: "IntCombineFareInfoCell") as? IntCombineFareInfoCell else {return UITableViewCell()}
         
-        
+
         fareInfoCell.journey = journey
         fareInfoCell.legsCount = legs.count
         fareInfoCell.flightAdultCount = flightAdultCount

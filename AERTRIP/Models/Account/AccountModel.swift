@@ -290,12 +290,16 @@ struct LastStatement {
             for str in obj {
                 if let dt = str.toDate(dateFormat: "YYYY-MM-dd") {
                     dates.append(dt)
+                }else if let dt = str.toDate(dateFormat: "yyyy-MM-dd HH:mm:ss"){
+                    dates.append(dt)
                 }
             }
         }
         else if let obj = json["date"] as? String {
             self._dates = [obj]
             if let dt = obj.toDate(dateFormat: "YYYY-MM-dd") {
+                dates.append(dt)
+            }else if let dt = obj.toDate(dateFormat: "yyyy-MM-dd HH:mm:ss"){
                 dates.append(dt)
             }
         }
