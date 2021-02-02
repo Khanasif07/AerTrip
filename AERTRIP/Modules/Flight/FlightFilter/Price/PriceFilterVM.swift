@@ -55,6 +55,7 @@ class PriceFilterVM {
     var flightResultArray : [FlightsResults]!
     var intFlightResultArray : [IntMultiCityAndReturnWSResponse.Results]!
     var isInternational = false
+    var isReturnFlight = false
     
     var priceDiffForFraction: CGFloat {
         let diff = currentPriceFilter.inputFareMaxVaule - currentPriceFilter.inputFareMinValue

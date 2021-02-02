@@ -122,7 +122,7 @@
 "selectedCountryCode"    = "+91";
 "selectedCountry"        = "India";
 "SelectedCountySymbol" = "IN";
-"PleaseLoginByEmailId" = "We didn't got email. Please login by using email id.";
+"PleaseLoginByEmailId" = "Your account does not have an email ID. Login using an account with email.";
 
 // MARK:- ForgotPasswordVC
 //MARK:-
@@ -1112,6 +1112,7 @@ Not to worry! Your booking is our highest priority. Our customer support team sh
 "Times" = "Times";
 "Duration" = "Duration";
 "Quality" = "Quality";
+"Onwards" = "Onwards";
 
 // TripsVC
 "tripsComingSoon" = "Coming soon…

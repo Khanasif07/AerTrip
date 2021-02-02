@@ -44,6 +44,7 @@ class FlightFilterTimesVM {
     var arivalDifferenceInSeconds : TimeInterval = 1
     var isHapticFeedbackProvided = false
     var enableOvernightFlightQualityFilter = [Bool]()
+    var isReturnFlight = false
     
     var panStartPos: CGFloat?
     
@@ -229,6 +230,13 @@ class FlightFilterTimesVM {
         var title = "\(multiLegTimerFilter[index - 1].leg.origin) \u{279E} \(multiLegTimerFilter[index - 1].leg.destination)"
         if multiLegTimerFilter.count > 3 {
             title = "\(index)"
+        }
+        if isReturnFlight {
+            if index == 1 {
+                title = LocalizedString.Onwards.localized
+            } else {
+                title = LocalizedString.Return.localized
+            }
         }
         var segmentTitle = "\(title) "
         if isFilterApplied {

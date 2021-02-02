@@ -160,6 +160,13 @@ class PriceFilterViewController: UIViewController , FilterViewController {
         if viewModel.allPriceFilters.count > 3 {
             title = "\(index)"
         }
+        if viewModel.isReturnFlight {
+            if index == 1 {
+                title = LocalizedString.Onwards.localized
+            } else {
+                title = LocalizedString.Return.localized
+            }
+        }
         var segmentTitle = "\(title) "
         if isFilterApplied {
             segmentTitle = "\(title) •"

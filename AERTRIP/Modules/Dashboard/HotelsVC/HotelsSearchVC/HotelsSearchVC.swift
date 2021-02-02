@@ -329,6 +329,8 @@ class HotelsSearchVC: BaseVC {
             }
         } else if self.viewModel.searchedFormData.isHotelNearMeSelected {
             fetchUpdatedLocation()
+        } else {
+            fetchUpdatedLocation()
         }
     }
     

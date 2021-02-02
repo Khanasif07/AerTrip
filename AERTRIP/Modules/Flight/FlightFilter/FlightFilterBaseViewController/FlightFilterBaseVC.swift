@@ -492,6 +492,7 @@ extension FlightFilterBaseVC {
         timesViewController.viewModel.multiLegTimerFilter = getFlightLegTimeFilters( inputFilters)
         timesViewController.viewModel.delegate = delegate as? FlightTimeFilterDelegate
         timesViewController.viewModel.qualityFilterDelegate = delegate as? QualityFilterDelegate
+        timesViewController.viewModel.isReturnFlight = searchType.rawValue == 1
         inputFilters.enumerated().forEach { (index, filter) in
             if timesViewController.viewModel.enableOvernightFlightQualityFilter.indices.contains(index) {
                 timesViewController.viewModel.enableOvernightFlightQualityFilter[index] =  filter.fq.values.contains(UIFilters.hideOvernight.title)
@@ -1124,6 +1125,7 @@ extension FlightFilterBaseVC {
         priceViewController.viewModel.legsArray = legList
         priceViewController.viewModel.allPriceFilters = priceFilters
         priceViewController.viewModel.currentPriceFilter = priceFilters[0]
+        priceViewController.viewModel.isReturnFlight = searchType.rawValue == 1
     }
     
     func updatePriceVC(_ priceViewController : PriceFilterViewController , inputFilters : [FiltersWS]) {
