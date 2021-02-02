@@ -451,6 +451,15 @@ extension FlightSearchResultVM : AirportFilterDelegate {
         if isIntMCOrReturnJourney {
             intFlightLegs[0].airportSelectionChangedReturnJourneys(originAiroports: originAirports, destinationAirports: destinationAirports)
                  return
+        } else {
+            if flightLegs.indices.contains(0) {
+                flightLegs[0].originSelectionChanged(selection: originAirports)
+                flightLegs[1].destinationSelectionChanged(selection: originAirports)
+            }
+            if flightLegs.indices.contains(1) {
+                flightLegs[0].destinationSelectionChanged(selection: destinationAirports)
+                flightLegs[1].originSelectionChanged(selection: destinationAirports)
+            }
         }
         
     }
