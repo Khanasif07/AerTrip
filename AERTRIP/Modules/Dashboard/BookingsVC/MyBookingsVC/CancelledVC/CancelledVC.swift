@@ -163,7 +163,7 @@ class CancelledVC: BaseVC {
             if MyBookingFilterVM.shared.searchText.isEmpty {
                 if self.isOnlyPendingAction {
                     emptyView = noPendingActionmFoundEmptyView
-                } else if self.isComingFromFilter {
+                } else if self.isComingFromFilter || MyBookingFilterVM.shared.isFilterAplied() {
                     emptyView = noResultFilterEmptyView
                 }
                 else {
@@ -188,6 +188,9 @@ class CancelledVC: BaseVC {
                 self.loadSaveData()
                 self.reloadTable()
             case .myBookingSearching:
+                if  MyBookingFilterVM.shared.isFilterAplied() {
+                    self.isComingFromFilter = true
+                }
                 self.loadSaveData()
                 self.reloadTable()
             default:

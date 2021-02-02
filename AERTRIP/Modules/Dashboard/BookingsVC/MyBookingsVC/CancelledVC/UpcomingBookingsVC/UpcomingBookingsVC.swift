@@ -182,6 +182,9 @@ class UpcomingBookingsVC: BaseVC {
                 self.loadSaveData()
                 self.reloadTable()
             case .myBookingSearching:
+                if  MyBookingFilterVM.shared.isFilterAplied() {
+                    self.isComingFromFilter = true
+                }
                 self.loadSaveData()
                 self.reloadTable()
             default:
