@@ -561,6 +561,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
         timesViewController.viewModel.isIntMCOrReturnVC = true
         timesViewController.viewModel.delegate = delegate as? FlightTimeFilterDelegate
         timesViewController.viewModel.qualityFilterDelegate = delegate as? QualityFilterDelegate
+        timesViewController.viewModel.isReturnFlight = searchType.rawValue == 1
         if let qualityFilters = inputFilters.first?.fq {
             if timesViewController.viewModel.enableOvernightFlightQualityFilter.indices.contains(0) {
                 timesViewController.viewModel.enableOvernightFlightQualityFilter[0] =  qualityFilters.values.contains(UIFilters.hideOvernight.title)
