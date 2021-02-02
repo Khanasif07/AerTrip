@@ -194,7 +194,7 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
                             {
                                 if pieces != "-9" && pieces != "" && pieces != "0 pc" && max_weight == ""
                                 {
-                                    let str = "\(pieces) : Most airline typically allow 23 kgs per piece."
+                                    let str = "\(pieces): Most airline typically allow 23 kgs per piece."
                                     if !attStringArray.contains(str){
                                         attStringArray.append(str)
                                         if combineString != ""{
@@ -216,7 +216,7 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
                                     
                                     adultBaggage = "Max \(pc) pieces can be carried weighing total \(weight)"
                                     
-                                    let str = "\(weight) : Max \(pc) pieces can be carried weighing total \(weight)"
+                                    let str = "\(weight): Max \(pc) pieces can be carried weighing total \(weight)"
                                     if !attStringArray.contains(str){
                                         attStringArray.append(str)
                                         if combineString != ""{
@@ -242,9 +242,9 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
                                                     var displayNote = ""
                                                     
                                                     if intPieces == 1{
-                                                        displayNote = "\(str1)\(str2) : Max \(intPieces) piece of \(intmax_weight) kg each can be carried weighing total \(str1)."
+                                                        displayNote = "\(str1)\(str2): Max \(intPieces) piece of \(intmax_weight) kg each can be carried weighing total \(str1)."
                                                     }else{
-                                                        displayNote = "\(str1)\(str2) : Max \(intPieces) pieces of \(intmax_weight) kg each can be carried weighing total \(str1)."
+                                                        displayNote = "\(str1)\(str2): Max \(intPieces) pieces of \(intmax_weight) kg each can be carried weighing total \(str1)."
                                                     }
                                                     
                                                     if !attStringArray.contains(displayNote){
@@ -273,7 +273,7 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
                             if let weight = chdCheckinBaggage["weight"] as? String, let pieces = chdCheckinBaggage["pieces"] as? String, let max_pieces = chdCheckinBaggage["max_pieces"] as? String, let max_weight = chdCheckinBaggage["max_weight"] as? String{
                                 if pieces != "-9" && pieces != "" && pieces != "0 pc" && max_weight == ""
                                 {
-                                    let str = "\(pieces) : Most airline typically allow 23 kgs per piece."
+                                    let str = "\(pieces): Most airline typically allow 23 kgs per piece."
                                     if !attStringArray.contains(str){
                                         attStringArray.append(str)
                                         if combineString != ""{
@@ -297,7 +297,7 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
                                     
                                     childBaggage = "Max \(pc) pieces can be carried weighing total \(weight)"
                                     
-                                    let str = "\(weight) : Max \(pc) pieces can be carried weighing total \(weight)"
+                                    let str = "\(weight): Max \(pc) pieces can be carried weighing total \(weight)"
                                     if !attStringArray.contains(str){
                                         attStringArray.append(str)
                                         if combineString != ""{
@@ -322,9 +322,9 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
                                                     var displayNote = ""
                                                     
                                                     if intPieces == 1{
-                                                        displayNote = "\(str1)\(str2) : Max \(intPieces) piece of \(intmax_weight) kg each can be carried weighing total \(str1)."
+                                                        displayNote = "\(str1)\(str2): Max \(intPieces) piece of \(intmax_weight) kg each can be carried weighing total \(str1)."
                                                     }else{
-                                                        displayNote = "\(str1)\(str2) : Max \(intPieces) pieces of \(intmax_weight) kg each can be carried weighing total \(str1)."
+                                                        displayNote = "\(str1)\(str2): Max \(intPieces) pieces of \(intmax_weight) kg each can be carried weighing total \(str1)."
                                                     }
                                                     
                                                     if !attStringArray.contains(displayNote){
@@ -356,7 +356,7 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
                             {
                                 if pieces != "-9" && pieces != "" && pieces != "0 pc" && max_weight == ""
                                 {
-                                    let str = "\(pieces) : Most airline typically allow 23 kgs per piece."
+                                    let str = "\(pieces): Most airline typically allow 23 kgs per piece."
                                     if !attStringArray.contains(str){
                                         attStringArray.append(str)
                                         if combineString != ""{
@@ -381,7 +381,7 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
                                     infantBaggage = "Max \(pc) pieces can be carried weighing total \(weight)"
                                     
                                     
-                                    let str = "\(weight) : Max \(pc) pieces can be carried weighing total \(weight)"
+                                    let str = "\(weight): Max \(pc) pieces can be carried weighing total \(weight)"
                                     if !attStringArray.contains(str){
                                         attStringArray.append(str)
                                         if combineString != ""{
@@ -406,9 +406,9 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
                                                     var displayNote = ""
                                                     
                                                     if intPieces == 1{
-                                                        displayNote = "\(str1)\(str2) : Max \(intPieces) piece of \(intmax_weight) kg each can be carried weighing total \(str1)."
+                                                        displayNote = "\(str1)\(str2): Max \(intPieces) piece of \(intmax_weight) kg each can be carried weighing total \(str1)."
                                                     }else{
-                                                        displayNote = "\(str1)\(str2) : Max \(intPieces) pieces of \(intmax_weight) kg each can be carried weighing total \(str1)."
+                                                        displayNote = "\(str1)\(str2): Max \(intPieces) pieces of \(intmax_weight) kg each can be carried weighing total \(str1)."
                                                     }
                                                     
                                                     if !attStringArray.contains(displayNote){
