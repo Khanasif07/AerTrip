@@ -251,8 +251,11 @@ extension BookingHotelDetailVC {
     func getHeightForRoomSection(_ indexPath: IndexPath) -> CGFloat {
         let inclusionCellHeight:CGFloat = (self.viewModel.bookingDetail?.bookingDetail?.roomDetails[indexPath.section - 1].includes?.inclusionString == "-") ? CGFloat.leastNormalMagnitude : 60.0
         let otherInclusionCellHeight:CGFloat =  (self.viewModel.bookingDetail?.bookingDetail?.roomDetails[indexPath.section - 1].includes?.otherInclsionString == "-"  ) ? CGFloat.leastNormalMagnitude : 60.0
+        
+        let bedHeight:CGFloat = (self.viewModel.bookingDetail?.bookingDetail?.roomDetails[indexPath.section - 1].bedType.isEmpty ?? false) ? 60 : CGFloat.leastNormalMagnitude
+        
         let confirmationHeight = (self.viewModel.bookingDetail?.bookingStatus ?? .pending) == .booked ? 60 : CGFloat.leastNormalMagnitude
-        return [confirmationHeight, 60, inclusionCellHeight, otherInclusionCellHeight, (self.viewModel.bookingDetail?.bookingDetail?.roomDetails[indexPath.section - 1].includes?.notes ?? []).isEmpty ? CGFloat.leastNormalMagnitude : UITableView.automaticDimension, 160][indexPath.row]
+        return [confirmationHeight, bedHeight, inclusionCellHeight, otherInclusionCellHeight, (self.viewModel.bookingDetail?.bookingDetail?.roomDetails[indexPath.section - 1].includes?.notes ?? []).isEmpty ? CGFloat.leastNormalMagnitude : UITableView.automaticDimension, 160][indexPath.row]
     }
     
     func getHeightForLastSection(_ indexPath: IndexPath) -> CGFloat {
@@ -294,7 +297,7 @@ extension BookingHotelDetailVC {
             }
             return CGFloat.leastNormalMagnitude
         case 4: // amentities
-            return (self.viewModel.bookingDetail?.bookingDetail?.amenities == nil) ? CGFloat.leastNormalMagnitude : UITableView.automaticDimension
+            return ((self.viewModel.bookingDetail?.bookingDetail?.amenities == nil) || ((self.viewModel.bookingDetail?.bookingDetail?.amenities?.main?.isEmpty ?? false))) ? CGFloat.leastNormalMagnitude : UITableView.automaticDimension
         case 5:
             return (self.viewModel.bookingDetail?.bookingDetail?.taLocationID.isEmpty ?? false) ? CGFloat.leastNormalMagnitude : 46.0
         default:

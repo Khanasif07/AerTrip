@@ -150,7 +150,7 @@
                                                         </connections>
                                                     </button>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qFA-S6-7p7">
-                                                        <rect key="frame" x="147" y="124" width="81.5" height="40.5"/>
+                                                        <rect key="frame" x="147" y="119.5" width="81.5" height="40.5"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aSa-ai-rkg">
                                                                 <rect key="frame" x="20" y="10" width="41.5" height="20.5"/>
@@ -178,7 +178,7 @@
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="diz-sk-Ad5" secondAttribute="bottom" id="3TW-r1-rGY"/>
-                                                    <constraint firstItem="qFA-S6-7p7" firstAttribute="centerY" secondItem="OVB-rt-n8B" secondAttribute="centerY" multiplier="1.6" id="D1X-zQ-v9S"/>
+                                                    <constraint firstItem="qFA-S6-7p7" firstAttribute="centerY" secondItem="OVB-rt-n8B" secondAttribute="centerY" multiplier="1.55" id="D1X-zQ-v9S"/>
                                                     <constraint firstItem="diz-sk-Ad5" firstAttribute="top" secondItem="OVB-rt-n8B" secondAttribute="top" id="Ook-lp-4Ee"/>
                                                     <constraint firstItem="diz-sk-Ad5" firstAttribute="leading" secondItem="OVB-rt-n8B" secondAttribute="leading" id="QW8-Cu-eJb"/>
                                                     <constraint firstItem="qFA-S6-7p7" firstAttribute="centerX" secondItem="OVB-rt-n8B" secondAttribute="centerX" id="T2u-cH-JAd"/>
@@ -193,11 +193,11 @@
                                             <constraint firstItem="RzJ-cI-UAq" firstAttribute="height" secondItem="hSF-xN-kRV" secondAttribute="height" multiplier="0.77" id="GOE-2V-8GZ"/>
                                             <constraint firstItem="RzJ-cI-UAq" firstAttribute="leading" secondItem="OVB-rt-n8B" secondAttribute="leading" id="IL3-OG-Zgn"/>
                                             <constraint firstItem="RzJ-cI-UAq" firstAttribute="trailing" secondItem="OVB-rt-n8B" secondAttribute="trailing" id="KYo-wf-ugF"/>
-                                            <constraint firstAttribute="bottom" secondItem="OVB-rt-n8B" secondAttribute="bottom" id="RGD-jN-jQ0"/>
                                             <constraint firstItem="OVB-rt-n8B" firstAttribute="centerX" secondItem="hSF-xN-kRV" secondAttribute="centerX" id="V24-1a-kaJ"/>
                                             <constraint firstAttribute="height" constant="180" id="XoE-3T-MBt"/>
                                             <constraint firstItem="OVB-rt-n8B" firstAttribute="top" secondItem="hSF-xN-kRV" secondAttribute="top" id="ZxJ-Kx-9Op"/>
-                                            <constraint firstItem="RzJ-cI-UAq" firstAttribute="bottom" secondItem="OVB-rt-n8B" secondAttribute="bottom" id="eDw-8E-4Po"/>
+                                            <constraint firstAttribute="bottom" secondItem="RzJ-cI-UAq" secondAttribute="bottom" id="b7a-MJ-Tbs"/>
+                                            <constraint firstAttribute="bottom" secondItem="OVB-rt-n8B" secondAttribute="bottom" id="eDh-kS-x6D"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -218,7 +218,7 @@
                         <viewLayoutGuide key="safeArea" id="8bf-li-PcK"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="8bf-li-PcK" firstAttribute="trailing" secondItem="ans-KW-vSF" secondAttribute="trailing" id="Jb5-Hw-x69"/>
+                            <constraint firstAttribute="trailing" secondItem="ans-KW-vSF" secondAttribute="trailing" id="Jb5-Hw-x69"/>
                             <constraint firstItem="pwG-2o-Jeu" firstAttribute="top" secondItem="8bf-li-PcK" secondAttribute="top" id="T8z-GR-aud"/>
                             <constraint firstItem="pwG-2o-Jeu" firstAttribute="bottom" secondItem="8bf-li-PcK" secondAttribute="bottom" id="gDe-u0-0vR"/>
                             <constraint firstItem="pwG-2o-Jeu" firstAttribute="leading" secondItem="X3Z-ku-T4l" secondAttribute="leading" id="lLN-26-cpb"/>
@@ -238,7 +238,6 @@
                         <outlet property="popoverView" destination="ans-KW-vSF" id="7ol-4j-0Zm"/>
                         <outlet property="popoverViewHeight" destination="fCP-Wt-xlw" id="mNP-xh-1x0"/>
                         <outlet property="waveAnimationContainerView" destination="hSF-xN-kRV" id="M1w-jT-Wg1"/>
-                        <outlet property="waveAnimationContainerViewBottom" destination="RGD-jN-jQ0" id="32s-45-qiA"/>
                         <outlet property="waveAnimationContainerViewHeight" destination="XoE-3T-MBt" id="fzp-jE-2Jt"/>
                         <outlet property="waveAnimationContentView" destination="OVB-rt-n8B" id="MFc-g8-WmB"/>
                     </connections>

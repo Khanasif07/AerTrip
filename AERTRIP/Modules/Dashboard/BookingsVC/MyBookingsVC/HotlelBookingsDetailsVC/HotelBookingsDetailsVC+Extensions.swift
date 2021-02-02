@@ -561,6 +561,7 @@ extension HotlelBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
             hotelData.roomNumber     =  1
             hotelData.adultsCount    = [2]
             HotelsSearchVM.hotelFormData = hotelData
+            HotelsSearchVM.isComminFromRecentWhatNext = true
             AppFlowManager.default.goToDashboard(toBeSelect: .hotels)
         }
     }

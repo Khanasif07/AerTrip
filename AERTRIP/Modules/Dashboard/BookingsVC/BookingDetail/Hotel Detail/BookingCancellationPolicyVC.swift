@@ -150,6 +150,10 @@ extension BookingCancellationPolicyVC: UITableViewDataSource, UITableViewDelegat
         }
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if self.viewModel.vcUsingType == .bookingPolicy {
           return getCellForBookingPolicy(indexPath)
@@ -178,6 +182,9 @@ extension BookingCancellationPolicyVC: BookingCancellationPolicyVMDelegate {
     
     func getBookingPolicySuccess() {
         self.bookingPolicyTableView.reloadData()
+        delay(seconds: 0.2) {
+            self.bookingPolicyTableView.reloadData()
+        }
     }
     
     func getBookingPolicyFail() {
