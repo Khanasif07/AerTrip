@@ -12,120 +12,127 @@ extension FlightDomesticMultiLegResultVC {
     
     func updatewithArray(index : Int , updatedArray : [Journey] , sortOrder : Sort) {
         
-        
-        
-//        print("called for....\(index)")
-        
-        if viewModel.resultsTableStates[index] == .showTemplateResults   {
-            viewModel.resultsTableStates[index] = .showRegularResults
-        }
-        
-        self.flightSearchResultVM.flightLegs[index].updatedFilterResultCount = 0
-        
-        let modifiedResult = updatedArray
-        if modifiedResult.isEmpty{
-            self.viewModel.results[index].selectedJourney = nil
-            self.journeyHeaderViewArray[index].isHidden = true
-        }
-        
-        DispatchQueue.global(qos: .userInteractive).async {
+        DispatchQueue.main.async {
             
-            self.viewModel.results[index].sort = sortOrder
-            self.viewModel.sortOrder = sortOrder
             
-            printDebug("self.viewModel.results[index].currentPinnedJourneys....\(self.viewModel.results[index].currentPinnedJourneys)")
+//            print("called for....\(index) with count", updatedArray.count)
             
-            self.viewModel.results[index].currentPinnedJourneys.forEach { (pinedJourney) in
-                if let resultIndex = updatedArray.firstIndex(where: { (resultJourney) -> Bool in
-                    return pinedJourney.fk == resultJourney.fk
-                }){
-                    
-                    modifiedResult[resultIndex].isPinned = true
-                }
+            if self.viewModel.resultsTableStates[index] == .showTemplateResults   {
+                self.viewModel.resultsTableStates[index] = .showRegularResults
             }
             
+            self.flightSearchResultVM.flightLegs[index].updatedFilterResultCount = 0
             
+            let modifiedResult = updatedArray
+            if modifiedResult.isEmpty{
+                self.viewModel.results[index].selectedJourney = nil
+                self.journeyHeaderViewArray[index].isHidden = true
+            }
             
-            if !self.viewModel.airlineCode.isEmpty {
+            DispatchQueue.global(qos: .userInteractive).async {
                 
-                //                printDebug("self.viewModel.airlineCode...\(self.viewModel.airlineCode)")
+                self.viewModel.results[index].sort = sortOrder
+                self.viewModel.sortOrder = sortOrder
                 
-                modifiedResult.enumerated().forEach { (ind,jour) in
-                    
-                    if let firstleg = jour.leg.first, let firstFlight = firstleg.flights.first {
+//                printDebug("self.viewModel.results[index].currentPinnedJourneys....\(self.viewModel.results[index].currentPinnedJourneys)")
+                
+                self.viewModel.results[index].currentPinnedJourneys.forEach { (pinedJourney) in
+                    if let resultIndex = updatedArray.firstIndex(where: { (resultJourney) -> Bool in
+                        return pinedJourney.fk == resultJourney.fk
+                    }){
                         
-                        let flightNum = firstFlight.al + firstFlight.fn
-                        
-                        //                        printDebug("flightNum...\(flightNum)")
-                        
-                        if flightNum.uppercased() == self.viewModel.airlineCode.uppercased() {
-                            
-                            //                            printDebug("match...\(flightNum)....\(jour.airlinesSubString)")
-                            
-                            self.viewModel.results[index].currentPinnedJourneys.append(jour)
-                            self.viewModel.results[index].currentPinnedJourneys = self.viewModel.results[index].currentPinnedJourneys.removeDuplicates()
-                            self.viewModel.isSearchByAirlineCode = true
-                            modifiedResult[ind].isPinned = true
-                            
-                        }
+                        modifiedResult[resultIndex].isPinned = true
                     }
                 }
-            }
-            
-            
-            if !self.viewModel.sharedFks.isEmpty {
                 
-                modifiedResult.enumerated().forEach { (ind,jour) in
-                    
-                    if self.viewModel.sharedFks.contains(jour.fk) {
-                        
-                        self.viewModel.results[index].currentPinnedJourneys.append(jour)
-                        self.viewModel.results[index].currentPinnedJourneys = self.viewModel.results[index].currentPinnedJourneys.removeDuplicates()
-                        self.viewModel.isSharedFkmatched = true
-                        modifiedResult[ind].isPinned = true
-                        
-                    }
-                    
-                }
                 
-            }
-            
-            
-            DispatchQueue.main.async {
-                self.viewModel.results[index].journeyArray = modifiedResult
-                //                }
                 
-                DispatchQueue.global(qos: .userInteractive).async {
+                if !self.viewModel.airlineCode.isEmpty {
                     
-                    self.applySorting(sortOrder: self.viewModel.sortOrder, isConditionReverced: self.viewModel.isConditionReverced, legIndex: index, completion: {
-                         DispatchQueue.main.async {
-                        self.animateTableBanner(index: index , updatedArray: updatedArray, sortOrder: sortOrder)
+                    //                printDebug("self.viewModel.airlineCode...\(self.viewModel.airlineCode)")
+                    
+                    modifiedResult.enumerated().forEach { (ind,jour) in
                         
-                        if self.viewModel.resultsTableStates[index] == .showPinnedFlights && self.viewModel.results[index].pinnedFlights.isEmpty {
+                        if let firstleg = jour.leg.first, let firstFlight = firstleg.flights.first {
                             
-                            self.addErrorScreenAtIndex(index: index, forFilteredResults: true)
+                            let flightNum = firstFlight.al + firstFlight.fn
                             
-                        } else if modifiedResult.count > 0 {
+                            //                        printDebug("flightNum...\(flightNum)")
                             
-                            if let errorView = self.baseScrollView.viewWithTag( 500 + index) {
-                                if updatedArray.count > 0  {
-                                    errorView.removeFromSuperview()
-                                }
+                            if flightNum.uppercased() == self.viewModel.airlineCode.uppercased() {
+                                
+                                //                            printDebug("match...\(flightNum)....\(jour.airlinesSubString)")
+                                
+                                self.viewModel.results[index].currentPinnedJourneys.append(jour)
+                                self.viewModel.results[index].currentPinnedJourneys = self.viewModel.results[index].currentPinnedJourneys.removeDuplicates()
+                                self.viewModel.isSearchByAirlineCode = true
+                                modifiedResult[ind].isPinned = true
                                 
                             }
                         }
+                    }
+                }
+                
+                
+                if !self.viewModel.sharedFks.isEmpty {
+                    
+                    modifiedResult.enumerated().forEach { (ind,jour) in
                         
-                        if self.viewModel.isSearchByAirlineCode || self.viewModel.isSharedFkmatched {
-                            delay(seconds: 1) {
-                                self.switchView.isOn = true
-                                self.switcherDidChangeValue(switcher: self.switchView, value: true)
-                                self.showPinnedFlightsOption(true)
-                            }
+                        if self.viewModel.sharedFks.contains(jour.fk) {
+                            
+                            self.viewModel.results[index].currentPinnedJourneys.append(jour)
+                            self.viewModel.results[index].currentPinnedJourneys = self.viewModel.results[index].currentPinnedJourneys.removeDuplicates()
+                            self.viewModel.isSharedFkmatched = true
+                            modifiedResult[ind].isPinned = true
+                            
                         }
                         
-                        NotificationCenter.default.post(name:NSNotification.Name("updateFilterScreenText"), object: nil)
-                         }
-                    })
+                    }
+                    
+                }
+                
+                
+                DispatchQueue.main.async {
+//                    print("called for modified....\(index) with count", modifiedResult.count)
+                    self.viewModel.results[index].journeyArray = modifiedResult
+                    //                }
+//                    print("called for journey....\(index) with count", self.viewModel.results[index].journeyArray.count)
+//                    print("~~~~~~~~~~~~~~~~")
+                    DispatchQueue.global(qos: .userInteractive).async {
+                        
+                        delay(seconds: 0.5) {
+                            
+                            self.applySorting(sortOrder: self.viewModel.sortOrder, isConditionReverced: self.viewModel.isConditionReverced, legIndex: index, completion: {
+                                DispatchQueue.main.async {
+                                    self.animateTableBanner(index: index , updatedArray: modifiedResult, sortOrder: sortOrder)
+                                    
+                                    if self.viewModel.resultsTableStates[index] == .showPinnedFlights && self.viewModel.results[index].pinnedFlights.isEmpty {
+                                        
+                                        self.addErrorScreenAtIndex(index: index, forFilteredResults: true)
+                                        
+                                    } else if modifiedResult.count > 0 {
+                                        
+                                        if let errorView = self.baseScrollView.viewWithTag( 500 + index) {
+                                            if updatedArray.count > 0  {
+                                                errorView.removeFromSuperview()
+                                            }
+                                            
+                                        }
+                                    }
+                                    
+                                    if self.viewModel.isSearchByAirlineCode || self.viewModel.isSharedFkmatched {
+                                        delay(seconds: 1) {
+                                            self.switchView.isOn = true
+                                            self.switcherDidChangeValue(switcher: self.switchView, value: true)
+                                            self.showPinnedFlightsOption(true)
+                                        }
+                                    }
+                                    
+                                    NotificationCenter.default.post(name:NSNotification.Name("updateFilterScreenText"), object: nil)
+                                }
+                            })
+                        }
+                    }
                 }
             }
         }
