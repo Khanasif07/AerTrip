@@ -49,7 +49,7 @@ struct HotelFormPreviosSearchData: Codable {
 
     init() {
         self.roomNumber     =  1
-        self.adultsCount    = [1]
+        self.adultsCount    = [2]
         self.childrenCounts = [0]
         self.childrenAge    = [[0,0,0,0]]
         self.checkInDate    = Date().addDay(days: 0) ?? ""
