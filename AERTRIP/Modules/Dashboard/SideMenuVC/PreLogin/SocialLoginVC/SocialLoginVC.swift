@@ -352,7 +352,7 @@ extension SocialLoginVC: SocialLoginVMDelegate {
             AppFlowManager.default.goToDashboard()
         }
         else {
-            self.sendDataChangedNotification(data: ATNotification.userLoggedInSuccess)
+            self.sendDataChangedNotification(data: ATNotification.userLoggedInSuccess(JSON()))
         }
     }
     

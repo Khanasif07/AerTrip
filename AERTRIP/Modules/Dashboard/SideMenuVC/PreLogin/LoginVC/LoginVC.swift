@@ -275,7 +275,7 @@ extension LoginVC: LoginVMDelegate {
             }
         }else if self.currentlyUsingFrom == .loginVerificationForBulkbooking{
             AppFlowManager.default.currentNavigation?.dismissAsPopAnimation()
-            self.sendDataChangedNotification(data: ATNotification.userLoggedInSuccess)
+            self.sendDataChangedNotification(data: ATNotification.userLoggedInSuccess(JSON()))
         }
         else {
             
