@@ -269,7 +269,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
 
         cell.topDividerView.isHidden = !isFirstCell
         
-        cell.displayShimmer(time: time, isForOther: isForOther)
+//        cell.displayShimmer(time: time, isForOther: isForOther)
         return cell
     }
     
@@ -282,7 +282,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
         self.depositButton = cell.depositButton
         cell.depositButton.addTarget(self, action: #selector(self.depositButtonAction(_:)), for: .touchUpInside)
         
-        cell.displayDepositeShimmer(time: self.time)
+//        cell.displayDepositeShimmer(time: self.time)
         
         return cell
     }
