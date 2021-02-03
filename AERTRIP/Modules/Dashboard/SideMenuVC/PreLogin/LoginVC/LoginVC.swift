@@ -278,7 +278,6 @@ extension LoginVC: LoginVMDelegate {
             self.sendDataChangedNotification(data: ATNotification.userLoggedInSuccess(JSON()))
         }
         else {
-            
             var successJson = JSON()
             if navigationController?.viewControllers.contains(where: { $0 is FlightResultBaseViewController }) ?? false {
                 successJson["flights"] = true
