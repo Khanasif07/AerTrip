@@ -49,13 +49,13 @@ class SpeechToTextVC: BaseVC {
     var secondWaveView: HeartLoadingView?
     
     private var waveContainerHeightConstant: CGFloat {
-        let waveContainerHeight: CGFloat = 180
-        return waveContainerHeight //+ view.safeAreaInsets.bottom
+        let waveContainerHeight: CGFloat = 200
+        return waveContainerHeight + view.safeAreaInsets.bottom
     }
     
     private var heightOfPopOverView:CGFloat{
-        let popOverViewHeight: CGFloat = 270
-        return popOverViewHeight //+ view.safeAreaInsets.bottom
+        let popOverViewHeight: CGFloat = 290
+        return popOverViewHeight + view.safeAreaInsets.bottom
     }
     
     var setupForView: SetupForViewType = .waveAnimation {
@@ -198,8 +198,8 @@ class SpeechToTextVC: BaseVC {
     
     private func setWaveContainerView() {
         waveAnimationContainerView.backgroundColor = .clear
-//        waveAnimationContainerViewHeight.constant = waveContainerHeightConstant
-//        alignmentViewHeight.constant = waveContainerHeightConstant
+        waveAnimationContainerViewHeight.constant = waveContainerHeightConstant
+        alignmentViewHeight.constant = waveContainerHeightConstant
 //        waveAnimationContainerViewBottom.constant = 0//view.safeAreaInsets.bottom
         self.view.layoutIfNeeded()
     }
@@ -263,6 +263,7 @@ extension SpeechToTextVC {
     func addWaveAnimation() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             self.firstWaveView = HeartLoadingView(frame: self.waveAnimationContainerView.bounds)
+            self.firstWaveView?.frame.size.height = self.waveContainerHeightConstant
             self.firstWaveView?.heartAmplitude = 50
             self.firstWaveView?.lightHeartColor = AppColors.themeGreen.withAlphaComponent(0.2)
             self.firstWaveView?.heavyHeartColor = AppColors.themeGreen.withAlphaComponent(0.2)
@@ -273,6 +274,7 @@ extension SpeechToTextVC {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
             self.secondWaveView = HeartLoadingView(frame: self.waveAnimationContainerView.bounds)
+            self.secondWaveView?.frame.size.height = self.waveContainerHeightConstant
             self.secondWaveView?.heartAmplitude = 50
             self.secondWaveView?.lightHeartColor = AppColors.themeGreen.withAlphaComponent(0.2)
             self.secondWaveView?.heavyHeartColor = .clear//UIColor(r: 0, g: 105, b: 100, alpha: 0.5)

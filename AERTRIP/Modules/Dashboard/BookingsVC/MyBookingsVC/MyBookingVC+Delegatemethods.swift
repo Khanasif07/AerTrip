@@ -24,13 +24,13 @@ extension MyBookingsVC: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.view.endEditing(true)
     }
+    
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar){
         AppFlowManager.default.moveToSpeechToText(with: self)
     }
 }
 
 extension MyBookingsVC: MyBookingsVMDelegate {
-    
     
     func getBookingDetailFail(error: ErrorCodes,showProgress: Bool) {
         //AppGlobals.shared.stopLoading()

@@ -1337,7 +1337,7 @@ extension AppFlowManager {
         let vc = SpeechToTextVC.instantiate(fromAppStoryboard: .Common)
         vc.modalPresentationStyle = .overFullScreen
         vc.delegate = speechToTextDelegate
-        (speechToTextDelegate as? UIViewController)?.present(vc, animated: true, completion: nil)
+        (speechToTextDelegate as? UIViewController)?.present(vc, animated: false, completion: nil)
     }
     
 }

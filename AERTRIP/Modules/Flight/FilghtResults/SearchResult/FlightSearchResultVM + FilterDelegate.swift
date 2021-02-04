@@ -21,14 +21,23 @@ extension FlightSearchResultVM : AirlineFilterDelegate {
             for flightLeg in flightLegs {
                 flightLeg.allAirlinesSelected(selected: status)
             }
-            let al = flightLegs.flatMap { $0.inputFilter?.al }
-            let newAl = Array(Set(al.flatMap { $0 }))
+            let alArr = flightLegs.compactMap { $0.inputFilter?.al }
+            let newAl = Array(Set(alArr.flatMap { $0 }))
+            
+            let alMasterArr = flightResultArray.flatMap { $0.alMaster }
+            
             newAl.forEach { (airlineCode) in
-                
+                if let airline = alMasterArr.first(where: { $0.key == airlineCode }) {
+                    values += "\(airline.value.name), "
+                }
+            }
+            
+            if values.suffix(2) == ", " {
+                values.removeLast(2)
             }
         }
         
-        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Airlines", AnalyticsKeys.FilterType.rawValue : "n/a", AnalyticsKeys.Values.rawValue : status]
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Airlines", AnalyticsKeys.FilterType.rawValue : "n/a", AnalyticsKeys.Values.rawValue : values]
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
         
     }
@@ -43,19 +52,36 @@ extension FlightSearchResultVM : AirlineFilterDelegate {
         for flightLeg in flightLegs {
             flightLeg.hideMultiAirlineItineraryUpdated(filter)
         }
+        
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Airlines", AnalyticsKeys.FilterType.rawValue : "HideMultiItinerary", AnalyticsKeys.Values.rawValue : filter.hideMultipleAirline]
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
+        
     }
    
     func airlineFilterUpdated(_ filter: AirlineLegFilter) {
         
         if isIntMCOrReturnJourney {
             intFlightLegs[0].airlineFilterUpdated(filter)
-            
-            return
+        } else {
+            for flightLeg in flightLegs {
+                flightLeg.airlineFilterUpdated(filter)
+            }
         }
         
-        for flightLeg in flightLegs {
-         flightLeg.airlineFilterUpdated(filter)
+        var values = ""
+        filter.airlinesArray.forEach { (airline) in
+            if airline.isSelected {
+                values += "\(airline.name), "
+            }
         }
+        
+        if values.suffix(2) == ", " {
+            values.removeLast(2)
+        }
+        
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Airlines", AnalyticsKeys.FilterType.rawValue : "n/a", AnalyticsKeys.Values.rawValue : values]
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
+        
      }
 }
 
@@ -425,6 +451,15 @@ extension FlightSearchResultVM : AirportFilterDelegate {
         if isIntMCOrReturnJourney {
             intFlightLegs[0].airportSelectionChangedReturnJourneys(originAiroports: originAirports, destinationAirports: destinationAirports)
                  return
+        } else {
+            if flightLegs.indices.contains(0) {
+                flightLegs[0].originSelectionChanged(selection: originAirports)
+                flightLegs[1].destinationSelectionChanged(selection: originAirports)
+            }
+            if flightLegs.indices.contains(1) {
+                flightLegs[0].destinationSelectionChanged(selection: destinationAirports)
+                flightLegs[1].originSelectionChanged(selection: destinationAirports)
+            }
         }
         
     }
