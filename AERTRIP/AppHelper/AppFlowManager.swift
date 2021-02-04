@@ -1330,7 +1330,7 @@ extension AppFlowManager {
         alert.addAction(UIAlertAction(title: LocalizedString.allowMicAccess.localized, style: .cancel, handler: { (alert) -> Void in
             UIApplication.shared.open(settingUrl)
         }))
-        UIApplication.topViewController()?.present(alert, animated: true, completion: nil)   
+        UIApplication.topViewController()?.present(alert, animated: true, completion: nil)
     }
     
     func moveToSpeechToText(with speechToTextDelegate: SpeechToTextVCDelegate ){
