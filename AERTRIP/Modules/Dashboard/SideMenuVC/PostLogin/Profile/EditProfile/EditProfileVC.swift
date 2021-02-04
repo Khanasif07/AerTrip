@@ -385,7 +385,11 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         }
         viewModel.addresses.append(contentsOf: travel.address)
         viewModel.social.append(contentsOf: travel.contact.social)
-        sections.append(LocalizedString.SocialAccounts.localized)
+        if sections.count > 2 {
+            sections.insert(LocalizedString.SocialAccounts.localized, at: 2)
+        } else {
+            sections.append(LocalizedString.SocialAccounts.localized)
+        }
         
         travel.dob = AppGlobals.shared.formattedDateFromString(dateString: travel.dob, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? ""
         viewModel.dob = travel.dob.isEmpty ? LocalizedString.SelectDate.localized : travel.dob
