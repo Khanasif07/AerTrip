@@ -41,7 +41,8 @@ class IntCombineFareInfoCell: UITableViewCell {
     var count = 0
     var isNoInfoViewVisible = false
     var indexOfCell = 0
-        
+    var isFromPassangerDetails = false
+
     override func awakeFromNib()
     {
         super.awakeFromNib()
@@ -255,8 +256,19 @@ extension IntCombineFareInfoCell{
             slabCell.titleViewHeight.constant = 0
         }
         
-        if indexPath.section == 0{
-            if let adtAirlineCancellationSlab = intAirlineCancellationFees["ADT"]?.feeDetail.map({$0.1})[indexOfCell]
+        if indexPath.section == 0
+        {
+            let key = journey.first?.legsWithDetail[indexOfCell].lfk ?? ""
+                
+            var adtStatement : [IntMultiCityAndReturnWSResponse.Results.J.Fare.SubFares.Details.Fee.FeeDetail]? = [IntMultiCityAndReturnWSResponse.Results.J.Fare.SubFares.Details.Fee.FeeDetail]()
+            if isFromPassangerDetails{
+                adtStatement = intAirlineCancellationFees["ADT"]?.feeDetail[key]
+            }else{
+                adtStatement = intAirlineCancellationFees["ADT"]?.feeDetail.map({$0.1})[indexOfCell]
+            }
+            
+            if let adtAirlineCancellationSlab = adtStatement//intAirlineCancellationFees["ADT"]?.feeDetail[key]
+//            if let adtAirlineCancellationSlab = intAirlineCancellationFees["ADT"]?.feeDetail.map({$0.1})[indexOfCell]
             {
                 let adtAertripCancellationSlab = intAertripCancellationFees["ADT"]?.feeDetail.values.first
                 
@@ -368,7 +380,15 @@ extension IntCombineFareInfoCell{
                 }
             }
             
-            if let chdAirlineCancellationSlab = intAirlineCancellationFees["CHD"]?.feeDetail.map({$0.1})[indexOfCell]
+            
+            var chdStatement : [IntMultiCityAndReturnWSResponse.Results.J.Fare.SubFares.Details.Fee.FeeDetail]? = [IntMultiCityAndReturnWSResponse.Results.J.Fare.SubFares.Details.Fee.FeeDetail]()
+            if isFromPassangerDetails{
+                chdStatement = intAirlineCancellationFees["CHD"]?.feeDetail[key]
+            }else{
+                chdStatement = intAirlineCancellationFees["CHD"]?.feeDetail.map({$0.1})[indexOfCell]
+            }
+            
+            if let chdAirlineCancellationSlab = chdStatement //intAirlineCancellationFees["CHD"]?.feeDetail.map({$0.1})[indexOfCell]
             {
                 let chdAertripCancellationSlab = intAertripCancellationFees["CHD"]?.feeDetail.values.first
                 
@@ -414,7 +434,15 @@ extension IntCombineFareInfoCell{
                 }
             }
             
-            if let infAirlineCancellationSlab = intAirlineCancellationFees["INF"]?.feeDetail.map({$0.1})[indexOfCell]
+            
+            var infStatement : [IntMultiCityAndReturnWSResponse.Results.J.Fare.SubFares.Details.Fee.FeeDetail]? = [IntMultiCityAndReturnWSResponse.Results.J.Fare.SubFares.Details.Fee.FeeDetail]()
+            if isFromPassangerDetails{
+                infStatement = intAirlineCancellationFees["INF"]?.feeDetail[key]
+            }else{
+                infStatement = intAirlineCancellationFees["INF"]?.feeDetail.map({$0.1})[indexOfCell]
+            }
+            
+            if let infAirlineCancellationSlab = infStatement//intAirlineCancellationFees["INF"]?.feeDetail.map({$0.1})[indexOfCell]
             {
                 let infAertripCancellationSlab = intAertripCancellationFees["INF"]?.feeDetail.values.first
                 
@@ -460,7 +488,18 @@ extension IntCombineFareInfoCell{
                 }
             }
         }else{
-            if let adtAirlineReschedulingSlab = intAirlineReschedulingFees["ADT"]?.feeDetail.map({$0.1})[indexOfCell]
+            let key = journey.first?.legsWithDetail[indexOfCell].lfk ?? ""
+
+            var adtStatement : [IntMultiCityAndReturnWSResponse.Results.J.Fare.SubFares.Details.Fee.FeeDetail]? = [IntMultiCityAndReturnWSResponse.Results.J.Fare.SubFares.Details.Fee.FeeDetail]()
+            if isFromPassangerDetails{
+                adtStatement = intAirlineReschedulingFees["ADT"]?.feeDetail[key]
+            }else{
+                adtStatement = intAirlineReschedulingFees["ADT"]?.feeDetail.map({$0.1})[indexOfCell]
+            }
+            
+            if let adtAirlineReschedulingSlab = adtStatement
+            //intAirlineReschedulingFees["ADT"]?.feeDetail[key]
+//            if let adtAirlineReschedulingSlab = intAirlineReschedulingFees["ADT"]?.feeDetail.map({$0.1})[indexOfCell]
             {
                 let adtAertripReschedulingSlab = intAertripReschedulingFees["ADT"]?.feeDetail.values.first
                 
@@ -563,7 +602,14 @@ extension IntCombineFareInfoCell{
                 }
             }
             
-            if let chdAirlineReschedulingSlab = intAirlineReschedulingFees["CHD"]?.feeDetail.map({$0.1})[indexOfCell]
+            var chdStatement : [IntMultiCityAndReturnWSResponse.Results.J.Fare.SubFares.Details.Fee.FeeDetail]? = [IntMultiCityAndReturnWSResponse.Results.J.Fare.SubFares.Details.Fee.FeeDetail]()
+            if isFromPassangerDetails{
+                chdStatement = intAirlineReschedulingFees["CHD"]?.feeDetail[key]
+            }else{
+                chdStatement = intAirlineReschedulingFees["CHD"]?.feeDetail.map({$0.1})[indexOfCell]
+            }
+            
+            if let chdAirlineReschedulingSlab = chdStatement //intAirlineReschedulingFees["CHD"]?.feeDetail.map({$0.1})[indexOfCell]
             {
                 let chdAertripReschedulingSlab = intAertripReschedulingFees["CHD"]?.feeDetail.values.first
                 
@@ -603,7 +649,15 @@ extension IntCombineFareInfoCell{
                 }
             }
             
-            if let infAirlineReschedulingSlab = intAirlineReschedulingFees["INF"]?.feeDetail.map({$0.1})[indexOfCell]
+            
+            var infStatement : [IntMultiCityAndReturnWSResponse.Results.J.Fare.SubFares.Details.Fee.FeeDetail]? = [IntMultiCityAndReturnWSResponse.Results.J.Fare.SubFares.Details.Fee.FeeDetail]()
+            if isFromPassangerDetails{
+                infStatement = intAirlineReschedulingFees["INF"]?.feeDetail[key]
+            }else{
+                infStatement = intAirlineReschedulingFees["INF"]?.feeDetail.map({$0.1})[indexOfCell]
+            }
+            
+            if let infAirlineReschedulingSlab = infStatement//intAirlineReschedulingFees["INF"]?.feeDetail.map({$0.1})[indexOfCell]
             {
                 let infAertripReschedulingSlab = intAertripReschedulingFees["INF"]?.feeDetail.values.first
                 

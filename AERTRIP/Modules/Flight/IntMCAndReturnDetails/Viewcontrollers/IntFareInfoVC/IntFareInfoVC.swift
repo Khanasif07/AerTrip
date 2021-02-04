@@ -45,6 +45,7 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
 //    var indicator = UIActivityIndicatorView()
     
     let viewModel = FlightFareInfoVM()
+    var isFromPassangerDetails = false
     
     override func viewDidLoad()
     {
@@ -600,26 +601,46 @@ extension IntFareInfoVC{
         
         let allflight = legs.flatMap{$0.flightsWithDetails}//flights![indexPath.row]
         var displayTitle = ""
-        for flight in allflight {
-            let cc = flight.cc
-            let fbn = flight.fbn
-            var bc = flight.bc
-            bc =  (bc != "") ? " (" + bc + ")" : ""
-            if fbn != ""{
-                if !displayTitle.contains(find: fbn.capitalized + bc){
-                    bc += (flight.ffk == (allflight.last?.ffk ?? "")) ? " " : ", "
-                    displayTitle += fbn.capitalized + bc
+
+        if isFromPassangerDetails{
+            let flight = allflight[indexPath.section]
+                let cc = flight.cc
+                let fbn = flight.fbn
+                var bc = flight.bc
+                if bc != ""{
+                    bc =  " (" + bc + ")"
                 }
-            }else{
-                if !displayTitle.contains(find: cc.capitalized + bc){
-                    bc += (flight.ffk == (allflight.last?.ffk ?? "")) ? " " : ", "
-                    displayTitle += cc.capitalized + bc
+//                var displayTitle = ""
+                if fbn != ""{
+                    displayTitle = fbn.capitalized + bc
+                }else{
+                    displayTitle = cc.capitalized + bc
+                }
+            
+        }else{
+            for flight in allflight {
+                let cc = flight.cc
+                let fbn = flight.fbn
+                var bc = flight.bc
+                bc =  (bc != "") ? " (" + bc + ")" : ""
+                
+                if fbn != ""{
+                    if !displayTitle.contains(find: fbn.capitalized + bc){
+                        bc += (flight.ffk == (allflight.last?.ffk ?? "")) ? " " : ", "
+                        displayTitle += fbn.capitalized + bc
+                    }
+                }else{
+                    if !displayTitle.contains(find: cc.capitalized + bc){
+                        bc += (flight.ffk == (allflight.last?.ffk ?? "")) ? " " : ", "
+                        displayTitle += cc.capitalized + bc
+                    }
                 }
             }
+            if displayTitle.suffix(2) == ", "{
+                displayTitle.removeLast(2)
+            }
         }
-        if displayTitle.suffix(2) == ", "{
-            displayTitle.removeLast(2)
-        }
+        
         if legs.count > 0{
             var location = ""
             
@@ -690,6 +711,7 @@ extension IntFareInfoVC{
         guard let jrny = self.journey.first, let legs = self.journey.first?.legsWithDetail, let fareInfoCell = fareInfoTableView.dequeueReusableCell(withIdentifier: "IntCombineFareInfoCell") as? IntCombineFareInfoCell else {return UITableViewCell()}
         
         
+        fareInfoCell.isFromPassangerDetails = isFromPassangerDetails
         fareInfoCell.journey = journey
         fareInfoCell.legsCount = legs.count
         fareInfoCell.flightAdultCount = flightAdultCount
