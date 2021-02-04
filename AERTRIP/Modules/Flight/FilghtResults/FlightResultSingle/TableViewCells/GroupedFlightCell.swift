@@ -45,7 +45,7 @@ struct TimeFK {
     
     //MARK:- State variables
     var flightGroup = JourneyOnewayDisplay([])
-    var buttonTapped : (() -> ()) = {}
+    var buttonTapped : ((_ shouldScroll : Bool) -> ()) = {_ in }
     weak var delegate : GroupedFlightCellDelegate?
     var timeArray = [TimeFK]()
     var currentJourney : Journey?
@@ -110,14 +110,15 @@ struct TimeFK {
             
         }
         
-        buttonTapped()
+        buttonTapped(false)
+        
         
     }
     
     
     @IBAction func collapseTableButtonTapped(_ sender: UIButton) {
         flightGroup.isCollapsed = !flightGroup.isCollapsed
-        buttonTapped()
+        buttonTapped(true)
     }
     
     func setVaulesFrom( journey: JourneyOnewayDisplay, sortOrder : Sort, isConditionReverced : Bool) {
