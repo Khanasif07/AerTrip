@@ -511,7 +511,7 @@
                                                 <rect key="frame" x="0.0" y="35" width="414" height="52"/>
                                                 <subviews>
                                                     <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="MgO-Hx-FV4" customClass="ATSearchBar" customModule="AERTRIP" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="52"/>
+                                                        <rect key="frame" x="8" y="0.0" width="398" height="52"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </searchBar>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yr9-of-4Ou" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
@@ -525,10 +525,10 @@
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="yr9-of-4Ou" secondAttribute="bottom" id="16g-2b-SDd"/>
                                                     <constraint firstAttribute="height" constant="52" id="4ha-KJ-6Rb"/>
-                                                    <constraint firstAttribute="trailing" secondItem="MgO-Hx-FV4" secondAttribute="trailing" id="Q5T-dg-DxD"/>
+                                                    <constraint firstAttribute="trailing" secondItem="MgO-Hx-FV4" secondAttribute="trailing" constant="8" id="Q5T-dg-DxD"/>
                                                     <constraint firstAttribute="trailing" secondItem="yr9-of-4Ou" secondAttribute="trailing" id="bFS-JN-tyQ"/>
                                                     <constraint firstAttribute="bottom" secondItem="MgO-Hx-FV4" secondAttribute="bottom" id="hIH-Md-rXh"/>
-                                                    <constraint firstItem="MgO-Hx-FV4" firstAttribute="leading" secondItem="shi-no-gJQ" secondAttribute="leading" id="nhF-9k-Nw2"/>
+                                                    <constraint firstItem="MgO-Hx-FV4" firstAttribute="leading" secondItem="shi-no-gJQ" secondAttribute="leading" constant="8" id="nhF-9k-Nw2"/>
                                                     <constraint firstItem="yr9-of-4Ou" firstAttribute="leading" secondItem="shi-no-gJQ" secondAttribute="leading" id="qQP-JQ-c7z"/>
                                                     <constraint firstItem="MgO-Hx-FV4" firstAttribute="top" secondItem="shi-no-gJQ" secondAttribute="top" id="qzK-O3-Sp2"/>
                                                 </constraints>
