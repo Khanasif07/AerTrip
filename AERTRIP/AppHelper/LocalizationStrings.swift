@@ -41,6 +41,8 @@ enum LocalizedString: String {
     case Enter_valid_email_address
     case Enter_password
     case Enter_valid_Password
+    case Email_ID_already_exists
+    case Phone_number_already_exists
     
     // MARK: - SocialLoginVC
     
