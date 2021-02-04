@@ -376,7 +376,10 @@ class GetSharableUrl
     {
         var origin = ""
         if tripType == "single" || tripType == "return"{
-            origin.append("origin=\(journey[0].ap[0])&")
+//            origin.append("origin=\(journey[0].ap[0])&")
+            
+            origin.append("origin=\(searchParam["origin"] ?? "")&")
+            origin = origin.replacingOccurrences(of: " ", with: "")
         }else{
             let originCount = searchParam.filter { $0.key.contains("origin") }
             
@@ -391,7 +394,10 @@ class GetSharableUrl
     func getDestination(journey:[Journey])->String{
         var destination = ""
         if tripType == "single" || tripType == "return"{
-            destination.append("destination=\(journey[0].ap[1])&")
+//            destination.append("destination=\(journey[0].ap[1])&")
+            
+            destination.append("destination=\(searchParam["destination"] ?? "")&")
+            destination = destination.replacingOccurrences(of: " ", with: "")
         }else{
             let destinations = searchParam.filter { $0.key.contains("destination") }
             
