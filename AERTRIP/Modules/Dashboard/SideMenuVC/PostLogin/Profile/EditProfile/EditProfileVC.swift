@@ -902,11 +902,21 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
 //            self.view.addSubview(self.datePickerView!)
 //        }) { _ in
 //        }
-        PKDatePicker.openDatePickerIn(textField, outPutFormate: "dd-MM-yyyy", mode: .date, minimumDate: nil, maximumDate: Date(), selectedDate: selectedDate, appearance: .light, toolBarTint: AppColors.themeGreen) { [unowned self] (dateStr) in
-            //textField.text = dateStr
-            printDebug("dateStr: \(dateStr)")
-            self.valueChangedDatePicker(date: dateStr)
+        
+        if textField.tag == 290{
+              PKDatePicker.openDatePickerIn(textField, outPutFormate: "dd-MM-yyyy", mode: .date, minimumDate: minimumDate, maximumDate: nil, selectedDate: selectedDate, appearance: .light, toolBarTint: AppColors.themeGreen) { [unowned self] (dateStr) in
+                //textField.text = dateStr
+                printDebug("dateStr: \(dateStr)")
+                self.valueChangedDatePicker(date: dateStr)
+              }
+        }else{
+            PKDatePicker.openDatePickerIn(textField, outPutFormate: "dd-MM-yyyy", mode: .date, minimumDate: nil, maximumDate: Date(), selectedDate: selectedDate, appearance: .light, toolBarTint: AppColors.themeGreen) { [unowned self] (dateStr) in
+                //textField.text = dateStr
+                printDebug("dateStr: \(dateStr)")
+                self.valueChangedDatePicker(date: dateStr)
+            }
         }
+        
         textField.tintColor = AppColors.clear
     }
     

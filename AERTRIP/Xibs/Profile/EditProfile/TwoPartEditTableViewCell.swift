@@ -128,6 +128,7 @@ class TwoPartEditTableViewCell: UITableViewCell {
         let rightViewGesture = UITapGestureRecognizer(target: self, action: #selector(middleViewTap(gesture:)))
         rightViewGesture.numberOfTapsRequired = 1
         rightView.isUserInteractionEnabled = true
+        rightTextField.tag = 290
         rightView.addGestureRecognizer(rightViewGesture)
     }
     

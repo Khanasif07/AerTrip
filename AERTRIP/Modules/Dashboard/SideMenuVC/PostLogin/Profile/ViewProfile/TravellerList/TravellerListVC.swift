@@ -713,22 +713,25 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         
         
         // add a UILabel for Age string
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 45, height: 30))
-        label.textAlignment = .right
-        label.attributedText = attributedDateStr
-        cell.accessoryView = label
+//        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 45, height: 30))
+//        label.textAlignment = .right
+//        label.attributedText = attributedDateStr
+//        cell.accessoryView = label
         
         let lastNameToBold = lastName.isEmpty ? firstName : lastName
         
         if UserInfo.loggedInUser?.generalPref?.displayOrder == "LF" {
             let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastNameToBold)" : "\(firstName)"
             let  boldTextAttributed = getAttributedBoldText(text: "\(lastName) \(firstName)", boldText: boldText)
-            
+            boldTextAttributed.append(attributedDateStr)
+
             cell.textLabel?.attributedText = boldTextAttributed
             
         } else {
             let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastNameToBold)" : "\(firstName)"
             let boldTextAttributed = getAttributedBoldText(text: "\(firstName) \(lastName)", boldText: boldText)
+            boldTextAttributed.append(attributedDateStr)
+
             cell.textLabel?.attributedText = boldTextAttributed
         }
         if isSelectMode {
