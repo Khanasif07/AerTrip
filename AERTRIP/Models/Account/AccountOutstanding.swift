@@ -36,7 +36,7 @@ struct OnAccountLedgerEvent {
     }
     
     var creationDateStr: String? {
-        return onAccountDate?.toString(dateFormat: "EEE dd MMM")
+        return onAccountDate?.toString(dateFormat: "EEE dd MMM yyyy")
     }
     
     init(json: JSONDictionary) {
