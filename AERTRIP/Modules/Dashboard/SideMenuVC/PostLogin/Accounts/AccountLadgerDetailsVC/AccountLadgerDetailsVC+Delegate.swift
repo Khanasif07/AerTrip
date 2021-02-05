@@ -20,7 +20,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
             return 1
         }
         if section == self.viewModel.sectionArray.count + 1{
-            return 3
+            return ((self.viewModel.ladgerEvent?.bookingId.isEmpty ?? false) && (self.viewModel.ladgerEvent?.transactionId.isEmpty ?? false)) ? 1: 3
         }
         return self.viewModel.sectionArray[section - 1].count
     }
@@ -47,12 +47,20 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
         }
         
         if indexPath.section == self.viewModel.sectionArray.count + 1{
-            switch indexPath.row {
-            case 0: return 27
-            case 1: return 44
-            case 2: return 35
-            default: return 0
+            if ((self.viewModel.ladgerEvent?.bookingId.isEmpty ?? false) && (self.viewModel.ladgerEvent?.transactionId.isEmpty ?? false)){
+                switch indexPath.row {
+                case 0: return 27
+                default: return CGFloat.leastNonzeroMagnitude
+                }
+            }else{
+                switch indexPath.row {
+                case 0: return 27
+                case 1: return 44
+                case 2: return 35
+                default: return 0
+                }
             }
+            
         }
         
 //        guard let dict = self.viewModel.ladgerDetails["\(indexPath.section - 1)"] as? JSONDictionary else {
