@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PKLoader
 
 class SpecialAccountDetailsVC: BaseVC {
     
@@ -19,6 +20,7 @@ class SpecialAccountDetailsVC: BaseVC {
         }
     }
     @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var loaderView:UIView!
     
     //MARK:- Properties
     //MARK:- Public
@@ -39,8 +41,8 @@ class SpecialAccountDetailsVC: BaseVC {
     var time: Float = 0.0
     var timer: Timer?
     private let refreshControl = UIRefreshControl()
-    
-    
+    let activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.large)
+
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -78,6 +80,14 @@ class SpecialAccountDetailsVC: BaseVC {
         self.refreshControl.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControl.Event.valueChanged)
         self.refreshControl.tintColor = AppColors.themeGreen
         self.tableView.refreshControl = refreshControl
+        
+        
+        loaderView.isHidden = false
+        activityIndicator.center = CGPoint(x: loaderView.bounds.size.width/2, y: loaderView.bounds.size.height/2)
+        activityIndicator.color = AppColors.themeGreen
+        activityIndicator.backgroundColor = .clear
+        activityIndicator.startAnimating()
+        loaderView.addSubview(activityIndicator)
     }
     
     override func dataChanged(_ note: Notification) {
@@ -132,7 +142,7 @@ class SpecialAccountDetailsVC: BaseVC {
         if self.timer?.isValid == true {
             self.timer?.invalidate()
         }
-        self.progressView?.isHidden = false
+        self.progressView?.isHidden = true//false
         self.time = 0.0
         self.progressView.setProgress(0.0, animated: false)
         self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
@@ -168,6 +178,9 @@ class SpecialAccountDetailsVC: BaseVC {
         }
         self.timer?.invalidate()
         self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+        
+        self.activityIndicator.stopAnimating()
+        self.loaderView.isHidden = true
     }
     
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {

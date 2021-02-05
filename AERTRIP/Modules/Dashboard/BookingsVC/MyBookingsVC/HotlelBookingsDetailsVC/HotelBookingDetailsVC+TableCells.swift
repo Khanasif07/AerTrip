@@ -260,6 +260,7 @@ extension HotlelBookingsDetailsVC {
         // For getting maximum label widths and setting - start
         cell.cityAndDateLblWidth.constant = viewModel.weatherLabelWidths.dateLblWidth
         cell.tempLblWidth.constant = viewModel.weatherLabelWidths.curTempLblWidth
+        cell.weatherIconLbl.isHidden = !viewModel.weatherLabelWidths.showWeatherIcons
         cell.weatherLblWidth.constant = viewModel.weatherLabelWidths.highLowLblWidth
         // For getting maximum label widths and setting - end
         

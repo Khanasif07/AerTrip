@@ -25,6 +25,12 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
         // Predicate for searching based on Hotel Name and a
         var finalPredicate: NSCompoundPredicate?
         let orPredicate = getSearchTextPredicate()
+        
+        // added check as bestsellers sort was not applied in case no other filter is applied
+        if filterApplied.sortUsing == .BestSellers {
+            addSortDescriptors()
+        }
+        
         switch self.fetchRequestType {
         case .FilterApplied:
             switch self.filterApplied.sortUsing {
@@ -106,6 +112,7 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
         //        else if let starPred = starPredicate(forStars: HotelsSearchVM.hotelFormData.ratingCount) {
         //            self.fetchedResultsController.fetchRequest.predicate = starPred
         //        }
+
         self.fetchDataFromCoreData(finalPredicate: finalPredicate)
     }
     

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -511,7 +511,7 @@
                                                 <rect key="frame" x="0.0" y="35" width="414" height="52"/>
                                                 <subviews>
                                                     <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="MgO-Hx-FV4" customClass="ATSearchBar" customModule="AERTRIP" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="52"/>
+                                                        <rect key="frame" x="8" y="0.0" width="398" height="52"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </searchBar>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yr9-of-4Ou" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
@@ -525,10 +525,10 @@
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="yr9-of-4Ou" secondAttribute="bottom" id="16g-2b-SDd"/>
                                                     <constraint firstAttribute="height" constant="52" id="4ha-KJ-6Rb"/>
-                                                    <constraint firstAttribute="trailing" secondItem="MgO-Hx-FV4" secondAttribute="trailing" id="Q5T-dg-DxD"/>
+                                                    <constraint firstAttribute="trailing" secondItem="MgO-Hx-FV4" secondAttribute="trailing" constant="8" id="Q5T-dg-DxD"/>
                                                     <constraint firstAttribute="trailing" secondItem="yr9-of-4Ou" secondAttribute="trailing" id="bFS-JN-tyQ"/>
                                                     <constraint firstAttribute="bottom" secondItem="MgO-Hx-FV4" secondAttribute="bottom" id="hIH-Md-rXh"/>
-                                                    <constraint firstItem="MgO-Hx-FV4" firstAttribute="leading" secondItem="shi-no-gJQ" secondAttribute="leading" id="nhF-9k-Nw2"/>
+                                                    <constraint firstItem="MgO-Hx-FV4" firstAttribute="leading" secondItem="shi-no-gJQ" secondAttribute="leading" constant="8" id="nhF-9k-Nw2"/>
                                                     <constraint firstItem="yr9-of-4Ou" firstAttribute="leading" secondItem="shi-no-gJQ" secondAttribute="leading" id="qQP-JQ-c7z"/>
                                                     <constraint firstItem="MgO-Hx-FV4" firstAttribute="top" secondItem="shi-no-gJQ" secondAttribute="top" id="qzK-O3-Sp2"/>
                                                 </constraints>
@@ -1222,6 +1222,10 @@
                                     <constraint firstAttribute="height" constant="44" id="rIP-sc-soB"/>
                                 </constraints>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zcH-Pk-nby">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qyf-xV-gcd">
                                 <rect key="frame" x="0.0" y="88" width="414" height="2"/>
                                 <color key="tintColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1238,6 +1242,9 @@
                             <constraint firstItem="zNG-aC-UAd" firstAttribute="bottom" secondItem="bjS-gH-BEj" secondAttribute="bottom" id="3yy-Nt-LRe"/>
                             <constraint firstItem="bjS-gH-BEj" firstAttribute="top" secondItem="OTX-fc-WUk" secondAttribute="top" id="BAJ-7v-Ky5"/>
                             <constraint firstItem="MYT-af-oVj" firstAttribute="leading" secondItem="OTX-fc-WUk" secondAttribute="leading" id="CUw-LF-1xJ"/>
+                            <constraint firstItem="OTX-fc-WUk" firstAttribute="trailing" secondItem="zcH-Pk-nby" secondAttribute="trailing" id="DIC-1u-ch6"/>
+                            <constraint firstItem="zcH-Pk-nby" firstAttribute="leading" secondItem="OTX-fc-WUk" secondAttribute="leading" id="Fnz-1V-SwM"/>
+                            <constraint firstItem="zcH-Pk-nby" firstAttribute="top" secondItem="zNG-aC-UAd" secondAttribute="bottom" id="IrU-sQ-kpD"/>
                             <constraint firstItem="MYT-af-oVj" firstAttribute="top" secondItem="OTX-fc-WUk" secondAttribute="top" id="VFq-RN-0tN"/>
                             <constraint firstItem="zNG-aC-UAd" firstAttribute="leading" secondItem="bjS-gH-BEj" secondAttribute="leading" id="VYD-Sc-CKW"/>
                             <constraint firstItem="Qyf-xV-gcd" firstAttribute="leading" secondItem="I21-V5-0Iq" secondAttribute="leading" id="Y7H-c8-6xC"/>
@@ -1247,11 +1254,13 @@
                             <constraint firstItem="Qyf-xV-gcd" firstAttribute="top" secondItem="zNG-aC-UAd" secondAttribute="bottom" id="hof-XW-cXi"/>
                             <constraint firstItem="OTX-fc-WUk" firstAttribute="trailing" secondItem="MYT-af-oVj" secondAttribute="trailing" id="pFH-jc-hhr"/>
                             <constraint firstItem="zNG-aC-UAd" firstAttribute="top" secondItem="I21-V5-0Iq" secondAttribute="top" id="t8K-6S-7qD"/>
+                            <constraint firstAttribute="bottom" secondItem="zcH-Pk-nby" secondAttribute="bottom" id="vHq-oT-J1K"/>
                             <constraint firstItem="OTX-fc-WUk" firstAttribute="trailing" secondItem="bjS-gH-BEj" secondAttribute="trailing" id="wfw-SF-yoZ"/>
                             <constraint firstItem="bjS-gH-BEj" firstAttribute="leading" secondItem="OTX-fc-WUk" secondAttribute="leading" id="wkr-Fa-4AB"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="loaderView" destination="zcH-Pk-nby" id="5Wk-sC-D0r"/>
                         <outlet property="progressView" destination="Qyf-xV-gcd" id="2ib-hS-HPX"/>
                         <outlet property="tableView" destination="MYT-af-oVj" id="NkV-yo-D2v"/>
                         <outlet property="topNavView" destination="bjS-gH-BEj" id="Xrk-g0-xp1"/>

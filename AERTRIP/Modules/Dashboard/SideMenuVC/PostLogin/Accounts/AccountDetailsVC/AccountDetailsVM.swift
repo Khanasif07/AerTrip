@@ -64,9 +64,11 @@ class AccountDetailsVM: NSObject {
     
     @objc private func callSearchEvent(_ forText: String) {
         printDebug("search text for: \(forText)")
-        let value = self.getDataApplySearch(forText: forText, onData: self._accountDetails) ?? [:]
-        self.setSearchedAccountDetails(data: value)
-        self.delegate?.searchEventsSuccess()
+        DispatchQueue.main.async{
+            let value = self.getDataApplySearch(forText: forText, onData: self._accountDetails) ?? [:]
+            self.setSearchedAccountDetails(data: value)
+            self.delegate?.searchEventsSuccess()
+        }
     }
     
     private func fetchLedgerStartDate() {

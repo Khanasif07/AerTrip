@@ -102,7 +102,8 @@ extension UpcomingBookingsVC {
             let bookingIdStr = NSPredicate(format: "bookingId CONTAINS[c] '\(MyBookingFilterVM.shared.searchText)'")
             
             //Searched By Flight number
-            let flightNumberyStr = NSPredicate(format: "flightNumbers CONTAINS[c] '\(MyBookingFilterVM.shared.searchText)'")
+            let searchTxt = MyBookingFilterVM.shared.searchText.replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "-", with: "").lowercased()
+            let flightNumberyStr = NSPredicate(format: "flightNumbers CONTAINS[c] '\(searchTxt)'")
             let airlineStr = NSPredicate(format: "airlines CONTAINS[c] '\(MyBookingFilterVM.shared.searchText)'")
             
             return NSCompoundPredicate(orPredicateWithSubpredicates: [hotelName, tripType, destination, origin, product, serviceType, tripCitiesArrStr, routesArrStr, travelledCitiesArrStr, paxArrStr, stepsArrayStr, bookingNumberyStr, bookingIdStr, flightNumberyStr, airlineStr])
