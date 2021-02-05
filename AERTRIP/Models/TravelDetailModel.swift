@@ -240,6 +240,11 @@ struct Email {
         self.init(json: json)
     }
     
+    init(label: String, value: String) {
+        self.label = label
+        self.value = value
+    }
+    
     init(json: JSON) {
         self.id = json["id"].intValue
         self.type = json["type"].stringValue.removeNull

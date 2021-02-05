@@ -353,7 +353,7 @@ class AccountOutstandingLadgerVC: BaseVC {
     }
     
     private func setPayableAmount() {
-        var totalAmount: Double = abs(self.viewModel.accountOutstanding?.grossAmount ?? 0.0)
+        var totalAmount: Double = self.viewModel.accountOutstanding?.netAmount ?? 0.0
         
         if self.currentViewState == .selecting {
             let selected = self.viewModel.totalAmountForSelected
