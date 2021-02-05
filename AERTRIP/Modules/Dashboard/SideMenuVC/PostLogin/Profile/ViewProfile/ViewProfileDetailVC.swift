@@ -183,9 +183,10 @@ class ViewProfileDetailVC: BaseVC {
         }
         
         email.removeAll()
-        let tempEmail = travel.contact.email.filter { (eml) -> Bool in
+        var tempEmail = travel.contact.email.filter { (eml) -> Bool in
             !eml.value.isEmpty
         }
+        tempEmail.sort(by: { $0.label < $1.label })
         email.append(contentsOf: tempEmail)
         
         let social = travel.contact.social.filter { (scl) -> Bool in
@@ -197,9 +198,10 @@ class ViewProfileDetailVC: BaseVC {
         }
         
         mobile.removeAll()
-        let tempMobile = travel.contact.mobile.filter { (mbl) -> Bool in
+        var tempMobile = travel.contact.mobile.filter { (mbl) -> Bool in
             !mbl.value.isEmpty
         }
+        tempMobile.sort(by: { $0.label < $1.label })
         mobile.append(contentsOf: tempMobile)
         
         if mobile.count > 0 {
