@@ -147,13 +147,13 @@ class FlightBookingsDetailsVC: BaseVC {
         if let view = self.headerView {
             
             
-            var dateToDisplay = ""
-            let date = self.viewModel.bookingDetail?.bookingDate?.toString(dateFormat: "d MMM yy") ?? ""
-            if !date.isEmpty{
-                var newDate = date
-                newDate.insert(contentsOf: "’", at: newDate.index(newDate.startIndex, offsetBy: newDate.count-2))
-                dateToDisplay = newDate
-            }
+//            var dateToDisplay = ""
+            let dateToDisplay = self.viewModel.bookingDetail?.bookingDate?.toString(dateFormat: "d MMM yyyy") ?? ""
+//            if !date.isEmpty{
+//                var newDate = date
+//                newDate.insert(contentsOf: "’", at: newDate.index(newDate.startIndex, offsetBy: newDate.count-2))
+//                dateToDisplay = newDate
+//            }
             
             
             view.configureUI(bookingEventTypeImage: self.eventTypeImage, bookingIdStr: self.viewModel.bookingDetail?.id ?? "", bookingIdNumbers: self.viewModel.bookingDetail?.bookingNumber ?? "", date:dateToDisplay)
@@ -190,8 +190,12 @@ class FlightBookingsDetailsVC: BaseVC {
             whatNext.origin = leg.origin
             whatNext.destination = leg.destination
             whatNext.cabinclass = leg.flight.first?.cabinClass ?? "Economy"
-            
-            whatNext.depart = leg.flight.first?.departDate?.toString(dateFormat: "dd-MM-yyyy") ?? ""
+            if ((leg.flight.first?.departDate ?? Date()) > Date()){
+                whatNext.depart = leg.flight.first?.departDate?.toString(dateFormat: "dd-MM-yyyy") ?? ""
+            }else{
+                whatNext.depart = Date().toString(dateFormat: "dd-MM-yyyy")
+            }
+           
             whatNext.tripType = detail.tripType
             whatNext.adult = "\((leg.pax.filter{$0.paxType.uppercased() == "ADT"}).count)"
             whatNext.child = "\((leg.pax.filter{$0.paxType.uppercased() == "CHD"}).count)"
@@ -207,7 +211,12 @@ class FlightBookingsDetailsVC: BaseVC {
         switch detail.tripType{
         case "single", "return":
             if detail.tripType != "single"{
-                whatNext.returnDate = fDetails.leg.last?.flight.first?.departDate?.toString(dateFormat: "dd-MM-yyyy") ?? ""
+                if ((fDetails.leg.last?.flight.first?.departDate ?? Date()) > Date()){
+                    whatNext.returnDate = fDetails.leg.last?.flight.first?.departDate?.toString(dateFormat: "dd-MM-yyyy") ?? ""
+                }else{
+                    whatNext.returnDate = Date().toString(dateFormat: "dd-MM-yyyy")
+                }
+                
             }
             return whatNext
             
@@ -223,7 +232,12 @@ class FlightBookingsDetailsVC: BaseVC {
             var departCountry = [String]()
             
             for leg in fDetails.leg{
-                depart.append(leg.flight.first?.departDate?.toString(dateFormat: "dd-MM-yyyy") ?? "")
+                
+                if ((leg.flight.first?.departDate ?? Date()) > Date()){
+                    depart.append(leg.flight.first?.departDate?.toString(dateFormat: "dd-MM-yyyy") ?? "")
+                }else{
+                    depart.append(Date().toString(dateFormat: "dd-MM-yyyy"))
+                }
                 origin.append(leg.origin)
                 destination.append(leg.destination)
                 departCity.append((leg.title.components(separatedBy: "→").first ?? "").trimmingCharacters(in: .whitespaces))
