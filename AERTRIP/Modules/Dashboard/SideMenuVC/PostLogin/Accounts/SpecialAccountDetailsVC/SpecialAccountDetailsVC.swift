@@ -20,6 +20,7 @@ class SpecialAccountDetailsVC: BaseVC {
         }
     }
     @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var loaderView:UIView!
     
     //MARK:- Properties
     //MARK:- Public
@@ -40,7 +41,6 @@ class SpecialAccountDetailsVC: BaseVC {
     var time: Float = 0.0
     var timer: Timer?
     private let refreshControl = UIRefreshControl()
-    var animatingView = UIView()
     let activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.large)
 
     
@@ -82,16 +82,12 @@ class SpecialAccountDetailsVC: BaseVC {
         self.tableView.refreshControl = refreshControl
         
         
-
-        animatingView.frame = CGRect(x: 0, y: 88, width: self.view.frame.width, height: self.view.frame.height-88)
-        animatingView.backgroundColor = UIColor.white
-        
-        activityIndicator.center = CGPoint(x: animatingView.bounds.size.width/2, y: animatingView.bounds.size.height/2)
+        loaderView.isHidden = false
+        activityIndicator.center = CGPoint(x: loaderView.bounds.size.width/2, y: loaderView.bounds.size.height/2)
         activityIndicator.color = AppColors.themeGreen
         activityIndicator.backgroundColor = .clear
         activityIndicator.startAnimating()
-        animatingView.addSubview(activityIndicator)
-        self.view.addSubview(animatingView)
+        loaderView.addSubview(activityIndicator)
     }
     
     override func dataChanged(_ note: Notification) {
@@ -184,7 +180,7 @@ class SpecialAccountDetailsVC: BaseVC {
         self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
         
         self.activityIndicator.stopAnimating()
-        self.animatingView.isHidden = true
+        self.loaderView.isHidden = true
     }
     
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
