@@ -82,16 +82,17 @@ class EditProfileVM {
     func isValidateData(vc: UIViewController) -> Bool {
         var flag = true
         
-        if self.salutation.isEmpty {
-            AppToast.default.showToastMessage(message: LocalizedString.PleaseSelectSalutation.localized)
-            flag = false
-        } else if self.firstName.removeAllWhiteSpacesAndNewLines.isEmpty {
+        if self.firstName.removeAllWhiteSpacesAndNewLines.isEmpty {
             AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterFirstName.localized)
             flag = false
         }
         else if self.lastName.removeAllWhiteSpacesAndNewLines.isEmpty {
                 AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterLastName.localized)
                 flag = false
+        }
+        else if self.salutation.isEmpty {
+            AppToast.default.showToastMessage(message: LocalizedString.PleaseSelectSalutation.localized)
+            flag = false
         }
         else if !(self.email.first?.value.removeAllWhiteSpacesAndNewLines.isEmpty ?? true) {
             let emailValArr = self.email.map { $0.value }
