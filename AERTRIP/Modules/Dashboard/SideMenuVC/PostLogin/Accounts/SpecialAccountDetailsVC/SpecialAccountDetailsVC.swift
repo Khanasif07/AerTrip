@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PKLoader
 
 class SpecialAccountDetailsVC: BaseVC {
     
@@ -39,8 +40,9 @@ class SpecialAccountDetailsVC: BaseVC {
     var time: Float = 0.0
     var timer: Timer?
     private let refreshControl = UIRefreshControl()
-    
-    
+    var animatingView = UIView()
+    let activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.large)
+
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -78,6 +80,18 @@ class SpecialAccountDetailsVC: BaseVC {
         self.refreshControl.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControl.Event.valueChanged)
         self.refreshControl.tintColor = AppColors.themeGreen
         self.tableView.refreshControl = refreshControl
+        
+        
+
+        animatingView.frame = CGRect(x: 0, y: 88, width: self.view.frame.width, height: self.view.frame.height-88)
+        animatingView.backgroundColor = UIColor.white
+        
+        activityIndicator.center = CGPoint(x: animatingView.bounds.size.width/2, y: animatingView.bounds.size.height/2)
+        activityIndicator.color = AppColors.themeGreen
+        activityIndicator.backgroundColor = .clear
+        activityIndicator.startAnimating()
+        animatingView.addSubview(activityIndicator)
+        self.view.addSubview(animatingView)
     }
     
     override func dataChanged(_ note: Notification) {
@@ -132,7 +146,7 @@ class SpecialAccountDetailsVC: BaseVC {
         if self.timer?.isValid == true {
             self.timer?.invalidate()
         }
-        self.progressView?.isHidden = false
+        self.progressView?.isHidden = true//false
         self.time = 0.0
         self.progressView.setProgress(0.0, animated: false)
         self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
@@ -168,6 +182,9 @@ class SpecialAccountDetailsVC: BaseVC {
         }
         self.timer?.invalidate()
         self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+        
+        self.activityIndicator.stopAnimating()
+        self.animatingView.isHidden = true
     }
     
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {

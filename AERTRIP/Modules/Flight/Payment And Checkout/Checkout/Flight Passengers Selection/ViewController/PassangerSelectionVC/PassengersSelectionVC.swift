@@ -241,6 +241,7 @@ extension PassengersSelectionVC: UseGSTINCellDelegate, FareBreakupVCDelegate, Jo
         vc.isInternational = true//self.viewModel.itineraryData.itinerary.isInternational
         vc.bookFlightObject = self.viewModel.bookingObject ?? BookFlightObject()
         vc.taxesResult = self.viewModel.taxesResult
+        vc.isFromPassangerDetails = true
         vc.isForCheckOut = true
         vc.sid = self.viewModel.sid
         vc.itineraryId = self.viewModel.itineraryData.itinerary.id
