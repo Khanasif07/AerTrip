@@ -113,7 +113,12 @@ class AccountLadgerDetailHeader: UIView {
             }
 //            self.titleLabel.text = event.title
             self.bookingIdKeyLabel.text = LocalizedString.BookingID.localized
-            self.bookingIdValueLabel.text = event.bookingNumber
+            
+            self.bookingIdValueLabel.font = AppFonts.SemiBold.withSize(16.0)
+            self.bookingIdValueLabel.textColor = AppColors.themeBlack
+            
+            self.bookingIdValueLabel.attributedText = event.bookingNumber.attributeStringWithColors(subString: [String(event.bookingNumber.suffix(4))], strClr: AppColors.themeBlack, substrClr: AppColors.themeBlack, strFont: AppFonts.Regular.withSize(16.0), subStrFont: AppFonts.SemiBold.withSize(16.0))
+            
             self.bottomDetailContainer.isHidden = false
             self.bottomDetailContainerHeightConstraint.constant = 38.0
             self.bottomContainerBottomConstraint.constant = 22.0

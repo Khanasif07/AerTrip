@@ -39,6 +39,7 @@ class BookingProductDetailVM {
         var dateLblWidth: CGFloat = 0
         var curTempLblWidth: CGFloat = 0
         var highLowLblWidth: CGFloat = 0
+        var showWeatherIcons = false
     }
     var weatherLabelWidths = WeatherLabelWidths()
     
@@ -422,12 +423,15 @@ extension BookingProductDetailVM {
             if lblForCurTempWidth.intrinsicContentSize.width > weatherLabelWidths.curTempLblWidth {
                 weatherLabelWidths.curTempLblWidth = lblForCurTempWidth.intrinsicContentSize.width
             }
+                        
+            let weatherStr = "\(weatherData.maxTemperature ?? 0) \u{00B0}/ \(weatherData.minTemperature ?? 0)\u{00B0}"
             
-            let code: String = String(weatherData.weatherIcon.split(separator: "-").first ?? "")
-            
-            let iconWithText = AppGlobals.shared.getTextWithImage(startText: "", image: ATWeatherType(rawValue: code)!.icon, endText: "  \(weatherData.maxTemperature ?? 0) \u{00B0}/ \(weatherData.minTemperature ?? 0)\u{00B0}", font: AppFonts.Regular.withSize(18.0), isEndTextBold: false)
             lblForMaxMinTempWidth.attributedText = weatherData.maxTemperature == nil ||
-                weatherData.minTemperature == nil ? NSAttributedString(string: "              -") : iconWithText
+                weatherData.minTemperature == nil ? NSAttributedString(string: "              -") : NSAttributedString(string: weatherStr)
+            
+            if weatherData.maxTemperature != nil && weatherData.minTemperature != nil {
+                weatherLabelWidths.showWeatherIcons = true
+            }
             
             if lblForMaxMinTempWidth.intrinsicContentSize.width > weatherLabelWidths.highLowLblWidth {
                 weatherLabelWidths.highLowLblWidth = lblForMaxMinTempWidth.intrinsicContentSize.width

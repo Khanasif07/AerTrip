@@ -35,6 +35,7 @@ class WeatherInfoTableViewCell: UITableViewCell {
     
     @IBOutlet weak var cityAndDateLabel: UILabel!
     @IBOutlet weak var tempLabel: UILabel!
+    @IBOutlet weak var weatherIconLbl: UILabel!
     @IBOutlet weak var whetherLabel: UILabel!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var containerViewBottomConstraint: NSLayoutConstraint!
@@ -74,9 +75,17 @@ class WeatherInfoTableViewCell: UITableViewCell {
 //        tempLabel.text = weatherData?.maxTemperature == 0 || weatherData?.minTemperature == 0 ? "   -         " : "\(weatherData?.temperature ?? 0)\u{00B0}C"
         let code: String = String(weatherData?.weatherIcon.split(separator: "-").first ?? "")
         
-        let iconWithText = AppGlobals.shared.getTextWithImage(startText: "", image: ATWeatherType(rawValue: code)!.icon, endText: "  \(weatherData?.maxTemperature ?? 0) \u{00B0}/ \(weatherData?.minTemperature ?? 0)\u{00B0}", font: AppFonts.Regular.withSize(18.0), isEndTextBold: false)
+        let weatherIcon = AppGlobals.shared.getTextWithImage(startText: "", image: ATWeatherType(rawValue: code)!.icon, endText: "", font: AppFonts.Regular.withSize(18.0))
+        if let _ = weatherData?.minTemperature {
+            weatherIconLbl.attributedText = weatherIcon
+        } else {
+            weatherIconLbl.attributedText = nil
+        }
+        let tempText = "\(weatherData?.maxTemperature ?? 0) \u{00B0}/ \(weatherData?.minTemperature ?? 0)\u{00B0}"
+        
+//        let iconWithText = AppGlobals.shared.getTextWithImage(startText: "", image: ATWeatherType(rawValue: code)!.icon, endText: "  \(weatherData?.maxTemperature ?? 0) \u{00B0}/ \(weatherData?.minTemperature ?? 0)\u{00B0}", font: AppFonts.Regular.withSize(18.0), isEndTextBold: false)
         whetherLabel.attributedText = weatherData?.maxTemperature == nil ||
-            weatherData?.minTemperature == nil ? NSAttributedString(string: "              -") : iconWithText
+            weatherData?.minTemperature == nil ? NSAttributedString(string: "              -") : NSAttributedString(string: tempText)
         
         self.containerViewBottomConstraint.constant = self.isLastCell ? 26.0 : 0.0
     }

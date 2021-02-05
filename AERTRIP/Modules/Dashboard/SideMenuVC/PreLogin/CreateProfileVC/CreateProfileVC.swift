@@ -124,6 +124,11 @@ class CreateProfileVC: BaseVC {
         if self.viewModel.isValidateData {
             self.viewModel.webserviceForUpdateProfile()
         } else {
+            if viewModel.userData.salutation.isEmpty{
+                containerView.layer.borderColor = AppColors.themeRed.cgColor
+                containerView.layer.borderWidth = 0.5
+            }
+
             let isValidFirstName = !self.viewModel.userData.firstName.isEmpty
             self.firstNameTextField.isError = !isValidFirstName
             let firstNamePlaceHolder = self.firstNameTextField.placeholder ?? ""
@@ -155,6 +160,8 @@ class CreateProfileVC: BaseVC {
     
     @IBAction func changeSelectedIndex(_ sender: ATUnicodeSwitch) {
         verticalDividerView.isHidden = true
+        containerView.layer.borderColor = AppColors.clear.cgColor
+
         unicodeSwitch.sliderView.layer.borderColor = AppColors.themeBlack.withAlphaComponent(0.04).cgColor
         unicodeSwitch.sliderView.layer.borderWidth = 0.5
         unicodeSwitch.sliderView.dropShadowOnSwitch()
