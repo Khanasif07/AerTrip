@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -51,7 +51,7 @@
                         <constraint firstAttribute="trailing" secondItem="ne9-EH-Eo6" secondAttribute="trailing" id="w3L-Ac-MGk"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SHA-19-e58">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SHA-19-e58">
                     <rect key="frame" x="50" y="189" width="373" height="38"/>
                     <connections>
                         <action selector="tapBookingIdButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="NvJ-Sp-lc7"/>
@@ -72,6 +72,7 @@
                     </constraints>
                 </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="SHA-19-e58" firstAttribute="leading" secondItem="Pif-8b-45l" secondAttribute="leading" id="12n-Bp-QHZ"/>
@@ -91,7 +92,6 @@
                 <constraint firstItem="MOw-oT-9fe" firstAttribute="leading" secondItem="Pif-8b-45l" secondAttribute="leading" id="xcn-Xs-92I"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="bookingIdButton" destination="SHA-19-e58" id="4e7-w9-dTw"/>
                 <outlet property="bookingIdKeyLabel" destination="ne9-EH-Eo6" id="e9Z-M5-PGC"/>
@@ -103,6 +103,7 @@
                 <outlet property="imageView" destination="hXS-Wr-WUL" id="N2L-on-Vjv"/>
                 <outlet property="titleHeightConstraint" destination="GcD-2u-OEr" id="nrN-41-FqM"/>
                 <outlet property="titleLabel" destination="MOw-oT-9fe" id="Xrs-bf-qfY"/>
+                <outlet property="titleLabelBottom" destination="rG6-3B-BZI" id="4dQ-jB-zbf"/>
             </connections>
             <point key="canvasLocation" x="216.80000000000001" y="353.07346326836586"/>
         </view>

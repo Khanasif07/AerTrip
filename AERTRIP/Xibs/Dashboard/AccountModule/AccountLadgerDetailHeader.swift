@@ -25,6 +25,7 @@ class AccountLadgerDetailHeader: UIView {
     @IBOutlet weak var bottomContainerBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var titleHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var titleLabelBottom: NSLayoutConstraint!
     @IBOutlet weak var bookingIdButton: UIButton!
     //MARK:- Properties
     //MARK:- Private

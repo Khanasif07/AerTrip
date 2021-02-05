@@ -55,8 +55,27 @@ struct PeriodicStatementEvent {
         return "\(from) - \(to)"
     }
     
+//    var statementMonth: String? {
+//        if let date = statementDate {
+//            return date.toString(dateFormat: "MM MMM YYYY")
+//        }
+//        return nil
+//    }
+    
+    
+    //
     var statementMonth: String? {
         if let date = statementDate {
+            let component = Calendar.current.dateComponents([.month], from: date)
+            if let month = component.month{
+                let dateString =  date.toString(dateFormat: "MMM YYYY")
+                if month <= 3{
+                    return "\(month + 12) \(dateString)"
+                }else{
+                    let monStr = String(format: "%02d", month)
+                    return "\(monStr) \(dateString)"
+                }
+            }
             return date.toString(dateFormat: "MM MMM YYYY")
         }
         return nil

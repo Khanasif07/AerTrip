@@ -19,7 +19,7 @@ class AccountLadgerDetailsVC: BaseVC {
         didSet {
             tableView.delegate = self
             tableView.dataSource = self
-            tableView.backgroundColor = .clear//AppColors.themeGray04
+            tableView.backgroundColor = AppColors.themeGray04
         }
     }
     @IBOutlet weak var containerView: UIView!
@@ -37,13 +37,23 @@ class AccountLadgerDetailsVC: BaseVC {
     private let headerHeightHotelSale: CGFloat = 215.0
     private let parallexHeaderMinHeight: CGFloat = 0.0
     private var parallexHeaderMaxHeight: CGFloat {
-        if let event = self.viewModel.ladgerEvent, event.voucher == .sales {
-            if event.productType == .flight {
-                self.headerView.titleHeightConstraint.constant = 21.0
+        if let event = self.viewModel.ladgerEvent, (event.voucher == .sales || event.voucher == .journal) {
+            if event.productType == .flight, !(event.bookingId.isEmpty) {
+                if event.voucher == .journal{
+                    self.headerView.titleHeightConstraint.constant = 46.0
+                    self.headerView.titleLabelBottom.constant = 0.0
+                }else{
+                    self.headerView.titleHeightConstraint.constant = 21.0
+                }
+                
                 return self.headerHeightFlightSale
             }
-            else {
+            else if !(event.bookingId.isEmpty){
                 return self.headerHeightHotelSale
+            }else{
+                self.headerView.bottomContainerBottomConstraint.constant = 0.0
+                self.headerView.bottomDetailContainerHeightConstraint.constant = 0.0
+                return self.headerHeightForCredit
             }
         }
         else {
@@ -396,10 +406,10 @@ extension AccountLadgerDetailsVC: MXParallaxHeaderDelegate {
 extension AccountLadgerDetailsVC: AccountLadgerDetailHeaderDelegate{
     
     func tapBookingButton(){
-        if let event = self.viewModel.ladgerEvent, event.voucher == .sales {
+        if let event = self.viewModel.ladgerEvent, (event.voucher == .sales || event.voucher == .journal) {
             switch event.productType {
             case .flight:
-                let title = NSMutableAttributedString(string: event.title)
+                let title = NSMutableAttributedString(string: (event.voucher == .sales) ? event.title : event.sector)
                 AppFlowManager.default.moveToFlightBookingsDetailsVC(bookingId: event.bookingId,tripCitiesStr: title)
                 
             case .hotel:

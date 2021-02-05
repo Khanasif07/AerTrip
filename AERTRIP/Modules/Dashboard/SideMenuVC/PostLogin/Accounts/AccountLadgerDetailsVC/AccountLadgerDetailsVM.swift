@@ -99,6 +99,31 @@ class AccountLadgerDetailsVM {
             }
             
         }
+        if self.ladgerEvent!.productType == .none{
+            
+            var section2 = [(title: String, value: String, age: String, isEmptyCell: Bool)]()
+            if let des  = self.ladgerEvent!.description, !(des.isEmpty){
+                section2.append((title: "Description", value: des, age: "", isEmptyCell: false))
+            }
+            for (idx, name) in self.ladgerEvent!.names.enumerated() {
+                var age = ""
+                if !name.dob.isEmpty {
+                    age = AppGlobals.shared.getAgeLastString(dob: name.dob, formatter: Date.DateFormat.yyyy_MM_dd.rawValue)
+                }
+                if idx == 0 {
+                    section2.append((title: "Names", value: name.name, age: age, isEmptyCell: false))
+                }
+                else {
+                    section2.append((title: "", value: name.name, age: age, isEmptyCell: false))
+                }
+            }
+            if !section2.isEmpty{
+                section2.append((title: "", value: "", age: "", isEmptyCell: true))
+                self.sectionArray.append(section2)
+            }
+        }
+        
+        
         self.calculateMaxWidth()
     }
     
@@ -138,7 +163,7 @@ class AccountLadgerDetailsVM {
                 section4.append((title: "Airline", value: self.ladgerEvent!.airline, age: "", isEmptyCell: false))
             }
             if  !self.ladgerEvent!.sector.isEmpty{
-                section4.append((title: "Sector", age: "", value: self.ladgerEvent!.title, isEmptyCell: false))
+                section4.append((title: "Sector", value: self.ladgerEvent!.sector, age: "", isEmptyCell: false))
             }
             if  !self.ladgerEvent!.pnr.isEmpty{
                 section4.append((title: "PNR", value: self.ladgerEvent!.pnr, age: "", isEmptyCell: false))
@@ -187,7 +212,7 @@ class AccountLadgerDetailsVM {
                 section2.append((title: "Airline", value: self.ladgerEvent!.airline, age: "", isEmptyCell: false))
             }
             if  !self.ladgerEvent!.sector.isEmpty{
-                section2.append((title: "Sector", age: "", value: self.ladgerEvent!.title, isEmptyCell: false))
+                section2.append((title: "Sector", value: self.ladgerEvent!.sector, age: "", isEmptyCell: false))
             }
             if  !self.ladgerEvent!.pnr.isEmpty{
                 section2.append((title: "PNR", value: self.ladgerEvent!.pnr, age: "", isEmptyCell: false))

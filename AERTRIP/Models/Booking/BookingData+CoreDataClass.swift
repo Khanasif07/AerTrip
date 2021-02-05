@@ -182,9 +182,10 @@ public class BookingData: NSManagedObject {
                 booking?.bookingTabType = bookingType(forDate: date, date: endDate, bstatus: status)
             }
             //Searched By Flight number
-            booking?.flightNumbers = (obj["flight_number"] as? [String])?.joined(separator: ",")
-            if let airlines = obj["airlines"] as? JSONDictionary {
+//            booking?.flightNumbers = (obj["flight_number"] as? [String])?.joined(separator: ",")
+            if let airlines = obj["airlines"] as? [String:String] {
                 booking?.airlines = airlines.map({"\($0.0) \($0.1 as? String ?? "")"}).joined(separator: ",")
+                booking?.flightNumbers = self.createFlightNumber(with: (obj["flight_number"] as? [String] ?? []), airlines: airlines)
             }
         }
         
@@ -245,5 +246,32 @@ public class BookingData: NSManagedObject {
             return nil
         }
         return nil
+    }
+    
+    class func createFlightNumber(with flightNumber: [String], airlines : [String:String])-> String{
+        var flightsNumbers = [String]()
+        for code in flightNumber{
+            let codes = code.components(separatedBy: " ")
+            let numbers = "\(Int(codes.last ?? "0") ?? 0)"
+            let airLineCode = codes.first ?? ""
+            let airline = airlines[airLineCode] ?? ""
+            var fisibleNumbers = [String]()
+            if numbers.count >= 4{
+                fisibleNumbers = [numbers]
+            }else{
+                fisibleNumbers = [numbers]
+                for i in 0..<(4 - numbers.count){
+                    let str = String(repeating: "0", count: i+1)
+                    fisibleNumbers.append(str + numbers)
+                }
+            }
+            for number in fisibleNumbers{
+                flightsNumbers.append((airLineCode + number).lowercased().replacingOccurrences(of: " ", with: ""))
+                flightsNumbers.append((airline + number).lowercased().replacingOccurrences(of: " ", with: ""))
+                flightsNumbers.append("\(airline)\(airLineCode + number)".lowercased().replacingOccurrences(of: " ", with: ""))
+                
+            }
+        }
+        return flightsNumbers.joined(separator: ",")
     }
 }

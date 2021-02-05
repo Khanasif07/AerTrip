@@ -32,6 +32,8 @@
 "Enter_valid_email_address" = "Enter a valid email ID";
 "Enter_password"        = "Enter a valid password";
 "Enter_valid_Password"    = "Enter a valid password";
+"Email_ID_already_exists" = "Email ID already exists";
+"Phone_number_already_exists" = "Contact Number already exists";
 
 // MARK:- SocialLoginVC
 //MARK:-
