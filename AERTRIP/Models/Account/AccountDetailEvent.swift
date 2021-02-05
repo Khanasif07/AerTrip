@@ -117,6 +117,9 @@ struct AccountDetailEvent {
     var dueDate: Date?
     var overDueDays: Int = 0
     
+    //description
+    var description:String?
+    
     var voucherDate: Date?
     
     var travelDate: Date?
@@ -404,11 +407,11 @@ struct AccountDetailEvent {
         self.getAttributedText()
         if self.voucherNo.lowercased().contains("srjv") {
             self.title = "\(LocalizedString.CancellationFor.localized)\n\(self.title)"
-            self.attributedString = nil
+            self.attributedString = self.setAttributedName(title: self.title, coloredText: LocalizedString.CancellationFor.localized, color: AppColors.themeRed)
             self.iconImage = #imageLiteral(resourceName: "flightCancellation")
         } else if self.voucherNo.lowercased().contains("rsrjv") {
             self.title = "\(LocalizedString.ReschedulingFor.localized)\n\(self.title)"
-            self.attributedString = nil
+            self.attributedString = self.setAttributedName(title: self.title, coloredText: LocalizedString.ReschedulingFor.localized, color: AppColors.themeYellow)
             self.iconImage = #imageLiteral(resourceName: "ic_acc_flightReScheduling")
         }else if self.voucherNo.lowercased().contains("sa/") {
             self.title = "Add-ons"
@@ -472,9 +475,18 @@ struct AccountDetailEvent {
     }
     
     
+    private  func setAttributedName( title: String, coloredText: String, color: UIColor) -> NSAttributedString{
+        
+        let attributedString = NSMutableAttributedString(string: title, attributes: [NSAttributedString.Key.foregroundColor : AppColors.themeBlack])
+        let range = NSString(string: title).range(of: coloredText)
+        attributedString.addAttributes([NSAttributedString.Key.foregroundColor : color], range: range)
+        return attributedString
+        
+    }
+    
     private mutating func parseForOtherSales(details: JSONDictionary) {
         
-        self.iconImage = #imageLiteral(resourceName: "ic_acc_journalVoucher") //#imageLiteral(resourceName: "others_hotels")
+        self.iconImage = (!(self._productType.lowercased() == "others")) ?  #imageLiteral(resourceName: "ic_acc_journalVoucher") :  #imageLiteral(resourceName: "others_hotels")
         
         //booking date
         if let obj = details["booking_date"] {
@@ -492,6 +504,11 @@ struct AccountDetailEvent {
         
         //title
         self.title = details["party_name"] as? String ?? ""
+        
+        if let rows = details["rows"] as? [JSONDictionary], !rows.isEmpty {
+            self.names.append(contentsOf: AccountUser.retunsAccountUserArray(jsonArr: rows))
+        }
+        self.description = details["service_type"] as? String
     }
 
     

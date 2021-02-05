@@ -82,7 +82,7 @@ extension  FlightDomesticMultiLegResultVC : UITableViewDataSource , UITableViewD
         
         let tableIndex = tableView.tag - 1000
         
-        printDebug(self.viewModel.results[tableIndex].suggestedJourneyArray[indexPath.row].fk)
+//        printDebug(self.viewModel.results[tableIndex].suggestedJourneyArray[indexPath.row].fk)
         
         self.viewModel.shouldDisplayToast = true
         self.viewModel.setSelectedJourney(tableIndex: tableIndex, journeyIndex: indexPath.row)

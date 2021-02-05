@@ -94,6 +94,12 @@ class EditProfileVM {
                 flag = false
         }
         else if !(self.email.first?.value.removeAllWhiteSpacesAndNewLines.isEmpty ?? true) {
+            let emailValArr = self.email.map { $0.value }
+            let emailValSet = Set(emailValArr)
+            if emailValArr.count != emailValSet.count {
+                AppToast.default.showToastMessage(message: LocalizedString.Email_ID_already_exists.localized)
+                flag = false
+            }
             for email in self.email {
                 if !email.value.checkValidity(.Email) {
                     AppToast.default.showToastMessage(message: LocalizedString.Enter_valid_email_address.localized)
@@ -135,28 +141,36 @@ class EditProfileVM {
             }
             
         }
-        
-        if !self.email.isEmpty {
-            for (index, _) in self.email.enumerated() {
-                if index > 0 {
-                    if self.email[index - 1].value == self.email[index].value {
-                        AppToast.default.showToastMessage(message: "All email should be unique")
-                        flag = false
-                    }
-                }
-            }
-        }
+// Asif's check commented
+//        if !self.email.isEmpty {
+//            for (index, _) in self.email.enumerated() {
+//                if index > 0 {
+//                    if self.email[index - 1].value == self.email[index].value {
+//                        AppToast.default.showToastMessage(message: "All email should be unique")
+//                        flag = false
+//                    }
+//                }
+//            }
+//        }
         
         if !self.mobile.isEmpty {
-            var isValid = true
+//            var isValid = true
+            
+            let mobileValArr = self.mobile.map { $0.valueWithISD }
+            let mobileValSet = Set(mobileValArr)
+            if mobileValArr.count != mobileValSet.count {
+                AppToast.default.showToastMessage(message: LocalizedString.Phone_number_already_exists.localized)
+                flag = false
+            }
+            
             for (index, _) in self.mobile.enumerated() {
-                isValid = self.mobile[index].isValide
-                if index > 0 {
-                    if self.mobile[index - 1].value == self.mobile[index].value && self.mobile[index - 1].isd == self.mobile[index].isd {
-                        AppToast.default.showToastMessage(message: LocalizedString.AllMobileNumberShouldUnique.localized)
-                        flag = false
-                    }
-                }
+//                isValid = self.mobile[index].isValide
+//                if index > 0 {
+//                    if self.mobile[index - 1].value == self.mobile[index].value && self.mobile[index - 1].isd == self.mobile[index].isd {
+//                        AppToast.default.showToastMessage(message: LocalizedString.AllMobileNumberShouldUnique.localized)
+//                        flag = false
+//                    }
+//                }
                 
                 if !(AppConstants.kMinPhoneLength...AppConstants.kMaxPhoneLength ~= self.mobile[index].value.count) && !self.mobile[index].value.isEmpty{
                       AppToast.default.showToastMessage(message: LocalizedString.EnterValidMobileNumber.localized)

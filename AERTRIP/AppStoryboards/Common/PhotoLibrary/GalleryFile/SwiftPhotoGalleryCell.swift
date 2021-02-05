@@ -190,7 +190,7 @@ open class SwiftPhotoGalleryCell: UICollectionViewCell {
         let widthScale = scrollViewSize.width / imageViewSize.width
         let heightScale = scrollViewSize.height / imageViewSize.height
 
-        scrollView.minimumZoomScale = min(widthScale, heightScale)
+        scrollView.minimumZoomScale = min(widthScale, heightScale) + 0.0005 // safe constant for photo not dismissing sometimes issue - added by Rishabh
         scrollView.setZoomScale(scrollView.minimumZoomScale, animated: false)
     }
     

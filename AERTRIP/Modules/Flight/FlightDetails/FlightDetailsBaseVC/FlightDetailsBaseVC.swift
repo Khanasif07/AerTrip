@@ -96,6 +96,8 @@ class FlightDetailsBaseVC: BaseVC {
     var appliedFilterLegIndex = -1
     private var parchmentLoaded = false
     
+    var isFromPassangerDetails = false
+
     //MARK:- Initial Display
     
     override func viewDidLoad()
@@ -551,6 +553,7 @@ extension FlightDetailsBaseVC{
         }else{
             vc.fewSeatsLeftViewHeight = 0
         }
+        vc.isFromPassangerDetails = isFromPassangerDetails
         vc.delegate = self
         vc.fareRulesDelegate = self
         vc.selectedIndex = selectedIndex
