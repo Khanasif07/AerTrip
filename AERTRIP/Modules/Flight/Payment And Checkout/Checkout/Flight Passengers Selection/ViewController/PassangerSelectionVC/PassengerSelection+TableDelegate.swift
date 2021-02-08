@@ -153,11 +153,11 @@ extension PassengersSelectionVC: UITableViewDelegate, UITableViewDataSource {
             cell.mobile = self.viewModel.mobile
             cell.isdCode = self.viewModel.isdCode
             cell.delegate = self
-            cell.setupData()
+            cell.setupData(isNeedToShowError: self.viewModel.isContinueButtonTapped)
             return cell
         case 2:
             guard let cell = self.passengerTableview.dequeueReusableCell(withIdentifier: "FlightEmailFieldCell") as? FlightEmailFieldCell else {return UITableViewCell()}
-            cell.configureCell(with: self.viewModel.email, isLoggedIn:self.viewModel.isLogin)
+            cell.configureCell(with: self.viewModel.email, isLoggedIn:self.viewModel.isLogin, isNeedToShowError: self.viewModel.isContinueButtonTapped)
             cell.delegate = self
             return cell
         case 3:
@@ -169,15 +169,9 @@ extension PassengersSelectionVC: UITableViewDelegate, UITableViewDataSource {
             cell.delegate = self
             cell.gstModel = self.viewModel.selectedGST
             cell.gstSwitch.isOn = viewModel.isSwitchOn
-//            if self.viewModel.isLogin{
-//                if viewModel.isSwitchOn{
-//                    cell.setupForSelectGST()
-//                }
-//            }else{
-                if viewModel.isSwitchOn{
-                    cell.setupForNewGST()
-                }
-//            }
+            if viewModel.isSwitchOn{
+                cell.setupForNewGST()
+            }
             return cell
         case 5:
             guard let cell = self.passengerTableview.dequeueReusableCell(withIdentifier: "FlightEmptyCell") as? FlightEmptyCell else {return UITableViewCell()}

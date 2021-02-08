@@ -84,15 +84,17 @@ class FlightContactCell: UITableViewCell {
     }
     
     
-    func setupData(){
+    func setupData(isNeedToShowError: Bool){
+        self.contactNumberTextField.text = self.mobile
         let isd = (self.isdCode != "") ? self.isdCode : "+91"
-        if let current = PKCountryPicker.default.getCountryData(forISDCode: isd) {
-            preSelectedCountry = current
-            flagImageView.image = current.flagImage
-            countryCodeLabel.text = current.countryCode
+        guard let current = PKCountryPicker.default.getCountryData(forISDCode: isd) else {return}
+        preSelectedCountry = current
+        flagImageView.image = current.flagImage
+        countryCodeLabel.text = current.countryCode
+        self.contactNumberTextField.text = self.mobile
+        if (self.mobile.isEmpty || self.mobile.count < current.minNSN || self.mobile.count > current.maxNSN) && isNeedToShowError{
+            self.dividerView.defaultBackgroundColor = AppColors.themeRed
         }
-         self.contactNumberTextField.text = self.mobile
-        
     }
     
     
@@ -116,6 +118,7 @@ class FlightContactCell: UITableViewCell {
 
 extension FlightContactCell : UITextFieldDelegate {
     @objc func textFieldDidChanged(_ textField: PhoneNumberTextField) {
+        self.dividerView.defaultBackgroundColor = AppColors.divider.color
         delegate?.textFieldText(textField)
     }
     

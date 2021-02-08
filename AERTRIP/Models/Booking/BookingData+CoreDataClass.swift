@@ -184,7 +184,7 @@ public class BookingData: NSManagedObject {
             //Searched By Flight number
 //            booking?.flightNumbers = (obj["flight_number"] as? [String])?.joined(separator: ",")
             if let airlines = obj["airlines"] as? [String:String] {
-                booking?.airlines = airlines.map({"\($0.0) \($0.1 as? String ?? "")"}).joined(separator: ",")
+                booking?.airlines = airlines.map({"\($0.0) \($0.1)"}).joined(separator: ",")
                 booking?.flightNumbers = self.createFlightNumber(with: (obj["flight_number"] as? [String] ?? []), airlines: airlines)
             }
         }

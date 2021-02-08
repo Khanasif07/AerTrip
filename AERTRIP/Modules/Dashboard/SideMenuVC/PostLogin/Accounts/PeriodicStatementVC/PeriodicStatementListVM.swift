@@ -18,7 +18,7 @@ class PeriodicStatementListVM {
     //MARK:- Public
     var yearData: JSONDictionary = JSONDictionary()
     var allDates: [String] {
-        return Array(yearData.keys).sorted(by: { $0 < $1 })
+        return Array(yearData.keys).sorted(by: { $0 > $1 })
     }
     
     weak var delegate: PeriodicStatementListVMDelegate?

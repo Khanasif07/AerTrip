@@ -77,6 +77,20 @@ extension PeriodicStatementListVC: UITableViewDataSource, UITableViewDelegate {
         return 35.0
     }
     
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return (self.viewModel.allDates.count - 1 == section) ? 35  : CGFloat.leastNonzeroMagnitude
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if (self.viewModel.allDates.count - 1 == section){
+            let ftr = UIView()
+            ftr.backgroundColor = AppColors.clear
+            return ftr
+        }else{
+            return nil
+        }
+    }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: AppConstants.ktableViewHeaderViewIdentifier) as? ViewProfileDetailTableViewSectionView else {
             fatalError("ViewProfileDetailTableViewSectionView not found")
