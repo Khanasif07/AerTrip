@@ -32,6 +32,9 @@ struct AircraftFilter {
 
 class IntFlightResultDisplayGroup {
     
+    // check for pre-applied filters in case of recent search and deep-link
+    private var isFilterInitialized = [Int: Bool]()
+    
     /// Only for checking if user has initiated application of filter
     /// For filters with multiple checks only
     internal var initiatedFilters:  [Int: Set<FlightResultDisplayGroup.InitiatedFilters>] = [:]
@@ -58,9 +61,7 @@ class IntFlightResultDisplayGroup {
     internal var isReturnJourney = false
     
     internal var isAPIResponseUpdated = false
-    
-    private var filterUpdatedFromDeepLink = false
-    
+        
     var onFilterUpdate: (() -> ())?
     
     //MARK:- Computed Properties
@@ -566,10 +567,17 @@ class IntFlightResultDisplayGroup {
     
     private func updateUserFiltersFromDeepLink(_ flightSearchParam: JSONDictionary) {
         
-        guard !filterUpdatedFromDeepLink else { return }
-        filterUpdatedFromDeepLink = true
-        
         for index in 0..<inputFilter.count {
+            
+            if isFilterInitialized.keys.contains(index) {
+                if let initialized = isFilterInitialized[index], initialized {
+//                    continue
+                }
+            }
+            
+            if userSelectedFilters.indices.contains(index) {
+                isFilterInitialized[index] = true
+            }
             
 //            print("flightSearchParam=",flightSearchParam)
             let fares = flightSearchParam.filter { $0.key.contains("filters[\(index)][fares][]") }
