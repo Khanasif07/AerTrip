@@ -88,7 +88,9 @@ class IntFlightResultDisplayGroup {
                 if let _ = filteredJourneyArray.first(where: { $0.legsWithDetail[0].ap.first != $0.legsWithDetail[1].ap.last || $0.legsWithDetail[0].ap.last != $0.legsWithDetail[1].ap.first }) {
                     showReturnDepartSame = true
                 }
-                delegate?.showDepartReturnSame(showReturnDepartSame)
+                delay(seconds: 0.5) { [weak self] in
+                    self?.delegate?.showDepartReturnSame(showReturnDepartSame)
+                }
             }
             
 //            createDynamicFilters(flightsArray: [IntMultiCityAndReturnWSResponse.Flight])

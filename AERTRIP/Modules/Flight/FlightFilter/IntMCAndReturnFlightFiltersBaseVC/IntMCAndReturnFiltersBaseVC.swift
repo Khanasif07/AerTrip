@@ -26,9 +26,11 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
 
     var showDepartReturnSame = false {
         didSet {
-            let viewCon = Filters.Airport.viewController
-            if let airportVC = viewCon as? AirportsFilterViewController {
-                airportVC.areAllDepartReturnNotSame = showDepartReturnSame
+            if !showDepartReturnSame { return }
+            allChildVCs.forEach { (viewCon) in
+                if let airportVC = viewCon as? AirportsFilterViewController {
+                    airportVC.areAllDepartReturnNotSame = showDepartReturnSame
+                }
             }
         }
     }
