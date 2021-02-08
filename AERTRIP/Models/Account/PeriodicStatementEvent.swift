@@ -160,7 +160,7 @@ struct PeriodicStatementEvent {
                     monthData.append(event)
                     
                     //sort the data according to the from date
-                    newTemp[sMonth] = monthData.sorted(by: { ($0.periodFrom?.timeIntervalSince1970 ?? 0) < ($1.periodFrom?.timeIntervalSince1970 ?? 0) })
+                    newTemp[sMonth] = monthData.sorted(by: { ($0.periodFrom?.timeIntervalSince1970 ?? 0) > ($1.periodFrom?.timeIntervalSince1970 ?? 0) })
                 }
                 else {
                     //create new one

@@ -415,8 +415,9 @@ class FlightResultDisplayGroup {
     
     private func updateUserFiltersFromDeepLink(_ flightSearchParam: JSONDictionary) {
         
-        guard !filterUpdatedFromDeepLink else { return }
-        filterUpdatedFromDeepLink = true
+        // commented as not all filter data is fetched at once
+//        guard !filterUpdatedFromDeepLink else { return }
+//        filterUpdatedFromDeepLink = true
         
         let fares = flightSearchParam.filter { $0.key.contains("filters[\(self.index)][fares][]") }
         if fares.count > 0{

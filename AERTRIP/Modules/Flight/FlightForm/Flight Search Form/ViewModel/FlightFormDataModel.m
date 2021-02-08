@@ -1383,7 +1383,7 @@
 
 
 - (void)setFlightFormUIFrom:(NSDictionary *)airportsDictionary destination:(NSString *)destination origin:(NSString *)origin {
-    NSArray * originsArray = [origin componentsSeparatedByString:@", "];
+    NSArray * originsArray = [origin componentsSeparatedByString:@","];
     NSMutableArray * airportsArray = [NSMutableArray array];
     for ( NSString * airportCode in originsArray) {
         
@@ -1395,7 +1395,7 @@
     
     // Fetch destination airport
     airportsArray = [NSMutableArray array];
-    NSArray * destinationAirports = [destination componentsSeparatedByString:@", "];
+    NSArray * destinationAirports = [destination componentsSeparatedByString:@","];
     
     for ( NSString * airportCode in destinationAirports) {
         NSDictionary * destinationAirportDictionary = [airportsDictionary valueForKey:airportCode];

@@ -230,17 +230,17 @@ class TravelDateVC: BaseVC {
 //                self.closeBothPicker(animated: false)
 //            }
             
-            self.fromDatePicker.minimumDate = self.minFromDate
+            self.fromDatePicker?.minimumDate = self.minFromDate
 //            self.fromDatePicker.minimumDate = Date().add(years: -2)
-            self.fromDatePicker.maximumDate = Date().add(years: 2)
+            self.fromDatePicker?.maximumDate = Date().add(years: 2)
             
-            self.toDatePicker.minimumDate = self.minFromDate
+            self.toDatePicker?.minimumDate = self.minFromDate
 //            self.toDatePicker.minimumDate = Date().add(years: -2)
-            self.toDatePicker.maximumDate = Date().add(years: 2)
+            self.toDatePicker?.maximumDate = Date().add(years: 2)
             
-            self.fromDatePicker.setDate(self.oldFromDate ?? Date(), animated: false)
+            self.fromDatePicker?.setDate(self.oldFromDate ?? Date(), animated: false)
             
-            self.toDatePicker.setDate(self.oldToDate ?? Date(), animated: false)
+            self.toDatePicker?.setDate(self.oldToDate ?? Date(), animated: false)
             
             self.setDateOnLabels(fromDate: self.oldFromDate, toDate: self.oldToDate)
         }
@@ -265,11 +265,11 @@ class TravelDateVC: BaseVC {
             
             
             
-            self.fromDatePicker.minimumDate = self.bookingsMinDate
-            self.fromDatePicker.maximumDate = self.bookingsMaxDate
+            self.fromDatePicker?.minimumDate = self.bookingsMinDate
+            self.fromDatePicker?.maximumDate = self.bookingsMaxDate
             
-            self.toDatePicker.minimumDate = self.bookingsMinDate
-            self.toDatePicker.maximumDate = self.bookingsMaxDate
+            self.toDatePicker?.minimumDate = self.bookingsMinDate
+            self.toDatePicker?.maximumDate = self.bookingsMaxDate
 
             
             self.fromDatePicker?.setDate(self.oldFromDate ?? Date(), animated: false)
