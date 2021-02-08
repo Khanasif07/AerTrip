@@ -67,7 +67,7 @@ class FlightEmailFieldCell: UITableViewCell {
     }
 
     
-    func configureCell(with email:String, isLoggedIn:Bool){
+    func configureCell(with email:String, isLoggedIn:Bool, isNeedToShowError:Bool){
         self.editableTextField.autocorrectionType = .no
         self.editableTextField.autocapitalizationType = .none
         self.editableTextField.text = email
@@ -79,6 +79,9 @@ class FlightEmailFieldCell: UITableViewCell {
             self.editableTextField.textColor =  AppColors.themeGray40
             self.editableTextField.titleTextColour = AppColors.themeGray40
         }
+        if !(email.isEmail) && isNeedToShowError{
+            self.separatorView.defaultBackgroundColor = AppColors.themeRed
+        }
     }
     
 }
@@ -87,6 +90,7 @@ class FlightEmailFieldCell: UITableViewCell {
 extension FlightEmailFieldCell: UITextFieldDelegate {
     @objc func textFieldDidChanged(_ textField: UITextField) {
         self.editableTextField.lineView.backgroundColor = AppColors.clear
+        self.separatorView.defaultBackgroundColor = AppColors.divider.color
         let finalTxt = (textField.text ?? "").removeAllWhitespaces
         if let idxPath = indexPath, !finalTxt.isEmpty {
             delegate?.textEditableTableViewCellTextFieldText(idxPath, finalTxt)

@@ -75,6 +75,26 @@ extension HotelsMapVC {
         self.viewModel.getShareText()
     }
     
+    func removeAllFavouritesAlerts(){
+        
+        let title = LocalizedString.UnfavouriteAll.localized.capitalized + "?"
+        let message = LocalizedString.UnfavouriteAllMessage.localized
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let  cancelAction = UIAlertAction(title: LocalizedString.Cancel.localized, style: .default, handler: nil)
+        cancelAction.setValue(AppColors.themeDarkGreen, forKey: "titleTextColor")
+        
+        let  unFavouriteAction = UIAlertAction(title: LocalizedString.Unfavourite.localized, style: .destructive) { [weak self] (action) in
+            self?.removeAllFavouritesHotels()
+        }
+        unFavouriteAction.setValue(AppColors.themeRed, forKey: "titleTextColor")
+        
+        alert.addAction(cancelAction)
+        alert.addAction(unFavouriteAction)
+        present(alert, animated: true, completion: nil)
+        
+    }
+    
     func removeAllFavouritesHotels() {
         guard AppGlobals.shared.isNetworkRechable(showMessage: true) else {
             self.isRemovingAllFav = false

@@ -160,7 +160,15 @@ extension FlightResultSingleJourneyVC : UITableViewDataSource , UITableViewDeleg
                 cell.selectionStyle = .none
                 cell.delegate = self
                 cell.setVaulesFrom(journey: journey, sortOrder: self.viewModel.sortOrder, isConditionReverced : self.viewModel.isConditionReverced)
-                cell.buttonTapped = {
+                
+                
+                cell.buttonTapped = {shouldScroll in
+                    if shouldScroll {
+                        delay(seconds: 0.3) {
+                            self.resultsTableView.scrollToRow(at: indexPath, at: UITableView.ScrollPosition.middle, animated: false)
+                        }
+                    }
+                    
                     self.reloadTableCell(indexPath)
                 }
                 return cell
