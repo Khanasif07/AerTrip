@@ -24,12 +24,22 @@ class SettingsVM {
         case privacyPolicy = "Privacy Policy"
     }
     
-    let settingsDataToPopulate = [
-        0 : [SettingsOptions.country, SettingsOptions.currency, SettingsOptions.notification],
-        1 : [SettingsOptions.calenderSync],
-        2 : [SettingsOptions.changeAertripId,SettingsOptions.changeMobileNumber,SettingsOptions.changePassword, SettingsOptions.disableWalletOtp],
-        3 : [SettingsOptions.aboutUs, SettingsOptions.legal, SettingsOptions.privacyPolicy]
-    ]
+    var settingsDataToPopulate: [Int:[SettingsOptions]] {
+        if UserInfo.loggedInUser != nil {
+            return [
+                0 : [SettingsOptions.country, SettingsOptions.currency, SettingsOptions.notification],
+                1 : [SettingsOptions.calenderSync],
+                2 : [SettingsOptions.changeAertripId,SettingsOptions.changeMobileNumber,SettingsOptions.changePassword, SettingsOptions.disableWalletOtp],
+                3 : [SettingsOptions.aboutUs, SettingsOptions.legal, SettingsOptions.privacyPolicy]
+            ]
+        } else {
+            return [
+                0 : [SettingsOptions.country, SettingsOptions.currency, SettingsOptions.notification],
+                1 : [SettingsOptions.calenderSync],
+                2 : [SettingsOptions.aboutUs, SettingsOptions.legal, SettingsOptions.privacyPolicy]
+            ]
+        }
+    }
     
     
     func getSettingsType(key : Int, index : Int) -> SettingsOptions {
