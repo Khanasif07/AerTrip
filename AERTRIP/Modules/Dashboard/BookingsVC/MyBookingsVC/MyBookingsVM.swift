@@ -38,6 +38,8 @@ class MyBookingsVM {
     var bookingListAPIResponse :(Bool, ErrorCodes)?
     private init() {}
     
+    var bookings : JSONDictionaryArray = []
+    
     func getBookings(showProgress: Bool) {
         guard !isFetchingBooking else {return}
         isFetchingBooking = true
@@ -47,11 +49,14 @@ class MyBookingsVM {
         //            delgate?.willGetBookings()
         //        }
         delgate?.willGetBookings(showProgress: showProgress)
-        APICaller.shared.getBookingList(params: params) { [weak self] success, error in
+        
+        APICaller.shared.getBookingList(params: params) {[weak self] (success, bookings, error) in
             DispatchQueue.mainAsync { [weak self] in
                 guard let self = self else { return }
                 if self.deepLinkBookingId.isEmpty{
                     if success {
+                        self.bookings = bookings ?? []
+//                        self.getMinAndMaxBookingDate(bookings: bookings ?? [])
                         self.delgate?.getBookingsDetailSuccess(showProgress: showProgress)
                     } else {
                         self.delgate?.getBookingDetailFail(error: error, showProgress: showProgress)
@@ -87,6 +92,38 @@ class MyBookingsVM {
                 }
             }
         }
+    }
+    
+    
+    func getMinAndMaxBookingDate(bookings : JSONDictionaryArray) {
+        
+        
+       let sortedData = bookings.sorted { (b1, b2) -> Bool in
+            let val1 = b1[APIKeys.booking_date.rawValue] as? String ?? ""
+            let val2 = b2[APIKeys.booking_date.rawValue] as? String ?? ""
+           
+            guard let d1 = val1.toDate(dateFormat: Date.DateFormat.yyyyMMddHHmmss.rawValue) else { return false }
+            guard let d2 = val2.toDate(dateFormat: Date.DateFormat.yyyyMMddHHmmss.rawValue) else { return false}
+            
+            return d1.isGreaterThan(d2)
+            
+        }
+
+        guard let minObj = sortedData.first else { return }
+        guard let maxObj = sortedData.last else { return }
+
+        let minDateString = minObj[APIKeys.booking_date.rawValue] as? String ?? ""
+        let maxDateString = minObj[APIKeys.booking_date.rawValue] as? String ?? ""
+        
+        guard let minDate = minDateString.toDate(dateFormat: Date.DateFormat.yyyyMMddHHmmss.rawValue) else { return }
+        guard let maxDate = maxDateString.toDate(dateFormat: Date.DateFormat.yyyyMMddHHmmss.rawValue) else { return }
+        
+        printDebug("min....\(minDate)")
+        printDebug("max....\(maxDate)")
+        
+        MyBookingFilterVM.shared.minBookingDate = minDate
+        MyBookingFilterVM.shared.maxBookingDate = maxDate
+
     }
     
     
