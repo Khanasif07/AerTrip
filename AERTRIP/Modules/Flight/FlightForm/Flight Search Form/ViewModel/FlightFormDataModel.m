@@ -972,7 +972,9 @@
 }
 
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
-    
+    if (!(self.fromFlightArray.count == 0)){
+        return;
+    }
     [self defaultCityForForm];
     NSLog(@"Error: %@",error.description);
 }
@@ -1134,7 +1136,7 @@
         [self.delegate disableRemoveMulticityButton:YES];
     }
     
-    if( self.multiCityArray.count == 5 ) {
+    if( self.multiCityArray.count > 4 ) {
         [self.delegate disableAddMulticityButton:YES];
 
     }
@@ -1383,7 +1385,9 @@
 
 
 - (void)setFlightFormUIFrom:(NSDictionary *)airportsDictionary destination:(NSString *)destination origin:(NSString *)origin {
-    NSArray * originsArray = [origin componentsSeparatedByString:@","];
+    NSString * newOrigin = [origin stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSString * newDest = [destination stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSArray * originsArray = [newOrigin componentsSeparatedByString:@","];
     NSMutableArray * airportsArray = [NSMutableArray array];
     for ( NSString * airportCode in originsArray) {
         
@@ -1395,7 +1399,7 @@
     
     // Fetch destination airport
     airportsArray = [NSMutableArray array];
-    NSArray * destinationAirports = [destination componentsSeparatedByString:@","];
+    NSArray * destinationAirports = [newDest componentsSeparatedByString:@","];
     
     for ( NSString * airportCode in destinationAirports) {
         NSDictionary * destinationAirportDictionary = [airportsDictionary valueForKey:airportCode];
@@ -1516,6 +1520,7 @@
                 [self.multiCityArray addObject:newMultiLegJourney];
             }
             //[self.delegate setupFlightViews];
+            [self checkForAddFlightButton];
         }
         [self.delegate setupFlightViews];
         [self.delegate updateRecentSearch];
@@ -1525,7 +1530,18 @@
 
 }
 
+- (void) checkForAddFlightButton{
+    if(self.multiCityArray.count > 2){
+        [self.delegate disableRemoveMulticityButton:NO];
+    }else {
+        [self.delegate disableRemoveMulticityButton:YES];
+    }
+    
+    if( self.multiCityArray.count > 4 ) {
+        [self.delegate disableAddMulticityButton:YES];
 
+    }
+}
 
 - (void) performSearchOnServerWithText:(NSString *)searchText
 {
@@ -1798,6 +1814,7 @@
             [self.multiCityArray addObject:newMultiLegJourney];
         }
         //[self.delegate setupFlightViews];
+        [self checkForAddFlightButton];
     }
     
   
