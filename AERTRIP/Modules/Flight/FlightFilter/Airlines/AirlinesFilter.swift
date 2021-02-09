@@ -30,7 +30,7 @@ struct  Airline : Hashable {
 
 struct AirlineLegFilter {
     
-    var multiAl : Int
+    let multiAl : Int
     var allAirlinesSelected : Bool = false
     var hideMultipleAirline : Bool = false
     var airlinesArray  : [Airline]
