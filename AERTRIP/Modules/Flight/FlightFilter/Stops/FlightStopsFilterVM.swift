@@ -69,8 +69,8 @@ class FlightStopsFilterVM {
     }
     
     func toggleAvoidChangeOfAirports(_ selected: Bool) {
-        guard let curFilter = currentStopFilter else { return }
-        currentStopFilter?.qualityFilter.isSelected = selected
+        guard var curFilter = currentStopFilter else { return }
+        curFilter.qualityFilter.isSelected = selected
         allStopsFilters[currentActiveIndex] = curFilter
         
         if isIntMCOrReturnVC {
@@ -80,6 +80,7 @@ class FlightStopsFilterVM {
                 return newFilter
             }
         }
+        currentStopFilter = allStopsFilters[currentActiveIndex]
         qualityFilterDelegate?.qualityFilterChangedAt(currentActiveIndex, filter: curFilter.qualityFilter)
     }
 }
