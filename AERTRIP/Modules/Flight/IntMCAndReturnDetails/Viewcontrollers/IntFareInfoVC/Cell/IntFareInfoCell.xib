@@ -49,16 +49,13 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BjA-bC-PQm">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XqZ-uK-bqw" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="16" y="57" width="435" height="0.5"/>
-                                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="0.5" id="IJZ-Ps-WU1"/>
+                                            <constraint firstAttribute="height" constant="0.5" id="PIN-Ev-6HQ"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="Economy Saver (SS50322)" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8vd-If-TC9">
                                         <rect key="frame" x="16" y="73.5" width="328" height="238.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
@@ -82,15 +79,15 @@
                                     <constraint firstItem="Ly4-sx-ERy" firstAttribute="leading" secondItem="DZK-n7-Y8b" secondAttribute="leading" constant="16" id="0w9-ua-PcB"/>
                                     <constraint firstItem="Ly4-sx-ERy" firstAttribute="top" secondItem="DZK-n7-Y8b" secondAttribute="top" constant="16" id="Kjp-7J-2EP"/>
                                     <constraint firstAttribute="trailing" secondItem="6K9-Cb-aWs" secondAttribute="trailing" constant="16" id="QYP-zG-Thv"/>
+                                    <constraint firstItem="XqZ-uK-bqw" firstAttribute="leading" secondItem="DZK-n7-Y8b" secondAttribute="leading" constant="16" id="R9S-Mb-Z7t"/>
+                                    <constraint firstAttribute="trailing" secondItem="XqZ-uK-bqw" secondAttribute="trailing" id="WCt-2p-e1K"/>
                                     <constraint firstItem="6K9-Cb-aWs" firstAttribute="leading" secondItem="8vd-If-TC9" secondAttribute="trailing" constant="16" id="arP-64-UDn"/>
-                                    <constraint firstItem="BjA-bC-PQm" firstAttribute="leading" secondItem="DZK-n7-Y8b" secondAttribute="leading" constant="16" id="bro-2D-8eE"/>
                                     <constraint firstAttribute="bottom" secondItem="8vd-If-TC9" secondAttribute="bottom" constant="16" id="iN7-Uu-hvs"/>
                                     <constraint firstAttribute="trailing" secondItem="SFE-Ru-U88" secondAttribute="trailing" constant="16" id="k4d-kU-MMp"/>
                                     <constraint firstItem="6K9-Cb-aWs" firstAttribute="centerY" secondItem="8vd-If-TC9" secondAttribute="centerY" id="lkR-23-UKF"/>
-                                    <constraint firstAttribute="trailing" secondItem="BjA-bC-PQm" secondAttribute="trailing" id="s9S-Rv-4fT"/>
                                     <constraint firstItem="8vd-If-TC9" firstAttribute="leading" secondItem="DZK-n7-Y8b" secondAttribute="leading" constant="16" id="uM6-6j-ZeM"/>
                                     <constraint firstItem="8vd-If-TC9" firstAttribute="top" secondItem="DZK-n7-Y8b" secondAttribute="top" constant="73.5" id="uVg-FX-d8n"/>
-                                    <constraint firstItem="BjA-bC-PQm" firstAttribute="top" secondItem="Ly4-sx-ERy" secondAttribute="bottom" constant="16" id="wQS-ep-7nd"/>
+                                    <constraint firstItem="XqZ-uK-bqw" firstAttribute="top" secondItem="Ly4-sx-ERy" secondAttribute="bottom" constant="16" id="vFr-DW-SxZ"/>
                                     <constraint firstItem="SFE-Ru-U88" firstAttribute="leading" secondItem="Ly4-sx-ERy" secondAttribute="trailing" constant="10" id="we3-Nk-tEk"/>
                                 </constraints>
                             </view>
@@ -131,7 +128,7 @@
                 <outlet property="bottomSeparatorLabelLeading" destination="2WF-7L-sGT" id="2L0-FR-suA"/>
                 <outlet property="carrierImgView" destination="Ly4-sx-ERy" id="UDB-Fa-0Lt"/>
                 <outlet property="fareRulesButton" destination="6K9-Cb-aWs" id="bLv-MU-lyD"/>
-                <outlet property="journeyNameDividerLabel" destination="BjA-bC-PQm" id="kcp-k7-cp9"/>
+                <outlet property="journeyDeviderView" destination="XqZ-uK-bqw" id="RWu-oN-jmZ"/>
                 <outlet property="journeyNameLabel" destination="SFE-Ru-U88" id="ysV-vo-atV"/>
                 <outlet property="titleLabel" destination="8vd-If-TC9" id="3aq-dt-sUU"/>
                 <outlet property="titleLabelTop" destination="uVg-FX-d8n" id="Vm5-03-wh7"/>

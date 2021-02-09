@@ -8,6 +8,8 @@
 
 import UIKit
 
+typealias IntFeeDetails = IntMultiCityAndReturnWSResponse.Results.J.Fare.SubFares.Details.Fee.FeeDetail
+
 class IntCombineFareInfoCell: UITableViewCell {
     @IBOutlet weak var combineFareTableView: UITableView!
     @IBOutlet weak var noInfoView: UIView!
@@ -260,7 +262,7 @@ extension IntCombineFareInfoCell{
         {
             let key = journey.first?.legsWithDetail[indexOfCell].lfk ?? ""
                 
-            var adtStatement : [IntMultiCityAndReturnWSResponse.Results.J.Fare.SubFares.Details.Fee.FeeDetail]? = [IntMultiCityAndReturnWSResponse.Results.J.Fare.SubFares.Details.Fee.FeeDetail]()
+            var adtStatement : [IntFeeDetails]? = [IntFeeDetails]()
             if isFromPassangerDetails{
                 adtStatement = intAirlineCancellationFees["ADT"]?.feeDetail[key]
             }else{
@@ -270,12 +272,22 @@ extension IntCombineFareInfoCell{
             if let adtAirlineCancellationSlab = adtStatement//intAirlineCancellationFees["ADT"]?.feeDetail[key]
 //            if let adtAirlineCancellationSlab = intAirlineCancellationFees["ADT"]?.feeDetail.map({$0.1})[indexOfCell]
             {
-                let adtAertripCancellationSlab = intAertripCancellationFees["ADT"]?.feeDetail.values.first
+                
+                var adtAertripCancellationSlab:[IntFeeDetails]? = []
+                if let adtArtFee = intAertripCancellationFees["ADT"]?.feeDetail[key]{
+                    adtAertripCancellationSlab = adtArtFee
+                }else{
+                    adtAertripCancellationSlab = intAertripCancellationFees["ADT"]?.feeDetail.values.first
+                }
+                
+//                let adtAertripCancellationSlab = intAertripCancellationFees["ADT"]?.feeDetail.values.first
                 
                 var aertripValue = 0
                 
                 if indexPath.row < (adtAertripCancellationSlab?.count ?? 0){
                     aertripValue = adtAertripCancellationSlab?[indexPath.row].value ?? 0
+                }else if let firstValue  =  adtAertripCancellationSlab?.first, ((adtAertripCancellationSlab?.count ?? 0) == 1){
+                    aertripValue = firstValue.value
                 }
                 
                 if indexPath.row < adtAirlineCancellationSlab.count{
@@ -390,12 +402,22 @@ extension IntCombineFareInfoCell{
             
             if let chdAirlineCancellationSlab = chdStatement //intAirlineCancellationFees["CHD"]?.feeDetail.map({$0.1})[indexOfCell]
             {
-                let chdAertripCancellationSlab = intAertripCancellationFees["CHD"]?.feeDetail.values.first
+                
+                var chdAertripCancellationSlab:[IntFeeDetails]? = []
+                if let adtArtFee = intAertripCancellationFees["CHD"]?.feeDetail[key]{
+                    chdAertripCancellationSlab = adtArtFee
+                }else{
+                    chdAertripCancellationSlab = intAertripCancellationFees["CHD"]?.feeDetail.values.first
+                }
+                
+//                let chdAertripCancellationSlab = intAertripCancellationFees["CHD"]?.feeDetail.values.first
                 
                 var aertripValue = 0
                 
                 if indexPath.row < (chdAertripCancellationSlab?.count ?? 0){
                     aertripValue = chdAertripCancellationSlab?[indexPath.row].value ?? 0
+                }else if let firstValue  =  chdAertripCancellationSlab?.first, ((chdAertripCancellationSlab?.count ?? 0) == 1){
+                    aertripValue = firstValue.value
                 }
                 
                 if indexPath.row < chdAirlineCancellationSlab.count{
@@ -444,12 +466,22 @@ extension IntCombineFareInfoCell{
             
             if let infAirlineCancellationSlab = infStatement//intAirlineCancellationFees["INF"]?.feeDetail.map({$0.1})[indexOfCell]
             {
-                let infAertripCancellationSlab = intAertripCancellationFees["INF"]?.feeDetail.values.first
+                
+                var infAertripCancellationSlab:[IntFeeDetails]? = []
+                if let adtArtFee = intAertripCancellationFees["INF"]?.feeDetail[key]{
+                    infAertripCancellationSlab = adtArtFee
+                }else{
+                    infAertripCancellationSlab = intAertripCancellationFees["INF"]?.feeDetail.values.first
+                }
+                
+//                let infAertripCancellationSlab = intAertripCancellationFees["INF"]?.feeDetail.values.first
                 
                 var aertripValue = 0
                 
                 if indexPath.row < (infAertripCancellationSlab?.count ?? 0){
                     aertripValue = infAertripCancellationSlab?[indexPath.row].value ?? 0
+                }else if let firstValue  =  infAertripCancellationSlab?.first, ((infAertripCancellationSlab?.count ?? 0) == 1){
+                    aertripValue = firstValue.value
                 }
                 
                 if indexPath.row < infAirlineCancellationSlab.count{
@@ -501,12 +533,23 @@ extension IntCombineFareInfoCell{
             //intAirlineReschedulingFees["ADT"]?.feeDetail[key]
 //            if let adtAirlineReschedulingSlab = intAirlineReschedulingFees["ADT"]?.feeDetail.map({$0.1})[indexOfCell]
             {
-                let adtAertripReschedulingSlab = intAertripReschedulingFees["ADT"]?.feeDetail.values.first
+                
+                var adtAertripReschedulingSlab:[IntFeeDetails]? = []
+                if let adtArtFee = intAertripReschedulingFees["ADT"]?.feeDetail[key]{
+                    adtAertripReschedulingSlab = adtArtFee
+                }else{
+                    adtAertripReschedulingSlab = intAertripReschedulingFees["ADT"]?.feeDetail.values.first
+                }
+                
+                
+//                let adtAertripReschedulingSlab = intAertripReschedulingFees["ADT"]?.feeDetail.values.first
                 
                 var aertripValue = 0
                 
                 if indexPath.row < (adtAertripReschedulingSlab?.count ?? 0){
                     aertripValue = adtAertripReschedulingSlab?[indexPath.row].value ?? 0
+                }else if let firstValue  =  adtAertripReschedulingSlab?.first, ((adtAertripReschedulingSlab?.count ?? 0) == 1){
+                    aertripValue = firstValue.value
                 }
                 
                 if indexPath.row < adtAirlineReschedulingSlab.count{
@@ -611,12 +654,22 @@ extension IntCombineFareInfoCell{
             
             if let chdAirlineReschedulingSlab = chdStatement //intAirlineReschedulingFees["CHD"]?.feeDetail.map({$0.1})[indexOfCell]
             {
-                let chdAertripReschedulingSlab = intAertripReschedulingFees["CHD"]?.feeDetail.values.first
+                
+                var chdAertripReschedulingSlab:[IntFeeDetails]? = []
+                if let adtArtFee = intAertripReschedulingFees["CHD"]?.feeDetail[key]{
+                    chdAertripReschedulingSlab = adtArtFee
+                }else{
+                    chdAertripReschedulingSlab = intAertripReschedulingFees["CHD"]?.feeDetail.values.first
+                }
+                
+//                let chdAertripReschedulingSlab = intAertripReschedulingFees["CHD"]?.feeDetail.values.first
                 
                 var aertripValue = 0
                 
                 if indexPath.row < (chdAertripReschedulingSlab?.count ?? 0){
                     aertripValue = chdAertripReschedulingSlab?[indexPath.row].value ?? 0
+                }else if let firstValue  =  chdAertripReschedulingSlab?.first, ((chdAertripReschedulingSlab?.count ?? 0) == 1){
+                    aertripValue = firstValue.value
                 }
                 
                 if indexPath.row < chdAirlineReschedulingSlab.count{
@@ -659,14 +712,24 @@ extension IntCombineFareInfoCell{
             
             if let infAirlineReschedulingSlab = infStatement//intAirlineReschedulingFees["INF"]?.feeDetail.map({$0.1})[indexOfCell]
             {
-                let infAertripReschedulingSlab = intAertripReschedulingFees["INF"]?.feeDetail.values.first
+                var infAertripReschedulingSlab:[IntFeeDetails]? = []
+                if let adtArtFee = intAertripReschedulingFees["INF"]?.feeDetail[key]{
+                    infAertripReschedulingSlab = adtArtFee
+                }else{
+                    infAertripReschedulingSlab = intAertripReschedulingFees["INF"]?.feeDetail.values.first
+                }
+                
+//                let infAertripReschedulingSlab = intAertripReschedulingFees["INF"]?.feeDetail.values.first
                 
                 var aertripValue = 0
                 
                 if indexPath.row < (infAertripReschedulingSlab?.count ?? 0){
                     aertripValue = infAertripReschedulingSlab?[indexPath.row].value ?? 0
                     
+                }else if let firstValue  =  infAertripReschedulingSlab?.first, ((infAertripReschedulingSlab?.count ?? 0) == 1){
+                    aertripValue = firstValue.value
                 }
+                
                 if indexPath.row < infAirlineReschedulingSlab.count{
                     let value = infAirlineReschedulingSlab[indexPath.row].value
                     

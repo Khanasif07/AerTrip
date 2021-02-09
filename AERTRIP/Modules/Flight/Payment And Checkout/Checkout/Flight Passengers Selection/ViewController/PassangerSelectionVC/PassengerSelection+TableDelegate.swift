@@ -167,6 +167,7 @@ extension PassengersSelectionVC: UITableViewDelegate, UITableViewDataSource {
         case 4:
             guard let cell = self.passengerTableview.dequeueReusableCell(withIdentifier: "UseGSTINCell") as? UseGSTINCell else {return UITableViewCell()}
             cell.delegate = self
+//            cell.isErrorNeedToShowError = self.viewModel.isContinueButtonTapped
             cell.gstModel = self.viewModel.selectedGST
             cell.gstSwitch.isOn = viewModel.isSwitchOn
             if viewModel.isSwitchOn{
@@ -175,6 +176,7 @@ extension PassengersSelectionVC: UITableViewDelegate, UITableViewDataSource {
             return cell
         case 5:
             guard let cell = self.passengerTableview.dequeueReusableCell(withIdentifier: "FlightEmptyCell") as? FlightEmptyCell else {return UITableViewCell()}
+            cell.topDividerView.isHidden = viewModel.isSwitchOn
             cell.bottomDividerView.isHidden = !(self.viewModel.isTravelSefetyRequired)
             cell.backgroundColor = AppColors.themeGray04
             return cell

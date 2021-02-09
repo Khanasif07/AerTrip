@@ -46,6 +46,7 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     
     let viewModel = FlightFareInfoVM()
     var isFromPassangerDetails = false
+    var isInternational = true
     
     override func viewDidLoad()
     {
@@ -64,10 +65,8 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         self.fareInfoTableView.separatorStyle = .none
         self.fareInfoTableViewBottom.constant = 0.0
         guard let journey = self.journey.first else {return}
-        if journey.legsWithDetail.first?.fcp == 0
-        {
+        if (journey.legsWithDetail.first?.fcp == 0) || (!self.isInternational){
             self.progressBar.isHidden = true
-
             var fareInfo = IntFareInfo(JSON())
             fareInfo.cp.details = journey.rfdPlcy.cp//journey.fare.cancellationCharges
             fareInfo.rscp.details = journey.rfdPlcy.rscp//journey.fare.reschedulingCharges
@@ -75,7 +74,7 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             updatedFareInfo?.updatedFareInfo = [fareInfo]
             self.showAccordingTolegs = (self.updatedFareInfo?.updatedFareInfo.first?.cp.details.spcFee["ADT"]?.feeDetail.values.count == self.journey.first?.legsWithDetail.count)
             self.confirmDelegate()
-            DispatchQueue.main.asyncAfter(deadline: .now()+0.2) {
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.3) {
              self.fareInfoTableView.reloadData()
             }
             DispatchQueue.main.async {
@@ -86,7 +85,16 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             self.addIndicator()
             self.viewModel.getFareInfoAPICall(sid: self.sid, fk: journey.fk, index: 0)
         }
-        self.viewModel.getFareRulesAPICall(sid: self.sid, fk: journey.fk, index: 0)
+        if self.isInternational{
+            fareRulesData.append([:])
+            self.viewModel.getFareRulesAPICall(sid: self.sid, fk: journey.fk, index: 0)
+        }else{
+            for (index, leg) in journey.legsWithDetail.enumerated(){
+                fareRulesData.append([:])
+                self.viewModel.getFareRulesAPICall(sid: self.sid, fk: leg.lfk, index: index)
+            }
+        }
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -452,7 +460,7 @@ extension IntFareInfoVC{
         fareInfoCell.titleLabelTop.constant = 16
         fareInfoCell.carrierImgView.isHidden = true
         fareInfoCell.journeyNameLabel.isHidden = true
-        fareInfoCell.journeyNameDividerLabel.isHidden = true
+        fareInfoCell.journeyDeviderView.isHidden = true
 
         return fareInfoCell
     }
@@ -672,7 +680,7 @@ extension IntFareInfoVC{
                 fareInfoCell.titleLabelTop.constant = 73.5
                 fareInfoCell.carrierImgView.isHidden = false
                 fareInfoCell.journeyNameLabel.isHidden = false
-                fareInfoCell.journeyNameDividerLabel.isHidden = false
+                fareInfoCell.journeyDeviderView.isHidden = false
 
                 if departureAirportDetails != nil && arrivalAirportDetails != nil{
                     location = departureAirportDetails!.c + " → " + arrivalAirportDetails!.c
@@ -849,7 +857,7 @@ extension IntFareInfoVC : FlightFareInfoVMDelegate{
         DispatchQueue.main.async {
             let keys = data.keys
             if let datas = data[keys.first ?? ""] as? JSONDictionary{
-                self.fareRulesData.insert(datas, at: 0)
+                self.fareRulesData.insert(datas, at: index)
             }
             self.fareInfoTableView.reloadData()
         }
