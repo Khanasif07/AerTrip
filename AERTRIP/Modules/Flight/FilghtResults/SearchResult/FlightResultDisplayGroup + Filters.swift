@@ -646,6 +646,7 @@ extension FlightResultDisplayGroup  {
     }
     
     func onlyRefundableFares(selected: Bool) {
+        guard let userFil = userSelectedFilters, let inputFil = inputFilter else { return }
         
         if selected {
             UIFilters.insert(.refundableFares)
@@ -654,8 +655,10 @@ extension FlightResultDisplayGroup  {
             UIFilters.remove(.refundableFares)
         }
         
-        if (userSelectedFilters?.pr == inputFilter?.pr) && !UIFilters.contains(.refundableFares) {
-            appliedFilters.remove(.Price)
+        if !UIFilters.contains(.refundableFares) {
+            if userFil.pr.minPrice > inputFil.pr.minPrice && userFil.pr.maxPrice < inputFil.pr.maxPrice {
+                appliedFilters.remove(.Price)
+            }
         }
         else {
             appliedFilters.insert(.Price)

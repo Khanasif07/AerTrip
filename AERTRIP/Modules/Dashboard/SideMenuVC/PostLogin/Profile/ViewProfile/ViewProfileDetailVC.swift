@@ -186,10 +186,10 @@ class ViewProfileDetailVC: BaseVC {
         var tempEmail = travel.contact.email.filter { (eml) -> Bool in
             !eml.value.isEmpty
         }
-        if let defEmail = UserInfo.loggedInUser?.email, tempEmail.filter({ $0.label == LocalizedString.Default.localized }).isEmpty {
-            let defaultEmail = Email(label: LocalizedString.Default.localized, value: defEmail)
-            tempEmail.append(defaultEmail)
-        }
+//        if let defEmail = UserInfo.loggedInUser?.email, tempEmail.filter({ $0.label == LocalizedString.Default.localized }).isEmpty {
+//            let defaultEmail = Email(label: LocalizedString.Default.localized, value: defEmail)
+//            tempEmail.append(defaultEmail)
+//        }
         
         tempEmail.sort(by: { $0.label < $1.label })
         email.append(contentsOf: tempEmail)
