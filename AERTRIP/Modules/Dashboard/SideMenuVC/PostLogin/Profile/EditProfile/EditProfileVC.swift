@@ -976,6 +976,9 @@ extension EditProfileVC: TopNavigationViewDelegate {
         viewModel.doa = AppGlobals.shared.formattedDateFromString(dateString: viewModel.doa, inputFormat: "dd MMMM yyyy", withFormat: "yyyy-MM-dd") ?? ""
         viewModel.passportIssueDate = AppGlobals.shared.formattedDateFromString(dateString: viewModel.passportIssueDate, inputFormat: "dd MMMM yyyy", withFormat: "yyyy-MM-dd") ?? ""
         viewModel.passportExpiryDate = AppGlobals.shared.formattedDateFromString(dateString: viewModel.passportExpiryDate, inputFormat: "dd MMMM yyyy", withFormat: "yyyy-MM-dd") ?? ""
+        viewModel.email.removeAll(where: { $0.value.isEmpty })
+        viewModel.mobile.removeAll(where: { $0.value.isEmpty })
+        tableView.reloadData()
         if self.viewModel.isValidateData(vc: self) {
             viewModel.webserviceForSaveProfile()
         } else if self.viewModel.salutation.isEmpty {

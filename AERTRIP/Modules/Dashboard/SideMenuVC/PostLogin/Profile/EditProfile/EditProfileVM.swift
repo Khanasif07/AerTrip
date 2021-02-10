@@ -102,6 +102,9 @@ class EditProfileVM {
                 flag = false
             }
             for email in self.email {
+                if email.value.isEmpty {
+                    continue
+                }
                 if !email.value.checkValidity(.Email) {
                     AppToast.default.showToastMessage(message: LocalizedString.Enter_valid_email_address.localized)
                     flag = false
