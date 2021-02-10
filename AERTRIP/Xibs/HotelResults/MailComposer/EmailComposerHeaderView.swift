@@ -188,6 +188,7 @@ class EmailComposerHeaderView: UIView {
         tagsField.borderColor = .clear //AppColors.themeGreen
         tagsField.textField.textColor = AppColors.themeBlack
         tagsField.acceptTagOption = [.comma, .return, .space]
+        tagsField.shouldTokenizeAfterResigningFirstResponder = true
         tagsField.cornerRadius = 4
         self.emailContainerView.addSubview(self.tagsField)
         
