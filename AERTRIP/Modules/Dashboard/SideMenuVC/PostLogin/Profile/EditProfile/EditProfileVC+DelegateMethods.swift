@@ -958,7 +958,10 @@ extension EditProfileVC: EditProfileThreePartTableViewCellDelegate {
     
     func editProfileThreePartTableViewCellTextFieldText(_ textField: UITextField, _ indexPath: IndexPath, _ text: String, isValide: Bool) {
         
-        let final = text.substring(to: AppConstants.kMaxPhoneLength-1)
+        var final = text.substring(to: AppConstants.kMaxPhoneLength-1)
+        if final.count > self.viewModel.mobile[indexPath.row].maxValidation {
+            final.removeLast()
+        }
         textField.text = final
         self.viewModel.mobile[indexPath.row].value = final
         self.viewModel.mobile[indexPath.row].isValide = isValide
@@ -1012,10 +1015,14 @@ extension EditProfileVC: EditProfileThreePartTableViewCellDelegate {
             }
             cell.countryCodeLabel.text = selectedCountry.countryCode
             cell.flagImageView.image = selectedCountry.flagImage
+            cell.rightViewTextField.text?.removeAll()
             //            cell.rightViewTextField.defaultRegion = selectedCountry.ISOCode
             //            cell.rightViewTextField.text = cell.rightViewTextField.nationalNumber
             
             self?.viewModel.mobile[indexPath.row].isd = selectedCountry.countryCode
+            self?.viewModel.mobile[indexPath.row].minValidation = selectedCountry.minNSN
+            self?.viewModel.mobile[indexPath.row].maxValidation = selectedCountry.maxNSN
+            self?.viewModel.mobile[indexPath.row].value.removeAll()
         }
     }
 }

@@ -167,19 +167,17 @@ class EditProfileVM {
                 flag = false
             }
             
-            for (index, _) in self.mobile.enumerated() {
-//                isValid = self.mobile[index].isValide
-//                if index > 0 {
-//                    if self.mobile[index - 1].value == self.mobile[index].value && self.mobile[index - 1].isd == self.mobile[index].isd {
-//                        AppToast.default.showToastMessage(message: LocalizedString.AllMobileNumberShouldUnique.localized)
-//                        flag = false
-//                    }
-//                }
+            for (_, mob) in self.mobile.enumerated() {
                 
-                if !(AppConstants.kMinPhoneLength...AppConstants.kMaxPhoneLength ~= self.mobile[index].value.count) && !self.mobile[index].value.isEmpty{
-                      AppToast.default.showToastMessage(message: LocalizedString.EnterValidMobileNumber.localized)
-                    flag = false
+                if mob.value.count < mob.minValidation {
+                    AppToast.default.showToastMessage(message: LocalizedString.EnterValidMobileNumber.localized)
+                  flag = false
                 }
+                                
+//                if !(AppConstants.kMinPhoneLength...AppConstants.kMaxPhoneLength ~= self.mobile[index].value.count) && !self.mobile[index].value.isEmpty{
+//                      AppToast.default.showToastMessage(message: LocalizedString.EnterValidMobileNumber.localized)
+//                    flag = false
+//                }
             }
             
             
