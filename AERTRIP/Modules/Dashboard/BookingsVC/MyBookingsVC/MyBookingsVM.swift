@@ -109,11 +109,11 @@ class MyBookingsVM {
             
         }
 
-        guard let minObj = sortedData.first else { return }
-        guard let maxObj = sortedData.last else { return }
+        guard let minObj = sortedData.last else { return }
+        guard let maxObj = sortedData.first else { return }
 
         let minDateString = minObj[APIKeys.booking_date.rawValue] as? String ?? ""
-        let maxDateString = minObj[APIKeys.booking_date.rawValue] as? String ?? ""
+        let maxDateString = maxObj[APIKeys.booking_date.rawValue] as? String ?? ""
         
         guard let minDate = minDateString.toDate(dateFormat: Date.DateFormat.yyyyMMddHHmmss.rawValue) else { return }
         guard let maxDate = maxDateString.toDate(dateFormat: Date.DateFormat.yyyyMMddHHmmss.rawValue) else { return }
