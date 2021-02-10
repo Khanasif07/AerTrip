@@ -293,6 +293,7 @@ enum LocalizedString: String {
     case Email
     case SocialProfile
     case Home
+    case Work
     case IndiaIsdCode = "IndianIsdCode"
     case Facebook
     case Phone
