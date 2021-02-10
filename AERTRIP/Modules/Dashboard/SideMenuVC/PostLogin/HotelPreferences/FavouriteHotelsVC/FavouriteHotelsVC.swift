@@ -88,7 +88,8 @@ class FavouriteHotelsVC: BaseVC {
             for idx in 0..<self.viewModel.hotels.count {
                 let vc = FavouriteHotelsListVC.instantiate(fromAppStoryboard: .HotelPreferences)
                 vc.delegate = self
-                let hotels = self.viewModel.hotels[idx]
+                var hotels = self.viewModel.hotels[idx]
+                hotels.holetList.sort(by: { $0.preferenceId < $1.preferenceId })
                 vc.viewModel.forCity = hotels
 
                 self.allChildVCs.append(vc)
