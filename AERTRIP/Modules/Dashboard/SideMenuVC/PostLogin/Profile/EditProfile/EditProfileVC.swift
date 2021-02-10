@@ -981,6 +981,9 @@ extension EditProfileVC: TopNavigationViewDelegate {
         } else if self.viewModel.salutation.isEmpty {
             editProfileImageHeaderView.containerView.layer.borderColor = AppColors.themeRed.cgColor
             editProfileImageHeaderView.containerView.layer.borderWidth = 1.0
+        }else{
+            editProfileImageHeaderView.firstNameDividerView.isSettingForErrorState = (self.viewModel.firstName.removeAllWhiteSpacesAndNewLines.isEmpty)
+            editProfileImageHeaderView.lastNameDividerView.isSettingForErrorState = (self.viewModel.lastName.removeAllWhiteSpacesAndNewLines.isEmpty)
         }
     }
 }

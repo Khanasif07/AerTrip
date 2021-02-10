@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -29,7 +30,7 @@
                                 <constraint firstAttribute="height" constant="90" id="hqd-FF-0aa"/>
                             </constraints>
                         </imageView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WGe-mC-R33">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WGe-mC-R33">
                             <rect key="frame" x="40.5" y="106" width="41" height="18"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="18" id="h6T-so-dgD"/>
@@ -228,7 +229,7 @@
                                         </textField>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vz6-6u-PXK">
                                             <rect key="frame" x="0.0" y="0.0" width="350" height="60"/>
-                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="67i-IF-VbS" userLabel="topDividerView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="0.5"/>
@@ -323,6 +324,7 @@
                     </constraints>
                 </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="7WK-Gu-nru" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="Oia-71-wMK"/>
@@ -331,15 +333,16 @@
                 <constraint firstItem="7WK-Gu-nru" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="ngf-i8-4p6"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="containerView" destination="rDO-6Y-TgN" id="7WB-Li-epP"/>
                 <outlet property="editButton" destination="WGe-mC-R33" id="bCN-tI-BZD"/>
+                <outlet property="firstNameDividerView" destination="Ccg-K6-NO6" id="Xta-oM-jyf"/>
                 <outlet property="firstNameTextField" destination="lm8-Lw-Y3n" id="9LM-eO-JkE"/>
                 <outlet property="genderTitleLabel" destination="VLK-QA-oW2" id="4Yu-yv-Mt2"/>
                 <outlet property="groupLabel" destination="1wN-Sw-RDN" id="pOY-j4-LbR"/>
                 <outlet property="groupTextField" destination="aAQ-mg-0AH" id="t5d-KW-cav"/>
                 <outlet property="groupTitleLabel" destination="ESK-xE-fzc" id="7TS-MS-Cpl"/>
+                <outlet property="lastNameDividerView" destination="7fn-aW-4Me" id="TKD-BT-0IR"/>
                 <outlet property="lastNameTextField" destination="7xs-3o-QIb" id="Zc0-bB-zp8"/>
                 <outlet property="profileImageView" destination="AgY-Q3-eMG" id="yD1-6K-0VI"/>
                 <outlet property="selectGroupDownArrow" destination="L2V-ER-QOl" id="D5U-4o-wDZ"/>
@@ -355,5 +358,8 @@
     <resources>
         <image name="blackDownArrow" width="9" height="6"/>
         <image name="profilePlaceholder" width="64" height="64"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

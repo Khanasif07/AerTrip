@@ -46,6 +46,12 @@ open class ATDividerView: UIView {
         }
     }
     
+    var isSettingForErrorState:Bool = false{
+        didSet{
+            self.setColorForError()
+        }
+    }
+    
     override open var backgroundColor: UIColor? {
         willSet {
             if let color = newValue, color != .clear {
@@ -67,6 +73,10 @@ open class ATDividerView: UIView {
     private func updatedBackgroundColor() {
         self.backgroundColor = .clear
         dividerView.backgroundColor = defaultBackgroundColor
+    }
+    
+    private func setColorForError(){
+        dividerView.backgroundColor = self.isSettingForErrorState ? AppColors.themeRed : defaultBackgroundColor
     }
     
     private func updatedFrame() {
