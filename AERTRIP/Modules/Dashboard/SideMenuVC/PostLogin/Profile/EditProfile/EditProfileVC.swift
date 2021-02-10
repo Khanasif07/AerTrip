@@ -979,6 +979,8 @@ extension EditProfileVC: TopNavigationViewDelegate {
         if self.viewModel.isValidateData(vc: self) {
             viewModel.webserviceForSaveProfile()
         } else if self.viewModel.salutation.isEmpty {
+            editProfileImageHeaderView.firstNameDividerView.isSettingForErrorState = (self.viewModel.firstName.removeAllWhiteSpacesAndNewLines.isEmpty)
+            editProfileImageHeaderView.lastNameDividerView.isSettingForErrorState = (self.viewModel.lastName.removeAllWhiteSpacesAndNewLines.isEmpty)
             editProfileImageHeaderView.containerView.layer.borderColor = AppColors.themeRed.cgColor
             editProfileImageHeaderView.containerView.layer.borderWidth = 1.0
         }else{
