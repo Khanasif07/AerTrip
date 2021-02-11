@@ -103,6 +103,10 @@ class LinkedAccountsTableCell: UITableViewCell {
             self.emailLabel.text = self.linkedAccount?.email ?? LocalizedString.na.localized
             self.socialTypeLabel.text = self.linkedAccount?.socialType.socialTitle
             self.iconImageView.image = self.linkedAccount?.socialType.socialIconImage
+            if self.linkedAccount?.socialType.socialTitle == LocalizedString.Apple.localized{
+                self.iconImageView.image = AppImage.appleLogoImage.withRenderingMode(.alwaysTemplate)
+                self.iconImageView.tintColor = AppColors.themeBlack
+            }
             if let loggedSocial = UserInfo.loggedInUser?.socialLoginType, let currentSocial = self.linkedAccount?.socialType {
                 self.disconnectButton.setTitleColor( loggedSocial != currentSocial ?  AppColors.themeRed : AppColors.themeGray20, for: .normal)
             }

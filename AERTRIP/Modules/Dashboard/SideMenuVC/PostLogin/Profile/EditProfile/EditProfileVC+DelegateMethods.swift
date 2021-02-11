@@ -286,7 +286,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                         fatalError("TableViewAddActionCell not found")
                     }
                     cell.configureCell(LocalizedString.AddFrequentFlyer.localized)
-                    cell.topDividerView.isHidden = false
+                    cell.topDividerView.isHidden = true
                     return cell
                 } else {
                     guard let cell = tableView.dequeueReusableCell(withIdentifier: frequentFlyerTableViewCellIdentifier, for: indexPath) as? FrequentFlyerTableViewCell else {
@@ -306,14 +306,15 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                         frequentFlyer.airlineName = LocalizedString.SelectAirline.localized
                         cell.ffData = frequentFlyer
                     }
-                    cell.hideSeperator = indexPath.row == self.viewModel.frequentFlyer.count + (self.ffExtraCount - 2)
+//                    cell.hideSeperator = indexPath.row == self.viewModel.frequentFlyer.count + (self.ffExtraCount - 2)
+                    cell.lelfSeparatorLeadingConstraint.constant = (indexPath.row == self.viewModel.frequentFlyer.count + (self.ffExtraCount - 2)) ? 0 : 16
                     //                    cell.rightTitleLabel.isHidden = true
                     //                    cell.leftSeparatorView.isHidden = indexPath.row == self.viewModel.frequentFlyer.count + (self.ffExtraCount - 2)
                     //                    cell.rightSeparatorView.isHidden = indexPath.row == self.viewModel.frequentFlyer.count + (self.ffExtraCount - 2)
                     
                     cell.deleteButton.isHidden = self.viewModel.frequentFlyer.count == 1 ?  true : false
                     cell.isFFTitleHidden = !(indexPath.row == 2)
-                    
+                    cell.setupForError(isNeedToShowError: self.viewModel.isSavedButtonTapped)
                     return cell
                 }
                 

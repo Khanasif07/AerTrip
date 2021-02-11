@@ -972,6 +972,7 @@ extension EditProfileVC: TopNavigationViewDelegate {
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         view.endEditing(true)
+        self.viewModel.isSavedButtonTapped = true
         viewModel.dob = AppGlobals.shared.formattedDateFromString(dateString: viewModel.dob, inputFormat: "dd MMMM yyyy", withFormat: "yyyy-MM-dd") ?? ""
         viewModel.doa = AppGlobals.shared.formattedDateFromString(dateString: viewModel.doa, inputFormat: "dd MMMM yyyy", withFormat: "yyyy-MM-dd") ?? ""
         viewModel.passportIssueDate = AppGlobals.shared.formattedDateFromString(dateString: viewModel.passportIssueDate, inputFormat: "dd MMMM yyyy", withFormat: "yyyy-MM-dd") ?? ""
@@ -989,8 +990,13 @@ extension EditProfileVC: TopNavigationViewDelegate {
         if self.viewModel.isValidateData(vc: self) {
             viewModel.webserviceForSaveProfile()
         } else if self.viewModel.salutation.isEmpty {
+            editProfileImageHeaderView.firstNameDividerView.isSettingForErrorState = (self.viewModel.firstName.removeAllWhiteSpacesAndNewLines.isEmpty)
+            editProfileImageHeaderView.lastNameDividerView.isSettingForErrorState = (self.viewModel.lastName.removeAllWhiteSpacesAndNewLines.isEmpty)
             editProfileImageHeaderView.containerView.layer.borderColor = AppColors.themeRed.cgColor
             editProfileImageHeaderView.containerView.layer.borderWidth = 1.0
+        }else{
+            editProfileImageHeaderView.firstNameDividerView.isSettingForErrorState = (self.viewModel.firstName.removeAllWhiteSpacesAndNewLines.isEmpty)
+            editProfileImageHeaderView.lastNameDividerView.isSettingForErrorState = (self.viewModel.lastName.removeAllWhiteSpacesAndNewLines.isEmpty)
         }
     }
 }

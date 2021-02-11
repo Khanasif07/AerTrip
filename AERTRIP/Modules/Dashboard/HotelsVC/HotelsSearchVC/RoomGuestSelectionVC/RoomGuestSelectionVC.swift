@@ -392,12 +392,15 @@ class RoomGuestSelectionVC: BaseVC {
             var tag = sender.tag//(self.viewModel.selectedAdults >= sender.tag) ? (sender.tag - 1) : sender.tag
             printDebug("pax count: \((tag + self.viewModel.selectedChilds))")
             showMessage = (tag + self.viewModel.selectedChilds) > self.viewModel.maxGuest
-            if (tag + self.viewModel.selectedChilds) >= self.viewModel.maxGuest {
+            if (tag + self.viewModel.selectedChilds) > self.viewModel.maxGuest {
                 tag = (self.viewModel.maxGuest - self.viewModel.selectedChilds)
+                self.viewModel.selectedAdults = (sender.tag == tag) ? (tag - 1) : tag
+            }else{
+                self.viewModel.selectedAdults = (self.viewModel.selectedAdults == tag) ? (tag - 1) : tag
             }
             // need to remove unselect on tap of selected uncomment comment logic
             //            self.viewModel.selectedAdults = tag
-            self.viewModel.selectedAdults = (self.viewModel.selectedAdults == tag) ? (tag - 1) : tag
+//            self.viewModel.selectedAdults = (self.viewModel.selectedAdults == tag) ? (tag - 1) : tag
             self.updateSelection(needToChangePickerViewHeight: false)
         }
         if showMessage {

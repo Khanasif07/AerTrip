@@ -35,8 +35,9 @@ class UseGSTINCell: UITableViewCell {
     @IBOutlet weak var billingNameTextField: PKFloatLabelTextField!
     @IBOutlet weak var billingNameSeperatorView: ATDividerView!
     @IBOutlet weak var gSTNumberTextField: PKFloatLabelTextField!
-    
+    @IBOutlet weak var gstNumberDivider: ATDividerView!
     weak var delegate:UseGSTINCellDelegate?
+    var isErrorNeedToShowError = false
     var gstModel = GSTINModel(){
         didSet{
             self.configureCell()
@@ -125,6 +126,11 @@ class UseGSTINCell: UITableViewCell {
         self.companyNameTextField.text = self.gstModel.companyName
         self.billingNameTextField.text = self.gstModel.billingName
         self.gSTNumberTextField.text = self.gstModel.GSTInNo
+        if self.isErrorNeedToShowError{
+            companyNameSeparatorView.defaultBackgroundColor = (self.gstModel.companyName.isEmpty) ? AppColors.themeRed : AppColors.divider.color
+            billingNameSeperatorView.defaultBackgroundColor = (self.gstModel.billingName.isEmpty) ? AppColors.themeRed : AppColors.divider.color
+            gstNumberDivider.defaultBackgroundColor = (!self.gstModel.GSTInNo.checkValidity(.gst)) ? AppColors.themeRed : AppColors.divider.color
+        }
     }
     
 }
@@ -157,6 +163,19 @@ extension UseGSTINCell: UITextFieldDelegate{
             self.delegate?.editTextFields(.gstNumber, text: textField.text ?? "")
         default:break
         }
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        switch textField {
+        case self.companyNameTextField:
+            companyNameSeparatorView.defaultBackgroundColor = AppColors.divider.color
+        case self.billingNameTextField:
+            billingNameSeperatorView.defaultBackgroundColor = AppColors.divider.color
+        case self.gSTNumberTextField:
+            gstNumberDivider.defaultBackgroundColor = AppColors.divider.color
+        default:break
+        }
+
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

@@ -431,6 +431,45 @@ class TravellerListVC: BaseVC {
         return attString
     }
     
+    
+    private func getAttributedText(firstName: String, lastName: String) -> NSMutableAttributedString {
+        let attString: NSMutableAttributedString = NSMutableAttributedString(string: "")
+        let boldFont = AppFonts.SemiBold.withSize(18.0)//:[NSAttributedString.Key : Any]
+        let lightFont = AppFonts.Regular.withSize(18.0)
+        let color = AppColors.themeBlack
+        
+        if UserInfo.loggedInUser?.generalPref?.displayOrder == "LF" {
+            if (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF"){
+                attString.append(NSAttributedString(string: lastName, attributes: [.font: boldFont, .foregroundColor: color]))
+                if !lastName.isEmpty{
+                    attString.append(NSAttributedString(string: " \(firstName)", attributes: [.font: lightFont, .foregroundColor: color]))
+                }else{
+                    attString.append(NSAttributedString(string: "\(firstName)", attributes: [.font: boldFont, .foregroundColor: color]))
+                }
+            }else{
+                attString.append(NSAttributedString(string: lastName, attributes: [.font: lightFont, .foregroundColor: color]))
+                let fName = lastName.isEmpty ? "\(firstName)" : " \(firstName)"
+                attString.append(NSAttributedString(string: fName, attributes: [.font: boldFont, .foregroundColor: color]))
+            }
+            
+        } else {
+            if (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF"){
+                if !lastName.isEmpty{
+                    attString.append(NSAttributedString(string: "\(firstName) ", attributes: [.font: lightFont, .foregroundColor: color]))
+                }else{
+                    attString.append(NSAttributedString(string: "\(firstName)", attributes: [.font: boldFont, .foregroundColor: color]))
+                }
+                attString.append(NSAttributedString(string: "\(lastName)", attributes: [.font: boldFont, .foregroundColor: color]))
+            }else{
+                attString.append(NSAttributedString(string: firstName, attributes: [.font: boldFont, .foregroundColor: color]))
+                let lName = firstName.isEmpty ? "\(lastName)" : " \(lastName)"
+                attString.append(NSAttributedString(string: lName, attributes: [.font: lightFont, .foregroundColor: color]))
+            }
+        }
+           
+        return attString
+    }
+    
     // create label Predicate
     
     func labelPredicate() -> NSPredicate? {
@@ -472,7 +511,8 @@ class TravellerListVC: BaseVC {
             var sortDes = [NSSortDescriptor(key: "labelLocPrio", ascending: true)]
             
             if UserInfo.loggedInUser?.generalPref?.sortOrder == "LF" {
-                sortDes.append(NSSortDescriptor(key: "firstNameSorting", ascending: false))
+//                sortDes.append(NSSortDescriptor(key: "firstNameSorting", ascending: false))
+                sortDes.append(NSSortDescriptor(key: "lastNameSorting", ascending: true))
                 
             } else {
                 sortDes.append(NSSortDescriptor(key: "firstNameSorting", ascending: true))
@@ -718,22 +758,25 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
 //        label.attributedText = attributedDateStr
 //        cell.accessoryView = label
         
-        let lastNameToBold = lastName.isEmpty ? firstName : lastName
+//        let lastNameToBold = lastName.isEmpty ? firstName : lastName
+        let boldTextAttributed = self.getAttributedText(firstName: firstName, lastName: lastName)
+        boldTextAttributed.append(attributedDateStr)
+        cell.textLabel?.attributedText = boldTextAttributed
         
-        if UserInfo.loggedInUser?.generalPref?.displayOrder == "LF" {
-            let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastNameToBold)" : "\(firstName)"
-            let  boldTextAttributed = getAttributedBoldText(text: "\(lastName) \(firstName)", boldText: boldText)
-            boldTextAttributed.append(attributedDateStr)
-
-            cell.textLabel?.attributedText = boldTextAttributed
-            
-        } else {
-            let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastNameToBold)" : "\(firstName)"
-            let boldTextAttributed = getAttributedBoldText(text: "\(firstName) \(lastName)", boldText: boldText)
-            boldTextAttributed.append(attributedDateStr)
-
-            cell.textLabel?.attributedText = boldTextAttributed
-        }
+//        if UserInfo.loggedInUser?.generalPref?.displayOrder == "LF" {
+//            let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastNameToBold)" : "\(firstName)"
+//            let  boldTextAttributed = getAttributedBoldText(text: "\(lastName) \(firstName)", boldText: boldText)
+//            boldTextAttributed.append(attributedDateStr)
+//
+//            cell.textLabel?.attributedText = boldTextAttributed
+//
+//        } else {
+//            let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastNameToBold)" : "\(firstName)"
+//            let boldTextAttributed = getAttributedBoldText(text: "\(firstName) \(lastName)", boldText: boldText)
+//            boldTextAttributed.append(attributedDateStr)
+//
+//            cell.textLabel?.attributedText = boldTextAttributed
+//        }
         if isSelectMode {
             if let trav = travellerData, self.selectedTravller.contains(where: { ($0.id ?? "") == (trav.id ?? "") }) {
                 cell.setSelected(true, animated: false)

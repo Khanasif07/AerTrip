@@ -141,7 +141,7 @@ class SelectDestinationVC: BaseVC {
         }
         
         self.viewModel.getAllPopularHotels()
-        
+        self.addFooterForBottom()
         self.tableView.backgroundView = self.noResultemptyView
     }
     
@@ -303,6 +303,13 @@ class SelectDestinationVC: BaseVC {
         else {
             setValue()
         }
+    }
+    
+    private func addFooterForBottom(){
+        let footerView = UIView()
+        footerView.frame.size.height = 35
+        footerView.backgroundColor = AppColors.clear
+        self.tableView.tableFooterView = footerView
     }
     
     private func reloadData(){

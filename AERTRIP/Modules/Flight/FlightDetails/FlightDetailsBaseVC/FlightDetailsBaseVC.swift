@@ -562,6 +562,7 @@ extension FlightDetailsBaseVC{
         vc.flightChildrenCount = bookFlightObject.flightChildrenCount
         vc.flightInfantCount = bookFlightObject.flightInfantCount
         vc.airportDetailsResult = self.intAirportDetailsResult
+        vc.isInternational = (!self.bookFlightObject.isDomestic)
         return vc
     }
     

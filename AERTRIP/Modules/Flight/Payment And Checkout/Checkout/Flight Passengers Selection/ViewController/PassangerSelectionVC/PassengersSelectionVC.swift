@@ -207,7 +207,8 @@ extension PassengersSelectionVC: UseGSTINCellDelegate, FareBreakupVCDelegate, Jo
            self.viewModel.isSwitchOn = isOn
         }
         self.passengerTableview.beginUpdates()
-        self.passengerTableview.reloadRows(at: [IndexPath(row: 4, section: 1)], with: .automatic)
+        let indexs = [IndexPath(row: 4, section: 1), IndexPath(row: 5, section: 1)]
+        self.passengerTableview.reloadRows(at: indexs, with: .automatic)
         self.passengerTableview.endUpdates()
     }
     

@@ -271,7 +271,12 @@ struct AccountDetailEvent {
                 case .wallet:
                     self.iconImage = #imageLiteral(resourceName: "ic_acc_receipt")
 //                    let walletName = (info["wallet_name"] as? String) ?? ""
-                    let walletName = (info["pg_wallet_alias"] as? String) ?? ""
+                    let walletName :String
+                    if let wName = (info["pg_wallet_alias"] as? String){
+                        walletName = wName
+                    }else{
+                        walletName = (info["wallet_name"] as? String) ?? ""
+                    }
                     if walletName.isEmpty{
                         self.title = "Wallet"
                     }else{
