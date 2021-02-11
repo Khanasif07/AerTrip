@@ -432,7 +432,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 
             }else{
                 if taxesData != nil{
-                    var amount = 0
+                    var amount: Double = 0
                     if journeyCombo != nil{
                         amount = journeyCombo.reduce(0) { $0 + $1.fare.BF.value }
                     }else{
@@ -471,7 +471,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
 
                 }else{
                     if taxesData != nil{
-                        var amount = 0
+                        var amount: Double = 0
                         if journeyCombo != nil{
                             amount = journeyCombo.reduce(0) { $0 + $1.fare.taxes.value }
                         }else{

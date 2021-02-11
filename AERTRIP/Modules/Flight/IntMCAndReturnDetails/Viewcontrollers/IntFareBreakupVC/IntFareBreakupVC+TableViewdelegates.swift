@@ -87,7 +87,7 @@ extension IntFareBreakupVC: UITableViewDelegate,UITableViewDataSource{
             
             baseFareCell.titleLabel.text = "Base Fare"
             if taxesData != nil{
-                var amount = 0
+                var amount: Double = 0
                 amount = journey.first?.fare.bf.value ?? 0
                 
                 let price = displayPriceInFormat(price: Double(amount), fromOption : "FareAmount")
@@ -113,7 +113,7 @@ extension IntFareBreakupVC: UITableViewDelegate,UITableViewDataSource{
                 baseFareCell.upArrowImg.isHidden = false
                 baseFareCell.titleLabel.text = "Taxes and Fees"
                 if taxesData != nil{
-                    var amount = 0
+                    var amount: Double = 0
                     amount = journey.first?.fare.taxes.value ?? 0
                     let price = displayPriceInFormat(price: Double(amount), fromOption : "FareAmount")
                     baseFareCell.amountLable.attributedText = price

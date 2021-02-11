@@ -283,7 +283,7 @@ struct Taxes:Codable {
 
 struct TaxesSubStruct:Codable {
     let name:String
-    var value:Int
+    var value:Double
     
     init() {
         name = ""
@@ -293,7 +293,7 @@ struct TaxesSubStruct:Codable {
 
 struct TotalPayabelSubStruct:Codable {
     let name:String
-    var value:Int
+    var value:Double
     
     var details : [String:Int]
     

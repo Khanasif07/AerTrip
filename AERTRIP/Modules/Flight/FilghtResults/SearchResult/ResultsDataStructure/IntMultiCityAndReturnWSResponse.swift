@@ -647,12 +647,12 @@ struct IntMultiCityAndReturnWSResponse {
                 
                 struct Taxes {
                     var name: String
-                    var value: Int
+                    var value: Double
                     var details: [String: Int]
                     
                     init(_ json: JSON) {
                         name = json["name"].stringValue
-                        value = json["value"].intValue
+                        value = json["value"].doubleValue
                         details = Dictionary(uniqueKeysWithValues: json["details"].map { ($0.0, $0.1.intValue) })
                     }
                 }

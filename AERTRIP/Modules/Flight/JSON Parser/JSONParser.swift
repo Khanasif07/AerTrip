@@ -17,6 +17,10 @@ func parse <T: Decodable >(data: Data ,into type: T.Type , with decoder : JSONDe
         
     } catch let DecodingError.dataCorrupted(context) {
         
+        printDebug("~~~~~~~~~~JSON PARSING ERROR~~~~~~~~~~~")
+        printDebug(context)
+        printDebug("~~~~~~~~~~JSON PARSING ERROR~~~~~~~~~~~")
+        
         for element in context.codingPath {
 //            print(element.stringValue)
         }
