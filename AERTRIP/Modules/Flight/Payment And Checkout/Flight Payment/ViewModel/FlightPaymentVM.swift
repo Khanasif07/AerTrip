@@ -35,9 +35,9 @@ class FlightPaymentVM{
     }
     var addonsMaster = AddonsMaster()
     var taxesResult = [String:String]()
-    var taxAndFeesData = [(name:String,value:Int)]()
-    var addonsData = [(name:String,value:Int)]()
-    var discountData = [(name:String,value:Int)]()
+    var taxAndFeesData = [(name:String,value:Double)]()
+    var addonsData = [(name:String,value:Double)]()
+    var discountData = [(name:String,value:Double)]()
 //    var parmsForItinerary:JSONDictionary = [:]
     var grossTotalPayableAmount : Double = 0.0 // without wallet amount
     var paymentDetails: PaymentModal? //Payment methods
@@ -62,7 +62,7 @@ class FlightPaymentVM{
     
     func taxesDataDisplay(){
         taxAndFeesData.removeAll()
-        var taxesDetails : [String:Int] = [String:Int]()
+        var taxesDetails : [String:Double] = [String:Double]()
         var taxAndFeesDataDict = [taxStruct]()
         var sortOrderArr = [String]()
         taxesDetails = self.itinerary.details.fare.taxes.details
@@ -77,9 +77,9 @@ class FlightPaymentVM{
         if sortOrderArr.isEmpty{
             for ( key , _ ) in newDict {
                 let dataArray = newDict[key] ?? []
-                var newTaxVal = 0
+                var newTaxVal: Double = 0
                 for i in 0..<dataArray.count {
-                    newTaxVal += (dataArray[i].taxVal ?? 0)
+                    newTaxVal += (dataArray[i].taxVal)
                 }
                 let newArr = (key,newTaxVal)
                 taxAndFeesData.append(newArr)
@@ -87,9 +87,9 @@ class FlightPaymentVM{
         }else{
             for key in sortOrderArr {
                 let dataArray = newDict[key] ?? []
-                var newTaxVal = 0
+                var newTaxVal: Double = 0
                 for i in 0..<dataArray.count {
-                    newTaxVal += (dataArray[i].taxVal ?? 0)
+                    newTaxVal += (dataArray[i].taxVal )
                 }
                 let newArr = (key,newTaxVal)
                 taxAndFeesData.append(newArr)
@@ -103,7 +103,7 @@ class FlightPaymentVM{
     
     private func addonsDataDisplay(){
         addonsData.removeAll()
-        var taxesDetails : [String:Int] = [String:Int]()
+        var taxesDetails : [String:Double] = [String:Double]()
         var addonsDataDict = [taxStruct]()
         guard let addons = self.itinerary.details.fare.addons else {return}
         taxesDetails = addons.details
@@ -114,7 +114,7 @@ class FlightPaymentVM{
         let newDict = Dictionary(grouping: addonsDataDict) { $0.name }
         for ( key , _ ) in newDict {
             let dataArray = newDict[key] ?? []
-            var newTaxVal = 0
+            var newTaxVal: Double = 0
             for i in 0..<dataArray.count{
                 newTaxVal += (dataArray[i].taxVal ?? 0)
             }
@@ -126,7 +126,7 @@ class FlightPaymentVM{
     
     private func discountDataDisplay(){
         discountData.removeAll()
-        var taxesDetails : [String:Int] = [String:Int]()
+        var taxesDetails : [String:Double] = [String:Double]()
         var addonsDataDict = [taxStruct]()
         guard let discount = self.itinerary.details.fare.discount else {return}
         taxesDetails = discount.details
@@ -137,9 +137,9 @@ class FlightPaymentVM{
         let newDict = Dictionary(grouping: addonsDataDict) { $0.name }
         for ( key , _ ) in newDict {
             let dataArray = newDict[key] ?? []
-            var newTaxVal = 0
+            var newTaxVal: Double = 0
             for i in 0..<dataArray.count{
-                newTaxVal += (dataArray[i].taxVal ?? 0)
+                newTaxVal += (dataArray[i].taxVal )
             }
             let newArr = (key,newTaxVal)
             discountData.append(newArr)

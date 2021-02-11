@@ -648,12 +648,12 @@ struct IntMultiCityAndReturnWSResponse {
                 struct Taxes {
                     var name: String
                     var value: Double
-                    var details: [String: Int]
+                    var details: [String: Double]
                     
                     init(_ json: JSON) {
                         name = json["name"].stringValue
                         value = json["value"].doubleValue
-                        details = Dictionary(uniqueKeysWithValues: json["details"].map { ($0.0, $0.1.intValue) })
+                        details = Dictionary(uniqueKeysWithValues: json["details"].map { ($0.0, $0.1.doubleValue) })
                     }
                 }
                 
@@ -819,10 +819,10 @@ struct IntMultiCityAndReturnWSResponse {
                 }
                 
                 struct Breakup {
-                    var orgPrice: Int
+                    var orgPrice: Double
                     
                     init(_ json: JSON) {
-                        orgPrice = json["org_price"].intValue
+                        orgPrice = json["org_price"].doubleValue
                     }
                 }
             }

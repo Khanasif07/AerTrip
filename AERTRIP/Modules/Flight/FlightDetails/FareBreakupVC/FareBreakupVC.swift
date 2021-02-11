@@ -10,7 +10,7 @@ import UIKit
 
 struct taxStruct {
     var name : String
-    var taxVal : Int
+    var taxVal : Double
 }
 
 protocol FareBreakupVCDelegate : AnyObject  {
@@ -70,7 +70,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     var journeyCombo: [CombinationJourney]!
     
     var taxesData : Taxes?
-    var taxesDetails : [String:Int] = [String:Int]()
+    var taxesDetails : [String:Double] = [String:Double]()
     var taxAndFeesData = [JSONDictionary]()
     var taxAndFeesDataDict = [taxStruct]()
     var bookingObject:BookFlightObject?
@@ -306,7 +306,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 
                 let dataArray = newDict[key] ?? []
                 
-                var newTaxVal = 0
+                var newTaxVal: Double = 0
                 for i in 0..<dataArray.count{
                     newTaxVal += (dataArray[i].taxVal)
                 }
@@ -321,7 +321,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 
                 let dataArray = newDict[key] ?? []
                 
-                var newTaxVal = 0
+                var newTaxVal: Double = 0
                 for i in 0..<dataArray.count{
                     newTaxVal += (dataArray[i].taxVal)
                 }

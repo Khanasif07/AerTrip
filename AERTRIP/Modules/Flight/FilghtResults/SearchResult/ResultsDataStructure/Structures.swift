@@ -295,7 +295,7 @@ struct TotalPayabelSubStruct:Codable {
     let name:String
     var value:Double
     
-    var details : [String:Int]
+    var details : [String:Double]
     
     init() {
         name = ""
