@@ -31,6 +31,10 @@ class MyBookingFilterVM {
     var bookingFromDate: Date?
     var bookingToDate: Date?
     
+    var minBookingDate: Date?
+    var maxBookingDate: Date?
+    
+    
     // let event Type filter
     var eventType: [Int] = []
     

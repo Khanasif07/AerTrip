@@ -230,13 +230,21 @@ class TravelDateVC: BaseVC {
 //                self.closeBothPicker(animated: false)
 //            }
             
-            self.fromDatePicker?.minimumDate = self.minFromDate
-//            self.fromDatePicker.minimumDate = Date().add(years: -2)
-            self.fromDatePicker?.maximumDate = Date().add(years: 2)
+            if self.currentlyUsingAs == .bookingDate {
+                self.fromDatePicker?.minimumDate = self.bookingsMinDate
+                self.fromDatePicker?.maximumDate = self.bookingsMaxDate
+                
+                self.toDatePicker?.minimumDate = self.bookingsMinDate
+                self.toDatePicker?.maximumDate = self.bookingsMaxDate
+            } else{
+                self.fromDatePicker?.minimumDate = self.minFromDate
+                self.fromDatePicker?.maximumDate = Date().add(years: 2)
+                
+                self.toDatePicker?.minimumDate = self.minFromDate
+                self.toDatePicker?.maximumDate = Date().add(years: 2)
+            }
             
-            self.toDatePicker?.minimumDate = self.minFromDate
-//            self.toDatePicker.minimumDate = Date().add(years: -2)
-            self.toDatePicker?.maximumDate = Date().add(years: 2)
+          
             
             self.fromDatePicker?.setDate(self.oldFromDate ?? Date(), animated: false)
             

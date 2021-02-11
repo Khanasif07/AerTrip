@@ -33,31 +33,31 @@ extension APICaller {
         }
     }
     
-    func getBookingList(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes) -> Void) {
+    func getBookingList(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool,_ bookings : [JSONDictionary]? , _ errorCodes: ErrorCodes) -> Void) {
         AppNetworking.GET(endPoint: APIEndPoint.bookingList, parameters: params, success: { [weak self] json in
             guard let sSelf = self else { return }
             printDebug(json)
             sSelf.handleResponse(json, success: { sucess, jsonData in
                 if sucess, let response = jsonData[APIKeys.data.rawValue].dictionaryObject, let bookings = response["bookings"] as? [JSONDictionary] {
                     BookingData.insert(dataDictArray: bookings, completionBlock: { _ in
-                        completionBlock(true, [])
+                        completionBlock(true,bookings , [])
                     })
                 }
                 else {
-                    completionBlock(false, [])
+                    completionBlock(false,nil , [])
                 }
             }, failure: { error in
                 ATErrorManager.default.logError(forCodes: error, fromModule: .hotelsSearch)
-                completionBlock(false, error)
+                completionBlock(false,nil, error)
             })
         }) { (error) in
             if error.code == AppNetworking.noInternetError.code {
                 AppGlobals.shared.stopLoading()
                 AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
-                completionBlock(false, [])
+                completionBlock(false,nil, [])
             }
             else {
-                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue])
+                completionBlock(false,nil, [ATErrorManager.LocalError.requestTimeOut.rawValue])
             }
         }
     }

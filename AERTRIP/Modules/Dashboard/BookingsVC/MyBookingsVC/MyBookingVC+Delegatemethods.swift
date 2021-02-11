@@ -65,6 +65,8 @@ extension MyBookingsVC: MyBookingsVMDelegate {
         }
         self.emptyStateSetUp()
         self.sendDataChangedNotification(data: ATNotification.myBookingSearching)
+        MyBookingsVM.shared.getMinAndMaxBookingDate(bookings: MyBookingsVM.shared.bookings)
+        
         if showProgress {
             stopProgress()
         }
