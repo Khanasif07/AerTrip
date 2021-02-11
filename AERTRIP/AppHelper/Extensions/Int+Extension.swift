@@ -20,3 +20,13 @@ extension Int {
     
 }
 
+extension Double {
+
+    var commaSeprated : String {
+        let largeNumber = self
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        return numberFormatter.string(from: NSNumber(value:largeNumber)) ?? ""
+    }
+    
+}

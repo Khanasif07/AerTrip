@@ -159,7 +159,7 @@ class FlightResultDisplayGroup {
         
     }
 
-    fileprivate func findJourneyWithCheapestFare() -> Int {
+    fileprivate func findJourneyWithCheapestFare() -> Double {
         let minFareJourney = InputJourneyArray.min { (first, second) in first.farepr < second.farepr }
         
         guard let CheapestFareJourney = minFareJourney else {
@@ -579,7 +579,7 @@ class FlightResultDisplayGroup {
             self.appliedFilters.insert(.Price)
             self.UIFilters.insert(.priceRange)
             initiatedFilters.insert(.price)
-            let userMin = Int(pr) ?? 0
+            let userMin = Double(pr) ?? 0
             let inputMin = self.inputFilter?.pr.minPrice ?? 0
             let price = userMin < inputMin ? inputMin : userMin
             self.userSelectedFilters?.pr.minPrice = price
@@ -589,7 +589,7 @@ class FlightResultDisplayGroup {
             self.appliedFilters.insert(.Price)
             self.UIFilters.insert(.priceRange)
             initiatedFilters.insert(.price)
-            let userMax = Int(pr) ?? 0
+            let userMax = Double(pr) ?? 0
             let inputMax = self.inputFilter?.pr.maxPrice ?? 0
             let price = userMax > inputMax ? inputMax : userMax
             self.userSelectedFilters?.pr.maxPrice = price

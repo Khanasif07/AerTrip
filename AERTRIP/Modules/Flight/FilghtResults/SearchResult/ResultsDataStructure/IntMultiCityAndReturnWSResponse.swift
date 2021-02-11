@@ -163,7 +163,8 @@ struct IntMultiCityAndReturnWSResponse {
             }
             
             var vendor, id, fk, pk, dt, at, slot, llowt, redt, copt, seats, farebasis, coat, cott, cc, ovngtt, dd, ad, pricingSolutionKey, stp: String
-            var farepr, slo, llow, red, cot, cop, coa, fsr, isLcc, dspNoShow, eqt, lg, ovngt, ovgtf, ovgtlo, humaneScore: Int
+            var slo, llow, red, cot, cop, coa, fsr, isLcc, dspNoShow, eqt, lg, ovngt, ovgtf, ovgtlo, humaneScore: Int
+            var farepr: Double
             var ofk: String?
             var fareTypeName: [String: String]
             var otherFares: Bool
@@ -554,7 +555,7 @@ struct IntMultiCityAndReturnWSResponse {
                 pricingSolutionKey = json["pricingsolution_key"].stringValue
                 stp = json["stp"].stringValue
                 
-                farepr = json["farepr"].intValue
+                farepr = json["farepr"].doubleValue
                 slo = json["slo"].intValue
                 llow = json["llow"].intValue
                 red = json["red"].intValue
@@ -1175,12 +1176,12 @@ struct IntMultiCityAndReturnWSResponse {
             }
             
             struct Pr: Equatable {
-                var minPrice: Int
-                var maxPrice: Int
+                var minPrice: Double
+                var maxPrice: Double
                 
                 init(_ json: JSON) {
-                    minPrice = json["minPrice"].intValue
-                    maxPrice = json["maxPrice"].intValue
+                    minPrice = json["minPrice"].doubleValue
+                    maxPrice = json["maxPrice"].doubleValue
                 }
                 
                 public static func == (lhs : Pr , rhs : Pr ) -> Bool {
@@ -1387,7 +1388,7 @@ extension IntJourney{
         pricingSolutionKey = jsonData["pricingsolution_key"].stringValue
         stp = jsonData["stp"].stringValue
         
-        farepr = jsonData["farepr"].intValue
+        farepr = jsonData["farepr"].doubleValue
         slo = jsonData["slo"].intValue
         llow = jsonData["llow"].intValue
         red = jsonData["red"].intValue

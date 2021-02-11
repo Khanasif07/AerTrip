@@ -626,8 +626,8 @@ extension FlightResultDisplayGroup  {
         
         initiatedFilters.insert(.price)
         
-        userSelectedFilters?.pr.minPrice = Int(minFare)
-        userSelectedFilters?.pr.maxPrice = Int(maxFare)
+        userSelectedFilters?.pr.minPrice = Double(minFare)
+        userSelectedFilters?.pr.maxPrice = Double(maxFare)
         
         if userSelectedFilters?.pr == inputFilter?.pr {
             UIFilters.remove(.priceRange)

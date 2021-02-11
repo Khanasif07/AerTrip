@@ -59,13 +59,13 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
     let appdelegate = UIApplication.shared.delegate as! AppDelegate
     let clearCache = ClearCache()
     var selectedFareName = ""
-    var selectedFareAmount = -1
+    var selectedFareAmount: Double = -1
     var isFirstJourneyHasFareResp = false
     var newTestDict = [[String:NSArray]]()
     var isCallForFirstTime = false
     var selectButtonTitle = "Select"
     var isNewPlanSelected = false
-    var selectedPlanFare = [Int]()
+    var selectedPlanFare = [Double]()
     var isInitialJourneySelected = true
     
     fileprivate var parchmentView : PagingViewController?
@@ -443,7 +443,7 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                                     
                                     var checkMarkImgName = ""
                                     
-                                    let farepr = (upgardeResult[indexPath.row] as AnyObject).value(forKey: "farepr") as? Int ?? 0
+                                    let farepr = (upgardeResult[indexPath.row] as AnyObject).value(forKey: "farepr") as? Double ?? 0
                                     cell.selectButtonClick.tag = indexPath.row
                                     cell.selectButtonClick.addTarget(self, action: #selector(selectPlanButtonClicked), for: .touchUpInside)
                                     
@@ -483,9 +483,9 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                                                 checkMarkImgName = "Green_Copy.png"
                                                 selectButtonTitle = "Selected"
                                             }else{
-                                                var newFare = 0
+                                                var newFare: Double = 0
                                                 if selectedPlanIndex >= 0{
-                                                    newFare = (upgardeResult[selectedPlanIndex] as AnyObject).value(forKey: "farepr") as? Int ?? 0
+                                                    newFare = (upgardeResult[selectedPlanIndex] as AnyObject).value(forKey: "farepr") as? Double ?? 0
                                                 }else{
                                                     newFare = updatedJourneyArray[selectedLocationIndex].farepr
                                                 }
@@ -550,9 +550,9 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                                                 checkMarkImgName = "Green_Copy.png"
                                                 selectButtonTitle = "Selected"
                                             }else{
-                                                var newFare = 0
+                                                var newFare: Double = 0
                                                 if selectedPlanIndex >= 0{
-                                                    newFare = (upgardeResult[selectedPlanIndex] as AnyObject).value(forKey: "farepr") as? Int ?? 0
+                                                    newFare = (upgardeResult[selectedPlanIndex] as AnyObject).value(forKey: "farepr") as? Double ?? 0
                                                 }else{
                                                     newFare = updatedJourneyArray[selectedLocationIndex].farepr
                                                 }
@@ -725,7 +725,7 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                     
                     isNewPlanSelected = true
                     selectedPlanIndex = sender.tag
-                    if let farepr = (upgardeResult[sender.tag] as AnyObject).value(forKey: "farepr") as? Int
+                    if let farepr = (upgardeResult[sender.tag] as AnyObject).value(forKey: "farepr") as? Double
                     {
                         selectedPlanFare[selectedLocationIndex] = farepr
                         selectedFareAmount = farepr
@@ -736,7 +736,7 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
             }
         }
         
-        var totalFareVal = 0
+        var totalFareVal: Double = 0
         for i in 0..<selectedPlanFare.count{
             totalFareVal += selectedPlanFare[i]
         }

@@ -809,8 +809,8 @@ extension IntFlightResultDisplayGroup  {
         
         initiatedFilters[index]?.insert(.price)
         
-        userSelectedFilters[0].pr.minPrice = Int(minFare)
-        userSelectedFilters[0].pr.maxPrice = Int(maxFare)
+        userSelectedFilters[0].pr.minPrice = Double(minFare)
+        userSelectedFilters[0].pr.maxPrice = Double(maxFare)
         
         if userSelectedFilters[0].pr == inputFilter[0].pr {
             UIFilters.remove(.priceRange)

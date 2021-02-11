@@ -25,7 +25,7 @@ public class Journey: Codable , Equatable {
     //    let invfk : Bool
     //    let pricingsolutionKey: String
     let otherfares : Bool?
-    var farepr : Int
+    var farepr : Double
     let iic : Bool
     let displaySeat : Bool
     var fare : Taxes
@@ -484,7 +484,7 @@ struct brandedFaresDataStruct:Codable {
 
 struct OtherFare: Codable {
     let fk: String?
-    let farepr: Int?
+    let farepr: Double?
 //    let fare: Fare
     let otherFareClass, fareTypeName, title, bc: [[String]]
 //    let subtitle, otherFareDescription: [[String]]
@@ -561,7 +561,7 @@ class JourneyOnewayDisplay {
         return .singleJourneyCell
     }
     
-    var fare : Int {
+    var fare : Double {
         let sorted =  journeyArray.sorted(by: { $0.farepr < $1.farepr })
         return sorted.first?.farepr ?? 0
     }

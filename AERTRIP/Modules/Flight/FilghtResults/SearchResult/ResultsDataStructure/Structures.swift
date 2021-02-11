@@ -45,8 +45,8 @@ public struct cityWiseAirportCode : Codable {
 
 
 public struct priceWS : Codable , Equatable {
-    var minPrice : Int
-    var maxPrice : Int
+    var minPrice : Double
+    var maxPrice : Double
     
     
     public static func == (lhs : priceWS , rhs : priceWS ) -> Bool {

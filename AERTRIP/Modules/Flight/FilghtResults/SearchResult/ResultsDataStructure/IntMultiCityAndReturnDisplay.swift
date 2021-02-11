@@ -54,7 +54,7 @@ class IntMultiCityAndReturnDisplay {
         return .singleJourneyCell
     }
     
-    var fare : Int {
+    var fare : Double {
         
         let sorted =  journeyArray.sorted(by: { $0.farepr < $1.farepr })
         return sorted.first!.farepr

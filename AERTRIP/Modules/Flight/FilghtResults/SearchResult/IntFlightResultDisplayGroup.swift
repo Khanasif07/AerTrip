@@ -275,7 +275,7 @@ class IntFlightResultDisplayGroup {
         
     }
 
-    fileprivate func findJourneyWithCheapestFare() -> Int {
+    fileprivate func findJourneyWithCheapestFare() -> Double {
         let minFareJourney = InputJourneyArray.min { (first, second) in first.farepr < second.farepr }
         
         guard let CheapestFareJourney = minFareJourney else {
@@ -752,20 +752,20 @@ class IntFlightResultDisplayGroup {
                 self.appliedFilters.insert(.Price)
                 self.UIFilters.insert(.priceRange)
                 initiatedFilters[index]?.insert(.price)
-                let userMin = Int(price) ?? 0
+                let userMin = Double(price) ?? 0
                 let inputMin = self.inputFilter[index].pr.minPrice
                 let pr = userMin < inputMin ? inputMin : userMin
-                self.userSelectedFilters[index].pr.minPrice = Int(pr)
+                self.userSelectedFilters[index].pr.minPrice = pr
             }
             
             if let price = flightSearchParam["filters[\(index)][pr][1]"] as? String{
                 self.appliedFilters.insert(.Price)
                 self.UIFilters.insert(.priceRange)
                 initiatedFilters[index]?.insert(.price)
-                let userMax = Int(price) ?? 0
+                let userMax = Double(price) ?? 0
                 let inputMax = self.inputFilter[index].pr.maxPrice
                 let pr = userMax > inputMax ? inputMax : userMax
-                self.userSelectedFilters[index].pr.maxPrice = Int(pr)
+                self.userSelectedFilters[index].pr.maxPrice = pr
             }
             
             let quality = flightSearchParam.filter { $0.key.contains("filters[\(index)][fq]") }

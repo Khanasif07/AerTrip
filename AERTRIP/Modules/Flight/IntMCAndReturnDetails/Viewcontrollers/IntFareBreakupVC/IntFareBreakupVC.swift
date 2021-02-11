@@ -108,7 +108,7 @@ class IntFareBreakupVC: BaseVC {
     
     
     //Added for addons
-    var addonsData = [String:Int]()
+    var addonsData = [String:Double]()
     var isAddonsExpend = true
     var bookButtonTitle = "Book"
     

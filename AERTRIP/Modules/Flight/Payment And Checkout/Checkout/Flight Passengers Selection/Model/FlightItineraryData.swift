@@ -197,10 +197,10 @@ struct FlightGST{
 }
 
 struct ChangeResult{
-    var farepr: Int
+    var farepr: Double
     var fare:IntTaxes
     init(_ json:JSON = JSON()){
-        farepr = json["farepr"].intValue
+        farepr = json["farepr"].doubleValue
         fare = IntTaxes(json["fare"])
     }
 }
