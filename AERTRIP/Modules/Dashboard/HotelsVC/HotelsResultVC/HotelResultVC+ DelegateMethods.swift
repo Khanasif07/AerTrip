@@ -96,6 +96,8 @@ extension HotelResultVC:SpeechToTextVCDelegate{
     func getSpeechToText(_ text: String) {
         self.viewModel.fetchRequestType = .Searching
         guard !text.isEmpty else{ return }
+        searchBar.hideMiceButton(isHidden: false)
+
         self.searchBar.text = text
         self.performSearch(with: text)
     }

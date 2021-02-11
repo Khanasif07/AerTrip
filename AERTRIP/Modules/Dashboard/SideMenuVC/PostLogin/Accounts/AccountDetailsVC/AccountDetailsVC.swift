@@ -618,6 +618,8 @@ extension AccountDetailsVC: AccountDetailsVMDelegate {
 extension AccountDetailsVC: SpeechToTextVCDelegate{
     func getSpeechToText(_ text: String) {
         guard !text.isEmpty else {return}
+        searchBar.hideMiceButton(isHidden: false)
+
         self.currentViewState = .searching
         self.mainSearchBar.text = text
         viewModel.searchEvent(forText: text)

@@ -82,6 +82,8 @@ extension HotelsMapVC: UISearchBarDelegate {
 extension HotelsMapVC : SpeechToTextVCDelegate{
     func getSpeechToText(_ text: String) {
         guard !text.isEmpty else {return}
+        searchBar.hideMiceButton(isHidden: false)
+
         self.viewModel.fetchRequestType = .Searching
         self.searchBar.text = text
         noResultemptyView.searchTextLabel.isHidden = false
