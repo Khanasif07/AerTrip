@@ -368,9 +368,9 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                     if self.viewModel.email.count == 1 {
                         label = self.viewModel.emailTypes[0]
                     } else if self.viewModel.email.count == 2 {
-                        label = self.viewModel.emailTypes[2]
-                    } else {
                         label = self.viewModel.emailTypes[1]
+                    } else {
+                        label = self.viewModel.emailTypes[2]
                     }
                 } else {
                     if self.viewModel.email.count == 1 {
@@ -925,7 +925,17 @@ extension EditProfileVC: EditProfileVMDelegate {
     
     func getSuccess(_ addresses: [String], _ emails: [String], _ mobiles: [String], _ salutations: [String], _ socials: [String]) {
         self.viewModel.addressTypes = addresses
-        self.viewModel.emailTypes = emails
+        var sortedEmails = [String]()
+        if emails.contains(LocalizedString.Home.localized) {
+            sortedEmails.append(LocalizedString.Home.localized)
+        }
+        if emails.contains(LocalizedString.Work.localized) {
+            sortedEmails.append(LocalizedString.Work.localized)
+        }
+        if emails.contains(LocalizedString.Other.localized) {
+            sortedEmails.append(LocalizedString.Other.localized)
+        }
+        self.viewModel.emailTypes = sortedEmails
         self.viewModel.mobileTypes = mobiles
         self.viewModel.salutationTypes = salutations
         self.viewModel.socialTypes = socials
@@ -948,7 +958,10 @@ extension EditProfileVC: EditProfileThreePartTableViewCellDelegate {
     
     func editProfileThreePartTableViewCellTextFieldText(_ textField: UITextField, _ indexPath: IndexPath, _ text: String, isValide: Bool) {
         
-        let final = text.substring(to: AppConstants.kMaxPhoneLength-1)
+        var final = text.substring(to: AppConstants.kMaxPhoneLength-1)
+        if final.count > self.viewModel.mobile[indexPath.row].maxValidation {
+            final.removeLast()
+        }
         textField.text = final
         self.viewModel.mobile[indexPath.row].value = final
         self.viewModel.mobile[indexPath.row].isValide = isValide
@@ -1002,10 +1015,14 @@ extension EditProfileVC: EditProfileThreePartTableViewCellDelegate {
             }
             cell.countryCodeLabel.text = selectedCountry.countryCode
             cell.flagImageView.image = selectedCountry.flagImage
+            cell.rightViewTextField.text?.removeAll()
             //            cell.rightViewTextField.defaultRegion = selectedCountry.ISOCode
             //            cell.rightViewTextField.text = cell.rightViewTextField.nationalNumber
             
             self?.viewModel.mobile[indexPath.row].isd = selectedCountry.countryCode
+            self?.viewModel.mobile[indexPath.row].minValidation = selectedCountry.minNSN
+            self?.viewModel.mobile[indexPath.row].maxValidation = selectedCountry.maxNSN
+            self?.viewModel.mobile[indexPath.row].value.removeAll()
         }
     }
 }
