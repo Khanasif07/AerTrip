@@ -123,8 +123,14 @@ public struct PKCountryModel {
         }
         
         all.sort { (first, second) -> Bool in
-            first.sortIndex < second.sortIndex
+            first.countryEnglishName < second.countryEnglishName
         }
+        
+        
+//        
+//        all.sort { (first, second) -> Bool in
+//            first.sortIndex < second.sortIndex
+//        }
         
         return all
     }
