@@ -38,15 +38,15 @@ class UserAccountDetailsCell: UITableViewCell {
         case .pan:
             
             headingLabel.text = LocalizedString.PAN.localized
-            desctiptionLabel.text = details.pan
+            desctiptionLabel.text = details.pan.isEmpty ? "-" : details.pan
 
         case .aadhar:
             headingLabel.text = LocalizedString.Aadhaar.localized
-            desctiptionLabel.text = details.aadhar
+            desctiptionLabel.text = details.aadhar.isEmpty ? "-" : details.aadhar
 
         case .gSTIN:
             headingLabel.text = LocalizedString.GSTIN.localized
-            desctiptionLabel.text = details.gst
+            desctiptionLabel.text = details.gst.isEmpty ? "-" : details.gst
 
         case .defaultRefundMode:
             headingLabel.text = LocalizedString.Default_Refund_Mode.localized
@@ -54,11 +54,11 @@ class UserAccountDetailsCell: UITableViewCell {
             
         case .billingName:
             headingLabel.text = LocalizedString.BillingName.localized
-            desctiptionLabel.text = details.billingName
+            desctiptionLabel.text = details.billingName.isEmpty ? "-" : details.billingName
 
         case .billingAddress:
             headingLabel.text = LocalizedString.BillingAddress.localized
-            desctiptionLabel.text = details.billingAddressString
+            desctiptionLabel.text = details.billingAddressString.isEmpty ? "-" : details.billingAddressString
 
         }
         
