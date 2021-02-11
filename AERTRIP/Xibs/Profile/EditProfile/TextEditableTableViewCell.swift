@@ -25,6 +25,7 @@ class TextEditableTableViewCell: UITableViewCell {
     }
     @IBOutlet weak var separatorView: ATDividerView!
     @IBOutlet weak var downArrowImageView: UIImageView!
+    @IBOutlet weak var separatorLeadingConstraints: NSLayoutConstraint!
     
     
     // MARK: - Variables
@@ -58,6 +59,10 @@ class TextEditableTableViewCell: UITableViewCell {
         titleLabel.text = title
         editableTextField.text = text
        
+    }
+    
+    func showError(isError:Bool){
+        self.separatorView.isSettingForErrorState = isError
     }
     
 }

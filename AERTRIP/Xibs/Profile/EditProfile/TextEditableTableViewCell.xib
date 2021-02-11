@@ -81,6 +81,7 @@
             <connections>
                 <outlet property="downArrowImageView" destination="9zh-hX-Yy2" id="kVc-gt-AnE"/>
                 <outlet property="editableTextField" destination="eNX-Hf-1t1" id="dWi-HR-K51"/>
+                <outlet property="separatorLeadingConstraints" destination="G41-cS-ar7" id="Uid-02-Ung"/>
                 <outlet property="separatorView" destination="mWy-wU-7W4" id="0VJ-m0-f2S"/>
                 <outlet property="titleLabel" destination="4lL-UD-KLw" id="1nf-sk-LfD"/>
             </connections>

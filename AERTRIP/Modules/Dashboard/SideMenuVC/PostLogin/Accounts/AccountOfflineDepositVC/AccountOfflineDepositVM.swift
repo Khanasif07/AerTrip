@@ -24,6 +24,7 @@ class AccountOfflineDepositVM: NSObject {
     
     weak var delegate: AccountOfflineDepositVMDelegate?
     
+    var isPayButtonTapped = false
     
     func registerPayment(currentUsingAs: AccountOfflineDepositVC.UsingForPayBy) {
         

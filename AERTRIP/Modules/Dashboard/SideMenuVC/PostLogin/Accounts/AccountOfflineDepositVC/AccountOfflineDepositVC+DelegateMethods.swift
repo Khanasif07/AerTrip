@@ -85,7 +85,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
                 
             case 1, 4, 6:
                 //blank gap
-                return self.getBlankCell()
+                return self.getBlankCell(isTopDividerHiiden: (indexPath.row != 4))
                 
             case 2:
                 //select bank name
@@ -250,17 +250,20 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
             depositCell.amountTextField.backgroundColor = AppColors.clear
             depositCell.isUserInteractionEnabled = false
         }
+        depositCell.bottomDivider.isSettingForErrorState = ((self.viewModel.userEnteredDetails.depositAmount == 0) && self.viewModel.isPayButtonTapped)
         depositCell.topDividerView.isHidden = false
+        depositCell.bottomDivider.isHidden = false
         return depositCell
     }
     
-    func getBlankCell(isBottomDividerHidden: Bool = false) -> UITableViewCell {
+    func getBlankCell(isBottomDividerHidden: Bool = false, isTopDividerHiiden:Bool = false) -> UITableViewCell {
         //blank gap
         guard let cell = self.checkOutTableView.dequeueReusableCell(withIdentifier: EmptyTableViewCell.reusableIdentifier) as? EmptyTableViewCell else {
             printDebug("Cell not found")
             return UITableViewCell()
         }
         cell.bottomDividerView.isHidden = isBottomDividerHidden
+        cell.topDividerView.isHidden = isTopDividerHiiden
         cell.clipsToBounds = true
         
         return cell
@@ -352,9 +355,11 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
         cell.editableTextField.isHiddenBottomLine = true
         cell.editableTextField.isSelectionOptionEnabled = isSelectionEnable
         
-        cell.separatorView.isHidden = !isDivider
+//        cell.separatorView.isHidden = !isDivider
+        cell.separatorLeadingConstraints.constant = (!isDivider) ? 0 : 16
         cell.editableTextField.delegate = self
         cell.editableTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
+        cell.showError(isError: (value.isEmpty && self.viewModel.isPayButtonTapped))
         
         return cell
     }
@@ -377,7 +382,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
         cell.separatorView.isHidden = !isDivider
         cell.editableTextField.delegate = self
         cell.editableTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
-        
+        cell.showErrorForAccountDeposit(isError: (value.isEmpty && self.viewModel.isPayButtonTapped))
         
         return cell
     }
@@ -399,6 +404,19 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
         //cell.addNoteTextView.textContainerInset = .zero
         
         return cell
+    }
+    
+    
+    func updateCellSeparator(at indexPath: IndexPath){
+        if let cell = self.checkOutTableView.cellForRow(at: indexPath) as? HCEmailTextFieldCell{
+            cell.separatorView.isSettingForErrorState = false
+            
+        } else if let cell = self.checkOutTableView.cellForRow(at: indexPath) as? TextEditableTableViewCell{
+            cell.separatorView.isSettingForErrorState = false
+        } else if let cell = self.checkOutTableView.cellForRow(at: indexPath) as? AccountDepositAmountCell{
+            cell.bottomDivider.isSettingForErrorState = false
+        }
+        
     }
 }
 
@@ -453,6 +471,7 @@ extension AccountOfflineDepositVC {
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         if let indexPath = self.checkOutTableView.indexPath(forItem: textField) {
+            self.updateCellSeparator(at: indexPath)
             if indexPath.section == 0 {
                 switch indexPath.row {
                     

@@ -30,6 +30,7 @@ class AccountDepositAmountCell: UITableViewCell {
     @IBOutlet weak var currencyLabel: UILabel!
     @IBOutlet weak var amountTextField: UITextField!
     @IBOutlet weak var topDividerView: ATDividerView!
+    @IBOutlet weak var bottomDivider: ATDividerView!
     
     
     weak var delegate: AccountDepositAmountCellDelegate?
@@ -57,6 +58,7 @@ class AccountDepositAmountCell: UITableViewCell {
         self.amountTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
         self.amountTextField.delegate = self
         self.topDividerView.isHidden = true
+        self.bottomDivider.isHidden = true
         
     }
     deinit {
@@ -66,6 +68,7 @@ class AccountDepositAmountCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         self.topDividerView.isHidden = true
+        self.bottomDivider.isHidden = true
         self.amountTextField.attributedText = nil
         // self.amountTextField.font = AppFonts.SemiBold.withSize(40.0)
         self.amountTextField.keyboardType = .decimalPad
@@ -135,7 +138,7 @@ class AccountDepositAmountCell: UITableViewCell {
 extension AccountDepositAmountCell: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
+        self.bottomDivider.isSettingForErrorState = false
         if string.isBackSpace {
             return true
         }

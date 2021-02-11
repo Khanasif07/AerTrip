@@ -513,6 +513,9 @@ struct AccountDetailEvent {
         if let rows = details["rows"] as? [JSONDictionary], !rows.isEmpty {
             self.names.append(contentsOf: AccountUser.retunsAccountUserArray(jsonArr: rows))
         }
+        if let des = details["service_detail"] as? String, ((self._productType.lowercased() == "other")){
+            self.title = des
+        }
         self.description = details["service_detail"] as? String
     }
 
