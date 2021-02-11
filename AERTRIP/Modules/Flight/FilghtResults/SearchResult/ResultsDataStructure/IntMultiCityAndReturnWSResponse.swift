@@ -659,12 +659,12 @@ struct IntMultiCityAndReturnWSResponse {
                 
                 struct SubFares {
                     var name: String
-                    var value: Int
+                    var value: Double
                     var details: Details
                     
                     init(_ json: JSON) {
                         name = json["name"].stringValue
-                        value = json["value"].intValue
+                        value = json["value"].doubleValue
                         details = Details(json["details"])
                     }
                     
@@ -701,12 +701,12 @@ struct IntMultiCityAndReturnWSResponse {
                             struct FeeDetail {
                                 var slab: Int
                                 var sla: Int
-                                var value: Int
+                                var value: Double
                                 
                                 init(_ json: JSON) {
                                     slab = json["slab"].intValue
                                     sla = json["sla"].intValue
-                                    value = json["value"].intValue
+                                    value = json["value"].doubleValue
                                 }
                             }
                         }
@@ -718,14 +718,14 @@ struct IntMultiCityAndReturnWSResponse {
             struct RfdPlcy {
                 var cp: Fare.SubFares.Details
                 var rscp: Fare.SubFares.Details
-                var rfd: [String: Int]
-                var rsc: [String: Int]
+                var rfd: [String: Double]
+                var rsc: [String: Double]
                 
                 init(_ json: JSON) {
                     cp = Fare.SubFares.Details(json["cp"])
                     rscp = Fare.SubFares.Details(json["rscp"])
-                    rfd = Dictionary(uniqueKeysWithValues: json["rfd"].map { ($0.0, $0.1.intValue) })
-                    rsc = Dictionary(uniqueKeysWithValues: json["rsc"].map { ($0.0, $0.1.intValue) })
+                    rfd = Dictionary(uniqueKeysWithValues: json["rfd"].map { ($0.0, $0.1.doubleValue) })
+                    rsc = Dictionary(uniqueKeysWithValues: json["rsc"].map { ($0.0, $0.1.doubleValue) })
                 }
                 
                 struct Rscp {

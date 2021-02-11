@@ -272,7 +272,7 @@ extension IntCombineFareInfoCell{
             {
                 let adtAertripCancellationSlab = intAertripCancellationFees["ADT"]?.feeDetail.values.first
                 
-                var aertripValue = 0
+                var aertripValue: Double = 0
                 
                 if indexPath.row < (adtAertripCancellationSlab?.count ?? 0){
                     aertripValue = adtAertripCancellationSlab?[indexPath.row].value ?? 0
@@ -327,11 +327,11 @@ extension IntCombineFareInfoCell{
                             slabCell.statusLabel.text = "Free Cancellation"
                         }else{
                             slabCell.statusLabel.textColor = .black
-                            var adtRafVal =  0
-                            if let fee = rafFees["ADT"] as? Int{
+                            var adtRafVal: Double =  0
+                            if let fee = rafFees["ADT"] as? Double{
                                 adtRafVal = fee
                             }else{
-                                adtRafVal = (rafFees["ADT"] as? [String:Int])?.values.first ?? 0
+                                adtRafVal = (rafFees["ADT"] as? [String:Double])?.values.first ?? 0
                             }
                             
                             if aertripValue > 0{
@@ -357,11 +357,11 @@ extension IntCombineFareInfoCell{
                             slabCell.perAdultAmountLabel.text = "Free Cancellation"
                         }else{
                             slabCell.perAdultAmountLabel.textColor = .black
-                            var adtRafVal =  0
-                            if let fee = rafFees["ADT"] as? Int{
+                            var adtRafVal: Double =  0
+                            if let fee = rafFees["ADT"] as? Double{
                                 adtRafVal = fee
                             }else{
-                                adtRafVal = (rafFees["ADT"] as? [String:Int])?.values.first ?? 0
+                                adtRafVal = (rafFees["ADT"] as? [String:Double])?.values.first ?? 0
                             }
 
                             if aertripValue > 0{
@@ -392,7 +392,7 @@ extension IntCombineFareInfoCell{
             {
                 let chdAertripCancellationSlab = intAertripCancellationFees["CHD"]?.feeDetail.values.first
                 
-                var aertripValue = 0
+                var aertripValue: Double = 0
                 
                 if indexPath.row < (chdAertripCancellationSlab?.count ?? 0){
                     aertripValue = chdAertripCancellationSlab?[indexPath.row].value ?? 0
@@ -412,11 +412,11 @@ extension IntCombineFareInfoCell{
                         slabCell.perChildAmountLabel.text = "Free Cancellation"
                     }else{
                         slabCell.perChildAmountLabel.textColor = .black
-                        var chdRafVal =  0
-                        if let fee = rafFees["CHD"] as? Int{
+                        var chdRafVal: Double =  0
+                        if let fee = rafFees["CHD"] as? Double{
                             chdRafVal = fee
                         }else{
-                            chdRafVal = (rafFees["CHD"] as? [String:Int])?.values.first ?? 0
+                            chdRafVal = (rafFees["CHD"] as? [String:Double])?.values.first ?? 0
                         }
 
                         if aertripValue > 0 {
@@ -446,7 +446,7 @@ extension IntCombineFareInfoCell{
             {
                 let infAertripCancellationSlab = intAertripCancellationFees["INF"]?.feeDetail.values.first
                 
-                var aertripValue = 0
+                var aertripValue: Double = 0
                 
                 if indexPath.row < (infAertripCancellationSlab?.count ?? 0){
                     aertripValue = infAertripCancellationSlab?[indexPath.row].value ?? 0
@@ -466,11 +466,11 @@ extension IntCombineFareInfoCell{
                         slabCell.perInfantAmountLabel.text = "Free Cancellation"
                     }else{
                         slabCell.perInfantAmountLabel.textColor = .black
-                        var iNFRafVal =  0
-                        if let fee = rafFees["INF"] as? Int{
+                        var iNFRafVal: Double =  0
+                        if let fee = rafFees["INF"] as? Double{
                             iNFRafVal = fee
                         }else{
-                            iNFRafVal = (rafFees["INF"] as? [String:Int])?.values.first ?? 0
+                            iNFRafVal = (rafFees["INF"] as? [String:Double])?.values.first ?? 0
                         }
                         
                         if aertripValue > 0{
@@ -503,7 +503,7 @@ extension IntCombineFareInfoCell{
             {
                 let adtAertripReschedulingSlab = intAertripReschedulingFees["ADT"]?.feeDetail.values.first
                 
-                var aertripValue = 0
+                var aertripValue: Double = 0
                 
                 if indexPath.row < (adtAertripReschedulingSlab?.count ?? 0){
                     aertripValue = adtAertripReschedulingSlab?[indexPath.row].value ?? 0
@@ -613,7 +613,7 @@ extension IntCombineFareInfoCell{
             {
                 let chdAertripReschedulingSlab = intAertripReschedulingFees["CHD"]?.feeDetail.values.first
                 
-                var aertripValue = 0
+                var aertripValue: Double = 0
                 
                 if indexPath.row < (chdAertripReschedulingSlab?.count ?? 0){
                     aertripValue = chdAertripReschedulingSlab?[indexPath.row].value ?? 0
@@ -661,7 +661,7 @@ extension IntCombineFareInfoCell{
             {
                 let infAertripReschedulingSlab = intAertripReschedulingFees["INF"]?.feeDetail.values.first
                 
-                var aertripValue = 0
+                var aertripValue: Double = 0
                 
                 if indexPath.row < (infAertripReschedulingSlab?.count ?? 0){
                     aertripValue = infAertripReschedulingSlab?[indexPath.row].value ?? 0

@@ -227,7 +227,10 @@ class AirlinesFilterViewController: UIViewController , FilterViewController {
             
             viewModel.currentSelectedAirlineFilter.allAirlinesSelected = combinedSelection
             viewModel.allAirlineSelectedByUserInteraction = combinedSelection
-            airlinesTableView.reloadRows(at: [IndexPath(row: selectedRow, section: 2) , IndexPath(row: 0, section: 0)], with: .none)
+            
+            if viewModel.currentSelectedAirlineFilter.airlinesArray.count > 1 {
+                airlinesTableView.reloadRows(at: [IndexPath(row: selectedRow, section: 2) , IndexPath(row: 0, section: 0)], with: .none)
+            }
             
             // if airlineArray contains only one element , applying airline filter does not affect filtered flight results
             if viewModel.currentSelectedAirlineFilter.airlinesArray.count == 1 {

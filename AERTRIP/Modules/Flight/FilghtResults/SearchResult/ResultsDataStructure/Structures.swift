@@ -376,7 +376,7 @@ struct baggageStruct:Codable  , Equatable {
 
 
 struct cancellationDetailsStruct:Codable {
-    let RAF :  [String:[String:Int]]
+    let RAF :  [String:[String:Double]]
     let SPCFEE : [String:[String:[cancellationSlabStruct]]]
     let SUCFEE : [String:[String:[sucfeeValueStruct]]]
     
@@ -404,16 +404,16 @@ struct cancellationDetailsStruct:Codable {
 struct cancellationSlabStruct:Codable{
     let slab : Int?
     let sla : Int?
-    let value : Int?
+    let value : Double?
 }
 
 struct sucfeeValueStruct:Codable{
-    let value:Int?
+    let value:Double?
 }
 
 struct refundPolicyStruct:Codable {
-    var rfd:[String:Int]
-    var rsc:[String:Int]
+    var rfd:[String:Double]
+    var rsc:[String:Double]
     var cp : cancellationDetailsStruct
     var rscp : reschedulingChargesDetailsStruct
     
@@ -437,8 +437,8 @@ struct updatedFareInfoStruct:Codable{
 }
 
 struct updatedFareInfoDataStruct:Codable{
-    let rfd : Int
-    let rsc : Int
+    let rfd : Double
+    let rsc : Double
     let cp : cancellationChargesStruct
     let rscp : reschedulingChargesStruct
 

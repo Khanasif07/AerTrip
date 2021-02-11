@@ -9,7 +9,7 @@
 import UIKit
 
 protocol  UpdateRefundStatusDelegate : NSObjectProtocol{
-    func updateRefundStatus(for fk:String, rfd:Int, rsc:Int)
+    func updateRefundStatus(for fk:String, rfd:Double, rsc:Double)
 }
 
 class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate{

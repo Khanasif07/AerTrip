@@ -20,7 +20,7 @@ class CombineFareInfoTableViewCell: UITableViewCell
     var airlineReschedulingFees = [[String:[String:[cancellationSlabStruct]]]]()
     var aertripReschedulingFees = [[String:[String:[sucfeeValueStruct]]]]()
     
-    var rafFees = [String:[String:Int]]()
+    var rafFees = [String:[String:Double]]()
     
     var combineAirlineCancellationFees = [[[String:[String:[cancellationSlabStruct]]]]]()
     var combineAirlineReschedulingFees = [[[String:[String:[cancellationSlabStruct]]]]]()
@@ -119,7 +119,7 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
             {
                 let adtAertripCancellationSlab = aertripCancellationFees[0]["ADT"]?.values.first ?? []
                 
-                var aertripValue = 0
+                var aertripValue: Double = 0
                 
                 if indexPath.row < adtAertripCancellationSlab.count{
                     aertripValue = adtAertripCancellationSlab[indexPath.row].value ?? 0
@@ -243,7 +243,7 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
             {
                 let chdAertripCancellationSlab = aertripCancellationFees[0]["CHD"]?.values.first ?? []
                 
-                var aertripValue = 0
+                var aertripValue: Double = 0
                 
                 if indexPath.row < chdAertripCancellationSlab.count{
                     aertripValue = chdAertripCancellationSlab[indexPath.row].value ?? 0
@@ -289,7 +289,7 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
             {
                 let infAertripCancellationSlab = aertripCancellationFees[0]["INF"]?.values.first ?? []
                 
-                var aertripValue = 0
+                var aertripValue: Double = 0
                 
                 if indexPath.row < infAertripCancellationSlab.count{
                     aertripValue = infAertripCancellationSlab[indexPath.row].value ?? 0
@@ -336,7 +336,7 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
             {
                 let adtAertripReschedulingSlab = aertripReschedulingFees[0]["ADT"]?.values.first ?? []
                 
-                var aertripValue = 0
+                var aertripValue: Double = 0
                 
                 if indexPath.row < adtAertripReschedulingSlab.count{
                     aertripValue = adtAertripReschedulingSlab[indexPath.row].value ?? 0
@@ -447,7 +447,7 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
             {
                 let chdAertripReschedulingSlab = aertripReschedulingFees[0]["CHD"]?.values.first ?? []
                 
-                var aertripValue = 0
+                var aertripValue: Double = 0
                 
                 if indexPath.row < chdAertripReschedulingSlab.count{
                     aertripValue = chdAertripReschedulingSlab[indexPath.row].value ?? 0
@@ -492,7 +492,7 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
             {
                 let infAertripReschedulingSlab = aertripReschedulingFees[0]["INF"]?.values.first ?? []
                 
-                var aertripValue = 0
+                var aertripValue: Double = 0
                 
                 if indexPath.row < infAertripReschedulingSlab.count{
                     aertripValue = infAertripReschedulingSlab[indexPath.row].value ?? 0
