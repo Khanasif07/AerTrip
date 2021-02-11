@@ -78,6 +78,8 @@ class EditProfileVM {
     var paxId: String {
         return self.travelData?.id ?? ""
     }
+    var isSavedButtonTapped = false
+    
     
     func isValidateData(vc: UIViewController) -> Bool {
         var flag = true

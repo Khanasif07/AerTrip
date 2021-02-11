@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -38,7 +39,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="YEj-MN-zp9" secondAttribute="trailing" constant="16" id="2Cv-Lr-veh"/>
                                     <constraint firstItem="YEj-MN-zp9" firstAttribute="top" secondItem="Vze-Oa-s8L" secondAttribute="top" constant="8" id="DUk-U5-JBC"/>
@@ -230,6 +231,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="Ugp-1Q-fOe"/>
             <connections>
+                <outlet property="airlineSeparatorView" destination="zJ7-4f-EG1" id="wQf-Tp-kiM"/>
                 <outlet property="deleteButton" destination="1ak-mc-beD" id="b5x-Dj-CBo"/>
                 <outlet property="frequentFlyerImageView" destination="d2X-iI-jYy" id="Ga8-Zo-U3P"/>
                 <outlet property="frequentFlyerLabel" destination="8lR-lo-CYo" id="Xnk-nK-VXf"/>
@@ -241,6 +243,7 @@
                 <outlet property="leftTextField" destination="aVq-rY-Oom" id="Fge-R4-Ahy"/>
                 <outlet property="leftTitleLabel" destination="led-Vu-jFL" id="eta-Ib-GOs"/>
                 <outlet property="leftView" destination="9Ox-tW-6lH" id="6YM-AI-n7h"/>
+                <outlet property="lelfSeparatorLeadingConstraint" destination="9Hi-45-HUX" id="Jsf-Lt-9AH"/>
                 <outlet property="rightSeparatorView" destination="U4u-BU-otD" id="ffB-fB-jBA"/>
                 <outlet property="rightTextField" destination="jpe-P4-5yG" id="FDe-Q4-x8f"/>
                 <outlet property="rightView" destination="AhZ-xv-TK9" id="Nou-7Q-oHe"/>
@@ -253,5 +256,8 @@
     <resources>
         <image name="blackDownArrow" width="9" height="6"/>
         <image name="redMinusButton" width="22" height="22"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>
