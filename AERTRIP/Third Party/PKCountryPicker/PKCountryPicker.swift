@@ -167,6 +167,8 @@ open class PKCountryPicker: UIView {
         catch {
             return countries
         }
+//        let sortedCountries = countries.sort(by: {$0.countryEnglishName < $1.countryEnglishName})
+        countries.sort(by: {$0.countryEnglishName < $1.countryEnglishName})
         return countries
     }
     
@@ -178,8 +180,9 @@ open class PKCountryPicker: UIView {
         
         let visibleFrame = CGRect(x: 0, y: UIScreen.main.bounds.size.height - UIPickerView.pickerSize.height, width: UIPickerView.pickerSize.width, height: UIPickerView.pickerSize.height)
         
-        if let pre = self.preSelectedCountry {
-            self.pickerView.selectRow(pre.sortIndex-1, inComponent: 0, animated: false)
+        if let pre = self.preSelectedCountry, let index = self.countries.firstIndex(where: {$0.ISOCode.lowercased() == pre.ISOCode.lowercased()}){
+            self.currentSelectedIndex = index
+            self.pickerView.selectRow(index, inComponent: 0, animated: false)
         }
         
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
