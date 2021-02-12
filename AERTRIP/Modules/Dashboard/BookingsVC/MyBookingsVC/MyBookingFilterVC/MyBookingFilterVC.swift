@@ -303,8 +303,8 @@ extension MyBookingFilterVC {
         let vc = TravelDateVC.instantiate(fromAppStoryboard: .Bookings)
         vc.delegate = self
         vc.minFromDate = minDate
-        vc.bookingsMinDate = minDate
-        vc.bookingsMaxDate = maxDate
+        vc.bookingsMinDate = MyBookingFilterVM.shared.minBookingDate
+        vc.bookingsMaxDate = MyBookingFilterVM.shared.maxBookingDate
         vc.oldFromDate = MyBookingFilterVM.shared.bookingFromDate
         vc.oldToDate = MyBookingFilterVM.shared.bookingToDate
         vc.currentlyUsingAs = .bookingDate

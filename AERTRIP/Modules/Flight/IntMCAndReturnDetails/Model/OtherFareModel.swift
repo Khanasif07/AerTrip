@@ -10,7 +10,7 @@ import Foundation
 
 struct OtherFareModel {
     var fk: String
-    var farepr: Int
+    var farepr: Double
     var fare: IntTaxes
     var cabinCalss, fareTypeName, title, bc: [String]
     var subtitle, description: [String]
@@ -109,7 +109,7 @@ struct OtherFareModel {
 
     init(_ json: JSON = JSON()){
         fk = json["fk"].stringValue
-        farepr = json["farepr"].intValue
+        farepr = json["farepr"].doubleValue
         fare = IntTaxes(json["fare"])
         cabinCalss = json["class"].arrayValue.map({$0.arrayValue.map{$0.stringValue}}).flatMap{$0}
         fareTypeName = json["FareTypeName"].arrayValue.map({$0.arrayValue.map{$0.stringValue}}).flatMap{$0}

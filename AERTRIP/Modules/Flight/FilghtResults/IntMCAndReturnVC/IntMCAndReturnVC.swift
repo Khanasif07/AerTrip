@@ -333,7 +333,7 @@ extension IntMCAndReturnVC {
 
 extension IntMCAndReturnVC : flightDetailsPinFlightDelegate, UpdateRefundStatusDelegate{
    
-    func updateRefundStatus(for fk: String, rfd: Int, rsc: Int) {
+    func updateRefundStatus(for fk: String, rfd: Double, rsc: Double) {
         self.viewModel.updateRefundStatusInJourneys(fk: fk, rfd: rfd, rsc: rsc)
         self.resultsTableView.reloadData()
 

@@ -300,7 +300,10 @@ class DashboardVC: BaseVC {
     
     private func updateProfileButton() {
         if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty{
-            let image = UserInfo.loggedInUser?.profilePlaceholder ?? AppGlobals.shared.getImageFor(firstName: UserInfo.loggedInUser?.firstName, lastName: UserInfo.loggedInUser?.lastName)
+            var image = UserInfo.loggedInUser?.profilePlaceholder ?? UIImage()
+            if let _ = UserInfo.loggedInUser?.firstName {
+                image = AppGlobals.shared.getImageFor(firstName: UserInfo.loggedInUser?.firstName, lastName: UserInfo.loggedInUser?.lastName)
+            }
             
             // Commented as profile picture was not getting set for fb users that didn't have one
             // not used kf.setImage on button as error could not be extracted

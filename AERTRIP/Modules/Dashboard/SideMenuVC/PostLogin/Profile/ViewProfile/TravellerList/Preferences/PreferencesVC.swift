@@ -539,6 +539,7 @@ extension PreferencesVC: PreferencesVMDelegate {
     }
     
     func savePreferencesSuccess() {
+        AppToast.default.showToastMessage(message: "Preferences saved successfully")
         self.sendDataChangedNotification(data: ATNotification.preferenceUpdated)
         stopLoading()
         dismiss(animated: true, completion: nil)

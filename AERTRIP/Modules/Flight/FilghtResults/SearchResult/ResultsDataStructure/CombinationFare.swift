@@ -57,7 +57,7 @@ public class CombinationJourney: Codable {
     //    let invfk : Bool
     //    let pricingsolutionKey: String
     let otherfares : Bool?
-    let farepr : Int
+    let farepr : Double
     let iic : Bool
     let displaySeat : Bool
     var fare : Taxes

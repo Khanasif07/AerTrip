@@ -37,6 +37,11 @@ class EditProfileImageHeaderView: UIView {
     @IBOutlet weak var verticalDividerView: UIView!
     @IBOutlet weak var switchParentContainerView: UIView!
     
+    @IBOutlet weak var firstNameDividerView: ATDividerView!
+    @IBOutlet weak var lastNameDividerView: ATDividerView!
+    
+    
+    
     // MARK: - Variables
     
     weak var delegate: EditProfileImageHeaderViewDelegate?
@@ -169,5 +174,13 @@ extension EditProfileImageHeaderView: UITextFieldDelegate {
         }
         
         return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField === self.firstNameTextField {
+            self.firstNameDividerView.isSettingForErrorState = false
+        } else {
+            self.lastNameDividerView.isSettingForErrorState = false
+        }
     }
 }

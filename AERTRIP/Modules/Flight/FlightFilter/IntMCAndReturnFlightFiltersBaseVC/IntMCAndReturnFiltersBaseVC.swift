@@ -26,9 +26,11 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
 
     var showDepartReturnSame = false {
         didSet {
-            let viewCon = Filters.Airport.viewController
-            if let airportVC = viewCon as? AirportsFilterViewController {
-                airportVC.areAllDepartReturnNotSame = showDepartReturnSame
+            if !showDepartReturnSame { return }
+            allChildVCs.forEach { (viewCon) in
+                if let airportVC = viewCon as? AirportsFilterViewController {
+                    airportVC.areAllDepartReturnNotSame = showDepartReturnSame
+                }
             }
         }
     }
@@ -715,6 +717,8 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
     
     private func updateDurationFilterForReturnJourney(_ durationViewController : FlightDurationFilterViewController, inputFilters : [IntMultiCityAndReturnWSResponse.Results.F]) {
         
+        
+        
         var tripDurationMin : CGFloat  = CGFloat.greatestFiniteMagnitude
         var tripDurationMax : CGFloat = 0.0
         
@@ -819,9 +823,9 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
         
         if let qualityFilters = inputFilters.first?.fq {
             if durationViewController.viewModel.enableOvernightFlightQualityFilter.indices.contains(0) {
-            durationViewController.viewModel.enableOvernightFlightQualityFilter[0] =  qualityFilters.values.contains(UIFilters.hideOvernight.title)
+            durationViewController.viewModel.enableOvernightFlightQualityFilter[0] =  qualityFilters.values.contains(UIFilters.hideOvernightLayover.title)
             } else {
-                durationViewController.viewModel.enableOvernightFlightQualityFilter.insert(qualityFilters.values.contains(UIFilters.hideOvernight.title), at: 0)
+                durationViewController.viewModel.enableOvernightFlightQualityFilter.insert(qualityFilters.values.contains(UIFilters.hideOvernightLayover.title), at: 0)
             }
         }
         durationViewController.updateFiltersFromAPI()
@@ -902,9 +906,9 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
         guard durationViewController.viewModel.durationFilters.count > 0 else { return }
         if let qualityFilters = inputFilters.first?.fq {
             if durationViewController.viewModel.enableOvernightFlightQualityFilter.indices.contains(0) {
-            durationViewController.viewModel.enableOvernightFlightQualityFilter[0] =  qualityFilters.values.contains(UIFilters.hideOvernight.title)
+            durationViewController.viewModel.enableOvernightFlightQualityFilter[0] =  qualityFilters.values.contains(UIFilters.hideOvernightLayover.title)
             } else {
-                durationViewController.viewModel.enableOvernightFlightQualityFilter.insert(qualityFilters.values.contains(UIFilters.hideOvernight.title), at: 0)
+                durationViewController.viewModel.enableOvernightFlightQualityFilter.insert(qualityFilters.values.contains(UIFilters.hideOvernightLayover.title), at: 0)
             }
         }
         durationViewController.updateFiltersFromAPI()
@@ -1027,9 +1031,9 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
         durationViewController.viewModel.qualityFilterDelegate = delegate as? QualityFilterDelegate
         if let qualityFilters = inputFilters.first?.fq {
             if durationViewController.viewModel.enableOvernightFlightQualityFilter.indices.contains(0) {
-            durationViewController.viewModel.enableOvernightFlightQualityFilter[0] =  qualityFilters.values.contains(UIFilters.hideOvernight.title)
+            durationViewController.viewModel.enableOvernightFlightQualityFilter[0] =  qualityFilters.values.contains(UIFilters.hideOvernightLayover.title)
             } else {
-                durationViewController.viewModel.enableOvernightFlightQualityFilter.insert(qualityFilters.values.contains(UIFilters.hideOvernight.title), at: 0)
+                durationViewController.viewModel.enableOvernightFlightQualityFilter.insert(qualityFilters.values.contains(UIFilters.hideOvernightLayover.title), at: 0)
             }
         }
     }
@@ -1046,9 +1050,9 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
         durationViewController.viewModel.qualityFilterDelegate = delegate as? QualityFilterDelegate
         if let qualityFilters = inputFilters.first?.fq {
             if durationViewController.viewModel.enableOvernightFlightQualityFilter.indices.contains(0) {
-            durationViewController.viewModel.enableOvernightFlightQualityFilter[0] =  qualityFilters.values.contains(UIFilters.hideOvernight.title)
+            durationViewController.viewModel.enableOvernightFlightQualityFilter[0] =  qualityFilters.values.contains(UIFilters.hideOvernightLayover.title)
             } else {
-                durationViewController.viewModel.enableOvernightFlightQualityFilter.insert(qualityFilters.values.contains(UIFilters.hideOvernight.title), at: 0)
+                durationViewController.viewModel.enableOvernightFlightQualityFilter.insert(qualityFilters.values.contains(UIFilters.hideOvernightLayover.title), at: 0)
             }
         }
     }

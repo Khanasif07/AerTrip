@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,13 +26,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4lL-UD-KLw">
-                                <rect key="frame" x="16" y="8" width="288" height="18"/>
+                                <rect key="frame" x="16" y="8" width="288" height="16.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                 <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eNX-Hf-1t1" customClass="PKFloatLabelTextField" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="16" y="26" width="295" height="25"/>
+                                <rect key="frame" x="16" y="24.5" width="295" height="26.5"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -45,7 +45,7 @@
                                 </constraints>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="downArrow" translatesAutoresizingMaskIntoConstraints="NO" id="9zh-hX-Yy2">
-                                <rect key="frame" x="295" y="35.5" width="9" height="6"/>
+                                <rect key="frame" x="295" y="35" width="9" height="6"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="6" id="9mU-m7-2ap"/>
                                     <constraint firstAttribute="width" constant="9" id="QR6-WO-knz"/>
@@ -81,12 +81,18 @@
             <connections>
                 <outlet property="downArrowImageView" destination="9zh-hX-Yy2" id="kVc-gt-AnE"/>
                 <outlet property="editableTextField" destination="eNX-Hf-1t1" id="dWi-HR-K51"/>
+                <outlet property="separatorLeadingConstraints" destination="G41-cS-ar7" id="Uid-02-Ung"/>
                 <outlet property="separatorView" destination="mWy-wU-7W4" id="0VJ-m0-f2S"/>
                 <outlet property="titleLabel" destination="4lL-UD-KLw" id="1nf-sk-LfD"/>
             </connections>
             <point key="canvasLocation" x="137.59999999999999" y="153.82308845577214"/>
         </tableViewCell>
     </objects>
+    <designables>
+        <designable name="eNX-Hf-1t1">
+            <size key="intrinsicContentSize" width="6" height="23"/>
+        </designable>
+    </designables>
     <resources>
         <image name="downArrow" width="9" height="6"/>
     </resources>

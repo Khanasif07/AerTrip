@@ -340,6 +340,7 @@ class AccountOutstandingLadgerVC: BaseVC {
         
         if isHidden {
             self.makePaymentContainerView.isHidden = false
+            self.gradientView.isHidden = false
         }
         
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
@@ -349,11 +350,12 @@ class AccountOutstandingLadgerVC: BaseVC {
             guard let sSelf = self else {return}
             
             sSelf.makePaymentContainerView.isHidden = isHidden
+            sSelf.gradientView.isHidden = isHidden
         }
     }
     
     private func setPayableAmount() {
-        var totalAmount: Double = abs(self.viewModel.accountOutstanding?.grossAmount ?? 0.0)
+        var totalAmount: Double = self.viewModel.accountOutstanding?.netAmount ?? 0.0
         
         if self.currentViewState == .selecting {
             let selected = self.viewModel.totalAmountForSelected

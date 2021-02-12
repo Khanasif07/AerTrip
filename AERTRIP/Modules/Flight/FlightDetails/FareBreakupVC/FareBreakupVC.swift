@@ -10,7 +10,7 @@ import UIKit
 
 struct taxStruct {
     var name : String
-    var taxVal : Int
+    var taxVal : Double
 }
 
 protocol FareBreakupVCDelegate : AnyObject  {
@@ -70,7 +70,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     var journeyCombo: [CombinationJourney]!
     
     var taxesData : Taxes?
-    var taxesDetails : [String:Int] = [String:Int]()
+    var taxesDetails : [String:Double] = [String:Double]()
     var taxAndFeesData = [JSONDictionary]()
     var taxAndFeesDataDict = [taxStruct]()
     var bookingObject:BookFlightObject?
@@ -306,7 +306,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 
                 let dataArray = newDict[key] ?? []
                 
-                var newTaxVal = 0
+                var newTaxVal: Double = 0
                 for i in 0..<dataArray.count{
                     newTaxVal += (dataArray[i].taxVal)
                 }
@@ -321,7 +321,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 
                 let dataArray = newDict[key] ?? []
                 
-                var newTaxVal = 0
+                var newTaxVal: Double = 0
                 for i in 0..<dataArray.count{
                     newTaxVal += (dataArray[i].taxVal)
                 }
@@ -432,7 +432,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 
             }else{
                 if taxesData != nil{
-                    var amount = 0
+                    var amount: Double = 0
                     if journeyCombo != nil{
                         amount = journeyCombo.reduce(0) { $0 + $1.fare.BF.value }
                     }else{
@@ -471,7 +471,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
 
                 }else{
                     if taxesData != nil{
-                        var amount = 0
+                        var amount: Double = 0
                         if journeyCombo != nil{
                             amount = journeyCombo.reduce(0) { $0 + $1.fare.taxes.value }
                         }else{
@@ -501,8 +501,8 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 baseFareCell.titleLabelLeading.constant = 31
                     if taxAndFeesData.count > 0{
                         baseFareCell.titleLabel.text = (taxAndFeesData[indexPath.row-1]["name"] as? String ?? "")
-                        if (taxAndFeesData[indexPath.row-1]["value"] as? Int) != nil{
-                            let amount : Double = Double(taxAndFeesData[indexPath.row-1]["value"] as? Int ?? 0)
+                        if (taxAndFeesData[indexPath.row-1]["value"] as? Double) != nil{
+                            let amount : Double = Double(taxAndFeesData[indexPath.row-1]["value"] as? Double ?? 0)
                             
                             let price = displayPriceInFormat(price: amount, fromOption : "FareAmount")
                             baseFareCell.amountLable.attributedText = price

@@ -317,7 +317,7 @@ extension IntMCAndReturnVM{
     }
     
     
-    func updateRefundStatusInJourneys(fk: String, rfd: Int, rsc: Int) {
+    func updateRefundStatusInJourneys(fk: String, rfd: Double, rsc: Double) {
         
         self.results.journeyArray.enumerated().forEach { (index,journey) in
             

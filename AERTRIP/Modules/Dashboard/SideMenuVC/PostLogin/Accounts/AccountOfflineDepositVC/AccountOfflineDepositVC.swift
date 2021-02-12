@@ -143,9 +143,12 @@ class AccountOfflineDepositVC: BaseVC {
 
     //MARK: - Action
     @IBAction func payButtonAction(_ sender: UIButton) {
+        self.viewModel.isPayButtonTapped = true
          self.viewModel.userEnteredDetails.isForFundTransfer = self.currentUsingAs == .fundTransfer
         if self.viewModel.userEnteredDetails.isDataVarified {
             self.viewModel.registerPayment(currentUsingAs: self.currentUsingAs)
+        }else{
+            self.checkOutTableView.reloadData()
         }
     }
     

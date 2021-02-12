@@ -68,6 +68,10 @@ class HCEmailTextFieldCell: UITableViewCell {
         let firstName = self.editableTextField.placeholder ?? ""
         self.editableTextField.attributedPlaceholder = NSAttributedString(string: firstName, attributes: [NSAttributedString.Key.foregroundColor: isValidEmail ? AppColors.themeGray40 :  AppColors.themeRed])
     }
+    
+    func showErrorForAccountDeposit(isError:Bool){
+        separatorView.isSettingForErrorState = isError
+    }
 }
 
 

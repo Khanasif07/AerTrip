@@ -33,7 +33,7 @@
 "Enter_password"        = "Enter a valid password";
 "Enter_valid_Password"    = "Enter a valid password";
 "Email_ID_already_exists" = "Email ID already exists";
-"Phone_number_already_exists" = "Contact Number already exists";
+"Phone_number_already_exists" = "Mobile Number already exists";
 
 // MARK:- SocialLoginVC
 //MARK:-
@@ -657,7 +657,7 @@ Not to worry! Your booking is our highest priority. Our customer support team sh
 "EnterIsdMessage" = "Please enter Isd";
 "GuestDetailsMessage" = "Please fill all guest details";
 "EnterMobileNumberMessage" = "Please enter a valid mobile number";
-"EnterEmailAddressMessage" = "Not a valid email address";
+"EnterEmailAddressMessage" = "Please enter a valid email id";
 "UnableToGetMail" = "Unable to get email of selected person";
 "ImportantNote" = "Important Note:";
 "YourBookingIdStmt" = " Your booking details will be delivered to your inbox within few hours. If you do not receive an email please check your junk/spam folder or email us on";

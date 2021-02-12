@@ -478,8 +478,8 @@ class HotelsMapVC: StatusBarAnimatableViewController {
                 self?.openSharingSheet()
             } else if index == 2 {
                 self?.isRemovingAllFav = true
-                self?.removeAllFavouritesHotels()
-                printDebug("Remove All photo")
+                self?.removeAllFavouritesAlerts()
+//                printDebug("Remove All photo")
             }
         }
         

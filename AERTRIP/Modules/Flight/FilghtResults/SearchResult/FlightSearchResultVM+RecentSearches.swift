@@ -236,19 +236,17 @@ extension FlightSearchResultVM {
                 }
 //                else{
                     
-                    var airportsArray = [String]()
-                    if let to = userSelectedFilters?.cityapN.to{
-                        if let destinationAirport = to.values.first{
-                            airportsArray.append(contentsOf: destinationAirport)
-                        }
-                    }
-                    
-                    if let fr = userSelectedFilters?.cityapN.fr{
-                        if let originAirport = fr.values.first{
-                            airportsArray.append(contentsOf: originAirport)
-                        }
-                    }
-                    filterDict["ap"] = airportsArray
+                var airportsArray = [String]()
+                if let to = userSelectedFilters?.cityapN.to{
+                    let toAirports = to.flatMap { $0.value }
+                    airportsArray.append(contentsOf: toAirports)
+                }
+                
+                if let fr = userSelectedFilters?.cityapN.fr{
+                    let frAirports = fr.flatMap { $0.value }
+                    airportsArray.append(contentsOf: frAirports)
+                }
+                filterDict["ap"] = airportsArray
 //                }
             }
             

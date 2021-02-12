@@ -68,7 +68,7 @@ class IntFareBreakupVC: BaseVC {
     var journeyCombo: [CombinationJourney]!
     
     var taxesData : IntTaxes?
-    var taxesDetails : [String:Int] = [String:Int]()
+    var taxesDetails : [String:Double] = [String:Double]()
     var taxAndFeesData = [JSONDictionary]()
     var taxAndFeesDataDict = [taxStruct]()
     
@@ -108,7 +108,7 @@ class IntFareBreakupVC: BaseVC {
     
     
     //Added for addons
-    var addonsData = [String:Int]()
+    var addonsData = [String:Double]()
     var isAddonsExpend = true
     var bookButtonTitle = "Book"
     
@@ -295,7 +295,7 @@ class IntFareBreakupVC: BaseVC {
                     
                     let dataArray = newDict[key] ?? []
                     
-                    var newTaxVal = 0
+                    var newTaxVal: Double = 0
                     for i in 0..<dataArray.count{
                         newTaxVal += (dataArray[i].taxVal)
                     }
@@ -309,7 +309,7 @@ class IntFareBreakupVC: BaseVC {
                     
                     let dataArray = newDict[key] ?? []
                     
-                    var newTaxVal = 0
+                    var newTaxVal: Double = 0
                     for i in 0..<dataArray.count{
                         newTaxVal += (dataArray[i].taxVal)
                     }

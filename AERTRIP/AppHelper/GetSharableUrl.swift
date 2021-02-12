@@ -674,15 +674,13 @@ class GetSharableUrl
                 }else{
                     var airportsArray = [String]()
                     if let to = userSelectedFilters?.cityapN.to{
-                        if let destinationAirport = to.values.first{
-                            airportsArray.append(contentsOf: destinationAirport)
-                        }
+                        let toAirports = to.flatMap { $0.value }
+                        airportsArray.append(contentsOf: toAirports)
                     }
                     
                     if let fr = userSelectedFilters?.cityapN.fr{
-                        if let originAirport = fr.values.first{
-                            airportsArray.append(contentsOf: originAirport)
-                        }
+                        let frAirports = fr.flatMap { $0.value }
+                        airportsArray.append(contentsOf: frAirports)
                     }
                     
                     for n in 0..<airportsArray.count{

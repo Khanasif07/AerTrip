@@ -1005,7 +1005,9 @@ extension HotelsSearchVC: CalendarDataHandler {
         }
         if endDate != nil {
             self.viewModel.searchedFormData.checkOutDate = endDate.toString(dateFormat: "yyyy-MM-dd")
-        } else {
+        } else if startDate != nil{
+            self.viewModel.searchedFormData.checkOutDate = startDate.add(days: 1)?.toString(dateFormat: "yyyy-MM-dd") ?? ""
+        }else{
             self.viewModel.searchedFormData.checkOutDate = ""
         }
         if let checkInOutVw = self.checkInOutView {

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,7 +20,7 @@
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oQk-0a-ONi" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="0.5"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="0.5" id="hlC-Qe-ABP"/>
                         </constraints>
@@ -44,24 +45,35 @@
                         <fontDescription key="fontDescription" type="system" pointSize="28"/>
                         <textInputTraits key="textInputTraits"/>
                     </textField>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jIS-Uh-ZGl" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="91.5" width="320" height="0.5"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="8Dn-e3-Tu2"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="uKv-8X-jE2" secondAttribute="trailing" constant="16" id="1KR-Qz-SeE"/>
                     <constraint firstItem="uKv-8X-jE2" firstAttribute="leading" secondItem="c8f-8h-9Je" secondAttribute="trailing" constant="2" id="4kW-ft-szH"/>
                     <constraint firstItem="oQk-0a-ONi" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="DVc-xO-zu7"/>
                     <constraint firstItem="c8f-8h-9Je" firstAttribute="centerY" secondItem="uKv-8X-jE2" secondAttribute="centerY" id="G8u-R1-zuU"/>
+                    <constraint firstItem="jIS-Uh-ZGl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Iho-3z-XNX"/>
                     <constraint firstItem="HMu-I8-sMZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="L7S-fb-ZmB"/>
+                    <constraint firstAttribute="bottom" secondItem="jIS-Uh-ZGl" secondAttribute="bottom" id="Qsa-yC-6b1"/>
                     <constraint firstItem="c8f-8h-9Je" firstAttribute="leading" secondItem="HMu-I8-sMZ" secondAttribute="leading" id="bpD-ib-s7n"/>
                     <constraint firstItem="HMu-I8-sMZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="dpX-IL-3Cf"/>
                     <constraint firstItem="uKv-8X-jE2" firstAttribute="top" secondItem="HMu-I8-sMZ" secondAttribute="bottom" constant="12" id="gMS-7W-AJS"/>
                     <constraint firstAttribute="trailing" secondItem="oQk-0a-ONi" secondAttribute="trailing" id="kMc-cZ-ShU"/>
                     <constraint firstItem="oQk-0a-ONi" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="sxE-k6-Rlu"/>
+                    <constraint firstAttribute="trailing" secondItem="jIS-Uh-ZGl" secondAttribute="trailing" id="t5u-q8-Dau"/>
                     <constraint firstAttribute="trailing" secondItem="HMu-I8-sMZ" secondAttribute="trailing" constant="16" id="vHR-Gk-g84"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="amountTextField" destination="uKv-8X-jE2" id="rGy-J3-U6T"/>
+                <outlet property="bottomDivider" destination="jIS-Uh-ZGl" id="E4c-E3-w1v"/>
                 <outlet property="currencyLabel" destination="c8f-8h-9Je" id="1ze-F7-00J"/>
                 <outlet property="titleLabel" destination="HMu-I8-sMZ" id="kWd-Yx-JHx"/>
                 <outlet property="topDividerView" destination="oQk-0a-ONi" id="2Bj-5Z-geJ"/>
@@ -69,4 +81,9 @@
             <point key="canvasLocation" x="137.68115942028987" y="150.66964285714286"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

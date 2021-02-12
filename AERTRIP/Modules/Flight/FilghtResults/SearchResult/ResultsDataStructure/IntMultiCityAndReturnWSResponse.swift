@@ -163,7 +163,8 @@ struct IntMultiCityAndReturnWSResponse {
             }
             
             var vendor, id, fk, pk, dt, at, slot, llowt, redt, copt, seats, farebasis, coat, cott, cc, ovngtt, dd, ad, pricingSolutionKey, stp: String
-            var farepr, slo, llow, red, cot, cop, coa, fsr, isLcc, dspNoShow, eqt, lg, ovngt, ovgtf, ovgtlo, humaneScore: Int
+            var slo, llow, red, cot, cop, coa, fsr, isLcc, dspNoShow, eqt, lg, ovngt, ovgtf, ovgtlo, humaneScore: Int
+            var farepr: Double
             var ofk: String?
             var fareTypeName: [String: String]
             var otherFares: Bool
@@ -554,7 +555,7 @@ struct IntMultiCityAndReturnWSResponse {
                 pricingSolutionKey = json["pricingsolution_key"].stringValue
                 stp = json["stp"].stringValue
                 
-                farepr = json["farepr"].intValue
+                farepr = json["farepr"].doubleValue
                 slo = json["slo"].intValue
                 llow = json["llow"].intValue
                 red = json["red"].intValue
@@ -646,24 +647,24 @@ struct IntMultiCityAndReturnWSResponse {
                 
                 struct Taxes {
                     var name: String
-                    var value: Int
-                    var details: [String: Int]
+                    var value: Double
+                    var details: [String: Double]
                     
                     init(_ json: JSON) {
                         name = json["name"].stringValue
-                        value = json["value"].intValue
-                        details = Dictionary(uniqueKeysWithValues: json["details"].map { ($0.0, $0.1.intValue) })
+                        value = json["value"].doubleValue
+                        details = Dictionary(uniqueKeysWithValues: json["details"].map { ($0.0, $0.1.doubleValue) })
                     }
                 }
                 
                 struct SubFares {
                     var name: String
-                    var value: Int
+                    var value: Double
                     var details: Details
                     
                     init(_ json: JSON) {
                         name = json["name"].stringValue
-                        value = json["value"].intValue
+                        value = json["value"].doubleValue
                         details = Details(json["details"])
                     }
                     
@@ -700,12 +701,12 @@ struct IntMultiCityAndReturnWSResponse {
                             struct FeeDetail {
                                 var slab: Int
                                 var sla: Int
-                                var value: Int
+                                var value: Double
                                 
                                 init(_ json: JSON) {
                                     slab = json["slab"].intValue
                                     sla = json["sla"].intValue
-                                    value = json["value"].intValue
+                                    value = json["value"].doubleValue
                                 }
                             }
                         }
@@ -717,14 +718,14 @@ struct IntMultiCityAndReturnWSResponse {
             struct RfdPlcy {
                 var cp: Fare.SubFares.Details
                 var rscp: Fare.SubFares.Details
-                var rfd: [String: Int]
-                var rsc: [String: Int]
+                var rfd: [String: Double]
+                var rsc: [String: Double]
                 
                 init(_ json: JSON) {
                     cp = Fare.SubFares.Details(json["cp"])
                     rscp = Fare.SubFares.Details(json["rscp"])
-                    rfd = Dictionary(uniqueKeysWithValues: json["rfd"].map { ($0.0, $0.1.intValue) })
-                    rsc = Dictionary(uniqueKeysWithValues: json["rsc"].map { ($0.0, $0.1.intValue) })
+                    rfd = Dictionary(uniqueKeysWithValues: json["rfd"].map { ($0.0, $0.1.doubleValue) })
+                    rsc = Dictionary(uniqueKeysWithValues: json["rsc"].map { ($0.0, $0.1.doubleValue) })
                 }
                 
                 struct Rscp {
@@ -818,10 +819,10 @@ struct IntMultiCityAndReturnWSResponse {
                 }
                 
                 struct Breakup {
-                    var orgPrice: Int
+                    var orgPrice: Double
                     
                     init(_ json: JSON) {
-                        orgPrice = json["org_price"].intValue
+                        orgPrice = json["org_price"].doubleValue
                     }
                 }
             }
@@ -1175,12 +1176,12 @@ struct IntMultiCityAndReturnWSResponse {
             }
             
             struct Pr: Equatable {
-                var minPrice: Int
-                var maxPrice: Int
+                var minPrice: Double
+                var maxPrice: Double
                 
                 init(_ json: JSON) {
-                    minPrice = json["minPrice"].intValue
-                    maxPrice = json["maxPrice"].intValue
+                    minPrice = json["minPrice"].doubleValue
+                    maxPrice = json["maxPrice"].doubleValue
                 }
                 
                 public static func == (lhs : Pr , rhs : Pr ) -> Bool {
@@ -1387,7 +1388,7 @@ extension IntJourney{
         pricingSolutionKey = jsonData["pricingsolution_key"].stringValue
         stp = jsonData["stp"].stringValue
         
-        farepr = jsonData["farepr"].intValue
+        farepr = jsonData["farepr"].doubleValue
         slo = jsonData["slo"].intValue
         llow = jsonData["llow"].intValue
         red = jsonData["red"].intValue

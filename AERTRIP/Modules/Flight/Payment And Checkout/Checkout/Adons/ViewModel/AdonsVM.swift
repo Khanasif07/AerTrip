@@ -80,7 +80,7 @@ class AdonsVM  {
         return isFreeSeatsAdded ? LocalizedString.Free_Seats_Available.localized : ""
        }
     
-    private var priceDict : [String : Int] = [:]
+    private var priceDict : [String : Double] = [:]
 
     
     func setAdonsOptions(){
@@ -106,8 +106,8 @@ class AdonsVM  {
         
     }
     
-    func getAddonsPriceDict()-> [String : Int]{
-        var newDict = [String:Int]()
+    func getAddonsPriceDict()-> [String : Double]{
+        var newDict = [String:Double]()
         for (key, value) in self.priceDict{
             if value != 0{
                 newDict[key] = value
@@ -121,7 +121,7 @@ class AdonsVM  {
             priceDict[key] = nil
             return
         }
-        priceDict[key] = Int(val)
+        priceDict[key] = Double(val)
 
     }
     
@@ -441,7 +441,7 @@ extension AdonsVM {
                headingStr = "x\(selectedSeatsCount)"
            }
            let flightSequenceArr = dataStore.allFlights.map { $0.ffk }
-            var seatsTotal = 0
+        var seatsTotal: Double = 0
 
         
            if selectedSeatsCount > 0 {

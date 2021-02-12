@@ -39,7 +39,7 @@ class VersionControler {
                 
                     }
                 
-            } else{
+            } else if version.updateRequired == "0" {
                 self.isForceUpdate = false
                 self.shouldCheckForUpdate = false
 

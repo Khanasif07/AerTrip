@@ -56,14 +56,14 @@ class AccountOutstandingLadgerVM: NSObject {
     func setAccountDetails(data: JSONDictionary) {
         self.accountDetails = data
         var arr = Array(data.keys)
-        arr.sort { ($0.toDate(dateFormat: "YYYY-MM-dd")?.timeIntervalSince1970 ?? 0) > ($1.toDate(dateFormat: "YYYY-MM-dd")?.timeIntervalSince1970 ?? 0)}
+        arr.sort { ($0.toDate(dateFormat: "YYYY-MM-dd")?.timeIntervalSince1970 ?? 0) < ($1.toDate(dateFormat: "YYYY-MM-dd")?.timeIntervalSince1970 ?? 0)}
         self.allDates =  arr
     }
     
     func setSearchedAccountDetails(data: JSONDictionary) {
         self.searchedAccountDetails = data
         var arr = Array(data.keys)
-        arr.sort { ($0.toDate(dateFormat: "YYYY-MM-dd")?.timeIntervalSince1970 ?? 0) > ($1.toDate(dateFormat: "YYYY-MM-dd")?.timeIntervalSince1970 ?? 0)}
+        arr.sort { ($0.toDate(dateFormat: "YYYY-MM-dd")?.timeIntervalSince1970 ?? 0) < ($1.toDate(dateFormat: "YYYY-MM-dd")?.timeIntervalSince1970 ?? 0)}
         self.searchedAllDates =  arr
     }
     

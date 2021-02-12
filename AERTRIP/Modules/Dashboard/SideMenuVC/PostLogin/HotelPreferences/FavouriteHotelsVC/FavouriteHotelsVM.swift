@@ -43,6 +43,7 @@ class FavouriteHotelsVM {
             if success {
                 
                 strongSelf.hotels = cities
+                strongSelf.hotels.sort(by: { $0.cityName < $1.cityName })
 //                strongSelf.allTabs = strongSelf.hotels.map { PKCategoryItem(title: $0.cityName, normalImage: nil, selectedImage: nil) }
                 
                 strongSelf.delegate?.getHotelPreferenceListSuccess()

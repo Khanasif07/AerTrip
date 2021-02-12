@@ -1055,7 +1055,9 @@ extension FlightFilterBaseVC {
         for  index in 0 ..< inputFilters.count {
             
             let filter = inputFilters[index]
-            multiAL = multiAL + (filter.multiAl ?? 0)
+            if (filter.multiAl ?? 0) > 0 {
+                multiAL = 1
+            }
             let airlineDetail = flightResultArray[index].aldet
             
             for (code , name) in airlineDetail {
@@ -1065,7 +1067,6 @@ extension FlightFilterBaseVC {
         }
         
         let airlineArray = Array(airlineSet)
-        multiAL = max(1, multiAL)
         let leg = legList[0]
         let airlineLegFilter = AirlineLegFilter( leg: leg, airlinesArray: airlineArray, multiAl: multiAL )
         return airlineLegFilter

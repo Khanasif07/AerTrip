@@ -809,8 +809,8 @@ extension IntFlightResultDisplayGroup  {
         
         initiatedFilters[index]?.insert(.price)
         
-        userSelectedFilters[0].pr.minPrice = Int(minFare)
-        userSelectedFilters[0].pr.maxPrice = Int(maxFare)
+        userSelectedFilters[0].pr.minPrice = Double(minFare)
+        userSelectedFilters[0].pr.maxPrice = Double(maxFare)
         
         if userSelectedFilters[0].pr == inputFilter[0].pr {
             UIFilters.remove(.priceRange)
@@ -1008,7 +1008,7 @@ extension IntFlightResultDisplayGroup  {
             } else if selectedDestinationAirports.isEmpty {
                 return selectedOriginAirports.contains(journey.legsWithDetail[0].originIATACode) || selectedOriginAirports.contains(journey.legsWithDetail[1].destinationIATACode)
             } else {
-                return selectedDestinationAirports.contains(journey.legsWithDetail[0].destinationIATACode) && selectedDestinationAirports.contains(journey.legsWithDetail[1].originIATACode) || selectedOriginAirports.contains(journey.legsWithDetail[0].originIATACode) && selectedOriginAirports.contains(journey.legsWithDetail[1].destinationIATACode)
+                return (selectedDestinationAirports.contains(journey.legsWithDetail[0].destinationIATACode) || selectedDestinationAirports.contains(journey.legsWithDetail[1].originIATACode)) && (selectedOriginAirports.contains(journey.legsWithDetail[0].originIATACode) || selectedOriginAirports.contains(journey.legsWithDetail[1].destinationIATACode))
             }
         })
         

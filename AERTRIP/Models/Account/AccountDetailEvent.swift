@@ -271,7 +271,12 @@ struct AccountDetailEvent {
                 case .wallet:
                     self.iconImage = #imageLiteral(resourceName: "ic_acc_receipt")
 //                    let walletName = (info["wallet_name"] as? String) ?? ""
-                    let walletName = (info["pg_wallet_alias"] as? String) ?? ""
+                    let walletName :String
+                    if let wName = (info["pg_wallet_alias"] as? String){
+                        walletName = wName
+                    }else{
+                        walletName = (info["wallet_name"] as? String) ?? ""
+                    }
                     if walletName.isEmpty{
                         self.title = "Wallet"
                     }else{
@@ -486,7 +491,7 @@ struct AccountDetailEvent {
     
     private mutating func parseForOtherSales(details: JSONDictionary) {
         
-        self.iconImage = (!(self._productType.lowercased() == "others")) ?  #imageLiteral(resourceName: "ic_acc_journalVoucher") :  #imageLiteral(resourceName: "others_hotels")
+        self.iconImage = (!(self._productType.lowercased() == "other")) ?  #imageLiteral(resourceName: "ic_acc_journalVoucher") :  #imageLiteral(resourceName: "others_hotels")
         
         //booking date
         if let obj = details["booking_date"] {
@@ -508,7 +513,10 @@ struct AccountDetailEvent {
         if let rows = details["rows"] as? [JSONDictionary], !rows.isEmpty {
             self.names.append(contentsOf: AccountUser.retunsAccountUserArray(jsonArr: rows))
         }
-        self.description = details["service_type"] as? String
+        if let des = details["service_detail"] as? String, ((self._productType.lowercased() == "other")){
+            self.title = des
+        }
+        self.description = details["service_detail"] as? String
     }
 
     
@@ -539,7 +547,7 @@ struct AccountDetailEvent {
             tStr = hotelName
         }
         if let hotelAddress = details["hotel_address"] as? String, !hotelAddress.isEmpty {
-            //tStr = tStr.isEmpty ? hotelAddress : "\(tStr), \(hotelAddress)"
+//            tStr = tStr.isEmpty ? hotelAddress : "\(tStr), \(hotelAddress)"
             self.hotelAddress = hotelAddress
         }
         

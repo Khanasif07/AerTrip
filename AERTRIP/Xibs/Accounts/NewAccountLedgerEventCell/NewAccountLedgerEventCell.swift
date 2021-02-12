@@ -82,7 +82,7 @@ class NewAccountLedgerEventCell: UITableViewCell {
         self.balanceTitleLabel.textColor = AppColors.themeBlack
         self.voucherValueLabel.textColor = AppColors.themeGray40
         self.balanceValueLabel.textColor = AppColors.themeGray40
-        
+
         self.voucherTitleLabel.text = LocalizedString.Voucher.localized
         self.balanceTitleLabel.text = LocalizedString.Balance.localized
     }
@@ -125,8 +125,15 @@ class NewAccountLedgerEventCell: UITableViewCell {
         }
         
         
+        let closingBalanceSuff = (self.event?.balance ?? 0.0) > 0 ? LocalizedString.CreditShort.localized : LocalizedString.DebitShort.localized
+
+    
         let mutableText = NSMutableAttributedString(string: "Closing Balance: ", attributes: [.font: AppFonts.Regular.withSize(12), .foregroundColor: AppColors.themeGray40])
         mutableText.append((self.event?.balance ?? 0.0).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(12.0)))
+        
+        let closingBalanceSuffAttributedString = NSAttributedString(string: " \(closingBalanceSuff)", attributes: [.font: AppFonts.Regular.withSize(12), .foregroundColor: AppColors.themeGray40])
+        mutableText.append(closingBalanceSuffAttributedString)
+        
         self.balanceValueLabel.attributedText = mutableText//(self.event?.balance ?? 0.0).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(12.0))
     }
 }

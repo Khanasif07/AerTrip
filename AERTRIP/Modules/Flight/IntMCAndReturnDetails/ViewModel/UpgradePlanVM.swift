@@ -56,8 +56,8 @@ class UpgradePlanVM{
         }
     }
     
-    func updateFareTaxes()-> Int{
-        var totalFare = 0
+    func updateFareTaxes()-> Double{
+        var totalFare: Double = 0
         
         for (index, value) in self.selectedOhterFareData.enumerated(){
             

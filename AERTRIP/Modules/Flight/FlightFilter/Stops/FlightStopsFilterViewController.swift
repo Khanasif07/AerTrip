@@ -348,6 +348,20 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
 //            subTitle.font = UIFont(name: "SourceSansPro-Regular", size: 16)
             subTitle.font = AppFonts.Regular.withSize(16)
         }
+        
+        // Added check for buttons not turning light green if all deselected
+        var allDeselected = true
+        for btn in stopsButtonsArray {
+            if let title = btn.viewWithTag(1) as? UILabel, title.textColor == UIColor.AertripColor {
+                allDeselected = false
+                break
+            }
+        }
+        if allDeselected {
+            stopsButtonsArray.forEach { (btn) in
+                btn.backgroundColor = UIColor.SELECTION_COLOR.withAlphaComponent(0.25)
+            }
+        }
     }
     
     fileprivate func selectionStateUIFor(_ sender: UIButton) {

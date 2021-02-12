@@ -36,7 +36,8 @@ class IntFareInfoCell: UITableViewCell {
     @IBOutlet weak var journeyNameLabel: UILabel!
     @IBOutlet weak var carrierImgView: UIImageView!
     
-    @IBOutlet weak var journeyNameDividerLabel: UILabel!
+    @IBOutlet weak var journeyDeviderView: ATDividerView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
 

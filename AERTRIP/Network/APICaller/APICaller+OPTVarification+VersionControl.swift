@@ -30,7 +30,8 @@ extension APICaller{
                 completionBlock(nil, [])
             }
             else {
-                AppToast.default.showToastMessage(message: ATErrorManager.LocalError.default.message)
+                // commented as getting random toasts
+//                AppToast.default.showToastMessage(message: ATErrorManager.LocalError.default.message)
                 completionBlock(nil, [])
             }
         })
