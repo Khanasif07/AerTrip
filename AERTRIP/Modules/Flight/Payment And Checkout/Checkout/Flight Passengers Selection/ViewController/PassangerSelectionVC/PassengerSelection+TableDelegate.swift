@@ -177,8 +177,10 @@ extension PassengersSelectionVC: UITableViewDelegate, UITableViewDataSource {
         case 5:
             guard let cell = self.passengerTableview.dequeueReusableCell(withIdentifier: "FlightEmptyCell") as? FlightEmptyCell else {return UITableViewCell()}
             cell.topDividerView.isHidden = viewModel.isSwitchOn
+            cell.spaceView.isHidden = viewModel.isSwitchOn
             cell.bottomDividerView.isHidden = !(self.viewModel.isTravelSefetyRequired)
             cell.backgroundColor = AppColors.themeGray04
+
             return cell
         default:
             return UITableViewCell()

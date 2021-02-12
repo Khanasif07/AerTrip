@@ -286,12 +286,12 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
             if let type = self.viewModel.ladgerEvent?.productType{
                 switch type{
                 case .hotel, .flight:
-                    if let bID = self.viewModel.ladgerEvent?.transactionId, !bID.isEmpty {
+                    if let bID = self.viewModel.ladgerEvent?.bookingId, !bID.isEmpty {
                         self.viewModel.isDownloadingRecipt = true
                         if let cell = self.tableView.cellForRow(at: indexPath) as? DownloadInvoiceTableViewCell{
                             cell.showLoader = true
                         }
-                        AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)dashboard/download-voucher?id=\(bID)", screenTitle: "Booking Invoice", showLoader: false, complition: { [weak self] (status) in
+                        AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)dashboard/booking-action?booking_id=\(bID)&doc=invoice&type=pdf", screenTitle: "Booking Invoice", showLoader: false, complition: { [weak self] (status) in
                             self?.viewModel.isDownloadingRecipt = false
                             self?.tableView.reloadRow(at: indexPath, with: .automatic)
                         })
