@@ -15,6 +15,8 @@ class RatingVC: BaseVC {
     @IBOutlet weak var starLabel: UILabel!
     @IBOutlet weak var includeRatedTitleLabel: UILabel!
     @IBOutlet weak var includeRatedStatusButton: UIButton!
+    @IBOutlet weak var includeTARatedTitleLbl: UILabel!
+    @IBOutlet weak var includeTARatedStatusButton: UIButton!
     
     @IBOutlet weak var tripAdvisorTitleLabel: UILabel!
     @IBOutlet weak var tripAdvisorStarLabel: UILabel!
@@ -22,6 +24,8 @@ class RatingVC: BaseVC {
     @IBOutlet var tripAdvisorRatingButtons: [UIButton]!
     @IBOutlet weak var includeUnrateViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var includeUnratedViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var includeTARatedView: UIView!
+    @IBOutlet weak var includeTARatedViewHeight: NSLayoutConstraint!
     
     
     // MARK: - Variables
@@ -38,6 +42,7 @@ class RatingVC: BaseVC {
             self.includeUnrateViewHeightConstraint.constant = 0
             self.includeUnratedViewBottomConstraint.constant = 0
         }
+        includeTARatedViewHeight.constant = HotelFilterVM.shared.showIncludeTAUnrated ? 44 : 0
         self.setFilterValues()
     }
     
@@ -115,6 +120,7 @@ class RatingVC: BaseVC {
         self.starLabel?.text = self.getStarString(fromArr: HotelFilterVM.shared.ratingCount, maxCount: 5)
         self.tripAdvisorStarLabel?.text = self.getTARatingString(fromArr: HotelFilterVM.shared.tripAdvisorRatingCount, maxCount: 5)
         self.includeRatedStatusButton?.isSelected = self.filterApplied.isIncludeUnrated
+        self.includeTARatedStatusButton?.isSelected = self.filterApplied.isIncludeTAUnrated
     }
     
     @IBAction func starButtonsAction(_ sender: UIButton) {
@@ -143,6 +149,13 @@ class RatingVC: BaseVC {
         HotelFilterVM.shared.isIncludeUnrated = sender.isSelected
         HotelFilterVM.shared.delegate?.updateFiltersTabs()
     }
+    
+    @IBAction func includeTAUnratedAction(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        HotelFilterVM.shared.isIncludeTAUnrated = sender.isSelected
+        HotelFilterVM.shared.delegate?.updateFiltersTabs()
+    }
+    
     
     ///Star Button State
     private func updateStarButtonState(forStar: Int, isSettingFirstTime: Bool = false) {

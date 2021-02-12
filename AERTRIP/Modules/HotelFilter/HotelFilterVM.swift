@@ -32,6 +32,7 @@ class HotelFilterVM {
     var defaultRatingCount: [Int] = [1,2,3,4,5]
     var defaultTripAdvisorRatingCount: [Int] = [1,2,3,4,5]
     var defaultIsIncludeUnrated: Bool = true
+    var defaultIsIncludeTAUnrated = true
     var defaultDistanceRange: Double = 25
     var defaultLeftRangePrice: Double = 0.0
     var defaultRightRangePrice: Double = 0.0
@@ -45,6 +46,7 @@ class HotelFilterVM {
     var ratingCount: [Int] = [1,2,3,4,5]
     var tripAdvisorRatingCount: [Int] = [1,2,3,4,5]
     var isIncludeUnrated: Bool = true
+    var isIncludeTAUnrated = true
     var distanceRange: Double = 25
     var minimumPrice: Double = 0.0
     var maximumPrice: Double = 0.0
@@ -58,6 +60,7 @@ class HotelFilterVM {
     var priceType: Price = .PerNight
     var totalHotelCount: Int = 0
     var showIncludeUnrated: Bool = true
+    var showIncludeTAUnrated = true
     
     var filterHotelCount: Int = 0
     var lastSelectedIndex: Int = 0
@@ -91,13 +94,14 @@ class HotelFilterVM {
         }
         
         
-        return !(isSorstingChanged && HotelFilterVM.shared.distanceRange == HotelFilterVM.shared.defaultDistanceRange && HotelFilterVM.shared.leftRangePrice == HotelFilterVM.shared.defaultLeftRangePrice && HotelFilterVM.shared.rightRangePrice == HotelFilterVM.shared.defaultRightRangePrice && isRatingChanged &&  isTARatingChanged && HotelFilterVM.shared.isIncludeUnrated == HotelFilterVM.shared.defaultIsIncludeUnrated && HotelFilterVM.shared.priceType == HotelFilterVM.shared.defaultPriceType && HotelFilterVM.shared.amenitites.difference(from: HotelFilterVM.shared.defaultAmenitites).isEmpty && HotelFilterVM.shared.roomMeal.difference(from: HotelFilterVM.shared.defaultRoomMeal).isEmpty && HotelFilterVM.shared.roomCancelation.difference(from: HotelFilterVM.shared.defaultRoomCancelation).isEmpty && HotelFilterVM.shared.roomOther.difference(from: HotelFilterVM.shared.defaultRoomOther).isEmpty)
+        return !(isSorstingChanged && HotelFilterVM.shared.distanceRange == HotelFilterVM.shared.defaultDistanceRange && HotelFilterVM.shared.leftRangePrice == HotelFilterVM.shared.defaultLeftRangePrice && HotelFilterVM.shared.rightRangePrice == HotelFilterVM.shared.defaultRightRangePrice && isRatingChanged &&  isTARatingChanged && HotelFilterVM.shared.isIncludeUnrated == HotelFilterVM.shared.defaultIsIncludeUnrated && HotelFilterVM.shared.isIncludeTAUnrated == HotelFilterVM.shared.defaultIsIncludeTAUnrated && HotelFilterVM.shared.priceType == HotelFilterVM.shared.defaultPriceType && HotelFilterVM.shared.amenitites.difference(from: HotelFilterVM.shared.defaultAmenitites).isEmpty && HotelFilterVM.shared.roomMeal.difference(from: HotelFilterVM.shared.defaultRoomMeal).isEmpty && HotelFilterVM.shared.roomCancelation.difference(from: HotelFilterVM.shared.defaultRoomCancelation).isEmpty && HotelFilterVM.shared.roomOther.difference(from: HotelFilterVM.shared.defaultRoomOther).isEmpty)
     }
     
     func setData(from: UserInfo.HotelFilter) {
         ratingCount = from.ratingCount
         tripAdvisorRatingCount = from.tripAdvisorRatingCount
         isIncludeUnrated = from.isIncludeUnrated
+        isIncludeTAUnrated = from.isIncludeTAUnrated
         distanceRange = from.distanceRange
         minimumPrice = from.minimumPrice
         maximumPrice = from.maximumPrice
@@ -132,6 +136,7 @@ class HotelFilterVM {
         }
         //        filter.tripAdvisorRatingCount = tripAdvisorRatingCount
         filter.isIncludeUnrated = isIncludeUnrated
+        filter.isIncludeTAUnrated = isIncludeTAUnrated
         filter.distanceRange = distanceRange
         filter.minimumPrice = minimumPrice
         filter.maximumPrice = maximumPrice
@@ -159,6 +164,7 @@ class HotelFilterVM {
         self.ratingCount = defaultRatingCount
         self.tripAdvisorRatingCount = defaultTripAdvisorRatingCount
         self.isIncludeUnrated = defaultIsIncludeUnrated
+        self.isIncludeTAUnrated = defaultIsIncludeTAUnrated
         self.distanceRange = defaultDistanceRange
         self.leftRangePrice = defaultLeftRangePrice
         self.rightRangePrice = defaultRightRangePrice

@@ -298,6 +298,8 @@ class HotelFilterVC: BaseVC {
                 }
                 else if HotelFilterVM.shared.isIncludeUnrated != HotelFilterVM.shared.defaultIsIncludeUnrated {
                     filtersTabs[idx].isSelected =  false
+                } else if HotelFilterVM.shared.isIncludeTAUnrated != HotelFilterVM.shared.defaultIsIncludeTAUnrated {
+                    filtersTabs[idx].isSelected = false
                 }
             case LocalizedString.Amenities.localized.lowercased():
                 if !HotelFilterVM.shared.amenitites.difference(from: HotelFilterVM.shared.defaultAmenitites).isEmpty {

@@ -725,6 +725,38 @@
                                             <constraint firstAttribute="height" constant="104" id="zST-0j-tPa"/>
                                         </constraints>
                                     </view>
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NcX-Qi-JWb">
+                                        <rect key="frame" x="0.0" y="302.66666666666669" width="414" height="44"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Include unrated" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZAb-cd-TCD">
+                                                <rect key="frame" x="16" y="10" width="119" height="23"/>
+                                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hv5-OE-L7W">
+                                                <rect key="frame" x="362" y="0.0" width="44" height="44"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="hv5-OE-L7W" secondAttribute="height" multiplier="1:1" id="YOV-P3-pcW"/>
+                                                </constraints>
+                                                <state key="normal" image="UncheckedGreenRadioButton"/>
+                                                <state key="selected" image="CheckedGreenRadioButton"/>
+                                                <connections>
+                                                    <action selector="includeTAUnratedAction:" destination="Ny0-QT-oGF" eventType="touchUpInside" id="PWN-9m-gAp"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="ZAb-cd-TCD" secondAttribute="bottom" constant="11" id="5Xd-Jm-Q6s"/>
+                                            <constraint firstAttribute="trailing" secondItem="hv5-OE-L7W" secondAttribute="trailing" constant="8" id="81A-Aa-MNJ"/>
+                                            <constraint firstItem="hv5-OE-L7W" firstAttribute="top" secondItem="NcX-Qi-JWb" secondAttribute="top" id="QSk-L0-9ei"/>
+                                            <constraint firstAttribute="bottom" secondItem="hv5-OE-L7W" secondAttribute="bottom" id="a4j-8p-jEz"/>
+                                            <constraint firstAttribute="height" constant="44" id="aaW-jM-HCp"/>
+                                            <constraint firstItem="ZAb-cd-TCD" firstAttribute="top" secondItem="NcX-Qi-JWb" secondAttribute="top" constant="10" id="o9u-3w-1B9"/>
+                                            <constraint firstItem="ZAb-cd-TCD" firstAttribute="leading" secondItem="NcX-Qi-JWb" secondAttribute="leading" constant="16" id="r65-FB-9sj"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="zEX-Uu-021" firstAttribute="leading" secondItem="mTM-ic-WCw" secondAttribute="leading" id="AMJ-Xw-1D1"/>
@@ -733,11 +765,14 @@
                                     <constraint firstItem="gq6-Ev-zlo" firstAttribute="top" secondItem="mTM-ic-WCw" secondAttribute="top" constant="12" id="H3e-Fb-o9n"/>
                                     <constraint firstItem="UEz-Fm-zlt" firstAttribute="top" secondItem="VVD-aU-ocN" secondAttribute="bottom" constant="16" id="I8G-uW-xn1"/>
                                     <constraint firstItem="zEX-Uu-021" firstAttribute="top" secondItem="UEz-Fm-zlt" secondAttribute="bottom" constant="16" id="Lwy-Zt-ETI"/>
-                                    <constraint firstAttribute="bottom" secondItem="zEX-Uu-021" secondAttribute="bottom" constant="16" id="UjL-lZ-cUj"/>
+                                    <constraint firstAttribute="trailing" secondItem="NcX-Qi-JWb" secondAttribute="trailing" id="NQN-Zv-zNl"/>
                                     <constraint firstItem="VVD-aU-ocN" firstAttribute="top" secondItem="gq6-Ev-zlo" secondAttribute="bottom" id="WIg-Su-Txl"/>
+                                    <constraint firstItem="NcX-Qi-JWb" firstAttribute="leading" secondItem="mTM-ic-WCw" secondAttribute="leading" id="dWt-Vw-VdY"/>
+                                    <constraint firstAttribute="bottom" secondItem="NcX-Qi-JWb" secondAttribute="bottom" constant="16" id="e0o-4M-BqQ"/>
                                     <constraint firstAttribute="trailing" secondItem="zEX-Uu-021" secondAttribute="trailing" id="hQS-ZX-x8H"/>
                                     <constraint firstAttribute="trailing" secondItem="VVD-aU-ocN" secondAttribute="trailing" id="hVq-X6-61g"/>
                                     <constraint firstItem="UEz-Fm-zlt" firstAttribute="leading" secondItem="mTM-ic-WCw" secondAttribute="leading" constant="16" id="iDa-fg-stN"/>
+                                    <constraint firstItem="NcX-Qi-JWb" firstAttribute="top" secondItem="zEX-Uu-021" secondAttribute="bottom" id="kjF-lt-r2b"/>
                                     <constraint firstItem="gq6-Ev-zlo" firstAttribute="leading" secondItem="mTM-ic-WCw" secondAttribute="leading" id="yIe-Bq-XGE"/>
                                     <constraint firstAttribute="trailing" secondItem="UEz-Fm-zlt" secondAttribute="trailing" constant="16" id="ye5-Fi-tfJ"/>
                                 </constraints>
@@ -758,6 +793,10 @@
                     <connections>
                         <outlet property="includeRatedStatusButton" destination="Hjq-iD-j65" id="2Td-d7-UoQ"/>
                         <outlet property="includeRatedTitleLabel" destination="NcH-Vm-ej2" id="udv-P4-gre"/>
+                        <outlet property="includeTARatedStatusButton" destination="hv5-OE-L7W" id="RQM-Ub-RMr"/>
+                        <outlet property="includeTARatedTitleLbl" destination="ZAb-cd-TCD" id="wbl-RD-Kud"/>
+                        <outlet property="includeTARatedView" destination="NcX-Qi-JWb" id="vEn-p6-XYt"/>
+                        <outlet property="includeTARatedViewHeight" destination="aaW-jM-HCp" id="bAV-xH-dIK"/>
                         <outlet property="includeUnrateViewHeightConstraint" destination="Koy-3y-bAS" id="GRN-NQ-lhr"/>
                         <outlet property="includeUnratedViewBottomConstraint" destination="I8G-uW-xn1" id="BIR-xB-Atj"/>
                         <outlet property="starLabel" destination="Nqu-1I-VXg" id="vQB-Gf-PZm"/>

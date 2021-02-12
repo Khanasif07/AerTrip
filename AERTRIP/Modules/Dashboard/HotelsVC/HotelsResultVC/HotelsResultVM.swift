@@ -120,6 +120,10 @@ class HotelsResultVM: NSObject {
                 let result = CoreDataManager.shared.fetchData("HotelSearched", nsPredicate: NSPredicate(format: "filterStar CONTAINS[c] '\(0)'")) ?? []
                 printDebug("hotels count with zero rating \(result.count)")
                 HotelFilterVM.shared.showIncludeUnrated = !result.isEmpty
+                
+                let tAUnrated = CoreDataManager.shared.fetchData("HotelSearched", nsPredicate: NSPredicate(format: "filterTripAdvisorRating CONTAINS[c] '\(0)'")) ?? []
+                HotelFilterVM.shared.showIncludeTAUnrated = !tAUnrated.isEmpty
+                
                 HotelFilterVM.shared.availableAmenities.removeAll()
                 for amentity in 1...10 {
                     let result = CoreDataManager.shared.fetchData("HotelSearched", nsPredicate: NSPredicate(format: "amenities CONTAINS[c] ',\(amentity),'")) ?? []
