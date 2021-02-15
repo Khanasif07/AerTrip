@@ -20,7 +20,13 @@ protocol ViewProfileDetailVMDelegate: class {
 class ViewProfileDetailVM {
     
     weak var delegate: ViewProfileDetailVMDelegate?
-    var travelData: TravelDetailModel?
+    var travelData: TravelDetailModel? {
+        didSet {
+            if currentlyUsingFor == .viewProfile {
+                checkAndUpdateDefaults()
+            }
+        }
+    }
     var currentlyUsingFor: EditProfileVM.UsingFor = .viewProfile
     var isComingFromDeepLink = false
     
@@ -100,6 +106,10 @@ class ViewProfileDetailVM {
                 self.delegate?.didLogOutFail(errors: errors)
             }
         })
+    }
+    
+    private func checkAndUpdateDefaults() {
+        
     }
 }
 
