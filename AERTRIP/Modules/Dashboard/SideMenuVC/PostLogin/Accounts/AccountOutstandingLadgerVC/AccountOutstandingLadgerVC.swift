@@ -324,7 +324,7 @@ class AccountOutstandingLadgerVC: BaseVC {
                 self.topNavView.startActivityIndicaorLoading()
                 self.topNavView.firstRightButton.isHidden = true
                 self.topNavView.secondRightButton.isHidden = true
-                AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)user-accounts/report-action?action=pdf&type=ledger&limit=20", screenTitle: LocalizedString.OutstandingLedger.localized, showLoader: false, complition: { [weak self] (status) in
+                AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)user-accounts/report-action?action=pdf&type=outstanding", screenTitle: LocalizedString.OutstandingLedger.localized, showLoader: false, complition: { [weak self] (status) in
                     self?.topNavView.isToShowIndicatorView = false
                     self?.topNavView.stopActivityIndicaorLoading()
                     self?.topNavView.firstRightButton.isHidden = false
@@ -691,7 +691,7 @@ extension AccountOutstandingLadgerVC: AccountOutstandingLadgerVMDelegate {
                 
             case 1:
                 //PayOfflineNRegister
-                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .fundTransfer, usingToPaymentFor: .accountDeposit, paymentModeDetail: self.viewModel.itineraryData?.chequeOrDD, netAmount: self.viewModel.itineraryData?.netAmount ?? 0.0, bankMaster: self.viewModel.itineraryData?.bankMaster ?? [])
+                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .fundTransfer, usingToPaymentFor: .accountDeposit, paymentModeDetail: self.viewModel.itineraryData?.fundTransfer, netAmount: self.viewModel.itineraryData?.netAmount ?? 0.0, bankMaster: self.viewModel.itineraryData?.bankMaster ?? [], itineraryData: self.viewModel.itineraryData)
                 printDebug("PayOfflineNRegister")
                 
                 

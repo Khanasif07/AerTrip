@@ -53,7 +53,7 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
         }
         if let date = titleStr.toDate(dateFormat: "YYYY-MM-dd") {
             if date.isCurrentYear {
-                titleStr = date.toString(dateFormat: "EEE dd MMM")
+                titleStr = date.toString(dateFormat: "EEE, dd MMM")
             } else {
                 titleStr = date.toString(dateFormat: "dd MMM YYYY")
             }

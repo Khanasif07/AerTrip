@@ -890,7 +890,7 @@ extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
     
     func getMyLocationSuccess() {
         if let model = self.viewModel.nearMeLocation {
-            if self.viewModel.createSearchedFormDataFromRecentRearch() == nil{
+            if ((self.viewModel.createSearchedFormDataFromRecentRearch() == nil) && self.viewModel.searchedFormData.destId.isEmpty){
                 didSelectedDestination(hotel: model)
             }
         }

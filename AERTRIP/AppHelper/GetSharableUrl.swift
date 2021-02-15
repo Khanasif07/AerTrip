@@ -379,7 +379,7 @@ class GetSharableUrl
 //            origin.append("origin=\(journey[0].ap[0])&")
             
             origin.append("origin=\(searchParam["origin"] ?? "")&")
-            origin = origin.replacingOccurrences(of: " ", with: "")
+            origin = origin.replacingOccurrences(of: " ", with: "%20")
         }else{
             let originCount = searchParam.filter { $0.key.contains("origin") }
             
@@ -397,7 +397,7 @@ class GetSharableUrl
 //            destination.append("destination=\(journey[0].ap[1])&")
             
             destination.append("destination=\(searchParam["destination"] ?? "")&")
-            destination = destination.replacingOccurrences(of: " ", with: "")
+            destination = destination.replacingOccurrences(of: " ", with: "%20")
         }else{
             let destinations = searchParam.filter { $0.key.contains("destination") }
             
