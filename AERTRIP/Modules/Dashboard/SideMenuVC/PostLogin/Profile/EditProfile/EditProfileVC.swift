@@ -764,9 +764,6 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         case 1:
             if viewModel.countries.count > 0 {
                 pickerType = .country
-                let countries = Array(viewModel.countries.values)
-                pickerData = countries
-                
                // closeGenricAndDatePicker(completion: nil)
                 PKCountryPickerSettings.shouldShowCountryCode = false
                 UIApplication.shared.sendAction(#selector(resignFirstResponder), to: nil, from: nil, for: nil)

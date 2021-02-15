@@ -101,8 +101,17 @@ struct SearchedDestination: Codable {
                 else {
                     temp[obj.category.lowercased()] = [obj]
                 }
-            }
-            else {
+            }else if !obj.category.isEmpty{
+                //Added for asana issue https://app.asana.com/0/1199093003059613/1199676600669600
+                if var arr = temp[obj.category.lowercased()] as? [SearchedDestination], !arr.isEmpty {
+                    arr.append(obj)
+                    temp[obj.category.lowercased()] = arr
+                }
+                else {
+                    temp[obj.category.lowercased()] = [obj]
+                }
+                
+            }else {
                 if var arr = temp[obj.dest_type.lowercased()] as? [SearchedDestination], !arr.isEmpty {
                     arr.append(obj)
                     temp[obj.dest_type.lowercased()] = arr

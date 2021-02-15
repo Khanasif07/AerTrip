@@ -34,6 +34,7 @@
 "Enter_valid_Password"    = "Enter a valid password";
 "Email_ID_already_exists" = "Email ID already exists";
 "Phone_number_already_exists" = "Mobile Number already exists";
+"frequentFlyerAlreadyExists" = "Frequent Flyer Number already exists";
 
 // MARK:- SocialLoginVC
 //MARK:-
