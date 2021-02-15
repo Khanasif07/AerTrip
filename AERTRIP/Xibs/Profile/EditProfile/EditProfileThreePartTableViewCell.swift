@@ -43,6 +43,9 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
     @IBOutlet weak var grayShadeView: UIView!
     @IBOutlet weak var middleViewDropDownImage: UIImageView!
     
+    @IBOutlet weak var leftSeparatorLeading: NSLayoutConstraint!
+    @IBOutlet weak var middleSeparatorLeading: NSLayoutConstraint!
+    @IBOutlet weak var rightSeparatorLeading: NSLayoutConstraint!
     
     
     // MARK : - Variables
@@ -163,6 +166,27 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
         }
     }
     
+    func setSeparator(isNeeded:Bool, isError:Bool, isLast:Bool, mobile : Mobile?){
+        self.leftSeparatorView.isHidden = !isNeeded
+        self.middleSeparatorView.isHidden = !isNeeded
+        self.rightSeparatorView.isHidden = !isNeeded
+        self.leftSeparatorLeading.constant = (isLast && isNeeded) ? 0.0 : 16.0
+        self.middleSeparatorLeading.constant = (isLast && isNeeded) ? 0.0 : 16.0
+        self.rightSeparatorLeading.constant = (isLast && isNeeded) ? 0.0 : 16.0
+        if let mobile = mobile, isError{
+            let isValidMobile = ((mobile.value.count >= mobile.minValidation) && (mobile.value.count <= mobile.maxValidation))
+            if isLast{
+                self.leftSeparatorView.isSettingForErrorState = (!isValidMobile || mobile.isDuplicate)
+                self.middleSeparatorView.isSettingForErrorState = (!isValidMobile || mobile.isDuplicate)
+            }
+            self.rightSeparatorView.isSettingForErrorState = (!isValidMobile || mobile.isDuplicate)
+        }else{
+            self.leftSeparatorView.isSettingForErrorState = false
+            self.rightSeparatorView.isSettingForErrorState = false
+            self.middleSeparatorView.isSettingForErrorState = false
+        }
+        
+    }
     
 }
 
@@ -191,5 +215,11 @@ extension EditProfileThreePartTableViewCell : UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.leftSeparatorView.isSettingForErrorState = false
+        self.rightSeparatorView.isSettingForErrorState = false
+        self.middleSeparatorView.isSettingForErrorState = false
     }
 }

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -35,7 +36,7 @@
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WB0-JF-vzx">
                                         <rect key="frame" x="0.0" y="0.0" width="111" height="44"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZRi-5t-3he">
                                         <rect key="frame" x="16" y="10" width="41.5" height="23"/>
@@ -146,10 +147,12 @@
             <connections>
                 <outlet property="blackDownImageView" destination="Qcu-Ki-tRm" id="V4K-Za-X3j"/>
                 <outlet property="deleteButton" destination="gi7-6j-PSl" id="Kep-7l-20P"/>
+                <outlet property="leftSeparatorLeading" destination="9TU-uQ-BG3" id="lAl-Bz-put"/>
                 <outlet property="leftSeparatorView" destination="hMe-bn-saE" id="nDE-kV-7A9"/>
                 <outlet property="leftTitleLabel" destination="ZRi-5t-3he" id="11n-2o-XIH"/>
                 <outlet property="leftView" destination="pov-aj-Hsf" id="Ixb-Tr-by2"/>
                 <outlet property="leftViewTextField" destination="S7s-WI-Jco" id="4KZ-HQ-hFJ"/>
+                <outlet property="rightSeparatorLeading" destination="wrA-4s-3Ju" id="rTu-Th-u4I"/>
                 <outlet property="rightSeparatorView" destination="l1U-RB-rHW" id="K1e-Ya-cnc"/>
                 <outlet property="rightViewTextField" destination="ugU-hz-neE" id="QGs-3L-BEJ"/>
             </connections>
@@ -159,5 +162,8 @@
     <resources>
         <image name="blackDownArrow" width="9" height="6"/>
         <image name="redMinusButton" width="22" height="22"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

@@ -227,6 +227,7 @@ struct Email {
     var type: String = ""
     var label: String = ""
     var value: String = ""
+    var isDuplicate = false
     
     var jsonDict: [String:Any] {
         return ["id":self.id,
@@ -274,6 +275,7 @@ struct Mobile {
     var maxValidation: Int = 10
     var isValide: Bool = false
     var mobileFormatted: String = ""
+    var isDuplicate:Bool = false
     var valueWithISD: String {
         if !self.value.isEmpty {
             return "\(self.isd) \(self.value)"
@@ -330,6 +332,7 @@ struct Social {
     var type : String = ""
     var label : String = ""
     var value : String = ""
+    var isDuplicate = false
     
     var jsonDict: [String:Any] {
         return ["id":self.id,
@@ -427,6 +430,7 @@ struct FrequentFlyer {
     var airlineName : String = ""
     var logoUrl : String = ""
     var program: String = ""
+    var isDuplicate = false
     
     var jsonDict: [String:Any] {
         return ["id":self.id,

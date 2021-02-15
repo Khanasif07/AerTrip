@@ -90,21 +90,22 @@ class EnableDisableWalletOTPVM {
                 return
             }
         }
-        if case  ValidationState.phoneOtp(let succes, _) = self.isValidMobileOtp{
-            //display msg
-            if !succes{
-                self.delegate?.showErrorMessage(with: self.isValidMobileOtp)
-                return
-            }
-        }
-        if case  ValidationState.emailOtp(let succes, _) = self.isValidEmailOtp{
-            //display msg
-            if !succes{
-                self.delegate?.showErrorMessage(with: self.isValidEmailOtp)
-                return
-            }
-        }
         if (UserInfo.loggedInUser?.isWalletEnable ?? true){
+            if case  ValidationState.phoneOtp(let succes, _) = self.isValidMobileOtp{
+                //display msg
+                if !succes{
+                    self.delegate?.showErrorMessage(with: self.isValidMobileOtp)
+                    return
+                }
+            }
+            if case  ValidationState.emailOtp(let succes, _) = self.isValidEmailOtp{
+                //display msg
+                if !succes{
+                    self.delegate?.showErrorMessage(with: self.isValidEmailOtp)
+                    return
+                }
+            }
+            
             let dict : JSONDictionary = [
                 "passcode" : self.details.password,
                 "mobile_otp" : self.details.phoneOtp,
