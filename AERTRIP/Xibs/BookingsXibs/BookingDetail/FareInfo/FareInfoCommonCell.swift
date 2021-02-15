@@ -79,7 +79,7 @@ class FareInfoCommonCell: ATTableViewCell
         perChildLabel.text = LocalizedString.PerChild.localized
         perInfantLabel.text = LocalizedString.PerInfant.localized
         
-        feeLabel.text = "Airline fee + Aertrip Fee"
+        feeLabel.text = "Airline + Aertrip Fee"
         statusLabel.text = ""
     }
     

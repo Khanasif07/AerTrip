@@ -90,7 +90,9 @@ extension MyBookingsVC: MyBookingsVMDelegate {
 
 extension MyBookingsVC: SpeechToTextVCDelegate{
     func getSpeechToText(_ text: String) {
-        guard !text.isEmpty else {return}
+        guard !text.isEmpty else {return}        
+        searchBar.hideMiceButton(isHidden: false)
+        
         self.searchBar.text = text
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         perform(#selector(search(_:)), with: text, afterDelay: 0.5)

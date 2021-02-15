@@ -502,7 +502,11 @@ extension BookingAddOnRequestVC: UITableViewDataSource, UITableViewDelegate {
         
         if indexPath.row == 0 {
             if !(self.viewModel.caseHistory?.resolutionStatus ?? .closed == .canceled){
-                requestStatusCell.descriptorLabel.textColor = self.viewModel.caseHistory?.resolutionStatus.textColor
+                if self.viewModel.caseHistory?.resolutionStatus.rawValue.lowercased() == "Action required".lowercased(){
+                    requestStatusCell.descriptorLabel.textColor = AppColors.themeRed
+                }else{
+                    requestStatusCell.descriptorLabel.textColor = self.viewModel.caseHistory?.resolutionStatus.textColor
+                }
             }else{
                 requestStatusCell.descriptorLabel.textColor = AppColors.themeRed
             }

@@ -536,6 +536,10 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
     func displaySetValues(baggage:[JSONDictionary]){
         guard let journey = self.journey else {return}
         var baggageStringArray = [String]()
+        var al = [String]()
+        var oc = [String]()
+        var bgStringArray = [String]()
+
         var newBaggage = baggage
         var journeywiseBaggageData = [JSONDictionary]()
         let allFlightsInJourney = journey.legsWithDetail.flatMap{$0.flightsWithDetails}
@@ -576,20 +580,130 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
                 self.dataResp.removeAll()
             }else{
                 let allFlights = leg.flightsWithDetails
+//                if allFlights.count == bgg.count{
+//                    if allFlights.count>0{
+//                        for i in 0..<allFlights.count{
+//
+//                            let loc = allFlights[i].fr + " → " + allFlights[i].to
+//                            let data = ["flightIcon":allFlights[i].al,
+//                                        "flightRoute":loc,
+//                                        "baggageData":bgg[i]] as JSONDictionary
+//                            journeywiseBaggageData.append(data)
+//                        }
+//                        evaluatedBaggageResp.append(journeywiseBaggageData)
+//                        journeywiseBaggageData.removeAll()
+//                        self.dataResp.removeAll()
+//                    }
+//                }
+                
                 if allFlights.count == bgg.count{
-                    if allFlights.count>0{
-                        for i in 0..<allFlights.count{
+
+                if allFlights.count > 0{
+                    for i in 0..<allFlights.count{
+                        al.append(allFlights[i].al)
+                        oc.append(allFlights[i].oc)
+                        
+                        var bgStr = ""
+                        
+                        if let bgData = baggage[i]["bg"] as? JSONDictionary{
                             
+                            if let adtCheckinBaggage = bgData["ADT"] as? JSONDictionary
+                            {
+                                if let weight = adtCheckinBaggage["weight"] as? String,
+                                   let pieces = adtCheckinBaggage["pieces"] as? String,
+                                   let max_pieces = adtCheckinBaggage["max_pieces"] as? String,
+                                   let max_weight = adtCheckinBaggage["max_weight"] as? String
+                                {
+                                    bgStr.append("ADT-weight:\(weight),pieces:\(pieces),max_pieces:\(max_pieces),max_weight:\(max_weight)".uppercased().removeAllWhitespaces)
+                                }
+                            }
+                            
+                            if let chdCheckinBaggage = bgData["CHD"] as? JSONDictionary
+                            {
+                                if let weight = chdCheckinBaggage["weight"] as? String,
+                                   let pieces = chdCheckinBaggage["pieces"] as? String,
+                                   let max_pieces = chdCheckinBaggage["max_pieces"] as? String,
+                                   let max_weight = chdCheckinBaggage["max_weight"] as? String
+                                {
+                                    bgStr.append(",CHD-weight:\(weight),pieces:\(pieces),max_pieces:\(max_pieces),max_weight:\(max_weight)".uppercased().removeAllWhitespaces)
+                                }
+                            }
+                            
+                            if let infCheckinBaggage = bgData["INF"] as? JSONDictionary
+                            {
+                                if let weight = infCheckinBaggage["weight"] as? String,
+                                   let pieces = infCheckinBaggage["pieces"] as? String,
+                                   let max_pieces = infCheckinBaggage["max_pieces"] as? String,
+                                   let max_weight = infCheckinBaggage["max_weight"] as? String
+                                {
+                                    bgStr.append(",INF-weight:\(weight),pieces:\(pieces),max_pieces:\(max_pieces),max_weight:\(max_weight)".uppercased().removeAllWhitespaces)
+                                }
+                            }
+                        }
+                        
+                        if let cbgData = baggage[i]["cbg"] as? JSONDictionary{
+                            
+                            if let adtCabinBaggage = cbgData["ADT"] as? JSONDictionary{
+                                if let weight = adtCabinBaggage["weight"] as? String,
+                                   let pieces = adtCabinBaggage["pieces"] as? String{
+                                    bgStr.append(",CBG-ADT-weight:\(weight),pieces:\(pieces)".uppercased().removeAllWhitespaces)
+                                }
+                            }
+                            
+                            if let chdCabinBaggage = cbgData["CHD"] as? JSONDictionary{
+                                if let weight = chdCabinBaggage["weight"] as? String,
+                                   let pieces = chdCabinBaggage["pieces"] as? String{
+                                    bgStr.append(",CHD-weight:\(weight),pieces:\(pieces)".uppercased().removeAllWhitespaces)
+                                }
+                            }
+                            
+                            if let infCabinBaggage = cbgData["INF"] as? JSONDictionary{
+                                if let weight = infCabinBaggage["weight"] as? String,
+                                   let pieces = infCabinBaggage["pieces"] as? String{
+                                    bgStr.append(",INF-weight:\(weight),pieces:\(pieces)".uppercased().removeAllWhitespaces)
+                                }
+                            }
+                        }
+                        
+                        bgStringArray.append(bgStr)
+                    }
+                    
+                    let sameAirlines = al.dropFirst().allSatisfy({ $0 == al.first })
+                    print("sameAirlines=",sameAirlines)
+                    
+                    let sameOC = oc.dropFirst().allSatisfy({ $0 == oc.first })
+                    print("sameOC=",sameOC)
+                    
+                    print("bgStringArray=",bgStringArray)
+                    let isSameBaggage = bgStringArray.dropFirst().allSatisfy({ $0 == bgStringArray.first })
+                    print("samebgStr=",isSameBaggage)
+                    
+                    
+                    
+                    if sameOC && sameAirlines && isSameBaggage{
+                        let loc = allFlights[0].fr + " → " + allFlights[allFlights.count-1].to
+                        let data = ["flightIcon":allFlights[0].al,
+                                    "flightRoute":loc,
+                                    "baggageData":bgg[0]] as JSONDictionary
+                        journeywiseBaggageData.append(data)
+                    
+                    }else{
+                        for i in 0..<allFlights.count{
+
                             let loc = allFlights[i].fr + " → " + allFlights[i].to
                             let data = ["flightIcon":allFlights[i].al,
                                         "flightRoute":loc,
                                         "baggageData":bgg[i]] as JSONDictionary
                             journeywiseBaggageData.append(data)
                         }
-                        evaluatedBaggageResp.append(journeywiseBaggageData)
-                        journeywiseBaggageData.removeAll()
-                        self.dataResp.removeAll()
                     }
+                    
+                    evaluatedBaggageResp.append(journeywiseBaggageData)
+                    journeywiseBaggageData.removeAll()
+                    self.dataResp.removeAll()
+
+                    
+                }
                 }
                 
             }
