@@ -158,6 +158,10 @@ extension SearchFavouriteHotelsVC: UICollectionViewDataSource, UICollectionViewD
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        saveButtonAction(UIButton(), forHotel: self.viewModel.hotels[indexPath.item])
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let height = (indexPath.item == 0) ? 208.0 : 203.0
         return CGSize(width: UIDevice.screenWidth, height: CGFloat(height))
