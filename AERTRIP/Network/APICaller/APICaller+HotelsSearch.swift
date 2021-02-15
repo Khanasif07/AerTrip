@@ -197,8 +197,8 @@ extension APICaller {
             guard let sSelf = self else { return }
             printDebug(json)
             sSelf.handleResponse(json, success: { sucess, jsonData in
-                if sucess, let response = jsonData[APIKeys.data.rawValue].dictionaryObject, let enquiryId = response["enquiry_id"] as? String {
-                    completionBlock(true, [], enquiryId)
+                if sucess, let response = jsonData[APIKeys.data.rawValue].dictionaryObject, let enquiryId = response["enquiry_id"] as? Int {
+                    completionBlock(true, [], "\(enquiryId)")
                 }
                 else {
                     completionBlock(true, [], "")
