@@ -93,7 +93,7 @@ enum AppColors {
     static let appleButtonBackgroundColor  = UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 1)
 
     
-    /// RGB - 50, 58, 69
+    /// RGB - 50, 58, 69 
     static let themeTextColor  = UIColor(displayP3Red: 0.1960784314, green: 0.2274509804, blue: 0.2705882353, alpha: 1)
     
     // RGB - 175,175,170
