@@ -306,8 +306,8 @@
 //Mark:- Hotels Search
 //Mark:-
 "WhereButton" = "Where";
-"CheckIn" = "Check-in";
-"CheckOut" = "Check-out";
+"CheckIn" = "Check-In";
+"CheckOut" = "Check-Out";
 "Nights" = "Nights";
 "Night" = "Night";
 "AddRoom" = "Add Room";

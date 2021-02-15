@@ -65,8 +65,12 @@ class FlightBookingRequestsTableViewCell: UITableViewCell {
             self.requestNameLabel.textColor = AppColors.textFieldTextColor51
         }
         self.actionStatusLabel.text = actionStatus.rawValue
-        self.actionStatusLabel.textColor = actionStatus.textColor
 
+        if actionStatus.rawValue.lowercased() == "confirmation pending"{
+            self.actionStatusLabel.textColor = AppColors.themeRed
+        }else{
+            self.actionStatusLabel.textColor = actionStatus.textColor
+        }
         self.containerViewTopConstraint.constant = isFirstCell ? 10.0 : 0.0
         
         // Commented as not required here ,manaed  using enum
