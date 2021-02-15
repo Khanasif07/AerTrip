@@ -265,7 +265,11 @@ class BookingReschedulingVC: BaseVC {
             let index = indexPath.row -  legD.flight.count
             let paxD = legD.pax[index]
             
-            let pnrNoStr = paxD.pnr.isEmpty ? paxD.status : paxD.pnr
+            var pnrNoStr = paxD.pnr.isEmpty ? paxD.status : paxD.pnr
+            if pnrNoStr.lowercased() == "pending"
+            {
+                pnrNoStr = pnrNoStr.capitalizedFirst()
+            }
             var age = ""
             if !paxD.dob.isEmpty {
                 age = AppGlobals.shared.getAgeLastString(dob: paxD.dob, formatter: Date.DateFormat.yyyy_MM_dd.rawValue)
