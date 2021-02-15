@@ -59,7 +59,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                     fatalError("TableViewAddActionCell not found")
                 }
                 cell.configureCell(LocalizedString.AddEmail.localized)
-                cell.topDividerView.isHidden = false
+                cell.topDividerView.isHidden = (self.viewModel.email.count > 1)
                 return cell
             } else {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: editTwoPartCellIdentifier, for: indexPath) as? EditProfileTwoPartTableViewCell else {
@@ -93,8 +93,10 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 if indexPath.row == 0, self.viewModel.currentlyUsinfFor == .viewProfile {
                     cell.leftTitleLabel.text = "Aertrip ID"
                 }
-                cell.leftSeparatorView.isHidden = indexPath.row + 1 == self.viewModel.email.count
-                cell.rightSeparatorView.isHidden = indexPath.row + 1 == self.viewModel.email.count
+//                cell.leftSeparatorView.isHidden = indexPath.row + 1 == self.viewModel.email.count
+//                cell.rightSeparatorView.isHidden = indexPath.row + 1 == self.viewModel.email.count
+                cell.setSeparator(isNeeded: ((self.viewModel.email.count > 1)), isError: self.viewModel.isSavedButtonTapped, isLast: (self.viewModel.email.count - 1 == indexPath.row))
+                
                 return cell
             }
             
@@ -104,7 +106,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                     fatalError("TableViewAddActionCell not found")
                 }
                 cell.configureCell(LocalizedString.AddContactNumber.localized)
-                cell.topDividerView.isHidden = false
+                cell.topDividerView.isHidden = (self.viewModel.mobile.count > 1)
                 return cell
             } else {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: editThreePartCellIdentifier, for: indexPath) as? EditProfileThreePartTableViewCell else {
@@ -144,9 +146,10 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                     cell.deleteButton.isHidden = self.viewModel.mobile.count == 1
                 }
                 cell.configureCell(self.viewModel.mobile[indexPath.row].isd, self.viewModel.mobile[indexPath.row].label, self.viewModel.mobile[indexPath.row].value)
-                cell.leftSeparatorView.isHidden = indexPath.row + 1 == self.viewModel.mobile.count
-                cell.middleSeparatorView.isHidden = indexPath.row + 1 == self.viewModel.mobile.count
-                cell.rightSeparatorView.isHidden = indexPath.row + 1 == self.viewModel.mobile.count
+//                cell.leftSeparatorView.isHidden = indexPath.row + 1 == self.viewModel.mobile.count
+//                cell.middleSeparatorView.isHidden = indexPath.row + 1 == self.viewModel.mobile.count
+//                cell.rightSeparatorView.isHidden = indexPath.row + 1 == self.viewModel.mobile.count
+                cell.setSeparator(isNeeded: (self.viewModel.mobile.count > 1), isError: self.viewModel.isSavedButtonTapped, isLast: (self.viewModel.mobile.count - 1 == indexPath.row), mobile: self.viewModel.mobile[indexPath.row])
                 return cell
             }
         case LocalizedString.SocialAccounts.localized:
@@ -155,6 +158,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                     fatalError("TableViewAddActionCell not found")
                 }
                 cell.configureCell(LocalizedString.AddSocialAccountId.localized)
+//                cell.topDividerView.isHidden = (self.viewModel.social.count > 1)
                 cell.topDividerView.isHidden = false
                 return cell
             } else {
@@ -168,6 +172,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 cell.deleteButton.isHidden = self.viewModel.social.count == 1
                 cell.leftSeparatorView.isHidden = indexPath.row + 1 == self.viewModel.social.count
                 cell.rightSeparatorView.isHidden = indexPath.row + 1 == self.viewModel.social.count
+//                cell.setSeparatorForSocial(isNeeded: ((self.viewModel.social.count > 1)), isError: self.viewModel.isSavedButtonTapped, isLast: (self.viewModel.social.count - 1 == indexPath.row))
                 return cell
             }
             

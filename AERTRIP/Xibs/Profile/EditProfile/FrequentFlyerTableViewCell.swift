@@ -113,8 +113,8 @@ class FrequentFlyerTableViewCell: UITableViewCell {
     func setupForError(isNeedToShowError:Bool){
         if isNeedToShowError, let ff = self.ffData{
             let airlineName = ff.airlineName.lowercased().replacingOccurrences(of: LocalizedString.SelectAirline.localized.lowercased(), with: "")
-            self.airlineSeparatorView.isSettingForErrorState = (airlineName.removeAllWhitespaces.isEmpty && !ff.number.removeAllWhitespaces.isEmpty)
-            self.rightSeparatorView.isSettingForErrorState  = (!airlineName.removeAllWhitespaces.isEmpty && ff.number.removeAllWhitespaces.isEmpty)
+            self.airlineSeparatorView.isSettingForErrorState = ((airlineName.removeAllWhitespaces.isEmpty && !ff.number.removeAllWhitespaces.isEmpty) || ff.isDuplicate)
+            self.rightSeparatorView.isSettingForErrorState  = ((!airlineName.removeAllWhitespaces.isEmpty && ff.number.removeAllWhitespaces.isEmpty) || ff.isDuplicate)
         }else{
             self.airlineSeparatorView.isSettingForErrorState = false
             self.rightSeparatorView.isSettingForErrorState  = false

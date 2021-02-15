@@ -123,9 +123,9 @@
                                     <constraint firstAttribute="trailing" secondItem="PhE-WB-dQ8" secondAttribute="trailing" id="Hik-wp-BGS"/>
                                     <constraint firstAttribute="bottom" secondItem="PhE-WB-dQ8" secondAttribute="bottom" id="RbC-cG-Lbe"/>
                                     <constraint firstItem="TGL-rg-mjK" firstAttribute="leading" secondItem="PJV-sa-yGM" secondAttribute="leading" constant="16" id="bzw-l1-Ar8"/>
+                                    <constraint firstItem="PhE-WB-dQ8" firstAttribute="leading" secondItem="PJV-sa-yGM" secondAttribute="leading" constant="16" id="dnF-0q-2AX"/>
                                     <constraint firstItem="hqf-95-uBQ" firstAttribute="centerY" secondItem="WkA-Aq-YgG" secondAttribute="centerY" id="e1O-2h-aMG"/>
                                     <constraint firstItem="LNB-9C-19D" firstAttribute="bottom" secondItem="TGL-rg-mjK" secondAttribute="bottom" id="giF-Xh-dwT"/>
-                                    <constraint firstItem="PhE-WB-dQ8" firstAttribute="leading" secondItem="TGL-rg-mjK" secondAttribute="leading" id="hIU-Mr-i3F"/>
                                     <constraint firstItem="LNB-9C-19D" firstAttribute="trailing" secondItem="TGL-rg-mjK" secondAttribute="trailing" id="hYx-3M-B6Z"/>
                                     <constraint firstItem="WkA-Aq-YgG" firstAttribute="leading" secondItem="TGL-rg-mjK" secondAttribute="trailing" constant="6" id="mnE-Zy-doy"/>
                                     <constraint firstItem="TGL-rg-mjK" firstAttribute="top" secondItem="PJV-sa-yGM" secondAttribute="top" constant="15" id="q3q-pB-ziK"/>
@@ -217,13 +217,16 @@
                 <outlet property="deleteButton" destination="gi7-6j-PSl" id="Kep-7l-20P"/>
                 <outlet property="flagImageView" destination="TGL-rg-mjK" id="atX-rb-xvB"/>
                 <outlet property="grayShadeView" destination="LNB-9C-19D" id="kfT-Cb-2sN"/>
+                <outlet property="leftSeparatorLeading" destination="9TU-uQ-BG3" id="quo-eI-viS"/>
                 <outlet property="leftSeparatorView" destination="hMe-bn-saE" id="nDE-kV-7A9"/>
                 <outlet property="leftTitleLabel" destination="ZRi-5t-3he" id="11n-2o-XIH"/>
                 <outlet property="leftView" destination="pov-aj-Hsf" id="Ixb-Tr-by2"/>
                 <outlet property="leftViewTextField" destination="f57-Up-QzS" id="PL9-UJ-Kze"/>
+                <outlet property="middleSeparatorLeading" destination="dnF-0q-2AX" id="ELE-fl-msC"/>
                 <outlet property="middleSeparatorView" destination="PhE-WB-dQ8" id="1Nf-cs-jZF"/>
                 <outlet property="middleView" destination="PJV-sa-yGM" id="32p-13-HLE"/>
                 <outlet property="middleViewDropDownImage" destination="hqf-95-uBQ" id="zFq-R1-0ja"/>
+                <outlet property="rightSeparatorLeading" destination="wrA-4s-3Ju" id="zQs-gM-LEJ"/>
                 <outlet property="rightSeparatorView" destination="l1U-RB-rHW" id="K1e-Ya-cnc"/>
                 <outlet property="rightView" destination="iX4-eP-Jk1" id="z35-zv-jDD"/>
                 <outlet property="rightViewTextField" destination="ugU-hz-neE" id="4ca-mH-tPU"/>

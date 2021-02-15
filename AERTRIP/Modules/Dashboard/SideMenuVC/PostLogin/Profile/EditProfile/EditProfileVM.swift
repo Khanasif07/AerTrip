@@ -99,6 +99,7 @@ class EditProfileVM {
         else if !(self.email.first?.value.removeAllWhiteSpacesAndNewLines.isEmpty ?? true) {
             let emailValArr = self.email.map { $0.value }
             let emailValSet = Set(emailValArr)
+            self.checkEmailDuplicacy()
             if emailValArr.count != emailValSet.count {
                 AppToast.default.showToastMessage(message: LocalizedString.Email_ID_already_exists.localized)
                 flag = false
@@ -147,23 +148,13 @@ class EditProfileVM {
             }
             
         }
-// Asif's check commented
-//        if !self.email.isEmpty {
-//            for (index, _) in self.email.enumerated() {
-//                if index > 0 {
-//                    if self.email[index - 1].value == self.email[index].value {
-//                        AppToast.default.showToastMessage(message: "All email should be unique")
-//                        flag = false
-//                    }
-//                }
-//            }
-//        }
         
         if !self.mobile.isEmpty {
 //            var isValid = true
             
             let mobileValArr = self.mobile.map { $0.valueWithISD }
             let mobileValSet = Set(mobileValArr)
+            self.checkMobileDuplicacy()
             if mobileValArr.count != mobileValSet.count {
                 AppToast.default.showToastMessage(message: LocalizedString.Phone_number_already_exists.localized)
                 flag = false
@@ -176,19 +167,25 @@ class EditProfileVM {
                   flag = false
                 }
                                 
-//                if !(AppConstants.kMinPhoneLength...AppConstants.kMaxPhoneLength ~= self.mobile[index].value.count) && !self.mobile[index].value.isEmpty{
-//                      AppToast.default.showToastMessage(message: LocalizedString.EnterValidMobileNumber.localized)
-//                    flag = false
-//                }
+            }
+        }
+        
+//        if !self.social.isEmpty{
+//            if self.checkDuplicateSocial(){
+//            AppToast.default.showToastMessage(message: "Socal account is already exists")
+//              flag = false
+//            }
+//        }
+        
+        if !self.frequentFlyer.isEmpty {
+            let ff = self.frequentFlyer.map({"\($0.airlineCode)\($0.number)".removeAllWhitespaces}).filter{!$0.isEmpty}
+            
+            let ffSet = Set(ff)
+            if ffSet.count != ff.count {
+                AppToast.default.showToastMessage(message: LocalizedString.frequentFlyerAlreadyExists.localized)
+                flag = false
             }
             
-            
-//            if !isValid {
-//                AppToast.default.showToastMessage(message:LocalizedString.EnterAllValidMobileNumber.localized )
-//                flag = false
-//            }
-        }
-        if !self.frequentFlyer.isEmpty {
             for (index, _) in self.frequentFlyer.enumerated() {
 //                if index > 0 {
 //                    if self.frequentFlyer[index - 1].airlineName == self.frequentFlyer[index].airlineName {
@@ -196,6 +193,7 @@ class EditProfileVM {
 //                        flag = false
 //                    }
 //                }
+                self.checkFFDuplicacy()
                 if !self.frequentFlyer[index].airlineName.removeAllWhiteSpacesAndNewLines.isEmpty, self.frequentFlyer[index].airlineName != LocalizedString.SelectAirline.localized, self.frequentFlyer[index].number.removeAllWhiteSpacesAndNewLines.isEmpty {
                     AppToast.default.showToastMessage(message: LocalizedString.EnterAirlineNumberForAllFrequentFlyer.localized)
                     flag = false
@@ -208,6 +206,46 @@ class EditProfileVM {
         }
         
         return flag
+    }
+    
+    
+    func checkEmailDuplicacy(){
+        var values = [String]()
+        for i in 0..<self.email.count{
+            self.email[i].isDuplicate = values.contains(self.email[i].value)
+            values.append(self.email[i].value)
+        }
+    }
+    
+    func checkMobileDuplicacy(){
+        var values = [String]()
+        for i in 0..<self.mobile.count{
+            self.mobile[i].isDuplicate = values.contains(self.mobile[i].valueWithISD)
+            values.append(self.mobile[i].valueWithISD)
+        }
+    }
+    
+    func checkFFDuplicacy(){
+        var values = [String]()
+        for i in 0..<self.frequentFlyer.count{
+            let val = "\(self.frequentFlyer[i].airlineCode)\(self.frequentFlyer[i].number)"
+            self.frequentFlyer[i].isDuplicate = (values.contains(val) && !val.isEmpty)
+            values.append(val)
+        }
+    }
+    
+    func checkDuplicateSocial()-> Bool{
+        var values = [String]()
+        var isDuplicate = false
+        for i in 0..<self.social.count{
+            let val = (self.social[i].value.isEmpty) ?  "" : "\(self.social[i].type)\(self.social[i].value)"
+            self.frequentFlyer[i].isDuplicate = (values.contains(val) && !val.isEmpty)
+            if (values.contains(val) && !val.isEmpty){
+                isDuplicate = true
+            }
+            values.append(val)
+        }
+        return isDuplicate
     }
     
     func webserviceForGetDropDownkeys() {
