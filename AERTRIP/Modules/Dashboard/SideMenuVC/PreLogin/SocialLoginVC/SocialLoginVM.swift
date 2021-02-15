@@ -71,7 +71,7 @@ class SocialLoginVM {
             self.userData.firstName       = fullNameArr[0]
             self.userData.lastName        = fullNameArr[1]
             self.userData.email          = model.email
-            self.userData.service         = "google"
+            self.userData.service         = "google_oauth"
             self.userData.id            = model.id
             
             if let imageURl = model.image {
