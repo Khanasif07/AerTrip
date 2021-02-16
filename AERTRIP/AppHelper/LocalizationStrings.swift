@@ -1304,6 +1304,6 @@ enum LocalizedString: String {
     case Billng_Address = "Billng_Address"
     case Wallet = "Wallet"
     case Chosen_Mode_Of_Payment = "Chosen_Mode_Of_Payment"
-  
+    case Email_successfully_Sent = "Email_successfully_Sent"
 
 }

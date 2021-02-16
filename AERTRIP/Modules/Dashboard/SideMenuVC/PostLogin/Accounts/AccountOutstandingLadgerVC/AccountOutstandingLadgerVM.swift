@@ -126,7 +126,7 @@ class AccountOutstandingLadgerVM: NSObject {
         APICaller.shared.accountReportActionAPI(params: param) { (success, errors) in
             if success {
                 AppToast.default.hideToast(onVC, animated: false)
-                AppToast.default.showToastMessage(message: LocalizedString.OutstandingSentToYourEmail.localized, onViewController: onVC)
+                AppToast.default.showToastMessage(message: LocalizedString.Email_successfully_Sent.localized, onViewController: onVC)
             }
             else {
                 AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
