@@ -491,8 +491,10 @@ extension AccountOfflineDepositVC {
                         textField.text = firstSelect
                         if firstSelect == LocalizedString.ChequeDemandDraft.localized {
                             self.currentUsingAs = .chequeOrDD
+                            self.viewModel.paymentModeDetails = self.viewModel.itineraryData?.chequeOrDD
                         } else {
                             self.currentUsingAs = .fundTransfer
+                            self.viewModel.paymentModeDetails = self.viewModel.itineraryData?.fundTransfer
                         }
                         
                     }
@@ -567,7 +569,7 @@ extension AccountOfflineDepositVC {
                     
                 case 11:
                     //your account name
-                    self.viewModel.userEnteredDetails.userAccountName = (textField.text ?? "").removeAllWhitespaces
+                    self.viewModel.userEnteredDetails.userAccountName = (textField.text ?? "").removeLeadingTrailingWhitespaces
                     
                 case 12:
                     //your account number

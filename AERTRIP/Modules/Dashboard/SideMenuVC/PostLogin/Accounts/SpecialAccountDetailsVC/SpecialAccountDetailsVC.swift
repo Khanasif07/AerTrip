@@ -129,7 +129,7 @@ class SpecialAccountDetailsVC: BaseVC {
                 
             case 1:
                 //PayOfflineNRegister
-                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .fundTransfer, usingToPaymentFor: .accountDeposit, paymentModeDetail: strongSelf.viewModel.itineraryData?.chequeOrDD, netAmount: strongSelf.viewModel.itineraryData?.netAmount ?? 0.0, bankMaster: strongSelf.viewModel.itineraryData?.bankMaster ?? [])
+                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .fundTransfer, usingToPaymentFor: .accountDeposit, paymentModeDetail: strongSelf.viewModel.itineraryData?.fundTransfer, netAmount: strongSelf.viewModel.itineraryData?.netAmount ?? 0.0, bankMaster: strongSelf.viewModel.itineraryData?.bankMaster ?? [], itineraryData: strongSelf.viewModel.itineraryData)
                 printDebug("PayOfflineNRegister")
                 
             default:

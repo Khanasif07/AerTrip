@@ -182,6 +182,7 @@ class UserInfo {
         var ratingCount: [Int] = [1,2,3,4,5]
         var tripAdvisorRatingCount: [Int] = [1,2,3,4,5]
         var isIncludeUnrated: Bool = true
+        var isIncludeTAUnrated = true
         var distanceRange : Double = 25
         var minimumPrice : Double = 0.0
         var maximumPrice : Double = 0.0
@@ -199,6 +200,7 @@ class UserInfo {
             ratingCount =  [1,2,3,4,5]
             tripAdvisorRatingCount  = [1,2,3,4,5]
             isIncludeUnrated  = true
+            isIncludeTAUnrated = true
             distanceRange  = 25
             minimumPrice  = 0.0
             maximumPrice  = 0.0
@@ -218,6 +220,7 @@ class UserInfo {
             case ratingCount
             case tripAdvisorRatingCount
             case isIncludeUnrated
+            case isIncludeTAUnrated
             case distanceRange
             case minimumPrice
             case maximumPrice
@@ -238,6 +241,7 @@ class UserInfo {
             ratingCount = try values.decode([Int].self, forKey: .ratingCount)
             tripAdvisorRatingCount = try values.decode([Int].self, forKey: .tripAdvisorRatingCount)
             isIncludeUnrated  = try values.decode(Bool.self, forKey: .isIncludeUnrated)
+            isIncludeTAUnrated = try values.decode(Bool.self, forKey: .isIncludeTAUnrated)
             distanceRange = try values.decode(Double.self, forKey: .distanceRange)
             minimumPrice = try values.decode(Double.self, forKey: .minimumPrice)
             maximumPrice = try values.decode(Double.self, forKey: .maximumPrice)
@@ -265,6 +269,7 @@ class UserInfo {
             if taRatings.isEmpty { taRatings = [1, 2, 3, 4, 5] }
             tripAdvisorRatingCount  = taRatings
             isIncludeUnrated  = true
+            isIncludeTAUnrated = true
             let distance = recentSearchFilter.distance == 0 ? 25 : recentSearchFilter.distance.toDouble
             distanceRange  = distance
             

@@ -427,9 +427,9 @@ class BulkBookingVC: BaseVC {
     
     ///Update Room Data
     private func updateRoomData(rooms: Int, adults: Int, children: Int) {
-        self.roomCountLabel.text = "\(rooms)"
-        self.adultCountLabel.text = "\(adults)"
-        self.childCountLabel.text = "\(children)"
+        self.roomCountLabel.text = rooms > 100 ? "100+" : "\(rooms)"
+        self.adultCountLabel.text = adults > 200 ? "200+" : "\(adults)"
+        self.childCountLabel.text = children > 200 ? "200+" : "\(children)"
     }
     private func applyBulkBookingChanges() {
         self.delegate?.didSelectedDestination(checkinDate: self.viewModel.checkIn, checkOutDate: self.viewModel.checkOut, location: self.viewModel.searchedLocation)

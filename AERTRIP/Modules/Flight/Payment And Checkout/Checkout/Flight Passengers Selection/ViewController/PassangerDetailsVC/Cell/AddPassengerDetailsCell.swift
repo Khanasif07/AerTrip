@@ -297,7 +297,7 @@ class AddPassengerDetailsCell: UITableViewCell {
     
     func showErrorForFirstLastName() {
         guard  self.canShowSalutationError else {return}
-        if ((self.firstNameTextField.text ?? "").count < 3){
+        if ((self.firstNameTextField.text ?? "").count < 1){
             self.firstNameTextField.isError = true
             let firstName = "First Name"
             self.firstNameTextField.attributedPlaceholder = NSAttributedString(string: firstName, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeRed])
@@ -311,7 +311,7 @@ class AddPassengerDetailsCell: UITableViewCell {
             self.firstNameTextField.attributedPlaceholder = NSAttributedString(string: firstName, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeGray40])
         }
         
-        if ((self.lastNameTextField.text ?? "").count < 3){
+        if ((self.lastNameTextField.text ?? "").count < 1){
             self.lastNameTextField.isError = true
             let lastName = "Last Name"
             self.lastNameTextField.attributedPlaceholder = NSAttributedString(string: lastName, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeRed])

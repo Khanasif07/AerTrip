@@ -196,11 +196,11 @@ extension BulkRoomSelectionVC: UIPickerViewDelegate, UIPickerViewDataSource {
         })
         switch pickerView {
         case self.roomsPicker:
-            return 96
+            return 97
         case self.adultsPicker:
-            return 191
+            return 192
         default:
-            return 201
+            return 202
         }
     }
     
@@ -214,11 +214,16 @@ extension BulkRoomSelectionVC: UIPickerViewDelegate, UIPickerViewDataSource {
         }
         switch pickerView {
         case self.roomsPicker:
-            pickerLabel?.text = "\(row + 5)"
+            let rowCount = row + 5
+            let rowText = rowCount > 100 ? "100+" : "\(rowCount)"
+            pickerLabel?.text = rowText
         case self.adultsPicker:
-            pickerLabel?.text = "\(row + 10)"
+            let rowCount = row + 10
+            let rowText = rowCount > 200 ? "200+" : "\(rowCount)"
+            pickerLabel?.text = rowText
         default:
-            pickerLabel?.text = "\(row + 0)"
+            let rowText = row > 200 ? "200+" : "\(row)"
+            pickerLabel?.text = rowText
         }
         pickerLabel?.textColor = AppColors.themeBlack
         return pickerLabel!

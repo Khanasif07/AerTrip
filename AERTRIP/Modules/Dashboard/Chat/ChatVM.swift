@@ -230,7 +230,7 @@ class ChatVM {
         jsonDict["adult"] = newModel.adult
         jsonDict["child"] = newModel.child
         jsonDict["infant"] = newModel.infant
-        jsonDict["cabinclass"] = newModel.cabinclass
+        jsonDict["cabinclass"] = newModel.cabinclass.capitalized
         jsonDict["trip_type"] = newModel.tripType.lowercased()
         if newModel.tripType.lowercased().isEmpty {
             if newModel.returnDate.isEmpty {
@@ -242,8 +242,8 @@ class ChatVM {
         } else if newModel.tripType.lowercased() == "one way" {
             jsonDict["trip_type"] = "single"
         }
-        jsonDict["origin"] = newModel.origin
-        jsonDict["destination"] = newModel.destination
+        jsonDict["origin"] = newModel.origin.uppercased()
+        jsonDict["destination"] = newModel.destination.uppercased()
         jsonDict["depart"] = newModel.depart.stringIn_ddMMyyyy
         if newModel.tripType.lowercased() == "return" {
             let newReturnDate = newModel.returnDate.stringIn_ddMMyyyy

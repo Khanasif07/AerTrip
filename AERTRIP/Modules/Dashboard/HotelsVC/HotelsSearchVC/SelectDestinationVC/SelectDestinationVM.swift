@@ -67,12 +67,12 @@ class SelectDestinationVM: NSObject {
             switch(self){
             case .didYouMean: return 0
             case .city: return 1
-            case .area: return 2
-            case .poi: return 3
-            case .hotel: return 4
+            case .area: return 3
+            case .poi: return 4
+            case .hotel: return 5
             case .custom(let ttl):
                 if ttl.lowercased().contains("top".lowercased()) {
-                    return 5
+                    return 2
                 }
                 return 6
             }

@@ -21,12 +21,42 @@ class LinkedAccountsVM {
     //MARK:- Properties
     //MARK:- Public
     weak var delegate: LinkedAccountsVMDelegate?
-    var linkedAccounts: [LinkedAccount] = []
+    var linkedAccounts: [LinkedAccount] = [] {
+        didSet {
+           calculateMaxWithForLbl()
+        }
+    }
+    var connectLblMaxWidht: CGFloat = 0
     
     //MARK:- Private
     private var userData = SocialUserModel()
     
     //MARK:- Methods
+    
+    private func calculateMaxWithForLbl() {
+        var labelWidths = [CGFloat]()
+        linkedAccounts.forEach { (acc) in
+            if acc.eid.isEmpty {
+                let newLbl = UILabel()
+                newLbl.font = AppFonts.SemiBold.withSize(16)
+                switch acc.socialType {
+                case .apple:
+                    newLbl.text = LocalizedString.Continue_with_Apple.localized
+                case .facebook:
+                    newLbl.text = LocalizedString.ConnectWithFB.localized
+                case .google:
+                    newLbl.text = LocalizedString.ConnectWithGoogle.localized
+                default:
+                    break
+                }
+                labelWidths.append(newLbl.intrinsicContentSize.width)
+            }
+        }
+        if let maxWidth = labelWidths.max() {
+            connectLblMaxWidht = maxWidth
+        }
+    }
+    
     //MARK:- Public
     func fetchLinkedAccounts() {
         self.delegate?.willFetchLinkedAccount()
