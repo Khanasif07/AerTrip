@@ -94,6 +94,7 @@ class MyBookingsVC: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        clearFilters()
         if !MyBookingsVM.shared.deepLinkBookingId.isEmpty{
             MyBookingsVM.shared.getBookingDetails(showProgress: true)
         }
@@ -454,6 +455,11 @@ extension MyBookingsVC : PagingViewControllerDataSource , PagingViewControllerDe
         default: bookingTab = ""
         }
         FirebaseAnalyticsController.shared.logEvent(name: "BOOKINGS_LIST_SCREEN", params: ["ScreenName":"MyBooking", "ScreenClass":"MyBookingsVC", "BookingTabType":bookingTab])
+    }
+    
+    private func clearFilters() {
+        MyBookingFilterVM.shared.setToDefault()
+        MyBookingFilterVM.shared.lastSelectedIndex = 0
     }
 }
 
