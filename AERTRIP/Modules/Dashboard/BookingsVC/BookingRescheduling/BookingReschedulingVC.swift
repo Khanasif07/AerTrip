@@ -173,15 +173,27 @@ class BookingReschedulingVC: BaseVC {
         }
     }
     
-    @IBAction func continueButtonTapped(_ sender: Any) {
-        if self.viewModel.usingFor == .rescheduling {
-            //rescheduling
-            AppFlowManager.default.moveToRequestReschedulingVC(onNavController: self.navigationController, legs: self.viewModel.selectedLegs, isOnlyReturn: self.checkOnlyReturnIsSelected())
+    @IBAction func continueButtonTapped(_ sender: Any)
+    {
+        var selectedCounts: [Int] = []
+        
+        for leg in self.viewModel.legsData {
+            if !leg.selectedPaxs.isEmpty {
+                selectedCounts.append(leg.selectedPaxs.count)
+            }
         }
-        else {
-            //cancellation
-            AppFlowManager.default.moveToReviewCancellationVC(onNavController: self.navigationController, usingAs: .flightCancellationReview, legs: self.viewModel.legsData, selectedRooms: nil)
+        
+        if !selectedCounts.isEmpty {
+            if self.viewModel.usingFor == .rescheduling {
+                //rescheduling
+                AppFlowManager.default.moveToRequestReschedulingVC(onNavController: self.navigationController, legs: self.viewModel.selectedLegs, isOnlyReturn: self.checkOnlyReturnIsSelected())
+            }
+            else {
+                //cancellation
+                AppFlowManager.default.moveToReviewCancellationVC(onNavController: self.navigationController, usingAs: .flightCancellationReview, legs: self.viewModel.legsData, selectedRooms: nil)
+            }
         }
+        
     }
     
     
