@@ -158,8 +158,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                     fatalError("TableViewAddActionCell not found")
                 }
                 cell.configureCell(LocalizedString.AddSocialAccountId.localized)
-//                cell.topDividerView.isHidden = (self.viewModel.social.count > 1)
-                cell.topDividerView.isHidden = false
+                cell.topDividerView.isHidden = (self.viewModel.social.count > 1)
                 return cell
             } else {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: editTwoPartCellIdentifier, for: indexPath) as? EditProfileTwoPartTableViewCell else {
@@ -170,9 +169,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 cell.social = self.viewModel.social[indexPath.row]
                 cell.email = nil
                 cell.deleteButton.isHidden = self.viewModel.social.count == 1
-                cell.leftSeparatorView.isHidden = indexPath.row + 1 == self.viewModel.social.count
-                cell.rightSeparatorView.isHidden = indexPath.row + 1 == self.viewModel.social.count
-//                cell.setSeparatorForSocial(isNeeded: ((self.viewModel.social.count > 1)), isError: self.viewModel.isSavedButtonTapped, isLast: (self.viewModel.social.count - 1 == indexPath.row))
+                cell.setSeparatorForSocial(isNeeded: ((self.viewModel.social.count > 1)), isError: self.viewModel.isSavedButtonTapped, isLast: (self.viewModel.social.count - 1 == indexPath.row))
                 return cell
             }
             
@@ -252,6 +249,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 //cell.bottomDivider.isHidden = indexPath.row < (self.viewModel.addresses.count - 1)
                 cell.contentView.bringSubviewToFront(cell.bottomDivider)
                 cell.hideSepratorView = indexPath.row >= (self.viewModel.addresses.count - 1)
+                cell.setSeparatorForError(isError: self.viewModel.isSavedButtonTapped, with: self.viewModel.addresses[indexPath.row])
                 return cell
             }
             

@@ -170,12 +170,19 @@ class EditProfileVM {
             }
         }
         
-//        if !self.social.isEmpty{
-//            if self.checkDuplicateSocial(){
-//            AppToast.default.showToastMessage(message: "Socal account is already exists")
-//              flag = false
-//            }
-//        }
+        if !self.social.isEmpty{
+            if self.checkDuplicateSocial(){
+            AppToast.default.showToastMessage(message: "Socal account is already exists")
+              flag = false
+            }
+        }
+        
+        if !self.addresses.isEmpty{
+            if self.checkDuplicateAddress(){
+            AppToast.default.showToastMessage(message: "Address is already exists")
+              flag = false
+            }
+        }
         
         if !self.frequentFlyer.isEmpty {
             let ff = self.frequentFlyer.map({"\($0.airlineCode)\($0.number)".removeAllWhitespaces}).filter{!$0.isEmpty}
@@ -238,8 +245,23 @@ class EditProfileVM {
         var values = [String]()
         var isDuplicate = false
         for i in 0..<self.social.count{
-            let val = (self.social[i].value.isEmpty) ?  "" : "\(self.social[i].type)\(self.social[i].value)"
-            self.frequentFlyer[i].isDuplicate = (values.contains(val) && !val.isEmpty)
+            let val = (self.social[i].value.isEmpty) ?  "" : "\(self.social[i].label)\(self.social[i].value)".lowercased()
+            self.social[i].isDuplicate = (values.contains(val) && !val.isEmpty)
+            if (values.contains(val) && !val.isEmpty){
+                isDuplicate = true
+            }
+            values.append(val)
+        }
+        return isDuplicate
+    }
+        
+    func checkDuplicateAddress()-> Bool{
+        var values = [String]()
+        var isDuplicate = false
+        for i in 0..<self.addresses.count{
+            let add = "\(self.addresses[i].line1)\(self.addresses[i].line2)\(self.addresses[i].city)\(self.addresses[i].state)\(self.addresses[i].postalCode)".removeAllWhitespaces
+            let val = (add.isEmpty) ?  "" : "\(self.addresses[i].label)\(add)\(self.addresses[i].countryName)".lowercased()
+            self.addresses[i].isDuplicate = (values.contains(val) && !val.isEmpty)
             if (values.contains(val) && !val.isEmpty){
                 isDuplicate = true
             }

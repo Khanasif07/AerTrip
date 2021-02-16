@@ -559,9 +559,11 @@ struct AccountDetailEvent {
         
         if self.voucherNo.lowercased().contains("srjv") {
             self.title = "\(LocalizedString.CancellationFor.localized)\n\(tStr)"
+            self.attributedString = self.setAttributedName(title: self.title, coloredText: LocalizedString.CancellationFor.localized, color: AppColors.themeRed)
             self.iconImage = #imageLiteral(resourceName: "ic_acc_hotelCancellation")
         } else if self.voucherNo.lowercased().contains("rsrjv") {
             self.title = "\(LocalizedString.ReschedulingFor.localized)\n\(tStr)"
+            self.attributedString = self.setAttributedName(title: self.title, coloredText: LocalizedString.ReschedulingFor.localized, color: AppColors.themeYellow)
         }else if self.voucherNo.lowercased().contains("sa/") {
             self.title = "Add-ons"
             self.iconImage = #imageLiteral(resourceName: "ic_acc_addOns")
