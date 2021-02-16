@@ -45,7 +45,7 @@ class SocialLoginVM {
                 self.userData.firstName  = result.first_name
                 self.userData.lastName   = result.last_name
                 self.userData.email     = result.email
-                self.userData.service   = "facebook"
+                self.userData.service   = APIKeys.facebook.rawValue
                 self.userData.id        = result.id
                 if vc is EditProfileVC {
                     // do nothing
@@ -71,7 +71,7 @@ class SocialLoginVM {
             self.userData.firstName       = fullNameArr[0]
             self.userData.lastName        = fullNameArr[1]
             self.userData.email          = model.email
-            self.userData.service         = "google_oauth"
+            self.userData.service         = APIKeys.google.rawValue
             self.userData.id            = model.id
             
             if let imageURl = model.image {

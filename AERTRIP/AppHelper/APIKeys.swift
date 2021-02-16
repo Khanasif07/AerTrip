@@ -45,7 +45,7 @@ enum APIKeys: String {
     case country_code = "country_code"
     case salutation = "salutation"
     case facebook   = "facebook"
-    case google     = "google"
+    case google     = "google_oauth"
     case linkedin   = "linkedin"
     case token
     case paxId = "pax_id"
