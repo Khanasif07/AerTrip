@@ -81,9 +81,10 @@ class SpecialAccountDetailsVC: BaseVC {
         self.refreshControl.tintColor = AppColors.themeGreen
         self.tableView.refreshControl = refreshControl
         
-        
+        let bottomInset = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
+
         loaderView.isHidden = false
-        activityIndicator.center = CGPoint(x: loaderView.bounds.size.width/2, y: loaderView.bounds.size.height/2)
+        activityIndicator.center = CGPoint(x: loaderView.bounds.size.width/2, y: loaderView.bounds.size.height/2-bottomInset)
         activityIndicator.color = AppColors.themeGreen
         activityIndicator.backgroundColor = .clear
         activityIndicator.startAnimating()
