@@ -48,6 +48,8 @@ class FlightResultDisplayGroup {
 
     var onFilterUpdate: (() -> ())?
     
+    var flightSearchParams = JSONDictionary()
+    
     //MARK:- Computed Properties
     var appliedFilters = Set<Filters>() {
         didSet{
@@ -415,31 +417,35 @@ class FlightResultDisplayGroup {
     
     private func updateUserFiltersFromDeepLink(_ flightSearchParam: JSONDictionary) {
         
+        if flightSearchParams.isEmpty {
+            flightSearchParams = flightSearchParam
+        }
+        
         // commented as not all filter data is fetched at once
 //        guard !filterUpdatedFromDeepLink else { return }
 //        filterUpdatedFromDeepLink = true
         
-        let fares = flightSearchParam.filter { $0.key.contains("filters[\(self.index)][fares][]") }
+        let fares = flightSearchParams.filter { $0.key.contains("filters[\(self.index)][fares][]") }
         if fares.count > 0{
             self.appliedFilters.insert(.Price)
             self.UIFilters.insert(.refundableFares)
         }
         
-        let stops = flightSearchParam.filter { $0.key.contains("filters[\(self.index)][stp]") }
+        let stops = flightSearchParams.filter { $0.key.contains("filters[\(self.index)][stp]") }
         
         if stops.count > 0 {
             self.appliedFilters.insert(.stops)
             self.userSelectedFilters?.stp = stops.map { $0.value as? String ?? "" }
         }
         
-        let airlines = flightSearchParam.filter { $0.key.contains("filters[\(self.index)][al]") }
+        let airlines = flightSearchParams.filter { $0.key.contains("filters[\(self.index)][al]") }
         
         if airlines.count > 0 {
             self.appliedFilters.insert(.Airlines)
             self.userSelectedFilters?.al = airlines.map { $0.value as? String ?? "" }
         }
         
-        if let tt = flightSearchParam["filters[\(self.index)][tt][0]"] as? String{
+        if let tt = flightSearchParams["filters[\(self.index)][tt][0]"] as? String{
             self.appliedFilters.insert(.Duration)
             self.initiatedFilters.insert(.tripDuration)
             self.appliedSubFilters.insert(.tripDuration)
@@ -450,7 +456,7 @@ class FlightResultDisplayGroup {
             self.userSelectedFilters?.tt.minTime = "\(minTime*3600)"
         }
         
-        if let tt = flightSearchParam["filters[\(self.index)][tt][1]"] as? String{
+        if let tt = flightSearchParams["filters[\(self.index)][tt][1]"] as? String{
             self.appliedFilters.insert(.Duration)
             self.initiatedFilters.insert(.tripDuration)
             self.appliedSubFilters.insert(.tripDuration)
@@ -461,7 +467,7 @@ class FlightResultDisplayGroup {
             self.userSelectedFilters?.tt.maxTime = "\(maxTime*3600)"
         }
         
-        if let lott = flightSearchParam["filters[\(self.index)][lott][0]"] as? String{
+        if let lott = flightSearchParams["filters[\(self.index)][lott][0]"] as? String{
             self.appliedFilters.insert(.Duration)
             self.initiatedFilters.insert(.layoverDuration)
             self.appliedSubFilters.insert(.layoverDuration)
@@ -472,7 +478,7 @@ class FlightResultDisplayGroup {
             self.userSelectedFilters?.lott?.minTime = "\(minTime*3600)"
         }
         
-        if let lott = flightSearchParam["filters[\(self.index)][lott][1]"] as? String{
+        if let lott = flightSearchParams["filters[\(self.index)][lott][1]"] as? String{
             self.appliedFilters.insert(.Duration)
             self.initiatedFilters.insert(.layoverDuration)
             self.appliedSubFilters.insert(.layoverDuration)
@@ -483,7 +489,7 @@ class FlightResultDisplayGroup {
             self.userSelectedFilters?.lott?.maxTime = "\(maxTime*3600)"
         }
         
-        if let ar_dt = flightSearchParam["filters[\(self.index)][ar_dt][0]"] as? String{
+        if let ar_dt = flightSearchParams["filters[\(self.index)][ar_dt][0]"] as? String{
             self.appliedFilters.insert(.Times)
             self.initiatedFilters.insert(.arrivalTime)
             self.appliedSubFilters.insert(.arrivalTime)
@@ -494,7 +500,7 @@ class FlightResultDisplayGroup {
             self.userSelectedFilters?.arDt.earliest = userArrivalMin.toString(dateFormat: "yyyy-MM-dd HH:mm")
         }
         
-        if let ar_dt = flightSearchParam["filters[\(self.index)][ar_dt][1]"] as? String{
+        if let ar_dt = flightSearchParams["filters[\(self.index)][ar_dt][1]"] as? String{
             self.appliedFilters.insert(.Times)
             self.initiatedFilters.insert(.arrivalTime)
             self.appliedSubFilters.insert(.arrivalTime)
@@ -505,7 +511,7 @@ class FlightResultDisplayGroup {
             self.userSelectedFilters?.arDt.latest = userArrivalMin.toString(dateFormat: "yyyy-MM-dd HH:mm")
         }
         
-        if let dep_dt = flightSearchParam["filters[\(self.index)][dep_dt][0]"] as? String{
+        if let dep_dt = flightSearchParams["filters[\(self.index)][dep_dt][0]"] as? String{
             self.appliedFilters.insert(.Times)
             self.initiatedFilters.insert(.departureTime)
             self.appliedSubFilters.insert(.departureTime)
@@ -517,7 +523,7 @@ class FlightResultDisplayGroup {
             self.userSelectedFilters?.dt.earliest = userDepartureMin.toString(dateFormat: "HH:mm")
         }
         
-        if let dep_dt = flightSearchParam["filters[\(self.index)][dep_dt][1]"] as? String{
+        if let dep_dt = flightSearchParams["filters[\(self.index)][dep_dt][1]"] as? String{
             self.appliedFilters.insert(.Times)
             self.initiatedFilters.insert(.departureTime)
             self.appliedSubFilters.insert(.departureTime)
@@ -530,7 +536,7 @@ class FlightResultDisplayGroup {
         }
         
         
-        let airportsDict = flightSearchParam.filter { $0.key.contains("filters[\(self.index)][ap]") }
+        let airportsDict = flightSearchParams.filter { $0.key.contains("filters[\(self.index)][ap]") }
         let airports = airportsDict.map { $0.value as? String ?? "" }
 
         if airports.count > 0 {
@@ -567,7 +573,7 @@ class FlightResultDisplayGroup {
             }
         }
         
-        let loapAirports = flightSearchParam.filter { $0.key.contains("filters[\(self.index)][loap]") }
+        let loapAirports = flightSearchParams.filter { $0.key.contains("filters[\(self.index)][loap]") }
         
         if loapAirports.count > 0 {
             self.appliedFilters.insert(.Airport)
@@ -575,7 +581,7 @@ class FlightResultDisplayGroup {
             self.userSelectedFilters?.loap = loapAirports.map { $0.value as? String ?? "" }//[loap]
         }
         
-        if let pr = flightSearchParam["filters[\(self.index)][pr][0]"] as? String{
+        if let pr = flightSearchParams["filters[\(self.index)][pr][0]"] as? String{
             self.appliedFilters.insert(.Price)
             self.UIFilters.insert(.priceRange)
             initiatedFilters.insert(.price)
@@ -585,7 +591,7 @@ class FlightResultDisplayGroup {
             self.userSelectedFilters?.pr.minPrice = price
         }
         
-        if let pr = flightSearchParam["filters[\(self.index)][pr][1]"] as? String{
+        if let pr = flightSearchParams["filters[\(self.index)][pr][1]"] as? String{
             self.appliedFilters.insert(.Price)
             self.UIFilters.insert(.priceRange)
             initiatedFilters.insert(.price)
@@ -595,7 +601,7 @@ class FlightResultDisplayGroup {
             self.userSelectedFilters?.pr.maxPrice = price
         }
         
-        let quality = flightSearchParam.filter { $0.key.contains("filters[\(self.index)][fq]") }
+        let quality = flightSearchParams.filter { $0.key.contains("filters[\(self.index)][fq]") }
         let qualityValues = quality.map { $0.value as? String ?? "" }
         
         if quality.count > 0 {
@@ -613,7 +619,7 @@ class FlightResultDisplayGroup {
             }
         }
         
-        let aircrafts = flightSearchParam.filter { $0.key.contains("filters[0][eq]") }
+        let aircrafts = flightSearchParams.filter { $0.key.contains("filters[0][eq]") }
         if aircrafts.count > 0 {
             self.appliedFilters.insert(.Aircraft)
             let aircraftsArr = aircrafts.map { $0.value as? String ?? "" }
