@@ -163,8 +163,15 @@ class EditProfileVM {
             for (_, mob) in self.mobile.enumerated() {
                 
                 if mob.value.count < mob.minValidation {
-                    AppToast.default.showToastMessage(message: LocalizedString.EnterValidMobileNumber.localized)
-                  flag = false
+                    if mob.isd == "+91" {
+                        AppToast.default.showToastMessage(message: LocalizedString.EnterValidMobileNumber.localized)
+                        flag = false
+                    } else {
+                        if mob.minValidation != mob.maxValidation {
+                            AppToast.default.showToastMessage(message: LocalizedString.EnterValidMobileNumber.localized)
+                            flag = false
+                        }
+                    }
                 }
                                 
             }

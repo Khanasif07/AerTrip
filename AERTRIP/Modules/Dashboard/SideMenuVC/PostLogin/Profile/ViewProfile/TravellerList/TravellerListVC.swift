@@ -99,6 +99,7 @@ class TravellerListVC: BaseVC {
         doInitialSetUp()
         registerXib()
         self.tableView.tableFooterView = UIView(frame: .zero)
+        addTwoFingerSwipeGesture()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -1104,5 +1105,20 @@ extension TravellerListVC: EmptyScreenViewDelegate {
     
     func bottomButtonAction(sender: UIButton) {
         topNavBarSecondRightButtonAction(sender)
+    }
+}
+
+extension TravellerListVC {
+    private func addTwoFingerSwipeGesture() {
+        let swipeGest = UISwipeGestureRecognizer(target: self, action: #selector(twoFingersSwiped(_:)))
+        swipeGest.direction = .right
+        swipeGest.numberOfTouchesRequired = 2
+        tableView.addGestureRecognizer(swipeGest)
+    }
+    
+    @objc private func twoFingersSwiped(_ recognizer: UISwipeGestureRecognizer) {
+        if bottomView.isHidden {
+            setSelectMode()
+        }
     }
 }
