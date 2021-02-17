@@ -388,8 +388,8 @@ class EditProfileVM {
             params[APIKeys.seatPreference.rawValue] = seat
         }
 
-        if !meal.isEmpty, meal != LocalizedString.Select.localized {
-            params[APIKeys.mealPreference.rawValue] = meal
+        if !meal.isEmpty, meal != LocalizedString.Select.localized, let mealCode = self.mealPreferences.someKey(forValue: meal) {
+            params[APIKeys.mealPreference.rawValue] = mealCode
         }
         params[APIKeys.notes.rawValue] = notes
         params[APIKeys.imageSource.rawValue] = imageSource

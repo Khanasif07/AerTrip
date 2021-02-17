@@ -325,7 +325,11 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: textEditableCellIdentifier, for: indexPath) as? TextEditableTableViewCell else { fatalError("TextEditableTableViewCell not found") }
                 cell.editableTextField.isEnabled = true
                 cell.editableTextField.lineView.backgroundColor = AppColors.clear
-                cell.editableTextField.isHiddenBottomLine = true
+                cell.editableTextField.lineColor = AppColors.clear
+                cell.editableTextField.selectedLineColor = AppColors.clear
+                cell.editableTextField.lineErrorColor = AppColors.clear
+                cell.editableTextField.editingBottom = 0.0
+//                cell.editableTextField.isHiddenBottomLine = true
                 cell.delegate = self
                 cell.downArrowImageView.isHidden = false
                 cell.configureCell(flightPreferencesTitle[indexPath.row], indexPath.row == 0 ? (viewModel.seat.isEmpty ? LocalizedString.Select.localized : viewModel.seat) : (viewModel.meal.isEmpty ? LocalizedString.Select.localized : viewModel.meal))
@@ -350,8 +354,9 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
         guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: AppConstants.ktableViewHeaderViewIdentifier) as? ViewProfileDetailTableViewSectionView else {
             fatalError("ViewProfileDetailTableViewSectionView not found")
         }
-        headerView.topSeparatorView.isHidden = sections[section].localized == LocalizedString.EmailAddress.localized || sections[section].localized == LocalizedString.FlightPreferences.localized || sections[section].localized == LocalizedString.SocialAccounts.localized ? false : true
-        headerView.topDividerHeightConstraint.constant = sections[section].localized == LocalizedString.EmailAddress.localized || sections[section].localized == LocalizedString.FlightPreferences.localized || sections[section].localized == LocalizedString.SocialAccounts.localized ? 0.5 : 0
+        let isDivider = sections[section].localized == LocalizedString.EmailAddress.localized || sections[section].localized == LocalizedString.FlightPreferences.localized || sections[section].localized == LocalizedString.SocialAccounts.localized || sections[section].localized == LocalizedString.PassportDetails.localized
+        headerView.topSeparatorView.isHidden = isDivider ? false : true
+        headerView.topDividerHeightConstraint.constant = isDivider ? 0.5 : 0
         
         headerView.headerLabel.text = sections[section].localized
         headerView.backgroundColor = AppColors.themeGray04
@@ -919,6 +924,9 @@ extension EditProfileVC: EditProfileVMDelegate {
     func getPreferenceListSuccess(_ seatPreferences: [String: String], _ mealPreferences: [String: String]) {
         self.viewModel.seatPreferences = seatPreferences
         self.viewModel.mealPreferences = mealPreferences
+        guard let traveler = self.viewModel.travelData, let meal =  mealPreferences[traveler.preferences.meal.value] else {return}
+        self.viewModel.meal = meal
+      
     }
     
     func getCountryListSuccess(_ countryList: [String: String]) {

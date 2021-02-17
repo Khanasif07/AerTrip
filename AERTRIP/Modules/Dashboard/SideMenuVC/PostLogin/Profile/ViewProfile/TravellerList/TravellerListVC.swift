@@ -188,9 +188,10 @@ class TravellerListVC: BaseVC {
     
     @objc func handleLongPress(_ longPressGestureRecognizer: UILongPressGestureRecognizer) {
         if longPressGestureRecognizer.state == UIGestureRecognizer.State.began {
-            setSelectMode()
+            setSelectMode(isNeedToReload: false)
             let touchPoint = longPressGestureRecognizer.location(in: tableView)
             if let indexPath = tableView.indexPathForRow(at: touchPoint) {
+                self.tableView.reloadData()
                 tableView.separatorStyle = .singleLine
                 tableView(tableView, didSelectRowAt: indexPath)
                 tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
@@ -624,12 +625,14 @@ class TravellerListVC: BaseVC {
         
     }
     
-    func setSelectMode() {
+    func setSelectMode(isNeedToReload:Bool = true) {
         bottomView.isHidden = false
         bottomBackgroundView.isHidden = false
         isSelectMode = true
         updateNavView()
-        tableView.reloadData()
+        if isNeedToReload{
+            tableView.reloadData()
+        }
     }
     
     func resetAllItem() {
