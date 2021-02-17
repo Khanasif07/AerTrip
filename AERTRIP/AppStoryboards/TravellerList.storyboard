@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="X8Q-9M-K7z" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="dataSource" destination="Leo-FO-KYr" id="wks-Wy-Gtx"/>
@@ -66,7 +66,7 @@
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eqd-JQ-Emm" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="0.0"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fdo-f8-8XG">
@@ -142,13 +142,13 @@
                             <constraint firstItem="X8Q-9M-K7z" firstAttribute="top" secondItem="lLE-bn-tID" secondAttribute="top" id="Hvh-gC-nK9"/>
                             <constraint firstItem="lLE-bn-tID" firstAttribute="bottom" secondItem="ayy-IG-Mnv" secondAttribute="bottom" id="KGA-fW-bvb"/>
                             <constraint firstItem="S6o-6H-67g" firstAttribute="trailing" secondItem="lLE-bn-tID" secondAttribute="trailing" id="MOv-On-Vjy"/>
+                            <constraint firstItem="Eqd-JQ-Emm" firstAttribute="top" secondItem="X8Q-9M-K7z" secondAttribute="bottom" id="PeQ-FH-XPE"/>
                             <constraint firstAttribute="trailing" secondItem="JTk-bT-ONv" secondAttribute="trailing" id="QBF-bq-Pev"/>
                             <constraint firstItem="Dd0-fb-cBb" firstAttribute="leading" secondItem="foV-YG-f1J" secondAttribute="leading" id="V09-d1-R5W"/>
                             <constraint firstItem="lLE-bn-tID" firstAttribute="trailing" secondItem="ayy-IG-Mnv" secondAttribute="trailing" id="Vvb-rf-f28"/>
                             <constraint firstItem="S6o-6H-67g" firstAttribute="leading" secondItem="lLE-bn-tID" secondAttribute="leading" id="YwD-ry-el7"/>
                             <constraint firstItem="Eqd-JQ-Emm" firstAttribute="bottom" secondItem="X8Q-9M-K7z" secondAttribute="bottom" id="YyV-1G-f3H"/>
                             <constraint firstAttribute="trailing" secondItem="Dd0-fb-cBb" secondAttribute="trailing" id="cgT-X6-Caq"/>
-                            <constraint firstAttribute="bottom" secondItem="X8Q-9M-K7z" secondAttribute="bottom" id="htB-KO-jua"/>
                             <constraint firstItem="O3S-Ag-QUk" firstAttribute="trailing" secondItem="lLE-bn-tID" secondAttribute="trailing" id="ijs-1I-y9R"/>
                             <constraint firstAttribute="trailing" secondItem="fap-KZ-xGW" secondAttribute="trailing" id="nlz-PB-waf"/>
                             <constraint firstItem="X8Q-9M-K7z" firstAttribute="leading" secondItem="lLE-bn-tID" secondAttribute="leading" id="oTC-sf-XEg"/>
@@ -158,6 +158,7 @@
                         <outlet property="assignGroupButton" destination="fdo-f8-8XG" id="dQ6-XR-Zpk"/>
                         <outlet property="bottomBackgroundView" destination="Eqd-JQ-Emm" id="taG-yh-Nzn"/>
                         <outlet property="bottomView" destination="ayy-IG-Mnv" id="q5Q-Mi-kFQ"/>
+                        <outlet property="bottomViewHeight" destination="GIN-4j-yIM" id="aZx-Uo-Bce"/>
                         <outlet property="deleteButton" destination="lF6-ol-Nff" id="MkT-Sh-XXd"/>
                         <outlet property="headerDividerView" destination="Dd0-fb-cBb" id="8gh-5P-aen"/>
                         <outlet property="progressView" destination="JTk-bT-ONv" id="frj-0U-eAo"/>
@@ -168,7 +169,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y2c-CJ-RBH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1830" y="221"/>
+            <point key="canvasLocation" x="1829.5999999999999" y="220.83958020989508"/>
         </scene>
         <!--PreferencesVC-->
         <scene sceneID="Fdq-cs-J58">
@@ -577,7 +578,7 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bm0-Su-7h0">
-                                        <rect key="frame" x="241" y="11.5" width="118" height="22.5"/>
+                                        <rect key="frame" x="229" y="11.5" width="130" height="22.5"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                         <state key="normal" title="Add New Group">

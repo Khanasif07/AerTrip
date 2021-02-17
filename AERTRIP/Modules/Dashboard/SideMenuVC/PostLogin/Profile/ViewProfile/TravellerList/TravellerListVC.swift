@@ -21,6 +21,7 @@ class TravellerListVC: BaseVC {
     
     @IBOutlet weak var bottomBackgroundView: UIView!
     @IBOutlet weak var bottomView: UIView!
+    @IBOutlet weak var bottomViewHeight: NSLayoutConstraint!
     
     @IBOutlet weak var assignGroupButton: UIButton!
     @IBOutlet weak var deleteButton: UIButton!
@@ -384,6 +385,7 @@ class TravellerListVC: BaseVC {
         }
         tableView.tableHeaderView = travellerListHeaderView
         bottomView.isHidden = true
+        toggleBottomView(hidden: true)
         bottomBackgroundView.isHidden = true
         deleteButton.setTitle(LocalizedString.Delete.localized, for: .normal)
         deleteButton.titleLabel?.textColor = AppColors.themeGreen
@@ -421,6 +423,22 @@ class TravellerListVC: BaseVC {
         }
         if let sections =  self.fetchedResultsController.sections {
             travellerListHeaderView.bottomView.isHidden = sections.count == 0 ? false : true
+        }
+    }
+    
+    private func toggleBottomView(hidden: Bool) {
+        if hidden {
+            UIView.animate(withDuration: 0.3) {
+                self.bottomViewHeight.constant = 0
+            } completion: { (_) in
+                
+            }
+        } else {
+            UIView.animate(withDuration: 0.3) {
+                self.bottomViewHeight.constant = 44
+            } completion: { (_) in
+                
+            }
         }
     }
     
@@ -617,6 +635,7 @@ class TravellerListVC: BaseVC {
     func setTravellerMode(shouldReload: Bool = true) {
         isSelectMode = false
         bottomView.isHidden = true
+        toggleBottomView(hidden: true)
         bottomBackgroundView.isHidden = true
         topNavView.leftButton.isSelected = false
         selectedTravller.removeAll()
@@ -626,6 +645,7 @@ class TravellerListVC: BaseVC {
     
     func setSelectMode() {
         bottomView.isHidden = false
+        toggleBottomView(hidden: false)
         bottomBackgroundView.isHidden = false
         isSelectMode = true
         updateNavView()
@@ -682,6 +702,7 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         //        }
         if isSelectMode {
             bottomView.isHidden = self.tableSectionArray.isEmpty
+            toggleBottomView(hidden: self.tableSectionArray.isEmpty)
             bottomBackgroundView.isHidden = self.tableSectionArray.isEmpty
         }
         travellerListHeaderView.bottomView.isHidden = !self.tableSectionArray.isEmpty
@@ -921,6 +942,7 @@ extension TravellerListVC: TravellerListVMDelegate {
     
     func deleteTravellerAPISuccess() {
         bottomView.isHidden = true
+        toggleBottomView(hidden: true)
         bottomBackgroundView.isHidden =  true
         isSelectMode = false
         deleteAllSelectedTravllers()
@@ -940,6 +962,7 @@ extension TravellerListVC: TravellerListVMDelegate {
     
     func deleteTravellerAPIFailure(errors: ErrorCodes) {
         bottomView.isHidden = true
+        toggleBottomView(hidden: true)
         bottomBackgroundView.isHidden =  true
         isSelectMode = false
         reloadList()
