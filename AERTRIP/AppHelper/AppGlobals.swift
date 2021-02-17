@@ -698,7 +698,7 @@ extension AppGlobals {
             if showLoader {
                 AppGlobals.shared.startLoading()
             }
-            let destinationFileUrl = documentsUrl.appendingPathComponent("\("test").pkpass")
+            let destinationFileUrl = documentsUrl.appendingPathComponent("\("bording").pkpass")
             
             if FileManager.default.fileExists(atPath: destinationFileUrl.path) {
                 try? FileManager.default.removeItem(at: destinationFileUrl)
