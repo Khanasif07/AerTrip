@@ -174,7 +174,16 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
         self.middleSeparatorLeading.constant = (isLast && isNeeded) ? 0.0 : 16.0
         self.rightSeparatorLeading.constant = (isLast && isNeeded) ? 0.0 : 16.0
         if let mobile = mobile, isError{
-            let isValidMobile = ((mobile.value.count >= mobile.minValidation) && (mobile.value.count <= mobile.maxValidation))
+            var isValidMobile = true
+            if mobile.isd == "+91" {
+                if mobile.value.count < mobile.minValidation {
+                    isValidMobile = false
+                }
+            } else {
+                if mobile.minValidation != mobile.maxValidation {
+                    isValidMobile = ((mobile.value.count >= mobile.minValidation) && (mobile.value.count <= mobile.maxValidation))
+                }
+            }
             if isLast{
                 self.leftSeparatorView.isSettingForErrorState = (!isValidMobile || mobile.isDuplicate)
                 self.middleSeparatorView.isSettingForErrorState = (!isValidMobile || mobile.isDuplicate)
