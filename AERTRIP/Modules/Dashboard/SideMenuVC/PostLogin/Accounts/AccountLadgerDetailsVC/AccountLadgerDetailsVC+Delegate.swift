@@ -86,25 +86,25 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
             }else if indexPath.row == 0 && isForVouchre{
                 return 36.0
             }else if indexPath.row == self.viewModel.sectionArray[indexPath.section - 1].count-2{
-                let section = indexPath.section - 1
-                let model = self.viewModel.sectionArray[section][indexPath.row]
-                if model.title == "   "{
-                    return 30.0
-                }else{
+//                let section = indexPath.section - 1
+//                let model = self.viewModel.sectionArray[section][indexPath.row]
+//                if model.title == "   "{
+//                    return 30.0
+//                }else{
                     return 36.0
-                }
+//                }
                 
             }else{
                 let section = indexPath.section - 1
                 let model = self.viewModel.sectionArray[section][indexPath.row]
-                if (model.title == "Room" || model.title == " "){
-                    return UITableView.automaticDimension
-                }else if (model.title == "Passengers" || model.title == "   " || model.title == "Guests"){//passenger, guest
-                    return 30.0
-                }else{
-                    return 30.0
-                }
-//                return (model.title == "Room" || model.title == " ") ? UITableView.automaticDimension : 30.0
+//                if (model.title == "Room" || model.title == " "){
+//                    return UITableView.automaticDimension
+//                }else if (model.title == "Passengers" || model.title == "   " || model.title == "Guests"){//passenger, guest
+//                    return 30.0
+//                }else{
+//                    return 30.0
+//                }
+                return (model.title == "Room" || model.title == " ") ? UITableView.automaticDimension : 30.0
             }
             
         }

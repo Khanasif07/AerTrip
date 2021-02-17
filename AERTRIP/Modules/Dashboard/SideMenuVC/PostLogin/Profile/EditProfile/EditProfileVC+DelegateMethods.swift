@@ -354,7 +354,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
         guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: AppConstants.ktableViewHeaderViewIdentifier) as? ViewProfileDetailTableViewSectionView else {
             fatalError("ViewProfileDetailTableViewSectionView not found")
         }
-        let isDivider = sections[section].localized == LocalizedString.EmailAddress.localized || sections[section].localized == LocalizedString.FlightPreferences.localized || sections[section].localized == LocalizedString.SocialAccounts.localized || sections[section].localized == LocalizedString.PassportDetails.localized
+        let isDivider = sections[section].localized == LocalizedString.EmailAddress.localized || sections[section].localized == LocalizedString.FlightPreferences.localized || sections[section].localized == LocalizedString.SocialAccounts.localized// || sections[section].localized == LocalizedString.PassportDetails.localized
         headerView.topSeparatorView.isHidden = isDivider ? false : true
         headerView.topDividerHeightConstraint.constant = isDivider ? 0.5 : 0
         

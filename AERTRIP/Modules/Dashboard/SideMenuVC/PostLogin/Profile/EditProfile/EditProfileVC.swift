@@ -794,7 +794,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         case 0:
             if viewModel.seatPreferences.count > 0 {
                 pickerType = .seatPreference
-                var seatPreferences = Array(viewModel.seatPreferences.values).sorted()
+                var seatPreferences = Array(viewModel.seatPreferences.values)//.sorted()
                 seatPreferences.insert(LocalizedString.Select.localized, at: 0)
                 pickerData = seatPreferences
                 openPicker(withSelection: viewModel.seat, textField: textField)
@@ -803,7 +803,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         case 1:
             if viewModel.mealPreferences.count > 0 {
                 pickerType = .mealPreference
-                var mealPreferences = Array(viewModel.mealPreferences.values).sorted()
+                var mealPreferences = Array(viewModel.mealPreferences.values)//.sorted()
                 mealPreferences.insert(LocalizedString.Select.localized, at: 0)
                 pickerData = mealPreferences
                 openPicker(withSelection: viewModel.meal, textField: textField)
