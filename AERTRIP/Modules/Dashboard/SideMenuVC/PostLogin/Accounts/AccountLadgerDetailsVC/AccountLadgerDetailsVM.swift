@@ -115,7 +115,7 @@ class AccountLadgerDetailsVM {
                     section2.append((title: names, value: name.name, age: age, isEmptyCell: false))
                 }
                 else {
-                    section2.append((title: "", value: name.name, age: age, isEmptyCell: false))
+                    section2.append((title: "   ", value: name.name, age: age, isEmptyCell: false))
                 }
             }
             if !section2.isEmpty{
@@ -183,7 +183,7 @@ class AccountLadgerDetailsVM {
                     section4.append((title: names, value: name.name, age: age, isEmptyCell: false))
                 }
                 else {
-                    section4.append((title: "", value: name.name, age: age, isEmptyCell: false))
+                    section4.append((title: "   ", value: name.name, age: age, isEmptyCell: false))
                 }
             }
             if !section4.isEmpty{
@@ -231,7 +231,7 @@ class AccountLadgerDetailsVM {
                     section2.append((title: names, value: name.name, age: age, isEmptyCell: false))
                 }
                 else {
-                    section2.append((title: "", value: name.name, age: age, isEmptyCell: false))
+                    section2.append((title: "   ", value: name.name, age: age, isEmptyCell: false))
                 }
             }
             
@@ -321,7 +321,7 @@ class AccountLadgerDetailsVM {
                 section3.append((title: names, value: name.name, age: age, isEmptyCell: false))
             }
             else {
-                section3.append((title: "", value: name.name, age: age, isEmptyCell: false))
+                section3.append((title: "   ", value: name.name, age: age, isEmptyCell: false))
             }
         }
         

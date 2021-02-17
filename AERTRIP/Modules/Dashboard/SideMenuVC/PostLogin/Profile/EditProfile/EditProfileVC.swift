@@ -434,7 +434,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         }
         
         viewModel.seat = travel.preferences.seat.value
-        viewModel.meal = travel.preferences.meal.value
+        viewModel.meal = travel.preferences.meal.name
         editProfileImageHeaderView.groupLabel.text = travel.label.isEmpty ? "Others" : travel.label.capitalizedFirst()
         if viewModel.travelData?.preferences != nil {
             sections.append(LocalizedString.FlightPreferences.localized)
@@ -794,7 +794,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         case 0:
             if viewModel.seatPreferences.count > 0 {
                 pickerType = .seatPreference
-                var seatPreferences = Array(viewModel.seatPreferences.values)
+                var seatPreferences = Array(viewModel.seatPreferences.values)//.sorted()
                 seatPreferences.insert(LocalizedString.Select.localized, at: 0)
                 pickerData = seatPreferences
                 openPicker(withSelection: viewModel.seat, textField: textField)
@@ -803,7 +803,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         case 1:
             if viewModel.mealPreferences.count > 0 {
                 pickerType = .mealPreference
-                var mealPreferences = Array(viewModel.mealPreferences.values)
+                var mealPreferences = Array(viewModel.mealPreferences.values)//.sorted()
                 mealPreferences.insert(LocalizedString.Select.localized, at: 0)
                 pickerData = mealPreferences
                 openPicker(withSelection: viewModel.meal, textField: textField)

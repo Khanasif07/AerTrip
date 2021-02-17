@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -35,7 +36,7 @@
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HGz-fd-bcj">
                                         <rect key="frame" x="0.0" y="0.0" width="257" height="43.5"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iDz-wV-uFX">
                                         <rect key="frame" x="16" y="10" width="250" height="22.5"/>
@@ -292,7 +293,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="XsZ-Tw-vqR" firstAttribute="leading" secondItem="ULm-w9-qde" secondAttribute="leading" id="YQV-sB-9RS"/>
                             <constraint firstAttribute="bottom" secondItem="XsZ-Tw-vqR" secondAttribute="bottom" id="cRr-Pg-1JX"/>
@@ -324,15 +325,21 @@
                 <outlet property="addressTypeTextField" destination="6e2-Ln-898" id="g8v-cZ-ADg"/>
                 <outlet property="addressTypeView" destination="bnX-oS-u73" id="pe4-Hz-t1r"/>
                 <outlet property="bottomDivider" destination="iA0-UP-Lr2" id="OPv-23-8oQ"/>
+                <outlet property="citySeparator" destination="MxT-0A-VCw" id="mQe-Ef-BcJ"/>
                 <outlet property="cityTextField" destination="Upn-U7-H0G" id="hwo-ev-zgS"/>
                 <outlet property="countryLabel" destination="I4d-qe-2c6" id="lSw-9U-ZOQ"/>
                 <outlet property="countryView" destination="aLv-IZ-FCW" id="toR-ca-GTk"/>
                 <outlet property="deleteButton" destination="Umh-6z-Rdc" id="fcv-NT-PBw"/>
+                <outlet property="labelSeparator" destination="w3N-e2-cIH" id="WhY-7S-H6C"/>
+                <outlet property="postalCodeSeparator" destination="Wfd-0S-Xaf" id="Lbb-YP-d5U"/>
                 <outlet property="postalCodeTextField" destination="ivg-7Q-PdW" id="qpG-9f-IwM"/>
                 <outlet property="seperatorDividerView" destination="XsZ-Tw-vqR" id="u9w-dM-1ea"/>
                 <outlet property="seperatorView" destination="ULm-w9-qde" id="Rul-si-yaH"/>
                 <outlet property="seperatorViewHeightConstraint" destination="jxK-l7-sae" id="o8i-M9-mgK"/>
+                <outlet property="stateSeparator" destination="byy-xE-RXX" id="IZK-0Y-jeJ"/>
                 <outlet property="stateTextField" destination="zZk-DM-xlE" id="FXI-5O-imA"/>
+                <outlet property="streetOneSeparator" destination="i1s-hK-EDN" id="mbk-fu-l8Z"/>
+                <outlet property="streetTwoSeparator" destination="Kjg-Zr-gZe" id="u4k-n9-OEB"/>
             </connections>
             <point key="canvasLocation" x="137.59999999999999" y="164.6176911544228"/>
         </tableViewCell>
@@ -340,5 +347,8 @@
     <resources>
         <image name="blackDownArrow" width="9" height="6"/>
         <image name="redMinusButton" width="22" height="22"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

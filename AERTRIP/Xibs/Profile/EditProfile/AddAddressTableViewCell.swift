@@ -39,6 +39,13 @@ class AddAddressTableViewCell: UITableViewCell {
     @IBOutlet weak var seperatorView: UIView!
     @IBOutlet weak var seperatorDividerView: ATDividerView!
     @IBOutlet weak var seperatorViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var labelSeparator: ATDividerView!
+    @IBOutlet weak var streetOneSeparator: ATDividerView!
+    @IBOutlet weak var streetTwoSeparator: ATDividerView!
+    @IBOutlet weak var citySeparator: ATDividerView!
+    @IBOutlet weak var postalCodeSeparator: ATDividerView!
+    @IBOutlet weak var stateSeparator: ATDividerView!
+    
     // MARK: - Variables
     weak var delegate:AddAddressTableViewCellDelegate?
     
@@ -121,7 +128,15 @@ class AddAddressTableViewCell: UITableViewCell {
         }
     }
     
+    func setSeparatorForError(isError:Bool, with address:Address){
+        self.changeSeparatorColor(isForError: (isError && address.isDuplicate))
+    }
     
+    private func changeSeparatorColor(isForError:Bool){
+        [bottomDivider, seperatorDividerView, labelSeparator, streetOneSeparator, streetTwoSeparator, citySeparator,postalCodeSeparator, stateSeparator].forEach { sep in
+            sep.isSettingForErrorState = isForError
+        }
+    }
     
     
 }
@@ -129,6 +144,7 @@ class AddAddressTableViewCell: UITableViewCell {
 
 extension AddAddressTableViewCell:UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        self.changeSeparatorColor(isForError: false)
         printDebug("text field text \(textField.text ?? " ")")
         guard let inputMode = textField.textInputMode else {
             return false
@@ -153,7 +169,12 @@ extension AddAddressTableViewCell:UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        self.changeSeparatorColor(isForError: false)
         return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.changeSeparatorColor(isForError: false)
     }
 }
 
