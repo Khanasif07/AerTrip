@@ -256,6 +256,12 @@ extension MyBookingFilterVC: TopNavigationViewDelegate {
             
         }
         setBadge()
+        
+        delay(seconds: 0.5) {
+            self.setCounts()
+        }
+        
+        
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {

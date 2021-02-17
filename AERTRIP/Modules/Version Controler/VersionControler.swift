@@ -19,6 +19,7 @@ class VersionControler {
     }
     
     func checkForUpdate() {
+        return
         if !shouldCheckForUpdate { return }
         let params : JSONDictionary = [APIKeys.version.rawValue : self.getAppVersion(), APIKeys.deviceId.rawValue : UIDevice.uuidString, APIKeys.deviceType.rawValue : "ios"]
                 
