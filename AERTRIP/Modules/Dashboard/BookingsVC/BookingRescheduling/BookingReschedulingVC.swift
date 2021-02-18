@@ -335,8 +335,8 @@ class BookingReschedulingVC: BaseVC {
             self.continueButton.setTitleColor(AppColors.themeWhite.withAlphaComponent(1.0), for: .normal)
             let pasngTtl = ((selectedCounts.count == 1) && ((selectedCounts.first ?? 0) == 1)) ? LocalizedString.Passenger.localized : LocalizedString.Passengers.localized
             self.passengerLabel.text = "\(selectedCounts.joined(separator: ", ")) \(pasngTtl) \(LocalizedString.Selected.localized)"
-            self.priceView.isHidden = false
-            self.priceViewAndButtonContainerHeight.constant = 94.0
+            self.priceView.isHidden = true //false
+            self.priceViewAndButtonContainerHeight.constant = 50.0//94.0
         }
     }
     
