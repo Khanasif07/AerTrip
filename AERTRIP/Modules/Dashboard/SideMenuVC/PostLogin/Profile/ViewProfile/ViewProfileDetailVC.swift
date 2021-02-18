@@ -186,7 +186,7 @@ class ViewProfileDetailVC: BaseVC {
         var tempEmail = travel.contact.email.filter { (eml) -> Bool in
             !eml.value.isEmpty
         }
-        if let defEmail = UserInfo.loggedInUser?.email, tempEmail.filter({ $0.label == LocalizedString.Default.localized }).isEmpty, tempEmail.filter({ $0.value == defEmail }).isEmpty {
+        if viewModel.currentlyUsingFor == .viewProfile, let defEmail = UserInfo.loggedInUser?.email, !defEmail.isEmpty, tempEmail.filter({ $0.label == LocalizedString.Default.localized }).isEmpty, tempEmail.filter({ $0.value == defEmail }).isEmpty {
             let defaultEmail = Email(label: LocalizedString.Default.localized, value: defEmail)
             tempEmail.append(defaultEmail)
         }
@@ -207,7 +207,7 @@ class ViewProfileDetailVC: BaseVC {
             !mbl.value.isEmpty
         }
         
-        if let defMobile = UserInfo.loggedInUser?.mobileWithISD, tempMobile.filter({ $0.label == LocalizedString.Default.localized }).isEmpty, tempMobile.filter({ "\($0.isd) \($0.value)" == defMobile }).isEmpty {
+        if viewModel.currentlyUsingFor == .viewProfile, let defMobile = UserInfo.loggedInUser?.mobileWithISD, !defMobile.isEmpty, tempMobile.filter({ $0.label == LocalizedString.Default.localized }).isEmpty, tempMobile.filter({ "\($0.isd) \($0.value)" == defMobile }).isEmpty {
             let defaultMobile = Mobile(label: LocalizedString.Default.localized, value: defMobile)
             tempMobile.append(defaultMobile)
         }
@@ -389,7 +389,7 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
             cell.separatorView.isHidden = (indexPath.row + 1 == informations.count) ? true : false
             return cell
         case LocalizedString.ContactNumber.localized:
-            cell.configureCell(mobile[indexPath.row].label, mobile[indexPath.row].valueWithISD.removeAllWhiteSpacesAndNewLines)
+            cell.configureCell(mobile[indexPath.row].label, mobile[indexPath.row].valueWithISD.removeAllWhiteSpacesAndNewLines, .mobile)
             cell.separatorView.isHidden = (indexPath.row + 1 == mobile.count) ? true : false
             return cell
         case LocalizedString.SocialAccounts.localized:

@@ -8,6 +8,7 @@
 
 import MXParallaxHeader
 import UIKit
+import PhoneNumberKit
 
 protocol ViewProfileVCDelegate: class {
     func backButtonAction(_ sender: UIButton)
@@ -186,7 +187,16 @@ class ViewProfileVC: BaseVC {
     func updateUserData() {
         self.profileImageHeaderView?.userNameLabel.text = "\(UserInfo.loggedInUser?.firstName ?? LocalizedString.na.localized) \(UserInfo.loggedInUser?.lastName ?? LocalizedString.na.localized)"
         self.profileImageHeaderView?.emailIdLabel.text = UserInfo.loggedInUser?.email ?? LocalizedString.na.localized
-        self.profileImageHeaderView?.mobileNumberLabel.text = UserInfo.loggedInUser?.mobileWithISD
+        
+        do {
+            let mobileNum = UserInfo.loggedInUser?.mobileWithISD ?? ""
+            let phoneNumber = try PhoneNumberKit().parse(mobileNum)
+            print(phoneNumber)
+            let formattedNumber = PhoneNumberKit().format(phoneNumber, toType: .international)
+            self.profileImageHeaderView?.mobileNumberLabel.text = formattedNumber
+        } catch {
+            
+        }
         
         if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty {
             self.profileImageHeaderView?.profileImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder() ?? AppPlaceholderImage.user, showIndicator: false)
