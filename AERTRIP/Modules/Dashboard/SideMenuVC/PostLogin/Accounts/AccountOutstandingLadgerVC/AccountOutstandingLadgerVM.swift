@@ -36,6 +36,7 @@ class AccountOutstandingLadgerVM: NSObject {
         return self.selectedEvent.reduce(0.0) { $0 + $1.pendingAmount}
     }
     
+    var isSearching:Bool = false
     
     private(set) var itineraryData: DepositItinerary?
     

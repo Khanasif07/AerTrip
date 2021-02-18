@@ -336,6 +336,8 @@ enum AppNetworking {
                                 
                                 // Logger for request
                                 self.textLog.write("\n##########################################################################################\nAPI URL :::\(String(describing: request.request?.url))")
+                                
+                                self.textLog.write("\n##########################################################################################\nAPI PARAMETERS :::\(String(describing: parameters))")
 
                                 self.textLog.write("\nREQUEST HEADER :::::::: \(requestDate)  ::::::::\n\n\(String(describing: request.request?.allHTTPHeaderFields))\n")
                                 

@@ -12,7 +12,7 @@ import IQKeyboardManager
 class AccountOutstandingLadgerVC: BaseVC {
     
     enum ViewState {
-        case searching
+//        case searching
         case selecting
         case normal
     }
@@ -250,14 +250,14 @@ class AccountOutstandingLadgerVC: BaseVC {
             self.searchModeSearchBarTopCurrent = self.searchModeSearchBarTopConstraint.constant
         }
         
-        if (self.currentViewState == .searching) {
+        if (self.viewModel.isSearching) {//(self.currentViewState == .searching)
             self.searchDataContainerView.isHidden = false
         }
         
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
             guard let sSelf = self else {return}
             
-            if (sSelf.currentViewState == .searching) {
+            if (sSelf.viewModel.isSearching) {//(sSelf.currentViewState == .searching)
                 sSelf.subHeaderContainerTopConstraint.constant = -(sSelf.subHeaderContainer.height)
                 sSelf.subHeaderContainer.alpha = 0.0
                 sSelf.searchDataContainerView.alpha = 1.0
@@ -275,9 +275,9 @@ class AccountOutstandingLadgerVC: BaseVC {
             
         }, completion: { [weak self](isDone) in
             guard let sSelf = self else {return}
-            sSelf.subHeaderContainer.isHidden = (sSelf.currentViewState == .searching)
+            sSelf.subHeaderContainer.isHidden = sSelf.viewModel.isSearching//(sSelf.currentViewState == .searching)
             sSelf.searchTableView.reloadData()
-            if (sSelf.currentViewState == .searching) {
+            if (sSelf.viewModel.isSearching) {//(sSelf.currentViewState == .searching)
                 sSelf.searchDataContainerView.isHidden = false
                 sSelf.mainSearchBar.becomeFirstResponder()
                 sSelf.searchDataContainerView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.4)
@@ -306,6 +306,7 @@ class AccountOutstandingLadgerVC: BaseVC {
                 //select bookings pay
                 if self.currentViewState == .selecting {
                     self.currentViewState = .normal
+                    self.viewModel.isSearching = false
                 }
                 else {
                     self.currentViewState = .selecting
@@ -466,7 +467,9 @@ extension AccountOutstandingLadgerVC: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         if searchBar === self.mainSearchBar {
-            self.currentViewState = .normal
+//            self.currentViewState = .normal
+            self.viewModel.isSearching = false
+            self.manageHeader(animated: true)
             self.clearSearchData()
         }
     }
@@ -474,7 +477,9 @@ extension AccountOutstandingLadgerVC: UISearchBarDelegate {
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         IQKeyboardManager.shared().isEnableAutoToolbar = false
         if (searchBar === self.searchBar) {
-            self.currentViewState = .searching
+//            self.currentViewState = .searching
+            self.viewModel.isSearching = true
+            self.manageHeader(animated: true)
             return false
         }
         return true
@@ -535,6 +540,7 @@ extension AccountOutstandingLadgerVC: TopNavigationViewDelegate {
         }
         else {
             self.currentViewState = .normal
+            self.viewModel.isSearching = false
             self.viewModel.selectedEvent.removeAll()
             self.reloadList()
         }
@@ -592,11 +598,11 @@ extension AccountOutstandingLadgerVC {
         
         let constToHide: CGFloat = -(self.subHeaderContainer.height)
         let constToShow: CGFloat = -(self.subHeaderContainer.height - self.searchBarContainerView.height)
-        if isHidden, self.subHeaderContainerTopConstraint.constant == constToHide {
+        if isHidden, self.subHeaderContainerTopConstraint.constant >= constToHide, self.subHeaderContainerTopConstraint.constant != 0 {
             //if already hidden then return
             return
         }
-        else if !isHidden, self.subHeaderContainerTopConstraint.constant == 0.0  {
+        else if !isHidden, self.subHeaderContainerTopConstraint.constant >= 0.0  {
             //if already shown then return
             return
         }
@@ -668,7 +674,7 @@ extension AccountOutstandingLadgerVC {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if self.currentViewState != .searching {
+        if  !self.viewModel.isSearching{//self.currentViewState != .searching
             self.manageHeader(scrollView)
         }
     }

@@ -309,6 +309,10 @@ struct AccountDetailEvent {
             if let details = json["detail"] as? JSONDictionary, let partyName = details["party_name"] {
                 self.title = "\(partyName)"
             }
+            let txt = self.title
+            if txt.removeAllWhitespaces.lowercased().contains("cashback"){
+                self.iconImage = #imageLiteral(resourceName: "ic_acc_cashback")
+            }
             
         case .sales:
             //self.title = "sales Test"
