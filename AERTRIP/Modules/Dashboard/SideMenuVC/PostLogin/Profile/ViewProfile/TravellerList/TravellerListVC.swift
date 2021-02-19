@@ -193,13 +193,23 @@ class TravellerListVC: BaseVC {
     
     @objc func handleLongPress(_ longPressGestureRecognizer: UILongPressGestureRecognizer) {
         if longPressGestureRecognizer.state == UIGestureRecognizer.State.began {
-            setSelectMode(isNeedToReload: false)
-            let touchPoint = longPressGestureRecognizer.location(in: tableView)
-            if let indexPath = tableView.indexPathForRow(at: touchPoint) {
-                self.tableView.reloadData()
-                tableView.separatorStyle = .singleLine
-                tableView(tableView, didSelectRowAt: indexPath)
-                tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+            
+            func updateTableView() {
+                let touchPoint = longPressGestureRecognizer.location(in: tableView)
+                if let indexPath = tableView.indexPathForRow(at: touchPoint) {
+                    self.tableView.reloadData()
+                    tableView.separatorStyle = .singleLine
+                    tableView(tableView, didSelectRowAt: indexPath)
+                    tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+                }
+            }
+            
+            tableView.performBatchUpdates {
+                self.setSelectMode(isNeedToReload: false)
+            } completion: { (_) in
+                delay(seconds: 0.15) {
+                    updateTableView()
+                }
             }
         }
     }
@@ -313,8 +323,11 @@ class TravellerListVC: BaseVC {
     
     func doneButtonTapped() {
         shouldHitAPI = true
-        setTravellerMode()
-        tableView.reloadData()
+        setTravellerMode {
+            delay(seconds: 0.15) {
+                self.tableView.reloadData()
+            }
+        }
     }
     
     func popOverOptionTapped() {
@@ -637,8 +650,12 @@ class TravellerListVC: BaseVC {
         tableView.tableFooterView = customView
     }
     
-    func setTravellerMode(shouldReload: Bool = true) {
-        isSelectMode = false
+    func setTravellerMode(shouldReload: Bool = true, completion: (() -> ())? = nil) {
+        tableView.performBatchUpdates {
+            self.isSelectMode = false
+        } completion: { (_) in
+            completion?()
+        }
         bottomView.isHidden = true
         toggleBottomView(hidden: true)
         bottomBackgroundView.isHidden = true
@@ -1124,7 +1141,31 @@ extension TravellerListVC {
     
     @objc private func twoFingersSwiped(_ recognizer: UISwipeGestureRecognizer) {
         if bottomView.isHidden {
-            setSelectMode()
+            
+            func updateTableView() {
+                func updateTouchPoint(_ point: CGPoint) {
+                    if let indexPath = tableView.indexPathForRow(at: point) {
+                        self.tableView.reloadData()
+                        tableView.separatorStyle = .singleLine
+                        tableView(tableView, didSelectRowAt: indexPath)
+                        tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+                    }
+                }
+                let touchPoint1 = recognizer.location(ofTouch: 0, in: tableView)
+                let touchPoint2 = recognizer.location(ofTouch: 1, in: tableView)
+                updateTouchPoint(touchPoint1)
+                updateTouchPoint(touchPoint2)
+                
+                
+            }
+            
+            tableView.performBatchUpdates {
+                self.setSelectMode(isNeedToReload: false)
+            } completion: { (_) in
+                delay(seconds: 0.15) {
+                    updateTableView()
+                }
+            }
         }
     }
 }
