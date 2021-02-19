@@ -917,35 +917,39 @@ extension AppFlowManager {
     
     // MARK: -
     
-    func moveToAccountDetailsScreen() {
+    func moveToAccountDetailsScreen(with deepLinkParam:[String:String] = [:]) {
         guard let user = UserInfo.loggedInUser else {
             return
         }
         
         switch user.userCreditType {
         case .regular:
-            self.moveToAccountDetailsVC(usingFor: .account, forDetails: [:], forVoucherTypes: [])
+            self.moveToAccountDetailsVC(usingFor: .account, forDetails: [:], forVoucherTypes: [], deepLinkParam:deepLinkParam)
             
         case .billwise:
             let obj = SpecialAccountDetailsVC.instantiate(fromAppStoryboard: .Account)
+            obj.viewModel.deepLinkParams = deepLinkParam
             self.mainNavigationController.pushViewController(obj, animated: true)
             
         case .statement:
             let obj = SpecialAccountDetailsVC.instantiate(fromAppStoryboard: .Account)
+            obj.viewModel.deepLinkParams = deepLinkParam
             self.mainNavigationController.pushViewController(obj, animated: true)
             
         case .topup:
             let obj = SpecialAccountDetailsVC.instantiate(fromAppStoryboard: .Account)
+            obj.viewModel.deepLinkParams = deepLinkParam
             self.mainNavigationController.pushViewController(obj, animated: true)
         }
     }
     
-    func moveToAccountDetailsVC(usingFor: AccountDetailsVC.UsingFor, forDetails: JSONDictionary, forVoucherTypes: [String]) {
+    func moveToAccountDetailsVC(usingFor: AccountDetailsVC.UsingFor, forDetails: JSONDictionary, forVoucherTypes: [String],deepLinkParam:[String:String] = [:]) {
         if let _ = mainNavigationController.topViewController as? AccountDetailsVC { return }
         let obj = AccountDetailsVC.instantiate(fromAppStoryboard: .Account)
         obj.currentUsingAs = usingFor
         obj.viewModel.allVouchers = forVoucherTypes
         obj.viewModel.setAccountDetails(details: forDetails)
+        obj.viewModel.deepLinkParams = deepLinkParam
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
@@ -956,7 +960,7 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-    func emoveToAccountLadgerDetailsForOnAccount(forEvent: OnAccountLedgerEvent?, detailType: AccountLadgerDetailsVM.AccountLadgerDetailType) {
+    func moveToAccountLadgerDetailsForOnAccount(forEvent: OnAccountLedgerEvent?, detailType: AccountLadgerDetailsVM.AccountLadgerDetailType) {
         let obj = AccountLadgerDetailsVC.instantiate(fromAppStoryboard: .Account)
         obj.viewModel.onAccountEvent = forEvent
         obj.viewModel.detailType = detailType

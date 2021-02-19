@@ -73,7 +73,7 @@ extension OnAccountDetailVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let (currentEvent, _) = self.getEvent(forIndexPath: indexPath)
-        AppFlowManager.default.emoveToAccountLadgerDetailsForOnAccount(forEvent: currentEvent, detailType: .outstandingLadger)
+        AppFlowManager.default.moveToAccountLadgerDetailsForOnAccount(forEvent: currentEvent, detailType: .outstandingLadger)
         
 //        if let bID = currentEvent?.transactionId, !bID.isEmpty {
 //

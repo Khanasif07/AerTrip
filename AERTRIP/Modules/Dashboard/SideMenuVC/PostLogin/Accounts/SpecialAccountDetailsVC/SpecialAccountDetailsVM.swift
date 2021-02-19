@@ -83,6 +83,8 @@ class SpecialAccountDetailsVM {
     private let detailWithDescH: CGFloat = 40.0
     private let grandTotalH: CGFloat = 41.0
     
+    var deepLinkParams = [String:String]()
+    
     //MARK:- Private
     private func getStatementSummery(accountData: AccountModel) {
         let stmtSummery = ["Statement Summary", "Opening Balance", "Recent Transactions", "Total Outstanding"]
@@ -346,4 +348,30 @@ class SpecialAccountDetailsVM {
 }
 
 
+    ///Deep linking functions to get events
+
+extension SpecialAccountDetailsVM{
     
+    func getEventFromOutstadingLadger(with id:String)-> AccountDetailEvent?{
+        let trans = (Array(self.outstandingLadger.ladger.values) as? [[AccountDetailEvent]] ?? []).flatMap{$0}
+        if let event  = trans.first(where: {$0.voucherNo == id}){
+            return event
+        }
+        return nil
+    }
+    func getEventFromAccountLadger(with id:String)-> AccountDetailEvent?{
+        let trans = (Array(self.accountLadger.values) as? [[AccountDetailEvent]] ?? []).flatMap{$0}
+        if let event  = trans.first(where: {$0.voucherNo == id}){
+            return event
+        }
+        return nil
+    }
+    func getEventFromOutstadingOnAccountLadger(with id:String)->OnAccountLedgerEvent?{
+        let trans = (Array(self.outstandingLadger.ladger.values) as? [[OnAccountLedgerEvent]] ?? []).flatMap{$0}
+        if let event  = trans.first(where: {$0.voucherNo == id}){
+            return event
+        }
+        return nil
+        
+    }
+}
