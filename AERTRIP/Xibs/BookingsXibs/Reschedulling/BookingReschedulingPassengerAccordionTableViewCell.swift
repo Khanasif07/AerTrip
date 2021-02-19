@@ -125,7 +125,7 @@ class BookingReschedulingPassengerAccordionTableViewCell: ATTableViewCell {
         pnrStackView.isHidden = hidden
         saleAmntStackView.isHidden = hidden
         cancellationChargeStackView.isHidden = hidden
-        netRefundStackView.isHidden = hidden
+        netRefundStackView.isHidden = true
         selectedTravellerButton.isHidden = hidden
     }
     
