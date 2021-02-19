@@ -22,6 +22,7 @@ class TravellerListVC: BaseVC {
     @IBOutlet weak var bottomBackgroundView: UIView!
     @IBOutlet weak var bottomView: UIView!
     @IBOutlet weak var bottomViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var bottomSafeAreaView: UIView!
     
     @IBOutlet weak var assignGroupButton: UIButton!
     @IBOutlet weak var deleteButton: UIButton!
@@ -116,6 +117,7 @@ class TravellerListVC: BaseVC {
         if shouldHitAPI {
             viewModel.callSearchTravellerListAPI(isShowLoader: true)
         }
+        self.tableView.contentInset = UIEdgeInsets(top: tableViewContentInset, left: 0, bottom: bottomSafeAreaView.height + 20, right: 0)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -397,7 +399,6 @@ class TravellerListVC: BaseVC {
         addLongPressOnTableView()
         topNavView.delegate = self
         updateNavView()
-        self.tableView.contentInset = UIEdgeInsets(top: tableViewContentInset, left: 0, bottom: 0, right: 0)
     }
     
     func registerXib() {
@@ -430,6 +431,7 @@ class TravellerListVC: BaseVC {
     }
     
     private func toggleBottomView(hidden: Bool) {
+        bottomSafeAreaView.isHidden = hidden
         if hidden {
             UIView.animate(withDuration: 0.3) {
                 self.bottomViewHeight.constant = 0
