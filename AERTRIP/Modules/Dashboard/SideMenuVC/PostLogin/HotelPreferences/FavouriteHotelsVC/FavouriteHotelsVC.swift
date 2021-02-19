@@ -201,7 +201,8 @@ extension FavouriteHotelsVC: FavouriteHotelsListVCDelegate {
             self.viewModel.removeHotel(forCity: forCity, cityIndex: self.currentIndex, forHotelAtIndex: forHotelAtIndex)
             //reload list at current city index
             self.allChildVCs[self.currentIndex].viewModel.forCity = self.viewModel.hotels[self.currentIndex]
-            self.allChildVCs[self.currentIndex].collectionView.reloadData()
+//            self.allChildVCs[self.currentIndex].collectionView.reloadData()
+            self.allChildVCs[self.currentIndex].collectionView.deleteItems(at: [IndexPath(item: forHotelAtIndex, section: 0)])
         }
         else {
             //reload complete list
