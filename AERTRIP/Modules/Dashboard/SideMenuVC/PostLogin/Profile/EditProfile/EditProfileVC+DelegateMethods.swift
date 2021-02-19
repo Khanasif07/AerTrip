@@ -354,7 +354,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
         guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: AppConstants.ktableViewHeaderViewIdentifier) as? ViewProfileDetailTableViewSectionView else {
             fatalError("ViewProfileDetailTableViewSectionView not found")
         }
-        let isDivider = sections[section].localized == LocalizedString.EmailAddress.localized || sections[section].localized == LocalizedString.FlightPreferences.localized || sections[section].localized == LocalizedString.SocialAccounts.localized// || sections[section].localized == LocalizedString.PassportDetails.localized
+        let isDivider = sections[section].localized == LocalizedString.EmailAddress.localized || sections[section].localized == LocalizedString.FlightPreferences.localized || sections[section].localized == LocalizedString.SocialAccounts.localized || sections[section].localized == LocalizedString.PassportDetails.localized
         headerView.topSeparatorView.isHidden = isDivider ? false : true
         headerView.topDividerHeightConstraint.constant = isDivider ? 0.5 : 0
         
@@ -1125,7 +1125,7 @@ extension EditProfileVC: FrequentFlyerTableViewCellDelegate {
             if viewModel.currentlyUsinfFor == .addNewTravellerList {
                 presentFFSearchVC(defaultAirlines: self.viewModel.defaultAirlines, delegate: self)
             } else {
-                AppFlowManager.default.moveToFFSearchVC(defaultAirlines: self.viewModel.defaultAirlines, delegate: self)
+                AppFlowManager.default.moveToFFSearchVC(defaultAirlines: self.viewModel.defaultAirlines, delegate: self, selected: self.viewModel.frequentFlyer)
             }
         }
         
@@ -1318,6 +1318,7 @@ extension EditProfileVC {
         controller.modalPresentationStyle = .fullScreen
         controller.delgate = delegate
         controller.defaultAirlines = defaultAirlines
+        controller.selectedAirline = self.viewModel.frequentFlyer
         self.present(controller, animated: true, completion: nil)
     }
     

@@ -273,7 +273,7 @@ class ViewProfileDetailVC: BaseVC {
         }
         
         if !travel.preferences.meal.value.isEmpty {
-            flightDetails.append(travel.preferences.meal.value)
+            flightDetails.append(travel.preferences.meal.name)
             if !sections.contains(LocalizedString.FlightPreferences.localized) {
                 sections.append(LocalizedString.FlightPreferences.localized)
                 flightPreferencesTitle.insert(LocalizedString.mealPreference.rawValue, at: 0)

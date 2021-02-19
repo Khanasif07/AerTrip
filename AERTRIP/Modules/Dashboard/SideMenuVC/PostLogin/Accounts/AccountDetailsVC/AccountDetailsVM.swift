@@ -37,6 +37,7 @@ class AccountDetailsVM: NSObject {
     weak var delegate: AccountDetailsVMDelegate? = nil
     
     var ledgerStartDate: Date = Date()
+    var deepLinkParams:[String:String] = [:]
     
     //MARK:- Private
     
@@ -300,4 +301,13 @@ class AccountDetailsVM: NSObject {
     }
     
     //MARK:- Private
+    
+    func getEventFromAccountLadger(with id:String)-> AccountDetailEvent?{
+        let trans = (Array(self.accountDetails.values) as? [[AccountDetailEvent]] ?? []).flatMap{$0}
+        if let event  = trans.first(where: {$0.voucherNo == id}){
+            return event
+        }
+        return nil
+    }
+
 }

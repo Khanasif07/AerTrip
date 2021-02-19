@@ -344,8 +344,8 @@ extension BookingData {
             default:
                 nameStr = arr.first ?? ""
                 nameStr += " and \(arr.count-1) others"
-                let last = arr.last ?? ""
-                nameStr = arr.joined(separator: ", ") + " and \(last)"
+//                let last = arr.last ?? ""
+//                nameStr = arr.joined(separator: ", ") + " and \(last)"
             }
             
             return nameStr.isEmpty ? "N/A" : "For \(nameStr)" // \(verbStr) \(actionStr)

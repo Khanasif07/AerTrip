@@ -226,7 +226,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let bookingId = pairs["bid"] as? String ?? ""
                 self.openMyBookingVCFromDeepLink(bookingId: bookingId)
             }else if url?.absoluteString.contains("account") ?? false{
-                self.openAccountVCFromDeepLink()
+                let pair = pairs as? [String:String] ?? [:]
+                self.openAccountVCFromDeepLink(with: pair)
             }
         })
     }
@@ -333,12 +334,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     
-    func openAccountVCFromDeepLink(){
+    func openAccountVCFromDeepLink(with param:[String:String]){
         self.moveToRootVC()
         delay(seconds: 1) {
             guard let dashboardVC = (self.window?.rootViewController as? UINavigationController)?.viewControllers.first?.children.first?.children.first as? DashboardVC else { return }
             dashboardVC.profileButtonAction(ATNotificationButton())
-            AppFlowManager.default.moveToAccountDetailsScreen()
+            AppFlowManager.default.moveToAccountDetailsScreen(with: param)
         }
     }
     
