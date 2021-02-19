@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,14 +18,14 @@
                     <rect key="frame" x="0.0" y="0.0" width="346" height="179"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="upwardAertripLogo" translatesAutoresizingMaskIntoConstraints="NO" id="bob-jK-b56">
-                            <rect key="frame" x="160.5" y="38" width="25" height="28"/>
+                            <rect key="frame" x="159.5" y="38" width="27" height="29"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoText" translatesAutoresizingMaskIntoConstraints="NO" id="HJk-Os-vtO">
-                            <rect key="frame" x="117" y="82" width="112" height="14"/>
+                            <rect key="frame" x="113.5" y="83" width="119" height="14"/>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uho-Jk-ZYW">
-                            <rect key="frame" x="70.5" y="119" width="205" height="41"/>
+                            <rect key="frame" x="71.5" y="120" width="203.5" height="41"/>
                             <string key="text">Enjoy a more personalised 
 travel experience</string>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -46,6 +46,7 @@ travel experience</string>
                     </constraints>
                 </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="SJD-h8-ZWh" secondAttribute="trailing" id="6ic-Ef-BUP"/>
@@ -54,7 +55,6 @@ travel experience</string>
                 <constraint firstItem="SJD-h8-ZWh" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="o3K-Gi-9pd"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="logoImageAndNameConstraint" destination="Tfi-Ii-X5l" id="79P-xS-kla"/>
                 <outlet property="logoImageTopContraint" destination="AYg-UO-Nz1" id="9dn-mK-Vza"/>
@@ -67,7 +67,7 @@ travel experience</string>
         </view>
     </objects>
     <resources>
-        <image name="logoText" width="112" height="14"/>
-        <image name="upwardAertripLogo" width="25" height="28"/>
+        <image name="logoText" width="119" height="14"/>
+        <image name="upwardAertripLogo" width="27" height="29"/>
     </resources>
 </document>
