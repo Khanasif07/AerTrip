@@ -1125,7 +1125,7 @@ extension EditProfileVC: FrequentFlyerTableViewCellDelegate {
             if viewModel.currentlyUsinfFor == .addNewTravellerList {
                 presentFFSearchVC(defaultAirlines: self.viewModel.defaultAirlines, delegate: self)
             } else {
-                AppFlowManager.default.moveToFFSearchVC(defaultAirlines: self.viewModel.defaultAirlines, delegate: self)
+                AppFlowManager.default.moveToFFSearchVC(defaultAirlines: self.viewModel.defaultAirlines, delegate: self, selected: self.viewModel.frequentFlyer)
             }
         }
         
@@ -1318,6 +1318,7 @@ extension EditProfileVC {
         controller.modalPresentationStyle = .fullScreen
         controller.delgate = delegate
         controller.defaultAirlines = defaultAirlines
+        controller.selectedAirline = self.viewModel.frequentFlyer
         self.present(controller, animated: true, completion: nil)
     }
     

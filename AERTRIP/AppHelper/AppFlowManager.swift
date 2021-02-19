@@ -345,11 +345,12 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
-    func moveToFFSearchVC(defaultAirlines: [FlyerModel], delegate: SearchVCDelegate?) {
+    func moveToFFSearchVC(defaultAirlines: [FlyerModel], delegate: SearchVCDelegate?, selected:[FrequentFlyer]) {
         let controller = FFSearchVC.instantiate(fromAppStoryboard: .Profile)
         controller.modalPresentationStyle = .fullScreen
         controller.delgate = delegate
         controller.defaultAirlines = defaultAirlines
+        controller.selectedAirline = selected
         self.mainNavigationController.present(controller, animated: true, completion: nil)
     }
     

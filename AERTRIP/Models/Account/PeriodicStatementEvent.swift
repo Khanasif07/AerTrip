@@ -65,7 +65,8 @@ struct PeriodicStatementEvent {
     
     //
     var statementMonth: String? {
-        if let date = statementDate {
+        // statementDate change to periodFrom As per discussion with luvkesh for https://app.asana.com/0/1199093003059613/1199900641430525
+        if let date = self.periodFrom {
             let component = Calendar.current.dateComponents([.month], from: date)
             if let month = component.month{
                 let dateString =  date.toString(dateFormat: "MMM YYYY")
@@ -82,7 +83,8 @@ struct PeriodicStatementEvent {
     }
     
     var statementMonthToMatch:String?{
-        if let date = statementDate {
+        // statementDate change to periodFrom As per discussion with luvkesh for https://app.asana.com/0/1199093003059613/1199900641430525
+        if let date = self.periodFrom {
             return date.toString(dateFormat: "MMM YYYY")
         }
         return nil
@@ -90,7 +92,8 @@ struct PeriodicStatementEvent {
     
     var statementYear: String? {
         
-        if let date = statementDate, let monthWithYear = self.statementMonth,let newMonth =  statementMonthToMatch{
+        if let date = periodFrom, let monthWithYear = self.statementMonth,let newMonth =  statementMonthToMatch{
+            // statementDate change to periodFrom As per discussion with luvkesh for https://app.asana.com/0/1199093003059613/1199900641430525
             
             if date.monthsForFinancialYear.contains(monthWithYear) || date.monthsForFinancialYear.contains(newMonth){
                 //srart with current year

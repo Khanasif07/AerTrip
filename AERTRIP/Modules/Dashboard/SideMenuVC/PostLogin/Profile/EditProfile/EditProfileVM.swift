@@ -365,8 +365,10 @@ class EditProfileVM {
         }
         
         for (idx, mobileObj) in _mobile.enumerated() {
-            for key in Array(mobileObj.jsonDict.keys) {
-                params["contact[mobile][\(idx)][\(key)]"] = mobileObj.jsonDict[key]
+            if mobileObj.label.localized != LocalizedString.Default.localized{
+                for key in Array(mobileObj.jsonDict.keys) {
+                    params["contact[mobile][\(idx)][\(key)]"] = mobileObj.jsonDict[key]
+                }
             }
         }
         

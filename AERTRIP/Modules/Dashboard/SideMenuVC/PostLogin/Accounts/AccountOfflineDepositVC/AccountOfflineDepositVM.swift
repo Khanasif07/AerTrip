@@ -46,7 +46,7 @@ class AccountOfflineDepositVM: NSObject {
         }
         else {
             param["transfer_type"] = userEnteredDetails.transferType
-            param["swift_code"] = userEnteredDetails.utrCode
+            param["utr_number"] = userEnteredDetails.utrCode
             param["deposit_date"] = userEnteredDetails.depositDateStr
         }
         
