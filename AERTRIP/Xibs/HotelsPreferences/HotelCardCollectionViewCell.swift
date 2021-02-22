@@ -169,11 +169,16 @@ class HotelCardCollectionViewCell: AppStoreAnimationCollectionCell {
 //            self.hotelImageView.setImageWithUrl(self.hotelData?.photo ?? "", placeholder: image, showIndicator: false)
 //        }
         self.hotelImageView.cancelImageDownloading()
-        self.hotelImageView.setImageWithUrl(imageUrl: self.hotelData?.photo ?? "", placeholder: #imageLiteral(resourceName: "hotelCardPlaceHolder"), showIndicator: false) { [weak self] (image, error) in
-            if let downloadedImage = image {
-                self?.hotelImageView.image = downloadedImage
-            } else {
-                self?.hotelImageView.image = #imageLiteral(resourceName: "hotelCardNoImagePlaceHolder")
+        let imageUrlStr = self.hotelData?.photo ?? ""
+        if imageUrlStr.isEmpty {
+            self.hotelImageView.image = #imageLiteral(resourceName: "hotelCardNoImagePlaceHolder")
+        } else {
+            self.hotelImageView.setImageWithUrl(imageUrl: imageUrlStr, placeholder: #imageLiteral(resourceName: "hotelCardPlaceHolder"), showIndicator: false) { [weak self] (image, error) in
+                if let downloadedImage = image {
+                    self?.hotelImageView.image = downloadedImage
+                } else {
+                    self?.hotelImageView.image = #imageLiteral(resourceName: "hotelCardNoImagePlaceHolder")
+                }
             }
         }
     }
