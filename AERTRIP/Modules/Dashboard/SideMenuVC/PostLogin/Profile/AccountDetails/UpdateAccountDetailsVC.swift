@@ -52,7 +52,7 @@ class UpdateAccountDetailsVC: BaseVC {
         navView.configureNavBar(title: title, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
         navView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.DoneWithSpace.localized, selectedTitle: LocalizedString.DoneWithSpace.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
         navView.configureLeftButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.CancelWithSpace.localized, selectedTitle: LocalizedString.CancelWithSpace.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
-        navView.dividerView.isHidden = false
+        navView.dividerView.isHidden = true
         setInitialValues()
     }
     
@@ -146,6 +146,10 @@ extension UpdateAccountDetailsVC: UITableViewDelegate, UITableViewDataSource{
                 return cell
             }
         }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        navView.dividerView.isHidden = scrollView.contentOffset.y >= 0 && scrollView.contentOffset.y <= 0.5
     }
     
 }
