@@ -197,16 +197,18 @@ extension SearchFavouriteHotelsVC: HotelCardCollectionViewCellDelegate {
 }
 
 extension SearchFavouriteHotelsVC: SearchFavouriteHotelsVMDelegate {
-    func willUpdateFavourite() {
+    func willUpdateFavourite(hIndex: Int) {
         self.startLoading()
-        self.collectionView.reloadData()
+        collectionView.reloadItems(at: IndexPath(item: hIndex, section: 0))
+//        self.collectionView.reloadData()
 //        self.sendDataChangedNotification(data: self)
     }
     
-    func updateFavouriteSuccess(withMessage: String) {
+    func updateFavouriteSuccess(withMessage: String, hIndex: Int) {
         self.stopLoading()
      //   AppToast.default.showToastMessage(message: withMessage, vc: self)
-        self.collectionView.reloadData()
+//        self.collectionView.reloadData()
+        collectionView.reloadItems(at: IndexPath(item: hIndex, section: 0))
         self.sendDataChangedNotification(data: self)
     }
     
