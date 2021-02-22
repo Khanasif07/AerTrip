@@ -44,7 +44,8 @@ class SelectDestinationVC: BaseVC {
     @IBOutlet weak var bottomViewHeightConstraint: NSLayoutConstraint!
 //    @IBOutlet weak var mainContainerViewHeightConstraint: NSLayoutConstraint!
     
-    
+    @IBOutlet weak var didYouMeanLbl: UILabel!
+    @IBOutlet weak var headerViewHeight: NSLayoutConstraint!
     
     //MARK:- Properties
     
@@ -88,6 +89,7 @@ class SelectDestinationVC: BaseVC {
     
     override func setupFonts() {
         cancelButton.titleLabel?.font = AppFonts.Regular.withSize(18.0)
+        didYouMeanLbl.font = AppFonts.Regular.withSize(14.0)
     }
     
     override func setupTexts() {
@@ -96,6 +98,7 @@ class SelectDestinationVC: BaseVC {
         cancelButton.setTitle(LocalizedString.Cancel.localized, for: .selected)
         
         searchBar.placeholder = LocalizedString.CityAreaOrHotels.localized
+        didYouMeanLbl.text = LocalizedString.didYouMean.localized.uppercased() + "?"
     }
     
     override func setupColors() {
@@ -103,6 +106,7 @@ class SelectDestinationVC: BaseVC {
         cancelButton.setTitleColor(AppColors.themeGreen, for: .selected)
         
         cancelButton.setTitle(LocalizedString.Cancel.localized, for: .selected)
+        didYouMeanLbl.textColor = AppColors.themeGray60
     }
     
     override func bindViewModel() {
@@ -112,8 +116,9 @@ class SelectDestinationVC: BaseVC {
     //MARK:- Methods
     //MARK:- Private
     private func initialSetups() {
+        headerViewHeight.constant = viewModel.headerViewHeight.min
+        didYouMeanLbl.isHidden = true
         tableView.contentInset = UIEdgeInsets(top: headerView.height, left: 0.0, bottom: 0.0, right: 0.0)
-
         registerXib()
         
 //        let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
@@ -350,6 +355,18 @@ extension SelectDestinationVC: SelectDestinationVMDelegate {
             self.noResultemptyView.searchTextLabel.text = ""
             self.tableView.backgroundView?.isHidden = true
         }
+        if viewModel.showDidYouMeanLbl {
+            didYouMeanLbl.isHidden = false
+            headerViewHeight.constant = viewModel.headerViewHeight.max
+            tableView.contentInset = UIEdgeInsets(top: viewModel.headerViewHeight.max, left: 0.0, bottom: 0.0, right: 0.0)
+            headerView.layoutSubviews()
+            
+        } else {
+            didYouMeanLbl.isHidden = true
+            headerViewHeight.constant = viewModel.headerViewHeight.min
+            tableView.contentInset = UIEdgeInsets(top: viewModel.headerViewHeight.min, left: 0.0, bottom: 0.0, right: 0.0)
+            headerView.layoutSubviews()
+        }
         self.reloadData()
     }
     
@@ -379,6 +396,10 @@ extension SelectDestinationVC: UISearchBarDelegate {
             //clear all data and reload to initial view
             self.noResultemptyView.searchTextLabel.text = ""
             self.isInSearchMode = false
+            didYouMeanLbl.isHidden = true
+            headerViewHeight.constant = viewModel.headerViewHeight.min
+            tableView.contentInset = UIEdgeInsets(top: viewModel.headerViewHeight.min, left: 0.0, bottom: 0.0, right: 0.0)
+            headerView.layoutSubviews()
         } else if searchText.count >= AppConstants.kSearchTextLimit {
             //search text
             self.noResultemptyView.searchTextLabel.isHidden = false

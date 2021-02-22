@@ -339,6 +339,7 @@
 "HotelsNearMe" = "Hotels near me";
 "RecentlySearchedDestinations" = "Recently Searched Destinations";
 "PopularDestinations" = "Popular Destinations";
+"didYouMean" = "Did you mean";
 
 
 //MARK:- Bulk Booking
