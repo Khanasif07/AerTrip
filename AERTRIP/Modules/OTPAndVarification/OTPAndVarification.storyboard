@@ -81,7 +81,7 @@
                                                                                 </constraints>
                                                                             </imageView>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZF9-Bb-7cU">
-                                                                                <rect key="frame" x="25" y="12" width="20.5" height="21"/>
+                                                                                <rect key="frame" x="25" y="11" width="18" height="23"/>
                                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                                 <nil key="highlightedColor"/>
@@ -157,13 +157,13 @@
                                                 </subviews>
                                             </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YUA-Gc-l4m" customClass="ActiveLabel" customModule="ActiveLabel">
-                                                <rect key="frame" x="16" y="269.5" width="382" height="21"/>
+                                                <rect key="frame" x="16" y="269.5" width="382" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rhf-zm-oZ0" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="132" y="306.5" width="150" height="50"/>
+                                                <rect key="frame" x="132" y="306" width="150" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="150" id="fxp-JL-RtX"/>
                                                     <constraint firstAttribute="height" constant="50" id="lzJ-K4-ztI"/>
@@ -632,7 +632,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="omn-nK-n8h" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <rect key="frame" x="0.0" y="87.5" width="414" height="808.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kox-et-U2g" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
@@ -663,7 +663,7 @@
                             <constraint firstItem="omn-nK-n8h" firstAttribute="leading" secondItem="XFB-zn-pvZ" secondAttribute="leading" id="g2V-9H-8q1"/>
                             <constraint firstItem="Kox-et-U2g" firstAttribute="bottom" secondItem="ifW-6g-M55" secondAttribute="bottom" id="iVa-1g-txa"/>
                             <constraint firstItem="Kox-et-U2g" firstAttribute="trailing" secondItem="ifW-6g-M55" secondAttribute="trailing" id="wzY-L6-KEY"/>
-                            <constraint firstItem="omn-nK-n8h" firstAttribute="top" secondItem="Kox-et-U2g" secondAttribute="bottom" id="y6G-oE-bNE"/>
+                            <constraint firstItem="omn-nK-n8h" firstAttribute="top" secondItem="Kox-et-U2g" secondAttribute="bottom" constant="-0.5" id="y6G-oE-bNE"/>
                         </constraints>
                     </view>
                     <connections>
@@ -678,31 +678,31 @@
     </scenes>
     <designables>
         <designable name="4jy-Ri-TrP">
-            <size key="intrinsicContentSize" width="4" height="19"/>
+            <size key="intrinsicContentSize" width="4" height="18.5"/>
         </designable>
         <designable name="FgI-Lp-Fw0">
-            <size key="intrinsicContentSize" width="4" height="19"/>
+            <size key="intrinsicContentSize" width="4" height="18.5"/>
         </designable>
         <designable name="Hqn-Xw-Ktj">
-            <size key="intrinsicContentSize" width="4" height="19"/>
+            <size key="intrinsicContentSize" width="4" height="18.5"/>
         </designable>
         <designable name="Jj2-wh-1Yu">
-            <size key="intrinsicContentSize" width="4" height="19"/>
+            <size key="intrinsicContentSize" width="4" height="18.5"/>
         </designable>
         <designable name="LW2-o7-uio">
-            <size key="intrinsicContentSize" width="4" height="19"/>
+            <size key="intrinsicContentSize" width="4" height="18.5"/>
         </designable>
         <designable name="MIP-Ho-8Lf">
-            <size key="intrinsicContentSize" width="4" height="19"/>
+            <size key="intrinsicContentSize" width="4" height="18.5"/>
         </designable>
         <designable name="YUA-Gc-l4m">
-            <size key="intrinsicContentSize" width="42" height="21"/>
+            <size key="intrinsicContentSize" width="41.5" height="20.5"/>
         </designable>
         <designable name="bvg-UI-V3Q">
-            <size key="intrinsicContentSize" width="42" height="21"/>
+            <size key="intrinsicContentSize" width="41.5" height="20.5"/>
         </designable>
         <designable name="knc-an-PRs">
-            <size key="intrinsicContentSize" width="42" height="21"/>
+            <size key="intrinsicContentSize" width="41.5" height="20.5"/>
         </designable>
     </designables>
     <resources>

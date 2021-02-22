@@ -86,31 +86,31 @@ struct UserAccountDetail {
         var addressStr = ""
         
         if !billingAddress.line1.isEmpty{
-            addressStr.append(billingAddress.line1 + ",\n")
+            addressStr.append(billingAddress.line1)
         }
         
         if !billingAddress.line2.isEmpty {
-            addressStr.append(billingAddress.line2 + ",\n")
+            addressStr.append(",\n" + billingAddress.line2 )
         }
         
         if !billingAddress.line3.isEmpty{
-            addressStr.append(billingAddress.line3 + ",\n")
+            addressStr.append(",\n" + billingAddress.line3)
         }
         
         if !billingAddress.city.isEmpty{
-            addressStr.append(billingAddress.city + " ")
+            addressStr.append(",\n" + billingAddress.city)
         }
         
         if !billingAddress.postalCode.isEmpty{
-            addressStr.append(billingAddress.postalCode + ",\n")
+            addressStr.append(" " + billingAddress.postalCode)
         }
         
         if !billingAddress.state.isEmpty{
-            addressStr.append(billingAddress.state + ", ")
+            addressStr.append(",\n" + billingAddress.state)
         }
         
         if !billingAddress.countryName.isEmpty{
-            addressStr.append(billingAddress.countryName)
+            addressStr.append(", " + billingAddress.countryName)
         }
         
         return addressStr

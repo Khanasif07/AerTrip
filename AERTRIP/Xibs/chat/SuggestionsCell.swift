@@ -35,21 +35,10 @@ class SuggestionsCell : UICollectionViewCell {
         self.suggestionLabel.font = AppFonts.SemiBold.withSize(14)
         self.suggestionLabel.textColor = AppColors.themeGray60
         
-//        let suggestion = data.dest_name
-//        self.suggestionLabel.attributedText = suggestion.attributeStringWithColors(stringToColor: "India", strClr: UIColor.black, substrClr: AppColors.themeGray60, strFont: AppFonts.SemiBold.withSize(18), strClrFont: AppFonts.SemiBold.withSize(14))
         let cityName = data.dest_name.split(separator: ",").first ?? ""
-        let countryCode = data.dest_name.split(separator: ",").last ?? ""
-        //        self.cityNameLabel.text = "\(cityName)"
         let prefix: String = cityName.isEmpty ? "" : "\(cityName),"
-        let suffix: String = countryCode.isEmpty ? "" : ",\(countryCode)"
-        
-        var stateText = data.dest_name.deletingPrefix(prefix: prefix).removeSpaceAsSentence
-        stateText = stateText.deletingSuffix(suffix: suffix).removeSpaceAsSentence
-        
-        self.suggestionLabel.text = "\(cityName) " + stateText
-        self.suggestionLabel.AttributedFontAndColorForText(atributedText: "\(cityName)", textFont: AppFonts.SemiBold.withSize(18.0), textColor: AppColors.themeBlack)
-        
-//        self.suggestionLabel.text = suggestion
+        let stateText = data.dest_name.deletingPrefix(prefix: prefix).removeSpaceAsSentence
+        self.suggestionLabel.attributedText = self.createAttributedText(attTxt: "\(cityName) ", normalText: stateText)
         self.suggestionImageView.image = #imageLiteral(resourceName: "hotelCopy4")
         
         let checkIn = Date.getDateFromString(stringDate: data.checkInDate, currentFormat: Date.DateFormat.EComaddMMMyy.rawValue, requiredFormat: Date.DateFormat.ddMMM.rawValue) ?? ""
@@ -89,6 +78,16 @@ class SuggestionsCell : UICollectionViewCell {
     
     func populateData(data : RecentSearchesModel){
         data.type == .hotel ? self.configureHotelCell(data : data) : self.configureFlightCell(data : data)
+    }
+    
+    //MARK:- To add attributes in hotel title text.
+    func createAttributedText(attTxt: String, normalText: String)-> NSAttributedString{
+        let attStr = NSMutableAttributedString(string: attTxt, attributes: [.font: AppFonts.SemiBold.withSize(18.0), .foregroundColor: AppColors.themeBlack])
+        
+        let sufix = NSAttributedString(string: normalText, attributes: [.font: AppFonts.SemiBold.withSize(14.0), .foregroundColor: AppColors.themeGray60])
+        attStr.append(sufix)
+        return attStr
+        
     }
     
 }

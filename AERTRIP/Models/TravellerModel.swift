@@ -23,6 +23,7 @@ struct TravellerModel {
     var email:String = ""
     var isd:String = ""
     var ffp:[FFP]?
+    var mealp:String = ""
     
     init() {
         let json = JSON()
@@ -66,6 +67,7 @@ struct TravellerModel {
         contact.emailLabel = self.email
         contact.contact = mobile
         contact.isd = self.isd
+        contact.mealP = self.mealp
         return contact
     }
     
@@ -85,6 +87,7 @@ struct TravellerModel {
         mobile = json["mobile"].stringValue
         email = json["email"].stringValue
         isd = json["isd"].stringValue
+        mealp = json["mealp"].stringValue
     }
     
     static func models(jsonArr: [JSON]) -> [TravellerModel] {
