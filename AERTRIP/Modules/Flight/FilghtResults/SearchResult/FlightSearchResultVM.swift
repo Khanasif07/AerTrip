@@ -17,13 +17,13 @@ protocol FlightResultViewModelDelegate : class {
     func showNoFilteredResultsAt(index : Int)
     func filtersApplied(_ isApplied :  Bool )
     func applySorting(sortOrder : Sort, isConditionReverced : Bool, legIndex : Int)
-    func showDepartReturnSame(_ show: Bool)
+    func showDepartReturnSame(_ show: Bool, selected: Bool)
     func updateDynamicFilters(filters : DynamicFilters)
 }
 
 
 extension FlightResultViewModelDelegate {
-    func showDepartReturnSame(_ show: Bool) { }
+    func showDepartReturnSame(_ show: Bool, selected: Bool) { }
     func applySorting(sortOrder : Sort, isConditionReverced : Bool, legIndex : Int) { }
 }
 

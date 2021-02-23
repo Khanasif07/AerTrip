@@ -92,6 +92,10 @@ class FlightsRecentSearchesParamConverter: NSObject {
             }
         }
         
+        if let departReturnSame = filter["departReturnSame"].int {
+            jsonDict["filters[0][departReturnSame]"] = departReturnSame.toString
+        }
+        
         return jsonDict
     }
 }

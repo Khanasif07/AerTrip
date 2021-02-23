@@ -572,6 +572,9 @@ extension FlightSearchResultVM {
                 filterArr.append(filterDict)
             }
         }
+        if legs[0].UIFilters.contains(.originDestinationSame) {
+            filterArr[0]["departReturnSame"] = 1
+        }
         return filterArr
     }
     

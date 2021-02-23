@@ -70,6 +70,7 @@ struct ATContact {
     var mealPreference = [MealPreference]()
     var frequentFlyer = [FrequentFlyer]()
     var ffp:[FFP]?
+    var mealP:String = ""
     //---------------------------------------------------------------------
     var flImage: UIImage? {
         return AppGlobals.shared.getImageFor(firstName: firstName, lastName: lastName, font: AppFonts.Regular.withSize(38.0), offSet: CGPoint(x: 0, y: 9))

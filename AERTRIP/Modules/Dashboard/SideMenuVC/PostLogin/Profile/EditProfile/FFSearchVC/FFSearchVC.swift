@@ -130,7 +130,7 @@ extension FFSearchVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard (!self.selectedAirline.contains(where: {$0.airlineCode.lowercased() == searchData[indexPath.row].iata.lowercased()})) else{
-            AppToast.default.showToastMessage(message: "Airline is already added in Frequent flyer.")
+            AppToast.default.showToastMessage(message: "Airline is already added in Frequent flyer")
             return
         }
         delgate?.frequentFlyerSelected(searchData[indexPath.row])

@@ -1,49 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clipsSubviews="YES" contentMode="scaleToFill" id="SoX-9B-BV4" customClass="HotelSearchResultHeaderView" customModule="AERTRIP" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="473" height="69"/>
+            <rect key="frame" x="0.0" y="0.0" width="473" height="145"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Po-wH-u8z">
                     <rect key="frame" x="0.0" y="0.0" width="473" height="44"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="EOP-SJ-86Z">
-                            <rect key="frame" x="16" y="16" width="441" height="20"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="kM9-7n-BYs">
+                            <rect key="frame" x="16" y="16" width="441" height="48.5"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ju3-C5-J15">
-                                    <rect key="frame" x="0.0" y="0.0" width="385" height="20"/>
+                                <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="EOP-SJ-86Z">
+                                    <rect key="frame" x="0.0" y="0.0" width="441" height="20"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ju3-C5-J15">
+                                            <rect key="frame" x="0.0" y="0.0" width="385" height="20"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gfm-0h-gzc">
+                                            <rect key="frame" x="395" y="0.0" width="46" height="20"/>
+                                            <state key="normal" title="Button"/>
+                                            <connections>
+                                                <action selector="clearButtonTapped:" destination="SoX-9B-BV4" eventType="touchUpInside" id="1UQ-Hq-gqz"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="20" id="gDj-D6-XRy"/>
+                                    </constraints>
+                                </stackView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="prices are inclusive" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WFd-ml-xL2">
+                                    <rect key="frame" x="0.0" y="28" width="441" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gfm-0h-gzc">
-                                    <rect key="frame" x="395" y="0.0" width="46" height="20"/>
-                                    <state key="normal" title="Button"/>
-                                    <connections>
-                                        <action selector="clearButtonTapped:" destination="SoX-9B-BV4" eventType="touchUpInside" id="1UQ-Hq-gqz"/>
-                                    </connections>
-                                </button>
                             </subviews>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="20" id="gDj-D6-XRy"/>
-                            </constraints>
                         </stackView>
                     </subviews>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
-                        <constraint firstAttribute="trailing" secondItem="EOP-SJ-86Z" secondAttribute="trailing" constant="16" id="A5E-fI-NGP"/>
-                        <constraint firstItem="EOP-SJ-86Z" firstAttribute="top" secondItem="4Po-wH-u8z" secondAttribute="top" constant="16" id="Afb-qt-hsr"/>
-                        <constraint firstItem="EOP-SJ-86Z" firstAttribute="leading" secondItem="4Po-wH-u8z" secondAttribute="leading" constant="16" id="d4P-vv-H1B"/>
+                        <constraint firstItem="kM9-7n-BYs" firstAttribute="top" secondItem="4Po-wH-u8z" secondAttribute="top" constant="16" id="i5Q-cx-yvE"/>
                         <constraint firstAttribute="height" constant="44" id="iwd-2y-OhE"/>
+                        <constraint firstAttribute="trailing" secondItem="kM9-7n-BYs" secondAttribute="trailing" constant="16" id="lGl-r8-h5P"/>
+                        <constraint firstItem="kM9-7n-BYs" firstAttribute="leading" secondItem="4Po-wH-u8z" secondAttribute="leading" constant="16" id="qkA-hA-91g"/>
                     </constraints>
                 </view>
             </subviews>
@@ -51,7 +63,7 @@
             <constraints>
                 <constraint firstItem="4Po-wH-u8z" firstAttribute="leading" secondItem="SoX-9B-BV4" secondAttribute="leading" id="1Bl-Tb-vii"/>
                 <constraint firstAttribute="trailing" secondItem="4Po-wH-u8z" secondAttribute="trailing" id="4q2-Le-JxR"/>
-                <constraint firstAttribute="bottom" secondItem="4Po-wH-u8z" secondAttribute="bottom" id="mTU-yr-H7Z"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="4Po-wH-u8z" secondAttribute="bottom" id="mTU-yr-H7Z"/>
                 <constraint firstItem="4Po-wH-u8z" firstAttribute="top" secondItem="SoX-9B-BV4" secondAttribute="top" id="sqK-VC-bsY"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -59,9 +71,16 @@
                 <outlet property="clearButton" destination="gfm-0h-gzc" id="lYE-QC-Qrx"/>
                 <outlet property="containerView" destination="4Po-wH-u8z" id="hNf-ND-dVI"/>
                 <outlet property="heightConstraint" destination="iwd-2y-OhE" id="tXb-5e-lfD"/>
+                <outlet property="pricesInclusiveLbl" destination="WFd-ml-xL2" id="HPP-Wx-jos"/>
+                <outlet property="searchStackView" destination="EOP-SJ-86Z" id="Dqn-Pr-aJg"/>
                 <outlet property="titleLabel" destination="ju3-C5-J15" id="TMv-M8-2oJ"/>
             </connections>
-            <point key="canvasLocation" x="216.80000000000001" y="-114.69265367316342"/>
+            <point key="canvasLocation" x="216.66666666666669" y="-89.397321428571431"/>
         </view>
     </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

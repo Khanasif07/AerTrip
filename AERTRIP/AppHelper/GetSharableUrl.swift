@@ -1132,7 +1132,9 @@ class GetSharableUrl
                 
             }
         }
-        
+        if legs[0].UIFilters.contains(.originDestinationSame) {
+            filterString.append("&filters[0][departReturnSame]=1")
+        }
         return filterString
     }
     
