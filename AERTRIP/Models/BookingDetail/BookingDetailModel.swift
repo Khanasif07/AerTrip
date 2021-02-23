@@ -2009,6 +2009,7 @@ struct Receipt {
     
     var totalAmountDue: Double = 0.0
     var totalAmountPaid: Double = 0.0
+    var reversalMF:Double = 0.0
     
     init() {
         self.init(json: [:], bookingId: "")
@@ -2021,6 +2022,9 @@ struct Receipt {
         
         if let obj = json["total_amount_paid"] {
             self.totalAmountPaid = "\(obj)".toDouble ?? 0.0
+        }
+        if let obj = json["reversalMF"]{
+            self.reversalMF = "\(obj)".toDouble ?? 0.0
         }
         
         if let obj = json["vouchers"] as? [JSONDictionary] {

@@ -32,7 +32,7 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
         if tableView == self.tableView{
             return section == 0 ? 45 : 35
         }else{
-            return CGFloat.leastNonzeroMagnitude
+            return section == 0 ? 45 : 35//CGFloat.leastNonzeroMagnitude
         }
         
     }
