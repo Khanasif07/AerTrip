@@ -137,6 +137,7 @@ enum LocalizedString: String {
     case Please_enter_Current_Password
     case Please_enter_Valid_Password
     case Password_must_qualify_conditions
+    case pleaseEnterAPassword
     
     // MARK: - CreateProfileVC
     

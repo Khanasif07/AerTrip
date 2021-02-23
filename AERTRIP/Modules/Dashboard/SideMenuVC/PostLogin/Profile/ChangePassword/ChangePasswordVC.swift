@@ -43,6 +43,13 @@ class ChangePasswordVC: BaseVC {
     @IBOutlet weak var topNavBar: TopNavigationView!
     @IBOutlet weak var oldPasswordHeightConstraint: NSLayoutConstraint!
     
+    //Enter password labels outlets
+    @IBOutlet weak var enterPasswordLabel: UILabel!
+    @IBOutlet weak var enterPasswordTop: NSLayoutConstraint!
+    @IBOutlet weak var enterPasswordHeight: NSLayoutConstraint!
+    @IBOutlet weak var enterPasswordBottom: NSLayoutConstraint!
+    
+    
     //MARK:- ViewLifeCycle
     //MARK:-
     override func viewDidLoad() {
@@ -83,14 +90,17 @@ class ChangePasswordVC: BaseVC {
         self.upperCaseLabel.font = AppFonts.Regular.withSize(12)
         self.specialLabel.font = AppFonts.Regular.withSize(12)
         self.charactersLabel.font = AppFonts.Regular.withSize(12)
+        self.enterPasswordLabel.font = AppFonts.Regular.withSize(16)
     }
     
     override func setupTexts() {
         
         if self.viewModel.isPasswordType == .setPassword {
-            self.secureAccountLabel.text = LocalizedString.Set_password.localized
+            self.secureAccountLabel.text = LocalizedString.Set_password.localized.replacingOccurrences(of: " ", with: "\n")
+            self.enterPasswordLabel.text = LocalizedString.pleaseEnterAPassword.localized
         } else {
             self.secureAccountLabel.text = LocalizedString.ChangePassword.localized.split(separator: " ").joined(separator: "\n")
+            self.enterPasswordLabel.text = ""
         }
         self.nextButton.setTitle(LocalizedString.Change.localized, for: .normal)
         self.passwordConditionLabel.text = LocalizedString.Password_Conditions.localized
@@ -120,6 +130,7 @@ class ChangePasswordVC: BaseVC {
         self.specialLabel.tintColor = AppColors.themeGray60
         self.eightPlusLabel.tintColor = AppColors.themeGray60
         self.charactersLabel.tintColor = AppColors.themeGray60
+        self.enterPasswordLabel.textColor = AppColors.themeBlack
     }
     
     override func bindViewModel() {
@@ -218,9 +229,15 @@ private extension ChangePasswordVC {
         self.passwordTextField.rightViewMode = .always
         
         if self.viewModel.isPasswordType == .setPassword {
+            self.enterPasswordLabel.isHidden = false
             self.oldPasswordHeightConstraint.constant = 0
             self.oldPasswordTextField.isHidden = true
             self.showOldPasswordButton.isHidden = true
+        }else{
+            self.enterPasswordLabel.isHidden = true
+            self.enterPasswordTop.constant = 0.0
+            self.enterPasswordHeight.constant = 0.0
+            self.enterPasswordBottom.constant = 33.0
         }
         
         passwordTextField.isSecureTextEntry = false

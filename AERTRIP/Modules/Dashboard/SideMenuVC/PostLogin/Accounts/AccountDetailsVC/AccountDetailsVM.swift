@@ -95,7 +95,7 @@ class AccountDetailsVM: NSObject {
                         return ((event.title.lowercased().contains(forText.lowercased())) || (event.voucherNo.lowercased().contains(forText.lowercased())) ||
                                     (event.bookingNumber.lowercased().contains(forText.lowercased())) ||
                                     (event.airline.lowercased().contains(forText.lowercased())) ||
-                                    (self.removeSpecialChar(from:event.flightNumber).contains(self.removeSpecialChar(from: forText))))
+                                    (self.removeSpecialChar(from:event.flightNumber).contains(self.removeSpecialChar(from: forText))) || (self.removeSpecialChar(from:event.voucher.rawValue).contains(self.removeSpecialChar(from: forText))) ||  (self.removeSpecialChar(from:"\(event.amount)").contains(self.removeSpecialChar(from: forText))))
 //                                    ||
 //                                    (event.bookingId.lowercased().contains(forText.lowercased())))
                         

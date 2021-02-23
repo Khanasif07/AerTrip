@@ -100,7 +100,7 @@ class AccountOutstandingLadgerVM: NSObject {
                             (event.bookingNumber.lowercased().contains(forText.lowercased())) ||
                             (event.airline.lowercased().contains(forText.lowercased())) ||
                             (self.removeSpecialChar(from:event.flightNumber).contains(self.removeSpecialChar(from: forText))) ||
-                            (event.bookingId.lowercased().contains(forText.lowercased())))
+                            (event.bookingId.lowercased().contains(forText.lowercased()))  || (self.removeSpecialChar(from:event.voucher.rawValue).contains(self.removeSpecialChar(from: forText))) ||  (self.removeSpecialChar(from:"\(event.amount)").contains(self.removeSpecialChar(from: forText)))  ||  (self.removeSpecialChar(from:"\(event.pendingAmount)").contains(self.removeSpecialChar(from: forText))))
                         
                     }
                     if !fltrd.isEmpty {
