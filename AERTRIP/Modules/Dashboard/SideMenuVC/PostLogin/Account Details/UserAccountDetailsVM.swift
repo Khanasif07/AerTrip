@@ -71,10 +71,13 @@ struct UserAccountDetail {
         }
         
         if !billingAddress.state.isEmpty{
-            addressStr.append(billingAddress.state + ", ")
+            addressStr.append(billingAddress.state)
         }
         
         if !billingAddress.countryName.isEmpty{
+            if !billingAddress.state.isEmpty {
+                addressStr.append(", ")
+            }
             addressStr.append(billingAddress.countryName)
         }
         
@@ -86,31 +89,34 @@ struct UserAccountDetail {
         var addressStr = ""
         
         if !billingAddress.line1.isEmpty{
-            addressStr.append(billingAddress.line1)
+            addressStr.append(billingAddress.line1 + ",\n")
         }
         
         if !billingAddress.line2.isEmpty {
-            addressStr.append(",\n" + billingAddress.line2 )
+            addressStr.append(billingAddress.line2 + ",\n")
         }
         
         if !billingAddress.line3.isEmpty{
-            addressStr.append(",\n" + billingAddress.line3)
+            addressStr.append(billingAddress.line3 + ",\n")
         }
         
         if !billingAddress.city.isEmpty{
-            addressStr.append(",\n" + billingAddress.city)
+            addressStr.append(billingAddress.city + " ")
         }
         
         if !billingAddress.postalCode.isEmpty{
-            addressStr.append(" " + billingAddress.postalCode)
+            addressStr.append(billingAddress.postalCode + ",\n")
         }
         
         if !billingAddress.state.isEmpty{
-            addressStr.append(",\n" + billingAddress.state)
+            addressStr.append(billingAddress.state)
         }
         
         if !billingAddress.countryName.isEmpty{
-            addressStr.append(", " + billingAddress.countryName)
+            if !billingAddress.state.isEmpty {
+                addressStr.append(", ")
+            }
+            addressStr.append(billingAddress.countryName)
         }
         
         return addressStr

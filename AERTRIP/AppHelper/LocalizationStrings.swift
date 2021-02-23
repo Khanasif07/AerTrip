@@ -428,6 +428,7 @@ enum LocalizedString: String {
     case HotelsNearMe
     case RecentlySearchedDestinations
     case PopularDestinations
+    case didYouMean
     
     // MARK: - Bulk Booking
     

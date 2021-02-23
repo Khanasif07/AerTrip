@@ -101,6 +101,9 @@ class SelectDestinationVM: NSObject {
         return self._recentSearches ?? [SearchedDestination]()
     }
     
+    var showDidYouMeanLbl = false
+    var headerViewHeight: (min: CGFloat, max: CGFloat) = (70, 100)
+    
     weak var delegate: SelectDestinationVMDelegate?
     
     //MARK:- Private
@@ -153,9 +156,16 @@ class SelectDestinationVM: NSObject {
         param["q"] = forText
         APICaller.shared.getSearchedDestinationHotels(params: param) { [weak self] (success, errors, hotels) in
             guard let sSelf = self else {return}
+            var hotelsDict = hotels
             
             if success {
-                sSelf.searchedHotels = hotels                
+                if let showDidYouMean = hotelsDict["showDidYouMean"] as? Bool, showDidYouMean {
+                    sSelf.showDidYouMeanLbl = true
+                    hotelsDict.removeValue(forKey: "showDidYouMean")
+                } else {
+                    sSelf.showDidYouMeanLbl = false
+                }
+                sSelf.searchedHotels = hotelsDict
                 sSelf.delegate?.searchDestinationSuccess()
             }
             else {
