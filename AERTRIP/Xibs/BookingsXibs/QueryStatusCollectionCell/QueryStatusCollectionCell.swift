@@ -39,7 +39,7 @@ class QueryStatusCollectionCell: UICollectionViewCell {
     //MARK:- Functions
     //================
     private func configUI() {
-        self.statusLabel.textColor = AppColors.themeGray40
+        self.statusLabel.textColor = AppColors.themeGray60
         self.statusLabel.font = AppFonts.Regular.withSize(14.0)
         self.backgroundColor = AppColors.clear
         self.containerView.backgroundColor = AppColors.clear
@@ -50,7 +50,7 @@ class QueryStatusCollectionCell: UICollectionViewCell {
         self.statusLabel.text = self.statusText
         self.statusImageView.image = nil
         
-        self.statusLabel.textColor = AppColors.themeGray40
+        self.statusLabel.textColor = AppColors.themeGray60
         if self.statusText.lowercased().hasSuffix("successful") {
             self.iconHeightConstraint.constant = 22
             self.iconTrailingConstraint.constant = -7
@@ -67,7 +67,7 @@ class QueryStatusCollectionCell: UICollectionViewCell {
             self.statusImageView.image = #imageLiteral(resourceName: "ic_red_dot")
         }
         else if self.statusText.lowercased().hasSuffix("aborted") {
-            //self.statusLabel.textColor = AppColors.themeGray20
+            self.statusLabel.textColor = AppColors.themeGray40
             self.statusImageView.image = nil
             self.iconHeightConstraint.constant = 0.0
             self.iconTrailingConstraint.constant = 8
