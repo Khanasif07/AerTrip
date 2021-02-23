@@ -173,7 +173,7 @@ class HotelCardCollectionViewCell: AppStoreAnimationCollectionCell {
         if imageUrlStr.isEmpty {
             self.hotelImageView.image = #imageLiteral(resourceName: "hotelCardNoImagePlaceHolder")
         } else {
-            self.hotelImageView.setImageWithUrl(imageUrl: imageUrlStr, placeholder: #imageLiteral(resourceName: "hotelCardPlaceHolder"), showIndicator: false) { [weak self] (image, error) in
+            self.hotelImageView.setImageWithUrl(imageUrl: imageUrlStr, placeholder: #imageLiteral(resourceName: "hotelCardNoImagePlaceHolder")  /*#imageLiteral(resourceName: "hotelCardPlaceHolder")*/, showIndicator: false) { [weak self] (image, error) in
                 if let downloadedImage = image {
                     self?.hotelImageView.image = downloadedImage
                 } else {

@@ -208,7 +208,7 @@ extension SearchFavouriteHotelsVC: SearchFavouriteHotelsVMDelegate {
         self.stopLoading()
      //   AppToast.default.showToastMessage(message: withMessage, vc: self)
 //        self.collectionView.reloadData()
-        collectionView.reloadItems(at: IndexPath(item: hIndex, section: 0))
+//        collectionView.reloadItems(at: IndexPath(item: hIndex, section: 0))
         self.sendDataChangedNotification(data: self)
     }
     
