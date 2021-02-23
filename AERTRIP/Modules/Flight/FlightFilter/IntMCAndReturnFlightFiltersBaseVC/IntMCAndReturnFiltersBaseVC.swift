@@ -24,12 +24,15 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
     
     var flightSearchParameters = JSONDictionary()
 
-    var showDepartReturnSame = false {
+    var departReturnSame: (show: Bool, selected: Bool) = (false, false) {
         didSet {
-            if !showDepartReturnSame { return }
-            allChildVCs.forEach { (viewCon) in
-                if let airportVC = viewCon as? AirportsFilterViewController {
-                    airportVC.areAllDepartReturnNotSame = showDepartReturnSame
+            if !departReturnSame.show { return }
+            DispatchQueue.main.async {
+                self.allChildVCs.forEach { (viewCon) in
+                    if let airportVC = viewCon as? AirportsFilterViewController {
+                        airportVC.areAllDepartReturnNotSame = self.departReturnSame.show
+                        airportVC.sameDepartReturnBtn.isSelected = self.departReturnSame.selected
+                    }
                 }
             }
         }
@@ -1372,7 +1375,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
         airportViewController.delegate = delegate as? AirportFilterDelegate
         airportViewController.searchType = self.searchType
         airportViewController.isIntReturnOrMCJourney = true
-        airportViewController.areAllDepartReturnNotSame = showDepartReturnSame
+        airportViewController.areAllDepartReturnNotSame = departReturnSame.show
     }
     
     func updateAirportVC(_ airportViewController : AirportsFilterViewController , inputFilters : [IntMultiCityAndReturnWSResponse.Results.F])

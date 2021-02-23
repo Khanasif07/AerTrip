@@ -86,12 +86,12 @@ class IntFlightResultDisplayGroup {
             
             if isReturnJourney {
                 var showReturnDepartSame = false
-                if let _ = filteredJourneyArray.first(where: { $0.legsWithDetail[0].ap.first != $0.legsWithDetail[1].ap.last || $0.legsWithDetail[0].ap.last != $0.legsWithDetail[1].ap.first }) {
+                if let _ = processedJourneyArray.first(where: { $0.legsWithDetail[0].ap.first != $0.legsWithDetail[1].ap.last || $0.legsWithDetail[0].ap.last != $0.legsWithDetail[1].ap.first }) {
                     showReturnDepartSame = true
                 }
-                delay(seconds: 0.5) { [weak self] in
-                    self?.delegate?.showDepartReturnSame(showReturnDepartSame)
-                }
+//                delay(seconds: 0.5) { [weak self] in
+                self.delegate?.showDepartReturnSame(showReturnDepartSame, selected: UIFilters.contains(.originDestinationSame))
+//                }
             }
             
 //            createDynamicFilters(flightsArray: [IntMultiCityAndReturnWSResponse.Flight])
@@ -792,6 +792,13 @@ class IntFlightResultDisplayGroup {
             self.appliedFilters.insert(.Aircraft)
             let aircraftsArr = aircrafts.map { $0.value as? String ?? "" }
             dynamicFilters.aircraft.selectedAircraftCodes = aircraftsArr
+        }
+        
+        if let departReturnSame = flightSearchParam["filters[0][departReturnSame]"] as? String {
+            if let val = Int(departReturnSame), val == 1 {
+                appliedFilters.insert(.Airport)
+                UIFilters.insert(.originDestinationSame)
+            }
         }
     }
     
