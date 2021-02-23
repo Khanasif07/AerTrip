@@ -590,6 +590,9 @@ enum LocalizedString: String {
     case ShowingResultsFor
     case Clear
     case viewMorePhoto
+    case pricesArePerNight
+    case pricesAreFor
+    case allIncl
 
     // Mail Composer View
     case ContactUsAertrip
