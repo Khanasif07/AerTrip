@@ -71,12 +71,12 @@ class AddOnsVC: BaseVC {
                 
             return cell
         // Seat Preference or Seat Booking Based on Flight type LCC or GDS
-//        case 1:
-//
+        case 1:
+
 //            if BookingRequestAddOnsFFVM.shared.isLCC {
-//                commontInputTableViewCell.configureCell(title: LocalizedString.SeatBookingTitle.localized, placeholderText: LocalizedString.SeatBookingPlaceholder.localized, text: BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].seat ?? "")
-//                commontInputTableViewCell.isUserInteractionEnabled = !(pax?.inProcess ?? false)
-//                return commontInputTableViewCell
+                commontInputTableViewCell.configureCell(title: LocalizedString.SeatBookingTitle.localized, placeholderText: LocalizedString.SeatBookingPlaceholder.localized, text: BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].seat ?? "")
+                commontInputTableViewCell.isUserInteractionEnabled = !(pax?.inProcess ?? false)
+                return commontInputTableViewCell
 //            } else {
 //                mealOrPreferencesCell.configureCell(title: LocalizedString.SeatPreferenceTitle.localized, text: BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].seatPreferences ?? "")
 //                mealOrPreferencesCell.isUserInteractionEnabled = !(pax?.inProcess ?? false)
@@ -84,7 +84,7 @@ class AddOnsVC: BaseVC {
 //            }
             
         // Meal Preference or Meal Booking Cell Based on Flight type LCC or GDS
-        case 1:
+        case 2:
             if BookingRequestAddOnsFFVM.shared.isLCC {
                 commontInputTableViewCell.configureCell(title: LocalizedString.MealBookingTitle.localized, placeholderText: LocalizedString.MealBookingPlaceholder.localized, text: BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].meal ?? "")
                 commontInputTableViewCell.isUserInteractionEnabled = !(pax?.inProcess ?? false)
@@ -96,14 +96,14 @@ class AddOnsVC: BaseVC {
             }
             
         // Extra baggage Cell
-        case 2:
+        case 3:
             commontInputTableViewCell.configureCell(title: LocalizedString.ExtraBaggageTitle.localized, placeholderText: LocalizedString.ExtraBaggagePlacheholder.localized, text: BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].baggage ?? "")
             commontInputTableViewCell.characterCountLabel.isHidden = false
             commontInputTableViewCell.isUserInteractionEnabled = !(pax?.inProcess ?? false)
             return commontInputTableViewCell
             
         // Other Cell
-        case 3:
+        case 4:
             let extraCellCount = 4 * (BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax.count ?? 0)
             let paxCount = BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax.count ?? 0
             commontInputTableViewCell.configureCell(title: LocalizedString.OtherBookingTitle.localized, placeholderText: LocalizedString.OtherBookingPlaceholder.localized, text: BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].other ?? "")
@@ -124,7 +124,7 @@ extension AddOnsVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        let extraCellCount = 3 * (BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[section].pax.count ?? 0)
+        let extraCellCount = 4 * (BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[section].pax.count ?? 0)
         let paxCount = BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[section].pax.count ?? 0
         return extraCellCount + paxCount
     }
