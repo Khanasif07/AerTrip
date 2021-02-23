@@ -13,6 +13,8 @@ class AddOnsVC: BaseVC {
     // MARK: - IBOutlet
     @IBOutlet weak var addOnTableView: ATTableView!
     
+    var delegate : BookingRequestAddOnsFFVCTextfiledDelegate?
+    
     // MARK: - Variables
     let footerViewIdentifier = "BookingInfoEmptyFooterView"
     let headerViewIdentifier = "BookingAddOnHeaderView"
@@ -222,6 +224,8 @@ extension AddOnsVC: BookingAddCommonInputTableViewCellDelegate {
         default:
             break
         }
+        
+        self.delegate?.closeKeyboard()
     }
 }
 
@@ -262,9 +266,13 @@ extension AddOnsVC: BookingFFMealTableViewCellDelegate {
                     cell?.selectedMealPreferenceTextField.text = firstSelect
                 BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].mealPreferenes = ""
                 }
+
+                self.delegate?.closeKeyboard()
             }
         default:
             break
         }
+        
+        
     }
 }
