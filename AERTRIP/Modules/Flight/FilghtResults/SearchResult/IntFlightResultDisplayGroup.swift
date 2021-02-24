@@ -785,6 +785,13 @@ class IntFlightResultDisplayGroup {
                     self.userSelectedFilters[index].fq["coa"] = ""
                 }
             }
+            
+            if let hideMultiAl = flightSearchParam["filters[0][hideMultiAl]"] as? String {
+                if let val = Int(hideMultiAl), val == 1 {
+                    UIFilters.insert(.hideMultiAirlineItinarery)
+                    userSelectedFilters[index].multiAl = 0
+                }
+            }
         }
         
         let aircrafts = flightSearchParam.filter { $0.key.contains("filters[0][eq]") }

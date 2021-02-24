@@ -626,6 +626,13 @@ class FlightResultDisplayGroup {
             dynamicFilters.aircraft.selectedAircraftCodes = aircraftsArr
         }
         
+        if let hideMultiAl = flightSearchParam["filters[\(self.index)][hideMultiAl]"] as? String {
+            if let val = Int(hideMultiAl), val == 1 {
+                UIFilters.insert(.hideMultiAirlineItinarery)
+                userSelectedFilters?.multiAl = 0
+            }
+        }
+        
     }
     
     fileprivate func dateFromTime(arrivalInputStartDate: Date, interval : TimeInterval) -> Date {
