@@ -67,6 +67,7 @@ class HCEmailTextFieldCell: UITableViewCell {
         self.editableTextField.isError = !isValidEmail
         let firstName = self.editableTextField.placeholder ?? ""
         self.editableTextField.attributedPlaceholder = NSAttributedString(string: firstName, attributes: [NSAttributedString.Key.foregroundColor: isValidEmail ? AppColors.themeGray40 :  AppColors.themeRed])
+        self.separatorView.isSettingForErrorState = !isValidEmail
     }
     
     func showErrorForAccountDeposit(isError:Bool){
@@ -76,6 +77,10 @@ class HCEmailTextFieldCell: UITableViewCell {
 
 
 extension HCEmailTextFieldCell: UITextFieldDelegate {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        self.separatorView.isSettingForErrorState = false
+        return true
+    }
     @objc func textFieldDidChanged(_ textField: UITextField) {
         printDebug("text field text \(textField.text ?? " ")")
         

@@ -358,6 +358,7 @@ extension HCCouponCodeVC {
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         self.couponTextField.titleTextColour = AppColors.themeGray40
+        self.dividerView.isSettingForErrorState = false
         return true
     }
 }
@@ -387,6 +388,7 @@ extension HCCouponCodeVC: PassSelectedCoupon {
             self.couponTextField.text = ""
             self.viewModel.couponCode = ""
             self.couponTextField.titleTextColour = AppColors.themeGray40
+            self.dividerView.isSettingForErrorState = false
         } else {
             self.couponTextField.text = model.couponCode
             self.viewModel.couponCode = model.couponCode
@@ -448,6 +450,7 @@ extension HCCouponCodeVC: HCCouponCodeVMDelegate {
     
     func applyCouponCodeFailed(errors: ErrorCodes) {
         self.couponTextField.titleTextColour = AppColors.themeRed
+        self.dividerView.isSettingForErrorState = true
         printDebug("Coupon Not Applied")
         self.hideShowLoader(isHidden: true)
         AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
