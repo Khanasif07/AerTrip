@@ -97,6 +97,6 @@ class HotelCancellationVC: BaseVC {
     //MARK:- IBActions
     //MARK:===========
     @IBAction func cancellationButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.moveToReviewCancellationVC(onNavController: self.navigationController, usingAs: .hotelCancellationReview, legs: nil, selectedRooms: self.viewModel.selectedRooms)
+        AppFlowManager.default.moveToReviewCancellationVC(onNavController: self.navigationController, usingAs: .hotelCancellationReview, legs: nil, selectedRooms: self.viewModel.selectedRooms, bookingDetails: self.viewModel.bookingDetail)
     }
 }
