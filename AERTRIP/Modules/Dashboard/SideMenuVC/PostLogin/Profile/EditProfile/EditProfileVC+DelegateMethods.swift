@@ -158,8 +158,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                     fatalError("TableViewAddActionCell not found")
                 }
                 cell.configureCell(LocalizedString.AddSocialAccountId.localized)
-//                cell.topDividerView.isHidden = (self.viewModel.social.count > 1)
-                cell.topDividerView.isHidden = false
+                cell.topDividerView.isHidden = (self.viewModel.social.count > 1)
                 return cell
             } else {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: editTwoPartCellIdentifier, for: indexPath) as? EditProfileTwoPartTableViewCell else {
@@ -170,9 +169,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 cell.social = self.viewModel.social[indexPath.row]
                 cell.email = nil
                 cell.deleteButton.isHidden = self.viewModel.social.count == 1
-                cell.leftSeparatorView.isHidden = indexPath.row + 1 == self.viewModel.social.count
-                cell.rightSeparatorView.isHidden = indexPath.row + 1 == self.viewModel.social.count
-//                cell.setSeparatorForSocial(isNeeded: ((self.viewModel.social.count > 1)), isError: self.viewModel.isSavedButtonTapped, isLast: (self.viewModel.social.count - 1 == indexPath.row))
+                cell.setSeparatorForSocial(isNeeded: ((self.viewModel.social.count > 1)), isError: self.viewModel.isSavedButtonTapped, isLast: (self.viewModel.social.count - 1 == indexPath.row))
                 return cell
             }
             
@@ -252,6 +249,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 //cell.bottomDivider.isHidden = indexPath.row < (self.viewModel.addresses.count - 1)
                 cell.contentView.bringSubviewToFront(cell.bottomDivider)
                 cell.hideSepratorView = indexPath.row >= (self.viewModel.addresses.count - 1)
+                cell.setSeparatorForError(isError: self.viewModel.isSavedButtonTapped, with: self.viewModel.addresses[indexPath.row])
                 return cell
             }
             
@@ -327,7 +325,11 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: textEditableCellIdentifier, for: indexPath) as? TextEditableTableViewCell else { fatalError("TextEditableTableViewCell not found") }
                 cell.editableTextField.isEnabled = true
                 cell.editableTextField.lineView.backgroundColor = AppColors.clear
-                cell.editableTextField.isHiddenBottomLine = true
+                cell.editableTextField.lineColor = AppColors.clear
+                cell.editableTextField.selectedLineColor = AppColors.clear
+                cell.editableTextField.lineErrorColor = AppColors.clear
+                cell.editableTextField.editingBottom = 0.0
+//                cell.editableTextField.isHiddenBottomLine = true
                 cell.delegate = self
                 cell.downArrowImageView.isHidden = false
                 cell.configureCell(flightPreferencesTitle[indexPath.row], indexPath.row == 0 ? (viewModel.seat.isEmpty ? LocalizedString.Select.localized : viewModel.seat) : (viewModel.meal.isEmpty ? LocalizedString.Select.localized : viewModel.meal))
@@ -352,8 +354,9 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
         guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: AppConstants.ktableViewHeaderViewIdentifier) as? ViewProfileDetailTableViewSectionView else {
             fatalError("ViewProfileDetailTableViewSectionView not found")
         }
-        headerView.topSeparatorView.isHidden = sections[section].localized == LocalizedString.EmailAddress.localized || sections[section].localized == LocalizedString.FlightPreferences.localized || sections[section].localized == LocalizedString.SocialAccounts.localized ? false : true
-        headerView.topDividerHeightConstraint.constant = sections[section].localized == LocalizedString.EmailAddress.localized || sections[section].localized == LocalizedString.FlightPreferences.localized || sections[section].localized == LocalizedString.SocialAccounts.localized ? 0.5 : 0
+        let isDivider = sections[section].localized == LocalizedString.EmailAddress.localized || sections[section].localized == LocalizedString.FlightPreferences.localized || sections[section].localized == LocalizedString.SocialAccounts.localized || sections[section].localized == LocalizedString.PassportDetails.localized
+        headerView.topSeparatorView.isHidden = isDivider ? false : true
+        headerView.topDividerHeightConstraint.constant = isDivider ? 0.5 : 0
         
         headerView.headerLabel.text = sections[section].localized
         headerView.backgroundColor = AppColors.themeGray04
@@ -921,6 +924,9 @@ extension EditProfileVC: EditProfileVMDelegate {
     func getPreferenceListSuccess(_ seatPreferences: [String: String], _ mealPreferences: [String: String]) {
         self.viewModel.seatPreferences = seatPreferences
         self.viewModel.mealPreferences = mealPreferences
+        guard let traveler = self.viewModel.travelData, let meal =  mealPreferences[traveler.preferences.meal.value] else {return}
+        self.viewModel.meal = meal
+      
     }
     
     func getCountryListSuccess(_ countryList: [String: String]) {
@@ -1119,7 +1125,7 @@ extension EditProfileVC: FrequentFlyerTableViewCellDelegate {
             if viewModel.currentlyUsinfFor == .addNewTravellerList {
                 presentFFSearchVC(defaultAirlines: self.viewModel.defaultAirlines, delegate: self)
             } else {
-                AppFlowManager.default.moveToFFSearchVC(defaultAirlines: self.viewModel.defaultAirlines, delegate: self)
+                AppFlowManager.default.moveToFFSearchVC(defaultAirlines: self.viewModel.defaultAirlines, delegate: self, selected: self.viewModel.frequentFlyer)
             }
         }
         
@@ -1312,6 +1318,7 @@ extension EditProfileVC {
         controller.modalPresentationStyle = .fullScreen
         controller.delgate = delegate
         controller.defaultAirlines = defaultAirlines
+        controller.selectedAirline = self.viewModel.frequentFlyer
         self.present(controller, animated: true, completion: nil)
     }
     

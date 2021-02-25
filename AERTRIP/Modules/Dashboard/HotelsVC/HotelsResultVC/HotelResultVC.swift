@@ -64,7 +64,7 @@ class HotelResultVC: BaseVC {
             self.tableViewVertical.showsHorizontalScrollIndicator = false
             self.tableViewVertical.contentInset = UIEdgeInsets(top: topContentSpace, left: 0, bottom: 0, right: 0)
             self.tableViewVertical.tableHeaderView = searchResultHeaderView
-            self.tableViewVertical.sectionHeaderHeight = CGFloat.leastNormalMagnitude
+            self.tableViewVertical.sectionHeaderHeight = hotelSearchResultHeaderViewHeight.min
         }
     }
     
@@ -197,14 +197,16 @@ class HotelResultVC: BaseVC {
     
     //Manage Transition Created by golu
     internal var transition: CardTransition?
-    var HotelSearchResultHeaderViewHeight: CGFloat = 36
+    var hotelSearchResultHeaderViewHeight: (min: CGFloat, max: CGFloat) = (min: 36, max: 70)
     lazy var  searchResultHeaderView: HotelSearchResultHeaderView = {
         let view = HotelSearchResultHeaderView.instanceFromNib()
         view.delegate = self
         view.translatesAutoresizingMaskIntoConstraints = false
         view.widthAnchor.constraint(equalToConstant: UIScreen.width).isActive = true
-        view.frame = CGRect(x: 0, y: 0, width: UIScreen.width, height: CGFloat.leastNormalMagnitude)
-        view.updateHeight(height: CGFloat.leastNormalMagnitude)
+        view.frame = CGRect(x: 0, y: 0, width: UIScreen.width, height: hotelSearchResultHeaderViewHeight.min)
+        view.numberOfRooms = viewModel.searchedFormData.roomNumber
+        view.resultListPriceType = .perNight
+        view.updateHeight(height: hotelSearchResultHeaderViewHeight.min)
         return view
     }()
     // MARK: - ViewLifeCycle
@@ -556,8 +558,8 @@ class HotelResultVC: BaseVC {
     }
     
     @IBAction func cancelButtonTapped(_ sender: UIButton) {
-        self.searchResultHeaderView.updateHeight(height: CGFloat.leastNormalMagnitude)
-        self.tableViewVertical.sectionHeaderHeight = CGFloat.leastNormalMagnitude
+        self.searchResultHeaderView.updateHeight(height: hotelSearchResultHeaderViewHeight.min)
+        self.tableViewVertical.sectionHeaderHeight = hotelSearchResultHeaderViewHeight.min
         self.viewModel.searchedHotels.removeAll()
         self.reloadHotelList()
         self.viewModel.fetchRequestType = .normal

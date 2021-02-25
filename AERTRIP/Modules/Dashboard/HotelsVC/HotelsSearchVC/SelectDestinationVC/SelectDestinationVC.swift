@@ -39,12 +39,13 @@ class SelectDestinationVC: BaseVC {
             tableView.dataSource = self
         }
     }
-    @IBOutlet weak var mainCintainerBottomConstraint: NSLayoutConstraint!
+//    @IBOutlet weak var mainCintainerBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var rectangleView: UIView!
     @IBOutlet weak var bottomViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var mainContainerViewHeightConstraint: NSLayoutConstraint!
+//    @IBOutlet weak var mainContainerViewHeightConstraint: NSLayoutConstraint!
     
-    
+    @IBOutlet weak var didYouMeanLbl: UILabel!
+    @IBOutlet weak var headerViewHeight: NSLayoutConstraint!
     
     //MARK:- Properties
     
@@ -88,6 +89,7 @@ class SelectDestinationVC: BaseVC {
     
     override func setupFonts() {
         cancelButton.titleLabel?.font = AppFonts.Regular.withSize(18.0)
+        didYouMeanLbl.font = AppFonts.Regular.withSize(14.0)
     }
     
     override func setupTexts() {
@@ -96,6 +98,7 @@ class SelectDestinationVC: BaseVC {
         cancelButton.setTitle(LocalizedString.Cancel.localized, for: .selected)
         
         searchBar.placeholder = LocalizedString.CityAreaOrHotels.localized
+        didYouMeanLbl.text = LocalizedString.didYouMean.localized.uppercased() + "?"
     }
     
     override func setupColors() {
@@ -103,6 +106,7 @@ class SelectDestinationVC: BaseVC {
         cancelButton.setTitleColor(AppColors.themeGreen, for: .selected)
         
         cancelButton.setTitle(LocalizedString.Cancel.localized, for: .selected)
+        didYouMeanLbl.textColor = AppColors.themeGray60
     }
     
     override func bindViewModel() {
@@ -112,20 +116,21 @@ class SelectDestinationVC: BaseVC {
     //MARK:- Methods
     //MARK:- Private
     private func initialSetups() {
+        headerViewHeight.constant = viewModel.headerViewHeight.min
+        didYouMeanLbl.isHidden = true
         tableView.contentInset = UIEdgeInsets(top: headerView.height, left: 0.0, bottom: 0.0, right: 0.0)
-
         registerXib()
         
-        let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
-        mainContainerView.isUserInteractionEnabled = true
-        swipeGesture.delegate = self
-        if #available(iOS 13.0, *) {} else {
-            self.mainContainerView.addGestureRecognizer(swipeGesture)
-        }
+//        let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
+//        mainContainerView.isUserInteractionEnabled = true
+//        swipeGesture.delegate = self
+//        if #available(iOS 13.0, *) {} else {
+//            self.mainContainerView.addGestureRecognizer(swipeGesture)
+//        }
         
         self.view.alpha = 1.0
         self.view.backgroundColor = AppColors.clear//AppColors.themeBlack.withAlphaComponent(0.3)
-        self.bottomViewHeightConstraint.constant = AppFlowManager.default.safeAreaInsets.bottom
+        self.bottomViewHeightConstraint.constant = 0.0//AppFlowManager.default.safeAreaInsets.bottom
         
         //self.headerView.roundCorners(corners: [.topLeft, .topRight], radius: 15.0)
         if #available(iOS 13.0, *) {
@@ -134,11 +139,11 @@ class SelectDestinationVC: BaseVC {
             self.rectangleView.cornerradius = 15.0
         }
         
-        self.rectangleView.layer.masksToBounds = true
-        self.hide(animated: false)
-        delay(seconds: 0.1) { [weak self] in
-            self?.show(animated: true)
-        }
+//        self.rectangleView.layer.masksToBounds = true
+//        self.hide(animated: false)
+//        delay(seconds: 0.1) { [weak self] in
+//            self?.show(animated: true)
+//        }
         
         self.viewModel.getAllPopularHotels()
         self.addFooterForBottom()
@@ -155,154 +160,154 @@ class SelectDestinationVC: BaseVC {
     }
     
     //Handle Swipe Gesture
-    @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
-        func reset() {
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                self.view.transform = .identity
-            })
-        }
-        
-        func moveView() {
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                self.view.transform = CGAffineTransform(translationX: 0, y: self.viewTranslation.y)
-            })
-        }
-        
-        guard let direction = sender.direction, direction.isVertical, direction == .down, self.tableView.contentOffset.y <= 0
-            else {
-            reset()
-            return
-        }
-        
-        switch sender.state {
-        case .changed:
-            viewTranslation = sender.translation(in: self.view)
-            moveView()
-        case .ended:
-            if viewTranslation.y < 200 {
-                reset()
-            } else {
-                dismiss(animated: true, completion: nil)
-            }
-        case .cancelled:
-            reset()
-        default:
-            break
-        }
-    }
+//    @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
+//        func reset() {
+//            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+//                self.view.transform = .identity
+//            })
+//        }
+//
+//        func moveView() {
+//            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+//                self.view.transform = CGAffineTransform(translationX: 0, y: self.viewTranslation.y)
+//            })
+//        }
+//
+//        guard let direction = sender.direction, direction.isVertical, direction == .down, self.tableView.contentOffset.y <= 0
+//            else {
+//            reset()
+//            return
+//        }
+//
+//        switch sender.state {
+//        case .changed:
+//            viewTranslation = sender.translation(in: self.view)
+//            moveView()
+//        case .ended:
+//            if viewTranslation.y < 200 {
+//                reset()
+//            } else {
+//                dismiss(animated: true, completion: nil)
+//            }
+//        case .cancelled:
+//            reset()
+//        default:
+//            break
+//        }
+//    }
     
     
     ///Call to use Pan Gesture Final Animation
-    private func panGestureFinalAnimation(velocity: CGPoint,touchPoint: CGPoint) {
-        //Down Direction
-        if velocity.y < 0 {
-            if velocity.y < -300 {
-                self.openBottomSheet()
-            } else {
-                if touchPoint.y <= (UIScreen.main.bounds.height - 62.0)/2 {
-                    self.openBottomSheet()
-                } else {
-                    self.closeBottomSheet()
-                }
-            }
-        }
-            //Up Direction
-        else {
-            if velocity.y > 300 {
-                self.closeBottomSheet()
-            } else {
-                if touchPoint.y <= (UIScreen.main.bounds.height - 62.0)/2 {
-                    self.openBottomSheet()
-                } else {
-                    self.closeBottomSheet()
-                }
-            }
-        }
-        printDebug(velocity.y)
-    }
+//    private func panGestureFinalAnimation(velocity: CGPoint,touchPoint: CGPoint) {
+//        //Down Direction
+//        if velocity.y < 0 {
+//            if velocity.y < -300 {
+//                self.openBottomSheet()
+//            } else {
+//                if touchPoint.y <= (UIScreen.main.bounds.height - 62.0)/2 {
+//                    self.openBottomSheet()
+//                } else {
+//                    self.closeBottomSheet()
+//                }
+//            }
+//        }
+//            //Up Direction
+//        else {
+//            if velocity.y > 300 {
+//                self.closeBottomSheet()
+//            } else {
+//                if touchPoint.y <= (UIScreen.main.bounds.height - 62.0)/2 {
+//                    self.openBottomSheet()
+//                } else {
+//                    self.closeBottomSheet()
+//                }
+//            }
+//        }
+//        printDebug(velocity.y)
+//    }
     
-    func openBottomSheet() {
-        self.view.layoutIfNeeded()
-        UIView.animate(withDuration: 0.5) {
-            self.mainCintainerBottomConstraint.constant = 0.0
-            self.view.layoutIfNeeded()
-        }
-    }
+//    func openBottomSheet() {
+//        self.view.layoutIfNeeded()
+//        UIView.animate(withDuration: 0.5) {
+//            self.mainCintainerBottomConstraint.constant = 0.0
+//            self.view.layoutIfNeeded()
+//        }
+//    }
     
-    func closeBottomSheet() {
-        func setValue() {
-            self.mainCintainerBottomConstraint.constant = -(self.mainContainerView.height + 100)
-            self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.001)
-            self.view.layoutIfNeeded()
-        }
-        let animater = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
-            setValue()
-        }
-        animater.addCompletion { (position) in
-            self.removeFromParentVC
-        }
-        //animater.startAnimation()
-        self.dismiss(animated: true, completion: nil)
-    }
+//    func closeBottomSheet() {
+//        func setValue() {
+//            self.mainCintainerBottomConstraint.constant = -(self.mainContainerView.height + 100)
+//            self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.001)
+//            self.view.layoutIfNeeded()
+//        }
+//        let animater = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
+//            setValue()
+//        }
+//        animater.addCompletion { (position) in
+//            self.removeFromParentVC
+//        }
+//        //animater.startAnimation()
+//        self.dismiss(animated: true, completion: nil)
+//    }
     
-    private func show(animated: Bool) {
-        self.bottomView.isHidden = false
-        let toDeduct = (AppFlowManager.default.safeAreaInsets.top + AppFlowManager.default.safeAreaInsets.bottom)
-        var finalValue = (self.currentlyUsingFor == .hotelForm) ? (self.view.height - toDeduct) : (self.view.height - (15.0 + toDeduct))
-        if #available(iOS 13.0, *) {
-            finalValue = (self.view.height - AppFlowManager.default.safeAreaInsets.bottom)
-        }
-        
-        func setValue() {
-            self.mainCintainerBottomConstraint.constant = 0.0
-            self.mainContainerViewHeightConstraint.constant = finalValue
-            if #available(iOS 13.0, *) {} else {
-            self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
-            }
-            self.view.layoutIfNeeded()
-        }
-        
-        if animated {
-            let animater = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
-                setValue()
-            }
-            
-            animater.addCompletion { (position) in
-                self.reloadData()
-            }
-            
-            animater.startAnimation()
-        }
-        else {
-            setValue()
-        }
-    }
+//    private func show(animated: Bool) {
+//        self.bottomView.isHidden = false
+//        let toDeduct = (AppFlowManager.default.safeAreaInsets.top + AppFlowManager.default.safeAreaInsets.bottom)
+//        var finalValue = (self.currentlyUsingFor == .hotelForm) ? (self.view.height - toDeduct) : (self.view.height - (15.0 + toDeduct))
+//        if #available(iOS 13.0, *) {
+//            finalValue = (self.view.height - AppFlowManager.default.safeAreaInsets.bottom)
+//        }
+//        
+//        func setValue() {
+//            self.mainCintainerBottomConstraint.constant = 0.0
+//            self.mainContainerViewHeightConstraint.constant = finalValue
+//            if #available(iOS 13.0, *) {} else {
+//            self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
+//            }
+//            self.view.layoutIfNeeded()
+//        }
+//        
+//        if animated {
+//            let animater = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
+//                setValue()
+//            }
+//            
+//            animater.addCompletion { (position) in
+//                self.reloadData()
+//            }
+//            
+//            animater.startAnimation()
+//        }
+//        else {
+//            setValue()
+//        }
+//    }
     
     private func hide(animated: Bool, shouldRemove: Bool = false) {
-        
-        func setValue() {
-            self.mainCintainerBottomConstraint.constant = -(self.mainContainerView.height + 100)
-            self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.001)
-            self.view.layoutIfNeeded()
-        }
-        
-        self.bottomView.isHidden = true
-        if animated {
-            let animater = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
-                setValue()
-            }
-            
-            animater.addCompletion { (position) in
-                if shouldRemove {
-                    self.removeFromParentVC
-                }
-            }
-            //animater.startAnimation()
+//
+//        func setValue() {
+//            self.mainCintainerBottomConstraint.constant = -(self.mainContainerView.height + 100)
+//            self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.001)
+//            self.view.layoutIfNeeded()
+//        }
+//
+//        self.bottomView.isHidden = true
+//        if animated {
+//            let animater = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
+//                setValue()
+//            }
+//
+//            animater.addCompletion { (position) in
+//                if shouldRemove {
+//                    self.removeFromParentVC
+//                }
+//            }
+//            //animater.startAnimation()
             self.dismiss(animated: true, completion: nil)
-        }
-        else {
-            setValue()
-        }
+//        }
+//        else {
+//            setValue()
+//        }
     }
     
     private func addFooterForBottom(){
@@ -350,6 +355,18 @@ extension SelectDestinationVC: SelectDestinationVMDelegate {
             self.noResultemptyView.searchTextLabel.text = ""
             self.tableView.backgroundView?.isHidden = true
         }
+        if viewModel.showDidYouMeanLbl {
+            didYouMeanLbl.isHidden = false
+            headerViewHeight.constant = viewModel.headerViewHeight.max
+            tableView.contentInset = UIEdgeInsets(top: viewModel.headerViewHeight.max, left: 0.0, bottom: 0.0, right: 0.0)
+            headerView.layoutSubviews()
+            
+        } else {
+            didYouMeanLbl.isHidden = true
+            headerViewHeight.constant = viewModel.headerViewHeight.min
+            tableView.contentInset = UIEdgeInsets(top: viewModel.headerViewHeight.min, left: 0.0, bottom: 0.0, right: 0.0)
+            headerView.layoutSubviews()
+        }
         self.reloadData()
     }
     
@@ -379,6 +396,10 @@ extension SelectDestinationVC: UISearchBarDelegate {
             //clear all data and reload to initial view
             self.noResultemptyView.searchTextLabel.text = ""
             self.isInSearchMode = false
+            didYouMeanLbl.isHidden = true
+            headerViewHeight.constant = viewModel.headerViewHeight.min
+            tableView.contentInset = UIEdgeInsets(top: viewModel.headerViewHeight.min, left: 0.0, bottom: 0.0, right: 0.0)
+            headerView.layoutSubviews()
         } else if searchText.count >= AppConstants.kSearchTextLimit {
             //search text
             self.noResultemptyView.searchTextLabel.isHidden = false

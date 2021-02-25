@@ -769,6 +769,14 @@ extension FlightResultDisplayGroup  {
         checkForAirportsFilter()
         applyFilters()
         
+        if !flightSearchParams.isEmpty {
+//            if !flightSearchParams.filter( { $0.key.contains("filters[\(index)][loap]") } ).isEmpty {
+//                flightSearchParams = flightSearchParams.filter({ !$0.key.contains("filters[\(index)][loap]") })
+//                selectedLayoverIATACodes.enumerated().forEach { (apIndex, ap) in
+//                    flightSearchParams["filters[\(index)][loap][\(apIndex)]"] = ap
+//                }
+//            }
+        }
     }
     
     private func checkForAirportsFilter() {

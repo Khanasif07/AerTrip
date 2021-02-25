@@ -37,6 +37,7 @@ class AccountDetailsVM: NSObject {
     weak var delegate: AccountDetailsVMDelegate? = nil
     
     var ledgerStartDate: Date = Date()
+    var deepLinkParams:[String:String] = [:]
     
     var minDate : Date?
     var maxDate : Date?
@@ -107,7 +108,7 @@ class AccountDetailsVM: NSObject {
                         return ((event.title.lowercased().contains(forText.lowercased())) || (event.voucherNo.lowercased().contains(forText.lowercased())) ||
                                     (event.bookingNumber.lowercased().contains(forText.lowercased())) ||
                                     (event.airline.lowercased().contains(forText.lowercased())) ||
-                                    (self.removeSpecialChar(from:event.flightNumber).contains(self.removeSpecialChar(from: forText))))
+                                    (self.removeSpecialChar(from:event.flightNumber).contains(self.removeSpecialChar(from: forText))) || (self.removeSpecialChar(from:event.voucher.rawValue).contains(self.removeSpecialChar(from: forText))) ||  (self.removeSpecialChar(from:"\(event.amount)").contains(self.removeSpecialChar(from: forText))))
 //                                    ||
 //                                    (event.bookingId.lowercased().contains(forText.lowercased())))
                         
@@ -304,7 +305,7 @@ class AccountDetailsVM: NSObject {
         APICaller.shared.accountReportActionAPI(params: param) { (success, errors) in
             if success {
                 AppToast.default.hideToast(onVC, animated: false)
-                AppToast.default.showToastMessage(message: LocalizedString.Email_successfully_Sent.localized, onViewController: onVC)
+                AppToast.default.showToastMessage(message: LocalizedString.LedgerSentToYourEmail.localized, onViewController: onVC)
             }
             else {
                 AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
@@ -313,4 +314,13 @@ class AccountDetailsVM: NSObject {
     }
     
     //MARK:- Private
+    
+    func getEventFromAccountLadger(with id:String)-> AccountDetailEvent?{
+        let trans = (Array(self.accountDetails.values) as? [[AccountDetailEvent]] ?? []).flatMap{$0}
+        if let event  = trans.first(where: {$0.voucherNo == id}){
+            return event
+        }
+        return nil
+    }
+
 }

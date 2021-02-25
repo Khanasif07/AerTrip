@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "login0LLogin0Ck.png",
+      "filename" : "aertripTextBlack.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "login0LLogin0Ck@2x.png",
+      "filename" : "aertripTextBlack@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "login0LLogin0Ck@3x.png",
+      "filename" : "aertripTextBlack@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

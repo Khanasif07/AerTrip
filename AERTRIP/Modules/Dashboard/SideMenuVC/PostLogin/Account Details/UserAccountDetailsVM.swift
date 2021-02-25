@@ -71,10 +71,13 @@ struct UserAccountDetail {
         }
         
         if !billingAddress.state.isEmpty{
-            addressStr.append(billingAddress.state + ", ")
+            addressStr.append(billingAddress.state)
         }
         
         if !billingAddress.countryName.isEmpty{
+            if !billingAddress.state.isEmpty {
+                addressStr.append(", ")
+            }
             addressStr.append(billingAddress.countryName)
         }
         
@@ -106,10 +109,13 @@ struct UserAccountDetail {
         }
         
         if !billingAddress.state.isEmpty{
-            addressStr.append(billingAddress.state + ", ")
+            addressStr.append(billingAddress.state)
         }
         
         if !billingAddress.countryName.isEmpty{
+            if !billingAddress.state.isEmpty {
+                addressStr.append(", ")
+            }
             addressStr.append(billingAddress.countryName)
         }
         

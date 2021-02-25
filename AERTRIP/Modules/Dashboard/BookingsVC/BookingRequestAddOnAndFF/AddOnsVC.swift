@@ -72,16 +72,16 @@ class AddOnsVC: BaseVC {
             return cell
         // Seat Preference or Seat Booking Based on Flight type LCC or GDS
         case 1:
-            
-            if BookingRequestAddOnsFFVM.shared.isLCC {
+
+//            if BookingRequestAddOnsFFVM.shared.isLCC {
                 commontInputTableViewCell.configureCell(title: LocalizedString.SeatBookingTitle.localized, placeholderText: LocalizedString.SeatBookingPlaceholder.localized, text: BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].seat ?? "")
                 commontInputTableViewCell.isUserInteractionEnabled = !(pax?.inProcess ?? false)
                 return commontInputTableViewCell
-            } else {
-                mealOrPreferencesCell.configureCell(title: LocalizedString.SeatPreferenceTitle.localized, text: BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].seatPreferences ?? "")
-                mealOrPreferencesCell.isUserInteractionEnabled = !(pax?.inProcess ?? false)
-                return mealOrPreferencesCell
-            }
+//            } else {
+//                mealOrPreferencesCell.configureCell(title: LocalizedString.SeatPreferenceTitle.localized, text: BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].seatPreferences ?? "")
+//                mealOrPreferencesCell.isUserInteractionEnabled = !(pax?.inProcess ?? false)
+//                return mealOrPreferencesCell
+//            }
             
         // Meal Preference or Meal Booking Cell Based on Flight type LCC or GDS
         case 2:

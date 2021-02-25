@@ -608,6 +608,8 @@ extension AccountDetailsVC: AccountDetailsVMDelegate {
     func getAccountDetailsFail(showProgres: Bool) {
         if showProgres {
             self.stopProgress()
+            self.manageDataForDeeplink()
+            self.viewModel.deepLinkParams = [:]
         }
         self.refreshControl.endRefreshing()
     }
@@ -627,5 +629,24 @@ extension AccountDetailsVC: SpeechToTextVCDelegate{
         viewModel.searchEvent(forText: text)
     }
 
+    
+}
+
+///Deeplinking  manage
+extension AccountDetailsVC{
+    
+    func manageDataForDeeplink(){
+        switch  (self.viewModel.deepLinkParams["type"] ?? ""){
+        case "accounts-ledger": self.moveToAccountLadge()
+        default: break;
+        }
+
+    }
+
+    func moveToAccountLadge(){
+        guard let id  = self.viewModel.deepLinkParams["voucher_id"], !id.isEmpty, let event = self.viewModel.getEventFromAccountLadger(with: id) else {return}
+            AppFlowManager.default.moveToAccountLadgerDetailsVC(forEvent: event, detailType: .accountLadger)
+
+    }
     
 }

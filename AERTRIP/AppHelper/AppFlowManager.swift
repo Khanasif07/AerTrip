@@ -345,11 +345,12 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
-    func moveToFFSearchVC(defaultAirlines: [FlyerModel], delegate: SearchVCDelegate?) {
+    func moveToFFSearchVC(defaultAirlines: [FlyerModel], delegate: SearchVCDelegate?, selected:[FrequentFlyer]) {
         let controller = FFSearchVC.instantiate(fromAppStoryboard: .Profile)
         controller.modalPresentationStyle = .fullScreen
         controller.delgate = delegate
         controller.defaultAirlines = defaultAirlines
+        controller.selectedAirline = selected
         self.mainNavigationController.present(controller, animated: true, completion: nil)
     }
     
@@ -916,35 +917,39 @@ extension AppFlowManager {
     
     // MARK: -
     
-    func moveToAccountDetailsScreen() {
+    func moveToAccountDetailsScreen(with deepLinkParam:[String:String] = [:]) {
         guard let user = UserInfo.loggedInUser else {
             return
         }
         
         switch user.userCreditType {
         case .regular:
-            self.moveToAccountDetailsVC(usingFor: .account, forDetails: [:], forVoucherTypes: [])
+            self.moveToAccountDetailsVC(usingFor: .account, forDetails: [:], forVoucherTypes: [], deepLinkParam:deepLinkParam)
             
         case .billwise:
             let obj = SpecialAccountDetailsVC.instantiate(fromAppStoryboard: .Account)
+            obj.viewModel.deepLinkParams = deepLinkParam
             self.mainNavigationController.pushViewController(obj, animated: true)
             
         case .statement:
             let obj = SpecialAccountDetailsVC.instantiate(fromAppStoryboard: .Account)
+            obj.viewModel.deepLinkParams = deepLinkParam
             self.mainNavigationController.pushViewController(obj, animated: true)
             
         case .topup:
             let obj = SpecialAccountDetailsVC.instantiate(fromAppStoryboard: .Account)
+            obj.viewModel.deepLinkParams = deepLinkParam
             self.mainNavigationController.pushViewController(obj, animated: true)
         }
     }
     
-    func moveToAccountDetailsVC(usingFor: AccountDetailsVC.UsingFor, forDetails: JSONDictionary, forVoucherTypes: [String]) {
+    func moveToAccountDetailsVC(usingFor: AccountDetailsVC.UsingFor, forDetails: JSONDictionary, forVoucherTypes: [String],deepLinkParam:[String:String] = [:]) {
         if let _ = mainNavigationController.topViewController as? AccountDetailsVC { return }
         let obj = AccountDetailsVC.instantiate(fromAppStoryboard: .Account)
         obj.currentUsingAs = usingFor
         obj.viewModel.allVouchers = forVoucherTypes
         obj.viewModel.setAccountDetails(details: forDetails)
+        obj.viewModel.deepLinkParams = deepLinkParam
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
@@ -955,7 +960,7 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-    func emoveToAccountLadgerDetailsForOnAccount(forEvent: OnAccountLedgerEvent?, detailType: AccountLadgerDetailsVM.AccountLadgerDetailType) {
+    func moveToAccountLadgerDetailsForOnAccount(forEvent: OnAccountLedgerEvent?, detailType: AccountLadgerDetailsVM.AccountLadgerDetailType) {
         let obj = AccountLadgerDetailsVC.instantiate(fromAppStoryboard: .Account)
         obj.viewModel.onAccountEvent = forEvent
         obj.viewModel.detailType = detailType
@@ -1201,11 +1206,11 @@ extension AppFlowManager {
     
     // Present RequestCancellation
     
-    func presentRequestCancellationVC(usingFor data: BookingReschedulingVCUsingFor = .cancellation, legs: [BookingLeg]) {
+    func presentRequestCancellationVC(usingFor data: BookingReschedulingVCUsingFor = .cancellation, legs: [BookingLeg], bookingDetails:BookingDetailModel? = nil) {
         let obj = BookingReschedulingVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.usingFor = data
         obj.viewModel.legsData = legs
-        
+        obj.viewModel.bookingDetails = bookingDetails
         let nav = UINavigationController(rootViewController: obj)
         nav.isNavigationBarHidden = true
         self.currentNavigation?.present(nav, animated: true)
@@ -1213,11 +1218,12 @@ extension AppFlowManager {
     
     // Move to Booking Review Cancellation
     
-    func moveToReviewCancellationVC(onNavController: UINavigationController?, usingAs: BookingReviewCancellationVM.UsingFor, legs: [BookingLeg]?, selectedRooms: [RoomDetailModel]?) {
+    func moveToReviewCancellationVC(onNavController: UINavigationController?, usingAs: BookingReviewCancellationVM.UsingFor, legs: [BookingLeg]?, selectedRooms: [RoomDetailModel]?, bookingDetails:BookingDetailModel? = nil) {
         let obj = BookingReviewCancellationVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.legsWithSelection = legs ?? []
         obj.viewModel.currentUsingAs = usingAs
         obj.viewModel.selectedRooms = selectedRooms ?? []
+        obj.viewModel.bookingDetails = bookingDetails
         (onNavController ?? self.mainNavigationController).pushViewController(obj, animated: true)
     }
     

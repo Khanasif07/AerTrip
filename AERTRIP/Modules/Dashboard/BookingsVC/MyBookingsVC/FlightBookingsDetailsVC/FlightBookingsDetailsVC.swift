@@ -220,7 +220,7 @@ class FlightBookingsDetailsVC: BaseVC {
             }
             return whatNext
             
-        case "multi":
+        case "multi", "multicity":
             var depart = [String]()
             var origin = [String]()
             var destination = [String]()
@@ -247,6 +247,7 @@ class FlightBookingsDetailsVC: BaseVC {
                 departAriports.append(leg.flight.first?.arrivalAirport ?? "")
                 departCountry.append(leg.flight.first?.arrivalCountryCode ?? "")
             }
+            whatNext.tripType = "multi"
             whatNext.departArr = depart
             whatNext.originArr = origin
             whatNext.destinationArr = destination

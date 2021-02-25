@@ -449,7 +449,8 @@ extension HCSelectGuestsVC: HCSelectGuestsVMDelegate {
             GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].mealPreference = oldValue.mealPreference
 
             GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].frequentFlyer = oldValue.frequentFlyer
-            
+            self.updateSelectedFF(at: currentSelectedGuestIndex)
+            self.updateSelectedMeal(at: currentSelectedGuestIndex)
             // self.selectNextGuest()
             //            self.selectedContactsCollectionView.performBatchUpdates({
             //                self.selectedContactsCollectionView.insertItems(at: [idx])
@@ -509,6 +510,8 @@ extension HCSelectGuestsVC: HCSelectGuestsVMDelegate {
             GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].mealPreference = oldValue.mealPreference
 
             GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].frequentFlyer = oldValue.frequentFlyer
+            self.updateSelectedFF(at: currentSelectedGuestIndex)
+            self.updateSelectedMeal(at: currentSelectedGuestIndex)
             self.selectNextGuest()
             //            self.selectedContactsCollectionView.performBatchUpdates({
             //                self.selectedContactsCollectionView.insertItems(at: [idx])
@@ -555,6 +558,7 @@ extension HCSelectGuestsVC: HCSelectGuestsVMDelegate {
         //GuestDetailsVM.shared.guests[indexPath.section][indexPath.item].label = ""
         GuestDetailsVM.shared.guests[indexPath.section][indexPath.item].email = ""
         GuestDetailsVM.shared.guests[indexPath.section][indexPath.item].emailLabel = ""
+        resetMealAndFF()
     }
     
     private func getCollectionIndexPath(forContact contact: ATContact) -> IndexPath? {
@@ -572,6 +576,60 @@ extension HCSelectGuestsVC: HCSelectGuestsVMDelegate {
         }
         return indexPath
     }
+    
+    func updateSelectedFF(at index: IndexPath){
+        var passenger = GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item]
+        if let ffp = passenger.ffp, (ffp.count != 0),(passenger.frequentFlyer.count != 0){
+            for (index, value) in passenger.frequentFlyer.enumerated(){
+                if let frequentFlyer =   ffp.first(where: {$0.airlineCode == value.airlineCode}){
+                    passenger.frequentFlyer[index].number = frequentFlyer.ffNumber
+                }else{
+                    passenger.frequentFlyer[index].number = ""
+                }
+            }
+        }else{
+            for (index, _) in passenger.frequentFlyer.enumerated(){
+                passenger.frequentFlyer[index].number = ""
+            }
+        }
+        
+        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item] = passenger
+    }
+    
+    
+    func updateSelectedMeal(at index: IndexPath){
+        var passenger = GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item]
+        if !passenger.mealP.isEmpty{//mealPreference[i].preferenceCode
+            for (index, value) in passenger.mealPreference.enumerated(){
+                if let meal = value.preference[passenger.mealP]{
+                    passenger.mealPreference[index].preferenceCode = passenger.mealP
+                    passenger.mealPreference[index].mealPreference = meal
+                }else{
+                    passenger.mealPreference[index].preferenceCode = ""
+                    passenger.mealPreference[index].mealPreference = ""
+                }
+            }
+        }else{
+            for i in 0..<passenger.mealPreference.count{
+                passenger.mealPreference[i].preferenceCode = ""
+                passenger.mealPreference[i].mealPreference = ""
+            }
+        }
+        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item] = passenger
+    }
+    
+    func resetMealAndFF(){
+        var passenger = GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item]
+        for i in 0..<passenger.mealPreference.count{
+            passenger.mealPreference[i].preferenceCode = ""
+            passenger.mealPreference[i].mealPreference = ""
+        }
+        for (index, _) in passenger.frequentFlyer.enumerated(){
+            passenger.frequentFlyer[index].number = ""
+        }
+        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item] = passenger
+    }
+    
 }
 
 //MARK:- CollectionView Delegate

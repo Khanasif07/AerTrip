@@ -110,6 +110,7 @@
 "Please_enter_Current_Password" = "Please enter current Password";
 "Please_enter_Valid_Password" = "Please enter a valid Password";
 "Password_must_qualify_conditions" = "Password must qualify all conditions";
+"pleaseEnterAPassword" = "Please enter a Password";
 
 // MARK:- CreateProfileVC
 //MARK:-
@@ -339,6 +340,7 @@
 "HotelsNearMe" = "Hotels near me";
 "RecentlySearchedDestinations" = "Recently Searched Destinations";
 "PopularDestinations" = "Popular Destinations";
+"didYouMean" = "Did you mean";
 
 
 //MARK:- Bulk Booking
@@ -498,6 +500,9 @@
 "Unfavourite" = "Unfavourite";
 "ShowingResultsFor" = "Showing results for";
 "Clear" = "Clear";
+"pricesArePerNight" = "Prices are per night for";
+"pricesAreFor" = "Prices are for";
+"allIncl" = "all incl.";
 
 "ContactUsAertrip" = "Have a question? Contact us: support@aertrip.com";
 //"CopyrightAertrip" = "2012 Aertrip. All Rights Reserved.";

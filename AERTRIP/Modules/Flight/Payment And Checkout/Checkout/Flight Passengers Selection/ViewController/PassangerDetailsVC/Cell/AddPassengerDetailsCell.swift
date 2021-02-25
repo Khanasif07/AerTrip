@@ -299,29 +299,35 @@ class AddPassengerDetailsCell: UITableViewCell {
         guard  self.canShowSalutationError else {return}
         if ((self.firstNameTextField.text ?? "").count < 1){
             self.firstNameTextField.isError = true
+            self.fNameDivider.isSettingForErrorState = true
             let firstName = "First Name"
             self.firstNameTextField.attributedPlaceholder = NSAttributedString(string: firstName, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeRed])
         }else if !(self.firstNameTextField.text ?? "").isName{
             self.firstNameTextField.isError = true
+            self.fNameDivider.isSettingForErrorState = true
             let firstName = "First Name"
             self.firstNameTextField.attributedPlaceholder = NSAttributedString(string: firstName, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeRed])
         }else{
             self.firstNameTextField.isError = false
+            self.fNameDivider.isSettingForErrorState = false
             let firstName = "First Name"
             self.firstNameTextField.attributedPlaceholder = NSAttributedString(string: firstName, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeGray40])
         }
         
         if ((self.lastNameTextField.text ?? "").count < 1){
             self.lastNameTextField.isError = true
+            self.lNameDivider.isSettingForErrorState = true
             let lastName = "Last Name"
             self.lastNameTextField.attributedPlaceholder = NSAttributedString(string: lastName, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeRed])
         }else if !(self.lastNameTextField.text ?? "").isName{
             self.lastNameTextField.isError = true
+            self.lNameDivider.isSettingForErrorState = true
             let lastName = "Last Name"
             self.lastNameTextField.attributedPlaceholder = NSAttributedString(string: lastName, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeRed])
         }
         else{
             self.lastNameTextField.isError = false
+            self.lNameDivider.isSettingForErrorState = false
             let last = "Last Name"
             self.lastNameTextField.attributedPlaceholder = NSAttributedString(string: last, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeGray40])
         }
@@ -356,11 +362,13 @@ class AddPassengerDetailsCell: UITableViewCell {
         case .Child:
             let isValidDob = !((self.dobTextField.text ?? "").isEmpty)
             self.dobTextField.isError = !isValidDob
+            self.dobDivider.isSettingForErrorState = !isValidDob
             let dob = self.dobTextField.placeholder ?? ""
             self.dobTextField.attributedPlaceholder = NSAttributedString(string: dob, attributes: [NSAttributedString.Key.foregroundColor: isValidDob ? AppColors.themeGray40 :  AppColors.themeRed])
         case .Infant:
             let isValidDob = !((self.dobTextField.text ?? "").isEmpty)
             self.dobTextField.isError = !isValidDob
+            self.dobDivider.isSettingForErrorState = !isValidDob
             let dob = self.dobTextField.placeholder ?? ""
             self.dobTextField.attributedPlaceholder = NSAttributedString(string: dob, attributes: [NSAttributedString.Key.foregroundColor: isValidDob ? AppColors.themeGray40 :  AppColors.themeRed])
         }
@@ -382,6 +390,13 @@ class AddPassengerDetailsCell: UITableViewCell {
             txt.isError = !isValid
             let placeholder = txt.placeholder ?? ""
             txt.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor: isValid ? AppColors.themeGray40 :  AppColors.themeRed])
+            switch txt{
+            case dobTextField: self.dobDivider.isSettingForErrorState = !isValid
+            case nationalityTextField: self.nationalityDivider.isSettingForErrorState = !isValid
+            case passportNumberTextField: self.pNumberDivider.isSettingForErrorState = !isValid
+            case passportExpiryTextField: self.pDateDivider.isSettingForErrorState = !isValid
+            default: break;
+            }
         }
         
     }
@@ -494,6 +509,7 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
         
         switch textField {
         case self.dobTextField:
+            self.dobDivider.isSettingForErrorState = false
             PKCountryPicker.default.closePicker()
             self.delegate?.shouldSetupBottom(isNeedToSetUp: true)
             var selected = (textField.text ?? "").toDate(dateFormat: "dd MMM yyyy")
@@ -526,6 +542,7 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
             }
             textField.tintColor = AppColors.clear
         case self.nationalityTextField:
+            self.nationalityDivider.isSettingForErrorState = false
             self.delegate?.shouldSetupBottom(isNeedToSetUp: true)
             /*
              var countries = [String]()
@@ -553,6 +570,7 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
             textField.tintColor = AppColors.clear
             return false
         case self.passportExpiryTextField:
+            self.pDateDivider.isSettingForErrorState = false
             PKCountryPicker.default.closePicker()
             self.delegate?.shouldSetupBottom(isNeedToSetUp: true)
             let selected = (textField.text ?? "").toDate(dateFormat: "dd MMM yyyy")
@@ -564,9 +582,24 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
                 }
             }
             textField.tintColor = AppColors.clear
-        case self.passportNumberTextField, self.mobileTextField, self.emailTextField:
+        case self.passportNumberTextField, self.emailTextField:
+            self.pNumberDivider.isSettingForErrorState = false
             PKCountryPicker.default.closePicker()
             self.delegate?.shouldSetupBottom(isNeedToSetUp: true)
+            
+        case self.mobileTextField:
+            PKCountryPicker.default.closePicker()
+            self.delegate?.shouldSetupBottom(isNeedToSetUp: true)
+            
+        case self.firstNameTextField:
+            self.fNameDivider.isSettingForErrorState = false
+            PKCountryPicker.default.closePicker()
+            self.delegate?.shouldSetupBottom(isNeedToSetUp: false)
+            
+        case self.lastNameTextField:
+            self.lNameDivider.isSettingForErrorState = false
+            PKCountryPicker.default.closePicker()
+            self.delegate?.shouldSetupBottom(isNeedToSetUp: false)
         default:
             PKCountryPicker.default.closePicker()
             self.delegate?.shouldSetupBottom(isNeedToSetUp: false)

@@ -101,6 +101,9 @@ class GuestHotelDetailTableViewCell: UITableViewCell {
         self.lastNameTextField.textColor = AppColors.textFieldTextColor51
         self.firstNameTextField.titleActiveTextColour = AppColors.themeGreen
         self.lastNameTextField.titleActiveTextColour = AppColors.themeGreen
+        
+        self.firstNameTextField.lineErrorColor = AppColors.themeRed
+        self.lastNameTextField.lineErrorColor = AppColors.themeRed
     }
     
     private func configureCell() {

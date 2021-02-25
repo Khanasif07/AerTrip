@@ -411,7 +411,7 @@ class RoomGuestSelectionVC: BaseVC {
     }
     
     @IBAction func childrenButtonsAction(_ sender: ATGuestButton) {
-        var tag = (self.viewModel.selectedChilds >= sender.tag) ? (sender.tag - 1) : sender.tag
+        var tag = (self.viewModel.selectedChilds == sender.tag) ? (sender.tag - 1) : sender.tag
         let showMessage = (tag + self.viewModel.selectedAdults) > self.viewModel.maxGuest
         if (tag + self.viewModel.selectedAdults) >= self.viewModel.maxGuest {
             tag = (self.viewModel.maxGuest - self.viewModel.selectedAdults)

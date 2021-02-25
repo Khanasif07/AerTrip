@@ -21,6 +21,8 @@ class TravellerListVC: BaseVC {
     
     @IBOutlet weak var bottomBackgroundView: UIView!
     @IBOutlet weak var bottomView: UIView!
+    @IBOutlet weak var bottomViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var bottomSafeAreaView: UIView!
     
     @IBOutlet weak var assignGroupButton: UIButton!
     @IBOutlet weak var deleteButton: UIButton!
@@ -93,11 +95,13 @@ class TravellerListVC: BaseVC {
         tableView.backgroundView?.isHidden = true
         tableView.separatorStyle = .singleLine
         tableView.separatorColor = AppColors.blueGray
+        tableView.showsVerticalScrollIndicator = true
         //noResultemptyView.mainImageViewTopConstraint.constant = tableView.height/2
         loadSavedData()
         doInitialSetUp()
         registerXib()
         self.tableView.tableFooterView = UIView(frame: .zero)
+        addTwoFingerSwipeGesture()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -113,6 +117,7 @@ class TravellerListVC: BaseVC {
         if shouldHitAPI {
             viewModel.callSearchTravellerListAPI(isShowLoader: true)
         }
+        self.tableView.contentInset = UIEdgeInsets(top: tableViewContentInset, left: 0, bottom: bottomSafeAreaView.height + 20, right: 0)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -188,12 +193,23 @@ class TravellerListVC: BaseVC {
     
     @objc func handleLongPress(_ longPressGestureRecognizer: UILongPressGestureRecognizer) {
         if longPressGestureRecognizer.state == UIGestureRecognizer.State.began {
-            setSelectMode()
-            let touchPoint = longPressGestureRecognizer.location(in: tableView)
-            if let indexPath = tableView.indexPathForRow(at: touchPoint) {
-                tableView.separatorStyle = .singleLine
-                tableView(tableView, didSelectRowAt: indexPath)
-                tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+            
+            func updateTableView() {
+                let touchPoint = longPressGestureRecognizer.location(in: tableView)
+                if let indexPath = tableView.indexPathForRow(at: touchPoint) {
+                    self.tableView.reloadData()
+                    tableView.separatorStyle = .singleLine
+                    tableView(tableView, didSelectRowAt: indexPath)
+                    tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+                }
+            }
+            
+            tableView.performBatchUpdates {
+                self.setSelectMode(isNeedToReload: false)
+            } completion: { (_) in
+                delay(seconds: 0.15) {
+                    updateTableView()
+                }
             }
         }
     }
@@ -307,8 +323,11 @@ class TravellerListVC: BaseVC {
     
     func doneButtonTapped() {
         shouldHitAPI = true
-        setTravellerMode()
-        tableView.reloadData()
+        setTravellerMode {
+            delay(seconds: 0.15) {
+                self.tableView.reloadData()
+            }
+        }
     }
     
     func popOverOptionTapped() {
@@ -384,6 +403,7 @@ class TravellerListVC: BaseVC {
         }
         tableView.tableHeaderView = travellerListHeaderView
         bottomView.isHidden = true
+        toggleBottomView(hidden: true)
         bottomBackgroundView.isHidden = true
         deleteButton.setTitle(LocalizedString.Delete.localized, for: .normal)
         deleteButton.titleLabel?.textColor = AppColors.themeGreen
@@ -392,7 +412,6 @@ class TravellerListVC: BaseVC {
         addLongPressOnTableView()
         topNavView.delegate = self
         updateNavView()
-        self.tableView.contentInset = UIEdgeInsets(top: tableViewContentInset, left: 0, bottom: 0, right: 0)
     }
     
     func registerXib() {
@@ -421,6 +440,23 @@ class TravellerListVC: BaseVC {
         }
         if let sections =  self.fetchedResultsController.sections {
             travellerListHeaderView.bottomView.isHidden = sections.count == 0 ? false : true
+        }
+    }
+    
+    private func toggleBottomView(hidden: Bool) {
+        bottomSafeAreaView.isHidden = hidden
+        if hidden {
+            UIView.animate(withDuration: 0.3) {
+                self.bottomViewHeight.constant = 0
+            } completion: { (_) in
+                
+            }
+        } else {
+            UIView.animate(withDuration: 0.3) {
+                self.bottomViewHeight.constant = 44
+            } completion: { (_) in
+                
+            }
         }
     }
     
@@ -614,9 +650,14 @@ class TravellerListVC: BaseVC {
         tableView.tableFooterView = customView
     }
     
-    func setTravellerMode(shouldReload: Bool = true) {
-        isSelectMode = false
+    func setTravellerMode(shouldReload: Bool = true, completion: (() -> ())? = nil) {
+        tableView.performBatchUpdates {
+            self.isSelectMode = false
+        } completion: { (_) in
+            completion?()
+        }
         bottomView.isHidden = true
+        toggleBottomView(hidden: true)
         bottomBackgroundView.isHidden = true
         topNavView.leftButton.isSelected = false
         selectedTravller.removeAll()
@@ -624,12 +665,15 @@ class TravellerListVC: BaseVC {
         
     }
     
-    func setSelectMode() {
+    func setSelectMode(isNeedToReload:Bool = true) {
         bottomView.isHidden = false
+        toggleBottomView(hidden: false)
         bottomBackgroundView.isHidden = false
         isSelectMode = true
         updateNavView()
-        tableView.reloadData()
+        if isNeedToReload{
+            tableView.reloadData()
+        }
     }
     
     func resetAllItem() {
@@ -682,6 +726,7 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         //        }
         if isSelectMode {
             bottomView.isHidden = self.tableSectionArray.isEmpty
+            toggleBottomView(hidden: self.tableSectionArray.isEmpty)
             bottomBackgroundView.isHidden = self.tableSectionArray.isEmpty
         }
         travellerListHeaderView.bottomView.isHidden = !self.tableSectionArray.isEmpty
@@ -921,6 +966,7 @@ extension TravellerListVC: TravellerListVMDelegate {
     
     func deleteTravellerAPISuccess() {
         bottomView.isHidden = true
+        toggleBottomView(hidden: true)
         bottomBackgroundView.isHidden =  true
         isSelectMode = false
         deleteAllSelectedTravllers()
@@ -940,6 +986,7 @@ extension TravellerListVC: TravellerListVMDelegate {
     
     func deleteTravellerAPIFailure(errors: ErrorCodes) {
         bottomView.isHidden = true
+        toggleBottomView(hidden: true)
         bottomBackgroundView.isHidden =  true
         isSelectMode = false
         reloadList()
@@ -1081,5 +1128,44 @@ extension TravellerListVC: EmptyScreenViewDelegate {
     
     func bottomButtonAction(sender: UIButton) {
         topNavBarSecondRightButtonAction(sender)
+    }
+}
+
+extension TravellerListVC {
+    private func addTwoFingerSwipeGesture() {
+        let swipeGest = UISwipeGestureRecognizer(target: self, action: #selector(twoFingersSwiped(_:)))
+        swipeGest.direction = .right
+        swipeGest.numberOfTouchesRequired = 2
+        tableView.addGestureRecognizer(swipeGest)
+    }
+    
+    @objc private func twoFingersSwiped(_ recognizer: UISwipeGestureRecognizer) {
+        if bottomView.isHidden {
+            
+            func updateTableView() {
+                func updateTouchPoint(_ point: CGPoint) {
+                    if let indexPath = tableView.indexPathForRow(at: point) {
+                        self.tableView.reloadData()
+                        tableView.separatorStyle = .singleLine
+                        tableView(tableView, didSelectRowAt: indexPath)
+                        tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+                    }
+                }
+                let touchPoint1 = recognizer.location(ofTouch: 0, in: tableView)
+                let touchPoint2 = recognizer.location(ofTouch: 1, in: tableView)
+                updateTouchPoint(touchPoint1)
+                updateTouchPoint(touchPoint2)
+                
+                
+            }
+            
+            tableView.performBatchUpdates {
+                self.setSelectMode(isNeedToReload: false)
+            } completion: { (_) in
+                delay(seconds: 0.15) {
+                    updateTableView()
+                }
+            }
+        }
     }
 }

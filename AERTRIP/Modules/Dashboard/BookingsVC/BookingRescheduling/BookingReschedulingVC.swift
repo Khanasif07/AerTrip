@@ -173,15 +173,27 @@ class BookingReschedulingVC: BaseVC {
         }
     }
     
-    @IBAction func continueButtonTapped(_ sender: Any) {
-        if self.viewModel.usingFor == .rescheduling {
-            //rescheduling
-            AppFlowManager.default.moveToRequestReschedulingVC(onNavController: self.navigationController, legs: self.viewModel.selectedLegs, isOnlyReturn: self.checkOnlyReturnIsSelected())
+    @IBAction func continueButtonTapped(_ sender: Any)
+    {
+        var selectedCounts: [Int] = []
+        
+        for leg in self.viewModel.legsData {
+            if !leg.selectedPaxs.isEmpty {
+                selectedCounts.append(leg.selectedPaxs.count)
+            }
         }
-        else {
-            //cancellation
-            AppFlowManager.default.moveToReviewCancellationVC(onNavController: self.navigationController, usingAs: .flightCancellationReview, legs: self.viewModel.legsData, selectedRooms: nil)
+        
+        if !selectedCounts.isEmpty {
+            if self.viewModel.usingFor == .rescheduling {
+                //rescheduling
+                AppFlowManager.default.moveToRequestReschedulingVC(onNavController: self.navigationController, legs: self.viewModel.selectedLegs, isOnlyReturn: self.checkOnlyReturnIsSelected())
+            }
+            else {
+                //cancellation
+                AppFlowManager.default.moveToReviewCancellationVC(onNavController: self.navigationController, usingAs: .flightCancellationReview, legs: self.viewModel.legsData, selectedRooms: nil, bookingDetails: self.viewModel.bookingDetails)
+            }
         }
+        
     }
     
     
@@ -265,7 +277,11 @@ class BookingReschedulingVC: BaseVC {
             let index = indexPath.row -  legD.flight.count
             let paxD = legD.pax[index]
             
-            let pnrNoStr = paxD.pnr.isEmpty ? paxD.status : paxD.pnr
+            var pnrNoStr = paxD.pnr.isEmpty ? paxD.status : paxD.pnr
+            if pnrNoStr.lowercased() == "pending"
+            {
+                pnrNoStr = pnrNoStr.capitalizedFirst()
+            }
             var age = ""
             if !paxD.dob.isEmpty {
                 age = AppGlobals.shared.getAgeLastString(dob: paxD.dob, formatter: Date.DateFormat.yyyy_MM_dd.rawValue)
@@ -319,8 +335,8 @@ class BookingReschedulingVC: BaseVC {
             self.continueButton.setTitleColor(AppColors.themeWhite.withAlphaComponent(1.0), for: .normal)
             let pasngTtl = ((selectedCounts.count == 1) && ((selectedCounts.first ?? 0) == 1)) ? LocalizedString.Passenger.localized : LocalizedString.Passengers.localized
             self.passengerLabel.text = "\(selectedCounts.joined(separator: ", ")) \(pasngTtl) \(LocalizedString.Selected.localized)"
-            self.priceView.isHidden = false
-            self.priceViewAndButtonContainerHeight.constant = 94.0
+            self.priceView.isHidden = true //false
+            self.priceViewAndButtonContainerHeight.constant = 50.0//94.0
         }
     }
     

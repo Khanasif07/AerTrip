@@ -25,6 +25,7 @@ class FFSearchVC: BaseVC {
     let cellIdentifier = "SearchTableViewCell"
     var searchData: [FlyerModel] = []
     var defaultAirlines: [FlyerModel] = []
+    var selectedAirline: [FrequentFlyer] = []
     let viewModel = FFSearchVM()
     weak var delgate: SearchVCDelegate?
     
@@ -117,12 +118,21 @@ extension FFSearchVC: UITableViewDataSource, UITableViewDelegate {
         }
         if searchData.count > 0 {
             cell.configureCell(searchData[indexPath.row].logoUrl, searchData[indexPath.row].label, searchData[indexPath.row].iata)
+            if self.selectedAirline.contains(where: {$0.airlineCode.lowercased() == searchData[indexPath.row].iata.lowercased()}){
+                cell.titleLabel.textColor = AppColors.themeGray40
+            }else{
+                cell.titleLabel.textColor = AppColors.themeBlack
+            }
         }
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard (!self.selectedAirline.contains(where: {$0.airlineCode.lowercased() == searchData[indexPath.row].iata.lowercased()})) else{
+            AppToast.default.showToastMessage(message: "Airline is already added in Frequent flyer")
+            return
+        }
         delgate?.frequentFlyerSelected(searchData[indexPath.row])
         dismiss(animated: true, completion: nil)
     }

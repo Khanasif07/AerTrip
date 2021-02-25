@@ -47,7 +47,7 @@ class CancelledVC: BaseVC {
     var fetchRequest: NSFetchRequest<BookingData> = BookingData.fetchRequest()
     lazy var fetchedResultsController: NSFetchedResultsController<BookingData> = {
         // booking will be in desending order by date
-        self.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "dateHeader", ascending: false), NSSortDescriptor(key: "bookingProductType", ascending: false), NSSortDescriptor(key: "bookingId", ascending: true)]
+        self.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "dateHeader", ascending: false), NSSortDescriptor(key: "bookingProductType", ascending: true), NSSortDescriptor(key: "bookingId", ascending: true)]
         
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: self.fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "dateHeader", cacheName: nil)
         return fetchedResultsController

@@ -76,12 +76,12 @@ class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
 //        } else {
             printDebug(recentSearchesData.dest_name)
             let cityName = recentSearchesData.dest_name.split(separator: ",").first ?? ""
-            let countryCode = recentSearchesData.dest_name.split(separator: ",").last ?? ""
+//            let countryCode = recentSearchesData.dest_name.split(separator: ",").last ?? ""
             //        self.cityNameLabel.text = "\(cityName)"
             let prefix: String = cityName.isEmpty ? "" : "\(cityName),"
-            let suffix: String = countryCode.isEmpty ? "" : ",\(countryCode)"
+//            let suffix: String = countryCode.isEmpty ? "" : ",\(countryCode)"
             
-            var stateText = recentSearchesData.dest_name.deletingPrefix(prefix: prefix).removeSpaceAsSentence
+        let stateText = recentSearchesData.dest_name.deletingPrefix(prefix: prefix).removeSpaceAsSentence
             //stateText = stateText.deletingSuffix(suffix: suffix).removeSpaceAsSentence
             
 //            self.cityNameLabel.text = "\(cityName) " + stateText

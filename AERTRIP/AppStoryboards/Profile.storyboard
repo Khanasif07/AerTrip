@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -654,8 +654,17 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LAQ-8d-YkK">
+                                <rect key="frame" x="187.5" y="177" width="0.0" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="fZq-eE-NXT"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="p31-n3-9C6" customClass="PKFloatLabelTextField" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="16" y="192" width="343" height="60"/>
+                                <rect key="frame" x="16" y="223" width="343" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="kRr-OA-fav"/>
                                 </constraints>
@@ -666,7 +675,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nnX-7k-399">
-                                <rect key="frame" x="333" y="225" width="27" height="27"/>
+                                <rect key="frame" x="333" y="256" width="27" height="27"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="27" id="y6e-3L-KsX"/>
@@ -677,7 +686,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dQP-Az-qGA" customClass="PKFloatLabelTextField" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="16" y="252" width="343" height="60"/>
+                                <rect key="frame" x="16" y="283" width="343" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="HFi-Pv-DtP"/>
                                 </constraints>
@@ -688,7 +697,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bCt-cA-I5u">
-                                <rect key="frame" x="333" y="285" width="27" height="27"/>
+                                <rect key="frame" x="333" y="316" width="27" height="27"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="27" id="4qC-Br-mQA"/>
@@ -699,13 +708,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password Conditions:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="APv-w5-1ug">
-                                <rect key="frame" x="16" y="331" width="343" height="20.5"/>
+                                <rect key="frame" x="16" y="362" width="343" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="k2l-p9-8MG">
-                                <rect key="frame" x="5" y="361.5" width="362" height="52"/>
+                                <rect key="frame" x="5" y="392.5" width="362" height="52"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="dlu-F5-JZj">
                                         <rect key="frame" x="0.0" y="0.0" width="72.5" height="52"/>
@@ -795,7 +804,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n91-Gc-vh6" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="112.5" y="458.5" width="150" height="50"/>
+                                <rect key="frame" x="112.5" y="489.5" width="150" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="1dH-bV-ojN"/>
                                     <constraint firstAttribute="width" constant="150" id="Tpr-nO-wdT"/>
@@ -811,6 +820,7 @@
                         <viewLayoutGuide key="safeArea" id="IgZ-Ca-jiP"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="LAQ-8d-YkK" firstAttribute="top" secondItem="aJU-OS-Jcw" secondAttribute="bottom" constant="16" id="6cN-qa-Ab1"/>
                             <constraint firstItem="IgZ-Ca-jiP" firstAttribute="trailing" secondItem="p31-n3-9C6" secondAttribute="trailing" constant="16" id="7Li-Q4-o3X"/>
                             <constraint firstItem="bCt-cA-I5u" firstAttribute="trailing" secondItem="dQP-Az-qGA" secondAttribute="trailing" constant="1" id="Cmq-hQ-Ytw"/>
                             <constraint firstItem="n91-Gc-vh6" firstAttribute="centerX" secondItem="5On-6z-D0E" secondAttribute="centerX" id="HK9-hD-rW8"/>
@@ -824,6 +834,7 @@
                             <constraint firstItem="aJU-OS-Jcw" firstAttribute="leading" secondItem="IgZ-Ca-jiP" secondAttribute="leading" constant="40" id="ZyJ-dA-dAj"/>
                             <constraint firstItem="IgZ-Ca-jiP" firstAttribute="trailing" secondItem="k2l-p9-8MG" secondAttribute="trailing" constant="8" id="auE-bl-i1Q"/>
                             <constraint firstItem="U1y-IV-OzS" firstAttribute="leading" secondItem="IgZ-Ca-jiP" secondAttribute="leading" id="cZg-MN-qCS"/>
+                            <constraint firstItem="p31-n3-9C6" firstAttribute="top" secondItem="LAQ-8d-YkK" secondAttribute="bottom" constant="26" id="eAX-s4-lMs"/>
                             <constraint firstItem="APv-w5-1ug" firstAttribute="trailing" secondItem="dQP-Az-qGA" secondAttribute="trailing" id="ft6-mM-Mc4"/>
                             <constraint firstItem="n91-Gc-vh6" firstAttribute="top" secondItem="dQP-Az-qGA" secondAttribute="bottom" constant="146.5" id="gHr-7Z-YDL"/>
                             <constraint firstItem="aJU-OS-Jcw" firstAttribute="trailing" secondItem="IgZ-Ca-jiP" secondAttribute="trailing" constant="-40" id="iK8-6A-u5D"/>
@@ -833,7 +844,7 @@
                             <constraint firstItem="k2l-p9-8MG" firstAttribute="top" secondItem="APv-w5-1ug" secondAttribute="bottom" constant="10" id="rOD-1x-b2q"/>
                             <constraint firstItem="aJU-OS-Jcw" firstAttribute="top" secondItem="U1y-IV-OzS" secondAttribute="bottom" constant="26" id="sOC-ye-SOM"/>
                             <constraint firstItem="IgZ-Ca-jiP" firstAttribute="trailing" secondItem="dQP-Az-qGA" secondAttribute="trailing" constant="16" id="skP-U5-MgI"/>
-                            <constraint firstItem="p31-n3-9C6" firstAttribute="top" secondItem="aJU-OS-Jcw" secondAttribute="bottom" constant="31" id="xam-r7-OaY"/>
+                            <constraint firstItem="LAQ-8d-YkK" firstAttribute="centerX" secondItem="aJU-OS-Jcw" secondAttribute="centerX" id="vf6-Eq-EZC"/>
                             <constraint firstItem="APv-w5-1ug" firstAttribute="leading" secondItem="dQP-Az-qGA" secondAttribute="leading" id="xrF-ay-Hbs"/>
                         </constraints>
                     </view>
@@ -842,6 +853,10 @@
                         <outlet property="capsALabel" destination="6Ov-IR-dlb" id="GCw-d4-xRj"/>
                         <outlet property="charactersLabel" destination="AlX-Qf-xXL" id="NeU-tR-iqC"/>
                         <outlet property="eightPlusLabel" destination="Odw-E7-wnP" id="Ibz-kZ-Mye"/>
+                        <outlet property="enterPasswordBottom" destination="eAX-s4-lMs" id="Paw-1u-cgC"/>
+                        <outlet property="enterPasswordHeight" destination="fZq-eE-NXT" id="weq-kW-ScM"/>
+                        <outlet property="enterPasswordLabel" destination="LAQ-8d-YkK" id="80T-Ba-czd"/>
+                        <outlet property="enterPasswordTop" destination="6cN-qa-Ab1" id="xYf-MA-lgA"/>
                         <outlet property="lowerCaseLabel" destination="rCb-W2-bWf" id="Rk1-mg-XOi"/>
                         <outlet property="nextButton" destination="n91-Gc-vh6" id="nva-0B-aju"/>
                         <outlet property="nextButtonTopConstraint" destination="gHr-7Z-YDL" id="N1q-eT-aPK"/>
@@ -932,10 +947,10 @@
     </scenes>
     <designables>
         <designable name="dQP-Az-qGA">
-            <size key="intrinsicContentSize" width="62.5" height="19"/>
+            <size key="intrinsicContentSize" width="62.5" height="18.5"/>
         </designable>
         <designable name="p31-n3-9C6">
-            <size key="intrinsicContentSize" width="62.5" height="19"/>
+            <size key="intrinsicContentSize" width="62.5" height="18.5"/>
         </designable>
     </designables>
     <resources>

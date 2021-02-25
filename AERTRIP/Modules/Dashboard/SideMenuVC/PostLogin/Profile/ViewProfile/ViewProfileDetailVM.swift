@@ -108,6 +108,19 @@ class ViewProfileDetailVM {
         })
     }
     
+    
+    func webserviceForGetPreferenceList() {
+        
+        APICaller.shared.callGetPreferencesListApi { success, seatPreferences, mealPreferences, errorCode in
+            if success {
+//                self.delegate?.getPreferenceListSuccess(seatPreferences, mealPreferences)
+            } else {
+//                self.delegate?.getFail(errors: errorCode)
+//                printDebug(errorCode)
+            }
+        }
+    }
+    
     private func checkAndUpdateDefaults() {
         
     }

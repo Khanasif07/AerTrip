@@ -69,6 +69,38 @@ struct OtherFareModel {
     }
     
     
+//    var descriptionShown:String{
+//        var totalText = ""
+//        for str in self.description{
+//            var displayString = str
+//            if !str.isEmpty{
+//                displayString = displayString.replacingOccurrences(of: "·", with: "•")
+//                displayString = displayString.replacingOccurrences(of: "*", with: "•")
+//                displayString = displayString.replacingOccurrences(of: "\n\n•", with: "\n•")
+//                displayString = displayString.replacingOccurrences(of: "\n\n", with: "\n•")
+//                displayString = displayString.replacingOccurrences(of: "•", with: "•   ")
+//
+//                if totalText.isEmpty{
+//                    totalText += displayString
+//                }else{
+//                    totalText += "\n\(displayString)"
+//                }
+//            }
+//        }
+//        return totalText
+        
+//        guard let str = self.description.first, var displayString = str.getAttributedString?.string else  {return ""}
+//        if displayString.contains(find: "\t•\t"){
+//            displayString = displayString.replacingOccurrences(of: "\t•\t", with: "•   ")
+//        }else if displayString.contains(find: " • "){
+//            displayString = displayString.replacingOccurrences(of: " • ", with: "\n•   ")
+//        }else if displayString.contains(find: " · "){
+//            displayString = displayString.replacingOccurrences(of: " · ", with: "\n•   ")
+//        }
+//        return "\(displayString)\n"
+//    }
+    
+    
     var descriptionShown:String{
         var totalText = ""
         for str in self.description{

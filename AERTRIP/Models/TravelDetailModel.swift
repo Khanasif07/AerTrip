@@ -72,6 +72,7 @@ struct Address {
     var country: String = ""
     var postalCode: String = ""
     var countryName:String = ""
+    var isDuplicate = false
     
     var jsonDict: [String:Any] {
         return ["id":self.id,

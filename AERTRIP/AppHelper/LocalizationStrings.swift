@@ -137,6 +137,7 @@ enum LocalizedString: String {
     case Please_enter_Current_Password
     case Please_enter_Valid_Password
     case Password_must_qualify_conditions
+    case pleaseEnterAPassword
     
     // MARK: - CreateProfileVC
     
@@ -428,6 +429,7 @@ enum LocalizedString: String {
     case HotelsNearMe
     case RecentlySearchedDestinations
     case PopularDestinations
+    case didYouMean
     
     // MARK: - Bulk Booking
     
@@ -589,6 +591,9 @@ enum LocalizedString: String {
     case ShowingResultsFor
     case Clear
     case viewMorePhoto
+    case pricesArePerNight
+    case pricesAreFor
+    case allIncl
 
     // Mail Composer View
     case ContactUsAertrip

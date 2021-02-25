@@ -36,6 +36,7 @@ class AccountOutstandingLadgerVM: NSObject {
         return self.selectedEvent.reduce(0.0) { $0 + $1.pendingAmount}
     }
     
+    var isSearching:Bool = false
     
     private(set) var itineraryData: DepositItinerary?
     
@@ -99,7 +100,7 @@ class AccountOutstandingLadgerVM: NSObject {
                             (event.bookingNumber.lowercased().contains(forText.lowercased())) ||
                             (event.airline.lowercased().contains(forText.lowercased())) ||
                             (self.removeSpecialChar(from:event.flightNumber).contains(self.removeSpecialChar(from: forText))) ||
-                            (event.bookingId.lowercased().contains(forText.lowercased())))
+                            (event.bookingId.lowercased().contains(forText.lowercased()))  || (self.removeSpecialChar(from:event.voucher.rawValue).contains(self.removeSpecialChar(from: forText))) ||  (self.removeSpecialChar(from:"\(event.amount)").contains(self.removeSpecialChar(from: forText)))  ||  (self.removeSpecialChar(from:"\(event.pendingAmount)").contains(self.removeSpecialChar(from: forText))))
                         
                     }
                     if !fltrd.isEmpty {
@@ -126,7 +127,7 @@ class AccountOutstandingLadgerVM: NSObject {
         APICaller.shared.accountReportActionAPI(params: param) { (success, errors) in
             if success {
                 AppToast.default.hideToast(onVC, animated: false)
-                AppToast.default.showToastMessage(message: LocalizedString.Email_successfully_Sent.localized, onViewController: onVC)
+                AppToast.default.showToastMessage(message: LocalizedString.OutstandingSentToYourEmail.localized, onViewController: onVC)
             }
             else {
                 AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)

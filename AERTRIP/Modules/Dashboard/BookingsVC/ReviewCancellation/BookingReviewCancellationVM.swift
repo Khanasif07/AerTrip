@@ -42,13 +42,15 @@ class BookingReviewCancellationVM {
     //flight
     var legsWithSelection: [BookingLeg] = []
     
+    var bookingDetails:BookingDetailModel?
+    
     // Net Refund for Cancellation is used for Flight detail
     var totRefundForFlight: Double {
-        return legsWithSelection.reduce(0) { $0 + ($1.selectedPaxs.reduce(0, { $0 + $1.netRefundForCancellation })) }
+        return (legsWithSelection.reduce(0) { $0 + ($1.selectedPaxs.reduce(0, { $0 + $1.netRefundForCancellation })) } - (self.bookingDetails?.receipt?.reversalMF ?? 0.0))
     }
     
     var totalRefundForHotel: Double {
-          return selectedRooms.reduce(0) { $0 + ($1.netRefund) }
+          return (selectedRooms.reduce(0) { $0 + ($1.netRefund) } - (self.bookingDetails?.receipt?.reversalMF ?? 0.0))
     }
 
     private(set) var refundModes: [String] = []

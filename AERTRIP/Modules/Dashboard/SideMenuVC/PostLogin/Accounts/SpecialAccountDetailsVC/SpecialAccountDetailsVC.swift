@@ -81,9 +81,10 @@ class SpecialAccountDetailsVC: BaseVC {
         self.refreshControl.tintColor = AppColors.themeGreen
         self.tableView.refreshControl = refreshControl
         
-        
+        let bottomInset = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
+
         loaderView.isHidden = false
-        activityIndicator.center = CGPoint(x: loaderView.bounds.size.width/2, y: loaderView.bounds.size.height/2)
+        activityIndicator.center = CGPoint(x: loaderView.bounds.size.width/2, y: loaderView.bounds.size.height/2-bottomInset)
         activityIndicator.color = AppColors.themeGreen
         activityIndicator.backgroundColor = .clear
         activityIndicator.startAnimating()
@@ -227,6 +228,11 @@ extension SpecialAccountDetailsVC: SpecialAccountDetailsVMDelegate {
         }
         self.tableView.reloadData()
         self.refreshControl.endRefreshing()
+        if showProgress{
+            self.manageDataForDeeplink()
+            self.viewModel.deepLinkParams = [:]
+        }
+        
     }
     
     func fetchScreenDetailsFail(showProgress: Bool) {
@@ -251,4 +257,47 @@ extension SpecialAccountDetailsVC: TopNavigationViewDelegate {
         //info button action
         AppFlowManager.default.presentAccountChargeInfoVC(usingFor: .chargeInfo)
     }
+}
+
+
+
+extension SpecialAccountDetailsVC{
+    
+    
+    func manageDataForDeeplink(){
+        
+        switch  (self.viewModel.deepLinkParams["type"] ?? ""){
+        case "accounts-ledger": self.moveToAccountLadge()
+        case "outstanding-ledger": self.moveToAccountOutstandingLedger()
+        case "periodic-ledger":
+            guard !self.viewModel.periodicEvents.isEmpty else{return}
+            AppFlowManager.default.moveToPeriodicStatementVC(periodicEvents: self.viewModel.periodicEvents)
+        default: break;
+        }
+
+    }
+    
+    
+    func moveToAccountLadge(){
+        if let id  = self.viewModel.deepLinkParams["voucher_id"], !id.isEmpty, let event = self.viewModel.getEventFromAccountLadger(with: id){
+            AppFlowManager.default.moveToAccountLadgerDetailsVC(forEvent: event, detailType: .accountLadger)
+        }else{
+            AppFlowManager.default.moveToAccountDetailsVC(usingFor: .accountLadger, forDetails: self.viewModel.accountLadger, forVoucherTypes: self.viewModel.accVouchers)
+        }
+    }
+    
+    func moveToAccountOutstandingLedger(){
+        if let id  = self.viewModel.deepLinkParams["voucher_id"],!id.isEmpty{
+            if self.viewModel.deepLinkParams["olType"] == "onAccounts"{
+                guard let event = self.viewModel.getEventFromOutstadingOnAccountLadger(with: id) else {return}
+                AppFlowManager.default.moveToAccountLadgerDetailsForOnAccount(forEvent: event, detailType: .outstandingLadger)
+            }else{
+                guard let event = self.viewModel.getEventFromAccountLadger(with: id) else {return}
+                AppFlowManager.default.moveToAccountLadgerDetailsVC(forEvent: event, detailType: .outstandingLadger)
+            }
+        }else{
+            AppFlowManager.default.moveToAccountOutstandingLadgerVC(data: self.viewModel.outstandingLadger)
+        }
+    }
+    
 }
