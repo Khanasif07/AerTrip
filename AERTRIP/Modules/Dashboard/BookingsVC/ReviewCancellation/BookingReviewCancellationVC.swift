@@ -219,7 +219,7 @@ class BookingReviewCancellationVC: BaseVC {
             
         }
         else {
-            let txtViewHt = (CGFloat(self.commentTextView.numberOfLines) * (self.commentTextView.font?.lineHeight ?? 20.0)) + 14.0
+            let txtViewHt = (CGFloat(self.commentTextView.numberOfLines) * (self.commentTextView.font?.lineHeight ?? 20.0)) + 15.0
             textHeight = max(txtViewHt, textHeight)
         }
         

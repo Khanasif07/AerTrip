@@ -18,6 +18,8 @@ class FrequentFlyerVC: BaseVC {
     let footerViewIdentifier = "BookingInfoEmptyFooterView"
     let headerViewIdentifier = "BookingFrequentFlyerHeaderView"
     
+    var delegate:BookingRequestAddOnsFFVCTextfiledDelegate?
+    
     override func initialSetup() {
         registerXib()
         frequentFlyerTableView.dataSource = self
@@ -127,5 +129,8 @@ extension FrequentFlyerVC: BookingFFAirlineTableViewCellDelegate {
             return
         }
         BookingRequestAddOnsFFVM.shared.bookingDetails?.frequentFlyerData[indexPath.section].flights[indexPath.row].frequentFlyerNumber = textField.text ?? ""
+        
+        self.delegate?.closeKeyboard()
+
     }
 }
