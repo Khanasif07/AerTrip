@@ -97,6 +97,8 @@ class BookingReviewCancellationVC: BaseVC {
             self.cancellationViewHeightConstraint.constant = 0.0
             self.totalNetRefundView.isHidden = true
             self.totalNetRefundViewHeightConstraint.constant = 0.0
+            self.requestCancellationButton.alpha = 0.6
+
         }
         
         self.refundModeTextField.delegate = self
@@ -307,6 +309,11 @@ extension BookingReviewCancellationVC {
         self.viewModel.comment = textView.text
         self.manageTextFieldHeight()
         commentPlaceholderLbl.isHidden = !textView.text.isEmpty
+        if !textView.text.isEmpty && viewModel.selectedSpecialRequest != LocalizedString.Select.localized {
+            requestCancellationButton.alpha = 1
+        } else {
+            requestCancellationButton.alpha = 0.6
+        }
     }
     
         func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
@@ -321,6 +328,11 @@ extension BookingReviewCancellationVC {
                     PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.specialRequests, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [unowned self]  (firstSelect, secondSelect) in
                         textField.text = firstSelect
                         self.viewModel.selectedSpecialRequest = firstSelect
+                        if firstSelect != LocalizedString.Select.localized && !viewModel.comment.isEmpty {
+                            requestCancellationButton.alpha = 1
+                        } else {
+                            requestCancellationButton.alpha = 0.6
+                        }
                 self.manageContinueButton()
 
                     }

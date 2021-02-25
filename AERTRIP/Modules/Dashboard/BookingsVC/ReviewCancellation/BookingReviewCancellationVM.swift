@@ -75,7 +75,7 @@ class BookingReviewCancellationVM {
         var flag = true
         
         if self.currentUsingAs == .specialRequest {
-            if selectedSpecialRequest.isEmpty || selectedMode.lowercased() == LocalizedString.Select.localized.lowercased() {
+            if selectedSpecialRequest.isEmpty || selectedSpecialRequest.lowercased() == LocalizedString.Select.localized.lowercased() {
                 flag = false
                 if showMessage {
                     AppToast.default.showToastMessage(message: "Please select request type.")
