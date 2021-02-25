@@ -211,7 +211,9 @@ extension FlightBookingsDetailsVC: TopNavigationViewDelegate {
         
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.RequestAddOnAndFrequentFlyer.localized, LocalizedString.RequestRescheduling.localized, LocalizedString.RequestCancellation.localized, LocalizedString.Download.localized, LocalizedString.ResendConfirmationMail.localized, LocalizedString.reloadDetail.localized], colors: [self.viewModel.bookingDetail?.addOnRequestAllowed ?? false ? AppColors.themeDarkGreen : AppColors.themeGray40, self.viewModel.bookingDetail?.rescheduleRequestAllowed ?? false ? AppColors.themeDarkGreen : AppColors.themeGray40, self.viewModel.bookingDetail?.cancellationRequestAllowed ?? false ? AppColors.themeDarkGreen : AppColors.themeGray40, AppColors.themeDarkGreen, AppColors.themeDarkGreen, AppColors.themeDarkGreen])
         
-        _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] _, index in
+        
+//        _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton)
+        _ = PKAlertController.default.presentActionSheet(nil, isFromBooking: true, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton){ [weak self] _, index in
             
             if index == 0 {
                 printDebug("Present Request Add-ons & Freq. Flyer")
