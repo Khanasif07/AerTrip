@@ -38,6 +38,9 @@ class AccountDetailsVM: NSObject {
     
     var ledgerStartDate: Date = Date()
     
+    var minDate : Date?
+    var maxDate : Date?
+    
     //MARK:- Private
     
     
@@ -73,9 +76,19 @@ class AccountDetailsVM: NSObject {
     
     private func fetchLedgerStartDate() {
         var arr = Array(_accountDetails.keys)
+        printDebug(arr)
         arr.sort { ($0.toDate(dateFormat: "YYYY-MM-dd")?.timeIntervalSince1970 ?? 0) > ($1.toDate(dateFormat: "YYYY-MM-dd")?.timeIntervalSince1970 ?? 0)}
+       
+        printDebug("........")
+        printDebug(arr)
+
+        self.minDate = arr.last?.toDate(dateFormat: "YYYY-MM-dd")
+        self.maxDate = arr.first?.toDate(dateFormat: "YYYY-MM-dd")
+        
         if let lastD = arr.last, let dataArr = _accountDetails[lastD] as? [AccountDetailEvent] {
             self.ledgerStartDate = dataArr.last?.date ?? Date()
+//            self.minDate = dataArr.last?.date ?? Date()
+//            self.maxDate = dataArr.first?.date ?? Date()
         }
     }
     

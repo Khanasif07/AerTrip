@@ -20,7 +20,10 @@ class ADEventFilterVM {
     
     var voucherTypes: [String] = []
     var minFromDate: Date?
-
+    
+    var minDate : Date?
+    var maxDate : Date?
+    
     var paymentMethodArray:JSONDictionary = [:]
     
     var isFilterAplied: Bool {
