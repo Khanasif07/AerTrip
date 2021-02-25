@@ -111,6 +111,7 @@ class ContactTableCell: UITableViewCell {
         }
         let firstName = self.contactNumberTextField.placeholder ?? ""
         self.contactNumberTextField.attributedPlaceholder = NSAttributedString(string: firstName, attributes: [NSAttributedString.Key.foregroundColor: isValidEmail ? AppColors.themeGray40 :  AppColors.themeRed])
+        self.dividerView.isSettingForErrorState = !isValidEmail
     }
 }
 
@@ -122,6 +123,7 @@ extension ContactTableCell : UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         PKCountryPicker.default.closePicker()
         titleLabel.textColor = AppColors.themeGray40
+        self.dividerView.isSettingForErrorState = false
         return true
     }
     

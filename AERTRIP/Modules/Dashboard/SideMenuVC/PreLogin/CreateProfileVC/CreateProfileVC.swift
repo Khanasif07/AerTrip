@@ -111,6 +111,9 @@ class CreateProfileVC: BaseVC {
         
         self.createProfileTitleLabel.textColor  = AppColors.themeBlack
         self.createProfileSubTitleLabel.textColor  = AppColors.themeBlack
+        self.firstNameTextField.lineErrorColor = AppColors.themeRed
+        self.lastNameTextField.lineErrorColor = AppColors.themeRed
+        self.countryTextField.lineErrorColor = AppColors.themeRed
        // self.letsStartedButton.layer.masksToBounds = false
         self.letsStartedButton.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
         self.letsStartedButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
@@ -143,6 +146,7 @@ class CreateProfileVC: BaseVC {
             //self.mobileNumberTextField.isError = !isValidLastName
             let mobilePlaceHolder = self.mobileNumberTextField.placeholder ?? ""
             self.mobileNumberTextField.attributedPlaceholder = NSAttributedString(string: mobilePlaceHolder, attributes: [NSAttributedString.Key.foregroundColor: isValidMobile ? AppColors.themeGray40 :  AppColors.themeRed])
+            self.mobileNoseperatorView.isSettingForErrorState = !isValidMobile
         }
     }
     
@@ -365,6 +369,7 @@ extension CreateProfileVC {
             //self.mobileNumberTextField.isError = !isValidLastName
             let mobilePlaceHolder = self.mobileNumberTextField.placeholder ?? ""
             self.mobileNumberTextField.attributedPlaceholder = NSAttributedString(string: mobilePlaceHolder, attributes: [NSAttributedString.Key.foregroundColor: isValidMobile ? AppColors.themeGray40 :  AppColors.themeRed])
+            self.mobileNoseperatorView.isSettingForErrorState = !isValidMobile
             
         default:
             break
@@ -394,7 +399,9 @@ extension CreateProfileVC {
             }
             return false
         } else {
-            
+            if textField == self.mobileNumberTextField{
+                self.mobileNoseperatorView.isSettingForErrorState = false
+            }
             PKCountryPicker.default.closePicker()
             if textField === self.nameTitleTextField {
                 

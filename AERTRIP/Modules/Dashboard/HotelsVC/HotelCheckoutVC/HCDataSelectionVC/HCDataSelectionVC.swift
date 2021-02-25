@@ -775,6 +775,7 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 cell.contentView.backgroundColor = AppColors.themeGray04
                 cell.backgroundColor = AppColors.themeGray04
                 cell.bottomDividerView.isHidden = newRow == 10
+                cell.topDividerView.isHidden = newRow == 8
                 
                 return cell
                 
@@ -859,6 +860,9 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 cell.editableTextField.textColor = AppColors.themeBlack
                 cell.editableTextField.keyboardType = .default
                 cell.editableTextField.autocapitalizationType = .allCharacters
+                cell.separatorView.isHidden = false
+                cell.seperatorLeadingConstraint.constant = 0.0
+                cell.separatorHeight.constant = 0.5
                 if viewModel.canShowErrorForEmailPhone {
                     cell.checkForErrorStateOfTextfield()
                 }

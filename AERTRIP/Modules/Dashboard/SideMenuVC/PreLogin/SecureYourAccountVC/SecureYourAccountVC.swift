@@ -111,6 +111,7 @@ class SecureYourAccountVC: BaseVC {
         self.specialLabel.tintColor = AppColors.themeGray60
         self.eightPlusLabel.tintColor = AppColors.themeGray60
         self.charactersLabel.tintColor = AppColors.themeGray60
+        self.passwordTextField.lineErrorColor = AppColors.themeRed
     }
     
     override func bindViewModel() {
@@ -145,7 +146,8 @@ class SecureYourAccountVC: BaseVC {
             }
         } else {
             let isValidPassword = !self.viewModel.password.isEmpty
-            self.passwordTextField.isError = !self.viewModel.password.isEmpty //self.viewModel.password.checkInvalidity(.Password)  removed the validation because to match with website
+            self.passwordTextField.isError = !isValidPassword //self.viewModel.password.checkInvalidity(.Password)  removed the validation because to match with website
+            
             let passwordPlaceHolder = self.passwordTextField.placeholder ?? ""
             self.passwordTextField.attributedPlaceholder = NSAttributedString(string: passwordPlaceHolder, attributes: [NSAttributedString.Key.foregroundColor: isValidPassword ? AppColors.themeGray40 :  AppColors.themeRed])
         }
