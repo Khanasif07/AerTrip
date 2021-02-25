@@ -19,6 +19,7 @@ class UpdateAccountDetailsVC: BaseVC {
     @IBOutlet weak var accountTableView: ATTableView!
     
     var viewModel = UpdateAccountDetailsVM()
+    fileprivate var showError:Bool = false
     weak var delegate : GetUpdatedAccountDetailsBack?
     
     override func viewDidLoad() {
@@ -132,7 +133,7 @@ extension UpdateAccountDetailsVC: UITableViewDelegate, UITableViewDataSource{
                 cell.updateTextField.text = self.viewModel.updateValue
                 cell.addressView.isHidden = self.viewModel.updationType != .billingAddress
                 cell.addressLabel.text = self.viewModel.details.billingAddressStringWithNewLines
-                
+                cell.deviderView.isSettingForErrorState = self.showError
                 return cell
                 
                 
@@ -143,6 +144,7 @@ extension UpdateAccountDetailsVC: UITableViewDelegate, UITableViewDataSource{
                 }
                 cell.setPlaceHolderAndDelegate(with: self.viewModel.updationType.rawValue, textFieldDelegate: self, isForAadhar: (self.viewModel.updationType == .aadhar))
                 cell.updateTextField.text = self.viewModel.updateValue
+                cell.deviderView.isSettingForErrorState = self.showError
                 return cell
             }
         }
@@ -172,6 +174,7 @@ extension UpdateAccountDetailsVC:TopNavigationViewDelegate{
                 self.manageLoader(isNeeded: true)
                 self.viewModel.updateAccountDetails(self.viewModel.updateValue)
             }else{
+                self.showError = true
                 AppToast.default.showToastMessage(message: validate.msg)
             }
             
@@ -181,6 +184,7 @@ extension UpdateAccountDetailsVC:TopNavigationViewDelegate{
                 self.manageLoader(isNeeded: true)
                 self.viewModel.updateRefundModes()
             }else{
+                self.showError = true
                 AppToast.default.showToastMessage(message: validate.msg)
             }
             
@@ -191,11 +195,13 @@ extension UpdateAccountDetailsVC:TopNavigationViewDelegate{
                 self.manageLoader(isNeeded: true)
                 self.viewModel.updateAccountDetails("\(self.viewModel.details.billingAddress.id)")
             }else{
+                self.showError = true
                 AppToast.default.showToastMessage(message: validate.msg)
             }
             
         break;
         }
+        self.accountTableView.reloadData()
     }
     
 }
@@ -220,7 +226,7 @@ extension UpdateAccountDetailsVC: UpdateAccountDetailsVMDelegates{
 extension UpdateAccountDetailsVC{
 
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        
+        self.showError = true
         switch self.viewModel.updationType{
         case .billingAddress:
             textField.tintColor = AppColors.clear
@@ -238,7 +244,7 @@ extension UpdateAccountDetailsVC{
                 
                 guard let cell = weakSelf.accountTableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? UpdateAccountDropdownCell else { return }
                 cell.addressLabel.text = weakSelf.viewModel.details.billingAddressStringWithNewLines
-                
+                cell.deviderView.isSettingForErrorState = false
             }
             
         case .defaultRefundMode:
@@ -251,11 +257,15 @@ extension UpdateAccountDetailsVC{
                 
             }
             textField.tintColor = AppColors.clear
-            
+            if let cell = self.accountTableView.cell(forItem: textField) as? UpdateAccountDropdownCell{
+                cell.deviderView.isSettingForErrorState = false
+            }
             
 
-        case .aadhar, .billingName,.gSTIN,.pan: return true
-            
+        case .aadhar, .billingName,.gSTIN,.pan:
+            if let cell = self.accountTableView.cell(forItem: textField) as? UpdateAccountTextFieldCell{
+                cell.deviderView.isSettingForErrorState = false
+            }
         }
         
         return true
@@ -267,6 +277,7 @@ extension UpdateAccountDetailsVC{
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         self.viewModel.updateValue = (textField.text ?? "").removeLeadingTrailingWhitespaces
+        self.showError = false
         self.accountTableView.reloadData()
 
     }
