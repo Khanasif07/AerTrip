@@ -594,6 +594,7 @@ enum LocalizedString: String {
     case pricesArePerNight
     case pricesAreFor
     case allIncl
+    case allInclusive
 
     // Mail Composer View
     case ContactUsAertrip
