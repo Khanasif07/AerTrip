@@ -77,6 +77,8 @@ class AddOnsVC: BaseVC {
 
 //            if BookingRequestAddOnsFFVM.shared.isLCC {
                 commontInputTableViewCell.configureCell(title: LocalizedString.SeatBookingTitle.localized, placeholderText: LocalizedString.SeatBookingPlaceholder.localized, text: BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].seat ?? "")
+            commontInputTableViewCell.characterCountLabel.isHidden = false
+
                 commontInputTableViewCell.isUserInteractionEnabled = !(pax?.inProcess ?? false)
                 return commontInputTableViewCell
 //            } else {
@@ -109,6 +111,7 @@ class AddOnsVC: BaseVC {
             let extraCellCount = 4 * (BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax.count ?? 0)
             let paxCount = BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax.count ?? 0
             commontInputTableViewCell.configureCell(title: LocalizedString.OtherBookingTitle.localized, placeholderText: LocalizedString.OtherBookingPlaceholder.localized, text: BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].other ?? "")
+            commontInputTableViewCell.characterCountLabel.isHidden = false
             commontInputTableViewCell.dividerView.isHidden = (indexPath.row == (extraCellCount + paxCount) - 1)
             commontInputTableViewCell.isUserInteractionEnabled = !(pax?.inProcess ?? false)
             return commontInputTableViewCell
