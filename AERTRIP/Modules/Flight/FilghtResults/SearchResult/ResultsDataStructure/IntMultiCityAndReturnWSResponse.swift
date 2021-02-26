@@ -501,8 +501,15 @@ struct IntMultiCityAndReturnWSResponse {
                         isNonRefundable = true
                     }
                 }
+                // previous logic
+//               isRefundStatusUnKnown = !(legsWithDetail.filter { $0.fcp == 1 }.isEmpty)
                 
-               isRefundStatusUnKnown = !(legsWithDetail.filter { $0.fcp == 1 }.isEmpty)
+                // new logic
+                for val in rfdPlcy.rfd.values {
+                    if val == -9 {
+                        isRefundStatusUnKnown = true
+                    }
+                }
                 
                 if isNonRefundable && !isRefundStatusUnKnown {
                     logoArray.append("noRefund")
