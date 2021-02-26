@@ -937,7 +937,20 @@ extension FlightResultDisplayGroup  {
             switch filter {
                 
             case .refundableFares:
-                inputForFilter = inputForFilter.filter{ $0.rfdPlcy.rfd.first?.value == 1 /*&& $0.leg.first?.fcp != 1 */ }
+                inputForFilter = inputForFilter.filter{
+                    var isRefundable = true
+                    var isUnknown = false
+                    $0.rfdPlcy.rfd.values.forEach { (val) in
+                        if val == 0 {
+                            isRefundable = false
+                        }
+                        if val == -9 {
+                            isUnknown = true
+                        }
+                    }
+                    return isUnknown || isRefundable
+                }
+//                    $0.rfdPlcy.rfd.first?.value == 1 /*&& $0.leg.first?.fcp != 1 */ }
             case .hideLongerOrExpensive:
                 continue
             case .hideOvernight:
