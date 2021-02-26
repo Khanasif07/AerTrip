@@ -656,7 +656,7 @@ extension FlightResultDisplayGroup  {
         }
         
         if !UIFilters.contains(.refundableFares) {
-            if userFil.pr.minPrice > inputFil.pr.minPrice && userFil.pr.maxPrice < inputFil.pr.maxPrice {
+            if userFil.pr.minPrice >= inputFil.pr.minPrice && userFil.pr.maxPrice <= inputFil.pr.maxPrice {
                 appliedFilters.remove(.Price)
             }
         }

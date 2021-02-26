@@ -1121,6 +1121,7 @@ Not to worry! Your booking is our highest priority. Our customer support team sh
 "Duration" = "Duration";
 "Quality" = "Quality";
 "Onwards" = "Onwards";
+"noLayovers" = "No Layovers";
 
 // TripsVC
 "tripsComingSoon" = "Coming soon…

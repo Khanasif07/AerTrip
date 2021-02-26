@@ -52,27 +52,34 @@ class BookingAddOnRequestVM {
             self.caseDetailData = temp
             return
         }
+        
+        var sortNum = 0
 
         temp["00Case Status"] = history.resolutionStatus.rawValue
         if !history.csrName.isEmpty {
-            temp["01Agent"] = history.csrName.isEmpty ? LocalizedString.dash.localized : history.csrName//"🎧 \(caseD.csrName)"
+            sortNum += 1
+            temp["0\(sortNum)Agent"] = history.csrName.isEmpty ? LocalizedString.dash.localized : history.csrName//"🎧 \(caseD.csrName)"
         }
         
         let dateStr = history.requestDate?.toString(dateFormat: "d MMM yyyy | HH:mm") ?? ""
         if !dateStr.isEmpty {
-        temp["02Requested on"] = dateStr.isEmpty ? LocalizedString.dash.localized : dateStr
+            sortNum += 1
+        temp["0\(sortNum)Requested on"] = dateStr.isEmpty ? LocalizedString.dash.localized : dateStr
         }
         
         let closeDateStr = history.closedDate?.toString(dateFormat: "d MMM yyyy | HH:mm") ?? ""
         if !closeDateStr.isEmpty {
-        temp["02Closed on"] = closeDateStr.isEmpty ? LocalizedString.dash.localized : closeDateStr
+            sortNum += 1
+        temp["0\(sortNum)Closed on"] = closeDateStr.isEmpty ? LocalizedString.dash.localized : closeDateStr
         }
         
         if !history.associatedBid.isEmpty {
-        temp["03Associate Booking ID"] = history.associatedBid.isEmpty ? LocalizedString.dash.localized : history.associatedBid
+            sortNum += 1
+        temp["0\(sortNum)Associate Booking ID"] = history.associatedBid.isEmpty ? LocalizedString.dash.localized : history.associatedBid
         }
         if !history.referenceCaseId.isEmpty {
-        temp["04Reference Case ID"] = history.referenceCaseId.isEmpty ? LocalizedString.dash.localized : history.referenceCaseId
+            sortNum += 1
+        temp["0\(sortNum)Reference Case ID"] = history.referenceCaseId.isEmpty ? LocalizedString.dash.localized : history.referenceCaseId
         }
         var index = 0
         for (idx,val) in history.associatedVouchersArr.enumerated() {

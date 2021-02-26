@@ -123,6 +123,8 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                 
                 if indexPath.row < adtAertripCancellationSlab.count{
                     aertripValue = adtAertripCancellationSlab[indexPath.row].value ?? 0
+                }else{
+                    aertripValue = adtAertripCancellationSlab.first?.value ?? 0
                 }
                 
                 if indexPath.row < adtAirlineCancellationSlab.count{
@@ -247,6 +249,8 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                 
                 if indexPath.row < chdAertripCancellationSlab.count{
                     aertripValue = chdAertripCancellationSlab[indexPath.row].value ?? 0
+                }else{
+                    aertripValue = chdAertripCancellationSlab.first?.value ?? 0
                 }
                 
                 if indexPath.row < chdAirlineCancellationSlab.count{
@@ -293,6 +297,8 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                 
                 if indexPath.row < infAertripCancellationSlab.count{
                     aertripValue = infAertripCancellationSlab[indexPath.row].value ?? 0
+                }else{
+                    aertripValue = infAertripCancellationSlab.first?.value ?? 0
                 }
                 
                 if indexPath.row < infAirlineCancellationSlab.count{
@@ -340,6 +346,8 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                 
                 if indexPath.row < adtAertripReschedulingSlab.count{
                     aertripValue = adtAertripReschedulingSlab[indexPath.row].value ?? 0
+                }else{
+                    aertripValue = adtAertripReschedulingSlab.first?.value ?? 0
                 }
                 
                 if indexPath.row < adtAirlineReschedulingSlab.count{
@@ -451,6 +459,8 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                 
                 if indexPath.row < chdAertripReschedulingSlab.count{
                     aertripValue = chdAertripReschedulingSlab[indexPath.row].value ?? 0
+                }else{
+                    aertripValue = chdAertripReschedulingSlab.first?.value ?? 0
                 }
                 
                 if indexPath.row < chdAirlineReschedulingSlab.count{
@@ -496,8 +506,10 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                 
                 if indexPath.row < infAertripReschedulingSlab.count{
                     aertripValue = infAertripReschedulingSlab[indexPath.row].value ?? 0
-                    
+                }else{
+                    aertripValue = infAertripReschedulingSlab.first?.value ?? 0
                 }
+                
                 if indexPath.row < infAirlineReschedulingSlab.count{
                     let value = infAirlineReschedulingSlab[indexPath.row].value ?? 0
                     

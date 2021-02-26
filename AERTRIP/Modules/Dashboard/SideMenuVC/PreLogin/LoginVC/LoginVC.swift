@@ -205,6 +205,10 @@ private extension LoginVC {
        // self.emailTextField.lineViewBottomSpace = 10.0
         self.passwordTextField.titleYPadding = 12.0
         self.passwordTextField.hintYPadding = 12.0
+        self.emailTextField.lineErrorColor = AppColors.themeRed
+        self.passwordTextField.lineErrorColor = AppColors.themeRed
+        
+        
        // self.passwordTextField.lineViewBottomSpace = 10.0
 //        self.emailTextField.lineViewBottomSpace = 10.0
 //        self.passwordTextField.lineViewBottomSpace = 10.0

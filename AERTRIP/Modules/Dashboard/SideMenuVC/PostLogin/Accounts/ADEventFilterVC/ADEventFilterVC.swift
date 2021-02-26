@@ -78,6 +78,9 @@ class ADEventFilterVC: BaseVC {
         travelDateVC.oldToDate = ADEventFilterVM.shared.toDate
         travelDateVC.oldFromDate = ADEventFilterVM.shared.fromDate
         travelDateVC.minFromDate = ADEventFilterVM.shared.minFromDate
+        travelDateVC.minDate = ADEventFilterVM.shared.minDate
+        travelDateVC.maxDate = ADEventFilterVM.shared.maxDate
+
         
         travelDateVC.delegate = self
         

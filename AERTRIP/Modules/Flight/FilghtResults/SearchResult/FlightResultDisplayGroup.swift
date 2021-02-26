@@ -537,9 +537,21 @@ class FlightResultDisplayGroup {
         
         
         let airportsDict = flightSearchParams.filter { $0.key.contains("filters[\(self.index)][ap]") }
-        let airports = airportsDict.map { $0.value as? String ?? "" }
+        var airports = airportsDict.map { $0.value as? String ?? "" }
 
         if airports.count > 0 {
+            if let userFil = userSelectedFilters {
+                if UIFilters.contains(.originAirports) {
+                    let ap = userFil.cityapN.fr.flatMap { $0.value }
+                    airports.append(contentsOf: ap)
+                    airports = Array(Set(airports))
+                }
+                if UIFilters.contains(.destinationAirports) {
+                    let ap = userFil.cityapN.to.flatMap { $0.value }
+                    airports.append(contentsOf: ap)
+                    airports = Array(Set(airports))
+                }
+            }
             if let cityApn = inputFilter?.cityapN {
                 var fromCities = [String: [String]]()
                 cityApn.fr.forEach {
@@ -624,6 +636,13 @@ class FlightResultDisplayGroup {
             self.appliedFilters.insert(.Aircraft)
             let aircraftsArr = aircrafts.map { $0.value as? String ?? "" }
             dynamicFilters.aircraft.selectedAircraftCodes = aircraftsArr
+        }
+        
+        if let hideMultiAl = flightSearchParam["filters[\(self.index)][hideMultiAl]"] as? String {
+            if let val = Int(hideMultiAl), val == 1 {
+                UIFilters.insert(.hideMultiAirlineItinarery)
+                userSelectedFilters?.multiAl = 0
+            }
         }
         
     }

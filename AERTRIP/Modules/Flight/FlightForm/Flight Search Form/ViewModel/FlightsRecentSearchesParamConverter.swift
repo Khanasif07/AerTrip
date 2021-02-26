@@ -96,6 +96,10 @@ class FlightsRecentSearchesParamConverter: NSObject {
             jsonDict["filters[0][departReturnSame]"] = departReturnSame.toString
         }
         
+        if let hideMultiAl = filter["hideMultiAl"].int {
+            jsonDict["filters[\(filterIndex)][hideMultiAl]"] = hideMultiAl.toString
+        }
+        
         return jsonDict
     }
 }

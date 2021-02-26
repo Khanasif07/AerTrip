@@ -33,6 +33,11 @@ class HotelCancellationVM {
     
     
     var netRefundAmount: Double {
-        return selectedRooms.reduce(0) { $0 + ($1.netRefund) }
+        if let receipt = self.bookingDetail?.receipt, receipt.reversalMF != 0{
+            return (selectedRooms.reduce(0) { $0 + ($1.netRefund) } - receipt.reversalMF)
+        }else{
+            return selectedRooms.reduce(0) { $0 + ($1.netRefund) }
+        }
+        
     }
 }

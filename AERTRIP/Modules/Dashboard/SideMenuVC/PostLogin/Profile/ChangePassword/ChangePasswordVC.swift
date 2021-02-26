@@ -131,6 +131,8 @@ class ChangePasswordVC: BaseVC {
         self.eightPlusLabel.tintColor = AppColors.themeGray60
         self.charactersLabel.tintColor = AppColors.themeGray60
         self.enterPasswordLabel.textColor = AppColors.themeBlack
+        self.passwordTextField.lineErrorColor = AppColors.themeRed
+        self.oldPasswordTextField.lineErrorColor = AppColors.themeRed
     }
     
     override func bindViewModel() {

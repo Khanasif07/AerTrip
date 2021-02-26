@@ -26,6 +26,8 @@ class HCPanCardTextFieldCell: UITableViewCell {
     @IBOutlet weak var separatorView: ATDividerView!
     @IBOutlet weak var textFiledBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var textFieldTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var seperatorLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var separatorHeight: NSLayoutConstraint!
     
     
     // MARK: - Variables
@@ -66,6 +68,7 @@ class HCPanCardTextFieldCell: UITableViewCell {
         self.editableTextField.isError = !isValidEmail
         let firstName = self.editableTextField.placeholder ?? ""
         self.editableTextField.attributedPlaceholder = NSAttributedString(string: firstName, attributes: [NSAttributedString.Key.foregroundColor: isValidEmail ? AppColors.themeGray40 :  AppColors.themeRed])
+        self.separatorView.isSettingForErrorState = !isValidEmail
     }
 }
 
@@ -80,6 +83,11 @@ extension HCPanCardTextFieldCell: UITextFieldDelegate {
         if let idxPath = indexPath {
             delegate?.textEditableTableViewCellTextFieldText(idxPath, finalTxt)
         }
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        self.separatorView.isSettingForErrorState = false
+        return true
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {

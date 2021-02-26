@@ -687,7 +687,7 @@ class IntFlightResultDisplayGroup {
             }
             
             let airportsDict = flightSearchParam.filter { $0.key.contains("filters[\(index)][ap]") }
-            let airports = airportsDict.map { $0.value as? String ?? "" }
+            var airports = airportsDict.map { $0.value as? String ?? "" }
 
             if airports.count > 0 {
                 if isReturnJourney {
@@ -703,6 +703,18 @@ class IntFlightResultDisplayGroup {
                     UIFilters.insert(.originDestinationSelectedForReturnJourney)
                     
                 } else {
+                    
+                    if UIFilters.contains(.originAirports) {
+                        let ap = userSelectedFilters[index].cityapn.fr.flatMap { $0.value }
+                        airports.append(contentsOf: ap)
+                        airports = Array(Set(airports))
+                    }
+                    if UIFilters.contains(.destinationAirports) {
+                        let ap = userSelectedFilters[index].cityapn.to.flatMap { $0.value }
+                        airports.append(contentsOf: ap)
+                        airports = Array(Set(airports))
+                    }
+                    
                     let cityApn = inputFilter[index].cityapn
                     var fromCities = [String: [String]]()
                     cityApn.fr.forEach {
@@ -783,6 +795,13 @@ class IntFlightResultDisplayGroup {
                 if qualityValues.contains("coa") {
                     self.UIFilters.insert(.hideChangeAirport)
                     self.userSelectedFilters[index].fq["coa"] = ""
+                }
+            }
+            
+            if let hideMultiAl = flightSearchParam["filters[0][hideMultiAl]"] as? String {
+                if let val = Int(hideMultiAl), val == 1 {
+                    UIFilters.insert(.hideMultiAirlineItinarery)
+                    userSelectedFilters[index].multiAl = 0
                 }
             }
         }
