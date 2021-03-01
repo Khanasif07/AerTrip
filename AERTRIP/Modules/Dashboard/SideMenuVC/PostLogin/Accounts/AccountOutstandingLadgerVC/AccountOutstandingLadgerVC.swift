@@ -58,7 +58,7 @@ class AccountOutstandingLadgerVC: BaseVC {
     var tableViewHeaderCellIdentifier = "TravellerListTableViewSectionView"
     private var searchModeSearchBarTopCurrent: CGFloat = 0.0
     private var oldOffset: CGPoint = CGPoint.zero
-    private(set) var currentViewState = ViewState.normal {
+    var currentViewState = ViewState.normal {
         didSet {
             if oldValue != currentViewState {
                 //currentViewState is being changed then manage header
@@ -113,6 +113,7 @@ class AccountOutstandingLadgerVC: BaseVC {
         self.tableView.registerCell(nibName: AccountDetailEventHeaderCell.reusableIdentifier)
         self.tableView.registerCell(nibName: AccountOutstandingEventDescriptionCell.reusableIdentifier)
         self.tableView.register(UINib(nibName: tableViewHeaderCellIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: tableViewHeaderCellIdentifier)
+//        tableView.allowsMultipleSelectionDuringEditing = true
         
         self.searchBar.isMicEnabled = true
         
