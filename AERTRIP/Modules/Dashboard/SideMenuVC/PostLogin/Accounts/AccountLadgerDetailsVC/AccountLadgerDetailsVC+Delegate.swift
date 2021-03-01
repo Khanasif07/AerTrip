@@ -88,8 +88,8 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
             }else if indexPath.row == self.viewModel.sectionArray[indexPath.section - 1].count-2{
                 let section = indexPath.section - 1
                 let model = self.viewModel.sectionArray[section][indexPath.row]
-                if model.title == "   "{
-                    return 30.0
+                if (model.title == "Passengers" || model.title == "   " || model.title == "Guests"){
+                    return UITableView.automaticDimension
                 }else{
                     return 36.0
                 }
@@ -100,7 +100,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 if (model.title == "Room" || model.title == " "){
                     return UITableView.automaticDimension
                 }else if (model.title == "Passengers" || model.title == "   " || model.title == "Guests"){//passenger, guest
-                    return 30.0
+                    return UITableView.automaticDimension
                 }else{
                     return 30.0
                 }
@@ -382,7 +382,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
             printDebug("\(title)...\(val.string)....\(suffix)....\(desc)")
             cell.configureCellWithAttributedText(title: title, description: val)
         }else{
-            if title == "Room" || title == " "{
+            if title == "Room" || title == " " || title == "Guests" || title == "Passengers"{
                 cell.descLabel.numberOfLines = 0
                 cell.titleLabel.contentMode = .top
 //                cell.descLabel.textAlignment = .right
@@ -390,13 +390,11 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
             cell.configure(title: title, description: description, age: age)
         }
         
+
         if let color = descriptionColor {
             cell.descLabel.textColor = color
         }
         let section = indexPath.section - 1
-//        guard let dict = self.viewModel.ladgerDetails["\(section)"] as? JSONDictionary else {
-//            return cell
-//        }
         var isForVouchre = false
         if let type = self.viewModel.ladgerEvent?.productType{
             switch type{
@@ -419,6 +417,9 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
             cell.stackTopConstraint.constant = 0
             cell.stackBottomConstraint.constant = 0
         }
+        if title == "Guests" || title == "Passengers"{
+            cell.stackBottomConstraint.constant = 8.0
+        }
         cell.titleLabelWidthConstraints.constant = self.viewModel.cellTitleLabelWidth
         return cell
     }
@@ -435,6 +436,7 @@ class AccountLadgerDetailCell: UITableViewCell {
     @IBOutlet weak var descLabel: UILabel!
     @IBOutlet weak var stackTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var stackBottomConstraint: NSLayoutConstraint!
+   
     
     
     //MARK:- Life Cycle
