@@ -64,7 +64,7 @@
                         <constraint firstItem="mVL-pa-1Gg" firstAttribute="leading" secondItem="ojm-Bf-ycX" secondAttribute="leading" constant="16" id="fHy-kX-G9c"/>
                     </constraints>
                 </view>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aP5-Kb-O8y">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aP5-Kb-O8y">
                     <rect key="frame" x="0.0" y="50" width="375" height="617"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="igl-1b-N06">
