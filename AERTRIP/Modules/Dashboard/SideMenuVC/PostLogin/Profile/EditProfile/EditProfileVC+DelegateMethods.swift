@@ -316,7 +316,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                     //                    cell.rightSeparatorView.isHidden = indexPath.row == self.viewModel.frequentFlyer.count + (self.ffExtraCount - 2)
                     
                     cell.deleteButton.isHidden = self.viewModel.frequentFlyer.count == 1 ?  true : false
-                    cell.isFFTitleHidden = !(indexPath.row == 2)
+                    cell.isFFTitleHidden = !(indexPath.row == 1)
                     cell.setupForError(isNeedToShowError: self.viewModel.isSavedButtonTapped)
                     return cell
                 }
@@ -1149,10 +1149,10 @@ extension EditProfileVC: FrequentFlyerTableViewCellDelegate {
     }
     
     func numberTextField(_ indexPath: IndexPath, _ number: String) {
-        if self.viewModel.frequentFlyer.count <= indexPath.row - 2 {
+        if self.viewModel.frequentFlyer.count <= indexPath.row - 1 {
             self.viewModel.frequentFlyer.append(FrequentFlyer(json: [:]))
         }
-        self.viewModel.frequentFlyer[indexPath.row - 2].number = number
+        self.viewModel.frequentFlyer[indexPath.row - 1].number = number
     }
     
 }
