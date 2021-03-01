@@ -20,6 +20,7 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     @IBOutlet weak var multiLegViewHeight: NSLayoutConstraint!
     @IBOutlet weak var multiLegView: UIView!
     @IBOutlet weak var multiLegSegmentView: UIView!
+    @IBOutlet weak var sectorNameLbl: UILabel!
     
     @IBOutlet weak var avoidOvernightView: UIView!
     @IBOutlet weak var avoidOvernightTitleLbl: UILabel!
@@ -171,6 +172,13 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         multiLegSegmentControl.removeAllSegments()
         
         let numberOfStops = viewModel.durationFilters.count
+        
+        if numberOfStops > 3 {
+            sectorNameLbl.isHidden = false
+            sectorNameLbl.attributedText = viewModel.currentDurationFilter.leg.descriptionOneFiveThree
+        } else {
+            sectorNameLbl.isHidden = true
+        }
 
         for  index in 1...numberOfStops  {
             let segmentTitle = getSegmentTitleFor(index)
