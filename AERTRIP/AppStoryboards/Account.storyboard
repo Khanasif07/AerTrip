@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -797,16 +797,16 @@
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="8TX-7v-mBX" firstAttribute="top" secondItem="tda-kZ-a6q" secondAttribute="top" id="2FW-il-xCt"/>
+                                                        <constraint firstItem="tQH-F7-xva" firstAttribute="bottom" secondItem="8TX-7v-mBX" secondAttribute="bottom" id="2jv-yn-3QK"/>
                                                         <constraint firstAttribute="trailing" secondItem="CQE-zb-w6O" secondAttribute="trailing" constant="16" id="DiK-D8-MMs"/>
                                                         <constraint firstItem="8TX-7v-mBX" firstAttribute="leading" secondItem="tda-kZ-a6q" secondAttribute="leading" constant="16" id="Fv4-fo-yco"/>
                                                         <constraint firstAttribute="bottom" secondItem="8TX-7v-mBX" secondAttribute="bottom" id="I2d-LA-DGX"/>
-                                                        <constraint firstAttribute="bottom" secondItem="CQE-zb-w6O" secondAttribute="bottom" id="V65-Ur-hbj"/>
                                                         <constraint firstItem="CQE-zb-w6O" firstAttribute="top" secondItem="tda-kZ-a6q" secondAttribute="top" id="ZJr-aF-0IM"/>
                                                         <constraint firstItem="tQH-F7-xva" firstAttribute="leading" secondItem="tda-kZ-a6q" secondAttribute="leading" constant="16" id="gQ5-aX-qEZ"/>
                                                         <constraint firstItem="CQE-zb-w6O" firstAttribute="leading" secondItem="tQH-F7-xva" secondAttribute="trailing" constant="16" id="gna-WQ-tsg"/>
                                                         <constraint firstAttribute="trailing" secondItem="8TX-7v-mBX" secondAttribute="trailing" constant="16" id="i9A-Ae-JaQ"/>
-                                                        <constraint firstAttribute="bottom" secondItem="tQH-F7-xva" secondAttribute="bottom" id="pxI-E7-mto"/>
                                                         <constraint firstItem="tQH-F7-xva" firstAttribute="top" secondItem="tda-kZ-a6q" secondAttribute="top" id="s76-zF-RrZ"/>
+                                                        <constraint firstItem="CQE-zb-w6O" firstAttribute="bottom" secondItem="8TX-7v-mBX" secondAttribute="bottom" id="vWJ-ym-6CY"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <connections>

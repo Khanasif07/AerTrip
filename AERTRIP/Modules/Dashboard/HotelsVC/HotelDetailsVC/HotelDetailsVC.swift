@@ -168,8 +168,12 @@ class HotelDetailsVC: BaseVC {
     }
     
     @objc func selectRoomAction() {
-        guard self.hotelTableView.numberOfSections > 1 else{return}
-        self.hotelTableView.scrollToRow(at: IndexPath(row: 0, section: 1), at: .top, animated: true)
+        /// Section 1 is used for search bar and filter tag.
+        guard self.hotelTableView.numberOfSections > 1, self.hotelTableView.numberOfRows(inSection: 2) > 1 else{return}
+        
+        let cellNumber = self.hotelTableView.numberOfRows(inSection: 2) - 1
+        
+        self.hotelTableView.scrollToRow(at: IndexPath(row: cellNumber, section: 2), at: .bottom, animated: true)
         delay(seconds: 0.6) { [weak self] in
             //self?.manageHeaderView()
             self?.manageBottomRateView()
