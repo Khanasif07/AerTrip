@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -66,7 +67,7 @@
                     <rect key="frame" x="0.0" y="50" width="375" height="617"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="igl-1b-N06">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="280"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="384.5"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fc4-3G-DTW">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="280"/>
@@ -205,23 +206,23 @@
                                         <constraint firstAttribute="trailing" secondItem="oYo-S4-Rhz" secondAttribute="trailing" constant="16" id="zG2-LO-iA4"/>
                                     </constraints>
                                 </view>
-                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LfR-tp-44x">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LfR-tp-44x">
+                                    <rect key="frame" x="0.0" y="280" width="375" height="104.5"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="8Mb-Zy-Un9">
-                                            <rect key="frame" x="16" y="20" width="311" height="3"/>
+                                            <rect key="frame" x="16" y="20" width="311" height="64.5"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="MYG-bu-Yvt">
-                                                    <rect key="frame" x="0.0" y="0.0" width="311" height="0.0"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="311" height="20.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" text="Avoid Overnight Layovers" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PMj-sD-mHk">
-                                                            <rect key="frame" x="0.0" y="0.0" width="194.5" height="0.0"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="193.5" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="All Sectors" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HgR-vL-k6r">
-                                                            <rect key="frame" x="204.5" y="0.0" width="106.5" height="0.0"/>
+                                                            <rect key="frame" x="203.5" y="0.0" width="107.5" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -229,7 +230,7 @@
                                                     </subviews>
                                                 </stackView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Layovers at uncomfortable hours will get filtered." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gF6-7r-6bi">
-                                                    <rect key="frame" x="0.0" y="3" width="311" height="0.0"/>
+                                                    <rect key="frame" x="0.0" y="23.5" width="311" height="41"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -237,20 +238,20 @@
                                             </subviews>
                                         </stackView>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="UncheckedGreenRadioButton" translatesAutoresizingMaskIntoConstraints="NO" id="Meq-xf-eIn">
-                                            <rect key="frame" x="337" y="9" width="22" height="22"/>
+                                            <rect key="frame" x="337" y="19.5" width="22" height="22"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="22" id="AfW-yt-Q7X"/>
                                                 <constraint firstAttribute="width" constant="22" id="Qyz-QQ-VCe"/>
                                             </constraints>
                                         </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zg6-W4-0lg">
-                                            <rect key="frame" x="0.0" y="15" width="375" height="8"/>
+                                            <rect key="frame" x="0.0" y="15" width="375" height="69.5"/>
                                             <connections>
                                                 <action selector="avoidOvernightBtnAction:" destination="-1" eventType="touchUpInside" id="uDN-a3-BCi"/>
                                             </connections>
                                         </button>
                                     </subviews>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <constraints>
                                         <constraint firstItem="zg6-W4-0lg" firstAttribute="leading" secondItem="LfR-tp-44x" secondAttribute="leading" id="3cy-LY-6CY"/>
                                         <constraint firstAttribute="trailing" secondItem="zg6-W4-0lg" secondAttribute="trailing" id="6uh-oj-sKt"/>
@@ -275,6 +276,7 @@
                     </constraints>
                 </scrollView>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="ojm-Bf-ycX" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="3WP-cx-spv"/>
@@ -287,11 +289,13 @@
                 <constraint firstItem="LfR-tp-44x" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="lN8-Io-BVi"/>
                 <constraint firstItem="ojm-Bf-ycX" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="lzX-ni-5IN"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="53.600000000000001" y="48.125937031484263"/>
         </view>
     </objects>
     <resources>
         <image name="UncheckedGreenRadioButton" width="22" height="22"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>
