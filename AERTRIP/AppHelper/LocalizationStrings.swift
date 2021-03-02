@@ -442,6 +442,7 @@ enum LocalizedString: String {
     case BulkEnquirySent
     case CustomerServicesShallConnect
     case Submit
+    case SpecialRequestNonCaps
     
     // MARK: - FF Search
     
