@@ -110,9 +110,11 @@ class BookingReviewCancellationVM {
         
         if currentUsingAs == .flightCancellationReview {
             param["product"] = "flight"
+            param["booking_id"] = self.legsWithSelection.first?.bookingId ?? ""
         }
         else if currentUsingAs == .hotelCancellationReview {
             param["product"] = "hotel"
+            param["booking_id"] = self.selectedRooms.first?.bookingId ?? ""
         }
         
         self.delegate?.willGetCancellationRefundModeReasons()
