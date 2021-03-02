@@ -282,13 +282,37 @@ public class Journey: Codable , Equatable {
             
         }
         
+        // New logic for refundable icons start
+        var isNonRefundable = false
+        var isRefundStatusUnKnown = false
+        for key in rfdPlcy.rfd.keys{
+            if rfdPlcy.rfd[key] == 0{
+                isNonRefundable = true
+            }
+        }
+        
+        for val in rfdPlcy.rfd.values {
+            if val == -9 {
+                isRefundStatusUnKnown = true
+            }
+        }
+        
+        if isNonRefundable && !isRefundStatusUnKnown {
+            logoArray.append("noRefund")
+        }
+        
+        if isRefundStatusUnKnown {
+            logoArray.append("refundStatusPending")
+        }
+        // New logic for refundable icons end
+        
         
         if slo > 0 {  logoArray.append("shortLayover") }
-        if leg.first?.fcp != 1 && rfdPlcy.rfd.first?.value == 0 { logoArray.append("noRefund")}
+//        if leg.first?.fcp != 1 && rfdPlcy.rfd.first?.value == 0 { logoArray.append("noRefund")}
         if coa == 0 && cot > 0 { logoArray.append("changeOfTerminal") }
         if ovngt > 0 { logoArray.append("overnight")}
         if llow > 0 { logoArray.append("longLayover") }
-        if leg.first?.fcp == 1 { logoArray.append("refundStatusPending")}
+//        if leg.first?.fcp == 1 { logoArray.append("refundStatusPending")}
         
         return logoArray
     }

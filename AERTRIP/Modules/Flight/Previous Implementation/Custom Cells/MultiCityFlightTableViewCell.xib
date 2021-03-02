@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -214,7 +214,7 @@
                         <rect key="frame" x="16" y="79.5" width="343" height="0.5"/>
                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="0.5" id="bcA-Fd-1CT"/>
+                            <constraint firstAttribute="height" constant="0.40000000000000002" id="bcA-Fd-1CT"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -230,7 +230,7 @@
                     <constraint firstAttribute="trailing" secondItem="zd0-V9-aMl" secondAttribute="trailing" id="WXe-U1-r9u"/>
                     <constraint firstItem="zd0-V9-aMl" firstAttribute="centerY" secondItem="9xf-20-PSI" secondAttribute="centerY" id="aQs-cK-gZG"/>
                     <constraint firstItem="xoP-Qg-fNq" firstAttribute="width" secondItem="zd0-V9-aMl" secondAttribute="width" id="cpX-hC-Epr"/>
-                    <constraint firstAttribute="bottom" secondItem="M9N-89-RwI" secondAttribute="bottom" constant="0.050000000000000003" id="pLP-e9-t9D"/>
+                    <constraint firstAttribute="bottom" secondItem="M9N-89-RwI" secondAttribute="bottom" constant="0.10000000000000001" id="pLP-e9-t9D"/>
                     <constraint firstAttribute="bottom" secondItem="qWe-j3-y2s" secondAttribute="bottom" id="ruD-Yh-MXN"/>
                     <constraint firstAttribute="trailing" secondItem="M9N-89-RwI" secondAttribute="trailing" constant="16" id="rue-pZ-oI4"/>
                 </constraints>

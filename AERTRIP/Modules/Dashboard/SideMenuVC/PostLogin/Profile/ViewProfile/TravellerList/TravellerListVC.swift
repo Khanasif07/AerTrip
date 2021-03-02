@@ -101,7 +101,8 @@ class TravellerListVC: BaseVC {
         doInitialSetUp()
         registerXib()
         self.tableView.tableFooterView = UIView(frame: .zero)
-        addTwoFingerSwipeGesture()
+        tableView.allowsMultipleSelectionDuringEditing = true
+//        addTwoFingerSwipeGesture()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -767,15 +768,15 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         //cell.selectedBackgroundView = backView
        // cell.backgroundColor = .clear
         
-        if #available(iOS 14.0, *) {
-            if isSelectMode {
-            var bgConfig = UIBackgroundConfiguration.listPlainCell()
-            bgConfig.backgroundColor = UIColor.clear
-            cell.backgroundConfiguration = bgConfig
-            } else {
-                cell.backgroundConfiguration = nil
-            }
-        }
+//        if #available(iOS 14.0, *) {
+//            if isSelectMode {
+//            var bgConfig = UIBackgroundConfiguration.listPlainCell()
+//            bgConfig.backgroundColor = UIColor.clear
+//            cell.backgroundConfiguration = bgConfig
+//            } else {
+//                cell.backgroundConfiguration = nil
+//            }
+//        }
         
         return cell
     }
@@ -945,6 +946,13 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         //printDebug("content scroll offset \(scrollView.contentOffset.y)")
         headerDividerView.isHidden = scrollView.contentOffset.y >= 44.0
+    }
+    
+    func tableView(_ tableView: UITableView, shouldBeginMultipleSelectionInteractionAt indexPath: IndexPath) -> Bool {
+        if bottomView.isHidden {
+            self.setSelectMode(isNeedToReload: false)
+        }
+        return true
     }
 }
 

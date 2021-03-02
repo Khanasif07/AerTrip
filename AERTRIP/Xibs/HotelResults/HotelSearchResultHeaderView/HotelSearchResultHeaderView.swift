@@ -97,9 +97,9 @@ class HotelSearchResultHeaderView: UIView {
     private func resetPriceTypeLbl() {
         switch resultListPriceType {
         case .perNight:
-            pricesInclusiveLbl.text = LocalizedString.pricesArePerNight.localized + " \(numberOfRooms) " + (numberOfRooms > 1 ?  LocalizedString.Rooms.localized.lowercased() : LocalizedString.Room.localized.lowercased()) + ", " + LocalizedString.allIncl.localized
+            pricesInclusiveLbl.text = LocalizedString.pricesArePerNight.localized + " \(numberOfRooms) " + (numberOfRooms > 1 ?  LocalizedString.Rooms.localized.lowercased() : LocalizedString.Room.localized.lowercased()) + ", " + (isSEDevice ? LocalizedString.allIncl.localized : LocalizedString.allInclusive.localized)
         case .total(let numberOfNights):
-            pricesInclusiveLbl.text = LocalizedString.pricesAreFor.localized + " \(numberOfNights) " + (numberOfNights > 1 ?  LocalizedString.Nights.localized.lowercased() : LocalizedString.Night.localized.lowercased()) + " " + LocalizedString.For.localized.lowercased() + " \(numberOfRooms) " + (numberOfRooms > 1 ?  LocalizedString.Rooms.localized.lowercased() : LocalizedString.Room.localized.lowercased()) + ", " + LocalizedString.allIncl.localized
+            pricesInclusiveLbl.text = LocalizedString.pricesAreFor.localized + " \(numberOfNights) " + (numberOfNights > 1 ?  LocalizedString.Nights.localized.lowercased() : LocalizedString.Night.localized.lowercased()) + " " + LocalizedString.For.localized.lowercased() + " \(numberOfRooms) " + (numberOfRooms > 1 ?  LocalizedString.Rooms.localized.lowercased() : LocalizedString.Room.localized.lowercased()) + ", " + (isSEDevice ? LocalizedString.allIncl.localized : LocalizedString.allInclusive.localized)
         }
     }
     
