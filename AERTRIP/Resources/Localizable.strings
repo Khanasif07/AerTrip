@@ -355,7 +355,7 @@
 "MyDatesAre" = "My dates Are";
 "Fixed" = "Fixed";
 "Flexible" = "Flexible";
-
+"SpecialRequestNonCaps" = "Special Request";
 //MARK:- FF Search
 "SearchAirlines" = "Search Airlines";
 
@@ -503,6 +503,7 @@
 "pricesArePerNight" = "Prices are per night for";
 "pricesAreFor" = "Prices are for";
 "allIncl" = "all incl.";
+"allInclusive" = "all inclusive";
 
 "ContactUsAertrip" = "Have a question? Contact us: support@aertrip.com";
 //"CopyrightAertrip" = "2012 Aertrip. All Rights Reserved.";
@@ -1213,12 +1214,12 @@ www.aertrip.com/trip";
 "disableOtpVerificationMsg" = "To disable the OTP verification flow on wallet payment,\nplease enter your password and OTPs sent to your registered email and mobile";
 "enableOtpVerificationMsg" = "To enable the OTP verification flow on wallet payment,\nplease enter your password ";
 "enterAccountPasswordMsg" = "Please enter your account password.";
-"enterMobileOtpMsg" = "Please enter the valid mobile otp.";
-"enterEmailOtpMsg" = "Please enter the valid email otp.";
+"enterMobileOtpMsg" = "Please enter a valid mobile otp.";
+"enterEmailOtpMsg" = "Please enter a valid email otp.";
 "enterMobileOtp" = "Enter Mobile OTP";
 "enterEmailOtp" = "Enter Email OTP";
 "newMobileNumber" = "New Mobile Number";
-"validOtpMsg" = "Please enter the valid otp.";
+"validOtpMsg" = "Please enter a valid otp.";
 
 
 "Update_Aertrip" = "Update Aertrip";

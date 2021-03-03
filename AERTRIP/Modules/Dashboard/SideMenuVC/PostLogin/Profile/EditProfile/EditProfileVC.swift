@@ -43,7 +43,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     
     // MARK: - Private
     
-    var ffExtraCount: Int = 3
+    var ffExtraCount: Int = 2
     private var defaultPlaceHolder: UIImage = AppGlobals.shared.getImageFor(firstName: nil, lastName: nil, offSet: CGPoint(x: 0.0, y: 9.0))
     
     // MARK: - Public
@@ -420,7 +420,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         emptyFF.airlineName = LocalizedString.SelectAirline.localized
         viewModel.frequentFlyer.append(emptyFF)
         }
-        ffExtraCount = viewModel.frequentFlyer.isEmpty ? 4 : 3
+        ffExtraCount = viewModel.frequentFlyer.isEmpty ? 3 : 2
         
         if travel.profileImage != "" {
             editProfileImageHeaderView.profileImageView.setImageWithUrl(travel.profileImage, placeholder: imageFromText, showIndicator: false)
@@ -508,7 +508,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         
         viewModel.label = "Others"
         
-        ffExtraCount = 3
+        ffExtraCount = 2
         
         var emptyFF = FrequentFlyer(json: [:])
         emptyFF.airlineName = LocalizedString.SelectAirline.localized
@@ -792,15 +792,15 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         self.indexPath = indexPath
         switch indexPath.row {
         case 0:
-            if viewModel.seatPreferences.count > 0 {
-                pickerType = .seatPreference
-                var seatPreferences = Array(viewModel.seatPreferences.values).sorted()
-                seatPreferences.insert(LocalizedString.Select.localized, at: 0)
-                pickerData = seatPreferences
-                openPicker(withSelection: viewModel.seat, textField: textField)
-                //textField.becomeFirstResponder()
-            }
-        case 1:
+//            if viewModel.seatPreferences.count > 0 {
+//                pickerType = .seatPreference
+//                var seatPreferences = Array(viewModel.seatPreferences.values).sorted()
+//                seatPreferences.insert(LocalizedString.Select.localized, at: 0)
+//                pickerData = seatPreferences
+//                openPicker(withSelection: viewModel.seat, textField: textField)
+//                //textField.becomeFirstResponder()
+//            }
+//        case 1:
             if viewModel.mealPreferences.count > 0 {
                 pickerType = .mealPreference
                 var mealPreferences = Array(viewModel.mealPreferences.values).sorted()

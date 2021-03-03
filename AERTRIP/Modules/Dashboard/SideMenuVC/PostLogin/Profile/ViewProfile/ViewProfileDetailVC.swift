@@ -265,12 +265,12 @@ class ViewProfileDetailVC: BaseVC {
         }
         
         flightDetails.removeAll()
-        if !travel.preferences.seat.value.isEmpty {
-            flightDetails.append(travel.preferences.seat.value)
-            flightPreferencesTitle.insert(LocalizedString.seatPreference.rawValue, at: 0)
+//        if !travel.preferences.seat.value.isEmpty {
 //            flightDetails.append(travel.preferences.seat.value)
-            sections.append(LocalizedString.FlightPreferences.localized)
-        }
+//            flightPreferencesTitle.insert(LocalizedString.seatPreference.rawValue, at: 0)
+////            flightDetails.append(travel.preferences.seat.value)
+//            sections.append(LocalizedString.FlightPreferences.localized)
+//        }
         
         if !travel.preferences.meal.value.isEmpty {
             flightDetails.append(travel.preferences.meal.name)

@@ -315,12 +315,22 @@ class PriceFilterViewController: UIViewController , FilterViewController {
             if viewModel.intFlightResultArray.count > 0{
                  var isRefundable = true
                 let journey = viewModel.intFlightResultArray[0].j
+
+                var refundableCount = 0
+                
                  for j in journey{
 //                     if j.smartIconArray.contains("refundStatusPending") || j.smartIconArray.contains("noRefund") {
-                    if j.smartIconArray.contains("noRefund") {
-                         isRefundable = false
-                     }
+//                    if j.smartIconArray.contains("noRefund") {
+//                         isRefundable = false
+//                     }
+                    if !j.rfdPlcy.rfd.values.contains(0) {
+                        refundableCount += 1
+                    }
                  }
+                
+                if refundableCount == journey.count {
+                    isRefundable = false
+                }
                  
                  if isRefundable{
                      seperatorView.isHidden = false
@@ -338,12 +348,21 @@ class PriceFilterViewController: UIViewController , FilterViewController {
             if viewModel.flightResultArray.count > 0{
                  var isRefundable = true
                 let journey = viewModel.flightResultArray[index].j
+                var refundableCount = 0
+                
                  for j in journey{
 //                    if j.smartIconArray.contains("refundStatusPending") || j.smartIconArray.contains("noRefund") {
-                        if j.smartIconArray.contains("noRefund") {
-                         isRefundable = false
-                     }
+//                        if j.smartIconArray.contains("noRefund") {
+//                         isRefundable = false
+//                     }
+                    if !j.rfdPlcy.rfd.values.contains(0) {
+                        refundableCount += 1
+                    }
                  }
+                
+                if refundableCount == journey.count {
+                    isRefundable = false
+                }
                  
                  if isRefundable{
                      seperatorView.isHidden = false

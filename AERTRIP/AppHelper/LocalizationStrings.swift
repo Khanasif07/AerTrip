@@ -442,6 +442,7 @@ enum LocalizedString: String {
     case BulkEnquirySent
     case CustomerServicesShallConnect
     case Submit
+    case SpecialRequestNonCaps
     
     // MARK: - FF Search
     
@@ -594,6 +595,7 @@ enum LocalizedString: String {
     case pricesArePerNight
     case pricesAreFor
     case allIncl
+    case allInclusive
 
     // Mail Composer View
     case ContactUsAertrip

@@ -378,7 +378,7 @@ extension CreateProfileVC {
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         
-        if textField === self.countryCodeTextField || textField === self.countryTextField {
+        if textField === self.countryCodeTextField{//} || textField === self.countryTextField {
             
             UIApplication.shared.sendAction(#selector(resignFirstResponder), to:nil, from:nil, for:nil)
             let model = PKCountryPicker.default.getCountryData(forISOCode: self.viewModel.userData.address?.country ?? "")

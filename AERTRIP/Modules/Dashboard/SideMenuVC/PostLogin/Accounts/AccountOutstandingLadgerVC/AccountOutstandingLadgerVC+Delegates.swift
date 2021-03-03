@@ -177,4 +177,9 @@ extension AccountOutstandingLadgerVC: UITableViewDataSource, UITableViewDelegate
         }
     }
     
+//    func tableView(_ tableView: UITableView, shouldBeginMultipleSelectionInteractionAt indexPath: IndexPath) -> Bool {
+//        currentViewState = .selecting
+//        return true
+//    }
+    
 }

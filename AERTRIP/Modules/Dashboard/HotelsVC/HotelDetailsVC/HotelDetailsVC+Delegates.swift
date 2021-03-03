@@ -271,7 +271,12 @@ extension HotelDetailsVC: HotelDetailDelegate {
         }
         if self.isDeviceHasBadzel && !self.isAddingChild{
             self.footerViewHeightConstraint.constant = 84.0
-            self.footerView.addGredient(isVertical: false)
+            if !self.viewModel.ratesData.isEmpty{
+                self.footerView.addGredient(isVertical: false)
+            }else{
+                self.footerView.addGredient(isVertical: false,colors: [AppColors.noRoomsAvailableFooterShadow, AppColors.noRoomsAvailableFooterColor])
+            }
+            
         }
         self.hotelTableView.reloadData()
     }

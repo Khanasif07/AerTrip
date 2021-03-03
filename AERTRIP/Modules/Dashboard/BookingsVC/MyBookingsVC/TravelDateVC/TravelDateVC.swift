@@ -224,14 +224,13 @@ class TravelDateVC: BaseVC {
     
     private func setupDateSpan() {
         if self.currentlyUsingAs == .travelDate {
+    
+            self.fromDatePicker?.minimumDate = self.minFromDate
+            self.fromDatePicker?.maximumDate = self.maxDate//Date().add(years: 2)
             
-       
-                self.fromDatePicker?.minimumDate = self.minFromDate
-                self.fromDatePicker?.maximumDate = Date().add(years: 2)
-                
-                self.toDatePicker?.minimumDate = self.minFromDate
-                self.toDatePicker?.maximumDate = Date().add(years: 2)
-
+            self.toDatePicker?.minimumDate = self.minFromDate
+            self.toDatePicker?.maximumDate = self.maxDate//Date().add(years: 2)
+            
             self.fromDatePicker?.setDate(self.oldFromDate ?? Date(), animated: false)
             
             self.toDatePicker?.setDate(self.oldToDate ?? Date(), animated: false)
@@ -257,8 +256,8 @@ class TravelDateVC: BaseVC {
             self.fromDatePicker?.setDate(self.oldFromDate ?? Date(), animated: false)
             self.toDatePicker?.setDate(self.oldToDate ?? Date(), animated: false)
             
-            self.fromDatePicker?.maximumDate =  Date().add(years: 2) //Date()
-            self.toDatePicker?.maximumDate =  Date().add(years: 2) //Date()
+            self.fromDatePicker?.maximumDate =  self.maxDate//Date().add(years: 2) //Date()
+            self.toDatePicker?.maximumDate =  self.maxDate//Date().add(years: 2) //Date()
             
             self.fromDatePicker?.minimumDate = self.minFromDate
             self.toDatePicker?.minimumDate = self.minFromDate

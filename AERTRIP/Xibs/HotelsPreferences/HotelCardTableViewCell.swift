@@ -177,7 +177,7 @@ class HotelCardTableViewCell: AppStoreAnimationTableViewCell {
         
         
         if  let filter = UserInfo.hotelFilter, filter.priceType == .Total  {
-            price = hotel.listPrice
+            price = hotel.listPrice == 0 ? hotel.price : hotel.listPrice
             listPrice = hotel.price
         }
 
@@ -188,6 +188,7 @@ class HotelCardTableViewCell: AppStoreAnimationTableViewCell {
             attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 1, range: NSMakeRange(0, attributeString.length))
             self.actualPriceLabel.attributedText = attributeString
             self.actualPriceLabel.AttributedFontForText(text: price.getCurrencySymbol, textFont: AppFonts.Regular.withSize(12))
+            actualPriceLabel.isHidden = price == listPrice
         }
         self.discountedPriceLabel.text = price.amountInDelimeterWithSymbol
         self.discountedPriceLabel.AttributedFontForText(text: price.getCurrencySymbol, textFont: AppFonts.SemiBold.withSize(16))

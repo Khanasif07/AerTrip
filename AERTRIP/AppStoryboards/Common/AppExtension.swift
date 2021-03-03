@@ -45,7 +45,7 @@ extension UIView {
 //        gradientLayer.masksToBounds = true
         
         gradientLayer.colors = cgColors
-        
+        self.removeGredient()
         self.layer.insertSublayer(gradientLayer, at: 0)
     }
     

@@ -89,7 +89,7 @@ extension HotelCancellationVC: UITableViewDelegate , UITableViewDataSource {
             let roomD = rooms[indexPath.row]
             return roomD.guest.map { $0.fullName }.joined(separator: ", ").sizeCount(withFont: AppFonts.Regular.withSize(16.0), bundingSize: CGSize(width: UIDevice.screenWidth - 68.0, height: 10000.0)).height + 173.0
         }
-        return 61.0
+        return 60.5
     }
 }
 
