@@ -405,7 +405,7 @@ extension FlightBookingsDetailsVC: MXParallaxHeaderDelegate {
                     sSelf.topNavBar.leftButton.tintColor = AppColors.themeGreen
                     sSelf.topNavBar.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: sSelf.eventTypeNavigationBarImage, endText: self?.viewModel.tripCitiesStr ?? NSMutableAttributedString(string: ""), font: AppFonts.SemiBold.withSize(18.0))
                     sSelf.topNavBar.navTitleLabel.textColor = AppColors.themeBlack
-                    sSelf.topNavBar.navTitleLabel.lineBreakMode = .byTruncatingMiddle
+                    sSelf.topNavBar.navTitleLabel.lineBreakMode = .byTruncatingTail
                     sSelf.headerView?.bookingIdAndDateLabel.alpha = 0
                     sSelf.headerView?.bookingIdAndDateTitleLabel.alpha = 0
                     sSelf.topNavBar.dividerView.isHidden = false
