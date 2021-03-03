@@ -330,20 +330,45 @@ extension BookingData {
 //            }
             
             switch arr.count {
-            case 1:
-                nameStr = arr.first ?? ""
+            case 1: //nameStr = arr.first ?? ""
 //                if nameStr.lowercased() != "you" {
 //                    verbStr = (self.bookingTabType == 1) ? "is" : "was"
 //                }
+            
+            
+                if let name = arr.first{
+                    var components = name.components(separatedBy: " ")
+                    if components.count > 0 {
+                        nameStr = components.removeFirst()
+                    }
+                }
+
                 
-            case 2: nameStr = arr.joined(separator: " and ")
+            case 2: //nameStr = arr.joined(separator: " and ")
+                
 //            case 3:
 //                nameStr = arr.first ?? ""
 //                nameStr += ", \(arr[1...2].joined(separator: " and "))"
+            
                 
-            default:
-                nameStr = arr.first ?? ""
-                nameStr += " and \(arr.count-1) others"
+            var firstNameArr = [String]()
+                for i in 0..<arr.count{
+                    var components = arr[i].components(separatedBy: " ")
+                    if components.count > 0 {
+                        firstNameArr.append(components.removeFirst())
+                    }
+                }
+                
+                nameStr = firstNameArr.joined(separator: " and ")
+                
+            default: //nameStr = arr.first ?? ""
+                if let name = arr.first{
+                    var components = name.components(separatedBy: " ")
+                    if components.count > 0 {
+                        nameStr = components.removeFirst()
+                    }
+                }
+                nameStr += " and \(arr.count-1) More"
 //                let last = arr.last ?? ""
 //                nameStr = arr.joined(separator: ", ") + " and \(last)"
             }
