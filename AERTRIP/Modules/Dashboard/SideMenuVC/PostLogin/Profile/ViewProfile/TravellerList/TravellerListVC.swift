@@ -899,6 +899,11 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView.isEditing && !isSelectMode {
+            tableView.setEditing(false, animated: false)
+            setSelectMode(isNeedToReload: false)
+            return
+        }
         dismissKeyboard()
         self.view.endEditing(true)
         let section = tableDataArray[indexPath.section]

@@ -329,6 +329,9 @@ extension AppFlowManager {
     }
     
     func moveToViewProfileDetailVC(_ travellerDetails: TravelDetailModel, usingFor: EditProfileVM.UsingFor) {
+        if let lastVC = mainNavigationController.viewControllers.last as? ViewProfileDetailVC, lastVC.viewModel.travelData?.id == travellerDetails.id {
+            return
+        }
         let ob = ViewProfileDetailVC.instantiate(fromAppStoryboard: .Profile)
         ob.viewModel.travelData = travellerDetails
         ob.viewModel.currentlyUsingFor = usingFor
