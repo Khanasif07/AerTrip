@@ -113,6 +113,9 @@
 		0C6666B822D486A2009DFACD /* BookingCommonActionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C6666B622D486A2009DFACD /* BookingCommonActionTableViewCell.xib */; };
 		0C6C1C6C22E875C800152927 /* HotelFareSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C6C1C6B22E875C800152927 /* HotelFareSectionHeader.xib */; };
 		0C6C1C6E22E875D300152927 /* HotelFareSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6C1C6D22E875D200152927 /* HotelFareSectionHeader.swift */; };
+		0C6E0A4A25EF7FA10021E823 /* RagularAccountDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6E0A4925EF7FA10021E823 /* RagularAccountDetailsVC.swift */; };
+		0C6E0A4E25EF938F0021E823 /* RegularAccountHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6E0A4D25EF938F0021E823 /* RegularAccountHeader.swift */; };
+		0C6E0A5025EF939F0021E823 /* RegularAccountHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C6E0A4F25EF939F0021E823 /* RegularAccountHeader.xib */; };
 		0C6E393224FE77F500D7383F /* SwiftObjCBridgingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6E393124FE77F500D7383F /* SwiftObjCBridgingController.swift */; };
 		0C6E393424FE7B3000D7383F /* FlightFilterBaseVC+Parchment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6E393324FE7B3000D7383F /* FlightFilterBaseVC+Parchment.swift */; };
 		0C6E393724FE7B3C00D7383F /* FlightFilterBaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6E393524FE7B3B00D7383F /* FlightFilterBaseVC.swift */; };
@@ -1800,6 +1803,9 @@
 		0C6666B622D486A2009DFACD /* BookingCommonActionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookingCommonActionTableViewCell.xib; sourceTree = "<group>"; };
 		0C6C1C6B22E875C800152927 /* HotelFareSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HotelFareSectionHeader.xib; sourceTree = "<group>"; };
 		0C6C1C6D22E875D200152927 /* HotelFareSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotelFareSectionHeader.swift; sourceTree = "<group>"; };
+		0C6E0A4925EF7FA10021E823 /* RagularAccountDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RagularAccountDetailsVC.swift; sourceTree = "<group>"; };
+		0C6E0A4D25EF938F0021E823 /* RegularAccountHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegularAccountHeader.swift; sourceTree = "<group>"; };
+		0C6E0A4F25EF939F0021E823 /* RegularAccountHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegularAccountHeader.xib; sourceTree = "<group>"; };
 		0C6E393124FE77F500D7383F /* SwiftObjCBridgingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftObjCBridgingController.swift; sourceTree = "<group>"; };
 		0C6E393324FE7B3000D7383F /* FlightFilterBaseVC+Parchment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FlightFilterBaseVC+Parchment.swift"; sourceTree = "<group>"; };
 		0C6E393524FE7B3B00D7383F /* FlightFilterBaseVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightFilterBaseVC.swift; sourceTree = "<group>"; };
@@ -3871,6 +3877,24 @@
 				0C6666B622D486A2009DFACD /* BookingCommonActionTableViewCell.xib */,
 			);
 			path = CommonAction;
+			sourceTree = "<group>";
+		};
+		0C6E0A4725EF7F0D0021E823 /* RegularAccountDetails */ = {
+			isa = PBXGroup;
+			children = (
+				0C6E0A4825EF7F610021E823 /* xib */,
+				0C6E0A4925EF7FA10021E823 /* RagularAccountDetailsVC.swift */,
+			);
+			path = RegularAccountDetails;
+			sourceTree = "<group>";
+		};
+		0C6E0A4825EF7F610021E823 /* xib */ = {
+			isa = PBXGroup;
+			children = (
+				0C6E0A4D25EF938F0021E823 /* RegularAccountHeader.swift */,
+				0C6E0A4F25EF939F0021E823 /* RegularAccountHeader.xib */,
+			);
+			path = xib;
 			sourceTree = "<group>";
 		};
 		0C6E394324FE7CE100D7383F /* FiltersCustomPagingView */ = {
@@ -8173,6 +8197,7 @@
 		8477755A2265C4E900EAB8B0 /* Accounts */ = {
 			isa = PBXGroup;
 			children = (
+				0C6E0A4725EF7F0D0021E823 /* RegularAccountDetails */,
 				842A56AD22898C6E004FD51F /* AertripBankDetailsVC */,
 				849D379622893A4B00763AD8 /* AccountOfflineDepositVC */,
 				849D378D2289397200763AD8 /* AccountOnlineDepositVC */,
@@ -9511,6 +9536,7 @@
 				1879C4982292B44F00897CED /* BookingDateVoucherTableViewCell.xib in Resources */,
 				846856B12233C1E1001B9E13 /* TripAdvisorReviewsHeaderView.xib in Resources */,
 				843FF4BA24740231001F21B1 /* NoResultsScreenViewController.xib in Resources */,
+				0C6E0A5025EF939F0021E823 /* RegularAccountHeader.xib in Resources */,
 				1804888A21CA59A000437C81 /* ViewProfileDetailTableViewSectionView.xib in Resources */,
 				183B71A7228984C600A75B7F /* RouteFareInfoTableViewCell.xib in Resources */,
 				0CA8181725AD6EBE0025EEF6 /* UpdateAccountTextFieldCell.xib in Resources */,
@@ -10226,6 +10252,7 @@
 				0C24D4E8242C758100CBFF92 /* CountryVM.swift in Sources */,
 				843FF652247409E3001F21B1 /* CouponCodeTableViewCell.m in Sources */,
 				84D157FF22660B3900393528 /* AccountDetailEventDescriptionCell.swift in Sources */,
+				0C6E0A4A25EF7FA10021E823 /* RagularAccountDetailsVC.swift in Sources */,
 				84E4BC5E22A0EC0700B72306 /* OtherBookingdDetailsVC+TableCells.swift in Sources */,
 				842EDE7E2238E7D600E99409 /* HotelDetailsOverviewVM.swift in Sources */,
 				1879C4A92293CD6600897CED /* BookingDirectionTableViewCell.swift in Sources */,
@@ -11034,6 +11061,7 @@
 				1879C4AD2293DD2600897CED /* BookingRequestAddOnsFFVC.swift in Sources */,
 				8493CD4D2240E0A30073A679 /* YouAreAllDoneVC.swift in Sources */,
 				8438B444245AB1F700F7320B /* FlightFareInfoVC.swift in Sources */,
+				0C6E0A4E25EF938F0021E823 /* RegularAccountHeader.swift in Sources */,
 				8463A56F2456C7B200C70D8C /* GMULineString.m in Sources */,
 				1848B86E229E8F5B00310953 /* UpcomingBookingVC+UITableViewMethods.swift in Sources */,
 				84F1626E2240E2C900AA183F /* YouAreAllDoneTableViewCell.swift in Sources */,
