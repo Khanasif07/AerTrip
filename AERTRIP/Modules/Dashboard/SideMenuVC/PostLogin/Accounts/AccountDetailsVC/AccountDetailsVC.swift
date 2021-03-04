@@ -526,6 +526,8 @@ extension AccountDetailsVC: TopNavigationViewDelegate {
         //filter button action
         ADEventFilterVM.shared.minFromDate = self.viewModel.ledgerStartDate
         ADEventFilterVM.shared.voucherTypes = self.viewModel.allVouchers
+        ADEventFilterVM.shared.minDate = self.viewModel.minDate
+        ADEventFilterVM.shared.maxDate = self.viewModel.maxDate
         AppFlowManager.default.moveToADEventFilterVC(onViewController: self, delegate: self)
     }
 }

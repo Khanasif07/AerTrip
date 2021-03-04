@@ -699,7 +699,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
             self.intMCAndReturnFilterVC?.toastDelegate = self
             self.intMCAndReturnFilterVC?.filterUIDelegate = self
             self.intMCAndReturnFilterVC?.flightSearchParameters = self.flightSearchParameters
-            self.intMCAndReturnFilterVC?.showDepartReturnSame = showDepartReturnSame
+            self.intMCAndReturnFilterVC?.departReturnSame.show = showDepartReturnSame
             createFilters(index)
             return
         }
@@ -1202,9 +1202,9 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
 
 extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoResultScreenDelegate {
     
-    func showDepartReturnSame(_ show: Bool) {
+    func showDepartReturnSame(_ show: Bool, selected: Bool) {
         self.showDepartReturnSame = show
-        intMCAndReturnFilterVC?.showDepartReturnSame = show
+        intMCAndReturnFilterVC?.departReturnSame = (show: show, selected: selected)
     }
     
     func updateDynamicFilters(filters : DynamicFilters) {

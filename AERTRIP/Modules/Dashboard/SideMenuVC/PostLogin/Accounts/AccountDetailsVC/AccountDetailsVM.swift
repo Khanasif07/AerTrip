@@ -39,6 +39,9 @@ class AccountDetailsVM: NSObject {
     var ledgerStartDate: Date = Date()
     var deepLinkParams:[String:String] = [:]
     
+    var minDate : Date?
+    var maxDate : Date?
+    
     //MARK:- Private
     
     
@@ -74,9 +77,19 @@ class AccountDetailsVM: NSObject {
     
     private func fetchLedgerStartDate() {
         var arr = Array(_accountDetails.keys)
+        printDebug(arr)
         arr.sort { ($0.toDate(dateFormat: "YYYY-MM-dd")?.timeIntervalSince1970 ?? 0) > ($1.toDate(dateFormat: "YYYY-MM-dd")?.timeIntervalSince1970 ?? 0)}
+       
+        printDebug("........")
+        printDebug(arr)
+
+        self.minDate = arr.last?.toDate(dateFormat: "YYYY-MM-dd")
+        self.maxDate = arr.first?.toDate(dateFormat: "YYYY-MM-dd")
+        
         if let lastD = arr.last, let dataArr = _accountDetails[lastD] as? [AccountDetailEvent] {
             self.ledgerStartDate = dataArr.last?.date ?? Date()
+//            self.minDate = dataArr.last?.date ?? Date()
+//            self.maxDate = dataArr.first?.date ?? Date()
         }
     }
     
@@ -95,7 +108,7 @@ class AccountDetailsVM: NSObject {
                         return ((event.title.lowercased().contains(forText.lowercased())) || (event.voucherNo.lowercased().contains(forText.lowercased())) ||
                                     (event.bookingNumber.lowercased().contains(forText.lowercased())) ||
                                     (event.airline.lowercased().contains(forText.lowercased())) ||
-                                    (self.removeSpecialChar(from:event.flightNumber).contains(self.removeSpecialChar(from: forText))))
+                                    (self.removeSpecialChar(from:event.flightNumber).contains(self.removeSpecialChar(from: forText))) || (self.removeSpecialChar(from:event.voucher.rawValue).contains(self.removeSpecialChar(from: forText))) ||  (self.removeSpecialChar(from:"\(event.amount)").contains(self.removeSpecialChar(from: forText))))
 //                                    ||
 //                                    (event.bookingId.lowercased().contains(forText.lowercased())))
                         
@@ -292,7 +305,7 @@ class AccountDetailsVM: NSObject {
         APICaller.shared.accountReportActionAPI(params: param) { (success, errors) in
             if success {
                 AppToast.default.hideToast(onVC, animated: false)
-                AppToast.default.showToastMessage(message: LocalizedString.Email_successfully_Sent.localized, onViewController: onVC)
+                AppToast.default.showToastMessage(message: LocalizedString.LedgerSentToYourEmail.localized, onViewController: onVC)
             }
             else {
                 AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)

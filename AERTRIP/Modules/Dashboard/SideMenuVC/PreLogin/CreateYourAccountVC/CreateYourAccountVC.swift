@@ -50,6 +50,7 @@ class CreateYourAccountVC: BaseVC {
         topNavBar.delegate = self
         self.emailTextField.titleYPadding = 12.0
         self.emailTextField.hintYPadding = 12.0
+        self.emailTextField.lineErrorColor = AppColors.themeRed
         AppGlobals.shared.updateIQToolBarDoneButton(isEnabled: false, onView: self.emailTextField)
         
         self.view.backgroundColor = AppColors.screensBackground.color

@@ -68,6 +68,7 @@ class BookingReschedulingVC: BaseVC {
         self.continueButton.shouldShowPressAnimation = false
         self.reschedulingTableView.backgroundColor = AppColors.themeGray04
         self.gradientView.addGredient(isVertical: false)
+        self.selectAutometically()
     }
     
     func registerXib() {
@@ -102,8 +103,10 @@ class BookingReschedulingVC: BaseVC {
     }
     
     override func setupColors() {
-        self.continueButton.setTitleColor(AppColors.themeWhite.withAlphaComponent(0.5), for: .normal)
-        self.continueButton.setTitleColor(AppColors.themeWhite.withAlphaComponent(0.5), for: .selected)
+        if (self.viewModel.legsData.first?.selectedPaxs.count == 0){//checked for pre selcted.
+            self.continueButton.setTitleColor(AppColors.themeWhite.withAlphaComponent(0.5), for: .normal)
+            self.continueButton.setTitleColor(AppColors.themeWhite.withAlphaComponent(0.5), for: .selected)
+        }
         self.passengerLabel.textColor = AppColors.textFieldTextColor51
         self.totalNetRefundLabel.textColor = AppColors.themeBlack
         self.totalPriceLabel.textColor = AppColors.themeBlack
@@ -126,6 +129,14 @@ class BookingReschedulingVC: BaseVC {
             self.updateTotalRefund()
             self.priceView.isHidden = false
             self.priceViewAndButtonContainerHeight.constant = 94.0
+        }
+    }
+    
+    ///Select passenger autometically when journey have single leg with single passenger.
+    private func selectAutometically(){
+        if self.viewModel.legsData.count == 1 && self.viewModel.legsData.first?.pax.count == 1{
+            self.viewModel.legsData[0].selectedPaxs = self.viewModel.legsData[0].pax
+            self.reloadList()
         }
     }
     
@@ -190,7 +201,7 @@ class BookingReschedulingVC: BaseVC {
             }
             else {
                 //cancellation
-                AppFlowManager.default.moveToReviewCancellationVC(onNavController: self.navigationController, usingAs: .flightCancellationReview, legs: self.viewModel.legsData, selectedRooms: nil)
+                AppFlowManager.default.moveToReviewCancellationVC(onNavController: self.navigationController, usingAs: .flightCancellationReview, legs: self.viewModel.legsData, selectedRooms: nil, bookingDetails: self.viewModel.bookingDetails)
             }
         }
         

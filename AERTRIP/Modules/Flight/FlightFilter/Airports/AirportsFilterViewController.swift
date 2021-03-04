@@ -53,6 +53,7 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
     @IBOutlet weak var layoverTitleLbl: UILabel!
     @IBOutlet weak var allLayoverButton: UIButton!
     @IBOutlet weak var allLayoversContainerBtn: UIButton!
+    @IBOutlet weak var noLayoversLbl: UILabel!
     
     //MARK:- Height Constraints Outlets
     @IBOutlet weak var topViewHeight: NSLayoutConstraint!
@@ -326,7 +327,7 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
 //        setmultiLegSubviews ()
         updateSegmentTitles()
         setupScrollView()
-
+        updateNoLayoversLbl()
     }
     
     private func getSegmentTitleFor(_ index: Int) -> String {
@@ -356,6 +357,11 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
         guard originDestinationView != nil else { return }
         originDestinationView.isHidden = true
         sameDepartReturnView.isHidden = true
+        noLayoversLbl.isHidden = true
+        noLayoversLbl.text = LocalizedString.noLayovers.localized
+        noLayoversLbl.textColor = AppColors.themeGray40
+        noLayoversLbl.font = AppFonts.Regular.withSize(16)
+        multiCitySegmentSeparator.alpha = 0
         setupTopView()
         
         if airportFilterArray.count > 1 {
@@ -381,7 +387,7 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
         setupScrollView()
 //        setmultiLegSubviews()
         setupMultiLegSegmentControl()
-
+        updateNoLayoversLbl()
     }
     
     func resetFilter() {
@@ -781,7 +787,15 @@ extension AirportsFilterViewController : UITableViewDataSource , UITableViewDele
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         let contentOffset = scrollView.contentOffset.y
-        multiCitySegmentSeparator.alpha = contentOffset / 100.0
+        if currentAirportFilter.layoverAirportsCount == 0 {
+            multiCitySegmentSeparator.alpha = 0
+        } else {
+            multiCitySegmentSeparator.alpha = contentOffset / 100.0
+        }
+    }
+    
+    private func updateNoLayoversLbl() {
+        noLayoversLbl.isHidden = currentAirportFilter.layoverAirportsCount != 0
     }
     
 }

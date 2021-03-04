@@ -228,7 +228,7 @@ extension FlightBookingsDetailsVC: TopNavigationViewDelegate {
             } else if index == 2 {
                 if let bDetail = self?.viewModel.bookingDetail, bDetail.cancellationRequestAllowed, let leg = bDetail.bookingDetail?.leg {
                     //open screen for cancellation request
-                    AppFlowManager.default.presentRequestCancellationVC(legs: leg)
+                    AppFlowManager.default.presentRequestCancellationVC(legs: leg, bookingDetails: self?.viewModel.bookingDetail)
                 }
                 printDebug("Present Request Cancellation")
             } else if index == 3 {

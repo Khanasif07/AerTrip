@@ -75,6 +75,7 @@ class ForgotPasswordVC: BaseVC {
         self.intructionLabel.textColor  = AppColors.themeBlack
         self.continueButton.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
         self.continueButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
+        self.emailTextField.lineErrorColor = AppColors.themeRed
     }
     
     override func bindViewModel() {

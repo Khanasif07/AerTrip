@@ -329,6 +329,9 @@ extension AppFlowManager {
     }
     
     func moveToViewProfileDetailVC(_ travellerDetails: TravelDetailModel, usingFor: EditProfileVM.UsingFor) {
+        if let lastVC = mainNavigationController.viewControllers.last as? ViewProfileDetailVC, lastVC.viewModel.travelData?.id == travellerDetails.id {
+            return
+        }
         let ob = ViewProfileDetailVC.instantiate(fromAppStoryboard: .Profile)
         ob.viewModel.travelData = travellerDetails
         ob.viewModel.currentlyUsingFor = usingFor
@@ -1206,11 +1209,11 @@ extension AppFlowManager {
     
     // Present RequestCancellation
     
-    func presentRequestCancellationVC(usingFor data: BookingReschedulingVCUsingFor = .cancellation, legs: [BookingLeg]) {
+    func presentRequestCancellationVC(usingFor data: BookingReschedulingVCUsingFor = .cancellation, legs: [BookingLeg], bookingDetails:BookingDetailModel? = nil) {
         let obj = BookingReschedulingVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.usingFor = data
         obj.viewModel.legsData = legs
-        
+        obj.viewModel.bookingDetails = bookingDetails
         let nav = UINavigationController(rootViewController: obj)
         nav.isNavigationBarHidden = true
         self.currentNavigation?.present(nav, animated: true)
@@ -1218,11 +1221,12 @@ extension AppFlowManager {
     
     // Move to Booking Review Cancellation
     
-    func moveToReviewCancellationVC(onNavController: UINavigationController?, usingAs: BookingReviewCancellationVM.UsingFor, legs: [BookingLeg]?, selectedRooms: [RoomDetailModel]?) {
+    func moveToReviewCancellationVC(onNavController: UINavigationController?, usingAs: BookingReviewCancellationVM.UsingFor, legs: [BookingLeg]?, selectedRooms: [RoomDetailModel]?, bookingDetails:BookingDetailModel? = nil) {
         let obj = BookingReviewCancellationVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.legsWithSelection = legs ?? []
         obj.viewModel.currentUsingAs = usingAs
         obj.viewModel.selectedRooms = selectedRooms ?? []
+        obj.viewModel.bookingDetails = bookingDetails
         (onNavController ?? self.mainNavigationController).pushViewController(obj, animated: true)
     }
     

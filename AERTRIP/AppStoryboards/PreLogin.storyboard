@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qt3-bg-yqI">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qt3-bg-yqI">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -1344,40 +1344,40 @@ activation link on</string>
     </scenes>
     <designables>
         <designable name="Kgc-dD-BgF">
-            <size key="intrinsicContentSize" width="67" height="19"/>
+            <size key="intrinsicContentSize" width="67" height="18.5"/>
         </designable>
         <designable name="O6E-eC-p7x">
-            <size key="intrinsicContentSize" width="70" height="19"/>
+            <size key="intrinsicContentSize" width="70" height="18.5"/>
         </designable>
         <designable name="di7-Bv-0cQ">
-            <size key="intrinsicContentSize" width="62.5" height="19"/>
+            <size key="intrinsicContentSize" width="62.5" height="18.5"/>
         </designable>
         <designable name="ipj-3f-sMD">
             <size key="intrinsicContentSize" width="94.5" height="95.5"/>
         </designable>
         <designable name="knd-x8-mi8">
-            <size key="intrinsicContentSize" width="507" height="21"/>
+            <size key="intrinsicContentSize" width="506.5" height="20.5"/>
         </designable>
         <designable name="mNt-bY-Y2Q">
-            <size key="intrinsicContentSize" width="62.5" height="19"/>
+            <size key="intrinsicContentSize" width="62.5" height="18.5"/>
         </designable>
         <designable name="oRL-n1-ZWJ">
-            <size key="intrinsicContentSize" width="52" height="19"/>
+            <size key="intrinsicContentSize" width="52" height="18.5"/>
         </designable>
         <designable name="ogJ-fi-jDI">
-            <size key="intrinsicContentSize" width="52" height="19"/>
+            <size key="intrinsicContentSize" width="52" height="18.5"/>
         </designable>
         <designable name="sRS-db-7LO">
-            <size key="intrinsicContentSize" width="28.5" height="19"/>
+            <size key="intrinsicContentSize" width="28.5" height="18.5"/>
         </designable>
         <designable name="vBZ-BY-zXq">
-            <size key="intrinsicContentSize" width="52" height="19"/>
+            <size key="intrinsicContentSize" width="52" height="18.5"/>
         </designable>
         <designable name="wBs-5f-tsh">
-            <size key="intrinsicContentSize" width="52" height="19"/>
+            <size key="intrinsicContentSize" width="52" height="18.5"/>
         </designable>
         <designable name="zed-EJ-87h">
-            <size key="intrinsicContentSize" width="4" height="19"/>
+            <size key="intrinsicContentSize" width="4" height="18.5"/>
         </designable>
     </designables>
     <resources>

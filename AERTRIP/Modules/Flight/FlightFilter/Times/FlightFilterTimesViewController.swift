@@ -25,6 +25,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     @IBOutlet weak var multiLegViewHeight: NSLayoutConstraint!
     @IBOutlet weak var multiLegView: UIView!
     @IBOutlet weak var multiSegmentView: UIView!
+    @IBOutlet weak var sectorNameLbl: UILabel!
     
     //MARK:- Departure Outlets
     @IBOutlet weak var departureStackView: UIStackView!
@@ -105,8 +106,11 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     fileprivate func setDepartureLabel(){
         let numberOfStops = viewModel.multiLegTimerFilter.count
         if numberOfStops > 3 {
-            setDepartureLabelAttributedString()
+//            setDepartureLabelAttributedString()
+            sectorNameLbl.isHidden = false
+            sectorNameLbl.attributedText = viewModel.currentTimerFilter.leg.descriptionOneFiveThree
         } else {
+            sectorNameLbl.isHidden = true
             departureTimeLabel.text = "Departure Time"
         }
     }

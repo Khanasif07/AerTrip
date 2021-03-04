@@ -24,12 +24,15 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
     
     var flightSearchParameters = JSONDictionary()
 
-    var showDepartReturnSame = false {
+    var departReturnSame: (show: Bool, selected: Bool) = (false, false) {
         didSet {
-            if !showDepartReturnSame { return }
-            allChildVCs.forEach { (viewCon) in
-                if let airportVC = viewCon as? AirportsFilterViewController {
-                    airportVC.areAllDepartReturnNotSame = showDepartReturnSame
+            if !departReturnSame.show { return }
+            DispatchQueue.main.async {
+                self.allChildVCs.forEach { (viewCon) in
+                    if let airportVC = viewCon as? AirportsFilterViewController {
+                        airportVC.areAllDepartReturnNotSame = self.departReturnSame.show
+                        airportVC.sameDepartReturnBtn.isSelected = self.departReturnSame.selected
+                    }
                 }
             }
         }
@@ -1138,14 +1141,15 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
             airlineFilters = self.createAirlineFiltersArray(inputFilters: filters)
         }
         
-        let curSelectedFilter = airlineVC.viewModel.currentSelectedAirlineFilter
         airlineVC.viewModel.airlinesFilterArray = airlineFilters
         airlineVC.viewModel.currentSelectedAirlineFilter = airlineFilters[0]
         if appliedAndUIFilters?.appliedFilters[0].contains(.Airlines) ?? false {
             let selectedAirlines = userSelectedFilters.flatMap { $0.al }
             airlineVC.selectedAirlineArray = selectedAirlines
         }
-        airlineVC.viewModel.currentSelectedAirlineFilter.hideMultipleAirline = curSelectedFilter?.hideMultipleAirline ?? false
+        if appliedAndUIFilters?.uiFilters[0].contains(.hideMultiAirlineItinarery) ?? false {
+            airlineVC.viewModel.currentSelectedAirlineFilter.hideMultipleAirline = true
+        }
         airlineVC.updateUIPostLatestResults()
     }
     
@@ -1372,7 +1376,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
         airportViewController.delegate = delegate as? AirportFilterDelegate
         airportViewController.searchType = self.searchType
         airportViewController.isIntReturnOrMCJourney = true
-        airportViewController.areAllDepartReturnNotSame = showDepartReturnSame
+        airportViewController.areAllDepartReturnNotSame = departReturnSame.show
     }
     
     func updateAirportVC(_ airportViewController : AirportsFilterViewController , inputFilters : [IntMultiCityAndReturnWSResponse.Results.F])

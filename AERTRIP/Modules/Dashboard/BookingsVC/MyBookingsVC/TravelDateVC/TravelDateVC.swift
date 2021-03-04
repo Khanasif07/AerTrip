@@ -58,6 +58,10 @@ class TravelDateVC: BaseVC {
     
     var bookingsMinDate: Date?
     var bookingsMaxDate: Date?
+    
+    
+    var minDate : Date?
+    var maxDate : Date?
 
     private let dateFormate = "E, dd MMM YYYY"
     
@@ -220,58 +224,19 @@ class TravelDateVC: BaseVC {
     
     private func setupDateSpan() {
         if self.currentlyUsingAs == .travelDate {
-//            if let _ = self.oldFromDate {
-//                self.fromTapGestureAction(UITapGestureRecognizer())
-//            }
-//            else if let _ = self.oldToDate {
-//                self.toTapGestureAction(UITapGestureRecognizer())
-//            }
-//            else {
-//                self.closeBothPicker(animated: false)
-//            }
+    
+            self.fromDatePicker?.minimumDate = self.minFromDate
+            self.fromDatePicker?.maximumDate = self.maxDate//Date().add(years: 2)
             
-            if self.currentlyUsingAs == .bookingDate {
-                self.fromDatePicker?.minimumDate = self.bookingsMinDate
-                self.fromDatePicker?.maximumDate = self.bookingsMaxDate
-                
-                self.toDatePicker?.minimumDate = self.bookingsMinDate
-                self.toDatePicker?.maximumDate = self.bookingsMaxDate
-            } else{
-                self.fromDatePicker?.minimumDate = self.minFromDate
-                self.fromDatePicker?.maximumDate = Date().add(years: 2)
-                
-                self.toDatePicker?.minimumDate = self.minFromDate
-                self.toDatePicker?.maximumDate = Date().add(years: 2)
-            }
-            
-          
+            self.toDatePicker?.minimumDate = self.minFromDate
+            self.toDatePicker?.maximumDate = self.maxDate//Date().add(years: 2)
             
             self.fromDatePicker?.setDate(self.oldFromDate ?? Date(), animated: false)
             
             self.toDatePicker?.setDate(self.oldToDate ?? Date(), animated: false)
             
             self.setDateOnLabels(fromDate: self.oldFromDate, toDate: self.oldToDate)
-        }
-        else if self.currentlyUsingAs == .bookingDate {
-//            if let _ = self.oldFromDate {
-//                self.fromTapGestureAction(UITapGestureRecognizer())
-//            }
-//            else if let _ = self.oldToDate {
-//                self.toTapGestureAction(UITapGestureRecognizer())
-//            }
-//            else {
-//                self.closeBothPicker(animated: false)
-//            }
-            
-//            self.fromDatePicker?.minimumDate = self.minFromDate
-//            self.fromDatePicker.minimumDate = Date().add(years: -2)
-//            self.fromDatePicker?.maximumDate = Date().add(years: 2)
-            
-//            self.toDatePicker?.minimumDate = self.minFromDate
-//            self.toDatePicker.minimumDate = Date().add(years: -2)
-//            self.toDatePicker?.maximumDate = Date().add(years: 2)
-            
-            
+        } else if self.currentlyUsingAs == .bookingDate {
             
             self.fromDatePicker?.minimumDate = self.bookingsMinDate
             self.fromDatePicker?.maximumDate = self.bookingsMaxDate
@@ -284,17 +249,15 @@ class TravelDateVC: BaseVC {
             self.toDatePicker?.setDate(self.oldToDate ?? Date(), animated: false)
             
             self.setDateOnLabels(fromDate: self.oldFromDate, toDate: self.oldToDate)
-        }
-        else {
+        } else {
             // account
-//            self.fromTapGestureAction(UITapGestureRecognizer())
             
             //let fromDt =  self.minFromDate
             self.fromDatePicker?.setDate(self.oldFromDate ?? Date(), animated: false)
             self.toDatePicker?.setDate(self.oldToDate ?? Date(), animated: false)
             
-            self.fromDatePicker?.maximumDate =  Date().add(years: 2) //Date()
-            self.toDatePicker?.maximumDate =  Date().add(years: 2) //Date()
+            self.fromDatePicker?.maximumDate =  self.maxDate//Date().add(years: 2) //Date()
+            self.toDatePicker?.maximumDate =  self.maxDate//Date().add(years: 2) //Date()
             
             self.fromDatePicker?.minimumDate = self.minFromDate
             self.toDatePicker?.minimumDate = self.minFromDate

@@ -55,13 +55,13 @@ extension HotelResultVC: UISearchBarDelegate {
         //        } else {
         //            return
         //        }
-        self.searchResultHeaderView.updateHeight(height: HotelSearchResultHeaderViewHeight)
+        self.searchResultHeaderView.updateHeight(height: hotelSearchResultHeaderViewHeight.max)
         self.hideSearchAnimation()
         self.reloadHotelList()
     }
     
     func performSearch(with searchText: String){
-        self.tableViewVertical.sectionHeaderHeight = HotelSearchResultHeaderViewHeight
+        self.tableViewVertical.sectionHeaderHeight = hotelSearchResultHeaderViewHeight.max
         noResultemptyView.searchTextLabel.isHidden = false
         noResultemptyView.searchTextLabel.text = "for \(searchText.quoted)"
         noResultemptyViewVerticalTableView.searchTextLabel.isHidden = false
@@ -454,6 +454,11 @@ extension HotelResultVC: HotelFilteVCDelegate {
     }
     
     func doneButtonTapped() {
+        if HotelFilterVM.shared.priceType == .PerNight {
+            self.searchResultHeaderView.resultListPriceType = .perNight
+        } else {
+            self.searchResultHeaderView.resultListPriceType = .total(self.viewModel.searchedFormData.totalNights)
+        }
         self.filterCollectionView.scrollToItem(at: IndexPath(item: HotelFilterVM.shared.lastSelectedIndex, section: 0), at: .centeredHorizontally, animated: false)
         
         if let isUse = UserDefaults.getObject(forKey: "shouldApplyFormStars") as? Bool, isUse {

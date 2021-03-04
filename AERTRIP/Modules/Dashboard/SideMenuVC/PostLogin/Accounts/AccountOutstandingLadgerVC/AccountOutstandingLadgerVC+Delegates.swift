@@ -32,7 +32,7 @@ extension AccountOutstandingLadgerVC: UITableViewDataSource, UITableViewDelegate
         if tableView == self.tableView{
             return section == 0 ? 45 : 35
         }else{
-            return CGFloat.leastNonzeroMagnitude
+            return section == 0 ? 45 : 35//CGFloat.leastNonzeroMagnitude
         }
         
     }
@@ -176,5 +176,10 @@ extension AccountOutstandingLadgerVC: UITableViewDataSource, UITableViewDelegate
             AppFlowManager.default.moveToAccountLadgerDetailsVC(forEvent: event, detailType: .outstandingLadger)
         }
     }
+    
+//    func tableView(_ tableView: UITableView, shouldBeginMultipleSelectionInteractionAt indexPath: IndexPath) -> Bool {
+//        currentViewState = .selecting
+//        return true
+//    }
     
 }

@@ -282,6 +282,11 @@ extension FlightSearchResultVM {
                     filterDict["stp"] = stp
                 }
             }
+            
+            if legs[i].UIFilters.contains(.hideMultiAirlineItinarery) {
+                filterDict["hideMultiAl"] = 1
+            }
+            
             filterArr.append(filterDict)
         }
         return filterArr
@@ -569,8 +574,14 @@ extension FlightSearchResultVM {
                         filterDict["fares[]"] = 1
                     }
                 }
+                if legs[0].UIFilters.contains(.hideMultiAirlineItinarery) {
+                    filterDict["hideMultiAl"] = 1
+                }
                 filterArr.append(filterDict)
             }
+        }
+        if legs[0].UIFilters.contains(.originDestinationSame) {
+            filterArr[0]["departReturnSame"] = 1
         }
         return filterArr
     }

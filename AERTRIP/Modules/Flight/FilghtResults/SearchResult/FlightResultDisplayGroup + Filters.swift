@@ -656,7 +656,7 @@ extension FlightResultDisplayGroup  {
         }
         
         if !UIFilters.contains(.refundableFares) {
-            if userFil.pr.minPrice > inputFil.pr.minPrice && userFil.pr.maxPrice < inputFil.pr.maxPrice {
+            if userFil.pr.minPrice >= inputFil.pr.minPrice && userFil.pr.maxPrice <= inputFil.pr.maxPrice {
                 appliedFilters.remove(.Price)
             }
         }
@@ -937,7 +937,20 @@ extension FlightResultDisplayGroup  {
             switch filter {
                 
             case .refundableFares:
-                inputForFilter = inputForFilter.filter{ $0.rfdPlcy.rfd.first?.value == 1 /*&& $0.leg.first?.fcp != 1 */ }
+                inputForFilter = inputForFilter.filter{
+                    var isRefundable = true
+                    var isUnknown = false
+                    $0.rfdPlcy.rfd.values.forEach { (val) in
+                        if val == 0 {
+                            isRefundable = false
+                        }
+                        if val == -9 {
+                            isUnknown = true
+                        }
+                    }
+                    return isUnknown || isRefundable
+                }
+//                    $0.rfdPlcy.rfd.first?.value == 1 /*&& $0.leg.first?.fcp != 1 */ }
             case .hideLongerOrExpensive:
                 continue
             case .hideOvernight:

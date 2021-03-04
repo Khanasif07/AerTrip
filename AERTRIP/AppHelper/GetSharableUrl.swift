@@ -741,6 +741,10 @@ class GetSharableUrl
                 
                 filterString.append(stops)
             }
+            
+            if legs[i].UIFilters.contains(.hideMultiAirlineItinarery) {
+                filterString.append("&filters[\(i)][hideMultiAl]=1")
+            }
         }
         
         return filterString
@@ -1050,6 +1054,10 @@ class GetSharableUrl
                     
                     filterString.append(stops)
                 }
+                
+                if legs[0].UIFilters.contains(.hideMultiAirlineItinarery) {
+                    filterString.append("&filters[\(i)][hideMultiAl]=1")
+                }
             }
             
             
@@ -1132,7 +1140,9 @@ class GetSharableUrl
                 
             }
         }
-        
+        if legs[0].UIFilters.contains(.originDestinationSame) {
+            filterString.append("&filters[0][departReturnSame]=1")
+        }
         return filterString
     }
     

@@ -78,6 +78,9 @@ class ADEventFilterVC: BaseVC {
         travelDateVC.oldToDate = ADEventFilterVM.shared.toDate
         travelDateVC.oldFromDate = ADEventFilterVM.shared.fromDate
         travelDateVC.minFromDate = ADEventFilterVM.shared.minFromDate
+        travelDateVC.minDate = ADEventFilterVM.shared.minDate
+        travelDateVC.maxDate = ADEventFilterVM.shared.maxDate
+
         
         travelDateVC.delegate = self
         
@@ -298,7 +301,9 @@ extension ADEventFilterVC: TopNavigationViewDelegate {
             if let vc = viewController as? TravelDateVC {
                 vc.oldToDate = ADEventFilterVM.shared.toDate
                 vc.oldFromDate = ADEventFilterVM.shared.fromDate
-                vc.minFromDate = ADEventFilterVM.shared.minFromDate
+//                vc.minFromDate = ADEventFilterVM.shared.minFromDate
+                vc.minDate  = ADEventFilterVM.shared.minFromDate
+                vc.maxDate = ADEventFilterVM.shared.maxDate
                 vc.setFilterValues()
             }
             else if let vc = viewController as? ADVoucherTypeVC {
