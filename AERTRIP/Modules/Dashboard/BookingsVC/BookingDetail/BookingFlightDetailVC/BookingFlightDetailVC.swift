@@ -75,6 +75,10 @@ class BookingFlightDetailVC: BaseVC {
     private func configureNavBar() {
         
         self.topNavigationView.configureNavBar(title: "", isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
+        self.topNavigationView.navTitleLabel.frame = CGRect(x: 30 , y: statusBarHeight + 1.0 , width: UIScreen.main.bounds.size.width  - 60.0 , height: 23)
+        self.topNavigationView.navTitleLabel.lineBreakMode = .byTruncatingTail
+        self.topNavigationView.navTitleLabel.numberOfLines = 1
+        self.topNavigationView.navTitleLabel.textAlignment = .center
         self.topNavigationView.navTitleLabel.attributedText = self.viewModel.tripStr
         self.topNavigationView.delegate = self
         topNavigationView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "black_cross"), selectedImage: #imageLiteral(resourceName: "black_cross"))
