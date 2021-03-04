@@ -927,8 +927,12 @@ extension AppFlowManager {
         
         switch user.userCreditType {
         case .regular:
-            self.moveToAccountDetailsVC(usingFor: .account, forDetails: [:], forVoucherTypes: [], deepLinkParam:deepLinkParam)
-            
+            let vc = RegularAccountDetailsVC.instantiate(fromAppStoryboard: .Account)
+            vc.currentUsingAs = .account
+            vc.viewModel.allVouchers = []
+            vc.viewModel.setAccountDetails(details: [:])
+            vc.viewModel.deepLinkParams = deepLinkParam
+            self.mainNavigationController.pushViewController(vc, animated: true)
         case .billwise:
             let obj = SpecialAccountDetailsVC.instantiate(fromAppStoryboard: .Account)
             obj.viewModel.deepLinkParams = deepLinkParam

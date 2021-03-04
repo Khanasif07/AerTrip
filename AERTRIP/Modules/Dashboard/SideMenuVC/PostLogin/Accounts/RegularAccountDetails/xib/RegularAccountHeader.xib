@@ -60,8 +60,22 @@
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3e9-7K-i5w">
                             <rect key="frame" x="0.0" y="76" width="433" height="34"/>
+                            <subviews>
+                                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Umi-59-f0Z">
+                                    <rect key="frame" x="0.0" y="0.0" width="433" height="2"/>
+                                    <color key="tintColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="2" id="FFS-Jy-71J"/>
+                                    </constraints>
+                                    <color key="progressTintColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="trackTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </progressView>
+                            </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
+                                <constraint firstItem="Umi-59-f0Z" firstAttribute="top" secondItem="3e9-7K-i5w" secondAttribute="top" id="Jof-bz-S6e"/>
+                                <constraint firstAttribute="trailing" secondItem="Umi-59-f0Z" secondAttribute="trailing" id="MoZ-EL-EyK"/>
+                                <constraint firstItem="Umi-59-f0Z" firstAttribute="leading" secondItem="3e9-7K-i5w" secondAttribute="leading" id="RBv-8O-BzH"/>
                                 <constraint firstAttribute="height" constant="34" id="agJ-Xq-6vL"/>
                             </constraints>
                         </view>
@@ -126,13 +140,23 @@
                                     <rect key="frame" x="8" y="0.0" width="417" height="62"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </searchBar>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o1s-rN-uva" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="61.5" width="433" height="0.5"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="0.5" id="CMA-sB-Jpe"/>
+                                    </constraints>
+                                </view>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
+                                <constraint firstAttribute="trailing" secondItem="o1s-rN-uva" secondAttribute="trailing" id="1rg-7t-HnG"/>
                                 <constraint firstItem="p0c-Sl-p6h" firstAttribute="top" secondItem="ptI-Z9-FJA" secondAttribute="top" id="7cL-Fn-fNq"/>
+                                <constraint firstAttribute="bottom" secondItem="o1s-rN-uva" secondAttribute="bottom" id="BOV-hN-2xr"/>
                                 <constraint firstAttribute="bottom" secondItem="p0c-Sl-p6h" secondAttribute="bottom" id="EXk-lW-LSH"/>
                                 <constraint firstAttribute="trailing" secondItem="p0c-Sl-p6h" secondAttribute="trailing" constant="8" id="Pvl-GO-1nH"/>
                                 <constraint firstItem="p0c-Sl-p6h" firstAttribute="leading" secondItem="ptI-Z9-FJA" secondAttribute="leading" constant="8" id="e4G-cO-rjK"/>
+                                <constraint firstItem="o1s-rN-uva" firstAttribute="leading" secondItem="ptI-Z9-FJA" secondAttribute="leading" id="hpa-Cj-PJR"/>
                             </constraints>
                         </view>
                     </subviews>
@@ -171,6 +195,8 @@
                 <outlet property="emptyView" destination="3e9-7K-i5w" id="ABt-Yh-Jym"/>
                 <outlet property="filterButton" destination="cyj-Gw-Fed" id="znT-4N-Kuk"/>
                 <outlet property="optionButton" destination="6M6-oo-che" id="PIR-yN-Rin"/>
+                <outlet property="progressView" destination="Umi-59-f0Z" id="Xi5-ea-mMo"/>
+                <outlet property="searchBar" destination="p0c-Sl-p6h" id="W6X-YA-fz5"/>
                 <outlet property="searchbarView" destination="ptI-Z9-FJA" id="B6H-3p-OVe"/>
             </connections>
             <point key="canvasLocation" x="151.44927536231884" y="-154.01785714285714"/>
