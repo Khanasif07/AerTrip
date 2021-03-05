@@ -42,7 +42,7 @@ public class TravellerData: NSManagedObject {
             // keys for sorting purpose
             userData!.firstNameSorting = firstName.alphanumeric.lowercased()
             userData!.lastNameSorting = lastName.lowercased()
-            if firstName == "(Basecamp)" {
+            if firstName.lowercased() == "(basecamp)" {
                 printDebug("Contact found")
             }
             if !lastName.isEmpty {

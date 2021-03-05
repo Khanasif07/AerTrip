@@ -247,7 +247,7 @@ extension SingleJourneyCell : UICollectionViewDataSource , UICollectionViewDeleg
         
         
         if section == 0 {
-            if baggageSuperScript?.string == "0P" || baggageSuperScript?.string == "0" || baggageSuperScript?.string == "?" {
+            if baggageSuperScript?.string.lowercased() == "0p" || baggageSuperScript?.string == "0" || baggageSuperScript?.string == "?" {
                 return 0
             } else {
                 return 1
@@ -271,7 +271,7 @@ extension SingleJourneyCell : UICollectionViewDataSource , UICollectionViewDeleg
             
             guard let imageName = smartIconsArray?[indexPath.row] else { return UICollectionViewCell() }
             
-            if  imageName == "fsr" {
+            if  imageName.lowercased() == "fsr" {
                 let color = UIColor(displayP3Red:1.0 , green: ( 88.0/255.0), blue:( 77.0/255.0) , alpha: 1.0)
                 if let seats = currentJourney?.seats {
                     let tempImage = textToImage(drawText: seats, diameter:20.0 , color: color)
@@ -286,7 +286,7 @@ extension SingleJourneyCell : UICollectionViewDataSource , UICollectionViewDeleg
 
             }
             
-            if imageName == "refundStatusPending" {
+            if imageName.lowercased() == "refundStatusPending".lowercased() {
                 cell.superScript.text = "?"
                 cell.superScript.textColor = UIColor.AERTRIP_RED_COLOR
 //                cell.superScript.font = UIFont(name: "SourceSansPro-Bold", size: 10.0)
@@ -332,7 +332,7 @@ extension SingleJourneyCell : UICollectionViewDataSource , UICollectionViewDeleg
         return .zero
     }
     else {
-        if smartIconsArray?.count == 0  || baggageSuperScript?.string == "0P" || baggageSuperScript?.string == "0" || baggageSuperScript?.string == "?" {
+        if smartIconsArray?.count == 0  || baggageSuperScript?.string.lowercased() == "0p" || baggageSuperScript?.string == "0" || baggageSuperScript?.string == "?" {
             return .zero
         }
         return CGSize(width: 16.0, height:  23.0)

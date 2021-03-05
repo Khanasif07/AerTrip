@@ -329,6 +329,7 @@ class GetSharableUrl
         var showDate = Date()
         var returnDate = ""
         let inputFormatter = DateFormatter()
+        let tripType = self.tripType.lowercased()//To Compare case insensitivity.
         
         if tripType == "single"{
             returnDate.append("return=&")
@@ -356,7 +357,7 @@ class GetSharableUrl
     
     func getDepartureDate(journey:[Journey])->String{
         var departureDate = ""
-
+        let tripType = self.tripType.lowercased()//To Compare case insensitivity.
         if tripType == "single" || tripType == "return"{
             if self.searchParam.count > 0{
                 departureDate.append("depart=\(searchParam["depart"] ?? "")&")
@@ -375,6 +376,7 @@ class GetSharableUrl
     func getOrigin(journey:[Journey])->String
     {
         var origin = ""
+        let tripType = self.tripType.lowercased()//To Compare case insensitivity.
         if tripType == "single" || tripType == "return"{
 //            origin.append("origin=\(journey[0].ap[0])&")
             
@@ -393,6 +395,7 @@ class GetSharableUrl
     
     func getDestination(journey:[Journey])->String{
         var destination = ""
+        let tripType = self.tripType.lowercased()//To Compare case insensitivity.
         if tripType == "single" || tripType == "return"{
 //            destination.append("destination=\(journey[0].ap[1])&")
             

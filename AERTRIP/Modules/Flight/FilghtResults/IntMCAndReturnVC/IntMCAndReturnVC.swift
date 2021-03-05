@@ -279,7 +279,7 @@ extension IntMCAndReturnVC {
             self.emailPinnedFlights.displayLoadingIndicator(false)
 
             if #available(iOS 13.0, *) {
-                if view == "Pinned template data not found"{
+                if view.lowercased() == "Pinned template data not found".lowercased(){
                     AppToast.default.showToastMessage(message: view)
                 }else{
                     self.showEmailViewController(body : view)
@@ -297,7 +297,7 @@ extension IntMCAndReturnVC {
         sharePinnedFilghts.displayLoadingIndicator(false)
         self.sharePinnedFilghts.setImage(UIImage(named: "SharePinned"), for: .normal)
 
-        if url == "No Data"{
+        if url.lowercased() == "No Data".lowercased(){
             AertripToastView.toast(in: self.view, withText: "Something went wrong. Please try again.")
         }else{
             let textToShare = [ "Checkout my favourite flights on Aertrip!\n\(url)" ]

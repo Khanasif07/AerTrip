@@ -421,7 +421,7 @@ extension DashboardVC  {
             let page = Int(scrollView.contentOffset.x/scrollView.bounds.width)
             guard let currentOption = SelectedOption(rawValue: page) else {return}
             if mainScrollView.contentOffset.y + mainScrollView.height < mainScrollView.contentSize.height - 19.0 {
-                if self.scrollingDirection == "right" || self.scrollingDirection == "left"{
+                if self.scrollingDirection.lowercased() == "right" || self.scrollingDirection.localized == "left"{
                     self.setTransformAfterDraging(selectedTap: currentOption, isOnlyAlpha: false)
                 }
             }else{

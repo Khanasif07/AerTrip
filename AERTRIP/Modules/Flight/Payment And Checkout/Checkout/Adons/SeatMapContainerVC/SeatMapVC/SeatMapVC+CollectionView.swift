@@ -53,7 +53,7 @@ extension SeatMapVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let seatRelatedData = getSeatDataFor(indexPath)
-        if seatRelatedData.columnStr == "aisle" {
+        if seatRelatedData.columnStr.lowercased() == "aisle" {
             return CGSize(width: 40, height: 30)
         }
         return CGSize(width: 40, height: 40)

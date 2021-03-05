@@ -604,7 +604,7 @@ extension AccountOfflineDepositVC {
 extension AccountOfflineDepositVC: AccountDepositAmountCellDelegate {
     func amountDidChanged(amount: Double, amountString: String) {
         self.viewModel.userEnteredDetails.depositAmount = amount
-        if self.viewModel.userEnteredDetails.depositAmount < 200000, self.viewModel.userEnteredDetails.transferType == "RTGS"{
+        if self.viewModel.userEnteredDetails.depositAmount < 200000, self.viewModel.userEnteredDetails.transferType.uppercased() == "RTGS"{
             self.viewModel.userEnteredDetails.transferType = ""
             self.checkOutTableView.reloadData()
         }

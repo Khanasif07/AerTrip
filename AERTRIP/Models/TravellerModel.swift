@@ -115,8 +115,8 @@ struct TravellerModel {
     static func filterByGroups(json: JSON) -> [String: Any] {
         var travellers: [String: Any] = [:]
         let travellersArray = models(json: json)
-        travellers["Friends"] = travellersArray.filter { $0.label == "Friends" }
-        travellers["Other"] = travellersArray.filter { $0.label == "Other" || $0.label.isEmpty }
+        travellers["Friends"] = travellersArray.filter { $0.label.lowercased() == "friends" }
+        travellers["Other"] = travellersArray.filter { $0.label.lowercased() == "other" || $0.label.isEmpty }
         return travellers
     }
     

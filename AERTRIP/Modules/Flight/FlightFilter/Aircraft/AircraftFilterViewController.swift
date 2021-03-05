@@ -191,7 +191,7 @@ extension AircraftFilterViewController : UITableViewDataSource , UITableViewDele
         } else {
             
             if let ind = self.aircraftFilter.selectedAircraftsArray.firstIndex(where: { (item) -> Bool in
-                return item.name == self.aircraftFilter.allAircraftsArray[indexPath.row].name
+                return item.name.lowercased() == self.aircraftFilter.allAircraftsArray[indexPath.row].name.lowercased()
                }) {
                    self.aircraftFilter.selectedAircraftsArray.remove(at: ind)
                } else {

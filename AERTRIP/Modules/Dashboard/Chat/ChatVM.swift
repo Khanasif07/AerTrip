@@ -265,7 +265,7 @@ class ChatVM {
         jsonDict["cabinclass"] = "\(dict["cabinclass"] ?? "")"
         jsonDict["trip_type"] = "\(dict["trip_type"] ?? "")"
         
-        if json["trip_type"].stringValue == "multi" {
+        if json["trip_type"].stringValue.lowercased() == "multi" {
             let destinations = json["origin"].arrayValue.map { $0.stringValue }
             destinations.enumerated().forEach { (index, element) in
                 jsonDict["origin[\(index)]"] = element
@@ -274,7 +274,7 @@ class ChatVM {
             jsonDict["origin"] = "\(dict["origin"] ?? "")"
         }
         
-        if json["trip_type"].stringValue == "multi" {
+        if json["trip_type"].stringValue.lowercased() == "multi" {
             let destinations = json["destination"].arrayValue.map { $0.stringValue }
             destinations.enumerated().forEach { (index, element) in
                 jsonDict["destination[\(index)]"] = element
@@ -283,7 +283,7 @@ class ChatVM {
             jsonDict["destination"] = "\(dict["destination"] ?? "")"
         }
         
-        if json["trip_type"].stringValue == "multi" {
+        if json["trip_type"].stringValue.lowercased() == "multi" {
             let depart = json["depart"].arrayValue.map { $0.stringValue }
             depart.enumerated().forEach { (index, element) in
                 jsonDict["depart[\(index)]"] = element
@@ -292,9 +292,9 @@ class ChatVM {
             jsonDict["depart"] = "\(dict["depart"] ?? "")"
         }
         
-        if json["trip_type"].stringValue == "return" {
+        if json["trip_type"].stringValue.lowercased() == "return" {
             jsonDict["return"] = "\(dict["return"] ?? "")"
-        } else if json["trip_type"].stringValue == "multi" {
+        } else if json["trip_type"].stringValue.lowercased() == "multi" {
             
         } else {
             jsonDict["totalLegs"] = dict["totalLegs"]
