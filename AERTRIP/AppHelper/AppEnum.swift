@@ -690,6 +690,7 @@ enum ResolutionStatus: RawRepresentable {
         switch rawValue {
         case "Payment Pending": self = .paymentPending
         case "Action Required": self = .actionRequired
+        case "Action required": self = .actionRequired
         case "In Progress": self = .inProgress
         case "Successful": self = .successfull
         case "Aborted": self = .aborted
