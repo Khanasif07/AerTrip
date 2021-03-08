@@ -77,7 +77,7 @@ class OtherBookingsDetailsVC: BaseVC {
         //self.dataTableView.refreshControl = refreshControl
         if self.viewModel.bookingDetail == nil{//Don't Hit API when comming from deep link
             self.viewModel.getBookingDetail(showProgress: true)
-            self.viewModel.calculateWeatherLabelWidths(usingFor: self.viewModel.bookingDetail?.product == "flight" ? .flight : .hotel)
+            self.viewModel.calculateWeatherLabelWidths(usingFor: self.viewModel.bookingDetail?.product.lowercased() == "flight" ? .flight : .hotel)
 
         }else{
             self.getBookingDetailSucces(showProgress: false)

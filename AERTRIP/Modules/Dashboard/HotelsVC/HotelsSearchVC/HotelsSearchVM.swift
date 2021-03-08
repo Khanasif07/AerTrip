@@ -346,7 +346,7 @@ extension HotelsSearchVM {
         } else {
             hotelData.destName = city
             var destId = hotel.dest_id
-            if destId.suffix(3) == ":gn" {
+            if destId.suffix(3).lowercased() == ":gn" {
                 destId.removeLast(3)
             }
             hotelData.destId = destId

@@ -824,7 +824,7 @@ extension FlightDetailsBaseVC : GetSharableUrlDelegate
         shareButton.setImage(UIImage(named: "ShareGreen"), for: .normal)
         shareButton.displayLoadingIndicator(false)
         
-        if url == "No Data"{
+        if url.lowercased() == "no data"{
             AertripToastView.toast(in: self.view, withText: "Something went wrong. Please try again.")
         }else{
             let textToShare = [ "Checkout my favourite flights on Aertrip!\n\(url)" ]

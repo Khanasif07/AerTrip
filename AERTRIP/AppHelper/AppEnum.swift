@@ -522,7 +522,7 @@ enum ATVoucherType: String {
     case none
     
     init?(rawValue: String) {
-        switch rawValue {
+        switch rawValue.lowercased() {
         case "sales": self = .sales
         case "sales_addon": self = .salesAddon
         case "sales_return_jv": self = .saleReturn
@@ -687,20 +687,20 @@ enum ResolutionStatus: RawRepresentable {
      On Hold: Black
      */
     init?(rawValue: String) {
-        switch rawValue {
-        case "Payment Pending": self = .paymentPending
-        case "Action Required": self = .actionRequired
-        case "In Progress": self = .inProgress
-        case "Successful": self = .successfull
-        case "Aborted": self = .aborted
-        case "Closed": self = .closed
-        case "Confirmation Pending": self = .confirmationPending
-        case "Open": self = .open
-        case "Cancelled": self = .canceled //earlier it was "Canceled"
+        switch rawValue.lowercased() {
+        case "payment pending": self = .paymentPending
+        case "action required": self = .actionRequired
+        case "in progress": self = .inProgress
+        case "successful": self = .successfull
+        case "aborted": self = .aborted
+        case "closed": self = .closed
+        case "confirmation pending": self = .confirmationPending
+        case "open": self = .open
+        case "cancelled": self = .canceled //earlier it was "Canceled"
         case "resolved": self = .resolved
-        case "In Process": self = .inProcess
-        case "Terminated": self = .terminated
-        case "On Hold": self = .onHold
+        case "in process": self = .inProcess
+        case "terminated": self = .terminated
+        case "on hold": self = .onHold
             
         default:
             self = .none(title: rawValue)

@@ -74,7 +74,7 @@ extension HCGuestsTableViewCell: UICollectionViewDelegate, UICollectionViewDataS
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HCGuestsDetailsCollectionViewCell.reusableIdentifier, for: indexPath) as? HCGuestsDetailsCollectionViewCell else { return UICollectionViewCell() }
 //        self.travellers[indexPath.item]
         let traveller = self.travellers[indexPath.item]
-        let name = traveller.pax_type == "child" ? "\(self.travellers[indexPath.item].first_name) \(traveller.middle_name) \(traveller.last_name)"  : "\(traveller.first_name) \(traveller.middle_name) \(traveller.last_name)"
+        let name = traveller.pax_type.lowercased() == "child" ? "\(self.travellers[indexPath.item].first_name) \(traveller.middle_name) \(traveller.last_name)"  : "\(traveller.first_name) \(traveller.middle_name) \(traveller.last_name)"
         let age = traveller.age > 0 ? "\(traveller.age)" : ""
         cell.configCell(name: name, firstName: traveller.first_name , lastName: traveller.last_name, age: age , imageUrl: traveller.profile_image)
         return cell

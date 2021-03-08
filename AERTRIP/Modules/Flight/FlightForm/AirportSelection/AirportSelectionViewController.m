@@ -546,14 +546,14 @@
     if (self.searchBar.text != apiSearchText) {
         return;
     }
-    if ([[Parser getValueForKey:@"type" inDictionary:dataDictionary] isEqualToString:@"airports"]) {
+    if ([[[Parser getValueForKey:@"type" inDictionary:dataDictionary] lowercaseString] isEqualToString:@"airports"]) {
         self.cellIdentifier = @"AirportCell";
         [self createAirportArrayFromSearchResult:[Parser parseAirportSearchArray:[dataDictionary objectForKey:@"results"]]];
         [self refreshAllUIElements:true];
         return;
     }
     
-    if ([[Parser getValueForKey:@"type" inDictionary:dataDictionary] isEqualToString:@"airlines"]) {
+    if ([[[Parser getValueForKey:@"type" inDictionary:dataDictionary] lowercaseString] isEqualToString:@"airlines"]) {
         self.cellIdentifier = @"AirlineSearchCell";
         [self createAirlineArrayFromSearchResult:[dataDictionary objectForKey:@"results"]];
         [self refreshAllUIElements:true];

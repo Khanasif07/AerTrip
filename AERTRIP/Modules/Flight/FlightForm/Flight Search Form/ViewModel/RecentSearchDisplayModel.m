@@ -51,7 +51,7 @@
 
 -(void)setupTravelType{
     
-    NSString * travelType = [self.quary objectForKey:@"trip_type"];
+    NSString * travelType = [[self.quary objectForKey:@"trip_type"] lowercaseString];
 
     if ( [travelType isEqualToString:@"return"] ) {
         self.travelType = @"Return";
@@ -118,7 +118,7 @@
 
 -(void)setupDate{
     
-    NSString * travelType = [self.quary objectForKey:@"trip_type"];
+    NSString * travelType = [[self.quary objectForKey:@"trip_type"] lowercaseString];
     
     if([travelType isEqualToString:@"multi"]) {
         [self setDateForMulticityJourney];
@@ -235,7 +235,7 @@
 
 -(void)setupTravelPlan {
     
-    NSString * travelType = [self.quary objectForKey:@"trip_type"];
+    NSString * travelType = [[self.quary objectForKey:@"trip_type"] lowercaseString];
     
     if([travelType isEqualToString:@"multi"]) {
         [self setTravelPlanForMulticityJourney];
