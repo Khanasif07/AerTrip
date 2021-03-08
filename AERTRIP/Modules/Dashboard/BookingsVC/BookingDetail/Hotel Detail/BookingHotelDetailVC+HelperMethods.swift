@@ -125,7 +125,7 @@ extension BookingHotelDetailVC {
         }
         switch indexPath.row {
         case 0: // Confirmation No.
-            roomDetailCell.configureCell(title: "Confirmation No.", text: self.viewModel.bookingDetail?.bookingDetail?.roomDetails[indexPath.section - 1].bookingId ?? "")
+            roomDetailCell.configureCell(title: "Confirmation No.", text: self.viewModel.bookingDetail?.bookingDetail?.roomDetails[indexPath.section - 1].voucher ?? "")
             return roomDetailCell
             
         case 1: // Beds Cell

@@ -563,7 +563,33 @@ extension BookingDetailModel {
     
     var webCheckinUrl: String {
         if let legs = self.bookingDetail?.leg, let index = legs.firstIndex(where: { $0.completed == 0 }) {
-            return (index < (self.additionalInformation?.webCheckins.count ?? 0)) ? (self.additionalInformation?.webCheckins[index] ?? "") : ""
+            
+            var departDateTimeStr = ""
+            if let departDate = self.bookingDetail?.leg.first?.flight.first?.departDate{
+                let inputFormatter = DateFormatter()
+                inputFormatter.dateFormat = "dd-MM-yyyy"
+                departDateTimeStr = inputFormatter.string(from: departDate)
+            }
+            
+            if let departureTime = self.bookingDetail?.leg.first?.flight.first?.departureTime{
+                departDateTimeStr.append(" \(departureTime)")
+            }
+
+
+            let inputFormatter = DateFormatter()
+            inputFormatter.dateFormat = "dd-MM-yyyy HH:mm"
+            let currDateTimeStr = inputFormatter.string(from: Date())
+
+            if let currDate = inputFormatter.date(from:currDateTimeStr), let depDate = inputFormatter.date(from:departDateTimeStr)
+            {
+                if depDate.isSmallerThan(currDate)  || depDate.isEqualTo(currDate){
+                    return ""
+                }else{
+                    return (index < (self.additionalInformation?.webCheckins.count ?? 0)) ? (self.additionalInformation?.webCheckins[index] ?? "") : ""
+                }
+            }else{
+                return (index < (self.additionalInformation?.webCheckins.count ?? 0)) ? (self.additionalInformation?.webCheckins[index] ?? "") : ""
+            }
         }
         return ""
     }
