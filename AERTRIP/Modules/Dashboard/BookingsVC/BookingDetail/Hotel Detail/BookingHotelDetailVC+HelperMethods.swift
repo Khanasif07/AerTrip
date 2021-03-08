@@ -252,7 +252,7 @@ extension BookingHotelDetailVC {
         let inclusionCellHeight:CGFloat = (self.viewModel.bookingDetail?.bookingDetail?.roomDetails[indexPath.section - 1].includes?.inclusionString == "-") ? CGFloat.leastNormalMagnitude : 60.0
         let otherInclusionCellHeight:CGFloat =  (self.viewModel.bookingDetail?.bookingDetail?.roomDetails[indexPath.section - 1].includes?.otherInclsionString == "-"  ) ? CGFloat.leastNormalMagnitude : 60.0
         
-        let bedHeight:CGFloat = (self.viewModel.bookingDetail?.bookingDetail?.roomDetails[indexPath.section - 1].bedType.isEmpty ?? false) ? 60 : CGFloat.leastNormalMagnitude
+        let bedHeight:CGFloat = !(self.viewModel.bookingDetail?.bookingDetail?.roomDetails[indexPath.section - 1].bedType.isEmpty ?? false) ? 60 : CGFloat.leastNormalMagnitude
         
         let confirmationHeight = (self.viewModel.bookingDetail?.bookingStatus ?? .pending) == .booked ? 60 : CGFloat.leastNormalMagnitude
         return [confirmationHeight, bedHeight, inclusionCellHeight, otherInclusionCellHeight, (self.viewModel.bookingDetail?.bookingDetail?.roomDetails[indexPath.section - 1].includes?.notes ?? []).isEmpty ? CGFloat.leastNormalMagnitude : UITableView.automaticDimension, 160][indexPath.row]
