@@ -90,7 +90,10 @@ extension BookingData {
         return ProductType(rawValue: Int(self.bookingProductType)) ?? .other
     }
     
-    var tripCitiesStr: NSMutableAttributedString? {
+    var tripCitiesStr: NSMutableAttributedString?
+    {
+        let sourceSansPRO18 = UIFont(name: AppFonts.Regular.rawValue, size: 18)?.capHeight ?? 0
+
         if self.productType == .flight {
 
             func isReturnFlight(forArr: [String]) -> Bool {
@@ -109,6 +112,34 @@ extension BookingData {
                 return forArr.joined(separator: " → ")
             }
             
+            func getNormalStringWithImg(forArr: [String]) -> NSAttributedString {
+                
+                guard !forArr.isEmpty else {return NSMutableAttributedString(string: LocalizedString.dash.localized)}
+                
+                var outputAttributedString = NSMutableAttributedString()
+
+                for i in 0..<forArr.count{
+                    let originAttributedString = NSAttributedString(string: forArr[i])
+                    var join: NSAttributedString = NSAttributedString()
+                    let textAttachment = NSTextAttachment()
+                    let iconImage = UIImage(named: "oneway")
+                    textAttachment.bounds = CGRect(x: 0, y: CGFloat(roundf(Float(sourceSansPRO18 - (iconImage?.size.height ?? 0.0))) / 2.0), width: iconImage?.size.width ?? 0.0, height: iconImage?.size.height ?? 0.0)
+                    textAttachment.image = iconImage
+                    join = NSAttributedString(attachment: textAttachment)
+//                    let outputAttributedString = NSMutableAttributedString(attributedString: originAttributedString)
+                    outputAttributedString.append(originAttributedString)
+                    if i != forArr.count-1{
+                        outputAttributedString.append(join)
+                    }
+
+
+                }
+                return outputAttributedString
+
+                
+//                return NSMutableAttributedString(string: LocalizedString.dash.localized)
+            }
+            
             func getReturnString(forArr: [String]) -> String {
                 guard forArr.count >= 2 else {return LocalizedString.dash.localized}
                 return "\(forArr[0]) ⇋ \(forArr[1])"
@@ -118,15 +149,51 @@ extension BookingData {
                 return NSMutableAttributedString(string: self.origin ?? LocalizedString.dash.localized)
             }
             
+
             if ((self.tripType ?? "").lowercased() == "single") {
                 //single flight case
-                let temp = getNormalString(forArr: tripCts)
-                return NSMutableAttributedString(string: temp)
+//                let temp = getNormalString(forArr: tripCts)
+//                return NSMutableAttributedString(string: temp)
+                guard !tripCts.isEmpty else {return NSMutableAttributedString(string: LocalizedString.dash.localized)}
+
+                let originAttributedString = NSAttributedString(string: tripCts[0])
+                let destinatinAttributedString = NSAttributedString(string: tripCts[1])
+                var join: NSAttributedString = NSAttributedString()
+                let textAttachment = NSTextAttachment()
+                let iconImage = UIImage(named: "oneway")
+                textAttachment.bounds = CGRect(x: 0, y: CGFloat(roundf(Float(sourceSansPRO18 - (iconImage?.size.height ?? 0.0))) / 2.0), width: iconImage?.size.width ?? 0.0, height: iconImage?.size.height ?? 0.0)
+                textAttachment.image = iconImage
+                join = NSAttributedString(attachment: textAttachment)
+                let outputAttributedString = NSMutableAttributedString(attributedString: originAttributedString)
+                outputAttributedString.append(join)
+                outputAttributedString.append(destinatinAttributedString)
+                return outputAttributedString
+
             }
             else if isReturnFlight(forArr: tripCts){
                 //return flight case
-                let temp = getReturnString(forArr: tripCts)
-                return NSMutableAttributedString(string: temp)
+//                let temp = getReturnString(forArr: tripCts)
+//                return NSMutableAttributedString(string: temp)
+                
+                
+                if tripCts.count >= 2{
+                    let originAttributedString = NSAttributedString(string: tripCts[0])
+                    let destinatinAttributedString = NSAttributedString(string: tripCts[1])
+                    var join: NSAttributedString = NSAttributedString()
+                    let textAttachment = NSTextAttachment()
+                    let iconImage = UIImage(named: "return")
+                    textAttachment.bounds = CGRect(x: 0, y: CGFloat(roundf(Float(sourceSansPRO18 - (iconImage?.size.height ?? 0.0))) / 2.0), width: iconImage?.size.width ?? 0.0, height: iconImage?.size.height ?? 0.0)
+                    textAttachment.image = iconImage
+                    join = NSAttributedString(attachment: textAttachment)
+                    let outputAttributedString = NSMutableAttributedString(attributedString: originAttributedString)
+                    outputAttributedString.append(join)
+                    outputAttributedString.append(destinatinAttributedString)
+                    return outputAttributedString
+                }
+                
+                return NSMutableAttributedString(string: LocalizedString.dash.localized)
+
+                
             }
             else {
                 //multi flight case
@@ -135,11 +202,14 @@ extension BookingData {
                     
                     if (routes.first ?? []).isEmpty {
                         //still not travlled
+//                        let str = getNormalStringWithImg(forArr: tripCts)
+
                         let temp = getNormalString(forArr: tripCts)
                         return NSMutableAttributedString(string: temp)
+                        
+                        
                     }
                     else {
-                        
                         return self.createNameForMulticity()
                         
 //                        var routeStr = ""
