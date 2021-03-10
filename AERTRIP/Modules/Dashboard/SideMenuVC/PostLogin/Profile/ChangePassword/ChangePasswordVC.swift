@@ -147,9 +147,11 @@ class ChangePasswordVC: BaseVC {
         if !self.oldPasswordTextField.isSecureTextEntry {
             self.showOldPasswordButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 4, right: 1.5)
             sender.setImage(#imageLiteral(resourceName: "showPassword"), for: .normal)
+            self.viewModel.logEvent(with: .showPassword)
         } else {
             self.showOldPasswordButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 1, bottom: -1, right: 1.5)
             sender.setImage(#imageLiteral(resourceName: "hidePassword"), for: .normal)
+            self.viewModel.logEvent(with: .hidePassword)
         }
     }
     
@@ -158,9 +160,11 @@ class ChangePasswordVC: BaseVC {
         if !self.passwordTextField.isSecureTextEntry {
             self.showPasswordButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 4, right: 1.5)
             sender.setImage(#imageLiteral(resourceName: "showPassword"), for: .normal)
+            self.viewModel.logEvent(with: .showPassword)
         } else {
             self.showPasswordButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 1, bottom: -1, right: 1.5)
             sender.setImage(#imageLiteral(resourceName: "hidePassword"), for: .normal)
+            self.viewModel.logEvent(with: .hidePassword)
         }
     }
     
@@ -175,6 +179,7 @@ class ChangePasswordVC: BaseVC {
                 self.viewModel.webserviceForChangePassword()
             }
         } else {
+            self.viewModel.logEvent(with: .invalidFormat)
             let isValidOldPassword = !self.viewModel.oldPassword.checkInvalidity(.Password)
             self.oldPasswordTextField.isError = !isValidOldPassword //self.viewModel.password.checkInvalidity(.Password)  removed the validation because to match with website
             let oldPasswordPlaceHolder = self.oldPasswordTextField.placeholder ?? ""
