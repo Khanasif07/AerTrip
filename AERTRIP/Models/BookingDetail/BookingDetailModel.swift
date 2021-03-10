@@ -205,7 +205,7 @@ struct BookingDetailModel {
 
         }
         
-        if self.product == "flight" {
+        if self.product.lowercased() == "flight" {
             
             
             if !self.weatherInfo.isEmpty {

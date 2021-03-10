@@ -133,7 +133,7 @@ class SeatMapContainerVC: UIViewController {
     
     func setBookingFlightLegsAndAddOns(_ legs: [BookingLeg],_ addOns: [BookingAddons]) {
         viewModel.bookingFlightLegs = legs
-        viewModel.bookingAddOns = addOns.filter { $0.addonType == "seat" }
+        viewModel.bookingAddOns = addOns.filter { $0.addonType.lowerCaseFirst() == "seat" }
     }
     
     private func setupPlaneLayoutCollView() {

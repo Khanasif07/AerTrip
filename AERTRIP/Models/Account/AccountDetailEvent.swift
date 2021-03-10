@@ -48,7 +48,7 @@ struct AccountDetailEvent {
     
     var _creationDate: Date?
     var creationDateStr: String? {
-        return _creationDate?.toString(dateFormat: "YYYY-MM-dd")
+        return _creationDate?.toString(dateFormat: "yyyy-MM-dd")
     }
     
     private var _voucher : String = ""
@@ -175,10 +175,10 @@ struct AccountDetailEvent {
         
         if let obj = json["transaction_datetime"] {
             //"2019-04-08 16:17:28"
-            self._creationDate = "\(obj)".toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")
+            self._creationDate = "\(obj)".toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
             
             if self._creationDate == nil {
-                self._creationDate = "\(obj)".toDate(dateFormat: "YYYY-MM-dd")
+                self._creationDate = "\(obj)".toDate(dateFormat: "yyyy-MM-dd")
             }
             
             self.date = self._creationDate
@@ -203,7 +203,7 @@ struct AccountDetailEvent {
         
         if let obj = json["due_date"] {
             //2019-04-06
-            self.dueDate = "\(obj)".toDate(dateFormat: "YYYY-MM-dd")
+            self.dueDate = "\(obj)".toDate(dateFormat: "yyyy-MM-dd")
         }
         
         if let obj = json["pending"] {
@@ -240,8 +240,14 @@ struct AccountDetailEvent {
                     
                 case .card:
                     self.iconImage = #imageLiteral(resourceName: "ic_acc_card")
-                    let cardType = (info["card_type"] as? String) ?? ""
-                    self.title = cardType.isEmpty ? self._receiptMethod : "\(cardType.capitalizedFirst()) \(self._receiptMethod.capitalizedFirst())"
+                    var card = ""
+                    if let name = (info["card_name"] as? String), !name.isEmpty{
+                        card = name
+                    }else {
+                        card = (info["card_type"] as? String) ?? ""
+                    }
+                    
+                    self.title = card.isEmpty ? self._receiptMethod : "\(card.capitalized) \(self._receiptMethod.capitalizedFirst())"
                     
                     let cardNum = (info["card_number"] as? String) ?? "XXXX"
                     self.creditCardNo = "XXXX - XXXX - XXXX - \(cardNum)"
@@ -395,7 +401,7 @@ struct AccountDetailEvent {
         //booking date
         if let obj = details["booking_date"] {
             //"2019-05-16 00:00:00",
-            self.voucherDate = "\(obj)".toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")
+            self.voucherDate = "\(obj)".toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
         }
         
         //booking id
@@ -412,6 +418,7 @@ struct AccountDetailEvent {
             for obj in journey {
                 self.title += ( (self.title.isEmpty ? "" : ", ") + obj.joined(separator: " → "))
             }
+            self.sector = self.title
         }
         self.getAttributedText()
         if self.voucherNo.lowercased().contains("srjv") {
@@ -432,7 +439,7 @@ struct AccountDetailEvent {
             if let first = rows.first {
                 if let obj = first["travel_date"] {
                     //travelDate : "2019-05-20"
-                    self.travelDate = "\(obj)".toDate(dateFormat: "YYYY-MM-dd")
+                    self.travelDate = "\(obj)".toDate(dateFormat: "yyyy-MM-dd")
                 }
                 
                 if let obj = first["al"] {
@@ -440,10 +447,10 @@ struct AccountDetailEvent {
                     self.airline = "\(obj)"
                 }
                 
-                if let obj = first["sector"] as? [String] {
-                    //sector
-                    self.sector = obj.joined(separator: " → ")
-                }
+//                if let obj = first["sector"] as? [String] {
+//                    //sector
+//                    self.sector = obj.joined(separator: " → ")
+//                }
             }
             self.flightNumber = ""
             
@@ -500,7 +507,7 @@ struct AccountDetailEvent {
         //booking date
         if let obj = details["booking_date"] {
             //"2019-05-16 00:00:00",
-            self.voucherDate = "\(obj)".toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")
+            self.voucherDate = "\(obj)".toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
         }
         
         //booking id
@@ -576,13 +583,13 @@ struct AccountDetailEvent {
         //check-in
         if let obj = details["check_in"] {
             //"2019-05-16 00:00:00",
-            self.checkIn = "\(obj)".toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")
+            self.checkIn = "\(obj)".toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
         }
         
         //check-out
         if let obj = details["check_out"] {
             //"2019-05-16 00:00:00",
-            self.checkOut = "\(obj)".toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")
+            self.checkOut = "\(obj)".toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
         }
         
         if let rows = details["rows"] as? [JSONDictionary], !rows.isEmpty {
@@ -626,7 +633,7 @@ struct AccountDetailEvent {
         //booking date
         if let obj = details["booking_date"] {
             //"2019-05-16 00:00:00",
-            self.date = "\(obj)".toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")
+            self.date = "\(obj)".toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
         }
         
         //booking id

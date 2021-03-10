@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,7 +15,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MOw-oT-9fe">
-                    <rect key="frame" x="50" y="125" width="373" height="46"/>
+                    <rect key="frame" x="20" y="125" width="433" height="46"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="46" id="GcD-2u-OEr"/>
                     </constraints>
@@ -24,16 +24,16 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pif-8b-45l">
-                    <rect key="frame" x="50" y="189" width="373" height="38"/>
+                    <rect key="frame" x="20" y="189" width="433" height="38"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ne9-EH-Eo6">
-                            <rect key="frame" x="0.0" y="0.0" width="373" height="17"/>
+                            <rect key="frame" x="0.0" y="0.0" width="433" height="17"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Agv-1S-Tzc">
-                            <rect key="frame" x="0.0" y="17" width="373" height="21"/>
+                            <rect key="frame" x="0.0" y="17" width="433" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -52,7 +52,7 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SHA-19-e58">
-                    <rect key="frame" x="50" y="189" width="373" height="38"/>
+                    <rect key="frame" x="20" y="189" width="433" height="38"/>
                     <connections>
                         <action selector="tapBookingIdButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="NvJ-Sp-lc7"/>
                     </connections>
@@ -82,8 +82,8 @@
                 <constraint firstItem="MOw-oT-9fe" firstAttribute="top" secondItem="hXS-Wr-WUL" secondAttribute="bottom" constant="20" id="I2V-gr-xwB"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="tfC-tD-zen" secondAttribute="bottom" id="Po1-xo-ZCg"/>
                 <constraint firstItem="tfC-tD-zen" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="V3D-Cj-2bb"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Pif-8b-45l" secondAttribute="trailing" constant="50" id="VPR-AF-hsi"/>
-                <constraint firstItem="Pif-8b-45l" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="50" id="X8s-6v-CtM"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Pif-8b-45l" secondAttribute="trailing" constant="20" id="VPR-AF-hsi"/>
+                <constraint firstItem="Pif-8b-45l" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="X8s-6v-CtM"/>
                 <constraint firstItem="MOw-oT-9fe" firstAttribute="trailing" secondItem="Pif-8b-45l" secondAttribute="trailing" id="h8g-4m-LIf"/>
                 <constraint firstItem="hXS-Wr-WUL" firstAttribute="centerX" secondItem="MOw-oT-9fe" secondAttribute="centerX" id="iMa-4h-eOa"/>
                 <constraint firstItem="SHA-19-e58" firstAttribute="top" secondItem="Pif-8b-45l" secondAttribute="top" id="jgK-Eq-KPq"/>

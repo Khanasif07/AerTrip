@@ -109,7 +109,7 @@ class SeatCollCell: UICollectionViewCell {
             seatNumberLbl.font = AppFonts.Regular.withSize(18)
             seatNumberLbl.isHidden = false
             seatView.layer.borderWidth = 0
-            let columnText = columnStr == "aisle" ? "" : columnStr
+            let columnText = columnStr.lowercased() == "aisle" ? "" : columnStr
             seatNumberLbl.text = columnText
         case (_, _):
             if columnStr.contains("aisle") {

@@ -138,7 +138,7 @@ extension FlightDomesticMultiLegResultVC : MFMailComposeViewControllerDelegate {
 //          self.showEmailViewController(body : view)
             
           
-              if view == "Pinned template data not found"{
+            if view.lowercased() == "pinned template data not found"{
                   AppToast.default.showToastMessage(message: view)
               }else{
                   self.showEmailViewController(body : view)

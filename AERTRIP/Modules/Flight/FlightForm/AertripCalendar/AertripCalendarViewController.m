@@ -986,6 +986,15 @@
             return;
         }
         
+        if ((self.viewModel.isHotelCalendar) && ([self.viewModel.date1 compare:self.viewModel.date2] == NSOrderedSame)){
+            self.viewModel.date1 = date;
+            self.viewModel.date2 = nil;
+            [self setupCheckInDateView];
+            [self setupCheckOutDateView];
+            [self showDatesSelection];
+            return;
+        }
+        
         [self showDatesSelection];
         self.viewModel.isStartDateSelection = YES;
         [self SwitchTapOfSingleLegTypeJourney];

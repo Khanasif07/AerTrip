@@ -341,7 +341,7 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                     var bc = flight.bc
                     var cc = flight.cc
                     
-                    if cc == "Premium Economy"{
+                    if cc.lowercased() == "premium economy"{
                         cc = "Premium E"
                     }
 

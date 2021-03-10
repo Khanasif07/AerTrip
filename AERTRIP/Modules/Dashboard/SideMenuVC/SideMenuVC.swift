@@ -382,8 +382,6 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
             case 4:
                 //my Notifications
                 AppFlowManager.default.moveToNotificationVC()
-//                let vc = RagularAccountDetailsVC.instantiate(fromAppStoryboard: .Account)
-//                self.navigationController?.pushViewController(vc, animated: true)
                 
             case 6:
                 //settings

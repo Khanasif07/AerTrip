@@ -61,7 +61,7 @@ extension SeatMapContainerVC: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let seatRelatedInfo = getSeatDataFor(indexPath)
-        if seatRelatedInfo.columnStr == "aisle" {
+        if seatRelatedInfo.columnStr.lowercased() == "aisle" {
             let numberForSections = CGFloat(allChildVCs[viewModel.currentIndex].viewModel.deckData.columns.count)
             let maxHeight = collectionView.height/numberForSections
             let aisleHeight = maxHeight - (0.6 * maxHeight)

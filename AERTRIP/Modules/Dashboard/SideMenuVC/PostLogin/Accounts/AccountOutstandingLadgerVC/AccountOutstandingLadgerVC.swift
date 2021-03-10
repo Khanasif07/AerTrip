@@ -113,8 +113,7 @@ class AccountOutstandingLadgerVC: BaseVC {
         self.tableView.registerCell(nibName: AccountDetailEventHeaderCell.reusableIdentifier)
         self.tableView.registerCell(nibName: AccountOutstandingEventDescriptionCell.reusableIdentifier)
         self.tableView.register(UINib(nibName: tableViewHeaderCellIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: tableViewHeaderCellIdentifier)
-//        tableView.allowsMultipleSelectionDuringEditing = true
-        
+//        addSwipeSelectGestureOnTableView()
         self.searchBar.isMicEnabled = true
         
         self.searchDataContainerView.backgroundColor = AppColors.clear
@@ -745,3 +744,22 @@ extension AccountOutstandingLadgerVC: AccountOutstandingLadgerVMDelegate {
         self.reloadList()
     }
 }
+
+//extension AccountOutstandingLadgerVC {
+//    private func addSwipeSelectGestureOnTableView() {
+//        let swipeGeture = UIPanGestureRecognizer(target: self, action: #selector(twoFingerSwiped(recognizer:)))
+//        swipeGeture.minimumNumberOfTouches = 2
+//        swipeGeture.maximumNumberOfTouches = 2
+//        swipeGeture.delegate = self
+//        swipeGeture.cancelsTouchesInView = true
+//        tableView.addGestureRecognizer(swipeGeture)
+//    }
+//
+//    @objc private func twoFingerSwiped(recognizer: UIPanGestureRecognizer) {
+//        print(recognizer.location(in: tableView))
+//    }
+//
+//    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+//        true
+//    }
+//}

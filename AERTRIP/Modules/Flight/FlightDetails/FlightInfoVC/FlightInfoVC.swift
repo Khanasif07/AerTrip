@@ -391,7 +391,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                             }else{
                                 flightDetailsCell.classNameLabel.textColor = AppColors.themeGray40
                                 flightDetailsCell.classLabel.text = ""
-                                if flight.cc == "Premium Economy"{
+                                if flight.cc.lowercased() == "premium economy"{
                                     let cc = "Premium E"
                                     let lbl = flight.al + " - " + flight.fn + "・" + "" + cc + bc + " "
                                     flightDetailsCell.classNameLabel.attributedText = flightDetailsCell.addAttributsForRange(lbl, coloredString: cc, color: UIColor.clear)

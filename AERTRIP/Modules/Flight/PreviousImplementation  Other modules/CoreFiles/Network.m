@@ -217,8 +217,10 @@
                     
                     NSString *headers=[NSString stringWithFormat:@"REQUEST HEADER :::::::: %@   ::::::::\n%@",requestDate, manager.requestSerializer.HTTPRequestHeaders.description];
                     [textLog logTextToFile:headers];
-
-                    NSString *response=[NSString stringWithFormat:@"RESPONSE DATA ::::::::    %@ ::::::::=\n%@\n##########################################################################################",textLog.getCurrentDateTime,failureText];
+                    
+                    NSString *dict = responseDictionary.description;
+                    
+                    NSString *response=[NSString stringWithFormat:@"RESPONSE DATA ::::::::    %@ ::::::::=\n%@\n##########################################################################################",textLog.getCurrentDateTime, dict];
                     [textLog logTextToFile:response];
 
 
