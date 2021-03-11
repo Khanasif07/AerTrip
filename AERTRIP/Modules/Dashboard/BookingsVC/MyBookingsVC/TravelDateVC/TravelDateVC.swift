@@ -257,11 +257,11 @@ class TravelDateVC: BaseVC {
             self.fromDatePicker?.setDate(self.oldFromDate ?? Date(), animated: false)
             self.toDatePicker?.setDate(self.oldToDate ?? Date(), animated: false)
             
-            self.fromDatePicker?.maximumDate =  Date().add(years: 2) //Date()
-            self.toDatePicker?.maximumDate =  Date().add(years: 2) //Date()
+            self.fromDatePicker?.maximumDate =  self.maxDate //Date()
+            self.toDatePicker?.maximumDate =  self.maxDate //Date()
             
-            self.fromDatePicker?.minimumDate = self.minFromDate
-            self.toDatePicker?.minimumDate = self.minFromDate
+            self.fromDatePicker?.minimumDate = self.minDate
+            self.toDatePicker?.minimumDate = self.minDate
             
             self.setDateOnLabels(fromDate: self.oldFromDate, toDate: self.oldToDate)
         }
