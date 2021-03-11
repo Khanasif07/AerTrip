@@ -107,7 +107,7 @@ extension ChangePasswordVM {
 extension ChangePasswordVM{
     
     func logEvent(with eventType: LogEventType){
-        let eventName = (self.isPasswordType == .changePassword) ? AnalyticsEvents.changePassword.rawValue : AnalyticsEvents.setPassword.rawValue
+        let eventName = (self.isPasswordType == .changePassword) ? AnalyticsEvents.ChangePassword.rawValue : AnalyticsEvents.SetPassword.rawValue
         var filterName:String = ""
         
         switch eventType{
