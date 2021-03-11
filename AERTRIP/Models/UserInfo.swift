@@ -269,7 +269,7 @@ class UserInfo {
             if taRatings.isEmpty { taRatings = [1, 2, 3, 4, 5] }
             tripAdvisorRatingCount  = taRatings
             isIncludeUnrated  = true
-            isIncludeTAUnrated = true
+            isIncludeTAUnrated = recentSearchFilter.noTripAdvisorStar
             let distance = recentSearchFilter.distance == 0 ? 25 : recentSearchFilter.distance.toDouble
             distanceRange  = distance
             

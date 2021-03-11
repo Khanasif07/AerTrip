@@ -70,7 +70,7 @@ open class PKAlertController {
     }
     
     //MARK:- Public
-    func presentActionSheet(_ title: String?, titleFont: UIFont? = nil, titleColor: UIColor? = nil, message: String?, messageFont: UIFont? = AppFonts.Regular.withSize(14.0), messageColor: UIColor? = AppColors.themeGray40, sourceView: UIView, alertButtons: [PKAlertButton], cancelButton: PKAlertButton, tapBlock:((UIAlertAction,Int) -> Void)?) -> UIAlertController? {
+    func presentActionSheet(_ title: String?, isFromBooking:Bool? = false, titleFont: UIFont? = nil, titleColor: UIColor? = nil, message: String?, messageFont: UIFont? = AppFonts.Regular.withSize(14.0), messageColor: UIColor? = AppColors.themeGray40, sourceView: UIView, alertButtons: [PKAlertButton], cancelButton: PKAlertButton, tapBlock:((UIAlertAction,Int) -> Void)?) -> UIAlertController? {
         
         alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         if let title = title  {
@@ -94,6 +94,13 @@ open class PKAlertController {
         
         for button in alertButtons {
             let alertAction = UIAlertAction(title: button.title, style: .default, handler: closure)
+            if isFromBooking ?? false{
+                    if button.titleColor == AppColors.themeGray40{
+                      alertAction.isEnabled = false
+                    }else{
+                      alertAction.isEnabled = true
+                    }
+                  }
             self.configureAlertAction(action: alertAction, withData: button)
             alertController?.addAction(alertAction)
         }

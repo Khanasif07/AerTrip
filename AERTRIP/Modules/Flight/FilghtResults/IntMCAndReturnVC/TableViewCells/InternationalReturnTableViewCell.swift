@@ -248,7 +248,7 @@ extension InternationalReturnTableViewCell : UICollectionViewDataSource , UIColl
         
         if section == 0 {
                         
-            if baggageSuperScript?.string == "?" || baggageSuperScript?.string == "0P" || baggageSuperScript?.string == "0" {
+            if baggageSuperScript?.string == "?" || baggageSuperScript?.string.lowercased() == "0p" || baggageSuperScript?.string == "0" {
                 return 0
             } else {
                 return 1
@@ -265,7 +265,7 @@ extension InternationalReturnTableViewCell : UICollectionViewDataSource , UIColl
         if section == 0 {
             return .zero
         }else {
-            if smartIconsArray?.count == 0  || baggageSuperScript?.string == "?" || baggageSuperScript?.string == "0P" || baggageSuperScript?.string == "0" {
+            if smartIconsArray?.count == 0  || baggageSuperScript?.string == "?" || baggageSuperScript?.string.lowercased() == "0p" || baggageSuperScript?.string == "0" {
                 return .zero
             }
             return CGSize(width: 16.0, height:  23.0)
@@ -295,7 +295,7 @@ extension InternationalReturnTableViewCell : UICollectionViewDataSource , UIColl
             
             guard let imageName = smartIconsArray?[indexPath.row] else { return UICollectionViewCell() }
          
-            if  imageName == "fsr" {
+            if  imageName.lowercased() == "fsr" {
                 let color = UIColor(displayP3Red:1.0 , green: ( 88.0/255.0), blue:( 77.0/255.0) , alpha: 1.0)
                 let seats = currentJourney.seats
                 let tempImage = textToImage(drawText: seats, diameter:20.0 , color: color)
@@ -304,7 +304,7 @@ extension InternationalReturnTableViewCell : UICollectionViewDataSource , UIColl
                 cell.imageView.image = UIImage(named: imageName)
             }
             
-            if imageName == "refundStatusPending" {
+            if imageName.lowercased() == "refundStatusPending".lowercased() {
                 cell.superScript.text = "?"
                 cell.superScript.textColor = UIColor.AERTRIP_RED_COLOR
 //                cell.superScript.font = UIFont(name: "SourceSansPro-Bold", size: 10.0)

@@ -301,7 +301,13 @@ class FinalCheckOutVC: BaseVC {
                 walletAmountCell.walletAmountLabel.attributedText = ("-" + abs(amountFromWallet).amountInDelimeterWithSymbol).asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
                 walletAmountCell.clipsToBounds = true
                 walletAmountCell.labelBottomConstraint.constant =  11
-                 walletAmountCell.labelTopConstraint.constant = self.isWallet ? 4 : 11
+                let convenienceFee = isWallet ? self.convenienceFeesWallet : self.convenienceRate
+                if self.isWallet && !self.isCouponApplied{
+                    walletAmountCell.labelTopConstraint.constant = (convenienceFee != 0) ? 4 : 11
+                }else{
+                    walletAmountCell.labelTopConstraint.constant =  4
+                }
+//                 walletAmountCell.labelTopConstraint.constant = self.isWallet ? 4 : 11
                 return walletAmountCell
             } else {
                 walletAmountCell.clipsToBounds = true
@@ -410,7 +416,8 @@ class FinalCheckOutVC: BaseVC {
                 return CGFloat.leastNormalMagnitude
             }
         case 2: // Convenince Fee Cell
-            if self.isConvenienceFeeApplied {
+            let amount = isWallet ? self.convenienceFeesWallet : self.convenienceRate
+            if self.isConvenienceFeeApplied && amount != 0{
                 return UITableView.automaticDimension//36.0
             } else {
                 return CGFloat.leastNormalMagnitude

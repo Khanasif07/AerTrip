@@ -95,8 +95,7 @@ class HotelCancellationRoomInfoTableViewCell: UITableViewCell {
     }
     
     private func setChargeData(roomDetails: RoomDetailModel) {
-        
-        self.chargesData = [(chargeName: LocalizedString.ConfirmationNo.localized, chargeAmount: roomDetails.voucher), (chargeName: LocalizedString.SaleAmount.localized, chargeAmount: roomDetails.amountPaid.amountInDelimeterWithSymbol), (chargeName: LocalizedString.CancellationCharges.localized, chargeAmount: roomDetails.cancellationCharges.amountInDelimeterWithSymbol), (chargeName: LocalizedString.NetRefund.localized, chargeAmount: roomDetails.netRefund.amountInDelimeterWithSymbol)]
+        self.chargesData = [(chargeName: LocalizedString.ConfirmationNo.localized, chargeAmount: roomDetails.voucher.isEmpty ? "-" : roomDetails.voucher), (chargeName: LocalizedString.SaleAmount.localized, chargeAmount: roomDetails.amountPaid.amountInDelimeterWithSymbol), (chargeName: LocalizedString.CancellationCharges.localized, chargeAmount: roomDetails.cancellationCharges.amountInDelimeterWithSymbol), (chargeName: LocalizedString.NetRefund.localized, chargeAmount: roomDetails.netRefund.amountInDelimeterWithSymbol)]
                 
         self.chargesCollectionView.reloadData()
     }

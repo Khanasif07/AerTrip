@@ -388,8 +388,8 @@
         [self.delegate shakeAnimation:ToLabel];
         return NO;
     }
-    NSString *from = [self generateCSVFromSelectionArray:self.fromFlightArray forDisplay:NO];
-    NSString *to = [self generateCSVFromSelectionArray:self.toFlightArray forDisplay:NO];
+    NSString *from = [[self generateCSVFromSelectionArray:self.fromFlightArray forDisplay:NO] uppercaseString];
+    NSString *to = [[self generateCSVFromSelectionArray:self.toFlightArray forDisplay:NO] uppercaseString];
     if ([from isEqualToString:to]) {
         [self.delegate  showErrorMessage:@"Origin and destination cannot be same"];
         [self.delegate shakeAnimation:ToLabel];
@@ -565,7 +565,7 @@
   
     NSString * date;
     NSString * tripType = [flightSearchParameters valueForKey:@"trip_type"];
-
+    tripType = tripType.lowercaseString;//to compare with ignoring case.
         if ( [tripType isEqualToString:@"return"]) {
             
             NSString * departDateString = [flightSearchParameters valueForKey:@"depart"];
@@ -749,7 +749,7 @@
             NSAttributedString * originAttributedString = [[NSAttributedString alloc] initWithString:currentOrigin attributes:attributesForAirportCode];
             NSAttributedString * destinatinAttributedString = [[NSAttributedString alloc] initWithString:currentDestination attributes:attributesForAirportCode];
             
-            if ( [previousIndexDestination isEqualToString:currentOrigin] ){
+            if ( [previousIndexDestination caseInsensitiveCompare:currentOrigin] == NSOrderedSame ){//( [previousIndexDestination isEqualToString:currentOrigin] )
                 [outputAttributedString appendAttributedString:join];
                 [outputAttributedString appendAttributedString:destinatinAttributedString];
             }else {
@@ -919,7 +919,7 @@
     NSDictionary * dictionary = self.recentSearchArray[indexPath.row];
     NSMutableDictionary * queryDictionay = [NSMutableDictionary dictionaryWithDictionary:[dictionary objectForKey:@"query"]];
     
-    NSString * tripType = [queryDictionay objectForKey:@"trip_type"];
+    NSString * tripType = [[queryDictionay objectForKey:@"trip_type"] lowercaseString];
     
     if ([tripType isEqualToString:@"multi"] ) {
         NSArray * departArray = [queryDictionay objectForKey:@"depart"];
@@ -1230,7 +1230,7 @@
     NSError *error;
     NSData *jsonData ;
     
-    NSString * tripType = [flightSearchParameters valueForKey:@"trip_type"];
+    NSString * tripType = [[flightSearchParameters valueForKey:@"trip_type"] lowercaseString];
     
     if ([tripType isEqualToString:@"multi"] ) {
         NSArray * departArray = [flightParameters objectForKey:@"depart"];
@@ -1416,7 +1416,7 @@
     NSDate * returnDate = [self dateFromString:returnDateString];
     
     BOOL isReturn = NO;
-    if ( [tripType isEqualToString:@"return"]){
+    if ( [tripType caseInsensitiveCompare:@"return"] == NSOrderedSame){//( [tripType isEqualToString:@"return"])
         isReturn = YES;
     }
     [self selectedDatesFromCalendar:departDate endDate:returnDate isReturn:isReturn];
@@ -1468,7 +1468,7 @@
 
         NSString * destination = [query valueForKey:@"destination"];
         NSString * tripType = [query valueForKey:@"trip_type"];
-        
+        tripType = tripType.lowercaseString;
         
         // Setting up Traveller details
         self.travellerCount.flightAdultCount = [[query valueForKey:@"adult"] intValue];
@@ -1558,7 +1558,7 @@
 - (void)handleSearchResultDictionary:(NSDictionary *)dataDictionary {
 
     
-    if ([[Parser getValueForKey:@"type" inDictionary:dataDictionary] isEqualToString:@"airlines"]) {
+    if ([[[Parser getValueForKey:@"type" inDictionary:dataDictionary] lowercaseString] isEqualToString:@"airlines"]) {
 
         
         [self createAirlineArrayFromSearchResult:[dataDictionary objectForKey:@"results"]];
@@ -1694,7 +1694,7 @@
 
     NSDictionary *qr = recentModel.quary;
     if(qr != nil){
-        if ( ![[qr objectForKey:@"trip_type"] isEqualToString:@"multi"])
+        if ( ![[[qr objectForKey:@"trip_type"] lowercaseString] isEqualToString:@"multi"])
         {
             width = width + 105;
         }else{
@@ -1740,7 +1740,7 @@
     
     NSString * destination = [query valueForKey:@"destination"];
     NSString * tripType = [query valueForKey:@"trip_type"];
-    
+    tripType = tripType.lowercaseString;
     
     // Setting up Traveller details
     self.travellerCount.flightAdultCount = [[query valueForKey:@"adult"] intValue];

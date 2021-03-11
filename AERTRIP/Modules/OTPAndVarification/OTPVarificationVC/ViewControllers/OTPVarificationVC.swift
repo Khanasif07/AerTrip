@@ -387,66 +387,6 @@ class OTPVarificationVC: BaseVC {
     }
     
     @IBAction func nextButtonTapped(_ sender: Any) {
-        
-//        switch self.viewModel.varificationType{
-//        case .walletOtp:
-//            if !((self.otpTextField.text ?? "").isEmpty){
-//                self.nextButton.isLoading = true
-//                self.viewModel.validateOTP(with: (self.otpTextField.text ?? ""))
-//            }else{
-//                self.otpTextField.isError = true
-//                AppToast.default.showToastMessage(message: LocalizedString.validOtpMsg.localized)
-//            }
-//        case .phoneNumberChangeOtp:
-//            switch self.viewModel.state {
-//            case .otpToOldNumber, .otpForNewNumnber:
-//                if !((self.otpTextField.text ?? "").isEmpty){
-//                    self.nextButton.isLoading = true
-//                    self.viewModel.validateOTPForMobile(with: (self.otpTextField.text ?? ""), isForUpdate: true)
-//                }else{
-//                    self.otpTextField.isError = true
-//                    AppToast.default.showToastMessage(message: LocalizedString.validOtpMsg.localized)
-//                }
-//            case .enterNewNumber:
-//                if ((!self.viewModel.mobile.isEmpty) && self.viewModel.mobile.getOnlyIntiger.count < self.viewModel.minMNS || self.viewModel.mobile.getOnlyIntiger.count > self.viewModel.maxMNS){
-//                    self.otpTextField.isError = true
-//                    AppToast.default.showToastMessage(message: LocalizedString.fillContactDetails.localized)
-//
-//                }else{
-//                    self.viewModel.sendOTPForNumberChange(on: self.viewModel.mobile, isd: self.viewModel.isdCode, isNeedParam: true)
-//                }
-//            }
-//        case .setMobileNumber:
-//            switch self.viewModel.state {
-//            case .otpToOldNumber:
-//                if !((self.otpTextField.text ?? "").isEmpty){
-//                    self.nextButton.isLoading = true
-//                    self.viewModel.validatePassword(with: (self.otpTextField.text ?? ""))
-//                }else{
-//                    self.otpTextField.isError = true
-//                    AppToast.default.showToastMessage(message: LocalizedString.enterAccountPasswordMsg.localized)
-//                }
-//            case .enterNewNumber:
-//                if ((!self.viewModel.mobile.isEmpty) && self.viewModel.mobile.getOnlyIntiger.count < self.viewModel.minMNS || self.viewModel.mobile.getOnlyIntiger.count > self.viewModel.maxMNS){
-//                    self.otpTextField.isError = true
-//                    AppToast.default.showToastMessage(message: LocalizedString.fillContactDetails.localized)
-//
-//                }else{
-////                    self.otpTextField.isError = true
-//                    self.viewModel.setMobileNumber()
-//                }
-//            case .otpForNewNumnber:
-//                if !((self.otpTextField.text ?? "").isEmpty){
-//                    self.nextButton.isLoading = true
-//                    self.viewModel.validateOTPForMobile(with: (self.otpTextField.text ?? ""), isForUpdate: false)
-//                }else{
-//                    self.otpTextField.isError = true
-//                    AppToast.default.showToastMessage(message: LocalizedString.validOtpMsg.localized)
-//                }
-//            }
-//        default: break;
-//        }
-        
         self.view.endEditing(true)
         let validation = self.viewModel.validateAndApiCall(with: (self.otpTextField.text ?? ""))
         

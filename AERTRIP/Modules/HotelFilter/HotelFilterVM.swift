@@ -232,6 +232,8 @@ class HotelFilterVM {
             }
             else if appliedFilter.isIncludeUnrated != HotelFilterVM.shared.defaultIsIncludeUnrated {
                 return  true
+            } else if appliedFilter.isIncludeTAUnrated != HotelFilterVM.shared.defaultIsIncludeTAUnrated {
+                return true
             }
             return  false
         case LocalizedString.Amenities.localized.lowercased():

@@ -105,19 +105,32 @@ class AccountLadgerDetailsVM {
             if let des  = self.ladgerEvent!.description, !(des.isEmpty){
                 section2.append((title: "Description", value: des, age: "", isEmptyCell: false))
             }
-            let names = (self.ladgerEvent!.names.count > 1) ? "Passengers" : "Passenger"
+            let title = (self.ladgerEvent!.names.count > 1) ? "Passengers" : "Passenger"
+            var value = ""
             for (idx, name) in self.ladgerEvent!.names.enumerated() {
                 var age = ""
                 if !name.dob.isEmpty {
                     age = AppGlobals.shared.getAgeLastString(dob: name.dob, formatter: Date.DateFormat.yyyy_MM_dd.rawValue)
                 }
-                if idx == 0 {
-                    section2.append((title: names, value: name.name, age: age, isEmptyCell: false))
+                
+                if idx == (self.ladgerEvent!.names.count - 1){
+                    value += name.name
+                }else{
+                    value += "\(name.name)\n"
                 }
-                else {
-                    section2.append((title: "   ", value: name.name, age: age, isEmptyCell: false))
-                }
+                
+                
+//                if idx == 0 {
+//                    section2.append((title: names, value: name.name, age: age, isEmptyCell: false))
+//                }
+//                else {
+//                    section2.append((title: "   ", value: name.name, age: age, isEmptyCell: false))
+//                }
             }
+            if !value.isEmpty{
+                section2.append((title: title, value: value, age: "", isEmptyCell: false))
+            }
+            
             if !section2.isEmpty{
                 section2.append((title: "", value: "", age: "", isEmptyCell: true))
                 self.sectionArray.append(section2)
@@ -174,18 +187,30 @@ class AccountLadgerDetailsVM {
             }
             
             let names = (self.ladgerEvent!.names.count > 1) ? "Passengers" : "Passenger"
+            var value = ""
             for (idx, name) in self.ladgerEvent!.names.enumerated() {
                 var age = ""
                 if !name.dob.isEmpty {
                     age = AppGlobals.shared.getAgeLastString(dob: name.dob, formatter: Date.DateFormat.yyyy_MM_dd.rawValue)
                 }
-                if idx == 0 {
-                    section4.append((title: names, value: name.name, age: age, isEmptyCell: false))
+                
+                if idx == (self.ladgerEvent!.names.count - 1){
+                    value += name.name
+                }else{
+                    value += "\(name.name)\n"
                 }
-                else {
-                    section4.append((title: "   ", value: name.name, age: age, isEmptyCell: false))
-                }
+//                section4.append((title: names, value: value, age: "", isEmptyCell: false))
+//                if idx == 0 {
+//                    section4.append((title: names, value: name.name, age: age, isEmptyCell: false))
+//                }
+//                else {
+//                    section4.append((title: "   ", value: name.name, age: age, isEmptyCell: false))
+//                }
             }
+            if !value.isEmpty{
+                section4.append((title: names, value: value, age: "", isEmptyCell: false))
+            }
+            
             if !section4.isEmpty{
                 section4.append((title: "", value: "", age: "", isEmptyCell: true))
                 self.sectionArray.append(section4)
@@ -222,18 +247,31 @@ class AccountLadgerDetailsVM {
                 section2.append((title: "Ticket No.", value: self.ladgerEvent!.ticketNo, age: "", isEmptyCell: false))
             }
             let names = (self.ladgerEvent!.names.count > 1) ? "Passengers" : "Passenger"
+            var value = ""
             for (idx, name) in self.ladgerEvent!.names.enumerated() {
                 var age = ""
                 if !name.dob.isEmpty {
                     age = AppGlobals.shared.getAgeLastString(dob: name.dob, formatter: Date.DateFormat.yyyy_MM_dd.rawValue)
                 }
-                if idx == 0 {
-                    section2.append((title: names, value: name.name, age: age, isEmptyCell: false))
+                if idx == (self.ladgerEvent!.names.count - 1){
+                    value += name.name
+                }else{
+                    value += "\(name.name)\n"
                 }
-                else {
-                    section2.append((title: "   ", value: name.name, age: age, isEmptyCell: false))
-                }
+                
+                
+                
+//                if idx == 0 {
+//                    section2.append((title: names, value: name.name, age: age, isEmptyCell: false))
+//                }
+//                else {
+//                    section2.append((title: "   ", value: name.name, age: age, isEmptyCell: false))
+//                }
             }
+            if !value.isEmpty{
+                section2.append((title: names, value: value, age: "", isEmptyCell: false))
+            }
+            
             
             //self.ladgerDetails["1"] = flightDetails
             if !section2.isEmpty{
@@ -312,19 +350,30 @@ class AccountLadgerDetailsVM {
         }
         
         let names = (self.ladgerEvent!.names.count > 1) ? "Guests" : "Guest"
+        var value = ""
         for (idx, name) in self.ladgerEvent!.names.enumerated() {
             var age = ""
             if !name.dob.isEmpty {
                 age = AppGlobals.shared.getAgeLastString(dob: name.dob, formatter: Date.DateFormat.yyyy_MM_dd.rawValue)
             }
-            if idx == 0 {
-                section3.append((title: names, value: name.name, age: age, isEmptyCell: false))
+//            if idx == 0 {
+//                section3.append((title: names, value: name.name, age: age, isEmptyCell: false))
+//            }
+//            else {
+//                section3.append((title: "   ", value: name.name, age: age, isEmptyCell: false))
+//            }
+            
+            if idx == (self.ladgerEvent!.names.count - 1){
+                value += name.name
+            }else{
+                value += "\(name.name)\n"
             }
-            else {
-                section3.append((title: "   ", value: name.name, age: age, isEmptyCell: false))
-            }
+            
+            
         }
-        
+        if !value.isEmpty{
+            section3.append((title: names, value: value, age: "", isEmptyCell: false))
+        }
         //self.ladgerDetails["1"] = bookingDetails
         section3.append((title: "", value: "", age: "", isEmptyCell: true))
         self.sectionArray.append(section3)

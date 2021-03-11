@@ -224,21 +224,21 @@ class BookingInfoCommonCell: ATTableViewCell {
         
         
         //  21 kg* (21 kg: Max 3 pieces can be carried weighing total 21 kg.) {API/DB gives weight. Max pieces from DB} {ignore max weight}
-        if  weight != "-9" && weight != "" && max_pieces != ""  && max_pieces != "0 pc"{
+        if  weight != "-9" && weight != "" && max_pieces != ""  && max_pieces.lowercased() != "0 pc"{
             returnText = weight + "*"
         }
         
         
         //   1 pc* (Most Airlines typically allow max 23 kg per piece) {API / DB gives Pieces. Max Weight NOT available from DB} {ignore weight}
         
-        if pieces != "-9" && pieces != "" && pieces != "0 pc" && max_weight == ""
+        if pieces != "-9" && pieces != "" && pieces.lowercased() != "0 pc" && max_weight == ""
         {
             returnText = pieces + "*"
         }
         
         if pieces != "" && max_weight != ""
         {
-            if pieces != "0 pc"{
+            if pieces.lowercased() != "0 pc"{
                 let pc = pieces.components(separatedBy: " ")
                 let weights = max_weight.components(separatedBy: " ")
                 
@@ -306,16 +306,16 @@ class BookingInfoCommonCell: ATTableViewCell {
         
         
         
-        if weight == "0 kg"{
+        if weight.lowercased() == "0 kg"{
             return LocalizedString.NoBaggage.localized
         }else if weight == "-9"{
             return LocalizedString.NoInfo.localized
-        }else if pieces == "0" && weight == "0 kg"{
+        }else if pieces == "0" && weight.lowercased() == "0 kg"{
             return LocalizedString.NoBaggage.localized
         }else if pieces == "" && weight == "" {
             return LocalizedString.NoInfo.localized
         }else{
-            if pieces != "0 pc" && pieces != "-9" {
+            if pieces.lowercased() != "0 pc" && pieces != "-9" {
                 let pc = pieces.components(separatedBy: " ")
                 let weights = weight.components(separatedBy: " ")
                 

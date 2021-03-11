@@ -107,7 +107,7 @@ class AirlinesFilterViewController: UIViewController , FilterViewController {
         
         for i in 0..<viewModel.currentSelectedAirlineFilter.airlinesArray.count{
             for airline in selectedAirlineArray{
-                if (viewModel.currentSelectedAirlineFilter.airlinesArray[i].name == airline) || (viewModel.currentSelectedAirlineFilter.airlinesArray[i].code == airline){
+                if (viewModel.currentSelectedAirlineFilter.airlinesArray[i].name.lowercased() == airline.lowercased()) || (viewModel.currentSelectedAirlineFilter.airlinesArray[i].code.lowercased() == airline.lowercased()){
                     viewModel.currentSelectedAirlineFilter.airlinesArray[i].isSelected = true
                 }else{
                     //                    viewModel.currentSelectedAirlineFilter.airlinesArray[i].isSelected = false
@@ -218,7 +218,7 @@ class AirlinesFilterViewController: UIViewController , FilterViewController {
             if !selectedAirlineArray.contains(airline.name){
                 selectedAirlineArray.append(airline.name)
             }else{
-                selectedAirlineArray.removeAll(){$0 == airline.name}
+                selectedAirlineArray.removeAll(){$0.lowercased() == airline.name.lowercased()}
             }
             
             let combinedSelection = viewModel.currentSelectedAirlineFilter.airlinesArray.reduce(true) { (result, next) -> Bool in

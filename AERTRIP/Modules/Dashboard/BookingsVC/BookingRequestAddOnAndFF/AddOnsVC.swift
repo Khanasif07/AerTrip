@@ -13,6 +13,8 @@ class AddOnsVC: BaseVC {
     // MARK: - IBOutlet
     @IBOutlet weak var addOnTableView: ATTableView!
     
+    var delegate : BookingRequestAddOnsFFVCTextfiledDelegate?
+    
     // MARK: - Variables
     let footerViewIdentifier = "BookingInfoEmptyFooterView"
     let headerViewIdentifier = "BookingAddOnHeaderView"
@@ -75,6 +77,8 @@ class AddOnsVC: BaseVC {
 
 //            if BookingRequestAddOnsFFVM.shared.isLCC {
                 commontInputTableViewCell.configureCell(title: LocalizedString.SeatBookingTitle.localized, placeholderText: LocalizedString.SeatBookingPlaceholder.localized, text: BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].seat ?? "")
+            commontInputTableViewCell.characterCountLabel.isHidden = false
+
                 commontInputTableViewCell.isUserInteractionEnabled = !(pax?.inProcess ?? false)
                 return commontInputTableViewCell
 //            } else {
@@ -107,6 +111,7 @@ class AddOnsVC: BaseVC {
             let extraCellCount = 4 * (BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax.count ?? 0)
             let paxCount = BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax.count ?? 0
             commontInputTableViewCell.configureCell(title: LocalizedString.OtherBookingTitle.localized, placeholderText: LocalizedString.OtherBookingPlaceholder.localized, text: BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].other ?? "")
+            commontInputTableViewCell.characterCountLabel.isHidden = false
             commontInputTableViewCell.dividerView.isHidden = (indexPath.row == (extraCellCount + paxCount) - 1)
             commontInputTableViewCell.isUserInteractionEnabled = !(pax?.inProcess ?? false)
             return commontInputTableViewCell
@@ -222,6 +227,8 @@ extension AddOnsVC: BookingAddCommonInputTableViewCellDelegate {
         default:
             break
         }
+        
+        self.delegate?.closeKeyboard()
     }
 }
 
@@ -262,9 +269,13 @@ extension AddOnsVC: BookingFFMealTableViewCellDelegate {
                     cell?.selectedMealPreferenceTextField.text = firstSelect
                 BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].mealPreferenes = ""
                 }
+
+                self.delegate?.closeKeyboard()
             }
         default:
             break
         }
+        
+        
     }
 }

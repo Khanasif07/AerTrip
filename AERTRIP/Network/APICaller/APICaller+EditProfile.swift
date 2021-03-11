@@ -18,11 +18,11 @@ extension APICaller {
             
             sSelf.handleResponse(data, success: { _, jsonData in
                 
-                let saluDict = jsonData[APIKeys.data.rawValue][APIKeys.salutation.rawValue].dictionaryObject
-                let emailDict = jsonData[APIKeys.data.rawValue][APIKeys.email.rawValue].dictionaryObject
-                let addressDict = jsonData[APIKeys.data.rawValue][APIKeys.address.rawValue].dictionaryObject
-                let mobileDict = jsonData[APIKeys.data.rawValue][APIKeys.mobile.rawValue].dictionaryObject
-                let socialDict = jsonData[APIKeys.data.rawValue][APIKeys.social.rawValue].dictionaryObject as? [String:String]
+//                let saluDict = jsonData[APIKeys.data.rawValue][APIKeys.salutation.rawValue].dictionaryObject
+//                let emailDict = jsonData[APIKeys.data.rawValue][APIKeys.email.rawValue].dictionaryObject
+//                let addressDict = jsonData[APIKeys.data.rawValue][APIKeys.address.rawValue].dictionaryObject
+//                let mobileDict = jsonData[APIKeys.data.rawValue][APIKeys.mobile.rawValue].dictionaryObject
+//                let socialDict = jsonData[APIKeys.data.rawValue][APIKeys.social.rawValue].dictionaryObject as? [String:String]
                 
                 var salutations = [String]()
                 var addresses = [String]()
@@ -30,34 +30,50 @@ extension APICaller {
                 var mobiles = [String]()
                 var socials = [String]()
                 
-                if let keys = saluDict?.keys {
-                    for key in keys {
-                        salutations.append(key)
-                    }
-                }
+//                if let keys = saluDict?.keys {
+//                    for key in keys {
+//                        salutations.append(key)
+//                    }
+//                }
+//
+//                if let keys = addressDict?.keys {
+//                    for key in keys {
+//                        addresses.append(key)
+//                    }
+//                }
+//
+//                if let keys = emailDict?.keys {
+//                    for key in keys {
+//                        emails.append(key)
+//                    }
+//                }
+//
+//                if let keys = mobileDict?.keys {
+//                    for key in keys {
+//                        mobiles.append(key)
+//                    }
+//                }
+//
+//                if let values = socialDict?.values {
+//                    for value in values {
+//                        socials.append(value)
+//                    }
+//                }
                 
-                if let keys = addressDict?.keys {
-                    for key in keys {
-                        addresses.append(key)
-                    }
+                if let salutationsStr = jsonData["data"]["salutation_sort"].arrayValue.first {
+                    salutations = salutationsStr.stringValue.components(separatedBy: ",")
                 }
-                
-                if let keys = emailDict?.keys {
-                    for key in keys {
-                        emails.append(key)
-                    }
+                if let addressesStr = jsonData["data"]["address_sort"].arrayValue.first {
+                    addresses = addressesStr.stringValue.components(separatedBy: ",")
                 }
-                
-                if let keys = mobileDict?.keys {
-                    for key in keys {
-                        mobiles.append(key)
-                    }
+                if let emailStr = jsonData["data"]["email_sort"].arrayValue.first {
+                    emails = emailStr.stringValue.components(separatedBy: ",")
                 }
-                
-                if let values = socialDict?.values {
-                    for value in values {
-                        socials.append(value)
-                    }
+                if let mobileStr = jsonData["data"]["mobile_sort"].arrayValue.first {
+                    mobiles = mobileStr.stringValue.components(separatedBy: ",")
+                }
+                if let socialStr = jsonData["data"]["social_sort"].arrayValue.first {
+                    socials = socialStr.stringValue.components(separatedBy: ",")
                 }
                 
                 completionBlock(true, addresses, emails, mobiles, salutations, socials, [])

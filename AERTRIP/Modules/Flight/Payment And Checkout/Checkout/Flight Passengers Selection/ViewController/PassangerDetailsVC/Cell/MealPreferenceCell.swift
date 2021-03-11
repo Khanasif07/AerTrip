@@ -102,7 +102,7 @@ extension MealPreferenceCell: UITextFieldDelegate{
        
         if textField == programTextField{
             var listData = [String]()
-            if self.type == "meal"{
+            if self.type.lowercased() == "meal"{
                 listData = Array(self.passenger.mealPreference[index].preference.values)
                 listData.sort()
                 listData.insert("Select", at: 0)
@@ -112,7 +112,7 @@ extension MealPreferenceCell: UITextFieldDelegate{
             
             PKMultiPicker.noOfComponent = 1
             PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: listData, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [unowned self]  (firstSelect, secondSelect) in
-                if self.type == "meal"{
+                if self.type.lowercased() == "meal"{
                     if(firstSelect != "Select"){
                         GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].mealPreference[self.index].mealPreference = firstSelect
                     GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].mealPreference[self.index].preferenceCode = self.passenger.mealPreference[self.index].preference.someKey(forValue: firstSelect) ?? ""

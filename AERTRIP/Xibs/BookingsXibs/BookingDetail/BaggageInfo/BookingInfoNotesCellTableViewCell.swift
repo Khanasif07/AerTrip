@@ -152,7 +152,7 @@ class BookingInfoNotesCellTableViewCell: UITableViewCell {
             return "\(pieces) : Most airline typically allow 23 kgs per piece."
         }
         
-        if weight != "-9" && weight != "" && max_pieces != ""  && max_pieces != "0 pc"
+        if weight != "-9" && weight != "" && max_pieces != ""  && max_pieces.lowercased() != "0 pc"
         {
             var pc = ""
             if max_pieces.contains(find: " "){
@@ -167,7 +167,7 @@ class BookingInfoNotesCellTableViewCell: UITableViewCell {
         
         if pieces != "" && max_weight != ""
         {
-            if pieces != "0 pc"{
+            if pieces.lowercased() != "0 pc"{
                 let pc = pieces.components(separatedBy: " ")
                 let weights = max_weight.components(separatedBy: " ")
                 

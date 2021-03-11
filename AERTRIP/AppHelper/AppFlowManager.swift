@@ -329,6 +329,9 @@ extension AppFlowManager {
     }
     
     func moveToViewProfileDetailVC(_ travellerDetails: TravelDetailModel, usingFor: EditProfileVM.UsingFor) {
+        if let lastVC = mainNavigationController.viewControllers.last as? ViewProfileDetailVC, lastVC.viewModel.travelData?.id == travellerDetails.id {
+            return
+        }
         let ob = ViewProfileDetailVC.instantiate(fromAppStoryboard: .Profile)
         ob.viewModel.travelData = travellerDetails
         ob.viewModel.currentlyUsingFor = usingFor
@@ -924,8 +927,12 @@ extension AppFlowManager {
         
         switch user.userCreditType {
         case .regular:
-            self.moveToAccountDetailsVC(usingFor: .account, forDetails: [:], forVoucherTypes: [], deepLinkParam:deepLinkParam)
-            
+            let vc = RegularAccountDetailsVC.instantiate(fromAppStoryboard: .Account)
+            vc.currentUsingAs = .account
+            vc.viewModel.allVouchers = []
+            vc.viewModel.setAccountDetails(details: [:])
+            vc.viewModel.deepLinkParams = deepLinkParam
+            self.mainNavigationController.pushViewController(vc, animated: true)
         case .billwise:
             let obj = SpecialAccountDetailsVC.instantiate(fromAppStoryboard: .Account)
             obj.viewModel.deepLinkParams = deepLinkParam

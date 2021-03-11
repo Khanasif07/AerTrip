@@ -22,6 +22,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f29-dX-rkK">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="144"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="X8Q-9M-K7z" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -148,17 +152,21 @@
                             <constraint firstItem="lez-45-AWT" firstAttribute="top" secondItem="ayy-IG-Mnv" secondAttribute="bottom" id="HaB-gr-ccu"/>
                             <constraint firstItem="X8Q-9M-K7z" firstAttribute="top" secondItem="lLE-bn-tID" secondAttribute="top" id="Hvh-gC-nK9"/>
                             <constraint firstAttribute="bottom" secondItem="X8Q-9M-K7z" secondAttribute="bottom" id="ImR-YI-fAj"/>
+                            <constraint firstItem="f29-dX-rkK" firstAttribute="leading" secondItem="lLE-bn-tID" secondAttribute="leading" id="K9h-aX-b6F"/>
                             <constraint firstItem="lLE-bn-tID" firstAttribute="bottom" secondItem="ayy-IG-Mnv" secondAttribute="bottom" id="KGA-fW-bvb"/>
                             <constraint firstItem="S6o-6H-67g" firstAttribute="trailing" secondItem="lLE-bn-tID" secondAttribute="trailing" id="MOv-On-Vjy"/>
                             <constraint firstAttribute="trailing" secondItem="JTk-bT-ONv" secondAttribute="trailing" id="QBF-bq-Pev"/>
                             <constraint firstItem="Dd0-fb-cBb" firstAttribute="leading" secondItem="foV-YG-f1J" secondAttribute="leading" id="V09-d1-R5W"/>
                             <constraint firstItem="lLE-bn-tID" firstAttribute="trailing" secondItem="ayy-IG-Mnv" secondAttribute="trailing" id="Vvb-rf-f28"/>
+                            <constraint firstItem="f29-dX-rkK" firstAttribute="top" secondItem="foV-YG-f1J" secondAttribute="top" id="Wjf-FU-SXE"/>
                             <constraint firstItem="S6o-6H-67g" firstAttribute="leading" secondItem="lLE-bn-tID" secondAttribute="leading" id="YwD-ry-el7"/>
                             <constraint firstItem="Eqd-JQ-Emm" firstAttribute="bottom" secondItem="X8Q-9M-K7z" secondAttribute="bottom" id="YyV-1G-f3H"/>
                             <constraint firstAttribute="trailing" secondItem="Dd0-fb-cBb" secondAttribute="trailing" id="cgT-X6-Caq"/>
                             <constraint firstItem="O3S-Ag-QUk" firstAttribute="trailing" secondItem="lLE-bn-tID" secondAttribute="trailing" id="ijs-1I-y9R"/>
+                            <constraint firstItem="lLE-bn-tID" firstAttribute="trailing" secondItem="f29-dX-rkK" secondAttribute="trailing" id="jL7-WC-YKR"/>
                             <constraint firstAttribute="trailing" secondItem="fap-KZ-xGW" secondAttribute="trailing" id="nlz-PB-waf"/>
                             <constraint firstItem="X8Q-9M-K7z" firstAttribute="leading" secondItem="lLE-bn-tID" secondAttribute="leading" id="oTC-sf-XEg"/>
+                            <constraint firstItem="f29-dX-rkK" firstAttribute="bottom" secondItem="S6o-6H-67g" secondAttribute="bottom" id="oUG-zO-kRh"/>
                         </constraints>
                     </view>
                     <connections>

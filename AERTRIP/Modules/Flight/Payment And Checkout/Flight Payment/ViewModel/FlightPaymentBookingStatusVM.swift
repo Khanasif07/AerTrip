@@ -140,7 +140,7 @@ class FlightPaymentBookingStatusVM{
         guard let booking = booking , booking.displaySeatMap else {return}//booking.displaySeatMap//Add conditions after check
         var seatMap = AvailableSeatMap(bookingId: bookingId, name: "")
         for leg in booking.bookingDetail?.leg ?? []{
-            guard self.itinerary.bookingStatus.status == "booked" else {return}// (leg.pax.first?.status ?? "") == "booked" //on the basis of legs/
+            guard self.itinerary.bookingStatus.status.lowercased() == "booked" else {return}// (leg.pax.first?.status ?? "") == "booked" //on the basis of legs/
             let name = "\(leg.origin) → \(leg.destination)"
             seatMap.name = name
             self.availableSeatMaps.append(seatMap)
@@ -148,7 +148,7 @@ class FlightPaymentBookingStatusVM{
     }
     
     private func setAppleWalletFligh(_ bookingId: String, booking: BookingDetailModel?){
-        guard let bookingLegs = booking?.bookingDetail?.leg, self.itinerary.bookingStatus.status == "booked" else {return}
+        guard let bookingLegs = booking?.bookingDetail?.leg, self.itinerary.bookingStatus.status.lowercased() == "booked" else {return}
         let flights = bookingLegs.flatMap{$0.flight}
         self.appleWalletDetails.append(contentsOf: flights.map{AppleWalletFlight(bookingId: bookingId, flight: $0)})
     }//availableBookingMaps

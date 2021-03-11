@@ -226,7 +226,7 @@ extension HotelResultVC: HotelResultDelegate {
         self.searchButton.isUserInteractionEnabled = true
         
         var ignorePreviousFilter = false
-        if self.viewModel.searchedFormData.destType == "Hotel" || self.viewModel.searchedFormData.destType == "POI" || self.viewModel.searchedFormData.destType == "Area" ||
+        if self.viewModel.searchedFormData.destType.capitalized == "Hotel" || self.viewModel.searchedFormData.destType.uppercased() == "POI" || self.viewModel.searchedFormData.destType.capitalized == "Area" ||
             self.viewModel.searchedFormData.isHotelNearMeSelected {
             self.viewModel.fetchRequestType = .FilterApplied
             self.viewModel.filterApplied.sortUsing = .DistanceNearestFirst(ascending: true)

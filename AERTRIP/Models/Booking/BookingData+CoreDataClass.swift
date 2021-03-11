@@ -37,10 +37,10 @@ public class BookingData: NSManagedObject {
         
         // Function set product Type
         func setProductType(productType: String) -> Int {
-            if productType == "flight" {
+            if productType.lowercased() == "flight" {
                 booking?.eventType = 1
                 return 1
-            } else if productType == "hotel" {
+            } else if productType.lowercased() == "hotel" {
                 booking?.eventType = 2
                 return 2
             } else  {

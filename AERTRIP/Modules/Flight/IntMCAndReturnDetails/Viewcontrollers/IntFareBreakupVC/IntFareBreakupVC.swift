@@ -416,7 +416,11 @@ class IntFareBreakupVC: BaseVC {
                     break
                     
                 default :
-                    break
+                    if #available(iOS 13.0, *) {
+                        self.view.frame = CGRect(x: 0, y: screenSize.height-viewHeight - 54, width: screenSize.width, height:viewHeight + CGFloat(bottomInset))
+                    }else{
+                        self.view.frame = CGRect(x: 0, y: screenSize.height-viewHeight, width: screenSize.width, height:viewHeight + CGFloat(bottomInset))
+                    }
                 }
             }else{
                 self.view.frame = CGRect(x: 0, y: screenSize.height-viewHeight-CGFloat(bottomInset), width: screenSize.width, height:viewHeight + CGFloat(bottomInset))
@@ -596,8 +600,15 @@ class IntFareBreakupVC: BaseVC {
             break
             
         default :
-            self.fareDataDisplayViewBottom.constant = 0
-            break
+            if isFromFlightDetails == true{
+                if #available(iOS 13.0, *) {
+                    self.fareDataDisplayViewBottom.constant = 60
+                }else{
+                    self.fareDataDisplayViewBottom.constant = 0
+                }
+            }else{
+                self.fareDataDisplayViewBottom.constant = 0
+            }
         }
         
         self.bookingInfoArrowImg.image = UIImage(named: "down.png")

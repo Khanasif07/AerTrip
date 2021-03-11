@@ -283,7 +283,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
             }
             
         case LocalizedString.FlightPreferences.localized:
-            if indexPath.row >= 2 {
+            if indexPath.row >= 1 {
                 if indexPath.row == self.viewModel.frequentFlyer.count + (self.ffExtraCount - 1) {
                     guard let cell = tableView.dequeueReusableCell(withIdentifier: addActionCellIdentifier, for: indexPath) as? TableViewAddActionCell else {
                         fatalError("TableViewAddActionCell not found")
@@ -300,9 +300,9 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                     cell.leftTextField.placeholder = LocalizedString.Program.localized
                     cell.leftTitleLabel.text = LocalizedString.Program.localized
                     cell.frequentFlyerLabel.text = LocalizedString.SelectAirline.localized
-                    if (indexPath.row - 2) < self.viewModel.frequentFlyer.count {
+                    if (indexPath.row - 1) < self.viewModel.frequentFlyer.count {
                         // data cells
-                        cell.ffData = self.viewModel.frequentFlyer[indexPath.row - 2]
+                        cell.ffData = self.viewModel.frequentFlyer[indexPath.row - 1]
                     } else if self.ffExtraCount == 4 {
                         // blank cell
                         var frequentFlyer = FrequentFlyer()
@@ -316,7 +316,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                     //                    cell.rightSeparatorView.isHidden = indexPath.row == self.viewModel.frequentFlyer.count + (self.ffExtraCount - 2)
                     
                     cell.deleteButton.isHidden = self.viewModel.frequentFlyer.count == 1 ?  true : false
-                    cell.isFFTitleHidden = !(indexPath.row == 2)
+                    cell.isFFTitleHidden = !(indexPath.row == 1)
                     cell.setupForError(isNeedToShowError: self.viewModel.isSavedButtonTapped)
                     return cell
                 }
@@ -332,7 +332,13 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
 //                cell.editableTextField.isHiddenBottomLine = true
                 cell.delegate = self
                 cell.downArrowImageView.isHidden = false
-                cell.configureCell(flightPreferencesTitle[indexPath.row], indexPath.row == 0 ? (viewModel.seat.isEmpty ? LocalizedString.Select.localized : viewModel.seat) : (viewModel.meal.isEmpty ? LocalizedString.Select.localized : viewModel.meal))
+//                cell.configureCell(flightPreferencesTitle[indexPath.row], indexPath.row == 0 ? (viewModel.seat.isEmpty ? LocalizedString.Select.localized : viewModel.seat) : (viewModel.meal.isEmpty ? LocalizedString.Select.localized : viewModel.meal))
+                
+                
+                
+                cell.configureCell(LocalizedString.mealPreference.rawValue, (viewModel.meal.isEmpty ? LocalizedString.Select.localized : viewModel.meal))
+
+                
                 return cell
             }
             
@@ -864,12 +870,12 @@ extension EditProfileVC: EditProfileTwoPartTableViewCellDelegate {
                     self.viewModel.mobile.remove(at: indexPath.row)
                     self.tableView.reloadData()
                 case LocalizedString.FlightPreferences.localized:
-                    if (indexPath.row - 2) < self.viewModel.frequentFlyer.count {
+                    if (indexPath.row - 1) < self.viewModel.frequentFlyer.count {
                         // delete ff data from array
-                        self.viewModel.frequentFlyer.remove(at: indexPath.row - 2)
+                        self.viewModel.frequentFlyer.remove(at: indexPath.row - 1)
                     } else {
                         // delete blank cell data from array
-                        self.ffExtraCount = 3
+                        self.ffExtraCount = 2
                     }
                     self.tableView.reloadData()
                 case LocalizedString.Address.localized:
@@ -1143,10 +1149,10 @@ extension EditProfileVC: FrequentFlyerTableViewCellDelegate {
     }
     
     func numberTextField(_ indexPath: IndexPath, _ number: String) {
-        if self.viewModel.frequentFlyer.count <= indexPath.row - 2 {
+        if self.viewModel.frequentFlyer.count <= indexPath.row - 1 {
             self.viewModel.frequentFlyer.append(FrequentFlyer(json: [:]))
         }
-        self.viewModel.frequentFlyer[indexPath.row - 2].number = number
+        self.viewModel.frequentFlyer[indexPath.row - 1].number = number
     }
     
 }
@@ -1163,7 +1169,7 @@ extension EditProfileVC: SearchVCDelegate {
             if (indexPath.row - 2) >= self.viewModel.frequentFlyer.count {
                 self.viewModel.frequentFlyer.append(FrequentFlyer(json: [:]))
             }
-            self.ffExtraCount = 3
+            self.ffExtraCount = 2
             
             self.viewModel.frequentFlyer[indexPath.row - (self.ffExtraCount - 1)].logoUrl = flyer.logoUrl
             self.viewModel.frequentFlyer[indexPath.row - (self.ffExtraCount - 1)].airlineName = replacedString

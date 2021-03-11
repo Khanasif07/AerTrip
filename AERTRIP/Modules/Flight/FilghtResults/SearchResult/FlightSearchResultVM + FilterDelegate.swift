@@ -386,13 +386,22 @@ extension FlightSearchResultVM : FlightTimeFilterDelegate {
 extension FlightSearchResultVM : PriceFilterDelegate {
     
     func priceSelectionChangedAt(_ index: Int, minFare: CGFloat, maxFare: CGFloat) {
-        
+                
         if isIntMCOrReturnJourney {
             intFlightLegs[0].priceSelectionChangedAt(minFare: minFare, maxFare: maxFare)
-            return
+        } else {
+            flightLegs[index].priceSelectionChangedAt(minFare: minFare, maxFare: maxFare)
         }
         
-        flightLegs[index].priceSelectionChangedAt(minFare: minFare, maxFare: maxFare)
+        
+        // analytics start
+        
+        let analyticsValues = "min\(Int(minFare)), max\(Int(maxFare))"
+        
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Price", AnalyticsKeys.FilterType.rawValue : "n/a", AnalyticsKeys.Values.rawValue : analyticsValues]
+        
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
+        // analytics end
     }
     
     func onlyRefundableFares(selected: Bool, index: Int) {
@@ -422,35 +431,87 @@ extension FlightSearchResultVM : AirportFilterDelegate {
     
     func allLayoverSelectedAt(index: Int, selected: Bool) {
         
+        var analyticsValues = ""
+        
         if isIntMCOrReturnJourney {
             intFlightLegs[0].allLayoverSelected(index : index, isReturnJourney: false, selected: selected)
-         return
+            intFlightLegs[0].userSelectedFilters[index].loap.forEach { (ap) in
+                analyticsValues.append(ap + ", ")
+            }
+        } else {
+            flightLegs[index].allLayoverSelected(selected: selected)
+            flightLegs[index].userSelectedFilters?.loap.forEach { (ap) in
+                analyticsValues.append(ap + ", ")
+            }
         }
         
-        flightLegs[index].allLayoverSelected(selected: selected)
+        if analyticsValues.suffix(2) == ", " {
+            analyticsValues.removeLast(2)
+        }
+        
+        // analytics start
+        
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Airports", AnalyticsKeys.FilterType.rawValue : "n/a", AnalyticsKeys.Values.rawValue : analyticsValues]
+        
+//        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
+        // analytics end
     }
     
     func allLayoversSelectedInReturn(selected: Bool) {
         intFlightLegs[0].allLayoverSelected(index : 0, isReturnJourney: true, selected: selected)
+        
+        // analytics start
+        
+        var analyticsValues = ""
+        
+        intFlightLegs[0].userSelectedFilters[0].loap.forEach { (ap) in
+            analyticsValues.append(ap + ", ")
+        }
+        
+        if analyticsValues.suffix(2) == ", " {
+            analyticsValues.removeLast(2)
+        }
+        
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Airports", AnalyticsKeys.FilterType.rawValue : "n/a", AnalyticsKeys.Values.rawValue : analyticsValues]
+        
+//        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
+        // analytics end
     }
     
     func allOriginDestinationAirportsSelectedAt(index: Int) {
         
+        var analyticsValues = ""
+
         if isIntMCOrReturnJourney {
             intFlightLegs[0].allOriginDestinationAirportsSelected(index : index)
-            return
+            intFlightLegs[0].userSelectedFilters[index].ap.forEach { (ap) in
+                analyticsValues.append(ap + ", ")
+            }
+        } else {
+            flightLegs[index].allOriginDestinationAirportsSelected()
+            flightLegs[index].userSelectedFilters?.ap.forEach { (ap) in
+                analyticsValues.append(ap + ", ")
+            }
         }
         
-        flightLegs[index].allOriginDestinationAirportsSelected()
+        // analytics start
+        
+        if analyticsValues.suffix(2) == ", " {
+            analyticsValues.removeLast(2)
+        }
+        
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Airports", AnalyticsKeys.FilterType.rawValue : "n/a", AnalyticsKeys.Values.rawValue : analyticsValues]
+        
+//        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
+        // analytics end
     }
     
     
     
     func airportSelectionChangedForReturnJourneys(originAirports: [AirportsGroupedByCity], destinationAirports: [AirportsGroupedByCity]) {
-        
+                
         if isIntMCOrReturnJourney {
             intFlightLegs[0].airportSelectionChangedReturnJourneys(originAiroports: originAirports, destinationAirports: destinationAirports)
-                 return
         } else {
             if flightLegs.indices.contains(0) {
                 flightLegs[0].originSelectionChanged(selection: originAirports)
@@ -460,7 +521,28 @@ extension FlightSearchResultVM : AirportFilterDelegate {
                 flightLegs[0].destinationSelectionChanged(selection: destinationAirports)
                 flightLegs[1].originSelectionChanged(selection: destinationAirports)
             }
+            
         }
+        
+        // analytics start
+        var analyticsValues = ""
+
+        let totalAirports = originAirports + destinationAirports
+        totalAirports.forEach { (apCity) in
+            let selectedAp = apCity.airports.filter({ $0.isSelected })
+            selectedAp.forEach { (airport) in
+                analyticsValues.append(airport.IATACode + ", ")
+            }
+        }
+        
+        if analyticsValues.suffix(2) == ", " {
+            analyticsValues.removeLast(2)
+        }
+        
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Airports", AnalyticsKeys.FilterType.rawValue : "n/a", AnalyticsKeys.Values.rawValue : analyticsValues]
+        
+//        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
+        // analytics end
         
     }
     
@@ -468,34 +550,108 @@ extension FlightSearchResultVM : AirportFilterDelegate {
         
         if isIntMCOrReturnJourney {
             intFlightLegs[0].originSelectionChanged(index: index, selection: selection)
-            return
+        } else {
+            flightLegs[index].originSelectionChanged(selection: selection)
         }
         
-        flightLegs[index].originSelectionChanged(selection: selection)
+        // analytics start
+        var analyticsValues = ""
+
+        selection.forEach { (apCity) in
+            let selectedAp = apCity.airports.filter({ $0.isSelected })
+            selectedAp.forEach { (airport) in
+                analyticsValues.append(airport.IATACode + ", ")
+            }
+        }
+        
+        if analyticsValues.suffix(2) == ", " {
+            analyticsValues.removeLast(2)
+        }
+        
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Airports", AnalyticsKeys.FilterType.rawValue : "n/a", AnalyticsKeys.Values.rawValue : analyticsValues]
+        
+//        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
+        // analytics end
+        
     }
     
     func destinationSelectionChanged(selection: [AirportsGroupedByCity], at index: Int) {
         
         if isIntMCOrReturnJourney {
             intFlightLegs[0].destinationSelectionChanged(index: index, selection: selection)
-            return
+        } else {
+            flightLegs[index].destinationSelectionChanged(selection: selection)
         }
         
-        flightLegs[index].destinationSelectionChanged(selection: selection)
+        // analytics start
+        var analyticsValues = ""
+
+        selection.forEach { (apCity) in
+            let selectedAp = apCity.airports.filter({ $0.isSelected })
+            selectedAp.forEach { (airport) in
+                analyticsValues.append(airport.IATACode + ", ")
+            }
+        }
+        
+        if analyticsValues.suffix(2) == ", " {
+            analyticsValues.removeLast(2)
+        }
+        
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Airports", AnalyticsKeys.FilterType.rawValue : "n/a", AnalyticsKeys.Values.rawValue : analyticsValues]
+        
+//        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
+        // analytics end
     }
     
     func layoverSelectionsChanged(selection: [LayoverDisplayModel], at index: Int) {
         
         if isIntMCOrReturnJourney {
             intFlightLegs[0].layoverSelectionsChanged(index: index, selection: selection, isReturnJourney: false)
-            return
+        } else {
+            flightLegs[index].layoverSelectionsChanged(selection: selection)
         }
         
-        flightLegs[index].layoverSelectionsChanged(selection: selection)
+        // analytics start
+        var analyticsValues = ""
+
+        selection.forEach { (apCity) in
+            let selectedAp = apCity.airports.filter({ $0.isSelected })
+            selectedAp.forEach { (airport) in
+                analyticsValues.append(airport.IATACode + ", ")
+            }
+        }
+        
+        if analyticsValues.suffix(2) == ", " {
+            analyticsValues.removeLast(2)
+        }
+        
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Airports", AnalyticsKeys.FilterType.rawValue : "n/a", AnalyticsKeys.Values.rawValue : analyticsValues]
+        
+//        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
+        // analytics end
     }
     
     func layoverSelectionsChangedForReturnJourney(selection: [LayoverDisplayModel], at index: Int) {
         intFlightLegs[0].layoverSelectionsChanged(index: index, selection: selection, isReturnJourney: true)
+        
+        // analytics start
+        var analyticsValues = ""
+
+        selection.forEach { (apCity) in
+            let selectedAp = apCity.airports.filter({ $0.isSelected })
+            selectedAp.forEach { (airport) in
+                analyticsValues.append(airport.IATACode + ", ")
+            }
+        }
+        
+        if analyticsValues.suffix(2) == ", " {
+            analyticsValues.removeLast(2)
+        }
+        
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Airports", AnalyticsKeys.FilterType.rawValue : "n/a", AnalyticsKeys.Values.rawValue : analyticsValues]
+        
+//        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
+        // analytics end
     }
 
 }
@@ -508,9 +664,17 @@ extension FlightSearchResultVM : QualityFilterDelegate {
             for leg in intFlightLegs {
                 leg.qualityFiltersChanged(filter)
             }
-            return
+        } else {
+            flightLegs[index].qualityFiltersChanged(filter)
         }
-        flightLegs[index].qualityFiltersChanged(filter)
+        
+        // analytics start
+        var analyticsValues = filter.name
+        
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Quality", AnalyticsKeys.FilterType.rawValue : "n/a", AnalyticsKeys.Values.rawValue : analyticsValues]
+        
+//        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
+        // analytics end
     }
     
     func qualityFiltersChanged(_ filter : QualityFilter) {
@@ -518,33 +682,54 @@ extension FlightSearchResultVM : QualityFilterDelegate {
             for leg in intFlightLegs {
                 leg.qualityFiltersChanged(filter)
             }
-            return
+        } else {
+            for flightLeg in flightLegs {
+                flightLeg.qualityFiltersChanged(filter)
+            }
         }
         
-        for flightLeg in flightLegs {
-            flightLeg.qualityFiltersChanged(filter)
-        }
+        // analytics start
+        var analyticsValues = filter.name
+        
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Quality", AnalyticsKeys.FilterType.rawValue : "n/a", AnalyticsKeys.Values.rawValue : analyticsValues]
+        
+//        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
+        // analytics end
     }
 }
 
 extension FlightSearchResultVM : AircraftFilterDelegate {
  
     func aircraftFilterUpdated(allAircraftsSelected : Bool, _ filter : AircraftFilter) {
-        
-        
+                
         if isIntMCOrReturnJourney {
 
             intFlightLegs[0].aircraftFilterUpdated(allAircraftsSelected : allAircraftsSelected ,filter)
 
-            return
+        } else {
+            
+            for flightLeg in flightLegs {
+                
+                flightLeg.aircraftFilterUpdated(allAircraftsSelected : allAircraftsSelected , filter)
+                
+            }
         }
         
-        for flightLeg in flightLegs {
-            
-            flightLeg.aircraftFilterUpdated(allAircraftsSelected : allAircraftsSelected , filter)
-            
-         }
+        // analytics start
+        var analyticsValues = ""
+
+        filter.selectedAircraftsArray.forEach { (aircraft) in
+            analyticsValues.append(aircraft.name + ", ")
+        }
         
+        if analyticsValues.suffix(2) == ", " {
+            analyticsValues.removeLast(2)
+        }
+        
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Aircraft", AnalyticsKeys.FilterType.rawValue : "n/a", AnalyticsKeys.Values.rawValue : analyticsValues]
+        
+//        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
+        // analytics end
         
     }
     

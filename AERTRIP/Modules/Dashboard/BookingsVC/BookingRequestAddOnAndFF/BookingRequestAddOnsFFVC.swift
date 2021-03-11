@@ -13,6 +13,10 @@ protocol BookingRequestAddOnsFFVCDelegate: class  {
     func addOnAndFFUpdated()
 }
 
+protocol BookingRequestAddOnsFFVCTextfiledDelegate: class{
+    func closeKeyboard()
+}
+
 class BookingRequestAddOnsFFVC: BaseVC {
     // MARK: - IBOutlet
     
@@ -30,6 +34,9 @@ class BookingRequestAddOnsFFVC: BaseVC {
     private var allTabsStr: [String] = [LocalizedString.AddOns.localized]
     weak var delegate: BookingRequestAddOnsFFVCDelegate?
     
+    static let shared = BookingRequestAddOnsFFVC()
+
+    var isRequestButtonEnabled = false
     //fileprivate weak var categoryView: ATCategoryView!
     // Parchment View
     fileprivate var parchmentView : PagingViewController?
@@ -54,6 +61,7 @@ class BookingRequestAddOnsFFVC: BaseVC {
         
         self.setupPagerView()
         self.setupNavBar()
+        self.setupRequestButton()
         let frequentFlyerData = BookingRequestAddOnsFFVM.shared.bookingDetails?.frequentFlyerDatas ?? []
         BookingRequestAddOnsFFVM.shared.bookingDetails?.frequentFlyerData = frequentFlyerData
         BookingRequestAddOnsFFVM.shared.getPreferenceMaster()
@@ -87,10 +95,10 @@ class BookingRequestAddOnsFFVC: BaseVC {
         self.requestButton.setTitle(LocalizedString.Request.localized, for: .selected)
     }
     
-    override func setupColors() {
-        self.requestButton.setTitleColor(AppColors.themeWhite, for: .normal)
-        self.requestButton.setTitleColor(AppColors.themeWhite, for: .normal)
-    }
+//    override func setupColors() {
+//        self.requestButton.setTitleColor(AppColors.themeWhite, for: .normal)
+//        self.requestButton.setTitleColor(AppColors.themeWhite, for: .normal)
+//    }
     
     override func bindViewModel() {
         BookingRequestAddOnsFFVM.shared.delegate = self
@@ -110,9 +118,11 @@ class BookingRequestAddOnsFFVC: BaseVC {
         for i in 0..<self.allTabsStr.count {
             if i == 0 {
                 let vc = AddOnsVC.instantiate(fromAppStoryboard: .Bookings)
+                vc.delegate = self
                 self.allChildVCs.append(vc)
             } else if i == 1 {
                 let vc = FrequentFlyerVC.instantiate(fromAppStoryboard: .Bookings)
+                vc.delegate = self
                 self.allChildVCs.append(vc)
             }
         }
@@ -173,8 +183,11 @@ class BookingRequestAddOnsFFVC: BaseVC {
     
     @IBAction func requstButtonTapped(_ sender: Any) {
         self.view.endEditing(true)
-        // AppFlowManager.default.showAddonRequestSent(buttonTitle:LocalizedString.Done.localized)
-        BookingRequestAddOnsFFVM.shared.postAddOnRequest()
+        //  BookingRequestAddOnsFFVM.shared.postAddOnRequest()
+        
+        if isRequestButtonEnabled{
+            BookingRequestAddOnsFFVM.shared.postAddOnRequest()
+        }
         
         
     }
@@ -276,6 +289,43 @@ extension BookingRequestAddOnsFFVC: PagingViewControllerDataSource , PagingViewC
         
         if let pagingIndexItem = pagingItem as? MenuItem {
             self.currentIndex = pagingIndexItem.index
+        }
+    }
+}
+
+
+
+extension BookingRequestAddOnsFFVC:BookingRequestAddOnsFFVCTextfiledDelegate
+{
+    func closeKeyboard() {
+        setupRequestButton()
+    }
+    
+    func setupRequestButton()
+    {
+        var isAnythingEdited = false
+        for leg in BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg ?? [] {
+            for pax in leg.pax {
+                if !pax.seat.isEmpty || !pax.meal.isEmpty || !pax.baggage.isEmpty || !pax.other.isEmpty || !pax.mealPreferenes.isEmpty{
+                    isAnythingEdited = true
+                }
+            }
+        }
+        
+        for leg in BookingRequestAddOnsFFVM.shared.bookingDetails?.frequentFlyerData ?? [] {
+            for flight in leg.flights{
+                if !flight.frequentFlyerNumber.isEmpty{
+                    isAnythingEdited = true
+                }
+            }
+        }
+                
+        if  !isAnythingEdited{
+            self.requestButton.setTitleColor(AppColors.themeWhite.withAlphaComponent(0.5), for: .normal)
+            isRequestButtonEnabled = false
+        }else{
+            self.requestButton.setTitleColor(AppColors.themeWhite.withAlphaComponent(1.0), for: .normal)
+            isRequestButtonEnabled = true
         }
     }
 }

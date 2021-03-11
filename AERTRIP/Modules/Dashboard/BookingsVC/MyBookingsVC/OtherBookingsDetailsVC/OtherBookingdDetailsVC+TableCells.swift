@@ -33,6 +33,13 @@ extension OtherBookingsDetailsVC {
         if indexPath.row == 0 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingTravellersDetailsTableViewCell.reusableIdentifier, for: indexPath) as? BookingTravellersDetailsTableViewCell else { return UITableViewCell() }
             let traveller = self.viewModel.bookingDetail?.bookingDetail?.travellers[indexPath.row]
+            
+            if self.viewModel.bookingDetail?.bookingDetail?.travellers.count ?? 0 > 1{
+                cell.travellersLabel.text = LocalizedString.Travellers.rawValue
+            }else{
+                cell.travellersLabel.text = LocalizedString.Traveller.rawValue
+            }
+
             cell.configCell(travellersImage: traveller?.profileImage ?? "" , travellerName: traveller?.paxName ?? "", firstName: traveller?.firstName ?? "", lastName: traveller?.lastName ?? "", dob: traveller?.dob ?? "", salutation: traveller?.salutation ?? "")
             cell.travellerImageViewBottomConstraint.constant = 0
             // cell divider will not be use here as divider is in document Cell.
@@ -41,6 +48,8 @@ extension OtherBookingsDetailsVC {
         else {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TravellersDetailsTableViewCell.reusableIdentifier, for: indexPath) as? TravellersDetailsTableViewCell else { return UITableViewCell() }
              let traveller = self.viewModel.bookingDetail?.bookingDetail?.travellers[indexPath.row]
+
+            
             cell.configCell(travellersImage: traveller?.profileImage ?? "", travellerName: traveller?.paxName ?? "", firstName: traveller?.firstName ?? "", lastName: traveller?.lastName ?? "", isLastTravellerInRoom: false, isLastTraveller: indexPath.row == self.viewModel.bookingDetail?.bookingDetail?.travellers.count ?? 0,isOtherBookingData: true, dob: traveller?.dob ?? "", salutation: traveller?.salutation ?? "", age: traveller?.age ?? "", congigureForHotelDetail: false)
             cell.dividerView.backgroundColor = .red
           // cell divider will not be use here as divider is in document Cell.

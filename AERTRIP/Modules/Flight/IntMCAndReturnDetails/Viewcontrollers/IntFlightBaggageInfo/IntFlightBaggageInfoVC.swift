@@ -192,7 +192,7 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
                             
                             if let weight = adtCheckinBaggage["weight"] as? String, let pieces = adtCheckinBaggage["pieces"] as? String, let max_pieces = adtCheckinBaggage["max_pieces"] as? String, let max_weight = adtCheckinBaggage["max_weight"] as? String
                             {
-                                if pieces != "-9" && pieces != "" && pieces != "0 pc" && max_weight == ""
+                                if pieces != "-9" && pieces != "" && pieces.lowercased() != "0 pc" && max_weight == ""
                                 {
                                     let str = "\(pieces): Most airline typically allow 23 kgs per piece."
                                     if !attStringArray.contains(str){
@@ -354,7 +354,7 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
                             
                             if let weight = infCheckInBaggage["weight"] as? String, let pieces = infCheckInBaggage["pieces"] as? String, let max_pieces = infCheckInBaggage["max_pieces"] as? String, let max_weight = infCheckInBaggage["max_weight"] as? String
                             {
-                                if pieces != "-9" && pieces != "" && pieces != "0 pc" && max_weight == ""
+                                if pieces != "-9" && pieces != "" && pieces.lowercased() != "0 pc" && max_weight == ""
                                 {
                                     let str = "\(pieces): Most airline typically allow 23 kgs per piece."
                                     if !attStringArray.contains(str){

@@ -168,15 +168,15 @@ class BookingDetailVM {
             
             for pax in leg.pax {
                                 
-                if pax.paxType == "ADT" {
+                if pax.paxType.uppercased() == "ADT" {
                     flightAdultCount += 1 //adult details cell
                 }
                 
-                if pax.paxType == "CHD" {
+                if pax.paxType.uppercased() == "CHD" {
                     flightChildrenCount += 1 //child details cell
                 }
                 
-                if pax.paxType == "INF" {
+                if pax.paxType.uppercased() == "INF" {
                     flightInfantCount += 1 //adult details cell
                 }
                 

@@ -819,7 +819,7 @@ extension IntFareInfoVC{
 
 extension IntFareInfoVC : FlightFareInfoVMDelegate{
     func flightFareInfoData(data: Data, index:Int) {
-        self.removeIndicator()
+//        self.removeIndicator()
         guard let json = try? JSON(data: data) else {return}
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase

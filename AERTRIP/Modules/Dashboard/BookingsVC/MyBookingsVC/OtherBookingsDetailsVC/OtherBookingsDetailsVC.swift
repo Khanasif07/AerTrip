@@ -77,7 +77,7 @@ class OtherBookingsDetailsVC: BaseVC {
         //self.dataTableView.refreshControl = refreshControl
         if self.viewModel.bookingDetail == nil{//Don't Hit API when comming from deep link
             self.viewModel.getBookingDetail(showProgress: true)
-            self.viewModel.calculateWeatherLabelWidths(usingFor: self.viewModel.bookingDetail?.product == "flight" ? .flight : .hotel)
+            self.viewModel.calculateWeatherLabelWidths(usingFor: self.viewModel.bookingDetail?.product.lowercased() == "flight" ? .flight : .hotel)
 
         }else{
             self.getBookingDetailSucces(showProgress: false)
@@ -137,14 +137,14 @@ class OtherBookingsDetailsVC: BaseVC {
         if let view = self.headerView {
             
             var dateToDisplay = ""
-            let date = self.viewModel.bookingDetail?.bookingDate?.toString(dateFormat: "d MMM yy") ?? ""
-            if !date.isEmpty{
-                var newDate = date
-                newDate.insert(contentsOf: "’", at: newDate.index(newDate.startIndex, offsetBy: newDate.count-2))
-                dateToDisplay = newDate
-            }
+            let date = self.viewModel.bookingDetail?.bookingDate?.toString(dateFormat: "d MMM yyyy") ?? ""
+//            if !date.isEmpty{
+//                var newDate = date
+//                newDate.insert(contentsOf: "’", at: newDate.index(newDate.startIndex, offsetBy: newDate.count-2))
+//                dateToDisplay = newDate
+//            }
             
-            view.configureUI(bookingEventTypeImage: self.eventTypeImage, bookingIdStr: self.viewModel.bookingDetail?.id ?? "", bookingIdNumbers: self.viewModel.bookingDetail?.bookingNumber ?? "", date: dateToDisplay)
+            view.configureUI(bookingEventTypeImage: self.eventTypeImage, bookingIdStr: self.viewModel.bookingDetail?.id ?? "", bookingIdNumbers: self.viewModel.bookingDetail?.bookingNumber ?? "", date: date)
             
             //self.viewModel.bookingDetail?.bookingDate?.toString(dateFormat: "d MMM’ yy") ?? "")
             view.dividerView.isHidden = true

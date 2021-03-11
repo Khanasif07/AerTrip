@@ -30,84 +30,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        guard indexPath.section > 0 else {
-            //first section's first cell
-            if let event = self.viewModel.ladgerEvent, event.voucher == .sales || event.voucher == .journal  || self.viewModel.sectionArray.count > 2 {
-                if event.productType == .flight{
-                    return 7.0
-                }
-                else {
-                    return 5.0
-                }
-            }
-            else {
-                return 2.0
-            }
-        }
-        
-        if indexPath.section == self.viewModel.sectionArray.count + 1{
-            if ((self.viewModel.ladgerEvent?.bookingId.isEmpty ?? false) && (self.viewModel.ladgerEvent?.transactionId.isEmpty ?? false)){
-                switch indexPath.row {
-                case 0: return 27
-                default: return CGFloat.leastNonzeroMagnitude
-                }
-            }else{
-                switch indexPath.row {
-                case 0: return 27
-                case 1: return 44
-                case 2: return 35
-                default: return 0
-                }
-            }
-            
-        }
-        
-//        guard let dict = self.viewModel.ladgerDetails["\(indexPath.section - 1)"] as? JSONDictionary else {
-//            return CGFloat.leastNormalMagnitude
-//        }
-        
-        if indexPath.row == self.viewModel.sectionArray[indexPath.section - 1].count - 1 {
-            //devider
-            return 1
-        }
-        else {
-            //details
-            var isForVouchre = false
-            if let type = self.viewModel.ladgerEvent?.productType{
-                switch type{
-                case .hotel, .flight: isForVouchre = false
-                default: isForVouchre = (self.viewModel.sectionArray.count < 2)
-                }
-            }
-            
-            if indexPath.row == 0 && (indexPath.section - 1) != 0{
-                return 36.0
-            }else if indexPath.row == 0 && isForVouchre{
-                return 36.0
-            }else if indexPath.row == self.viewModel.sectionArray[indexPath.section - 1].count-2{
-                let section = indexPath.section - 1
-                let model = self.viewModel.sectionArray[section][indexPath.row]
-                if model.title == "   "{
-                    return 30.0
-                }else{
-                    return 36.0
-                }
-                
-            }else{
-                let section = indexPath.section - 1
-                let model = self.viewModel.sectionArray[section][indexPath.row]
-                if (model.title == "Room" || model.title == " "){
-                    return UITableView.automaticDimension
-                }else if (model.title == "Passengers" || model.title == "   " || model.title == "Guests"){//passenger, guest
-                    return 30.0
-                }else{
-                    return 30.0
-                }
-//                return (model.title == "Room" || model.title == " ") ? UITableView.automaticDimension : 30.0
-            }
-            
-        }
+        return self.getCellHeight(with: indexPath)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -382,7 +305,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
             printDebug("\(title)...\(val.string)....\(suffix)....\(desc)")
             cell.configureCellWithAttributedText(title: title, description: val)
         }else{
-            if title == "Room" || title == " "{
+            if title == "Room" || title == " " || title == "Guests" || title == "Passengers"{
                 cell.descLabel.numberOfLines = 0
                 cell.titleLabel.contentMode = .top
 //                cell.descLabel.textAlignment = .right
@@ -390,13 +313,11 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
             cell.configure(title: title, description: description, age: age)
         }
         
+
         if let color = descriptionColor {
             cell.descLabel.textColor = color
         }
         let section = indexPath.section - 1
-//        guard let dict = self.viewModel.ladgerDetails["\(section)"] as? JSONDictionary else {
-//            return cell
-//        }
         var isForVouchre = false
         if let type = self.viewModel.ladgerEvent?.productType{
             switch type{
@@ -419,9 +340,103 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
             cell.stackTopConstraint.constant = 0
             cell.stackBottomConstraint.constant = 0
         }
+        if title == "Guests" || title == "Passengers"{
+            cell.stackBottomConstraint.constant = 8.0
+        }
+        if self.getCellHeight(with: indexPath) == -1{
+            let section = indexPath.section - 1
+            let model = self.viewModel.sectionArray[section][indexPath.row]
+            if (model.title == "Room" || model.title == " "){
+                cell.titleLabelHeightConstraint.constant = cell.descLabel.frame.height
+            }else{
+                cell.titleLabelHeightConstraint.constant = 20.0
+            }
+            
+        }else{
+            cell.titleLabelHeightConstraint.constant = (self.getCellHeight(with: indexPath) - cell.stackBottomConstraint.constant)
+        }
         cell.titleLabelWidthConstraints.constant = self.viewModel.cellTitleLabelWidth
         return cell
     }
+    
+    func getCellHeight(with indexPath:IndexPath)->CGFloat{
+        
+        guard indexPath.section > 0 else {
+            //first section's first cell
+            if let event = self.viewModel.ladgerEvent, event.voucher == .sales || event.voucher == .journal  || self.viewModel.sectionArray.count > 2 {
+                if event.productType == .flight{
+                    return 7.0
+                }
+                else {
+                    return 5.0
+                }
+            }
+            else {
+                return 2.0
+            }
+        }
+        
+        if indexPath.section == self.viewModel.sectionArray.count + 1{
+            if ((self.viewModel.ladgerEvent?.bookingId.isEmpty ?? false) && (self.viewModel.ladgerEvent?.transactionId.isEmpty ?? false)){
+                switch indexPath.row {
+                case 0: return 27
+                default: return CGFloat.leastNonzeroMagnitude
+                }
+            }else{
+                switch indexPath.row {
+                case 0: return 27
+                case 1: return 44
+                case 2: return 35
+                default: return 0
+                }
+            }
+            
+        }
+        if indexPath.row == self.viewModel.sectionArray[indexPath.section - 1].count - 1 {
+            //devider
+            return 1
+        }
+        else {
+            //details
+            var isForVouchre = false
+            if let type = self.viewModel.ladgerEvent?.productType{
+                switch type{
+                case .hotel, .flight: isForVouchre = false
+                default: isForVouchre = (self.viewModel.sectionArray.count < 2)
+                }
+            }
+            
+            if indexPath.row == 0 && (indexPath.section - 1) != 0{
+                return 36.0
+            }else if indexPath.row == 0 && isForVouchre{
+                return 36.0
+            }else if indexPath.row == self.viewModel.sectionArray[indexPath.section - 1].count-2{
+                let section = indexPath.section - 1
+                let model = self.viewModel.sectionArray[section][indexPath.row]
+                if (model.title == "Passengers" || model.title == "   " || model.title == "Guests"){
+                    return UITableView.automaticDimension
+                }else{
+                    return 36.0
+                }
+                
+            }else{
+                let section = indexPath.section - 1
+                let model = self.viewModel.sectionArray[section][indexPath.row]
+                if (model.title == "Room" || model.title == " "){
+                    return UITableView.automaticDimension
+                }else if (model.title == "Passengers" || model.title == "   " || model.title == "Guests"){//passenger, guest
+                    return UITableView.automaticDimension
+                }else{
+                    return 30.0
+                }
+            }
+            
+        }
+    }
+        
+    
+    
+    
 }
 
 //MARK:- Cell Classes
@@ -435,6 +450,8 @@ class AccountLadgerDetailCell: UITableViewCell {
     @IBOutlet weak var descLabel: UILabel!
     @IBOutlet weak var stackTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var stackBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var titleLabelHeightConstraint: NSLayoutConstraint!
+    
     
     
     //MARK:- Life Cycle

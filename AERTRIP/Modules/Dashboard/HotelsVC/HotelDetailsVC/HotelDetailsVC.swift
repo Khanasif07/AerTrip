@@ -168,8 +168,12 @@ class HotelDetailsVC: BaseVC {
     }
     
     @objc func selectRoomAction() {
-        guard self.hotelTableView.numberOfSections > 1 else{return}
-        self.hotelTableView.scrollToRow(at: IndexPath(row: 0, section: 1), at: .top, animated: true)
+        /// Section 1 is used for search bar and filter tag.
+        guard self.hotelTableView.numberOfSections > 1, self.hotelTableView.numberOfRows(inSection: 2) > 1 else{return}
+        
+        let cellNumber = self.hotelTableView.numberOfRows(inSection: 2) - 1
+        
+        self.hotelTableView.scrollToRow(at: IndexPath(row: cellNumber, section: 2), at: .bottom, animated: true)
         delay(seconds: 0.6) { [weak self] in
             //self?.manageHeaderView()
             self?.manageBottomRateView()
@@ -183,6 +187,7 @@ class HotelDetailsVC: BaseVC {
             if let stickyView = self.stickyView {
                 stickyView.containerView.backgroundColor = AppColors.noRoomsAvailableFooterColor
                 stickyView.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.noRoomsAvailableFooterShadow, AppColors.noRoomsAvailableFooterColor])
+                self.footerView.addGredient(isVertical: false,colors: [AppColors.noRoomsAvailableFooterShadow, AppColors.noRoomsAvailableFooterColor])
                 stickyView.noRoomsAvailable.isHidden = false
                 stickyView.fromLabel.isHidden = true
                 stickyView.hotelFeesLabel.isHidden = true
@@ -193,6 +198,7 @@ class HotelDetailsVC: BaseVC {
             if let stickyView = self.stickyView {
                 stickyView.containerView.backgroundColor = AppColors.themeGreen
                 stickyView.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: AppConstants.appthemeGradientColors)
+                self.footerView.addGredient(isVertical: false)
                 stickyView.noRoomsAvailable.isHidden = true
                 stickyView.fromLabel.isHidden = false
                 stickyView.hotelFeesLabel.isHidden = false

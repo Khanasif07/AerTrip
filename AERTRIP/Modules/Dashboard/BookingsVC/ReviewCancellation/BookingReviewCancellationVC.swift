@@ -44,6 +44,12 @@ class BookingReviewCancellationVC: BaseVC {
     @IBOutlet weak var infoLabel: UILabel!
     @IBOutlet weak var bottomViewHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var cancellationReasonDivider: ATDividerView!
+    @IBOutlet weak var refundModeDivider: ATDividerView!
+    @IBOutlet weak var commectSeparator: ATDividerView!
+    
+    
+    
     //MARK: - Variables
     let viewModel = BookingReviewCancellationVM()
     private var keyboardHeight: CGFloat = 0.0
@@ -213,7 +219,7 @@ class BookingReviewCancellationVC: BaseVC {
             
         }
         else {
-            let txtViewHt = (CGFloat(self.commentTextView.numberOfLines) * (self.commentTextView.font?.lineHeight ?? 20.0)) + 14.0
+            let txtViewHt = (CGFloat(self.commentTextView.numberOfLines) * (self.commentTextView.font?.lineHeight ?? 20.0)) + 15.0
             textHeight = max(txtViewHt, textHeight)
         }
         
@@ -254,8 +260,37 @@ class BookingReviewCancellationVC: BaseVC {
             else {
                 self.viewModel.makeCancellationRequest()
             }
+        }else{
+            if self.viewModel.currentUsingAs == .specialRequest{
+                if self.viewModel.selectedSpecialRequest.isEmpty || self.viewModel.selectedSpecialRequest.lowercased() == LocalizedString.Select.localized.lowercased() {
+                    self.setErrorForSelectMode(isError: true)
+                }
+                if self.viewModel.comment.isEmpty || self.viewModel.comment.lowercased() == LocalizedString.Select.localized.lowercased() {
+                    self.commectSeparator.isSettingForErrorState = true
+                }
+            }else{
+                if self.viewModel.selectedMode.isEmpty || self.viewModel.selectedMode.lowercased() == LocalizedString.Select.localized.lowercased(){
+                    self.setErrorForSelectMode(isError: true)
+                }
+                if self.viewModel.selectedReason.isEmpty || self.viewModel.selectedReason.lowercased() == LocalizedString.Select.localized.localized{
+                    self.setErrorForCancellationReason(isError: true)
+                }
+            }
+            
         }
     }
+    
+    
+    func setErrorForSelectMode(isError:Bool){
+        self.refundModeDivider.isSettingForErrorState = isError
+//        self.refundModeTextField.textColor = isError ? AppColors.themeRed : AppColors.themeBlack
+    }
+    
+    func setErrorForCancellationReason(isError:Bool){
+        self.cancellationReasonDivider.isSettingForErrorState = isError
+//        self.cancellationTextField.textColor = isError ? AppColors.themeRed : AppColors.themeBlack
+    }
+    
     
     
     // MARK: - Helpe methods
@@ -316,65 +351,72 @@ extension BookingReviewCancellationVC {
         }
     }
     
-        func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        self.commectSeparator.isSettingForErrorState = false
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        
+        
+        if self.viewModel.currentUsingAs == .specialRequest {
+            PKMultiPicker.noOfComponent = 1
+            if self.viewModel.specialRequests.count == 1 {
+                AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
+                return false
+            } else {
+                self.setErrorForSelectMode(isError: false)
+                PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.specialRequests, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [unowned self]  (firstSelect, secondSelect) in
+                    textField.text = firstSelect
+                    self.viewModel.selectedSpecialRequest = firstSelect
+                    if firstSelect != LocalizedString.Select.localized && !viewModel.comment.isEmpty {
+                        requestCancellationButton.alpha = 1
+                    } else {
+                        requestCancellationButton.alpha = 0.6
+                    }
+                    self.manageContinueButton()
+                    
+                }
+                
+            }
             
-            
-            if self.viewModel.currentUsingAs == .specialRequest {
+        }
+        else {
+            if textField === refundModeTextField {
+                self.setErrorForSelectMode(isError: false)
                 PKMultiPicker.noOfComponent = 1
-                if self.viewModel.specialRequests.count == 1 {
+                if self.viewModel.refundModes.count == 1 {
                     AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
                     return false
                 } else {
-                    PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.specialRequests, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [unowned self]  (firstSelect, secondSelect) in
+                    PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.refundModes, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [unowned self]  (firstSelect, secondSelect) in
                         textField.text = firstSelect
-                        self.viewModel.selectedSpecialRequest = firstSelect
-                        if firstSelect != LocalizedString.Select.localized && !viewModel.comment.isEmpty {
-                            requestCancellationButton.alpha = 1
-                        } else {
-                            requestCancellationButton.alpha = 0.6
-                        }
-                self.manageContinueButton()
-
-                    }
-
-                }
-               
-            }
-            else {
-                if textField === refundModeTextField {
-                    PKMultiPicker.noOfComponent = 1
-                    if self.viewModel.refundModes.count == 1 {
-                         AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
-                         return false
-                    } else {
-                        PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.refundModes, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [unowned self]  (firstSelect, secondSelect) in
-                            textField.text = firstSelect
-                            self.viewModel.selectedMode = firstSelect
-                            self.manageContinueButton()
-
-                        }
-                  
+                        self.viewModel.selectedMode = firstSelect
+                        self.manageContinueButton()
+                        
                     }
                     
                 }
-                else {
-                    PKMultiPicker.noOfComponent = 1
-                    if self.viewModel.cancellationReasons.count == 1  {
-                     AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
-                     return false
-                    } else {
-                        PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.cancellationReasons, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [unowned self]  (firstSelect, secondSelect) in
-                            textField.text = firstSelect
-                            self.viewModel.selectedReason = firstSelect
-                    self.manageContinueButton()
-
-                        }
-                    }
-                   
-                }
+                
             }
-            return true
+            else {
+                self.setErrorForCancellationReason(isError: false)
+                PKMultiPicker.noOfComponent = 1
+                if self.viewModel.cancellationReasons.count == 1  {
+                    AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
+                    return false
+                } else {
+                    PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.cancellationReasons, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [unowned self]  (firstSelect, secondSelect) in
+                        textField.text = firstSelect
+                        self.viewModel.selectedReason = firstSelect
+                        self.manageContinueButton()
+                        
+                    }
+                }
+                
+            }
         }
+        return true
+    }
 }
 
 
