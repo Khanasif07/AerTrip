@@ -1737,6 +1737,7 @@ struct Pax {
     var seatPreferences: String = ""
     var mealPreferenes: String = ""
     var dob: String = ""
+    var reversalMFPax:Double = 0.0
 
     
     var netRefundForReschedule: Double {
@@ -1913,7 +1914,9 @@ struct Pax {
         if let obj = json["dob"] {
             self.dob = "\(obj)".removeNull
         }
-        
+        if let obj = json["reversalMF_pax"]{
+            self.reversalMFPax = "\(obj)".toDouble ?? 0.0
+        }
     }
     
     static func getModels(json: [JSONDictionary]) -> [Pax] {

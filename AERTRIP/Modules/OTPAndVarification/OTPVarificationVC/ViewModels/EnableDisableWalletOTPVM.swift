@@ -43,6 +43,7 @@ class EnableDisableWalletOTPVM {
         if self.details.password.isEmpty{
             let state = ValidationState.password(success: false, msgString: LocalizedString.enterAccountPasswordMsg.localized)
             self.delegate?.showErrorState(with: state)
+            self.logEvent(with: .incorrectPassword)
             return(state)
         }
         return(.password(success: true, msgString: ""))
@@ -52,6 +53,7 @@ class EnableDisableWalletOTPVM {
         if self.details.phoneOtp.isEmpty{
             let state = ValidationState.phoneOtp(success: false, msgString: LocalizedString.enterMobileOtpMsg.localized)
             self.delegate?.showErrorState(with: state)
+            self.logEvent(with: .incorrectMobOtp)
             return(state)
         }
         return(.phoneOtp(success: true, msgString: ""))
@@ -61,6 +63,7 @@ class EnableDisableWalletOTPVM {
         if self.details.emailOtp.isEmpty{
             let state = ValidationState.emailOtp(success: false, msgString: LocalizedString.enterEmailOtpMsg.localized)
             self.delegate?.showErrorState(with: state)
+            self.logEvent(with: .incorrectEmailOtp)
             return(state)
         }
         return(.emailOtp(success: true, msgString: ""))
@@ -105,7 +108,7 @@ class EnableDisableWalletOTPVM {
                     return
                 }
             }
-            
+            self.logEvent(with: .enterPasswordAndContinue)
             let dict : JSONDictionary = [
                 "passcode" : self.details.password,
                 "mobile_otp" : self.details.phoneOtp,
@@ -167,7 +170,23 @@ extension EnableDisableWalletOTPVM{
     }
     
     func logEvent(with eventType:EventLogType){
+        let evenName = (UserInfo.loggedInUser?.isWalletEnable ?? true) ? AnalyticsEvents.DisableOTP.rawValue : AnalyticsEvents.EnableOTP.rawValue
+        var filterName = ""
         
+        switch eventType{
+        case .viewPassword: filterName = "ViewPassword"
+        case .hidePassword: filterName = "HidePassword"
+        case .incorrectPassword: filterName = "EnterIncorrectFormatAndContinue"
+        case .generateOtpForMob: filterName = "GenerateNewMobileOTP"
+        case .incorrectMobOtp: filterName = "EnterIncorrectMobileOTP"
+        case .generateOtpForEmail: filterName = "GenerateNewEmailOTP"
+        case .incorrectEmailOtp: filterName = "EnterIncorrectEmailOTP"
+        case .enterPasswordAndContinue: filterName = "EnterPasswordAndProceed"
+        case .enableDisableOtp:
+            filterName = (UserInfo.loggedInUser?.isWalletEnable ?? true) ? "DisbaledOTP" : "EnabledOTP"
+        }
+        
+        FirebaseAnalyticsController.shared.logEvent(name: evenName, params: [AnalyticsKeys.FilterName.rawValue: filterName])
     }
     
 }

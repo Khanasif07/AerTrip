@@ -195,6 +195,7 @@ class EnableDisableWalletOTPVC: BaseVC {
     }
     
     @IBAction func nextButtonTapped(_ sender: Any) {
+        self.view.endEditing(true)
         self.viewModel.validate()
     }
 }
@@ -217,6 +218,7 @@ extension EnableDisableWalletOTPVC : EnableDisableWalletOTPVMDelegate{
             self.perform(#selector(self.updatePhoneResendText), with: nil, afterDelay: 60)
         case .passwordValidation:
             UserInfo.loggedInUser?.isWalletEnable = true
+            self.viewModel.logEvent(with: .enableDisableOtp)
             self.dismiss(animated: true){
                 self.delegate?.otpEnableDisableCompleted(false)
             }
@@ -226,6 +228,7 @@ extension EnableDisableWalletOTPVC : EnableDisableWalletOTPVMDelegate{
     func comoletedValidation(_ isSucess: Bool) {
         self.nextButton.isLoading = false
         guard isSucess else {return}
+        self.viewModel.logEvent(with: .enableDisableOtp)
         UserInfo.loggedInUser?.isWalletEnable = false
         self.dismiss(animated: true){
             self.delegate?.otpEnableDisableCompleted(false)
