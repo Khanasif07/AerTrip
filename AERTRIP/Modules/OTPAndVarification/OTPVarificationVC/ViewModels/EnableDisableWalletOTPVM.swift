@@ -135,6 +135,7 @@ class EnableDisableWalletOTPVM {
             guard let self = self else {return}
             self.delegate?.comoletedValidation((success))
             if !success{
+                self.logEventForError(with: error)
                 AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .otp)
             }
         }
@@ -144,5 +145,29 @@ class EnableDisableWalletOTPVM {
         APICaller.shared.cancelEnableDisableWalletOtp(params: [:]) {(success, error) in}
     }
     
+    
+}
+
+///Analytics
+extension EnableDisableWalletOTPVM{
+    enum EventLogType{
+        case viewPassword, hidePassword, incorrectPassword,generateOtpForMob
+        case incorrectMobOtp, generateOtpForEmail, incorrectEmailOtp
+        case enterPasswordAndContinue, enableDisableOtp
+    }
+
+    fileprivate func logEventForError(with errors:ErrorCodes){
+        if errors.contains(24) || errors.contains(27){
+            self.logEvent(with: .incorrectMobOtp)
+        }else if errors.contains(25) || errors.contains(26){
+            self.logEvent(with: .incorrectEmailOtp)
+        }else if errors.contains(28){
+            self.logEvent(with: .incorrectPassword)
+        }
+    }
+    
+    func logEvent(with eventType:EventLogType){
+        
+    }
     
 }

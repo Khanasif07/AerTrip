@@ -20,6 +20,11 @@ class ChangePasswordVM {
         case setPassword, changePassword
     }
     
+    ///Analytics Enum
+    enum LogEventType{
+        case invalidFormat, hidePassword, showPassword,invlidCurrentPassword, success
+    }
+    
     weak var delegate: ChangePasswordVMDelegate?
     var isPasswordType: ChangePasswordType = .setPassword
     var oldPassword = ""
@@ -65,9 +70,13 @@ extension ChangePasswordVM {
         APICaller.shared.callChangePasswordAPI(params: params, loader: true, completionBlock: {(success, errors) in
             
             if success {
+                self.logEvent(with: .success)
                 self.delegate?.getSuccess()
             }
             else {
+                if errors.contains(47){
+                    self.logEvent(with: .invlidCurrentPassword)
+                }
                 self.delegate?.getFail(errors: errors)
             }
         })
@@ -83,6 +92,7 @@ extension ChangePasswordVM {
         APICaller.shared.callSetPasswordAPI(params: params, loader: true, completionBlock: {(success, errors) in
             
             if success {
+                self.logEvent(with: .success)
                 self.delegate?.getSuccess()
             }
             else {
@@ -91,4 +101,24 @@ extension ChangePasswordVM {
         })
         
     }
+}
+
+///Analytics
+extension ChangePasswordVM{
+    
+    func logEvent(with eventType: LogEventType){
+        let eventName = (self.isPasswordType == .changePassword) ? AnalyticsEvents.ChangePassword.rawValue : AnalyticsEvents.SetPassword.rawValue
+        var filterName:String = ""
+        
+        switch eventType{
+        case .invalidFormat: filterName = "EnterIncorrectFormatAndContinue"
+        case .invlidCurrentPassword: filterName = "EnterIncorrectCurrentPassword"
+        case .hidePassword: filterName = "HidePassword"
+        case .showPassword: filterName = "ShowPassword"
+        case .success: filterName = (self.isPasswordType == .changePassword) ? "ChangeMobileSuccessfully" : "SetMobileSuccessfully"
+        }
+        FirebaseAnalyticsController.shared.logEvent(name: eventName, params: [AnalyticsKeys.FilterName.rawValue:filterName])
+    }
+    
+    
 }

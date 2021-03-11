@@ -51,8 +51,9 @@ class OTPVarificationVC: BaseVC {
         switch self.viewModel.varificationType{
         case .walletOtp: self.viewModel.sendOtpToUser()
         case .phoneNumberChangeOtp:
+            self.viewModel.logEvent(with: .generatedOtp)
             self.setPhoneNumberSection()
-            self.viewModel.sendOTPForNumberChange(on: "", isd: "", isNeedParam: false)
+            self.viewModel.sendOTPForNumberChange(isNeedParam: false)
         case .setMobileNumber:
             self.setPasswordTextField()
             self.setUIForPassword()
@@ -144,14 +145,17 @@ class OTPVarificationVC: BaseVC {
             self.viewModel.sendOtpToUser()
             self.linkSetupForResend(withLabel: self.resendLabel, isResend: false)
         case .phoneNumberChangeOtp:
+            self.viewModel.logEvent(with: .generatedOtp)
             switch self.viewModel.state {
             case .otpToOldNumber:
-                self.viewModel.sendOTPForNumberChange(on: "", isd: "", isNeedParam: false)
+                self.viewModel.sendOTPForNumberChange(isNeedParam: false)
             case .otpForNewNumnber:
                 self.viewModel.sendOTPForNumberChange(on: self.viewModel.mobile, isd: self.viewModel.isdCode, isNeedParam: true)
             default: break;
             }
-        case .setMobileNumber: self.viewModel.setMobileNumber()
+        case .setMobileNumber:
+            self.viewModel.logEvent(with: .generatedOtp)
+            self.viewModel.setMobileNumber()
         default: break;
         }
         
@@ -402,6 +406,7 @@ class OTPVarificationVC: BaseVC {
     
     
     @IBAction func countryCodeButtonTapped(_ sender: Any) {
+        self.viewModel.logEvent(with: .openCC)
         if let prevSectdContry = self.viewModel.preSelectedCountry {
             PKCountryPicker.default.chooseCountry(onViewController: self, preSelectedCountry: prevSectdContry) { [weak self] (selectedCountry,closePicker) in
                 guard let self = self else {return}
@@ -442,6 +447,7 @@ extension OTPVarificationVC : OTPVarificationVMDelegate{
                     IQKeyboardManager.shared().isEnableAutoToolbar = true
                     UserInfo.loggedInUser?.mobile = self.viewModel.mobile
                     UserInfo.loggedInUser?.isd = self.viewModel.isdCode
+                    self.viewModel.logEvent(with: .success)
                     self.performDismissAnimation(isValidationComleted: true)
                 }
             }else{
@@ -457,6 +463,7 @@ extension OTPVarificationVC : OTPVarificationVMDelegate{
                     IQKeyboardManager.shared().isEnableAutoToolbar = true
                     UserInfo.loggedInUser?.mobile = self.viewModel.mobile
                     UserInfo.loggedInUser?.isd = self.viewModel.isdCode
+                    self.viewModel.logEvent(with: .success)
                     self.performDismissAnimation(isValidationComleted: true)
                 }
             }else{
@@ -499,7 +506,7 @@ extension OTPVarificationVC : OTPVarificationVMDelegate{
 
 extension OTPVarificationVC  {
     @objc func textFieldDidChanged(_ textField: PhoneNumberTextField) {
-        self.viewModel.mobile = textField.nationalNumber ?? ""
+        self.viewModel.mobile = textField.nationalNumber
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
