@@ -412,6 +412,7 @@ class TravelDateVC: BaseVC {
             self.toViewHeightConstraint.constant = self.closedHeight
             self.toDatePickerContainer.alpha = 0.0
             self.view.layoutIfNeeded()
+            
         }
     }
 }
