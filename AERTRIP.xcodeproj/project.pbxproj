@@ -1398,6 +1398,7 @@
 		848259FB252B030900F87D6E /* TextLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848259F9252B030900F87D6E /* TextLog.swift */; };
 		84827650223A6DA5007B6A27 /* GuestDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8482764F223A6DA5007B6A27 /* GuestDetailsVC.swift */; };
 		84827652223A6DBD007B6A27 /* GuestDetailsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84827651223A6DBD007B6A27 /* GuestDetailsVM.swift */; };
+		84836C0725FB874A00E6BE53 /* FirebaseEventLogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84836C0625FB874A00E6BE53 /* FirebaseEventLogController.swift */; };
 		8483806C2249EC8000202828 /* APICaller+Trips.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8483806B2249EC8000202828 /* APICaller+Trips.swift */; };
 		8483AFA622118549009F7600 /* HotelRatingInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8483AFA422118549009F7600 /* HotelRatingInfoCell.swift */; };
 		8483AFA722118549009F7600 /* HotelRatingInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8483AFA522118549009F7600 /* HotelRatingInfoCell.xib */; };
@@ -3236,6 +3237,7 @@
 		848259F9252B030900F87D6E /* TextLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextLog.swift; sourceTree = "<group>"; };
 		8482764F223A6DA5007B6A27 /* GuestDetailsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuestDetailsVC.swift; sourceTree = "<group>"; };
 		84827651223A6DBD007B6A27 /* GuestDetailsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestDetailsVM.swift; sourceTree = "<group>"; };
+		84836C0625FB874A00E6BE53 /* FirebaseEventLogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseEventLogController.swift; sourceTree = "<group>"; };
 		8483806B2249EC8000202828 /* APICaller+Trips.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APICaller+Trips.swift"; sourceTree = "<group>"; };
 		8483AFA422118549009F7600 /* HotelRatingInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelRatingInfoCell.swift; sourceTree = "<group>"; };
 		8483AFA522118549009F7600 /* HotelRatingInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HotelRatingInfoCell.xib; sourceTree = "<group>"; };
@@ -4898,6 +4900,7 @@
 				18A96B9421B661F900EA9B3A /* FacebookController.swift */,
 				18A96B9521B661F900EA9B3A /* GoogleLoginController.swift */,
 				844083C62578C5D400FB8B1F /* FirebaseAnalyticsController.swift */,
+				84836C0625FB874A00E6BE53 /* FirebaseEventLogController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -11067,6 +11070,7 @@
 				8463A56D2456C7B200C70D8C /* GMUStyle.m in Sources */,
 				0C24D500242E47FC00CBFF92 /* FlightsDemoVC.swift in Sources */,
 				1879C4AD2293DD2600897CED /* BookingRequestAddOnsFFVC.swift in Sources */,
+				84836C0725FB874A00E6BE53 /* FirebaseEventLogController.swift in Sources */,
 				8493CD4D2240E0A30073A679 /* YouAreAllDoneVC.swift in Sources */,
 				8438B444245AB1F700F7320B /* FlightFareInfoVC.swift in Sources */,
 				0C6E0A4E25EF938F0021E823 /* RegularAccountHeader.swift in Sources */,
