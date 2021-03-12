@@ -73,7 +73,7 @@ extension SettingsVC : UITableViewDelegate, UITableViewDataSource {
       }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        self.settingsVm.logEvenOnTap(with: indexPath)
         switch self.settingsVm.getSettingsType(key: indexPath.section, index: indexPath.row) {
             case .country:
                 AppFlowManager.default.moveToCountryVC()
@@ -130,6 +130,7 @@ extension SettingsVC : UITableViewDelegate, UITableViewDataSource {
             AppToast.default.showToastMessage(message: LocalizedString.ThisFunctionalityWillBeAvailableSoon.localized)
             guard let cell = self.settingsTableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? SettingsCell else { return }
             cell.switch.setOn(false, animated: true)
+            self.settingsVm.logEvenOnTap(with: IndexPath(row: 0, section: 1))
         }
     }
     

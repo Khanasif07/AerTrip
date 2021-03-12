@@ -29,6 +29,7 @@ enum AnalyticsEvents: String {
     case SetMobile
     case EnableOTP
     case DisableOTP
+    case Settings
     
 }
 

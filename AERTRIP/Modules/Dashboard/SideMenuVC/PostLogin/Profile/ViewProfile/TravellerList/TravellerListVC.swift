@@ -641,7 +641,7 @@ class TravellerListVC: BaseVC {
         printDebug("searching text is \(forText)")
         predicateStr = forText
         loadSavedData()
-        noResultemptyView.messageLabel.text = "\(LocalizedString.noResults.localized + " " + LocalizedString.For.localized) '\(forText)'"
+        noResultemptyView.messageLabel.attributedText = self.getAttributedTextForEmptyView(with: forText)//"\(LocalizedString.noResults.localized + " " + LocalizedString.For.localized) '\(forText)'"
     }
     
     func addFooterView() {
@@ -682,6 +682,17 @@ class TravellerListVC: BaseVC {
         predicateStr = ""
         searchBar.text = ""
         loadSavedData()
+    }
+    
+    func getAttributedTextForEmptyView(with searchText: String)->NSAttributedString?{
+        let txt = "\(LocalizedString.noResults.localized + "\n" + LocalizedString.For.localized.capitalized) '\(searchText)'"
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 4
+        paragraphStyle.alignment = .center
+        let attTxt = NSMutableAttributedString(string: txt, attributes: [.foregroundColor: AppColors.themeBlack, .font: AppFonts.Regular.withSize(22.0), .paragraphStyle: paragraphStyle])
+        let range = NSString(string: txt).range(of: "\(LocalizedString.For.localized.capitalized) '\(searchText)'")
+        attTxt.addAttributes([.foregroundColor: AppColors.themeGray60, .font:AppFonts.Regular.withSize(18.0)], range: range)
+        return attTxt
     }
 }
 
