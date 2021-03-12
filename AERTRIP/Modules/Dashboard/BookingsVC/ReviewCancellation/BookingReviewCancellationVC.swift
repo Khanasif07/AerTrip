@@ -105,6 +105,8 @@ class BookingReviewCancellationVC: BaseVC {
             self.totalNetRefundViewHeightConstraint.constant = 0.0
             self.requestCancellationButton.alpha = 0.6
 
+        //        FirebaseAnalyticsController.shared.logEvent(name: "HotelSpecialRequest", params: ["ScreenName":"HotelSpecialRequest", "ScreenClass":"BookingReviewCancellationVC", "ButtonAction":"SpecialRequestButtonClicked"])
+
         }
         
         self.refundModeTextField.delegate = self

@@ -258,6 +258,9 @@ extension HotlelBookingsDetailsVC: TopNavigationViewDelegate {
                 printDebug("Download ")
                 let endPoint = "\(APIEndPoint.baseUrlPath.rawValue)dashboard/booking-action?type=pdf&booking_id=\(self?.viewModel.bookingDetail?.id ?? "")"
                 AppGlobals.shared.viewPdf(urlPath: endPoint, screenTitle: LocalizedString.Voucher.localized)
+                
+            //        FirebaseAnalyticsController.shared.logEvent(name: "Download_HotelBookingDetails", params: ["ScreenName":"Download_HotelBookingDetails", "ScreenClass":"HotelBookingsDetailsVC", "ButtonAction":"DownloadHotelDetailsClicked"])
+
             case 3:
                 printDebug("Resend Confirmation mail ")
                 AppFlowManager.default.presentConfirmationMailVC(bookindId: self?.viewModel.bookingDetail?.id ?? "", presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
@@ -441,6 +444,8 @@ extension HotlelBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
     }
     
     func share() {
+        //        FirebaseAnalyticsController.shared.logEvent(name: "ShareHotelBookingDetails", params: ["ScreenName":"HotelBookingDetails", "ScreenClass":"HotelBookingsDetailsVC", "ButtonAction":"ShareHotelDetailsClicked"])
+
         if let url = viewModel.bookingDetail?.shareUrl{
             if !url.isEmpty{
                 let textToShare = [ "I have Booked the Hotel with Aertrip\n\(url)" ]
@@ -468,6 +473,9 @@ extension HotlelBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
     
     func openDirections() {
         
+        //        FirebaseAnalyticsController.shared.logEvent(name: "DirectionsHotelBookingDetails", params: ["ScreenName":"ShareHotelBookingDetails", "ScreenClass":"HotelBookingsDetailsVC", "ButtonAction":"OpenDirectionsFromHotelDetailsClicked"])
+
+        
         // Need to Booking Direction VC
         AppGlobals.shared.redirectToMap(sourceView: self.view, originLat: "", originLong: "", destLat: self.viewModel.bookingDetail?.bookingDetail?.latitude ?? "", destLong: self.viewModel.bookingDetail?.bookingDetail?.longitude ?? "")
     }
@@ -477,6 +485,9 @@ extension HotlelBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
     }
     
     func addToCalender() {
+        
+        //        FirebaseAnalyticsController.shared.logEvent(name: "AddToCalenderHotelBookingDetails", params: ["ScreenName":"HotelBookingDetails", "ScreenClass":"HotelBookingsDetailsVC", "ButtonAction":"AddToCalenderHotelDetailsClicked"])
+
         if let start = self.viewModel.bookingDetail?.bookingDetail?.eventStartingDate, let end = self.viewModel.bookingDetail?.bookingDetail?.evenEndingDate {
             let bId = self.viewModel.bookingDetail?.bookingDetail?.bookingId ?? ""
             
@@ -538,6 +549,8 @@ extension HotlelBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
     }
     
     func bookAnotherRoom() {
+        //        FirebaseAnalyticsController.shared.logEvent(name: "BookAnotherRoom_HotelBookingDetails", params: ["ScreenName":"HotelBookingDetails", "ScreenClass":"HotelBookingsDetailsVC", "ButtonAction":"BookAnotherRoomHotelDetailsClicked"])
+
         let booking = self.viewModel.bookingDetail?.bookingDetail
         if let hotelName = booking?.hotelName, let address = booking?.hotelAddress, let lat =  booking?.latitude, let long = booking?.longitude, let city = booking?.city, let hotelId = booking?.hotelId, let checkIn = booking?.checkIn, let checkOut = booking?.checkOut {
             var hotelData = HotelFormPreviosSearchData()
@@ -566,6 +579,9 @@ extension HotlelBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
         }
     }
     func webCheckinServices(url: String) {
+
+//        FirebaseAnalyticsController.shared.logEvent(name: "BookingFlightDetails", params: ["ScreenName":"FlightBookingsDetailsVC", "ScreenClass":"FlightBookingsDetailsVC", "ButtonAction":"FlightWebCheckinClicked"])
+
         // TODO: - Need to be synced with backend Api key
         guard let url = url.toUrl else { return }
         AppFlowManager.default.showURLOnATWebView(url, screenTitle: "Web Checkin")

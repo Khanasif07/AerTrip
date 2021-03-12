@@ -52,6 +52,11 @@ class BookingCallVC: BaseVC {
         
         self.setupNavBar()
         self.registerXib()
+        
+        
+
+//        FirebaseAnalyticsController.shared.logEvent(name: "BookingCallList", params: ["ScreenName":"BookingCall", "ScreenClass":"BookingCallVC", "CallListFor":UsingFor])
+
     }
     
     override func setupNavBar() {

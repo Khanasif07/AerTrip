@@ -66,6 +66,10 @@ class BookingRequestAddOnsFFVC: BaseVC {
         BookingRequestAddOnsFFVM.shared.bookingDetails?.frequentFlyerData = frequentFlyerData
         BookingRequestAddOnsFFVM.shared.getPreferenceMaster()
         self.gradientView.addGredient(isVertical: false)
+        
+        
+//        FirebaseAnalyticsController.shared.logEvent(name: "BookingRequestAddOns", params: ["ScreenName":"BookingRequestAddOns", "ScreenClass":"BookingRequestAddOnsFFVC", "ButtonAction":"RequestAddonAndFrequentFlyer"])
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
