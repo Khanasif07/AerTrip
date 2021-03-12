@@ -80,62 +80,42 @@ class SettingsVM {
 }
 
 extension SettingsVM{
-    
-    enum LogEventType{
-        case changeCountry, changeCurrency, changeNotification, toggleCalender
-        case openChangeId, openSetMobile, openChangeMobile, openSetPassword
-        case openChangePassword, openEnableWallet, openDisableWallet
-        case openAboutUs, openLegal, openPrivacy
-    }
-    
-    
+
     func logEvenOnTap(with indexPath:IndexPath){
         switch self.getSettingsType(key: indexPath.section, index: indexPath.row) {
-        case .country: self.logEvent(with: .changeCountry)
-        case .currency: self.logEvent(with: .changeCurrency)
-        case .notification: self.logEvent(with: .changeNotification)
-        case .changeAertripId: self.logEvent(with: .openChangeId)
+        case .country:
+            FirebaseEventLogs.shared.logSettingEvents(with: .changeCountry)
+        case .currency:
+            FirebaseEventLogs.shared.logSettingEvents(with: .changeCurrency)
+        case .notification:
+            FirebaseEventLogs.shared.logSettingEvents(with: .changeNotification)
+        case .changeAertripId:
+            FirebaseEventLogs.shared.logSettingEvents(with: .openChangeId)
         case .changePassword:
             if (UserInfo.loggedInUser?.hasPassword == true){
-                self.logEvent(with: .openChangePassword)
+                FirebaseEventLogs.shared.logSettingEvents(with: .openChangePassword)
             } else {
-                self.logEvent(with: .openSetPassword)
+                FirebaseEventLogs.shared.logSettingEvents(with: .openSetPassword)
             }
         case .changeMobileNumber:
             if (UserInfo.loggedInUser?.mobile.isEmpty ?? false){
-                self.logEvent(with: .openChangeMobile)
+                FirebaseEventLogs.shared.logSettingEvents(with: .openChangeMobile)
             }else{
-                self.logEvent(with: .openSetMobile)
+                FirebaseEventLogs.shared.logSettingEvents(with: .openSetMobile)
             }
-        case .disableWalletOtp: self.logEvent(with: .changeCountry)
-        case .calenderSync: self.logEvent(with: .toggleCalender)
-        case .aboutUs: self.logEvent(with: .openAboutUs)
-        case .legal: self.logEvent(with: .openLegal)
-        case .privacyPolicy: self.logEvent(with: .openPrivacy)
+        case .disableWalletOtp:
+            FirebaseEventLogs.shared.logSettingEvents(with: .changeCountry)
+        case .calenderSync:
+            FirebaseEventLogs.shared.logSettingEvents(with: .toggleCalender)
+        case .aboutUs:
+            FirebaseEventLogs.shared.logSettingEvents(with: .openAboutUs)
+        case .legal:
+            FirebaseEventLogs.shared.logSettingEvents(with: .openLegal)
+        case .privacyPolicy:
+            FirebaseEventLogs.shared.logSettingEvents(with: .openPrivacy)
         }
     }
     
-    private func logEvent(with eventType:LogEventType){
-        var filterName:String = ""
-        switch eventType {
-        case .changeCountry: filterName = "TryToChangeConuntry"
-        case .changeCurrency: filterName = "TryToChangeCurrency"
-        case .changeNotification: filterName = "TryToChangeNotification"
-        case .toggleCalender: filterName = "TryToToggleOnCalenderSync"
-        case .openChangeId: filterName = "OpenChangeAertripID"
-        case .openSetMobile: filterName = "OpenChangeMobileNumber"
-        case .openChangeMobile: filterName = "OpenSetMobileNumber"
-        case .openSetPassword: filterName = "OpenSetPassword"
-        case .openChangePassword: filterName = "OpenChangePassword"
-        case .openEnableWallet: filterName = "OpenEnableOTPForWalletPayments"
-        case .openDisableWallet: filterName = "OpenDisableOTPForWalletPayments"
-        case .openAboutUs: filterName = "OpenAboutUs"
-        case .openLegal: filterName = "OpenLegal"
-        case .openPrivacy: filterName = "OpenPrivacyPolicy"
-        }
-        
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Settings.rawValue, params: [AnalyticsKeys.FilterName.rawValue: filterName])
-    }
     
 }
 

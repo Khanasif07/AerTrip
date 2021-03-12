@@ -90,6 +90,7 @@ class FavouriteHotelsListVM {
         hotelData.roomNumber     =  1
         hotelData.adultsCount    = [2]
         hotelData.isComingFromFavouriteHotels = true
+        HotelsSearchVM.isComminFromRecentWhatNext = true
         HotelsSearchVM.hotelFormData = hotelData
         AppFlowManager.default.goToDashboard(toBeSelect: .hotels)
         
