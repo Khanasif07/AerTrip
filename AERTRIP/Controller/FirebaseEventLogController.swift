@@ -38,6 +38,29 @@ class FirebaseEventLogs{
         case billingAddress = "BillingAddress"
         case gstIn = "GSTIN"
         case billingName = "BillingName"
+        
+        //MARK: Set and Change Mobile Events TypeNames
+        case emptyMobile = "PressCTAWithoutEnteringMobileNumber"
+        case incorrectMobile = "PressCTAEnteringWrongMobileNumber"
+        case invlidCurrentPassword = "EnterIncorrectCurrentPassword"
+        case openCC = "OpenCountryDD"
+        case incorrectOtp = "EnterIncorrectOTP"
+        case generatedOtp = "GenerateNewOTP"
+        case success
+        
+         //MARK: Set And Change Password Events TypeNames
+        case invalidPasswordFormat = "EnterIncorrectFormatAndContinue"
+        case hidePassword = "HidePassword"
+        case showPassword = "ShowPassword"
+        
+        //MARK: Enable And Disable OTP Events TypeNames
+        case generateOtpForMob = "GenerateNewMobileOTP"
+        case incorrectMobOtp = "EnterIncorrectMobileOTP"
+        case generateOtpForEmail = "GenerateNewEmailOTP"
+        case incorrectEmailOtp = "EnterIncorrectEmailOTP"
+        case enterPasswordAndContinue = "EnterPasswordAndProceed"
+        case enableDisableOtp
+        
     }
     
     
@@ -67,5 +90,46 @@ class FirebaseEventLogs{
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountDetails.rawValue, params: [AnalyticsKeys.FilterName.rawValue:type.rawValue, AnalyticsKeys.FilterType.rawValue:eventDetails, AnalyticsKeys.Values.rawValue:value])
     }
     
+    //MARK: Set and Change Mobile Log Function
+    func logSetUpdateMobileEvents(with type: EventsTypeName, isUpdated:Bool = false){
+        let eventName = isUpdated ? AnalyticsEvents.ChangeMobile.rawValue : AnalyticsEvents.SetMobile.rawValue
+        var value = type.rawValue
+        if type == .success{
+            if isUpdated{
+                value = "ChangeMobileNumberSuccessfully"
+            }else{
+                value = "SetMobileNumberSuccessfully"
+            }
+        }
+        FirebaseAnalyticsController.shared.logEvent(name: eventName, params: [AnalyticsKeys.FilterName.rawValue: value])
+    }
+    
+    //MARK: Set and Change Password Log Function
+    func logSetUpdatePasswordEvents(with type: EventsTypeName, isUpdated:Bool = false){
+        let eventName = isUpdated ? AnalyticsEvents.ChangePassword.rawValue : AnalyticsEvents.SetPassword.rawValue
+        var value = type.rawValue
+        if type == .success{
+            if isUpdated{
+                value = "ChangePasswordSuccessfully"
+            }else{
+                value = "SetPasswordSuccessfully"
+            }
+        }
+        FirebaseAnalyticsController.shared.logEvent(name: eventName, params: [AnalyticsKeys.FilterName.rawValue: value])
+    }
+    
+    //MARK: Enable and Disble wallet OTP Log Function
+    func logEnableDisableWalletEvents(with type: EventsTypeName, isEnabled:Bool = false){
+        let eventName = isEnabled ? AnalyticsEvents.EnableOTP.rawValue : AnalyticsEvents.DisableOTP.rawValue
+        var value = type.rawValue
+        if type == .enableDisableOtp{
+            if isEnabled{
+                value = "EnabledOTP"
+            }else{
+                value = "DisbaledOTP"
+            }
+        }
+        FirebaseAnalyticsController.shared.logEvent(name: eventName, params: [AnalyticsKeys.FilterName.rawValue: value])
+    }
     
 }

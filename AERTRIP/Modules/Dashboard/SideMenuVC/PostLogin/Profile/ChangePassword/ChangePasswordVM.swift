@@ -20,11 +20,6 @@ class ChangePasswordVM {
         case setPassword, changePassword
     }
     
-    ///Analytics Enum
-    enum LogEventType{
-        case invalidFormat, hidePassword, showPassword,invlidCurrentPassword, success
-    }
-    
     weak var delegate: ChangePasswordVMDelegate?
     var isPasswordType: ChangePasswordType = .setPassword
     var oldPassword = ""
@@ -106,18 +101,9 @@ extension ChangePasswordVM {
 ///Analytics
 extension ChangePasswordVM{
     
-    func logEvent(with eventType: LogEventType){
-        let eventName = (self.isPasswordType == .changePassword) ? AnalyticsEvents.ChangePassword.rawValue : AnalyticsEvents.SetPassword.rawValue
-        var filterName:String = ""
+    func logEvent(with eventType: FirebaseEventLogs.EventsTypeName){
+        FirebaseEventLogs.shared.logSetUpdateMobileEvents(with: eventType, isUpdated: (self.isPasswordType == .changePassword))
         
-        switch eventType{
-        case .invalidFormat: filterName = "EnterIncorrectFormatAndContinue"
-        case .invlidCurrentPassword: filterName = "EnterIncorrectCurrentPassword"
-        case .hidePassword: filterName = "HidePassword"
-        case .showPassword: filterName = "ShowPassword"
-        case .success: filterName = (self.isPasswordType == .changePassword) ? "ChangeMobileSuccessfully" : "SetMobileSuccessfully"
-        }
-        FirebaseAnalyticsController.shared.logEvent(name: eventName, params: [AnalyticsKeys.FilterName.rawValue:filterName])
     }
     
     
