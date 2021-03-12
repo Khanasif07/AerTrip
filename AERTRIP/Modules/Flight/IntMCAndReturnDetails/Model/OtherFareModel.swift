@@ -105,8 +105,22 @@ struct OtherFareModel {
         var totalText = ""
         for str in self.description{
             if var displayString = str.getAttributedString?.string, !str.isEmpty{
+//                if displayString.contains(" *"){
+//                    displayString = displayString.replacingOccurrences(of: " *", with: " \n*")
+//                }
+                
+                print("displayString=",displayString)
+
+                if displayString.contains(" ***"){
+                    displayString = displayString.replacingOccurrences(of: " ***", with: "\n•   ")
+                }
+
+                if displayString.contains(" **"){
+                    displayString = displayString.replacingOccurrences(of: " **", with: "\n•   ")
+                }
+                
                 if displayString.contains(" *"){
-                    displayString = displayString.replacingOccurrences(of: " *", with: " \n*")
+                    displayString = displayString.replacingOccurrences(of: " *", with: "\n•   ")
                 }
 
                 if displayString.contains(find: "\t•\t"){
