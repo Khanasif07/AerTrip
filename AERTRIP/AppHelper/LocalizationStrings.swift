@@ -787,6 +787,7 @@ enum LocalizedString: String {
     case TravellersAddOns
     case BookingPolicy
     case cancellationPolicy
+    case policy
     case OpenInMaps
     case OpenInGoogleMaps
     case CancellationFee

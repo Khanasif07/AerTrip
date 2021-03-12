@@ -110,8 +110,12 @@ class RoomVC: UIViewController {
             title += " •"
         }
         roomSegmentedControl?.setTitle(title, forSegmentAt: 0)
-
-        title = LocalizedString.cancellationPolicy.localized        
+        if UIScreen.width > 375{///in case of iPhone Se 1st generation.
+            title = LocalizedString.cancellationPolicy.localized
+        }else{
+            title = LocalizedString.policy.localized
+        }
+              
         if !HotelFilterVM.shared.roomCancelation.isEmpty {
             title += " •"
         }

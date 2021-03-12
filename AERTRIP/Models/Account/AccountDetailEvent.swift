@@ -418,6 +418,7 @@ struct AccountDetailEvent {
             for obj in journey {
                 self.title += ( (self.title.isEmpty ? "" : ", ") + obj.joined(separator: " → "))
             }
+            self.sector = self.title
         }
         self.getAttributedText()
         if self.voucherNo.lowercased().contains("srjv") {
@@ -446,10 +447,10 @@ struct AccountDetailEvent {
                     self.airline = "\(obj)"
                 }
                 
-                if let obj = first["sector"] as? [String] {
-                    //sector
-                    self.sector = obj.joined(separator: " → ")
-                }
+//                if let obj = first["sector"] as? [String] {
+//                    //sector
+//                    self.sector = obj.joined(separator: " → ")
+//                }
             }
             self.flightNumber = ""
             

@@ -65,9 +65,13 @@ extension ChangePasswordVM {
         APICaller.shared.callChangePasswordAPI(params: params, loader: true, completionBlock: {(success, errors) in
             
             if success {
+                self.logEvent(with: .success)
                 self.delegate?.getSuccess()
             }
             else {
+                if errors.contains(47){
+                    self.logEvent(with: .invlidCurrentPassword)
+                }
                 self.delegate?.getFail(errors: errors)
             }
         })
@@ -83,6 +87,7 @@ extension ChangePasswordVM {
         APICaller.shared.callSetPasswordAPI(params: params, loader: true, completionBlock: {(success, errors) in
             
             if success {
+                self.logEvent(with: .success)
                 self.delegate?.getSuccess()
             }
             else {
@@ -91,4 +96,15 @@ extension ChangePasswordVM {
         })
         
     }
+}
+
+///Analytics
+extension ChangePasswordVM{
+    
+    func logEvent(with eventType: FirebaseEventLogs.EventsTypeName){
+        FirebaseEventLogs.shared.logSetUpdateMobileEvents(with: eventType, isUpdated: (self.isPasswordType == .changePassword))
+        
+    }
+    
+    
 }

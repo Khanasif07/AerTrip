@@ -470,6 +470,7 @@
 "Within" = "within";
 "Kms" = "kms";
 "Result unavailable" = "Result unavailable";
+"policy" = "Policy";
 
 // Hotel Results
 "ShowHotelsBeyond" = "Show hotels beyond 20km";

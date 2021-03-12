@@ -798,7 +798,6 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
                     // increased
                     FareUpdatedPopUpVC.showPopUp(isForIncreased: true, decreasedAmount: 0.0, increasedAmount: diff, totalUpdatedAmount: newAmount, continueButtonAction: { [weak self] in
                         guard let sSelf = self else { return }
-//                        sSelf.viewModel.makePayment(forAmount: sSelf.getTotalPayableAmount(), useWallet: sSelf.isWallet)
                         sSelf.checkForWalletOTP()
                         }, goBackButtonAction: { [weak self] in
                             guard let sSelf = self else { return }
@@ -807,15 +806,12 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
                 } else if diff < 0 {
                     // dipped
                     FareUpdatedPopUpVC.showPopUp(isForIncreased: false, decreasedAmount: -diff, increasedAmount: 0, totalUpdatedAmount: 0, continueButtonAction: nil, goBackButtonAction: nil)
-//                    self.viewModel.makePayment(forAmount: self.getTotalPayableAmount(), useWallet: self.isWallet)
                     self.checkForWalletOTP()
                 } else {
-//                    self.viewModel.makePayment(forAmount: self.getTotalPayableAmount(), useWallet: self.isWallet)
                     self.checkForWalletOTP()
                 }
             }
             else{
-//                self.viewModel.makePayment(forAmount: self.getTotalPayableAmount(), useWallet: self.isWallet)
                 self.checkForWalletOTP()
             }
         }
