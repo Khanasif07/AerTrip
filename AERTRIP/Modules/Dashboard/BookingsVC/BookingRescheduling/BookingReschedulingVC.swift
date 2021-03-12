@@ -69,6 +69,14 @@ class BookingReschedulingVC: BaseVC {
         self.reschedulingTableView.backgroundColor = AppColors.themeGray04
         self.gradientView.addGredient(isVertical: false)
         self.selectAutometically()
+        
+        if self.viewModel.usingFor == .cancellation{
+            //        FirebaseAnalyticsController.shared.logEvent(name: "FlightCancellation", params: ["ScreenName":"FlightCancellationRequest", "ScreenClass":"BookingReschedulingVC"])
+        }else if self.viewModel.usingFor == .cancellation{
+
+            //        FirebaseAnalyticsController.shared.logEvent(name: "FlightRescheduling", params: ["ScreenName":"FlightReschedulingRequest", "ScreenClass":"BookingReschedulingVC"])
+
+        }
     }
     
     func registerXib() {

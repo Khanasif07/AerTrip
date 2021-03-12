@@ -94,6 +94,10 @@ class HotlelBookingsDetailsVC: BaseVC {
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(bookingDetailFetched(_:)), name: .bookingDetailFetched, object: nil)
+        
+        
+        //        FirebaseAnalyticsController.shared.logEvent(name: "HotelBookingDetails",params:["ScreenName":"HotelBookingDetails", "ScreenClass":"HotlelBookingsDetailsVC"])
+
     }
     
     override func setupColors() {

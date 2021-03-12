@@ -64,6 +64,9 @@ class BookingConfimationMailVC: BaseVC {
         if #available(iOS 13.0, *) {
             navigationViewHeightConstraint.constant = 56
         }
+        
+        //        FirebaseAnalyticsController.shared.logEvent(name: "ResendBookingConfirmationMail", params: ["ScreenName":"ResendBookingConfirmationMail", "ScreenClass":"BookingConfimationMailVC"])
+
     }
     
     override func setupFonts() {
