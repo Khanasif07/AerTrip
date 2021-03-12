@@ -15,7 +15,7 @@ class FirebaseEventLogs{
     private init(){}
     
     enum EventsTypeName:String {
-        ///Settings Events
+        //MARK: Settings Events TypeNames
         case changeCountry = "TryToChangeConuntry"
         case changeCurrency = "TryToChangeCurrency"
         case changeNotification = "TryToChangeNotification"
@@ -31,7 +31,7 @@ class FirebaseEventLogs{
         case openLegal = "OpenLegal"
         case openPrivacy = "OpenPrivacyPolicy"
         
-        ///AccountDetailsUpdate
+        //MARK: Account update Events TypeNames
         case aadhar = "Aadhar"
         case pan = "PAN"
         case defaultRefundMode = "ChangeDefaultRefundMode"
@@ -41,11 +41,31 @@ class FirebaseEventLogs{
     }
     
     
-    //MARK: Settings Events
+    //MARK: Settings Events Log Function
     func logSettingEvents(with type: EventsTypeName){
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Settings.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue])
     }
 
+    //MARK: Update Account Details Events Log Function
+    func logUpdateAccountEvents(with type: EventsTypeName, isUpdating:Bool = false, value:String = ""){
+        var eventDetails = "n/a"
+        var value = "n/a"
+        switch type{
+        case .aadhar : eventDetails = isUpdating ? "UpdateAadhar" : "InsertAadhar"
+        case .pan:
+            eventDetails = isUpdating ? "UpdatePAN" : "InsertPAN"
+        case .gstIn:
+            eventDetails = isUpdating ? "UpdateGSTIN" : "InsertGSTIN"
+        case .defaultRefundMode:
+            value = (value == "1") ? "Change default refund to Wallet" : "Change default refund to Online"
+        case .billingName:
+            eventDetails = "UpdateBillingName"
+        case .billingAddress:
+            eventDetails = "UpdateBillingAddress"
+        default: break;
+        }
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountDetails.rawValue, params: [AnalyticsKeys.FilterName.rawValue:type.rawValue, AnalyticsKeys.FilterType.rawValue:eventDetails, AnalyticsKeys.Values.rawValue:value])
+    }
     
     
 }
