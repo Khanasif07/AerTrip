@@ -43,6 +43,10 @@ class BookingDirectionVC: BaseVC {
         self.directionTableView.dataSource = self
         self.directionTableView.delegate = self
         self.directionTableView.reloadData()
+        
+        
+//        FirebaseAnalyticsController.shared.logEvent(name: "BookingDirections", params: ["ScreenName":"BookingDirectionVC", "ScreenClass":"BookingDirectionVC"])
+
     }
     
     override func setupNavBar() {

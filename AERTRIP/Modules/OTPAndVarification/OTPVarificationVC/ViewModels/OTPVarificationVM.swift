@@ -58,10 +58,12 @@ class OTPVarificationVM{
                     self.validateOTPForMobile(with: otpText, isForUpdate: true)
                     return (true, "")
                 }else{
+                    self.logEvent(with: .incorrectOtp)
                     return (false, LocalizedString.validOtpMsg.localized)
                 }
             case .enterNewNumber:
                 if ((!self.mobile.isEmpty) && self.mobile.getOnlyIntiger.count < self.minMNS || self.mobile.getOnlyIntiger.count > self.maxMNS){
+                    self.logEventForMobile()
                     return (false, LocalizedString.fillContactDetails.localized)
                     
                 }else{
@@ -76,11 +78,13 @@ class OTPVarificationVM{
                     self.validatePassword(with: otpText)
                     return (true, "")
                 }else{
+                    self.logEvent(with: .invlidCurrentPassword)
                     return (false, LocalizedString.enterAccountPasswordMsg.localized)
                     
                 }
             case .enterNewNumber:
                 if ((!self.mobile.isEmpty) && self.mobile.getOnlyIntiger.count < self.minMNS || self.mobile.getOnlyIntiger.count > self.maxMNS){
+                    self.logEventForMobile()
                     return (false, LocalizedString.fillContactDetails.localized)
                     
                 }else{
@@ -92,6 +96,7 @@ class OTPVarificationVM{
                     self.validateOTPForMobile(with: otpText, isForUpdate: false)
                     return (true, "")
                 }else{
+                    self.logEvent(with: .incorrectOtp)
                     return (false, LocalizedString.validOtpMsg.localized)
                 }
             }
@@ -122,7 +127,7 @@ class OTPVarificationVM{
         
     }
     
-    func sendOTPForNumberChange(on mobile: String, isd: String, isNeedParam: Bool){
+    func sendOTPForNumberChange(on mobile: String = "", isd: String = "", isNeedParam: Bool){
         var param:JSONDictionary = [:]
         if isNeedParam{
             param = ["mobile":mobile, "isd": isd]
@@ -151,6 +156,7 @@ class OTPVarificationVM{
             guard let self = self else {return}
             self.delegate?.comoletedValidation((success))
             if !success{
+                self.logEvent(with: .incorrectOtp)
                 AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .otp)
             }
         }
@@ -166,6 +172,7 @@ class OTPVarificationVM{
             }
             self.delegate?.comoletedValidation((success))
             if !success{
+                self.logEvent(with: .invlidCurrentPassword)
                 AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .otp)
             }
         }
@@ -187,6 +194,28 @@ class OTPVarificationVM{
     
     func cancelValidation(isForUpdate: Bool){
         APICaller.shared.cancelValidationAPI(params: [:], isForUpdate: isForUpdate) {(success, error) in}
+    }
+    
+}
+
+///Google Analytics
+extension OTPVarificationVM{
+    func logEventForMobile(){
+        if self.mobile.isEmpty{
+            self.logEvent(with: .emptyMobile)
+        }else{
+            self.logEvent(with: .incorrectMobile)
+        }
+    }
+    
+    func logEvent(with eventType: FirebaseEventLogs.EventsTypeName){
+        var isUpdated = false
+        switch self.varificationType {
+        case .phoneNumberChangeOtp: isUpdated = true
+        case .setMobileNumber: isUpdated = false
+        default:break
+        }
+        FirebaseEventLogs.shared.logSetUpdateMobileEvents(with: eventType, isUpdated: isUpdated)
     }
     
 }

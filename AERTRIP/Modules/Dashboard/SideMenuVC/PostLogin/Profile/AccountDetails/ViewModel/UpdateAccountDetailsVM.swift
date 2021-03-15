@@ -163,30 +163,20 @@ class UpdateAccountDetailsVM{
     
     
     private func addAnalytics(){
-        var eventType = ""
-        var eventDetails = "n/a"
-        var value = "n/a"
         switch self.updationType{
         case.aadhar:
-            eventType = "Aadhar"
-            eventDetails = self.isHasInitialValue ? "UpdateAadhar" : "InsertAadhar"
+            FirebaseEventLogs.shared.logUpdateAccountEvents(with: .aadhar, isUpdating: self.isHasInitialValue)
         case .pan:
-            eventType = "PAN"
-            eventDetails = self.isHasInitialValue ? "UpdatePAN" : "InsertPAN"
+            FirebaseEventLogs.shared.logUpdateAccountEvents(with: .pan, isUpdating: self.isHasInitialValue)
         case .gSTIN:
-            eventType = "GSTIN"
-            eventDetails = self.isHasInitialValue ? "UpdateGSTIN" : "InsertGSTIN"
+            FirebaseEventLogs.shared.logUpdateAccountEvents(with: .gstIn, isUpdating: self.isHasInitialValue)
         case .defaultRefundMode:
-            eventType = "ChangeDefaultRefundMode"
-            value = (self.updatedId == "1") ? "Change default refund to Wallet" : "Change default refund to Online"
+            FirebaseEventLogs.shared.logUpdateAccountEvents(with: .defaultRefundMode, value: self.updatedId)
         case .billingName:
-            eventType = "BillingName"
-            eventDetails = "UpdateBillingName"
+            FirebaseEventLogs.shared.logUpdateAccountEvents(with: .billingName)
         case .billingAddress:
-            eventType = "BillingAddress"
-            eventDetails = "UpdateBillingAddress"
+            FirebaseEventLogs.shared.logUpdateAccountEvents(with: .billingAddress)
         }
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountDetails.rawValue, params: [AnalyticsKeys.FilterName.rawValue:eventType, AnalyticsKeys.FilterType.rawValue:eventDetails, AnalyticsKeys.Values.rawValue:value])
     }
     
 }

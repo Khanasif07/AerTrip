@@ -96,6 +96,10 @@ class FlightBookingsDetailsVC: BaseVC {
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(bookingDetailFetched(_:)), name: .bookingDetailFetched, object: nil)
+        
+                
+//        FirebaseAnalyticsController.shared.logEvent(name: "FlightBookingDetails",params:["ScreenName":"FlightBookingDetails", "ScreenClass":"FlightBookingsDetailsVC"])
+
 
     }
     
@@ -337,12 +341,17 @@ class FlightBookingsDetailsVC: BaseVC {
     
     // Present Request Add on Frequent Flyer VC
     func presentRequestAddOnFrequentFlyer() {
+//        FirebaseAnalyticsController.shared.logEvent(name: "BookingFlightDetails", params: ["ScreenName":"FlightBookingsDetailsVC", "ScreenClass":"FlightBookingsDetailsVC", "ButtonAction":"RequestAddonAndFrequestFlyerClicked"])
+
         AppFlowManager.default.presentBookingReuqestAddOnVC(bookingdata: self.viewModel.bookingDetail,delegate: self)
     }
     
     // Present Booking Rescheduling VC
     func presentBookingReschedulingVC() {
         if let leg = self.viewModel.bookingDetail?.bookingDetail?.leg {
+
+//            FirebaseAnalyticsController.shared.logEvent(name: "BookingFlightDetails", params: ["ScreenName":"FlightBookingsDetailsVC", "ScreenClass":"FlightBookingsDetailsVC", "ButtonAction":"RequestReschedulingClicked"])
+
             AppFlowManager.default.presentBookingReschedulingVC(legs: leg)
         }
     }

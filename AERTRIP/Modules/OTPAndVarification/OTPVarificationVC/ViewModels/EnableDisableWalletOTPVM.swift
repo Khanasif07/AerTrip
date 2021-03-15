@@ -43,6 +43,7 @@ class EnableDisableWalletOTPVM {
         if self.details.password.isEmpty{
             let state = ValidationState.password(success: false, msgString: LocalizedString.enterAccountPasswordMsg.localized)
             self.delegate?.showErrorState(with: state)
+            self.logEvent(with: .invalidPasswordFormat)
             return(state)
         }
         return(.password(success: true, msgString: ""))
@@ -52,6 +53,7 @@ class EnableDisableWalletOTPVM {
         if self.details.phoneOtp.isEmpty{
             let state = ValidationState.phoneOtp(success: false, msgString: LocalizedString.enterMobileOtpMsg.localized)
             self.delegate?.showErrorState(with: state)
+            self.logEvent(with: .incorrectMobOtp)
             return(state)
         }
         return(.phoneOtp(success: true, msgString: ""))
@@ -61,6 +63,7 @@ class EnableDisableWalletOTPVM {
         if self.details.emailOtp.isEmpty{
             let state = ValidationState.emailOtp(success: false, msgString: LocalizedString.enterEmailOtpMsg.localized)
             self.delegate?.showErrorState(with: state)
+            self.logEvent(with: .incorrectEmailOtp)
             return(state)
         }
         return(.emailOtp(success: true, msgString: ""))
@@ -105,7 +108,7 @@ class EnableDisableWalletOTPVM {
                     return
                 }
             }
-            
+            self.logEvent(with: .enterPasswordAndContinue)
             let dict : JSONDictionary = [
                 "passcode" : self.details.password,
                 "mobile_otp" : self.details.phoneOtp,
@@ -135,6 +138,7 @@ class EnableDisableWalletOTPVM {
             guard let self = self else {return}
             self.delegate?.comoletedValidation((success))
             if !success{
+                self.logEventForError(with: error)
                 AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .otp)
             }
         }
@@ -144,5 +148,29 @@ class EnableDisableWalletOTPVM {
         APICaller.shared.cancelEnableDisableWalletOtp(params: [:]) {(success, error) in}
     }
     
+    
+}
+
+///Analytics
+extension EnableDisableWalletOTPVM{
+    enum EventLogType{
+        case viewPassword, hidePassword, incorrectPassword,generateOtpForMob
+        case incorrectMobOtp, generateOtpForEmail, incorrectEmailOtp
+        case enterPasswordAndContinue, enableDisableOtp
+    }
+
+    fileprivate func logEventForError(with errors:ErrorCodes){
+        if errors.contains(24) || errors.contains(27){
+            self.logEvent(with: .incorrectMobOtp)
+        }else if errors.contains(25) || errors.contains(26){
+            self.logEvent(with: .incorrectEmailOtp)
+        }else if errors.contains(28){
+            self.logEvent(with: .invalidPasswordFormat)
+        }
+    }
+    
+    func logEvent(with eventType: FirebaseEventLogs.EventsTypeName){
+        FirebaseEventLogs.shared.logEnableDisableWalletEvents(with: eventType, isEnabled: !(UserInfo.loggedInUser?.isWalletEnable ?? true))
+    }
     
 }

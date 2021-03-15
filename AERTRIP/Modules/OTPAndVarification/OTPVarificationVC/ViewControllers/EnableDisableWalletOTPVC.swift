@@ -124,9 +124,11 @@ class EnableDisableWalletOTPVC: BaseVC {
     private func resendOtp(useringFor: String){
         if useringFor == "email"{
             let dict : JSONDictionary = ["resend" : "email"]
+            self.viewModel.logEvent(with: .generateOtpForEmail)
             self.viewModel.sendOTPValidation(params: dict, type: .email)
         }else{
             let dict : JSONDictionary = [ "resend" : "mobile"]
+            self.viewModel.logEvent(with: .generateOtpForMob)
             self.viewModel.sendOTPValidation(params: dict, type: .phone)
         }
     }
@@ -181,13 +183,11 @@ class EnableDisableWalletOTPVC: BaseVC {
     }
     
     @IBAction func cancelButtonTapped(_ sender: Any) {
-//        self.dismiss(animated: true, completion: nil)
         UIView.animate(withDuration: 0.3, animations: {
             self.transparentBackView.transform = CGAffineTransform(translationX: 0, y: self.transparentBackView.height)
             self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
         }) { (success) in
             self.dismiss(animated: false, completion: {
-//                self.onDismissCompletion?()
                 CustomToast.shared.fadeAllToasts()
                 self.viewModel.cancelValidation()
             })
@@ -195,39 +195,8 @@ class EnableDisableWalletOTPVC: BaseVC {
     }
     
     @IBAction func nextButtonTapped(_ sender: Any) {
-        
+        self.view.endEditing(true)
         self.viewModel.validate()
-        
-//        if (UserInfo.loggedInUser?.isWalletEnable ?? true){
-//            if (self.passwordTextField.text?.isEmpty ?? true){
-//                self.passwordTextField.isError = true
-//                AppToast.default.showToastMessage(message: LocalizedString.enterAccountPasswordMsg.localized)
-//            }else if (self.otpPhoneTextField.text?.isEmpty ?? true){
-//                self.otpPhoneTextField.isError = true
-//                AppToast.default.showToastMessage(message: LocalizedString.enterMobileOtpMsg.localized)
-//            }else if (self.otpEmailTextField.text?.isEmpty ?? true){
-//                self.otpEmailTextField.isError = true
-//                AppToast.default.showToastMessage(message: LocalizedString.enterEmailOtpMsg.localized)
-//            }else{
-//                self.nextButton.isLoading = true
-//                let dict : JSONDictionary = [
-//                    "passcode" : self.passwordTextField.text ?? "",
-//                    "mobile_otp" : self.otpPhoneTextField.text ?? "",
-//                    "email_otp" : self.otpEmailTextField.text ?? ""
-//                ]
-//                self.viewModel.validatePassword(with: dict)
-//            }
-//        }else{
-//            if (self.passwordTextField.text?.isEmpty ?? true){
-//                self.passwordTextField.isError = true
-//                AppToast.default.showToastMessage(message: LocalizedString.enterAccountPasswordMsg.localized)
-//            }else{
-//                self.nextButton.isLoading = true
-//                let dict : JSONDictionary = ["passcode" : self.passwordTextField.text ?? ""]
-//                self.viewModel.sendOTPValidation(params: dict, type: .passwordValidation)
-//            }
-//        }
-        
     }
 }
 
@@ -249,6 +218,7 @@ extension EnableDisableWalletOTPVC : EnableDisableWalletOTPVMDelegate{
             self.perform(#selector(self.updatePhoneResendText), with: nil, afterDelay: 60)
         case .passwordValidation:
             UserInfo.loggedInUser?.isWalletEnable = true
+            self.viewModel.logEvent(with: .enableDisableOtp)
             self.dismiss(animated: true){
                 self.delegate?.otpEnableDisableCompleted(false)
             }
@@ -258,6 +228,7 @@ extension EnableDisableWalletOTPVC : EnableDisableWalletOTPVMDelegate{
     func comoletedValidation(_ isSucess: Bool) {
         self.nextButton.isLoading = false
         guard isSucess else {return}
+        self.viewModel.logEvent(with: .enableDisableOtp)
         UserInfo.loggedInUser?.isWalletEnable = false
         self.dismiss(animated: true){
             self.delegate?.otpEnableDisableCompleted(false)

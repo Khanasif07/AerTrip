@@ -484,16 +484,20 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
                 let diff = newAmount - oldAmount
                 if diff > 0 {
                     // increased
+                    self.viewModel.logEvent(with: .fareIncrease)
                     FareUpdatedPopUpVC.showPopUp(isForIncreased: true, decreasedAmount: 0.0, increasedAmount: diff, totalUpdatedAmount: newAmount, continueButtonAction: { [weak self] in
                         guard let sSelf = self else { return }
                         //                        sSelf.sendToFinalCheckoutVC()
+                        sSelf.viewModel.logEvent(with: .continueWithFareIncrease)
                         }, goBackButtonAction: { [weak self] in
                             guard let sSelf = self else { return }
                             sSelf.delegate?.updateFarePrice()
+                            sSelf.viewModel.logEvent(with: .backWithFareIncrease)
                             sSelf.topNavBarLeftButtonAction(sSelf.topNavView.leftButton)
                     })
                 }
                 else if diff < 0 {
+                    self.viewModel.logEvent(with: .fareDipped)
                     // dipped
                     //                    FareUpdatedPopUpVC.showPopUp(isForIncreased: false, decreasedAmount: -diff, increasedAmount: 0, totalUpdatedAmount: 0, continueButtonAction: nil, goBackButtonAction: nil)
                     //                    delay(seconds: 2.0) { [weak self] in
@@ -644,6 +648,7 @@ extension HCDataSelectionVC: TopNavigationViewDelegate {
             self.topNavView.firstRightButton.isHidden = true
             self.topNavView.startActivityIndicaorLoading()
         }
+        self.viewModel.logEvent(with: .openSelectGuest)
 //        delay(seconds: 0.2) {
             AppFlowManager.default.presentHCSelectGuestsVC(delegate: self)
 //        }
