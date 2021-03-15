@@ -91,7 +91,7 @@ extension CompletedVC: UITableViewDelegate , UITableViewDataSource {
         let bookingData = fetchedResultsController.object(at: indexPath)
         if let bookingId = bookingData.bookingId, !bookingId.isEmpty {
             if bookingData.productType == .flight {
-                AppFlowManager.default.moveToFlightBookingsDetailsVC(bookingId: bookingId,tripCitiesStr: bookingData.flightBookingTitle)
+                AppFlowManager.default.moveToFlightBookingsDetailsVC(bookingId: bookingId,tripCitiesStr: bookingData.tripCitiesStr)
             }
             else if bookingData.productType == .other {
                 AppFlowManager.default.moveToOtherBookingsDetailsVC(bookingId: bookingData.bookingId ?? "")

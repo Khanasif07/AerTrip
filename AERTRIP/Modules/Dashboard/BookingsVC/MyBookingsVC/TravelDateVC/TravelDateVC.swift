@@ -261,6 +261,9 @@ class TravelDateVC: BaseVC {
             
             self.fromDatePicker?.minimumDate = self.minFromDate
             self.toDatePicker?.minimumDate = self.minFromDate
+                        
+            self.fromDatePicker.date = self.minFromDate ?? Date()
+            self.toDatePicker.date = self.maxDate ?? Date()
             
             self.setDateOnLabels(fromDate: self.oldFromDate, toDate: self.oldToDate)
         }
