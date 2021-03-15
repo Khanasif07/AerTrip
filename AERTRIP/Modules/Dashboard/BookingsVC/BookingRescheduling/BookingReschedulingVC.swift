@@ -306,7 +306,15 @@ class BookingReschedulingVC: BaseVC {
                 age = AppGlobals.shared.getAgeLastString(dob: paxD.dob, formatter: Date.DateFormat.yyyy_MM_dd.rawValue)
             }
             let cancelationValue = self.viewModel.usingFor == .rescheduling ? paxD.rescheduleCharge : paxD.cancellationCharge
-            var cancelationValueText = self.viewModel.usingFor == .rescheduling ? paxD.rescheduleCharge.amountInDelimeterWithSymbol : paxD.cancellationCharge.amountInDelimeterWithSymbol
+            var cancelationValueText =  ""
+            var saleValue = ""
+            if self.viewModel.usingFor == .rescheduling{
+                saleValue = paxD.amountPaid.amountInDelimeterWithSymbol
+                cancelationValueText = paxD.rescheduleCharge.amountInDelimeterWithSymbol
+            }else{
+                saleValue = (paxD.amountPaid - paxD.reversalMFPax).amountInDelimeterWithSymbol
+                cancelationValueText = paxD.cancellationCharge.amountInDelimeterWithSymbol
+            }
             if cancelationValue == -9{
                 cancelationValueText = "NA"
             }else if cancelationValue == -1{
@@ -315,7 +323,7 @@ class BookingReschedulingVC: BaseVC {
                 cancelationValueText = self.viewModel.usingFor == .rescheduling ? "Free Rescheduling" : "Free Cancellation"
             }
             
-            bookingAccordionCell.configureCell(passengerName: paxD.paxName, pnrNo: pnrNoStr, saleValue: paxD.amountPaid.amountInDelimeterWithSymbol, cancellationCharge: cancelationValueText, refundValue: self.viewModel.usingFor == .rescheduling ? paxD.netRefundForReschedule.amountInDelimeterWithSymbol : paxD.netRefundForCancellation.amountInDelimeterWithSymbol, age: age)
+            bookingAccordionCell.configureCell(passengerName: paxD.paxName, pnrNo: pnrNoStr, saleValue: saleValue, cancellationCharge: cancelationValueText, refundValue: self.viewModel.usingFor == .rescheduling ? paxD.netRefundForReschedule.amountInDelimeterWithSymbol : paxD.netRefundForCancellation.amountInDelimeterWithSymbol, age: age)
             bookingAccordionCell.delegate = self
             
             bookingAccordionCell.cancellationChargeLabel.text = self.viewModel.usingFor == .rescheduling ? LocalizedString.ReschedulingCharges.localized : LocalizedString.CancellationCharges.localized

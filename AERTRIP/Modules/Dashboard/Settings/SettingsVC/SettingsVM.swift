@@ -78,3 +78,49 @@ class SettingsVM {
     }
     
 }
+
+extension SettingsVM{
+
+    func logEvenOnTap(with indexPath:IndexPath){
+        switch self.getSettingsType(key: indexPath.section, index: indexPath.row) {
+        case .country:
+            FirebaseEventLogs.shared.logSettingEvents(with: .changeCountry)
+        case .currency:
+            FirebaseEventLogs.shared.logSettingEvents(with: .changeCurrency)
+        case .notification:
+            FirebaseEventLogs.shared.logSettingEvents(with: .changeNotification)
+        case .changeAertripId:
+            FirebaseEventLogs.shared.logSettingEvents(with: .openChangeId)
+        case .changePassword:
+            if (UserInfo.loggedInUser?.hasPassword == true){
+                FirebaseEventLogs.shared.logSettingEvents(with: .openChangePassword)
+            } else {
+                FirebaseEventLogs.shared.logSettingEvents(with: .openSetPassword)
+            }
+        case .changeMobileNumber:
+            if (UserInfo.loggedInUser?.mobile.isEmpty ?? false){
+                FirebaseEventLogs.shared.logSettingEvents(with: .openChangeMobile)
+            }else{
+                FirebaseEventLogs.shared.logSettingEvents(with: .openSetMobile)
+            }
+        case .disableWalletOtp:
+            FirebaseEventLogs.shared.logSettingEvents(with: .changeCountry)
+        case .calenderSync:
+            FirebaseEventLogs.shared.logSettingEvents(with: .toggleCalender)
+        case .aboutUs:
+            FirebaseEventLogs.shared.logSettingEvents(with: .openAboutUs)
+        case .legal:
+            FirebaseEventLogs.shared.logSettingEvents(with: .openLegal)
+        case .privacyPolicy:
+            FirebaseEventLogs.shared.logSettingEvents(with: .openPrivacy)
+        }
+    }
+    
+    
+}
+
+
+
+
+
+
