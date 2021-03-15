@@ -451,9 +451,9 @@ extension FlightSearchResultVM : AirportFilterDelegate {
         
         // analytics start
         
-        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Airports", AnalyticsKeys.FilterType.rawValue : "n/a", AnalyticsKeys.Values.rawValue : analyticsValues]
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Airports", AnalyticsKeys.FilterType.rawValue : "Layover", AnalyticsKeys.Values.rawValue : analyticsValues]
         
-//        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
         // analytics end
     }
     
@@ -472,9 +472,9 @@ extension FlightSearchResultVM : AirportFilterDelegate {
             analyticsValues.removeLast(2)
         }
         
-        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Airports", AnalyticsKeys.FilterType.rawValue : "n/a", AnalyticsKeys.Values.rawValue : analyticsValues]
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Airports", AnalyticsKeys.FilterType.rawValue : "Layover", AnalyticsKeys.Values.rawValue : analyticsValues]
         
-//        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
         // analytics end
     }
     
@@ -500,9 +500,9 @@ extension FlightSearchResultVM : AirportFilterDelegate {
             analyticsValues.removeLast(2)
         }
         
-        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Airports", AnalyticsKeys.FilterType.rawValue : "n/a", AnalyticsKeys.Values.rawValue : analyticsValues]
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Airports", AnalyticsKeys.FilterType.rawValue : "Origin/Destination", AnalyticsKeys.Values.rawValue : analyticsValues]
         
-//        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
         // analytics end
     }
     
@@ -539,9 +539,9 @@ extension FlightSearchResultVM : AirportFilterDelegate {
             analyticsValues.removeLast(2)
         }
         
-        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Airports", AnalyticsKeys.FilterType.rawValue : "n/a", AnalyticsKeys.Values.rawValue : analyticsValues]
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Airports", AnalyticsKeys.FilterType.rawValue : "Origin/Destination", AnalyticsKeys.Values.rawValue : analyticsValues]
         
-//        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
         // analytics end
         
     }
@@ -568,9 +568,9 @@ extension FlightSearchResultVM : AirportFilterDelegate {
             analyticsValues.removeLast(2)
         }
         
-        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Airports", AnalyticsKeys.FilterType.rawValue : "n/a", AnalyticsKeys.Values.rawValue : analyticsValues]
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Airports", AnalyticsKeys.FilterType.rawValue : "Origin/Destination", AnalyticsKeys.Values.rawValue : analyticsValues]
         
-//        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
         // analytics end
         
     }
@@ -597,9 +597,9 @@ extension FlightSearchResultVM : AirportFilterDelegate {
             analyticsValues.removeLast(2)
         }
         
-        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Airports", AnalyticsKeys.FilterType.rawValue : "n/a", AnalyticsKeys.Values.rawValue : analyticsValues]
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Airports", AnalyticsKeys.FilterType.rawValue : "Origin/Destination", AnalyticsKeys.Values.rawValue : analyticsValues]
         
-//        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
         // analytics end
     }
     
@@ -625,9 +625,9 @@ extension FlightSearchResultVM : AirportFilterDelegate {
             analyticsValues.removeLast(2)
         }
         
-        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Airports", AnalyticsKeys.FilterType.rawValue : "n/a", AnalyticsKeys.Values.rawValue : analyticsValues]
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Airports", AnalyticsKeys.FilterType.rawValue : "Layover", AnalyticsKeys.Values.rawValue : analyticsValues]
         
-//        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
         // analytics end
     }
     
@@ -648,9 +648,9 @@ extension FlightSearchResultVM : AirportFilterDelegate {
             analyticsValues.removeLast(2)
         }
         
-        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Airports", AnalyticsKeys.FilterType.rawValue : "n/a", AnalyticsKeys.Values.rawValue : analyticsValues]
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Airports", AnalyticsKeys.FilterType.rawValue : "Layover", AnalyticsKeys.Values.rawValue : analyticsValues]
         
-//        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
         // analytics end
     }
 
@@ -669,11 +669,11 @@ extension FlightSearchResultVM : QualityFilterDelegate {
         }
         
         // analytics start
-        var analyticsValues = filter.name
+        let analyticsValues = filter.name
         
         let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Quality", AnalyticsKeys.FilterType.rawValue : "n/a", AnalyticsKeys.Values.rawValue : analyticsValues]
         
-//        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
         // analytics end
     }
     
@@ -689,11 +689,11 @@ extension FlightSearchResultVM : QualityFilterDelegate {
         }
         
         // analytics start
-        var analyticsValues = filter.name
+        let analyticsValues = filter.name
         
         let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Quality", AnalyticsKeys.FilterType.rawValue : "n/a", AnalyticsKeys.Values.rawValue : analyticsValues]
         
-//        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
         // analytics end
     }
 }
@@ -728,7 +728,7 @@ extension FlightSearchResultVM : AircraftFilterDelegate {
         
         let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Aircraft", AnalyticsKeys.FilterType.rawValue : "n/a", AnalyticsKeys.Values.rawValue : analyticsValues]
         
-//        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: eventLogParams)
         // analytics end
         
     }
