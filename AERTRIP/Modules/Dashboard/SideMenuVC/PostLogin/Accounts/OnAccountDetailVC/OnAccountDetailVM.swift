@@ -19,6 +19,7 @@ class OnAccountDetailVM: NSObject {
     //MARK:- Public
     var accountDetails: JSONDictionary = JSONDictionary()
     var allDates: [String] = []
+    var accountLadegerDetails:JSONDictionary?
     
   //  {
 //        var arr = Array(accountDetails.keys)
