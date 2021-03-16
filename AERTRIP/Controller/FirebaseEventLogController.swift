@@ -27,8 +27,8 @@ class FirebaseEventLogs{
         case openChangePassword = "OpenChangePassword"
         case openEnableWallet = "OpenEnableOTPForWalletPayments"
         case openDisableWallet = "OpenDisableOTPForWalletPayments"
-        case openAboutUs = "OpenAboutUs"
-        case openLegal = "OpenLegal"
+        case OpenAboutUs
+        case OpenLegal = "OpenLegal"
         case openPrivacy = "OpenPrivacyPolicy"
         
         //MARK: Account update Events TypeNames
@@ -61,7 +61,58 @@ class FirebaseEventLogs{
         case enterPasswordAndContinue = "EnterPasswordAndProceed"
         case enableDisableOtp
         
-        //MARK: Hotels Checkout as Guest
+        //MARK: Individual Hotel Detials Events TypeNames
+        case FoundNoHotelsInfo
+        case CaptureHotelStarRating
+        case CaptureHotelTARating
+        case CaptureHotelDistanceFromCentre
+        case FoundNoHotelPhoto
+        case OpenPhotos
+        case PinchPhotos
+        case ViewPhotosOpening
+        case OpenShare
+        case OpenAddressOnMap
+        case CancelAddressOnMap
+        case OpenAddressOnAppleMap
+        case OpenAddressOnGoogleMap
+        case OpenOverview
+        case OpenAmenities
+        case OpenTripAdvisor
+        case OpenViewReviews
+        case OpenTAPhotos
+        case OpenWriteAReview
+        case OpenRoomSearch
+        case OpenRoomSearchViaMic
+        case BreakfastFilterPresetsOn
+        case BreakfastFilterPresetsOff
+        case FreeCancellationFilterPresetOn
+        case FreeCancellationFilterPresetOff
+        case FindNoResultsAfterAapplyingRoomfilters
+        case ResetRoomFilters
+        case OpenAddToTrips
+        case CancelAddToTrips
+        case OpenCreateNewTrip
+        case SetATripPhoto
+        case CancelCreateNewTrip
+        case CreateNewTrip
+        case SelectTripAndSave
+        case TryAddingToTripAlreadyExists
+        case ClearFilterTerm
+        case ClickOnSelectRoom
+        case CountTotalRoomsAvailable
+        case ExpandCancellationPolicy
+        case BookRoomWithNoMeals
+        case BookRoomWithBreakfast
+        case BookRoomWithHalfBoard
+        case BookRoomWithFullBoard
+        case BookRoomWithOtherBoardTypes
+        case BookRoomWithFreeCancellation
+        case BookRoomWithPartialCancellation
+        case BookRoomWithNoRefunds
+        case BookRoomWithTransfers
+        case CountTotalOpenedHotels
+        
+        //MARK: Hotels Checkout as Guest Events TypeNames
         case continueAsGuest = "ContinueAsGuest"
         case connectWithFacebook = "ConnectWithFacebook"
         case connectWithGoogle = "ConnectWithGoogle"
@@ -147,6 +198,17 @@ class FirebaseEventLogs{
         }
 //        FirebaseAnalyticsController.shared.logEvent(name: eventName, params: [AnalyticsKeys.FilterName.rawValue: value])
     }
+    
+    
+    //MARK: Individaul Hotel Detials Events Log Function
+    func logIndividualHotelsDetalsEvents(with type: EventsTypeName, value:String?){
+//        var param:JSONDictionary = [AnalyticsKeys.FilterName.rawValue: type.rawValue]
+//        if let value = value{
+//            param[AnalyticsKeys.Values.rawValue] = value
+//        }
+//        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.IndividualHotelDetails.rawValue, params: param)
+    }
+
     
     //MARK:Hotels Guest User Checkout Events Log Function
     func logHotelsGuestUserCheckoutEvents(with type: EventsTypeName){
