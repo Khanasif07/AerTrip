@@ -439,7 +439,7 @@ extension FlightBookingsDetailsVC: MXParallaxHeaderDelegate {
 extension FlightBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
     
     func share() {
-//        FirebaseAnalyticsController.shared.logEvent(name: "BookingFlightDetails", params: ["ScreenName":"FlightBookingsDetailsVC", "ScreenClass":"FlightBookingsDetailsVC", "ButtonAction":"ShareFlightClicked"])
+        FirebaseAnalyticsController.shared.logEvent(name: "BookingFlightDetailsShareFlightDetails", params: ["ScreenName":"FlightBookingsDetailsVC", "ScreenClass":"FlightBookingsDetailsVC", "ButtonAction":"ShareFlightClicked"])
 
         if let url = viewModel.bookingDetail?.shareUrl{
             if !url.isEmpty{
@@ -455,7 +455,7 @@ extension FlightBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
     }
     
     func bookSameFlightOrRoom() {
-//        FirebaseAnalyticsController.shared.logEvent(name: "BookingFlightDetails", params: ["ScreenName":"FlightBookingsDetailsVC", "ScreenClass":"FlightBookingsDetailsVC", "ButtonAction":"BookSameFlightClicked"])
+        FirebaseAnalyticsController.shared.logEvent(name: "BookingFlightDetailsBookSameFlight", params: ["ScreenName":"FlightBookingsDetailsVC", "ScreenClass":"FlightBookingsDetailsVC", "ButtonAction":"BookSameFlightClicked"])
 
         if let whatNext = self.whatNextForSameFlightBook() {
             self.bookSameFlightWith(whatNext)
@@ -497,7 +497,7 @@ extension FlightBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
         
         
         
-//        FirebaseAnalyticsController.shared.logEvent(name: "BookingFlightDetails", params: ["ScreenName":"FlightBookingsDetailsVC", "ScreenClass":"FlightBookingsDetailsVC", "ButtonAction":"FlightAddToCalendarClicked"])
+        FirebaseAnalyticsController.shared.logEvent(name: "BookingFlightDetailsAddToCalender", params: ["ScreenName":"FlightBookingsDetailsVC", "ScreenClass":"FlightBookingsDetailsVC", "ButtonAction":"FlightAddToCalendarClicked"])
 
         let bId = self.viewModel.bookingDetail?.bookingDetail?.bookingId ?? ""
         self.viewModel.bookingDetail?.bookingDetail?.leg.forEach({ (leg) in
@@ -529,7 +529,7 @@ extension FlightBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
         
         guard let legs = self.viewModel.bookingDetail?.bookingDetail?.leg, !legs.isEmpty else {return}
         
-//        FirebaseAnalyticsController.shared.logEvent(name: "BookingFlightDetails", params: ["ScreenName":"FlightBookingsDetailsVC", "ScreenClass":"FlightBookingsDetailsVC", "ButtonAction":"AddToAppleWalletClicked"])
+        FirebaseAnalyticsController.shared.logEvent(name: "BookingFlightDetailsAddToAppleWallet", params: ["ScreenName":"FlightBookingsDetailsVC", "ScreenClass":"FlightBookingsDetailsVC", "ButtonAction":"AddToAppleWalletClicked"])
 
         func addToWallet(FlightId:String) {
             printDebug("Add To Apple Wallet")
