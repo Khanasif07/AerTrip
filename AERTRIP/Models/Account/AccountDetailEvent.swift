@@ -246,8 +246,12 @@ struct AccountDetailEvent {
                     }else {
                         card = (info["card_type"] as? String) ?? ""
                     }
+                    if !card.isEmpty{
+                        self.title = card.lowercased().contains(self._receiptMethod.lowercased()) ? "\(card.capitalized)" : "\(card.capitalized) \(self._receiptMethod.capitalizedFirst())"
+                    }else{
+                        self.title = self._receiptMethod
+                    }
                     
-                    self.title = card.isEmpty ? self._receiptMethod : "\(card.capitalized) \(self._receiptMethod.capitalizedFirst())"
                     
                     let cardNum = (info["card_number"] as? String) ?? "XXXX"
                     self.creditCardNo = "XXXX - XXXX - XXXX - \(cardNum)"
