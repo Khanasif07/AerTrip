@@ -173,6 +173,7 @@ extension IntMCAndReturnDetailsVC {
             }else{
                 fareBreakupViewController.fewSeatsLeftViewHeightFromFlightDetails = 0
             }
+            fareBreakupViewController.setupUpgradeButton(isHidden: !self.viewModel.selectedCompleteJourney.otherFares)
             fareBreakupViewController.journey = self.getSelectedJourneyForAllLegs()
             fareBreakupViewController.taxesDataDisplay()
             fareBreakupViewController.initialDisplayView()
@@ -201,6 +202,7 @@ extension IntMCAndReturnDetailsVC {
         vc.taxesResult = self.viewModel.taxesResult
         vc.journey = getSelectedJourneyForAllLegs()
         vc.sid = self.viewModel.sid
+        vc.isHideUpgradeOption = !self.viewModel.selectedCompleteJourney.otherFares
         vc.bookFlightObject = self.viewModel.bookFlightObject
         vc.view.autoresizingMask = []
         vc.delegate = self
@@ -386,6 +388,20 @@ extension IntMCAndReturnDetailsVC : FareBreakupVCDelegate{
             })
         }
         
+    }
+    
+    func tapUpgradeButton() {
+        let vc = UpgradePlanContrainerVC.instantiate(fromAppStoryboard:.InternationalReturnAndMulticityDetails)
+        vc.viewModel.oldIntJourney = [self.viewModel.selectedCompleteJourney]
+        vc.viewModel.sid = self.viewModel.sid
+        vc.viewModel.isInternational = true
+        vc.viewModel.selectedJourneyFK = [self.viewModel.selectedCompleteJourney.fk]
+        vc.viewModel.flightAdultCount = self.viewModel.bookFlightObject.flightAdultCount
+        vc.viewModel.flightChildrenCount = self.viewModel.bookFlightObject.flightAdultCount
+        vc.viewModel.flightInfantCount = self.viewModel.bookFlightObject.flightAdultCount
+        vc.viewModel.bookingObject = self.viewModel.bookFlightObject
+        vc.viewModel.taxesResult = self.viewModel.taxesResult
+        self.present(vc, animated: true, completion: nil)
     }
 }
 

@@ -1215,12 +1215,12 @@ www.aertrip.com/trip";
 "disableOtpVerificationMsg" = "To disable the OTP verification flow on wallet payment,\nplease enter your password and OTPs sent to your registered email and mobile";
 "enableOtpVerificationMsg" = "To enable the OTP verification flow on wallet payment,\nplease enter your password ";
 "enterAccountPasswordMsg" = "Please enter your account password.";
-"enterMobileOtpMsg" = "Please enter a valid mobile otp.";
-"enterEmailOtpMsg" = "Please enter a valid email otp.";
+"enterMobileOtpMsg" = "Please enter a valid mobile OTP.";
+"enterEmailOtpMsg" = "Please enter a valid email OTP.";
 "enterMobileOtp" = "Enter Mobile OTP";
 "enterEmailOtp" = "Enter Email OTP";
 "newMobileNumber" = "New Mobile Number";
-"validOtpMsg" = "Please enter a valid otp.";
+"validOtpMsg" = "Please enter a valid OTP.";
 
 
 "Update_Aertrip" = "Update Aertrip";

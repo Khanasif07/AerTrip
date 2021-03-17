@@ -20,6 +20,7 @@ class LoginVM {
     var email    = ""
     var password = ""
     var isFirstTime = true
+    var currentlyUsingFrom = LoginFlowUsingFor.loginProcess
     var isLoginButtonEnable: Bool {
         
         if self.email.isEmpty {
@@ -71,6 +72,7 @@ class LoginVM {
         self.delegate?.willLogin()
         APICaller.shared.callLoginAPI(params: params, completionBlock: {(success, errors) in
             if success {
+                self.firebaseLogEvent(with: .login)
                 self.delegate?.didLoginSuccess()
                 UserInfo.loggedInUser?.socialLoginType = LinkedAccount.SocialType.none
                 APICaller.shared.saveLocallyFavToServer()
@@ -83,3 +85,16 @@ class LoginVM {
     }
 }
 
+///Log events for login
+extension LoginVM{
+    
+    func firebaseLogEvent(with event:FirebaseEventLogs.EventsTypeName){
+        switch self.currentlyUsingFrom {
+        case .loginProcess:break
+        case .loginVerificationForCheckout:
+            FirebaseEventLogs.shared.logHotelsGuestUserCheckoutEvents(with: event)
+        case .loginVerificationForBulkbooking:break;
+        case .loginFromEmailShare:break
+        }
+    }
+}

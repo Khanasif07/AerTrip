@@ -30,6 +30,8 @@ enum AnalyticsEvents: String {
     case EnableOTP
     case DisableOTP
     case Settings
+    case IndividualHotelDetails
+    case HotelGuestCheckout
     case HotelCheckOut
     
 }

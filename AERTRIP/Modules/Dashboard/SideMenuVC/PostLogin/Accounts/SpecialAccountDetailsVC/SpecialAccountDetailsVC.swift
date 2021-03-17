@@ -289,14 +289,17 @@ extension SpecialAccountDetailsVC{
     func moveToAccountOutstandingLedger(){
         if let id  = self.viewModel.deepLinkParams["voucher_id"],!id.isEmpty{
             if self.viewModel.deepLinkParams["olType"] == "onAccounts"{
-                guard let event = self.viewModel.getEventFromOutstadingOnAccountLadger(with: id) else {return}
-                AppFlowManager.default.moveToAccountLadgerDetailsForOnAccount(forEvent: event, detailType: .outstandingLadger)
+                if let event = self.viewModel.getEventFromAccountLadger(with: id){
+                    AppFlowManager.default.moveToAccountLadgerDetailsVC(forEvent: event, detailType: .accountLadger)
+                }else if let event = self.viewModel.getEventFromOutstadingOnAccountLadger(with: id){
+                    AppFlowManager.default.moveToAccountLadgerDetailsForOnAccount(forEvent: event, detailType: .outstandingLadger)
+                }
             }else{
                 guard let event = self.viewModel.getEventFromAccountLadger(with: id) else {return}
                 AppFlowManager.default.moveToAccountLadgerDetailsVC(forEvent: event, detailType: .outstandingLadger)
             }
         }else{
-            AppFlowManager.default.moveToAccountOutstandingLadgerVC(data: self.viewModel.outstandingLadger)
+            AppFlowManager.default.moveToAccountOutstandingLadgerVC(data: self.viewModel.outstandingLadger, accountLaders: self.viewModel.accountLadger)
         }
     }
     
