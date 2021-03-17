@@ -66,6 +66,9 @@ class MyBookingsVC: BaseVC {
         self.hideAllData()
         MyBookingFilterVM.shared.searchText = ""
         MyBookingsVM.shared.isFetchingBooking = false
+        
+        FirebaseAnalyticsController.shared.logEvent(name: "MyBookings", params: ["ScreenName":"MyBooking", "ScreenClass":"MyBookingsVC"])
+
     }
     
     override func dataChanged(_ note: Notification) {
@@ -80,10 +83,16 @@ class MyBookingsVC: BaseVC {
                     self.topNavBar.firstRightButton.isSelected = false
                     self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "bookingFilterIcon"), selectedImage: #imageLiteral(resourceName: "bookingFilterIcon"))
                 }
+                
+                FirebaseAnalyticsController.shared.logEvent(name: "MyBookingsFilterApplied", params: ["ScreenName":"MyBooking", "ScreenClass":"MyBookingsVC"])
+
             case .myBookingFilterCleared:
                 self.topNavBar.firstRightButton.isSelected = false
                 self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "bookingFilterIcon"), selectedImage: #imageLiteral(resourceName: "bookingFilterIcon"))
                 MyBookingFilterVM.shared.setToDefault()
+                
+                FirebaseAnalyticsController.shared.logEvent(name: "MyBookingsClearFilter", params: ["ScreenName":"MyBooking", "ScreenClass":"MyBookingsVC"])
+
             case .myBookingCasesRequestStatusChanged:
                 MyBookingsVM.shared.getBookings(showProgress: true)
             default:
