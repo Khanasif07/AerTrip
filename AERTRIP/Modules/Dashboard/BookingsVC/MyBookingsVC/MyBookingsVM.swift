@@ -97,7 +97,6 @@ class MyBookingsVM {
     
     func getMinAndMaxBookingDate(bookings : JSONDictionaryArray) {
         
-        
        let sortedData = bookings.sorted { (b1, b2) -> Bool in
             let val1 = b1[APIKeys.booking_date.rawValue] as? String ?? ""
             let val2 = b2[APIKeys.booking_date.rawValue] as? String ?? ""

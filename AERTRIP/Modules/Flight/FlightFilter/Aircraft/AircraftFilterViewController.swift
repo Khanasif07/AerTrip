@@ -171,7 +171,7 @@ extension AircraftFilterViewController : UITableViewDataSource , UITableViewDele
             }
             
             cell.radioButton.isUserInteractionEnabled = false
-            
+            cell.radioButton.imageView?.contentMode = .scaleAspectFill
             return cell
         }
 

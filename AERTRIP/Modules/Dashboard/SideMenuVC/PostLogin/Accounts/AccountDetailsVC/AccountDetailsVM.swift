@@ -77,11 +77,11 @@ class AccountDetailsVM: NSObject {
     
     private func fetchLedgerStartDate() {
         var arr = Array(_accountDetails.keys)
-        printDebug(arr)
+//        printDebug(arr)
         arr.sort { ($0.toDate(dateFormat: "YYYY-MM-dd")?.timeIntervalSince1970 ?? 0) > ($1.toDate(dateFormat: "YYYY-MM-dd")?.timeIntervalSince1970 ?? 0)}
        
-        printDebug("........")
-        printDebug(arr)
+//        printDebug("........")
+//        printDebug(arr)
 
         self.minDate = arr.last?.toDate(dateFormat: "YYYY-MM-dd")
         self.maxDate = arr.first?.toDate(dateFormat: "YYYY-MM-dd")
