@@ -31,7 +31,7 @@ class BookingAddOnRequestVC: BaseVC {
     fileprivate let refreshControl = UIRefreshControl()
     
     var shouldShowMakePayment: Bool {
-        if let caseData = self.viewModel.caseHistory, ((caseData.resolutionStatus == .paymentPending) || (caseData.resolutionStatus == .confirmationPending)) {
+        if let caseData = self.viewModel.caseHistory, ((caseData.resolutionStatus == .paymentPending) || (caseData.resolutionStatus == .confirmationPending)) || (caseData.resolutionStatusId == "2") {
             return true
         }
         return false
@@ -156,7 +156,7 @@ class BookingAddOnRequestVC: BaseVC {
             self.bookingRequestStatusLabel.textColor = AppColors.themeWhite
             self.bookingRequestStatusLabel.font = AppFonts.SemiBold.withSize(16.0)
             var titleText = "Review the quotation and make payment"
-            if let caseData = self.viewModel.caseHistory, caseData.resolutionStatus == .confirmationPending {
+            if let caseData = self.viewModel.caseHistory, (caseData.resolutionStatus == .confirmationPending) || (caseData.resolutionStatusId == "2"){
                 titleText = "Kindly review and confirm"
             }
             self.bookingRequestStatusLabel.text = titleText
@@ -204,15 +204,15 @@ class BookingAddOnRequestVC: BaseVC {
                 //setup for payment
                 setupForPayment()
             }
-            else if caseData.resolutionStatus == .confirmationPending {
+            else if (caseData.resolutionStatus == .confirmationPending) || (caseData.resolutionStatusId == "2"){
                 //setup for confirm
                 
                 var title = "Confirm"
-                if caseData.caseType.lowercased() == "rescheduling request" {
-                    title += "Rescheduling"
+                if caseData.caseType.lowercased().contains("rescheduling request") {
+                    title += " Rescheduling"
                 }
-                else if caseData.caseType.lowercased() == "cancellation request" {
-                    title += "Cancellation"
+                else if caseData.caseType.lowercased().contains("cancellation request") {
+                    title += " Cancellation"
                 }
                 setupForConfirm(title: title)
             }
@@ -249,7 +249,7 @@ class BookingAddOnRequestVC: BaseVC {
                 self.manageLoader(shouldStart: true)
                 self.viewModel.getAddonPaymentItinerary()
             }
-            else if caseData.resolutionStatus == .confirmationPending {
+            else if (caseData.resolutionStatus == .confirmationPending) || (caseData.resolutionStatusId == "2"){
                 //setup for confirm
                 self.viewModel.makeRequestConfirm()
             }

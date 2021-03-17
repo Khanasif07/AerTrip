@@ -91,7 +91,6 @@ class AddOnsVC: BaseVC {
         case 2:
             if BookingRequestAddOnsFFVM.shared.isLCC {
                 commontInputTableViewCell.configureCell(title: LocalizedString.MealBookingTitle.localized, placeholderText: LocalizedString.MealBookingPlaceholder.localized, text: BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].meal ?? "")
-                commontInputTableViewCell.characterCountLabel.isHidden = false
                 commontInputTableViewCell.isUserInteractionEnabled = !(pax?.inProcess ?? false)
                 return commontInputTableViewCell
             } else {
@@ -140,7 +139,7 @@ extension AddOnsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 73.0
+        return 74.0
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -181,8 +180,8 @@ extension AddOnsVC: UITableViewDataSource, UITableViewDelegate {
         let route = leg?.title.split(separator: "-").joined(separator: "→")
         var info: String = leg?.flight.first?.departDate?.toString(dateFormat: "dd MMM YYYY") ?? ""
         
-        info += leg?.refundable == 1 ? " | Refundable " : " | Non-refundable "
-        info += leg?.reschedulable == 1 ? "| Reschedulable " : "| Non-reschedulable "
+//        info += leg?.refundable == 1 ? " | Refundable " : " | Non-refundable "
+//        info += leg?.reschedulable == 1 ? "| Reschedulable " : "| Non-reschedulable "
         headerView.routeLabel.text = route
         headerView.infoLabel.text = info
         return headerView
