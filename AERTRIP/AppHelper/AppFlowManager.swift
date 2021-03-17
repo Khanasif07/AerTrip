@@ -983,16 +983,18 @@ extension AppFlowManager {
         }
     }
     
-    func moveToAccountOutstandingLadgerVC(data: AccountOutstanding) {
+    func moveToAccountOutstandingLadgerVC(data: AccountOutstanding, accountLaders: JSONDictionary?) {
         if let _ = mainNavigationController.topViewController as? AccountOutstandingLadgerVC { return }
         let obj = AccountOutstandingLadgerVC.instantiate(fromAppStoryboard: .Account)
         obj.viewModel.accountOutstanding = data
+        obj.viewModel.accountLadegerDetails = accountLaders
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-    func moveToOnAccountDetailVC(outstanding: AccountOutstanding) {
+    func moveToOnAccountDetailVC(outstanding: AccountOutstanding, accountLaders: JSONDictionary?) {
         let obj = OnAccountDetailVC.instantiate(fromAppStoryboard: .Account)
         obj.viewModel.outstanding = outstanding
+        obj.viewModel.accountLadegerDetails = accountLaders
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     

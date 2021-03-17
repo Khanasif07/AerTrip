@@ -28,7 +28,7 @@ class SpeechSynthesizer: NSObject, AVSpeechSynthesizerDelegate {
         if speechSynthesizer.isSpeaking {
             speechSynthesizer.stopSpeaking(at: .immediate)
         }
-        let speechUtterance: AVSpeechUtterance = AVSpeechUtterance(string: text)
+        let speechUtterance: AVSpeechUtterance = AVSpeechUtterance(string: text.stringByRemovingEmogies)
         speechUtterance.voice = AVSpeechSynthesisVoice(identifier: "com.apple.ttsbundle.Samantha-compact")
         speechSynthesizer.speak(speechUtterance)
     }

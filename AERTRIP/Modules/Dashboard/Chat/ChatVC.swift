@@ -96,6 +96,7 @@ class ChatVC : BaseVC {
     //MARK:- Send Button Tapped
     @IBAction func sendButton(_ sender: UIButton) {
         
+       
         removeSeeResultsAgainCell()
         
         UIApplication.shared.beginIgnoringInteractionEvents()

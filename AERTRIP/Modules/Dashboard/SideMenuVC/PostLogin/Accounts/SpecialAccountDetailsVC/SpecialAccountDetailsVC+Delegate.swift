@@ -297,7 +297,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
                     
                 case 1:
                     
-                    AppFlowManager.default.moveToAccountOutstandingLadgerVC(data: self.viewModel.outstandingLadger)
+                    AppFlowManager.default.moveToAccountOutstandingLadgerVC(data: self.viewModel.outstandingLadger, accountLaders: self.viewModel.accountLadger)
                     
                 case 2:
                     AppFlowManager.default.moveToPeriodicStatementVC(periodicEvents: self.viewModel.periodicEvents)
@@ -314,7 +314,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
                     AppFlowManager.default.moveToAccountDetailsVC(usingFor: .accountLadger, forDetails: self.viewModel.accountLadger, forVoucherTypes: self.viewModel.accVouchers)
                     
                 case 1:
-                    AppFlowManager.default.moveToAccountOutstandingLadgerVC(data: self.viewModel.outstandingLadger)
+                    AppFlowManager.default.moveToAccountOutstandingLadgerVC(data: self.viewModel.outstandingLadger, accountLaders: self.viewModel.accountLadger)
                     
                 default:
                     printDebug("no need to implement")
@@ -328,7 +328,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
                     AppFlowManager.default.moveToAccountDetailsVC(usingFor: .accountLadger, forDetails: self.viewModel.accountLadger, forVoucherTypes: self.viewModel.accVouchers)
                     
                 case 1:
-                    AppFlowManager.default.moveToAccountOutstandingLadgerVC(data: self.viewModel.outstandingLadger)
+                    AppFlowManager.default.moveToAccountOutstandingLadgerVC(data: self.viewModel.outstandingLadger, accountLaders: self.viewModel.accountLadger)
                     
                 default:
                     printDebug("no need to implement")

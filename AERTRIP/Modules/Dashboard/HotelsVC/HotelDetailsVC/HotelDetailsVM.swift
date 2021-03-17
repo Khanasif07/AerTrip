@@ -349,6 +349,7 @@ class HotelDetailsVM {
                 }
             } else {
                 printDebug(errors)
+                sSelf.logEvents(with: .FoundNoHotelsInfo)
                 sSelf.isFooterViewHidden = true
                 sSelf.delegate?.getHotelDetailsFail()
             }
@@ -405,7 +406,9 @@ class HotelDetailsVM {
                 if let sSelf = self {
                     if success {
                         sSelf.placeModel = placeData
+                        sSelf.logEvents(with: .CaptureHotelDistanceFromCentre, value: placeData?.distanceText)
                         printDebug(placeData)
+                        sSelf.capturesEvents()
                         sSelf.delegate?.getHotelDistanceAndTimeSuccess()
                         
                     } else {
@@ -571,3 +574,30 @@ class HotelDetailsVM {
     }
 }
 
+
+///Logs Events For Hotels Details
+extension HotelDetailsVM{
+    
+    func capturesEvents(){
+        guard  let hotelDetail = self.hotelData else {
+            self.logEvents(with: .FoundNoHotelsInfo)
+            return
+        }
+        if hotelDetail.rating != 0{
+            self.logEvents(with: .CaptureHotelTARating, value: "\(hotelDetail.rating)")
+        }
+        
+        if hotelDetail.star != 0{
+            self.logEvents(with: .CaptureHotelStarRating, value: "\(hotelDetail.star)")
+        }
+        if hotelDetail.photos.count == 0{
+            self.logEvents(with: .FoundNoHotelPhoto)
+        }
+        self.logEvents(with: .CountTotalRoomsAvailable, value: "\(hotelDetail.rates?.count ?? 0)")
+    }
+    
+    func logEvents(with eventType:FirebaseEventLogs.EventsTypeName, value:String? = nil){
+        FirebaseEventLogs.shared.logIndividualHotelsDetalsEvents(with: eventType, value: value)
+    }
+    
+}

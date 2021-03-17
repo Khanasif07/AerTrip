@@ -27,8 +27,8 @@ class FirebaseEventLogs{
         case openChangePassword = "OpenChangePassword"
         case openEnableWallet = "OpenEnableOTPForWalletPayments"
         case openDisableWallet = "OpenDisableOTPForWalletPayments"
-        case openAboutUs = "OpenAboutUs"
-        case openLegal = "OpenLegal"
+        case OpenAboutUs
+        case OpenLegal = "OpenLegal"
         case openPrivacy = "OpenPrivacyPolicy"
         
         //MARK: Account update Events TypeNames
@@ -61,12 +61,96 @@ class FirebaseEventLogs{
         case enterPasswordAndContinue = "EnterPasswordAndProceed"
         case enableDisableOtp
         
+        //MARK: Individual Hotel Detials Events TypeNames
+        case FoundNoHotelsInfo
+        case CaptureHotelStarRating
+        case CaptureHotelTARating
+        case CaptureHotelDistanceFromCentre
+        case FoundNoHotelPhoto
+        case OpenPhotos
+        case PinchPhotos
+        case ViewPhotosOpening
+        case OpenShare
+        case OpenAddressOnMap
+        case CancelAddressOnMap
+        case OpenAddressOnAppleMap
+        case OpenAddressOnGoogleMap
+        case OpenOverview
+        case OpenAmenities
+        case OpenTripAdvisor
+        case OpenViewReviews
+        case OpenTAPhotos
+        case OpenWriteAReview
+        case OpenRoomSearch
+        case OpenRoomSearchViaMic
+        case BreakfastFilterPresetsOn
+        case BreakfastFilterPresetsOff
+        case FreeCancellationFilterPresetOn
+        case FreeCancellationFilterPresetOff
+        case FindNoResultsAfterAapplyingRoomfilters
+        case ResetRoomFilters
+        case OpenAddToTrips
+        case CancelAddToTrips
+        case OpenCreateNewTrip
+        case SetATripPhoto
+        case CancelCreateNewTrip
+        case CreateNewTrip
+        case SelectTripAndSave
+        case TryAddingToTripAlreadyExists
+        case ClearFilterTerm
+        case ClickOnSelectRoom
+        case CountTotalRoomsAvailable
+        case ExpandCancellationPolicy
+        case BookRoomWithNoMeals
+        case BookRoomWithBreakfast
+        case BookRoomWithHalfBoard
+        case BookRoomWithFullBoard
+        case BookRoomWithOtherBoardTypes
+        case BookRoomWithFreeCancellation
+        case BookRoomWithPartialCancellation
+        case BookRoomWithNoRefunds
+        case BookRoomWithTransfers
+        case CountTotalOpenedHotels
+        
+        //MARK: Hotels Checkout as Guest Events TypeNames
+        case continueAsGuest = "ContinueAsGuest"
+        case connectWithFacebook = "ConnectWithFacebook"
+        case connectWithGoogle = "ConnectWithGoogle"
+        case connectWithApple = "ConnectWithApple"
+        case login = "Login"
+        case navigateBack = "NavigateBack"
+        
+        //MARK: Hotels Checkout Events TypeName
+        case fareDipped = "FareDipped"
+        case fareIncrease = "FareIncrease"
+        case continueWithFareIncrease = "ContinueWithFareIncrease"
+        case backWithFareIncrease = "BackWithFareIncrease"
+        case openSelectGuest = "OpenSelectGuest"
+        
+        //MARK: Flight Filters
+        case SortFilterTapped = "SortFilterTapped"
+        case StopsFilterTapped = "StopsFilterTapped"
+        case TimesFilterTapped = "TimesFilterTapped"
+        case DurationFilterTapped = "DurationFilterTapped"
+        case AirlinesFilterTapped = "AirlinesFilterTapped"
+        case AirportFilterTapped = "AirportFilterTapped"
+        case PriceFilterTapped = "PriceFilterTapped"
+        case AircraftFilterTapped = "AircraftFilterTapped"
+        
+        case SortFilterSwiped = "SortFilterSwiped"
+        case StopsFilterSwiped = "StopsFilterSwiped"
+        case TimesFilterSwiped = "TimesFilterSwiped"
+        case DurationFilterSwiped = "DurationFilterSwiped"
+        case AirlinesFilterSwiped = "AirlinesFilterSwiped"
+        case AirportFilterSwiped = "AirportFilterSwiped"
+        case PriceFilterSwiped = "PriceFilterSwiped"
+        case AircraftFilterSwiped = "AircraftFilterSwiped"
     }
     
     
     //MARK: Settings Events Log Function
     func logSettingEvents(with type: EventsTypeName){
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Settings.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue])
+//        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Settings.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue])
     }
 
     //MARK: Update Account Details Events Log Function
@@ -87,7 +171,7 @@ class FirebaseEventLogs{
             eventDetails = "UpdateBillingAddress"
         default: break;
         }
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountDetails.rawValue, params: [AnalyticsKeys.FilterName.rawValue:type.rawValue, AnalyticsKeys.FilterType.rawValue:eventDetails, AnalyticsKeys.Values.rawValue:value])
+//        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountDetails.rawValue, params: [AnalyticsKeys.FilterName.rawValue:type.rawValue, AnalyticsKeys.FilterType.rawValue:eventDetails, AnalyticsKeys.Values.rawValue:value])
     }
     
     //MARK: Set and Change Mobile Log Function
@@ -101,7 +185,7 @@ class FirebaseEventLogs{
                 value = "SetMobileNumberSuccessfully"
             }
         }
-        FirebaseAnalyticsController.shared.logEvent(name: eventName, params: [AnalyticsKeys.FilterName.rawValue: value])
+//        FirebaseAnalyticsController.shared.logEvent(name: eventName, params: [AnalyticsKeys.FilterName.rawValue: value])
     }
     
     //MARK: Set and Change Password Log Function
@@ -115,7 +199,7 @@ class FirebaseEventLogs{
                 value = "SetPasswordSuccessfully"
             }
         }
-        FirebaseAnalyticsController.shared.logEvent(name: eventName, params: [AnalyticsKeys.FilterName.rawValue: value])
+//        FirebaseAnalyticsController.shared.logEvent(name: eventName, params: [AnalyticsKeys.FilterName.rawValue: value])
     }
     
     //MARK: Enable and Disble wallet OTP Log Function
@@ -129,7 +213,32 @@ class FirebaseEventLogs{
                 value = "DisbaledOTP"
             }
         }
-        FirebaseAnalyticsController.shared.logEvent(name: eventName, params: [AnalyticsKeys.FilterName.rawValue: value])
+//        FirebaseAnalyticsController.shared.logEvent(name: eventName, params: [AnalyticsKeys.FilterName.rawValue: value])
+    }
+    
+    
+    //MARK: Individaul Hotel Detials Events Log Function
+    func logIndividualHotelsDetalsEvents(with type: EventsTypeName, value:String?){
+//        var param:JSONDictionary = [AnalyticsKeys.FilterName.rawValue: type.rawValue]
+//        if let value = value{
+//            param[AnalyticsKeys.Values.rawValue] = value
+//        }
+//        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.IndividualHotelDetails.rawValue, params: param)
+    }
+
+    
+    //MARK:Hotels Guest User Checkout Events Log Function
+    func logHotelsGuestUserCheckoutEvents(with type: EventsTypeName){
+//        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelGuestCheckout.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue])
+    }
+    
+    //MARK:Hotels Checkout Events Log Function
+    func logHotelsCheckoutEvents(with type: EventsTypeName){
+//        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelCheckOut.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue])
+    }
+    
+    func logFlightFilterEvents(with type: EventsTypeName) {
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFiltersNavigation.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue])
     }
     
 }

@@ -23,6 +23,7 @@ class SocialLoginVM {
     //MARK:-
     weak var delegate: SocialLoginVMDelegate?
     var userData = SocialUserModel()
+    var currentlyUsingFrom = LoginFlowUsingFor.loginProcess
     var isFirstTime = true
     
     //MARK:- Actions
@@ -234,12 +235,15 @@ extension SocialLoginVM {
                     //                    UserInfo.loggedInUser?.socialLoginType = LinkedAccount.SocialType.linkedin
                     
                 case "google".lowercased():
+                    self.firebaseLogEvent(with: .connectWithGoogle)
                     UserInfo.loggedInUser?.socialLoginType = LinkedAccount.SocialType.google
                     
                 case "facebook".lowercased():
+                    self.firebaseLogEvent(with: .connectWithFacebook)
                     UserInfo.loggedInUser?.socialLoginType = LinkedAccount.SocialType.facebook
                     
                 case "apple_oauth2".lowercased():
+                    self.firebaseLogEvent(with: .connectWithApple)
                     UserInfo.loggedInUser?.socialLoginType = LinkedAccount.SocialType.apple
                 default:
                     UserInfo.loggedInUser?.socialLoginType = nil
@@ -255,4 +259,21 @@ extension SocialLoginVM {
         })
         
     }
+}
+
+///Logs events for hotels checkouts
+extension SocialLoginVM{
+    
+    func firebaseLogEvent(with event:FirebaseEventLogs.EventsTypeName){
+        switch self.currentlyUsingFrom {
+        case .loginProcess:break
+        case .loginVerificationForCheckout:
+            FirebaseEventLogs.shared.logHotelsGuestUserCheckoutEvents(with: event)
+        case .loginVerificationForBulkbooking:break;
+        case .loginFromEmailShare:break
+        }
+        
+        
+    }
+    
 }

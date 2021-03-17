@@ -54,6 +54,7 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
     @IBOutlet weak var allLayoverButton: UIButton!
     @IBOutlet weak var allLayoversContainerBtn: UIButton!
     @IBOutlet weak var noLayoversLbl: UILabel!
+    @IBOutlet weak var sameDepartReturnTopBtn: UIButton!
     
     //MARK:- Height Constraints Outlets
     @IBOutlet weak var topViewHeight: NSLayoutConstraint!
@@ -545,6 +546,9 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
     }
     
     
+    @IBAction func sameDepartReturnTopBtnAction(_ sender: UIButton) {
+        sameDepartReturnBtnAction(sameDepartReturnBtn)
+    }
     
     @IBAction func OriginDestinationSelected(_ sender: UIButton) {
         

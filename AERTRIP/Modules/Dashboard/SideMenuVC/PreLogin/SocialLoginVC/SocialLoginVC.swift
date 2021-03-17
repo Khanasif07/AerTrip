@@ -166,6 +166,7 @@ class SocialLoginVC: BaseVC {
     }
     
     override func bindViewModel() {
+        self.viewModel.currentlyUsingFrom = self.currentlyUsingFrom
         self.viewModel.delegate = self
     }
     
@@ -186,6 +187,7 @@ class SocialLoginVC: BaseVC {
     }
     
     @IBAction func newRegistrationButtonAction(_ sender: UIButton) {
+        self.viewModel.firebaseLogEvent(with: .continueAsGuest)
         if currentlyUsingFrom == .loginVerificationForCheckout {
             popIfUsingFromCheckOut()
         }
@@ -314,6 +316,7 @@ private extension SocialLoginVC {
 
 extension SocialLoginVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
+        self.viewModel.firebaseLogEvent(with: .navigateBack)
         if self.currentlyUsingFrom == .loginProcess  {
             self.delegate?.backButtonTapped(sender)
         } else if self.currentlyUsingFrom == .loginVerificationForCheckout || self.currentlyUsingFrom == .loginVerificationForBulkbooking{

@@ -112,6 +112,9 @@ class HotelDetailsSearchTagTableCell: UITableViewCell {
     }
     
     private func getTypeOfFIlteration(parentVC: HotelDetailsVC, currentTag: String, isAvailableInSource: Bool) {
+        
+        self.logFirebaeEvent(with: parentVC, tag: currentTag, isAdded: !isAvailableInSource)
+        
         if !isAvailableInSource {
             if parentVC.viewModel.filterAppliedData.roomMeal.contains(currentTag) {
                 parentVC.viewModel.roomMealDataCopy.append(currentTag)
@@ -134,6 +137,24 @@ class HotelDetailsSearchTagTableCell: UITableViewCell {
                 //            parentVC.viewModel.currentlyFilterApplying = .newTag
             }
         }
+    }
+    
+    func logFirebaeEvent(with parent:HotelDetailsVC, tag:String, isAdded:Bool){
+        if tag.lowercased() == "breakfast"{
+            if isAdded{
+                parent.viewModel.logEvents(with: .BreakfastFilterPresetsOn)
+            }else{
+                parent.viewModel.logEvents(with: .BreakfastFilterPresetsOff)
+            }
+        }else if tag.lowercased() == "free cancellation"{
+            if isAdded{
+                parent.viewModel.logEvents(with: .FreeCancellationFilterPresetOn)
+            }else{
+                parent.viewModel.logEvents(with: .FreeCancellationFilterPresetOff)
+            }
+        }
+        
+        
     }
     
     @IBAction func searchBarBtnAction(_ sender: Any) {

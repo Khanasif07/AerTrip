@@ -438,7 +438,7 @@ class AccountOutstandingLadgerVC: BaseVC {
     //MARK:- Action
     @IBAction func onAccountButtonAction(_ sender: UIButton) {
         if let obj = self.viewModel.accountOutstanding {
-            AppFlowManager.default.moveToOnAccountDetailVC(outstanding: obj)
+            AppFlowManager.default.moveToOnAccountDetailVC(outstanding: obj, accountLaders: self.viewModel.accountLadegerDetails)
         }
     }
     @IBAction func makePaymentButtonAction(_ sender: UIButton) {

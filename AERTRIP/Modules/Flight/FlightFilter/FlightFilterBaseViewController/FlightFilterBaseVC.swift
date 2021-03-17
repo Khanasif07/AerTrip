@@ -25,6 +25,9 @@ protocol FilterUIDelegate : AnyObject {
 
 class FlightFilterBaseVC: UIViewController {
 
+    //MARK: For Analytics only
+    var didTapFilter = false
+    
     // MARK: Properties
     weak var delegate : FilterDelegate?
     weak var filterUIDelegate : FilterUIDelegate?

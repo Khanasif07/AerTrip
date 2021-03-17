@@ -26,11 +26,16 @@ extension UnicodeScalar {
     var isZeroWidthJoiner: Bool {
         return value == 8205
     }
+    
+    
 }
 
 // MARK: - glyphCount
 
 extension String {
+    
+    
+    
     var encodeUrl: String {
         return self.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed) ?? self
     }
@@ -126,6 +131,12 @@ extension String {
         return !unicodeScalars.filter { $0.isEmoji }.isEmpty
     }
     
+    
+    var stringByRemovingEmogies : String {
+        return String(self.unicodeScalars.filter { !$0.isEmoji })
+    }
+    
+
     var isBackSpace : Bool {
         guard let char = self.cString(using: String.Encoding.utf8) else {return false}
         return strcmp(char, "\\b") == -92
@@ -1082,3 +1093,5 @@ extension String {
         }
     }
 }
+
+
