@@ -497,10 +497,19 @@ class HotelDetailsVC: BaseVC {
             initialPanPoint = touchPoint
         }
     }
-    
+    //MARK: Open map functions
     func openMap() {
         guard let reqParams = self.viewModel.hotelSearchRequest?.requestParameters,let destParams = self.viewModel.hotelData else { return }
-        AppGlobals.shared.redirectToMap(sourceView: view, originLat: reqParams.latitude, originLong: reqParams.longitude, destLat: destParams.lat, destLong: destParams.long)
+        self.viewModel.logEvents(with: .OpenAddressOnMap)
+        AppGlobals.shared.redirectToMap(sourceView: view, originLat: reqParams.latitude, originLong: reqParams.longitude, destLat: destParams.lat, destLong: destParams.long, openMap: {[weak self] index in
+            if index == 0{
+                self?.viewModel.logEvents(with: .OpenAddressOnAppleMap)
+            }else{
+                self?.viewModel.logEvents(with: .OpenAddressOnGoogleMap)
+            }
+        },cancelTapped: {[weak self] in
+            self?.viewModel.logEvents(with: .CancelAddressOnMap)
+        })
     }
 }
 
