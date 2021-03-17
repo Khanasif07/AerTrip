@@ -51,6 +51,10 @@ class FlightBookingInfoVC: BaseVC {
         }
         //        self.tableView.backgroundColor = AppColors.themeWhite
 //        self.viewModel.getBookingFees()
+        
+        
+        FirebaseAnalyticsController.shared.logEvent(name: "BookingFlightDetailFlightInfo", params: ["ScreenName":"BookingFlightDetailFlightInfo", "ScreenClass":"FlightBookingInfoVC"])
+
     }
     
     
