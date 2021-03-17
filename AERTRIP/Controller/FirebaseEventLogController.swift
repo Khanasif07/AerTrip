@@ -127,7 +127,24 @@ class FirebaseEventLogs{
         case backWithFareIncrease = "BackWithFareIncrease"
         case openSelectGuest = "OpenSelectGuest"
         
+        //MARK: Flight Filters
+        case SortFilterTapped = "SortFilterTapped"
+        case StopsFilterTapped = "StopsFilterTapped"
+        case TimesFilterTapped = "TimesFilterTapped"
+        case DurationFilterTapped = "DurationFilterTapped"
+        case AirlinesFilterTapped = "AirlinesFilterTapped"
+        case AirportFilterTapped = "AirportFilterTapped"
+        case PriceFilterTapped = "PriceFilterTapped"
+        case AircraftFilterTapped = "AircraftFilterTapped"
         
+        case SortFilterSwiped = "SortFilterSwiped"
+        case StopsFilterSwiped = "StopsFilterSwiped"
+        case TimesFilterSwiped = "TimesFilterSwiped"
+        case DurationFilterSwiped = "DurationFilterSwiped"
+        case AirlinesFilterSwiped = "AirlinesFilterSwiped"
+        case AirportFilterSwiped = "AirportFilterSwiped"
+        case PriceFilterSwiped = "PriceFilterSwiped"
+        case AircraftFilterSwiped = "AircraftFilterSwiped"
     }
     
     
@@ -218,6 +235,10 @@ class FirebaseEventLogs{
     //MARK:Hotels Checkout Events Log Function
     func logHotelsCheckoutEvents(with type: EventsTypeName){
 //        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelCheckOut.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue])
+    }
+    
+    func logFlightFilterEvents(with type: EventsTypeName) {
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFiltersNavigation.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue])
     }
     
 }
