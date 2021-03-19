@@ -43,7 +43,12 @@ extension FavouriteHotelsVC : PagingViewControllerDelegate, PagingViewController
         
         if let pagingIndexItem = pagingItem as? MenuItem {
             self.currentIndex = pagingIndexItem.index
+            self.viewModel.logFirebaseEvent(with: .SwipeHorizontallyToNavigate)
         }
+    }
+    
+    func pagingViewController(_ pagingViewController: PagingViewController, didSelectItem pagingItem: PagingItem) {
+        self.viewModel.logFirebaseEvent(with: .TapToNavigate)
     }
 }
 

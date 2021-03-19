@@ -34,6 +34,7 @@ enum AnalyticsEvents: String {
     case IndividualHotelDetails
     case HotelGuestCheckout
     case HotelCheckOut
+    case FavouriteHotels
     
 }
 

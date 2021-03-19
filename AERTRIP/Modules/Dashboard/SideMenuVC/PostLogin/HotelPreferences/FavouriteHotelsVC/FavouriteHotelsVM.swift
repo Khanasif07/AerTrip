@@ -96,3 +96,13 @@ class FavouriteHotelsVM {
     
     //MARK:- Action
 }
+
+
+///Logs Events For Hotels Details
+extension FavouriteHotelsVM{
+    
+    func logFirebaseEvent(with event: FirebaseEventLogs.EventsTypeName, value:String? = nil){
+        FirebaseEventLogs.shared.logIndividualFavouriteHotelsEvents(with: event, value: value)
+    }
+    
+}
