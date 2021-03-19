@@ -17,15 +17,22 @@ extension MyBookingsVC: UISearchBarDelegate {
     
     @objc func search(_ forText: String) {
         printDebug(forText)
+        
+        FirebaseAnalyticsController.shared.logEvent(name: "MyBookingsSearchPerfomed", params: ["ScreenName":"MyBooking", "ScreenClass":"MyBookingsVC","SearchedKey":forText])
+
         MyBookingFilterVM.shared.searchText = forText.removeLeadingTrailingWhitespaces
         self.sendDataChangedNotification(data: ATNotification.myBookingSearching)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.view.endEditing(true)
+        FirebaseAnalyticsController.shared.logEvent(name: "MyBookingsSearchButtonClicked", params: ["ScreenName":"MyBooking", "ScreenClass":"MyBookingsVC"])
     }
     
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar){
+        
+        FirebaseAnalyticsController.shared.logEvent(name: "MyBookingsSearchSpeechToTextSelected", params: ["ScreenName":"MyBooking", "ScreenClass":"MyBookingsVC"])
+
         AppFlowManager.default.moveToSpeechToText(with: self)
     }
 }
