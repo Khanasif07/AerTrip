@@ -128,6 +128,7 @@ class FirebaseEventLogs{
         case openSelectGuest = "OpenSelectGuest"
         
         //MARK: Flight Filters
+        case SortFilterByTapOnFilterIcon = "SortFilterByTapOnFilterIcon"
         case SortFilterTapped = "SortFilterTapped"
         case StopsFilterTapped = "StopsFilterTapped"
         case TimesFilterTapped = "TimesFilterTapped"
