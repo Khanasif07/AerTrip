@@ -116,6 +116,9 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                 self.fareInfoTableView.reloadData()
             }
         }
+        
+        FirebaseAnalyticsController.shared.logEvent(name: "FlightDetailsFareInfo", params: ["ScreenName":"FlightDetailsFareInfo", "ScreenClass":"FareInfoVC"])
+
     }
     
     override func viewDidLayoutSubviews() {
