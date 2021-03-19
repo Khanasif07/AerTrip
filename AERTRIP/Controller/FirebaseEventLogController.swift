@@ -147,12 +147,26 @@ class FirebaseEventLogs{
         case PriceFilterSwiped = "PriceFilterSwiped"
         case AircraftFilterSwiped = "AircraftFilterSwiped"
         
-        //MARK: Favourite Hotels
+        //MARK: Favourite Hotels Events TypeNames
         case AddHotel
         case SwipeHorizontallyToNavigate
         case TapToNavigate
         case RemoveAllHotels
         case FindNoResults
+        
+        //MARK: Travellers List Events TypeNames
+        case OpenMainUser
+        case OpenTraveller
+        case SearchTraveller
+        case SearchTravellerFindNoResults
+        case SwipeToDelete
+        case AddNewTraveller
+        case EnterSelectModeByLongPressing
+        case EnterSelectModeFromMenu
+        case EnterPreferencesFromMenu
+        case EnterImportFromMenu
+        case SelectTravellersAndDelete
+        case SelectTravellersAndAssignGroup
         
     }
     
@@ -251,12 +265,21 @@ class FirebaseEventLogs{
     }
     
     //MARK:Favourite Hotels Events Log Function
-    func logIndividualFavouriteHotelsEvents(with type: EventsTypeName, value:String?){
+    func logFavouriteHotelsEvents(with type: EventsTypeName, value:String?){
 //        var param:JSONDictionary = [AnalyticsKeys.FilterName.rawValue: type.rawValue]
 //        if let value = value{
 //            param[AnalyticsKeys.Values.rawValue] = value
 //        }
 //        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FavouriteHotels.rawValue, params: param)
+    }
+    
+    //MARK:Travellers List Events Log Function
+    func logTravellersListEvents(with type: EventsTypeName, value:String?){
+//        var param:JSONDictionary = [AnalyticsKeys.FilterName.rawValue: type.rawValue]
+//        if let value = value{
+//            param[AnalyticsKeys.Values.rawValue] = value
+//        }
+//        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.TravellersList.rawValue, params: param)
     }
     
 }
