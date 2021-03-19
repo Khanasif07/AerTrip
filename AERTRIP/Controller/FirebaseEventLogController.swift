@@ -125,6 +125,7 @@ class FirebaseEventLogs{
         case fareIncrease = "FareIncrease"
         case continueWithFareIncrease = "ContinueWithFareIncrease"
         case backWithFareIncrease = "BackWithFareIncrease"
+        case openPassengerDetails = "OpenPassengerDetails"
         case openSelectGuest = "OpenSelectGuest"
         
         //MARK: Flight Filters
