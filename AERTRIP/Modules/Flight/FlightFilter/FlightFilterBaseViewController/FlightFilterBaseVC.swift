@@ -206,6 +206,9 @@ class FlightFilterBaseVC: UIViewController {
             self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
             self.parchmentView?.indicatorColor = AppColors.themeGreen
             self.parchmentView?.view.subviews[0].alpha = 1
+            
+            // analytics event
+            logTapEvent(filterIndex: 0)
         }
         parchmentView?.reloadMenu()
     }
