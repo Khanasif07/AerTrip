@@ -47,6 +47,9 @@ class SelectTripVC: BaseVC {
     var presentingStatusBarStyle: UIStatusBarStyle = .darkContent
     var dismissalStatusBarStyle: UIStatusBarStyle = .darkContent
     
+    lazy var parentController:UIViewController? = (self.presentingViewController as? UINavigationController)?.viewControllers.first
+    
+    
     // MARK: - Private
     
     private let cellIdentifier = "cellIdentifier"
@@ -123,6 +126,7 @@ class SelectTripVC: BaseVC {
     // MARK: - Action
     
     @IBAction func createNewButtonAction(_ sender: UIButton) {
+        (self.parentController as? HotelDetailsVC)?.viewModel.logEvents(with: .OpenCreateNewTrip)
         AppFlowManager.default.presentCreateNewTripVC(delegate: self, onViewController: self)
     }
 }
@@ -133,6 +137,7 @@ class SelectTripVC: BaseVC {
 
 extension SelectTripVC: CreateNewTripVCDelegate {
     func createNewTripVC(sender: CreateNewTripVC, didCreated trip: TripModel) {
+        (self.parentController as? HotelDetailsVC)?.viewModel.logEvents(with: .CreateNewTrip)
         viewModel.allTrips.insert(trip, at: 0)
         viewModel.selectedIndexPath = IndexPath(row: 0, section: 0)
         tableView.reloadData()
@@ -169,6 +174,7 @@ extension SelectTripVC: SelectTripVMDelegate {
 
 extension SelectTripVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
+        (self.parentController as? HotelDetailsVC)?.viewModel.logEvents(with: .CancelAddToTrips)
         self.cancelDelegate?.addTripCancelled()
         dismiss(animated: true, completion: nil)
     }

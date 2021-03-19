@@ -14,7 +14,9 @@ class FirebaseAnalyticsController {
     static let shared = FirebaseAnalyticsController()
     
     func logEvent(name: String, params: JSONDictionary? = nil) {
-        Analytics.logEvent(name, parameters: params)
+        if AppConstants.isReleasingForCustomers{
+            Analytics.logEvent(name, parameters: params)
+        }
     }
     
 }
@@ -34,6 +36,10 @@ enum AnalyticsEvents: String {
     case IndividualHotelDetails
     case HotelGuestCheckout
     case HotelCheckOut
+    case FavouriteHotels
+    case TravellersList
+    case ViewTraveller
+    case EditMainTraveller
     
 }
 

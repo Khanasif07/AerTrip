@@ -206,6 +206,7 @@ class TravellerListVC: BaseVC {
             }
             
             tableView.performBatchUpdates {
+                self.viewModel.logEventsForFirebase(with: .EnterSelectModeByLongPressing)
                 self.setSelectMode(isNeedToReload: false)
             } completion: { (_) in
                 delay(seconds: 0.15) {
@@ -341,12 +342,15 @@ class TravellerListVC: BaseVC {
             guard let sSelf = self else { return }
             if index == 0 {
                 printDebug("select traveller")
+                sSelf.viewModel.logEventsForFirebase(with: .EnterSelectModeFromMenu)
                 sSelf.setSelectMode()
             } else if index == 1 {
                 printDebug("preferences traveller")
+                sSelf.viewModel.logEventsForFirebase(with: .EnterPreferencesFromMenu)
                 AppFlowManager.default.moveToPreferencesVC(sSelf)
             } else if index == 2 {
                 printDebug("import traveller")
+                sSelf.viewModel.logEventsForFirebase(with: .EnterImportFromMenu)
                 self?.shouldHitAPI = false
                 AppFlowManager.default.moveToImportContactVC()
             }
@@ -367,6 +371,7 @@ class TravellerListVC: BaseVC {
     
     @IBAction func assignGroupTapped(_ sender: Any) {
         if selectedTravller.count > 0 {
+            self.viewModel.logEventsForFirebase(with: .SelectTravellersAndAssignGroup)
             AppFlowManager.default.showAssignGroupVC(self, getSelectedPaxIds())
         }
     }
@@ -380,6 +385,7 @@ class TravellerListVC: BaseVC {
             let alertView = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.TheseContactsWillBeDeletedFromTravellersList.localized, sourceView: view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
                 
                 if index == 0 {
+                    self.viewModel.logEventsForFirebase(with: .SelectTravellersAndDelete)
                     self.viewModel.paxIds = self.getSelectedPaxIds()
                     self.viewModel.callDeleteTravellerAPI()
                 }
@@ -623,7 +629,10 @@ class TravellerListVC: BaseVC {
     }
     
     
-    func reloadList() {
+    func reloadList() {//self.tableSectionArray
+        if self.tableSectionArray.count == 0 && (!predicateStr.isEmpty){
+            self.viewModel.logEventsForFirebase(with: .SearchTravellerFindNoResults, value: predicateStr)
+        }
         tableView.reloadData()
         var counter = 0
         for result in selectedTravller {
@@ -639,6 +648,7 @@ class TravellerListVC: BaseVC {
     
     func searchTraveller(forText: String) {
         printDebug("searching text is \(forText)")
+        self.viewModel.logEventsForFirebase(with: .SearchTraveller)
         predicateStr = forText
         loadSavedData()
         noResultemptyView.messageLabel.attributedText = self.getAttributedTextForEmptyView(with: forText)//"\(LocalizedString.noResults.localized + " " + LocalizedString.For.localized) '\(forText)'"
@@ -869,6 +879,7 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
                 //                let traveller = weakSelf.fetchedResultsController.object(at: indexPath)
                 let section = weakSelf.tableDataArray[indexPath.section]
                 let traveller = section[indexPath.row]
+                weakSelf.viewModel.logEventsForFirebase(with: .SwipeToDelete)
                 weakSelf.viewModel.paxIds.append(traveller.id ?? "")
                 weakSelf.selectedTravller.append(traveller)
                 weakSelf.viewModel.callDeleteTravellerAPI()
@@ -937,6 +948,7 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
             //tableView.reloadSection(section: indexPath.section, with: .none)
             AppFlowManager.default.moveToViewProfileDetailVC(current.travellerDetailModel, usingFor: .travellerList)
             tableView.deselectRow(at: indexPath, animated: true)
+            self.viewModel.logEventsForFirebase(with: .OpenTraveller)
         }
         shouldHitAPI = false
         self.travellerIdToDelete = current.id ?? ""
@@ -1141,6 +1153,7 @@ extension TravellerListVC: AssignGroupVCDelegate {
 
 extension TravellerListVC: TravellerListHeaderViewDelegate {
     func headerViewTapped() {
+        self.viewModel.logEventsForFirebase(with: .OpenMainUser)
         AppFlowManager.default.moveToViewProfileDetailVC(UserInfo.loggedInUser?.travellerDetailModel ?? TravelDetailModel(), usingFor: .viewProfile)
     }
 }

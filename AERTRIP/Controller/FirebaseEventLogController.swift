@@ -125,9 +125,11 @@ class FirebaseEventLogs{
         case fareIncrease = "FareIncrease"
         case continueWithFareIncrease = "ContinueWithFareIncrease"
         case backWithFareIncrease = "BackWithFareIncrease"
+        case openPassengerDetails = "OpenPassengerDetails"
         case openSelectGuest = "OpenSelectGuest"
         
         //MARK: Flight Filters
+        case SortFilterByTapOnFilterIcon = "SortFilterByTapOnFilterIcon"
         case SortFilterTapped = "SortFilterTapped"
         case StopsFilterTapped = "StopsFilterTapped"
         case TimesFilterTapped = "TimesFilterTapped"
@@ -145,12 +147,84 @@ class FirebaseEventLogs{
         case AirportFilterSwiped = "AirportFilterSwiped"
         case PriceFilterSwiped = "PriceFilterSwiped"
         case AircraftFilterSwiped = "AircraftFilterSwiped"
+        
+        //MARK: Favourite Hotels Events TypeNames
+        case AddHotel
+        case SwipeHorizontallyToNavigate
+        case TapToNavigate
+        case RemoveAllHotels
+        case FindNoResults
+        
+        //MARK: Travellers List Events TypeNames
+        case OpenMainUser
+        case OpenTraveller
+        case SearchTraveller
+        case SearchTravellerFindNoResults
+        case SwipeToDelete
+        case AddNewTraveller
+        case EnterSelectModeByLongPressing
+        case EnterSelectModeFromMenu
+        case EnterPreferencesFromMenu
+        case EnterImportFromMenu
+        case SelectTravellersAndDelete
+        case SelectTravellersAndAssignGroup
+        
+        //MARK: View Traveller Events TypeNames
+        case EditTraveller
+        case CopyDetails
+        
+        //MARK: Edit Main Traveller Events TypeNames
+        case Cancel
+        case Save
+        case PressCTAwithoutSelectingGender
+        case PressCTAWithoutEnteringFirstName
+        case PressCTAWithoutEnteringLastName
+        case EditPhoto
+        case TakePhoto
+        case ChoosePhoto
+        case ImportPhotoFromFacebook
+        case ImportPhotoFromGoogle
+        case RemovePhoto
+        case ChangeAertripID
+        case AddMoreEmails
+        case EnterIncorrectEmail
+        case DeleteEmailID
+        case SetDefaultMobileNumber
+        case AddMoreNumbers
+        case DeleteNumbers
+        case EnterSocialAccount
+        case AddMoreSocialAccounts
+        case DeleteSocialAccounts
+        case AddMoreAddresses
+        case DeleteAddress
+        case EnterDOB
+        case EditDOB
+        case EnterAnniversary
+        case EditAnniversary
+        case EnterNotes
+        case EditNotes
+        case EnterPassportNumber
+        case EditPassportNumber
+        case EnterIssueCountry
+        case EditIssueCountry
+        case EnterIssueDate
+        case EditIssueDate
+        case EnterExpiryDate
+        case EditExpiryDate
+        case SetSeatPreference
+        case EditSeatPreference
+        case SetMealPreference
+        case EditMealPreference
+        case AddFF
+        case EditFF
+        case DeleteFromTravellersList
+        
     }
     
     
     //MARK: Settings Events Log Function
     func logSettingEvents(with type: EventsTypeName){
-//        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Settings.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Settings.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue])
     }
 
     //MARK: Update Account Details Events Log Function
@@ -171,7 +245,7 @@ class FirebaseEventLogs{
             eventDetails = "UpdateBillingAddress"
         default: break;
         }
-//        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountDetails.rawValue, params: [AnalyticsKeys.FilterName.rawValue:type.rawValue, AnalyticsKeys.FilterType.rawValue:eventDetails, AnalyticsKeys.Values.rawValue:value])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountDetails.rawValue, params: [AnalyticsKeys.FilterName.rawValue:type.rawValue, AnalyticsKeys.FilterType.rawValue:eventDetails, AnalyticsKeys.Values.rawValue:value])
     }
     
     //MARK: Set and Change Mobile Log Function
@@ -185,7 +259,7 @@ class FirebaseEventLogs{
                 value = "SetMobileNumberSuccessfully"
             }
         }
-//        FirebaseAnalyticsController.shared.logEvent(name: eventName, params: [AnalyticsKeys.FilterName.rawValue: value])
+        FirebaseAnalyticsController.shared.logEvent(name: eventName, params: [AnalyticsKeys.FilterName.rawValue: value])
     }
     
     //MARK: Set and Change Password Log Function
@@ -199,7 +273,7 @@ class FirebaseEventLogs{
                 value = "SetPasswordSuccessfully"
             }
         }
-//        FirebaseAnalyticsController.shared.logEvent(name: eventName, params: [AnalyticsKeys.FilterName.rawValue: value])
+        FirebaseAnalyticsController.shared.logEvent(name: eventName, params: [AnalyticsKeys.FilterName.rawValue: value])
     }
     
     //MARK: Enable and Disble wallet OTP Log Function
@@ -213,32 +287,64 @@ class FirebaseEventLogs{
                 value = "DisbaledOTP"
             }
         }
-//        FirebaseAnalyticsController.shared.logEvent(name: eventName, params: [AnalyticsKeys.FilterName.rawValue: value])
+        FirebaseAnalyticsController.shared.logEvent(name: eventName, params: [AnalyticsKeys.FilterName.rawValue: value])
     }
     
     
     //MARK: Individaul Hotel Detials Events Log Function
     func logIndividualHotelsDetalsEvents(with type: EventsTypeName, value:String?){
-//        var param:JSONDictionary = [AnalyticsKeys.FilterName.rawValue: type.rawValue]
-//        if let value = value{
-//            param[AnalyticsKeys.Values.rawValue] = value
-//        }
-//        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.IndividualHotelDetails.rawValue, params: param)
+        var param:JSONDictionary = [AnalyticsKeys.FilterName.rawValue: type.rawValue]
+        if let value = value{
+            param[AnalyticsKeys.Values.rawValue] = value
+        }
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.IndividualHotelDetails.rawValue, params: param)
     }
 
     
     //MARK:Hotels Guest User Checkout Events Log Function
     func logHotelsGuestUserCheckoutEvents(with type: EventsTypeName){
-//        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelGuestCheckout.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelGuestCheckout.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue])
     }
     
     //MARK:Hotels Checkout Events Log Function
     func logHotelsCheckoutEvents(with type: EventsTypeName){
-//        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelCheckOut.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelCheckOut.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue])
     }
     
     func logFlightFilterEvents(with type: EventsTypeName) {
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFiltersNavigation.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue])
+    }
+    
+    //MARK:Favourite Hotels Events Log Function
+    func logFavouriteHotelsEvents(with type: EventsTypeName, value:String?){
+        var param:JSONDictionary = [AnalyticsKeys.FilterName.rawValue: type.rawValue]
+        if let value = value{
+            param[AnalyticsKeys.Values.rawValue] = value
+        }
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FavouriteHotels.rawValue, params: param)
+    }
+    
+    //MARK:Travellers List Events Log Function
+    func logTravellersListEvents(with type: EventsTypeName, value:String?){
+        var param:JSONDictionary = [AnalyticsKeys.FilterName.rawValue: type.rawValue]
+        if let value = value{
+            param[AnalyticsKeys.Values.rawValue] = value
+        }
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.TravellersList.rawValue, params: param)
+    }
+    
+    //MARK:View Traveller Events Log Function
+    func logViewTravellerEvents(with type: EventsTypeName){
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.ViewTraveller.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue])
+    }
+    
+    //MARK:Edit Main Traveller Events Log Function
+    func logEditMainTravellerEvents(with type: EventsTypeName, value:String?){
+        var param:JSONDictionary = [AnalyticsKeys.FilterName.rawValue: type.rawValue]
+        if let value = value{
+            param[AnalyticsKeys.Values.rawValue] = value
+        }
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.TravellersList.rawValue, params: param)
     }
     
 }

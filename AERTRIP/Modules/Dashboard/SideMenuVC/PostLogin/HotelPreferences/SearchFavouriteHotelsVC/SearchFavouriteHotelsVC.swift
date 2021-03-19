@@ -36,7 +36,7 @@ class SearchFavouriteHotelsVC: BaseVC {
     }()
     
     var isFirstTime:Bool = true
-
+    lazy var parentVC = (self.presentingViewController as? UINavigationController)?.viewControllers.last
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -179,6 +179,9 @@ extension SearchFavouriteHotelsVC: UICollectionViewDataSource, UICollectionViewD
              self.collectionView.backgroundView = self.noResultemptyView
         }
          self.collectionView.reloadData()
+        if let parentVC = self.parentVC as? FavouriteHotelsVC{
+            parentVC.viewModel.logFirebaseEvent(with: .FindNoResults, value: forText)
+        }
     }
 }
 
@@ -192,6 +195,9 @@ extension SearchFavouriteHotelsVC: HotelCardCollectionViewCellDelegate {
     }
     
     func saveButtonAction(_ sender: UIButton, forHotel: HotelsModel) {
+        if let parentVC = self.parentVC as? FavouriteHotelsVC, !forHotel.isFavourite{
+            parentVC.viewModel.logFirebaseEvent(with: .AddHotel)
+        }
         self.viewModel.updateFavourite(forHotel: forHotel)
     }
 }

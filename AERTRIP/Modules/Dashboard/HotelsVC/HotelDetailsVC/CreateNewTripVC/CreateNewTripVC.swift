@@ -149,6 +149,7 @@ class CreateNewTripVC: BaseVC {
     }
     @IBAction func closeBtnTapped(_ sender: Any) {
         //cross button
+        ((self.presentingViewController as? SelectTripVC)?.parentController as? HotelDetailsVC)?.viewModel.logEvents(with: .CancelCreateNewTrip)
         self.dismiss(animated: true)
     }
 }
@@ -180,6 +181,9 @@ extension CreateNewTripVC: CreateNewTripVMDelegate {
     }
     
     func saveTripSuccess(trip: TripModel) {
+        if tripImageView.image != nil{
+            ((self.presentingViewController as? SelectTripVC)?.parentController as? HotelDetailsVC)?.viewModel.logEvents(with: .SetATripPhoto)
+        }
         self.delegate?.createNewTripVC(sender: self, didCreated: trip)
         self.dismiss(animated: true)
     }
