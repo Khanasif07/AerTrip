@@ -146,6 +146,8 @@ class FirebaseEventLogs{
         case AirportFilterSwiped = "AirportFilterSwiped"
         case PriceFilterSwiped = "PriceFilterSwiped"
         case AircraftFilterSwiped = "AircraftFilterSwiped"
+        
+        case ClearAllFlightFilters = "ClearAllFlightFilters"
     }
     
     
