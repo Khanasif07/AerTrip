@@ -78,12 +78,14 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             
             flights?.removeAll()
             for i in 0..<journey.count{
-            
-                if journey[i].rfdPlcy.rfd.values.contains(-9){
+                
+                let allfcp = journey[i].leg.map { $0.fcp }
+                
+                if allfcp.contains(1) {
                     self.isAPICalled = true
                     self.viewModel.getFareInfoAPICall(sid: self.sid, fk: self.journey[i].fk, index:i)
                     self.initialFCPArray.append(1)
-                }else{
+                } else {
                     self.apiCallCount += 1
                     self.initialFCPArray.append(0)
                     self.progressBar.isHidden = true
