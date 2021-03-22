@@ -21,9 +21,11 @@ func printDebug<T>(_ obj: T) {
     //    } else {
     //        print(obj)
     //    }
-    #if DEBUG
-    print(obj)
-    #endif
+//    #if DEBUG
+    if !AppConstants.isReleasingForCustomers{
+        print(obj)
+    }
+//    #endif
 }
 
 func + (left: NSAttributedString, right: NSAttributedString) -> NSAttributedString

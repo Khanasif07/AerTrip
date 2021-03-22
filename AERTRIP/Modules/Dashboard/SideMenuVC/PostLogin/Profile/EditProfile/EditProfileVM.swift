@@ -179,7 +179,7 @@ class EditProfileVM {
         
         if !self.social.isEmpty{
             if self.checkDuplicateSocial(){
-            AppToast.default.showToastMessage(message: "Socal account is already exists")
+            AppToast.default.showToastMessage(message: "Social account already exists")
               flag = false
             }
         }

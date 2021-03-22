@@ -162,6 +162,7 @@ class HotelDetailsSearchTagTableCell: UITableViewCell {
             printDebug(parentVC.className)
             // Commented because we have to use the roomTags key that is coming empty
             //AppFlowManager.default.presentSearchHotelTagVC(tagButtons: self.allTagsForFilteration, superView: self)
+            parentVC.viewModel.logEvents(with: .OpenRoomSearch)
             AppFlowManager.default.presentSearchHotelTagVC(tagButtons: AppConstants.staticRoomTags, superView: self, presentingStatusBarStyle: statusBarStyle, dismissingStatusBarStyle: statusBarStyle)
 
         }

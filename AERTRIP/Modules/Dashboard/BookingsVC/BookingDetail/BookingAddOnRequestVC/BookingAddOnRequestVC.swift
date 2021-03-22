@@ -76,6 +76,23 @@ class BookingAddOnRequestVC: BaseVC {
         self.refreshControl.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControl.Event.valueChanged)
         self.refreshControl.tintColor = AppColors.themeGreen
         self.requestTableView.refreshControl = refreshControl
+        
+        if let caseData = self.viewModel.caseHistory{
+            let casetype = caseData.caseType
+            
+            var eventName = ""
+            if casetype.lowercased().contains("cancellation"){
+                eventName = "BookingDetailsCancellationRequest"
+            }else if casetype.lowercased().contains("rescheduling")
+            {
+                eventName = "BookingDetailsReschedulingRequest"
+            }else{
+                eventName = "BookingDetailsAddonsRequest"
+            }
+            FirebaseAnalyticsController.shared.logEvent(name: eventName, params: ["ScreenName":casetype, "ScreenClass":"BookingAddOnRequestVC"])
+
+        }
+
     }
     
     override func bindViewModel() {
@@ -246,11 +263,28 @@ class BookingAddOnRequestVC: BaseVC {
         if let caseData = self.viewModel.caseHistory {
             if caseData.resolutionStatus == .paymentPending {
 //                self.showLoaderOnView(view: self.priceView, show: true)
+                
+                FirebaseAnalyticsController.shared.logEvent(name: "BookingDetailsMakePaymentClicked", params: ["ScreenName":"BookingDetailsMakePayment", "ScreenClass":"BookingAddOnRequestVC"])
+
                 self.manageLoader(shouldStart: true)
                 self.viewModel.getAddonPaymentItinerary()
             }
             else if (caseData.resolutionStatus == .confirmationPending) || (caseData.resolutionStatusId == "2"){
                 //setup for confirm
+                
+                var eventName = ""
+                var screenName = ""
+                if caseData.caseType.lowercased().contains("cancellation"){
+                    eventName = "BookingDetailsConfirmCancellationClicked"
+                    screenName = "BookingDetailsConfirmCancellation"
+                }else if caseData.caseType.lowercased().contains("rescheduling")
+                {
+                    eventName = "BookingDetailsConfirmReschedulingClicked"
+                    screenName = "BookingDetailsConfirmRescheduling"
+                }
+                FirebaseAnalyticsController.shared.logEvent(name: eventName, params: ["ScreenName":screenName, "ScreenClass":"BookingAddOnRequestVC"])
+
+                
                 self.viewModel.makeRequestConfirm()
             }
         }
@@ -608,10 +642,15 @@ extension BookingAddOnRequestVC {
             switch index {
             case 0:
                 //PayOnline
+                
+                FirebaseAnalyticsController.shared.logEvent(name: "BookingAddOnRequestPayOnlineClicked", params: ["ScreenName":"BookingAddOnRequest", "ScreenClass":"BookingAddOnRequestVC"])
+
                 AppFlowManager.default.moveToAccountOnlineDepositVC(depositItinerary: self.viewModel.itineraryData, usingToPaymentFor: .addOns)
                 
             case 1:
                 //PayOfflineNRegister
+                FirebaseAnalyticsController.shared.logEvent(name: "BookingAddOnRequestPayOfflineClicked", params: ["ScreenName":"BookingAddOnRequest", "ScreenClass":"BookingAddOnRequestVC"])
+
                 AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .fundTransfer, usingToPaymentFor: .addOns, paymentModeDetail: self.viewModel.itineraryData?.fundTransfer, netAmount: self.viewModel.itineraryData?.netAmount ?? 0.0, bankMaster: self.viewModel.itineraryData?.bankMaster ?? [], itineraryData: self.viewModel.itineraryData)
                 printDebug("PayOfflineNRegister")
                 
