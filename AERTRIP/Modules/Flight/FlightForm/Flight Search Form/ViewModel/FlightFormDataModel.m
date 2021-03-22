@@ -891,8 +891,18 @@
     CalendarVM * calendarVM = [[CalendarVM alloc] init];
     calendarVM.isStartDateSelection = isOnwards;
     calendarVM.isHotelCalendar = NO;
+    
+    if ([self.onwardsDate compare:[NSDate date]] == NSOrderedAscending ) {
+        self.onwardsDate = [NSDate date];
+    }
+    
     calendarVM.date1 = self.onwardsDate;
     if ( self.flightSearchType == RETURN_JOURNEY) {
+      
+        if ([self.returnDate compare:[NSDate date]] == NSOrderedAscending ) {
+            self.returnDate = [NSDate date];
+        }
+        
         calendarVM.date2 = self.returnDate;
     }
      calendarVM.isReturn = forReturn;
@@ -1187,6 +1197,11 @@
         
         MulticityFlightLeg * currentFligtLeg = [self.multiCityArray objectAtIndex:i];
         NSString * key = [NSString stringWithFormat:@"%d",i];
+        
+        if ([currentFligtLeg.travelDate compare:[NSDate date]] == NSOrderedAscending ) {
+            currentFligtLeg.travelDate = [NSDate date];
+        }
+        
         NSString * date = [self formateDateForAPI:currentFligtLeg.travelDate];
         
         [travelDatesDictionary setObject:date forKey:key];
@@ -1462,6 +1477,7 @@
         //  Fetch origin and destination airport and update UI
         NSDictionary * firstAirport = self.recentSearchArray[0];
         NSDictionary * query = [firstAirport valueForKey:@"query"];
+                
         NSString * origin = [query valueForKey:@"origin"];
         NSString * departDateString =[query valueForKey:@"depart"];
         NSString * returnDateString =[query valueForKey:@"return"];

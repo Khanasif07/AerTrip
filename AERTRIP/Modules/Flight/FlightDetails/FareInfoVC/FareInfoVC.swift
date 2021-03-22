@@ -79,11 +79,13 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             flights?.removeAll()
             for i in 0..<journey.count{
                 
-                if journey[i].leg[0].fcp == 1{
+                let allfcp = journey[i].leg.map { $0.fcp }
+                
+                if allfcp.contains(1) {
                     self.isAPICalled = true
                     self.viewModel.getFareInfoAPICall(sid: self.sid, fk: self.journey[i].fk, index:i)
                     self.initialFCPArray.append(1)
-                }else{
+                } else {
                     self.apiCallCount += 1
                     self.initialFCPArray.append(0)
                     self.progressBar.isHidden = true
@@ -523,8 +525,12 @@ extension FareInfoVC : FlightFareInfoVMDelegate{
         DispatchQueue.main.async {
             if let currentParsedResponse = parse(data: data, into: updatedFareInfoStruct.self, with:decoder) {
 
-                if currentParsedResponse.success == true {
-                    self.updatedFareInfo.append(currentParsedResponse.data.first!.value)
+                print(currentParsedResponse)
+                
+                if currentParsedResponse.success {
+                    if let firstValue = currentParsedResponse.data.first {
+                        self.updatedFareInfo.append(firstValue.value)
+                    }
 
                     let num = 0.75/Float(self.journey.count)
                     self.progressBar.progress = Float(num+self.progressBar.progress)
