@@ -1182,7 +1182,7 @@ www.aertrip.com/trip";
 "tokenExpired" = "Token has been expired";
 "userAlreadyCreatedLink" = "User already created using this link";
 "failedToCreateUser" = "Failed to create user";
-"weakPassword" = "Password is weak. Please set a stronger password.";
+"weakPassword" = "Password is weak. Please set a stronger password";
 "provideNewPassword" = "Please provide a valid new password";
 "unableToSetNewPassword" = "Unable to set new password";
 "provideValidToken" = "Please provide valid token";
@@ -1193,13 +1193,13 @@ www.aertrip.com/trip";
 "failedtoUpdateStatusOfCorpEnquiry" = "Failed to update status of Corp Enquiry";
 "somethingWentWrongTryAfterSomeTime" = "Something went wrong. Please try again after some time";
 "failedToSendEmail" = "Failed to send registration email";
-"exceededMaximumAttemptsToResetPassword" = "You have exceeded maximum attempts to Reset Password for the day. Please try again tomorrow.            ";
+"exceededMaximumAttemptsToResetPassword" = "You have exceeded maximum attempts to Reset Password for the day. Please try again tomorrow            ";
 "incorrectEmailId" = "The email ID provided is incorrect";
 
 
 //App Globals
-"googleMapNotInstalled" = "Google Maps is not installed on your device.";
-"restrictedCalendarUse" = "You have been restricted from using the calendar on this device without calendar access this feature wont work.";
+"googleMapNotInstalled" = "Google Maps is not installed on your device";
+"restrictedCalendarUse" = "You have been restricted from using the calendar on this device without calendar access this feature wont work";
 
 //OTP Varification
 "oneTimePassword" = "One Time Password";
@@ -1214,21 +1214,21 @@ www.aertrip.com/trip";
 "verifyYourCredential" = "Verify your credentials";
 "disableOtpVerificationMsg" = "To disable the OTP verification flow on wallet payment,\nplease enter your password and OTPs sent to your registered email and mobile";
 "enableOtpVerificationMsg" = "To enable the OTP verification flow on wallet payment,\nplease enter your password ";
-"enterAccountPasswordMsg" = "Please enter your account password.";
-"enterMobileOtpMsg" = "Please enter a valid mobile OTP.";
-"enterEmailOtpMsg" = "Please enter a valid email OTP.";
+"enterAccountPasswordMsg" = "Please enter your account password";
+"enterMobileOtpMsg" = "Please enter a valid mobile OTP";
+"enterEmailOtpMsg" = "Please enter a valid email OTP";
 "enterMobileOtp" = "Enter Mobile OTP";
 "enterEmailOtp" = "Enter Email OTP";
 "newMobileNumber" = "New Mobile Number";
-"validOtpMsg" = "Please enter a valid OTP.";
+"validOtpMsg" = "Please enter a valid OTP";
 
 
 "Update_Aertrip" = "Update Aertrip";
 "Soft_Update_Msg" = "Aertrip recommends that you update the app to the latest version to enjoy the best experience.";
-"Force_Update_Msg" = "Looks like you are using an old version of the Aertrip app. Kindly update the app to the latest version to enjoy the best experience.";
+"Force_Update_Msg" = "Looks like you are using an old version of the Aertrip app. Kindly update the app to the latest version to enjoy the best experience";
 "Update_Now" = "Update Now";
 "Update_Later" = "Update Later";
-"toChangeMobileNumber" = "To change mobile number,\nkindly enter your existing password.";
+"toChangeMobileNumber" = "To change mobile number,\nkindly enter your existing password";
 
 
 "Account_Details" = "Account Details";

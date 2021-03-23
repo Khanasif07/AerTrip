@@ -148,6 +148,8 @@ class FirebaseEventLogs{
         case PriceFilterSwiped = "PriceFilterSwiped"
         case AircraftFilterSwiped = "AircraftFilterSwiped"
         
+        case ClearAllFlightFilters = "ClearAllFlightFilters"
+
         //MARK: Favourite Hotels Events TypeNames
         case AddHotel
         case SwipeHorizontallyToNavigate
