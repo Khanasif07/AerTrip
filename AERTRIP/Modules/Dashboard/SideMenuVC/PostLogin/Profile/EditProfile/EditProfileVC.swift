@@ -291,6 +291,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     func openCamera() {
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
             checkAndOpenCamera(delegate: self)
+            self.viewModel.logEventsForFirebase(with: .TakePhoto)
         } else {
             let alert = UIAlertController(title: "Warning", message: "You don't have camera", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -299,6 +300,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     }
     
     func openGallery() {
+        self.viewModel.logEventsForFirebase(with: .ChoosePhoto)
         checkAndOpenLibrary(delegate: self)
     }
     
@@ -310,6 +312,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
                 sSelf.editProfileImageHeaderView.profileImageView.setImageWithUrl(socialModel.userData.picture, placeholder: sSelf.defaultPlaceHolder, showIndicator: true)
                 sSelf.viewModel.profilePicture = socialModel.userData.picture
                 sSelf.viewModel.imageSource = "facebook"
+                sSelf.viewModel.logEventsForFirebase(with: .ImportPhotoFromFacebook)
             }
         }
     }
@@ -322,6 +325,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
                 self?.editProfileImageHeaderView.profileImageView.setImageWithUrl(socialModel.userData.picture, placeholder: placeHolder!, showIndicator: true)
                 self?.viewModel.profilePicture = socialModel.userData.picture
                 self?.viewModel.imageSource = "google"
+                self?.viewModel.logEventsForFirebase(with: .ImportPhotoFromGoogle)
             } else {}
         }
     }
@@ -960,6 +964,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
 extension EditProfileVC: TopNavigationViewDelegate {
     
     func topNavBarLeftButtonAction(_ sender: UIButton) {
+        self.viewModel.logEventsForFirebase(with: .Cancel)
         if viewModel.currentlyUsinfFor == .addNewTravellerList {
             dismiss(animated: true, completion: nil)
         } else {
@@ -995,5 +1000,6 @@ extension EditProfileVC: TopNavigationViewDelegate {
             editProfileImageHeaderView.firstNameDividerView.isSettingForErrorState = (self.viewModel.firstName.removeAllWhiteSpacesAndNewLines.isEmpty)
             editProfileImageHeaderView.lastNameDividerView.isSettingForErrorState = (self.viewModel.lastName.removeAllWhiteSpacesAndNewLines.isEmpty)
         }
+        self.viewModel.logEventsForFirebase(with: .Save)
     }
 }

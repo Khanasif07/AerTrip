@@ -332,7 +332,7 @@ extension ViewProfileDetailVC: TopNavigationViewDelegate {
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-        self.viewModel.logEventsForFirebase(with: .EditTraveller)
+        self.viewModel.logEventsForFirebase(with: .OpenEditTraveller)
         self.topNavView.configureFirstRightButton( normalTitle: "", selectedTitle: "")
         self.topNavView.isToShowIndicatorView = true
         self.topNavView.startActivityIndicaorLoading()

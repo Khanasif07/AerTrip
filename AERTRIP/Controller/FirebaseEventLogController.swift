@@ -172,7 +172,7 @@ class FirebaseEventLogs{
         case SelectTravellersAndAssignGroup
         
         //MARK: View Traveller Events TypeNames
-        case EditTraveller
+        case OpenEditTraveller
         case CopyDetails
         
         //MARK: Edit Main Traveller Events TypeNames
