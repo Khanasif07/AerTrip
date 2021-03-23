@@ -975,6 +975,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
     
     @IBAction func doneButtonTapped() {
         toggleFiltersView(hidden: true)
+        FirebaseEventLogs.shared.logFlightFilterEvents(with: .CloseFlightFilterUsingDone)
         
 //        flightFilterVC?.view.removeFromSuperview()
 //        flightFilterVC?.removeFromParent()
@@ -992,6 +993,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         
         if index == curSelectedFilterIndex && backView.height > visualEffectViewHeight + 2 {
             toggleFiltersView(hidden: true)
+            FirebaseEventLogs.shared.logFlightFilterEvents(with: .CloseFlightFilterByTappingFilter)
         } else {
             toggleFiltersView(hidden: false)
         }
