@@ -141,10 +141,10 @@
                                                                 </subviews>
                                                             </stackView>
                                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CkB-fF-fnD" userLabel="LineView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                                                <rect key="frame" x="16" y="45.333333333333336" width="350" height="0.0"/>
+                                                                <rect key="frame" x="16" y="45.333333333333336" width="350" height="0.3333333333333357"/>
                                                                 <color key="backgroundColor" red="0.792156862745098" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="0.29999999999999999" id="cF2-XT-QkF"/>
+                                                                    <constraint firstAttribute="height" constant="0.5" id="cF2-XT-QkF"/>
                                                                 </constraints>
                                                             </view>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="29v-eT-lNi">
