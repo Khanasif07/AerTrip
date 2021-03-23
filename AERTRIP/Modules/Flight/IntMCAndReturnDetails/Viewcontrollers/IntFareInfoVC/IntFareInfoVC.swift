@@ -65,7 +65,10 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         self.fareInfoTableView.separatorStyle = .none
         self.fareInfoTableViewBottom.constant = 0.0
         guard let journey = self.journey.first else {return}
-        if (journey.legsWithDetail.first?.fcp == 0) || (!self.isInternational){
+        
+        let allFcp = journey.legsWithDetail.map({ $0.fcp })
+        
+        if !allFcp.contains(1) || !self.isInternational{
             self.progressBar.isHidden = true
             var fareInfo = IntFareInfo(JSON())
             fareInfo.cp.details = journey.rfdPlcy.cp//journey.fare.cancellationCharges
@@ -85,6 +88,7 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             self.addIndicator()
             self.viewModel.getFareInfoAPICall(sid: self.sid, fk: journey.fk, index: 0)
         }
+        
         if self.isInternational{
             fareRulesData.append([:])
             self.viewModel.getFareRulesAPICall(sid: self.sid, fk: journey.fk, index: 0)
@@ -825,6 +829,9 @@ extension IntFareInfoVC : FlightFareInfoVMDelegate{
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         DispatchQueue.main.async {
             if let currentParsedResponse = parse(data: data, into: updatedFareInfoStruct.self, with:decoder) {
+                
+                print("currentParsedResponse...\(currentParsedResponse)")
+                
                 if currentParsedResponse.success == true{
                     self.updatedFareInfo = IntFlightFareInfoResponse(json)
                     self.showAccordingTolegs = (self.updatedFareInfo?.updatedFareInfo.first?.cp.details.spcFee["ADT"]?.feeDetail.values.count == self.journey.first?.legsWithDetail.count)
