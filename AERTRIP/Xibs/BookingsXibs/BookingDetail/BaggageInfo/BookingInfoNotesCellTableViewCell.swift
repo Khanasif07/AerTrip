@@ -55,7 +55,7 @@ class BookingInfoNotesCellTableViewCell: UITableViewCell {
         var displayTxt = ""
         
         func filterDisplayText(text: String) {
-            if !displayTxt.contains(text) {
+            if !displayTxt.contains(text) && text != ""{
                 if displayTxt != ""{
                     displayTxt.append("\n")
                 }
