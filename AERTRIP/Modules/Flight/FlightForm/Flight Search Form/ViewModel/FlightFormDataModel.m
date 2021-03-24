@@ -885,8 +885,7 @@
 
 //MARK:- Date Selection Preparation and Delegate Methods
 
--(CalendarVM*)VMForDateSelectionIsOnwardsSelection:(BOOL)isOnwards forReturnMode:(BOOL)forReturn
-{
+-(CalendarVM*)VMForDateSelectionIsOnwardsSelection:(BOOL)isOnwards forReturnMode:(BOOL)forReturn {
     
     CalendarVM * calendarVM = [[CalendarVM alloc] init];
     calendarVM.isStartDateSelection = isOnwards;
@@ -909,8 +908,6 @@
     calendarVM.delegate = self;
     return calendarVM;
 }
-
-
 
 // MARK:- Location Based Network API
 -(void)setupLocationService

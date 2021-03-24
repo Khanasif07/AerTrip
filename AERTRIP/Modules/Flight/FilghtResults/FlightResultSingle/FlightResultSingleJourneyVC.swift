@@ -48,7 +48,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     let getSharableLink = GetSharableUrl()
     let viewModel = FlightResultSingleJourneyVM()
     var flightSearchResultVM: FlightSearchResultVM?
-    
+    var reloadFilters : (() -> Void)?
     
     //MARK:- View Controller Methods
     override func viewDidLoad() {
@@ -160,7 +160,6 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     
     fileprivate func snapToTopOrBottomOnSlowScrollDragging(_ scrollView: UIScrollView) {
         
-        
         if let blurEffectView = self.navigationController?.view.viewWithTag(500) {
             var rect = blurEffectView.frame
             let yCoordinate = rect.origin.y * ( -1 )
@@ -271,8 +270,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         }
     }
     
-    @IBAction func emailPinnedFlights(_ sender: Any)
-    {
+    @IBAction func emailPinnedFlights(_ sender: Any) {
         emailPinnedFlights.setImage(UIImage(named: "OvHotelResult"), for: .normal)
         emailPinnedFlights.displayLoadingIndicator(true)
 
@@ -335,7 +333,6 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         
     }
 
-    
     func reloadRowAtIndex(indexPath: IndexPath , with journeyDisplay: JourneyOnewayDisplay ) {
         
         //        if indexPath.section == 0 {
@@ -361,12 +358,16 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     
     
     func updateRefundStatusIfPending(fk: String) {
-        
-        
-//        printDebug(fk)
-        
+
         self.resultsTableView.reloadData()
         
+        self.flightSearchResultVM?.flightLegs.enumerated().forEach({ (ind,val) in
+            if let grp = self.flightSearchResultVM?.flightLegs[ind] {
+                self.flightSearchResultVM?.flightLegs[ind].filteredJourneyArray = grp.filteredJourneyArray
+            }
+        })
+        
+        self.reloadFilters?()
     }
     
     func reloadRowFromFlightDetails(fk: String, isPinned: Bool,isPinnedButtonClicked:Bool) {

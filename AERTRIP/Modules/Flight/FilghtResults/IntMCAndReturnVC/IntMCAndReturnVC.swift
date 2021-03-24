@@ -53,7 +53,9 @@ class IntMCAndReturnVC : UIViewController, GetSharableUrlDelegate
 //    var updateResultWorkItem: DispatchWorkItem?
     var flightSearchResultVM  : FlightSearchResultVM?
     let getSharableLink = GetSharableUrl()
+    var reloadFilters : (() -> Void)?
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.results = InternationalJourneyResultsArray(sort: .Smart)
@@ -336,6 +338,14 @@ extension IntMCAndReturnVC : flightDetailsPinFlightDelegate, UpdateRefundStatusD
     func updateRefundStatus(for fk: String, rfd: Double, rsc: Double) {
         self.viewModel.updateRefundStatusInJourneys(fk: fk, rfd: rfd, rsc: rsc)
         self.resultsTableView.reloadData()
+
+        self.flightSearchResultVM?.flightLegs.enumerated().forEach({ (ind,val) in
+            if let grp = self.flightSearchResultVM?.flightLegs[ind] {
+                self.flightSearchResultVM?.flightLegs[ind].filteredJourneyArray = grp.filteredJourneyArray
+            }
+        })
+        
+        self.reloadFilters?()
 
     }
     

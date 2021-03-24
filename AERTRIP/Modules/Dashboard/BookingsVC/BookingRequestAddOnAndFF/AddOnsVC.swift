@@ -92,6 +92,7 @@ class AddOnsVC: BaseVC {
             if BookingRequestAddOnsFFVM.shared.isLCC {
                 commontInputTableViewCell.configureCell(title: LocalizedString.MealBookingTitle.localized, placeholderText: LocalizedString.MealBookingPlaceholder.localized, text: BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].meal ?? "")
                 commontInputTableViewCell.isUserInteractionEnabled = !(pax?.inProcess ?? false)
+                commontInputTableViewCell.characterCountLabel.isHidden = false
                 return commontInputTableViewCell
             } else {
                 mealOrPreferencesCell.configureCell(title: LocalizedString.MealPreferenceTitle.localized, text: BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].mealPreferenes ?? "")

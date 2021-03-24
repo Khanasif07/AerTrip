@@ -66,7 +66,8 @@ class QueryStatusCollectionCell: UICollectionViewCell {
             self.iconTrailingConstraint.constant = 0
             self.statusImageView.image = #imageLiteral(resourceName: "ic_red_dot")
         }
-        else if self.statusText.lowercased().hasSuffix("aborted") {
+        else if self.statusText.lowercased().hasSuffix("aborted") ||
+                    self.statusText.lowercased().hasSuffix("terminated") {
             self.statusLabel.textColor = AppColors.themeGray40
             self.statusImageView.image = nil
             self.iconHeightConstraint.constant = 0.0
