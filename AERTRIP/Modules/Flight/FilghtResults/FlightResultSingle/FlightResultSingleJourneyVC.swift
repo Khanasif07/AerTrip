@@ -48,7 +48,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     let getSharableLink = GetSharableUrl()
     let viewModel = FlightResultSingleJourneyVM()
     var flightSearchResultVM: FlightSearchResultVM?
-    
+    var reloadFilters : (() -> Void)?
     
     //MARK:- View Controller Methods
     override func viewDidLoad() {
@@ -159,7 +159,6 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     
     
     fileprivate func snapToTopOrBottomOnSlowScrollDragging(_ scrollView: UIScrollView) {
-        
         
         if let blurEffectView = self.navigationController?.view.viewWithTag(500) {
             var rect = blurEffectView.frame
@@ -361,12 +360,16 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     
     
     func updateRefundStatusIfPending(fk: String) {
-        
-        
-//        printDebug(fk)
-        
+
         self.resultsTableView.reloadData()
         
+        self.flightSearchResultVM?.flightLegs.enumerated().forEach({ (ind,val) in
+            if let grp = self.flightSearchResultVM?.flightLegs[ind] {
+                self.flightSearchResultVM?.flightLegs[ind].filteredJourneyArray = grp.filteredJourneyArray
+            }
+        })
+        
+        self.reloadFilters?()
     }
     
     func reloadRowFromFlightDetails(fk: String, isPinned: Bool,isPinnedButtonClicked:Bool) {
