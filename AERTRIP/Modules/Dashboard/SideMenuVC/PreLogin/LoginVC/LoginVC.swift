@@ -89,6 +89,7 @@ class LoginVC: BaseVC {
     }
     
     override func bindViewModel() {
+        self.viewModel.currentlyUsingFrom = self.currentlyUsingFrom
         self.viewModel.delegate = self
     }
     

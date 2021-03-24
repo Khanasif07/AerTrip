@@ -73,7 +73,12 @@ extension OnAccountDetailVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let (currentEvent, _) = self.getEvent(forIndexPath: indexPath)
-        AppFlowManager.default.moveToAccountLadgerDetailsForOnAccount(forEvent: currentEvent, detailType: .outstandingLadger)
+//        if let event = self.getDetailsEvents(with: currentEvent){
+//            AppFlowManager.default.moveToAccountLadgerDetailsVC(forEvent: event, detailType: .accountLadger)
+//        }else{
+            AppFlowManager.default.moveToAccountLadgerDetailsForOnAccount(forEvent: currentEvent, detailType: .outstandingLadger)
+//        }
+        
         
 //        if let bID = currentEvent?.transactionId, !bID.isEmpty {
 //
@@ -96,6 +101,12 @@ extension OnAccountDetailVC: UITableViewDataSource, UITableViewDelegate {
         }
         
         return (allEvent[indexPath.row], allEvent.count)
+    }
+    
+    func getDetailsEvents(with event: OnAccountLedgerEvent?)->AccountDetailEvent?{
+        guard let accLagers = self.viewModel.accountLadegerDetails,let ladger =   Array(accLagers.values) as? [[AccountDetailEvent]], let event = event else {return nil}
+        let events = ladger.flatMap{$0}
+        return events.first(where: {$0.voucherNo == event.voucherNo})
     }
 }
 

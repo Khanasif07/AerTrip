@@ -78,7 +78,7 @@ class OTPVarificationVM{
                     self.validatePassword(with: otpText)
                     return (true, "")
                 }else{
-                    self.logEvent(with: .incorrectPassword)
+                    self.logEvent(with: .invlidCurrentPassword)
                     return (false, LocalizedString.enterAccountPasswordMsg.localized)
                     
                 }
@@ -172,7 +172,7 @@ class OTPVarificationVM{
             }
             self.delegate?.comoletedValidation((success))
             if !success{
-                self.logEvent(with: .incorrectPassword)
+                self.logEvent(with: .invlidCurrentPassword)
                 AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .otp)
             }
         }
@@ -200,11 +200,6 @@ class OTPVarificationVM{
 
 ///Google Analytics
 extension OTPVarificationVM{
-    enum LogEventsForMobileNumber{
-        case emptyMobile, incorrectMobile, openCC, incorrectPassword, incorrectOtp, generatedOtp, success
-    }
-    
-    
     func logEventForMobile(){
         if self.mobile.isEmpty{
             self.logEvent(with: .emptyMobile)
@@ -213,30 +208,14 @@ extension OTPVarificationVM{
         }
     }
     
-    func logEvent(with eventType: LogEventsForMobileNumber){
-        var eventName = ""
-        var filterName = ""
+    func logEvent(with eventType: FirebaseEventLogs.EventsTypeName){
+        var isUpdated = false
         switch self.varificationType {
-        case .phoneNumberChangeOtp: eventName = AnalyticsEvents.ChangeMobile.rawValue
-        case .setMobileNumber: eventName = AnalyticsEvents.SetMobile.rawValue
+        case .phoneNumberChangeOtp: isUpdated = true
+        case .setMobileNumber: isUpdated = false
         default:break
         }
-        switch eventType {
-        case .emptyMobile: filterName = "PressCTAWithoutEnteringMobileNumber"
-        case .incorrectMobile: filterName = "PressCTAEnteringWrongMobileNumber"
-        case .openCC: filterName = "OpenCountryDD"
-        case .incorrectPassword: filterName = "EnterIncorrectCurrentPassword"
-        case .incorrectOtp: filterName = "EnterIncorrectOTP"
-        case .generatedOtp: filterName = "Generate new OTP"
-        case .success:
-            switch self.varificationType {
-            case .phoneNumberChangeOtp: filterName = "SetMobileSuccessfully"
-            case .setMobileNumber: filterName = "ChangeMobileNumberSuccessfully"
-            default:break
-            }
-        }
-    
-        FirebaseAnalyticsController.shared.logEvent(name: eventName, params: [AnalyticsKeys.FilterName.rawValue: filterName])
+        FirebaseEventLogs.shared.logSetUpdateMobileEvents(with: eventType, isUpdated: isUpdated)
     }
     
 }

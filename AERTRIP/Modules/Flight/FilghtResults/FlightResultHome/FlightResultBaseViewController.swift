@@ -976,7 +976,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         flightSearchResultVM.clearAllFilters()
         flightFilterVC?.resetAllFilters()
         intMCAndReturnFilterVC?.resetAllFilters()
-        
+        FirebaseEventLogs.shared.logFlightFilterEvents(with: .ClearAllFlightFilters)
     }
     
     @IBAction func doneButtonTapped() {

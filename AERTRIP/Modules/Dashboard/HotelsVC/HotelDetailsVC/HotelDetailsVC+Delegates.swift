@@ -117,10 +117,14 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
                 if indexPath.row == 2 {
                     // self.openMap()
                 } else if indexPath.row == 3 {
+                    self.viewModel.logEvents(with: .OpenOverview)
                     AppFlowManager.default.presentHotelDetailsOverViewVC(overViewInfo: self.viewModel.hotelData?.info ?? "")
                 } 
             } else if (tableView.cellForRow(at: indexPath) as? TripAdvisorTableViewCell) != nil , let locid = self.viewModel.hotelData?.locid {
-                !locid.isEmpty ? AppFlowManager.default.presentHotelDetailsTripAdvisorVC(hotelId: self.viewModel.hotelData?.hid ?? "", presentingStatusBarStyle: statusBarStyle, dismissalStatusBarStyle: statusBarStyle) : printDebug(locid + "location id is empty")
+                if !locid.isEmpty{
+                    AppFlowManager.default.presentHotelDetailsTripAdvisorVC(hotelId: self.viewModel.hotelData?.hid ?? "", presentingStatusBarStyle: statusBarStyle, dismissalStatusBarStyle: statusBarStyle)
+                    self.viewModel.logEvents(with: .OpenTripAdvisor)
+                }
             } else if (tableView.cellForRow(at: indexPath) as? HotelDetailAmenitiesCell) != nil {
                 self.viewAllButtonAction()
             }
@@ -139,6 +143,7 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
                     //                if let vc = sSelf.parent {
                     //                    AppFlowManager.default.popToViewController(vc, animated: true)
                     //                }
+                    sSelf.viewModel.capturesEvents(with: indexPath.section-2)
                     AppFlowManager.default.moveToHCDataSelectionVC(sid: sSelf.viewModel.hotelSearchRequest?.sid ?? "", hid: sSelf.viewModel.hotelInfo?.hid ?? "", qid: sSelf.viewModel.ratesData[indexPath.section-2].qid, placeModel: sSelf.viewModel.placeModel ?? PlaceModel(), hotelSearchRequest: sSelf.viewModel.hotelSearchRequest ?? HotelSearchRequestModel(), hotelInfo: sSelf.viewModel.hotelInfo ?? HotelSearched(), locid: sSelf.viewModel.hotelInfo?.locid ?? "", roomRate: sSelf.viewModel.ratesData[indexPath.section - 2], delegate: sSelf, presentViewController: presentSelectionVC)
                     AppFlowManager.default.removeLoginConfirmationScreenFromStack()
                     AppGlobals.shared.stopLoading()
@@ -152,6 +157,7 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
                 let urlString = "https:\(data.seeAllPhotos)"
                 let screenTitle = LocalizedString.Photos.localized
                 guard let url = URL(string: urlString) else {return}
+                self.viewModel.logEvents(with: .OpenTAPhotos)
                 AppFlowManager.default.showURLOnATWebView(url, screenTitle: screenTitle)
             }
         }
@@ -254,9 +260,11 @@ extension HotelDetailsVC: HotelDetailDelegate {
         let message:String
         if isAllreadyAdded{
             message = LocalizedString.HotelHasAlreadyBeenSavedToTrip.localized
+            self.viewModel.logEvents(with: .TryAddingToTripAlreadyExists)
         }else{
             let tripName = trip.isDefault ? LocalizedString.Default.localized.lowercased() : "\(trip.name)"
             message = "Hotel has been added to \(tripName) trip"
+            self.viewModel.logEvents(with: .SelectTripAndSave)
         }
         AppToast.default.showToastMessage(message: message, onViewController: self)
     }
@@ -483,6 +491,7 @@ extension HotelDetailsVC: HotelDetailsImgSlideCellDelegate, ImageDeletionDelegat
         gVC.hid = self.viewModel.hotelInfo?.hid ?? ""
         self.present(gVC, animated: true, completion: nil)
         canDismissViewController = false
+        self.viewModel.logEvents(with: .OpenPhotos)
         //        }
     }
     
@@ -540,6 +549,7 @@ extension HotelDetailsVC: HotelDetailsBedsTableViewCellDelegate {
             }else {
                 AppFlowManager.default.popToViewController(sSelf, animated: true)
             }
+            sSelf.viewModel.logEvents(with: .OpenAddToTrips)
             AppFlowManager.default.selectTrip(nil, tripType: .hotel, presentingStatusBarStyle: sSelf.statusBarStyle, dismissalStatusBarStyle: sSelf.statusBarStyle) { [weak self] (trip, details)  in
                 delay(seconds: 0.3, completion: { [weak self] in
                     guard let sSelf = self else {return}
@@ -560,6 +570,7 @@ extension HotelDetailsVC: HotelDetailsBedsTableViewCellDelegate {
 extension HotelDetailsVC: GetFullInfoDelegate {
     func expandCell(expandHeight: CGFloat, indexPath: IndexPath) {
         if !allIndexPath.contains(indexPath) {
+            self.viewModel.logEvents(with: .ExpandCancellationPolicy)
             self.allIndexPath.append(indexPath)
             self.hotelTableView.reloadData()
         } else {
@@ -576,6 +587,7 @@ extension HotelDetailsVC: GetFullInfoDelegate {
 extension HotelDetailsVC: HotelDetailAmenitiesCellDelegate {
     func viewAllButtonAction() {
         if let hotelData = self.viewModel.hotelData {
+            self.viewModel.logEvents(with: .OpenAmenities)
             AppFlowManager.default.showHotelDetailAmenitiesVC(amenitiesGroups: hotelData.amenitiesGroups,amentites: hotelData.amenities, amenitiesGroupOrder: hotelData.amenities_group_order)
         }
     }
@@ -583,6 +595,7 @@ extension HotelDetailsVC: HotelDetailAmenitiesCellDelegate {
 
 extension HotelDetailsVC: HotelRatingInfoCellDelegate {
     func shareButtonAction(_ sender: UIButton) {
+        self.viewModel.logEvents(with: .OpenShare)
         if !self.viewModel.shareLinkURL.isEmpty{
             DispatchQueue.main.async {
                 self.willGetPinnedTemplate()

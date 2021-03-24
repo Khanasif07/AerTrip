@@ -21,9 +21,11 @@ func printDebug<T>(_ obj: T) {
     //    } else {
     //        print(obj)
     //    }
-    #if DEBUG
-    print(obj)
-    #endif
+//    #if DEBUG
+    if !AppConstants.isReleasingForCustomers{
+        print(obj)
+    }
+//    #endif
 }
 
 func + (left: NSAttributedString, right: NSAttributedString) -> NSAttributedString
@@ -447,16 +449,18 @@ class AppGlobals {
         //        mapItem.openInMaps(launchOptions: options)
     }
     
-    func redirectToMap(sourceView: UIView, originLat: String, originLong: String, destLat: String, destLong: String) {
+    func redirectToMap(sourceView: UIView, originLat: String, originLong: String, destLat: String, destLong: String, openMap:((_ index:Int)->())? = nil, cancelTapped: (()->())? = nil) {
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Maps.localized, LocalizedString.GMap.localized], colors: [AppColors.themeDarkGreen, AppColors.themeDarkGreen])
-        //        let titleFont = [NSAttributedString.Key.font: AppFonts.Regular.withSize(14.0), NSAttributedString.Key.foregroundColor: AppColors.themeGray40]
-        //        let titleAttrString = NSMutableAttributedString(string: LocalizedString.Choose_App.localized, attributes: titleFont)
-        _ = PKAlertController.default.presentActionSheet(LocalizedString.Choose_App.localized, titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, message: nil, messageFont: nil, messageColor: nil, sourceView: sourceView, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton, tapBlock: { [weak self] _, index in
+
+        _ = PKAlertController.default.presentActionSheet(LocalizedString.Choose_App.localized, titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, message: nil, messageFont: nil, messageColor: nil, sourceView: sourceView, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton, tapBlock: {[weak self]  _, index in
+            openMap?(index)
             if index == 0 {
                 self?.openAppleMap(originLat: originLat, originLong: originLong, destLat: destLat, destLong: destLong)
             } else if index == 1 {
                 self?.openGoogleMaps(originLat: originLat, originLong: originLong, destLat: destLat, destLong: destLong)
             }
+        },tappedCancelButton: {
+            cancelTapped?()
         })
     }
     

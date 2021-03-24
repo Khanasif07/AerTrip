@@ -178,6 +178,10 @@ extension SearchHotelTagVC: UISearchBarDelegate {
             searchBar.text = ""
         }
     }
+    
+    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar){
+        AppFlowManager.default.moveToSpeechToText(with: self)
+    }
 }
 
 extension SearchHotelTagVC {
@@ -217,4 +221,29 @@ extension SearchHotelTagVC {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
+}
+
+
+extension SearchHotelTagVC: SpeechToTextVCDelegate{
+    func getSpeechToText(_ text: String) {
+        guard !text.isEmpty else {return}
+        searchBar.hideMiceButton(isHidden: false)
+        self.searchBar.text = text
+        self.updateDataSource(searchedTag: text)
+        self.tagTableView.reloadData()
+        if let safeDelegate = self.delegate {
+            safeDelegate.addTagButtons(tagName: searchBar.text ?? "")
+        }
+        IQKeyboardManager.shared().isEnabled = true
+        IQKeyboardManager.shared().isEnableAutoToolbar = true
+        if let vc = (self.presentingViewController as? UINavigationController)?.viewControllers.first as? HotelDetailsVC{
+            vc.viewModel.logEvents(with: .OpenRoomSearchViaMic)
+        }
+        delay(seconds: 0.8) {
+            self.dismiss(animated: true, completion: nil)
+        }
+        
+    }
+
+    
 }

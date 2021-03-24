@@ -64,9 +64,9 @@ class CustomMarker: UIView {
     private func configureData() {
         self.isFavourite = (hotel?.fav ?? "0") == "1"
         
-        var price : Double = hotel?.price ?? 0.0
-        if  let filter = UserInfo.hotelFilter, filter.priceType == .PerNight {
-            price = hotel?.perNightPrice ?? 0.0
+        var price : Double = hotel?.perNightPrice ?? 0.0
+        if  let filter = UserInfo.hotelFilter, filter.priceType == .Total {
+            price = hotel?.price ?? 0.0
         }
         
 //        let str = NSAttributedString(string: hotel?.hotelName?.substring(to: 4) ?? "")

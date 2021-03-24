@@ -69,6 +69,14 @@ class BookingReschedulingVC: BaseVC {
         self.reschedulingTableView.backgroundColor = AppColors.themeGray04
         self.gradientView.addGredient(isVertical: false)
         self.selectAutometically()
+        
+        if self.viewModel.usingFor == .cancellation{
+            //        FirebaseAnalyticsController.shared.logEvent(name: "FlightCancellation", params: ["ScreenName":"FlightCancellationRequest", "ScreenClass":"BookingReschedulingVC"])
+        }else if self.viewModel.usingFor == .cancellation{
+
+            //        FirebaseAnalyticsController.shared.logEvent(name: "FlightRescheduling", params: ["ScreenName":"FlightReschedulingRequest", "ScreenClass":"BookingReschedulingVC"])
+
+        }
     }
     
     func registerXib() {
@@ -201,7 +209,12 @@ class BookingReschedulingVC: BaseVC {
             }
             else {
                 //cancellation
-                AppFlowManager.default.moveToReviewCancellationVC(onNavController: self.navigationController, usingAs: .flightCancellationReview, legs: self.viewModel.legsData, selectedRooms: nil, bookingDetails: self.viewModel.bookingDetails)
+                if self.viewModel.checkNumberOfRemainingAdtIsGreaterInf(){
+                    AppFlowManager.default.moveToReviewCancellationVC(onNavController: self.navigationController, usingAs: .flightCancellationReview, legs: self.viewModel.legsData, selectedRooms: nil, bookingDetails: self.viewModel.bookingDetails)
+                }else{
+                    CustomToast.shared.showToast("Number of remaining infants cannot be more than remaining adults")
+                }
+                
             }
         }
         

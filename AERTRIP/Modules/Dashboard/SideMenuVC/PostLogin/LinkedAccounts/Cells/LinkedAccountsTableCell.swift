@@ -108,7 +108,7 @@ class LinkedAccountsTableCell: UITableViewCell {
                 self.iconImageView.tintColor = AppColors.themeBlack
             }
             if let loggedSocial = UserInfo.loggedInUser?.socialLoginType, let currentSocial = self.linkedAccount?.socialType {
-                self.disconnectButton.setTitleColor( loggedSocial != currentSocial ?  AppColors.themeRed : AppColors.themeGray20, for: .normal)
+                self.disconnectButton.setTitleColor( (loggedSocial != currentSocial && (UserInfo.loggedInUser?.hasPassword == true)) ?  AppColors.themeRed : AppColors.themeGray20, for: .normal)
             }
         }
         else {

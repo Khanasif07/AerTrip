@@ -179,7 +179,7 @@ class ChangePasswordVC: BaseVC {
                 self.viewModel.webserviceForChangePassword()
             }
         } else {
-            self.viewModel.logEvent(with: .invalidFormat)
+            self.viewModel.logEvent(with: .invalidPasswordFormat)
             let isValidOldPassword = !self.viewModel.oldPassword.checkInvalidity(.Password)
             self.oldPasswordTextField.isError = !isValidOldPassword //self.viewModel.password.checkInvalidity(.Password)  removed the validation because to match with website
             let oldPasswordPlaceHolder = self.oldPasswordTextField.placeholder ?? ""

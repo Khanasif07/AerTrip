@@ -55,6 +55,7 @@ class HotelDetailsEmptyStateTableCell: UITableViewCell {
             parentVC.viewModel.selectedTags.removeAll()
 //            parentVC.permanentTagsForFilteration()
             parentVC.filterdHotelData(tagList: [])
+            parentVC.viewModel.logEvents(with: .ResetRoomFilters)
             parentVC.hotelTableView.reloadData()
         }
     }

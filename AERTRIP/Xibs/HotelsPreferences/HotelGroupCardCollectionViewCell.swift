@@ -198,24 +198,28 @@ class HotelGroupCardCollectionViewCell: UICollectionViewCell {
         }
         
 //        self.actualPriceLabel.text = self.hotelListData?.listPrice == 0 ? "" : "\(String(describing: self.hotelListData?.listPrice ?? 0.0))"
-        var listPrice:Double = self.hotelListData?.listPrice ?? 0.0
         
-                
-        var price : Double = self.hotelListData?.price ?? 0.0
-        if  let filter = UserInfo.hotelFilter, filter.priceType == .PerNight {
-            price = self.hotelListData?.perNightPrice ?? 0.0
-            listPrice = self.hotelListData?.perNightListPrice ?? 0.0
+        var listPrice = self.hotelListData?.perNightListPrice
+        var price : Double? = self.hotelListData?.perNightPrice
+        
+        
+        if  let filter = UserInfo.hotelFilter, filter.priceType == .Total  {
+            price = self.hotelListData?.listPrice == 0 ? self.hotelListData?.price : self.hotelListData?.listPrice
+            listPrice = self.hotelListData?.price
         }
-        
+
         if listPrice == 0{
             self.actualPriceLabel.text = ""
         }else{
-            let price = listPrice.amountInDelimeterWithSymbol
-            let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: price)
+            let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: (listPrice ?? 0.0).amountInDelimeterWithSymbol)
             attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 1, range: NSMakeRange(0, attributeString.length))
             self.actualPriceLabel.attributedText = attributeString
+            self.actualPriceLabel.AttributedFontForText(text: (price ?? 0.0).getCurrencySymbol, textFont: AppFonts.Regular.withSize(12))
+            actualPriceLabel.isHidden = price == listPrice
         }
-        self.discountedPriceLabel.text = price.amountInDelimeterWithSymbol
+        self.discountedPriceLabel.text = (price ?? 0.0).amountInDelimeterWithSymbol
+        self.discountedPriceLabel.AttributedFontForText(text: (price ?? 0.0).getCurrencySymbol, textFont: AppFonts.SemiBold.withSize(16))
+        
         self.saveButton.isSelected = self.hotelListData?.fav == "0" ? false : true
         
         self.hotelImageView.cancelImageDownloading()

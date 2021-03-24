@@ -170,7 +170,7 @@ extension BookingData {
                 return outputAttributedString
 
             }
-            else if isReturnFlight(forArr: tripCts){
+            else if ((self.tripType ?? "").lowercased() == "return"){//isReturnFlight(forArr: tripCts)
                 //return flight case
 //                let temp = getReturnString(forArr: tripCts)
 //                return NSMutableAttributedString(string: temp)

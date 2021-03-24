@@ -97,11 +97,11 @@ extension FlightPaymentVC: UITableViewDelegate, UITableViewDataSource {
         let rotateTrans = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
         switch self.viewModel.sectionHeader[headerView.tag]{
         case .Taxes:
-            headerView.arrowButton.transform = (self.isTaxesAndFeeExpended) ? .identity : rotateTrans
+            headerView.arrowButton.transform = (!self.isTaxesAndFeeExpended) ? .identity : rotateTrans
         case .Discount:
-            headerView.arrowButton.transform = (self.isCouponSectionExpanded) ? .identity : rotateTrans
+            headerView.arrowButton.transform = (!self.isCouponSectionExpanded) ? .identity : rotateTrans
         case .Addons:
-            headerView.arrowButton.transform = (self.isAddonsExpended) ? .identity : rotateTrans
+            headerView.arrowButton.transform = (!self.isAddonsExpended) ? .identity : rotateTrans
         default:break
         }
     }

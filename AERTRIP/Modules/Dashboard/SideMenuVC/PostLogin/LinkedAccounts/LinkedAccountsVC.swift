@@ -175,7 +175,7 @@ extension LinkedAccountsVC: LinkedAccountsCellDelegate {
     
     func disConnect(_ sender: UIButton, forType: LinkedAccount.SocialType) {
         
-        if let loggedSocial = UserInfo.loggedInUser?.socialLoginType, loggedSocial == forType {
+        if let loggedSocial = UserInfo.loggedInUser?.socialLoginType, loggedSocial == forType, (UserInfo.loggedInUser?.hasPassword == false) {
             showAlert(title: "Disconnect?", message: LocalizedString.KindlyDisconnectMessage.localized + forType.socialTitle + ".", buttonTitle: "Ok") {
                 printDebug("")
             }

@@ -349,7 +349,7 @@ extension BookingDetailModel {
             let temp = getNormalString(forArr: tripCts)
             return NSMutableAttributedString(string: temp)
         }
-        else if self.isReturnFlight(forArr: tripCts) {
+        else if self.tripType.lowercased() == "return" {//self.isReturnFlight(forArr: tripCts)
             // return flight case
             let temp = getReturnString(forArr: tripCts)
             return NSMutableAttributedString(string: temp)
@@ -366,36 +366,6 @@ extension BookingDetailModel {
                 }
                 else {
                     return self.createNameForMulticity(routes: routes, travelledCity: travledCity)
-//                    var routeStr = ""
-//                    var travLastIndex: Int = 0
-//                    var prevCount: Int = 0
-//                    for route in routes {
-//                        var temp = route.joined(separator: " → ")
-//
-//                        if !routeStr.isEmpty {
-//                            temp = ", \(temp)"
-//                        }
-//
-//                        for (idx, ct) in route.enumerated() {
-//                            let newIdx = idx + prevCount
-//                            if travledCity.count > newIdx, travledCity[newIdx] == ct {
-//                                //travelled through this city
-//                                var currentCityTemp = " \(ct) →"
-//                                if !routeStr.isEmpty, idx == 0 {
-//                                    currentCityTemp = ", \(ct) →"
-//                                }
-//                                travLastIndex = routeStr.count + currentCityTemp.count
-//                            }
-//                        }
-//                        routeStr += temp
-//                        prevCount = route.count
-//                    }
-//
-//                    let attributedStr1 = NSMutableAttributedString(string: routeStr)
-//                    if travLastIndex > 0 && (self.bookingDetail?.journeyCompleted != 1){
-//                        attributedStr1.addAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeGray20], range: NSRange(location: 0, length: travLastIndex + 2))
-//                    }
-//                    return attributedStr1
                 }
             }
             return NSMutableAttributedString(string: LocalizedString.dash.localized)

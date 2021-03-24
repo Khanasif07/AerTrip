@@ -178,7 +178,7 @@ class HotelDetailsVC: BaseVC {
             //self?.manageHeaderView()
             self?.manageBottomRateView()
         }
-        
+        self.viewModel.logEvents(with: .ClickOnSelectRoom)
     }
     
     internal func updateStickyFooterView() {
@@ -444,6 +444,7 @@ class HotelDetailsVC: BaseVC {
             self.viewModel.hotelDetailsTableSectionData.append([.searchTagCell])
             self.viewModel.ratesData = self.viewModel.newFiltersAccordingToTags(rates: rates, selectedTag: tagList)//self.viewModel.filteredRates(rates: rates , roomMealData: self.viewModel.roomMealDataCopy, roomOtherData: self.viewModel.roomOtherDataCopy, roomCancellationData: self.viewModel.roomCancellationDataCopy)
             if self.viewModel.ratesData.isEmpty {
+                self.viewModel.logEvents(with: .FindNoResultsAfterAapplyingRoomfilters)
                 self.viewModel.hotelDetailsTableSectionData.append([.ratesEmptyStateCell])
             } else {
                 for singleRate in self.viewModel.ratesData {
@@ -497,10 +498,19 @@ class HotelDetailsVC: BaseVC {
             initialPanPoint = touchPoint
         }
     }
-    
+    //MARK: Open map functions
     func openMap() {
         guard let reqParams = self.viewModel.hotelSearchRequest?.requestParameters,let destParams = self.viewModel.hotelData else { return }
-        AppGlobals.shared.redirectToMap(sourceView: view, originLat: reqParams.latitude, originLong: reqParams.longitude, destLat: destParams.lat, destLong: destParams.long)
+        self.viewModel.logEvents(with: .OpenAddressOnMap)
+        AppGlobals.shared.redirectToMap(sourceView: view, originLat: reqParams.latitude, originLong: reqParams.longitude, destLat: destParams.lat, destLong: destParams.long, openMap: {[weak self] index in
+            if index == 0{
+                self?.viewModel.logEvents(with: .OpenAddressOnAppleMap)
+            }else{
+                self?.viewModel.logEvents(with: .OpenAddressOnGoogleMap)
+            }
+        },cancelTapped: {[weak self] in
+            self?.viewModel.logEvents(with: .CancelAddressOnMap)
+        })
     }
 }
 

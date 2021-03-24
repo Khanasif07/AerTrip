@@ -38,6 +38,11 @@ class WebCheckinVC: BaseVC {
         
         self.setupNavBar()
         self.registerXib()
+        
+        
+                
+//        FirebaseAnalyticsController.shared.logEvent(name: "WebCheckin", params: ["ScreenName":"WebCheckin", "ScreenClass":"WebCheckinVC"])
+
     }
     
     override func setupNavBar() {

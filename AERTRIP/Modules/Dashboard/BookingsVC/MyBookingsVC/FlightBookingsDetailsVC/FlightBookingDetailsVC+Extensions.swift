@@ -209,7 +209,13 @@ extension FlightBookingsDetailsVC: TopNavigationViewDelegate {
             return
         }
         
-        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.RequestAddOnAndFrequentFlyer.localized, LocalizedString.RequestRescheduling.localized, LocalizedString.RequestCancellation.localized, LocalizedString.Download.localized, LocalizedString.ResendConfirmationMail.localized, LocalizedString.reloadDetail.localized], colors: [self.viewModel.bookingDetail?.addOnRequestAllowed ?? false ? AppColors.themeDarkGreen : AppColors.themeGray40, self.viewModel.bookingDetail?.rescheduleRequestAllowed ?? false ? AppColors.themeDarkGreen : AppColors.themeGray40, self.viewModel.bookingDetail?.cancellationRequestAllowed ?? false ? AppColors.themeDarkGreen : AppColors.themeGray40, AppColors.themeDarkGreen, AppColors.themeDarkGreen, AppColors.themeDarkGreen])
+        var isFlightBooked = false
+        if self.viewModel.bookingDetail?.bookingStatus.rawValue.lowercased() == "booked"{
+            isFlightBooked = true
+        }
+
+        
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.RequestAddOnAndFrequentFlyer.localized, LocalizedString.RequestRescheduling.localized, LocalizedString.RequestCancellation.localized, LocalizedString.Download.localized, LocalizedString.ResendConfirmationMail.localized, LocalizedString.reloadDetail.localized], colors: [self.viewModel.bookingDetail?.addOnRequestAllowed ?? false ? AppColors.themeDarkGreen : AppColors.themeGray40, self.viewModel.bookingDetail?.rescheduleRequestAllowed ?? false ? AppColors.themeDarkGreen : AppColors.themeGray40, self.viewModel.bookingDetail?.cancellationRequestAllowed ?? false ? AppColors.themeDarkGreen : AppColors.themeGray40, isFlightBooked ? AppColors.themeDarkGreen : AppColors.themeGray40, AppColors.themeDarkGreen, AppColors.themeDarkGreen])
         
         
 //        _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton)
@@ -433,6 +439,8 @@ extension FlightBookingsDetailsVC: MXParallaxHeaderDelegate {
 extension FlightBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
     
     func share() {
+        FirebaseAnalyticsController.shared.logEvent(name: "BookingFlightDetailsShareFlightDetails", params: ["ScreenName":"FlightBookingsDetailsVC", "ScreenClass":"FlightBookingsDetailsVC", "ButtonAction":"ShareFlightClicked"])
+
         if let url = viewModel.bookingDetail?.shareUrl{
             if !url.isEmpty{
                 let textToShare = [ "I have Booked the Flight with Aertrip\n\(url)" ]
@@ -447,6 +455,8 @@ extension FlightBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
     }
     
     func bookSameFlightOrRoom() {
+        FirebaseAnalyticsController.shared.logEvent(name: "BookingFlightDetailsBookSameFlight", params: ["ScreenName":"FlightBookingsDetailsVC", "ScreenClass":"FlightBookingsDetailsVC", "ButtonAction":"BookSameFlightClicked"])
+
         if let whatNext = self.whatNextForSameFlightBook() {
             self.bookSameFlightWith(whatNext)
         }
@@ -483,6 +493,12 @@ extension FlightBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
         //            let bId = self.viewModel.bookingDetail?.bookingDetail?.bookingId ?? ""
         //            AppGlobals.shared.addEventToCalender(title: "\(self.viewModel.tripCitiesStr.string)", startDate: start, endDate: end, notes: "You've a flight booked for '\(self.viewModel.tripCitiesStr.string)'\nFor reference you booking id is '\(self.viewModel.bookingDetail?.bookingDetail?.bookingId ?? "")'", uniqueId: bId)
         //        }
+        
+        
+        
+        
+        FirebaseAnalyticsController.shared.logEvent(name: "BookingFlightDetailsAddToCalender", params: ["ScreenName":"FlightBookingsDetailsVC", "ScreenClass":"FlightBookingsDetailsVC", "ButtonAction":"FlightAddToCalendarClicked"])
+
         let bId = self.viewModel.bookingDetail?.bookingDetail?.bookingId ?? ""
         self.viewModel.bookingDetail?.bookingDetail?.leg.forEach({ (leg) in
             leg.flight.forEach { (flightDetail) in
@@ -513,7 +529,8 @@ extension FlightBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
         
         guard let legs = self.viewModel.bookingDetail?.bookingDetail?.leg, !legs.isEmpty else {return}
         
-        
+        FirebaseAnalyticsController.shared.logEvent(name: "BookingFlightDetailsAddToAppleWallet", params: ["ScreenName":"FlightBookingsDetailsVC", "ScreenClass":"FlightBookingsDetailsVC", "ButtonAction":"AddToAppleWalletClicked"])
+
         func addToWallet(FlightId:String) {
             printDebug("Add To Apple Wallet")
             let endPoints = "\(APIEndPoint.pass.path)?booking_id=\(self.viewModel.bookingDetail?.id ?? "")&flight_id=\(FlightId)"

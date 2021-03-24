@@ -366,31 +366,11 @@ class HCDataSelectionVM {
     }
 }
 
-
+///Log events for firebase.
 extension HCDataSelectionVM{
-    
-    enum EventTypes{
-        case fareDipped, fareIncrease
-        case continueWithFareIncrease, backWithFareIncrease
-        case openSelectGuest
-    }
-    
-    func logEvent(with event:EventTypes){
-        var name = ""
-        switch event{
-        case .fareDipped:
-            name = "FareDipped"
-        case .fareIncrease:
-            name = "FareIncrease"
-        case .continueWithFareIncrease:
-            name = "ContinueWithFareIncrease"
-        case .backWithFareIncrease:
-            name = "BackWithFareIncrease"
-        case .openSelectGuest:
-            name = "OpenSelectGuest"
-        }
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelCheckOut.rawValue, params: [AnalyticsKeys.FilterName.rawValue: name])
-        
+
+    func logEvent(with event:FirebaseEventLogs.EventsTypeName){
+        FirebaseEventLogs.shared.logHotelsCheckoutEvents(with: event)
     }
     
 }

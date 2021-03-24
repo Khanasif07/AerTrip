@@ -67,7 +67,7 @@ class BookingAddCommonInputTableViewCell: ATTableViewCell {
         let textCount = (inputTextField.text ?? "").count
 //        self.characterCountLabel.text = "\(AppConstants.AddOnRequestTextLimit - textCount) /60 \(LocalizedString.CharactersRemaining.localized)"
         
-        self.characterCountLabel.text = "\(textCount)/60 \(LocalizedString.CharactersRemaining.localized)"
+        self.characterCountLabel.text = "\(textCount)/60" //\(LocalizedString.CharactersRemaining.localized)"
 
     }
 }

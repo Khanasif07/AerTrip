@@ -34,5 +34,29 @@ class BookingReschedulingVM {
     }
     
     var usingFor: BookingReschedulingVCUsingFor = .rescheduling
+    
+    
+    func checkNumberOfRemainingAdtIsGreaterInf()-> Bool{
+        for leg in self.legsData{
+            var unSelectedADT = [Pax]()
+            var unSelectedINF = [Pax]()
+            for pax in leg.pax{
+                if leg.selectedPaxs.first(where: {$0.paxId == pax.paxId}) == nil{
+                    if pax.paxType.lowercased() == "adt"{
+                        unSelectedADT.append(pax)
+                    }else if pax.paxType.lowercased() == "inf"{
+                        unSelectedINF.append(pax)
+                    }
+                }
+            }
+            if unSelectedINF.count > unSelectedADT.count{
+                return false
+            }
+        }
+        
+        return true
+    }
+    
+    
 }
 

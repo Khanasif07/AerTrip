@@ -43,7 +43,7 @@ class EnableDisableWalletOTPVM {
         if self.details.password.isEmpty{
             let state = ValidationState.password(success: false, msgString: LocalizedString.enterAccountPasswordMsg.localized)
             self.delegate?.showErrorState(with: state)
-            self.logEvent(with: .incorrectPassword)
+            self.logEvent(with: .invalidPasswordFormat)
             return(state)
         }
         return(.password(success: true, msgString: ""))
@@ -165,28 +165,12 @@ extension EnableDisableWalletOTPVM{
         }else if errors.contains(25) || errors.contains(26){
             self.logEvent(with: .incorrectEmailOtp)
         }else if errors.contains(28){
-            self.logEvent(with: .incorrectPassword)
+            self.logEvent(with: .invalidPasswordFormat)
         }
     }
     
-    func logEvent(with eventType:EventLogType){
-        let evenName = (UserInfo.loggedInUser?.isWalletEnable ?? true) ? AnalyticsEvents.DisableOTP.rawValue : AnalyticsEvents.EnableOTP.rawValue
-        var filterName = ""
-        
-        switch eventType{
-        case .viewPassword: filterName = "ViewPassword"
-        case .hidePassword: filterName = "HidePassword"
-        case .incorrectPassword: filterName = "EnterIncorrectFormatAndContinue"
-        case .generateOtpForMob: filterName = "GenerateNewMobileOTP"
-        case .incorrectMobOtp: filterName = "EnterIncorrectMobileOTP"
-        case .generateOtpForEmail: filterName = "GenerateNewEmailOTP"
-        case .incorrectEmailOtp: filterName = "EnterIncorrectEmailOTP"
-        case .enterPasswordAndContinue: filterName = "EnterPasswordAndProceed"
-        case .enableDisableOtp:
-            filterName = (UserInfo.loggedInUser?.isWalletEnable ?? true) ? "DisbaledOTP" : "EnabledOTP"
-        }
-        
-        FirebaseAnalyticsController.shared.logEvent(name: evenName, params: [AnalyticsKeys.FilterName.rawValue: filterName])
+    func logEvent(with eventType: FirebaseEventLogs.EventsTypeName){
+        FirebaseEventLogs.shared.logEnableDisableWalletEvents(with: eventType, isEnabled: !(UserInfo.loggedInUser?.isWalletEnable ?? true))
     }
     
 }

@@ -10,6 +10,9 @@ import UIKit
 import Parchment
 
 class IntMCAndReturnFiltersBaseVC: UIViewController {
+        
+    //MARK: For Analytics only
+    var didTapFilter = false
     
     // MARK: Properties
     weak var delegate : FilterDelegate?
@@ -202,6 +205,9 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
             self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
             self.parchmentView?.indicatorColor = AppColors.themeGreen
             self.parchmentView?.view.subviews[0].alpha = 1
+            
+            // analytics event
+            logTapEvent(filterIndex: 0)
         }
         parchmentView?.reloadMenu()
     }

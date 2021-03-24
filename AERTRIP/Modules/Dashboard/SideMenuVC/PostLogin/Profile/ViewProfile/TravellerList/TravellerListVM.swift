@@ -65,3 +65,10 @@ class TravellerListVM: NSObject {
         }
     }
 }
+
+///Logs Firebase events
+extension TravellerListVM {
+    func logEventsForFirebase(with event: FirebaseEventLogs.EventsTypeName, value: String? = nil){
+        FirebaseEventLogs.shared.logTravellersListEvents(with: event, value: value)
+    }
+}
