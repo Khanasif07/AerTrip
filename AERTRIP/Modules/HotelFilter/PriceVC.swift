@@ -58,7 +58,7 @@ class PriceVC: BaseVC {
         guard let filter = UserInfo.hotelFilter else {
             printDebug("filter not found")
             filterApplied = UserInfo.HotelFilter()
-            HotelFilterVM.shared.priceType = .Total
+            HotelFilterVM.shared.priceType = .PerNight
             return
         }
         filterApplied = filter

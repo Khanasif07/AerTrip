@@ -122,13 +122,14 @@ extension HotlelBookingsDetailsVC {
     
     func getPaidCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingPaymentDetailsTableViewCell.reusableIdentifier, for: indexPath) as? BookingPaymentDetailsTableViewCell else { return UITableViewCell() }
-        let isLastCell = (self.viewModel.bookingDetail?.totalOutStanding == 0.0)
-        cell.configCell(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(self.viewModel.bookingDetail?.paid ?? 0)", isLastCell: isLastCell)
-        cell.containerViewBottomConstraint.constant = (isLastCell) ? 26.0 : 0.0
+        var isCellLast = (self.viewModel.bookingDetail?.totalOutStanding == 0)
+        if self.viewModel.bookingDetail?.refundAmount ?? 0.0 != 0.0 {
+            isCellLast = false
+        }
+        cell.configCell(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(self.viewModel.bookingDetail?.paid ?? 0)", isLastCell: isCellLast)
+        cell.containerViewBottomConstraint.constant = (isCellLast) ? 21.0 : 0.0
+        cell.clipsToBounds = isCellLast
         cell.dividerView.isHidden = false
-        cell.clipsToBounds = isLastCell
-        
-        
         return cell
     }
     
@@ -175,11 +176,16 @@ extension HotlelBookingsDetailsVC {
     
     func getRefundCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingPaymentDetailsTableViewCell.reusableIdentifier, for: indexPath) as? BookingPaymentDetailsTableViewCell else { return UITableViewCell() }
+        let amount = self.viewModel.bookingDetail?.refundAmount ?? 0.0
+        let outstading = self.viewModel.bookingDetail?.totalOutStanding ?? 0
+        let isCellLast = (amount != 0 && outstading == 0)
         cell.titleTopConstraint.constant = 5.0
         cell.titleBottomConstraint.constant = 13.0
         cell.containerViewBottomConstraint.constant = 0.0
-        cell.configCell(title: LocalizedString.Refund.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: self.viewModel.bookingDetail?.refundAmount.delimiterWithSymbol, isLastCell: false, cellHeight: 38.0)
-        cell.clipsToBounds = true
+        cell.configCell(title: LocalizedString.Refund.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(self.viewModel.bookingDetail?.refundAmount ?? 0)", isLastCell: isCellLast, cellHeight: 38.0)
+        cell.containerViewBottomConstraint.constant = (isCellLast) ? 21.0 : 0.0
+        cell.clipsToBounds = isCellLast
+        cell.dividerView.isHidden = false
         return cell
     }
     

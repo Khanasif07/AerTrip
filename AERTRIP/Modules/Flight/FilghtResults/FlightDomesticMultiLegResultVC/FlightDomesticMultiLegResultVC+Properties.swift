@@ -77,6 +77,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
     var initialHeader:CGFloat = 138.0
     var isHiddingHeader = false
     var isSettingupHeader = false
+    var reloadFilters : (() -> Void)?
 
     
     //MARK:-  Initializers

@@ -477,6 +477,12 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         
         addChildView(resultBaseVC)
         singleJourneyResultVC = resultBaseVC
+        
+        singleJourneyResultVC?.reloadFilters = {
+            print("reloadFilters")
+            self.flightFilterVC?.updateInputFilters(flightResultArray: self.flightSearchResultVM.flightResultArray)
+        }
+        
     }
     
     

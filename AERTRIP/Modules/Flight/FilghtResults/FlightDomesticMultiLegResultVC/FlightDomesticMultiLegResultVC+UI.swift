@@ -427,6 +427,15 @@ extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetails
             }
         }
         
+        self.flightSearchResultVM?.flightLegs.enumerated().forEach({ (ind,val) in
+            if let grp = self.flightSearchResultVM?.flightLegs[ind] {
+                self.flightSearchResultVM?.flightLegs[ind].filteredJourneyArray = grp.filteredJourneyArray
+            }
+        })
+        
+        self.reloadFilters?()
+
+        
     }
     
     func reloadRowFromFlightDetails(fk: String, isPinned: Bool, isPinnedButtonClicked: Bool) {
