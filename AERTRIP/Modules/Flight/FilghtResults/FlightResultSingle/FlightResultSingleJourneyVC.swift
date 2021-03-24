@@ -270,8 +270,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         }
     }
     
-    @IBAction func emailPinnedFlights(_ sender: Any)
-    {
+    @IBAction func emailPinnedFlights(_ sender: Any) {
         emailPinnedFlights.setImage(UIImage(named: "OvHotelResult"), for: .normal)
         emailPinnedFlights.displayLoadingIndicator(true)
 
@@ -334,7 +333,6 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         
     }
 
-    
     func reloadRowAtIndex(indexPath: IndexPath , with journeyDisplay: JourneyOnewayDisplay ) {
         
         //        if indexPath.section == 0 {

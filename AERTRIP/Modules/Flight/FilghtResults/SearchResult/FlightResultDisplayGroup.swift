@@ -210,7 +210,14 @@ class FlightResultDisplayGroup {
     fileprivate func groupSimilarFlights(_ journey : [Journey] ) -> [Journey] {
         
         // Grouping of flights having same fare , Airline , number of stops and destination airport
-        let groupedFlights = Dictionary(grouping: journey, by: { String($0.farepr) + ($0.al.first ?? "") + $0.stp + ($0.ap.last ?? "")  })
+       
+        
+        let groupedFlights = Dictionary(grouping: journey) { (element) -> String in
+            let ap = String(element.ap.first ?? "") + String(element.ap.last ?? "")
+            
+           return String(element.farepr) + String(element.al.first ?? "") + String(element.stp) + ap
+        }
+        
         
         var modifiedJourneyArray = [Journey]()
         var index = 0
