@@ -227,7 +227,6 @@ class FirebaseEventLogs{
         case AddFF
         case EditFF
         case DeleteFromTravellersList
-        
     }
     
     
@@ -347,13 +346,21 @@ class FirebaseEventLogs{
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.ViewTraveller.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue])
     }
     
-    //MARK:Edit Main Traveller Events Log Function
-    func logEditMainTravellerEvents(with type: EventsTypeName, value:String?){
+    //MARK:Add/Edit Traveller Events Log Function
+    func logEditMainTravellerEvents(with type: EventsTypeName, value:String?, key:String){
         var param:JSONDictionary = [AnalyticsKeys.FilterName.rawValue: type.rawValue]
+        var eventName = ""
         if let value = value{
             param[AnalyticsKeys.Values.rawValue] = value
         }
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.TravellersList.rawValue, params: param)
+        if key == "editMain"{
+            eventName = AnalyticsEvents.EditMainTraveller.rawValue
+        }else if key == "edit"{
+            eventName = AnalyticsEvents.EditTraveller.rawValue
+        }else  if key == "add"{
+            eventName = AnalyticsEvents.AddTraveller.rawValue
+        }
+        FirebaseAnalyticsController.shared.logEvent(name: eventName, params: param)
     }
     
 }

@@ -56,6 +56,9 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
             }
         }
         baggageTableView.showsVerticalScrollIndicator = true
+        
+        FirebaseAnalyticsController.shared.logEvent(name: "FlightDetailsBaggageInfo", params: ["ScreenName":"FlightDetailsBaggageInfo", "ScreenClass":"BaggageVC"])
+
     }
     
     //MARK:- Tableview Methods

@@ -58,6 +58,9 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         flightInfoTableViewBottom.constant = 0.0
         self.flightInfoTableView.contentInset = UIEdgeInsets(top: -0.5, left: 0, bottom: 0, right: 0)
         flightInfoTableView.showsVerticalScrollIndicator = true
+        
+        FirebaseAnalyticsController.shared.logEvent(name: "FlightDetailsIntFlightInfo", params: ["ScreenName":"FlightDetailsFlightInfo", "ScreenClass":"IntFlightInfoVC"])
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -629,6 +632,9 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     //MARK:- Button Actions
     @objc func flightArrivalPerfomaceButtonClicked(_ sender:UIButton){
+        
+        FirebaseAnalyticsController.shared.logEvent(name: "FlightDetailsIntFlightInfoOnTimePerformanceClicked", params: ["ScreenName":"FlightDetailsFlightInfo", "ScreenClass":"IntFlightInfoVC"])
+
         let arrivalPerformanceView = ArrivalPerformaceVC(nibName: "ArrivalPerformaceVC", bundle: nil)
         
         let section = sender.tag / 100
