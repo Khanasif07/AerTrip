@@ -501,7 +501,7 @@ class HotelResultVC: BaseVC {
     }
     
     @IBAction func filterButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.showFilterVC(self)
+        AppFlowManager.default.showFilterVC(self,index: 0)
     }
     
     @IBAction func mapButtonAction(_ sender: Any) {

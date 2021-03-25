@@ -153,6 +153,9 @@ class FirebaseEventLogs{
         case CloseFlightFiltersByOutsideClick = "CloseFlightFiltersByOutsideClick"
         case CloseFlightFilterByTappingFilter = "CloseFlightFilterByTappingFilter"
         case NoResultsApplyingFlightFilters = "NoResultsApplyingFlightFilters"
+        
+        // Hotel Filters
+        
 
         //MARK: Favourite Hotels Events TypeNames
         case AddHotel

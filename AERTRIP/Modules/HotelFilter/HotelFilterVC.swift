@@ -36,7 +36,7 @@ class HotelFilterVC: BaseVC {
     
     // MARK: - Private
     
-    private var currentIndex: Int = 0
+//    private var currentIndex: Int = 0
     
     // Parchment View
     fileprivate var parchmentView : PagingViewController?
@@ -381,7 +381,11 @@ class HotelFilterVC: BaseVC {
         
     }
     @IBAction func filterBtnTapped(_ sender: Any) {
-        outsideAreaTapped()
+        if HotelFilterVM.shared.lastSelectedIndex != 0 {
+            parchmentView?.select(index: 0, animated: true)
+        } else {
+            outsideAreaTapped()
+        }
     }
     
 }
