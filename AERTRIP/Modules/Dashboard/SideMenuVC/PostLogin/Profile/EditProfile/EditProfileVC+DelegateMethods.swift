@@ -395,6 +395,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                     }
                 }
                 email.label = label
+                self.viewModel.logEventsForFirebase(with: .AddMoreEmails, value: "\(self.viewModel.email.count)")
                 self.viewModel.email.append(email)
                 //                self.tableView.insertRows(at: [indexPath], with: .bottom)
                 //                self.tableView.beginUpdates()
@@ -407,6 +408,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 self.indexPath = indexPath
                 var social = Social()
                 social.label = LocalizedString.Facebook.localized
+                self.viewModel.logEventsForFirebase(with: .AddMoreSocialAccounts, value: "\((Set(self.viewModel.social.map{$0.label})).count)")
                 self.viewModel.social.append(social)
                 //                self.tableView.insertRows(at: [indexPath], with: .bottom)
                 //                self.tableView.beginUpdates()
@@ -422,6 +424,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 address.country = LocalizedString.SelectedCountrySymbol.localized
                 address.countryName = LocalizedString.selectedCountry.localized
                 self.viewModel.addresses.append(address)
+                self.viewModel.logEventsForFirebase(with: .AddMoreAddresses, value: "\(self.viewModel.addresses.count)")
                 //                self.tableView.insertRows(at: [indexPath], with: .bottom)
                 //                self.tableView.beginUpdates()
                 //                self.tableView.endUpdates()
@@ -448,6 +451,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 mobile.label = "Mobile"
                 mobile.type = "mobile"
                 mobile.isd = "+91"
+                self.viewModel.logEventsForFirebase(with: .AddMoreNumbers, value: "\(self.viewModel.mobile.count)")
                 self.viewModel.mobile.append(mobile)
                 //                self.tableView.insertRows(at: [indexPath], with: .bottom)
                 //                self.tableView.beginUpdates()
@@ -490,15 +494,18 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
             switch sections[indexPath.section] {
             case LocalizedString.EmailAddress.localized:
                 self.viewModel.email.remove(at: indexPath.row)
+                self.viewModel.logEventsForFirebase(with: .DeleteEmailID)
                 //                tableView.deleteRows(at: [indexPath], with: .fade)
                 tableView.reloadData()
             case LocalizedString.SocialAccounts.localized:
                 self.viewModel.social.remove(at: indexPath.row)
+                self.viewModel.logEventsForFirebase(with: .DeleteSocialAccounts)
                 //                tableView.deleteRows(at: [indexPath], with: .fade)
                 tableView.reloadData()
                 
             case LocalizedString.ContactNumber.localized:
                 self.viewModel.mobile.remove(at: indexPath.row)
+                self.viewModel.logEventsForFirebase(with: .DeleteNumbers)
                 //                tableView.deleteRows(at: [indexPath], with: .fade)
                 tableView.reloadData()
             case LocalizedString.FlightPreferences.localized:
@@ -659,6 +666,7 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
                 self?.openGallery()
             } else if index == 2 {
                 printDebug("Remove Photo")
+                self?.viewModel.logEventsForFirebase(with: .RemovePhoto)
                 self?.viewModel.profilePicture = ""
                 self?.setUpProfilePhotoInitials()
             }
@@ -686,6 +694,7 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
             } else if index == 3 {
                 self?.getPhotoFromGoogle()
             } else if index == 4 {
+                self?.viewModel.logEventsForFirebase(with: .RemovePhoto)
                 printDebug("Remove Photo")
                 self?.viewModel.profilePicture = ""
                 self?.setUpProfilePhotoInitials()
@@ -776,6 +785,12 @@ extension EditProfileVC: EditProfileTwoPartTableViewCellDelegate {
             if !text.isEmpty && !text.checkValidity(.Email) {
                 AppToast.default.showToastMessage(message: LocalizedString.Enter_valid_email_address.localized)
             }
+        case LocalizedString.SocialAccounts.localized:
+            self.viewModel.social[indexPath.row].value = text
+            if !text.isEmpty{
+                self.viewModel.logEventsForFirebase(with: .EnterSocialAccount, value: self.viewModel.social[indexPath.row].label)
+            }
+            break
         default:
             break
         }
@@ -838,6 +853,7 @@ extension EditProfileVC: EditProfileTwoPartTableViewCellDelegate {
             }else{
                 if self.viewModel.email[indexPath.row].value.isEmpty {
                     self.viewModel.email.remove(at: indexPath.row)
+                    self.viewModel.logEventsForFirebase(with: .DeleteEmailID)
                     self.tableView.reloadData()
                     return
                 }
@@ -848,6 +864,7 @@ extension EditProfileVC: EditProfileTwoPartTableViewCellDelegate {
             }else{
                 if self.viewModel.social[indexPath.row].value.isEmpty {
                     self.viewModel.social.remove(at: indexPath.row)
+                    self.viewModel.logEventsForFirebase(with: .DeleteSocialAccounts)
                     self.tableView.reloadData()
                     return
                 }
@@ -862,12 +879,15 @@ extension EditProfileVC: EditProfileTwoPartTableViewCellDelegate {
                 switch self.sections[indexPath.section] {
                 case LocalizedString.EmailAddress.localized:
                     self.viewModel.email.remove(at: indexPath.row)
+                    self.viewModel.logEventsForFirebase(with: .DeleteEmailID)
                     self.tableView.reloadData()
                 case LocalizedString.SocialAccounts.localized:
                     self.viewModel.social.remove(at: indexPath.row)
+                    self.viewModel.logEventsForFirebase(with: .DeleteSocialAccounts)
                     self.tableView.reloadData()
                 case LocalizedString.ContactNumber.localized:
                     self.viewModel.mobile.remove(at: indexPath.row)
+                    self.viewModel.logEventsForFirebase(with: .DeleteNumbers)
                     self.tableView.reloadData()
                 case LocalizedString.FlightPreferences.localized:
                     if (indexPath.row - 1) < self.viewModel.frequentFlyer.count {
@@ -880,6 +900,7 @@ extension EditProfileVC: EditProfileTwoPartTableViewCellDelegate {
                     self.tableView.reloadData()
                 case LocalizedString.Address.localized:
                     self.viewModel.addresses.remove(at: indexPath.row)
+                    self.viewModel.logEventsForFirebase(with: .DeleteAddress)
                     self.tableView.reloadData()
                     
                 default:
@@ -993,6 +1014,7 @@ extension EditProfileVC: EditProfileThreePartTableViewCellDelegate {
         self.indexPath = indexPath
         if self.viewModel.mobile[indexPath.row].value.isEmpty {
             self.viewModel.mobile.remove(at: indexPath.row)
+            self.viewModel.logEventsForFirebase(with: .DeleteNumbers)
             self.tableView.reloadData()
         } else {
             self.deleteCellTapped(indexPath)
@@ -1329,6 +1351,7 @@ extension EditProfileVC {
     }
     
     func navigateToChangeEmailVc(){
+        self.viewModel.logEventsForFirebase(with: .ChangeAertripID)
         let vc = ChangeEmailVC.instantiate(fromAppStoryboard: .OTPAndVarification)
         vc.modalPresentationStyle = .overFullScreen
         self.present(vc, animated: false, completion: nil)
@@ -1337,6 +1360,7 @@ extension EditProfileVC {
     func changeMobileNumber(){
         if (UserInfo.loggedInUser?.mobile.isEmpty ?? false){
             if (UserInfo.loggedInUser?.hasPassword == true){
+                self.viewModel.logEventsForFirebase(with: .openChangeMobile)
                 let vc = OTPVarificationVC.instantiate(fromAppStoryboard: .OTPAndVarification)
                 vc.modalPresentationStyle = .overFullScreen
                 vc.viewModel.varificationType = .setMobileNumber
@@ -1347,6 +1371,7 @@ extension EditProfileVC {
             }
             
         }else{
+            self.viewModel.logEventsForFirebase(with: .SetDefaultMobileNumber)
             let vc = OTPVarificationVC.instantiate(fromAppStoryboard: .OTPAndVarification)
             vc.modalPresentationStyle = .overFullScreen
             vc.viewModel.varificationType = .phoneNumberChangeOtp

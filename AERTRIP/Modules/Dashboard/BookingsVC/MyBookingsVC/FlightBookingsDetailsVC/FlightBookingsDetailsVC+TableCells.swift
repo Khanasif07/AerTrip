@@ -222,7 +222,9 @@ extension FlightBookingsDetailsVC {
 //
     func getRefundCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingPaymentDetailsTableViewCell.reusableIdentifier, for: indexPath) as? BookingPaymentDetailsTableViewCell else { return UITableViewCell() }
-        let isCellLast = (self.viewModel.bookingDetail?.refundAmount ?? 0.0 != 0.0)
+        let amount = self.viewModel.bookingDetail?.refundAmount ?? 0.0
+        let outstading = self.viewModel.bookingDetail?.totalOutStanding ?? 0
+        let isCellLast = (amount != 0 && outstading == 0)
         cell.titleTopConstraint.constant = 5.0
         cell.titleBottomConstraint.constant = 13.0
         cell.containerViewBottomConstraint.constant = 0.0

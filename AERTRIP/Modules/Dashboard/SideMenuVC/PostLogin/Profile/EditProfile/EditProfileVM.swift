@@ -85,14 +85,17 @@ class EditProfileVM {
         var flag = true
         
         if self.firstName.removeAllWhiteSpacesAndNewLines.isEmpty {
+            self.logEventsForFirebase(with: .PressCTAWithoutEnteringFirstName)
             AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterFirstName.localized)
             flag = false
         }
         else if self.lastName.removeAllWhiteSpacesAndNewLines.isEmpty {
+            self.logEventsForFirebase(with: .PressCTAWithoutEnteringLastName)
                 AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterLastName.localized)
                 flag = false
         }
         else if self.salutation.isEmpty {
+            self.logEventsForFirebase(with: .PressCTAwithoutSelectingGender)
             AppToast.default.showToastMessage(message: LocalizedString.PleaseSelectSalutation.localized)
             flag = false
         }
@@ -110,6 +113,7 @@ class EditProfileVM {
                 }
                 if !email.value.checkValidity(.Email) {
                     AppToast.default.showToastMessage(message: LocalizedString.Enter_valid_email_address.localized)
+                    self.logEventsForFirebase(with: .EnterIncorrectEmail)
                     flag = false
                     break
                 }
@@ -179,7 +183,7 @@ class EditProfileVM {
         
         if !self.social.isEmpty{
             if self.checkDuplicateSocial(){
-            AppToast.default.showToastMessage(message: "Socal account is already exists")
+            AppToast.default.showToastMessage(message: "Social account already exists")
               flag = false
             }
         }
@@ -333,7 +337,7 @@ class EditProfileVM {
     
     func webserviceForSaveProfile() {
         var params = JSONDictionary()
-        
+        self.logForInFoAndPersonalEvents()
         // remove default email and mobile
         var _email = self.email
         let _mobile = self.mobile
@@ -405,6 +409,7 @@ class EditProfileVM {
         
         if self.filePath.isEmpty {
             params[APIKeys.profileImage.rawValue] = self.profilePicture
+            self.logEventsForFirebase(with: .EditPhoto)
         } else {
             params[APIKeys.profileImage.rawValue] = ""
         }
@@ -436,5 +441,67 @@ class EditProfileVM {
                 self?.delegate?.deleteTravellerAPIFailure()
             }
         }
+    }
+}
+
+
+///Logs Firebase events
+extension EditProfileVM {
+    
+    func logForInFoAndPersonalEvents(){
+        if (self.travelData?.dob.isEmpty ?? false) && (!dob.isEmpty){
+            self.logEventsForFirebase(with: .EnterDOB)
+        }else if (self.travelData?.dob != dob) && (dob != LocalizedString.Select.localized){
+            self.logEventsForFirebase(with: .EditDOB)
+        }
+        if (self.travelData?.doa.isEmpty ?? false) && (!doa.isEmpty){
+            self.logEventsForFirebase(with: .EnterAnniversary)
+        }else if (self.travelData?.doa != doa) && (doa != LocalizedString.Select.localized){
+            self.logEventsForFirebase(with: .EditAnniversary)
+        }
+        if (self.travelData?.notes.isEmpty ?? false) && (!notes.isEmpty){
+            self.logEventsForFirebase(with: .EnterNotes)
+        }else if (self.travelData?.notes != notes){
+            self.logEventsForFirebase(with: .EditNotes)
+        }
+        if (self.travelData?.passportNumber.isEmpty ?? false) && (!passportNumber.isEmpty){
+            self.logEventsForFirebase(with: .EnterPassportNumber)
+        }else if (self.travelData?.passportNumber != passportNumber){
+            self.logEventsForFirebase(with: .EditPassportNumber)
+        }
+        if (self.travelData?.passportIssueDate.isEmpty ?? false) && (!passportIssueDate.isEmpty){
+            self.logEventsForFirebase(with: .EnterIssueDate)
+        }else if (self.travelData?.passportIssueDate != passportIssueDate) && (passportIssueDate != LocalizedString.Select.localized){
+            self.logEventsForFirebase(with: .EditIssueDate)
+        }
+        if (self.travelData?.passportCountry.isEmpty ?? false) && (!passportCountryCode.isEmpty){
+            self.logEventsForFirebase(with: .EnterIssueCountry)
+        }else if (self.travelData?.passportCountry != passportCountryCode) && (passportCountryCode != LocalizedString.Select.localized){
+            self.logEventsForFirebase(with: .EditIssueCountry)
+        }
+        if (self.travelData?.passportExpiryDate.isEmpty ?? false) && (!passportExpiryDate.isEmpty){
+            self.logEventsForFirebase(with: .EnterExpiryDate)
+        }else if (self.travelData?.passportExpiryDate != passportExpiryDate) && (passportExpiryDate != LocalizedString.Select.localized){
+            self.logEventsForFirebase(with: .EditExpiryDate)
+        }
+        
+        if !meal.isEmpty, meal != LocalizedString.Select.localized, let mealCode = self.mealPreferences.someKey(forValue: meal) {
+            if (self.travelData?.preferences.meal.value.isEmpty ?? true){
+                self.logEventsForFirebase(with: .SetMealPreference)
+            }else if self.travelData?.preferences.meal.value != mealCode{
+                self.logEventsForFirebase(with: .EditMealPreference)
+            }
+            
+        }
+        
+    }
+    
+    
+    
+    func logEventsForFirebase(with event: FirebaseEventLogs.EventsTypeName, value: String? = nil){
+        if (self.travelData?.id == UserInfo.loggedInUser?.paxId){
+            FirebaseEventLogs.shared.logEditMainTravellerEvents(with: event, value: value)
+        }
+        
     }
 }

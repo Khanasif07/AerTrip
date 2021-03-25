@@ -17,15 +17,22 @@ extension MyBookingsVC: UISearchBarDelegate {
     
     @objc func search(_ forText: String) {
         printDebug(forText)
+        
+        FirebaseAnalyticsController.shared.logEvent(name: "MyBookingsSearchPerfomed", params: ["ScreenName":"MyBooking", "ScreenClass":"MyBookingsVC","SearchedKey":forText])
+
         MyBookingFilterVM.shared.searchText = forText.removeLeadingTrailingWhitespaces
         self.sendDataChangedNotification(data: ATNotification.myBookingSearching)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.view.endEditing(true)
+        FirebaseAnalyticsController.shared.logEvent(name: "MyBookingsSearchButtonClicked", params: ["ScreenName":"MyBooking", "ScreenClass":"MyBookingsVC"])
     }
     
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar){
+        
+        FirebaseAnalyticsController.shared.logEvent(name: "MyBookingsSearchSpeechToTextSelected", params: ["ScreenName":"MyBooking", "ScreenClass":"MyBookingsVC"])
+
         AppFlowManager.default.moveToSpeechToText(with: self)
     }
 }
@@ -52,6 +59,8 @@ extension MyBookingsVC: MyBookingsVMDelegate {
     
     func getBookingsDetailSuccess(showProgress: Bool) {
         
+        FirebaseAnalyticsController.shared.logEvent(name: "MyBookingGetBookingDataFromCoreData", params: ["ScreenName":"MyBooking", "ScreenClass":"MyBookingsVC"])
+
         //AppGlobals.shared.stopLoading()
         MyBookingsVM.shared.allTabTypes = CoreDataManager.shared.fetchData(fromEntity: "BookingData", forAttribute: "bookingTabType", usingFunction: "count").map({ ($0["bookingTabType"] as? Int16) ?? -1})
         
@@ -93,6 +102,8 @@ extension MyBookingsVC: SpeechToTextVCDelegate{
         guard !text.isEmpty else {return}        
         searchBar.hideMiceButton(isHidden: false)
         
+        FirebaseAnalyticsController.shared.logEvent(name: "MyBookingsConvertedSpeechToText", params: ["ScreenName":"MyBooking", "ScreenClass":"MyBookingsVC","SearchKey":text])
+
         self.searchBar.text = text
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         perform(#selector(search(_:)), with: text, afterDelay: 0.5)

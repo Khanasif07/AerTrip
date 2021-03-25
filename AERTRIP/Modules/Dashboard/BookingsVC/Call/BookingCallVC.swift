@@ -55,7 +55,7 @@ class BookingCallVC: BaseVC {
         
         
 
-//        FirebaseAnalyticsController.shared.logEvent(name: "BookingCallList", params: ["ScreenName":"BookingCall", "ScreenClass":"BookingCallVC", "CallListFor":UsingFor])
+        FirebaseAnalyticsController.shared.logEvent(name: "BookingCallList", params: ["ScreenName":"BookingCall", "ScreenClass":"BookingCallVC", "CallListFor":viewModel.usingFor])
 
     }
     

@@ -14,7 +14,9 @@ class FirebaseAnalyticsController {
     static let shared = FirebaseAnalyticsController()
     
     func logEvent(name: String, params: JSONDictionary? = nil) {
-        Analytics.logEvent(name, parameters: params)
+        if AppConstants.isReleasingForCustomers{
+            Analytics.logEvent(name, parameters: params)
+        }
     }
     
 }
@@ -22,6 +24,7 @@ class FirebaseAnalyticsController {
 enum AnalyticsEvents: String {
     //MARK: Firebase event names
     case FlightFilters = "FlightFilters"
+    case FlightFiltersNavigation = "FlightFiltersNavigation"
     case AccountDetails
     case SetPassword
     case ChangePassword
@@ -30,7 +33,13 @@ enum AnalyticsEvents: String {
     case EnableOTP
     case DisableOTP
     case Settings
+    case IndividualHotelDetails
+    case HotelGuestCheckout
     case HotelCheckOut
+    case FavouriteHotels
+    case TravellersList
+    case ViewTraveller
+    case EditMainTraveller
     
 }
 

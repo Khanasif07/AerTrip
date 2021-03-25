@@ -293,13 +293,18 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
             if (indexPath.section == 3) {
                 switch indexPath.row {
                 case 0:
+                    FirebaseAnalyticsController.shared.logEvent(name: "AccountsAccountLedgerOptionClicked", params: ["ScreenName":"Accounts", "ScreenClass":"SpecialAccountDetailsVC", "LoggedInUserType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
                     AppFlowManager.default.moveToAccountDetailsVC(usingFor: .accountLadger, forDetails: self.viewModel.accountLadger, forVoucherTypes: self.viewModel.accVouchers)
                     
                 case 1:
-                    
-                    AppFlowManager.default.moveToAccountOutstandingLadgerVC(data: self.viewModel.outstandingLadger)
+                    FirebaseAnalyticsController.shared.logEvent(name: "AccountsOutstandingLedgerOptionClicked", params: ["ScreenName":"Accounts", "ScreenClass":"SpecialAccountDetailsVC", "LoggedInUserType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
+                    AppFlowManager.default.moveToAccountOutstandingLadgerVC(data: self.viewModel.outstandingLadger, accountLaders: self.viewModel.accountLadger)
                     
                 case 2:
+                    FirebaseAnalyticsController.shared.logEvent(name: "AccountsPeriodicStatementOptionClicked", params: ["ScreenName":"Accounts", "ScreenClass":"SpecialAccountDetailsVC", "LoggedInUserType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
                     AppFlowManager.default.moveToPeriodicStatementVC(periodicEvents: self.viewModel.periodicEvents)
                     
                 default:
@@ -311,10 +316,14 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
             if (indexPath.section == 2) {
                 switch indexPath.row {
                 case 0:
+                    FirebaseAnalyticsController.shared.logEvent(name: "AccountsAccountLedgerOptionClicked", params: ["ScreenName":"Accounts", "ScreenClass":"SpecialAccountDetailsVC", "LoggedInUserType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
                     AppFlowManager.default.moveToAccountDetailsVC(usingFor: .accountLadger, forDetails: self.viewModel.accountLadger, forVoucherTypes: self.viewModel.accVouchers)
                     
                 case 1:
-                    AppFlowManager.default.moveToAccountOutstandingLadgerVC(data: self.viewModel.outstandingLadger)
+                    FirebaseAnalyticsController.shared.logEvent(name: "AccountsOutstandingLedgerOptionClicked", params: ["ScreenName":"Accounts", "ScreenClass":"SpecialAccountDetailsVC", "LoggedInUserType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
+                    AppFlowManager.default.moveToAccountOutstandingLadgerVC(data: self.viewModel.outstandingLadger, accountLaders: self.viewModel.accountLadger)
                     
                 default:
                     printDebug("no need to implement")
@@ -325,10 +334,14 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
             if (indexPath.section == 3) {
                 switch indexPath.row {
                 case 0:
+                    FirebaseAnalyticsController.shared.logEvent(name: "AccountsAccountLedgerOptionClicked", params: ["ScreenName":"Accounts", "ScreenClass":"SpecialAccountDetailsVC", "LoggedInUserType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
                     AppFlowManager.default.moveToAccountDetailsVC(usingFor: .accountLadger, forDetails: self.viewModel.accountLadger, forVoucherTypes: self.viewModel.accVouchers)
                     
                 case 1:
-                    AppFlowManager.default.moveToAccountOutstandingLadgerVC(data: self.viewModel.outstandingLadger)
+                    FirebaseAnalyticsController.shared.logEvent(name: "AccountsOutstandingLedgerOptionClicked", params: ["ScreenName":"Accounts", "ScreenClass":"SpecialAccountDetailsVC", "LoggedInUserType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
+                    AppFlowManager.default.moveToAccountOutstandingLadgerVC(data: self.viewModel.outstandingLadger, accountLaders: self.viewModel.accountLadger)
                     
                 default:
                     printDebug("no need to implement")

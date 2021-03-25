@@ -349,6 +349,7 @@ class HotelDetailsVM {
                 }
             } else {
                 printDebug(errors)
+                sSelf.logEvents(with: .FoundNoHotelsInfo)
                 sSelf.isFooterViewHidden = true
                 sSelf.delegate?.getHotelDetailsFail()
             }
@@ -405,7 +406,9 @@ class HotelDetailsVM {
                 if let sSelf = self {
                     if success {
                         sSelf.placeModel = placeData
+                        sSelf.logEvents(with: .CaptureHotelDistanceFromCentre, value: placeData?.distanceText)
                         printDebug(placeData)
+                        sSelf.capturesEvents()
                         sSelf.delegate?.getHotelDistanceAndTimeSuccess()
                         
                     } else {
@@ -571,3 +574,65 @@ class HotelDetailsVM {
     }
 }
 
+
+///Logs Events For Hotels Details
+extension HotelDetailsVM{
+    
+    func capturesEvents(with index:Int = -1){
+        guard  let hotelDetail = self.hotelData else {
+            self.logEvents(with: .FoundNoHotelsInfo)
+            return
+        }
+        if index == -1{
+            if hotelDetail.rating != 0{
+                self.logEvents(with: .CaptureHotelTARating, value: "\(hotelDetail.rating)")
+            }
+            
+            if hotelDetail.star != 0{
+                self.logEvents(with: .CaptureHotelStarRating, value: "\(hotelDetail.star)")
+            }
+            if hotelDetail.photos.count == 0{
+                self.logEvents(with: .FoundNoHotelPhoto)
+            }
+            self.logEvents(with: .CountTotalRoomsAvailable, value: "\(hotelDetail.rates?.count ?? 0)")
+        }else{//For Action of Book button
+            if let rate = hotelDetail.rates?[index]{
+                if let boardType = rate.inclusion_array["Board Type"] as? [String]{
+                    if boardType.contains("Room Only"){
+                        self.logEvents(with: .BookRoomWithNoMeals)
+                    }else if boardType.contains("Breakfast"){
+                        self.logEvents(with: .BookRoomWithBreakfast)
+                    }else if boardType.contains("Half Board"){
+                        self.logEvents(with: .BookRoomWithHalfBoard)
+                    }else if boardType.contains("Full Board"){
+                        self.logEvents(with: .BookRoomWithHalfBoard)
+                    }else{
+                        self.logEvents(with: .BookRoomWithOtherBoardTypes)
+                    }
+                }
+                if let canPolicy = rate.cancellation_penalty, canPolicy.is_refundable, let firstCancellation  = rate.penalty_array?.first{
+                    self.eventsForRoomRefunds(toDate: firstCancellation.to, fromDate: firstCancellation.from, penalty: firstCancellation.penalty)
+                }else{
+                    self.logEvents(with: .BookRoomWithNoRefunds)
+                }
+            }
+        }
+        
+    }
+    
+    private func eventsForRoomRefunds(toDate: String, fromDate: String, penalty: Int) {
+        if (!toDate.isEmpty && fromDate.isEmpty && penalty == 0) || (!toDate.isEmpty && !fromDate.isEmpty && penalty == 0) {
+            self.logEvents(with: .BookRoomWithFreeCancellation)
+        } else if !toDate.isEmpty && !fromDate.isEmpty && penalty != 0 {
+            self.logEvents(with: .BookRoomWithPartialCancellation)
+        } else if toDate.isEmpty && !fromDate.isEmpty && penalty != 0 {
+            self.logEvents(with: .BookRoomWithFreeCancellation)
+        }
+        
+    }
+    
+    func logEvents(with eventType:FirebaseEventLogs.EventsTypeName, value:String? = nil){
+        FirebaseEventLogs.shared.logIndividualHotelsDetalsEvents(with: eventType, value: value)
+    }
+    
+}

@@ -108,9 +108,9 @@ extension SettingsVM{
         case .calenderSync:
             FirebaseEventLogs.shared.logSettingEvents(with: .toggleCalender)
         case .aboutUs:
-            FirebaseEventLogs.shared.logSettingEvents(with: .openAboutUs)
+            FirebaseEventLogs.shared.logSettingEvents(with: .OpenAboutUs)
         case .legal:
-            FirebaseEventLogs.shared.logSettingEvents(with: .openLegal)
+            FirebaseEventLogs.shared.logSettingEvents(with: .OpenLegal)
         case .privacyPolicy:
             FirebaseEventLogs.shared.logSettingEvents(with: .openPrivacy)
         }

@@ -42,6 +42,7 @@
                 <outlet property="originsTableView" destination="ym0-0Y-kKt" id="uxu-Tg-R5A"/>
                 <outlet property="sameDepartReturnBtn" destination="XY4-Bm-y8O" id="HnC-LN-B3t"/>
                 <outlet property="sameDepartReturnLbl" destination="aEE-Hr-fa1" id="qhd-uy-R9k"/>
+                <outlet property="sameDepartReturnTopBtn" destination="A3r-4N-lLY" id="zDF-LZ-N5r"/>
                 <outlet property="sameDepartReturnView" destination="7cZ-qI-Apy" id="wnA-Ck-oiD"/>
                 <outlet property="topViewHeight" destination="REH-vK-coW" id="uyG-Wk-b3P"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -170,6 +171,12 @@
                                                 <action selector="sameDepartReturnBtnAction:" destination="-1" eventType="touchUpInside" id="ijb-zp-hav"/>
                                             </connections>
                                         </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A3r-4N-lLY">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
+                                            <connections>
+                                                <action selector="sameDepartReturnTopBtnAction:" destination="-1" eventType="touchUpInside" id="9d5-gq-BVM"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
@@ -177,8 +184,12 @@
                                         <constraint firstItem="XY4-Bm-y8O" firstAttribute="centerY" secondItem="aEE-Hr-fa1" secondAttribute="centerY" id="6wE-4s-r6C"/>
                                         <constraint firstItem="aEE-Hr-fa1" firstAttribute="leading" secondItem="7cZ-qI-Apy" secondAttribute="leading" constant="20" id="9Wu-Pr-Skt"/>
                                         <constraint firstAttribute="bottom" secondItem="7NC-bh-PXN" secondAttribute="bottom" id="HbZ-BR-d9d"/>
+                                        <constraint firstItem="A3r-4N-lLY" firstAttribute="top" secondItem="7cZ-qI-Apy" secondAttribute="top" id="VHp-Ng-39w"/>
+                                        <constraint firstItem="A3r-4N-lLY" firstAttribute="leading" secondItem="7cZ-qI-Apy" secondAttribute="leading" id="WqO-mb-FtH"/>
                                         <constraint firstItem="XY4-Bm-y8O" firstAttribute="leading" secondItem="aEE-Hr-fa1" secondAttribute="trailing" constant="1" id="dMJ-nf-qBx"/>
                                         <constraint firstAttribute="height" constant="45" id="eYD-Em-dle"/>
+                                        <constraint firstAttribute="trailing" secondItem="A3r-4N-lLY" secondAttribute="trailing" id="fid-eT-dns"/>
+                                        <constraint firstAttribute="bottom" secondItem="A3r-4N-lLY" secondAttribute="bottom" id="l2F-aq-6yH"/>
                                         <constraint firstAttribute="trailing" secondItem="XY4-Bm-y8O" secondAttribute="trailing" constant="5" id="lZq-vY-EVk"/>
                                         <constraint firstItem="aEE-Hr-fa1" firstAttribute="centerY" secondItem="7cZ-qI-Apy" secondAttribute="centerY" id="lwg-DC-hlb"/>
                                         <constraint firstAttribute="trailing" secondItem="7NC-bh-PXN" secondAttribute="trailing" id="tD0-Fd-9h8"/>

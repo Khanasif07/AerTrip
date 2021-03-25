@@ -543,6 +543,7 @@ extension AccountDetailsVC: ADEventFilterVCDelegate {
         }
         self.viewModel.applyFilter(searchText: self.mainSearchBar.text ?? "")
     }
+    
     func clearAllFilter() {
         //clear all filter
         self.currentViewState = .normal

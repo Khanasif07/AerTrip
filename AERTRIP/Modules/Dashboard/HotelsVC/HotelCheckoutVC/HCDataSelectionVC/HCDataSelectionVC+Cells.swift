@@ -129,6 +129,7 @@ extension HCDataSelectionRoomDetailCell: UICollectionViewDataSource, UICollectio
         if let forIndex = forIndex {
             if let controller = UIApplication.topViewController() as? HCDataSelectionVC {
                 AppFlowManager.default.moveToGuestDetailScreen(delegate:controller,IndexPath(row: indexPath.item, section: forIndex.row))
+                controller.viewModel.logEvent(with: .openPassengerDetails)
             }
         }
     }

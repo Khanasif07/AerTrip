@@ -209,7 +209,12 @@ class BookingReschedulingVC: BaseVC {
             }
             else {
                 //cancellation
-                AppFlowManager.default.moveToReviewCancellationVC(onNavController: self.navigationController, usingAs: .flightCancellationReview, legs: self.viewModel.legsData, selectedRooms: nil, bookingDetails: self.viewModel.bookingDetails)
+                if self.viewModel.checkNumberOfRemainingAdtIsGreaterInf(){
+                    AppFlowManager.default.moveToReviewCancellationVC(onNavController: self.navigationController, usingAs: .flightCancellationReview, legs: self.viewModel.legsData, selectedRooms: nil, bookingDetails: self.viewModel.bookingDetails)
+                }else{
+                    CustomToast.shared.showToast("Number of remaining infants cannot be more than remaining adults")
+                }
+                
             }
         }
         

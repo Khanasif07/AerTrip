@@ -29,6 +29,9 @@ extension HotelsMapVC : MKMapViewDelegate{
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         guard (view.annotation as? MyAnnotation)?.markerType != .city else {return}
+        if self.isMapInFullView{
+            self.updateFullMarkerView()
+        }
         updateSelectedMarker(view.annotation)
     }
     

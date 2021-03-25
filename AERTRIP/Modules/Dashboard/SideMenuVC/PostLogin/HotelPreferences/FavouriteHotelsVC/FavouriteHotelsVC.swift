@@ -217,6 +217,7 @@ extension FavouriteHotelsVC: FavouriteHotelsListVCDelegate {
         _ = PKAlertController.default.presentActionSheet(nil, message: "\(LocalizedString.DoYouWishToRemoveAllHotelsFrom.localized) \(self.viewModel.hotels[self.currentIndex].cityName)?", sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { (alert, index) in
             if index == 0 {
                 self.viewModel.updateFavourite(forHotels: self.viewModel.hotels[self.currentIndex].holetList)
+                self.viewModel.logFirebaseEvent(with: .RemoveAllHotels)
             }
         }
     }

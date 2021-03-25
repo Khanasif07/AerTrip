@@ -68,7 +68,6 @@ enum AppNetworking {
                      successWithData : SucessWithData = nil,
                      failure : @escaping Failure){
         
-        
         request(URLString: endPointPath.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) ?? "", httpMethod: .post, parameters: parameters, headers: headers, success: success, failure: failure)
     }
     

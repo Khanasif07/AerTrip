@@ -65,6 +65,8 @@ class PriceFilterViewController: UIViewController , FilterViewController {
             self.setupPriceLabels()
             self.priceRangeSlider.layoutIfNeeded()
         }
+        
+        checkRefundableFlights(index: viewModel.currentActiveIndex)
     }
     
     func initialSetup () {

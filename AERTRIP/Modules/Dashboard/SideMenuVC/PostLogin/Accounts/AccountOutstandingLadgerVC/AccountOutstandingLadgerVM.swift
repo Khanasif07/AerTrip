@@ -49,6 +49,8 @@ class AccountOutstandingLadgerVM: NSObject {
         }
     }
     
+    var accountLadegerDetails:JSONDictionary?
+    
     //MARK:- Private
     
     
@@ -192,6 +194,7 @@ class AccountOutstandingLadgerVM: NSObject {
                 let model = AccountDetailPostModel()
                 model.accountLadger = accLad
                 model.periodicEvents = periodic
+                self?.accountLadegerDetails = accLad
                 if let obj = outLad {
                     model.outstandingLadger = obj
                 }

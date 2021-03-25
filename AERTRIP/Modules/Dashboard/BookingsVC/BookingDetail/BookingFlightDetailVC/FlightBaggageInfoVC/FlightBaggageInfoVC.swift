@@ -36,6 +36,9 @@ class FlightBaggageInfoVC: BaseVC {
         //        self.tableView.backgroundColor = AppColors.themeWhite
 //        self.viewModel.getBookingFees()
         
+        
+        FirebaseAnalyticsController.shared.logEvent(name: "BookingFlightDetailBaggageInfo", params: ["ScreenName":"BookingFlightDetailBaggageInfo", "ScreenClass":"FlightBaggageInfoVC"])
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
