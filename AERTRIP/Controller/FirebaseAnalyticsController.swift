@@ -40,7 +40,8 @@ enum AnalyticsEvents: String {
     case TravellersList
     case ViewTraveller
     case EditMainTraveller
-    
+    case EditTraveller
+    case AddTraveller
 }
 
 enum AnalyticsKeys: String {

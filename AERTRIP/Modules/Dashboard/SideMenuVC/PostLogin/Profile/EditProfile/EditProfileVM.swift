@@ -491,7 +491,40 @@ extension EditProfileVM {
             }else if self.travelData?.preferences.meal.value != mealCode{
                 self.logEventsForFirebase(with: .EditMealPreference)
             }
-            
+        }
+        
+        if self.frequentFlyer.count > (self.travelData?.frequestFlyer.count ?? 0){
+            if self.travelData?.frequestFlyer.count == 0{
+                for ff in self.frequentFlyer{
+                    self.logEventsForFirebase(with: .AddFF, value: ff.airlineName)
+                }
+            }else{
+                for ff in self.frequentFlyer{
+                    if self.travelData?.frequestFlyer.first(where: {$0.airlineCode == ff.airlineCode}) == nil{
+                        if ff.id == 0{
+                            self.logEventsForFirebase(with: .AddFF, value: ff.airlineName)
+                        }else{
+                            self.logEventsForFirebase(with: .EditFF)
+                        }
+                    }else if let _ = self.travelData?.frequestFlyer.first(where: {(($0.airlineCode == ff.airlineCode) && $0.number != ff.number)}){
+                        self.logEventsForFirebase(with: .EditFF)
+                    }
+                    
+                }
+            }
+        }else{
+            for ff in self.frequentFlyer{
+                if self.travelData?.frequestFlyer.first(where: {$0.airlineCode == ff.airlineCode}) == nil{
+                    if ff.id == 0{
+                        self.logEventsForFirebase(with: .AddFF, value: ff.airlineName)
+                    }else{
+                        self.logEventsForFirebase(with: .EditFF)
+                    }
+                }else if let _ = self.travelData?.frequestFlyer.first(where: {(($0.airlineCode == ff.airlineCode) && $0.number != ff.number)}){
+                    self.logEventsForFirebase(with: .EditFF)
+                }
+                
+            }
         }
         
     }
@@ -499,9 +532,16 @@ extension EditProfileVM {
     
     
     func logEventsForFirebase(with event: FirebaseEventLogs.EventsTypeName, value: String? = nil){
+        var type = "editMain"
         if (self.travelData?.id == UserInfo.loggedInUser?.paxId){
-            FirebaseEventLogs.shared.logEditMainTravellerEvents(with: event, value: value)
+            type = "editMain"
+        }else{
+            if (self.travelData?.id.isEmpty ?? false){
+                type = "add"
+            }else {
+                type = "edit"
+            }
         }
-        
+        FirebaseEventLogs.shared.logEditMainTravellerEvents(with: event, value: value, key: type)
     }
 }
