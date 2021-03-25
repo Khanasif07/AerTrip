@@ -57,16 +57,16 @@ extension IntMCAndReturnFiltersBaseVC: PagingViewControllerDataSource , PagingVi
 extension IntMCAndReturnFiltersBaseVC {
     func logTapEvent(filterIndex: Int) {
         guard let selectedFilter = Filters(rawValue: filterIndex) else { return }
-        var selectedEvent: FirebaseEventLogs.EventsTypeName = .SortFilterTapped
+        var selectedEvent: FirebaseEventLogs.EventsTypeName = .FlightSortFilterTapped
         switch selectedFilter {
-        case .sort:             selectedEvent = .SortFilterTapped
-        case .stops:            selectedEvent = .StopsFilterTapped
-        case .Times:            selectedEvent = .TimesFilterTapped
-        case .Duration:         selectedEvent = .DurationFilterTapped
-        case .Airlines:         selectedEvent = .AirlinesFilterTapped
-        case .Airport:          selectedEvent = .AirportFilterTapped
-        case .Price:            selectedEvent = .PriceFilterTapped
-        case .Aircraft:         selectedEvent = .AircraftFilterTapped
+        case .sort:             selectedEvent = .FlightSortFilterTapped
+        case .stops:            selectedEvent = .FlightStopsFilterTapped
+        case .Times:            selectedEvent = .FlightTimesFilterTapped
+        case .Duration:         selectedEvent = .FlightDurationFilterTapped
+        case .Airlines:         selectedEvent = .FlightAirlinesFilterTapped
+        case .Airport:          selectedEvent = .FlightAirportFilterTapped
+        case .Price:            selectedEvent = .FlightPriceFilterTapped
+        case .Aircraft:         selectedEvent = .FlightAircraftFilterTapped
         default: break
         }
         FirebaseEventLogs.shared.logFlightFilterEvents(with: selectedEvent)
@@ -74,16 +74,16 @@ extension IntMCAndReturnFiltersBaseVC {
     
     func logSwipeEvent(filterIndex: Int) {
         guard let selectedFilter = Filters(rawValue: filterIndex) else { return }
-        var selectedEvent: FirebaseEventLogs.EventsTypeName = .SortFilterSwiped
+        var selectedEvent: FirebaseEventLogs.EventsTypeName = .FlightSortFilterSwiped
         switch selectedFilter {
-        case .sort:             selectedEvent = .SortFilterSwiped
-        case .stops:            selectedEvent = .StopsFilterSwiped
-        case .Times:            selectedEvent = .TimesFilterSwiped
-        case .Duration:         selectedEvent = .DurationFilterSwiped
-        case .Airlines:         selectedEvent = .AirlinesFilterSwiped
-        case .Airport:          selectedEvent = .AirportFilterSwiped
-        case .Price:            selectedEvent = .PriceFilterSwiped
-        case .Aircraft:         selectedEvent = .AircraftFilterSwiped
+        case .sort:             selectedEvent = .FlightSortFilterSwiped
+        case .stops:            selectedEvent = .FlightStopsFilterSwiped
+        case .Times:            selectedEvent = .FlightTimesFilterSwiped
+        case .Duration:         selectedEvent = .FlightDurationFilterSwiped
+        case .Airlines:         selectedEvent = .FlightAirlinesFilterSwiped
+        case .Airport:          selectedEvent = .FlightAirportFilterSwiped
+        case .Price:            selectedEvent = .FlightPriceFilterSwiped
+        case .Aircraft:         selectedEvent = .FlightAircraftFilterSwiped
         default: break
         }
         FirebaseEventLogs.shared.logFlightFilterEvents(with: selectedEvent)

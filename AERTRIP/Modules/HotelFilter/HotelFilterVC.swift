@@ -48,6 +48,9 @@ class HotelFilterVC: BaseVC {
     var selectedIndex: Int = HotelFilterVM.shared.lastSelectedIndex
     var isFilterApplied:Bool = false
     
+    // Only for analytics
+    var didTapFilter = false
+    
     var allChildVCs: [UIViewController] = [UIViewController]()
     weak var delegate : HotelFilteVCDelegate?
     
@@ -135,6 +138,10 @@ class HotelFilterVC: BaseVC {
     private func setNavigationTitle() {
         let navigationTitleText = HotelFilterVM.shared.totalHotelCount > 0 ? " \(HotelFilterVM.shared.filterHotelCount) of \(HotelFilterVM.shared.totalHotelCount) Results" : ""
         self.navigationTitleLabel.text = navigationTitleText
+        
+        if HotelFilterVM.shared.filterHotelCount == 0 {
+            FirebaseEventLogs.shared.logHotelFilterEvents(with: .NoResultsApplyingHotelFilters)
+        }
     }
     
     private func  setFilterButton() {
@@ -368,23 +375,34 @@ class HotelFilterVC: BaseVC {
                 vc.setFilterValues()
             }
         }
+        FirebaseEventLogs.shared.logHotelFilterEvents(with: .ClearAllHotelFilters)
     }
     
     @IBAction func doneButtonTapped(_ sender: Any) {
         saveAndApplyFilter()
         self.hide(animated: true, shouldRemove: true)
+        FirebaseEventLogs.shared.logHotelFilterEvents(with: .CloseHotelFilterUsingDone)
     }
     
     @objc func  outsideAreaTapped() {
+        hideFilter(tappedOutside: true)
+    }
+    
+    func hideFilter(tappedOutside: Bool) {
         saveAndApplyFilter()
         self.hide(animated: true, shouldRemove: true)
-        
+        if tappedOutside {
+            FirebaseEventLogs.shared.logHotelFilterEvents(with: .CloseHotelFiltersByOutsideClick)
+        }
     }
+    
     @IBAction func filterBtnTapped(_ sender: Any) {
         if HotelFilterVM.shared.lastSelectedIndex != 0 {
             parchmentView?.select(index: 0, animated: true)
+            FirebaseEventLogs.shared.logHotelFilterEvents(with: .HotelSortFilterByTapOnFilterIcon)
         } else {
-            outsideAreaTapped()
+            hideFilter(tappedOutside: false)
+            FirebaseEventLogs.shared.logHotelFilterEvents(with: .CloseHotelFilterByTappingFilter)
         }
     }
     
