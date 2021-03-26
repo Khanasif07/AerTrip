@@ -162,6 +162,9 @@ class AccountDetailsVC: BaseVC {
         self.tableView.refreshControl = refreshControl
         self.tableView.showsVerticalScrollIndicator = true
         
+        
+        FirebaseAnalyticsController.shared.logEvent(name: "AccountLedger", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
     }
     
     override func dataChanged(_ note: Notification) {
@@ -362,10 +365,14 @@ class AccountDetailsVC: BaseVC {
         _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
             if index == 0 {
                 //email tapped
+                FirebaseAnalyticsController.shared.logEvent(name: "AccountLedgerSendEmailOptionSelected", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
                 AppToast.default.showToastMessage(message: "Sending email")
                 self.viewModel.sendEmailForLedger(onVC: self)
             } else {
                 //download pdf tapped
+                FirebaseAnalyticsController.shared.logEvent(name: "AccountLedgerDownloadPDFOptionSelected", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
                 self.topNavView.isToShowIndicatorView = true
                 self.topNavView.startActivityIndicaorLoading()
                 self.topNavView.firstRightButton.isHidden = true
@@ -427,6 +434,8 @@ class AccountDetailsVC: BaseVC {
 extension AccountDetailsVC: UISearchBarDelegate {
     
     func clearSearchData() {
+        FirebaseAnalyticsController.shared.logEvent(name: "AccountLedgerClearSearchBar", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
         self.mainSearchBar.text = ""
         self.searchBar.text = ""
         self.ladgerDummySearchBar.text = ""
@@ -444,6 +453,8 @@ extension AccountDetailsVC: UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        FirebaseAnalyticsController.shared.logEvent(name: "AccountLedgerSearchBarCancelButtonClicked", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
         if searchBar === self.mainSearchBar {
             self.currentViewState = .normal
             self.clearSearchData()
@@ -471,6 +482,8 @@ extension AccountDetailsVC: UISearchBarDelegate {
         if (searchBar.text?.isEmpty ?? false){
             self.searchBarCancelButtonClicked(searchBar)
         }else{
+            FirebaseAnalyticsController.shared.logEvent(name: "AccountLedgerSearchButtonClicked", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? "","SearchQuery":mainSearchBar.text ?? ""])
+
             self.preserveSearchData()
 //            self.currentViewState = .filterApplied
             self.view.endEditing(true)
@@ -504,6 +517,8 @@ extension AccountDetailsVC: UISearchBarDelegate {
     }
     
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
+        FirebaseAnalyticsController.shared.logEvent(name: "AccountLedgerSpeechToTextClicked", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
         AppFlowManager.default.moveToSpeechToText(with: self)
     }
 }
@@ -513,17 +528,23 @@ extension AccountDetailsVC: UISearchBarDelegate {
 extension AccountDetailsVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         //back button action
+        FirebaseAnalyticsController.shared.logEvent(name: "AccountLedgerBackButtonClicked", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
         ADEventFilterVM.shared.setToDefault()
         AppFlowManager.default.popViewController(animated: true)
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         //dots button action
+        FirebaseAnalyticsController.shared.logEvent(name: "AccountLedgerMenuOptionClicked", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
         self.showMoreOptions()
     }
     
     func topNavBarSecondRightButtonAction(_ sender: UIButton) {
         //filter button action
+        FirebaseAnalyticsController.shared.logEvent(name: "AccountLedgerFilterButtonClicked", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
         ADEventFilterVM.shared.minFromDate = self.viewModel.ledgerStartDate
         ADEventFilterVM.shared.voucherTypes = self.viewModel.allVouchers
         ADEventFilterVM.shared.minDate = self.viewModel.minDate
@@ -546,6 +567,8 @@ extension AccountDetailsVC: ADEventFilterVCDelegate {
     
     func clearAllFilter() {
         //clear all filter
+        FirebaseAnalyticsController.shared.logEvent(name: "AccountLedgerClearAllFilter", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
         self.currentViewState = .normal
         self.viewModel.applyFilter(searchText: self.mainSearchBar.text ?? "")
     }
@@ -591,6 +614,8 @@ extension AccountDetailsVC: AccountDetailsVMDelegate {
         if showProgres {
             self.stopProgress()
         }
+        FirebaseAnalyticsController.shared.logEvent(name: "AccountLedgerGetAccountDetailsSuccess", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
         self.refreshControl.endRefreshing()
         self.topNavView.firstRightButton.isUserInteractionEnabled = true
         self.topNavView.secondRightButton.isUserInteractionEnabled = true
@@ -607,6 +632,8 @@ extension AccountDetailsVC: AccountDetailsVMDelegate {
     }
     
     func getAccountDetailsFail(showProgres: Bool) {
+        FirebaseAnalyticsController.shared.logEvent(name: "AccountLedgerGetAccountDetailsFail", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
         if showProgres {
             self.stopProgress()
             self.manageDataForDeeplink()
@@ -622,6 +649,8 @@ extension AccountDetailsVC: AccountDetailsVMDelegate {
 
 extension AccountDetailsVC: SpeechToTextVCDelegate{
     func getSpeechToText(_ text: String) {
+        FirebaseAnalyticsController.shared.logEvent(name: "AccountLedgerConvertedSpeechToText", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? "","SeachQuery":text])
+
         guard !text.isEmpty else {return}
         searchBar.hideMiceButton(isHidden: false)
 

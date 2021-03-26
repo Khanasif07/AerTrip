@@ -103,6 +103,9 @@ class AccountLadgerDetailsVC: BaseVC {
         }
         
         self.containerView.backgroundColor = AppColors.themeGray04
+        
+        FirebaseAnalyticsController.shared.logEvent(name: "AccountLadgerDetails", params: ["ScreenName":"AccountLadgerDetails", "ScreenClass":"AccountLadgerDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
     }
     
     override func bindViewModel() {
@@ -248,6 +251,8 @@ extension AccountLadgerDetailsVC: AccountLadgerDetailsVMDelegate {
 extension AccountLadgerDetailsVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         //back button
+        FirebaseAnalyticsController.shared.logEvent(name: "AccountLadgerDetailsBackButtonClicked", params: ["ScreenName":"AccountLadgerDetails", "ScreenClass":"AccountLadgerDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
         DispatchQueue.main.async {
             AppFlowManager.default.popViewController(animated: true)
         }
