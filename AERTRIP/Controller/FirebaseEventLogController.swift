@@ -129,30 +129,52 @@ class FirebaseEventLogs{
         case openSelectGuest = "OpenSelectGuest"
         
         //MARK: Flight Filters
-        case SortFilterByTapOnFilterIcon = "SortFilterByTapOnFilterIcon"
-        case SortFilterTapped = "SortFilterTapped"
-        case StopsFilterTapped = "StopsFilterTapped"
-        case TimesFilterTapped = "TimesFilterTapped"
-        case DurationFilterTapped = "DurationFilterTapped"
-        case AirlinesFilterTapped = "AirlinesFilterTapped"
-        case AirportFilterTapped = "AirportFilterTapped"
-        case PriceFilterTapped = "PriceFilterTapped"
-        case AircraftFilterTapped = "AircraftFilterTapped"
+        case FlightSortFilterByTapOnFilterIcon = "FlightSortFilterByTapOnFilterIcon"
+        case FlightSortFilterTapped = "FlightSortFilterTapped"
+        case FlightStopsFilterTapped = "FlightStopsFilterTapped"
+        case FlightTimesFilterTapped = "FlightTimesFilterTapped"
+        case FlightDurationFilterTapped = "FlightDurationFilterTapped"
+        case FlightAirlinesFilterTapped = "FlightAirlinesFilterTapped"
+        case FlightAirportFilterTapped = "FlightAirportFilterTapped"
+        case FlightPriceFilterTapped = "FlightPriceFilterTapped"
+        case FlightAircraftFilterTapped = "FlightAircraftFilterTapped"
         
-        case SortFilterSwiped = "SortFilterSwiped"
-        case StopsFilterSwiped = "StopsFilterSwiped"
-        case TimesFilterSwiped = "TimesFilterSwiped"
-        case DurationFilterSwiped = "DurationFilterSwiped"
-        case AirlinesFilterSwiped = "AirlinesFilterSwiped"
-        case AirportFilterSwiped = "AirportFilterSwiped"
-        case PriceFilterSwiped = "PriceFilterSwiped"
-        case AircraftFilterSwiped = "AircraftFilterSwiped"
+        case FlightSortFilterSwiped = "FlightSortFilterSwiped"
+        case FlightStopsFilterSwiped = "FlightStopsFilterSwiped"
+        case FlightTimesFilterSwiped = "FlightTimesFilterSwiped"
+        case FlightDurationFilterSwiped = "FlightDurationFilterSwiped"
+        case FlightAirlinesFilterSwiped = "FlightAirlinesFilterSwiped"
+        case FlightAirportFilterSwiped = "FlightAirportFilterSwiped"
+        case FlightPriceFilterSwiped = "FlightPriceFilterSwiped"
+        case FlightAircraftFilterSwiped = "FlightAircraftFilterSwiped"
         
         case ClearAllFlightFilters = "ClearAllFlightFilters"
         case CloseFlightFilterUsingDone = "CloseFlightFilterUsingDone"
         case CloseFlightFiltersByOutsideClick = "CloseFlightFiltersByOutsideClick"
         case CloseFlightFilterByTappingFilter = "CloseFlightFilterByTappingFilter"
         case NoResultsApplyingFlightFilters = "NoResultsApplyingFlightFilters"
+        
+        // Hotel Filters
+        case HotelSortFilterByTapOnFilterIcon = "HotelSortFilterByTapOnFilterIcon"
+        case HotelSortFilterTapped = "HotelSortFilterTapped"
+        case HotelDistanceFilterTapped = "HotelDistanceFilterTapped"
+        case HotelPriceFilterTapped = "HotelPriceFilterTapped"
+        case HotelRatingsFilterTapped = "HotelRatingsFilterTapped"
+        case HotelAmenitiesFilterTapped = "HotelAmenitiesFilterTapped"
+        case HotelRoomFilterTapped = "HotelRoomFilterTapped"
+        
+        case HotelSortFilterSwiped = "HotelSortFilterSwiped"
+        case HotelDistanceFilterSwiped = "HotelDistanceFilterSwiped"
+        case HotelPriceFilterSwiped = "HotelPriceFilterSwiped"
+        case HotelRatingsFilterSwiped = "HotelRatingsFilterSwiped"
+        case HotelAmenitiesFilterSwiped = "HotelAmenitiesFilterSwiped"
+        case HotelRoomFilterSwiped = "HotelRoomFilterSwiped"
+        
+        case ClearAllHotelFilters = "ClearAllHotelFilters"
+        case CloseHotelFilterUsingDone = "CloseHotelFilterUsingDone"
+        case CloseHotelFiltersByOutsideClick = "CloseHotelFiltersByOutsideClick"
+        case CloseHotelFilterByTappingFilter = "CloseHotelFilterByTappingFilter"
+        case NoResultsApplyingHotelFilters = "NoResultsApplyingHotelFilters"
 
         //MARK: Favourite Hotels Events TypeNames
         case AddHotel
@@ -328,8 +350,18 @@ class FirebaseEventLogs{
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelCheckOut.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
     }
     
-    func logFlightFilterEvents(with type: EventsTypeName) {
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFiltersNavigation.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue])
+    // MARK: Flight Filter Events
+    func logFlightFiterEvents(params: JSONDictionary) {
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: params)
+    }
+    
+    // MARK: Flight and Hotel Navigation Events
+    func logFlightNavigationEvents(with type: EventsTypeName) {
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFiltersNavigation.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
+    }
+    
+    func logHotelNavigationEvents(with type: EventsTypeName) {
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelFiltersNavigation.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
     }
     
     //MARK:Favourite Hotels Events Log Function
@@ -387,4 +419,15 @@ class FirebaseEventLogs{
     func logVTravellerPreferencesEvents(with type: EventsTypeName){
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.TravellerPreferences.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
     }
+    
+    //MARK:- Flight Result Events
+    
+    func logOneWayResultEvents(with type : EventsTypeName, params : JSONDictionary){
+        
+        
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightOneWayResults.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.Values.rawValue : params])
+
+        
+    }
+    
 }

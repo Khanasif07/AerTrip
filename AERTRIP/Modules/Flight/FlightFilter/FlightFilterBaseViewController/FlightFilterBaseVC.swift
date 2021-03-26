@@ -118,7 +118,7 @@ class FlightFilterBaseVC: UIViewController {
     
     @IBAction func closeFiltersBtnAction(_ sender: UIButton) {
         filterUIDelegate?.removedFilterUIFromParent()
-        FirebaseEventLogs.shared.logFlightFilterEvents(with: .CloseFlightFiltersByOutsideClick)
+        FirebaseEventLogs.shared.logFlightNavigationEvents(with: .CloseFlightFiltersByOutsideClick)
     }
     
     // MARK: Functions
