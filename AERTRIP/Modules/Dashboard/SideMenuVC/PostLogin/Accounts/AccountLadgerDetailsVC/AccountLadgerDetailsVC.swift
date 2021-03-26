@@ -104,7 +104,7 @@ class AccountLadgerDetailsVC: BaseVC {
         
         self.containerView.backgroundColor = AppColors.themeGray04
         
-        FirebaseAnalyticsController.shared.logEvent(name: "AccountLadgerDetails", params: ["ScreenName":"AccountLadgerDetails", "ScreenClass":"AccountLadgerDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+        FirebaseAnalyticsController.shared.logEvent(name: "AccountLadgerDetails", params: ["ScreenName":"AccountLadgerDetails", "ScreenClass":"AccountLadgerDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? "","DetailsType":viewModel.detailType])
 
     }
     
@@ -251,7 +251,7 @@ extension AccountLadgerDetailsVC: AccountLadgerDetailsVMDelegate {
 extension AccountLadgerDetailsVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         //back button
-        FirebaseAnalyticsController.shared.logEvent(name: "AccountLadgerDetailsBackButtonClicked", params: ["ScreenName":"AccountLadgerDetails", "ScreenClass":"AccountLadgerDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+        FirebaseAnalyticsController.shared.logEvent(name: "AccountLadgerDetailsBackButtonClicked", params: ["ScreenName":"AccountLadgerDetails", "ScreenClass":"AccountLadgerDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? "","DetailsType":viewModel.detailType])
 
         DispatchQueue.main.async {
             AppFlowManager.default.popViewController(animated: true)
@@ -414,10 +414,16 @@ extension AccountLadgerDetailsVC: AccountLadgerDetailHeaderDelegate{
         if let event = self.viewModel.ladgerEvent, (event.voucher == .sales || event.voucher == .journal) {
             switch event.productType {
             case .flight:
+                
                 let title = NSMutableAttributedString(string: (event.voucher == .sales) ? event.title : event.sector)
+                
+                FirebaseAnalyticsController.shared.logEvent(name: "AccountLadgerDetailsFlightsOptionClicked", params: ["ScreenName":"AccountLadgerDetails", "ScreenClass":"AccountLadgerDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? "","DetailsType":viewModel.detailType,"title":title])
+
                 AppFlowManager.default.moveToFlightBookingsDetailsVC(bookingId: event.bookingId,tripCitiesStr: title)
                 
             case .hotel:
+                FirebaseAnalyticsController.shared.logEvent(name: "AccountLadgerDetailsHotelsOptionClicked", params: ["ScreenName":"AccountLadgerDetails", "ScreenClass":"AccountLadgerDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? "","DetailsType":viewModel.detailType])
+
                 AppFlowManager.default.moveToHotelBookingsDetailsVC(bookingId: event.bookingId)
             default: break
             }
