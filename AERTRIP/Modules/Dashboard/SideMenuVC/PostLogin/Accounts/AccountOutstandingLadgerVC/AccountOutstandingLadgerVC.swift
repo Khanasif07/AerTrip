@@ -151,6 +151,9 @@ class AccountOutstandingLadgerVC: BaseVC {
         self.tableView.showsVerticalScrollIndicator = true
         
         addLongPressOnTableView()
+        
+        FirebaseAnalyticsController.shared.logEvent(name: "AccountOutstandingLadger", params: ["ScreenName":"AccountOutstandingLadger", "ScreenClass":"AccountOutstandingLadgerVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
     }
     
     override func bindViewModel() {
@@ -304,6 +307,8 @@ class AccountOutstandingLadgerVC: BaseVC {
         _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
             if index == 0 {
                 //select bookings pay
+                FirebaseAnalyticsController.shared.logEvent(name: "AccountOutstandingLadgerSelectBookingsOptionSelected", params: ["ScreenName":"AccountOutstandingLadger", "ScreenClass":"AccountOutstandingLadgerVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
                 if self.currentViewState == .selecting {
                     self.currentViewState = .normal
                     self.viewModel.isSearching = false
@@ -316,11 +321,15 @@ class AccountOutstandingLadgerVC: BaseVC {
             }
             else if index == 1 {
                 //email tapped
+                FirebaseAnalyticsController.shared.logEvent(name: "AccountOutstandingLadgerEmailOptionSelcted", params: ["ScreenName":"AccountOutstandingLadger", "ScreenClass":"AccountOutstandingLadgerVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
                 AppToast.default.showToastMessage(message: "Sending email")
                 self.viewModel.sendEmailForLedger(onVC: self)
             }
             else {
                 //download pdf tapped
+                FirebaseAnalyticsController.shared.logEvent(name: "AccountOutstandingLadgerDownloadPDFOptionSelected", params: ["ScreenName":"AccountOutstandingLadger", "ScreenClass":"AccountOutstandingLadgerVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
                 self.topNavView.isToShowIndicatorView = true
                 self.topNavView.startActivityIndicaorLoading()
                 self.topNavView.firstRightButton.isHidden = true
@@ -437,12 +446,16 @@ class AccountOutstandingLadgerVC: BaseVC {
     
     //MARK:- Action
     @IBAction func onAccountButtonAction(_ sender: UIButton) {
+        FirebaseAnalyticsController.shared.logEvent(name: "AccountOutstandingLadgerOnAccountOptionSelected", params: ["ScreenName":"AccountOutstandingLadger", "ScreenClass":"AccountOutstandingLadgerVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
         if let obj = self.viewModel.accountOutstanding {
             AppFlowManager.default.moveToOnAccountDetailVC(outstanding: obj, accountLaders: self.viewModel.accountLadegerDetails)
         }
     }
     @IBAction func makePaymentButtonAction(_ sender: UIButton) {
         if self.makePaymentTitleLabel.alpha >= 1.0 {
+            FirebaseAnalyticsController.shared.logEvent(name: "AccountOutstandingLadgerMakePaymentButtonClicked", params: ["ScreenName":"AccountOutstandingLadger", "ScreenClass":"AccountOutstandingLadgerVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
             self.viewModel.getOutstandingPayment()
         }
     }
@@ -465,7 +478,10 @@ extension AccountOutstandingLadgerVC: UISearchBarDelegate {
         self.reloadList()
     }
     
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar)
+    {
+        FirebaseAnalyticsController.shared.logEvent(name: "AccountOutstandingLadgerSearchBarCancelButtonClicked", params: ["ScreenName":"AccountOutstandingLadger", "ScreenClass":"AccountOutstandingLadgerVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
         if searchBar === self.mainSearchBar {
 //            self.currentViewState = .normal
             self.viewModel.isSearching = false
@@ -489,6 +505,8 @@ extension AccountOutstandingLadgerVC: UISearchBarDelegate {
         if (searchBar.text?.isEmpty ?? false){
             self.searchBarCancelButtonClicked(searchBar)
         }else{
+            FirebaseAnalyticsController.shared.logEvent(name: "AccountOutstandingLadgerSearchBarSearchButtonClicked", params: ["ScreenName":"AccountOutstandingLadger", "ScreenClass":"AccountOutstandingLadgerVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? "","SearchQuery":mainSearchBar.text ?? ""])
+
             self.preserveSearchData()
             //        self.currentViewState = .normal
             self.view.endEditing(true)
@@ -530,11 +548,15 @@ extension AccountOutstandingLadgerVC: UISearchBarDelegate {
 extension AccountOutstandingLadgerVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         //back button action
+        FirebaseAnalyticsController.shared.logEvent(name: "AccountOutstandingLadgerBackButtonClicked", params: ["ScreenName":"AccountOutstandingLadger", "ScreenClass":"AccountOutstandingLadgerVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
         AppFlowManager.default.popViewController(animated: true)
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         //dots button action
+        FirebaseAnalyticsController.shared.logEvent(name: "AccountOutstandingLadgerMenuButtonClicked", params: ["ScreenName":"AccountOutstandingLadger", "ScreenClass":"AccountOutstandingLadgerVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
         if self.currentViewState == .normal {
             self.showMoreOptions()
         }
@@ -693,10 +715,14 @@ extension AccountOutstandingLadgerVC: AccountOutstandingLadgerVMDelegate {
             switch index {
             case 0:
                 //PayOnline
+                FirebaseAnalyticsController.shared.logEvent(name: "AccountOutstandingLadgerPayOnlineOptionSelected", params: ["ScreenName":"AccountOutstandingLadger", "ScreenClass":"AccountOutstandingLadgerVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
                 AppFlowManager.default.moveToAccountOnlineDepositVC(depositItinerary: self.viewModel.itineraryData, usingToPaymentFor: .outstandingLedger)
                 
             case 1:
                 //PayOfflineNRegister
+                FirebaseAnalyticsController.shared.logEvent(name: "AccountOutstandingLadgerPayOfflineOptionSelected", params: ["ScreenName":"AccountOutstandingLadger", "ScreenClass":"AccountOutstandingLadgerVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
                 AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .fundTransfer, usingToPaymentFor: .accountDeposit, paymentModeDetail: self.viewModel.itineraryData?.fundTransfer, netAmount: self.viewModel.itineraryData?.netAmount ?? 0.0, bankMaster: self.viewModel.itineraryData?.bankMaster ?? [], itineraryData: self.viewModel.itineraryData)
                 printDebug("PayOfflineNRegister")
                 

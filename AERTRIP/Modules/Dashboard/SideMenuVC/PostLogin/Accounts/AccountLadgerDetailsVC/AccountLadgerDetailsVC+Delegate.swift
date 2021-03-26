@@ -219,6 +219,8 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
         
         if (indexPath.section == self.viewModel.sectionArray.count + 1) && (indexPath.row == 1){
           
+            FirebaseAnalyticsController.shared.logEvent(name: "AccountLadgerDetailsDownloadReciptClicked", params: ["ScreenName":"AccountLadgerDetails", "ScreenClass":"AccountLadgerDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
             if let type = self.viewModel.ladgerEvent?.productType{
                 switch type{
                 case .hotel, .flight:

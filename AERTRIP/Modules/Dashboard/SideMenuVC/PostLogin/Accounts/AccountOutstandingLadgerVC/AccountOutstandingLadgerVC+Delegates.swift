@@ -173,6 +173,8 @@ extension AccountOutstandingLadgerVC: UITableViewDataSource, UITableViewDelegate
             }
             self.reloadList()
         } else {
+            FirebaseAnalyticsController.shared.logEvent(name: "AccountOutstandingLedgerSelectedLedgerFromListToViewDetails", params: ["ScreenName":"AccountOutstandingLadger", "ScreenClass":"AccountOutstandingLadgerVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
             AppFlowManager.default.moveToAccountLadgerDetailsVC(forEvent: event, detailType: .outstandingLadger)
         }
     }
