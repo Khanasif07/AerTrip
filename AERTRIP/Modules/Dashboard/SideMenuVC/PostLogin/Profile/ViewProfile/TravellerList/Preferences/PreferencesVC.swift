@@ -120,6 +120,7 @@ class PreferencesVC: BaseVC {
                 if (groupName.lowercased() == LocalizedString.Other.localized.lowercased()) || (groupName.lowercased() == LocalizedString.Others.localized.lowercased()) || (groupName.lowercased() == LocalizedString.Me.localized.lowercased()) {
                    AppToast.default.showToastMessage(message: LocalizedString.CantCreateGroupWithThisName.localized)
                 } else {
+                    self.viewModel.logFirebaseEvent(for: .AddNewGroup)
                     self.viewModel.groups.append(groupName)
                     self.viewModel.modifiedGroups.append((originalGroupName: groupName, modifiedGroupName: groupName))
                  }
@@ -139,6 +140,11 @@ class PreferencesVC: BaseVC {
     @objc func setCategorisedByGroupFlag(_ sender: UISwitch) {
         printDebug("\(sender.isOn)")
         viewModel.isCategorizeByGroup = sender.isOn
+        if sender.isOn{
+            self.viewModel.logFirebaseEvent(for: .SwitchCategoriseByGroupOn)
+        }else{
+            self.viewModel.logFirebaseEvent(for: .SwitchCategoriseByGroupOff)
+        }
     }
     
     override func bindViewModel() {
@@ -348,16 +354,24 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch sections[indexPath.section] {
         case LocalizedString.SortOrder:
+            let previouse = viewModel.sortOrder
             if indexPath.row == 0 {
                 viewModel.sortOrder = "FL"
             } else {
                 viewModel.sortOrder = "LF"
             }
+            if previouse != viewModel.sortOrder{
+                self.viewModel.logFirebaseEvent(for: .ChangeSortOrder)
+            }
         case LocalizedString.DisplayOrder:
+            let previouse = viewModel.sortOrder
             if indexPath.row == 0 {
                 viewModel.displayOrder = "FL"
             } else {
                 viewModel.displayOrder = "LF"
+            }
+            if previouse != viewModel.sortOrder{
+                self.viewModel.logFirebaseEvent(for: .ChangeDisplayOrder)
             }
         case LocalizedString.Groups:
             if indexPath.row == viewModel.groups.count {
@@ -422,6 +436,7 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
 
         
         // Insert element at Particular index
+        self.viewModel.logFirebaseEvent(for: .SortGroup)
         viewModel.groups.insert(movedObject, at: destinationIndexPath.row)
         viewModel.modifiedGroups.insert(movedModifiedObject, at: destinationIndexPath.row)
         
@@ -522,6 +537,7 @@ extension PreferencesVC: GroupTableViewCellDelegate {
                     }
                     self.viewModel.removedGroups.append(self.viewModel.groups.remove(at: indexPath.row))
                     self.viewModel.modifiedGroups.remove(at: indexPath.row)
+                    self.viewModel.logFirebaseEvent(for: .DeleteGroup)
                     self.tableView.reloadData()
                 default:
                     break

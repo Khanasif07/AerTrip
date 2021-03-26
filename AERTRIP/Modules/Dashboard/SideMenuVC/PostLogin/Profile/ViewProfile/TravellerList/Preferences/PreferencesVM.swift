@@ -86,3 +86,13 @@ class PreferencesVM: NSObject {
         }
     }
 }
+
+
+///Log Events For Firebase
+extension PreferencesVM{
+
+    func logFirebaseEvent(for event: FirebaseEventLogs.EventsTypeName){
+        FirebaseEventLogs.shared.logVTravellerPreferencesEvents(with: event)
+    }
+    
+}

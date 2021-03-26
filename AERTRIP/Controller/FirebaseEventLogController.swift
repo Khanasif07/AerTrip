@@ -246,6 +246,15 @@ class FirebaseEventLogs{
         case AddFF
         case EditFF
         case DeleteFromTravellersList
+        
+        //MARK: Traveller Preferences Events TypeNames
+        case ChangeSortOrder
+        case ChangeDisplayOrder
+        case SwitchCategoriseByGroupOff
+        case SwitchCategoriseByGroupOn
+        case DeleteGroup
+        case SortGroup
+        case AddNewGroup
     }
     
     
@@ -386,4 +395,9 @@ class FirebaseEventLogs{
         FirebaseAnalyticsController.shared.logEvent(name: eventName, params: param)
     }
     
+    
+    //MARK: Traveller Preferences Events Log Function
+    func logVTravellerPreferencesEvents(with type: EventsTypeName){
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.TravellerPreferences.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue])
+    }
 }
