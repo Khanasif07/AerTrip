@@ -1281,6 +1281,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
     }
     
     
+    
     func clearFilters() {
         flightSearchResultVM.clearAllFilters()
         flightFilterVC?.resetAllFilters()
@@ -1570,6 +1571,15 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
         default:
             return
         }
+    }
+    
+    func updateComboFare() {
+        guard let resultVM = self.flightSearchResultVM, let domesticMLResultVC = domesticMultiLegResultVC, flightSearchResultVM.flightSearchType == RETURN_JOURNEY else  { return }
+        if resultVM.comboResults.count > 0 {
+            domesticMLResultVC.comboResults = resultVM.comboResults
+            domesticMLResultVC.checkForComboFares(needToUpdate: true)
+        }
+        
     }
     
     func applySorting(sortOrder : Sort, isConditionReverced : Bool, legIndex : Int){
