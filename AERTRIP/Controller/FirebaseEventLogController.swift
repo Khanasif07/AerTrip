@@ -406,4 +406,15 @@ class FirebaseEventLogs{
     func logVTravellerPreferencesEvents(with type: EventsTypeName){
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.TravellerPreferences.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue])
     }
+    
+    //MARK:- Flight Result Events
+    
+    func logOneWayResultEvents(with type : EventsTypeName, params : JSONDictionary){
+        
+        
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightOneWayResults.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.Values.rawValue : params])
+
+        
+    }
+    
 }
