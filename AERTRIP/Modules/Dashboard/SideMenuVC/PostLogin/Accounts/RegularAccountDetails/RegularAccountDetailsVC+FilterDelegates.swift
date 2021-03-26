@@ -15,17 +15,23 @@ import IQKeyboardManager
 extension RegularAccountDetailsVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         //back button action
+        FirebaseAnalyticsController.shared.logEvent(name: "AccountsBackButtonClicked", params: ["ScreenName":"Accounts", "ScreenClass":"RegularAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
         ADEventFilterVM.shared.setToDefault()
         AppFlowManager.default.popViewController(animated: true)
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         //dots button action
+        FirebaseAnalyticsController.shared.logEvent(name: "AccountsMenuOptionClicked", params: ["ScreenName":"Accounts", "ScreenClass":"RegularAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
         self.showMoreOptions()
     }
     
     func topNavBarSecondRightButtonAction(_ sender: UIButton) {
         //filter button action
+        FirebaseAnalyticsController.shared.logEvent(name: "AccountsFilterOptionClicked", params: ["ScreenName":"Accounts", "ScreenClass":"RegularAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
         ADEventFilterVM.shared.minFromDate = self.viewModel.ledgerStartDate
         ADEventFilterVM.shared.voucherTypes = self.viewModel.allVouchers
         ADEventFilterVM.shared.minDate = self.viewModel.minDate
@@ -38,6 +44,8 @@ extension RegularAccountDetailsVC: TopNavigationViewDelegate {
 //MARK:-
 extension RegularAccountDetailsVC: ADEventFilterVCDelegate {
     func applyFilter() {
+        FirebaseAnalyticsController.shared.logEvent(name: "AccountsApplyFilterSelected", params: ["ScreenName":"Accounts", "ScreenClass":"RegularAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
         if ADEventFilterVM.shared.isFilterAplied  {
             self.currentViewState = .filterApplied
         } else {
@@ -47,6 +55,8 @@ extension RegularAccountDetailsVC: ADEventFilterVCDelegate {
     }
     func clearAllFilter() {
         //clear all filter
+        FirebaseAnalyticsController.shared.logEvent(name: "AccountsClearAllOptionSelected", params: ["ScreenName":"Accounts", "ScreenClass":"RegularAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
         self.currentViewState = .normal
         self.viewModel.applyFilter(searchText: self.mainSearchBar.text ?? "")
     }
@@ -75,6 +85,8 @@ extension RegularAccountDetailsVC: RegularAccountHeaderDelegate{
     }
     
     func searchBarMicButtonTapped() {
+        FirebaseAnalyticsController.shared.logEvent(name: "AccountsSpeechToTextOptionSelected", params: ["ScreenName":"Accounts", "ScreenClass":"RegularAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
         AppFlowManager.default.moveToSpeechToText(with: self)
     }
     
@@ -93,6 +105,8 @@ extension RegularAccountDetailsVC: RegularAccountHeaderDelegate{
 
 extension RegularAccountDetailsVC: SpeechToTextVCDelegate{
     func getSpeechToText(_ text: String) {
+        FirebaseAnalyticsController.shared.logEvent(name: "AccountsConvertedSpeechToText", params: ["ScreenName":"Accounts", "ScreenClass":"RegularAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? "","SearchQuery":text])
+
         guard !text.isEmpty else {return}
         self.currentViewState = .searching
         self.mainSearchBar.text = text
@@ -124,6 +138,8 @@ extension RegularAccountDetailsVC: UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        FirebaseAnalyticsController.shared.logEvent(name: "AccountsSearchBarCancelButtonClicked", params: ["ScreenName":"Accounts", "ScreenClass":"RegularAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
         if searchBar === self.mainSearchBar {
             self.currentViewState = .normal
             self.clearSearchData()
@@ -146,6 +162,8 @@ extension RegularAccountDetailsVC: UISearchBarDelegate {
         if (searchBar.text?.isEmpty ?? false){
             self.searchBarCancelButtonClicked(searchBar)
         }else{
+            FirebaseAnalyticsController.shared.logEvent(name: "AccountsSearchButtonClicked", params: ["ScreenName":"Accounts", "ScreenClass":"RegularAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? "","SearchQuery":mainSearchBar.text ?? ""])
+
             self.preserveSearchData()
             self.view.endEditing(true)
         }
@@ -169,6 +187,8 @@ extension RegularAccountDetailsVC: UISearchBarDelegate {
     }
     
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
+        FirebaseAnalyticsController.shared.logEvent(name: "AccountsSpeechToTextOptionSelected", params: ["ScreenName":"Accounts", "ScreenClass":"RegularAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
         AppFlowManager.default.moveToSpeechToText(with: self)
     }
 }

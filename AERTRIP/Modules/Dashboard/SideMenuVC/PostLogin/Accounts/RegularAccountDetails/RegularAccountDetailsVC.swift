@@ -87,6 +87,9 @@ class RegularAccountDetailsVC: BaseVC {
         self.setHeaderView()
         self.setMainSearchBar()
         self.setupNavigation()
+        
+        FirebaseAnalyticsController.shared.logEvent(name: "Accounts", params: ["ScreenName":"Accounts", "ScreenClass":"RegularAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
     }
     
     override func viewSafeAreaInsetsDidChange() {
@@ -207,10 +210,14 @@ class RegularAccountDetailsVC: BaseVC {
         _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
             if index == 0 {
                 //email tapped
+                FirebaseAnalyticsController.shared.logEvent(name: "AccountsEmailOptionSelected", params: ["ScreenName":"Accounts", "ScreenClass":"RegularAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
                 AppToast.default.showToastMessage(message: "Sending email")
                 self.viewModel.sendEmailForLedger(onVC: self)
             } else {
                 //download pdf tapped
+                FirebaseAnalyticsController.shared.logEvent(name: "AccountsDownloadPDFOptionSelected", params: ["ScreenName":"Accounts", "ScreenClass":"RegularAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
                 self.topNavView.isToShowIndicatorView = true
                 self.topNavView.startActivityIndicaorLoading()
                 self.topNavView.firstRightButton.isHidden = true
@@ -410,7 +417,10 @@ extension RegularAccountDetailsVC: AccountDetailsVMDelegate {
 //        self.topNavView.secondRightButton.isUserInteractionEnabled = false
     }
     
-    func getAccountDetailsSuccess(model: AccountDetailPostModel, showProgres: Bool) {
+    func getAccountDetailsSuccess(model: AccountDetailPostModel, showProgres: Bool)
+    {
+        FirebaseAnalyticsController.shared.logEvent(name: "AccountsGetAccountDetailsSuccess", params: ["ScreenName":"Accounts", "ScreenClass":"RegularAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
         if showProgres {
             self.headerView?.stopProgress()
         }
@@ -430,6 +440,8 @@ extension RegularAccountDetailsVC: AccountDetailsVMDelegate {
     }
     
     func getAccountDetailsFail(showProgres: Bool) {
+        FirebaseAnalyticsController.shared.logEvent(name: "AccountsGetAccountDetailsFail", params: ["ScreenName":"Accounts", "ScreenClass":"RegularAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
         if showProgres {
             self.headerView?.stopProgress()
             self.manageDataForDeeplink()
