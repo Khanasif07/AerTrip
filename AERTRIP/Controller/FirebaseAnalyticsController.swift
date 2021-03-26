@@ -40,7 +40,10 @@ enum AnalyticsEvents: String {
     case TravellersList
     case ViewTraveller
     case EditMainTraveller
-    
+    case FlightOneWayResults
+    case FlightDomesticReturnAndMulticity
+    case FlightsInternationalReturnAndMulticity
+   
 }
 
 enum AnalyticsKeys: String {
