@@ -36,7 +36,7 @@ class HotelFilterVC: BaseVC {
     
     // MARK: - Private
     
-    private var currentIndex: Int = 0
+//    private var currentIndex: Int = 0
     
     // Parchment View
     fileprivate var parchmentView : PagingViewController?
@@ -47,6 +47,9 @@ class HotelFilterVC: BaseVC {
     var filtersTabs =  [MenuItem]()
     var selectedIndex: Int = HotelFilterVM.shared.lastSelectedIndex
     var isFilterApplied:Bool = false
+    
+    // Only for analytics
+    var didTapFilter = false
     
     var allChildVCs: [UIViewController] = [UIViewController]()
     weak var delegate : HotelFilteVCDelegate?
@@ -135,6 +138,10 @@ class HotelFilterVC: BaseVC {
     private func setNavigationTitle() {
         let navigationTitleText = HotelFilterVM.shared.totalHotelCount > 0 ? " \(HotelFilterVM.shared.filterHotelCount) of \(HotelFilterVM.shared.totalHotelCount) Results" : ""
         self.navigationTitleLabel.text = navigationTitleText
+        
+        if HotelFilterVM.shared.filterHotelCount == 0 {
+            FirebaseEventLogs.shared.logHotelNavigationEvents(with: .NoResultsApplyingHotelFilters)
+        }
     }
     
     private func  setFilterButton() {
@@ -368,20 +375,35 @@ class HotelFilterVC: BaseVC {
                 vc.setFilterValues()
             }
         }
+        FirebaseEventLogs.shared.logHotelNavigationEvents(with: .ClearAllHotelFilters)
     }
     
     @IBAction func doneButtonTapped(_ sender: Any) {
         saveAndApplyFilter()
         self.hide(animated: true, shouldRemove: true)
+        FirebaseEventLogs.shared.logHotelNavigationEvents(with: .CloseHotelFilterUsingDone)
     }
     
     @objc func  outsideAreaTapped() {
+        hideFilter(tappedOutside: true)
+    }
+    
+    func hideFilter(tappedOutside: Bool) {
         saveAndApplyFilter()
         self.hide(animated: true, shouldRemove: true)
-        
+        if tappedOutside {
+            FirebaseEventLogs.shared.logHotelNavigationEvents(with: .CloseHotelFiltersByOutsideClick)
+        }
     }
+    
     @IBAction func filterBtnTapped(_ sender: Any) {
-        outsideAreaTapped()
+        if HotelFilterVM.shared.lastSelectedIndex != 0 {
+            parchmentView?.select(index: 0, animated: true)
+            FirebaseEventLogs.shared.logHotelNavigationEvents(with: .HotelSortFilterByTapOnFilterIcon)
+        } else {
+            hideFilter(tappedOutside: false)
+            FirebaseEventLogs.shared.logHotelNavigationEvents(with: .CloseHotelFilterByTappingFilter)
+        }
     }
     
 }

@@ -976,12 +976,12 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         flightSearchResultVM.clearAllFilters()
         flightFilterVC?.resetAllFilters()
         intMCAndReturnFilterVC?.resetAllFilters()
-        FirebaseEventLogs.shared.logFlightFilterEvents(with: .ClearAllFlightFilters)
+        FirebaseEventLogs.shared.logFlightNavigationEvents(with: .ClearAllFlightFilters)
     }
     
     @IBAction func doneButtonTapped() {
         toggleFiltersView(hidden: true)
-        FirebaseEventLogs.shared.logFlightFilterEvents(with: .CloseFlightFilterUsingDone)
+        FirebaseEventLogs.shared.logFlightNavigationEvents(with: .CloseFlightFilterUsingDone)
         
 //        flightFilterVC?.view.removeFromSuperview()
 //        flightFilterVC?.removeFromParent()
@@ -999,7 +999,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         
         if index == curSelectedFilterIndex && backView.height > visualEffectViewHeight + 2 {
             toggleFiltersView(hidden: true)
-            FirebaseEventLogs.shared.logFlightFilterEvents(with: .CloseFlightFilterByTappingFilter)
+            FirebaseEventLogs.shared.logFlightNavigationEvents(with: .CloseFlightFilterByTappingFilter)
         } else {
             toggleFiltersView(hidden: false)
         }
@@ -1279,6 +1279,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
         }
         
     }
+    
     
     
     func clearFilters() {
@@ -1570,6 +1571,15 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
         default:
             return
         }
+    }
+    
+    func updateComboFare() {
+        guard let resultVM = self.flightSearchResultVM, let domesticMLResultVC = domesticMultiLegResultVC, flightSearchResultVM.flightSearchType == RETURN_JOURNEY else  { return }
+        if resultVM.comboResults.count > 0 {
+            domesticMLResultVC.comboResults = resultVM.comboResults
+            domesticMLResultVC.checkForComboFares(needToUpdate: true)
+        }
+        
     }
     
     func applySorting(sortOrder : Sort, isConditionReverced : Bool, legIndex : Int){

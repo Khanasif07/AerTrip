@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -60,13 +60,13 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Bookings yet" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cfv-Kb-Z8G">
-                                <rect key="frame" x="4" y="422" width="406" height="26"/>
+                                <rect key="frame" x="4" y="422" width="406" height="28"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r5R-Jl-udX">
-                                <rect key="frame" x="52" y="454" width="310" height="42"/>
+                                <rect key="frame" x="52" y="456" width="310" height="45.5"/>
                                 <string key="text">Start your ‘Wanderlust’ journey 
 with us!</string>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
@@ -286,13 +286,13 @@ with us!</string>
                                                 <rect key="frame" x="16" y="11" width="382" height="23"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l2J-s8-DYl">
-                                                        <rect key="frame" x="0.0" y="1" width="171" height="21"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="171" height="23"/>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wed,  5 Dec 2017" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C06-gv-Yhw">
-                                                        <rect key="frame" x="211" y="1" width="171" height="21"/>
+                                                        <rect key="frame" x="211" y="0.0" width="171" height="23"/>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -339,13 +339,13 @@ with us!</string>
                                                         <rect key="frame" x="16" y="10" width="382" height="23"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OKF-rZ-v4v">
-                                                                <rect key="frame" x="0.0" y="1" width="171" height="21"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="171" height="23"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wed,  1 Jan 2017" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rxI-9A-vzD">
-                                                                <rect key="frame" x="211" y="1" width="171" height="21"/>
+                                                                <rect key="frame" x="211" y="0.0" width="171" height="23"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -702,13 +702,13 @@ with us!</string>
                                                         <rect key="frame" x="16" y="0.0" width="384" height="44"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NY9-oa-1Gu">
-                                                                <rect key="frame" x="0.0" y="11.5" width="44.5" height="21"/>
+                                                                <rect key="frame" x="0.0" y="10.5" width="41.5" height="23"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wed,  5 Dec 2017" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QYa-dX-ybx">
-                                                                <rect key="frame" x="58.5" y="11.5" width="285.5" height="21"/>
+                                                                <rect key="frame" x="55.5" y="10.5" width="288.5" height="23"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -773,13 +773,13 @@ with us!</string>
                                                         <rect key="frame" x="16" y="0.0" width="384" height="44"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eGt-Jf-dUh">
-                                                                <rect key="frame" x="0.0" y="11.5" width="44.5" height="21"/>
+                                                                <rect key="frame" x="0.0" y="10.5" width="41.5" height="23"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wed,  5 Dec 2017" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hNr-hZ-Xwg">
-                                                                <rect key="frame" x="58.5" y="11.5" width="285.5" height="21"/>
+                                                                <rect key="frame" x="55.5" y="10.5" width="288.5" height="23"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -2317,7 +2317,9 @@ with us!</string>
                     <connections>
                         <outlet property="gradientView" destination="Bbw-vB-K01" id="PGJ-eK-fHk"/>
                         <outlet property="requestReschedulingBtnOutlet" destination="B5k-SN-QxH" id="roi-Jm-J4t"/>
+                        <outlet property="rescheduleAmountView" destination="Xng-Lg-79B" id="gGG-EG-kOy"/>
                         <outlet property="reschedulingTableView" destination="heH-9b-SUq" id="B7q-75-YvF"/>
+                        <outlet property="reschedulingViewHeightConstraints" destination="7gY-SV-w4X" id="0eE-dj-Sw4"/>
                         <outlet property="topNavBar" destination="EQ2-en-J8z" id="AHa-Ql-UcE"/>
                         <outlet property="totalRefundAmountLabel" destination="9Qr-GD-ZW8" id="ci9-0m-9os"/>
                         <outlet property="totalRefundTitleLabel" destination="hic-wn-bEB" id="La1-yr-9AO"/>
@@ -3082,15 +3084,6 @@ with us!</string>
         <image name="cross_icon" width="22" height="22"/>
         <image name="greenCircleButton" width="22" height="22"/>
         <image name="saveHotelsSelected" width="27" height="30"/>
-        <systemColor name="groupTableViewBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="groupTableViewBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="groupTableViewBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
         <systemColor name="groupTableViewBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

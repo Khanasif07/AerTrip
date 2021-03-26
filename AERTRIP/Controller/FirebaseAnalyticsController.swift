@@ -25,6 +25,7 @@ enum AnalyticsEvents: String {
     //MARK: Firebase event names
     case FlightFilters = "FlightFilters"
     case FlightFiltersNavigation = "FlightFiltersNavigation"
+    case HotelFiltersNavigation = "HotelFiltersNavigation"
     case AccountDetails
     case SetPassword
     case ChangePassword
@@ -40,7 +41,13 @@ enum AnalyticsEvents: String {
     case TravellersList
     case ViewTraveller
     case EditMainTraveller
-    
+    case FlightOneWayResults
+    case FlightDomesticReturnAndMulticity
+    case FlightsInternationalReturnAndMulticity
+    case EditTraveller
+    case AddTraveller
+    case TravellerPreferences
+
 }
 
 enum AnalyticsKeys: String {
