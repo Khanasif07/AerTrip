@@ -122,6 +122,10 @@ extension FlightResultViewModelDelegate {
                 totalCount += flightLeg.processedJourneyArray.count
             }
         }
+        
+        if filterArrayCount == 0 {
+            FirebaseEventLogs.shared.logFlightFilterEvents(with: .NoResultsApplyingFlightFilters)
+        }
        
         return String(filterArrayCount) + " of " + String(totalCount) + " Results"
     }

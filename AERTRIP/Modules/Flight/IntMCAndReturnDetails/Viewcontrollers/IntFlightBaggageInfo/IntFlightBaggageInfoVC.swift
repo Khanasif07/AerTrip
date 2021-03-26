@@ -66,6 +66,9 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
             }
         }
         baggageTableView.showsVerticalScrollIndicator = true
+        
+        FirebaseAnalyticsController.shared.logEvent(name: "FlightDetailsIntBaggageInfo", params: ["ScreenName":"FlightDetailsBaggageInfo", "ScreenClass":"IntFlightBaggageInfoVC"])
+
     }
     
     private func setLoader(){
