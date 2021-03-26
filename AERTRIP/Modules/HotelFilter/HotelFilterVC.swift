@@ -140,7 +140,7 @@ class HotelFilterVC: BaseVC {
         self.navigationTitleLabel.text = navigationTitleText
         
         if HotelFilterVM.shared.filterHotelCount == 0 {
-            FirebaseEventLogs.shared.logHotelFilterEvents(with: .NoResultsApplyingHotelFilters)
+            FirebaseEventLogs.shared.logHotelNavigationEvents(with: .NoResultsApplyingHotelFilters)
         }
     }
     
@@ -375,13 +375,13 @@ class HotelFilterVC: BaseVC {
                 vc.setFilterValues()
             }
         }
-        FirebaseEventLogs.shared.logHotelFilterEvents(with: .ClearAllHotelFilters)
+        FirebaseEventLogs.shared.logHotelNavigationEvents(with: .ClearAllHotelFilters)
     }
     
     @IBAction func doneButtonTapped(_ sender: Any) {
         saveAndApplyFilter()
         self.hide(animated: true, shouldRemove: true)
-        FirebaseEventLogs.shared.logHotelFilterEvents(with: .CloseHotelFilterUsingDone)
+        FirebaseEventLogs.shared.logHotelNavigationEvents(with: .CloseHotelFilterUsingDone)
     }
     
     @objc func  outsideAreaTapped() {
@@ -392,17 +392,17 @@ class HotelFilterVC: BaseVC {
         saveAndApplyFilter()
         self.hide(animated: true, shouldRemove: true)
         if tappedOutside {
-            FirebaseEventLogs.shared.logHotelFilterEvents(with: .CloseHotelFiltersByOutsideClick)
+            FirebaseEventLogs.shared.logHotelNavigationEvents(with: .CloseHotelFiltersByOutsideClick)
         }
     }
     
     @IBAction func filterBtnTapped(_ sender: Any) {
         if HotelFilterVM.shared.lastSelectedIndex != 0 {
             parchmentView?.select(index: 0, animated: true)
-            FirebaseEventLogs.shared.logHotelFilterEvents(with: .HotelSortFilterByTapOnFilterIcon)
+            FirebaseEventLogs.shared.logHotelNavigationEvents(with: .HotelSortFilterByTapOnFilterIcon)
         } else {
             hideFilter(tappedOutside: false)
-            FirebaseEventLogs.shared.logHotelFilterEvents(with: .CloseHotelFilterByTappingFilter)
+            FirebaseEventLogs.shared.logHotelNavigationEvents(with: .CloseHotelFilterByTappingFilter)
         }
     }
     

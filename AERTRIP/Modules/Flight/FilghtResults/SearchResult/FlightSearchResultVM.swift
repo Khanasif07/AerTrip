@@ -124,7 +124,7 @@ extension FlightResultViewModelDelegate {
         }
         
         if filterArrayCount == 0 {
-            FirebaseEventLogs.shared.logFlightFilterEvents(with: .NoResultsApplyingFlightFilters)
+            FirebaseEventLogs.shared.logFlightNavigationEvents(with: .NoResultsApplyingFlightFilters)
         }
        
         return String(filterArrayCount) + " of " + String(totalCount) + " Results"

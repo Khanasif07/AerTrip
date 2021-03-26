@@ -69,7 +69,7 @@ extension IntMCAndReturnFiltersBaseVC {
         case .Aircraft:         selectedEvent = .FlightAircraftFilterTapped
         default: break
         }
-        FirebaseEventLogs.shared.logFlightFilterEvents(with: selectedEvent)
+        FirebaseEventLogs.shared.logFlightNavigationEvents(with: selectedEvent)
     }
     
     func logSwipeEvent(filterIndex: Int) {
@@ -86,6 +86,6 @@ extension IntMCAndReturnFiltersBaseVC {
         case .Aircraft:         selectedEvent = .FlightAircraftFilterSwiped
         default: break
         }
-        FirebaseEventLogs.shared.logFlightFilterEvents(with: selectedEvent)
+        FirebaseEventLogs.shared.logFlightNavigationEvents(with: selectedEvent)
     }
 }
