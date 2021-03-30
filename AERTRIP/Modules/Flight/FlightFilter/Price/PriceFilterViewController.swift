@@ -97,19 +97,19 @@ class PriceFilterViewController: UIViewController , FilterViewController {
             multiLegView.isHidden = false
             multicityViewHeight.constant = 60.0
             setupMultiLegSegmentControl()
-            JourneyTitle.attributedText = viewModel.legsArray[viewModel.currentActiveIndex].descriptionOneFiveThree
+            JourneyTitle.attributedText = viewModel.legsArray[viewModel.currentActiveIndex].descriptionTextForSectorHeader
         case 4 , 5 :
             multiLegView.isHidden = false
             multicityViewHeight.constant = 90.0
             setupMultiLegSegmentControl()
             JourneyTitle.isHidden = false
-            JourneyTitle.attributedText = viewModel.legsArray[viewModel.currentActiveIndex].descriptionOneFiveThree
+            JourneyTitle.attributedText = viewModel.legsArray[viewModel.currentActiveIndex].descriptionTextForSectorHeader
         default:
             multicityViewHeight.constant = 90.0
             setupMultiLegSegmentControl()
             multiLegView.isHidden = false
             JourneyTitle.isHidden = false
-            JourneyTitle.attributedText = viewModel.legsArray[viewModel.currentActiveIndex].descriptionOneFiveThree
+            JourneyTitle.attributedText = viewModel.legsArray[viewModel.currentActiveIndex].descriptionTextForSectorHeader
         }
     }
     

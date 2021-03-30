@@ -321,7 +321,7 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
         currentActiveIndex = sender.selectedSegmentIndex
         
         currentAirportFilter = airportFilterArray[currentActiveIndex]
-        journeyTitle.attributedText = currentAirportFilter.leg.descriptionOneFiveThree
+        journeyTitle.attributedText = currentAirportFilter.leg.descriptionTextForSectorHeader
         originsTableView.reloadData()
         destinationsTableView.reloadData()
         layoverTableview.reloadData()
@@ -384,7 +384,7 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
             }
         }
         setupTopView()
-        journeyTitle.attributedText = currentAirportFilter.leg.descriptionOneFiveThree
+        journeyTitle.attributedText = currentAirportFilter.leg.descriptionTextForSectorHeader
         setupScrollView()
 //        setmultiLegSubviews()
         setupMultiLegSegmentControl()
