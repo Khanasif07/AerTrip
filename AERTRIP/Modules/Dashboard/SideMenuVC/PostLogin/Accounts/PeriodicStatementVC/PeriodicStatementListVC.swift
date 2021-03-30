@@ -146,7 +146,11 @@ extension PeriodicStatementListVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+
         if let event = self.getEvent(forIndexPath: indexPath).event {
+            FirebaseAnalyticsController.shared.logEvent(name: "PeriodicStatementSelectedStatementFromList", params: ["ScreenName":"PeriodicStatement", "ScreenClass":"PeriodicStatementListVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? "","StatementId":event.id])
+
             self.viewStatement(forId: event.id, screenTitle: "Statement\(indexPath.row + 1)")
         }
     }

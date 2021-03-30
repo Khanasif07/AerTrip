@@ -207,7 +207,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         }
     }
     
-    func checkForComboFares() {
+    func checkForComboFares(needToUpdate:Bool = false) {
         
         if let selectedJourneys = self.viewModel.getSelectedJourneyForAllLegs() {
             
@@ -219,6 +219,11 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
                 fareBreakupVC?.journeyCombo = [comboResultFiltered]
             }else{
                 fareBreakupVC?.journeyCombo = nil
+            }
+            if needToUpdate{
+                DispatchQueue.main.async {
+                    self.fareBreakupVC?.taxesDataDisplay()
+                }
             }
         }else{
             fareBreakupVC?.journeyCombo = nil
