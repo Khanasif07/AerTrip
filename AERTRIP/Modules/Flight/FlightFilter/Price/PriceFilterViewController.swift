@@ -27,6 +27,7 @@ class PriceFilterViewController: UIViewController , FilterViewController {
     @IBOutlet weak var fareMaxValue: UILabel!
     @IBOutlet weak var refundableFaresButton: UIButton!
     @IBOutlet weak var refundableFaresOnlyLabel: UILabel!
+    @IBOutlet weak var refundableFaresTopBtn: UIButton!
     @IBOutlet weak var seperatorView: UIView!
     
     //MARK:- View Controller Methods
@@ -294,6 +295,9 @@ class PriceFilterViewController: UIViewController , FilterViewController {
         viewModel.delegate?.priceSelectionChangedAt(viewModel.currentActiveIndex , minFare: viewModel.currentPriceFilter.userSelectedFareMinValue, maxFare: viewModel.currentPriceFilter.userSelectedFareMaxValue)
     }
     
+    @IBAction func refundableFaresTopBtnAction(_ sender: UIButton) {
+        onlyRefundableFareSelected(refundableFaresButton)
+    }
     
     @IBAction func onlyRefundableFareSelected(_ sender: UIButton) {
         

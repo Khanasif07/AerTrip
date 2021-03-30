@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,6 +26,7 @@
                 <outlet property="priceRangeSlider" destination="iQq-G5-KUi" id="3lg-tf-Gdc"/>
                 <outlet property="refundableFaresButton" destination="6E3-gN-P76" id="lV1-El-0sE"/>
                 <outlet property="refundableFaresOnlyLabel" destination="u3z-gj-ekL" id="4fK-81-YIj"/>
+                <outlet property="refundableFaresTopBtn" destination="AYo-6X-KpM" id="tZZ-IC-laY"/>
                 <outlet property="seperatorView" destination="cwW-JK-pry" id="RR9-zd-7cg"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -55,6 +56,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
+                    <viewLayoutGuide key="safeArea" id="ag2-AS-jKD"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="ag2-AS-jKD" firstAttribute="trailing" secondItem="RvU-c7-C9Z" secondAttribute="trailing" constant="16" id="C7P-f5-Z17"/>
@@ -65,7 +67,6 @@
                         <constraint firstItem="hsk-VL-Lpy" firstAttribute="leading" secondItem="ag2-AS-jKD" secondAttribute="leading" constant="16" id="s8b-vz-UJd"/>
                         <constraint firstItem="hsk-VL-Lpy" firstAttribute="top" secondItem="nr6-rV-y6c" secondAttribute="top" constant="16" id="wnd-yC-U5Y"/>
                     </constraints>
-                    <viewLayoutGuide key="safeArea" id="ag2-AS-jKD"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R8a-VA-Hvl">
                     <rect key="frame" x="0.0" y="90" width="375" height="162"/>
@@ -159,18 +160,28 @@
                                 <action selector="onlyRefundableFareSelected:" destination="-1" eventType="touchUpInside" id="ZGA-5D-NiY"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AYo-6X-KpM">
+                            <rect key="frame" x="16" y="118" width="354" height="44"/>
+                            <connections>
+                                <action selector="refundableFaresTopBtnAction:" destination="-1" eventType="touchUpInside" id="5ez-p2-MLZ"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="cwW-JK-pry" firstAttribute="leading" secondItem="R8a-VA-Hvl" secondAttribute="leading" constant="16" id="2la-a4-J6o"/>
+                        <constraint firstItem="AYo-6X-KpM" firstAttribute="leading" secondItem="u3z-gj-ekL" secondAttribute="leading" id="5Cm-7F-0UX"/>
                         <constraint firstItem="uhS-iE-Aqm" firstAttribute="top" secondItem="R8a-VA-Hvl" secondAttribute="top" constant="12" id="5pf-Xb-JzO"/>
                         <constraint firstItem="u3z-gj-ekL" firstAttribute="leading" secondItem="R8a-VA-Hvl" secondAttribute="leading" constant="16" id="6Tc-Fp-S3R"/>
+                        <constraint firstItem="AYo-6X-KpM" firstAttribute="top" secondItem="u3z-gj-ekL" secondAttribute="top" id="9wQ-fb-e4Z"/>
                         <constraint firstItem="cwW-JK-pry" firstAttribute="top" secondItem="R8a-VA-Hvl" secondAttribute="top" constant="118" id="A0z-3x-znn"/>
                         <constraint firstAttribute="trailing" secondItem="6E3-gN-P76" secondAttribute="trailing" constant="5" id="GuL-wB-YcW"/>
                         <constraint firstAttribute="trailing" secondItem="cwW-JK-pry" secondAttribute="trailing" constant="16" id="Klw-z4-Wt5"/>
                         <constraint firstAttribute="height" constant="162" id="OD0-hg-n7m"/>
+                        <constraint firstItem="AYo-6X-KpM" firstAttribute="bottom" secondItem="u3z-gj-ekL" secondAttribute="bottom" id="RWA-4U-yBH"/>
                         <constraint firstAttribute="trailing" secondItem="iQq-G5-KUi" secondAttribute="trailing" constant="16" id="Sf3-g2-Sq1"/>
                         <constraint firstItem="uhS-iE-Aqm" firstAttribute="leading" secondItem="R8a-VA-Hvl" secondAttribute="leading" constant="16" id="SyT-lb-aHq"/>
+                        <constraint firstItem="AYo-6X-KpM" firstAttribute="trailing" secondItem="6E3-gN-P76" secondAttribute="trailing" id="YUW-Cs-3Cl"/>
                         <constraint firstItem="iQq-G5-KUi" firstAttribute="leading" secondItem="R8a-VA-Hvl" secondAttribute="leading" constant="16" id="azt-hs-98y"/>
                         <constraint firstItem="Yyp-Is-KYB" firstAttribute="top" secondItem="R8a-VA-Hvl" secondAttribute="top" constant="12" id="l78-H9-nUC"/>
                         <constraint firstAttribute="bottom" secondItem="6E3-gN-P76" secondAttribute="bottom" id="lEE-4l-5Na"/>
@@ -180,6 +191,7 @@
                     </constraints>
                 </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="R8a-VA-Hvl" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="1hz-O8-GMC"/>
@@ -189,7 +201,6 @@
                 <constraint firstItem="R8a-VA-Hvl" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Tgh-6y-HDP"/>
                 <constraint firstItem="R8a-VA-Hvl" firstAttribute="top" secondItem="nr6-rV-y6c" secondAttribute="bottom" id="ut8-TJ-ufU"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="138.40000000000001" y="152.47376311844079"/>
         </view>
     </objects>
