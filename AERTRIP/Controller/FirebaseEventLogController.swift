@@ -271,11 +271,20 @@ class FirebaseEventLogs{
         case AccountsCancelSearchBarOptionSelected
         case AccountSearchOptionSelected
         case AccountLedgerSpeechToTextSelected
-        case AccountLedgerMenuOptionSelected
+        case AccountsMenuOptionSelected
         case AccountLedgerFilterOptionSelected
         case AccountLedgerClearFilterOptionSelected
         case AccountsLedgerConvertedSpeechToText
         case AccountLedgerViewLedgerDetailsSelectedFromList
+        case AccountLedgerDetails
+        case AccountLadgerDetailsFlightsOptionSelected
+        case AccountLadgerDetailsHotelsOptionSelected
+        case AccountLadgerDetailsDownloadReciptSelected
+        case AccountOutstandingLedgerSelectBookingsOptionSelected
+        case AccountOutstandingLedgerOnAccountOptionSelected
+        case AccountsMakePaymenrOptionSelected
+        case AccountsOutstandingLedgerViewLedgerDetailsSelectedFromList
+
     }
     
     

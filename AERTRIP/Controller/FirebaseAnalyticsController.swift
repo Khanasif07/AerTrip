@@ -49,6 +49,7 @@ enum AnalyticsEvents: String {
     case TravellerPreferences
     case Accounts
     case AccountsLedger
+    case AccountsOutstandingLedger
 
 }
 
