@@ -255,6 +255,17 @@ class FirebaseEventLogs{
         case DeleteGroup
         case SortGroup
         case AddNewGroup
+        
+        
+        //MARK:- Accounts
+        case AccountsPayOnlineOptionSelected
+        case AccountsPayOfflineOptionSelected
+        case AccountsDepositeOptionSelected
+        case AccountsInfoOptionSelected
+        case AccountsLedgerOptionSelected
+        case AccountsOutstandingLedgerOptionSelected
+        case AccountsPeriodicStatementOptionSelected
+        case AccountLedger
     }
     
     
@@ -428,6 +439,12 @@ class FirebaseEventLogs{
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightOneWayResults.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.Values.rawValue : params])
 
         
+    }
+    
+//    MARK:- Accounts
+    func logAccountsOptionSelectionEvent(with type:EventsTypeName){
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Accounts.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+
     }
     
 }
