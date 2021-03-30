@@ -350,9 +350,13 @@ class FirebaseEventLogs{
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelCheckOut.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
     }
     
-    // MARK: Flight Filter Events
+    // MARK: Flight and Hotel Filter Events
     func logFlightFiterEvents(params: JSONDictionary) {
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFilters.rawValue, params: params)
+    }
+    
+    func logHotelFilterEvents(params: JSONDictionary) {
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelFilters.rawValue, params: params)
     }
     
     // MARK: Flight and Hotel Navigation Events
