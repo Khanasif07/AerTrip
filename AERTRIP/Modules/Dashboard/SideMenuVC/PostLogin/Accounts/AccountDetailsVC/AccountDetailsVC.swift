@@ -163,7 +163,9 @@ class AccountDetailsVC: BaseVC {
         self.tableView.showsVerticalScrollIndicator = true
         
         
-        FirebaseAnalyticsController.shared.logEvent(name: "AccountLedger", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+//        FirebaseAnalyticsController.shared.logEvent(name: "AccountLedger", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsLedger.rawValue, params: [AnalyticsKeys.FilterName.rawValue:AnalyticsEvents.AccountsLedger, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
     }
     
@@ -365,13 +367,17 @@ class AccountDetailsVC: BaseVC {
         _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
             if index == 0 {
                 //email tapped
-                FirebaseAnalyticsController.shared.logEvent(name: "AccountLedgerSendEmailOptionSelected", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+//                FirebaseAnalyticsController.shared.logEvent(name: "AccountLedgerSendEmailOptionSelected", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
+                FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsLedger.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.AccountsSendEmailOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
                 AppToast.default.showToastMessage(message: "Sending email")
                 self.viewModel.sendEmailForLedger(onVC: self)
             } else {
                 //download pdf tapped
-                FirebaseAnalyticsController.shared.logEvent(name: "AccountLedgerDownloadPDFOptionSelected", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+//                FirebaseAnalyticsController.shared.logEvent(name: "AccountLedgerDownloadPDFOptionSelected", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
+                FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsLedger.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.AccountsDownloadPDFOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
                 self.topNavView.isToShowIndicatorView = true
                 self.topNavView.startActivityIndicaorLoading()
@@ -434,7 +440,9 @@ class AccountDetailsVC: BaseVC {
 extension AccountDetailsVC: UISearchBarDelegate {
     
     func clearSearchData() {
-        FirebaseAnalyticsController.shared.logEvent(name: "AccountLedgerClearSearchBar", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+//        FirebaseAnalyticsController.shared.logEvent(name: "AccountLedgerClearSearchBar", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsLedger.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.AccountsClearSearchBarOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
         self.mainSearchBar.text = ""
         self.searchBar.text = ""
@@ -453,7 +461,9 @@ extension AccountDetailsVC: UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        FirebaseAnalyticsController.shared.logEvent(name: "AccountLedgerSearchBarCancelButtonClicked", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+//        FirebaseAnalyticsController.shared.logEvent(name: "AccountLedgerSearchBarCancelButtonClicked", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsLedger.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.AccountsCancelSearchBarOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
         if searchBar === self.mainSearchBar {
             self.currentViewState = .normal
@@ -482,7 +492,11 @@ extension AccountDetailsVC: UISearchBarDelegate {
         if (searchBar.text?.isEmpty ?? false){
             self.searchBarCancelButtonClicked(searchBar)
         }else{
-            FirebaseAnalyticsController.shared.logEvent(name: "AccountLedgerSearchButtonClicked", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? "","SearchQuery":mainSearchBar.text ?? ""])
+//            FirebaseAnalyticsController.shared.logEvent(name: "AccountLedgerSearchButtonClicked", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? "","SearchQuery":mainSearchBar.text ?? ""])
+            
+            
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsLedger.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.AccountSearchOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a", AnalyticsKeys.FilterName.rawValue:"SearchQuery", AnalyticsKeys.FilterType.rawValue:"n/a", AnalyticsKeys.Values.rawValue:mainSearchBar.text ?? ""])
+
 
             self.preserveSearchData()
 //            self.currentViewState = .filterApplied
@@ -517,7 +531,9 @@ extension AccountDetailsVC: UISearchBarDelegate {
     }
     
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
-        FirebaseAnalyticsController.shared.logEvent(name: "AccountLedgerSpeechToTextClicked", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+//        FirebaseAnalyticsController.shared.logEvent(name: "AccountLedgerSpeechToTextClicked", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsLedger.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.AccountLedgerSpeechToTextSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
         AppFlowManager.default.moveToSpeechToText(with: self)
     }
@@ -528,7 +544,9 @@ extension AccountDetailsVC: UISearchBarDelegate {
 extension AccountDetailsVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         //back button action
-        FirebaseAnalyticsController.shared.logEvent(name: "AccountLedgerBackButtonClicked", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+//        FirebaseAnalyticsController.shared.logEvent(name: "AccountLedgerBackButtonClicked", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsLedger.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.navigateBack, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
         ADEventFilterVM.shared.setToDefault()
         AppFlowManager.default.popViewController(animated: true)
@@ -536,14 +554,18 @@ extension AccountDetailsVC: TopNavigationViewDelegate {
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         //dots button action
-        FirebaseAnalyticsController.shared.logEvent(name: "AccountLedgerMenuOptionClicked", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+//        FirebaseAnalyticsController.shared.logEvent(name: "AccountLedgerMenuOptionClicked", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsLedger.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.AccountLedgerMenuOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
         self.showMoreOptions()
     }
     
     func topNavBarSecondRightButtonAction(_ sender: UIButton) {
         //filter button action
-        FirebaseAnalyticsController.shared.logEvent(name: "AccountLedgerFilterButtonClicked", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+//        FirebaseAnalyticsController.shared.logEvent(name: "AccountLedgerFilterButtonClicked", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsLedger.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.AccountLedgerFilterOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
         ADEventFilterVM.shared.minFromDate = self.viewModel.ledgerStartDate
         ADEventFilterVM.shared.voucherTypes = self.viewModel.allVouchers
@@ -567,7 +589,9 @@ extension AccountDetailsVC: ADEventFilterVCDelegate {
     
     func clearAllFilter() {
         //clear all filter
-        FirebaseAnalyticsController.shared.logEvent(name: "AccountLedgerClearAllFilter", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+//        FirebaseAnalyticsController.shared.logEvent(name: "AccountLedgerClearAllFilter", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsLedger.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.AccountLedgerClearFilterOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
         self.currentViewState = .normal
         self.viewModel.applyFilter(searchText: self.mainSearchBar.text ?? "")
@@ -614,7 +638,7 @@ extension AccountDetailsVC: AccountDetailsVMDelegate {
         if showProgres {
             self.stopProgress()
         }
-        FirebaseAnalyticsController.shared.logEvent(name: "AccountLedgerGetAccountDetailsSuccess", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+//        FirebaseAnalyticsController.shared.logEvent(name: "AccountLedgerGetAccountDetailsSuccess", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
 
         self.refreshControl.endRefreshing()
         self.topNavView.firstRightButton.isUserInteractionEnabled = true
@@ -632,7 +656,7 @@ extension AccountDetailsVC: AccountDetailsVMDelegate {
     }
     
     func getAccountDetailsFail(showProgres: Bool) {
-        FirebaseAnalyticsController.shared.logEvent(name: "AccountLedgerGetAccountDetailsFail", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+//        FirebaseAnalyticsController.shared.logEvent(name: "AccountLedgerGetAccountDetailsFail", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
 
         if showProgres {
             self.stopProgress()
@@ -649,7 +673,9 @@ extension AccountDetailsVC: AccountDetailsVMDelegate {
 
 extension AccountDetailsVC: SpeechToTextVCDelegate{
     func getSpeechToText(_ text: String) {
-        FirebaseAnalyticsController.shared.logEvent(name: "AccountLedgerConvertedSpeechToText", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? "","SeachQuery":text])
+//        FirebaseAnalyticsController.shared.logEvent(name: "AccountLedgerConvertedSpeechToText", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? "","SeachQuery":text])
+
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsLedger.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.AccountsLedgerConvertedSpeechToText, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a", AnalyticsKeys.FilterName.rawValue:"SearchQuery", AnalyticsKeys.FilterType.rawValue:"n/a", AnalyticsKeys.Values.rawValue:text])
 
         guard !text.isEmpty else {return}
         searchBar.hideMiceButton(isHidden: false)

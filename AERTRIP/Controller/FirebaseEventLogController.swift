@@ -265,7 +265,17 @@ class FirebaseEventLogs{
         case AccountsLedgerOptionSelected
         case AccountsOutstandingLedgerOptionSelected
         case AccountsPeriodicStatementOptionSelected
-        case AccountLedger
+        case AccountsSendEmailOptionSelected
+        case AccountsDownloadPDFOptionSelected
+        case AccountsClearSearchBarOptionSelected
+        case AccountsCancelSearchBarOptionSelected
+        case AccountSearchOptionSelected
+        case AccountLedgerSpeechToTextSelected
+        case AccountLedgerMenuOptionSelected
+        case AccountLedgerFilterOptionSelected
+        case AccountLedgerClearFilterOptionSelected
+        case AccountsLedgerConvertedSpeechToText
+        case AccountLedgerViewLedgerDetailsSelectedFromList
     }
     
     

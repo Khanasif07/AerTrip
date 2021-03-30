@@ -191,7 +191,11 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
 //        let idx = Int(indexPath.row/allCount)
         let idx = indexPath.row
         printDebug(Date())
-        FirebaseAnalyticsController.shared.logEvent(name: "AccountLedgerViewLedgerDetailsSelectedFromList", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? "","voucher":allEvent[idx].voucher])
+//        FirebaseAnalyticsController.shared.logEvent(name: "AccountLedgerViewLedgerDetailsSelectedFromList", params: ["ScreenName":"AccountLedger", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? "","voucher":allEvent[idx].voucher])
+        
+        
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsLedger.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.AccountLedgerViewLedgerDetailsSelectedFromList, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a", AnalyticsKeys.FilterName.rawValue:"Voucher", AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: allEvent[idx].voucher])
+
 
         delay(seconds: 0.0){
             AppFlowManager.default.moveToAccountLadgerDetailsVC(forEvent: allEvent[idx], detailType: .accountLadger)
