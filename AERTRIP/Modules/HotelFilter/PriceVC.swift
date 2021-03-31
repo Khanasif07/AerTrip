@@ -84,7 +84,15 @@ class PriceVC: BaseVC {
         }
     }
     
-    
+    @objc private func sliderDidEndDragging(slider: MultiSlider) {
+        
+        let minRange = Double(slider.value.first ?? 0.0).roundTo(places: 2)
+        let maxRange = Double(slider.value.last ?? 0.0).roundTo(places: 2)
+        let valueStr = "min\(Int(minRange)) max\(Int(maxRange))"
+        let rangeFilterParams = [AnalyticsKeys.FilterName.rawValue: AnalyticsEvents.Price.rawValue, AnalyticsKeys.FilterType.rawValue: AnalyticsEvents.PriceRange.rawValue, AnalyticsKeys.Values.rawValue: valueStr]
+        FirebaseEventLogs.shared.logHotelFilterEvents(params: rangeFilterParams)
+        
+    }
 }
 
 // MARK: - UITableViewCellDataSource and UITableViewCellDelegateMethods
@@ -108,7 +116,10 @@ extension PriceVC: UITableViewDataSource, UITableViewDelegate {
                 return UITableViewCell()
             }
             cell.horizontalMultiSlider.removeTarget(self, action: #selector(sliderChanged(_:)), for: .valueChanged)
+            cell.horizontalMultiSlider.removeTarget(self, action: #selector(sliderDidEndDragging(slider:)), for: [.touchUpInside, .touchUpOutside])
             cell.horizontalMultiSlider.addTarget(self, action: #selector(sliderChanged(_:)), for: .valueChanged)
+            cell.horizontalMultiSlider.addTarget(self, action: #selector(sliderDidEndDragging(slider:)), for: [.touchUpInside, .touchUpOutside])
+
             cell.horizontalMultiSlider.value = [UserInfo.hotelFilter != nil ? CGFloat(filterApplied.leftRangePrice) : CGFloat(HotelFilterVM.shared.minimumPrice), UserInfo.hotelFilter != nil ? CGFloat(filterApplied.rightRangePrice) : CGFloat(HotelFilterVM.shared.maximumPrice)]
             cell.setPriceOnLabels()
             return cell
@@ -136,11 +147,16 @@ extension PriceVC: UITableViewDataSource, UITableViewDelegate {
             //            cell.tintColor = AppColors.themeGreen
             //            cell.accessoryType = .checkmark
             //            cell.leftTitleLabel.textColor = AppColors.themeGreen
+            
+            var valueStr = ""
+            
             switch indexPath.row {
             case 0:
                 HotelFilterVM.shared.priceType = .PerNight
+                valueStr = AnalyticsEvents.PerNight.rawValue
             case 1:
                 HotelFilterVM.shared.priceType = .Total
+                valueStr = AnalyticsEvents.Total.rawValue
             default:
                 return
             }
@@ -149,6 +165,9 @@ extension PriceVC: UITableViewDataSource, UITableViewDelegate {
             tableView.reloadSections([1], with: .none)
             
             HotelFilterVM.shared.delegate?.updateFiltersTabs()
+            
+            let rangeFilterParams = [AnalyticsKeys.FilterName.rawValue: AnalyticsEvents.Price.rawValue, AnalyticsKeys.FilterType.rawValue: AnalyticsEvents.PriceType.rawValue, AnalyticsKeys.Values.rawValue: valueStr]
+            FirebaseEventLogs.shared.logHotelFilterEvents(params: rangeFilterParams)
         }
     }
     

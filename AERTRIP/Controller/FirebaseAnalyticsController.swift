@@ -54,6 +54,10 @@ enum AnalyticsEvents: String {
     case Sort
     case Distance
     case Price
+    case PriceRange
+    case PriceType
+    case PerNight
+    case Total
     case Ratings
     case Amenities
     case Room
