@@ -59,6 +59,8 @@ enum AnalyticsEvents: String {
     case PerNight
     case Total
     case Ratings
+    case StarRating
+    case TARating
     case Amenities
     case Room
 }
