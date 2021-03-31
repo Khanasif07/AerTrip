@@ -38,9 +38,10 @@ class UpgradePlanContrainerVC: BaseVC, UpgradePlanListVCDelegate {
         }
         
         FirebaseAnalyticsController.shared.logEvent(name: "UpgradePlan", params: ["ScreenName":"UpgradePlan", "ScreenClass":"UpgradePlanContrainerVC"])
-
         
     }
+    
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         self.parchmentView?.view.frame = self.containerView.bounds

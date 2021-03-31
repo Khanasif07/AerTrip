@@ -62,7 +62,7 @@ extension FlightResultSingleJourneyVC : UITableViewDataSource , UITableViewDeleg
             else {
             
                 arrayForDisplay = viewModel.results.suggestedJourneyArray
-            
+                
             }
             
             if arrayForDisplay[indexPath.row].cellType == .singleJourneyCell {
@@ -170,6 +170,15 @@ extension FlightResultSingleJourneyVC : UITableViewDataSource , UITableViewDeleg
                     }
                     
                     self.reloadTableCell(indexPath)
+                    
+                    
+                    journey.isCollapsed ?
+                        
+                        FirebaseEventLogs.shared.logOneWayResultEvents(with: FirebaseEventLogs.EventsTypeName.collapseclubbedJourneys, value: self.viewModel.flightSearchParameters, groupId: "\(journey.journeyArray.first?.groupID ?? 0)") :
+                        
+                        FirebaseEventLogs.shared.logOneWayResultEvents(with: FirebaseEventLogs.EventsTypeName.expandClubbedJourneys, value: self.viewModel.flightSearchParameters, groupId: "\(journey.journeyArray.first?.groupID ?? 0)")
+
+                    
                 }
                 return cell
             }

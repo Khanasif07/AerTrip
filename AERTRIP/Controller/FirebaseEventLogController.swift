@@ -246,6 +246,21 @@ class FirebaseEventLogs{
         case AddFF
         case EditFF
         case DeleteFromTravellersList
+        
+        //OneWay Results
+        case openFlightDetails
+        case expandClubbedJourneys
+        case collapseclubbedJourneys
+        case swipeClubbedJourneys
+        case showLongerOrExpensiveFlights
+        case hideLongerOrExpensiveFlights
+        case pinFlight
+        case unPinFlight
+        case shareFlight
+        case unPinAll
+        case emailPinnedFlights
+        case addToTrip
+        
     }
     
     
@@ -390,12 +405,22 @@ class FirebaseEventLogs{
     //MARK:- Flight Result Events
     
     
-    func logOneWayResultEvents(with type : EventsTypeName, params : JSONDictionary){
-        
-        
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightOneWayResults.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.Values.rawValue : params])
+    func logOneWayResultEvents(with type : EventsTypeName, value : JSONDictionary = [:], groupId : String = "", fk : String = "", fkArray : [String] = []){
+                
+        switch type {
+        case .pinFlight, .unPinFlight, .openFlightDetails, .addToTrip:
+            
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightOneWayResults.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.Values.rawValue : ["fk":fk]])
+            
+        case .shareFlight, .emailPinnedFlights:
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightOneWayResults.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.Values.rawValue : ["fk":fkArray]])
 
+            
+        default:
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightOneWayResults.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.Values.rawValue : value])
+        }
         
+
     }
     
     

@@ -38,6 +38,9 @@ extension FlightResultSingleJourneyVC {
                         self.resultsTableView.tableFooterView?.transform = CGAffineTransform.identity
                     }
                 })
+                
+                FirebaseEventLogs.shared.logOneWayResultEvents(with: FirebaseEventLogs.EventsTypeName.showLongerOrExpensiveFlights)
+                
             }
         }
     }
@@ -72,6 +75,9 @@ extension FlightResultSingleJourneyVC {
                         self.resultsTableView.reloadData()
                     }
                 })
+                
+                FirebaseEventLogs.shared.logOneWayResultEvents(with: FirebaseEventLogs.EventsTypeName.hideLongerOrExpensiveFlights)
+
             }
         }
     
