@@ -61,13 +61,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 guard let downloadInvoiceCell = self.tableView.dequeueReusableCell(withIdentifier: "DownloadInvoiceTableViewCell") as? DownloadInvoiceTableViewCell else {
                     fatalError("DownloadInvoiceTableViewCell not found")
                 }
-//                var isForVouchre = false
-//                if let type = self.viewModel.ladgerEvent?.productType{
-//                    switch type{
-//                    case .hotel, .flight: isForVouchre = false
-//                    default:    isForVouchre = (self.viewModel.sectionArray.count < 2)
-//                    }
-//                }
+
                 if self.viewModel.ladgerEvent?.voucher == .sales  {
                     downloadInvoiceCell.titleLabel.text = LocalizedString.DownloadInvoice.localized
                 } else if self.viewModel.ladgerEvent?.voucher == .receipt {
@@ -76,8 +70,6 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
                     downloadInvoiceCell.titleLabel.text = LocalizedString.DownloadVoucher.localized
                 }
                 downloadInvoiceCell.showLoader = self.viewModel.isDownloadingRecipt
-//                downloadInvoiceCell.titleLabel.text = isForVouchre ? LocalizedString.DownloadReceipt.localized : LocalizedString.DownloadInvoice.localized
-                
                 return downloadInvoiceCell
             default: return UITableViewCell()
             }
@@ -101,118 +93,6 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 
             }
         }
-        /*
-        guard let dict = self.viewModel.ladgerDetails["\(section)"] as? JSONDictionary else {
-            return UITableViewCell()
-        }
-        if indexPath.row == dict.keys.count {
-            //devider
-            return self.getDeviderCell(indexPath: indexPath)
-        }
-        else {
-            //details
-            var key = "", value = ""
-            var descColor: UIColor? = nil
-            var age = ""
-            
-            if let event = self.viewModel.ladgerEvent {
-                if event.voucher == .sales || event.voucher == .journal {
-                    
-                    if event.productType == .hotel {
-                        switch section {
-                        case 0:
-                            if self.viewModel.ladgerEvent?.dueDate == nil{
-                                key = self.viewModel.amountDetailKeys[indexPath.row]
-                            }else{
-                                key = self.viewModel.flightAmountDetailKeys[indexPath.row]
-                            }
-                            if key.lowercased() == "Over Due by days".lowercased() {
-                                descColor = AppColors.themeRed
-                            }
-                            value = (dict[key] as? String) ?? ""
-                            
-                        case 1:
-                            key = self.viewModel.bookingDetailKeys[indexPath.row]
-                            value = (dict[key] as? String) ?? ""
-                            if let model = dict[key] as? AccountUser {
-                                value = model.name
-                                if !model.age.isEmpty, let userAge = Int(model.age)  {
-                                    if (userAge > 0) && (userAge <= 12){
-                                        age = "(\(userAge)y)"
-                                    }
-                                }
-                            }
-                            if key.contains("Names"), (key != "Names") {
-                                key = ""
-                            }
-                            
-                        default: key = ""
-                        }
-                    }
-                    else if event.productType == .flight {
-                        switch section {
-                        case 0:
-                            if self.viewModel.ladgerEvent?.dueDate == nil{
-                                key = self.viewModel.amountDetailKeys[indexPath.row]
-                            }else{
-                                key = self.viewModel.flightAmountDetailKeys[indexPath.row]
-                            }
-                            value = (dict[key] as? String) ?? ""
-                            
-                            if key.lowercased() == "Over Due by days".lowercased() {
-                                descColor = AppColors.themeRed
-                            }
-                            
-                        case 1:
-                            if self.viewModel.ladgerEvent?.dueDate != nil{
-                                key = self.viewModel.voucherDetailKeys[indexPath.row]
-                                value = (dict[key] as? String) ?? ""
-                            }else{
-                                key = self.viewModel.flightDetailKeys[indexPath.row]
-                                value = (dict[key] as? String) ?? ""
-                                if let model = dict[key] as? AccountUser {
-                                    value = model.name
-                                    if !model.dob.isEmpty {
-                                        age = AppGlobals.shared.getAgeLastString(dob: model.dob, formatter: Date.DateFormat.yyyy_MM_dd.rawValue)
-                                    }
-                                }
-                                if key.contains("Names"), (key != "Names") {
-                                    key = ""
-                                }
-                            }
-                        case 2:
-                            key = self.viewModel.flightDetailKeys[indexPath.row]
-                            value = (dict[key] as? String) ?? ""
-                            if let model = dict[key] as? AccountUser {
-                                value = model.name
-                                if !model.dob.isEmpty {
-                                    age = AppGlobals.shared.getAgeLastString(dob: model.dob, formatter: Date.DateFormat.yyyy_MM_dd.rawValue)
-                                }
-                            }
-                            if key.contains("Names"), (key != "Names") {
-                                key = ""
-                            }
-                            
-                        default: key = ""
-                        }
-                    }
-                }
-                else {
-                    switch section {
-                    case 0:
-                        key = self.viewModel.amountDetailKeys[indexPath.row]
-                        value = (dict[key] as? String) ?? ""
-                        
-                    default: key = ""
-                    }
-                }
-            }
-            
-            value = value.isEmpty ? LocalizedString.dash.localized : value
-            return self.getDetailCell(title: key, description: value, descriptionColor: descColor, age: age, at: indexPath)
-
-        }
- */
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -328,31 +208,36 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
             }
         }
         if indexPath.row == 0 && section != 0{
-            cell.stackTopConstraint.constant = 6
+            cell.stackTopConstraint.constant = 0
             cell.stackBottomConstraint.constant = 0
         }else if indexPath.row == 0 && isForVouchre{
             cell.stackTopConstraint.constant = 6
             cell.stackBottomConstraint.constant = 0
         }
-        else if indexPath.row == self.viewModel.sectionArray[section].count-2{
-            cell.stackTopConstraint.constant = 0
-            cell.stackBottomConstraint.constant = 6
-            printDebug("indexPath: \(indexPath)")
+//        else if indexPath.row == self.viewModel.sectionArray[section].count-2{
+//            cell.stackTopConstraint.constant = 0
+//            cell.stackBottomConstraint.constant = 6
+//            printDebug("indexPath: \(indexPath)")
+//        }
+        else if title == "Room"{
+            cell.stackTopConstraint.constant = 6
+            cell.stackBottomConstraint.constant = 6.0
         }else{
             cell.stackTopConstraint.constant = 0
             cell.stackBottomConstraint.constant = 0
         }
         if title == "Guests" || title == "Passengers"{
+            cell.stackTopConstraint.constant = 4
             cell.stackBottomConstraint.constant = 8.0
         }
         if self.getCellHeight(with: indexPath) == -1{
-            let section = indexPath.section - 1
-            let model = self.viewModel.sectionArray[section][indexPath.row]
-            if (model.title == "Room" || model.title == " "){
-                cell.titleLabelHeightConstraint.constant = cell.descLabel.frame.height
-            }else{
+//            let section = indexPath.section - 1
+//            let model = self.viewModel.sectionArray[section][indexPath.row]
+//            if (model.title == "Room" || model.title == " "){
+//                cell.titleLabelHeightConstraint.constant = cell.descLabel.frame.height
+//            }else{
                 cell.titleLabelHeightConstraint.constant = 20.0
-            }
+//            }
             
         }else{
             cell.titleLabelHeightConstraint.constant = (self.getCellHeight(with: indexPath) - cell.stackBottomConstraint.constant)

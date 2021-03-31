@@ -335,14 +335,28 @@ class AccountLadgerDetailsVM {
         section3.append((title: "Check-in", value: self.ladgerEvent!.checkIn?.toString(dateFormat: "dd-MM-YYYY") ?? "", age: "", isEmptyCell: false))
         section3.append((title: "Check-out", value: self.ladgerEvent!.checkOut?.toString(dateFormat: "dd-MM-YYYY") ?? "", age: "", isEmptyCell: false))
 //        section3.append((title: "Room", value: self.ladgerEvent!.room, age: "", isEmptyCell: false))
+        
+        
+        
+        var roomVal = ""
+        
         for (index, value) in self.ladgerEvent!.roomNamesArray.enumerated(){
-            if index == 0 {
-                section3.append((title: "Room", value: value, age: "", isEmptyCell: false))
+            if index == (self.ladgerEvent!.roomNamesArray.count - 1){
+                roomVal += value
+            }else{
+                roomVal += "\(value)\n"
             }
-            else {
-                section3.append((title: " ", value: value, age: "", isEmptyCell: false))
-            }
+//            if index == 0 {
+//                section3.append((title: "Room", value: value, age: "", isEmptyCell: false))
+//            }
+//            else {
+//                section3.append((title: " ", value: value, age: "", isEmptyCell: false))
+//            }
         }
+        if !roomVal.isEmpty{
+            section3.append((title: "Room", value: roomVal, age: "", isEmptyCell: false))
+        }
+        
         
         section3.append((title: "Inclusion", value: self.ladgerEvent!.inclusion, age: "", isEmptyCell: false))
         if !self.ladgerEvent!.confirmationId.isEmpty{
