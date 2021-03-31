@@ -37,6 +37,8 @@ class UpgradePlanContrainerVC: BaseVC, UpgradePlanListVCDelegate {
             self.setupFarebreakupView()
         }
         
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.UpgradePlan.rawValue, params: [AnalyticsKeys.FilterName.rawValue:AnalyticsEvents.UpgradePlan.rawValue, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+
         FirebaseAnalyticsController.shared.logEvent(name: "UpgradePlan", params: ["ScreenName":"UpgradePlan", "ScreenClass":"UpgradePlanContrainerVC"])
 
         
@@ -168,7 +170,7 @@ class UpgradePlanContrainerVC: BaseVC, UpgradePlanListVCDelegate {
     
     func apiCallForOtherFare(){
      
-        FirebaseAnalyticsController.shared.logEvent(name: "UpgradePlanOtherFareApiCall", params: ["ScreenName":"UpgradePlan", "ScreenClass":"UpgradePlanContrainerVC"])
+//        FirebaseAnalyticsController.shared.logEvent(name: "UpgradePlanOtherFareApiCall", params: ["ScreenName":"UpgradePlan", "ScreenClass":"UpgradePlanContrainerVC"])
 
         guard let journeys = self.viewModel.oldJourney else {return}
         self.viewModel.ohterFareData = []
@@ -189,7 +191,7 @@ class UpgradePlanContrainerVC: BaseVC, UpgradePlanListVCDelegate {
     
     
     func apiCallForIntOtherFare(){
-        FirebaseAnalyticsController.shared.logEvent(name: "UpgradePlanIntOtherFareApiCall", params: ["ScreenName":"UpgradePlan", "ScreenClass":"UpgradePlanContrainerVC"])
+//        FirebaseAnalyticsController.shared.logEvent(name: "UpgradePlanIntOtherFareApiCall", params: ["ScreenName":"UpgradePlan", "ScreenClass":"UpgradePlanContrainerVC"])
 
         guard let journeys = self.viewModel.oldIntJourney else {return}
         self.viewModel.ohterFareData = []
@@ -208,7 +210,7 @@ class UpgradePlanContrainerVC: BaseVC, UpgradePlanListVCDelegate {
     }
     
     private func setupFarebreakupView(){
-        FirebaseAnalyticsController.shared.logEvent(name: "UpgradePlanSetupFareBreakup", params: ["ScreenName":"UpgradePlan", "ScreenClass":"UpgradePlanContrainerVC"])
+//        FirebaseAnalyticsController.shared.logEvent(name: "UpgradePlanSetupFareBreakup", params: ["ScreenName":"UpgradePlan", "ScreenClass":"UpgradePlanContrainerVC"])
 
         self.addTranparentView()
         let fbVC =  FareBreakupVC(nibName: "FareBreakupVC", bundle: nil)
@@ -233,7 +235,7 @@ class UpgradePlanContrainerVC: BaseVC, UpgradePlanListVCDelegate {
     }
     
     func setupIntFarebreakupView(){
-        FirebaseAnalyticsController.shared.logEvent(name: "UpgradePlanSetupIntFareBreakup", params: ["ScreenName":"UpgradePlan", "ScreenClass":"UpgradePlanContrainerVC"])
+//        FirebaseAnalyticsController.shared.logEvent(name: "UpgradePlanSetupIntFareBreakup", params: ["ScreenName":"UpgradePlan", "ScreenClass":"UpgradePlanContrainerVC"])
 
         self.addTranparentView()
         let intFBVC = IntFareBreakupVC.instantiate(fromAppStoryboard: .InternationalReturnAndMulticityDetails)
@@ -274,7 +276,10 @@ class UpgradePlanContrainerVC: BaseVC, UpgradePlanListVCDelegate {
     }
     
     @IBAction func tapCloseButton(_ sender: Any) {
-        FirebaseAnalyticsController.shared.logEvent(name: "UpgradePlanCloseButtonClicked", params: ["ScreenName":"UpgradePlan", "ScreenClass":"UpgradePlanContrainerVC"])
+//        FirebaseAnalyticsController.shared.logEvent(name: "UpgradePlanCloseButtonClicked", params: ["ScreenName":"UpgradePlan", "ScreenClass":"UpgradePlanContrainerVC"])
+        
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.UpgradePlan.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.CloseButtonClicked, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+
 
         self.dismiss(animated: true, completion: nil)
     }
@@ -346,7 +351,10 @@ extension UpgradePlanContrainerVC : FareBreakupVCDelegate{
 
     func bookButtonTapped(journeyCombo: [CombinationJourney]?)
     {
-        FirebaseAnalyticsController.shared.logEvent(name: "UpgradePlanBookButtonClicked", params: ["ScreenName":"UpgradePlan", "ScreenClass":"UpgradePlanContrainerVC"])
+//        FirebaseAnalyticsController.shared.logEvent(name: "UpgradePlanBookButtonClicked", params: ["ScreenName":"UpgradePlan", "ScreenClass":"UpgradePlanContrainerVC"])
+        
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.UpgradePlan.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.UpgradePlanBookOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+
 
         if #available(iOS 13.0, *) {
             self.isModalInPresentation = true
@@ -369,7 +377,10 @@ extension UpgradePlanContrainerVC : FareBreakupVCDelegate{
 
 
     func pushToPassenserSelectionVC(_ vc: PassengersSelectionVC){
-        FirebaseAnalyticsController.shared.logEvent(name: "UpgradePlanPresentPassengerSelectionVC", params: ["ScreenName":"UpgradePlan", "ScreenClass":"UpgradePlanContrainerVC"])
+//        FirebaseAnalyticsController.shared.logEvent(name: "UpgradePlanPresentPassengerSelectionVC", params: ["ScreenName":"UpgradePlan", "ScreenClass":"UpgradePlanContrainerVC"])
+        
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.UpgradePlan.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.UpgradePlanPresentPessangerSelectionScreen, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+
 
         self.presentedViewController?.dismiss(animated: false, completion: nil)
         self.view.isUserInteractionEnabled = false
@@ -401,7 +412,10 @@ extension UpgradePlanContrainerVC : FareBreakupVCDelegate{
 
     
     func infoButtonTapped(isViewExpanded: Bool) {
-        FirebaseAnalyticsController.shared.logEvent(name: "UpgradePlanInfoButtonClicked", params: ["ScreenName":"UpgradePlan", "ScreenClass":"UpgradePlanContrainerVC"])
+//        FirebaseAnalyticsController.shared.logEvent(name: "UpgradePlanInfoButtonClicked", params: ["ScreenName":"UpgradePlan", "ScreenClass":"UpgradePlanContrainerVC"])
+        
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.UpgradePlan.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.UpgradePlanInfoOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+
 
         if isViewExpanded{
             viewForFare.frame = CGRect(x: 0, y: 0, width: UIScreen.width, height: UIScreen.height)

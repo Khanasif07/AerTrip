@@ -291,6 +291,30 @@ class FirebaseEventLogs{
         case AccountsOutstandingLedgerViewLedgerDetailsSelectedFromList
         case AccountsPeriodicStatementViewStatementDetailsSelectedFromList
 
+        
+//        MARK:- FlightDetails
+        case FlightDetailsIntFlightInfo
+        case FlightDetailsIntBaggageInfo
+        case FlightDetailsIntFareInfo
+        case FlightDetailsFlightInfo
+        case FlightDetailsBaggageInfo
+        case FlightDetailsFareInfo
+        case CloseButtonClicked
+        case FlightDetailsPinOptionSelected
+        case FlightDetailsShareOptionSelected
+        case FlightDetailsAddToTripOptionSelected
+        case FlightBookFlightOptionSelected
+        case FlightDetailsOpenPassengerSelectionScreen
+        case FlightDetailsInfoOptionSelected
+        case FlightDetailsUpgradeOptionSelected
+        case FlightDetailsBaggageDimentionsOptionSelected
+        case FlightDetailsFareRulesOptionSelected
+        case FlightDetailsOnTimePerformanceOptionSelected
+        
+//        MARK:- Upgrade Flight
+        case UpgradePlanInfoOptionSelected
+        case UpgradePlanPresentPessangerSelectionScreen
+        case UpgradePlanBookOptionSelected
     }
     
     
