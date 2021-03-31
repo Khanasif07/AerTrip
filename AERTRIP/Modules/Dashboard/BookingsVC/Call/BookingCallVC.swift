@@ -55,7 +55,10 @@ class BookingCallVC: BaseVC {
         
         
 
-        FirebaseAnalyticsController.shared.logEvent(name: "BookingCallList", params: ["ScreenName":"BookingCall", "ScreenClass":"BookingCallVC", "CallListFor":viewModel.usingFor])
+//        FirebaseAnalyticsController.shared.logEvent(name: "BookingCallList", params: ["ScreenName":"BookingCall", "ScreenClass":"BookingCallVC", "CallListFor":viewModel.usingFor])
+        
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.BookingsContactNumberList, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+
 
     }
     

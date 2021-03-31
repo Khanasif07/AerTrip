@@ -74,7 +74,9 @@ class MyBookingFilterVC: BaseVC {
 //        }
         
         
-        FirebaseAnalyticsController.shared.logEvent(name: "MyBookingsFilter", params: ["ScreenName":"MyBookingFilter", "ScreenClass":"MyBookingFilterVC"])
+//        FirebaseAnalyticsController.shared.logEvent(name: "MyBookingsFilter", params: ["ScreenName":"MyBookingFilter", "ScreenClass":"MyBookingFilterVC"])
+
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.MyBookingsFilter, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
     }
     
@@ -265,7 +267,9 @@ extension MyBookingFilterVC: TopNavigationViewDelegate {
             self.setCounts()
         }
         
-        FirebaseAnalyticsController.shared.logEvent(name: "MyBookingsClearFilter", params: ["ScreenName":"MyBookingFilter", "ScreenClass":"MyBookingFilterVC"])
+//        FirebaseAnalyticsController.shared.logEvent(name: "MyBookingsClearFilter", params: ["ScreenName":"MyBookingFilter", "ScreenClass":"MyBookingFilterVC"])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.MyBookingsFilterCleared, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+
 
         
     }
@@ -283,7 +287,7 @@ extension MyBookingFilterVC: EventTypeVCDelegate {
         MyBookingFilterVM.shared.eventType = selection
         self.notifyToFilterApplied()
         
-        FirebaseAnalyticsController.shared.logEvent(name: "MyBookingsFilterEventTypeSelected", params: ["ScreenName":"MyBookingFilter", "ScreenClass":"MyBookingFilterVC", "selectedEventType":selection])
+//        FirebaseAnalyticsController.shared.logEvent(name: "MyBookingsFilterEventTypeSelected", params: ["ScreenName":"MyBookingFilter", "ScreenClass":"MyBookingFilterVC", "selectedEventType":selection])
 
     }
 }
@@ -293,13 +297,13 @@ extension MyBookingFilterVC: TravelDateVCDelegate {
         if forType == .bookingDate {
             MyBookingFilterVM.shared.bookingFromDate = fromDate
             
-            FirebaseAnalyticsController.shared.logEvent(name: "MyBookingsFilterFromBookingDateSelected", params: ["ScreenName":"MyBookingFilter", "ScreenClass":"MyBookingFilterVC"])
+//            FirebaseAnalyticsController.shared.logEvent(name: "MyBookingsFilterFromBookingDateSelected", params: ["ScreenName":"MyBookingFilter", "ScreenClass":"MyBookingFilterVC"])
 
         }
         else if forType == .travelDate {
             MyBookingFilterVM.shared.travelFromDate = fromDate
             
-            FirebaseAnalyticsController.shared.logEvent(name: "MyBookingsFilterFromTravelDateSelected", params: ["ScreenName":"MyBookingFilter", "ScreenClass":"MyBookingFilterVC"])
+//            FirebaseAnalyticsController.shared.logEvent(name: "MyBookingsFilterFromTravelDateSelected", params: ["ScreenName":"MyBookingFilter", "ScreenClass":"MyBookingFilterVC"])
 
         }
         self.notifyToFilterApplied()
@@ -309,13 +313,13 @@ extension MyBookingFilterVC: TravelDateVCDelegate {
         if forType == .bookingDate {
             MyBookingFilterVM.shared.bookingToDate = toDate
             
-            FirebaseAnalyticsController.shared.logEvent(name: "MyBookingsFilterToBookingDateSelected", params: ["ScreenName":"MyBookingFilter", "ScreenClass":"MyBookingFilterVC"])
+//            FirebaseAnalyticsController.shared.logEvent(name: "MyBookingsFilterToBookingDateSelected", params: ["ScreenName":"MyBookingFilter", "ScreenClass":"MyBookingFilterVC"])
 
         }
         else if forType == .travelDate {
             MyBookingFilterVM.shared.travelToDate = toDate
             
-            FirebaseAnalyticsController.shared.logEvent(name: "MyBookingsFilterToTravelDateSelected", params: ["ScreenName":"MyBookingFilter", "ScreenClass":"MyBookingFilterVC"])
+//            FirebaseAnalyticsController.shared.logEvent(name: "MyBookingsFilterToTravelDateSelected", params: ["ScreenName":"MyBookingFilter", "ScreenClass":"MyBookingFilterVC"])
 
         }
         self.notifyToFilterApplied()

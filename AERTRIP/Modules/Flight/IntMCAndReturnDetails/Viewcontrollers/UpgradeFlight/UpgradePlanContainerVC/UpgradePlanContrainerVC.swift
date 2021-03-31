@@ -39,7 +39,7 @@ class UpgradePlanContrainerVC: BaseVC, UpgradePlanListVCDelegate {
         
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.UpgradePlan.rawValue, params: [AnalyticsKeys.FilterName.rawValue:AnalyticsEvents.UpgradePlan.rawValue, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
-        FirebaseAnalyticsController.shared.logEvent(name: "UpgradePlan", params: ["ScreenName":"UpgradePlan", "ScreenClass":"UpgradePlanContrainerVC"])
+//        FirebaseAnalyticsController.shared.logEvent(name: "UpgradePlan", params: ["ScreenName":"UpgradePlan", "ScreenClass":"UpgradePlanContrainerVC"])
 
         
     }

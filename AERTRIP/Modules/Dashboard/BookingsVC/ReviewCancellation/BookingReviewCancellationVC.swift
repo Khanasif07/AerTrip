@@ -92,6 +92,13 @@ class BookingReviewCancellationVC: BaseVC {
         case .flightCancellationReview, .hotelCancellationReview:
             self.commentPlaceholderLbl.text = LocalizedString.EnterYourCommentOptional.localized
 
+        
+            if viewModel.currentUsingAs == .flightCancellationReview{
+                FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.BookingsReviewCancellationRequest.rawValue, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+            }else{
+                FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.BookingsReviewReschedulingRequest.rawValue, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+            }
+
         case .specialRequest:
             self.cancellationReasonView.isHidden = true
             self.cancellationViewHeightConstraint.constant = 0.0
@@ -100,6 +107,9 @@ class BookingReviewCancellationVC: BaseVC {
             self.requestCancellationButton.alpha = 0.6
 
         //        FirebaseAnalyticsController.shared.logEvent(name: "HotelSpecialRequest", params: ["ScreenName":"HotelSpecialRequest", "ScreenClass":"BookingReviewCancellationVC", "ButtonAction":"SpecialRequestButtonClicked"])
+        
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.BookingsReviewSpecialRequest, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+
 
         }
         

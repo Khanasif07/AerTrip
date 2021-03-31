@@ -53,7 +53,10 @@ class FlightBookingInfoVC: BaseVC {
 //        self.viewModel.getBookingFees()
         
         
-        FirebaseAnalyticsController.shared.logEvent(name: "BookingFlightDetailFlightInfo", params: ["ScreenName":"BookingFlightDetailFlightInfo", "ScreenClass":"FlightBookingInfoVC"])
+//        FirebaseAnalyticsController.shared.logEvent(name: "BookingFlightDetailFlightInfo", params: ["ScreenName":"BookingFlightDetailFlightInfo", "ScreenClass":"FlightBookingInfoVC"])
+        
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.BookingsFlightDetailsFlightInfo, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+
 
     }
     

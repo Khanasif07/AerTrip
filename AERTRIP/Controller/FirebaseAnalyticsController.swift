@@ -53,6 +53,9 @@ enum AnalyticsEvents: String {
     case AccountsPeriodicStatement
     case FlightDetails
     case UpgradePlan
+    case Bookings
+    case Webcheckin
+    case BookingConfirmationMail
 
 }
 

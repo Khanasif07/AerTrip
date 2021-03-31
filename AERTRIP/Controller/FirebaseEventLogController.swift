@@ -315,6 +315,47 @@ class FirebaseEventLogs{
         case UpgradePlanInfoOptionSelected
         case UpgradePlanPresentPessangerSelectionScreen
         case UpgradePlanBookOptionSelected
+        
+//        MARK:- Bookings
+        case MyBookings
+        case MyBookingsFilterApplied
+        case MyBookingsFilterCleared
+        case MyBookingsList
+        case MyBookingsSearchOptionSelected
+        case MyBookingsSpeechToTextOptionSelected
+        case MyBookingsConvertedSpeechToText
+        case MyBookingsFilter
+        case BookingsReviewCancellationRequest
+        case BookingsReviewReschedulingRequest
+        case BookingsReviewSpecialRequest
+        case BookingsCancellation
+        case BookingsRescheduling
+        case BookingsRequestAddOns
+        case BookingsDirections
+        case BookingsContactNumberList
+        case BookingsVoucherDepositPayOnlineOptionSelected
+        case BookingsVoucherDepositPayOfflineOptionSelected
+        case BookingsFlightDetails
+        case BookingsFlightDetailsBaggageDimensionOptionsSelected
+        case BookingsFlightDetailsFlightInfo
+        case BookingsFlightDetailsBaggageInfo
+        case BookingsFlightDetailsFareInfo
+        case BookingsFlightDetailsFareInfoFareRulesOptionSelected
+        case BookingsAddonsRequest
+        case BookingsDetailsMakePaymentOptionSelected
+        case BookingsAddonRequestPayOnlineOptionSelected
+        case BookingsAddonRequestPayOfflineOptionSelected
+
+        case OtherBookingsDetails
+        case OtherBookingsDetailsDepositPayOnlineClicked
+        case OtherBookingsDetailsDepositPayOfflineClicked
+        case OtherBookingsDetailsPaymentInfoClicked
+        case MyBookingsFlightBookingsDetails
+        case MyBookingsFlightBookingsDetailsPayOnlineOptionSelected
+        case MyBookingsFlightBookingsDetailsPayOfflineOptionSelected
+        case MyBookingsRequestAddOnFrequentFlyerOptionSelected
+        case MyBookingsReschedulingOptionSelected
+
     }
     
     
