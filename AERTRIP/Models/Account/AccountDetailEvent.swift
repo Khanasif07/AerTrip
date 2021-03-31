@@ -294,7 +294,8 @@ struct AccountDetailEvent {
                     }
                     
                 case .none:
-                    printDebug("No need for other voucher types")
+                    self.iconImage = #imageLiteral(resourceName: "ic_acc_receipt")
+                    self.title =  (details["party_name"] as? String) ?? ""
 //                @unknown default:
 //                    printDebug("No need for other voucher types")
                 }
