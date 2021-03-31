@@ -258,6 +258,11 @@ class FirebaseEventLogs{
         
         
         //MARK:- Accounts
+        case AccountsFilterOptionSelected
+        case AccoutsApplyFilterOptionSelected
+        case AccountsClearAllFilterOptionSelected
+        case AccountsSpeechToTextOptionSelected
+        case AccountsConvertedSpeechToText
         case AccountsPayOnlineOptionSelected
         case AccountsPayOfflineOptionSelected
         case AccountsDepositeOptionSelected
