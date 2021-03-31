@@ -50,6 +50,7 @@ enum AnalyticsEvents: String {
     case Accounts
     case AccountsLedger
     case AccountsOutstandingLedger
+    case AccountsPeriodicStatement
 
 }
 

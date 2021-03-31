@@ -284,6 +284,7 @@ class FirebaseEventLogs{
         case AccountOutstandingLedgerOnAccountOptionSelected
         case AccountsMakePaymenrOptionSelected
         case AccountsOutstandingLedgerViewLedgerDetailsSelectedFromList
+        case AccountsPeriodicStatementViewStatementDetailsSelectedFromList
 
     }
     
