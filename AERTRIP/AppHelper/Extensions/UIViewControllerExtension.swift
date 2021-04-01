@@ -431,7 +431,7 @@ extension UIViewController {
         return flag
     }
     
-    func fetchContacts(complition: @escaping ((_ contacts: [CNContact]) -> Void), canceled: (() -> Void)? = nil) {
+    func fetchContacts(complition: @escaping ((_ contacts: [CNContact]) -> Void), canceled: (() -> Void)? = nil, authorizied: (() -> ())? = nil) {
         
         func retrieveContactsWithStore(_ store: CNContactStore) {
             
@@ -474,6 +474,7 @@ extension UIViewController {
             
             store.requestAccess(for: .contacts) { (authorized, error) in
                 if authorized {
+                    authorizied?()
                     retrieveContactsWithStore(store)
                 }
                 else {

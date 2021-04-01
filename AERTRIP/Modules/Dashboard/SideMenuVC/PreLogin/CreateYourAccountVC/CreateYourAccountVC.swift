@@ -146,6 +146,7 @@ class CreateYourAccountVC: BaseVC {
     }
     
     @IBAction func loginHereButtonAction(_ sender: UIButton) {
+        self.viewModel.logEvent(with: .login)
         AppFlowManager.default.moveToLoginVC(email: self.viewModel.email)
     }
 }
@@ -174,12 +175,14 @@ private extension CreateYourAccountVC {
 //                let safariVC = SFSafariViewController(url: url)
 //                self.present(safariVC, animated: true, completion: nil)
 //                safariVC.delegate = self
+                self.viewModel.logEvent(with: .openPrivacy)
                 AppFlowManager.default.showURLOnATWebView(url, screenTitle: LocalizedString.privacy_policy.localized.capitalized)
             }
             
             label.handleCustomTap(for: termsOfUse) { element in
                 
                 guard let url = URL(string: AppKeys.termsOfUse) else {return}
+                self.viewModel.logEvent(with: .OpenTermsOfUse)
 //                let safariVC = SFSafariViewController(url: url)
 //                self.present(safariVC, animated: true, completion: nil)
 //                safariVC.delegate = self
@@ -237,6 +240,7 @@ extension CreateYourAccountVC: CreateYourAccountVMDelegate {
     
     func didRegisterSuccess(email: String) {
         self.registerButton.isLoading = false
+        self.viewModel.logEvent(with: .ProceedToThankYouForRegistering)
         AppFlowManager.default.moveToRegistrationSuccefullyVC(type: .setPassword, email: email)
     }
     

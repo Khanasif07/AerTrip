@@ -39,17 +39,17 @@ class LoginVM {
     func isValidateData(vc: UIViewController) -> Bool {
         
         if self.email.isEmpty {
-            
+            self.firebaseLogEvent(with: .EnterIncorrectEmail)
             AppToast.default.showToastMessage(message: LocalizedString.Enter_email_address.localized)
             return false
             
         } else if self.email.checkInvalidity(.Email) {
-            
+            self.firebaseLogEvent(with: .EnterIncorrectEmail)
             AppToast.default.showToastMessage(message: LocalizedString.Enter_valid_email_address.localized)
             return false
             
         } else if self.password.isEmpty {
-            
+            self.firebaseLogEvent(with: .PasswordIncorrect)
             AppToast.default.showToastMessage(message: LocalizedString.Enter_password.localized)
             return false
             
@@ -90,9 +90,16 @@ extension LoginVM{
     
     func firebaseLogEvent(with event:FirebaseEventLogs.EventsTypeName){
         switch self.currentlyUsingFrom {
-        case .loginProcess:break
+        case .loginProcess:
+            if event == .login{
+                FirebaseEventLogs.shared.logLoginEvents(with: .LoginSuccessfully)
+            }else{
+                FirebaseEventLogs.shared.logLoginEvents(with: event)
+            }
         case .loginVerificationForCheckout:
-            FirebaseEventLogs.shared.logHotelsGuestUserCheckoutEvents(with: event)
+            if event == .login{
+                FirebaseEventLogs.shared.logHotelsGuestUserCheckoutEvents(with: event)
+            }
         case .loginVerificationForBulkbooking:break;
         case .loginFromEmailShare:break
         }

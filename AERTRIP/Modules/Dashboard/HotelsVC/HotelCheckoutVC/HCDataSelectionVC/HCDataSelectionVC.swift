@@ -543,19 +543,21 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
         //        manageLoader(shouldStart: true)
         if errors.contains(array: [11]) {
             //send to result screen and re-hit the search API
+            AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
             self.sendDataChangedNotification(data: ATNotification.GRNSessionExpired)
-            for vc in AppFlowManager.default.currentNavigation?.viewControllers ?? [] {
-                if let obj = vc as? HotelResultVC {
-                    //close hotel details if open
-                    for vc in obj.children {
-                        if let detailVC = vc as? HotelDetailsVC {
-                            detailVC.hide(animated: true)
-                            break
-                        }
-                    }
-                    AppFlowManager.default.popViewController(animated: true)
-                }
-            }
+            self.getListingController()
+//            for vc in AppFlowManager.default.currentNavigation?.viewControllers ?? [] {
+//                if let obj = vc as? HotelResultVC {
+//                    //close hotel details if open
+//                    for vc in obj.children {
+//                        if let detailVC = vc as? HotelDetailsVC {
+//                            detailVC.hide(animated: true)
+//                            break
+//                        }
+//                    }
+//                    AppFlowManager.default.popViewController(animated: true)
+//                }
+//            }
         } else if errors.contains(55) || errors.contains(81) {
            // AppToast.default.showToastMessage(message: LocalizedString.ResultUnavailable.localized, onViewController: self, buttonTitle: LocalizedString.ReloadResults.localized, buttonAction: self.checkoutSessionExpireCompletionHandler)
             
@@ -568,6 +570,12 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
         
         
         //AppGlobals.shared.stopLoading()
+    }
+    
+    func getListingController(){
+      if let nav = self.navigationController?.presentingViewController?.presentingViewController as? UINavigationController{
+          nav.dismiss(animated: true)
+      }
     }
     
     func fetchRecheckRatesDataSuccess(recheckedData: ItineraryData) {

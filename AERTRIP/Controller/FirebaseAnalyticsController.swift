@@ -48,6 +48,13 @@ enum AnalyticsEvents: String {
     case EditTraveller
     case AddTraveller
     case TravellerPreferences
+    case ImportTraveller
+    case LinkedAccount
+    case ChangeAertripID
+    case LoginOrRegister
+    case Login
+    case Register
+    case ThankYouForRegistering
 
     
     // Filter

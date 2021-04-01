@@ -92,7 +92,7 @@ class PreferencesVM: NSObject {
 extension PreferencesVM{
 
     func logFirebaseEvent(for event: FirebaseEventLogs.EventsTypeName){
-        FirebaseEventLogs.shared.logVTravellerPreferencesEvents(with: event)
+        FirebaseEventLogs.shared.logTravellerPreferencesEvents(with: event)
     }
     
 }

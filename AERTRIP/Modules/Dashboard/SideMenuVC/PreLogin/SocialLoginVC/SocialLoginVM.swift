@@ -266,9 +266,27 @@ extension SocialLoginVM{
     
     func firebaseLogEvent(with event:FirebaseEventLogs.EventsTypeName){
         switch self.currentlyUsingFrom {
-        case .loginProcess:break
+        case .loginProcess:
+            switch event{
+            case .connectWithApple:
+                FirebaseEventLogs.shared.logLoginOrRegisterEvents(with: .LoginWithApple)
+            case .connectWithGoogle:
+                FirebaseEventLogs.shared.logLoginOrRegisterEvents(with: .LoginWithGoogle)
+            case .connectWithFacebook:
+                FirebaseEventLogs.shared.logLoginOrRegisterEvents(with: .LoginWithFacebook)
+            case .login:
+                FirebaseEventLogs.shared.logLoginOrRegisterEvents(with: .SignIn)
+            case .continueAsGuest:
+                FirebaseEventLogs.shared.logLoginOrRegisterEvents(with: .Register)
+            default: break;
+            }
+            
         case .loginVerificationForCheckout:
-            FirebaseEventLogs.shared.logHotelsGuestUserCheckoutEvents(with: event)
+            switch event{
+            case .connectWithApple, .connectWithGoogle, .connectWithFacebook, .continueAsGuest, .navigateBack:
+                FirebaseEventLogs.shared.logHotelsGuestUserCheckoutEvents(with: event)
+            default: break;
+            }
         case .loginVerificationForBulkbooking:break;
         case .loginFromEmailShare:break
         }

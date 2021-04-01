@@ -85,7 +85,7 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
             startingDate = Date.getDateFromString(stringDate: fromDate, currentFormat: "yyyy-MM-dd HH:mm:ss", requiredFormat: "E, d MMM yyyy hh:mm aa") ?? ""
         }
         if (!toDate.isEmpty && fromDate.isEmpty && penalty == 0) || (!toDate.isEmpty && !fromDate.isEmpty && penalty == 0) {
-            let cancelDesc: String = Date.getDateFromString(stringDate: toDate, currentFormat: "yyyy-MM-dd HH:mm:ss", requiredFormat: "d MMM’ yy") ?? ""
+            let cancelDesc: String = Date.getDateFromString(stringDate: toDate, currentFormat: "yyyy-MM-dd HH:mm:ss", requiredFormat: "d MMM yyyy") ?? ""
             let greenAttributedString = NSAttributedString(string: LocalizedString.FreeCancellation.localized, attributes: orangeAtrribute)
             let blackAttributedString = NSAttributedString(string: " by " + cancelDesc , attributes: blackAttribute)
             attributedString.append(greenAttributedString)
