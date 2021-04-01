@@ -36,7 +36,6 @@ class PeriodicStatementVC: BaseVC {
         // Do any additional setup after loading the view.
         self.initialSetups()
         
-//        FirebaseAnalyticsController.shared.logEvent(name: "PeriodicStatement", params: ["ScreenName":"PeriodicStatement", "ScreenClass":"PeriodicStatementVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
 
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsPeriodicStatement.rawValue, params: [AnalyticsKeys.FilterName.rawValue:AnalyticsEvents.AccountsPeriodicStatement, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
@@ -123,7 +122,6 @@ class PeriodicStatementVC: BaseVC {
 
 extension PeriodicStatementVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
-//        FirebaseAnalyticsController.shared.logEvent(name: "PeriodicStatementBackButtonClicked", params: ["ScreenName":"PeriodicStatement", "ScreenClass":"PeriodicStatementVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
 
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsPeriodicStatement.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.navigateBack, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 

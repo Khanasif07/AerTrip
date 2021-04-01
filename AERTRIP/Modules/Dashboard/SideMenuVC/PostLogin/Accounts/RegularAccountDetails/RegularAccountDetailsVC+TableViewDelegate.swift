@@ -174,7 +174,6 @@ extension RegularAccountDetailsVC:UITableViewDelegate, UITableViewDataSource{
         }
         let idx = indexPath.row
         printDebug(Date())
-//        FirebaseAnalyticsController.shared.logEvent(name: "AccountsSelectedDetailFromList", params: ["ScreenName":"Accounts", "ScreenClass":"RegularAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
 
         delay(seconds: 0.0){
             AppFlowManager.default.moveToAccountLadgerDetailsVC(forEvent: allEvent[idx], detailType: .accountLadger)

@@ -89,7 +89,6 @@ class BookingAddOnRequestVC: BaseVC {
             }else{
                 eventName = "BookingDetailsAddonsRequest"
             }
-//            FirebaseAnalyticsController.shared.logEvent(name: eventName, params: ["ScreenName":casetype, "ScreenClass":"BookingAddOnRequestVC"])
 
             FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.BookingsAddonsRequest, AnalyticsKeys.FilterType.rawValue: "EventName", AnalyticsKeys.Values.rawValue: eventName])
 
@@ -266,7 +265,6 @@ class BookingAddOnRequestVC: BaseVC {
             if caseData.resolutionStatus == .paymentPending {
 //                self.showLoaderOnView(view: self.priceView, show: true)
                 
-//                FirebaseAnalyticsController.shared.logEvent(name: "BookingDetailsMakePaymentClicked", params: ["ScreenName":"BookingDetailsMakePayment", "ScreenClass":"BookingAddOnRequestVC"])
                 
                 FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.BookingsDetailsMakePaymentOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
@@ -650,15 +648,12 @@ extension BookingAddOnRequestVC {
             case 0:
                 //PayOnline
                 
-//                FirebaseAnalyticsController.shared.logEvent(name: "BookingAddOnRequestPayOnlineClicked", params: ["ScreenName":"BookingAddOnRequest", "ScreenClass":"BookingAddOnRequestVC"])
-
                 FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.BookingsAddonRequestPayOnlineOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
                 AppFlowManager.default.moveToAccountOnlineDepositVC(depositItinerary: self.viewModel.itineraryData, usingToPaymentFor: .addOns)
                 
             case 1:
                 //PayOfflineNRegister
-//                FirebaseAnalyticsController.shared.logEvent(name: "BookingAddOnRequestPayOfflineClicked", params: ["ScreenName":"BookingAddOnRequest", "ScreenClass":"BookingAddOnRequestVC"])
 
                 FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.BookingsAddonRequestPayOfflineOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 

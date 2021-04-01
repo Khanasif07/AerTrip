@@ -259,7 +259,7 @@ class FirebaseEventLogs{
         
         //MARK:- Accounts
         case AccountsFilterOptionSelected
-        case AccoutsApplyFilterOptionSelected
+        case AccountsApplyFilterOptionSelected
         case AccountsClearAllFilterOptionSelected
         case AccountsSpeechToTextOptionSelected
         case AccountsConvertedSpeechToText
@@ -275,18 +275,18 @@ class FirebaseEventLogs{
         case AccountsClearSearchBarOptionSelected
         case AccountsCancelSearchBarOptionSelected
         case AccountSearchOptionSelected
-        case AccountLedgerSpeechToTextSelected
+        case AccountsLedgerSpeechToTextSelected
         case AccountsMenuOptionSelected
-        case AccountLedgerFilterOptionSelected
-        case AccountLedgerClearFilterOptionSelected
+        case AccountsLedgerFilterOptionSelected
+        case AccountsLedgerClearFilterOptionSelected
         case AccountsLedgerConvertedSpeechToText
-        case AccountLedgerViewLedgerDetailsSelectedFromList
-        case AccountLedgerDetails
-        case AccountLadgerDetailsFlightsOptionSelected
-        case AccountLadgerDetailsHotelsOptionSelected
-        case AccountLadgerDetailsDownloadReciptSelected
-        case AccountOutstandingLedgerSelectBookingsOptionSelected
-        case AccountOutstandingLedgerOnAccountOptionSelected
+        case AccountsLedgerViewLedgerDetailsSelectedFromList
+        case AccountsLedgerDetails
+        case AccountsLedgerDetailsFlightsOptionSelected
+        case AccountsLedgerDetailsHotelsOptionSelected
+        case AccountsLedgerDetailsDownloadReciptSelected
+        case AccountsOutstandingLedgerSelectBookingsOptionSelected
+        case AccountsOutstandingLedgerOnAccountOptionSelected
         case AccountsMakePaymenrOptionSelected
         case AccountsOutstandingLedgerViewLedgerDetailsSelectedFromList
         case AccountsPeriodicStatementViewStatementDetailsSelectedFromList
@@ -347,9 +347,9 @@ class FirebaseEventLogs{
         case BookingsAddonRequestPayOfflineOptionSelected
 
         case OtherBookingsDetails
-        case OtherBookingsDetailsDepositPayOnlineClicked
-        case OtherBookingsDetailsDepositPayOfflineClicked
-        case OtherBookingsDetailsPaymentInfoClicked
+        case OtherBookingsDetailsDepositPayOnlineOptionSelected
+        case OtherBookingsDetailsDepositPayOfflineOptionSelected
+        case OtherBookingsDetailsPaymentInfoOptionSelected
         case MyBookingsFlightBookingsDetails
         case MyBookingsFlightBookingsDetailsPayOnlineOptionSelected
         case MyBookingsFlightBookingsDetailsPayOfflineOptionSelected

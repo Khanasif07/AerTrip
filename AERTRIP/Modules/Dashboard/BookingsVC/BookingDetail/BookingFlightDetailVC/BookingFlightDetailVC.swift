@@ -63,7 +63,6 @@ class BookingFlightDetailVC: BaseVC {
         }
         
         
-//        FirebaseAnalyticsController.shared.logEvent(name: "BookingFlightDetail", params: ["ScreenName":"BookingFlightDetail", "ScreenClass":"BookingFlightDetailVC"])
         
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.BookingsFlightDetails, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
@@ -211,7 +210,6 @@ extension BookingFlightDetailVC : PagingViewControllerDataSource , PagingViewCon
 extension BookingFlightDetailVC: BookingDetailVMDelegate, BaggageDimesionPresentDelegate {
     func dimesionButtonTapprd(with dimension: Dimension, weight: String)
     {
-//        FirebaseAnalyticsController.shared.logEvent(name: "BookingFlightDetailBaggageDimensionClicked", params: ["ScreenName":"BookingFlightDetailBaggageDimension", "ScreenClass":"BookingFlightDetailVC"])
         
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.BookingsFlightDetailsBaggageDimensionOptionsSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 

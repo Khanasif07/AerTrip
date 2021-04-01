@@ -36,9 +36,7 @@ class FlightBaggageInfoVC: BaseVC {
         //        self.tableView.backgroundColor = AppColors.themeWhite
 //        self.viewModel.getBookingFees()
         
-        
-//        FirebaseAnalyticsController.shared.logEvent(name: "BookingFlightDetailBaggageInfo", params: ["ScreenName":"BookingFlightDetailBaggageInfo", "ScreenClass":"FlightBaggageInfoVC"])
-        
+                
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.BookingsFlightDetailsBaggageInfo, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
 

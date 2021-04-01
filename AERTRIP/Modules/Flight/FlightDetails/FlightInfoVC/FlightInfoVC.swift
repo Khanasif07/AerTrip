@@ -89,7 +89,6 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
         self.flightInfoTableView.contentInset = UIEdgeInsets(top: -0.5, left: 0, bottom: 0, right: 0)
         flightInfoTableView.showsVerticalScrollIndicator = true
         
-//        FirebaseAnalyticsController.shared.logEvent(name: "FlightDetailsFlightInfo", params: ["ScreenName":"FlightDetailsFlightInfo", "ScreenClass":"FlightInfoVC"])
         
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightDetails.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.FlightDetailsFlightInfo, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
@@ -666,8 +665,6 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
     //MARK:- Button Actions
     @objc func flightArrivalPerfomaceButtonClicked(_ sender:UIButton)
     {
-//        FirebaseAnalyticsController.shared.logEvent(name: "FlightDetailsFlightInfoOnTimePerformaceClicked", params: ["ScreenName":"FlightDetailsFlightInfo", "ScreenClass":"FlightInfoVC"])
-
         FirebaseAnalyticsController.shared.logEvent(name: FirebaseEventLogs.EventsTypeName.FlightDetailsFlightInfo.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.FlightDetailsOnTimePerformanceOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
         let arrivalPerformanceView = ArrivalPerformaceVC(nibName: "ArrivalPerformaceVC", bundle: nil)

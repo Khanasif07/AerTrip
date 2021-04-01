@@ -89,9 +89,7 @@ class SpecialAccountDetailsVC: BaseVC {
         activityIndicator.backgroundColor = .clear
         activityIndicator.startAnimating()
         loaderView.addSubview(activityIndicator)
-        
-//        FirebaseAnalyticsController.shared.logEvent(name: "Accounts", params: ["ScreenName":"Accounts", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
-        
+                
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Accounts.rawValue, params: [AnalyticsKeys.FilterName.rawValue:AnalyticsEvents.Accounts, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
     }
@@ -130,7 +128,6 @@ class SpecialAccountDetailsVC: BaseVC {
             switch index {
             case 0:
                 //PayOnline
-//                FirebaseAnalyticsController.shared.logEvent(name: "AccountsPayOnlineClicked", params: ["ScreenName":"Accounts", "ScreenClass":"SpecialAccountDetailsVC"])
                 FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Accounts.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.AccountsPayOnlineOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
                 
@@ -140,7 +137,6 @@ class SpecialAccountDetailsVC: BaseVC {
                 
             case 1:
                 //PayOfflineNRegister
-//                FirebaseAnalyticsController.shared.logEvent(name: "AccountsPayOfflineClicked", params: ["ScreenName":"Accounts", "ScreenClass":"SpecialAccountDetailsVC"])
                 
                 FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Accounts.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.AccountsPayOfflineOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
@@ -208,7 +204,6 @@ class SpecialAccountDetailsVC: BaseVC {
     
     //MARK:- Action
     @objc func depositButtonAction(_ sender: ATButton) {
-//        FirebaseAnalyticsController.shared.logEvent(name: "AccountsDepositButtonClicked", params: ["ScreenName":"Accounts", "ScreenClass":"SpecialAccountDetailsVC"])
         
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Accounts.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.AccountsDepositeOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue:  UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
@@ -270,7 +265,6 @@ extension SpecialAccountDetailsVC: SpecialAccountDetailsVMDelegate {
 extension SpecialAccountDetailsVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         //back button action
-//        FirebaseAnalyticsController.shared.logEvent(name: "AccountsBackButtonClicked", params: ["ScreenName":"Accounts", "ScreenClass":"SpecialAccountDetailsVC"])
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Accounts.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.navigateBack, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
         AppFlowManager.default.popViewController(animated: true)
@@ -278,7 +272,6 @@ extension SpecialAccountDetailsVC: TopNavigationViewDelegate {
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         //info button action
-//        FirebaseAnalyticsController.shared.logEvent(name: "AccountsInfoButtonClicked", params: ["ScreenName":"Accounts", "ScreenClass":"SpecialAccountDetailsVC"])
 
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Accounts.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.AccountsInfoOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 

@@ -76,8 +76,6 @@ class BookingVoucherVC: BaseVC {
             case 0:
                 //PayOnline
                 
-//                FirebaseAnalyticsController.shared.logEvent(name: "BookingVoucherDepositPayOnlineClicked", params: ["ScreenName":"BookingVoucher", "ScreenClass":"BookingVoucherVC"])
-                
                 FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.BookingsVoucherDepositPayOnlineOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
 
@@ -85,9 +83,7 @@ class BookingVoucherVC: BaseVC {
                 
             case 1:
                 //PayOfflineNRegister
-                
-//                FirebaseAnalyticsController.shared.logEvent(name: "BookingVoucherDepositPayOfflineClicked", params: ["ScreenName":"BookingVoucher", "ScreenClass":"BookingVoucherVC"])
-                
+                                
                 FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.BookingsVoucherDepositPayOfflineOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
 
