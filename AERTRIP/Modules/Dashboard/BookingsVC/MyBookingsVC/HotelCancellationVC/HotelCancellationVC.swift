@@ -61,7 +61,9 @@ class HotelCancellationVC: BaseVC {
         }
         self.gradientView.addGredient(isVertical: false)
         
-                FirebaseAnalyticsController.shared.logEvent(name: "HotelCancellation", params: ["ScreenName":"HotelCancellation", "ScreenClass":"HotelCancellationVC", "ButtonAction":"HotelCancellationClicked"])
+//                FirebaseAnalyticsController.shared.logEvent(name: "HotelCancellation", params: ["ScreenName":"HotelCancellation", "ScreenClass":"HotelCancellationVC", "ButtonAction":"HotelCancellationClicked"])
+
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.MyBookingsHotelCancellation, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
     }
     

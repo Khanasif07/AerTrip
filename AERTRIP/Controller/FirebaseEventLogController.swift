@@ -355,6 +355,27 @@ class FirebaseEventLogs{
         case MyBookingsFlightBookingsDetailsPayOfflineOptionSelected
         case MyBookingsRequestAddOnFrequentFlyerOptionSelected
         case MyBookingsReschedulingOptionSelected
+        case MyBookingsFlightDetailsShareOptionSelected
+        case MyBookingsFlightDetailsBookSameFlightOptionSelected
+        case MyBookingsFlightDetailsAddToCalenderOptionSelected
+        case MyBookingsFlightDetailsAddToAppleWalletOptionSelected
+
+        case MyBookingsWebCheckinOptionSelected
+        case MyBookingsHotelDetails
+        case MyBookingsHotelDetailsPayOnlineOptionSelected
+        case MyBookingsHotelDetailsPayOfflineOptionSelected
+        case MyBookingsHotelDetailsProcessCancellationOptionSelected
+        case MyBookingsHotelDetailsProcessSpecialRequestOptionSelected
+        case MyBookingsHotelDetailsDownloadDetailsOptionSelected
+        case MyBookingsHotelDetailsResendConfirmationMailOptionSelected
+        case MyBookingsHotelDetailsReloadDetailsOptionSelected
+        case MyBookingsHotelDetailsShareOptionSelected
+        case MyBookingsHotelDetailsOpenDirectionsOptionSelected
+        case MyBookingsHotelDetailsAddToCalenderOptionSelected
+        case MyBookingsHotelDetailsBookAnotherRoomOptionSelected
+        
+        case MyBookingsHotelCancellation
+        case MyBookingsNotes
 
     }
     

@@ -245,6 +245,10 @@ extension HotlelBookingsDetailsVC: TopNavigationViewDelegate {
             case 0:
                 if let bdtl = self?.viewModel.bookingDetail, bdtl.cancellationRequestAllowed {
                     printDebug("Process Cancellation")
+                    
+                    
+                    FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.MyBookingsHotelDetailsProcessCancellationOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+
                     AppFlowManager.default.presentToHotelCancellationVC(bookingDetail: bdtl, presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
                 }
                 else {
@@ -255,6 +259,9 @@ extension HotlelBookingsDetailsVC: TopNavigationViewDelegate {
                 if let bdtl = self?.viewModel.bookingDetail, bdtl.specialRequestAllowed {
                     AppFlowManager.default.moveToSpecialRequestVC(forBookingId: bdtl.bookingDetail?.bookingId ?? "", presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
                     printDebug("Special Request")
+                    
+                    FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.MyBookingsHotelDetailsProcessSpecialRequestOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+
                 }
                 else {
                     printDebug("Special Request not allowed")
@@ -262,16 +269,25 @@ extension HotlelBookingsDetailsVC: TopNavigationViewDelegate {
                 
             case 2:
                 printDebug("Download ")
+                
+                FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.MyBookingsHotelDetailsDownloadDetailsOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+
                 let endPoint = "\(APIEndPoint.baseUrlPath.rawValue)dashboard/booking-action?type=pdf&booking_id=\(self?.viewModel.bookingDetail?.id ?? "")"
                 AppGlobals.shared.viewPdf(urlPath: endPoint, screenTitle: LocalizedString.Voucher.localized)
                 
-                    FirebaseAnalyticsController.shared.logEvent(name: "HotelBookingDetailsDownload", params: ["ScreenName":"Download_HotelBookingDetails", "ScreenClass":"HotelBookingsDetailsVC", "ButtonAction":"DownloadHotelDetailsClicked"])
+//                    FirebaseAnalyticsController.shared.logEvent(name: "HotelBookingDetailsDownload", params: ["ScreenName":"Download_HotelBookingDetails", "ScreenClass":"HotelBookingsDetailsVC", "ButtonAction":"DownloadHotelDetailsClicked"])
 
             case 3:
                 printDebug("Resend Confirmation mail ")
+                
+                FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.MyBookingsHotelDetailsResendConfirmationMailOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+
                 AppFlowManager.default.presentConfirmationMailVC(bookindId: self?.viewModel.bookingDetail?.id ?? "", presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
             case 4:
                             printDebug("reload result")
+                
+                FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.MyBookingsHotelDetailsReloadDetailsOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+
                             self?.viewModel.getBookingDetail(showProgress: true)
             default:
                 printDebug("default")
@@ -450,7 +466,10 @@ extension HotlelBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
     }
     
     func share() {
-                FirebaseAnalyticsController.shared.logEvent(name: "HotelBookingDetailsShare", params: ["ScreenName":"HotelBookingDetails", "ScreenClass":"HotelBookingsDetailsVC", "ButtonAction":"ShareHotelDetailsClicked"])
+//                FirebaseAnalyticsController.shared.logEvent(name: "HotelBookingDetailsShare", params: ["ScreenName":"HotelBookingDetails", "ScreenClass":"HotelBookingsDetailsVC", "ButtonAction":"ShareHotelDetailsClicked"])
+        
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.MyBookingsHotelDetailsShareOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+
 
         if let url = viewModel.bookingDetail?.shareUrl{
             if !url.isEmpty{
@@ -479,7 +498,9 @@ extension HotlelBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
     
     func openDirections() {
         
-                FirebaseAnalyticsController.shared.logEvent(name: "HotelBookingDetailsOpenDirections", params: ["ScreenName":"ShareHotelBookingDetails", "ScreenClass":"HotelBookingsDetailsVC", "ButtonAction":"OpenDirectionsFromHotelDetailsClicked"])
+//                FirebaseAnalyticsController.shared.logEvent(name: "HotelBookingDetailsOpenDirections", params: ["ScreenName":"ShareHotelBookingDetails", "ScreenClass":"HotelBookingsDetailsVC", "ButtonAction":"OpenDirectionsFromHotelDetailsClicked"])
+
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.MyBookingsHotelDetailsOpenDirectionsOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
         
         // Need to Booking Direction VC
@@ -492,7 +513,10 @@ extension HotlelBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
     
     func addToCalender() {
         
-                FirebaseAnalyticsController.shared.logEvent(name: "HotelBookingDetailsAddToCalender", params: ["ScreenName":"HotelBookingDetails", "ScreenClass":"HotelBookingsDetailsVC", "ButtonAction":"AddToCalenderHotelDetailsClicked"])
+//                FirebaseAnalyticsController.shared.logEvent(name: "HotelBookingDetailsAddToCalender", params: ["ScreenName":"HotelBookingDetails", "ScreenClass":"HotelBookingsDetailsVC", "ButtonAction":"AddToCalenderHotelDetailsClicked"])
+        
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.MyBookingsHotelDetailsAddToCalenderOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+
 
         if let start = self.viewModel.bookingDetail?.bookingDetail?.eventStartingDate, let end = self.viewModel.bookingDetail?.bookingDetail?.evenEndingDate {
             let bId = self.viewModel.bookingDetail?.bookingDetail?.bookingId ?? ""
@@ -555,7 +579,9 @@ extension HotlelBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
     }
     
     func bookAnotherRoom() {
-                FirebaseAnalyticsController.shared.logEvent(name: "HotelBookingDetailsBookAnotherRoom", params: ["ScreenName":"HotelBookingDetails", "ScreenClass":"HotelBookingsDetailsVC", "ButtonAction":"BookAnotherRoomHotelDetailsClicked"])
+//                FirebaseAnalyticsController.shared.logEvent(name: "HotelBookingDetailsBookAnotherRoom", params: ["ScreenName":"HotelBookingDetails", "ScreenClass":"HotelBookingsDetailsVC", "ButtonAction":"BookAnotherRoomHotelDetailsClicked"])
+
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.MyBookingsHotelDetailsBookAnotherRoomOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
         let booking = self.viewModel.bookingDetail?.bookingDetail
         if let hotelName = booking?.hotelName, let address = booking?.hotelAddress, let lat =  booking?.latitude, let long = booking?.longitude, let city = booking?.city, let hotelId = booking?.hotelId, let checkIn = booking?.checkIn, let checkOut = booking?.checkOut {
@@ -586,7 +612,9 @@ extension HotlelBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
     }
     func webCheckinServices(url: String) {
 
-        FirebaseAnalyticsController.shared.logEvent(name: "BookingFlightDetailsWebCheckin", params: ["ScreenName":"FlightBookingsDetailsVC", "ScreenClass":"FlightBookingsDetailsVC", "ButtonAction":"FlightWebCheckinClicked"])
+//        FirebaseAnalyticsController.shared.logEvent(name: "BookingFlightDetailsWebCheckin", params: ["ScreenName":"FlightBookingsDetailsVC", "ScreenClass":"FlightBookingsDetailsVC", "ButtonAction":"FlightWebCheckinClicked"])
+
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.MyBookingsWebCheckinOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
         // TODO: - Need to be synced with backend Api key
         guard let url = url.toUrl else { return }
