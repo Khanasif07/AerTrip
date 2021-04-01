@@ -104,7 +104,7 @@ class AccountLadgerDetailsVC: BaseVC {
         
         self.containerView.backgroundColor = AppColors.themeGray04
         
-        FirebaseAnalyticsController.shared.logEvent(name: "AccountLadgerDetails", params: ["ScreenName":"AccountLadgerDetails", "ScreenClass":"AccountLadgerDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? "","DetailsType":viewModel.detailType])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsLedger.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.AccountsLedgerDetails, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
     }
     
@@ -251,7 +251,8 @@ extension AccountLadgerDetailsVC: AccountLadgerDetailsVMDelegate {
 extension AccountLadgerDetailsVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         //back button
-        FirebaseAnalyticsController.shared.logEvent(name: "AccountLadgerDetailsBackButtonClicked", params: ["ScreenName":"AccountLadgerDetails", "ScreenClass":"AccountLadgerDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? "","DetailsType":viewModel.detailType])
+
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsLedger.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.AccountsLedgerDetails, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a", AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.navigateBack])
 
         DispatchQueue.main.async {
             AppFlowManager.default.popViewController(animated: true)
@@ -417,12 +418,16 @@ extension AccountLadgerDetailsVC: AccountLadgerDetailHeaderDelegate{
                 
                 let title = NSMutableAttributedString(string: (event.voucher == .sales) ? event.title : event.sector)
                 
-                FirebaseAnalyticsController.shared.logEvent(name: "AccountLadgerDetailsFlightsOptionClicked", params: ["ScreenName":"AccountLadgerDetails", "ScreenClass":"AccountLadgerDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? "","DetailsType":viewModel.detailType,"title":title])
+                
+                FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsLedger.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.AccountsLedgerDetails, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a", AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.AccountsLedgerDetailsFlightsOptionSelected, AnalyticsKeys.FilterType.rawValue:"DetailsType", AnalyticsKeys.Values.rawValue:viewModel.detailType, AnalyticsKeys.FilterName.rawValue:"Title", AnalyticsKeys.FilterType.rawValue:"n/a", AnalyticsKeys.Values.rawValue: title])
+
 
                 AppFlowManager.default.moveToFlightBookingsDetailsVC(bookingId: event.bookingId,tripCitiesStr: title)
                 
             case .hotel:
-                FirebaseAnalyticsController.shared.logEvent(name: "AccountLadgerDetailsHotelsOptionClicked", params: ["ScreenName":"AccountLadgerDetails", "ScreenClass":"AccountLadgerDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? "","DetailsType":viewModel.detailType])
+                
+                FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsLedger.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.AccountsLedgerDetails, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a", AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.AccountsLedgerDetailsHotelsOptionSelected, AnalyticsKeys.FilterType.rawValue:"DetailsType", AnalyticsKeys.Values.rawValue:viewModel.detailType])
+
 
                 AppFlowManager.default.moveToHotelBookingsDetailsVC(bookingId: event.bookingId)
             default: break

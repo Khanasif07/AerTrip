@@ -119,7 +119,8 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             }
         }
         
-        FirebaseAnalyticsController.shared.logEvent(name: "FlightDetailsFareInfo", params: ["ScreenName":"FlightDetailsFareInfo", "ScreenClass":"FareInfoVC"])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightDetails.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.FlightDetailsFareInfo, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+
 
     }
     

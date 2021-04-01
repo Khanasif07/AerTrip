@@ -18,7 +18,8 @@ extension MyBookingsVC: UISearchBarDelegate {
     @objc func search(_ forText: String) {
         printDebug(forText)
         
-        FirebaseAnalyticsController.shared.logEvent(name: "MyBookingsSearchPerfomed", params: ["ScreenName":"MyBooking", "ScreenClass":"MyBookingsVC","SearchedKey":forText])
+
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.MyBookings, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a", AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.MyBookingsSearchOptionSelected, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: forText])
 
         MyBookingFilterVM.shared.searchText = forText.removeLeadingTrailingWhitespaces
         self.sendDataChangedNotification(data: ATNotification.myBookingSearching)
@@ -26,12 +27,12 @@ extension MyBookingsVC: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.view.endEditing(true)
-        FirebaseAnalyticsController.shared.logEvent(name: "MyBookingsSearchButtonClicked", params: ["ScreenName":"MyBooking", "ScreenClass":"MyBookingsVC"])
     }
     
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar){
-        
-        FirebaseAnalyticsController.shared.logEvent(name: "MyBookingsSearchSpeechToTextSelected", params: ["ScreenName":"MyBooking", "ScreenClass":"MyBookingsVC"])
+                
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.MyBookingsSpeechToTextOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+
 
         AppFlowManager.default.moveToSpeechToText(with: self)
     }
@@ -59,7 +60,6 @@ extension MyBookingsVC: MyBookingsVMDelegate {
     
     func getBookingsDetailSuccess(showProgress: Bool) {
         
-        FirebaseAnalyticsController.shared.logEvent(name: "MyBookingGetBookingDataFromCoreData", params: ["ScreenName":"MyBooking", "ScreenClass":"MyBookingsVC"])
 
         //AppGlobals.shared.stopLoading()
         MyBookingsVM.shared.allTabTypes = CoreDataManager.shared.fetchData(fromEntity: "BookingData", forAttribute: "bookingTabType", usingFunction: "count").map({ ($0["bookingTabType"] as? Int16) ?? -1})
@@ -102,7 +102,9 @@ extension MyBookingsVC: SpeechToTextVCDelegate{
         guard !text.isEmpty else {return}        
         searchBar.hideMiceButton(isHidden: false)
         
-        FirebaseAnalyticsController.shared.logEvent(name: "MyBookingsConvertedSpeechToText", params: ["ScreenName":"MyBooking", "ScreenClass":"MyBookingsVC","SearchKey":text])
+        
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.MyBookingsConvertedSpeechToText, AnalyticsKeys.FilterType.rawValue: "SearchQuery", AnalyticsKeys.Values.rawValue: text])
+
 
         self.searchBar.text = text
         NSObject.cancelPreviousPerformRequests(withTarget: self)

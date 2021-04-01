@@ -99,7 +99,10 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
         
         if (indexPath.section == self.viewModel.sectionArray.count + 1) && (indexPath.row == 1){
           
-            FirebaseAnalyticsController.shared.logEvent(name: "AccountLadgerDetailsDownloadReciptClicked", params: ["ScreenName":"AccountLadgerDetails", "ScreenClass":"AccountLadgerDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+            
+            
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsLedger.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.AccountsLedgerDetails, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a", AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.AccountsLedgerDetailsDownloadReciptSelected])
+
 
             if let type = self.viewModel.ladgerEvent?.productType{
                 switch type{

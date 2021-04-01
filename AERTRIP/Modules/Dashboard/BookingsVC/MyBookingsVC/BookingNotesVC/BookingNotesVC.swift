@@ -95,7 +95,7 @@ class BookingNotesVC: BaseVC {
         self.titleLabel.alpha = 0.0
         self.stickyTitleLabel.alpha = 1.0
         
-        FirebaseAnalyticsController.shared.logEvent(name: "BookingNotes", params: ["ScreenName":"BookingNotes", "ScreenClass":"BookingNotesVC"])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.MyBookingsNotes, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
     }
     

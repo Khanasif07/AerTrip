@@ -256,6 +256,127 @@ class FirebaseEventLogs{
         case SortGroup
         case AddNewGroup
         
+        
+        //MARK:- Accounts
+        case AccountsFilterOptionSelected
+        case AccountsApplyFilterOptionSelected
+        case AccountsClearAllFilterOptionSelected
+        case AccountsSpeechToTextOptionSelected
+        case AccountsConvertedSpeechToText
+        case AccountsPayOnlineOptionSelected
+        case AccountsPayOfflineOptionSelected
+        case AccountsDepositeOptionSelected
+        case AccountsInfoOptionSelected
+        case AccountsLedgerOptionSelected
+        case AccountsOutstandingLedgerOptionSelected
+        case AccountsPeriodicStatementOptionSelected
+        case AccountsSendEmailOptionSelected
+        case AccountsDownloadPDFOptionSelected
+        case AccountsClearSearchBarOptionSelected
+        case AccountsCancelSearchBarOptionSelected
+        case AccountSearchOptionSelected
+        case AccountsLedgerSpeechToTextSelected
+        case AccountsMenuOptionSelected
+        case AccountsLedgerFilterOptionSelected
+        case AccountsLedgerClearFilterOptionSelected
+        case AccountsLedgerConvertedSpeechToText
+        case AccountsLedgerViewLedgerDetailsSelectedFromList
+        case AccountsLedgerDetails
+        case AccountsLedgerDetailsFlightsOptionSelected
+        case AccountsLedgerDetailsHotelsOptionSelected
+        case AccountsLedgerDetailsDownloadReciptSelected
+        case AccountsOutstandingLedgerSelectBookingsOptionSelected
+        case AccountsOutstandingLedgerOnAccountOptionSelected
+        case AccountsMakePaymenrOptionSelected
+        case AccountsOutstandingLedgerViewLedgerDetailsSelectedFromList
+        case AccountsPeriodicStatementViewStatementDetailsSelectedFromList
+
+        
+//        MARK:- FlightDetails
+        case FlightDetailsIntFlightInfo
+        case FlightDetailsIntBaggageInfo
+        case FlightDetailsIntFareInfo
+        case FlightDetailsFlightInfo
+        case FlightDetailsBaggageInfo
+        case FlightDetailsFareInfo
+        case CloseButtonClicked
+        case FlightDetailsPinOptionSelected
+        case FlightDetailsShareOptionSelected
+        case FlightDetailsAddToTripOptionSelected
+        case FlightBookFlightOptionSelected
+        case FlightDetailsOpenPassengerSelectionScreen
+        case FlightDetailsInfoOptionSelected
+        case FlightDetailsUpgradeOptionSelected
+        case FlightDetailsBaggageDimentionsOptionSelected
+        case FlightDetailsFareRulesOptionSelected
+        case FlightDetailsOnTimePerformanceOptionSelected
+        
+//        MARK:- Upgrade Flight
+        case UpgradePlanInfoOptionSelected
+        case UpgradePlanPresentPessangerSelectionScreen
+        case UpgradePlanBookOptionSelected
+        
+//        MARK:- Bookings
+        case MyBookings
+        case MyBookingsFilterApplied
+        case MyBookingsFilterCleared
+        case MyBookingsList
+        case MyBookingsSearchOptionSelected
+        case MyBookingsSpeechToTextOptionSelected
+        case MyBookingsConvertedSpeechToText
+        case MyBookingsFilter
+        case BookingsReviewCancellationRequest
+        case BookingsReviewReschedulingRequest
+        case BookingsReviewSpecialRequest
+        case BookingsCancellation
+        case BookingsRescheduling
+        case BookingsRequestAddOns
+        case BookingsDirections
+        case BookingsContactNumberList
+        case BookingsVoucherDepositPayOnlineOptionSelected
+        case BookingsVoucherDepositPayOfflineOptionSelected
+        case BookingsFlightDetails
+        case BookingsFlightDetailsBaggageDimensionOptionsSelected
+        case BookingsFlightDetailsFlightInfo
+        case BookingsFlightDetailsBaggageInfo
+        case BookingsFlightDetailsFareInfo
+        case BookingsFlightDetailsFareInfoFareRulesOptionSelected
+        case BookingsAddonsRequest
+        case BookingsDetailsMakePaymentOptionSelected
+        case BookingsAddonRequestPayOnlineOptionSelected
+        case BookingsAddonRequestPayOfflineOptionSelected
+
+        case OtherBookingsDetails
+        case OtherBookingsDetailsDepositPayOnlineOptionSelected
+        case OtherBookingsDetailsDepositPayOfflineOptionSelected
+        case OtherBookingsDetailsPaymentInfoOptionSelected
+        case MyBookingsFlightBookingsDetails
+        case MyBookingsFlightBookingsDetailsPayOnlineOptionSelected
+        case MyBookingsFlightBookingsDetailsPayOfflineOptionSelected
+        case MyBookingsRequestAddOnFrequentFlyerOptionSelected
+        case MyBookingsReschedulingOptionSelected
+        case MyBookingsFlightDetailsShareOptionSelected
+        case MyBookingsFlightDetailsBookSameFlightOptionSelected
+        case MyBookingsFlightDetailsAddToCalenderOptionSelected
+        case MyBookingsFlightDetailsAddToAppleWalletOptionSelected
+
+        case MyBookingsWebCheckinOptionSelected
+        case MyBookingsHotelDetails
+        case MyBookingsHotelDetailsPayOnlineOptionSelected
+        case MyBookingsHotelDetailsPayOfflineOptionSelected
+        case MyBookingsHotelDetailsProcessCancellationOptionSelected
+        case MyBookingsHotelDetailsProcessSpecialRequestOptionSelected
+        case MyBookingsHotelDetailsDownloadDetailsOptionSelected
+        case MyBookingsHotelDetailsResendConfirmationMailOptionSelected
+        case MyBookingsHotelDetailsReloadDetailsOptionSelected
+        case MyBookingsHotelDetailsShareOptionSelected
+        case MyBookingsHotelDetailsOpenDirectionsOptionSelected
+        case MyBookingsHotelDetailsAddToCalenderOptionSelected
+        case MyBookingsHotelDetailsBookAnotherRoomOptionSelected
+        
+        case MyBookingsHotelCancellation
+        case MyBookingsNotes
+        
         //MARK:- Import Traveller Events TypeNames
         case AccessContacts
         case AccessGoogle
@@ -580,6 +701,12 @@ class FirebaseEventLogs{
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightOneWayResults.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.Values.rawValue : params])
 
         
+    }
+    
+//    MARK:- Accounts
+    func logAccountsOptionSelectionEvent(with type:EventsTypeName){
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Accounts.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+
     }
     
 }

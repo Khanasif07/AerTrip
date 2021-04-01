@@ -67,6 +67,8 @@ class BookingConfimationMailVC: BaseVC {
         
         //        FirebaseAnalyticsController.shared.logEvent(name: "ResendBookingConfirmationMail", params: ["ScreenName":"ResendBookingConfirmationMail", "ScreenClass":"BookingConfimationMailVC"])
 
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.BookingConfirmationMail.rawValue, params: [AnalyticsKeys.FilterName.rawValue:AnalyticsEvents.BookingConfirmationMail.rawValue, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+
     }
     
     override func setupFonts() {

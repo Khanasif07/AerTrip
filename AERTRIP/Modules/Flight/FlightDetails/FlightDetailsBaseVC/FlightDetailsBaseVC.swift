@@ -123,8 +123,11 @@ class FlightDetailsBaseVC: BaseVC {
         self.setupViewModel()
         self.manageLoader()
         
-        FirebaseAnalyticsController.shared.logEvent(name: "FlightDetails", params: ["ScreenName":"FlightDetails", "ScreenClass":"FlightDetailsBaseVC"])
+        
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightDetails.rawValue, params: [AnalyticsKeys.FilterName.rawValue:AnalyticsEvents.FlightDetails, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a", AnalyticsKeys.FilterName.rawValue:"Journey Title", AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: bookFlightObject.titleString ?? "n/a"])
 
+
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -311,14 +314,15 @@ class FlightDetailsBaseVC: BaseVC {
     
     @IBAction func closeButtonClicked(_ sender: Any)
     {
-        FirebaseAnalyticsController.shared.logEvent(name: "FlightDetailsCloseClicked", params: ["ScreenName":"FlightDetails", "ScreenClass":"FlightDetailsBaseVC"])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightDetails.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.CloseButtonClicked, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+
 
         self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func pinButtonClicked(_ sender: Any)
     {
-        FirebaseAnalyticsController.shared.logEvent(name: "FlightDetailsPinButtonClicked", params: ["ScreenName":"FlightDetails", "ScreenClass":"FlightDetailsBaseVC"])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightDetails.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.FlightDetailsPinOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
         pinButton.isHighlighted = false
         pinButton.showsTouchWhenHighlighted = false
@@ -364,14 +368,15 @@ class FlightDetailsBaseVC: BaseVC {
     }
     
     @IBAction func addToTripButtonClicked(_ sender: Any){
-        FirebaseAnalyticsController.shared.logEvent(name: "FlightDetailsAddToTripButtonClicked", params: ["ScreenName":"FlightDetails", "ScreenClass":"FlightDetailsBaseVC"])
+
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightDetails.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.FlightDetailsAddToTripOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
         self.addToTrip()
     }
     
     @IBAction func shareButtonClicked(_ sender: UIButton)
     {
-        FirebaseAnalyticsController.shared.logEvent(name: "FlightDetailsShareButtonClicked", params: ["ScreenName":"FlightDetails", "ScreenClass":"FlightDetailsBaseVC"])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightDetails.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.FlightDetailsShareOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
         shareButton.setImage(nil, for: .normal)
         sender.displayLoadingIndicator(true)
@@ -634,7 +639,6 @@ extension FlightDetailsBaseVC : FlightDetailsVMDelegate, TripCancelDelegate{
     }
     
     func addTripCancelled(){
-        FirebaseAnalyticsController.shared.logEvent(name: "FlightDetailsAddToTripCancelled", params: ["ScreenName":"FlightDetails", "ScreenClass":"FlightDetailsBaseVC"])
 
         self.hideShowLoader(isHidden: true)
     }
@@ -646,7 +650,6 @@ extension FlightDetailsBaseVC : FlightDetailsVMDelegate, TripCancelDelegate{
     func getResponseForAddToTrip(success: Bool, alreadyAdded: Bool) {
         self.hideShowLoader(isHidden: true)
         if success{
-            FirebaseAnalyticsController.shared.logEvent(name: "FlightDetailsAddToTripSuccess", params: ["ScreenName":"FlightDetails", "ScreenClass":"FlightDetailsBaseVC"])
 
             let message:String
             if alreadyAdded{
@@ -657,7 +660,6 @@ extension FlightDetailsBaseVC : FlightDetailsVMDelegate, TripCancelDelegate{
             }
             AppToast.default.showToastMessage(message: message, onViewController: self)
         }else{
-            FirebaseAnalyticsController.shared.logEvent(name: "FlightDetailsAddToTripFailure", params: ["ScreenName":"FlightDetails", "ScreenClass":"FlightDetailsBaseVC"])
         }
     }
 }
@@ -666,13 +668,11 @@ extension FlightDetailsBaseVC : FlightDetailsVMDelegate, TripCancelDelegate{
 extension FlightDetailsBaseVC : flightDetailsSmartIconsDelegate{
     
     func updateRefundStatusIfPending() {
-        FirebaseAnalyticsController.shared.logEvent(name: "FlightDetailsUpdateRefundStatusIfPending", params: ["ScreenName":"FlightDetails", "ScreenClass":"FlightDetailsBaseVC"])
 
         self.delegate?.updateRefundStatusIfPending(fk: journey.first?.fk ?? "")
     }
     
     func reloadSmartIconsAtIndexPath() {
-        FirebaseAnalyticsController.shared.logEvent(name: "FlightDetailsReloadSmartIconsAtIndex", params: ["ScreenName":"FlightDetails", "ScreenClass":"FlightDetailsBaseVC"])
 
         self.delegate?.reloadRowFromFlightDetails(fk: journey.first!.fk, isPinned: false, isPinnedButtonClicked:false)
     }
@@ -687,7 +687,8 @@ extension FlightDetailsBaseVC : FareBreakupVCDelegate
             return
         }
         
-        FirebaseAnalyticsController.shared.logEvent(name: "FlightDetailsBookFlightClicked", params: ["ScreenName":"FlightDetails", "ScreenClass":"FlightDetailsBaseVC"])
+
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightDetails.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.FlightBookFlightOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
         AppFlowManager.default.proccessIfUserLoggedInForFlight(verifyingFor: .loginVerificationForCheckout,presentViewController: true, vc: self) { [weak self](isGuest) in
             guard let self = self else {return}
@@ -715,7 +716,8 @@ extension FlightDetailsBaseVC : FareBreakupVCDelegate
     
     
     func pushToPassenserSelectionVC(_ vc: PassengersSelectionVC){
-        FirebaseAnalyticsController.shared.logEvent(name: "FlightDetailsOpenPassengerSelectionScreen", params: ["ScreenName":"FlightDetails", "ScreenClass":"FlightDetailsBaseVC"])
+
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightDetails.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.FlightDetailsOpenPassengerSelectionScreen, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
         self.presentedViewController?.dismiss(animated: false, completion: nil)
         self.view.isUserInteractionEnabled = false
@@ -757,7 +759,8 @@ extension FlightDetailsBaseVC : FareBreakupVCDelegate
     
     func infoButtonTapped(isViewExpanded: Bool)
     {
-        FirebaseAnalyticsController.shared.logEvent(name: "FlightDetailsFareInfoButtonClicked", params: ["ScreenName":"FlightDetails", "ScreenClass":"FlightDetailsBaseVC"])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightDetails.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.FlightDetailsInfoOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+
 
         if isViewExpanded == true{
             backgroundViewForFareBreakup.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
@@ -775,7 +778,8 @@ extension FlightDetailsBaseVC : FareBreakupVCDelegate
     }
     
     func tapUpgradeButton(){
-        FirebaseAnalyticsController.shared.logEvent(name: "FlightDetailsUpgradeButtonClicked", params: ["ScreenName":"FlightDetails", "ScreenClass":"FlightDetailsBaseVC"])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightDetails.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.FlightDetailsUpgradeOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+
 
         let vc = UpgradePlanContrainerVC.instantiate(fromAppStoryboard:.InternationalReturnAndMulticityDetails)
         vc.viewModel.oldIntJourney = self.intJourney
@@ -796,7 +800,6 @@ extension FlightDetailsBaseVC : FareBreakupVCDelegate
 extension FlightDetailsBaseVC : flightDetailsBaggageDelegate
 {
     func reloadBaggageSuperScriptAtIndexPath() {
-        FirebaseAnalyticsController.shared.logEvent(name: "FlightDetailsReloadBaggageSuperScriptAtIndexPath", params: ["ScreenName":"FlightDetails", "ScreenClass":"FlightDetailsBaseVC"])
 
         self.delegate?.reloadRowFromFlightDetails(fk: journey.first?.fk ?? "", isPinned: false,isPinnedButtonClicked:false)
     }
@@ -806,7 +809,9 @@ extension FlightDetailsBaseVC : flightDetailsBaggageDelegate
 extension FlightDetailsBaseVC : getBaggageDimentionsDelegate
 {
     func getBaggageDimentions(baggage: [[JSONDictionary]], sender: UIButton) {
-        FirebaseAnalyticsController.shared.logEvent(name: "FlightDetailsBaggageDimentionsClicked", params: ["ScreenName":"FlightDetailsBaggage", "ScreenClass":"FlightDetailsBaseVC"])
+        
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightDetails.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.FlightDetailsBaggageDimentionsOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+
 
         let baggageDimensionVC = BaggageDimensionsVC(nibName: "BaggageDimensionsVC", bundle: nil)
         
@@ -843,7 +848,9 @@ extension FlightDetailsBaseVC : getBaggageDimentionsDelegate
 extension FlightDetailsBaseVC : getFareRulesDelegate
 {
     func getFareRulesData(fareRules: [JSONDictionary]) {
-        FirebaseAnalyticsController.shared.logEvent(name: "FlightDetailsFareRulesClicked", params: ["ScreenName":"FlightDetailsFareInfo", "ScreenClass":"FlightDetailsBaseVC"])
+        
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightDetails.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.FlightDetailsFareRulesOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+
 
         let fareRulesVC = FareRulesVC(nibName: "FareRulesVC", bundle: nil)
         fareRulesVC.fareRulesData = fareRules
@@ -879,7 +886,9 @@ extension FlightDetailsBaseVC : getArrivalPerformanceDelegate
 {
     func getArrivalPerformanceData(flight:FlightDetail)
     {
-        FirebaseAnalyticsController.shared.logEvent(name: "FlightDetailsOnTimePerformanceClicked", params: ["ScreenName":"FlightDetailsFlightInfo", "ScreenClass":"FlightDetailsBaseVC"])
+        
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightDetails.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.FlightDetailsOnTimePerformanceOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+
 
         let arrivalPerformanceView = ArrivalPerformaceVC(nibName: "ArrivalPerformaceVC", bundle: nil)
         
