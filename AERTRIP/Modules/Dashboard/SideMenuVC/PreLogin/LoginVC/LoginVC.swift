@@ -135,15 +135,18 @@ class LoginVC: BaseVC {
         self.passwordTextField.isSecureTextEntry = !self.passwordTextField.isSecureTextEntry
         
         if !self.passwordTextField.isSecureTextEntry {
+            self.viewModel.firebaseLogEvent(with: .ViewPassword)
             self.showPasswordButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 4, right: 0)
             sender.setImage(#imageLiteral(resourceName: "showPassword"), for: .normal)
         } else {
+            self.viewModel.firebaseLogEvent(with: .hidePassword)
             self.showPasswordButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 1, bottom: -1, right: 0)
             sender.setImage(#imageLiteral(resourceName: "hidePassword"), for: .normal)
         }
     }
  
     @IBAction func forgotPasswordButtonAction(_ sender: UIButton) {
+        self.viewModel.firebaseLogEvent(with: .ForgotPassword)
         AppFlowManager.default.moveToForgotPasswordVC(email: self.viewModel.email)
     }
     
@@ -173,6 +176,7 @@ class LoginVC: BaseVC {
             popIfUsingFromCheckOut()
         }
         else {
+            self.viewModel.firebaseLogEvent(with: .ClickOnRegister)
             AppFlowManager.default.moveToCreateYourAccountVC(email: self.viewModel.email)
         }
     }

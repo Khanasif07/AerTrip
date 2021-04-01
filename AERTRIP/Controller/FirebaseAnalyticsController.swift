@@ -50,6 +50,10 @@ enum AnalyticsEvents: String {
     case ImportTraveller
     case LinkedAccount
     case ChangeAertripID
+    case LoginOrRegister
+    case Login
+    case Register
+    case ThankYouForRegistering
 
 }
 

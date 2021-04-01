@@ -272,6 +272,28 @@ class FirebaseEventLogs{
         case PressCTAWithoutExistingPassword
         case EnterIncorrectPassword
         case InitiateChangeAertripID
+        
+        //MARK:- Login Or Register Events TypeNames
+        case LoginWithFacebook
+        case LoginWithGoogle
+        case LoginWithApple
+        case Register
+        case SignIn
+        
+        //MARK:- Login Events TypeNames
+        case ForgotPassword
+        case ViewPassword
+        case EmailDidntExist
+        case PasswordIncorrect
+        case ClickOnRegister
+        case LoginSuccessfully
+        
+        //MARK:- Register Events TypeNames
+        case OpenTermsOfUse
+        case ProceedToThankYouForRegistering
+        
+        //MARK:- Thank you for Registering Event TypeNames
+        case OpenEmailApp
 
     }
     
@@ -456,6 +478,26 @@ class FirebaseEventLogs{
     //MARK:- Change Aertrip ID Events Log Function
     func logChangeAertripIDEvents(with type: EventsTypeName){
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.ChangeAertripID.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
+    }
+    
+    //MARK:- Login Or Register Events Log Function
+    func logLoginOrRegisterEvents(with type: EventsTypeName){
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.LoginOrRegister.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
+    }
+    
+    //MARK:- Login Events Log Function
+    func logLoginEvents(with type: EventsTypeName){
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Login.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
+    }
+    
+    //MARK:- Register Events Log Function
+    func logRegisterEvents(with type: EventsTypeName){
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Register.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
+    }
+    
+    //MARK:- Thank you for Registering Events Log Function
+    func logThankYouForRegisteringEvents(with type: EventsTypeName){
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.ThankYouForRegistering.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
     }
     
     //MARK:- Flight Result Events

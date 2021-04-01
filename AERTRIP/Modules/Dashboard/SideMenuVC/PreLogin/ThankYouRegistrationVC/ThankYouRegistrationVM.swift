@@ -83,3 +83,11 @@ extension ThankYouRegistrationVM {
         
     }
 }
+
+///Log firebase events
+extension ThankYouRegistrationVM{
+    
+    func logEvents(with event: FirebaseEventLogs.EventsTypeName){
+        FirebaseEventLogs.shared.logThankYouForRegisteringEvents(with: event)
+    }
+}
