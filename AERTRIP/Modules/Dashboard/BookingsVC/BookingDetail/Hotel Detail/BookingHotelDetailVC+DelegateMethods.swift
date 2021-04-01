@@ -104,7 +104,7 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
             guard let headerView = self.hotelDetailTableView.dequeueReusableHeaderFooterView(withIdentifier: "BookingHDRoomDetailHeaderView") as? BookingHDRoomDetailHeaderView else {
                 fatalError("BookingHDRoomDetailHeaderView not found ")
             }
-            let roomTitle: String = "\(LocalizedString.Room.localized) \(section)"
+            let roomTitle: String = ((self.viewModel.bookingDetail?.bookingDetail?.roomDetails.count ?? 0) > 1) ? "\(LocalizedString.Room.localized) \(section)" : LocalizedString.Room.localized
 //            if let voucher = self.viewModel.bookingDetail?.bookingDetail?.roomDetails[section-1].voucher, !voucher.isEmpty {
 //                roomTitle.append(" - ")
 //                roomTitle.append((self.viewModel.bookingDetail?.bookingDetail?.roomDetails[section - 1].voucher ?? ""))

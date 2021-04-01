@@ -176,6 +176,7 @@ class HCCouponCodeVC: BaseVC {
     }
     
     private func emptyStateSetUp() {
+        self.couponTextField.isError = self.viewModel.searcedCouponsData.isEmpty
         self.emptyStateView.isHidden = !self.viewModel.searcedCouponsData.isEmpty
         self.couponTableView.isHidden = self.viewModel.searcedCouponsData.isEmpty
         self.couponTableView.reloadData()

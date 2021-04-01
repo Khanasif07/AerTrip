@@ -56,14 +56,17 @@ enum AnalyticsEvents: String {
     case Bookings
     case Webcheckin
     case BookingConfirmationMail
+    case ImportTraveller
+    case LinkedAccount
+    case ChangeAertripID
 
 }
 
 enum AnalyticsKeys: String {
     
     //MARK: Firebase Log Event Keys
-    case FilterName = "FilterName"
-    case FilterType = "FilterType"
+    case FilterName = "Name"
+    case FilterType = "Type"
     case Values = "Values"
     
 }

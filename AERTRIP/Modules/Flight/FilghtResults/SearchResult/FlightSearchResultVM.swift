@@ -435,7 +435,6 @@ extension FlightResultViewModelDelegate {
             
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
-            printDebug( "Display group:-   \(displayGroup)")
             if self.isIntMCOrReturnJourney {
                 
                 if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any] {

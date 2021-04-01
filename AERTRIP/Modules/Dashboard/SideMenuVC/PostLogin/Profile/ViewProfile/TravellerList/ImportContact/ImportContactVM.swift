@@ -159,6 +159,7 @@ class ImportContactVM: NSObject {
         
         DispatchQueue.backgroundAsync {
         forVC.fetchContacts(complition: { [weak self] (contacts) in
+            self?.logEvent(with: .ImportFromContacts, value: "\(contacts.count)")
             DispatchQueue.mainAsync {
                 self?.isPhoneContactsAllowed = true
                 self?._phoneContacts = contacts
@@ -167,11 +168,13 @@ class ImportContactVM: NSObject {
                     obj.sendDataChangedNotification(data: Notification.contactFetched)
                 }
             }
-        }) {
+        }, canceled: {
             DispatchQueue.mainAsync {
             cancled?()
             }
-        }
+        }, authorizied: {[weak self]  in
+            self?.logEvent(with: .AccessContacts)
+        })
         }
     }
     
@@ -203,6 +206,8 @@ class ImportContactVM: NSObject {
         self.delegateCollection?.willFetchPhoneContacts()
         GoogleLoginController.shared.logout()
         GoogleLoginController.shared.fetchContacts(fromViewController: forVC, success: { [weak self] (contacts) in
+            self?.logEvent(with: .AccessGoogle)
+            self?.logEvent(with: .ImportFromContacts, value: "\(contacts.count)")
             self?.isGoogleContactsAllowed = true
             self?._googleContacts = ATContact.fetchModels(googleContactsDict: contacts)
             self?.createSectionWiseDataForContacts(for: .google)
@@ -486,5 +491,13 @@ struct Section {
         }
         tempSec.sort { $0.letter < $1.letter}
         return tempSec
+    }
+}
+
+
+///Logs Firebase events
+extension ImportContactVM{
+    func logEvent(with event: FirebaseEventLogs.EventsTypeName, value:String?  = nil){
+        FirebaseEventLogs.shared.logImportTravellerEvents(with: event, value: value)
     }
 }

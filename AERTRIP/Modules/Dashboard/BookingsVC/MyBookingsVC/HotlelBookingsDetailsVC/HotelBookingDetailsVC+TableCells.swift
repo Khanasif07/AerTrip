@@ -64,7 +64,8 @@ extension HotlelBookingsDetailsVC {
         let roomD = self.viewModel.bookingDetail?.bookingDetail?.roomDetails[indexPath.section - self.viewModel.noOfCellAboveHotelDetail]
         
         let above = self.viewModel.noOfCellAboveHotelDetail - 1
-        cell.configHotelBookingDetailsCell(title: "\(LocalizedString.Room.localized) \(indexPath.section - above)", subTitle: roomD?.roomType ?? LocalizedString.na.localized)
+        let title =  ((self.viewModel.bookingDetail?.bookingDetail?.roomDetails.count ?? 1) > 1) ?  "\(LocalizedString.Room.localized) \(indexPath.section - above)" : LocalizedString.Room.localized
+        cell.configHotelBookingDetailsCell(title: title, subTitle: roomD?.roomType ?? LocalizedString.na.localized)
         cell.dividerView.isHidden = true
         cell.clipsToBounds = true
         return cell

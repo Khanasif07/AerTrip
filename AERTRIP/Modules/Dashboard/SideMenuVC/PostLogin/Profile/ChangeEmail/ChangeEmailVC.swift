@@ -84,8 +84,9 @@ class ChangeEmailVC: BaseVC {
         self.nextButton.isLoading = true
         self.view.endEditing(true)
         self.viewModel.validate()
-//        let email = self.newEmailTextField.text ?? ""
-//        let pass = self.passwordTextField.text ?? ""
+        let email = self.newEmailTextField.text ?? ""
+        let pass = self.passwordTextField.text ?? ""
+        self.checkIfValid(email: email, password: pass)
 //        if checkIfValid(email: email, password: pass) {
 //            self.viewModel.changeEmailApi(email: email, password: pass)
 //        }
@@ -166,25 +167,25 @@ class ChangeEmailVC: BaseVC {
         }
     }
     
-    func checkIfValid(email : String, password : String) -> Bool {
-        self.nextButton.isLoading = false
+    func checkIfValid(email : String, password : String){// -> Bool {
+//        self.nextButton.isLoading = false
         if email.isEmpty {
-//            self.delegate?.validate(isValid: false, msg: "Please enter email.")
-            AppToast.default.showToastMessage(message: "Please enter email.")
-            self.newEmailTextField.isError = true
-            return false
+//            AppToast.default.showToastMessage(message: "Please enter email.")
+//            self.newEmailTextField.isError = true
+            self.viewModel.logEvent(with: .PressCTAWithoutValidNewEmailID)
+//            return false
         } else if !email.isEmail {
-//            self.delegate?.validate(isValid: false, msg: "Please enter a valid email.")
-            AppToast.default.showToastMessage(message: "Please enter a valid email.")
-            self.newEmailTextField.isError = true
-            return false
+//            AppToast.default.showToastMessage(message: "Please enter a valid email.")
+//            self.newEmailTextField.isError = true
+            self.viewModel.logEvent(with: .PressCTAWithoutValidNewEmailID)
+//            return false
         } else if password.isEmpty {
-//            self.delegate?.validate(isValid: false, msg: "Please enter password.")
-            AppToast.default.showToastMessage(message: "Please enter password.")
-            self.passwordTextField.isError = true
-            return false
+//            AppToast.default.showToastMessage(message: "Please enter password.")
+//            self.passwordTextField.isError = true
+            self.viewModel.logEvent(with: .PressCTAWithoutExistingPassword)
+//            return false
         }
-        return true
+//        return true
     }
     
 }
@@ -234,6 +235,7 @@ extension ChangeEmailVC : ChangeEmailDelegate {
     }
     
     func changeEmailSuccess(email : String) {
+        self.viewModel.logEvent(with: .InitiateChangeAertripID)
         self.nextButton.isLoading = false
 //        self.performDismissAnimation()
         UIView.animate(withDuration: 0.5) {
@@ -255,6 +257,9 @@ extension ChangeEmailVC : ChangeEmailDelegate {
         self.newEmailTextField.isError = true
         self.passwordTextField.isError = true
 //        AppToast.default.showToastMessage(message: msg)
+        if error.contains(28) || error.contains(17) || error.contains(7) || error.contains(47) {
+            self.viewModel.logEvent(with: .EnterIncorrectPassword)
+        }
         AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .profile)
     }
     

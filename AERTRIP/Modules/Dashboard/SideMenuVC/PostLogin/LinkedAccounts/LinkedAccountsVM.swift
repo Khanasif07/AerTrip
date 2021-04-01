@@ -119,6 +119,7 @@ extension LinkedAccountsVM {
                     // do nothing
                 } else {
                     self.webserviceForSocialLogin()
+                    self.logForConnect(with: .facebook)
                 }
                 completionBlock?(true)
             }
@@ -150,6 +151,7 @@ extension LinkedAccountsVM {
                 // do nothing
             } else {
                 self.webserviceForSocialLogin()
+                self.logForConnect(with: .google)
             }
             
         }){ (err : Error) in
@@ -223,6 +225,7 @@ extension LinkedAccountsVM {
             completionBlock?(true)
             
             self.webserviceForSocialLogin(isAppleLogin: true)
+            self.logForConnect(with: .apple)
         }) { (error) in
             completionBlock?(false)
         }
@@ -275,3 +278,35 @@ extension LinkedAccountsVM {
     }
 }
 
+///Firebase events log
+extension LinkedAccountsVM{
+    
+    func logForDisconnect(with account: LinkedAccount){
+        switch account.socialType {
+        case .facebook:
+            self.logEvent(with: .connectWithFacebook)
+        case .google:
+            self.logEvent(with: .connectWithGoogle)
+        case .apple:
+            self.logEvent(with: .connectWithApple)
+        case .none:break
+        }
+    }
+    
+    func logForConnect(with type: LinkedAccount.SocialType){
+        switch type{
+        case .facebook:
+            self.logEvent(with: .connectWithFacebook)
+        case .google:
+            self.logEvent(with: .connectWithGoogle)
+        case .apple:
+            self.logEvent(with: .connectWithApple)
+        case .none:break
+        }
+    }
+    
+    func logEvent(with event:FirebaseEventLogs.EventsTypeName){
+        FirebaseEventLogs.shared.logLinkedAccountEvents(with: event)
+    }
+    
+}

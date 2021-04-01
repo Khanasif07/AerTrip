@@ -242,6 +242,7 @@ extension ImportContactVC: UISearchBarDelegate {
 
 extension ImportContactVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
+        self.viewModel.logEvent(with: .Cancel)
         self.cancelButtonAction(sender)
     }
     

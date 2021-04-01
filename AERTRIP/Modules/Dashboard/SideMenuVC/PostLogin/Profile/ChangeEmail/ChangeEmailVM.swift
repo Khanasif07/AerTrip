@@ -102,3 +102,13 @@ class ChangeEmailVM {
     }
     
 }
+
+///Log Firebase events
+
+extension ChangeEmailVM{
+    
+    func logEvent(with event: FirebaseEventLogs.EventsTypeName){
+        FirebaseEventLogs.shared.logChangeAertripIDEvents(with: event)
+    }
+    
+}
