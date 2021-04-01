@@ -172,7 +172,7 @@ class ImportContactVM: NSObject {
             DispatchQueue.mainAsync {
             cancled?()
             }
-        }, authorized: {[weak self]  in
+        }, authorizied: {[weak self]  in
             self?.logEvent(with: .AccessContacts)
         })
         }
