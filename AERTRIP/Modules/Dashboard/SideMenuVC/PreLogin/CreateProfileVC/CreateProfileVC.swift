@@ -382,6 +382,7 @@ extension CreateProfileVC {
             
             UIApplication.shared.sendAction(#selector(resignFirstResponder), to:nil, from:nil, for:nil)
             let model = PKCountryPicker.default.getCountryData(forISOCode: self.viewModel.userData.address?.country ?? "")
+            self.viewModel.logEvent(with: .openCC)
             PKCountryPicker.default.chooseCountry(onViewController: self, preSelectedCountry: model) { [weak self] (selectedCountry,closePicker) in
                 printDebug("selected country data: \(selectedCountry)")
                 

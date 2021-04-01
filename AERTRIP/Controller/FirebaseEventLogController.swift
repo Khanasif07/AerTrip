@@ -292,9 +292,37 @@ class FirebaseEventLogs{
         case OpenTermsOfUse
         case ProceedToThankYouForRegistering
         
-        //MARK:- Thank you for Registering Event TypeNames
+        //MARK:- Thank you for Registering Events TypeNames
         case OpenEmailApp
-
+        
+        //MARK:- Secure Your Account Events TypeNames
+        case EnterIncorrectFormateAndContinue
+        
+        //MARK:- Create Profile Events TypeNames
+//        case PressCTAwithoutSelectingGender
+//        case PressCTAWithoutEnteringFirstName
+//        case PressCTAWithoutEnteringLastName
+//        case PressCTAWithoutEnteringMobileNumber
+//        case PressCTAEnteringWrongMobileNumber
+//        case OpenCountryDD
+        
+        //MARK:- Forgot Password Events TypeNames
+        case Continued
+        
+        //MARK:- Check Forgot Password Email Events TypeNames
+//        case OpenEmailApp
+        
+        //MARK:- Reset Password Events TypeNames
+        case UsedAPreviouslyUsedPassword
+        
+        //MARK:- Try verifying your email again Events TypeNames
+        case UsedExpiredRegistrationLink
+        case UsedExpiredResetPasswordPink
+        
+        //MARK:- Profile Events TypeNames
+        case ClickOnEditMainUserProfile
+        case ClickOnMainUserProfile
+        
     }
     
     
@@ -498,6 +526,47 @@ class FirebaseEventLogs{
     //MARK:- Thank you for Registering Events Log Function
     func logThankYouForRegisteringEvents(with type: EventsTypeName){
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.ThankYouForRegistering.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
+    }
+    
+    //MARK:- Secure Your Account Events Log Function
+    func logSecureYourAccountEvents(with type: EventsTypeName){
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.SecureYourAccount.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
+    }
+    
+    //MARK:- Create Profile Events Log Function
+    func logCreateProfileEvents(with type: EventsTypeName){
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.CreateProfile.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
+    }
+    
+    //MARK:- Forgot Password Events Log Function
+    func logForgotPasswordEvents(with type: EventsTypeName){
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.ForgotPassword.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
+    }
+    
+    //MARK:- Check Forgot Password Email Events Log Function
+    func logCheckForgotPasswordEmailEvents(with type: EventsTypeName){
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.CheckForgotPasswordEmail.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
+    }
+    
+    //MARK:- Reset Password Events Log Function
+    func logResetPasswordEvents(with type: EventsTypeName){
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.ResetPassword.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
+    }
+    
+    //MARK:- Try Verifying Your Email Again Events Log Function
+    func logTryVerifyingYourEmailAgainEvents(with type: EventsTypeName){
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.TryVerifyingYourEmailAgain.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
+    }
+    
+    //MARK:- Profile Events Log Function
+    func logProfileEvents(with type: EventsTypeName){
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Profile.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
+    }
+    
+    
+    //MARK:- Log Events Without Param Function
+    func logEventsWithOutParam(with type: AnalyticsEvents){
+        FirebaseAnalyticsController.shared.logEvent(name: type.rawValue)
     }
     
     //MARK:- Flight Result Events

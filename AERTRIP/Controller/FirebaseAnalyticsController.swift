@@ -54,6 +54,19 @@ enum AnalyticsEvents: String {
     case Login
     case Register
     case ThankYouForRegistering
+    case SecureYourAccount
+    case CreateProfile
+    case ForgotPassword
+    case CheckForgotPasswordEmail
+    case ResetPassword
+    case TryVerifyingYourEmailAgain
+    case Profile
+    case OpenTravellersList
+    case OpenFavouriteHotels
+    case OpenQuickPay
+    case OpenLinkedAccounts
+    case OpenAccountDetails
+    case LogOut
 
 }
 

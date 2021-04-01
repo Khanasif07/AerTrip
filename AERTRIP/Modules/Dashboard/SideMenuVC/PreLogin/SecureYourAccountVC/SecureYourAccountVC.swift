@@ -124,9 +124,11 @@ class SecureYourAccountVC: BaseVC {
     @IBAction func showPasswordButtonAction(_ sender: UIButton) {
         self.passwordTextField.isSecureTextEntry = !self.passwordTextField.isSecureTextEntry
             if !self.passwordTextField.isSecureTextEntry {
+                self.viewModel.logEvent(with: .ViewPassword)
                 self.showPasswordButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 4, right: 1.5)
                 sender.setImage(#imageLiteral(resourceName: "showPassword"), for: .normal)
             } else {
+                self.viewModel.logEvent(with: .hidePassword)
                 self.showPasswordButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 1, bottom: -1, right: 1.5)
                 sender.setImage(#imageLiteral(resourceName: "hidePassword"), for: .normal)
             }
@@ -145,6 +147,7 @@ class SecureYourAccountVC: BaseVC {
                 self.viewModel.webserviceForUpdatePassword()
             }
         } else {
+            self.viewModel.logEvent(with: .EnterIncorrectFormateAndContinue)
             let isValidPassword = !self.viewModel.password.isEmpty
             self.passwordTextField.isError = !isValidPassword //self.viewModel.password.checkInvalidity(.Password)  removed the validation because to match with website
             
