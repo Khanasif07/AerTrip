@@ -49,8 +49,8 @@ class RangeVC: BaseVC {
         //        self.rangeLabel?.text = range.toInt >= 20 ? "Beyond \(range.toInt)km" : "Within " + "\((range.toInt))" + "km"
         tableView?.reloadData()
     }
-    
-    @IBAction func sliderValueChanged(_ sender: Any) {
+  
+    @objc func sliderValueChanged(_ sender: UISlider, event: UIEvent) {
         //        let value = (sender as AnyObject).index ?? 0
         // self.rangeLabel.text = value >= 20 ? "Beyond \(value)km" : "Within " + "\(value)" + "km"
         
@@ -103,6 +103,48 @@ class RangeVC: BaseVC {
             tableView?.reloadData()
         }
     }
+    
+    @objc private func sliderDidEndDragging(slider: UISlider) {
+        
+        var value = Double((slider as AnyObject).index ?? 0)
+//        printDebug("index: \((sender as AnyObject).index ?? 0)")
+//        printDebug("value: \(value)")
+//
+        printDebug("-----------------------------------")
+        printDebug(value)
+        printDebug(lastSelectedRange)
+        printDebug("-----------------------------------")
+        if value != lastSelectedRange {
+            if value >= 1 {
+                generateHapticFeedback()
+            }
+        }
+        lastSelectedRange = value == 0 ? 1 : value
+        
+        var sliderPoint = 13
+        if value <= 1 {
+            value = 0.5
+            sliderPoint = 1
+        } else if value > 11 &&   value <= 12 {
+           value = 15
+            sliderPoint = 12
+        } else if value > 12 && value <= 13 {
+            value = 20
+            sliderPoint = 13
+        } else if value > 13 {
+            value = 25
+            sliderPoint = 14
+        }else {
+            sliderPoint = Int(value)
+//            if value > 10 {
+                value = value - 1
+//            }
+        }
+                
+        let range = value > 24 ? "25+ KM" : "\(Int(value)) KM"
+        let rangeFilterParams = [AnalyticsKeys.FilterName.rawValue: AnalyticsEvents.Distance.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: range]
+        FirebaseEventLogs.shared.logHotelFilterEvents(params: rangeFilterParams)
+    }
 }
 
 // MARK: - UITableViewCellDataSource and UITableViewCellDelegateMethods
@@ -120,8 +162,10 @@ extension RangeVC: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RangeTableViewCell.reusableIdentifier, for: indexPath) as? RangeTableViewCell else {
             return UITableViewCell()
         }
-        cell.stepSlider?.removeTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
-        cell.stepSlider?.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
+        cell.stepSlider?.removeTarget(self, action: #selector(sliderValueChanged(_:event:)), for: .valueChanged)
+        cell.stepSlider.removeTarget(self, action: #selector(sliderDidEndDragging(slider:)), for: [.touchUpInside, .touchUpOutside])
+        cell.stepSlider?.addTarget(self, action: #selector(sliderValueChanged(_:event:)), for: .valueChanged)
+        cell.stepSlider.addTarget(self, action: #selector(sliderDidEndDragging(slider:)), for: [.touchUpInside, .touchUpOutside])
         let filter = UserInfo.hotelFilter
         let range = filter?.distanceRange ?? HotelFilterVM.shared.distanceRange
         var value = 13

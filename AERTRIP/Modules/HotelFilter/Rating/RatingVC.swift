@@ -131,6 +131,31 @@ class RatingVC: BaseVC {
         self.updateStarButtonState(forStar: sender.tag)
         self.starLabel.text = self.getStarString(fromArr: HotelFilterVM.shared.ratingCount, maxCount: 5)
         HotelFilterVM.shared.delegate?.updateFiltersTabs()
+        
+        logStarRatings()
+    }
+    
+    private func logStarRatings() {
+        var valueStr = ""
+        var ratings = HotelFilterVM.shared.ratingCount
+        if ratings.isEmpty {
+            ratings = [0, 1, 2, 3, 4, 5]
+        }
+        if includeRatedStatusButton.isSelected {
+            ratings.append(0)
+        }
+        ratings = Array(Set(ratings))
+        ratings.sort()
+        
+        for rating in ratings {
+            valueStr += "\(rating), "
+        }
+        if valueStr.suffix(2) == ", " {
+            valueStr.removeLast(2)
+        }
+        
+        let rangeFilterParams = [AnalyticsKeys.FilterName.rawValue: AnalyticsEvents.Ratings.rawValue, AnalyticsKeys.FilterType.rawValue: AnalyticsEvents.StarRating.rawValue, AnalyticsKeys.Values.rawValue: valueStr]
+        FirebaseEventLogs.shared.logHotelFilterEvents(params: rangeFilterParams)
     }
     
     @IBAction func tripAdvisorRatingButtonsAction(_ sender: UIButton) {
@@ -142,18 +167,45 @@ class RatingVC: BaseVC {
         self.tripAdvisorStarLabel.text = self.getTARatingString(fromArr: HotelFilterVM.shared.tripAdvisorRatingCount, maxCount: 5)
         HotelFilterVM.shared.delegate?.updateFiltersTabs()
         printDebug("size: \(sender.size)")
+        
+        logTARatings()
+    }
+    
+    private func logTARatings() {
+        var valueStr = ""
+        var ratings = HotelFilterVM.shared.tripAdvisorRatingCount
+        if ratings.isEmpty {
+            ratings = [0, 1, 2, 3, 4, 5]
+        }
+        if includeTARatedStatusButton.isSelected {
+            ratings.append(0)
+        }
+        ratings = Array(Set(ratings))
+        ratings.sort()
+        
+        for rating in ratings {
+            valueStr += "\(rating), "
+        }
+        if valueStr.suffix(2) == ", " {
+            valueStr.removeLast(2)
+        }
+        
+        let rangeFilterParams = [AnalyticsKeys.FilterName.rawValue: AnalyticsEvents.Ratings.rawValue, AnalyticsKeys.FilterType.rawValue: AnalyticsEvents.TARating.rawValue, AnalyticsKeys.Values.rawValue: valueStr]
+        FirebaseEventLogs.shared.logHotelFilterEvents(params: rangeFilterParams)
     }
     
     @IBAction func includeUnratedAction(_ sender: UIButton) {
         self.includeRatedStatusButton.isSelected = !sender.isSelected
         HotelFilterVM.shared.isIncludeUnrated = sender.isSelected
         HotelFilterVM.shared.delegate?.updateFiltersTabs()
+        logStarRatings()
     }
     
     @IBAction func includeTAUnratedAction(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         HotelFilterVM.shared.isIncludeTAUnrated = sender.isSelected
         HotelFilterVM.shared.delegate?.updateFiltersTabs()
+        logTARatings()
     }
     
     

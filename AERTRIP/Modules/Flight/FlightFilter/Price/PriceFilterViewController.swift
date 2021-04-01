@@ -27,6 +27,7 @@ class PriceFilterViewController: UIViewController , FilterViewController {
     @IBOutlet weak var fareMaxValue: UILabel!
     @IBOutlet weak var refundableFaresButton: UIButton!
     @IBOutlet weak var refundableFaresOnlyLabel: UILabel!
+    @IBOutlet weak var refundableFaresTopBtn: UIButton!
     @IBOutlet weak var seperatorView: UIView!
     
     //MARK:- View Controller Methods
@@ -97,19 +98,19 @@ class PriceFilterViewController: UIViewController , FilterViewController {
             multiLegView.isHidden = false
             multicityViewHeight.constant = 60.0
             setupMultiLegSegmentControl()
-            JourneyTitle.attributedText = viewModel.legsArray[viewModel.currentActiveIndex].descriptionOneFiveThree
+            JourneyTitle.attributedText = viewModel.legsArray[viewModel.currentActiveIndex].descriptionTextForSectorHeader
         case 4 , 5 :
             multiLegView.isHidden = false
             multicityViewHeight.constant = 90.0
             setupMultiLegSegmentControl()
             JourneyTitle.isHidden = false
-            JourneyTitle.attributedText = viewModel.legsArray[viewModel.currentActiveIndex].descriptionOneFiveThree
+            JourneyTitle.attributedText = viewModel.legsArray[viewModel.currentActiveIndex].descriptionTextForSectorHeader
         default:
             multicityViewHeight.constant = 90.0
             setupMultiLegSegmentControl()
             multiLegView.isHidden = false
             JourneyTitle.isHidden = false
-            JourneyTitle.attributedText = viewModel.legsArray[viewModel.currentActiveIndex].descriptionOneFiveThree
+            JourneyTitle.attributedText = viewModel.legsArray[viewModel.currentActiveIndex].descriptionTextForSectorHeader
         }
     }
     
@@ -294,6 +295,9 @@ class PriceFilterViewController: UIViewController , FilterViewController {
         viewModel.delegate?.priceSelectionChangedAt(viewModel.currentActiveIndex , minFare: viewModel.currentPriceFilter.userSelectedFareMinValue, maxFare: viewModel.currentPriceFilter.userSelectedFareMaxValue)
     }
     
+    @IBAction func refundableFaresTopBtnAction(_ sender: UIButton) {
+        onlyRefundableFareSelected(refundableFaresButton)
+    }
     
     @IBAction func onlyRefundableFareSelected(_ sender: UIButton) {
         
