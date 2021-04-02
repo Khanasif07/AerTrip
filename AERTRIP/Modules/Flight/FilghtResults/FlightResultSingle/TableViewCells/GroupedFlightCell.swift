@@ -460,7 +460,7 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
                  setSelectionViewFrame(animate: true)
         self.timeCollectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.centeredHorizontally, animated: true)
                 
-        FirebaseEventLogs.shared.logOneWayResultEvents(with: FirebaseEventLogs.EventsTypeName.swipeClubbedJourneys, groupId: "\(currentJourney?.groupID ?? 0)")
+        FirebaseEventLogs.shared.logOneWayResultEvents(with: FirebaseEventLogs.EventsTypeName.SwipeClubbedJourneys, groupId: "\(currentJourney?.groupID ?? 0)")
         
     }
     

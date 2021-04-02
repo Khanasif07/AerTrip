@@ -174,9 +174,9 @@ extension FlightResultSingleJourneyVC : UITableViewDataSource , UITableViewDeleg
                     
                     journey.isCollapsed ?
                         
-                        FirebaseEventLogs.shared.logOneWayResultEvents(with: FirebaseEventLogs.EventsTypeName.collapseclubbedJourneys, value: self.viewModel.flightSearchParameters, groupId: "\(journey.journeyArray.first?.groupID ?? 0)") :
+                        FirebaseEventLogs.shared.logOneWayResultEvents(with: FirebaseEventLogs.EventsTypeName.CollapseclubbedJourneys, value: self.viewModel.flightSearchParameters, groupId: "\(journey.journeyArray.first?.groupID ?? 0)") :
                         
-                        FirebaseEventLogs.shared.logOneWayResultEvents(with: FirebaseEventLogs.EventsTypeName.expandClubbedJourneys, value: self.viewModel.flightSearchParameters, groupId: "\(journey.journeyArray.first?.groupID ?? 0)")
+                        FirebaseEventLogs.shared.logOneWayResultEvents(with: FirebaseEventLogs.EventsTypeName.ExpandClubbedJourneys, value: self.viewModel.flightSearchParameters, groupId: "\(journey.journeyArray.first?.groupID ?? 0)")
 
                     
                 }

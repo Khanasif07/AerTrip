@@ -39,7 +39,7 @@ extension FlightResultSingleJourneyVC {
                     }
                 })
                 
-                FirebaseEventLogs.shared.logOneWayResultEvents(with: FirebaseEventLogs.EventsTypeName.showLongerOrExpensiveFlights)
+                FirebaseEventLogs.shared.logOneWayResultEvents(with: FirebaseEventLogs.EventsTypeName.ShowLongerOrExpensiveFlights)
                 
             }
         }
@@ -76,7 +76,7 @@ extension FlightResultSingleJourneyVC {
                     }
                 })
                 
-                FirebaseEventLogs.shared.logOneWayResultEvents(with: FirebaseEventLogs.EventsTypeName.hideLongerOrExpensiveFlights)
+                FirebaseEventLogs.shared.logOneWayResultEvents(with: FirebaseEventLogs.EventsTypeName.HideLongerOrExpensiveFlights)
 
             }
         }

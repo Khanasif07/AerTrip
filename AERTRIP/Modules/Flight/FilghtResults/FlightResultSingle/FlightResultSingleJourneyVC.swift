@@ -297,7 +297,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
 
         self.getSharableLink.getUrlForMail(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, sid: viewModel.sid, isInternational: false, journeyArray: self.viewModel.results.pinnedFlights, valString: "", trip_type: "single")
         
-        FirebaseEventLogs.shared.logOneWayResultEvents(with: FirebaseEventLogs.EventsTypeName.emailPinnedFlights, fkArray: self.viewModel.results.pinnedFlights.map { $0.fk }  )
+        FirebaseEventLogs.shared.logOneWayResultEvents(with: FirebaseEventLogs.EventsTypeName.EmailPinnedFlights, fkArray: self.viewModel.results.pinnedFlights.map { $0.fk }  )
     }
     
     func returnEmailView(view: String) {
@@ -621,7 +621,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         flightDetailsVC.selectedJourneyFK = [journey.fk]
         self.present(flightDetailsVC, animated: true, completion: nil)
         
-        FirebaseEventLogs.shared.logOneWayResultEvents(with: FirebaseEventLogs.EventsTypeName.openFlightDetails, fk : journey.fk)
+        FirebaseEventLogs.shared.logOneWayResultEvents(with: FirebaseEventLogs.EventsTypeName.OpenFlightDetails, fk : journey.fk)
         
     }
 }

@@ -51,7 +51,7 @@ extension FlightResultSingleJourneyVC {
             
             self.viewModel.results.currentPinnedJourneys = self.viewModel.results.currentPinnedJourneys.removeDuplicates()
             
-            FirebaseEventLogs.shared.logOneWayResultEvents(with: FirebaseEventLogs.EventsTypeName.pinFlight , fk: displayArray.journeyArray[journeyArrayIndex].fk)
+            FirebaseEventLogs.shared.logOneWayResultEvents(with: FirebaseEventLogs.EventsTypeName.PinFlight , fk: displayArray.journeyArray[journeyArrayIndex].fk)
             
         } else {
             
@@ -71,7 +71,7 @@ extension FlightResultSingleJourneyVC {
                 self.viewModel.results.currentPinnedJourneys.remove(at: index)
             }
             
-            FirebaseEventLogs.shared.logOneWayResultEvents(with: FirebaseEventLogs.EventsTypeName.unPinFlight , fk: displayArray.journeyArray[journeyArrayIndex].fk)
+            FirebaseEventLogs.shared.logOneWayResultEvents(with: FirebaseEventLogs.EventsTypeName.UnPinFlight , fk: displayArray.journeyArray[journeyArrayIndex].fk)
 
         }
         
@@ -235,7 +235,7 @@ extension FlightResultSingleJourneyVC {
                 
                 self.addToTrip(journey: currentJourney)
                 
-                FirebaseEventLogs.shared.logOneWayResultEvents(with: FirebaseEventLogs.EventsTypeName.addToTrip, fk: journey?.fk ?? "")
+                FirebaseEventLogs.shared.logOneWayResultEvents(with: FirebaseEventLogs.EventsTypeName.AddToTrip, fk: journey?.fk ?? "")
             }
             
             // Create and return a UIMenu with all of the actions as children
@@ -266,7 +266,7 @@ extension FlightResultSingleJourneyVC {
         showFooterView()
         resultsTableView.setContentOffset(.zero, animated: true)
         
-        FirebaseEventLogs.shared.logOneWayResultEvents(with: FirebaseEventLogs.EventsTypeName.unPinAll)
+        FirebaseEventLogs.shared.logOneWayResultEvents(with: FirebaseEventLogs.EventsTypeName.UnPinAll)
         
     }
     
@@ -284,7 +284,7 @@ extension FlightResultSingleJourneyVC {
         
         self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, isInternational: false, journeyArray: journey, valString: "", trip_type: "single",filterString: filterStr,searchParam: flightSearchResultVM?.flightSearchParametersFromDeepLink)
         
-        FirebaseEventLogs.shared.logOneWayResultEvents(with: FirebaseEventLogs.EventsTypeName.shareFlight, fkArray: journey.map { $0.fk })
+        FirebaseEventLogs.shared.logOneWayResultEvents(with: FirebaseEventLogs.EventsTypeName.ShareFlight, fkArray: journey.map { $0.fk })
         
     }
 }

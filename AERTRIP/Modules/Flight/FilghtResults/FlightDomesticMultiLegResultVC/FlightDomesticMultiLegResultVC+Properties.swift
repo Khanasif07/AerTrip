@@ -496,13 +496,14 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         }
 
           self.getSharableLink.getUrlForMail(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, sid: sid, isInternational: false, journeyArray: pinnedFlightsArray, valString: "", trip_type: tripType)
+        
+        FirebaseEventLogs.shared.logInternationalAndMulticityResults(with: FirebaseEventLogs.EventsTypeName.EmailPinnedFlights, fkArray: pinnedFlightsArray.map { $0.fk }  )
 
     }
    
     //MARK:- Sharing Journey code added by Monika
 
-    @IBAction func sharePinnedFlights(_ sender: Any)
-    {
+    @IBAction func sharePinnedFlights(_ sender: Any) {
         let pinnedFlightsArray = self.viewModel.results.reduce([]) { $0 + $1.pinnedFlights }
         shareFlights(journeyArray: pinnedFlightsArray)
     }
