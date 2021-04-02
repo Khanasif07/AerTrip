@@ -124,7 +124,7 @@ class FlightDetailsBaseVC: BaseVC {
         self.manageLoader()
         
         
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightDetails.rawValue, params: [AnalyticsKeys.name.rawValue:AnalyticsEvents.FlightDetails, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a", AnalyticsKeys.name.rawValue:"Journey Title", AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: bookFlightObject.titleString ?? "n/a"])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightDetails.rawValue, params: [AnalyticsKeys.name.rawValue:"Journey Title", AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: bookFlightObject.titleString ?? "n/a"])
 
 
         
