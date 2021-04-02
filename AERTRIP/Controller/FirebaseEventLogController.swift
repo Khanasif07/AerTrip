@@ -462,7 +462,7 @@ class FirebaseEventLogs{
     
     //MARK:- Settings Events Log Function
     func logSettingEvents(with type: EventsTypeName){
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Settings.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Settings.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
     }
 
     //MARK:- Update Account Details Events Log Function
@@ -483,7 +483,7 @@ class FirebaseEventLogs{
             eventDetails = "UpdateBillingAddress"
         default: break;
         }
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountDetails.rawValue, params: [AnalyticsKeys.FilterName.rawValue:type.rawValue, AnalyticsKeys.FilterType.rawValue:eventDetails, AnalyticsKeys.Values.rawValue:value])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountDetails.rawValue, params: [AnalyticsKeys.name.rawValue:type.rawValue, AnalyticsKeys.type.rawValue:eventDetails, AnalyticsKeys.values.rawValue:value])
     }
     
     //MARK:- Set and Change Mobile Log Function
@@ -497,7 +497,7 @@ class FirebaseEventLogs{
                 value = "SetMobileNumberSuccessfully"
             }
         }
-        FirebaseAnalyticsController.shared.logEvent(name: eventName, params: [AnalyticsKeys.FilterName.rawValue: value, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
+        FirebaseAnalyticsController.shared.logEvent(name: eventName, params: [AnalyticsKeys.name.rawValue: value, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
     }
     
     //MARK:- Set and Change Password Log Function
@@ -511,7 +511,7 @@ class FirebaseEventLogs{
                 value = "SetPasswordSuccessfully"
             }
         }
-        FirebaseAnalyticsController.shared.logEvent(name: eventName, params: [AnalyticsKeys.FilterName.rawValue: value, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
+        FirebaseAnalyticsController.shared.logEvent(name: eventName, params: [AnalyticsKeys.name.rawValue: value, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
     }
     
     //MARK:- Enable and Disble wallet OTP Log Function
@@ -525,31 +525,31 @@ class FirebaseEventLogs{
                 value = "DisbaledOTP"
             }
         }
-        FirebaseAnalyticsController.shared.logEvent(name: eventName, params: [AnalyticsKeys.FilterName.rawValue: value, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
+        FirebaseAnalyticsController.shared.logEvent(name: eventName, params: [AnalyticsKeys.name.rawValue: value, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
     }
     
     
     //MARK:- Individaul Hotel Detials Events Log Function
     func logIndividualHotelsDetalsEvents(with type: EventsTypeName, value:String?){
-        var param:JSONDictionary = [AnalyticsKeys.FilterName.rawValue: type.rawValue]
+        var param:JSONDictionary = [AnalyticsKeys.name.rawValue: type.rawValue]
         if let value = value{
-            param[AnalyticsKeys.Values.rawValue] = value
+            param[AnalyticsKeys.values.rawValue] = value
         }else{
-            param[AnalyticsKeys.Values.rawValue] = "n/a"
+            param[AnalyticsKeys.values.rawValue] = "n/a"
         }
-        param[AnalyticsKeys.FilterType.rawValue] = "n/a"
+        param[AnalyticsKeys.type.rawValue] = "n/a"
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.IndividualHotelDetails.rawValue, params: param)
     }
 
     
     //MARK:- Hotels Guest User Checkout Events Log Function
     func logHotelsGuestUserCheckoutEvents(with type: EventsTypeName){
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelGuestCheckout.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelGuestCheckout.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
     }
     
     //MARK:- Hotels Checkout Events Log Function
     func logHotelsCheckoutEvents(with type: EventsTypeName){
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelCheckOut.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelCheckOut.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
     }
     
     // MARK: Flight and Hotel Filter Events
@@ -563,53 +563,53 @@ class FirebaseEventLogs{
     
     // MARK: Flight and Hotel Navigation Events
     func logFlightNavigationEvents(with type: EventsTypeName) {
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFiltersNavigation.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightFiltersNavigation.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
     }
     
     func logHotelNavigationEvents(with type: EventsTypeName) {
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelFiltersNavigation.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelFiltersNavigation.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
     }
     
     //MARK:- Favourite Hotels Events Log Function
     func logFavouriteHotelsEvents(with type: EventsTypeName, value:String?){
-        var param:JSONDictionary = [AnalyticsKeys.FilterName.rawValue: type.rawValue]
+        var param:JSONDictionary = [AnalyticsKeys.name.rawValue: type.rawValue]
         if let value = value{
-            param[AnalyticsKeys.Values.rawValue] = value
+            param[AnalyticsKeys.values.rawValue] = value
         }else{
-            param[AnalyticsKeys.Values.rawValue] = "n/a"
+            param[AnalyticsKeys.values.rawValue] = "n/a"
         }
-        param[AnalyticsKeys.FilterType.rawValue] = "n/a"
+        param[AnalyticsKeys.type.rawValue] = "n/a"
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FavouriteHotels.rawValue, params: param)
     }
     
     //MARK:- Travellers List Events Log Function
     func logTravellersListEvents(with type: EventsTypeName, value:String?){
-        var param:JSONDictionary = [AnalyticsKeys.FilterName.rawValue: type.rawValue]
+        var param:JSONDictionary = [AnalyticsKeys.name.rawValue: type.rawValue]
         if let value = value{
-            param[AnalyticsKeys.Values.rawValue] = value
+            param[AnalyticsKeys.values.rawValue] = value
         }else{
-            param[AnalyticsKeys.Values.rawValue] = "n/a"
+            param[AnalyticsKeys.values.rawValue] = "n/a"
         }
-        param[AnalyticsKeys.FilterType.rawValue] = "n/a"
+        param[AnalyticsKeys.type.rawValue] = "n/a"
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.TravellersList.rawValue, params: param)
     }
     
     //MARK:- View Traveller Events Log Function
     func logViewTravellerEvents(with type: EventsTypeName){
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.ViewTraveller.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.ViewTraveller.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
     }
     
     //MARK:- Add/Edit Traveller Events Log Function
     func logEditMainTravellerEvents(with type: EventsTypeName, value:String?, key:String){
-        var param:JSONDictionary = [AnalyticsKeys.FilterName.rawValue: type.rawValue]
+        var param:JSONDictionary = [AnalyticsKeys.name.rawValue: type.rawValue]
         var eventName = ""
         let typ = "n/a"
         var val = "n/a"
         if let value = value{
             val = value
         }
-        param[AnalyticsKeys.FilterType.rawValue] = typ
-        param[AnalyticsKeys.Values.rawValue] = val
+        param[AnalyticsKeys.type.rawValue] = typ
+        param[AnalyticsKeys.values.rawValue] = val
         if key == "editMain"{
             eventName = AnalyticsEvents.EditMainTraveller.rawValue
         }else if key == "edit"{
@@ -623,7 +623,7 @@ class FirebaseEventLogs{
     
     //MARK:- Traveller Preferences Events Log Function
     func logTravellerPreferencesEvents(with type: EventsTypeName){
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.TravellerPreferences.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.TravellerPreferences.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
     }
     
     
@@ -633,73 +633,73 @@ class FirebaseEventLogs{
         if let value = value{
             val = value
         }
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.ImportTraveller.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: val])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.ImportTraveller.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: val])
     }
     
     //MARK:- Linked Account Events Log Function
     func logLinkedAccountEvents(with type: EventsTypeName){
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.LinkedAccount.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.LinkedAccount.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
     }
     
     //MARK:- Change Aertrip ID Events Log Function
     func logChangeAertripIDEvents(with type: EventsTypeName){
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.ChangeAertripID.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.ChangeAertripID.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
     }
     
     //MARK:- Login Or Register Events Log Function
     func logLoginOrRegisterEvents(with type: EventsTypeName){
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.LoginOrRegister.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.LoginOrRegister.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
     }
     
     //MARK:- Login Events Log Function
     func logLoginEvents(with type: EventsTypeName){
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Login.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Login.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
     }
     
     //MARK:- Register Events Log Function
     func logRegisterEvents(with type: EventsTypeName){
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Register.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Register.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
     }
     
     //MARK:- Thank you for Registering Events Log Function
     func logThankYouForRegisteringEvents(with type: EventsTypeName){
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.ThankYouForRegistering.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.ThankYouForRegistering.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
     }
     
     //MARK:- Secure Your Account Events Log Function
     func logSecureYourAccountEvents(with type: EventsTypeName){
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.SecureYourAccount.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.SecureYourAccount.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
     }
     
     //MARK:- Create Profile Events Log Function
     func logCreateProfileEvents(with type: EventsTypeName){
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.CreateProfile.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.CreateProfile.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
     }
     
     //MARK:- Forgot Password Events Log Function
     func logForgotPasswordEvents(with type: EventsTypeName){
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.ForgotPassword.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.ForgotPassword.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
     }
     
     //MARK:- Check Forgot Password Email Events Log Function
     func logCheckForgotPasswordEmailEvents(with type: EventsTypeName){
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.CheckForgotPasswordEmail.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.CheckForgotPasswordEmail.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
     }
     
     //MARK:- Reset Password Events Log Function
     func logResetPasswordEvents(with type: EventsTypeName){
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.ResetPassword.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.ResetPassword.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
     }
     
     //MARK:- Try Verifying Your Email Again Events Log Function
     func logTryVerifyingYourEmailAgainEvents(with type: EventsTypeName){
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.TryVerifyingYourEmailAgain.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.TryVerifyingYourEmailAgain.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
     }
     
 
     //MARK:- Profile Events Log Function
     func logProfileEvents(with type: EventsTypeName){
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Profile.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Profile.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
     }
     
     
@@ -714,13 +714,13 @@ class FirebaseEventLogs{
         switch type {
         case .PinFlight, .UnPinFlight, .OpenFlightDetails, .AddToTrip:
             
-            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightOneWayResults.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.Values.rawValue : ["fk":fk]])
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightOneWayResults.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.values.rawValue : ["fk":fk]])
             
         case .ShareFlight, .EmailPinnedFlights:
-            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightOneWayResults.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.Values.rawValue : ["fk":fkArray]])
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightOneWayResults.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.values.rawValue : ["fk":fkArray]])
 
         default:
-            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightOneWayResults.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.Values.rawValue : value])
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightOneWayResults.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.values.rawValue : value])
         }
         
 
@@ -731,13 +731,13 @@ class FirebaseEventLogs{
         switch type {
         case .PinFlight, .UnPinFlight, .OpenFlightDetails, .AddToTrip:
 
-            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightInternationalAndMulticityResults.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.Values.rawValue : ["fk":fk]])
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightInternationalAndMulticityResults.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.values.rawValue : ["fk":fk]])
 
         case .ShareFlight, .EmailPinnedFlights:
-            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightInternationalAndMulticityResults.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.Values.rawValue : ["fk":fkArray]])
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightInternationalAndMulticityResults.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.values.rawValue : ["fk":fkArray]])
             
         default:
-            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightInternationalAndMulticityResults.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.Values.rawValue : value])
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightInternationalAndMulticityResults.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.values.rawValue : value])
 
         }
         
@@ -748,13 +748,13 @@ class FirebaseEventLogs{
         switch type {
         case .PinFlight, .UnPinFlight, .OpenFlightDetails, .AddToTrip:
 
-            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightDomesticAndMulticityResults.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.Values.rawValue : ["fk":fk]])
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightDomesticAndMulticityResults.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.values.rawValue : ["fk":fk]])
 
         case .ShareFlight, .EmailPinnedFlights:
-            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightDomesticAndMulticityResults.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.Values.rawValue : ["fk":fkArray]])
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightDomesticAndMulticityResults.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.values.rawValue : ["fk":fkArray]])
             
         default:
-            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightDomesticAndMulticityResults.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.Values.rawValue : value])
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightDomesticAndMulticityResults.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.values.rawValue : value])
 
         }
         
@@ -762,7 +762,7 @@ class FirebaseEventLogs{
     
 //    MARK:- Accounts
     func logAccountsOptionSelectionEvent(with type:EventsTypeName){
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Accounts.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Accounts.rawValue, params: [AnalyticsKeys.name.rawValue: type, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
     }
     

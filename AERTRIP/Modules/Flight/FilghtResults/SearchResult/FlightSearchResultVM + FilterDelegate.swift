@@ -37,7 +37,7 @@ extension FlightSearchResultVM : AirlineFilterDelegate {
             }
         }
         
-        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Airlines", AnalyticsKeys.FilterType.rawValue : "n/a", AnalyticsKeys.Values.rawValue : values]
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.name.rawValue : "Airlines", AnalyticsKeys.type.rawValue : "n/a", AnalyticsKeys.values.rawValue : values]
         FirebaseEventLogs.shared.logFlightFiterEvents(params: eventLogParams)
     }
     
@@ -52,7 +52,7 @@ extension FlightSearchResultVM : AirlineFilterDelegate {
             flightLeg.hideMultiAirlineItineraryUpdated(filter)
         }
         
-        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Airlines", AnalyticsKeys.FilterType.rawValue : "HideMultiItinerary", AnalyticsKeys.Values.rawValue : filter.hideMultipleAirline]
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.name.rawValue : "Airlines", AnalyticsKeys.type.rawValue : "HideMultiItinerary", AnalyticsKeys.values.rawValue : filter.hideMultipleAirline]
         FirebaseEventLogs.shared.logFlightFiterEvents(params: eventLogParams)
 
     }
@@ -78,7 +78,7 @@ extension FlightSearchResultVM : AirlineFilterDelegate {
             values.removeLast(2)
         }
         
-        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Airlines", AnalyticsKeys.FilterType.rawValue : "n/a", AnalyticsKeys.Values.rawValue : values]
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.name.rawValue : "Airlines", AnalyticsKeys.type.rawValue : "n/a", AnalyticsKeys.values.rawValue : values]
         FirebaseEventLogs.shared.logFlightFiterEvents(params: eventLogParams)
         
      }
@@ -105,7 +105,7 @@ extension FlightSearchResultVM : SortFilterDelegate {
     
     func sortFilterChanged(sort: Sort ) {
         
-        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Sort", AnalyticsKeys.FilterType.rawValue : "Smart", AnalyticsKeys.Values.rawValue : "n/a"]
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.name.rawValue : "Sort", AnalyticsKeys.type.rawValue : "Smart", AnalyticsKeys.values.rawValue : "n/a"]
         FirebaseEventLogs.shared.logFlightFiterEvents(params: eventLogParams)
         
         if isIntMCOrReturnJourney {
@@ -132,7 +132,7 @@ extension FlightSearchResultVM : SortFilterDelegate {
             }
         }
         
-        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Sort", AnalyticsKeys.FilterType.rawValue : "Price", AnalyticsKeys.Values.rawValue : highToLow ? "High to Low" : "Low to High"]
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.name.rawValue : "Sort", AnalyticsKeys.type.rawValue : "Price", AnalyticsKeys.values.rawValue : highToLow ? "High to Low" : "Low to High"]
         FirebaseEventLogs.shared.logFlightFiterEvents(params: eventLogParams)
 
     }
@@ -153,7 +153,7 @@ extension FlightSearchResultVM : SortFilterDelegate {
             
         }
         
-        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Sort", AnalyticsKeys.FilterType.rawValue : "Duration", AnalyticsKeys.Values.rawValue : longestFirst ? "Longest First" : "Shortest First"]
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.name.rawValue : "Sort", AnalyticsKeys.type.rawValue : "Duration", AnalyticsKeys.values.rawValue : longestFirst ? "Longest First" : "Shortest First"]
         FirebaseEventLogs.shared.logFlightFiterEvents(params: eventLogParams)
 
     }
@@ -163,7 +163,7 @@ extension FlightSearchResultVM : SortFilterDelegate {
         intFlightLegs[0].sortFilterChanged(sort: Sort.Depart)
         self.delegate?.applySorting(sortOrder: Sort.Depart, isConditionReverced: !earliestFirst, legIndex: index)
         
-        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Sort", AnalyticsKeys.FilterType.rawValue : "Depart", AnalyticsKeys.Values.rawValue : earliestFirst ? "Earliest First" : "Latest First"]
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.name.rawValue : "Sort", AnalyticsKeys.type.rawValue : "Depart", AnalyticsKeys.values.rawValue : earliestFirst ? "Earliest First" : "Latest First"]
         FirebaseEventLogs.shared.logFlightFiterEvents(params: eventLogParams)
     }
     
@@ -171,7 +171,7 @@ extension FlightSearchResultVM : SortFilterDelegate {
         intFlightLegs[0].sortFilterChanged(sort: Sort.Arrival)
         self.delegate?.applySorting(sortOrder: Sort.Arrival, isConditionReverced: !earliestFirst, legIndex: index)
         
-        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Sort", AnalyticsKeys.FilterType.rawValue : "Arrival", AnalyticsKeys.Values.rawValue : earliestFirst ? "Earliest First" : "Latest First"]
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.name.rawValue : "Sort", AnalyticsKeys.type.rawValue : "Arrival", AnalyticsKeys.values.rawValue : earliestFirst ? "Earliest First" : "Latest First"]
         FirebaseEventLogs.shared.logFlightFiterEvents(params: eventLogParams)
     }
     
@@ -190,7 +190,7 @@ extension FlightSearchResultVM : SortFilterDelegate {
             
         }
         
-        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Sort", AnalyticsKeys.FilterType.rawValue : "Depart", AnalyticsKeys.Values.rawValue : departMode ? "Latest First" : "Earliest First"]
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.name.rawValue : "Sort", AnalyticsKeys.type.rawValue : "Depart", AnalyticsKeys.values.rawValue : departMode ? "Latest First" : "Earliest First"]
         FirebaseEventLogs.shared.logFlightFiterEvents(params: eventLogParams)
     }
     
@@ -207,7 +207,7 @@ extension FlightSearchResultVM : SortFilterDelegate {
             self.delegate?.applySorting(sortOrder: Sort.Arrival, isConditionReverced: arrivalMode, legIndex: index)
         }
         
-        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Sort", AnalyticsKeys.FilterType.rawValue : "Arrival", AnalyticsKeys.Values.rawValue : arrivalMode ? "Latest First" : "Earliest First"]
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.name.rawValue : "Sort", AnalyticsKeys.type.rawValue : "Arrival", AnalyticsKeys.values.rawValue : arrivalMode ? "Latest First" : "Earliest First"]
         FirebaseEventLogs.shared.logFlightFiterEvents(params: eventLogParams)
     }
 }
@@ -227,7 +227,7 @@ extension FlightSearchResultVM :  FlightStopsFilterDelegate {
             values.removeLast(2)
         }
         
-        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Stops", AnalyticsKeys.FilterType.rawValue : "n/a", AnalyticsKeys.Values.rawValue : values]
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.name.rawValue : "Stops", AnalyticsKeys.type.rawValue : "n/a", AnalyticsKeys.values.rawValue : values]
         
         FirebaseEventLogs.shared.logFlightFiterEvents(params: eventLogParams)
         // analytics end
@@ -267,7 +267,7 @@ extension FlightSearchResultVM :  FlightStopsFilterDelegate {
             }
         }
         
-        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Stops", AnalyticsKeys.FilterType.rawValue : "n/a", AnalyticsKeys.Values.rawValue : values]
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.name.rawValue : "Stops", AnalyticsKeys.type.rawValue : "n/a", AnalyticsKeys.values.rawValue : values]
         
         FirebaseEventLogs.shared.logFlightFiterEvents(params: eventLogParams)
         // analytics end
@@ -297,7 +297,7 @@ extension FlightSearchResultVM : FlightDurationFilterDelegate {
             }
         }
         
-        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Duration", AnalyticsKeys.FilterType.rawValue : "TripDuration", AnalyticsKeys.Values.rawValue : values]
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.name.rawValue : "Duration", AnalyticsKeys.type.rawValue : "TripDuration", AnalyticsKeys.values.rawValue : values]
         
         FirebaseEventLogs.shared.logFlightFiterEvents(params: eventLogParams)
         // analytics end
@@ -322,7 +322,7 @@ extension FlightSearchResultVM : FlightDurationFilterDelegate {
             }
         }
         
-        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Duration", AnalyticsKeys.FilterType.rawValue : "LayoverDuration", AnalyticsKeys.Values.rawValue : values]
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.name.rawValue : "Duration", AnalyticsKeys.type.rawValue : "LayoverDuration", AnalyticsKeys.values.rawValue : values]
         
         FirebaseEventLogs.shared.logFlightFiterEvents(params: eventLogParams)
         // analytics end
@@ -350,7 +350,7 @@ extension FlightSearchResultVM : FlightTimeFilterDelegate {
         
         // analytics start
         
-        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Times", AnalyticsKeys.FilterType.rawValue : "DepartureTime", AnalyticsKeys.Values.rawValue : analyticsValues]
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.name.rawValue : "Times", AnalyticsKeys.type.rawValue : "DepartureTime", AnalyticsKeys.values.rawValue : analyticsValues]
         
         FirebaseEventLogs.shared.logFlightFiterEvents(params: eventLogParams)
         // analytics end
@@ -374,7 +374,7 @@ extension FlightSearchResultVM : FlightTimeFilterDelegate {
         
         // analytics start
         
-        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Times", AnalyticsKeys.FilterType.rawValue : "ArrivalTime", AnalyticsKeys.Values.rawValue : analyticsValues]
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.name.rawValue : "Times", AnalyticsKeys.type.rawValue : "ArrivalTime", AnalyticsKeys.values.rawValue : analyticsValues]
         
         FirebaseEventLogs.shared.logFlightFiterEvents(params: eventLogParams)
         // analytics end
@@ -398,7 +398,7 @@ extension FlightSearchResultVM : PriceFilterDelegate {
         
         let analyticsValues = "min\(Int(minFare)), max\(Int(maxFare))"
         
-        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Price", AnalyticsKeys.FilterType.rawValue : "n/a", AnalyticsKeys.Values.rawValue : analyticsValues]
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.name.rawValue : "Price", AnalyticsKeys.type.rawValue : "n/a", AnalyticsKeys.values.rawValue : analyticsValues]
         
         FirebaseEventLogs.shared.logFlightFiterEvents(params: eventLogParams)
         // analytics end
@@ -451,7 +451,7 @@ extension FlightSearchResultVM : AirportFilterDelegate {
         
         // analytics start
         
-        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Airports", AnalyticsKeys.FilterType.rawValue : "Layover", AnalyticsKeys.Values.rawValue : analyticsValues]
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.name.rawValue : "Airports", AnalyticsKeys.type.rawValue : "Layover", AnalyticsKeys.values.rawValue : analyticsValues]
         
         FirebaseEventLogs.shared.logFlightFiterEvents(params: eventLogParams)
         // analytics end
@@ -472,7 +472,7 @@ extension FlightSearchResultVM : AirportFilterDelegate {
             analyticsValues.removeLast(2)
         }
         
-        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Airports", AnalyticsKeys.FilterType.rawValue : "Layover", AnalyticsKeys.Values.rawValue : analyticsValues]
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.name.rawValue : "Airports", AnalyticsKeys.type.rawValue : "Layover", AnalyticsKeys.values.rawValue : analyticsValues]
         
         FirebaseEventLogs.shared.logFlightFiterEvents(params: eventLogParams)
         // analytics end
@@ -500,7 +500,7 @@ extension FlightSearchResultVM : AirportFilterDelegate {
             analyticsValues.removeLast(2)
         }
         
-        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Airports", AnalyticsKeys.FilterType.rawValue : "Origin/Destination", AnalyticsKeys.Values.rawValue : analyticsValues]
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.name.rawValue : "Airports", AnalyticsKeys.type.rawValue : "Origin/Destination", AnalyticsKeys.values.rawValue : analyticsValues]
         
         FirebaseEventLogs.shared.logFlightFiterEvents(params: eventLogParams)
         // analytics end
@@ -539,7 +539,7 @@ extension FlightSearchResultVM : AirportFilterDelegate {
             analyticsValues.removeLast(2)
         }
         
-        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Airports", AnalyticsKeys.FilterType.rawValue : "Origin/Destination", AnalyticsKeys.Values.rawValue : analyticsValues]
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.name.rawValue : "Airports", AnalyticsKeys.type.rawValue : "Origin/Destination", AnalyticsKeys.values.rawValue : analyticsValues]
         
         FirebaseEventLogs.shared.logFlightFiterEvents(params: eventLogParams)
         // analytics end
@@ -568,7 +568,7 @@ extension FlightSearchResultVM : AirportFilterDelegate {
             analyticsValues.removeLast(2)
         }
         
-        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Airports", AnalyticsKeys.FilterType.rawValue : "Origin/Destination", AnalyticsKeys.Values.rawValue : analyticsValues]
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.name.rawValue : "Airports", AnalyticsKeys.type.rawValue : "Origin/Destination", AnalyticsKeys.values.rawValue : analyticsValues]
         
         FirebaseEventLogs.shared.logFlightFiterEvents(params: eventLogParams)
         // analytics end
@@ -597,7 +597,7 @@ extension FlightSearchResultVM : AirportFilterDelegate {
             analyticsValues.removeLast(2)
         }
         
-        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Airports", AnalyticsKeys.FilterType.rawValue : "Origin/Destination", AnalyticsKeys.Values.rawValue : analyticsValues]
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.name.rawValue : "Airports", AnalyticsKeys.type.rawValue : "Origin/Destination", AnalyticsKeys.values.rawValue : analyticsValues]
         
         FirebaseEventLogs.shared.logFlightFiterEvents(params: eventLogParams)
         // analytics end
@@ -625,7 +625,7 @@ extension FlightSearchResultVM : AirportFilterDelegate {
             analyticsValues.removeLast(2)
         }
         
-        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Airports", AnalyticsKeys.FilterType.rawValue : "Layover", AnalyticsKeys.Values.rawValue : analyticsValues]
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.name.rawValue : "Airports", AnalyticsKeys.type.rawValue : "Layover", AnalyticsKeys.values.rawValue : analyticsValues]
         
         FirebaseEventLogs.shared.logFlightFiterEvents(params: eventLogParams)
         // analytics end
@@ -648,7 +648,7 @@ extension FlightSearchResultVM : AirportFilterDelegate {
             analyticsValues.removeLast(2)
         }
         
-        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Airports", AnalyticsKeys.FilterType.rawValue : "Layover", AnalyticsKeys.Values.rawValue : analyticsValues]
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.name.rawValue : "Airports", AnalyticsKeys.type.rawValue : "Layover", AnalyticsKeys.values.rawValue : analyticsValues]
         
         FirebaseEventLogs.shared.logFlightFiterEvents(params: eventLogParams)
         // analytics end
@@ -671,7 +671,7 @@ extension FlightSearchResultVM : QualityFilterDelegate {
         // analytics start
         let analyticsValues = filter.name
         
-        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Quality", AnalyticsKeys.FilterType.rawValue : "n/a", AnalyticsKeys.Values.rawValue : analyticsValues]
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.name.rawValue : "Quality", AnalyticsKeys.type.rawValue : "n/a", AnalyticsKeys.values.rawValue : analyticsValues]
         
         FirebaseEventLogs.shared.logFlightFiterEvents(params: eventLogParams)
         // analytics end
@@ -691,7 +691,7 @@ extension FlightSearchResultVM : QualityFilterDelegate {
         // analytics start
         let analyticsValues = filter.name
         
-        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Quality", AnalyticsKeys.FilterType.rawValue : "n/a", AnalyticsKeys.Values.rawValue : analyticsValues]
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.name.rawValue : "Quality", AnalyticsKeys.type.rawValue : "n/a", AnalyticsKeys.values.rawValue : analyticsValues]
         
         FirebaseEventLogs.shared.logFlightFiterEvents(params: eventLogParams)
         // analytics end
@@ -726,7 +726,7 @@ extension FlightSearchResultVM : AircraftFilterDelegate {
             analyticsValues.removeLast(2)
         }
         
-        let eventLogParams: JSONDictionary = [AnalyticsKeys.FilterName.rawValue : "Aircraft", AnalyticsKeys.FilterType.rawValue : "n/a", AnalyticsKeys.Values.rawValue : analyticsValues]
+        let eventLogParams: JSONDictionary = [AnalyticsKeys.name.rawValue : "Aircraft", AnalyticsKeys.type.rawValue : "n/a", AnalyticsKeys.values.rawValue : analyticsValues]
         
         FirebaseEventLogs.shared.logFlightFiterEvents(params: eventLogParams)
         // analytics end

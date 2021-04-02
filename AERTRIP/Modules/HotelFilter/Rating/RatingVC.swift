@@ -154,7 +154,7 @@ class RatingVC: BaseVC {
             valueStr.removeLast(2)
         }
         
-        let rangeFilterParams = [AnalyticsKeys.FilterName.rawValue: AnalyticsEvents.Ratings.rawValue, AnalyticsKeys.FilterType.rawValue: AnalyticsEvents.StarRating.rawValue, AnalyticsKeys.Values.rawValue: valueStr]
+        let rangeFilterParams = [AnalyticsKeys.name.rawValue: AnalyticsEvents.Ratings.rawValue, AnalyticsKeys.type.rawValue: AnalyticsEvents.StarRating.rawValue, AnalyticsKeys.values.rawValue: valueStr]
         FirebaseEventLogs.shared.logHotelFilterEvents(params: rangeFilterParams)
     }
     
@@ -190,7 +190,7 @@ class RatingVC: BaseVC {
             valueStr.removeLast(2)
         }
         
-        let rangeFilterParams = [AnalyticsKeys.FilterName.rawValue: AnalyticsEvents.Ratings.rawValue, AnalyticsKeys.FilterType.rawValue: AnalyticsEvents.TARating.rawValue, AnalyticsKeys.Values.rawValue: valueStr]
+        let rangeFilterParams = [AnalyticsKeys.name.rawValue: AnalyticsEvents.Ratings.rawValue, AnalyticsKeys.type.rawValue: AnalyticsEvents.TARating.rawValue, AnalyticsKeys.values.rawValue: valueStr]
         FirebaseEventLogs.shared.logHotelFilterEvents(params: rangeFilterParams)
     }
     

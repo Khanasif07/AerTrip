@@ -106,7 +106,7 @@ extension AmenitiesVC: UITableViewDataSource, UITableViewDelegate {
             valueStr.removeLast(2)
         }
         
-        let rangeFilterParams = [AnalyticsKeys.FilterName.rawValue: AnalyticsEvents.Amenities.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: valueStr]
+        let rangeFilterParams = [AnalyticsKeys.name.rawValue: AnalyticsEvents.Amenities.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: valueStr]
         FirebaseEventLogs.shared.logHotelFilterEvents(params: rangeFilterParams)
     }
 }

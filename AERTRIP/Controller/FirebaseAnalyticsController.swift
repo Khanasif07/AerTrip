@@ -98,8 +98,8 @@ enum AnalyticsEvents: String {
 enum AnalyticsKeys: String {
     
     //MARK: Firebase Log Event Keys
-    case FilterName = "Name"
-    case FilterType = "Type"
-    case Values = "Values"
+    case name = "Name"
+    case type = "Type"
+    case values = "Values"
     
 }

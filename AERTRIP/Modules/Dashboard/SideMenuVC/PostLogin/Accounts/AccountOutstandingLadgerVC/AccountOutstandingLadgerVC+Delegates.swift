@@ -175,7 +175,7 @@ extension AccountOutstandingLadgerVC: UITableViewDataSource, UITableViewDelegate
         } else {
 //            FirebaseAnalyticsController.shared.logEvent(name: "AccountOutstandingLedgerSelectedLedgerFromListToViewDetails", params: ["ScreenName":"AccountOutstandingLadger", "ScreenClass":"AccountOutstandingLadgerVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
 
-            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsLedger.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.AccountsOutstandingLedgerViewLedgerDetailsSelectedFromList, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a", AnalyticsKeys.FilterName.rawValue:"SelectedEvent", AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: eventSelected ?? ""])
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsLedger.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.AccountsOutstandingLedgerViewLedgerDetailsSelectedFromList, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a", AnalyticsKeys.name.rawValue:"SelectedEvent", AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: eventSelected ?? ""])
 
             AppFlowManager.default.moveToAccountLadgerDetailsVC(forEvent: event, detailType: .outstandingLadger)
         }
