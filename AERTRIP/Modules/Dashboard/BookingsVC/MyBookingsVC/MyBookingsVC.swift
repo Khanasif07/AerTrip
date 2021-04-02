@@ -67,7 +67,8 @@ class MyBookingsVC: BaseVC {
         MyBookingFilterVM.shared.searchText = ""
         MyBookingsVM.shared.isFetchingBooking = false
 
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.MyBookings, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+        FirebaseEventLogs.shared.logEventsWithOutParam(with: .MyBookings)
+
 
     }
     
@@ -84,15 +85,14 @@ class MyBookingsVC: BaseVC {
                     self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "bookingFilterIcon"), selectedImage: #imageLiteral(resourceName: "bookingFilterIcon"))
                 }
                                 
-                FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.MyBookingsFilterApplied, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
-
-
+                FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsFilterApplied)
+                    
             case .myBookingFilterCleared:
                 self.topNavBar.firstRightButton.isSelected = false
                 self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "bookingFilterIcon"), selectedImage: #imageLiteral(resourceName: "bookingFilterIcon"))
                 MyBookingFilterVM.shared.setToDefault()
                 
-                FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.MyBookingsFilterCleared, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+                FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsFilterCleared)
 
 
             case .myBookingCasesRequestStatusChanged:
@@ -465,8 +465,9 @@ extension MyBookingsVC : PagingViewControllerDataSource , PagingViewControllerDe
         case is CancelledVC: bookingTab = "cancelled"
         default: bookingTab = ""
         }
-        
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.MyBookingsList, AnalyticsKeys.type.rawValue: "BookingTabType", AnalyticsKeys.values.rawValue: bookingTab])
+                
+        let jsonDict : JSONDictionary = ["BookingTabType":bookingTab]
+        FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsList, value: jsonDict)
 
     }
     

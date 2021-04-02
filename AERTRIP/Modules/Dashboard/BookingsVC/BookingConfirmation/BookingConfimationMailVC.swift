@@ -64,10 +64,9 @@ class BookingConfimationMailVC: BaseVC {
         if #available(iOS 13.0, *) {
             navigationViewHeightConstraint.constant = 56
         }
-        
-        //        FirebaseAnalyticsController.shared.logEvent(name: "ResendBookingConfirmationMail", params: ["ScreenName":"ResendBookingConfirmationMail", "ScreenClass":"BookingConfimationMailVC"])
+                
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingConfirmationMail, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
 
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.BookingConfirmationMail.rawValue, params: [AnalyticsKeys.name.rawValue:AnalyticsEvents.BookingConfirmationMail.rawValue, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
     }
     

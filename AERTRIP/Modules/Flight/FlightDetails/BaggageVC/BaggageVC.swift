@@ -58,8 +58,7 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
         baggageTableView.showsVerticalScrollIndicator = true
         
         
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightDetails.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.FlightDetailsBaggageInfo, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
-
+        FirebaseEventLogs.shared.logFlightDetailsEvent(with: .FlightDetailsBaggageInfo)
 
     }
     

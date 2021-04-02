@@ -36,8 +36,7 @@ class PeriodicStatementVC: BaseVC {
         // Do any additional setup after loading the view.
         self.initialSetups()
         
-
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsPeriodicStatement.rawValue, params: [AnalyticsKeys.name.rawValue:AnalyticsEvents.AccountsPeriodicStatement, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .AccountsPeriodicStatement, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
 
     }
     
@@ -123,7 +122,7 @@ class PeriodicStatementVC: BaseVC {
 extension PeriodicStatementVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
 
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsPeriodicStatement.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.navigateBack, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .navigateBack, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
 
         AppFlowManager.default.popViewController(animated: true)
     }

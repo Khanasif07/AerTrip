@@ -293,19 +293,17 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
             if (indexPath.section == 3) {
                 switch indexPath.row {
                 case 0:
-                    self.viewModel.logUserActions(eventName: .AccountsLedgerOptionSelected)
+                    FirebaseEventLogs.shared.logAccountsOptionSelectionEvent(with: .AccountsLedgerOptionSelected)
 
                     AppFlowManager.default.moveToAccountDetailsVC(usingFor: .accountLadger, forDetails: self.viewModel.accountLadger, forVoucherTypes: self.viewModel.accVouchers)
                     
                 case 1:
-
-                    self.viewModel.logUserActions(eventName: .AccountsOutstandingLedgerOptionSelected)
+                    FirebaseEventLogs.shared.logAccountsOptionSelectionEvent(with: .AccountsOutstandingLedgerOptionSelected)
 
                     AppFlowManager.default.moveToAccountOutstandingLadgerVC(data: self.viewModel.outstandingLadger, accountLaders: self.viewModel.accountLadger)
                     
                 case 2:
-
-                    self.viewModel.logUserActions(eventName: .AccountsPeriodicStatementOptionSelected)
+                    FirebaseEventLogs.shared.logAccountsOptionSelectionEvent(with: .AccountsPeriodicStatementOptionSelected)
 
                     AppFlowManager.default.moveToPeriodicStatementVC(periodicEvents: self.viewModel.periodicEvents)
                     
@@ -319,13 +317,13 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 switch indexPath.row {
                 case 0:
 
-                    self.viewModel.logUserActions(eventName: .AccountsLedgerOptionSelected)
+                    FirebaseEventLogs.shared.logAccountsOptionSelectionEvent(with: .AccountsLedgerOptionSelected)
 
                     AppFlowManager.default.moveToAccountDetailsVC(usingFor: .accountLadger, forDetails: self.viewModel.accountLadger, forVoucherTypes: self.viewModel.accVouchers)
                     
                 case 1:
 
-                    self.viewModel.logUserActions(eventName: .AccountsOutstandingLedgerOptionSelected)
+                    FirebaseEventLogs.shared.logAccountsOptionSelectionEvent(with: .AccountsOutstandingLedgerOptionSelected)
 
                     AppFlowManager.default.moveToAccountOutstandingLadgerVC(data: self.viewModel.outstandingLadger, accountLaders: self.viewModel.accountLadger)
                     
@@ -338,14 +336,13 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
             if (indexPath.section == 3) {
                 switch indexPath.row {
                 case 0:
-
-                    self.viewModel.logUserActions(eventName: .AccountsLedgerOptionSelected)
+                    FirebaseEventLogs.shared.logAccountsOptionSelectionEvent(with: .AccountsLedgerOptionSelected)
 
                     AppFlowManager.default.moveToAccountDetailsVC(usingFor: .accountLadger, forDetails: self.viewModel.accountLadger, forVoucherTypes: self.viewModel.accVouchers)
                     
                 case 1:
 
-                    self.viewModel.logUserActions(eventName: .AccountsOutstandingLedgerOptionSelected)
+                    FirebaseEventLogs.shared.logAccountsOptionSelectionEvent(with: .AccountsOutstandingLedgerOptionSelected)
 
                     AppFlowManager.default.moveToAccountOutstandingLadgerVC(data: self.viewModel.outstandingLadger, accountLaders: self.viewModel.accountLadger)
                     

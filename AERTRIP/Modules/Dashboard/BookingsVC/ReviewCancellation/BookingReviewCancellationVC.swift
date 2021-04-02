@@ -94,9 +94,12 @@ class BookingReviewCancellationVC: BaseVC {
 
         
             if viewModel.currentUsingAs == .flightCancellationReview{
-                FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.BookingsReviewCancellationRequest.rawValue, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+                
+                FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsReviewCancellationRequest, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+
             }else{
-                FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.BookingsReviewReschedulingRequest.rawValue, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+                FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsReviewReschedulingRequest, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+
             }
 
         case .specialRequest:
@@ -105,10 +108,9 @@ class BookingReviewCancellationVC: BaseVC {
             self.totalNetRefundView.isHidden = true
             self.totalNetRefundViewHeightConstraint.constant = 0.0
             self.requestCancellationButton.alpha = 0.6
-
-        //        FirebaseAnalyticsController.shared.logEvent(name: "HotelSpecialRequest", params: ["ScreenName":"HotelSpecialRequest", "ScreenClass":"BookingReviewCancellationVC", "ButtonAction":"SpecialRequestButtonClicked"])
         
-            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.BookingsReviewSpecialRequest, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+
+            FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsReviewSpecialRequest, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
 
 
         }

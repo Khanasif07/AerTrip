@@ -52,9 +52,8 @@ class BookingCallVC: BaseVC {
         
         self.setupNavBar()
         self.registerXib()
-        
-                
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.BookingsContactNumberList, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsContactNumberList, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
 
 
     }
