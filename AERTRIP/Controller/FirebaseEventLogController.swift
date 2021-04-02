@@ -443,6 +443,19 @@ class FirebaseEventLogs{
         //MARK:- Profile Events TypeNames
         case ClickOnEditMainUserProfile
         case ClickOnMainUserProfile
+        //OneWay Results
+        case OpenFlightDetails
+        case ExpandClubbedJourneys
+        case CollapseclubbedJourneys
+        case SwipeClubbedJourneys
+        case ShowLongerOrExpensiveFlights
+        case HideLongerOrExpensiveFlights
+        case PinFlight
+        case UnPinFlight
+        case ShareFlight
+        case UnPinAll
+        case EmailPinnedFlights
+        case AddToTrip
         
     }
     
@@ -683,6 +696,7 @@ class FirebaseEventLogs{
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.TryVerifyingYourEmailAgain.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
     }
     
+
     //MARK:- Profile Events Log Function
     func logProfileEvents(with type: EventsTypeName){
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Profile.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: "n/a"])
@@ -695,11 +709,54 @@ class FirebaseEventLogs{
     }
     
     //MARK:- Flight Result Events
-    func logOneWayResultEvents(with type : EventsTypeName, params : JSONDictionary){
-        
-        
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightOneWayResults.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.Values.rawValue : params])
+    func logOneWayResultEvents(with type : EventsTypeName, value : JSONDictionary = [:], groupId : String = "", fk : String = "", fkArray : [String] = []){
+                
+        switch type {
+        case .PinFlight, .UnPinFlight, .OpenFlightDetails, .AddToTrip:
+            
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightOneWayResults.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.Values.rawValue : ["fk":fk]])
+            
+        case .ShareFlight, .EmailPinnedFlights:
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightOneWayResults.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.Values.rawValue : ["fk":fkArray]])
 
+        default:
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightOneWayResults.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.Values.rawValue : value])
+        }
+        
+
+    }
+    
+    func logInternationalAndMulticityResults(with type : EventsTypeName, value : JSONDictionary = [:], groupId : String = "", fk : String = "", fkArray : [String] = []) {
+        
+        switch type {
+        case .PinFlight, .UnPinFlight, .OpenFlightDetails, .AddToTrip:
+
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightInternationalAndMulticityResults.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.Values.rawValue : ["fk":fk]])
+
+        case .ShareFlight, .EmailPinnedFlights:
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightInternationalAndMulticityResults.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.Values.rawValue : ["fk":fkArray]])
+            
+        default:
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightInternationalAndMulticityResults.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.Values.rawValue : value])
+
+        }
+        
+    }
+    
+    func logDomesticAndMulticityResults(with type : EventsTypeName, value : JSONDictionary = [:], groupId : String = "", fk : String = "", fkArray : [String] = []) {
+        
+        switch type {
+        case .PinFlight, .UnPinFlight, .OpenFlightDetails, .AddToTrip:
+
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightDomesticAndMulticityResults.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.Values.rawValue : ["fk":fk]])
+
+        case .ShareFlight, .EmailPinnedFlights:
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightDomesticAndMulticityResults.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.Values.rawValue : ["fk":fkArray]])
+            
+        default:
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightDomesticAndMulticityResults.rawValue, params: [AnalyticsKeys.FilterName.rawValue: type.rawValue, AnalyticsKeys.Values.rawValue : value])
+
+        }
         
     }
     

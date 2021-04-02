@@ -42,7 +42,6 @@ enum AnalyticsEvents: String {
     case TravellersList
     case ViewTraveller
     case EditMainTraveller
-    case FlightOneWayResults
     case FlightDomesticReturnAndMulticity
     case FlightsInternationalReturnAndMulticity
     case EditTraveller
@@ -77,7 +76,6 @@ enum AnalyticsEvents: String {
     case OpenLinkedAccounts
     case OpenAccountDetails
     case LogOut
-
     
     // Filter
     case Sort
@@ -92,6 +90,9 @@ enum AnalyticsEvents: String {
     case TARating
     case Amenities
     case Room
+    case FlightOneWayResults
+    case FlightInternationalAndMulticityResults
+    case FlightDomesticAndMulticityResults
 }
 
 enum AnalyticsKeys: String {
