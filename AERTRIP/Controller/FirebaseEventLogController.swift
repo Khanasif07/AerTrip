@@ -466,6 +466,21 @@ class FirebaseEventLogs{
         case BookingConfirmationMail
 
         
+        
+//        Home
+        case NavigatetoAerinbyTapping
+        case NavigatetoAerinbySwiping
+        case NavigatetoFlightsbySwiping
+        case NavigatetoFlightsbyTapping
+        case NavigatetoHotelsbySwiping
+        case NavigatetoHotelsbyTapping
+        case NavigatetoTripsbySwiping
+        case NavigatetoTripsbyTapping
+        case ProfileOptionSelected
+        case TravelSafetyGuidelinesOptionSelected
+        case NavigateToTripsFromHome
+
+//        case OpenDoorbySwipeonRightEdge
     }
     
     
@@ -806,5 +821,10 @@ class FirebaseEventLogs{
     func logMyBookingsEvent(with type:EventsTypeName,value:JSONDictionary = [:]){
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.MyBookings.rawValue, params: [AnalyticsKeys.name.rawValue:type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: value])
 
+    }
+    
+//    MARK:- Home
+    func logHomeEvents(with type:EventsTypeName){
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Home.rawValue, params: [AnalyticsKeys.name.rawValue:type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
     }
 }

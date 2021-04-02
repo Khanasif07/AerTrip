@@ -95,12 +95,15 @@ enum AnalyticsEvents: String {
     
     
    
-    
+//    My Bookings
     case MyBookingsHotelCancellation
     case MyBookingsNotes
     case NavigateBack
     case MyBookings
     case CloseButtonClicked
+    
+//    Home
+    case Home
 }
 
 enum AnalyticsKeys: String {
