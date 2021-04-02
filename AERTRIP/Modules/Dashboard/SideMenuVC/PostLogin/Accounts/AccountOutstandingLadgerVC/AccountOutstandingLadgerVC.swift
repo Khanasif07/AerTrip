@@ -153,7 +153,7 @@ class AccountOutstandingLadgerVC: BaseVC {
         addLongPressOnTableView()
         
 
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsOutstandingLedger.rawValue, params: [AnalyticsKeys.FilterName.rawValue:AnalyticsEvents.AccountsOutstandingLedger, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsOutstandingLedger.rawValue, params: [AnalyticsKeys.name.rawValue:AnalyticsEvents.AccountsOutstandingLedger, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
     }
     
@@ -309,7 +309,7 @@ class AccountOutstandingLadgerVC: BaseVC {
             if index == 0 {
                 //select bookings pay
 
-                FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsOutstandingLedger.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.AccountsOutstandingLedgerSelectBookingsOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+                FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsOutstandingLedger.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.AccountsOutstandingLedgerSelectBookingsOptionSelected, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
                 if self.currentViewState == .selecting {
                     self.currentViewState = .normal
@@ -324,7 +324,7 @@ class AccountOutstandingLadgerVC: BaseVC {
             else if index == 1 {
                 //email tapped
                 
-                FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsOutstandingLedger.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.AccountsSendEmailOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+                FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsOutstandingLedger.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.AccountsSendEmailOptionSelected, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
 
                 AppToast.default.showToastMessage(message: "Sending email")
@@ -333,7 +333,7 @@ class AccountOutstandingLadgerVC: BaseVC {
             else {
                 //download pdf tapped
 
-                FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsOutstandingLedger.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.AccountsDownloadPDFOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+                FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsOutstandingLedger.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.AccountsDownloadPDFOptionSelected, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
                 self.topNavView.isToShowIndicatorView = true
                 self.topNavView.startActivityIndicaorLoading()
@@ -452,7 +452,7 @@ class AccountOutstandingLadgerVC: BaseVC {
     //MARK:- Action
     @IBAction func onAccountButtonAction(_ sender: UIButton) {
 
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsOutstandingLedger.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.AccountsOutstandingLedgerOnAccountOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsOutstandingLedger.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.AccountsOutstandingLedgerOnAccountOptionSelected, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
         if let obj = self.viewModel.accountOutstanding {
             AppFlowManager.default.moveToOnAccountDetailVC(outstanding: obj, accountLaders: self.viewModel.accountLadegerDetails)
@@ -460,7 +460,7 @@ class AccountOutstandingLadgerVC: BaseVC {
     }
     @IBAction func makePaymentButtonAction(_ sender: UIButton) {
         if self.makePaymentTitleLabel.alpha >= 1.0 {
-            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsOutstandingLedger.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.AccountsMakePaymenrOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsOutstandingLedger.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.AccountsMakePaymenrOptionSelected, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
             self.viewModel.getOutstandingPayment()
         }
@@ -487,7 +487,7 @@ extension AccountOutstandingLadgerVC: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar)
     {
 
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsOutstandingLedger.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.AccountsCancelSearchBarOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsOutstandingLedger.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.AccountsCancelSearchBarOptionSelected, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
         if searchBar === self.mainSearchBar {
 //            self.currentViewState = .normal
@@ -513,7 +513,7 @@ extension AccountOutstandingLadgerVC: UISearchBarDelegate {
             self.searchBarCancelButtonClicked(searchBar)
         }else{
             
-            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsOutstandingLedger.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.AccountSearchOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a", AnalyticsKeys.FilterName.rawValue:"SearchQuery", AnalyticsKeys.FilterType.rawValue:"n/a", AnalyticsKeys.Values.rawValue:mainSearchBar.text ?? ""])
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsOutstandingLedger.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.AccountSearchOptionSelected, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a", AnalyticsKeys.name.rawValue:"SearchQuery", AnalyticsKeys.type.rawValue:"n/a", AnalyticsKeys.values.rawValue:mainSearchBar.text ?? ""])
 
 
             self.preserveSearchData()
@@ -558,7 +558,7 @@ extension AccountOutstandingLadgerVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         //back button action
 
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsOutstandingLedger.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.navigateBack, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsOutstandingLedger.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.navigateBack, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
         AppFlowManager.default.popViewController(animated: true)
     }
@@ -566,7 +566,7 @@ extension AccountOutstandingLadgerVC: TopNavigationViewDelegate {
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         //dots button action
 
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsOutstandingLedger.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.AccountsMenuOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsOutstandingLedger.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.AccountsMenuOptionSelected, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
         if self.currentViewState == .normal {
             self.showMoreOptions()
@@ -727,14 +727,14 @@ extension AccountOutstandingLadgerVC: AccountOutstandingLadgerVMDelegate {
             case 0:
                 //PayOnline
 
-                FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsOutstandingLedger.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.AccountsPayOnlineOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+                FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsOutstandingLedger.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.AccountsPayOnlineOptionSelected, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
                 AppFlowManager.default.moveToAccountOnlineDepositVC(depositItinerary: self.viewModel.itineraryData, usingToPaymentFor: .outstandingLedger)
                 
             case 1:
                 //PayOfflineNRegister
                 
-                FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsOutstandingLedger.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.AccountsPayOfflineOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+                FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsOutstandingLedger.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.AccountsPayOfflineOptionSelected, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
 
                 AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .fundTransfer, usingToPaymentFor: .accountDeposit, paymentModeDetail: self.viewModel.itineraryData?.fundTransfer, netAmount: self.viewModel.itineraryData?.netAmount ?? 0.0, bankMaster: self.viewModel.itineraryData?.bankMaster ?? [], itineraryData: self.viewModel.itineraryData)

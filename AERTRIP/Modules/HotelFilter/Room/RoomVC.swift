@@ -235,7 +235,7 @@ extension RoomVC: UITableViewDataSource, UITableViewDelegate {
             valueStr.removeLast(2)
         }
         
-        let rangeFilterParams = [AnalyticsKeys.FilterName.rawValue: AnalyticsEvents.Room.rawValue, AnalyticsKeys.FilterType.rawValue: filterType, AnalyticsKeys.Values.rawValue: valueStr]
+        let rangeFilterParams = [AnalyticsKeys.name.rawValue: AnalyticsEvents.Room.rawValue, AnalyticsKeys.type.rawValue: filterType, AnalyticsKeys.values.rawValue: valueStr]
         FirebaseEventLogs.shared.logHotelFilterEvents(params: rangeFilterParams)
     }
 }

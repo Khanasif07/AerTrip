@@ -19,7 +19,7 @@ extension MyBookingsVC: UISearchBarDelegate {
         printDebug(forText)
         
 
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.MyBookings, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a", AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.MyBookingsSearchOptionSelected, AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: forText])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.MyBookings, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a", AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.MyBookingsSearchOptionSelected, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: forText])
 
         MyBookingFilterVM.shared.searchText = forText.removeLeadingTrailingWhitespaces
         self.sendDataChangedNotification(data: ATNotification.myBookingSearching)
@@ -31,7 +31,7 @@ extension MyBookingsVC: UISearchBarDelegate {
     
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar){
                 
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.MyBookingsSpeechToTextOptionSelected, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.MyBookingsSpeechToTextOptionSelected, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
 
         AppFlowManager.default.moveToSpeechToText(with: self)
@@ -103,7 +103,7 @@ extension MyBookingsVC: SpeechToTextVCDelegate{
         searchBar.hideMiceButton(isHidden: false)
         
         
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.MyBookingsConvertedSpeechToText, AnalyticsKeys.FilterType.rawValue: "SearchQuery", AnalyticsKeys.Values.rawValue: text])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.MyBookingsConvertedSpeechToText, AnalyticsKeys.type.rawValue: "SearchQuery", AnalyticsKeys.values.rawValue: text])
 
 
         self.searchBar.text = text

@@ -96,6 +96,7 @@ struct TimeFK {
         
         flightGroup.isCollapsed = !flightGroup.isCollapsed
         
+        
         UIView.animate(withDuration: 0.4) {
             
             if sender.transform ==  .identity {
@@ -111,6 +112,9 @@ struct TimeFK {
         }
         
         buttonTapped(false)
+        
+        
+        
         
         
     }
@@ -455,7 +459,9 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
                  collaspableTableView.reloadData()
                  setSelectionViewFrame(animate: true)
         self.timeCollectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.centeredHorizontally, animated: true)
-
+                
+        FirebaseEventLogs.shared.logOneWayResultEvents(with: FirebaseEventLogs.EventsTypeName.SwipeClubbedJourneys, groupId: "\(currentJourney?.groupID ?? 0)")
+        
     }
     
 }

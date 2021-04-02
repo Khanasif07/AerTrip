@@ -151,7 +151,7 @@ extension PeriodicStatementListVC: UITableViewDataSource, UITableViewDelegate {
         if let event = self.getEvent(forIndexPath: indexPath).event {
 //            FirebaseAnalyticsController.shared.logEvent(name: "PeriodicStatementSelectedStatementFromList", params: ["ScreenName":"PeriodicStatement", "ScreenClass":"PeriodicStatementListVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? "","StatementId":event.id])
 
-            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsLedger.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.AccountsPeriodicStatementViewStatementDetailsSelectedFromList, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a", AnalyticsKeys.FilterName.rawValue:"StatementId", AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: event.id])
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsLedger.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.AccountsPeriodicStatementViewStatementDetailsSelectedFromList, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a", AnalyticsKeys.name.rawValue:"StatementId", AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: event.id])
 
             self.viewStatement(forId: event.id, screenTitle: "Statement\(indexPath.row + 1)")
         }

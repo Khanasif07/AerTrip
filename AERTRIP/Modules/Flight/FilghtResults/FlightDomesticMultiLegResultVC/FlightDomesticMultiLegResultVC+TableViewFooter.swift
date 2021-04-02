@@ -102,6 +102,9 @@ extension FlightDomesticMultiLegResultVC {
                         tableView.tableFooterView?.transform = CGAffineTransform.identity
                     }
                 })
+                    
+                    FirebaseEventLogs.shared.logDomesticAndMulticityResults(with: FirebaseEventLogs.EventsTypeName.ShowLongerOrExpensiveFlights, value: self.viewModel.flightSearchParameters)
+                    
             }
         }
     }
@@ -190,6 +193,9 @@ extension FlightDomesticMultiLegResultVC {
                                 tableView.reloadSections([0], with: .none)
                        }
                 })
+                        
+                        FirebaseEventLogs.shared.logDomesticAndMulticityResults(with: FirebaseEventLogs.EventsTypeName.HideLongerOrExpensiveFlights, value: self.viewModel.flightSearchParameters)
+
         }
     }
 }

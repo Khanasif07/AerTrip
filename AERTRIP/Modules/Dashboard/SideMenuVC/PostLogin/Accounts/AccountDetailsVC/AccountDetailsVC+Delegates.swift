@@ -193,7 +193,7 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
         printDebug(Date())
         
         
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsLedger.rawValue, params: [AnalyticsKeys.FilterName.rawValue:FirebaseEventLogs.EventsTypeName.AccountsLedgerViewLedgerDetailsSelectedFromList, AnalyticsKeys.FilterType.rawValue: "LoggedInUserType", AnalyticsKeys.Values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a", AnalyticsKeys.FilterName.rawValue:"Voucher", AnalyticsKeys.FilterType.rawValue: "n/a", AnalyticsKeys.Values.rawValue: allEvent[idx].voucher])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsLedger.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.AccountsLedgerViewLedgerDetailsSelectedFromList, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a", AnalyticsKeys.name.rawValue:"Voucher", AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: allEvent[idx].voucher])
 
 
         delay(seconds: 0.0){
