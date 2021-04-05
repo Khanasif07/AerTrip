@@ -93,7 +93,6 @@ enum AnalyticsEvents: String {
     case FlightOneWayResults
     case FlightInternationalAndMulticityResults
     case FlightDomesticAndMulticityResults
-    case Addons
 }
 
 enum AnalyticsKeys: String {

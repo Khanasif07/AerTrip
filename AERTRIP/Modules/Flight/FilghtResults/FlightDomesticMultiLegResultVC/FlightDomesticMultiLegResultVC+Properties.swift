@@ -544,8 +544,6 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
 
         self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, isInternational: false, journeyArray: journeyArray, valString: "", trip_type: tripType,filterString: filterStr,searchParam: flightSearchResultVM.flightSearchParametersFromDeepLink)
 
-        FirebaseEventLogs.shared.logDomesticAndMulticityResults(with: FirebaseEventLogs.EventsTypeName.ShareFlight, fkArray: journeyArray.map { $0.fk })
-        
     }
     
     func returnSharableUrl(url: String)
