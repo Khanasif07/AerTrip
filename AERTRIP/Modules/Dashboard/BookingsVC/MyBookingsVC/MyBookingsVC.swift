@@ -27,6 +27,7 @@ class MyBookingsVC: BaseVC {
         return UIApplication.shared.isStatusBarHidden ? CGFloat(0) : UIApplication.shared.statusBarFrame.height
     }
     
+    
     private var time: Float = 0.0
     private var timer: Timer?
     
