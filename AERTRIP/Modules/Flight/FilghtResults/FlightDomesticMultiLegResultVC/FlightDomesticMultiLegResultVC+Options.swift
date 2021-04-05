@@ -26,10 +26,10 @@ extension FlightDomesticMultiLegResultVC : MFMailComposeViewControllerDelegate {
         journeyToToggle.isPinned = isPinned
         journeyArray[journeyIndex] = journeyToToggle
         self.viewModel.results[tableIndex].journeyArray = journeyArray
-        
         if isPinned {
         showPinnedFlightsOption(true)
         self.viewModel.results[tableIndex].currentPinnedJourneys.append(journeyToToggle)
+            FirebaseEventLogs.shared.logDomesticAndMulticityResults(with: FirebaseEventLogs.EventsTypeName.PinFlight, fk: journeyToToggle.fk)
 
         } else {
             
@@ -60,6 +60,8 @@ extension FlightDomesticMultiLegResultVC : MFMailComposeViewControllerDelegate {
             }){
                     self.viewModel.results[tableIndex].currentPinnedJourneys.remove(at: index)
             }
+            FirebaseEventLogs.shared.logDomesticAndMulticityResults(with: FirebaseEventLogs.EventsTypeName.UnPinFlight, fk: journeyToToggle.fk)
+
         }
         
         self.viewModel.setPinnedFlights(tableIndex: tableIndex)
@@ -116,6 +118,10 @@ extension FlightDomesticMultiLegResultVC : MFMailComposeViewControllerDelegate {
         
            self.setTotalFare()
            self.checkForOverlappingFlights()
+        
+        FirebaseEventLogs.shared.logDomesticAndMulticityResults(with: FirebaseEventLogs.EventsTypeName.UnPinAll)
+
+        
        }
        
            //MARK:- Emailing Pinned Flights

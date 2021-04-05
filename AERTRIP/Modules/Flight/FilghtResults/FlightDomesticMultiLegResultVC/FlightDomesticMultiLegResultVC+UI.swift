@@ -505,6 +505,8 @@ extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetails
             }
             flightDetailsVC.journeyCombo = journeyCombo
             self.present(flightDetailsVC, animated: true, completion: nil)
+        
+        FirebaseEventLogs.shared.logDomesticAndMulticityResults(with: FirebaseEventLogs.EventsTypeName.OpenFlightDetails, fkArray: flightDetailsVC.journey.map { $0.fk })
     }
     
     func updateAirportDetailsArray(_ results : [String : AirportDetailsWS]) {
