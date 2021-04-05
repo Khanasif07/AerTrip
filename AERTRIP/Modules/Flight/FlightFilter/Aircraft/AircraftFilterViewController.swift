@@ -37,8 +37,10 @@ class AircraftFilterViewController: UIViewController , FilterViewController {
     }
 
     func setupTableView() {
-        aircraftTableView.separatorStyle = .none
-        aircraftTableView.tableFooterView = UIView(frame: .zero)
+//        aircraftTableView.separatorStyle = .none
+//        aircraftTableView.tableFooterView = UIView(frame: .zero)
+        aircraftTableView.delegate = self
+        aircraftTableView.dataSource = self
         aircraftTableView.register(UINib(nibName: "RadioButtonTableViewCell", bundle: nil), forCellReuseIdentifier: "RadioButtonCell")
         aircraftTableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
     }
@@ -133,7 +135,7 @@ extension AircraftFilterViewController : UITableViewDataSource , UITableViewDele
         if section == 0 {
             return 0.5
         }
-        return 0
+        return CGFloat.leastNonzeroMagnitude
     }
     
     
