@@ -9,10 +9,10 @@
 import Foundation
 
 
-class FirebaseEventLogs{
+class FirebaseEventLogs: NSObject{
     
-    static let shared = FirebaseEventLogs()
-    private init(){}
+    @objc static let shared = FirebaseEventLogs()
+    override init(){}
     
     enum EventsTypeName:String {
         //MARK:- Settings Events TypeNames
@@ -493,6 +493,7 @@ class FirebaseEventLogs{
     }
     
     
+    
     //MARK:- Settings Events Log Function
     func logSettingEvents(with type: EventsTypeName){
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Settings.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
@@ -843,4 +844,58 @@ class FirebaseEventLogs{
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Home.rawValue, params: [AnalyticsKeys.name.rawValue:type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
     }
 
+}
+
+
+@objc extension FirebaseEventLogs{
+    
+    ///Objective c Event type
+    @objc enum EventsTypeNameObjc:Int {
+        typealias RawValue = String
+        
+        //MARK:- FlighForm Events TypeNames
+        case TapFrom
+        case TapTo
+        case TapOnwardDate
+        case TapReturnDate
+        case TapSelectPassenger
+        case TapSelectClass
+        case TapSearchButton
+        case TapOneWay
+        case TapReturn
+        case TapMulticity
+        case SearchFromRecentSearch
+        
+        
+        
+        var rawValue: RawValue{
+            switch self {
+            case .TapSearchButton: return "TapSearchButton"
+            case .TapFrom: return "TapFrom"
+            case .TapTo: return "TapTo"
+            case .TapOnwardDate: return "TapOnwardDate"
+            case .TapReturnDate: return "TapReturnDate"
+            case .TapSelectPassenger: return "TapSelectPassenger"
+            case .TapSelectClass: return "TapSelectClass"
+            case .TapOneWay: return "TapOneWay"
+            case .TapReturn: return "TapReturn"
+            case .TapMulticity: return "TapMulticity"
+            case .SearchFromRecentSearch: return "SearchFromRecentSearch"
+            }
+        }
+        
+        init?(rawValue: RawValue) {
+            switch rawValue {
+            default:return nil
+            }
+        }
+        
+        
+    }
+    
+    //MARK:- Flight Form Events function
+    func logFlightFormEvents(with name: EventsTypeNameObjc, type: FlightSearchType, stringValue:String? = nil, dictValue:JSONDictionary? = nil){
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightForm.rawValue, params: [:])
+    }
+    
 }

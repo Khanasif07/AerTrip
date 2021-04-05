@@ -104,6 +104,7 @@ enum AnalyticsEvents: String {
     
 //    Home
     case Home
+    case FlightForm
 }
 
 enum AnalyticsKeys: String {
