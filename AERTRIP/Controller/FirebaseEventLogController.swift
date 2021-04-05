@@ -715,7 +715,7 @@ class FirebaseEventLogs{
     
     //MARK:- Log Events Without Param Function
     func logEventsWithOutParam(with type: AnalyticsEvents){
-        FirebaseAnalyticsController.shared.logEvent(name: type.rawValue)
+        FirebaseAnalyticsController.shared.logEvent(name: type.rawValue) 
     }
     
     //MARK:- Flight Result Events
