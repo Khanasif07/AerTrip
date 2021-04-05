@@ -191,14 +191,19 @@ class SideMenuVC: BaseVC {
     // MARK: -
     
     @IBAction func facebookBtnAction(_ sender: UIButton) {
+        FirebaseEventLogs.shared.logSideMenuEvents(with: .OpenFacebook)
         AppSocialNetwork.Facebook.openPage()
     }
     
     @IBAction func instagramBtnAction(_ sender: UIButton) {
+        FirebaseEventLogs.shared.logSideMenuEvents(with: .OpenInstagram)
+
         AppSocialNetwork.Instagram.openPage()
     }
     
     @IBAction func twitterBtnAction(_ sender: UIButton) {
+        FirebaseEventLogs.shared.logSideMenuEvents(with: .OpenTwitter)
+
         AppSocialNetwork.Twitter.openPage()
     }
 }
@@ -233,6 +238,9 @@ private extension SideMenuVC {
 extension SideMenuVC {
     
     @objc func loginAndRegistrationButtonAction(_ sender: ATButton) {
+        
+        FirebaseEventLogs.shared.logSideMenuEvents(with: .ClickedonLoginRegister)
+
         delay(seconds: 0.15) { [weak self] in
             self?.delegate?.loginRegisterAction(sender)
         }
@@ -364,37 +372,53 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
             switch indexPath.row {
             case 0:
                 //profile
+                FirebaseEventLogs.shared.logSideMenuEvents(with: .OpenProfile)
+
                 self.viewProfileButtonAction(ATButton())
                 
             case 1:
                 //view account
+                FirebaseEventLogs.shared.logSideMenuEvents(with: .ViewAccounts)
+
                 AppFlowManager.default.moveToAccountDetailsScreen()
                 
             case 2:
                 //my booking
+                FirebaseEventLogs.shared.logSideMenuEvents(with: .OpenBookings)
+
                 AppFlowManager.default.moveToMyBookingsVC()
                 
             case 3:
                 // Offers
+                FirebaseEventLogs.shared.logSideMenuEvents(with: .OpenOffers)
+
                 if let url = URL(string: AppKeys.offers) {
                     AppFlowManager.default.showURLOnATWebView(url, screenTitle:  self.viewModel.cellForLoginUser[indexPath.row - 2], presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
                 }
             case 4:
                 //my Notifications
+                FirebaseEventLogs.shared.logSideMenuEvents(with: .OpenNotifications)
+
                 AppFlowManager.default.moveToNotificationVC()
                 
             case 6:
                 //settings
+                FirebaseEventLogs.shared.logSideMenuEvents(with: .OpenSettings)
+
                 AppFlowManager.default.moveToSettingsVC()
                 
             case 7:
                 //Support
+                FirebaseEventLogs.shared.logSideMenuEvents(with: .OpenSupport)
+
                 if let url = URL(string: AppKeys.contact) {
                     AppFlowManager.default.showURLOnATWebView(url, screenTitle:  self.viewModel.cellForLoginUser[indexPath.row - 2], presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
                 }
                 
             case 8:
                 //RateUs
+                FirebaseEventLogs.shared.logSideMenuEvents(with: .OpenRateUs)
+
                 self.openUrl(AppKeys.kAppStoreLink)
                 
             default:
@@ -409,26 +433,36 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 break
             case 1:
                 //why Aertrip
+                FirebaseEventLogs.shared.logSideMenuEvents(with: .OpenWhyAertrip)
+
                 if let url = URL(string: AppKeys.whyAertrip) {
                     AppFlowManager.default.showURLOnATWebView(url, screenTitle:  self.viewModel.displayCellsForGuest[indexPath.row - 1], presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
                 }
             case 2:
                 //Smart Sort
+                FirebaseEventLogs.shared.logSideMenuEvents(with: .OpenSmartSort)
+
                 if let url = URL(string: AppKeys.smartSort) {
                     AppFlowManager.default.showURLOnATWebView(url, screenTitle:  self.viewModel.displayCellsForGuest[indexPath.row - 1], presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
                 }
             case 3:
                 //offers
+                FirebaseEventLogs.shared.logSideMenuEvents(with: .OpenOffers)
+
                 if let url = URL(string: AppKeys.offers) {
                     AppFlowManager.default.showURLOnATWebView(url, screenTitle:  self.viewModel.displayCellsForGuest[indexPath.row - 1], presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
                 }
             case 4:
                 //contact us
+                FirebaseEventLogs.shared.logSideMenuEvents(with: .OpenContactUs)
+
                 if let url = URL(string: AppKeys.contact) {
                     AppFlowManager.default.showURLOnATWebView(url, screenTitle:  self.viewModel.displayCellsForGuest[indexPath.row - 1], presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
                 }
             case 5:
                 //settings
+                FirebaseEventLogs.shared.logSideMenuEvents(with: .OpenSettings)
+
                 AppFlowManager.default.moveToSettingsVC()
                 
             default:

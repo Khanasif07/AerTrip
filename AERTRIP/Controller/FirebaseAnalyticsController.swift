@@ -105,6 +105,9 @@ enum AnalyticsEvents: String {
 //    Home
     case Home
     case FlightForm
+    
+//    SideMenu
+    case SideMenu
 }
 
 enum AnalyticsKeys: String {
