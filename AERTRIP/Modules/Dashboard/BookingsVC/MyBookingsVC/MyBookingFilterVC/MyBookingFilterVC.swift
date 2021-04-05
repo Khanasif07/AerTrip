@@ -73,9 +73,7 @@ class MyBookingFilterVC: BaseVC {
             self.show(animated: true)
 //        }
         
-        
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.MyBookingsFilter, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
-
+        FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsFilter)
     }
     
     override func setupTexts() {
@@ -264,10 +262,8 @@ extension MyBookingFilterVC: TopNavigationViewDelegate {
         delay(seconds: 0.5) {
             self.setCounts()
         }
-        
-//        FirebaseAnalyticsController.shared.logEvent(name: "MyBookingsClearFilter", params: ["ScreenName":"MyBookingFilter", "ScreenClass":"MyBookingFilterVC"])
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.MyBookingsFilterCleared, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
+        FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsFilterCleared)
 
         
     }

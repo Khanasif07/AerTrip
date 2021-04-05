@@ -33,9 +33,8 @@ class FlightFareInfoVC: BaseVC {
         }
         //        self.tableView.backgroundColor = AppColors.themeWhite
         self.viewModel.getBookingFees()
-        
 
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.BookingsFlightDetailsFareInfo, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsFlightDetailsFareInfo, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
 
     }
     

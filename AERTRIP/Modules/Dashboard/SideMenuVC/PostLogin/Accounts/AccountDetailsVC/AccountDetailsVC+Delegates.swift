@@ -193,7 +193,11 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
         printDebug(Date())
         
         
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsLedger.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.AccountsLedgerViewLedgerDetailsSelectedFromList, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a", AnalyticsKeys.name.rawValue:"Voucher", AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: allEvent[idx].voucher])
+        let jsonDict : JSONDictionary = ["LoggedInUserType": UserInfo.loggedInUser?.userCreditType ?? "n/a",
+                                         "Voucher":allEvent[idx].voucher]
+        
+        FirebaseEventLogs.shared.logAccountsDetailsEvents(with: .AccountsLedgerViewLedgerDetailsSelectedFromList, value: jsonDict)
+        
 
 
         delay(seconds: 0.0){

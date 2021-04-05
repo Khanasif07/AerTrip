@@ -84,11 +84,10 @@ class OtherBookingsDetailsVC: BaseVC {
         }
 
         NotificationCenter.default.addObserver(self, selector: #selector(bookingDetailFetched(_:)), name: .bookingDetailFetched, object: nil)
-        
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.OtherBookingsDetails, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
 
-
+        FirebaseEventLogs.shared.logMyBookingsEvent(with: .OtherBookingsDetails)
+            
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -186,14 +185,16 @@ class OtherBookingsDetailsVC: BaseVC {
             case 0:
                 //PayOnline
                 
-                FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.OtherBookingsDetailsDepositPayOnlineOptionSelected, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+                let jsonDict : JSONDictionary = ["BookingId":self.viewModel.bookingId]
+                FirebaseEventLogs.shared.logMyBookingsEvent(with: .OtherBookingsDetailsDepositPayOnlineOptionSelected, value: jsonDict)
 
                 AppFlowManager.default.moveToAccountOnlineDepositVC(depositItinerary: self.viewModel.itineraryData, usingToPaymentFor: .booking)
                 
             case 1:
                 //PayOfflineNRegister
 
-                FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.OtherBookingsDetailsDepositPayOfflineOptionSelected, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+                let jsonDict : JSONDictionary = ["BookingId":self.viewModel.bookingId]
+                FirebaseEventLogs.shared.logMyBookingsEvent(with: .OtherBookingsDetailsDepositPayOfflineOptionSelected, value: jsonDict)
 
                 
                 AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .fundTransfer, usingToPaymentFor: .addOns, paymentModeDetail: self.viewModel.itineraryData?.fundTransfer, netAmount: self.viewModel.itineraryData?.netAmount ?? 0.0, bankMaster: self.viewModel.itineraryData?.bankMaster ?? [], itineraryData: self.viewModel.itineraryData)
