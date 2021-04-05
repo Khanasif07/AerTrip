@@ -96,11 +96,8 @@ class FlightBookingsDetailsVC: BaseVC {
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(bookingDetailFetched(_:)), name: .bookingDetailFetched, object: nil)
-        
                 
-        FirebaseAnalyticsController.shared.logEvent(name: "FlightBookingDetails",params:["ScreenName":"FlightBookingDetails", "ScreenClass":"FlightBookingsDetailsVC"])
-
-
+        FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsFlightBookingsDetails)
     }
     
     override func setupColors() {
@@ -284,14 +281,19 @@ class FlightBookingsDetailsVC: BaseVC {
             switch index {
             case 0:
                 //PayOnline
-                FirebaseAnalyticsController.shared.logEvent(name: "FlightBookingsDetailsPayOnlineClicked", params: ["ScreenName":"FlightBookingsDetails", "ScreenClass":"FlightBookingsDetailsVC"])
 
+                let jsonDict : JSONDictionary = ["BookingId":self.viewModel.bookingId]
+                FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsFlightBookingsDetailsPayOnlineOptionSelected, value: jsonDict)
+
+                
                 AppFlowManager.default.moveToAccountOnlineDepositVC(depositItinerary: self.viewModel.itineraryData, usingToPaymentFor: .booking)
                 
             case 1:
                 //PayOfflineNRegister
                 
-                FirebaseAnalyticsController.shared.logEvent(name: "FlightBookingsDetailsPayOfflineClicked", params: ["ScreenName":"FlightBookingsDetails", "ScreenClass":"FlightBookingsDetailsVC"])
+                let jsonDict : JSONDictionary = ["BookingId":self.viewModel.bookingId]
+                FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsFlightBookingsDetailsPayOfflineOptionSelected, value: jsonDict)
+
 
                 AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .fundTransfer, usingToPaymentFor: .addOns, paymentModeDetail: self.viewModel.itineraryData?.fundTransfer, netAmount: self.viewModel.itineraryData?.netAmount ?? 0.0, bankMaster: self.viewModel.itineraryData?.bankMaster ?? [], itineraryData: self.viewModel.itineraryData)
                 printDebug("PayOfflineNRegister")
@@ -346,8 +348,10 @@ class FlightBookingsDetailsVC: BaseVC {
     
     // Present Request Add on Frequent Flyer VC
     func presentRequestAddOnFrequentFlyer() {
-        FirebaseAnalyticsController.shared.logEvent(name: "BookingFlightDetailsRequestAddonFF", params: ["ScreenName":"FlightBookingsDetailsVC", "ScreenClass":"FlightBookingsDetailsVC", "ButtonAction":"RequestAddonAndFrequestFlyerClicked"])
 
+        FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsRequestAddOnFrequentFlyerOptionSelected)
+        
+        
         AppFlowManager.default.presentBookingReuqestAddOnVC(bookingdata: self.viewModel.bookingDetail,delegate: self)
     }
     
@@ -355,7 +359,7 @@ class FlightBookingsDetailsVC: BaseVC {
     func presentBookingReschedulingVC() {
         if let leg = self.viewModel.bookingDetail?.bookingDetail?.leg {
 
-            FirebaseAnalyticsController.shared.logEvent(name: "BookingFlightDetailsRequestRescheduling", params: ["ScreenName":"FlightBookingsDetailsVC", "ScreenClass":"FlightBookingsDetailsVC", "ButtonAction":"RequestReschedulingClicked"])
+            FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsReschedulingOptionSelected)
 
             AppFlowManager.default.presentBookingReschedulingVC(legs: leg)
         }

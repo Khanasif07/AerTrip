@@ -187,6 +187,7 @@ class DashboardVC: BaseVC {
     //MARK:- IBAction
     @IBAction func aerinAction(_ ff: UIButton) {
         if selectedOption == .aerin || isAnimatingButtons {return}
+        FirebaseEventLogs.shared.logHomeEvents(with: .NavigatetoAerinbyTapping)
         toBeSelect = .aerin
         isSelectingFromTabs = true
         innerScrollView.setContentOffset(CGPoint(x: innerScrollView.bounds.size.width * CGFloat(SelectedOption.aerin.rawValue), y: innerScrollView.contentOffset.y), animated: true)
@@ -194,6 +195,8 @@ class DashboardVC: BaseVC {
     
     @IBAction func flightsAction(_ sender: UIButton) {
         if selectedOption == .flight || isAnimatingButtons {return}
+        FirebaseEventLogs.shared.logHomeEvents(with: .NavigatetoFlightsbyTapping)
+
         toBeSelect = .flight
         isSelectingFromTabs = true
         innerScrollView.setContentOffset(CGPoint(x: innerScrollView.bounds.size.width * CGFloat(SelectedOption.flight.rawValue), y: innerScrollView.contentOffset.y), animated: true)
@@ -202,6 +205,8 @@ class DashboardVC: BaseVC {
     @IBAction func hotelsAction(_ sender: UIButton) {
         
         if selectedOption == .hotels || isAnimatingButtons {return}
+        FirebaseEventLogs.shared.logHomeEvents(with: .NavigatetoHotelsbyTapping)
+
         toBeSelect = .hotels
         isSelectingFromTabs = true
         innerScrollView.setContentOffset(CGPoint(x: innerScrollView.bounds.size.width * CGFloat(SelectedOption.hotels.rawValue), y: innerScrollView.contentOffset.y), animated: true)
@@ -211,6 +216,8 @@ class DashboardVC: BaseVC {
     @IBAction func tripsAction(_ sender: UIButton) {
         
         if selectedOption == .trips || isAnimatingButtons {return}
+        FirebaseEventLogs.shared.logHomeEvents(with: .NavigatetoTripsbyTapping)
+
         toBeSelect = .trips
         isSelectingFromTabs = true
         innerScrollView.setContentOffset(CGPoint(x: innerScrollView.bounds.size.width * CGFloat(SelectedOption.trips.rawValue), y: innerScrollView.contentOffset.y), animated: true)
@@ -218,6 +225,9 @@ class DashboardVC: BaseVC {
     
     
     @IBAction func profileButtonAction(_ sender: ATNotificationButton) {
+        
+        FirebaseEventLogs.shared.logHomeEvents(with: .ProfileOptionSelected)
+
         AppFlowManager.default.sideMenuController?.toggleMenu() // nitin change
     }
     
@@ -715,6 +725,8 @@ extension DashboardVC  {
         if isForward{
             switch currentOption{
             case .aerin:
+                FirebaseEventLogs.shared.logHomeEvents(with: .NavigatetoAerinbySwiping)
+
                 aerinView.alpha = max(aerinView.alpha - moved, 0.5)
                 flightsView.alpha = min(flightsView.alpha + moved, 1.0)
                 
@@ -724,6 +736,8 @@ extension DashboardVC  {
                 }
                 
             case .flight:
+                FirebaseEventLogs.shared.logHomeEvents(with: .NavigatetoFlightsbySwiping)
+
                 flightsView.alpha = max(flightsView.alpha - moved, 0.5)
                 hotelsView.alpha = min(hotelsView.alpha + moved, 1.0)
                 if mainScrollView.contentOffset.y + mainScrollView.height < mainScrollView.contentSize.height - 19.0 {
@@ -731,18 +745,24 @@ extension DashboardVC  {
                     checkAndApplyTransform(hotelsView, transformValue: increaseSize, scrolledUp: isForward, isIncreasing: true)
                 }
             case .hotels:
+                FirebaseEventLogs.shared.logHomeEvents(with: .NavigatetoHotelsbySwiping)
+
                 hotelsView.alpha = max(hotelsView.alpha - moved, 0.5)
                 tripsView.alpha = min(tripsView.alpha + moved, 1.0)
                 if mainScrollView.contentOffset.y + mainScrollView.height < mainScrollView.contentSize.height - 19.0 {
                     checkAndApplyTransform(hotelsView, transformValue: decreaseSize, scrolledUp: isForward, isIncreasing: false)
                     checkAndApplyTransform(tripsView, transformValue: increaseSize, scrolledUp: isForward, isIncreasing: true)
                 }
-            case .trips: break
+            case .trips:
+                FirebaseEventLogs.shared.logHomeEvents(with: .NavigatetoTripsbySwiping)
+                break
             }
         }else{
             
             switch currentOption{
             case .aerin:
+                FirebaseEventLogs.shared.logHomeEvents(with: .NavigatetoAerinbySwiping)
+
                 flightsView.alpha = max(flightsView.alpha - moved, 0.5)
                 aerinView.alpha = min(aerinView.alpha + moved, 1.0)
                 
@@ -752,6 +772,8 @@ extension DashboardVC  {
                 }
                 
             case .flight:
+                FirebaseEventLogs.shared.logHomeEvents(with: .NavigatetoFlightsbySwiping)
+
                 hotelsView.alpha = max(hotelsView.alpha - moved, 0.5)
                 flightsView.alpha = min(flightsView.alpha + moved, 1.0)
                 // Asif Change ====================== ======================  ======================
@@ -760,7 +782,8 @@ extension DashboardVC  {
                     checkAndApplyTransform(flightsView, transformValue: increaseSize, scrolledUp: isForward, isIncreasing: true)
                 }
             case .hotels:
-                
+                FirebaseEventLogs.shared.logHomeEvents(with: .NavigatetoHotelsbySwiping)
+
                 tripsView.alpha = max(tripsView.alpha - moved, 0.5)
                 hotelsView.alpha = min(hotelsView.alpha + moved, 1.0)
                 
@@ -768,7 +791,10 @@ extension DashboardVC  {
                     checkAndApplyTransform(tripsView, transformValue: decreaseSize, scrolledUp: isForward, isIncreasing: false)
                     checkAndApplyTransform(hotelsView, transformValue: increaseSize, scrolledUp: isForward, isIncreasing: true)
                 }
-            case .trips: break
+            case .trips:
+                FirebaseEventLogs.shared.logHomeEvents(with: .NavigatetoTripsbySwiping)
+
+                break
             }
         }
     }

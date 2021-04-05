@@ -89,8 +89,9 @@ class SpecialAccountDetailsVC: BaseVC {
         activityIndicator.backgroundColor = .clear
         activityIndicator.startAnimating()
         loaderView.addSubview(activityIndicator)
-        
-        FirebaseAnalyticsController.shared.logEvent(name: "Accounts", params: ["ScreenName":"Accounts", "ScreenClass":"SpecialAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+                        
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .Accounts, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+
 
     }
     
@@ -128,13 +129,17 @@ class SpecialAccountDetailsVC: BaseVC {
             switch index {
             case 0:
                 //PayOnline
-                FirebaseAnalyticsController.shared.logEvent(name: "AccountsPayOnlineClicked", params: ["ScreenName":"Accounts", "ScreenClass":"SpecialAccountDetailsVC"])
+
+                FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .AccountsPayOnlineOptionSelected, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+
+                
 
                 AppFlowManager.default.moveToAccountOnlineDepositVC(depositItinerary: strongSelf.viewModel.itineraryData, usingToPaymentFor: .accountDeposit)
                 
             case 1:
                 //PayOfflineNRegister
-                FirebaseAnalyticsController.shared.logEvent(name: "AccountsPayOfflineClicked", params: ["ScreenName":"Accounts", "ScreenClass":"SpecialAccountDetailsVC"])
+                
+                FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .AccountsPayOfflineOptionSelected, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
 
                 AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .fundTransfer, usingToPaymentFor: .accountDeposit, paymentModeDetail: strongSelf.viewModel.itineraryData?.fundTransfer, netAmount: strongSelf.viewModel.itineraryData?.netAmount ?? 0.0, bankMaster: strongSelf.viewModel.itineraryData?.bankMaster ?? [], itineraryData: strongSelf.viewModel.itineraryData)
                 printDebug("PayOfflineNRegister")
@@ -199,7 +204,8 @@ class SpecialAccountDetailsVC: BaseVC {
     
     //MARK:- Action
     @objc func depositButtonAction(_ sender: ATButton) {
-        FirebaseAnalyticsController.shared.logEvent(name: "AccountsDepositButtonClicked", params: ["ScreenName":"Accounts", "ScreenClass":"SpecialAccountDetailsVC"])
+        
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .AccountsDepositeOptionSelected, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
 
         self.viewModel.getOutstandingPayment()
     }
@@ -259,14 +265,16 @@ extension SpecialAccountDetailsVC: SpecialAccountDetailsVMDelegate {
 extension SpecialAccountDetailsVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         //back button action
-        FirebaseAnalyticsController.shared.logEvent(name: "AccountsBackButtonClicked", params: ["ScreenName":"Accounts", "ScreenClass":"SpecialAccountDetailsVC"])
+
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .navigateBack, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
 
         AppFlowManager.default.popViewController(animated: true)
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         //info button action
-        FirebaseAnalyticsController.shared.logEvent(name: "AccountsInfoButtonClicked", params: ["ScreenName":"Accounts", "ScreenClass":"SpecialAccountDetailsVC"])
+
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .AccountsInfoOptionSelected, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
 
         AppFlowManager.default.presentAccountChargeInfoVC(usingFor: .chargeInfo)
     }

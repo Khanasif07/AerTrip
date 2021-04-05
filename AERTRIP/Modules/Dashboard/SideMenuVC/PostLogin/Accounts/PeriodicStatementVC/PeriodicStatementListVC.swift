@@ -149,8 +149,11 @@ extension PeriodicStatementListVC: UITableViewDataSource, UITableViewDelegate {
         
 
         if let event = self.getEvent(forIndexPath: indexPath).event {
-            FirebaseAnalyticsController.shared.logEvent(name: "PeriodicStatementSelectedStatementFromList", params: ["ScreenName":"PeriodicStatement", "ScreenClass":"PeriodicStatementListVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? "","StatementId":event.id])
 
+            let jsonDict : JSONDictionary = ["LoggedInUserType":UserInfo.loggedInUser?.userCreditType ?? "n/a",
+                                             "StatementId":event.id]
+            FirebaseEventLogs.shared.logAccountsDetailsEvents(with: .AccountsPeriodicStatementViewStatementDetailsSelectedFromList, value: jsonDict)
+            
             self.viewStatement(forId: event.id, screenTitle: "Statement\(indexPath.row + 1)")
         }
     }

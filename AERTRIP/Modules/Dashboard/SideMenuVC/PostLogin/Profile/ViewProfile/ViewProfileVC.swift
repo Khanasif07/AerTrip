@@ -233,6 +233,7 @@ extension ViewProfileVC: TopNavigationViewDelegate {
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
+        self.viewModel.logEvents(with: .ClickOnEditMainUserProfile)
         self.activityIndicator.isHidden = false
         self.topNavView.firstRightButton.isHidden = true
         self.activityIndicator.startAnimating()
@@ -343,22 +344,22 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
             // Open traveller detail listing
                     case LocalizedString.TravellerList.localized:
                         AppFlowManager.default.moveToTravellerListVC()
-                
+                        self.viewModel.logEventsWithoutParam(with: .OpenTravellersList)
                     // Open View All hotel details
                     case LocalizedString.HotelPreferences.localized:
                         AppFlowManager.default.moveToViewAllHotelsVC()
-                
+                        self.viewModel.logEventsWithoutParam(with: .OpenFavouriteHotels)
                     // Open Quick pay
                     case LocalizedString.QuickPay.localized:
                         AppFlowManager.default.moveToQuickPayVC()
-                
+                        self.viewModel.logEventsWithoutParam(with: .OpenQuickPay)
                     // Open linked accout VC
                     case LocalizedString.LinkedAccounts.localized:
                         AppFlowManager.default.moveToLinkedAccountsVC()
-                
+                        self.viewModel.logEventsWithoutParam(with: .OpenLinkedAccounts)
                     case LocalizedString.AccountDetails.localized:
 //                        AppToast.default.showToastMessage(message: "This feature is coming soon")
-                    
+                        self.viewModel.logEventsWithoutParam(with: .OpenLinkedAccounts)
                         AppFlowManager.default.moveToAccountDetailsVC()
 
 //                        self.openUpdateAccount()
@@ -391,6 +392,7 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
                 _ = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.DoYouWantToLogout.localized, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
                     
                     if index == 0 {
+                        self.viewModel.logEventsWithoutParam(with: .LogOut)
                         self.viewModel.webserviceForLogOut()
                     }
                 }
@@ -583,6 +585,7 @@ extension ViewProfileVC: SlideMenuProfileImageHeaderViewDelegate {
     }
     
     func profileImageTapped() {
+        self.viewModel.logEvents(with: .ClickOnMainUserProfile)
         printDebug("profile Image Tapped View ProfileVc")
         AppFlowManager.default.moveToViewProfileDetailVC(UserInfo.loggedInUser?.travellerDetailModel ?? TravelDetailModel(), usingFor: .viewProfile)
     }

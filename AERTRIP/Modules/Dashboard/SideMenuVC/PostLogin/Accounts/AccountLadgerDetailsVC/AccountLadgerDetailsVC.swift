@@ -104,7 +104,8 @@ class AccountLadgerDetailsVC: BaseVC {
         
         self.containerView.backgroundColor = AppColors.themeGray04
         
-        FirebaseAnalyticsController.shared.logEvent(name: "AccountLadgerDetails", params: ["ScreenName":"AccountLadgerDetails", "ScreenClass":"AccountLadgerDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? "","DetailsType":viewModel.detailType])
+
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .AccountsLedgerDetails, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
 
     }
     
@@ -251,7 +252,8 @@ extension AccountLadgerDetailsVC: AccountLadgerDetailsVMDelegate {
 extension AccountLadgerDetailsVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         //back button
-        FirebaseAnalyticsController.shared.logEvent(name: "AccountLadgerDetailsBackButtonClicked", params: ["ScreenName":"AccountLadgerDetails", "ScreenClass":"AccountLadgerDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? "","DetailsType":viewModel.detailType])
+
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .navigateBack, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
 
         DispatchQueue.main.async {
             AppFlowManager.default.popViewController(animated: true)
@@ -417,12 +419,19 @@ extension AccountLadgerDetailsVC: AccountLadgerDetailHeaderDelegate{
                 
                 let title = NSMutableAttributedString(string: (event.voucher == .sales) ? event.title : event.sector)
                 
-                FirebaseAnalyticsController.shared.logEvent(name: "AccountLadgerDetailsFlightsOptionClicked", params: ["ScreenName":"AccountLadgerDetails", "ScreenClass":"AccountLadgerDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? "","DetailsType":viewModel.detailType,"title":title])
+                
+                let jsonDict : JSONDictionary = ["LoggedInUserType":UserInfo.loggedInUser?.userCreditType ?? "n/a",
+                                                 "DetailsType":viewModel.detailType,
+                                                 "Title":title]
+                FirebaseEventLogs.shared.logAccountsDetailsEvents(with: .AccountsLedgerDetails, value: jsonDict)
 
                 AppFlowManager.default.moveToFlightBookingsDetailsVC(bookingId: event.bookingId,tripCitiesStr: title)
                 
             case .hotel:
-                FirebaseAnalyticsController.shared.logEvent(name: "AccountLadgerDetailsHotelsOptionClicked", params: ["ScreenName":"AccountLadgerDetails", "ScreenClass":"AccountLadgerDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? "","DetailsType":viewModel.detailType])
+
+                let jsonDict : JSONDictionary = ["LoggedInUserType":UserInfo.loggedInUser?.userCreditType ?? "n/a",
+                                                 "DetailsType":viewModel.detailType]
+                FirebaseEventLogs.shared.logAccountsDetailsEvents(with: .AccountsLedgerDetails, value: jsonDict)
 
                 AppFlowManager.default.moveToHotelBookingsDetailsVC(bookingId: event.bookingId)
             default: break

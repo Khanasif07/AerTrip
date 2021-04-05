@@ -43,9 +43,9 @@ class BookingDirectionVC: BaseVC {
         self.directionTableView.dataSource = self
         self.directionTableView.delegate = self
         self.directionTableView.reloadData()
-        
-        
-//        FirebaseAnalyticsController.shared.logEvent(name: "BookingDirections", params: ["ScreenName":"BookingDirectionVC", "ScreenClass":"BookingDirectionVC"])
+
+
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsDirections, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
 
     }
     

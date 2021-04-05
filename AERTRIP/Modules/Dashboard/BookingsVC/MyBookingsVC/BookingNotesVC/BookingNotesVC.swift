@@ -95,8 +95,7 @@ class BookingNotesVC: BaseVC {
         self.titleLabel.alpha = 0.0
         self.stickyTitleLabel.alpha = 1.0
         
-        FirebaseAnalyticsController.shared.logEvent(name: "BookingNotes", params: ["ScreenName":"BookingNotes", "ScreenClass":"BookingNotesVC"])
-
+        FirebaseEventLogs.shared.logEventsWithOutParam(with: .MyBookingsNotes)
     }
     
     //Mark:- Functions

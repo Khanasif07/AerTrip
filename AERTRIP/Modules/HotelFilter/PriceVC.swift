@@ -89,7 +89,7 @@ class PriceVC: BaseVC {
         let minRange = Double(slider.value.first ?? 0.0).roundTo(places: 2)
         let maxRange = Double(slider.value.last ?? 0.0).roundTo(places: 2)
         let valueStr = "min\(Int(minRange)) max\(Int(maxRange))"
-        let rangeFilterParams = [AnalyticsKeys.FilterName.rawValue: AnalyticsEvents.Price.rawValue, AnalyticsKeys.FilterType.rawValue: AnalyticsEvents.PriceRange.rawValue, AnalyticsKeys.Values.rawValue: valueStr]
+        let rangeFilterParams = [AnalyticsKeys.name.rawValue: AnalyticsEvents.Price.rawValue, AnalyticsKeys.type.rawValue: AnalyticsEvents.PriceRange.rawValue, AnalyticsKeys.values.rawValue: valueStr]
         FirebaseEventLogs.shared.logHotelFilterEvents(params: rangeFilterParams)
         
     }
@@ -166,7 +166,7 @@ extension PriceVC: UITableViewDataSource, UITableViewDelegate {
             
             HotelFilterVM.shared.delegate?.updateFiltersTabs()
             
-            let rangeFilterParams = [AnalyticsKeys.FilterName.rawValue: AnalyticsEvents.Price.rawValue, AnalyticsKeys.FilterType.rawValue: AnalyticsEvents.PriceType.rawValue, AnalyticsKeys.Values.rawValue: valueStr]
+            let rangeFilterParams = [AnalyticsKeys.name.rawValue: AnalyticsEvents.Price.rawValue, AnalyticsKeys.type.rawValue: AnalyticsEvents.PriceType.rawValue, AnalyticsKeys.values.rawValue: valueStr]
             FirebaseEventLogs.shared.logHotelFilterEvents(params: rangeFilterParams)
         }
     }

@@ -50,7 +50,8 @@ extension FlightResultSingleJourneyVC {
             self.viewModel.results.currentPinnedJourneys.append(displayArray.journeyArray[journeyArrayIndex])
             
             self.viewModel.results.currentPinnedJourneys = self.viewModel.results.currentPinnedJourneys.removeDuplicates()
-
+            
+            FirebaseEventLogs.shared.logOneWayResultEvents(with: FirebaseEventLogs.EventsTypeName.PinFlight , fk: displayArray.journeyArray[journeyArrayIndex].fk)
             
         } else {
             
@@ -69,48 +70,19 @@ extension FlightResultSingleJourneyVC {
             }){
                 self.viewModel.results.currentPinnedJourneys.remove(at: index)
             }
+            
+            FirebaseEventLogs.shared.logOneWayResultEvents(with: FirebaseEventLogs.EventsTypeName.UnPinFlight , fk: displayArray.journeyArray[journeyArrayIndex].fk)
+
         }
         
         self.viewModel.setPinnedFlights()
-      
         resultsTableView.tableFooterView?.isHidden = true
-      
-//        if let ind = indexpath {
-//
-//            self.resultsTableView.reloadRow(at: ind, with: UITableView.RowAnimation.none)
-//
-//        }else{
-//            self.resultsTableView.reloadData()
-//        }
-
         self.resultsTableView.reloadData()
 
-        
-
-//        self.resultsTableView.reloadData()
-        
-    
-//        if let content = self.viewModel.contentOffset {
-//            self.resultsTableView.setContentOffset(content, animated: false)
-//            self.viewModel.contentOffset = nil
-//        }
-        
-//        guard let visibleIndexPaths = self.resultsTableView.indexPathsForVisibleRows else { return }
-//
-//        printDebug(self.viewModel.results.allJourneys.count)
-//        printDebug(self.viewModel.results.suggestedJourneyArray.count)
-//
-//        visibleIndexPaths.forEach { (path) in
-//            printDebug(path.row)
-//        }
-//
-//        self.resultsTableView.reloadRows(at: visibleIndexPaths, with: UITableView.RowAnimation.none)
-        
         delay(seconds: 0.5) {
-//            self.viewModel.contentOffset = nil
-
             self.resultsTableView.tableFooterView?.isHidden = false
         }
+        
         showFooterView()
     }
     
@@ -256,12 +228,14 @@ extension FlightResultSingleJourneyVC {
                 guard let strongSelf = self else { return }
                 guard let strongJourney = journey else { return }
                 strongSelf.shareJourney(journey: [strongJourney])
-                
+                                
             }
             
             let addToTrip = UIAction(title: "Add To Trip" , image: UIImage(systemName: "map" ), identifier: nil) { (action) in
                 
                 self.addToTrip(journey: currentJourney)
+                
+                FirebaseEventLogs.shared.logOneWayResultEvents(with: FirebaseEventLogs.EventsTypeName.AddToTrip, fk: journey?.fk ?? "")
             }
             
             // Create and return a UIMenu with all of the actions as children
@@ -291,10 +265,12 @@ extension FlightResultSingleJourneyVC {
         resultsTableView.reloadData()
         showFooterView()
         resultsTableView.setContentOffset(.zero, animated: true)
+        
+        FirebaseEventLogs.shared.logOneWayResultEvents(with: FirebaseEventLogs.EventsTypeName.UnPinAll)
+        
     }
     
-    func shareJourney(journey : [Journey])
-    {
+    func shareJourney(journey : [Journey]) {
         self.sharePinnedFilghts.setImage(UIImage(named: "OvHotelResult"), for: .normal)
         sharePinnedFilghts.displayLoadingIndicator(true)
 
@@ -307,6 +283,8 @@ extension FlightResultSingleJourneyVC {
         let filterStr = getSharableLink.getAppliedFiltersForSharingDomesticJourney(legs: self.flightSearchResultVM?.flightLegs ?? [],isConditionReverced:viewModel.isConditionReverced)
         
         self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, isInternational: false, journeyArray: journey, valString: "", trip_type: "single",filterString: filterStr,searchParam: flightSearchResultVM?.flightSearchParametersFromDeepLink)
+        
+        FirebaseEventLogs.shared.logOneWayResultEvents(with: FirebaseEventLogs.EventsTypeName.ShareFlight, fkArray: journey.map { $0.fk })
         
     }
 }

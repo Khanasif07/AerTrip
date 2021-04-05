@@ -115,6 +115,9 @@ extension IntMCAndReturnVC {
                             self.resultsTableView.tableFooterView?.transform = CGAffineTransform.identity
                         }
                     })
+                    
+                    FirebaseEventLogs.shared.logInternationalAndMulticityResults(with: FirebaseEventLogs.EventsTypeName.ShowLongerOrExpensiveFlights, value: self.viewModel.flightSearchParameters)
+                    
                 }
         }
     }
@@ -213,6 +216,9 @@ extension IntMCAndReturnVC {
                         self.resultsTableView.reloadSections([0], with: .none)
                     }
                 })
+                
+                FirebaseEventLogs.shared.logInternationalAndMulticityResults(with: FirebaseEventLogs.EventsTypeName.HideLongerOrExpensiveFlights, value: self.viewModel.flightSearchParameters)
+
             }
     }
     

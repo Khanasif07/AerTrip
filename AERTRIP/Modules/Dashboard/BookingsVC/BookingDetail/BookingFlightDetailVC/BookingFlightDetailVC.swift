@@ -62,8 +62,8 @@ class BookingFlightDetailVC: BaseVC {
             self.view.backgroundColor = .white
         }
         
-        
-        FirebaseAnalyticsController.shared.logEvent(name: "BookingFlightDetail", params: ["ScreenName":"BookingFlightDetail", "ScreenClass":"BookingFlightDetailVC"])
+
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsFlightDetails, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
 
     }
     
@@ -208,7 +208,8 @@ extension BookingFlightDetailVC : PagingViewControllerDataSource , PagingViewCon
 extension BookingFlightDetailVC: BookingDetailVMDelegate, BaggageDimesionPresentDelegate {
     func dimesionButtonTapprd(with dimension: Dimension, weight: String)
     {
-        FirebaseAnalyticsController.shared.logEvent(name: "BookingFlightDetailBaggageDimensionClicked", params: ["ScreenName":"BookingFlightDetailBaggageDimension", "ScreenClass":"BookingFlightDetailVC"])
+
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsFlightDetailsBaggageDimensionOptionsSelected, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
 
         let baggageDimensionVC = BaggageDimensionsVC(nibName: "BaggageDimensionsVC", bundle: nil)
         baggageDimensionVC.settingForBookingDetails = true

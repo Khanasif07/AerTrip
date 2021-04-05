@@ -119,7 +119,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             }
         }
         
-        FirebaseAnalyticsController.shared.logEvent(name: "FlightDetailsFareInfo", params: ["ScreenName":"FlightDetailsFareInfo", "ScreenClass":"FareInfoVC"])
+        FirebaseEventLogs.shared.logFlightDetailsEvent(with: .FlightDetailsFareInfo)
 
     }
     

@@ -209,7 +209,7 @@ extension SortVC: UITableViewDataSource, UITableViewDelegate {
         }
         // Log Event
         if !filterType.isEmpty {
-            let sortFilterParams = [AnalyticsKeys.FilterName.rawValue: AnalyticsEvents.Sort.rawValue, AnalyticsKeys.FilterType.rawValue: filterType, AnalyticsKeys.Values.rawValue: filterValues]
+            let sortFilterParams = [AnalyticsKeys.name.rawValue: AnalyticsEvents.Sort.rawValue, AnalyticsKeys.type.rawValue: filterType, AnalyticsKeys.values.rawValue: filterValues]
             FirebaseEventLogs.shared.logHotelFilterEvents(params: sortFilterParams)
         }
         HotelFilterVM.shared.delegate?.updateFiltersTabs()

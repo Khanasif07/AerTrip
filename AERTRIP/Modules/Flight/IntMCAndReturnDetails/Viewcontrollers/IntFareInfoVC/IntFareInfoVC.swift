@@ -100,7 +100,7 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         }
         
         
-        FirebaseAnalyticsController.shared.logEvent(name: "FlightDetailsIntFareInfo", params: ["ScreenName":"FlightDetailsFareInfo", "ScreenClass":"IntFareInfoVC"])
+        FirebaseEventLogs.shared.logFlightDetailsEvent(with: .FlightDetailsIntFareInfo)
 
     }
     

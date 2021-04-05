@@ -81,8 +81,9 @@ extension OtherBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
         
         if let _ = tableView.cellForRow(at: indexPath) as? PaymentInfoTableViewCell, let rcpt = self.viewModel.bookingDetail?.receipt {
             //move to voucher vc
-            
-            FirebaseAnalyticsController.shared.logEvent(name: "OtherBookingsDetailsPaymentInfoClicked", params: ["ScreenName":"OtherBookingsDetails", "ScreenClass":"OtherBookingsDetailsVC"])
+
+            let jsonDict : JSONDictionary = ["BookingId":self.viewModel.bookingId]
+            FirebaseEventLogs.shared.logMyBookingsEvent(with: .OtherBookingsDetailsPaymentInfoOptionSelected, value: jsonDict)
 
             
             AppFlowManager.default.moveToBookingVoucherVC(receipt: rcpt, bookingId: self.viewModel.bookingId)

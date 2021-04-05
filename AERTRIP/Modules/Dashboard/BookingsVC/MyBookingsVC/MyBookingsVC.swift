@@ -26,6 +26,7 @@ class MyBookingsVC: BaseVC {
     private var statusBarHeight : CGFloat {
         return UIApplication.shared.isStatusBarHidden ? CGFloat(0) : UIApplication.shared.statusBarFrame.height
     }
+    
     private var time: Float = 0.0
     private var timer: Timer?
     
@@ -66,8 +67,9 @@ class MyBookingsVC: BaseVC {
         self.hideAllData()
         MyBookingFilterVM.shared.searchText = ""
         MyBookingsVM.shared.isFetchingBooking = false
-        
-        FirebaseAnalyticsController.shared.logEvent(name: "MyBookings", params: ["ScreenName":"MyBooking", "ScreenClass":"MyBookingsVC"])
+
+        FirebaseEventLogs.shared.logEventsWithOutParam(with: .MyBookings)
+
 
     }
     
@@ -83,15 +85,16 @@ class MyBookingsVC: BaseVC {
                     self.topNavBar.firstRightButton.isSelected = false
                     self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "bookingFilterIcon"), selectedImage: #imageLiteral(resourceName: "bookingFilterIcon"))
                 }
-                
-                FirebaseAnalyticsController.shared.logEvent(name: "MyBookingsFilterApplied", params: ["ScreenName":"MyBooking", "ScreenClass":"MyBookingsVC"])
-
+                                
+                FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsFilterApplied)
+                    
             case .myBookingFilterCleared:
                 self.topNavBar.firstRightButton.isSelected = false
                 self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "bookingFilterIcon"), selectedImage: #imageLiteral(resourceName: "bookingFilterIcon"))
                 MyBookingFilterVM.shared.setToDefault()
                 
-                FirebaseAnalyticsController.shared.logEvent(name: "MyBookingsClearFilter", params: ["ScreenName":"MyBooking", "ScreenClass":"MyBookingsVC"])
+                FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsFilterCleared)
+
 
             case .myBookingCasesRequestStatusChanged:
                 MyBookingsVM.shared.getBookings(showProgress: true)
@@ -463,7 +466,10 @@ extension MyBookingsVC : PagingViewControllerDataSource , PagingViewControllerDe
         case is CancelledVC: bookingTab = "cancelled"
         default: bookingTab = ""
         }
-        FirebaseAnalyticsController.shared.logEvent(name: "BOOKINGS_LIST_SCREEN", params: ["ScreenName":"MyBooking", "ScreenClass":"MyBookingsVC", "BookingTabType":bookingTab])
+                
+        let jsonDict : JSONDictionary = ["BookingTabType":bookingTab]
+        FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsList, value: jsonDict)
+
     }
     
     private func clearFilters() {

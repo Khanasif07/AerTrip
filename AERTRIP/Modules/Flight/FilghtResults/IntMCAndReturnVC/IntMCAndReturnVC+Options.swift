@@ -50,6 +50,8 @@ extension IntMCAndReturnVC {
             showPinnedFlightsOption(true)
        self.viewModel.results.currentPinnedJourneys.append(displayArray.journeyArray[journeyArrayIndex])
 
+            FirebaseEventLogs.shared.logInternationalAndMulticityResults(with: FirebaseEventLogs.EventsTypeName.PinFlight, fk: displayArray.journeyArray[journeyArrayIndex].fk)
+            
         } else {
            
            let containesPinnedFlight = viewModel.results.allJourneys.reduce(curJourneyArr[0].containsPinnedFlight) { $0 || $1.containsPinnedFlight }
@@ -66,6 +68,9 @@ extension IntMCAndReturnVC {
            }){
                self.viewModel.results.currentPinnedJourneys.remove(at: index)
            }
+            
+            FirebaseEventLogs.shared.logInternationalAndMulticityResults(with: FirebaseEventLogs.EventsTypeName.UnPinFlight, fk: displayArray.journeyArray[journeyArrayIndex].fk)
+
         }
         
         self.viewModel.setPinnedFlights()
@@ -199,6 +204,8 @@ extension IntMCAndReturnVC: ATSwitcherChangeValueDelegate {
              let addToTrip = UIAction(title: "Add To Trip", image: UIImage(systemName: "map" ), identifier: nil) { (action) in
                  
                    self.addToTrip(journey: journey)
+                
+                FirebaseEventLogs.shared.logInternationalAndMulticityResults(with: FirebaseEventLogs.EventsTypeName.AddToTrip, fk: journey.fk)
              }
              
              // Create and return a UIMenu with all of the actions as children
@@ -233,13 +240,16 @@ extension IntMCAndReturnVC: ATSwitcherChangeValueDelegate {
            showFooterView()
            
            resultsTableView.setContentOffset(.zero, animated: true)
+        
+        FirebaseEventLogs.shared.logInternationalAndMulticityResults(with: FirebaseEventLogs.EventsTypeName.UnPinAll)
+        
        }
     
     
    
     
-    func shareJourney(journey : [IntMultiCityAndReturnWSResponse.Results.J])
-    {
+    func shareJourney(journey : [IntMultiCityAndReturnWSResponse.Results.J]) {
+        
         self.sharePinnedFilghts.setImage(UIImage(named: "OvHotelResult"), for: .normal)
         sharePinnedFilghts.displayLoadingIndicator(true)
 
@@ -249,11 +259,12 @@ extension IntMCAndReturnVC: ATSwitcherChangeValueDelegate {
         let isDomestic = bookFlightObject.isDomestic
         var valStr = generateCommonString(for: journey, flightObject: bookFlightObject)
         
-        
         let filterStr = self.getSharableLink.getAppliedFiltersForSharingIntJourney(legs: self.flightSearchResultVM?.intFlightLegs ?? [],isConditionReverced: viewModel.isConditionReverced,appliedFilterLegIndex: viewModel.appliedFilterLegIndex)
         valStr.append(filterStr)
         
         self.getSharableLink.getUrl(adult: "\(flightAdultCount)", child: "\(flightChildrenCount)", infant: "\(flightInfantCount)",isDomestic: isDomestic, isInternational: true, journeyArray: [], valString: valStr, trip_type: "",filterString: filterStr,searchParam: [:])
+        
+        FirebaseEventLogs.shared.logInternationalAndMulticityResults(with: FirebaseEventLogs.EventsTypeName.ShareFlight, fkArray: journey.map { $0.fk })
         
     }
     

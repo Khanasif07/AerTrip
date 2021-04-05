@@ -88,7 +88,7 @@ class RegularAccountDetailsVC: BaseVC {
         self.setMainSearchBar()
         self.setupNavigation()
         
-        FirebaseAnalyticsController.shared.logEvent(name: "Accounts", params: ["ScreenName":"Accounts", "ScreenClass":"RegularAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .Accounts, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
 
     }
     
@@ -210,13 +210,16 @@ class RegularAccountDetailsVC: BaseVC {
         _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
             if index == 0 {
                 //email tapped
-                FirebaseAnalyticsController.shared.logEvent(name: "AccountsEmailOptionSelected", params: ["ScreenName":"Accounts", "ScreenClass":"RegularAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+
+                FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .AccountsSendEmailOptionSelected, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
 
                 AppToast.default.showToastMessage(message: "Sending email")
                 self.viewModel.sendEmailForLedger(onVC: self)
             } else {
                 //download pdf tapped
-                FirebaseAnalyticsController.shared.logEvent(name: "AccountsDownloadPDFOptionSelected", params: ["ScreenName":"Accounts", "ScreenClass":"RegularAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
+                
+                FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .AccountsDownloadPDFOptionSelected, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+
 
                 self.topNavView.isToShowIndicatorView = true
                 self.topNavView.startActivityIndicaorLoading()
@@ -419,7 +422,6 @@ extension RegularAccountDetailsVC: AccountDetailsVMDelegate {
     
     func getAccountDetailsSuccess(model: AccountDetailPostModel, showProgres: Bool)
     {
-        FirebaseAnalyticsController.shared.logEvent(name: "AccountsGetAccountDetailsSuccess", params: ["ScreenName":"Accounts", "ScreenClass":"RegularAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
 
         if showProgres {
             self.headerView?.stopProgress()
@@ -440,7 +442,6 @@ extension RegularAccountDetailsVC: AccountDetailsVMDelegate {
     }
     
     func getAccountDetailsFail(showProgres: Bool) {
-        FirebaseAnalyticsController.shared.logEvent(name: "AccountsGetAccountDetailsFail", params: ["ScreenName":"Accounts", "ScreenClass":"RegularAccountDetailsVC","AccountType":UserInfo.loggedInUser?.userCreditType ?? ""])
 
         if showProgres {
             self.headerView?.stopProgress()

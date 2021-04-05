@@ -92,14 +92,26 @@ class BookingReviewCancellationVC: BaseVC {
         case .flightCancellationReview, .hotelCancellationReview:
             self.commentPlaceholderLbl.text = LocalizedString.EnterYourCommentOptional.localized
 
+        
+            if viewModel.currentUsingAs == .flightCancellationReview{
+                
+                FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsReviewCancellationRequest, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+
+            }else{
+                FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsReviewReschedulingRequest, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+
+            }
+
         case .specialRequest:
             self.cancellationReasonView.isHidden = true
             self.cancellationViewHeightConstraint.constant = 0.0
             self.totalNetRefundView.isHidden = true
             self.totalNetRefundViewHeightConstraint.constant = 0.0
             self.requestCancellationButton.alpha = 0.6
+        
 
-        //        FirebaseAnalyticsController.shared.logEvent(name: "HotelSpecialRequest", params: ["ScreenName":"HotelSpecialRequest", "ScreenClass":"BookingReviewCancellationVC", "ButtonAction":"SpecialRequestButtonClicked"])
+            FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsReviewSpecialRequest, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+
 
         }
         

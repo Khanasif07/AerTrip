@@ -231,7 +231,9 @@ extension FlightFareInfoVC: RouteFareInfoTableViewCellDelegate {
 extension FlightFareInfoVC: FareInfoHeaderViewDelegate {
     func fareButtonTapped(_ sender: UIButton) {
         printDebug("fare info butto n tapped")
-        FirebaseAnalyticsController.shared.logEvent(name: "BookingFlightDetailFareInfoFareRulesClicked", params: ["ScreenName":"BookingFlightDetailFareInfoFareRules", "ScreenClass":"FlightFareInfoVC"])
+        
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsFlightDetailsFareInfoFareRulesOptionSelected, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+
 
         AppFlowManager.default.presentFareBookingRulesVC(forBookingId: self.viewModel.bookingDetail?.id ?? "", legDetails: self.viewModel.bookingDetail?.bookingDetail?.leg.first, bookingFee: self.viewModel.bookingFee.first)
     }

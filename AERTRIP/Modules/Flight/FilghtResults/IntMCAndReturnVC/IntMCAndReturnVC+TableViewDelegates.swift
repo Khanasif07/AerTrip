@@ -225,6 +225,9 @@ extension IntMCAndReturnVC : UITableViewDataSource , UITableViewDelegate {
             vc.journeyDate = self.subtitleString
             vc.flightSearchResultVM = self.flightSearchResultVM
             self.present(vc, animated: true, completion: nil)
+            
+            FirebaseEventLogs.shared.logInternationalAndMulticityResults(with: FirebaseEventLogs.EventsTypeName.OpenFlightDetails, fk: curJourney.fk)
+            
         }
     }
 }
