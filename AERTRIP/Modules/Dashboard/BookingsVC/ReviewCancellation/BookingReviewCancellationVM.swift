@@ -28,6 +28,7 @@ class BookingReviewCancellationVM {
     }
     
     var currentUsingAs = UsingFor.flightCancellationReview
+    var isForflightCancellation = false
     
     //special request
     var bookingId: String  = ""

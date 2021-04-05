@@ -292,9 +292,6 @@
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="image" keyPath="sliderCircleImage" value="view:8mm-XZ-Sa6:value"/>
                                                     </userDefinedRuntimeAttributes>
-                                                    <connections>
-                                                        <action selector="sliderValueChanged:" destination="Gbn-Sv-vsw" eventType="valueChanged" id="8m7-CN-FlM"/>
-                                                    </connections>
                                                 </view>
                                             </subviews>
                                             <constraints>

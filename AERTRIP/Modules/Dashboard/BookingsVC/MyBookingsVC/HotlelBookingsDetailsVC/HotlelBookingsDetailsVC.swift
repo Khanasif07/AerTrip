@@ -95,8 +95,8 @@ class HotlelBookingsDetailsVC: BaseVC {
         
         NotificationCenter.default.addObserver(self, selector: #selector(bookingDetailFetched(_:)), name: .bookingDetailFetched, object: nil)
         
-        
-        FirebaseAnalyticsController.shared.logEvent(name: "HotelBookingDetails",params:["ScreenName":"HotelBookingDetails", "ScreenClass":"HotlelBookingsDetailsVC"])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.MyBookingsHotelDetails, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+
 
     }
     
@@ -226,13 +226,16 @@ class HotlelBookingsDetailsVC: BaseVC {
             switch index {
             case 0:
                 //PayOnline
-                FirebaseAnalyticsController.shared.logEvent(name: "HotlelBookingsDetailsPayOnlineClicked", params: ["ScreenName":"HotlelBookingsDetails", "ScreenClass":"HotlelBookingsDetailsVC"])
+                
+                FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.MyBookingsHotelDetailsPayOnlineOptionSelected, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+
 
                 AppFlowManager.default.moveToAccountOnlineDepositVC(depositItinerary: self.viewModel.itineraryData, usingToPaymentFor: .booking)
                 
             case 1:
                 //PayOfflineNRegister
-                FirebaseAnalyticsController.shared.logEvent(name: "HotlelBookingsDetailsPayOfflineClicked", params: ["ScreenName":"HotlelBookingsDetails", "ScreenClass":"HotlelBookingsDetailsVC"])
+
+                FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.MyBookingsHotelDetailsPayOfflineOptionSelected, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
                 AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .fundTransfer, usingToPaymentFor: .addOns, paymentModeDetail: self.viewModel.itineraryData?.fundTransfer, netAmount: self.viewModel.itineraryData?.netAmount ?? 0.0, bankMaster: self.viewModel.itineraryData?.bankMaster ?? [], itineraryData: self.viewModel.itineraryData)
                 printDebug("PayOfflineNRegister")

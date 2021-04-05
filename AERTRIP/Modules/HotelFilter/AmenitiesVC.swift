@@ -92,5 +92,21 @@ extension AmenitiesVC: UITableViewDataSource, UITableViewDelegate {
         HotelFilterVM.shared.delegate?.updateFiltersTabs()
         self.tableView.reloadData()
         }
+        
+        var valueStr = ""
+        
+        HotelFilterVM.shared.amenitites.forEach { (amen) in
+            if let amenity = amentiesDetails.first(where: {$0.rawValue == amen}) {
+                let amenDetail = amenity.title
+                valueStr.append("\(amenDetail), ")
+            }
+        }
+        
+        if valueStr.suffix(2) == ", " {
+            valueStr.removeLast(2)
+        }
+        
+        let rangeFilterParams = [AnalyticsKeys.name.rawValue: AnalyticsEvents.Amenities.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: valueStr]
+        FirebaseEventLogs.shared.logHotelFilterEvents(params: rangeFilterParams)
     }
 }

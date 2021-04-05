@@ -87,6 +87,9 @@ class RegularAccountDetailsVC: BaseVC {
         self.setHeaderView()
         self.setMainSearchBar()
         self.setupNavigation()
+        
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Accounts.rawValue, params: [AnalyticsKeys.name.rawValue:AnalyticsEvents.Accounts, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+
     }
     
     override func viewSafeAreaInsetsDidChange() {
@@ -207,10 +210,16 @@ class RegularAccountDetailsVC: BaseVC {
         _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
             if index == 0 {
                 //email tapped
+
+                FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Accounts.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.AccountsSendEmailOptionSelected, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+
                 AppToast.default.showToastMessage(message: "Sending email")
                 self.viewModel.sendEmailForLedger(onVC: self)
             } else {
                 //download pdf tapped
+
+                FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Accounts.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.AccountsDownloadPDFOptionSelected, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+
                 self.topNavView.isToShowIndicatorView = true
                 self.topNavView.startActivityIndicaorLoading()
                 self.topNavView.firstRightButton.isHidden = true
@@ -410,7 +419,9 @@ extension RegularAccountDetailsVC: AccountDetailsVMDelegate {
 //        self.topNavView.secondRightButton.isUserInteractionEnabled = false
     }
     
-    func getAccountDetailsSuccess(model: AccountDetailPostModel, showProgres: Bool) {
+    func getAccountDetailsSuccess(model: AccountDetailPostModel, showProgres: Bool)
+    {
+
         if showProgres {
             self.headerView?.stopProgress()
         }
@@ -430,6 +441,7 @@ extension RegularAccountDetailsVC: AccountDetailsVMDelegate {
     }
     
     func getAccountDetailsFail(showProgres: Bool) {
+
         if showProgres {
             self.headerView?.stopProgress()
             self.manageDataForDeeplink()

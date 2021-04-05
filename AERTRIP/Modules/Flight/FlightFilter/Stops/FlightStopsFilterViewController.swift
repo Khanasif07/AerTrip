@@ -28,6 +28,8 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     @IBOutlet weak var avoidChangeOfAirportsImgView: UIImageView!
     @IBOutlet weak var avoidChangeOfAirportsBtn: UIButton!
     
+    @IBOutlet weak var sectorNameLbl: UILabel!
+    
     //MARK:- State Properties
     
     let viewModel = FlightStopsFilterVM()
@@ -39,6 +41,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
         super.viewDidLoad()
         
         allSectorsLbl.isHidden = !viewModel.isIntMCOrReturnVC
+        sectorNameLbl.isHidden = true
         
         if viewModel.allStopsFilters.count > 0 {
             viewModel.currentStopFilter = viewModel.allStopsFilters[0]
@@ -57,7 +60,13 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
         else {
             setLeastStopsTitle()
             setupMultiLegSegmentControl()
-            stopsBaseViewTopConstant.constant = 107
+            if viewModel.allStopsFilters.count > 3 {
+                stopsBaseViewTopConstant.constant = 130
+                sectorNameLbl.isHidden = false
+                sectorNameLbl.attributedText = viewModel.allLegNames[viewModel.currentActiveIndex].descriptionTextForSectorHeader
+            } else {
+                stopsBaseViewTopConstant.constant = 107
+            }
         }
         setupOvernightFlightsView()
     }
@@ -77,6 +86,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     func updateUIPostLatestResults() {
         viewModel.currentStopFilter = viewModel.allStopsFilters[viewModel.currentActiveIndex]
         setupStopsBaseView()
+        sectorNameLbl.isHidden = true
         if viewModel.allStopsFilters.count == 1 {
             multiLegViewHeight.constant = 0
             multiLegJourney.isHidden = true
@@ -84,7 +94,13 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
         } else {
             multiLegViewHeight.constant = 107
             multiLegJourney.isHidden = false
-            stopsBaseViewTopConstant.constant = 107
+            if viewModel.allStopsFilters.count > 3 {
+                stopsBaseViewTopConstant.constant = 130
+                sectorNameLbl.isHidden = false
+                sectorNameLbl.attributedText = viewModel.allLegNames[viewModel.currentActiveIndex].descriptionTextForSectorHeader
+            } else {
+                stopsBaseViewTopConstant.constant = 107
+            }
             setLeastStopsTitle()
             setupMultiLegSegmentControl()
         }
@@ -269,6 +285,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
         updateSegmentTitles()
         hideShowOvernightView()
         resetAvoidChangeOfAirportsBtn()
+        sectorNameLbl.attributedText = viewModel.allLegNames[viewModel.currentActiveIndex].descriptionTextForSectorHeader
     }
     
     private func getSegmentTitleFor(_ index: Int) -> String {

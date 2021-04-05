@@ -53,6 +53,9 @@ extension ThankYouRegistrationVM {
                 self.delegate?.didGetSuccess()
             }
             else {
+                if errors.contains(10){
+                    self.logEvents(with: .UsedExpiredRegistrationLink)
+                }
                 AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .login)
                 self.delegate?.didGetFail(errors: errors)
             }
@@ -76,10 +79,32 @@ extension ThankYouRegistrationVM {
                 self.delegate?.didGetSuccess()
             }
             else {
+                if errors.contains(9){
+                    self.logEvents(with: .UsedExpiredResetPasswordPink)
+                }
                 AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .login)
                 self.delegate?.didGetFail(errors: errors)
             }
         })
+        
+    }
+}
+
+///Log firebase events
+extension ThankYouRegistrationVM{
+    
+    func logEvents(with event: FirebaseEventLogs.EventsTypeName){
+        switch type{
+        case .setPassword:
+            guard event == .OpenEmailApp else { return  }
+            FirebaseEventLogs.shared.logThankYouForRegisteringEvents(with: event)
+        case .resetPassword:
+            guard event == .OpenEmailApp else { return  }
+            FirebaseEventLogs.shared.logCheckForgotPasswordEmailEvents(with: event)
+        case .deeplinkSetPassword,.deeplinkResetPassword:
+            guard event != .OpenEmailApp else { return  }
+            FirebaseEventLogs.shared.logTryVerifyingYourEmailAgainEvents(with: event)
+        }
         
     }
 }

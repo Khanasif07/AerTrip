@@ -103,6 +103,9 @@ class AccountLadgerDetailsVC: BaseVC {
         }
         
         self.containerView.backgroundColor = AppColors.themeGray04
+        
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsLedger.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.AccountsLedgerDetails, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+
     }
     
     override func bindViewModel() {
@@ -248,6 +251,9 @@ extension AccountLadgerDetailsVC: AccountLadgerDetailsVMDelegate {
 extension AccountLadgerDetailsVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         //back button
+
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsLedger.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.AccountsLedgerDetails, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a", AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.navigateBack])
+
         DispatchQueue.main.async {
             AppFlowManager.default.popViewController(animated: true)
         }
@@ -409,10 +415,20 @@ extension AccountLadgerDetailsVC: AccountLadgerDetailHeaderDelegate{
         if let event = self.viewModel.ladgerEvent, (event.voucher == .sales || event.voucher == .journal) {
             switch event.productType {
             case .flight:
+                
                 let title = NSMutableAttributedString(string: (event.voucher == .sales) ? event.title : event.sector)
+                
+                
+                FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsLedger.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.AccountsLedgerDetails, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a", AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.AccountsLedgerDetailsFlightsOptionSelected, AnalyticsKeys.type.rawValue:"DetailsType", AnalyticsKeys.values.rawValue:viewModel.detailType, AnalyticsKeys.name.rawValue:"Title", AnalyticsKeys.type.rawValue:"n/a", AnalyticsKeys.values.rawValue: title])
+
+
                 AppFlowManager.default.moveToFlightBookingsDetailsVC(bookingId: event.bookingId,tripCitiesStr: title)
                 
             case .hotel:
+                
+                FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AccountsLedger.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.AccountsLedgerDetails, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a", AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.AccountsLedgerDetailsHotelsOptionSelected, AnalyticsKeys.type.rawValue:"DetailsType", AnalyticsKeys.values.rawValue:viewModel.detailType])
+
+
                 AppFlowManager.default.moveToHotelBookingsDetailsVC(bookingId: event.bookingId)
             default: break
             }

@@ -19,6 +19,7 @@ protocol FlightResultViewModelDelegate : class {
     func applySorting(sortOrder : Sort, isConditionReverced : Bool, legIndex : Int)
     func showDepartReturnSame(_ show: Bool, selected: Bool)
     func updateDynamicFilters(filters : DynamicFilters)
+    func updateComboFare()
 }
 
 
@@ -124,7 +125,7 @@ extension FlightResultViewModelDelegate {
         }
         
         if filterArrayCount == 0 {
-            FirebaseEventLogs.shared.logFlightFilterEvents(with: .NoResultsApplyingFlightFilters)
+            FirebaseEventLogs.shared.logFlightNavigationEvents(with: .NoResultsApplyingFlightFilters)
         }
        
         return String(filterArrayCount) + " of " + String(totalCount) + " Results"
@@ -434,7 +435,6 @@ extension FlightResultViewModelDelegate {
             
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
-            
             if self.isIntMCOrReturnJourney {
                 
                 if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any] {
@@ -554,6 +554,7 @@ extension FlightResultViewModelDelegate {
             let compoJounrneys = comboflight.results.c
             comboResults.append(contentsOf: compoJounrneys)
         }
+        self.delegate?.updateComboFare()
     }
 }
 

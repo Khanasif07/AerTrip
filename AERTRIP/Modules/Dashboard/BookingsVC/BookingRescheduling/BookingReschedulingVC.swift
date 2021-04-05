@@ -210,7 +210,7 @@ class BookingReschedulingVC: BaseVC {
             else {
                 //cancellation
                 if self.viewModel.checkNumberOfRemainingAdtIsGreaterInf(){
-                    AppFlowManager.default.moveToReviewCancellationVC(onNavController: self.navigationController, usingAs: .flightCancellationReview, legs: self.viewModel.legsData, selectedRooms: nil, bookingDetails: self.viewModel.bookingDetails)
+                    AppFlowManager.default.moveToReviewCancellationVC(onNavController: self.navigationController, usingAs: .flightCancellationReview, legs: self.viewModel.legsData, selectedRooms: nil, bookingDetails: self.viewModel.bookingDetails, isForflightCancellation: true)
                 }else{
                     CustomToast.shared.showToast("Number of remaining infants cannot be more than remaining adults")
                 }
@@ -326,6 +326,8 @@ class BookingReschedulingVC: BaseVC {
                 cancelationValueText = self.viewModel.usingFor == .rescheduling ? "Not Permitted" : "Non-refundable"
             }else if cancelationValue == 0{
                 cancelationValueText = self.viewModel.usingFor == .rescheduling ? "Free Rescheduling" : "Free Cancellation"
+            }else if (((paxD.amountPaid - paxD.reversalMFPax) < paxD.cancellationCharge) && (self.viewModel.usingFor == .cancellation)){
+                cancelationValueText =  "Non-refundable"
             }
             
             bookingAccordionCell.configureCell(passengerName: paxD.paxName, pnrNo: pnrNoStr, saleValue: saleValue, cancellationCharge: cancelationValueText, refundValue: self.viewModel.usingFor == .rescheduling ? paxD.netRefundForReschedule.amountInDelimeterWithSymbol : paxD.netRefundForCancellation.amountInDelimeterWithSymbol, age: age)

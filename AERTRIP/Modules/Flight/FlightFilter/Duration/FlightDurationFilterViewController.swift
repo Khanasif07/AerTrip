@@ -175,7 +175,7 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         
         if numberOfStops > 3 {
             sectorNameLbl.isHidden = false
-            sectorNameLbl.attributedText = viewModel.currentDurationFilter.leg.descriptionOneFiveThree
+            sectorNameLbl.attributedText = viewModel.currentDurationFilter.leg.descriptionTextForSectorHeader
         } else {
             sectorNameLbl.isHidden = true
         }
@@ -215,6 +215,7 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         addMarkersOnTripDuration()
         hideShowOvernightView()
         resetAvoidOvernightBtn()
+        sectorNameLbl.attributedText = viewModel.currentDurationFilter.leg.descriptionTextForSectorHeader
     }
     
     private func getSegmentTitleFor(_ index: Int) -> String {

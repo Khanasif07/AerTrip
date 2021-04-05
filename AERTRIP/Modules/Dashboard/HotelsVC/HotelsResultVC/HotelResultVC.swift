@@ -502,7 +502,7 @@ class HotelResultVC: BaseVC {
     
     @IBAction func filterButtonAction(_ sender: UIButton) {
         AppFlowManager.default.showFilterVC(self, index: 0)
-        FirebaseEventLogs.shared.logHotelFilterEvents(with: .HotelSortFilterByTapOnFilterIcon)
+        FirebaseEventLogs.shared.logHotelNavigationEvents(with: .HotelSortFilterByTapOnFilterIcon)
     }
     
     @IBAction func mapButtonAction(_ sender: Any) {

@@ -34,9 +34,11 @@ class ForgotPasswordVM  {
     func isValidEmail(vc: UIViewController) -> Bool {
         
         if self.email.isEmpty {
+            self.logEvent(with: .EnterIncorrectEmail)
             AppToast.default.showToastMessage(message: LocalizedString.Enter_email_address.localized)
             return false
         } else if self.email.checkInvalidity(.Email) {
+            self.logEvent(with: .EnterIncorrectEmail)
             AppToast.default.showToastMessage(message: LocalizedString.Enter_valid_email_address.localized)
             return false
         }
@@ -58,13 +60,27 @@ extension ForgotPasswordVM {
         APICaller.shared.callForgotPasswordAPI(params: params, loader: true, completionBlock: {(success, email, errors) in
             
             if success {
+                self.logEvent(with: .Continued)
                 self.delegate?.didLoginSuccess(email: email)
             }
             else {
+                if errors.contains(116){
+                    self.logEvent(with: .EmailDidntExist)
+                }
                 AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .login)
                 self.delegate?.didLoginFail(errors: errors)
             }
         })
         
     }
+}
+
+
+///Firebase Event logs
+extension ForgotPasswordVM{
+    
+    func logEvent(with event:FirebaseEventLogs.EventsTypeName){
+        FirebaseEventLogs.shared.logForgotPasswordEvents(with: event)
+    }
+    
 }

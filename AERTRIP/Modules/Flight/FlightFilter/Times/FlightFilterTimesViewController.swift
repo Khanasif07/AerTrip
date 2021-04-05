@@ -108,7 +108,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         if numberOfStops > 3 {
 //            setDepartureLabelAttributedString()
             sectorNameLbl.isHidden = false
-            sectorNameLbl.attributedText = viewModel.currentTimerFilter.leg.descriptionOneFiveThree
+            sectorNameLbl.attributedText = viewModel.currentTimerFilter.leg.descriptionTextForSectorHeader
         } else {
             sectorNameLbl.isHidden = true
             departureTimeLabel.text = "Departure Time"
