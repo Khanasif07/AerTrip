@@ -39,7 +39,8 @@ class WebCheckinVC: BaseVC {
         self.setupNavBar()
         self.registerXib()
         
-        
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Webcheckin.rawValue, params: [AnalyticsKeys.name.rawValue:AnalyticsEvents.Webcheckin.rawValue, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+
                 
 //        FirebaseAnalyticsController.shared.logEvent(name: "WebCheckin", params: ["ScreenName":"WebCheckin", "ScreenClass":"WebCheckinVC"])
 

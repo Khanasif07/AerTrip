@@ -151,6 +151,9 @@ extension SortVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        var filterType = "", filterValues = ""
+        
         HotelFilterVM.shared.isSortingApplied = true
         if let cell = tableView.cellForRow(at: indexPath) as? SortTableViewCell {
             cell.tintColor = AppColors.themeGreen
@@ -160,35 +163,54 @@ extension SortVC: UITableViewDataSource, UITableViewDelegate {
             //            cell.rightTitleLabel.textColor = AppColors.themeGreen
             switch indexPath.row {
             case 0:
+                filterType = "BestSellers"
+                filterValues = "n/a"
                 HotelFilterVM.shared.sortUsing = .BestSellers
             case 1:
+                filterType = "Price"
                 if HotelFilterVM.shared.sortUsing != .PriceLowToHigh(ascending: true) {
                     HotelFilterVM.shared.sortUsing = .PriceLowToHigh(ascending: true)
+                    filterValues = "Low to High"
                 } else {
                     HotelFilterVM.shared.sortUsing = .PriceLowToHigh(ascending: false)
+                    filterValues = "High to Low"
                 }
             case 2:
+                filterType = "TARatings"
                 if HotelFilterVM.shared.sortUsing != .TripAdvisorRatingHighToLow(ascending: false) {
                     HotelFilterVM.shared.sortUsing = .TripAdvisorRatingHighToLow(ascending: false)
+                    filterValues = "High to Low"
                 } else {
                     HotelFilterVM.shared.sortUsing = .TripAdvisorRatingHighToLow(ascending: true)
+                    filterValues = "Low to High"
                 }
             case 3:
+                filterType = "StarRatings"
                 if HotelFilterVM.shared.sortUsing != .StartRatingHighToLow(ascending: false) {
                     HotelFilterVM.shared.sortUsing = .StartRatingHighToLow(ascending: false)
+                    filterValues = "High to Low"
                 } else {
                     HotelFilterVM.shared.sortUsing = .StartRatingHighToLow(ascending: true)
+                    filterValues = "Low to High"
                 }
             case 4:
+                filterType = "Distance"
                 if HotelFilterVM.shared.sortUsing != .DistanceNearestFirst(ascending: true) {
                     HotelFilterVM.shared.sortUsing = .DistanceNearestFirst(ascending: true)
+                    filterValues = "Nearest First"
                 } else {
                     HotelFilterVM.shared.sortUsing = .DistanceNearestFirst(ascending: false)
+                    filterValues = "Furthest First"
                 }
             default:
                 return
             }
             self.tableView.reloadData()
+        }
+        // Log Event
+        if !filterType.isEmpty {
+            let sortFilterParams = [AnalyticsKeys.name.rawValue: AnalyticsEvents.Sort.rawValue, AnalyticsKeys.type.rawValue: filterType, AnalyticsKeys.values.rawValue: filterValues]
+            FirebaseEventLogs.shared.logHotelFilterEvents(params: sortFilterParams)
         }
         HotelFilterVM.shared.delegate?.updateFiltersTabs()
     }

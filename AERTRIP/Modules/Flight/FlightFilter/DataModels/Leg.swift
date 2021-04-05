@@ -39,6 +39,30 @@ struct Leg
     return combinedString
     }
     
+    
+    var descriptionTextForSectorHeader : NSAttributedString {
+    
+    
+        let sourcePro14 = AppFonts.Regular.withSize(16)
+        let attributes =   [NSAttributedString.Key.font : sourcePro14 , NSAttributedString.Key.foregroundColor : UIColor.ONE_FIVE_THREE_COLOR]
+    
+    let combinedString = NSMutableAttributedString(string: origin + " ", attributes: attributes)
+    let destinationString = NSAttributedString(string: " " + destination, attributes: attributes)
+    
+    let textAttachment = NSTextAttachment()
+    if let image = UIImage(named: "oneway")?.withAlpha(0.4) {
+        textAttachment.bounds = CGRect(x: 0.0, y: Double((sourcePro14.capHeight - image.size.height)/2.0), width: Double(image.size.width), height: Double(image.size.height))
+        textAttachment.image = image
+        
+        let join = NSAttributedString(attachment: textAttachment)
+        
+        combinedString.append(join)
+        
+    }
+    combinedString.append(destinationString)
+    
+    return combinedString
+    }
 
     
     func getTitle(isCurrentlySelected : Bool , isFilterApplied: Bool) -> NSMutableAttributedString {

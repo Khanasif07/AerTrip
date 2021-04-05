@@ -197,7 +197,7 @@ class SocialLoginVC: BaseVC {
     }
     
     @IBAction func existingUserButtonAction(_ sender: UIButton) {
-        
+        self.viewModel.firebaseLogEvent(with: .login)
         AppFlowManager.default.moveToLoginVC(email: "", usingFor: currentlyUsingFrom)
     }
     

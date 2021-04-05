@@ -78,13 +78,7 @@ class BookingReviewCancellationVC: BaseVC {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        if self.viewModel.currentUsingAs == .flightCancellationReview {
-             self.refundAmountLabel.text = self.viewModel.totRefundForFlight.delimiterWithSymbol
-        } else if self.viewModel.currentUsingAs == .hotelCancellationReview {
-           self.refundAmountLabel.text = self.viewModel.totalRefundForHotel.delimiterWithSymbol
-        }
-       
+        self.setRefundAmountForHotelsAndFlight()
     }
     
     override func initialSetup() {
@@ -98,6 +92,13 @@ class BookingReviewCancellationVC: BaseVC {
         case .flightCancellationReview, .hotelCancellationReview:
             self.commentPlaceholderLbl.text = LocalizedString.EnterYourCommentOptional.localized
 
+        
+            if viewModel.currentUsingAs == .flightCancellationReview{
+                FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.BookingsReviewCancellationRequest.rawValue, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+            }else{
+                FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.BookingsReviewReschedulingRequest.rawValue, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+            }
+
         case .specialRequest:
             self.cancellationReasonView.isHidden = true
             self.cancellationViewHeightConstraint.constant = 0.0
@@ -106,6 +107,9 @@ class BookingReviewCancellationVC: BaseVC {
             self.requestCancellationButton.alpha = 0.6
 
         //        FirebaseAnalyticsController.shared.logEvent(name: "HotelSpecialRequest", params: ["ScreenName":"HotelSpecialRequest", "ScreenClass":"BookingReviewCancellationVC", "ButtonAction":"SpecialRequestButtonClicked"])
+        
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.BookingsReviewSpecialRequest, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+
 
         }
         
@@ -146,7 +150,8 @@ class BookingReviewCancellationVC: BaseVC {
             self.refundModeTitleLabel.text = LocalizedString.RefundMode.localized
             self.refundModeTextField.text = LocalizedString.Select.localized
             self.totalNetRefundLabel.text = LocalizedString.TotalNetRefund.localized
-            self.refundAmountLabel.text = self.viewModel.totRefundForFlight.delimiterWithSymbol
+//            self.refundAmountLabel.text = self.viewModel.totRefundForFlight.delimiterWithSymbol
+            self.setRefundAmountForHotelsAndFlight()
             self.infoLabel.text = LocalizedString.ReviewCancellationInfoLabel.localized
             self.cancellationTitleLabel.text = LocalizedString.ReasonForCancellation.localized
             self.cancellationTextField.text = LocalizedString.Select.localized
@@ -251,6 +256,20 @@ class BookingReviewCancellationVC: BaseVC {
     
     override func bindViewModel() {
         self.viewModel.delegate = self
+    }
+    
+    
+    private func setRefundAmountForHotelsAndFlight(){
+        if self.viewModel.currentUsingAs == .flightCancellationReview {
+            if self.viewModel.totRefundForFlight < 0 && self.viewModel.isForflightCancellation{
+                self.refundAmountLabel.text = (0).delimiterWithSymbol
+            }else{
+                self.refundAmountLabel.text = self.viewModel.totRefundForFlight.delimiterWithSymbol
+            }
+             
+        } else if self.viewModel.currentUsingAs == .hotelCancellationReview {
+           self.refundAmountLabel.text = self.viewModel.totalRefundForHotel.delimiterWithSymbol
+        }
     }
     
     // MARK: - IBAction

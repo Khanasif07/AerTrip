@@ -17,6 +17,9 @@ class RequestReschedulingVC: BaseVC {
     //MARK:- IBOutlets
     //MARK:===========
     @IBOutlet weak var topNavBar: BookingTopNavBarWithSubtitle!
+    @IBOutlet weak var rescheduleAmountView: UIView!
+    @IBOutlet weak var reschedulingViewHeightConstraints: NSLayoutConstraint!
+    
     @IBOutlet weak var totalRefundTitleLabel: UILabel!
     @IBOutlet weak var totalRefundAmountLabel: UILabel!
     @IBOutlet weak var reschedulingTableView: UITableView! {
@@ -33,6 +36,8 @@ class RequestReschedulingVC: BaseVC {
     //MARK:===========
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.reschedulingViewHeightConstraints.constant = 0.0
+        self.rescheduleAmountView.isHidden = true
     }
     
     override func viewWillLayoutSubviews() {

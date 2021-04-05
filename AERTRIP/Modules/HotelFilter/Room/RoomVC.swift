@@ -205,5 +205,37 @@ extension RoomVC: UITableViewDataSource, UITableViewDelegate {
         self.tableView.reloadData()
         updateSegmentControlTitle()
         HotelFilterVM.shared.delegate?.updateFiltersTabs()
+        
+        logRoomEvent()
+    }
+    
+    private func logRoomEvent() {
+        var valueStr = ""
+        var filterType = ""
+        
+        switch roomType {
+        case .meal:
+            HotelFilterVM.shared.roomMeal.forEach { (amen) in
+                valueStr.append("\(amen), ")
+            }
+            filterType = "meal"
+        case .cancellationPolicy:
+            HotelFilterVM.shared.roomCancelation.forEach { (amen) in
+                valueStr.append("\(amen), ")
+            }
+            filterType = "cancellation"
+        case .others:
+            HotelFilterVM.shared.roomOther.forEach { (amen) in
+                valueStr.append("\(amen), ")
+            }
+            filterType = "others"
+        }
+        
+        if valueStr.suffix(2) == ", " {
+            valueStr.removeLast(2)
+        }
+        
+        let rangeFilterParams = [AnalyticsKeys.name.rawValue: AnalyticsEvents.Room.rawValue, AnalyticsKeys.type.rawValue: filterType, AnalyticsKeys.values.rawValue: valueStr]
+        FirebaseEventLogs.shared.logHotelFilterEvents(params: rangeFilterParams)
     }
 }

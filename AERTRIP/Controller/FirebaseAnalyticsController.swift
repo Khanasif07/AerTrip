@@ -24,6 +24,7 @@ class FirebaseAnalyticsController {
 enum AnalyticsEvents: String {
     //MARK: Firebase event names
     case FlightFilters = "FlightFilters"
+    case HotelFilters = "HotelFilters"
     case FlightFiltersNavigation = "FlightFiltersNavigation"
     case HotelFiltersNavigation = "HotelFiltersNavigation"
     case AccountDetails
@@ -45,6 +46,50 @@ enum AnalyticsEvents: String {
     case FlightsInternationalReturnAndMulticity
     case EditTraveller
     case AddTraveller
+    case TravellerPreferences
+    case Accounts
+    case AccountsLedger
+    case AccountsOutstandingLedger
+    case AccountsPeriodicStatement
+    case FlightDetails
+    case UpgradePlan
+    case Bookings
+    case Webcheckin
+    case BookingConfirmationMail
+    case ImportTraveller
+    case LinkedAccount
+    case ChangeAertripID
+    case LoginOrRegister
+    case Login
+    case Register
+    case ThankYouForRegistering
+    case SecureYourAccount
+    case CreateProfile
+    case ForgotPassword
+    case CheckForgotPasswordEmail
+    case ResetPassword
+    case TryVerifyingYourEmailAgain
+    case Profile
+    case OpenTravellersList
+    case OpenFavouriteHotels
+    case OpenQuickPay
+    case OpenLinkedAccounts
+    case OpenAccountDetails
+    case LogOut
+    
+    // Filter
+    case Sort
+    case Distance
+    case Price
+    case PriceRange
+    case PriceType
+    case PerNight
+    case Total
+    case Ratings
+    case StarRating
+    case TARating
+    case Amenities
+    case Room
     case FlightOneWayResults
     case FlightInternationalAndMulticityResults
     case FlightDomesticAndMulticityResults
@@ -54,8 +99,8 @@ enum AnalyticsEvents: String {
 enum AnalyticsKeys: String {
     
     //MARK: Firebase Log Event Keys
-    case FilterName = "FilterName"
-    case FilterType = "FilterType"
-    case Values = "Values"
+    case name = "Name"
+    case type = "Type"
+    case values = "Values"
     
 }

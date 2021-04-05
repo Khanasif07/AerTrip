@@ -1227,12 +1227,13 @@ extension AppFlowManager {
     
     // Move to Booking Review Cancellation
     
-    func moveToReviewCancellationVC(onNavController: UINavigationController?, usingAs: BookingReviewCancellationVM.UsingFor, legs: [BookingLeg]?, selectedRooms: [RoomDetailModel]?, bookingDetails:BookingDetailModel? = nil) {
+    func moveToReviewCancellationVC(onNavController: UINavigationController?, usingAs: BookingReviewCancellationVM.UsingFor, legs: [BookingLeg]?, selectedRooms: [RoomDetailModel]?, bookingDetails:BookingDetailModel? = nil, isForflightCancellation:Bool = false) {
         let obj = BookingReviewCancellationVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.legsWithSelection = legs ?? []
         obj.viewModel.currentUsingAs = usingAs
         obj.viewModel.selectedRooms = selectedRooms ?? []
         obj.viewModel.bookingDetails = bookingDetails
+        obj.viewModel.isForflightCancellation = isForflightCancellation
         (onNavController ?? self.mainNavigationController).pushViewController(obj, animated: true)
     }
     

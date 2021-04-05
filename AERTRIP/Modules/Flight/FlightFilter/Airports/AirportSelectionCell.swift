@@ -13,6 +13,7 @@ class AirportSelectionCell: UITableViewCell {
     @IBOutlet weak var airportCode: UILabel!
     @IBOutlet weak var airportName: UILabel!
     @IBOutlet weak var radioButton: UIButton!
+    @IBOutlet weak var aerportLeadingConstraints: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()

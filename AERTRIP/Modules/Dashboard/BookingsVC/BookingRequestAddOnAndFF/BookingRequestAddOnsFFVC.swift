@@ -70,6 +70,8 @@ class BookingRequestAddOnsFFVC: BaseVC {
         
 //        FirebaseAnalyticsController.shared.logEvent(name: "BookingRequestAddOns", params: ["ScreenName":"BookingRequestAddOns", "ScreenClass":"BookingRequestAddOnsFFVC", "ButtonAction":"RequestAddonAndFrequentFlyer"])
 
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.BookingsRequestAddOns, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+
     }
     
     override func viewWillAppear(_ animated: Bool) {

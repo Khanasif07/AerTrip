@@ -79,7 +79,7 @@ extension HotelFilterVC {
         case 5:             selectedEvent = .HotelRoomFilterTapped
         default: break
         }
-        FirebaseEventLogs.shared.logHotelFilterEvents(with: selectedEvent)
+        FirebaseEventLogs.shared.logHotelNavigationEvents(with: selectedEvent)
     }
     
     func logSwipeEvent(filterIndex: Int) {
@@ -93,6 +93,6 @@ extension HotelFilterVC {
         case 5:             selectedEvent = .HotelRoomFilterSwiped
         default: break
         }
-        FirebaseEventLogs.shared.logHotelFilterEvents(with: selectedEvent)
+        FirebaseEventLogs.shared.logHotelNavigationEvents(with: selectedEvent)
     }
 }

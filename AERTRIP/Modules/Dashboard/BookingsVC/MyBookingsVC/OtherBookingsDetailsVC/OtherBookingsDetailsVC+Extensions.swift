@@ -82,7 +82,9 @@ extension OtherBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
         if let _ = tableView.cellForRow(at: indexPath) as? PaymentInfoTableViewCell, let rcpt = self.viewModel.bookingDetail?.receipt {
             //move to voucher vc
             
-            FirebaseAnalyticsController.shared.logEvent(name: "OtherBookingsDetailsPaymentInfoClicked", params: ["ScreenName":"OtherBookingsDetails", "ScreenClass":"OtherBookingsDetailsVC"])
+            
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.OtherBookingsDetailsPaymentInfoOptionSelected, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+
 
             
             AppFlowManager.default.moveToBookingVoucherVC(receipt: rcpt, bookingId: self.viewModel.bookingId)

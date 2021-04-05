@@ -42,15 +42,15 @@ class CreateProfileVM {
     var isValidateData : Bool {
         
         if self.userData.salutation.isEmpty {
-            
+            self.logEvent(with: .PressCTAwithoutSelectingGender)
             AppToast.default.showToastMessage(message: LocalizedString.PleaseSelectSalutation.localized)
             return false
         } else if self.userData.firstName.isEmpty {
-            
+            self.logEvent(with: .PressCTAWithoutEnteringFirstName)
             AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterFirstName.localized)
             return false
         } else if self.userData.lastName.isEmpty {
-            
+            self.logEvent(with: .PressCTAWithoutEnteringLastName)
             AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterLastName.localized)
             return false
         } else if (self.userData.address?.country ?? "").isEmpty {
@@ -58,10 +58,11 @@ class CreateProfileVM {
             AppToast.default.showToastMessage(message: LocalizedString.PleaseSelectCountry.localized)
             return false
         } else if self.userData.mobile.isEmpty {
-            
+            self.logEvent(with: .emptyMobile)
             AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterMobileNumber.localized)
             return false
         }else if self.userData.mobile.count < self.userData.minContactLimit {
+            self.logEvent(with: .incorrectMobile)
             AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterValidMobileNumber.localized)
             return false
         }
@@ -132,4 +133,14 @@ extension CreateProfileVM {
         })
         
     }
+}
+
+
+///Firebase Event logs
+extension CreateProfileVM{
+    
+    func logEvent(with event:FirebaseEventLogs.EventsTypeName){
+        FirebaseEventLogs.shared.logCreateProfileEvents(with: event)
+    }
+    
 }
