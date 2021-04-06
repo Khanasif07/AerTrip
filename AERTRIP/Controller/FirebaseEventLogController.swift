@@ -847,12 +847,12 @@ class FirebaseEventLogs: NSObject{
 }
 
 
-@objc extension FirebaseEventLogs{
+ extension FirebaseEventLogs{
+    
     
     ///Objective c Event type
-    @objc enum EventsTypeNameObjc:Int {
-        typealias RawValue = String
-        
+enum EventsTypeNameObjc:String {
+      
         //MARK:- FlighForm Events TypeNames
         case TapFrom
         case TapTo
@@ -865,28 +865,41 @@ class FirebaseEventLogs: NSObject{
         case TapReturn
         case TapMulticity
         case SearchFromRecentSearch
+        case none
         
         
         
-        var rawValue: RawValue{
-            switch self {
-            case .TapSearchButton: return "TapSearchButton"
-            case .TapFrom: return "TapFrom"
-            case .TapTo: return "TapTo"
-            case .TapOnwardDate: return "TapOnwardDate"
-            case .TapReturnDate: return "TapReturnDate"
-            case .TapSelectPassenger: return "TapSelectPassenger"
-            case .TapSelectClass: return "TapSelectClass"
-            case .TapOneWay: return "TapOneWay"
-            case .TapReturn: return "TapReturn"
-            case .TapMulticity: return "TapMulticity"
-            case .SearchFromRecentSearch: return "SearchFromRecentSearch"
-            }
-        }
+//        var rawValue: RawValue{
+//            //Maintain the order to use.
+//            switch self {
+//            case .TapSearchButton: return "TapSearchButton"//("0")
+//            case .TapFrom: return "TapFrom"//("1")
+//            case .TapTo: return "TapTo"//(2)
+//            case .TapOnwardDate: return "TapOnwardDate"//(3)
+//            case .TapReturnDate: return "TapReturnDate"//(4)
+//            case .TapSelectPassenger: return "TapSelectPassenger"//(5)
+//            case .TapSelectClass: return "TapSelectClass"//(6)
+//            case .TapOneWay: return "TapOneWay"//(7)
+//            case .TapReturn: return "TapReturn"//(8)
+//            case .TapMulticity: return "TapMulticity"//(9)
+//            case .SearchFromRecentSearch: return "SearchFromRecentSearch"//(10)
+//            }
+//        }
         
-        init?(rawValue: RawValue) {
-            switch rawValue {
-            default:return nil
+        init?(with value: String) {
+            switch value {
+            case "0":  self = .TapSearchButton
+            case "1": self = .TapFrom
+            case "2": self = .TapTo
+            case "3": self = .TapOnwardDate
+            case "4": self = .TapReturnDate
+            case "5": self = .TapSelectPassenger
+            case "6": self = .TapSelectClass
+            case "7": self = .TapOneWay
+            case "8": self = .TapReturn
+            case "9": self = .TapMulticity
+            case "10": self = .SearchFromRecentSearch
+            default: self = .none
             }
         }
         
@@ -894,8 +907,11 @@ class FirebaseEventLogs: NSObject{
     }
     
     //MARK:- Flight Form Events function
-    func logFlightFormEvents(with name: EventsTypeNameObjc, type: FlightSearchType, stringValue:String? = nil, dictValue:JSONDictionary? = nil){
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightForm.rawValue, params: [:])
+    @objc func logFlightFormEvents(_ nameInt: String, type: String, stringValue:String, dictValue:JSONDictionary){
+        if let event = EventsTypeNameObjc(with: nameInt){
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightForm.rawValue, params: [:])
+        }
+        
     }
     
 }
