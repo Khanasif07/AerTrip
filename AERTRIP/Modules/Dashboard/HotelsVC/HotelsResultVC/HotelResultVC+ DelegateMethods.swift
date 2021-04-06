@@ -87,6 +87,7 @@ extension HotelResultVC: UISearchBarDelegate {
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         AppFlowManager.default.moveToSpeechToText(with: self)
+        FirebaseEventLogs.shared.logHotelListEvents(with: .HotelMicSearchTapped)
     }
 }
 
@@ -213,6 +214,7 @@ extension HotelResultVC: HotelResultDelegate {
         self.manageShimmer(isHidden: true)
         self.hotelSearchTableView.backgroundView = noHotelFoundEmptyView
         self.searchButton.isUserInteractionEnabled = false
+        FirebaseEventLogs.shared.logHotelListEvents(with: .NoHotelsFound)
     }
     
     func loadFinalDataOnScreen() {
@@ -384,7 +386,11 @@ extension HotelResultVC: HotelCardCollectionViewCellDelegate {
         if self.selectedIndexPath != nil {
             // self.updateFavOnList(forIndexPath: indexPath)
         }
-        
+        if sender.isSelected {
+            FirebaseEventLogs.shared.logHotelListEvents(with: .HotelUnbookmarked)
+        } else {
+            FirebaseEventLogs.shared.logHotelListEvents(with: .HotelBookmarked)
+        }
     }
     
     func saveButtonAction(_ sender: UIButton, forHotel: HotelsModel) {

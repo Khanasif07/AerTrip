@@ -498,6 +498,11 @@ class HotelResultVC: BaseVC {
     @IBAction func backButtonAction(_ sender: UIButton) {
         self.statusBarStyle = .lightContent
         AppFlowManager.default.popViewController(animated: true)
+        if viewModel.hotelListResult.isEmpty {
+            FirebaseEventLogs.shared.logHotelListEvents(with: .NavigateBackBeforeHotelListAppears)
+        } else {
+            FirebaseEventLogs.shared.logHotelListEvents(with: .NavigateBackFromHotelList)
+        }
     }
     
     @IBAction func filterButtonAction(_ sender: UIButton) {
@@ -512,6 +517,7 @@ class HotelResultVC: BaseVC {
         delay(seconds: 0.1) {
             AppFlowManager.default.moveToHotelsResultMapVC(viewModel: self.viewModel)
         }
+        FirebaseEventLogs.shared.logHotelListEvents(with: .HotelsMapViewOpened)
     }
     
     @IBAction func unPinAllFavouriteButtonTapped(_ sender: Any) {
@@ -579,6 +585,7 @@ class HotelResultVC: BaseVC {
     
     @IBAction func searchBtnTapped(_ sender: Any) {
         self.showSearchAnimation()
+        FirebaseEventLogs.shared.logHotelListEvents(with: .HotelSearchTapped)
     }
     
     @objc func longPress(_ gesture: UILongPressGestureRecognizer) {

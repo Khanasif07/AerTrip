@@ -490,6 +490,17 @@ class FirebaseEventLogs: NSObject{
 
 //        case OpenDoorbySwipeonRightEdge
 
+        // Hotel List
+        case NavigateBackFromHotelList
+        case NavigateBackBeforeHotelListAppears
+        case NoHotelsFound
+        case HotelsMapViewOpened
+        case HotelSearchTapped
+        case HotelMicSearchTapped
+        case HotelBookmarked
+        case HotelUnbookmarked
+        case ClearHotelSearch
+        case OpenHotelDetails
     }
     
     
@@ -844,6 +855,11 @@ class FirebaseEventLogs: NSObject{
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Home.rawValue, params: [AnalyticsKeys.name.rawValue:type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
     }
 
+    //MARK:
+    func logHotelListEvents(with type: EventsTypeName) {
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelList.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
+    }
+    
 }
 
 
@@ -897,5 +913,4 @@ class FirebaseEventLogs: NSObject{
     func logFlightFormEvents(with name: EventsTypeNameObjc, type: FlightSearchType, stringValue:String? = nil, dictValue:JSONDictionary? = nil){
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightForm.rawValue, params: [:])
     }
-    
 }

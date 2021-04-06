@@ -75,6 +75,7 @@ enum AnalyticsEvents: String {
     case OpenLinkedAccounts
     case OpenAccountDetails
     case LogOut
+    case HotelList
     
     // Filter
     case Sort
