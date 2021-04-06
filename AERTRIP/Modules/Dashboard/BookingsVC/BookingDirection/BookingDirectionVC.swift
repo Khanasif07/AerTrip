@@ -45,7 +45,7 @@ class BookingDirectionVC: BaseVC {
         self.directionTableView.reloadData()
 
 
-        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsDirections, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsDirections, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a", isFrom: "Bookings")
 
     }
     
