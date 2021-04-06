@@ -207,7 +207,7 @@ class IntMCAndReturnFiltersBaseVC: UIViewController {
             self.parchmentView?.view.subviews[0].alpha = 1
             
             // analytics event
-            logTapEvent(filterIndex: 0)
+            logTapEvent(filterIndex: 0, isFilterBtnTapped: true)
         }
         parchmentView?.reloadMenu()
     }
