@@ -124,12 +124,13 @@ extension CancelledVC {
         
         var fromPredicate: NSPredicate?
         var toPredicate: NSPredicate?
+
         if let fromDate = MyBookingFilterVM.shared.bookingFromDate?.toString(dateFormat: "yyyy-MM-dd 00:00:00") {
             fromPredicate = NSPredicate(format: "bookingDate >= %@", fromDate)
         }
         
-        if let toDate = MyBookingFilterVM.shared.bookingToDate?.toString(dateFormat: "yyyy-MM-dd 00:00:00") {
-            toPredicate = NSPredicate(format: "bookingDate <= %@",toDate)
+        if let toDate = MyBookingFilterVM.shared.bookingToDate?.toString(dateFormat: "yyyy-MM-dd 24:00:00") {
+                toPredicate = NSPredicate(format: "bookingDate <= %@",toDate)
         }
         
         if let from = fromPredicate, let to = toPredicate {

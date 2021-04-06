@@ -379,6 +379,8 @@ open class PKSideMenuController: UIViewController {
     }
     
     @objc func tapMainAction(){
+        FirebaseEventLogs.shared.logSideMenuEvents(with: .CloseDoorbyClickingonTheDoor)
+
         closeMenu()
         removeGesture()
     }
@@ -459,6 +461,7 @@ extension PKSideMenuController {
             actionForEdgePanGesture(gestRecog)
         } else {
             guard let gestRecog = recognizer as? UIPanGestureRecognizer else { return }
+            FirebaseEventLogs.shared.logSideMenuEvents(with: .CloseDoorbySwipingTheDoor)
             actionForPanGesture(gestRecog)
         }
     }

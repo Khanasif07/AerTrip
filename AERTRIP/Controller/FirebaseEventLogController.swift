@@ -490,6 +490,26 @@ class FirebaseEventLogs: NSObject{
 
 //        case OpenDoorbySwipeonRightEdge
 
+        
+//        SideMenu
+        case OpenFacebook
+        case OpenTwitter
+        case OpenInstagram
+        case CloseDoorbySwipingTheDoor
+        case CloseDoorbyClickingonTheDoor
+        case ClickedonLoginRegister
+        case OpenWhyAertrip
+        case OpenSmartSort
+        case OpenOffers
+        case OpenContactUs
+        case OpenSettings
+        case OpenProfile
+        case ViewAccounts
+        case OpenBookings
+        case OpenNotifications
+        case OpenSupport
+        case OpenRateUs
+    
     }
     
     
@@ -843,6 +863,12 @@ class FirebaseEventLogs: NSObject{
     func logHomeEvents(with type:EventsTypeName){
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Home.rawValue, params: [AnalyticsKeys.name.rawValue:type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
     }
+    
+//    MARK:- Side Menu
+    
+    func logSideMenuEvents(with type:EventsTypeName){
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.SideMenu.rawValue, params: [AnalyticsKeys.name.rawValue:type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
+    }
 
 }
 
@@ -913,5 +939,6 @@ enum EventsTypeNameObjc:String {
         }
         
     }
+    
     
 }
