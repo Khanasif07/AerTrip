@@ -19,6 +19,7 @@
 
 @class BookFlightObject;
 @class FlightWhatNextData;
+@class FirebaseEventLogs;
 
 @interface FlightFormDataModel () <AirportSelctionHandler, CalendarDataHandler   ,CLLocationManagerDelegate>
 
@@ -1870,4 +1871,11 @@
     return label.attributedText.size;
 }
 
+- (void) logEvents:(NSString *) Name journyType:(NSString *) type valueString:(NSString *) value valueDict:(NSDictionary *) dictValue {
+    FirebaseEventLogs *eventController = FirebaseEventLogs.shared;
+    [eventController logFlightFormEvents: Name type: type stringValue:value dictValue:dictValue];
+}
+
 @end
+
+

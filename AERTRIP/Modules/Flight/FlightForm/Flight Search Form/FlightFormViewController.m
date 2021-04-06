@@ -232,6 +232,14 @@
 
 - (IBAction)segmentChanged:(id)sender{
     [self adjustAsPerTopBar];
+    NSDictionary *dict = [[NSDictionary alloc] init];
+    if (self.viewModel.flightSearchType == MULTI_CITY ) {
+        [self.viewModel logEvents:@"9" journyType:@"n/a" valueString:@"n/a" valueDict: dict];
+    }else if (self.viewModel.flightSearchType == RETURN_JOURNEY) {
+        [self.viewModel logEvents:@"8" journyType:@"n/a" valueString:@"n/a" valueDict: dict];
+    }else{
+        [self.viewModel logEvents:@"7" journyType:@"n/a" valueString:@"n/a" valueDict: dict];
+    }
 }
 - (void) adjustAsPerTopBar {
     
@@ -733,6 +741,15 @@
     controller.flightClassSelectiondelegate = self;
     controller.flightClass = self.viewModel.flightClass;
     [self presentViewController:controller animated:NO completion:nil];
+    NSString *type = @"";
+    if (self.viewModel.flightSearchType == MULTI_CITY ) {
+        type = @"Multicity";
+    }else if (self.viewModel.flightSearchType == RETURN_JOURNEY) {
+        type = @"Return";
+    }else{
+        type = @"Single";
+    }
+    [self.viewModel logEvents:@"6" journyType:type valueString:@"n/a" valueDict:[[NSDictionary alloc] init]];
     
 }
 

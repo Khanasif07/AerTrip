@@ -61,8 +61,7 @@ class HotelCancellationVC: BaseVC {
         }
         self.gradientView.addGredient(isVertical: false)
         
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.MyBookingsHotelCancellation, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
-
+        FirebaseEventLogs.shared.logEventsWithOutParam(with: .MyBookingsHotelCancellation)
     }
     
     override func viewDidLayoutSubviews() {

@@ -142,7 +142,7 @@ class RangeVC: BaseVC {
         }
                 
         let range = value > 24 ? "25+ KM" : "\(Int(value)) KM"
-        let rangeFilterParams = [AnalyticsKeys.name.rawValue: AnalyticsEvents.Distance.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: range]
+        let rangeFilterParams = [AnalyticsKeys.name.rawValue: AnalyticsEvents.Distance.rawValue, AnalyticsKeys.type.rawValue : "n/a", AnalyticsKeys.values.rawValue: range]
         FirebaseEventLogs.shared.logHotelFilterEvents(params: rangeFilterParams)
     }
 }

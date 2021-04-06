@@ -88,7 +88,7 @@ class RegularAccountDetailsVC: BaseVC {
         self.setMainSearchBar()
         self.setupNavigation()
         
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Accounts.rawValue, params: [AnalyticsKeys.name.rawValue:AnalyticsEvents.Accounts, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .Accounts, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
 
     }
     
@@ -211,14 +211,15 @@ class RegularAccountDetailsVC: BaseVC {
             if index == 0 {
                 //email tapped
 
-                FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Accounts.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.AccountsSendEmailOptionSelected, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+                FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .AccountsSendEmailOptionSelected, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
 
                 AppToast.default.showToastMessage(message: "Sending email")
                 self.viewModel.sendEmailForLedger(onVC: self)
             } else {
                 //download pdf tapped
+                
+                FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .AccountsDownloadPDFOptionSelected, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
 
-                FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Accounts.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.AccountsDownloadPDFOptionSelected, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
 
                 self.topNavView.isToShowIndicatorView = true
                 self.topNavView.startActivityIndicaorLoading()

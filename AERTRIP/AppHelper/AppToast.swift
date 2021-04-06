@@ -42,17 +42,20 @@ class AppToast : NSObject {
 
             self.toastDidClose = toastDidClose
             self.buttonAction = buttonAction
-            if let view = onViewController?.view {
-                if buttonTitle.isEmpty {
-                    self.hideToast(onViewController, animated: true)
-                    //Gurpreet
-//                    delay(seconds: 0.3) {
+            DispatchQueue.main.async {
+                
+                if let view = onViewController?.view {
+                    if buttonTitle.isEmpty {
+                        self.hideToast(onViewController, animated: true)
+                        //Gurpreet
+                        //                    delay(seconds: 0.3) {
                         AertripToastView.toast(in: view, withText: message)
-//                    }
-                } else {
-                    CustomToast.shared.fadeAllToasts()
-                    self.parentViewController = onViewController
-                    AertripToastView.toast(in: view, withText: message, buttonTitle: buttonTitle, delegate: self)
+                        //                    }
+                    } else {
+                        CustomToast.shared.fadeAllToasts()
+                        self.parentViewController = onViewController
+                        AertripToastView.toast(in: view, withText: message, buttonTitle: buttonTitle, delegate: self)
+                    }
                 }
             }
             

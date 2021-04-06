@@ -17,9 +17,9 @@ extension MyBookingsVC: UISearchBarDelegate {
     
     @objc func search(_ forText: String) {
         printDebug(forText)
-        
-
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.MyBookings, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a", AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.MyBookingsSearchOptionSelected, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: forText])
+                
+        let jsonDict :JSONDictionary = ["SearchQuery":forText]
+        FirebaseEventLogs.shared.logSearchBarEvents(with: .MyBookingsSearchOptionSelected, value: jsonDict)
 
         MyBookingFilterVM.shared.searchText = forText.removeLeadingTrailingWhitespaces
         self.sendDataChangedNotification(data: ATNotification.myBookingSearching)
@@ -31,8 +31,7 @@ extension MyBookingsVC: UISearchBarDelegate {
     
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar){
                 
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.MyBookingsSpeechToTextOptionSelected, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
-
+        FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsSpeechToTextOptionSelected)
 
         AppFlowManager.default.moveToSpeechToText(with: self)
     }
@@ -102,9 +101,8 @@ extension MyBookingsVC: SpeechToTextVCDelegate{
         guard !text.isEmpty else {return}        
         searchBar.hideMiceButton(isHidden: false)
         
-        
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.MyBookingsConvertedSpeechToText, AnalyticsKeys.type.rawValue: "SearchQuery", AnalyticsKeys.values.rawValue: text])
-
+        let jsonDict :JSONDictionary = ["SearchQuery":text]
+        FirebaseEventLogs.shared.logSearchBarEvents(with: .MyBookingsConvertedSpeechToText, value: jsonDict)
 
         self.searchBar.text = text
         NSObject.cancelPreviousPerformRequests(withTarget: self)

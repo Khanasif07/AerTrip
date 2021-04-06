@@ -9,10 +9,10 @@
 import Foundation
 
 
-class FirebaseEventLogs{
+class FirebaseEventLogs: NSObject{
     
-    static let shared = FirebaseEventLogs()
-    private init(){}
+    @objc static let shared = FirebaseEventLogs()
+    override init(){}
     
     enum EventsTypeName:String {
         //MARK:- Settings Events TypeNames
@@ -256,127 +256,6 @@ class FirebaseEventLogs{
         case SortGroup
         case AddNewGroup
         
-        
-        //MARK:- Accounts
-        case AccountsFilterOptionSelected
-        case AccountsApplyFilterOptionSelected
-        case AccountsClearAllFilterOptionSelected
-        case AccountsSpeechToTextOptionSelected
-        case AccountsConvertedSpeechToText
-        case AccountsPayOnlineOptionSelected
-        case AccountsPayOfflineOptionSelected
-        case AccountsDepositeOptionSelected
-        case AccountsInfoOptionSelected
-        case AccountsLedgerOptionSelected
-        case AccountsOutstandingLedgerOptionSelected
-        case AccountsPeriodicStatementOptionSelected
-        case AccountsSendEmailOptionSelected
-        case AccountsDownloadPDFOptionSelected
-        case AccountsClearSearchBarOptionSelected
-        case AccountsCancelSearchBarOptionSelected
-        case AccountSearchOptionSelected
-        case AccountsLedgerSpeechToTextSelected
-        case AccountsMenuOptionSelected
-        case AccountsLedgerFilterOptionSelected
-        case AccountsLedgerClearFilterOptionSelected
-        case AccountsLedgerConvertedSpeechToText
-        case AccountsLedgerViewLedgerDetailsSelectedFromList
-        case AccountsLedgerDetails
-        case AccountsLedgerDetailsFlightsOptionSelected
-        case AccountsLedgerDetailsHotelsOptionSelected
-        case AccountsLedgerDetailsDownloadReciptSelected
-        case AccountsOutstandingLedgerSelectBookingsOptionSelected
-        case AccountsOutstandingLedgerOnAccountOptionSelected
-        case AccountsMakePaymenrOptionSelected
-        case AccountsOutstandingLedgerViewLedgerDetailsSelectedFromList
-        case AccountsPeriodicStatementViewStatementDetailsSelectedFromList
-
-        
-//        MARK:- FlightDetails
-        case FlightDetailsIntFlightInfo
-        case FlightDetailsIntBaggageInfo
-        case FlightDetailsIntFareInfo
-        case FlightDetailsFlightInfo
-        case FlightDetailsBaggageInfo
-        case FlightDetailsFareInfo
-        case CloseButtonClicked
-        case FlightDetailsPinOptionSelected
-        case FlightDetailsShareOptionSelected
-        case FlightDetailsAddToTripOptionSelected
-        case FlightBookFlightOptionSelected
-        case FlightDetailsOpenPassengerSelectionScreen
-        case FlightDetailsInfoOptionSelected
-        case FlightDetailsUpgradeOptionSelected
-        case FlightDetailsBaggageDimentionsOptionSelected
-        case FlightDetailsFareRulesOptionSelected
-        case FlightDetailsOnTimePerformanceOptionSelected
-        
-//        MARK:- Upgrade Flight
-        case UpgradePlanInfoOptionSelected
-        case UpgradePlanPresentPessangerSelectionScreen
-        case UpgradePlanBookOptionSelected
-        
-//        MARK:- Bookings
-        case MyBookings
-        case MyBookingsFilterApplied
-        case MyBookingsFilterCleared
-        case MyBookingsList
-        case MyBookingsSearchOptionSelected
-        case MyBookingsSpeechToTextOptionSelected
-        case MyBookingsConvertedSpeechToText
-        case MyBookingsFilter
-        case BookingsReviewCancellationRequest
-        case BookingsReviewReschedulingRequest
-        case BookingsReviewSpecialRequest
-        case BookingsCancellation
-        case BookingsRescheduling
-        case BookingsRequestAddOns
-        case BookingsDirections
-        case BookingsContactNumberList
-        case BookingsVoucherDepositPayOnlineOptionSelected
-        case BookingsVoucherDepositPayOfflineOptionSelected
-        case BookingsFlightDetails
-        case BookingsFlightDetailsBaggageDimensionOptionsSelected
-        case BookingsFlightDetailsFlightInfo
-        case BookingsFlightDetailsBaggageInfo
-        case BookingsFlightDetailsFareInfo
-        case BookingsFlightDetailsFareInfoFareRulesOptionSelected
-        case BookingsAddonsRequest
-        case BookingsDetailsMakePaymentOptionSelected
-        case BookingsAddonRequestPayOnlineOptionSelected
-        case BookingsAddonRequestPayOfflineOptionSelected
-
-        case OtherBookingsDetails
-        case OtherBookingsDetailsDepositPayOnlineOptionSelected
-        case OtherBookingsDetailsDepositPayOfflineOptionSelected
-        case OtherBookingsDetailsPaymentInfoOptionSelected
-        case MyBookingsFlightBookingsDetails
-        case MyBookingsFlightBookingsDetailsPayOnlineOptionSelected
-        case MyBookingsFlightBookingsDetailsPayOfflineOptionSelected
-        case MyBookingsRequestAddOnFrequentFlyerOptionSelected
-        case MyBookingsReschedulingOptionSelected
-        case MyBookingsFlightDetailsShareOptionSelected
-        case MyBookingsFlightDetailsBookSameFlightOptionSelected
-        case MyBookingsFlightDetailsAddToCalenderOptionSelected
-        case MyBookingsFlightDetailsAddToAppleWalletOptionSelected
-
-        case MyBookingsWebCheckinOptionSelected
-        case MyBookingsHotelDetails
-        case MyBookingsHotelDetailsPayOnlineOptionSelected
-        case MyBookingsHotelDetailsPayOfflineOptionSelected
-        case MyBookingsHotelDetailsProcessCancellationOptionSelected
-        case MyBookingsHotelDetailsProcessSpecialRequestOptionSelected
-        case MyBookingsHotelDetailsDownloadDetailsOptionSelected
-        case MyBookingsHotelDetailsResendConfirmationMailOptionSelected
-        case MyBookingsHotelDetailsReloadDetailsOptionSelected
-        case MyBookingsHotelDetailsShareOptionSelected
-        case MyBookingsHotelDetailsOpenDirectionsOptionSelected
-        case MyBookingsHotelDetailsAddToCalenderOptionSelected
-        case MyBookingsHotelDetailsBookAnotherRoomOptionSelected
-        
-        case MyBookingsHotelCancellation
-        case MyBookingsNotes
-        
         //MARK:- Import Traveller Events TypeNames
         case AccessContacts
         case AccessGoogle
@@ -457,7 +336,182 @@ class FirebaseEventLogs{
         case EmailPinnedFlights
         case AddToTrip
         
+        case LoggedInUserType
+        case JourneyTitle
+        
+        
+        //MARK:- Accounts
+        case Accounts
+        case AccountsLedger
+        case AccountsOutstandingLedger
+        case AccountsPeriodicStatement
+        case AccountsFilterOptionSelected
+        case AccountsApplyFilterOptionSelected
+        case AccountsClearAllFilterOptionSelected
+        case AccountsSpeechToTextOptionSelected
+        case AccountsConvertedSpeechToText
+        case AccountsOutstandingLedgerPayOnlineOptionSelected
+        case AccountsOutstandingLedgerPayOfflineOptionSelected
+
+        case AccountsPayOnlineOptionSelected
+        case AccountsPayOfflineOptionSelected
+        case AccountsDepositeOptionSelected
+        case AccountsInfoOptionSelected
+        case AccountsLedgerOptionSelected
+        case AccountsOutstandingLedgerOptionSelected
+        case AccountsPeriodicStatementOptionSelected
+        case AccountsSendEmailOptionSelected
+        case AccountsDownloadPDFOptionSelected
+        case AccountsClearSearchBarOptionSelected
+        case AccountsCancelSearchBarOptionSelected
+        case AccountSearchOptionSelected
+        case AccountsLedgerSpeechToTextSelected
+        case AccountsMenuOptionSelected
+        case AccountsLedgerFilterOptionSelected
+        case AccountsLedgerClearFilterOptionSelected
+        case AccountsLedgerConvertedSpeechToText
+        case AccountsLedgerViewLedgerDetailsSelectedFromList
+        case AccountsLedgerDetails
+        case AccountsLedgerDetailsFlightsOptionSelected
+        case AccountsLedgerDetailsHotelsOptionSelected
+        case AccountsLedgerDetailsDownloadReciptSelected
+        case AccountsOutstandingLedgerSelectBookingsOptionSelected
+        case AccountsOutstandingLedgerOnAccountOptionSelected
+        case AccountsMakePaymenrOptionSelected
+        case AccountsOutstandingLedgerViewLedgerDetailsSelectedFromList
+        case AccountsPeriodicStatementViewStatementDetailsSelectedFromList
+
+        
+    //        MARK:- FlightDetails
+        case FlightDetailsIntFlightInfo
+        case FlightDetailsIntBaggageInfo
+        case FlightDetailsIntFareInfo
+        case FlightDetailsFlightInfo
+        case FlightDetailsBaggageInfo
+        case FlightDetailsFareInfo
+        case CloseButtonClicked
+        case FlightDetailsPinOptionSelected
+        case FlightDetailsShareOptionSelected
+        case FlightDetailsAddToTripOptionSelected
+        case FlightBookFlightOptionSelected
+        case FlightDetailsOpenPassengerSelectionScreen
+        case FlightDetailsInfoOptionSelected
+        case FlightDetailsUpgradeOptionSelected
+        case FlightDetailsBaggageDimentionsOptionSelected
+        case FlightDetailsFareRulesOptionSelected
+        case FlightDetailsOnTimePerformanceOptionSelected
+        
+    //        MARK:- Upgrade Flight
+        case UpgradePlanInfoOptionSelected
+        case UpgradePlanPresentPessangerSelectionScreen
+        case UpgradePlanBookOptionSelected
+        
+    //        MARK:- Bookings
+        case MyBookings
+        case MyBookingsFilterApplied
+        case MyBookingsFilterCleared
+        case MyBookingsList
+        case MyBookingsSearchOptionSelected
+        case MyBookingsSpeechToTextOptionSelected
+        case MyBookingsConvertedSpeechToText
+        case MyBookingsFilter
+        case BookingsReviewCancellationRequest
+        case BookingsReviewReschedulingRequest
+        case BookingsReviewSpecialRequest
+        case BookingsCancellation
+        case BookingsRescheduling
+        case BookingsRequestAddOns
+        case BookingsDirections
+        case BookingsContactNumberList
+        case BookingsVoucherDepositPayOnlineOptionSelected
+        case BookingsVoucherDepositPayOfflineOptionSelected
+        case BookingsFlightDetails
+        case BookingsFlightDetailsBaggageDimensionOptionsSelected
+        case BookingsFlightDetailsFlightInfo
+        case BookingsFlightDetailsBaggageInfo
+        case BookingsFlightDetailsFareInfo
+        case BookingsFlightDetailsFareInfoFareRulesOptionSelected
+        case BookingsAddonsRequest
+        case BookingsDetailsMakePaymentOptionSelected
+        case BookingsAddonRequestPayOnlineOptionSelected
+        case BookingsAddonRequestPayOfflineOptionSelected
+
+        case OtherBookingsDetails
+        case OtherBookingsDetailsDepositPayOnlineOptionSelected
+        case OtherBookingsDetailsDepositPayOfflineOptionSelected
+        case OtherBookingsDetailsPaymentInfoOptionSelected
+        case MyBookingsFlightBookingsDetails
+        case MyBookingsFlightBookingsDetailsPayOnlineOptionSelected
+        case MyBookingsFlightBookingsDetailsPayOfflineOptionSelected
+        case MyBookingsRequestAddOnFrequentFlyerOptionSelected
+        case MyBookingsReschedulingOptionSelected
+        case MyBookingsFlightDetailsShareOptionSelected
+        case MyBookingsFlightDetailsBookSameFlightOptionSelected
+        case MyBookingsFlightDetailsAddToCalenderOptionSelected
+        case MyBookingsFlightDetailsAddToAppleWalletOptionSelected
+
+        case MyBookingsWebCheckinOptionSelected
+        case MyBookingsHotelDetails
+        case MyBookingsHotelDetailsPayOnlineOptionSelected
+        case MyBookingsHotelDetailsPayOfflineOptionSelected
+        case MyBookingsHotelDetailsProcessCancellationOptionSelected
+        case MyBookingsHotelDetailsProcessSpecialRequestOptionSelected
+        case MyBookingsHotelDetailsDownloadDetailsOptionSelected
+        case MyBookingsHotelDetailsResendConfirmationMailOptionSelected
+        case MyBookingsHotelDetailsReloadDetailsOptionSelected
+        case MyBookingsHotelDetailsShareOptionSelected
+        case MyBookingsHotelDetailsOpenDirectionsOptionSelected
+        case MyBookingsHotelDetailsAddToCalenderOptionSelected
+        case MyBookingsHotelDetailsBookAnotherRoomOptionSelected
+        case BookingConfirmationMail
+
+        //Addons
+        case OpenMeals
+        case OpenBaggage
+        case OpenSeat
+        case OpenOthers
+        case addPassengerToMeal
+        case addPassengerToBaggage
+        case addPassengerToOtherAddons
+        
+
+//        Home
+        case NavigatetoAerinbyTapping
+        case NavigatetoAerinbySwiping
+        case NavigatetoFlightsbySwiping
+        case NavigatetoFlightsbyTapping
+        case NavigatetoHotelsbySwiping
+        case NavigatetoHotelsbyTapping
+        case NavigatetoTripsbySwiping
+        case NavigatetoTripsbyTapping
+        case ProfileOptionSelected
+        case TravelSafetyGuidelinesOptionSelected
+        case NavigateToTripsFromHome
+
+//        case OpenDoorbySwipeonRightEdge
+
+        
+//        SideMenu
+        case OpenFacebook
+        case OpenTwitter
+        case OpenInstagram
+        case CloseDoorbySwipingTheDoor
+        case CloseDoorbyClickingonTheDoor
+        case ClickedonLoginRegister
+        case OpenWhyAertrip
+        case OpenSmartSort
+        case OpenOffers
+        case OpenContactUs
+        case OpenSettings
+        case OpenProfile
+        case ViewAccounts
+        case OpenBookings
+        case OpenNotifications
+        case OpenSupport
+        case OpenRateUs
+    
     }
+    
     
     
     //MARK:- Settings Events Log Function
@@ -705,7 +759,7 @@ class FirebaseEventLogs{
     
     //MARK:- Log Events Without Param Function
     func logEventsWithOutParam(with type: AnalyticsEvents){
-        FirebaseAnalyticsController.shared.logEvent(name: type.rawValue)
+        FirebaseAnalyticsController.shared.logEvent(name: type.rawValue) 
     }
     
     //MARK:- Flight Result Events
@@ -746,11 +800,11 @@ class FirebaseEventLogs{
     func logDomesticAndMulticityResults(with type : EventsTypeName, value : JSONDictionary = [:], groupId : String = "", fk : String = "", fkArray : [String] = []) {
         
         switch type {
-        case .PinFlight, .UnPinFlight, .OpenFlightDetails, .AddToTrip:
+        case .PinFlight, .UnPinFlight, .AddToTrip:
 
             FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightDomesticAndMulticityResults.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.values.rawValue : ["fk":fk]])
-
-        case .ShareFlight, .EmailPinnedFlights:
+     
+        case .ShareFlight, .EmailPinnedFlights, .OpenFlightDetails:
             FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightDomesticAndMulticityResults.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.values.rawValue : ["fk":fkArray]])
             
         default:
@@ -762,8 +816,129 @@ class FirebaseEventLogs{
     
 //    MARK:- Accounts
     func logAccountsOptionSelectionEvent(with type:EventsTypeName){
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Accounts.rawValue, params: [AnalyticsKeys.name.rawValue: type, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Accounts.rawValue, params: [AnalyticsKeys.name.rawValue: type, AnalyticsKeys.type.rawValue: EventsTypeName.LoggedInUserType.rawValue, AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+    }
+    
+    func logAccountsEventsWithAccountType(with type:EventsTypeName, AccountType: String = ""){
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Accounts.rawValue, params: [AnalyticsKeys.name.rawValue:type.rawValue, AnalyticsKeys.type.rawValue: EventsTypeName.LoggedInUserType.rawValue, AnalyticsKeys.values.rawValue: AccountType])
+    }
+    
+    func logSearchBarEvents(with type:EventsTypeName,value:JSONDictionary = [:]){
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Accounts.rawValue, params: [AnalyticsKeys.name.rawValue:type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: value])
+    }
+
+    func logAccountsDetailsEvents(with type:EventsTypeName,value:JSONDictionary = [:]){
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Accounts.rawValue, params: [AnalyticsKeys.name.rawValue:type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: value])
+    }
+
+//    MARK:- FlightDetails
+    func logFlightDetailsEventWithJourneyTitle(title: String = ""){
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightDetails.rawValue, params: [AnalyticsKeys.name.rawValue:EventsTypeName.JourneyTitle.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: title])
+    }
+    
+    func logAddons(with type : EventsTypeName){
+        
+        FirebaseAnalyticsController.shared.logEvent(name: type.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue])
+        
+    }
+
+    func logFlightDetailsEvent(with type:EventsTypeName){
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightDetails.rawValue, params: [AnalyticsKeys.name.rawValue:type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
 
     }
+
+//    MARK:- Upgrade Plan
+    func logUpgradePlanEvent(with type:EventsTypeName){
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.UpgradePlan.rawValue, params: [AnalyticsKeys.name.rawValue:type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
+
+    }
+
+//    MARK:- My Bookings
+    func logMyBookingsEvent(with type:EventsTypeName,value:JSONDictionary = [:]){
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.MyBookings.rawValue, params: [AnalyticsKeys.name.rawValue:type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: value])
+
+    }
+    
+//    MARK:- Home
+    func logHomeEvents(with type:EventsTypeName){
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Home.rawValue, params: [AnalyticsKeys.name.rawValue:type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
+    }
+    
+//    MARK:- Side Menu
+    
+    func logSideMenuEvents(with type:EventsTypeName){
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.SideMenu.rawValue, params: [AnalyticsKeys.name.rawValue:type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
+    }
+
+}
+
+
+ extension FirebaseEventLogs{
+    
+    
+    ///Objective c Event type
+enum EventsTypeNameObjc:String {
+      
+        //MARK:- FlighForm Events TypeNames
+        case TapFrom
+        case TapTo
+        case TapOnwardDate
+        case TapReturnDate
+        case TapSelectPassenger
+        case TapSelectClass
+        case TapSearchButton
+        case TapOneWay
+        case TapReturn
+        case TapMulticity
+        case SearchFromRecentSearch
+        case none
+        
+        
+        
+//        var rawValue: RawValue{
+//            //Maintain the order to use.
+//            switch self {
+//            case .TapSearchButton: return "TapSearchButton"//("0")
+//            case .TapFrom: return "TapFrom"//("1")
+//            case .TapTo: return "TapTo"//(2)
+//            case .TapOnwardDate: return "TapOnwardDate"//(3)
+//            case .TapReturnDate: return "TapReturnDate"//(4)
+//            case .TapSelectPassenger: return "TapSelectPassenger"//(5)
+//            case .TapSelectClass: return "TapSelectClass"//(6)
+//            case .TapOneWay: return "TapOneWay"//(7)
+//            case .TapReturn: return "TapReturn"//(8)
+//            case .TapMulticity: return "TapMulticity"//(9)
+//            case .SearchFromRecentSearch: return "SearchFromRecentSearch"//(10)
+//            }
+//        }
+        
+        init?(with value: String) {
+            switch value {
+            case "0":  self = .TapSearchButton
+            case "1": self = .TapFrom
+            case "2": self = .TapTo
+            case "3": self = .TapOnwardDate
+            case "4": self = .TapReturnDate
+            case "5": self = .TapSelectPassenger
+            case "6": self = .TapSelectClass
+            case "7": self = .TapOneWay
+            case "8": self = .TapReturn
+            case "9": self = .TapMulticity
+            case "10": self = .SearchFromRecentSearch
+            default: self = .none
+            }
+        }
+        
+        
+    }
+    
+    //MARK:- Flight Form Events function
+    @objc func logFlightFormEvents(_ nameInt: String, type: String, stringValue:String, dictValue:JSONDictionary){
+        if let event = EventsTypeNameObjc(with: nameInt){
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightForm.rawValue, params: [:])
+        }
+        
+    }
+    
     
 }

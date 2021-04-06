@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class BookFlightObject;
 @class FlightWhatNextData;
 @class FlightsRecentSearchesParamConverter;
+@class FirebaseEventLogs;
 
 @protocol FlightViewModelDelegate
 -(void)showErrorMessage:(NSString*)errorMessage;
@@ -85,7 +86,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)addFlightLegForMulticityJourney;
 -(MulticityCalendarVM*)prepareVMForMulticityCalendar:(NSUInteger)currentIndex;
 -(void)getRecentSearches;
-
+- (void) logEvents:(NSString *) Name journyType:(NSString *) type valueString:(NSString *) value valueDict:(NSDictionary *) dictValue;
 
 @property (strong , nonatomic) NSString * airlineCode;
 
