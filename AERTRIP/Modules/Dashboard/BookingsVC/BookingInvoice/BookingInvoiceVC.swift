@@ -134,6 +134,14 @@ class BookingInvoiceVC: BaseVC {
         }
     }
     
+    private func handleCancellationArrowAnimation(_ headerView: FareSectionHeader) {
+        let rotateTrans = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
+        if self.viewModel.isCancellationSectionExpanded {
+            headerView.arrowButton.transform = .identity
+        } else {
+            headerView.arrowButton.transform = rotateTrans
+        }
+    }
     private func handleDiscountArrowAnimation(_ headerView: FareSectionHeader) {
         let rotateTrans = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
         if self.viewModel.isGrossFareSectionExpanded {
@@ -152,6 +160,19 @@ class BookingInvoiceVC: BaseVC {
         discountCell.titleLabelTopConstraint.constant = 5
         discountCell.backgroundColor = .red
         let code = self.viewModel.transectionCodes[indexPath.row]
+        discountCell.configureCellForInvoice(title: code.ledgerName, amount: code.amount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(14.0)))
+        return discountCell
+    }
+    
+    private func getCellForCancellationSection(_ indexPath: IndexPath) -> UITableViewCell {
+        guard let discountCell = self.invoiceTableView.dequeueReusableCell(withIdentifier: "DiscountCell") as? DiscountCell else {
+            fatalError("DiscountCell not found")
+        }
+        discountCell.titleLabelLeadingConstraint.constant = 30
+        discountCell.titleLabelBottomConstraint.constant = 1
+        discountCell.titleLabelTopConstraint.constant = 5
+        discountCell.backgroundColor = .red
+        let code = self.viewModel.cancellationCodes[indexPath.row]
         discountCell.configureCellForInvoice(title: code.ledgerName, amount: code.amount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(14.0)))
         return discountCell
     }
@@ -240,7 +261,11 @@ class BookingInvoiceVC: BaseVC {
     func getHeightForRowAtSecondSection(_ indexPath: IndexPath) -> CGFloat {
         return 25.0//[24, 24, 24, 24][indexPath.row]
     }
-    
+
+    func getHeightForRowAtCancellationSection(_ indexPath: IndexPath) -> CGFloat {
+        return 25.0//[24, 24, 24, 24][indexPath.row]
+    }
+
     func getHeightForRowAtThirdSection(_ indexPath: IndexPath) -> CGFloat {
         return 24.0//[24][indexPath.row]
     }
@@ -270,6 +295,8 @@ extension BookingInvoiceVC: UITableViewDataSource, UITableViewDelegate {
                 return self.viewModel.isBaseFareSectionExpanded ? self.viewModel.sectionHeader[section].rowCount : 0
             case .discount:
                 return self.viewModel.isGrossFareSectionExpanded ? self.viewModel.sectionHeader[section].rowCount : 0
+            case .cancellation:
+                return self.viewModel.isCancellationSectionExpanded ? self.viewModel.sectionHeader[section].rowCount : 0
             default:
                 return self.viewModel.sectionHeader[section].rowCount
             }
@@ -296,6 +323,8 @@ extension BookingInvoiceVC: UITableViewDataSource, UITableViewDelegate {
                 return self.getCellForFirstSection(indexPath)
             case .taxes:
                 return self.getCellForSecondSection(indexPath)
+            case .cancellation:
+                return self.getCellForCancellationSection(indexPath)
             case .discount:
                 return self.getCellForThirdSection(indexPath)
             case .total:
@@ -338,6 +367,9 @@ extension BookingInvoiceVC: UITableViewDataSource, UITableViewDelegate {
             case .details,.total: return nil
             case .taxes:
                 self.handleTaxesArrowAnimation(headerView)
+                showDataOnBottomHeader()
+            case .cancellation:
+                self.handleCancellationArrowAnimation(headerView)
                 showDataOnBottomHeader()
             case .discount:
                 self.handleDiscountArrowAnimation(headerView)
@@ -445,6 +477,8 @@ extension BookingInvoiceVC: UITableViewDataSource, UITableViewDelegate {
                 return self.getHeightForRowAtFirstSection(indexPath)
             case .taxes:
                 return self.getHeightForRowAtSecondSection(indexPath)
+            case .cancellation:
+                return self.getHeightForRowAtCancellationSection(indexPath)
             case .discount:
                 return self.getHeightForRowAtThirdSection(indexPath)
             case .total:
@@ -523,6 +557,12 @@ extension BookingInvoiceVC: FareSectionHeaderDelegate {
                 self.viewModel.isBaseFareSectionExpanded = false
             } else {
                 self.viewModel.isBaseFareSectionExpanded = true
+            }
+        } else  if section == .cancellation {
+            if self.viewModel.isCancellationSectionExpanded {
+                self.viewModel.isCancellationSectionExpanded = false
+            } else {
+                self.viewModel.isCancellationSectionExpanded = true
             }
         } else if section == .discount {
             if self.viewModel.isGrossFareSectionExpanded {
