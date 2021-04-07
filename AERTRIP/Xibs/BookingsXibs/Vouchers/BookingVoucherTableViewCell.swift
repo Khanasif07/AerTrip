@@ -133,11 +133,22 @@ class BookingVoucherTableViewCell: ATTableViewCell {
             }
             titleStr = self.voucherData.basic?.type ?? LocalizedString.dash.localized
         }
-        if titleStr.lowercased().contains("netbanking"){
+        
+        let paymentMethod = self.voucherData.paymentInfo?.method.rawValue ?? LocalizedString.dash.localized
+        if paymentMethod == "wallet"{
+
+            if  self.voucherData.paymentInfo?.walletName.lowercased() == "mobikwik"{
+                paymentTypeImageView.image = AppImage.mobikwik
+
+            }
+        }else{if titleStr.lowercased().contains("netbanking"){
             self.paymentTypeImageView.image = #imageLiteral(resourceName: "netBanking")
         }else{
             self.paymentTypeImageView.image = #imageLiteral(resourceName: "visa")
         }
+            
+        }
+        
         
         self.titleLabel.text = titleStr
         self.dateLabel.text = self.voucherData.basic?.transactionDateTime?.toString(dateFormat: "EEE, dd MMM yyyy") ?? ""

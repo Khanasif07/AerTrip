@@ -311,6 +311,7 @@ enum AppImage {
     static let netBanking = #imageLiteral(resourceName: "netBanking")
     static let visa = #imageLiteral(resourceName: "visa")
     static let appleLogoImage: UIImage = #imageLiteral(resourceName: "Apple Logo")
+    static let mobikwik = #imageLiteral(resourceName: "paymentMobikwik.png")
 
 }
 

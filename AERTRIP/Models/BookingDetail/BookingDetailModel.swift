@@ -2246,6 +2246,7 @@ struct BookingPaymentInfo {
         case netbanking
         case card
         case upi
+        case wallet
     }
     
     var orderId: String = ""
@@ -2257,6 +2258,7 @@ struct BookingPaymentInfo {
     var bankName: String = ""
     var upiId: String = ""
     var cardNumber: String = ""
+    var walletName : String = ""
     
     var method: Method {
         get {
@@ -2323,6 +2325,9 @@ struct BookingPaymentInfo {
         }
         if let obj = json["card_number"] {
             self.cardNumber = "\(obj)".removeNull
+        }
+        if let obj = json["wallet_name"] {
+            self.walletName = "\(obj)".removeNull
         }
     }
 }
