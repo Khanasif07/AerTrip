@@ -106,6 +106,17 @@ enum AnalyticsEvents: String {
 //    Home
     case Home
     case FlightForm
+    case AirportSelection
+    case PassengerSelection
+    case CabinClassSelection
+    case HotelForm
+    
+    case FlightSearch
+    case OpenPassengerDetails
+    case OpenFlightCheckOut
+    case OpenFightPayment
+    case OpenFlightReceipt
+    
     
 //    SideMenu
     case SideMenu

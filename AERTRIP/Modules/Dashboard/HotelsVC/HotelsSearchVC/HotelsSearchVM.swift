@@ -362,3 +362,11 @@ extension HotelsSearchVM {
     }
 }
 
+///Log Firebase events function
+extension HotelsSearchVM {
+    
+    func logEvents(with event: FirebaseEventLogs.EventsTypeName, type: String? = nil, valueString:String? = nil, valueDict:JSONDictionary? = nil){
+        
+    }
+    
+}
