@@ -344,11 +344,6 @@ class SpecialAccountDetailsVM {
         }
     }
     
-    func logUserActions(eventName:FirebaseEventLogs.EventsTypeName){
-//        FirebaseEventLogs.logAccountsOptionSelectionEvent(eventName)
-        FirebaseEventLogs.shared.logAccountsOptionSelectionEvent(with: eventName)
-
-    }
     //MARK:- Private
 }
 

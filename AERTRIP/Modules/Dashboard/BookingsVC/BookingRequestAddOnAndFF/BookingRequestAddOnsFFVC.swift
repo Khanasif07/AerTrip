@@ -66,11 +66,8 @@ class BookingRequestAddOnsFFVC: BaseVC {
         BookingRequestAddOnsFFVM.shared.bookingDetails?.frequentFlyerData = frequentFlyerData
         BookingRequestAddOnsFFVM.shared.getPreferenceMaster()
         self.gradientView.addGredient(isVertical: false)
-        
-        
-//        FirebaseAnalyticsController.shared.logEvent(name: "BookingRequestAddOns", params: ["ScreenName":"BookingRequestAddOns", "ScreenClass":"BookingRequestAddOnsFFVC", "ButtonAction":"RequestAddonAndFrequentFlyer"])
 
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Bookings.rawValue, params: [AnalyticsKeys.name.rawValue:FirebaseEventLogs.EventsTypeName.BookingsRequestAddOns, AnalyticsKeys.type.rawValue: "LoggedInUserType", AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsRequestAddOns, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
 
     }
     

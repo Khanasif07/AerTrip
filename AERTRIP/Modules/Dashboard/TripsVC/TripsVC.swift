@@ -87,6 +87,7 @@ class TripsVC: BaseVC {
             
             label.handleCustomTap(for: trips) { _ in
                 
+                FirebaseEventLogs.shared.logHomeEvents(with: .NavigateToTripsFromHome)
                 guard let url = URL(string: AppKeys.tripsUrl) else { return }
                 AppFlowManager.default.showURLOnATWebView(url, screenTitle: "Trips")
             }

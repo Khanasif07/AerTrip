@@ -205,22 +205,24 @@ public final class PKLoader {
         if !self.isOnWindow {
             self.stopLoading()
         }
-        
-        self.transparentView.removeFromSuperview()
-        
-        guard let loader = self.loaderView else {return}
-        loader.removeFromSuperview()
-        self.loaderView = nil
-        
-        guard let parent = self.parantView else {return}
-        if self.isOnWindow {
-            parent.removeFromSuperview()
+        DispatchQueue.main.async {
+            self.transparentView.removeFromSuperview()
+            
+            guard let loader = self.loaderView else {return}
+            loader.removeFromSuperview()
+            self.loaderView = nil
+            
+            guard let parent = self.parantView else {return}
+            if self.isOnWindow {
+                parent.removeFromSuperview()
+            }
+            else {
+                parent.layer.cornerRadius = self.parentPreviousCornerRadius
+                parent.layer.borderWidth = self.parentPreviousBorderWidth
+                parent.layer.borderColor = self.parentPreviousBorderColor
+            }
+            self.parantView = nil
         }
-        else {
-            parent.layer.cornerRadius = self.parentPreviousCornerRadius
-            parent.layer.borderWidth = self.parentPreviousBorderWidth
-            parent.layer.borderColor = self.parentPreviousBorderColor
-        }
-        self.parantView = nil
+        
     }
 }

@@ -48,14 +48,13 @@ enum AnalyticsEvents: String {
     case AddTraveller
     case TravellerPreferences
     case Accounts
-    case AccountsLedger
-    case AccountsOutstandingLedger
-    case AccountsPeriodicStatement
+//    case AccountsLedger
+//    case AccountsOutstandingLedger
+//    case AccountsPeriodicStatement
     case FlightDetails
     case UpgradePlan
     case Bookings
     case Webcheckin
-    case BookingConfirmationMail
     case ImportTraveller
     case LinkedAccount
     case ChangeAertripID
@@ -94,6 +93,21 @@ enum AnalyticsEvents: String {
     case FlightInternationalAndMulticityResults
     case FlightDomesticAndMulticityResults
     case Addons
+    
+    
+   
+    case MyBookingsHotelCancellation
+    case MyBookingsNotes
+    case NavigateBack
+    case MyBookings
+    case CloseButtonClicked
+    
+//    Home
+    case Home
+    case FlightForm
+    
+//    SideMenu
+    case SideMenu
 }
 
 enum AnalyticsKeys: String {
