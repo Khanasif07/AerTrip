@@ -15,6 +15,7 @@ class FirebaseEventLogs: NSObject{
     override init(){}
     
     enum EventsTypeName:String {
+        
         //MARK:- Settings Events TypeNames
         case changeCountry = "TryToChangeCountry"
         case changeCurrency = "TryToChangeCurrency"
@@ -541,9 +542,29 @@ class FirebaseEventLogs: NSObject{
         case HotelUnbookmarked
         case ClearHotelSearch
         case OpenHotelDetails
+        
+        // Hotel Map View
+        case SwitchToHotelList
+        case OpenHotelFilters
+//        case HotelSearchTapped    repeat for reference, do not remove
+//        case HotelMicSearchTapped
+//        case HotelBookmarked
+//        case HotelUnbookmarked
+        case HideElementsOnMapClick
+        case ShowElementsOnMapClick
+//        case ClearHotelSearch
+        case NavigateToMapCenter
+        case OpenGroupedHotels
+        case OpenHotelByCardTap
+        case OpenHotelByDotTap
+        
+        
     }
     
-    
+    // MARK: App Open Event
+    func logAppOpenEvent() {
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.OpenApp.rawValue)
+    }
     
     //MARK:- Settings Events Log Function
     func logSettingEvents(with type: EventsTypeName){
@@ -851,8 +872,12 @@ class FirebaseEventLogs: NSObject{
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Accounts.rawValue, params: [AnalyticsKeys.name.rawValue: type, AnalyticsKeys.type.rawValue: EventsTypeName.LoggedInUserType.rawValue, AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
     }
     
-    func logAccountsEventsWithAccountType(with type:EventsTypeName, AccountType: String = ""){
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Accounts.rawValue, params: [AnalyticsKeys.name.rawValue:type.rawValue, AnalyticsKeys.type.rawValue: EventsTypeName.LoggedInUserType.rawValue, AnalyticsKeys.values.rawValue: AccountType])
+    func logAccountsEventsWithAccountType(with type:EventsTypeName, AccountType: String = "",isFrom : String = ""){
+        if isFrom == "Bookings"{
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.MyBookings.rawValue, params: [AnalyticsKeys.name.rawValue:type.rawValue, AnalyticsKeys.type.rawValue: EventsTypeName.LoggedInUserType.rawValue, AnalyticsKeys.values.rawValue: AccountType])
+        }else{
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Accounts.rawValue, params: [AnalyticsKeys.name.rawValue:type.rawValue, AnalyticsKeys.type.rawValue: EventsTypeName.LoggedInUserType.rawValue, AnalyticsKeys.values.rawValue: AccountType])
+        }
     }
     
     func logSearchBarEvents(with type:EventsTypeName,value:JSONDictionary = [:]){
@@ -916,9 +941,14 @@ class FirebaseEventLogs: NSObject{
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.SideMenu.rawValue, params: [AnalyticsKeys.name.rawValue:type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
     }
 
-    //MARK:
+    //MARK: Hotel List
     func logHotelListEvents(with type: EventsTypeName) {
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelList.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
+    }
+    
+    //MARK: Hotel List
+    func logHotelMapViewEvents(with type: EventsTypeName) {
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelMapView.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
     }
     
 }

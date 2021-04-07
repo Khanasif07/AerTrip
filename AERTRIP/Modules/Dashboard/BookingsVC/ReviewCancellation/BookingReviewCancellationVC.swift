@@ -95,10 +95,10 @@ class BookingReviewCancellationVC: BaseVC {
         
             if viewModel.currentUsingAs == .flightCancellationReview{
                 
-                FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsReviewCancellationRequest, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+                FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsReviewCancellationRequest, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a",isFrom: "Bookings")
 
             }else{
-                FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsReviewReschedulingRequest, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+                FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsReviewReschedulingRequest, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a",isFrom: "Bookings")
 
             }
 
@@ -110,7 +110,7 @@ class BookingReviewCancellationVC: BaseVC {
             self.requestCancellationButton.alpha = 0.6
         
 
-            FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsReviewSpecialRequest, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+            FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsReviewSpecialRequest, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a",isFrom: "Bookings")
 
 
         }

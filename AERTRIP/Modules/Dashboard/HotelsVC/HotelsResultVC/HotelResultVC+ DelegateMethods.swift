@@ -395,6 +395,11 @@ extension HotelResultVC: HotelCardCollectionViewCellDelegate {
     
     func saveButtonAction(_ sender: UIButton, forHotel: HotelsModel) {
         //
+        if sender.isSelected {
+            FirebaseEventLogs.shared.logHotelListEvents(with: .HotelUnbookmarked)
+        } else {
+            FirebaseEventLogs.shared.logHotelListEvents(with: .HotelBookmarked)
+        }
     }
     
     func pagingScrollEnable(_ indexPath: IndexPath, _ scrollView: UIScrollView) {
@@ -542,6 +547,7 @@ extension HotelResultVC: HotelSearchResultHeaderViewDelegate {
         
         
         self.cancelButtonTapped(self.cancelButton)
+        FirebaseEventLogs.shared.logHotelListEvents(with: .ClearHotelSearch)
     }
 }
 // MARK: - EmptyScreenViewDelegate methods

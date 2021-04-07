@@ -53,7 +53,7 @@ class BookingCallVC: BaseVC {
         self.setupNavBar()
         self.registerXib()
 
-        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsContactNumberList, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsContactNumberList, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a",isFrom: "Bookings")
 
 
     }
