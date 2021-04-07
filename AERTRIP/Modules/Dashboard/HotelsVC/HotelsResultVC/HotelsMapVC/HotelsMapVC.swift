@@ -443,12 +443,14 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     // MARK: - Action
     
     @IBAction func backButtonAction(_ sender: UIButton) {
+        FirebaseEventLogs.shared.logHotelMapViewEvents(with: .SwitchToHotelList)
         self.viewModel.hotelResultDelegate?.updateFavouriteAndFilterView()
         self.statusBarStyle = .lightContent
         AppFlowManager.default.popViewController(animated: true)
     }
     
     @IBAction func filterButtonAction(_ sender: UIButton) {
+        FirebaseEventLogs.shared.logHotelMapViewEvents(with: .OpenHotelFilters)
         AppFlowManager.default.showFilterVC(self)
     }
     

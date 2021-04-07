@@ -15,6 +15,7 @@ class FirebaseEventLogs: NSObject{
     override init(){}
     
     enum EventsTypeName:String {
+        
         //MARK:- Settings Events TypeNames
         case changeCountry = "TryToChangeConuntry"
         case changeCurrency = "TryToChangeCurrency"
@@ -522,9 +523,29 @@ class FirebaseEventLogs: NSObject{
         case HotelUnbookmarked
         case ClearHotelSearch
         case OpenHotelDetails
+        
+        // Hotel Map View
+        case SwitchToHotelList
+        case OpenHotelFilters
+//        case HotelSearchTapped    repeat for reference, do not remove
+//        case HotelMicSearchTapped
+//        case HotelBookmarked
+//        case HotelUnbookmarked
+        case HideElementsOnMapClick
+        case ShowElementsOnMapClick
+//        case ClearHotelSearch
+        case NavigateToMapCenter
+        case OpenGroupedHotels
+        case OpenHotelByCardTap
+        case OpenHotelByDotTap
+        
+        
     }
     
-    
+    // MARK: App Open Event
+    func logAppOpenEvent() {
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.OpenApp.rawValue)
+    }
     
     //MARK:- Settings Events Log Function
     func logSettingEvents(with type: EventsTypeName){
@@ -901,9 +922,14 @@ class FirebaseEventLogs: NSObject{
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.SideMenu.rawValue, params: [AnalyticsKeys.name.rawValue:type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
     }
 
-    //MARK:
+    //MARK: Hotel List
     func logHotelListEvents(with type: EventsTypeName) {
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelList.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
+    }
+    
+    //MARK: Hotel List
+    func logHotelMapViewEvents(with type: EventsTypeName) {
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelMapView.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
     }
     
 }
