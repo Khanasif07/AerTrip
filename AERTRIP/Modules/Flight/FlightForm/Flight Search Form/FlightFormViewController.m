@@ -564,6 +564,7 @@
     FlightBulkBookingViewController *controller = (FlightBulkBookingViewController *)[self getControllerForModule:FLIGHT_BULK_BOOKING_CONTROLLER];
     controller.formDataModel = self.viewModel;
     controller.BulkBookingFormDelegate = self;
+    [self.viewModel logEvents:@"11" journyType: [self.viewModel getCurrentBookingType] valueString:@"" valueDict:[[NSDictionary alloc] init]];
     [self presentViewController:controller animated:YES completion:nil];
 }
 
@@ -638,6 +639,7 @@
 //MARK:- Target Action Methods
 
 - (IBAction)fromAction:(id)sender {
+    [self.viewModel logEvents:@"1" journyType:[self.viewModel getCurrentBookingType] valueString:@"n/a" valueDict:[[NSDictionary alloc] init]];
     AirportSelectionViewController *controller = (AirportSelectionViewController *)[self getControllerForModule:AIRPORT_SELECTION_CONTROLLER];
     
     AirportSelectionVM * viewModel = [self.viewModel prepareForAirportSelection:true airportSelectionMode:AirportSelectionModeSingleLegJournery];
@@ -654,6 +656,7 @@
 }
 
 - (IBAction)toAction:(id)sender {
+    [self.viewModel logEvents:@"2" journyType:[self.viewModel getCurrentBookingType] valueString:@"n/a" valueDict:[[NSDictionary alloc] init]];
     AirportSelectionViewController *controller = (AirportSelectionViewController *)[self getControllerForModule:AIRPORT_SELECTION_CONTROLLER];
     AirportSelectionVM * viewModel = [self.viewModel prepareForAirportSelection:false airportSelectionMode:AirportSelectionModeSingleLegJournery ];
     viewModel.isFrom = false;
@@ -668,7 +671,7 @@
 }
 
 - (IBAction)onwardsAction:(id)sender {
-    
+    [self.viewModel logEvents:@"3" journyType:[self.viewModel getCurrentBookingType] valueString:@"n/a" valueDict:[[NSDictionary alloc] init]];
     NSBundle * calendarBundle = [NSBundle bundleForClass:AertripCalendarViewController.class];
     UIStoryboard *storyboard = [UIStoryboard   storyboardWithName:@"AertripCalendar" bundle:calendarBundle];
     AertripCalendarViewController * controller = [storyboard instantiateViewControllerWithIdentifier:@"AertripCalendarViewController"];
@@ -687,17 +690,14 @@
             [self presentViewController:controller animated:NO completion:nil];
         }
     });
-    
-    
-    
-    
-    
-    
-    
-    
+
 }
+
+
+
+
 - (IBAction)returnAction:(id)sender {
-    
+    [self.viewModel logEvents:@"4" journyType:[self.viewModel getCurrentBookingType] valueString:@"n/a" valueDict:[[NSDictionary alloc] init]];
     if (self.viewModel.flightSearchType != RETURN_JOURNEY ) {
         self.flightSegmentedControl.selectedSegmentIndex = 1 ;
         [self segmentChanged:nil];
@@ -726,6 +726,7 @@
     controller.delegate = self;
     controller.isForBulking = NO;
     [self presentViewController:controller animated:NO completion:nil];
+    [self.viewModel logEvents:@"5" journyType:[self.viewModel getCurrentBookingType] valueString:@"n/a" valueDict:[[NSDictionary alloc] init]];
     
 }
 
@@ -741,14 +742,7 @@
     controller.flightClassSelectiondelegate = self;
     controller.flightClass = self.viewModel.flightClass;
     [self presentViewController:controller animated:NO completion:nil];
-    NSString *type = @"";
-    if (self.viewModel.flightSearchType == MULTI_CITY ) {
-        type = @"Multicity";
-    }else if (self.viewModel.flightSearchType == RETURN_JOURNEY) {
-        type = @"Return";
-    }else{
-        type = @"Single";
-    }
+    NSString *type = [self.viewModel getCurrentBookingType];
     [self.viewModel logEvents:@"6" journyType:type valueString:@"n/a" valueDict:[[NSDictionary alloc] init]];
     
 }

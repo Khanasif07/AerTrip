@@ -87,6 +87,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(MulticityCalendarVM*)prepareVMForMulticityCalendar:(NSUInteger)currentIndex;
 -(void)getRecentSearches;
 - (void) logEvents:(NSString *) Name journyType:(NSString *) type valueString:(NSString *) value valueDict:(NSDictionary *) dictValue;
+- (NSString*) getCurrentBookingType;
 
 @property (strong , nonatomic) NSString * airlineCode;
 
