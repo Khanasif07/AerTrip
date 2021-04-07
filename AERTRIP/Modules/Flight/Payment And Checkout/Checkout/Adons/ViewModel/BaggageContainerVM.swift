@@ -87,8 +87,24 @@ class BaggageContainerVM {
        
         for (index,item) in self.allChildVCs.enumerated() {
             AddonsDataStore.shared.flightsWithDataForBaggage[index].bags = item.selectBaggageVM.addonsDetails
+            
+            let flightAtINdex = AddonsDataStore.shared.allFlights.filter { $0.ffk == AddonsDataStore.shared.flightsWithDataForMeals[index].flightId }
+            
+            if let firstFlight = flightAtINdex.first {
+                
+                item.selectBaggageVM.addonsDetails.addonsArray.forEach { (addon) in
+                   
+                    if !addon.bagageSelectedFor.isEmpty {
+                      
+                        FirebaseEventLogs.shared.logAddons(with: FirebaseEventLogs.EventsTypeName.addBaggageAddons, addonName: addon.adonsName, flightTitle: "\(firstFlight.fr) - \(firstFlight.to)", fk: AddonsDataStore.shared.flightsWithDataForBaggage[index].flightId, addonQty: addon.bagageSelectedFor.count)
+                        
+                        FirebaseEventLogs.shared.logAddons(with: FirebaseEventLogs.EventsTypeName.addBaggageAddons, addonName: addon.adonsName, fk: AddonsDataStore.shared.flightsWithDataForBaggage[index].flightId, addonQty: addon.bagageSelectedFor.count)
+                    }
+                }
+            }
+            
+
         }
-           
     }
     
     func addPassengerToMeal(forAdon: AddonsDataCustom, vcIndex: Int, currentFlightKey: String, baggageIndex: Int, contacts: [ATContact]) {

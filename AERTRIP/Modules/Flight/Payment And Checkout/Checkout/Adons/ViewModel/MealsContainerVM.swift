@@ -35,7 +35,28 @@ class MealsContainerVM {
     func updateMealsToDataStore() {
         for (index,item) in self.allChildVCs.enumerated() {
             AddonsDataStore.shared.flightsWithDataForMeals[index].meal = item.selectMealsVM.addonsDetails
+            
+            let flightAtINdex = AddonsDataStore.shared.allFlights.filter { $0.ffk == AddonsDataStore.shared.flightsWithDataForMeals[index].flightId }
+            
+            if let firstFlight = flightAtINdex.first {
+                
+                item.selectMealsVM.addonsDetails.addonsArray.forEach { (addon) in
+                
+                if !addon.mealsSelectedFor.isEmpty {
+                    
+                    FirebaseEventLogs.shared.logAddons(with: FirebaseEventLogs.EventsTypeName.addMealsAddon, addonName: addon.adonsName , flightTitle: "\(firstFlight.fr) - \(firstFlight.to)", fk: AddonsDataStore.shared.flightsWithDataForMeals[index].flightId, addonQty: addon.mealsSelectedFor.count)
+                    
+                }
+                
+            }
+            }
+                
+
+            
         }
+        
+        
+        
     }
     
     

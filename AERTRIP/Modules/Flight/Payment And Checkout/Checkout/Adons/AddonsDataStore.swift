@@ -19,8 +19,13 @@ class AddonsDataStore {
     var flightKeys : [String] = []
     
     var flightsWithData :[AddonsFlight] = []
+    
     var flightsWithDataForMeals :[AddonsFlight] = []
+    
+    
     var flightsWithDataForBaggage :[AddonsFlight] = []
+    
+    
 //    var flightsWithDataForOthers :[AddonsFlight] = []
     
     var isFreeMeal = false
