@@ -218,17 +218,17 @@ extension RoomVC: UITableViewDataSource, UITableViewDelegate {
             HotelFilterVM.shared.roomMeal.forEach { (amen) in
                 valueStr.append("\(amen), ")
             }
-            filterType = "meal"
+            filterType = "Meal"
         case .cancellationPolicy:
             HotelFilterVM.shared.roomCancelation.forEach { (amen) in
                 valueStr.append("\(amen), ")
             }
-            filterType = "cancellation"
+            filterType = "Cancellation"
         case .others:
             HotelFilterVM.shared.roomOther.forEach { (amen) in
                 valueStr.append("\(amen), ")
             }
-            filterType = "others"
+            filterType = "Others"
         }
         
         if valueStr.suffix(2) == ", " {
