@@ -62,8 +62,15 @@ class PaymentPendingTableViewCell: UITableViewCell {
         let textAttributedString = NSAttributedString(string: text, attributes: textAttribute)
         //let priceAttributedString = NSAttributedString(string: price.delimiterWithSymbol, attributes: priceAttribute)
         
-        let priceAttributedString = price.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
-        
+        let drAttr = NSMutableAttributedString(string: " \(LocalizedString.DebitShort.localized)", attributes: [.font: AppFonts.SemiBold.withSize(20.0)])
+            let crAttr = NSMutableAttributedString(string: " \(LocalizedString.CreditShort.localized)", attributes: [.font: AppFonts.SemiBold.withSize(20.0)])
+            let priceAttributedString = price.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
+        priceAttributedString.append((price > 0) ? drAttr : crAttr)
+                
+        //        let priceAttributedString = price.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
+                
+        //        attributedString.append(priceAttributedString)
+
         attributedString.append(textAttributedString)
         attributedString.append(priceAttributedString)
         self.priceLabel.attributedText = attributedString
