@@ -65,7 +65,7 @@ class BookingConfimationMailVC: BaseVC {
             navigationViewHeightConstraint.constant = 56
         }
                 
-        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingConfirmationMail, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingConfirmationMail, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a", isFrom: "Bookings")
 
 
     }

@@ -53,7 +53,7 @@ class FlightBookingInfoVC: BaseVC {
 //        self.viewModel.getBookingFees()
         
 
-        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsFlightDetailsFlightInfo, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsFlightDetailsFlightInfo, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a", isFrom: "Bookings")
 
     }
     

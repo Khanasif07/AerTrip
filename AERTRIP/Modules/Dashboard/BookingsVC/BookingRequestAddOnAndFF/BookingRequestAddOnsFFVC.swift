@@ -67,7 +67,7 @@ class BookingRequestAddOnsFFVC: BaseVC {
         BookingRequestAddOnsFFVM.shared.getPreferenceMaster()
         self.gradientView.addGredient(isVertical: false)
 
-        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsRequestAddOns, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsRequestAddOns, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a", isFrom: "Bookings")
 
     }
     

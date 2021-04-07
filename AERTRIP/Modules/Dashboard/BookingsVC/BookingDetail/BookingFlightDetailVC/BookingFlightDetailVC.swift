@@ -63,7 +63,7 @@ class BookingFlightDetailVC: BaseVC {
         }
         
 
-        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsFlightDetails, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsFlightDetails, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a", isFrom: "Bookings")
 
     }
     
@@ -209,7 +209,7 @@ extension BookingFlightDetailVC: BookingDetailVMDelegate, BaggageDimesionPresent
     func dimesionButtonTapprd(with dimension: Dimension, weight: String)
     {
 
-        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsFlightDetailsBaggageDimensionOptionsSelected, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+        FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsFlightDetailsBaggageDimensionOptionsSelected, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a", isFrom: "Bookings")
 
         let baggageDimensionVC = BaggageDimensionsVC(nibName: "BaggageDimensionsVC", bundle: nil)
         baggageDimensionVC.settingForBookingDetails = true
