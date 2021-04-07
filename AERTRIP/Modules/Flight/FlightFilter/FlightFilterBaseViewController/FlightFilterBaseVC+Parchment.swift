@@ -56,11 +56,15 @@ extension FlightFilterBaseVC: PagingViewControllerDataSource , PagingViewControl
 
 // MARK: Analytics
 extension FlightFilterBaseVC {
-    func logTapEvent(filterIndex: Int) {
+    func logTapEvent(filterIndex: Int, isFilterBtnTapped: Bool = false) {
         guard let selectedFilter = Filters(rawValue: filterIndex) else { return }
         var selectedEvent: FirebaseEventLogs.EventsTypeName = .FlightSortFilterTapped
         switch selectedFilter {
-        case .sort:             selectedEvent = .FlightSortFilterTapped
+        case .sort:
+            selectedEvent = .FlightSortFilterTapped
+            if isFilterBtnTapped {
+                selectedEvent = .FlightSortFilterByTapOnFilterIcon
+            }
         case .stops:            selectedEvent = .FlightStopsFilterTapped
         case .Times:            selectedEvent = .FlightTimesFilterTapped
         case .Duration:         selectedEvent = .FlightDurationFilterTapped

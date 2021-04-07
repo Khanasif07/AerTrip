@@ -35,8 +35,10 @@ class AircraftFilterViewController: UIViewController , FilterViewController {
     }
 
     func setupTableView() {
-        aircraftTableView.separatorStyle = .none
-        aircraftTableView.tableFooterView = UIView(frame: .zero)
+//        aircraftTableView.separatorStyle = .none
+//        aircraftTableView.tableFooterView = UIView(frame: .zero)
+        aircraftTableView.delegate = self
+        aircraftTableView.dataSource = self
         aircraftTableView.register(UINib(nibName: "RadioButtonTableViewCell", bundle: nil), forCellReuseIdentifier: "RadioButtonCell")
         aircraftTableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
     }
@@ -126,7 +128,7 @@ extension AircraftFilterViewController : UITableViewDataSource , UITableViewDele
         if section == 0 {
             return 0.5
         }
-        return 0
+        return CGFloat.leastNonzeroMagnitude
     }
     
     
@@ -141,11 +143,10 @@ extension AircraftFilterViewController : UITableViewDataSource , UITableViewDele
                 
                 cell.imageView?.image = nil
                 cell.radioButton.setImage(nil, for: .normal)
-                cell.radioButton.setImage(nil, for: .selected)
                 if self.aircraftFilter.selectedAircraftsArray.count == self.aircraftFilter.allAircraftsArray.count {
-                    cell.radioButton.setBackgroundImage(#imageLiteral(resourceName: "radioButtonSelect"), for: .normal)
+                    cell.radioButton.setImage(UIImage(named: "CheckedGreenRadioButton"), for: .normal)
                 }else{
-                    cell.radioButton.setBackgroundImage(#imageLiteral(resourceName: "radioButtonUnselect"), for: .normal)
+                    cell.radioButton.setImage(UIImage(named: "UncheckedGreenRadioButton"), for: .normal)
                 }
 //                cell.radioButton.setImage(self.aircraftFilter.selectedAircraftsArray.count == self.aircraftFilter.allAircraftsArray.count ? #imageLiteral(resourceName: "selectOption") : #imageLiteral(resourceName: "UncheckedGreenRadioButton"), for: .normal)
            
@@ -166,11 +167,10 @@ extension AircraftFilterViewController : UITableViewDataSource , UITableViewDele
 //                    }
                 cell.imageView?.image = nil
                 cell.radioButton.setImage(nil, for: .normal)
-                cell.radioButton.setImage(nil, for: .selected)
             if self.aircraftFilter.selectedAircraftsArray.contains(self.aircraftFilter.allAircraftsArray[indexPath.row]) {
-                    cell.radioButton.setBackgroundImage(#imageLiteral(resourceName: "radioButtonSelect"), for: .normal)
+                    cell.radioButton.setImage(UIImage(named: "CheckedGreenRadioButton"), for: .normal)
                 }else{
-                    cell.radioButton.setBackgroundImage(#imageLiteral(resourceName: "radioButtonUnselect"), for: .normal)
+                    cell.radioButton.setImage(UIImage(named: "UncheckedGreenRadioButton"), for: .normal)
                 }
                 
         cell.textLabel?.text = self.aircraftFilter.allAircraftsArray[indexPath.row].quality == 1 ? "⭑ \(self.aircraftFilter.allAircraftsArray[indexPath.row].name)" : self.aircraftFilter.allAircraftsArray[indexPath.row].name
@@ -178,7 +178,7 @@ extension AircraftFilterViewController : UITableViewDataSource , UITableViewDele
             }
             
             cell.radioButton.isUserInteractionEnabled = false
-            cell.radioButton.imageView?.contentMode = .scaleAspectFill
+//            cell.radioButton.imageView?.contentMode = .scaleAspectFit
             return cell
         }
 
