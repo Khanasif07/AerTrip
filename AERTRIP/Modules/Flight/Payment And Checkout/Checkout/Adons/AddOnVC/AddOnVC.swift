@@ -229,26 +229,30 @@ extension AddOnVC : UITableViewDelegate, UITableViewDataSource {
             vc.modalPresentationStyle = .overFullScreen
             vc.delegate = self
             present(vc, animated: true, completion: nil)
+            FirebaseEventLogs.shared.logAddons(with: FirebaseEventLogs.EventsTypeName.OpenMeals)
             
         case .baggage:
             let vc = BaggageContainerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
             vc.modalPresentationStyle = .overFullScreen
             vc.delegate = self
             present(vc, animated: true, completion: nil)
-            
+            FirebaseEventLogs.shared.logAddons(with: FirebaseEventLogs.EventsTypeName.OpenBaggage)
+
         case .seat:
             let vc = SeatMapContainerVC.instantiate(fromAppStoryboard: .Rishabh_Dev)
             vc.setViewModel(adonsVm.getSeatMapContainerVM())
             vc.modalPresentationStyle = .overFullScreen
             vc.delegate = self
             present(vc, animated: true, completion: nil)
-            
+            FirebaseEventLogs.shared.logAddons(with: FirebaseEventLogs.EventsTypeName.OpenSeat)
+
         case .otheres:
             let vc = SelectOtherAdonsContainerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
             vc.modalPresentationStyle = .overFullScreen
             vc.delegate = self
             present(vc, animated: true, completion: nil)
-            
+            FirebaseEventLogs.shared.logAddons(with: FirebaseEventLogs.EventsTypeName.OpenOthers)
+
         }
     }
     

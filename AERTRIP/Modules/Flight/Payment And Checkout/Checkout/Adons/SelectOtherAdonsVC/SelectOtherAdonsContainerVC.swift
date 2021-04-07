@@ -78,7 +78,26 @@ class SelectOtherAdonsContainerVC: BaseVC {
         for (index,item) in self.othersContainerVM.allChildVCs.enumerated() {
             AddonsDataStore.shared.flightsWithData[index].special = item.otherAdonsVm.addonsDetails
             AddonsDataStore.shared.flightsWithData[index].specialRequest = item.otherAdonsVm.specialRequest
+            
+            
+            let flightAtINdex = AddonsDataStore.shared.allFlights.filter { $0.ffk == AddonsDataStore.shared.flightsWithDataForMeals[index].flightId }
+            
+            if let firstFlight = flightAtINdex.first {
+            
+                item.otherAdonsVm.addonsDetails.addonsArray.forEach { (addon) in
+                    
+                    if !addon.othersSelectedFor.isEmpty {
+                        
+                        FirebaseEventLogs.shared.logAddons(with: FirebaseEventLogs.EventsTypeName.addOtherAddons, addonName: addon.adonsName, flightTitle: "\(firstFlight.fr) - \(firstFlight.to)" , fk: AddonsDataStore.shared.flightsWithDataForBaggage[index].flightId, addonQty: addon.othersSelectedFor.count)
+                        
+                    }
+                    
+                }
+            
+            }
+
         }
+        
         let price = self.totalLabel.text ?? ""
         self.delegate?.othersUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))
         

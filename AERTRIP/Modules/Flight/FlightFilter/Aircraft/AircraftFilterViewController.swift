@@ -25,8 +25,6 @@ class AircraftFilterViewController: UIViewController , FilterViewController {
 
     var aircraftFilter = AircraftFilter()
     var flightSearchParameters = JSONDictionary()
-
-    var c = 0
     
     weak var delegate : AircraftFilterDelegate?
     
@@ -63,11 +61,6 @@ class AircraftFilterViewController: UIViewController , FilterViewController {
         
     }
     
-    
-    
-    func assignC(){
-        c = 2
-    }
     
     func updateAircraftList(filter : AircraftFilter){
         

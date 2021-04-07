@@ -93,10 +93,10 @@ enum AnalyticsEvents: String {
     case FlightOneWayResults
     case FlightInternationalAndMulticityResults
     case FlightDomesticAndMulticityResults
+    case Addons
     
     
    
-//    My Bookings
     case MyBookingsHotelCancellation
     case MyBookingsNotes
     case NavigateBack
@@ -106,6 +106,9 @@ enum AnalyticsEvents: String {
 //    Home
     case Home
     case FlightForm
+    
+//    SideMenu
+    case SideMenu
 }
 
 enum AnalyticsKeys: String {

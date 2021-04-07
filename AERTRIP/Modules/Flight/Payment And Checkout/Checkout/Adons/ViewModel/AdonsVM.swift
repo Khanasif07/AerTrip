@@ -157,7 +157,6 @@ class AdonsVM  {
         return viewModel
     }
     
-
     func initializeFreeMealsToPassengers(){
          
         let dataStore = AddonsDataStore.shared
