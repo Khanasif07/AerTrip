@@ -369,7 +369,9 @@
 -(void)performFlightSearch{
     
     if([self isValidFlightSearch]) {
-        [self performFlightSearchWebServiceCall:[self buildDictionaryForFlightSearch]];
+        NSDictionary *dict = [self buildDictionaryForFlightSearch];
+        [self performFlightSearchWebServiceCall:dict];
+        [self logEvents:@"0" journyType:[self getCurrentBookingType] valueString:@"n/a"  valueDict: dict];
     }
 }
 
@@ -387,6 +389,7 @@
     if (self.toFlightArray.count == 0) {
         [self.delegate  showErrorMessage:@"Please select a destination airport"];
         [self.delegate shakeAnimation:ToLabel];
+        [self logEvents:@"13" journyType:[self getCurrentBookingType] valueString: @"n/a" valueDict:[[NSDictionary alloc] init]];
         return NO;
     }
     NSString *from = [[self generateCSVFromSelectionArray:self.fromFlightArray forDisplay:NO] uppercaseString];
@@ -394,6 +397,7 @@
     if ([from isEqualToString:to]) {
         [self.delegate  showErrorMessage:@"Origin and destination cannot be same"];
         [self.delegate shakeAnimation:ToLabel];
+        [self logEvents:@"14" journyType:[self getCurrentBookingType] valueString: @"n/a" valueDict:[[NSDictionary alloc] init]];
         return NO;
         
     }
@@ -425,6 +429,7 @@
         if (!self.returnDate) {
             [self.delegate  showErrorMessage:@"Please select a return date"];
             [self.delegate shakeAnimation:ArrivalDateLabel];
+            [self logEvents:@"13" journyType:[self getCurrentBookingType] valueString: @"n/a" valueDict:[[NSDictionary alloc] init]];
             return NO;
         }
     }
@@ -463,6 +468,7 @@
              [self.delegate  showErrorMessage:@"Please select an origin airport"];
             NSIndexPath * index = [NSIndexPath indexPathForRow:i inSection:0];
             [self.delegate shakeAnimation:MulticityFromLabel atIndex:index];
+            [self logEvents:@"16" journyType:[self getCurrentBookingType] valueString: @"n/a" valueDict:[[NSDictionary alloc] init]];
              return NO;
         }
         NSString * destination = flightLeg.destination.iata;
@@ -471,7 +477,7 @@
             [self.delegate  showErrorMessage:@"Please select a destination airport"];
             NSIndexPath * index = [NSIndexPath indexPathForRow:i inSection:0];
             [self.delegate shakeAnimation:MulticityToLabel atIndex:index];
-
+            [self logEvents:@"12" journyType:[self getCurrentBookingType] valueString: @"n/a" valueDict:[[NSDictionary alloc] init]];
              return  NO;
         }
         NSDate * date = flightLeg.travelDate;
@@ -480,11 +486,13 @@
             [self.delegate  showErrorMessage:@"Please select a valid date"];
             NSIndexPath * index = [NSIndexPath indexPathForRow:i inSection:0];
             [self.delegate shakeAnimation:MulticityDateLabel atIndex:index];
+            [self logEvents:@"15" journyType:[self getCurrentBookingType] valueString: @"n/a" valueDict:[[NSDictionary alloc] init]];
              return NO;
         }
         
         if(origin == destination){
             [self.delegate  showErrorMessage:@"Origin and destination cannot be same"];
+            [self logEvents:@"14" journyType:[self getCurrentBookingType] valueString: @"n/a" valueDict:[[NSDictionary alloc] init]];
             return NO;
 
         }
@@ -977,6 +985,7 @@
     }
     
     [self performFlightSearchWebServiceCall:queryDictionay];
+    [self logEvents:@"10" journyType:[self getCurrentBookingType] valueString:@"n/a"  valueDict: queryDictionay];
 }
 
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
@@ -1129,6 +1138,11 @@
     if ( count < 5){
         [self.delegate disableAddMulticityButton:NO];
     }
+    
+    NSString* strCount = [NSString stringWithFormat:@"%li", (long)count];
+    
+    [self logEvents:@"18" journyType:[self getCurrentBookingType] valueString:strCount valueDict:[[NSDictionary alloc] init]];
+    
 }
 
 -(void)addFlightLegForMulticityJourney{
@@ -1148,6 +1162,11 @@
         [self.delegate disableAddMulticityButton:YES];
 
     }
+    
+    NSArray* arr = [self multiCityArray];
+    NSString* count = [NSString stringWithFormat:@"%lu", (unsigned long)[arr count]];
+    
+    [self logEvents:@"17" journyType:[self getCurrentBookingType] valueString:count valueDict:[[NSDictionary alloc] init]];
 }
 
 
@@ -1871,6 +1890,25 @@
     return label.attributedText.size;
 }
 
+///Function for getting current journey type
+- (NSString*) getCurrentBookingType{
+    if (self.flightSearchType == MULTI_CITY ) {
+        return @"Multicity";
+    }else if (self.flightSearchType == RETURN_JOURNEY) {
+        return @"Return";
+    }else{
+        return @"Single";
+    }
+    
+}
+
+/////Handle firevase ecent by event name type string
+//- (void) createFirebaseEvent:(NSString *) Name{
+//
+//}
+
+
+///Firebase events log function
 - (void) logEvents:(NSString *) Name journyType:(NSString *) type valueString:(NSString *) value valueDict:(NSDictionary *) dictValue {
     FirebaseEventLogs *eventController = FirebaseEventLogs.shared;
     [eventController logFlightFormEvents: Name type: type stringValue:value dictValue:dictValue];

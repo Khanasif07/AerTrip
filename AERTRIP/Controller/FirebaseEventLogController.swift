@@ -877,8 +877,8 @@ class FirebaseEventLogs: NSObject{
     
     
     ///Objective c Event type
-enum EventsTypeNameObjc:String {
-      
+    enum EventsTypeNameObjc:String {
+        ///Maintain the order of case in same.
         //MARK:- FlighForm Events TypeNames
         case TapFrom
         case TapTo
@@ -891,26 +891,34 @@ enum EventsTypeNameObjc:String {
         case TapReturn
         case TapMulticity
         case SearchFromRecentSearch
+        case TapBulkBooking
+        case TapSearchButtonWithoutSelectingDestinationCity
+        case TapSearchButtonWithoutSelectingReturnDate
+        case TapSearchButtonWithSameOriginAndDestination
+        case TapSearchButtonWithoutSelectingDate
+        case TapSearchButtonWithoutSelectingOriginCity
+        case AddMoreSector
+        case RemoveSector
+        
+        //MARK:- Airport Selection Events TypeNames
+        case SelectFromRecentSearch
+        case SelectFromPopularAirport
+        case SelectFromNearByAirport
+        case TapOnNearMe
+        case SearchAirport
+        case TapDoneButton
+        
+        //MARK:- Passenger Selection Events TypeNames
+        case SelectedMoreThanSixPassenger
+        case TryToSelectMoreThanNinePassenger
+        case TryToSelectInfantMoreThanAdult
+        
+        //MARK:- CabinClass Selection Events TypeNames
+        case SelectEconomyClass
+        case SelectPremiumEconomyClass
+        case SelectBusinessClass
+        case SelectFistClass
         case none
-        
-        
-        
-//        var rawValue: RawValue{
-//            //Maintain the order to use.
-//            switch self {
-//            case .TapSearchButton: return "TapSearchButton"//("0")
-//            case .TapFrom: return "TapFrom"//("1")
-//            case .TapTo: return "TapTo"//(2)
-//            case .TapOnwardDate: return "TapOnwardDate"//(3)
-//            case .TapReturnDate: return "TapReturnDate"//(4)
-//            case .TapSelectPassenger: return "TapSelectPassenger"//(5)
-//            case .TapSelectClass: return "TapSelectClass"//(6)
-//            case .TapOneWay: return "TapOneWay"//(7)
-//            case .TapReturn: return "TapReturn"//(8)
-//            case .TapMulticity: return "TapMulticity"//(9)
-//            case .SearchFromRecentSearch: return "SearchFromRecentSearch"//(10)
-//            }
-//        }
         
         init?(with value: String) {
             switch value {
@@ -925,7 +933,28 @@ enum EventsTypeNameObjc:String {
             case "8": self = .TapReturn
             case "9": self = .TapMulticity
             case "10": self = .SearchFromRecentSearch
-            default: self = .none
+            case "11": self = .TapBulkBooking
+            case "12": self = .TapSearchButtonWithoutSelectingDestinationCity
+            case "13": self = .TapSearchButtonWithoutSelectingReturnDate
+            case "14": self = .TapSearchButtonWithSameOriginAndDestination
+            case "15": self = .TapSearchButtonWithoutSelectingDate
+            case "16": self = .TapSearchButtonWithoutSelectingOriginCity
+            case "17": self = .AddMoreSector
+            case "18": self = .RemoveSector
+            case "19":  self = .SelectFromRecentSearch
+            case "20": self = .SelectFromPopularAirport
+            case "21": self = .SelectFromNearByAirport
+            case "22": self = .TapOnNearMe
+            case "23": self = .SearchAirport
+            case "24": self = .TapDoneButton
+            case "25": self = .SelectedMoreThanSixPassenger
+            case "26": self = .TryToSelectMoreThanNinePassenger
+            case "27": self = .TryToSelectInfantMoreThanAdult
+            case "28": self = .SelectEconomyClass
+            case "29": self = .SelectPremiumEconomyClass
+            case "30": self = .SelectBusinessClass
+            case "31": self = .SelectFistClass
+            default: return nil
             }
         }
         
@@ -935,7 +964,24 @@ enum EventsTypeNameObjc:String {
     //MARK:- Flight Form Events function
     @objc func logFlightFormEvents(_ nameInt: String, type: String, stringValue:String, dictValue:JSONDictionary){
         if let event = EventsTypeNameObjc(with: nameInt){
-            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightForm.rawValue, params: [:])
+            var param :JSONDictionary = [:]
+            param[AnalyticsKeys.name.rawValue] = event.rawValue
+            if !type.isEmpty{
+                param[AnalyticsKeys.type.rawValue] = type
+            }else{
+                param[AnalyticsKeys.type.rawValue] = "n/a"
+            }
+            
+            if dictValue.count == 0{
+                param[AnalyticsKeys.values.rawValue] = dictValue
+            }else{
+                if !stringValue.isEmpty{
+                    param[AnalyticsKeys.values.rawValue] = stringValue
+                }else{
+                    param[AnalyticsKeys.values.rawValue] = "n/a"
+                }
+            }
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightForm.rawValue, params: param)
         }
         
     }
