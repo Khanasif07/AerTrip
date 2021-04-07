@@ -75,6 +75,7 @@ enum AnalyticsEvents: String {
     case OpenLinkedAccounts
     case OpenAccountDetails
     case LogOut
+    case HotelList
     
     // Filter
     case Sort
@@ -92,10 +93,10 @@ enum AnalyticsEvents: String {
     case FlightOneWayResults
     case FlightInternationalAndMulticityResults
     case FlightDomesticAndMulticityResults
+    case Addons
     
     
    
-//    My Bookings
     case MyBookingsHotelCancellation
     case MyBookingsNotes
     case NavigateBack

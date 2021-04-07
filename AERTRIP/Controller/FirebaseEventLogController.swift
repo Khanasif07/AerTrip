@@ -470,9 +470,10 @@ class FirebaseEventLogs: NSObject{
         case OpenBaggage
         case OpenSeat
         case OpenOthers
-        case addPassengerToMeal
-        case addPassengerToBaggage
-        case addPassengerToOtherAddons
+        case addMealsAddon
+        case addBaggageAddons
+        case addOtherAddons
+        case addSeatAddons
         
 
 //        Home
@@ -510,6 +511,17 @@ class FirebaseEventLogs: NSObject{
         case OpenSupport
         case OpenRateUs
     
+        // Hotel List
+        case NavigateBackFromHotelList
+        case NavigateBackBeforeHotelListAppears
+        case NoHotelsFound
+        case HotelsMapViewOpened
+        case HotelSearchTapped
+        case HotelMicSearchTapped
+        case HotelBookmarked
+        case HotelUnbookmarked
+        case ClearHotelSearch
+        case OpenHotelDetails
     }
     
     
@@ -777,7 +789,6 @@ class FirebaseEventLogs: NSObject{
             FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightOneWayResults.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.values.rawValue : value])
         }
         
-
     }
     
     func logInternationalAndMulticityResults(with type : EventsTypeName, value : JSONDictionary = [:], groupId : String = "", fk : String = "", fkArray : [String] = []) {
@@ -791,6 +802,7 @@ class FirebaseEventLogs: NSObject{
             FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightInternationalAndMulticityResults.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.values.rawValue : ["fk":fkArray]])
             
         default:
+            
             FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightInternationalAndMulticityResults.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.values.rawValue : value])
 
         }
@@ -808,8 +820,9 @@ class FirebaseEventLogs: NSObject{
             FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightDomesticAndMulticityResults.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.values.rawValue : ["fk":fkArray]])
             
         default:
+            
             FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightDomesticAndMulticityResults.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.values.rawValue : value])
-
+            
         }
         
     }
@@ -840,9 +853,23 @@ class FirebaseEventLogs: NSObject{
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightDetails.rawValue, params: [AnalyticsKeys.name.rawValue:EventsTypeName.JourneyTitle.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: title])
     }
     
-    func logAddons(with type : EventsTypeName){
+    func logAddons(with type : EventsTypeName, addonName : String = "", flightTitle : String = "" ,fk : String = "", addonQty : Int = 0){
         
-        FirebaseAnalyticsController.shared.logEvent(name: type.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue])
+        switch type {
+     
+        case .OpenMeals, .OpenBaggage, .OpenOthers, .OpenSeat:
+            
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Addons.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue])
+
+        case .addMealsAddon, .addOtherAddons, .addBaggageAddons:
+            
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Addons.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.values.rawValue : ["addonName" : addonName, "addonQty" : addonQty, "fk" : fk, "flightTitle" : flightTitle]])
+
+        default:
+        
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Addons.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue])
+
+        }
         
     }
 
@@ -874,6 +901,11 @@ class FirebaseEventLogs: NSObject{
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.SideMenu.rawValue, params: [AnalyticsKeys.name.rawValue:type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
     }
 
+    //MARK:
+    func logHotelListEvents(with type: EventsTypeName) {
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelList.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
+    }
+    
 }
 
 
@@ -989,6 +1021,4 @@ class FirebaseEventLogs: NSObject{
         }
         
     }
-    
-    
 }

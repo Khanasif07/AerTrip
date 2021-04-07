@@ -1,9 +1,9 @@
 //
 //  RadioButtonTableViewCell.swift
-//  Aertrip
+//  AERTRIP
 //
-//  Created by  hrishikesh on 08/03/19.
-//  Copyright © 2019 Aertrip. All rights reserved.
+//  Created by Rishabh on 05/04/21.
+//  Copyright © 2021 Pramod Kumar. All rights reserved.
 //
 
 import UIKit
