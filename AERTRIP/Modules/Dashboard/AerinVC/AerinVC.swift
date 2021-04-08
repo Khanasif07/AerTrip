@@ -293,6 +293,9 @@ class AerinVC: BaseVC {
 //        AppFlowManager.default.mainNavigationController.pushViewController(obj, animated: false)
         
         //        }
+        
+        FirebaseEventLogs.shared.logChangeAertripIDEvents(with: FirebaseEventLogs.EventsTypeName.openAerin)
+        
     }
     
     @IBAction func travelSafetyBtnTapped(_ sender: Any) {

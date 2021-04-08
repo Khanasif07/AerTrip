@@ -522,6 +522,18 @@ class FirebaseEventLogs: NSObject{
         case HotelUnbookmarked
         case ClearHotelSearch
         case OpenHotelDetails
+        
+        
+        //Aerin
+        case openAerin
+        case talkToAerinByMessage
+        case talkToAerinBySpeach
+        case startListening
+        case dismisAerin
+        case ShowDetails
+        case HideDetails
+        
+        
     }
     
     
@@ -904,6 +916,21 @@ class FirebaseEventLogs: NSObject{
     //MARK:
     func logHotelListEvents(with type: EventsTypeName) {
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelList.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
+    }
+    
+    
+    func logAerinEvents(with type: EventsTypeName, message : String = ""){
+        
+        switch type {
+        case .talkToAerinBySpeach, .talkToAerinByMessage:
+            
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Aerin.rawValue, params: [AnalyticsKeys.name.rawValue : type.rawValue, AnalyticsKeys.values.rawValue : message])
+            
+        default:
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Aerin.rawValue, params: [AnalyticsKeys.name.rawValue : type.rawValue])
+
+        }
+                
     }
     
 }

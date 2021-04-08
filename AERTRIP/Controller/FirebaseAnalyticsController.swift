@@ -109,6 +109,10 @@ enum AnalyticsEvents: String {
     
 //    SideMenu
     case SideMenu
+    
+    case Aerin
+    
+    
 }
 
 enum AnalyticsKeys: String {
