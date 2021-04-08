@@ -2249,6 +2249,20 @@ struct BookingPaymentInfo {
         case wallet
     }
     
+    enum Wallets:String{
+        case mobikwik
+        case freecharge
+        case payzapp
+        case airtelmoney
+        case jiomoney
+        case olamoney
+        case phonepe
+        case phonepeswitch
+        case paypal
+        case amazonpay
+        case none
+    }
+    
     var orderId: String = ""
     var pgFee: String = ""
     var pgTax: String = ""
@@ -2267,6 +2281,17 @@ struct BookingPaymentInfo {
         
         set {
             self._method = newValue.rawValue
+        }
+    }
+    
+    
+    var wallet: Wallets {
+        get {
+            return Wallets(rawValue: self.walletName.lowercased()) ?? Wallets.none
+        }
+        
+        set {
+            self.walletName = newValue.rawValue
         }
     }
     

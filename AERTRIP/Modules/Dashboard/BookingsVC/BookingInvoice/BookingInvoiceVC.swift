@@ -89,9 +89,37 @@ class BookingInvoiceVC: BaseVC {
         let paymentMethod = self.viewModel.voucher?.paymentInfo?.method.rawValue ?? LocalizedString.dash.localized
         if paymentMethod == "wallet"{
 
-            if  self.viewModel.voucher?.paymentInfo?.walletName.lowercased() == "mobikwik"{
+//            if  self.viewModel.voucher?.paymentInfo?.walletName.lowercased() == "mobikwik"{
+//                totalPayableCell.paymentImageView.image = AppImage.mobikwik
+//
+//            }
+            
+            switch self.viewModel.voucher?.paymentInfo?.wallet
+            {
+            
+            case .airtelmoney:
+                totalPayableCell.paymentImageView.image = AppImage.airtelmoney
+            case .amazonpay:
+                totalPayableCell.paymentImageView.image = AppImage.amazonpay
+            case .freecharge:
+                totalPayableCell.paymentImageView.image = AppImage.freecharge
+            case .jiomoney:
+                totalPayableCell.paymentImageView.image = AppImage.jiomoney
+            case .mobikwik:
                 totalPayableCell.paymentImageView.image = AppImage.mobikwik
-
+            case .olamoney:
+                totalPayableCell.paymentImageView.image = AppImage.olamoney
+            case .paypal:
+                totalPayableCell.paymentImageView.image = AppImage.paypal
+            case .payzapp:
+                totalPayableCell.paymentImageView.image = AppImage.payzapp
+            case .phonepe:
+                totalPayableCell.paymentImageView.image = AppImage.phonepe
+            case .phonepeswitch:
+                totalPayableCell.paymentImageView.image = AppImage.phonepeswitch
+                
+            default:
+                totalPayableCell.paymentImageView.image = AppImage.none
             }
         }else{
             if txt.lowercased().contains("banking"){

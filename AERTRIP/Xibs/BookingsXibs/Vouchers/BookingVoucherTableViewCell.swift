@@ -137,10 +137,44 @@ class BookingVoucherTableViewCell: ATTableViewCell {
         let paymentMethod = self.voucherData.paymentInfo?.method.rawValue ?? LocalizedString.dash.localized
         if paymentMethod == "wallet"{
 
-            if  self.voucherData.paymentInfo?.walletName.lowercased() == "mobikwik"{
+//            if  self.voucherData.paymentInfo?.walletName.lowercased() == "mobikwik"{
+//                paymentTypeImageView.image = AppImage.mobikwik
+//
+//            }
+            
+            
+            
+            switch self.voucherData.paymentInfo?.wallet
+            {
+            
+            case .airtelmoney:
+                paymentTypeImageView.image = AppImage.airtelmoney
+            case .amazonpay:
+                paymentTypeImageView.image = AppImage.amazonpay
+            case .freecharge:
+                paymentTypeImageView.image = AppImage.freecharge
+            case .jiomoney:
+                paymentTypeImageView.image = AppImage.jiomoney
+            case .mobikwik:
                 paymentTypeImageView.image = AppImage.mobikwik
-
+            case .olamoney:
+                paymentTypeImageView.image = AppImage.olamoney
+            case .paypal:
+                paymentTypeImageView.image = AppImage.paypal
+            case .payzapp:
+                paymentTypeImageView.image = AppImage.payzapp
+            case .phonepe:
+                paymentTypeImageView.image = AppImage.phonepe
+            case .phonepeswitch:
+                paymentTypeImageView.image = AppImage.phonepeswitch
+                
+            default:
+                self.paymentTypeImageView.image = AppImage.none
             }
+            
+            
+            
+            
         }else{if titleStr.lowercased().contains("netbanking"){
             self.paymentTypeImageView.image = #imageLiteral(resourceName: "netBanking")
         }else{
