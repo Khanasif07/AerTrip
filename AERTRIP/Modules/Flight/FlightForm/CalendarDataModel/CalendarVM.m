@@ -19,4 +19,11 @@
         [self.delegate selectedDatesFromCalendar:self.date1 endDate:self.date2  isReturn:self.isReturn];
 
 }
+
+-(void)tryToSelectMoreThan30Night
+{
+    [self.delegate TryToSelectMoreThan30Night];
+
+}
+
 @end

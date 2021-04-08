@@ -525,7 +525,7 @@ class FirebaseEventLogs: NSObject{
         case TryForMoreThan30Nights
         case SearchNearby
         case SearchByCity
-        case SearchBHotel
+        case SearchByHotel
         case SearchByArea
         case SearchPOI
         case OpenBulkBooking
@@ -951,11 +951,32 @@ class FirebaseEventLogs: NSObject{
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelMapView.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
     }
     
+    //MARK:- Hotels Form Events
+    func LogHotelsFormEvents(with event: EventsTypeName, type:String?, strValue:String?, dictValue:JSONDictionary?){
+        
+        var param = JSONDictionary()
+        param[AnalyticsKeys.name.rawValue] = event.rawValue
+        if let type = type{
+            param[AnalyticsKeys.type.rawValue] = type
+        }else{
+            param[AnalyticsKeys.type.rawValue] = "n/a"
+        }
+        if let valueStr = strValue{
+            param[AnalyticsKeys.values.rawValue] = valueStr
+        }else if let valueDict = dictValue{
+            param[AnalyticsKeys.values.rawValue] = valueDict
+        }else{
+            param[AnalyticsKeys.values.rawValue] = "n/a"
+
+        }
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelForm.rawValue, params: param)
+        
+    }
+    
 }
 
-
+///Objective c Event functions
  extension FirebaseEventLogs{
-    
     
     ///Objective c Event type
     enum EventsTypeNameObjc:String {

@@ -627,6 +627,7 @@ class HotelsSearchVC: BaseVC {
     @IBAction func whereButtonAction(_ sender: UIButton) {
 //        AppFlowManager.default.presentYouAreAllDoneVC(forItId: "5f3a173ebc716e330942beed", bookingIds: ["13662"], cid: [], originLat: "1.4605111451913", originLong: "103.76455485821", recieptData: nil)
         AppFlowManager.default.showSelectDestinationVC(delegate: self,currentlyUsingFor: .hotelForm)
+        self.viewModel.logEvents(with: .ClickWhere)
     }
     
     
@@ -662,6 +663,7 @@ class HotelsSearchVC: BaseVC {
                     printDebug(self.viewModel.searchedFormData)
                     if AppGlobals.shared.isNetworkRechable() {
                         AppFlowManager.default.moveToHotelsResultVc(withFormData: HotelsSearchVM.hotelFormData, recentSearchModel: recentSearchModel)
+                        self.viewModel.createLogSerchHotels(with: recentSearchModel)
                     }
                     sender?.isLoading = false
                 }
@@ -677,6 +679,7 @@ class HotelsSearchVC: BaseVC {
             if gesture.didTapAttributedTextInLabel(label: self.bulkBookingsLbl, inRange: NSRange(range, in: string)) {
                 printDebug("Tapped BulkBookings")
                 AppFlowManager.default.showBulkBookingVC(withOldData: self.viewModel.searchedFormData, delegate: self)
+                self.viewModel.logEvents(with: .OpenBulkBooking)
             } else {
                 printDebug("This is not bulk bookings text")
             }
@@ -840,6 +843,9 @@ extension HotelsSearchVC: RoomGuestSelectionVCDelegate {
         self.addRoomCollectionView.reloadData()
         printDebug("adults: \(adults), children: \(children), ages: \(childrenAges), roomNumber: \(roomNumber)")
         HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
+        self.viewModel.logEvents(with: .CountTotalAdults, valueString: "\(self.viewModel.searchedFormData.adultsCount.reduce(0){$0 + $1})")
+        self.viewModel.logEvents(with: .CountTotalChildren, valueString: "\(self.viewModel.searchedFormData.childrenCounts.reduce(0){$0 + $1})")
+        self.viewModel.logEvents(with: .CountTotalRooms, valueString: "\(self.viewModel.searchedFormData.adultsCount.count)")
     }
 }
 
@@ -876,6 +882,7 @@ extension HotelsSearchVC: SelectDestinationVCDelegate {
         HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
         self.updateAddressTextForHotelNearMe()
         self.manageAddressLabels()
+        self.viewModel.createLogEventForSearchType(with: hotel)
     }
 }
 
@@ -988,11 +995,12 @@ extension HotelsSearchVC: RecentHotelSearcheViewDelegate {
 extension HotelsSearchVC: CheckInOutViewDelegate {
     
     func selectCheckInDate(_ sender: UIButton) {
+        self.viewModel.logEvents(with: .OpenCheckIn)
         AppFlowManager.default.moveHotelCalenderVC(isHotelCalendar: true,checkInDate: self.viewModel.searchedFormData.checkInDate.toDate(dateFormat: "yyyy-MM-dd") , checkOutDate: self.viewModel.searchedFormData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), delegate: self, isStartDateSelection: true)
     }
     
     func selectCheckOutDate(_ sender: UIButton) {
-        
+        self.viewModel.logEvents(with: .OpenCheckOut)
         AppFlowManager.default.moveHotelCalenderVC(isHotelCalendar: true,checkInDate: self.viewModel.searchedFormData.checkInDate.toDate(dateFormat: "yyyy-MM-dd") , checkOutDate: self.viewModel.searchedFormData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), delegate: self, isStartDateSelection: false) }
 }
 
@@ -1017,7 +1025,16 @@ extension HotelsSearchVC: CalendarDataHandler {
         printDebug(endDate)
         printDebug(isHotelCalendar)
         printDebug(isReturn)
+        if let firstDate = startDate, let lastDate = endDate{
+            let night = startDate.daysFrom(Date())
+            self.viewModel.logEvents(with: .CalculateCheckInDateFromCurrentDate,valueString: "\(night)")
+            self.viewModel.logEvents(with: .CalculateTotalNights,valueString: "\(lastDate.daysFrom(firstDate))")
+        }
         HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
+    }
+    
+    func tryToSelectMoreThan30Night() {
+        self.viewModel.logEvents(with: .TryForMoreThan30Nights)
     }
 }
 
@@ -1029,6 +1046,8 @@ extension HotelsSearchVC: BulkBookingVCDelegate {
         }
         if (checkinDate != nil) || (checkOutDate != nil) {
             self.selectedDates(fromCalendar: checkinDate, end: checkOutDate, isHotelCalendar: true, isReturn: false)
+        }else{
+            self.viewModel.logEvents(with: .CaptureWhere, valueString: location?.dest_name)
         }
     }
     

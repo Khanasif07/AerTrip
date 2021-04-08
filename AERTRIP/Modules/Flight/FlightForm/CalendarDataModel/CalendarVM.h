@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 -(void)onDoneButtonTapped;
+-(void)tryToSelectMoreThan30Night;
 @end
 
 NS_ASSUME_NONNULL_END

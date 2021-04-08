@@ -365,8 +365,47 @@ extension HotelsSearchVM {
 ///Log Firebase events function
 extension HotelsSearchVM {
     
-    func logEvents(with event: FirebaseEventLogs.EventsTypeName, type: String? = nil, valueString:String? = nil, valueDict:JSONDictionary? = nil){
+    func createLogEventForSearchType(with dest: SearchedDestination){
+        if dest.isHotelNearMeSelected{
+            self.logEvents(with: .SearchNearby)
+        }else{
+            switch dest.dest_type.lowercased(){
+            case "poi": self.logEvents(with: .SearchPOI)
+            case "area": self.logEvents(with: .SearchByArea)
+            case "city": self.logEvents(with: .SearchByCity)
+            case "hotel": self.logEvents(with: .SearchByHotel)
+            default: self.logEvents(with: .SearchByCity)
+            }
+        }
+        self.logEvents(with: .CaptureWhere, valueString: dest.dest_name)
         
+    }
+    
+    func createLogSerchHotels(with recentSearch: RecentSearchesModel? = nil){
+        var dict = JSONDictionary()
+        if let recentSearch = recentSearch{
+            dict["checkInDate"] = recentSearch.checkInDate
+            dict["checkOutDate"] = recentSearch.checkOutDate
+            dict["destName"] = recentSearch.dest_name
+            dict["numberOfRoom"] = "\(recentSearch.room?.count ?? 1)"
+            dict["adultCount"] = ((recentSearch.room ?? []).map{(Int($0.adultCounts) ?? 0)}).reduce(0){$0+$1}
+            dict["childCount"] = ((recentSearch.room ?? []).map{$0.child.count}).reduce(0){$0 + $1}
+            dict["destType"] = recentSearch.dest_type
+        }else{//HotelsSearchVM.hotelFormData
+            dict["checkInDate"] = HotelsSearchVM.hotelFormData.checkInDate
+            dict["checkOutDate"] = HotelsSearchVM.hotelFormData.checkOutDate
+            dict["destName"] = HotelsSearchVM.hotelFormData.destName
+            dict["numberOfRoom"] = HotelsSearchVM.hotelFormData.roomNumber
+            dict["adultCount"] = HotelsSearchVM.hotelFormData.adultsCount.reduce(0){$0+$1}
+            dict["childCount"] = HotelsSearchVM.hotelFormData.childrenCounts.reduce(0){$0+$1}
+            dict["destType"] = HotelsSearchVM.hotelFormData.destType
+        }
+        self.logEvents(with: .Search, valueDict: dict)
+        FirebaseEventLogs.shared.logEventsWithOutParam(with: .HotelSearch)
+    }
+    
+    func logEvents(with event: FirebaseEventLogs.EventsTypeName, type: String? = nil, valueString:String? = nil, valueDict:JSONDictionary? = nil){
+        FirebaseEventLogs.shared.LogHotelsFormEvents(with: event, type: type, strValue: valueString, dictValue: valueDict)
     }
     
 }
