@@ -10,6 +10,8 @@
 #import "BaseViewController.h"
 #import "Aertrip-Swift.h"
 
+@class FirebaseEventLogs;
+
 @protocol AddFlightPassengerHandler
 @optional -(void)addFlightPassengerAction:(TravellerCount*)travellerCount;
 

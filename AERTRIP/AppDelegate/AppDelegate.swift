@@ -66,6 +66,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             isSEDevice = false
         }
         
+        FirebaseEventLogs.shared.logAppOpenEvent()
+        
         return true
     }
     

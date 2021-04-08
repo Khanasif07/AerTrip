@@ -246,6 +246,8 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
 
 //            }
         }
+        
+        FirebaseEventLogs.shared.logHotelListEvents(with: .OpenHotelDetails)
     }
     ///Uncomment commented line when "Beyond 20km" label need to show.
     func getHeightForResult(section:Int)->CGFloat{

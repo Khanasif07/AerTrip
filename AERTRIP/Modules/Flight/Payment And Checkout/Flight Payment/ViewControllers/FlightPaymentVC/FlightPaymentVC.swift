@@ -59,6 +59,7 @@ class FlightPaymentVC: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        FirebaseEventLogs.shared.logEventsWithOutParam(with: .OpenFlightCheckOut)
         self.checkOutTableView.contentInset = UIEdgeInsets(top: topNavView.height - 1, left: 0, bottom: 0, right: 0)
         self.viewModel.taxesDataDisplay()
         self.checkOutTableView.separatorStyle = .none
@@ -436,6 +437,7 @@ extension FlightPaymentVC:FlightPaymentVMDelegate{
         self.hideShowLoader(isHidden:false)
         if shouldGoForRazorPay {
             self.initializePayment(withOptions: options)
+            FirebaseEventLogs.shared.logEventsWithOutParam(with: .OpenFightPayment)
         } else {
             // payment successfully made through wallet, send to the You are all done
             if let bIds = options[APIKeys.booking_id.rawValue] as? [String] {

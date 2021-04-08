@@ -14,15 +14,16 @@ class FirebaseAnalyticsController {
     static let shared = FirebaseAnalyticsController()
     
     func logEvent(name: String, params: JSONDictionary? = nil) {
-        if AppConstants.isReleasingForCustomers{
+//        if AppConstants.isReleasingForCustomers{
             Analytics.logEvent(name, parameters: params)
-        }
+//        }
     }
     
 }
 
 enum AnalyticsEvents: String {
     //MARK: Firebase event names
+    case OpenApp
     case FlightFilters = "FlightFilters"
     case HotelFilters = "HotelFilters"
     case FlightFiltersNavigation = "FlightFiltersNavigation"
@@ -76,6 +77,7 @@ enum AnalyticsEvents: String {
     case OpenAccountDetails
     case LogOut
     case HotelList
+    case HotelMapView
     
     // Filter
     case Sort
@@ -106,6 +108,17 @@ enum AnalyticsEvents: String {
 //    Home
     case Home
     case FlightForm
+    case AirportSelection
+    case PassengerSelection
+    case CabinClassSelection
+    case HotelForm
+    
+    case FlightSearch
+    case OpenPassengerDetails
+    case OpenFlightCheckOut
+    case OpenFightPayment
+    case OpenFlightReceipt
+    
     
 //    SideMenu
     case SideMenu

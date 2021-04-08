@@ -28,6 +28,7 @@ extension HotelsMapVC: UISearchBarDelegate {
         self.hotelSearchTableView.backgroundView = nil
         self.showSearchAnimation()
         self.reloadHotelList()
+        FirebaseEventLogs.shared.logHotelListEvents(with: .HotelSearchTapped)
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -60,6 +61,7 @@ extension HotelsMapVC: UISearchBarDelegate {
         self.showSearchAnimation()
         self.reloadHotelList()
         AppFlowManager.default.moveToSpeechToText(with: self)
+        FirebaseEventLogs.shared.logHotelMapViewEvents(with: .HotelMicSearchTapped)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

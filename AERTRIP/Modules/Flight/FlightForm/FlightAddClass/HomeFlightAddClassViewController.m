@@ -8,6 +8,9 @@
 
 #import "HomeFlightAddClassViewController.h"
 #import "TwoImageViewAndLabelTableViewCell.h"
+
+@class FirebaseEventLogs;
+
 @interface HomeFlightAddClassViewController ()
 @property (strong, nonatomic) NSMutableArray *classArray;
 @property (strong, nonatomic) FlightClass *selectedFlightClass;
@@ -204,6 +207,16 @@
     [self.flightClassSelectiondelegate addFlightClassAction:self.flightClass];
   
     [self performSelector:@selector(animateBottomViewOut) withObject:self afterDelay:0.1];
+    
+    if ([flightClass.type isEqualToString:ECONOMY_FLIGHT_TYPE]) {
+        [self logEvent:@"28"];
+    }else if ([flightClass.type isEqualToString:BUSINESS_FLIGHT_TYPE]) {
+        [self logEvent:@"29"];
+    }else if ([flightClass.type isEqualToString:PREMIUM_FLIGHT_TYPE]) {
+        [self logEvent:@"30"];
+    }else if ([flightClass.type isEqualToString:FIRST_FLIGHT_TYPE]) {
+        [self logEvent:@"31"];
+    }
 }
 
 //MARK:- BOTTOM ANIMATIONS
@@ -229,12 +242,20 @@
 }
 
 - (IBAction)doneAction:(id)sender {
+    [self logEvent:@"24"];
         [self animateBottomViewOut];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+///Firebase events log function
+- (void) logEvent:(NSString *) name{
+    FirebaseEventLogs *eventController = FirebaseEventLogs.shared;
+    [eventController logCabinClassSelectionEvents: name];
 }
 
 @end

@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
+#import "AERTRIP-Swift.h"
+
+@class FirebaseEventLogs;
+
 @protocol AddFlightClassHandler
 @optional
 - (void)addFlightClassAction:(FlightClass *)flightClass ;

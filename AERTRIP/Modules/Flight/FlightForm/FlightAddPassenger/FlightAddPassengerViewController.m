@@ -9,6 +9,8 @@
 #import "FlightAddPassengerViewController.h"
 #import "AertripToastView.h"
 
+@class FirebaseEventLogs;
+
 @interface FlightAddPassengerViewController ()
 @property (strong, nonatomic) NSMutableArray *numberOfInfantArray;
 @property (strong, nonatomic) NSMutableArray *numberOfAdultArray;
@@ -98,6 +100,7 @@ int alreadySelectedComponent = 0;
 - (IBAction)doneAction:(id)sender {
     
     [self.delegate addFlightPassengerAction:self.travellerCount];
+    [self logEvents:@"24"];
     [self animateBottomViewOut];
 }
 
@@ -236,6 +239,7 @@ int alreadySelectedComponent = 0;
             if (!self.isForBulking) {
                 self.viewHeight.constant = 410 + self.view.safeAreaInsets.bottom;
                 [self.WarningView setHidden:FALSE];
+                [self logEvents:@"25"];
             } else {
                 self.viewHeight.constant = 358 + self.view.safeAreaInsets.bottom;
             }
@@ -332,7 +336,7 @@ int alreadySelectedComponent = 0;
         
         
         [self displayToastWithMessage:@"Infants should not exceed adults" component:2];
-        
+        [self logEvents:@"27"];
         
         self.travellerCount.flightAdultCount = adultCount;
         self.travellerCount.flightInfantCount = adultCount;
@@ -347,7 +351,7 @@ int alreadySelectedComponent = 0;
         
 //        [self displayToastWithMessage:@"Total passengers cannot be more than 9" component:1];
         [self displayToastWithMessage:@"Total passengers can not be more than 9. For more passengers use bulk booking." component:1];
-        
+        [self logEvents:@"26"];
         
         NSUInteger selection;
         
@@ -374,6 +378,7 @@ int alreadySelectedComponent = 0;
                 
             } completion:^(BOOL finished){
                 [self.WarningView setHidden:FALSE];
+                [self logEvents:@"25"];
             }];
         }
         
@@ -397,6 +402,7 @@ int alreadySelectedComponent = 0;
         [self.pickerView selectRow:adultCount inComponent:2 animated:YES];
         //        [AertripToastView hideToast];
         [AertripToastView toastInView:self.view withText:@"Infats should not exceed adults"];
+        [self logEvents:@"27"];
         
         self.travellerCount.flightAdultCount = adultCount;
         self.travellerCount.flightInfantCount = adultCount;
@@ -520,6 +526,13 @@ int alreadySelectedComponent = 0;
         alreadySelectedComponent = component;
     }
      ];
+}
+
+
+///Firebase events log function
+- (void) logEvents:(NSString *) Name{
+    FirebaseEventLogs *eventController = FirebaseEventLogs.shared;
+    [eventController logPassengersSelectionEvents: Name dictValue: self.travellerCount];
 }
 
 

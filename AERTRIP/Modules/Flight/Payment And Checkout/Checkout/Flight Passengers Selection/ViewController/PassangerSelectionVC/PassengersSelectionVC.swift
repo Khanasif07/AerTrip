@@ -29,6 +29,7 @@ class PassengersSelectionVC: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        FirebaseEventLogs.shared.logEventsWithOutParam(with: .OpenPassengerDetails)
         self.registerCell()
         self.viewModel.delegate = self
         self.apiCall()
