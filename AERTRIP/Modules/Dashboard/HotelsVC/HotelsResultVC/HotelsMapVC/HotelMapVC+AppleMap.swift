@@ -271,11 +271,13 @@ extension HotelsMapVC : MKMapViewDelegate{
             if anno.markerType == .customMarker{
                 if let data = anno.hotel {
                     movetoDetailPage(data: data, isNeedToOpen: isTapSelected)
+                    FirebaseEventLogs.shared.logHotelMapViewEvents(with: .OpenHotelByDotTap)
                 }
             } else if anno.markerType == .clusterMarker {
                 if let data = anno.hotelTtems?.first {
                     movetoDetailPage(data: data, isNeedToOpen: isTapSelected)
                 }
+                FirebaseEventLogs.shared.logHotelMapViewEvents(with: .openGroupedHotelsByClusterTap)
             }
         }
         if let annotationView = self.appleMap.view(for: anno)  as?  ResistantAnnotationView{
@@ -283,6 +285,7 @@ extension HotelsMapVC : MKMapViewDelegate{
         }
         
         appleMap.deselectAnnotation(anno, animated: false)
+        
     }
     
     
