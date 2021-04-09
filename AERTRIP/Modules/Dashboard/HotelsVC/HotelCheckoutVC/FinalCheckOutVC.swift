@@ -71,6 +71,7 @@ class FinalCheckOutVC: BaseVC {
     
     
     override func initialSetup() {
+        FirebaseEventLogs.shared.logEventsWithOutParam(with: .OpenHotelsFinalCheckOut)
         self.checkOutTableView.contentInset = UIEdgeInsets(top: topNavView.height - 0.5 , left: 0.0, bottom: 10.0, right: 0.0)
         self.checkOutTableView.dataSource = self
         self.checkOutTableView.delegate = self
@@ -588,6 +589,7 @@ class FinalCheckOutVC: BaseVC {
     // MARK: - Action
     
     @IBAction func payButtonAction(_ sender: UIButton) {
+        self.viewModel.logEvent(with: .TapOnPayButton)
         self.viewModel.fetchRecheckRatesData()
     }
 }
@@ -677,6 +679,7 @@ extension FinalCheckOutVC: UITableViewDataSource, UITableViewDelegate {
             guard let self = self else {return}
             self.manageCouponLoader(isApplying:false)
             if success{
+                FirebaseEventLogs.shared.logEventsWithOutParam(with: .OpenCopounForHotels)
                 AppFlowManager.default.presentHCCouponCodeVC(itineraryId: self.viewModel.itineraryData?.it_id ?? "", vc: self, couponData: couponDetails, couponCode: self.appliedCouponData.couponCode)
             }else{
                 AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .hotelsSearch)
@@ -837,8 +840,10 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
     func makePaymentSuccess(options: JSONDictionary, shouldGoForRazorPay: Bool) {
         self.manageLoader(shouldStart: false)
         if shouldGoForRazorPay {
+            FirebaseEventLogs.shared.logEventsWithOutParam(with: .OpenHotelsPayment)
             self.initializePayment(withOptions: options)
         } else {
+            self.viewModel.logEvent(with: .PaidTotalAmountViaWallet)
             // payment successfully maid through wallet, send to the You are all done
             if let bIds = options[APIKeys.booking_id.rawValue] as? [String] {
                 self.getPaymentResonseSuccess(bookingIds: bIds, cid: [])
@@ -850,6 +855,7 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
     
     func makePaymentFail(errors: ErrorCodes) {
         self.manageLoader(shouldStart: false)
+        self.viewModel.logEvent(with: .PaymentFail)
 //        if errors.contains(994) {
             AppFlowManager.default.moveToPaymentAmountHigh()
 //        } else {

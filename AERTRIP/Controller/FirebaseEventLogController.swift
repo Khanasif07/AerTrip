@@ -559,6 +559,25 @@ class FirebaseEventLogs: NSObject{
         case OpenHotelByDotTap
         
         
+        //MARK:- Hotels Payment Events TypeNames
+        case EnableWalletAmount
+        case DisableWalletAmount
+//        case TapOnPrivacyPolicy
+//        case TapOnTermsOfUse
+        case PaidTotalAmountViaWallet
+        case PaymentFail
+        case TapOnPayButton
+        
+        //MARK:- Hotels Receipt Events TypeNames
+        case TapOnChangeTrip
+        case OpenBookedHotelDetails
+        case TapOnFacebookShareButton
+        case TapOnTwitterShareButton
+        case TapOnShareButton
+        case TapOnWhatsNextFlightCard
+        case TapOnWhatsNextModifyBookingCard
+        case TapOnReturnToHomeButton
+        
     }
     
     // MARK: App Open Event
@@ -971,6 +990,17 @@ class FirebaseEventLogs: NSObject{
         }
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelForm.rawValue, params: param)
         
+    }
+    
+    //MARK:- Hotels Final CheckOut Events Function
+    func logHoltelFinalCheckOutEvent(with event: EventsTypeName){
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelsFinalCheckOut.rawValue, params: [AnalyticsKeys.name.rawValue: event.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue:"n/a"])
+    }
+    
+    
+    //MARK:- Hotel Receipt Events Function
+    func logHotelReceiptEvent(with event: EventsTypeName){
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelReceipt.rawValue, params: [AnalyticsKeys.name.rawValue: event.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue:"n/a"])
     }
     
 }

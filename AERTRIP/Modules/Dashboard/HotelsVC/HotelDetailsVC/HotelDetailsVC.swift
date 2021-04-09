@@ -87,6 +87,7 @@ class HotelDetailsVC: BaseVC {
     //================
     override func viewDidLoad() {
         super.viewDidLoad()
+        FirebaseEventLogs.shared.logEventsWithOutParam(with: .OpenHotelsDetails)
         //TripAdiser photo
         TAViewModel.shared.clearData()
         if !(self.viewModel.hotelInfo?.locid?.isEmpty ?? true){

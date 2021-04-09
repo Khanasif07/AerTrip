@@ -113,6 +113,16 @@ enum AnalyticsEvents: String {
     case CabinClassSelection
     case HotelForm
     case HotelSearch
+    case HotelsFinalCheckOut
+    case OpenHotelSpecialRequest
+    case HotelSpecialRequest
+    case OpenHotelCheckOut
+    case OpenHotelsDetails
+    case OpenHotelsFinalCheckOut
+    case OpenHotelsPayment
+    case OpenHotelsReceipt
+    case OpenCopounForHotels
+    case HotelReceipt
     
     
     case FlightSearch
