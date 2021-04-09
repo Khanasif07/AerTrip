@@ -83,6 +83,8 @@ extension HotelResultVC: UISearchBarDelegate {
         self.reloadHotelList()
         noResultemptyView.searchTextLabel.text = ""
         noResultemptyViewVerticalTableView.searchTextLabel.text = ""
+        
+        FirebaseEventLogs.shared.logHotelListEvents(with: .ClearHotelSearch)
     }
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()

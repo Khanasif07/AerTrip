@@ -101,6 +101,8 @@ extension HotelsMapVC: GMSMapViewDelegate {
             }
             animator.startAnimation()
             self.showHotelOnMap(duration: 0.4)
+            
+            FirebaseEventLogs.shared.logHotelMapViewEvents(with: .ShowElementsOnMapClick)
         }
         else {
             //hide collection view list
@@ -125,6 +127,8 @@ extension HotelsMapVC: GMSMapViewDelegate {
                 }
             }
             animator.startAnimation()
+            
+            FirebaseEventLogs.shared.logHotelMapViewEvents(with: .HideElementsOnMapClick)
         }
         printDebug("Coordinate on tapped")
     }

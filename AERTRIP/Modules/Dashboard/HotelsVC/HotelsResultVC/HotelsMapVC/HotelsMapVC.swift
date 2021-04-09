@@ -517,6 +517,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         MKMapView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 10, options: .curveEaseInOut, animations: {
         self.appleMap.setRegion(MKCoordinateRegion(center: loc, span: self.currentMapSpan), animated: true)
         }, completion: nil)
+        FirebaseEventLogs.shared.logHotelMapViewEvents(with: .NavigateToMapCenter)
     }
     
     @objc func longPress(_ gesture: UILongPressGestureRecognizer) {

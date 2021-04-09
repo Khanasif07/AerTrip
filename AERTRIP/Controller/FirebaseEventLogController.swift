@@ -555,6 +555,7 @@ class FirebaseEventLogs: NSObject{
 //        case ClearHotelSearch
         case NavigateToMapCenter
         case OpenGroupedHotels
+        case openGroupedHotelsByClusterTap
         case OpenHotelByCardTap
         case OpenHotelByDotTap
         

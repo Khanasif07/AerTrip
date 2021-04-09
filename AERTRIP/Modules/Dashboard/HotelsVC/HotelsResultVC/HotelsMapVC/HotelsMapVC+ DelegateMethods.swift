@@ -42,6 +42,8 @@ extension HotelsMapVC: UISearchBarDelegate {
             self.reloadHotelList()
             noResultemptyView.searchTextLabel.text = ""
             resetAllMarker()
+            
+            FirebaseEventLogs.shared.logHotelMapViewEvents(with: .ClearHotelSearch)
         } else { //if searchText.count >= AppConstants.kSearchTextLimit {
             noResultemptyView.searchTextLabel.isHidden = false
             noResultemptyView.searchTextLabel.text = "for \(searchText.quoted)"
@@ -350,10 +352,20 @@ extension HotelsMapVC: HotelCardCollectionViewCellDelegate {
             // self.updateFavOnList(forIndexPath: indexPath)
         }
         
+        if sender.isSelected {
+            FirebaseEventLogs.shared.logHotelMapViewEvents(with: .HotelUnbookmarked)
+        } else {
+            FirebaseEventLogs.shared.logHotelMapViewEvents(with: .HotelBookmarked)
+        }
     }
     
     func saveButtonAction(_ sender: UIButton, forHotel: HotelsModel) {
         //
+        if sender.isSelected {
+            FirebaseEventLogs.shared.logHotelMapViewEvents(with: .HotelUnbookmarked)
+        } else {
+            FirebaseEventLogs.shared.logHotelMapViewEvents(with: .HotelBookmarked)
+        }
     }
     
     func pagingScrollEnable(_ indexPath: IndexPath, _ scrollView: UIScrollView) {
