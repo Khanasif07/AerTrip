@@ -576,6 +576,7 @@ class FirebaseEventLogs: NSObject{
         case TapOnTwitterShareButton
         case TapOnShareButton
         case TapOnWhatsNextFlightCard
+        case TapOnWhatsNextHotelsCard
         case TapOnWhatsNextModifyBookingCard
         case TapOnReturnToHomeButton
         

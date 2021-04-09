@@ -286,6 +286,7 @@ class YouAreAllDoneVC: BaseVC {
 //        AppFlowManager.default.mainNavigationController.popToRootController(animated: false)
 //        AppFlowManager.default.mainNavigationController.dismiss(animated: false, completion: nil)
 //        AppFlowManager.default.currentNavigation?.dismiss(animated: false, completion: nil)
+        self.viewModel.logEvent(with: .TapOnReturnToHomeButton)
         AppFlowManager.default.goToDashboard()
     }
     
@@ -427,6 +428,7 @@ extension YouAreAllDoneVC: UITableViewDelegate, UITableViewDataSource {
 //            AppGlobals.shared.redirectToMap(sourceView: view, originLat: self.viewModel.originLat, originLong: self.viewModel.originLong, destLat: self.viewModel.hotelReceiptData?.lat ?? "", destLong: self.viewModel.hotelReceiptData?.long ?? "")
 //        }else
             if (indexPath.section != 0) && (indexPath.section < tableView.numberOfSections - 1){
+                self.viewModel.logEvent(with: .OpenBookedHotelDetails)
             AppFlowManager.default.moveToBookingHotelDetailVC(bookingDetail: nil, hotelTitle: getUpdatedTitle(), bookingId: self.viewModel.bookingIds.first ?? "", hotelName: self.viewModel.hotelReceiptData?.hname ?? "", taRating: self.viewModel.hotelReceiptData?.rating ?? 0.0, hotelStarRating: self.viewModel.hotelReceiptData?.star ?? 0.0, presentingStatusBarStyle: statusBarStyle, dismissalStatusBarStyle: statusBarStyle)
         }
         
@@ -530,6 +532,7 @@ extension YouAreAllDoneVC: HCGuestsTableViewCellDelegate {
 extension YouAreAllDoneVC: HCWhatNextTableViewCellDelegate {
     
     func shareOnFaceBook() {
+        self.viewModel.logEvent(with: .TapOnFacebookShareButton)
         printDebug("Share On FaceBook")
         
         guard let url = URL(string: AppKeys.kAppStoreLink) else { return }
@@ -545,6 +548,7 @@ extension YouAreAllDoneVC: HCWhatNextTableViewCellDelegate {
     }
     
     func shareOnTwitter() {
+        self.viewModel.logEvent(with: .TapOnTwitterShareButton)
         printDebug("Share On Twitter")
         let tweetText = "\(AppConstants.kAppName) Appstore Link: "
         let tweetUrl = AppKeys.kAppStoreLink
@@ -561,6 +565,7 @@ extension YouAreAllDoneVC: HCWhatNextTableViewCellDelegate {
     }
     
     func shareOnInstagram() {
+        self.viewModel.logEvent(with: .TapOnShareButton)
         printDebug("Share On instagram")
         //AppGlobals.shared.shareWithActivityViewController(VC: self , shareData: AppConstants.kAppStoreLink)
         if !self.viewModel.shareLinkURL.isEmpty{
@@ -696,20 +701,24 @@ extension YouAreAllDoneVC{
             guard let bookingId = self.viewModel.bookingIds.first else {
                 return
             }
+            self.viewModel.logEvent(with: .TapOnWhatsNextModifyBookingCard)
             AppFlowManager.default.moveToHotelBookingsDetailsVC(bookingId: bookingId)
         }else{
             if index == self.viewModel.hotelReceiptData?.whatNext.count{
                 guard let bookingId = self.viewModel.bookingIds.first else {
                     return
                 }
+                self.viewModel.logEvent(with: .TapOnWhatsNextModifyBookingCard)
                 AppFlowManager.default.moveToHotelBookingsDetailsVC(bookingId: bookingId)
             }else{
                 guard let whtNxt = self.viewModel.hotelReceiptData?.whatNext[index] else {return}
                 switch whtNxt.productType{
                 case .flight:
+                    self.viewModel.logEvent(with: .TapOnWhatsNextFlightCard)
                     self.bookFlightFor(whtNxt)
                 case .hotel:
                     self.bookAnotherHotels(whtNxt)
+                    self.viewModel.logEvent(with: .TapOnWhatsNextHotelsCard)
                 default: break;
                 }
             }
