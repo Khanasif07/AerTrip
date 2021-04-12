@@ -30,6 +30,10 @@ extension Dictionary where Key == String, Value:Any {
         self.forEach { (key,value) in
             valueString.append("\(key) : \(value), ")
         }
+        
+        valueString.removeLast()
+        valueString.removeLast()
+        
         return valueString
     }
 
