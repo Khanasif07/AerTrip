@@ -16,6 +16,7 @@ class FirebaseAnalyticsController {
     func logEvent(name: String, params: JSONDictionary? = nil) {
         if AppConstants.isReleasingForCustomers{
             Analytics.logEvent(name, parameters: params)
+        
         }
     }
     
