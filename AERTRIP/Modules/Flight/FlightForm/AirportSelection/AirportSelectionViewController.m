@@ -1288,11 +1288,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if ([self.cellIdentifier isEqualToString:@"AirportCell"]){
+        [self getSelectedSectionAirportLog:indexPath];
         [self onAirportCellSelected:indexPath];
         return;
     }
     
     if ([self.cellIdentifier isEqualToString:@"AirlineSearchCell"]){
+        [self.viewModel logEventWithName:@"23" value:[[NSDictionary alloc] init]];
         [self onAirlineCellSelected:indexPath];
     }
 }
@@ -2061,6 +2063,23 @@
         [self toAction:nil];
     }
 
+}
+
+- (void)getSelectedSectionAirportLog:(NSIndexPath*) indexPath{
+    NSString *key = [[self.airportDisplayArray objectAtIndex: indexPath.section] lowercaseString];
+    NSString *event = @"";
+    BOOL isForFrom = false;
+    if ([key containsString: @"recently"]){
+        event = @"19";
+    }else if ([key containsString: @"popular"]){
+        event = @"20";
+    }else if ([key containsString: @"nearby"]){
+        event = @"21";
+    }else{
+        return;
+    }
+    [self.viewModel logEventWithName:event value:[[NSDictionary alloc] init]];
+    
 }
 
 @end

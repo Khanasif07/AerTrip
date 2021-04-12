@@ -13,6 +13,7 @@ extension FinalCheckOutVC : WalletTableViewCellDelegate {
         self.isWallet = (getWalletAmount() <= 0) ? false : isOn
         self.setConvenienceFeeToBeApplied()
         self.updatePayButtonText()
+        self.viewModel.logEvent(with: self.isWallet ? .EnableWalletAmount : .DisableWalletAmount)
     }
 }
 

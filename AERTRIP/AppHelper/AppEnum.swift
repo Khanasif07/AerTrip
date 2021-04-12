@@ -311,6 +311,17 @@ enum AppImage {
     static let netBanking = #imageLiteral(resourceName: "netBanking")
     static let visa = #imageLiteral(resourceName: "visa")
     static let appleLogoImage: UIImage = #imageLiteral(resourceName: "Apple Logo")
+    static let mobikwik = #imageLiteral(resourceName: "paymentMobikwik.png")
+    static let freecharge = #imageLiteral(resourceName: "bankFreecharge")
+    static let payzapp = #imageLiteral(resourceName: "bankHdfcBank")
+    static let airtelmoney = #imageLiteral(resourceName: "bankAirtelPaymentsBank")
+    static let jiomoney = #imageLiteral(resourceName: "bankJiomoney")
+    static let olamoney = #imageLiteral(resourceName: "bankOlamoney")
+    static let phonepe = #imageLiteral(resourceName: "paymentPhonePay")
+    static let phonepeswitch = #imageLiteral(resourceName: "paymentPhonePay")
+    static let paypal = #imageLiteral(resourceName: "bankPayPal")
+    static let amazonpay = #imageLiteral(resourceName: "bankAmazonPay")
+    static let none = #imageLiteral(resourceName: "iconPaymentPlaceholder")
 
 }
 

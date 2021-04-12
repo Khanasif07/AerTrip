@@ -43,5 +43,25 @@ import UIKit
     
     @objc func onDoneButtonTapped() {
         self.delegate?.flight?(fromSource: self.fromFlightArray, toDestination: self.toFlightArray, airlineNum:airlineNum)
+        let dict:NSMutableDictionary = [:]
+        dict["OriginSelecteAiport"] = ((self.fromFlightArray as? [AirportSearch] ?? []).map{$0.iata})
+        dict["DestinationSelecteAiport"] = ((self.toFlightArray as? [AirportSearch] ?? []).map{$0.iata})
+        self.logEvent(name: "24", value: dict)
     }
+}
+
+///Log firebase evets
+@objc extension AirportSelectionVM{
+    
+    @objc func logEvent(name:String, value:NSDictionary){
+        
+        var val = JSONDictionary()
+        if let newValue = value as? JSONDictionary{
+            val = newValue
+        }else{
+            val = [:]
+        }
+        FirebaseEventLogs.shared.logAirportSelectionEvents(name, isForFrom: self.isFrom, dictValue: val)
+    }
+    
 }

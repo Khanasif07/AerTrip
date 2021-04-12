@@ -856,6 +856,7 @@
             if ( [self getNumberOfNightsInRange:self.viewModel.date1 endDate:date] > 30 ) {
                 [AertripToastView toastInView:self.view withText:@"Sorry, reservation for more than 30 nights is not possible."];
                 [self.customCalenderView deselectDate:date];
+                [self.viewModel tryToSelectMoreThan30Night];
                 return;
             }
             
@@ -909,6 +910,7 @@
                 [AertripToastView toastInView:self.view withText:@"Sorry, reservation for more than 30 nights is not possible."];
                 [self.customCalenderView deselectDate:date];
                 [self showDatesSelection];
+                [self.viewModel tryToSelectMoreThan30Night];
                 return;
             }
             if ([self.viewModel.date2 compare:date] == NSOrderedSame) {
@@ -950,6 +952,7 @@
                 [AertripToastView toastInView:self.view withText:@"Sorry, reservation for more than 30 nights is not possible."];
                 [self.customCalenderView deselectDate:date];
                 [self showDatesSelection];
+                [self.viewModel tryToSelectMoreThan30Night];
                 return;
             }
             

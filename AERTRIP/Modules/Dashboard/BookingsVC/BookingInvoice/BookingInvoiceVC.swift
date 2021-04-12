@@ -85,13 +85,51 @@ class BookingInvoiceVC: BaseVC {
         totalPayableCell.topDeviderView.isHidden = true
         totalPayableCell.bottomDeviderView.isHidden = true
         let txt = self.viewModel.voucher?.paymentInfo?.paymentTitle ?? LocalizedString.dash.localized
-        totalPayableCell.totalPayableNowLabel.text = txt
-        if txt.lowercased().contains("banking"){
-            totalPayableCell.paymentImageView.image = AppImage.netBanking
+
+        let paymentMethod = self.viewModel.voucher?.paymentInfo?.method.rawValue ?? LocalizedString.dash.localized
+        if paymentMethod == "wallet"{
+
+//            if  self.viewModel.voucher?.paymentInfo?.walletName.lowercased() == "mobikwik"{
+//                totalPayableCell.paymentImageView.image = AppImage.mobikwik
+//
+//            }
+            
+            switch self.viewModel.voucher?.paymentInfo?.wallet
+            {
+            
+            case .airtelmoney:
+                totalPayableCell.paymentImageView.image = AppImage.airtelmoney
+            case .amazonpay:
+                totalPayableCell.paymentImageView.image = AppImage.amazonpay
+            case .freecharge:
+                totalPayableCell.paymentImageView.image = AppImage.freecharge
+            case .jiomoney:
+                totalPayableCell.paymentImageView.image = AppImage.jiomoney
+            case .mobikwik:
+                totalPayableCell.paymentImageView.image = AppImage.mobikwik
+            case .olamoney:
+                totalPayableCell.paymentImageView.image = AppImage.olamoney
+            case .paypal:
+                totalPayableCell.paymentImageView.image = AppImage.paypal
+            case .payzapp:
+                totalPayableCell.paymentImageView.image = AppImage.payzapp
+            case .phonepe:
+                totalPayableCell.paymentImageView.image = AppImage.phonepe
+            case .phonepeswitch:
+                totalPayableCell.paymentImageView.image = AppImage.phonepeswitch
+                
+            default:
+                totalPayableCell.paymentImageView.image = AppImage.none
+            }
         }else{
-            totalPayableCell.paymentImageView.image = AppImage.visa
+            if txt.lowercased().contains("banking"){
+                totalPayableCell.paymentImageView.image = AppImage.netBanking
+            }else{
+                totalPayableCell.paymentImageView.image = AppImage.visa
+            }
         }
-        
+
+        totalPayableCell.totalPayableNowLabel.text = txt
         totalPayableCell.totalPayableNowLabel.font = AppFonts.Regular.withSize(18.0)
         
         totalPayableCell.totalPriceLabel.text = ""

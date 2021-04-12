@@ -30,6 +30,7 @@ extension YouAreAllDoneVC {
         cell.configCell(tripName: self.viewModel.hotelReceiptData?.trip_details?.name ?? "")
         cell.changeBtnHandler = {[weak self] in
             guard let strongSelf = self else {return}
+            strongSelf.viewModel.logEvent(with: .TapOnChangeTrip)
             AppFlowManager.default.selectTrip(strongSelf.viewModel.hotelReceiptData?.trip_details, tripType: .bookingTripChange, presentingStatusBarStyle: strongSelf.statusBarStyle, dismissalStatusBarStyle: strongSelf.statusBarStyle) { [weak self] (tripModel, tripDetail) in
                 guard let strongSelf = self else {return}
                 printDebug(tripDetail)

@@ -106,7 +106,7 @@ extension SettingsVM{
         case .disableWalletOtp:
             FirebaseEventLogs.shared.logSettingEvents(with: .changeCountry)
         case .calenderSync:
-            FirebaseEventLogs.shared.logSettingEvents(with: .toggleCalender)
+            FirebaseEventLogs.shared.logSettingEvents(with: .toggleCalendar)
         case .aboutUs:
             FirebaseEventLogs.shared.logSettingEvents(with: .OpenAboutUs)
         case .legal:

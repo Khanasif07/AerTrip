@@ -2246,6 +2246,21 @@ struct BookingPaymentInfo {
         case netbanking
         case card
         case upi
+        case wallet
+    }
+    
+    enum Wallets:String{
+        case mobikwik
+        case freecharge
+        case payzapp
+        case airtelmoney
+        case jiomoney
+        case olamoney
+        case phonepe
+        case phonepeswitch
+        case paypal
+        case amazonpay
+        case none
     }
     
     var orderId: String = ""
@@ -2257,6 +2272,7 @@ struct BookingPaymentInfo {
     var bankName: String = ""
     var upiId: String = ""
     var cardNumber: String = ""
+    var walletName : String = ""
     
     var method: Method {
         get {
@@ -2265,6 +2281,17 @@ struct BookingPaymentInfo {
         
         set {
             self._method = newValue.rawValue
+        }
+    }
+    
+    
+    var wallet: Wallets {
+        get {
+            return Wallets(rawValue: self.walletName.lowercased()) ?? Wallets.none
+        }
+        
+        set {
+            self.walletName = newValue.rawValue
         }
     }
     
@@ -2323,6 +2350,9 @@ struct BookingPaymentInfo {
         }
         if let obj = json["card_number"] {
             self.cardNumber = "\(obj)".removeNull
+        }
+        if let obj = json["wallet_name"] {
+            self.walletName = "\(obj)".removeNull
         }
     }
 }

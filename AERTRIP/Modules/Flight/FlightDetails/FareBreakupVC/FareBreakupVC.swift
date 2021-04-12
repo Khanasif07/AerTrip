@@ -454,9 +454,9 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 baseFareCell.selectionStyle = .none
                 
                 if isTaxesSectionHidden == false{
-                    baseFareCell.upArrowImg.image = UIImage(named: "upGray.png")
-                }else{
                     baseFareCell.upArrowImg.image = UIImage(named: "downGray.png")
+                }else{
+                    baseFareCell.upArrowImg.image = UIImage(named: "upGray.png")
                 }
                 
                 baseFareCell.titleLabelLeading.constant = 16

@@ -17,5 +17,6 @@
 @optional - (void)selectedDatesFromCalendar:(NSDate *)startDate endDate:(NSDate *)endDate isHotelCalendar:(BOOL)isHotelCalendar isReturn:(BOOL)isReturn;
 @optional - (void)selectedDatesFromCalendar:(NSDate *)startDate endDate:(NSDate *)endDate  isReturn:(BOOL)isReturn;
 @optional -(void)MulticityDateSelectionWithDictionary:(NSDictionary*)dictionary reloadUI:(BOOL)reloadUI;
+@optional -(void)TryToSelectMoreThan30Night;
 @end
 

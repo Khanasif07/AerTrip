@@ -176,3 +176,10 @@ class YouAreAllDoneVM: NSObject {
 }
 
 
+///Log Firebase events
+extension YouAreAllDoneVM{
+    func logEvent(with event: FirebaseEventLogs.EventsTypeName){
+        FirebaseEventLogs.shared.logHotelReceiptEvent(with: event)
+    }
+}
+

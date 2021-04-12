@@ -206,3 +206,11 @@ extension FinalCheckoutVM {
     }
     
 }
+
+///Log Firebase Events
+extension FinalCheckoutVM{
+    
+    func logEvent(with event: FirebaseEventLogs.EventsTypeName){
+        FirebaseEventLogs.shared.logHoltelFinalCheckOutEvent(with: event)
+    }
+}

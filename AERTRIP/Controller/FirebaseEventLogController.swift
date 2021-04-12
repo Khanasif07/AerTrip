@@ -2,7 +2,7 @@
 //  FirebaseEventLogController.swift
 //  AERTRIP
 //
-//  Created by Admin on 12/03/21.
+//  CreatedBy Admin on 12/03/21.
 //  Copyright © 2021 Pramod Kumar. All rights reserved.
 //
 
@@ -15,11 +15,12 @@ class FirebaseEventLogs: NSObject{
     override init(){}
     
     enum EventsTypeName:String {
+        
         //MARK:- Settings Events TypeNames
-        case changeCountry = "TryToChangeConuntry"
+        case changeCountry = "TryToChangeCountry"
         case changeCurrency = "TryToChangeCurrency"
         case changeNotification = "TryToChangeNotification"
-        case toggleCalender = "TryToToggleOnCalenderSync"
+        case toggleCalendar = "TryToToggleOnCalendarSync"
         case openChangeId = "OpenChangeAertripID"
         case openSetMobile = "OpenChangeMobileNumber"
         case openChangeMobile = "OpenSetMobileNumber"
@@ -322,11 +323,12 @@ class FirebaseEventLogs: NSObject{
         //MARK:- Profile Events TypeNames
         case ClickOnEditMainUserProfile
         case ClickOnMainUserProfile
+        
         //OneWay Results
         case OpenFlightDetails
+        case SwipeClubbedJourneys
         case ExpandClubbedJourneys
         case CollapseclubbedJourneys
-        case SwipeClubbedJourneys
         case ShowLongerOrExpensiveFlights
         case HideLongerOrExpensiveFlights
         case PinFlight
@@ -510,6 +512,25 @@ class FirebaseEventLogs: NSObject{
         case OpenNotifications
         case OpenSupport
         case OpenRateUs
+        
+        //MARK:- Hotels Form Events TypeNames
+        case ClickWhere
+        case CaptureWhere
+        case OpenCheckIn
+        case OpenCheckOut
+        case CalculateCheckInDateFromCurrentDate
+        case CalculateTotalNights
+        case CountTotalRooms
+        case CountTotalAdults
+        case CountTotalChildren
+        case TryForMoreThan30Nights
+        case SearchNearby
+        case SearchByCity
+        case SearchByHotel
+        case SearchByArea
+        case SearchPOI
+        case OpenBulkBooking
+        case Search
     
         // Hotel List
         case NavigateBackFromHotelList
@@ -533,10 +554,49 @@ class FirebaseEventLogs: NSObject{
         case ShowDetails
         case HideDetails
         
+        // Hotel Map View
+        case SwitchToHotelList
+        case OpenHotelFilters
+//        case HotelSearchTapped    repeat for reference, do not remove
+//        case HotelMicSearchTapped
+//        case HotelBookmarked
+//        case HotelUnbookmarked
+        case HideElementsOnMapClick
+        case ShowElementsOnMapClick
+//        case ClearHotelSearch
+        case NavigateToMapCenter
+        case OpenGroupedHotels
+        case openGroupedHotelsByClusterTap
+        case OpenHotelByCardTap
+        case OpenHotelByDotTap
+        
+        
+        //MARK:- Hotels Payment Events TypeNames
+        case EnableWalletAmount
+        case DisableWalletAmount
+//        case TapOnPrivacyPolicy
+//        case TapOnTermsOfUse
+        case PaidTotalAmountViaWallet
+        case PaymentFail
+        case TapOnPayButton
+        
+        //MARK:- Hotels Receipt Events TypeNames
+        case TapOnChangeTrip
+        case OpenBookedHotelDetails
+        case TapOnFacebookShareButton
+        case TapOnTwitterShareButton
+        case TapOnShareButton
+        case TapOnWhatsNextFlightCard
+        case TapOnWhatsNextHotelsCard
+        case TapOnWhatsNextModifyBookingCard
+        case TapOnReturnToHomeButton
         
     }
     
-    
+    // MARK: App Open Event
+    func logAppOpenEvent() {
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.OpenApp.rawValue)
+    }
     
     //MARK:- Settings Events Log Function
     func logSettingEvents(with type: EventsTypeName){
@@ -799,6 +859,7 @@ class FirebaseEventLogs: NSObject{
 
         default:
             FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightOneWayResults.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.values.rawValue : value])
+            
         }
         
     }
@@ -875,8 +936,10 @@ class FirebaseEventLogs: NSObject{
 
         case .addMealsAddon, .addOtherAddons, .addBaggageAddons:
             
-            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Addons.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.values.rawValue : ["addonName" : addonName, "addonQty" : addonQty, "fk" : fk, "flightTitle" : flightTitle]])
-
+            let valuesDict : JSONDictionary = ["addonName" : addonName, "addonQty" : addonQty, "fk" : fk, "flightTitle" : flightTitle]
+            
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Addons.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.values.rawValue : valuesDict.getString()])
+            
         default:
         
             FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Addons.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue])
@@ -913,7 +976,7 @@ class FirebaseEventLogs: NSObject{
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.SideMenu.rawValue, params: [AnalyticsKeys.name.rawValue:type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
     }
 
-    //MARK:
+    //MARK: Hotel List
     func logHotelListEvents(with type: EventsTypeName) {
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelList.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
     }
@@ -933,11 +996,49 @@ class FirebaseEventLogs: NSObject{
                 
     }
     
+
+//MARK: Hotel List
+    func logHotelMapViewEvents(with type: EventsTypeName) {
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelMapView.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
+    }
+    
+    //MARK:- Hotels Form Events
+    func LogHotelsFormEvents(with event: EventsTypeName, type:String?, strValue:String?, dictValue:JSONDictionary?){
+        
+        var param = JSONDictionary()
+        param[AnalyticsKeys.name.rawValue] = event.rawValue
+        if let type = type{
+            param[AnalyticsKeys.type.rawValue] = type
+        }else{
+            param[AnalyticsKeys.type.rawValue] = "n/a"
+        }
+        if let valueStr = strValue{
+            param[AnalyticsKeys.values.rawValue] = valueStr
+        }else if let valueDict = dictValue{
+            param[AnalyticsKeys.values.rawValue] = valueDict
+        }else{
+            param[AnalyticsKeys.values.rawValue] = "n/a"
+
+        }
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelForm.rawValue, params: param)
+        
+    }
+    
+    //MARK:- Hotels Final CheckOut Events Function
+    func logHoltelFinalCheckOutEvent(with event: EventsTypeName){
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelsFinalCheckOut.rawValue, params: [AnalyticsKeys.name.rawValue: event.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue:"n/a"])
+    }
+    
+    
+    //MARK:- Hotel Receipt Events Function
+    func logHotelReceiptEvent(with event: EventsTypeName){
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelReceipt.rawValue, params: [AnalyticsKeys.name.rawValue: event.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue:"n/a"])
+    }
+    
 }
 
-
+///Objective c Event functions
  extension FirebaseEventLogs{
-    
     
     ///Objective c Event type
     enum EventsTypeNameObjc:String {
@@ -964,7 +1065,7 @@ class FirebaseEventLogs: NSObject{
         case RemoveSector
         
         //MARK:- Airport Selection Events TypeNames
-        case SelectFromRecentSearch
+        case SelectFromRecentlySearch
         case SelectFromPopularAirport
         case SelectFromNearByAirport
         case TapOnNearMe
@@ -1004,7 +1105,7 @@ class FirebaseEventLogs: NSObject{
             case "16": self = .TapSearchButtonWithoutSelectingOriginCity
             case "17": self = .AddMoreSector
             case "18": self = .RemoveSector
-            case "19":  self = .SelectFromRecentSearch
+            case "19":  self = .SelectFromRecentlySearch
             case "20": self = .SelectFromPopularAirport
             case "21": self = .SelectFromNearByAirport
             case "22": self = .TapOnNearMe
@@ -1047,5 +1148,64 @@ class FirebaseEventLogs: NSObject{
             FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightForm.rawValue, params: param)
         }
         
+        if nameInt == "0" || nameInt == "10"{
+            self.logEventsWithOutParam(with: .FlightSearch)
+        }
+        
     }
+
+    
+    //MARK:- Airport Selection Events function
+    @objc func logAirportSelectionEvents(_ nameInt: String, isForFrom:Bool, dictValue:JSONDictionary){
+        if let event = EventsTypeNameObjc(with: nameInt){
+            var param :JSONDictionary = [:]
+            param[AnalyticsKeys.name.rawValue] = event.rawValue
+            if isForFrom{
+                param[AnalyticsKeys.type.rawValue] = "OriginAirport"
+            }else{
+                param[AnalyticsKeys.type.rawValue] = "DestinationAirport"
+            }
+            
+            if dictValue.count == 0{
+                param[AnalyticsKeys.values.rawValue] = dictValue
+            }else{
+                param[AnalyticsKeys.values.rawValue] = "n/a"
+            }
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AirportSelection.rawValue, params: param)
+        }
+        
+    }
+    
+    //MARK:- Airport Selection Events function
+    @objc func logPassengersSelectionEvents(_ nameInt: String, dictValue:TravellerCount){
+        if let event = EventsTypeNameObjc(with: nameInt){
+            var param :JSONDictionary = [:]
+            param[AnalyticsKeys.name.rawValue] = event.rawValue
+            param[AnalyticsKeys.type.rawValue] = "n/a"
+            if nameInt ==  "24"{
+                var passengerDetails:JSONDictionary = [:]
+                passengerDetails["adult"] = dictValue.flightAdultCount
+                passengerDetails["child"] = dictValue.flightChildrenCount
+                passengerDetails["infant"] = dictValue.flightInfantCount
+                param[AnalyticsKeys.values.rawValue] = passengerDetails
+            }else{
+                param[AnalyticsKeys.values.rawValue] = "n/a"
+            }
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AirportSelection.rawValue, params: param)
+        }
+        
+    }
+    
+    //MARK:- Airport Selection Events function
+    @objc func logCabinClassSelectionEvents(_ nameInt: String){
+        if let event = EventsTypeNameObjc(with: nameInt){
+            var param :JSONDictionary = [:]
+            param[AnalyticsKeys.name.rawValue] = event.rawValue
+            param[AnalyticsKeys.type.rawValue] = "n/a"
+            param[AnalyticsKeys.values.rawValue] = "n/a"
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AirportSelection.rawValue, params: param)
+        }
+        
+    }
+    
 }
