@@ -16,10 +16,10 @@ class FirebaseAnalyticsController {
     func logEvent(name: String, params: JSONDictionary? = nil) {
 //        if AppConstants.isReleasingForCustomers{
             Analytics.logEvent(name, parameters: params)
-//        }
+        }
     }
     
-}
+
 
 enum AnalyticsEvents: String {
     //MARK: Firebase event names
@@ -92,9 +92,11 @@ enum AnalyticsEvents: String {
     case TARating
     case Amenities
     case Room
+    
     case FlightOneWayResults
     case FlightInternationalAndMulticityResults
     case FlightDomesticAndMulticityResults
+    
     case Addons
     
     
@@ -135,6 +137,10 @@ enum AnalyticsEvents: String {
     
 //    SideMenu
     case SideMenu
+    
+    case Aerin
+    
+    
 }
 
 enum AnalyticsKeys: String {

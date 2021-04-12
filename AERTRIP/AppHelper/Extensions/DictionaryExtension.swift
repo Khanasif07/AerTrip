@@ -20,3 +20,21 @@ public extension LazyMapCollection  {
         return Array(self)
     }
 }
+
+
+extension Dictionary where Key == String, Value:Any {
+
+    func getString() -> String {
+        
+        var valueString = ""
+        self.forEach { (key,value) in
+            valueString.append("\(key) : \(value), ")
+        }
+        
+        valueString.removeLast()
+        valueString.removeLast()
+        
+        return valueString
+    }
+
+}

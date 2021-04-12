@@ -68,6 +68,13 @@ extension AerinCustomPopoverVC: UITableViewDelegate, UITableViewDataSource {
             receiverCell.populateMsg(msgObj: self.chatVm.messages[indexPath.row])
             tableView.beginUpdates()
             tableView.endUpdates()
+            
+            if self.chatVm.messages[indexPath.row].showDetails {
+                FirebaseEventLogs.shared.logAerinEvents(with: FirebaseEventLogs.EventsTypeName.ShowDetails)
+            } else {
+                FirebaseEventLogs.shared.logAerinEvents(with: FirebaseEventLogs.EventsTypeName.HideDetails)
+            }
+            
         }
         
         if let _ = tableView.cellForRow(at: indexPath) as? SeeResultsAgainCell, let cachedMessageModel = chatVm.lastCachedResultModel {

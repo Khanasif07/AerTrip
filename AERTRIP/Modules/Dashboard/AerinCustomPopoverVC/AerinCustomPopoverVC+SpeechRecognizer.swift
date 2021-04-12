@@ -40,11 +40,13 @@ extension AerinCustomPopoverVC: SpeechRecognizerDelegate {
         self.hideShowSenderCellContent(ishidden: true)
         self.chatVm.msgToBeSent = msg
         self.chatVm.lastMessageSentType = .voice
-        delay(seconds: 0.27) {
+        delay(seconds: 0.27) {9
             self.animateCellForSpeechRecognizer(text : msg)
             self.setupForView = .communicationControls
             self.listeningLblBackView.isHidden = true
         }
+        
+        FirebaseEventLogs.shared.logAerinEvents(with: FirebaseEventLogs.EventsTypeName.talkToAerinBySpeach, message: msg)
     }
     
     private func animateCellForSpeechRecognizer(text: String) {

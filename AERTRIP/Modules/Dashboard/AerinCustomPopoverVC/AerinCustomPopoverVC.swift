@@ -173,6 +173,7 @@ class AerinCustomPopoverVC: BaseVC {
     @IBAction func dismissBtnAction(_ sender: UIButton) {
         messageTextView.resignFirstResponder()
         startDismissAnimation()
+        FirebaseEventLogs.shared.logAerinEvents(with: FirebaseEventLogs.EventsTypeName.dismisAerin)
     }
     
     @IBAction func hideWaveBtnAction(_ sender: UIButton) {
@@ -233,6 +234,9 @@ class AerinCustomPopoverVC: BaseVC {
             delay(seconds: 0.27) {
                 self.animateCell(text : msg)
             }
+            
+            FirebaseEventLogs.shared.logAerinEvents(with: FirebaseEventLogs.EventsTypeName.talkToAerinByMessage, message: msg)
+
         //MARK:- Here i had used insert row due to some issue with the yIndex of the cell i had used reload
         
         case .record:
@@ -242,6 +246,8 @@ class AerinCustomPopoverVC: BaseVC {
             }
             setupForView = .waveAnimation
         }
+        
+
     }
     
     // MARK: Functions
@@ -783,6 +789,7 @@ extension AerinCustomPopoverVC {
     @objc private func hideKeyboard() {
         messageTextView.resignFirstResponder()
     }
+    
 }
 
 // MARK: Text View Delegates
@@ -841,6 +848,7 @@ extension AerinCustomPopoverVC {
         }
         checkSendButtonStatus()
     }
+    
     func checkSendButtonStatus() {
         sendBtnState = messageTextView.text.isEmpty ? .record : .send
     }
@@ -891,14 +899,6 @@ extension AerinCustomPopoverVC : ChatBotDelegatesDelegate {
         chatVm.createFlightSearchDictionaryAndPushToVC(data)
         messageTextView.resignFirstResponder()
         startDismissAnimation()
-        
-//        if chatVm.messages.last?.msgSource != .seeResultsAgain {
-//            let seeAgainMsgModel = MessageModel(msg: LocalizedString.seeResultsAgain.localized, source: .seeResultsAgain)
-//            chatVm.messages.append(seeAgainMsgModel)
-//            DispatchQueue.delay(1) { [weak self] in
-//                self?.chatTableView.reloadData()
-//            }
-//        }
     }
     
     func willGetRecentSearchHotel(){
