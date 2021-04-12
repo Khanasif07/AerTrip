@@ -28,7 +28,7 @@ extension Dictionary where Key == String, Value:Any {
         
         var valueString = ""
         self.forEach { (key,value) in
-            valueString.append("\(key):\(value), ")
+            valueString.append("\(key) : \(value), ")
         }
         return valueString
     }
