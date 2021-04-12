@@ -103,6 +103,7 @@ class FlightDetailsBaseVC: BaseVC {
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        FirebaseEventLogs.shared.logEventsWithOutParam(with: .OpenFlightDetails)
         backgroundViewForFareBreakup.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
         backgroundViewForFareBreakup.tag = 1002
         self.view.addSubview(backgroundViewForFareBreakup)

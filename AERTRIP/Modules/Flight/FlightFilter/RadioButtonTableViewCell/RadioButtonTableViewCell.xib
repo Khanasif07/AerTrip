@@ -18,10 +18,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ECq-jj-eZm">
-                        <rect key="frame" x="281" y="16.5" width="40" height="40"/>
+                        <rect key="frame" x="275" y="14.5" width="46" height="44"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="40" id="B2a-yk-8in"/>
-                            <constraint firstAttribute="width" constant="40" id="U7W-yG-XRw"/>
+                            <constraint firstAttribute="height" constant="44" id="B2a-yk-8in"/>
+                            <constraint firstAttribute="width" constant="46" id="U7W-yG-XRw"/>
                         </constraints>
                     </button>
                 </subviews>
