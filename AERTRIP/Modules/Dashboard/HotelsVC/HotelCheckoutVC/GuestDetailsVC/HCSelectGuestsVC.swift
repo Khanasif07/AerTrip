@@ -673,6 +673,7 @@ extension HCSelectGuestsVC: UICollectionViewDataSource, UICollectionViewDelegate
         cell.roomNo = indexPath.section + 1
         cell.contact = GuestDetailsVM.shared.guests[indexPath.section][indexPath.item]
         cell.isUsingForGuest = true
+        cell.productType = self.viewModel.productType
         cell.isSelectedForGuest = false
         if (indexPath.section == currentSelectedGuestIndex.section) && (indexPath.item == currentSelectedGuestIndex.item){
             cell.isSelectedForGuest = true

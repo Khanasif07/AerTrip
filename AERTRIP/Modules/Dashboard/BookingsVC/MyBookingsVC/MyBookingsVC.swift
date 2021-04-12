@@ -68,7 +68,7 @@ class MyBookingsVC: BaseVC {
         MyBookingFilterVM.shared.searchText = ""
         MyBookingsVM.shared.isFetchingBooking = false
 
-        FirebaseEventLogs.shared.logEventsWithOutParam(with: .MyBookings)
+        FirebaseEventLogs.shared.logEventsWithoutParam(with: .MyBookings)
 
 
     }

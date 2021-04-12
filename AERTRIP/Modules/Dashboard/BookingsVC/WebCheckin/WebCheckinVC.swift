@@ -39,7 +39,7 @@ class WebCheckinVC: BaseVC {
         self.setupNavBar()
         self.registerXib()
                 
-        FirebaseEventLogs.shared.logEventsWithOutParam(with: .Webcheckin)
+        FirebaseEventLogs.shared.logEventsWithoutParam(with: .Webcheckin)
 
     }
     

@@ -20,6 +20,7 @@ class SelectedContactCollectionCell: UICollectionViewCell {
     @IBOutlet weak var roomLabel: UILabel!
     
     weak var delegate: SelectedContactCollectionCellDelegate?
+    var productType:ProductType = .flight
 
     var contact: ATContact? {
         didSet {
@@ -103,7 +104,12 @@ class SelectedContactCollectionCell: UICollectionViewCell {
                 case .Adult:
                     self.nameLabel.text = "\(LocalizedString.Adult.localized) \(number)"
                 case .Child:
-                    self.nameLabel.text = "\(LocalizedString.Child.localized) \(number)"
+                    if let year = self.contact?.age, year > 0, productType == .hotel{
+                        self.nameLabel.text = "\(LocalizedString.Child.localized) \(number)(\(year)y)"
+                    }else{
+                        self.nameLabel.text = "\(LocalizedString.Child.localized) \(number)"
+                    }
+                   
                 case .Infant:
                    self.nameLabel.text = "\(LocalizedString.Infant.localized) \(number)"
                 }

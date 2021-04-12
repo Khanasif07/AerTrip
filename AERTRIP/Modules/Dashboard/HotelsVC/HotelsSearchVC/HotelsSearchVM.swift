@@ -401,7 +401,7 @@ extension HotelsSearchVM {
             dict["destType"] = HotelsSearchVM.hotelFormData.destType
         }
         self.logEvents(with: .Search, valueDict: dict)
-        FirebaseEventLogs.shared.logEventsWithOutParam(with: .HotelSearch)
+        FirebaseEventLogs.shared.logEventsWithoutParam(with: .HotelSearch)
     }
     
     func logEvents(with event: FirebaseEventLogs.EventsTypeName, type: String? = nil, valueString:String? = nil, valueDict:JSONDictionary? = nil){

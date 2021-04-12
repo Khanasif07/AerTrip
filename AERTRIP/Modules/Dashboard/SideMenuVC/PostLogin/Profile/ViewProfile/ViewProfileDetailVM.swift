@@ -137,7 +137,7 @@ extension ViewProfileDetailVM {
 ///Logs Firebase  ViewProfileVC events
 extension ViewProfileDetailVM {
     func logEventsWithoutParam(with event: AnalyticsEvents){
-        FirebaseEventLogs.shared.logEventsWithOutParam(with: event)
+        FirebaseEventLogs.shared.logEventsWithoutParam(with: event)
     }
      
     func logEvents(with event: FirebaseEventLogs.EventsTypeName){

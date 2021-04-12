@@ -37,7 +37,7 @@ class UpgradePlanContrainerVC: BaseVC, UpgradePlanListVCDelegate {
             self.setupFarebreakupView()
         }
         
-        FirebaseEventLogs.shared.logEventsWithOutParam(with: .UpgradePlan)
+        FirebaseEventLogs.shared.logEventsWithoutParam(with: .UpgradePlan)
 
 
         
@@ -272,7 +272,7 @@ class UpgradePlanContrainerVC: BaseVC, UpgradePlanListVCDelegate {
     
     @IBAction func tapCloseButton(_ sender: Any) {
                 
-        FirebaseEventLogs.shared.logEventsWithOutParam(with: .CloseButtonClicked)
+        FirebaseEventLogs.shared.logEventsWithoutParam(with: .CloseButtonClicked)
 
         self.dismiss(animated: true, completion: nil)
     }

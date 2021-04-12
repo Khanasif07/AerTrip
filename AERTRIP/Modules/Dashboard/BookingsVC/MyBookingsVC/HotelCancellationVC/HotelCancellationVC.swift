@@ -61,7 +61,7 @@ class HotelCancellationVC: BaseVC {
         }
         self.gradientView.addGredient(isVertical: false)
         
-        FirebaseEventLogs.shared.logEventsWithOutParam(with: .MyBookingsHotelCancellation)
+        FirebaseEventLogs.shared.logEventsWithoutParam(with: .MyBookingsHotelCancellation)
     }
     
     override func viewDidLayoutSubviews() {

@@ -831,7 +831,7 @@ class FirebaseEventLogs: NSObject{
     
     
     //MARK:- Log Events Without Param Function
-    func logEventsWithOutParam(with type: AnalyticsEvents){
+    func logEventsWithoutParam(with type: AnalyticsEvents){
         FirebaseAnalyticsController.shared.logEvent(name: type.rawValue) 
     }
     
@@ -1106,7 +1106,7 @@ class FirebaseEventLogs: NSObject{
                 param[AnalyticsKeys.type.rawValue] = "n/a"
             }
             
-            if dictValue.count == 0{
+            if dictValue.count != 0{
                 param[AnalyticsKeys.values.rawValue] = dictValue
             }else{
                 if !stringValue.isEmpty{
@@ -1119,7 +1119,7 @@ class FirebaseEventLogs: NSObject{
         }
         
         if nameInt == "0" || nameInt == "10"{
-            self.logEventsWithOutParam(with: .FlightSearch)
+            self.logEventsWithoutParam(with: .FlightSearch)
         }
         
     }
@@ -1136,7 +1136,7 @@ class FirebaseEventLogs: NSObject{
                 param[AnalyticsKeys.type.rawValue] = "DestinationAirport"
             }
             
-            if dictValue.count == 0{
+            if dictValue.count != 0{
                 param[AnalyticsKeys.values.rawValue] = dictValue
             }else{
                 param[AnalyticsKeys.values.rawValue] = "n/a"

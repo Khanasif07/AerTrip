@@ -35,7 +35,7 @@ class FlightPaymentBookingStatusVC: BaseVC {
     }
     override func initialSetup() {
         super.initialSetup()
-        FirebaseEventLogs.shared.logEventsWithOutParam(with: .OpenFlightReceipt)
+        FirebaseEventLogs.shared.logEventsWithoutParam(with: .OpenFlightReceipt)
         self.viewModel.delegate = self
         self.viewModel.getBookingReceipt()
         self.registerCell()

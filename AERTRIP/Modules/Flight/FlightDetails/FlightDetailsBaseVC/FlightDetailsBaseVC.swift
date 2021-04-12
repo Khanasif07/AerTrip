@@ -103,7 +103,7 @@ class FlightDetailsBaseVC: BaseVC {
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        FirebaseEventLogs.shared.logEventsWithOutParam(with: .OpenFlightDetails)
+        FirebaseEventLogs.shared.logEventsWithoutParam(with: .OpenFlightDetails)
         backgroundViewForFareBreakup.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
         backgroundViewForFareBreakup.tag = 1002
         self.view.addSubview(backgroundViewForFareBreakup)
@@ -313,7 +313,7 @@ class FlightDetailsBaseVC: BaseVC {
     
     @IBAction func closeButtonClicked(_ sender: Any)
     {
-        FirebaseEventLogs.shared.logEventsWithOutParam(with: .CloseButtonClicked)
+        FirebaseEventLogs.shared.logEventsWithoutParam(with: .CloseButtonClicked)
 
         self.dismiss(animated: true, completion: nil)
     }

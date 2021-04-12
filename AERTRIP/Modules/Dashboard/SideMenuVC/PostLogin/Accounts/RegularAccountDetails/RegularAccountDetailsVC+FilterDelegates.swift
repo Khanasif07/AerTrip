@@ -16,7 +16,7 @@ extension RegularAccountDetailsVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         //back button action
 
-        FirebaseEventLogs.shared.logEventsWithOutParam(with: .NavigateBack)
+        FirebaseEventLogs.shared.logEventsWithoutParam(with: .NavigateBack)
 
         ADEventFilterVM.shared.setToDefault()
         AppFlowManager.default.popViewController(animated: true)
