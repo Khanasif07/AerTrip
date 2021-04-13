@@ -544,6 +544,21 @@ class FirebaseEventLogs: NSObject{
         case ClearHotelSearch
         case OpenHotelDetails
         
+        // Hotel Bulk Booking
+//        case ClickWhere
+//        case OpenCheckIn
+//        case OpenCheckOut
+//        case CountTotalRooms
+//        case CountTotalAdults
+//        case CountTotalChildren
+//        case TryForMoreThan30Nights
+//        case SearchNearby
+//        case SearchByCity
+//        case SearchByHotel
+//        case SearchByArea
+//        case SearchPOI
+        case CloseBulkBooking
+        case SendBulkBookingQuery
         
         //Aerin
         case openAerin
@@ -596,6 +611,10 @@ class FirebaseEventLogs: NSObject{
     // MARK: App Open Event
     func logAppOpenEvent() {
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.OpenApp.rawValue)
+    }
+    
+    func logHotelBulkBookingEvent(name: EventsTypeName, value: String = "n/a") {
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.OpenApp.rawValue, params: [AnalyticsKeys.name.rawValue: name.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: value])
     }
     
     //MARK:- Settings Events Log Function
