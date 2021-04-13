@@ -164,7 +164,7 @@ class AppFlowManager: NSObject {
     }
     
     // check and manage the further processing if user logged-in or not
-    func proccessIfUserLoggedIn(verifyingFor: LoginFlowUsingFor, presentViewController: Bool = false, completion: ((_ isGuest: Bool) -> Void)?) {
+    func proccessIfUserLoggedIn(verifyingFor: LoginFlowUsingFor, presentViewController: Bool = false, checkoutType:CheckoutType = .none, completion: ((_ isGuest: Bool) -> Void)?) {
         self.loginVerificationComplition = completion
         if let _ = UserInfo.loggedInUserId {
             // user is logged in
@@ -176,6 +176,7 @@ class AppFlowManager: NSObject {
             
             let socialVC = SocialLoginVC.instantiate(fromAppStoryboard: .PreLogin)
             socialVC.currentlyUsingFrom = verifyingFor
+            socialVC.viewModel.checkoutType = checkoutType
             
             delay(seconds: 0.1) { [weak socialVC] in
                 socialVC?.animateContentOnLoad()
@@ -194,7 +195,7 @@ class AppFlowManager: NSObject {
     }
     
     // check and manage the further processing if user logged-in or not
-    @objc func proccessIfUserLoggedInForFlight(verifyingFor: LoginFlowUsingFor, presentViewController: Bool = false, vc: UIViewController, completion: ((_ isGuest: Bool) -> Void)?) {
+    @objc func proccessIfUserLoggedInForFlight(verifyingFor: LoginFlowUsingFor, presentViewController: Bool = false, vc: UIViewController, checkoutType:CheckoutType, completion: ((_ isGuest: Bool) -> Void)?) {
         self.loginVerificationComplition = completion
         if let _ = UserInfo.loggedInUserId {
             // user is logged in
@@ -206,7 +207,7 @@ class AppFlowManager: NSObject {
             
             let socialVC = SocialLoginVC.instantiate(fromAppStoryboard: .PreLogin)
             socialVC.currentlyUsingFrom = verifyingFor
-            
+            socialVC.viewModel.checkoutType = checkoutType
             delay(seconds: 0.1) { [weak socialVC] in
                 socialVC?.animateContentOnLoad()
             }
@@ -249,10 +250,11 @@ extension AppFlowManager {
         self.currentNavigation?.present(obj, animated: true, completion: nil)
     }
     
-    func moveToLoginVC(email: String, usingFor: LoginFlowUsingFor = .loginProcess) {
+    func moveToLoginVC(email: String, usingFor: LoginFlowUsingFor = .loginProcess, checkoutType:CheckoutType = .none) {
         let ob = LoginVC.instantiate(fromAppStoryboard: .PreLogin)
         ob.viewModel.email = email
         ob.currentlyUsingFrom = usingFor
+        ob.viewModel.checkoutType = checkoutType
         self.currentNavigation?.pushViewController(ob, animated: true)
     }
     

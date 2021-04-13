@@ -21,6 +21,7 @@ class LoginVM {
     var password = ""
     var isFirstTime = true
     var currentlyUsingFrom = LoginFlowUsingFor.loginProcess
+    var checkoutType:CheckoutType = .none
     var isLoginButtonEnable: Bool {
         
         if self.email.isEmpty {
@@ -98,7 +99,14 @@ extension LoginVM{
             }
         case .loginVerificationForCheckout:
             if event == .login{
-                FirebaseEventLogs.shared.logHotelsGuestUserCheckoutEvents(with: event)
+                switch checkoutType {
+                case .hotelCheckout:
+                    FirebaseEventLogs.shared.logHotelsGuestUserCheckoutEvents(with: event)
+                case .flightCheckout:
+                    FirebaseEventLogs.shared.logFlightGuestUserCheckoutEvents(with: event)
+                default: break
+                }
+                
             }
         case .loginVerificationForBulkbooking:break;
         case .loginFromEmailShare:break

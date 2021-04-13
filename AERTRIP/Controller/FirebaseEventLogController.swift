@@ -591,6 +591,13 @@ class FirebaseEventLogs: NSObject{
         case TapOnWhatsNextModifyBookingCard
         case TapOnReturnToHomeButton
         
+        //MARK:- Flight Guest Checkout  Events TypeNames
+//        case continueAsGuest = "ContinueAsGuest"
+//        case connectWithFacebook = "ConnectWithFacebook"
+//        case connectWithGoogle = "ConnectWithGoogle"
+//        case connectWithApple = "ConnectWithApple"
+//        case login = "Login"
+//        case navigateBack = "NavigateBack"
     }
     
     // MARK: App Open Event
@@ -1035,6 +1042,12 @@ class FirebaseEventLogs: NSObject{
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelReceipt.rawValue, params: [AnalyticsKeys.name.rawValue: event.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue:"n/a"])
     }
     
+    
+    //MARK:- Flight Guest User Checkout Events Log Function
+    func logFlightGuestUserCheckoutEvents(with type: EventsTypeName){
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightGuestCheckout.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
+    }
+    
 }
 
 ///Objective c Event functions
@@ -1183,10 +1196,10 @@ class FirebaseEventLogs: NSObject{
             param[AnalyticsKeys.name.rawValue] = event.rawValue
             param[AnalyticsKeys.type.rawValue] = "n/a"
             if nameInt ==  "24"{
-                var passengerDetails:JSONDictionary = [:]
-                passengerDetails["adult"] = dictValue.flightAdultCount
-                passengerDetails["child"] = dictValue.flightChildrenCount
-                passengerDetails["infant"] = dictValue.flightInfantCount
+                var passengerDetails:String = ""
+                passengerDetails += "adult:\(dictValue.flightAdultCount)"
+                passengerDetails += ", child:\(dictValue.flightChildrenCount)"
+                passengerDetails += ", infant\(dictValue.flightInfantCount)"
                 param[AnalyticsKeys.values.rawValue] = passengerDetails
             }else{
                 param[AnalyticsKeys.values.rawValue] = "n/a"

@@ -196,7 +196,7 @@ extension HotelDetailsVC {
             cell.delegate = self
             if self.allIndexPath.contains(indexPath) {
                 cell.allDetailsLabel.isHidden = false
-                cell.allDetailsLabel.attributedText = cell.fullPenaltyDetails(ratesData: ratesData)?.trimWhiteSpace()
+                cell.allDetailsLabel.attributedText = cell.fullPenaltyDetails(ratesData: ratesData)//?.trimWhiteSpace()
 //                cell.infoBtnOutlet.isHidden = false
             }
             else {
