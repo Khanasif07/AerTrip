@@ -162,6 +162,7 @@ class PassengersSelectionVC: BaseVC {
     
     @IBAction func tapAddButton(_ sender: UIButton) {
         self.hideShowLoader(isHidden: false)
+        self.viewModel.logEvent(with: .openSelectGuest )
         AppFlowManager.default.presentHCSelectGuestsVC(delegate: self, productType: .flight)
         delay(seconds: 1.7){[weak self] in
             self?.hideShowLoader(isHidden: true)
@@ -278,18 +279,22 @@ extension PassengersSelectionVC{
         
         if diff > 0 {
             // increased
+            self.viewModel.logEvent(with: .fareIncrease)
             FareUpdatedPopUpVC.showPopUp(isForIncreased: true, decreasedAmount: 0.0, increasedAmount: Double(diff), totalUpdatedAmount: Double(amount), continueButtonAction: { [weak self] in
                 guard let self = self else { return }
                 if let freeType = self.viewModel.freeServiceType{
                     FreeMealAndSeatVC.showMe(type: freeType)
+                    self.viewModel.logEvent(with: .continueWithFareIncrease)
                 }
                 }, goBackButtonAction: { [weak self] in
                     guard let self = self else { return }
+                    self.viewModel.logEvent(with: .backWithFareIncrease)
                     self.getListingController()
             })
         }
         else {
             // dipped
+            self.viewModel.logEvent(with: .fareDipped)
             FareUpdatedPopUpVC.showPopUp(isForIncreased: false, decreasedAmount: Double(-diff), increasedAmount: 0, totalUpdatedAmount: 0, continueButtonAction: nil, goBackButtonAction: nil)
             delay(seconds: 5.0) { [weak self] in
                 guard let self = self else { return }

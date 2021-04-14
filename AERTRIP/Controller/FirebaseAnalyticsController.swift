@@ -127,6 +127,7 @@ enum AnalyticsEvents: String {
     case HotelReceipt
     
     case FlightGuestCheckout
+    case FlightCheckOut
     case FlightSearch
     case OpenFlightDetails
     case OpenPassengerDetails

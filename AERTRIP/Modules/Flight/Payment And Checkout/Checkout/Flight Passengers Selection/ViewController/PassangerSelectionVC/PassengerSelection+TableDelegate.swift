@@ -207,6 +207,7 @@ extension PassengersSelectionVC: UITableViewDelegate, UITableViewDataSource {
 extension PassengersSelectionVC: PassengerGridSelectionDelegate{
     
     func didSelected(at indexPath: IndexPath){
+        self.viewModel.logEvent(with: .openPassengerDetails)
         let vc = PassengerDetailsVC.instantiate(fromAppStoryboard: .PassengersSelection)
         vc.viewModel.journeyType = self.viewModel.journeyType
         vc.delegate = self

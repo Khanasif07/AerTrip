@@ -598,6 +598,14 @@ class FirebaseEventLogs: NSObject{
 //        case connectWithApple = "ConnectWithApple"
 //        case login = "Login"
 //        case navigateBack = "NavigateBack"
+        
+        //MARK:- Flight Checkout  Events TypeNames
+//        case fareDipped = "FareDipped"
+//        case fareIncrease = "FareIncrease"
+//        case continueWithFareIncrease = "ContinueWithFareIncrease"
+//        case backWithFareIncrease = "BackWithFareIncrease"
+//        case openPassengerDetails = "OpenPassengerDetails"
+//        case openSelectGuest = "OpenSelectGuest"
     }
     
     // MARK: App Open Event
@@ -1046,6 +1054,12 @@ class FirebaseEventLogs: NSObject{
     //MARK:- Flight Guest User Checkout Events Log Function
     func logFlightGuestUserCheckoutEvents(with type: EventsTypeName){
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightGuestCheckout.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
+    }
+    
+    
+    //MARK:- Flight  Checkout Events Log Function
+    func logFlightCheckoutEvents(with type: EventsTypeName){
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightCheckOut.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
     }
     
 }

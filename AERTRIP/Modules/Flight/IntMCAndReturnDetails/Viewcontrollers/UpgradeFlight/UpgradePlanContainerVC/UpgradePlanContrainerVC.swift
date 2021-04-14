@@ -352,6 +352,9 @@ extension UpgradePlanContrainerVC : FareBreakupVCDelegate{
         }
         AppFlowManager.default.proccessIfUserLoggedInForFlight(verifyingFor: .loginVerificationForCheckout,presentViewController: true, vc: self, checkoutType: .flightCheckout) { [weak self](isGuest) in
             guard let self = self else {return}
+            if isGuest{
+                FirebaseEventLogs.shared.logFlightGuestUserCheckoutEvents(with: .continueAsGuest)
+            }
             if self.viewModel.isInternational{
                 self.intFareBreakup?.hideShowLoader(isHidden: false)
             }else{
