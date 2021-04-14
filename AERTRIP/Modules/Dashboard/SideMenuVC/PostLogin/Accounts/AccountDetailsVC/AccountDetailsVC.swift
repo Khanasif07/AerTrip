@@ -491,7 +491,7 @@ extension AccountDetailsVC: UISearchBarDelegate {
             
             let jsonDict : JSONDictionary = ["LoggedInUserType":UserInfo.loggedInUser?.userCreditType ?? "n/a",
                                              "SearchQuery":mainSearchBar.text ?? ""]
-            FirebaseEventLogs.shared.logSearchBarEvents(with: .AccountSearchOptionSelected, value: jsonDict)
+            FirebaseEventLogs.shared.logSearchBarEvents(with: .AccountDetailsSearchOptionSelected, value: jsonDict)
 
 
             self.preserveSearchData()

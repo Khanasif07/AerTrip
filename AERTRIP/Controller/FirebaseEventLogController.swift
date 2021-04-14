@@ -359,14 +359,20 @@ class FirebaseEventLogs: NSObject{
         case AccountsPayOfflineOptionSelected
         case AccountsDepositeOptionSelected
         case AccountsInfoOptionSelected
-        case AccountsLedgerOptionSelected
-        case AccountsOutstandingLedgerOptionSelected
-        case AccountsPeriodicStatementOptionSelected
+        case StatementUserAccountsLedgerOptionSelected
+        case StatementUserAccountsOutstandingLedgerOptionSelected
+        case StatementUserAccountsPeriodicStatementOptionSelected
+        case TopupUserAccountsLedgerOptionSelected
+        case TopupUserAccountsOutstandingLedgerOptionSelected
+        case BillwiseUserAccountsLedgerOptionSelected
+        case BillwiseUserAccountsOutstandingLedgerOptionSelected
         case AccountsSendEmailOptionSelected
         case AccountsDownloadPDFOptionSelected
         case AccountsClearSearchBarOptionSelected
         case AccountsCancelSearchBarOptionSelected
         case AccountSearchOptionSelected
+        case OutstandingAccountSearchOptionSelected
+        case AccountDetailsSearchOptionSelected
         case AccountsLedgerSpeechToTextSelected
         case AccountsMenuOptionSelected
         case AccountsLedgerFilterOptionSelected
@@ -374,6 +380,8 @@ class FirebaseEventLogs: NSObject{
         case AccountsLedgerConvertedSpeechToText
         case AccountsLedgerViewLedgerDetailsSelectedFromList
         case AccountsLedgerDetails
+        case AccountsLedgerHotelDetails
+        case AccountsLedgerFlightDetails
         case AccountsLedgerDetailsFlightsOptionSelected
         case AccountsLedgerDetailsHotelsOptionSelected
         case AccountsLedgerDetailsDownloadReciptSelected
@@ -412,6 +420,7 @@ class FirebaseEventLogs: NSObject{
         case MyBookings
         case MyBookingsFilterApplied
         case MyBookingsFilterCleared
+        case MyBookingsFilterClearedFromFilterScreen
         case MyBookingsList
         case MyBookingsSearchOptionSelected
         case MyBookingsSpeechToTextOptionSelected
@@ -501,6 +510,11 @@ class FirebaseEventLogs: NSObject{
         case CloseDoorbySwipingTheDoor
         case CloseDoorbyClickingonTheDoor
         case ClickedonLoginRegister
+        case GuestUserOpenWhyAertrip
+        case GuestUserOpenSmartSort
+        case GuestUserOpenOffers
+        case GuestUserOpenContactUs
+        case GuestUserOpenSettings
         case OpenWhyAertrip
         case OpenSmartSort
         case OpenOffers
@@ -908,32 +922,6 @@ class FirebaseEventLogs: NSObject{
         
     }
     
-//    MARK:- Accounts
-    func logAccountsOptionSelectionEvent(with type:EventsTypeName){
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Accounts.rawValue, params: [AnalyticsKeys.name.rawValue: type, AnalyticsKeys.type.rawValue: EventsTypeName.LoggedInUserType.rawValue, AnalyticsKeys.values.rawValue: UserInfo.loggedInUser?.userCreditType ?? "n/a"])
-    }
-    
-    func logAccountsEventsWithAccountType(with type:EventsTypeName, AccountType: String = "",isFrom : String = ""){
-        if isFrom == "Bookings"{
-            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.MyBookings.rawValue, params: [AnalyticsKeys.name.rawValue:type.rawValue, AnalyticsKeys.type.rawValue: EventsTypeName.LoggedInUserType.rawValue, AnalyticsKeys.values.rawValue: AccountType])
-        }else{
-            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Accounts.rawValue, params: [AnalyticsKeys.name.rawValue:type.rawValue, AnalyticsKeys.type.rawValue: EventsTypeName.LoggedInUserType.rawValue, AnalyticsKeys.values.rawValue: AccountType])
-        }
-    }
-    
-    func logSearchBarEvents(with type:EventsTypeName,value:JSONDictionary = [:]){
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Accounts.rawValue, params: [AnalyticsKeys.name.rawValue:type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: value])
-    }
-
-    func logAccountsDetailsEvents(with type:EventsTypeName,value:JSONDictionary = [:]){
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Accounts.rawValue, params: [AnalyticsKeys.name.rawValue:type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: value])
-    }
-
-//    MARK:- FlightDetails
-    func logFlightDetailsEventWithJourneyTitle(title: String = ""){
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightDetails.rawValue, params: [AnalyticsKeys.name.rawValue:EventsTypeName.JourneyTitle.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: title])
-    }
-    
     func logAddons(with type : EventsTypeName, addonName : String = "", flightTitle : String = "" ,fk : String = "", addonQty : Int = 0){
         
         switch type {
@@ -955,7 +943,38 @@ class FirebaseEventLogs: NSObject{
         }
         
     }
+    
+//    MARK:- Accounts
+    func logAccountsOptionSelectionEvent(with type:EventsTypeName){
+        let value : JSONDictionary = ["LoggedInUserType":UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a"]
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Accounts.rawValue, params: [AnalyticsKeys.name.rawValue: type, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: value.getString()])
+    }
+    
+    func logAccountsEventsWithAccountType(with type:EventsTypeName, AccountType: String = "",isFrom : String = "")
+    {
+        let jsonDict : JSONDictionary = ["LoggedInUserType":AccountType]
+        if isFrom == "Bookings"{
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.MyBookings.rawValue, params: [AnalyticsKeys.name.rawValue:type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: jsonDict.getString()])
+        }else{
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Accounts.rawValue, params: [AnalyticsKeys.name.rawValue:type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: jsonDict.getString()])
+        }
+    }
+    
+    func logSearchBarEvents(with type:EventsTypeName,value:JSONDictionary = [:]){
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Accounts.rawValue, params: [AnalyticsKeys.name.rawValue:type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: value.getString()])
+    }
 
+    func logAccountsDetailsEvents(with type:EventsTypeName,value:JSONDictionary = [:]){
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Accounts.rawValue, params: [AnalyticsKeys.name.rawValue:type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: value.getString()])
+    }
+
+//    MARK:- FlightDetails
+       
+    func logFlightDetailsEventWithJourneyTitle(title: String = ""){
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightDetails.rawValue, params: [AnalyticsKeys.name.rawValue:EventsTypeName.JourneyTitle.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: title])
+    }
+    
+    
     func logFlightDetailsEvent(with type:EventsTypeName){
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightDetails.rawValue, params: [AnalyticsKeys.name.rawValue:type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
 
@@ -969,7 +988,7 @@ class FirebaseEventLogs: NSObject{
 
 //    MARK:- My Bookings
     func logMyBookingsEvent(with type:EventsTypeName,value:JSONDictionary = [:]){
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.MyBookings.rawValue, params: [AnalyticsKeys.name.rawValue:type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: value])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.MyBookings.rawValue, params: [AnalyticsKeys.name.rawValue:type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: value.getString()])
 
     }
     
