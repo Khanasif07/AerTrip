@@ -185,7 +185,7 @@ class OtherBookingsDetailsVC: BaseVC {
             case 0:
                 //PayOnline
                 
-                let jsonDict : JSONDictionary = ["BookingId":self.viewModel.bookingId]
+                let jsonDict : JSONDictionary = ["OtherBookingPayOnlineBookingId":self.viewModel.bookingId]
                 FirebaseEventLogs.shared.logMyBookingsEvent(with: .OtherBookingsDetailsDepositPayOnlineOptionSelected, value: jsonDict)
 
                 AppFlowManager.default.moveToAccountOnlineDepositVC(depositItinerary: self.viewModel.itineraryData, usingToPaymentFor: .booking)
@@ -193,7 +193,7 @@ class OtherBookingsDetailsVC: BaseVC {
             case 1:
                 //PayOfflineNRegister
 
-                let jsonDict : JSONDictionary = ["BookingId":self.viewModel.bookingId]
+                let jsonDict : JSONDictionary = ["OtherBookingPayOfflineBookingId":self.viewModel.bookingId]
                 FirebaseEventLogs.shared.logMyBookingsEvent(with: .OtherBookingsDetailsDepositPayOfflineOptionSelected, value: jsonDict)
 
                 

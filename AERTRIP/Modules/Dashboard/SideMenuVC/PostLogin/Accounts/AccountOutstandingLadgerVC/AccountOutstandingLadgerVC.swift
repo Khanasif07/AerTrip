@@ -511,7 +511,7 @@ extension AccountOutstandingLadgerVC: UISearchBarDelegate {
         }else{
             let jsonDict : JSONDictionary = ["LoggedInUserType":UserInfo.loggedInUser?.userCreditType ?? "n/a",
                                              "SearchQuery":mainSearchBar.text ?? ""]
-            FirebaseEventLogs.shared.logSearchBarEvents(with: .AccountSearchOptionSelected, value: jsonDict)
+            FirebaseEventLogs.shared.logSearchBarEvents(with: .OutstandingAccountSearchOptionSelected, value: jsonDict)
 
             self.preserveSearchData()
             //        self.currentViewState = .normal

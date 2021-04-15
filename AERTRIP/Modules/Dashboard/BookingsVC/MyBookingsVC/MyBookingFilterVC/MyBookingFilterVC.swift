@@ -263,7 +263,7 @@ extension MyBookingFilterVC: TopNavigationViewDelegate {
             self.setCounts()
         }
 
-        FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsFilterCleared)
+        FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsFilterClearedFromFilterScreen)
 
         
     }

@@ -47,7 +47,10 @@ class FlightInfoTableViewCell: UITableViewCell {
         
         var finalDetails = ""
         if let obj = self.flightDetail?.operatedBy, !obj.isEmpty {
-            finalDetails = "\(LocalizedString.OperatedBy.localized) \(obj)"
+            let carrierCode = self.flightDetail?.carrierCode ?? ""
+            if carrierCode != obj{
+                finalDetails = "\(LocalizedString.OperatedBy.localized) \(obj)"
+            }
         }
         
         let detail = "\(self.flightDetail?.carrierCode ?? LocalizedString.na.localized)-\(self.flightDetail?.flightNumber ?? LocalizedString.na.localized)・\(self.flightDetail?.cabinClass ?? LocalizedString.na.localized) \((self.flightDetail?.bookingClass.isEmpty ?? false) ? "" : ("(\(self.flightDetail?.bookingClass ?? ""))"))"
