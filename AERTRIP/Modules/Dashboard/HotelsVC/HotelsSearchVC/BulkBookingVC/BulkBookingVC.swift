@@ -77,6 +77,11 @@ class BulkBookingVC: BaseVC {
     
     //MARK:- ViewLifeCycle
     //MARK:-
+    
+    deinit {
+        FirebaseEventLogs.shared.logHotelBulkBookingEvent(name: .CloseBulkBooking)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -451,6 +456,7 @@ class BulkBookingVC: BaseVC {
     @IBAction func whereButtonAction(_ sender: UIButton) {
         self.view.endEditing(true)
         AppFlowManager.default.showSelectDestinationVC(delegate: self,currentlyUsingFor: .bulkBooking, navigationController: self.navigationController)
+        FirebaseEventLogs.shared.logHotelBulkBookingEvent(name: .ClickWhere)
     }
     
     @IBAction func searchButtonAction(_ sender: ATButton) {
@@ -459,6 +465,7 @@ class BulkBookingVC: BaseVC {
             if self.viewModel.isValidateData() {
                 sender.isLoading = true
                 self.viewModel.bulkBookingEnquiryApi()
+                FirebaseEventLogs.shared.logHotelBulkBookingEvent(name: .SendBulkBookingQuery)
             }
         }
         else {
@@ -566,6 +573,18 @@ extension BulkBookingVC: SelectDestinationVCDelegate {
         self.setWhere(cityName: city, stateName: stateName)
         
         self.dataForApi(hotel: hotel)
+        
+        if hotel.isHotelNearMeSelected {
+            FirebaseEventLogs.shared.logHotelBulkBookingEvent(name: .SearchNearby)
+        }
+        
+        switch hotel.dest_type.lowercased() {
+        case "poi": FirebaseEventLogs.shared.logHotelBulkBookingEvent(name: .SearchPOI)
+        case "area": FirebaseEventLogs.shared.logHotelBulkBookingEvent(name: .SearchByArea)
+        case "city": FirebaseEventLogs.shared.logHotelBulkBookingEvent(name: .SearchByCity)
+        case "hotel": FirebaseEventLogs.shared.logHotelBulkBookingEvent(name: .SearchByHotel)
+        default: break
+        }
     }
 }
 
@@ -578,6 +597,10 @@ extension BulkBookingVC: BulkRoomSelectionVCDelegate {
         self.viewModel.adultsCount = adults
         self.viewModel.childrenCounts = children
         self.updateRoomData(rooms: rooms, adults: adults, children: children)
+        FirebaseEventLogs.shared.logHotelBulkBookingEvent(name: .CountTotalRooms, value: "\(rooms)")
+        FirebaseEventLogs.shared.logHotelBulkBookingEvent(name: .CountTotalAdults, value: "\(adults)")
+        FirebaseEventLogs.shared.logHotelBulkBookingEvent(name: .CountTotalChildren, value: "\(children)")
+        
     }
 }
 
@@ -615,11 +638,13 @@ extension BulkBookingVC: CheckInOutViewDelegate {
     
     func selectCheckInDate(_ sender: UIButton) {
         AppFlowManager.default.moveHotelCalenderVC(isHotelCalendar: true,checkInDate: self.viewModel.oldData.checkInDate.toDate(dateFormat: "yyyy-MM-dd"), checkOutDate: self.viewModel.oldData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), delegate: self, isStartDateSelection: true, navigationController: self.navigationController)
+        FirebaseEventLogs.shared.logHotelBulkBookingEvent(name: .OpenCheckIn)
     }
     
     func selectCheckOutDate(_ sender: UIButton) {
         
         AppFlowManager.default.moveHotelCalenderVC(isHotelCalendar: true,checkInDate: self.viewModel.oldData.checkInDate.toDate(dateFormat: "yyyy-MM-dd"), checkOutDate: self.viewModel.oldData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), delegate: self, isStartDateSelection: false, navigationController: self.navigationController)
+        FirebaseEventLogs.shared.logHotelBulkBookingEvent(name: .OpenCheckOut)
     }
 }
 
@@ -649,6 +674,10 @@ extension BulkBookingVC: CalendarDataHandler {
         printDebug(endDate)
         printDebug(isHotelCalendar)
         printDebug(isReturn)
+    }
+    
+    func tryToSelectMoreThan30Night() {
+        FirebaseEventLogs.shared.logHotelBulkBookingEvent(name: .TryForMoreThan30Nights)
     }
 }
 
