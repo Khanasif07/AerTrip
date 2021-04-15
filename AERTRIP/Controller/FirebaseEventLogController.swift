@@ -1018,7 +1018,7 @@ class FirebaseEventLogs: NSObject{
     }
     
     //MARK:- Hotels Form Events
-    func LogHotelsFormEvents(with event: EventsTypeName, type:String?, strValue:String?, dictValue:JSONDictionary?){
+    func LogHotelsFormEvents(with event: EventsTypeName, type:String?, strValue:String?){
         
         var param = JSONDictionary()
         param[AnalyticsKeys.name.rawValue] = event.rawValue
@@ -1029,8 +1029,6 @@ class FirebaseEventLogs: NSObject{
         }
         if let valueStr = strValue{
             param[AnalyticsKeys.values.rawValue] = valueStr
-        }else if let valueDict = dictValue{
-            param[AnalyticsKeys.values.rawValue] = valueDict
         }else{
             param[AnalyticsKeys.values.rawValue] = "n/a"
 
@@ -1183,7 +1181,7 @@ class FirebaseEventLogs: NSObject{
 
     
     //MARK:- Airport Selection Events function
-    @objc func logAirportSelectionEvents(_ nameInt: String, isForFrom:Bool, dictValue:JSONDictionary){
+    @objc func logAirportSelectionEvents(_ nameInt: String, isForFrom:Bool, dictValue: String){
         if let event = EventsTypeNameObjc(with: nameInt){
             var param :JSONDictionary = [:]
             param[AnalyticsKeys.name.rawValue] = event.rawValue
@@ -1193,7 +1191,7 @@ class FirebaseEventLogs: NSObject{
                 param[AnalyticsKeys.type.rawValue] = "DestinationAirport"
             }
             
-            if dictValue.count != 0{
+            if dictValue.isEmpty{
                 param[AnalyticsKeys.values.rawValue] = dictValue
             }else{
                 param[AnalyticsKeys.values.rawValue] = "n/a"
