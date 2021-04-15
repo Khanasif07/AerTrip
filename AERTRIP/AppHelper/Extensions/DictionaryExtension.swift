@@ -35,9 +35,7 @@ extension Dictionary where Key == String, Value:Any {
             valueString.removeLast()
             valueString.removeLast()
         }
-        
-
-        
+                
         return valueString
     }
 
