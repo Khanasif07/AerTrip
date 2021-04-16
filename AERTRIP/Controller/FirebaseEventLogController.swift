@@ -1201,7 +1201,50 @@ class FirebaseEventLogs: NSObject{
             }
             
             if dictValue.count != 0{
-                param[AnalyticsKeys.values.rawValue] = dictValue
+                switch (dictValue["trip_type"] as? String ?? "").lowercased(){
+                case "single", "return":
+                    let origin = dictValue["origin"] as? String ?? ""
+                    let destination = dictValue["destination"] as? String ?? ""
+                    let cabinClasses = dictValue["cabinclass"] as? String ?? ""
+                    let adt = dictValue["adult"] as? Int ?? 0
+                    let chd = dictValue["adult"] as? Int ?? 0
+                    let inf = dictValue["adult"] as? Int ?? 0
+                    
+                    param[AnalyticsKeys.values.rawValue] = "Origin:\(origin),Dest:\(destination),CabinClass:\(cabinClasses),ADT:\(adt),CHD:\(chd),INF:\(inf)"
+                    param[AnalyticsKeys.type.rawValue] = (dictValue["trip_type"] as? String ?? "").capitalized
+                case "multi":
+                    
+                    var origin = ""
+                    var destination = ""
+                    var count = 0
+                    while dictValue["origin[\(count)]"] != nil{
+                        if let org = dictValue["origin[\(count)]"] as? String{
+                            if origin.isEmpty{
+                                origin += org
+                            }else{
+                                origin += ",\(org)"
+                            }
+                        }
+                        if let dest = dictValue["destination[\(count)]"] as? String{
+                            if dest.isEmpty{
+                                destination += dest
+                            }else{
+                                destination += ",\(dest)"
+                            }
+                        }
+                        count += 1
+                    }
+                    let cabinClasses = dictValue["cabinclass"] as? String ?? ""
+                    let adt = dictValue["adult"] as? Int ?? 0
+                    let chd = dictValue["adult"] as? Int ?? 0
+                    let inf = dictValue["adult"] as? Int ?? 0
+                    
+                    param[AnalyticsKeys.values.rawValue] = "Origin:\(origin),Dest:\(destination),CabinClass:\(cabinClasses),ADT:\(adt),CHD:\(chd),INF:\(inf)"
+                    
+                    param[AnalyticsKeys.type.rawValue] = "Muiltycity"
+                default: break;
+                }
+               
             }else{
                 if !stringValue.isEmpty{
                     param[AnalyticsKeys.values.rawValue] = stringValue
