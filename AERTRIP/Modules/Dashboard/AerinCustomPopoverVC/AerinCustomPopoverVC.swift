@@ -199,6 +199,9 @@ class AerinCustomPopoverVC: BaseVC {
             startPoint = .top
             startPresentAnimation()
         }
+        
+//        AppFlowManager.default.moveToWebViewVC(type: .aerinHelp, presentingVC: self)
+        
         let vc = ThingsCanBeAskedVC.instantiate(fromAppStoryboard: AppStoryboard.Dashboard)
         self.present(vc, animated: true, completion: nil)
     }

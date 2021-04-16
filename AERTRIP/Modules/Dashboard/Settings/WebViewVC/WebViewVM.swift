@@ -15,6 +15,7 @@ class WebViewVM {
         case aboutUs = "About Us"
         case legal = "Legal"
         case privacypolicy = "Privacy Policy"
+        case aerinHelp = ""
     }
     
     var webViewType = WebViewType.aboutUs
@@ -30,6 +31,7 @@ class WebViewVM {
             
             case .privacypolicy: return AppKeys.privacy
                         
+        case .aerinHelp: return AppKeys.aerinHelp
         }
         
     }

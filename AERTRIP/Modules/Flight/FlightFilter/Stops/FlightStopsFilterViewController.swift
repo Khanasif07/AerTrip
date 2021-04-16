@@ -336,7 +336,11 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
             var filter = viewModel.allStopsFilters[index]
             let leastStop = filter.leastStop
             filter.userSelectedStops.removeAll()
-            filter.userSelectedStops = [leastStop]
+            if filter.availableStops.count <= 1 {
+                filter.userSelectedStops = []
+            } else {
+                filter.userSelectedStops = [leastStop]
+            }
             viewModel.allStopsFilters[index] = filter
             
             if index == viewModel.currentActiveIndex {

@@ -1280,10 +1280,14 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
-    func moveToWebViewVC(type : WebViewVM.WebViewType){
+    func moveToWebViewVC(type : WebViewVM.WebViewType, presentingVC: UIViewController? = nil){
         let ob = WebViewVC.instantiate(fromAppStoryboard: .Settings)
         ob.webViewVm.webViewType = type
-        self.mainNavigationController.present(ob, animated: true, completion: nil)
+        if let viewCon = presentingVC {
+            viewCon.present(ob, animated: true, completion: nil)
+        } else {
+            self.mainNavigationController.present(ob, animated: true, completion: nil)
+        }
     }
     
     
