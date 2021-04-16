@@ -433,35 +433,35 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 break
             case 1:
                 //why Aertrip
-                FirebaseEventLogs.shared.logSideMenuEvents(with: .OpenWhyAertrip)
+                FirebaseEventLogs.shared.logSideMenuEvents(with: .GuestUserOpenWhyAertrip)
 
                 if let url = URL(string: AppKeys.whyAertrip) {
                     AppFlowManager.default.showURLOnATWebView(url, screenTitle:  self.viewModel.displayCellsForGuest[indexPath.row - 1], presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
                 }
             case 2:
                 //Smart Sort
-                FirebaseEventLogs.shared.logSideMenuEvents(with: .OpenSmartSort)
+                FirebaseEventLogs.shared.logSideMenuEvents(with: .GuestUserOpenSmartSort)
 
                 if let url = URL(string: AppKeys.smartSort) {
                     AppFlowManager.default.showURLOnATWebView(url, screenTitle:  self.viewModel.displayCellsForGuest[indexPath.row - 1], presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
                 }
             case 3:
                 //offers
-                FirebaseEventLogs.shared.logSideMenuEvents(with: .OpenOffers)
+                FirebaseEventLogs.shared.logSideMenuEvents(with: .GuestUserOpenOffers)
 
                 if let url = URL(string: AppKeys.offers) {
                     AppFlowManager.default.showURLOnATWebView(url, screenTitle:  self.viewModel.displayCellsForGuest[indexPath.row - 1], presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
                 }
             case 4:
                 //contact us
-                FirebaseEventLogs.shared.logSideMenuEvents(with: .OpenContactUs)
+                FirebaseEventLogs.shared.logSideMenuEvents(with: .GuestUserOpenContactUs)
 
                 if let url = URL(string: AppKeys.contact) {
                     AppFlowManager.default.showURLOnATWebView(url, screenTitle:  self.viewModel.displayCellsForGuest[indexPath.row - 1], presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
                 }
             case 5:
                 //settings
-                FirebaseEventLogs.shared.logSideMenuEvents(with: .OpenSettings)
+                FirebaseEventLogs.shared.logSideMenuEvents(with: .GuestUserOpenSettings)
 
                 AppFlowManager.default.moveToSettingsVC()
                 

@@ -442,7 +442,7 @@ extension FlightBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
 
         if let url = viewModel.bookingDetail?.shareUrl{
             if !url.isEmpty{
-                let jsonDict : JSONDictionary = ["UrlToShare":url]
+                let jsonDict : JSONDictionary = ["MyBookingsFlightDetailsUrlToShare":url]
                 FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsFlightDetailsShareOptionSelected, value: jsonDict)
 
                 let textToShare = [ "I have Booked the Flight with Aertrip\n\(url)" ]
@@ -498,7 +498,7 @@ extension FlightBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
         
         
 
-        let jsonDict : JSONDictionary = ["BookingId":self.viewModel.bookingDetail?.bookingDetail?.bookingId ?? ""]
+        let jsonDict : JSONDictionary = ["MyBookingsFlightDetailsAddToCalenderBookingId":self.viewModel.bookingDetail?.bookingDetail?.bookingId ?? ""]
         FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsFlightDetailsAddToCalenderOptionSelected, value: jsonDict)
 
         let bId = self.viewModel.bookingDetail?.bookingDetail?.bookingId ?? ""
@@ -531,7 +531,7 @@ extension FlightBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
         
         guard let legs = self.viewModel.bookingDetail?.bookingDetail?.leg, !legs.isEmpty else {return}
                 
-        let jsonDict : JSONDictionary = ["BookingId":self.viewModel.bookingDetail?.id ?? ""]
+        let jsonDict : JSONDictionary = ["MyBookingsFlightDetailsAddToAppleWalletBookingId":self.viewModel.bookingDetail?.id ?? ""]
         FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsFlightDetailsAddToAppleWalletOptionSelected, value: jsonDict)
 
 

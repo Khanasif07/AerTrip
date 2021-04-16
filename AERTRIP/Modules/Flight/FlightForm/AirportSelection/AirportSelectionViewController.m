@@ -1294,7 +1294,7 @@
     }
     
     if ([self.cellIdentifier isEqualToString:@"AirlineSearchCell"]){
-        [self.viewModel logEventWithName:@"23" value:[[NSDictionary alloc] init]];
+        [self.viewModel logEventWithName:@"23" value:@"n\a"];
         [self onAirlineCellSelected:indexPath];
     }
 }
@@ -1891,9 +1891,12 @@
     [self.viewModel onDoneButtonTapped];
     
     if(![sender  isEqual: @"onAirportCellSelected"]){
+        [self.viewModel logEventWithName:@"24" value: [self.viewModel getSelectedAirportsString]];
         [self animateBottomViewOut];
     }
 }
+
+
 
 - (void)changeLabelFont:(UILabel *)label isSmall:(BOOL)isSmall {
     if (isSmall) {
@@ -2078,7 +2081,7 @@
     }else{
         return;
     }
-    [self.viewModel logEventWithName:event value:[[NSDictionary alloc] init]];
+    [self.viewModel logEventWithName:event value:@"n\a"];
     
 }
 

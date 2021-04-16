@@ -95,7 +95,7 @@ class BookingNotesVC: BaseVC {
         self.titleLabel.alpha = 0.0
         self.stickyTitleLabel.alpha = 1.0
         
-        FirebaseEventLogs.shared.logEventsWithOutParam(with: .MyBookingsNotes)
+        FirebaseEventLogs.shared.logEventsWithoutParam(with: .MyBookingsNotes)
     }
     
     //Mark:- Functions

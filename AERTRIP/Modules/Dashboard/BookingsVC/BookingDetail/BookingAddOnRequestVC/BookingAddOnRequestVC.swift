@@ -265,7 +265,7 @@ class BookingAddOnRequestVC: BaseVC {
             if caseData.resolutionStatus == .paymentPending {
 //                self.showLoaderOnView(view: self.priceView, show: true)
 
-                let jsonDict : JSONDictionary = ["BookingId": self.viewModel.caseData?.bookingId ?? ""]
+                let jsonDict : JSONDictionary = ["PaymentBookingId": self.viewModel.caseData?.bookingId ?? ""]
                 FirebaseEventLogs.shared.logMyBookingsEvent(with: .BookingsDetailsMakePaymentOptionSelected, value: jsonDict)
 
                 self.manageLoader(shouldStart: true)
@@ -646,7 +646,7 @@ extension BookingAddOnRequestVC {
             case 0:
                 //PayOnline
                 
-                let jsonDict : JSONDictionary = ["BookingId": self.viewModel.caseData?.bookingId ?? ""]
+                let jsonDict : JSONDictionary = ["PayOnlineBookingId": self.viewModel.caseData?.bookingId ?? ""]
                 FirebaseEventLogs.shared.logMyBookingsEvent(with: .BookingsAddonRequestPayOnlineOptionSelected, value: jsonDict)
 
                 AppFlowManager.default.moveToAccountOnlineDepositVC(depositItinerary: self.viewModel.itineraryData, usingToPaymentFor: .addOns)
@@ -654,7 +654,7 @@ extension BookingAddOnRequestVC {
             case 1:
                 //PayOfflineNRegister
 
-                let jsonDict : JSONDictionary = ["BookingId": self.viewModel.caseData?.bookingId ?? ""]
+                let jsonDict : JSONDictionary = ["PayOfflineBookingId": self.viewModel.caseData?.bookingId ?? ""]
                 FirebaseEventLogs.shared.logMyBookingsEvent(with: .BookingsAddonRequestPayOfflineOptionSelected, value: jsonDict)
 
 

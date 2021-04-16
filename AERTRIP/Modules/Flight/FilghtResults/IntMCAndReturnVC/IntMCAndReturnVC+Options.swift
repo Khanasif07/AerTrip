@@ -428,7 +428,7 @@ extension IntMCAndReturnVC{
     
     
     func addToTrip(journey : IntJourney) {
-        AppFlowManager.default.proccessIfUserLoggedInForFlight(verifyingFor: .loginVerificationForCheckout,presentViewController: true, vc: self) { [weak self](isGuest) in
+        AppFlowManager.default.proccessIfUserLoggedInForFlight(verifyingFor: .loginVerificationForCheckout,presentViewController: true, vc: self, checkoutType: .none) { [weak self](isGuest) in
             guard let self = self else {return}
             AppFlowManager.default.removeLoginConfirmationScreenFromStack()
             self.presentedViewController?.dismiss(animated: false, completion: nil)

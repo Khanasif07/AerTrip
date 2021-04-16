@@ -103,6 +103,7 @@ class FlightDetailsBaseVC: BaseVC {
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        FirebaseEventLogs.shared.logEventsWithoutParam(with: .OpenFlightDetails)
         backgroundViewForFareBreakup.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
         backgroundViewForFareBreakup.tag = 1002
         self.view.addSubview(backgroundViewForFareBreakup)
@@ -312,7 +313,7 @@ class FlightDetailsBaseVC: BaseVC {
     
     @IBAction func closeButtonClicked(_ sender: Any)
     {
-        FirebaseEventLogs.shared.logEventsWithOutParam(with: .CloseButtonClicked)
+        FirebaseEventLogs.shared.logEventsWithoutParam(with: .CloseButtonClicked)
 
         self.dismiss(animated: true, completion: nil)
     }
@@ -611,11 +612,12 @@ extension FlightDetailsBaseVC : FlightDetailsVMDelegate, TripCancelDelegate{
     }
     
     func addToTrip(){
-        AppFlowManager.default.proccessIfUserLoggedInForFlight(verifyingFor: .loginVerificationForCheckout,presentViewController: true, vc: self) { [weak self](isGuest) in
+        AppFlowManager.default.proccessIfUserLoggedInForFlight(verifyingFor: .loginVerificationForCheckout,presentViewController: true, vc: self, checkoutType: .none) { [weak self](isGuest) in
             guard let self = self else {return}
             AppFlowManager.default.removeLoginConfirmationScreenFromStack()
             self.presentedViewController?.dismiss(animated: false, completion: nil)
             guard !isGuest else {
+                FirebaseEventLogs.shared.logFlightGuestUserCheckoutEvents(with: .continueAsGuest)
                 self.hideShowLoader(isHidden: true)
                 return
             }
@@ -687,7 +689,7 @@ extension FlightDetailsBaseVC : FareBreakupVCDelegate
 
         FirebaseEventLogs.shared.logFlightDetailsEvent(with: .FlightBookFlightOptionSelected)
 
-        AppFlowManager.default.proccessIfUserLoggedInForFlight(verifyingFor: .loginVerificationForCheckout,presentViewController: true, vc: self) { [weak self](isGuest) in
+        AppFlowManager.default.proccessIfUserLoggedInForFlight(verifyingFor: .loginVerificationForCheckout,presentViewController: true, vc: self, checkoutType: .flightCheckout) { [weak self](isGuest) in
             guard let self = self else {return}
             if #available(iOS 13.0, *) {
                 self.isModalInPresentation = true

@@ -37,7 +37,7 @@ class UpgradePlanContrainerVC: BaseVC, UpgradePlanListVCDelegate {
             self.setupFarebreakupView()
         }
         
-        FirebaseEventLogs.shared.logEventsWithOutParam(with: .UpgradePlan)
+        FirebaseEventLogs.shared.logEventsWithoutParam(with: .UpgradePlan)
 
 
         
@@ -272,7 +272,7 @@ class UpgradePlanContrainerVC: BaseVC, UpgradePlanListVCDelegate {
     
     @IBAction func tapCloseButton(_ sender: Any) {
                 
-        FirebaseEventLogs.shared.logEventsWithOutParam(with: .CloseButtonClicked)
+        FirebaseEventLogs.shared.logEventsWithoutParam(with: .CloseButtonClicked)
 
         self.dismiss(animated: true, completion: nil)
     }
@@ -350,8 +350,11 @@ extension UpgradePlanContrainerVC : FareBreakupVCDelegate{
         if #available(iOS 13.0, *) {
             self.isModalInPresentation = true
         }
-        AppFlowManager.default.proccessIfUserLoggedInForFlight(verifyingFor: .loginVerificationForCheckout,presentViewController: true, vc: self) { [weak self](isGuest) in
+        AppFlowManager.default.proccessIfUserLoggedInForFlight(verifyingFor: .loginVerificationForCheckout,presentViewController: true, vc: self, checkoutType: .flightCheckout) { [weak self](isGuest) in
             guard let self = self else {return}
+            if isGuest{
+                FirebaseEventLogs.shared.logFlightGuestUserCheckoutEvents(with: .continueAsGuest)
+            }
             if self.viewModel.isInternational{
                 self.intFareBreakup?.hideShowLoader(isHidden: false)
             }else{

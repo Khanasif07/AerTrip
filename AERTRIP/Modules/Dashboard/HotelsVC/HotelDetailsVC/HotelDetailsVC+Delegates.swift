@@ -138,7 +138,7 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
                 if let _ = UserInfo.loggedInUserId {
                     presentSelectionVC = true
                 }
-                AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginVerificationForCheckout,presentViewController: true) { [weak self](isGuest) in
+                AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginVerificationForCheckout,presentViewController: true, checkoutType: .hotelCheckout) { [weak self](isGuest) in
                     guard let sSelf = self else {return}
                     //                if let vc = sSelf.parent {
                     //                    AppFlowManager.default.popToViewController(vc, animated: true)

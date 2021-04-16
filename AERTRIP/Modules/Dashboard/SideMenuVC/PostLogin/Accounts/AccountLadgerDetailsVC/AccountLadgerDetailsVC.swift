@@ -423,7 +423,7 @@ extension AccountLadgerDetailsVC: AccountLadgerDetailHeaderDelegate{
                 let jsonDict : JSONDictionary = ["LoggedInUserType":UserInfo.loggedInUser?.userCreditType ?? "n/a",
                                                  "DetailsType":viewModel.detailType,
                                                  "Title":title]
-                FirebaseEventLogs.shared.logAccountsDetailsEvents(with: .AccountsLedgerDetails, value: jsonDict)
+                FirebaseEventLogs.shared.logAccountsDetailsEvents(with: .AccountsLedgerFlightDetails, value: jsonDict)
 
                 AppFlowManager.default.moveToFlightBookingsDetailsVC(bookingId: event.bookingId,tripCitiesStr: title)
                 
@@ -431,7 +431,7 @@ extension AccountLadgerDetailsVC: AccountLadgerDetailHeaderDelegate{
 
                 let jsonDict : JSONDictionary = ["LoggedInUserType":UserInfo.loggedInUser?.userCreditType ?? "n/a",
                                                  "DetailsType":viewModel.detailType]
-                FirebaseEventLogs.shared.logAccountsDetailsEvents(with: .AccountsLedgerDetails, value: jsonDict)
+                FirebaseEventLogs.shared.logAccountsDetailsEvents(with: .AccountsLedgerHotelDetails, value: jsonDict)
 
                 AppFlowManager.default.moveToHotelBookingsDetailsVC(bookingId: event.bookingId)
             default: break

@@ -71,7 +71,7 @@ class FinalCheckOutVC: BaseVC {
     
     
     override func initialSetup() {
-        FirebaseEventLogs.shared.logEventsWithOutParam(with: .OpenHotelsFinalCheckOut)
+        FirebaseEventLogs.shared.logEventsWithoutParam(with: .OpenHotelsFinalCheckOut)
         self.checkOutTableView.contentInset = UIEdgeInsets(top: topNavView.height - 0.5 , left: 0.0, bottom: 10.0, right: 0.0)
         self.checkOutTableView.dataSource = self
         self.checkOutTableView.delegate = self
@@ -679,7 +679,7 @@ extension FinalCheckOutVC: UITableViewDataSource, UITableViewDelegate {
             guard let self = self else {return}
             self.manageCouponLoader(isApplying:false)
             if success{
-                FirebaseEventLogs.shared.logEventsWithOutParam(with: .OpenCopounForHotels)
+                FirebaseEventLogs.shared.logEventsWithoutParam(with: .OpenCopounForHotels)
                 AppFlowManager.default.presentHCCouponCodeVC(itineraryId: self.viewModel.itineraryData?.it_id ?? "", vc: self, couponData: couponDetails, couponCode: self.appliedCouponData.couponCode)
             }else{
                 AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .hotelsSearch)
@@ -840,7 +840,7 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
     func makePaymentSuccess(options: JSONDictionary, shouldGoForRazorPay: Bool) {
         self.manageLoader(shouldStart: false)
         if shouldGoForRazorPay {
-            FirebaseEventLogs.shared.logEventsWithOutParam(with: .OpenHotelsPayment)
+            FirebaseEventLogs.shared.logEventsWithoutParam(with: .OpenHotelsPayment)
             self.initializePayment(withOptions: options)
         } else {
             self.viewModel.logEvent(with: .PaidTotalAmountViaWallet)

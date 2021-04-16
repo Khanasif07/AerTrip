@@ -282,7 +282,7 @@ class FlightBookingsDetailsVC: BaseVC {
             case 0:
                 //PayOnline
 
-                let jsonDict : JSONDictionary = ["BookingId":self.viewModel.bookingId]
+                let jsonDict : JSONDictionary = ["MyBookingsFlightBookingsDetailsPayOnlineBookingId":self.viewModel.bookingId]
                 FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsFlightBookingsDetailsPayOnlineOptionSelected, value: jsonDict)
 
                 
@@ -291,7 +291,7 @@ class FlightBookingsDetailsVC: BaseVC {
             case 1:
                 //PayOfflineNRegister
                 
-                let jsonDict : JSONDictionary = ["BookingId":self.viewModel.bookingId]
+                let jsonDict : JSONDictionary = ["MyBookingsFlightBookingsDetailsPayOfflineBookingId":self.viewModel.bookingId]
                 FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsFlightBookingsDetailsPayOfflineOptionSelected, value: jsonDict)
 
 

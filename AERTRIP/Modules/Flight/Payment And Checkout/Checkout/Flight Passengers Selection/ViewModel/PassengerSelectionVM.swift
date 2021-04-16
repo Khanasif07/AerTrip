@@ -343,3 +343,10 @@ class PassengerSelectionVM  {
     }
     
 }
+
+///Log events for firebase.
+extension PassengerSelectionVM{
+    func logEvent(with event:FirebaseEventLogs.EventsTypeName){
+        FirebaseEventLogs.shared.logFlightCheckoutEvents(with: event)
+    }
+}
