@@ -142,6 +142,10 @@ enum AnalyticsEvents: String {
     
     case Aerin
     
+    //Flight Checkout
+    case FinalFlightCheckout
+    case ApplyCoupanForFlights
+    case FlightPayment
     
 }
 

@@ -363,11 +363,13 @@ extension FlightPaymentVC: FlightCouponCodeVCDelegate {
 //        delay(seconds: 0.3) { [weak self] in
 //            self?.updateAllData()
 //        }
+        
+        FirebaseEventLogs.shared.logApplyCoupanCodeForFlights(coupan: appliedCouponData.couponCode ?? "")
+        
     }
 }
 
 extension FlightPaymentVC:FlightPaymentVMDelegate{
-    
     
     func fetchingItineraryData() {
         AppGlobals.shared.startLoading()
@@ -516,16 +518,24 @@ extension FlightPaymentVC : ApplyCouponTableViewCellDelegate {
         self.view.isUserInteractionEnabled = false
         self.checkOutTableView.reloadData()
         self.viewModel.removeCouponCode()
+        
+        
     }
 }
 
 extension FlightPaymentVC : RazorpayPaymentCompletionProtocolWithData {
     
+   
     func initializePayment(withOptions options: JSONDictionary) {
         let razorpay: RazorpayCheckout = RazorpayCheckout.initWithKey(AppKeys.kRazorpayPublicKey, andDelegateWithData: self)
         //razorpay.open(options)
         razorpay.open(options, displayController: self)
+        
+        
+        
     }
+    
+    
     func onPaymentError(_ code: Int32, description str: String, andData response: [AnyHashable : Any]?) {
         self.hideShowLoader(isHidden: true)
         AppToast.default.showToastMessage(message: LocalizedString.paymentFails.localized)//"Sorry! payment was faild.\nPlease try again.")
@@ -538,7 +548,6 @@ extension FlightPaymentVC : RazorpayPaymentCompletionProtocolWithData {
         }
     }
 }
-
 
 //MARK:- OTP Varification validation.
 

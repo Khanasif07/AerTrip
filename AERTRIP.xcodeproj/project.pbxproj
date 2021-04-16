@@ -851,6 +851,7 @@
 		843C3E3723E29E4900648F65 /* FavouriteHotelsVC+Parchment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843C3E3623E29E4900648F65 /* FavouriteHotelsVC+Parchment.swift */; };
 		843C48052248E9CB00E71887 /* HCBookingIncompleteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843C48042248E9CB00E71887 /* HCBookingIncompleteVC.swift */; };
 		843C48072248E9FC00E71887 /* HCRefundRequestedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843C48062248E9FC00E71887 /* HCRefundRequestedVC.swift */; };
+		843CD5392627111C00A80D4C /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 843CD5382627111C00A80D4C /* AdSupport.framework */; };
 		843D17192208268D00072BAE /* SwipeNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843D17182208268D00072BAE /* SwipeNavigationController.swift */; };
 		843E63202292782F00A04248 /* DepositItinerary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843E631F2292782F00A04248 /* DepositItinerary.swift */; };
 		843E86BA25AE155C007D0C14 /* UserAccountDetailsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 843E86B525AE155C007D0C14 /* UserAccountDetailsCell.xib */; };
@@ -2558,6 +2559,7 @@
 		843C3E3623E29E4900648F65 /* FavouriteHotelsVC+Parchment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FavouriteHotelsVC+Parchment.swift"; sourceTree = "<group>"; };
 		843C48042248E9CB00E71887 /* HCBookingIncompleteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCBookingIncompleteVC.swift; sourceTree = "<group>"; };
 		843C48062248E9FC00E71887 /* HCRefundRequestedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCRefundRequestedVC.swift; sourceTree = "<group>"; };
+		843CD5382627111C00A80D4C /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		843D17182208268D00072BAE /* SwipeNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeNavigationController.swift; sourceTree = "<group>"; };
 		843E631F2292782F00A04248 /* DepositItinerary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepositItinerary.swift; sourceTree = "<group>"; };
 		843E86B525AE155C007D0C14 /* UserAccountDetailsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserAccountDetailsCell.xib; sourceTree = "<group>"; };
@@ -3552,6 +3554,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				188BFBB72203379700B4C315 /* StoreKit.framework in Frameworks */,
+				843CD5392627111C00A80D4C /* AdSupport.framework in Frameworks */,
 				188BFBB52203378F00B4C315 /* GameKit.framework in Frameworks */,
 				EE58E9D6E89B9661B1776B87 /* Pods_AERTRIP.framework in Frameworks */,
 			);
@@ -9443,6 +9446,7 @@
 		E8564E98314D16DFFD182776 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				843CD5382627111C00A80D4C /* AdSupport.framework */,
 				0C181FBE22FABDAD0088E64A /* Bolts.framework */,
 				188BFBB62203379700B4C315 /* StoreKit.framework */,
 				188BFBB42203378F00B4C315 /* GameKit.framework */,

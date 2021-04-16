@@ -635,6 +635,10 @@ class FirebaseEventLogs: NSObject{
 //        case backWithFareIncrease = "BackWithFareIncrease"
 //        case openPassengerDetails = "OpenPassengerDetails"
 //        case openSelectGuest = "OpenSelectGuest"
+        //FlightCheckout
+        case openFlightCheckout
+        case OpenApplyCoupan
+        
     }
     
     // MARK: App Open Event
@@ -1097,6 +1101,20 @@ class FirebaseEventLogs: NSObject{
     //MARK:- Flight  Checkout Events Log Function
     func logFlightCheckoutEvents(with type: EventsTypeName){
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightCheckOut.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
+    }
+    
+    func logFlightCheckoutEvent(with type: EventsTypeName){
+        
+        
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FinalFlightCheckout.rawValue, params: [AnalyticsKeys.name.rawValue : type.rawValue])
+        
+    }
+    
+    
+    func logApplyCoupanCodeForFlights(coupan : String){
+        
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.ApplyCoupanForFlights.rawValue, params: [AnalyticsKeys.name.rawValue : "n/a", AnalyticsKeys.values.rawValue : coupan])
+
     }
     
 }
