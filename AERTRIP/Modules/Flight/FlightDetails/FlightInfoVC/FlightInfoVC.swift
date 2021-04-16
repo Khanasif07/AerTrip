@@ -557,7 +557,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         
                         flightDetailsCell.count = count
                         flightDetailsCell.halt = flight.halt
-                        flightDetailsCell.durationTitle = journey.first?.durationTitle ?? ""
+                        flightDetailsCell.durationTitle = journey[indexPath.section].durationTitle 
                         flightDetailsCell.ovgtf = flight.ovgtf
                         flightDetailsCell.travellingTiming = getTravellingTiming(duration: flight.ft)
                         flightDetailsCell.setTravellingTime()
