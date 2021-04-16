@@ -560,7 +560,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
                     message = LocalizedString.flightHasAlreadyBeenSavedToTrip.localized
                 }else{
                     let tripName = (trip.isDefault) ? LocalizedString.Default.localized.lowercased() : "\(trip.name)"
-                    message = "journey has been added to \(tripName) trip"
+                    message = "Journey has been added to \(tripName) trip"
                 }
                 AppToast.default.showToastMessage(message: message, onViewController: self)
             }

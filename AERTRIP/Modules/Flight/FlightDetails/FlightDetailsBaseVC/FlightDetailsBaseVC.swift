@@ -655,7 +655,7 @@ extension FlightDetailsBaseVC : FlightDetailsVMDelegate, TripCancelDelegate{
                 message = LocalizedString.flightHasAlreadyBeenSavedToTrip.localized
             }else{
                 let tripName = (self.viewModel.selectedTrip?.isDefault ?? false) ? LocalizedString.Default.localized.lowercased() : "\(self.viewModel.selectedTrip?.name ?? "")"
-                message = "journey has been added to \(tripName) trip"
+                message = "Journey has been added to \(tripName) trip"
             }
             AppToast.default.showToastMessage(message: message, onViewController: self)
         }else{
