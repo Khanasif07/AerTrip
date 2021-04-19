@@ -325,7 +325,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
 
                     }
 
-                    fareInfoCell.setupTitle(flight: flights![indexPath.row], journey: journey, index: indexPath.section, airportDetailsResult: airportDetailsResult)
+                    fareInfoCell.setupTitle(flight: flights![indexPath.section], journey: journey, index: indexPath.section, airportDetailsResult: airportDetailsResult)
                     
                     fareInfoCell.bottomSeparatorLabel.isHidden = true
                     
