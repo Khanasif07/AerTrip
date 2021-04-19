@@ -647,7 +647,7 @@ class FirebaseEventLogs: NSObject{
     }
     
     func logHotelBulkBookingEvent(name: EventsTypeName, value: String = "n/a") {
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.OpenApp.rawValue, params: [AnalyticsKeys.name.rawValue: name.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: value])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelBulkBooking.rawValue, params: [AnalyticsKeys.name.rawValue: name.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: value])
     }
     
     //MARK:- Settings Events Log Function
@@ -1225,8 +1225,8 @@ class FirebaseEventLogs: NSObject{
                     let destination = dictValue["destination"] as? String ?? ""
                     let cabinClasses = dictValue["cabinclass"] as? String ?? ""
                     let adt = dictValue["adult"] as? Int ?? 0
-                    let chd = dictValue["adult"] as? Int ?? 0
-                    let inf = dictValue["adult"] as? Int ?? 0
+                    let chd = dictValue["child"] as? Int ?? 0
+                    let inf = dictValue["infant"] as? Int ?? 0
                     
                     param[AnalyticsKeys.values.rawValue] = "Origin:\(origin),Dest:\(destination),CabinClass:\(cabinClasses),ADT:\(adt),CHD:\(chd),INF:\(inf)"
                     param[AnalyticsKeys.type.rawValue] = (dictValue["trip_type"] as? String ?? "").capitalized
@@ -1254,12 +1254,12 @@ class FirebaseEventLogs: NSObject{
                     }
                     let cabinClasses = dictValue["cabinclass"] as? String ?? ""
                     let adt = dictValue["adult"] as? Int ?? 0
-                    let chd = dictValue["adult"] as? Int ?? 0
-                    let inf = dictValue["adult"] as? Int ?? 0
+                    let chd = dictValue["child"] as? Int ?? 0
+                    let inf = dictValue["infant"] as? Int ?? 0
                     
                     param[AnalyticsKeys.values.rawValue] = "Origin:\(origin),Dest:\(destination),CabinClass:\(cabinClasses),ADT:\(adt),CHD:\(chd),INF:\(inf)"
                     
-                    param[AnalyticsKeys.type.rawValue] = "Muiltycity"
+                    param[AnalyticsKeys.type.rawValue] = "Multicity"
                 default: break;
                 }
                
@@ -1333,4 +1333,86 @@ class FirebaseEventLogs: NSObject{
         
     }
     
+    //MARK: FlightBulkBooking
+    @objc func logFlightBulkBookingEvents(_ nameInt: String, type: String, stringValue:String, dictValue:JSONDictionary) {
+        if let event = EventsTypeNameObjc(with: nameInt){
+            var param :JSONDictionary = [:]
+            param[AnalyticsKeys.name.rawValue] = event.rawValue
+            if !type.isEmpty{
+                param[AnalyticsKeys.type.rawValue] = type
+            }else{
+                param[AnalyticsKeys.type.rawValue] = "n/a"
+            }
+            
+            if dictValue.count != 0{
+                switch (dictValue["trip_type"] as? String ?? "").lowercased(){
+                case "single", "return":
+                    let origin = dictValue["origin"] as? String ?? ""
+                    let destination = dictValue["destination"] as? String ?? ""
+                    let cabinClasses = dictValue["cabinclass"] as? String ?? ""
+                    let adt = dictValue["adult"] as? Int ?? 0
+                    let chd = dictValue["child"] as? Int ?? 0
+                    let inf = dictValue["infant"] as? Int ?? 0
+                    let specialReq = dictValue["special_request"] as? String ?? ""
+                    let prefAirline = dictValue["preferred"] as? String ?? ""
+                    var additionalStr = ""
+                    if !specialReq.isEmpty {
+                        additionalStr.append(",SpReq:\(specialReq)")
+                    }
+                    if !prefAirline.isEmpty {
+                        additionalStr.append(",PrefAir:\(prefAirline)")
+                    }
+                    param[AnalyticsKeys.values.rawValue] = "Origin:\(origin),Dest:\(destination),CabinClass:\(cabinClasses),ADT:\(adt),CHD:\(chd),INF:\(inf)\(additionalStr)"
+                    param[AnalyticsKeys.type.rawValue] = (dictValue["trip_type"] as? String ?? "").capitalized
+                case "multi":
+                    
+                    var origin = ""
+                    var destination = ""
+                    var count = 0
+                    while dictValue["origin[\(count)]"] != nil{
+                        if let org = dictValue["origin[\(count)]"] as? String{
+                            if origin.isEmpty{
+                                origin += org
+                            }else{
+                                origin += ",\(org)"
+                            }
+                        }
+                        if let dest = dictValue["destination[\(count)]"] as? String{
+                            if dest.isEmpty{
+                                destination += dest
+                            }else{
+                                destination += ",\(dest)"
+                            }
+                        }
+                        count += 1
+                    }
+                    let cabinClasses = dictValue["cabinclass"] as? String ?? ""
+                    let adt = dictValue["adult"] as? Int ?? 0
+                    let chd = dictValue["child"] as? Int ?? 0
+                    let inf = dictValue["infant"] as? Int ?? 0
+                    let specialReq = dictValue["special_request"] as? String ?? ""
+                    let prefAirline = dictValue["preferred"] as? String ?? ""
+                    var additionalStr = ""
+                    if !specialReq.isEmpty {
+                        additionalStr.append(",SpReq:\(specialReq)")
+                    }
+                    if !prefAirline.isEmpty {
+                        additionalStr.append(",PrefAir:\(prefAirline)")
+                    }
+                    param[AnalyticsKeys.values.rawValue] = "Origin:\(origin),Dest:\(destination),CabinClass:\(cabinClasses),ADT:\(adt),CHD:\(chd),INF:\(inf)\(additionalStr)"
+                    
+                    param[AnalyticsKeys.type.rawValue] = "Multicity"
+                default: break;
+                }
+               
+            }else{
+                if !stringValue.isEmpty{
+                    param[AnalyticsKeys.values.rawValue] = stringValue
+                }else{
+                    param[AnalyticsKeys.values.rawValue] = "n/a"
+                }
+            }
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightBulkBooking.rawValue, params: param)
+        }
+    }
 }
