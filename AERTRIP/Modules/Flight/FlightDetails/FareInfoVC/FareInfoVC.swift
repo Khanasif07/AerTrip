@@ -548,7 +548,7 @@ extension FareInfoVC : FlightFareInfoVMDelegate{
                     self.fareInfoTableView.reloadData()
 
                     if self.journey[index].smartIconArray.contains("refundStatusPending"){
-                        self.journey[index].leg[0].fcp = 0
+//                        self.journey[index].leg[0].fcp = 0
                         let rfd = currentParsedResponse.data.first?.value.rfd ?? 0
                         let rsc = currentParsedResponse.data.first?.value.rsc ?? 0
 
