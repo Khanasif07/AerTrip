@@ -53,6 +53,7 @@ import Foundation
     static let offers = "https://aertrip.com/offers"
     static let contact = "https://aertrip.com/contactus"
     
+    static let aerinHelp = "\(AppKeys.baseUrl)aerin-help"
 
     @objc static let baseUrl = APIEndPoint.shareableBaseUrl.rawValue
     @objc static let baseUrlWithVersion = APIEndPoint.baseUrlPath.rawValue
