@@ -603,6 +603,9 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
         case editProfileImageHeaderView.lastNameTextField:
             editProfileImageHeaderView.lastNameTextField.text = text.removeSpaceAsSentence.substring(to: AppConstants.kNameTextLimit)
             self.viewModel.lastName = text.removeSpaceAsSentence
+        case editProfileImageHeaderView.relationshipOrNickNameTextField:
+            editProfileImageHeaderView.lastNameTextField.text = text.removeLeadingTrailingWhitespaces
+            self.viewModel.userTag = text.removeSpaceAsSentence
         default:
             break
         }

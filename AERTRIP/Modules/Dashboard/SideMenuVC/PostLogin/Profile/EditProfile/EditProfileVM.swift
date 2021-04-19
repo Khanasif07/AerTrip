@@ -55,7 +55,7 @@ class EditProfileVM {
     var filePath: String = ""
     var imageSource = ""
     var defaultAirlines: [FlyerModel] = []
-    
+    var userTag:String = ""
     // drop down keys
     var emailTypes: [String] = []
     var mobileTypes: [String] = []
@@ -355,6 +355,7 @@ class EditProfileVM {
         params[APIKeys.passportIssueDate.rawValue] = passportIssueDate
         params[APIKeys.passportExpiryDate.rawValue] = passportExpiryDate
         params[APIKeys.label.rawValue] = self.label
+        params[APIKeys.userTag.rawValue] = self.userTag
         
         if self.currentlyUsinfFor == .addNewTravellerList {
             params[APIKeys.id.rawValue] = ""

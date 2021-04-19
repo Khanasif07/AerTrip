@@ -458,11 +458,16 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         editProfileImageHeaderView.lastNameTextField.text = travel.lastName
         viewModel.lastName = travel.lastName
         viewModel.label = travel.label
+        viewModel.userTag = travel.userTag
+        editProfileImageHeaderView.relationshipOrNickNameTextField.text = travel.userTag
         
         // hide select group view on EditProfileImageHeaderView
         if viewModel.paxId == UserInfo.loggedInUser?.paxId {
             editProfileImageHeaderView.selectGroupDownArrow.isHidden = true
-            editProfileImageHeaderView.selectGroupViewHeightConstraint.constant = 0
+            editProfileImageHeaderView.emptyView.isHidden  = true
+            editProfileImageHeaderView.groupAndRelationStackView.isHidden  = true
+            
+//            editProfileImageHeaderView.selectGroupViewHeightConstraint.constant = 0
         }
 //        UIView.transition(with: tableView,
 //                          duration: 5,

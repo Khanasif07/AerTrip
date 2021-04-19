@@ -28,7 +28,8 @@ class EditProfileImageHeaderView: UIView {
     @IBOutlet weak var groupTextField: UITextField!
     
     @IBOutlet weak var genderTitleLabel: UILabel!
-    @IBOutlet weak var selectGroupViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var selectGroupValueView: UIView!
+//    @IBOutlet weak var selectGroupViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var selectGroupView: UIView!
     
     // Unicode Switch
@@ -39,6 +40,11 @@ class EditProfileImageHeaderView: UIView {
     
     @IBOutlet weak var firstNameDividerView: ATDividerView!
     @IBOutlet weak var lastNameDividerView: ATDividerView!
+    @IBOutlet weak var RelationOrNickNameView: UIView!
+    @IBOutlet weak var emptyView: UIView!
+    @IBOutlet weak var groupAndRelationStackView: UIStackView!
+    @IBOutlet weak var relationshipOrNickNameLabel: UILabel!
+    @IBOutlet weak var relationshipOrNickNameTextField: UITextField!
     
     
     
@@ -67,7 +73,7 @@ class EditProfileImageHeaderView: UIView {
         
         let selectGrouptap = UITapGestureRecognizer(target: self, action: #selector(selectGroupTapped(_:)))
         selectGroupView.isUserInteractionEnabled = true
-        selectGroupView.addGestureRecognizer(selectGrouptap)
+        selectGroupValueView.addGestureRecognizer(selectGrouptap)
         
         profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2
         profileImageView.layer.borderColor = AppColors.themeGray10.cgColor
@@ -83,6 +89,14 @@ class EditProfileImageHeaderView: UIView {
         firstNameTextField.addRightPaddingView(width: 16)
         lastNameTextField.addRightPaddingView(width: 16)
 
+        relationshipOrNickNameLabel.text = "Relation or Nickname"
+        relationshipOrNickNameLabel.font = AppFonts.Regular.withSize(14)
+        relationshipOrNickNameLabel.textColor = AppColors.themeGray40
+        
+        relationshipOrNickNameTextField.placeholder = "Enter Relation or Nickname"
+        relationshipOrNickNameTextField.font = AppFonts.Regular.withSize(18)
+        relationshipOrNickNameTextField.textColor = AppColors.themeBlack
+        relationshipOrNickNameTextField.delegate = self
     }
     
     // MARK: - Helper methods
@@ -168,7 +182,7 @@ extension EditProfileImageHeaderView: UITextFieldDelegate {
             self.firstNameTextField.resignFirstResponder()
             self.lastNameTextField.becomeFirstResponder()
             
-        } else {
+        } else if textField === self.lastNameTextField {
             self.lastNameTextField.resignFirstResponder()
             self.unicodeSwitch.becomeFirstResponder()
         }
@@ -179,7 +193,7 @@ extension EditProfileImageHeaderView: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField === self.firstNameTextField {
             self.firstNameDividerView.isSettingForErrorState = false
-        } else {
+        } else if textField === self.lastNameTextField{
             self.lastNameDividerView.isSettingForErrorState = false
         }
     }
