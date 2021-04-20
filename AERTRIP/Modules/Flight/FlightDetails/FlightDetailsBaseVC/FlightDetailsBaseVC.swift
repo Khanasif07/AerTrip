@@ -311,15 +311,12 @@ class FlightDetailsBaseVC: BaseVC {
     
     //MARK:- Button Actions
     
-    @IBAction func closeButtonClicked(_ sender: Any)
-    {
+    @IBAction func closeButtonClicked(_ sender: Any) {
         FirebaseEventLogs.shared.logEventsWithoutParam(with: .CloseButtonClicked)
-
         self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func pinButtonClicked(_ sender: Any)
-    {
+    @IBAction func pinButtonClicked(_ sender: Any) {
         FirebaseEventLogs.shared.logFlightDetailsEvent(with: .FlightDetailsPinOptionSelected)
 
         pinButton.isHighlighted = false
