@@ -609,12 +609,16 @@
         }
     if ( [tripType isEqualToString:@"multi"]) {
         
+        int occurrences = 0;
+            for(NSString *string in flightSearchParameters){
+              occurrences += ([string containsString:@"depart["]?1:0);
+            }
         
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"d MMM"];
 
         NSString * firstDateString = [flightSearchParameters valueForKey:@"depart[0]"];
-        NSString * lastDateKey = [NSString stringWithFormat:@"%@%lu%@",@"depart[",(bookFlightObject.displayGroups.allKeys.count - 1),@"]" ];
+        NSString * lastDateKey = [NSString stringWithFormat:@"%@%d%@",@"depart[",(occurrences - 1),@"]" ];
         NSString * lastDateString = [flightSearchParameters valueForKey:lastDateKey];
         [dateFormatter setDateFormat:@"dd-MM-yyyy"];
         NSDate * firstDate = [self dateFromString:firstDateString];//[dateFormatter dateFromString:firstDateString];
