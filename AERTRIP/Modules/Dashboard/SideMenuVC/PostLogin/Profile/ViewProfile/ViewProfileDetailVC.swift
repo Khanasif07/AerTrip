@@ -198,6 +198,10 @@ class ViewProfileDetailVC: BaseVC {
             !scl.value.isEmpty
         }
         
+        if !travel.userTag.isEmpty{
+            sections.append("Relation or Nickname")
+        }
+        
         if email.count > 0 {
             sections.append(LocalizedString.EmailAddress.localized)
         }
@@ -352,6 +356,8 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch sections[section] {
+        case "Relation or Nickname":
+            return 1
         case LocalizedString.EmailAddress.localized:
             return email.count
         case LocalizedString.MoreInformation.localized:
@@ -381,6 +387,10 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
             fatalError("ViewProfileDetailTableViewCell not found")
         }
         switch sections[indexPath.section] {
+        case "Relation or Nickname":
+            cell.configureCell("Relation or Nickname", self.travelData?.userTag ?? "")
+            cell.separatorView.isHidden = true
+            return cell
         case LocalizedString.EmailAddress.localized:
             cell.configureCell(email[indexPath.row].label, email[indexPath.row].value)
             cell.separatorView.isHidden = (indexPath.row + 1 == email.count) ? true : false
@@ -462,7 +472,12 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 60.0
+        if sections[section] == "Relation or Nickname"{
+            return 35.0
+        }else{
+            return 60.0
+        }
+        
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -470,7 +485,12 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
             fatalError("ViewProfileDetailTableViewSectionView not found")
         }
         headerView.topDividerHeightConstraint.constant = 0.5
-        headerView.headerLabel.text = sections[section].localized
+        if sections[section] != "Relation or Nickname"{
+            headerView.headerLabel.text = sections[section].localized
+        }else{
+            headerView.headerLabel.text = ""
+        }
+       
         return headerView
     }
     

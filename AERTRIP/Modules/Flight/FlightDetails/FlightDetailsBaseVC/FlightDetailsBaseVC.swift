@@ -311,15 +311,12 @@ class FlightDetailsBaseVC: BaseVC {
     
     //MARK:- Button Actions
     
-    @IBAction func closeButtonClicked(_ sender: Any)
-    {
+    @IBAction func closeButtonClicked(_ sender: Any) {
         FirebaseEventLogs.shared.logEventsWithoutParam(with: .CloseButtonClicked)
-
         self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func pinButtonClicked(_ sender: Any)
-    {
+    @IBAction func pinButtonClicked(_ sender: Any) {
         FirebaseEventLogs.shared.logFlightDetailsEvent(with: .FlightDetailsPinOptionSelected)
 
         pinButton.isHighlighted = false
@@ -584,6 +581,7 @@ extension FlightDetailsBaseVC{
         self.viewModel.sid = self.sid
         self.viewModel.journey = self.journey
         self.viewModel.intJourney = self.intJourney
+        self.viewModel.bookFlightObject  = self.bookFlightObject
         self.viewModel.journeyType = (self.bookFlightObject.isDomestic) ? .domestic : .international
     }
 }
@@ -612,11 +610,12 @@ extension FlightDetailsBaseVC : FlightDetailsVMDelegate, TripCancelDelegate{
     }
     
     func addToTrip(){
-        AppFlowManager.default.proccessIfUserLoggedInForFlight(verifyingFor: .loginVerificationForCheckout,presentViewController: true, vc: self) { [weak self](isGuest) in
+        AppFlowManager.default.proccessIfUserLoggedInForFlight(verifyingFor: .loginVerificationForCheckout,presentViewController: true, vc: self, checkoutType: .none) { [weak self](isGuest) in
             guard let self = self else {return}
             AppFlowManager.default.removeLoginConfirmationScreenFromStack()
             self.presentedViewController?.dismiss(animated: false, completion: nil)
             guard !isGuest else {
+                FirebaseEventLogs.shared.logFlightGuestUserCheckoutEvents(with: .continueAsGuest)
                 self.hideShowLoader(isHidden: true)
                 return
             }
@@ -654,7 +653,7 @@ extension FlightDetailsBaseVC : FlightDetailsVMDelegate, TripCancelDelegate{
                 message = LocalizedString.flightHasAlreadyBeenSavedToTrip.localized
             }else{
                 let tripName = (self.viewModel.selectedTrip?.isDefault ?? false) ? LocalizedString.Default.localized.lowercased() : "\(self.viewModel.selectedTrip?.name ?? "")"
-                message = "journey has been added to \(tripName) trip"
+                message = "Journey has been added to \(tripName) trip"
             }
             AppToast.default.showToastMessage(message: message, onViewController: self)
         }else{
@@ -688,7 +687,7 @@ extension FlightDetailsBaseVC : FareBreakupVCDelegate
 
         FirebaseEventLogs.shared.logFlightDetailsEvent(with: .FlightBookFlightOptionSelected)
 
-        AppFlowManager.default.proccessIfUserLoggedInForFlight(verifyingFor: .loginVerificationForCheckout,presentViewController: true, vc: self) { [weak self](isGuest) in
+        AppFlowManager.default.proccessIfUserLoggedInForFlight(verifyingFor: .loginVerificationForCheckout,presentViewController: true, vc: self, checkoutType: .flightCheckout) { [weak self](isGuest) in
             guard let self = self else {return}
             if #available(iOS 13.0, *) {
                 self.isModalInPresentation = true
@@ -733,6 +732,7 @@ extension FlightDetailsBaseVC : FareBreakupVCDelegate
                 self.intFareBreakup?.hideShowLoader(isHidden: true)
             }
             if success{
+                vc.viewModel.aerinTravellerDtails = self.viewModel.itineraryData.itinerary.travellerDetails.t
                 DispatchQueue.main.async{[weak self] in
                     guard let self = self else {return}
                     vc.viewModel.newItineraryData = self.viewModel.itineraryData

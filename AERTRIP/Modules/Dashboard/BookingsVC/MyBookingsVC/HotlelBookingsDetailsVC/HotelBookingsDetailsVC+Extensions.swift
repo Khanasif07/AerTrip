@@ -237,7 +237,6 @@ extension HotlelBookingsDetailsVC: TopNavigationViewDelegate {
             isHotelBooked = true
         }
 
-        let jsonDict : JSONDictionary = ["BookingId": self.viewModel.bookingDetail?.id ?? ""]
 
         
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.ProcessCancellation.localized, LocalizedString.SpecialRequestNonCaps.localized, LocalizedString.Download.localized, LocalizedString.ResendConfirmationEmail.localized, LocalizedString.reloadDetail.localized], colors: [self.viewModel.bookingDetail?.cancellationRequestAllowed ?? false ? AppColors.themeDarkGreen : AppColors.themeGray40, self.viewModel.bookingDetail?.specialRequestAllowed ?? false ? AppColors.themeDarkGreen : AppColors.themeGray40, isHotelBooked ? AppColors.themeDarkGreen : AppColors.themeGray40, AppColors.themeDarkGreen, AppColors.themeDarkGreen])
@@ -248,6 +247,7 @@ extension HotlelBookingsDetailsVC: TopNavigationViewDelegate {
                 if let bdtl = self?.viewModel.bookingDetail, bdtl.cancellationRequestAllowed {
                     printDebug("Process Cancellation")
                     
+                    let jsonDict : JSONDictionary = ["MyBookingsHotelDetailsProcessCancellationBookingId": bdtl.id ]
                     FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsHotelDetailsProcessCancellationOptionSelected, value: jsonDict)
 
 
@@ -262,6 +262,7 @@ extension HotlelBookingsDetailsVC: TopNavigationViewDelegate {
 
                     printDebug("Special Request")
                     
+                    let jsonDict : JSONDictionary = ["MyBookingsHotelDetailsProcessSpecialRequestBookingId": bdtl.id ]
                     FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsHotelDetailsProcessSpecialRequestOptionSelected, value: jsonDict)
 
                     AppFlowManager.default.moveToSpecialRequestVC(forBookingId: bdtl.bookingDetail?.bookingId ?? "", presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
@@ -274,6 +275,7 @@ extension HotlelBookingsDetailsVC: TopNavigationViewDelegate {
             case 2:
                 printDebug("Download ")
                 
+                let jsonDict : JSONDictionary = ["MyBookingsHotelDetailsDownloadDetailsBookingId": self?.viewModel.bookingDetail?.id ?? ""]
                 FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsHotelDetailsDownloadDetailsOptionSelected, value: jsonDict)
 
                 let endPoint = "\(APIEndPoint.baseUrlPath.rawValue)dashboard/booking-action?type=pdf&booking_id=\(self?.viewModel.bookingDetail?.id ?? "")"
@@ -282,6 +284,7 @@ extension HotlelBookingsDetailsVC: TopNavigationViewDelegate {
             case 3:
                 printDebug("Resend Confirmation mail ")
                 
+                let jsonDict : JSONDictionary = ["MyBookingsHotelDetailsResendConfirmationMailBookingId": self?.viewModel.bookingDetail?.id ?? ""]
                 FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsHotelDetailsResendConfirmationMailOptionSelected, value: jsonDict)
 
 
@@ -289,6 +292,7 @@ extension HotlelBookingsDetailsVC: TopNavigationViewDelegate {
             case 4:
                             printDebug("reload result")
                 
+                let jsonDict : JSONDictionary = ["MyBookingsHotelDetailsReloadDetailsBookingId": self?.viewModel.bookingDetail?.id ?? ""]
                 FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsHotelDetailsReloadDetailsOptionSelected, value: jsonDict)
 
                 self?.viewModel.getBookingDetail(showProgress: true)
@@ -471,7 +475,7 @@ extension HotlelBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
     func share() {
         if let url = viewModel.bookingDetail?.shareUrl{
             if !url.isEmpty{
-                let jsonDict : JSONDictionary = ["UrlToShare":url]
+                let jsonDict : JSONDictionary = ["MyBookingsHotelDetailsUrlToShare":url]
                 FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsHotelDetailsShareOptionSelected, value: jsonDict)
 
                 let textToShare = [ "I have Booked the Hotel with Aertrip\n\(url)" ]
@@ -498,7 +502,7 @@ extension HotlelBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
     }
     
     func openDirections() {
-        let jsonDict : JSONDictionary = ["BookingId":viewModel.bookingId]
+        let jsonDict : JSONDictionary = ["MyBookingsHotelDetailsOpenDirectionsBookingId":viewModel.bookingId]
         FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsHotelDetailsOpenDirectionsOptionSelected, value: jsonDict)
 
         
@@ -512,7 +516,7 @@ extension HotlelBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
     
     func addToCalender() {
                 
-        let jsonDict : JSONDictionary = ["BookingId":self.viewModel.bookingDetail?.bookingDetail?.bookingId ?? ""]
+        let jsonDict : JSONDictionary = ["MyBookingsHotelDetailsAddToCalenderBookingId":self.viewModel.bookingDetail?.bookingDetail?.bookingId ?? ""]
         FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsHotelDetailsAddToCalenderOptionSelected, value: jsonDict)
 
 
@@ -582,7 +586,7 @@ extension HotlelBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
         if let hotelName = booking?.hotelName, let address = booking?.hotelAddress, let lat =  booking?.latitude, let long = booking?.longitude, let city = booking?.city, let hotelId = booking?.hotelId, let checkIn = booking?.checkIn, let checkOut = booking?.checkOut {
             
             
-            let jsonDict : JSONDictionary = ["HotelId":hotelId]
+            let jsonDict : JSONDictionary = ["MyBookingsHotelDetailsBookAnotherRoomHotelId":hotelId]
             FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsHotelDetailsBookAnotherRoomOptionSelected, value: jsonDict)
 
             var hotelData = HotelFormPreviosSearchData()
@@ -613,7 +617,7 @@ extension HotlelBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
     func webCheckinServices(url: String) {
         // TODO: - Need to be synced with backend Api key
         guard let url = url.toUrl else { return }
-        let jsonDict : JSONDictionary = ["url":url]
+        let jsonDict : JSONDictionary = ["MyBookingsWebCheckinurl":url]
         FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsWebCheckinOptionSelected, value: jsonDict)
 
         AppFlowManager.default.showURLOnATWebView(url, screenTitle: "Web Checkin")

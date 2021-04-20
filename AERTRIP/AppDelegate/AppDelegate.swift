@@ -31,6 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var upgradeDataMutableArray = NSMutableArray()
     var flightPerformanceMutableArray = NSMutableArray()
     var flightBaggageMutableArray = NSMutableArray()
+    var flightFareInfoMutableArray = [[String:Any]]()
     
     private var reachability: Reachability?
     

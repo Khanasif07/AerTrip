@@ -25,6 +25,7 @@ class SocialLoginVM {
     var userData = SocialUserModel()
     var currentlyUsingFrom = LoginFlowUsingFor.loginProcess
     var isFirstTime = true
+    var checkoutType:CheckoutType = .none
     
     //MARK:- Actions
     //MARK:-
@@ -284,7 +285,14 @@ extension SocialLoginVM{
         case .loginVerificationForCheckout:
             switch event{
             case .connectWithApple, .connectWithGoogle, .connectWithFacebook, .continueAsGuest, .navigateBack:
-                FirebaseEventLogs.shared.logHotelsGuestUserCheckoutEvents(with: event)
+                switch self.checkoutType {
+                case .flightCheckout:
+                    FirebaseEventLogs.shared.logFlightGuestUserCheckoutEvents(with: event)
+                case .hotelCheckout:
+                    FirebaseEventLogs.shared.logHotelsGuestUserCheckoutEvents(with: event)
+                default:break
+                }
+                
             default: break;
             }
         case .loginVerificationForBulkbooking:break;

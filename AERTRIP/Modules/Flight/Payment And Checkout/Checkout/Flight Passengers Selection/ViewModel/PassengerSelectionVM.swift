@@ -49,6 +49,7 @@ class PassengerSelectionVM  {
     var isContinueButtonTapped = false
     var itineraryData = FlightItineraryData()
     var newItineraryData = FlightItineraryData()
+    var aerinTravellerDtails = [TravellerModel]()
     weak var delegate:PassengerSelectionVMDelegate?
     
     var freeServiceType:FreeServiveType?{
@@ -128,6 +129,7 @@ class PassengerSelectionVM  {
         self.setupLoginData()
         GuestDetailsVM.shared.guests.append(temp)
         GuestDetailsVM.shared.canShowSalutationError = false
+        self.setPassengerFromAerin()
     }
     
     
@@ -342,4 +344,73 @@ class PassengerSelectionVM  {
         return newStr.filter {okayChars.contains($0) }
     }
     
+}
+/// set passenger details when list coming in from aerin search.
+extension PassengerSelectionVM{
+    
+    func setPassengerFromAerin(){
+        guard  self.aerinTravellerDtails.count != 0 else {
+            return
+        }
+        for (index, pax) in self.aerinTravellerDtails.enumerated(){
+            let oldValue = GuestDetailsVM.shared.guests[0][index]
+            GuestDetailsVM.shared.guests[0][index] = pax.contact
+            GuestDetailsVM.shared.guests[0][index].mealPreference = oldValue.mealPreference
+            GuestDetailsVM.shared.guests[0][index].frequentFlyer = oldValue.frequentFlyer
+            self.updateSelectedFF(at: index)
+            self.updateSelectedMeal(at: index)
+        }
+    }
+    
+    func updateSelectedFF(at index: Int){
+        var passenger = GuestDetailsVM.shared.guests[0][index]
+        if let ffp = passenger.ffp, (ffp.count != 0),(passenger.frequentFlyer.count != 0){
+            for (index, value) in passenger.frequentFlyer.enumerated(){
+                if let frequentFlyer =   ffp.first(where: {$0.airlineCode == value.airlineCode}){
+                    passenger.frequentFlyer[index].number = frequentFlyer.ffNumber
+                }else{
+                    passenger.frequentFlyer[index].number = ""
+                }
+            }
+        }else{
+            for (index, _) in passenger.frequentFlyer.enumerated(){
+                passenger.frequentFlyer[index].number = ""
+            }
+        }
+        
+        GuestDetailsVM.shared.guests[0][index] = passenger
+    }
+    
+    
+    func updateSelectedMeal(at index: Int){
+        var passenger = GuestDetailsVM.shared.guests[0][index]
+        if !passenger.mealP.isEmpty{//mealPreference[i].preferenceCode
+            for (index, value) in passenger.mealPreference.enumerated(){
+                if let meal = value.preference[passenger.mealP]{
+                    passenger.mealPreference[index].preferenceCode = passenger.mealP
+                    passenger.mealPreference[index].mealPreference = meal
+                }else{
+                    passenger.mealPreference[index].preferenceCode = ""
+                    passenger.mealPreference[index].mealPreference = ""
+                }
+            }
+        }else{
+            for i in 0..<passenger.mealPreference.count{
+                passenger.mealPreference[i].preferenceCode = ""
+                passenger.mealPreference[i].mealPreference = ""
+            }
+        }
+        GuestDetailsVM.shared.guests[0][index] = passenger
+    }
+}
+    
+
+
+
+
+///Log events for firebase.
+extension PassengerSelectionVM{
+    func logEvent(with event:FirebaseEventLogs.EventsTypeName){
+        FirebaseEventLogs.shared.logFlightCheckoutEvents(with: event)
+    }
 }

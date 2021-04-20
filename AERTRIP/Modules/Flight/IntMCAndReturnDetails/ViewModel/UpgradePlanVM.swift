@@ -89,7 +89,9 @@ class UpgradePlanVM{
                     }
                 }
             }
-
+        if let bookingObject = self.bookingObject, !((bookingObject.aerinSessionId?.isEmpty ?? true)){
+            param["aerin_session_id"] = bookingObject.aerinSessionId
+        }
         
         return param
     }

@@ -111,16 +111,25 @@ class HCCouponCodeVM {
     }
     
     func removeFlightCouponCode() {
-        let params: [String : Any] = [ APIKeys.it_id.rawValue : self.itineraryId]
+        
+        let params: [String : Any] = [APIKeys.it_id.rawValue : self.itineraryId]
+       
         APICaller.shared.removeFlightCouponApi(params: params, loader: true) { [weak self] (success, errors, appliedCouponData) in
+            
             guard let sSelf = self else { return }
+            
             if success {
+              
                 sSelf.appliedDataForFlight = appliedCouponData
                 sSelf.delegate?.applyCouponCodeSuccessful()
                 
             } else {
+                
                 sSelf.delegate?.applyCouponCodeFailed(errors: errors)
+           
             }
         }
+        
     }
+    
 }

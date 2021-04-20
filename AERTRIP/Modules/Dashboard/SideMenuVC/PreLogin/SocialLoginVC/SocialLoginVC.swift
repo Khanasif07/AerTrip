@@ -16,6 +16,10 @@ protocol SocialLoginVCDelegate: class {
     case loginProcess, loginVerificationForCheckout, loginVerificationForBulkbooking, loginFromEmailShare
 }
 
+@objc enum CheckoutType: NSInteger {
+    case hotelCheckout, flightCheckout, none
+}
+
 class SocialLoginVC: BaseVC {
     
     // MARK: - Properties
@@ -198,7 +202,7 @@ class SocialLoginVC: BaseVC {
     
     @IBAction func existingUserButtonAction(_ sender: UIButton) {
         self.viewModel.firebaseLogEvent(with: .login)
-        AppFlowManager.default.moveToLoginVC(email: "", usingFor: currentlyUsingFrom)
+        AppFlowManager.default.moveToLoginVC(email: "", usingFor: currentlyUsingFrom, checkoutType: self.viewModel.checkoutType)
     }
     
     private func popIfUsingFromCheckOut() {

@@ -8,15 +8,17 @@
 
 import Foundation
 import UIKit
-
+import IQKeyboardManager
 // MARK: - UITableViewData Source and Delegate methods
 
 extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
+        guard tableView != self.searchTagTableView else {  return 1 }
         return sections.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard tableView != self.searchTagTableView else {  return 35.0 }
         if sections[indexPath.section] == LocalizedString.Address.localized, indexPath.row != self.viewModel.addresses.count {
             return UITableView.automaticDimension //264.0 + (self.viewModel.addresses.count > 1 ? 10.5 : 0)
         }else  if sections[indexPath.section] == LocalizedString.PassportDetails.localized, indexPath.row == 0  {
@@ -31,6 +33,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard tableView != self.searchTagTableView else {  return self.viewModel.suggetionTags.count }
         switch sections[section] {
         case LocalizedString.EmailAddress.localized:
             return self.viewModel.email.count + 1
@@ -52,6 +55,18 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        
+        guard tableView != self.searchTagTableView else {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "TagSuggestionsTableCell", for: indexPath) as? TagSuggestionsTableCell{
+                
+                cell.titleLabel.text = self.viewModel.suggetionTags[indexPath.row]
+                return cell
+            }else{
+                return UITableViewCell()
+            }
+        }
+        
         switch sections[indexPath.section] {
         case LocalizedString.EmailAddress.localized:
             if indexPath.row == self.viewModel.email.count {
@@ -348,6 +363,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        guard tableView != self.searchTagTableView else {  return CGFloat.leastNormalMagnitude }
         if sections[section].localized == LocalizedString.SocialAccounts.localized || sections[section].localized == LocalizedString.FlightPreferences.localized || sections[section].localized == LocalizedString.EmailAddress.localized 
         {
             return 60.0
@@ -357,6 +373,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard tableView != self.searchTagTableView else {  return nil }
         guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: AppConstants.ktableViewHeaderViewIdentifier) as? ViewProfileDetailTableViewSectionView else {
             fatalError("ViewProfileDetailTableViewSectionView not found")
         }
@@ -371,6 +388,14 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        guard tableView != self.searchTagTableView else {
+            self.viewModel.userTag = self.viewModel.suggetionTags[indexPath.row]
+            self.editProfileImageHeaderView.relationshipOrNickNameTextField.text = self.viewModel.suggetionTags[indexPath.row]
+            self.view.endEditing(true)
+            return
+        }
+        
         var closePicker = true
         switch sections[indexPath.section] {
         case LocalizedString.EmailAddress.localized:
@@ -523,6 +548,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        guard tableView != self.searchTagTableView else {  return false }
         switch sections[indexPath.section] {
         case LocalizedString.EmailAddress.localized:
             return !((indexPath.row == 0) || indexPath.row == self.viewModel.email.count)
@@ -546,6 +572,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        guard tableView != self.searchTagTableView else {  return CGFloat.leastNormalMagnitude }
         switch sections[section] {
         case LocalizedString.FlightPreferences.localized:
             return self.viewModel.currentlyUsinfFor == .travellerList ? 95 : 35
@@ -555,6 +582,8 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        
+        guard tableView != self.searchTagTableView else { return nil }
         
         switch sections[section] {
         case LocalizedString.FlightPreferences.localized:
@@ -603,6 +632,17 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
         case editProfileImageHeaderView.lastNameTextField:
             editProfileImageHeaderView.lastNameTextField.text = text.removeSpaceAsSentence.substring(to: AppConstants.kNameTextLimit)
             self.viewModel.lastName = text.removeSpaceAsSentence
+        case editProfileImageHeaderView.relationshipOrNickNameTextField:
+            editProfileImageHeaderView.relationshipOrNickNameTextField.text = text.removeLeadingTrailingWhitespaces
+            self.viewModel.userTag = text.removeLeadingTrailingWhitespaces
+            
+            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(cellSearchTagAPI), object: nil)
+            if text.removeAllWhiteSpacesAndNewLines.count == 0{
+                self.searchTagTableView.isHidden = true
+            } else if  text.removeAllWhiteSpacesAndNewLines.count > 1{
+                self.perform(#selector(cellSearchTagAPI), with: nil, afterDelay: 0.5)
+            }
+//            let rect = self.searchTagTableView.
         default:
             break
         }
@@ -611,6 +651,33 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
         }
         
     }
+    
+    
+    func endNicknameEditting() {
+        self.isEditingNickName = false
+        self.tableView.isScrollEnabled = true
+        self.tableView.keyboardDismissMode = .onDrag
+        IQKeyboardManager.shared().isEnabled = true
+        self.searchTagTableView.isHidden = true
+    }
+    
+    func shouldBeginNicknameEditting() {
+        self.searchTagTableView.backgroundColor = AppColors.themeGray04
+        self.isEditingNickName = true
+        self.tableView.isScrollEnabled = false
+        self.tableView.keyboardDismissMode = .none
+        IQKeyboardManager.shared().isEnabled = false
+        self.tagTableTopConstraints.constant = 60
+        if tableView.contentOffset.y != 185{
+            tableView.setContentOffset(CGPoint(x: 0, y: 185), animated: true)
+        }
+    }
+    
+    
+    @objc func cellSearchTagAPI(){
+        self.viewModel.getTagSuggestion(with: self.viewModel.userTag)
+    }
+    
     
     func selectGroupTapped(_ textfield: UITextField) {
         dismissKeyboard()
@@ -988,6 +1055,19 @@ extension EditProfileVC: EditProfileVMDelegate {
         else {
             AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
         }
+    }
+    
+    
+    func getSuggestionAPIResponse(){
+        let isHidden  = (self.viewModel.suggetionTags.count == 0 || !self.editProfileImageHeaderView.relationshipOrNickNameTextField.isFirstResponder)
+        let statusHeight = ((self.view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0) + self.KeyBoardHeight + 75)
+        let thresoldHeight = (UIScreen.height - statusHeight)
+        let newFooter = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.width, height: 35))
+        newFooter.backgroundColor = AppColors.clear
+        self.searchTagTableView.tableFooterView = newFooter
+        self.tagTableHeightConstraints.constant = thresoldHeight
+        self.searchTagTableView.isHidden = isHidden
+        self.searchTagTableView.reloadData()
     }
 }
 

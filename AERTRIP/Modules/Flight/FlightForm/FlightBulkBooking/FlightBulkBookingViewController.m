@@ -284,6 +284,16 @@ CGFloat animatedDistance;
     }else{
         self.passengerLineViewHeight.constant = 0.4;
     }
+    
+    // Firebase event
+    NSDictionary *dict = [[NSDictionary alloc] init];
+    if (self.formDataModel.flightSearchType == MULTI_CITY ) {
+        [self logEvents:@"9" journyType:@"n/a" valueString:@"n/a" valueDict: dict];
+    }else if (self.formDataModel.flightSearchType == RETURN_JOURNEY) {
+        [self logEvents:@"8" journyType:@"n/a" valueString:@"n/a" valueDict: dict];
+    }else{
+        [self logEvents:@"7" journyType:@"n/a" valueString:@"n/a" valueDict: dict];
+    }
 }
 - (void) adjustAsPerTopBar {
     
@@ -886,7 +896,10 @@ CGFloat animatedDistance;
     
     BOOL isLoggedIn = [self isUserLoggedIn];
     if (isLoggedIn) {
-        [self performFlightSearch:[self buildDictionaryForFlightSearch]];
+        NSDictionary *dict = [self buildDictionaryForFlightSearch];
+        [self performFlightSearch: dict];
+        [self logEvents:@"0" journyType:[self.formDataModel getCurrentBookingType] valueString:@"n/a"  valueDict: dict];
+
     }else{
         [self startLoginFlow];
     }
@@ -1072,6 +1085,8 @@ CGFloat animatedDistance;
 
 
 - (IBAction)fromAction:(id)sender {
+    [self logEvents:@"1" journyType:[self.formDataModel getCurrentBookingType] valueString:@"n/a" valueDict:[[NSDictionary alloc] init]];
+    
     AirportSelectionViewController *controller = (AirportSelectionViewController *)[self getControllerForModule:AIRPORT_SELECTION_CONTROLLER];
     
     AirportSelectionVM * fromToSelectionVM = [[AirportSelectionVM alloc]
@@ -1091,6 +1106,8 @@ CGFloat animatedDistance;
     
 }
 - (IBAction)toAction:(id)sender {
+    [self logEvents:@"2" journyType:[self.formDataModel getCurrentBookingType] valueString:@"n/a" valueDict:[[NSDictionary alloc] init]];
+    
     AirportSelectionViewController *controller = (AirportSelectionViewController *)[self getControllerForModule:AIRPORT_SELECTION_CONTROLLER];
     
     AirportSelectionVM * fromToSelectionVM = [[AirportSelectionVM alloc]
@@ -1138,6 +1155,8 @@ CGFloat animatedDistance;
     return  calendarVM ;
 }
 - (IBAction)onwardsAction:(id)sender {
+    [self logEvents:@"3" journyType:[self.formDataModel getCurrentBookingType] valueString:@"n/a" valueDict:[[NSDictionary alloc] init]];
+    
     NSBundle * calendarBundle = [NSBundle bundleForClass:AertripCalendarViewController.class];
     UIStoryboard *storyboard = [UIStoryboard   storyboardWithName:@"AertripCalendar" bundle:calendarBundle];
     AertripCalendarViewController * controller = [storyboard instantiateViewControllerWithIdentifier:@"AertripCalendarViewController"];
@@ -1151,6 +1170,7 @@ CGFloat animatedDistance;
     }
 }
 - (IBAction)returnAction:(id)sender {
+    [self logEvents:@"4" journyType:[self.formDataModel getCurrentBookingType] valueString:@"n/a" valueDict:[[NSDictionary alloc] init]];
     
     if (self.flightSegmentedControl.selectedSegmentIndex == 1 ) {
         NSBundle * calendarBundle = [NSBundle bundleForClass:AertripCalendarViewController.class];
@@ -1179,6 +1199,8 @@ CGFloat animatedDistance;
     controller.isForBulking = YES;
     [self presentViewController:controller animated:NO completion:nil];
     
+    [self logEvents:@"5" journyType:[self.formDataModel getCurrentBookingType] valueString:@"n/a" valueDict:[[NSDictionary alloc] init]];
+
     
 }
 
@@ -1193,6 +1215,9 @@ CGFloat animatedDistance;
     controller.flightClassSelectiondelegate = self;
     controller.flightClass = self.formDataModel.flightClass;
     [self presentViewController:controller animated:NO completion:nil];
+    
+    NSString *type = [self.formDataModel getCurrentBookingType];
+    [self logEvents:@"6" journyType:type valueString:@"n/a" valueDict:[[NSDictionary alloc] init]];
     
 }
 
@@ -1809,13 +1834,19 @@ CGFloat animatedDistance;
     UIApplication.sharedApplication.statusBarStyle = UIStatusBarStyleDefault;
     __weak typeof(self) weakSelf = self;
     AppFlowManager *def = [AppFlowManager default];
-    [def proccessIfUserLoggedInForFlightWithVerifyingFor:LoginFlowUsingForLoginVerificationForBulkbooking presentViewController:true vc:self completion:^(BOOL isGuest) {
+    [def proccessIfUserLoggedInForFlightWithVerifyingFor:LoginFlowUsingForLoginVerificationForBulkbooking presentViewController:true vc:self checkoutType:CheckoutTypeNone completion:^(BOOL isGuest) {
         UIApplication.sharedApplication.statusBarStyle = UIStatusBarStyleLightContent;
         [def popToRootViewControllerWithAnimated:true];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
             [weakSelf submitAction:nil];
         });
     }];
+}
+
+///Firebase events log function
+- (void) logEvents:(NSString *) Name journyType:(NSString *) type valueString:(NSString *) value valueDict:(NSDictionary *) dictValue {
+    FirebaseEventLogs *eventController = FirebaseEventLogs.shared;
+    [eventController logFlightBulkBookingEvents: Name type: type stringValue:value dictValue:dictValue];
 }
 
 @end

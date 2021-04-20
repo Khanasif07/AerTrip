@@ -21,12 +21,17 @@ class FlightFareInfoVM{
     func getFareInfoAPICall(sid: String, fk: String, index:Int, count: Int = 3){
         guard count >= 0 else {return}
         let param = [APIKeys.sid.rawValue: sid, "fk[]":fk]
-        APICaller.shared.getFlightFareInfo(params: param) {[weak self](fareData, error) in
-            guard let self = self else {return}
-            if let data = fareData{
-                self.delegate?.flightFareInfoData(data: data, index: index)
-            }else{
-                self.getFareInfoAPICall(sid: sid, fk: fk, index:index, count: (count - 1))
+        if let data = self.checkDataInCach(with: fk){
+            self.delegate?.flightFareInfoData(data: data, index: index)
+        }else{
+            APICaller.shared.getFlightFareInfo(params: param) {[weak self](fareData, error) in
+                guard let self = self else {return}
+                if let data = fareData{
+                    self.delegate?.flightFareInfoData(data: data, index: index)
+                    self.storeDataInCaching(with: fk, data: data)
+                }else{
+                    self.getFareInfoAPICall(sid: sid, fk: fk, index:index, count: (count - 1))
+                }
             }
         }
     }
@@ -47,6 +52,34 @@ class FlightFareInfoVM{
             }
         }
 
+    }
+    
+}
+
+
+extension FlightFareInfoVM{
+    
+    
+    func storeDataInCaching(with fk:String, data: Data){
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let _ = parse(data: data, into: updatedFareInfoStruct.self, with:decoder) {
+            let dict = [fk:data, "date":Date()] as [String : Any]
+            appDelegate.flightFareInfoMutableArray.append(dict)
+        }
+    }
+    
+    
+    func checkDataInCach(with fk: String)-> Data?{
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let index = appDelegate.flightFareInfoMutableArray.firstIndex(where: {$0[fk] != nil}), let date = appDelegate.flightFareInfoMutableArray[index]["date"] as? Date{
+            if Date().minutesFrom(date) < 5{
+                return appDelegate.flightFareInfoMutableArray[index][fk] as? Data
+            }else{
+                appDelegate.flightFareInfoMutableArray.remove(at: index)
+                return nil
+            }
+        }
+        return nil
     }
     
 }

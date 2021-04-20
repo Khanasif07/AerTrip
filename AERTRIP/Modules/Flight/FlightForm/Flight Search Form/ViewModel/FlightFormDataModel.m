@@ -570,7 +570,7 @@
     bookFlightObject.flightChildrenCount = childCount;
     bookFlightObject.flightInfantCount = infantCount;
     NSInteger count =  adultCount + infantCount + childCount;
-    
+    bookFlightObject.aerinSessionId = [[flightSearchParameters valueForKey:@"aerinSessionId"] stringValue];
   
     NSString * date;
     NSString * tripType = [flightSearchParameters valueForKey:@"trip_type"];

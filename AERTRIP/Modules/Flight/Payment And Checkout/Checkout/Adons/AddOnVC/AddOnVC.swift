@@ -164,6 +164,7 @@ extension AddOnVC : FareBreakupVCDelegate {
     func bookButtonTapped(journeyCombo: [CombinationJourney]?) {
         self.adonsVm.isSkipButtonTap = false
         self.adonsVm.bookFlightWithAddons()
+        
     }
     
     func infoButtonTapped(isViewExpanded: Bool) {
@@ -280,6 +281,9 @@ extension AddOnVC : BookFlightDelegate {
         vc.viewModel.isGSTOn = AddonsDataStore.shared.isGSTOn
         vc.viewModel.addonsMaster = AddonsDataStore.shared.addonsMaster
         self.navigationController?.pushViewController(vc, animated: true)
+        
+        FirebaseEventLogs.shared.logFlightCheckoutEvent(with: FirebaseEventLogs.EventsTypeName.openFlightCheckout)
+        
     }
     
     func failedToBookBlight(error: ErrorCodes){

@@ -350,8 +350,11 @@ extension UpgradePlanContrainerVC : FareBreakupVCDelegate{
         if #available(iOS 13.0, *) {
             self.isModalInPresentation = true
         }
-        AppFlowManager.default.proccessIfUserLoggedInForFlight(verifyingFor: .loginVerificationForCheckout,presentViewController: true, vc: self) { [weak self](isGuest) in
+        AppFlowManager.default.proccessIfUserLoggedInForFlight(verifyingFor: .loginVerificationForCheckout,presentViewController: true, vc: self, checkoutType: .flightCheckout) { [weak self](isGuest) in
             guard let self = self else {return}
+            if isGuest{
+                FirebaseEventLogs.shared.logFlightGuestUserCheckoutEvents(with: .continueAsGuest)
+            }
             if self.viewModel.isInternational{
                 self.intFareBreakup?.hideShowLoader(isHidden: false)
             }else{
@@ -361,6 +364,7 @@ extension UpgradePlanContrainerVC : FareBreakupVCDelegate{
             vc.viewModel.taxesResult = self.viewModel.taxesResult
             vc.viewModel.sid = self.viewModel.sid
             vc.viewModel.bookingObject = self.viewModel.bookingObject
+            vc.viewModel.aerinTravellerDtails = self.viewModel.itineraryData.itinerary.travellerDetails.t
             AppFlowManager.default.removeLoginConfirmationScreenFromStack()
             self.pushToPassenserSelectionVC(vc)
         }

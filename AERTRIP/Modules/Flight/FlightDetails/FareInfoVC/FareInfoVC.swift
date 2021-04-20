@@ -325,7 +325,7 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
 
                     }
 
-                    fareInfoCell.setupTitle(flight: flights![indexPath.row], journey: journey, index: indexPath.section, airportDetailsResult: airportDetailsResult)
+                    fareInfoCell.setupTitle(flight: flights![indexPath.section], journey: journey, index: indexPath.section, airportDetailsResult: airportDetailsResult)
                     
                     fareInfoCell.bottomSeparatorLabel.isHidden = true
                     
@@ -548,7 +548,7 @@ extension FareInfoVC : FlightFareInfoVMDelegate{
                     self.fareInfoTableView.reloadData()
 
                     if self.journey[index].smartIconArray.contains("refundStatusPending"){
-                        self.journey[index].leg[0].fcp = 0
+//                        self.journey[index].leg[0].fcp = 0
                         let rfd = currentParsedResponse.data.first?.value.rfd ?? 0
                         let rsc = currentParsedResponse.data.first?.value.rsc ?? 0
 
