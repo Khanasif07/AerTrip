@@ -304,7 +304,7 @@ class ChatVM {
         filtersDict.forEach { (key, val) in
             jsonDict[key] = "\(val)"
         }
-        
+        jsonDict["aerinSessionId"] = sessionId
         SwiftObjCBridgingController.shared.sendFlightFormData(jsonDict)
     }
     
@@ -434,7 +434,7 @@ class ChatVM {
                 jsonDict["filters[1][loap][\(index)]"] = airline.stringValue
             }
         }
-        
+        jsonDict["aerinSessionId"] = sessionId
         SwiftObjCBridgingController.shared.sendFlightFormData(jsonDict)
     }
 }
