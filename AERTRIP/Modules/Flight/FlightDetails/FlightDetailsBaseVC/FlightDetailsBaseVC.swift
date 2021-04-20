@@ -584,6 +584,7 @@ extension FlightDetailsBaseVC{
         self.viewModel.sid = self.sid
         self.viewModel.journey = self.journey
         self.viewModel.intJourney = self.intJourney
+        self.viewModel.bookFlightObject  = self.bookFlightObject
         self.viewModel.journeyType = (self.bookFlightObject.isDomestic) ? .domestic : .international
     }
 }
@@ -734,6 +735,7 @@ extension FlightDetailsBaseVC : FareBreakupVCDelegate
                 self.intFareBreakup?.hideShowLoader(isHidden: true)
             }
             if success{
+                vc.viewModel.aerinTravellerDtails = self.viewModel.itineraryData.itinerary.travellerDetails.t
                 DispatchQueue.main.async{[weak self] in
                     guard let self = self else {return}
                     vc.viewModel.newItineraryData = self.viewModel.itineraryData

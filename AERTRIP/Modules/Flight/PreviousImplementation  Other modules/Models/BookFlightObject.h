@@ -36,6 +36,7 @@
 @property (assign , nonatomic) NSInteger flightInfantCount;
 
 @property (nonatomic, strong) NSString * taxSort;
+@property (nonatomic, strong) NSString * aerinSessionId;
 @end
 
 
