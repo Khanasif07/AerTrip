@@ -194,7 +194,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        if isChangeOfAirport == true{
+        if isChangeOfAirport {
             if section == journey.count{
                 return 1
             }else{
@@ -557,7 +557,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         
                         flightDetailsCell.count = count
                         flightDetailsCell.halt = flight.halt
-                        flightDetailsCell.durationTitle = journey[indexPath.section].durationTitle 
+                        flightDetailsCell.durationTitle = journey[indexPath.section].durationTitle
                         flightDetailsCell.ovgtf = flight.ovgtf
                         flightDetailsCell.travellingTiming = getTravellingTiming(duration: flight.ft)
                         flightDetailsCell.setTravellingTime()

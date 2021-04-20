@@ -439,25 +439,40 @@ extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetails
     }
     
     func reloadRowFromFlightDetails(fk: String, isPinned: Bool, isPinnedButtonClicked: Bool) {
+        
+
         for index in 0 ..< self.viewModel.numberOfLegs {
-                   
+                        
                    let tableResultState = viewModel.resultsTableStates[index]
                    if tableResultState == .showTemplateResults {  return  }
                    
                    if let tableView = baseScrollView.viewWithTag( 1000 + index ) as? UITableView {
-                       
-                       guard let selectedIndex = tableView.indexPathForSelectedRow else {
-                           return  }
-                       
-                       if let cell = tableView.cellForRow(at: selectedIndex) as? DomesticMultiLegCell {
-                           cell.setPinnedFlight()
-                           cell.smartIconsArray = cell.currentJourney?.smartIconArray
-                           cell.smartIconCollectionView.reloadData()
+                    
+                    tableView.reloadData()
+                      
+                    if let selectedIndex = tableView.indexPathForSelectedRow {
+                        if let cell = tableView.cellForRow(at: selectedIndex) as? DomesticMultiLegCell {
+                            cell.setPinnedFlight()
+                            cell.smartIconsArray = cell.currentJourney?.smartIconArray
+                            cell.smartIconCollectionView.reloadData()
 
-                       }
+                        }
+                    }
+                    
+                    
                    }
                    
                }
+        
+        
+        
+        for index in 0 ..< self.viewModel.numberOfLegs {
+            
+            print("ind is..\(index)")
+
+            
+        }
+        
     }
     
     func infoButtonTapped(isViewExpanded: Bool) {
