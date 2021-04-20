@@ -93,6 +93,7 @@ enum APIKeys: String {
     case hotelFilter = "hotelFilter"
     case hotelFilterApplied = "hotelFilterApplied"
     case profileImg = "profile_img"
+    case userTag = "user_tag"
     
     case dest_id = "dest_id"
     case dest_type = "dest_type"

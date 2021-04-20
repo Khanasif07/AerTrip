@@ -28,6 +28,7 @@ struct TravelDetailModel {
     var imageSource: String = ""
     var notes: String = ""
     var passportCountryName: String = ""
+    var userTag:String = ""
     var frequestFlyer : [FrequentFlyer]
     var has_password: Bool = false
     
@@ -58,6 +59,7 @@ struct TravelDetailModel {
         self.passportCountryName = cntryName.isEmpty ? self.passportCountry : cntryName
         self.frequestFlyer = FrequentFlyer.retunsFrequentFlyerArray(jsonArr: json["ff"].arrayValue)
         self.has_password = json["has_password"].boolValue
+        self.userTag = json[APIKeys.userTag.rawValue].stringValue
     }
 }
 

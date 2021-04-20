@@ -364,6 +364,7 @@ extension UpgradePlanContrainerVC : FareBreakupVCDelegate{
             vc.viewModel.taxesResult = self.viewModel.taxesResult
             vc.viewModel.sid = self.viewModel.sid
             vc.viewModel.bookingObject = self.viewModel.bookingObject
+            vc.viewModel.aerinTravellerDtails = self.viewModel.itineraryData.itinerary.travellerDetails.t
             AppFlowManager.default.removeLoginConfirmationScreenFromStack()
             self.pushToPassenserSelectionVC(vc)
         }

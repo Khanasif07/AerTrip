@@ -13,6 +13,10 @@ import Foundation
 extension FlightSearchResultVM {
     
     func updateDomesticRecentSearches() {
+        if !shouldSetRecentSearchInitially && flightSearchParametersFromDeepLink.keys.contains("filters") {
+            shouldSetRecentSearchInitially = true
+            return
+        }
         let filtersDict = getAppliedFiltersForSharingDomesticJourney(legs: flightLegs)
         var recentSearchParamsWithFilters = recentSearchParameters
         if let dataQueryStr = recentSearchParameters["data[query]"] as? String {
@@ -33,6 +37,10 @@ extension FlightSearchResultVM {
     }
     
     func updateInternationalRecentSearches() {
+        if !shouldSetRecentSearchInitially && flightSearchParametersFromDeepLink.keys.contains("filters") {
+            shouldSetRecentSearchInitially = true
+            return
+        }
         let filtersDict = getAppliedFiltersForSharingInternationalJourney(legs: intFlightLegs)
         var recentSearchParamsWithFilters = recentSearchParameters
         if let dataQueryStr = recentSearchParameters["data[query]"] as? String {

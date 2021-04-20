@@ -164,12 +164,14 @@ struct TravellerDetails{
     var mobile: String
     var isd: String
     var gstDetails:FlightGST?
+    var t:[TravellerModel]
     init(_ json:JSON = JSON()){
         mobile = json["mobile"].stringValue
         isd = json["isd"].stringValue
         if json["gst_details"].dictionary != nil{
             gstDetails = FlightGST(json["gst_details"])
         }
+        t = json["t"].arrayValue.map{TravellerModel(json: $0)}
     }
 }
 

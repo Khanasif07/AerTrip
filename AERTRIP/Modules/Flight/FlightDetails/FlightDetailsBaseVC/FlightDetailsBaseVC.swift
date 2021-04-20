@@ -311,15 +311,12 @@ class FlightDetailsBaseVC: BaseVC {
     
     //MARK:- Button Actions
     
-    @IBAction func closeButtonClicked(_ sender: Any)
-    {
+    @IBAction func closeButtonClicked(_ sender: Any) {
         FirebaseEventLogs.shared.logEventsWithoutParam(with: .CloseButtonClicked)
-
         self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func pinButtonClicked(_ sender: Any)
-    {
+    @IBAction func pinButtonClicked(_ sender: Any) {
         FirebaseEventLogs.shared.logFlightDetailsEvent(with: .FlightDetailsPinOptionSelected)
 
         pinButton.isHighlighted = false
@@ -584,6 +581,7 @@ extension FlightDetailsBaseVC{
         self.viewModel.sid = self.sid
         self.viewModel.journey = self.journey
         self.viewModel.intJourney = self.intJourney
+        self.viewModel.bookFlightObject  = self.bookFlightObject
         self.viewModel.journeyType = (self.bookFlightObject.isDomestic) ? .domestic : .international
     }
 }
@@ -734,6 +732,7 @@ extension FlightDetailsBaseVC : FareBreakupVCDelegate
                 self.intFareBreakup?.hideShowLoader(isHidden: true)
             }
             if success{
+                vc.viewModel.aerinTravellerDtails = self.viewModel.itineraryData.itinerary.travellerDetails.t
                 DispatchQueue.main.async{[weak self] in
                     guard let self = self else {return}
                     vc.viewModel.newItineraryData = self.viewModel.itineraryData
