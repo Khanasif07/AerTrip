@@ -38,6 +38,9 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var blurViewContainer: BlurView!
+    @IBOutlet weak var searchTagTableView: UITableView!
+    @IBOutlet weak var tagTableTopConstraints: NSLayoutConstraint!
+    @IBOutlet weak var tagTableHeightConstraints: NSLayoutConstraint!
     
     // MARK: - Variables
     
@@ -45,6 +48,8 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     
     var ffExtraCount: Int = 2
     private var defaultPlaceHolder: UIImage = AppGlobals.shared.getImageFor(firstName: nil, lastName: nil, offSet: CGPoint(x: 0.0, y: 9.0))
+    var KeyBoardHeight:CGFloat = 0.0
+    var isEditingNickName = false
     
     // MARK: - Public
     
@@ -109,11 +114,14 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         } else {
             setUpData()
         }
-        
+        self.searchTagTableView.isHidden = true
+        self.searchTagTableView.delegate = self
+        self.searchTagTableView.dataSource = self
         registerXib()
        // setupToolBar()
        // setUpToolBarForGenericPickerView()
       //  self.tableView.estimatedRowHeight = 44.0
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
        self.startLoading()
         
     }
@@ -169,7 +177,14 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     override func keyboardWillShow(notification: Notification) {
         //closePicker(completion: nil)
         //closeDatePicker(completion: nil)
+        if let size = (notification.userInfo?["UIKeyboardBoundsUserInfoKey"] as? CGRect)?.size{
+            self.KeyBoardHeight = size.height
+        }
         PKCountryPicker.default.closePicker()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
     }
     
     // MARK: - IB Actions
@@ -285,6 +300,8 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         tableView.register(UINib(nibName: addNotesTableViewCellIdentifier, bundle: nil), forCellReuseIdentifier: addNotesTableViewCellIdentifier)
         tableView.register(UINib(nibName: frequentFlyerTableViewCellIdentifier, bundle: nil), forCellReuseIdentifier: frequentFlyerTableViewCellIdentifier)
         tableView.register(UINib(nibName: editProfileFooterTableView, bundle: nil), forHeaderFooterViewReuseIdentifier: editProfileFooterTableView)
+        
+        searchTagTableView.registerCell(nibName: TagSuggestionsTableCell.reusableIdentifier, bundle: nil, forCellWithReuseIdentifier: TagSuggestionsTableCell.reusableIdentifier)
 
     }
     
@@ -636,7 +653,9 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
 //    }
     
     func closeAllPicker(completion: ((Bool) -> Void)?) {
-        dismissKeyboard()
+        if !isEditingNickName{
+            dismissKeyboard()
+        }
         PKCountryPicker.default.closePicker()
        // closeGenricAndDatePicker(completion: nil)
     }

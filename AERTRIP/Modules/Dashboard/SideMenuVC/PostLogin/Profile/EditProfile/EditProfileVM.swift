@@ -21,6 +21,7 @@ protocol EditProfileVMDelegate: class {
     func willCallDeleteTravellerAPI()
     func deleteTravellerAPISuccess()
     func deleteTravellerAPIFailure()
+    func getSuggestionAPIResponse()
 }
 
 class EditProfileVM {
@@ -79,6 +80,7 @@ class EditProfileVM {
         return self.travelData?.id ?? ""
     }
     var isSavedButtonTapped = false
+    var suggetionTags = [String]()
     
     
     func isValidateData(vc: UIViewController) -> Bool {
@@ -545,4 +547,13 @@ extension EditProfileVM {
         }
         FirebaseEventLogs.shared.logEditMainTravellerEvents(with: event, value: value, key: type)
     }
+    
+    func getTagSuggestion(with text: String){
+        APICaller.shared.callAPIForUserTagSuggestion(params: ["pronoun": text]) {[weak self] (success, tags) in
+            guard let self = self else {return}
+            self.suggetionTags = tags
+            self.delegate?.getSuggestionAPIResponse()
+        }
+    }
+    
 }

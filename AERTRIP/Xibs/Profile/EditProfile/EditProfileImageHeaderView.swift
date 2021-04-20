@@ -13,6 +13,8 @@ protocol EditProfileImageHeaderViewDelegate: class {
     func salutationViewTapped(title: String)
     func selectGroupTapped(_ textfield: UITextField)
     func textFieldText(_ textfield: UITextField)
+    func endNicknameEditting()
+    func shouldBeginNicknameEditting()
 }
 
 class EditProfileImageHeaderView: UIView {
@@ -97,6 +99,7 @@ class EditProfileImageHeaderView: UIView {
         relationshipOrNickNameTextField.font = AppFonts.Regular.withSize(18)
         relationshipOrNickNameTextField.textColor = AppColors.themeBlack
         relationshipOrNickNameTextField.delegate = self
+        relationshipOrNickNameTextField.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
     }
     
     // MARK: - Helper methods
@@ -196,5 +199,18 @@ extension EditProfileImageHeaderView: UITextFieldDelegate {
         } else if textField === self.lastNameTextField{
             self.lastNameDividerView.isSettingForErrorState = false
         }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField === self.relationshipOrNickNameTextField{
+            self.delegate?.endNicknameEditting()
+        }
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        if textField == self.relationshipOrNickNameTextField{
+            self.delegate?.shouldBeginNicknameEditting()
+        }
+        return true
     }
 }

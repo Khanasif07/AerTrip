@@ -86,6 +86,7 @@ enum APIEndPoint: String {
     case hotelRecentSearches           = "recent-search/get"
     case changePassword                = "users/change-password"
     case setPassword                   = "users/set-password"
+    case getTagSuggestion              = "user-passenger/user-tags"
 
     
     // Hotel Result Api
