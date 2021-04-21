@@ -302,8 +302,8 @@ class PassengerSelectionVM  {
             if contact.firstName.removeAllWhitespaces.isEmpty || contact.firstName.count < 1  || !contact.firstName.isName || contact.lastName.removeAllWhitespaces.isEmpty || contact.lastName.count < 1 || !contact.lastName.isName || contact.salutation.isEmpty{
                 return (false, LocalizedString.fillAllPassengerDetails.localized)
             }else if self.journeyType == .domestic{
-                if contact.passengerType == .Infant{
-                    return (!(contact.dob.isEmpty), LocalizedString.fillAllPassengerDetails.localized)
+                if ((contact.passengerType == .Infant || contact.passengerType == .Child) && (contact.dob.isEmpty)){
+                    return (false, LocalizedString.fillAllPassengerDetails.localized)
                 }
             }else{
                 if contact.dob.isEmpty || contact.nationality.isEmpty || contact.passportNumber.isEmpty || contact.passportExpiryDate.isEmpty{
