@@ -626,6 +626,8 @@ extension FlightSearchResultVM {
         self.flightLegs.forEach { (leg) in
             if let userAppliedFilter = leg.userSelectedFilters {
                 userSelectedFilters.append(userAppliedFilter)
+            } else {
+                userSelectedFilters.append(FiltersWS())
             }
         }
         return userSelectedFilters

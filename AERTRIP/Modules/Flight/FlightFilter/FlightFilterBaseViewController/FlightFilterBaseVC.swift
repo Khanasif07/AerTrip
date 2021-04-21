@@ -52,7 +52,10 @@ class FlightFilterBaseVC: UIViewController {
         
         for flightsResult in flightResultArray {
             
-            guard let fliters = flightsResult.f.last else { continue }
+            guard let fliters = flightsResult.f.last else {
+                inputFiltersArray.append(FiltersWS())
+                continue
+            }
             inputFiltersArray.append(fliters)
         }
         

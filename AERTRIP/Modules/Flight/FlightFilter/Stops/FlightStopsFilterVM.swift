@@ -19,13 +19,14 @@ struct StopsFilter{
     var availableStops : [Int]
     var userSelectedStops = [Int]()
     
-    var leastStop : Int {
+    var leastStop : Int? {
         if availableStops.count > 0 {
             return availableStops.min() ?? 0
         }
         else {
-            assertionFailure("Invalid least stops state")
-            return -1
+            return nil
+//            assertionFailure("Invalid least stops state")
+//            return -1
         }
     }
     

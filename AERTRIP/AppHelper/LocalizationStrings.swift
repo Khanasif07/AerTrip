@@ -1206,6 +1206,7 @@ enum LocalizedString: String {
     case Quality = "Quality"
     case Onwards = "Onwards"
     case noLayovers = "noLayovers"
+    case filterNotAvailable
     
     // TripsVC
     case tripsComingSoon = "tripsComingSoon"

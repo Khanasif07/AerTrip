@@ -27,7 +27,30 @@ public struct FiltersWS : Codable {
     var originTz : TimeRangeTimeZone
     var destinationTz :TimeRangeTimeZone
     var ap : [String]
-    var cityap : [String : [String]]    
+    var cityap : [String : [String]]
+    var isEmptyFilter: Bool?
+    
+    init() {
+        multiAl = nil
+        cityapN = cityWiseAirportCode()
+        fares = []
+        fq = [:]
+        pr = priceWS()
+        stp = []
+        al = []
+        depDt = DateTime()
+        arDt = DateTime()
+        dt = TimeRange24hoursWS()
+        at = TimeRange24hoursWS()
+        tt = TimeRangeIntervalWS()
+        loap = []
+        lott = nil
+        originTz = TimeRangeTimeZone()
+        destinationTz = TimeRangeTimeZone()
+        ap = []
+        cityap = [:]
+        isEmptyFilter = true
+    }
 }
 
 
@@ -35,11 +58,21 @@ public struct FiltersWS : Codable {
 public struct DateTime : Codable {
     var earliest : String
     var latest : String
+    
+    public init() {
+        earliest = ""
+        latest = ""
+    }
 }
 
 public struct cityWiseAirportCode : Codable {
     var fr : [ String : [String]]
     var to : [ String : [String]]
+    
+    init() {
+        fr = [:]
+        to = [:]
+    }
 }
 
 
@@ -48,6 +81,10 @@ public struct priceWS : Codable , Equatable {
     var minPrice : Double
     var maxPrice : Double
     
+    init() {
+        minPrice = 0
+        maxPrice = 0
+    }
     
     public static func == (lhs : priceWS , rhs : priceWS ) -> Bool {
         return lhs.minPrice == rhs.minPrice && lhs.maxPrice == rhs.maxPrice
@@ -57,6 +94,11 @@ public struct priceWS : Codable , Equatable {
 public struct TimeRange24hoursWS : Codable , Equatable {
     var earliest : String
     var latest: String
+    
+    init() {
+        earliest = ""
+        latest = ""
+    }
     
     func convertFrom(timeInterval : TimeInterval ) -> String? {
         
@@ -144,6 +186,11 @@ public struct TimeRangeIntervalWS : Codable , Equatable {
 public struct TimeRangeTimeZone : Codable {
     var max : String
     var min : String
+    
+    init() {
+        max = ""
+        min = ""
+    }
 }
 
 public struct airportCodes : Codable {
