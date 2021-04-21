@@ -52,10 +52,13 @@ class FlightFilterBaseVC: UIViewController {
         
         for flightsResult in flightResultArray {
             
-            guard let fliters = flightsResult.f.last else {
-                inputFiltersArray.append(FiltersWS())
+            guard var fliters = flightsResult.f.last else {
+                var emptyFilter = FiltersWS()
+                emptyFilter.isEmptyFilter = true
+                inputFiltersArray.append(emptyFilter)
                 continue
             }
+            fliters.isEmptyFilter = false
             inputFiltersArray.append(fliters)
         }
         
@@ -529,7 +532,8 @@ extension FlightFilterBaseVC {
                let departureMax = departureTime.latest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: true, interval: 3600),
                let arrivalMin = arrivalTime.earliest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: false, interval: 3600),
                let arrivalMax = arrivalTime.latest.dateUsing(format: "yyyy-MM-dd HH:mm", isRoundedUP: true, interval: 3600){
-                let flightLegFilter =  FlightLegTimeFilter(leg:leg, departureStartTime:  departureMin, departureMaxTime: departureMax, arrivalStartTime: arrivalMin, arrivalEndTime: arrivalMax )
+                var flightLegFilter =  FlightLegTimeFilter(leg:leg, departureStartTime:  departureMin, departureMaxTime: departureMax, arrivalStartTime: arrivalMin, arrivalEndTime: arrivalMax )
+                flightLegFilter.isAvailable = !(filter.isEmptyFilter ?? false)
                 flightLegTimeFilters.append(flightLegFilter)
             }
             
@@ -628,6 +632,7 @@ extension FlightFilterBaseVC {
             if let quality = qualityFilter {
                 timesViewController.viewModel.multiLegTimerFilter[index].qualityFilter = quality
             }
+            timesViewController.viewModel.multiLegTimerFilter[index].isAvailable = !(filter.isEmptyFilter ?? false)
         }
         inputFilters.enumerated().forEach { (index, filter) in
             if timesViewController.viewModel.enableOvernightFlightQualityFilter.indices.contains(index) {
