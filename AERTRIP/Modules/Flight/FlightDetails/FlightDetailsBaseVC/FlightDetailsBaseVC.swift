@@ -126,7 +126,7 @@ class FlightDetailsBaseVC: BaseVC {
         
         FirebaseEventLogs.shared.logFlightDetailsEventWithJourneyTitle(title: bookFlightObject.titleString.string ?? "n/a")
 
-        
+        self.loadFareInfo()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -187,6 +187,15 @@ class FlightDetailsBaseVC: BaseVC {
             allChildVCs.append(addBaggageVC())
             allChildVCs.append(addFareInfoVC())
         }
+    }
+    
+    
+    func loadFareInfo(){
+        if allChildVCs.count >= 3{
+            allChildVCs[2].loadView()
+            allChildVCs[2].viewDidLoad()
+        }
+        
     }
     
     func setupFarebreakupView(){        
