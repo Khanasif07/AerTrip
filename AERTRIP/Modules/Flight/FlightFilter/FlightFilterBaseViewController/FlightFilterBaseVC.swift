@@ -674,27 +674,34 @@ extension FlightFilterBaseVC {
             let filter = inputFilters[index]
             let tripTime = filter.tt
             let layoverTime = filter.lott
-            var duration : Float
+            var duration : Float = 0
             
-            guard let tripTimeMinDuration = tripTime.minTime else { continue }
-            duration = (tripTimeMinDuration as NSString).floatValue
+            if let tripTimeMinDuration = tripTime.minTime {
+                duration = (tripTimeMinDuration as NSString).floatValue
+            }
             let trimMinDuration = CGFloat( floor(duration / 3600.0 ))
             
-            guard let tripTimeMaxDuration = tripTime.maxTime else { continue }
-            duration = (tripTimeMaxDuration as NSString).floatValue
+            duration = 0
+            if let tripTimeMaxDuration = tripTime.maxTime {
+                duration = (tripTimeMaxDuration as NSString).floatValue
+            }
             let tripMaxDuration = CGFloat( ceil(duration / 3600.0))
             
-            guard let layoverMinDuration = layoverTime?.minTime else { continue }
-            duration = ( layoverMinDuration as NSString).floatValue
+            duration = 0
+            if let layoverMinDuration = layoverTime?.minTime {
+                duration = ( layoverMinDuration as NSString).floatValue
+            }
             let layoverMin = CGFloat(floor( duration / 3600.0 ))
             
-            guard let layoverMaxDuration = layoverTime?.maxTime else { continue }
-            duration = ( layoverMaxDuration as NSString).floatValue
+            duration = 0
+            if let layoverMaxDuration = layoverTime?.maxTime {
+                duration = ( layoverMaxDuration as NSString).floatValue
+            }
             let layoverMax = CGFloat( ceil(duration / 3600.0))
             
             let leg = legList[index]
-            let durationFilter = DurationFilter(leg: leg, tripMin: trimMinDuration, tripMax: tripMaxDuration, layoverMin: layoverMin, layoverMax: layoverMax, layoverMinTimeFormat: "")
-            
+            var durationFilter = DurationFilter(leg: leg, tripMin: trimMinDuration, tripMax: tripMaxDuration, layoverMin: layoverMin, layoverMax: layoverMax, layoverMinTimeFormat: "")
+            durationFilter.isAvailable = !(filter.isEmptyFilter ?? false)
             durationFilters.append(durationFilter)
         }
         
@@ -976,6 +983,7 @@ extension FlightFilterBaseVC {
             if let quality = qualityFilter {
                 durationViewController.viewModel.durationFilters[index].qualityFilter = quality
             }
+            durationViewController.viewModel.durationFilters[index].isAvailable = !(filter.isEmptyFilter ?? false)
         }
         guard durationViewController.viewModel.durationFilters.count > 0 else { return }
         inputFilters.enumerated().forEach { (index, filter) in

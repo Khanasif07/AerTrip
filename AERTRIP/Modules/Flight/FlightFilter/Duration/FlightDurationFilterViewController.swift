@@ -51,6 +51,7 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     
     
     //MARK:- Outlets
+    @IBOutlet weak var tripDurationLbl: UILabel!
     @IBOutlet weak var tripDurationMinLabel: UILabel!
     @IBOutlet weak var tripDurationMinLabelWidth: NSLayoutConstraint!
     @IBOutlet weak var tripDurationMaxLabel: UILabel!
@@ -63,6 +64,8 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     @IBOutlet weak var layoverDurationSlider: AertripRangeSlider!
     @IBOutlet weak var multicityViewHeight: NSLayoutConstraint!
     
+    @IBOutlet weak var noDurationView: UIView!
+    @IBOutlet weak var noDurationLbl: UILabel!
     
     //MARK:- View Controller Methods
     override func viewDidLoad() {
@@ -101,7 +104,11 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         setupTripDurationValues()
         setupLayoutDurationValues()
         setupOvernightFlightsView()
-        
+        noDurationView.isHidden = viewModel.currentDurationFilter.isAvailable
+        tripDurationLbl.isHidden = !viewModel.currentDurationFilter.isAvailable
+        noDurationLbl.text = LocalizedString.filterNotAvailable.localized
+        noDurationLbl.font = AppFonts.Regular.withSize(16)
+        noDurationLbl.textColor = AppColors.themeGray40
     }
     
     private func setupOvernightFlightsView() {
@@ -132,6 +139,8 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         }
         hideShowOvernightView()
         resetAvoidOvernightBtn()
+        noDurationView.isHidden = viewModel.currentDurationFilter.isAvailable
+        tripDurationLbl.isHidden = !viewModel.currentDurationFilter.isAvailable
     }
     
     func updateUIPostLatestResults() {
@@ -216,6 +225,8 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         hideShowOvernightView()
         resetAvoidOvernightBtn()
         sectorNameLbl.attributedText = viewModel.currentDurationFilter.leg.descriptionTextForSectorHeader
+        noDurationView.isHidden = viewModel.currentDurationFilter.isAvailable
+        tripDurationLbl.isHidden = !viewModel.currentDurationFilter.isAvailable
     }
     
     private func getSegmentTitleFor(_ index: Int) -> String {

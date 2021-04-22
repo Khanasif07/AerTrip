@@ -31,7 +31,10 @@
                 <outlet property="multiLegView" destination="ojm-Bf-ycX" id="6ru-0r-NMo"/>
                 <outlet property="multiLegViewHeight" destination="AJ9-R4-Akg" id="eqM-ZU-SNY"/>
                 <outlet property="multicityViewHeight" destination="AJ9-R4-Akg" id="Twd-5N-AB6"/>
+                <outlet property="noDurationLbl" destination="FZj-YR-JRS" id="cJJ-bM-5qk"/>
+                <outlet property="noDurationView" destination="Xo2-hM-nUe" id="vKL-lR-88t"/>
                 <outlet property="sectorNameLbl" destination="zg5-aJ-crG" id="wi1-ss-kid"/>
+                <outlet property="tripDurationLbl" destination="oYo-S4-Rhz" id="ZTI-2r-j5Z"/>
                 <outlet property="tripDurationMaxLabel" destination="C4A-n2-4Bx" id="2OK-iZ-8jn"/>
                 <outlet property="tripDurationMaxLabelWidth" destination="tBW-tn-WcZ" id="Qql-U2-ifk"/>
                 <outlet property="tripDurationMinLabel" destination="IRl-w4-cM2" id="ryG-yX-NtP"/>
@@ -284,6 +287,22 @@
                         <constraint firstAttribute="trailing" secondItem="igl-1b-N06" secondAttribute="trailing" id="vih-Ia-naw"/>
                     </constraints>
                 </scrollView>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xo2-hM-nUe" userLabel="no stops view">
+                    <rect key="frame" x="0.0" y="138.5" width="375" height="354"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No stops available" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FZj-YR-JRS">
+                            <rect key="frame" x="16" y="8" width="138.5" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="FZj-YR-JRS" firstAttribute="top" secondItem="Xo2-hM-nUe" secondAttribute="top" constant="8" id="0dP-lq-VXN"/>
+                        <constraint firstItem="FZj-YR-JRS" firstAttribute="leading" secondItem="Xo2-hM-nUe" secondAttribute="leading" constant="16" id="ev0-xS-2ur"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -292,11 +311,15 @@
                 <constraint firstItem="aP5-Kb-O8y" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="5Ql-up-s1H"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="aP5-Kb-O8y" secondAttribute="trailing" id="CQ7-Zh-Mn6"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="aP5-Kb-O8y" secondAttribute="bottom" id="GP3-7E-6oK"/>
+                <constraint firstItem="Xo2-hM-nUe" firstAttribute="bottom" secondItem="igl-1b-N06" secondAttribute="bottom" id="IDu-gt-E8D"/>
                 <constraint firstItem="Fc4-3G-DTW" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="OrC-lk-epA"/>
                 <constraint firstItem="aP5-Kb-O8y" firstAttribute="top" secondItem="ojm-Bf-ycX" secondAttribute="bottom" id="Y9P-mN-YiS"/>
                 <constraint firstItem="ojm-Bf-ycX" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="ZH3-fP-CaS"/>
+                <constraint firstItem="Xo2-hM-nUe" firstAttribute="top" secondItem="mWA-eD-miV" secondAttribute="bottom" id="hxi-RJ-Pqy"/>
                 <constraint firstItem="LfR-tp-44x" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="lN8-Io-BVi"/>
                 <constraint firstItem="ojm-Bf-ycX" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="lzX-ni-5IN"/>
+                <constraint firstAttribute="trailing" secondItem="Xo2-hM-nUe" secondAttribute="trailing" id="qxP-XB-JTc"/>
+                <constraint firstItem="Xo2-hM-nUe" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="vhX-0X-a3c"/>
             </constraints>
             <point key="canvasLocation" x="53.600000000000001" y="48.125937031484263"/>
         </view>

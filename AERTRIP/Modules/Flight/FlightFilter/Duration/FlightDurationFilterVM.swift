@@ -33,6 +33,8 @@ struct DurationFilter {
     
     var qualityFilter = QualityFilter(name: "Overnight Layover", filterKey: "ovgtlo", isSelected: false, filterID: .hideOvernightLayover)
     
+    var isAvailable = true
+    
     init(leg : Leg , tripMin : CGFloat , tripMax : CGFloat , layoverMin : CGFloat , layoverMax : CGFloat, layoverMinTimeFormat:String) {
         
         self.leg = leg

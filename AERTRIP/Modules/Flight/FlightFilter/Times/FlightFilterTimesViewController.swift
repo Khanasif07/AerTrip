@@ -71,6 +71,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     func updateFiltersFromAPI() {
         viewModel.currentTimerFilter = viewModel.multiLegTimerFilter[viewModel.currentActiveIndex]
         noTimesView.isHidden = viewModel.currentTimerFilter.isAvailable
+        departureTimeLabel.isHidden = !viewModel.currentTimerFilter.isAvailable
         if viewModel.multiLegTimerFilter.count == 1 {
             multiLegViewHeight.constant = 0
             multiLegView.isHidden = true
@@ -658,6 +659,8 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         resetAvoidOvernightBtn()
         updateSegmentTitles()
         noTimesView.isHidden = viewModel.currentTimerFilter.isAvailable
+        departureTimeLabel.isHidden = !viewModel.currentTimerFilter.isAvailable
+
     }
     
     private func updateSegmentTitles() {
