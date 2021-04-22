@@ -526,7 +526,7 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
             self.dataResp.removeAll()
         }else{
             if let allFlights = journeyObj.leg.first?.flights{
-                if allFlights.count == baggage.count{
+                if allFlights.count == baggage.first?.count{
                     if allFlights.count>0{
                         
                         for i in 0..<allFlights.count{
@@ -535,7 +535,12 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
                             
                             var bgStr = ""
                             
-                            if let bgData = baggage[i]["bg"] as? JSONDictionary{
+                            let ffk = allFlights[i].ffk
+
+                            let bgs = baggage.first?["\(ffk)"] as? JSONDictionary
+                            if let bgData = bgs?["bg"] as? JSONDictionary{
+
+//                            if let bgData = baggage[i]["bg"] as? JSONDictionary{
                                 
                                 if let adtCheckinBaggage = bgData["ADT"] as? JSONDictionary
                                 {
@@ -571,8 +576,9 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
                                 }
                             }
                             
-                            if let cbgData = baggage[i]["cbg"] as? JSONDictionary{
-                                
+//                            if let cbgData = baggage[i]["cbg"] as? JSONDictionary{
+                                if let cbgData = bgs?["cbg"] as? JSONDictionary{
+
                                 if let adtCabinBaggage = cbgData["ADT"] as? JSONDictionary{
                                     if let weight = adtCabinBaggage["weight"] as? String,
                                        let pieces = adtCabinBaggage["pieces"] as? String{
@@ -611,32 +617,26 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
                         if sameOC && sameAirlines && isSameBaggage{
                             let loc = allFlights[0].fr + " → " + allFlights[allFlights.count-1].to
                             
+                            guard let bgs = baggage.first?["\(allFlights[0].ffk)"] as? JSONDictionary else { return }
+
                             let data = ["flightIcon":allFlights[0].al,
                                         "flightRoute":loc,
-                                        "baggageData":baggage[0]] as JSONDictionary
+                                        "baggageData":bgs] as JSONDictionary
                             journeywiseBaggageData.append(data)
                         }else{
                             for i in 0..<allFlights.count{
                                 
+                                let ffk = allFlights[i].ffk
+                                guard let bgs = baggage.first?["\(ffk)"] as? JSONDictionary else { return }
+
                                 
                                 let loc = allFlights[i].fr + " → " + allFlights[i].to
                                 let data = ["flightIcon":allFlights[i].al,
                                             "flightRoute":loc,
-                                            "baggageData":baggage[i]] as JSONDictionary
+                                            "baggageData":bgs] as JSONDictionary
                                 journeywiseBaggageData.append(data)
                             }
                         }
-                        
-                        
-                        //                        for i in 0..<allFlights.count{
-                        //
-                        //
-                        //                            let loc = allFlights[i].fr + " → " + allFlights[i].to
-                        //                            let data = ["flightIcon":allFlights[i].al,
-                        //                                        "flightRoute":loc,
-                        //                                        "baggageData":baggage[i]] as JSONDictionary
-                        //                            journeywiseBaggageData.append(data)
-                        //                        }
                         
                         evaluatedBaggageResp.append(journeywiseBaggageData)
                         journeywiseBaggageData.removeAll()

@@ -278,9 +278,13 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         }
                         
                         if baggageData.count > 0{
-                            if index < baggageData.count{
+                            if index < (baggageData.first?.count ?? 0){
+                                let bgs = baggageData.first?["\(flight.ffk)"] as? JSONDictionary
+
                                 if amenitiesData.count == 0{
-                                    if let bgData = baggageData[index]["bg"] as? JSONDictionary{
+                                    if let bgData = bgs?["bg"] as? JSONDictionary{
+
+//                                    if let bgData = baggageData[index]["bg"] as? JSONDictionary{
                                         if let adtBaggage = bgData["ADT"] as? JSONDictionary{
                                             if let weight = adtBaggage["weight"] as? String, let pieces = adtBaggage["pieces"] as? String
                                             {
@@ -309,8 +313,9 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                                     }
                                 }
                                 
-                                
-                                if let cbgData = baggageData[index]["cbg"] as? JSONDictionary{
+                                if let cbgData = bgs?["cbg"] as? JSONDictionary{
+
+//                                if let cbgData = baggageData[index]["cbg"] as? JSONDictionary{
                                     if let adtCabinBaggage = cbgData["ADT"] as? JSONDictionary{
                                         if let weight = adtCabinBaggage["weight"] as? String, let pieces = adtCabinBaggage["pieces"] as? String
                                         {

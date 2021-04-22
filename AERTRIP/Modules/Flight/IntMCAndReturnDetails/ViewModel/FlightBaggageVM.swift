@@ -29,16 +29,38 @@ class FlightBaggageVM{
         APICaller.shared.getFlightbaggageDetails(params: param) {[weak self] (data, error) in
             guard let self = self else {return}
             if let bgData = data{
-                let keys = bgData.keys
-                var baggageData = [JSONDictionary]()
-                if keys.count > 0{
-                    for key in keys{
-                        if let datas = bgData["\(key)"] as? JSONDictionary{
-                            baggageData += [datas]
-                        }
-                    }
-                }
-                self.delegate?.flightBaggageDetailsApiResponse(details: baggageData, journeyObj: journeyObj, journey: journey)
+//                let keys = bgData.keys
+//                var baggageData = [JSONDictionary]()
+//                if keys.count > 0{
+//                    for key in keys{
+//                        if let datas = bgData["\(key)"] as? JSONDictionary{
+//                            baggageData += [datas]
+//                        }
+//                    }
+//                }
+                
+//                baggageData = [bgData]
+//
+//                self.delegate?.flightBaggageDetailsApiResponse(details: baggageData, journeyObj: journeyObj, journey: journey)
+                
+                
+//                if journeyObj != nil{
+//                    let keys = bgData.keys
+//                    var baggageData = [JSONDictionary]()
+//                    if keys.count > 0{
+//                        for key in keys{
+//                            if let datas = bgData["\(key)"] as? JSONDictionary{
+//                                baggageData += [datas]
+//                            }
+//                        }
+//                    }
+//                    self.delegate?.flightBaggageDetailsApiResponse(details: baggageData, journeyObj: journeyObj, journey: journey)
+//
+//                }else{
+                    self.delegate?.flightBaggageDetailsApiResponse(details: [bgData], journeyObj: journeyObj, journey: journey)
+
+//                }
+                
             }else{
                 self.callAPIforBaggageInfo(sid:sid, fk:fk, journeyObj: journeyObj, journey: journey, count: (count - 1))
             }
