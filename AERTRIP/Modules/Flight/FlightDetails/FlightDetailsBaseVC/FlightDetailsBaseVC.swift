@@ -557,6 +557,7 @@ extension FlightDetailsBaseVC{
             vc.fewSeatsLeftViewHeight = 0
         }
         vc.viewModel.itineraryId = self.itineraryId
+        vc.viewModel.intJourrney = self.intJourney.first
         vc.dimensionDelegate = self
         vc.isForDomestic = (self.bookFlightObject.isDomestic)
         vc.airportDetailsResult = intAirportDetailsResult
