@@ -5,6 +5,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -23,6 +24,8 @@
                 <outlet property="multiLegView" destination="nr6-rV-y6c" id="OGQ-ew-88j"/>
                 <outlet property="multiSegmentView" destination="hsk-VL-Lpy" id="UKI-7A-6GX"/>
                 <outlet property="multicityViewHeight" destination="RNo-AW-wNm" id="3gB-QF-Twt"/>
+                <outlet property="noPriceLbl" destination="Qyv-2Q-BAa" id="rz6-Bm-n7z"/>
+                <outlet property="noPriceView" destination="zPA-fv-Lgi" id="GTS-Bs-gL8"/>
                 <outlet property="priceRangeSlider" destination="iQq-G5-KUi" id="3lg-tf-Gdc"/>
                 <outlet property="refundableFaresButton" destination="6E3-gN-P76" id="lV1-El-0sE"/>
                 <outlet property="refundableFaresOnlyLabel" destination="u3z-gj-ekL" id="4fK-81-YIj"/>
@@ -190,6 +193,22 @@
                         <constraint firstAttribute="trailing" secondItem="Yyp-Is-KYB" secondAttribute="trailing" constant="16" id="xuE-M7-JO2"/>
                     </constraints>
                 </view>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zPA-fv-Lgi" userLabel="no stops view">
+                    <rect key="frame" x="0.0" y="90" width="375" height="162"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No stops available" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qyv-2Q-BAa">
+                            <rect key="frame" x="16" y="8" width="138.5" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="Qyv-2Q-BAa" firstAttribute="top" secondItem="zPA-fv-Lgi" secondAttribute="top" constant="8" id="Z1h-YZ-1ZG"/>
+                        <constraint firstItem="Qyv-2Q-BAa" firstAttribute="leading" secondItem="zPA-fv-Lgi" secondAttribute="leading" constant="16" id="m4s-c3-LLg"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -197,9 +216,13 @@
                 <constraint firstItem="R8a-VA-Hvl" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="1hz-O8-GMC"/>
                 <constraint firstItem="nr6-rV-y6c" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="39h-Fn-yyV"/>
                 <constraint firstItem="nr6-rV-y6c" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="7kh-jp-kX3"/>
+                <constraint firstItem="zPA-fv-Lgi" firstAttribute="top" secondItem="R8a-VA-Hvl" secondAttribute="top" id="HAT-9B-koJ"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="top" secondItem="nr6-rV-y6c" secondAttribute="top" id="Jgk-7x-ng4"/>
                 <constraint firstItem="R8a-VA-Hvl" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Tgh-6y-HDP"/>
+                <constraint firstAttribute="trailing" secondItem="zPA-fv-Lgi" secondAttribute="trailing" id="bhI-2B-qdf"/>
+                <constraint firstItem="zPA-fv-Lgi" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="jG1-hC-K6i"/>
                 <constraint firstItem="R8a-VA-Hvl" firstAttribute="top" secondItem="nr6-rV-y6c" secondAttribute="bottom" id="ut8-TJ-ufU"/>
+                <constraint firstItem="zPA-fv-Lgi" firstAttribute="bottom" secondItem="R8a-VA-Hvl" secondAttribute="bottom" id="x7f-Oa-w9o"/>
             </constraints>
             <point key="canvasLocation" x="138.40000000000001" y="152.47376311844079"/>
         </view>
@@ -207,5 +230,8 @@
     <resources>
         <image name="CheckedGreenRadioButton" width="22" height="22"/>
         <image name="UncheckedGreenRadioButton" width="22" height="22"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

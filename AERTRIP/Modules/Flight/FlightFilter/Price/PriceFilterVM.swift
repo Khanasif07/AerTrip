@@ -21,6 +21,13 @@ struct PriceFilter {
     var userSelectedFareMinValue : CGFloat
     var userSelectedFareMaxValue : CGFloat
     
+    var isAvailable: Bool {
+        if inputFareMinValue == 0 && inputFareMaxVaule == 0 {
+            return false
+        }
+        return true
+    }
+    
     mutating func resetFilter() {
         onlyRefundableFaresSelected = false
         userSelectedFareMinValue = inputFareMinValue

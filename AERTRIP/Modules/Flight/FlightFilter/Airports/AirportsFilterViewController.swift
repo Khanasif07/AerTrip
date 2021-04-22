@@ -800,6 +800,7 @@ extension AirportsFilterViewController : UITableViewDataSource , UITableViewDele
     
     private func updateNoLayoversLbl() {
         noLayoversLbl.isHidden = currentAirportFilter.layoverAirportsCount != 0
+        layoverSeparatorView.isHidden = currentAirportFilter.layoverAirportsCount == 0
     }
     
 }
