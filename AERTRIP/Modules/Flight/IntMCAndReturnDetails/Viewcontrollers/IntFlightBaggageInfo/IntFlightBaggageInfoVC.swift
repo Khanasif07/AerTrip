@@ -553,6 +553,7 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
         for legs in journey.legsWithDetail{
             var bg = [JSONDictionary]()
             for _ in 0..<legs.flightsWithDetails.count{
+                //apped data in new array and remove it from newBaggage
                 bg.append(newBaggage[0])
                 newBaggage.remove(at: 0)
             }
