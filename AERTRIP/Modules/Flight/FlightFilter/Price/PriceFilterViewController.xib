@@ -197,7 +197,7 @@
                     <rect key="frame" x="0.0" y="90" width="375" height="162"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No stops available" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qyv-2Q-BAa">
-                            <rect key="frame" x="16" y="8" width="138.5" height="20.5"/>
+                            <rect key="frame" x="16" y="-3" width="138.5" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -205,7 +205,7 @@
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
-                        <constraint firstItem="Qyv-2Q-BAa" firstAttribute="top" secondItem="zPA-fv-Lgi" secondAttribute="top" constant="8" id="Z1h-YZ-1ZG"/>
+                        <constraint firstItem="Qyv-2Q-BAa" firstAttribute="top" secondItem="zPA-fv-Lgi" secondAttribute="top" constant="-3" id="Z1h-YZ-1ZG"/>
                         <constraint firstItem="Qyv-2Q-BAa" firstAttribute="leading" secondItem="zPA-fv-Lgi" secondAttribute="leading" constant="16" id="m4s-c3-LLg"/>
                     </constraints>
                 </view>
