@@ -47,7 +47,12 @@ class FlightBaggageVM{
                         }
                     }
                 }
-                self.delegate?.flightBaggageDetailsApiResponse(details: baggageData, journeyObj: journeyObj, journey: journey)
+                
+                if let _ = self.intJourrney{
+                    self.delegate?.flightBaggageDetailsApiResponse(details: baggageData, journeyObj: journeyObj, journey: journey)
+                }else{
+                    self.delegate?.flightBaggageDetailsApiResponse(details: [bgData], journeyObj: journeyObj, journey: journey)
+                }
                 
             }else{
                 self.callAPIforBaggageInfo(sid:sid, fk:fk, journeyObj: journeyObj, journey: journey, count: (count - 1))
