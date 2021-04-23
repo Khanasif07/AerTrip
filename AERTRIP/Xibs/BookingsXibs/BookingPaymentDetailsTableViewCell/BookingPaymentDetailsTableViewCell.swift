@@ -64,7 +64,12 @@ class BookingPaymentDetailsTableViewCell: UITableViewCell {
             let drAttr = NSMutableAttributedString(string: " \(LocalizedString.DebitShort.localized)", attributes: [.font: titleFont])
                 let crAttr = NSMutableAttributedString(string: " \(LocalizedString.CreditShort.localized)", attributes: [.font: titleFont])
                 let cost = prcD.amountInDelimeterWithSymbol.asStylizedPrice(using: titleFont)
+            
+            if title.lowercased() == "paid"{
+                cost.append(crAttr)
+            }else{
                 cost.append((prcD > 0) ? drAttr : crAttr)
+            }
             
             self.costLabel.attributedText = cost
 

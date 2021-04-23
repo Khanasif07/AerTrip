@@ -184,7 +184,11 @@ class BookingVoucherTableViewCell: ATTableViewCell {
         }
         
         
-        self.titleLabel.text = titleStr
+        if titleStr == LocalizedString.dash.localized{
+            self.titleLabel.text = ""
+        }else{
+            self.titleLabel.text = titleStr
+        }
         self.dateLabel.text = self.voucherData.basic?.transactionDateTime?.toString(dateFormat: "EEE, dd MMM yyyy") ?? ""
         
         let drAttr = NSMutableAttributedString(string: " \(LocalizedString.DebitShort.localized)", attributes: [.font: AppFonts.Regular.withSize(16.0)])

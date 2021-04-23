@@ -87,15 +87,30 @@ class ArrivalPerformaceVC: UIViewController
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         UIView.animate(withDuration: 0.4,delay: 0, animations: {
-            self.onTimePerformanceSubView.frame.size.width = CGFloat(self.onTimePerformanceInPercent * Int(UIScreen.main.bounds.width/100))
+            
+            
+            if self.onTimePerformanceInPercent == 100{
+                self.onTimePerformanceSubView.frame.size.width = CGFloat(99.9 * UIScreen.main.bounds.width/100)
+            }else{
+                self.onTimePerformanceSubView.frame.size.width = CGFloat(self.onTimePerformanceInPercent * Int(UIScreen.main.bounds.width/100))
+            }
+
             self.onTimePerformanceSubView.backgroundColor = UIColor(displayP3Red: 0.0/255.0, green: 204.0/255.0, blue: 153.0/255.0, alpha: 1.0)
             self.onTimeProgressDisplayView.addSubview(self.onTimePerformanceSubView)
-            
-            self.delayedPerformanceSubView.frame.size.width = CGFloat(self.delayedPerformanceInPercent * Int(UIScreen.main.bounds.width/100))
+
+            if self.delayedPerformanceInPercent == 100{
+                self.delayedPerformanceSubView.frame.size.width = CGFloat(99.9 * UIScreen.main.bounds.width/100)
+            }else{
+                self.delayedPerformanceSubView.frame.size.width = CGFloat(self.delayedPerformanceInPercent * Int(UIScreen.main.bounds.width/100))
+            }
             self.delayedPerformanceSubView.backgroundColor = UIColor(displayP3Red: 248.0/255.0, green: 185.0/255.0, blue: 8.0/255.0, alpha: 1.0)
             self.delayProgressDisplayView.addSubview(self.delayedPerformanceSubView)
             
-            self.cancelledPerformanceSubView.frame.size.width = CGFloat(self.cancelledPerformanceInPercent * Int(UIScreen.main.bounds.width/100))
+            if self.cancelledPerformanceInPercent == 100{
+                self.cancelledPerformanceSubView.frame.size.width = CGFloat(99.9 * UIScreen.main.bounds.width/100)
+            }else{
+                self.cancelledPerformanceSubView.frame.size.width = CGFloat(self.cancelledPerformanceInPercent * Int(UIScreen.main.bounds.width/100))
+            }
             self.cancelledPerformanceSubView.backgroundColor = UIColor(displayP3Red: 255.0/255.0, green: 51.0/255.0, blue: 51.0/255.0, alpha: 1.0)
             self.cancelledProgressDisplayView.addSubview(self.cancelledPerformanceSubView)
         })
