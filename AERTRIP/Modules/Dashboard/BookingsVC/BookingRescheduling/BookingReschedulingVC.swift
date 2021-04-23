@@ -435,7 +435,16 @@ extension BookingReschedulingVC: UITableViewDataSource, UITableViewDelegate {
             refundOrResch = legD.reschedulable.toBool ? LocalizedString.Reschedulable.localized : LocalizedString.NonReschedulable.localized
         }
         else {
-            refundOrResch = legD.refundable.toBool ? LocalizedString.Refundable.localized : LocalizedString.NonRefundable.localized
+
+            // To check all the pax cancellation amount is greater than cell amount.
+            var isNonRefundable = true
+            for paxD in legD.pax{
+                if ((paxD.amountPaid - paxD.reversalMFPax) > paxD.cancellationCharge){
+                    isNonRefundable = false
+                }
+            }
+            
+            refundOrResch = (!legD.refundable.toBool || isNonRefundable) ? LocalizedString.NonRefundable.localized : LocalizedString.Refundable.localized
         }
         infoData += infoData.isEmpty ? refundOrResch : " | \(refundOrResch)"
 

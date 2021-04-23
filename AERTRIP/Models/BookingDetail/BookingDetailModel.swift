@@ -945,6 +945,10 @@ struct BookingLeg {
     
     var bookingId: String = ""
     
+    //For book same flight
+    var parentOrigin:String = ""
+    var parentDestination:String = ""
+    
     init() {}
     
     init(json: JSONDictionary, eventStartDate: Date?, bookingId: String) {
@@ -997,6 +1001,13 @@ struct BookingLeg {
         
         if let obj = json["apc"] {
             self.apc = "\(obj)".removeNull
+        }
+        if let obj = json["parent_origin"] {
+            self.parentOrigin = "\(obj)".removeNull
+        }
+        
+        if let obj = json["parent_destination"] {
+            self.parentDestination = "\(obj)".removeNull
         }
     }
     
