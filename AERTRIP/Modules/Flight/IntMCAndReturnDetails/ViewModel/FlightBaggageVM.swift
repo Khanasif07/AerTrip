@@ -32,6 +32,7 @@ class FlightBaggageVM{
             if let bgData = data{
                 
                 var keys:[String] = Array(bgData.keys)
+                ///To keep same order for baggage data as flights all keys are changed with flight ffk.
                 if let journey = self.intJourrney{
                     let ffk = (journey.legsWithDetail.flatMap{$0.flightsWithDetails}).map{$0.ffk}
                     if keys.count == ffk.count{
