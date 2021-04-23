@@ -110,6 +110,10 @@ struct OtherFareModel {
 //                }
                 
                 print("displayString=",displayString)
+                
+                if displayString.contains(" * "){
+                    displayString = displayString.replacingOccurrences(of: " * ", with: "* ")
+                }
 
                 if displayString.contains(" ***"){
                     displayString = displayString.replacingOccurrences(of: " ***", with: "\n•   ")

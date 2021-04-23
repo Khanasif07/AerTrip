@@ -964,7 +964,17 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
                 resultTitle.text = "Multi-City"
             }
         }else{
-            resultTitle.attributedText = flightSearchResultVM.titleString
+            
+            
+            let allKey = self.flightSearchParameters.keys
+            let departArrayCount = allKey.map{$0.contains("depart")}.filter{$0}.count
+
+            if departArrayCount > 3{
+                resultTitle.text = "Multicity"
+            }else{
+                resultTitle.attributedText = flightSearchResultVM.titleString
+            }
+            
         }
     }
     
