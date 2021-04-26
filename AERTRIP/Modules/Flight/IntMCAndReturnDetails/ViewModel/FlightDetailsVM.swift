@@ -21,6 +21,7 @@ class FlightDetailsVM{
     var journeyType = JourneyType.international
     var itineraryData = FlightItineraryData()
     var selectedTrip:TripModel?
+    var bookFlightObject = BookFlightObject()
     weak var delegate:FlightDetailsVMDelegate?
     func fetchConfirmationData(_ completion: @escaping((_ isSuccess:Bool, _ errorCode: ErrorCodes)->())){
         var param:JSONDictionary = ["sid": sid]
@@ -41,6 +42,11 @@ class FlightDetailsVM{
                 param["fk[\(i)]"] = journey[i].fk
             }
         }
+        
+        if !(self.bookFlightObject.aerinSessionId?.isEmpty ?? true){
+            param["aerin_session_id"] = bookFlightObject.aerinSessionId
+        }
+        
         APICaller.shared.getConfirmation(params: param) {[weak self](success, errorCode, itineraryData) in
             guard let self = self else{return}
 

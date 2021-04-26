@@ -126,7 +126,7 @@ class FlightDetailsBaseVC: BaseVC {
         
         FirebaseEventLogs.shared.logFlightDetailsEventWithJourneyTitle(title: bookFlightObject.titleString.string ?? "n/a")
 
-        
+        self.loadFareInfo()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -187,6 +187,15 @@ class FlightDetailsBaseVC: BaseVC {
             allChildVCs.append(addBaggageVC())
             allChildVCs.append(addFareInfoVC())
         }
+    }
+    
+    
+    func loadFareInfo(){
+        if allChildVCs.count >= 3{
+            allChildVCs[2].loadView()
+            allChildVCs[2].viewDidLoad()
+        }
+        
     }
     
     func setupFarebreakupView(){        
@@ -311,15 +320,12 @@ class FlightDetailsBaseVC: BaseVC {
     
     //MARK:- Button Actions
     
-    @IBAction func closeButtonClicked(_ sender: Any)
-    {
+    @IBAction func closeButtonClicked(_ sender: Any) {
         FirebaseEventLogs.shared.logEventsWithoutParam(with: .CloseButtonClicked)
-
         self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func pinButtonClicked(_ sender: Any)
-    {
+    @IBAction func pinButtonClicked(_ sender: Any) {
         FirebaseEventLogs.shared.logFlightDetailsEvent(with: .FlightDetailsPinOptionSelected)
 
         pinButton.isHighlighted = false
@@ -551,6 +557,7 @@ extension FlightDetailsBaseVC{
             vc.fewSeatsLeftViewHeight = 0
         }
         vc.viewModel.itineraryId = self.itineraryId
+        vc.viewModel.intJourrney = self.intJourney.first
         vc.dimensionDelegate = self
         vc.isForDomestic = (self.bookFlightObject.isDomestic)
         vc.airportDetailsResult = intAirportDetailsResult
@@ -584,6 +591,7 @@ extension FlightDetailsBaseVC{
         self.viewModel.sid = self.sid
         self.viewModel.journey = self.journey
         self.viewModel.intJourney = self.intJourney
+        self.viewModel.bookFlightObject  = self.bookFlightObject
         self.viewModel.journeyType = (self.bookFlightObject.isDomestic) ? .domestic : .international
     }
 }
@@ -734,6 +742,7 @@ extension FlightDetailsBaseVC : FareBreakupVCDelegate
                 self.intFareBreakup?.hideShowLoader(isHidden: true)
             }
             if success{
+                vc.viewModel.aerinTravellerDtails = self.viewModel.itineraryData.itinerary.travellerDetails.t
                 DispatchQueue.main.async{[weak self] in
                     guard let self = self else {return}
                     vc.viewModel.newItineraryData = self.viewModel.itineraryData

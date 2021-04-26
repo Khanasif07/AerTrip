@@ -54,10 +54,10 @@ extension FlightBookingInfoVC {
         if let allLegs = self.viewModel.bookingDetail?.bookingDetail?.leg {
             for flg in allLegs[indexPath.section].flight {
                 allTotal += flg.numberOfCellFlightInfo
-                if indexPath.row < (allTotal-2) {
+                if indexPath.row <= (allTotal-2) {
                     break
                 }
-                else if indexPath.row >= (allTotal-2) {
+                else if indexPath.row > (allTotal-2) {
                     currentIdx += 1
                 }
             }
