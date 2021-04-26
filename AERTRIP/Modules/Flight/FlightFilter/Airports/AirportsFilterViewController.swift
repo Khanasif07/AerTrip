@@ -368,6 +368,7 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
         if airportFilterArray.count > 1 {
 //            setmultiLegSubviews()
             setupMultiLegSegmentControl()
+            updateNoLayoversLbl()
         }
         setupScrollView()
         if multiLegSegmentControl == nil {

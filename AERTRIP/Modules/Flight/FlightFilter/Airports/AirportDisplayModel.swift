@@ -126,9 +126,9 @@ struct AirportLegFilter {
             isApplied = isApplied ||  destinationCities.reduce( false ) { $0 || $1.filterApplied()}
         }
         
-        if layoverAirportsCount > 1 {
-            isApplied = isApplied || layoverCities.reduce( false ) { $0 || $1.filterApplied() }
-        }
+//        if layoverAirportsCount > 1 {
+        isApplied = isApplied || layoverCities.reduce( false ) { $0 || $1.filterApplied() }
+//        }
         
         return isApplied
     }
