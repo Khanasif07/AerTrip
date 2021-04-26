@@ -24,6 +24,7 @@ struct TravellerModel {
     var isd:String = ""
     var ffp:[FFP]?
     var mealp:String = ""
+    var paxType:PassengersType = .Adult
     
     init() {
         let json = JSON()
@@ -68,6 +69,7 @@ struct TravellerModel {
         contact.contact = mobile
         contact.isd = self.isd
         contact.mealP = self.mealp
+        contact.passengerType = self.paxType
         return contact
     }
     
@@ -88,6 +90,7 @@ struct TravellerModel {
         email = json["email"].stringValue
         isd = json["isd"].stringValue
         mealp = json["mealp"].stringValue
+        paxType = PassengersType(rawValue: json["pax_type"].stringValue) ?? .Adult
     }
     
     static func models(jsonArr: [JSON]) -> [TravellerModel] {
