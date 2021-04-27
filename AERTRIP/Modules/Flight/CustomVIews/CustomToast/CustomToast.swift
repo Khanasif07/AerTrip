@@ -20,6 +20,12 @@ import UIKit
     /// adds animated toast over the window
     /// - Parameter msg: Message to be displayed within the toast
     @objc func showToast(_ msg: String) {
+        DispatchQueue.main.async { [weak self] in
+            self?.show(msg)
+        }
+    }
+    
+    private func show(_ msg: String) {
         guard let window = AppDelegate.shared.window else { return }
         
         if let toast = window.subviews.first(where: { $0 is CustomToastView }), msg == lastMessage {
