@@ -77,7 +77,7 @@ class DashboardVC: BaseVC {
         super.viewDidLoad()
         resetItems()
         self.innerScrollView.isScrollEnabled = true
-        headerTopConstraint.constant = UIApplication.shared.statusBarFrame.height
+        headerTopConstraint.constant = AppDelegate.shared.window?.safeAreaInsets.top ?? 0
         aerinView.transform = .identity
         aerinView.alpha = 1.0
         // nitin change
@@ -110,7 +110,8 @@ class DashboardVC: BaseVC {
     }
     
     private func addViewOnTop() {
-        let safeAreaView = UIView(frame: CGRect(x: 0, y: 0, width: view.width, height: UIApplication.shared.statusBarFrame.height))
+        let safeAreaTop = AppDelegate.shared.window?.safeAreaInsets.top ?? 0
+        let safeAreaView = UIView(frame: CGRect(x: 0, y: 0, width: view.width, height: safeAreaTop))
         let safeAreaImgView = UIImageView(frame: safeAreaView.bounds)
         safeAreaImgView.image = UIImage(named: "statusBarColor")
         safeAreaView.addSubview(safeAreaImgView)
@@ -128,7 +129,8 @@ class DashboardVC: BaseVC {
         
         if !isScrollHeightSet {
             isScrollHeightSet = true
-            let extraHeightForSafeArea: CGFloat = UIApplication.shared.statusBarFrame.height > 20 ? 26 : 0
+            let safeAreaTop = AppDelegate.shared.window?.safeAreaInsets.top ?? 0
+            let extraHeightForSafeArea: CGFloat = safeAreaTop > 20 ? 26 : 0
             innerScrollViewHeightConstraint.constant = temp + extraHeightForSafeArea
         }
         self.profileButton.cornerradius = self.profileButton.height/2
@@ -559,7 +561,8 @@ extension DashboardVC  {
     private func updateSegmentYPosition(for scrolledY: CGFloat) {
         // MARK: Commented by Rishabh for vertical rubberband effect and top spacing
         //        let valueToBe: CGFloat = 20
-        let valueToBe: CGFloat = UIApplication.shared.statusBarFrame.height > 20 ? 30 : 25
+        let safeAreaTop = AppDelegate.shared.window?.safeAreaInsets.top ?? 0
+        let valueToBe: CGFloat = safeAreaTop > 20 ? 30 : 25
         
         let ratio = valueToBe / (headerTopConstraint.constant + headerView.height)
         
@@ -570,7 +573,8 @@ extension DashboardVC  {
     private func updateInnerScrollTop(for scrolledY: CGFloat) {
         // MARK: Commented by Rishabh as dashboard icons were getting cut
         //        let valueToDecrease: CGFloat = 18.0
-        let valueToDecrease: CGFloat = UIApplication.shared.statusBarFrame.height > 20 ? 6 : 18
+        let safeAreaTop = AppDelegate.shared.window?.safeAreaInsets.top ?? 0
+        let valueToDecrease: CGFloat = safeAreaTop > 20 ? 6 : 18
         let ratio = valueToDecrease / (headerTopConstraint.constant + headerView.height)
         let final = (ratio * scrolledY)
         if final == 0 {
@@ -603,8 +607,6 @@ extension DashboardVC  {
     
     private func checkAndApplyTransform(_ view : UIView, transformValue : CGFloat, scrolledUp : Bool, isIncreasing:Bool, isForVertical:Bool = false){
         
-        let initialTransform = view.transform
-
         if isSelectingFromTabs {
             view.transform = (transformValue == 1.0) ? CGAffineTransform.identity : CGAffineTransform(scaleX: transformValue, y: transformValue)
         }
@@ -656,8 +658,8 @@ extension DashboardVC  {
     //    }
     
     private func updateUpLabels(with alpha : CGFloat){
-        
-        let extraAlpha: CGFloat = UIApplication.shared.statusBarFrame.height > 20 ? 0 : 0
+        let safeAreaTop = AppDelegate.shared.window?.safeAreaInsets.top ?? 0
+        let extraAlpha: CGFloat = safeAreaTop > 20 ? 0 : 0
         
         headerView.alpha = max(headerView.alpha - alpha, 0.0)
         
@@ -668,8 +670,8 @@ extension DashboardVC  {
     }
     
     private func updateDownLabels(with alpha : CGFloat){
-        
-        let extraAlpha: CGFloat = UIApplication.shared.statusBarFrame.height > 20 ? 0 : 0
+        let safeAreaTop = AppDelegate.shared.window?.safeAreaInsets.top ?? 0
+        let extraAlpha: CGFloat = safeAreaTop > 20 ? 0 : 0
         
         headerView.alpha = min(headerView.alpha + alpha, 1.0)
         
