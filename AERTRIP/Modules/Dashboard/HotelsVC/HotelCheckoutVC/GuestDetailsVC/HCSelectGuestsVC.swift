@@ -508,6 +508,8 @@ extension HCSelectGuestsVC: HCSelectGuestsVMDelegate {
             }
     
             GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].mealPreference = oldValue.mealPreference
+            
+            GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].passengerType = oldValue.passengerType
 
             GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].frequentFlyer = oldValue.frequentFlyer
             self.updateSelectedFF(at: currentSelectedGuestIndex)

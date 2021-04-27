@@ -1302,6 +1302,12 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
         self.navigationController?.popViewController(animated: true)
     }
     
+    func resetPinnedFlight() {
+        if let vc = self.domesticMultiLegResultVC{
+            vc.resetPinnedFlight()
+        }
+
+    }
     
     func showNoFilteredResultsAt(index: Int) {
         

@@ -11,6 +11,7 @@ import UIKit
 protocol NoResultScreenDelegate : AnyObject {
     func clearFilters()
     func restartFlightSearch()
+    func resetPinnedFlight()
 }
 
 
@@ -20,6 +21,8 @@ class NoResultScreenView : UIView {
     @IBOutlet weak var subTitle: UILabel!
     @IBOutlet weak var clearFilter: UIButton!
     @IBOutlet weak var TryAgain: UIButton!
+    @IBOutlet weak var resetPinButton: UIButton!
+    @IBOutlet weak var subTitleViewHeight: NSLayoutConstraint!
     weak var delegate : NoResultScreenDelegate?
     
     required init?(coder aDecoder: NSCoder) {
@@ -40,9 +43,12 @@ class NoResultScreenView : UIView {
         clearFilter.setTitle("Clear Filters", for: .selected)
         TryAgain.setTitle("Try again!", for: .normal)
         TryAgain.setTitle("Try again!", for: .selected)
-
+        resetPinButton.setTitle("View All Results", for: .normal)
+        resetPinButton.setTitle("View All Results", for: .selected)
+        subTitleViewHeight.constant = 84.0
         clearFilter.isHidden = false
         TryAgain.isHidden = true
+        resetPinButton.isHidden = true
         
         
     }
@@ -51,9 +57,10 @@ class NoResultScreenView : UIView {
         
         headerLabel.text = "Flight Not Found"
         subTitle.text = "Try loading for other routes or dates."
-        
+        subTitleViewHeight.constant = 84.0
         TryAgain.isHidden = false
         clearFilter.isHidden = true
+        resetPinButton.isHidden = true
         
     }
     
@@ -66,12 +73,33 @@ class NoResultScreenView : UIView {
         
         headerLabel.text = "No results match your filters"
         subTitle.text = "Try different filters, or clear all."
+        subTitleViewHeight.constant = 84.0
         clearFilter.isHidden = false
         TryAgain.isHidden = true
+        resetPinButton.isHidden = true
     
     }
+    
+    
+    func showResetPin(){
+        
+        headerLabel.text = "No Pinned Results"
+        subTitle.text = ""
+        subTitleViewHeight.constant = 0.0
+        clearFilter.isHidden = true
+        TryAgain.isHidden = true
+        resetPinButton.isHidden = false
+    
+    }
+    
     
     @IBAction func tryAgainTapped(_ sender: Any) {
         delegate?.restartFlightSearch()
     }
+    
+    
+    @IBAction func resetPinButtonTapped(_ sender: Any) {
+        delegate?.resetPinnedFlight()
+    }
+    
 }

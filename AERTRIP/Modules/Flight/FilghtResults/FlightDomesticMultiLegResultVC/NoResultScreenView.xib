@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -21,7 +21,9 @@
                 <outlet property="clearFilter" destination="ENi-aq-CR2" id="wsa-3t-NC4"/>
                 <outlet property="contentView" destination="iN0-l3-epB" id="1mL-gx-8iC"/>
                 <outlet property="headerLabel" destination="c24-nk-uKX" id="v5Y-Wq-Wz4"/>
+                <outlet property="resetPinButton" destination="i2b-DJ-MQR" id="2xA-tf-EE1"/>
                 <outlet property="subTitle" destination="cJn-eW-Ji0" id="SH8-YC-N3z"/>
+                <outlet property="subTitleViewHeight" destination="LWi-hY-S7P" id="q4Y-IW-2EM"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -44,7 +46,17 @@
                     <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ENi-aq-CR2">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i2b-DJ-MQR">
+                    <rect key="frame" x="8" y="161.33333333333337" width="398" height="38"/>
+                    <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="20"/>
+                    <state key="normal" title="Try again!">
+                        <color key="titleColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="resetPinButtonTapped:" destination="-1" eventType="touchUpInside" id="ZOf-pz-5AF"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ENi-aq-CR2">
                     <rect key="frame" x="8" y="161.33333333333334" width="398" height="38"/>
                     <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="20"/>
                     <state key="normal" title="Try again!">
@@ -54,7 +66,7 @@
                         <action selector="clearFilterTapped:" destination="-1" eventType="touchUpInside" id="9IS-es-lvf"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rRi-Nr-1qt">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rRi-Nr-1qt">
                     <rect key="frame" x="8" y="161.33333333333334" width="398" height="38"/>
                     <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="20"/>
                     <state key="normal" title="Try again!">
@@ -73,12 +85,16 @@
                 <constraint firstAttribute="trailing" secondItem="rRi-Nr-1qt" secondAttribute="trailing" constant="8" id="AkP-XV-a6y"/>
                 <constraint firstItem="ENi-aq-CR2" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="OTs-Hq-crV"/>
                 <constraint firstItem="cJn-eW-Ji0" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="WH8-jU-bjH"/>
+                <constraint firstItem="i2b-DJ-MQR" firstAttribute="top" secondItem="ENi-aq-CR2" secondAttribute="top" id="Zrj-SJ-zfb"/>
+                <constraint firstItem="i2b-DJ-MQR" firstAttribute="leading" secondItem="ENi-aq-CR2" secondAttribute="leading" id="aNK-ES-kaV"/>
                 <constraint firstItem="c24-nk-uKX" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="eyy-WM-Ijf"/>
                 <constraint firstAttribute="trailing" secondItem="cJn-eW-Ji0" secondAttribute="trailing" constant="8" id="kiv-la-5S5"/>
                 <constraint firstItem="ENi-aq-CR2" firstAttribute="top" secondItem="cJn-eW-Ji0" secondAttribute="bottom" constant="26" id="pdc-yY-xz3"/>
                 <constraint firstItem="cJn-eW-Ji0" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="rT8-Fs-1O9"/>
                 <constraint firstItem="rRi-Nr-1qt" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="rhc-Jx-8dc"/>
                 <constraint firstAttribute="trailing" secondItem="c24-nk-uKX" secondAttribute="trailing" constant="8" id="s2k-cV-4wR"/>
+                <constraint firstItem="i2b-DJ-MQR" firstAttribute="bottom" secondItem="ENi-aq-CR2" secondAttribute="bottom" id="wSq-nf-FF5"/>
+                <constraint firstItem="i2b-DJ-MQR" firstAttribute="trailing" secondItem="ENi-aq-CR2" secondAttribute="trailing" id="wcW-sf-J0t"/>
                 <constraint firstAttribute="trailing" secondItem="ENi-aq-CR2" secondAttribute="trailing" constant="8" id="zRI-64-PR0"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>

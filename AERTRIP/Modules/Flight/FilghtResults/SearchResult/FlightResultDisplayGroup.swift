@@ -20,6 +20,7 @@ class FlightResultDisplayGroup {
         case price
         case originAirports
         case destAirports
+        case layoverAirports
     }
     
     internal var initiatedFilters: Set<InitiatedFilters> = []

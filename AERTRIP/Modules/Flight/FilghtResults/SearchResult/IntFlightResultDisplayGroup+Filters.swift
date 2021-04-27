@@ -878,7 +878,12 @@ extension IntFlightResultDisplayGroup  {
         }
         userSelectedFilters[index].allLayoversSelected = selected
         
-        if selected {
+        var anySelected: Bool {
+            let anySelected = userSelectedFilters.reduce(false, { $0 || $1.allLayoversSelected })
+            return anySelected
+        }
+        
+        if anySelected {
             UIFilters.insert(.layoverAirports)
         } else {
             UIFilters.remove(.layoverAirports)
@@ -1066,9 +1071,11 @@ extension IntFlightResultDisplayGroup  {
                 return (obj.loap.count != inputFilter[index].loap.count) && !obj.loap.isEmpty
             }){
                 UIFilters.insert(.layoverAirports)
+                appliedSubFilters[index]?.insert(.layoverAirports)
             }else{
                 //working fine
                 UIFilters.remove(.layoverAirports)
+                appliedSubFilters[index]?.remove(.layoverAirports)
             }
         }
         

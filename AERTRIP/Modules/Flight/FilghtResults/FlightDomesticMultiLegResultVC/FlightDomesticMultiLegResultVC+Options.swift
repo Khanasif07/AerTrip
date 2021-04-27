@@ -205,7 +205,7 @@ extension FlightDomesticMultiLegResultVC: ATSwitcherChangeValueDelegate {
                             tableview.selectRow(at: indexPath , animated: false, scrollPosition: .none)
                             self.updateSelectedJourney(index: index)
                         } else {
-                            addErrorScreenAtIndex(index: index , forFilteredResults: true)
+                            addErrorScreenAtIndex(index: index , forFilteredResults: false, isForPinned: true)
                             self.viewModel.results[index].selectedJourney = nil
                             self.journeyHeaderViewArray[index].isHidden = true
                             self.setTableViewHeaderFor(tableView: tableview)
