@@ -349,13 +349,12 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
     
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-        // Synchronizing scrolling of headerCollectionView to baseScrollView scroll movement
-        
+  
         if !scrollView.isScrollEnabled{
             return
         }
         if scrollView == baseScrollView {
+            // Synchronizing scrolling of headerCollectionView to baseScrollView scroll movement
             self.syncScrollView(headerCollectionView, toScrollView: baseScrollView)
             if scrollView.contentOffset.y > 88.0{
                 scrollView.contentOffset.y = 88.0
