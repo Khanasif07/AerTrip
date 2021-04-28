@@ -510,6 +510,9 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                             }else{
                                 flightDetailsCell.arrivalTerminalLabel.attributedText = flightDetailsCell.addAttributsForRange(flight.atm, coloredString: flight.atm, color: AppColors.clear)
                             }
+                        }else{
+                            flightDetailsCell.arrivalTerminalLabel.attributedText = nil
+                            flightDetailsCell.arrivalTerminalLabel.text = ""
                         }
                         
                         if flight.dtm != ""{
@@ -519,6 +522,9 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                             }else{
                                 flightDetailsCell.departureTerminalLabel.attributedText = flightDetailsCell.addAttributsForRange(flight.dtm, coloredString: flight.dtm, color: AppColors.clear)
                             }
+                        }else{
+                            flightDetailsCell.departureTerminalLabel.attributedText = nil
+                            flightDetailsCell.departureTerminalLabel.text = ""
                         }
                         
                         if let arrivalAirportDetails = airportDetailsResult[flight.to]
