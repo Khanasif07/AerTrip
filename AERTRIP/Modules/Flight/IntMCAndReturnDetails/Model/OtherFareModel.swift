@@ -110,6 +110,14 @@ struct OtherFareModel {
 //                }
                 
                 print("displayString=",displayString)
+                
+                if displayString.contains("Note:"){
+                    displayString = displayString.replacingOccurrences(of: "Note:", with: "\n•   Note:")
+                }
+                
+                if displayString.contains(" * "){
+                    displayString = displayString.replacingOccurrences(of: " * ", with: "* ")
+                }
 
                 if displayString.contains(" ***"){
                     displayString = displayString.replacingOccurrences(of: " ***", with: "\n•   ")
@@ -173,6 +181,8 @@ struct OtherFareModel {
         flightResult.fare = self.fare
         isDefault = json["default"].boolValue
         sortOrder = json["tax_sort"].stringValue
+        
+        print("description=",json["description"])
     }
 }
 

@@ -21,6 +21,7 @@ protocol EditProfileVMDelegate: class {
     func willCallDeleteTravellerAPI()
     func deleteTravellerAPISuccess()
     func deleteTravellerAPIFailure()
+    func getSuggestionAPIResponse()
 }
 
 class EditProfileVM {
@@ -55,7 +56,7 @@ class EditProfileVM {
     var filePath: String = ""
     var imageSource = ""
     var defaultAirlines: [FlyerModel] = []
-    
+    var userTag:String = ""
     // drop down keys
     var emailTypes: [String] = []
     var mobileTypes: [String] = []
@@ -79,6 +80,7 @@ class EditProfileVM {
         return self.travelData?.id ?? ""
     }
     var isSavedButtonTapped = false
+    var suggetionTags = [String]()
     
     
     func isValidateData(vc: UIViewController) -> Bool {
@@ -355,6 +357,7 @@ class EditProfileVM {
         params[APIKeys.passportIssueDate.rawValue] = passportIssueDate
         params[APIKeys.passportExpiryDate.rawValue] = passportExpiryDate
         params[APIKeys.label.rawValue] = self.label
+        params[APIKeys.userTag.rawValue] = self.userTag
         
         if self.currentlyUsinfFor == .addNewTravellerList {
             params[APIKeys.id.rawValue] = ""
@@ -544,4 +547,13 @@ extension EditProfileVM {
         }
         FirebaseEventLogs.shared.logEditMainTravellerEvents(with: event, value: value, key: type)
     }
+    
+    func getTagSuggestion(with text: String){
+        APICaller.shared.callAPIForUserTagSuggestion(params: ["pronoun": text]) {[weak self] (success, tags) in
+            guard let self = self else {return}
+            self.suggetionTags = tags
+            self.delegate?.getSuggestionAPIResponse()
+        }
+    }
+    
 }

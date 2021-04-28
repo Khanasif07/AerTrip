@@ -184,12 +184,12 @@ class FlightBookingsDetailsVC: BaseVC {
     
     func whatNextForSameFlightBook()-> WhatNext?{
         guard let detail = self.viewModel.bookingDetail, let fDetails = detail.bookingDetail else { return nil}
-        var whatNext = WhatNext(isFor: "Hotel")
+        var whatNext = WhatNext(isFor: "flight")
         if let leg = fDetails.leg.first {
             whatNext.departCity = (leg.title.components(separatedBy: "→").first ?? "").trimmingCharacters(in: .whitespaces)
             whatNext.arrivalCity = (leg.title.components(separatedBy: "→").last ?? "").trimmingCharacters(in: .whitespaces)
-            whatNext.origin = leg.origin
-            whatNext.destination = leg.destination
+            whatNext.origin = leg.parentOrigin
+            whatNext.destination = leg.parentDestination
             whatNext.cabinclass = leg.flight.first?.cabinClass ?? "Economy"
             if ((leg.flight.first?.departDate ?? Date()) > Date()){
                 whatNext.depart = leg.flight.first?.departDate?.toString(dateFormat: "dd-MM-yyyy") ?? ""
@@ -231,6 +231,21 @@ class FlightBookingsDetailsVC: BaseVC {
             var arrivalCountry = [String]()
             var departAriports = [String]()
             var departCountry = [String]()
+            
+//            for (index, leg) in fDetails.leg.enumerated(){
+//                let departDate = (leg.flight.first?.departDate ?? Date())
+//                if (departDate > Date()){
+//                    depart.append(leg.flight.first?.departDate?.toString(dateFormat: "dd-MM-yyyy") ?? "")
+//                }else{
+//                    if index != 0{
+//                        let previousDate = (fDetails.leg[index - 1].flight.first?.departDate ?? Date())
+//                        let differnce = departDate.daysFrom(previousDate)
+//                        depart.append(Date().add(days: differnce)?.toString(dateFormat: "dd-MM-yyyy") ?? "")
+//                    }else{
+//                        depart.append(Date().toString(dateFormat: "dd-MM-yyyy"))
+//                    }
+//                }
+
             
             for leg in fDetails.leg{
                 

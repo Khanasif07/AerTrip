@@ -31,19 +31,21 @@ class FlightDetailsInfoVM{
         APICaller.shared.getFlightbaggageDetails(params: param) {[weak self] (data, error) in
             guard let self = self else {return}
             if let bgData = data {
-                //                AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
-                //                return
-                //            }
-                let keys = bgData.keys
-                var baggageData = [JSONDictionary]()
-                if keys.count > 0{
-                    for key in keys{
-                        if let datas = bgData["\(key)"] as? JSONDictionary{
-                            baggageData += [datas]
-                        }
-                    }
-                }
-                self.delegate?.flightBaggageDetailsApiResponse(details: baggageData)
+//                let keys = bgData.keys
+//                var baggageData = [JSONDictionary]()
+//                if keys.count > 0{
+//                    for key in keys{
+//                        if let datas = bgData["\(key)"] as? JSONDictionary{
+//                            baggageData += [datas]
+//                        }
+//                    }
+//                }
+                
+//                self.delegate?.flightBaggageDetailsApiResponse(details: baggageData)
+                
+                
+                self.delegate?.flightBaggageDetailsApiResponse(details: [bgData])
+
             }else{
                 self.callAPIforBaggageInfo(sid: sid, fk: fk, count: (count - 1))
             }

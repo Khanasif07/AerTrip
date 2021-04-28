@@ -244,7 +244,7 @@ extension FlightDomesticMultiLegResultVC {
     
     func setTableViewHeaderFor(tableView  : UITableView) {
         
-        let width = tableView.bounds.size.width
+        _ = tableView.bounds.size.width
         let index = tableView.tag - 1000
         let headerView = journeyHeaderViewArray[index]
         

@@ -244,8 +244,11 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                     
                     //let bgWeight = flight.bg?["ADT"]?.weight
                     if baggageData.count > 0{
-                        if index < baggageData.count{
-                            if let bgData = baggageData[index]["bg"] as? JSONDictionary{
+                        if index < (baggageData.first?.count ?? 0){
+//                            let bgs = baggageData.first
+                            let bgs = baggageData.first?["\(flight.ffk)"] as? JSONDictionary
+
+                            if let bgData = bgs?["bg"] as? JSONDictionary{
                                 if let adtBaggage = bgData["ADT"] as? JSONDictionary{
                                     if let weight = adtBaggage["weight"] as? String, let pieces = adtBaggage["pieces"] as? String{
                                         if pieces != "" && pieces != "-9" && pieces != "-1" && pieces != "0 pc" && pieces != "0"{
@@ -266,7 +269,8 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                                     }
                                 }
                             }
-                            if let cbgData = baggageData[index]["cbg"] as? JSONDictionary{
+                            if let cbgData = bgs?["cbg"] as? JSONDictionary{
+//                            if let cbgData = baggageData[index]["cbg"] as? JSONDictionary{
                                 if let adtCabinBaggage = cbgData["ADT"] as? JSONDictionary{
                                     if let weight = adtCabinBaggage["weight"] as? String, let pieces = adtCabinBaggage["pieces"] as? String
                                     {
@@ -464,6 +468,9 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                         }else{
                             cell.arrivalTerminalLabel.attributedText = cell.addAttributsForRange(flight.atm, coloredString: flight.atm, color: AppColors.clear)
                         }
+                    }else{
+                        cell.arrivalTerminalLabel.attributedText = nil
+                        cell.arrivalTerminalLabel.text = ""
                     }
                     
                     if flight.dtm != ""{
@@ -473,6 +480,9 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                         }else{
                             cell.departureTerminalLabel.attributedText = cell.addAttributsForRange(flight.dtm, coloredString: flight.dtm, color: AppColors.clear)
                         }
+                    }else{
+                        cell.departureTerminalLabel.attributedText = nil
+                        cell.departureTerminalLabel.text = ""
                     }
                     
                     if let arrivalAirportDetails = airportDetailsResult[flight.to]{

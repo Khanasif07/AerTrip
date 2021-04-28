@@ -126,7 +126,7 @@ class FlightDetailsBaseVC: BaseVC {
         
         FirebaseEventLogs.shared.logFlightDetailsEventWithJourneyTitle(title: bookFlightObject.titleString.string ?? "n/a")
 
-        
+        self.loadFareInfo()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -187,6 +187,15 @@ class FlightDetailsBaseVC: BaseVC {
             allChildVCs.append(addBaggageVC())
             allChildVCs.append(addFareInfoVC())
         }
+    }
+    
+    
+    func loadFareInfo(){
+        if allChildVCs.count >= 3{
+            allChildVCs[2].loadView()
+            allChildVCs[2].viewDidLoad()
+        }
+        
     }
     
     func setupFarebreakupView(){        
@@ -548,6 +557,7 @@ extension FlightDetailsBaseVC{
             vc.fewSeatsLeftViewHeight = 0
         }
         vc.viewModel.itineraryId = self.itineraryId
+        vc.viewModel.intJourrney = self.intJourney.first
         vc.dimensionDelegate = self
         vc.isForDomestic = (self.bookFlightObject.isDomestic)
         vc.airportDetailsResult = intAirportDetailsResult
@@ -581,6 +591,7 @@ extension FlightDetailsBaseVC{
         self.viewModel.sid = self.sid
         self.viewModel.journey = self.journey
         self.viewModel.intJourney = self.intJourney
+        self.viewModel.bookFlightObject  = self.bookFlightObject
         self.viewModel.journeyType = (self.bookFlightObject.isDomestic) ? .domestic : .international
     }
 }
@@ -652,7 +663,7 @@ extension FlightDetailsBaseVC : FlightDetailsVMDelegate, TripCancelDelegate{
                 message = LocalizedString.flightHasAlreadyBeenSavedToTrip.localized
             }else{
                 let tripName = (self.viewModel.selectedTrip?.isDefault ?? false) ? LocalizedString.Default.localized.lowercased() : "\(self.viewModel.selectedTrip?.name ?? "")"
-                message = "journey has been added to \(tripName) trip"
+                message = "Journey has been added to \(tripName) trip"
             }
             AppToast.default.showToastMessage(message: message, onViewController: self)
         }else{
@@ -731,6 +742,7 @@ extension FlightDetailsBaseVC : FareBreakupVCDelegate
                 self.intFareBreakup?.hideShowLoader(isHidden: true)
             }
             if success{
+                vc.viewModel.aerinTravellerDtails = self.viewModel.itineraryData.itinerary.travellerDetails.t
                 DispatchQueue.main.async{[weak self] in
                     guard let self = self else {return}
                     vc.viewModel.newItineraryData = self.viewModel.itineraryData

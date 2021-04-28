@@ -263,9 +263,12 @@ class BookingReviewCancellationVC: BaseVC {
     
     private func setRefundAmountForHotelsAndFlight(){
         if self.viewModel.currentUsingAs == .flightCancellationReview {
-            if self.viewModel.totRefundForFlight < 0 && self.viewModel.isForflightCancellation{
+            if self.viewModel.totRefundForFlight <= 0 && self.viewModel.isForflightCancellation{
                 self.refundAmountLabel.text = (0).delimiterWithSymbol
+                self.totalNetRefundViewHeightConstraint.constant = 0.0
+                self.totalNetRefundView.isHidden = true
             }else{
+                self.totalNetRefundView.isHidden = false
                 self.refundAmountLabel.text = self.viewModel.totRefundForFlight.delimiterWithSymbol
             }
              

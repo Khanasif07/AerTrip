@@ -278,9 +278,13 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         }
                         
                         if baggageData.count > 0{
-                            if index < baggageData.count{
+                            if index < (baggageData.first?.count ?? 0){
+                                let bgs = baggageData.first?["\(flight.ffk)"] as? JSONDictionary
+
                                 if amenitiesData.count == 0{
-                                    if let bgData = baggageData[index]["bg"] as? JSONDictionary{
+                                    if let bgData = bgs?["bg"] as? JSONDictionary{
+
+//                                    if let bgData = baggageData[index]["bg"] as? JSONDictionary{
                                         if let adtBaggage = bgData["ADT"] as? JSONDictionary{
                                             if let weight = adtBaggage["weight"] as? String, let pieces = adtBaggage["pieces"] as? String
                                             {
@@ -309,8 +313,9 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                                     }
                                 }
                                 
-                                
-                                if let cbgData = baggageData[index]["cbg"] as? JSONDictionary{
+                                if let cbgData = bgs?["cbg"] as? JSONDictionary{
+
+//                                if let cbgData = baggageData[index]["cbg"] as? JSONDictionary{
                                     if let adtCabinBaggage = cbgData["ADT"] as? JSONDictionary{
                                         if let weight = adtCabinBaggage["weight"] as? String, let pieces = adtCabinBaggage["pieces"] as? String
                                         {
@@ -505,6 +510,9 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                             }else{
                                 flightDetailsCell.arrivalTerminalLabel.attributedText = flightDetailsCell.addAttributsForRange(flight.atm, coloredString: flight.atm, color: AppColors.clear)
                             }
+                        }else{
+                            flightDetailsCell.arrivalTerminalLabel.attributedText = nil
+                            flightDetailsCell.arrivalTerminalLabel.text = ""
                         }
                         
                         if flight.dtm != ""{
@@ -514,6 +522,9 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                             }else{
                                 flightDetailsCell.departureTerminalLabel.attributedText = flightDetailsCell.addAttributsForRange(flight.dtm, coloredString: flight.dtm, color: AppColors.clear)
                             }
+                        }else{
+                            flightDetailsCell.departureTerminalLabel.attributedText = nil
+                            flightDetailsCell.departureTerminalLabel.text = ""
                         }
                         
                         if let arrivalAirportDetails = airportDetailsResult[flight.to]
@@ -557,7 +568,6 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         
                         flightDetailsCell.count = count
                         flightDetailsCell.halt = flight.halt
-                        
                         flightDetailsCell.durationTitle = journey[indexPath.section].durationTitle
                         flightDetailsCell.ovgtf = flight.ovgtf
                         flightDetailsCell.travellingTiming = getTravellingTiming(duration: flight.ft)

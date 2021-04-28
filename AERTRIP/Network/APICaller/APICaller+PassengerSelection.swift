@@ -45,7 +45,7 @@ extension APICaller{
         
         AppNetworking.GET(endPoint: .fareConfirmation, parameters: params, success: { [weak self] (json) in
             guard let sSelf = self else {return}
-//            printDebug(json)
+            printDebug(json)
             sSelf.handleResponse(json, success: { (sucess, jsonData) in
                 
                 if sucess {

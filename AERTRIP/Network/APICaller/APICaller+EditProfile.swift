@@ -245,6 +245,27 @@ extension APICaller {
             }
         }
     }
+    
+    
+    func callAPIForUserTagSuggestion(params: JSONDictionary, completionBlock: @escaping(_ success: Bool, _ tags:[String])->Void){
+        
+        let urlStr = "\(APIEndPoint.getTagSuggestion.path)?pronoun=\((params["pronoun"] as? String ?? ""))"
+        
+        AppNetworking.GET(endPoint: urlStr, success: { [weak self] (data) in
+            guard let sSelf = self else {return}
+            sSelf.handleResponse(data, success: { (sucess, jsonData) in
+                let tag = jsonData[APIKeys.data.rawValue].dictionaryValue["tags"]?.arrayValue.map({$0.stringValue}) ?? []
+                completionBlock(sucess, tag)
+                
+            }, failure: { (errors) in
+                completionBlock(false, [])
+            })
+            
+        }) { (error) in
+            completionBlock(false, [])
+        }
+    }
+    
 }
 
 

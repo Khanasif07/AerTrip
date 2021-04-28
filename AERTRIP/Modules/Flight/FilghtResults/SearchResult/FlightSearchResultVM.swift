@@ -51,6 +51,8 @@ extension FlightResultViewModelDelegate {
     var recentSearchParameters = JSONDictionary()
     var recentSearchWorkItem: DispatchWorkItem?
     
+    var shouldSetRecentSearchInitially = false
+    
     func cancelAllWebserviceCalls() {
         
         for workItem in workItems {

@@ -139,7 +139,7 @@ extension FlightDomesticMultiLegResultVC {
     
     
     
-    func addErrorScreenAtIndex(index: Int , forFilteredResults: Bool )
+    func addErrorScreenAtIndex(index: Int , forFilteredResults: Bool, isForPinned:Bool = false)
     {
         if let tableview = baseScrollView.viewWithTag(1000 + index) as? UITableView {
             
@@ -176,7 +176,14 @@ extension FlightDomesticMultiLegResultVC {
         }
         
         if forFilteredResults {
-            noResultsView.showNoFilteredResults()
+            if !isForPinned{
+                noResultsView.showNoFilteredResults()
+            }else{
+                noResultsView.showResetPin()
+            }
+            
+        }else if isForPinned{
+            noResultsView.showResetPin()
         }
         else {
             noResultsView.showNoResultsMode()
@@ -189,6 +196,11 @@ extension FlightDomesticMultiLegResultVC {
     
     func restartFlightSearch() {
         // empty implementation
+    }
+    
+    func resetPinnedFlight() {
+        self.switchView.isOn = false
+        self.switcherDidChangeValue(switcher: self.switchView, value: false)
     }
     
     //MARK:- Fare Breakup View Methods

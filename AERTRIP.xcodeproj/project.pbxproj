@@ -1312,6 +1312,8 @@
 		8464FD62226DDB1B0021AF2B /* MyBookingFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8464FD61226DDB1B0021AF2B /* MyBookingFooterView.swift */; };
 		8464FD64226DDB230021AF2B /* MyBookingFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8464FD63226DDB230021AF2B /* MyBookingFooterView.xib */; };
 		846640E7254AA17700D87651 /* SpeechSynthesizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846640E6254AA17700D87651 /* SpeechSynthesizer.swift */; };
+		8467F946262DBF8800C93B8A /* TagSuggestionsTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467F944262DBF8800C93B8A /* TagSuggestionsTableCell.swift */; };
+		8467F947262DBF8800C93B8A /* TagSuggestionsTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8467F945262DBF8800C93B8A /* TagSuggestionsTableCell.xib */; };
 		846856A822339607001B9E13 /* ReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846856A622339607001B9E13 /* ReviewTableViewCell.swift */; };
 		846856A922339607001B9E13 /* ReviewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 846856A722339607001B9E13 /* ReviewTableViewCell.xib */; };
 		846856AC2233A482001B9E13 /* AdvisorRatingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846856AA2233A482001B9E13 /* AdvisorRatingTableViewCell.swift */; };
@@ -3149,6 +3151,8 @@
 		8464FD61226DDB1B0021AF2B /* MyBookingFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookingFooterView.swift; sourceTree = "<group>"; };
 		8464FD63226DDB230021AF2B /* MyBookingFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyBookingFooterView.xib; sourceTree = "<group>"; };
 		846640E6254AA17700D87651 /* SpeechSynthesizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechSynthesizer.swift; sourceTree = "<group>"; };
+		8467F944262DBF8800C93B8A /* TagSuggestionsTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSuggestionsTableCell.swift; sourceTree = "<group>"; };
+		8467F945262DBF8800C93B8A /* TagSuggestionsTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagSuggestionsTableCell.xib; sourceTree = "<group>"; };
 		846856A622339607001B9E13 /* ReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTableViewCell.swift; sourceTree = "<group>"; };
 		846856A722339607001B9E13 /* ReviewTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewTableViewCell.xib; sourceTree = "<group>"; };
 		846856AA2233A482001B9E13 /* AdvisorRatingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvisorRatingTableViewCell.swift; sourceTree = "<group>"; };
@@ -4171,6 +4175,8 @@
 				84D19ED023E0154E0011BAE8 /* FrequentFlyerTableViewCell.swift */,
 				84EEA5D223E19DCE008B95CD /* EditProfileFooterTableView.swift */,
 				84EEA5D423E19E0C008B95CD /* EditProfileFooterTableView.xib */,
+				8467F944262DBF8800C93B8A /* TagSuggestionsTableCell.swift */,
+				8467F945262DBF8800C93B8A /* TagSuggestionsTableCell.xib */,
 			);
 			path = EditProfile;
 			sourceTree = "<group>";
@@ -9862,6 +9868,7 @@
 				84BBEEA52214235900844034 /* HotelDetailsInclusionTableViewCell.xib in Resources */,
 				843FF54724740232001F21B1 /* FlightResultSingleJourneyVC.xib in Resources */,
 				84DD24A02267A6030013F77E /* PaymentInfoTableViewCell.xib in Resources */,
+				8467F947262DBF8800C93B8A /* TagSuggestionsTableCell.xib in Resources */,
 				18A8814D21C7CF3600864077 /* SlideMenuProfileImageHeaderView.xib in Resources */,
 				8491D1F2222D3FC2001D0313 /* SourceSansPro-SemiBoldItalic.ttf in Resources */,
 				8438C17C22045E4C001D510B /* TopNavigationView.xib in Resources */,
@@ -10144,6 +10151,7 @@
 				188A4DBA242DEA8000F871ED /* GalleryImageDismissAnimator.swift in Sources */,
 				843FF55D24740232001F21B1 /* JourneyNameCollectionViewCell.swift in Sources */,
 				8463A5662456C7B200C70D8C /* GMUKMLParser.m in Sources */,
+				8467F946262DBF8800C93B8A /* TagSuggestionsTableCell.swift in Sources */,
 				0C024046248044C300B06AEC /* SelectPassengerCell.swift in Sources */,
 				84F2DC932264708900212F05 /* TravelDateVC.swift in Sources */,
 				845D3A1A228D724500062EE5 /* AccountOutstanding.swift in Sources */,
