@@ -182,6 +182,8 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
         // set up filter button red-dot setup
         // self.filterButton.isSelected = true
         
+
+        
         return subpredicates
     }
     
