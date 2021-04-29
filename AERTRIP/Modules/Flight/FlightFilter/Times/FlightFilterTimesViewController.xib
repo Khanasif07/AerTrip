@@ -42,6 +42,8 @@
                 <outlet property="multiLegView" destination="aad-gD-Igu" id="3aV-Rr-LSI"/>
                 <outlet property="multiLegViewHeight" destination="KM6-jV-MyU" id="Jki-fl-kGA"/>
                 <outlet property="multiSegmentView" destination="BW3-J2-Xhr" id="F1i-af-YSP"/>
+                <outlet property="noTimesLbl" destination="cad-GE-TbN" id="awe-Sj-2sV"/>
+                <outlet property="noTimesView" destination="G0b-KX-gs0" id="ecX-Rb-kAd"/>
                 <outlet property="noonButton" destination="1wV-bm-9Ui" id="gdU-aQ-w1g"/>
                 <outlet property="noonContainerView" destination="ZeH-De-ngh" id="3sX-O3-iiM"/>
                 <outlet property="sectorNameLbl" destination="Oyr-sa-khO" id="PzJ-xk-fJW"/>
@@ -391,11 +393,31 @@
                                 </view>
                             </subviews>
                         </stackView>
+                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G0b-KX-gs0" userLabel="no stops view">
+                            <rect key="frame" x="0.0" y="32.5" width="420" height="402"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No stops available" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cad-GE-TbN">
+                                    <rect key="frame" x="16" y="8" width="138.5" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstItem="cad-GE-TbN" firstAttribute="leading" secondItem="G0b-KX-gs0" secondAttribute="leading" constant="16" id="917-rA-J2L"/>
+                                <constraint firstItem="cad-GE-TbN" firstAttribute="top" secondItem="G0b-KX-gs0" secondAttribute="top" constant="8" id="dgU-nn-PhB"/>
+                            </constraints>
+                        </view>
                     </subviews>
                     <constraints>
                         <constraint firstItem="gwW-GS-Akm" firstAttribute="top" secondItem="J4H-rg-ZOl" secondAttribute="top" id="4bf-f9-zQS"/>
                         <constraint firstAttribute="trailing" secondItem="gwW-GS-Akm" secondAttribute="trailing" id="5J2-gi-KVn"/>
+                        <constraint firstItem="G0b-KX-gs0" firstAttribute="bottom" secondItem="gwW-GS-Akm" secondAttribute="bottom" id="GSj-jt-1ek"/>
+                        <constraint firstItem="G0b-KX-gs0" firstAttribute="trailing" secondItem="gwW-GS-Akm" secondAttribute="trailing" id="HHs-R7-Osn"/>
                         <constraint firstItem="gwW-GS-Akm" firstAttribute="leading" secondItem="J4H-rg-ZOl" secondAttribute="leading" id="TIs-kG-d3J"/>
+                        <constraint firstItem="G0b-KX-gs0" firstAttribute="top" secondItem="ior-HT-zgb" secondAttribute="bottom" id="apC-cs-CJx"/>
+                        <constraint firstItem="G0b-KX-gs0" firstAttribute="leading" secondItem="gwW-GS-Akm" secondAttribute="leading" id="rhi-yu-euZ"/>
                         <constraint firstAttribute="bottom" secondItem="gwW-GS-Akm" secondAttribute="bottom" id="wBp-SP-tEU"/>
                     </constraints>
                 </scrollView>

@@ -29,6 +29,8 @@
                 <outlet property="multiLegJourney" destination="cdt-Vs-JXG" id="hjV-Ux-XTq"/>
                 <outlet property="multiLegViewHeight" destination="rPU-NW-g39" id="Zlc-eF-z0N"/>
                 <outlet property="multicitySegmentView" destination="jus-qh-ZhY" id="icB-aR-8NE"/>
+                <outlet property="noStopsLbl" destination="0WU-uT-5Mn" id="vmG-Jf-D6M"/>
+                <outlet property="noStopsView" destination="hAs-nu-O2a" id="48E-ME-e45"/>
                 <outlet property="sectorNameLbl" destination="AGE-pR-TCa" id="1sa-Pf-eoQ"/>
                 <outlet property="stopsBaseView" destination="EXG-si-kgu" id="fqJ-fP-NJN"/>
                 <outlet property="stopsBaseViewTopConstant" destination="pTj-ca-qaY" id="6pD-DF-Ack"/>
@@ -113,6 +115,22 @@
                         <constraint firstAttribute="height" constant="69" id="SqO-3w-fSY"/>
                     </constraints>
                 </view>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hAs-nu-O2a" userLabel="no stops view">
+                    <rect key="frame" x="0.0" y="120" width="375" height="79"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No stops available" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0WU-uT-5Mn">
+                            <rect key="frame" x="16" y="8" width="138.5" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="0WU-uT-5Mn" firstAttribute="top" secondItem="hAs-nu-O2a" secondAttribute="top" constant="8" id="4Ub-XH-5db"/>
+                        <constraint firstItem="0WU-uT-5Mn" firstAttribute="leading" secondItem="hAs-nu-O2a" secondAttribute="leading" constant="16" id="Tav-rT-v9X"/>
+                    </constraints>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Asw-DW-IKm">
                     <rect key="frame" x="0.0" y="199" width="375" height="124.5"/>
                     <subviews>
@@ -183,16 +201,20 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="jus-qh-ZhY" secondAttribute="trailing" constant="16" id="AG9-zP-Fb5"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="hAs-nu-O2a" secondAttribute="trailing" id="Asq-yz-cQ6"/>
                 <constraint firstItem="Asw-DW-IKm" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="BCh-PA-CxT"/>
                 <constraint firstItem="EXG-si-kgu" firstAttribute="top" secondItem="AGE-pR-TCa" secondAttribute="bottom" constant="10" id="FFO-bd-XRc"/>
                 <constraint firstItem="Asw-DW-IKm" firstAttribute="top" secondItem="EXG-si-kgu" secondAttribute="bottom" id="I12-Ig-Za0"/>
+                <constraint firstItem="hAs-nu-O2a" firstAttribute="top" secondItem="AGE-pR-TCa" secondAttribute="bottom" id="ROB-JY-2fZ"/>
                 <constraint firstItem="cdt-Vs-JXG" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="Run-NM-rtB"/>
                 <constraint firstItem="AGE-pR-TCa" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="U5R-u9-nyO"/>
                 <constraint firstItem="cdt-Vs-JXG" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="XLM-1h-yXF"/>
                 <constraint firstAttribute="trailing" secondItem="Asw-DW-IKm" secondAttribute="trailing" id="XPf-cP-z5I"/>
                 <constraint firstItem="cdt-Vs-JXG" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="b3C-38-lfI"/>
+                <constraint firstItem="hAs-nu-O2a" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="jMe-Va-9qa"/>
                 <constraint firstItem="EXG-si-kgu" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="muL-Qc-bS8"/>
                 <constraint firstItem="EXG-si-kgu" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="130" id="pTj-ca-qaY"/>
+                <constraint firstItem="Asw-DW-IKm" firstAttribute="top" secondItem="hAs-nu-O2a" secondAttribute="bottom" id="ugJ-bm-ZlA"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="EXG-si-kgu" secondAttribute="trailing" constant="16" id="yvF-nP-s5b"/>
             </constraints>
             <point key="canvasLocation" x="53.600000000000001" y="54.422788605697157"/>

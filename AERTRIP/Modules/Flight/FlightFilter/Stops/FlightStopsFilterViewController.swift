@@ -29,6 +29,8 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     @IBOutlet weak var avoidChangeOfAirportsBtn: UIButton!
     
     @IBOutlet weak var sectorNameLbl: UILabel!
+    @IBOutlet weak var noStopsView: UIView!
+    @IBOutlet weak var noStopsLbl: UILabel!
     
     //MARK:- State Properties
     
@@ -40,6 +42,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        initialSetup()
         allSectorsLbl.isHidden = !viewModel.isIntMCOrReturnVC
         sectorNameLbl.isHidden = true
         
@@ -80,7 +83,9 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     }
     
     func initialSetup() {
-        
+        noStopsLbl.text = LocalizedString.filterNotAvailable.localized
+        noStopsLbl.font = AppFonts.Regular.withSize(16)
+        noStopsLbl.textColor = AppColors.themeGray40
     }
     
     func updateUIPostLatestResults() {
@@ -149,7 +154,13 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
         stopsBaseView.subviews.forEach { $0.removeFromSuperview() }
         stopsButtonsArray.removeAll()
         
-        let baseStopCount = viewModel.currentStopFilter?.leastStop ?? 0
+        guard let least = viewModel.currentStopFilter?.leastStop else {
+            noStopsView.isHidden = false
+            return
+        }
+        noStopsView.isHidden = true
+        
+        let baseStopCount = least
         var stopCount = baseStopCount
         let numberOfAvailableStops = min(viewModel.currentStopFilter?.numberofAvailableStops ?? 0 , 4)
         for  i in 1...numberOfAvailableStops  {
@@ -236,7 +247,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     
     fileprivate func setLeastStopsTitle() {
         
-        let leastStop = viewModel.allStopsFilters.reduce( 0 , { $0 + $1.leastStop })
+        let leastStop = viewModel.allStopsFilters.reduce( 0 , { $0 + ($1.leastStop ?? 0) })
         if leastStop == 0 {
             LeastStopsTitle.text = "Non-stop only"
             LeastStopsTitleWidth.constant = LeastStopsTitle.intrinsicContentSize.width
@@ -339,7 +350,11 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
             if filter.availableStops.count <= 1 {
                 filter.userSelectedStops = []
             } else {
-                filter.userSelectedStops = [leastStop]
+                if let least = leastStop {
+                    filter.userSelectedStops = [least]
+                } else {
+                    filter.userSelectedStops = []
+                }
             }
             viewModel.allStopsFilters[index] = filter
             
@@ -352,7 +367,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
                     tappedOnStopButton(sender: button)
                 }
             }
-            viewModel.delegate?.stopsSelectionChangedAt(index, stops: [viewModel.allStopsFilters[index].leastStop])
+            viewModel.delegate?.stopsSelectionChangedAt(index, stops: [viewModel.allStopsFilters[index].leastStop ?? 0])
         }
         updateSegmentTitles()
         leastStopsButton.isSelected = leastBtnState
@@ -485,7 +500,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
         }else if viewModel.currentStopFilter?.userSelectedStops.count == 1 {
             for filter in viewModel.allStopsFilters {
                 
-                if filter.userSelectedStops.count == 1 && filter.userSelectedStops.contains(filter.leastStop){
+                if filter.userSelectedStops.count == 1 && filter.userSelectedStops.contains(filter.leastStop ?? 0){
                     leastStopsButton.isSelected = true
                     continue
                 }else {

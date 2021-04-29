@@ -30,6 +30,9 @@ class PriceFilterViewController: UIViewController , FilterViewController {
     @IBOutlet weak var refundableFaresTopBtn: UIButton!
     @IBOutlet weak var seperatorView: UIView!
     
+    @IBOutlet weak var noPriceView: UIView!
+    @IBOutlet weak var noPriceLbl: UILabel!
+    
     //MARK:- View Controller Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +48,10 @@ class PriceFilterViewController: UIViewController , FilterViewController {
         priceRangeSlider.addTarget(self, action: #selector(priceRangeChanged), for: .valueChanged)
         priceRangeSlider.addTarget(self, action: #selector(priceRangeUpdated), for: .touchUpInside)
 
+        noPriceView.isHidden = viewModel.currentPriceFilter.isAvailable
+        noPriceLbl.text = LocalizedString.filterNotAvailable.localized
+        noPriceLbl.font = AppFonts.Regular.withSize(16)
+        noPriceLbl.textColor = AppColors.themeGray40
     }
     
     override func viewDidLayoutSubviews() {
@@ -68,6 +75,7 @@ class PriceFilterViewController: UIViewController , FilterViewController {
         }
         
         checkRefundableFlights(index: viewModel.currentActiveIndex)
+        noPriceView.isHidden = viewModel.currentPriceFilter.isAvailable
     }
     
     func initialSetup () {
@@ -154,6 +162,7 @@ class PriceFilterViewController: UIViewController , FilterViewController {
         setupPriceSlider()
         setupPriceLabels()
         updateSegmentTitles()
+        noPriceView.isHidden = viewModel.currentPriceFilter.isAvailable
     }
     
     private func getSegmentTitleFor(_ index: Int) -> String {

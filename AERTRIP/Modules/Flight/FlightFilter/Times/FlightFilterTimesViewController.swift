@@ -58,6 +58,9 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     @IBOutlet weak var avoidOvernightImgView: UIImageView!
     @IBOutlet weak var avoidOvernightBtn: UIButton!
     
+    @IBOutlet weak var noTimesView: UIView!
+    @IBOutlet weak var noTimesLbl: UILabel!
+    
     //MARK:- View Controller Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,6 +70,8 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     /// Updates UI if data is coming and filters
     func updateFiltersFromAPI() {
         viewModel.currentTimerFilter = viewModel.multiLegTimerFilter[viewModel.currentActiveIndex]
+        noTimesView.isHidden = viewModel.currentTimerFilter.isAvailable
+        departureTimeLabel.isHidden = !viewModel.currentTimerFilter.isAvailable
         if viewModel.multiLegTimerFilter.count == 1 {
             multiLegViewHeight.constant = 0
             multiLegView.isHidden = true
@@ -653,6 +658,8 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         hideShowOvernightView()
         resetAvoidOvernightBtn()
         updateSegmentTitles()
+        noTimesView.isHidden = viewModel.currentTimerFilter.isAvailable
+        departureTimeLabel.isHidden = !viewModel.currentTimerFilter.isAvailable
 
     }
     
@@ -830,6 +837,10 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     //MARK:- FilterViewController delegate method
     
     func initialSetup() {
+        
+        noTimesLbl.text = LocalizedString.filterNotAvailable.localized
+        noTimesLbl.font = AppFonts.Regular.withSize(16)
+        noTimesLbl.textColor = AppColors.themeGray40
        
         flightTimesScrollView.delegate = self
         
