@@ -46,7 +46,7 @@ class SettingsCell: UITableViewCell {
         
         case .currency:
             self.settingsValueLavel.isHidden = false
-            self.settingsValueLavel.text = "₹"
+            self.settingsValueLavel.text = UserInfo.preferredCurrencyDetails?.currencySymbol
 
         case .notification:
             self.settingsValueLavel.isHidden = false

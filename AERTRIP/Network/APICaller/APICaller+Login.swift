@@ -62,6 +62,8 @@ extension APICaller {
                     if let img = UserInfo.loggedInUser?.profileImagePlaceholder() {
                         UserInfo.loggedInUser?.profilePlaceholder = img
                     }
+                    
+                    APICaller.shared.getCurrencies(completionBlock: {_ , _ in })
                 }
                 completionBlock(true, [])
                 
@@ -105,6 +107,9 @@ extension APICaller {
                         userData[APIKeys.generalPref.rawValue] = AppGlobals.shared.json(from: gen)
                     }
                     _ = UserInfo(withData: userData, userId: "\(id)")
+                    
+                    APICaller.shared.getCurrencies(completionBlock: {_ , _ in })
+                    
                 }
                 completionBlock(true, [])
                 
@@ -264,6 +269,8 @@ extension APICaller {
                         userData[APIKeys.generalPref.rawValue] = AppGlobals.shared.json(from: gen)
                     }
                     _ = UserInfo(withData: userData, userId: "\(id)")
+                    
+                    APICaller.shared.getCurrencies(completionBlock: {_ , _ in })
                 }
                 completionBlock(true, [])
                 

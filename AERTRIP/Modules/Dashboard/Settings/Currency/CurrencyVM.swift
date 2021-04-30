@@ -20,7 +20,7 @@ protocol CurrencyVcDelegate : class {
 class CurrencyVM {
     
     private var countries: [CurrencyModel] = [CurrencyModel]()
-    private var selectedCountry = CurrencyModel(json: [:])
+    private var selectedCountry = CurrencyModel(json: [:], code: "")
     weak var delegate : CurrencyVcDelegate?
     private var filteredCountries: [CurrencyModel] = [CurrencyModel]()
     var searchText : String = ""
@@ -31,8 +31,8 @@ class CurrencyVM {
     }
     
     func preSelectIndia(){
-        let india = countries.filter { $0.currencyCode == "INR"  }
-        selectedCountry = india.first ?? CurrencyModel(json: [:])
+        let india = countries.filter { $0.currencyCode == UserInfo.preferredCurrencyDetails?.currencyCode  }
+        selectedCountry = india.first ?? CurrencyModel(json: [:], code: "")
     }
     
 //    func getCurrencies() {
@@ -45,6 +45,7 @@ class CurrencyVM {
 //            return
 //        }
         self.selectedCountry = self.getCurrentDaraSource()[index]
+        self.updateUserCurrency()
     }
     
     func againSelectIndia(){
@@ -120,7 +121,7 @@ class CurrencyVM {
         
         self.delegate?.willGetCurrencies()
         
-        APICaller.shared.getCurrencies(params: [:]) { (success, data) in
+        APICaller.shared.getCurrencies() { (success, data) in
             if success{
                 
                let data = data.sorted { (one, two) -> Bool in
@@ -128,11 +129,13 @@ class CurrencyVM {
                 }
                 
                 var topCountries =  data.filter { (obj) -> Bool in
-                    return obj.currencyCode == "INR" || obj.currencyCode == "USD" || obj.currencyCode == "EUR" || obj.currencyCode == "JYP" || obj.currencyCode == "GBP"
+                    return obj.group.lowercased() == "primary"
+//                    return obj.currencyCode == "INR" || obj.currencyCode == "USD" || obj.currencyCode == "EUR" || obj.currencyCode == "JYP" || obj.currencyCode == "GBP"
                 }
                 
                 let restCountries = data.filter { (obj) -> Bool in
-                    return obj.currencyCode != "INR" && obj.currencyCode != "USD" && obj.currencyCode != "EUR" && obj.currencyCode != "JYP" && obj.currencyCode != "GBP"
+                    return obj.group.lowercased() != "primary"
+//                    return obj.currencyCode != "INR" && obj.currencyCode != "USD" && obj.currencyCode != "EUR" && obj.currencyCode != "JYP" && obj.currencyCode != "GBP"
                 }
                 
                topCountries = self.arangeTopCountries(countries: topCountries)
@@ -202,5 +205,17 @@ class CurrencyVM {
         return locale.displayName(forKey: .currencySymbol, value: currencyCode)
     }
     
+    
+    func updateUserCurrency(){
+        let param:JSONDictionary = ["preferred_currency": self.selectedCountry.currencyCode, "action":"currency"]
+        APICaller.shared.updateUserCurrency(params: param) {[weak self] (success, error) in
+            guard let self = self else {return}
+            if success{
+                UserInfo.loggedInUser?.preferredCurrency = self.selectedCountry.currencyCode
+                UserInfo.preferredCurrencyDetails = self.selectedCountry
+            }
+        }
+    }
+    
+    
 }
-

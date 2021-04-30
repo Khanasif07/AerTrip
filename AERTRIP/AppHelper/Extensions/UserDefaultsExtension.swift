@@ -30,7 +30,7 @@ extension UserDefaults {
         case recentGroupSearchesForLlName
         case recentGroupSearchesForLocation
         case currentUserCookies
-        
+        case preferredCurrency
         case xAuthToken
     }
 }

@@ -354,6 +354,19 @@ class UserInfo {
     
     var userId:String = ""
     
+    static var preferredCurrencyDetails:CurrencyModel?{
+        
+        get {
+            return UserDefaults.standard.retrieve(objectType: CurrencyModel.self, fromKey: UserDefaults.Key.preferredCurrency.rawValue)
+        }
+        set{
+            if let value = newValue{
+                UserDefaults.standard.save(customObject: value, inKey:UserDefaults.Key.preferredCurrency.rawValue )
+            }
+        }
+        
+    }
+    
 
     var email: String {
         get{

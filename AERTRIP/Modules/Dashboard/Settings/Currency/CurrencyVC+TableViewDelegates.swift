@@ -39,10 +39,10 @@ extension CurrencyVC : UITableViewDelegate, UITableViewDataSource {
         self.currencyVm.selectCurrency(index: indexPath.row)
         self.currencyTableView.reloadData()
         
-        delay(seconds: 0.3) {
-            self.currencyVm.againSelectIndia()
-            self.currencyTableView.reloadData()
-        }
+//        delay(seconds: 0.3) {
+//            self.currencyVm.againSelectIndia()
+//            self.currencyTableView.reloadData()
+//        }
         
     }
     
