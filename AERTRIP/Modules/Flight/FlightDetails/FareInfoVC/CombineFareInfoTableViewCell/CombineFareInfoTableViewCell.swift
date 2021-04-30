@@ -698,29 +698,37 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
     }
     
     //MARK:- Format Price
+//    func getPrice(price:Double) -> NSMutableAttributedString{
+//        let formatter = NumberFormatter()
+//        formatter.numberStyle = .currency
+//        formatter.maximumFractionDigits = 2
+//        formatter.locale = Locale(identifier: "en_IN")
+//        if let result = formatter.string(from: NSNumber(value: price)){
+//            let fontSize = 16
+//            let fontSizeSuper = 12
+//
+//            let displayFont = AppFonts.SemiBold.rawValue
+//            let displayFontSuper = AppFonts.SemiBold.rawValue
+//
+//
+//            let font = UIFont(name: displayFont, size:CGFloat(fontSize))
+//            let fontSuper = UIFont(name: displayFontSuper, size:CGFloat(fontSizeSuper))
+//            let attString:NSMutableAttributedString = NSMutableAttributedString(string: result, attributes: [.font:font])
+//            attString.setAttributes([.font:fontSuper,.baselineOffset:6], range: NSRange(location:result.count-3,length:3))
+//            if attString.string.contains(find: ".00"){
+//                attString.mutableString.replaceOccurrences(of: ".00", with: "", options: .caseInsensitive, range: NSRange(location:result.count-3,length:3))
+//            }
+//            return attString
+//        }else{
+//            return NSMutableAttributedString(string: "\(price)")
+//        }
+//    }
+    
+    
+    
     func getPrice(price:Double) -> NSMutableAttributedString{
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        formatter.maximumFractionDigits = 2
-        formatter.locale = Locale(identifier: "en_IN")
-        if let result = formatter.string(from: NSNumber(value: price)){
-            let fontSize = 16
-            let fontSizeSuper = 12
-
-            let displayFont = AppFonts.SemiBold.rawValue
-            let displayFontSuper = AppFonts.SemiBold.rawValue
-
-            
-            let font = UIFont(name: displayFont, size:CGFloat(fontSize))
-            let fontSuper = UIFont(name: displayFontSuper, size:CGFloat(fontSizeSuper))
-            let attString:NSMutableAttributedString = NSMutableAttributedString(string: result, attributes: [.font:font])
-            attString.setAttributes([.font:fontSuper,.baselineOffset:6], range: NSRange(location:result.count-3,length:3))
-            if attString.string.contains(find: ".00"){
-                attString.mutableString.replaceOccurrences(of: ".00", with: "", options: .caseInsensitive, range: NSRange(location:result.count-3,length:3))
-            }
-            return attString
-        }else{
-            return NSMutableAttributedString(string: "\(price)")
-        }
+        return price.getConvertedCanllationAmount(using: AppFonts.SemiBold.withSize(16))
     }
+    
+    
 }

@@ -1103,16 +1103,15 @@ extension String{
         let stylizedPrice = NSMutableAttributedString(string: self, attributes: [.font: font])
         
         guard var changeRange = self.range(of: ".")?.asNSRange(inString: self) else {
-            return stylizedPrice
+            return stylizedPrice.addCurrencySymbol(using: font)
         }
-        let result = self.components(separatedBy: ".").last?.components(separatedBy: " ").first?.count
         changeRange.length = self.count - changeRange.location
         
-        guard let font = UIFont(name: font.fontName, size: (font.pointSize * 0.75)) else {
+        guard let newFont = UIFont(name: font.fontName, size: (font.pointSize * 0.75)) else {
             printDebug("font not found")
-            return stylizedPrice
+            return stylizedPrice.addCurrencySymbol(using: font)
         }
-        let changeFont = font
+        let changeFont = newFont
         let offset = 6.2
         stylizedPrice.addAttribute(.font, value: changeFont, range: changeRange)
         stylizedPrice.addAttribute(.baselineOffset, value: offset, range: changeRange)
