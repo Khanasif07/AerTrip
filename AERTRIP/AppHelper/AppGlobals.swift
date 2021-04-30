@@ -618,6 +618,14 @@ extension Double {
     }
     
     
+    func  getConvertedAmount(using font: UIFont)->NSMutableAttributedString{
+        return (self * (UserInfo.preferredCurrencyDetails?.rate ?? 1.0)).amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font)
+    }
+    
+    func  getConvertedCanllationAmount(using font: UIFont)->NSMutableAttributedString{
+        return (self * (UserInfo.preferredCurrencyDetails?.cancellation_rate ?? 1.0)).amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font)
+    }
+    
 }
 
 extension AppGlobals {

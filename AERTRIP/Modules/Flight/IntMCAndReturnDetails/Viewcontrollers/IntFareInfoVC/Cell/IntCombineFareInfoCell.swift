@@ -169,36 +169,41 @@ extension IntCombineFareInfoCell:UITableViewDataSource, UITableViewDelegate
 //    }
     
     
-    func getPrice(price:Double) -> NSMutableAttributedString{
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        formatter.maximumFractionDigits = 2
-        formatter.locale = Locale(identifier: "en_IN")
-        if let result = formatter.string(from: NSNumber(value: price)){
-//            let fontSize = 16
-//            let fontSizeSuper = 12
+//    func getPrice(price:Double) -> NSMutableAttributedString{
+//        let formatter = NumberFormatter()
+//        formatter.numberStyle = .currency
+//        formatter.maximumFractionDigits = 2
+//        formatter.locale = Locale(identifier: "en_IN")
+//        if let result = formatter.string(from: NSNumber(value: price)){
+////            let fontSize = 16
+////            let fontSizeSuper = 12
+////
+////            let displayFont = AppFonts.SemiBold.rawValue
+////            let displayFontSuper = AppFonts.SemiBold.rawValue
 //
-//            let displayFont = AppFonts.SemiBold.rawValue
-//            let displayFontSuper = AppFonts.SemiBold.rawValue
-            
-//            let font:UIFont? = UIFont(name: displayFont, size:CGFloat(fontSize))
-//            let fontSuper:UIFont? = UIFont(name: displayFontSuper, size:CGFloat(fontSizeSuper))
-
-            
-            let font:UIFont = AppFonts.SemiBold.withSize(16)
-            let fontSuper:UIFont = AppFonts.SemiBold.withSize(12)
-            let attString:NSMutableAttributedString = NSMutableAttributedString(string: result, attributes: [.font:font])
-            attString.setAttributes([.font:fontSuper,.baselineOffset:6], range: NSRange(location:result.count-3,length:3))
-            if attString.string.contains(find: ".00"){
-                attString.mutableString.replaceOccurrences(of: ".00", with: "", options: .caseInsensitive, range: NSRange(location:result.count-3,length:3))
-            }
-            return attString
-        }else{
-            return NSMutableAttributedString(string: "\(price)")
-        }
-        
-       
+////            let font:UIFont? = UIFont(name: displayFont, size:CGFloat(fontSize))
+////            let fontSuper:UIFont? = UIFont(name: displayFontSuper, size:CGFloat(fontSizeSuper))
+//
+//
+//            let font:UIFont = AppFonts.SemiBold.withSize(16)
+//            let fontSuper:UIFont = AppFonts.SemiBold.withSize(12)
+//            let attString:NSMutableAttributedString = NSMutableAttributedString(string: result, attributes: [.font:font])
+//            attString.setAttributes([.font:fontSuper,.baselineOffset:6], range: NSRange(location:result.count-3,length:3))
+//            if attString.string.contains(find: ".00"){
+//                attString.mutableString.replaceOccurrences(of: ".00", with: "", options: .caseInsensitive, range: NSRange(location:result.count-3,length:3))
+//            }
+//            return attString
+//        }else{
+//            return NSMutableAttributedString(string: "\(price)")
+//        }
+//
+//
+//    }
+    
+    func getPrice(price:Double) -> NSMutableAttributedString{
+        return price.getConvertedCanllationAmount(using: AppFonts.SemiBold.withSize(16))
     }
+    
 }
 
 
