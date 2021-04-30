@@ -1094,4 +1094,52 @@ extension String {
     }
 }
 
+// Currency changes function
 
+extension String{
+    
+    
+    func asStylizedPriceWithSymbol(using font: UIFont) -> NSMutableAttributedString {
+        let stylizedPrice = NSMutableAttributedString(string: self, attributes: [.font: font])
+        
+        guard var changeRange = self.range(of: ".")?.asNSRange(inString: self) else {
+            return stylizedPrice
+        }
+        let result = self.components(separatedBy: ".").last?.components(separatedBy: " ").first?.count
+        changeRange.length = self.count - changeRange.location
+        
+        guard let font = UIFont(name: font.fontName, size: (font.pointSize * 0.75)) else {
+            printDebug("font not found")
+            return stylizedPrice
+        }
+        let changeFont = font
+        let offset = 6.2
+        stylizedPrice.addAttribute(.font, value: changeFont, range: changeRange)
+        stylizedPrice.addAttribute(.baselineOffset, value: offset, range: changeRange)
+        return stylizedPrice.addCurrencySymbol(using: font)
+    }
+    
+}
+
+extension NSMutableAttributedString{
+    
+    func addCurrencySymbol(using font: UIFont)->NSMutableAttributedString{
+        if let currency =  UserInfo.preferredCurrencyDetails{
+            let currencyText = NSMutableAttributedString(string: currency.currencySymbol, attributes: [.font: font])
+            if currency.textSuffix{
+                self.append(currencyText)
+                return self
+            }else{
+                currencyText.append(self)
+                return currencyText
+            }
+        }else{
+            let currency = NSMutableAttributedString(string: "₹", attributes: [.font: font])
+            currency.append(self)
+            return currency
+        }
+        
+    }
+    
+    
+}

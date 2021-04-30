@@ -609,6 +609,15 @@ extension Double {
     }
     
     
+    var amountInDelimeterWithoutSymbol: String {
+        if self < 0 {
+            return "- \(abs(self.roundTo(places: 2)).delimiterWithoutSymbol)".replacingOccurrences(of: ".00", with: "")
+        } else {
+            return "\(self.roundTo(places: 2).delimiterWithoutSymbol)".replacingOccurrences(of: ".00", with: "")
+        }
+    }
+    
+    
 }
 
 extension AppGlobals {

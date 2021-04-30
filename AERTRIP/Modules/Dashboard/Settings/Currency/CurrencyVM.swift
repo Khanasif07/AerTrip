@@ -213,6 +213,7 @@ class CurrencyVM {
             if success{
                 UserInfo.loggedInUser?.preferredCurrency = self.selectedCountry.currencyCode
                 UserInfo.preferredCurrencyDetails = self.selectedCountry
+                NotificationCenter.default.post(.init(name: .dataChanged))
             }
         }
     }
