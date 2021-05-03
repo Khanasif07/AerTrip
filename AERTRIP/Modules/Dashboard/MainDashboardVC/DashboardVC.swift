@@ -816,11 +816,7 @@ extension DashboardVC {
         let midConstant: CGFloat = (maxYOffsetForMainScroll/2) + 3
         
         if mainScrollYOffset < midConstant {
-            //            UIView.animate(withDuration: duration, animations: {
-            //
-            //            }, completion: { _ in
-            //
-            //            })
+            
             let animator = UIViewPropertyAnimator(duration: duration, curve: .linear) { [weak self] in
                 guard let `self` = self else {return}
                 
@@ -853,16 +849,6 @@ extension DashboardVC {
             
             animator.startAnimation()
         } else {
-            //            UIView.animate(withDuration: duration, animations: {
-            //                for offset in stride(from: mainScrollYOffset, through: maxYOffsetForMainScroll, by: 0.1) {
-            //                    self.mainScrollView.contentOffset.y = offset
-            //                    self.mainScrollView.layoutIfNeeded()
-            //                }
-            //            }, completion: { _ in
-            //                if self.mainScrollView.contentOffset.y < maxYOffsetForMainScroll {
-            //                    self.scrollToTopOrBottom(0.15)
-            //                }
-            //            })
             
             let animator = UIViewPropertyAnimator(duration: duration, curve: .linear) { [weak self] in
                 guard let `self` = self else {return}
