@@ -881,7 +881,7 @@ extension String {
         // attributedString.addAttribute(NSFontAttributeName, value: UIFont.systemFont(ofSize: 14), range: range1)
         attributedString.addAttributes([NSAttributedString.Key.foregroundColor : strClr, NSAttributedString.Key.font: strFont], range: range1)
 
-        //if main_string.contains("(should be 18 years or above from curent date)"){
+        //if main_string.contains("(should be 18 years or above from current date)"){
         let range2 = (self as NSString).range(of: subString)
 
         attributedString.addAttributes([NSAttributedString.Key.font: subStrFont ,NSAttributedString.Key.foregroundColor : substrClr], range: range2)
@@ -1124,15 +1124,15 @@ extension NSMutableAttributedString{
     
     func addCurrencySymbol(using font: UIFont)->NSMutableAttributedString{
         if let currency =  UserInfo.preferredCurrencyDetails{
-            var  currencyText = NSMutableAttributedString(string: currency.currencySymbol, attributes: [.font: font])
-            if currency.textSuffix{
-                currencyText = NSMutableAttributedString(string: " \(currency.currencySymbol)", attributes: [.font: font])
-                self.append(currencyText)
-                return self
-            }else{
+            let  currencyText = NSMutableAttributedString(string: currency.currencySymbol, attributes: [.font: font])
+//            if currency.textSuffix{
+//                currencyText = NSMutableAttributedString(string: " \(currency.currencySymbol)", attributes: [.font: font])
+//                self.append(currencyText)
+//                return self
+//            }else{
                 currencyText.append(self)
                 return currencyText
-            }
+//            }
         }else{
             let currency = NSMutableAttributedString(string: "₹", attributes: [.font: font])
             currency.append(self)
