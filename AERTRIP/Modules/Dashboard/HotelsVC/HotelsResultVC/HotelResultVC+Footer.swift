@@ -130,17 +130,24 @@ extension HotelResultVC {
     
     
     @objc func tapOnExpandedFooterView(_ sender: UITapGestureRecognizer) {
-
+        
+//        guard let sections = self.viewModel.fetchedResultsController.sections else {
+//            printDebug("No sections in fetchedResultsController")
+//            return
+//        }
+//
+//        printDebug("sections....\(sections.count)")
+//
+//        tableViewVertical.deleteSections(IndexSet(integer: sections.count - 1), with: UITableView.RowAnimation.fade)
+        
         UIView.animate(withDuration: 0.1) {
             
-            self.tableViewVertical.tableFooterView?.transform = CGAffineTransform(translationX: 0, y: 0)
+            self.tableViewVertical.tableFooterView?.transform = CGAffineTransform(translationX: 0, y: 1)
 
-            
         } completion: { (success) in
             
             self.tableViewVertical.tableFooterView?.transform = CGAffineTransform.identity
 
-            
             self.setGroupedFooterView()
             self.viewModel.showBeyondTwenty = false
             self.doneButtonTapped()
