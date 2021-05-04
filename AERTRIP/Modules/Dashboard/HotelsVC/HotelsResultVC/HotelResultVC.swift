@@ -513,17 +513,13 @@ class HotelResultVC: BaseVC {
     }
     
     @IBAction func mapButtonAction(_ sender: Any) {
-//        self.mapButtonIndicator.isHidden = false
-//        self.mapButton.alpha = 0.5
-//        self.mapButtonIndicator.startAnimating()
-//        delay(seconds: 0.1) {
-//            AppFlowManager.default.moveToHotelsResultMapVC(viewModel: self.viewModel)
-//        }
-//        FirebaseEventLogs.shared.logHotelListEvents(with: .HotelsMapViewOpened)
-        
-        self.viewModel.showBeyondTwenty = !self.viewModel.showBeyondTwenty
-        self.doneButtonTapped()
-        
+        self.mapButtonIndicator.isHidden = false
+        self.mapButton.alpha = 0.5
+        self.mapButtonIndicator.startAnimating()
+        delay(seconds: 0.1) {
+            AppFlowManager.default.moveToHotelsResultMapVC(viewModel: self.viewModel)
+        }
+        FirebaseEventLogs.shared.logHotelListEvents(with: .HotelsMapViewOpened)
     }
     
     @IBAction func unPinAllFavouriteButtonTapped(_ sender: Any) {

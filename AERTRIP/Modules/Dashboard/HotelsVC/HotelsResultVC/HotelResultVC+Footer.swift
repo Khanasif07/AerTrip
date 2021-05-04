@@ -65,11 +65,21 @@ extension HotelResultVC {
     
     @objc func tappedOnGroupedFooterView(_ sender : UITapGestureRecognizer) {
 
-        setExpandedStateFooter()
+        UIView.animate(withDuration: 0.1) {
         
-        self.viewModel.showBeyondTwenty = true
-        
-        self.doneButtonTapped()
+            self.tableViewVertical.tableFooterView?.transform = CGAffineTransform(translationX: 0, y: 200)
+    
+        } completion: { (success) in
+            
+            self.tableViewVertical.tableFooterView?.transform = CGAffineTransform.identity
+
+            self.setExpandedStateFooter()
+            
+            self.viewModel.showBeyondTwenty = true
+            
+            self.doneButtonTapped()
+        }
+ 
     }
     
     
@@ -119,15 +129,24 @@ extension HotelResultVC {
     }
     
     
-    
     @objc func tapOnExpandedFooterView(_ sender: UITapGestureRecognizer) {
 
-        setGroupedFooterView()
-        
-        self.viewModel.showBeyondTwenty = false
-        
-        self.doneButtonTapped()
-        
+        UIView.animate(withDuration: 0.1) {
+            
+            self.tableViewVertical.tableFooterView?.transform = CGAffineTransform(translationX: 0, y: 0)
+
+            
+        } completion: { (success) in
+            
+            self.tableViewVertical.tableFooterView?.transform = CGAffineTransform.identity
+
+            
+            self.setGroupedFooterView()
+            self.viewModel.showBeyondTwenty = false
+            self.doneButtonTapped()
+            
+        }
+
     }
     
     
