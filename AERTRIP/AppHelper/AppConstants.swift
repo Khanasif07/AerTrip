@@ -27,7 +27,19 @@ import Foundation
     }
     
     static var kRazorpayPublicKey : String{
-        AppConstants.isReleasingForCustomers ? "rzp_live_asjI4DvIbYfP6p" : "rzp_test_QJYU8TtB6deJgb"
+        
+        if AppConstants.isReleasingForCustomers{
+            ///For user testing razorpay key for js@aertrip.com
+            if !(UserInfo.loggedInUserId == "21" && UserInfo.loggedInUser?.email == "js@aertrip.com"){
+                return "rzp_live_asjI4DvIbYfP6p"
+            }else{
+                return "rzp_test_QJYU8TtB6deJgb"
+            }
+        }else{
+            return "rzp_test_QJYU8TtB6deJgb"
+        }
+        
+//        AppConstants.isReleasingForCustomers ? "rzp_live_asjI4DvIbYfP6p" : "rzp_test_QJYU8TtB6deJgb"
     }
     
     static let airlineMasterBaseUrl = "http://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/"
