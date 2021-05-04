@@ -32,7 +32,6 @@ import Foundation
     
     static let airlineMasterBaseUrl = "http://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/"
 
-    static let dummyTextPdfLink = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
 
     static let kAppStoreLink = "https://itunes.apple.com/app/id\(1369238862)?action=write-review"
 

@@ -88,7 +88,7 @@ class BaggageContainerVM {
         for (index,item) in self.allChildVCs.enumerated() {
             AddonsDataStore.shared.flightsWithDataForBaggage[index].bags = item.selectBaggageVM.addonsDetails
             
-            let flightAtINdex = AddonsDataStore.shared.allFlights.filter { $0.ffk == AddonsDataStore.shared.flightsWithDataForMeals[index].flightId }
+            let flightAtINdex = AddonsDataStore.shared.allFlights.filter { $0.ffk == AddonsDataStore.shared.flightsWithDataForBaggage[index].flightId }
             
             if let firstFlight = flightAtINdex.first {
                 
