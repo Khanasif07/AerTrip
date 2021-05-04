@@ -1276,6 +1276,7 @@
 		8458815E263AC0A70093DEBD /* APICaller+Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8458815D263AC0A70093DEBD /* APICaller+Currency.swift */; };
 		8459208D24E2CA710001ED28 /* GetSharableUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8459208C24E2CA710001ED28 /* GetSharableUrl.swift */; };
 		8459208F24E2D3490001ED28 /* APIURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8459208E24E2D3490001ED28 /* APIURLs.swift */; };
+		845A09DB26418BBB00D83FE1 /* CurrencyControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845A09DA26418BBB00D83FE1 /* CurrencyControler.swift */; };
 		845A951E251DF1C20018B7D9 /* FlightDomesticMultiLegResultVC+Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845A951D251DF1C20018B7D9 /* FlightDomesticMultiLegResultVC+Animation.swift */; };
 		845B619224C0226C00369CC1 /* WebCheckinVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B619024C0226C00369CC1 /* WebCheckinVM.swift */; };
 		845B619324C0226C00369CC1 /* WebCheckinVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B619124C0226C00369CC1 /* WebCheckinVC.swift */; };
@@ -3077,6 +3078,7 @@
 		8458815D263AC0A70093DEBD /* APICaller+Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APICaller+Currency.swift"; sourceTree = "<group>"; };
 		8459208C24E2CA710001ED28 /* GetSharableUrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetSharableUrl.swift; sourceTree = "<group>"; };
 		8459208E24E2D3490001ED28 /* APIURLs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIURLs.swift; sourceTree = "<group>"; };
+		845A09DA26418BBB00D83FE1 /* CurrencyControler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyControler.swift; sourceTree = "<group>"; };
 		845A951D251DF1C20018B7D9 /* FlightDomesticMultiLegResultVC+Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlightDomesticMultiLegResultVC+Animation.swift"; sourceTree = "<group>"; };
 		845B619024C0226C00369CC1 /* WebCheckinVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebCheckinVM.swift; sourceTree = "<group>"; };
 		845B619124C0226C00369CC1 /* WebCheckinVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebCheckinVC.swift; sourceTree = "<group>"; };
@@ -3692,6 +3694,7 @@
 				0C24D4F0242CAF7300CBFF92 /* CurrencyVC.swift */,
 				0C24D4F2242CAF8900CBFF92 /* CurrencyVC+TableViewDelegates.swift */,
 				0C24D4F4242CAF9D00CBFF92 /* CurrencyVM.swift */,
+				845A09DA26418BBB00D83FE1 /* CurrencyControler.swift */,
 			);
 			path = Currency;
 			sourceTree = "<group>";
@@ -10180,6 +10183,7 @@
 				0C22F44C2440559C00FD357F /* ThingsCanBeAskedVC.swift in Sources */,
 				843FF66C247409E3001F21B1 /* UserDetails.m in Sources */,
 				84323D39222FE42300DA7581 /* AmenitiesDescriptionTableViewCell.swift in Sources */,
+				845A09DB26418BBB00D83FE1 /* CurrencyControler.swift in Sources */,
 				84534EC022490A44009FF536 /* HCTotalChargeTableViewCell.swift in Sources */,
 				84E4BC56229E935900B72306 /* TravellersPnrStatusTableViewCell.swift in Sources */,
 				181025A421E33C8E0046EED7 /* APICaller+Travellers.swift in Sources */,

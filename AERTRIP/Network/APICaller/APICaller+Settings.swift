@@ -10,7 +10,7 @@ import Foundation
 
 extension APICaller {
 
-    func getCurrencies(completionBlock: @escaping (_ success: Bool, _ errorCodes: [CurrencyModel]) -> Void) {
+    func getCurrencies(completionBlock: @escaping (_ success: Bool, _ currencies: [CurrencyModel]) -> Void) {
         AppNetworking.GET(endPoint: APIEndPoint.currenciesList, parameters: [:], success: { [weak self] json in
             guard let sSelf = self else { return }
             printDebug(json)
