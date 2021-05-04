@@ -63,7 +63,7 @@ import Foundation
 
 enum AppConstants {
     
-    static let isReleasingForCustomers : Bool = true
+    static let isReleasingForCustomers : Bool = false
     static let logsEnabled: Bool = false
 
     static let kCurrency = ""
