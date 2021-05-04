@@ -143,7 +143,7 @@ class AccountOutstandingLadgerVM: NSObject {
         
         var allIds: [String] = []
         var param:JSONDictionary = [:]
-        ///Commented as per discussion with Luvkesh regarding outstanding paymnet.
+        ///Commented as per discussion with Luvkesh regarding outstanding payment.
         if self.selectedEvent.isEmpty {
 //            for key in Array(self._accountDetails.keys) {
 //                if let arr = self._accountDetails[key] as? [AccountDetailEvent] {
