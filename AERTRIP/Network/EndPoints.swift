@@ -22,7 +22,7 @@ enum APIEndPoint: String {
     //dev
 //    case baseUrlPath  = "https://beta.aertrip.com/api/v1/"
     
-    //beta-rz
+    //beta-rz 
 //    case baseUrlPath = "https://beta-rz.aertrip.com/api/v1/"
     
     //prod
