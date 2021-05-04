@@ -142,22 +142,26 @@ class AccountOutstandingLadgerVM: NSObject {
         self.delegate?.willGetOutstandingPayment()
         
         var allIds: [String] = []
+        var param:JSONDictionary = [:]
+        ///Commented as per discussion with Luvkesh regarding outstanding paymnet.
         if self.selectedEvent.isEmpty {
-            for key in Array(self._accountDetails.keys) {
-                if let arr = self._accountDetails[key] as? [AccountDetailEvent] {
-                    for event in arr {
-                        allIds.append(event.transactionId)
-                    }
-                }
-            }
+//            for key in Array(self._accountDetails.keys) {
+//                if let arr = self._accountDetails[key] as? [AccountDetailEvent] {
+//                    for event in arr {
+//                        allIds.append(event.transactionId)
+//                    }
+//                }
+//            }
+//            param = ["txn_ids": allIds]
         }
         else {
             for event in self.selectedEvent {
                 allIds.append(event.transactionId)
             }
+            param = ["txn_ids": allIds]
         }
         
-        APICaller.shared.outstandingPaymentAPI(params: ["txn_ids": allIds]) { [weak self](success, errors, itiner) in
+        APICaller.shared.outstandingPaymentAPI(params: param) { [weak self](success, errors, itiner) in
             if success {
                 self?.itineraryData = itiner
                 self?.delegate?.getOutstandingPaymentSuccess()
