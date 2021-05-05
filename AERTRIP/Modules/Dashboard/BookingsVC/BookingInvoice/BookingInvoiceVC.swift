@@ -129,7 +129,12 @@ class BookingInvoiceVC: BaseVC {
             }
         }
 
-        totalPayableCell.totalPayableNowLabel.text = txt
+        if txt == LocalizedString.dash.localized{
+            totalPayableCell.totalPayableNowLabel.text = ""
+        }else{
+            totalPayableCell.totalPayableNowLabel.text = txt
+        }
+        
         totalPayableCell.totalPayableNowLabel.font = AppFonts.Regular.withSize(18.0)
         
         totalPayableCell.totalPriceLabel.text = ""

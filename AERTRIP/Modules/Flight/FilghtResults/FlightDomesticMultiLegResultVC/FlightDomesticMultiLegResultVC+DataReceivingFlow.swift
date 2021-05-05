@@ -108,7 +108,7 @@ extension FlightDomesticMultiLegResultVC {
                                     
                                     if self.viewModel.resultsTableStates[index] == .showPinnedFlights && self.viewModel.results[index].pinnedFlights.isEmpty {
                                         
-                                        self.addErrorScreenAtIndex(index: index, forFilteredResults: true)
+                                        self.addErrorScreenAtIndex(index: index, forFilteredResults: true, isForPinned: true)
                                         
                                     } else if modifiedResult.count > 0 {
                                         

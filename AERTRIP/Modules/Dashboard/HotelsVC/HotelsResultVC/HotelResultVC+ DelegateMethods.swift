@@ -257,8 +257,7 @@ extension HotelResultVC: HotelResultDelegate {
                 HotelFilterVM.shared.ratingCount = HotelsSearchVM.hotelFormData.ratingCount
                 self?.doneButtonTapped()
             }
-        }
-        else {
+        } else {
             self.viewModel.loadSaveData()
             // nitin  self.getFavouriteHotels()
         }

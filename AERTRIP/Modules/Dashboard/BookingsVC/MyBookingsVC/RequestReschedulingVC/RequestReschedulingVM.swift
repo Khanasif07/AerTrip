@@ -84,8 +84,8 @@ class RequestReschedulingVM {
 //            }
             
             //set selected pax_id
-            for pax in leg.selectedPaxs {
-                params["\(leg.legId)[pax_id][]"] = pax.paxId
+            for (index, pax) in leg.selectedPaxs.enumerated() {
+                params["\(leg.legId)[pax_id][\(index)]"] = pax.paxId
             }
             
             params["booking_id"] = leg.bookingId

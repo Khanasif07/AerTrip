@@ -199,8 +199,8 @@ extension SortVC: UITableViewDataSource, UITableViewDelegate {
                     HotelFilterVM.shared.sortUsing = .DistanceNearestFirst(ascending: true)
                     filterValues = "Nearest First"
                 } else {
-                    HotelFilterVM.shared.sortUsing = .DistanceNearestFirst(ascending: false)
-                    filterValues = "Furthest First"
+//                    HotelFilterVM.shared.sortUsing = .DistanceNearestFirst(ascending: false)
+//                    filterValues = "Furthest First"
                 }
             default:
                 return

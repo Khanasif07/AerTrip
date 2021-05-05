@@ -107,9 +107,11 @@ extension APICaller{
     }
     
     func getFlightFareInfo(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ data: Data?, _ errorCodes: ErrorCodes)->Void ){
-        AppNetworking.POST(endPoint: .flightDetails_FareInfo, parameters: params,success: {(_ _)in}, successWithData: { data in
+        AppNetworking.POST(endPoint: .flightDetails_FareInfo, parameters: params) { (json) in
+            printDebug(json)
+        } successWithData:{ data in
             completionBlock(data, [])
-        },failure: { (error) in
+        } failure: { (error) in
             if error.code == AppNetworking.noInternetError.code {
                 AppGlobals.shared.stopLoading()
                 AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
@@ -119,7 +121,8 @@ extension APICaller{
                 AppToast.default.showToastMessage(message: ATErrorManager.LocalError.default.message)
                 completionBlock(nil, [])
             }
-        })
+        }
+
     }
     
 

@@ -184,7 +184,12 @@ extension FlightBookingsDetailsVC {
         if self.viewModel.bookingDetail?.refundAmount ?? 0.0 != 0.0 {
             isCellLast = false
         }
-        cell.configCell(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(self.viewModel.bookingDetail?.paid ?? 0)", isLastCell: isCellLast)
+        
+        print("paid= ",self.viewModel.bookingDetail?.paid)
+        print("transaction= ",self.viewModel.bookingDetail?.receipt?.voucher.first?.transactions.first?.amount)
+        
+        let paidAmt = self.viewModel.bookingDetail?.receipt?.voucher.first?.transactions.first?.amount ?? 0
+        cell.configCell(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(paidAmt)", isLastCell: isCellLast)
         cell.containerViewBottomConstraint.constant = (isCellLast) ? 21.0 : 0.0
         cell.clipsToBounds = isCellLast
         cell.dividerView.isHidden = false

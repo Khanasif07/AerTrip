@@ -225,7 +225,11 @@ class DashboardVC: BaseVC {
     
     
     @IBAction func profileButtonAction(_ sender: ATNotificationButton) {
-        
+        if #available(iOS 14, *) {
+            if AppTransparencyManager.currentStatus == .notDetermined{
+                AppTransparencyManager.askForPermission()
+            }
+        }
         FirebaseEventLogs.shared.logHomeEvents(with: .ProfileOptionSelected)
 
         AppFlowManager.default.sideMenuController?.toggleMenu() // nitin change
@@ -443,6 +447,11 @@ extension DashboardVC  {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
+        if #available(iOS 14, *) {
+            if AppTransparencyManager.currentStatus == .notDetermined{
+                AppTransparencyManager.askForPermission()
+            }
+        }
         if scrollView == mainScrollView {            
             var transform : CGFloat = 0.0
             
