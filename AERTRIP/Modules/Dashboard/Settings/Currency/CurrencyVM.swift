@@ -19,38 +19,36 @@ protocol CurrencyVcDelegate : class {
 
 class CurrencyVM {
     
-//    private var countries: [CurrencyModel] = [CurrencyModel]()
-//    private var selectedCountry = CurrencyModel(json: [:], code: "")
     weak var delegate : CurrencyVcDelegate?
     private var filteredCountries: [CurrencyModel] = [CurrencyModel]()
     var searchText : String = ""
     var seperatorIndex = 0
     
     var currencyCount : Int {
-        return getCurrentDaraSource().count
+        return getCurrentDataSource().count
     }
     
     func preSelectIndia(){
-        let india = CurrencyControler.shared.countries.filter { $0.currencyCode == UserInfo.preferredCurrencyDetails?.currencyCode  }
+        let india = CurrencyControler.shared.currencies.filter { $0.currencyCode == UserInfo.preferredCurrencyDetails?.currencyCode  }
         CurrencyControler.shared.selectedCurrency = india.first ?? CurrencyModel(json: [:], code: "")
     }
     
     func selectCurrency(index : Int){
-        CurrencyControler.shared.setSelectedCurrency(currency: self.getCurrentDaraSource()[index])
+        CurrencyControler.shared.setSelectedCurrency(currency: self.getCurrentDataSource()[index])
         CurrencyControler.shared.updateUserCurrency()
     }
     
     
-    func getCurrentDaraSource() -> [CurrencyModel] {
-        return self.searchText.isEmpty ? CurrencyControler.shared.countries : filteredCountries
+    func getCurrentDataSource() -> [CurrencyModel] {
+        return self.searchText.isEmpty ? CurrencyControler.shared.currencies : filteredCountries
     }
     
     func getCurrency(at index : Int) -> CurrencyModel {
-        return getCurrentDaraSource()[index]
+        return getCurrentDataSource()[index]
     }
     
     func isSelectedCurrency(index : Int) -> Bool {
-        return getCurrentDaraSource()[index].currencyCode == CurrencyControler.shared.selectedCurrency.currencyCode
+        return getCurrentDataSource()[index].currencyCode == CurrencyControler.shared.selectedCurrency.currencyCode
     }
     
     func isSeperatorHidden(index : Int) -> Bool {
@@ -62,7 +60,7 @@ class CurrencyVM {
     }
     
     func filterCountries(txt : String) {
-        self.filteredCountries = CurrencyControler.shared.countries.filter { (obj) -> Bool in
+        self.filteredCountries = CurrencyControler.shared.currencies.filter { (obj) -> Bool in
             
             let currencyName = obj.currencyName.lowercased()
             let currencyNameArray = currencyName.split(separator: " ")

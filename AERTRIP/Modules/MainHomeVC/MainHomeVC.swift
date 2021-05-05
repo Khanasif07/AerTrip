@@ -119,6 +119,10 @@ class MainHomeVC: BaseVC {
         self.socialLoginVC?.topNavView.leftButton.isHidden = true
         self.makeDefaultSetup()
         self.addEdgeSwipeGesture()
+        
+        CurrencyControler.shared.getCurrencies { (success, currencies, topCurrencies) in }
+        
+        
     }
     
     private func makeDefaultSetup() {

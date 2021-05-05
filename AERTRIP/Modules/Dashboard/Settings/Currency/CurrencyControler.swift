@@ -14,9 +14,18 @@ class CurrencyControler {
     
     static let shared = CurrencyControler()
     
-     var countries: [CurrencyModel] = [CurrencyModel]()
+     var currencies: [CurrencyModel] = [CurrencyModel]()
      var selectedCurrency = CurrencyModel(json: [:], code: "")
     
+    var timer : Timer?
+    
+    func scheduleCurrencyTimer(){
+        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(callCurrencyApi), userInfo: nil, repeats: true)
+    }
+    
+    @objc func callCurrencyApi(){
+        self.getCurrencies { (success, currencies, topCurrencies) in  }
+    }
     
     func getCurrencies(completionBlock: @escaping (_ success: Bool, _ allCurrencies: [CurrencyModel], _ topCurrencies : [CurrencyModel]) -> Void) {
         
@@ -40,10 +49,12 @@ class CurrencyControler {
                 
                topCountries = self.arangeTopCountries(countries: topCountries)
                 
-                self.countries = topCountries + restCountries
-                
+                self.currencies = topCountries + restCountries
+                completionBlock(true, currencies, topCountries)
               //  self.delegate?.getCurrenciesSuccessFull()
             }else{
+                completionBlock(true, [], [])
+
              //   self.delegate?.failedToGetCurrencies()
             }
             
@@ -104,25 +115,15 @@ class CurrencyControler {
     }
     
     func updateUserCurrency(){
-        let param:JSONDictionary = ["preferred_currency": self.selectedCountry.currencyCode, "action":"currency"]
+        let param:JSONDictionary = ["preferred_currency": self.selectedCurrency.currencyCode, "action":"currency"]
         APICaller.shared.updateUserCurrency(params: param) {[weak self] (success, error) in
             guard let self = self else {return}
             if success{
-                UserInfo.loggedInUser?.preferredCurrency = self.selectedCountry.currencyCode
-                UserInfo.preferredCurrencyDetails = self.selectedCountry
+                UserInfo.loggedInUser?.preferredCurrency = self.selectedCurrency.currencyCode
+                UserInfo.preferredCurrencyDetails = self.selectedCurrency
                 NotificationCenter.default.post(.init(name: .dataChanged))
             }
         }
-    }
-    
-    
-    func selectCurrency(index : Int){
-//        if self.getCurrentDaraSource()[index].currencyCode != "INR" {
-//            self.delegate?.showUnderDevelopmentPopUp()
-//            return
-//        }
-        self.selectedCountry = self.getCurrentDaraSource()[index]
-        CurrencyControler.shared.updateUserCurrency()
     }
     
 }
