@@ -172,15 +172,15 @@ extension UpgradePlanListVC : UICollectionViewDataSource, UICollectionViewDelega
                 cell.selectButton.backgroundColor = AppColors.themeGreen
                 cell.selectButton.setTitleColor(AppColors.themeWhite, for: .normal)
                 cell.selectButton.setTitle("Selected", for: .normal)
-                cell.newPriceLabel.text = getPrice(price: Double(farepr))
+                cell.newPriceLabel.attributedText = getPrice(price: Double(farepr), fontSize: 18.0)
                 checkMarkImgName = "Green_Copy.png"
             }else{
                 if priceDifferent < 0{
-                    cell.newPriceLabel.text = "- "+getPrice(price: Double(priceDifferent)).replacingOccurrences(of: "-", with: "")
+                    cell.newPriceLabel.attributedText = getPrice(price: Double(priceDifferent), fontSize: 18.0, sign: "-")
                 }else{
-                    cell.newPriceLabel.text = "+ "+getPrice(price: Double(priceDifferent))
+                    cell.newPriceLabel.attributedText = getPrice(price: Double(priceDifferent), fontSize: 18.0, sign: "+")
                 }
-                cell.priceLabel.text = getPrice(price: Double(farepr))
+                cell.priceLabel.attributedText = getPrice(price: Double(farepr), fontSize: 12.0)
                 cell.selectButton.backgroundColor = AppColors.quaternarySystemFillColor
                 cell.selectButton.setTitleColor(AppColors.themeGreen, for: .normal)
                 cell.selectButton.setTitle("Select", for: .normal)
@@ -266,12 +266,12 @@ extension UpgradePlanListVC : UICollectionViewDataSource, UICollectionViewDelega
             self.viewModel.ohterFareData[usedIndexFor]?[i].isDefault = (i == indexPath.item)
         }
         self.viewModel.selectedOhterFareData[usedIndexFor] = self.viewModel.ohterFareData[usedIndexFor]?[indexPath.item]
-        let amount = getPrice(price: Double(self.viewModel.updateFareTaxes()))
+        let amount = ""//getPrice(price: Double(self.viewModel.updateFareTaxes()))
         if self.viewModel.isInternational, let journey = self.viewModel.ohterFareData[usedIndexFor]?[indexPath.item]{
             self.viewModel.oldIntJourney?[usedIndexFor].farepr = journey.farepr
             self.viewModel.oldIntJourney?[usedIndexFor].fare = journey.fare
         }
-        self.delegate?.updateFareBreakupView(fareAmount: amount)
+        self.delegate?.updateFareBreakupView(fareAmount: "")
         self.planCollectionView.reloadData()
     }
     
@@ -315,17 +315,16 @@ extension UpgradePlanListVC : UICollectionViewDataSource, UICollectionViewDelega
     
     
     //MARK:- Format Price
-    func getPrice(price:Double) -> String{
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        formatter.maximumFractionDigits = 2
-        formatter.locale = Locale(identifier: "en_IN")
-        var result = formatter.string(from: NSNumber(value: price)) ?? ""
-        
-        if result.contains(find: ".00"){
-            result = result.replacingOccurrences(of: ".00", with: "", options: .caseInsensitive, range: Range(NSRange(location:result.count-3,length:3), in: result) )
+    func getPrice(price:Double, fontSize:CGFloat, sign:String = "") -> NSMutableAttributedString{
+
+        if !sign.isEmpty{
+            let attStr = NSMutableAttributedString(string: "\(sign) ", attributes: [.font: AppFonts.SemiBold.withSize(fontSize)])
+            attStr.append(abs(price).getConvertedAmount(using: AppFonts.SemiBold.withSize(fontSize)))
+            return attStr
+            
+        }else{
+            return price.getConvertedAmount(using: AppFonts.SemiBold.withSize(fontSize))
         }
-        return result
     }
     
 }
