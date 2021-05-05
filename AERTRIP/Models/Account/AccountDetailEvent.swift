@@ -425,6 +425,7 @@ struct AccountDetailEvent {
             }
             self.sector = self.title
         }
+        self.setTitleForSingleAndReturn(details: details)
         self.getAttributedText()
         if self.voucherNo.lowercased().contains("srjv") {
             self.title = "\(LocalizedString.CancellationFor.localized)\n\(self.title)"
@@ -496,6 +497,31 @@ struct AccountDetailEvent {
     }
     
     
+    mutating func setTitleForSingleAndReturn(details: JSONDictionary){
+        guard  let tripCities = details["trip_cities"] as? [String] else { return }
+        if (self.isTripTypeReturn(details: details) && tripCities.count >= 2){
+            self.title = "\(tripCities[0]) ⇋  \(tripCities[1])"
+        }else if (tripCities.count == 2 && (details["trip_type"] as? String ?? "").lowercased() == "single"){
+            self.title = "\(tripCities[0]) →  \(tripCities[1])"
+        }
+    }
+    
+    
+    
+    /// To Check the flight journey is return or not
+    /// - Parameter details: JSONDictionary  which is details of the event. EventMainJson["details"]
+    /// - Returns: Bool type to show whether journey is return or not
+    func isTripTypeReturn(details: JSONDictionary)-> Bool{
+        if let tripCities = details["trip_cities"] as? [String], let tripType = details["trip_type"] as? String{
+            
+            if tripType.lowercased() == "return" || (tripCities.count == 3 && tripCities.first == tripCities.last){
+                return true
+            }
+        }
+        return false
+    }
+    
+    
     private  func setAttributedName( title: String, coloredText: String, color: UIColor) -> NSAttributedString{
         
         let attributedString = NSMutableAttributedString(string: title, attributes: [NSAttributedString.Key.foregroundColor : AppColors.themeBlack])
@@ -538,14 +564,28 @@ struct AccountDetailEvent {
     
     private mutating func getAttributedText(){
         
-        let ttls = self.title.components(separatedBy: " → ")
+        var ttls = [String]()
+        var isForReturn = false
+        if self.title.contains("⇋"){
+            ttls = self.title.components(separatedBy: " ⇋ ")
+            isForReturn = true
+        }else{
+            ttls = self.title.components(separatedBy: " → ")
+        }
+        
+        
         guard ttls.count > 1 else {return}
         let attributedString = NSMutableAttributedString(string: "")
         for (index, element) in ttls.enumerated(){
             let text = NSAttributedString(string: element, attributes: [.font:AppFonts.Regular.withSize(18), .foregroundColor: AppColors.themeBlack])
             attributedString.append(text)
             if index != (ttls.count - 1){
-                attributedString.append(AppGlobals.shared.getStringFromImage(name : "oneway"))
+                if !isForReturn{
+                    attributedString.append(AppGlobals.shared.getStringFromImage(name : "oneway"))
+                }else{
+                    attributedString.append(AppGlobals.shared.getStringFromImage(name : "return"))
+                }
+                
             }
             
         }
