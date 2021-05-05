@@ -40,23 +40,23 @@ class RecentSearchCellCollectionViewCell: UICollectionViewCell {
    {
     travelPath.attributedText = recentSearch.travelPlan
 
-    if(recentSearch.travelDate.count > 33){
-
-        let startIndex = recentSearch.travelDate.index(recentSearch.travelDate.startIndex, offsetBy: 23)
-
-//        let startIndex = recentSearch.travelDate.index(recentSearch.travelDate.startIndex, offsetBy: 6)
-//        let endIndex = recentSearch.travelDate.index(recentSearch.travelDate.endIndex, offsetBy: -6)
-
-        let startString = String(recentSearch.travelDate.prefix(upTo: startIndex))
-//        let endString = String(recentSearch.travelDate.suffix(from: endIndex))
-
-//        date.text = startString + " ... " + endString
-
-        date.text = startString + " ... "
-
-    }else{
+//    if(recentSearch.travelDate.count > 33){
+//
+//        let startIndex = recentSearch.travelDate.index(recentSearch.travelDate.startIndex, offsetBy: 23)
+//
+////        let startIndex = recentSearch.travelDate.index(recentSearch.travelDate.startIndex, offsetBy: 6)
+////        let endIndex = recentSearch.travelDate.index(recentSearch.travelDate.endIndex, offsetBy: -6)
+//
+//        let startString = String(recentSearch.travelDate.prefix(upTo: startIndex))
+////        let endString = String(recentSearch.travelDate.suffix(from: endIndex))
+//
+////        date.text = startString + " ... " + endString
+//
+//        date.text = startString + " ... "
+//
+//    }else{
         date.text = recentSearch.travelDate
-    }
+//    }
     
         //duration.text = recentSearch.searchTime
         //travelDirection.text = recentSearch.travelType
