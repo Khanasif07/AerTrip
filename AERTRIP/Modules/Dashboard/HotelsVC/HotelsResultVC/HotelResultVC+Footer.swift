@@ -147,7 +147,11 @@ extension HotelResultVC {
         } completion: { (success) in
             
             self.tableViewVertical.tableFooterView?.transform = CGAffineTransform.identity
-
+           
+            let yPoint = self.tableViewVertical.contentSize.height - (self.tableViewVertical.tableFooterView?.height ?? 0.0)
+            
+            self.tableViewVertical.setContentOffset(CGPoint(x: 0, y: yPoint), animated: false)
+            
             self.setGroupedFooterView()
             self.viewModel.showBeyondTwenty = false
             self.doneButtonTapped()
