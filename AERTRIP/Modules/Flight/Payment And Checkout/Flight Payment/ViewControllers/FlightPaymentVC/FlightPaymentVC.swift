@@ -241,6 +241,7 @@ class FlightPaymentVC: BaseVC {
         else if diff < 0{
             // dipped
             FareUpdatedPopUpVC.showPopUp(isForIncreased: false, decreasedAmount: Double(-diff), increasedAmount: 0, totalUpdatedAmount: 0, continueButtonAction: nil, goBackButtonAction: nil)
+            self.checkForWalletOTP()
 //            delay(seconds: 5.0) { [weak self] in
 //                guard let self = self else { return }
 //            }

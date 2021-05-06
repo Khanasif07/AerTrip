@@ -243,7 +243,7 @@ extension FlightPaymentVM{
         //forAmount used to decide that razor pay will use or not
         var params: [String : Any] = [ APIKeys.it_id.rawValue : self.itinerary.id]
         params[APIKeys.total_amount.rawValue] = grossTotalPayableAmount
-        params[APIKeys.currency_code.rawValue] = "INR"//self.itineraryData?.booking_currency ?? ""
+        params[APIKeys.currency_code.rawValue] = UserInfo.preferredCurrencyDetails?.currencyCode//"INR"
         params[APIKeys.use_points.rawValue] = self.itinerary.userPoints
         if UserInfo.loggedInUser != nil {
             params[APIKeys.use_wallet.rawValue] = useWallet ? 1 : 0
