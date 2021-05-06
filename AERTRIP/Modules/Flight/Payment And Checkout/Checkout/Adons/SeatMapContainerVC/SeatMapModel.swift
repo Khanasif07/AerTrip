@@ -73,14 +73,15 @@ struct SeatMapModel {
             cc = json["cc"].stringValue
             al = json["al"].stringValue
             ft = json["ft"].intValue
-            ud = DeckData(json["ud"], lfk, ffk)
-            md = DeckData(json["md"], lfk, ffk)
+            ud = DeckData(json["ud"], lfk, ffk, ttl)
+            md = DeckData(json["md"], lfk, ffk, ttl)
         }
     }
     
     struct DeckData {
         let lfk: String
         let ffk: String
+        let ttl: String
         let columns: [String]
         var rows: [Int: [String: SeatMapRow]]
         
@@ -89,11 +90,12 @@ struct SeatMapModel {
             return rowsStrArr.map { $0.toString }
         }
         
-        init(_ json: JSON,_ lfk: String,_ ffk: String) {
+        init(_ json: JSON,_ lfk: String,_ ffk: String,_ ttl: String) {
             self.lfk = lfk
             self.ffk = ffk
+            self.ttl = ttl
             columns = json["columns"].arrayValue.map { $0.stringValue }
-            rows = Dictionary(uniqueKeysWithValues: json["rows"].map { (($0.0.toInt ?? 0), Dictionary(uniqueKeysWithValues: $0.1.map { ($0.0, SeatMapRow($0.1, lfk, ffk)) }))})
+            rows = Dictionary(uniqueKeysWithValues: json["rows"].map { (($0.0.toInt ?? 0), Dictionary(uniqueKeysWithValues: $0.1.map { ($0.0, SeatMapRow($0.1, lfk, ffk, ttl)) }))})
         }
     }
     
@@ -102,17 +104,19 @@ struct SeatMapModel {
         var isPreselected = false
         let lfk: String
         let ffk: String
+        let ttl: String
         var columnData: ColumnData
         let aisleValue: Bool
         let isWindowSeat: Bool
         
         init() {
-            self.init(JSON(), "", "")
+            self.init(JSON(), "", "", "")
         }
         
-        init(_ json: JSON,_ lfk: String,_ ffk: String) {
+        init(_ json: JSON,_ lfk: String,_ ffk: String,_ ttl: String) {
             self.lfk = lfk
             self.ffk = ffk
+            self.ttl = ttl
             columnData = ColumnData(json)
             aisleValue = json.boolValue
             isWindowSeat = columnData.characteristic.contains("Window")

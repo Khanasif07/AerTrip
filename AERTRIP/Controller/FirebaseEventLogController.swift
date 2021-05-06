@@ -953,7 +953,7 @@ class FirebaseEventLogs: NSObject{
         
     }
     
-    func logAddons(with type : EventsTypeName, addonName : String = "", flightTitle : String = "" ,fk : String = "", addonQty : Int = 0){
+    func logAddons(with type : EventsTypeName, addonName : String = "", flightTitle : String = "" ,fk : String = "", addonQty : Int = 0, value: String = ""){
         
         switch type {
      
@@ -966,6 +966,10 @@ class FirebaseEventLogs: NSObject{
             let valuesDict : JSONDictionary = ["addonName" : addonName, "addonQty" : addonQty, "fk" : fk, "flightTitle" : flightTitle]
             
             FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Addons.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.values.rawValue : valuesDict.getString()])
+            
+        case .addSeatAddons:
+            
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Addons.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "Seat", AnalyticsKeys.values.rawValue: value])
             
         default:
         
