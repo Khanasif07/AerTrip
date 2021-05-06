@@ -80,8 +80,10 @@ class PriceSliderCell: UITableViewCell {
     }
     
     func setPriceOnLabels() {
-        minimumPriceLabel?.attributedText = Double(horizontalMultiSlider.value.first ?? 0).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(18.0)) //(AppConstants.kRuppeeSymbol + String(format: "%.0f", horizontalMultiSlider.value.first ?? "")).asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
-        maximumPriceLabel?.attributedText = Double(horizontalMultiSlider.value.last ?? 0).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(18.0)) //(AppConstants.kRuppeeSymbol + String(format: "%.0f", horizontalMultiSlider.value.last ?? "")).asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
+        minimumPriceLabel?.attributedText = Double(horizontalMultiSlider.value.first ?? 0).getConvertedAmount(using: AppFonts.Regular.withSize(18.0))
+            //.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(18.0)) //(AppConstants.kRuppeeSymbol + String(format: "%.0f", horizontalMultiSlider.value.first ?? "")).asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
+        maximumPriceLabel?.attributedText = Double(horizontalMultiSlider.value.last ?? 0).getConvertedAmount(using: AppFonts.Regular.withSize(18.0))
+        //.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(18.0)) //(AppConstants.kRuppeeSymbol + String(format: "%.0f", horizontalMultiSlider.value.last ?? "")).asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
     }
 }
 

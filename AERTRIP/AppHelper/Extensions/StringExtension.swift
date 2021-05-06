@@ -1128,7 +1128,7 @@ extension NSMutableAttributedString{
     
     func addCurrencySymbol(using font: UIFont, isNegative:Bool)->NSMutableAttributedString{
         if let currency =  UserInfo.preferredCurrencyDetails{
-            let text = isNegative ? "-\(currency.currencySymbol) " : "\(currency.currencySymbol) "
+            let text = isNegative ? "-\(currency.currencySymbol)" : "\(currency.currencySymbol)"
             let  currencyText = NSMutableAttributedString(string: text, attributes: [.font: font])
 //            if currency.textSuffix{
 //                currencyText = NSMutableAttributedString(string: " \(currency.currencySymbol)", attributes: [.font: font])

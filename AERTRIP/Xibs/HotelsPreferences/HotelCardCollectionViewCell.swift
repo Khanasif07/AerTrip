@@ -216,15 +216,16 @@ class HotelCardCollectionViewCell: AppStoreAnimationCollectionCell {
 
         if listPrice == 0{
             self.actualPriceLabel.text = ""
+            self.actualPriceLabel.attributedText = nil
         }else{
-            let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: listPrice.amountInDelimeterWithSymbol)
+            let attributeString: NSMutableAttributedString = listPrice.getConvertedAmount(using: AppFonts.Regular.withSize(16))
             attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 1, range: NSMakeRange(0, attributeString.length))
             self.actualPriceLabel.attributedText = attributeString
-            self.actualPriceLabel.AttributedFontForText(text: price.getCurrencySymbol, textFont: AppFonts.Regular.withSize(12))
+            self.actualPriceLabel.AttributedFontForText(text: price.getPreferredCurrency, textFont: AppFonts.Regular.withSize(12))
             actualPriceLabel.isHidden = price == listPrice
         }
-        self.discountedPriceLabel.text = price.amountInDelimeterWithSymbol
-        self.discountedPriceLabel.AttributedFontForText(text: price.getCurrencySymbol, textFont: AppFonts.SemiBold.withSize(16))
+        self.discountedPriceLabel.attributedText = price.getConvertedAmount(using: AppFonts.SemiBold.withSize(22))
+        self.discountedPriceLabel.AttributedFontForText(text: price.getPreferredCurrency, textFont: AppFonts.SemiBold.withSize(16))
         self.saveButton.isSelected = self.hotelListData?.fav == "0" ? false : true
         
         self.hotelImageView.cancelImageDownloading()
