@@ -1273,6 +1273,7 @@
 		8455A682223295FF00CEE2B3 /* PoweredByTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8455A680223295FF00CEE2B3 /* PoweredByTableViewCell.swift */; };
 		8455A683223295FF00CEE2B3 /* PoweredByTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8455A681223295FF00CEE2B3 /* PoweredByTableViewCell.xib */; };
 		8455A6A52232D01B00CEE2B3 /* PKProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8455A6A42232D01B00CEE2B3 /* PKProgressView.swift */; };
+		8458816026402D300093DEBD /* AppTrackingTransparency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8458815F26402D300093DEBD /* AppTrackingTransparency.swift */; };
 		8459208D24E2CA710001ED28 /* GetSharableUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8459208C24E2CA710001ED28 /* GetSharableUrl.swift */; };
 		8459208F24E2D3490001ED28 /* APIURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8459208E24E2D3490001ED28 /* APIURLs.swift */; };
 		845A951E251DF1C20018B7D9 /* FlightDomesticMultiLegResultVC+Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845A951D251DF1C20018B7D9 /* FlightDomesticMultiLegResultVC+Animation.swift */; };
@@ -3074,6 +3075,7 @@
 		8455A680223295FF00CEE2B3 /* PoweredByTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoweredByTableViewCell.swift; sourceTree = "<group>"; };
 		8455A681223295FF00CEE2B3 /* PoweredByTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PoweredByTableViewCell.xib; sourceTree = "<group>"; };
 		8455A6A42232D01B00CEE2B3 /* PKProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKProgressView.swift; sourceTree = "<group>"; };
+		8458815F26402D300093DEBD /* AppTrackingTransparency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTrackingTransparency.swift; sourceTree = "<group>"; };
 		8459208C24E2CA710001ED28 /* GetSharableUrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetSharableUrl.swift; sourceTree = "<group>"; };
 		8459208E24E2D3490001ED28 /* APIURLs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIURLs.swift; sourceTree = "<group>"; };
 		845A951D251DF1C20018B7D9 /* FlightDomesticMultiLegResultVC+Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlightDomesticMultiLegResultVC+Animation.swift"; sourceTree = "<group>"; };
@@ -9301,6 +9303,7 @@
 				84D503762474F6E500527C77 /* AppSocialNetwork.swift */,
 				842BE084249A471F005B604E /* InstagramManager.swift */,
 				846640E6254AA17700D87651 /* SpeechSynthesizer.swift */,
+				8458815F26402D300093DEBD /* AppTrackingTransparency.swift */,
 			);
 			path = AppHelper;
 			sourceTree = "<group>";
@@ -11077,6 +11080,7 @@
 				843FF48824740230001F21B1 /* MulticityFlightLeg.m in Sources */,
 				8472F21923E41DF900993B08 /* HotelsMapVC+TableViewDataSourceDelegateMethods.swift in Sources */,
 				1870AD1F220C769400FB32C8 /* GeneralPrefrenceModel.swift in Sources */,
+				8458816026402D300093DEBD /* AppTrackingTransparency.swift in Sources */,
 				84085CE121F59C0E00F1E844 /* LoginVC.swift in Sources */,
 				840876EF261B244A00B3CBAD /* RadioButtonTableViewCell.swift in Sources */,
 				1896D5932209538B003FC2B6 /* MultiSliderExtensions.swift in Sources */,
@@ -11452,7 +11456,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 14;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;
@@ -11656,7 +11660,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 14;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;

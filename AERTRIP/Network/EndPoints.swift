@@ -196,7 +196,7 @@ enum APIEndPoint: String {
     case flights_getShortUrlForShare = "flights/get-pinned-url"
     case flights_getPinnedTemplate = "flights/get-pinned-template"
     
-    //OTP Varification
+    //OTP Verification
     case sendOtp = "users/send-wallet-otp"
     case validateOtp = "users/validate-wallet-otp"
     case sendOtpForMobile = "users/user-default-mobile"
@@ -208,7 +208,7 @@ enum APIEndPoint: String {
 //    case getUserData = "users/meta"
     case validateOtpForSetMobile = "users/user-mobile-validate-otp"
     case cancelOtpForSetMobile = "users/user-mobile-validation-cancel"
-    case enableDesableWalletOtp = "users/status-wallet-otp"
+    case enableDisableWalletOtp = "users/status-wallet-otp"
     case validateDisableOtp = "users/disable-wallet-otp"
     case cancelWalletEnableDisable = "users/user-disable-wallet-otp-cancel"
     case changeLogin = "users/change-login"

@@ -212,11 +212,18 @@ class FlightBookingsDetailsVC: BaseVC {
         switch detail.tripType{
         case "single", "return":
             if detail.tripType != "single"{
-                if ((fDetails.leg.last?.flight.first?.departDate ?? Date()) > Date()){
+                
+                let dptDate = fDetails.leg.first?.flight.first?.departDate ?? Date()
+                let rtnDate = fDetails.leg.last?.flight.first?.departDate  ?? Date()
+                let difference = rtnDate.daysFrom(dptDate)
+                if (dptDate > Date()){
                     whatNext.returnDate = fDetails.leg.last?.flight.first?.departDate?.toString(dateFormat: "dd-MM-yyyy") ?? ""
-                }else{
-                    whatNext.returnDate = Date().toString(dateFormat: "dd-MM-yyyy")
+                }else {
+                    whatNext.returnDate = (Date().add(days: difference) ?? Date()).toString(dateFormat: "dd-MM-yyyy")
                 }
+//                else{
+//                    whatNext.returnDate = Date().toString(dateFormat: "dd-MM-yyyy")
+//                }
                 
             }
             return whatNext
@@ -231,29 +238,35 @@ class FlightBookingsDetailsVC: BaseVC {
             var arrivalCountry = [String]()
             var departAriports = [String]()
             var departCountry = [String]()
+            var depatDateArray = [Date]()
             
-//            for (index, leg) in fDetails.leg.enumerated(){
-//                let departDate = (leg.flight.first?.departDate ?? Date())
-//                if (departDate > Date()){
-//                    depart.append(leg.flight.first?.departDate?.toString(dateFormat: "dd-MM-yyyy") ?? "")
-//                }else{
-//                    if index != 0{
-//                        let previousDate = (fDetails.leg[index - 1].flight.first?.departDate ?? Date())
-//                        let differnce = departDate.daysFrom(previousDate)
-//                        depart.append(Date().add(days: differnce)?.toString(dateFormat: "dd-MM-yyyy") ?? "")
-//                    }else{
-//                        depart.append(Date().toString(dateFormat: "dd-MM-yyyy"))
-//                    }
-//                }
-
             
-            for leg in fDetails.leg{
+            for (index, leg) in fDetails.leg.enumerated(){
+                let departDate = (leg.flight.first?.departDate ?? Date())
                 
-                if ((leg.flight.first?.departDate ?? Date()) > Date()){
-                    depart.append(leg.flight.first?.departDate?.toString(dateFormat: "dd-MM-yyyy") ?? "")
+                if index == 0{
+                    if (departDate > Date()){
+                        depatDateArray.append(departDate)
+                        depart.append(departDate.toString(dateFormat: "dd-MM-yyyy"))
+                    }else{
+                        depatDateArray.append(Date())
+                        depart.append(Date().toString(dateFormat: "dd-MM-yyyy"))
+                    }
                 }else{
-                    depart.append(Date().toString(dateFormat: "dd-MM-yyyy"))
+                    let previousDate = (fDetails.leg[index - 1].flight.first?.departDate ?? Date())
+                    
+                    if previousDate >= Date(){
+                        depatDateArray.append(departDate)
+                        depart.append(departDate.toString(dateFormat: "dd-MM-yyyy"))
+                    }else{
+                        let difference = departDate.daysFrom(previousDate)
+                        let newDptDate = depatDateArray[index - 1].add(days: difference) ?? Date()
+                        depart.append(newDptDate.toString(dateFormat: "dd-MM-yyyy"))
+                        depatDateArray.append(newDptDate)
+                    }
                 }
+                
+
                 origin.append(leg.origin)
                 destination.append(leg.destination)
                 departCity.append((leg.title.components(separatedBy: "→").first ?? "").trimmingCharacters(in: .whitespaces))

@@ -161,6 +161,8 @@
 	<string>Aertrip requires photo library permission to set profile image.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>Aertrip requires speech recognition permission to recognize speech and perform search.</string>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>Kindly allow permission as your data is used only to offer you a more personalized and refined experience.</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>REVERSED_CLIENT_ID</key>
