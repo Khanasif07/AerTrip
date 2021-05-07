@@ -79,7 +79,9 @@ class HCRefundRequestedVC: BaseVC {
         case .paymentAmountHigh:
             requestedTextLabel.numberOfLines = 0
             requestedTextLabel.text = LocalizedString.WeHaveNotedYourBookingRequirement.localized
-            messageLabel.text = LocalizedString.WeHaveNotedYourBookingRequirementMessage.localized
+            let str = LocalizedString.WeHaveNotedYourBookingRequirementMessage.localized.replacingOccurrences(of: "₹11,00,000", with: Double(1100000).getPriceStringWithCurrency)
+            
+            messageLabel.text = str//LocalizedString.WeHaveNotedYourBookingRequirementMessage.localized
         }
         
         goToHomeButton.setTitle(LocalizedString.ReturnHome.localized, for: .normal)
