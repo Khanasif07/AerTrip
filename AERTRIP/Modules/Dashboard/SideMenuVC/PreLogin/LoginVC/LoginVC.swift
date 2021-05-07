@@ -220,7 +220,7 @@ private extension LoginVC {
 //        self.emailTextField.isSingleTextField = false
 //        self.passwordTextField.isSingleTextField = false
        
-        //self.loginButton.isEnabled = false
+
         self.loginButton.configureCommonGreenButton()
         
 //        self.loginButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
