@@ -225,7 +225,8 @@ extension UILabel {
         guard text.contains("."), let labelString = self.text, let decimalText = text.components(separatedBy: ".").last, !decimalText.isEmpty else { return }
         
         let main_string = labelString as NSString
-        let range = main_string.range(of: decimalText)
+//        let range = main_string.range(of: decimalText)
+        let allRange = labelString.ranges(of: decimalText)
         
         var  attribute = NSMutableAttributedString.init(string: main_string as String)
         if let labelAttributedString = self.attributedText {
@@ -238,8 +239,13 @@ extension UILabel {
         }
         let changeFont = font
         let offset = 6.2
-        attribute.addAttribute(.font, value: changeFont, range: range)
-        attribute.addAttribute(.baselineOffset, value: offset, range: range)
+//        attribute.addAttribute(.font, value: changeFont, range: range)
+//        attribute.addAttribute(.baselineOffset, value: offset, range: range)
+        for rng in allRange{
+            let range = NSRange(rng, in: labelString)
+            attribute.addAttribute(.font, value: changeFont, range: range)
+            attribute.addAttribute(.baselineOffset, value: offset, range: range)
+        }
         self.attributedText = attribute
     }
 }

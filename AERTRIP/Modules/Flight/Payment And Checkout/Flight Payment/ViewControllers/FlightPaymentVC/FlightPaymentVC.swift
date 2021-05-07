@@ -139,7 +139,7 @@ class FlightPaymentVC: BaseVC {
         if self.getTotalPayableAmount() != 0.0{
 //            let ttl = self.getTotalPayableAmount().amountInDelimeterWithSymbol
 //            let amount = ttl.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
-            let ttl = self.getTotalPayableAmount().getConvertedAmount(using: AppFonts.SemiBold.withSize(20.0)).string
+            let ttl = self.getTotalPayableAmount().getPriceStringWithCurrency
             let amount = self.getTotalPayableAmount().getConvertedAmount(using: AppFonts.SemiBold.withSize(20.0))
             amount.addAttributes([.foregroundColor : AppColors.themeWhite], range: NSString(string: ttl).range(of: ttl))
             let attributedTitle = NSMutableAttributedString(string: "  \(LocalizedString.Pay.localized) ", attributes: [.font: AppFonts.SemiBold.withSize(20), .foregroundColor: AppColors.themeWhite])

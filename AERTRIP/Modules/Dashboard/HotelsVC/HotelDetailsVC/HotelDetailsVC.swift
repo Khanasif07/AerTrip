@@ -162,7 +162,8 @@ class HotelDetailsVC: BaseVC {
     //==============
     private func getStickyFooter() -> HotelFilterResultFooterView {
         let stV = HotelFilterResultFooterView(reuseIdentifier: "temp")
-        stV.hotelFeesLabel.attributedText = (self.viewModel.hotelInfo?.price ?? 0.0).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
+        stV.hotelFeesLabel.attributedText = (self.viewModel.hotelInfo?.price ?? 0.0).getConvertedAmount(using: AppFonts.SemiBold.withSize(20.0))
+        //.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
         stV.noRoomsAvailable.isHidden = true
         stV.addSelectRoomTarget(target: self, action: #selector(selectRoomAction))
         return stV
