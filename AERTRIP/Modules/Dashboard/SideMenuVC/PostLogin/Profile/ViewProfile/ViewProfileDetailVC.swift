@@ -188,10 +188,11 @@ class ViewProfileDetailVC: BaseVC {
         }
         if viewModel.currentlyUsingFor == .viewProfile, let defEmail = UserInfo.loggedInUser?.email, !defEmail.isEmpty, tempEmail.filter({ $0.label == LocalizedString.Default.localized }).isEmpty, tempEmail.filter({ $0.value == defEmail }).isEmpty {
             let defaultEmail = Email(label: LocalizedString.Default.localized, value: defEmail)
-            tempEmail.append(defaultEmail)
+            tempEmail.insert(defaultEmail, at: 0)
         }
         
-        tempEmail.sort(by: { $0.label < $1.label })
+//        tempEmail.sort(by: { $0.id < $1.id })
+//        tempEmail.sort(by: { $0.label < $1.label })
         email.append(contentsOf: tempEmail)
         
         let social = travel.contact.social.filter { (scl) -> Bool in

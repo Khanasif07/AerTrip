@@ -39,7 +39,7 @@ class RecentSearchCellCollectionViewCell: UICollectionViewCell {
    @objc func setProperties( recentSearch : RecentSearchDisplayModel )
    {
     travelPath.attributedText = recentSearch.travelPlan
-    date.text = recentSearch.travelDate
+//    date.text = recentSearch.travelDate
 
 //    if(recentSearch.travelDate.count > 33){
 //
@@ -56,7 +56,7 @@ class RecentSearchCellCollectionViewCell: UICollectionViewCell {
 //        date.text = startString + " ... "
 //
 //    }else{
-//        date.text = recentSearch.travelDate
+        date.text = recentSearch.travelDate
 //    }
     
         //duration.text = recentSearch.searchTime
