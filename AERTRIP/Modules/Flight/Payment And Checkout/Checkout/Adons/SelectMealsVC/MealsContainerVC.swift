@@ -165,7 +165,7 @@ extension MealsContainerVC {
     func calculateTotalAmount(){
 //        self.totalLabel.text = "₹ \(self.mealsContainerVM.calculateTotalAmount().commaSeprated)"
        
-        self.totalLabel.attributedText = self.mealsContainerVM.calculateTotalAmount().toDouble.getConvertedAmount(using: AppFonts.Regular.withSize(16))
+        self.totalLabel.attributedText = self.mealsContainerVM.calculateTotalAmount().toDouble.getConvertedAmount(using: AppFonts.SemiBold.withSize(18))
         
         
     }

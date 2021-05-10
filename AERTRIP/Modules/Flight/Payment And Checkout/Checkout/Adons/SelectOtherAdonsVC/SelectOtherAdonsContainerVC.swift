@@ -98,8 +98,9 @@ class SelectOtherAdonsContainerVC: BaseVC {
 
         }
         
-        let price = self.totalLabel.text ?? ""
-        self.delegate?.othersUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))
+//        let price = self.totalLabel.text ?? ""
+        let price = self.othersContainerVM.calculateTotalAmount()
+        self.delegate?.othersUpdated(amount: price.toString)
         
         self.dismiss(animated: true, completion: nil)
     }
@@ -174,7 +175,11 @@ extension SelectOtherAdonsContainerVC {
     }
     
     func calculateTotalAmount(){
-        self.totalLabel.text = "₹ \(self.othersContainerVM.calculateTotalAmount().commaSeprated)"
+//        self.totalLabel.text = "₹ \(self.othersContainerVM.calculateTotalAmount().commaSeprated)"
+        
+        self.totalLabel.attributedText = self.othersContainerVM.calculateTotalAmount().toDouble.getConvertedAmount(using: AppFonts.SemiBold.withSize(18))
+
+        
         self.specialRequestLabel.isHidden = !self.othersContainerVM.containsSpecialRequest()
     }
 }
@@ -184,8 +189,9 @@ extension SelectOtherAdonsContainerVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         self.othersContainerVM.clearAll()
         calculateTotalAmount()
-        let price = self.totalLabel.text ?? ""
-        self.delegate?.othersUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))
+//        let price = self.totalLabel.text ?? ""
+        let price = self.othersContainerVM.calculateTotalAmount()
+        self.delegate?.othersUpdated(amount: price.toString)
         configureNavigation()
     }
     
