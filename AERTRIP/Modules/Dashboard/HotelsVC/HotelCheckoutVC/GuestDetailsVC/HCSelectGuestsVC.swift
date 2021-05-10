@@ -57,7 +57,7 @@ class HCSelectGuestsVC: BaseVC {
     //        return temp
     //    }
     
-    private var allChildVCs: [HCGuestListVC] = [HCGuestListVC]()
+    private var allChildVCs: [UIViewController] = [UIViewController]()
     
     private var currentSelectedGuestIndex: IndexPath = IndexPath(item: 0, section: 0)
     
@@ -181,9 +181,15 @@ class HCSelectGuestsVC: BaseVC {
         self.currentIndex = 0
         self.allChildVCs.removeAll()
         for idx in 0..<allTabsStr.count {
-            let vc = HCGuestListVC.instantiate(fromAppStoryboard: .HotelCheckout)
-            vc.currentlyUsingFor = allTabsStr[idx]
-            self.allChildVCs.append(vc)
+            if idx == 0{
+                let vc = TravellerMasterListVC.instantiate(fromAppStoryboard: .HotelCheckout)
+                self.allChildVCs.append(vc)
+            }else{
+                let vc = HCGuestListVC.instantiate(fromAppStoryboard: .HotelCheckout)
+                vc.currentlyUsingFor = allTabsStr[idx]
+                self.allChildVCs.append(vc)
+            }
+            
         }
         self.view.layoutIfNeeded()
         if let _ = self.parchmentView{

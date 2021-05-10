@@ -1203,6 +1203,10 @@
 		84409E5F2266F969005A5487 /* CustomDotMarker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84409E5D2266F969005A5487 /* CustomDotMarker.xib */; };
 		8441B24224C6B3D9001A465F /* SnappingCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8441B24124C6B3D8001A465F /* SnappingCollectionViewLayout.swift */; };
 		8441BFAC22AA6E7A0046830B /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8441BFAB22AA6E7A0046830B /* MyViewController.swift */; };
+		8441EF632649048A00477683 /* TravellerMasterListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8441EF622649048A00477683 /* TravellerMasterListVC.swift */; };
+		8441EF652649126A00477683 /* TravellerMasterListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8441EF642649126A00477683 /* TravellerMasterListVM.swift */; };
+		8441EF6926494F0900477683 /* TravellerMasterListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8441EF6726494F0900477683 /* TravellerMasterListCell.swift */; };
+		8441EF6A26494F0900477683 /* TravellerMasterListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8441EF6826494F0900477683 /* TravellerMasterListCell.xib */; };
 		84432AEA2420F7B100E7A387 /* UIPanGestureRecognizerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84432AE92420F7B100E7A387 /* UIPanGestureRecognizerExtension.swift */; };
 		8443EAA325A31BF900CA3B65 /* ChangeEmailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8443EAA225A31BF900CA3B65 /* ChangeEmailVC.swift */; };
 		8443EAA525A348A900CA3B65 /* ChangeEmailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8443EAA425A348A900CA3B65 /* ChangeEmailVM.swift */; };
@@ -3004,6 +3008,10 @@
 		84409E5D2266F969005A5487 /* CustomDotMarker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomDotMarker.xib; sourceTree = "<group>"; };
 		8441B24124C6B3D8001A465F /* SnappingCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnappingCollectionViewLayout.swift; sourceTree = "<group>"; };
 		8441BFAB22AA6E7A0046830B /* MyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewController.swift; sourceTree = "<group>"; };
+		8441EF622649048A00477683 /* TravellerMasterListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravellerMasterListVC.swift; sourceTree = "<group>"; };
+		8441EF642649126A00477683 /* TravellerMasterListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravellerMasterListVM.swift; sourceTree = "<group>"; };
+		8441EF6726494F0900477683 /* TravellerMasterListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravellerMasterListCell.swift; sourceTree = "<group>"; };
+		8441EF6826494F0900477683 /* TravellerMasterListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TravellerMasterListCell.xib; sourceTree = "<group>"; };
 		84432AE92420F7B100E7A387 /* UIPanGestureRecognizerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPanGestureRecognizerExtension.swift; sourceTree = "<group>"; };
 		8443EAA225A31BF900CA3B65 /* ChangeEmailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailVC.swift; sourceTree = "<group>"; };
 		8443EAA425A348A900CA3B65 /* ChangeEmailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailVM.swift; sourceTree = "<group>"; };
@@ -6094,6 +6102,7 @@
 		842EDE9E223A616E00E99409 /* HotelCheckOutTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				8441EF6626494ECA00477683 /* GuestListCell */,
 				844729002486A6BA00AFAF1B /* HCHotelPassengerView */,
 				844728FB24867DE800AFAF1B /* HCHotelAddreesCell */,
 				84246B662451C7E500C3F5F6 /* HCEmailTextFieldCell */,
@@ -7678,6 +7687,15 @@
 			path = LoginRegisterComplete;
 			sourceTree = "<group>";
 		};
+		8441EF6626494ECA00477683 /* GuestListCell */ = {
+			isa = PBXGroup;
+			children = (
+				8441EF6726494F0900477683 /* TravellerMasterListCell.swift */,
+				8441EF6826494F0900477683 /* TravellerMasterListCell.xib */,
+			);
+			path = GuestListCell;
+			sourceTree = "<group>";
+		};
 		8443EAA125A31BB000CA3B65 /* ChangeEmail */ = {
 			isa = PBXGroup;
 			children = (
@@ -8334,6 +8352,8 @@
 				842BA832223B93DE00EED7B0 /* HCSelectGuestsVC.swift */,
 				842BA834223BBB4300EED7B0 /* HCGuestListVC.swift */,
 				84C0BE1D224E22850034E9EA /* HCSelectGuestsVM.swift */,
+				8441EF622649048A00477683 /* TravellerMasterListVC.swift */,
+				8441EF642649126A00477683 /* TravellerMasterListVM.swift */,
 			);
 			path = GuestDetailsVC;
 			sourceTree = "<group>";
@@ -9756,6 +9776,7 @@
 				18020B0E2282E1F200DE5FE0 /* AerinChatTableViewCell.xib in Resources */,
 				8425049524B4B1A7003B00BE /* AbortRequestTableViewCell.xib in Resources */,
 				1851A75721C3B01A008DF03F /* SideMenuProfileImageCell.xib in Resources */,
+				8441EF6A26494F0900477683 /* TravellerMasterListCell.xib in Resources */,
 				84BF46CA2212A762000AA6E3 /* HotelDetailsLoaderTableViewCell.xib in Resources */,
 				8455A67F2232920900CEE2B3 /* ReviewsOptionTableViewCell.xib in Resources */,
 				843FF4DD24740231001F21B1 /* SingleTextFieldCell.xib in Resources */,
@@ -10285,6 +10306,7 @@
 				1851A75C21C3E051008DF03F /* AppUserDefaults.swift in Sources */,
 				1870AD1B220C769400FB32C8 /* TravelDetailModel.swift in Sources */,
 				843FF48024740230001F21B1 /* AirportSelectionVM.swift in Sources */,
+				8441EF652649126A00477683 /* TravellerMasterListVM.swift in Sources */,
 				84741B7A22A680E5009E304B /* QueryStatusCollectionCell.swift in Sources */,
 				84BBFF8D24CAC784008010EB /* MenuItemWithLogoCollCell.swift in Sources */,
 				0C162ACF24233B24001C2B10 /* ChatVM.swift in Sources */,
@@ -10319,6 +10341,7 @@
 				84E4BC22229BA21100B72306 /* FlightBookingsDetailsVC.swift in Sources */,
 				18D4C412220AB572005E1E37 /* AmenitiesTableViewCell.swift in Sources */,
 				841DD1E72202DC690055FEBB /* DestinationMyLocationTableCell.swift in Sources */,
+				8441EF632649048A00477683 /* TravellerMasterListVC.swift in Sources */,
 				0C24D4F5242CAF9D00CBFF92 /* CurrencyVM.swift in Sources */,
 				843FF4D924740231001F21B1 /* MealPreferenceCell.swift in Sources */,
 				1807A37B2297CBD100B78D47 /* BookingModel.swift in Sources */,
@@ -11006,6 +11029,7 @@
 				84085CE621F59C0E00F1E844 /* CreateProfileVM.swift in Sources */,
 				843FF52324740231001F21B1 /* FlightDomesticMultiLegResultVC+UI.swift in Sources */,
 				84D5F22322A63FEA00824A9F /* HotlelBookingsDetailsVC.swift in Sources */,
+				8441EF6926494F0900477683 /* TravellerMasterListCell.swift in Sources */,
 				1820F0FC228E91950019B8BB /* BookingVoucherVC.swift in Sources */,
 				84C7C39A23FE78A400755C6F /* HotelsResultVM+CoreData.swift in Sources */,
 				84534EA52248B83E009FF536 /* HCPhoneTableViewCell.swift in Sources */,
