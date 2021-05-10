@@ -182,6 +182,9 @@ class InternationalReturnTableViewCell: UITableViewCell {
             setPinnedFlight()
         }
         self.price.text = currentJourney.priceAsString
+        
+        self.price.attributedText = currentJourney.farepr.getConvertedAmount(using: AppFonts.Regular.withSize(16))
+        
         multiFlightsTableView.reloadData()
         self.multiFlighrsTableViewHeight.constant = CGFloat(66 * currentJourney.legsWithDetail.count)
         smartIconCollectionView.reloadData()

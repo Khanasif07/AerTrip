@@ -213,14 +213,16 @@ class DomesticMultiLegCell: UITableViewCell {
         departureAirportCode.text = journey.originIATACode
         //        self.price.text = journey.priceAsString
         
-        let amountText = NSMutableAttributedString.init(string: journey.priceAsString)
+//        let amountText = NSMutableAttributedString.init(string: journey.priceAsString)
+//
+//
+//        amountText.setAttributes([NSAttributedString.Key.font: AppFonts.Regular.withSize(14)], range: NSMakeRange(0, 1))
+//
+//        self.price.attributedText = amountText
         
-//        amountText.setAttributes([NSAttributedString.Key.font: UIFont(name: "SourceSansPro-Regular", size: 14)!], range: NSMakeRange(0, 1))
         
-        amountText.setAttributes([NSAttributedString.Key.font: AppFonts.Regular.withSize(14)], range: NSMakeRange(0, 1))
+        self.price.attributedText = journey.farepr.getConvertedAmount(using: AppFonts.Regular.withSize(16))
 
-        self.price.attributedText = amountText
-        
         
         self.priceWidth.constant =  self.price.intrinsicContentSize.width
         self.duration.text = journey.durationTitle

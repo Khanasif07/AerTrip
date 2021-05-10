@@ -80,7 +80,7 @@ struct AddonsDetails{
         let inf = json["INF"].dictionaryObject as? [String:Int] ?? [:]
         
         adt.forEach { (key,value) in
-            var adon = AddonsDataCustom(name: key, price: value, ssrName: ssrName[key])
+            var adon = AddonsDataCustom(name: key, price: value.toDouble, ssrName: ssrName[key])
             adon.isAdult = true
             addonsArray.append(adon)
         }
@@ -91,7 +91,7 @@ struct AddonsDetails{
             }){
                 addonsArray[indx].isChild = true
             }else{
-                var adon = AddonsDataCustom(name: key, price: value, ssrName: ssrName[key])
+                var adon = AddonsDataCustom(name: key, price: value.toDouble, ssrName: ssrName[key])
                   adon.isChild = true
                   addonsArray.append(adon)
             }
@@ -103,7 +103,7 @@ struct AddonsDetails{
                }){
                    addonsArray[indx].isInfant = true
                }else{
-                var adon = AddonsDataCustom(name: key, price: value, ssrName: ssrName[key])
+                var adon = AddonsDataCustom(name: key, price: value.toDouble, ssrName: ssrName[key])
                      adon.isInfant = true
                      addonsArray.append(adon)
                }
@@ -119,7 +119,7 @@ struct AddonsDetails{
 struct AddonsDataCustom {
     
     var adonsName : String = ""
-    var price : Int = 0
+    var price : Double = 0
     var isAdult : Bool = false
     var isChild : Bool = false
     var isInfant : Bool = false
@@ -135,7 +135,7 @@ struct AddonsDataCustom {
         
     }
     
-    init(name : String, price : Int,ssrName : AddonsSsr?){
+    init(name : String, price : Double,ssrName : AddonsSsr?){
         self.adonsName = name
         self.price = price
         self.ssrName = ssrName

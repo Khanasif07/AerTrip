@@ -68,7 +68,7 @@ class MealsContainerVM {
             let mealsArray = item.selectMealsVM.getMeals()
             let selectedMeals = mealsArray.filter { !$0.mealsSelectedFor.isEmpty && $0.ssrName?.isReadOnly == 0 }
             selectedMeals.forEach { (meal) in
-                totalPrice += (meal.price * meal.mealsSelectedFor.count)
+                totalPrice += (meal.price.toInt * meal.mealsSelectedFor.count)
             }
         }
         return totalPrice

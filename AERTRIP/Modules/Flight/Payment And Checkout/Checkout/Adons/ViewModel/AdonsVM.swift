@@ -225,7 +225,7 @@ extension AdonsVM {
                   let others = flight.meal.addonsArray.filter { !$0.mealsSelectedFor.isEmpty }
                   others.forEach { (other) in
                     
-                    mealsTotal += other.price * other.mealsSelectedFor.count
+                    mealsTotal += other.price.toInt * other.mealsSelectedFor.count
                     
                       other.mealsSelectedFor.forEach { (passenger) in
                           count += 1
@@ -298,7 +298,7 @@ extension AdonsVM {
                 let baggage = flight.bags.addonsArray.filter { !$0.bagageSelectedFor.isEmpty }
                 baggage.forEach { (bag) in
                     
-                    baggageTotal += bag.price * bag.bagageSelectedFor.count
+                    baggageTotal += bag.price.toInt * bag.bagageSelectedFor.count
 
                     
                     bag.bagageSelectedFor.forEach { (passenger) in
@@ -382,7 +382,7 @@ extension AdonsVM {
                 let others = flight.special.addonsArray.filter { !$0.othersSelectedFor.isEmpty }
                 others.forEach { (other) in
                     
-                    othersTotal += other.price * other.othersSelectedFor.count
+                    othersTotal += other.price.toInt * other.othersSelectedFor.count
 
                     other.othersSelectedFor.forEach { (passenger) in
                         count += 1

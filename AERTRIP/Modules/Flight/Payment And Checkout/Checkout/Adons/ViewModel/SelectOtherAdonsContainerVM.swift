@@ -79,7 +79,7 @@ class SelectOtherAdonsContainerVM {
               let mealsArray = item.otherAdonsVm.getOthers()
               let selectedMeals = mealsArray.filter { !$0.othersSelectedFor.isEmpty && $0.ssrName?.isReadOnly == 0 }
               selectedMeals.forEach { (meal) in
-                  totalPrice += (meal.price * meal.othersSelectedFor.count)
+                totalPrice += (meal.price.toInt * meal.othersSelectedFor.count)
               }
           }
         return totalPrice
