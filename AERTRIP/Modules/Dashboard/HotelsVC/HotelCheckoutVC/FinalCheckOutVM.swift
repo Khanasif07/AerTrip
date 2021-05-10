@@ -104,7 +104,7 @@ extension FinalCheckoutVM {
         //forAmount used to decide that razor pay will use or not
         var params: [String : Any] = [ APIKeys.it_id.rawValue : self.itineraryData?.it_id ?? ""]
         params[APIKeys.total_amount.rawValue] = grossTotalPayableAmount
-        params[APIKeys.currency_code.rawValue] = self.itineraryData?.booking_currency ?? ""
+        params[APIKeys.currency_code.rawValue] = UserInfo.preferredCurrencyDetails?.currencyCode ?? (self.itineraryData?.booking_currency ?? "")
         params[APIKeys.use_points.rawValue] = 0
         if UserInfo.loggedInUser != nil {
             params[APIKeys.use_wallet.rawValue] = useWallet ? 1 : 0

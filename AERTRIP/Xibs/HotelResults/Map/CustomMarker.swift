@@ -70,7 +70,10 @@ class CustomMarker: UIView {
         }
         
 //        let str = NSAttributedString(string: hotel?.hotelName?.substring(to: 4) ?? "")
-        self.priceLabel.attributedText = (price.amountInDelimeterWithSymbol).addPriceSymbolToLeft(using: AppFonts.SemiBold.withSize(16.0))
+//        ttributedFontForText(text: price.getPreferredCurrency, textFont: AppFonts.Regular.withSize(12))
+
+        self.priceLabel.attributedText = price.getConvertedAmount(using: AppFonts.SemiBold.withSize(16.0))
+        self.priceLabel.AttributedFontForText(text: price.getPreferredCurrency, textFont: AppFonts.SemiBold.withSize(12.0))
         updateMakerImage()
         
 //        self.priceLabel.sizeToFit()

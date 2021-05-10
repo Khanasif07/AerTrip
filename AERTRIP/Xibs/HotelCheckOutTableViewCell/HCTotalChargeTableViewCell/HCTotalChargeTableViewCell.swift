@@ -47,9 +47,15 @@ class HCTotalChargeTableViewCell: UITableViewCell {
         self.paymentModeLabel.textColor = AppColors.themeGray40
     }
     
-    ///COnfigure Cell
+    ///Configure Cell
     internal func configCell(mode: String , totalCharge: String) {
         self.paymentModeLabel.text = mode.capitalizedFirst()
         self.totalCostLabel.attributedText = "\(totalCharge)".asStylizedPrice(using: AppFonts.SemiBold.withSize(26.0))
+    }
+    
+    
+    internal func configCellWithAmount(mode: String , totalCharge: Double) {
+        self.paymentModeLabel.text = mode.capitalizedFirst()
+        self.totalCostLabel.attributedText = (totalCharge).getConvertedAmount(using: AppFonts.SemiBold.withSize(26.0))
     }
 }

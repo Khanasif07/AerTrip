@@ -622,9 +622,18 @@ extension Double {
         return (self * (UserInfo.preferredCurrencyDetails?.rate ?? 1.0)).amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font)
     }
     
-    func  getConvertedCanllationAmount(using font: UIFont)->NSMutableAttributedString{
+    func  getConvertedCancellationAmount(using font: UIFont)->NSMutableAttributedString{
         return (self * (UserInfo.preferredCurrencyDetails?.cancellation_rate ?? 1.0)).amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font)
     }
+    
+    var getPriceStringWithCurrency:String{
+        getConvertedAmount(using: AppFonts.Regular.withSize(16)).string
+    }
+    
+    var getCancellationPriceStringWithCurrency:String{
+        getConvertedCancellationAmount(using: AppFonts.Regular.withSize(16)).string
+    }
+    
     
 }
 

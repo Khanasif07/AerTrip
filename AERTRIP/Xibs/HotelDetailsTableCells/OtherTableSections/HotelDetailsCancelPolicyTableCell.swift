@@ -172,10 +172,10 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
                 penaltyString = "Full Refund: If you cancel by \(endingDate)\n"
                 return penaltyString
             } else if !toDate.isEmpty && !fromDate.isEmpty && penalty != 0 {
-                penaltyString = "Cancellation fee of \(Double(penalty).amountInDelimeterWithSymbol) will be charged if you cancel from \(startingDate) to \(endingDate)\n"
+                penaltyString = "Cancellation fee of \(Double(penalty).getCancellationPriceStringWithCurrency) will be charged if you cancel from \(startingDate) to \(endingDate)\n"
                 return penaltyString
             } else if toDate.isEmpty && !fromDate.isEmpty && penalty != 0 {
-                penaltyString = "Cancellation fee of \(Double(penalty).amountInDelimeterWithSymbol) will be charged if you cancel on \(startingDate) or later\n"
+                penaltyString = "Cancellation fee of \(Double(penalty).getCancellationPriceStringWithCurrency) will be charged if you cancel on \(startingDate) or later\n"
                 return penaltyString
             }
         } else {
@@ -186,7 +186,7 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
                 return penaltyString
             } else if(penalty != 0 && penalty != Int(roomPrice) &&
                         !fromDate.isEmpty && toDate.isEmpty) {
-                penaltyString = "Cancellation fee of \(Double(penalty).amountInDelimeterWithSymbol) will be charged if you cancel on \(startingDate) or later\n"
+                penaltyString = "Cancellation fee of \(Double(penalty).getCancellationPriceStringWithCurrency) will be charged if you cancel on \(startingDate) or later\n"
                 return penaltyString
             }
         }

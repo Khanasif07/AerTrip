@@ -727,7 +727,7 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
     
     
     func getPrice(price:Double) -> NSMutableAttributedString{
-        return price.getConvertedCanllationAmount(using: AppFonts.SemiBold.withSize(16))
+        return price.getConvertedCancellationAmount(using: AppFonts.SemiBold.withSize(16))
     }
     
     

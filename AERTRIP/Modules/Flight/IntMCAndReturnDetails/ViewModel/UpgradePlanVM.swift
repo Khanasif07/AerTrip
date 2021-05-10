@@ -20,8 +20,8 @@ class UpgradePlanVM{
     var oldJourney: [Journey]?
     var oldIntJourney : [IntJourney]?
     var isInternational:Bool = false
-    var ohterFareData = [[OtherFareModel]?]()
-    var selectedOhterFareData = [OtherFareModel?]()
+    var otherFareData = [[OtherFareModel]?]()
+    var selectedOtherFareData = [OtherFareModel?]()
     var allTabsStr = [NSAttributedString]()
     var currentIndex = 0
     var sid = ""
@@ -59,7 +59,7 @@ class UpgradePlanVM{
     func updateFareTaxes()-> Double{
         var totalFare: Double = 0
         
-        for (index, value) in self.selectedOhterFareData.enumerated(){
+        for (index, value) in self.selectedOtherFareData.enumerated(){
             
             if value != nil{
                 totalFare += value?.farepr ?? 0
@@ -74,7 +74,7 @@ class UpgradePlanVM{
     private  func generateParamsForConfirmation()-> JSONDictionary{
         var param:JSONDictionary = ["sid": sid]
 
-            for (index, value) in self.selectedOhterFareData.enumerated(){
+            for (index, value) in self.selectedOtherFareData.enumerated(){
                 if value != nil{
                     param["old_farepr[\(index)]"] = value?.farepr ?? 0
                     param["fk[\(index)]"] = value?.flightResult.fk ?? ""
@@ -112,7 +112,7 @@ class UpgradePlanVM{
     
     func getOtherModelForDomestic()-> [OtherFareModel]{
         var otherFare = [OtherFareModel]()
-        for (index, value) in selectedOhterFareData.enumerated(){
+        for (index, value) in selectedOtherFareData.enumerated(){
             if let fare = value{
                 otherFare.append(fare)
             }else{

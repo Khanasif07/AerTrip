@@ -89,8 +89,8 @@ class UpgradePlanListVC: BaseVC {
     
     func shouldStartIndicator(isDataFetched: Bool){
         self.isDataFetched = isDataFetched
-        guard self.viewModel.ohterFareData.count > usedIndexFor else {return}
-        if self.viewModel.ohterFareData[usedIndexFor] == nil{
+        guard self.viewModel.otherFareData.count > usedIndexFor else {return}
+        if self.viewModel.otherFareData[usedIndexFor] == nil{
             self.indicator?.stopAnimating()
             self.noDataFoundView.isHidden = false
             self.planCollectionView.isHidden = true
@@ -100,8 +100,8 @@ class UpgradePlanListVC: BaseVC {
             }else{
                 self.indicator?.startAnimating()
             }
-            self.journeyPageControl?.numberOfPages = (self.viewModel.ohterFareData[usedIndexFor]?.count ?? 0)
-            self.journeyPageControl?.isHidden = ((self.viewModel.ohterFareData[usedIndexFor]?.count ?? 0) < 2)
+            self.journeyPageControl?.numberOfPages = (self.viewModel.otherFareData[usedIndexFor]?.count ?? 0)
+            self.journeyPageControl?.isHidden = ((self.viewModel.otherFareData[usedIndexFor]?.count ?? 0) < 2)
             self.noDataFoundView?.isHidden = true
             self.planCollectionView?.isHidden = false
             self.planCollectionView?.reloadData()
@@ -130,8 +130,8 @@ extension UpgradePlanListVC : UICollectionViewDataSource, UICollectionViewDelega
     
     //MARK:- CollectionView Methods
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
-        if self.viewModel.ohterFareData.count > usedIndexFor{
-            return self.viewModel.ohterFareData[usedIndexFor]?.count ?? 0
+        if self.viewModel.otherFareData.count > usedIndexFor{
+            return self.viewModel.otherFareData[usedIndexFor]?.count ?? 0
         }else{
             return 0
         }
@@ -141,8 +141,8 @@ extension UpgradePlanListVC : UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "plansCell", for: indexPath) as? PlansCollectionViewCell else {return UICollectionViewCell()}
-        let upgardeResult = self.viewModel.ohterFareData[usedIndexFor] ?? []
-        if upgardeResult.count > 0{
+        let upgradeResult = self.viewModel.otherFareData[usedIndexFor] ?? []
+        if upgradeResult.count > 0{
             if !cell.isAnimated {
                 UIView.animate(withDuration: 0.5, delay: 0.5 * Double(indexPath.row), usingSpringWithDamping: 1.5, initialSpringVelocity: 0.5, options: indexPath.row % 2 == 0 ? .transitionFlipFromLeft : .transitionFlipFromRight, animations: {
                     
@@ -153,34 +153,34 @@ extension UpgradePlanListVC : UICollectionViewDataSource, UICollectionViewDelega
                 })
             }
             
-            cell.titleLabel.text = upgardeResult[indexPath.item].cellTitle
+            cell.titleLabel.text = upgradeResult[indexPath.item].cellTitle
             cell.titleLabel.numberOfLines = 2
             
             
             
-            let attributedStr = NSMutableAttributedString(string: upgardeResult[indexPath.item].descriptionShown)
+            let attributedStr = NSMutableAttributedString(string: upgradeResult[indexPath.item].descriptionShown)
             
             var checkMarkImgName = ""
             
-            let farepr = upgardeResult[indexPath.row].farepr
-            let oldFarepr = viewModel.selectedOhterFareData[usedIndexFor]?.farepr ?? 0
+            let farepr = upgradeResult[indexPath.row].farepr
+            let oldFarepr = viewModel.selectedOtherFareData[usedIndexFor]?.farepr ?? 0
             let priceDifferent = (farepr - oldFarepr)
             cell.selectButtonClick.tag = indexPath.row
             
-            if upgardeResult[indexPath.row].isDefault{
+            if upgradeResult[indexPath.row].isDefault{
                 cell.priceLabel.text = ""
                 cell.selectButton.backgroundColor = AppColors.themeGreen
                 cell.selectButton.setTitleColor(AppColors.themeWhite, for: .normal)
                 cell.selectButton.setTitle("Selected", for: .normal)
-                cell.newPriceLabel.text = getPrice(price: Double(farepr))
+                cell.newPriceLabel.attributedText = getPrice(price: Double(farepr), fontSize: 18.0)
                 checkMarkImgName = "Green_Copy.png"
             }else{
                 if priceDifferent < 0{
-                    cell.newPriceLabel.text = "- "+getPrice(price: Double(priceDifferent)).replacingOccurrences(of: "-", with: "")
+                    cell.newPriceLabel.attributedText = getPrice(price: Double(priceDifferent), fontSize: 18.0, sign: "-")
                 }else{
-                    cell.newPriceLabel.text = "+ "+getPrice(price: Double(priceDifferent))
+                    cell.newPriceLabel.attributedText = getPrice(price: Double(priceDifferent), fontSize: 18.0, sign: "+")
                 }
-                cell.priceLabel.text = getPrice(price: Double(farepr))
+                cell.priceLabel.attributedText = getPrice(price: Double(farepr), fontSize: 12.0)
                 cell.selectButton.backgroundColor = AppColors.quaternarySystemFillColor
                 cell.selectButton.setTitleColor(AppColors.themeGreen, for: .normal)
                 cell.selectButton.setTitle("Select", for: .normal)
@@ -217,12 +217,12 @@ extension UpgradePlanListVC : UICollectionViewDataSource, UICollectionViewDelega
             }
             style.paragraphSpacingBefore = 12
             
-            let range = (upgardeResult[indexPath.item].descriptionShown as NSString).range(of: upgardeResult[indexPath.item].descriptionShown)
+            let range = (upgradeResult[indexPath.item].descriptionShown as NSString).range(of: upgradeResult[indexPath.item].descriptionShown)
             
             updatedStr.addAttribute(NSAttributedString.Key.font, value: AppFonts.Regular.withSize(16.0) , range: range)
             updatedStr.addAttribute(NSAttributedString.Key.paragraphStyle, value: style, range: range)
             
-            let newRange = (upgardeResult[indexPath.item].descriptionShown as NSString).range(of: upgardeResult[indexPath.item].descriptionTitle)
+            let newRange = (upgradeResult[indexPath.item].descriptionShown as NSString).range(of: upgradeResult[indexPath.item].descriptionTitle)
             let newStyle = NSMutableParagraphStyle()
             newStyle.headIndent = 0
             newStyle.paragraphSpacingBefore = 12
@@ -234,11 +234,11 @@ extension UpgradePlanListVC : UICollectionViewDataSource, UICollectionViewDelega
             }
             
             //For showing upgrade Seat
-            if upgardeResult[indexPath.item].flightResult.seats != "" && upgardeResult[indexPath.item].flightResult.fsr == 1{
+            if upgradeResult[indexPath.item].flightResult.seats != "" && upgradeResult[indexPath.item].flightResult.fsr == 1{
                 cell.fewSeatsLeftView.isHidden = false
                 cell.fewSeatsLeftViewHeight.constant = 35
-                cell.fewSeatsLeftCountLabel.text = upgardeResult[indexPath.item].flightResult.seats
-                if (upgardeResult[indexPath.item].flightResult.seats.toInt ?? 0) > 1{
+                cell.fewSeatsLeftCountLabel.text = upgradeResult[indexPath.item].flightResult.seats
+                if (upgradeResult[indexPath.item].flightResult.seats.toInt ?? 0) > 1{
                     cell.fewSeatsLeftLabel.text = "Seats left at this price. Hurry up!"
                 }else{
                     cell.fewSeatsLeftLabel.text = "Seat left at this price. Hurry up!"
@@ -262,16 +262,16 @@ extension UpgradePlanListVC : UICollectionViewDataSource, UICollectionViewDelega
     
     
     func updateSelected(at indexPath: IndexPath){
-        for i in 0..<(self.viewModel.ohterFareData[usedIndexFor]?.count ?? 0){
-            self.viewModel.ohterFareData[usedIndexFor]?[i].isDefault = (i == indexPath.item)
+        for i in 0..<(self.viewModel.otherFareData[usedIndexFor]?.count ?? 0){
+            self.viewModel.otherFareData[usedIndexFor]?[i].isDefault = (i == indexPath.item)
         }
-        self.viewModel.selectedOhterFareData[usedIndexFor] = self.viewModel.ohterFareData[usedIndexFor]?[indexPath.item]
-        let amount = getPrice(price: Double(self.viewModel.updateFareTaxes()))
-        if self.viewModel.isInternational, let journey = self.viewModel.ohterFareData[usedIndexFor]?[indexPath.item]{
+        self.viewModel.selectedOtherFareData[usedIndexFor] = self.viewModel.otherFareData[usedIndexFor]?[indexPath.item]
+        let amount = ""//getPrice(price: Double(self.viewModel.updateFareTaxes()))
+        if self.viewModel.isInternational, let journey = self.viewModel.otherFareData[usedIndexFor]?[indexPath.item]{
             self.viewModel.oldIntJourney?[usedIndexFor].farepr = journey.farepr
             self.viewModel.oldIntJourney?[usedIndexFor].fare = journey.fare
         }
-        self.delegate?.updateFareBreakupView(fareAmount: amount)
+        self.delegate?.updateFareBreakupView(fareAmount: "")
         self.planCollectionView.reloadData()
     }
     
@@ -315,17 +315,16 @@ extension UpgradePlanListVC : UICollectionViewDataSource, UICollectionViewDelega
     
     
     //MARK:- Format Price
-    func getPrice(price:Double) -> String{
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        formatter.maximumFractionDigits = 2
-        formatter.locale = Locale(identifier: "en_IN")
-        var result = formatter.string(from: NSNumber(value: price)) ?? ""
-        
-        if result.contains(find: ".00"){
-            result = result.replacingOccurrences(of: ".00", with: "", options: .caseInsensitive, range: Range(NSRange(location:result.count-3,length:3), in: result) )
+    func getPrice(price:Double, fontSize:CGFloat, sign:String = "") -> NSMutableAttributedString{
+
+        if !sign.isEmpty{
+            let attStr = NSMutableAttributedString(string: "\(sign) ", attributes: [.font: AppFonts.SemiBold.withSize(fontSize)])
+            attStr.append(abs(price).getConvertedAmount(using: AppFonts.SemiBold.withSize(fontSize)))
+            return attStr
+            
+        }else{
+            return price.getConvertedAmount(using: AppFonts.SemiBold.withSize(fontSize))
         }
-        return result
     }
     
 }

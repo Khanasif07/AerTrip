@@ -137,8 +137,10 @@ class FlightPaymentVC: BaseVC {
 
     func setupPayButtonTitle(){
         if self.getTotalPayableAmount() != 0.0{
-            let ttl = self.getTotalPayableAmount().amountInDelimeterWithSymbol
-            let amount = ttl.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
+//            let ttl = self.getTotalPayableAmount().amountInDelimeterWithSymbol
+//            let amount = ttl.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
+            let ttl = self.getTotalPayableAmount().getPriceStringWithCurrency
+            let amount = self.getTotalPayableAmount().getConvertedAmount(using: AppFonts.SemiBold.withSize(20.0))
             amount.addAttributes([.foregroundColor : AppColors.themeWhite], range: NSString(string: ttl).range(of: ttl))
             let attributedTitle = NSMutableAttributedString(string: "  \(LocalizedString.Pay.localized) ", attributes: [.font: AppFonts.SemiBold.withSize(20), .foregroundColor: AppColors.themeWhite])
             attributedTitle.append(amount)
@@ -239,6 +241,7 @@ class FlightPaymentVC: BaseVC {
         else if diff < 0{
             // dipped
             FareUpdatedPopUpVC.showPopUp(isForIncreased: false, decreasedAmount: Double(-diff), increasedAmount: 0, totalUpdatedAmount: 0, continueButtonAction: nil, goBackButtonAction: nil)
+            self.checkForWalletOTP()
 //            delay(seconds: 5.0) { [weak self] in
 //                guard let self = self else { return }
 //            }
