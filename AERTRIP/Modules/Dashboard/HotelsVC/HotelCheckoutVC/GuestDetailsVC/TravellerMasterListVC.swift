@@ -27,6 +27,7 @@ class TravellerMasterListVC: BaseVC {
         super.viewDidLoad()
         self.viewModel.createDataSource()
         self.registerXib()
+        self.travellerTable.backgroundColor = AppColors.themeGray04
         travellerTable.delegate = self
         travellerTable.dataSource = self
     }
@@ -79,11 +80,21 @@ extension TravellerMasterListVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.tableDataArray[section].count
+        if ((self.viewModel.tableSectionArray.count - 1) != section){
+            return self.viewModel.tableDataArray[section].count
+        }else{
+            return self.viewModel.tableDataArray[section].count + 1
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50.0
+        if indexPath.row != self.viewModel.tableDataArray[indexPath.section].count{
+            return 50.0
+        }else{
+            return 35.0
+        }
+       
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -92,17 +103,25 @@ extension TravellerMasterListVC: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: TravellerMasterListCell.reusableIdentifier) as? TravellerMasterListCell else {
-            return UITableViewCell()
+        if indexPath.row != self.viewModel.tableDataArray[indexPath.section].count{
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: TravellerMasterListCell.reusableIdentifier) as? TravellerMasterListCell else {
+                return UITableViewCell()
+            }
+            cell.showSalutationImage = true
+            cell.contact = self.viewModel.tableDataArray[indexPath.section][indexPath.row].contact
+            cell.dividerView.isHidden = indexPath.row == (self.viewModel.tableDataArray[indexPath.section].count - 1)
+            cell.selectionButton.isSelected = HCSelectGuestsVM.shared.selectedTravellerContacts.contains(where: { (contact) -> Bool in
+                contact.id == self.viewModel.tableDataArray[indexPath.section][indexPath.row].contact.id
+            })
+            return cell
+        }else{
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: EmptyTableViewCell.reusableIdentifier) as? EmptyTableViewCell else {
+                return UITableViewCell()
+            }
+            cell.bottomDividerView.isHidden = true
+            return cell
         }
-        cell.showSalutationImage = true
-        cell.contact = self.viewModel.tableDataArray[indexPath.section][indexPath.row].contact
-        cell.dividerView.isHidden = indexPath.row == (self.viewModel.tableDataArray[indexPath.section].count - 1)
-        cell.selectionButton.isSelected = HCSelectGuestsVM.shared.selectedTravellerContacts.contains(where: { (contact) -> Bool in
-            contact.id == self.viewModel.tableDataArray[indexPath.section][indexPath.row].contact.id
-        })
-        return cell
+        
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -114,7 +133,9 @@ extension TravellerMasterListVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.updateSelectedContact(with: self.viewModel.tableDataArray[indexPath.section][indexPath.row])
+        if indexPath.row != self.viewModel.tableDataArray[indexPath.section].count{
+            self.updateSelectedContact(with: self.viewModel.tableDataArray[indexPath.section][indexPath.row])
+        }
     }
     
     

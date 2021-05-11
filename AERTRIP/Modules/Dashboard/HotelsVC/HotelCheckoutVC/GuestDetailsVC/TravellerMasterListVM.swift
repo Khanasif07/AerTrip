@@ -10,7 +10,6 @@ import Foundation
 
 class TravellerMasterListVM{
     
-    var selectedTraveller: [TravellerModel] = []
     var tableDataArray: [[TravellerModel]] = []
     var selfTraveller = TravellerModel()
     var tableSectionArray = [String]()
