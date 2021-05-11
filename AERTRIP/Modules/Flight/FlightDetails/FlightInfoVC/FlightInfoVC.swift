@@ -278,8 +278,11 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         }
                         
                         if baggageData.count > 0{
-                            if index < (baggageData.first?.count ?? 0){
-                                let bgs = baggageData.first?["\(flight.ffk)"] as? JSONDictionary
+                            if indexPath.section < (baggageData.count){
+                                
+                                let bgs = baggageData[indexPath.section]["\(flight.ffk)"] as? JSONDictionary
+
+//                                let bgs = baggageData[index]["\(flight.ffk)"] as? JSONDictionary
 
                                 if amenitiesData.count == 0{
                                     if let bgData = bgs?["bg"] as? JSONDictionary{
