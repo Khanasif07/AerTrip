@@ -35,6 +35,7 @@ class MyBookingsVM {
     //    }
     //
     var deepLinkBookingId  = ""
+    var isNeedToOpenCompleted:Bool = false
     var bookingListAPIResponse :(Bool, ErrorCodes)?
     private init() {}
     
