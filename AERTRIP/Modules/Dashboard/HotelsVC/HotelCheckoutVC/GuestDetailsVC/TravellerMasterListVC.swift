@@ -113,6 +113,7 @@ extension TravellerMasterListVC: UITableViewDelegate, UITableViewDataSource {
             cell.selectionButton.isSelected = HCSelectGuestsVM.shared.selectedTravellerContacts.contains(where: { (contact) -> Bool in
                 contact.id == self.viewModel.tableDataArray[indexPath.section][indexPath.row].contact.id
             })
+            cell.meLabel.isHidden = !(indexPath.section == 0)
             return cell
         }else{
             guard let cell = tableView.dequeueReusableCell(withIdentifier: EmptyTableViewCell.reusableIdentifier) as? EmptyTableViewCell else {

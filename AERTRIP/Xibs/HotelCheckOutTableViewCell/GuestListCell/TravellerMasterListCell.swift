@@ -54,6 +54,9 @@ class TravellerMasterListCell: UITableViewCell {
     private func setupTextAndColor() {
         self.nameLabel.textColor = AppColors.themeBlack
         self.nameLabel.font = AppFonts.Regular.withSize(18.0)
+        self.meLabel.textColor = AppColors.themeGray60
+        self.meLabel.font = AppFonts.Regular.withSize(16.0)
+        self.meLabel.text = "Me"
     }
 
     private func populateData() {
