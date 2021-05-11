@@ -14,6 +14,7 @@ class TravellerMasterListCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var dividerView: ATDividerView!
     @IBOutlet weak var userImageView: UIImageView!
+    @IBOutlet weak var meLabel: UILabel!
     
     var contact: ATContact? {
         didSet {

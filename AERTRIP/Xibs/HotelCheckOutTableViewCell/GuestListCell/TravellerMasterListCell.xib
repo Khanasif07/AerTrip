@@ -27,7 +27,7 @@
                         <state key="selected" image="CheckedGreenRadioButton"/>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tCp-VQ-hw6">
-                        <rect key="frame" x="87" y="12" width="223" height="20.5"/>
+                        <rect key="frame" x="87" y="12" width="188" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -39,6 +39,12 @@
                             <constraint firstAttribute="height" constant="20" id="Z0t-Qn-eMY"/>
                         </constraints>
                     </imageView>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Me" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l7l-Wt-vFe">
+                        <rect key="frame" x="284" y="11.5" width="24" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9BF-2O-r6W" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                         <rect key="frame" x="55" y="43.5" width="255" height="0.5"/>
                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -48,11 +54,13 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="tCp-VQ-hw6" secondAttribute="trailing" constant="10" id="4iY-sn-wLI"/>
+                    <constraint firstAttribute="trailing" secondItem="tCp-VQ-hw6" secondAttribute="trailing" constant="45" id="4iY-sn-wLI"/>
                     <constraint firstItem="kTc-rF-rjt" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="A7g-hM-ASO"/>
+                    <constraint firstItem="l7l-Wt-vFe" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="AmY-pT-ZDH"/>
                     <constraint firstAttribute="bottom" secondItem="9BF-2O-r6W" secondAttribute="bottom" id="JPh-TX-Ihn"/>
                     <constraint firstAttribute="trailing" secondItem="9BF-2O-r6W" secondAttribute="trailing" constant="10" id="NJN-5s-nl9"/>
                     <constraint firstItem="kUp-fZ-42g" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="fHq-2t-Hpc"/>
+                    <constraint firstAttribute="trailing" secondItem="l7l-Wt-vFe" secondAttribute="trailing" constant="12" id="ngN-ga-4GG"/>
                     <constraint firstItem="kUp-fZ-42g" firstAttribute="leading" secondItem="kTc-rF-rjt" secondAttribute="trailing" constant="10" id="pLd-XY-qRL"/>
                     <constraint firstItem="tCp-VQ-hw6" firstAttribute="leading" secondItem="kUp-fZ-42g" secondAttribute="trailing" constant="12" id="pPy-UY-OmY"/>
                     <constraint firstItem="9BF-2O-r6W" firstAttribute="leading" secondItem="kUp-fZ-42g" secondAttribute="leading" id="s5Q-rU-evf"/>
@@ -63,6 +71,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="dividerView" destination="9BF-2O-r6W" id="YsD-9I-xkR"/>
+                <outlet property="meLabel" destination="l7l-Wt-vFe" id="5Cb-sr-WfZ"/>
                 <outlet property="nameLabel" destination="tCp-VQ-hw6" id="U7g-zb-MeR"/>
                 <outlet property="selectionButton" destination="kTc-rF-rjt" id="9ya-pB-Odg"/>
                 <outlet property="userImageView" destination="kUp-fZ-42g" id="Pyi-CT-9La"/>

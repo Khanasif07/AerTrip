@@ -181,7 +181,7 @@ class HCSelectGuestsVC: BaseVC {
         self.currentIndex = 0
         self.allChildVCs.removeAll()
         for idx in 0..<allTabsStr.count {
-            if idx == 0{
+            if allTabsStr[idx] == .travellers{
                 let vc = TravellerMasterListVC.instantiate(fromAppStoryboard: .HotelCheckout)
                 self.allChildVCs.append(vc)
             }else{

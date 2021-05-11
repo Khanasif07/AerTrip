@@ -85,7 +85,9 @@ class TravellerMasterListVM{
                 }
             }
         }
-        
+        //Insert current user on top top
+        tableSectionArray.insert("", at: 0)
+        tableDataArray.insert([selfTraveller], at: 0)
     }
     
     

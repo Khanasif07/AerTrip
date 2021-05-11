@@ -14,6 +14,15 @@ class TravellerMasterListVC: BaseVC {
     
     var viewModel = TravellerMasterListVM()
     
+
+    lazy var noResultEmptyView: EmptyScreenView = {
+        let newEmptyView = EmptyScreenView()
+        newEmptyView.vType = .noResult
+        return newEmptyView
+    }()
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel.createDataSource()
@@ -21,6 +30,39 @@ class TravellerMasterListVC: BaseVC {
         travellerTable.delegate = self
         travellerTable.dataSource = self
     }
+    
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.noResultEmptyView.layoutSubviews()
+    }
+    
+    override func dataChanged(_ note: Notification) {
+        if let obj = note.object as? HCSelectGuestsVM.Notification {
+             if obj == .selectionChanged {
+                self.travellerTable.reloadData()
+            }
+            else if obj == .searchDone {
+                let searchText = HCSelectGuestsVM.shared.searchText.lowercased()
+                if searchText.isEmpty{
+                    self.viewModel.createDataSource()
+                }else{
+                    let travellers = GuestDetailsVM.shared.travellerList.filter{$0.firstLastName.lowercased().contains(searchText)}
+                    self.viewModel.createDataSource(with: travellers)
+                    if self.viewModel.tableSectionArray.count == 1{
+                        self.noResultEmptyView.messageLabel.isHidden = false
+                        self.noResultEmptyView.messageLabel.text = "\(LocalizedString.noResults.localized + " " + LocalizedString.For.localized) '\(searchText)'"
+                        self.noResultEmptyView.messageLabel.numberOfLines = 0
+                        self.travellerTable.backgroundView = self.noResultEmptyView
+                    }else{
+                        self.travellerTable.backgroundView = nil
+                    }
+                }
+                self.travellerTable.reloadData()
+            }
+        }
+    }
+    
     
     func registerXib() {
         travellerTable.register(UINib(nibName: "TravellerListTableViewSectionView", bundle: nil), forHeaderFooterViewReuseIdentifier: "tableViewHeaderCellIdentifier")
@@ -45,7 +87,7 @@ extension TravellerMasterListVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30
+        return (self.viewModel.tableSectionArray[section].isEmpty) ? .leastNormalMagnitude : 30
     }
     
     
@@ -57,14 +99,14 @@ extension TravellerMasterListVC: UITableViewDelegate, UITableViewDataSource {
         cell.showSalutationImage = true
         cell.contact = self.viewModel.tableDataArray[indexPath.section][indexPath.row].contact
         cell.dividerView.isHidden = indexPath.row == (self.viewModel.tableDataArray[indexPath.section].count - 1)
-        cell.selectionButton.isSelected = self.viewModel.selectedTraveller.contains(where: { (traveller) -> Bool in
-            traveller.contact.id == self.viewModel.tableDataArray[indexPath.section][indexPath.row].contact.id
+        cell.selectionButton.isSelected = HCSelectGuestsVM.shared.selectedTravellerContacts.contains(where: { (contact) -> Bool in
+            contact.id == self.viewModel.tableDataArray[indexPath.section][indexPath.row].contact.id
         })
         return cell
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "tableViewHeaderCellIdentifier") as? TravellerListTableViewSectionView else {
+        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "tableViewHeaderCellIdentifier") as? TravellerListTableViewSectionView, !(self.viewModel.tableSectionArray[section].isEmpty) else {
             return nil
         }
         headerView.configureCell(self.viewModel.tableSectionArray[section])
@@ -72,7 +114,32 @@ extension TravellerMasterListVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.updateSelectedContact(with: self.viewModel.tableDataArray[indexPath.section][indexPath.row])
+    }
+    
+    
+    func updateSelectedContact(with traveller: TravellerModel){
+        let travellerVM = HCSelectGuestsVM.shared
+        if let oIndex = travellerVM.originalIndex(forContact: traveller.contact, forType: .travellers) {
 
+            if let index = travellerVM.selectedTravellerContacts.firstIndex(where: { (contact) -> Bool in
+                contact.id == traveller.contact.id
+            }) {
+                travellerVM.selectedTravellerContacts.remove(at: index)
+                if let index = travellerVM.travellerContacts.firstIndex(where: {$0.id == traveller.contact.id}){
+                    travellerVM.remove(atIndex: index, for: .travellers)
+                }
+            }
+            else if travellerVM.totalGuestCount > travellerVM.allSelectedCount {
+                travellerVM.selectedTravellerContacts.append(traveller.contact)
+                travellerVM.add(atIndex: oIndex, for: .travellers)
+            } else {
+                travellerVM.selectedTravellerContacts.append(traveller.contact)
+                travellerVM.update(atIndex: oIndex, for: .travellers)
+            }
+        }
+        self.travellerTable.reloadData()
+        
     }
 
 }
