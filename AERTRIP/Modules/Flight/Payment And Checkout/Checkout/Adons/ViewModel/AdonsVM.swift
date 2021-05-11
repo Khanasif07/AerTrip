@@ -234,7 +234,9 @@ extension AdonsVM {
                       }
                   }
               }
-            description = "\(LocalizedString.Total.localized) : ₹\(mealsTotal.commaSeprated)"
+            
+            
+            description = "\(LocalizedString.Total.localized) : \(mealsTotal.toDouble.getConvertedAmount(using: AppFonts.SemiBold.withSize(13)).string)"
           }
           
           if description.isEmpty {
@@ -308,7 +310,7 @@ extension AdonsVM {
                     }
                 }
             }
-            description = "\(LocalizedString.Total.localized) : ₹\(baggageTotal.commaSeprated)"
+            description = "\(LocalizedString.Total.localized) : \(baggageTotal.toDouble.getConvertedAmount(using: AppFonts.SemiBold.withSize(13)).string)"
 
         }
         
@@ -391,7 +393,7 @@ extension AdonsVM {
                     }
                 }
             }
-            description = "\(LocalizedString.Total.localized) : ₹\(othersTotal.commaSeprated) "
+            description = "\(LocalizedString.Total.localized) : \(othersTotal.toDouble.getConvertedAmount(using: AppFonts.SemiBold.withSize(13)).string) "
         }
         
         if self.isSpecialRequestAdded() {
@@ -476,8 +478,9 @@ extension AdonsVM {
                if descStr.hasSuffix(", ") {
                    descStr.removeLast(2)
                }
-            descStr = "\(LocalizedString.Total.localized) : ₹\(seatsTotal.commaSeprated)"
-
+            
+            descStr = "\(LocalizedString.Total.localized) : \(seatsTotal.getConvertedAmount(using: AppFonts.SemiBold.withSize(13)).string)"
+            
            }
            
            if descStr.isEmpty {
