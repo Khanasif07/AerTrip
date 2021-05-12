@@ -99,10 +99,22 @@ class PostBookingAddonsPaymentStatusVM{
             AppGlobals.shared.stopLoading()
             return
         }
-        for i in 0..<self.bookingIds.count{
+        
+        //Multiple booking Ids details fetch
+        if bookingIds.count == 1{
             self.bookingDetails.append(nil)
-            self.getBookingDetails(self.bookingIds[i], index:i)
+            self.getBookingDetails(self.bookingIds[0], index:0)
+        }else{
+            for _ in 0..<self.bookingIds.count{
+                self.bookingDetails.append(nil)
+            }
+            self.getBookingDetailsWithMultipleIds(self.bookingIds)
         }
+        
+//        for i in 0..<self.bookingIds.count{
+//            self.bookingDetails.append(nil)
+//            self.getBookingDetails(self.bookingIds[i], index:i)
+//        }
     }
     
     func getBookingDetails(_ bookingId: String, index: Int) {
@@ -124,14 +136,43 @@ class PostBookingAddonsPaymentStatusVM{
             self.bookingAPIGroup.notify(queue: .main) {
                 delay(seconds: 0.2) {
                     if success {
-                        self.delegate?.getBookingDetailSucces()
+                        self.delegate?.getBookingDetailSuccess()
                     }else{
-                        self.delegate?.getBookingDetailFaiure(error: errors)
+                        self.delegate?.getBookingDetailFailure(error: errors)
                     }
                 }
             }
         }
     }
+    
+    
+    func getBookingDetailsWithMultipleIds(_ bookingIds: [String]) {
+        var params: JSONDictionary = ["booking_id": bookingIds.joined(separator: ",")]
+        if UserInfo.loggedInUserId == nil{
+            params["is_guest_user"] = true
+        }
+        delegate?.willGetBookingDetail()
+        APICaller.shared.getBookingDetailWithMultipleIds(params: params) { [weak self] success, errors, bookingsData in
+            guard let self = self else { return }
+            self.delegate?.getBookingResponseWithIndex(success: success)
+            if success {
+                for (index, bookingId) in bookingIds.enumerated(){
+                    let bookingDetail = bookingsData?[bookingId]
+                    self.bookingDetails[index] = bookingDetail
+                    self.setSeatMapAvailability(bookingId, booking: bookingDetail)
+                    self.getPax()
+                }
+            }
+            delay(seconds: 0.2) {
+                if success {
+                    self.delegate?.getBookingDetailSuccess()
+                }else{
+                    self.delegate?.getBookingDetailFailure(error: errors)
+                }
+            }
+        }
+    }
+    
     
     func setSeatMapAvailability(_ bookingId: String, booking: BookingDetailModel?){//→
         guard let booking = booking else {return}//booking.displaySeatMap//Add conditions after check

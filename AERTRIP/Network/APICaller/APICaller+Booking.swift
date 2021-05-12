@@ -92,6 +92,47 @@ extension APICaller {
         }
     }
     
+    func getBookingDetailWithMultipleIds(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes, _ bookingDetailModel: [String: BookingDetailModel]?) -> Void) {
+        AppNetworking.GET(endPoint: APIEndPoint.getMultipleBookingDetails, parameters: params, success: { [weak self] json in
+            guard let sSelf = self else { return }
+            printDebug(json)
+            sSelf.handleResponse(json, success: { sucess, jsonData in
+                if sucess{
+                    let response = jsonData[APIKeys.data.rawValue].dictionaryValue
+                    var data = [String: BookingDetailModel]()
+                    for (key, value) in response{
+                        data[key] = BookingDetailModel(json: value.dictionaryObject ?? [:])
+                    }
+                    completionBlock(true, [], data)
+                }
+                else {
+                    completionBlock(false, [], nil)
+                }
+            }, failure: { error in
+                ATErrorManager.default.logError(forCodes: error, fromModule: .hotelsSearch)
+                completionBlock(false, error, nil)
+            })
+        }) { (error) in
+            if error.code == AppNetworking.noInternetError.code {
+                AppGlobals.shared.stopLoading()
+                AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
+                completionBlock(false, [], nil)
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], nil)
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     func getBookingFees(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes, _ bookingFeeDetail: [BookingFeeDetail]) -> Void) {
         AppNetworking.GET(endPoint: APIEndPoint.getBookingFees, parameters: params, success: { [weak self] json in
             guard let sSelf = self else { return }
