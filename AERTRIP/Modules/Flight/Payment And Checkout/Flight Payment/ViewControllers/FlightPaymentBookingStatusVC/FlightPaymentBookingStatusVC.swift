@@ -248,13 +248,13 @@ extension FlightPaymentBookingStatusVC: FlightPaymentBookingStatusVMDelegate{
         
     }
     
-    func getBookingDetailSucces() {
+    func getBookingDetailSuccess() {
         self.view.isUserInteractionEnabled = true
         self.statusTableView.reloadData()
         self.hideProgressView()
     }
     
-    func getBookingDetailFaiure(error: ErrorCodes) {
+    func getBookingDetailFailure(error: ErrorCodes) {
         self.view.isUserInteractionEnabled = true
         self.hideProgressView()
         AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)

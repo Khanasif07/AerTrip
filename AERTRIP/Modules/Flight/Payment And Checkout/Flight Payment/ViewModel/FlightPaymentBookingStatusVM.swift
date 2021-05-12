@@ -13,8 +13,8 @@ protocol FlightPaymentBookingStatusVMDelegate:NSObjectProtocol{
     func willGetBookingReceipt()
     func getBookingReceiptFail(error:ErrorCodes)
     func willGetBookingDetail()
-    func getBookingDetailSucces()
-    func getBookingDetailFaiure(error: ErrorCodes)
+    func getBookingDetailSuccess()
+    func getBookingDetailFailure(error: ErrorCodes)
     func getBookingResponseWithIndex(success:Bool)
 }
 
@@ -53,10 +53,17 @@ class FlightPaymentBookingStatusVM{
             AppGlobals.shared.stopLoading()
             return
         }
-        for i in 0..<self.apiBookingIds.count{
+        if apiBookingIds.count == 1{
             self.bookingDetail.append(nil)
-            self.getBookingDetails(self.apiBookingIds[i], index:i)
+            self.getBookingDetails(self.apiBookingIds[0], index:0)
+        }else{
+            for _ in 0..<self.apiBookingIds.count{
+                self.bookingDetail.append(nil)
+            }
+            self.getBookingDetailsWithMultipleIds(self.apiBookingIds)
         }
+        
+        
     }
     
     func getSectionData(){
@@ -127,10 +134,39 @@ class FlightPaymentBookingStatusVM{
             self.bookingAPIGroup.notify(queue: .main) {
                 delay(seconds: 0.2) {
                     if success {
-                        self.delegate?.getBookingDetailSucces()
+                        self.delegate?.getBookingDetailSuccess()
                     }else{
-                        self.delegate?.getBookingDetailFaiure(error: errors)
+                        self.delegate?.getBookingDetailFailure(error: errors)
                     }
+                }
+            }
+        }
+    }
+    
+    func getBookingDetailsWithMultipleIds(_ bookingIds: [String]) {
+        var params: JSONDictionary = ["booking_id": bookingIds.joined(separator: ",")]
+        if UserInfo.loggedInUserId == nil{
+            params["is_guest_user"] = true
+        }
+        delegate?.willGetBookingDetail()
+        APICaller.shared.getBookingDetailWithMultipleIds(params: params) { [weak self] success, errors, bookingsData in
+            guard let self = self else { return }
+            self.delegate?.getBookingResponseWithIndex(success: success)
+            if success {
+                
+                for (index, bookingId) in bookingIds.enumerated(){
+                    let bookingDetail = bookingsData?[bookingId]
+                    self.bookingDetail[index] = bookingDetail
+                    self.setSeatMapAvailability(bookingId, booking: bookingDetail)
+                    self.setAppleWalletFligh(bookingId, booking: bookingDetail)
+                    self.setBookingData(bookingId, booking: bookingDetail)
+                }
+            }
+            delay(seconds: 0.2) {
+                if success {
+                    self.delegate?.getBookingDetailSuccess()
+                }else{
+                    self.delegate?.getBookingDetailFailure(error: errors)
                 }
             }
         }
