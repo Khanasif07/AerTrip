@@ -12,8 +12,8 @@ protocol  PostBookingAddonsPaymentVMDelegate:NSObjectProtocol {
     func willMakePayment()
     func makePaymentSuccess(options: JSONDictionary, shouldGoForRazorPay: Bool)
     func makePaymentFail(error:ErrorCodes)
-    func getPaymentResonseSuccess(bookingIds: [String], cid: [String])
-    func getPaymentResonseFail(error:ErrorCodes)
+    func getPaymentResponseSuccess(bookingIds: [String], cid: [String])
+    func getPaymentResponseFail(error:ErrorCodes)
     
 }
 
@@ -162,6 +162,16 @@ extension PostBookingAddonsPaymentVM{
         params[APIKeys.part_payment_amount.rawValue] = 0
         params[APIKeys.payment_method_id.rawValue] = paymentMethod
         
+        if ((Double(self.addonsDetails.walletBalance) > 0) && useWallet){
+            if Double(self.addonsDetails.walletBalance) >= forAmount{
+                self.logEvents(with: .PaidTotalAmountViaWallet)
+            }else{
+                self.logEvents(with: .UsedBothWalletAndOnlinePayment)
+            }
+        }else{
+            self.logEvents(with: .PaidTotalAmountViaOnlinePayment)
+        }
+        
         self.delegate?.willMakePayment()
         APICaller.shared.makePaymentAPI(params: params) { [weak self](success, errors, options)  in
             guard let self = self else { return }
@@ -193,12 +203,21 @@ extension PostBookingAddonsPaymentVM{
         APICaller.shared.paymentResponseAPI(params: params) { [weak self](success, errors, bookingIds , cid)  in
             guard let self = self else { return }
             if success {
-                self.delegate?.getPaymentResonseSuccess(bookingIds: bookingIds, cid: cid)
+                self.delegate?.getPaymentResponseSuccess(bookingIds: bookingIds, cid: cid)
             } else {
-                self.delegate?.getPaymentResonseFail(error: errors)
+                self.delegate?.getPaymentResponseFail(error: errors)
                 //AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
             }
         }
+    }
+    
+}
+
+///Log Events for Firebase
+extension PostBookingAddonsPaymentVM{
+    
+    func logEvents(with event: FirebaseEventLogs.EventsTypeName){
+        FirebaseEventLogs.shared.logPostBookingSeatPaymentEvent(with: event)
     }
     
 }

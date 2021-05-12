@@ -657,6 +657,17 @@ class FirebaseEventLogs: NSObject{
         case TapOnViewTickets
         case BookingIsConfirmed
         case BookingConfirmationIsPending
+        
+        //MARK:- Flight Post Bookings Seat Payment Events TypeNames
+//        case PaidTotalAmountViaWallet
+        case PaidTotalAmountViaOnlinePayment
+        case UsedBothWalletAndOnlinePayment
+        case FlightPostBookingsSeatPaymentFail
+//        case TapOnPayButton
+        
+        
+        //MARK:- Flight Post Bookings Seat Payment Status Events TypeNames
+        
     }
     
     // MARK: App Open Event
@@ -1140,9 +1151,21 @@ class FirebaseEventLogs: NSObject{
     }
     
     
-    //MARK:- Hotel Receipt Events Function
+    //MARK:- Flight Receipt Events Function
     func logFlightsReceiptEvent(with event: EventsTypeName){
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightReceipt.rawValue, params: [AnalyticsKeys.name.rawValue: event.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue:"n/a"])
+    }
+    
+    
+    //MARK:- Flight Post Bookings Seat Payment Events Function
+    func logPostBookingSeatPaymentEvent(with event: EventsTypeName){
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.PostBookingSeatPayment.rawValue, params: [AnalyticsKeys.name.rawValue: event.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue:"n/a"])
+    }
+    
+    
+    //MARK:- Flight Post Bookings Seat Payment status Events Function
+    func logPostBookingSeatPaymentStatusEvent(with event: EventsTypeName){
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.PostBookingSeatPaymentStatus.rawValue, params: [AnalyticsKeys.name.rawValue: event.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue:"n/a"])
     }
     
 }

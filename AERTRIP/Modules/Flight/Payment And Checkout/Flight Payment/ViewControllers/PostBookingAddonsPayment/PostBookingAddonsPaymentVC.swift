@@ -83,7 +83,9 @@ class PostBookingAddonsPaymentVC: BaseVC{
     
     @IBAction func payButtonTapped(_ sender: UIButton) {
         hideShowLoader(isHidden: false)
-        self.viewModel.makePayment(forAmount: self.getTotalPayableAmount(), useWallet: self.isWallet)
+        self.checkForWalletOTP()
+        self.viewModel.logEvents(with: .TapOnPayButton)
+//        self.viewModel.makePayment(forAmount: self.getTotalPayableAmount(), useWallet: self.isWallet)
     }
     
     func checkForWalletOTP(){
@@ -300,24 +302,26 @@ extension PostBookingAddonsPaymentVC:PostBookingAddonsPaymentVMDelegate{
         } else {
             // payment successfully made through wallet, send to the You are all done
             if let bIds = options[APIKeys.id.rawValue] as? String {
-                self.getPaymentResonseSuccess(bookingIds: [bIds], cid: [])
+                self.getPaymentResponseSuccess(bookingIds: [bIds], cid: [])
             } else if let cIds = options[APIKeys.cid.rawValue] as? [String] {
-                self.getPaymentResonseSuccess(bookingIds: [], cid: cIds)
+                self.getPaymentResponseSuccess(bookingIds: [], cid: cIds)
             }
         }
     }
     
     func makePaymentFail(error: ErrorCodes) {
         hideShowLoader(isHidden: true)
+        self.viewModel.logEvents(with: .FlightPostBookingsSeatPaymentFail)
 //        AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
-        AppToast.default.showToastMessage(message: "Make Payment Failed")
+        AppToast.default.showToastMessage(message: LocalizedString.paymentFails.localized)
+        
     }
     
     func willGetPaymentResonse() {
         hideShowLoader(isHidden: false)
     }
     
-    func getPaymentResonseSuccess(bookingIds: [String], cid: [String]) {
+    func getPaymentResponseSuccess(bookingIds: [String], cid: [String]) {
         // send to you are all done screen
 //        hideShowLoader(isHidden: true)
 //        print(bookingIds)
@@ -328,7 +332,8 @@ extension PostBookingAddonsPaymentVC:PostBookingAddonsPaymentVMDelegate{
         
     }
     
-    func getPaymentResonseFail(error: ErrorCodes) {
+    func getPaymentResponseFail(error: ErrorCodes) {
+        self.viewModel.logEvents(with: .FlightPostBookingsSeatPaymentFail)
         AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .payment)
         hideShowLoader(isHidden: true)
     }

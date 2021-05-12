@@ -137,6 +137,8 @@ enum AnalyticsEvents: String {
     case OpenFightPayment
     case OpenFlightReceipt
     case FlightReceipt
+    case PostBookingSeatPayment
+    case PostBookingSeatPaymentStatus
     
 //    SideMenu
     case SideMenu

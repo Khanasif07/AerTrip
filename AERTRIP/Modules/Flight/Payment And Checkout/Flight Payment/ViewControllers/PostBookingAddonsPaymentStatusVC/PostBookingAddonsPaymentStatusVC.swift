@@ -225,12 +225,6 @@ extension PostBookingAddonsPaymentStatusVC: UITableViewDelegate, UITableViewData
         switch self.viewModel.sectionData[indexPath.section][indexPath.row]{
         case .accessBooking:
             self.openActionSheetForBooking()
-//            guard let vc = (self.presentingViewController as? UINavigationController)?.children.first(where: {$0.isKind(of: FlightPaymentBookingStatusVC.self)}) as? FlightPaymentBookingStatusVC else{return}
-//            DispatchQueue.main.async {
-//                vc.viewModel.bookingDetail = self.viewModel.bookingDetails
-//                vc.statusTableView.reloadData()
-//                self.navigationController?.dismiss(animated: true, completion: nil)
-//            }
         default: break
             
         }
