@@ -637,8 +637,26 @@ class FirebaseEventLogs: NSObject{
 //        case openSelectGuest = "OpenSelectGuest"
         //FlightCheckout
         case openFlightCheckout
-        case OpenApplyCoupan
+        case OpenApplyCoupon
         
+        
+        //MARK:- Flight Receipt Events TypeNames
+//        case TapOnChangeTrip
+        case OpenBookedFlightDetailsDetails
+//        case TapOnFacebookShareButton
+//        case TapOnTwitterShareButton
+//        case TapOnShareButton
+//        case TapOnWhatsNextFlightCard
+//        case TapOnWhatsNextHotelsCard
+//        case TapOnWhatsNextModifyBookingCard
+//        case TapOnReturnToHomeButton
+        case TicketsAddedToAppleWallet
+        case EventAddedToCalendar
+        case TapOnSelectSeat
+        case PostBookingSeatSelectionAvailable
+        case TapOnViewTickets
+        case BookingIsConfirmed
+        case BookingConfirmationIsPending
     }
     
     // MARK: App Open Event
@@ -1085,7 +1103,7 @@ class FirebaseEventLogs: NSObject{
     }
     
     //MARK:- Hotels Final CheckOut Events Function
-    func logHoltelFinalCheckOutEvent(with event: EventsTypeName){
+    func logHotelsFinalCheckOutEvent(with event: EventsTypeName){
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelsFinalCheckOut.rawValue, params: [AnalyticsKeys.name.rawValue: event.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue:"n/a"])
     }
     
@@ -1115,10 +1133,16 @@ class FirebaseEventLogs: NSObject{
     }
     
     
-    func logApplyCoupanCodeForFlights(coupan : String){
+    func logApplyCouponCodeForFlights(coupon : String){
         
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.ApplyCoupanForFlights.rawValue, params: [AnalyticsKeys.name.rawValue : "n/a", AnalyticsKeys.values.rawValue : coupan])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.ApplyCouponForFlights.rawValue, params: [AnalyticsKeys.name.rawValue : "n/a", AnalyticsKeys.values.rawValue : coupon])
 
+    }
+    
+    
+    //MARK:- Hotel Receipt Events Function
+    func logFlightsReceiptEvent(with event: EventsTypeName){
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightReceipt.rawValue, params: [AnalyticsKeys.name.rawValue: event.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue:"n/a"])
     }
     
 }

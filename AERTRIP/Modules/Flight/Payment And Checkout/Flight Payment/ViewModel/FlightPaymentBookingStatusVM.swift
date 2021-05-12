@@ -213,3 +213,12 @@ class FlightPaymentBookingStatusVM{
         return finalPNR.isEmpty ? "Pending" : finalPNR
     }
 }
+
+///Logs Firebase Events
+extension FlightPaymentBookingStatusVM{
+    
+    func logEvents(with event: FirebaseEventLogs.EventsTypeName){
+        FirebaseEventLogs.shared.logFlightsReceiptEvent(with: event)
+    }
+    
+}

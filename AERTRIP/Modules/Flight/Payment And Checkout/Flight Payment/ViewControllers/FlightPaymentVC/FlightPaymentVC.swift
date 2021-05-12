@@ -365,7 +365,7 @@ extension FlightPaymentVC: FlightCouponCodeVCDelegate {
 //            self?.updateAllData()
 //        }
         
-        FirebaseEventLogs.shared.logApplyCoupanCodeForFlights(coupan: appliedCouponData.couponCode ?? "")
+        FirebaseEventLogs.shared.logApplyCouponCodeForFlights(coupon: appliedCouponData.couponCode ?? "")
         
     }
 }

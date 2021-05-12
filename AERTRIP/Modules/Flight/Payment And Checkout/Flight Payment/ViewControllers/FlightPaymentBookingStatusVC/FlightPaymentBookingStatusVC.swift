@@ -78,6 +78,7 @@ class FlightPaymentBookingStatusVC: BaseVC {
       self.returnHomeButton.setTitle("Return Home", for: .normal)
   }
     @IBAction func returnHomeButtonTapped(_ sender: UIButton) {
+        self.viewModel.logEvents(with: .TapOnReturnToHomeButton)
         AppFlowManager.default.flightReturnToHomefrom(self)
 //        let vc = FlightPaymentPendingVC.instantiate(fromAppStoryboard: .FlightPayment)
 //        self.navigationController?.pushViewController(vc, animated: true)
@@ -108,6 +109,7 @@ class FlightPaymentBookingStatusVC: BaseVC {
     }
     
     func openActionSeat(){
+        self.viewModel.logEvents(with: .TapOnSelectSeat)
         if self.viewModel.apiBookingIds.count > 1{
             let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: self.viewModel.availableSeatMaps.map{$0.name}, colors: self.viewModel.availableSeatMaps.map{$0.isSelectedForall ? AppColors.themeGray40 : AppColors.themeGreen})
             let cencelBtn = PKAlertButton(title: LocalizedString.Cancel.localized, titleColor: AppColors.themeDarkGreen,titleFont: AppFonts.SemiBold.withSize(20))
@@ -236,6 +238,7 @@ extension FlightPaymentBookingStatusVC: UITableViewDelegate, UITableViewDataSour
                     return
                 }
             }
+            self.viewModel.logEvents(with: .OpenBookedFlightDetailsDetails)
             AppFlowManager.default.moveToBookingDetail(bookingDetail: bookingModel, tripCities: tripCities, legSectionTap: (indexPath.section - 1))
         }
     }
@@ -252,6 +255,9 @@ extension FlightPaymentBookingStatusVC: FlightPaymentBookingStatusVMDelegate{
         self.view.isUserInteractionEnabled = true
         self.statusTableView.reloadData()
         self.hideProgressView()
+        if self.viewModel.availableSeatMaps.count != 0{
+            self.viewModel.logEvents(with: .PostBookingSeatSelectionAvailable)
+        }
     }
     
     func getBookingDetailFailure(error: ErrorCodes) {
@@ -272,6 +278,12 @@ extension FlightPaymentBookingStatusVC: FlightPaymentBookingStatusVMDelegate{
             self.view.isUserInteractionEnabled = true
             self.hideProgressView()
         }
+        if (self.viewModel.itinerary.bookingStatus.status.lowercased() != "booked"){
+            self.viewModel.logEvents(with: .BookingConfirmationIsPending)
+        }else{
+            self.viewModel.logEvents(with: .BookingIsConfirmed)
+        }
+        
         self.viewModel.getSectionData()
         self.statusTableView.backgroundView = nil
         self.statusTableView.reloadData()

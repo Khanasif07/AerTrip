@@ -90,7 +90,7 @@ extension FlightPaymentVC: UITableViewDelegate, UITableViewDataSource {
         if indexPath.row == 1, indexPath.section == 0 {
             self.moveToCouponVC(indexPath:indexPath)
             
-            FirebaseEventLogs.shared.logFlightCheckoutEvent(with: FirebaseEventLogs.EventsTypeName.OpenApplyCoupan)
+            FirebaseEventLogs.shared.logFlightCheckoutEvent(with: FirebaseEventLogs.EventsTypeName.OpenApplyCoupon)
             
 //            AppFlowManager.default.presentFlightCouponCodeVC(itineraryId: self.viewModel.itinerary.id, vc: self, couponCode: self.viewModel.appliedCouponData.couponCode ?? "", product: .flights)
         }

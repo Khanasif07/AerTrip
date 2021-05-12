@@ -125,7 +125,7 @@ enum AnalyticsEvents: String {
     case OpenHotelsFinalCheckOut
     case OpenHotelsPayment
     case OpenHotelsReceipt
-    case OpenCopounForHotels
+    case OpenCouponForHotels
     case HotelReceipt
     
     case FlightGuestCheckout
@@ -136,7 +136,7 @@ enum AnalyticsEvents: String {
     case OpenFlightCheckOut
     case OpenFightPayment
     case OpenFlightReceipt
-    
+    case FlightReceipt
     
 //    SideMenu
     case SideMenu
@@ -145,7 +145,7 @@ enum AnalyticsEvents: String {
     
     //Flight Checkout
     case FinalFlightCheckout
-    case ApplyCoupanForFlights
+    case ApplyCouponForFlights
     case FlightPayment
     
 }

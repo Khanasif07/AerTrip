@@ -211,6 +211,6 @@ extension FinalCheckoutVM {
 extension FinalCheckoutVM{
     
     func logEvent(with event: FirebaseEventLogs.EventsTypeName){
-        FirebaseEventLogs.shared.logHoltelFinalCheckOutEvent(with: event)
+        FirebaseEventLogs.shared.logHotelsFinalCheckOutEvent(with: event)
     }
 }

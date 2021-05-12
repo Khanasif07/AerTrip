@@ -31,6 +31,7 @@ extension FlightPaymentBookingStatusVC{
         cell.configCell(tripName: self.viewModel.itinerary.tripDetails.name)
         cell.changeBtnHandler = {[weak self] in
             guard let self = self else {return}
+            self.viewModel.logEvents(with: .TapOnChangeTrip)
             AppFlowManager.default.selectTrip(self.viewModel.itinerary.tripDetails, tripType: .bookingTripChange, presentingStatusBarStyle: .darkContent, dismissalStatusBarStyle: .darkContent) { [weak self] (tripModel, tripDetail) in
                 guard let self = self else {return}
                 printDebug(tripDetail)
@@ -130,6 +131,7 @@ extension FlightPaymentBookingStatusVC{
     
     @objc func tapViewTicketViewButton(_ sender: UIButton){
         guard  !(self.viewModel.isLoadingTicket) else {return}
+        self.viewModel.logEvents(with: .TapOnViewTickets)
         let index = sender.tag
         self.updateCellForLoader(isStart: true, index: index)
         if self.viewModel.apiBookingIds.count > index{
@@ -154,6 +156,7 @@ extension FlightPaymentBookingStatusVC{
     
     private func tapOnSeletedWhatNext(index: Int){
         if self.viewModel.itinerary.whatNext.count == 0{
+            self.viewModel.logEvents(with: .TapOnWhatsNextModifyBookingCard)
             guard self.viewModel.apiBookingIds.count != 0 else {return}
             if self.viewModel.apiBookingIds.count == 1{
                 let bookingId = self.viewModel.apiBookingIds.first ?? ""
@@ -163,6 +166,7 @@ extension FlightPaymentBookingStatusVC{
             }
         }else{
             if index == self.viewModel.itinerary.whatNext.count{
+                self.viewModel.logEvents(with: .TapOnWhatsNextModifyBookingCard)
                 guard self.viewModel.apiBookingIds.count != 0 else {return}
                 if self.viewModel.apiBookingIds.count == 1{
                     let bookingId = self.viewModel.apiBookingIds.first ?? ""
@@ -172,8 +176,12 @@ extension FlightPaymentBookingStatusVC{
                 }
             }else{
                 switch self.viewModel.itinerary.whatNext[index].productType{
-                case .flight: self.bookFlightFor(self.viewModel.itinerary.whatNext[index])
-                case .hotel: self.bookAnotherRoom(self.viewModel.itinerary.whatNext[index])
+                case .flight:
+                    self.bookFlightFor(self.viewModel.itinerary.whatNext[index])
+                    self.viewModel.logEvents(with: .TapOnWhatsNextFlightCard)
+                case .hotel:
+                    self.bookAnotherRoom(self.viewModel.itinerary.whatNext[index])
+                    self.viewModel.logEvents(with: .TapOnWhatsNextHotelsCard)
                 default: break;
                 }
             }
@@ -228,8 +236,8 @@ extension FlightPaymentBookingStatusVC{
 
 extension FlightPaymentBookingStatusVC : HCWhatNextTableViewCellDelegate
 {
-    func shareOnInstagram()
-    {
+    func shareOnInstagram(){
+        self.viewModel.logEvents(with: .TapOnShareButton)
         if viewModel.itinerary.search_url != ""
         {
             let textToShare = [ "I have Booked the flight with Aertrip\n\(viewModel.itinerary.search_url)" ]
@@ -244,7 +252,7 @@ extension FlightPaymentBookingStatusVC : HCWhatNextTableViewCellDelegate
     
     func shareOnFaceBook() {
         printDebug("Share On FaceBook")
-        
+        self.viewModel.logEvents(with: .TapOnFacebookShareButton)
         guard let url = URL(string: self.viewModel.itinerary.shareUrl) else { return }// (string: AppKeys.kAppStoreLink)
         let content = ShareLinkContent()
         content.contentURL = url
@@ -259,6 +267,7 @@ extension FlightPaymentBookingStatusVC : HCWhatNextTableViewCellDelegate
     
     func shareOnTwitter() {
         printDebug("Share On Twitter")
+        self.viewModel.logEvents(with: .TapOnTwitterShareButton)
         let tweetText = "\(self.viewModel.itinerary.shareUrl) Appstore Link: "//(AppConstants.kAppName)
         let tweetUrl = AppKeys.kAppStoreLink
         let shareString = "https://twitter.com/intent/tweet?text=\(tweetText)&url=\(tweetUrl)"
@@ -284,9 +293,11 @@ extension FlightPaymentBookingStatusVC : HCWhatNextTableViewCellDelegate
 extension FlightPaymentBookingStatusVC : YouAreAllDoneTableViewCellDelegate, PKAddPassesViewControllerDelegate{
     func addToAppleWalletTapped(button: ATButton) {
         self.addToAppleWalletSetup()
+        self.viewModel.logEvents(with: .TicketsAddedToAppleWallet)
     }
     
     func addToCallendarTapped() {
+        self.viewModel.logEvents(with: .EventAddedToCalendar)
         for bookingDetails in self.viewModel.bookingDetail{
             self.addToCalender(bookingDetail: bookingDetails)
         }
