@@ -183,8 +183,9 @@ extension PostBookingAddonsPaymentStatusVC: UITableViewDelegate, UITableViewData
             }else{
                  footerView.selectSeatButton.setTitle("Select Seats", for: .normal)
             }
-            footerView.handeller = {
-                self.openActionSeat()
+            footerView.handeller = {[weak self] in
+                self?.viewModel.logEvents(with: .TapOnSelectSeat)
+                self?.openActionSeat()
             }
             footerView.dividerView.isHidden = true
             return footerView
