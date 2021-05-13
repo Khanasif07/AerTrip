@@ -133,6 +133,7 @@ class PostBookingAddonsPaymentStatusVC: BaseVC {
     
     @IBAction func tapReturnToHomeButton(_ sender: UIButton) {
         AppFlowManager.default.flightReturnToHomefrom(self)
+        self.viewModel.logEvents(with: .TapOnReturnToHomeButton)
     }
     
     
@@ -225,6 +226,7 @@ extension PostBookingAddonsPaymentStatusVC: UITableViewDelegate, UITableViewData
         switch self.viewModel.sectionData[indexPath.section][indexPath.row]{
         case .accessBooking:
             self.openActionSheetForBooking()
+            self.viewModel.logEvents(with: .TapOnAccessThisBooking)
         default: break
             
         }

@@ -667,6 +667,9 @@ class FirebaseEventLogs: NSObject{
         
         
         //MARK:- Flight Post Bookings Seat Payment Status Events TypeNames
+        case TapOnAccessThisBooking
+        case SeatBookingIsConfirmed
+        case SeatBookingIsPending
         
     }
     

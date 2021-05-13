@@ -188,6 +188,17 @@ class PostBookingAddonsPaymentStatusVM{
 }
 
 
+///Log Events for Firebase
+extension PostBookingAddonsPaymentStatusVM{
+    
+    func logEvents(with event: FirebaseEventLogs.EventsTypeName){
+        FirebaseEventLogs.shared.logPostBookingSeatPaymentStatusEvent(with: event)
+    }
+    
+}
+
+
+
 struct CustomDetail{
     
     enum DetailsType{
