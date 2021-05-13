@@ -483,6 +483,7 @@ extension FlightResultViewModelDelegate {
      
         // updating webservice progess on progressbar
         let progress = response.data?.completed ?? 25
+        printDebug("progress is \(progress)")
         self.delegate?.webserviceProgressUpdated(progress: Float( progress) / 100.0)
         
         guard let responseData = response.data else {
