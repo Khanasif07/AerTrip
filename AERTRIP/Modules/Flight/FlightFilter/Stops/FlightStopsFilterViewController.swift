@@ -309,6 +309,16 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
         }
     }
     
+    private func setAttributedTitles() {
+        for index in 0..<multiLegSegmentControl.numberOfSegments {
+            let segmentTitle = getSegmentTitleFor(index + 1)
+            let indexToUpdate = multiLegSegmentControl.numberOfSegments + index + 1
+            if multiLegSegmentControl.subviews.indices.contains(indexToUpdate), let lblAtIndex = multiLegSegmentControl.subviews[indexToUpdate].subviews.first as? UILabel {
+                lblAtIndex.attributedText = NSAttributedString(string: segmentTitle, attributes: [.foregroundColor: UIColor.green])
+            }
+        }
+    }
+    
     fileprivate func selectAllStops() {
         stopsBaseView.subviews.forEach{ view in
             if let button = view as? UIButton {
