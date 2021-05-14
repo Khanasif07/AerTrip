@@ -244,7 +244,7 @@ extension AdonsVM {
             
           }
           
-        if (description == nil) || (description?.string.isEmpty ?? false) {
+        if ((description == nil) || (description?.string.isEmpty ?? false)) {
           
             let desc = NSAttributedString(string: LocalizedString.Choose_Meal.localized, attributes: [NSAttributedString.Key.foregroundColor : AppColors.themeGray60, NSAttributedString.Key.font : AppFonts.Regular.withSize(isSEDevice ? 12 : 14)])
             
@@ -332,7 +332,7 @@ extension AdonsVM {
             
         }
         
-        if let des = description?.string, des.isEmpty {
+        if ((description == nil) || (description?.string.isEmpty ?? false)) {
 //            description = LocalizedString.Choose_Baggage.localized
             
             let desc = NSAttributedString(string: LocalizedString.Choose_Baggage.localized, attributes: [NSAttributedString.Key.foregroundColor : AppColors.themeGray60, NSAttributedString.Key.font : AppFonts.Regular.withSize(isSEDevice ? 12 : 14)])
@@ -345,7 +345,7 @@ extension AdonsVM {
             return addonsData.addonsType == .baggage
         }){
             self.addonsData[ind].heading = count != 0 ? LocalizedString.Baggage.localized + "  " + "x\(count)" : LocalizedString.Baggage.localized
-//            self.addonsData[ind].description = description.replacingLastOccurrenceOfString(", ", with: "")
+            self.addonsData[ind].description = description//.replacingLastOccurrenceOfString(", ", with: "")
         }
     }
     
@@ -430,7 +430,7 @@ extension AdonsVM {
             
             var speReq = ""
             
-            if let des = description?.string, des.isEmpty{
+            if (description == nil) || (description?.string.isEmpty ?? true){
                 speReq = "Special Request"
             } else {
                 speReq = "+ Special Request"
@@ -438,17 +438,21 @@ extension AdonsVM {
             
 //            let speReq = description?.string.isEmpty ?? "" ? "Special Request" : "+ Special Request"
            
-            let speReqAttrString = NSAttributedString(string: speReq, attributes: [NSAttributedString.Key.foregroundColor : AppColors.themeGray60, NSAttributedString.Key.font : AppFonts.Regular.withSize(isSEDevice ? 12 : 14)])
+            let speReqAttrString = NSMutableAttributedString(string: speReq, attributes: [NSAttributedString.Key.foregroundColor : AppColors.themeGray60, NSAttributedString.Key.font : AppFonts.Regular.withSize(isSEDevice ? 12 : 14)])
+            if description != nil{
+                description?.append(speReqAttrString)
+            }else{
+                description = speReqAttrString
+            }
             
-            description?.append(speReqAttrString)
         }
         
         if (description == nil) || (description?.string.isEmpty ?? false) {
 //            description = LocalizedString.PreBook_Services.localized.localized
             
-            let desc = NSAttributedString(string: LocalizedString.PreBook_Services.localized, attributes: [NSAttributedString.Key.foregroundColor : AppColors.themeGray60, NSAttributedString.Key.font : AppFonts.Regular.withSize(isSEDevice ? 12 : 14)])
+            let desc = NSMutableAttributedString(string: LocalizedString.PreBook_Services.localized, attributes: [NSAttributedString.Key.foregroundColor : AppColors.themeGray60, NSAttributedString.Key.font : AppFonts.Regular.withSize(isSEDevice ? 12 : 14)])
             
-            description?.append(desc)
+            description = desc
             
         }
         
@@ -456,7 +460,7 @@ extension AdonsVM {
             return addonsData.addonsType == .otheres
         }){
             self.addonsData[ind].heading = count != 0 ? LocalizedString.Other.localized + "  " + "x\(count)" : LocalizedString.Other.localized
-//            self.addonsData[ind].description = description.replacingLastOccurrenceOfString(", ", with: "")
+            self.addonsData[ind].description = description//.replacingLastOccurrenceOfString(", ", with: "")
             
         }
         
@@ -495,6 +499,14 @@ extension AdonsVM {
                         }
                     }
                 }
+            
+            
+            let totalAttributedString = NSMutableAttributedString(string: "\(LocalizedString.Total.localized) :", attributes: [NSAttributedString.Key.foregroundColor : AppColors.themeGray60, NSAttributedString.Key.font : AppFonts.Regular.withSize(isSEDevice ? 12 : 14)])
+             
+             totalAttributedString.append(seatsTotal.getConvertedAmount(using: AppFonts.SemiBold.withSize(isSEDevice ? 12 : 14)))
+             
+             descStr = totalAttributedString
+            
 //               if descStr.hasSuffix(", ") {
 //                   descStr.removeLast(2)
 //               }
@@ -503,9 +515,16 @@ extension AdonsVM {
             
            }
            
-//           if descStr.isEmpty {
-//               descStr = LocalizedString.Reserve_Seat.localized.localized
-//           }
+        if (descStr == nil) || (descStr?.string.isEmpty ?? false) {
+//            description = LocalizedString.PreBook_Services.localized.localized
+            
+            let desc = NSMutableAttributedString(string: LocalizedString.Reserve_Seat.localized.localized, attributes: [NSAttributedString.Key.foregroundColor : AppColors.themeGray60, NSAttributedString.Key.font : AppFonts.Regular.withSize(isSEDevice ? 12 : 14)])
+            
+            descStr = desc
+            
+        }
+        
+           
 
            if let ind = self.addonsData.firstIndex(where: { (addonsData) -> Bool in
                      return addonsData.addonsType == .seat
