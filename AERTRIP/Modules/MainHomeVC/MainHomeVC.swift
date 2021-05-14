@@ -121,8 +121,10 @@ class MainHomeVC: BaseVC {
         self.addEdgeSwipeGesture()
         
         CurrencyControler.shared.getCurrencies { (success, currencies, topCurrencies) in }
+//
+        CurrencyControler.shared.scheduleCurrencyTimer()
         
-        
+        CurrencyControler.shared.getCurrencyCodeFromLocale()
     }
     
     private func makeDefaultSetup() {

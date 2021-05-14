@@ -15,12 +15,19 @@ class CurrencyControler {
     static let shared = CurrencyControler()
     
      var currencies: [CurrencyModel] = [CurrencyModel]()
+    
      var selectedCurrency = CurrencyModel(json: [:], code: "")
     
     var timer : Timer?
     
+    
+    init() {
+        print("initialise CurrencyControler")
+        self.selectedCurrency = UserInfo.preferredCurrencyDetails ?? CurrencyModel(json: [:], code: "")
+    }
+    
     func scheduleCurrencyTimer(){
-        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(callCurrencyApi), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 300, target: self, selector: #selector(callCurrencyApi), userInfo: nil, repeats: true)
     }
     
     @objc func callCurrencyApi(){
@@ -124,6 +131,21 @@ class CurrencyControler {
                 NotificationCenter.default.post(.init(name: .dataChanged))
             }
         }
+    }
+    
+    
+    func getPreferedCurrency(){
+    
+//        UserInfo.preferredCurrencyDetails
+        
+    }
+    
+    
+    func getCurrencyCodeFromLocale(){
+        
+        let currentLocale = Locale.current
+        print("currencyCode..\(currentLocale.currencyCode)")
+        
     }
     
 }

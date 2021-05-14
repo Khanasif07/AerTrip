@@ -112,4 +112,6 @@ class CurrencyVM {
         return locale.displayName(forKey: .currencySymbol, value: currencyCode)
     }
     
+    
+    
 }
