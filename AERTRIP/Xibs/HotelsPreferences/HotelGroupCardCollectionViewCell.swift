@@ -210,15 +210,16 @@ class HotelGroupCardCollectionViewCell: UICollectionViewCell {
 
         if listPrice == 0{
             self.actualPriceLabel.text = ""
+            self.actualPriceLabel.attributedText = nil
         }else{
-            let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: (listPrice ?? 0.0).amountInDelimeterWithSymbol)
+            let attributeString: NSMutableAttributedString =   (listPrice ?? 0.0).getConvertedAmount(using: AppFonts.Regular.withSize(16))
             attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 1, range: NSMakeRange(0, attributeString.length))
             self.actualPriceLabel.attributedText = attributeString
-            self.actualPriceLabel.AttributedFontForText(text: (price ?? 0.0).getCurrencySymbol, textFont: AppFonts.Regular.withSize(12))
+            self.actualPriceLabel.AttributedFontForText(text: (price ?? 0.0).getPreferredCurrency, textFont: AppFonts.Regular.withSize(12))
             actualPriceLabel.isHidden = price == listPrice
         }
-        self.discountedPriceLabel.text = (price ?? 0.0).amountInDelimeterWithSymbol
-        self.discountedPriceLabel.AttributedFontForText(text: (price ?? 0.0).getCurrencySymbol, textFont: AppFonts.SemiBold.withSize(16))
+        self.discountedPriceLabel.attributedText = (price ?? 0.0).getConvertedAmount(using: AppFonts.SemiBold.withSize(22))
+        self.discountedPriceLabel.AttributedFontForText(text: (price ?? 0.0).getPreferredCurrency, textFont: AppFonts.SemiBold.withSize(16))
         
         self.saveButton.isSelected = self.hotelListData?.fav == "0" ? false : true
         

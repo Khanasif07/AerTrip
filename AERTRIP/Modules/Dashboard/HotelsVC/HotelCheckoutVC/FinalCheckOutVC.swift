@@ -171,8 +171,10 @@ class FinalCheckOutVC: BaseVC {
             if self.isCouponApplied {
                 if let discountBreakUp = self.appliedCouponData.discountsBreakup {
                     let saveAmount = discountBreakUp.CACB + discountBreakUp.CPD
-                    applyCouponCell.appliedCouponLabel.attributedText =
-                        ("\(LocalizedString.Save.localized) \(Double(saveAmount).amountInDelimeterWithSymbol)").asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
+                    
+                    let attText = NSMutableAttributedString(string: "\(LocalizedString.Save.localized) ")
+                    attText.append(saveAmount.getConvertedAmount(using: AppFonts.Regular.withSize(18.0)))
+                    applyCouponCell.appliedCouponLabel.attributedText = attText
                     applyCouponCell.couponView.isHidden = false
                     applyCouponCell.couponLabel.text = LocalizedString.CouponApplied.localized + " \(self.appliedCouponData.couponCode)"
                 }
@@ -217,7 +219,7 @@ class FinalCheckOutVC: BaseVC {
             hotelFareTableViewCell.delegate = self
             self.handleDiscountArrowAnimation(hotelFareTableViewCell)
             if let discountbreak = self.appliedCouponData.discountsBreakup {
-                hotelFareTableViewCell.discountPriceLabel.attributedText = ("-" + "\(Double(discountbreak.CPD).amountInDelimeterWithSymbol)").asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+                hotelFareTableViewCell.discountPriceLabel.attributedText = (-discountbreak.CPD).getConvertedAmount(using: AppFonts.Regular.withSize(16.0))
             }
             
             if self.isCouponApplied {
@@ -232,7 +234,7 @@ class FinalCheckOutVC: BaseVC {
             }else{
                 hotelFareTableViewCell.dicountLabelBottomConstraints.constant = 3.0
             }
-            hotelFareTableViewCell.grossPriceLabel.attributedText = "\(self.getGrossAmount().amountInDelimeterWithSymbol)".asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+            hotelFareTableViewCell.grossPriceLabel.attributedText = self.getGrossAmount().getConvertedAmount(using: AppFonts.Regular.withSize(16.0))
             return hotelFareTableViewCell
         case 1: // Coupon dicount Cell
             guard let couponDiscountCell = self.checkOutTableView.dequeueReusableCell(withIdentifier: DiscountCell.reusableIdentifier, for: indexPath) as? DiscountCell else {
@@ -242,7 +244,7 @@ class FinalCheckOutVC: BaseVC {
             if self.isCouponApplied, self.isCouponSectionExpanded {
                 if let discountBreakUp = self.appliedCouponData.discountsBreakup {
                     let saveAmount = discountBreakUp.CPD
-                    couponDiscountCell.amountLabel.attributedText = ("-" + Double(saveAmount).amountInDelimeterWithSymbol).asStylizedPrice(using: AppFonts.Regular.withSize(14.0))
+                    couponDiscountCell.amountLabel.attributedText = (-saveAmount).getConvertedAmount(using: AppFonts.Regular.withSize(14.0))
                     couponDiscountCell.clipsToBounds = true
                 }
             } else {
@@ -262,7 +264,7 @@ class FinalCheckOutVC: BaseVC {
             let amount = isWallet ? self.convenienceFeesWallet : self.convenienceRate
             if self.isConvenienceFeeApplied {
 //                convenieneCell.aertripWalletTitleLabel.text = LocalizedString.ConvenienceFeeNonRefundables.localized
-                convenieneCell.walletAmountLabel.attributedText = amount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+                convenieneCell.walletAmountLabel.attributedText = amount.getConvertedAmount(using: AppFonts.Regular.withSize(16.0))
                 convenieneCell.setForConvenienceFee()
                 convenieneCell.labelBottomConstraint.constant = self.isWallet ? 0 : 11
                 if self.isCouponApplied, self.isCouponSectionExpanded {
@@ -299,7 +301,7 @@ class FinalCheckOutVC: BaseVC {
                 } else {
                     amountFromWallet = amount
                 }
-                walletAmountCell.walletAmountLabel.attributedText = ("-" + abs(amountFromWallet).amountInDelimeterWithSymbol).asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+                walletAmountCell.walletAmountLabel.attributedText = (-abs(amountFromWallet)).getConvertedAmount(using: AppFonts.Regular.withSize(16.0))
                 walletAmountCell.clipsToBounds = true
                 walletAmountCell.labelBottomConstraint.constant =  11
                 let convenienceFee = isWallet ? self.convenienceFeesWallet : self.convenienceRate
@@ -322,7 +324,7 @@ class FinalCheckOutVC: BaseVC {
             }
             totalPayableNowCell.topDeviderView.isHidden = false
             totalPayableNowCell.bottomDeviderView.isHidden = false
-            totalPayableNowCell.totalPriceLabel.attributedText = self.getTotalPayableAmount().amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(((totalPayableNowCell.currentUsingFor == .totalPayableAmout) ? 20.0 : 16.0)))
+            totalPayableNowCell.totalPriceLabel.attributedText = self.getTotalPayableAmount().getConvertedAmount(using: AppFonts.SemiBold.withSize(((totalPayableNowCell.currentUsingFor == .totalPayableAmout) ? 20.0 : 16.0)))
             totalPayableNowCell.setupFotFinalCheckoutScreen()
             totalPayableNowCell.bottomDeviderView.isHidden =  !self.isCouponApplied
             return totalPayableNowCell
@@ -335,8 +337,8 @@ class FinalCheckOutVC: BaseVC {
             let amount = self.isWallet ? self.convenienceFeesWallet : self.convenienceRate
             if self.isConvenienceFeeApplied {
                 conveninceCell.convenienceFeeLabel.textColor = AppColors.themeBlack
-                conveninceCell.convenienceFeeLabel.text = (LocalizedString.convenienceFee1.localized + " \(amount.amountInDelimeterWithSymbol) " + LocalizedString.convenienceFee2.localized)
-                conveninceCell.convenienceFeeLabel.asStylizedPrice(text: amount.amountInDelimeterWithSymbol, using: AppFonts.Regular.withSize(14.0))
+                conveninceCell.convenienceFeeLabel.text = (LocalizedString.convenienceFee1.localized + " \(amount.getPriceStringWithCurrency) " + LocalizedString.convenienceFee2.localized)
+                conveninceCell.convenienceFeeLabel.asStylizedPrice(text: amount.getPriceStringWithCurrency, using: AppFonts.Regular.withSize(14.0))
                 return conveninceCell
             } else {
                 conveninceCell.clipsToBounds = true
@@ -354,9 +356,11 @@ class FinalCheckOutVC: BaseVC {
                     // Net Effective fare
                     let netAmount = self.getTotalPayableAmount()
                     let effectiveFare = abs(netAmount - discountBreakUp.CPD)//netAmount.toDouble ?? 0.0
-                    finalAmountCell.payableWalletMessageLabel.text = (Double(discountBreakUp.CACB).amountInDelimeterWithSymbol + LocalizedString.PayableWalletMessage.localized)
-                    finalAmountCell.payableWalletMessageLabel.asStylizedPrice(text: Double(discountBreakUp.CACB).amountInDelimeterWithSymbol, using: AppFonts.Regular.withSize(14.0))
-                    finalAmountCell.netEffectiveFareLabel.attributedText = (LocalizedString.NetEffectiveFare.localized + " \(effectiveFare.amountInDelimeterWithSymbol)").asStylizedPrice(using: AppFonts.SemiBold.withSize(14.0))
+                    finalAmountCell.payableWalletMessageLabel.text = (Double(discountBreakUp.CACB).getPriceStringWithCurrency + LocalizedString.PayableWalletMessage.localized)
+                    
+                    finalAmountCell.payableWalletMessageLabel.asStylizedPrice(text: Double(discountBreakUp.CACB).getPriceStringWithCurrency, using: AppFonts.Regular.withSize(14.0))
+                    
+                    finalAmountCell.netEffectiveFareLabel.attributedText = (LocalizedString.NetEffectiveFare.localized + " \(effectiveFare.getPriceStringWithCurrency)").asStylizedPrice(using: AppFonts.SemiBold.withSize(14.0))
                 }
                 
                 finalAmountCell.clipsToBounds = true
@@ -516,7 +520,7 @@ class FinalCheckOutVC: BaseVC {
     func updatePayButtonText() {
         if self.getTotalPayableAmount() > 0 {
             setUpImage()
-            let title = (" " + LocalizedString.Pay.localized + " " + self.getTotalPayableAmount().amountInDelimeterWithSymbol).asStylizedPrice(using: AppFonts.Regular.withSize(22.0))
+            let title = (" " + LocalizedString.Pay.localized + " " + self.getTotalPayableAmount().getPriceStringWithCurrency).asStylizedPrice(using: AppFonts.Regular.withSize(22.0))
             self.payButton.setTitle(title.string, for: .normal)
             self.payButton.setTitle(title.string, for: .highlighted)
             

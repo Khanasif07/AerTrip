@@ -1020,57 +1020,76 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             isInfoViewHidden = !isInfoViewHidden
     }
     
+//    //MARK:- Price Formatting
+//    func displayPriceInFormat(price:Double, fromOption:String) -> NSMutableAttributedString
+//    {
+//        let formatter = NumberFormatter()
+//        formatter.numberStyle = .currency
+//        formatter.maximumFractionDigits = 2
+//        formatter.locale = Locale(identifier: "en_IN")
+//        if let result = formatter.string(from: NSNumber(value: price)){
+//            var fontSize = 10
+//            var fontSizeSuper = 10
+//
+//            var displayFont = AppFonts.Regular.rawValue
+//            var displayFontSuper = AppFonts.Regular.rawValue
+//
+//            if fromOption == "FareAmount"{
+//                fontSize = 16
+//                fontSizeSuper = 10
+//
+//                displayFont = AppFonts.Regular.rawValue
+//                displayFontSuper = AppFonts.Regular.rawValue
+//            }else if fromOption == "BookingAmount"{
+//                fontSize = 18
+//                fontSizeSuper = 12
+//
+//                displayFont = AppFonts.SemiBold.rawValue
+//                displayFontSuper = AppFonts.SemiBold.rawValue
+//            }else if fromOption == "totalAmount"{
+//                fontSize = 20
+//                fontSizeSuper = 14
+//
+//                displayFont = AppFonts.SemiBold.rawValue
+//                displayFontSuper = AppFonts.SemiBold.rawValue
+//            }else if fromOption == "strikeOutPrice"{
+//                fontSize = 12
+//                fontSizeSuper = 10
+//
+//                displayFont = AppFonts.Regular.rawValue
+//                displayFontSuper = AppFonts.Regular.rawValue
+//            }
+//
+//            let font = UIFont(name: displayFont, size:CGFloat(fontSize))
+//            let fontSuper = UIFont(name: displayFontSuper, size:CGFloat(fontSizeSuper))
+//            let attString:NSMutableAttributedString = NSMutableAttributedString(string: result, attributes: [.font:font])
+//            attString.setAttributes([.font:fontSuper,.baselineOffset:7], range: NSRange(location:result.count-3,length:3))
+//            if attString.string.contains(find: ".00"){
+//                attString.mutableString.replaceOccurrences(of: ".00", with: "", options: .caseInsensitive, range: NSRange(location:result.count-3,length:3))
+//            }
+//            return attString
+//
+//        }else{
+//            return NSMutableAttributedString(string: "\(price)")
+//        }
+//    }
+    
+    
     //MARK:- Price Formatting
-    func displayPriceInFormat(price:Double, fromOption:String) -> NSMutableAttributedString
-    {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        formatter.maximumFractionDigits = 2
-        formatter.locale = Locale(identifier: "en_IN")
-        if let result = formatter.string(from: NSNumber(value: price)){
-            var fontSize = 10
-            var fontSizeSuper = 10
-            
-            var displayFont = AppFonts.Regular.rawValue
-            var displayFontSuper = AppFonts.Regular.rawValue
-
-            if fromOption == "FareAmount"{
-                fontSize = 16
-                fontSizeSuper = 10
-                
-                displayFont = AppFonts.Regular.rawValue
-                displayFontSuper = AppFonts.Regular.rawValue
-            }else if fromOption == "BookingAmount"{
-                fontSize = 18
-                fontSizeSuper = 12
-                
-                displayFont = AppFonts.SemiBold.rawValue
-                displayFontSuper = AppFonts.SemiBold.rawValue
-            }else if fromOption == "totalAmount"{
-                fontSize = 20
-                fontSizeSuper = 14
-                
-                displayFont = AppFonts.SemiBold.rawValue
-                displayFontSuper = AppFonts.SemiBold.rawValue
-            }else if fromOption == "strikeOutPrice"{
-                fontSize = 12
-                fontSizeSuper = 10
-                
-                displayFont = AppFonts.Regular.rawValue
-                displayFontSuper = AppFonts.Regular.rawValue
-            }
-            
-            let font = UIFont(name: displayFont, size:CGFloat(fontSize))
-            let fontSuper = UIFont(name: displayFontSuper, size:CGFloat(fontSizeSuper))
-            let attString:NSMutableAttributedString = NSMutableAttributedString(string: result, attributes: [.font:font])
-            attString.setAttributes([.font:fontSuper,.baselineOffset:7], range: NSRange(location:result.count-3,length:3))
-            if attString.string.contains(find: ".00"){
-                attString.mutableString.replaceOccurrences(of: ".00", with: "", options: .caseInsensitive, range: NSRange(location:result.count-3,length:3))
-            }
-            return attString
-
-        }else{
-            return NSMutableAttributedString(string: "\(price)")
+    func displayPriceInFormat(price:Double, fromOption:String) -> NSMutableAttributedString{
+        var font:UIFont = AppFonts.Regular.withSize(18)
+        if fromOption == "FareAmount"{
+            font = AppFonts.Regular.withSize(16)
+        }else if fromOption == "BookingAmount"{
+            font = AppFonts.SemiBold.withSize(18)
+        }else if fromOption == "totalAmount"{
+            font = AppFonts.SemiBold.withSize(20)
+        }else if fromOption == "strikeOutPrice"{
+            font = AppFonts.Regular.withSize(12)
         }
+        return price.getConvertedAmount(using: font)
     }
+    
+    
+    
 }

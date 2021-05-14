@@ -20,20 +20,20 @@ enum APIEndPoint: String {
     case apiKeyProd = "xuGAG03GMx75Ey1b6E0HYyK6PLEAX60V"
     
     //dev
-//    case baseUrlPath  = "https://beta.aertrip.com/api/v1/"
+    case baseUrlPath  = "https://beta.aertrip.com/api/v1/"
     
     //beta-rz
-    case baseUrlPath = "https://beta-rz.aertrip.com/api/v1/"
+//    case baseUrlPath = "https://beta-rz.aertrip.com/api/v1/"
     
     //prod
 //    case baseUrlPath = "https://aertrip.com/api/v1/"
 
     
     //dev
-//    case shareableBaseUrl = "https://beta.aertrip.com/"
+    case shareableBaseUrl = "https://beta.aertrip.com/"
     
     //beta-rz
-    case shareableBaseUrl = "https://beta-rz.aertrip.com/"
+//    case shareableBaseUrl = "https://beta-rz.aertrip.com/"
 
     //prod
 //    case shareableBaseUrl = "https://aertrip.com/"
@@ -215,6 +215,7 @@ enum APIEndPoint: String {
     case changeLogin = "users/change-login"
     case updateAccountDetails = "users/edit-user-details"
     case updateRefundMode = "users/update-refund-mode"
+    case currenciesList = "currencies/list"
     
     case userMeta = "users/meta"
 }

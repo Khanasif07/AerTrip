@@ -319,6 +319,11 @@ extension Double{
     var getCurrencySymbol: String {
         return Double.currencyFormatter.currencySymbol
     }
+    
+    var getPreferredCurrency:String{
+        return UserInfo.preferredCurrencyDetails?.currencySymbol ?? Double.currencyFormatter.currencySymbol
+    }
+    
 }
 
 extension CGFloat{

@@ -44,6 +44,11 @@ class SettingsVC: BaseVC {
         self.copyRightLabel.text = LocalizedString.Copyright2018AllRightsReserved.localized.replacingOccurrences(of: "2018", with: "\(Date().year)")
         self.versionLabel.text = self.settingsVm.getVersion()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.settingsTableView.reloadData()
+    }
         
     //MARK:- Methods
     //MARK:- Private

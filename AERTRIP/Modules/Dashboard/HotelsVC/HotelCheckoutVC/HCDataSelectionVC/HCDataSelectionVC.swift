@@ -197,7 +197,7 @@ class HCDataSelectionVC: BaseVC {
     }
     
     private func fillData() {
-        totalFareLabel.text = (viewModel.itineraryData?.total_fare ?? 0.0).amountInDelimeterWithSymbol
+        totalFareLabel.attributedText = (viewModel.itineraryData?.total_fare ?? 0.0).getConvertedAmount(using: AppFonts.SemiBold.withSize(20))//.amountInDelimeterWithSymbol
         setupFareBreakup()
         
         hotelNameLabel.text = viewModel.itineraryData?.hotelDetails?.hname ?? ""
@@ -252,7 +252,7 @@ class HCDataSelectionVC: BaseVC {
             fareBreakupTitleLabel.text = "\(LocalizedString.FareBreakup.localized) (\(room) \(roomText) & \(night) \(nightText))"
         }
         
-        totalFareAmountLabel.text = (viewModel.itineraryData?.total_fare ?? 0.0).amountInDelimeterWithSymbol
+        totalFareAmountLabel.attributedText = (viewModel.itineraryData?.total_fare ?? 0.0).getConvertedAmount(using: AppFonts.SemiBold.withSize(20))//.amountInDelimeterWithSymbol
         
     }
     

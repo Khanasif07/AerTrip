@@ -1630,6 +1630,7 @@
 		84E9FEFD22A008DB0059F911 /* AccountLedgerEventCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84E9FEFB22A008DB0059F911 /* AccountLedgerEventCell.xib */; };
 		84EAABEB21DA09EC006B757F /* SideMenuLogoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84EAABEA21DA09EC006B757F /* SideMenuLogoView.xib */; };
 		84EAABED21DA0A96006B757F /* SideMenuLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EAABEC21DA0A96006B757F /* SideMenuLogoView.swift */; };
+		84EAC1BA264EB3720064820A /* CurrencyControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EAC1B9264EB3720064820A /* CurrencyControler.swift */; };
 		84EEA5D323E19DCE008B95CD /* EditProfileFooterTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EEA5D223E19DCE008B95CD /* EditProfileFooterTableView.swift */; };
 		84EEA5D523E19E0C008B95CD /* EditProfileFooterTableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84EEA5D423E19E0C008B95CD /* EditProfileFooterTableView.xib */; };
 		84EEA5D923E1BC1B008B95CD /* AertripToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EEA5D823E1BC1B008B95CD /* AertripToastView.m */; };
@@ -3482,6 +3483,7 @@
 		84E9FEFB22A008DB0059F911 /* AccountLedgerEventCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountLedgerEventCell.xib; sourceTree = "<group>"; };
 		84EAABEA21DA09EC006B757F /* SideMenuLogoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SideMenuLogoView.xib; sourceTree = "<group>"; };
 		84EAABEC21DA0A96006B757F /* SideMenuLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuLogoView.swift; sourceTree = "<group>"; };
+		84EAC1B9264EB3720064820A /* CurrencyControler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyControler.swift; sourceTree = "<group>"; };
 		84EEA5D223E19DCE008B95CD /* EditProfileFooterTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileFooterTableView.swift; sourceTree = "<group>"; };
 		84EEA5D423E19E0C008B95CD /* EditProfileFooterTableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditProfileFooterTableView.xib; sourceTree = "<group>"; };
 		84EEA5D723E1BC1B008B95CD /* AertripToastView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AertripToastView.h; sourceTree = "<group>"; };
@@ -3699,6 +3701,7 @@
 		0C24D4E1242C750F00CBFF92 /* Currency */ = {
 			isa = PBXGroup;
 			children = (
+				84EAC1B9264EB3720064820A /* CurrencyControler.swift */,
 				0C24D4F0242CAF7300CBFF92 /* CurrencyVC.swift */,
 				0C24D4F2242CAF8900CBFF92 /* CurrencyVC+TableViewDelegates.swift */,
 				0C24D4F4242CAF9D00CBFF92 /* CurrencyVM.swift */,
@@ -10206,6 +10209,7 @@
 				84323D39222FE42300DA7581 /* AmenitiesDescriptionTableViewCell.swift in Sources */,
 				84534EC022490A44009FF536 /* HCTotalChargeTableViewCell.swift in Sources */,
 				84E4BC56229E935900B72306 /* TravellersPnrStatusTableViewCell.swift in Sources */,
+				84EAC1BA264EB3720064820A /* CurrencyControler.swift in Sources */,
 				181025A421E33C8E0046EED7 /* APICaller+Travellers.swift in Sources */,
 				847C2241247BCBEE004F32D6 /* SeatMapVC+CollectionView.swift in Sources */,
 				8445B52A22A5352F00DDBC7F /* ParallelLabelsTableViewCell.swift in Sources */,

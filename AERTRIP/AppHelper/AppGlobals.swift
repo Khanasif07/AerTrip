@@ -609,6 +609,32 @@ extension Double {
     }
     
     
+    var amountInDelimeterWithoutSymbol: String {
+        if self < 0 {
+            return "- \(abs(self.roundTo(places: 2)).delimiterWithoutSymbol)".replacingOccurrences(of: ".00", with: "")
+        } else {
+            return "\(self.roundTo(places: 2).delimiterWithoutSymbol)".replacingOccurrences(of: ".00", with: "")
+        }
+    }
+    
+    
+    func  getConvertedAmount(using font: UIFont)->NSMutableAttributedString{
+        return (self * (UserInfo.preferredCurrencyDetails?.rate ?? 1.0)).amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font)
+    }
+    
+    func  getConvertedCancellationAmount(using font: UIFont)->NSMutableAttributedString{
+        return (self * (UserInfo.preferredCurrencyDetails?.cancellation_rate ?? 1.0)).amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font)
+    }
+    
+    var getPriceStringWithCurrency:String{
+        getConvertedAmount(using: AppFonts.Regular.withSize(16)).string
+    }
+    
+    var getCancellationPriceStringWithCurrency:String{
+        getConvertedCancellationAmount(using: AppFonts.Regular.withSize(16)).string
+    }
+    
+    
 }
 
 extension AppGlobals {

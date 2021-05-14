@@ -10,18 +10,16 @@ import Foundation
 
 extension APICaller {
 
-    func getCurrencies(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: [CurrencyModel]) -> Void) {
-        AppNetworking.GET(endPoint: APIEndPoint.currencies, parameters: params, success: { [weak self] json in
+    func getCurrencies(completionBlock: @escaping (_ success: Bool, _ currencies: [CurrencyModel]) -> Void) {
+        AppNetworking.GET(endPoint: APIEndPoint.currenciesList, parameters: [:], success: { [weak self] json in
             guard let sSelf = self else { return }
-            printDebug(json)
+//            printDebug(json)
             sSelf.handleResponse(json, success: { sucess, jsonData in
-                
                 if sucess {
-                    let currencies = CurrencyModel.retunCurrencyModelArray(json: json[APIKeys.data.rawValue].arrayValue)
-//                    json[APIKeys.data.rawValue].arrayValue.map { (jsonObj) -> PKCountryModel in
-//                        return PKCountryModel(json: jsonObj)
-//                    }
-//                    let currencies = CurrencyModel.retunCurrencyModelArray(json: json[APIKeys.data.rawValue].array?.first ?? JSON())
+                    let currencies = CurrencyModel.retunCurrencyModelArray(json: json[APIKeys.data.rawValue].dictionaryValue)
+                    if let currency = currencies.first(where: {$0.currencyCode == UserInfo.loggedInUser?.preferredCurrency ?? ""}){
+                        UserInfo.preferredCurrencyDetails = currency
+                    }
                     completionBlock(true,currencies)
                 }else{
                     completionBlock(false,[])
@@ -41,6 +39,28 @@ extension APICaller {
                 completionBlock(false, [])
             }
         }
+    }
+    
+    
+    func updateUserCurrency(params: JSONDictionary, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes)->Void ){
+        AppNetworking.POST(endPoint: .updateAccountDetails,parameters: params,success: {[weak self] data in
+            guard let self = self else {return}
+            self.handleResponse(data) { (success, data) in
+                completionBlock(true, [])
+            } failure: { (errorCode) in
+                completionBlock(false, errorCode)
+            }
+        },failure: { (error) in
+            if error.code == AppNetworking.noInternetError.code {
+                AppGlobals.shared.stopLoading()
+                AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
+                completionBlock(false, [])
+            }
+            else {
+                AppToast.default.showToastMessage(message: ATErrorManager.LocalError.default.message)
+                completionBlock(false, [])
+            }
+        })
     }
 
 }

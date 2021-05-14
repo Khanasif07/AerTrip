@@ -81,7 +81,7 @@ class CheckoutCouponCodeTableViewCell: UITableViewCell {
     private func bulletedCouponsDetails(discountDetails: [String], instantCashBack: Double, walletCashBack: Double) -> NSMutableAttributedString {
         let attributesDictionary = [NSAttributedString.Key.font : AppFonts.Regular.withSize(14.0), NSAttributedString.Key.foregroundColor : AppColors.textFieldTextColor51]
         let fullAttributedString = NSMutableAttributedString()
-        let paragraphStyle = AppGlobals.shared.createParagraphAttribute(paragraphSpacingBefore:  0.0,isForNotes: true)
+        _ = AppGlobals.shared.createParagraphAttribute(paragraphSpacingBefore:  0.0,isForNotes: true)
         for (index,text) in discountDetails.enumerated() {
             /*
             let bulletedString = NSMutableAttributedString()
@@ -96,8 +96,8 @@ class CheckoutCouponCodeTableViewCell: UITableViewCell {
             bulletedString.append(attributedString)
             fullAttributedString.append(bulletedString)
  */
-            let asStylizedPrice = (index == 0) ? instantCashBack.amountInDelimeterWithSymbol : walletCashBack.amountInDelimeterWithSymbol
-            var nextLine = (index == discountDetails.count - 1) ? "" : "\n"
+            let asStylizedPrice = (index == 0) ? instantCashBack.getPriceStringWithCurrency : walletCashBack.getPriceStringWithCurrency
+            let nextLine = (index == discountDetails.count - 1) ? "" : "\n"
             let formattedString: String = "•  \(asStylizedPrice) \(text)\(nextLine)"
                            let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: formattedString, attributes: attributesDictionary)
                            let paragraphStyle = AppGlobals.shared.createParagraphAttribute(paragraphSpacingBefore: 4.0,isForNotes: true,lineSpacing :2.0)
@@ -122,11 +122,15 @@ class CheckoutCouponCodeTableViewCell: UITableViewCell {
     
     internal func configCell(currentCoupon: HCCouponModel) {
         self.attributeLabelSetUp(couponCode: currentCoupon.couponTitle)
-        //self.discountTextSetUp(price: currentCoupon.discountBreakUp?.totalCashBack.amountInDelimeterWithSymbol ?? "" , endText: "")
-        self.discountLabel.text = "\(LocalizedString.Save.localized) \(currentCoupon.discountBreakUp?.totalCashBack.amountInDelimeterWithSymbol ?? "")"
+        
+        let attText = NSMutableAttributedString(string: "\(LocalizedString.Save.localized) ")
+        attText.append((currentCoupon.discountBreakUp?.totalCashBack ?? 0.0).getConvertedAmount(using: AppFonts.Regular.withSize(18.0)))
+        
+        self.discountLabel.attributedText = attText
+//            "\(LocalizedString.Save.localized) \(currentCoupon.discountBreakUp?.totalCashBack.getConvertedAmount(using: AppFonts.Regular.withSize(14.0)).string ?? "")"
         self.couponInfoTextView.attributedText = self.bulletedCouponsDetails(discountDetails: discountText, instantCashBack: currentCoupon.discountBreakUp?.CPD ?? 0.0, walletCashBack: (currentCoupon.discountBreakUp?.CACB ?? 0))
-        self.couponInfoTextView.asStylizedPrice(text: Double(currentCoupon.discountBreakUp?.CPD ?? 0.0).amountInDelimeterWithSymbol, using: AppFonts.Regular.withSize(18.0))
-        self.couponInfoTextView.asStylizedPrice(text: Double(currentCoupon.discountBreakUp?.CACB ?? 0).amountInDelimeterWithSymbol, using: AppFonts.Regular.withSize(18.0))
+        self.couponInfoTextView.asStylizedPrice(text: Double(currentCoupon.discountBreakUp?.CPD ?? 0.0).getPriceStringWithCurrency, using: AppFonts.Regular.withSize(14.0))
+        self.couponInfoTextView.asStylizedPrice(text: Double(currentCoupon.discountBreakUp?.CACB ?? 0).getPriceStringWithCurrency, using: AppFonts.Regular.withSize(14.0))
         if discountText.count < 3{
             self.offerTermsButton.setTitle("", for: .normal)
             offerTermsButton.isHidden = true

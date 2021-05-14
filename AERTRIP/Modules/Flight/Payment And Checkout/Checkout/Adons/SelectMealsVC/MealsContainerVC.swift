@@ -69,15 +69,20 @@ class MealsContainerVC: BaseVC {
         setupNavBar()
         setUpViewPager()
         calculateTotalAmount()
-              let price = self.totalLabel.text ?? ""
-        self.delegate?.mealsUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))
+//              let price = self.totalLabel.text ?? ""
+        let price = self.mealsContainerVM.calculateTotalAmount()
+        self.delegate?.mealsUpdated(amount: price.toString)
         totalContainerView.addShadow(ofColor: .black, radius: 20, opacity: 0.1)
+        
+        print("self.mealsContainerVM.calculateTotalAmount()...\(self.mealsContainerVM.calculateTotalAmount())")
+        
     }
     
     @IBAction func addButtonTapped(_ sender: UIButton) {
         self.mealsContainerVM.updateMealsToDataStore()
-        let price = self.totalLabel.text ?? ""
-        self.delegate?.mealsUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))
+//        let price = self.totalLabel.text ?? ""
+        let price = self.mealsContainerVM.calculateTotalAmount()
+        self.delegate?.mealsUpdated(amount: price.toString)
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -158,7 +163,11 @@ extension MealsContainerVC {
     }
     
     func calculateTotalAmount(){
-        self.totalLabel.text = "₹ \(self.mealsContainerVM.calculateTotalAmount().commaSeprated)"
+//        self.totalLabel.text = "₹ \(self.mealsContainerVM.calculateTotalAmount().commaSeprated)"
+       
+        self.totalLabel.attributedText = self.mealsContainerVM.calculateTotalAmount().toDouble.getConvertedAmount(using: AppFonts.SemiBold.withSize(18))
+        
+        
     }
 }
 
@@ -168,8 +177,9 @@ extension MealsContainerVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         self.mealsContainerVM.clearAll()
         calculateTotalAmount()
-        let price = self.totalLabel.text ?? ""
-        self.delegate?.mealsUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))
+//        let price = self.totalLabel.text ?? ""
+        let price = self.mealsContainerVM.calculateTotalAmount()
+        self.delegate?.mealsUpdated(amount: price.toString)
         self.delegate?.resetMeals()
         configureNavigation()
  

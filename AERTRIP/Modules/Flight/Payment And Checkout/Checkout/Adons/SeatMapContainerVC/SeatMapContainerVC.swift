@@ -173,7 +173,12 @@ class SeatMapContainerVC: UIViewController {
         seatTotalTitleLbl.font = AppFonts.Regular.withSize(12)
         seatTotalTitleLbl.textColor = AppColors.themeGray60
         seatTotalLbl.font = AppFonts.SemiBold.withSize(19)
-        seatTotalLbl.text = "₹ 0"
+//        seatTotalLbl.text = "₹ 0"
+       
+        self.viewModel.getSeatTotal {[weak self] (total) in
+            self?.seatTotalLbl.attributedText = total.toDouble.getConvertedAmount(using: AppFonts.SemiBold.withSize(19))
+        }
+        
         addBtn.titleLabel?.font = AppFonts.SemiBold.withSize(20)
         addBtn.setTitleColor(AppColors.themeGreen, for: .normal)
         let addBtnTitle = viewModel.setupFor == .postSelection ? LocalizedString.CheckoutTitle.localized : LocalizedString.Add.localized
@@ -215,7 +220,10 @@ class SeatMapContainerVC: UIViewController {
                     self.viewModel.allFlightsData[index] = flightData
                     self.viewModel.getSeatTotal { [weak self] (seatTotal) in
                         guard let self = self else { return }
-                        self.seatTotalLbl.text = "₹ \(seatTotal.formattedWithCommaSeparator)"
+//                        self.seatTotalLbl.text = "₹ \(seatTotal.formattedWithCommaSeparator)"
+                        
+                        self.seatTotalLbl.attributedText = seatTotal.toDouble.getConvertedAmount(using: AppFonts.SemiBold.withSize(19))
+                        
                     }
                 }
                 self.planeLayoutCollView.reloadData()
@@ -440,7 +448,12 @@ extension SeatMapContainerVC: TopNavigationViewDelegate {
                 }
             }
         }
-        seatTotalLbl.text = "₹ 0"
+//        seatTotalLbl.text = "₹ 0"
+        
+        self.viewModel.getSeatTotal {[weak self] (total) in
+            self?.seatTotalLbl.attributedText = total.toDouble.getConvertedAmount(using: AppFonts.SemiBold.withSize(19))
+        }
+        
         planeLayoutCollView.reloadData()
     }
     
@@ -509,7 +522,10 @@ extension SeatMapContainerVC: SeatMapContainerDelegate {
             viewModel.allFlightsData = allFlightsData
             viewModel.getSeatTotal { [weak self] (seatTotal) in
                 guard let self = self else { return }
-                self.seatTotalLbl.text = "₹ \(seatTotal.formattedWithCommaSeparator)"
+//                self.seatTotalLbl.text = "₹ \(seatTotal.formattedWithCommaSeparator)"
+                
+                self.seatTotalLbl.attributedText = seatTotal.toDouble.getConvertedAmount(using: AppFonts.SemiBold.withSize(19))
+
             }
         } else if viewModel.setupFor == .postSelection {
             createPassengerContactsArr()
@@ -517,7 +533,9 @@ extension SeatMapContainerVC: SeatMapContainerDelegate {
             viewModel.originalAllFlightsData = viewModel.allFlightsData
             viewModel.getSeatTotal { [weak self] (seatTotal) in
                 guard let self = self else { return }
-                self.seatTotalLbl.text = "₹ \(seatTotal.formattedWithCommaSeparator)"
+//                self.seatTotalLbl.text = "₹ \(seatTotal.formattedWithCommaSeparator)"
+                self.seatTotalLbl.attributedText = seatTotal.toDouble.getConvertedAmount(using: AppFonts.SemiBold.withSize(19))
+
             }
         }
         guard !viewModel.allTabsStr.isEmpty else { return }
