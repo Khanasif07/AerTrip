@@ -339,11 +339,16 @@ extension IntCombineFareInfoCell{
                             slabCell.statusLabel.text = "Free Cancellation"
                         }else{
                             slabCell.statusLabel.textColor = .black
+                            
                             var adtRafVal: Double =  0
                             if let fee = rafFees["ADT"] as? Double{
                                 adtRafVal = fee
                             }else{
                                 adtRafVal = (rafFees["ADT"] as? [String:Double])?.values.first ?? 0
+                            }
+                            ///RAF will only be considered when Airline fee is > 0, RAF is independent of Aertrip Fee
+                            if !(airlineValue > 0){
+                                adtRafVal = 0
                             }
                             
                             if aertripValue > 0{
@@ -374,6 +379,11 @@ extension IntCombineFareInfoCell{
                                 adtRafVal = fee
                             }else{
                                 adtRafVal = (rafFees["ADT"] as? [String:Double])?.values.first ?? 0
+                            }
+                            
+                            ///RAF will only be considered when Airline fee is > 0, RAF is independent of Aertrip Fee
+                            if !(airlineValue > 0){
+                                adtRafVal = 0
                             }
 
                             if aertripValue > 0{
@@ -440,6 +450,11 @@ extension IntCombineFareInfoCell{
                         }else{
                             chdRafVal = (rafFees["CHD"] as? [String:Double])?.values.first ?? 0
                         }
+                        
+                        ///RAF will only be considered when Airline fee is > 0, RAF is independent of Aertrip Fee
+                        if !(chdRafVal > 0){
+                            chdRafVal = 0
+                        }
 
                         if aertripValue > 0 {
                             let displayValue = getPrice(price: Double(value + chdRafVal + aertripValue))
@@ -503,6 +518,10 @@ extension IntCombineFareInfoCell{
                             iNFRafVal = fee
                         }else{
                             iNFRafVal = (rafFees["INF"] as? [String:Double])?.values.first ?? 0
+                        }
+                        ///RAF will only be considered when Airline fee is > 0, RAF is independent of Aertrip Fee
+                        if !(iNFRafVal > 0){
+                            iNFRafVal = 0
                         }
                         
                         if aertripValue > 0{

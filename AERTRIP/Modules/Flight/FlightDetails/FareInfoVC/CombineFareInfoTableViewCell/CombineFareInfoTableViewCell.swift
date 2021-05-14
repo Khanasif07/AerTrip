@@ -176,8 +176,11 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                         }else{
                             slabCell.statusLabel.textColor = .black
                             
-                            
-                            let adtRafVal = rafFees["ADT"]?.values.first ?? 0
+                            //RAF will only be considered when Airline fee is > 0, RAF is independent of Aertrip Fee
+                            var  adtRafVal = rafFees["ADT"]?.values.first ?? 0
+                            if !(airlineValue > 0){
+                                adtRafVal = 0
+                            }
 
                             if aertripValue > 0{
                                 let displayValue = getPrice(price: Double(airlineValue + adtRafVal + aertripValue))
@@ -208,15 +211,16 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                         }else{
                             slabCell.perAdultAmountLabel.textColor = .black
                             
+                            //RAF will only be considered when Airline fee is > 0, RAF is independent of Aertrip Fee
+                            var  adtRafVal = rafFees["ADT"]?.values.first ?? 0
+                            if !(airlineValue > 0){
+                                adtRafVal = 0
+                            }
                             if aertripValue > 0{
-                                if let adtRafVal = rafFees["ADT"]?.values.first{
-                                    let displayValue = getPrice(price: Double(airlineValue + adtRafVal + aertripValue))
-                                    slabCell.perAdultAmountLabel.attributedText = displayValue
-                                }
-
-                            }else{
-                                let adtRafVal = rafFees["ADT"]?.values.first ?? 0
+                                let displayValue = getPrice(price: Double(airlineValue + adtRafVal + aertripValue))
+                                slabCell.perAdultAmountLabel.attributedText = displayValue
                                 
+                            }else{
                                 if aertripValue > 0{
                                     let displayValue = getPrice(price: Double(airlineValue + adtRafVal + aertripValue))
                                     slabCell.perAdultAmountLabel.attributedText = displayValue
@@ -267,8 +271,12 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                         slabCell.perChildAmountLabel.text = "Free Cancellation"
                     }else{
                         slabCell.perChildAmountLabel.textColor = .black
-                        let chdRafVal = rafFees["CHD"]?.values.first ?? 0
                         
+                        //RAF will only be considered when Airline fee is > 0, RAF is independent of Aertrip Fee
+                        var chdRafVal = rafFees["CHD"]?.values.first ?? 0
+                        if !(value > 0){
+                            chdRafVal = 0
+                        }
                         if aertripValue > 0{
                             let displayValue = getPrice(price: Double(value + chdRafVal + aertripValue))
                             slabCell.perChildAmountLabel.attributedText = displayValue
@@ -315,7 +323,12 @@ extension CombineFareInfoTableViewCell:UITableViewDataSource, UITableViewDelegat
                         slabCell.perInfantAmountLabel.text = "Free Cancellation"
                     }else{
                         slabCell.perInfantAmountLabel.textColor = .black
-                        let chdRafVal = rafFees["INF"]?.values.first ?? 0
+                        
+                        //RAF will only be considered when Airline fee is > 0, RAF is independent of Aertrip Fee
+                        var chdRafVal = rafFees["INF"]?.values.first ?? 0
+                        if !(value > 0){
+                            chdRafVal = 0
+                        }
                         
                         if aertripValue > 0{
                             let displayValue = getPrice(price: Double(value + chdRafVal + aertripValue))
