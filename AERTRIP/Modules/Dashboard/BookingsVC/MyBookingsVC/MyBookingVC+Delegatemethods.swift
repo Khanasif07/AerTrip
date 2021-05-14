@@ -78,6 +78,12 @@ extension MyBookingsVC: MyBookingsVMDelegate {
         if showProgress {
             stopProgress()
         }
+        if MyBookingsVM.shared.isNeedToOpenCompleted{
+            MyBookingsVM.shared.isNeedToOpenCompleted = false
+            if MyBookingFilterVM.shared.bookigEventAvailableType.count > 1{
+                self.parchmentView?.select(index: 1, animated: true)
+            }
+        }
     }
     
     func getDeepLinkDetailsSuccess(_ bookingDetailModel: BookingDetailModel){

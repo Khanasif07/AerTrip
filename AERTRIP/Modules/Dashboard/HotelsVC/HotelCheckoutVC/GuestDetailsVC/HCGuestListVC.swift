@@ -351,46 +351,7 @@ extension HCGuestListVC: UITableViewDelegate, UITableViewDataSource {
                 contact.id == self.viewModel.googleContacts[indexPath.row].id
             })
         }
-        
-//        if self.currentlyUsingFor == .travellers {
-//            cell.showSalutationImage = true
-//            cell.contact = self.viewModel.travellerContacts[indexPath.row]
-//
-//            // Get age str based on date of birth
-//            //            let dateStr = AppGlobals.shared.getAgeLastString(dob: self.viewModel.travellerContacts[indexPath.row].dob, formatter: "yyyy-MM-dd")
-//            //            // get attributed date str
-//            //            let attributedDateStr = AppGlobals.shared.getAttributedBoldText(text: dateStr, boldText: dateStr,color: AppColors.themeGray40)
-//            //
-//            //            // add a UILabel for Age string
-//            //            let label = UILabel(frame: CGRect(x: 0, y: 0, width: 45, height: 30))
-//            //            label.attributedText = attributedDateStr
-//            //            cell.accessoryView = label
-//            cell.dividerView.isHidden = indexPath.row == (self.viewModel.travellerContacts.count - 1)
-//            cell.selectionButton.isSelected = self.viewModel.selectedTravellerContacts.contains(where: { (contact) -> Bool in
-//                contact.id == self.viewModel.travellerContacts[indexPath.row].id
-//            })
-//        }
-//        else if self.currentlyUsingFor == .contacts {
-//            cell.contact = self.viewModel.phoneContacts[indexPath.row]
-//            cell.dividerView.isHidden = indexPath.row == (self.viewModel.phoneContacts.count - 1)
-//            cell.selectionButton.isSelected = self.viewModel.selectedPhoneContacts.contains(where: { (contact) -> Bool in
-//                contact.id == self.viewModel.phoneContacts[indexPath.row].id
-//            })
-//        }
-//        else if self.currentlyUsingFor == .facebook {
-//            cell.contact = self.viewModel.facebookContacts[indexPath.row]
-//            cell.dividerView.isHidden = indexPath.row == (self.viewModel.facebookContacts.count - 1)
-//            cell.selectionButton.isSelected = self.viewModel.selectedFacebookContacts.contains(where: { (contact) -> Bool in
-//                contact.id == self.viewModel.facebookContacts[indexPath.row].id
-//            })
-//        }
-//        else if self.currentlyUsingFor == .google {
-//            cell.contact = self.viewModel.googleContacts[indexPath.row]
-//            cell.dividerView.isHidden = indexPath.row == (self.viewModel.googleContacts.count - 1)
-//            cell.selectionButton.isSelected = self.viewModel.selectedGoogleContacts.contains(where: { (contact) -> Bool in
-//                contact.id == self.viewModel.googleContacts[indexPath.row].id
-//            })
-//        }
+
         
         return cell
         

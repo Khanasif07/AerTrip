@@ -258,6 +258,7 @@
         self.onwardReturnViewHeightConstraint.constant = 0.0;
         [self.viewModel setupMultiCityView];
         self.multiCityViewHeightConstraint.constant = 2000.0;
+        self.viewModel.isAnimationNeedToAddRemoveSector = false;
         [self reloadMultiCityTableView];
         
     }else {
@@ -787,7 +788,7 @@
 
 
 - (IBAction)removeMultiCityAction:(id)sender {
-    
+    self.viewModel.isAnimationNeedToAddRemoveSector = true;
     [self.viewModel removeLastLegFromJourney];
     [self reloadMultiCityTableView];
 }
@@ -811,7 +812,7 @@
 }
 
 - (IBAction)addMultiCityAction:(id)sender {
-    
+    self.viewModel.isAnimationNeedToAddRemoveSector = true;
     [self.viewModel addFlightLegForMulticityJourney];
     [self reloadMultiCityTableView];
     
@@ -837,7 +838,14 @@
     [self.multiCityTableView reloadData];
     self.multiCityTableViewHeightConstraint.constant = 80 * self.viewModel.multiCityArray.count;
     self.flightFormHeight.constant = self.multiCityTableViewHeightConstraint.constant + 305.0;
-    [self.view layoutIfNeeded];
+    if (self.viewModel.isAnimationNeedToAddRemoveSector){
+        [UIView animateWithDuration: 0.2 delay: 0.0 options: UIViewAnimationOptionCurveEaseInOut animations:^{
+            [self.view layoutIfNeeded];
+        } completion:^(BOOL finished) {}];
+    }else{
+        [self.view layoutIfNeeded];
+    }
+    
     [self updateScrollviewContentHeight];
 }
 

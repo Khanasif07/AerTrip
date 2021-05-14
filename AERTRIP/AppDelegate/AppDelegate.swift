@@ -227,7 +227,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 self.searchHotelsWithDeepLink(dict: pairs)
             }else if url?.absoluteString.contains("booking") ?? false {
                 let bookingId = pairs["bid"] as? String ?? ""
-                self.openMyBookingVCFromDeepLink(bookingId: bookingId)
+                let isCompleted = (url?.absoluteString.contains("past") ?? false)
+                self.openMyBookingVCFromDeepLink(bookingId: bookingId, isCompleted: isCompleted)
             }else if url?.absoluteString.contains("account") ?? false{
                 let pair = pairs as? [String:String] ?? [:]
                 self.openAccountVCFromDeepLink(with: pair)
@@ -347,12 +348,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     
-    func openMyBookingVCFromDeepLink(bookingId: String){
+    func openMyBookingVCFromDeepLink(bookingId: String, isCompleted:Bool){
         self.moveToRootVC()
         delay(seconds: 1) {
             guard let dashboardVC = (self.window?.rootViewController as? UINavigationController)?.viewControllers.first?.children.first?.children.first as? DashboardVC else { return }
             dashboardVC.profileButtonAction(ATNotificationButton())
-            AppFlowManager.default.moveToMyBookingsVC(bookingId: bookingId)
+            AppFlowManager.default.moveToMyBookingsVC(bookingId: bookingId, isCompleted: isCompleted)
         }
     }
 

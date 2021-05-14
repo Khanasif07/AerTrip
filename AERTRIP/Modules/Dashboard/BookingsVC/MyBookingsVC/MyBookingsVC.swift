@@ -16,7 +16,7 @@ class MyBookingsVC: BaseVC {
     private var currentIndex: Int = 0
     private var allTabsStr: [String] = []
     // Parchment View
-    fileprivate var parchmentView : PagingViewController?
+    var parchmentView : PagingViewController?
     private var allChildVCs :[UIViewController] = []
     
     private var previousOffset = CGPoint.zero

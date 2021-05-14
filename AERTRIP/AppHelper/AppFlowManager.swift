@@ -830,9 +830,10 @@ extension AppFlowManager {
     
     // MARK: ----
     
-    func moveToMyBookingsVC(bookingId:String = "") {
+    func moveToMyBookingsVC(bookingId:String = "", isCompleted:Bool = false) {
         let obj = MyBookingsVC.instantiate(fromAppStoryboard: .Bookings)
         MyBookingsVM.shared.deepLinkBookingId = bookingId
+        MyBookingsVM.shared.isNeedToOpenCompleted = isCompleted
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
