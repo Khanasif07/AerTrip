@@ -273,6 +273,8 @@ class HotelResultVC: BaseVC {
         self.setUpLongPressOnFilterButton()
         //addCustomBackgroundBlurView()
         headerBlurView.backgroundColor = UIColor.white.withAlphaComponent(0.85)
+        
+        setGroupedFooterView()
     }
     
     override func viewDidAppear(_ animated: Bool) {

@@ -90,10 +90,20 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
                 //if switch is on then all the operations must be only on fav data
                 let favPred = NSPredicate(format: "fav == '1'")
                 finalPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [favPred])
+                
             }
             else {
                 self.fetchRequestWithoutFilter()
             }
+        }
+        
+        if !self.showBeyondTwenty{
+            let distancePredicate = NSPredicate(format: "distance <= 20")
+//            finalPredicate?.subpredicates.append(distancePredicate)
+            var pred : [NSPredicate] = finalPredicate?.subpredicates as? [NSPredicate] ?? []
+            pred.append(distancePredicate)
+            finalPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: pred)
+
         }
         
         if let pred = finalPredicate {
@@ -101,17 +111,8 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
         }
         
         
-        //        if let pred = finalPredicate {
-        //            if let starPred = starPredicate(forStars: HotelsSearchVM.hotelFormData.ratingCount) {
-        //                self.fetchedResultsController.fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [starPred, pred])
-        //            }
-        //            else {
-        //                self.fetchedResultsController.fetchRequest.predicate = pred
-        //            }
-        //        }
-        //        else if let starPred = starPredicate(forStars: HotelsSearchVM.hotelFormData.ratingCount) {
-        //            self.fetchedResultsController.fetchRequest.predicate = starPred
-        //        }
+        
+        
 
         self.fetchDataFromCoreData(finalPredicate: finalPredicate)
     }
@@ -181,8 +182,12 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
         
         // set up filter button red-dot setup
         // self.filterButton.isSelected = true
-        
-
+       
+//        if !self.showBeyondTwenty{
+//            let distancePredicate = NSPredicate(format: "distance <= 20")
+//            subpredicates.append(distancePredicate)
+//        }
+//
         
         return subpredicates
     }
