@@ -305,7 +305,33 @@ class IntFareBreakupVC: BaseVC {
                     taxAndFeesData.append(newArr)
                 }
             }else{
-                for key in sortOrderArray {
+                var newSortOrderArray = [String]()
+
+                if sortOrderArray.count < taxesDetails.count{
+                    
+                    var sortOrderKeyArray = [String]()
+                    for val in (taxesData?.sortOrder ?? "").components(separatedBy: ","){
+                        sortOrderKeyArray.append(val)
+                    }
+
+                    var newArr = sortOrderKeyArray
+                    var newDetailsArr = taxesDetails
+                    
+                    for key in sortOrderKeyArray{
+                        newDetailsArr.removeValue(forKey: key)
+                    }
+                    
+                    newArr.append(contentsOf: newDetailsArr.keys)
+
+                    for val in newArr{
+                        newSortOrderArray.append(taxesResult[val.removeAllWhitespaces] ?? "")
+                    }
+                }else{
+                    newSortOrderArray = sortOrderArray
+                }
+
+                
+                for key in newSortOrderArray {
                     
                     let dataArray = newDict[key] ?? []
                     
