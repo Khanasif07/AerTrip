@@ -131,7 +131,7 @@ class AdonsVM  {
         
         let headingHeight = addonsData[index].heading.getTextHeight(width: labelWidth,font: AppFonts.SemiBold.withSize(18),  numberOfLines: 1)
         
-        let descHeight = addonsData[index].description?.string.getTextHeight(width: labelWidth,font: AppFonts.Regular.withSize(14),  numberOfLines: 2)
+        let descHeight = addonsData[index].description?.string.getTextHeight(width: labelWidth,font: AppFonts.Regular.withSize(14),  numberOfLines: 2) ?? 0.0
         
         let complementHeight = addonsData[index].complementString.getTextHeight(width: labelWidth,font: AppFonts.Regular.withSize(12),  numberOfLines: 1) + 4
         
@@ -244,7 +244,7 @@ extension AdonsVM {
             
           }
           
-        if let des = description?.string, des.isEmpty {
+        if (description == nil) || (description?.string.isEmpty ?? false) {
           
             let desc = NSAttributedString(string: LocalizedString.Choose_Meal.localized, attributes: [NSAttributedString.Key.foregroundColor : AppColors.themeGray60, NSAttributedString.Key.font : AppFonts.Regular.withSize(isSEDevice ? 12 : 14)])
             
@@ -256,7 +256,7 @@ extension AdonsVM {
               return addonsData.addonsType == .meals
           }){
               self.addonsData[ind].heading = count != 0 ? LocalizedString.Meals.localized + "  " + "x\(count)" : LocalizedString.Meals.localized
-           // self.addonsData[ind].description = description.replacingLastOccurrenceOfString(", ", with: "")
+            self.addonsData[ind].description = description//.replacingLastOccurrenceOfString(", ", with: "")
             
             
             
@@ -443,7 +443,7 @@ extension AdonsVM {
             description?.append(speReqAttrString)
         }
         
-        if let des = description?.string, des.isEmpty {
+        if (description == nil) || (description?.string.isEmpty ?? false) {
 //            description = LocalizedString.PreBook_Services.localized.localized
             
             let desc = NSAttributedString(string: LocalizedString.PreBook_Services.localized, attributes: [NSAttributedString.Key.foregroundColor : AppColors.themeGray60, NSAttributedString.Key.font : AppFonts.Regular.withSize(isSEDevice ? 12 : 14)])
