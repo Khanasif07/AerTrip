@@ -683,7 +683,7 @@ extension FinalCheckOutVC: UITableViewDataSource, UITableViewDelegate {
             guard let self = self else {return}
             self.manageCouponLoader(isApplying:false)
             if success{
-                FirebaseEventLogs.shared.logEventsWithoutParam(with: .OpenCopounForHotels)
+                FirebaseEventLogs.shared.logEventsWithoutParam(with: .OpenCouponForHotels)
                 AppFlowManager.default.presentHCCouponCodeVC(itineraryId: self.viewModel.itineraryData?.it_id ?? "", vc: self, couponData: couponDetails, couponCode: self.appliedCouponData.couponCode)
             }else{
                 AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .hotelsSearch)
