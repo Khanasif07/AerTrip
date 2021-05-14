@@ -102,6 +102,7 @@ class SeatMapContainerVC: UIViewController {
         viewModel.selectedSeats.forEach { (seat) in
             FirebaseEventLogs.shared.logAddons(with: FirebaseEventLogs.EventsTypeName.addSeatAddons,  flightTitle: "\(seat.ttl)", value: "SeatNumber:\(seat.columnData.ssrCode), Price:\(seat.columnData.amount)")
         }
+        
     }
     
     // MARK: Functions
