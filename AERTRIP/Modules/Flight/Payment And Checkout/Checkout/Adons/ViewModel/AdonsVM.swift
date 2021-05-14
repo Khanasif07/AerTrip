@@ -25,7 +25,7 @@ class AdonsVM  {
     
     struct AddonsData{
         var heading : String
-        var description : String
+        var description : NSAttributedString?
         var complementString : String
         var shouldShowComp : Bool
         let addonsType : AdonsType
@@ -33,7 +33,7 @@ class AdonsVM  {
         init(type : AdonsType, heading : String, description : String, complementString : String, shouldShowComp : Bool){
             self.addonsType = type
             self.heading = heading
-            self.description = description
+//            self.description = description
             self.complementString = complementString
             self.shouldShowComp = shouldShowComp
         }
@@ -131,7 +131,7 @@ class AdonsVM  {
         
         let headingHeight = addonsData[index].heading.getTextHeight(width: labelWidth,font: AppFonts.SemiBold.withSize(18),  numberOfLines: 1)
         
-        let descHeight = addonsData[index].description.getTextHeight(width: labelWidth,font: AppFonts.Regular.withSize(14),  numberOfLines: 2)
+        let descHeight = addonsData[index].description?.string.getTextHeight(width: labelWidth,font: AppFonts.Regular.withSize(14),  numberOfLines: 2)
         
         let complementHeight = addonsData[index].complementString.getTextHeight(width: labelWidth,font: AppFonts.Regular.withSize(12),  numberOfLines: 1) + 4
         
@@ -216,7 +216,7 @@ extension AdonsVM {
           
           let dataStore = AddonsDataStore.shared
           
-          var description = ""
+        var description : NSAttributedString?
           var count = 0
             var mealsTotal = 0
         
@@ -234,20 +234,31 @@ extension AdonsVM {
                       }
                   }
               }
+                        
             
+           let totalAttributedString = NSMutableAttributedString(string: "\(LocalizedString.Total.localized) :", attributes: [NSAttributedString.Key.foregroundColor : AppColors.themeGray60, NSAttributedString.Key.font : AppFonts.Regular.withSize(isSEDevice ? 12 : 14)])
             
-            description = "\(LocalizedString.Total.localized) : \(mealsTotal.toDouble.getConvertedAmount(using: AppFonts.SemiBold.withSize(13)).string)"
+            totalAttributedString.append(mealsTotal.toDouble.getConvertedAmount(using: AppFonts.SemiBold.withSize(isSEDevice ? 12 : 14)))
+            
+            description = totalAttributedString
+            
           }
           
-          if description.isEmpty {
-              description = LocalizedString.Choose_Meal.localized
+        if let des = description?.string, des.isEmpty {
+          
+            let desc = NSAttributedString(string: LocalizedString.Choose_Meal.localized, attributes: [NSAttributedString.Key.foregroundColor : AppColors.themeGray60, NSAttributedString.Key.font : AppFonts.Regular.withSize(isSEDevice ? 12 : 14)])
+            
+              description = desc
+            
           }
           
           if let ind = self.addonsData.firstIndex(where: { (addonsData) -> Bool in
               return addonsData.addonsType == .meals
           }){
               self.addonsData[ind].heading = count != 0 ? LocalizedString.Meals.localized + "  " + "x\(count)" : LocalizedString.Meals.localized
-            self.addonsData[ind].description = description.replacingLastOccurrenceOfString(", ", with: "")
+           // self.addonsData[ind].description = description.replacingLastOccurrenceOfString(", ", with: "")
+            
+            
             
                 //description.replacingLastOccurrenceOfString(", ", with: "")
           }
@@ -290,7 +301,7 @@ extension AdonsVM {
         
         let dataStore = AddonsDataStore.shared
         
-        var description = ""
+        var description : NSAttributedString?
         var count = 0
         var baggageTotal = 0
 
@@ -310,19 +321,31 @@ extension AdonsVM {
                     }
                 }
             }
-            description = "\(LocalizedString.Total.localized) : \(baggageTotal.toDouble.getConvertedAmount(using: AppFonts.SemiBold.withSize(13)).string)"
-
+//            description = "\(LocalizedString.Total.localized) : \(baggageTotal.toDouble.getConvertedAmount(using: AppFonts.SemiBold.withSize(13)).string)"
+            
+            
+            let totalAttributedString = NSMutableAttributedString(string: "\(LocalizedString.Total.localized) :", attributes: [NSAttributedString.Key.foregroundColor : AppColors.themeGray60, NSAttributedString.Key.font : AppFonts.Regular.withSize(isSEDevice ? 12 : 14)])
+             
+             totalAttributedString.append(baggageTotal.toDouble.getConvertedAmount(using: AppFonts.SemiBold.withSize(isSEDevice ? 12 : 14)))
+             
+             description = totalAttributedString
+            
         }
         
-        if description.isEmpty {
-            description = LocalizedString.Choose_Baggage.localized
+        if let des = description?.string, des.isEmpty {
+//            description = LocalizedString.Choose_Baggage.localized
+            
+            let desc = NSAttributedString(string: LocalizedString.Choose_Baggage.localized, attributes: [NSAttributedString.Key.foregroundColor : AppColors.themeGray60, NSAttributedString.Key.font : AppFonts.Regular.withSize(isSEDevice ? 12 : 14)])
+            
+              description = desc
+            
         }
         
         if let ind = self.addonsData.firstIndex(where: { (addonsData) -> Bool in
             return addonsData.addonsType == .baggage
         }){
             self.addonsData[ind].heading = count != 0 ? LocalizedString.Baggage.localized + "  " + "x\(count)" : LocalizedString.Baggage.localized
-            self.addonsData[ind].description = description.replacingLastOccurrenceOfString(", ", with: "")
+//            self.addonsData[ind].description = description.replacingLastOccurrenceOfString(", ", with: "")
         }
     }
     
@@ -373,7 +396,7 @@ extension AdonsVM {
     func setOthersString() {
         
         let dataStore = AddonsDataStore.shared
-        var description = ""
+        var description : NSMutableAttributedString?
         var count = 0
         var othersTotal = 0
 
@@ -393,39 +416,51 @@ extension AdonsVM {
                     }
                 }
             }
-            description = "\(LocalizedString.Total.localized) : \(othersTotal.toDouble.getConvertedAmount(using: AppFonts.SemiBold.withSize(13)).string) "
+//            description = "\(LocalizedString.Total.localized) : \(othersTotal.toDouble.getConvertedAmount(using: AppFonts.SemiBold.withSize(13)).string) "
+            
+            let totalAttributedString = NSMutableAttributedString(string: "\(LocalizedString.Total.localized) :", attributes: [NSAttributedString.Key.foregroundColor : AppColors.themeGray60, NSAttributedString.Key.font : AppFonts.Regular.withSize(isSEDevice ? 12 : 14)])
+             
+             totalAttributedString.append(othersTotal.toDouble.getConvertedAmount(using: AppFonts.SemiBold.withSize(isSEDevice ? 12 : 14)))
+             
+             description = totalAttributedString
+            
         }
         
         if self.isSpecialRequestAdded() {
             
-            let speReq = description.isEmpty ? "Special Request" : "+ Special Request"
-            description = description + speReq
+            var speReq = ""
+            
+            if let des = description?.string, des.isEmpty{
+                speReq = "Special Request"
+            } else {
+                speReq = "+ Special Request"
+            }
+            
+//            let speReq = description?.string.isEmpty ?? "" ? "Special Request" : "+ Special Request"
+           
+            let speReqAttrString = NSAttributedString(string: speReq, attributes: [NSAttributedString.Key.foregroundColor : AppColors.themeGray60, NSAttributedString.Key.font : AppFonts.Regular.withSize(isSEDevice ? 12 : 14)])
+            
+            description?.append(speReqAttrString)
         }
         
-        if description.isEmpty {
-            description = LocalizedString.PreBook_Services.localized.localized
+        if let des = description?.string, des.isEmpty {
+//            description = LocalizedString.PreBook_Services.localized.localized
+            
+            let desc = NSAttributedString(string: LocalizedString.PreBook_Services.localized, attributes: [NSAttributedString.Key.foregroundColor : AppColors.themeGray60, NSAttributedString.Key.font : AppFonts.Regular.withSize(isSEDevice ? 12 : 14)])
+            
+            description?.append(desc)
+            
         }
         
         if let ind = self.addonsData.firstIndex(where: { (addonsData) -> Bool in
             return addonsData.addonsType == .otheres
         }){
             self.addonsData[ind].heading = count != 0 ? LocalizedString.Other.localized + "  " + "x\(count)" : LocalizedString.Other.localized
-            self.addonsData[ind].description = description.replacingLastOccurrenceOfString(", ", with: "")
+//            self.addonsData[ind].description = description.replacingLastOccurrenceOfString(", ", with: "")
+            
         }
         
     }
-    
-//    func updateOthersSelectionInMainArray(){
-//        AddonsDataStore.shared.flightsWithDataForOthers.forEach { (flightDataForOthers) in
-//
-//            if let ind =  AddonsDataStore.shared.flightsWithData.lastIndex(where: { (flightMainData) -> Bool in
-//                flightDataForOthers.flightId == flightMainData.flightId
-//            }) {
-//                AddonsDataStore.shared.flightsWithData[ind].special = flightDataForOthers.special
-//            }
-//        }
-//    }
-    
     
 }
 
@@ -436,7 +471,7 @@ extension AdonsVM {
       func setSeatsString() {
            let dataStore = AddonsDataStore.shared
            var headingStr = ""
-           var descStr = ""
+        var descStr : NSMutableAttributedString?
            let selectedSeatsCount = dataStore.seatsArray.count
            if selectedSeatsCount > 0 {
                headingStr = "x\(selectedSeatsCount)"
@@ -444,7 +479,6 @@ extension AdonsVM {
            let flightSequenceArr = dataStore.allFlights.map { $0.ffk }
         var seatsTotal: Double = 0
 
-        
            if selectedSeatsCount > 0 {
     
                flightSequenceArr.forEach { (flightKey) in
@@ -452,40 +486,26 @@ extension AdonsVM {
                     if seats.count > 0 {
                         seats.sort(by: { $0.columnData.ssrCode < $1.columnData.ssrCode })
                       
-                        
                         if let seatTo = priceDict["Seat"] {
                             seatsTotal = seatTo
                         }
                         
                         seats.forEach { (seatData) in
-//                            var rowStr: String {
-//                                if let number = Int(seatData.columnData.ssrCode.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()) {
-//                                    print(number)
-//                                    return "\(number)"
-//                                }
-//                                return ""
-//                            }
-//                            let columnStr = seatData.columnData.ssrCode.components(separatedBy: CharacterSet.letters.inverted).joined()
-//
-//                            let seatNumber = rowStr + columnStr
-//
-//                            if let passenger = seatData.columnData.passenger {
-//                                descStr.append(seatNumber + " - " + passenger.firstName + ", ")
-//                            }
+
                         }
                     }
                 }
-               if descStr.hasSuffix(", ") {
-                   descStr.removeLast(2)
-               }
-            
-            descStr = "\(LocalizedString.Total.localized) : \(seatsTotal.getConvertedAmount(using: AppFonts.SemiBold.withSize(13)).string)"
+//               if descStr.hasSuffix(", ") {
+//                   descStr.removeLast(2)
+//               }
+//
+//            descStr = "\(LocalizedString.Total.localized) : \(seatsTotal.getConvertedAmount(using: AppFonts.SemiBold.withSize(13)).string)"
             
            }
            
-           if descStr.isEmpty {
-               descStr = LocalizedString.Reserve_Seat.localized.localized
-           }
+//           if descStr.isEmpty {
+//               descStr = LocalizedString.Reserve_Seat.localized.localized
+//           }
 
            if let ind = self.addonsData.firstIndex(where: { (addonsData) -> Bool in
                      return addonsData.addonsType == .seat
@@ -494,7 +514,7 @@ extension AdonsVM {
                      self.addonsData[ind].description = descStr
                  }
        }
-       
+    
 }
 
 
