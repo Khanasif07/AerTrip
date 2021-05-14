@@ -205,7 +205,7 @@ class SeatMapContainerVC: UIViewController {
     private func setUpViewPager() {
         self.allChildVCs.removeAll()
 
-        for index in 0..<viewModel.allTabsStr.count {
+        for index in 0..<viewModel.allFlightsData.count {
             let vc = SeatMapVC.instantiate(fromAppStoryboard: .Rishabh_Dev)
             vc.setFlightData(viewModel.allFlightsData[index], viewModel.setupFor)
             vc.onReloadPlaneLayoutCall = { [weak self] updatedFlightData in
@@ -424,6 +424,7 @@ extension SeatMapContainerVC {
 
 extension SeatMapContainerVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
+        if viewModel.selectedSeats.isEmpty { return }
         viewModel.allFlightsData = viewModel.originalAllFlightsData
         if viewModel.setupFor == .preSelection {
             AddonsDataStore.shared.seatsAllFlightsData = viewModel.originalAllFlightsData
@@ -519,8 +520,10 @@ extension SeatMapContainerVC: SeatMapContainerDelegate {
             }
         }
         guard !viewModel.allTabsStr.isEmpty else { return }
-        setUpViewPager()
-        planeLayoutCollView.reloadData()
+        DispatchQueue.delay(0.3) {
+            self.setUpViewPager()
+            self.planeLayoutCollView.reloadData()
+        }
         DispatchQueue.delay(0.5) {
             self.setCurrentPlaneLayout()
         }
