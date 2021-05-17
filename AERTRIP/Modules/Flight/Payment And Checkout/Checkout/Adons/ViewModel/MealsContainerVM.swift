@@ -60,15 +60,15 @@ class MealsContainerVM {
     }
     
     
-    func calculateTotalAmount() -> Int {
+    func calculateTotalAmount() -> Double {
         
-        var totalPrice = 0
+        var totalPrice : Double = 0
         
         for item in self.allChildVCs {
             let mealsArray = item.selectMealsVM.getMeals()
             let selectedMeals = mealsArray.filter { !$0.mealsSelectedFor.isEmpty && $0.ssrName?.isReadOnly == 0 }
             selectedMeals.forEach { (meal) in
-                totalPrice += (meal.price.toInt * meal.mealsSelectedFor.count)
+                totalPrice += (meal.price * meal.mealsSelectedFor.count.toDouble)
             }
         }
         return totalPrice

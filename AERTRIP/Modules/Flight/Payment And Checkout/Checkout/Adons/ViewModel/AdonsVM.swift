@@ -218,14 +218,14 @@ extension AdonsVM {
           
         var description : NSAttributedString?
           var count = 0
-            var mealsTotal = 0
+        var mealsTotal : Double = 0
         
           if self.isMealSelected(){
               dataStore.flightsWithData.forEach { (flight) in
                   let others = flight.meal.addonsArray.filter { !$0.mealsSelectedFor.isEmpty }
                   others.forEach { (other) in
                     
-                    mealsTotal += other.price.toInt * other.mealsSelectedFor.count
+                    mealsTotal += other.price * other.mealsSelectedFor.count.toDouble
                     
                       other.mealsSelectedFor.forEach { (passenger) in
                           count += 1
@@ -238,7 +238,7 @@ extension AdonsVM {
             
            let totalAttributedString = NSMutableAttributedString(string: "\(LocalizedString.Total.localized) :", attributes: [NSAttributedString.Key.foregroundColor : AppColors.themeGray60, NSAttributedString.Key.font : AppFonts.Regular.withSize(isSEDevice ? 12 : 14)])
             
-            totalAttributedString.append(mealsTotal.toDouble.getConvertedAmount(using: AppFonts.SemiBold.withSize(isSEDevice ? 12 : 14)))
+            totalAttributedString.append(mealsTotal.getConvertedAmount(using: AppFonts.SemiBold.withSize(isSEDevice ? 12 : 14)))
             
             description = totalAttributedString
             
@@ -303,7 +303,7 @@ extension AdonsVM {
         
         var description : NSAttributedString?
         var count = 0
-        var baggageTotal = 0
+        var baggageTotal : Double = 0
 
         
         if self.isBaggageSelected(){
@@ -311,7 +311,7 @@ extension AdonsVM {
                 let baggage = flight.bags.addonsArray.filter { !$0.bagageSelectedFor.isEmpty }
                 baggage.forEach { (bag) in
                     
-                    baggageTotal += bag.price.toInt * bag.bagageSelectedFor.count
+                    baggageTotal += bag.price * bag.bagageSelectedFor.count.toDouble
 
                     
                     bag.bagageSelectedFor.forEach { (passenger) in
@@ -326,7 +326,7 @@ extension AdonsVM {
             
             let totalAttributedString = NSMutableAttributedString(string: "\(LocalizedString.Total.localized) :", attributes: [NSAttributedString.Key.foregroundColor : AppColors.themeGray60, NSAttributedString.Key.font : AppFonts.Regular.withSize(isSEDevice ? 12 : 14)])
              
-             totalAttributedString.append(baggageTotal.toDouble.getConvertedAmount(using: AppFonts.SemiBold.withSize(isSEDevice ? 12 : 14)))
+             totalAttributedString.append(baggageTotal.getConvertedAmount(using: AppFonts.SemiBold.withSize(isSEDevice ? 12 : 14)))
              
              description = totalAttributedString
             
@@ -398,7 +398,7 @@ extension AdonsVM {
         let dataStore = AddonsDataStore.shared
         var description : NSMutableAttributedString?
         var count = 0
-        var othersTotal = 0
+        var othersTotal : Double = 0
 
         
         if self.isOthersSelected(){
@@ -407,7 +407,7 @@ extension AdonsVM {
                 let others = flight.special.addonsArray.filter { !$0.othersSelectedFor.isEmpty }
                 others.forEach { (other) in
                     
-                    othersTotal += other.price.toInt * other.othersSelectedFor.count
+                    othersTotal += other.price * other.othersSelectedFor.count.toDouble
 
                     other.othersSelectedFor.forEach { (passenger) in
                         count += 1
@@ -420,7 +420,7 @@ extension AdonsVM {
             
             let totalAttributedString = NSMutableAttributedString(string: "\(LocalizedString.Total.localized) :", attributes: [NSAttributedString.Key.foregroundColor : AppColors.themeGray60, NSAttributedString.Key.font : AppFonts.Regular.withSize(isSEDevice ? 12 : 14)])
              
-             totalAttributedString.append(othersTotal.toDouble.getConvertedAmount(using: AppFonts.SemiBold.withSize(isSEDevice ? 12 : 14)))
+             totalAttributedString.append(othersTotal.getConvertedAmount(using: AppFonts.SemiBold.withSize(isSEDevice ? 12 : 14)))
              
              description = totalAttributedString
             

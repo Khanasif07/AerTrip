@@ -53,14 +53,14 @@ class BaggageContainerVM {
         
     }
     
-    func calculateTotalAmount() -> Int {
+    func calculateTotalAmount() -> Double {
         
-        var totalPrice = 0
+        var totalPrice : Double = 0
           for item in self.allChildVCs {
               let mealsArray = item.selectBaggageVM.getBaggage()
               let selectedMeals = mealsArray.filter { !$0.bagageSelectedFor.isEmpty && $0.ssrName?.isReadOnly == 0 }
               selectedMeals.forEach { (meal) in
-                totalPrice += (meal.price.toInt * meal.bagageSelectedFor.count)
+                totalPrice += (meal.price * meal.bagageSelectedFor.count.toDouble)
               }
           }
         
