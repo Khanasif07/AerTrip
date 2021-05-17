@@ -111,7 +111,7 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let tableViewRowCell = self.viewModel.hotelDetailsTableSectionData[indexPath.section]
+        
         if indexPath.section == 0 {
             if (tableView.cellForRow(at: indexPath) as? HotelInfoAddressCell) != nil {
                 if indexPath.row == 2 {
@@ -150,6 +150,7 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
                 }
             }
         }
+        guard let tableViewRowCell = self.viewModel.hotelDetailsTableSectionData[safe: indexPath.section] else {return}
         if tableViewRowCell[indexPath.row] == .amenitiesCell{
             self.viewAllButtonAction()
         }else if tableViewRowCell[indexPath.row] == .noImageCell && !(self.viewModel.hotelInfo?.locid?.isEmpty ?? true){
