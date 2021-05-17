@@ -25,6 +25,10 @@ protocol FlightPaymentVMDelegate:NSObjectProtocol {
     func getPaymentResonseSuccess(bookingIds: [String], cid: [String])
     func getPaymentResponseWithPendingPayment(_ p:String, id:String)
     func getPaymentResonseFail(error: ErrorCodes)
+    
+    func getUpdateCurrencyResponse(success:Bool)
+    
+    
 }
 
 class FlightPaymentVM{
@@ -332,6 +336,15 @@ extension FlightPaymentVM{
         APICaller.shared.getCouponDetailsApi(params: params, loader: true ) { (success, errors, couponsDetails) in
             completion(success, couponsDetails, errors)
             
+        }
+    }
+    
+    
+    func updateCurrency(useWallet: Bool){
+        APICaller.shared.getCurrencies {[weak self] (success, _) in
+            guard let self = self else {return}
+            self.delegate?.getUpdateCurrencyResponse(success: success)
+            self.reconfirmationAPI(useWallet: useWallet)
         }
     }
     

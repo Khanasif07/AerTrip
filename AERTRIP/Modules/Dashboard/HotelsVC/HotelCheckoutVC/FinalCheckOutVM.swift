@@ -32,6 +32,9 @@ protocol FinalCheckoutVMDelegate: class {
     func willGetBookingReceipt()
     func getBookingReceiptSuccess(detail: HotelReceiptModel)
     func getBookingReceiptFail()
+    
+    
+    func getCurrencyResponse(success: Bool)
 }
 
 class FinalCheckoutVM: NSObject {
@@ -204,6 +207,16 @@ extension FinalCheckoutVM {
             })
         }
     }
+    
+    
+    func updateCurrency(){
+        APICaller.shared.getCurrencies {[weak self] (success, _) in
+            guard let self = self else {return}
+            self.delegate?.getCurrencyResponse(success: success)
+            self.fetchRecheckRatesData()
+        }
+    }
+    
     
 }
 

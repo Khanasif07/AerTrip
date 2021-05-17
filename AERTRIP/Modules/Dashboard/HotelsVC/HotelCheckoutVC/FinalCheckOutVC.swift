@@ -593,8 +593,9 @@ class FinalCheckOutVC: BaseVC {
     // MARK: - Action
     
     @IBAction func payButtonAction(_ sender: UIButton) {
+        self.viewModel.updateCurrency()
         self.viewModel.logEvent(with: .TapOnPayButton)
-        self.viewModel.fetchRecheckRatesData()
+//        self.viewModel.fetchRecheckRatesData()
     }
 }
 
@@ -712,6 +713,13 @@ extension FinalCheckOutVC: TopNavigationViewDelegate {
 }
 
 extension FinalCheckOutVC: FinalCheckoutVMDelegate {
+    
+    func getCurrencyResponse(success: Bool){
+        if success{
+            self.updateAllData()
+        }
+    }
+    
     func willGetBookingReceipt() {
         
     }

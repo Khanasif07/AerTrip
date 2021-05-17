@@ -92,7 +92,9 @@ class FlightPaymentVC: BaseVC {
     @IBAction func payButtonTapped(_ sender: UIButton) {
         self.hideShowLoader(isHidden:false)
         let useWallet = (self.isWallet && (self.getTotalPayableAmount() <= 0.0))
-        self.viewModel.reconfirmationAPI(useWallet: useWallet)
+//        self.viewModel.reconfirmationAPI(useWallet: useWallet)
+        self.viewModel.updateCurrency(useWallet: useWallet)
+        
     }
     
     
@@ -373,6 +375,13 @@ extension FlightPaymentVC: FlightCouponCodeVCDelegate {
 }
 
 extension FlightPaymentVC:FlightPaymentVMDelegate{
+    
+    
+    func getUpdateCurrencyResponse(success: Bool) {
+        if success{
+            self.updateAllData()
+        }
+    }
     
     func fetchingItineraryData() {
         AppGlobals.shared.startLoading()
