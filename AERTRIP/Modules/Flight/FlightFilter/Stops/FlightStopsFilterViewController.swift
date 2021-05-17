@@ -40,6 +40,8 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        initialSetup()
+        
         allSectorsLbl.isHidden = !viewModel.isIntMCOrReturnVC
         sectorNameLbl.isHidden = true
         
@@ -71,6 +73,11 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
         setupOvernightFlightsView()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        setAttributedTitles()
+    }
+    
     private func setupOvernightFlightsView() {
         avoidChangeOfAirportsTitleLbl.font = AppFonts.Regular.withSize(18)
         avoidChangeOfAirportsDescLbl.font = AppFonts.Regular.withSize(14)
@@ -80,7 +87,8 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     }
     
     func initialSetup() {
-        
+        let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(segmentLongPressed(_:)))
+        multiLegSegmentControl.addGestureRecognizer(longGesture)
     }
     
     func updateUIPostLatestResults() {
@@ -307,16 +315,26 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
             let segmentTitle = getSegmentTitleFor(index + 1)
             multiLegSegmentControl.setTitle(segmentTitle, forSegmentAt: index)
         }
+        
+        self.setAttributedTitles()
+        delay(seconds: 0.002) {
+            self.setAttributedTitles()
+        }
+    }
+    
+    @objc private func segmentLongPressed(_ gestureRecognizer: UILongPressGestureRecognizer) {
+        self.setAttributedTitles()
     }
     
     private func setAttributedTitles() {
-        for index in 0..<multiLegSegmentControl.numberOfSegments {
-            let segmentTitle = getSegmentTitleFor(index + 1)
-            let indexToUpdate = multiLegSegmentControl.numberOfSegments + index + 1
-            if multiLegSegmentControl.subviews.indices.contains(indexToUpdate), let lblAtIndex = multiLegSegmentControl.subviews[indexToUpdate].subviews.first as? UILabel {
-                lblAtIndex.attributedText = NSAttributedString(string: segmentTitle, attributes: [.foregroundColor: UIColor.green])
+        multiLegSegmentControl.subviews.forEach({ (subView) in
+            if let label = subView.subviews.first as? UILabel, let text = label.text, !text.isEmpty {
+                let mutableStr = NSMutableAttributedString(string: text, attributes: [.font: AppFonts.SemiBold.withSize(14)])
+                let rangeOfDot = (mutableStr.string as NSString).range(of: "•")
+                mutableStr.setAttributes([.font: AppFonts.SemiBold.withSize(14), .foregroundColor: AppColors.themeGreen], range: rangeOfDot)
+                label.attributedText = mutableStr
             }
-        }
+        })
     }
     
     fileprivate func selectAllStops() {

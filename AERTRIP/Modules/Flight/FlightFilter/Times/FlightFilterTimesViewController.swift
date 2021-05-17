@@ -64,6 +64,11 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         initialSetup()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        setAttributedTitles()
+    }
+    
     /// Updates UI if data is coming and filters
     func updateFiltersFromAPI() {
         viewModel.currentTimerFilter = viewModel.multiLegTimerFilter[viewModel.currentActiveIndex]
@@ -661,6 +666,26 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
             let segmentTitle = viewModel.getSegmentTitleFor(index + 1)
             multiLegSegmentControl.setTitle(segmentTitle, forSegmentAt: index)
         }
+        
+        self.setAttributedTitles()
+        delay(seconds: 0.002) {
+            self.setAttributedTitles()
+        }
+    }
+    
+    @objc private func segmentLongPressed(_ gestureRecognizer: UILongPressGestureRecognizer) {
+        self.setAttributedTitles()
+    }
+    
+    private func setAttributedTitles() {
+        multiLegSegmentControl.subviews.forEach({ (subView) in
+            if let label = subView.subviews.first as? UILabel, let text = label.text, !text.isEmpty {
+                let mutableStr = NSMutableAttributedString(string: text, attributes: [.font: AppFonts.SemiBold.withSize(14)])
+                let rangeOfDot = (mutableStr.string as NSString).range(of: "•")
+                mutableStr.setAttributes([.font: AppFonts.SemiBold.withSize(14), .foregroundColor: AppColors.themeGreen], range: rangeOfDot)
+                label.attributedText = mutableStr
+            }
+        })
     }
     
     
@@ -830,6 +855,9 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     //MARK:- FilterViewController delegate method
     
     func initialSetup() {
+        
+        let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(segmentLongPressed(_:)))
+        multiLegSegmentControl.addGestureRecognizer(longGesture)
        
         flightTimesScrollView.delegate = self
         
