@@ -73,13 +73,13 @@ class SelectOtherAdonsContainerVM {
         return isAnyThingSelected
     }
     
-    func calculateTotalAmount() -> Int {
-          var totalPrice = 0
+    func calculateTotalAmount() -> Double {
+        var totalPrice : Double = 0
           for item in self.allChildVCs {
               let mealsArray = item.otherAdonsVm.getOthers()
               let selectedMeals = mealsArray.filter { !$0.othersSelectedFor.isEmpty && $0.ssrName?.isReadOnly == 0 }
               selectedMeals.forEach { (meal) in
-                totalPrice += (meal.price.toInt * meal.othersSelectedFor.count)
+                totalPrice += (meal.price * meal.othersSelectedFor.count.toDouble)
               }
           }
         return totalPrice
