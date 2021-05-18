@@ -53,7 +53,7 @@ class AccountOfflineDepositVM: NSObject {
         param["type"] = "offline"
         param["payment_method_id"] = paymentModeDetails?.id ?? ""
         param["it_id"] = self.itineraryData?.id ?? ""
-        param["currency_code"] = UserInfo.loggedInUser?.preferredCurrency ?? ""
+        param["currency_code"] = UserInfo.loggedInUser?.preferredCurrencyCode ?? ""
         param["total_amount"] = userEnteredDetails.depositAmount
         param["product_type"] = "make-payment"
         
