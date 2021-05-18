@@ -751,6 +751,10 @@ extension String {
         return !self.checkValidity(ValidityExpression)
     }
     
+    var isValidPasswordCharacterCount:Bool{
+        self.count >= 8
+    }
+    
     func stringByAppendingPathComponent(path: String) -> String {
         let nsSt = self as NSString
         return nsSt.appendingPathComponent(path)

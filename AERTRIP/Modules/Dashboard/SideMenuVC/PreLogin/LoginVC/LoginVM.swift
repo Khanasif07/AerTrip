@@ -30,6 +30,8 @@ class LoginVM {
             return false
         } else if self.password.isEmpty {
             return false
+        }else if !(self.password.isValidPasswordCharacterCount){
+            return false
         }
 //        else if self.password.checkInvalidity(.Password) {
 //           return false
@@ -55,6 +57,14 @@ class LoginVM {
             return false
             
         }
+        
+        else if (!self.password.isValidPasswordCharacterCount) {
+            self.firebaseLogEvent(with: .PasswordIncorrect)
+            AppToast.default.showToastMessage(message: LocalizedString.passwordCharacterCount.localized)
+            return false
+            
+        }
+        
 //        else if self.password.checkInvalidity(.Password) {
 //
 //            AppToast.default.showToastMessage(message: LocalizedString.Enter_valid_Password.localized)

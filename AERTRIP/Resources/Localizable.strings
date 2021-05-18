@@ -1186,7 +1186,7 @@ www.aertrip.com/trip";
 "provideNewPassword" = "Please provide a valid new password";
 "unableToSetNewPassword" = "Unable to set new password";
 "provideValidToken" = "Please provide valid token";
-"passwordAlreadyReset" = "Passowrd has already been reset using this link";
+"passwordAlreadyReset" = "Password has already been reset using this link";
 "failedToResetPassword" = "Failed to reset password";
 "modeRequired" = "mode is required";
 "enquiryRejectedByCSR" = "The previous enquiry for this email id was REJECTED BY CSR";
@@ -1195,6 +1195,7 @@ www.aertrip.com/trip";
 "failedToSendEmail" = "Failed to send registration email";
 "exceededMaximumAttemptsToResetPassword" = "You have exceeded maximum attempts to Reset Password for the day. Please try again tomorrow            ";
 "incorrectEmailId" = "The email ID provided is incorrect";
+"passwordCharacterCount" = "Password should have at least 8 character";
 
 
 //App Globals

@@ -46,6 +46,12 @@ class EnableDisableWalletOTPVM {
             self.logEvent(with: .invalidPasswordFormat)
             return(state)
         }
+        if !(self.details.password.isValidPasswordCharacterCount){
+            let state = ValidationState.password(success: false, msgString: LocalizedString.passwordCharacterCount.localized)
+            self.delegate?.showErrorState(with: state)
+            self.logEvent(with: .invalidPasswordFormat)
+            return(state)
+        }
         return(.password(success: true, msgString: ""))
     }
     
