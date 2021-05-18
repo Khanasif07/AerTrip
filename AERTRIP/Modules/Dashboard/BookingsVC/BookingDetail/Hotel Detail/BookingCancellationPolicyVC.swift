@@ -131,7 +131,15 @@ class BookingCancellationPolicyVC: BaseVC {
             cancellationPolicy.configureCell(cancellationTimePeriod: "\(chargeData.fromStr) or later", cancellationAmount: "", cancellationType: .nonRefundable)
         }
         else {
-            cancellationPolicy.configureCell(cancellationTimePeriod: "\(chargeData.fromStr) \(LocalizedString.dash.localized) \(chargeData.toStr)", cancellationAmount: chargeData.cancellationFee.delimiterWithSymbolTill2Places, cancellationType: .cancellationFee)
+            ///change done for  https://app.asana.com/0/1199093003059613/1199930068999723 as per discussion with Rahul Das Survase
+            if "\(chargeData.fromStr)" == LocalizedString.dash.localized{
+                cancellationPolicy.configureCell(cancellationTimePeriod: "Before \(chargeData.toStr)", cancellationAmount: chargeData.cancellationFee.delimiterWithSymbolTill2Places, cancellationType: .cancellationFee)
+            } else if "\(chargeData.toStr)" == LocalizedString.dash.localized{
+                cancellationPolicy.configureCell(cancellationTimePeriod: "\(chargeData.fromStr) or later", cancellationAmount: chargeData.cancellationFee.delimiterWithSymbolTill2Places, cancellationType: .cancellationFee)
+            }else{
+                cancellationPolicy.configureCell(cancellationTimePeriod: "\(chargeData.fromStr) \(LocalizedString.dash.localized) \(chargeData.toStr)", cancellationAmount: chargeData.cancellationFee.delimiterWithSymbolTill2Places, cancellationType: .cancellationFee)
+            }
+            
         }
         return cancellationPolicy
     }
