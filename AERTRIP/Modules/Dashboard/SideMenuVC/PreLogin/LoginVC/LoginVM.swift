@@ -30,6 +30,8 @@ class LoginVM {
             return false
         } else if self.password.isEmpty {
             return false
+        }else if !(self.password.isValidPasswordCharacterCount){
+            return false
         }
 //        else if self.password.checkInvalidity(.Password) {
 //           return false
