@@ -213,7 +213,9 @@ extension FinalCheckoutVM {
         APICaller.shared.getCurrencies {[weak self] (success, _) in
             guard let self = self else {return}
             self.delegate?.getCurrencyResponse(success: success)
-            self.fetchRecheckRatesData()
+            if success{
+                self.fetchRecheckRatesData()
+            }
         }
     }
     

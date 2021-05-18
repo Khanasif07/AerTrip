@@ -1111,9 +1111,9 @@ class FirebaseEventLogs: NSObject{
     }
     
     
-    func logApplyCoupanCodeForFlights(coupan : String){
+    func logApplyCouponCodeForFlights(coupon : String){
         
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.ApplyCoupanForFlights.rawValue, params: [AnalyticsKeys.name.rawValue : "n/a", AnalyticsKeys.values.rawValue : coupan])
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.ApplyCoupanForFlights.rawValue, params: [AnalyticsKeys.name.rawValue : "n/a", AnalyticsKeys.values.rawValue : coupon])
 
     }
     

@@ -717,6 +717,9 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
     func getCurrencyResponse(success: Bool){
         if success{
             self.updateAllData()
+        }else{
+            self.manageLoader(shouldStart: false)
+            AppToast.default.showToastMessage(message: "Something went wrong please try again")
         }
     }
     

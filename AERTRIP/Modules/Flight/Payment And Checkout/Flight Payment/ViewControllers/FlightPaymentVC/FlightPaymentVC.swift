@@ -369,7 +369,7 @@ extension FlightPaymentVC: FlightCouponCodeVCDelegate {
 //            self?.updateAllData()
 //        }
         
-        FirebaseEventLogs.shared.logApplyCoupanCodeForFlights(coupan: appliedCouponData.couponCode ?? "")
+        FirebaseEventLogs.shared.logApplyCouponCodeForFlights(coupon: appliedCouponData.couponCode ?? "")
         
     }
 }
@@ -380,6 +380,9 @@ extension FlightPaymentVC:FlightPaymentVMDelegate{
     func getUpdateCurrencyResponse(success: Bool) {
         if success{
             self.updateAllData()
+        }else{
+            self.hideShowLoader(isHidden: true)
+            AppToast.default.showToastMessage(message: "Something went wrong please try again")
         }
     }
     

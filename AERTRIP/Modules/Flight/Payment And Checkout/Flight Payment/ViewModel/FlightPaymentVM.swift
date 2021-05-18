@@ -344,7 +344,10 @@ extension FlightPaymentVM{
         APICaller.shared.getCurrencies {[weak self] (success, _) in
             guard let self = self else {return}
             self.delegate?.getUpdateCurrencyResponse(success: success)
-            self.reconfirmationAPI(useWallet: useWallet)
+            if success{
+                self.reconfirmationAPI(useWallet: useWallet)
+            }
+            
         }
     }
     
