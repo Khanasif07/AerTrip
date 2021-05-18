@@ -47,6 +47,13 @@ class ChangeEmailVM {
             self.delegate?.showErrorState(with: state)
             return state
         }
+        
+        if (!self.details.password.isValidPasswordCharacterCount){
+            let state = ChangeEmailValidationState.password(success: false, msg: LocalizedString.passwordCharacterCount.localized)
+            self.delegate?.showErrorState(with: state)
+            return state
+        }
+        
         return .password(success: true, msg: "")
     }
     

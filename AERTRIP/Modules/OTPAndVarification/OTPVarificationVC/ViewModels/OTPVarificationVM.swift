@@ -75,8 +75,12 @@ class OTPVarificationVM{
             switch self.state {
             case .otpToOldNumber:
                 if !(otpText.isEmpty){
-                    self.validatePassword(with: otpText)
-                    return (true, "")
+                    if otpText.isValidPasswordCharacterCount{
+                        self.validatePassword(with: otpText)
+                        return (true, "")
+                    }else{
+                        return (false, LocalizedString.passwordCharacterCount.localized)
+                    }
                 }else{
                     self.logEvent(with: .invlidCurrentPassword)
                     return (false, LocalizedString.enterAccountPasswordMsg.localized)
