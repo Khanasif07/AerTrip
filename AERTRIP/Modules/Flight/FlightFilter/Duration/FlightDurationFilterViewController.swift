@@ -14,7 +14,7 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     
     let viewModel = FlightDurationFilterVM()
     
-    private var multiLegSegmentControl = UISegmentedControl()
+    private var multiLegSegmentControl = GreenDotSegmentControl()
     
     //MARK:- multiLeg Outlets
     @IBOutlet weak var multiLegViewHeight: NSLayoutConstraint!
@@ -84,11 +84,6 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        setAttributedTitles()
-    }
-    
     private func addMarkersOnTripDuration() {
         tripDurationSlider.createMarkersAt(positions: viewModel.getTripDurationMarkerLocations())
     }
@@ -100,9 +95,6 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     //MARK:- Additional methods
     
     func initialSetup() {
-        
-        let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(segmentLongPressed(_:)))
-        multiLegSegmentControl.addGestureRecognizer(longGesture)
         
         allSectorsLbl.isHidden = !viewModel.isIntMCOrReturnVC
         viewModel.setInitialValues()
@@ -245,25 +237,6 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
             let segmentTitle = getSegmentTitleFor(index + 1)
             multiLegSegmentControl.setTitle(segmentTitle, forSegmentAt: index)
         }
-        self.setAttributedTitles()
-        delay(seconds: 0.002) {
-            self.setAttributedTitles()
-        }
-    }
-    
-    @objc private func segmentLongPressed(_ gestureRecognizer: UILongPressGestureRecognizer) {
-        self.setAttributedTitles()
-    }
-    
-    private func setAttributedTitles() {
-        multiLegSegmentControl.subviews.forEach({ (subView) in
-            if let label = subView.subviews.first as? UILabel, let text = label.text, !text.isEmpty {
-                let mutableStr = NSMutableAttributedString(string: text, attributes: [.font: AppFonts.SemiBold.withSize(14)])
-                let rangeOfDot = (mutableStr.string as NSString).range(of: "•")
-                mutableStr.setAttributes([.font: AppFonts.SemiBold.withSize(14), .foregroundColor: AppColors.themeGreen], range: rangeOfDot)
-                label.attributedText = mutableStr
-            }
-        })
     }
     
     fileprivate func formattedStringWith(duration : CGFloat) -> String {

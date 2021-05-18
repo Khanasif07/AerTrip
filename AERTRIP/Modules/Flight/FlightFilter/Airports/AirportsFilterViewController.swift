@@ -84,19 +84,13 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
         }
     }
     
-    private var multiLegSegmentControl: UISegmentedControl?
+    private var multiLegSegmentControl: GreenDotSegmentControl?
     
     //MARK:- View Controller Method
     override func viewDidLoad() {
         super.viewDidLoad()
         initialSetup()
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        setAttributedTitles()
-    }
-    
     
     //MARK:- Additional Setup
     fileprivate func setupTopView() {
@@ -356,25 +350,6 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
             let segmentTitle = getSegmentTitleFor(index + 1)
             multiLegSegmentControl?.setTitle(segmentTitle, forSegmentAt: index)
         }
-        self.setAttributedTitles()
-        delay(seconds: 0.002) {
-            self.setAttributedTitles()
-        }
-    }
-    
-    @objc private func segmentLongPressed(_ gestureRecognizer: UILongPressGestureRecognizer) {
-        self.setAttributedTitles()
-    }
-    
-    private func setAttributedTitles() {
-        multiLegSegmentControl?.subviews.forEach({ (subView) in
-            if let label = subView.subviews.first as? UILabel, let text = label.text, !text.isEmpty {
-                let mutableStr = NSMutableAttributedString(string: text, attributes: [.font: AppFonts.SemiBold.withSize(14)])
-                let rangeOfDot = (mutableStr.string as NSString).range(of: "•")
-                mutableStr.setAttributes([.font: AppFonts.SemiBold.withSize(14), .foregroundColor: AppColors.themeGreen], range: rangeOfDot)
-                label.attributedText = mutableStr
-            }
-        })
     }
     
     //MARK:- FilterViewController Methods
@@ -397,9 +372,7 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
         }
         setupScrollView()
         if multiLegSegmentControl == nil {
-            multiLegSegmentControl = UISegmentedControl()
-            let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(segmentLongPressed(_:)))
-            multiLegSegmentControl?.addGestureRecognizer(longGesture)
+            multiLegSegmentControl = GreenDotSegmentControl()
         }
     }
     

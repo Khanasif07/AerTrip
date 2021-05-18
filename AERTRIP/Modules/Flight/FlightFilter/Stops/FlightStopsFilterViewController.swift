@@ -34,7 +34,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     
     let viewModel = FlightStopsFilterVM()
     var stopsButtonsArray = [UIButton]()
-    private var multiLegSegmentControl = UISegmentedControl()
+    private var multiLegSegmentControl = GreenDotSegmentControl()
     
     //MARK:- View Controller methods
     override func viewDidLoad() {
@@ -73,11 +73,6 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
         setupOvernightFlightsView()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        setAttributedTitles()
-    }
-    
     private func setupOvernightFlightsView() {
         avoidChangeOfAirportsTitleLbl.font = AppFonts.Regular.withSize(18)
         avoidChangeOfAirportsDescLbl.font = AppFonts.Regular.withSize(14)
@@ -87,8 +82,6 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     }
     
     func initialSetup() {
-        let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(segmentLongPressed(_:)))
-        multiLegSegmentControl.addGestureRecognizer(longGesture)
     }
     
     func updateUIPostLatestResults() {
@@ -269,8 +262,6 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
         multiLegSegmentControl.selectedSegmentIndex = viewModel.currentActiveIndex
                 
         if multiLegSegmentControl.superview == nil && numberOfStops > 1 {
-            let font: [NSAttributedString.Key : Any] = [.font : AppFonts.SemiBold.withSize(14)]
-            multiLegSegmentControl.setTitleTextAttributes(font, for: .normal)
             multiLegSegmentControl.addTarget(self, action: #selector(indexChanged(_:)), for: .valueChanged)
             multicitySegmentView.addSubview(multiLegSegmentControl)
             multiLegSegmentControl.snp.makeConstraints { (maker) in
@@ -313,28 +304,10 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     private func updateSegmentTitles() {
         for index in 0..<multiLegSegmentControl.numberOfSegments {
             let segmentTitle = getSegmentTitleFor(index + 1)
+//            let attImage = getImgFromAttString(segmentTitle: segmentTitle)
+//            multiLegSegmentControl.setImage(attImage, forSegmentAt: index)
             multiLegSegmentControl.setTitle(segmentTitle, forSegmentAt: index)
         }
-        
-        self.setAttributedTitles()
-        delay(seconds: 0.002) {
-            self.setAttributedTitles()
-        }
-    }
-    
-    @objc private func segmentLongPressed(_ gestureRecognizer: UILongPressGestureRecognizer) {
-        self.setAttributedTitles()
-    }
-    
-    private func setAttributedTitles() {
-        multiLegSegmentControl.subviews.forEach({ (subView) in
-            if let label = subView.subviews.first as? UILabel, let text = label.text, !text.isEmpty {
-                let mutableStr = NSMutableAttributedString(string: text, attributes: [.font: AppFonts.SemiBold.withSize(14)])
-                let rangeOfDot = (mutableStr.string as NSString).range(of: "•")
-                mutableStr.setAttributes([.font: AppFonts.SemiBold.withSize(14), .foregroundColor: AppColors.themeGreen], range: rangeOfDot)
-                label.attributedText = mutableStr
-            }
-        })
     }
     
     fileprivate func selectAllStops() {
