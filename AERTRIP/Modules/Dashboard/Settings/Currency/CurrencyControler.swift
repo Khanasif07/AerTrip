@@ -126,7 +126,7 @@ class CurrencyControler {
         APICaller.shared.updateUserCurrency(params: param) {[weak self] (success, error) in
             guard let self = self else {return}
             if success{
-                UserInfo.loggedInUser?.preferredCurrency = self.selectedCurrency.currencyCode
+                UserInfo.loggedInUser?.preferredCurrencyCode = self.selectedCurrency.currencyCode
                 UserInfo.preferredCurrencyDetails = self.selectedCurrency
                 NotificationCenter.default.post(.init(name: .dataChanged))
             }

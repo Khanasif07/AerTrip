@@ -72,7 +72,7 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
     
     ///AttributeLabelSetup
     /// Asif Change
-    private func attributeLabelSetUp( roomPrice: Double , toDate: String, fromDate: String, penalty: Int) {
+    private func attributeLabelSetUp( roomPrice: Double , toDate: String, fromDate: String, penalty: Double) {
         let attributedString = NSMutableAttributedString()
         let orangeAtrribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(16.0), NSAttributedString.Key.foregroundColor: AppColors.themeOrange]
         let blackAttribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(16.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack] as [NSAttributedString.Key : Any]
@@ -157,7 +157,7 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
     }
     
     ///Attributed Penalty String
-    private func attributedPenaltyString(roomPrice: Double ,isRefundable: Bool ,toDate: String, fromDate: String, penalty: Int) -> String {
+    private func attributedPenaltyString(roomPrice: Double ,isRefundable: Bool ,toDate: String, fromDate: String, penalty: Double) -> String {
         var startingDate: String = ""
         var endingDate: String = ""
         if !toDate.isEmpty {
@@ -180,11 +180,11 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
             }
         } else {
             
-            if(penalty != 0 && penalty >= Int(roomPrice) &&
+            if(penalty != 0 && penalty >= (roomPrice) &&
                 !fromDate.isEmpty && toDate.isEmpty) {
                 penaltyString = "Non Refundable from  \(startingDate)\n"
                 return penaltyString
-            } else if(penalty != 0 && penalty != Int(roomPrice) &&
+            } else if(penalty != 0 && penalty != (roomPrice) &&
                         !fromDate.isEmpty && toDate.isEmpty) {
                 penaltyString = "Cancellation fee of \(Double(penalty).getCancellationPriceStringWithCurrency) will be charged if you cancel on \(startingDate) or later\n"
                 return penaltyString

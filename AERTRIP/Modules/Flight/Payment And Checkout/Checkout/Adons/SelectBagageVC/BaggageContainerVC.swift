@@ -160,7 +160,7 @@ extension BaggageContainerVC {
     
     func calculateTotalAmount(){
 //        self.totalLabel.text = "₹ \(self.baggageContainerVM.calculateTotalAmount().commaSeprated)"
-        self.totalLabel.attributedText = self.baggageContainerVM.calculateTotalAmount().toDouble.getConvertedAmount(using: AppFonts.SemiBold.withSize(18))
+        self.totalLabel.attributedText = self.baggageContainerVM.calculateTotalAmount().getConvertedAmount(using: AppFonts.SemiBold.withSize(18))
     }
     
 }

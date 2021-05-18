@@ -536,7 +536,7 @@ class UserInfo {
         }
     }
     
-    var preferredCurrency:String{
+    var preferredCurrencyCode:String{
         get{
             return (userData?["preferred_currency"] as? String ?? "").removeNull
         }
@@ -620,7 +620,7 @@ class UserInfo {
     
     var currentLocale: Locale {
 
-        switch self.preferredCurrency.uppercased() {
+        switch self.preferredCurrencyCode.uppercased() {
         case "USD":
             return Locale(identifier: "en_US")
             

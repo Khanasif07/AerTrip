@@ -25,6 +25,10 @@ protocol FlightPaymentVMDelegate:NSObjectProtocol {
     func getPaymentResonseSuccess(bookingIds: [String], cid: [String])
     func getPaymentResponseWithPendingPayment(_ p:String, id:String)
     func getPaymentResonseFail(error: ErrorCodes)
+    
+    func getUpdateCurrencyResponse(success:Bool)
+    
+    
 }
 
 class FlightPaymentVM{
@@ -116,7 +120,7 @@ class FlightPaymentVM{
             let dataArray = newDict[key] ?? []
             var newTaxVal: Double = 0
             for i in 0..<dataArray.count{
-                newTaxVal += (dataArray[i].taxVal ?? 0)
+                newTaxVal += (dataArray[i].taxVal )
             }
             let newArr = (key,newTaxVal)
             addonsData.append(newArr)
@@ -315,7 +319,7 @@ extension FlightPaymentVM{
     
     func getItineraryDetails(with id: String, completionBlock: @escaping((_ success:Bool, _ data:FlightItinerary?, _ error: ErrorCodes)->())){
         let param = [APIKeys.it_id.rawValue: id]
-        APICaller.shared.getItinerayDataForPendingPayment(params: param) {[weak self] (success, error, data) in
+        APICaller.shared.getItinerayDataForPendingPayment(params: param) {(success, error, data) in
             completionBlock(success, data, error)
         }
     }
@@ -331,6 +335,18 @@ extension FlightPaymentVM{
         let params: [String : Any] = [ APIKeys.it_id.rawValue : self.itinerary.id , APIKeys.product.rawValue : CouponFor.flights.rawValue]
         APICaller.shared.getCouponDetailsApi(params: params, loader: true ) { (success, errors, couponsDetails) in
             completion(success, couponsDetails, errors)
+            
+        }
+    }
+    
+    
+    func updateCurrency(useWallet: Bool){
+        APICaller.shared.getCurrencies {[weak self] (success, _) in
+            guard let self = self else {return}
+            self.delegate?.getUpdateCurrencyResponse(success: success)
+            if success{
+                self.reconfirmationAPI(useWallet: useWallet)
+            }
             
         }
     }

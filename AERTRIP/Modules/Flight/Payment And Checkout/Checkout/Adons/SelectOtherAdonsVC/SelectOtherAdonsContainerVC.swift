@@ -177,7 +177,7 @@ extension SelectOtherAdonsContainerVC {
     func calculateTotalAmount(){
 //        self.totalLabel.text = "₹ \(self.othersContainerVM.calculateTotalAmount().commaSeprated)"
         
-        self.totalLabel.attributedText = self.othersContainerVM.calculateTotalAmount().toDouble.getConvertedAmount(using: AppFonts.SemiBold.withSize(18))
+        self.totalLabel.attributedText = self.othersContainerVM.calculateTotalAmount().getConvertedAmount(using: AppFonts.SemiBold.withSize(18))
 
         
         self.specialRequestLabel.isHidden = !self.othersContainerVM.containsSpecialRequest()

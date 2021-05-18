@@ -17,7 +17,7 @@ extension APICaller {
             sSelf.handleResponse(json, success: { sucess, jsonData in
                 if sucess {
                     let currencies = CurrencyModel.retunCurrencyModelArray(json: json[APIKeys.data.rawValue].dictionaryValue)
-                    if let currency = currencies.first(where: {$0.currencyCode == UserInfo.loggedInUser?.preferredCurrency ?? ""}){
+                    if let currency = currencies.first(where: {$0.currencyCode == UserInfo.loggedInUser?.preferredCurrencyCode ?? ""}){
                         UserInfo.preferredCurrencyDetails = currency
                     }
                     completionBlock(true,currencies)
