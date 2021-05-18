@@ -11,7 +11,7 @@ import UIKit
 struct ItineraryData {
     
 //    details
-    var payment_amount: Int = 0
+    var payment_amount: Double = 0
     var pg_id: Int = 0
     var payment_method_id: Int = 0
     var payment_method_sub_type_id: Int = 0
@@ -19,8 +19,8 @@ struct ItineraryData {
     var gateway_currency: String = ""
     var booking_currency: String = ""
     var display_currency_conversion = ""
-    var gateway_currency_conversion: Int = 0
-    var booking_currency_conversion: Int = 0
+    var gateway_currency_conversion: Double = 0
+    var booking_currency_conversion: Double = 0
     var booking_name: String = ""
     var booking_description: String = ""
     var user_billing_address: String = ""
@@ -68,7 +68,7 @@ struct ItineraryData {
     
     init(json: JSON) {
 
-        payment_amount = json[APIKeys.payment_amount.rawValue].intValue
+        payment_amount = json[APIKeys.payment_amount.rawValue].doubleValue
         pg_id = json[APIKeys.pg_id.rawValue].intValue
         payment_method_id = json[APIKeys.payment_method_id.rawValue].intValue
         payment_method_sub_type_id = json[APIKeys.payment_method_sub_type_id.rawValue].intValue
@@ -76,8 +76,8 @@ struct ItineraryData {
         gateway_currency = json[APIKeys.gateway_currency.rawValue].stringValue.removeNull
         booking_currency = json[APIKeys.booking_currency.rawValue].stringValue.removeNull
         display_currency_conversion = json[APIKeys.display_currency_conversion.rawValue].stringValue.removeNull
-        gateway_currency_conversion = json[APIKeys.gateway_currency_conversion.rawValue].intValue
-        booking_currency_conversion = json[APIKeys.booking_currency_conversion.rawValue].intValue
+        gateway_currency_conversion = json[APIKeys.gateway_currency_conversion.rawValue].doubleValue
+        booking_currency_conversion = json[APIKeys.booking_currency_conversion.rawValue].doubleValue
         booking_name = json[APIKeys.booking_name.rawValue].stringValue.removeNull
         booking_description = json[APIKeys.booking_description.rawValue].stringValue.removeNull
         user_billing_address = json[APIKeys.user_billing_address.rawValue].stringValue.removeNull
@@ -173,16 +173,16 @@ struct  ItenaryModel {
 
 
 struct PartialPayment {
-    var amount: Int = 0
-    var user_amount: Int = 0
+    var amount: Double = 0
+    var user_amount: Double = 0
     var date: String = ""
-    var processing_fee: Int = 0
+    var processing_fee: Double = 0
     
     init(json: JSON) {
-        self.amount = json[APIKeys.amount.rawValue].intValue
-        self.user_amount = json[APIKeys.user_amount.rawValue].intValue
+        self.amount = json[APIKeys.amount.rawValue].doubleValue
+        self.user_amount = json[APIKeys.user_amount.rawValue].doubleValue
         self.date = json[APIKeys.date.rawValue].stringValue.removeNull
-        self.processing_fee = json[APIKeys.processing_fee.rawValue].intValue
+        self.processing_fee = json[APIKeys.processing_fee.rawValue].doubleValue
     }
     
     static func getPartialPaymentData(json: JSON) -> PartialPayment {
