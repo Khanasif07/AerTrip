@@ -28,10 +28,10 @@ class CurrencyVM {
         return getCurrentDataSource().count
     }
     
-    func preSelectIndia(){
-        let india = CurrencyControler.shared.currencies.filter { $0.currencyCode == UserInfo.preferredCurrencyDetails?.currencyCode  }
-        CurrencyControler.shared.selectedCurrency = india.first ?? CurrencyModel(json: [:], code: "")
-    }
+//    func preSelectIndia(){
+//        let india = CurrencyControler.shared.currencies.filter { $0.currencyCode == CurrencyControler.shared.selectedCurrency.currencyCode  }
+//        CurrencyControler.shared.selectedCurrency = india.first ?? CurrencyModel(json: [:], code: "")
+//    }
     
     func selectCurrency(index : Int){
         CurrencyControler.shared.setSelectedCurrency(currency: self.getCurrentDataSource()[index])
@@ -91,7 +91,7 @@ class CurrencyVM {
             
             if success {
                 self.seperatorIndex = topCurrencies.count - 1
-                self.preSelectIndia()
+//                self.preSelectIndia()
                 self.delegate?.getCurrenciesSuccessFull()
             } else{
                 

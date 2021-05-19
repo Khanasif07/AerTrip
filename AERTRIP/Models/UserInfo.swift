@@ -367,6 +367,18 @@ class UserInfo {
         
     }
     
+    
+   static var preferredCurrencyCode:String{
+        get{
+            return UserDefaults.standard.string(forKey: UserDefaults.Key.preferredCurrencyCode.rawValue) ?? ""
+//            return (userData?["preferred_currency"] as? String ?? "").removeNull
+        }
+        set{
+             UserDefaults.standard.setValue(newValue, forKey: UserDefaults.Key.preferredCurrencyCode.rawValue)
+//            updateInfo(withData: ["preferred_currency":newValue])
+        }
+    }
+    
 
     var email: String {
         get{
@@ -536,14 +548,7 @@ class UserInfo {
         }
     }
     
-    var preferredCurrencyCode:String{
-        get{
-            return (userData?["preferred_currency"] as? String ?? "").removeNull
-        }
-        set{
-            updateInfo(withData: ["preferred_currency":newValue])
-        }
-    }
+
     
     var paxId:String{
         get{
@@ -620,7 +625,7 @@ class UserInfo {
     
     var currentLocale: Locale {
 
-        switch self.preferredCurrencyCode.uppercased() {
+        switch UserInfo.preferredCurrencyCode.uppercased() {
         case "USD":
             return Locale(identifier: "en_US")
             

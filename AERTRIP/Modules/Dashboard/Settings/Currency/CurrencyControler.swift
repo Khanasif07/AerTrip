@@ -23,7 +23,6 @@ class CurrencyControler {
     
     init() {
         print("initialise CurrencyControler")
-        self.selectedCurrency = UserInfo.preferredCurrencyDetails ?? CurrencyModel(json: [:], code: "")
     }
     
     func scheduleCurrencyTimer(){
@@ -117,22 +116,27 @@ class CurrencyControler {
     }
     
     
-    func setSelectedCurrency(currency : CurrencyModel){
+    func setSelectedCurrency(currency : CurrencyModel?){
+        guard let currency = currency else {
+            CurrencyControler.shared.getCurrencyCodeFromLocale()
+            return }
         self.selectedCurrency = currency
     }
     
     func updateUserCurrency(){
         let param:JSONDictionary = ["preferred_currency": self.selectedCurrency.currencyCode, "action":"currency"]
+        
+        UserInfo.preferredCurrencyCode = self.selectedCurrency.currencyCode
+        UserInfo.preferredCurrencyDetails = self.selectedCurrency
+        NotificationCenter.default.post(.init(name: .dataChanged))
+        
         APICaller.shared.updateUserCurrency(params: param) {[weak self] (success, error) in
             guard let self = self else {return}
             if success{
-                UserInfo.loggedInUser?.preferredCurrencyCode = self.selectedCurrency.currencyCode
-                UserInfo.preferredCurrencyDetails = self.selectedCurrency
-                NotificationCenter.default.post(.init(name: .dataChanged))
+  
             }
         }
     }
-    
     
     func getPreferedCurrency(){
     
@@ -140,11 +144,16 @@ class CurrencyControler {
         
     }
     
-    
     func getCurrencyCodeFromLocale(){
         
         let currentLocale = Locale.current
-        print("currencyCode..\(currentLocale.currencyCode)")
+//        print("currencyCode..\(currentLocale.currencyCode)")
+        
+        UserInfo.preferredCurrencyCode = currentLocale.currencyCode ?? "INR"
+        
+    }
+    
+    func getDefaultCurrency(){
         
     }
     
