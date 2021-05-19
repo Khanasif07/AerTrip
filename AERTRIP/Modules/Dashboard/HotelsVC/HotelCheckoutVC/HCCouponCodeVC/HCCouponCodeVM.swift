@@ -38,6 +38,7 @@ class HCCouponCodeVM {
     var couponCode: String = ""
     var product = CouponFor.hotels
     var isCouponApplied = false
+    var searchText = ""
     
     func searchCoupons(searchText: String) {
         if searchText.isEmpty {

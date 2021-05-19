@@ -176,6 +176,17 @@ class HCCouponCodeVC: BaseVC {
     }
     
     private func emptyStateSetUp() {
+        if (self.viewModel.searchText.isEmpty){
+            self.emptyStateImageView.image = #imageLiteral(resourceName: "emptyStateCoupon")
+            self.emptyStateImageView.contentMode = .scaleToFill
+            self.noCouponsReqLabel.text = "No coupon required"
+            self.bestPriceLabel.text = "You already have the best price."
+        }else{
+            self.emptyStateImageView.contentMode = .scaleAspectFit
+            self.emptyStateImageView.image = #imageLiteral(resourceName: "frequentFlyerEmpty")
+            self.noCouponsReqLabel.text = "No Results"
+            self.bestPriceLabel.text = "for \(self.viewModel.searchText)"
+        }
         self.couponTextField.isError = self.viewModel.searcedCouponsData.isEmpty
         self.emptyStateView.isHidden = !self.viewModel.searcedCouponsData.isEmpty
         self.couponTableView.isHidden = self.viewModel.searcedCouponsData.isEmpty
@@ -353,6 +364,7 @@ extension HCCouponCodeVC {
             self.applyButton.setTitleColor(AppColors.themeGreen, for: .normal)
         }
         self.viewModel.couponCode = finalText
+        self.viewModel.searchText = finalText
         self.viewModel.searchCoupons(searchText: finalText)
         return true
     }
@@ -458,55 +470,55 @@ extension HCCouponCodeVC: HCCouponCodeVMDelegate {
     }
 }
 extension HCCouponCodeVC {
-//Handle Swipe Gesture
-@objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
-    printDebug("sender.state.rawValue: \(sender.state.rawValue)")
-    func reset() {
-        if viewTranslation.y > self.offerTermsView.height/2 {
-            hideOfferTermsView(animated: true)
-            return
+    //Handle Swipe Gesture
+    @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
+        printDebug("sender.state.rawValue: \(sender.state.rawValue)")
+        func reset() {
+            if viewTranslation.y > self.offerTermsView.height/2 {
+                hideOfferTermsView(animated: true)
+                return
+            }
+            
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.offerTermsView.transform = .identity
+            })
         }
         
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            self.offerTermsView.transform = .identity
-        })
-    }
-    
-    func moveView() {
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            self.offerTermsView.transform = CGAffineTransform(translationX: 0, y: self.viewTranslation.y)
-        })
-    }
-    
-    guard let direction = sender.direction, direction.isVertical, direction == .down
+        func moveView() {
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.offerTermsView.transform = CGAffineTransform(translationX: 0, y: self.viewTranslation.y)
+            })
+        }
+        
+        guard let direction = sender.direction, direction.isVertical, direction == .down
         else {
             printDebug("sender.direction: \(sender.direction)")
-        reset()
-        return
-    }
-    let velocity = sender.velocity(in: offerTermsView).y
-    
-    switch sender.state {
-    case .changed:
-        printDebug("changed")
-        viewTranslation = sender.translation(in: self.offerTermsView)
-        moveView()
-    case .ended:
-        printDebug("ended")
-        if viewTranslation.y < self.offerTermsView.height/2 || velocity < 1000 {
             reset()
-        } else {
-            hideOfferTermsView(animated: true)
+            return
         }
-    case .cancelled:
-        printDebug("cancelled")
-        reset()
-    case .failed:
-        printDebug("failed")
-        reset()
-    default:
-        break
+        let velocity = sender.velocity(in: offerTermsView).y
+        
+        switch sender.state {
+        case .changed:
+            printDebug("changed")
+            viewTranslation = sender.translation(in: self.offerTermsView)
+            moveView()
+        case .ended:
+            printDebug("ended")
+            if viewTranslation.y < self.offerTermsView.height/2 || velocity < 1000 {
+                reset()
+            } else {
+                hideOfferTermsView(animated: true)
+            }
+        case .cancelled:
+            printDebug("cancelled")
+            reset()
+        case .failed:
+            printDebug("failed")
+            reset()
+        default:
+            break
+        }
+        printDebug("viewTranslation: \(viewTranslation)")
     }
-    printDebug("viewTranslation: \(viewTranslation)")
-}
 }

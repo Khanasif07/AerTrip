@@ -124,7 +124,7 @@ class FlightDetailsBaseVC: BaseVC {
         self.setupViewModel()
         self.manageLoader()
         
-        FirebaseEventLogs.shared.logFlightDetailsEventWithJourneyTitle(title: bookFlightObject.titleString.string ?? "n/a")
+        FirebaseEventLogs.shared.logFlightDetailsEventWithJourneyTitle(title: bookFlightObject.titleString.string )
 
         self.loadFareInfo()
     }
@@ -223,8 +223,8 @@ class FlightDetailsBaseVC: BaseVC {
         self.addChild(fareBreakupVC)
         fareBreakupVC.didMove(toParent: self)
         self.fareBreakup = fareBreakupVC
-        let bottomSpecing = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
-        self.innerControllerBottomConstraint = (fareBreakupVC.view.frame.height - bottomSpecing)
+        let bottomSpacing = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
+        self.innerControllerBottomConstraint = (fareBreakupVC.view.frame.height - bottomSpacing)
     }
     
     private func setupParchmentPageController(){
@@ -522,8 +522,8 @@ extension FlightDetailsBaseVC{
         self.addChild(vc)
         vc.didMove(toParent: self)
         self.intFareBreakup = vc
-        let bottomSpecing = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
-        self.innerControllerBottomConstraint = (vc.view.frame.height - bottomSpecing)
+        let bottomSpacing = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
+        self.innerControllerBottomConstraint = (vc.view.frame.height - bottomSpacing)
     }
     
     func addIntFlightInfoVC() -> UIViewController {
@@ -620,16 +620,13 @@ extension FlightDetailsBaseVC : FlightDetailsVMDelegate, TripCancelDelegate{
     }
     
     func addToTrip(){
-        AppFlowManager.default.proccessIfUserLoggedInForFlight(verifyingFor: .loginVerificationForCheckout,presentViewController: true, vc: self, checkoutType: .none) { [weak self](isGuest) in
+        AppFlowManager.default.proccessIfUserLoggedInForFlight(verifyingFor: .loginVerificationForBulkbooking, presentViewController: true, vc: self, checkoutType: .none) { [weak self](isGuest) in
             guard let self = self else {return}
             AppFlowManager.default.removeLoginConfirmationScreenFromStack()
             self.presentedViewController?.dismiss(animated: false, completion: nil)
             guard !isGuest else {
-                FirebaseEventLogs.shared.logFlightGuestUserCheckoutEvents(with: .continueAsGuest)
-                self.hideShowLoader(isHidden: true)
                 return
             }
-
             self.hideShowLoader(isHidden: false)
             AppFlowManager.default.selectTrip(nil, tripType: .flight, cancelDelegate: self) { [weak self] (trip, details)  in
                 delay(seconds: 0.3, completion: { [weak self] in
@@ -717,12 +714,12 @@ extension FlightDetailsBaseVC : FareBreakupVCDelegate
             vc.viewModel.journeyTitle = self.journeyTitle
             vc.viewModel.journeyDate = self.journeyDate
             AppFlowManager.default.removeLoginConfirmationScreenFromStack()
-            self.pushToPassenserSelectionVC(vc)
+            self.pushToPassengerSelectionVC(vc)
         }
     }
     
     
-    func pushToPassenserSelectionVC(_ vc: PassengersSelectionVC){
+    func pushToPassengerSelectionVC(_ vc: PassengersSelectionVC){
 
         FirebaseEventLogs.shared.logFlightDetailsEvent(with: .FlightDetailsOpenPassengerSelectionScreen)
 
