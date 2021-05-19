@@ -68,7 +68,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         FirebaseEventLogs.shared.logAppOpenEvent()
+
+        CurrencyControler.shared.setSelectedCurrency(currency: UserInfo.preferredCurrencyDetails)
+       
+        CurrencyControler.shared.getCurrencies { (success, currencies, topCurrencies) in }
         
+        CurrencyControler.shared.scheduleCurrencyTimer()
+                
         return true
     }
     

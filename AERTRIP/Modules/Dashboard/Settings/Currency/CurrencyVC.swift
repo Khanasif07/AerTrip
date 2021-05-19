@@ -181,7 +181,7 @@ extension CurrencyVC : CurrencyVcDelegate {
     func failedToGetCurrencies() {
 //        AppGlobals.shared.stopLoading()
         self.hideProgressView()
-        self.currencyVm.preSelectIndia()
+//        self.currencyVm.preSelectIndia()
         self.currencyTableView.reloadData()
     }
     

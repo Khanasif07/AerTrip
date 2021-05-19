@@ -67,7 +67,7 @@ class AccountOnlineDepositVM: NSObject {
     func makePayment() {
         //forAmount used to decide that razor pay will use or not
         var params: [String : Any] = [ APIKeys.it_id.rawValue : self.depositItinerary?.id ?? ""]
-        params[APIKeys.currency_code.rawValue] = depositItinerary?.currency ?? (UserInfo.loggedInUser?.preferredCurrencyCode ?? "")
+        params[APIKeys.currency_code.rawValue] = depositItinerary?.currency ?? (UserInfo.preferredCurrencyCode ?? "")
         params[APIKeys.payment_method_id.rawValue] = depositItinerary?.razorpay?.id ?? ""
 
         params[APIKeys.total_amount.rawValue] = self.depositAmount
