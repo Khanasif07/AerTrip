@@ -175,6 +175,7 @@ class FlightBookingsDetailsVC: BaseVC {
                 view.isBottomStroke = true
                 //                view.progressBottomConstraint.constant = 2.0
             }
+            
             if !hideDivider {
                 view.dividerView.isHidden = !view.isBottomStroke
             }
