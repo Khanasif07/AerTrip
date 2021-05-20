@@ -121,13 +121,13 @@ extension HotelsMapVC: ATSwitcherChangeValueDelegate {
         self.appleMap.removeAnnotations(self.appleMap.annotations)
         self.detailsShownMarkers = []
         self.addAllMarker(isNeedToShowAll: isNeedToShowAll)
-        delay(seconds: 0.4) { [weak self] in
-            guard let strongSelf = self else {return}
-            //                let indexOfMajorCell = strongSelf.indexOfMajorCell()
-            //                strongSelf.manageForCollectionView(atIndex: indexOfMajorCell)
-            strongSelf.animateMapToFirstHotelInMapMode()
-            
-        }
+//        delay(seconds: 0.4) { [weak self] in
+//            guard let strongSelf = self else {return}
+//            //                let indexOfMajorCell = strongSelf.indexOfMajorCell()
+//            //                strongSelf.manageForCollectionView(atIndex: indexOfMajorCell)
+//            strongSelf.animateMapToFirstHotelInMapMode()
+//
+//        }
     }
 }
 
