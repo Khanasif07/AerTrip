@@ -13,8 +13,9 @@ import MapKit
 extension HotelsMapVC : MKMapViewDelegate{
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
-        guard let annotation = annotation as? MyAnnotation else {return nil}
-        let annotationView = ResistantAnnotationView(annotation: annotation, reuseIdentifier: "route")
+        guard let annotation = annotation as? MyAnnotation,let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "route") as? ResistantAnnotationView else {return nil}
+        annotationView.annotation = annotation
+//        let annotationView = ResistantAnnotationView(annotation: annotation, reuseIdentifier: "route")
         let image = returnImageForMarker(annotation: annotation)
         annotationView.image = image
         annotationView.canShowCallout = true

@@ -350,6 +350,15 @@ extension HotelResultVC: HotelResultDelegate {
         if !isDone {
             self.viewModel.hotelListOnPreferenceResult()
         } else {
+            delay(seconds: 0.3){
+                self.hotelMapVC = nil
+                self.hotelMapVC = HotelsMapVC.instantiate(fromAppStoryboard: .HotelsSearch)
+                printDebug("hotelMapVC initialises")
+                printDebug(self.hotelMapVC)
+                self.hotelMapVC?.viewModel = self.viewModel
+                self.hotelMapVC?.loadView()
+                self.hotelMapVC?.viewDidLoad()
+            }
             loadFinalDataOnScreen()
         }
         
