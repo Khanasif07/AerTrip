@@ -32,6 +32,7 @@ extension UserDefaults {
         case currentUserCookies
         case preferredCurrency
         case xAuthToken
+        case preferredCurrencyCode
     }
 }
 extension UserDefaults {

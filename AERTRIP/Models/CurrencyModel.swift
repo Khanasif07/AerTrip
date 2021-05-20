@@ -17,7 +17,7 @@ struct CurrencyModel:Codable {
     var textSuffix:Bool  = false
     var currencyName:String  = ""
     var cancellation_rate:Double = 0.0
-    var rate:Double = 0.0
+    var rate:Double = 1.0
     var text:String = ""
     var currencyCode:String = ""
     

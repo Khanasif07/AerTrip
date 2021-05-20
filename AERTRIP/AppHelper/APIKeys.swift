@@ -482,4 +482,6 @@ enum APIKeys: String {
     case line2 = "postal_code"
     case postal_code = "line2"
     case line1 = "line1"
+    
+    case preferred_currency = "preferred_currency"
 }

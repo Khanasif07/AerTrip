@@ -617,13 +617,13 @@ extension Double {
         }
     }
     
-    
     func  getConvertedAmount(using font: UIFont)->NSMutableAttributedString{
-        return (self * (UserInfo.preferredCurrencyDetails?.rate ?? 1.0)).amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font)
+        
+        return (self * (CurrencyControler.shared.selectedCurrency.rate )).amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font)
     }
     
     func  getConvertedCancellationAmount(using font: UIFont)->NSMutableAttributedString{
-        return (self * (UserInfo.preferredCurrencyDetails?.cancellation_rate ?? 1.0)).amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font)
+        return (self * (CurrencyControler.shared.selectedCurrency.cancellation_rate)).amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font)
     }
     
     var getPriceStringWithCurrency:String{
