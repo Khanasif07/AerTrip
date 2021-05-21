@@ -12,7 +12,7 @@ import SnapKit
 class PriceFilterViewController: UIViewController , FilterViewController {
     //MARK:- State Properties
     
-    private var multiLegSegmentControl = UISegmentedControl()
+    private var multiLegSegmentControl = GreenDotSegmentControl()
     let viewModel = PriceFilterVM()
 
     //MARK:- Outlets

@@ -14,7 +14,7 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     
     let viewModel = FlightDurationFilterVM()
     
-    private var multiLegSegmentControl = UISegmentedControl()
+    private var multiLegSegmentControl = GreenDotSegmentControl()
     
     //MARK:- multiLeg Outlets
     @IBOutlet weak var multiLegViewHeight: NSLayoutConstraint!
