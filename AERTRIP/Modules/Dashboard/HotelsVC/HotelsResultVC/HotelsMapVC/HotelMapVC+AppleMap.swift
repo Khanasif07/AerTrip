@@ -13,14 +13,15 @@ import MapKit
 extension HotelsMapVC : MKMapViewDelegate{
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
-        guard let annatation = annotation as? MyAnnotation else {return nil}
-        let annotationView = ResistantAnnotationView(annotation: annatation, reuseIdentifier: "route")
-        let image = returnImageForMarker(annotation: annatation)
+        guard let annotation = annotation as? MyAnnotation,let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "route") as? ResistantAnnotationView else {return nil}
+        annotationView.annotation = annotation
+//        let annotationView = ResistantAnnotationView(annotation: annotation, reuseIdentifier: "route")
+        let image = returnImageForMarker(annotation: annotation)
         annotationView.image = image
         annotationView.canShowCallout = true
         annotationView.isUserInteractionEnabled = true
         annotationView.centerOffset = CGPoint(x: 0, y: -image.size.height / 2);
-        if annatation.markerType == .city {
+        if annotation.markerType == .city {
             annotationView.centerOffset = CGPoint(x: 0, y: 0);
         }
         return annotationView

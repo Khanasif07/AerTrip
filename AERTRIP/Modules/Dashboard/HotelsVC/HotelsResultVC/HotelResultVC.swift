@@ -134,6 +134,8 @@ class HotelResultVC: BaseVC {
     var oldOffset: CGPoint = .zero //used in colletion view scrolling for map re-focus
     let hotelResultCellIdentifier = "HotelSearchTableViewCell"
     var isDataFetched = false
+    
+    var hotelMapVC: HotelsMapVC?
     //var statusBarBlurView : UIVisualEffectView!
     //var headerBlurView : UIVisualEffectView!
     
@@ -317,6 +319,7 @@ class HotelResultVC: BaseVC {
     
     deinit {
         CoreDataManager.shared.deleteData("HotelSearched")
+        self.hotelMapVC = nil
         printDebug("HotelResultVC deinit")
     }
     
@@ -516,8 +519,13 @@ class HotelResultVC: BaseVC {
         self.mapButtonIndicator.isHidden = false
         self.mapButton.alpha = 0.5
         self.mapButtonIndicator.startAnimating()
-        delay(seconds: 0.1) {
-            AppFlowManager.default.moveToHotelsResultMapVC(viewModel: self.viewModel)
+        if let vc = self.hotelMapVC{
+            vc.isNeedToReload = true
+            AppFlowManager.default.mainNavigationController.pushViewController(vc, animated: true)
+        }else{
+            delay(seconds: 0.1) {
+                AppFlowManager.default.moveToHotelsResultMapVC(viewModel: self.viewModel)
+            }
         }
         FirebaseEventLogs.shared.logHotelListEvents(with: .HotelsMapViewOpened)
     }

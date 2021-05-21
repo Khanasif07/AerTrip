@@ -179,6 +179,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     }
     var blurView = UIVisualEffectView()
     var isMapZoomNeedToSet = false
+    var isNeedToReload = false
     
     // MARK: - ViewLifeCycle
     
@@ -197,6 +198,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         self.aerinFilterUndoCompletion = {
             printDebug("Undo Button tapped")
         }
+        self.appleMap.register(ResistantAnnotationView.self, forAnnotationViewWithReuseIdentifier: "route")
         self.cardGradientView.isHidden = false
         
         self.currentLocationButton.isHidden = false
@@ -239,6 +241,12 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         self.statusBarStyle = .darkContent
         
         addCustomBackgroundBlurView()
+        //Reload collection when pushed from HotelResultVC.
+        if self.isNeedToReload{
+            self.hotelsMapCV.reloadData()
+            self.isNeedToReload = false
+        }
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -258,7 +266,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     }
     
     deinit {
-        printDebug("HotelResultVC deinit")
+        printDebug("HotelsMapVC deinit")
     }
     
     override func dataChanged(_ note: Notification) {
