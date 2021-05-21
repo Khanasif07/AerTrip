@@ -108,7 +108,7 @@ class BookingProductDetailVM {
             self.sectionDataForHotelDetail.append([.addOnsCell])
         }
         
-        if self.bookingDetail?.cancellationAmount ?? 0.0 < 0.0 {
+        if self.bookingDetail?.cancellationChargeAmount ?? 0.0 > 0.0 {
             self.sectionDataForHotelDetail.append([.cancellationCell])
         }
         
@@ -257,7 +257,7 @@ class BookingProductDetailVM {
             self.sectionDataForFlightProductType.append([.addOnsCell])
         }
         
-        if self.bookingDetail?.cancellationAmount ?? 0.0 < 0.0 {
+        if self.bookingDetail?.cancellationChargeAmount ?? 0.0 > 0.0 {
             self.sectionDataForFlightProductType.append([.cancellationCell])
         }
         

@@ -189,7 +189,8 @@ extension BookingVoucherVC: UITableViewDataSource,UITableViewDelegate {
         }
         else {
             //pay
-            voucherCell.amount = self.viewModel.receipt?.totalAmountDue ?? 0.0
+            voucherCell.receipt = self.viewModel.receipt
+//            voucherCell.amount = self.viewModel.receipt?.totalAmountDue ?? 0.0
         }
         
         voucherCell.payButtonAction = { [weak self] button in

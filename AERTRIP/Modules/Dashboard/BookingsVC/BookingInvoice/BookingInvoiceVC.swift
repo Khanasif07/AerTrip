@@ -194,6 +194,24 @@ class BookingInvoiceVC: BaseVC {
         }
     }
     
+    private func handleAddonsAnimation(_ headerView: FareSectionHeader) {
+        let rotateTrans = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
+        if self.viewModel.isAddonsSectionExpanded {
+            headerView.arrowButton.transform = .identity
+        } else {
+            headerView.arrowButton.transform = rotateTrans
+        }
+    }
+    
+    private func handleReschedulingAnimation(_ headerView: FareSectionHeader) {
+        let rotateTrans = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
+        if self.viewModel.isReschedulingSectionExpanded {
+            headerView.arrowButton.transform = .identity
+        } else {
+            headerView.arrowButton.transform = rotateTrans
+        }
+    }
+    
     private func getCellForSecondSection(_ indexPath: IndexPath) -> UITableViewCell {
         guard let discountCell = self.invoiceTableView.dequeueReusableCell(withIdentifier: "DiscountCell") as? DiscountCell else {
             fatalError("DiscountCell not found")
@@ -203,9 +221,41 @@ class BookingInvoiceVC: BaseVC {
         discountCell.titleLabelTopConstraint.constant = 5
         discountCell.backgroundColor = .red
         let code = self.viewModel.transectionCodes[indexPath.row]
-        discountCell.configureCellForInvoice(title: code.ledgerName, amount: code.amount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(14.0)))
+        let amount = self.getConvertPrice(with: code.amount, using: AppFonts.Regular.withSize(14.0), isForCancellation: false)
+        discountCell.configureCellForInvoice(title: code.ledgerName, amount: amount)
         return discountCell
     }
+    
+    
+    private func getCellForAddonSection(_ indexPath: IndexPath) -> UITableViewCell {
+        guard let discountCell = self.invoiceTableView.dequeueReusableCell(withIdentifier: "DiscountCell") as? DiscountCell else {
+            fatalError("DiscountCell not found")
+        }
+        discountCell.titleLabelLeadingConstraint.constant = 30
+        discountCell.titleLabelBottomConstraint.constant = 1
+        discountCell.titleLabelTopConstraint.constant = 5
+        discountCell.backgroundColor = .red
+        let code = self.viewModel.addonsCodes[indexPath.row]
+        let amount = self.getConvertPrice(with: code.amount, using: AppFonts.Regular.withSize(14.0), isForCancellation: false)
+        discountCell.configureCellForInvoice(title: code.ledgerName, amount: amount)
+        return discountCell
+    }
+    
+    
+    private func getCellForReschedulingSection(_ indexPath: IndexPath) -> UITableViewCell {
+        guard let discountCell = self.invoiceTableView.dequeueReusableCell(withIdentifier: "DiscountCell") as? DiscountCell else {
+            fatalError("DiscountCell not found")
+        }
+        discountCell.titleLabelLeadingConstraint.constant = 30
+        discountCell.titleLabelBottomConstraint.constant = 1
+        discountCell.titleLabelTopConstraint.constant = 5
+        discountCell.backgroundColor = .red
+        let code = self.viewModel.reschedulingCodes[indexPath.row]
+        let amount = self.getConvertPrice(with: code.amount, using: AppFonts.Regular.withSize(14.0), isForCancellation: false)
+        discountCell.configureCellForInvoice(title: code.ledgerName, amount: amount)
+        return discountCell
+    }
+    
     
     private func getCellForCancellationSection(_ indexPath: IndexPath) -> UITableViewCell {
         guard let discountCell = self.invoiceTableView.dequeueReusableCell(withIdentifier: "DiscountCell") as? DiscountCell else {
@@ -216,7 +266,8 @@ class BookingInvoiceVC: BaseVC {
         discountCell.titleLabelTopConstraint.constant = 5
         discountCell.backgroundColor = .red
         let code = self.viewModel.cancellationCodes[indexPath.row]
-        discountCell.configureCellForInvoice(title: code.ledgerName, amount: code.amount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(14.0)))
+        let amount = self.getConvertPrice(with: code.amount, using: AppFonts.Regular.withSize(14.0), isForCancellation: true)
+        discountCell.configureCellForInvoice(title: code.ledgerName, amount: amount)
         return discountCell
     }
     
@@ -229,7 +280,8 @@ class BookingInvoiceVC: BaseVC {
         discountCell.titleLabelBottomConstraint.constant = 6
         
         let code = self.viewModel.discountCodes[indexPath.row]
-        discountCell.configureCellForInvoice(title: code.ledgerName, amount:code.amount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(14.0)))
+        let amount = self.getConvertPrice(with: code.amount, using: AppFonts.Regular.withSize(14.0), isForCancellation: false)
+        discountCell.configureCellForInvoice(title: code.ledgerName, amount: amount)
         return discountCell
     }
     
@@ -267,7 +319,7 @@ class BookingInvoiceVC: BaseVC {
             totalPayableCell.totalPayableNowLabel.text = ladName
             totalPayableCell.totalPayableTextTopConstraint.constant = 8
             totalPayableCell.totalPayableTextBottomConstraint.constant = 13.0
-            let grossStr = abs(amount).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
+            let grossStr = self.getConvertPrice(with: abs(amount), using: AppFonts.SemiBold.withSize(20.0), isForCancellation: false)
             grossStr.append((amount > 0) ? drAttr : crAttr)
             totalPayableCell.totalPriceLabel.attributedText = grossStr
             totalPayableCell.totalPayableNowLabel.font = AppFonts.Regular.withSize(20.0)
@@ -340,6 +392,10 @@ extension BookingInvoiceVC: UITableViewDataSource, UITableViewDelegate {
                 return self.viewModel.isGrossFareSectionExpanded ? self.viewModel.sectionHeader[section].rowCount : 0
             case .cancellation:
                 return self.viewModel.isCancellationSectionExpanded ? self.viewModel.sectionHeader[section].rowCount : 0
+            case .addons:
+                return self.viewModel.isAddonsSectionExpanded ? self.viewModel.sectionHeader[section].rowCount : 0
+            case .rescheduling:
+                return self.viewModel.isReschedulingSectionExpanded ? self.viewModel.sectionHeader[section].rowCount : 0
             default:
                 return self.viewModel.sectionHeader[section].rowCount
             }
@@ -372,6 +428,10 @@ extension BookingInvoiceVC: UITableViewDataSource, UITableViewDelegate {
                 return self.getCellForThirdSection(indexPath)
             case .total:
                 return self.getCellForFourthSection(indexPath)
+            case .addons:
+                return self.getCellForAddonSection(indexPath)
+            case .rescheduling:
+                return self.getCellForReschedulingSection(indexPath)
             default:
                 return UITableViewCell()
             }
@@ -397,13 +457,13 @@ extension BookingInvoiceVC: UITableViewDataSource, UITableViewDelegate {
             
             func showDataOnTopHeader() {
                 headerView.grossFareTitleLabel.text = sectionHeader.title
-                headerView.grossPriceLabel.attributedText = sectionHeader.amount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+                headerView.grossPriceLabel.attributedText = self.getConvertPrice(with: sectionHeader.amount, using: AppFonts.Regular.withSize(16.0), isForCancellation: false)
             }
-            func showDataOnBottomHeader() {
+            func showDataOnBottomHeader(isForCancellation:Bool = false) {
                 headerView.topStackView.isHidden = true
                 headerView.discountContainer.isHidden = false
                 headerView.discountsTitleLabel.text = sectionHeader.title
-                headerView.discountPriceLabel.attributedText = sectionHeader.amount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+                headerView.discountPriceLabel.attributedText = self.getConvertPrice(with: sectionHeader.amount, using: AppFonts.Regular.withSize(16.0), isForCancellation: isForCancellation)
             }
             
             switch sectionHeader.section {
@@ -413,10 +473,16 @@ extension BookingInvoiceVC: UITableViewDataSource, UITableViewDelegate {
                 showDataOnBottomHeader()
             case .cancellation:
                 self.handleCancellationArrowAnimation(headerView)
-                showDataOnBottomHeader()
+                showDataOnBottomHeader(isForCancellation: true)
             case .discount:
                 self.handleDiscountArrowAnimation(headerView)
                 showDataOnBottomHeader()
+            case .addons:
+                self.handleAddonsAnimation(headerView)
+                showDataOnBottomHeader()
+            case .rescheduling:
+                self.handleReschedulingAnimation(headerView)
+                showDataOnBottomHeader(isForCancellation: true)
             default:
                 showDataOnTopHeader()
             }
@@ -520,6 +586,8 @@ extension BookingInvoiceVC: UITableViewDataSource, UITableViewDelegate {
                 return self.getHeightForRowAtFirstSection(indexPath)
             case .taxes:
                 return self.getHeightForRowAtSecondSection(indexPath)
+            case .addons, .rescheduling:
+                return 25.0
             case .cancellation:
                 return self.getHeightForRowAtCancellationSection(indexPath)
             case .discount:
@@ -582,6 +650,19 @@ extension BookingInvoiceVC: UITableViewDataSource, UITableViewDelegate {
         return str
     }
     
+    
+    func getConvertPrice(with amount:Double, using font:UIFont, isForCancellation: Bool)-> NSMutableAttributedString{
+        if let rate = self.viewModel.conversionRate{
+            if !isForCancellation{
+                return amount.convertAmount(with: rate, using: font)
+            }else{
+                return amount.convertCancellationAmount(with: rate, using: font)
+            }
+        }else{
+            return amount.amountInDelimeterWithSymbol.asStylizedPrice(using: font)
+        }
+        
+    }
 }
 
 // MARK: - Top Navigation View Delegate methods
@@ -612,6 +693,18 @@ extension BookingInvoiceVC: FareSectionHeaderDelegate {
                 self.viewModel.isGrossFareSectionExpanded = false
             } else {
                 self.viewModel.isGrossFareSectionExpanded = true
+            }
+        } else if section == .addons{
+            if self.viewModel.isAddonsSectionExpanded {
+                self.viewModel.isAddonsSectionExpanded = false
+            } else {
+                self.viewModel.isAddonsSectionExpanded = true
+            }
+        }else if section == .rescheduling{
+            if self.viewModel.isReschedulingSectionExpanded {
+                self.viewModel.isReschedulingSectionExpanded = false
+            } else {
+                self.viewModel.isReschedulingSectionExpanded = true
             }
         }
         self.invoiceTableView.reloadData()

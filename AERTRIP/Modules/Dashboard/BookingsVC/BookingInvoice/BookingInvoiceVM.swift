@@ -27,6 +27,8 @@ class BookingInvoiceVM {
         case totalPayableNow
         case total
         case cancellation
+        case addons
+        case rescheduling
         case none
     }
     
@@ -41,6 +43,8 @@ class BookingInvoiceVM {
     private(set) var transectionCodes: [Codes] = []
     private(set) var discountCodes: [Codes] = []
     private(set) var cancellationCodes: [Codes] = []
+    private(set) var addonsCodes: [Codes] = []
+    private(set) var reschedulingCodes: [Codes] = []
 
     weak var delegate: BookingInvoiceVMDelegate? = nil
     
@@ -51,12 +55,16 @@ class BookingInvoiceVM {
     var isBaseFareSectionExpanded: Bool = true
     var isGrossFareSectionExpanded: Bool = true
     var isCancellationSectionExpanded: Bool = true
+    var isAddonsSectionExpanded:Bool = true
+    var isReschedulingSectionExpanded = true
     var isForReceipt: Bool {
         if let basic = self.voucher?.basic {
             return basic.typeSlug == .receipt
         }
         return false
     }
+    
+    var conversionRate:CurrencyConversionRate?
     
     func fetchData() {
         guard let vchr = voucher else { return }
@@ -72,6 +80,16 @@ class BookingInvoiceVM {
         if let trans = vchr.transactions.filter({ $0.ledgerName.lowercased().contains("cancellation")}).first {
             self.cancellationCodes = trans.codes
         }
+        
+        if let trans = vchr.transactions.filter({ $0.ledgerName.lowercased().contains("add-ons")}).first {
+            self.addonsCodes = trans.codes
+        }
+        
+        if let trans = vchr.transactions.filter({ $0.ledgerName.lowercased().contains("rescheduling")}).first {
+            self.reschedulingCodes = trans.codes
+        }
+        
+        self.conversionRate = vchr.basic?.currencyRate
 
     }
     
@@ -87,10 +105,12 @@ class BookingInvoiceVM {
             var grossFare:Double = 0
             var discount:Double = 0
             var netFare:Double = 0
+            var addons:Double = 0
             var grandTotal:Double = 0
             var totalPayableNow:Double = 0
             var total:Double = 0
             var cancellation : Double = 0
+            var rescheduling : Double = 0
             
             vchr.transactions.forEach { (object) in
                 switch object.ledgerName.lowercased() {
@@ -103,7 +123,8 @@ class BookingInvoiceVM {
                 case "Total Payable Now".lowercased(): totalPayableNow = object.amount
                 case "Total".lowercased(): total = object.amount
                 case "Cancellation Charges".lowercased():cancellation = object.amount
-                    
+                case "Add-ons".lowercased(): addons = object.amount
+                case "Rescheduling Charges".lowercased(): rescheduling = object.amount
                 default: return
                 }
             }
@@ -112,6 +133,7 @@ class BookingInvoiceVM {
             printDebug(grossFare)
             printDebug(discount)
             printDebug(netFare)
+            printDebug(addons)
             printDebug(grandTotal)
             printDebug(totalPayableNow)
             printDebug(total)
@@ -120,7 +142,8 @@ class BookingInvoiceVM {
             let transC = self.isBaseFareSectionExpanded ? self.transectionCodes.count : 0
             let disC = self.isGrossFareSectionExpanded ? self.discountCodes.count : 0
             let CancellationC = self.isCancellationSectionExpanded ? self.cancellationCodes.count : 0
-
+            let addonsC = self.isAddonsSectionExpanded ? self.addonsCodes.count : 0
+            let reschedulingC = self.isReschedulingSectionExpanded ? self.reschedulingCodes.count : 0
 //            if baseFare > 0 {
             sectionHeader.append((section: .baseFare, rowCount: 0, amount: baseFare, title: "Base Fare"))
 //            }
@@ -133,6 +156,12 @@ class BookingInvoiceVM {
             if grossFare > 0 {
             sectionHeader.append((section: .grossFare, rowCount: 0, amount: grossFare, title: "Gross Fare"))
             }
+            
+            if addonsC > 0{
+                sectionHeader.append((section: .addons, rowCount: addonsC, amount: addons, title: "add-ons"))
+            }
+            
+            
             if disC > 0 {
                 sectionHeader.append((section: .discount, rowCount: disC, amount: discount, title: "Discounts"))
             }
@@ -140,6 +169,10 @@ class BookingInvoiceVM {
             
             if CancellationC > 0 {
                 sectionHeader.append((section: .cancellation, rowCount: CancellationC, amount: cancellation, title: "Cancellation Charges"))
+            }
+            
+            if reschedulingC > 0 {
+                sectionHeader.append((section: .rescheduling, rowCount: reschedulingC, amount: rescheduling, title: "Rescheduling Charges"))
             }
 
             if grossFare != netFare && grossFare != grandTotal {
