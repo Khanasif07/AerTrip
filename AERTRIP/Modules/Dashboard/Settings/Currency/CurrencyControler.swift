@@ -9,6 +9,10 @@
 import Foundation
 
 
+protocol CurrencyUpdatedDelegate  {
+    func reloadScreenOnCurrencyUpdaate()
+}
+
 class CurrencyControler {
     
     
@@ -35,7 +39,9 @@ class CurrencyControler {
     
     func getCurrencies(completionBlock: @escaping (_ success: Bool, _ allCurrencies: [CurrencyModel], _ topCurrencies : [CurrencyModel]) -> Void) {
         
-        APICaller.shared.getCurrencies { (success, currencies) in
+        APICaller.shared.getCurrencies {[weak self] (success, currencies) in
+            
+            guard let weakSelf = self else { return }
             
             if success{
                 
@@ -53,10 +59,13 @@ class CurrencyControler {
 //                    return obj.currencyCode != "INR" && obj.currencyCode != "USD" && obj.currencyCode != "EUR" && obj.currencyCode != "JYP" && obj.currencyCode != "GBP"
                 }
                 
-               topCountries = self.arangeTopCountries(countries: topCountries)
+                topCountries = weakSelf.arangeTopCountries(countries: topCountries)
                 
-                self.currencies = topCountries + restCountries
+                weakSelf.currencies = topCountries + restCountries
                 completionBlock(true, currencies, topCountries)
+                
+                weakSelf.updateScreenes()
+                
               //  self.delegate?.getCurrenciesSuccessFull()
             }else{
                 completionBlock(true, [], [])
@@ -128,6 +137,7 @@ class CurrencyControler {
         
         UserInfo.preferredCurrencyCode = self.selectedCurrency.currencyCode
         UserInfo.preferredCurrencyDetails = self.selectedCurrency
+        self.updateScreenes()
         NotificationCenter.default.post(.init(name: .dataChanged))
         
         APICaller.shared.updateUserCurrency(params: param) {[weak self] (success, error) in
@@ -155,6 +165,28 @@ class CurrencyControler {
     
     func getDefaultCurrency(){
         
+    }
+ 
+    
+    func updateScreenes(){
+        
+        
+        guard let root = AppDelegate.shared.window?.rootViewController as? UINavigationController else { return }
+        
+        print("root...\(root)")
+        
+        for viewControler in root.viewControllers {
+            
+            print("viewcontroler...\(viewControler)")
+            
+            if let vc = viewControler as? CurrencyUpdatedDelegate {
+                
+                print("vc is ... \(vc)")
+                
+            }
+            
+        }
+                
     }
     
 }
