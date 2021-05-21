@@ -63,9 +63,7 @@ class CurrencyControler {
 
              //   self.delegate?.failedToGetCurrencies()
             }
-            
         }
-        
     }
     
     
