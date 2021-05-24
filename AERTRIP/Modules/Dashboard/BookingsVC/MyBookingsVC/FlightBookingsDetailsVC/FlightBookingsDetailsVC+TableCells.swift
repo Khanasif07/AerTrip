@@ -226,8 +226,8 @@ extension FlightBookingsDetailsVC {
         cell.titleBottomConstraint.constant = 12.0
         cell.containerViewBottomConstraint.constant = 0.0
         
-        let amount = (self.viewModel.bookingDetail?.cancellationChargeAmount ?? 0)
-        let attAmount = self.getConvertedPrice(for: abs(amount), with: self.viewModel.bookingDetail?.cancellationCurrency, using: AppFonts.Regular.withSize(16.0), isForCancellation: true)
+        let amount = (self.viewModel.bookingDetail?.cancellationAmount ?? 0)
+        let attAmount = self.getConvertedPrice(for: abs(amount), with: self.viewModel.bookingDetail?.cancellationCurrency, using: AppFonts.Regular.withSize(16.0), isForCancellation: false)
         
         cell.configCellForAmount(title: LocalizedString.Cancellation.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: attAmount, priceInRupee: amount, isLastCell: false, cellHeight: 37.0)
         
