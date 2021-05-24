@@ -144,7 +144,8 @@ class BookingReschedulingVC: BaseVC {
     private func updateTotalRefund() {
         let totalRef = self.viewModel.usingFor == .rescheduling ?  self.viewModel.totRefundForRescheduling : self.viewModel.totalRefundForCancellation
         self.continueButton.isUserInteractionEnabled = true//totalRef != 0.0
-        self.totalPriceLabel.text = totalRef.delimiterWithSymbol
+//        self.totalPriceLabel.text = totalRef.delimiterWithSymbol
+        self.totalPriceLabel.attributedText = self.getConvertedPrice(for: totalRef, with: self.viewModel.bookingDetails?.bookingCurrencyRate, using: AppFonts.SemiBold.withSize(18), isForCancellation: true)
     }
     
     func toggleCell(_ cell: BookingReschedulingPassengerAccordionTableViewCell, animated: Bool) {
@@ -307,11 +308,13 @@ class BookingReschedulingVC: BaseVC {
             var cancelationValueText =  ""
             var saleValue = ""
             if self.viewModel.usingFor == .rescheduling{
-                saleValue = paxD.amountPaid.amountInDelimeterWithSymbol
-                cancelationValueText = paxD.rescheduleCharge.amountInDelimeterWithSymbol
+                saleValue = self.getConvertedPrice(for: paxD.amountPaid, with: self.viewModel.bookingDetails?.bookingCurrencyRate, using: AppFonts.Regular.withSize(16), isForCancellation: false).string //paxD.amountPaid.amountInDelimeterWithSymbol
+                cancelationValueText = self.getConvertedPrice(for: paxD.rescheduleCharge, with: self.viewModel.bookingDetails?.bookingCurrencyRate, using: AppFonts.Regular.withSize(16), isForCancellation: true).string //paxD.rescheduleCharge.amountInDelimeterWithSymbol
             }else{
-                saleValue = (paxD.amountPaid - paxD.reversalMFPax).amountInDelimeterWithSymbol
-                cancelationValueText = paxD.cancellationCharge.amountInDelimeterWithSymbol
+                saleValue = self.getConvertedPrice(for: paxD.cancellationCharge, with: self.viewModel.bookingDetails?.bookingCurrencyRate, using: AppFonts.Regular.withSize(16), isForCancellation: false).string
+                    //(paxD.amountPaid - paxD.reversalMFPax).amountInDelimeterWithSymbol
+                cancelationValueText = self.getConvertedPrice(for: paxD.rescheduleCharge, with: self.viewModel.bookingDetails?.bookingCurrencyRate, using: AppFonts.Regular.withSize(16), isForCancellation: true).string
+                //paxD.cancellationCharge.amountInDelimeterWithSymbol
             }
             if cancelationValue == -9{
                 cancelationValueText = "NA"
@@ -323,7 +326,15 @@ class BookingReschedulingVC: BaseVC {
                 cancelationValueText =  "Non-refundable"
             }
             
-            bookingAccordionCell.configureCell(passengerName: paxD.paxName, pnrNo: pnrNoStr, saleValue: saleValue, cancellationCharge: cancelationValueText, refundValue: self.viewModel.usingFor == .rescheduling ? paxD.netRefundForReschedule.amountInDelimeterWithSymbol : paxD.netRefundForCancellation.amountInDelimeterWithSymbol, age: age)
+            
+            let refundValue:String
+            if self.viewModel.usingFor == .rescheduling{
+                refundValue = self.getConvertedPrice(for: paxD.netRefundForReschedule, with: self.viewModel.bookingDetails?.bookingCurrencyRate, using: AppFonts.Regular.withSize(16), isForCancellation: false).string
+            }else{
+                refundValue = self.getConvertedPrice(for: paxD.netRefundForCancellation, with: self.viewModel.bookingDetails?.bookingCurrencyRate, using: AppFonts.Regular.withSize(16), isForCancellation: false).string
+            }
+            
+            bookingAccordionCell.configureCell(passengerName: paxD.paxName, pnrNo: pnrNoStr, saleValue: saleValue, cancellationCharge: cancelationValueText, refundValue: refundValue,  age: age)
             bookingAccordionCell.delegate = self
             
             bookingAccordionCell.cancellationChargeLabel.text = self.viewModel.usingFor == .rescheduling ? LocalizedString.ReschedulingCharges.localized : LocalizedString.CancellationCharges.localized

@@ -102,9 +102,9 @@ class BookingVoucherTableViewCell: ATTableViewCell {
         let amount = self.receipt?.totalAmountDue ?? 0.0
         let grossStr:NSMutableAttributedString
         if let rate = self.receipt?.currencyRate{
-            grossStr = abs(amount).convertAmount(with: rate, using: AppFonts.Regular.withSize(24.0))
+            grossStr = abs(amount).convertAmount(with: rate, using: AppFonts.SemiBold.withSize(24.0))
         }else{
-            grossStr = abs(amount).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(24.0))
+            grossStr = abs(amount).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(24.0))
         }
         
        
@@ -211,9 +211,9 @@ class BookingVoucherTableViewCell: ATTableViewCell {
         
         let grossStr:NSMutableAttributedString
         if let rate = self.voucherData.basic?.currencyRate{
-            grossStr = abs(amount).convertAmount(with: rate, using: AppFonts.Regular.withSize(24.0))
+            grossStr = abs(amount).convertAmount(with: rate, using: AppFonts.Regular.withSize(22.0))
         }else{
-            grossStr = abs(amount).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(24.0))
+            grossStr = abs(amount).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(22.0))
         }
         
         grossStr.append((amount > 0) ? drAttr : crAttr)

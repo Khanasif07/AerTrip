@@ -377,7 +377,7 @@ class FlightBookingsDetailsVC: BaseVC {
 
             FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsReschedulingOptionSelected)
 
-            AppFlowManager.default.presentBookingReschedulingVC(legs: leg)
+            AppFlowManager.default.presentBookingReschedulingVC(bookingDetails: self.viewModel.bookingDetail, legs: leg)
         }
     }
 }
