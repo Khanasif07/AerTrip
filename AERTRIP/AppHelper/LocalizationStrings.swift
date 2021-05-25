@@ -935,6 +935,7 @@ enum LocalizedString: String {
     case CreditShort
     case SelectBookingsPay
     case MakePayment
+    case SelectSameCurrencyOnly
     
     // MARK: - On Account Screen
     

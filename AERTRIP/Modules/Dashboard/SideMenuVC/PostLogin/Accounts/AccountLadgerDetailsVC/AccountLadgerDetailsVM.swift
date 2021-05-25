@@ -174,7 +174,7 @@ class AccountLadgerDetailsVM {
 //            section2.append((title: "Total Amount", value: "\(self.ladgerEvent!.amount.amountInDelimeterWithSymbol)", age: "", isEmptyCell: false))
             
             if let rate = self.ladgerEvent?.currencyRate{
-                section1.append((title: "Total Amount In \(rate.currencyCode)", value: "\(abs(self.ladgerEvent!.amount).convertAmount(with: rate, using: AppFonts.Regular.withSize(16)).string) \(suffix)", age: "", isEmptyCell: false))
+                section2.append((title: "Total Amount In \(rate.currencyCode)", value: "\(abs(self.ladgerEvent!.amount).convertAmount(with: rate, using: AppFonts.Regular.withSize(16)).string) \(suffix)", age: "", isEmptyCell: false))
             }
             
             section2.append((title: "", value: "", age: "", isEmptyCell: true))
@@ -352,7 +352,7 @@ class AccountLadgerDetailsVM {
             
             
             if let rate = self.ladgerEvent?.currencyRate{
-                section1.append((title: "Total Amount In \(rate.currencyCode)", value: "\(abs(self.ladgerEvent!.amount).convertAmount(with: rate, using: AppFonts.Regular.withSize(16)).string) \(suffix)", age: "", isEmptyCell: false))
+                section2.append((title: "Total Amount In \(rate.currencyCode)", value: "\(abs(self.ladgerEvent!.amount).convertAmount(with: rate, using: AppFonts.Regular.withSize(16)).string) \(suffix)", age: "", isEmptyCell: false))
             }
             
 //            section2.append((title: "Total Amount", value: "\(self.ladgerEvent!.amount.amountInDelimeterWithSymbol)", age: "", isEmptyCell: false))

@@ -186,10 +186,10 @@ class AccountOutstandingEventDescriptionCell: UITableViewCell {
         if let event = self.event, let rate = event.currencyRate{
             self.amountInOtherCurrency.isHidden = false
             self.pendingAmountInOtherCurrency.isHidden = false
-            let amt = event.amount.convertAmount(with: rate, using: AppFonts.Regular.withSize(18))
+            let amt = abs(event.amount).convertAmount(with: rate, using: AppFonts.Regular.withSize(16))
             amt.append((event.amount < 0) ? drAttr : crAttr)
-            let pndAmt = event.pendingAmount.convertAmount(with: rate, using: AppFonts.Regular.withSize(18))
-            pndAmt.append((event.pendingAmount < 0) ? drAttr : crAttr)
+            let pndAmt = abs(event.pendingAmount).convertAmount(with: rate, using: AppFonts.Regular.withSize(16))
+            pndAmt.append((event.pendingAmount > 0) ? drAttr : crAttr)
             self.amountInOtherCurrency.attributedText = amt
             self.pendingAmountInOtherCurrency.attributedText = pndAmt
             

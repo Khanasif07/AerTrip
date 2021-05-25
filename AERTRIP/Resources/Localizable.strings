@@ -865,6 +865,7 @@ Not to worry! Your booking is our highest priority. Our customer support team sh
 "CreditShort" = "Cr.";
 "SelectBookingsPay" = "Select bookings & pay";
 "MakePayment" = "Make Payment";
+"SelectSameCurrencyOnly" = "Please select transactions mode with same currency";
 
 //MARK:- On Account Screen
 "ason" = "as on";

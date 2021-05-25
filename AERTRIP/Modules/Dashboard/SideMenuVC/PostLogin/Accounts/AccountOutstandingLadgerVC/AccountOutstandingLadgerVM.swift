@@ -36,6 +36,15 @@ class AccountOutstandingLadgerVM: NSObject {
         return self.selectedEvent.reduce(0.0) { $0 + $1.pendingAmount}
     }
     
+    var totalAmountSelected: Double {
+        self.selectedEvent.reduce(0.0) { $0 + ($1.pendingAmount * ($1.currencyRate?.rate ?? 1.0))}
+    }
+    
+    var selectedEventCurrencyCode: String {
+        self.selectedEvent.first?.currencyRate?.currencyCode ?? "INR"
+    }
+    
+    
     var isSearching:Bool = false
     
     private(set) var itineraryData: DepositItinerary?
@@ -140,24 +149,18 @@ class AccountOutstandingLadgerVM: NSObject {
     func getOutstandingPayment() {
         
         self.delegate?.willGetOutstandingPayment()
+        var params:JSONDictionary = [:]
         
-        var allIds: [String] = []
-        if self.selectedEvent.isEmpty {
-            for key in Array(self._accountDetails.keys) {
-                if let arr = self._accountDetails[key] as? [AccountDetailEvent] {
-                    for event in arr {
-                        allIds.append(event.transactionId)
-                    }
-                }
-            }
-        }
-        else {
+        if !self.selectedEvent.isEmpty {
+            var allIds: [String] = []
             for event in self.selectedEvent {
                 allIds.append(event.transactionId)
             }
+            params["txn_ids"] = allIds
+            params["currency"] = self.selectedEvent.first?.currencyRate?.currencyCode ?? "INR"
         }
         
-        APICaller.shared.outstandingPaymentAPI(params: ["txn_ids": allIds]) { [weak self](success, errors, itiner) in
+        APICaller.shared.outstandingPaymentAPI(params: params) { [weak self](success, errors, itiner) in
             if success {
                 self?.itineraryData = itiner
                 self?.delegate?.getOutstandingPaymentSuccess()

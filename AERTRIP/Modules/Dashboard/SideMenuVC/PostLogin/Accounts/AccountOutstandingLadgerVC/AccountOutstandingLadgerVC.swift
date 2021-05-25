@@ -367,17 +367,19 @@ class AccountOutstandingLadgerVC: BaseVC {
     }
     
     private func setPayableAmount() {
-        var totalAmount: Double = self.viewModel.accountOutstanding?.netAmount ?? 0.0
-        
+        let totalAmount: Double = self.viewModel.accountOutstanding?.netAmount ?? 0.0
+        let attrText:NSMutableAttributedString
         if self.currentViewState == .selecting {
-            let selected = self.viewModel.totalAmountForSelected
-            totalAmount = (selected > 0.0) ? selected : 0.0
+            let selected = (self.viewModel.totalAmountSelected > 0.0) ? self.viewModel.totalAmountSelected : 0
+            let currency = self.viewModel.selectedEventCurrencyCode
+            attrText = selected.getTextWithChangedCurrency(with: currency, using: AppFonts.SemiBold.withSize(20.0))
+            self.makePaymentTitleLabel.alpha = (selected > 0) ? 1.0 : 0.6
+        }else{
+            attrText = totalAmount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
+            self.makePaymentTitleLabel.alpha = (totalAmount > 0) ? 1.0 : 0.6
         }
-        
-        let attrText = totalAmount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
         attrText.addAttributes([NSAttributedString.Key.foregroundColor : AppColors.themeWhite], range: NSRange(location: 0, length: attrText.length))
         self.payableAmountLabel.attributedText = attrText
-        self.makePaymentTitleLabel.alpha = (totalAmount > 0) ? 1.0 : 0.6
         self.makePaymentTitleLabel.text = LocalizedString.MakePayment.localized
     }
     
