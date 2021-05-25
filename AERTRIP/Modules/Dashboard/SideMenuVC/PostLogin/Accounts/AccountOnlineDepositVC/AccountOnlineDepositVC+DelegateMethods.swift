@@ -29,6 +29,7 @@ extension AccountOnlineDepositVC: UITableViewDataSource, UITableViewDelegate {
                 depositCell.isUserInteractionEnabled = false
             }
             //            depositCell.topDividerView.isHidden = false
+            depositCell.currencyLabel.text = Currencies.getCurrencySymbol(currencyCode: self.viewModel.currency)
             return depositCell
             
         case 1:
@@ -63,7 +64,8 @@ extension AccountOnlineDepositVC: UITableViewDataSource, UITableViewDelegate {
             totalPayableNowCell.setUpText()
             totalPayableNowCell.totalPayableNowLabel.text = LocalizedString.DepositAmount.localized
             
-            totalPayableNowCell.totalPriceLabel.attributedText = self.viewModel.depositAmount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(16.0))
+            totalPayableNowCell.totalPriceLabel.attributedText = self.viewModel.depositAmount.getTextWithChangedCurrency(with: self.viewModel.currency, using: AppFonts.SemiBold.withSize(16.0))
+            //amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(16.0))
             
             totalPayableNowCell.topDeviderView.isHidden = true
             totalPayableNowCell.bottomDeviderView.isHidden = true
@@ -83,7 +85,8 @@ extension AccountOnlineDepositVC: UITableViewDataSource, UITableViewDelegate {
             totalPayableNowCell.setUpText()
             totalPayableNowCell.totalPayableNowLabel.text = LocalizedString.ConvenienceFeeNonRefundable.localized
             
-            totalPayableNowCell.totalPriceLabel.attributedText = self.viewModel.feeAmount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(16.0))
+            totalPayableNowCell.totalPriceLabel.attributedText = self.viewModel.feeAmount.getTextWithChangedCurrency(with: self.viewModel.currency, using: AppFonts.SemiBold.withSize(16.0))
+            //.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(16.0))
             totalPayableNowCell.totalPayableTextTopConstraint.constant = -2.0
             totalPayableNowCell.totalPayableTextBottomConstraint.constant = 12.0
             return totalPayableNowCell
@@ -95,7 +98,8 @@ extension AccountOnlineDepositVC: UITableViewDataSource, UITableViewDelegate {
                 return UITableViewCell()
             }
             totalPayableNowCell.currentUsingFor = .totalPayableAmout
-            totalPayableNowCell.totalPriceLabel.attributedText = self.viewModel.totalPayableAmount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
+            totalPayableNowCell.totalPriceLabel.attributedText = self.viewModel.totalPayableAmount.getTextWithChangedCurrency(with: self.viewModel.currency, using: AppFonts.SemiBold.withSize(20.0))
+            //.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
             totalPayableNowCell.topDeviderView.isHidden = false
             totalPayableNowCell.bottomDeviderView.isHidden = true
             totalPayableNowCell.setUpText()

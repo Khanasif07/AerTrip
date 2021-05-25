@@ -26,6 +26,10 @@ class AccountOfflineDepositVM: NSObject {
     
     var isPayButtonTapped = false
     
+    var currency :String{
+        Currencies.getCurrencySymbol(currencyCode: self.itineraryData?.currency ?? "INR")
+    }
+    
     func registerPayment(currentUsingAs: AccountOfflineDepositVC.UsingForPayBy) {
         
         var param = JSONDictionary()

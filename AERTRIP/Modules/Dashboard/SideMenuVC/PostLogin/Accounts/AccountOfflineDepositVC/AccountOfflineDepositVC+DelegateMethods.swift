@@ -251,6 +251,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
             depositCell.isUserInteractionEnabled = false
         }
         depositCell.bottomDivider.isSettingForErrorState = ((self.viewModel.userEnteredDetails.depositAmount == 0) && self.viewModel.isPayButtonTapped)
+        depositCell.currencyLabel.text = self.viewModel.currency
         depositCell.topDividerView.isHidden = false
         depositCell.bottomDivider.isHidden = false
         return depositCell
