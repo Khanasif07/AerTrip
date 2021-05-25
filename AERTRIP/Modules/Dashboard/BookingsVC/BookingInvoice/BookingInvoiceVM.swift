@@ -52,11 +52,11 @@ class BookingInvoiceVM {
     var receiptIndex = 0
     var bookingId: String = ""
     var sectionHeader = [(section:BookingInvoiceTypes, rowCount: Int, amount: Double, title: String)]()
-    var isBaseFareSectionExpanded: Bool = true
-    var isGrossFareSectionExpanded: Bool = true
-    var isCancellationSectionExpanded: Bool = true
-    var isAddonsSectionExpanded:Bool = true
-    var isReschedulingSectionExpanded = true
+    var isBaseFareSectionExpanded: Bool = false
+    var isGrossFareSectionExpanded: Bool = false
+    var isCancellationSectionExpanded: Bool = false
+    var isAddonsSectionExpanded:Bool = false
+    var isReschedulingSectionExpanded = false
     var isForReceipt: Bool {
         if let basic = self.voucher?.basic {
             return basic.typeSlug == .receipt
@@ -139,11 +139,11 @@ class BookingInvoiceVM {
             printDebug(total)
             
             sectionHeader.append((section: .details, rowCount: 2, amount: 0, title: ""))
-            let transC = self.isBaseFareSectionExpanded ? self.transectionCodes.count : 0
-            let disC = self.isGrossFareSectionExpanded ? self.discountCodes.count : 0
-            let CancellationC = self.isCancellationSectionExpanded ? self.cancellationCodes.count : 0
-            let addonsC = self.isAddonsSectionExpanded ? self.addonsCodes.count : 0
-            let reschedulingC = self.isReschedulingSectionExpanded ? self.reschedulingCodes.count : 0
+            let transC = self.transectionCodes.count //self.isBaseFareSectionExpanded ? self.transectionCodes.count : 0
+            let disC = self.discountCodes.count //self.isGrossFareSectionExpanded ? self.discountCodes.count : 0
+            let CancellationC = self.cancellationCodes.count //self.isCancellationSectionExpanded ? self.cancellationCodes.count : 0
+            let addonsC = self.addonsCodes.count //self.isAddonsSectionExpanded ? self.addonsCodes.count : 0
+            let reschedulingC = self.reschedulingCodes.count //self.isReschedulingSectionExpanded ? self.reschedulingCodes.count : 0
 //            if baseFare > 0 {
             sectionHeader.append((section: .baseFare, rowCount: 0, amount: baseFare, title: "Base Fare"))
 //            }
