@@ -180,8 +180,12 @@ class CurrencyControler {
             print("viewcontroler...\(viewControler)")
             
             if let vc = viewControler as? CurrencyUpdatedDelegate {
+            
+                vc.reloadScreenOnCurrencyUpdaate()
                 
                 print("vc is ... \(vc)")
+                
+            
                 
             }
             
