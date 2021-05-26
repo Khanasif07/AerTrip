@@ -77,7 +77,7 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             updatedFareInfo?.updatedFareInfo = [fareInfo]
             self.showAccordingTolegs = (self.updatedFareInfo?.updatedFareInfo.first?.cp.details.spcFee["ADT"]?.feeDetail.values.count == self.journey.first?.legsWithDetail.count)
             self.confirmDelegate()
-            DispatchQueue.main.asyncAfter(deadline: .now()+0.3) {
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
              self.fareInfoTableView.reloadData()
             }
             DispatchQueue.main.async {

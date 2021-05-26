@@ -50,12 +50,14 @@ class PerSlabFareInfoTableViewCell: UITableViewCell
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        slabTimeLabel.text = ""
+        statusLabel.text = ""
     }
 
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        statusLabel.text = ""
+//        statusLabel.text = ""
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

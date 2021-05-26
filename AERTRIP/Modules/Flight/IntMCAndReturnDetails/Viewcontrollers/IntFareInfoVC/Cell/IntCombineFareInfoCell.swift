@@ -209,22 +209,42 @@ extension IntCombineFareInfoCell{
         
         if section == 0{
             if intAirlineCancellationFees.count > 0{
-                if let airlineCancellationSlabCount = intAirlineCancellationFees["ADT"]?.feeDetail.map({$0.1})[indexOfCell].count
-                {
-                    return airlineCancellationSlabCount
+                let key = journey.first?.legsWithDetail[indexOfCell].lfk ?? ""
+                    
+                var adtStatement : [IntFeeDetails]? = [IntFeeDetails]()
+                if isFromPassangerDetails{
+                    adtStatement = intAirlineCancellationFees["ADT"]?.feeDetail[key]
                 }else{
-                    return 0
+                    adtStatement = intAirlineCancellationFees["ADT"]?.feeDetail.map({$0.1})[indexOfCell]
                 }
+                return adtStatement?.count ?? 0
+//                if let airlineCancellationSlabCount = intAirlineCancellationFees["ADT"]?.feeDetail.map({$0.1})[indexOfCell].count
+//                {
+//                    return airlineCancellationSlabCount
+//                }else{
+//                    return 0
+//                }
             }else{
                 return 0
             }
         }else{
             if intAirlineReschedulingFees.count > 0{
-                if let airlineReschedulingSlabCount = intAirlineReschedulingFees["ADT"]?.feeDetail.map({$0.1})[indexOfCell].count{
-                    return airlineReschedulingSlabCount
+//                if let airlineReschedulingSlabCount = intAirlineReschedulingFees["ADT"]?.feeDetail.map({$0.1})[indexOfCell].count{
+//                    return airlineReschedulingSlabCount
+//                }else{
+//                    return 0
+//                }
+                
+                let key = journey.first?.legsWithDetail[indexOfCell].lfk ?? ""
+
+                var adtStatement : [IntFeeDetails]? = [IntFeeDetails]()
+                if isFromPassangerDetails{
+                    adtStatement = intAirlineReschedulingFees["ADT"]?.feeDetail[key]
                 }else{
-                    return 0
+                    adtStatement = intAirlineReschedulingFees["ADT"]?.feeDetail.map({$0.1})[indexOfCell]
                 }
+                return adtStatement?.count ?? 0
+                
             }else{
                 return 0
             }
@@ -258,8 +278,7 @@ extension IntCombineFareInfoCell{
             slabCell.titleViewHeight.constant = 0
         }
         
-        if indexPath.section == 0
-        {
+        if indexPath.section == 0{
             let key = journey.first?.legsWithDetail[indexOfCell].lfk ?? ""
                 
             var adtStatement : [IntFeeDetails]? = [IntFeeDetails]()
@@ -330,6 +349,8 @@ extension IntCombineFareInfoCell{
                         var adtRafVal: Double =  0
                         if let fee = rafFees["ADT"] as? Double{
                             adtRafVal = fee
+                        }else if let fee = (rafFees["ADT"] as? [String:Double])?[key]{
+                            adtRafVal = fee
                         }else{
                             adtRafVal = (rafFees["ADT"] as? [String:Double])?.values.first ?? 0
                         }
@@ -361,6 +382,8 @@ extension IntCombineFareInfoCell{
                         
                         var adtRafVal: Double =  0
                         if let fee = rafFees["ADT"] as? Double{
+                            adtRafVal = fee
+                        }else if let fee = (rafFees["ADT"] as? [String:Double])?[key]{
                             adtRafVal = fee
                         }else{
                             adtRafVal = (rafFees["ADT"] as? [String:Double])?.values.first ?? 0
@@ -428,6 +451,8 @@ extension IntCombineFareInfoCell{
                     var chdRafVal: Double =  0
                     if let fee = rafFees["CHD"] as? Double{
                         chdRafVal = fee
+                    }else if let fee = (rafFees["CHD"] as? [String:Double])?[key]{
+                        chdRafVal = fee
                     }else{
                         chdRafVal = (rafFees["CHD"] as? [String:Double])?.values.first ?? 0
                     }
@@ -489,6 +514,8 @@ extension IntCombineFareInfoCell{
                     let value = infAirlineCancellationSlab[indexPath.row].value
                     var iNFRafVal: Double =  0
                     if let fee = rafFees["INF"] as? Double{
+                        iNFRafVal = fee
+                    }else if let fee = (rafFees["INF"] as? [String:Double])?[key]{
                         iNFRafVal = fee
                     }else{
                         iNFRafVal = (rafFees["INF"] as? [String:Double])?.values.first ?? 0
