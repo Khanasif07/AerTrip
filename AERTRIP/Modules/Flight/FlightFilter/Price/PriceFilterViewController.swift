@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class PriceFilterViewController: UIViewController , FilterViewController {
+class PriceFilterViewController: BaseVC , FilterViewController {
     //MARK:- State Properties
     
     private var multiLegSegmentControl = UISegmentedControl()
@@ -34,7 +34,7 @@ class PriceFilterViewController: UIViewController , FilterViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        initialSetup()
+//        initialSetup()
         setupPriceSlider()
         setupPriceLabels()
         
@@ -70,13 +70,17 @@ class PriceFilterViewController: UIViewController , FilterViewController {
         checkRefundableFlights(index: viewModel.currentActiveIndex)
     }
     
-    func initialSetup () {
+    override func initialSetup () {
         
         initSetupForMLSubViews()
         
         viewModel.currentPriceFilter.userSelectedFareMinValue = viewModel.currentPriceFilter.inputFareMinValue
         viewModel.currentPriceFilter.userSelectedFareMaxValue = viewModel.currentPriceFilter.inputFareMaxVaule
        
+    }
+    
+    override func currencyChanged(_ note: Notification) {
+        self.setupPriceLabels()
     }
     
     private func initSetupForMLSubViews() {
