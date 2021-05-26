@@ -635,6 +635,25 @@ extension Double {
     }
     
     
+    ///For Post Bookings And Account section
+    func convertAmount(with rate:CurrencyConversionRate, using font: UIFont)->NSMutableAttributedString{
+        let symbol = Currencies.getCurrencySymbol(currencyCode: rate.currencyCode)
+        return (self * rate.rate).amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font, symbol: symbol)
+    }
+    
+    ///For Post Bookings cancellation
+    func convertCancellationAmount(with rate:CurrencyConversionRate, using font: UIFont)->NSMutableAttributedString{
+        let symbol = Currencies.getCurrencySymbol(currencyCode: rate.currencyCode)
+        return (self * rate.cancellationRate).amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font, symbol: symbol)
+    }
+    
+    ///For Post Bookings And Account section
+    func getTextWithChangedCurrency(with currencyCode: String, using font: UIFont)->NSMutableAttributedString{
+        let symbol = Currencies.getCurrencySymbol(currencyCode: currencyCode)
+        return self.amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font, symbol: symbol)
+    }
+    
+    
 }
 
 extension AppGlobals {

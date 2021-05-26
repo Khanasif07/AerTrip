@@ -139,6 +139,8 @@ struct AccountDetailEvent {
     var depositDate = ""
     var utrNumner = ""
     
+    var currencyRate:CurrencyConversionRate?
+    
     var numOfRows: Int {
         return 2
     }
@@ -184,9 +186,10 @@ struct AccountDetailEvent {
             self.date = self._creationDate
         }
         
-        
-        
-        
+        ///Currency rate conversion
+        if let details = json["detail"] as? JSONDictionary, let obj = details["currency_rate"] as? JSONDictionary{
+            self.currencyRate = CurrencyConversionRate(json: obj)
+        }
         
         if let obj = json["voucher_number"] {
             self.voucherNo = "\(obj)"

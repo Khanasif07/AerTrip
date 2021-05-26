@@ -115,8 +115,12 @@ extension HotlelBookingsDetailsVC {
     func getBookingCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingPaymentDetailsTableViewCell.reusableIdentifier, for: indexPath) as? BookingPaymentDetailsTableViewCell else { return UITableViewCell() }
         cell.containerViewBottomConstraint.constant = 0.0
+        let amount = self.viewModel.bookingDetail?.bookingPrice ?? 0
+        let attAmount = self.getConvertedPrice(for: amount, with: self.viewModel.bookingDetail?.bookingCurrencyRate, using: AppFonts.Regular.withSize(16.0), isForCancellation: false)
         
-        cell.configCell(title: LocalizedString.Booking.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(self.viewModel.bookingDetail?.bookingPrice ?? 0)", isLastCell: false)
+        cell.configCellForAmount(title: LocalizedString.Booking.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: attAmount, priceInRupee: amount, isLastCell: false)
+        
+//        cell.configCell(title: LocalizedString.Booking.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(self.viewModel.bookingDetail?.bookingPrice ?? 0)", isLastCell: false)
         cell.clipsToBounds = true
         return cell
     }
@@ -127,7 +131,13 @@ extension HotlelBookingsDetailsVC {
         if self.viewModel.bookingDetail?.refundAmount ?? 0.0 != 0.0 {
             isCellLast = false
         }
-        cell.configCell(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(self.viewModel.bookingDetail?.paid ?? 0)", isLastCell: isCellLast)
+        let amount = (self.viewModel.bookingDetail?.paid ?? 0)
+        let attAmount = self.getConvertedPrice(for: amount, with: self.viewModel.bookingDetail?.bookingCurrencyRate, using: AppFonts.Regular.withSize(16.0), isForCancellation: false)
+        
+        cell.configCellForAmount(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: attAmount, priceInRupee: amount, isLastCell: isCellLast)
+        
+//        cell.configCell(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(self.viewModel.bookingDetail?.paid ?? 0)", isLastCell: isCellLast)
+        
         cell.containerViewBottomConstraint.constant = (isCellLast) ? 21.0 : 0.0
         cell.clipsToBounds = isCellLast
         cell.dividerView.isHidden = false
@@ -149,7 +159,14 @@ extension HotlelBookingsDetailsVC {
         cell.titleTopConstraint.constant = 5.0
         cell.titleBottomConstraint.constant = 5.0
         cell.containerViewBottomConstraint.constant = 0.0
-        cell.configCell(title: LocalizedString.AddOns.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(self.viewModel.bookingDetail?.addOnAmount ?? 0)", isLastCell: false, cellHeight: 30.0)
+        
+        let amount = self.viewModel.bookingDetail?.addOnAmount ?? 0
+        let attAmount = self.getConvertedPrice(for: amount, with: self.viewModel.bookingDetail?.bookingCurrencyRate, using: AppFonts.Regular.withSize(16.0), isForCancellation: false)
+        
+        cell.configCellForAmount(title: LocalizedString.AddOns.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: attAmount, priceInRupee: amount, isLastCell: false, cellHeight: 30.0)
+        
+//
+//        cell.configCell(title: LocalizedString.AddOns.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(self.viewModel.bookingDetail?.addOnAmount ?? 0)", isLastCell: false, cellHeight: 30.0)
         cell.clipsToBounds = true
         return cell
     }
@@ -159,7 +176,14 @@ extension HotlelBookingsDetailsVC {
         cell.titleTopConstraint.constant = 5.0
         cell.titleBottomConstraint.constant = 12.0
         cell.containerViewBottomConstraint.constant = 0.0
-        cell.configCell(title: LocalizedString.Cancellation.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(self.viewModel.bookingDetail?.cancellationAmount ?? 0)", isLastCell: false, cellHeight: 37.0)
+        
+        let amount = self.viewModel.bookingDetail?.cancellationAmount ?? 0
+        let attAmount = self.getConvertedPrice(for: amount, with: self.viewModel.bookingDetail?.bookingCurrencyRate, using: AppFonts.Regular.withSize(16.0), isForCancellation: false)
+        
+        cell.configCellForAmount(title: LocalizedString.Cancellation.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: attAmount, priceInRupee: amount, isLastCell: false, cellHeight: 37.0)
+        
+        
+//        cell.configCell(title: LocalizedString.Cancellation.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(self.viewModel.bookingDetail?.cancellationAmount ?? 0)", isLastCell: false, cellHeight: 37.0)
         cell.clipsToBounds = true
         return cell
     }
@@ -183,7 +207,12 @@ extension HotlelBookingsDetailsVC {
         cell.titleTopConstraint.constant = 5.0
         cell.titleBottomConstraint.constant = 13.0
         cell.containerViewBottomConstraint.constant = 0.0
-        cell.configCell(title: LocalizedString.Refund.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(self.viewModel.bookingDetail?.refundAmount ?? 0)", isLastCell: isCellLast, cellHeight: 38.0)
+        let attAmount = self.getConvertedPrice(for: amount, with: self.viewModel.bookingDetail?.bookingCurrencyRate, using: AppFonts.Regular.withSize(16.0), isForCancellation: false)
+        
+        cell.configCellForAmount(title: LocalizedString.Refund.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: attAmount, priceInRupee: amount, isLastCell: isCellLast, cellHeight: 38.0)
+        
+//        cell.configCell(title: LocalizedString.Refund.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(self.viewModel.bookingDetail?.refundAmount ?? 0)", isLastCell: isCellLast, cellHeight: 38.0)
+        
         cell.containerViewBottomConstraint.constant = (isCellLast) ? 21.0 : 0.0
         cell.clipsToBounds = isCellLast
         cell.dividerView.isHidden = false
@@ -192,7 +221,13 @@ extension HotlelBookingsDetailsVC {
     
     func getPaymentPendingCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: PaymentPendingTableViewCell.reusableIdentifier, for: indexPath) as? PaymentPendingTableViewCell else { return UITableViewCell() }
-        cell.configCell(price: self.viewModel.bookingDetail?.totalOutStanding ?? 0.0)
+        
+        let price = self.viewModel.bookingDetail?.totalOutStanding ?? 0.0
+        let attPrice = self.getConvertedPrice(for: price, with: self.viewModel.bookingDetail?.bookingCurrencyRate, using: AppFonts.SemiBold.withSize(20.0), isForCancellation: false)
+            
+        cell.configCurrencyChange(price: price, attPrice: attPrice)
+        
+//        cell.configCell(price: self.viewModel.bookingDetail?.totalOutStanding ?? 0.0)
         cell.clipsToBounds = true
         return cell
     }
@@ -201,8 +236,8 @@ extension HotlelBookingsDetailsVC {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FlightsOptionsTableViewCell.reusableIdentifier, for: indexPath) as? FlightsOptionsTableViewCell else { return UITableViewCell() }
         cell.delegate = self
         cell.additionalInformation = self.viewModel.bookingDetail?.additionalInformation
-        var optionImages: [UIImage] = [#imageLiteral(resourceName: "bookingsDirections"), #imageLiteral(resourceName: "bookingsCall"), #imageLiteral(resourceName: "bookingsCalendar"), #imageLiteral(resourceName: "shareBooking"), #imageLiteral(resourceName: "bookingsHotel")]
-        var optionNames: [String] = [LocalizedString.Directions.localized, LocalizedString.Call.localized, LocalizedString.AddToCalender.localized, LocalizedString.Share.localized, LocalizedString.BookAnotherRoom.localized]
+        let optionImages: [UIImage] = [#imageLiteral(resourceName: "bookingsDirections"), #imageLiteral(resourceName: "bookingsCall"), #imageLiteral(resourceName: "bookingsCalendar"), #imageLiteral(resourceName: "shareBooking"), #imageLiteral(resourceName: "bookingsHotel")]
+        let optionNames: [String] = [LocalizedString.Directions.localized, LocalizedString.Call.localized, LocalizedString.AddToCalender.localized, LocalizedString.Share.localized, LocalizedString.BookAnotherRoom.localized]
 //        if self.viewModel.bookingDetail?.tripInfo == nil {
 //            optionImages.append(#imageLiteral(resourceName: "addToTrips"))
 //            optionNames.append(LocalizedString.AddToTrips.localized)

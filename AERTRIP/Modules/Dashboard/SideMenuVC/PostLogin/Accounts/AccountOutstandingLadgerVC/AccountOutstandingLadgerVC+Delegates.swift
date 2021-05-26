@@ -169,7 +169,15 @@ extension AccountOutstandingLadgerVC: UITableViewDataSource, UITableViewDelegate
             }
             else {
                 //select it
-                self.viewModel.selectedEvent.append(event)
+                if self.viewModel.selectedEvent.isEmpty{
+                    self.viewModel.selectedEvent.append(event)
+                }else{
+                    if self.viewModel.selectedEvent.first?.currencyRate?.currencyCode == event.currencyRate?.currencyCode{
+                        self.viewModel.selectedEvent.append(event)
+                    }else{
+                        AppToast.default.showToastMessage(message: LocalizedString.SelectSameCurrencyOnly.localized)
+                    }
+                }
             }
             self.reloadList()
         } else {

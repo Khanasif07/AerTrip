@@ -71,6 +71,24 @@ class BookingPaymentDetailsTableViewCell: UITableViewCell {
         }
     }
     
+    
+    internal func configCellForAmount(title: String, titleFont: UIFont = AppFonts.Regular.withSize(16.0), titleColor: UIColor = AppColors.themeBlack, isFirstCell: Bool, price: NSMutableAttributedString, priceInRupee: Double, isLastCell: Bool, cellHeight: CGFloat = 41.0) {
+        self.lastCellShadowSetUp(isLastCell: isLastCell, cellHeight: cellHeight)
+        self.titleLabel.textColor = titleColor
+        self.costLabel.textColor = titleColor
+        self.titleLabel.font = titleFont
+        self.costLabel.font = titleFont
+        self.titleLabel.text = title
+        let drAttr = NSMutableAttributedString(string: " \(LocalizedString.DebitShort.localized)", attributes: [.font: titleFont])
+        let crAttr = NSMutableAttributedString(string: " \(LocalizedString.CreditShort.localized)", attributes: [.font: titleFont])
+        let cost = price
+        
+        cost.append((priceInRupee > 0) ? drAttr : crAttr)
+        self.costLabel.attributedText = cost
+        
+    }
+    
+    
     private func lastCellShadowSetUp(isLastCell: Bool, cellHeight: CGFloat) {
         if isLastCell {
             self.cellHeight.constant = 41.5

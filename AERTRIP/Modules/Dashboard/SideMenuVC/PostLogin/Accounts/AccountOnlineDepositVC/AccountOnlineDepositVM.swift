@@ -37,6 +37,10 @@ class AccountOnlineDepositVM: NSObject {
         return depositItinerary?.netAmount ?? 0.0
     }
     
+    var currency:String{
+        self.depositItinerary?.currency ?? "INR"
+    }
+    
     var feeAmount: Double {
         if let part = depositItinerary?.partPaymentAmount, part > 0.0 {
             var percentage = 0.0

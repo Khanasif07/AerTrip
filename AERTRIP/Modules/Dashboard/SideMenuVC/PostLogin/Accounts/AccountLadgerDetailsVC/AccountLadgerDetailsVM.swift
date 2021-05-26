@@ -66,6 +66,12 @@ class AccountLadgerDetailsVM {
         }
         let suffix = self.ladgerEvent!.amount > 0 ? LocalizedString.CreditShort.localized : LocalizedString.DebitShort.localized
         section1.append((title: "Amount", value: "\(abs(self.ladgerEvent!.amount).amountInDelimeterWithSymbol) \(suffix)", age: "", isEmptyCell: false))
+        
+        if let rate = self.ladgerEvent?.currencyRate{
+            section1.append((title: "Amount In \(rate.currencyCode)", value: "\(abs(self.ladgerEvent!.amount).convertAmount(with: rate, using: AppFonts.Regular.withSize(16)).string) \(suffix)", age: "", isEmptyCell: false))
+        }
+        
+        
         //        section1.append((title: "Balance", value: "\(self.ladgerEvent!.balance)", age: "", isEmptyCell: false))
         section1.append((title: "", value: "", age: "", isEmptyCell: true))
         self.sectionArray.append(section1)
@@ -166,6 +172,11 @@ class AccountLadgerDetailsVM {
             let suff = self.ladgerEvent!.amount > 0 ? LocalizedString.CreditShort.localized : LocalizedString.DebitShort.localized
             section2.append((title: "Total Amount", value: "\(abs(self.ladgerEvent!.amount).amountInDelimeterWithSymbol) \(suff)", age: "", isEmptyCell: false))
 //            section2.append((title: "Total Amount", value: "\(self.ladgerEvent!.amount.amountInDelimeterWithSymbol)", age: "", isEmptyCell: false))
+            
+            if let rate = self.ladgerEvent?.currencyRate{
+                section2.append((title: "Total Amount In \(rate.currencyCode)", value: "\(abs(self.ladgerEvent!.amount).convertAmount(with: rate, using: AppFonts.Regular.withSize(16)).string) \(suffix)", age: "", isEmptyCell: false))
+            }
+            
             section2.append((title: "", value: "", age: "", isEmptyCell: true))
             self.sectionArray.append(section2)
             
@@ -226,6 +237,11 @@ class AccountLadgerDetailsVM {
             let suffix = self.ladgerEvent!.amount > 0 ? LocalizedString.CreditShort.localized : LocalizedString.DebitShort.localized
             section1.append((title: "Amount", value: "\(abs(self.ladgerEvent!.amount).amountInDelimeterWithSymbol) \(suffix)", age: "", isEmptyCell: false))
             //            section1.append((title: "Balance", value: "\(self.ladgerEvent!.balance)", age: "", isEmptyCell: false))
+            
+            if let rate = self.ladgerEvent?.currencyRate{
+                section1.append((title: "Amount In \(rate.currencyCode)", value: "\(abs(self.ladgerEvent!.amount).convertAmount(with: rate, using: AppFonts.Regular.withSize(16)).string) \(suffix)", age: "", isEmptyCell: false))
+            }
+            
             section1.append((title: "", value: "", age: "", isEmptyCell: true))
             self.sectionArray.append(section1)
             
@@ -297,6 +313,11 @@ class AccountLadgerDetailsVM {
             let suffix = self.ladgerEvent!.amount > 0 ? LocalizedString.CreditShort.localized : LocalizedString.DebitShort.localized
             section1.append((title: "Amount", value: "\(abs(self.ladgerEvent!.amount).amountInDelimeterWithSymbol) \(suffix)", age: "",
                              isEmptyCell: false))
+            
+            if let rate = self.ladgerEvent?.currencyRate{
+                section1.append((title: "Amount In \(rate.currencyCode)", value: "\(abs(self.ladgerEvent!.amount).convertAmount(with: rate, using: AppFonts.Regular.withSize(16)).string) \(suffix)", age: "", isEmptyCell: false))
+            }
+            
             //            section1.append((title: "Balance", value: "\(self.ladgerEvent!.balance)", age: "", isEmptyCell: false))
             section1.append((title: "", value: "", age: "", isEmptyCell: true))
             self.sectionArray.append(section1)
@@ -310,6 +331,11 @@ class AccountLadgerDetailsVM {
 //            section1.append((title: "Pending Amount", value: "\(self.ladgerEvent!.pendingAmount.amountInDelimeterWithSymbol)", age: "", isEmptyCell: false))
             let suffix = self.ladgerEvent!.pendingAmount < 0 ? LocalizedString.CreditShort.localized : LocalizedString.DebitShort.localized
             section1.append((title: "Pending Amount", value: "\(abs(self.ladgerEvent!.pendingAmount).amountInDelimeterWithSymbol) \(suffix)", age: "", isEmptyCell: false))
+            
+            if let rate = self.ladgerEvent?.currencyRate{
+                section1.append((title: "Pending Amount In \(rate.currencyCode)", value: "\(abs(self.ladgerEvent!.pendingAmount).convertAmount(with: rate, using: AppFonts.Regular.withSize(16)).string) \(suffix)", age: "", isEmptyCell: false))
+            }
+            
             section1.append((title: "Due Date", value: self.ladgerEvent!.dueDate?.toString(dateFormat: "dd-MM-YYYY") ?? "", age: "", isEmptyCell: false))
             section1.append((title: "Over Due by days", value: "\(abs(days)) \(daysStr)", age: "", isEmptyCell: false))
             section1.append((title: "", value: "", age: "", isEmptyCell: true))
@@ -323,6 +349,11 @@ class AccountLadgerDetailsVM {
             
             let suff = self.ladgerEvent!.amount > 0 ? LocalizedString.CreditShort.localized : LocalizedString.DebitShort.localized
             section2.append((title: "Total Amount", value: "\(abs(self.ladgerEvent!.amount).amountInDelimeterWithSymbol) \(suff)", age: "", isEmptyCell: false))
+            
+            
+            if let rate = self.ladgerEvent?.currencyRate{
+                section2.append((title: "Total Amount In \(rate.currencyCode)", value: "\(abs(self.ladgerEvent!.amount).convertAmount(with: rate, using: AppFonts.Regular.withSize(16)).string) \(suffix)", age: "", isEmptyCell: false))
+            }
             
 //            section2.append((title: "Total Amount", value: "\(self.ladgerEvent!.amount.amountInDelimeterWithSymbol)", age: "", isEmptyCell: false))
             section2.append((title: "", value: "", age: "", isEmptyCell: true))
@@ -478,6 +509,11 @@ class AccountLadgerDetailsVM {
         }
         let suffix = event.amount > 0 ? LocalizedString.CreditShort.localized : LocalizedString.DebitShort.localized
         section1.append((title: "Amount", value: "\(abs(event.amount).amountInDelimeterWithSymbol) \(suffix)", age: "", isEmptyCell: false))
+        
+        if let rate = self.ladgerEvent?.currencyRate{
+            section1.append((title: "Amount In \(rate.currencyCode)", value: "\(abs(event.amount).convertAmount(with: rate, using: AppFonts.Regular.withSize(16)).string) \(suffix)", age: "", isEmptyCell: false))
+        }
+        
         section1.append((title: "", value: "", age: "", isEmptyCell: true))
         self.sectionArray.append(section1)
         self.calculateMaxWidth()

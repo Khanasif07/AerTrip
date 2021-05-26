@@ -79,6 +79,23 @@ class PaymentPendingTableViewCell: UITableViewCell {
     }
     
     
+    internal func configCurrencyChange(price: Double, attPrice: NSMutableAttributedString) {
+        let attributedString = NSMutableAttributedString()
+        let textAttribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(20.0), NSAttributedString.Key.foregroundColor: AppColors.themeWhite] as [NSAttributedString.Key : Any]
+        let text = price > 0 ? LocalizedString.PaymentPending.localized :LocalizedString.AmountToBeRefunded.localized
+        let textAttributedString = NSAttributedString(string: text, attributes: textAttribute)
+        let drAttr = NSMutableAttributedString(string: " \(LocalizedString.DebitShort.localized)", attributes: [.font: AppFonts.SemiBold.withSize(20.0)])
+            let crAttr = NSMutableAttributedString(string: " \(LocalizedString.CreditShort.localized)", attributes: [.font: AppFonts.SemiBold.withSize(20.0)])
+            let priceAttributedString = attPrice
+        priceAttributedString.append((price > 0) ? drAttr : crAttr)
+
+        attributedString.append(textAttributedString)
+        attributedString.append(priceAttributedString)
+        self.priceLabel.attributedText = attributedString
+        
+        
+    }
+    
     
 }
 

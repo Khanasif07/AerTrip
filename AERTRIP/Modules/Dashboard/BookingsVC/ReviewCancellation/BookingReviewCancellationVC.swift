@@ -264,16 +264,22 @@ class BookingReviewCancellationVC: BaseVC {
     private func setRefundAmountForHotelsAndFlight(){
         if self.viewModel.currentUsingAs == .flightCancellationReview {
             if self.viewModel.totRefundForFlight <= 0 && self.viewModel.isForflightCancellation{
-                self.refundAmountLabel.text = (0).delimiterWithSymbol
+                self.refundAmountLabel.attributedText = self.getConvertedPrice(for: 0, with: self.viewModel.bookingDetails?.bookingCurrencyRate, using: AppFonts.Regular.withSize(18), isForCancellation: false)
+//                self.refundAmountLabel.text = (0).delimiterWithSymbol
                 self.totalNetRefundViewHeightConstraint.constant = 0.0
                 self.totalNetRefundView.isHidden = true
             }else{
                 self.totalNetRefundView.isHidden = false
-                self.refundAmountLabel.text = self.viewModel.totRefundForFlight.delimiterWithSymbol
+//                self.refundAmountLabel.text = self.viewModel.totRefundForFlight.delimiterWithSymbol
+                
+                self.refundAmountLabel.attributedText = self.getConvertedPrice(for: self.viewModel.totRefundForFlight, with: self.viewModel.bookingDetails?.bookingCurrencyRate, using: AppFonts.Regular.withSize(18), isForCancellation: false)
             }
              
         } else if self.viewModel.currentUsingAs == .hotelCancellationReview {
-           self.refundAmountLabel.text = self.viewModel.totalRefundForHotel.delimiterWithSymbol
+//           self.refundAmountLabel.text = self.viewModel.totalRefundForHotel.delimiterWithSymbol
+            
+            self.refundAmountLabel.attributedText = self.getConvertedPrice(for: self.viewModel.totalRefundForHotel, with: self.viewModel.bookingDetails?.bookingCurrencyRate, using: AppFonts.Regular.withSize(18), isForCancellation: false)
+            
         }
     }
     
