@@ -214,22 +214,42 @@ extension IntCombineFareInfoCell{
         
         if section == 0{
             if intAirlineCancellationFees.count > 0{
-                if let airlineCancellationSlabCount = intAirlineCancellationFees["ADT"]?.feeDetail.map({$0.1})[indexOfCell].count
-                {
-                    return airlineCancellationSlabCount
+                let key = journey.first?.legsWithDetail[indexOfCell].lfk ?? ""
+                    
+                var adtStatement : [IntFeeDetails]? = [IntFeeDetails]()
+                if isFromPassangerDetails{
+                    adtStatement = intAirlineCancellationFees["ADT"]?.feeDetail[key]
                 }else{
-                    return 0
+                    adtStatement = intAirlineCancellationFees["ADT"]?.feeDetail.map({$0.1})[indexOfCell]
                 }
+                return adtStatement?.count ?? 0
+//                if let airlineCancellationSlabCount = intAirlineCancellationFees["ADT"]?.feeDetail.map({$0.1})[indexOfCell].count
+//                {
+//                    return airlineCancellationSlabCount
+//                }else{
+//                    return 0
+//                }
             }else{
                 return 0
             }
         }else{
             if intAirlineReschedulingFees.count > 0{
-                if let airlineReschedulingSlabCount = intAirlineReschedulingFees["ADT"]?.feeDetail.map({$0.1})[indexOfCell].count{
-                    return airlineReschedulingSlabCount
+//                if let airlineReschedulingSlabCount = intAirlineReschedulingFees["ADT"]?.feeDetail.map({$0.1})[indexOfCell].count{
+//                    return airlineReschedulingSlabCount
+//                }else{
+//                    return 0
+//                }
+                
+                let key = journey.first?.legsWithDetail[indexOfCell].lfk ?? ""
+
+                var adtStatement : [IntFeeDetails]? = [IntFeeDetails]()
+                if isFromPassangerDetails{
+                    adtStatement = intAirlineReschedulingFees["ADT"]?.feeDetail[key]
                 }else{
-                    return 0
+                    adtStatement = intAirlineReschedulingFees["ADT"]?.feeDetail.map({$0.1})[indexOfCell]
                 }
+                return adtStatement?.count ?? 0
+                
             }else{
                 return 0
             }
@@ -263,8 +283,7 @@ extension IntCombineFareInfoCell{
             slabCell.titleViewHeight.constant = 0
         }
         
-        if indexPath.section == 0
-        {
+        if indexPath.section == 0{
             let key = journey.first?.legsWithDetail[indexOfCell].lfk ?? ""
                 
             var adtStatement : [IntFeeDetails]? = [IntFeeDetails]()
@@ -332,6 +351,14 @@ extension IntCombineFareInfoCell{
                     
                     
                     if flightAdultCount > 0 && flightChildrenCount == 0 && flightInfantCount == 0{
+                        var adtRafVal: Double =  0
+                        if let fee = rafFees["ADT"] as? Double{
+                            adtRafVal = fee
+                        }else if let fee = (rafFees["ADT"] as? [String:Double])?[key]{
+                            adtRafVal = fee
+                        }else{
+                            adtRafVal = (rafFees["ADT"] as? [String:Double])?.values.first ?? 0
+                        }
                         slabCell.statusLabel.isHidden = false
                         if airlineValue == -9{
                             slabCell.statusLabel.textColor = .black
@@ -339,24 +366,13 @@ extension IntCombineFareInfoCell{
                         }else if airlineValue == -1{
                             slabCell.statusLabel.textColor = .black
                             slabCell.statusLabel.text = "Non-refundable"
-                        }else if airlineValue == 0 && aertripValue == 0{
+                        }else if airlineValue == 0 && aertripValue == 0 && adtRafVal == 0{
                             slabCell.statusLabel.textColor = UIColor(displayP3Red: 255.0/255.0, green: 144.0/255.0, blue: 0.0/255.0, alpha: 1.0)
                             slabCell.statusLabel.text = "Free Cancellation"
                         }else{
                             slabCell.statusLabel.textColor = .black
                             
-                            var adtRafVal: Double =  0
-                            if let fee = rafFees["ADT"] as? Double{
-                                adtRafVal = fee
-                            }else{
-                                adtRafVal = (rafFees["ADT"] as? [String:Double])?.values.first ?? 0
-                            }
-                            ///RAF will only be considered when Airline fee is > 0, RAF is independent of Aertrip Fee
-                            if !(airlineValue > 0){
-                                adtRafVal = 0
-                            }
-                            
-                            if aertripValue > 0{
+                            if (aertripValue + adtRafVal) > 0{
                                 let displayValue = getPrice(price: Double(airlineValue + adtRafVal + aertripValue))
                                 slabCell.statusLabel.attributedText = displayValue
                             }else{
@@ -368,30 +384,30 @@ extension IntCombineFareInfoCell{
                             }
                         }
                     }else{
+                        
+                        var adtRafVal: Double =  0
+                        if let fee = rafFees["ADT"] as? Double{
+                            adtRafVal = fee
+                        }else if let fee = (rafFees["ADT"] as? [String:Double])?[key]{
+                            adtRafVal = fee
+                        }else{
+                            adtRafVal = (rafFees["ADT"] as? [String:Double])?.values.first ?? 0
+                        }
+                        
                         if airlineValue == -9{
                             slabCell.perAdultAmountLabel.textColor = .black
                             slabCell.perAdultAmountLabel.text = "NA"
                         }else if airlineValue == -1{
                             slabCell.perAdultAmountLabel.textColor = .black
                             slabCell.perAdultAmountLabel.text = "Non-refundable"
-                        }else if airlineValue == 0 && aertripValue == 0{
+                        }else if airlineValue == 0 && aertripValue == 0 && adtRafVal == 0{
                             slabCell.perAdultAmountLabel.textColor = UIColor(displayP3Red: 255.0/255.0, green: 144.0/255.0, blue: 0.0/255.0, alpha: 1.0)
                             slabCell.perAdultAmountLabel.text = "Free Cancellation"
                         }else{
                             slabCell.perAdultAmountLabel.textColor = .black
-                            var adtRafVal: Double =  0
-                            if let fee = rafFees["ADT"] as? Double{
-                                adtRafVal = fee
-                            }else{
-                                adtRafVal = (rafFees["ADT"] as? [String:Double])?.values.first ?? 0
-                            }
-                            
-                            ///RAF will only be considered when Airline fee is > 0, RAF is independent of Aertrip Fee
-                            if !(airlineValue > 0){
-                                adtRafVal = 0
-                            }
 
-                            if aertripValue > 0{
+
+                            if (aertripValue + adtRafVal) > 0{
                                 let displayValue = getPrice(price: Double(airlineValue + adtRafVal + aertripValue))
                                 slabCell.perAdultAmountLabel.attributedText = displayValue
                             }else{
@@ -437,31 +453,26 @@ extension IntCombineFareInfoCell{
                 
                 if indexPath.row < chdAirlineCancellationSlab.count{
                     let value = chdAirlineCancellationSlab[indexPath.row].value
-                    
+                    var chdRafVal: Double =  0
+                    if let fee = rafFees["CHD"] as? Double{
+                        chdRafVal = fee
+                    }else if let fee = (rafFees["CHD"] as? [String:Double])?[key]{
+                        chdRafVal = fee
+                    }else{
+                        chdRafVal = (rafFees["CHD"] as? [String:Double])?.values.first ?? 0
+                    }
                     if value == -9{
                         slabCell.perChildAmountLabel.textColor = .black
                         slabCell.perChildAmountLabel.text = "NA"
                     }else if value == -1{
                         slabCell.perChildAmountLabel.textColor = .black
                         slabCell.perChildAmountLabel.text = "Non-refundable"
-                    }else if value == 0 && aertripValue == 0{
+                    }else if value == 0 && aertripValue == 0 && chdRafVal == 0{
                         slabCell.perChildAmountLabel.textColor = UIColor(displayP3Red: 255.0/255.0, green: 144.0/255.0, blue: 0.0/255.0, alpha: 1.0)
                         slabCell.perChildAmountLabel.text = "Free Cancellation"
                     }else{
                         slabCell.perChildAmountLabel.textColor = .black
-                        var chdRafVal: Double =  0
-                        if let fee = rafFees["CHD"] as? Double{
-                            chdRafVal = fee
-                        }else{
-                            chdRafVal = (rafFees["CHD"] as? [String:Double])?.values.first ?? 0
-                        }
-                        
-                        ///RAF will only be considered when Airline fee is > 0, RAF is independent of Aertrip Fee
-                        if !(chdRafVal > 0){
-                            chdRafVal = 0
-                        }
-
-                        if aertripValue > 0 {
+                        if (aertripValue + chdRafVal) > 0 {
                             let displayValue = getPrice(price: Double(value + chdRafVal + aertripValue))
                             slabCell.perChildAmountLabel.attributedText = displayValue
                         }else{
@@ -506,30 +517,26 @@ extension IntCombineFareInfoCell{
                 
                 if indexPath.row < infAirlineCancellationSlab.count{
                     let value = infAirlineCancellationSlab[indexPath.row].value
-                    
+                    var iNFRafVal: Double =  0
+                    if let fee = rafFees["INF"] as? Double{
+                        iNFRafVal = fee
+                    }else if let fee = (rafFees["INF"] as? [String:Double])?[key]{
+                        iNFRafVal = fee
+                    }else{
+                        iNFRafVal = (rafFees["INF"] as? [String:Double])?.values.first ?? 0
+                    }
                     if value == -9{
                         slabCell.perInfantAmountLabel.textColor = .black
                         slabCell.perInfantAmountLabel.text = "NA"
                     }else if value == -1{
                         slabCell.perInfantAmountLabel.textColor = .black
                         slabCell.perInfantAmountLabel.text = "Non-refundable"
-                    }else if value == 0 && aertripValue == 0{
+                    }else if value == 0 && aertripValue == 0 && iNFRafVal == 0{
                         slabCell.perInfantAmountLabel.textColor = UIColor(displayP3Red: 255.0/255.0, green: 144.0/255.0, blue: 0.0/255.0, alpha: 1.0)
                         slabCell.perInfantAmountLabel.text = "Free Cancellation"
                     }else{
                         slabCell.perInfantAmountLabel.textColor = .black
-                        var iNFRafVal: Double =  0
-                        if let fee = rafFees["INF"] as? Double{
-                            iNFRafVal = fee
-                        }else{
-                            iNFRafVal = (rafFees["INF"] as? [String:Double])?.values.first ?? 0
-                        }
-                        ///RAF will only be considered when Airline fee is > 0, RAF is independent of Aertrip Fee
-                        if !(iNFRafVal > 0){
-                            iNFRafVal = 0
-                        }
-                        
-                        if aertripValue > 0{
+                        if (aertripValue + iNFRafVal) > 0{
                             let displayValue = getPrice(price: Double(value + iNFRafVal + aertripValue))
                             slabCell.perInfantAmountLabel.attributedText = displayValue
                         }else{

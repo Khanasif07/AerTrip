@@ -305,8 +305,8 @@ class RoomGuestSelectionVC: BaseVC {
         for picker in self.agePickers {
             if (picker.tag + 1) > self.viewModel.selectedChilds {
                 picker.isHidden = true
-                self.viewModel.childrenAge[picker.tag] = 3
-                picker.selectRow(3, inComponent: 0, animated: false)
+                self.viewModel.childrenAge[picker.tag] = 1
+                picker.selectRow(1, inComponent: 0, animated: false)
             } else {
                 picker.isHidden = false
             }
