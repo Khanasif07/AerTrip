@@ -88,7 +88,7 @@ class HCRefundRequestedVC: BaseVC {
     }
     
     override func setupColors() {
-        tickButton.setImage(#imageLiteral(resourceName: "Checkmark"), for: .normal)
+        tickButton.setImage(AppImages.Checkmark, for: .normal)
         
         requestedTextLabel.textColor = AppColors.themeBlack
         

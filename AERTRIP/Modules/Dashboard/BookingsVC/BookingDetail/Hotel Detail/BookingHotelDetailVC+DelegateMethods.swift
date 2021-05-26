@@ -182,7 +182,7 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
             //sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "backGreen"), for: .normal)
             //sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "backGreen"), for: .selected)
             self.topNavigationView.dividerView.isHidden = false
-            self.topNavigationView.firstRightButton.setImage(#imageLiteral(resourceName: "black_cross"), for: .normal)
+            self.topNavigationView.firstRightButton.setImage(AppImages.CancelButtonWhite, for: .normal)
             self.topNavigationView.firstRightButtonTrailingConstraint.constant = 0
         } else {
             self.topNavigationView.animateBackView(isHidden: true, completion: nil)
@@ -190,7 +190,7 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
             // sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "Back"), for: .selected)
              self.topNavigationView.navTitleLabel.text = " "
              self.topNavigationView.dividerView.isHidden = true
-             self.topNavigationView.firstRightButton.setImage(#imageLiteral(resourceName: "CancelButtonWhite"), for: .normal)
+             self.topNavigationView.firstRightButton.setImage(AppImages.CancelButtonWhite, for: .normal)
              self.topNavigationView.firstRightButtonTrailingConstraint.constant = -3
         }
             /*
@@ -204,7 +204,7 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
                // sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "Back"), for: .selected)
                 sSelf.topNavigationView.navTitleLabel.text = " "
                 sSelf.topNavigationView.dividerView.isHidden = true
-                sSelf.topNavigationView.firstRightButton.setImage(#imageLiteral(resourceName: "CancelButtonWhite"), for: .normal)
+                sSelf.topNavigationView.firstRightButton.setImage(AppImages.CancelButtonWhite, for: .normal)
                 sSelf.topNavigationView.firstRightButtonTrailingConstraint.constant = -3
             }
         } else {
@@ -216,7 +216,7 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
                 //sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "backGreen"), for: .normal)
                 //sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "backGreen"), for: .selected)
                 sSelf.topNavigationView.dividerView.isHidden = false
-                sSelf.topNavigationView.firstRightButton.setImage(#imageLiteral(resourceName: "black_cross"), for: .normal)
+                sSelf.topNavigationView.firstRightButton.setImage(AppImages.CancelButtonWhite, for: .normal)
                 sSelf.topNavigationView.firstRightButtonTrailingConstraint.constant = 0
             }
         }

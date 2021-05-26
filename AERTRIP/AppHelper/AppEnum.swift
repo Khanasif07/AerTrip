@@ -832,3 +832,17 @@ enum ATWeatherType: RawRepresentable {
         }
     }
 }
+
+
+struct AppImages{
+    static var ic_toast_cross:UIImage{ return #imageLiteral(resourceName: "ic_toast_cross") }
+    static var black_cross:UIImage{ return #imageLiteral(resourceName: "black_cross") }
+    static var CancelButtonWhite: UIImage{ return #imageLiteral(resourceName: "CancelButtonWhite") }
+    static var ic_gallery_horizontal_view: UIImage{ return #imageLiteral(resourceName: "ic_gallery_horizontal_view") }
+    static var ic_gallery_vertical_view: UIImage{ return #imageLiteral(resourceName: "ic_gallery_vertical_view") }
+    static var searchBarIcon: UIImage { return #imageLiteral(resourceName: "searchBarIcon") }
+    static var ic_search_mic:UIImage {return #imageLiteral(resourceName: "ic_search_mic") }
+    static var Checkmark:UIImage { return #imageLiteral(resourceName: "Checkmark")}
+    static var infoOrange:UIImage { return #imageLiteral(resourceName: "infoOrange")}
+    
+}

@@ -54,7 +54,7 @@ class BookingDirectionVC: BaseVC {
         //self.topNavigationView.navTitleLabel.font = AppFonts.SemiBold.withSize(18.0)
         //self.topNavigationView.navTitleLabel.textColor = AppColors.textFieldTextColor51
         self.topNavigationView.configureNavBar(title: LocalizedString.Directions.localized, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
-         topNavigationView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "black_cross"), selectedImage: #imageLiteral(resourceName: "black_cross"))
+         topNavigationView.configureFirstRightButton(normalImage: AppImages.CancelButtonWhite, selectedImage: AppImages.CancelButtonWhite)
     }
     
     private func registerXib() {
