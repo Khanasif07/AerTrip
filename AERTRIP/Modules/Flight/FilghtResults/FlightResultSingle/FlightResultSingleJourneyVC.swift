@@ -58,6 +58,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         setupTableView()
         setupPinnedFlightsOptionsView()
         self.viewModel.setSharedFks()
+        
     }
         
     override func viewWillAppear(_ animated: Bool) {
@@ -222,6 +223,10 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             self.resultsTableView.tableHeaderView = headerView
         }
     }
+    
+    
+
+    
     
     @IBAction func PinnedFlightSwitchToggled(_ sender: AertripSwitch) {
         
@@ -624,4 +629,13 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         FirebaseEventLogs.shared.logOneWayResultEvents(with: FirebaseEventLogs.EventsTypeName.OpenFlightDetails, fk : journey.fk)
         
     }
+}
+
+
+extension FlightResultSingleJourneyVC {
+    
+    func reloadScreenOnCurrencyUpdaate() {
+        self.resultsTableView.reloadData()
+    }
+    
 }

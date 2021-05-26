@@ -1715,3 +1715,37 @@ extension FlightResultBaseViewController: FlightFiltersToastDelegate {
         CustomToast.shared.showToast(msg)
     }
 }
+
+
+extension FlightResultBaseViewController : CurrencyUpdatedDelegate {
+    
+    func reloadScreenOnCurrencyUpdaate() {
+        
+        let flightType = flightSearchResultVM.flightSearchType
+
+        switch flightType {
+        case SINGLE_JOURNEY:
+            
+            print("single")
+            
+            self.singleJourneyResultVC?.reloadScreenOnCurrencyUpdaate()
+            
+            
+        case RETURN_JOURNEY:
+            
+            print("return")
+            
+        case MULTI_CITY:
+            
+            print("multi city")
+            
+            
+        default:
+            print("default")
+        }
+        
+        
+    }
+    
+    
+}

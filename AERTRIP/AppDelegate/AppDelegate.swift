@@ -74,7 +74,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CurrencyControler.shared.getCurrencies { (success, currencies, topCurrencies) in }
         
         CurrencyControler.shared.scheduleCurrencyTimer()
-                
+                        
         return true
     }
     
