@@ -43,6 +43,10 @@ class PriceVC: BaseVC {
         setFilterValues()
     }
     
+    override func currencyChanged(_ note: Notification) {
+        self.tableView.reloadData()
+    }
+    
     // MARK: - Override methods
     
     // MARK: - Helper methods

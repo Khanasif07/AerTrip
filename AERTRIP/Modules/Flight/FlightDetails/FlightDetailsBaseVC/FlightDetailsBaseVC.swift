@@ -161,6 +161,11 @@ class FlightDetailsBaseVC: BaseVC {
         }
     }
     
+    deinit {
+        self.fareBreakup = nil
+        self.intFareBreakup = nil
+    }
+    
     //MARK:- Initialise Views
     func setupInitialViews()
     {

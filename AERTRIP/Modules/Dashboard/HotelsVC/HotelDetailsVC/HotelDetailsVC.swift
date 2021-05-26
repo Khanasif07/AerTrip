@@ -158,6 +158,12 @@ class HotelDetailsVC: BaseVC {
     override func setupColors() {
     }
     
+    
+    override func currencyChanged(_ note: Notification) {
+        self.hotelTableView.reloadData()
+        self.stickyView?.hotelFeesLabel.attributedText = (self.viewModel.hotelInfo?.price ?? 0.0).getConvertedAmount(using: AppFonts.SemiBold.withSize(20.0))
+    }
+    
     //Mark:- Methods
     //==============
     private func getStickyFooter() -> HotelFilterResultFooterView {

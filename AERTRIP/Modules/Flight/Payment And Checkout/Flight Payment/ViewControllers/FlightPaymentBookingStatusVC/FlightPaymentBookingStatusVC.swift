@@ -57,6 +57,10 @@ class FlightPaymentBookingStatusVC: BaseVC {
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
     }
     
+    override func currencyChanged(_ note: Notification) {
+        self.statusTableView.reloadData()
+    }
+    
     private func registerCell(){
         
         self.statusTableView.registerCell(nibName: YouAreAllDoneTableViewCell.reusableIdentifier)

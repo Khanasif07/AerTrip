@@ -341,13 +341,13 @@ extension FlightPaymentVM{
     
     
     func updateCurrency(useWallet: Bool){
-        APICaller.shared.getCurrencies {[weak self] (success, _) in
+        
+        CurrencyControler.shared.getCurrencies { [weak self] (success, _ , _) in
             guard let self = self else {return}
             self.delegate?.getUpdateCurrencyResponse(success: success)
             if success{
                 self.reconfirmationAPI(useWallet: useWallet)
             }
-            
         }
     }
     

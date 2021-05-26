@@ -12,7 +12,7 @@ protocol  UpdateRefundStatusDelegate : NSObjectProtocol{
     func updateRefundStatus(for fk:String, rfd:Double, rsc:Double)
 }
 
-class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate{
+class IntFareInfoVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
     //MARK:- Outlets
     @IBOutlet weak var fareInfoTableView: UITableView!
     @IBOutlet weak var fareInfoTableViewBottom: NSLayoutConstraint!
@@ -109,6 +109,10 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         self.fareInfoTableView.layoutIfNeeded()
     }
     
+    
+    override func currencyChanged(_ note: Notification) {
+        self.fareInfoTableView.reloadData()
+    }
     
     private func setLoader(){
         if #available(iOS 13.0, *) {

@@ -297,6 +297,12 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         }
     }
     
+    override func currencyChanged(_ note: Notification) {
+        self.hotelsMapCV.reloadData()
+        self.resetAllMarker()
+        self.hotelSearchTableView.reloadData()
+    }
+    
     func addCustomBackgroundBlurView(){
         
         visualEffectView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: visualEffectViewHeight))

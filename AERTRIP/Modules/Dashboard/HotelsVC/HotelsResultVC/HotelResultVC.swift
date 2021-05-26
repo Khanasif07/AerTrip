@@ -313,6 +313,12 @@ class HotelResultVC: BaseVC {
         self.blurViewHeightConstraint.constant = self.statusBarHeight
     }
     
+    
+    override func currencyChanged(_ note: Notification) {
+        self.tableViewVertical.reloadData()
+        self.hotelSearchTableView.reloadData()
+    }
+    
     deinit {
         CoreDataManager.shared.deleteData("HotelSearched")
         printDebug("HotelResultVC deinit")

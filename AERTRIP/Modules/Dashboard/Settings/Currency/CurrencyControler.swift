@@ -68,7 +68,7 @@ class CurrencyControler {
                 
               //  self.delegate?.getCurrenciesSuccessFull()
             }else{
-                completionBlock(true, [], [])
+                completionBlock(success, [], [])
 
              //   self.delegate?.failedToGetCurrencies()
             }
@@ -171,25 +171,28 @@ class CurrencyControler {
     func updateScreenes(){
         
         
-        guard let root = AppDelegate.shared.window?.rootViewController as? UINavigationController else { return }
+        NotificationCenter.default.post(name: .currencyChanged, object: nil)
         
-        print("root...\(root)")
-        
-        for viewControler in root.viewControllers {
-            
-            print("viewcontroler...\(viewControler)")
-            
-            if let vc = viewControler as? CurrencyUpdatedDelegate {
-            
-                vc.reloadScreenOnCurrencyUpdaate()
-                
-                print("vc is ... \(vc)")
-                
-            
-                
-            }
-            
-        }
+//        guard let root = AppDelegate.shared.window?.rootViewController as? UINavigationController else { return }
+//
+//        print("root...\(root)")
+//
+//        for viewControler in root.viewControllers {
+//
+//            print("viewcontroler...\(viewControler)")
+//
+//            if let vc = viewControler as? CurrencyUpdatedDelegate {
+//
+//                vc.reloadScreenOnCurrencyUpdaate()
+//
+//                print("vc is ... \(vc)")
+//
+//            }
+//            else{
+//
+//            }
+//
+//        }
                 
     }
     
