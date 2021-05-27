@@ -297,7 +297,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
         cell.titleLabel.font = AppFonts.SemiBold.withSize(18.0)
         cell.titleLabel.textColor = AppColors.themeGreen
         cell.titleLabel.text = LocalizedString.UploadDepositConfirmationSlip.localized
-        cell.selectionButton.setImage(#imageLiteral(resourceName: "ic_upload_slip"), for: .normal)
+        cell.selectionButton.setImage(AppImages.ic_upload_slip, for: .normal)
         cell.selectButtonTopConstraint.constant = 30.0
         
         return cell
@@ -310,7 +310,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
         }
         cell.dividerView.isHidden = true
         cell.isHiddenButton = false
-        cell.selectionButton.setImage(self.viewModel.userEnteredDetails.isAgreeToTerms ? #imageLiteral(resourceName: "CheckedGreenRadioButton") : #imageLiteral(resourceName: "UncheckedGreenRadioButton"), for: .normal)
+        cell.selectionButton.setImage(self.viewModel.userEnteredDetails.isAgreeToTerms ? AppImages.CheckedGreenRadioButton : AppImages.UncheckedGreenRadioButton, for: .normal)
         cell.selectButtonTopConstraint.constant = 26.0
         let termsOfUse = ActiveType.custom(pattern: "\\s\(LocalizedString.terms_of_use.localized)\\b")
         

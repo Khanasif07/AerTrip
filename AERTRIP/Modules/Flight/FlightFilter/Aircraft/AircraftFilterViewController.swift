@@ -150,7 +150,7 @@ extension AircraftFilterViewController : UITableViewDataSource , UITableViewDele
                     cell.radioButton.setBackgroundImage(UIImage(named:"radioButtonUnselect"), for: .normal)
 //                    cell.radioButton.setImage(UIImage(named: "UncheckedGreenRadioButton"), for: .normal)
                 }
-//                cell.radioButton.setImage(self.aircraftFilter.selectedAircraftsArray.count == self.aircraftFilter.allAircraftsArray.count ? #imageLiteral(resourceName: "selectOption") : #imageLiteral(resourceName: "UncheckedGreenRadioButton"), for: .normal)
+//                cell.radioButton.setImage(self.aircraftFilter.selectedAircraftsArray.count == self.aircraftFilter.allAircraftsArray.count ? #imageLiteral(resourceName: "selectOption") : AppImages.UncheckedGreenRadioButton, for: .normal)
            
             } else {
                 

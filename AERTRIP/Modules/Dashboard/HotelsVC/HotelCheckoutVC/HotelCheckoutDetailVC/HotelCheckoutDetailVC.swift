@@ -112,8 +112,8 @@ class HotelCheckoutDetailVC: BaseVC {
         self.view.backgroundColor = .clear
         self.headerView.delegate = self
         self.headerView.configureNavBar(title: nil , isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
-        let buttonImage: UIImage = self.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
-        let selectedFevImage: UIImage = self.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "save_icon_green")
+        let buttonImage: UIImage = self.hotelInfo?.fav == "1" ? AppImages.saveHotelsSelected : AppImages.saveHotels
+        let selectedFevImage: UIImage = self.hotelInfo?.fav == "1" ? AppImages.saveHotelsSelected : AppImages.save_icon_green
         self.headerView.configureLeftButton(normalImage: buttonImage, selectedImage: selectedFevImage, normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
         self.headerView.configureFirstRightButton(normalImage: AppImages.CancelButtonWhite, selectedImage: AppImages.CancelButtonWhite, normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
         self.headerView.firstRightButton.imageEdgeInsets = UIEdgeInsets(top: 2, left: 0, bottom: 0, right: 0)

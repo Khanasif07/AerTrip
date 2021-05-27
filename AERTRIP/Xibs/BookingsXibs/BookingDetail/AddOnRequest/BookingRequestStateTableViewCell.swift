@@ -68,7 +68,7 @@ class BookingRequestStateTableViewCell: ATTableViewCell {
             self.descriptorLabel.text = descriptor
         }
         if title.contains("Agent") {
-            self.descriptorLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: #imageLiteral(resourceName: "telex"), endText: "  \(descriptor)", font: AppFonts.Regular.withSize(16.0))
+            self.descriptorLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: AppImages.telex, endText: "  \(descriptor)", font: AppFonts.Regular.withSize(16.0))
         }
     }
   

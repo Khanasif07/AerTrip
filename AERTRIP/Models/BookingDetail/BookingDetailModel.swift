@@ -1885,17 +1885,17 @@ struct Pax {
     var salutationImage: UIImage {
         switch self.salutation {
         case "Mrs":
-            return #imageLiteral(resourceName: "woman")
+            return AppImages.woman
         case "Mr":
-            return #imageLiteral(resourceName: "man")
+            return AppImages.man
         case "Mast":
-            return #imageLiteral(resourceName: "man")
+            return AppImages.man
         case "Miss":
-            return #imageLiteral(resourceName: "girl")
+            return AppImages.girl
         case "Ms":
-            return #imageLiteral(resourceName: "woman")
+            return AppImages.woman
         default:
-            return #imageLiteral(resourceName: "person")
+            return AppImages.person
         }
     }
     

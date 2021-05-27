@@ -162,7 +162,7 @@ extension BookingDocumentsTableViewCell: UICollectionViewDelegate , UICollection
             cell.containerView.removeGestureRecognizer(cell.longPressGesture!)
             cell.containerView.addGestureRecognizer(cell.longPressGesture!)
         } else {
-            cell.downloadingIcon.image = #imageLiteral(resourceName: "downloadingImage")
+            cell.downloadingIcon.image = AppImages.downloadingImage
             cell.containerView.removeGestureRecognizer(cell.longPressGesture!)
 
         }

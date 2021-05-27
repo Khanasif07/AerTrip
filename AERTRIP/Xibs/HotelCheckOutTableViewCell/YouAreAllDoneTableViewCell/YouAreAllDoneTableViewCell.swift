@@ -60,7 +60,7 @@ class YouAreAllDoneTableViewCell: UITableViewCell {
     //================
     private func configUI() {
         //Image
-        self.addToAppleWalletButton.setImage(#imageLiteral(resourceName: "AddToAppleWallet"), for: .normal)
+        self.addToAppleWalletButton.setImage(AppImages.AddToAppleWallet, for: .normal)
         //Font
         self.youAreAllDoneLabel.font = AppFonts.c.withSize(38.0)
         self.configureAppleButton()
@@ -98,8 +98,8 @@ class YouAreAllDoneTableViewCell: UITableViewCell {
         self.addToCalendarButton.layer.borderWidth = 1.0
         self.addToCalendarButton.layer.borderColor = AppColors.themeGreen.cgColor
         
-        self.addToCalendarButton.setImage( #imageLiteral(resourceName: "AllDoneCalendar") , for: .normal)
-        self.addToCalendarButton.setImage( #imageLiteral(resourceName: "AllDoneCalendar") , for: .selected)
+        self.addToCalendarButton.setImage( AppImages.AllDoneCalendar , for: .normal)
+        self.addToCalendarButton.setImage( AppImages.AllDoneCalendar , for: .selected)
         self.addToCalendarButton.setTitle(LocalizedString.AddToCalender.localized, for: .normal)
         self.addToCalendarButton.setTitle(LocalizedString.AddToCalender.localized, for: .selected)
         

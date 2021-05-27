@@ -134,7 +134,7 @@ class AccountLadgerDetailHeader: UIView {
             return
         }
         
-        self.imageView.image = #imageLiteral(resourceName: "ic_acc_receipt")
+        self.imageView.image = AppImages.ic_acc_receipt
         self.titleLabel.text = event.voucher.rawValue
         self.bookingIdKeyLabel.text = ""
         self.bookingIdValueLabel.text = ""

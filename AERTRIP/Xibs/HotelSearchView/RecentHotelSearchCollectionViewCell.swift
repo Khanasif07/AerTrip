@@ -42,7 +42,7 @@ class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
     ///InitialSetUp
     private func initialSetUp() {
         
-        self.cityImageView.image = #imageLiteral(resourceName: "hotelsBlack").withRenderingMode(.alwaysTemplate)
+        self.cityImageView.image = AppImages.child_icon.withRenderingMode(.alwaysTemplate)
         self.cityImageView.tintColor = AppColors.recentSeachesSearchTypeBlue
         ///Font
         let regularFont14 = AppFonts.Regular.withSize(14.0)

@@ -28,7 +28,7 @@ class HCWhatNextTableViewCell: UITableViewCell {
     }
     private var itemWidth: CGFloat  = 0
     
-    var suggetionImage = #imageLiteral(resourceName: "flightIcon")//hotel_green_icon
+    var suggetionImage = AppImages.twiterIcon//hotel_green_icon
     var selectedWhatNext: ((_ index:Int)->())?
     
     //Mark:- IBOutlets
@@ -78,11 +78,11 @@ class HCWhatNextTableViewCell: UITableViewCell {
         self.twitterButton.addShadow(cornerRadius: self.fbButton.frame.size.height / 2.0, maskedCorners: [.layerMinXMaxYCorner,.layerMaxXMinYCorner,.layerMaxXMaxYCorner,.layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.init(width: 0.0, height: 3.0), opacity: 1.0, shadowRadius: 5.0)
         self.instagramButton.addShadow(cornerRadius: self.fbButton.frame.size.height / 2.0, maskedCorners: [.layerMinXMaxYCorner,.layerMaxXMinYCorner,.layerMaxXMaxYCorner,.layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.init(width: 0.0, height: 3.0), opacity: 1.0, shadowRadius: 5.0)
         //Image
-        self.fbButton.setImage(#imageLiteral(resourceName: "fbIconWhite").withRenderingMode(.alwaysTemplate), for: .normal)
+        self.fbButton.setImage(AppImages.fbIconWhite.withRenderingMode(.alwaysTemplate), for: .normal)
         self.fbButton.tintColor = AppColors.themeWhite
-        self.twitterButton.setImage(#imageLiteral(resourceName: "twiterIcon").withRenderingMode(.alwaysTemplate), for: .normal)
+        self.twitterButton.setImage(AppImages.twiterIcon.withRenderingMode(.alwaysTemplate), for: .normal)
         self.twitterButton.tintColor = AppColors.themeWhite
-        self.instagramButton.setImage(#imageLiteral(resourceName: "socialInstagram"), for: .normal)
+        self.instagramButton.setImage(AppImages.twiterIcon, for: .normal)
 //        self.instagramButton.tintColor = AppColors.themeWhite
 
         //Font
@@ -161,9 +161,9 @@ extension HCWhatNextTableViewCell: UICollectionViewDelegate, UICollectionViewDat
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HCWhatNextCollectionViewCell.reusableIdentifier, for: indexPath) as? HCWhatNextCollectionViewCell else { return UICollectionViewCell() }
         cell.nextPlanLabel.text = self.whatNextdata[indexPath.item].whatNextStringValue//hotelsCopy2
         switch self.whatNextdata[indexPath.item].productType {
-        case .hotel: cell.flightImageView.image = #imageLiteral(resourceName: "hotel_green_icon")
-        case .flight: cell.flightImageView.image = #imageLiteral(resourceName: "flight_blue_icon")
-        default: cell.flightImageView.image = #imageLiteral(resourceName: "hotelsCopy2")
+        case .hotel: cell.flightImageView.image = AppImages.hotel_green_icon
+        case .flight: cell.flightImageView.image = AppImages.flight_blue_icon
+        default: cell.flightImageView.image = AppImages.hotelsCopy2
         }
         
         cell.flightImageView.isHidden = false

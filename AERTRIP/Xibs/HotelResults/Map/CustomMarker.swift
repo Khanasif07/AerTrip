@@ -92,10 +92,10 @@ class CustomMarker: UIView {
             priceView.backgroundColor = AppColors.themeRed
             priceLabel.textColor = AppColors.themeWhite
             connectorView.backgroundColor = AppColors.themeRed
-            iconImageView.image = #imageLiteral(resourceName: "favHotelWithShadowMarker")
+            iconImageView.image = AppImages.favHotelWithShadowMarker
         }
         else {
-            iconImageView.image = #imageLiteral(resourceName: "clusterSmallTag")
+            iconImageView.image = AppImages.clusterSmallTag
             self.updateSelection()
         }
     }

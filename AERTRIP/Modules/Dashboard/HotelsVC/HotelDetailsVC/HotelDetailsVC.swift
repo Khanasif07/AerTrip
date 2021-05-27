@@ -316,8 +316,8 @@ class HotelDetailsVC: BaseVC {
     
     func manageFavIcon() {
         printDebug("Manage fav icon")
-        let buttonImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
-        let selectedFevImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "save_icon_green")
+        let buttonImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? AppImages.saveHotelsSelected : AppImages.saveHotels
+        let selectedFevImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? AppImages.saveHotelsSelected : AppImages.save_icon_green
         self.headerView.configureLeftButton(normalImage: buttonImage, selectedImage: selectedFevImage, normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil,isHideBackView: self.headerView.backView.isHidden)
     }
     

@@ -422,8 +422,8 @@ class HotelResultVC: BaseVC {
          self.switchView.selectedBorderWidth = 0.0//1.5
          self.switchView.iconBorderWidth = 0.0
          self.switchView.iconBorderColor = AppColors.clear
-         self.switchView.originalImage = #imageLiteral(resourceName: "switch_fav_on").maskWithColor(color: UIColor(displayP3Red: 0.8470588235, green: 0.8470588235, blue: 0.8470588235, alpha: 1))
-         self.switchView.selectedImage = #imageLiteral(resourceName: "switch_fav_on")
+         self.switchView.originalImage = AppImages.switch_fav_on.maskWithColor(color: UIColor(displayP3Red: 0.8470588235, green: 0.8470588235, blue: 0.8470588235, alpha: 1))
+         self.switchView.selectedImage = AppImages.switch_fav_on
          self.switchView.isBackgroundBlurry = true
          */
         

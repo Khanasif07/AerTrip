@@ -295,12 +295,12 @@ extension HotelResultVC: HotelResultDelegate {
     
     func getPinnedTemplateSuccess() {
       //  AppGlobals.shared.stopLoading()
-        self.emailButton.setImage(#imageLiteral(resourceName: "emailIcon"), for: .normal)
+        self.emailButton.setImage(AppImages.emailIcon, for: .normal)
     }
     
     func getPinnedTemplateFail() {
       //  AppGlobals.shared.stopLoading()
-        self.emailButton.setImage(#imageLiteral(resourceName: "emailIcon"), for: .normal)
+        self.emailButton.setImage(AppImages.emailIcon, for: .normal)
     }
     
     func willUpdateFavourite() {

@@ -232,9 +232,9 @@ class TravellerListVC: BaseVC {
             topNavView.firstRightButton.titleLabel?.font = AppFonts.SemiBold.withSize(18.0)
         } else {
             topNavView.configureNavBar(title: LocalizedString.Travellers.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: true, isDivider: false)
-            topNavView.configureLeftButton(normalImage:  #imageLiteral(resourceName: "backGreen"), selectedImage:  #imageLiteral(resourceName: "backGreen"))
-            topNavView.configureFirstRightButton(normalImage:  #imageLiteral(resourceName: "greenPopOverButton"), selectedImage:  #imageLiteral(resourceName: "greenPopOverButton"))
-            topNavView.configureSecondRightButton(normalImage:  #imageLiteral(resourceName: "plusButton"), selectedImage:  #imageLiteral(resourceName: "plusButton"))
+            topNavView.configureLeftButton(normalImage:  AppImages.backGreen, selectedImage:  AppImages.backGreen)
+            topNavView.configureFirstRightButton(normalImage:  AppImages.greenPopOverButton, selectedImage:  AppImages.greenPopOverButton)
+            topNavView.configureSecondRightButton(normalImage:  AppImages.greenAdd, selectedImage:  AppImages.greenAdd)
         }
     }
     

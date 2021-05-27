@@ -557,7 +557,7 @@ class AccountSummeryCell: UITableViewCell {
         self.amountLabel.isHidden = false
         self.amountLabel.font = AppFonts.SemiBold.withSize(16.0)
         self.amountLabel.textColor = AppColors.themeBlack
-        self.amountLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: #imageLiteral(resourceName: "arrowNextScreen"), endText: "", font: AppFonts.SemiBold.withSize(16.0))
+        self.amountLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: AppImages.arrowNextScreen, endText: "", font: AppFonts.SemiBold.withSize(16.0))
         
       //  self.stackViewTop.constant = 6.0
         self.amountLabelTraillingConstant.constant = 0.0

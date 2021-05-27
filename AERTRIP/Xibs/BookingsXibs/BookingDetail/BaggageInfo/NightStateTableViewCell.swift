@@ -46,7 +46,7 @@ class NightStateTableViewCell: UITableViewCell {
         let finalText = " Overnight Layover in \(flightDetail?.arrivalCity ?? LocalizedString.dash.localized)\(timeStr)"//
            // let finalText = " Overnight Layover in \("Thiruvananthapuram Thiruvananthapuram")\(timeStr)"//
 
-            self.titleLabel.attributedText = self.getAttributedBoldText(text: finalText, boldText: timeStr, image: #imageLiteral(resourceName: "overnightIcon"))
+            self.titleLabel.attributedText = self.getAttributedBoldText(text: finalText, boldText: timeStr, image: AppImages.overnightIcon)
         } else {
             var timeStr = self.flightDetail?.layoverTime.asString(units: [.hour, .minute], style: .abbreviated) ?? LocalizedString.na.localized
             timeStr = "  •  \(timeStr)"

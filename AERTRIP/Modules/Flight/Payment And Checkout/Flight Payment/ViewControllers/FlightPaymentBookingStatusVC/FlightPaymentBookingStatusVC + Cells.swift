@@ -119,7 +119,7 @@ extension FlightPaymentBookingStatusVC{
         guard let cell = self.statusTableView.dequeueReusableCell(withIdentifier: HCWhatNextTableViewCell.reusableIdentifier, for: indexPath) as? HCWhatNextTableViewCell else { return UITableViewCell() }
         cell.delegate = self
         let whtNextNew = self.viewModel.itinerary.whatNext.filter{$0.product != ""}
-        cell.suggetionImage = #imageLiteral(resourceName: "hotel_green_icon")
+        cell.suggetionImage = AppImages.hotel_green_icon
         cell.configCellwith(whtNextNew, usedFor: "flight", isNeedToAdd: !self.viewModel.apiBookingIds.isEmpty)
         cell.whatNextStackView.isHidden = self.viewModel.apiBookingIds.isEmpty
         cell.selectedWhatNext = {[weak self] index in

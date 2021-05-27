@@ -126,8 +126,8 @@ class FlightPaymentVC: BaseVC {
 
     private func setupPayButton() {
         self.payButton.titleLabel?.font = AppFonts.SemiBold.withSize(20.0)
-        self.payButton.setImage(#imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .normal)
-        self.payButton.setImage(#imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .highlighted)
+        self.payButton.setImage(AppImages.whiteBlackLockIcon.withRenderingMode(.alwaysOriginal), for: .normal)
+        self.payButton.setImage(AppImages.whiteBlackLockIcon.withRenderingMode(.alwaysOriginal), for: .highlighted)
         if self.payButton.imageView != nil{
             self.payButton.bringSubviewToFront(self.payButton.imageView!)
         }
@@ -148,8 +148,8 @@ class FlightPaymentVC: BaseVC {
             attributedTitle.append(amount)
             self.payButton.setTitle(nil, for: .normal)
             self.payButton.setTitle(nil, for: .highlighted)
-            self.payButton.setImage(#imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .normal)
-            self.payButton.setImage(#imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .highlighted)
+            self.payButton.setImage(AppImages.whiteBlackLockIcon.withRenderingMode(.alwaysOriginal), for: .normal)
+            self.payButton.setImage(AppImages.whiteBlackLockIcon.withRenderingMode(.alwaysOriginal), for: .highlighted)
             self.payButton.setAttributedTitle(attributedTitle, for: .normal)
             self.payButton.setAttributedTitle(attributedTitle, for: .highlighted)
         }else{

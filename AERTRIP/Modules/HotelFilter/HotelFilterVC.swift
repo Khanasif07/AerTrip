@@ -152,7 +152,7 @@ class HotelFilterVC: BaseVC {
             }
         }
       //  self.isFilterAppliedBtn.setImage(isFilterApplied  ? #imageLiteral(resourceName: "ic_hotel_filter_applied") : #imageLiteral(resourceName: "ic_hotel_filter"), for: .normal)
-        self.isFilterAppliedBtn.setImage(isFilterApplied  ? #imageLiteral(resourceName: "ic_hotel_filter_applied") : #imageLiteral(resourceName: "ic_hotel_filter"), for: .selected)
+        self.isFilterAppliedBtn.setImage(isFilterApplied  ? AppImages.ic_hotel_filter_applied : AppImages.ic_hotel_filter, for: .selected)
         
         if  isFilterApplied {
             //self.topNavBar.firstRightButton.isEnabled = true

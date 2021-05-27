@@ -42,7 +42,7 @@ extension HotelCancellationVC: UITableViewDelegate , UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let rooms = self.viewModel.bookingDetail?.bookingDetail?.roomDetails, let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "BookingReschedulingHeaderView") as? BookingReschedulingHeaderView else { return nil }
         headerView.delegate = self
-        let image = (rooms.count == self.viewModel.selectedRooms.count) ? #imageLiteral(resourceName: "CheckedGreenRadioButton") : #imageLiteral(resourceName: "UncheckedGreenRadioButton")
+        let image = (rooms.count == self.viewModel.selectedRooms.count) ? AppImages.CheckedGreenRadioButton : AppImages.UncheckedGreenRadioButton
         headerView.selectedButton.setImage(image, for: .normal)
         headerView.routeLabel.text = self.viewModel.hotelName
         headerView.infoLabel.text = self.viewModel.bookingDateAndRefundableStatus

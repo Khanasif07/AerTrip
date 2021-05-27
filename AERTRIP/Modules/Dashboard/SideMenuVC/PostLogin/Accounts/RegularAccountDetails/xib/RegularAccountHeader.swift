@@ -70,10 +70,10 @@ class RegularAccountHeader: UIView {
     }
     
     private func setImagesToButton(){
-        self.optionButton.setImage(#imageLiteral(resourceName: "greenPopOverButton"), for: .normal)
-        self.optionButton.setImage(#imageLiteral(resourceName: "greenPopOverButton"), for: .selected)
-        self.filterButton.setImage(#imageLiteral(resourceName: "bookingFilterIcon"), for: .normal)
-        self.filterButton.setImage( #imageLiteral(resourceName: "bookingFilterIconSelected"), for: .selected)
+        self.optionButton.setImage(AppImages.greenPopOverButton, for: .normal)
+        self.optionButton.setImage(AppImages.greenPopOverButton, for: .selected)
+        self.filterButton.setImage(AppImages.bookingFilterIcon, for: .normal)
+        self.filterButton.setImage( AppImages.bookingFilterIconSelected, for: .selected)
     }
 
     private func progressSetup(){

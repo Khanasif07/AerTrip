@@ -22,10 +22,10 @@ class ThingsCanBeAskedHeader : UITableViewHeaderFooterView {
         
         if section == 0{
             hraderTitle.text = LocalizedString.flights.localized
-            imageView.image = #imageLiteral(resourceName: "blueflight")
+            imageView.image = AppImages.blueflight
         }else{
             hraderTitle.text = LocalizedString.hotels.localized
-            imageView.image = #imageLiteral(resourceName: "hotelCopy4")
+            imageView.image = AppImages.hotelCopy4
         }
         
     }

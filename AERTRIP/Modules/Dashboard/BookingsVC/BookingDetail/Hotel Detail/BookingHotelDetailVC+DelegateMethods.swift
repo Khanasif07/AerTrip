@@ -179,15 +179,15 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
         if (hotelImageHeight - topNavigationView.height) < yOffset {
             self.topNavigationView.navTitleLabel.text = self.viewModel.hotelTitle
             self.topNavigationView.animateBackView(isHidden: false, completion: nil)
-            //sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "backGreen"), for: .normal)
-            //sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "backGreen"), for: .selected)
+            //sSelf.topNavigationView.leftButton.setImage(AppImages.backGreen, for: .normal)
+            //sSelf.topNavigationView.leftButton.setImage(AppImages.backGreen, for: .selected)
             self.topNavigationView.dividerView.isHidden = false
             self.topNavigationView.firstRightButton.setImage(AppImages.CancelButtonWhite, for: .normal)
             self.topNavigationView.firstRightButtonTrailingConstraint.constant = 0
         } else {
             self.topNavigationView.animateBackView(isHidden: true, completion: nil)
-             //sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "Back"), for: .normal)
-            // sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "Back"), for: .selected)
+             //sSelf.topNavigationView.leftButton.setImage(AppImages.Back, for: .normal)
+            // sSelf.topNavigationView.leftButton.setImage(AppImages.Back, for: .selected)
              self.topNavigationView.navTitleLabel.text = " "
              self.topNavigationView.dividerView.isHidden = true
              self.topNavigationView.firstRightButton.setImage(AppImages.CancelButtonWhite, for: .normal)
@@ -200,8 +200,8 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
                 guard let sSelf = self else { return }
                 //sSelf.topNavigationView.backView.backgroundColor = AppColors.clear
                 sSelf.topNavigationView.animateBackView(isHidden: true, completion: nil)
-                //sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "Back"), for: .normal)
-               // sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "Back"), for: .selected)
+                //sSelf.topNavigationView.leftButton.setImage(AppImages.Back, for: .normal)
+               // sSelf.topNavigationView.leftButton.setImage(AppImages.Back, for: .selected)
                 sSelf.topNavigationView.navTitleLabel.text = " "
                 sSelf.topNavigationView.dividerView.isHidden = true
                 sSelf.topNavigationView.firstRightButton.setImage(AppImages.CancelButtonWhite, for: .normal)
@@ -213,8 +213,8 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
                 //sSelf.topNavigationView.backView.backgroundColor = AppColors.themeWhite
                 sSelf.topNavigationView.navTitleLabel.text = self?.viewModel.hotelTitle
                 sSelf.topNavigationView.animateBackView(isHidden: false, completion: nil)
-                //sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "backGreen"), for: .normal)
-                //sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "backGreen"), for: .selected)
+                //sSelf.topNavigationView.leftButton.setImage(AppImages.backGreen, for: .normal)
+                //sSelf.topNavigationView.leftButton.setImage(AppImages.backGreen, for: .selected)
                 sSelf.topNavigationView.dividerView.isHidden = false
                 sSelf.topNavigationView.firstRightButton.setImage(AppImages.CancelButtonWhite, for: .normal)
                 sSelf.topNavigationView.firstRightButtonTrailingConstraint.constant = 0

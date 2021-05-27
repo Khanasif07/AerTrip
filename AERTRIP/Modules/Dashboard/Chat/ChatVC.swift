@@ -239,8 +239,8 @@ extension ChatVC {
     private func setUpNavigationView(){
         topNavView.delegate = self
         topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
-        topNavView.configureLeftButton(normalImage: #imageLiteral(resourceName: "backGreen"), selectedImage:  #imageLiteral(resourceName: "backGreen"), normalTitle: "", selectedTitle: "", normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
-        topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "green_2"), selectedImage: #imageLiteral(resourceName: "green_2"), normalTitle: "", selectedTitle: "", normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
+        topNavView.configureLeftButton(normalImage: AppImages.backGreen, selectedImage:  AppImages.backGreen, normalTitle: "", selectedTitle: "", normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
+        topNavView.configureFirstRightButton(normalImage: AppImages.green_2, selectedImage: AppImages.green_2, normalTitle: "", selectedTitle: "", normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
     }
     
     private func scrollTableViewToLast(withAnimation : Bool = true){

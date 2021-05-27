@@ -178,7 +178,7 @@ class AccountOutstandingLadgerVC: BaseVC {
         self.summeryLabel.text = LocalizedString.Summary.localized
         
         self.grossOutstandingLabel.text = LocalizedString.GrossOutstanding.localized
-        self.onAccountLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: LocalizedString.OnAccount.localized, image: #imageLiteral(resourceName: "ic_next_arrow_zeroSpacing"), endText: "", font: AppFonts.Regular.withSize(16.0))
+        self.onAccountLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: LocalizedString.OnAccount.localized, image: AppImages.ic_next_arrow_zeroSpacing, endText: "", font: AppFonts.Regular.withSize(16.0))
         self.netOutstandingLabel.text = LocalizedString.NetOutstanding.localized
         
         let drAttr = NSMutableAttributedString(string: " \(LocalizedString.DebitShort.localized)", attributes: [.font: AppFonts.Regular.withSize(16.0)])
@@ -232,7 +232,7 @@ class AccountOutstandingLadgerVC: BaseVC {
         if self.currentViewState == .normal {
             self.topNavView.configureNavBar(title: LocalizedString.OutstandingLedger.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: true, backgroundType: .color(color: AppColors.themeWhite))
             
-            self.topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "greenPopOverButton"), selectedImage: #imageLiteral(resourceName: "greenPopOverButton"), normalTitle: nil, selectedTitle: nil)
+            self.topNavView.configureFirstRightButton(normalImage: AppImages.greenPopOverButton, selectedImage: AppImages.greenPopOverButton, normalTitle: nil, selectedTitle: nil)
         }
         else {
             self.topNavView.configureNavBar(title: LocalizedString.SelectBooking.localized, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: true, backgroundType: .color(color: AppColors.themeWhite))

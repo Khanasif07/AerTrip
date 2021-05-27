@@ -58,7 +58,7 @@ class MyBookingsVC: BaseVC {
     
     override func initialSetup() {
         self.topNavBar.configureNavBar(title: LocalizedString.MyBookings.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
-        self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "bookingFilterIcon"), selectedImage: #imageLiteral(resourceName: "bookingFilterIconSelected"))
+        self.topNavBar.configureFirstRightButton(normalImage: AppImages.bookingFilterIcon, selectedImage: AppImages.bookingFilterIconSelected)
         self.topNavBar.firstRightBtnTrailingConst.constant = 3.0
         //        self.topNavBar.configureSecondRightButton(normalImage: #imageLiteral(resourceName: "swipeArrow"), selectedImage: #imageLiteral(resourceName: "swipeArrow"))
         self.topNavBar.firstRightButton.isHidden = true
@@ -80,17 +80,17 @@ class MyBookingsVC: BaseVC {
             case .myBookingFilterApplied:
                 if  MyBookingFilterVM.shared.isFilterAplied() {
                     self.topNavBar.firstRightButton.isSelected = true
-                    self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "bookingFilterIconSelected"), selectedImage: #imageLiteral(resourceName: "bookingFilterIconSelected"))
+                    self.topNavBar.configureFirstRightButton(normalImage: AppImages.bookingFilterIconSelected, selectedImage: AppImages.bookingFilterIconSelected)
                 } else {
                     self.topNavBar.firstRightButton.isSelected = false
-                    self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "bookingFilterIcon"), selectedImage: #imageLiteral(resourceName: "bookingFilterIcon"))
+                    self.topNavBar.configureFirstRightButton(normalImage: AppImages.bookingFilterIcon, selectedImage: AppImages.bookingFilterIcon)
                 }
                                 
                 FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsFilterApplied)
                     
             case .myBookingFilterCleared:
                 self.topNavBar.firstRightButton.isSelected = false
-                self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "bookingFilterIcon"), selectedImage: #imageLiteral(resourceName: "bookingFilterIcon"))
+                self.topNavBar.configureFirstRightButton(normalImage: AppImages.bookingFilterIcon, selectedImage: AppImages.bookingFilterIcon)
                 MyBookingFilterVM.shared.setToDefault()
                 
                 FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsFilterCleared)
@@ -149,7 +149,7 @@ class MyBookingsVC: BaseVC {
     }
     
     override func setupTexts() {
-        self.emptyStateImageView.image = #imageLiteral(resourceName: "booking_Emptystate")
+        self.emptyStateImageView.image = AppImages.booking_Emptystate
         self.emptyStateTitleLabel.text = LocalizedString.NoBookingsYet.localized
         self.emptyStateSubTitleLabel.text = LocalizedString.StartYourWanderlustJourneyWithUs.localized
     }

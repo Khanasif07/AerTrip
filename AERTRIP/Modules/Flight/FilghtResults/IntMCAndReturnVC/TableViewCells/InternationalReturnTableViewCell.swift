@@ -54,7 +54,7 @@ class InternationalReturnTableViewCell: UITableViewCell {
         self.layer.masksToBounds = false
         setupBaseView()
         //        dashedView.setupDashedView()
-        //        let img = #imageLiteral(resourceName: "Back")
+        //        let img = AppImages.Back
         //        let templetImage = img.withRenderingMode(.alwaysTemplate)
         //        arrowImage.image = templetImage
         //        arrowImage.tintColor = AppColors.themeGreen

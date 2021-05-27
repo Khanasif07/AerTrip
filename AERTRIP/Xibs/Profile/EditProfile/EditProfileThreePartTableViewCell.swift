@@ -67,9 +67,9 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
     var isSettingForEdit:Bool = false{
         didSet{
             if isSettingForEdit{
-                self.deleteButton.setImage(#imageLiteral(resourceName: "editPencel"), for: .normal)
+                self.deleteButton.setImage(AppImages.editPencel, for: .normal)
             }else{
-                self.deleteButton.setImage(#imageLiteral(resourceName: "redMinusButton"), for: .normal)
+                self.deleteButton.setImage(AppImages.redMinusButton, for: .normal)
             }
         }
     }

@@ -114,7 +114,7 @@ class HotelDetailsAmenitiesVC: BaseVC {
         if let confirmedImage = UIImage(named: imageName) {
             return confirmedImage
         } else {
-            return #imageLiteral(resourceName: "buildingImage")
+            return AppImages.buildingImage
         }
     }
     

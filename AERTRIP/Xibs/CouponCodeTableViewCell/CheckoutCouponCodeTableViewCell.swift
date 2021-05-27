@@ -59,7 +59,7 @@ class CheckoutCouponCodeTableViewCell: UITableViewCell {
         self.discountLabel.textColor = AppColors.themeOrange
         self.couponInfoTextView.textColor = AppColors.textFieldTextColor51
         //Images
-        self.checkMarkImageView.image = #imageLiteral(resourceName: "UncheckedGreenRadioButton")
+        self.checkMarkImageView.image = AppImages.UncheckedGreenRadioButton
         
         self.discountLabel.font = AppFonts.Regular.withSize(18.0)
         self.offerTermsButton.isHidden = true

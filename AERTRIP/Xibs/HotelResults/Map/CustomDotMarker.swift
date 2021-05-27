@@ -43,10 +43,10 @@ class CustomDotMarker: UIView {
     
     private func updateFav() {
         if isFavourite {
-            iconImageView.image = #imageLiteral(resourceName: "favHotelWithShadowMarker")
+            iconImageView.image = AppImages.favHotelWithShadowMarker
         }
         else {
-            iconImageView.image = #imageLiteral(resourceName: "clusterSmallTag")
+            iconImageView.image = AppImages.clusterSmallTag
         }
     }
 }

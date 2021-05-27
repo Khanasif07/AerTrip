@@ -116,8 +116,8 @@ extension IntMCAndReturnVC {
             switchView.tintColor = UIColor.TWO_ZERO_FOUR_COLOR
             switchView.offTintColor = UIColor.TWO_THREE_ZERO_COLOR
             switchView.onTintColor = AppColors.themeGreen
-            switchView.onThumbImage = #imageLiteral(resourceName: "pushpin")
-            switchView.offThumbImage = #imageLiteral(resourceName: "pushpin-gray")
+            switchView.onThumbImage = AppImages.pushpin
+            switchView.offThumbImage = AppImages.pushpin_gray
             switchView.setupUI()
             delay(seconds: 0.6) {
                 self.switchView.isOn = false

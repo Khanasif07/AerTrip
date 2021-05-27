@@ -36,7 +36,7 @@ class HCWhatNextCollectionViewCell: UICollectionViewCell {
         self.containerView.cornerradius = 13.0
         self.containerView.clipsToBounds = true
         //Image
-        self.flightImageView.image = #imageLiteral(resourceName: "flightIcon")
+        self.flightImageView.image = AppImages.twiterIcon
         //Font
         self.nextPlanLabel.font = AppFonts.SemiBold.withSize(22.0)
         //Text

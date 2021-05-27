@@ -31,7 +31,7 @@ class EventAdddedTripTableViewCell: UITableViewCell {
     //Mark:- Functions
     //================
     private func configUI() {
-        self.eventImageView.image = #imageLiteral(resourceName: "trips").withRenderingMode(.alwaysTemplate)
+        self.eventImageView.image = AppImages.trips.withRenderingMode(.alwaysTemplate)
         self.eventImageView.tintColor = AppColors.brightViolet
         //Font
         self.eventAddedLabel.font = AppFonts.Regular.withSize(14.0)

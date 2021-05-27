@@ -93,7 +93,7 @@ class HCCouponCodeVC: BaseVC {
 //        if self.viewModel.product != .flights{
 //            self.viewModel.getCouponsDetailsApi()
 //        }
-        self.emptyStateImageView.image = #imageLiteral(resourceName: "emptyStateCoupon")
+        self.emptyStateImageView.image = AppImages.emptyStateCoupon
         self.offerTermsView.roundTopCorners(cornerRadius: 10.0)
         self.offerTermsViewSetUp()
         self.registerNibs()
@@ -177,13 +177,13 @@ class HCCouponCodeVC: BaseVC {
     
     private func emptyStateSetUp() {
         if (self.viewModel.searchText.isEmpty){
-            self.emptyStateImageView.image = #imageLiteral(resourceName: "emptyStateCoupon")
+            self.emptyStateImageView.image = AppImages.emptyStateCoupon
             self.emptyStateImageView.contentMode = .scaleToFill
             self.noCouponsReqLabel.text = "No coupon required"
             self.bestPriceLabel.text = "You already have the best price."
         }else{
             self.emptyStateImageView.contentMode = .scaleAspectFit
-            self.emptyStateImageView.image = #imageLiteral(resourceName: "frequentFlyerEmpty")
+            self.emptyStateImageView.image = AppImages.frequentFlyerEmpty
             self.noCouponsReqLabel.text = "No Results"
             self.bestPriceLabel.text = "for \(self.viewModel.searchText)"
         }
@@ -312,13 +312,13 @@ extension HCCouponCodeVC: UITableViewDelegate, UITableViewDataSource {
         cell.delegate = self
         let model = self.viewModel.searcedCouponsData[indexPath.item]
         if !self.viewModel.couponCode.isEmpty, self.viewModel.couponCode.lowercased() == model.couponCode.lowercased()  {
-            cell.checkMarkImageView.image =  #imageLiteral(resourceName: "CheckedGreenRadioButton")
+            cell.checkMarkImageView.image =  AppImages.CheckedGreenRadioButton
             self.viewModel.couponCode = model.couponCode
             self.couponTextField.text = model.couponCode
            // self.couponValidationTextSetUp(isCouponValid: true)
             self.couponTextField.becomeFirstResponder()
         } else {
-            cell.checkMarkImageView.image = #imageLiteral(resourceName: "UncheckedGreenRadioButton")
+            cell.checkMarkImageView.image = AppImages.UncheckedGreenRadioButton
         }
         cell.configCell(currentCoupon: model)
         return cell

@@ -43,7 +43,7 @@ class HotelTagCollectionCell: UICollectionViewCell {
         self.tagOptionNameLabel.tintColor = AppColors.themeGreen
         //Font
         self.tagOptionNameLabel.font = AppFonts.SemiBold.withSize(16.0)
-        self.cancelButton.setImage(#imageLiteral(resourceName: "cross_icon").withRenderingMode(.alwaysTemplate), for: .normal)
+        self.cancelButton.setImage(AppImages.cross_icon.withRenderingMode(.alwaysTemplate), for: .normal)
         self.cancelButton.imageView?.contentMode = .scaleAspectFit
         self.cancelButton.imageEdgeInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
         self.cancelButton.contentEdgeInsets = UIEdgeInsets(top: 0.0, left: 6.0, bottom: 0.0, right: -2.0)

@@ -63,8 +63,8 @@ class AerinCustomPopoverVC: BaseVC {
     private var sendBtnState: SendButtonState = .record {
         didSet {
             switch sendBtnState {
-            case .record:   sendBtn.setImage(#imageLiteral(resourceName: "aerinSmallMic"), for: .normal)
-            case .send:     sendBtn.setImage(#imageLiteral(resourceName: "sendIcon"), for: .normal)
+            case .record:   sendBtn.setImage(AppImages.aerinSmallMic, for: .normal)
+            case .send:     sendBtn.setImage(AppImages.sendIcon, for: .normal)
             }
         }
     }

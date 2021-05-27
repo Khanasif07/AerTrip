@@ -36,7 +36,7 @@ class FlightsOptionsTableViewCell: UITableViewCell {
     
     weak var delegate: FlightsOptionsTableViewCellDelegate?
     
-    var optionImages = [#imageLiteral(resourceName: "bookingsWebCheckin"), #imageLiteral(resourceName: "bookingsCalendar"), #imageLiteral(resourceName: "bookingsDirections"), #imageLiteral(resourceName: "shareBooking"), #imageLiteral(resourceName: "bookingsCall"), #imageLiteral(resourceName: "bookSameFlight")]
+    var optionImages = [AppImages.bookingsWebCheckin, AppImages.bookingsCalendar, AppImages.bookingsDirections, AppImages.shareBooking, AppImages.bookingsCall, AppImages.bookSameFlight]
     
     var optionNames = [LocalizedString.WebCheckin.localized, LocalizedString.AddToCalender.localized, LocalizedString.Directions.localized, LocalizedString.Share.localized, LocalizedString.Call.localized, LocalizedString.BookSameFlight.localized]
         
@@ -108,15 +108,15 @@ extension FlightsOptionsTableViewCell: UICollectionViewDelegate, UICollectionVie
         if self.usingFor == .flight {
             cell.configureCell(optionImage: self.optionImages[indexPath.item], optionName: self.optionNames[indexPath.item], isLastCell: indexPath.row == 2)
             if indexPath.item == 0, self.webCheckinUrl.isEmpty {
-                cell.optionImageView.image = #imageLiteral(resourceName: "bookingsWebCheckinUnselected")
+                cell.optionImageView.image = AppImages.bookingsWebCheckinUnselected
                 cell.optionNameLabel.textColor = AppColors.themeGray40
             } else if indexPath.item == 2, self.additionalInformation?.directions.isEmpty ?? false {
-                cell.optionImageView.image = #imageLiteral(resourceName: "bookingsDirectionsUnselected")
+                cell.optionImageView.image = AppImages.bookingsDirectionsUnselected
                 cell.optionNameLabel.textColor = AppColors.themeGray40
                 
             } else if indexPath.item == 4, self.additionalInformation?.contactInfo == nil {
                 printDebug("inside contact cell")
-                cell.optionImageView.image = #imageLiteral(resourceName: "callGray")
+                cell.optionImageView.image = AppImages.callGray
                 cell.optionNameLabel.textColor = AppColors.themeGray40
             }
         } else {
@@ -132,11 +132,11 @@ extension FlightsOptionsTableViewCell: UICollectionViewDelegate, UICollectionVie
             }
             
             if indexPath.item == 0, self.additionalInformation?.directions.isEmpty ?? false {
-                cell.optionImageView.image = #imageLiteral(resourceName: "dircetionGray")
+                cell.optionImageView.image = AppImages.dircetionGray
                 cell.optionNameLabel.textColor = AppColors.themeGray40
             } else if indexPath.item == 1, self.additionalInformation?.contactInfo == nil {
                 printDebug("inside contact cell")
-                cell.optionImageView.image = #imageLiteral(resourceName: "callGray")
+                cell.optionImageView.image = AppImages.callGray
                 cell.optionNameLabel.textColor = AppColors.themeGray40
             }
 //            if self.optionNames.count == 2 {

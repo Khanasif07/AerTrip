@@ -276,10 +276,10 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
     private func configData() {
         
         func setupForAdd() {
-            infoImageView.image = (!self.isContinueButtonTapped) ? #imageLiteral(resourceName: "greenFilledAdd") : #imageLiteral(resourceName: "ic_info_incomplete")
+            infoImageView.image = (!self.isContinueButtonTapped) ? AppImages.greenFilledAdd : AppImages.ic_info_incomplete
             var finalText = ""
             if let type = self.contact?.passengerType {
-                iconImageView.image = (type == .Adult) ? #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult") : #imageLiteral(resourceName: "ic_deselected_hotel_guest_child")
+                iconImageView.image = (type == .Adult) ? AppImages.ic_deselected_hotel_guest_adult : AppImages.ic_deselected_hotel_guest_child
                 
                 finalText = "\((type == .Adult) ? LocalizedString.Adult.localized : LocalizedString.Child.localized) \(self.contact?.numberInRoom ?? 0)"
             }
@@ -296,10 +296,10 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
         
         self.iconImageView.cornerradius = self.iconImageView.height / 2.0
         if let fName = self.contact?.firstName, let lName = self.contact?.lastName, let saltn = self.contact?.salutation {
-            infoImageView.image = #imageLiteral(resourceName: "ic_info_incomplete")
+            infoImageView.image = AppImages.ic_info_incomplete
             infoImageView.isHidden = true
             
-            let placeHolder = self.contact?.flImage ?? #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult")
+            let placeHolder = self.contact?.flImage ?? AppImages.ic_deselected_hotel_guest_adult
             self.iconImageView.image = placeHolder
 
             if (fName.isEmpty && lName.isEmpty) {

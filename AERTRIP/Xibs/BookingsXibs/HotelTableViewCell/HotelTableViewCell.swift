@@ -31,7 +31,7 @@ class HotelTableViewCell: UITableViewCell {
     //Mark:- Functions
     //================
     private func configUI() {
-        self.bookingTypeImgView.image = #imageLiteral(resourceName: "hotel_green_icon")
+        self.bookingTypeImgView.image = AppImages.hotel_green_icon
         self.plcaeNameLabel.textColor = AppColors.themeBlack
         self.travellersNameLabel.textColor = AppColors.themeGray40
         self.plcaeNameLabel.font = AppFonts.Regular.withSize(18.0)

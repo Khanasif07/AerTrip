@@ -405,7 +405,7 @@ class HotelsSearchVC: BaseVC {
         //reset all the buttons first
         //        for starBtn in self.starButtonsOutlet {
         //            starBtn.isSelected = false
-        //            starBtn.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
+        //            starBtn.setImage(AppImages.starRatingUnfill, for: .normal)
         //        }
         //        for star in oldData.ratingCount {
         //            self.updateStarButtonState(forStar: star, isSettingFirstTime: isSettingForFirstTime)
@@ -463,16 +463,16 @@ class HotelsSearchVC: BaseVC {
             //
             //                if starBtn.tag == forStar {
             //                    starBtn.isSelected = isSettingFirstTime ? true : !starBtn.isSelected
-            //                    let img = starBtn.isSelected ? #imageLiteral(resourceName: "starRatingFilled") : #imageLiteral(resourceName: "starRatingUnfill")
+            //                    let img = starBtn.isSelected ? AppImages.starRatingFilled : AppImages.starRatingUnfill
             //                    starBtn.setImage(img, for: starBtn.isSelected ? .selected : .normal)
             //                }
             //                else if self.viewModel.searchedFormData.ratingCount.contains(starBtn.tag) {
             //                    starBtn.isSelected = true
-            //                    starBtn.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .selected)
+            //                    starBtn.setImage(AppImages.starRatingFilled, for: .selected)
             //                }
             //                else {
             //                    starBtn.isSelected = false
-            //                    starBtn.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
+            //                    starBtn.setImage(AppImages.starRatingUnfill, for: .normal)
             //                }
             //            }
         }
