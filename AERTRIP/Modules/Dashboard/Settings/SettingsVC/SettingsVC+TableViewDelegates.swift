@@ -118,7 +118,7 @@ extension SettingsVC : UITableViewDelegate, UITableViewDataSource {
             }
             
         case .appearance:
-            printDebug("Appearance")
+            moveToAppearanceVC()
             
         default:
                 break
@@ -191,6 +191,11 @@ extension SettingsVC {
         let vc = ChangeEmailVC.instantiate(fromAppStoryboard: .OTPAndVarification)
         vc.modalPresentationStyle = .overFullScreen
         self.present(vc, animated: false, completion: nil)
+    }
+    
+    func moveToAppearanceVC() {
+        let appearanceVC = AppearanceVC.instantiate(fromAppStoryboard: .Settings)
+        pushToController(appearanceVC)
     }
 
 }

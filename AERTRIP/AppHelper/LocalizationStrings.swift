@@ -195,6 +195,10 @@ enum LocalizedString: String {
     case ViewAccounts
     case Support
     case RateUs
+    case Appearance
+    case lightMode
+    case darkMode
+    case system
 
     // MARK: - CreateProfileVCDelegate
     

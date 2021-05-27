@@ -1377,6 +1377,9 @@
 		84791EE32281BB8000472E54 /* AccountLadgerDetailHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84791EE12281BB7F00472E54 /* AccountLadgerDetailHeader.xib */; };
 		84795B37241B7254004CCA36 /* UISegmentedControlExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84795B36241B7254004CCA36 /* UISegmentedControlExtension.swift */; };
 		847A3CC525306380004C7382 /* SpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847A3CC425306380004C7382 /* SpeechRecognizer.swift */; };
+		847AD599265FBA220036437F /* AppearanceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847AD598265FBA220036437F /* AppearanceVC.swift */; };
+		847AD59B265FBA5B0036437F /* AppearanceVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847AD59A265FBA5B0036437F /* AppearanceVM.swift */; };
+		847AD59D265FBB220036437F /* AppearanceVC+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847AD59C265FBB220036437F /* AppearanceVC+TableView.swift */; };
 		847C2240247BCBEE004F32D6 /* SeatMapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847C2238247BCBED004F32D6 /* SeatMapVC.swift */; };
 		847C2241247BCBEE004F32D6 /* SeatMapVC+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847C2239247BCBED004F32D6 /* SeatMapVC+CollectionView.swift */; };
 		847C2242247BCBEE004F32D6 /* SeatMapVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847C223A247BCBED004F32D6 /* SeatMapVM.swift */; };
@@ -3219,6 +3222,9 @@
 		84791EE12281BB7F00472E54 /* AccountLadgerDetailHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountLadgerDetailHeader.xib; sourceTree = "<group>"; };
 		84795B36241B7254004CCA36 /* UISegmentedControlExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISegmentedControlExtension.swift; sourceTree = "<group>"; };
 		847A3CC425306380004C7382 /* SpeechRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechRecognizer.swift; sourceTree = "<group>"; };
+		847AD598265FBA220036437F /* AppearanceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceVC.swift; sourceTree = "<group>"; };
+		847AD59A265FBA5B0036437F /* AppearanceVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceVM.swift; sourceTree = "<group>"; };
+		847AD59C265FBB220036437F /* AppearanceVC+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppearanceVC+TableView.swift"; sourceTree = "<group>"; };
 		847C2238247BCBED004F32D6 /* SeatMapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatMapVC.swift; sourceTree = "<group>"; };
 		847C2239247BCBED004F32D6 /* SeatMapVC+CollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SeatMapVC+CollectionView.swift"; sourceTree = "<group>"; };
 		847C223A247BCBED004F32D6 /* SeatMapVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatMapVM.swift; sourceTree = "<group>"; };
@@ -3667,6 +3673,7 @@
 		0C24D4D9242C74F600CBFF92 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				847AD597265FBA080036437F /* AppearanceVC */,
 				0C0506C92435B85700BC4703 /* WebViewVC */,
 				0C24D4F6242CE90E00CBFF92 /* NotificationSettings */,
 				0C24D4E2242C750F00CBFF92 /* Country */,
@@ -8262,6 +8269,16 @@
 			path = AccountModule;
 			sourceTree = "<group>";
 		};
+		847AD597265FBA080036437F /* AppearanceVC */ = {
+			isa = PBXGroup;
+			children = (
+				847AD598265FBA220036437F /* AppearanceVC.swift */,
+				847AD59A265FBA5B0036437F /* AppearanceVM.swift */,
+				847AD59C265FBB220036437F /* AppearanceVC+TableView.swift */,
+			);
+			path = AppearanceVC;
+			sourceTree = "<group>";
+		};
 		847C2236247BCBED004F32D6 /* SeatMapContainerVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -10629,6 +10646,7 @@
 				8460C0C621F34D56007768CC /* ATCollectionView.swift in Sources */,
 				849EC9E6223A56F300B217D4 /* ItineraryData.swift in Sources */,
 				0CAC8C8222E1E0620039D612 /* UIImageExtension.swift in Sources */,
+				847AD59D265FBB220036437F /* AppearanceVC+TableView.swift in Sources */,
 				84DD24642265AFBA0013F77E /* FlightTableViewCell.swift in Sources */,
 				843FF4C524740231001F21B1 /* Passenger.swift in Sources */,
 				842EDE7F2238E7D600E99409 /* HotelDetailsVM.swift in Sources */,
@@ -11055,6 +11073,7 @@
 				842EDE7B2238E7D600E99409 /* HotelDetailsReviewsModel.swift in Sources */,
 				1893299E22561C410095F1AD /* HCDataSelectionVC+DelegateMethods.swift in Sources */,
 				840DDE8C220D764800F8BA92 /* HotelDetailsImgSlideCell.swift in Sources */,
+				847AD599265FBA220036437F /* AppearanceVC.swift in Sources */,
 				84BF46BE2211E5EF000AA6E3 /* AmenitiesDetailsCollectionCell.swift in Sources */,
 				0C162ACC24233AC5001C2B10 /* ChatVC+TableView.swift in Sources */,
 				843FF64D247409E3001F21B1 /* GuestHeaderCollectionReusableView.m in Sources */,
@@ -11101,6 +11120,7 @@
 				1879C49F2293CA7500897CED /* BookingDirectionVC.swift in Sources */,
 				8480703A22295A1B0061C642 /* HotelGroupCardCollectionViewCell.swift in Sources */,
 				84020F1C21B5486800248A6F /* SwiftyJSON.swift in Sources */,
+				847AD59B265FBA5B0036437F /* AppearanceVM.swift in Sources */,
 				843FF694247409E4001F21B1 /* Singleton.m in Sources */,
 				842EDE7D2238E7D600E99409 /* HotelDetailsOverviewVC.swift in Sources */,
 				84F4DB8F226DCC0500B68171 /* ADEventFilterVC.swift in Sources */,
