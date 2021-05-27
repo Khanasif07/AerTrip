@@ -22,21 +22,24 @@ class SettingsVM {
         case aboutUs = "About Us"
         case legal = "Legal"
         case privacyPolicy = "Privacy Policy"
+        case appearance = "Appearance"
     }
     
     var settingsDataToPopulate: [Int:[SettingsOptions]] {
         if UserInfo.loggedInUser != nil {
             return [
-                0 : [SettingsOptions.country, SettingsOptions.currency, SettingsOptions.notification],
-                1 : [SettingsOptions.calenderSync],
-                2 : [SettingsOptions.changeAertripId,SettingsOptions.changeMobileNumber,SettingsOptions.changePassword, SettingsOptions.disableWalletOtp],
-                3 : [SettingsOptions.aboutUs, SettingsOptions.legal, SettingsOptions.privacyPolicy]
+                0 : [SettingsOptions.appearance],
+                1 : [SettingsOptions.country, SettingsOptions.currency, SettingsOptions.notification],
+                2 : [SettingsOptions.calenderSync],
+                3 : [SettingsOptions.changeAertripId,SettingsOptions.changeMobileNumber,SettingsOptions.changePassword, SettingsOptions.disableWalletOtp],
+                4 : [SettingsOptions.aboutUs, SettingsOptions.legal, SettingsOptions.privacyPolicy]
             ]
         } else {
             return [
-                0 : [SettingsOptions.country, SettingsOptions.currency, SettingsOptions.notification],
-                1 : [SettingsOptions.calenderSync],
-                2 : [SettingsOptions.aboutUs, SettingsOptions.legal, SettingsOptions.privacyPolicy]
+                0 : [SettingsOptions.appearance],
+                1 : [SettingsOptions.country, SettingsOptions.currency, SettingsOptions.notification],
+                2 : [SettingsOptions.calenderSync],
+                3 : [SettingsOptions.aboutUs, SettingsOptions.legal, SettingsOptions.privacyPolicy]
             ]
         }
     }
@@ -53,13 +56,16 @@ class SettingsVM {
     }
     
     func isSepratorHidden(section : Int, row : Int) -> Bool {
-        if section == 0 && row == 2{
+        let curSecRowCount = settingsDataToPopulate[section]?.count ?? 0
+        if section == 0 {
             return true
-        }else if section == 1 {
+        } else if section == 1 && row == curSecRowCount - 1 {
             return true
-        }else if section == 2 && row == 3 {
+        }else if section == 2 {
             return true
-        }else if section == 3 && row == 2 {
+        }else if section == 3 && row == curSecRowCount - 1 {
+            return true
+        }else if section == 4 && row == curSecRowCount - 1 {
             return true
         }else{
             return false
@@ -113,6 +119,8 @@ extension SettingsVM{
             FirebaseEventLogs.shared.logSettingEvents(with: .OpenLegal)
         case .privacyPolicy:
             FirebaseEventLogs.shared.logSettingEvents(with: .openPrivacy)
+        case .appearance:
+            FirebaseEventLogs.shared.logSettingEvents(with: .openAppearance)
         }
     }
     

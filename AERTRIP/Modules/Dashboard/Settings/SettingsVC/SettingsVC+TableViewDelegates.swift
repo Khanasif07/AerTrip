@@ -117,6 +117,8 @@ extension SettingsVC : UITableViewDelegate, UITableViewDataSource {
                 AppFlowManager.default.showURLOnATWebView(pageUrl, screenTitle:  self.settingsVm.getSettingsType(key: indexPath.section, index: indexPath.row).rawValue, presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
             }
             
+        case .appearance:
+            printDebug("Appearance")
             
         default:
                 break
