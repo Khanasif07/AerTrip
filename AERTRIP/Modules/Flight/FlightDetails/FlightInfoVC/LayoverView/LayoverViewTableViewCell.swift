@@ -14,7 +14,7 @@ class LayoverViewTableViewCell: UITableViewCell
     @IBOutlet weak var overNightLayoverImg: UIImageView!
     @IBOutlet weak var layoverLabel: UILabel!
     
-    var displayImgName = ""
+    var displayImgName:UIImage? = nil
     var isArrivalAirportChange = false
     var isArrivalTerminalChange = false
     var displayText = ""
@@ -37,20 +37,20 @@ class LayoverViewTableViewCell: UITableViewCell
     {
         if layoverCityName == "" || layoverCityName == " "{
             displayText = "Layover  • "
-            displayImgName = ""
+            displayImgName = nil
         }else{
             if isArrivalAirportChange == true{
                 displayText = "Change Airport in \(layoverCityName)  • "
-                displayImgName = "redchangeAirport"
+                displayImgName = AppImages.redchangeAirport
             }else if isArrivalTerminalChange == true{
                 displayText = "Change Terminal in \(layoverCityName)  • "
-                displayImgName = "changeOfTerminal"
+                displayImgName = AppImages.changeOfTerminal
             }else if ovgtlo == 1{
                 displayText = "Overnight layover in \(layoverCityName)  • "
-                displayImgName = "overnight"
+                displayImgName = AppImages.overnight
             }else {
                 displayText = "Layover in \(layoverCityName)  • "
-                displayImgName = ""
+                displayImgName = nil
             }
         }
         
@@ -58,8 +58,8 @@ class LayoverViewTableViewCell: UITableViewCell
         let completeText = NSMutableAttributedString(string: "")
         
         let imageAttachment =  NSTextAttachment()
-        if displayImgName != ""{
-            imageAttachment.image = UIImage(named:displayImgName)
+        if displayImgName != nil{
+            imageAttachment.image = displayImgName
             let imageOffsetY:CGFloat = -4.0;
             imageAttachment.bounds = CGRect(x: 0, y: imageOffsetY, width: 16, height: 16)
             let attachmentString = NSAttributedString(attachment: imageAttachment)

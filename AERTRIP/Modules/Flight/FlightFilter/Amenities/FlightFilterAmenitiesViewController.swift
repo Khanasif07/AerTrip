@@ -237,8 +237,8 @@ extension FlightFilterAmenitiesViewController : UITableViewDataSource , UITableV
         if (section != 0 ) {
             let button = UIButton(frame: CGRect(x: x, y: 0, width: 44, height: 44))
  
-            button.setImage(UIImage(named:"UncheckedGreenRadioButton"), for: .normal)
-            button.setImage(UIImage(named:"CheckedGreenRadioButton"), for: .selected)
+            button.setImage(AppImages.UncheckedGreenRadioButton, for: .normal)
+            button.setImage(AppImages.CheckedGreenRadioButton, for: .selected)
             button.tag = section
             button.isSelected = amenityCollectionArray[section].isSelected
             button.addTarget(self, action: #selector(amenityHeaderTapped(_:)),  for: .touchDown)

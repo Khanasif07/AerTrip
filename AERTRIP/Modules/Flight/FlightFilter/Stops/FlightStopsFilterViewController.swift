@@ -544,10 +544,10 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     private func resetAvoidChangeOfAirportsBtn() {
         avoidChangeOfAirportsBtn.isSelected = viewModel.currentStopFilter?.qualityFilter.isSelected ?? false
         if viewModel.currentStopFilter?.qualityFilter.isSelected ?? false {
-            avoidChangeOfAirportsImgView.image = UIImage(named: "CheckedGreenRadioButton")
+            avoidChangeOfAirportsImgView.image = AppImages.CheckedGreenRadioButton
         }
         else {
-            avoidChangeOfAirportsImgView.image = UIImage(named: "UncheckedGreenRadioButton")
+            avoidChangeOfAirportsImgView.image = AppImages.UncheckedGreenRadioButton
         }
     }
     

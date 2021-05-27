@@ -507,7 +507,7 @@ class AerinCustomPopoverVC: BaseVC {
         messageTextView.font = AppFonts.Regular.withSize(18)
         messageTextView.delegate = self
         messageTextView.autocorrectionType = .no
-        animationBubbleImageView.image = UIImage(named: "Green Chat bubble")?.resizableImage(withCapInsets: UIEdgeInsets(top: 17, left: 21, bottom: 17, right: 21), resizingMode: .stretch).withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+        animationBubbleImageView.image = AppImages.Green_Chat_bubble.resizableImage(withCapInsets: UIEdgeInsets(top: 17, left: 21, bottom: 17, right: 21), resizingMode: .stretch).withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
         view.addSubview(animationView)
         hideAnimationView()
         chatTableView.isHidden = true

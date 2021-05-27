@@ -132,7 +132,7 @@ extension FlightDomesticMultiLegResultVC : MFMailComposeViewControllerDelegate {
     
     func returnEmailView(view: String) {
           DispatchQueue.main.async {
-            self.emailPinnedFlights.setImage(UIImage(named: "EmailPinned"), for: .normal)
+            self.emailPinnedFlights.setImage(AppImages.EmailPinned, for: .normal)
             self.emailPinnedFlights.displayLoadingIndicator(false)
 
 //          self.showEmailViewController(body : view)

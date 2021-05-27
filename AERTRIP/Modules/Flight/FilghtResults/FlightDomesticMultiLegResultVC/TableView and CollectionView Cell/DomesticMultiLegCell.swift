@@ -342,7 +342,7 @@ extension DomesticMultiLegCell : UICollectionViewDataSource , UICollectionViewDe
         let cell = smartIconCollectionView.dequeueReusableCell(withReuseIdentifier: "SmartIconCell", for: indexPath) as! SmartIconCell
         
         if indexPath.section == 0 {
-            cell.imageView.image = UIImage(named: "checkingBaggageKg")
+            cell.imageView.image = AppImages.checkingBaggageKg
             cell.superScript.attributedText = baggageSuperScript
             cell.superScriptWidth.constant = 14
             cell.imageViewLeading.constant = 0

@@ -834,8 +834,8 @@ enum ATWeatherType: RawRepresentable {
 }
 
 
-struct AppImages{
-    
+@objc class AppImages  : NSObject{
+
     static var ic_toast_cross:UIImage { #imageLiteral(resourceName: "ic_toast_cross") }
     static var black_cross:UIImage { #imageLiteral(resourceName: "black_cross") }
     static var CancelButtonWhite: UIImage { #imageLiteral(resourceName: "CancelButtonWhite") }
@@ -1002,6 +1002,8 @@ struct AppImages{
     static var woman: UIImage { #imageLiteral(resourceName: "woman") }
     static var man: UIImage { #imageLiteral(resourceName: "man") }
     static var girl: UIImage { #imageLiteral(resourceName: "girl") }
+    static var infant: UIImage { #imageLiteral(resourceName: "infant") }
+    static var boy: UIImage { #imageLiteral(resourceName: "boy") }
     static var person: UIImage { #imageLiteral(resourceName: "person") }
     
     static var ic_acc_receipt: UIImage { #imageLiteral(resourceName: "ic_acc_receipt") }
@@ -1029,7 +1031,7 @@ struct AppImages{
     static var favHotelWithShadowMarker: UIImage { #imageLiteral(resourceName: "favHotelWithShadowMarker") }
     static var clusterSmallTag: UIImage { #imageLiteral(resourceName: "clusterSmallTag") }
     static var share_file_icon: UIImage { #imageLiteral(resourceName: "share_file_icon") }
-   static var send_icon: UIImage { #imageLiteral(resourceName: "send_icon") }
+    static var send_icon: UIImage { #imageLiteral(resourceName: "send_icon") }
     static var cross_icon: UIImage { #imageLiteral(resourceName: "cross_icon") }
     static var downArrow: UIImage { #imageLiteral(resourceName: "downArrow") }
     static var HotelDetailsEmptyState: UIImage { #imageLiteral(resourceName: "HotelDetailsEmptyState") }
@@ -1068,10 +1070,65 @@ struct AppImages{
     static var dircetionGray: UIImage { #imageLiteral(resourceName: "dircetionGray") }
     static var rightArrow: UIImage { #imageLiteral(resourceName: "rightArrow") }
     static var switch_fav_on: UIImage { #imageLiteral(resourceName: "switch_fav_on") }
+    
+    
+    @objc static var greyColorTrack: UIImage { #imageLiteral(resourceName: "greyColorTrack") }
+    @objc static var sliderHandle: UIImage { #imageLiteral(resourceName: "sliderHandle") }
+    @objc static var greenBlueRangeImage: UIImage { #imageLiteral(resourceName: "greenBlueRangeImage") }
+    
+    
+    static var arrow: UIImage{ #imageLiteral(resourceName: "arrow") }
+    static var radioButtonSelect: UIImage { #imageLiteral(resourceName: "radioButtonSelect") }
+    static var radioButtonUnselect: UIImage { #imageLiteral(resourceName: "radioButtonUnselect") }
+    @objc static var oneway: UIImage {#imageLiteral(resourceName: "oneway")}
+    @objc static var returnIcon: UIImage { #imageLiteral(resourceName: "return") }
+    static var onewayWhite: UIImage {#imageLiteral(resourceName: "onewayWhite")}
+    static var onewayAertripColor: UIImage {#imageLiteral(resourceName: "onewayAertripColor")}
+    @objc static var greenTick: UIImage { #imageLiteral(resourceName: "greenTick") }
+    static var MultiAirlineItinery: UIImage { #imageLiteral(resourceName: "MultiAirlineItinery") }
+    static var Green_Copy: UIImage { #imageLiteral(resourceName: "Green_Copy") }
+    static var blackCheckmark: UIImage { #imageLiteral(resourceName: "blackCheckmark") }
+    static var downGray: UIImage { #imageLiteral(resourceName: "downGray") }
+    static var upGray: UIImage { #imageLiteral(resourceName: "upGray") }
+    static var green: UIImage { #imageLiteral(resourceName: "green") }
+    static var InfoButton: UIImage { #imageLiteral(resourceName: "InfoButton") }
+    static var OvHotelResult: UIImage { #imageLiteral(resourceName: "OvHotelResult") }
+    static var EmailPinned: UIImage { #imageLiteral(resourceName: "EmailPinned") }
+    static var SharePinned: UIImage { #imageLiteral(resourceName: "SharePinned") }
+    static var checkingBaggageKg: UIImage { #imageLiteral(resourceName: "checkingBaggageKg") }
+    static var UpArrow: UIImage { #imageLiteral(resourceName: "UpArrow") }
+    static var DownArrow: UIImage { #imageLiteral(resourceName: "DownArrow") }
+    static var pinGreen: UIImage { #imageLiteral(resourceName: "pinGreen") }
+    static var FilledpinGreen: UIImage { #imageLiteral(resourceName: "FilledpinGreen") }
+    static var ShareGreen: UIImage { #imageLiteral(resourceName: "ShareGreen") }
+    static var redchangeAirport: UIImage { #imageLiteral(resourceName: "redchangeAirport") }
+    static var changeOfTerminal: UIImage { #imageLiteral(resourceName: "changeOfTerminal") }
+    static var overnight: UIImage { #imageLiteral(resourceName: "overnight") }
+    static var cabinBaggage: UIImage { #imageLiteral(resourceName: "cabinBaggage") }
+    static var group4: UIImage { #imageLiteral(resourceName: "group4") }
+    static var Group_4_1: UIImage { #imageLiteral(resourceName: "Group_4_1") }
+    static var Green_Chat_bubble: UIImage { #imageLiteral(resourceName: "Green Chat bubble") }
+    static var BlurCross: UIImage { #imageLiteral(resourceName: "BlurCross") }
+    static var statusBarColor: UIImage { #imageLiteral(resourceName: "statusBarColor") }
+    static var group: UIImage { #imageLiteral(resourceName: "group") }
+    static var aerinBlackIcon: UIImage { #imageLiteral(resourceName: "aerinBlackIcon") }
+    static var White_Chat_bubble: UIImage { #imageLiteral(resourceName: "White Chat bubble") }
+    static var darkNights: UIImage { #imageLiteral(resourceName: "darkNights") }
+    static var icon: UIImage { #imageLiteral(resourceName: "icon") }
+    
+    
+    //    static var down: UIImage { #imageLiteral(resourceName: "DownArrow") }//icon
+    
+
+// UIImage(named:
+
 
     
     
+//    #imageLiteral(resourceName: "green")
     
+//    #imageLiteral(resourceName: "down")//Duplicate Image assets
+//    #imageLiteral(resourceName: "up")//Duplicate Image assets
 //    #imageLiteral(resourceName: "popOverMenuIcon")//Duplicate Image assets
 //    #imageLiteral(resourceName: "plusButton")
     

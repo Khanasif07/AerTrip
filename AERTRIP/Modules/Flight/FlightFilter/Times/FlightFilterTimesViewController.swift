@@ -591,10 +591,10 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     private func resetAvoidOvernightBtn() {
         avoidOvernightBtn.isSelected = viewModel.currentTimerFilter.qualityFilter.isSelected
         if viewModel.currentTimerFilter.qualityFilter.isSelected {
-            avoidOvernightImgView.image = UIImage(named: "CheckedGreenRadioButton")
+            avoidOvernightImgView.image = AppImages.CheckedGreenRadioButton
         }
         else {
-            avoidOvernightImgView.image = UIImage(named: "UncheckedGreenRadioButton")
+            avoidOvernightImgView.image = AppImages.UncheckedGreenRadioButton
         }
     }
     

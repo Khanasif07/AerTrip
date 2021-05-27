@@ -937,7 +937,7 @@ extension AppGlobals {
 
 extension AppGlobals {
     func getEmojiIcon(dob: String,salutation: String,dateFormatter: String) -> UIImage {
-        var emoji = UIImage(named: "person")
+        var emoji:UIImage? = AppImages.person
         var age = -1
         var day = -1
         var year = false
@@ -952,82 +952,82 @@ extension AppGlobals {
         switch (salutation) {
         case "Mr","Mr.", "Mast","Mast.":
             if (age == -1) {
-                emoji = UIImage(named: "man")
+                emoji = AppImages.man
             } else {
                 if (year) {
                     if (age > 12) {
-                        emoji = UIImage(named: "man")
+                        emoji = AppImages.man
                     } else if (age > 2) {
-                        emoji = UIImage(named: "boy")
+                        emoji = AppImages.boy
                     }else {
-                        emoji = UIImage(named: "infant")
+                        emoji = AppImages.infant
                     }
                 } else {
                     if (day > 0) {
-                        emoji = UIImage(named: "infant")
+                        emoji = AppImages.infant
                     } else {
-                        emoji = UIImage(named: "man")
+                        emoji = AppImages.man
                     }
                     
                 }
             }
         case "Mrs","Mrs.","Ms","Ms.","Miss","Miss.":
             if (age == -1) {
-                emoji = UIImage(named: "woman")
+                emoji = AppImages.woman
             } else {
                 if (year) {
                     if (age > 12) {
-                        emoji = UIImage(named: "woman")
+                        emoji = AppImages.woman
                     } else if (age > 2) {
-                        emoji = UIImage(named: "girl")
+                        emoji = AppImages.girl
                     }else {
-                        emoji = UIImage(named: "infant")
+                        emoji = AppImages.infant
                     }
                 } else {
                     if (day > 0) {
-                        emoji = UIImage(named: "infant")
+                        emoji = AppImages.infant
                     } else {
-                        emoji = UIImage(named: "woman")
+                        emoji = AppImages.woman
                     }
                 }
             }
         default:
-            emoji = UIImage(named: "person")
+            emoji = AppImages.person
         }
         return emoji ?? UIImage()
     }
     
     func getEmojiIconFromAge(ageString: String,salutation: String) -> UIImage {
-        var emoji = UIImage(named: "person")
+        var emoji:UIImage? = AppImages.person
         
         let age = Int(ageString) ?? 0
         switch (salutation) {
         case "Mr","Mr.", "Mast","Mast.":
             if (age <= 0) {
-                emoji = UIImage(named: "man")
+                emoji = AppImages.man
             } else {
                 if (age > 12) {
-                    emoji = UIImage(named: "man")
+                    emoji = AppImages.man
                 } else if (age > 2) {
-                    emoji = UIImage(named: "boy")
+                    emoji = AppImages.boy
                 }else {
-                    emoji = UIImage(named: "infant")
+                    emoji = AppImages.infant
                 }
             }
         case "Mrs","Mrs.","Ms","Ms.","Miss","Miss.":
             if (age <= 0) {
-                emoji = UIImage(named: "woman")
+                emoji = AppImages.woman
             } else {
                 if (age > 12) {
-                    emoji = UIImage(named: "woman")
+                    emoji = AppImages.woman
                 } else if (age > 2) {
-                    emoji = UIImage(named: "girl")
+                    emoji = AppImages.girl
                 }else {
-                    emoji = UIImage(named: "infant")
+                    emoji = AppImages.infant
                 }
             }
         default:
-            emoji = UIImage(named: "person")
+            emoji = AppImages.person
         }
         return emoji ?? UIImage()
     }

@@ -637,7 +637,7 @@ class IntFareBreakupVC: BaseVC {
             }
         }
         
-        self.bookingInfoArrowImg.image = UIImage(named: "down.png")
+        self.bookingInfoArrowImg.image = AppImages.downGray
         if self.isBackgroundVisible == false{
             self.view.backgroundColor = .clear
             self.isBackgroundVisible = true
@@ -689,7 +689,7 @@ class IntFareBreakupVC: BaseVC {
         }else{
             self.isFareBreakupExpanded = false
             displayCollapseView()
-            self.bookingInfoArrowImg.image = UIImage(named: "up.png")
+            self.bookingInfoArrowImg.image = AppImages.upGray
             self.delegate?.infoButtonTapped(isViewExpanded: false)
             
         }

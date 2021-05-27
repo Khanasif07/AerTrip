@@ -155,10 +155,10 @@ extension FlightSortFilterViewController : UITableViewDataSource , UITableViewDe
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         indicator.stopAnimating()
-                        cell.accessoryView = UIImageView(image: UIImage(named: "greenTick"))
+                        cell.accessoryView = UIImageView(image: AppImages.greenTick)
                     }
                 }else{
-                    cell.accessoryView = UIImageView(image: UIImage(named: "greenTick"))
+                    cell.accessoryView = UIImageView(image: AppImages.greenTick)
                 }
             }
         }

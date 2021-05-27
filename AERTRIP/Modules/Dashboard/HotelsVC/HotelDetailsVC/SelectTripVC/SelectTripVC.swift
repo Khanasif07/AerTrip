@@ -246,7 +246,7 @@ extension SelectTripVC: UITableViewDataSource, UITableViewDelegate {
         cell?.accessoryView = nil
         
         if let idxPath = viewModel.selectedIndexPath, idxPath.row == indexPath.row {
-            let checkMarckImageView = UIImageView(image: UIImage(named: "checkIcon"))
+            let checkMarckImageView = UIImageView(image: AppImages.checkIcon)
             checkMarckImageView.contentMode = .center
             cell?.accessoryView = checkMarckImageView
         }

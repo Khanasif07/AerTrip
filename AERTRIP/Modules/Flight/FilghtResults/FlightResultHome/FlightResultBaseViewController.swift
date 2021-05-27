@@ -155,7 +155,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         backView.backgroundColor = .clear
         
         backButton = UIButton(type: .custom)
-        let buttonImage = UIImage(named: "green")
+        let buttonImage = AppImages.green
         backButton.setImage(buttonImage, for: .normal)
         backButton.setImage(buttonImage, for: .selected)
         backButton.frame = CGRect(x: 6, y: statusBarHeight, width: 44, height: 44)
@@ -828,7 +828,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         }
         
         infoButton = UIButton(type: .custom)
-        infoButton.setImage(UIImage(named: "InfoButton"), for: .normal)
+        infoButton.setImage(AppImages.InfoButton, for: .normal)
         
         let x = UIScreen.main.bounds.width - 40
         infoButton.frame = CGRect(x: x, y: statusBarHeight +  7, width: 30, height: 30)
@@ -848,10 +848,8 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
     
     func createFilterButton() {
         filterButton = UIButton(type: .custom)
-        guard let normalImage = UIImage(named: "ic_hotel_filter") else { assertionFailure("filter clear imaage missing")
-            return }
-        guard let selectedImage = UIImage(named:"ic_hotel_filter_applied") else { assertionFailure("filter selected image missing")
-            return }
+        let normalImage = AppImages.ic_hotel_filter
+        let selectedImage = AppImages.ic_hotel_filter_applied
         filterButton.setImage(normalImage, for: .normal)
         filterButton.setImage(selectedImage, for: .selected)
         filterButton.addTarget(self, action: #selector(filterButtonTapped), for: .touchDown)

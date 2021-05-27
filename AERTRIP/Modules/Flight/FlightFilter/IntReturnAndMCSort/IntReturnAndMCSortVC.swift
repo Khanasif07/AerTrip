@@ -96,7 +96,7 @@ extension IntReturnAndMCSortVC : UITableViewDataSource , UITableViewDelegate {
         cell.accessoryView = nil
         
         if viewModel.curSelectedIndex == indexPath.row {
-            cell.accessoryView = UIImageView(image: UIImage(named: "greenTick"))
+            cell.accessoryView = UIImageView(image: AppImages.greenTick)
         }
         
         return cell

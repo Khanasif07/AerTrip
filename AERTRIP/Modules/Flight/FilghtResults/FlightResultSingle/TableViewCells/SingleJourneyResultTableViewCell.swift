@@ -280,7 +280,7 @@ extension SingleJourneyResultTableViewCell : UICollectionViewDataSource , UIColl
         let cell = smartIconCollectionView.dequeueReusableCell(withReuseIdentifier: "SmartIconCell", for: indexPath) as! SmartIconCell
         
         if indexPath.section == 0 {
-            cell.imageView.image = UIImage(named: "checkingBaggageKg")
+            cell.imageView.image = AppImages.checkingBaggageKg
             cell.superScript.attributedText = baggageSuperScript
 //                    printDebug("baggageSuperScript...\(baggageSuperScript?.string)")
 //            cell.superScript.backgroundColor = UIColor.yellow

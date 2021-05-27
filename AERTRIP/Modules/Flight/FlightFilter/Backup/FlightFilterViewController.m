@@ -394,7 +394,7 @@
             cell.subLabel.text = [sortDict objectForKey:@"value"];;
             
             if ([[sortDict objectForKey:@"title"] isEqualToString:[self.flightFilter.sortSelected objectForKey:@"title"]]) {
-                [cell.coreImageView setImage:[UIImage imageNamed:@"greenTick"]];
+                [cell.coreImageView setImage:AppImages.greenTick];
             }else {
                 [cell.coreImageView setImage:nil];
             }
@@ -412,7 +412,7 @@
             cell.titleLabel.text = name;
 
             if ([name isEqualToString:self.flightFilter.stopSelected]) {
-                [cell.coreImageView setImage:[UIImage imageNamed:@"greenTick"]];
+                [cell.coreImageView setImage:AppImages.greenTick];
             }else {
                 [cell.coreImageView setImage:nil];
             }
@@ -757,10 +757,10 @@
 }
 
 - (void)setupImagesToSlider:(MARKRangeSlider *)rangeSlider {
-    [rangeSlider setTrackImage:[UIImage imageNamed:@"greyColorTrack"]];
-    [rangeSlider setLeftThumbImage:[UIImage imageNamed:@"sliderHandle"]];
-    [rangeSlider setRightThumbImage:[UIImage imageNamed:@"sliderHandle"]];
-    [rangeSlider setRangeImage:[UIImage imageNamed:@"greenBlueRangeImage"]];
+    [rangeSlider setTrackImage: AppImages.greyColorTrack];
+    [rangeSlider setLeftThumbImage: AppImages.sliderHandle];
+    [rangeSlider setRightThumbImage: AppImages.sliderHandle];
+    [rangeSlider setRangeImage: AppImages.greenBlueRangeImage];
 }
 - (void)rangeSliderValueDidChange:(MARKRangeSlider *)slider {
     [self setPriceLabels];

@@ -18,7 +18,7 @@ class ReceiverChatCell : UITableViewCell {
         // Initialization code
         self.selectionStyle = .none
         self.messageLabel.font = AppFonts.Regular.withSize(18)
-        let bubbleImage = UIImage(named: "White Chat bubble")?.resizableImage(withCapInsets: UIEdgeInsets(top: 17, left: 25, bottom: 17, right: 25), resizingMode: .stretch).withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+        let bubbleImage = AppImages.White_Chat_bubble.resizableImage(withCapInsets: UIEdgeInsets(top: 17, left: 25, bottom: 17, right: 25), resizingMode: .stretch).withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
         self.bubbleImageView.image = bubbleImage
     }
 

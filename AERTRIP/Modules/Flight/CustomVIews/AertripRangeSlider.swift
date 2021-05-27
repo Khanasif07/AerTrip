@@ -122,9 +122,9 @@ class AertripRangeSlider : UIControl {
         
         selectedTrackView.backgroundColor = selectedTrackColor
         
-        leftImageView.image = UIImage(named: "sliderHandle")
+        leftImageView.image = AppImages.sliderHandle
         leftImageView.isUserInteractionEnabled = true
-        rightImageView.image = UIImage(named: "sliderHandle")
+        rightImageView.image = AppImages.sliderHandle
         rightImageView.isUserInteractionEnabled = true
         
         self.addSubview(leftImageView)

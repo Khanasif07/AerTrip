@@ -454,9 +454,9 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 baseFareCell.selectionStyle = .none
                 
                 if isTaxesSectionHidden == false{
-                    baseFareCell.upArrowImg.image = UIImage(named: "downGray.png")
+                    baseFareCell.upArrowImg.image = AppImages.downGray
                 }else{
-                    baseFareCell.upArrowImg.image = UIImage(named: "upGray.png")
+                    baseFareCell.upArrowImg.image = AppImages.upGray
                 }
                 
                 baseFareCell.titleLabelLeading.constant = 16
@@ -944,7 +944,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             break
         }
         
-        self.bookingInfoArrowImg.image = UIImage(named: "down.png")
+        self.bookingInfoArrowImg.image = AppImages.downGray
         if self.isBackgroundVisible == false{
             self.view.backgroundColor = .clear
             self.isBackgroundVisible = true
@@ -1013,7 +1013,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             }else{
                 self.isFareBreakupExpanded = false
                 displayCollapseView()
-                self.bookingInfoArrowImg.image = UIImage(named: "up.png")
+                self.bookingInfoArrowImg.image = AppImages.upGray
                 self.delegate?.infoButtonTapped(isViewExpanded: false)
             }
             

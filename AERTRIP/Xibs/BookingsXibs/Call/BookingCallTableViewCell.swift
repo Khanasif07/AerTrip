@@ -84,7 +84,7 @@ class BookingCallTableViewCell: ATTableViewCell {
             self.titleLabel.text = title
             self.phoneLabel.text = ""
             
-            self.rightImageView.image = UIImage(named: "send_icon")?.withRenderingMode(.alwaysTemplate)
+            self.rightImageView.image = AppImages.send_icon.withRenderingMode(.alwaysTemplate)
             self.rightImageView.tintColor = AppColors.themeGray60
         default:
             break

@@ -148,7 +148,7 @@
     cell.mainLabel.text = flightClass.name;
     if ([self.selectedFlightClass.type isEqualToString:flightClass.type]) {
         cell.secondaryImageView.hidden = NO;
-        cell.secondaryImageView.image = [UIImage imageNamed:@"greenTick"];
+        cell.secondaryImageView.image = AppImages.greenTick;
         [cell.mainLabel setFont:[UIFont fontWithName:@"SourceSansPro-Semibold" size:18.0]];
         cell.mainLabel.textColor = [UIColor AertripColor];
         cell.mainImageView.image = [UIImage imageNamed:[self getImageNameForFlightClass:flightClass isSelected:YES]];

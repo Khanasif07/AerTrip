@@ -160,7 +160,7 @@ extension UpgradePlanListVC : UICollectionViewDataSource, UICollectionViewDelega
             
             let attributedStr = NSMutableAttributedString(string: upgradeResult[indexPath.item].descriptionShown)
             
-            var checkMarkImgName = ""
+            var checkMarkImgName:UIImage
             
             let farepr = upgradeResult[indexPath.row].farepr
             let oldFarepr = viewModel.selectedOtherFareData[usedIndexFor]?.farepr ?? 0
@@ -173,7 +173,7 @@ extension UpgradePlanListVC : UICollectionViewDataSource, UICollectionViewDelega
                 cell.selectButton.setTitleColor(AppColors.themeWhite, for: .normal)
                 cell.selectButton.setTitle("Selected", for: .normal)
                 cell.newPriceLabel.attributedText = getPrice(price: Double(farepr), fontSize: 18.0)
-                checkMarkImgName = "Green_Copy.png"
+                checkMarkImgName = AppImages.Green_Copy
             }else{
                 if priceDifferent < 0{
                     cell.newPriceLabel.attributedText = getPrice(price: Double(priceDifferent), fontSize: 18.0, sign: "-")
@@ -184,11 +184,11 @@ extension UpgradePlanListVC : UICollectionViewDataSource, UICollectionViewDelega
                 cell.selectButton.backgroundColor = AppColors.quaternarySystemFillColor
                 cell.selectButton.setTitleColor(AppColors.themeGreen, for: .normal)
                 cell.selectButton.setTitle("Select", for: .normal)
-                checkMarkImgName = "blackCheckmark.png"
+                checkMarkImgName = AppImages.blackCheckmark
             }
             
             let image1Attachment = NSTextAttachment()
-            image1Attachment.image = UIImage(named: checkMarkImgName)
+            image1Attachment.image = checkMarkImgName
             
             let image1String = NSAttributedString(attachment: image1Attachment)
             

@@ -290,7 +290,7 @@ extension InternationalReturnTableViewCell : UICollectionViewDataSource , UIColl
 
         if indexPath.section == 0 {
         
-            cell.imageView.image = UIImage(named: "checkingBaggageKg")
+            cell.imageView.image = AppImages.checkingBaggageKg
             cell.superScript.attributedText = baggageSuperScript
             cell.superScriptWidth.constant = 14
                 

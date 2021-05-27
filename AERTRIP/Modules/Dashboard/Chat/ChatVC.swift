@@ -195,7 +195,7 @@ extension ChatVC {
         messageTextView.font = AppFonts.Regular.withSize(18)
         self.messageTextView.delegate = self
         self.messageTextView.autocorrectionType = .no
-        self.animationBubbleImageView.image = UIImage(named: "Green Chat bubble")?.resizableImage(withCapInsets: UIEdgeInsets(top: 17, left: 21, bottom: 17, right: 21), resizingMode: .stretch).withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+        self.animationBubbleImageView.image = AppImages.Green_Chat_bubble.resizableImage(withCapInsets: UIEdgeInsets(top: 17, left: 21, bottom: 17, right: 21), resizingMode: .stretch).withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
         self.view.addSubview(animationView)
         self.hideAnimationView()
         self.chatTableView.isHidden = true

@@ -129,7 +129,7 @@ struct TimeFK {
        
         flightGroup = journey
         
-        let arrowImage = !flightGroup.isCollapsed ? UIImage(named:"DownArrow") : UIImage(named:"UpArrow")
+        let arrowImage = !flightGroup.isCollapsed ? AppImages.DownArrow : AppImages.UpArrow
         expandCollapseButton.setImage(arrowImage, for: .normal)
         
         let timeFKArray = journey.journeyArray.map{ return TimeFK(departurTime: $0.dt, fk: $0.fk) }

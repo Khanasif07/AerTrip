@@ -103,9 +103,9 @@ extension IntFareBreakupVC: UITableViewDelegate,UITableViewDataSource{
                 baseFareCell.selectionStyle = .none
                 
                 if !isTaxesSectionHidden{
-                    baseFareCell.upArrowImg.image = UIImage(named: "downGray.png")
+                    baseFareCell.upArrowImg.image = AppImages.downGray
                 }else{
-                    baseFareCell.upArrowImg.image = UIImage(named: "upGray.png")
+                    baseFareCell.upArrowImg.image = AppImages.upGray
                 }
                 baseFareCell.titleLabelLeading.constant = 16
                 
@@ -157,9 +157,9 @@ extension IntFareBreakupVC: UITableViewDelegate,UITableViewDataSource{
                 baseFareCell.selectionStyle = .none
                 baseFareCell.isHidden = false
                 if !isAddonsExpend{
-                    baseFareCell.upArrowImg.image = UIImage(named: "downGray.png")
+                    baseFareCell.upArrowImg.image = AppImages.downGray
                 }else{
-                    baseFareCell.upArrowImg.image = UIImage(named: "upGray.png")
+                    baseFareCell.upArrowImg.image = AppImages.upGray
                 }
                 baseFareCell.titleLabelLeading.constant = 16
                 baseFareCell.upArrowImg.isHidden = false
