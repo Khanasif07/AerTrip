@@ -89,6 +89,10 @@ class FlightPaymentVC: BaseVC {
         self.gradientView.addGredient(isVertical: false)
     }
 
+    override func currencyChanged(_ note: Notification) {
+        self.updateAllData()
+    }
+    
     @IBAction func payButtonTapped(_ sender: UIButton) {
         self.hideShowLoader(isHidden:false)
         let useWallet = (self.isWallet && (self.getTotalPayableAmount() <= 0.0))

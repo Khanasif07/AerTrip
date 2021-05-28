@@ -370,3 +370,12 @@ extension IntMCAndReturnVC : flightDetailsPinFlightDelegate, UpdateRefundStatusD
     }
     
 }
+
+
+extension IntMCAndReturnVC{
+    
+    func currencyChanged(){
+        self.resultsTableView.reloadData()
+    }
+    
+}

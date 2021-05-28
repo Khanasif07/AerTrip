@@ -25,8 +25,7 @@ extension FareBreakupVCDelegate{
     }
 }
 
-class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate
-{
+class FareBreakupVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
     //MARK:- Outlets
     @IBOutlet weak var backgroundDisplayView: UIView!
     @IBOutlet weak var fareDataDisplayView: UIView!
@@ -138,6 +137,11 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 self.bookingDataDisplayView.addGredient(isVertical: false)
             }
         }
+    }
+    
+    
+    override func currencyChanged(_ note: Notification) {
+        self.taxesDataDisplay()
     }
     
     func taxesDataDisplay()

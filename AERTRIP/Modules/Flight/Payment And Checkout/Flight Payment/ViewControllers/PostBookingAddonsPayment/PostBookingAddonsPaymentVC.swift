@@ -81,6 +81,10 @@ class PostBookingAddonsPaymentVC: BaseVC{
         self.gradientView.addGredient(isVertical: false)
     }
     
+    override func currencyChanged(_ note: Notification) {
+        self.updateAllData()
+    }
+    
     @IBAction func payButtonTapped(_ sender: UIButton) {
         hideShowLoader(isHidden: false)
         self.checkForWalletOTP()

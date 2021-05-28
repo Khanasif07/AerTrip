@@ -107,6 +107,7 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(checkForReachability(_:)), name: Notification.Name(rawValue: ReachabilityDidChangeNotificationName), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(currencyChanged), name: .currencyChanged, object: nil)
     }
     
     
@@ -223,6 +224,8 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         //function intended to override
     }
     
+    @objc func currencyChanged(_ note: Notification){ }
+    
     @objc func statusBarTapped(_ note: Notification) {
         //function intended to override
     }
@@ -254,6 +257,7 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: ReachabilityDidChangeNotificationName), object: nil)
+        NotificationCenter.default.removeObserver(self, name: .currencyChanged, object: nil)
         printDebug("BaseVC deinit")
     }
 }
