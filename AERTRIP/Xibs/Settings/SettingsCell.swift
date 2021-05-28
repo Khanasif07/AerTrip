@@ -24,6 +24,7 @@ class SettingsCell: UITableViewCell {
         settingsValueLavel.font = AppFonts.Regular.withSize(18)
         settingsLabel.font = AppFonts.Regular.withSize(18)
 //        settingsLabel.textColor = UIColor.black
+        backgroundColor = AppColors.themeWhite
         settingsValueLavel.textColor = AppColors.themeGray40
         self.sepratorView.backgroundColor = AppColors.themeGray20
     }

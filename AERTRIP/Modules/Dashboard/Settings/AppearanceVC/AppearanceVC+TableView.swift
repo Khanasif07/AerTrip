@@ -18,7 +18,7 @@ extension AppearanceVC: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CountryCell", for: indexPath) as? CountryCell else {
                        fatalError("CountryCell not found")
                }
-        cell.sepratorView.isHidden = true
+        cell.sepratorView.isHidden = indexPath.row == viewModel.tableCells.count - 1
         cell.configureForAppearance(type: viewModel.tableCells[indexPath.row])
         return cell
     }
@@ -29,9 +29,19 @@ extension AppearanceVC: UITableViewDelegate, UITableViewDataSource {
             fatalError("SettingsHeaderView not found")
         }
         headerView.topSepratorView.isHidden = true
-        headerView.bottomSepratorView.isHidden = true
+        headerView.bottomSepratorView.isHidden = false
         headerView.titleLabel.text = ""
         return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        guard let footerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "SettingsHeaderView") as? SettingsHeaderView else {
+            fatalError("SettingsHeaderView not found")
+        }
+        footerView.topSepratorView.isHidden = false
+        footerView.bottomSepratorView.isHidden = true
+        footerView.titleLabel.text = ""
+        return footerView
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
