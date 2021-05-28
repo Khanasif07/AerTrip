@@ -27,6 +27,9 @@ class AccountOutstandingEventDescriptionCell: UITableViewCell {
     @IBOutlet weak var selectButtonLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var containerTopConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var amountInOtherCurrency: UILabel!
+    @IBOutlet weak var pendingAmountInOtherCurrency: UILabel!
+    
     var event: AccountDetailEvent? {
         didSet {
             self.setData()
@@ -85,6 +88,13 @@ class AccountOutstandingEventDescriptionCell: UITableViewCell {
         self.titleLabel.textColor = AppColors.themeBlack
         
         self.isSelectable = false
+        
+        self.amountInOtherCurrency.font = AppFonts.Regular.withSize(18.0)
+        self.pendingAmountInOtherCurrency.font = AppFonts.Regular.withSize(18.0)
+        self.amountInOtherCurrency.textColor = AppColors.themeGray40
+        self.pendingAmountInOtherCurrency.textColor = AppColors.themeGray40
+        self.amountInOtherCurrency.text = ""
+        self.pendingAmountInOtherCurrency.text = ""
     }
     
     private func resetAllText() {
@@ -172,5 +182,20 @@ class AccountOutstandingEventDescriptionCell: UITableViewCell {
         }
         
         self.dateLabel.attributedText = dateAttributedString
+        
+        if let event = self.event, let rate = event.currencyRate{
+            self.amountInOtherCurrency.isHidden = false
+            self.pendingAmountInOtherCurrency.isHidden = false
+            let amt = abs(event.amount).convertAmount(with: rate, using: AppFonts.Regular.withSize(16))
+            amt.append((event.amount < 0) ? drAttr : crAttr)
+            let pndAmt = abs(event.pendingAmount).convertAmount(with: rate, using: AppFonts.Regular.withSize(16))
+            pndAmt.append((event.pendingAmount > 0) ? drAttr : crAttr)
+            self.amountInOtherCurrency.attributedText = amt
+            self.pendingAmountInOtherCurrency.attributedText = pndAmt
+            
+        }else{
+            self.amountInOtherCurrency.isHidden = true
+            self.pendingAmountInOtherCurrency.isHidden = true
+        }
     }
 }

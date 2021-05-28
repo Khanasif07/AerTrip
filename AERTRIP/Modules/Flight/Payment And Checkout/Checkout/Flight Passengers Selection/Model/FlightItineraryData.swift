@@ -44,19 +44,19 @@ struct FlightItinerary {
     var iic : Bool
     var gstRequired : Bool
     var searchParams:FlightSearchParam
-    var priceChange : Int
-    var minAmount : Int
-    var netAmount : Int
+    var priceChange : Double
+    var minAmount : Double
+    var netAmount : Double
     var isRefundable : Bool
-    var walletBalance : Int
-    var userPoints : Int
+    var walletBalance : Double
+    var userPoints : Double
     var details:IntJourney
     var travellerDetails:TravellerDetails
     var travellerMaster:[TravellerModel]
     var paymentModes:PaymentMode
     var couponCode: String
-    var pointsBalance: Int
-    var partPaymentProcessingFee:Int
+    var pointsBalance: Double
+    var partPaymentProcessingFee:Double
     var walletAlreadyUsed:WalletAlreadyUsed?
     //part_payment_due_date: ""
     //seatmap: ""
@@ -83,19 +83,19 @@ struct FlightItinerary {
         iic = json["iic"].boolValue
         gstRequired = json["gst_required"].boolValue
         searchParams = FlightSearchParam(json["search_params"])
-        priceChange = json["price_change"].intValue
-        minAmount = json["min_amount"].intValue
-        netAmount = json["net_amount"].intValue
+        priceChange = json["price_change"].doubleValue
+        minAmount = json["min_amount"].doubleValue
+        netAmount = json["net_amount"].doubleValue
         isRefundable = json["is_refundable"].boolValue
-        walletBalance = json["wallet_balance"].intValue
-        userPoints = json["user_points"].intValue
+        walletBalance = json["wallet_balance"].doubleValue
+        userPoints = json["user_points"].doubleValue
         details = IntJourney(jsonData: json["details"])
         travellerDetails = TravellerDetails(json["traveller_details"])
         travellerMaster = json["traveller_master"]["aertrip"].arrayValue.map{TravellerModel(json: $0)}
         paymentModes = PaymentMode(json: json["payment_modes"])
         couponCode = json["coupon_code"].stringValue
-        pointsBalance = json["points_balance"].intValue
-        partPaymentProcessingFee = json["part_payment_processing_fee"].intValue
+        pointsBalance = json["points_balance"].doubleValue
+        partPaymentProcessingFee = json["part_payment_processing_fee"].doubleValue
         if json["wallet_already_used"].dictionary != nil{
             self.walletAlreadyUsed = WalletAlreadyUsed(json["wallet_already_used"])
         }

@@ -38,7 +38,7 @@ extension FlightAPIFilterViewController : UITableViewDataSource , UITableViewDel
         
         let cell = UITableViewCell()
         cell.selectionStyle = .none
-        cell.accessoryView = UIImageView(image: UIImage(named: "UncheckedGreenRadioButton"))
+        cell.accessoryView = UIImageView(image: AppImages.UncheckedGreenRadioButton)
         if let APIFilter = API(rawValue: indexPath.row)
         {
 //            let attributes = [NSAttributedString.Key.font : UIFont(name: "SourceSansPro-Regular", size: 18)!]
@@ -48,7 +48,7 @@ extension FlightAPIFilterViewController : UITableViewDataSource , UITableViewDel
             cell.textLabel?.attributedText = attributedString
             
             if self.APIFilters.contains(APIFilter) {
-                cell.accessoryView = UIImageView(image: UIImage(named: "CheckedGreenRadioButton"))
+                cell.accessoryView = UIImageView(image: AppImages.CheckedGreenRadioButton)
             }
         }
         return cell
@@ -73,7 +73,7 @@ extension FlightAPIFilterViewController : UITableViewDataSource , UITableViewDel
         }
         
         if let cell = tableView.cellForRow(at: indexPath) {
-            cell.accessoryView = UIImageView(image: UIImage(named: "CheckedGreenRadioButton"))
+            cell.accessoryView = UIImageView(image: AppImages.CheckedGreenRadioButton)
         }
     }
     
@@ -86,7 +86,7 @@ extension FlightAPIFilterViewController : UITableViewDataSource , UITableViewDel
         }
         
         if let cell = tableView.cellForRow(at: indexPath) {
-            cell.accessoryView = UIImageView(image: UIImage(named: "UncheckedGreenRadioButton"))
+            cell.accessoryView = UIImageView(image: AppImages.UncheckedGreenRadioButton)
         }
     }
 }

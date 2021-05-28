@@ -25,10 +25,10 @@ class ThingsToAskHeader: UITableViewHeaderFooterView {
     func populateData(section : Int){
         if section == 0{
             sectionTionTitleLabel.text = LocalizedString.Flight.localized
-            sectionTitleImageView.image = #imageLiteral(resourceName: "blueflight")
+            sectionTitleImageView.image = AppImages.blueflight
         }else{
             sectionTionTitleLabel.text = LocalizedString.Hotel.localized
-            sectionTitleImageView.image = #imageLiteral(resourceName: "hotelCopy4")
+            sectionTitleImageView.image = AppImages.hotelCopy4
         }
     }
 

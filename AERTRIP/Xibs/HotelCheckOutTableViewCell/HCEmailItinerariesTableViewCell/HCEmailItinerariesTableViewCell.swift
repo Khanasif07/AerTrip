@@ -27,7 +27,7 @@ class HCEmailItinerariesTableViewCell: UITableViewCell {
     //Mark:- Variables
     //================
     weak var delegate: HCEmailItinerariesTableViewCellDelegate?
-    let sendBtnImage = #imageLiteral(resourceName: "checkIcon").withRenderingMode(.alwaysTemplate)
+    let sendBtnImage = AppImages.checkIcon.withRenderingMode(.alwaysTemplate)
     
     //Mark:- IBOutlets
     //================
@@ -80,12 +80,12 @@ class HCEmailItinerariesTableViewCell: UITableViewCell {
     }
     
     internal func configCell(isMailSended: Bool, name: String) {
-        self.profileImageView.image = #imageLiteral(resourceName: "linkFacebook")
+        self.profileImageView.image = AppImages.linkFacebook
         self.nameLabel.text = name
         if isMailSended {
             self.sendButton.setTitle(nil, for: .normal)
             self.sendButton.backgroundColor = UIColor.clear
-            self.sendButton.setImage(#imageLiteral(resourceName: "checkIcon"), for: .normal)
+            self.sendButton.setImage(AppImages.checkIcon, for: .normal)
             self.emailTextField.textColor = AppColors.themeGray40
         } else {
             self.sendButton.setImage(nil, for: .normal)

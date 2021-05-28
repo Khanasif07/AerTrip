@@ -14,7 +14,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     
     let viewModel = FlightFilterTimesVM()
     var onToastInitiation: ((String) -> ())?
-    private var multiLegSegmentControl = UISegmentedControl()
+    private var multiLegSegmentControl = GreenDotSegmentControl()
         
     /// Used for day segments pan gesture
     var panGesture: UIPanGestureRecognizer?
@@ -62,6 +62,11 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     override func viewDidLoad() {
         super.viewDidLoad()
         initialSetup()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
     }
     
     /// Updates UI if data is coming and filters
@@ -586,10 +591,10 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     private func resetAvoidOvernightBtn() {
         avoidOvernightBtn.isSelected = viewModel.currentTimerFilter.qualityFilter.isSelected
         if viewModel.currentTimerFilter.qualityFilter.isSelected {
-            avoidOvernightImgView.image = UIImage(named: "CheckedGreenRadioButton")
+            avoidOvernightImgView.image = AppImages.CheckedGreenRadioButton
         }
         else {
-            avoidOvernightImgView.image = UIImage(named: "UncheckedGreenRadioButton")
+            avoidOvernightImgView.image = AppImages.UncheckedGreenRadioButton
         }
     }
     
@@ -662,7 +667,6 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
             multiLegSegmentControl.setTitle(segmentTitle, forSegmentAt: index)
         }
     }
-    
     
     //MARK:- Arrival feature methods
     fileprivate func setArrivalSliderValues(userSelected:Bool ) {

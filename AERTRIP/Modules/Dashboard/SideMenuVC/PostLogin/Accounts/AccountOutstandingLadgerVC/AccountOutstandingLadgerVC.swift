@@ -178,7 +178,7 @@ class AccountOutstandingLadgerVC: BaseVC {
         self.summeryLabel.text = LocalizedString.Summary.localized
         
         self.grossOutstandingLabel.text = LocalizedString.GrossOutstanding.localized
-        self.onAccountLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: LocalizedString.OnAccount.localized, image: #imageLiteral(resourceName: "ic_next_arrow_zeroSpacing"), endText: "", font: AppFonts.Regular.withSize(16.0))
+        self.onAccountLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: LocalizedString.OnAccount.localized, image: AppImages.ic_next_arrow_zeroSpacing, endText: "", font: AppFonts.Regular.withSize(16.0))
         self.netOutstandingLabel.text = LocalizedString.NetOutstanding.localized
         
         let drAttr = NSMutableAttributedString(string: " \(LocalizedString.DebitShort.localized)", attributes: [.font: AppFonts.Regular.withSize(16.0)])
@@ -232,7 +232,7 @@ class AccountOutstandingLadgerVC: BaseVC {
         if self.currentViewState == .normal {
             self.topNavView.configureNavBar(title: LocalizedString.OutstandingLedger.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: true, backgroundType: .color(color: AppColors.themeWhite))
             
-            self.topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "greenPopOverButton"), selectedImage: #imageLiteral(resourceName: "greenPopOverButton"), normalTitle: nil, selectedTitle: nil)
+            self.topNavView.configureFirstRightButton(normalImage: AppImages.greenPopOverButton, selectedImage: AppImages.greenPopOverButton, normalTitle: nil, selectedTitle: nil)
         }
         else {
             self.topNavView.configureNavBar(title: LocalizedString.SelectBooking.localized, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: true, backgroundType: .color(color: AppColors.themeWhite))
@@ -367,17 +367,19 @@ class AccountOutstandingLadgerVC: BaseVC {
     }
     
     private func setPayableAmount() {
-        var totalAmount: Double = self.viewModel.accountOutstanding?.netAmount ?? 0.0
-        
+        let totalAmount: Double = self.viewModel.accountOutstanding?.netAmount ?? 0.0
+        let attrText:NSMutableAttributedString
         if self.currentViewState == .selecting {
-            let selected = self.viewModel.totalAmountForSelected
-            totalAmount = (selected > 0.0) ? selected : 0.0
+            let selected = (self.viewModel.totalAmountSelected > 0.0) ? self.viewModel.totalAmountSelected : 0
+            let currency = self.viewModel.selectedEventCurrencyCode
+            attrText = selected.getTextWithChangedCurrency(with: currency, using: AppFonts.SemiBold.withSize(20.0))
+            self.makePaymentTitleLabel.alpha = (selected > 0) ? 1.0 : 0.6
+        }else{
+            attrText = totalAmount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
+            self.makePaymentTitleLabel.alpha = (totalAmount > 0) ? 1.0 : 0.6
         }
-        
-        let attrText = totalAmount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
         attrText.addAttributes([NSAttributedString.Key.foregroundColor : AppColors.themeWhite], range: NSRange(location: 0, length: attrText.length))
         self.payableAmountLabel.attributedText = attrText
-        self.makePaymentTitleLabel.alpha = (totalAmount > 0) ? 1.0 : 0.6
         self.makePaymentTitleLabel.text = LocalizedString.MakePayment.localized
     }
     

@@ -73,7 +73,7 @@ class FavouriteHotelsVC: BaseVC {
         
         self.topNavView.delegate = self
         self.topNavView.configureNavBar(title: LocalizedString.FavouriteHotels.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
-       self.topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "greenAdd"), selectedImage: #imageLiteral(resourceName: "greenAdd"))
+       self.topNavView.configureFirstRightButton(normalImage: AppImages.greenAdd, selectedImage: AppImages.greenAdd)
        // self.setUpViewPager()
     }
     

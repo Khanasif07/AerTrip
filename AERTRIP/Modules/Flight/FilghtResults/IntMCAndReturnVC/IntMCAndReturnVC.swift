@@ -70,7 +70,7 @@ class IntMCAndReturnVC : UIViewController, GetSharableUrlDelegate
         self.navigationController?.navigationBar.isHidden = true
         self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
         
-        self.emailPinnedFlights.setImage(UIImage(named: "EmailPinned"), for: .normal)
+        self.emailPinnedFlights.setImage(AppImages.EmailPinned, for: .normal)
         self.emailPinnedFlights.displayLoadingIndicator(false)
 
     }
@@ -116,8 +116,8 @@ extension IntMCAndReturnVC {
             switchView.tintColor = UIColor.TWO_ZERO_FOUR_COLOR
             switchView.offTintColor = UIColor.TWO_THREE_ZERO_COLOR
             switchView.onTintColor = AppColors.themeGreen
-            switchView.onThumbImage = #imageLiteral(resourceName: "pushpin")
-            switchView.offThumbImage = #imageLiteral(resourceName: "pushpin-gray")
+            switchView.onThumbImage = AppImages.pushpin
+            switchView.offThumbImage = AppImages.pushpin_gray
             switchView.setupUI()
             delay(seconds: 0.6) {
                 self.switchView.isOn = false
@@ -241,7 +241,7 @@ extension IntMCAndReturnVC {
     
     @IBAction func emailPinnedFlights(_ sender: Any)
     {
-        emailPinnedFlights.setImage(UIImage(named: "OvHotelResult"), for: .normal)
+        emailPinnedFlights.setImage(AppImages.OvHotelResult, for: .normal)
         emailPinnedFlights.displayLoadingIndicator(true)
 
         if let _ = UserInfo.loggedInUserId{
@@ -277,7 +277,7 @@ extension IntMCAndReturnVC {
     func returnEmailView(view: String)
     {
         DispatchQueue.main.async {
-            self.emailPinnedFlights.setImage(UIImage(named: "EmailPinned"), for: .normal)
+            self.emailPinnedFlights.setImage(AppImages.EmailPinned, for: .normal)
             self.emailPinnedFlights.displayLoadingIndicator(false)
 
             if #available(iOS 13.0, *) {
@@ -297,7 +297,7 @@ extension IntMCAndReturnVC {
     
     func returnSharableUrl(url: String) {
         sharePinnedFilghts.displayLoadingIndicator(false)
-        self.sharePinnedFilghts.setImage(UIImage(named: "SharePinned"), for: .normal)
+        self.sharePinnedFilghts.setImage(AppImages.SharePinned, for: .normal)
 
         if url.lowercased() == "No Data".lowercased(){
             AertripToastView.toast(in: self.view, withText: "Something went wrong. Please try again.")

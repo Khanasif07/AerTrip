@@ -63,7 +63,7 @@ class BookingRequestAddOnTableViewCell: ATTableViewCell {
     }
     
     private func configureCell() {
-        self.messageImageView.image = #imageLiteral(resourceName: "bookingEmailIcon")
+        self.messageImageView.image = AppImages.bookingEmailIcon
         self.dotImageView.image = nil// #imageLiteral(resourceName: "greenDot")
         self.titleLabel.text = communicationData?.subject ?? LocalizedString.dash.localized
         self.messageLabel.text = ""//LocalizedString.dash.localized

@@ -62,7 +62,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        self.emailPinnedFlights.setImage(UIImage(named: "EmailPinned"), for: .normal)
+        self.emailPinnedFlights.setImage(AppImages.EmailPinned, for: .normal)
         self.emailPinnedFlights.displayLoadingIndicator(false)
     }
     
@@ -118,8 +118,8 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         switchView.tintColor = UIColor.TWO_ZERO_FOUR_COLOR
         switchView.offTintColor = UIColor.TWO_THREE_ZERO_COLOR
         switchView.onTintColor = AppColors.themeGreen
-        switchView.onThumbImage = #imageLiteral(resourceName: "pushpin")
-        switchView.offThumbImage = #imageLiteral(resourceName: "pushpin-gray")
+        switchView.onThumbImage = AppImages.pushpin
+        switchView.offThumbImage = AppImages.pushpin_gray
         switchView.setupUI()
         delay(seconds: 0.6) {
             self.switchView.isOn = false
@@ -271,7 +271,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     }
     
     @IBAction func emailPinnedFlights(_ sender: Any) {
-        emailPinnedFlights.setImage(UIImage(named: "OvHotelResult"), for: .normal)
+        emailPinnedFlights.setImage(AppImages.OvHotelResult, for: .normal)
         emailPinnedFlights.displayLoadingIndicator(true)
 
         if let _ = UserInfo.loggedInUserId{
@@ -303,7 +303,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     func returnEmailView(view: String) {
         DispatchQueue.main.async {
             
-            self.emailPinnedFlights.setImage(UIImage(named: "EmailPinned"), for: .normal)
+            self.emailPinnedFlights.setImage(AppImages.EmailPinned, for: .normal)
             self.emailPinnedFlights.displayLoadingIndicator(false)
 
             if #available(iOS 13.0, *) {

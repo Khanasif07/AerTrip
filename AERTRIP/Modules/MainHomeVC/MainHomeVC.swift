@@ -119,6 +119,8 @@ class MainHomeVC: BaseVC {
         self.socialLoginVC?.topNavView.leftButton.isHidden = true
         self.makeDefaultSetup()
         self.addEdgeSwipeGesture()
+        
+
     }
     
     private func makeDefaultSetup() {

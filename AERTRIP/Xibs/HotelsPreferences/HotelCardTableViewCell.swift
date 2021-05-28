@@ -183,15 +183,16 @@ class HotelCardTableViewCell: AppStoreAnimationTableViewCell {
 
         if listPrice == 0{
             self.actualPriceLabel.text = ""
+            self.actualPriceLabel.attributedText = nil
         }else{
-            let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: listPrice.amountInDelimeterWithSymbol)
+            let attributeString: NSMutableAttributedString =  listPrice.getConvertedAmount(using: AppFonts.Regular.withSize(16))
             attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 1, range: NSMakeRange(0, attributeString.length))
             self.actualPriceLabel.attributedText = attributeString
-            self.actualPriceLabel.AttributedFontForText(text: price.getCurrencySymbol, textFont: AppFonts.Regular.withSize(12))
+            self.actualPriceLabel.AttributedFontForText(text: price.getPreferredCurrency, textFont: AppFonts.Regular.withSize(12))
             actualPriceLabel.isHidden = price == listPrice
         }
-        self.discountedPriceLabel.text = price.amountInDelimeterWithSymbol
-        self.discountedPriceLabel.AttributedFontForText(text: price.getCurrencySymbol, textFont: AppFonts.SemiBold.withSize(16))
+        self.discountedPriceLabel.attributedText = price.getConvertedAmount(using: AppFonts.SemiBold.withSize(22))
+        self.discountedPriceLabel.AttributedFontForText(text: price.getPreferredCurrency, textFont: AppFonts.SemiBold.withSize(16))
         
         self.saveButton.isSelected = hotel.fav == "0" ? false : true
         //        if let image = UIImage(named: "hotelCardPlaceHolder") {
@@ -253,20 +254,20 @@ extension HotelCardTableViewCell: UICollectionViewDataSource, UICollectionViewDe
         cell.imageView.contentMode = .scaleAspectFill
         if let images = hotelListData?.thumbnail, images.count > indexPath.item {
             //set image from url
-            //            cell.imageView.image = #imageLiteral(resourceName: "hotelCardPlaceHolder")
-//            cell.imageView.setImageWithUrl(images[indexPath.item], placeholder: #imageLiteral(resourceName: "hotelCardPlaceHolder"), showIndicator: false)
+            //            cell.imageView.image = AppImages.hotelCardPlaceHolder
+//            cell.imageView.setImageWithUrl(images[indexPath.item], placeholder: AppImages.hotelCardPlaceHolder, showIndicator: false)
             cell.imageView.cancelImageDownloading()
-            cell.imageView.setImageWithUrl(imageUrl: images[indexPath.item], placeholder: #imageLiteral(resourceName: "hotelCardPlaceHolder"), showIndicator: false) { [unowned self] (image, error) in
+            cell.imageView.setImageWithUrl(imageUrl: images[indexPath.item], placeholder: AppImages.hotelCardPlaceHolder, showIndicator: false) { [unowned self] (image, error) in
                 if let downloadedImage = image {
                     cell.imageView.image = downloadedImage
                 } else {
-                    cell.imageView.image = #imageLiteral(resourceName: "hotelCardNoImagePlaceHolder")
+                    cell.imageView.image = AppImages.hotelCardNoImagePlaceHolder
                 }
             }
         }
         else {
             //set thumbnail
-            cell.imageView.image = #imageLiteral(resourceName: "hotelCardNoImagePlaceHolder")
+            cell.imageView.image = AppImages.hotelCardNoImagePlaceHolder
         }
         
         return cell

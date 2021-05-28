@@ -129,7 +129,7 @@ struct TimeFK {
        
         flightGroup = journey
         
-        let arrowImage = !flightGroup.isCollapsed ? UIImage(named:"DownArrow") : UIImage(named:"UpArrow")
+        let arrowImage = !flightGroup.isCollapsed ? AppImages.DownArrow : AppImages.UpArrow
         expandCollapseButton.setImage(arrowImage, for: .normal)
         
         let timeFKArray = journey.journeyArray.map{ return TimeFK(departurTime: $0.dt, fk: $0.fk) }
@@ -424,7 +424,7 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
             flightGroup.currentSelectedIndex = indexPath.item
             flightGroup.selectedFK = timeArray[indexPath.row].fk
             collaspableTableView.reloadData()
-            setSelectionViewFrame(animate: true)
+//            setSelectionViewFrame(animate: true)
             self.timeCollectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.centeredHorizontally, animated: true)
             self.resultsCollectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.right, animated: true)
             
@@ -438,7 +438,8 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView != self.resultsCollectionView { return }
-
+        selectionView.origin.x = 16 + ((timeCollectionView.contentSize.width - 32 + 6) * (resultsCollectionView.contentOffset.x / resultsCollectionView.contentSize.width))
+        // 16 for leading space, 32 for leading+trailing, 6 for item spacing
     }
     
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
@@ -455,9 +456,9 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
                 guard let indexPath =  self.resultsCollectionView.indexPathForItem(at: self.resultsCollectionView.contentOffset) else { return }
         printDebug(indexPath.item)
         flightGroup.currentSelectedIndex = indexPath.item
-                 flightGroup.selectedFK = timeArray[indexPath.item].fk
-                 collaspableTableView.reloadData()
-                 setSelectionViewFrame(animate: true)
+        flightGroup.selectedFK = timeArray[indexPath.item].fk
+        collaspableTableView.reloadData()
+//        setSelectionViewFrame(animate: true)
         self.timeCollectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.centeredHorizontally, animated: true)
                 
         FirebaseEventLogs.shared.logOneWayResultEvents(with: FirebaseEventLogs.EventsTypeName.SwipeClubbedJourneys, groupId: "\(currentJourney?.groupID ?? 0)")

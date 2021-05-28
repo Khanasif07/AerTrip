@@ -38,9 +38,11 @@ class SelectBagageCell: UITableViewCell {
     }
     
     func populateData(data : AddonsDataCustom, index : Int){
-        let price = "₹ \(data.price.commaSeprated)"
-        self.priceLabel.text = price
-        self.priceLabelWidth.constant = price.getTextWidth(height: 21, font: AppFonts.Regular.withSize(18))
+//        let price = "₹ \(data.price.commaSeprated)"
+        self.priceLabel.attributedText = data.price.getConvertedAmount(using: AppFonts.SemiBold.withSize(18))
+       
+        self.priceLabelWidth.constant = self.priceLabel.attributedText?.string.getTextWidth(height: 21, font: AppFonts.Regular.withSize(18)) ?? 0
+      
         self.bagageTitleLabel.text = data.ssrName?.name
         
         if data.bagageSelectedFor.isEmpty {
@@ -83,9 +85,13 @@ class SelectBagageCell: UITableViewCell {
     }
     
     func populateOtherAdonsData(data : AddonsDataCustom, index : Int){
-        let price = "₹ \(data.price.commaSeprated)"
-        self.priceLabel.text = price
-        self.priceLabelWidth.constant = price.getTextWidth(height: 21, font: AppFonts.Regular.withSize(18))
+//        let price = "₹ \(data.price.commaSeprated)"
+//        self.priceLabel.text = price
+      
+        self.priceLabel.attributedText = data.price.getConvertedAmount(using: AppFonts.SemiBold.withSize(18))
+
+        self.priceLabelWidth.constant = self.priceLabel.attributedText?.string.getTextWidth(height: 21, font: AppFonts.Regular.withSize(18)) ?? 0
+        
         self.bagageTitleLabel.text = data.ssrName?.name
         
         if data.othersSelectedFor.isEmpty {

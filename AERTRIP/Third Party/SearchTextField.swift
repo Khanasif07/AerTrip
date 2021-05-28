@@ -44,7 +44,7 @@ class SearchTextField: UITextField {
         self.leftButton.contentMode = UIView.ContentMode.center
         self.leftButton.addTarget(self, action: #selector(self.leftButtonAction), for: UIControl.Event.touchUpInside)
         self.leftButton.setTitle("", for: UIControl.State.normal)
-        self.leftButton.setImage(UIImage(named: "searchBarIcon"), for: .normal)
+        self.leftButton.setImage(AppImages.searchBarIcon, for: .normal)
         self.leftButton.backgroundColor = UIColor.clear
         
         self.removeEarlierButtonsSubviews(viewSuperView: self.leftView)
@@ -60,7 +60,7 @@ class SearchTextField: UITextField {
         self.rightButton.contentMode = UIView.ContentMode.center
         self.rightButton.addTarget(self, action: #selector(self.rightButtonAction), for: UIControl.Event.touchUpInside)
         self.rightButton.setTitle("", for: UIControl.State.normal)
-        self.rightButton.setImage(UIImage(named: "icon"), for: .normal)
+        self.rightButton.setImage(AppImages.icon, for: .normal)
         self.rightButton.backgroundColor = UIColor.clear
         
         self.removeEarlierButtonsSubviews(viewSuperView: self.rightView)

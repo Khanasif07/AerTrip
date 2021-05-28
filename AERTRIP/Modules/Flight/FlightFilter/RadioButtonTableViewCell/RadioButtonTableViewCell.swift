@@ -16,7 +16,7 @@ class RadioButtonTableViewCell: UITableViewCell {
         super.awakeFromNib()
         self.textLabel?.font = AppFonts.Regular.withSize(18)
         self.selectionStyle = .none
-       // self.imageView?.image = #imageLiteral(resourceName: "deselectedAdvisorRating")
+       // self.imageView?.image = AppImages.deselectedAdvisorRating
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -50,6 +50,7 @@ struct BookingDetailModel {
     var displaySeatMap:Bool = false
     var bookingStatus: BookingStatusType = .pending
     var bookinAddons:[BookingAddons]?
+    var bookingCurrencyRate:CurrencyConversionRate?
 
     var jsonDict: JSONDictionary {
         return [:]
@@ -115,11 +116,11 @@ struct BookingDetailModel {
         if let obj = json["display_seat_map"] as? Bool {
             self.displaySeatMap = obj
         }
-        // M
-        if let obj = json["receipt"] as? JSONDictionary {
-            self.receipt = Receipt(json: obj, bookingId: self.id)
-        }
-        
+//        // M
+//        if let obj = json["receipt"] as? JSONDictionary {
+//            self.receipt = Receipt(json: obj, bookingId: self.id)
+//        }
+//
         if let obj = json["total_amount_paid"] {
             self.totalAmountPaid = "\(obj)".toDouble ?? 0.0
         }
@@ -141,10 +142,14 @@ struct BookingDetailModel {
         if let obj = json["billing_info"] as? JSONDictionary {
             self.billingInfo = BillingDetail(json: obj)
         }
+        //Currency rate
+        if let bookingCurrency = json["booking_currency_rate"] as? JSONDictionary{
+            self.bookingCurrencyRate = CurrencyConversionRate(json: bookingCurrency)
+        }
 
         // receipt
         if let obj = json["receipt"] as? JSONDictionary {
-            self.receipt = Receipt(json: obj, bookingId: self.id)
+            self.receipt = Receipt(json: obj, bookingId: self.id, currencyRate: self.bookingCurrencyRate)
         }
         
         if let obj = json["addon_request_allowed"] {
@@ -438,6 +443,16 @@ extension BookingDetailModel {
         return price
     }
     
+    
+    var bookingPriceCurrency: CurrencyConversionRate? {
+        for voucher in self.receipt?.voucher ?? [] {
+            if voucher.basic?.voucherType.lowercased() == ATVoucherType.sales.value {
+                return voucher.basic?.currencyRate
+            }
+        }
+        return nil
+    }
+    
     /*
      Loop through vouchers array, consider the objects that have
      voucher.basic.voucher_type  = ‘sales_addon’ (Can be 0 or more)
@@ -453,6 +468,15 @@ extension BookingDetailModel {
             }
         }
         return price
+    }
+    
+    var addOnCurrency: CurrencyConversionRate? {
+        for voucher in self.receipt?.voucher ?? [] {
+            if voucher.basic?.voucherType.lowercased() == ATVoucherType.salesAddon.value {
+                return voucher.basic?.currencyRate
+            }
+        }
+        return nil
     }
     
     /*
@@ -473,6 +497,27 @@ extension BookingDetailModel {
         return price
     }
     
+    
+    var cancellationChargeAmount: Double {
+        var price: Double = 0.0
+        for voucher in self.receipt?.voucher ?? [] {
+            if voucher.basic?.voucherType.lowercased() == ATVoucherType.saleReturn.value, let totalTran = voucher.transactions.filter({ $0.ledgerName.lowercased() == "cancellation charges" }).first {
+                price += totalTran.amount
+            }
+        }
+        return price
+    }
+    
+    
+    var cancellationCurrency: CurrencyConversionRate? {
+        for voucher in self.receipt?.voucher ?? [] {
+            if voucher.basic?.voucherType.lowercased() == ATVoucherType.saleReturn.value {
+                return voucher.basic?.currencyRate
+            }
+        }
+        return nil
+    }
+    
     // TODO: Reschedule Amount Not coming in the Api , Already inform the same to Yash
     
     /*
@@ -485,11 +530,31 @@ extension BookingDetailModel {
     var rescheduleAmount: Double {
         var price: Double = 0.0
         for voucher in self.receipt?.voucher ?? [] {
-            if voucher.basic?.voucherType.lowercased() == ATVoucherType.saleReschedule.value, let totalTran = voucher.transactions.filter({ $0.ledgerName.lowercased() == "total" }).first {
+            if voucher.basic?.voucherType.lowercased() == ATVoucherType.saleReschedule.value, let totalTran = voucher.transactions.filter({ $0.ledgerName.lowercased() == "rescheduling charges" }).first {
                 price += totalTran.amount
             }
         }
         return price
+    }
+    
+    
+    var rescheduleChargeAmount: Double {
+        var price: Double = 0.0
+        for voucher in self.receipt?.voucher ?? [] {
+            if voucher.basic?.voucherType.lowercased() == ATVoucherType.saleReschedule.value, let totalTran = voucher.transactions.filter({ $0.ledgerName.lowercased() == "rescheduling charges" }).first {
+                price += totalTran.amount
+            }
+        }
+        return price
+    }
+    
+    var reschedulingCurrency: CurrencyConversionRate? {
+        for voucher in self.receipt?.voucher ?? [] {
+            if voucher.basic?.voucherType.lowercased() == ATVoucherType.saleReschedule.value {
+                return voucher.basic?.currencyRate
+            }
+        }
+        return nil
     }
     
     // Paid :
@@ -1820,17 +1885,17 @@ struct Pax {
     var salutationImage: UIImage {
         switch self.salutation {
         case "Mrs":
-            return #imageLiteral(resourceName: "woman")
+            return AppImages.woman
         case "Mr":
-            return #imageLiteral(resourceName: "man")
+            return AppImages.man
         case "Mast":
-            return #imageLiteral(resourceName: "man")
+            return AppImages.man
         case "Miss":
-            return #imageLiteral(resourceName: "girl")
+            return AppImages.girl
         case "Ms":
-            return #imageLiteral(resourceName: "woman")
+            return AppImages.woman
         default:
-            return #imageLiteral(resourceName: "person")
+            return AppImages.person
         }
     }
     
@@ -2020,12 +2085,13 @@ struct Receipt {
     var totalAmountDue: Double = 0.0
     var totalAmountPaid: Double = 0.0
     var reversalMF:Double = 0.0
+    var currencyRate: CurrencyConversionRate?
     
     init() {
-        self.init(json: [:], bookingId: "")
+        self.init(json: [:], bookingId: "", currencyRate: nil)
     }
     
-    init(json: JSONDictionary, bookingId: String) {
+    init(json: JSONDictionary, bookingId: String, currencyRate:CurrencyConversionRate?) {
         if let obj = json["total_amount_due"] {
             self.totalAmountDue = "\(obj)".toDouble ?? 0.0
         }
@@ -2036,9 +2102,9 @@ struct Receipt {
         if let obj = json["reversalMF"]{
             self.reversalMF = "\(obj)".toDouble ?? 0.0
         }
-        
+        self.currencyRate = currencyRate
         if let obj = json["vouchers"] as? [JSONDictionary] {
-            let (all, receipt, others) = Voucher.getModels(json: obj, bookingId: bookingId)
+            let (all, receipt, others) = Voucher.getModels(json: obj, bookingId: bookingId, currencyRate: currencyRate)
             self.voucher = all
             self.receiptVoucher = receipt
             self.otherVoucher = others
@@ -2053,13 +2119,13 @@ struct Voucher {
     var bookingId: String = ""
     
     init() {
-        self.init(json: [:], bookingId: "")
+        self.init(json: [:], bookingId: "", currencyRate: nil)
     }
     
-    init(json: JSONDictionary, bookingId: String) {
+    init(json: JSONDictionary, bookingId: String, currencyRate:CurrencyConversionRate?) {
         self.bookingId = bookingId
         if let obj = json["basic"] as? JSONDictionary {
-            self.basic = Basic(json: obj)
+            self.basic = Basic(json: obj, currencyRate: currencyRate)
         }
         
         if let obj = json["transactions"] as? [JSONDictionary] {
@@ -2074,13 +2140,13 @@ struct Voucher {
         }
     }
     
-    static func getModels(json: [JSONDictionary], bookingId: String) -> (all: [Voucher], receipt: [Voucher], others: [Voucher]) {
+    static func getModels(json: [JSONDictionary], bookingId: String, currencyRate:CurrencyConversionRate?) -> (all: [Voucher], receipt: [Voucher], others: [Voucher]) {
         var allVoucher = [Voucher]()
         var receiptVoucher = [Voucher]()
         var otherVoucher = [Voucher]()
         
         for data in json {
-            let vchr = Voucher(json: data, bookingId: bookingId)
+            let vchr = Voucher(json: data, bookingId: bookingId, currencyRate: currencyRate)
             if let basic = vchr.basic, basic.typeSlug == .receipt {
                 receiptVoucher.append(vchr)
             }
@@ -2118,6 +2184,7 @@ struct Basic {
     var voucherNo: String = ""
     var transactionDateTime: Date?
     var transactionId: String = ""
+    var currencyRate: CurrencyConversionRate?
     
     var typeSlug: TypeSlug {
         get {
@@ -2130,10 +2197,10 @@ struct Basic {
     }
     
     init() {
-        self.init(json: [:])
+        self.init(json: [:], currencyRate: nil)
     }
     
-    init(json: JSONDictionary) {
+    init(json: JSONDictionary, currencyRate:CurrencyConversionRate?) {
         if let obj = json["id"] {
             self.id = "\(obj)".removeNull
         }
@@ -2172,6 +2239,14 @@ struct Basic {
             // "2019-05-29 11:21:09"
             self.transactionDateTime = "\(obj)".toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
         }
+        
+        if let obj = json["currency_rate"] as? JSONDictionary{
+            self.currencyRate = CurrencyConversionRate(json: obj)
+        }else{
+            self.currencyRate = currencyRate
+        }
+        
+        
     }
 }
 
@@ -2643,3 +2718,19 @@ struct BookingAddons{
     }
     
 }
+
+///Booking Currency conversion rate Model
+
+struct CurrencyConversionRate{
+    let cancellationRate:Double
+    let currencyCode:String
+    let rate:Double
+    
+    init(json: JSONDictionary) {
+        cancellationRate = JSON(json["cancellation_rate"] ?? 1.0).doubleValue
+        currencyCode = JSON(json["currency_code"] ?? "INR").stringValue
+        rate = JSON(json["rate"] ?? 1.0).doubleValue
+    }
+    
+}
+ 

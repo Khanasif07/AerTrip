@@ -384,17 +384,17 @@ extension HotelsSearchVM {
     func createLogSerchHotels(with recentSearch: RecentSearchesModel? = nil){
         var paramString = ""
         if let recentSearch = recentSearch{
-            paramString += "destName:\(recentSearch.dest_name),"
-            paramString += "rooms:\((recentSearch.room?.count ?? 1)),"
-            paramString += "adult:\(((recentSearch.room ?? []).map{(Int($0.adultCounts) ?? 0)}).reduce(0){$0+$1}),"
-            paramString += "child:\(((recentSearch.room ?? []).map{$0.child.count}).reduce(0){$0 + $1}),"
+            paramString += "destName:\(recentSearch.dest_name), "
+            paramString += "rooms:\((recentSearch.room?.count ?? 1)), "
+            paramString += "adult:\(((recentSearch.room ?? []).map{(Int($0.adultCounts) ?? 0)}).reduce(0){$0+$1}), "
+            paramString += "child:\(((recentSearch.room ?? []).map{$0.child.count}).reduce(0){$0 + $1}), "
             paramString += "destType:\(recentSearch.dest_type)"
         }else{//HotelsSearchVM.hotelFormData
             
-            paramString += "destName:\(HotelsSearchVM.hotelFormData.destName),"
-            paramString += "rooms:\(HotelsSearchVM.hotelFormData.roomNumber),"
-            paramString += "adult:\(HotelsSearchVM.hotelFormData.adultsCount.reduce(0){$0+$1}),"
-            paramString += "child:\(HotelsSearchVM.hotelFormData.childrenCounts.reduce(0){$0+$1}),"
+            paramString += "destName:\(HotelsSearchVM.hotelFormData.destName), "
+            paramString += "rooms:\(HotelsSearchVM.hotelFormData.roomNumber), "
+            paramString += "adult:\(HotelsSearchVM.hotelFormData.adultsCount.reduce(0){$0+$1}), "
+            paramString += "child:\(HotelsSearchVM.hotelFormData.childrenCounts.reduce(0){$0+$1}), "
             paramString += "destType:\(HotelsSearchVM.hotelFormData.destType)"
         }
         self.logEvents(with: .Search, valueString: paramString)

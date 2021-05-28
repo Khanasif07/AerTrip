@@ -102,6 +102,7 @@ class SeatMapContainerVC: UIViewController {
         viewModel.selectedSeats.forEach { (seat) in
             FirebaseEventLogs.shared.logAddons(with: FirebaseEventLogs.EventsTypeName.addSeatAddons,  flightTitle: "\(seat.ttl)", value: "SeatNumber:\(seat.columnData.ssrCode), Price:\(seat.columnData.amount)")
         }
+        
     }
     
     // MARK: Functions
@@ -172,7 +173,12 @@ class SeatMapContainerVC: UIViewController {
         seatTotalTitleLbl.font = AppFonts.Regular.withSize(12)
         seatTotalTitleLbl.textColor = AppColors.themeGray60
         seatTotalLbl.font = AppFonts.SemiBold.withSize(19)
-        seatTotalLbl.text = "₹ 0"
+//        seatTotalLbl.text = "₹ 0"
+       
+        self.viewModel.getSeatTotal {[weak self] (total) in
+            self?.seatTotalLbl.attributedText = total.toDouble.getConvertedAmount(using: AppFonts.SemiBold.withSize(19))
+        }
+        
         addBtn.titleLabel?.font = AppFonts.SemiBold.withSize(20)
         addBtn.setTitleColor(AppColors.themeGreen, for: .normal)
         let addBtnTitle = viewModel.setupFor == .postSelection ? LocalizedString.CheckoutTitle.localized : LocalizedString.Add.localized
@@ -214,7 +220,10 @@ class SeatMapContainerVC: UIViewController {
                     self.viewModel.allFlightsData[index] = flightData
                     self.viewModel.getSeatTotal { [weak self] (seatTotal) in
                         guard let self = self else { return }
-                        self.seatTotalLbl.text = "₹ \(seatTotal.formattedWithCommaSeparator)"
+//                        self.seatTotalLbl.text = "₹ \(seatTotal.formattedWithCommaSeparator)"
+                        
+                        self.seatTotalLbl.attributedText = seatTotal.toDouble.getConvertedAmount(using: AppFonts.SemiBold.withSize(19))
+                        
                     }
                 }
                 self.planeLayoutCollView.reloadData()
@@ -273,17 +282,17 @@ class SeatMapContainerVC: UIViewController {
     private func createAttHeaderTitle(_ origin: String,_ destination: String) -> NSAttributedString {
         let fullString = NSMutableAttributedString(string: origin + "" )
         let desinationAtrributedString = NSAttributedString(string: "" + destination)
-        let imageString = getStringFromImage(name : "oneway")
+        let imageString = getStringFromImage(with : AppImages.onewayIcon)
         fullString.append(imageString)
         fullString.append(desinationAtrributedString)
         return fullString
     }
     
-    private func getStringFromImage(name : String) -> NSAttributedString {
+    private func getStringFromImage(with image : UIImage) -> NSAttributedString {
         let imageAttachment = NSTextAttachment()
 //        let sourceSansPro18 = UIFont(name: "SourceSansPro-Semibold", size: 18.0)!
         let sourceSansPro18 = AppFonts.SemiBold.withSize(18)
-        let iconImage = UIImage(named: name )!
+        let iconImage = image
         imageAttachment.image = iconImage
         
         let yCordinate  = roundf(Float(sourceSansPro18.capHeight - iconImage.size.height) / 2.0)
@@ -439,7 +448,12 @@ extension SeatMapContainerVC: TopNavigationViewDelegate {
                 }
             }
         }
-        seatTotalLbl.text = "₹ 0"
+//        seatTotalLbl.text = "₹ 0"
+        
+        self.viewModel.getSeatTotal {[weak self] (total) in
+            self?.seatTotalLbl.attributedText = total.toDouble.getConvertedAmount(using: AppFonts.SemiBold.withSize(19))
+        }
+        
         planeLayoutCollView.reloadData()
     }
     
@@ -508,7 +522,10 @@ extension SeatMapContainerVC: SeatMapContainerDelegate {
             viewModel.allFlightsData = allFlightsData
             viewModel.getSeatTotal { [weak self] (seatTotal) in
                 guard let self = self else { return }
-                self.seatTotalLbl.text = "₹ \(seatTotal.formattedWithCommaSeparator)"
+//                self.seatTotalLbl.text = "₹ \(seatTotal.formattedWithCommaSeparator)"
+                
+                self.seatTotalLbl.attributedText = seatTotal.toDouble.getConvertedAmount(using: AppFonts.SemiBold.withSize(19))
+
             }
         } else if viewModel.setupFor == .postSelection {
             createPassengerContactsArr()
@@ -516,7 +533,9 @@ extension SeatMapContainerVC: SeatMapContainerDelegate {
             viewModel.originalAllFlightsData = viewModel.allFlightsData
             viewModel.getSeatTotal { [weak self] (seatTotal) in
                 guard let self = self else { return }
-                self.seatTotalLbl.text = "₹ \(seatTotal.formattedWithCommaSeparator)"
+//                self.seatTotalLbl.text = "₹ \(seatTotal.formattedWithCommaSeparator)"
+                self.seatTotalLbl.attributedText = seatTotal.toDouble.getConvertedAmount(using: AppFonts.SemiBold.withSize(19))
+
             }
         }
         guard !viewModel.allTabsStr.isEmpty else { return }

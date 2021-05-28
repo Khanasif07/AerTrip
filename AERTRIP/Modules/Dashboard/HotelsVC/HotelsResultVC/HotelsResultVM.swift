@@ -90,6 +90,9 @@ class HotelsResultVM: NSObject {
     
     var recentSearchModel: RecentSearchesModel?
     
+    
+    var showBeyondTwenty = false
+    
     func getConvertedRecentSearchFilter() -> UserInfo.HotelFilter? {
         guard let recentSearchFilter = recentSearchModel?.filter else { return nil }
         let recentFilter = UserInfo.HotelFilter(recentSearchFilter: recentSearchFilter)

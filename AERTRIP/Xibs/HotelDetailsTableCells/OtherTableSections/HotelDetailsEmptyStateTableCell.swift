@@ -30,7 +30,7 @@ class HotelDetailsEmptyStateTableCell: UITableViewCell {
     ///Config UI
     private func configUI() {
         self.containerView.backgroundColor = AppColors.screensBackground.color
-        self.emptyStateImageView.image = #imageLiteral(resourceName: "HotelDetailsEmptyState")
+        self.emptyStateImageView.image = AppImages.HotelDetailsEmptyState
         self.emptyStateTitleLabel.font = AppFonts.Regular.withSize(22.0)
         self.emptyStateDescriptionLabel.font = AppFonts.Regular.withSize(18.0)
         self.resetFilterButtonOutlet.titleLabel?.font = AppFonts.SemiBold.withSize(18.0)

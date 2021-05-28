@@ -441,7 +441,7 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                                     
                                     let attributedStr = NSMutableAttributedString(string: displayString)
                                     
-                                    var checkMarkImgName = ""
+                                    var checkMarkImgName:UIImage = UIImage()
                                     
                                     let farepr = (upgardeResult[indexPath.row] as AnyObject).value(forKey: "farepr") as? Double ?? 0
                                     cell.selectButtonClick.tag = indexPath.row
@@ -464,7 +464,7 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                                                 cell.selectButton.backgroundColor = UIColor(displayP3Red: 0.0/255.0, green: 204.0/255.0, blue: 153.0/255.0, alpha: 1.0)
                                                 cell.selectButton.setTitleColor(UIColor.white, for: .normal)
                                                 cell.selectButton.setTitle("Selected", for: .normal)
-                                                checkMarkImgName = "Green_Copy.png"
+                                                checkMarkImgName = AppImages.Green_Copy
                                                 selectButtonTitle = "Selected"
                                             }else if isNewPlanSelected == true && updatedJourneyArray[selectedLocationIndex].farepr == farepr
                                             {
@@ -480,7 +480,7 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                                                 cell.selectButton.backgroundColor = UIColor(displayP3Red: 0.0/255.0, green: 204.0/255.0, blue: 153.0/255.0, alpha: 1.0)
                                                 cell.selectButton.setTitleColor(UIColor.white, for: .normal)
                                                 cell.selectButton.setTitle("Selected", for: .normal)
-                                                checkMarkImgName = "Green_Copy.png"
+                                                checkMarkImgName = AppImages.Green_Copy
                                                 selectButtonTitle = "Selected"
                                             }else{
                                                 var newFare: Double = 0
@@ -513,7 +513,7 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                                                 cell.selectButton.backgroundColor = UIColor(displayP3Red: 242.0/255.0, green: 242.0/255.0, blue: 242.0/255.0, alpha: 1.0)
                                                 cell.selectButton.setTitleColor(UIColor(displayP3Red: 0.0/255.0, green: 204.0/255.0, blue: 153.0/255.0, alpha: 1.0), for: .normal)
                                                 cell.selectButton.setTitle("Select", for: .normal)
-                                                checkMarkImgName = "blackCheckmark.png"
+                                                checkMarkImgName = AppImages.blackCheckmark
                                                 selectButtonTitle = "Select"
                                             }
                                         }else{
@@ -531,7 +531,7 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                                                 cell.selectButton.backgroundColor = UIColor(displayP3Red: 0.0/255.0, green: 204.0/255.0, blue: 153.0/255.0, alpha: 1.0)
                                                 cell.selectButton.setTitleColor(UIColor.white, for: .normal)
                                                 cell.selectButton.setTitle("Selected", for: .normal)
-                                                checkMarkImgName = "Green_Copy.png"
+                                                checkMarkImgName = AppImages.Green_Copy
                                                 selectButtonTitle = "Selected"
                                             }else if isNewPlanSelected == true && selectedFareName == fareName.lowercased()
                                             {
@@ -547,7 +547,7 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                                                 cell.selectButton.backgroundColor = UIColor(displayP3Red: 0.0/255.0, green: 204.0/255.0, blue: 153.0/255.0, alpha: 1.0)
                                                 cell.selectButton.setTitleColor(UIColor.white, for: .normal)
                                                 cell.selectButton.setTitle("Selected", for: .normal)
-                                                checkMarkImgName = "Green_Copy.png"
+                                                checkMarkImgName = AppImages.Green_Copy
                                                 selectButtonTitle = "Selected"
                                             }else{
                                                 var newFare: Double = 0
@@ -580,14 +580,14 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                                                 cell.selectButton.backgroundColor = UIColor(displayP3Red: 242.0/255.0, green: 242.0/255.0, blue: 242.0/255.0, alpha: 1.0)
                                                 cell.selectButton.setTitleColor(UIColor(displayP3Red: 0.0/255.0, green: 204.0/255.0, blue: 153.0/255.0, alpha: 1.0), for: .normal)
                                                 cell.selectButton.setTitle("Select", for: .normal)
-                                                checkMarkImgName = "blackCheckmark.png"
+                                                checkMarkImgName = AppImages.blackCheckmark
                                                 selectButtonTitle = "Select"
                                             }
                                         }
                                     }
                                     
                                     let image1Attachment = NSTextAttachment()
-                                    image1Attachment.image = UIImage(named: checkMarkImgName)
+                                    image1Attachment.image = checkMarkImgName
                                     
                                     let image1String = NSAttributedString(attachment: image1Attachment)
                                     

@@ -54,7 +54,7 @@ class InternationalReturnTableViewCell: UITableViewCell {
         self.layer.masksToBounds = false
         setupBaseView()
         //        dashedView.setupDashedView()
-        //        let img = #imageLiteral(resourceName: "Back")
+        //        let img = AppImages.Back
         //        let templetImage = img.withRenderingMode(.alwaysTemplate)
         //        arrowImage.image = templetImage
         //        arrowImage.tintColor = AppColors.themeGreen
@@ -182,6 +182,9 @@ class InternationalReturnTableViewCell: UITableViewCell {
             setPinnedFlight()
         }
         self.price.text = currentJourney.priceAsString
+        
+        self.price.attributedText = currentJourney.farepr.getConvertedAmount(using: AppFonts.Regular.withSize(16))
+        
         multiFlightsTableView.reloadData()
         self.multiFlighrsTableViewHeight.constant = CGFloat(66 * currentJourney.legsWithDetail.count)
         smartIconCollectionView.reloadData()
@@ -287,7 +290,7 @@ extension InternationalReturnTableViewCell : UICollectionViewDataSource , UIColl
 
         if indexPath.section == 0 {
         
-            cell.imageView.image = UIImage(named: "checkingBaggageKg")
+            cell.imageView.image = AppImages.checkingBaggageKg
             cell.superScript.attributedText = baggageSuperScript
             cell.superScriptWidth.constant = 14
                 

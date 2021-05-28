@@ -67,6 +67,9 @@ extension AddOnVC {
         self.adonsVm.setAdonsOptions()
         self.adonsVm.initializeFreeMealsToPassengers()
         self.mealsUpdated(amount: "")
+        self.othersUpdated(amount: "")
+        self.seatsUpdated(amount: 0)
+        self.baggageUpdated(amount: "")
         configureTableView()
         setupBottomView()
         

@@ -122,11 +122,11 @@ class HotelCardCollectionViewCell: AppStoreAnimationCollectionCell {
             let view = UIImageView(frame: CGRect(x: CGFloat(index) * scrollSize, y: self.hotelImageView.frame.origin.y, width: hotelImageView.frame.size.width, height: hotelImageView.frame.size.height))
             view.contentMode = .scaleAspectFill
            // view.setImageWithUrl(thumbnail.first ?? "", placeholder: UIImage(named: "hotelCardPlaceHolder") ?? AppPlaceholderImage.frequentFlyer, showIndicator: false)
-            view.setImageWithUrl(imageUrl: thumbnail.first ?? "", placeholder: #imageLiteral(resourceName: "hotelCardPlaceHolder"), showIndicator: false) { [weak self] (image, error) in
+            view.setImageWithUrl(imageUrl: thumbnail.first ?? "", placeholder: AppImages.hotelCardPlaceHolder, showIndicator: false) { [weak self] (image, error) in
                 if let downloadedImage = image {
                     view.image = downloadedImage
                 } else {
-                    view.image = #imageLiteral(resourceName: "hotelCardNoImagePlaceHolder")
+                    view.image = AppImages.hotelCardNoImagePlaceHolder
                 }
             }
             view.autoresizingMask = [.flexibleHeight,.flexibleWidth]
@@ -171,13 +171,13 @@ class HotelCardCollectionViewCell: AppStoreAnimationCollectionCell {
         self.hotelImageView.cancelImageDownloading()
         let imageUrlStr = self.hotelData?.photo ?? ""
         if imageUrlStr.isEmpty {
-            self.hotelImageView.image = #imageLiteral(resourceName: "hotelCardNoImagePlaceHolder")
+            self.hotelImageView.image = AppImages.hotelCardNoImagePlaceHolder
         } else {
-            self.hotelImageView.setImageWithUrl(imageUrl: imageUrlStr, placeholder: #imageLiteral(resourceName: "hotelCardNoImagePlaceHolder")  /*#imageLiteral(resourceName: "hotelCardPlaceHolder")*/, showIndicator: false) { [weak self] (image, error) in
+            self.hotelImageView.setImageWithUrl(imageUrl: imageUrlStr, placeholder: AppImages.hotelCardNoImagePlaceHolder  /*AppImages.hotelCardPlaceHolder*/, showIndicator: false) { [weak self] (image, error) in
                 if let downloadedImage = image {
                     self?.hotelImageView.image = downloadedImage
                 } else {
-                    self?.hotelImageView.image = #imageLiteral(resourceName: "hotelCardNoImagePlaceHolder")
+                    self?.hotelImageView.image = AppImages.hotelCardNoImagePlaceHolder
                 }
             }
         }
@@ -216,23 +216,24 @@ class HotelCardCollectionViewCell: AppStoreAnimationCollectionCell {
 
         if listPrice == 0{
             self.actualPriceLabel.text = ""
+            self.actualPriceLabel.attributedText = nil
         }else{
-            let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: listPrice.amountInDelimeterWithSymbol)
+            let attributeString: NSMutableAttributedString = listPrice.getConvertedAmount(using: AppFonts.Regular.withSize(16))
             attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 1, range: NSMakeRange(0, attributeString.length))
             self.actualPriceLabel.attributedText = attributeString
-            self.actualPriceLabel.AttributedFontForText(text: price.getCurrencySymbol, textFont: AppFonts.Regular.withSize(12))
+            self.actualPriceLabel.AttributedFontForText(text: price.getPreferredCurrency, textFont: AppFonts.Regular.withSize(12))
             actualPriceLabel.isHidden = price == listPrice
         }
-        self.discountedPriceLabel.text = price.amountInDelimeterWithSymbol
-        self.discountedPriceLabel.AttributedFontForText(text: price.getCurrencySymbol, textFont: AppFonts.SemiBold.withSize(16))
+        self.discountedPriceLabel.attributedText = price.getConvertedAmount(using: AppFonts.SemiBold.withSize(22))
+        self.discountedPriceLabel.AttributedFontForText(text: price.getPreferredCurrency, textFont: AppFonts.SemiBold.withSize(16))
         self.saveButton.isSelected = self.hotelListData?.fav == "0" ? false : true
         
         self.hotelImageView.cancelImageDownloading()
-        self.hotelImageView.setImageWithUrl(imageUrl: self.hotelListData?.thumbnail?.first ?? "", placeholder: #imageLiteral(resourceName: "hotelCardPlaceHolder"), showIndicator: false) { [weak self] (image, error) in
+        self.hotelImageView.setImageWithUrl(imageUrl: self.hotelListData?.thumbnail?.first ?? "", placeholder: AppImages.hotelCardPlaceHolder, showIndicator: false) { [weak self] (image, error) in
             if let downloadedImage = image {
                 self?.hotelImageView.image = downloadedImage
             } else {
-                self?.hotelImageView.image = #imageLiteral(resourceName: "hotelCardNoImagePlaceHolder")
+                self?.hotelImageView.image = AppImages.hotelCardNoImagePlaceHolder
             }
         }
     }

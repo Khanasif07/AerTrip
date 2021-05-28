@@ -25,6 +25,10 @@ protocol FlightPaymentVMDelegate:NSObjectProtocol {
     func getPaymentResonseSuccess(bookingIds: [String], cid: [String])
     func getPaymentResponseWithPendingPayment(_ p:String, id:String)
     func getPaymentResonseFail(error: ErrorCodes)
+    
+    func getUpdateCurrencyResponse(success:Bool)
+    
+    
 }
 
 class FlightPaymentVM{
@@ -116,7 +120,7 @@ class FlightPaymentVM{
             let dataArray = newDict[key] ?? []
             var newTaxVal: Double = 0
             for i in 0..<dataArray.count{
-                newTaxVal += (dataArray[i].taxVal ?? 0)
+                newTaxVal += (dataArray[i].taxVal )
             }
             let newArr = (key,newTaxVal)
             addonsData.append(newArr)
@@ -243,7 +247,7 @@ extension FlightPaymentVM{
         //forAmount used to decide that razor pay will use or not
         var params: [String : Any] = [ APIKeys.it_id.rawValue : self.itinerary.id]
         params[APIKeys.total_amount.rawValue] = grossTotalPayableAmount
-        params[APIKeys.currency_code.rawValue] = "INR"//self.itineraryData?.booking_currency ?? ""
+        params[APIKeys.currency_code.rawValue] = CurrencyControler.shared.selectedCurrency.currencyCode//"INR"
         params[APIKeys.use_points.rawValue] = self.itinerary.userPoints
         if UserInfo.loggedInUser != nil {
             params[APIKeys.use_wallet.rawValue] = useWallet ? 1 : 0
@@ -315,7 +319,7 @@ extension FlightPaymentVM{
     
     func getItineraryDetails(with id: String, completionBlock: @escaping((_ success:Bool, _ data:FlightItinerary?, _ error: ErrorCodes)->())){
         let param = [APIKeys.it_id.rawValue: id]
-        APICaller.shared.getItinerayDataForPendingPayment(params: param) {[weak self] (success, error, data) in
+        APICaller.shared.getItinerayDataForPendingPayment(params: param) {(success, error, data) in
             completionBlock(success, data, error)
         }
     }
@@ -331,6 +335,18 @@ extension FlightPaymentVM{
         let params: [String : Any] = [ APIKeys.it_id.rawValue : self.itinerary.id , APIKeys.product.rawValue : CouponFor.flights.rawValue]
         APICaller.shared.getCouponDetailsApi(params: params, loader: true ) { (success, errors, couponsDetails) in
             completion(success, couponsDetails, errors)
+            
+        }
+    }
+    
+    
+    func updateCurrency(useWallet: Bool){
+        APICaller.shared.getCurrencies {[weak self] (success, _) in
+            guard let self = self else {return}
+            self.delegate?.getUpdateCurrencyResponse(success: success)
+            if success{
+                self.reconfirmationAPI(useWallet: useWallet)
+            }
             
         }
     }

@@ -31,7 +31,7 @@ class FareSectionHeader: UITableViewHeaderFooterView {
 
     var isDownArrow: Bool = true {
         didSet {
-            arrowButton.setImage(#imageLiteral(resourceName: isDownArrow ? "downArrowCheckOut": "upArrowIconCheckout"), for: .normal)
+            arrowButton.setImage(isDownArrow ? AppImages.downArrowCheckOut : AppImages.upArrowIconCheckout, for: .normal)
         }
     }
     

@@ -119,7 +119,7 @@ class BookingHotelDetailVC: BaseVC {
     private func configureNavBar() {
         self.topNavigationView.configureNavBar(title: nil , isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .blurAnimatedView(isDark: false))
         
-        self.topNavigationView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "CancelButtonWhite"), selectedImage: #imageLiteral(resourceName: "black_cross"), normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
+        self.topNavigationView.configureFirstRightButton(normalImage: AppImages.CancelButtonWhite, selectedImage: AppImages.CancelButtonWhite, normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
         self.topNavigationView.firstRightButton.imageEdgeInsets = UIEdgeInsets(top: 2, left: 0, bottom: 0, right: 0)
         self.topNavigationView.navTitleLabel.numberOfLines = 1
         self.topNavigationView.firstRightButtonTrailingConstraint.constant = -3

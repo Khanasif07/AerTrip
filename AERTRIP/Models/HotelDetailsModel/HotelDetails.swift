@@ -858,7 +858,7 @@ struct PenaltyRates {
     //================
     var to: String = ""
     var from: String = ""
-    var penalty: Int = 0
+    var penalty: Double = 0
     var tz: String = ""
     var is_refundable: Bool = false
     
@@ -882,6 +882,8 @@ struct PenaltyRates {
             self.to = "\(obj)".removeNull
         }
         if let obj = json[APIKeys.penalty.rawValue] as? Int {
+            self.penalty = obj.toDouble 
+        }else if let obj = json[APIKeys.penalty.rawValue] as? Double {
             self.penalty = obj
         }
         if let obj = json[APIKeys.tz.rawValue] {

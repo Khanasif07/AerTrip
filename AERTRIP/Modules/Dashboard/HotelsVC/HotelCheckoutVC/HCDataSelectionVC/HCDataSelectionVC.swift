@@ -197,7 +197,7 @@ class HCDataSelectionVC: BaseVC {
     }
     
     private func fillData() {
-        totalFareLabel.text = (viewModel.itineraryData?.total_fare ?? 0.0).amountInDelimeterWithSymbol
+        totalFareLabel.attributedText = (viewModel.itineraryData?.total_fare ?? 0.0).getConvertedAmount(using: AppFonts.SemiBold.withSize(20))//.amountInDelimeterWithSymbol
         setupFareBreakup()
         
         hotelNameLabel.text = viewModel.itineraryData?.hotelDetails?.hname ?? ""
@@ -226,7 +226,7 @@ class HCDataSelectionVC: BaseVC {
         topNavView.delegate = self
         topNavView.configureNavBar(title: LocalizedString.Guests.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
         
-        topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "AddPassenger"), selectedImage: #imageLiteral(resourceName: "AddPassenger"))
+        topNavView.configureFirstRightButton(normalImage: AppImages.AddPassenger, selectedImage: AppImages.AddPassenger)
     }
     
     private func registerXIBs() {
@@ -252,7 +252,7 @@ class HCDataSelectionVC: BaseVC {
             fareBreakupTitleLabel.text = "\(LocalizedString.FareBreakup.localized) (\(room) \(roomText) & \(night) \(nightText))"
         }
         
-        totalFareAmountLabel.text = (viewModel.itineraryData?.total_fare ?? 0.0).amountInDelimeterWithSymbol
+        totalFareAmountLabel.attributedText = (viewModel.itineraryData?.total_fare ?? 0.0).getConvertedAmount(using: AppFonts.SemiBold.withSize(20))//.amountInDelimeterWithSymbol
         
     }
     
@@ -407,7 +407,7 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
         //        if let hotelCheckOutDetailsVIew = self.hotelCheckOutDetailsVIew {
         //            //            hotelCheckOutDetailsVIew.hotelDetailsTableView.reloadData()
         //            sendDataChangedNotification(data: self)
-        //            let buttonImage: UIImage = viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
+        //            let buttonImage: UIImage = viewModel.hotelInfo?.fav == "1" ? AppImages.saveHotelsSelected : AppImages.saveHotels
         //            hotelCheckOutDetailsVIew.headerView.leftButton.setImage(buttonImage, for: .normal)
         //        }
     }
@@ -416,7 +416,7 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
         AppNetworking.hideLoader()
         //        if let hotelCheckOutDetailsVIew = self.hotelCheckOutDetailsVIew {
         //            sendDataChangedNotification(data: self)
-        //            let buttonImage: UIImage = viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
+        //            let buttonImage: UIImage = viewModel.hotelInfo?.fav == "1" ? AppImages.saveHotelsSelected : AppImages.saveHotels
         //            hotelCheckOutDetailsVIew.headerView.leftButton.setImage(buttonImage, for: .normal)
         //        }
         if let _ = UserInfo.loggedInUser {

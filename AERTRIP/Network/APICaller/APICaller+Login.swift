@@ -48,7 +48,12 @@ extension APICaller {
                 
                 if var userData = jsonData[APIKeys.data.rawValue].dictionaryObject, let id = jsonData[APIKeys.data.rawValue][APIKeys.paxId.rawValue].int {
                     
+                    
+                    let preferedCurrencyCode = jsonData[APIKeys.data.rawValue][APIKeys.preferred_currency.rawValue].stringValue
+                    
                     UserInfo.loggedInUserId = "\(id)"
+                    UserInfo.preferredCurrencyCode = preferedCurrencyCode
+                    
                     if let gen = userData[APIKeys.generalPref.rawValue] as? JSONDictionary {
                         userData[APIKeys.generalPref.rawValue] = AppGlobals.shared.json(from: gen)
                     }
@@ -62,6 +67,12 @@ extension APICaller {
                     if let img = UserInfo.loggedInUser?.profileImagePlaceholder() {
                         UserInfo.loggedInUser?.profilePlaceholder = img
                     }
+                    
+                    CurrencyControler.shared.getCurrencies { (success, currencies, topCurrencies) in
+                        
+                    }
+                    
+//                    APICaller.shared.getCurrencies(completionBlock: {_ , _ in })
                 }
                 completionBlock(true, [])
                 
@@ -105,6 +116,9 @@ extension APICaller {
                         userData[APIKeys.generalPref.rawValue] = AppGlobals.shared.json(from: gen)
                     }
                     _ = UserInfo(withData: userData, userId: "\(id)")
+                    
+                    APICaller.shared.getCurrencies(completionBlock: {_ , _ in })
+                    
                 }
                 completionBlock(true, [])
                 
@@ -264,6 +278,8 @@ extension APICaller {
                         userData[APIKeys.generalPref.rawValue] = AppGlobals.shared.json(from: gen)
                     }
                     _ = UserInfo(withData: userData, userId: "\(id)")
+                    
+                    APICaller.shared.getCurrencies(completionBlock: {_ , _ in })
                 }
                 completionBlock(true, [])
                 

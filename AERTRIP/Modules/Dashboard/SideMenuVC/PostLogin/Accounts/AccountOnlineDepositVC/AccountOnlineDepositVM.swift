@@ -37,6 +37,10 @@ class AccountOnlineDepositVM: NSObject {
         return depositItinerary?.netAmount ?? 0.0
     }
     
+    var currency:String{
+        self.depositItinerary?.currency ?? "INR"
+    }
+    
     var feeAmount: Double {
         if let part = depositItinerary?.partPaymentAmount, part > 0.0 {
             var percentage = 0.0
@@ -67,7 +71,7 @@ class AccountOnlineDepositVM: NSObject {
     func makePayment() {
         //forAmount used to decide that razor pay will use or not
         var params: [String : Any] = [ APIKeys.it_id.rawValue : self.depositItinerary?.id ?? ""]
-        params[APIKeys.currency_code.rawValue] = depositItinerary?.currency ?? (UserInfo.loggedInUser?.preferredCurrency ?? "")
+        params[APIKeys.currency_code.rawValue] = depositItinerary?.currency ?? (UserInfo.preferredCurrencyCode ?? "")
         params[APIKeys.payment_method_id.rawValue] = depositItinerary?.razorpay?.id ?? ""
 
         params[APIKeys.total_amount.rawValue] = self.depositAmount

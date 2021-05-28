@@ -295,12 +295,12 @@ extension HotelResultVC: HotelResultDelegate {
     
     func getPinnedTemplateSuccess() {
       //  AppGlobals.shared.stopLoading()
-        self.emailButton.setImage(#imageLiteral(resourceName: "emailIcon"), for: .normal)
+        self.emailButton.setImage(AppImages.emailIcon, for: .normal)
     }
     
     func getPinnedTemplateFail() {
       //  AppGlobals.shared.stopLoading()
-        self.emailButton.setImage(#imageLiteral(resourceName: "emailIcon"), for: .normal)
+        self.emailButton.setImage(AppImages.emailIcon, for: .normal)
     }
     
     func willUpdateFavourite() {
@@ -350,6 +350,15 @@ extension HotelResultVC: HotelResultDelegate {
         if !isDone {
             self.viewModel.hotelListOnPreferenceResult()
         } else {
+            delay(seconds: 0.3){
+                self.hotelMapVC = nil
+                self.hotelMapVC = HotelsMapVC.instantiate(fromAppStoryboard: .HotelsSearch)
+                printDebug("hotelMapVC initialises")
+                printDebug(self.hotelMapVC)
+                self.hotelMapVC?.viewModel = self.viewModel
+                self.hotelMapVC?.loadView()
+                self.hotelMapVC?.viewDidLoad()
+            }
             loadFinalDataOnScreen()
         }
         
@@ -471,7 +480,7 @@ extension HotelResultVC: HotelFilteVCDelegate {
         } else {
             self.searchResultHeaderView.resultListPriceType = .total(self.viewModel.searchedFormData.totalNights)
         }
-        self.filterCollectionView.scrollToItem(at: IndexPath(item: HotelFilterVM.shared.lastSelectedIndex, section: 0), at: .centeredHorizontally, animated: false)
+//        self.filterCollectionView.scrollToItem(at: IndexPath(item: HotelFilterVM.shared.lastSelectedIndex, section: 0), at: .centeredHorizontally, animated: false)
         
         if let isUse = UserDefaults.getObject(forKey: "shouldApplyFormStars") as? Bool, isUse {
             UserInfo.hotelFilterApplied = UserInfo.hotelFilter
@@ -497,7 +506,12 @@ extension HotelResultVC: HotelFilteVCDelegate {
         }
         // self.filterButton.isSelected =  !(HotelFilterVM.shared.isSortingApplied || self.viewModel.isFilterApplied) ? false : true
         self.filterButton.isSelected = HotelFilterVM.shared.isFilterApplied
-        self.filterCollectionView.reloadData()
+     
+        DispatchQueue.delay(0.3) {
+            self.filterCollectionView.reloadData()
+        }
+        
+        
         
         viewModel.updateRecentSearch()
     }

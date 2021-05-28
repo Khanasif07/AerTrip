@@ -52,7 +52,7 @@ class AertripSwitch: UIControl {
     public var isOn = true {
         didSet {
             self.thumbView.frame.origin.x = self.isOn ? self.onPoint.x : self.offPoint.x
-            self.thumbImageView.image = self.isOn ? UIImage(named:"pushpin") :  UIImage(named:"pushpin-gray")
+            self.thumbImageView.image = self.isOn ? AppImages.pushpin :  AppImages.pushpin_gray
             self.backgroundColor = self.isOn ? self.onTintColor : self.offTintColor
             
         }
@@ -86,7 +86,7 @@ class AertripSwitch: UIControl {
         self.addSubview(self.thumbView)
         
         
-        self.thumbImageView.image = self.isOn ? UIImage(named:"pushpin") :  UIImage(named:"pushpin-gray")
+        self.thumbImageView.image = self.isOn ? AppImages.pushpin :  AppImages.pushpin_gray
         self.thumbImageView.frame = CGRect(x: 0 , y: 0 , width: 28.0, height: 28.0)
         self.thumbView.addSubview(self.thumbImageView)
         self.thumbView.layer.borderColor = UIColor.black.withAlphaComponent(0.1).cgColor
@@ -130,7 +130,7 @@ class AertripSwitch: UIControl {
                                                              UIView.AnimationOptions.beginFromCurrentState], animations: {
                                                                 self.thumbView.frame.origin.x = self.isOn ? self.onPoint.x : self.offPoint.x
                                                                 
-                                                                self.thumbImageView.image = self.isOn ? UIImage(named:"pushpin") :  UIImage(named:"pushpin-gray")
+                                                                self.thumbImageView.image = self.isOn ? AppImages.pushpin :  AppImages.pushpin_gray
                                                                 self.backgroundColor = self.isOn ? self.onTintColor : self.offTintColor
         }, completion: { _ in
             self.isAnimating = false

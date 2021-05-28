@@ -291,7 +291,7 @@ extension Double{
         numberFormatter.numberStyle = .currency
         numberFormatter.maximumFractionDigits = 2
         numberFormatter.minimumFractionDigits = 2
-        numberFormatter.locale = UserInfo.loggedInUser?.currentLocale ?? Locale(identifier: "en_IN")
+        numberFormatter.locale = Locale(identifier: "en_IN")//UserInfo.loggedInUser?.currentLocale ??
         
         return numberFormatter
     }()
@@ -299,7 +299,7 @@ extension Double{
     private static var numberFormatter: NumberFormatter = {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
-        numberFormatter.locale = UserInfo.loggedInUser?.currentLocale ?? Locale(identifier: "en_IN")
+        numberFormatter.locale = Locale(identifier: "en_IN")//UserInfo.loggedInUser?.currentLocale ?? 
         
         return numberFormatter
     }()
@@ -319,6 +319,11 @@ extension Double{
     var getCurrencySymbol: String {
         return Double.currencyFormatter.currencySymbol
     }
+    
+    var getPreferredCurrency:String{
+        return UserInfo.preferredCurrencyDetails?.currencySymbol ?? Double.currencyFormatter.currencySymbol
+    }
+    
 }
 
 extension CGFloat{

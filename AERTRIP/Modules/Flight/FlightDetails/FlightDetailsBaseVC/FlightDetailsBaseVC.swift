@@ -346,11 +346,11 @@ class FlightDetailsBaseVC: BaseVC {
                     if journey[i].isPinned == true{
                         journey[i].isPinned = false
                         isPinned = false
-                        pinButton.setImage(UIImage(named: "pinGreen"), for: .normal)
+                        pinButton.setImage(AppImages.pinGreen, for: .normal)
                     }else{
                         journey[i].isPinned = true
                         isPinned = true
-                        pinButton.setImage(UIImage(named: "FilledpinGreen"), for: .normal)
+                        pinButton.setImage(AppImages.FilledpinGreen, for: .normal)
                     }
                 }
             }
@@ -359,9 +359,9 @@ class FlightDetailsBaseVC: BaseVC {
         }else{
             if let journey = self.intJourney?.first{
                 if journey.isPinned{
-                    pinButton.setImage(UIImage(named: "pinGreen"), for: .normal)
+                    pinButton.setImage(AppImages.pinGreen, for: .normal)
                 }else{
-                    pinButton.setImage(UIImage(named: "FilledpinGreen"), for: .normal)
+                    pinButton.setImage(AppImages.FilledpinGreen, for: .normal)
                 }
                 var newJourney = journey
                 newJourney.isPinned = !journey.isPinned
@@ -466,9 +466,9 @@ extension FlightDetailsBaseVC{
             flights = journey.first?.leg.first?.flights
             for i in 0...journey.count-1{
                 if (journey[i].isPinned ?? false){
-                    pinButton.setImage(UIImage(named: "FilledpinGreen"), for: .normal)
+                    pinButton.setImage(AppImages.FilledpinGreen, for: .normal)
                 }else{
-                    pinButton.setImage(UIImage(named: "pinGreen"), for: .normal)
+                    pinButton.setImage(AppImages.pinGreen, for: .normal)
                 }
                 if journey[i].fsr == 1{
                     isFSRVisible = true
@@ -483,7 +483,7 @@ extension FlightDetailsBaseVC{
             for legs in journey.legsWithDetail{
                 self.intFlights?.append(contentsOf: legs.flightsWithDetails)
             }
-            let img = (journey.isPinned) ? UIImage(named: "FilledpinGreen") : UIImage(named: "pinGreen")
+            let img = (journey.isPinned) ? AppImages.FilledpinGreen : AppImages.pinGreen
             pinButton.setImage(img, for: .normal)
             isFSRVisible = (journey.fsr == 1)
         }
@@ -867,7 +867,7 @@ extension FlightDetailsBaseVC : GetSharableUrlDelegate
 {
     func returnSharableUrl(url: String)
     {
-        shareButton.setImage(UIImage(named: "ShareGreen"), for: .normal)
+        shareButton.setImage(AppImages.ShareGreen, for: .normal)
         shareButton.displayLoadingIndicator(false)
         
         if url.lowercased() == "no data"{

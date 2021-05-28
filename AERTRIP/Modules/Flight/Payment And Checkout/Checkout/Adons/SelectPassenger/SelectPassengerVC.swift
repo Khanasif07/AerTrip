@@ -115,7 +115,10 @@ extension SelectPassengerVC {
         case .seatSelection:
             selectPassengersLabel.isHidden = true
             emptyView.isHidden = true
-            titleLabel.text = selectPassengersVM.selectedSeatData.columnData.seatNumber + "  •  ₹ \(selectPassengersVM.selectedSeatData.columnData.amount.formattedWithCommaSeparator)"
+            let attString = NSMutableAttributedString(string: "\(selectPassengersVM.selectedSeatData.columnData.seatNumber)  •  ", attributes: [.font: AppFonts.SemiBold.withSize(18), .foregroundColor: AppColors.themeBlack])
+            attString.append((Double(selectPassengersVM.selectedSeatData.columnData.amount)).getConvertedAmount(using: AppFonts.SemiBold.withSize(18)))
+            titleLabel.attributedText = attString
+//            titleLabel.text = selectPassengersVM.selectedSeatData.columnData.seatNumber + "  •  ₹ \(selectPassengersVM.selectedSeatData.columnData.amount.formattedWithCommaSeparator)"
             legsLabel.text = selectPassengersVM.selectedSeatData.columnData.getCharactericstic()
             legsLabel.textColor = AppColors.themeGray40
             legsLabel.font = AppFonts.Regular.withSize(14)
@@ -124,17 +127,34 @@ extension SelectPassengerVC {
             
         case .meals:
             self.selectPassengersLabel.text = LocalizedString.Select_Passengers_To_Assign_This_Meal.localized
-            self.titleLabel.text = "\( self.selectPassengersVM.adonsData.ssrName?.name ?? "")  •  ₹ \(self.selectPassengersVM.adonsData.price.commaSeprated)"
+            
+            let attString = NSMutableAttributedString(string: "\( self.selectPassengersVM.adonsData.ssrName?.name ?? "")  •  ", attributes: [.font: AppFonts.SemiBold.withSize(18), .foregroundColor: AppColors.themeBlack])
+            attString.append((Double(self.selectPassengersVM.adonsData.price)).getConvertedAmount(using: AppFonts.SemiBold.withSize(18)))
+            titleLabel.attributedText = attString
+            
+//            self.titleLabel.text = "\( self.selectPassengersVM.adonsData.ssrName?.name ?? "")  •  ₹ \(self.selectPassengersVM.adonsData.price.commaSeprated)"
             self.legsLabel.text = self.selectPassengersVM.currentFlightName
       
         case .baggage:
             self.selectPassengersLabel.text = LocalizedString.Select_Passengers_To_Assign_This_Meal.localized
-            self.titleLabel.text = "\( self.selectPassengersVM.adonsData.ssrName?.name ?? "")  •  ₹ \(self.selectPassengersVM.adonsData.price.commaSeprated)"
+            
+            let attString = NSMutableAttributedString(string: "\( self.selectPassengersVM.adonsData.ssrName?.name ?? "")  •  ", attributes: [.font: AppFonts.SemiBold.withSize(18), .foregroundColor: AppColors.themeBlack])
+            attString.append((Double(self.selectPassengersVM.adonsData.price)).getConvertedAmount(using: AppFonts.SemiBold.withSize(18)))
+            titleLabel.attributedText = attString
+            
+            
+//            self.titleLabel.text = "\( self.selectPassengersVM.adonsData.ssrName?.name ?? "")  •  ₹ \(self.selectPassengersVM.adonsData.price.commaSeprated)"
             self.legsLabel.text = self.selectPassengersVM.currentFlightName
 
         case .others:
             self.selectPassengersLabel.text = LocalizedString.Select_Passengers.localized
-            self.titleLabel.text = "\( self.selectPassengersVM.adonsData.ssrName?.name ?? "")  •  ₹ \(self.selectPassengersVM.adonsData.price.commaSeprated)"
+            
+            
+            let attString = NSMutableAttributedString(string: "\( self.selectPassengersVM.adonsData.ssrName?.name ?? "")  •  ", attributes: [.font: AppFonts.SemiBold.withSize(18), .foregroundColor: AppColors.themeBlack])
+            attString.append((Double(self.selectPassengersVM.adonsData.price)).getConvertedAmount(using: AppFonts.SemiBold.withSize(18)))
+            titleLabel.attributedText = attString
+            
+//            self.titleLabel.text = "\( self.selectPassengersVM.adonsData.ssrName?.name ?? "")  •  ₹ \(self.selectPassengersVM.adonsData.price.commaSeprated)"
         self.legsLabel.text = self.selectPassengersVM.currentFlightName
 
         }

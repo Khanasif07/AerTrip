@@ -260,7 +260,7 @@ private extension SocialLoginVC {
             logoView?.messageLabel.font = AppFonts.c.withSize(38.0)
             logoView?.messageLabel.text = LocalizedString.PleaseSignInToContinue.localized
             logoView?.isAppNameHidden = true
-            logoView?.logoImageView.image = #imageLiteral(resourceName: "upwardAertripLogo")
+            logoView?.logoImageView.image = AppImages.upwardAertripLogo
             logoView?.logoImageTopContraint.constant = 40
             logoView?.logoImageAndNameConstraint.constant = 0
             logoView?.messageLabelTopConstraint.constant = -3
@@ -272,7 +272,7 @@ private extension SocialLoginVC {
             logoView?.messageLabel.font = AppFonts.c.withSize(38.0)
             logoView?.messageLabel.text = LocalizedString.PleaseSignInToContinue.localized
             logoView?.isAppNameHidden = true
-            logoView?.logoImageView.image = #imageLiteral(resourceName: "upwardAertripLogo")
+            logoView?.logoImageView.image = AppImages.upwardAertripLogo
             logoView?.logoImageTopContraint.constant = 40
             logoView?.logoImageAndNameConstraint.constant = 0
             logoView?.messageLabelTopConstraint.constant = -3
@@ -282,7 +282,7 @@ private extension SocialLoginVC {
 //            logoView?.messageLabel.font = AppFonts.c.withSize(38.0)
 //            logoView?.messageLabel.text = LocalizedString.PleaseSignInToContinue.localized
 //            logoView?.isAppNameHidden = true
-//            logoView?.logoImageView.image = #imageLiteral(resourceName: "upwardAertripLogo")
+//            logoView?.logoImageView.image = AppImages.upwardAertripLogo
 //            logoView?.logoImageTopContraint.constant = 55
 //            //socialButtosCenterConstraint.constant = 0.0
 //            socialAndLogoSpace.constant = 135.0

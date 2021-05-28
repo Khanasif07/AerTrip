@@ -27,8 +27,8 @@ public class CountryCodePickerViewController: UITableViewController {
         .compactMap({ Country(for: $0, with: self.phoneNumberKit) })
         .sorted(by: { $0.name.caseInsensitiveCompare($1.name) == .orderedAscending })
 
-    lazy var countries: [[Country]] = {
-        let countries = allCountries
+    lazy var currencies: [[Country]] = {
+        let currencies = allCountries
             .reduce([[Country]]()) { collection, country in
                 var collection = collection
                 guard var lastGroup = collection.last else { return [[country]] }
@@ -54,7 +54,7 @@ public class CountryCodePickerViewController: UITableViewController {
         if hasCommon {
             result.append(popular)
         }
-        return result + countries
+        return result + currencies
     }()
 
     var filteredCountries: [Country] = []
@@ -118,15 +118,15 @@ public class CountryCodePickerViewController: UITableViewController {
     }
 
     func country(for indexPath: IndexPath) -> Country {
-        isFiltering ? filteredCountries[indexPath.row] : countries[indexPath.section][indexPath.row]
+        isFiltering ? filteredCountries[indexPath.row] : currencies[indexPath.section][indexPath.row]
     }
 
     public override func numberOfSections(in tableView: UITableView) -> Int {
-        isFiltering ? 1 : countries.count
+        isFiltering ? 1 : currencies.count
     }
 
     public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        isFiltering ? filteredCountries.count : countries[section].count
+        isFiltering ? filteredCountries.count : currencies[section].count
     }
 
     public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -152,7 +152,7 @@ public class CountryCodePickerViewController: UITableViewController {
         } else if section == 1, hasCurrent, hasCommon {
             return NSLocalizedString("PhoneNumberKit.CountryCodePicker.Common", value: "Common", comment: "Name of \"Common\" section")
         }
-        return countries[section].first?.name.first.map(String.init)
+        return currencies[section].first?.name.first.map(String.init)
     }
 
     public override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
@@ -166,7 +166,7 @@ public class CountryCodePickerViewController: UITableViewController {
         if hasCommon {
             titles.append("★") // This is a classic unicode star
         }
-        return titles + countries.suffix(countries.count - titles.count).map { group in
+        return titles + currencies.suffix(currencies.count - titles.count).map { group in
             group.first?.name.first
                 .map(String.init)?
                 .folding(options: .diacriticInsensitive, locale: nil) ?? ""

@@ -215,6 +215,7 @@ enum APIEndPoint: String {
     case changeLogin = "users/change-login"
     case updateAccountDetails = "users/edit-user-details"
     case updateRefundMode = "users/update-refund-mode"
+    case currenciesList = "currencies/list"
     
     case userMeta = "users/meta"
 }

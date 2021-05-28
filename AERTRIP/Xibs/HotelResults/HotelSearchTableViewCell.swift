@@ -66,7 +66,7 @@ class HotelSearchTableViewCell: AppStoreAnimationTableViewCell {
         }
         self.favouriteStatusImageView.isHidden = hotel.fav == "0"
         self.hotelNameLabel.attributedText = getAttributeBoldTextForHotelName(text: hotel.hotelName ?? "", boldText: searchText)
-        self.hotelPriceLabel.text = hotel.price.amountInDelimeterWithSymbol
+        self.hotelPriceLabel.attributedText = hotel.price.getConvertedAmount(using: AppFonts.SemiBold.withSize(18.0))
         self.starRatingView.isHidden = true
         self.starContainerView.isHidden = true
         if hotel.star > 0.0 {

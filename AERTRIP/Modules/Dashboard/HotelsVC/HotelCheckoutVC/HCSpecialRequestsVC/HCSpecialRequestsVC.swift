@@ -157,9 +157,9 @@ extension HCSpecialRequestsVC {
         if self.viewModel.selectedRequests.contains(where: { (req) -> Bool in
             req.id == self.viewModel.specialRequests[indexPath.row].id
         }) {
-            cell.statusButton.setImage(#imageLiteral(resourceName: "CheckedGreenRadioButton"), for: .normal)
+            cell.statusButton.setImage(AppImages.CheckedGreenRadioButton, for: .normal)
         } else {
-            cell.statusButton.setImage(#imageLiteral(resourceName: "UncheckedGreenRadioButton"), for: .normal)
+            cell.statusButton.setImage(AppImages.UncheckedGreenRadioButton, for: .normal)
         }
         cell.configCell(title: self.viewModel.specialRequests[indexPath.row].name)
         return cell

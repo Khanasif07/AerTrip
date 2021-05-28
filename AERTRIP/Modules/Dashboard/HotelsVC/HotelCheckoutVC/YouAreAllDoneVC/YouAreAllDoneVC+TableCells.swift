@@ -62,7 +62,7 @@ extension YouAreAllDoneVC {
     
     internal func getPhoneCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HCPhoneTableViewCell.reusableIdentifier, for: indexPath) as? HCPhoneTableViewCell else { return nil }
-        cell.configCell(countryImage: #imageLiteral(resourceName: "ne"), phoneNumber: "+91 1234567890")
+        cell.configCell(countryImage: AppImages.indianFlag, phoneNumber: "+91 1234567890")
         return cell
     }
     
@@ -173,7 +173,8 @@ extension YouAreAllDoneVC {
     internal func getTotalChargeCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HCTotalChargeTableViewCell.reusableIdentifier, for: indexPath) as? HCTotalChargeTableViewCell else { return nil }
         cell.dividerView.isHidden = self.viewModel.sectionData[indexPath.section].contains(.confirmationVoucherCell) ? false : true
-        cell.configCell(mode: self.viewModel.hotelReceiptData?.payment_details?.mode ?? "", totalCharge: (self.viewModel.hotelReceiptData?.payment_details?.info?.payment_amount ?? 0.0).amountInDelimeterWithSymbol)
+        cell.configCell(mode: self.viewModel.hotelReceiptData?.payment_details?.mode ?? "", totalCharge: (self.viewModel.hotelReceiptData?.payment_details?.info?.payment_amount ?? 0.0).getPriceStringWithCurrency)
+        
         return cell
     }
     
@@ -188,7 +189,7 @@ extension YouAreAllDoneVC {
         cell.delegate = self
         guard let receipt = self.viewModel.hotelReceiptData else{return cell}
         let whtNextNew = receipt.whatNext.filter{$0.product != ""}
-        cell.suggetionImage = #imageLiteral(resourceName: "hotel_green_icon")
+        cell.suggetionImage = AppImages.hotel_green_icon
         cell.configCellwith(whtNextNew, usedFor: "hotel", isNeedToAdd: !self.viewModel.bookingIds.isEmpty)
         cell.whatNextStackView.isHidden = self.viewModel.bookingIds.isEmpty
         cell.selectedWhatNext = {[weak self] index in

@@ -45,7 +45,7 @@ class BaggageInfoVC: BaseVC {
     
     func configureNavBar() {
       self.topNavigationView.configureNavBar(title: LocalizedString.HandBaggageDimensions.localized, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
-          self.topNavigationView.configureFirstRightButton(normalImage: UIImage(named: "aerinBlackIcon"), selectedImage: UIImage(named: "aerinBlackIcon"))
+          self.topNavigationView.configureFirstRightButton(normalImage: AppImages.aerinBlackIcon, selectedImage:  AppImages.aerinBlackIcon)
         self.topNavigationView.delegate = self
     }
     

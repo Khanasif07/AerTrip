@@ -171,16 +171,16 @@ class UpgradePlanContrainerVC: BaseVC, UpgradePlanListVCDelegate {
      
 
         guard let journeys = self.viewModel.oldJourney else {return}
-        self.viewModel.ohterFareData = []
-        self.viewModel.selectedOhterFareData = []
+        self.viewModel.otherFareData = []
+        self.viewModel.selectedOtherFareData = []
         for (index, value) in journeys.enumerated(){
-            self.viewModel.ohterFareData.append([])
-            self.viewModel.selectedOhterFareData.append(nil)
+            self.viewModel.otherFareData.append([])
+            self.viewModel.selectedOtherFareData.append(nil)
             if (value.otherfares ?? false){
                 self.viewModel.getOtherFare(with: value.fk, oldFare: "\(value.farepr)", index: index)
             }else{
-                self.viewModel.ohterFareData[index] = nil
-                self.viewModel.selectedOhterFareData[index] = nil
+                self.viewModel.otherFareData[index] = nil
+                self.viewModel.selectedOtherFareData[index] = nil
                 self.allChildVCs[index].shouldStartIndicator(isDataFetched: false)
             }
         }
@@ -191,16 +191,16 @@ class UpgradePlanContrainerVC: BaseVC, UpgradePlanListVCDelegate {
     func apiCallForIntOtherFare(){
 
         guard let journeys = self.viewModel.oldIntJourney else {return}
-        self.viewModel.ohterFareData = []
-        self.viewModel.selectedOhterFareData = []
+        self.viewModel.otherFareData = []
+        self.viewModel.selectedOtherFareData = []
         for (index, value) in journeys.enumerated(){
-            self.viewModel.ohterFareData.append([])
-            self.viewModel.selectedOhterFareData.append(nil)
+            self.viewModel.otherFareData.append([])
+            self.viewModel.selectedOtherFareData.append(nil)
             if (value.otherFares){
                 self.viewModel.getOtherFare(with: value.fk, oldFare: "\(value.farepr)", index: index)
             }else{
-                self.viewModel.ohterFareData[index] = nil
-                self.viewModel.selectedOhterFareData[index] = nil
+                self.viewModel.otherFareData[index] = nil
+                self.viewModel.selectedOtherFareData[index] = nil
                 self.allChildVCs[index].shouldStartIndicator(isDataFetched: false)
             }
         }
@@ -285,14 +285,14 @@ extension UpgradePlanContrainerVC: UpgradePlanVMDelegate{
     }
     
     func didFetchDataAt(index: Int, data: [OtherFareModel]?) {
-        self.viewModel.ohterFareData[index] = data
-        self.viewModel.selectedOhterFareData[index] = data?.first(where: {$0.isDefault})
+        self.viewModel.otherFareData[index] = data
+        self.viewModel.selectedOtherFareData[index] = data?.first(where: {$0.isDefault})
         self.allChildVCs[index].shouldStartIndicator(isDataFetched: true)
         
     }
     
     func failsWithError(index: Int) {
-        self.viewModel.ohterFareData[index] = nil
+        self.viewModel.otherFareData[index] = nil
         self.allChildVCs[index].shouldStartIndicator(isDataFetched: false)
     }
 

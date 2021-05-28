@@ -41,7 +41,7 @@ class HotelDetailsImageCollectionCell: UICollectionViewCell {
     //==============
     internal func configCell(imgUrl: String, cornerRadius: CGFloat = 10.0) {
         self.bgView.roundTopCorners(cornerRadius: cornerRadius)
-        self.hotelImageView.setImageWithUrl(imgUrl, placeholder: #imageLiteral(resourceName: "hotelCardPlaceHolder"), showIndicator: true)
+        self.hotelImageView.setImageWithUrl(imgUrl, placeholder: AppImages.hotelCardPlaceHolder, showIndicator: true)
     }
     
     func configureCell(with images: ATGalleryImage, cornerRadius: CGFloat = 10.0){

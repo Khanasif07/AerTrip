@@ -179,6 +179,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     }
     var blurView = UIVisualEffectView()
     var isMapZoomNeedToSet = false
+    var isNeedToReload = false
     
     // MARK: - ViewLifeCycle
     
@@ -197,6 +198,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         self.aerinFilterUndoCompletion = {
             printDebug("Undo Button tapped")
         }
+        self.appleMap.register(ResistantAnnotationView.self, forAnnotationViewWithReuseIdentifier: "route")
         self.cardGradientView.isHidden = false
         
         self.currentLocationButton.isHidden = false
@@ -239,6 +241,12 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         self.statusBarStyle = .darkContent
         
         addCustomBackgroundBlurView()
+        //Reload collection when pushed from HotelResultVC.
+        if self.isNeedToReload{
+            self.hotelsMapCV.reloadData()
+            self.isNeedToReload = false
+        }
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -258,7 +266,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     }
     
     deinit {
-        printDebug("HotelResultVC deinit")
+        printDebug("HotelsMapVC deinit")
     }
     
     override func dataChanged(_ note: Notification) {
@@ -378,8 +386,8 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         self.switchView.selectedBorderWidth = 0.0//1.5
         self.switchView.iconBorderWidth = 0.0
         self.switchView.iconBorderColor = AppColors.clear
-        self.switchView.originalImage = #imageLiteral(resourceName: "switch_fav_on").maskWithColor(color: UIColor(displayP3Red: 0.8470588235, green: 0.8470588235, blue: 0.8470588235, alpha: 1))
-        self.switchView.selectedImage = #imageLiteral(resourceName: "switch_fav_on")
+        self.switchView.originalImage = AppImages.switch_fav_on.maskWithColor(color: UIColor(displayP3Red: 0.8470588235, green: 0.8470588235, blue: 0.8470588235, alpha: 1))
+        self.switchView.selectedImage = AppImages.switch_fav_on
         self.switchView.isBackgroundBlurry = true
         */
         self.switchGradientView.backgroundColor = AppColors.clear

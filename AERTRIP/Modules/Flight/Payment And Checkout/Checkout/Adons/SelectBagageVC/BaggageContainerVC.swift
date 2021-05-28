@@ -80,8 +80,9 @@ class BaggageContainerVC : BaseVC {
     
     @IBAction func addButtonTapped(_ sender: UIButton) {
         self.baggageContainerVM.updateBaggageToDataStore()
-        let price = self.totalLabel.text ?? ""
-        self.delegate?.baggageUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))
+//        let price = self.totalLabel.text ?? ""
+        let price = self.baggageContainerVM.calculateTotalAmount()
+        self.delegate?.baggageUpdated(amount: price.toString)
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -158,7 +159,8 @@ extension BaggageContainerVC {
     }
     
     func calculateTotalAmount(){
-        self.totalLabel.text = "₹ \(self.baggageContainerVM.calculateTotalAmount().commaSeprated)"
+//        self.totalLabel.text = "₹ \(self.baggageContainerVM.calculateTotalAmount().commaSeprated)"
+        self.totalLabel.attributedText = self.baggageContainerVM.calculateTotalAmount().getConvertedAmount(using: AppFonts.SemiBold.withSize(18))
     }
     
 }
@@ -168,8 +170,9 @@ extension BaggageContainerVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         self.baggageContainerVM.clearAll()
         calculateTotalAmount()
-        let price = self.totalLabel.text ?? ""
-        self.delegate?.baggageUpdated(amount: price.replacingLastOccurrenceOfString("₹", with: "").replacingLastOccurrenceOfString(" ", with: ""))
+//        let price = self.totalLabel.text ?? ""
+        let price = self.baggageContainerVM.calculateTotalAmount()
+        self.delegate?.baggageUpdated(amount: price.toString)
         configureNavigation()
     }
     

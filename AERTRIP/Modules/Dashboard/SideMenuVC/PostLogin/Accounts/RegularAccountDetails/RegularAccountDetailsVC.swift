@@ -177,8 +177,8 @@ class RegularAccountDetailsVC: BaseVC {
         let navTitle = LocalizedString.Accounts.localized
         self.topNavView.configureNavBar(title: navTitle, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: true, isDivider: false)
         self.topNavView.delegate = self
-        self.topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "greenPopOverButton"), selectedImage: #imageLiteral(resourceName: "greenPopOverButton"))
-        self.topNavView.configureSecondRightButton(normalImage: #imageLiteral(resourceName: "bookingFilterIcon"), selectedImage: #imageLiteral(resourceName: "bookingFilterIconSelected"))
+        self.topNavView.configureFirstRightButton(normalImage: AppImages.greenPopOverButton, selectedImage: AppImages.greenPopOverButton)
+        self.topNavView.configureSecondRightButton(normalImage: AppImages.bookingFilterIcon, selectedImage: AppImages.bookingFilterIconSelected)
         self.setNaviagationAndTitle(isNavFilter: false)
     }
     

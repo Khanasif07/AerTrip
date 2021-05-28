@@ -32,6 +32,9 @@ protocol FinalCheckoutVMDelegate: class {
     func willGetBookingReceipt()
     func getBookingReceiptSuccess(detail: HotelReceiptModel)
     func getBookingReceiptFail()
+    
+    
+    func getCurrencyResponse(success: Bool)
 }
 
 class FinalCheckoutVM: NSObject {
@@ -104,7 +107,7 @@ extension FinalCheckoutVM {
         //forAmount used to decide that razor pay will use or not
         var params: [String : Any] = [ APIKeys.it_id.rawValue : self.itineraryData?.it_id ?? ""]
         params[APIKeys.total_amount.rawValue] = grossTotalPayableAmount
-        params[APIKeys.currency_code.rawValue] = self.itineraryData?.booking_currency ?? ""
+        params[APIKeys.currency_code.rawValue] = CurrencyControler.shared.selectedCurrency.currencyCode
         params[APIKeys.use_points.rawValue] = 0
         if UserInfo.loggedInUser != nil {
             params[APIKeys.use_wallet.rawValue] = useWallet ? 1 : 0
@@ -204,6 +207,18 @@ extension FinalCheckoutVM {
             })
         }
     }
+    
+    
+    func updateCurrency(){
+        APICaller.shared.getCurrencies {[weak self] (success, _) in
+            guard let self = self else {return}
+            self.delegate?.getCurrencyResponse(success: success)
+            if success{
+                self.fetchRecheckRatesData()
+            }
+        }
+    }
+    
     
 }
 

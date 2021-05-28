@@ -134,6 +134,8 @@ class HotelResultVC: BaseVC {
     var oldOffset: CGPoint = .zero //used in colletion view scrolling for map re-focus
     let hotelResultCellIdentifier = "HotelSearchTableViewCell"
     var isDataFetched = false
+    
+    var hotelMapVC: HotelsMapVC?
     //var statusBarBlurView : UIVisualEffectView!
     //var headerBlurView : UIVisualEffectView!
     
@@ -273,6 +275,8 @@ class HotelResultVC: BaseVC {
         self.setUpLongPressOnFilterButton()
         //addCustomBackgroundBlurView()
         headerBlurView.backgroundColor = UIColor.white.withAlphaComponent(0.85)
+        
+        setGroupedFooterView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -315,6 +319,7 @@ class HotelResultVC: BaseVC {
     
     deinit {
         CoreDataManager.shared.deleteData("HotelSearched")
+        self.hotelMapVC = nil
         printDebug("HotelResultVC deinit")
     }
     
@@ -417,8 +422,8 @@ class HotelResultVC: BaseVC {
          self.switchView.selectedBorderWidth = 0.0//1.5
          self.switchView.iconBorderWidth = 0.0
          self.switchView.iconBorderColor = AppColors.clear
-         self.switchView.originalImage = #imageLiteral(resourceName: "switch_fav_on").maskWithColor(color: UIColor(displayP3Red: 0.8470588235, green: 0.8470588235, blue: 0.8470588235, alpha: 1))
-         self.switchView.selectedImage = #imageLiteral(resourceName: "switch_fav_on")
+         self.switchView.originalImage = AppImages.switch_fav_on.maskWithColor(color: UIColor(displayP3Red: 0.8470588235, green: 0.8470588235, blue: 0.8470588235, alpha: 1))
+         self.switchView.selectedImage = AppImages.switch_fav_on
          self.switchView.isBackgroundBlurry = true
          */
         
@@ -514,8 +519,13 @@ class HotelResultVC: BaseVC {
         self.mapButtonIndicator.isHidden = false
         self.mapButton.alpha = 0.5
         self.mapButtonIndicator.startAnimating()
-        delay(seconds: 0.1) {
-            AppFlowManager.default.moveToHotelsResultMapVC(viewModel: self.viewModel)
+        if let vc = self.hotelMapVC{
+            vc.isNeedToReload = true
+            AppFlowManager.default.mainNavigationController.pushViewController(vc, animated: true)
+        }else{
+            delay(seconds: 0.1) {
+                AppFlowManager.default.moveToHotelsResultMapVC(viewModel: self.viewModel)
+            }
         }
         FirebaseEventLogs.shared.logHotelListEvents(with: .HotelsMapViewOpened)
     }

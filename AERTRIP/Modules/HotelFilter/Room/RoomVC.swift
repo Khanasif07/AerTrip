@@ -18,7 +18,7 @@ class RoomVC: UIViewController {
     // MARK: -  IB Outlet
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var roomSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var roomSegmentedControl: GreenDotSegmentControl!
     
     // MARK: - Variables
     

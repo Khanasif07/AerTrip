@@ -34,11 +34,13 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     
     let viewModel = FlightStopsFilterVM()
     var stopsButtonsArray = [UIButton]()
-    private var multiLegSegmentControl = UISegmentedControl()
+    private var multiLegSegmentControl = GreenDotSegmentControl()
     
     //MARK:- View Controller methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        initialSetup()
         
         allSectorsLbl.isHidden = !viewModel.isIntMCOrReturnVC
         sectorNameLbl.isHidden = true
@@ -80,7 +82,6 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     }
     
     func initialSetup() {
-        
     }
     
     func updateUIPostLatestResults() {
@@ -261,8 +262,6 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
         multiLegSegmentControl.selectedSegmentIndex = viewModel.currentActiveIndex
                 
         if multiLegSegmentControl.superview == nil && numberOfStops > 1 {
-            let font: [NSAttributedString.Key : Any] = [.font : AppFonts.SemiBold.withSize(14)]
-            multiLegSegmentControl.setTitleTextAttributes(font, for: .normal)
             multiLegSegmentControl.addTarget(self, action: #selector(indexChanged(_:)), for: .valueChanged)
             multicitySegmentView.addSubview(multiLegSegmentControl)
             multiLegSegmentControl.snp.makeConstraints { (maker) in
@@ -305,17 +304,9 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     private func updateSegmentTitles() {
         for index in 0..<multiLegSegmentControl.numberOfSegments {
             let segmentTitle = getSegmentTitleFor(index + 1)
+//            let attImage = getImgFromAttString(segmentTitle: segmentTitle)
+//            multiLegSegmentControl.setImage(attImage, forSegmentAt: index)
             multiLegSegmentControl.setTitle(segmentTitle, forSegmentAt: index)
-        }
-    }
-    
-    private func setAttributedTitles() {
-        for index in 0..<multiLegSegmentControl.numberOfSegments {
-            let segmentTitle = getSegmentTitleFor(index + 1)
-            let indexToUpdate = multiLegSegmentControl.numberOfSegments + index + 1
-            if multiLegSegmentControl.subviews.indices.contains(indexToUpdate), let lblAtIndex = multiLegSegmentControl.subviews[indexToUpdate].subviews.first as? UILabel {
-                lblAtIndex.attributedText = NSAttributedString(string: segmentTitle, attributes: [.foregroundColor: UIColor.green])
-            }
         }
     }
     
@@ -553,10 +544,10 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     private func resetAvoidChangeOfAirportsBtn() {
         avoidChangeOfAirportsBtn.isSelected = viewModel.currentStopFilter?.qualityFilter.isSelected ?? false
         if viewModel.currentStopFilter?.qualityFilter.isSelected ?? false {
-            avoidChangeOfAirportsImgView.image = UIImage(named: "CheckedGreenRadioButton")
+            avoidChangeOfAirportsImgView.image = AppImages.CheckedGreenRadioButton
         }
         else {
-            avoidChangeOfAirportsImgView.image = UIImage(named: "UncheckedGreenRadioButton")
+            avoidChangeOfAirportsImgView.image = AppImages.UncheckedGreenRadioButton
         }
     }
     

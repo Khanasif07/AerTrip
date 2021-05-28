@@ -1366,7 +1366,7 @@ class FirebaseEventLogs: NSObject{
                 var passengerDetails:String = ""
                 passengerDetails += "adult:\(dictValue.flightAdultCount)"
                 passengerDetails += ", child:\(dictValue.flightChildrenCount)"
-                passengerDetails += ", infant\(dictValue.flightInfantCount)"
+                passengerDetails += ", infant:\(dictValue.flightInfantCount)"
                 param[AnalyticsKeys.values.rawValue] = passengerDetails
             }else{
                 param[AnalyticsKeys.values.rawValue] = "n/a"

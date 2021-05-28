@@ -63,7 +63,7 @@ class BaggageDimensionsVC: UIViewController, UIScrollViewDelegate
         if let dimestion = self.dimesionsObj{
             baggageScrollView.isScrollEnabled = true
 
-            baggageImgView.image = UIImage(named: "group4")
+            baggageImgView.image = AppImages.group4
             self.hideUnhindContent(isHidden: false)
             weightLabel.text = self.weight.lowercased().removeAllWhitespaces.replacingLastOccurrenceOfString("kg", with: "")
             heightLabel.text = "\(dimestion.cm?.height ?? 0)"
@@ -94,7 +94,7 @@ class BaggageDimensionsVC: UIViewController, UIScrollViewDelegate
         if dimensions.count > 0{
             baggageScrollView.isScrollEnabled = true
 
-            baggageImgView.image = UIImage(named: "group4")
+            baggageImgView.image = AppImages.group4
             hideUnhindContent(isHidden: false)
 
             let weights = weight.components(separatedBy: " ")
@@ -135,7 +135,7 @@ class BaggageDimensionsVC: UIViewController, UIScrollViewDelegate
     private func clearData(){
         baggageScrollView.isScrollEnabled = false
         dimensionInfoLabel.text = ""
-        baggageImgView.image = UIImage(named: "Group 4.1")
+        baggageImgView.image = AppImages.Group_4_1
         heightLabel.text = ""
         widthLabel.text = ""
         breadthLabel.text = ""

@@ -29,6 +29,11 @@ class NewAccountLedgerEventCell: UITableViewCell {
     @IBOutlet weak var containerTopConstrain: NSLayoutConstraint!
     @IBOutlet weak var containerBottomConstaint: NSLayoutConstraint!
     
+    @IBOutlet weak var currencyChangeStack: UIStackView!
+    @IBOutlet weak var changeCurrencyTitleLabel: UILabel!
+    @IBOutlet weak var changeCurrencyValueLabel: UILabel!
+    
+    
     var event: AccountDetailEvent? {
         didSet {
             self.setData()
@@ -74,6 +79,8 @@ class NewAccountLedgerEventCell: UITableViewCell {
         self.voucherValueLabel.text = ""
         self.voucherTitleLabel.font = AppFonts.Regular.withSize(18.0)
         self.balanceTitleLabel.font = AppFonts.Regular.withSize(18.0)
+        self.changeCurrencyValueLabel.font = AppFonts.Regular.withSize(18.0)
+        self.changeCurrencyTitleLabel.font = AppFonts.Regular.withSize(18.0)
         
         self.voucherValueLabel.font = AppFonts.Regular.withSize(14.0)
         self.balanceValueLabel.font = AppFonts.Regular.withSize(14.0)
@@ -82,9 +89,14 @@ class NewAccountLedgerEventCell: UITableViewCell {
         self.balanceTitleLabel.textColor = AppColors.themeBlack
         self.voucherValueLabel.textColor = AppColors.themeGray40
         self.balanceValueLabel.textColor = AppColors.themeGray40
+        self.changeCurrencyValueLabel.textColor = AppColors.themeGray40
+        self.changeCurrencyTitleLabel.textColor = AppColors.themeBlack
 
         self.voucherTitleLabel.text = LocalizedString.Voucher.localized
         self.balanceTitleLabel.text = LocalizedString.Balance.localized
+        self.changeCurrencyValueLabel.text = ""
+        self.changeCurrencyTitleLabel.text = ""
+        self.currencyChangeStack.isHidden = true
     }
     
     private func manageSelectable() {
@@ -135,5 +147,28 @@ class NewAccountLedgerEventCell: UITableViewCell {
         mutableText.append(closingBalanceSuffAttributedString)
         
         self.balanceValueLabel.attributedText = mutableText//(self.event?.balance ?? 0.0).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(12.0))
+        
+        if let currency = self.event?.currencyRate{
+            self.currencyChangeStack.isHidden = false
+            let attText = abs(self.event?.amount ?? 0.0).convertAmount(with: currency, using: AppFonts.SemiBold.withSize(18.0))
+            attText.append(NSAttributedString(string: suff))
+            self.changeCurrencyValueLabel.attributedText =  attText
+        }else{
+            self.currencyChangeStack.isHidden = true
+        }
     }
+    
+    
+    ///Price convertor for booking and Account Section
+    func getConvertedPrice(for amount: Double, with rate:CurrencyConversionRate?, using font: UIFont) -> NSMutableAttributedString{
+        
+        if let rate = rate{
+            return amount.convertCancellationAmount(with: rate, using: font)
+            
+        }else{
+            return amount.amountInDelimeterWithSymbol.asStylizedPrice(using: font)
+        }
+    }
+    
+    
 }

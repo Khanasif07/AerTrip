@@ -137,11 +137,11 @@ class LoginVC: BaseVC {
         if !self.passwordTextField.isSecureTextEntry {
             self.viewModel.firebaseLogEvent(with: .ViewPassword)
             self.showPasswordButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 4, right: 0)
-            sender.setImage(#imageLiteral(resourceName: "showPassword"), for: .normal)
+            sender.setImage(AppImages.showPassword, for: .normal)
         } else {
             self.viewModel.firebaseLogEvent(with: .hidePassword)
             self.showPasswordButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 1, bottom: -1, right: 0)
-            sender.setImage(#imageLiteral(resourceName: "hidePassword"), for: .normal)
+            sender.setImage(AppImages.hidePassword, for: .normal)
         }
     }
  
@@ -220,7 +220,7 @@ private extension LoginVC {
 //        self.emailTextField.isSingleTextField = false
 //        self.passwordTextField.isSingleTextField = false
        
-        //self.loginButton.isEnabled = false
+
         self.loginButton.configureCommonGreenButton()
         
 //        self.loginButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)

@@ -75,7 +75,7 @@ class TravellersPnrStatusTableViewCell: UITableViewCell {
         self.tavellerImageBlurView.isHidden = true
         let travelName = travellerName
         if !travellersImage.isEmpty {
-            self.travellerImageView.setImageWithUrl(travellersImage, placeholder: #imageLiteral(resourceName: "profilePlaceholder"), showIndicator: false)
+            self.travellerImageView.setImageWithUrl(travellersImage, placeholder: AppImages.profilePlaceholder, showIndicator: false)
             self.travellerImageView.contentMode = .scaleAspectFill
         } else {
             self.travellerImageView.makeCircular(borderWidth: 1.0, borderColor: AppColors.themeGray20)

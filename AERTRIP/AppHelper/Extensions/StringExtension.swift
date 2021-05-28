@@ -885,7 +885,7 @@ extension String {
         // attributedString.addAttribute(NSFontAttributeName, value: UIFont.systemFont(ofSize: 14), range: range1)
         attributedString.addAttributes([NSAttributedString.Key.foregroundColor : strClr, NSAttributedString.Key.font: strFont], range: range1)
 
-        //if main_string.contains("(should be 18 years or above from curent date)"){
+        //if main_string.contains("(should be 18 years or above from current date)"){
         let range2 = (self as NSString).range(of: subString)
 
         attributedString.addAttributes([NSAttributedString.Key.font: subStrFont ,NSAttributedString.Key.foregroundColor : substrClr], range: range2)
@@ -1098,4 +1098,51 @@ extension String {
     }
 }
 
+// Currency changes function
 
+extension String{
+    
+    
+    func asStylizedPriceWithSymbol(using font: UIFont, symbol:String? =  UserInfo.preferredCurrencyDetails?.currencySymbol) -> NSMutableAttributedString {
+        
+        let isNegative = self.contains(find: "-")
+        var newString = self
+        newString = newString.removeAllWhitespaces
+        newString = newString.replacingOccurrences(of: "-", with: "")
+        let stylizedPrice = NSMutableAttributedString(string: newString, attributes: [.font: font])
+        guard var changeRange = newString.range(of: ".")?.asNSRange(inString: newString) else {
+            return stylizedPrice.addCurrencySymbol(using: font, symbol: symbol, isNegative: isNegative)
+        }
+        changeRange.length = newString.count - changeRange.location
+        
+        guard let newFont = UIFont(name: font.fontName, size: (font.pointSize * 0.75)) else {
+            printDebug("font not found")
+            return stylizedPrice.addCurrencySymbol(using: font, symbol: symbol, isNegative: isNegative)
+        }
+        let changeFont = newFont
+        let offset = 6.2
+        stylizedPrice.addAttribute(.font, value: changeFont, range: changeRange)
+        stylizedPrice.addAttribute(.baselineOffset, value: offset, range: changeRange)
+        return stylizedPrice.addCurrencySymbol(using: font, symbol: symbol, isNegative: isNegative)
+    }
+    
+}
+
+extension NSMutableAttributedString{
+    
+    func addCurrencySymbol(using font: UIFont, symbol: String?,isNegative:Bool)->NSMutableAttributedString{
+        if let currency = symbol{
+            let text = isNegative ? "-\(currency) " : "\(currency) "
+            let  currencyText = NSMutableAttributedString(string: text, attributes: [.font: font])
+                currencyText.append(self)
+                return currencyText
+        }else{
+            let currency = NSMutableAttributedString(string: isNegative ? "-₹ " : "₹ ", attributes: [.font: font])
+            currency.append(self)
+            return currency
+        }
+        
+    }
+    
+    
+}

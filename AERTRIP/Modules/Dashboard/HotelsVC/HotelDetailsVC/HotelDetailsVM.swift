@@ -154,7 +154,7 @@ class HotelDetailsVM {
                             let roomPrice: Double = rates.price
                             let toDate: String = firstRefundableData.to
                             let fromDate: String = firstRefundableData.from
-                            let penalty: Int = firstRefundableData.penalty
+                            let penalty: Double = firstRefundableData.penalty
                             
                             if !toDate.isEmpty && fromDate.isEmpty && penalty == 0 || (!toDate.isEmpty && !fromDate.isEmpty && penalty == 0) {
                                 // free cancelation
@@ -620,7 +620,7 @@ extension HotelDetailsVM{
         
     }
     
-    private func eventsForRoomRefunds(toDate: String, fromDate: String, penalty: Int) {
+    private func eventsForRoomRefunds(toDate: String, fromDate: String, penalty: Double) {
         if (!toDate.isEmpty && fromDate.isEmpty && penalty == 0) || (!toDate.isEmpty && !fromDate.isEmpty && penalty == 0) {
             self.logEvents(with: .BookRoomWithFreeCancellation)
         } else if !toDate.isEmpty && !fromDate.isEmpty && penalty != 0 {

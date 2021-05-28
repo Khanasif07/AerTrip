@@ -25,6 +25,15 @@ struct TravellerModel {
     var ffp:[FFP]?
     var mealp:String = ""
     var paxType:PassengersType = .Adult
+    var group:String = ""
+    
+    var firstLastName:String{
+        "\(firstName)\(lastName)".uppercased()
+    }
+    
+    var lastFirstName:String{
+        "\(lastName)\(firstName)".uppercased()
+    }
     
     init() {
         let json = JSON()
@@ -91,6 +100,7 @@ struct TravellerModel {
         isd = json["isd"].stringValue
         mealp = json["mealp"].stringValue
         paxType = PassengersType(rawValue: json["pax_type"].stringValue) ?? .Adult
+        group = json["group"].stringValue
     }
     
     static func models(jsonArr: [JSON]) -> [TravellerModel] {

@@ -90,7 +90,7 @@ extension IntFareBreakupVC: UITableViewDelegate,UITableViewDataSource{
                 var amount: Double = 0
                 amount = journey.first?.fare.bf.value ?? 0
                 
-                let price = displayPriceInFormat(price: Double(amount), fromOption : "FareAmount")
+                let price = amount.getConvertedAmount(using: self.getFont(with: "FareAmount"))
                 baseFareCell.amountLable.attributedText = price
             }else{
                 baseFareCell.amountLable.text = ""
@@ -103,9 +103,9 @@ extension IntFareBreakupVC: UITableViewDelegate,UITableViewDataSource{
                 baseFareCell.selectionStyle = .none
                 
                 if !isTaxesSectionHidden{
-                    baseFareCell.upArrowImg.image = UIImage(named: "downGray.png")
+                    baseFareCell.upArrowImg.image = AppImages.downGray
                 }else{
-                    baseFareCell.upArrowImg.image = UIImage(named: "upGray.png")
+                    baseFareCell.upArrowImg.image = AppImages.upGray
                 }
                 baseFareCell.titleLabelLeading.constant = 16
                 
@@ -114,7 +114,7 @@ extension IntFareBreakupVC: UITableViewDelegate,UITableViewDataSource{
                 if taxesData != nil{
                     var amount: Double = 0
                     amount = journey.first?.fare.taxes.value ?? 0
-                    let price = displayPriceInFormat(price: Double(amount), fromOption : "FareAmount")
+                    let price = amount.getConvertedAmount(using: self.getFont(with: "FareAmount"))
                     baseFareCell.amountLable.attributedText = price
                 }else{
                     baseFareCell.amountLable.text = ""
@@ -133,7 +133,7 @@ extension IntFareBreakupVC: UITableViewDelegate,UITableViewDataSource{
                     if (taxAndFeesData[indexPath.row-1]["value"] as? Double) != nil{
                         let amount : Double = Double(taxAndFeesData[indexPath.row-1]["value"] as? Double ?? 0)
                         
-                        let price = displayPriceInFormat(price: amount, fromOption : "FareAmount")
+                        let price = amount.getConvertedAmount(using: self.getFont(with: "FareAmount"))
                         baseFareCell.amountLable.attributedText = price
                     }else{
                         baseFareCell.amountLable.text = ""
@@ -157,15 +157,15 @@ extension IntFareBreakupVC: UITableViewDelegate,UITableViewDataSource{
                 baseFareCell.selectionStyle = .none
                 baseFareCell.isHidden = false
                 if !isAddonsExpend{
-                    baseFareCell.upArrowImg.image = UIImage(named: "downGray.png")
+                    baseFareCell.upArrowImg.image = AppImages.downGray
                 }else{
-                    baseFareCell.upArrowImg.image = UIImage(named: "upGray.png")
+                    baseFareCell.upArrowImg.image = AppImages.upGray
                 }
                 baseFareCell.titleLabelLeading.constant = 16
                 baseFareCell.upArrowImg.isHidden = false
                 baseFareCell.titleLabel.text = "Add-ons"
                 let amount = self.addonsData.reduce(0){$0 + $1.1}
-                let price = displayPriceInFormat(price: Double(amount), fromOption : "FareAmount")
+                let price = amount.getConvertedAmount(using: self.getFont(with: "FareAmount"))
                 baseFareCell.amountLable.attributedText = price
                 baseFareCell.dataDisplayViewBottom.constant = 0
                 return baseFareCell
@@ -179,7 +179,7 @@ extension IntFareBreakupVC: UITableViewDelegate,UITableViewDataSource{
                     let key = keys[indexPath.row - 1]
                     baseFareCell.titleLabel.text = key
                     let amt = self.addonsData[key] ?? 0
-                    let price = displayPriceInFormat(price: Double(amt), fromOption : "FareAmount")
+                    let price = amt.getConvertedAmount(using: self.getFont(with: "FareAmount"))
                     baseFareCell.amountLable.attributedText = price
                 }else{
                     baseFareCell.titleLabel.text = ""

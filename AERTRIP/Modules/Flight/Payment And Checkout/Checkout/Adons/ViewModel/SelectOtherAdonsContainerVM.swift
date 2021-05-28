@@ -73,13 +73,13 @@ class SelectOtherAdonsContainerVM {
         return isAnyThingSelected
     }
     
-    func calculateTotalAmount() -> Int {
-          var totalPrice = 0
+    func calculateTotalAmount() -> Double {
+        var totalPrice : Double = 0
           for item in self.allChildVCs {
               let mealsArray = item.otherAdonsVm.getOthers()
               let selectedMeals = mealsArray.filter { !$0.othersSelectedFor.isEmpty && $0.ssrName?.isReadOnly == 0 }
               selectedMeals.forEach { (meal) in
-                  totalPrice += (meal.price * meal.othersSelectedFor.count)
+                totalPrice += (meal.price * meal.othersSelectedFor.count.toDouble)
               }
           }
         return totalPrice
@@ -154,17 +154,17 @@ class SelectOtherAdonsContainerVM {
      func createAttHeaderTitle(_ origin: String,_ destination: String) -> NSAttributedString {
         let fullString = NSMutableAttributedString(string: origin + "" )
         let desinationAtrributedString = NSAttributedString(string: "" + destination)
-        let imageString = getStringFromImage(name : "oneway")
+        let imageString = getStringFromImage(with : AppImages.onewayIcon)
         fullString.append(imageString)
         fullString.append(desinationAtrributedString)
         return fullString
     }
     
-    private func getStringFromImage(name : String) -> NSAttributedString {
+    private func getStringFromImage(with image: UIImage) -> NSAttributedString {
         let imageAttachment = NSTextAttachment()
 //        let sourceSansPro18 = UIFont(name: "SourceSansPro-Semibold", size: 18.0)!
         let sourceSansPro18 = AppFonts.SemiBold.withSize(18)
-        let iconImage = UIImage(named: name )!
+        let iconImage = image
         imageAttachment.image = iconImage
         
         let yCordinate  = roundf(Float(sourceSansPro18.capHeight - iconImage.size.height) / 2.0)

@@ -14,7 +14,7 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     
     let viewModel = FlightDurationFilterVM()
     
-    private var multiLegSegmentControl = UISegmentedControl()
+    private var multiLegSegmentControl = GreenDotSegmentControl()
     
     //MARK:- multiLeg Outlets
     @IBOutlet weak var multiLegViewHeight: NSLayoutConstraint!
@@ -378,10 +378,10 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     private func resetAvoidOvernightBtn() {
         avoidOvernightBtn.isSelected = viewModel.currentDurationFilter.qualityFilter.isSelected
         if viewModel.currentDurationFilter.qualityFilter.isSelected {
-            avoidOvernightImgView.image = UIImage(named: "CheckedGreenRadioButton")
+            avoidOvernightImgView.image = AppImages.CheckedGreenRadioButton
         }
         else {
-            avoidOvernightImgView.image = UIImage(named: "UncheckedGreenRadioButton")
+            avoidOvernightImgView.image = AppImages.UncheckedGreenRadioButton
         }
     }
     

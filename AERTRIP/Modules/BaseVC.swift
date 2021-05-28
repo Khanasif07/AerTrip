@@ -364,3 +364,20 @@ extension UITabBarController {
 }
 
 
+///Price currency convertor
+extension BaseVC{
+    ///Price convertor for booking and Account Section
+    func getConvertedPrice(for amount: Double, with rate:CurrencyConversionRate?, using font: UIFont, isForCancellation: Bool) -> NSMutableAttributedString{
+        
+        if let rate = rate{
+            if isForCancellation{
+                return amount.convertCancellationAmount(with: rate, using: font)
+            }else{
+                return amount.convertAmount(with: rate, using: font)
+            }
+        }else{
+            return amount.amountInDelimeterWithSymbol.asStylizedPrice(using: font)
+        }
+    }
+    
+}

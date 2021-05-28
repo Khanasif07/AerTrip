@@ -52,9 +52,9 @@ class DiscountCell: UITableViewCell {
         self.amountLabel.text = amount
     }
     
-    func configureForAddons(title: NSAttributedString, amount: String) {
+    func configureForAddons(title: NSAttributedString, amount: NSAttributedString) {
         self.titleLabel.attributedText = title
-        self.amountLabel.text = amount
+        self.amountLabel.attributedText = amount
     }
     
     func configureCellForInvoice(title: String, amount: NSAttributedString) {

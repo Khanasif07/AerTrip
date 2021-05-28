@@ -12,7 +12,7 @@ import SnapKit
 class PriceFilterViewController: UIViewController , FilterViewController {
     //MARK:- State Properties
     
-    private var multiLegSegmentControl = UISegmentedControl()
+    private var multiLegSegmentControl = GreenDotSegmentControl()
     let viewModel = PriceFilterVM()
 
     //MARK:- Outlets
@@ -192,13 +192,16 @@ class PriceFilterViewController: UIViewController , FilterViewController {
 
     fileprivate func setupPriceLabels() {
         
-        fareMinValue.attributedText = attributedStringForPrice(price: viewModel.currentPriceFilter.userSelectedFareMinValue, currency: "₹")
-        fareMaxValue.attributedText = attributedStringForPrice(price: viewModel.currentPriceFilter.userSelectedFareMaxValue, currency: "₹")
+//        fareMinValue.attributedText = attributedStringForPrice(price: viewModel.currentPriceFilter.userSelectedFareMinValue, currency: "₹")
+        
+        fareMinValue.attributedText = viewModel.currentPriceFilter.userSelectedFareMinValue.toDouble.getConvertedAmount(using: AppFonts.Regular.withSize(18))
+        
+//        fareMaxValue.attributedText = attributedStringForPrice(price: viewModel.currentPriceFilter.userSelectedFareMaxValue, currency: "₹")
+        
+        fareMaxValue.attributedText = viewModel.currentPriceFilter.userSelectedFareMaxValue.toDouble.getConvertedAmount(using: AppFonts.Regular.withSize(18))
+        
     }
 
-    
-    
-    
     fileprivate func attributedStringForPrice(price: CGFloat , currency: String)  -> NSAttributedString? {
         
         let formatter = NumberFormatter()

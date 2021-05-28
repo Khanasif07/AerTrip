@@ -283,10 +283,10 @@ extension AirlinesFilterViewController : UITableViewDataSource , UITableViewDele
             cell.imageView?.image = nil
             cell.radioButton.setImage(nil, for: .normal)
             cell.radioButton.setImage(nil, for: .selected)
-//            cell.radioButton.setImage(UIImage(named: "CheckedGreenRadioButton"), for: .selected)
-//            cell.radioButton.setImage(UIImage(named: "UncheckedGreenRadioButton"), for: .normal)
-            cell.radioButton.setBackgroundImage(UIImage(named:"radioButtonSelect"), for: .selected)
-            cell.radioButton.setBackgroundImage(UIImage(named:"radioButtonUnselect"), for: .normal)
+//            cell.radioButton.setImage(AppImages.CheckedGreenRadioButton, for: .selected)
+//            cell.radioButton.setImage(AppImages.UncheckedGreenRadioButton, for: .normal)
+            cell.radioButton.setBackgroundImage(AppImages.radioButtonSelect, for: .selected)
+            cell.radioButton.setBackgroundImage(AppImages.radioButtonUnselect, for: .normal)
             cell.selectionStyle = .none
             if indexPath.section == 0 {
                 cell.textLabel?.text = "All Airlines"
@@ -302,10 +302,10 @@ extension AirlinesFilterViewController : UITableViewDataSource , UITableViewDele
             if indexPath.section == 1 {
                 
                 cell.textLabel?.text = "Hide Multi-Airline Itinerary"
-                cell.imageView?.image = UIImage(named:"MultiAirlineItinery")
+                cell.imageView?.image = AppImages.MultiAirlineItinery
                 cell.radioButton.tag = 2
-                cell.radioButton.setBackgroundImage(UIImage(named:"radioButtonSelect"), for: .selected)
-                cell.radioButton.setBackgroundImage(UIImage(named:"radioButtonUnselect"), for: .normal)
+                cell.radioButton.setBackgroundImage(AppImages.radioButtonSelect, for: .selected)
+                cell.radioButton.setBackgroundImage(AppImages.radioButtonUnselect, for: .normal)
                 cell.radioButton.isSelected = viewModel.currentSelectedAirlineFilter.hideMultipleAirline
             }
             if indexPath.section == 2 {

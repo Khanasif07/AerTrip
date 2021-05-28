@@ -830,9 +830,10 @@ extension AppFlowManager {
     
     // MARK: ----
     
-    func moveToMyBookingsVC(bookingId:String = "") {
+    func moveToMyBookingsVC(bookingId:String = "", isCompleted:Bool = false) {
         let obj = MyBookingsVC.instantiate(fromAppStoryboard: .Bookings)
         MyBookingsVM.shared.deepLinkBookingId = bookingId
+        MyBookingsVM.shared.isNeedToOpenCompleted = isCompleted
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
@@ -1205,10 +1206,11 @@ extension AppFlowManager {
     
     // Present BookingReschedulingVC
     
-    func presentBookingReschedulingVC(usingFor data: BookingReschedulingVCUsingFor = .rescheduling, legs: [BookingLeg]) {
+    func presentBookingReschedulingVC(usingFor data: BookingReschedulingVCUsingFor = .rescheduling, bookingDetails: BookingDetailModel?, legs: [BookingLeg]) {
         let obj = BookingReschedulingVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.usingFor = data
         obj.viewModel.legsData = legs
+        obj.viewModel.bookingDetails = bookingDetails
         
         let nav = UINavigationController(rootViewController: obj)
         nav.isNavigationBarHidden = true

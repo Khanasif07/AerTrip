@@ -191,7 +191,7 @@ class FlightDetailsTableViewCell: UITableViewCell
             
             let imageAttachment =  NSTextAttachment()
             
-            imageAttachment.image = UIImage(named:"overnight.png")
+            imageAttachment.image = AppImages.overnight
             let imageOffsetY:CGFloat = -2.0;
             imageAttachment.bounds = CGRect(x: 0, y: imageOffsetY, width: 12, height: 12)
             let attachmentString = NSAttributedString(attachment: imageAttachment)
@@ -300,9 +300,9 @@ extension FlightDetailsTableViewCell:UICollectionViewDelegate, UICollectionViewD
         amenitiesCell.amenitiTitleLabel.textColor = AppColors.themeGray60
         amenitiesCell.amenitiTitleLabel.text = amenitiesData[indexPath.row]
         if amenitiesData[indexPath.row].contains(find: "Cabbin"){
-            amenitiesCell.amenitiesImageView.image = UIImage(named: "cabinBaggage")
+            amenitiesCell.amenitiesImageView.image = AppImages.cabinBaggage
         }else if amenitiesData[indexPath.row].contains(find: "Check-in"){
-            amenitiesCell.amenitiesImageView.image = UIImage(named: "checkingBaggageKg")
+            amenitiesCell.amenitiesImageView.image = AppImages.checkingBaggageKg
         }else{
             amenitiesCell.amenitiesImageView.image = nil
         }

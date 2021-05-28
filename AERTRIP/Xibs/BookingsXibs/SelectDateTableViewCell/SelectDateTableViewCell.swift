@@ -68,7 +68,7 @@ class SelectDateTableViewCell: UITableViewCell {
         let dropDownButton = UIButton(type: .custom)
         dropDownButton.frame = CGRect(x: 0, y: 0, width: 20.0, height: 20.0)
         dropDownButton.imageEdgeInsets = UIEdgeInsets(top: 1.0, left: 0.0, bottom: 0.0, right: 0.0)
-        dropDownButton.setImage(#imageLiteral(resourceName: "downArrow"), for: .normal)
+        dropDownButton.setImage(AppImages.downArrow, for: .normal)
         self.selectDateTextField.rightView = dropDownButton
         self.selectDateTextField.rightViewMode = .always
     }

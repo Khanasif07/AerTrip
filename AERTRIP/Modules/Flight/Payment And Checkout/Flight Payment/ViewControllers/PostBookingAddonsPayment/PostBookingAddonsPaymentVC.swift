@@ -130,8 +130,8 @@ class PostBookingAddonsPaymentVC: BaseVC{
     
     private func setupPayButton() {
         self.payButton.titleLabel?.font = AppFonts.SemiBold.withSize(20.0)
-        self.payButton.setImage(#imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .normal)
-        self.payButton.setImage(#imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .highlighted)
+        self.payButton.setImage(AppImages.whiteBlackLockIcon.withRenderingMode(.alwaysOriginal), for: .normal)
+        self.payButton.setImage(AppImages.whiteBlackLockIcon.withRenderingMode(.alwaysOriginal), for: .highlighted)
         if self.payButton.imageView != nil{
             self.payButton.bringSubviewToFront(self.payButton.imageView!)
         }
@@ -142,8 +142,8 @@ class PostBookingAddonsPaymentVC: BaseVC{
     }
     
     func setupPayButtonTitle(){
-        let ttl = self.getTotalPayableAmount().amountInDelimeterWithSymbol
-        let amount = ttl.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
+        let ttl = self.getTotalPayableAmount().getPriceStringWithCurrency
+        let amount = self.getTotalPayableAmount().getConvertedAmount(using: AppFonts.SemiBold.withSize(20.0))
         amount.addAttributes([.foregroundColor : AppColors.themeWhite], range: NSString(string: ttl).range(of: ttl))
         let attributedTitle = NSMutableAttributedString(string: "  \(LocalizedString.Pay.localized) ", attributes: [.font: AppFonts.SemiBold.withSize(20), .foregroundColor: AppColors.themeWhite])
         attributedTitle.append(amount)
@@ -183,20 +183,6 @@ class PostBookingAddonsPaymentVC: BaseVC{
         self.checkOutTableView.reloadData()
         self.setupPayButtonTitle()
     }
-    
-    
-//    func getListingController(){
-//        if let nav = self.navigationController?.presentingViewController?.presentingViewController as? UINavigationController{
-//            nav.dismiss(animated: true) {
-//                delay(seconds: 0.0) {
-//                    if let vc = nav.viewControllers.first(where: {$0.isKind(of: FlightResultBaseViewController.self)}) as? FlightResultBaseViewController{
-//                        nav.popToViewController(vc, animated: true)
-//                        vc.searchApiResult(chnageData: self.viewModel.baggageData)
-//                    }
-//                }
-//            }
-//        }
-//    }
     
     // Set Boolean convenience fee to applied or Not
     
@@ -457,28 +443,28 @@ extension PostBookingAddonsPaymentVC{
         case .Seat:
             if !self.viewModel.seatData.isEmpty{
                 headerView.discountsTitleLabel.text = "Seat"
-                headerView.discountPriceLabel.text = "\(Double(self.viewModel.addonsDetails.details.addonsSum["seat"] ?? 0).amountInDelimeterWithSymbol)"
+                headerView.discountPriceLabel.attributedText = (Double(self.viewModel.addonsDetails.details.addonsSum["seat"] ?? 0).getConvertedAmount(using: AppFonts.Regular.withSize(16.0)))
             }else{
                 return nil
             }
         case .Meal:
             if !self.viewModel.mealData.isEmpty{
                 headerView.discountsTitleLabel.text = "Meal"
-                headerView.discountPriceLabel.text = "\(Double(self.viewModel.addonsDetails.details.addonsSum["meal"] ?? 0).amountInDelimeterWithSymbol)"
+                headerView.discountPriceLabel.attributedText = Double(self.viewModel.addonsDetails.details.addonsSum["meal"] ?? 0).getConvertedAmount(using: AppFonts.Regular.withSize(16.0))
             }else{
                 return nil
             }
         case .Baggage:
             if !self.viewModel.baggageData.isEmpty{
                 headerView.discountsTitleLabel.text = "Baggage"
-                headerView.discountPriceLabel.text = "\(Double(self.viewModel.addonsDetails.details.addonsSum["baggage"] ?? 0).amountInDelimeterWithSymbol)"
+                headerView.discountPriceLabel.attributedText = Double(self.viewModel.addonsDetails.details.addonsSum["baggage"] ?? 0).getConvertedAmount(using: AppFonts.Regular.withSize(16.0))
             }else{
                 return nil
             }
         case .Other:
             if !self.viewModel.otherData.isEmpty{
                 headerView.discountsTitleLabel.text = "Other"
-                headerView.discountPriceLabel.text = "\(Double(self.viewModel.addonsDetails.details.addonsSum["special"] ?? 0).amountInDelimeterWithSymbol)"
+                headerView.discountPriceLabel.attributedText = Double(self.viewModel.addonsDetails.details.addonsSum["special"] ?? 0).getConvertedAmount(using: AppFonts.Regular.withSize(16.0))
             }else{
                 return nil
             }
@@ -547,7 +533,7 @@ extension PostBookingAddonsPaymentVC{
             walletCell.clipsToBounds = true
             walletCell.delegate = self
             walletCell.walletSwitch.isOn = isWallet
-            walletCell.amountLabel.text = self.getWalletAmount().amountInDelimeterWithSymbol
+            walletCell.amountLabel.attributedText = self.getWalletAmount().getConvertedAmount(using: AppFonts.SemiBold.withSize(16.0))
             return walletCell
         case .FareBreakupCell:
             
@@ -572,25 +558,25 @@ extension PostBookingAddonsPaymentVC{
     func getCellAddonsSection(_ indexPath: IndexPath)->UITableViewCell{
         guard let cell = self.checkOutTableView.dequeueReusableCell(withIdentifier: DiscountCell.reusableIdentifier, for: indexPath) as? DiscountCell else { return UITableViewCell()}
         let title:NSAttributedString
-        let amount:String
+        let amount:Double
         switch self.viewModel.sectionHeader[indexPath.section] {
         case .Seat:
             title = self.viewModel.seatData[indexPath.row].fligtRoute
-            amount = (Double(self.viewModel.seatData[indexPath.row].addonsDetails.price) ?? 0.0).amountInDelimeterWithSymbol
+            amount = (Double(self.viewModel.seatData[indexPath.row].addonsDetails.price) ?? 0.0)
         case .Meal:
             title = self.viewModel.mealData[indexPath.row].fligtRoute
-            amount = (Double(self.viewModel.mealData[indexPath.row].addonsDetails.price) ?? 0.0).amountInDelimeterWithSymbol
+            amount = (Double(self.viewModel.mealData[indexPath.row].addonsDetails.price) ?? 0.0)
         case .Baggage:
             title = self.viewModel.baggageData[indexPath.row].fligtRoute
-            amount = (Double(self.viewModel.baggageData[indexPath.row].addonsDetails.price) ?? 0.0).amountInDelimeterWithSymbol
+            amount = (Double(self.viewModel.baggageData[indexPath.row].addonsDetails.price) ?? 0.0)
         case .Other:
             title = self.viewModel.otherData[indexPath.row].fligtRoute
-            amount = (Double(self.viewModel.otherData[indexPath.row].addonsDetails.price) ?? 0.0).amountInDelimeterWithSymbol
+            amount = (Double(self.viewModel.otherData[indexPath.row].addonsDetails.price) ?? 0.0)
         default:
             title = NSAttributedString(string: "")
-            amount = ""
+            amount = 0
         }
-        cell.configureForAddons(title: title, amount: amount)
+        cell.configureForAddons(title: title, amount: amount.getConvertedAmount(using: AppFonts.Regular.withSize(14.0)))
         return cell
     }
     
@@ -607,7 +593,7 @@ extension PostBookingAddonsPaymentVC{
             let amount = isWallet ? self.convenienceFeesWallet : self.convenienceRate
             if self.isConvenienceFeeApplied {
                 convenieneCell.aertripWalletTitleLabel.text = LocalizedString.ConvenienceFee.localized
-                convenieneCell.walletAmountLabel.text = amount.amountInDelimeterWithSymbol
+                convenieneCell.walletAmountLabel.attributedText = amount.getConvertedAmount(using: AppFonts.Regular.withSize(16.0))
                 return convenieneCell
             } else {
                 convenieneCell.clipsToBounds = true
@@ -628,7 +614,7 @@ extension PostBookingAddonsPaymentVC{
                 } else {
                     amountFromWallet = amount
                 }
-                walletAmountCell.walletAmountLabel.text = "-" + abs(amountFromWallet).amountInDelimeterWithSymbol
+                walletAmountCell.walletAmountLabel.attributedText = (-(abs(amountFromWallet))).getConvertedAmount(using: AppFonts.Regular.withSize(16))
                 walletAmountCell.clipsToBounds = true
                 walletAmountCell.labelTopConstraint.constant = 0.0
                 return walletAmountCell
@@ -646,14 +632,14 @@ extension PostBookingAddonsPaymentVC{
             totalPayableNowCell.bottomDeviderView.isHidden = true
             totalPayableNowCell.totalPayableTextTopConstraint.constant = 12.0
             totalPayableNowCell.totalPayableTextBottomConstraint.constant = 12.0
-            totalPayableNowCell.totalPriceLabel.attributedText = self.getTotalPayableAmount().amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+            totalPayableNowCell.totalPriceLabel.attributedText = self.getTotalPayableAmount().getConvertedAmount(using: AppFonts.Regular.withSize(20.0))//.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
             return totalPayableNowCell
         case 3:
-            guard let termAndPrivacCell = self.checkOutTableView.dequeueReusableCell(withIdentifier: TermAndPrivacyTableViewCell.reusableIdentifier, for: indexPath) as? TermAndPrivacyTableViewCell else {
+            guard let termAndPrivacyCell = self.checkOutTableView.dequeueReusableCell(withIdentifier: TermAndPrivacyTableViewCell.reusableIdentifier, for: indexPath) as? TermAndPrivacyTableViewCell else {
                 return UITableViewCell()
             }
-             termAndPrivacCell.currentUsingFrom = .flightCheckOut
-            return termAndPrivacCell
+             termAndPrivacyCell.currentUsingFrom = .flightCheckOut
+            return termAndPrivacyCell
         default:
             return UITableViewCell()
         }

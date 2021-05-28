@@ -73,7 +73,7 @@ class HotelRatingInfoCell: UITableViewCell {
         DispatchQueue.main.async {
             if isHidden{
                 self.indicator.stopAnimating()
-                self.shareButtonOutlet.setImage(#imageLiteral(resourceName: "share_file_icon"), for: .normal)
+                self.shareButtonOutlet.setImage(AppImages.share_file_icon, for: .normal)
             }else{
                 self.shareButtonOutlet.setImage(nil, for: .normal)
                 self.indicator.startAnimating()

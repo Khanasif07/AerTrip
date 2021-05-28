@@ -108,8 +108,8 @@ class AccountOnlineDepositVC: BaseVC {
     
     // Setup Image for Pay Button
     private func setUpImage() {
-        self.payButton.setImage(#imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .normal)
-        self.payButton.setImage(#imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .highlighted)
+        self.payButton.setImage(AppImages.whiteBlackLockIcon.withRenderingMode(.alwaysOriginal), for: .normal)
+        self.payButton.setImage(AppImages.whiteBlackLockIcon.withRenderingMode(.alwaysOriginal), for: .highlighted)
         if payButton.imageView != nil{
             self.payButton.bringSubviewToFront(self.payButton.imageView!)
         }
@@ -126,7 +126,10 @@ class AccountOnlineDepositVC: BaseVC {
     func updatePayButtonText() {
         // self.payButton.setTitle(" " + LocalizedString.Pay.localized + " " + self.viewModel.totalPayableAmount.amountInDelimeterWithSymbol, for: .normal)
         
-        let title = (" " + LocalizedString.Pay.localized + " " + self.viewModel.totalPayableAmount.amountInDelimeterWithSymbol).asStylizedPrice(using: AppFonts.Regular.withSize(22.0))
+        let title = NSMutableAttributedString(string: " \(LocalizedString.Pay.localized) " , attributes: [.font: AppFonts.Regular.withSize(22.0)])
+        title.append(self.viewModel.totalPayableAmount.getTextWithChangedCurrency(with: self.viewModel.currency, using: AppFonts.Regular.withSize(22.0)))
+        
+        //(self.viewModel.totalPayableAmount.amountInDelimeterWithSymbol).asStylizedPrice(using: AppFonts.Regular.withSize(22.0))
         self.payButton.setTitle(title.string, for: .normal)
         self.payButton.setTitle(title.string, for: .highlighted)
         
@@ -150,7 +153,7 @@ class AccountOnlineDepositVC: BaseVC {
             
             var config = BulkEnquirySuccessfulVC.ButtonConfiguration()
             config.text = self.payButton.titleLabel?.text ?? ""
-            config.image = #imageLiteral(resourceName: "whiteBlackLockIcon")
+            config.image = AppImages.whiteBlackLockIcon
             config.cornerRadius = 0.0
             config.textFont = AppFonts.SemiBold.withSize(20.0)
             config.width = self.payButton.width
@@ -161,7 +164,7 @@ class AccountOnlineDepositVC: BaseVC {
         else {
             var config = BulkEnquirySuccessfulVC.ButtonConfiguration()
             config.text = self.payButton.titleLabel?.text ?? ""
-            config.image = #imageLiteral(resourceName: "whiteBlackLockIcon")
+            config.image = AppImages.whiteBlackLockIcon
             config.cornerRadius = 0.0
             config.textFont = AppFonts.SemiBold.withSize(20.0)
             config.width = self.payButton.width

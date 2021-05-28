@@ -155,7 +155,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         backView.backgroundColor = .clear
         
         backButton = UIButton(type: .custom)
-        let buttonImage = UIImage(named: "green")
+        let buttonImage = AppImages.green
         backButton.setImage(buttonImage, for: .normal)
         backButton.setImage(buttonImage, for: .selected)
         backButton.frame = CGRect(x: 6, y: statusBarHeight, width: 44, height: 44)
@@ -314,13 +314,13 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
             
             let fullString = NSMutableAttributedString(string: origin + " " )
             let desinationAtrributedString = NSAttributedString(string: " " + destination)
-            let imageString = getStringFromImage(name : "oneway")
+            let imageString = getStringFromImage(with : AppImages.onewayIcon)
             fullString.append(imageString)
             fullString.append(desinationAtrributedString)
             
             
             let redString = NSMutableAttributedString(string: origin + " " )
-            let redImageString = getStringFromImage(name : "ArrowRed")
+            let redImageString = getStringFromImage(with : AppImages.ArrowRed)
             redString.append(redImageString)
             redString.append(desinationAtrributedString)
             let redAttributes = [NSAttributedString.Key.foregroundColor : UIColor.AERTRIP_RED_COLOR]
@@ -355,12 +355,12 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
             
             let fullString = NSMutableAttributedString(string: origin + " " )
             let desinationAtrributedString = NSAttributedString(string: " " + destination)
-            let imageString = getStringFromImage(name : "oneway")
+            let imageString = getStringFromImage(with : AppImages.onewayIcon)
             fullString.append(imageString)
             fullString.append(desinationAtrributedString)
             
             let redString = NSMutableAttributedString(string: origin + " " )
-            let redImageString = getStringFromImage(name : "ArrowRed")
+            let redImageString = getStringFromImage(with: AppImages.ArrowRed)
             redString.append(redImageString)
             redString.append(desinationAtrributedString)
             let redAttributes = [NSAttributedString.Key.foregroundColor : UIColor.AERTRIP_RED_COLOR]
@@ -375,12 +375,12 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
     }
     
     
-    func getStringFromImage(name : String) -> NSAttributedString {
+    func getStringFromImage(with image : UIImage) -> NSAttributedString {
         
         let imageAttachment = NSTextAttachment()
         
         let sourceSansPro18 = AppFonts.SemiBold.withSize(18)
-        guard let iconImage = UIImage(named: name ) else { return NSAttributedString() }
+        let iconImage = image
         imageAttachment.image = iconImage
         
         let yCordinate  = roundf(Float(sourceSansPro18.capHeight - iconImage.size.height) / 2.0)
@@ -828,7 +828,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         }
         
         infoButton = UIButton(type: .custom)
-        infoButton.setImage(UIImage(named: "InfoButton"), for: .normal)
+        infoButton.setImage(AppImages.InfoButton, for: .normal)
         
         let x = UIScreen.main.bounds.width - 40
         infoButton.frame = CGRect(x: x, y: statusBarHeight +  7, width: 30, height: 30)
@@ -848,10 +848,8 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
     
     func createFilterButton() {
         filterButton = UIButton(type: .custom)
-        guard let normalImage = UIImage(named: "ic_hotel_filter") else { assertionFailure("filter clear imaage missing")
-            return }
-        guard let selectedImage = UIImage(named:"ic_hotel_filter_applied") else { assertionFailure("filter selected image missing")
-            return }
+        let normalImage = AppImages.ic_hotel_filter
+        let selectedImage = AppImages.ic_hotel_filter_applied
         filterButton.setImage(normalImage, for: .normal)
         filterButton.setImage(selectedImage, for: .selected)
         filterButton.addTarget(self, action: #selector(filterButtonTapped), for: .touchDown)

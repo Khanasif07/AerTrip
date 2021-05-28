@@ -58,7 +58,7 @@ class OthersBookingTableViewCell: UITableViewCell {
     
     private func configUI() {
         //self.collectionView.isUserInteractionEnabled = false
-        self.bookingTypeImgView.image = #imageLiteral(resourceName: "others")
+        self.bookingTypeImgView.image = AppImages.othersAddon
         self.plcaeNameLabel.textColor = AppColors.themeBlack
         self.travellersNameLabel.textColor = AppColors.themeGray40
         self.plcaeNameLabel.font = AppFonts.Regular.withSize(18.0)

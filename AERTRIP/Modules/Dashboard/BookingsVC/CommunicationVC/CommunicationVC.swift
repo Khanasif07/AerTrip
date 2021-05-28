@@ -60,7 +60,7 @@ class CommunicationVC: BaseVC {
         topNavView.configureNavBar(title: nil, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .color(color: AppColors.themeWhite))
         topNavView.navTitleLabel.numberOfLines = 1
         topNavView.navTitleLabel.lineBreakMode = .byTruncatingTail
-        topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "black_cross"), selectedImage: #imageLiteral(resourceName: "black_cross"))
+        topNavView.configureFirstRightButton(normalImage: AppImages.CancelButtonWhite, selectedImage: AppImages.CancelButtonWhite)
         topNavView.delegate = self
 //        topNavView.backView.backgroundColor = .clear
 //        topNavView.backgroundColor = .clear

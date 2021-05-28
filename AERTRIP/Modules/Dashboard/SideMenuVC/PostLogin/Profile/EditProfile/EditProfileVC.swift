@@ -338,8 +338,8 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         let socialModel = SocialLoginVM()
         socialModel.googleLogin(vc: self) { [weak self] success in
             if success {
-                let placeHolder = UIImage(named: "group")
-                self?.editProfileImageHeaderView.profileImageView.setImageWithUrl(socialModel.userData.picture, placeholder: placeHolder!, showIndicator: true)
+                let placeHolder = AppImages.group
+                self?.editProfileImageHeaderView.profileImageView.setImageWithUrl(socialModel.userData.picture, placeholder: placeHolder, showIndicator: true)
                 self?.viewModel.profilePicture = socialModel.userData.picture
                 self?.viewModel.imageSource = "google"
                 self?.viewModel.logEventsForFirebase(with: .ImportPhotoFromGoogle)

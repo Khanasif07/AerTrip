@@ -22,9 +22,9 @@ class ATSwitcher: UIControl {
         }
     }
     
-    var onThumbImage : UIImage = #imageLiteral(resourceName: "switch_fav_on")
+    var onThumbImage : UIImage = AppImages.switch_fav_on
     
-    var offThumbImage : UIImage = #imageLiteral(resourceName: "switch_fav_on")
+    var offThumbImage : UIImage = AppImages.switch_fav_on
     
     public var offTintColor = UIColor.white {
         didSet {

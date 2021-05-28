@@ -32,7 +32,7 @@ class SelectPassengerCell: UICollectionViewCell {
     func populateData(data : ATContact) {
         self.nameLabel.text = "\(data.firstName) \(data.lastName)"
         
-        let placeHolder = data.flImage ?? #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult")
+        let placeHolder = data.flImage ?? AppImages.ic_deselected_hotel_guest_adult
         self.passengerImageView.image = placeHolder
         
         if  !data.profilePicture.isEmpty {

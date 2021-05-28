@@ -84,14 +84,13 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
         }
     }
     
-    private var multiLegSegmentControl: UISegmentedControl?
+    private var multiLegSegmentControl: GreenDotSegmentControl?
     
     //MARK:- View Controller Method
     override func viewDidLoad() {
         super.viewDidLoad()
         initialSetup()
     }
-    
     
     //MARK:- Additional Setup
     fileprivate func setupTopView() {
@@ -355,6 +354,7 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
     
     //MARK:- FilterViewController Methods
     func initialSetup() {
+        
         guard originDestinationView != nil else { return }
         originDestinationView.isHidden = true
         sameDepartReturnView.isHidden = true
@@ -372,7 +372,7 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
         }
         setupScrollView()
         if multiLegSegmentControl == nil {
-            multiLegSegmentControl = UISegmentedControl()
+            multiLegSegmentControl = GreenDotSegmentControl()
         }
     }
     

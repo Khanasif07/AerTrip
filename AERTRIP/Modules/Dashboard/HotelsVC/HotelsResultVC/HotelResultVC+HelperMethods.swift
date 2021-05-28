@@ -238,7 +238,8 @@ extension HotelResultVC {
         if let section = self.viewModel.fetchedResultsController.sections, !section.isEmpty {
             self.tableViewVertical.isHidden = false
         }
-        
+        self.hotelMapVC?.resetAllMarker(isNeedToShowAll: true)
+        self.hotelMapVC?.filterButton.isSelected =  !(HotelFilterVM.shared.isSortingApplied || self.viewModel.isFilterApplied) ? false : true
         self.hotelSearchTableView.reloadData()
         self.tableViewVertical.reloadData()
     }

@@ -33,11 +33,18 @@ class BookingVoucherTableViewCell: ATTableViewCell {
         }
     }
     
-    var amount: Double = 0.0 {
-        didSet {
+//    var amount: Double = 0.0 {
+//        didSet {
+//            self.configureCellForAmount()
+//        }
+//    }
+    
+    var receipt:Receipt? = Receipt(){
+        didSet{
             self.configureCellForAmount()
         }
     }
+    
     
     var payButtonAction: ((ATButton)->Void)? = nil
     
@@ -92,10 +99,18 @@ class BookingVoucherTableViewCell: ATTableViewCell {
         self.payNowButton.isHidden = false
         self.priceLabel.isHidden = true
         self.arrowImageView.isHidden = true
-        let grossStr = abs(amount).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(24.0))
+        let amount = self.receipt?.totalAmountDue ?? 0.0
+        let grossStr:NSMutableAttributedString
+        if let rate = self.receipt?.currencyRate{
+            grossStr = abs(amount).convertAmount(with: rate, using: AppFonts.SemiBold.withSize(24.0))
+        }else{
+            grossStr = abs(amount).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(24.0))
+        }
+        
+       
 //        self.dateLabel.text = self.amount.amountInDelimeterWithSymbol
          self.dateLabel.attributedText = grossStr
-        if (self.amount < 0) {
+        if (amount < 0) {
             self.payNowButton.setTitle("Get Refund", for: .normal)
             self.payNowButton.isHidden = true
             self.titleLabel.text = "Amount to be refund"
@@ -176,9 +191,9 @@ class BookingVoucherTableViewCell: ATTableViewCell {
             
             
         }else{if titleStr.lowercased().contains("netbanking"){
-            self.paymentTypeImageView.image = #imageLiteral(resourceName: "netBanking")
+            self.paymentTypeImageView.image = AppImages.netBanking
         }else{
-            self.paymentTypeImageView.image = #imageLiteral(resourceName: "visa")
+            self.paymentTypeImageView.image = AppImages.visa
         }
             
         }
@@ -194,7 +209,13 @@ class BookingVoucherTableViewCell: ATTableViewCell {
         let drAttr = NSMutableAttributedString(string: " \(LocalizedString.DebitShort.localized)", attributes: [.font: AppFonts.Regular.withSize(16.0)])
         let crAttr = NSMutableAttributedString(string: " \(LocalizedString.CreditShort.localized)", attributes: [.font: AppFonts.Regular.withSize(16.0)])
         
-        let grossStr = abs(amount).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(20.0))
+        let grossStr:NSMutableAttributedString
+        if let rate = self.voucherData.basic?.currencyRate{
+            grossStr = abs(amount).convertAmount(with: rate, using: AppFonts.Regular.withSize(22.0))
+        }else{
+            grossStr = abs(amount).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(22.0))
+        }
+        
         grossStr.append((amount > 0) ? drAttr : crAttr)
         self.priceLabel.attributedText = grossStr
         
