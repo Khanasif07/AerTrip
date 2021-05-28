@@ -42,6 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // CHECK FOR LAUNCH OF FLIGHT OR HOTEL MODULE        
         FirebaseApp.configure()
+        setAppTheme()
         AppFlowManager.default.setupSplashAnimationFlow()
         window?.backgroundColor = UIColor.black
         
@@ -101,6 +102,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let navigationViewController = UINavigationController(rootViewController: homeDummyViewController)
         window?.rootViewController = navigationViewController
         window?.makeKeyAndVisible()
+    }
+    
+    private func setAppTheme() {
+        let selectedTheme = AppTheme(rawValue: AppUserDefaults.value(forKey: .appTheme).stringValue) ?? .system
+        switch selectedTheme {
+        case .light:
+            window?.overrideUserInterfaceStyle = .light
+        case .dark:
+            window?.overrideUserInterfaceStyle = .dark
+        case .system:
+            window?.overrideUserInterfaceStyle = .unspecified
+        }
     }
     
     func applicationWillResignActive(_ application: UIApplication) {

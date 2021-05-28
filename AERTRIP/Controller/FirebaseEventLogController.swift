@@ -31,6 +31,7 @@ class FirebaseEventLogs: NSObject{
         case OpenAboutUs
         case OpenLegal = "OpenLegal"
         case openPrivacy = "OpenPrivacyPolicy"
+        case openAppearance = "OpenAppearance"
         
         //MARK:- Account update Events TypeNames
         case aadhar = "Aadhar"

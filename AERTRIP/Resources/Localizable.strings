@@ -162,7 +162,10 @@
 "ViewAccounts"    = "View Accounts";
 "Support"    = "Support";
 "RateUs"    = "Rate Us";
-
+"Appearance" = "Appearance";
+"lightMode" = "Light Mode";
+"darkMode" = "Dark Mode";
+"system" = "System";
 
 //MARK:- CreateProfileVCDelegate
 //MARK:-

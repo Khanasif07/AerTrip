@@ -79,6 +79,7 @@ extension AppUserDefaults {
         case isLogin
         case userData
         case userId
+        case appTheme
         
     }
 }

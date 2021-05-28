@@ -117,6 +117,8 @@ extension SettingsVC : UITableViewDelegate, UITableViewDataSource {
                 AppFlowManager.default.showURLOnATWebView(pageUrl, screenTitle:  self.settingsVm.getSettingsType(key: indexPath.section, index: indexPath.row).rawValue, presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: .darkContent)
             }
             
+        case .appearance:
+            moveToAppearanceVC()
             
         default:
                 break
@@ -189,6 +191,11 @@ extension SettingsVC {
         let vc = ChangeEmailVC.instantiate(fromAppStoryboard: .OTPAndVarification)
         vc.modalPresentationStyle = .overFullScreen
         self.present(vc, animated: false, completion: nil)
+    }
+    
+    func moveToAppearanceVC() {
+        let appearanceVC = AppearanceVC.instantiate(fromAppStoryboard: .Settings)
+        pushToController(appearanceVC)
     }
 
 }

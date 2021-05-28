@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,13 +17,24 @@
                 <rect key="frame" x="0.0" y="0.0" width="365" height="79"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="quickPayScreen" translatesAutoresizingMaskIntoConstraints="NO" id="v0p-Ux-msz">
-                        <rect key="frame" x="16" y="29.5" width="30" height="20"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="30" id="AMy-5g-tA0"/>
-                            <constraint firstAttribute="height" constant="20" id="V88-Ny-D7K"/>
-                        </constraints>
-                    </imageView>
+                    <stackView opaque="NO" contentMode="scaleToFill" spacing="17.5" translatesAutoresizingMaskIntoConstraints="NO" id="mio-9L-joe">
+                        <rect key="frame" x="16" y="29.5" width="296" height="20"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="quickPayScreen" translatesAutoresizingMaskIntoConstraints="NO" id="v0p-Ux-msz">
+                                <rect key="frame" x="0.0" y="0.0" width="30" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="AMy-5g-tA0"/>
+                                    <constraint firstAttribute="height" constant="20" id="V88-Ny-D7K"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="India" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e4o-dK-wHL">
+                                <rect key="frame" x="47.5" y="0.0" width="248.5" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="greenTick" translatesAutoresizingMaskIntoConstraints="NO" id="azv-zR-j1W">
                         <rect key="frame" x="317" y="29.5" width="20" height="20"/>
                         <constraints>
@@ -31,12 +42,6 @@
                             <constraint firstAttribute="width" constant="20" id="pg4-dG-hP2"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="India" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e4o-dK-wHL">
-                        <rect key="frame" x="63.5" y="29" width="248.5" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BAv-jq-cH0" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                         <rect key="frame" x="16" y="78.5" width="349" height="0.5"/>
                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
@@ -46,14 +51,12 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="azv-zR-j1W" firstAttribute="leading" secondItem="e4o-dK-wHL" secondAttribute="trailing" constant="5" id="8g3-qd-6DI"/>
-                    <constraint firstItem="e4o-dK-wHL" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="JZx-FK-Tmd"/>
+                    <constraint firstItem="mio-9L-joe" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="FhV-H7-3WQ"/>
                     <constraint firstItem="azv-zR-j1W" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="TK2-YM-1Qs"/>
                     <constraint firstAttribute="trailing" secondItem="azv-zR-j1W" secondAttribute="trailing" constant="28" id="YDb-x3-bC3"/>
                     <constraint firstItem="BAv-jq-cH0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="YzF-VJ-d6a"/>
-                    <constraint firstItem="v0p-Ux-msz" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ca6-zM-8U8"/>
-                    <constraint firstItem="v0p-Ux-msz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="lvQ-oK-Mvf"/>
-                    <constraint firstItem="e4o-dK-wHL" firstAttribute="leading" secondItem="v0p-Ux-msz" secondAttribute="trailing" constant="17.5" id="q7a-BH-xhA"/>
+                    <constraint firstItem="mio-9L-joe" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="g20-O9-Z4z"/>
+                    <constraint firstItem="azv-zR-j1W" firstAttribute="leading" secondItem="mio-9L-joe" secondAttribute="trailing" constant="5" id="p6l-d3-U1P"/>
                     <constraint firstAttribute="trailing" secondItem="BAv-jq-cH0" secondAttribute="trailing" id="s0B-YJ-Sy7"/>
                     <constraint firstAttribute="bottom" secondItem="BAv-jq-cH0" secondAttribute="bottom" id="y02-kL-7jx"/>
                 </constraints>
