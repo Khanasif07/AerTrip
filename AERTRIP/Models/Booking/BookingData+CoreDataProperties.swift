@@ -122,7 +122,7 @@ extension BookingData {
                     let originAttributedString = NSAttributedString(string: forArr[i])
                     var join: NSAttributedString = NSAttributedString()
                     let textAttachment = NSTextAttachment()
-                    let iconImage = AppImages.oneway
+                    let iconImage = AppImages.onewayIcon
                     textAttachment.bounds = CGRect(x: 0, y: CGFloat(roundf(Float(sourceSansPRO18 - (iconImage.size.height ?? 0.0))) / 2.0), width: iconImage.size.width ?? 0.0, height: iconImage.size.height ?? 0.0)
                     textAttachment.image = iconImage
                     join = NSAttributedString(attachment: textAttachment)
@@ -160,7 +160,7 @@ extension BookingData {
                 let destinatinAttributedString = NSAttributedString(string: tripCts[1])
                 var join: NSAttributedString = NSAttributedString()
                 let textAttachment = NSTextAttachment()
-                let iconImage = AppImages.oneway
+                let iconImage = AppImages.onewayIcon
                 textAttachment.bounds = CGRect(x: 0, y: CGFloat(roundf(Float(sourceSansPRO18 - (iconImage.size.height ?? 0.0))) / 2.0), width: iconImage.size.width ?? 0.0, height: iconImage.size.height ?? 0.0)
                 textAttachment.image = iconImage
                 join = NSAttributedString(attachment: textAttachment)

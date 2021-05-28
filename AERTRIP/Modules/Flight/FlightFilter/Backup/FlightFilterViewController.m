@@ -434,9 +434,9 @@
             [cell.mainImageView setImage:[UIImage imageNamed:[dictionary objectForKey:@"iconName"]]];
             
             if ([self isAirlineSelected:dictionary]) {
-                [cell.secondaryImageView setImage:[UIImage imageNamed:@"selectOption"]];
+                [cell.secondaryImageView setImage:AppImages.selectOption];
             }else {
-                [cell.secondaryImageView setImage:[UIImage imageNamed:@"unSelectOption"]];
+                [cell.secondaryImageView setImage:AppImages.unSelectOption];
             }
             
             return  cell;
@@ -496,9 +496,9 @@
             cell.titleLabel.text = name;
             
             if ([self isObjectSelected:self.flightFilter.qualitySelectedArray object:name]) {
-                [cell.coreImageView setImage:[UIImage imageNamed:@"selectOption"]];
+                [cell.coreImageView setImage:AppImages.selectOption];
             }else {
-                [cell.coreImageView setImage:[UIImage imageNamed:@"unSelectOption"]];
+                [cell.coreImageView setImage:AppImages.unSelectOption];
             }
             
             return  cell;
@@ -516,9 +516,9 @@
             cell.titleLabel.text = name;
             
             if ([self isObjectSelected:self.flightFilter.apiSelectedArray object:name]) {
-                [cell.coreImageView setImage:[UIImage imageNamed:@"selectOption"]];
+                [cell.coreImageView setImage:AppImages.selectOption];
             }else {
-                [cell.coreImageView setImage:[UIImage imageNamed:@"unSelectOption"]];
+                [cell.coreImageView setImage:AppImages.unSelectOption];
             }
             
             return  cell;
@@ -695,9 +695,9 @@
 
 - (void)setupIsRefundableFareButton {
     if (self.flightFilter.isRefundableFare) {
-        [self.refundableSelectedButton setImage:[UIImage imageNamed:@"selectOption"] forState:UIControlStateNormal];
+        [self.refundableSelectedButton setImage:AppImages.selectOption forState:UIControlStateNormal];
     }else {
-        [self.refundableSelectedButton setImage:[UIImage imageNamed:@"unSelectOption"] forState:UIControlStateNormal];
+        [self.refundableSelectedButton setImage:AppImages.unSelectOption forState:UIControlStateNormal];
     }
 }
 

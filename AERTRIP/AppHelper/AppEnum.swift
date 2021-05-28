@@ -1080,7 +1080,7 @@ enum ATWeatherType: RawRepresentable {
     static var arrow: UIImage{ #imageLiteral(resourceName: "arrow") }
     static var radioButtonSelect: UIImage { #imageLiteral(resourceName: "radioButtonSelect") }
     static var radioButtonUnselect: UIImage { #imageLiteral(resourceName: "radioButtonUnselect") }
-    @objc static var oneway: UIImage {#imageLiteral(resourceName: "oneway")}
+    @objc static var onewayIcon: UIImage {#imageLiteral(resourceName: "oneway")}
     @objc static var returnIcon: UIImage { #imageLiteral(resourceName: "return") }
     static var onewayWhite: UIImage {#imageLiteral(resourceName: "onewayWhite")}
     static var onewayAertripColor: UIImage {#imageLiteral(resourceName: "onewayAertripColor")}
@@ -1115,12 +1115,23 @@ enum ATWeatherType: RawRepresentable {
     static var White_Chat_bubble: UIImage { #imageLiteral(resourceName: "White Chat bubble") }
     static var darkNights: UIImage { #imageLiteral(resourceName: "darkNights") }
     static var icon: UIImage { #imageLiteral(resourceName: "icon") }
-    
+    @objc static var unSelectOption: UIImage { #imageLiteral(resourceName: "unSelectOption") }
+    @objc static var selectOption: UIImage { #imageLiteral(resourceName: "selectOption") }
+    @objc static var EconomyClassGreen: UIImage { #imageLiteral(resourceName: "EconomyClassGreen") }
+    @objc static var BusinessClassGreen: UIImage { #imageLiteral(resourceName: "BusinessClassGreen") }
+    @objc static var PremiumEconomyClassGreen: UIImage { #imageLiteral(resourceName: "PremiumEconomyClassGreen") }
+    @objc static var FirstClassGreen: UIImage { #imageLiteral(resourceName: "FirstClassGreen") }
+    @objc static var EconomyClassBlack: UIImage { #imageLiteral(resourceName: "EconomyClassBlack") }
+    @objc static var BusinessClassBlack: UIImage { #imageLiteral(resourceName: "BusinessClassBlack") }
+    @objc static var PreEconomyClassBlack: UIImage { #imageLiteral(resourceName: "PreEconomyClassBlack") }
+    @objc static var FirstClassBlack: UIImage { #imageLiteral(resourceName: "FirstClassBlack") }
+
     
     //    static var down: UIImage { #imageLiteral(resourceName: "DownArrow") }//icon
     
 
 // UIImage(named:
+// UIImage imageNamed:
 
 
     

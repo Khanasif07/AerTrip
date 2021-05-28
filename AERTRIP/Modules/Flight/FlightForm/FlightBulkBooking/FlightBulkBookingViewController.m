@@ -689,7 +689,7 @@ CGFloat animatedDistance;
 }
 
 - (void)setupFlightClassType {
-    [self.flightClassTypeImageView setImage:[UIImage imageNamed:[self getImageNameForFlightClass:self.formDataModel.flightClass]]];
+    [self.flightClassTypeImageView setImage:[self getImageForFlightClass:self.formDataModel.flightClass]];
     self.flightClassTypeLabel.text = self.formDataModel.flightClass.name;
     
     if ([self.formDataModel.flightClass.type isEqualToString:PREMIUM_FLIGHT_TYPE]) {
@@ -697,21 +697,21 @@ CGFloat animatedDistance;
     }
 }
 
-- (NSString *)getImageNameForFlightClass:(FlightClass *)flightClass {
+- (UIImage *)getImageForFlightClass:(FlightClass *)flightClass {
     
     if ([flightClass.type isEqualToString:ECONOMY_FLIGHT_TYPE]) {
-        return @"EconomyClassBlack";
+        return AppImages.EconomyClassBlack;
     }else if ([flightClass.type isEqualToString:BUSINESS_FLIGHT_TYPE]) {
-        return @"BusinessClassBlack";
+        return AppImages.BusinessClassBlack;
         
     }else if ([flightClass.type isEqualToString:PREMIUM_FLIGHT_TYPE]) {
-        return @"PreEconomyClassBlack";
+        return AppImages.PreEconomyClassBlack;
         
     }else if ([flightClass.type isEqualToString:FIRST_FLIGHT_TYPE]) {
-        return @"FirstClassBlack";
+        return AppImages.FirstClassBlack;
         
     }
-    return @"";
+    return AppImages.EconomyClassBlack;
 }
 
 - (void)setupSubmitButton {

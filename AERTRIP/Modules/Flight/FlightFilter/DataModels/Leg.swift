@@ -25,7 +25,7 @@ struct Leg
     let destinationString = NSAttributedString(string: " " + destination, attributes: attributes)
     
     let textAttachment = NSTextAttachment()
-        if let image = AppImages.oneway.withAlpha(0.4) {
+        if let image = AppImages.onewayIcon.withAlpha(0.4) {
         textAttachment.bounds = CGRect(x: 0.0, y: Double((sourcePro14.capHeight - image.size.height)/2.0), width: Double(image.size.width), height: Double(image.size.height))
         textAttachment.image = image
         
@@ -50,7 +50,7 @@ struct Leg
     let destinationString = NSAttributedString(string: " " + destination, attributes: attributes)
     
     let textAttachment = NSTextAttachment()
-        if let image = AppImages.oneway.withAlpha(0.4) {
+        if let image = AppImages.onewayIcon.withAlpha(0.4) {
         textAttachment.bounds = CGRect(x: 0.0, y: Double((sourcePro14.capHeight - image.size.height)/2.0), width: Double(image.size.width), height: Double(image.size.height))
         textAttachment.image = image
         
