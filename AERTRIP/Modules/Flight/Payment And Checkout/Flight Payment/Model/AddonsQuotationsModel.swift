@@ -128,7 +128,7 @@ struct QTFlights {
         let attributes = [NSAttributedString.Key.font:AppFonts.Regular.withSize(14.0), .foregroundColor: AppColors.themeBlack]
         let origin = NSAttributedString(string: self.origin, attributes: attributes)
         route.append(origin)
-        route.append((AppGlobals.shared.getStringFromImage(name : "oneway")))
+        route.append((AppGlobals.shared.getStringFromImage(with: AppImages.onewayIcon)))
         let destination = NSAttributedString(string: self.destination, attributes: attributes)
         route.append(destination)
         return route
@@ -228,7 +228,7 @@ struct CustomAddonsModel{
         let attributes = [NSAttributedString.Key.font:AppFonts.Regular.withSize(14.0), .foregroundColor: AppColors.themeBlack]
         let origin = NSAttributedString(string: flight.origin, attributes: attributes)
         route.append(origin)
-        route.append((AppGlobals.shared.getStringFromImage(name : "oneway")))
+        route.append((AppGlobals.shared.getStringFromImage(with: AppImages.onewayIcon)))
         let destination = NSAttributedString(string: flight.destination, attributes: attributes)
         route.append(destination)
         let details = NSAttributedString(string: ": \(self.addonsDetails.name)", attributes: attributes)

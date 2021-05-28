@@ -566,11 +566,11 @@ class AppGlobals {
     }
     
     
-    func getStringFromImage(name : String) -> NSAttributedString {
+    func getStringFromImage(with image : UIImage) -> NSAttributedString {
         
         let imageAttachment = NSTextAttachment()
         let sourceSansPro18 = UIFont(name: "SourceSansPro-Semibold", size: 18.0) ?? UIFont.systemFont(ofSize: 18.0)
-        let iconImage = UIImage(named: name ) ?? UIImage()
+        let iconImage = image//UIImage(named: name ) ?? UIImage()
         imageAttachment.image = iconImage
         
         let yCordinate  = roundf(Float(sourceSansPro18.capHeight - iconImage.size.height) / 2.0)

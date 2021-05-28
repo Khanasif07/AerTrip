@@ -314,13 +314,13 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
             
             let fullString = NSMutableAttributedString(string: origin + " " )
             let desinationAtrributedString = NSAttributedString(string: " " + destination)
-            let imageString = getStringFromImage(name : "oneway")
+            let imageString = getStringFromImage(with : AppImages.onewayIcon)
             fullString.append(imageString)
             fullString.append(desinationAtrributedString)
             
             
             let redString = NSMutableAttributedString(string: origin + " " )
-            let redImageString = getStringFromImage(name : "ArrowRed")
+            let redImageString = getStringFromImage(with : AppImages.ArrowRed)
             redString.append(redImageString)
             redString.append(desinationAtrributedString)
             let redAttributes = [NSAttributedString.Key.foregroundColor : UIColor.AERTRIP_RED_COLOR]
@@ -355,12 +355,12 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
             
             let fullString = NSMutableAttributedString(string: origin + " " )
             let desinationAtrributedString = NSAttributedString(string: " " + destination)
-            let imageString = getStringFromImage(name : "oneway")
+            let imageString = getStringFromImage(with : AppImages.onewayIcon)
             fullString.append(imageString)
             fullString.append(desinationAtrributedString)
             
             let redString = NSMutableAttributedString(string: origin + " " )
-            let redImageString = getStringFromImage(name : "ArrowRed")
+            let redImageString = getStringFromImage(with: AppImages.ArrowRed)
             redString.append(redImageString)
             redString.append(desinationAtrributedString)
             let redAttributes = [NSAttributedString.Key.foregroundColor : UIColor.AERTRIP_RED_COLOR]
@@ -375,12 +375,12 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
     }
     
     
-    func getStringFromImage(name : String) -> NSAttributedString {
+    func getStringFromImage(with image : UIImage) -> NSAttributedString {
         
         let imageAttachment = NSTextAttachment()
         
         let sourceSansPro18 = AppFonts.SemiBold.withSize(18)
-        guard let iconImage = UIImage(named: name ) else { return NSAttributedString() }
+        let iconImage = image
         imageAttachment.image = iconImage
         
         let yCordinate  = roundf(Float(sourceSansPro18.capHeight - iconImage.size.height) / 2.0)

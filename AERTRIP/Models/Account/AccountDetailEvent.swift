@@ -584,9 +584,9 @@ struct AccountDetailEvent {
             attributedString.append(text)
             if index != (ttls.count - 1){
                 if !isForReturn{
-                    attributedString.append(AppGlobals.shared.getStringFromImage(name : "oneway"))
+                    attributedString.append(AppGlobals.shared.getStringFromImage(with: AppImages.onewayIcon))
                 }else{
-                    attributedString.append(AppGlobals.shared.getStringFromImage(name : "return"))
+                    attributedString.append(AppGlobals.shared.getStringFromImage(with: AppImages.returnIcon))
                 }
                 
             }
