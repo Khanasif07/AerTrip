@@ -12,6 +12,7 @@ class SettingsVC: BaseVC {
     
     //MARK:- IBOutlets
     //MARK:-
+    @IBOutlet weak var navBlurView: BlurView!
     @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var settingsTableView: UITableView!
     @IBOutlet weak var versionLabel: UILabel!
@@ -54,6 +55,8 @@ class SettingsVC: BaseVC {
     //MARK:- Private
     private func initialSetups() {
         self.topNavView.delegate = self
+        view.backgroundColor = AppColors.themeWhite
+        navBlurView.backgroundColor = AppColors.themeWhite
         self.topNavView.configureNavBar(title: LocalizedString.Settings.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false,isDivider : true)
         configureTableView()
         self.settingsTableView.backgroundColor = AppColors.themeGray04

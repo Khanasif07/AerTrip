@@ -109,6 +109,7 @@
                     <connections>
                         <outlet property="copyRightLabel" destination="gCL-ZI-6RO" id="7Hc-cQ-HK2"/>
                         <outlet property="madeWithLabel" destination="zna-gi-Ocv" id="kqv-wN-spH"/>
+                        <outlet property="navBlurView" destination="gdg-f4-f3X" id="DXB-9U-qDa"/>
                         <outlet property="settingsTableView" destination="lbP-xl-q27" id="98d-J0-eOR"/>
                         <outlet property="topNavView" destination="zEc-Oe-p41" id="Vpq-Vr-I06"/>
                         <outlet property="versionLabel" destination="HG4-ZD-de0" id="IFr-2s-HnP"/>
