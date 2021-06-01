@@ -59,10 +59,10 @@
     [self showDatesSelection];
     self.backgroundView.backgroundColor = [UIColor colorWithDisplayP3Red: 236/255.0 green:253/255.0 blue:244/255.0 alpha:1];
     
-    [self setBackgroundColors];
+    [self setColors];
 }
 
-- (void)setBackgroundColors {
+- (void)setColors {
     _customCalenderView.backgroundColor = [UIColor themeBlack26];
     _customCalenderView.appearance.headerTitleColor = [UIColor themeBlack];
     _customCalenderView.appearance.titleDefaultColor = [UIColor themeBlack];
@@ -70,8 +70,10 @@
     _doneBlurView.backgroundColor = [UIColor themeWhiteDashboard];
     _weekDaysBlurView.backgroundColor = [UIColor themeWhiteDashboard];
     _backgroundView.backgroundColor = [UIColor calendarSelectedGreen];
-//    _startDateView.backgroundColor = [UIColor themeWhiteDashboard];
-//    _endDateView.backgroundColor = [UIColor themeWhiteDashboard];
+    _startDateValueLabel.textColor = [UIColor themeBlack];
+    _startDateSubLabel.textColor = [UIColor themeBlack];
+    _endDateValueLabel.textColor = [UIColor themeBlack];
+    _endDateSubLabel.textColor = [UIColor themeBlack];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
