@@ -81,7 +81,9 @@
     [self setupBackgroundView];
     [self makeTopCornersRounded:self.bottomView withRadius:10.0];
     [self applyShadowToDoneView];
-    
+    self.bottomView.backgroundColor = [UIColor themeWhiteDashboard];
+    self.doneView.backgroundColor = [UIColor themeWhiteDashboard];
+    self.classTableView.backgroundColor = [UIColor themeWhiteDashboard];
     [self.doneButton setTitleColor:[UIColor AertripColor] forState:UIControlStateNormal];
     [self.doneButton setTitleColor:[UIColor TWO_ZERO_FOUR_COLOR] forState:UIControlStateDisabled];
 }
@@ -144,6 +146,7 @@
         cell = [[TwoImageViewAndLabelTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.contentView.backgroundColor = [UIColor themeWhiteDashboard];
     FlightClass *flightClass = self.classArray[indexPath.row];
     cell.mainLabel.text = flightClass.name;
     if ([self.selectedFlightClass.type isEqualToString:flightClass.type]) {

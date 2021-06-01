@@ -113,4 +113,6 @@ extension UIColor {
     @objc static var themeBlack26: UIColor { AppColors.themeBlack26 }
     
     @objc static var calendarSelectedGreen: UIColor { AppColors.calendarSelectedGreen }
+    
+    @objc static var themeGray60: UIColor { AppColors.themeGray60 }
 }

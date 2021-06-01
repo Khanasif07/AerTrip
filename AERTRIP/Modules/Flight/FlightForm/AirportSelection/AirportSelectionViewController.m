@@ -111,7 +111,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.backgroundView.backgroundColor = [UIColor SELECTION_COLOR];
+    [self setupColors];
     [self setupInitials];
     if(UIScreen.mainScreen.bounds.size.height == 667){
         self.noResultViewHeight.constant = 170;
@@ -163,6 +163,17 @@
     [super viewDidLayoutSubviews];
     self.bottomHeightConstraint.constant = 50 + self.view.safeAreaInsets.bottom;
 }
+
+-(void)setupColors {
+    self.backgroundView.backgroundColor = [UIColor calendarSelectedGreen];
+    self.resultTableView.backgroundColor = [UIColor WHITE_COLOR];
+    self.TableViewHeaderView.backgroundColor = [UIColor WHITE_COLOR];
+    self.fromValueLabel.textColor = [UIColor themeBlack];
+    self.fromSubTitleLabel.textColor = [UIColor themeBlack];
+    self.toValueLabel.textColor = [UIColor themeBlack];
+    self.toSubTitleLabel.textColor = [UIColor themeBlack];
+}
+
 
 -(void)createPopularAirportArray
 {
@@ -1109,6 +1120,8 @@
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     NSString *key = [self.airportDisplayArray objectAtIndex:section];
+    cell.contentView.backgroundColor = [UIColor themeWhiteDashboard];
+    cell.mainLabel.textColor = [UIColor themeGray60];
     cell.mainLabel.text = [key uppercaseString];
     
     return [cell contentView];
