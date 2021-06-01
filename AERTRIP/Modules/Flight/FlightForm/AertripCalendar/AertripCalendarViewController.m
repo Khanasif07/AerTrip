@@ -39,6 +39,7 @@
 
 @property (weak, nonatomic) IBOutlet UIView *weekDaysDarkView;
 @property (weak, nonatomic) IBOutlet UIView *doneDarkView;
+@property (weak, nonatomic) IBOutlet UIView *multicitySelectionBackView;
 
 @end
 
@@ -82,6 +83,9 @@
     _startDateSubLabel.textColor = [UIColor themeBlack];
     _endDateValueLabel.textColor = [UIColor themeBlack];
     _endDateSubLabel.textColor = [UIColor themeBlack];
+    _multicitySelectionBackView.backgroundColor = [UIColor themeWhiteDashboard];
+    _multiCitySelectionTap.backgroundColor = [UIColor calendarSelectedGreen];
+    
 }
 
 - (void)hideShowDarkViews {
