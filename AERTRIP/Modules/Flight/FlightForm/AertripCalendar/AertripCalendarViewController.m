@@ -6,7 +6,7 @@
 //  Copyright © 2018 Aertrip. All rights reserved.
 //
 
-
+#import "AERTRIP-Swift.h"
 #import "AertripCalendarViewController.h"
 
 #import "DIYCalendarCell.h"
@@ -56,6 +56,17 @@
     [self setupInitials];
     [self showDatesSelection];
     self.backgroundView.backgroundColor = [UIColor colorWithDisplayP3Red: 236/255.0 green:253/255.0 blue:244/255.0 alpha:1];
+    
+    [self setBackgroundColors];
+}
+
+- (void)setBackgroundColors {
+    _customCalenderView.backgroundColor = [UIColor themeBlack26];
+    _customCalenderView.appearance.headerTitleColor = [UIColor themeBlack];
+    _customCalenderView.appearance.titleDefaultColor = [UIColor themeBlack];
+    _customCalenderView.appearance.subtitleDefaultColor = [UIColor themeBlack];
+    _customCalenderView.appearance.weekdayTextColor = [UIColor themeBlack];
+    _customCalenderView.appearance.titleWeekendColor = [UIColor themeBlack];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -582,7 +593,7 @@
     [self.customCalenderView  addGestureRecognizer:scopeGesture];
     
     //HEADER
-    self.customCalenderView.appearance.headerTitleColor = [UIColor blackColor];
+//    self.customCalenderView.appearance.headerTitleColor = [UIColor blackColor];
     self.customCalenderView.appearance.headerTitleFont = [UIFont fontWithName:@"SourceSansPro-Semibold" size:20.0];
     self.customCalenderView.headerHeight = 68.0;
     self.customCalenderView.calendarWeekdayView.hidden = true;
@@ -599,7 +610,7 @@
     } else {
         self.customCalenderView.rowHeight = 50.0;//70.0;
     }
-    self.customCalenderView.appearance.titleDefaultColor = [UIColor blackColor];
+//    self.customCalenderView.appearance.titleDefaultColor = [UIColor blackColor];
     self.customCalenderView.appearance.titleFont = [UIFont fontWithName:@"SourceSansPro-Regular" size:20.0];
     self.customCalenderView.swipeToChooseGesture.enabled = YES;
     self.customCalenderView.today = nil;

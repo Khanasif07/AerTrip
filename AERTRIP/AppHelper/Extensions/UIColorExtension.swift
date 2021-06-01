@@ -109,4 +109,6 @@ extension UIColor {
     
     
     @objc static var themeWhiteDashboard : UIColor{return AppColors.themeWhiteDashboard}
+    
+    @objc static var themeBlack26: UIColor { AppColors.themeBlack26 }
 }

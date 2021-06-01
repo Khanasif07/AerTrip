@@ -558,4 +558,8 @@ extension UIViewController {
 //    @objc private func dismissKeyboard() {
 //        view.endEditing(true)
 //    }
+    
+    func isLightTheme() -> Bool {
+        traitCollection.userInterfaceStyle == .light
+    }
 }
