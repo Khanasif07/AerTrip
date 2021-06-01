@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -468,6 +468,7 @@
                         <outlet property="customCalenderViewTrailing" destination="odh-If-XbQ" id="XTL-X0-bbd"/>
                         <outlet property="customCalenderViewWidth" destination="9Uz-ku-4qQ" id="mlU-ah-xDh"/>
                         <outlet property="dimmerLayer" destination="0xh-bD-EKZ" id="pI3-aQ-XQY"/>
+                        <outlet property="doneBlurView" destination="sLU-Se-KKf" id="28V-9Z-M2T"/>
                         <outlet property="doneButton" destination="s3f-d3-VEI" id="1e4-qk-EjV"/>
                         <outlet property="doneOutterView" destination="if4-5O-9LW" id="fYN-T3-U9c"/>
                         <outlet property="endDateLabel" destination="qgO-HX-HpU" id="QeQ-bD-I27"/>
@@ -486,6 +487,7 @@
                         <outlet property="tempView" destination="DkQ-Na-Bb9" id="dcq-ec-bgb"/>
                         <outlet property="topConstraintMainView" destination="VlS-Xk-lpS" id="NQE-Wm-id3"/>
                         <outlet property="topViewHeightConstraint" destination="jwV-vi-2ek" id="eRd-hv-hvb"/>
+                        <outlet property="weekDaysBlurView" destination="OBJ-cn-VzS" id="DcF-yk-CX2"/>
                         <outlet property="weekdaysBaseView" destination="LUz-wx-DOC" id="uRA-wJ-S5u"/>
                         <outlet property="weekdaysStackView" destination="EAy-D1-T6c" id="pQO-7X-whN"/>
                     </connections>

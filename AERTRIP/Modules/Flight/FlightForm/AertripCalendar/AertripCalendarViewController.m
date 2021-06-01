@@ -34,6 +34,8 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewWidth;
 @property (weak, nonatomic) IBOutlet UIView *backgroundView;
+@property (weak, nonatomic) IBOutlet UIVisualEffectView *weekDaysBlurView;
+@property (weak, nonatomic) IBOutlet UIVisualEffectView *doneBlurView;
 
 @end
 
@@ -64,9 +66,12 @@
     _customCalenderView.backgroundColor = [UIColor themeBlack26];
     _customCalenderView.appearance.headerTitleColor = [UIColor themeBlack];
     _customCalenderView.appearance.titleDefaultColor = [UIColor themeBlack];
-    _customCalenderView.appearance.subtitleDefaultColor = [UIColor themeBlack];
-    _customCalenderView.appearance.weekdayTextColor = [UIColor themeBlack];
-    _customCalenderView.appearance.titleWeekendColor = [UIColor themeBlack];
+    _TopView.backgroundColor = [UIColor themeWhiteDashboard];
+    _doneBlurView.backgroundColor = [UIColor themeWhiteDashboard];
+    _weekDaysBlurView.backgroundColor = [UIColor themeWhiteDashboard];
+    _backgroundView.backgroundColor = [UIColor calendarSelectedGreen];
+//    _startDateView.backgroundColor = [UIColor themeWhiteDashboard];
+//    _endDateView.backgroundColor = [UIColor themeWhiteDashboard];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -822,6 +827,7 @@
 - (FSCalendarCell *)calendar:(FSCalendar *)calendar cellForDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
 {
     DIYCalendarCell *cell = [calendar dequeueReusableCellWithIdentifier:@"cell" forDate:date atMonthPosition:monthPosition];
+    cell.titleLabel.textColor = [UIColor themeBlack];
     return cell;
 }
 
@@ -1130,7 +1136,7 @@
     
     if(timeInterval > 0 )
     {
-        cell.titleLabel.textColor = [UIColor blackColor];
+        cell.titleLabel.textColor = [UIColor themeBlack];
     }
     else {
         cell.titleLabel.textColor = [UIColor colorWithDisplayP3Red:0.66 green:0.66 blue:0.66 alpha:1.0];

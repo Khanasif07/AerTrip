@@ -198,6 +198,9 @@ enum AppColors {
     
     // (255, 255, 255) (26, 26, 26)
     static var themeBlack26: UIColor { UIColor(named: "themeBlack26") ?? .white }
+
+    // (236, 253, 244) (24, 69, 58)
+    static var calendarSelectedGreen: UIColor { UIColor(named: "calendarSelectedGreen") ?? .white }
     
     case headlines
     case body
