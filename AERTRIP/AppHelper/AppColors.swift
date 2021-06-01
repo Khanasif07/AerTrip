@@ -179,6 +179,18 @@ enum AppColors {
     // RGB - 246, 19, 114, 1.0
     static let instaButtonBottomColor =  UIColor(named: "instaButtonBottomColor") ?? UIColor(displayP3Red: 0.9647058824, green: 0.07450980392, blue: 0.4470588235, alpha: 0.4)
     
+    //Colors for Dashboard
+    
+    /// RGB - 0, 204, 153
+    static let themeGreenDashboard = UIColor(named: "themeGreenDashboard") ?? UIColor(displayP3Red: 0, green: 0.8, blue: 0.6, alpha: 1)
+    
+    /// RGB - 0, 160, 168
+    static let shadowBlueDashboard = UIColor(named: "shadowBlueDashboard") ?? UIColor(displayP3Red: 0, green: 0.6274509804, blue: 0.6588235294, alpha: 1)
+
+    /// RGB - 0, 160, 168
+    static let themeWhiteDashboard = UIColor(named: "themeWhiteDashboard") ?? UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 1)
+    
+    
     static var appShadowColor: UIColor {
         return AppColors.themeBlack.withAlphaComponent(0.15)
         //return AppColors.themeRed.withAlphaComponent(0.30)

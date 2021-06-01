@@ -88,7 +88,7 @@ class DashboardVC: BaseVC {
             self.addOverlayView()
         }
         
-        self.backgroundGradientView.colors = AppConstants.appthemeGradientColors.reversed()
+        self.backgroundGradientView.colors = AppConstants.appDashboardGradientColors.reversed()
         mainScrollView.delaysContentTouches = false
         self.profileButton.imageView?.contentMode = .scaleAspectFill
         //addViewOnTop()
