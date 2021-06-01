@@ -783,6 +783,7 @@
 //MARK:- MULTICITY IMPLEMENTATION
 
 - (void)setupMultiCityTableView {
+    self.multiCityTableView.backgroundColor = [UIColor themeWhiteDashboard];
     self.multiCityTableView.delegate = self;
     self.multiCityTableView.dataSource = self;
 }

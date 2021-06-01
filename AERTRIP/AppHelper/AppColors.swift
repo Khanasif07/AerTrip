@@ -48,7 +48,7 @@ enum AppColors {
     /// RGB - 102, 102, 102
     static let themeGray60 = UIColor(named: "themeGray60") ?? UIColor(displayP3Red: 0.4, green: 0.4, blue: 0.4, alpha: 1)
     
-    /// RGB - 153, 153, 153
+    /// RGB - 153, 153, 153   Dark RGB 120, 120, 120
     static let themeGray40  = UIColor(named: "themeGray40") ?? UIColor(displayP3Red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
     
     /// RGB - 151, 151, 151
@@ -78,7 +78,7 @@ enum AppColors {
     /// RGB - 236, 253, 244
     static let themeGreenishWhite  = UIColor(named: "themeGreenishWhite") ?? UIColor(displayP3Red: 0.9254901961, green: 0.9921568627, blue: 0.9568627451, alpha: 1)
     
-    /// RGB - 51, 51, 51
+    /// RGB - 51, 51, 51 Dark RGB 255, 255, 255
     static let textFieldTextColor51  = UIColor(named: "textFieldTextColor51") ?? UIColor(displayP3Red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
     
     /// RGB - 66, 97, 168
@@ -181,13 +181,13 @@ enum AppColors {
     
     //Colors for Dashboard
     
-    /// RGB - 0, 204, 153
+    /// RGB - 0, 204, 153 Dark mode   RGB 19, 19, 19
     static let themeGreenDashboard = UIColor(named: "themeGreenDashboard") ?? UIColor(displayP3Red: 0, green: 0.8, blue: 0.6, alpha: 1)
     
-    /// RGB - 0, 160, 168
+    /// RGB - 0, 160, 168 Dark mode   RGB  37, 37, 39
     static let shadowBlueDashboard = UIColor(named: "shadowBlueDashboard") ?? UIColor(displayP3Red: 0, green: 0.6274509804, blue: 0.6588235294, alpha: 1)
 
-    /// RGB - 0, 160, 168
+    /// RGB - 255, 255, 255  Dark mode   RGB 49, 49, 49
     static let themeWhiteDashboard = UIColor(named: "themeWhiteDashboard") ?? UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 1)
     
     
