@@ -37,6 +37,9 @@
 @property (weak, nonatomic) IBOutlet UIVisualEffectView *weekDaysBlurView;
 @property (weak, nonatomic) IBOutlet UIVisualEffectView *doneBlurView;
 
+@property (weak, nonatomic) IBOutlet UIView *weekDaysDarkView;
+@property (weak, nonatomic) IBOutlet UIView *doneDarkView;
+
 @end
 
 @implementation AertripCalendarViewController
@@ -58,8 +61,13 @@
     [self setupInitials];
     [self showDatesSelection];
     self.backgroundView.backgroundColor = [UIColor colorWithDisplayP3Red: 236/255.0 green:253/255.0 blue:244/255.0 alpha:1];
-    
     [self setColors];
+    [self hideShowDarkViews];
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+    [self hideShowDarkViews];
 }
 
 - (void)setColors {
@@ -67,13 +75,23 @@
     _customCalenderView.appearance.headerTitleColor = [UIColor themeBlack];
     _customCalenderView.appearance.titleDefaultColor = [UIColor themeBlack];
     _TopView.backgroundColor = [UIColor themeWhiteDashboard];
-    _doneBlurView.backgroundColor = [UIColor themeWhiteDashboard];
-    _weekDaysBlurView.backgroundColor = [UIColor themeWhiteDashboard];
+    _doneDarkView.backgroundColor = [UIColor themeWhiteDashboard];
+    _weekDaysDarkView.backgroundColor = [UIColor themeWhiteDashboard];
     _backgroundView.backgroundColor = [UIColor calendarSelectedGreen];
     _startDateValueLabel.textColor = [UIColor themeBlack];
     _startDateSubLabel.textColor = [UIColor themeBlack];
     _endDateValueLabel.textColor = [UIColor themeBlack];
     _endDateSubLabel.textColor = [UIColor themeBlack];
+}
+
+- (void)hideShowDarkViews {
+    if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+        _doneDarkView.hidden = NO;
+        _weekDaysDarkView.hidden = NO;
+    } else {
+        _doneDarkView.hidden = YES;
+        _weekDaysDarkView.hidden = YES;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
