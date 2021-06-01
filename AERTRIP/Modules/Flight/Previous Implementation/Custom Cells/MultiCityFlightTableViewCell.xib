@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -29,11 +30,11 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ri5-jp-7ZD">
                                 <rect key="frame" x="0.0" y="0.0" width="264.5" height="80"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" name="themeWhiteDashboard"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YUY-QC-6RR">
                                 <rect key="frame" x="66" y="0.0" width="132.5" height="80"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" name="themeWhiteDashboard"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4XB-2X-lRV">
                                 <rect key="frame" x="36" y="0.0" width="60" height="80"/>
@@ -127,7 +128,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="themeWhiteDashboard"/>
                         <constraints>
                             <constraint firstItem="4XB-2X-lRV" firstAttribute="centerX" secondItem="YUY-QC-6RR" secondAttribute="leading" id="0kt-iB-8DN"/>
                             <constraint firstItem="ri5-jp-7ZD" firstAttribute="leading" secondItem="qWe-j3-y2s" secondAttribute="leading" id="1pA-aS-tBQ"/>
@@ -173,21 +174,21 @@
                         <rect key="frame" x="265" y="0.0" width="110" height="80"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="Ud1-W5-03s">
-                                <rect key="frame" x="0.0" y="27.5" width="110" height="25.5"/>
+                                <rect key="frame" x="0.0" y="28.5" width="110" height="23.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HbV-Lb-uPd">
-                                        <rect key="frame" x="0.0" y="0.0" width="110" height="25.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="110" height="23.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
                                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30 Aug" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="Neu-zg-fYB">
-                                        <rect key="frame" x="0.0" y="25.5" width="110" height="0.0"/>
+                                        <rect key="frame" x="0.0" y="23.5" width="110" height="0.0"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="26"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wensday" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4yt-cq-IAC">
-                                        <rect key="frame" x="0.0" y="25.5" width="110" height="0.0"/>
+                                        <rect key="frame" x="0.0" y="23.5" width="110" height="0.0"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -197,6 +198,7 @@
                                 </constraints>
                             </stackView>
                         </subviews>
+                        <color key="backgroundColor" name="themeWhiteDashboard"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="110" id="HCM-ek-nta"/>
                         </constraints>
@@ -254,5 +256,8 @@
     <resources>
         <image name="FlightReverseArrow" width="16" height="15"/>
         <image name="FlightReverseArrowDisabled" width="16" height="15"/>
+        <namedColor name="themeWhiteDashboard">
+            <color red="1" green="0.99993687868118286" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
     </resources>
 </document>

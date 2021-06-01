@@ -42,6 +42,12 @@ class AddRoomPictureCell: UICollectionViewCell {
         self.configureUI()
     }
     
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.configureUI()
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
     }
@@ -78,6 +84,7 @@ class AddRoomPictureCell: UICollectionViewCell {
         self.childPopUpBtn.setTitleColor(AppColors.textFieldTextColor51, for: .normal)
         self.adultPopUpBtn.isUserInteractionEnabled = false
         self.childPopUpBtn.isUserInteractionEnabled = false
+        self.backgroundColor = AppColors.themeWhiteDashboard
         
     }
     

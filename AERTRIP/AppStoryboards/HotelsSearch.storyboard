@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -905,13 +906,13 @@ been sent</string>
                                                         <rect key="frame" x="0.0" y="0.0" width="112.66666666666667" height="266"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="lUb-4B-UGW">
-                                                                <rect key="frame" x="0.0" y="0.0" width="112.66666666666667" height="119.33333333333333"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="112.66666666666667" height="117.33333333333333"/>
                                                                 <subviews>
-                                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="627-JL-ot9">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="112.66666666666667" height="47"/>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="627-JL-ot9">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="112.66666666666667" height="43"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rooms" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LQ4-Rr-9MZ">
-                                                                                <rect key="frame" x="0.0" y="5" width="112.66666666666667" height="20.333333333333332"/>
+                                                                                <rect key="frame" x="0.0" y="5" width="112.66666666666667" height="19.666666666666668"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -926,11 +927,11 @@ been sent</string>
                                                                             <constraint firstAttribute="bottom" secondItem="LQ4-Rr-9MZ" secondAttribute="bottom" constant="18.5" id="uoE-OV-Zpm"/>
                                                                         </constraints>
                                                                     </view>
-                                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LFd-nY-Rus">
-                                                                        <rect key="frame" x="0.0" y="59" width="112.66666666666667" height="60.333333333333343"/>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LFd-nY-Rus">
+                                                                        <rect key="frame" x="0.0" y="55" width="112.66666666666667" height="62.333333333333343"/>
                                                                         <subviews>
-                                                                            <button opaque="NO" tag="2" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l4l-qf-vJb">
-                                                                                <rect key="frame" x="41" y="1.3333333333333712" width="31" height="58"/>
+                                                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l4l-qf-vJb">
+                                                                                <rect key="frame" x="41" y="2" width="31" height="58"/>
                                                                                 <state key="normal" image="rooms_white_icon"/>
                                                                             </button>
                                                                         </subviews>
@@ -947,10 +948,10 @@ been sent</string>
                                                                 </constraints>
                                                             </stackView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="klb-yY-qLX">
-                                                                <rect key="frame" x="0.0" y="139" width="112.66666666666667" height="127"/>
+                                                                <rect key="frame" x="0.0" y="137" width="112.66666666666667" height="129"/>
                                                                 <subviews>
                                                                     <pickerView tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g2S-NB-xYW">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="112.66666666666667" height="127"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="112.66666666666667" height="129"/>
                                                                     </pickerView>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1059,10 +1060,10 @@ been sent</string>
                                                 <rect key="frame" x="225.33333333333329" y="0.0" width="112.66666666666666" height="266"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="12.5" translatesAutoresizingMaskIntoConstraints="NO" id="pK7-Yp-wzS">
-                                                        <rect key="frame" x="0.0" y="0.0" width="112.66666666666667" height="435.33333333333331"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="112.66666666666667" height="440.66666666666669"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yha-YK-x8Z">
-                                                                <rect key="frame" x="0.0" y="0.0" width="112.66666666666667" height="90.333333333333329"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="112.66666666666667" height="91.666666666666671"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Children" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Sw-4i-o5H">
                                                                         <rect key="frame" x="0.0" y="5" width="112.66666666666667" height="20.333333333333332"/>
@@ -1090,10 +1091,10 @@ been sent</string>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="6Bo-AR-Jbm">
-                                                                <rect key="frame" x="0.0" y="103" width="112.66666666666667" height="108"/>
+                                                                <rect key="frame" x="0.0" y="104.33333333333337" width="112.66666666666667" height="109.33333333333331"/>
                                                                 <subviews>
                                                                     <button opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JKq-Tl-RDH">
-                                                                        <rect key="frame" x="32.333333333333371" y="30" width="48" height="48"/>
+                                                                        <rect key="frame" x="32.333333333333371" y="30.666666666666629" width="48" height="48"/>
                                                                         <state key="normal" image="child_icon_bulk"/>
                                                                         <state key="selected" image="child_selected"/>
                                                                     </button>
@@ -1106,10 +1107,10 @@ been sent</string>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YzA-bp-NnN">
-                                                                <rect key="frame" x="0.0" y="223.66666666666663" width="112.66666666666667" height="211.66666666666663"/>
+                                                                <rect key="frame" x="0.0" y="226.33333333333337" width="112.66666666666667" height="214.33333333333337"/>
                                                                 <subviews>
                                                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Kp-MU-TGO">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="112.66666666666667" height="211.66666666666666"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="112.66666666666667" height="214.33333333333334"/>
                                                                     </pickerView>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1822,7 +1823,7 @@ been sent</string>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="18c-nv-DJD">
                                                 <rect key="frame" x="0.0" y="103.66666666666669" width="388" height="103"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" name="themeWhiteDashboard"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="103" id="MhP-OY-iU1"/>
                                                 </constraints>
@@ -1839,7 +1840,7 @@ been sent</string>
                                                 <subviews>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="zOR-la-hRi">
                                                         <rect key="frame" x="0.0" y="0.0" width="388" height="93"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="backgroundColor" name="themeWhiteDashboard"/>
                                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="wmB-er-6A8">
                                                             <size key="itemSize" width="50" height="50"/>
                                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -1849,7 +1850,7 @@ been sent</string>
                                                         <cells/>
                                                     </collectionView>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" name="themeWhiteDashboard"/>
                                                 <constraints>
                                                     <constraint firstItem="zOR-la-hRi" firstAttribute="top" secondItem="j5z-sY-chK" secondAttribute="top" id="MJp-oc-QhO"/>
                                                     <constraint firstAttribute="trailing" secondItem="zOR-la-hRi" secondAttribute="trailing" id="aPq-K5-NBK"/>
@@ -1907,7 +1908,7 @@ been sent</string>
                                                 </constraints>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" name="themeWhiteDashboard"/>
                                         <constraints>
                                             <constraint firstItem="j5z-sY-chK" firstAttribute="top" secondItem="18c-nv-DJD" secondAttribute="bottom" id="3HM-n9-UNR"/>
                                             <constraint firstAttribute="trailing" secondItem="j5z-sY-chK" secondAttribute="trailing" id="3LA-DI-VZn"/>
@@ -2800,6 +2801,9 @@ been sent</string>
         <image name="setCurrentLocationIcon" width="64" height="64"/>
         <image name="shareIcon" width="76" height="76"/>
         <image name="unPinAllFavouriteIcon" width="76" height="76"/>
+        <namedColor name="themeWhiteDashboard">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

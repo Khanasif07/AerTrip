@@ -63,7 +63,7 @@ extension AppearanceVC: UITableViewDelegate, UITableViewDataSource {
             switchAppTheme(theme: .dark)
         case .system:
             AppUserDefaults.save(value: AppTheme.system.rawValue, forKey: .appTheme)
-            switchAppTheme(theme: .dark)
+            switchAppTheme(theme: .system)
         }
         tableView.reloadData()
     }

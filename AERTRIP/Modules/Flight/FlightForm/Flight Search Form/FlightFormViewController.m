@@ -111,14 +111,27 @@
     [self.viewModel getRecentSearches];
 }
 
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
+    [self setupMainView];
+}
+
 -(void)setupMainView
 {
     self.mainView.backgroundColor = [UIColor themeWhiteDashboard];
-    self.mainView.layer.shadowOffset = CGSizeMake(0.0,16.0);
-    self.mainView.layer.shadowRadius = 6.0;
-    self.mainView.layer.shadowOpacity = 1.0;
-    self.mainView.layer.cornerRadius = 10.0;
-    self.mainView.layer.shadowColor = [UIColor appShadow].CGColor;
+    if ([self isLightTheme]){
+        self.mainView.layer.shadowOffset = CGSizeMake(0.0,16.0);
+        self.mainView.layer.shadowRadius = 6.0;
+        self.mainView.layer.shadowOpacity = 1.0;
+        self.mainView.layer.cornerRadius = 10.0;
+        self.mainView.layer.shadowColor = [UIColor appShadow].CGColor;
+    }else{
+        self.mainView.layer.shadowOffset = CGSizeMake(0.0,0.0);
+        self.mainView.layer.shadowRadius = 0.0;
+        self.mainView.layer.shadowOpacity = 0.0;
+        self.mainView.layer.cornerRadius = 10.0;
+        self.mainView.layer.shadowColor = [UIColor clearColor].CGColor;
+    }
+    
     
 }
 - (void)setupCollectionView {
@@ -783,6 +796,7 @@
 //MARK:- MULTICITY IMPLEMENTATION
 
 - (void)setupMultiCityTableView {
+    self.multiCityTableView.backgroundColor = [UIColor themeWhiteDashboard];
     self.multiCityTableView.delegate = self;
     self.multiCityTableView.dataSource = self;
 }
