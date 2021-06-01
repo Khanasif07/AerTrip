@@ -50,8 +50,8 @@ class TripsVC: BaseVC {
         self.noteLabel.textAlignment = .center
         comingSoonLabel.font = AppFonts.SemiBold.withSize(16.0)
         self.noteLabel.font = AppFonts.SemiBold.withSize(16.0)
-        self.comingSoonLabel.textColor = AppColors.themeWhite
-        self.noteLabel.textColor = AppColors.themeWhite
+        self.comingSoonLabel.textColor = AppColors.whiteColorForButton
+        self.noteLabel.textColor = AppColors.whiteColorForButton
         
         self.comingSoonLabel.text = LocalizedString.tripsComingSoon.localized
         self.noteLabel.text = LocalizedString.tripsNote.localized
@@ -78,8 +78,8 @@ class TripsVC: BaseVC {
                 return atts
             }
             for item in allTypes {
-                label.customColor[item] = AppColors.themeWhite
-                label.customSelectedColor[item] = AppColors.themeWhite
+                label.customColor[item] = AppColors.whiteColorForButton
+                label.customSelectedColor[item] = AppColors.whiteColorForButton
             }
             
             label.highlightFontName = AppFonts.SemiBold.rawValue

@@ -190,6 +190,11 @@ enum AppColors {
     /// RGB - 255, 255, 255  Dark mode   RGB 49, 49, 49
     static let themeWhiteDashboard = UIColor(named: "themeWhiteDashboard") ?? UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 1)
     
+    /// RGB - 255, 255, 255  Dark mode   RGB  255, 255, 255
+    static let whiteColorForButton = UIColor(named: "whiteColorForButton") ?? UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 1)
+    
+    /// RGB - 246, 246, 246, /// RGB - 70, 70, 70
+    static let themeGray04SearchBar = UIColor(named: "themeGray04SearchBar") ?? UIColor(displayP3Red: 0.9647058824, green: 0.9647058824, blue: 0.9647058824, alpha: 1)
     
     static var appShadowColor: UIColor {
         return AppColors.themeBlack.withAlphaComponent(0.15)
