@@ -29,12 +29,14 @@ class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.initialSetUp()
+        self.blurVibranyEffectView.backgroundColor = AppColors.recentSearchColletionCellColor
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         cityNameLabel.text = ""
         cityNameLabel.attributedText = nil
+        self.blurVibranyEffectView.backgroundColor = AppColors.recentSearchColletionCellColor
     }
     
     //Mark:- Functions

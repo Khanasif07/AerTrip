@@ -52,6 +52,7 @@ class CheckInOutView: UIView {
         let view = nib.instantiate(withOwner: self, options: nil)[0] as! UIView
         view.frame = bounds
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.backgroundColor = AppColors.themeWhiteDashboard
         self.addSubview(view)
         self.configureUI()
     }

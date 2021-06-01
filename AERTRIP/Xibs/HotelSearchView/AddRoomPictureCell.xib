@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -52,7 +53,7 @@
                                                         </subviews>
                                                     </stackView>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" name="themeWhiteDashboard"/>
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="RgO-oT-YjX" secondAttribute="bottom" id="1KI-v3-zYv"/>
                                                     <constraint firstAttribute="trailing" secondItem="RgO-oT-YjX" secondAttribute="trailing" constant="1" id="7Gm-9c-Xf1"/>
@@ -72,7 +73,7 @@
                                                 </variation>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" name="themeWhiteDashboard"/>
                                         <constraints>
                                             <constraint firstItem="PI6-pz-CWQ" firstAttribute="centerY" secondItem="Vcs-gT-NGI" secondAttribute="centerY" multiplier="0.94" id="3Ls-I2-iB5"/>
                                             <constraint firstAttribute="width" constant="90" id="bg8-Qt-OmO"/>
@@ -97,14 +98,14 @@
                                 </constraints>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xJR-9b-ccg" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="16" y="115.66666666666666" width="151" height="0.66666666666666663"/>
+                                <rect key="frame" x="16" y="115.66666666666667" width="151" height="0.3333333333333286"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="0CQ-9i-b8k"/>
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="themeWhiteDashboard"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="xJR-9b-ccg" secondAttribute="bottom" id="73k-VR-a75"/>
                             <constraint firstAttribute="trailing" secondItem="zqc-Ih-gb7" secondAttribute="trailing" constant="22.5" id="kLT-rf-P0y"/>
@@ -116,13 +117,13 @@
                     </view>
                 </subviews>
             </view>
+            <viewLayoutGuide key="safeArea" id="aGd-r0-w7d"/>
             <constraints>
                 <constraint firstItem="s2V-EX-Aaw" firstAttribute="centerX" secondItem="aub-h8-Lhh" secondAttribute="centerX" id="Dca-hc-T5X"/>
                 <constraint firstItem="s2V-EX-Aaw" firstAttribute="centerY" secondItem="aub-h8-Lhh" secondAttribute="centerY" id="OrJ-0b-d0h"/>
                 <constraint firstItem="s2V-EX-Aaw" firstAttribute="height" secondItem="aub-h8-Lhh" secondAttribute="height" id="Q7G-3i-7qo"/>
                 <constraint firstItem="s2V-EX-Aaw" firstAttribute="width" secondItem="aub-h8-Lhh" secondAttribute="width" id="jhj-GT-Mtq"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="aGd-r0-w7d"/>
             <size key="customSize" width="218" height="163.33333333333331"/>
             <connections>
                 <outlet property="adultPopUpBtn" destination="PK5-ID-5y7" id="cBf-xN-DWe"/>
@@ -142,5 +143,8 @@
         <image name="adult_icon" width="21" height="21"/>
         <image name="child_icon" width="21" height="21"/>
         <image name="cross_icon" width="22" height="22"/>
+        <namedColor name="themeWhiteDashboard">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
     </resources>
 </document>

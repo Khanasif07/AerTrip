@@ -1,23 +1,56 @@
 {
   "images" : [
     {
-      "idiom" : "universal",
       "filename" : "person_black.png",
+      "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "peopleManBlack.png",
       "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
       "filename" : "person_black@2x.png",
+      "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "peopleManBlack@2x.png",
       "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
       "filename" : "person_black@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "peopleManBlack@3x.png",
+      "idiom" : "universal",
       "scale" : "3x"
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }
