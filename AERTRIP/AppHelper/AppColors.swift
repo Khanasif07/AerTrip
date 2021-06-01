@@ -196,6 +196,9 @@ enum AppColors {
         //return AppColors.themeRed.withAlphaComponent(0.30)
     }
     
+    // (255, 255, 255) (26, 26, 26)
+    static var themeBlack26: UIColor { UIColor(named: "themeBlack26") ?? .white }
+    
     case headlines
     case body
     case subheads

@@ -20,6 +20,7 @@ class AppearanceVC: BaseVC {
     let viewModel = AppearanceVM()
     
     // MARK: Outlets
+    @IBOutlet weak var navBlurView: BlurView!
     @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var appearanceTableView: UITableView!
     
@@ -37,7 +38,7 @@ class AppearanceVC: BaseVC {
     
     override func initialSetup() {
         self.topNavView.delegate = self
-        topNavView.backgroundColor = AppColors.themeWhite
+        navBlurView.backgroundColor = AppColors.themeWhite
         self.topNavView.configureNavBar(title: LocalizedString.Appearance.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false,isDivider : true)
         configureTableView()
         self.appearanceTableView.backgroundColor = AppColors.themeGray04

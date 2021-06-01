@@ -617,3 +617,8 @@ extension UIView {
     }
 }
 
+extension UIView {
+    func isLightTheme() -> Bool {
+        traitCollection.userInterfaceStyle == .light
+    }
+}
