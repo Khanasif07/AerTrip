@@ -34,6 +34,11 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewWidth;
 @property (weak, nonatomic) IBOutlet UIView *backgroundView;
+@property (weak, nonatomic) IBOutlet UIVisualEffectView *weekDaysBlurView;
+@property (weak, nonatomic) IBOutlet UIVisualEffectView *doneBlurView;
+
+@property (weak, nonatomic) IBOutlet UIView *weekDaysDarkView;
+@property (weak, nonatomic) IBOutlet UIView *doneDarkView;
 
 @end
 
@@ -56,17 +61,37 @@
     [self setupInitials];
     [self showDatesSelection];
     self.backgroundView.backgroundColor = [UIColor colorWithDisplayP3Red: 236/255.0 green:253/255.0 blue:244/255.0 alpha:1];
-    
-    [self setBackgroundColors];
+    [self setColors];
+    [self hideShowDarkViews];
 }
 
-- (void)setBackgroundColors {
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+    [self hideShowDarkViews];
+}
+
+- (void)setColors {
     _customCalenderView.backgroundColor = [UIColor themeBlack26];
     _customCalenderView.appearance.headerTitleColor = [UIColor themeBlack];
     _customCalenderView.appearance.titleDefaultColor = [UIColor themeBlack];
-    _customCalenderView.appearance.subtitleDefaultColor = [UIColor themeBlack];
-    _customCalenderView.appearance.weekdayTextColor = [UIColor themeBlack];
-    _customCalenderView.appearance.titleWeekendColor = [UIColor themeBlack];
+    _TopView.backgroundColor = [UIColor themeWhiteDashboard];
+    _doneDarkView.backgroundColor = [UIColor themeWhiteDashboard];
+    _weekDaysDarkView.backgroundColor = [UIColor themeWhiteDashboard];
+    _backgroundView.backgroundColor = [UIColor calendarSelectedGreen];
+    _startDateValueLabel.textColor = [UIColor themeBlack];
+    _startDateSubLabel.textColor = [UIColor themeBlack];
+    _endDateValueLabel.textColor = [UIColor themeBlack];
+    _endDateSubLabel.textColor = [UIColor themeBlack];
+}
+
+- (void)hideShowDarkViews {
+    if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+        _doneDarkView.hidden = NO;
+        _weekDaysDarkView.hidden = NO;
+    } else {
+        _doneDarkView.hidden = YES;
+        _weekDaysDarkView.hidden = YES;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -822,6 +847,7 @@
 - (FSCalendarCell *)calendar:(FSCalendar *)calendar cellForDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
 {
     DIYCalendarCell *cell = [calendar dequeueReusableCellWithIdentifier:@"cell" forDate:date atMonthPosition:monthPosition];
+    cell.titleLabel.textColor = [UIColor themeBlack];
     return cell;
 }
 
@@ -1130,7 +1156,7 @@
     
     if(timeInterval > 0 )
     {
-        cell.titleLabel.textColor = [UIColor blackColor];
+        cell.titleLabel.textColor = [UIColor themeBlack];
     }
     else {
         cell.titleLabel.textColor = [UIColor colorWithDisplayP3Red:0.66 green:0.66 blue:0.66 alpha:1.0];

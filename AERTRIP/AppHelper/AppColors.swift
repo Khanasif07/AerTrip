@@ -205,6 +205,9 @@ enum AppColors {
     static var recentSearchColletionCellColor: UIColor = UIColor(named: "recentSearchColletionCellColor") ?? UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 0.5)
     // (255, 255, 255) (26, 26, 26)
     static var themeBlack26: UIColor { UIColor(named: "themeBlack26") ?? .white }
+
+    // (236, 253, 244) (24, 69, 58)
+    static var calendarSelectedGreen: UIColor { UIColor(named: "calendarSelectedGreen") ?? .white }
     
     case headlines
     case body
