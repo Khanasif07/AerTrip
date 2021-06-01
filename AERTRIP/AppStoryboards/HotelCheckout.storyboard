@@ -831,7 +831,7 @@
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="DZr-3p-gGY">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="118"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="yxK-Eg-DBG">
                                             <size key="itemSize" width="134" height="122"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -877,7 +877,6 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="trailing" secondItem="Ewk-ye-IsT" secondAttribute="trailing" id="43M-Ud-XEK"/>
                                                                 <constraint firstItem="Ewk-ye-IsT" firstAttribute="leading" secondItem="D9D-zG-3KL" secondAttribute="leading" id="DWi-nE-nRL"/>
@@ -910,7 +909,6 @@
                                         </cells>
                                     </collectionView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="118" id="T3m-yD-Z0i"/>
                                     <constraint firstItem="DZr-3p-gGY" firstAttribute="top" secondItem="DeF-PF-r5i" secondAttribute="top" id="Y7h-Z3-gCh"/>
@@ -927,7 +925,6 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="2D9-P6-vGv" firstAttribute="leading" secondItem="nEl-0z-3ye" secondAttribute="leading" symbolic="YES" id="P22-Uh-cac"/>
                                     <constraint firstItem="2D9-P6-vGv" firstAttribute="top" secondItem="nEl-0z-3ye" secondAttribute="top" symbolic="YES" id="RRw-MV-Mmx"/>
@@ -938,10 +935,11 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Og-LG-RhV">
                                 <rect key="frame" x="0.0" y="214" width="375" height="453"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="WTL-bK-gFr"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="nEl-0z-3ye" firstAttribute="top" secondItem="DeF-PF-r5i" secondAttribute="bottom" id="0To-ry-RoN"/>
                             <constraint firstItem="7Og-LG-RhV" firstAttribute="leading" secondItem="WTL-bK-gFr" secondAttribute="leading" id="42k-2o-w2h"/>

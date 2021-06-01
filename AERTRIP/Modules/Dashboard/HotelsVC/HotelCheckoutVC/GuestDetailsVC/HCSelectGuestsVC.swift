@@ -199,6 +199,12 @@ class HCSelectGuestsVC: BaseVC {
         setupParchmentPageController()
     }
     
+    
+    override func setupColors() {
+        self.selectedContactsContainerView.backgroundColor = AppColors.themeGray04
+        self.selectedContactsCollectionView.backgroundColor = AppColors.clear//AppColors.themeGray04
+    }
+    
     // Added to replace the existing page controller, added Asif Khan, 28-29Jan'2020
     private func setupParchmentPageController(){
         
@@ -218,6 +224,7 @@ class HCSelectGuestsVC: BaseVC {
         self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
         self.parchmentView?.indicatorColor = AppColors.themeGreen
         self.parchmentView?.selectedTextColor = AppColors.themeBlack
+        self.parchmentView?.menuBackgroundColor = AppColors.themeWhite
         self.listContainerView.addSubview(self.parchmentView!.view)
         
         self.parchmentView?.dataSource = self
