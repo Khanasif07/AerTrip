@@ -113,6 +113,8 @@ class MainHomeVC: BaseVC {
         self.view.layoutIfNeeded()
         self.view.backgroundColor = AppColors.screensBackground.color
         self.contentView.backgroundColor = AppColors.screensBackground.color
+        scrollView.backgroundColor = AppColors.screensBackground.color
+        mainContainerView.backgroundColor = AppColors.screensBackground.color
         
         //setup scroll view
         self.scrollViewSetup()

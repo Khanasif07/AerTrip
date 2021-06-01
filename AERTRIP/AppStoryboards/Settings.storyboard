@@ -415,10 +415,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="baY-xa-CGU">
-                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Dp-tO-gAh" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </tableView>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IIf-14-9ku" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -426,14 +426,22 @@
                                     <constraint firstAttribute="height" constant="44" id="IZ7-gJ-gff"/>
                                 </constraints>
                             </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="baY-xa-CGU">
+                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="rt7-6U-sP5"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="3Dp-tO-gAh" firstAttribute="top" secondItem="yxX-0b-Efv" secondAttribute="top" id="40P-cq-sHX"/>
                             <constraint firstItem="rt7-6U-sP5" firstAttribute="bottom" secondItem="baY-xa-CGU" secondAttribute="bottom" id="5iJ-QS-aIz"/>
                             <constraint firstItem="IIf-14-9ku" firstAttribute="leading" secondItem="yxX-0b-Efv" secondAttribute="leading" id="9MG-hk-7uh"/>
+                            <constraint firstItem="3Dp-tO-gAh" firstAttribute="leading" secondItem="IIf-14-9ku" secondAttribute="leading" id="Ru3-u9-4gr"/>
                             <constraint firstItem="baY-xa-CGU" firstAttribute="top" secondItem="IIf-14-9ku" secondAttribute="bottom" id="e7o-GG-1C7"/>
                             <constraint firstItem="baY-xa-CGU" firstAttribute="leading" secondItem="rt7-6U-sP5" secondAttribute="leading" id="fLB-wp-2YJ"/>
+                            <constraint firstItem="3Dp-tO-gAh" firstAttribute="bottom" secondItem="IIf-14-9ku" secondAttribute="bottom" id="hZS-V8-ynn"/>
+                            <constraint firstItem="3Dp-tO-gAh" firstAttribute="trailing" secondItem="IIf-14-9ku" secondAttribute="trailing" id="ifi-dm-ph1"/>
                             <constraint firstItem="IIf-14-9ku" firstAttribute="top" secondItem="rt7-6U-sP5" secondAttribute="top" id="jNu-Uj-w9W"/>
                             <constraint firstItem="rt7-6U-sP5" firstAttribute="trailing" secondItem="IIf-14-9ku" secondAttribute="trailing" id="nDf-qL-3Kn"/>
                             <constraint firstItem="rt7-6U-sP5" firstAttribute="trailing" secondItem="baY-xa-CGU" secondAttribute="trailing" id="r6e-6a-1iW"/>
@@ -441,6 +449,7 @@
                     </view>
                     <connections>
                         <outlet property="appearanceTableView" destination="baY-xa-CGU" id="LWR-kZ-MMp"/>
+                        <outlet property="navBlurView" destination="3Dp-tO-gAh" id="fAU-xb-Lyx"/>
                         <outlet property="topNavView" destination="IIf-14-9ku" id="OxQ-nl-RGE"/>
                     </connections>
                 </viewController>

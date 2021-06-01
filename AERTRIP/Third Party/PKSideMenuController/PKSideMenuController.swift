@@ -112,7 +112,7 @@ open class PKSideMenuController: UIViewController {
     //MARK:- Methods
     //MARK:- Private
     private func initialSetup(){
-        self.view.backgroundColor = UIColor.white
+        self.view.backgroundColor = AppColors.themeWhite
         self.menuContainer = UIView()
         
         var newFrame = self.view.bounds
