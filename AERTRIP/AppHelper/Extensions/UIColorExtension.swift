@@ -106,4 +106,7 @@ extension UIColor {
 //    @objc static var PIN_RED_COLOR : UIColor { return UIColor(displayP3Red: (253.0/255.0), green: (191.0/255.0), blue: (192.0/255.0), alpha: 1.0) } ///Never used
     
     @objc static var appShadow : UIColor{return AppColors.appShadowColor}
+    
+    
+    @objc static var themeWhiteDashboard : UIColor{return AppColors.themeWhiteDashboard}
 }
