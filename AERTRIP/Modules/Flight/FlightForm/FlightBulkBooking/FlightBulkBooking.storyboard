@@ -995,12 +995,6 @@
                                                     <constraint firstItem="HI8-Mw-KLM" firstAttribute="width" secondItem="oaG-On-6Ne" secondAttribute="width" id="uPy-c6-V1X"/>
                                                     <constraint firstItem="HlQ-Il-hkT" firstAttribute="top" secondItem="snw-1L-NxZ" secondAttribute="bottom" id="xhV-3k-JmP"/>
                                                 </constraints>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                        <integer key="value" value="10"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.boundToMask" value="YES"/>
-                                                </userDefinedRuntimeAttributes>
                                             </view>
                                         </subviews>
                                         <constraints>

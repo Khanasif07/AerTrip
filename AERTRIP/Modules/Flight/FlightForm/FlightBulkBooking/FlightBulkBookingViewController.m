@@ -271,6 +271,9 @@ CGFloat animatedDistance;
     self.returnDateView.backgroundColor = [UIColor themeWhiteDashboard];
     self.passengerContainerView.backgroundColor = [UIColor themeWhiteDashboard];
     self.classContainerView.backgroundColor = [UIColor themeWhiteDashboard];
+    self.contentView.layer.masksToBounds = true;
+    self.contentView.layer.cornerRadius = 10;
+    self.contentView.layer.maskedCorners = kCALayerMinXMaxYCorner | kCALayerMaxXMaxYCorner;
 }
 
 - (void)setupSegmentControl {
