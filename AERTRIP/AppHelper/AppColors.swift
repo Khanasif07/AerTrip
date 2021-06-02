@@ -54,7 +54,7 @@ enum AppColors {
     /// RGB - 151, 151, 151
     static let themeGray151  = UIColor(named: "themeGray151") ?? UIColor(displayP3Red: 0.5921568627, green: 0.5921568627, blue: 0.5921568627, alpha: 1)
     
-    /// RGB - 204, 204, 204
+    /// RGB - 204, 204, 204, RGB - 79, 79,79
     static let themeGray20  = UIColor(named: "themeGray20") ?? UIColor(displayP3Red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
     
     /// RGB - 214, 214, 214
@@ -208,6 +208,9 @@ enum AppColors {
 
     // (236, 253, 244) (24, 69, 58)
     static var calendarSelectedGreen: UIColor { UIColor(named: "calendarSelectedGreen") ?? .white }
+    
+    //(255, 255, 255) (70, 70, 70)
+    static let DoneViewClearColor = UIColor(named: "DoneViewClearColor") ?? UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 0)
     
     case headlines
     case body
