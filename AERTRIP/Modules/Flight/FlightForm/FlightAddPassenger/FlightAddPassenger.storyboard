@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -41,15 +42,15 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="90" height="108"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Adults" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wBT-Xa-b1n">
-                                                                <rect key="frame" x="22.666666666666671" y="0.0" width="45" height="22.333333333333332"/>
+                                                                <rect key="frame" x="21.000000000000004" y="0.0" width="48.333333333333343" height="23.666666666666668"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12+ yrs" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5ng-tm-TkZ">
-                                                                <rect key="frame" x="24.666666666666671" y="22.333333333333371" width="41" height="17.666666666666671"/>
+                                                                <rect key="frame" x="21.666666666666668" y="23.666666666666629" width="46.666666666666657" height="16.333333333333329"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
-                                                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="textColor" name="themeGray40"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yS1-Vx-V74">
@@ -64,7 +65,7 @@
                                                                 </connections>
                                                             </button>
                                                         </subviews>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="bottom" secondItem="yS1-Vx-V74" secondAttribute="bottom" id="CQ6-gH-mPd"/>
                                                             <constraint firstItem="wBT-Xa-b1n" firstAttribute="centerX" secondItem="f1p-Vq-XS1" secondAttribute="centerX" id="GGc-kP-nN9"/>
@@ -79,15 +80,15 @@
                                                         <rect key="frame" x="95" y="0.0" width="90" height="108"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Children" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b4F-HU-ee5">
-                                                                <rect key="frame" x="14.666666666666654" y="0.0" width="60.666666666666657" height="22.333333333333332"/>
+                                                                <rect key="frame" x="13.333333333333346" y="0.0" width="63.333333333333343" height="23.666666666666668"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2-12 yrs" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ldv-2D-eVP">
-                                                                <rect key="frame" x="22.333333333333346" y="22.333333333333371" width="45.333333333333343" height="17.666666666666671"/>
+                                                                <rect key="frame" x="19.333333333333339" y="23.666666666666629" width="51.666666666666657" height="16.333333333333329"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
-                                                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="textColor" name="themeGray40"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ep-00-cFw">
@@ -102,7 +103,7 @@
                                                                 </connections>
                                                             </button>
                                                         </subviews>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstItem="ldv-2D-eVP" firstAttribute="top" secondItem="b4F-HU-ee5" secondAttribute="bottom" id="1Le-Se-6my"/>
                                                             <constraint firstItem="8ep-00-cFw" firstAttribute="top" secondItem="ldv-2D-eVP" secondAttribute="bottom" constant="20" id="4tm-np-jsE"/>
@@ -117,15 +118,15 @@
                                                         <rect key="frame" x="190" y="0.0" width="90" height="108"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Infant" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f6R-7X-3U1">
-                                                                <rect key="frame" x="24.000000000000004" y="0.0" width="42.333333333333343" height="22.333333333333332"/>
+                                                                <rect key="frame" x="23.666666666666686" y="0.0" width="43" height="23.666666666666668"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Under 2 yrs" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="upk-Gl-p0A">
-                                                                <rect key="frame" x="12" y="22.333333333333371" width="66.333333333333329" height="17.666666666666671"/>
+                                                                <rect key="frame" x="8.6666666666666856" y="23.666666666666629" width="72.666666666666671" height="16.333333333333329"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
-                                                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="textColor" name="themeGray40"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ldC-NI-ecT">
@@ -140,7 +141,7 @@
                                                                 </connections>
                                                             </button>
                                                         </subviews>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="bottom" secondItem="ldC-NI-ecT" secondAttribute="bottom" id="7PS-Zs-fuv"/>
                                                             <constraint firstItem="f6R-7X-3U1" firstAttribute="top" secondItem="AEv-Wh-JQ3" secondAttribute="top" id="B2n-cM-peu"/>
@@ -158,7 +159,7 @@
                                                 </constraints>
                                             </stackView>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="wo2-Y8-k2b" secondAttribute="trailing" id="F07-se-aMf"/>
                                             <constraint firstAttribute="height" constant="124" id="Nh0-78-JRm"/>
@@ -188,7 +189,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="52" id="2Ob-8m-BFC"/>
                                             <constraint firstAttribute="trailing" secondItem="iFa-eg-4aU" secondAttribute="trailing" constant="16" id="ONR-J6-Xqx"/>
@@ -215,13 +216,13 @@
                                             </view>
                                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jM9-7f-snp">
                                                 <rect key="frame" x="47" y="10" width="320" height="130"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="320" id="eMG-XV-l6w"/>
                                                 </constraints>
                                             </pickerView>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="jM9-7f-snp" secondAttribute="bottom" constant="10" id="4T8-Az-tVL"/>
                                             <constraint firstItem="otR-Uj-OD9" firstAttribute="width" secondItem="rkS-Cc-xvy" secondAttribute="width" id="8Jq-Bt-5Mc"/>
@@ -328,6 +329,7 @@
                         <outlet property="bottomViewHeight" destination="AuC-64-xgV" id="WhQ-bF-JqI"/>
                         <outlet property="childButton" destination="8ep-00-cFw" id="dSl-7k-MhE"/>
                         <outlet property="dimmerLayer" destination="3OC-9S-zJA" id="JBC-dG-fKU"/>
+                        <outlet property="doneBlurView" destination="QpV-km-G8W" id="Pxd-8a-SCZ"/>
                         <outlet property="doneButton" destination="e8d-Cu-jyz" id="hv7-6O-Myd"/>
                         <outlet property="doneView" destination="mpd-oB-lZP" id="qPf-Ze-7jd"/>
                         <outlet property="infantButton" destination="ldC-NI-ecT" id="KSN-jZ-oW1"/>
@@ -346,5 +348,8 @@
         <image name="AdultOutlineBlack" width="48" height="48"/>
         <image name="ChildOutlineBlack" width="48" height="48"/>
         <image name="InfantOutlineBlack" width="48" height="48"/>
+        <namedColor name="themeGray40">
+            <color red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
     </resources>
 </document>
