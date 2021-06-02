@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIView *WarningView;
 @property (weak, nonatomic) IBOutlet UILabel *warningLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewHeight;
+@property (weak, nonatomic) IBOutlet UIVisualEffectView *doneBlurView;
 
 
 @end
@@ -53,6 +54,11 @@ int alreadySelectedComponent = 0;
     // Dispose of any resources that can be recreated.
 }
 
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+    [self hideShowDarkViews];
+}
+
 //MARK:- Additional UI Methods
 
 - (void)setupInitials {
@@ -66,6 +72,22 @@ int alreadySelectedComponent = 0;
     [self.doneButton setTitleColor:[UIColor TWO_ZERO_FOUR_COLOR] forState:UIControlStateDisabled];
     self.warningLabel.textColor = [UIColor colorWithDisplayP3Red:255.0/255.0 green:144.0/255.0 blue:0.0/255.0 alpha:1.0];
     
+    [self setColors];
+    [self hideShowDarkViews];
+    
+}
+
+- (void)setColors {
+    _bottomView.backgroundColor = [UIColor themeWhiteDashboard];
+    _doneView.backgroundColor = [UIColor DoneViewClearColor];
+}
+
+- (void)hideShowDarkViews {
+    if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+        _doneBlurView.hidden = YES;
+    } else {
+        _doneBlurView.hidden = NO;
+    }
 }
 
 -(void)setupBackgroundView{
