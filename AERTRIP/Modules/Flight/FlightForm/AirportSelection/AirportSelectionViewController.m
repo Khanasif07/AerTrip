@@ -79,6 +79,10 @@
 @property (strong , nonatomic) CLLocationManager * locationManager;
 @property (strong , nonatomic) NSString * cellIdentifier;
 @property (weak, nonatomic) IBOutlet UILabel *NoResultLabel;
+
+@property (weak, nonatomic) IBOutlet UIVisualEffectView *visualEffectsView;
+
+
 @property ( strong , nonatomic) NSArray * nearestAirports;
 @end
 
@@ -164,6 +168,10 @@
     self.bottomHeightConstraint.constant = 50 + self.view.safeAreaInsets.bottom;
 }
 
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
+    [self manageDoneView];
+}
+
 -(void)setupColors {
     self.backgroundView.backgroundColor = [UIColor calendarSelectedGreen];
     self.resultTableView.backgroundColor = [UIColor WHITE_COLOR];
@@ -172,8 +180,18 @@
     self.fromSubTitleLabel.textColor = [UIColor themeBlack];
     self.toValueLabel.textColor = [UIColor themeBlack];
     self.toSubTitleLabel.textColor = [UIColor themeBlack];
+    [self manageDoneView];
 }
 
+
+- (void) manageDoneView{
+    self.doneOutterView.backgroundColor = [UIColor doneViewClearColor];
+    if (self.isLightTheme){
+        [self.visualEffectsView setHidden: false];
+    }else{
+        [self.visualEffectsView setHidden: true];
+    }
+}
 
 -(void)createPopularAirportArray
 {

@@ -549,6 +549,7 @@
                         <outlet property="toValueLabel" destination="vEH-ql-PSE" id="bMe-wU-Ymd"/>
                         <outlet property="toView" destination="TQc-af-aOY" id="kh7-jI-fAV"/>
                         <outlet property="topConstraintMainView" destination="Wba-r7-HHe" id="nAa-Xq-oey"/>
+                        <outlet property="visualEffectsView" destination="YWS-OV-yRl" id="QIb-gI-hUY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bgy-ZE-n6a" userLabel="First Responder" sceneMemberID="firstResponder"/>

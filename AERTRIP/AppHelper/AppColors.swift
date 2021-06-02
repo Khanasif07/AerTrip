@@ -210,7 +210,7 @@ enum AppColors {
     static var calendarSelectedGreen: UIColor { UIColor(named: "calendarSelectedGreen") ?? .white }
     
     //(255, 255, 255) (70, 70, 70)
-    static let DoneViewClearColor = UIColor(named: "DoneViewClearColor") ?? UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 0)
+    static let doneViewClearColor = UIColor(named: "doneViewClearColor") ?? UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 0)
     
     case headlines
     case body
