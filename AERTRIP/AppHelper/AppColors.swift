@@ -156,7 +156,7 @@ enum AppColors {
     /// RGB - 230, 230, 230, 0.6
     static let themeGray10WithAlpha  = UIColor(named: "themeGray10WithAlpha") ?? UIColor(displayP3Red: 0.9019607843, green: 0.9019607843, blue: 0.9019607843, alpha: 0.6)
     
-    // RGB - 0,0,0 , 0.2
+    // RGB - 0,0,0 , 0.2 (0,0,0 , 0.2)
     static let blackWith20PerAlpha =  UIColor(named: "blackWith20PerAlpha") ?? UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 0.2)
     
     static let lightYellow =  UIColor(named: "lightYellow") ?? UIColor(displayP3Red: 254.0/255.0, green: 242.0/255.0, blue: 199.0/255.0, alpha: 1.0)
@@ -214,6 +214,10 @@ enum AppColors {
     
     //(0, 0, 0) (0, 0, 0)
     static let themeBlackBackground = UIColor(named: "themeBlackBackground") ?? UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 0)
+    
+    //(255, 255, 255, 0) (49, 49, 49, 1)
+    static let selectDestinationHeaderColor = UIColor(named: "selectDestinationHeaderColor") ?? UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 0)
+    
     
     case headlines
     case body
