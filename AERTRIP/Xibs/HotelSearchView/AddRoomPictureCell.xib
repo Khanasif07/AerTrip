@@ -82,7 +82,7 @@
                                     </view>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vpL-hs-GDS">
                                         <rect key="frame" x="111.99999999999999" y="26" width="30.000000000000014" height="30"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" name="themeWhiteDashboard"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="0eW-7J-Sgh"/>
                                             <constraint firstAttribute="width" secondItem="vpL-hs-GDS" secondAttribute="height" multiplier="1:1" id="cCD-Ah-Rba"/>
