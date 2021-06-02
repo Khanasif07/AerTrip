@@ -54,6 +54,11 @@ int alreadySelectedComponent = 0;
     // Dispose of any resources that can be recreated.
 }
 
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+    [self hideShowDarkViews];
+}
+
 //MARK:- Additional UI Methods
 
 - (void)setupInitials {
@@ -74,7 +79,7 @@ int alreadySelectedComponent = 0;
 
 - (void)setColors {
     _bottomView.backgroundColor = [UIColor themeWhiteDashboard];
-    _doneView.backgroundColor = [UIColor themeWhiteDashboard];
+    _doneView.backgroundColor = [UIColor DoneViewClearColor];
 }
 
 - (void)hideShowDarkViews {
