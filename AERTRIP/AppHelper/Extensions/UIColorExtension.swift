@@ -115,4 +115,6 @@ extension UIColor {
     @objc static var calendarSelectedGreen: UIColor { AppColors.calendarSelectedGreen }
     
     @objc static var themeGray60: UIColor { AppColors.themeGray60 }
+    
+    @objc static var DoneViewClearColor: UIColor {AppColors.DoneViewClearColor}
 }
