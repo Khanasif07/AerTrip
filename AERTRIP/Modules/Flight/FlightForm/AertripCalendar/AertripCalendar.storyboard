@@ -220,6 +220,10 @@
                                             <constraint firstItem="afL-Ed-yWy" firstAttribute="top" secondItem="sLU-Se-KKf" secondAttribute="top" id="yTH-Ab-ux7"/>
                                         </constraints>
                                     </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vuD-u4-sYk">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="62"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5jR-Nj-sze">
                                         <rect key="frame" x="0.0" y="0.0" width="100" height="62"/>
                                         <color key="backgroundColor" red="0.92549019610000005" green="0.99215686270000003" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -436,6 +440,7 @@
                                     <constraint firstItem="y3O-Yu-V2p" firstAttribute="leading" secondItem="eqA-tP-Q3m" secondAttribute="leading" id="Grp-kg-TLx"/>
                                     <constraint firstItem="LUz-wx-DOC" firstAttribute="width" secondItem="dYr-na-eko" secondAttribute="width" id="It5-Ma-Okg"/>
                                     <constraint firstItem="DkQ-Na-Bb9" firstAttribute="trailing" secondItem="LUz-wx-DOC" secondAttribute="trailing" id="JX8-pZ-2Cf"/>
+                                    <constraint firstItem="vuD-u4-sYk" firstAttribute="leading" secondItem="amJ-Pb-AiP" secondAttribute="leading" id="Jlu-4L-vif"/>
                                     <constraint firstItem="y3O-Yu-V2p" firstAttribute="centerX" secondItem="eqA-tP-Q3m" secondAttribute="centerX" id="LnA-gV-It5"/>
                                     <constraint firstItem="5jR-Nj-sze" firstAttribute="leading" secondItem="eqA-tP-Q3m" secondAttribute="leading" id="PX5-1e-zvz"/>
                                     <constraint firstItem="DkQ-Na-Bb9" firstAttribute="leading" secondItem="LUz-wx-DOC" secondAttribute="leading" id="Pra-Q2-Kx1"/>
@@ -443,11 +448,14 @@
                                     <constraint firstItem="amJ-Pb-AiP" firstAttribute="width" secondItem="eqA-tP-Q3m" secondAttribute="width" id="Qqd-vZ-bgv"/>
                                     <constraint firstItem="dYr-na-eko" firstAttribute="top" secondItem="eqA-tP-Q3m" secondAttribute="top" id="UyN-QW-Uts"/>
                                     <constraint firstItem="DkQ-Na-Bb9" firstAttribute="top" secondItem="eqA-tP-Q3m" secondAttribute="top" id="dh1-Mg-PsO"/>
+                                    <constraint firstItem="vuD-u4-sYk" firstAttribute="trailing" secondItem="amJ-Pb-AiP" secondAttribute="trailing" id="ecx-dl-eMy"/>
                                     <constraint firstItem="LUz-wx-DOC" firstAttribute="top" secondItem="eqA-tP-Q3m" secondAttribute="top" constant="93" id="jCb-Ap-Qzh"/>
                                     <constraint firstItem="if4-5O-9LW" firstAttribute="centerX" secondItem="eqA-tP-Q3m" secondAttribute="centerX" id="jGa-n2-X6Q"/>
                                     <constraint firstItem="if4-5O-9LW" firstAttribute="width" secondItem="eqA-tP-Q3m" secondAttribute="width" id="lNr-3k-tdp"/>
                                     <constraint firstAttribute="trailing" secondItem="y3O-Yu-V2p" secondAttribute="trailing" id="odh-If-XbQ"/>
                                     <constraint firstItem="if4-5O-9LW" firstAttribute="top" secondItem="y3O-Yu-V2p" secondAttribute="bottom" id="p4J-az-tcd"/>
+                                    <constraint firstItem="vuD-u4-sYk" firstAttribute="top" secondItem="amJ-Pb-AiP" secondAttribute="top" id="p4Y-6f-i2V"/>
+                                    <constraint firstItem="vuD-u4-sYk" firstAttribute="bottom" secondItem="amJ-Pb-AiP" secondAttribute="bottom" id="rlM-QJ-uuj"/>
                                     <constraint firstItem="DkQ-Na-Bb9" firstAttribute="bottom" secondItem="LUz-wx-DOC" secondAttribute="bottom" id="tXS-dJ-fby"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -495,6 +503,7 @@
                         <outlet property="endDateValueLabel" destination="cgH-TI-I9M" id="uKD-lv-JVb"/>
                         <outlet property="endDateView" destination="hPa-D6-bs7" id="qyh-mS-3N5"/>
                         <outlet property="multiCitySelectionTap" destination="5jR-Nj-sze" id="fOA-6F-RQJ"/>
+                        <outlet property="multicitySelectionBackView" destination="vuD-u4-sYk" id="d4z-dk-Ctf"/>
                         <outlet property="multicitySelectionLeading" destination="PX5-1e-zvz" id="tb2-xC-CmB"/>
                         <outlet property="multicitySelectionTabWidth" destination="dc8-5S-LjT" id="Pa7-Te-hwH"/>
                         <outlet property="nightCountLabel" destination="zaR-pw-U9N" id="X5J-DV-eq2"/>
