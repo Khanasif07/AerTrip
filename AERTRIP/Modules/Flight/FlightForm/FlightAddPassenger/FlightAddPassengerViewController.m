@@ -79,7 +79,7 @@ int alreadySelectedComponent = 0;
 
 - (void)setColors {
     _bottomView.backgroundColor = [UIColor themeWhiteDashboard];
-    _doneView.backgroundColor = [UIColor DoneViewClearColor];
+    _doneView.backgroundColor = [UIColor doneViewClearColor];
 }
 
 - (void)hideShowDarkViews {

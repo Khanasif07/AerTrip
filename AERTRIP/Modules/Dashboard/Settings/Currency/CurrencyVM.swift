@@ -34,8 +34,15 @@ class CurrencyVM {
 //    }
     
     func selectCurrency(index : Int){
-        CurrencyControler.shared.setSelectedCurrency(currency: self.getCurrentDataSource()[index])
-        CurrencyControler.shared.updateUserCurrency()
+        if AppConstants.isCurrencyConversionEnable{
+            CurrencyControler.shared.setSelectedCurrency(currency: self.getCurrentDataSource()[index])
+            CurrencyControler.shared.updateUserCurrency()
+        }else{
+            let india = self.getCurrentDataSource().first(where: { $0.currencyCode == "INR"})
+            CurrencyControler.shared.setSelectedCurrency(currency: india)
+//            CurrencyControler.shared.updateUserCurrency()
+        }
+        
     }
     
     

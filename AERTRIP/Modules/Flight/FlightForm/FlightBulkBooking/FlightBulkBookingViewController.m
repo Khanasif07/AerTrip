@@ -84,6 +84,14 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraintMainView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 
+@property (weak, nonatomic) IBOutlet UIView *headerView;
+@property (weak, nonatomic) IBOutlet UIView *formToCenterView;
+@property (weak, nonatomic) IBOutlet UIView *onwardReturnView;
+@property (weak, nonatomic) IBOutlet UIView *onwardDateView;
+@property (weak, nonatomic) IBOutlet UIView *returnDateView;
+@property (weak, nonatomic) IBOutlet UIView *passengerContainerView;
+@property (weak, nonatomic) IBOutlet UIView *classContainerView;
+
 
 
 @property (strong , nonatomic) CLLocationManager * locationManager;
@@ -143,6 +151,7 @@ CGFloat animatedDistance;
 
     [self setupFlightSection];
     [self handleLoginState];
+    [self setupColor];
     self.submitButton.layer.masksToBounds = NO;
     [self.submitButton configureCommonGreenButton];
 }
@@ -248,6 +257,23 @@ CGFloat animatedDistance;
 
 -(void)swipeToDismiss{
     [self cancelAction:nil];
+}
+
+
+-(void)setupColor{
+    self.bottomView.backgroundColor = [UIColor WHITE_COLOR];
+    self.contentView.backgroundColor = [UIColor themeWhiteDashboard];
+    self.headerView.backgroundColor = [UIColor doneViewClearColor];
+    self.FromToView.backgroundColor = [UIColor themeWhiteDashboard];
+    self.formToCenterView.backgroundColor = [UIColor themeWhiteDashboard];
+    self.onwardReturnView.backgroundColor = [UIColor themeWhiteDashboard];
+    self.onwardDateView.backgroundColor = [UIColor themeWhiteDashboard];
+    self.returnDateView.backgroundColor = [UIColor themeWhiteDashboard];
+    self.passengerContainerView.backgroundColor = [UIColor themeWhiteDashboard];
+    self.classContainerView.backgroundColor = [UIColor themeWhiteDashboard];
+    self.contentView.layer.masksToBounds = true;
+    self.contentView.layer.cornerRadius = 10;
+    self.contentView.layer.maskedCorners = kCALayerMinXMaxYCorner | kCALayerMaxXMaxYCorner;
 }
 
 - (void)setupSegmentControl {

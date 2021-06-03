@@ -130,6 +130,7 @@ class IntFareBreakupVC: BaseVC {
         infoLabel.isHidden = false
         bookingInfoArrowImg.isHidden = false
         baseFareTableview.showsVerticalScrollIndicator = true
+        self.totalPayableView.backgroundColor = AppColors.themeWhite
     }
     
     override func viewDidLayoutSubviews(){

@@ -105,7 +105,7 @@ class RoomGuestSelectionVC: BaseVC {
     override func setupColors() {
         self.doneButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.doneButton.setTitleColor(AppColors.themeGreen, for: .selected)
-        self.doneButton.addShadow(cornerRadius: 0.0, shadowColor: AppColors.appShadowColor, offset: CGSize(width: 0, height: -8))
+        self.doneButton.addShadow(cornerRadius: 0.0, shadowColor: AppColors.appShadowColor,backgroundColor: AppColors.doneViewClearColor, offset: CGSize(width: 0, height: -8))
         
         self.roomNumberLabel.textColor = AppColors.themeBlack
         self.guestSelectionLabel.textColor = AppColors.themeGray40
@@ -118,6 +118,8 @@ class RoomGuestSelectionVC: BaseVC {
         self.childAgeLabel.textColor = AppColors.themeGray40
         
         self.ageSelectionLabel.textColor = AppColors.themeBlack
+        self.doneButton.backgroundColor = AppColors.doneViewClearColor
+        self.mainContainerView.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     
@@ -134,7 +136,7 @@ class RoomGuestSelectionVC: BaseVC {
         
         //background view
         self.backgroundView.alpha = 1.0
-        self.backgroundView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.001)
+        self.backgroundView.backgroundColor = AppColors.themeBlackBackground.withAlphaComponent(0.001)
         self.mainContainerView.roundTopCorners(cornerRadius: 15.0)
         let tapGest = UITapGestureRecognizer(target: self, action: #selector(tappedOnBackgroundView(_:)))
         self.backgroundView.addGestureRecognizer(tapGest)
@@ -169,7 +171,7 @@ class RoomGuestSelectionVC: BaseVC {
         
         func setValue() {
             self.mainContainerBottomConstraints.constant = 0.0
-            self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
+            self.view.backgroundColor = AppColors.themeBlackBackground.withAlphaComponent(0.3)
             self.view.layoutIfNeeded()
         }
         
@@ -188,7 +190,7 @@ class RoomGuestSelectionVC: BaseVC {
         
         func setValue() {
             self.mainContainerBottomConstraints.constant = -(self.mainContainerView.height)
-            self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.001)
+            self.view.backgroundColor = AppColors.themeBlackBackground.withAlphaComponent(0.001)
             self.view.layoutIfNeeded()
         }
         

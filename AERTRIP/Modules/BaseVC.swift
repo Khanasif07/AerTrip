@@ -376,7 +376,7 @@ extension BaseVC{
     ///Price convertor for booking and Account Section
     func getConvertedPrice(for amount: Double, with rate:CurrencyConversionRate?, using font: UIFont, isForCancellation: Bool) -> NSMutableAttributedString{
         
-        if let rate = rate{
+        if let rate = rate, AppConstants.isCurrencyConversionEnable{
             if isForCancellation{
                 return amount.convertCancellationAmount(with: rate, using: font)
             }else{

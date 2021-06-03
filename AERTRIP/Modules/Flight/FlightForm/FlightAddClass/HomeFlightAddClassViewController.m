@@ -16,6 +16,7 @@
 @property (strong, nonatomic) FlightClass *selectedFlightClass;
 @property (assign, nonatomic) CGFloat primaryDuration;
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
+@property (weak, nonatomic) IBOutlet UIVisualEffectView *visualEffectsView;
 
 @end
 
@@ -42,6 +43,11 @@
     [self animateBottomViewIn];
     
 }
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
+    [self manageDoneView];
+}
+
 - (void)createFlightClasses {
     self.classArray = [[NSMutableArray alloc] init];
     
@@ -81,8 +87,8 @@
     [self setupBackgroundView];
     [self makeTopCornersRounded:self.bottomView withRadius:10.0];
     [self applyShadowToDoneView];
+    [self manageDoneView];
     self.bottomView.backgroundColor = [UIColor themeWhiteDashboard];
-    self.doneView.backgroundColor = [UIColor themeWhiteDashboard];
     self.classTableView.backgroundColor = [UIColor themeWhiteDashboard];
     [self.doneButton setTitleColor:[UIColor AertripColor] forState:UIControlStateNormal];
     [self.doneButton setTitleColor:[UIColor TWO_ZERO_FOUR_COLOR] forState:UIControlStateDisabled];
@@ -122,6 +128,16 @@
     self.classTableViewHeightConstraint.constant = self.classArray.count * 44.0;
     [self.classTableView reloadData];
 }
+
+- (void) manageDoneView{
+    self.doneView.backgroundColor = [UIColor doneViewClearColor];
+    if (self.isLightTheme){
+        [self.visualEffectsView setHidden: false];
+    }else{
+        [self.visualEffectsView setHidden: true];
+    }
+}
+
 
 //MARK:- TABLE VIEW
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

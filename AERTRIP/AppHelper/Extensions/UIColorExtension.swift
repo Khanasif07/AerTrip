@@ -116,5 +116,5 @@ extension UIColor {
     
     @objc static var themeGray60: UIColor { AppColors.themeGray60 }
     
-    @objc static var DoneViewClearColor: UIColor {AppColors.DoneViewClearColor}
+    @objc static var doneViewClearColor: UIColor {AppColors.doneViewClearColor}
 }
