@@ -223,6 +223,8 @@ enum AppColors {
     
     /// (clear) (49,49,49,1)
     static let flightsNavBackViewColor = UIColor(named: "flightsNavBackViewColor") ?? .white
+    /// (1,105,79) (0,0,0)
+    static let drawerSideColor = UIColor(named: "drawerSideColor") ?? .white
     
     case headlines
     case body

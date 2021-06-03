@@ -203,7 +203,7 @@ class MainHomeVC: BaseVC {
     }
     
     private func createSideMenu() -> PKSideMenuController {
-        PKSideMenuOptions.opacityViewBackgroundColor = AppColors.themeBlackGreen
+        PKSideMenuOptions.opacityViewBackgroundColor = AppColors.drawerSideColor
         PKSideMenuOptions.mainViewShadowColor = AppColors.themeBlackGreen
         PKSideMenuOptions.dropOffShadowColor = AppColors.themeBlack.withAlphaComponent(0.5)
         
