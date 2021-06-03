@@ -23,12 +23,13 @@ class AdonsCell: UITableViewCell {
         headingLabel.font = AppFonts.SemiBold.withSize(18)
         descriptionLabel.font = AppFonts.Regular.withSize(isSEDevice ? 12 : 14)
         complementLabel.font = AppFonts.Regular.withSize(12)
-        headingLabel.textColor = UIColor.black
+        headingLabel.textColor = AppColors.themeBlack
         descriptionLabel.textColor = AppColors.themeGray60
         headingLabel.lineBreakMode = .byTruncatingMiddle
         complementLabel.textColor = AppColors.themeGreen
         complementBackView.setBorder(borderWidth: 1, borderColor: AppColors.themeGreen)
         complementBackView.roundedCorners(cornerRadius: 3)
+        self.contentView.backgroundColor = UIColor.black
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -44,23 +45,23 @@ class AdonsCell: UITableViewCell {
                case .meals:
                    self.addOnImageView.image = AppImages.mealsAddon
                    self.headingLabel.text = data.heading
-                   self.headingLabel.attributedText = data.heading.attributeStringWithColors(subString: LocalizedString.Meals.localized, strClr: AppColors.themeGreen, substrClr: UIColor.black, strFont: AppFonts.SemiBold.withSize(16), subStrFont: AppFonts.SemiBold.withSize(18))
+                self.headingLabel.attributedText = data.heading.attributeStringWithColors(subString: LocalizedString.Meals.localized, strClr: AppColors.themeGreen, substrClr: AppColors.themeBlack, strFont: AppFonts.SemiBold.withSize(16), subStrFont: AppFonts.SemiBold.withSize(18))
                 self.descriptionLabel.attributedText = data.description
 
                case .baggage:
                    self.addOnImageView.image = AppImages.baggageAddon
-                   self.headingLabel.attributedText = data.heading.attributeStringWithColors(subString: LocalizedString.Baggage.localized, strClr: AppColors.themeGreen, substrClr: UIColor.black, strFont: AppFonts.SemiBold.withSize(16), subStrFont: AppFonts.SemiBold.withSize(18))
+                self.headingLabel.attributedText = data.heading.attributeStringWithColors(subString: LocalizedString.Baggage.localized, strClr: AppColors.themeGreen, substrClr: AppColors.themeBlack, strFont: AppFonts.SemiBold.withSize(16), subStrFont: AppFonts.SemiBold.withSize(18))
                    self.descriptionLabel.attributedText = data.description
 
                case .seat:
                    self.addOnImageView.image = AppImages.seatsAddon
                    self.headingLabel.text = data.heading
-                    self.headingLabel.attributedText = data.heading.attributeStringWithColors(subString: LocalizedString.Seat.localized, strClr: AppColors.themeGreen, substrClr: UIColor.black, strFont: AppFonts.SemiBold.withSize(16), subStrFont: AppFonts.SemiBold.withSize(18))
+                    self.headingLabel.attributedText = data.heading.attributeStringWithColors(subString: LocalizedString.Seat.localized, strClr: AppColors.themeGreen, substrClr: AppColors.themeBlack, strFont: AppFonts.SemiBold.withSize(16), subStrFont: AppFonts.SemiBold.withSize(18))
                    self.descriptionLabel.attributedText = data.description
         
                case .otheres:
                    self.addOnImageView.image = AppImages.othersAddon
-                   self.headingLabel.attributedText = data.heading.attributeStringWithColors(subString: LocalizedString.Other.localized, strClr: AppColors.themeGreen, substrClr: UIColor.black, strFont: AppFonts.SemiBold.withSize(16), subStrFont: AppFonts.SemiBold.withSize(18))
+                   self.headingLabel.attributedText = data.heading.attributeStringWithColors(subString: LocalizedString.Other.localized, strClr: AppColors.themeGreen, substrClr: AppColors.themeBlack, strFont: AppFonts.SemiBold.withSize(16), subStrFont: AppFonts.SemiBold.withSize(18))
                    self.descriptionLabel.attributedText = data.description
                }
     }
