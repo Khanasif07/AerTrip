@@ -19,7 +19,7 @@ class CountryCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        backgroundColor = AppColors.themeWhite
+        backgroundColor = AppColors.themeWhiteDashboard
         self.selectionStyle = .none
         countryLabel.font = AppFonts.Regular.withSize(18)
         flagImageView.layer.borderWidth = 0.3
