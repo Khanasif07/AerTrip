@@ -236,8 +236,8 @@ extension FlightResultViewModelDelegate {
     func segmentTitles(showSelection : Bool , selectedIndex: Int) ->  [NSAttributedString]
     {
         var filterTitles = [NSAttributedString]()
-        let titleAttributes = [ NSAttributedString.Key.foregroundColor: UIColor.black , NSAttributedString.Key.font : AppFonts.Regular.withSize(16)]
-        let selectedTitleAttributes = [ NSAttributedString.Key.foregroundColor: UIColor.black , NSAttributedString.Key.font : AppFonts.SemiBold.withSize(16)]
+        let titleAttributes = [ NSAttributedString.Key.foregroundColor: UIColor.themeBlack , NSAttributedString.Key.font : AppFonts.Regular.withSize(16)]
+        let selectedTitleAttributes = [ NSAttributedString.Key.foregroundColor: UIColor.themeBlack , NSAttributedString.Key.font : AppFonts.SemiBold.withSize(16)]
         let dotAttributes = [ NSAttributedString.Key.foregroundColor: UIColor.AertripColor , NSAttributedString.Key.font : AppFonts.Regular.withSize(16)]
         let dotString = NSAttributedString(string: " \u{2022}", attributes: dotAttributes)
         
