@@ -38,7 +38,7 @@ class AppearanceVC: BaseVC {
     
     override func initialSetup() {
         self.topNavView.delegate = self
-        navBlurView.backgroundColor = AppColors.themeWhite
+        navBlurView.backgroundColor = AppColors.themeWhiteDashboard
         self.topNavView.configureNavBar(title: LocalizedString.Appearance.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false,isDivider : true)
         configureTableView()
         self.appearanceTableView.backgroundColor = AppColors.themeGray04
