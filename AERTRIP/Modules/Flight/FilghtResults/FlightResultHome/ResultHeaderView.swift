@@ -15,6 +15,8 @@ class ResultHeaderView: UIView {
     @IBOutlet weak var lineView: UIView!
     @IBOutlet weak var bottomHeightConstrints: NSLayoutConstraint!
     
+    @IBOutlet weak var bannerImageView: UIImageView!
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         commonInit()
@@ -44,6 +46,8 @@ class ResultHeaderView: UIView {
 //        self.grayView.layer.cornerRadius = 10
         
         self.grayView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
+        
+        self.bannerImageView.roundedCorners(cornerRadius: 10)
     }
     
 }
