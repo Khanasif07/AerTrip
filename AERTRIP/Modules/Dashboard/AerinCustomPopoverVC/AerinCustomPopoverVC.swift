@@ -136,7 +136,7 @@ class AerinCustomPopoverVC: BaseVC {
         IQKeyboardManager.shared().isEnableAutoToolbar = false
         IQKeyboardManager.shared().shouldResignOnTouchOutside = false
         addKeyboard()
-        self.statusBarStyle = .darkContent
+        self.statusBarStyle = .lightContent
         NotificationCenter.default.addObserver(self, selector: #selector(appDidEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
     

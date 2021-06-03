@@ -14,6 +14,8 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
     private let indicator = UIActivityIndicatorView(style: .medium)
     private let indicatorContainer = UIView()
     
+//    var togglesStatusBarWithAppearance = false
+    
     var statusBarColor: UIColor = AppColors.themeWhite {
         didSet{
             UIApplication.shared.statusBarView?.backgroundColor = statusBarColor
@@ -25,7 +27,7 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
             /*HINT:
              Open your info.plist and insert a new key named "View controller-based status bar appearance" to NO
              */
-            UIApplication.shared.statusBarStyle = statusBarStyle
+//            UIApplication.shared.statusBarStyle = statusBarStyle
             setNeedsStatusBarAppearanceUpdate()
         }
     }
@@ -156,6 +158,11 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         self.view.endEditing(true)
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        setNeedsStatusBarAppearanceUpdate()
     }
     
     //MARK: Overrideabel functions
@@ -369,7 +376,7 @@ extension BaseVC{
     ///Price convertor for booking and Account Section
     func getConvertedPrice(for amount: Double, with rate:CurrencyConversionRate?, using font: UIFont, isForCancellation: Bool) -> NSMutableAttributedString{
         
-        if let rate = rate{
+        if let rate = rate, AppConstants.isCurrencyConversionEnable{
             if isForCancellation{
                 return amount.convertCancellationAmount(with: rate, using: font)
             }else{

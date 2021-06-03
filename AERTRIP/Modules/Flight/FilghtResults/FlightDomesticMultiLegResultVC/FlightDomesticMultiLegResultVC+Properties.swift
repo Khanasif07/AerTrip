@@ -125,7 +125,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         setupScrollView()
         setupPinnedFlightsOptionsView()
         showHintAnimation()
-        
+        self.view.backgroundColor = AppColors.themeWhite
         ApiProgress = UIProgressView(progressViewStyle: .bar)
         ApiProgress.progressTintColor = UIColor.AertripColor
         ApiProgress.trackTintColor = .clear

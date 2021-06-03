@@ -619,11 +619,23 @@ extension Double {
     
     func  getConvertedAmount(using font: UIFont)->NSMutableAttributedString{
         
-        return (self * (CurrencyControler.shared.selectedCurrency.rate )).amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font)
+        if AppConstants.isCurrencyConversionEnable{
+            return (self * (CurrencyControler.shared.selectedCurrency.rate )).amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font)
+        }else{
+            return self.amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font)
+        }
+        
+        
     }
     
     func  getConvertedCancellationAmount(using font: UIFont)->NSMutableAttributedString{
-        return (self * (CurrencyControler.shared.selectedCurrency.cancellation_rate)).amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font)
+        
+        if AppConstants.isCurrencyConversionEnable{
+            return (self * (CurrencyControler.shared.selectedCurrency.cancellation_rate)).amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font)
+        }else{
+            return self.amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font)
+        }
+
     }
     
     var getPriceStringWithCurrency:String{
@@ -638,13 +650,23 @@ extension Double {
     ///For Post Bookings And Account section
     func convertAmount(with rate:CurrencyConversionRate, using font: UIFont)->NSMutableAttributedString{
         let symbol = Currencies.getCurrencySymbol(currencyCode: rate.currencyCode)
-        return (self * rate.rate).amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font, symbol: symbol)
+        if AppConstants.isCurrencyConversionEnable{
+            return (self * rate.rate).amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font, symbol: symbol)
+        }else{
+            return self.amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font, symbol: symbol)
+        }
+        
     }
     
     ///For Post Bookings cancellation
     func convertCancellationAmount(with rate:CurrencyConversionRate, using font: UIFont)->NSMutableAttributedString{
         let symbol = Currencies.getCurrencySymbol(currencyCode: rate.currencyCode)
-        return (self * rate.cancellationRate).amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font, symbol: symbol)
+        if AppConstants.isCurrencyConversionEnable{
+            return (self * rate.cancellationRate).amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font, symbol: symbol)
+        }else{
+            return self.amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font, symbol: symbol)
+        }
+        
     }
     
     ///For Post Bookings And Account section
