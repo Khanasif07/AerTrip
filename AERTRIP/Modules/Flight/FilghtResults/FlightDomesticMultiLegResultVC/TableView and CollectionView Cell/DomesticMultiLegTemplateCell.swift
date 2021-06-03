@@ -30,9 +30,15 @@ class DomesticMultiLegTemplateCell: UITableViewCell {
     
 
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.contentView.backgroundColor = AppColors.themeWhiteDashboard
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         showTemplateView()
+        self.contentView.backgroundColor = AppColors.themeWhiteDashboard
 
     }
     

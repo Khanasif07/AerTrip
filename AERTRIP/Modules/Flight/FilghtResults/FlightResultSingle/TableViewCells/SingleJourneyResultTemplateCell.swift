@@ -57,7 +57,7 @@ class SingleJourneyResultTemplateCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        self.baseView.backgroundColor = AppColors.themeWhiteDashboard
         dashedView.setupDashedView()
         setupBaseView()
         addShimmerEffect(to: [singleairlineLogo,airlineTitle , DepartureTime , departureAirports ])
@@ -66,6 +66,11 @@ class SingleJourneyResultTemplateCell: UITableViewCell {
             self.addShimmerEffect(to: [ self.arrivalTime , self.arrivalAirports , self.price] )
         }
         
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.baseView.backgroundColor = AppColors.themeWhiteDashboard
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

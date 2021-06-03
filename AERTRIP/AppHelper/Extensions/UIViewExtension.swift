@@ -554,7 +554,7 @@ extension UIView {
     
     func animate(view:UIView) {
         let colorLayer = CALayer()
-        colorLayer.backgroundColor = UIColor(displayP3Red: (238.0/255.0), green: (239.0/255.0), blue: (242.0/255.0), alpha: 1).cgColor
+        colorLayer.backgroundColor = AppColors.shimmerEffectLayerColor.cgColor //UIColor(displayP3Red: (238.0/255.0), green: (239.0/255.0), blue: (242.0/255.0), alpha: 1).cgColor
         colorLayer.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height)
         colorLayer.name = "colorLayer"
         view.layer.addSublayer(colorLayer)
@@ -568,9 +568,12 @@ extension UIView {
         
         
         let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [UIColor(white: 1.0, alpha: 0.0).cgColor,
-                                UIColor(white: 1.0, alpha: 0.7).cgColor,
-                                UIColor(white: 1.0, alpha: 0.0).cgColor]
+        gradientLayer.colors = [AppColors.themeWhite.withAlphaComponent(0).cgColor,
+                                AppColors.themeWhite.withAlphaComponent(0.7).cgColor,
+                                AppColors.themeWhite.withAlphaComponent(0).cgColor]
+//        [UIColor(white: 1.0, alpha: 0.0).cgColor,
+//                                UIColor(white: 1.0, alpha: 0.7).cgColor,
+//                                UIColor(white: 1.0, alpha: 0.0).cgColor]
         gradientLayer.name = "loaderLayer"
         gradientLayer.startPoint = CGPoint(x: 0, y: 0)
         gradientLayer.endPoint = CGPoint(x: 0, y: 1)

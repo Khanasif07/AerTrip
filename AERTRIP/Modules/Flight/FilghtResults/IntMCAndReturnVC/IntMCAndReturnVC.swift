@@ -94,6 +94,7 @@ extension IntMCAndReturnVC {
         resultsTableView.rowHeight = UITableView.automaticDimension
         resultsTableView.dataSource = self
         resultsTableView.delegate = self
+        self.resultsTableView.backgroundColor = AppColors.themeWhite
     }
     
     func addBannerTableHeaderView() {
