@@ -40,7 +40,7 @@ class CurrencyVM {
         }else{
             let india = self.getCurrentDataSource().first(where: { $0.currencyCode == "INR"})
             CurrencyControler.shared.setSelectedCurrency(currency: india)
-            CurrencyControler.shared.updateUserCurrency()
+//            CurrencyControler.shared.updateUserCurrency()
         }
         
     }
