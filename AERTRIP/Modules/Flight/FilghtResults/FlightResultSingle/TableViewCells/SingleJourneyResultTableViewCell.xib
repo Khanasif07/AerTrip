@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -246,6 +246,7 @@
             <connections>
                 <outlet property="airlineTitle" destination="Phz-X4-KKg" id="kCw-ps-Zd7"/>
                 <outlet property="airlineTitleWidth" destination="g3Q-bT-WGx" id="sVh-ZE-GmC"/>
+                <outlet property="airportsNameView" destination="LBS-x5-uyi" id="587-1d-e4s"/>
                 <outlet property="arrivalAirports" destination="wh7-Hj-y3O" id="YPi-xZ-Znb"/>
                 <outlet property="arrivalTime" destination="ZRK-NT-rhG" id="qd1-Jh-Gz3"/>
                 <outlet property="baseView" destination="NFA-Be-YnR" id="fMp-GB-Ntm"/>
