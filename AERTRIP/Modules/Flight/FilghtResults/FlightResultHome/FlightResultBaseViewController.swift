@@ -152,7 +152,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         backView.addSubview(visualEffectView)
         backView.tag = 500
         backView.clipsToBounds = true
-        backView.backgroundColor = .clear
+        backView.backgroundColor = AppColors.flightsNavBackViewColor
         
         backButton = UIButton(type: .custom)
         let buttonImage = AppImages.green
@@ -793,8 +793,8 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         self.filterSegmentView.isVerticalDividerEnabled = false
         self.filterSegmentView.selectionIndicatorColor = .clear
 
-        self.filterSegmentView.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black , NSAttributedString.Key.font : AppFonts.Regular.withSize(16)]
-        self.filterSegmentView.selectedTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.black , NSAttributedString.Key.font : AppFonts.SemiBold.withSize(16)]
+        self.filterSegmentView.titleTextAttributes = [NSAttributedString.Key.foregroundColor: AppColors.themeBlack.resolvedColor(with: traitCollection) , NSAttributedString.Key.font : AppFonts.Regular.withSize(16)]
+        self.filterSegmentView.selectedTitleTextAttributes = [NSAttributedString.Key.foregroundColor : AppColors.themeBlack.resolvedColor(with: traitCollection) , NSAttributedString.Key.font : AppFonts.SemiBold.withSize(16)]
         self.filterSegmentView .addTarget(self, action: #selector(filtersegmentChanged(_:)), for: .valueChanged)
 
         self.filterSegmentView.sectionTitles = flightSearchResultVM.segmentTitles(showSelection: false, selectedIndex: filterSegmentView.selectedSegmentIndex)
