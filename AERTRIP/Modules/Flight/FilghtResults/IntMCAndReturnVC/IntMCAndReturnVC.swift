@@ -94,6 +94,7 @@ extension IntMCAndReturnVC {
         resultsTableView.rowHeight = UITableView.automaticDimension
         resultsTableView.dataSource = self
         resultsTableView.delegate = self
+        self.view.backgroundColor = AppColors.themeWhite
         self.resultsTableView.backgroundColor = AppColors.themeWhite
     }
     
