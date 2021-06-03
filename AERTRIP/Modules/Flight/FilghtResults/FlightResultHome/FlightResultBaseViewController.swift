@@ -127,7 +127,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         super.viewWillAppear(animated)
         addCustomBackgroundBlurView()
         createFilters(curSelectedFilterIndex)
-        statusBarStyle = .darkContent
+        statusBarStyle = .default
     }
     
     func addCustomBackgroundBlurView()
