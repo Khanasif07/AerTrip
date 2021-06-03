@@ -21,6 +21,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ResultHeaderView" customModule="Aertrip">
             <connections>
+                <outlet property="bannerImageView" destination="mj8-q3-wFA" id="R5Y-ZS-Z6N"/>
                 <outlet property="bottomHeightConstrints" destination="ivD-nP-W5p" id="nBV-c0-fpK"/>
                 <outlet property="contentView" destination="iN0-l3-epB" id="fA6-5o-PUX"/>
                 <outlet property="grayView" destination="dXJ-Sz-lnR" id="xjP-Sh-NGF"/>
@@ -30,21 +31,21 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="422" height="165"/>
+            <rect key="frame" x="0.0" y="0.0" width="412" height="210"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="THK-DK-Zyp">
-                    <rect key="frame" x="0.0" y="0.0" width="422" height="166"/>
+                    <rect key="frame" x="0.0" y="0.0" width="412" height="166"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1ne-Za-ECP">
-                            <rect key="frame" x="0.0" y="0.0" width="422" height="158"/>
+                            <rect key="frame" x="0.0" y="0.0" width="412" height="158"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Utx-fw-8ZA">
-                            <rect key="frame" x="8" y="118" width="406" height="38"/>
+                            <rect key="frame" x="8" y="118" width="396" height="38"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use coupon 'AER' to get discounts &amp; cashback*" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="78a-Br-3fg">
-                                    <rect key="frame" x="10" y="0.0" width="386" height="38"/>
+                                    <rect key="frame" x="10" y="0.0" width="376" height="38"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="38" id="yex-DC-ClM"/>
                                     </constraints>
@@ -63,25 +64,25 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dXJ-Sz-lnR">
-                            <rect key="frame" x="8" y="16" width="406" height="92"/>
+                            <rect key="frame" x="8" y="16" width="396" height="92"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="dNo-hK-Fqa">
-                                    <rect key="frame" x="10" y="14" width="386" height="30"/>
+                                <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="dNo-hK-Fqa">
+                                    <rect key="frame" x="10" y="14" width="376" height="30"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ZERO" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wt6-YJ-atC">
-                                            <rect key="frame" x="0.0" y="0.0" width="128.66666666666666" height="30"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="125.33333333333333" height="30"/>
                                             <fontDescription key="fontDescription" name="SourceSansPro-Bold" family="Source Sans Pro" pointSize="38"/>
                                             <color key="textColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ZERO" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dAS-eM-VHN">
-                                            <rect key="frame" x="128.66666666666669" y="0.0" width="128.66666666666669" height="30"/>
+                                            <rect key="frame" x="125.33333333333334" y="0.0" width="125.33333333333334" height="30"/>
                                             <fontDescription key="fontDescription" name="SourceSansPro-Bold" family="Source Sans Pro" pointSize="38"/>
                                             <color key="textColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ZERO" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WIr-8z-2zD">
-                                            <rect key="frame" x="257.33333333333331" y="0.0" width="128.66666666666669" height="30"/>
+                                            <rect key="frame" x="250.66666666666671" y="0.0" width="125.33333333333334" height="30"/>
                                             <fontDescription key="fontDescription" name="SourceSansPro-Bold" family="Source Sans Pro" pointSize="38"/>
                                             <color key="textColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -92,7 +93,7 @@
                                     </constraints>
                                 </stackView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CNg-yM-ztw">
-                                    <rect key="frame" x="10" y="48" width="128.66666666666666" height="36"/>
+                                    <rect key="frame" x="9.9999999999999929" y="48" width="125.33333333333331" height="36"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="36" id="fk4-92-sfi"/>
                                     </constraints>
@@ -103,7 +104,7 @@ Fees</string>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GTz-tN-V0u">
-                                    <rect key="frame" x="138.66666666666669" y="48" width="128.66666666666669" height="36"/>
+                                    <rect key="frame" x="135.33333333333334" y="48" width="125.33333333333334" height="36"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="36" id="Ohg-zG-DFg"/>
                                     </constraints>
@@ -114,7 +115,7 @@ Fees</string>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YDP-3r-bmr">
-                                    <rect key="frame" x="267.33333333333331" y="48" width="128.66666666666669" height="36"/>
+                                    <rect key="frame" x="260.66666666666669" y="48" width="125.33333333333331" height="36"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="36" id="lsP-G4-mxa"/>
                                     </constraints>
@@ -124,6 +125,9 @@ Fees</string>
                                     <color key="textColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="zeroBanner" translatesAutoresizingMaskIntoConstraints="NO" id="mj8-q3-wFA">
+                                    <rect key="frame" x="2" y="2" width="392" height="90"/>
+                                </imageView>
                             </subviews>
                             <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
@@ -136,14 +140,18 @@ Fees</string>
                                 <constraint firstItem="CNg-yM-ztw" firstAttribute="centerX" secondItem="Wt6-YJ-atC" secondAttribute="centerX" id="NU1-AU-H7H"/>
                                 <constraint firstAttribute="bottom" secondItem="CNg-yM-ztw" secondAttribute="bottom" constant="8" id="RDX-iD-rZY"/>
                                 <constraint firstItem="CNg-yM-ztw" firstAttribute="width" secondItem="Wt6-YJ-atC" secondAttribute="width" id="Sye-z8-3WT"/>
+                                <constraint firstItem="mj8-q3-wFA" firstAttribute="top" secondItem="dXJ-Sz-lnR" secondAttribute="top" constant="2" id="XVT-l7-Lge"/>
+                                <constraint firstItem="mj8-q3-wFA" firstAttribute="leading" secondItem="dXJ-Sz-lnR" secondAttribute="leading" constant="2" id="aZp-uC-3Le"/>
+                                <constraint firstAttribute="trailing" secondItem="mj8-q3-wFA" secondAttribute="trailing" constant="2" id="bRB-KO-idR"/>
                                 <constraint firstItem="GTz-tN-V0u" firstAttribute="centerX" secondItem="dAS-eM-VHN" secondAttribute="centerX" id="cPV-Yu-KGY"/>
+                                <constraint firstAttribute="bottom" secondItem="mj8-q3-wFA" secondAttribute="bottom" id="hRg-Or-9rP"/>
                                 <constraint firstAttribute="trailing" secondItem="dNo-hK-Fqa" secondAttribute="trailing" constant="10" id="iCg-5r-y6x"/>
                                 <constraint firstItem="YDP-3r-bmr" firstAttribute="top" secondItem="CNg-yM-ztw" secondAttribute="top" id="ml3-Zk-mqV"/>
                                 <constraint firstItem="dNo-hK-Fqa" firstAttribute="top" secondItem="dXJ-Sz-lnR" secondAttribute="top" constant="14" id="uco-XV-PIK"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GzG-eT-Nq9" userLabel="LineView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="167" width="422" height="0.33333333333334281"/>
+                            <rect key="frame" x="0.0" y="167" width="412" height="0.33333333333334281"/>
                             <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="0.5" id="6q9-uN-fm6"/>
@@ -180,10 +188,11 @@ Fees</string>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="143.47826086956522" y="158.1521739130435"/>
+            <point key="canvasLocation" x="228.98550724637684" y="189.13043478260872"/>
         </view>
     </objects>
     <resources>
+        <image name="zeroBanner" width="359" height="92"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
