@@ -20,7 +20,7 @@ public enum PKSideMenuAnimation {
 public struct PKSideMenuOptions {
     public static var mainViewCornerRadiusInOpenMode: CGFloat = 18.0
     public static var sideDistanceForOpenMenu: CGFloat = 0.59 * UIScreen.main.bounds.width
-    public static var opacityViewBackgroundColor: UIColor = UIColor.green
+//    public static var opacityViewBackgroundColor: UIColor = UIColor.green
     public static var mainViewShadowColor: UIColor = UIColor.black
     public static var mainViewShadowWidth: Double = 5.0
     public static var dropOffShadowColor: UIColor = UIColor.black
@@ -109,6 +109,11 @@ open class PKSideMenuController: UIViewController {
          return .darkContent
      }
     
+    open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateShadowsOnTraitChange()
+    }
+    
     //MARK:- Methods
     //MARK:- Private
     private func initialSetup(){
@@ -135,10 +140,20 @@ open class PKSideMenuController: UIViewController {
         self.addClosePanGesture()
     }
     
+    private func updateShadowsOnTraitChange() {
+        if shadowLayer != nil {
+            shadowLayer.shadowColor = PKSideMenuOptions.mainViewShadowColor.resolvedColor(with: traitCollection).cgColor
+        }
+        if let con = mainContainer {
+            let layerTemp = con.layer
+            layerTemp.shadowColor = PKSideMenuOptions.dropOffShadowColor.resolvedColor(with: traitCollection).cgColor
+        }
+    }
+    
     private func addDropOffShadow() {
         let layerTemp = self.mainContainer!.layer
         layerTemp.masksToBounds = false
-        layerTemp.shadowColor = PKSideMenuOptions.dropOffShadowColor.cgColor
+        layerTemp.shadowColor = PKSideMenuOptions.dropOffShadowColor.resolvedColor(with: traitCollection).cgColor
         layerTemp.shadowOpacity = 0.0
         layerTemp.shadowOffset = CGSize(width: 20, height: 10)
         layerTemp.shadowRadius = 50
@@ -213,7 +228,7 @@ open class PKSideMenuController: UIViewController {
         shadowLayer.path = UIBezierPath(roundedRect: self.mainContainer?.bounds ?? .zero, cornerRadius: withCornerRadius).cgPath
         shadowLayer.fillColor = UIColor.clear.cgColor
         
-        shadowLayer.shadowColor = PKSideMenuOptions.mainViewShadowColor.cgColor
+        shadowLayer.shadowColor = PKSideMenuOptions.mainViewShadowColor.resolvedColor(with: traitCollection).cgColor
         shadowLayer.shadowPath = shadowLayer.path
         shadowLayer.shadowOffset = CGSize(width: shadowWidthTo, height: 0.0)
         shadowLayer.shadowOpacity = 0.0
