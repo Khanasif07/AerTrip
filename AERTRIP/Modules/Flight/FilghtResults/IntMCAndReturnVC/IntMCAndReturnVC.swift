@@ -62,6 +62,7 @@ class IntMCAndReturnVC : UIViewController, GetSharableUrlDelegate
         setUpSubView()
         getSharableLink.delegate = self
         self.viewModel.setSharedFks()
+        view.backgroundColor = AppColors.themeWhite
     }
     
     override func viewWillAppear(_ animated: Bool)

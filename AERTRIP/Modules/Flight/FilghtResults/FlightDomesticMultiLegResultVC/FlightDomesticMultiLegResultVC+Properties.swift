@@ -137,6 +137,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         self.collectionContainerView.addSubview(ApiProgress)
         getSharableLink.delegate = self
         self.viewModel.setSharedFks()
+        view.backgroundColor = AppColors.themeWhite
         
     }
     
