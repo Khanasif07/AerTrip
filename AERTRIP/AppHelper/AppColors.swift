@@ -224,6 +224,9 @@ enum AppColors {
     /// (clear) (49,49,49,1)
     static let flightsNavBackViewColor = UIColor(named: "flightsNavBackViewColor") ?? .white
     
+    ///(246,  246,  246) (9,  9,  9)
+    static let singleJourneyGroupCellColor = UIColor(named: "singleJourneyGroupCellColor") ?? UIColor(displayP3Red: 246.0/255, green: 246.0/255, blue: 246.0/255, alpha: 1)
+    
     case headlines
     case body
     case subheads

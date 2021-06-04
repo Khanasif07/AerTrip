@@ -17,6 +17,7 @@ class SingleJourneyCell: UITableViewCell
     @IBOutlet weak var logoTwo: UIImageView!
     @IBOutlet weak var logoThree: UIImageView!
     
+    @IBOutlet weak var airportsNameView: UIView!
     @IBOutlet weak var singleairlineLogo: UIImageView!
     @IBOutlet weak var airlineTitleTop: NSLayoutConstraint!
     @IBOutlet weak var airlineTitleWidth: NSLayoutConstraint!
@@ -55,7 +56,12 @@ class SingleJourneyCell: UITableViewCell
 //        layer.shadowColor = UIColor.black.withAlphaComponent(0.3).cgColor
 //        self.baseView.layer.cornerRadius = 10
         let shadowProp = AppShadowProperties()
-        self.baseView.addShadow(cornerRadius: shadowProp.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: shadowProp.shadowColor, offset: shadowProp.offset, opacity: shadowProp.opecity, shadowRadius: shadowProp.shadowRadius)
+        if self.isLightTheme(){
+            self.baseView.addShadow(cornerRadius: shadowProp.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: shadowProp.shadowColor, offset: shadowProp.offset, opacity: shadowProp.opecity, shadowRadius: shadowProp.shadowRadius)
+        }else{
+            self.baseView.addShadow(cornerRadius: shadowProp.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: .clear, offset: shadowProp.offset, opacity: 0.0, shadowRadius: 0.0)
+        }
+        
 //        self.baseView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
     }
     
@@ -66,6 +72,7 @@ class SingleJourneyCell: UITableViewCell
         dashedView.setupDashedView()
         setupGradientView()
         setupCollectionView()
+        self.setupColors()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -79,6 +86,15 @@ class SingleJourneyCell: UITableViewCell
         smartIconCollectionView.allowsSelection = false
         smartIconCollectionView.dataSource = self
         smartIconCollectionView.delegate = self
+    }
+    
+    func setupColors(){
+        self.baseView.backgroundColor = AppColors.themeWhiteDashboard
+        self.gradientView.isHidden = !self.isLightTheme()
+        self.smartIconCollectionView.backgroundColor = AppColors.themeWhiteDashboard
+        self.price.backgroundColor = AppColors.themeWhiteDashboard
+        self.airportsNameView.backgroundColor = AppColors.themeWhiteDashboard
+        self.intermediateAirports.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     //MARK:-
@@ -205,6 +221,7 @@ class SingleJourneyCell: UITableViewCell
         priceWidth.constant = 170
         
         pinnedRoundedLayer?.removeFromSuperlayer()
+        self.setupColors()
         
     }
     

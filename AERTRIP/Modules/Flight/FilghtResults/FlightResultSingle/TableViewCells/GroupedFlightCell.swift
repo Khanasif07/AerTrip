@@ -28,6 +28,7 @@ struct TimeFK {
 
 @available(iOS 13.0, *) class GroupedFlightCell: UITableViewCell {
     //MARK:- View Outlets
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var summaryLabel: UILabel!
     @IBOutlet weak var expandCollapseButton: UIButton!
     @IBOutlet weak var collaspableTableView: UITableView!
@@ -67,7 +68,10 @@ struct TimeFK {
         timeCollectionView.sendSubviewToBack(selectionView)
         timeSegmentBGView.clipsToBounds = true
         selectionView.frame = CGRect(x: 0, y: 0, width: 58, height: 30)
+        self.setupColor()
     }
+    
+    
     
     func setupTableView() {
         collaspableTableView.estimatedRowHeight  = 131
@@ -90,6 +94,12 @@ struct TimeFK {
         resultsCollectionView.allowsMultipleSelection = false
         resultsCollectionView.isPagingEnabled = true
         resultsCollectionView.showsHorizontalScrollIndicator = false
+    }
+    
+    func setupColor(){
+        self.contentView.backgroundColor = AppColors.themeWhite
+        self.containerView.backgroundColor = AppColors.singleJourneyGroupCellColor
+        self.downArrow.backgroundColor = AppColors.singleJourneyGroupCellColor
     }
     
     @IBAction func expandCollapsedToggled(_ sender: UIButton) {
@@ -250,6 +260,7 @@ struct TimeFK {
 //        currentSelectedIndex = nil
         collaspableTableView.tableFooterView = nil
         expandCollapseButton.transform = .identity
+        self.setupColor()
 //        selectionView.alpha = 0.0
     }
 }
