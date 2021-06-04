@@ -67,6 +67,12 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         self.emailPinnedFlights.displayLoadingIndicator(false)
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.resultsTableView.reloadData()
+    }
+
+    
     deinit {
         printDebug("FlightResultSingleJourneyVC")
     }

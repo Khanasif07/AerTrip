@@ -99,6 +99,15 @@ class IntMCAndReturnDetailsVC: UIViewController {
         }
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        for view in self.baseScrollView.subviews{
+            if let table = view as? UITableView{
+                table.reloadData()
+            }
+        }
+    }
+
     
     
     //MARK:-  Private functions
