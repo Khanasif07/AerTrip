@@ -45,7 +45,7 @@ class JourneyHeaderView: UIView {
         contentView.frame = self.bounds
         dashedView.setupDashedView()
         
-        let p3AertrioColor = UIColor(displayP3Red: (236.0/255.0), green: (253.0/255.0), blue: (244.0/255.0), alpha: 1.0)
+        let p3AertrioColor = AppColors.calendarSelectedGreen//AppColors.themeGreenishWhite//UIColor(displayP3Red: (236.0/255.0), green: (253.0/255.0), blue: (244.0/255.0), alpha: 1.0)
 
         stopsBackgroundView.backgroundColor = p3AertrioColor
         contentView.backgroundColor = p3AertrioColor
