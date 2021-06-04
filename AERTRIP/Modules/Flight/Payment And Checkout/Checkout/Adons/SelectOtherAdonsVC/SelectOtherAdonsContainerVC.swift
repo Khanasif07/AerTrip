@@ -80,7 +80,7 @@ class SelectOtherAdonsContainerVC: BaseVC {
             AddonsDataStore.shared.flightsWithData[index].specialRequest = item.otherAdonsVm.specialRequest
             
             
-            let flightAtINdex = AddonsDataStore.shared.allFlights.filter { $0.ffk == AddonsDataStore.shared.flightsWithDataForMeals[index].flightId }
+            let flightAtINdex = AddonsDataStore.shared.allFlights.filter { $0.ffk == AddonsDataStore.shared.flightsWithData[index].flightId }
             
             if let firstFlight = flightAtINdex.first {
             

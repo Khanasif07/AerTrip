@@ -26,11 +26,14 @@ class SelectBagageCell: UITableViewCell {
         selectedForLabel.font = AppFonts.Regular.withSize(14)
         self.priceLabel.font = AppFonts.Regular.withSize(18)
         quantityLabel.font = AppFonts.SemiBold.withSize(16)
-        self.bagageTitleLabel.textColor = UIColor.black
+      
+        self.bagageTitleLabel.textColor = AppColors.themeBlack
         selectedForLabel.textColor = AppColors.themeGray40
         self.priceLabel.textColor = AppColors.themeGray40
         quantityLabel.textColor = AppColors.themeGreen
         self.selectionStyle = .none
+        self.bagageTitleLabel.backgroundColor = AppColors.clear
+        self.priceLabel.backgroundColor = AppColors.clear
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
