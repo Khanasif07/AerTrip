@@ -558,6 +558,8 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
     
     func setupResultView() {
         
+        view.backgroundColor = AppColors.themeWhite
+        
         let flightType = flightSearchResultVM.flightSearchType
         
         switch flightType {

@@ -58,6 +58,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         setupTableView()
         setupPinnedFlightsOptionsView()
         self.viewModel.setSharedFks()
+        view.backgroundColor = AppColors.themeWhite
     }
         
     override func viewWillAppear(_ animated: Bool) {
