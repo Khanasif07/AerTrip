@@ -26,7 +26,7 @@ class ATSwitcher: UIControl {
     
     var offThumbImage : UIImage = AppImages.switch_fav_on
     
-    public var offTintColor = UIColor.white {
+    public var offTintColor = AppColors.switchGray {
         didSet {
             self.setupUI()
         }
