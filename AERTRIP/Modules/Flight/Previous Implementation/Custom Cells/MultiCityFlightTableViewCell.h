@@ -42,5 +42,6 @@ typedef enum : NSUInteger {
 - (void)setupFromAndToView;
 - (void)setupDateView;
 - (void)shakeAnimation:(PlaceholderLabels)label;
+- (void)setColorForFromView;
 
 @end

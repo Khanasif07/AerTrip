@@ -130,6 +130,10 @@
 }
 
 
+-(void) setColorForFromView{
+    self.fromToView.backgroundColor = UIColor.themeBlack26;
+}
+
 - (IBAction)fromAction:(id)sender {
     [self.delegate openAirportSelectionControllerFor:YES indexPath:self.indexPath];
 }
