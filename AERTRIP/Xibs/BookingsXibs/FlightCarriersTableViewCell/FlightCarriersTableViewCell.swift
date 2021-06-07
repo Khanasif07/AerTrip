@@ -40,8 +40,14 @@ class FlightCarriersTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configUI()
+        self.setupColors()
     }
     
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.setupColors()
+    }
     // MARK: - Functions
     
     // MARK: ===========
@@ -77,6 +83,13 @@ class FlightCarriersTableViewCell: UITableViewCell {
         self.remainingCodesLabel.isHidden = false
         self.setupImageWith(carrierCode: carrierCode, carriers: carriers)
         
+    }
+    
+    
+    func setupColors(){
+        [containerView, firstFlightCarriersContView, secondFlightCarriersContView, moreFlightCarriersContView].forEach { view in
+            view?.backgroundColor = AppColors.themeWhiteDashboard
+        }
     }
     
     func setupImageWith(carrierCode:[String], carriers:[String]){

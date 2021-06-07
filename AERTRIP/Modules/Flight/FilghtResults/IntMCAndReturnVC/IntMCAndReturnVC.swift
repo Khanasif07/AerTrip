@@ -75,6 +75,11 @@ class IntMCAndReturnVC : UIViewController, GetSharableUrlDelegate
         self.emailPinnedFlights.displayLoadingIndicator(false)
 
     }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.resultsTableView.reloadData()
+    }
 }
 
 extension IntMCAndReturnVC {

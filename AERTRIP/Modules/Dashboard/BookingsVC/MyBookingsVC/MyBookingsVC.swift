@@ -166,6 +166,8 @@ class MyBookingsVC: BaseVC {
         self.topNavBar.navTitleLabel.textColor = AppColors.textFieldTextColor51
         self.searchBarContainerView.backgroundColor = AppColors.clear
         self.childContainerView.backgroundColor = AppColors.clear
+        self.blurBackgroundView.isHidden = !self.isLightTheme()
+        self.view.backgroundColor = AppColors.themeWhite
     }
     
     override func bindViewModel() {
@@ -295,7 +297,7 @@ class MyBookingsVC: BaseVC {
             self.searchBarContainerView.isHidden = false
             self.instantiateChildVC()
             self.setUpViewPager()
-            self.blurBackgroundView.isHidden = false
+            self.blurBackgroundView.isHidden = (!self.isLightTheme())
             self.topNavBar.firstRightButton.isHidden = false
         }
     }
@@ -328,23 +330,7 @@ class MyBookingsVC: BaseVC {
         self.childContainerView.isHidden = true
         self.searchBarContainerView.isHidden = true
     }
-    /*
-    func addCustomBackgroundBlurView(){
-            
-            headerBlurView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: blurBackgroundView.height))
-            headerBlurView.effect = UIBlurEffect(style: .prominent)
-            headerBlurView.autoresizingMask = [.flexibleWidth,.flexibleHeight]
-            
-            blurBackgroundView.backgroundColor = UIColor.white.withAlphaComponent(0.85)
-            blurBackgroundView.addSubview(headerBlurView)
-            
-            statusBarBlurView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: statusBarHeight))
-            statusBarBlurView.effect = UIBlurEffect(style: .prominent)
-            self.navigationController?.view.addSubview(statusBarBlurView)
-        statusBarBlurView.backgroundColor = UIColor.white.withAlphaComponent(0.85)
-            
-        }
- */
+
     
     func startProgress() {
         // Invalid timer if it is valid

@@ -18,6 +18,7 @@ class QueryStatusCollectionCell: UICollectionViewCell {
     //================
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var dividerView: ATDividerView!
+    @IBOutlet weak var statusView: UIView!
     @IBOutlet weak var statusImageView: UIImageView!
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var iconHeightConstraint: NSLayoutConstraint!
@@ -36,6 +37,11 @@ class QueryStatusCollectionCell: UICollectionViewCell {
         self.configUI()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.statusView.backgroundColor = AppColors.themeWhiteDashboard
+    }
+    
     //MARK:- Functions
     //================
     private func configUI() {
@@ -44,6 +50,7 @@ class QueryStatusCollectionCell: UICollectionViewCell {
         self.backgroundColor = AppColors.clear
         self.containerView.backgroundColor = AppColors.clear
         self.clipsToBounds = true
+        self.statusView.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     private func setData() {
