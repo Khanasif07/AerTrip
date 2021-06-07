@@ -98,7 +98,6 @@ class BaggageContainerVM {
                       
                         FirebaseEventLogs.shared.logAddons(with: FirebaseEventLogs.EventsTypeName.addBaggageAddons, addonName: addon.adonsName, flightTitle: "\(firstFlight.fr) - \(firstFlight.to)", fk: AddonsDataStore.shared.flightsWithDataForBaggage[index].flightId, addonQty: addon.bagageSelectedFor.count)
                         
-                        FirebaseEventLogs.shared.logAddons(with: FirebaseEventLogs.EventsTypeName.addBaggageAddons, addonName: addon.adonsName, fk: AddonsDataStore.shared.flightsWithDataForBaggage[index].flightId, addonQty: addon.bagageSelectedFor.count)
                     }
                 }
             }

@@ -99,7 +99,7 @@ extension UIColor {
     
     @objc static var AERTRIP_RED_COLOR : UIColor  { AppColors.themeRed } //{ return UIColor(red: 255.0/255.0 , green:51/255.0 , blue:51/255.0 , alpha:1) }
     
-    @objc static var AERTRIP_ORAGE_COLOR : UIColor  { AppColors.themeOrange } //{ return UIColor(red: 255.0/255.0 , green:144.0/255.0 , blue:0.0 , alpha:1) }
+    @objc static var AERTRIP_ORAGE_COLOR : UIColor  { AppColors.cheapestPriceColor } //{ return UIColor(red: 255.0/255.0 , green:144.0/255.0 , blue:0.0 , alpha:1) }
     
     @objc static var AERTRIP_BLUE_COLOR : UIColor  { AppColors.themeBlue } //{ return UIColor(red: 51.0/255.0 , green:153.0/255.0 , blue:255.0/255.0 , alpha:1) }
     
@@ -117,4 +117,6 @@ extension UIColor {
     @objc static var themeGray60: UIColor { AppColors.themeGray60 }
     
     @objc static var doneViewClearColor: UIColor {AppColors.doneViewClearColor}
+    
+    @objc static var muticityAddRemoveTextColor:UIColor { AppColors.muticityAddRemoveTextColor }
 }

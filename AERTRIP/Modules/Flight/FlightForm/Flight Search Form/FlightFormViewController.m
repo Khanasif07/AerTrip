@@ -131,8 +131,8 @@
         self.mainView.layer.cornerRadius = 10.0;
         self.mainView.layer.shadowColor = [UIColor clearColor].CGColor;
     }
-    
-    
+    self.multicityAddTitle.textColor = [UIColor muticityAddRemoveTextColor];
+    self.multicityRemoveTitle.textColor = [UIColor muticityAddRemoveTextColor];
 }
 - (void)setupCollectionView {
     self.recentSearchTitleLabel.hidden = true;

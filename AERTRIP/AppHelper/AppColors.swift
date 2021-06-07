@@ -45,7 +45,7 @@ enum AppColors {
     /// RGB - 0, 0, 0
     static let themeBlack = UIColor(named: "themeBlack") ?? UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 1)
     
-    /// RGB - 102, 102, 102
+    /// RGB - 102, 102, 102  Dark RGB 153, 153, 153
     static let themeGray60 = UIColor(named: "themeGray60") ?? UIColor(displayP3Red: 0.4, green: 0.4, blue: 0.4, alpha: 1)
     
     /// RGB - 153, 153, 153   Dark RGB 120, 120, 120
@@ -229,6 +229,21 @@ enum AppColors {
     ///(246,  246,  246) (9,  9,  9)
     static let singleJourneyGroupCellColor = UIColor(named: "singleJourneyGroupCellColor") ?? UIColor(displayP3Red: 246.0/255, green: 246.0/255, blue: 246.0/255, alpha: 1)
     
+    /// RGB - (102, 102, 102)  (102, 102, 102)
+    static let flightCellDashColor = UIColor(named: "flightCellDashColor") ?? UIColor(displayP3Red: 0.4, green: 0.4, blue: 0.4, alpha: 1)
+    
+    /// RGB - 255, 144, 0
+    static let cheapestPriceColor = UIColor(named: "cheapestPriceColor") ?? UIColor(displayP3Red: 1, green: 0.5647058824, blue: 0, alpha: 1)
+    
+    /// RGB - 153, 153, 153   Dark RGB 153, 153, 153
+    static let themeGray153  = UIColor(named: "themeGray153") ?? UIColor(displayP3Red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
+    
+    /// RGB - (0, 204, 153 , 0.1) (0, 204, 153 , 0.2)
+    static let groupCellSelectedTimeColor  = UIColor(named: "groupCellSelectedTimeColor") ?? UIColor(displayP3Red: 0, green: 0.8, blue: 0.6, alpha: 0.1)
+    
+    //(66, 66, 66) (255, 255, 255)
+    static let muticityAddRemoveTextColor  = UIColor(named: "muticityAddRemoveTextColor") ?? UIColor(displayP3Red: 66.0/255, green: 66.0/255, blue: 66.0/255, alpha: 1)
+
     ///(230,230,230) (49,49,49)
     static let switchGray = UIColor(named: "switchGray") ?? .white
     

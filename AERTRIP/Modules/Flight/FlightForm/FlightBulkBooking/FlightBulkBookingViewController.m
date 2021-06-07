@@ -262,18 +262,20 @@ CGFloat animatedDistance;
 
 -(void)setupColor{
     self.bottomView.backgroundColor = [UIColor WHITE_COLOR];
-    self.contentView.backgroundColor = [UIColor themeWhiteDashboard];
+    self.contentView.backgroundColor = [UIColor themeBlack26];
     self.headerView.backgroundColor = [UIColor doneViewClearColor];
-    self.FromToView.backgroundColor = [UIColor themeWhiteDashboard];
-    self.formToCenterView.backgroundColor = [UIColor themeWhiteDashboard];
-    self.onwardReturnView.backgroundColor = [UIColor themeWhiteDashboard];
-    self.onwardDateView.backgroundColor = [UIColor themeWhiteDashboard];
-    self.returnDateView.backgroundColor = [UIColor themeWhiteDashboard];
-    self.passengerContainerView.backgroundColor = [UIColor themeWhiteDashboard];
-    self.classContainerView.backgroundColor = [UIColor themeWhiteDashboard];
+    self.FromToView.backgroundColor = [UIColor themeBlack26];
+    self.formToCenterView.backgroundColor = [UIColor themeBlack26];
+    self.onwardReturnView.backgroundColor = [UIColor themeBlack26];
+    self.onwardDateView.backgroundColor = [UIColor themeBlack26];
+    self.returnDateView.backgroundColor = [UIColor themeBlack26];
+    self.passengerContainerView.backgroundColor = [UIColor themeBlack26];
+    self.classContainerView.backgroundColor = [UIColor themeBlack26];
     self.contentView.layer.masksToBounds = true;
     self.contentView.layer.cornerRadius = 10;
     self.contentView.layer.maskedCorners = kCALayerMinXMaxYCorner | kCALayerMaxXMaxYCorner;
+    self.multicityRemoveLabel.textColor = [UIColor muticityAddRemoveTextColor];
+    self.multicityRemoveLabel.textColor = [UIColor muticityAddRemoveTextColor];
 }
 
 - (void)setupSegmentControl {
@@ -1544,6 +1546,7 @@ CGFloat animatedDistance;
     cell.flightLegRow = flightLegRow;
     [cell setupFromAndToView];
     [cell setupDateView];
+    [cell setColorForFromView];
     return cell;
 }
 

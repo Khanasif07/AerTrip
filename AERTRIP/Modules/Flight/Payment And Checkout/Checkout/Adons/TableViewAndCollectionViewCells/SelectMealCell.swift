@@ -36,7 +36,10 @@ class SelectMealCell: UITableViewCell {
         mealAutoSelectedForLabel.textColor = AppColors.themeGray60
         priceLabel.textColor = AppColors.themeGray40
         autoSelectionBackView.roundedCorners(cornerRadius: 3)
-
+        priceLabel.backgroundColor = AppColors.clear
+        mealTitleLabel.textColor = AppColors.themeBlack
+        mealTitleLabel.backgroundColor = AppColors.clear
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

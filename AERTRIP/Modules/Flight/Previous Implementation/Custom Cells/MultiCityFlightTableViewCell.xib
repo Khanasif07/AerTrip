@@ -240,12 +240,15 @@
             <connections>
                 <outlet property="SwapButton" destination="Nbl-pO-KuM" id="ows-RD-fvu"/>
                 <outlet property="dateLabel" destination="HbV-Lb-uPd" id="C5g-bw-o7o"/>
+                <outlet property="dateStackView" destination="zd0-V9-aMl" id="IpF-Zk-xED"/>
                 <outlet property="dateSubTitleLabel" destination="4yt-cq-IAC" id="dIJ-xt-g2g"/>
                 <outlet property="dateValueLabel" destination="Neu-zg-fYB" id="QGA-Qq-PRU"/>
                 <outlet property="fromLabel" destination="4XB-2X-lRV" id="YCz-mv-cPU"/>
                 <outlet property="fromSubTitleLabel" destination="FBW-O5-rFE" id="46v-pV-uhz"/>
+                <outlet property="fromToContainerView" destination="ri5-jp-7ZD" id="3WX-cU-V3W"/>
                 <outlet property="fromToView" destination="qWe-j3-y2s" id="HuF-Ly-ud2"/>
                 <outlet property="fromValueLabel" destination="TJv-K6-Rab" id="0Rt-Rg-fIv"/>
+                <outlet property="slideCenterView" destination="YUY-QC-6RR" id="ZdK-nm-DmG"/>
                 <outlet property="toLabel" destination="TwW-Hh-vzR" id="xeq-TP-BbV"/>
                 <outlet property="toSubTitleLabel" destination="DYR-E8-BgY" id="cXr-oI-whB"/>
                 <outlet property="toValueLabel" destination="d8v-ek-vpw" id="qiW-Uc-6QZ"/>
@@ -257,7 +260,7 @@
         <image name="FlightReverseArrow" width="16" height="15"/>
         <image name="FlightReverseArrowDisabled" width="16" height="15"/>
         <namedColor name="themeWhiteDashboard">
-            <color red="1" green="0.99993687868118286" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
     </resources>
 </document>

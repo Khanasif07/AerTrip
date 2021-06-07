@@ -90,8 +90,16 @@ class SelectTripVC: BaseVC {
     
     override func setupColors() {
         creatNewButton.setTitleColor(AppColors.themeGreen, for: .normal)
-        
-        AppGlobals.shared.addBlurEffect(forView: creatNewContainerView)
+        if self.isLightTheme(){
+            AppGlobals.shared.addBlurEffect(forView: creatNewContainerView)
+        }else{
+            let subview = self.creatNewContainerView.subviews.filter{$0 is UIVisualEffectView}
+            for view in subview{
+                view.removeFromSuperview()
+            }
+        }
+        topNavView.darkView.backgroundColor = AppColors.flightsNavBackViewColor
+        self.creatNewContainerView.backgroundColor = AppColors.doneViewClearColor
     }
     
     override func setupTexts() {
@@ -115,6 +123,11 @@ class SelectTripVC: BaseVC {
     
     override func bindViewModel() {
         viewModel.delegate = self
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+//        super.traitCollectionDidChange(previousTraitCollection)
+        self.setupColors()
     }
     
     // MARK: - Methods
@@ -250,7 +263,7 @@ extension SelectTripVC: UITableViewDataSource, UITableViewDelegate {
             checkMarckImageView.contentMode = .center
             cell?.accessoryView = checkMarckImageView
         }
-        
+        cell?.backgroundColor = AppColors.themeWhite
         return cell ?? UITableViewCell()
     }
     

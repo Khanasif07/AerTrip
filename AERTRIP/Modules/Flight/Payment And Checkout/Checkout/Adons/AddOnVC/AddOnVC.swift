@@ -21,6 +21,8 @@ class AddOnVC : BaseVC {
     @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var adonsTableView: UITableView!
     @IBOutlet weak var bookNowLabel: UILabel!
+    @IBOutlet weak var subHeadingLabel: UILabel!
+    
     
     let adonsVm = AdonsVM()
     var fareBreakupVC:IntFareBreakupVC?
@@ -46,12 +48,17 @@ class AddOnVC : BaseVC {
     
     override func setupColors() {
         super.setupColors()
-        
+        self.subHeadingLabel.textColor = AppColors.themeGray60
     }
     
     override func setupTexts() {
         super.setupTexts()
-        self.bookNowLabel.attributedText = LocalizedString.Book_Now_And_Get_Off.localized.attributeStringWithColors(subString: " 20% off ", strClr: UIColor.black, substrClr: UIColor.black, strFont: AppFonts.c.withSize(38), subStrFont: AppFonts.c.withSize(38), backgroundColor: AppColors.greenBackground)
+        self.bookNowLabel.attributedText = LocalizedString.Book_Now_And_Get_Off.localized.attributeStringWithColors(subString: " 20% off ", strClr: AppColors.themeBlack, substrClr: AppColors.themeBlack, strFont: AppFonts.c.withSize(38), subStrFont: AppFonts.c.withSize(38), backgroundColor: AppColors.greenBackground)
+    }
+    
+    override func setupFonts() {
+        super.setupFonts()
+        self.subHeadingLabel.font = AppFonts.SemiBold.withSize(18)
     }
     
     override func bindViewModel() {
