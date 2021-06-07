@@ -25,7 +25,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
     var ApiProgress: UIProgressView!
     @IBOutlet weak var resultContainerTopOffset: NSLayoutConstraint!
     @IBOutlet weak var headerImageViewHeight: NSLayoutConstraint!
-    var visualEffectView : UIVisualEffectView!
+    var visualEffectView : UIView!
     var backView : UIView!
     var statusBarBlurView : UIVisualEffectView!
     //MARK:- ViewController Elements
@@ -51,6 +51,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
     let separatorView = ATDividerView()
     
     private var filterBackView = UIView()
+    private var visualEffectBlurView: UIVisualEffectView!
     
     private var numberOfLegs = 1 {
         didSet {
@@ -130,19 +131,35 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         statusBarStyle = .default
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateForAppearance()
+    }
+    
+    private func updateForAppearance() {
+        if isLightTheme() {
+//            statusBarBlurView.contentView.isHidden = false
+//            visualEffectBlurView.isHidden = false
+        } else {
+//            statusBarBlurView.contentView.isHidden = true
+//            visualEffectBlurView.isHidden = true
+        }
+    }
+    
     func addCustomBackgroundBlurView()
     {
         guard self.view.viewWithTag(500) == nil else {
             // Added Blur view Behind Status bar to avoid content getting merged with status bars
             statusBarBlurView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: statusBarHeight))
+            statusBarBlurView.backgroundColor = .clear//AppColors.flightsNavBackViewColor
+            statusBarBlurView.contentView.backgroundColor = .clear
             statusBarBlurView.effect = UIBlurEffect(style: .prominent)
             self.navigationController?.view.addSubview(statusBarBlurView)
+            updateForAppearance()
             return
         }
-        visualEffectView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: visualEffectViewHeight))
-        visualEffectView.effect = UIBlurEffect(style: .prominent)
-        visualEffectView.contentView.backgroundColor = .clear//UIColor.white.withAlphaComponent(0.4)
-        
+        visualEffectView = UIView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: visualEffectViewHeight))
+        visualEffectView.backgroundColor = .clear//AppColors.flightsNavBackViewColor
         let flightType = self.flightSearchResultVM.flightSearchType
         if flightType == SINGLE_JOURNEY || self.isIntReturnOrMCJourney{
             backView = UIView(frame: CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: visualEffectViewHeight + 1))
@@ -150,9 +167,22 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
             backView = UIView(frame: CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: visualEffectViewHeight))
         }
         backView.addSubview(visualEffectView)
+        
+        visualEffectBlurView = UIVisualEffectView()
+        visualEffectBlurView.effect = UIBlurEffect(style: .prominent)
+        visualEffectBlurView.contentView.backgroundColor = .clear
+        visualEffectView.addSubview(visualEffectBlurView)
+        
+        visualEffectBlurView.snp.makeConstraints { (maker) in
+            maker.top.equalToSuperview()
+            maker.bottom.equalToSuperview()
+            maker.leading.equalToSuperview()
+            maker.trailing.equalToSuperview()
+        }
+        
         backView.tag = 500
         backView.clipsToBounds = true
-        backView.backgroundColor = AppColors.flightsNavBackViewColor
+        backView.backgroundColor = .clear//AppColors.flightsNavBackViewColor
         
         backButton = UIButton(type: .custom)
         let buttonImage = AppImages.green
@@ -160,32 +190,32 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         backButton.setImage(buttonImage, for: .selected)
         backButton.frame = CGRect(x: 6, y: statusBarHeight, width: 44, height: 44)
         backButton.addTarget(self, action: #selector(self.popToPreviousScreen(sender:)), for: .touchUpInside)
-        visualEffectView.contentView.addSubview(backButton)
+        visualEffectView.addSubview(backButton)
         
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.view.backgroundColor = .clear
         self.view.addSubview(backView)
         
-        visualEffectView.contentView.addSubview(resultTitle)
-        visualEffectView.contentView.addSubview(resultsubTitle)
-        visualEffectView.contentView.addSubview(infoButton)
+        visualEffectView.addSubview(resultTitle)
+        visualEffectView.addSubview(resultsubTitle)
+        visualEffectView.addSubview(infoButton)
         
         backView.addSubview(filterButton)
 
-        visualEffectView.contentView.addSubview(self.filterSegmentView)
+        visualEffectView.addSubview(self.filterSegmentView)
         
         filterButton.snp.makeConstraints { (make) in
-            make.left.equalTo(visualEffectView.contentView).offset(0)
-            make.bottom.equalTo(visualEffectView.contentView).offset(0)
+            make.left.equalTo(visualEffectView).offset(0)
+            make.bottom.equalTo(visualEffectView).offset(0)
             make.width.equalTo(44)
             make.height.equalTo(51)
         }
         
         filterSegmentView.snp.makeConstraints { (make) in
-            make.left.equalTo(visualEffectView.contentView).offset(41.5)
-            make.bottom.equalTo(visualEffectView.contentView).offset(-1.7)
-            make.trailing.equalTo(visualEffectView.contentView).offset(0)
+            make.left.equalTo(visualEffectView).offset(41.5)
+            make.bottom.equalTo(visualEffectView).offset(-1.7)
+            make.trailing.equalTo(visualEffectView).offset(0)
             make.height.equalTo(42)
         }
         
@@ -201,7 +231,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
                 
         backView.addSubview(ApiProgress)
         ApiProgress.snp.makeConstraints { (make) in
-            make.bottom.equalTo(visualEffectView.contentView).offset(-0.4)
+            make.bottom.equalTo(visualEffectView).offset(-0.4)
             make.width.equalToSuperview()
             make.left.equalToSuperview()
         }
@@ -220,8 +250,8 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         if flightType == SINGLE_JOURNEY || isIntReturnOrMCJourney{
             ApiProgress.isHidden = false
             separatorView.snp.makeConstraints { (make) in
-                make.left.equalTo(visualEffectView.contentView).offset(0.0)
-                make.bottom.equalTo(visualEffectView.contentView).offset(-2.0)
+                make.left.equalTo(visualEffectView).offset(0.0)
+                make.bottom.equalTo(visualEffectView).offset(-2.0)
                 make.width.equalToSuperview()
                 make.height.equalTo(0.5)
             }
@@ -230,8 +260,8 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
             ApiProgress.isHidden = true
             
             separatorView.snp.makeConstraints { (make) in
-                make.left.equalTo(visualEffectView.contentView).offset(0.0)
-                make.bottom.equalTo(visualEffectView.contentView).offset(0.0)
+                make.left.equalTo(visualEffectView).offset(0.0)
+                make.bottom.equalTo(visualEffectView).offset(0.0)
                 make.width.equalToSuperview()
                 make.height.equalTo(0.5)
             }
@@ -243,8 +273,12 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         
         // Added Blur view Behind Status bar to avoid content getting merged with status bars
         statusBarBlurView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: statusBarHeight))
+        statusBarBlurView.backgroundColor = .clear//AppColors.flightsNavBackViewColor
+        statusBarBlurView.contentView.backgroundColor = .clear
         statusBarBlurView.effect = UIBlurEffect(style: .prominent)
         self.navigationController?.view.addSubview(statusBarBlurView)
+        
+        updateForAppearance()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -252,6 +286,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
 //        backView.removeFromSuperview()
         toggleFiltersView(hidden: true)
         statusBarBlurView.removeFromSuperview()
+        statusBarBlurView = nil
         self.flightSearchResultVM.cancelAllWebserviceCalls()
     }
     
@@ -905,7 +940,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         let filterApplied =  appliedFilters.count > 0 || UIFilters.count > 0
         
         clearAllFilters.isEnabled = filterApplied
-        visualEffectView.contentView.addSubview(clearAllFilters)
+        visualEffectView.addSubview(clearAllFilters)
         
         clearAllFilters.snp.makeConstraints { (maker) in
             maker.height.equalTo(44.0)
@@ -933,7 +968,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         
         doneButton.titleLabel?.font = AppFonts.SemiBold.withSize(18)
         doneButton.addTarget(self, action: #selector(doneButtonTapped), for: .touchDown)
-        visualEffectView.contentView.addSubview(doneButton)
+        visualEffectView.addSubview(doneButton)
         
         doneButton.snp.makeConstraints { (maker) in
             maker.height.equalTo(41.0)
@@ -1051,7 +1086,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
                 self.backView.height = self.view.height + 100
             }
             self.separatorView.snp.updateConstraints { (make) in
-                make.bottom.equalTo(self.visualEffectView.contentView).offset(0.0)
+                make.bottom.equalTo(self.visualEffectView).offset(0.0)
             }
         } else {
             removeFilterHeader()
@@ -1069,9 +1104,9 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
                     
                     let flightType = self.flightSearchResultVM.flightSearchType
                     if flightType == SINGLE_JOURNEY || isIntReturnOrMCJourney{
-                        make.bottom.equalTo(self.visualEffectView.contentView).offset(-2.0)
+                        make.bottom.equalTo(self.visualEffectView).offset(-2.0)
                     } else {
-                        make.bottom.equalTo(self.visualEffectView.contentView).offset(0.0)
+                        make.bottom.equalTo(self.visualEffectView).offset(0.0)
                     }
                 }
             }
@@ -1124,7 +1159,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
     
     func addFilterTitle() {
         
-        visualEffectView.contentView.addSubview(self.filterTitle)
+        visualEffectView.addSubview(self.filterTitle)
         self.filterTitle.snp.makeConstraints { (maker) in
             maker.width.equalToSuperview()
             maker.height.equalTo(44.0)
@@ -1142,7 +1177,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
                 self.ApiProgress.isHidden = true
             }else{
                 self.separatorView.snp.updateConstraints { (make) in
-                    make.bottom.equalTo(self.visualEffectView.contentView).offset(-2.0)
+                    make.bottom.equalTo(self.visualEffectView).offset(-2.0)
                 }
                 
                 ApiProgress.isHidden = false
@@ -1638,7 +1673,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                     self.singleJourneyResultVC?.addPlaceholderTableHeaderView()
                     
                     self.separatorView.snp.updateConstraints { (make) in
-                        make.bottom.equalTo(self.visualEffectView.contentView).offset(0.0)
+                        make.bottom.equalTo(self.visualEffectView).offset(0.0)
                     }
                     
 //                    self.filterSegmentView.snp.updateConstraints{ (make) in
