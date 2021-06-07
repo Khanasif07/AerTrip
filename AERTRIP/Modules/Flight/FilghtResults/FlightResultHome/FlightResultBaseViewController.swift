@@ -138,11 +138,11 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
     
     private func updateForAppearance() {
         if isLightTheme() {
-            statusBarBlurView.contentView.isHidden = false
-            visualEffectBlurView.isHidden = false
+//            statusBarBlurView.contentView.isHidden = false
+//            visualEffectBlurView.isHidden = false
         } else {
-            statusBarBlurView.contentView.isHidden = true
-            visualEffectBlurView.isHidden = true
+//            statusBarBlurView.contentView.isHidden = true
+//            visualEffectBlurView.isHidden = true
         }
     }
     
@@ -151,14 +151,15 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         guard self.view.viewWithTag(500) == nil else {
             // Added Blur view Behind Status bar to avoid content getting merged with status bars
             statusBarBlurView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: statusBarHeight))
-            statusBarBlurView.backgroundColor = AppColors.flightsNavBackViewColor
+            statusBarBlurView.backgroundColor = .clear//AppColors.flightsNavBackViewColor
+            statusBarBlurView.contentView.backgroundColor = .clear
             statusBarBlurView.effect = UIBlurEffect(style: .prominent)
             self.navigationController?.view.addSubview(statusBarBlurView)
             updateForAppearance()
             return
         }
         visualEffectView = UIView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: visualEffectViewHeight))
-        visualEffectView.backgroundColor = AppColors.flightsNavBackViewColor
+        visualEffectView.backgroundColor = .clear//AppColors.flightsNavBackViewColor
         let flightType = self.flightSearchResultVM.flightSearchType
         if flightType == SINGLE_JOURNEY || self.isIntReturnOrMCJourney{
             backView = UIView(frame: CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: visualEffectViewHeight + 1))
@@ -272,7 +273,8 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         
         // Added Blur view Behind Status bar to avoid content getting merged with status bars
         statusBarBlurView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: statusBarHeight))
-        statusBarBlurView.backgroundColor = AppColors.flightsNavBackViewColor
+        statusBarBlurView.backgroundColor = .clear//AppColors.flightsNavBackViewColor
+        statusBarBlurView.contentView.backgroundColor = .clear
         statusBarBlurView.effect = UIBlurEffect(style: .prominent)
         self.navigationController?.view.addSubview(statusBarBlurView)
         
