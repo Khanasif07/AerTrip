@@ -67,6 +67,11 @@ class BookingDocumentsCollectionViewCell: UICollectionViewCell {
         self.configUI()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.containerView.backgroundColor = AppColors.themeWhiteDashboard
+    }
+    
     //MARK:- Functions
     //MARK:===========
     private func configUI() {
@@ -84,6 +89,7 @@ class BookingDocumentsCollectionViewCell: UICollectionViewCell {
         longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressGesture(recognizer:)))
         longPressGesture?.minimumPressDuration = 0.5 // 1 second press
         //longPressGesture?.delaysTouchesEnded = true
+        self.containerView.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     internal func configCell(name: String , documentsSize: String , request: DocumentDownloadingModel, type:String = "") {
