@@ -23,8 +23,8 @@ extension FlightDomesticMultiLegResultVC {
     func setupPinnedFlightsOptionsView() {
         
         switchView.delegate = self
-        switchView.tintColor = UIColor.TWO_ZERO_FOUR_COLOR
-        switchView.offTintColor = UIColor.TWO_THREE_ZERO_COLOR
+        switchView.tintColor = AppColors.switchGray
+        switchView.offTintColor = AppColors.switchGray
         switchView.onTintColor = AppColors.themeGreen
         switchView.onThumbImage = AppImages.pushpin
         switchView.offThumbImage = AppImages.pushpin_gray

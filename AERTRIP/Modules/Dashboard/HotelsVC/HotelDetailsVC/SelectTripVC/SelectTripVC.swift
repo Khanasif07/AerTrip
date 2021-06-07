@@ -92,6 +92,11 @@ class SelectTripVC: BaseVC {
         creatNewButton.setTitleColor(AppColors.themeGreen, for: .normal)
         if self.isLightTheme(){
             AppGlobals.shared.addBlurEffect(forView: creatNewContainerView)
+        }else{
+            let subview = self.creatNewContainerView.subviews.filter{$0 is UIVisualEffectView}
+            for view in subview{
+                view.removeFromSuperview()
+            }
         }
         topNavView.darkView.backgroundColor = AppColors.flightsNavBackViewColor
         self.creatNewContainerView.backgroundColor = AppColors.doneViewClearColor
@@ -121,7 +126,7 @@ class SelectTripVC: BaseVC {
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+//        super.traitCollectionDidChange(previousTraitCollection)
         self.setupColors()
     }
     

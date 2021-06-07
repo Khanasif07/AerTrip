@@ -241,6 +241,12 @@ enum AppColors {
     /// RGB - (0, 204, 153 , 0.1) (0, 204, 153 , 0.2)
     static let groupCellSelectedTimeColor  = UIColor(named: "groupCellSelectedTimeColor") ?? UIColor(displayP3Red: 0, green: 0.8, blue: 0.6, alpha: 0.1)
     
+    //(66, 66, 66) (255, 255, 255)
+    static let muticityAddRemoveTextColor  = UIColor(named: "muticityAddRemoveTextColor") ?? UIColor(displayP3Red: 66.0/255, green: 66.0/255, blue: 66.0/255, alpha: 1)
+
+    ///(230,230,230) (49,49,49)
+    static let switchGray = UIColor(named: "switchGray") ?? .white
+    
     case headlines
     case body
     case subheads

@@ -48,7 +48,7 @@ class CreateNewTripVC: BaseVC {
         
        // popUpContainerView.roundTopCorners(cornerRadius: 10.0)
         inputContainerView.cornerradius = 10.0
-        let shadowProp = AppShadowProperties()
+        let shadowProp = AppShadowProperties(self.isLightTheme())
         self.inputContainerShadowView.addShadow(cornerRadius: shadowProp.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: shadowProp.shadowColor, offset: shadowProp.offset, opacity: shadowProp.opecity, shadowRadius: shadowProp.shadowRadius)
 //        inputContainerShadowView.addShadow(cornerRadius: inputContainerView.cornerradius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
         inputContainerShadowView.clipsToBounds = false
@@ -120,6 +120,8 @@ class CreateNewTripVC: BaseVC {
         tripImageShadowView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.5)
         
         self.stickyLabel.textColor = AppColors.themeBlack
+        self.headerView.backgroundColor = AppColors.flightsNavBackViewColor
+        self.inputContainerView?.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     //MARK:- Methods

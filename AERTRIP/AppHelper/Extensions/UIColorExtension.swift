@@ -117,4 +117,6 @@ extension UIColor {
     @objc static var themeGray60: UIColor { AppColors.themeGray60 }
     
     @objc static var doneViewClearColor: UIColor {AppColors.doneViewClearColor}
+    
+    @objc static var muticityAddRemoveTextColor:UIColor { AppColors.muticityAddRemoveTextColor }
 }
