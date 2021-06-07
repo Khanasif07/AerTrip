@@ -224,7 +224,8 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
         
         self.baseView.layer.borderWidth = 0.0
         durationTime.textColor = UIColor.ONE_ZORE_TWO_COLOR
-        price.textColor = .black
+        self.intermediateAirports.textColor = AppColors.themeGray153
+        price.textColor = AppColors.themeBlack
         priceWidth.constant = 170
         pinnedRoundedLayer?.removeFromSuperlayer()
         self.setupColors()

@@ -95,6 +95,7 @@ class SingleJourneyCell: UITableViewCell
         self.price.backgroundColor = AppColors.themeWhiteDashboard
         self.airportsNameView.backgroundColor = AppColors.themeWhiteDashboard
         self.intermediateAirports.backgroundColor = AppColors.themeWhiteDashboard
+        self.intermediateAirports.textColor = AppColors.themeGray153
     }
     
     //MARK:-
@@ -217,7 +218,7 @@ class SingleJourneyCell: UITableViewCell
         
         self.baseView.layer.borderWidth = 0.0
         durationTime.textColor = UIColor.ONE_ZORE_TWO_COLOR
-        price.textColor = .black
+        price.textColor = AppColors.themeBlack
         priceWidth.constant = 170
         
         pinnedRoundedLayer?.removeFromSuperlayer()
