@@ -79,6 +79,7 @@ class SingleJourneyCollectionViewCell: UICollectionViewCell {
         self.price.backgroundColor = AppColors.themeWhiteDashboard
         self.airportsNameView.backgroundColor = AppColors.themeWhiteDashboard
         self.intermediateAirports.backgroundColor = AppColors.themeWhiteDashboard
+        self.intermediateAirports.textColor = AppColors.themeGray153
     }
     
     
@@ -210,7 +211,7 @@ class SingleJourneyCollectionViewCell: UICollectionViewCell {
             self.intermediateAirports.isHidden = false
             
             durationTime.textColor = UIColor.ONE_ZORE_TWO_COLOR
-            price.textColor = .black
+            price.textColor = AppColors.themeBlack
             priceWidth.constant = 170
             self.baseView.layer.borderWidth = 0.0
             pinnedRoundedLayer?.removeFromSuperlayer()

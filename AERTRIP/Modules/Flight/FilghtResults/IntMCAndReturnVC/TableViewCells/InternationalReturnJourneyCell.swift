@@ -61,7 +61,7 @@ class InternationalReturnJourneyCell : UITableViewCell {
         self.departureAirports.text = leg.originIATACode
         self.arrivalAirports.text = leg.destinationIATACode
         self.setIntermediateAirportsData(leg : leg)
-        self.durationTime.textColor = (leg.isFastest ?? false) ? .AERTRIP_ORAGE_COLOR : UIColor.themeBlack
+        self.durationTime.textColor = (leg.isFastest ?? false) ? .AERTRIP_ORAGE_COLOR : .ONE_ZORE_TWO_COLOR
     }
     
     func setIntermediateAirportsData(leg : IntMultiCityAndReturnWSResponse.Results.Ldet){
@@ -79,6 +79,7 @@ class InternationalReturnJourneyCell : UITableViewCell {
         self.contentView.backgroundColor = AppColors.themeWhiteDashboard
         self.airportsNameView.backgroundColor = AppColors.themeWhiteDashboard
         self.intermediateAirports.backgroundColor = AppColors.themeWhiteDashboard
+        self.intermediateAirports.textColor = AppColors.themeGray153
     }
     
     func setUpLogos(leg : IntMultiCityAndReturnWSResponse.Results.Ldet){
