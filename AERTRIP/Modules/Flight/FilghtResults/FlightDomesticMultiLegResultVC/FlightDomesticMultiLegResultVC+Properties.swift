@@ -137,6 +137,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         self.collectionContainerView.addSubview(ApiProgress)
         getSharableLink.delegate = self
         self.viewModel.setSharedFks()
+        view.backgroundColor = AppColors.themeWhite
         
     }
     
@@ -167,8 +168,18 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         }
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        for view in self.baseScrollView.subviews{
+            if let table = view as? UITableView{
+                table.reloadData()
+            }
+        }
+    }
+    
     deinit {
         self.fareBreakupVC?.view.removeFromSuperview()
+        self.fareBreakupVC = nil
     }
     
     //MARK:- Additional UI Methods

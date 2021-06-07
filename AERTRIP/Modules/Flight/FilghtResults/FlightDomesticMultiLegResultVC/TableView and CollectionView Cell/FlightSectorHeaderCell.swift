@@ -18,7 +18,7 @@ class FlightSectorHeaderCell: UICollectionViewCell {
 
 
     var headerValue : MultiLegHeader?
-    var textColor  = UIColor.black
+    var textColor  = AppColors.themeBlack
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -33,7 +33,7 @@ class FlightSectorHeaderCell: UICollectionViewCell {
         }
         else {
             self.title.attributedText = self.headerValue?.title
-            self.subtitle.textColor = .black
+            self.subtitle.textColor = AppColors.themeBlack
         }
         self.subtitle.text = header.subTitle
 //        self.subtitle.textColor = textColor
@@ -52,9 +52,9 @@ class FlightSectorHeaderCell: UICollectionViewCell {
     }
     
     func setBlackColoredTitles(){
-        textColor = .black        
+        textColor = AppColors.themeBlack
         self.title.attributedText = self.headerValue?.title
-        self.subtitle.textColor = .black
+        self.subtitle.textColor = AppColors.themeBlack
     }
 }
 

@@ -58,6 +58,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         setupTableView()
         setupPinnedFlightsOptionsView()
         self.viewModel.setSharedFks()
+        view.backgroundColor = AppColors.themeWhite
     }
         
     override func viewWillAppear(_ animated: Bool) {
@@ -65,6 +66,12 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         self.emailPinnedFlights.setImage(AppImages.EmailPinned, for: .normal)
         self.emailPinnedFlights.displayLoadingIndicator(false)
     }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.resultsTableView.reloadData()
+    }
+
     
     deinit {
         printDebug("FlightResultSingleJourneyVC")

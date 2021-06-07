@@ -124,7 +124,7 @@ extension IntMCAndReturnVC {
     
     func createRepeatedFooterBaseView() -> UIView {
         let baseView = UIView(frame: CGRect(x: 0 , y: 0, width: resultsTableView.frame.width, height: 44))
-        baseView.backgroundColor = .white
+        baseView.backgroundColor = AppColors.themeWhiteDashboard
 //        baseView.layer.cornerRadius = 5.0
 //        baseView.layer.shadowColor = UIColor.black.cgColor
 //        baseView.layer.shadowOpacity = 0.1

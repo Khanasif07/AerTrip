@@ -36,6 +36,7 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
     @IBOutlet weak var smartIconCollectionView: UICollectionView!
     
     @IBOutlet weak var shadowView: UIView!
+    @IBOutlet weak var airportsNameView: UIView!
     
     var pinnedRoundedLayer : CALayer?
     
@@ -45,6 +46,7 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
     
     //MARK:- Setup Methods
     fileprivate func setupBaseView() {
+        self.baseView.backgroundColor = AppColors.themeWhiteDashboard
         backgroundColor = .clear // very important
 //        layer.masksToBounds = false
 //        layer.shadowOpacity = 0.5
@@ -53,8 +55,12 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
 //        layer.shadowColor = UIColor.black.withAlphaComponent(0.3).cgColor
         self.baseView.layer.cornerRadius = 10
         let shadowProp = AppShadowProperties()
-        self.shadowView.addShadow(cornerRadius: shadowProp.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: shadowProp.shadowColor, offset: shadowProp.offset, opacity: shadowProp.opecity, shadowRadius: shadowProp.shadowRadius)
-//        self.shadowView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
+        if self.isLightTheme(){
+            self.shadowView.addShadow(cornerRadius: shadowProp.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: shadowProp.shadowColor, offset: shadowProp.offset, opacity: shadowProp.opecity, shadowRadius: shadowProp.shadowRadius)
+        }else{
+            self.shadowView.addShadow(cornerRadius: shadowProp.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: .clear, offset: shadowProp.offset, opacity: 0, shadowRadius: 0)
+        }
+
     }
     
     override func awakeFromNib() {
@@ -65,6 +71,7 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
         dashedView.setupDashedView()
         setupGradientView()
         setupCollectionView()
+        self.setupColors()
 
     }
     
@@ -211,7 +218,7 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
         logoOne.image = nil
         logoTwo.image = nil
         logoTwo.image = nil
-
+        setupBaseView()
         self.immediateAirportWidth.constant = 100
         self.intermediateAirports.isHidden = false
         
@@ -220,9 +227,18 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
         price.textColor = .black
         priceWidth.constant = 170
         pinnedRoundedLayer?.removeFromSuperlayer()
+        self.setupColors()
         super.prepareForReuse()
     }
     
+    
+    func setupColors(){
+        self.gradientView.isHidden = !self.isLightTheme()
+        self.smartIconCollectionView.backgroundColor = AppColors.themeWhiteDashboard
+        self.price.backgroundColor = AppColors.themeWhiteDashboard
+        self.airportsNameView.backgroundColor = AppColors.themeWhiteDashboard
+        self.intermediateAirports.backgroundColor = AppColors.themeWhiteDashboard
+    }
     
     func textToImage(drawText text: String, diameter: CGFloat, color: UIColor ) -> UIImage {
         let textColor = UIColor.white

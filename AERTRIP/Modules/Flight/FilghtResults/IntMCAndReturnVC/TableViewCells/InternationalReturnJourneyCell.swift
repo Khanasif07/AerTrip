@@ -19,6 +19,7 @@ class InternationalReturnJourneyCell : UITableViewCell {
     @IBOutlet weak var departureTime: UILabel!
     @IBOutlet weak var arrivalTime: UILabel!
     @IBOutlet weak var durationTime: UILabel!
+    @IBOutlet weak var airportsNameView: UIView!
     
     @IBOutlet weak var departureAirports: UILabel!
     @IBOutlet weak var arrivalAirports: UILabel!
@@ -31,9 +32,14 @@ class InternationalReturnJourneyCell : UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         dashedView.setupDashedView()
+        self.setupColors()
         self.selectionStyle = .none
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.setupColors()
+    }
     func setUpView(){
         self.departureTime.font = AppFonts.SemiBold.withSize(18)
         self.arrivalTime.font = AppFonts.SemiBold.withSize(18)
@@ -55,7 +61,7 @@ class InternationalReturnJourneyCell : UITableViewCell {
         self.departureAirports.text = leg.originIATACode
         self.arrivalAirports.text = leg.destinationIATACode
         self.setIntermediateAirportsData(leg : leg)
-        self.durationTime.textColor = (leg.isFastest ?? false) ? .AERTRIP_ORAGE_COLOR : UIColor.black
+        self.durationTime.textColor = (leg.isFastest ?? false) ? .AERTRIP_ORAGE_COLOR : UIColor.themeBlack
     }
     
     func setIntermediateAirportsData(leg : IntMultiCityAndReturnWSResponse.Results.Ldet){
@@ -67,6 +73,12 @@ class InternationalReturnJourneyCell : UITableViewCell {
         self.immediateAirportWidth.constant = size.width + 20
         self.setUpLogos(leg: leg)
         
+    }
+    
+    func setupColors(){
+        self.contentView.backgroundColor = AppColors.themeWhiteDashboard
+        self.airportsNameView.backgroundColor = AppColors.themeWhiteDashboard
+        self.intermediateAirports.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     func setUpLogos(leg : IntMultiCityAndReturnWSResponse.Results.Ldet){

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -68,13 +68,13 @@
                     </constraints>
                 </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="gvX-qn-4wX"/>
             <constraints>
                 <constraint firstItem="C8u-oE-DLY" firstAttribute="top" secondItem="npd-is-5H5" secondAttribute="top" id="6Xh-1J-aof"/>
                 <constraint firstAttribute="bottom" secondItem="C8u-oE-DLY" secondAttribute="bottom" id="j1r-Fe-eXq"/>
                 <constraint firstItem="gvX-qn-4wX" firstAttribute="trailing" secondItem="C8u-oE-DLY" secondAttribute="trailing" id="jXy-gg-6Iy"/>
                 <constraint firstItem="C8u-oE-DLY" firstAttribute="leading" secondItem="npd-is-5H5" secondAttribute="leading" id="nTl-gx-eQD"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="gvX-qn-4wX"/>
             <connections>
                 <outlet property="containerView" destination="C8u-oE-DLY" id="PRK-la-og9"/>
                 <outlet property="dividerView" destination="5Gj-Xf-lIU" id="X26-Ty-jQq"/>
@@ -82,6 +82,7 @@
                 <outlet property="iconTrailingConstraint" destination="qgF-CE-rCI" id="aGH-la-X48"/>
                 <outlet property="statusImageView" destination="vTx-3e-jg6" id="D2Y-7k-imu"/>
                 <outlet property="statusLabel" destination="o6V-Ek-Mgb" id="I1P-qx-pfr"/>
+                <outlet property="statusView" destination="DSg-2a-pkg" id="eWr-hW-zBo"/>
             </connections>
             <point key="canvasLocation" x="150" y="135"/>
         </collectionReusableView>
