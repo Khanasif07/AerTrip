@@ -194,8 +194,7 @@ class SocialLoginVC: BaseVC {
         self.viewModel.firebaseLogEvent(with: .continueAsGuest)
         if currentlyUsingFrom == .loginVerificationForCheckout {
             popIfUsingFromCheckOut()
-        }
-        else {
+        } else {
             AppFlowManager.default.moveToCreateYourAccountVC(email: "", usingFor: currentlyUsingFrom)
         }
     }
