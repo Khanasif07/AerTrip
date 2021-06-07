@@ -42,7 +42,7 @@ get upto 20% off </string>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="compared to onboard prices" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XQi-Xb-5yA">
-                                            <rect key="frame" x="0.0" y="103" width="375" height="21"/>
+                                            <rect key="frame" x="0.0" y="103" width="375" height="23"/>
                                             <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>

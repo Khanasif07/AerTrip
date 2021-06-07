@@ -391,6 +391,8 @@ extension SocialLoginVC {
         self.googleButton.alpha = 0
         self.appleButton.alpha = 0
     }
+    
+    
     func animateContentOnLoad() {
         self.kickContentOutToScreen()
         let rDuration = 1.0 / 4.0
