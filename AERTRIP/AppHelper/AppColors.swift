@@ -81,7 +81,8 @@ enum AppColors {
     /// RGB - 51, 51, 51 Dark RGB 255, 255, 255
     static let textFieldTextColor51  = UIColor(named: "textFieldTextColor51") ?? UIColor(displayP3Red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
     
-    /// RGB - 66, 97, 168
+    /// RGB - 66, 97, 16
+    
     static let fbButtonBackgroundColor  = UIColor(named: "fbButtonBackgroundColor") ?? UIColor(displayP3Red: 0.2588235294, green: 0.3803921569, blue: 0.6588235294, alpha: 1)
     
     // RGB - 47, 173, 244
