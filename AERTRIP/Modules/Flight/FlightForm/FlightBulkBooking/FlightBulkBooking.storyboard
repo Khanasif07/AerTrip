@@ -149,7 +149,7 @@
                                                                                                 <nil key="highlightedColor"/>
                                                                                             </label>
                                                                                         </subviews>
-                                                                                        <color key="backgroundColor" name="themeWhiteDashboard"/>
+                                                                                        <color key="backgroundColor" name="themeBlack26"/>
                                                                                         <constraints>
                                                                                             <constraint firstAttribute="trailing" secondItem="PpP-y7-SM9" secondAttribute="trailing" id="P3Y-RJ-1bJ"/>
                                                                                             <constraint firstAttribute="height" constant="46" id="Qrs-hQ-bcd"/>
@@ -160,7 +160,7 @@
                                                                                         </constraints>
                                                                                     </view>
                                                                                 </subviews>
-                                                                                <color key="backgroundColor" name="themeWhiteDashboard"/>
+                                                                                <color key="backgroundColor" name="themeBlack26"/>
                                                                                 <constraints>
                                                                                     <constraint firstItem="RuB-OJ-ACD" firstAttribute="centerY" secondItem="Ucp-rn-geK" secondAttribute="centerY" id="3dt-YE-tmv"/>
                                                                                     <constraint firstItem="RuB-OJ-ACD" firstAttribute="centerX" secondItem="Ucp-rn-geK" secondAttribute="centerX" id="wr8-pz-IEN"/>
@@ -186,7 +186,7 @@
                                                                                                 <nil key="highlightedColor"/>
                                                                                             </label>
                                                                                         </subviews>
-                                                                                        <color key="backgroundColor" name="themeWhiteDashboard"/>
+                                                                                        <color key="backgroundColor" name="themeBlack26"/>
                                                                                         <constraints>
                                                                                             <constraint firstItem="rdM-tA-tsd" firstAttribute="leading" secondItem="lxc-02-Z2I" secondAttribute="leading" id="Qwm-fL-0aa"/>
                                                                                             <constraint firstItem="HDo-B8-bID" firstAttribute="centerY" secondItem="lxc-02-Z2I" secondAttribute="centerY" id="hBx-Pm-Bag"/>
@@ -197,7 +197,7 @@
                                                                                         </constraints>
                                                                                     </view>
                                                                                 </subviews>
-                                                                                <color key="backgroundColor" name="themeWhiteDashboard"/>
+                                                                                <color key="backgroundColor" name="themeBlack26"/>
                                                                                 <constraints>
                                                                                     <constraint firstItem="lxc-02-Z2I" firstAttribute="centerX" secondItem="wnS-oL-9Ur" secondAttribute="centerX" id="A65-wz-dUj"/>
                                                                                     <constraint firstItem="lxc-02-Z2I" firstAttribute="centerY" secondItem="wnS-oL-9Ur" secondAttribute="centerY" id="Ogp-bw-ZtI"/>
@@ -231,7 +231,7 @@
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
-                                                                <color key="backgroundColor" name="themeWhiteDashboard"/>
+                                                                <color key="backgroundColor" name="themeBlack26"/>
                                                                 <constraints>
                                                                     <constraint firstItem="IMJ-jI-TIb" firstAttribute="centerX" secondItem="laG-qb-qqJ" secondAttribute="centerX" id="0B6-66-ybw"/>
                                                                     <constraint firstAttribute="trailing" secondItem="Rja-kJ-Ao8" secondAttribute="trailing" constant="16" id="3K9-Nz-MeL"/>
