@@ -109,6 +109,7 @@ class TopNavigationView: PassthroughView {
         self.configureNavBar(title: "")
         darkView.backgroundColor = AppColors.themeWhite
         updateForTraitChange()
+        darkView.isHidden = true
         
     }
     
@@ -290,9 +291,9 @@ class TopNavigationView: PassthroughView {
     
     private func updateForTraitChange() {
         if traitCollection.userInterfaceStyle == .dark {
-            darkView.isHidden = false
+//            darkView.isHidden = false
         } else {
-            darkView.isHidden = true
+//            darkView.isHidden = true
         }
     }
     
