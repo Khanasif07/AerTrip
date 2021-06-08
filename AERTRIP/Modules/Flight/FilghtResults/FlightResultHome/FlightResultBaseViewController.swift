@@ -158,6 +158,9 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
             updateForAppearance()
             return
         }
+        
+        let statusHeight = AppDelegate.shared.window?.safeAreaInsets.top ?? 0
+        
         visualEffectView = UIView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: visualEffectViewHeight))
         visualEffectView.backgroundColor = .clear//AppColors.flightsNavBackViewColor
         let flightType = self.flightSearchResultVM.flightSearchType
@@ -174,7 +177,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         visualEffectView.addSubview(visualEffectBlurView)
         
         visualEffectBlurView.snp.makeConstraints { (maker) in
-            maker.top.equalToSuperview()
+            maker.top.equalTo(self.visualEffectView.top + statusHeight)
             maker.bottom.equalToSuperview()
             maker.leading.equalToSuperview()
             maker.trailing.equalToSuperview()
