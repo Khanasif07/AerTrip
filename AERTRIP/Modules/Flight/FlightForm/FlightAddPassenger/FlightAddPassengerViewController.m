@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *warningLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewHeight;
 @property (weak, nonatomic) IBOutlet UIVisualEffectView *doneBlurView;
+@property (weak, nonatomic) IBOutlet UIView *backgroundView;
 
 
 @end
@@ -79,15 +80,16 @@ int alreadySelectedComponent = 0;
 
 - (void)setColors {
     _bottomView.backgroundColor = [UIColor themeWhiteDashboard];
-    _doneView.backgroundColor = [UIColor doneViewClearColor];
+    _backgroundView.backgroundColor = [UIColor themeWhiteDashboard];
+    _doneView.backgroundColor = [UIColor themeWhiteDashboard];
 }
 
 - (void)hideShowDarkViews {
-    if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
-        _doneBlurView.hidden = YES;
-    } else {
-        _doneBlurView.hidden = NO;
-    }
+//    if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+//        _doneBlurView.hidden = YES;
+//    } else {
+//        _doneBlurView.hidden = NO;
+//    }
 }
 
 -(void)setupBackgroundView{

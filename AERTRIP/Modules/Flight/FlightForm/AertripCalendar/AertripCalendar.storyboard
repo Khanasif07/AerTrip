@@ -34,7 +34,7 @@
                                 <rect key="frame" x="0.0" y="44" width="375" height="768"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y3O-Yu-V2p" customClass="FSCalendar">
-                                        <rect key="frame" x="0.0" y="93" width="375" height="625"/>
+                                        <rect key="frame" x="0.0" y="93" width="375" height="675"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="allowsMultipleSelection" value="YES"/>
@@ -174,15 +174,16 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </view>
-                                                <color key="backgroundColor" white="1" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <blurEffect style="light"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <blurEffect style="prominent"/>
                                             </visualEffectView>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="afL-Ed-yWy">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s3f-d3-VEI">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="MiI-HS-3gt"/>
                                                 </constraints>
@@ -202,6 +203,7 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="sLU-Se-KKf" firstAttribute="width" secondItem="if4-5O-9LW" secondAttribute="width" id="17v-HO-BZf"/>
                                             <constraint firstItem="vec-4Y-vBI" firstAttribute="top" secondItem="if4-5O-9LW" secondAttribute="top" id="7zW-hr-4Mf"/>
@@ -435,6 +437,7 @@
                                     <constraint firstItem="dYr-na-eko" firstAttribute="width" secondItem="eqA-tP-Q3m" secondAttribute="width" id="5jY-Yy-ckh"/>
                                     <constraint firstItem="dYr-na-eko" firstAttribute="centerX" secondItem="eqA-tP-Q3m" secondAttribute="centerX" id="7XO-5p-2lN"/>
                                     <constraint firstItem="y3O-Yu-V2p" firstAttribute="width" secondItem="eqA-tP-Q3m" secondAttribute="width" id="9Uz-ku-4qQ"/>
+                                    <constraint firstItem="y3O-Yu-V2p" firstAttribute="bottom" secondItem="if4-5O-9LW" secondAttribute="bottom" id="Eis-Ob-rXf"/>
                                     <constraint firstItem="LUz-wx-DOC" firstAttribute="centerX" secondItem="dYr-na-eko" secondAttribute="centerX" id="FXC-aP-ysX"/>
                                     <constraint firstItem="y3O-Yu-V2p" firstAttribute="top" secondItem="LUz-wx-DOC" secondAttribute="top" id="GiR-3F-Hpz"/>
                                     <constraint firstItem="y3O-Yu-V2p" firstAttribute="leading" secondItem="eqA-tP-Q3m" secondAttribute="leading" id="Grp-kg-TLx"/>
@@ -453,7 +456,6 @@
                                     <constraint firstItem="if4-5O-9LW" firstAttribute="centerX" secondItem="eqA-tP-Q3m" secondAttribute="centerX" id="jGa-n2-X6Q"/>
                                     <constraint firstItem="if4-5O-9LW" firstAttribute="width" secondItem="eqA-tP-Q3m" secondAttribute="width" id="lNr-3k-tdp"/>
                                     <constraint firstAttribute="trailing" secondItem="y3O-Yu-V2p" secondAttribute="trailing" id="odh-If-XbQ"/>
-                                    <constraint firstItem="if4-5O-9LW" firstAttribute="top" secondItem="y3O-Yu-V2p" secondAttribute="bottom" id="p4J-az-tcd"/>
                                     <constraint firstItem="vuD-u4-sYk" firstAttribute="top" secondItem="amJ-Pb-AiP" secondAttribute="top" id="p4Y-6f-i2V"/>
                                     <constraint firstItem="vuD-u4-sYk" firstAttribute="bottom" secondItem="amJ-Pb-AiP" secondAttribute="bottom" id="rlM-QJ-uuj"/>
                                     <constraint firstItem="DkQ-Na-Bb9" firstAttribute="bottom" secondItem="LUz-wx-DOC" secondAttribute="bottom" id="tXS-dJ-fby"/>

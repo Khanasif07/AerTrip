@@ -76,7 +76,7 @@
     _customCalenderView.appearance.headerTitleColor = [UIColor themeBlack];
     _customCalenderView.appearance.titleDefaultColor = [UIColor themeBlack];
     _TopView.backgroundColor = [UIColor themeWhiteDashboard];
-    _doneDarkView.backgroundColor = [UIColor themeWhiteDashboard];
+//    _doneDarkView.backgroundColor = [UIColor themeWhiteDashboard];
     _weekDaysDarkView.backgroundColor = [UIColor themeWhiteDashboard];
     _backgroundView.backgroundColor = [UIColor calendarSelectedGreen];
     _startDateValueLabel.textColor = [UIColor themeBlack];
@@ -90,10 +90,10 @@
 
 - (void)hideShowDarkViews {
     if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
-        _doneDarkView.hidden = NO;
+//        _doneDarkView.hidden = NO;
         _weekDaysDarkView.hidden = NO;
     } else {
-        _doneDarkView.hidden = YES;
+//        _doneDarkView.hidden = YES;
         _weekDaysDarkView.hidden = YES;
     }
 }
@@ -580,11 +580,11 @@
 
 - (void)applyShadowToDoneView {
     
-    self.doneOutterView.clipsToBounds = NO;
-    self.doneOutterView.layer.shadowColor = [UIColor colorWithDisplayP3Red:0 green:0 blue:0 alpha:0.05].CGColor;
-    self.doneOutterView.layer.shadowOpacity = 1.0;
-    self.doneOutterView.layer.shadowRadius = 10.0;
-    self.doneOutterView.layer.shadowOffset = CGSizeMake(0.0, -6.0);
+//    self.doneOutterView.clipsToBounds = NO;
+//    self.doneOutterView.layer.shadowColor = [UIColor colorWithDisplayP3Red:0 green:0 blue:0 alpha:0.05].CGColor;
+//    self.doneOutterView.layer.shadowOpacity = 1.0;
+//    self.doneOutterView.layer.shadowRadius = 10.0;
+//    self.doneOutterView.layer.shadowOffset = CGSizeMake(0.0, -6.0);
 }
 
 - (void)setupCalender {

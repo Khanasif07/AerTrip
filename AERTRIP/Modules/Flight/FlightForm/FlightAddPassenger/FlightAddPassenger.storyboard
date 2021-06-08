@@ -6,6 +6,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -32,6 +33,10 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vha-uw-B4q" userLabel="BottomView">
                                 <rect key="frame" x="0.0" y="533" width="414" height="363"/>
                                 <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xhG-hm-B9c">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="313"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UPe-ic-mT9" userLabel="TopView">
                                         <rect key="frame" x="70" y="39" width="280" height="124"/>
                                         <subviews>
@@ -245,7 +250,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="415.33333333333326" height="50"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </view>
-                                                <blurEffect style="light"/>
+                                                <blurEffect style="prominent"/>
                                             </visualEffectView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e8d-Cu-jyz">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
@@ -284,11 +289,13 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="vFs-pa-oav" firstAttribute="top" secondItem="vha-uw-B4q" secondAttribute="top" constant="16" id="1Ry-j0-5ob"/>
                                     <constraint firstItem="1U9-5e-AOr" firstAttribute="top" secondItem="vFs-pa-oav" secondAttribute="bottom" id="38c-6O-CbI"/>
+                                    <constraint firstItem="mpd-oB-lZP" firstAttribute="top" secondItem="xhG-hm-B9c" secondAttribute="bottom" id="6DA-A1-dyf"/>
                                     <constraint firstItem="mpd-oB-lZP" firstAttribute="width" secondItem="vha-uw-B4q" secondAttribute="width" id="6wA-lQ-gPw"/>
+                                    <constraint firstAttribute="trailing" secondItem="xhG-hm-B9c" secondAttribute="trailing" id="9uZ-XF-fbL"/>
+                                    <constraint firstItem="xhG-hm-B9c" firstAttribute="top" secondItem="vha-uw-B4q" secondAttribute="top" id="AoR-2l-M2e"/>
                                     <constraint firstItem="vFs-pa-oav" firstAttribute="centerX" secondItem="vha-uw-B4q" secondAttribute="centerX" id="CYh-MI-ivt"/>
                                     <constraint firstItem="rkS-Cc-xvy" firstAttribute="centerX" secondItem="vha-uw-B4q" secondAttribute="centerX" id="DHe-Oi-Aix"/>
                                     <constraint firstItem="mpd-oB-lZP" firstAttribute="centerX" secondItem="vha-uw-B4q" secondAttribute="centerX" id="Dly-zg-6g3"/>
@@ -300,6 +307,7 @@
                                     <constraint firstItem="rkS-Cc-xvy" firstAttribute="width" secondItem="vha-uw-B4q" secondAttribute="width" id="Zs1-vd-gKF"/>
                                     <constraint firstAttribute="height" constant="363" id="cgP-Yt-Cns"/>
                                     <constraint firstItem="1U9-5e-AOr" firstAttribute="width" secondItem="vha-uw-B4q" secondAttribute="width" id="o4s-SU-y0O"/>
+                                    <constraint firstItem="xhG-hm-B9c" firstAttribute="leading" secondItem="vha-uw-B4q" secondAttribute="leading" id="qau-dL-Jib"/>
                                     <constraint firstItem="1U9-5e-AOr" firstAttribute="centerX" secondItem="vha-uw-B4q" secondAttribute="centerX" id="v9G-jq-wTA"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -324,6 +332,7 @@
                     <connections>
                         <outlet property="WarningView" destination="1U9-5e-AOr" id="PVT-86-kvl"/>
                         <outlet property="adultButton" destination="yS1-Vx-V74" id="rm5-Af-jOa"/>
+                        <outlet property="backgroundView" destination="xhG-hm-B9c" id="Kho-aL-j3N"/>
                         <outlet property="bottomView" destination="vha-uw-B4q" id="6Y3-rV-Irq"/>
                         <outlet property="bottomViewBottomConstraint" destination="ATa-gH-JUb" id="hTw-qH-TXG"/>
                         <outlet property="bottomViewHeight" destination="AuC-64-xgV" id="WhQ-bF-JqI"/>
@@ -351,5 +360,8 @@
         <namedColor name="themeGray40">
             <color red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>
