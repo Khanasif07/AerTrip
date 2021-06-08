@@ -62,7 +62,7 @@
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DkQ-Na-Bb9">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="123"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LUz-wx-DOC">
                                         <rect key="frame" x="0.0" y="93" width="375" height="30"/>
@@ -73,8 +73,8 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </view>
-                                                <color key="backgroundColor" white="1" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <blurEffect style="light"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <blurEffect style="prominent"/>
                                             </visualEffectView>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DyI-fh-MOw">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
@@ -143,6 +143,7 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="tql-E7-xLf" secondAttribute="bottom" id="6xK-pH-Yec"/>
                                             <constraint firstItem="OBJ-cn-VzS" firstAttribute="width" secondItem="EAy-D1-T6c" secondAttribute="width" id="88K-7g-NZB"/>

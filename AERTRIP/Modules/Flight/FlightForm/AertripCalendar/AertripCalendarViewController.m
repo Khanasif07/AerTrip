@@ -77,7 +77,7 @@
     _customCalenderView.appearance.titleDefaultColor = [UIColor themeBlack];
     _TopView.backgroundColor = [UIColor themeWhiteDashboard];
 //    _doneDarkView.backgroundColor = [UIColor themeWhiteDashboard];
-    _weekDaysDarkView.backgroundColor = [UIColor themeWhiteDashboard];
+//    _weekDaysDarkView.backgroundColor = [UIColor themeWhiteDashboard];
     _backgroundView.backgroundColor = [UIColor calendarSelectedGreen];
     _startDateValueLabel.textColor = [UIColor themeBlack];
     _startDateSubLabel.textColor = [UIColor themeBlack];
@@ -91,10 +91,10 @@
 - (void)hideShowDarkViews {
     if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
 //        _doneDarkView.hidden = NO;
-        _weekDaysDarkView.hidden = NO;
+//        _weekDaysDarkView.hidden = NO;
     } else {
 //        _doneDarkView.hidden = YES;
-        _weekDaysDarkView.hidden = YES;
+//        _weekDaysDarkView.hidden = YES;
     }
 }
 
