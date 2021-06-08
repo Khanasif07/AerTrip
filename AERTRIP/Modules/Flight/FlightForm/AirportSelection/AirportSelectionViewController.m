@@ -185,12 +185,13 @@
 
 
 - (void) manageDoneView{
-    self.doneOutterView.backgroundColor = [UIColor doneViewClearColor];
-    if (self.isLightTheme){
-        [self.visualEffectsView setHidden: false];
-    }else{
-        [self.visualEffectsView setHidden: true];
-    }
+    self.visualEffectsView.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleProminent];
+//    self.doneOutterView.backgroundColor = [UIColor doneViewClearColor];
+//    if (self.isLightTheme){
+//        [self.visualEffectsView setHidden: false];
+//    }else{
+//        [self.visualEffectsView setHidden: true];
+//    }
 }
 
 -(void)createPopularAirportArray
@@ -1175,7 +1176,7 @@
     
     cell.secondaryLabel.attributedText = [self secondaryStringFor:airportSearch.airport];
     
-    
+    cell.distanceLabel.textColor = [UIColor ONE_FIVE_THREE_COLOR];
     if (self.viewModel.airportSelectionMode != AirportSelectionModeMultiCityJourney) {
         if ([self isFlightDestinationSelected:airportSearch]) {
             [cell.addButton setHidden:YES];
