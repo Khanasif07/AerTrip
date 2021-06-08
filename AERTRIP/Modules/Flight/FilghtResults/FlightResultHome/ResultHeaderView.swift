@@ -38,6 +38,8 @@ class ResultHeaderView: UIView {
     
     fileprivate func setupGrayViewShadow() {
         backgroundColor = .clear // very important
+        bannerImageView.backgroundColor = AppColors.themeWhite
+        
         self.grayView.layer.masksToBounds = false
 //        self.grayView.layer.shadowOpacity = 0.5
 //        self.grayView.layer.shadowRadius = 4
