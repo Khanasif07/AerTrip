@@ -284,7 +284,7 @@ extension SocialLoginVM{
             
         case .loginVerificationForCheckout:
             switch event{
-            case .connectWithApple, .connectWithGoogle, .connectWithFacebook, .continueAsGuest, .navigateBack:
+            case .connectWithApple, .connectWithGoogle, .connectWithFacebook, .continueAsGuest, .navigateBack, .login:
                 switch self.checkoutType {
                 case .flightCheckout:
                     FirebaseEventLogs.shared.logFlightGuestUserCheckoutEvents(with: event)
