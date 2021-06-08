@@ -231,25 +231,41 @@ int alreadySelectedComponent = 0;
 //    return stringForTitle;
 //}
 
+- (NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    
+    NSMutableDictionary *attributesDictionary = [NSMutableDictionary dictionary];
+    
+    [attributesDictionary setObject:[UIFont fontWithName:@"SourceSansPro-Regular" size:23.0] forKey:NSFontAttributeName];
 
-- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
-
-    NSString * stringForTitle;
+    NSAttributedString * stringForTitle;
     if (component == 0) {
-        stringForTitle = [self.numberOfAdultArray objectAtIndex:row];
+        stringForTitle = [[NSAttributedString alloc] initWithString:[self.numberOfAdultArray objectAtIndex:row] attributes:attributesDictionary];
     }else if (component == 1) {
-        stringForTitle =  [self.numberOfChildArray objectAtIndex:row];
+        stringForTitle = [[NSAttributedString alloc] initWithString:[self.numberOfChildArray objectAtIndex:row] attributes:attributesDictionary];
     }else if (component == 2) {
-        stringForTitle = [self.numberOfInfantArray objectAtIndex:row];
+        stringForTitle = [[NSAttributedString alloc] initWithString:[self.numberOfInfantArray objectAtIndex:row] attributes:attributesDictionary];
     }
-
-    UILabel * label = [[UILabel alloc] init];
-    label.font = [UIFont fontWithName:@"SourceSansPro-Regular" size:23.0];
-    label.textAlignment = NSTextAlignmentCenter;
-    label.text = stringForTitle;
-    return label;
-
+    return stringForTitle;
 }
+
+//- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
+//
+//    NSString * stringForTitle;
+//    if (component == 0) {
+//        stringForTitle = [self.numberOfAdultArray objectAtIndex:row];
+//    }else if (component == 1) {
+//        stringForTitle =  [self.numberOfChildArray objectAtIndex:row];
+//    }else if (component == 2) {
+//        stringForTitle = [self.numberOfInfantArray objectAtIndex:row];
+//    }
+//
+//    UILabel * label = [[UILabel alloc] init];
+//    label.font = [UIFont fontWithName:@"SourceSansPro-Regular" size:23.0];
+//    label.textAlignment = NSTextAlignmentCenter;
+//    label.text = stringForTitle;
+//    return label;
+//
+//}
 
 //MARK:- BOTTOM ANIMATIONS
 
