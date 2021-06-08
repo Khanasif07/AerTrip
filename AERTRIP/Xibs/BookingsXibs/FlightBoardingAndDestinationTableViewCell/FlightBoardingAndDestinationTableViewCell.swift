@@ -43,8 +43,13 @@ class FlightBoardingAndDestinationTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configUI()
+        self.setupColor()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.setupColor()
+    }
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -121,6 +126,13 @@ class FlightBoardingAndDestinationTableViewCell: UITableViewCell {
         self.economyLabel.text = leg.flightsWithDetails.first?.cc
         self.noOfStops = leg.stp.toInt ?? 0
         self.noOfStoppageCollectionView.reloadData()
+    }
+    
+    
+    func setupColor(){
+        self.containerView.backgroundColor = AppColors.themeWhiteDashboard
+        self.greencircleContainerView.backgroundColor = AppColors.themeWhiteDashboard
+        self.dottedView.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     // MARK: - IBActions

@@ -109,8 +109,12 @@ class SocialLoginVC: BaseVC {
     
     override func setupColors() {
         
+        self.fbButton.setTitleColor(UIColor.white, for: UIControl.State.normal)
+        self.googleButton.setTitleColor(UIColor.black, for: UIControl.State.normal)
+        self.appleButton.setTitleColor(AppColors.themeWhite, for: UIControl.State.normal)
+
         self.fbButton.gradientColors = [AppColors.fbButtonBackgroundColor, AppColors.fbButtonBackgroundColor]
-        self.googleButton.gradientColors = [AppColors.themeWhite, AppColors.themeWhite]
+        self.googleButton.gradientColors = [AppColors.themeBlack, AppColors.themeBlack]
         self.appleButton.gradientColors = [AppColors.appleButtonBackgroundColor, AppColors.appleButtonBackgroundColor]
         
         self.fbButton.isSocial = true
@@ -194,8 +198,7 @@ class SocialLoginVC: BaseVC {
         self.viewModel.firebaseLogEvent(with: .continueAsGuest)
         if currentlyUsingFrom == .loginVerificationForCheckout {
             popIfUsingFromCheckOut()
-        }
-        else {
+        } else {
             AppFlowManager.default.moveToCreateYourAccountVC(email: "", usingFor: currentlyUsingFrom)
         }
     }
@@ -222,7 +225,7 @@ class SocialLoginVC: BaseVC {
 private extension SocialLoginVC {
     func initialSetups() {
         
-        self.view.backgroundColor = AppColors.screensBackground.color
+        self.view.backgroundColor = AppColors.themeWhite
         
         self.setupsFonts()
         self.fbButton.isSocial = true
@@ -276,16 +279,8 @@ private extension SocialLoginVC {
             logoView?.logoImageTopContraint.constant = 40
             logoView?.logoImageAndNameConstraint.constant = 0
             logoView?.messageLabelTopConstraint.constant = -3
-            
             socialButtosCenterConstraint.constant = -42.0
             socialAndLogoSpace.constant = 93.0
-//            logoView?.messageLabel.font = AppFonts.c.withSize(38.0)
-//            logoView?.messageLabel.text = LocalizedString.PleaseSignInToContinue.localized
-//            logoView?.isAppNameHidden = true
-//            logoView?.logoImageView.image = AppImages.upwardAertripLogo
-//            logoView?.logoImageTopContraint.constant = 55
-//            //socialButtosCenterConstraint.constant = 0.0
-//            socialAndLogoSpace.constant = 135.0
         }
     }
     
@@ -391,6 +386,8 @@ extension SocialLoginVC {
         self.googleButton.alpha = 0
         self.appleButton.alpha = 0
     }
+    
+    
     func animateContentOnLoad() {
         self.kickContentOutToScreen()
         let rDuration = 1.0 / 4.0
