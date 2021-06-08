@@ -92,7 +92,19 @@ extension OtherBookingsDetailsVC {
     func getPaidCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingPaymentDetailsTableViewCell.reusableIdentifier, for: indexPath) as? BookingPaymentDetailsTableViewCell else { return UITableViewCell() }
         cell.containerViewBottomConstraint.constant = 26.0
-        cell.configCell(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(self.viewModel.bookingDetail?.totalAmountPaid ?? 0)", isLastCell: true)
+        
+        var transactionAmount = 0.0
+        let count = self.viewModel.bookingDetail?.receipt?.voucher.count ?? 0
+        for i in 0..<count{
+            let basic = self.viewModel.bookingDetail?.receipt?.voucher[i].basic
+
+            if basic?.type.lowercased() == "receipt"{
+                transactionAmount = self.viewModel.bookingDetail?.receipt?.voucher[i].transactions.first?.amount ?? 0.0
+            }
+        }
+        cell.configCell(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(transactionAmount)", isLastCell: true)
+
+//        cell.configCell(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(self.viewModel.bookingDetail?.totalAmountPaid ?? 0)", isLastCell: true)
         cell.clipsToBounds = true
         return cell
     }
