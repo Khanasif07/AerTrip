@@ -139,7 +139,14 @@ extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 AppFlowManager.default.moveToBookingVoucherVC(receipt: rcpt, bookingId: self.viewModel.bookingId)
             }
         case .paymentPendingCell:
-            self.getOutstandingDetails()
+            if self.viewModel.bookingDetail?.totalOutStanding ?? 0.0 > 0{
+                self.getOutstandingDetails()
+            }else{
+                if let rcpt = self.viewModel.bookingDetail?.receipt {
+                    AppFlowManager.default.moveToBookingVoucherVC(receipt: rcpt, bookingId: self.viewModel.bookingId)
+                }
+            }
+            
         default:  break
         }
         /*

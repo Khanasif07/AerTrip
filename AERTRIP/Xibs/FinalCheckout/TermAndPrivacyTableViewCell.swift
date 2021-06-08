@@ -91,12 +91,14 @@ extension TermAndPrivacyTableViewCell {
                 
                 guard let url = URL(string: AppKeys.privacyPolicy) else { return }
                  AppFlowManager.default.showURLOnATWebView(url, screenTitle: "Privacy Policy")
+                FirebaseEventLogs.shared.logEventsWithoutParam(with: .OpenPrivacyPolicy)
             }
             
             label.handleCustomTap(for: termsOfUse) { _ in
                 
                 guard let url = URL(string: AppKeys.termsOfUse) else { return }
                  AppFlowManager.default.showURLOnATWebView(url, screenTitle: "Terms of Use")
+                FirebaseEventLogs.shared.logEventsWithoutParam(with: .OpenTermsOfUse)
             }
         }
     }
