@@ -248,6 +248,12 @@ enum AppColors {
     ///(230,230,230) (49,49,49)
     static let switchGray = UIColor(named: "switchGray") ?? .white
     
+    ///(230, 230, 230) (120, 120, 120)
+    static let flightFormReturnDisableColor = UIColor(named: "flightFormReturnDisableColor") ?? UIColor(displayP3Red: 66.0/255, green: 66.0/255, blue: 66.0/255, alpha: 1)
+    
+    ///(153, 153, 153) (255, 255, 255)
+    static let flightFormReturnEnableColor = UIColor(named: "flightFormReturnEnableColor") ?? UIColor(displayP3Red: 0.9019607843, green: 0.9019607843, blue: 0.9019607843, alpha: 1)
+    
     case headlines
     case body
     case subheads

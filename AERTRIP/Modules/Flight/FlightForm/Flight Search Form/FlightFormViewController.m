@@ -438,7 +438,7 @@
 
 - (void)setupReturnDateView:(NSDate*)returnDate {
     if (self.viewModel.flightSearchType == RETURN_JOURNEY ) {
-        [self.returnLabel setTextColor:[ UIColor ONE_FIVE_THREE_COLOR] ];
+        [self.returnLabel setTextColor:[ UIColor flightFormReturnEnableColor] ];
         
         if (returnDate != nil) {
             [self changeLabelFont:self.returnLabel isSmall:YES];
@@ -455,7 +455,7 @@
         }
     }else {
         [self changeLabelFont:self.returnLabel isSmall:NO];
-        [self.returnLabel setTextColor:[UIColor TWO_THREE_ZERO_COLOR]];
+        [self.returnLabel setTextColor:[UIColor flightFormReturnDisableColor]];
         self.returnValueLabel.hidden = YES;
         self.returnSubTitleLabel.hidden = YES;
     }

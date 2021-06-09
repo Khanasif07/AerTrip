@@ -119,4 +119,8 @@ extension UIColor {
     @objc static var doneViewClearColor: UIColor {AppColors.doneViewClearColor}
     
     @objc static var muticityAddRemoveTextColor:UIColor { AppColors.muticityAddRemoveTextColor }
+    
+    @objc static var flightFormReturnDisableColor:UIColor { AppColors.flightFormReturnDisableColor }
+    
+    @objc static var flightFormReturnEnableColor:UIColor { AppColors.flightFormReturnEnableColor }
 }
