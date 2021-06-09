@@ -42,7 +42,7 @@ extension FlightDomesticMultiLegResultVC {
             default:
                 numberOfView = 3
             }
-            
+            let footerBackgroundColor = [AppColors.themeWhiteDashboard, AppColors.flightResultsFooterSecondaryColor, AppColors.flightResultsFooterThirdColor]
             let height = 44.0 + 35.0 + CGFloat(numberOfView - 1) * 16.0
             
             let groupedFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: height))
@@ -53,8 +53,11 @@ extension FlightDomesticMultiLegResultVC {
             groupedFooterView.addGestureRecognizer(tapGesture)
             
             for count in 1...numberOfView {
-                
-                let baseView = createRepeatedFooterBaseView(for: tableView)
+                var backgroundColor = AppColors.themeWhiteDashboard
+                if let color = footerBackgroundColor[safe: count - 1]{
+                    backgroundColor = color
+                }
+                let baseView = createRepeatedFooterBaseView(for: tableView, backgroundColor: backgroundColor)
                 baseView.frame = CGRect(x: (8 * count) ,y: (10 + 6 * count) ,width: (Int(groupedFooterView.frame.width) - (16 * count))  ,height:60)
                 groupedFooterView.addSubview(baseView)
                 groupedFooterView.sendSubviewToBack(baseView)
@@ -145,10 +148,10 @@ extension FlightDomesticMultiLegResultVC {
             
         }
     }
-    
-    func createRepeatedFooterBaseView(for view : UIView) -> UIView {
+    //(with backgroundColor: UIColor = AppColors.themeWhiteDashboard)
+    func createRepeatedFooterBaseView(for view : UIView, backgroundColor: UIColor = AppColors.themeWhiteDashboard) -> UIView {
         let baseView = UIView(frame: CGRect(x: 0 , y: 0, width: view.frame.width, height: 60))
-        baseView.backgroundColor = AppColors.themeWhiteDashboard
+        baseView.backgroundColor = backgroundColor
 //        baseView.layer.cornerRadius = 5.0
 //        baseView.layer.shadowColor = UIColor.black.cgColor
 //        baseView.layer.shadowOpacity = 0.1

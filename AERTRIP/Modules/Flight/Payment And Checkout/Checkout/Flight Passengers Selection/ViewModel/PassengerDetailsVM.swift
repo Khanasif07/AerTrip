@@ -145,3 +145,12 @@ class PassengerDetailsVM {
     }
     
 }
+
+
+/// Log firebase events
+extension PassengerDetailsVM{
+    func logEvents(with event: FirebaseEventLogs.EventsTypeName){
+        FirebaseEventLogs.shared.logFlightPassengerDetailsEvents(with: event)
+    }
+    
+}

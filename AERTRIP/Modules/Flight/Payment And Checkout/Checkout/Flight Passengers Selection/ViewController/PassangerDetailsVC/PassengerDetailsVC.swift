@@ -143,6 +143,7 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
     @IBAction func tapBackBtn(_ sender: UIButton) {
         GuestDetailsVM.shared.canShowSalutationError = true
         self.delegate?.didAddedContacts()
+        self.viewModel.logEvents(with: .navigateBack)
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -157,7 +158,7 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
             self.passengerTable.reloadData()
             AppToast.default.showToastMessage(message: validation.msg)
         }
-        
+        self.viewModel.logEvents(with: .TapOnDoneButton)
     }
     
     
@@ -191,6 +192,7 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
     //    }
     
     func presentPassportView(){
+        self.viewModel.logEvents(with: .TapOnSeeExample)
         let vc  = PassportExampleVC.instantiate(fromAppStoryboard: .PassengersSelection)
         vc.modalPresentationStyle = .overFullScreen
         self.present(vc, animated: false, completion: nil)
@@ -334,6 +336,9 @@ extension PassengerDetailsVC: UITableViewDelegate, UITableViewDataSource{
         
         guard let cell = self.passengerTable.dequeueReusableCell(withIdentifier: "MealPreferenceCell") as? MealPreferenceCell else { return UITableViewCell()}
         cell.configureForMealPreference(with: self.viewModel.passengerList[indexPath.section], at: indexPath)
+        cell.eventLog = {[weak self] in
+            self?.viewModel.logEvents(with: .SelectMealPreference)
+        }
         return cell
     }
     
@@ -349,6 +354,7 @@ extension PassengerDetailsVC: UITableViewDelegate, UITableViewDataSource{
                 }
             }
             self.editedGuest(indexPath)
+            self.viewModel.logEvents(with: .SelectPassengerFromSuggestionList)
             GuestDetailsVM.shared.resetData()
             GuestDetailsVM.shared.search(forText: "")
         }
@@ -359,6 +365,9 @@ extension PassengerDetailsVC: UITableViewDelegate, UITableViewDataSource{
         
         guard let cell = self.passengerTable.dequeueReusableCell(withIdentifier: "MealPreferenceCell") as? MealPreferenceCell else { return UITableViewCell() }
         cell.configureForFlyer(with: self.viewModel.passengerList[indexPath.section], at: indexPath)
+        cell.eventLog = {[weak self] in
+            self?.viewModel.logEvents(with: .EnterFFProgramNumber)
+        }
         return cell
     }
     
@@ -402,6 +411,7 @@ extension PassengerDetailsVC : UpdatePassengerDetailsDelegate{
     
     
     func tapOptionalDetailsBtn(at indexPath:IndexPath){
+        self.viewModel.logEvents(with: .TapOnOptionalDetails)
         GuestDetailsVM.shared.guests[0][indexPath.section].isMoreOptionTapped = true
         self.passengerTable.beginUpdates()
         self.passengerTable.reloadSections([indexPath.section], with: .automatic)
