@@ -18,7 +18,7 @@ class FlightPaymentVC: BaseVC {
             self.checkOutTableView.dataSource = self
             self.checkOutTableView.estimatedSectionFooterHeight = CGFloat.leastNonzeroMagnitude
             self.checkOutTableView.sectionFooterHeight = CGFloat.leastNonzeroMagnitude
-            self.checkOutTableView.backgroundColor = AppColors.screensBackground.color
+            self.checkOutTableView.backgroundColor = AppColors.themeWhite
         }
     }
     @IBOutlet weak var gradientView: UIView!
@@ -91,6 +91,11 @@ class FlightPaymentVC: BaseVC {
 
     override func currencyChanged(_ note: Notification) {
         self.updateAllData()
+    }
+    
+    override func setupColors() {
+        super.setupColors()
+        self.view.backgroundColor = AppColors.themeWhite
     }
     
     @IBAction func payButtonTapped(_ sender: UIButton) {

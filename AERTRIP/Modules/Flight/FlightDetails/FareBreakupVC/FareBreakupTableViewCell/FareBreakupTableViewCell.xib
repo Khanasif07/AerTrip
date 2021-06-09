@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -15,7 +16,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FareBreakupCell" rowHeight="34" id="KGk-i7-Jjw" customClass="FareBreakupTableViewCell" customModule="Aertrip" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FareBreakupCell" rowHeight="34" id="KGk-i7-Jjw" customClass="FareBreakupTableViewCell" customModule="AERTRIP" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="424" height="34"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -61,7 +62,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstItem="qLo-32-feU" firstAttribute="centerY" secondItem="N69-iH-r5s" secondAttribute="centerY" id="0eJ-wH-6Fl"/>
                                                     <constraint firstItem="aNE-k0-fvT" firstAttribute="centerY" secondItem="N69-iH-r5s" secondAttribute="centerY" id="Hee-Dd-K0V"/>
@@ -87,7 +88,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstItem="esN-TA-Oyh" firstAttribute="leading" secondItem="uww-pu-zzf" secondAttribute="trailing" constant="-5" id="POM-85-uJB"/>
                                                     <constraint firstItem="uww-pu-zzf" firstAttribute="leading" secondItem="NFf-jC-qmC" secondAttribute="leading" constant="10" id="Vgo-P1-9oY"/>
@@ -114,7 +115,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstItem="AqQ-fM-Mvv" firstAttribute="centerY" secondItem="OZ6-9e-xMR" secondAttribute="centerY" id="DGJ-uf-lDt"/>
                                                     <constraint firstItem="czg-dC-ELM" firstAttribute="leading" secondItem="OZ6-9e-xMR" secondAttribute="leading" constant="10" id="K7k-yC-hnc"/>
@@ -152,7 +153,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="Gu5-2p-bXu" secondAttribute="bottom" id="BqP-R2-jTj"/>
                             <constraint firstItem="Gu5-2p-bXu" firstAttribute="top" secondItem="nIX-ax-52i" secondAttribute="top" id="Nvz-xi-M9X"/>
@@ -173,6 +174,7 @@
                 <outlet property="adultCountDisplayView" destination="N69-iH-r5s" id="N9m-hg-liL"/>
                 <outlet property="adultCountDisplayViewWidth" destination="h3F-ik-z43" id="bMW-Y2-7gH"/>
                 <outlet property="adultCountLabel" destination="aNE-k0-fvT" id="Q6C-Pj-7ew"/>
+                <outlet property="backView" destination="nIX-ax-52i" id="0iN-gY-tPr"/>
                 <outlet property="childrenCountDisplayView" destination="NFf-jC-qmC" id="3Xo-xY-iFz"/>
                 <outlet property="childrenCountDisplayViewWidth" destination="njI-EN-Iqm" id="QEz-wK-FZj"/>
                 <outlet property="childrenCountLabel" destination="esN-TA-Oyh" id="mhP-2U-XBN"/>
@@ -189,7 +191,10 @@
     <resources>
         <image name="adultPax" width="18" height="18"/>
         <image name="childPax" width="18" height="18"/>
-        <image name="greenTick" width="13" height="10"/>
+        <image name="greenTick" width="20" height="20"/>
         <image name="infantPax" width="18" height="18"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>
