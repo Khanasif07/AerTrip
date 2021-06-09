@@ -27,6 +27,11 @@ class AddOnsVC: BaseVC {
         self.addOnTableView.backgroundColor = AppColors.themeGray04
     }
     
+    
+    override func currencyChanged(_ note: Notification) {
+        self.addOnTableView.reloadData()
+    }
+    
     func registerXib() {
         self.addOnTableView.register(UINib(nibName: self.footerViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: self.footerViewIdentifier)
         self.addOnTableView.register(UINib(nibName: self.headerViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: self.headerViewIdentifier)

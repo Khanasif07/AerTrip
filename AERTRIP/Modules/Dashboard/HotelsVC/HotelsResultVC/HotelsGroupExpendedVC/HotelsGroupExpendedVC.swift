@@ -62,6 +62,10 @@ class HotelsGroupExpendedVC: StatusBarAnimatableViewController {
         self.statusBarColor = AppColors.clear
     }
     
+    override func currencyChanged(_ note: Notification) {
+        self.collectionView.reloadData()
+    }
+    
     //MARK:- Methods
     //MARK:- Private
     private func initialSetups() {

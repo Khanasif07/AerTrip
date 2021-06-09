@@ -173,6 +173,10 @@ class IntFareBreakupVC: BaseVC {
         }
     }
     
+    override func currencyChanged(_ note: Notification) {
+        self.reloadData()
+    }
+    
     func setupBookingTitleDateView(){
         self.bookingtitleAndDateViewHeight.constant = self.heightForBookingTitleView
         if self.isForSelectionAndCheckout{

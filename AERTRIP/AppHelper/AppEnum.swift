@@ -37,6 +37,7 @@ extension Notification.Name {
     static let accountDetailFetched = Notification.Name("accountDetailFetched")
     static let bookingDetailFetched = Notification.Name("bookingDetailFetched")
     static let statusBarTouched = Notification.Name("statusBarTouched")
+    static let currencyChanged = Notification.Name("CurrencyChanged")
 
 }
 

@@ -195,7 +195,7 @@ class InternationalReturnTableViewCell: UITableViewCell {
         }
         self.price.text = currentJourney.priceAsString
         
-        self.price.attributedText = currentJourney.farepr.getConvertedAmount(using: AppFonts.Regular.withSize(16))
+        self.price.attributedText = currentJourney.farepr.getConvertedAmount(using: AppFonts.SemiBold.withSize(22))
         
         multiFlightsTableView.reloadData()
         self.multiFlighrsTableViewHeight.constant = CGFloat(66 * currentJourney.legsWithDetail.count)

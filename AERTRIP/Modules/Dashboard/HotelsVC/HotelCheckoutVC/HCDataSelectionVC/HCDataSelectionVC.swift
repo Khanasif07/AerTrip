@@ -183,6 +183,12 @@ class HCDataSelectionVC: BaseVC {
         viewModel.delegate = self
     }
     
+    override func currencyChanged(_ note: Notification) {
+        self.tableView.reloadData()
+        totalFareLabel.attributedText = (viewModel.itineraryData?.total_fare ?? 0.0).getConvertedAmount(using: AppFonts.SemiBold.withSize(20))
+        totalFareAmountLabel.attributedText = (viewModel.itineraryData?.total_fare ?? 0.0).getConvertedAmount(using: AppFonts.SemiBold.withSize(20))
+    }
+    
     private func manageLoader(shouldStart: Bool) {
         self.mainIndicatorView.isHidden = true
         self.mainIndicatorView.style = .large// .whiteLarge
