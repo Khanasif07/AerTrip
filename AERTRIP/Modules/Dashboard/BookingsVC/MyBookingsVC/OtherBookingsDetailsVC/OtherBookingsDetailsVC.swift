@@ -105,6 +105,7 @@ class OtherBookingsDetailsVC: BaseVC {
     
     override func setupColors() {
         self.topNavBar.backgroundColor = AppColors.clear
+        self.view.backgroundColor = AppColors.themeWhite
     }
     
     override func bindViewModel() {
@@ -117,6 +118,11 @@ class OtherBookingsDetailsVC: BaseVC {
         if let view = self.headerView {
             view.frame = CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 152.0)
         }
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.dataTableView.reloadData()
     }
     
     @objc func bookingDetailFetched(_ note: Notification) {

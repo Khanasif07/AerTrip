@@ -110,8 +110,8 @@ class UpcomingBookingsVC: BaseVC {
     //================
     func manageFooter(isHidden: Bool) {
         self.footerView?.isHidden = isHidden
-        self.footerHeightConstraint?.constant = isHidden ? 0.0 : 44.0
-        self.footerBottomConstraint?.constant = isHidden ? 0.0 : AppFlowManager.default.safeAreaInsets.bottom
+        self.footerHeightConstraint?.constant = isHidden ? 0.0 : (44.0 + AppFlowManager.default.safeAreaInsets.bottom)
+        self.footerBottomConstraint?.constant = 0.0
         //self.view.layoutIfNeeded()
     }
     

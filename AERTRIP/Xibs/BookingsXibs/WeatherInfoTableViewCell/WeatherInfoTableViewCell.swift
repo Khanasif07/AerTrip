@@ -50,6 +50,12 @@ class WeatherInfoTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         configureUI()
+        self.setColors()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.setColors()
     }
     
     // MARK: - Functions
@@ -60,6 +66,12 @@ class WeatherInfoTableViewCell: UITableViewCell {
         cityAndDateLabel.font = AppFonts.Regular.withSize(18.0)
         tempLabel.font = AppFonts.Regular.withSize(18.0)
         whetherLabel.font = AppFonts.Regular.withSize(18.0)
+    }
+    
+    private func setColors(){
+        self.contentView.backgroundColor = AppColors.themeWhite
+        self.tempLabel.backgroundColor = AppColors.themeWhite
+        self.whetherLabel.backgroundColor = AppColors.themeWhite
     }
     
     private func configureCell() {

@@ -137,6 +137,11 @@ class FlightBookingsDetailsVC: BaseVC {
         }
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.bookingDetailsTableView.reloadData()
+    }
+    
     // MARK: - Functions
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
         self.viewModel.getBookingDetail(showProgress: false)
