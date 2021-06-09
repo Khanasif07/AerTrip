@@ -254,6 +254,13 @@ enum AppColors {
     ///(153, 153, 153) (255, 255, 255)
     static let flightFormReturnEnableColor = UIColor(named: "flightFormReturnEnableColor") ?? UIColor(displayP3Red: 0.9019607843, green: 0.9019607843, blue: 0.9019607843, alpha: 1)
     
+    ///(255, 255, 255) (26, 26, 26)
+    static let flightResultsFooterSecondaryColor = UIColor(named: "flightResultsFooterSecondaryColor") ?? UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 1)
+    
+    ///(255, 255, 255) (10, 10, 10)
+    static let flightResultsFooterThirdColor = UIColor(named: "flightResultsFooterThirdColor") ?? UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 1)
+    
+    
     case headlines
     case body
     case subheads

@@ -263,7 +263,7 @@ CGFloat animatedDistance;
 -(void)setupColor{
     self.bottomView.backgroundColor = [UIColor WHITE_COLOR];
     self.contentView.backgroundColor = [UIColor themeBlack26];
-    self.headerView.backgroundColor = [UIColor doneViewClearColor];
+    self.headerView.backgroundColor = [UIColor clearColor];//[UIColor doneViewClearColor];
     self.FromToView.backgroundColor = [UIColor themeBlack26];
     self.formToCenterView.backgroundColor = [UIColor themeBlack26];
     self.onwardReturnView.backgroundColor = [UIColor themeBlack26];
@@ -293,7 +293,7 @@ CGFloat animatedDistance;
     self.flightSegmentedControl.verticalDividerEnabled = NO;
     self.flightSegmentedControl.selectionIndicatorColor = [self getAppColor];
     
-    self.flightSegmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor FIVE_ONE_COLOR], NSFontAttributeName:[UIFont fontWithName:@"SourceSansPro-Regular" size:16]};
+    self.flightSegmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor ONE_FIVE_THREE_COLOR], NSFontAttributeName:[UIFont fontWithName:@"SourceSansPro-Regular" size:16]};
     
     self.flightSegmentedControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : [UIColor FIVE_ONE_COLOR], NSFontAttributeName:[UIFont fontWithName:@"SourceSansPro-Semibold" size:16]};
     
@@ -645,7 +645,7 @@ CGFloat animatedDistance;
         self.onwardsSubTitleLabel.hidden = YES;
     }
     if (self.isReturn) {
-        [self.ReturnLabelCenter setTextColor:[ UIColor ONE_FIVE_THREE_COLOR] ];
+        [self.ReturnLabelCenter setTextColor:[ UIColor flightFormReturnEnableColor]];
         if (self.formDataModel.returnDate != nil) {
             
             self.returnValueLabel.hidden = NO;
@@ -664,7 +664,7 @@ CGFloat animatedDistance;
         }
     }else {
 
-        [self.ReturnLabelCenter setTextColor:[UIColor TWO_THREE_ZERO_COLOR]];
+        [self.ReturnLabelCenter setTextColor:[UIColor flightFormReturnDisableColor]];
         self.returnValueLabel.hidden = YES;
         self.returnSubTitleLabel.hidden = YES;
         self.returnLabel.hidden = YES;
