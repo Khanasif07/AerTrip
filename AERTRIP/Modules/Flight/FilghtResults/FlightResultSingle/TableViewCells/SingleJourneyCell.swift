@@ -139,12 +139,14 @@ class SingleJourneyCell: UITableViewCell
 //        self.price.text =
 
         
-        let amountText = NSMutableAttributedString.init(string: journey.priceAsString)
-
-//        amountText.setAttributes([NSAttributedString.Key.font: UIFont(name: "SourceSansPro-Regular", size: 16)!], range: NSMakeRange(0, 1))
+//        let amountText = NSMutableAttributedString.init(string: journey.priceAsString)
+//
+////        amountText.setAttributes([NSAttributedString.Key.font: UIFont(name: "SourceSansPro-Regular", size: 16)!], range: NSMakeRange(0, 1))
+//
+//        amountText.setAttributes([NSAttributedString.Key.font: AppFonts.Regular.withSize(16)], range: NSMakeRange(0, 1))
+//        self.price.attributedText = amountText
         
-        amountText.setAttributes([NSAttributedString.Key.font: AppFonts.Regular.withSize(16)], range: NSMakeRange(0, 1))
-        self.price.attributedText = amountText
+        self.price.attributedText = journey.farepr.getConvertedAmount(using: AppFonts.SemiBold.withSize(22))
         
         self.priceWidth.constant =  self.price.intrinsicContentSize.width
         self.airlineTitle.text = journey.airlinesSubString
