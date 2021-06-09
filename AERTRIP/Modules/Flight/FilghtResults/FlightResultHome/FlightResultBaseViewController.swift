@@ -53,6 +53,8 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
     private var filterBackView = UIView()
     private var visualEffectBlurView: UIVisualEffectView!
     
+    private var stickyProgressView: UIProgressView!
+    
     private var numberOfLegs = 1 {
         didSet {
             self.flightSearchResultVM.numberOfLegs = numberOfLegs
@@ -228,8 +230,15 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         
         ApiProgress.progress = 0.25
         
+        stickyProgressView = UIProgressView(progressViewStyle: .bar)
+        stickyProgressView.progressTintColor = UIColor.AertripColor
+        stickyProgressView.trackTintColor = .white
+        stickyProgressView.progress = 0.25
+        stickyProgressView.tag = 601
+        
         if flightSearchResultVM.isIntMCOrReturnJourney {
             ApiProgress.progress = flightSearchResultVM.containsJourneyResuls ? 0 : 0.25
+            stickyProgressView.progress = flightSearchResultVM.containsJourneyResuls ? 0 : 0.25
         }
                 
         backView.addSubview(ApiProgress)
@@ -280,6 +289,16 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         statusBarBlurView.contentView.backgroundColor = .clear
         statusBarBlurView.effect = UIBlurEffect(style: .prominent)
         self.navigationController?.view.addSubview(statusBarBlurView)
+        
+        self.navigationController?.view.addSubview(stickyProgressView)
+        
+        stickyProgressView.snp.makeConstraints { (maker) in
+            maker.top.equalTo(statusBarBlurView.bottom)
+            maker.leading.equalToSuperview()
+            maker.trailing.equalToSuperview()
+            maker.height.equalTo(1.5)
+        }
+        stickyProgressView.isHidden = true
         
         updateForAppearance()
     }
@@ -1669,6 +1688,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                 
                 if self.ApiProgress.progress < progress {
                     self.ApiProgress.setProgress(progress, animated: true)
+                    self.stickyProgressView.setProgress(progress, animated: true)
                 }
                 
                 if progress >= 0.97 {

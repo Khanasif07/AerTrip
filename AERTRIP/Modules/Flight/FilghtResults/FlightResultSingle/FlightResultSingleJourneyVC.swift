@@ -27,6 +27,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     @IBOutlet weak var emailPinnedFlights: UIButton!
     @IBOutlet weak var sharePinnedFilghts: UIButton!
     @IBOutlet weak var switchGradientView: UIView!
+    @IBOutlet weak var resultsTableViewHeight: NSLayoutConstraint!
     @IBOutlet weak var resultsTableViewTop: NSLayoutConstraint!
     @IBOutlet weak var passThroughView: PassthroughView!
     
@@ -116,6 +117,9 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         resultsTableView.scrollsToTop = true
         resultsTableView.estimatedRowHeight  = 123
         resultsTableView.rowHeight = UITableView.automaticDimension
+        let statusHeight = AppDelegate.shared.window?.safeAreaInsets.top ?? 0
+        resultsTableView.contentInset = UIEdgeInsets(top: statusHeight, left: 0, bottom: 0, right: 0)
+        resultsTableViewHeight.constant += statusHeight
     }
     
     func setupPinnedFlightsOptionsView() {
@@ -410,11 +414,11 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             yCordinate = max (  -self.visualEffectViewHeight ,  -offsetDifference )
             yCordinate = min ( 0,  yCordinate)
             
-            let progressBarrStopPositionValue : CGFloat = UIDevice.isIPhoneX ? 46 : 22
+            let progressBarrStopPositionValue : CGFloat = 0//UIDevice.isIPhoneX ? 46 : 22
             
             UIView.animate(withDuration: 0.1, delay: 0.0, options: [.curveEaseOut], animations: {
                 
-                if let blurEffectView = self.navigationController?.view.viewWithTag(500) {
+                if let blurEffectView = self.navigationController?.view.viewWithTag(500), let stickyProgressView = self.navigationController?.view.viewWithTag(601) as? UIProgressView {
                     var rect = blurEffectView.frame
                     let yCordinateOfView = rect.origin.y
                     if ( yCordinateOfView  > yCordinate ) {
@@ -422,6 +426,13 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
                         if ((blurEffectView.height + yCordinate) > progressBarrStopPositionValue) || (blurEffectView.origin.y > -86.0) {
                             blurEffectView.frame = rect
                         }
+                    }
+                    
+                    let safeAreaTop = AppDelegate.shared.window?.safeAreaInsets.top ?? 0
+                    if blurEffectView.frame.maxY <= safeAreaTop + 1.5, stickyProgressView.progress < 0.97 {
+                        stickyProgressView.isHidden = false
+                    } else {
+                        stickyProgressView.isHidden = true
                     }
                 }
             } ,completion: nil)
@@ -433,7 +444,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             
             UIView.animate(withDuration: 0.1, delay: 0.0, options: [.curveEaseInOut], animations: {
                 
-                if let blurEffectView = self.navigationController?.view.viewWithTag(500) {
+                if let blurEffectView = self.navigationController?.view.viewWithTag(500), let stickyProgressView = self.navigationController?.view.viewWithTag(601) as? UIProgressView {
                     var rect = blurEffectView.frame
                     var yCordinate = invertedOffset - 86
                     yCordinate = min ( 0,  yCordinate)
@@ -442,6 +453,13 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
                     }
                     rect.origin.y = yCordinate
                     blurEffectView.frame = rect
+                    
+                    let safeAreaTop = AppDelegate.shared.window?.safeAreaInsets.top ?? 0
+                    if blurEffectView.frame.maxY > safeAreaTop + 1.5 {
+                        stickyProgressView.isHidden = true
+                    } else if stickyProgressView.progress < 0.97 {
+                        stickyProgressView.isHidden = false
+                    }
                 }
             } ,completion: nil)
         }

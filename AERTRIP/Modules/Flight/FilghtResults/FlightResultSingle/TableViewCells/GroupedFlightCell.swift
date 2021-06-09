@@ -98,8 +98,8 @@ struct TimeFK {
     }
     
     func setupColor(){
-        self.contentView.backgroundColor = AppColors.themeWhite
-        self.containerView.backgroundColor = AppColors.singleJourneyGroupCellColor
+        self.contentView.backgroundColor = AppColors.themeWhite.resolvedColor(with: traitCollection)
+        self.containerView.backgroundColor = AppColors.singleJourneyGroupCellColor.resolvedColor(with: traitCollection)
         self.downArrow.backgroundColor = AppColors.singleJourneyGroupCellColor
     }
     
