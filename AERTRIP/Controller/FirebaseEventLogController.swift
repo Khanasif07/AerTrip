@@ -671,6 +671,8 @@ class FirebaseEventLogs: NSObject{
         case SeatBookingIsConfirmed
         case SeatBookingIsPending
         
+        case TripType
+        
     }
     
     // MARK: App Open Event
@@ -1261,6 +1263,13 @@ class FirebaseEventLogs: NSObject{
         
     }
     
+//    MARK:- Flight Calender
+    
+    @objc func logFlightCalenderDateSelectionEvents(_ tripType: String, dictValue:JSONDictionary){
+        
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightsCalendar.rawValue, params:[AnalyticsKeys.name.rawValue:EventsTypeName.TripType.rawValue,AnalyticsKeys.type.rawValue:tripType, AnalyticsKeys.values.rawValue:dictValue])
+
+    }
     //MARK:- Flight Form Events function
     @objc func logFlightFormEvents(_ nameInt: String, type: String, stringValue:String, dictValue:JSONDictionary){
         if let event = EventsTypeNameObjc(with: nameInt){

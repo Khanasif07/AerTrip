@@ -15,6 +15,9 @@
 #import "MulticityCalendarVM.h"
 #import <CoreText/CoreText.h>
 #import "AertripToastView.h"
+#import "AERTRIP-Swift.h"
+
+@class FirebaseEventLogs;
 
 @interface AertripCalendarViewController () <FSCalendarDelegate, FSCalendarDataSource, UIScrollViewDelegate>
 
@@ -944,6 +947,11 @@
             self.viewModel.isStartDateSelection = NO;
             [self SwitchTapOfSingleLegTypeJourney];
         }
+        
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+        [dict setValue:self.viewModel.date1.description forKey:@"JourneyDate"];
+
+        [self logEvents:@"OneWay" valueDict:dict];
     }
     else {
         if ( self.viewModel.isHotelCalendar &&  self.viewModel.date1) {
@@ -1002,6 +1010,13 @@
         self.viewModel.isStartDateSelection = YES;
         [self SwitchTapOfSingleLegTypeJourney];
         
+        
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+        [dict setValue:self.viewModel.date1.description forKey:@"OnwordDate"];
+        [dict setValue:self.viewModel.date2.description forKey:@"ReturnDate"];
+
+        [self logEvents:@"Return" valueDict:dict];
+
     }
 }
 
@@ -1034,6 +1049,22 @@
     [self.multicityViewModel.travelDatesDictionary setValue:dateString forKey:key];
     [self setSubTitleForTabAtIndex:self.multicityViewModel.currentIndex];
     [self configureVisibleCells];
+    
+    
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    for (int i = 0 ; i < self.multicityViewModel.travelDatesDictionary.count; i++) {
+        
+        NSString * key = [NSString stringWithFormat:@"%d",i];
+        NSString *val = [self.multicityViewModel.travelDatesDictionary valueForKey:key];
+
+        if(val != @""){
+            NSString *str = [NSString stringWithFormat:@"Date %d",i];
+            [dict setValue:val forKey:str];
+        }
+
+    }
+
+    [self logEvents:@"Multicity" valueDict:dict];
 }
 
 -(void)showDatesSelection {
@@ -1323,7 +1354,13 @@
 //    [self.customCalenderView setCurrentPage:Date animated:TRUE];
 //}
 
-
+///Firebase events log function
+- (void) logEvents:(NSString *) tripType valueDict:(NSDictionary *) dictValue {
+    FirebaseEventLogs *eventController = FirebaseEventLogs.shared;
+    
+    [eventController logFlightCalenderDateSelectionEvents:tripType dictValue:dictValue];
+    
+}
 @end
 
 //@implementation UIStatusBarManager (CAPHandleTapAction)
