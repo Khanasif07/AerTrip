@@ -26,6 +26,7 @@ class MealPreferenceCell: UITableViewCell {
     var cellIndexPath = IndexPath()
     var index = 0
     var type = "meal"
+    var eventLog:(()->())?
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
@@ -146,4 +147,13 @@ extension MealPreferenceCell: UITextFieldDelegate{
         textField.resignFirstResponder()
         return true
     }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        if (textField == programTextField && !(textField.text?.isEmpty ?? false)){
+            self.eventLog?()
+        }
+        
+    }
+    
 }

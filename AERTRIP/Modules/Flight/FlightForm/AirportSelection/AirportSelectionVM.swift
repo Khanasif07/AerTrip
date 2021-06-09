@@ -47,9 +47,9 @@ import UIKit
     }
 
     @objc func getSelectedAirportsString()->NSString{
-        let origin = ((self.fromFlightArray as? [AirportSearch] ?? []).map{$0.iata}).joined(separator: ",")
-        let dest = ((self.toFlightArray as? [AirportSearch] ?? []).map{$0.iata}).joined(separator: ",")
-        return NSString(string:"selectedOriginAiport:\(origin),SelectedDestAiport:\(dest)")
+        let origin = ((self.fromFlightArray as? [AirportSearch] ?? []).map{$0.iata ?? ""}).joined(separator: ",")
+        let dest = ((self.toFlightArray as? [AirportSearch] ?? []).map{$0.iata ?? ""}).joined(separator: ",")
+        return NSString(string:"OriginAirport:\(origin),DestinationAirport:\(dest)")
     }
     
     
