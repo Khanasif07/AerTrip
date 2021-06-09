@@ -54,7 +54,7 @@ class WalletTableViewCell: UITableViewCell {
         self.walletTitleLabel.textColor = AppColors.textFieldTextColor51
         self.balanceLabel.textColor = AppColors.themeGray40
         self.amountLabel.textColor = AppColors.textFieldTextColor51
-
+        self.contentView.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     private func setUpText() {
