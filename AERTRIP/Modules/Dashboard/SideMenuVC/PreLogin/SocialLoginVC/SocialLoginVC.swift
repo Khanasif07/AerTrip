@@ -35,7 +35,7 @@ class SocialLoginVC: BaseVC {
     @IBOutlet weak var appleButton: ATButton!
     @IBOutlet weak var newRegisterLabel: UILabel!
     @IBOutlet weak var existingUserLabel: UILabel!
-    @IBOutlet weak var sepratorLineImage: UIImageView!
+    @IBOutlet weak var sepratorLineImage: UIImageView!    
     @IBOutlet weak var socialButtonsStackView: UIStackView!
     @IBOutlet weak var logoContainerView: UIView!
     @IBOutlet weak var newRegistrationContainerView: UIView!
@@ -290,7 +290,7 @@ private extension SocialLoginVC {
             let finalStr = "\(LocalizedString.SkipSignIn.localized)\n\(LocalizedString.ContinueAsGuest.localized)"
             let attributedString = NSMutableAttributedString(string: finalStr, attributes: [
                 .font: AppFonts.Regular.withSize(14.0),
-                .foregroundColor: UIColor.black
+                .foregroundColor: AppColors.themeBlack
             ])
             attributedString.addAttribute(.font, value: AppFonts.SemiBold.withSize(18.0), range: (finalStr as NSString).range(of: LocalizedString.SkipSignIn.localized))
             self.newRegisterLabel.attributedText = attributedString
@@ -298,7 +298,7 @@ private extension SocialLoginVC {
         else {
             let attributedString = NSMutableAttributedString(string: LocalizedString.I_am_new_register.localized, attributes: [
                 .font: AppFonts.Regular.withSize(14.0),
-                .foregroundColor: UIColor.black
+                .foregroundColor: AppColors.themeBlack
             ])
             attributedString.addAttribute(.font, value: AppFonts.SemiBold.withSize(18.0), range: NSRange(location: 0, length: 7))
             self.newRegisterLabel.attributedText = attributedString
@@ -306,7 +306,7 @@ private extension SocialLoginVC {
         
         let existingUserString = NSMutableAttributedString(string: LocalizedString.Existing_User_Sign.localized, attributes: [
             .font: AppFonts.SemiBold.withSize(18.0),
-            .foregroundColor: UIColor.black
+            .foregroundColor: AppColors.themeBlack
         ])
         existingUserString.addAttribute(.font, value: AppFonts.Regular.withSize(14.0), range: NSRange(location: 14, length: 7))
         self.existingUserLabel.attributedText = existingUserString

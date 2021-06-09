@@ -71,6 +71,9 @@ class CurrencyVC: BaseVC {
     
     override func setupColors() {
         super.setupColors()
+        
+        self.view.backgroundColor = AppColors.themeWhite
+        
 //        self.searchBarBackView.backgroundColor = AppColors.themeGray04
       //  self.searchBarSepratorView.backgroundColor = AppColors.themeGray20
 //               searchTextField.setAttributedPlaceHolder(placeHolderText: LocalizedString.search.localized, color: AppColors.themeGray40, font: AppFonts.Regular.withSize(18))
