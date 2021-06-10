@@ -65,16 +65,17 @@ class WalletTableViewCell: UITableViewCell {
     }
     
     
-    
-    
     @IBAction func switchValueChanged(_ sender: UISwitch) {
         sender.isOn ? delegate?.valueForSwitch(isOn: true) : delegate?.valueForSwitch(isOn: false)
     }
+    
 }
 
 extension WalletTableViewCell: SFSafariViewControllerDelegate {
+    
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
         AppFlowManager.default.mainNavigationController.dismiss(animated: true, completion: nil)
     }
+    
 }
 
