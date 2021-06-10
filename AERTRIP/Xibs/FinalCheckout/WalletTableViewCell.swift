@@ -25,11 +25,8 @@ class WalletTableViewCell: UITableViewCell {
     // MARK: - Properties
     weak var delegate : WalletTableViewCellDelegate?
     
-    
-
     override func awakeFromNib() {
         super.awakeFromNib()
-       
         self.setUpFonts()
         self.setUpColors()
         self.setUpText()
@@ -46,8 +43,6 @@ class WalletTableViewCell: UITableViewCell {
         self.walletTitleLabel.font = AppFonts.Regular.withSize(18.0)
         self.balanceLabel.font = AppFonts.Regular.withSize(16.0)
         self.amountLabel.font = AppFonts.SemiBold.withSize(16.0)
-        
-        
     }
     
     private func setUpColors() {

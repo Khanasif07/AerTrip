@@ -141,7 +141,7 @@ class FlightPaymentVC: BaseVC {
             self.payButton.bringSubviewToFront(self.payButton.imageView!)
         }
         self.payButton.spaceInTextAndImageOfButton(spacing: 2)
-        self.payButton.setTitleColor(AppColors.themeWhite, for: .normal)
+        self.payButton.setTitleColor(UIColor.white, for: .normal)
         self.setupPayButtonTitle()
         
     }
@@ -152,8 +152,8 @@ class FlightPaymentVC: BaseVC {
 //            let amount = ttl.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
             let ttl = self.getTotalPayableAmount().getPriceStringWithCurrency
             let amount = self.getTotalPayableAmount().getConvertedAmount(using: AppFonts.SemiBold.withSize(20.0))
-            amount.addAttributes([.foregroundColor : AppColors.themeWhite], range: NSString(string: ttl).range(of: ttl))
-            let attributedTitle = NSMutableAttributedString(string: "  \(LocalizedString.Pay.localized) ", attributes: [.font: AppFonts.SemiBold.withSize(20), .foregroundColor: AppColors.themeWhite])
+            amount.addAttributes([.foregroundColor : UIColor.white], range: NSString(string: ttl).range(of: ttl))
+            let attributedTitle = NSMutableAttributedString(string: "  \(LocalizedString.Pay.localized) ", attributes: [.font: AppFonts.SemiBold.withSize(20), .foregroundColor: UIColor.white])
             attributedTitle.append(amount)
             self.payButton.setTitle(nil, for: .normal)
             self.payButton.setTitle(nil, for: .highlighted)
