@@ -227,7 +227,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         ApiProgress = UIProgressView(progressViewStyle: .bar)
         ApiProgress.progressTintColor = UIColor.AertripColor
         ApiProgress.trackTintColor = .clear
-        
+        ApiProgress.tag = 600
         ApiProgress.progress = 0.25
         
         stickyProgressView = UIProgressView(progressViewStyle: .bar)

@@ -183,7 +183,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             // If blurEffectView yCoodinate is close to top of the screen
             if  ( yCoordinate > ( visualEffectViewHeight / 2.0 ) ){
                 
-                let progressBarrStopPositionValue : CGFloat = UIDevice.isIPhoneX ? 46 : 22
+                let progressBarrStopPositionValue : CGFloat = 0//UIDevice.isIPhoneX ? 46 : 22
 
                 rect.origin.y = -visualEffectViewHeight + progressBarrStopPositionValue
 
@@ -418,7 +418,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             
             UIView.animate(withDuration: 0.1, delay: 0.0, options: [.curveEaseOut], animations: {
                 
-                if let blurEffectView = self.navigationController?.view.viewWithTag(500), let stickyProgressView = self.navigationController?.view.viewWithTag(601) as? UIProgressView {
+                if let blurEffectView = self.navigationController?.view.viewWithTag(500) {
                     var rect = blurEffectView.frame
                     let yCordinateOfView = rect.origin.y
                     if ( yCordinateOfView  > yCordinate ) {
@@ -426,13 +426,6 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
                         if ((blurEffectView.height + yCordinate) > progressBarrStopPositionValue) || (blurEffectView.origin.y > -86.0) {
                             blurEffectView.frame = rect
                         }
-                    }
-                    
-                    let safeAreaTop = AppDelegate.shared.window?.safeAreaInsets.top ?? 0
-                    if blurEffectView.frame.maxY <= safeAreaTop + 1.5, stickyProgressView.progress < 0.97 {
-                        stickyProgressView.isHidden = false
-                    } else {
-                        stickyProgressView.isHidden = true
                     }
                 }
             } ,completion: nil)
@@ -444,7 +437,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             
             UIView.animate(withDuration: 0.1, delay: 0.0, options: [.curveEaseInOut], animations: {
                 
-                if let blurEffectView = self.navigationController?.view.viewWithTag(500), let stickyProgressView = self.navigationController?.view.viewWithTag(601) as? UIProgressView {
+                if let blurEffectView = self.navigationController?.view.viewWithTag(500) {
                     var rect = blurEffectView.frame
                     var yCordinate = invertedOffset - 86
                     yCordinate = min ( 0,  yCordinate)
@@ -453,15 +446,41 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
                     }
                     rect.origin.y = yCordinate
                     blurEffectView.frame = rect
-                    
-                    let safeAreaTop = AppDelegate.shared.window?.safeAreaInsets.top ?? 0
-                    if blurEffectView.frame.maxY > safeAreaTop + 1.5 {
+                }
+            } ,completion: nil)
+        }
+    }
+    
+    private func switchProgressViews(_ scrollView: UIScrollView) {
+        let contentOffset = scrollView.contentOffset
+        let offsetDifference = contentOffset.y - self.viewModel.scrollviewInitialYOffset
+        let safeAreaTop = AppDelegate.shared.window?.safeAreaInsets.top ?? 0
+        if let blurEffectView = self.navigationController?.view.viewWithTag(500), let progressView = self.navigationController?.view.viewWithTag(600), let stickyProgressView = self.navigationController?.view.viewWithTag(601) as? UIProgressView {
+            if stickyProgressView.progress < 0.97 {
+                
+                if offsetDifference > 0 {
+                    // hiding
+                    if blurEffectView.frame.maxY <= safeAreaTop + 1 {
+                        progressView.isHidden = true
+                        stickyProgressView.isHidden = false
+                    } else {
+                        progressView.isHidden = false
                         stickyProgressView.isHidden = true
-                    } else if stickyProgressView.progress < 0.97 {
+                    }
+                } else {
+                    // showing
+                    if blurEffectView.frame.maxY > safeAreaTop + 7 {
+                        progressView.isHidden = false
+                        stickyProgressView.isHidden = true
+                    } else {
+                        progressView.isHidden = true
                         stickyProgressView.isHidden = false
                     }
                 }
-            } ,completion: nil)
+            } else {
+                progressView.isHidden = true
+                stickyProgressView.isHidden = true
+            }
         }
     }
     
@@ -483,7 +502,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             let invertedOffset = -offsetDifference
             revealBlurredHeaderView(invertedOffset)
         }
-        
+        switchProgressViews(scrollView)
         
 //        guard let content = self.viewModel.contentOffset else { return }
 //
@@ -520,6 +539,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         snapToTopOrBottomOnSlowScrollDragging(scrollView)
+        switchProgressViews(scrollView)
         //        scrollviewInitialYOffset = 0.0
     }
     
