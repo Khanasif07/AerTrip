@@ -62,9 +62,14 @@ class NewAccountLedgerEventCell: UITableViewCell {
         self.setFontAndColor()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.setFontAndColor()
+    }
+    
     private func setFontAndColor() {
         
-        self.mainContainerView.backgroundColor = AppColors.themeWhite
+        self.mainContainerView.backgroundColor = AppColors.themeWhiteDashboard
         let shadowProp = AppShadowProperties()
         self.mainContainerView.addShadow(cornerRadius: shadowProp.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: shadowProp.shadowColor, offset: shadowProp.offset, opacity: shadowProp.opecity, shadowRadius: shadowProp.shadowRadius)
 //        self.mainContainerView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize(width: 0, height: -1), opacity: 0.5, shadowRadius: 4.0)
