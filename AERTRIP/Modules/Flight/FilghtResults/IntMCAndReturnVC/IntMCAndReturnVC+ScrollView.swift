@@ -25,7 +25,7 @@ extension IntMCAndReturnVC {
             var yCordinate : CGFloat
             yCordinate = max (  -self.visualEffectViewHeight ,  -offsetDifference )
             yCordinate = min ( 0,  yCordinate)
-            let progressBarrStopPositionValue : CGFloat = UIDevice.isIPhoneX ? 46 : 22
+            let progressBarrStopPositionValue : CGFloat = 0//UIDevice.isIPhoneX ? 46 : 22
 //            UIView.animate(withDuration: 0, delay: 0.0, options: [.curveEaseOut], animations: {
                 
                 if let blurEffectView = self.navigationController?.view.viewWithTag(500) {
@@ -60,6 +60,39 @@ extension IntMCAndReturnVC {
         }
     }
     
+    private func switchProgressViews(_ scrollView: UIScrollView) {
+        let contentOffset = scrollView.contentOffset
+        let offsetDifference = contentOffset.y - scrollviewInitialYOffset
+        let safeAreaTop = AppDelegate.shared.window?.safeAreaInsets.top ?? 0
+        if let blurEffectView = self.navigationController?.view.viewWithTag(500), let progressView = self.navigationController?.view.viewWithTag(600), let stickyProgressView = self.navigationController?.view.viewWithTag(601) as? UIProgressView {
+            if stickyProgressView.progress < 0.97 {
+                
+                if offsetDifference > 0 {
+                    // hiding
+                    if blurEffectView.frame.maxY <= safeAreaTop + 1 {
+                        progressView.isHidden = true
+                        stickyProgressView.isHidden = false
+                    } else {
+                        progressView.isHidden = false
+                        stickyProgressView.isHidden = true
+                    }
+                } else {
+                    // showing
+                    if blurEffectView.frame.maxY > safeAreaTop + 7 {
+                        progressView.isHidden = false
+                        stickyProgressView.isHidden = true
+                    } else {
+                        progressView.isHidden = true
+                        stickyProgressView.isHidden = false
+                    }
+                }
+            } else {
+                progressView.isHidden = true
+                stickyProgressView.isHidden = true
+            }
+        }
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
 //        print("scrollViewDidScroll...\(scrollView.contentOffset.y)")
         let contentSize = scrollView.contentSize
@@ -79,6 +112,8 @@ extension IntMCAndReturnVC {
             let invertedOffset = -offsetDifference
             revealBlurredHeaderView(invertedOffset)
         }
+        
+        switchProgressViews(scrollView)
     }
     
     func scrollViewDidScrollToTop(_ scrollView: UIScrollView){
@@ -119,7 +154,7 @@ extension IntMCAndReturnVC {
             // If blurEffectView yCoodinate is close to top of the screen
             printDebug(yCoordinate)
             if  ( yCoordinate > ( visualEffectViewHeight / 2.0 ) ){
-                let progressBarrStopPositionValue : CGFloat = UIDevice.isIPhoneX ? 46 : 22
+                let progressBarrStopPositionValue : CGFloat = 0//UIDevice.isIPhoneX ? 46 : 22
 
                 rect.origin.y = -visualEffectViewHeight + progressBarrStopPositionValue
                 
@@ -137,6 +172,8 @@ extension IntMCAndReturnVC {
                 blurEffectView.frame = rect
             } ,completion: nil)
         }
+        
+        switchProgressViews(scrollView)
     }
 }
 

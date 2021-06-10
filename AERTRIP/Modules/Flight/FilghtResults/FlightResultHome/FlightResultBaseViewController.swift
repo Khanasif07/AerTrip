@@ -1644,6 +1644,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
         default:
             return
         }
+        stickyProgressView.setProgress(updatedApiProgress, animated: true)
     }
     
     func updateComboFare() {

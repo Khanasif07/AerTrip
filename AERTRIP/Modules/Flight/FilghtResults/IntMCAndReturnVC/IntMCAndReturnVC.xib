@@ -14,6 +14,7 @@
                 <outlet property="emailPinnedFlights" destination="yS5-oZ-tkl" id="ezx-nI-BQF"/>
                 <outlet property="passthroughView" destination="L1K-56-tzQ" id="isn-VS-bec"/>
                 <outlet property="pinnedFlightsOptionsView" destination="BM3-XS-cLM" id="rwr-5W-sv6"/>
+                <outlet property="resultTableViewHeight" destination="hyU-XB-M7R" id="Mkv-gg-pLp"/>
                 <outlet property="resultTableViewTop" destination="zPE-IE-hr7" id="JsY-Q4-lhR"/>
                 <outlet property="resultsTableView" destination="UzE-61-hhV" id="0EI-Hq-HS1"/>
                 <outlet property="sharePinnedFilghts" destination="hlD-Uh-Ku3" id="3uQ-Ww-kIB"/>
