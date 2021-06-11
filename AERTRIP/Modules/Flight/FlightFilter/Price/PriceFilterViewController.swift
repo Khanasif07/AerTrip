@@ -21,6 +21,7 @@ class PriceFilterViewController: BaseVC , FilterViewController {
     @IBOutlet weak var priceRangeSlider: AertripRangeSlider!
     @IBOutlet weak var multicityViewHeight: NSLayoutConstraint!
     @IBOutlet weak var JourneyTitle: UILabel!
+    @IBOutlet weak var priceSliderContainerView: UIView!
     @IBOutlet weak var fareMinValView: UIView!
     @IBOutlet weak var fareMinValue: UILabel!
     @IBOutlet weak var fareMaxValView: UIView!
@@ -188,6 +189,16 @@ class PriceFilterViewController: BaseVC , FilterViewController {
         }
     }
     
+    override func setupColors() {
+        [self.view,self.multiLegView, self.multiSegmentView,priceSliderContainerView, self.priceRangeSlider].forEach { view in
+            view?.backgroundColor = AppColors.themeWhiteDashboard
+        }
+        self.fareMinValView.backgroundColor = AppColors.sliderTrackColor
+        self.fareMaxValView.backgroundColor = AppColors.sliderTrackColor
+        self.fareMinValue.backgroundColor = .clear//AppColors.sliderTrackColor
+        self.fareMaxValue.backgroundColor = .clear//AppColors.sliderTrackColor
+    }
+    
     fileprivate func setupPriceSlider() {
         
         priceRangeSlider.set(leftValue: (viewModel.currentPriceFilter.userSelectedFareMinValue - viewModel.currentPriceFilter.inputFareMinValue)/viewModel.priceDiffForFraction, rightValue: (viewModel.currentPriceFilter.userSelectedFareMaxValue - viewModel.currentPriceFilter.inputFareMinValue)/viewModel.priceDiffForFraction)
@@ -349,11 +360,13 @@ class PriceFilterViewController: BaseVC , FilterViewController {
                      seperatorView.isHidden = false
                      refundableFaresOnlyLabel.isHidden = false
                      refundableFaresButton.isHidden = false
+                    refundableFaresTopBtn.isHidden = false
                      refundableFaresButton.isUserInteractionEnabled = true
                  }else{
                      seperatorView.isHidden = true
                      refundableFaresOnlyLabel.isHidden = true
                      refundableFaresButton.isHidden = true
+                    refundableFaresTopBtn.isHidden = true
                      refundableFaresButton.isUserInteractionEnabled = false
                  }
              }
@@ -381,11 +394,13 @@ class PriceFilterViewController: BaseVC , FilterViewController {
                      seperatorView.isHidden = false
                      refundableFaresOnlyLabel.isHidden = false
                      refundableFaresButton.isHidden = false
+                    refundableFaresTopBtn.isHidden = false
                      refundableFaresButton.isUserInteractionEnabled = true
                  }else{
                      seperatorView.isHidden = true
                      refundableFaresOnlyLabel.isHidden = true
                      refundableFaresButton.isHidden = true
+                    refundableFaresTopBtn.isHidden = true
                      refundableFaresButton.isUserInteractionEnabled = false
                  }
              }

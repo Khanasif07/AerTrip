@@ -269,7 +269,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         }
         
         ApiProgress.backgroundColor = UIColor.white
-        separatorView.backgroundColor = UIColor.TWO_ZERO_FOUR_COLOR
+        separatorView.backgroundColor = AppColors.divider.color//UIColor.TWO_ZERO_FOUR_COLOR
         backView.addSubview(separatorView)
                 //        separatorView.snp.makeConstraints { (make) in
         //            make.left.equalTo(visualEffectView.contentView).offset(0.0)

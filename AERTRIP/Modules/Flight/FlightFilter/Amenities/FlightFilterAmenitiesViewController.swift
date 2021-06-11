@@ -231,7 +231,7 @@ extension FlightFilterAmenitiesViewController : UITableViewDataSource , UITableV
         
         
         let separatorView = UIView(frame:  CGRect(x: 16, y: 43.5, width: self.view.frame.width - 16, height: 0.5))
-        separatorView.backgroundColor = UIColor.TWO_ZERO_FOUR_COLOR
+        separatorView.backgroundColor = AppColors.divider.color//UIColor.TWO_ZERO_FOUR_COLOR
         headerView.addSubview(separatorView)
         
         if (section != 0 ) {

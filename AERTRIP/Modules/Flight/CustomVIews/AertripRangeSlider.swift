@@ -29,14 +29,14 @@ class AertripRangeSlider : UIControl {
     
     private var addedMarkers = [UIView]()
         
-        
-    var trackColor : UIColor  = UIColor(displayP3Red: (230.0 / 255.0), green: (230.0 / 255.0), blue: (230.0 / 255.0), alpha: 1.0)  {
+//    UIColor(displayP3Red: (230.0 / 255.0), green: (230.0 / 255.0), blue: (230.0 / 255.0), alpha: 1.0)
+    var trackColor : UIColor  = AppColors.sliderTrackColor{
         willSet(newColor) {
             trackerView.backgroundColor = newColor
         }
     }
     
-    var selectedTrackColor = UIColor(displayP3Red: 0/255.0, green: 204.0/255.0, blue: 153.0/255.0, alpha: 1.0)
+    var selectedTrackColor = AppColors.themeGreen//UIColor(displayP3Red: 0/255.0, green: 204.0/255.0, blue: 153.0/255.0, alpha: 1.0)
         
     
     override func layoutSubviews() {
@@ -121,6 +121,8 @@ class AertripRangeSlider : UIControl {
         trackerView.backgroundColor = UIColor(displayP3Red: (230.0 / 255.0), green: (230.0 / 255.0), blue: (230.0 / 255.0), alpha: 1.0)
         
         selectedTrackView.backgroundColor = selectedTrackColor
+        //To Add color for dark mode
+        trackerView.backgroundColor = AppColors.sliderTrackColor
         
         leftImageView.image = AppImages.sliderHandle
         leftImageView.isUserInteractionEnabled = true

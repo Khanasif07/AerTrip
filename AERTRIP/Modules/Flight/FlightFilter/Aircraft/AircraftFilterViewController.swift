@@ -121,7 +121,7 @@ extension AircraftFilterViewController : UITableViewDataSource , UITableViewDele
             
             let view = ATDividerView()
             view.frame = CGRect(x: 16, y: 0, width: self.view.frame.size.width - 16, height: 0.5)
-            view.backgroundColor = UIColor.TWO_ZERO_FOUR_COLOR
+            view.backgroundColor = AppColors.divider.color//UIColor.TWO_ZERO_FOUR_COLOR
             footerView.addSubview(view)
             return footerView
         }
