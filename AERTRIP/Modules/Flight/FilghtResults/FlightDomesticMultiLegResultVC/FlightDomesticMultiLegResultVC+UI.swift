@@ -109,7 +109,7 @@ extension FlightDomesticMultiLegResultVC {
         let boarderRect = CGRect(x: ((width * CGFloat(index + 1)) - 1), y: 307.5, width: 0.5, height: height)
         let borderView = ATVerticalDividerView()
         borderView.frame = boarderRect//UIView(frame: boarderRect)
-        borderView.backgroundColor = .TWO_ZERO_FOUR_COLOR
+        borderView.backgroundColor = AppColors.divider.color//.TWO_ZERO_FOUR_COLOR
 //        borderView.tag = 300 + index
         
         baseScrollView.addSubview(tableView)

@@ -190,9 +190,13 @@ class PriceFilterViewController: BaseVC , FilterViewController {
     }
     
     override func setupColors() {
-        [self.view,self.multiLegView, self.multiSegmentView,priceSliderContainerView].forEach { view in
+        [self.view,self.multiLegView, self.multiSegmentView,priceSliderContainerView, self.priceRangeSlider].forEach { view in
             view?.backgroundColor = AppColors.themeWhiteDashboard
         }
+        self.fareMinValView.backgroundColor = AppColors.sliderTrackColor
+        self.fareMaxValView.backgroundColor = AppColors.sliderTrackColor
+        self.fareMinValue.backgroundColor = .clear//AppColors.sliderTrackColor
+        self.fareMaxValue.backgroundColor = .clear//AppColors.sliderTrackColor
     }
     
     fileprivate func setupPriceSlider() {
@@ -356,11 +360,13 @@ class PriceFilterViewController: BaseVC , FilterViewController {
                      seperatorView.isHidden = false
                      refundableFaresOnlyLabel.isHidden = false
                      refundableFaresButton.isHidden = false
+                    refundableFaresTopBtn.isHidden = false
                      refundableFaresButton.isUserInteractionEnabled = true
                  }else{
                      seperatorView.isHidden = true
                      refundableFaresOnlyLabel.isHidden = true
                      refundableFaresButton.isHidden = true
+                    refundableFaresTopBtn.isHidden = true
                      refundableFaresButton.isUserInteractionEnabled = false
                  }
              }
@@ -388,11 +394,13 @@ class PriceFilterViewController: BaseVC , FilterViewController {
                      seperatorView.isHidden = false
                      refundableFaresOnlyLabel.isHidden = false
                      refundableFaresButton.isHidden = false
+                    refundableFaresTopBtn.isHidden = false
                      refundableFaresButton.isUserInteractionEnabled = true
                  }else{
                      seperatorView.isHidden = true
                      refundableFaresOnlyLabel.isHidden = true
                      refundableFaresButton.isHidden = true
+                    refundableFaresTopBtn.isHidden = true
                      refundableFaresButton.isUserInteractionEnabled = false
                  }
              }
