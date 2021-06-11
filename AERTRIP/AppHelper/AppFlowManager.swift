@@ -1037,7 +1037,7 @@ extension AppFlowManager {
     
     
     
-    func moveHotelCalenderVC(isHotelCalendar: Bool = false, isReturn: Bool = false, isMultiCity: Bool = false, checkInDate: Date? = nil, checkOutDate: Date? = nil, delegate: CalendarDataHandler, isStartDateSelection: Bool, navigationController: UINavigationController? = nil) {
+    func moveHotelCalenderVC(isHotelCalendar: Bool = false, isReturn: Bool = false, isMultiCity: Bool = false, checkInDate: Date? = nil, checkOutDate: Date? = nil, delegate: CalendarDataHandler, isStartDateSelection: Bool, navigationController: UINavigationController? = nil, isFromHotelBulkBooking:Bool = false) {
         if let ob = UIStoryboard(name: "AertripCalendar", bundle: Bundle(for: AertripCalendarViewController.self)).instantiateViewController(withIdentifier: "AertripCalendarViewController") as? AertripCalendarViewController {
             let calendarVM = CalendarVM()
             calendarVM.isHotelCalendar = isHotelCalendar
@@ -1046,6 +1046,7 @@ extension AppFlowManager {
             calendarVM.isStartDateSelection = isStartDateSelection
             calendarVM.date1 = checkInDate
             calendarVM.date2 = checkOutDate
+            calendarVM.isFromHotelBulkBooking = isFromHotelBulkBooking
             ob.viewModel = calendarVM
             ob.viewModel?.delegate = delegate
             (navigationController ?? self.mainNavigationController).present(ob, animated: true, completion: nil)

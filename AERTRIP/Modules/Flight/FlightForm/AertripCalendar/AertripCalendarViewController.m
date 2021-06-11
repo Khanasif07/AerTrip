@@ -1025,7 +1025,11 @@
         [dict setValue:self.viewModel.date1.description forKey:@"checkIn"];
         [dict setValue:self.viewModel.date2.description forKey:@"checkOut"];
 
-        [self logEvents:@"Hotel" valueDict:dict];
+        if(self.viewModel.isFromHotelBulkBooking){
+            [self logEvents:@"HotelBulkBooking" valueDict:dict];
+        }else{
+            [self logEvents:@"Hotel" valueDict:dict];
+        }
 
     }
 }
@@ -1369,8 +1373,9 @@
     FirebaseEventLogs *eventController = FirebaseEventLogs.shared;
     
     if([tripType  isEqual: @"Hotel"]){
-//        [eventController logHotelCalenderDateSelectionEvents :dictValue];
-        [eventController logHotelCalenderDateSelectionEventsWithDictValue:dictValue];
+        [eventController logHotelCalenderDateSelectionEventsWithDictValue:dictValue isFromHotelBulkBooking:false];
+    }else if([tripType isEqual:@"HotelBulkBooking"]){
+        [eventController logHotelCalenderDateSelectionEventsWithDictValue:dictValue isFromHotelBulkBooking:true];
     }else{
         [eventController logFlightCalenderDateSelectionEvents:tripType dictValue:dictValue];
     }

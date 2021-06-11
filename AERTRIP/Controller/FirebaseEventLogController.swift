@@ -673,7 +673,10 @@ class FirebaseEventLogs: NSObject{
         
         case TripType
         case CheckInCheckOutDates
+        case BulkBookingCheckInCheckOutDates
         
+        case CitySelectedForBulkBooking
+        case SelectedCity
     }
     
     // MARK: App Open Event
@@ -1264,11 +1267,30 @@ class FirebaseEventLogs: NSObject{
         
     }
     
+//    MARK:- Hotel City Selection
+    @objc func logSelectedCityForHotel(city:String, isFromHotelBulkBooking:Bool = false){
+        var eventName = ""
+        if isFromHotelBulkBooking{
+            eventName = EventsTypeName.CitySelectedForBulkBooking.rawValue
+        }else{
+            eventName = EventsTypeName.SelectedCity.rawValue
+        }
+
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelCitySelected.rawValue, params:[AnalyticsKeys.name.rawValue:eventName, AnalyticsKeys.type.rawValue:"n/a", AnalyticsKeys.values.rawValue:city])
+
+    }
+    
 //    MARK:- Hotel Calender
     
-    @objc func logHotelCalenderDateSelectionEvents(dictValue:JSONDictionary){
+    @objc func logHotelCalenderDateSelectionEvents(dictValue:JSONDictionary, isFromHotelBulkBooking:Bool = false){
         
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelsCalendar.rawValue, params:[AnalyticsKeys.name.rawValue:EventsTypeName.CheckInCheckOutDates.rawValue,AnalyticsKeys.type.rawValue:"n/a", AnalyticsKeys.values.rawValue:dictValue])
+        var eventName = ""
+        if isFromHotelBulkBooking{
+            eventName = EventsTypeName.BulkBookingCheckInCheckOutDates.rawValue
+        }else{
+            eventName = EventsTypeName.CheckInCheckOutDates.rawValue
+        }
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelsCalendar.rawValue, params:[AnalyticsKeys.name.rawValue:eventName, AnalyticsKeys.type.rawValue:"n/a", AnalyticsKeys.values.rawValue:dictValue])
 
     }
 //    MARK:- Flight Calender

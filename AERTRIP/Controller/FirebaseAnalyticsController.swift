@@ -152,6 +152,8 @@ enum AnalyticsEvents: String {
     
     case FlightsCalendar
     case HotelsCalendar
+    
+    case HotelCitySelected
 
 }
 
