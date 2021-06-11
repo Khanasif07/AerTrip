@@ -248,13 +248,15 @@ extension FlightDomesticMultiLegResultVC {
         let index = tableView.tag - 1000
         let headerView = journeyHeaderViewArray[index]
         
-        let height : CGFloat
+        var height : CGFloat
         if headerView.isHidden {
             height = 0.0//138.0
         }
         else {
             height = 44.0//188.0
         }
+        let statusHeight = AppDelegate.shared.window?.safeAreaInsets.top ?? 0
+        height += statusHeight
         
 //        tableView.contentInset = UIEdgeInsets(top: height, left: 0, bottom: 0, right: 0)
         
@@ -350,6 +352,7 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
+        let statusHeight = AppDelegate.shared.window?.safeAreaInsets.top ?? 0
         // Synchronizing scrolling of headerCollectionView to baseScrollView scroll movement
         
         if !scrollView.isScrollEnabled{
@@ -381,8 +384,8 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
                 }
                 else {
                     if let tableView = subview as? UIScrollView {
-                        if tableView.contentOffset.y < 0{
-                            tableView.contentOffset.y = 0
+                        if tableView.contentOffset.y < -statusHeight {
+                            tableView.contentOffset.y = -statusHeight
                         }else{
                             tableView.setContentOffset(tableView.contentOffset, animated: false)
                         }
