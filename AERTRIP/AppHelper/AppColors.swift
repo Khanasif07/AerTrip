@@ -273,6 +273,12 @@ enum AppColors {
     static let sliderTrackColor = UIColor(named: "sliderTrackColor") ?? UIColor(displayP3Red: 0.9019607843, green: 0.9019607843, blue: 0.9019607843, alpha: 1)
     
     
+    // (236, 253, 244) (0, 204, 153, 0.2)
+    static var flightFilterSessionSelectedColor: UIColor { UIColor(named: "flightFilterSessionSelectedColor") ?? .white }
+    
+    ///(246,  246,  246) (255, 255, 255,  0.1)
+    static var flightFilterSessionDefaultColor: UIColor { UIColor(named: "flightFilterSessionDefaultColor") ?? .white }
+    
     case headlines
     case body
     case subheads
