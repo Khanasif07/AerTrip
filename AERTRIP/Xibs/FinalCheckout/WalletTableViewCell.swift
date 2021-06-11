@@ -25,11 +25,8 @@ class WalletTableViewCell: UITableViewCell {
     // MARK: - Properties
     weak var delegate : WalletTableViewCellDelegate?
     
-    
-
     override func awakeFromNib() {
         super.awakeFromNib()
-       
         self.setUpFonts()
         self.setUpColors()
         self.setUpText()
@@ -46,15 +43,13 @@ class WalletTableViewCell: UITableViewCell {
         self.walletTitleLabel.font = AppFonts.Regular.withSize(18.0)
         self.balanceLabel.font = AppFonts.Regular.withSize(16.0)
         self.amountLabel.font = AppFonts.SemiBold.withSize(16.0)
-        
-        
     }
     
     private func setUpColors() {
         self.walletTitleLabel.textColor = AppColors.textFieldTextColor51
         self.balanceLabel.textColor = AppColors.themeGray40
         self.amountLabel.textColor = AppColors.textFieldTextColor51
-
+        self.contentView.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     private func setUpText() {
@@ -70,16 +65,17 @@ class WalletTableViewCell: UITableViewCell {
     }
     
     
-    
-    
     @IBAction func switchValueChanged(_ sender: UISwitch) {
         sender.isOn ? delegate?.valueForSwitch(isOn: true) : delegate?.valueForSwitch(isOn: false)
     }
+    
 }
 
 extension WalletTableViewCell: SFSafariViewControllerDelegate {
+    
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
         AppFlowManager.default.mainNavigationController.dismiss(animated: true, completion: nil)
     }
+    
 }
 

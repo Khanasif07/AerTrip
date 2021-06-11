@@ -17,6 +17,10 @@ class FlightSortFilterViewController: UIViewController {
     @IBOutlet weak var smartSortDescription: UILabel!
     @IBOutlet weak var sortTableview: UITableView!
     
+    @IBOutlet weak var whySmartLabel: UILabel!
+    
+    
+    
     let viewModel = FlightSortFilterVM()
     
     //MARK:- View Controller Life Cycle Methods
@@ -27,15 +31,13 @@ class FlightSortFilterViewController: UIViewController {
     
 
     //MARK:- Additional setup methods
-    fileprivate func setupTableView ()
-    {
+    fileprivate func setupTableView () {
         sortTableview.separatorStyle = .none
         sortTableview.bounces = false
         sortTableview.isScrollEnabled = false
     }
     
-    func resetSort()
-    {
+    func resetSort() {
         viewModel.resetSort()
         self.sortTableview.reloadData()
     }
@@ -49,9 +51,8 @@ class FlightSortFilterViewController: UIViewController {
             var attributes : [NSAttributedString.Key : Any]
             if ( sortFilter == viewModel.selectedSorting) {
                 attributes = [NSAttributedString.Key.font : AppFonts.Regular.withSize(18),
-                              NSAttributedString.Key.foregroundColor : UIColor.AertripColor]
-            }
-            else {
+                              NSAttributedString.Key.foregroundColor : AppColors.commonThemeGreen]
+            } else {
                 attributes = [NSAttributedString.Key.font : AppFonts.Regular.withSize(18)]
             }
             
@@ -72,7 +73,7 @@ class FlightSortFilterViewController: UIViewController {
                 substring = "  " + "Latest first"
             }
 
-            let substringAttributedString = NSAttributedString(string: substring, attributes: [NSAttributedString.Key.font : AppFonts.Regular.withSize(14), NSAttributedString.Key.foregroundColor : UIColor.ONE_FIVE_THREE_COLOR  ])
+            let substringAttributedString = NSAttributedString(string: substring, attributes: [NSAttributedString.Key.font : AppFonts.Regular.withSize(14), NSAttributedString.Key.foregroundColor : AppColors.commonThemeGray ])
             attributedString.append(substringAttributedString)
          
             return attributedString
@@ -85,7 +86,7 @@ class FlightSortFilterViewController: UIViewController {
         
         let attributedString = NSMutableAttributedString(string: "Smart Sort enables you to select your flight from just the first few results. Flights are sorted after comparing price, duration and various other factors. Learn more", attributes: [
             .font: AppFonts.Regular.withSize(16),
-            .foregroundColor: UIColor.black,
+            .foregroundColor: AppColors.commonThemeGray,
             .kern: 0.0
             ])
         attributedString.addAttributes([
@@ -121,12 +122,20 @@ class FlightSortFilterViewController: UIViewController {
     }
     
     func initialSetup() {
+        setUpColors()
         setupTableView()
         setupSortDescription()
         viewModel.selectedSorting = Sort.Smart
         viewModel.vmDelegate = self
         viewModel.setAppliedSortFromDeepLink()
     }
+    
+    func setUpColors(){
+        self.whySmartLabel.textColor = AppColors.themeBlack
+        self.smartSortDescription.textColor = AppColors.themeBlack
+        self.view.backgroundColor = AppColors.themeWhiteDashboard
+    }
+    
 }
 
 extension FlightSortFilterViewController : UITableViewDataSource , UITableViewDelegate {
@@ -140,13 +149,16 @@ extension FlightSortFilterViewController : UITableViewDataSource , UITableViewDe
         cell.selectionStyle = .none
         cell.textLabel?.attributedText = self.getAttributedStringFor(index: indexPath.row)
         cell.accessoryView = nil
+        
+        cell.contentView.backgroundColor = AppColors.themeWhiteDashboard
+        cell.accessoryView?.backgroundColor = AppColors.clear
+        
         if  let sortFilter = Sort(rawValue: indexPath.row) {
             
             if sortFilter == viewModel.selectedSorting {
 //                cell.accessoryView = UIImageView(image: UIImage(named: "greenTick"))
                 
-                if viewModel.isInitialSetup == false
-                {
+                if viewModel.isInitialSetup == false {
                     let indicator = UIActivityIndicatorView(style: .medium)
                     indicator.color = .AertripColor
                     indicator.startAnimating()

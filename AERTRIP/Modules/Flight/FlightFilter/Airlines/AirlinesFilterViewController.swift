@@ -72,8 +72,6 @@ class AirlinesFilterViewController: UIViewController , FilterViewController {
                 stopButton.backgroundColor = UIColor.AertripColor
             }
             
-            
-            
             multicitySegmentView.addSubview(stopButton)
             
             if i != numberOfStops {
@@ -99,8 +97,13 @@ class AirlinesFilterViewController: UIViewController , FilterViewController {
         }
         setupTableView()
         setmultiLegSubviews()
+        setUpColors()
     }
     
+    func setUpColors(){
+        self.view.backgroundColor = AppColors.themeWhiteDashboard
+        self.airlinesTableView.backgroundColor = AppColors.clear
+    }
     
     
     func updateUIPostLatestResults() {
@@ -165,8 +168,7 @@ class AirlinesFilterViewController: UIViewController , FilterViewController {
         }
         JourneyTitle.attributedText = viewModel.currentSelectedAirlineFilter.leg.descriptionOneFiveThree
         self.airlinesTableView.reloadData()
-        
-        
+    
     }
     
     @objc func airlineRadioButtonTapped(sender : UIButton) {

@@ -52,6 +52,7 @@ class ApplyCouponTableViewCell: UITableViewCell {
     private func setUpColors() {
        couponLabel.textColor = AppColors.themeBlack
        appliedCouponLabel.textColor = AppColors.themeGreen
+        self.contentView.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     private func setUpText() {
