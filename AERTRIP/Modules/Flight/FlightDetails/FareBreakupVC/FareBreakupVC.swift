@@ -105,7 +105,7 @@ class FareBreakupVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
         initialDisplayView()
         taxesDataDisplay()
         swipeDownToClose()
-        
+        self.totalPayableView.backgroundColor = AppColors.themeWhite
         infoLabel.isHidden = false
         bookingInfoArrowImg.isHidden = false
         
@@ -118,7 +118,7 @@ class FareBreakupVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
                 self.view.backgroundColor = .clear
             
             if isFareBreakupExpanded{
-                self.fareDataDisplayView.backgroundColor = .white
+                self.fareDataDisplayView.backgroundColor = AppColors.themeWhite
                 self.bookingDataDisplayView.addGredient(isVertical: false)
             }else{
             }
@@ -133,7 +133,7 @@ class FareBreakupVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
                 })
             }else{
                 fareDataDisplayView.removeGredient()
-                fareDataDisplayView.backgroundColor = .white
+                fareDataDisplayView.backgroundColor =  AppColors.themeWhite
                 self.bookingDataDisplayView.addGredient(isVertical: false)
             }
         }
