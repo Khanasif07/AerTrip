@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -22,11 +21,13 @@
                 <outlet property="avoidOvernightImgView" destination="Meq-xf-eIn" id="3Xq-Wt-sUI"/>
                 <outlet property="avoidOvernightTitleLbl" destination="PMj-sD-mHk" id="SyX-z0-DJd"/>
                 <outlet property="avoidOvernightView" destination="LfR-tp-44x" id="yD6-Cb-xaz"/>
+                <outlet property="backScrollView" destination="aP5-Kb-O8y" id="8oW-7q-o4H"/>
                 <outlet property="layoverDurationMaxLabel" destination="uPO-L1-LNA" id="PLq-W8-asf"/>
                 <outlet property="layoverDurationMaxLabelWidth" destination="Oif-78-PXP" id="6WD-yl-qbp"/>
                 <outlet property="layoverDurationMinLabel" destination="tbF-za-o29" id="yoq-xJ-MuM"/>
                 <outlet property="layoverDurationMinLabelWidth" destination="5MP-j0-bfT" id="Fa4-4L-sK2"/>
                 <outlet property="layoverDurationSlider" destination="xWh-ei-QaR" id="ywc-hp-NJ1"/>
+                <outlet property="layoverDurationTitleLabel" destination="cnh-sz-fNM" id="CTK-Ct-7J6"/>
                 <outlet property="multiLegSegmentView" destination="mVL-pa-1Gg" id="RQC-ev-IWl"/>
                 <outlet property="multiLegView" destination="ojm-Bf-ycX" id="6ru-0r-NMo"/>
                 <outlet property="multiLegViewHeight" destination="AJ9-R4-Akg" id="eqM-ZU-SNY"/>
@@ -37,6 +38,7 @@
                 <outlet property="tripDurationMinLabel" destination="IRl-w4-cM2" id="ryG-yX-NtP"/>
                 <outlet property="tripDurationMinLabelWidth" destination="fTy-mo-fUj" id="mO1-Ne-r6v"/>
                 <outlet property="tripDurationSlider" destination="8kD-f4-BI3" id="vJn-TZ-baL"/>
+                <outlet property="tripDurationTitleLabel" destination="oYo-S4-Rhz" id="6c5-Wh-r3T"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -135,7 +137,7 @@
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8kD-f4-BI3" customClass="AertripRangeSlider" customModule="AERTRIP" customModuleProvider="target">
                                             <rect key="frame" x="16" y="151.5" width="343" height="28"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="28" id="nk4-WX-wBw"/>
                                             </constraints>
@@ -146,7 +148,7 @@
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xWh-ei-QaR" customClass="AertripRangeSlider" customModule="AERTRIP" customModuleProvider="target">
                                             <rect key="frame" x="16" y="294" width="343" height="28"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="28" id="7Cb-ID-5IK"/>
                                             </constraints>
@@ -190,7 +192,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="xWh-ei-QaR" secondAttribute="bottom" constant="16" id="0ZE-EI-O6G"/>
                                         <constraint firstItem="8kD-f4-BI3" firstAttribute="top" secondItem="IRl-w4-cM2" secondAttribute="bottom" constant="16" id="22z-7h-YkB"/>
@@ -260,7 +262,7 @@
                                             </connections>
                                         </button>
                                     </subviews>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstItem="zg6-W4-0lg" firstAttribute="leading" secondItem="LfR-tp-44x" secondAttribute="leading" id="3cy-LY-6CY"/>
                                         <constraint firstAttribute="trailing" secondItem="zg6-W4-0lg" secondAttribute="trailing" id="6uh-oj-sKt"/>
@@ -275,8 +277,10 @@
                                     </constraints>
                                 </view>
                             </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </stackView>
                     </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="igl-1b-N06" firstAttribute="leading" secondItem="aP5-Kb-O8y" secondAttribute="leading" id="Dqd-0q-COK"/>
                         <constraint firstItem="igl-1b-N06" firstAttribute="top" secondItem="aP5-Kb-O8y" secondAttribute="top" id="Szz-vb-Qwl"/>
@@ -303,8 +307,5 @@
     </objects>
     <resources>
         <image name="UncheckedGreenRadioButton" width="22" height="22"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>
