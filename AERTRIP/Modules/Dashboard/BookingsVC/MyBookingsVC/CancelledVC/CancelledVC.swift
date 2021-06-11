@@ -119,8 +119,8 @@ class CancelledVC: BaseVC {
     func manageFooter(isHidden: Bool) {
         //        guard self.isViewLoaded, let _ = self.view.window  else {return}
         self.footerView?.isHidden = isHidden
-        self.footerHeightConstraint?.constant = isHidden ? 0.0 : 44.0
-        self.footerBottomConstraint?.constant = isHidden ? 0.0 : AppFlowManager.default.safeAreaInsets.bottom
+        self.footerHeightConstraint?.constant = isHidden ? 0.0 : (44.0 + AppFlowManager.default.safeAreaInsets.bottom)
+        self.footerBottomConstraint?.constant = 0.0
         //self.view.layoutIfNeeded()
     }
     

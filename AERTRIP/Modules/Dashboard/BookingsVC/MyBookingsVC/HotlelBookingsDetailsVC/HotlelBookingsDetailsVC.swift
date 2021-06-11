@@ -100,6 +100,7 @@ class HotlelBookingsDetailsVC: BaseVC {
     
     override func setupColors() {
         self.topNavBar.backgroundColor = AppColors.clear
+        self.view.backgroundColor = AppColors.themeWhite
     }
     
     override func bindViewModel() {
@@ -125,6 +126,12 @@ class HotlelBookingsDetailsVC: BaseVC {
             }
         }
     }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.bookingDetailsTableView.reloadData()
+    }
+    
     @objc func bookingDetailFetched(_ note: Notification) {
         if let object = note.object as? BookingDetailModel {
             printDebug("BookingDetailModel")

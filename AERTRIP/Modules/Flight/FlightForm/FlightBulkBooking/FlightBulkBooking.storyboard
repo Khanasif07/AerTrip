@@ -857,7 +857,7 @@
                                                                 </constraints>
                                                             </view>
                                                         </subviews>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="backgroundColor" name="themeBlack26"/>
                                                         <constraints>
                                                             <constraint firstAttribute="bottom" secondItem="TEw-jR-Od3" secondAttribute="bottom" constant="0.5" id="0kh-wU-hQ1"/>
                                                             <constraint firstItem="oiC-aU-R9z" firstAttribute="width" secondItem="HlQ-Il-hkT" secondAttribute="width" multiplier="1/2" id="DvD-re-hNa"/>

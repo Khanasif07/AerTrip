@@ -361,7 +361,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
         cell.editableTextField.delegate = self
         cell.editableTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
         cell.showError(isError: (value.isEmpty && self.viewModel.isPayButtonTapped))
-        
+        cell.contentView.backgroundColor = AppColors.themeWhite
         return cell
     }
     
@@ -384,7 +384,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
         cell.editableTextField.delegate = self
         cell.editableTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
         cell.showErrorForAccountDeposit(isError: (value.isEmpty && self.viewModel.isPayButtonTapped))
-        
+        cell.contentView.backgroundColor = AppColors.themeWhite
         return cell
     }
     
@@ -403,7 +403,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
         cell.sepratorView.isHidden = !isDivider
         cell.addNoteTextView.delegate = self
         //cell.addNoteTextView.textContainerInset = .zero
-        
+        cell.contentView.backgroundColor = AppColors.themeWhite
         return cell
     }
     

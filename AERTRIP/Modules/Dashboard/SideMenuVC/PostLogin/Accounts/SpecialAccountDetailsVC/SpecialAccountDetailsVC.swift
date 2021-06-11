@@ -95,6 +95,10 @@ class SpecialAccountDetailsVC: BaseVC {
 
     }
     
+    override func setupColors() {
+        self.view.backgroundColor = AppColors.themeWhite
+    }
+    
     override func dataChanged(_ note: Notification) {
         if let noti = note.object as? ATNotification {
             switch noti {

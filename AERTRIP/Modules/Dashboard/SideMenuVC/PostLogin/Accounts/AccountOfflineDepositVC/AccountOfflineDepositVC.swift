@@ -67,7 +67,8 @@ class AccountOfflineDepositVC: BaseVC {
     }
     
     override func setupColors() {
-        self.payButton.setTitleColor(AppColors.themeWhite, for: .normal)
+        self.payButton.setTitleColor(AppColors.whiteColorForButton, for: .normal)
+        self.checkOutTableView.backgroundColor = AppColors.screensBackground.color
     }
     
     override func bindViewModel() {

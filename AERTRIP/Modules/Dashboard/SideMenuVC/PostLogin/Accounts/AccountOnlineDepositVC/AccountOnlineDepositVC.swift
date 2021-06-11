@@ -77,6 +77,7 @@ class AccountOnlineDepositVC: BaseVC {
     
     override func setupColors() {
         self.payButton.setTitleColor(AppColors.themeWhite, for: .normal)
+        self.view.backgroundColor = AppColors.themeWhite
     }
     
     override func bindViewModel() {

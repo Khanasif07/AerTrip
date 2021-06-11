@@ -186,6 +186,7 @@
 
 - (void) manageDoneView{
     self.visualEffectsView.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleProminent];
+    self.resultTableView.backgroundColor = [UIColor themeBlack26];
 //    self.doneOutterView.backgroundColor = [UIColor doneViewClearColor];
 //    if (self.isLightTheme){
 //        [self.visualEffectsView setHidden: false];
@@ -1240,7 +1241,7 @@
             count1 = [[self.displaySections objectForKey:key] count];
         }
     }
-
+    cell.contentView.backgroundColor = [UIColor themeBlack26];
     
     return cell;
 }

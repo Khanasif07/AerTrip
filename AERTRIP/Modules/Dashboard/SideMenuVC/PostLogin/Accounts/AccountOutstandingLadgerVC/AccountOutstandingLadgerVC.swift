@@ -204,12 +204,14 @@ class AccountOutstandingLadgerVC: BaseVC {
     }
     
     override func setupColors() {
+        self.view.backgroundColor = AppColors.themeWhite
         self.summeryLabel.textColor = AppColors.themeGray40
         
         self.tableView.backgroundColor = AppColors.themeWhite
         
         self.searchContainerView.backgroundColor = AppColors.themeWhite
         self.searchBarContainerView.backgroundColor = AppColors.themeWhite
+        self.subheaderDetailsConstainer.backgroundColor = AppColors.themeWhite
         self.blankSpaceView.backgroundColor = AppColors.themeGray04
         
         self.makePaymentTitleLabel.textColor = AppColors.themeWhite
