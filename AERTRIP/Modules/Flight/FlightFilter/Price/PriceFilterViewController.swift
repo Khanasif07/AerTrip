@@ -21,6 +21,7 @@ class PriceFilterViewController: BaseVC , FilterViewController {
     @IBOutlet weak var priceRangeSlider: AertripRangeSlider!
     @IBOutlet weak var multicityViewHeight: NSLayoutConstraint!
     @IBOutlet weak var JourneyTitle: UILabel!
+    @IBOutlet weak var priceSliderContainerView: UIView!
     @IBOutlet weak var fareMinValView: UIView!
     @IBOutlet weak var fareMinValue: UILabel!
     @IBOutlet weak var fareMaxValView: UIView!
@@ -185,6 +186,12 @@ class PriceFilterViewController: BaseVC , FilterViewController {
         for index in 0..<multiLegSegmentControl.numberOfSegments {
             let segmentTitle = getSegmentTitleFor(index + 1)
             multiLegSegmentControl.setTitle(segmentTitle, forSegmentAt: index)
+        }
+    }
+    
+    override func setupColors() {
+        [self.view,self.multiLegView, self.multiSegmentView,priceSliderContainerView].forEach { view in
+            view?.backgroundColor = AppColors.themeWhiteDashboard
         }
     }
     
