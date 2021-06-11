@@ -36,11 +36,9 @@ class AirlinesFilterViewController: UIViewController , FilterViewController {
         airlinesTableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
     }
     
-    
     fileprivate func setmultiLegSubviews () {
         
         multicitySegmentView.subviews.forEach { $0.removeFromSuperview() }
-        
         multicitySegmentView.layer.cornerRadius = 3
         multicitySegmentView.layer.borderColor = UIColor.AertripColor.cgColor
         multicitySegmentView.layer.borderWidth = 1.0

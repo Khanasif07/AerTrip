@@ -21,13 +21,30 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     @IBOutlet weak var multiLegView: UIView!
     @IBOutlet weak var multiLegSegmentView: UIView!
     @IBOutlet weak var sectorNameLbl: UILabel!
-    
     @IBOutlet weak var avoidOvernightView: UIView!
     @IBOutlet weak var avoidOvernightTitleLbl: UILabel!
     @IBOutlet weak var allSectorsLbl: UILabel!
     @IBOutlet weak var avoidOvernightDescLbl: UILabel!
     @IBOutlet weak var avoidOvernightImgView: UIImageView!
     @IBOutlet weak var avoidOvernightBtn: UIButton!
+    @IBOutlet weak var backScrollView: UIScrollView!
+    @IBOutlet weak var tripDurationTitleLabel: UILabel!
+    @IBOutlet weak var layoverDurationTitleLabel: UILabel!
+    
+
+    //MARK:- Outlets
+    @IBOutlet weak var tripDurationMinLabel: UILabel!
+    @IBOutlet weak var tripDurationMinLabelWidth: NSLayoutConstraint!
+    @IBOutlet weak var tripDurationMaxLabel: UILabel!
+    @IBOutlet weak var tripDurationMaxLabelWidth: NSLayoutConstraint!
+    @IBOutlet weak var layoverDurationMinLabel: UILabel!
+    @IBOutlet weak var layoverDurationMinLabelWidth: NSLayoutConstraint!
+    @IBOutlet weak var layoverDurationMaxLabel: UILabel!
+    @IBOutlet weak var layoverDurationMaxLabelWidth: NSLayoutConstraint!
+    @IBOutlet weak var tripDurationSlider: AertripRangeSlider!
+    @IBOutlet weak var layoverDurationSlider: AertripRangeSlider!
+    @IBOutlet weak var multicityViewHeight: NSLayoutConstraint!
+    
     
     //MARK:- Initializers
     convenience init(delegate : FlightDurationFilterDelegate, durationFilters : [DurationFilter]) {
@@ -49,21 +66,6 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         
     }
     
-    
-    //MARK:- Outlets
-    @IBOutlet weak var tripDurationMinLabel: UILabel!
-    @IBOutlet weak var tripDurationMinLabelWidth: NSLayoutConstraint!
-    @IBOutlet weak var tripDurationMaxLabel: UILabel!
-    @IBOutlet weak var tripDurationMaxLabelWidth: NSLayoutConstraint!
-    @IBOutlet weak var layoverDurationMinLabel: UILabel!
-    @IBOutlet weak var layoverDurationMinLabelWidth: NSLayoutConstraint!
-    @IBOutlet weak var layoverDurationMaxLabel: UILabel!
-    @IBOutlet weak var layoverDurationMaxLabelWidth: NSLayoutConstraint!
-    @IBOutlet weak var tripDurationSlider: AertripRangeSlider!
-    @IBOutlet weak var layoverDurationSlider: AertripRangeSlider!
-    @IBOutlet weak var multicityViewHeight: NSLayoutConstraint!
-    
-    
     //MARK:- View Controller Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,7 +83,16 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
                 
         initialSetup()
         addMarkersOnTripDuration()
+        setUColors()
+    }
+    
+    
+    func setUColors(){
+        self.view.backgroundColor = AppColors.themeWhiteDashboard
         
+        
+        
+//        self.backScrollView.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     private func addMarkersOnTripDuration() {

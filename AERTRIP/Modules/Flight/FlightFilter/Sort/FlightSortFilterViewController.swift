@@ -151,7 +151,8 @@ extension FlightSortFilterViewController : UITableViewDataSource , UITableViewDe
         cell.accessoryView = nil
         
         cell.contentView.backgroundColor = AppColors.themeWhiteDashboard
-        cell.accessoryView?.backgroundColor = AppColors.clear
+        cell.accessoryView?.backgroundColor = AppColors.themeWhiteDashboard
+        
         
         if  let sortFilter = Sort(rawValue: indexPath.row) {
             
@@ -164,11 +165,13 @@ extension FlightSortFilterViewController : UITableViewDataSource , UITableViewDe
                     indicator.startAnimating()
                     indicator.hidesWhenStopped = true
                     cell.accessoryView = indicator
+                    indicator.backgroundColor = AppColors.themeWhiteDashboard
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         indicator.stopAnimating()
                         cell.accessoryView = UIImageView(image: AppImages.greenTick)
                     }
+                    
                 }else{
                     cell.accessoryView = UIImageView(image: AppImages.greenTick)
                 }
