@@ -43,6 +43,13 @@ class WhySmartSortView: UIView {
     // MARK: Functions
     private func setupViews() {
         setupSortDescription()
+        setUpColors()
+    }
+    
+    func setUpColors(){
+        self.contentView.backgroundColor = AppColors.themeWhiteDashboard
+        self.backgroundColor = AppColors.themeWhiteDashboard
+        self.titleLbl.textColor = AppColors.themeBlack
     }
     
     fileprivate func setupSortDescription() {
@@ -50,7 +57,7 @@ class WhySmartSortView: UIView {
         let attributedString = NSMutableAttributedString(string: "Smart Sort enables you to select your flight from just the first few results. Flights are sorted after comparing price, duration and various other factors. Learn more", attributes: [
 //            .font: UIFont(name: "SourceSansPro-Regular", size: 16.0)!,
             .font: AppFonts.Regular.withSize(16),
-            .foregroundColor: UIColor.black,
+            .foregroundColor: AppColors.blackAndThemeGray,
             .kern: 0.0
             ])
         attributedString.addAttributes([

@@ -16,7 +16,6 @@ class FlightSortFilterViewController: UIViewController {
 
     @IBOutlet weak var smartSortDescription: UILabel!
     @IBOutlet weak var sortTableview: UITableView!
-    
     @IBOutlet weak var whySmartLabel: UILabel!
     
     
@@ -86,7 +85,7 @@ class FlightSortFilterViewController: UIViewController {
         
         let attributedString = NSMutableAttributedString(string: "Smart Sort enables you to select your flight from just the first few results. Flights are sorted after comparing price, duration and various other factors. Learn more", attributes: [
             .font: AppFonts.Regular.withSize(16),
-            .foregroundColor: AppColors.commonThemeGray,
+            .foregroundColor: AppColors.blackAndThemeGray,
             .kern: 0.0
             ])
         attributedString.addAttributes([
@@ -151,7 +150,6 @@ extension FlightSortFilterViewController : UITableViewDataSource , UITableViewDe
         cell.accessoryView = nil
         
         cell.contentView.backgroundColor = AppColors.themeWhiteDashboard
-        cell.accessoryView?.backgroundColor = AppColors.themeWhiteDashboard
         
         
         if  let sortFilter = Sort(rawValue: indexPath.row) {
