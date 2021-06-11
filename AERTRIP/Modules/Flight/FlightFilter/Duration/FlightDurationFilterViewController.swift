@@ -90,6 +90,9 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     func setUColors(){
         self.view.backgroundColor = AppColors.themeWhiteDashboard
         
+        [self.view, self.tripDurationSlider, self.layoverDurationSlider].forEach { $0?.backgroundColor = AppColors.themeWhiteDashboard }
+        
+        [tripDurationMinLabel, tripDurationMaxLabel, layoverDurationMinLabel, layoverDurationMaxLabel].forEach { $0?.backgroundColor = AppColors.sliderTrackColor }
         
         
 //        self.backScrollView.backgroundColor = AppColors.themeWhiteDashboard
