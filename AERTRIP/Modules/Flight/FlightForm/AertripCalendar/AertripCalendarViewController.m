@@ -1018,6 +1018,16 @@
         [self logEvents:@"Return" valueDict:dict];
 
     }
+    
+    
+    if((self.viewModel.isHotelCalendar) && (self.viewModel.date1 != nil) && (self.viewModel.date2 != nil)){
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+        [dict setValue:self.viewModel.date1.description forKey:@"checkIn"];
+        [dict setValue:self.viewModel.date2.description forKey:@"checkOut"];
+
+        [self logEvents:@"Hotel" valueDict:dict];
+
+    }
 }
 
 - (void)removeSelectedDatesForLaterTabs:(NSDate*)currentSelectedDate
@@ -1057,7 +1067,7 @@
         NSString * key = [NSString stringWithFormat:@"%d",i];
         NSString *val = [self.multicityViewModel.travelDatesDictionary valueForKey:key];
 
-        if(val != @""){
+        if(![val  isEqual: @""]){
             NSString *str = [NSString stringWithFormat:@"Date %d",i];
             [dict setValue:val forKey:str];
         }
@@ -1358,7 +1368,12 @@
 - (void) logEvents:(NSString *) tripType valueDict:(NSDictionary *) dictValue {
     FirebaseEventLogs *eventController = FirebaseEventLogs.shared;
     
-    [eventController logFlightCalenderDateSelectionEvents:tripType dictValue:dictValue];
+    if([tripType  isEqual: @"Hotel"]){
+//        [eventController logHotelCalenderDateSelectionEvents :dictValue];
+        [eventController logHotelCalenderDateSelectionEventsWithDictValue:dictValue];
+    }else{
+        [eventController logFlightCalenderDateSelectionEvents:tripType dictValue:dictValue];
+    }
     
 }
 @end

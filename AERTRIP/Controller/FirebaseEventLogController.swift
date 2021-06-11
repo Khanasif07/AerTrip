@@ -672,6 +672,7 @@ class FirebaseEventLogs: NSObject{
         case SeatBookingIsPending
         
         case TripType
+        case CheckInCheckOutDates
         
     }
     
@@ -1263,6 +1264,13 @@ class FirebaseEventLogs: NSObject{
         
     }
     
+//    MARK:- Hotel Calender
+    
+    @objc func logHotelCalenderDateSelectionEvents(dictValue:JSONDictionary){
+        
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.HotelsCalendar.rawValue, params:[AnalyticsKeys.name.rawValue:EventsTypeName.CheckInCheckOutDates.rawValue,AnalyticsKeys.type.rawValue:"n/a", AnalyticsKeys.values.rawValue:dictValue])
+
+    }
 //    MARK:- Flight Calender
     
     @objc func logFlightCalenderDateSelectionEvents(_ tripType: String, dictValue:JSONDictionary){
