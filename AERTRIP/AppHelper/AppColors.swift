@@ -78,7 +78,7 @@ enum AppColors {
     /// RGB - 230, 230, 230
     static let themeGray10  = UIColor(named: "themeGray10") ?? UIColor(displayP3Red: 0.9019607843, green: 0.9019607843, blue: 0.9019607843, alpha: 1)
     
-    /// RGB - 246, 246, 246
+    /// RGB - 246, 246, 246 (0, 0, 0)
     static let themeGray04  = UIColor(named: "themeGray04") ?? UIColor(displayP3Red: 0.9647058824, green: 0.9647058824, blue: 0.9647058824, alpha: 1)
     
     /// RGB - 249, 249, 249
@@ -286,8 +286,13 @@ enum AppColors {
     ///(246,  246,  246) (255, 255, 255,  0.1)
     static var flightFilterSessionDefaultColor: UIColor { UIColor(named: "flightFilterSessionDefaultColor") ?? .white }
     
+
     ///(236,253,244,0.5) (0,204,153,0.03)
     static var stopsAllDeselected: UIColor { UIColor(named: "stopsAllDeselected") ?? .white }
+
+    //(0, 0, 0) (153, 153, 153)
+    static let baggageTypeTitleColor:UIColor = UIColor(named: "baggageTypeTitleColor") ?? AppColors.themeBlack
+
     
     case headlines
     case body

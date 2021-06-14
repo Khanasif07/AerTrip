@@ -57,7 +57,7 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
         }
         baggageTableView.showsVerticalScrollIndicator = true
         
-        
+        self.baggageTableView.backgroundColor = AppColors.themeGray04
         FirebaseEventLogs.shared.logFlightDetailsEvent(with: .FlightDetailsBaggageInfo)
 
     }
@@ -122,7 +122,7 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
             }else{
                 displayTxt = displayTxt + "•   Baggage details are indicative and subject to change without prior notice."
                 
-                let title = NSMutableAttributedString(string: displayTxt, attributes: [NSAttributedString.Key.paragraphStyle: style,NSAttributedString.Key.foregroundColor:UIColor.black])
+                let title = NSMutableAttributedString(string: displayTxt, attributes: [NSAttributedString.Key.paragraphStyle: style,NSAttributedString.Key.foregroundColor:AppColors.themeBlack])
                 changeAirportCell.dataLabel.attributedText = title
             }
             

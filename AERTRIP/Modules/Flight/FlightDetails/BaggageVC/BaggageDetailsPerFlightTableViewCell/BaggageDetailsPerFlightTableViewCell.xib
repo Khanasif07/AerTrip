@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -63,7 +63,7 @@
                                         </state>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="qeF-33-pKR" firstAttribute="centerY" secondItem="vCA-M7-Fgg" secondAttribute="centerY" id="8fV-Rd-uP6"/>
                                     <constraint firstItem="AfT-YN-h3e" firstAttribute="centerY" secondItem="vCA-M7-Fgg" secondAttribute="centerY" id="CzP-dT-u5b"/>
@@ -106,7 +106,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="nKJ-7S-jWF" firstAttribute="top" secondItem="oQN-8i-9ar" secondAttribute="top" id="7r4-vg-5gR"/>
                                             <constraint firstItem="Tpp-nS-UFc" firstAttribute="leading" secondItem="oQN-8i-9ar" secondAttribute="leading" id="NLc-iO-oUp"/>
@@ -146,7 +146,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="gRC-Et-KTH" firstAttribute="top" secondItem="MAO-Dj-tuX" secondAttribute="top" id="1Oe-03-Qry"/>
                                             <constraint firstAttribute="trailing" secondItem="gRC-Et-KTH" secondAttribute="trailing" id="1oz-CX-iue"/>
@@ -186,7 +186,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="yNL-gm-Wf5" secondAttribute="trailing" id="2Q3-IL-wdE"/>
                                             <constraint firstItem="yNL-gm-Wf5" firstAttribute="leading" secondItem="dEM-HF-jq9" secondAttribute="trailing" constant="16" id="7FY-sD-WMc"/>
@@ -226,7 +226,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="pVM-Qv-CuK" firstAttribute="leading" secondItem="agQ-ej-6rh" secondAttribute="trailing" constant="5" id="A6U-8o-FbW"/>
                                             <constraint firstAttribute="height" constant="30" id="Ny3-Z8-Ge7"/>
@@ -239,7 +239,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="cGe-bQ-EPD" firstAttribute="top" secondItem="baH-tF-Ny7" secondAttribute="bottom" id="6cE-yw-hlv"/>
                                     <constraint firstItem="baH-tF-Ny7" firstAttribute="leading" secondItem="mBf-YN-zre" secondAttribute="leading" id="8UJ-jx-MmG"/>
@@ -272,7 +272,7 @@ Baggage details are indicative and subject to change without prior notice.</stri
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="bwY-cL-q1E" secondAttribute="bottom" id="0d5-9H-ivK"/>
                                     <constraint firstItem="bwY-cL-q1E" firstAttribute="leading" secondItem="vQK-c9-LN2" secondAttribute="leading" constant="16" id="PQZ-53-xjW"/>
@@ -327,6 +327,9 @@ Baggage details are indicative and subject to change without prior notice.</stri
                 <outlet property="bottomSeperator" destination="cKD-ah-Zkr" id="HaA-2a-rzk"/>
                 <outlet property="bottomSeperatorBottom" destination="lVN-Lt-Ion" id="qgX-Es-SKL"/>
                 <outlet property="bottomSeperatorHeight" destination="Nbv-um-aXe" id="SoQ-yr-v6K"/>
+                <outlet property="cabinTitleLabel" destination="rUb-6A-FjR" id="Szq-TO-g5L"/>
+                <outlet property="checkInTitleLabel" destination="nKJ-7S-jWF" id="pIO-3x-sPF"/>
+                <outlet property="containerView" destination="2jE-4E-DiK" id="vsR-xE-mYw"/>
                 <outlet property="dataDisplayViewHeight" destination="QDn-Tu-z81" id="wBp-JT-grL"/>
                 <outlet property="dimensionsButton" destination="qeF-33-pKR" id="qcj-NR-JS4"/>
                 <outlet property="flightDetailsView" destination="1OO-eB-2EU" id="UUe-Mk-YaU"/>
@@ -352,6 +355,7 @@ Baggage details are indicative and subject to change without prior notice.</stri
                 <outlet property="perInfantViewHeight" destination="Ny3-Z8-Ge7" id="aaL-aZ-7X4"/>
                 <outlet property="topSeperatorView" destination="PhE-a6-Wyh" id="oNm-GO-ZSg"/>
                 <outlet property="topSeperatorViewHeight" destination="7Rq-ms-Q2t" id="Pj0-lJ-k9r"/>
+                <outlet property="typeTitleLabel" destination="Tpp-nS-UFc" id="wth-xN-g9Z"/>
             </connections>
             <point key="canvasLocation" x="144.92753623188406" y="198.54910714285714"/>
         </tableViewCell>
