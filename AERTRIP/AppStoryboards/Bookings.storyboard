@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -2184,7 +2185,7 @@ with us!</string>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="7aU-VL-6XS"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="themeWhite"/>
                         <constraints>
                             <constraint firstItem="28R-iA-8cu" firstAttribute="leading" secondItem="7aU-VL-6XS" secondAttribute="leading" id="B5K-DH-9WH"/>
                             <constraint firstItem="28R-iA-8cu" firstAttribute="trailing" secondItem="7aU-VL-6XS" secondAttribute="trailing" id="Hj9-CS-4yW"/>
@@ -3084,6 +3085,9 @@ with us!</string>
         <image name="cross_icon" width="22" height="22"/>
         <image name="greenCircleButton" width="22" height="22"/>
         <image name="saveHotelsSelected" width="27" height="30"/>
+        <namedColor name="themeWhite">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
         <systemColor name="groupTableViewBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

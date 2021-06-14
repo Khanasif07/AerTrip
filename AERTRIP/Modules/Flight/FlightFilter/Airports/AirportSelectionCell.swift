@@ -17,6 +17,12 @@ class AirportSelectionCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.contentView.backgroundColor = AppColors.themeWhiteDashboard
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.contentView.backgroundColor = AppColors.themeWhiteDashboard
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

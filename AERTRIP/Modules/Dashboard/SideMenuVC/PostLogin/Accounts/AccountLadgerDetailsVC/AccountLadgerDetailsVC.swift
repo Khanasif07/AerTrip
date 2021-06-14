@@ -140,6 +140,10 @@ class AccountLadgerDetailsVC: BaseVC {
         }
     }
     
+    override func setupColors() {
+        self.view.backgroundColor = AppColors.themeWhite
+    }
+    
     //MARK:- Methods
     //MARK:- Private
     private func setupParallexHeaderView() {

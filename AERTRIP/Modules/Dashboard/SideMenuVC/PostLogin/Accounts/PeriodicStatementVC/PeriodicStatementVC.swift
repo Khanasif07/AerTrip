@@ -48,6 +48,10 @@ class PeriodicStatementVC: BaseVC {
     override func bindViewModel() {
     }
     
+    override func setupColors() {
+        self.view.backgroundColor = AppColors.themeWhite
+    }
+    
     //MARK:- Methods
     //MARK:- Private
     private func initialSetups() {        

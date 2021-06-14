@@ -161,6 +161,16 @@ class FlightDetailsBaseVC: BaseVC {
         }
     }
     
+    override func setupColors() {
+        self.displayView.backgroundColor = AppColors.flightResultsFooterSecondaryColor
+        self.dataDisplayView.backgroundColor = AppColors.flightResultsFooterSecondaryColor
+    }
+    
+    deinit {
+        self.fareBreakup = nil
+        self.intFareBreakup = nil
+    }
+    
     //MARK:- Initialise Views
     func setupInitialViews()
     {
@@ -242,8 +252,9 @@ class FlightDetailsBaseVC: BaseVC {
         self.parchmentView?.font = AppFonts.Regular.withSize(16)
         self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16)
         self.parchmentView?.indicatorColor = UIColor.AertripColor
-        self.parchmentView?.selectedTextColor = .black
-        self.parchmentView?.menuBackgroundColor = .white
+        self.parchmentView?.selectedTextColor = AppColors.themeBlack
+        self.parchmentView?.textColor = AppColors.themeBlack
+        self.parchmentView?.menuBackgroundColor = .clear
         self.dataDisplayView.addSubview(self.parchmentView!.view)
         
         self.parchmentView?.collectionView.isScrollEnabled = false

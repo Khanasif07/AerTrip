@@ -641,8 +641,8 @@ class AccountDepositCell: UITableViewCell {
         self.depositButton.setTitle("Deposit", for: .normal)
         self.depositButton.setTitle("Deposit", for: .selected)
         self.depositButton.shadowColor = AppColors.appShadowColor
-        self.depositButton.setTitleColor(AppColors.themeWhite, for: .normal)
-        self.depositButton.setTitleColor(AppColors.themeWhite, for: .selected)
+        self.depositButton.setTitleColor(AppColors.whiteColorForButton, for: .normal)
+        self.depositButton.setTitleColor(AppColors.whiteColorForButton, for: .selected)
         self.depositButton.shadowColor = AppColors.appShadowColor//themeBlack.withAlphaComponent(0.16)
         self.depositButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
     }

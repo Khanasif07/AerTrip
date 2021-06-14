@@ -18,6 +18,12 @@ class PaymentInfoTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configUI()
+        self.containerView.backgroundColor = AppColors.themeWhiteDashboard
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.containerView.backgroundColor = AppColors.themeWhiteDashboard
     }
 
     private func configUI() {

@@ -25,8 +25,7 @@ extension FareBreakupVCDelegate{
     }
 }
 
-class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate
-{
+class FareBreakupVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
     //MARK:- Outlets
     @IBOutlet weak var backgroundDisplayView: UIView!
     @IBOutlet weak var fareDataDisplayView: UIView!
@@ -106,7 +105,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         initialDisplayView()
         taxesDataDisplay()
         swipeDownToClose()
-        
+        self.totalPayableView.backgroundColor = AppColors.themeWhite
         infoLabel.isHidden = false
         bookingInfoArrowImg.isHidden = false
         
@@ -119,7 +118,7 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 self.view.backgroundColor = .clear
             
             if isFareBreakupExpanded{
-                self.fareDataDisplayView.backgroundColor = .white
+                self.fareDataDisplayView.backgroundColor = AppColors.themeWhite
                 self.bookingDataDisplayView.addGredient(isVertical: false)
             }else{
             }
@@ -134,10 +133,15 @@ class FareBreakupVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                 })
             }else{
                 fareDataDisplayView.removeGredient()
-                fareDataDisplayView.backgroundColor = .white
+                fareDataDisplayView.backgroundColor =  AppColors.themeWhite
                 self.bookingDataDisplayView.addGredient(isVertical: false)
             }
         }
+    }
+    
+    
+    override func currencyChanged(_ note: Notification) {
+        self.taxesDataDisplay()
     }
     
     func taxesDataDisplay()

@@ -80,7 +80,7 @@ class TitleWithSubTitleTableViewCell: UITableViewCell {
 //        self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
         let shadow = AppShadowProperties()
         self.containerView.addShadow(cornerRadius: 0, maskedCorners: [], color: shadow.shadowColor, offset: shadow.offset, opacity: shadow.opecity, shadowRadius: shadow.shadowRadius)
-        self.containerView.backgroundColor = AppColors.themeWhite
+        self.containerView.backgroundColor = AppColors.themeWhiteDashboard
         self.backgroundColor = AppColors.themeWhite
         
     }

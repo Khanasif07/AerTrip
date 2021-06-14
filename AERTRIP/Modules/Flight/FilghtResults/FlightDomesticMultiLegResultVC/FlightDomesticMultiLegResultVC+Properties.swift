@@ -601,7 +601,7 @@ extension  FlightDomesticMultiLegResultVC {
 extension FlightDomesticMultiLegResultVC {
     
     
-    func updatePriceWhenGoneup(_ fk: String, changeResult: ChangeResult,tableIndex : Int ) {
+    func updatePriceWhenGoneUp(_ fk: String, changeResult: ChangeResult,tableIndex : Int ) {
         
          var journeyArray = self.viewModel.results[tableIndex].journeyArray
         guard let index = journeyArray.firstIndex(where: {
@@ -622,6 +622,21 @@ extension FlightDomesticMultiLegResultVC {
         //Updating pinned flight indicator in tableview Cell after pin / unpin action
         guard let tableview = self.baseScrollView.viewWithTag(1000 + tableIndex) as? UITableView  else { return }
         tableview.reloadData()
+    }
+    
+}
+
+extension FlightDomesticMultiLegResultVC {
+    
+    func currencyChanged(){
+        
+        for view in self.baseScrollView.subviews{
+            if let table = view as? UITableView{
+                table.reloadData()
+            }
+        }
+        
+        
     }
     
 }

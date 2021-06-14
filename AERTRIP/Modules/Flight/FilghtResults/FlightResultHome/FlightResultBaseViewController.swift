@@ -148,6 +148,35 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         }
     }
     
+    
+    override func currencyChanged(_ note: Notification) {
+        
+        let flightType = flightSearchResultVM.flightSearchType
+
+        switch flightType {
+        case SINGLE_JOURNEY:
+            self.singleJourneyResultVC?.reloadScreenOnCurrencyUpdaate()
+        case RETURN_JOURNEY:
+            if flightSearchResultVM.isDomestic {
+                self.domesticMultiLegResultVC?.currencyChanged()
+            }
+            else {
+                self.intMultiLegResultVC?.currencyChanged()
+            }
+        case  MULTI_CITY:
+            
+            if flightSearchResultVM.isDomestic {
+                self.domesticMultiLegResultVC?.currencyChanged()
+            } else {
+                self.intMultiLegResultVC?.currencyChanged()
+            }
+
+        default:
+            print("default")
+        }
+    }
+    
+    
     func addCustomBackgroundBlurView()
     {
         guard self.view.viewWithTag(500) == nil else {
@@ -249,7 +278,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         }
         
         ApiProgress.backgroundColor = UIColor.white
-        separatorView.backgroundColor = UIColor.TWO_ZERO_FOUR_COLOR
+        separatorView.backgroundColor = AppColors.divider.color//UIColor.TWO_ZERO_FOUR_COLOR
         backView.addSubview(separatorView)
                 //        separatorView.snp.makeConstraints { (make) in
         //            make.left.equalTo(visualEffectView.contentView).offset(0.0)
@@ -1739,7 +1768,7 @@ extension FlightResultBaseViewController{
                 if let changeData = flightItinary.changeResults{
                     for key in changeData.map({$0.key}){
                         if let index = key.toInt, let priceChnage = changeData[key]{
-                            self.domesticMultiLegResultVC?.updatePriceWhenGoneup(flightItinary.itinerary.details.legsWithDetail[index - 1].lfk, changeResult: priceChnage, tableIndex: (index - 1))
+                            self.domesticMultiLegResultVC?.updatePriceWhenGoneUp(flightItinary.itinerary.details.legsWithDetail[index - 1].lfk, changeResult: priceChnage, tableIndex: (index - 1))
                         }
                     }
                 }
@@ -1753,7 +1782,7 @@ extension FlightResultBaseViewController{
                 if let changeData = flightItinary.changeResults{
                     for key in changeData.map({$0.key}){
                         if let index = key.toInt, let priceChnage = changeData[key]{
-                            self.domesticMultiLegResultVC?.updatePriceWhenGoneup(flightItinary.itinerary.details.legsWithDetail[index - 1].lfk, changeResult: priceChnage, tableIndex: (index - 1))
+                            self.domesticMultiLegResultVC?.updatePriceWhenGoneUp(flightItinary.itinerary.details.legsWithDetail[index - 1].lfk, changeResult: priceChnage, tableIndex: (index - 1))
                         }
                     }
                 }
@@ -1774,3 +1803,39 @@ extension FlightResultBaseViewController: FlightFiltersToastDelegate {
         CustomToast.shared.showToast(msg)
     }
 }
+
+
+
+
+//extension FlightResultBaseViewController : CurrencyUpdatedDelegate {
+//
+//    func reloadScreenOnCurrencyUpdaate() {
+//
+//        let flightType = flightSearchResultVM.flightSearchType
+//
+//        switch flightType {
+//        case SINGLE_JOURNEY:
+//
+//            print("single")
+//
+//            self.singleJourneyResultVC?.reloadScreenOnCurrencyUpdaate()
+//
+//
+//        case RETURN_JOURNEY:
+//
+//            print("return")
+//
+//        case MULTI_CITY:
+//
+//            print("multi city")
+//
+//
+//        default:
+//            print("default")
+//        }
+//
+//
+//    }
+//
+//
+//}

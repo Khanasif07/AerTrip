@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -44,6 +45,7 @@
                 <outlet property="sameDepartReturnLbl" destination="aEE-Hr-fa1" id="qhd-uy-R9k"/>
                 <outlet property="sameDepartReturnTopBtn" destination="A3r-4N-lLY" id="zDF-LZ-N5r"/>
                 <outlet property="sameDepartReturnView" destination="7cZ-qI-Apy" id="wnA-Ck-oiD"/>
+                <outlet property="topView" destination="XC2-wu-r23" id="yGh-Sc-IXc"/>
                 <outlet property="topViewHeight" destination="REH-vK-coW" id="uyG-Wk-b3P"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -105,7 +107,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Origin/Destination" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r6J-Ld-FTK">
-                                            <rect key="frame" x="20" y="11" width="305" height="23"/>
+                                            <rect key="frame" x="20" y="12" width="305" height="21"/>
                                             <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -130,7 +132,7 @@
                                             </connections>
                                         </button>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="backgroundColor" name="themeWhiteDashboard"/>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="9C8-vH-nCu" secondAttribute="trailing" constant="5" id="0bH-GI-mMB"/>
                                         <constraint firstAttribute="height" constant="45" id="3AH-Zh-0LU"/>
@@ -147,7 +149,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Depart/Return Same" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aEE-Hr-fa1">
-                                            <rect key="frame" x="20" y="11" width="305" height="23"/>
+                                            <rect key="frame" x="20" y="12" width="305" height="21"/>
                                             <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -178,7 +180,7 @@
                                             </connections>
                                         </button>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="backgroundColor" name="themeWhiteDashboard"/>
                                     <constraints>
                                         <constraint firstItem="7NC-bh-PXN" firstAttribute="leading" secondItem="7cZ-qI-Apy" secondAttribute="leading" constant="16" id="5wZ-cj-9NQ"/>
                                         <constraint firstItem="XY4-Bm-y8O" firstAttribute="centerY" secondItem="aEE-Hr-fa1" secondAttribute="centerY" id="6wE-4s-r6C"/>
@@ -323,5 +325,8 @@
     <resources>
         <image name="CheckedGreenRadioButton" width="22" height="22"/>
         <image name="UncheckedGreenRadioButton" width="22" height="22"/>
+        <namedColor name="themeWhiteDashboard">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
     </resources>
 </document>

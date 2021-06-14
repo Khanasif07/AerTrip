@@ -65,11 +65,22 @@ class FlightsOptionsTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configureUI()
+        self.setColors()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.setColors()
     }
     
     // MARK: - Functions
     
     // MARK: ===========
+    
+    private func setColors(){
+        self.containerView.backgroundColor = AppColors.themeWhite
+        self.flightsOptionCollectionView.backgroundColor = AppColors.themeWhite
+    }
     
     private func configureUI() {
         self.flightsOptionCollectionView.delegate = self

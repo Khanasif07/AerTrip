@@ -670,3 +670,12 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         
     }
 }
+
+
+extension FlightResultSingleJourneyVC {
+    
+    func reloadScreenOnCurrencyUpdaate() {
+        self.resultsTableView.reloadData()
+    }
+    
+}

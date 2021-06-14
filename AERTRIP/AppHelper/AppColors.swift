@@ -16,6 +16,16 @@ enum AppColors {
     /// RGB - 0, 204, 153
     static let themeGreen = UIColor(named: "themeGreen") ?? UIColor(displayP3Red: 0, green: 0.8, blue: 0.6, alpha: 1)
     
+    /// RGB - 0, 204, 153 Dark RGB 0, 204, 153
+
+    static let commonThemeGreen = UIColor(named: "commonThemeGreen") ?? UIColor(displayP3Red: 0, green: 0.8, blue: 0.6, alpha: 1)
+
+    static let commonThemeGray = UIColor(named: "commonThemeGray") ?? UIColor(displayP3Red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
+
+    static let blackAndThemeGray = UIColor(named: "blackAndThemeGray") ?? UIColor(displayP3Red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
+
+    
+    
     /// RGB - 0, 179, 134
     static let themeDarkGreen = UIColor(named: "themeDarkGreen") ?? UIColor(displayP3Red: 0, green: 0.7019607843, blue: 0.5254901961, alpha: 1)
     
@@ -28,7 +38,7 @@ enum AppColors {
     /// RGB - 248, 185, 8
     static let themeYellow = UIColor(named: "themeYellow") ?? UIColor(displayP3Red: 0.9725490196, green: 0.7254901961, blue: 0.03137254902, alpha: 1)
     
-    /// RGB - 255, 51, 51
+    /// RGB - 255, 51, 51,   (236, 85, 69)
     static let themeRed = UIColor(named: "themeRed") ?? UIColor(displayP3Red: 1, green: 0.2, blue: 0.2, alpha: 1)
     
     /// RGB - 51, 153, 255
@@ -48,8 +58,10 @@ enum AppColors {
     /// RGB - 102, 102, 102  Dark RGB 153, 153, 153
     static let themeGray60 = UIColor(named: "themeGray60") ?? UIColor(displayP3Red: 0.4, green: 0.4, blue: 0.4, alpha: 1)
     
-    /// RGB - 153, 153, 153   Dark RGB 120, 120, 120
+    /// RGB - 153, 153, 153   Dark RGB 102, 102, 102
     static let themeGray40  = UIColor(named: "themeGray40") ?? UIColor(displayP3Red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
+    
+    
     
     /// RGB - 151, 151, 151
     static let themeGray151  = UIColor(named: "themeGray151") ?? UIColor(displayP3Red: 0.5921568627, green: 0.5921568627, blue: 0.5921568627, alpha: 1)
@@ -160,6 +172,7 @@ enum AppColors {
     // RGB - 0,0,0 , 0.2 (0,0,0 , 0.2)
     static let blackWith20PerAlpha =  UIColor(named: "blackWith20PerAlpha") ?? UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 0.2)
     
+    // RGB - (254, 242, 199)(71, 61, 20)
     static let lightYellow =  UIColor(named: "lightYellow") ?? UIColor(displayP3Red: 254.0/255.0, green: 242.0/255.0, blue: 199.0/255.0, alpha: 1.0)
     
     /// RGB - 255, 255, 255, 0.85
@@ -254,6 +267,25 @@ enum AppColors {
     ///(153, 153, 153) (255, 255, 255)
     static let flightFormReturnEnableColor = UIColor(named: "flightFormReturnEnableColor") ?? UIColor(displayP3Red: 0.9019607843, green: 0.9019607843, blue: 0.9019607843, alpha: 1)
     
+    ///(255, 255, 255) (26, 26, 26)
+    static let flightResultsFooterSecondaryColor = UIColor(named: "flightResultsFooterSecondaryColor") ?? UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 1)
+    
+    ///(255, 255, 255) (10, 10, 10)
+    static let flightResultsFooterThirdColor = UIColor(named: "flightResultsFooterThirdColor") ?? UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 1)
+    
+    /// RGB - 204, 204, 204,   (255, 255, 255, 0.2)
+    static let dividerColor = UIColor(named: "dividerColor") ?? UIColor(displayP3Red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
+    
+    //(230, 230, 230) (255, 255, 255, 0.2)
+    static let sliderTrackColor = UIColor(named: "sliderTrackColor") ?? UIColor(displayP3Red: 0.9019607843, green: 0.9019607843, blue: 0.9019607843, alpha: 1)
+    
+    
+    // (236, 253, 244) (0, 204, 153, 0.2)
+    static var flightFilterSessionSelectedColor: UIColor { UIColor(named: "flightFilterSessionSelectedColor") ?? .white }
+    
+    ///(246,  246,  246) (255, 255, 255,  0.1)
+    static var flightFilterSessionDefaultColor: UIColor { UIColor(named: "flightFilterSessionDefaultColor") ?? .white }
+    
     case headlines
     case body
     case subheads
@@ -285,7 +317,7 @@ enum AppColors {
             return AppColors.themeGray20
             
         case .divider :
-            return AppColors.themeGray20
+            return AppColors.dividerColor//AppColors.themeGray20
             
         case .screensBackground :
             return AppColors.themeGray04

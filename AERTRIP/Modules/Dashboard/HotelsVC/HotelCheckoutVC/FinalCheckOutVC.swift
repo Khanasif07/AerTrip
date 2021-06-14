@@ -105,6 +105,10 @@ class FinalCheckOutVC: BaseVC {
         self.viewModel.delegate = self
     }
     
+    override func currencyChanged(_ note: Notification) {
+        self.updateAllData()
+    }
+    
     // MARK: - Helper methods
     
     // Set up Navigation header

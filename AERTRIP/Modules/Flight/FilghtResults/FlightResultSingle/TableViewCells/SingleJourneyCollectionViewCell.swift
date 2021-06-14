@@ -154,7 +154,7 @@ class SingleJourneyCollectionViewCell: UICollectionViewCell {
 //
 //        self.price.attributedText = amountText
             
-        self.price.attributedText = journey.farepr.getConvertedAmount(using: AppFonts.Regular.withSize(16))
+        self.price.attributedText = journey.farepr.getConvertedAmount(using: AppFonts.SemiBold.withSize(22))
         
         self.priceWidth.constant =  self.price.intrinsicContentSize.width
         

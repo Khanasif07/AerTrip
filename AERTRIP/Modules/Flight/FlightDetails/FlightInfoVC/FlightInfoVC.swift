@@ -93,6 +93,10 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
 
     }
     
+    override func setupColors() {
+        self.flightInfoTableView.backgroundColor = AppColors.themeGray04
+    }
+    
     //MARK:- Get Flight Info
     
     func getFlightsInfo() {
@@ -394,7 +398,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         if bc != ""{
                             bc = " (" + bc + ")"
                             if flight.ccChg == 1{
-                                flightDetailsCell.classNameLabel.textColor = UIColor.black
+                                flightDetailsCell.classNameLabel.textColor = AppColors.themeBlack//UIColor.black
                                 flightDetailsCell.classLabel.text = ""
                                 let lbl = flight.al + " - " + flight.fn + "・"
                                 let lbl1 = " " + flight.cc + bc + " "
@@ -442,9 +446,9 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         
                         if flight.ontimePerformanceDataStoringTime != nil{
                             if Double(flight.ontimePerformance!) > 90.0{
-                                flightDetailsCell.onArrivalPerformanceLabel.textColor = UIColor(displayP3Red: 0.0/255.0, green: 204.0/255.0, blue: 153.0/255.0, alpha: 1.0)
+                                flightDetailsCell.onArrivalPerformanceLabel.textColor = AppColors.themeGreen//UIColor(displayP3Red: 0.0/255.0, green: 204.0/255.0, blue: 153.0/255.0, alpha: 1.0)
                             }else{
-                                flightDetailsCell.onArrivalPerformanceLabel.textColor = UIColor.black
+                                flightDetailsCell.onArrivalPerformanceLabel.textColor = AppColors.themeBlack//UIColor.black
                             }
                             
                             flightDetailsCell.arrivalPerformaceButton.isUserInteractionEnabled = true

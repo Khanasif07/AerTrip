@@ -67,6 +67,7 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
     //MARK:- Top Constraints Outletss
     @IBOutlet weak var layOverSeparatorTop: NSLayoutConstraint!
     @IBOutlet weak var destinationTopViewSpacing: NSLayoutConstraint!
+    @IBOutlet weak var topView: UIView!
     
     //MARK:- State Properties
     weak var delegate : AirportFilterDelegate?
@@ -310,6 +311,14 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
         }
     }
     
+    private func setupColors(){
+        self.multicitySegmentView.backgroundColor = AppColors.themeWhiteDashboard
+        self.topView.backgroundColor = AppColors.themeWhiteDashboard
+        self.view.backgroundColor = AppColors.themeWhiteDashboard
+        self.originDestinationLbl.textColor = AppColors.textFieldTextColor51
+        self.sameDepartReturnLbl.textColor = AppColors.textFieldTextColor51
+    }
+    
     @objc func indexChanged(_ sender: UISegmentedControl) {
                 
         tableOffsetAtIndex[currentActiveIndex] = baseScrollview.contentOffset.y
@@ -374,6 +383,7 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
         if multiLegSegmentControl == nil {
             multiLegSegmentControl = GreenDotSegmentControl()
         }
+        self.setupColors()
     }
     
     func updateUIPostLatestResults() {
@@ -755,6 +765,7 @@ extension AirportsFilterViewController : UITableViewDataSource , UITableViewDele
         if tableView == layoverTableview {
             title.text = currentAirportFilter.layoverCities[section].country
         }
+        view.backgroundColor = AppColors.themeWhiteDashboard
         return view
         
         

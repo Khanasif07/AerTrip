@@ -113,6 +113,11 @@ class RegularAccountDetailsVC: BaseVC {
         }
     }
     
+    
+    override func setupColors() {
+        self.view.backgroundColor = AppColors.themeWhite
+    }
+    
     @objc func accountDetailFetched(_ note: Notification) {
         if let object = note.object as? AccountDetailPostModel {
             printDebug("accountDetailFetched")

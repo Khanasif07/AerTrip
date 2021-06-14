@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -416,7 +417,7 @@
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
-                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <color key="backgroundColor" name="themeWhite"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="bottom" secondItem="zZX-An-8gJ" secondAttribute="bottom" id="Pci-rY-7dr"/>
                                                                     <constraint firstItem="zZX-An-8gJ" firstAttribute="leading" secondItem="fNU-dD-62K" secondAttribute="leading" id="UNe-b3-bAO"/>
@@ -2033,6 +2034,9 @@
     </scenes>
     <resources>
         <image name="accountRightArrow" width="8" height="14"/>
+        <namedColor name="themeWhite">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -28,10 +28,18 @@ class LayoverViewTableViewCell: UITableViewCell
         super.awakeFromNib()
 
         layoverView.layer.borderWidth = 0.5
-        layoverView.layer.borderColor = UIColor(displayP3Red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1.0).cgColor
+        layoverView.layer.borderColor = AppColors.divider.color.cgColor
         layoverView.layer.cornerRadius = layoverView.frame.height/2
+        self.layoverView.backgroundColor = AppColors.flightFilterSessionDefaultColor
+        layoverLabel.textColor = AppColors.themeBlack
     }
     
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.layoverView.backgroundColor = AppColors.flightFilterSessionDefaultColor
+        layoverLabel.textColor = AppColors.themeBlack
+    }
     
     func getLayoverString()->NSMutableAttributedString
     {
@@ -71,23 +79,23 @@ class LayoverViewTableViewCell: UITableViewCell
             if isArrivalAirportChange == true{
                 let range1 = (displayText as NSString).range(of: displayText)
                 
-                textAfterIcon.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.red , range: range1)
+                textAfterIcon.addAttribute(NSAttributedString.Key.foregroundColor, value: AppColors.themeRed , range: range1)
                 textAfterIcon.addAttribute(NSAttributedString.Key.font, value: AppFonts.SemiBold.withSize(14) , range: (displayText as NSString).range(of: layoverTime))
             }else{
                 let range1 = (displayText as NSString).range(of: layoverTime)
                 
-                textAfterIcon.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.red , range: range1)
+                textAfterIcon.addAttribute(NSAttributedString.Key.foregroundColor, value: AppColors.themeRed , range: range1)
                 textAfterIcon.addAttribute(NSAttributedString.Key.font, value: AppFonts.SemiBold.withSize(14), range: range1)
             }
         }else if isArrivalAirportChange == true{
             let range1 = (displayText as NSString).range(of: displayText)
             
-            textAfterIcon.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.red , range: range1)
+            textAfterIcon.addAttribute(NSAttributedString.Key.foregroundColor, value: AppColors.themeRed , range: range1)
             textAfterIcon.addAttribute(NSAttributedString.Key.font, value: AppFonts.SemiBold.withSize(14), range: (displayText as NSString).range(of: layoverTime))
         }else{
             let range1 = (displayText as NSString).range(of: layoverTime)
             
-            textAfterIcon.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black , range: range1)
+            textAfterIcon.addAttribute(NSAttributedString.Key.foregroundColor, value: AppColors.themeBlack , range: range1)
             textAfterIcon.addAttribute(NSAttributedString.Key.font, value: AppFonts.SemiBold.withSize(14), range: range1)
         }
         

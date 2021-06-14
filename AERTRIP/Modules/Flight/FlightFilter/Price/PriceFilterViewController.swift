@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class PriceFilterViewController: UIViewController , FilterViewController {
+class PriceFilterViewController: BaseVC , FilterViewController {
     //MARK:- State Properties
     
     private var multiLegSegmentControl = GreenDotSegmentControl()
@@ -21,6 +21,7 @@ class PriceFilterViewController: UIViewController , FilterViewController {
     @IBOutlet weak var priceRangeSlider: AertripRangeSlider!
     @IBOutlet weak var multicityViewHeight: NSLayoutConstraint!
     @IBOutlet weak var JourneyTitle: UILabel!
+    @IBOutlet weak var priceSliderContainerView: UIView!
     @IBOutlet weak var fareMinValView: UIView!
     @IBOutlet weak var fareMinValue: UILabel!
     @IBOutlet weak var fareMaxValView: UIView!
@@ -34,7 +35,7 @@ class PriceFilterViewController: UIViewController , FilterViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        initialSetup()
+//        initialSetup()
         setupPriceSlider()
         setupPriceLabels()
         
@@ -70,13 +71,17 @@ class PriceFilterViewController: UIViewController , FilterViewController {
         checkRefundableFlights(index: viewModel.currentActiveIndex)
     }
     
-    func initialSetup () {
+    override func initialSetup () {
         
         initSetupForMLSubViews()
         
         viewModel.currentPriceFilter.userSelectedFareMinValue = viewModel.currentPriceFilter.inputFareMinValue
         viewModel.currentPriceFilter.userSelectedFareMaxValue = viewModel.currentPriceFilter.inputFareMaxVaule
        
+    }
+    
+    override func currencyChanged(_ note: Notification) {
+        self.setupPriceLabels()
     }
     
     private func initSetupForMLSubViews() {
@@ -182,6 +187,16 @@ class PriceFilterViewController: UIViewController , FilterViewController {
             let segmentTitle = getSegmentTitleFor(index + 1)
             multiLegSegmentControl.setTitle(segmentTitle, forSegmentAt: index)
         }
+    }
+    
+    override func setupColors() {
+        [self.view,self.multiLegView, self.multiSegmentView,priceSliderContainerView, self.priceRangeSlider].forEach { view in
+            view?.backgroundColor = AppColors.themeWhiteDashboard
+        }
+        self.fareMinValView.backgroundColor = AppColors.sliderTrackColor
+        self.fareMaxValView.backgroundColor = AppColors.sliderTrackColor
+        self.fareMinValue.backgroundColor = .clear//AppColors.sliderTrackColor
+        self.fareMaxValue.backgroundColor = .clear//AppColors.sliderTrackColor
     }
     
     fileprivate func setupPriceSlider() {
@@ -345,11 +360,13 @@ class PriceFilterViewController: UIViewController , FilterViewController {
                      seperatorView.isHidden = false
                      refundableFaresOnlyLabel.isHidden = false
                      refundableFaresButton.isHidden = false
+                    refundableFaresTopBtn.isHidden = false
                      refundableFaresButton.isUserInteractionEnabled = true
                  }else{
                      seperatorView.isHidden = true
                      refundableFaresOnlyLabel.isHidden = true
                      refundableFaresButton.isHidden = true
+                    refundableFaresTopBtn.isHidden = true
                      refundableFaresButton.isUserInteractionEnabled = false
                  }
              }
@@ -377,11 +394,13 @@ class PriceFilterViewController: UIViewController , FilterViewController {
                      seperatorView.isHidden = false
                      refundableFaresOnlyLabel.isHidden = false
                      refundableFaresButton.isHidden = false
+                    refundableFaresTopBtn.isHidden = false
                      refundableFaresButton.isUserInteractionEnabled = true
                  }else{
                      seperatorView.isHidden = true
                      refundableFaresOnlyLabel.isHidden = true
                      refundableFaresButton.isHidden = true
+                    refundableFaresTopBtn.isHidden = true
                      refundableFaresButton.isUserInteractionEnabled = false
                  }
              }

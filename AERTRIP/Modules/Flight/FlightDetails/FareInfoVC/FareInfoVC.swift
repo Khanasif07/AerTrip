@@ -13,7 +13,7 @@ protocol flightDetailsSmartIconsDelegate : AnyObject {
 
 import UIKit
 
-class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
+class FareInfoVC: BaseVC, UITableViewDelegate, UITableViewDataSource {
     //MARK:- Outlets
     @IBOutlet weak var fareInfoTableView: UITableView!
     @IBOutlet weak var fareInfoTableViewBottom: NSLayoutConstraint!
@@ -128,6 +128,10 @@ class FareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         self.fareInfoTableView.layoutIfNeeded()
     }
     
+    
+    override func currencyChanged(_ note: Notification) {
+        self.fareInfoTableView.reloadData()
+    }
     
     private func setLoader(){
         if #available(iOS 13.0, *) {

@@ -25,6 +25,7 @@ class HotelFareSectionHeader: UITableViewHeaderFooterView {
     
     @IBOutlet weak var discountTitleLabelTopConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var discountBackView: UIView!
     
     // MARK: - Properties
     weak var delegate: HotelFareSectionHeaderDelegate?
@@ -34,7 +35,7 @@ class HotelFareSectionHeader: UITableViewHeaderFooterView {
     override func awakeFromNib() {
         self.setUpText()
         self.setUpFont()
-        self.setUpTextColor()
+        self.setUpColor()
         self.addGesture()
     }
     
@@ -58,10 +59,12 @@ class HotelFareSectionHeader: UITableViewHeaderFooterView {
 
     }
     
-    private func setUpTextColor() {
+    private func setUpColor() {
+        self.discountBackView.backgroundColor = AppColors.themeWhiteDashboard
+        self.topBackgroundView.backgroundColor = AppColors.themeWhiteDashboard
         self.grossFareTitleLabel.textColor = AppColors.themeBlack
-        self.discountPriceLabel.textColor = AppColors.themeBlack
         self.grossPriceLabel.textColor = AppColors.themeBlack
+        self.discountsTitleLabel.textColor = AppColors.themeBlack
         self.discountPriceLabel.textColor = AppColors.themeBlack
     }
 

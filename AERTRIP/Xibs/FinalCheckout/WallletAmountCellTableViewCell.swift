@@ -43,6 +43,7 @@ class WallletAmountCellTableViewCell: UITableViewCell {
     private func setUpColor() {
         self.aertripWalletTitleLabel.textColor = AppColors.themeGreen
         self.walletAmountLabel.textColor = AppColors.themeGreen
+        self.contentView.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     func setForConvenienceFee(){

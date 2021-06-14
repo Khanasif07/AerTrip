@@ -153,7 +153,7 @@ class IntFareBreakupVC: BaseVC {
             self.view.backgroundColor = .clear
             
             if isFareBreakupExpanded == true{
-                self.fareDataDisplayView.backgroundColor = .white
+                self.fareDataDisplayView.backgroundColor = AppColors.themeWhite//.white
                 bookingDataDisplayView.addGredient(isVertical: false)
             }
         }else{
@@ -167,10 +167,14 @@ class IntFareBreakupVC: BaseVC {
                 })
             }else{
                 fareDataDisplayView.removeGredient()
-                fareDataDisplayView.backgroundColor = .white
+                fareDataDisplayView.backgroundColor = AppColors.themeWhite//.white
                 self.bookingDataDisplayView.addGredient(isVertical: false)
             }
         }
+    }
+    
+    override func currencyChanged(_ note: Notification) {
+        self.reloadData()
     }
     
     func setupBookingTitleDateView(){

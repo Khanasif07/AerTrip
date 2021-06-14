@@ -88,7 +88,7 @@ class SelectOtherAdonsContainerVC: BaseVC {
                     
                     if !addon.othersSelectedFor.isEmpty {
                         
-                        FirebaseEventLogs.shared.logAddons(with: FirebaseEventLogs.EventsTypeName.addOtherAddons, addonName: addon.adonsName, flightTitle: "\(firstFlight.fr) - \(firstFlight.to)" , fk: AddonsDataStore.shared.flightsWithDataForBaggage[index].flightId, addonQty: addon.othersSelectedFor.count)
+                        FirebaseEventLogs.shared.logAddons(with: FirebaseEventLogs.EventsTypeName.addOtherAddons, addonName: addon.adonsName, flightTitle: "\(firstFlight.fr) - \(firstFlight.to)" , fk: AddonsDataStore.shared.flightsWithData[index].flightId, addonQty: addon.othersSelectedFor.count)
                         
                     }
                     
