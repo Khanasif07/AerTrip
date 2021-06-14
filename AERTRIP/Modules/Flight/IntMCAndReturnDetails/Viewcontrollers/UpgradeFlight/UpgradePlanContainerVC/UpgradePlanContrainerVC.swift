@@ -50,7 +50,7 @@ class UpgradePlanContrainerVC: BaseVC, UpgradePlanListVCDelegate {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.parchmentView?.view.frame = self.containerView.bounds
-        self.view.addGredient(isVertical: true, cornerRadius: 0, colors: AppConstants.appthemeGradientColors.reversed()) // [AppColors.themeGreen, AppColors.dashboardGradientColor] To be Check Gradient Nitin
+        self.view.addGredient(isVertical: true, cornerRadius: 0, colors: AppConstants.appDashboardGradientColors.reversed()) // [AppColors.themeGreen, AppColors.dashboardGradientColor] To be Check Gradient Nitin
         self.parchmentView?.view.frame.size.height = self.containerView.height - innerControllerBottomConstraint
         self.parchmentView?.loadViewIfNeeded()
     }
@@ -76,7 +76,7 @@ class UpgradePlanContrainerVC: BaseVC, UpgradePlanListVCDelegate {
     private func updateUI(){
         self.upgradeYourFlightLabel.text = "Upgrade your flight"
         self.upgradeYourFlightLabel.font = AppFonts.SemiBold.withSize(18.0)
-        self.upgradeYourFlightLabel.textColor = AppColors.themeWhite
+        self.upgradeYourFlightLabel.textColor = AppColors.unicolorWhite
         self.grabberView.layer.cornerRadius = 2.0
         self.grabberView.clipsToBounds = true
     }
