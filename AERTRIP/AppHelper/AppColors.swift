@@ -38,7 +38,7 @@ enum AppColors {
     /// RGB - 248, 185, 8
     static let themeYellow = UIColor(named: "themeYellow") ?? UIColor(displayP3Red: 0.9725490196, green: 0.7254901961, blue: 0.03137254902, alpha: 1)
     
-    /// RGB - 255, 51, 51
+    /// RGB - 255, 51, 51,   (236, 85, 69)
     static let themeRed = UIColor(named: "themeRed") ?? UIColor(displayP3Red: 1, green: 0.2, blue: 0.2, alpha: 1)
     
     /// RGB - 51, 153, 255
@@ -58,7 +58,7 @@ enum AppColors {
     /// RGB - 102, 102, 102  Dark RGB 153, 153, 153
     static let themeGray60 = UIColor(named: "themeGray60") ?? UIColor(displayP3Red: 0.4, green: 0.4, blue: 0.4, alpha: 1)
     
-    /// RGB - 153, 153, 153   Dark RGB 120, 120, 120
+    /// RGB - 153, 153, 153   Dark RGB 102, 102, 102
     static let themeGray40  = UIColor(named: "themeGray40") ?? UIColor(displayP3Red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
     
     
@@ -172,6 +172,7 @@ enum AppColors {
     // RGB - 0,0,0 , 0.2 (0,0,0 , 0.2)
     static let blackWith20PerAlpha =  UIColor(named: "blackWith20PerAlpha") ?? UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 0.2)
     
+    // RGB - (254, 242, 199)(71, 61, 20)
     static let lightYellow =  UIColor(named: "lightYellow") ?? UIColor(displayP3Red: 254.0/255.0, green: 242.0/255.0, blue: 199.0/255.0, alpha: 1.0)
     
     /// RGB - 255, 255, 255, 0.85
