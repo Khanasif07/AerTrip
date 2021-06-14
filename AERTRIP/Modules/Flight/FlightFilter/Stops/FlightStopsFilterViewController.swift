@@ -171,7 +171,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
             let height = self.stopsBaseView.frame.size.height
             var rect = CGRect(x: xcordinate, y: 0, width: width, height: height)
             let stopButton = UIButton(frame: rect)
-            stopButton.backgroundColor = AppColors.flightFilterSessionSelectedColor
+            stopButton.backgroundColor = AppColors.stopsAllDeselected
             
             stopButton.addTarget(self, action: #selector(tappedOnStopButton(sender:)), for: .touchDown)
             stopsBaseView.addSubview(stopButton)
@@ -372,11 +372,11 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     fileprivate func deselectionStateUIFor(_ sender: UIButton) {
         sender.backgroundColor = AppColors.themeWhiteDashboard
         if let title = sender.viewWithTag(1) as? UILabel {
-            title.textColor = UIColor.black
+            title.textColor = AppColors.themeBlack
         }
         
         if let subTitle = sender.viewWithTag(2) as? UILabel {
-            subTitle.textColor = UIColor.black
+            subTitle.textColor = AppColors.themeBlack
 //            subTitle.font = UIFont(name: "SourceSansPro-Regular", size: 16)
             subTitle.font = AppFonts.Regular.withSize(16)
         }
@@ -391,7 +391,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
         }
         if allDeselected {
             stopsButtonsArray.forEach { (btn) in
-                btn.backgroundColor = AppColors.flightFilterSessionSelectedColor
+                btn.backgroundColor = AppColors.stopsAllDeselected
             }
         }
     }

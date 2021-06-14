@@ -286,6 +286,9 @@ enum AppColors {
     ///(246,  246,  246) (255, 255, 255,  0.1)
     static var flightFilterSessionDefaultColor: UIColor { UIColor(named: "flightFilterSessionDefaultColor") ?? .white }
     
+    ///(236,253,244,0.5) (0,204,153,0.03)
+    static var stopsAllDeselected: UIColor { UIColor(named: "stopsAllDeselected") ?? .white }
+    
     case headlines
     case body
     case subheads
