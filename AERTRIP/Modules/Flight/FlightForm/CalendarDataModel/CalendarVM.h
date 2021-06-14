@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic) BOOL isHotelCalendar;
 @property (assign, nonatomic) BOOL isReturn;
 @property (assign, nonatomic) BOOL isMultiCity;
+@property (assign, nonatomic) BOOL isFromHotelBulkBooking;
 @property (weak, nonatomic) id<CalendarDataHandler> delegate;
 
 

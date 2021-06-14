@@ -153,6 +153,11 @@ enum AnalyticsEvents: String {
     case ApplyCouponForFlights
     case FlightPayment
     
+    case FlightsCalendar
+    case HotelsCalendar
+    
+    case HotelCitySelected
+
 }
 
 enum AnalyticsKeys: String {
