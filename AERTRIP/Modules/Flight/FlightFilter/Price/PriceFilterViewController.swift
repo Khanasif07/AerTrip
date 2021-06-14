@@ -54,6 +54,11 @@ class PriceFilterViewController: BaseVC , FilterViewController {
         fareMinValView.roundedCorners(cornerRadius: fareMinValView.height/2)
         fareMaxValView.roundedCorners(cornerRadius: fareMaxValView.height/2)
     }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateSegmentTitles()
+    }
 
     //MARK:- Additional UI Methods
     

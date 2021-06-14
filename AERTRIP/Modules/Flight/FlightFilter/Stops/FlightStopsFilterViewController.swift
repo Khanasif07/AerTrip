@@ -73,6 +73,11 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
         setupOvernightFlightsView()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateSegmentTitles()
+    }
+    
     
     func initialSetup() {
         setColors()

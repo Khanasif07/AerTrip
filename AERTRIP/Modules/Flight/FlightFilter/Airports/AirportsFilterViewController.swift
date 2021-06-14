@@ -93,6 +93,11 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
         initialSetup()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateSegmentTitles()
+    }
+    
     //MARK:- Additional Setup
     fileprivate func setupTopView() {
         
