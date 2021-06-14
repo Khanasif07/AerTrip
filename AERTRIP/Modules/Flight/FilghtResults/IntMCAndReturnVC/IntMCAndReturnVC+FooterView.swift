@@ -113,6 +113,7 @@ extension IntMCAndReturnVC {
                             self.setExpandedStateFooter()
                             self.resultsTableView.reloadData()
                             self.resultsTableView.tableFooterView?.transform = CGAffineTransform.identity
+                            self.switchProgressViews(self.resultsTableView)
                         }
                     })
                     

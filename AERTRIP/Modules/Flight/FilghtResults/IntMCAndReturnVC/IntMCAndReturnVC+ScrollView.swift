@@ -60,7 +60,7 @@ extension IntMCAndReturnVC {
         }
     }
     
-    private func switchProgressViews(_ scrollView: UIScrollView) {
+    func switchProgressViews(_ scrollView: UIScrollView) {
         let contentOffset = scrollView.contentOffset
         let offsetDifference = contentOffset.y - scrollviewInitialYOffset
         let safeAreaTop = AppDelegate.shared.window?.safeAreaInsets.top ?? 0

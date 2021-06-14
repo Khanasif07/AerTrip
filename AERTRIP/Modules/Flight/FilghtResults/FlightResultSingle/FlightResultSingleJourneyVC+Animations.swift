@@ -36,6 +36,7 @@ extension FlightResultSingleJourneyVC {
                         printDebug("time3..\(Date().timeIntervalSince1970)")
                         self.setExpandedStateFooter()
                         self.resultsTableView.tableFooterView?.transform = CGAffineTransform.identity
+                        self.switchProgressViews(self.resultsTableView)
                     }
                 })
                 
