@@ -414,13 +414,14 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
     }
     
     func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
+        let statusHeight = AppDelegate.shared.window?.safeAreaInsets.top ?? 0
         if scrollView != self.baseScrollView{
             if let tableView = scrollView as? UITableView{
                 if let index = self.getSelectedIndex(for: tableView){
                     if index < 5{
-                        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+                        tableView.contentInset = UIEdgeInsets(top: statusHeight, left: 0, bottom: 0, right: 0)
                     }else{
-                        tableView.contentInset = UIEdgeInsets(top: 44.0, left: 0, bottom: 0, right: 0)
+                        tableView.contentInset = UIEdgeInsets(top: 44.0+statusHeight, left: 0, bottom: 0, right: 0)
                     }
                     
                 }
