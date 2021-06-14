@@ -40,6 +40,7 @@ class ChangeAirportTableViewCell: UITableViewCell
     }
     
     private func setColors(){
+        self.backgroundColor = .clear
         self.contentView.backgroundColor = AppColors.themeGray04
         self.containerView.backgroundColor = AppColors.flightResultsFooterSecondaryColor
         self.titleLabel.textColor = AppColors.themeBlack

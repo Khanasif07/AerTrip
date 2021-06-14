@@ -133,6 +133,10 @@ class FareInfoVC: BaseVC, UITableViewDelegate, UITableViewDataSource {
         self.fareInfoTableView.reloadData()
     }
     
+    override func setupColors() {
+        self.fareInfoTableView.backgroundColor = AppColors.themeGray04
+    }
+    
     private func setLoader(){
         if #available(iOS 13.0, *) {
             indicator.style = .large
@@ -516,7 +520,7 @@ class FareInfoVC: BaseVC, UITableViewDelegate, UITableViewDataSource {
         attString.append(attString2)
         attString.append(attString3)
         
-        attString.addAttributes([NSAttributedString.Key.paragraphStyle: style,NSAttributedString.Key.foregroundColor:UIColor.black], range: NSRange(location: 0, length: attString.string.count))
+        attString.addAttributes([NSAttributedString.Key.paragraphStyle: style,NSAttributedString.Key.foregroundColor:AppColors.themeBlack], range: NSRange(location: 0, length: attString.string.count))
         
         return attString
     }

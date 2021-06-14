@@ -52,10 +52,12 @@ class PerSlabFareInfoTableViewCell: UITableViewCell
         // Initialization code
         slabTimeLabel.text = ""
         statusLabel.text = ""
+        self.setColors()
     }
 
     override func prepareForReuse() {
         super.prepareForReuse()
+        self.setColors()
         
 //        statusLabel.text = ""
     }
@@ -64,5 +66,13 @@ class PerSlabFareInfoTableViewCell: UITableViewCell
 
         // Configure the view for the selected state
     }
+    
+    private func setColors(){
+        self.contentView.backgroundColor = AppColors.flightResultsFooterSecondaryColor
+        self.dataDisplayView.backgroundColor = AppColors.flightResultsFooterSecondaryColor
+        self.titleView.backgroundColor = AppColors.flightResultsFooterSecondaryColor
+        self.slabDataDisplayView.backgroundColor = AppColors.flightResultsFooterSecondaryColor
+    }
+    
     
 }

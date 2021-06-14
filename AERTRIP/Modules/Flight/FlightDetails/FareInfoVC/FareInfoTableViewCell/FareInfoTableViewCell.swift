@@ -50,6 +50,7 @@ class FareInfoTableViewCell: UITableViewCell
         // Initialization code
         
         carrierImgView.layer.cornerRadius = 3.0
+        self.setColors()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -58,6 +59,14 @@ class FareInfoTableViewCell: UITableViewCell
         // Configure the view for the selected state
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.setColors()
+    }
+    
+    private func setColors(){
+        self.contentView.backgroundColor = AppColors.flightResultsFooterSecondaryColor
+    }
     
     func setAirlineImage(with url: String){
         
