@@ -73,6 +73,17 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
         setupOvernightFlightsView()
     }
     
+    
+    func initialSetup() {
+        setColors()
+    }
+    
+    func setColors(){
+        self.view.backgroundColor = AppColors.themeWhiteDashboard
+        
+    }
+    
+    
     private func setupOvernightFlightsView() {
         avoidChangeOfAirportsTitleLbl.font = AppFonts.Regular.withSize(18)
         avoidChangeOfAirportsDescLbl.font = AppFonts.Regular.withSize(14)
@@ -81,8 +92,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
         allSectorsLbl.textColor = AppColors.themeGray40
     }
     
-    func initialSetup() {
-    }
+
     
     func updateUIPostLatestResults() {
         viewModel.currentStopFilter = viewModel.allStopsFilters[viewModel.currentActiveIndex]
@@ -137,7 +147,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     fileprivate func setupStopsBaseView () {
         
         stopsBaseView.layer.borderWidth = 1.0
-        stopsBaseView.layer.borderColor = UIColor.TWO_THREE_ZERO_COLOR.cgColor
+        stopsBaseView.layer.borderColor = AppColors.themeGray10.cgColor
         stopsBaseView.layer.cornerRadius = 10.0
         stopsBaseView.clipsToBounds = true
         if viewModel.currentStopFilter != nil{
@@ -161,7 +171,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
             let height = self.stopsBaseView.frame.size.height
             var rect = CGRect(x: xcordinate, y: 0, width: width, height: height)
             let stopButton = UIButton(frame: rect)
-            stopButton.backgroundColor = UIColor.SELECTION_COLOR.withAlphaComponent(0.25)
+            stopButton.backgroundColor = AppColors.flightFilterSessionSelectedColor
             
             stopButton.addTarget(self, action: #selector(tappedOnStopButton(sender:)), for: .touchDown)
             stopsBaseView.addSubview(stopButton)
@@ -314,7 +324,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
         stopsBaseView.subviews.forEach{ view in
             if let button = view as? UIButton {
                 
-                button.backgroundColor = UIColor.SELECTION_COLOR.withAlphaComponent(0.40)
+                button.backgroundColor = AppColors.flightFilterSessionSelectedColor
                 
                 if let title = button.viewWithTag(1) as? UILabel {
                     title.textColor =  UIColor.FIVE_ONE_COLOR
@@ -360,7 +370,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     }
     
     fileprivate func deselectionStateUIFor(_ sender: UIButton) {
-        sender.backgroundColor = UIColor.white
+        sender.backgroundColor = AppColors.themeWhiteDashboard
         if let title = sender.viewWithTag(1) as? UILabel {
             title.textColor = UIColor.black
         }
@@ -381,13 +391,13 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
         }
         if allDeselected {
             stopsButtonsArray.forEach { (btn) in
-                btn.backgroundColor = UIColor.SELECTION_COLOR.withAlphaComponent(0.25)
+                btn.backgroundColor = AppColors.flightFilterSessionSelectedColor
             }
         }
     }
     
     fileprivate func selectionStateUIFor(_ sender: UIButton) {
-        sender.backgroundColor = UIColor.SELECTION_COLOR
+        sender.backgroundColor = AppColors.flightFilterSessionSelectedColor
         if let title = sender.viewWithTag(1) as? UILabel {
             title.textColor = UIColor.AertripColor
         }
@@ -405,8 +415,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
         
         if sender.isSelected {
             return
-        }
-        else {
+        } else {
             sender.isSelected = true
             selectLeastStopsForAllLegs()
         }
@@ -434,7 +443,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
         for button in stopsButtonsArray {
             let buttonTag = button.tag - 1000
             if  !currentLegStopsSelection.contains(buttonTag) {
-                button.backgroundColor = UIColor.white
+                button.backgroundColor = AppColors.themeWhiteDashboard
             }
         }
         
