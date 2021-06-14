@@ -292,6 +292,9 @@ enum AppColors {
 
     //(0, 0, 0) (153, 153, 153)
     static let baggageTypeTitleColor:UIColor = UIColor(named: "baggageTypeTitleColor") ?? AppColors.themeBlack
+    
+    //(216,216,216) (70,70,70)
+    static let performanceBackColor: UIColor = UIColor(named: "performanceBackColor") ?? .white
 
     
     case headlines

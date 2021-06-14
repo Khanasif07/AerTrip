@@ -43,7 +43,10 @@ class ArrivalPerformaceVC: UIViewController
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
         performaceDisplayView.layer.cornerRadius = 10
-        
+        performaceDisplayView.backgroundColor = AppColors.themeWhiteDashboard
+        onTimeProgressDisplayView.backgroundColor = AppColors.performanceBackColor
+        delayProgressDisplayView.backgroundColor = AppColors.performanceBackColor
+        cancelledProgressDisplayView.backgroundColor = AppColors.performanceBackColor
         self.onTimeProgressDisplayView.layer.cornerRadius = onTimeProgressDisplayView.frame.height/2
         self.delayProgressDisplayView.layer.cornerRadius = delayProgressDisplayView.frame.height/2
         self.cancelledProgressDisplayView.layer.cornerRadius = cancelledProgressDisplayView.frame.height/2
@@ -80,7 +83,7 @@ class ArrivalPerformaceVC: UIViewController
             displayText = "\u{2022}   Based on \(observationCount) observations."
         }
         
-        let title = NSMutableAttributedString(string: displayText, attributes: [NSAttributedString.Key.paragraphStyle: style,NSAttributedString.Key.foregroundColor:UIColor.black])
+        let title = NSMutableAttributedString(string: displayText, attributes: [NSAttributedString.Key.paragraphStyle: style,NSAttributedString.Key.foregroundColor:AppColors.themeBlack])
         noteLabel.attributedText = title
     }
     
