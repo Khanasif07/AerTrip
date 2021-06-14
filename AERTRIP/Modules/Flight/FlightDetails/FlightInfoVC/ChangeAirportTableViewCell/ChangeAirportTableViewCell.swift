@@ -10,6 +10,7 @@ import UIKit
 
 class ChangeAirportTableViewCell: UITableViewCell
 {
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var topSeperatorLabel: ATDividerView!
     @IBOutlet weak var topSeperatorLabelTop: NSLayoutConstraint!
     @IBOutlet weak var topSeperatorLabelHeight: NSLayoutConstraint!
@@ -30,6 +31,20 @@ class ChangeAirportTableViewCell: UITableViewCell
         
         dataLabel.clipsToBounds = true
         dataLabel.sizeToFit()
+        setColors()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        setColors()
+    }
+    
+    private func setColors(){
+        self.contentView.backgroundColor = AppColors.themeGray04
+        self.containerView.backgroundColor = AppColors.flightResultsFooterSecondaryColor
+        self.titleLabel.textColor = AppColors.themeBlack
+        self.dataLabel.textColor = AppColors.themeBlack
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
