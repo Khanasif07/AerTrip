@@ -76,6 +76,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         updateSegmentTitles()
+        stopsBaseView.layer.borderColor = AppColors.themeGray10.cgColor
     }
     
     
@@ -149,7 +150,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     }
     
     //MARK:- Additional UI Methods
-    fileprivate func setupStopsBaseView () {
+    fileprivate func setupStopsBaseView() {
         
         stopsBaseView.layer.borderWidth = 1.0
         stopsBaseView.layer.borderColor = AppColors.themeGray10.cgColor

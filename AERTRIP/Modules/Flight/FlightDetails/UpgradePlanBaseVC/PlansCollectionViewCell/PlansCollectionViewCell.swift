@@ -61,8 +61,7 @@ class PlansCollectionViewCell: UICollectionViewCell
         self.priceLabel.textColor = AppColors.themeGray60
     }
     
-    @IBAction func tapSelectButton(_ sender: Any)
-    {
+    @IBAction func tapSelectButton(_ sender: Any) {
         self.handler?()
     }
 }
