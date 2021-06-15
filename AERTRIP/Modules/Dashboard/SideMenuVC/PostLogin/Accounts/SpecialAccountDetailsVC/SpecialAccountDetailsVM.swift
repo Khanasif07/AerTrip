@@ -104,7 +104,7 @@ class SpecialAccountDetailsVM {
                 if let event = accountData.statements?.lastStatementBalence {
                     if let date = event.dates.last {
                         let dateStr = date.toString(dateFormat: "EE, dd MMM YYYY")
-                        obj.description = dateStr.isEmpty ? "" : "Up to \(dateStr)"
+                        obj.description = dateStr.isEmpty ? "" : "Upto \(dateStr)"
                     }
                     obj.amount = event.amount.amountInDelimeterWithSymbol
                     //abs(event.amount).amountInDelimeterWithSymbol
