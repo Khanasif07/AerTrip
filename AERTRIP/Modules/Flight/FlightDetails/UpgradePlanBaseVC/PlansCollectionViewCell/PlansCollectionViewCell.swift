@@ -27,6 +27,7 @@ class PlansCollectionViewCell: UICollectionViewCell
     
     @IBOutlet weak var fewSeatsLeftLabel: UILabel!
     @IBOutlet weak var fewSeatsLeftCountLabel: UILabel!
+    @IBOutlet weak var dividerLabel: UILabel!
     
     var desc = NSAttributedString()
     var isAnimated = false
@@ -52,9 +53,12 @@ class PlansCollectionViewCell: UICollectionViewCell
     private func setColor(){
         self.dataDisplayView.backgroundColor = AppColors.themeWhiteDashboard
         self.fewSeatsLeftView.backgroundColor = AppColors.fewSeatLeftColor
+        self.dividerLabel.backgroundColor = AppColors.fewSeatLeftColor
         self.txtView.backgroundColor = AppColors.themeWhiteDashboard
         self.txtView.textColor = AppColors.themeBlack
         self.fewSeatsLeftLabel.textColor = AppColors.themeRed
+        self.fewSeatsLeftCountLabel.backgroundColor = AppColors.themeRed
+        self.priceLabel.textColor = AppColors.themeGray60
     }
     
     @IBAction func tapSelectButton(_ sender: Any)
