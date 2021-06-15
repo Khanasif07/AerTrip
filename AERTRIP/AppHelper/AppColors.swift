@@ -288,7 +288,7 @@ enum AppColors {
     
 
     ///(236,253,244,0.5) (47,53,52)
-    static var stopsAllDeselected: UIColor { UIColor(named: "stopsAllDeselected") ?? .white }
+    static var stopsAllDeselected: UIColor { UIColor(named: "stopsAllDeselected") ?? .white } 
 
     //(0, 0, 0) (153, 153, 153)
     static let baggageTypeTitleColor:UIColor = UIColor(named: "baggageTypeTitleColor") ?? AppColors.themeBlack
