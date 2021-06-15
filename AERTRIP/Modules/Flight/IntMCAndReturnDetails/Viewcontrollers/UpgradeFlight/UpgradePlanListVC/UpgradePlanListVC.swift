@@ -64,6 +64,10 @@ class UpgradePlanListVC: BaseVC {
         }
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+    }
+    
     func setupPageController(){
         self.journeyPageControl.numberOfPages = 0
         self.journeyPageControl.currentPage = 0
@@ -227,6 +231,8 @@ extension UpgradePlanListVC : UICollectionViewDataSource, UICollectionViewDelega
             newStyle.headIndent = 0
             newStyle.paragraphSpacingBefore = 12
             updatedStr.addAttribute(NSAttributedString.Key.paragraphStyle, value: newStyle, range: newRange)
+            let totalRange = NSString(string: updatedStr.string).range(of: updatedStr.string)
+            updatedStr.addAttribute(.foregroundColor, value: AppColors.themeBlack, range: totalRange)
             cell.txtView.attributedText = updatedStr
             cell.txtView.layoutIfNeeded()
             cell.handler = {[weak self] in

@@ -151,7 +151,7 @@ enum AppColors {
     
     // RGB - 238,238,239
     static let unicodeBackgroundColor = UIColor(named: "unicodeBackgroundColor") ?? UIColor(displayP3Red: 0.9333333333, green: 0.9333333333, blue: 0.937254902, alpha: 1)
-    // RGB - 241,241,242
+    // RGB - 241,241,242 (255, 255, 255 0.1)
     static let quaternarySystemFillColor = UIColor(named: "quaternarySystemFillColor") ?? UIColor(displayP3Red: 0.9450980392, green: 0.9450980392, blue: 0.9490196078, alpha: 1)
 
     // RGB - 228,228,229
@@ -297,6 +297,13 @@ enum AppColors {
     //(238, 204, 78) (255, 255, 255, 0.1)
     static let fewSeatLeftColor :UIColor = UIColor(named: "fewSeatLeftColor") ?? AppColors.themeBlack
   
+
+    //(238, 204, 78) (255, 255, 255, 0.1)
+//    static let fewSeatLeftColor :UIColor = UIColor(named: "fewSeatLeftColor") ?? AppColors.themeBlack
+    
+    static let upgradeFlightIndicator: UIColor = UIColor(named: "upgradeFlightIndicator") ?? AppColors.unicolorWhite
+    
+
     //(216,216,216) (70,70,70)
     static let performanceBackColor: UIColor = UIColor(named: "performanceBackColor") ?? .white
 
