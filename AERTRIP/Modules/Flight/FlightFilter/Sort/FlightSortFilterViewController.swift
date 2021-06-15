@@ -148,6 +148,7 @@ extension FlightSortFilterViewController : UITableViewDataSource , UITableViewDe
         cell.selectionStyle = .none
         cell.textLabel?.attributedText = self.getAttributedStringFor(index: indexPath.row)
         cell.accessoryView = nil
+        cell.backgroundColor = AppColors.themeWhiteDashboard
         
         cell.contentView.backgroundColor = AppColors.themeWhiteDashboard
         

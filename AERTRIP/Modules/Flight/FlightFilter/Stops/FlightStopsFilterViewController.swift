@@ -85,6 +85,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     
     func setColors(){
         self.view.backgroundColor = AppColors.themeWhiteDashboard
+        setupStopsBaseView()
         
     }
     
@@ -149,7 +150,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     }
     
     //MARK:- Additional UI Methods
-    fileprivate func setupStopsBaseView () {
+    fileprivate func setupStopsBaseView() {
         
         stopsBaseView.layer.borderWidth = 1.0
         stopsBaseView.layer.borderColor = AppColors.themeGray10.cgColor

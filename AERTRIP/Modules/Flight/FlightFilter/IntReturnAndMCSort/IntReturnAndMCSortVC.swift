@@ -88,7 +88,7 @@ extension IntReturnAndMCSortVC : UITableViewDataSource , UITableViewDelegate {
         
         let cell = UITableViewCell()
         cell.selectionStyle = .none
-       
+        cell.backgroundColor = AppColors.themeWhiteDashboard
         cell.contentView.backgroundColor = AppColors.themeWhiteDashboard
         
         switch indexPath.row {
