@@ -18,6 +18,7 @@ class IntMCAndReturnVC : UIViewController, GetSharableUrlDelegate
     @IBOutlet weak var emailPinnedFlights: UIButton!
     @IBOutlet weak var sharePinnedFilghts: UIButton!
     @IBOutlet weak var resultTableViewTop: NSLayoutConstraint!
+    @IBOutlet weak var resultTableViewHeight: NSLayoutConstraint!
     @IBOutlet weak var passthroughView: PassthroughView!
     
     var airlineCode = ""
@@ -102,6 +103,9 @@ extension IntMCAndReturnVC {
         resultsTableView.delegate = self
         self.view.backgroundColor = AppColors.themeWhite
         self.resultsTableView.backgroundColor = AppColors.themeWhite
+        let statusHeight = AppDelegate.shared.window?.safeAreaInsets.top ?? 0
+        resultsTableView.contentInset = UIEdgeInsets(top: statusHeight, left: 0, bottom: 0, right: 0)
+        resultTableViewHeight.constant += statusHeight
     }
     
     func addBannerTableHeaderView() {
@@ -171,7 +175,9 @@ extension IntMCAndReturnVC {
             guard let headerView = bannerView  else { return }
             
             let rect = headerView.frame
-            resultTableViewTop.constant = 0
+            let statusHeight = AppDelegate.shared.window?.safeAreaInsets.top ?? 0
+
+            resultTableViewTop.constant = -statusHeight
             
             UIView.animate(withDuration: 1.0 , animations: {
                 let y = rect.origin.y - rect.size.height - 20

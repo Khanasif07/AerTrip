@@ -46,6 +46,11 @@ class RoomVC: UIViewController {
         setFilterValues()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateSegmentControlTitle()
+    }
+    
     // MARK: - Helper methods
     
     private func doInitialSetUp() {

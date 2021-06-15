@@ -240,8 +240,8 @@ enum AppColors {
     /// (1,105,79) (0,0,0)
     static let drawerSideColor = UIColor(named: "drawerSideColor") ?? .white
     
-    ///(246,  246,  246) (9,  9,  9)
-    static let singleJourneyGroupCellColor = UIColor(named: "singleJourneyGroupCellColor") ?? UIColor(displayP3Red: 246.0/255, green: 246.0/255, blue: 246.0/255, alpha: 1)
+    ///(246,  246,  246) (26,  26,  26)
+    static let singleJourneyGroupCellColor = UIColor(named: "singleJourneyGroupCellColor") ?? .white
     
     /// RGB - (102, 102, 102)  (102, 102, 102)
     static let flightCellDashColor = UIColor(named: "flightCellDashColor") ?? UIColor(displayP3Red: 0.4, green: 0.4, blue: 0.4, alpha: 1)
@@ -286,15 +286,22 @@ enum AppColors {
     ///(246,  246,  246) (255, 255, 255,  0.1)
     static var flightFilterSessionDefaultColor: UIColor { UIColor(named: "flightFilterSessionDefaultColor") ?? .white }
     
+
+    ///(236,253,244,0.5) (0,204,153,0.03)
+    static var stopsAllDeselected: UIColor { UIColor(named: "stopsAllDeselected") ?? .white }
+
     //(0, 0, 0) (153, 153, 153)
     static let baggageTypeTitleColor:UIColor = UIColor(named: "baggageTypeTitleColor") ?? AppColors.themeBlack
-    
-    
+
     //(238, 204, 78) (255, 255, 255, 0.1)
     static let fewSeatLeftColor :UIColor = UIColor(named: "fewSeatLeftColor") ?? AppColors.themeBlack
     
     static let upgradeFlightIndicator: UIColor = UIColor(named: "upgradeFlightIndicator") ?? AppColors.unicolorWhite
     
+
+    //(216,216,216) (70,70,70)
+    static let performanceBackColor: UIColor = UIColor(named: "performanceBackColor") ?? .white
+
     
     case headlines
     case body
