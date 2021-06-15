@@ -76,6 +76,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         updateSegmentTitles()
+        stopsBaseView.layer.borderColor = AppColors.themeGray10.cgColor
     }
     
     
@@ -85,7 +86,6 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     
     func setColors(){
         self.view.backgroundColor = AppColors.themeWhiteDashboard
-        setupStopsBaseView()
         
     }
     
