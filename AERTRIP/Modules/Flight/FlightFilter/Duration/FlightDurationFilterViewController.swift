@@ -86,6 +86,11 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         setUColors()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateSegmentTitles()
+    }
+    
     
     func setUColors(){
         self.view.backgroundColor = AppColors.themeWhiteDashboard

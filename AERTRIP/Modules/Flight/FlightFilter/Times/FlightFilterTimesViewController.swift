@@ -71,6 +71,11 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
 
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateSegmentTitles()
+    }
+    
     private func setupColors(){
         [self.view, self.multiLegView, self.multiSegmentView, self.avoidOvernightView, arrivalDepartureContainerView,self.departureRangeSlider, self.arrivalRangeSlider].forEach{view in
             view?.backgroundColor = AppColors.themeWhiteDashboard

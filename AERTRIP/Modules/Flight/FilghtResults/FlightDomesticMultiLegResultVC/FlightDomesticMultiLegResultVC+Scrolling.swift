@@ -15,6 +15,7 @@ extension FlightDomesticMultiLegResultVC {
     func hidingAnimationOnNavigationBarOnScroll(offsetDifference : CGFloat, scrollView: UIScrollView) {
          DispatchQueue.main.async {
             let visualEffectViewHeight =  CGFloat(88.0)
+            let statusHeight = AppDelegate.shared.window?.safeAreaInsets.top ?? 0
             
             var yCordinate : CGFloat
             yCordinate = max (  -visualEffectViewHeight ,  -offsetDifference )
@@ -30,13 +31,30 @@ extension FlightDomesticMultiLegResultVC {
                 if let blurEffectView = self.navigationController?.view.viewWithTag(500) {
                     var rect = blurEffectView.frame
                     let yCordinateOfView = rect.origin.y
+                    
+                    // Calculation start for blur view
+                    
+                    var yCordinateBlur : CGFloat
+                    yCordinateBlur = max (-(visualEffectViewHeight + statusHeight) ,  -offsetDifference )
+                    yCordinateBlur = min ( 0,  yCordinateBlur)
+                    
+                    
+                    
+                    if yCordinateOfView > yCordinateBlur, ((blurEffectView.height + yCordinateBlur) > 0) || (blurEffectView.origin.y > -86.0) {
+                        var newRect = rect
+                        newRect.origin.y = yCordinateBlur
+                        blurEffectView.frame = newRect
+                    }
+                    
+                    // Calculation end for blur view
+                    
                     if ( yCordinateOfView  > yCordinate ) {
                         rect.origin.y = yCordinate
                         var baseViewContentOffset = self.baseScrollView.contentOffset
                         baseViewContentOffset.y = max( 0 , -yCordinate)
                         self.baseScrollView.setContentOffset(baseViewContentOffset, animated: false )
                         self.headerCollectionViewTop.constant = yCordinateForHeaderView
-                        blurEffectView.frame = rect
+//                        blurEffectView.frame = rect
                         if ((scrollView as? UITableView) == nil) && (self.headerCollectionViewTop.constant == 0.0){
                             self.setAllTableViewHeader()
                         }
@@ -248,13 +266,15 @@ extension FlightDomesticMultiLegResultVC {
         let index = tableView.tag - 1000
         let headerView = journeyHeaderViewArray[index]
         
-        let height : CGFloat
+        var height : CGFloat
         if headerView.isHidden {
             height = 0.0//138.0
         }
         else {
             height = 44.0//188.0
         }
+        let statusHeight = AppDelegate.shared.window?.safeAreaInsets.top ?? 0
+        height += statusHeight
         
 //        tableView.contentInset = UIEdgeInsets(top: height, left: 0, bottom: 0, right: 0)
         
@@ -350,6 +370,7 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
+        let statusHeight = AppDelegate.shared.window?.safeAreaInsets.top ?? 0
         // Synchronizing scrolling of headerCollectionView to baseScrollView scroll movement
         
         if !scrollView.isScrollEnabled{
@@ -381,8 +402,8 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
                 }
                 else {
                     if let tableView = subview as? UIScrollView {
-                        if tableView.contentOffset.y < 0{
-                            tableView.contentOffset.y = 0
+                        if tableView.contentOffset.y < -statusHeight {
+                            tableView.contentOffset.y = -statusHeight
                         }else{
                             tableView.setContentOffset(tableView.contentOffset, animated: false)
                         }
@@ -393,13 +414,14 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
     }
     
     func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
+        let statusHeight = AppDelegate.shared.window?.safeAreaInsets.top ?? 0
         if scrollView != self.baseScrollView{
             if let tableView = scrollView as? UITableView{
                 if let index = self.getSelectedIndex(for: tableView){
                     if index < 5{
-                        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+                        tableView.contentInset = UIEdgeInsets(top: statusHeight, left: 0, bottom: 0, right: 0)
                     }else{
-                        tableView.contentInset = UIEdgeInsets(top: 44.0, left: 0, bottom: 0, right: 0)
+                        tableView.contentInset = UIEdgeInsets(top: 44.0+statusHeight, left: 0, bottom: 0, right: 0)
                     }
                     
                 }

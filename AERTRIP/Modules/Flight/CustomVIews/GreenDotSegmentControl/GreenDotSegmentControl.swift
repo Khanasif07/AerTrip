@@ -22,7 +22,7 @@ class GreenDotSegmentControl: UISegmentedControl {
     
     func getImgFromAttString(segmentTitle: String) -> UIImage {
         
-        let mutableStr = NSMutableAttributedString(string: segmentTitle, attributes: [.font: AppFonts.SemiBold.withSize(14)])
+        let mutableStr = NSMutableAttributedString(string: segmentTitle, attributes: [.font: AppFonts.SemiBold.withSize(14), .foregroundColor: AppColors.themeBlack])
         let rangeOfDot = (mutableStr.string as NSString).range(of: "•")
         mutableStr.setAttributes([.font: AppFonts.SemiBold.withSize(14), .foregroundColor: AppColors.themeGreen], range: rangeOfDot)
         

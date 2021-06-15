@@ -73,6 +73,12 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
         setupOvernightFlightsView()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateSegmentTitles()
+        stopsBaseView.layer.borderColor = AppColors.themeGray10.cgColor
+    }
+    
     
     func initialSetup() {
         setColors()
@@ -144,7 +150,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     }
     
     //MARK:- Additional UI Methods
-    fileprivate func setupStopsBaseView () {
+    fileprivate func setupStopsBaseView() {
         
         stopsBaseView.layer.borderWidth = 1.0
         stopsBaseView.layer.borderColor = AppColors.themeGray10.cgColor
@@ -171,7 +177,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
             let height = self.stopsBaseView.frame.size.height
             var rect = CGRect(x: xcordinate, y: 0, width: width, height: height)
             let stopButton = UIButton(frame: rect)
-            stopButton.backgroundColor = AppColors.flightFilterSessionSelectedColor
+            stopButton.backgroundColor = AppColors.stopsAllDeselected
             
             stopButton.addTarget(self, action: #selector(tappedOnStopButton(sender:)), for: .touchDown)
             stopsBaseView.addSubview(stopButton)
@@ -372,11 +378,11 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     fileprivate func deselectionStateUIFor(_ sender: UIButton) {
         sender.backgroundColor = AppColors.themeWhiteDashboard
         if let title = sender.viewWithTag(1) as? UILabel {
-            title.textColor = UIColor.black
+            title.textColor = AppColors.themeBlack
         }
         
         if let subTitle = sender.viewWithTag(2) as? UILabel {
-            subTitle.textColor = UIColor.black
+            subTitle.textColor = AppColors.themeBlack
 //            subTitle.font = UIFont(name: "SourceSansPro-Regular", size: 16)
             subTitle.font = AppFonts.Regular.withSize(16)
         }
@@ -391,7 +397,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
         }
         if allDeselected {
             stopsButtonsArray.forEach { (btn) in
-                btn.backgroundColor = AppColors.flightFilterSessionSelectedColor
+                btn.backgroundColor = AppColors.stopsAllDeselected
             }
         }
     }
