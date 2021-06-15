@@ -27,6 +27,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     @IBOutlet weak var emailPinnedFlights: UIButton!
     @IBOutlet weak var sharePinnedFilghts: UIButton!
     @IBOutlet weak var switchGradientView: UIView!
+    @IBOutlet weak var resultsTableViewHeight: NSLayoutConstraint!
     @IBOutlet weak var resultsTableViewTop: NSLayoutConstraint!
     @IBOutlet weak var passThroughView: PassthroughView!
     
@@ -116,6 +117,9 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         resultsTableView.scrollsToTop = true
         resultsTableView.estimatedRowHeight  = 123
         resultsTableView.rowHeight = UITableView.automaticDimension
+        let statusHeight = AppDelegate.shared.window?.safeAreaInsets.top ?? 0
+        resultsTableView.contentInset = UIEdgeInsets(top: statusHeight, left: 0, bottom: 0, right: 0)
+        resultsTableViewHeight.constant += statusHeight
     }
     
     func setupPinnedFlightsOptionsView() {
@@ -179,7 +183,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             // If blurEffectView yCoodinate is close to top of the screen
             if  ( yCoordinate > ( visualEffectViewHeight / 2.0 ) ){
                 
-                let progressBarrStopPositionValue : CGFloat = UIDevice.isIPhoneX ? 46 : 22
+                let progressBarrStopPositionValue : CGFloat = 0//UIDevice.isIPhoneX ? 46 : 22
 
                 rect.origin.y = -visualEffectViewHeight + progressBarrStopPositionValue
 
@@ -410,7 +414,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             yCordinate = max (  -self.visualEffectViewHeight ,  -offsetDifference )
             yCordinate = min ( 0,  yCordinate)
             
-            let progressBarrStopPositionValue : CGFloat = UIDevice.isIPhoneX ? 46 : 22
+            let progressBarrStopPositionValue : CGFloat = 0//UIDevice.isIPhoneX ? 46 : 22
             
             UIView.animate(withDuration: 0.1, delay: 0.0, options: [.curveEaseOut], animations: {
                 
@@ -447,6 +451,39 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         }
     }
     
+    func switchProgressViews(_ scrollView: UIScrollView) {
+        let contentOffset = scrollView.contentOffset
+        let offsetDifference = contentOffset.y - self.viewModel.scrollviewInitialYOffset
+        let safeAreaTop = AppDelegate.shared.window?.safeAreaInsets.top ?? 0
+        if let blurEffectView = self.navigationController?.view.viewWithTag(500), let progressView = self.navigationController?.view.viewWithTag(600), let stickyProgressView = self.navigationController?.view.viewWithTag(601) as? UIProgressView {
+            if stickyProgressView.progress < 0.97 {
+                
+                if offsetDifference > 0 {
+                    // hiding
+                    if blurEffectView.frame.maxY <= safeAreaTop + 1 {
+                        progressView.isHidden = true
+                        stickyProgressView.isHidden = false
+                    } else {
+                        progressView.isHidden = false
+                        stickyProgressView.isHidden = true
+                    }
+                } else {
+                    // showing
+                    if blurEffectView.frame.maxY > safeAreaTop + 7 {
+                        progressView.isHidden = false
+                        stickyProgressView.isHidden = true
+                    } else {
+                        progressView.isHidden = true
+                        stickyProgressView.isHidden = false
+                    }
+                }
+            } else {
+                progressView.isHidden = true
+                stickyProgressView.isHidden = true
+            }
+        }
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         let contentSize = scrollView.contentSize
@@ -465,7 +502,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             let invertedOffset = -offsetDifference
             revealBlurredHeaderView(invertedOffset)
         }
-        
+        switchProgressViews(scrollView)
         
 //        guard let content = self.viewModel.contentOffset else { return }
 //
@@ -502,6 +539,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         snapToTopOrBottomOnSlowScrollDragging(scrollView)
+        switchProgressViews(scrollView)
         //        scrollviewInitialYOffset = 0.0
     }
     
