@@ -61,7 +61,7 @@
     [super viewDidLoad];
     [self setupInitials];
     [self showDatesSelection];
-    self.backgroundView.backgroundColor = [UIColor colorWithDisplayP3Red: 236/255.0 green:253/255.0 blue:244/255.0 alpha:1];
+    self.backgroundView.backgroundColor = [UIColor calendarSelectedGreen];
     [self setColors];
     [self hideShowDarkViews];
 }
