@@ -614,6 +614,7 @@
     if ( self.multicityViewModel != nil) {
         self.customCalenderView.allowsMultipleSelection = NO;
     }
+    
     self.customCalenderView.firstWeekday = 1;
     self.customCalenderView.placeholderType = FSCalendarPlaceholderTypeNone;    //date cell placeholder make empty
     [self.customCalenderView registerClass:[DIYCalendarCell class] forCellReuseIdentifier:@"cell"];
