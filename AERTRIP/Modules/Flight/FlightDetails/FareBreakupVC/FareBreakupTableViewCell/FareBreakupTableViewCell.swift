@@ -29,7 +29,15 @@ class FareBreakupTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
+        self.setColors()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.setColors()
+    }
+    
+    private func setColors(){
         backView.backgroundColor = AppColors.themeWhiteDashboard
         titleLabel.textColor = AppColors.themeBlack
     }
