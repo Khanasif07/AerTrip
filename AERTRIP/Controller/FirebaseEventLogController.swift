@@ -628,6 +628,15 @@ class FirebaseEventLogs: NSObject{
 //        case login = "Login"
 //        case navigateBack = "NavigateBack"
         
+        //MARK:- Flight Passenger Details  Events
+        case TapOnDoneButton
+//        case NavigateBack
+        case TapOnSeeExample
+        case TapOnOptionalDetails
+        case EnterFFProgramNumber
+        case SelectMealPreference
+        case SelectPassengerFromSuggestionList
+
         //MARK:- Flight Checkout  Events TypeNames
 //        case fareDipped = "FareDipped"
 //        case fareIncrease = "FareIncrease"
@@ -638,7 +647,10 @@ class FirebaseEventLogs: NSObject{
         //FlightCheckout
         case openFlightCheckout
         case OpenApplyCoupon
-        
+        case TapOnFareRule
+        case TapOnPrivacyPolicy
+        case TapOnTermOfUse
+
         
         //MARK:- Flight Receipt Events TypeNames
 //        case TapOnChangeTrip
@@ -1142,7 +1154,11 @@ class FirebaseEventLogs: NSObject{
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightGuestCheckout.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
     }
     
-    
+    //MARK:- Flight Passenger Details  Events Log Function
+    func logFlightPassengerDetailsEvents(with type: EventsTypeName){
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightPassengerDetails.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
+    }
+
     //MARK:- Flight  Checkout Events Log Function
     func logFlightCheckoutEvents(with type: EventsTypeName){
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightCheckOut.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
