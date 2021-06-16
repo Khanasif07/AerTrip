@@ -34,7 +34,7 @@
                                 <rect key="frame" x="0.0" y="44" width="375" height="768"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y3O-Yu-V2p" customClass="FSCalendar">
-                                        <rect key="frame" x="0.0" y="93" width="375" height="675"/>
+                                        <rect key="frame" x="0.0" y="123" width="375" height="645"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="allowsMultipleSelection" value="YES"/>
@@ -70,7 +70,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LUz-wx-DOC">
                                         <rect key="frame" x="0.0" y="93" width="375" height="30"/>
                                         <subviews>
-                                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OBJ-cn-VzS">
+                                            <visualEffectView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OBJ-cn-VzS">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Yx3-UB-oYw">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
@@ -443,7 +443,6 @@
                                     <constraint firstItem="y3O-Yu-V2p" firstAttribute="width" secondItem="eqA-tP-Q3m" secondAttribute="width" id="9Uz-ku-4qQ"/>
                                     <constraint firstItem="y3O-Yu-V2p" firstAttribute="bottom" secondItem="if4-5O-9LW" secondAttribute="bottom" id="Eis-Ob-rXf"/>
                                     <constraint firstItem="LUz-wx-DOC" firstAttribute="centerX" secondItem="dYr-na-eko" secondAttribute="centerX" id="FXC-aP-ysX"/>
-                                    <constraint firstItem="y3O-Yu-V2p" firstAttribute="top" secondItem="LUz-wx-DOC" secondAttribute="top" id="GiR-3F-Hpz"/>
                                     <constraint firstItem="y3O-Yu-V2p" firstAttribute="leading" secondItem="eqA-tP-Q3m" secondAttribute="leading" id="Grp-kg-TLx"/>
                                     <constraint firstItem="LUz-wx-DOC" firstAttribute="width" secondItem="dYr-na-eko" secondAttribute="width" id="It5-Ma-Okg"/>
                                     <constraint firstItem="DkQ-Na-Bb9" firstAttribute="trailing" secondItem="LUz-wx-DOC" secondAttribute="trailing" id="JX8-pZ-2Cf"/>
@@ -456,6 +455,7 @@
                                     <constraint firstItem="dYr-na-eko" firstAttribute="top" secondItem="eqA-tP-Q3m" secondAttribute="top" id="UyN-QW-Uts"/>
                                     <constraint firstItem="DkQ-Na-Bb9" firstAttribute="top" secondItem="eqA-tP-Q3m" secondAttribute="top" id="dh1-Mg-PsO"/>
                                     <constraint firstItem="vuD-u4-sYk" firstAttribute="trailing" secondItem="amJ-Pb-AiP" secondAttribute="trailing" id="ecx-dl-eMy"/>
+                                    <constraint firstItem="y3O-Yu-V2p" firstAttribute="top" secondItem="DkQ-Na-Bb9" secondAttribute="bottom" id="geE-2q-Skd"/>
                                     <constraint firstItem="LUz-wx-DOC" firstAttribute="top" secondItem="eqA-tP-Q3m" secondAttribute="top" constant="93" id="jCb-Ap-Qzh"/>
                                     <constraint firstItem="if4-5O-9LW" firstAttribute="centerX" secondItem="eqA-tP-Q3m" secondAttribute="centerX" id="jGa-n2-X6Q"/>
                                     <constraint firstItem="if4-5O-9LW" firstAttribute="width" secondItem="eqA-tP-Q3m" secondAttribute="width" id="lNr-3k-tdp"/>

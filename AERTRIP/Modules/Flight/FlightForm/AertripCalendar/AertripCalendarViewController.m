@@ -75,6 +75,7 @@
     _customCalenderView.backgroundColor = [UIColor themeBlack26];
     _customCalenderView.appearance.headerTitleColor = [UIColor themeBlack];
     _customCalenderView.appearance.titleDefaultColor = [UIColor themeBlack];
+    _customCalenderView.appearance.titlePlaceholderColor = [UIColor flightFormGray];
     _TopView.backgroundColor = [UIColor themeWhiteDashboard];
 //    _doneDarkView.backgroundColor = [UIColor themeWhiteDashboard];
 //    _weekDaysDarkView.backgroundColor = [UIColor themeWhiteDashboard];
@@ -231,7 +232,9 @@
     
     self.tempView.layer.shadowColor = [UIColor colorWithDisplayP3Red:0 green:0 blue:0 alpha:0.05].CGColor;
     self.tempView.layer.shadowOpacity = 1;
-    self.tempView.layer.shadowRadius = 10;    
+    self.tempView.layer.shadowRadius = 10;
+    
+    _weekdaysBaseView.backgroundColor = [UIColor themeWhiteDashboard];
 }
 
 - (void) loadFont:(NSString*)fontName {
