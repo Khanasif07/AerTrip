@@ -123,8 +123,7 @@ class FlightDetailsBaseVC: BaseVC {
         setupParchmentPageController()
         self.setupViewModel()
         self.manageLoader()
-        
-        FirebaseEventLogs.shared.logFlightDetailsEventWithJourneyTitle(title: bookFlightObject.titleString.string )
+        logEvents()
 
         self.loadFareInfo()
     }
@@ -912,5 +911,23 @@ extension FlightDetailsBaseVC : getArrivalPerformanceDelegate
             self.addChild(arrivalPerformanceView)
             arrivalPerformanceView.willMove(toParent: self)
         }
+    }
+}
+
+
+
+//MARK:- Firebase Analytics
+
+extension FlightDetailsBaseVC{
+    func logEvents(){
+        var valStr = ""
+        if isInternational{
+            valStr.append("Journey-\(bookFlightObject.titleString.string),Date-\(bookFlightObject.subTitleString ?? ""),AL-\(intJourney.first?.al.first ?? "")")
+        }else{
+            valStr.append("Journey-\(bookFlightObject.titleString.string),Date-\(bookFlightObject.subTitleString ?? ""),AL-\(journey.first?.al.first ?? "")")
+        }
+
+        FirebaseEventLogs.shared.logFlightDetailsEventWithJourneyTitle(title: valStr )
+
     }
 }

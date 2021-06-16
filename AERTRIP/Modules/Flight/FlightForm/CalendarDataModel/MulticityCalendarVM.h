@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong,) NSDictionary *travelDatesDictionary;
 @property (weak, nonatomic) id<CalendarDataHandler> delegate;
 @property (assign , nonatomic) NSUInteger currentIndex;
+@property (assign, nonatomic) BOOL isFromFlightBulkBooking;
 -(void)onDoneButtonTapped;
 -(NSInteger)cityCount;
 @end

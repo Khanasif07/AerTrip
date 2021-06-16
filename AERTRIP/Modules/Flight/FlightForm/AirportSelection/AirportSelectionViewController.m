@@ -1891,7 +1891,11 @@
     [self.viewModel onDoneButtonTapped];
     
     if(![sender  isEqual: @"onAirportCellSelected"]){
-        [self.viewModel logEventWithName:@"24" value: [self.viewModel getSelectedAirportsString]];
+        if(self.viewModel.airportSelectionMode == AirportSelectionModeBulkBookingJourney){
+            [self.viewModel logEventWithName:@"32" value: [self.viewModel getSelectedAirportsString]];
+        }else{
+            [self.viewModel logEventWithName:@"24" value: [self.viewModel getSelectedAirportsString]];
+        }
         [self animateBottomViewOut];
     }
 }
