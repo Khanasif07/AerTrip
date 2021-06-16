@@ -147,7 +147,8 @@
 }
 
 -(UIColor*)ONE_FIVE_THREE_COLOR {
-    return  [UIColor colorWithDisplayP3Red:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0];
+    return [UIColor flightFormGray];
+//    return  [UIColor colorWithDisplayP3Red:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0];
 }
 
 -(UIColor*)AertripColor
@@ -1164,11 +1165,11 @@
         cell.titleLabel.textColor = [UIColor themeBlack];
     }
     else {
-        cell.titleLabel.textColor = [UIColor colorWithDisplayP3Red:0.66 green:0.66 blue:0.66 alpha:1.0];
+        cell.titleLabel.textColor = [UIColor flightFormGray];
     }
     
     if( [date timeIntervalSinceDate:self.maximumDate] > 0 ){
-        cell.titleLabel.textColor = [UIColor colorWithDisplayP3Red:0.66 green:0.66 blue:0.66 alpha:1.0];
+        cell.titleLabel.textColor = [UIColor flightFormGray];
     }
     
     // Custom today circle
