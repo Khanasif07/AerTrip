@@ -120,6 +120,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         let statusHeight = AppDelegate.shared.window?.safeAreaInsets.top ?? 0
         resultsTableView.contentInset = UIEdgeInsets(top: statusHeight, left: 0, bottom: 0, right: 0)
         resultsTableViewHeight.constant += statusHeight
+        resultsTableViewTop.constant -= statusHeight
     }
     
     func setupPinnedFlightsOptionsView() {

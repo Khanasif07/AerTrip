@@ -1165,11 +1165,11 @@
         cell.titleLabel.textColor = [UIColor themeBlack];
     }
     else {
-        cell.titleLabel.textColor = [UIColor flightFormGray];
+        cell.titleLabel.textColor = [[UIColor flightFormGray] resolvedColorWithTraitCollection:self.traitCollection];
     }
     
     if( [date timeIntervalSinceDate:self.maximumDate] > 0 ){
-        cell.titleLabel.textColor = [UIColor flightFormGray];
+        cell.titleLabel.textColor = [[UIColor flightFormGray] resolvedColorWithTraitCollection:self.traitCollection];
     }
     
     // Custom today circle
