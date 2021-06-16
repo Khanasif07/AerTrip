@@ -278,15 +278,18 @@ extension IntFareBreakupVC: UITableViewDelegate,UITableViewDataSource{
                 fewSeatsLeftLabel.text = "Seat left at this price. Hurry up!"
             }
             
-            self.fareDataDisplayViewHeight.constant = 85 + CGFloat(bottomInset) + self.heightForBookingTitleView
-            self.bookingDataDisplayViewHeight.constant = 50 + CGFloat(bottomInset)
+//            self.fareDataDisplayViewHeight.constant = 85 + CGFloat(bottomInset) + self.heightForBookingTitleView
+//            self.bookingDataDisplayViewHeight.constant = 50 + CGFloat(bottomInset)
         }else{
             fewSeatsLeftView.isHidden = true
             fewSeatsLeftViewHeight.constant = 0
             
-            self.fareDataDisplayViewHeight.constant = 50 + CGFloat(bottomInset) + self.heightForBookingTitleView
-            self.bookingDataDisplayViewHeight.constant = 50 + CGFloat(bottomInset)
+//            self.fareDataDisplayViewHeight.constant = 50 + CGFloat(bottomInset) + self.heightForBookingTitleView
+//            self.bookingDataDisplayViewHeight.constant = 50 + CGFloat(bottomInset)
         }
+        
+        self.fareDataDisplayViewHeight.constant = 50 + CGFloat(bottomInset) + self.heightForBookingTitleView
+        self.bookingDataDisplayViewHeight.constant = 50 + CGFloat(bottomInset)
         
         self.totalPayableViewBottom.constant = bottomInset
         self.fareDataDisplayViewBottom.constant = bottomInset

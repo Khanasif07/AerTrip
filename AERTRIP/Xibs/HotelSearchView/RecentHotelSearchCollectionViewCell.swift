@@ -113,10 +113,10 @@ class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
         //String to Date Convert
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "E, dd MMM yy"
-        let date = dateFormatter.date(from: stringDate)
+        guard let date = dateFormatter.date(from: stringDate) else {return nil}
         //CONVERT FROM Date to String
         dateFormatter.dateFormat = "dd MMM"
-        return dateFormatter.string(from: date!)
+        return dateFormatter.string(from: date)
     }
     
     ///AdultAndRoomText
