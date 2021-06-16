@@ -100,7 +100,7 @@ int alreadySelectedComponent = 0;
 - (IBAction)doneAction:(id)sender {
     
     [self.delegate addFlightPassengerAction:self.travellerCount];
-    [self logEvents:@"24"];
+    [self logEvents:@"33"];
     [self animateBottomViewOut];
 }
 

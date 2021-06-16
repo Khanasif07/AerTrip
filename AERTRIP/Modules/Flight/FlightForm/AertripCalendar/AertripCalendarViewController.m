@@ -951,7 +951,11 @@
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         [dict setValue:self.viewModel.date1.description forKey:@"JourneyDate"];
 
-        [self logEvents:@"OneWay" valueDict:dict];
+        if(self.viewModel.isFromFlightBulkBooking){
+            [self logEvents:@"OneWay" valueDict:dict isFromFlightBulkBooking:YES];
+        }else{
+            [self logEvents:@"OneWay" valueDict:dict isFromFlightBulkBooking:NO];
+        }
     }
     else {
         if ( self.viewModel.isHotelCalendar &&  self.viewModel.date1) {
@@ -1015,7 +1019,11 @@
         [dict setValue:self.viewModel.date1.description forKey:@"OnwordDate"];
         [dict setValue:self.viewModel.date2.description forKey:@"ReturnDate"];
 
-        [self logEvents:@"Return" valueDict:dict];
+        if(self.viewModel.isFromFlightBulkBooking){
+            [self logEvents:@"Return" valueDict:dict isFromFlightBulkBooking:YES];
+        }else{
+            [self logEvents:@"Return" valueDict:dict isFromFlightBulkBooking:NO];
+        }
 
     }
     
@@ -1026,9 +1034,9 @@
         [dict setValue:self.viewModel.date2.description forKey:@"checkOut"];
 
         if(self.viewModel.isFromHotelBulkBooking){
-            [self logEvents:@"HotelBulkBooking" valueDict:dict];
+            [self logEvents:@"HotelBulkBooking" valueDict:dict isFromFlightBulkBooking:NO];
         }else{
-            [self logEvents:@"Hotel" valueDict:dict];
+            [self logEvents:@"Hotel" valueDict:dict isFromFlightBulkBooking:NO];
         }
 
     }
@@ -1077,8 +1085,12 @@
         }
 
     }
-
-    [self logEvents:@"Multicity" valueDict:dict];
+    
+    if(self.viewModel.isFromFlightBulkBooking){
+        [self logEvents:@"Multicity" valueDict:dict isFromFlightBulkBooking:YES];
+    }else{
+        [self logEvents:@"Multicity" valueDict:dict isFromFlightBulkBooking:NO];
+    }
 }
 
 -(void)showDatesSelection {
@@ -1369,7 +1381,7 @@
 //}
 
 ///Firebase events log function
-- (void) logEvents:(NSString *) tripType valueDict:(NSDictionary *) dictValue {
+- (void) logEvents:(NSString *) tripType valueDict:(NSDictionary *) dictValue isFromFlightBulkBooking:(BOOL) isBulkBooking {
     FirebaseEventLogs *eventController = FirebaseEventLogs.shared;
     
     if([tripType  isEqual: @"Hotel"]){
@@ -1377,7 +1389,7 @@
     }else if([tripType isEqual:@"HotelBulkBooking"]){
         [eventController logHotelCalenderDateSelectionEventsWithDictValue:dictValue isFromHotelBulkBooking:true];
     }else{
-        [eventController logFlightCalenderDateSelectionEvents:tripType dictValue:dictValue];
+        [eventController logFlightCalenderDateSelectionEvents:tripType dictValue:dictValue isFromFlightBulkBooking:isBulkBooking];
     }
     
 }
