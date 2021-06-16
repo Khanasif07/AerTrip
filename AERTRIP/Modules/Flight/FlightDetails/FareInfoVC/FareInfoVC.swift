@@ -528,6 +528,7 @@ class FareInfoVC: BaseVC, UITableViewDelegate, UITableViewDataSource {
 
 
 extension FareInfoVC : FlightFareInfoVMDelegate{
+    
     func flightFareInfoData(data: Data, index:Int) {
 //        self.removeIndicator()
         let decoder = JSONDecoder()

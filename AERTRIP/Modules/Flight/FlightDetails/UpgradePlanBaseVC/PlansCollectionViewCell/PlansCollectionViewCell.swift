@@ -49,7 +49,6 @@ class PlansCollectionViewCell: UICollectionViewCell
         self.setColor()
     }
     
-    
     private func setColor(){
         self.dataDisplayView.backgroundColor = AppColors.themeWhiteDashboard
         self.fewSeatsLeftView.backgroundColor = AppColors.fewSeatLeftColor
