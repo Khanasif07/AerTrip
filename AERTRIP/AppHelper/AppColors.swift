@@ -296,6 +296,8 @@ enum AppColors {
     //(216,216,216) (70,70,70)
     static let performanceBackColor: UIColor = UIColor(named: "performanceBackColor") ?? .white
 
+    //(153,153,153) (120,120,120)
+    static let flightFormGray: UIColor = UIColor(named: "flightFormGray") ?? .white
     
     case headlines
     case body
