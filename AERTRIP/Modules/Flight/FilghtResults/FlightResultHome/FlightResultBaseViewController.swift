@@ -52,6 +52,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
     
     private var filterBackView = UIView()
     private var visualEffectBlurView: UIVisualEffectView!
+    private var filterBackgroundColorView = UIView()
     
     private var stickyProgressView: UIProgressView!
     
@@ -206,6 +207,14 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         visualEffectBlurView.effect = UIBlurEffect(style: .prominent)
         visualEffectBlurView.contentView.backgroundColor = .clear
         visualEffectView.addSubview(visualEffectBlurView)
+        visualEffectView.addSubview(filterBackgroundColorView)
+        
+        filterBackgroundColorView.snp.makeConstraints { (maker) in
+            maker.top.equalToSuperview()
+            maker.bottom.equalToSuperview()
+            maker.leading.equalToSuperview()
+            maker.trailing.equalToSuperview()
+        }
         
         visualEffectBlurView.snp.makeConstraints { (maker) in
             maker.top.equalTo(self.visualEffectView.top + statusHeight)
@@ -847,6 +856,8 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         view.addSubview(filterBackView)
         filterBackView.alpha = 0
         filterBackView.isHidden = true
+        filterBackgroundColorView.backgroundColor = AppColors.themeWhiteDashboard
+        filterBackgroundColorView.isHidden = true
     }
     
     private func toggleFilterBackView(hidden: Bool) {
@@ -1131,6 +1142,9 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         intMCAndReturnFilterVC?.toggleSelectedState(hidden: hidden)
         toggleFilterBackView(hidden: hidden)
         if !hidden {
+            filterBackgroundColorView.isHidden = false
+            visualEffectBlurView.isHidden = true
+            statusBarBlurView.isHidden = true
             addFilterHeader()
             backView.sendSubviewToBack(ApiProgress)
             UIView.animate(withDuration: 0.3) {
@@ -1140,6 +1154,9 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
                 make.bottom.equalTo(self.visualEffectView).offset(0.0)
             }
         } else {
+            filterBackgroundColorView.isHidden = true
+            visualEffectBlurView.isHidden = false
+            statusBarBlurView.isHidden = false
             removeFilterHeader()
             backView.bringSubviewToFront(ApiProgress)
             UIView.animate(withDuration: 0.3) {
