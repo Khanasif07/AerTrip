@@ -61,7 +61,7 @@
     [super viewDidLoad];
     [self setupInitials];
     [self showDatesSelection];
-    self.backgroundView.backgroundColor = [UIColor colorWithDisplayP3Red: 236/255.0 green:253/255.0 blue:244/255.0 alpha:1];
+    self.backgroundView.backgroundColor = [UIColor calendarSelectedGreen];
     [self setColors];
     [self hideShowDarkViews];
 }
@@ -614,6 +614,7 @@
     if ( self.multicityViewModel != nil) {
         self.customCalenderView.allowsMultipleSelection = NO;
     }
+    
     self.customCalenderView.firstWeekday = 1;
     self.customCalenderView.placeholderType = FSCalendarPlaceholderTypeNone;    //date cell placeholder make empty
     [self.customCalenderView registerClass:[DIYCalendarCell class] forCellReuseIdentifier:@"cell"];
