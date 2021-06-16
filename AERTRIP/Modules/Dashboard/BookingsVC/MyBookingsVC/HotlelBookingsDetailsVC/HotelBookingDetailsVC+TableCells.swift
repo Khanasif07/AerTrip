@@ -131,14 +131,11 @@ extension HotlelBookingsDetailsVC {
         if self.viewModel.bookingDetail?.refundAmount ?? 0.0 != 0.0 {
             isCellLast = false
         }
-
+        
 //        let amount = (self.viewModel.bookingDetail?.paid ?? 0)
 //        let attAmount = self.getConvertedPrice(for: amount, with: self.viewModel.bookingDetail?.bookingCurrencyRate, using: AppFonts.Regular.withSize(16.0), isForCancellation: false)
-//
+//        
 //        cell.configCellForAmount(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: attAmount, priceInRupee: amount, isLastCell: isCellLast)
-        
-//        cell.configCell(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(self.viewModel.bookingDetail?.paid ?? 0)", isLastCell: isCellLast)
-        
         
         var transactionAmount = 0.0
         let count = self.viewModel.bookingDetail?.receipt?.voucher.count ?? 0
@@ -149,10 +146,9 @@ extension HotlelBookingsDetailsVC {
                 transactionAmount = self.viewModel.bookingDetail?.receipt?.voucher[i].transactions.first?.amount ?? 0.0
             }
         }
-  
-        cell.configCell(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(transactionAmount)", isLastCell: isCellLast)
-
-//        cell.configCell(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(self.viewModel.bookingDetail?.paid ?? 0)", isLastCell: isCellLast)
+        let attAmount = self.getConvertedPrice(for: transactionAmount, with: self.viewModel.bookingDetail?.bookingCurrencyRate, using: AppFonts.Regular.withSize(16.0), isForCancellation: false)
+        
+        cell.configCellForAmount(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: attAmount, priceInRupee: transactionAmount, isLastCell: isCellLast)
 
         cell.containerViewBottomConstraint.constant = (isCellLast) ? 21.0 : 0.0
         cell.clipsToBounds = isCellLast

@@ -190,13 +190,13 @@ extension FlightBookingsDetailsVC {
         if self.viewModel.bookingDetail?.refundAmount ?? 0.0 != 0.0 {
             isCellLast = false
         }
-//
+
 //        let paidAmt = self.viewModel.bookingDetail?.receipt?.voucher.first?.transactions.first?.amount ?? 0
 //        let amount = self.getConvertedPrice(for: abs(paidAmt), with: self.viewModel.bookingDetail?.bookingCurrencyRate, using: AppFonts.Regular.withSize(16.0), isForCancellation: false)
 //
 //        cell.configCellForAmount(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: amount, priceInRupee: paidAmt, isLastCell: isCellLast)
 ////        cell.configCell(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(paidAmt)", isLastCell: isCellLast)
-
+//=======
         
         var transactionAmount = 0.0
         let count = self.viewModel.bookingDetail?.receipt?.voucher.count ?? 0
@@ -208,8 +208,12 @@ extension FlightBookingsDetailsVC {
             }
         }
        
+        let amount = self.getConvertedPrice(for: abs(transactionAmount), with: self.viewModel.bookingDetail?.bookingCurrencyRate, using: AppFonts.Regular.withSize(16.0), isForCancellation: false)
+        
+        cell.configCellForAmount(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: amount, priceInRupee: transactionAmount, isLastCell: isCellLast)
+        
 
-        cell.configCell(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(transactionAmount)", isLastCell: isCellLast)
+//        cell.configCell(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(transactionAmount)", isLastCell: isCellLast)
 
         cell.containerViewBottomConstraint.constant = (isCellLast) ? 21.0 : 0.0
         cell.clipsToBounds = isCellLast
