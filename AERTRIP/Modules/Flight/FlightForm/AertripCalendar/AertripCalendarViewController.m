@@ -75,6 +75,7 @@
     _customCalenderView.backgroundColor = [UIColor themeBlack26];
     _customCalenderView.appearance.headerTitleColor = [UIColor themeBlack];
     _customCalenderView.appearance.titleDefaultColor = [UIColor themeBlack];
+    _customCalenderView.appearance.titlePlaceholderColor = [UIColor flightFormGray];
     _TopView.backgroundColor = [UIColor themeWhiteDashboard];
 //    _doneDarkView.backgroundColor = [UIColor themeWhiteDashboard];
 //    _weekDaysDarkView.backgroundColor = [UIColor themeWhiteDashboard];
@@ -147,7 +148,8 @@
 }
 
 -(UIColor*)ONE_FIVE_THREE_COLOR {
-    return  [UIColor colorWithDisplayP3Red:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0];
+    return [UIColor flightFormGray];
+//    return  [UIColor colorWithDisplayP3Red:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0];
 }
 
 -(UIColor*)AertripColor
@@ -230,7 +232,9 @@
     
     self.tempView.layer.shadowColor = [UIColor colorWithDisplayP3Red:0 green:0 blue:0 alpha:0.05].CGColor;
     self.tempView.layer.shadowOpacity = 1;
-    self.tempView.layer.shadowRadius = 10;    
+    self.tempView.layer.shadowRadius = 10;
+    
+    _weekdaysBaseView.backgroundColor = [UIColor themeWhiteDashboard];
 }
 
 - (void) loadFont:(NSString*)fontName {
@@ -1164,11 +1168,11 @@
         cell.titleLabel.textColor = [UIColor themeBlack];
     }
     else {
-        cell.titleLabel.textColor = [UIColor colorWithDisplayP3Red:0.66 green:0.66 blue:0.66 alpha:1.0];
+        cell.titleLabel.textColor = [[UIColor flightFormGray] resolvedColorWithTraitCollection:self.traitCollection];
     }
     
     if( [date timeIntervalSinceDate:self.maximumDate] > 0 ){
-        cell.titleLabel.textColor = [UIColor colorWithDisplayP3Red:0.66 green:0.66 blue:0.66 alpha:1.0];
+        cell.titleLabel.textColor = [[UIColor flightFormGray] resolvedColorWithTraitCollection:self.traitCollection];
     }
     
     // Custom today circle
