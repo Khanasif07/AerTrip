@@ -42,7 +42,7 @@ class SelectBagageCell: UITableViewCell {
     
     func populateData(data : AddonsDataCustom, index : Int){
 //        let price = "₹ \(data.price.commaSeprated)"
-        self.priceLabel.attributedText = data.price.getConvertedAmount(using: AppFonts.SemiBold.withSize(18))
+        self.priceLabel.attributedText = data.price.getConvertedAmount(using: AppFonts.Regular.withSize(18))
        
         self.priceLabelWidth.constant = self.priceLabel.attributedText?.string.getTextWidth(height: 21, font: AppFonts.Regular.withSize(18)) ?? 0
       
@@ -91,7 +91,7 @@ class SelectBagageCell: UITableViewCell {
 //        let price = "₹ \(data.price.commaSeprated)"
 //        self.priceLabel.text = price
       
-        self.priceLabel.attributedText = data.price.getConvertedAmount(using: AppFonts.SemiBold.withSize(18))
+        self.priceLabel.attributedText = data.price.getConvertedAmount(using: AppFonts.Regular.withSize(18))
 
         self.priceLabelWidth.constant = self.priceLabel.attributedText?.string.getTextWidth(height: 21, font: AppFonts.Regular.withSize(18)) ?? 0
         

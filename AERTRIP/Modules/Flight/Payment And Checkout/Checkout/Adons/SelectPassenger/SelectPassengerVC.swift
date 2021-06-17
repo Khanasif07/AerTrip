@@ -57,6 +57,11 @@ class SelectPassengerVC : BaseVC {
         transformViewToOriginalState()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        passengerCollectionView.reloadData()
+    }
+    
     @IBAction func doneButtonTapped(_ sender: UIButton) {
         performDoneBtnAction()
     }

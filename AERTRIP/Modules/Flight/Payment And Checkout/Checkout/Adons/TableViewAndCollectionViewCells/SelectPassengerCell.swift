@@ -26,7 +26,8 @@ class SelectPassengerCell: UICollectionViewCell {
         selectionImageView.backgroundColor = AppColors.themeGreen.withAlphaComponent(0.6)
         contentView.backgroundColor = AppColors.themeWhiteDashboard
         nameLabel.textColor = AppColors.themeBlack
-        
+        nameLabel.backgroundColor = AppColors.clear
+        seatLabel.backgroundColor = AppColors.clear
         //self.setNeedsLayout()
         //self.layoutIfNeeded()
     }
@@ -42,7 +43,7 @@ class SelectPassengerCell: UICollectionViewCell {
             self.passengerImageView.setImageWithUrl(data.profilePicture, placeholder: placeHolder, showIndicator: false)
         }
         else {
-            self.passengerImageView.image = AppGlobals.shared.getImageFor(firstName: data.firstName, lastName: data.lastName, font: AppFonts.Light.withSize(36.0),textColor: AppColors.themeGray60, offSet: CGPoint(x: 0, y: 12), backGroundColor: AppColors.imageBackGroundColor)
+            self.passengerImageView.image = AppGlobals.shared.getImageFor(firstName: data.firstName, lastName: data.lastName, font: AppFonts.Light.withSize(36.0),textColor: AppColors.grayWhite, offSet: CGPoint(x: 0, y: 12), backGroundColor: AppColors.imageBackGroundColor)
         }
         
     }

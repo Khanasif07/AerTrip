@@ -72,7 +72,7 @@ enum AppColors {
     /// RGB - 214, 214, 214
     static let themeGray214  = UIColor(named: "themeGray214") ?? UIColor(displayP3Red: 0.839, green: 0.839, blue: 0.839, alpha: 1)
     
-    /// RGB - 138, 138, 143, with alpha 0.22
+    /// RGB - 138, 138, 143, with alpha 0.22  Dark 70, 70, 70
     static let imageBackGroundColor = UIColor(named: "imageBackGroundColor") ?? UIColor(displayP3Red: 0.5411764706, green: 0.5411764706, blue: 0.5607843137, alpha: 1).withAlphaComponent(0.22)
     
     /// RGB - 230, 230, 230
@@ -249,6 +249,10 @@ enum AppColors {
     
     /// RGB - (102, 102, 102)  (102, 102, 102)
     static let flightCellDashColor = UIColor(named: "flightCellDashColor") ?? UIColor(displayP3Red: 0.4, green: 0.4, blue: 0.4, alpha: 1)
+    
+    /// RGB - (102, 102, 102)  (255, 255, 255)
+    static let grayWhite = UIColor(named: "grayWhite") ?? UIColor(displayP3Red: 0.4, green: 0.4, blue: 0.4, alpha: 1)
+    
     
     /// RGB - 255, 144, 0
     static let cheapestPriceColor = UIColor(named: "cheapestPriceColor") ?? UIColor(displayP3Red: 1, green: 0.5647058824, blue: 0, alpha: 1)
