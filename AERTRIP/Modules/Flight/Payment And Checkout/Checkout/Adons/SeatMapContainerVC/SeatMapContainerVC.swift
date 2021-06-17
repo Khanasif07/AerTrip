@@ -162,6 +162,9 @@ class SeatMapContainerVC: UIViewController {
         topNavBarView.configureFirstRightButton(normalTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen)
         
         topNavBarView.delegate = self
+        
+        topNavBarView.darkView.isHidden = false
+        topNavBarView.darkView.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     private func setupViews() {
