@@ -18,7 +18,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         CAShapeLayer *selectionLayer = [[CAShapeLayer alloc] init];
-        selectionLayer.fillColor = [UIColor colorWithDisplayP3Red:0/255.0 green:204/255.0 blue:153/255.0 alpha:1.0].CGColor;
+        selectionLayer.fillColor = [UIColor appColor].CGColor;
         
         selectionLayer.actions = @{@"hidden":[NSNull null]};
         [self.contentView.layer insertSublayer:selectionLayer below:self.titleLabel.layer];
