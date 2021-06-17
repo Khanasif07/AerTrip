@@ -57,10 +57,23 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
         }
         baggageTableView.showsVerticalScrollIndicator = true
         
-        self.baggageTableView.backgroundColor = AppColors.themeGray04
+        
         FirebaseEventLogs.shared.logFlightDetailsEvent(with: .FlightDetailsBaggageInfo)
 
     }
+    
+    
+    override func setupColors() {
+        self.view.backgroundColor = AppColors.flightResultsFooterSecondaryColor
+        self.baggageTableView.backgroundColor = AppColors.themeGray04
+    }
+    
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.baggageTableView.reloadData()
+    }
+    
     
     //MARK:- Tableview Methods
     func numberOfSections(in tableView: UITableView) -> Int

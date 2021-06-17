@@ -137,6 +137,12 @@ class FareInfoVC: BaseVC, UITableViewDelegate, UITableViewDataSource {
         self.fareInfoTableView.backgroundColor = AppColors.themeGray04
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.fareInfoTableView.reloadData()
+    }
+    
+    
     private func setLoader(){
         if #available(iOS 13.0, *) {
             indicator.style = .large

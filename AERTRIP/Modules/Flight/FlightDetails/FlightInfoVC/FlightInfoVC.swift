@@ -95,6 +95,12 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
     
     override func setupColors() {
         self.flightInfoTableView.backgroundColor = AppColors.themeGray04
+        self.view.backgroundColor = AppColors.flightResultsFooterSecondaryColor
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.flightInfoTableView.reloadData()
     }
     
     //MARK:- Get Flight Info
