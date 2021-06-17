@@ -330,7 +330,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
         stopsBaseView.subviews.forEach{ view in
             if let button = view as? UIButton {
                 
-                button.backgroundColor = AppColors.flightFilterSessionSelectedColor
+                button.backgroundColor = AppColors.stopsAllDeselected
                 
                 if let title = button.viewWithTag(1) as? UILabel {
                     title.textColor =  UIColor.FIVE_ONE_COLOR
