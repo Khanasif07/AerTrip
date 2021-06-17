@@ -306,7 +306,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     private func getSegmentTitleFor(_ index: Int) -> String {
         let currentFilter = viewModel.allStopsFilters[(index - 1)]
         let isFilterApplied = currentFilter.userSelectedStops.count > 0
-        var title = "\(viewModel.allLegNames[index - 1].origin) \u{279E} \(viewModel.allLegNames[index - 1].destination)"
+        var title = "\(viewModel.allLegNames[index - 1].origin) - \(viewModel.allLegNames[index - 1].destination)"
         if viewModel.allStopsFilters.count > 3 {
             title = "\(index)"
         }
