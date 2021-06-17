@@ -198,8 +198,8 @@ class PriceFilterViewController: BaseVC , FilterViewController {
         [self.view,self.multiLegView, self.multiSegmentView,priceSliderContainerView, self.priceRangeSlider].forEach { view in
             view?.backgroundColor = AppColors.themeWhiteDashboard
         }
-        self.fareMinValView.backgroundColor = AppColors.sliderTrackColor
-        self.fareMaxValView.backgroundColor = AppColors.sliderTrackColor
+        self.fareMinValView.backgroundColor = AppColors.flightFilterHighlightColor
+        self.fareMaxValView.backgroundColor = AppColors.flightFilterHighlightColor
         self.fareMinValue.backgroundColor = .clear//AppColors.sliderTrackColor
         self.fareMaxValue.backgroundColor = .clear//AppColors.sliderTrackColor
     }

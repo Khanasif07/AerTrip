@@ -1220,7 +1220,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
 //        self.filterTitle.font = UIFont(name: "SourceSansPro-Regular", size: 16.0)
         
         self.filterTitle.font = AppFonts.Regular.withSize(16)
-        self.filterTitle.textColor = UIColor.ONE_FIVE_THREE_COLOR
+        self.filterTitle.textColor = AppColors.themeGray153
         self.filterTitle.textAlignment = .center
         
     }
