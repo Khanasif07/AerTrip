@@ -70,6 +70,10 @@ class SingleJourneyCollectionViewCell: UICollectionViewCell {
             self.baseView.addShadow(cornerRadius: shadowProp.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: .clear, offset: shadowProp.offset, opacity: 0.0, shadowRadius: 0.0)
         }
         
+        self.logoOne.roundedCorners(cornerRadius: 2)
+        self.logoTwo.roundedCorners(cornerRadius: 2)
+        self.logoThree.roundedCorners(cornerRadius: 2)
+        
     }
     
     func setupColors(){

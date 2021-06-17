@@ -103,6 +103,7 @@ extension FlightResultSingleJourneyVC : UITableViewDataSource , UITableViewDeleg
             cell.selectionStyle = .none
             cell.setTitlesFrom( journey : journey)
             if let logoArray = journey?.airlineLogoArray {
+
                 
                 switch logoArray.count {
                     
