@@ -51,6 +51,13 @@ class IntJourneyHeaderView: UIView {
         contentView.backgroundColor = p3AertrioColor
         departAirportCode.backgroundColor = p3AertrioColor
         ArrivalAirportCode.backgroundColor = p3AertrioColor
+        self.setColors()
+    }
+    
+    
+    private func setColors(){
+        self.ArrivalAirportCode.textColor = AppColors.flightFormReturnEnableColor
+        self.departAirportCode.textColor = AppColors.flightFormReturnEnableColor
     }
     
     

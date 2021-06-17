@@ -72,8 +72,14 @@ class DomesticMultiLegCell: UITableViewCell {
         smartIconCollectionView.delegate = self
     }
     
+    private func setColors(){
+        self.flightCode.textColor = AppColors.themeGray60
+        self.arrivalAirportCode.textColor = AppColors.themeGray40
+        self.departureAirportCode.textColor = AppColors.themeGray40
+    }
+    
     //MARK:- Methods
-    fileprivate func setupGradientView( selectedColor : UIColor = UIColor.white) {
+    fileprivate func setupGradientView( selectedColor : UIColor = AppColors.themeWhite) {
         
         let gradient = CAGradientLayer()
         let gradientViewRect = gradientView.bounds
@@ -260,7 +266,7 @@ class DomesticMultiLegCell: UITableViewCell {
         
         let selectedStateBGColor = AppColors.calendarSelectedGreen//AppColors.themeGreenishWhite//UIColor(displayP3Red: (236.0/255.0), green: (253.0/255.0), blue: (244.0/255.0), alpha: 1.0)
         
-        let backgroundColor = isSelected ? selectedStateBGColor : AppColors.themeWhiteDashboard
+        let backgroundColor = isSelected ? selectedStateBGColor : AppColors.themeWhite
         
                // if ( duration.isHidden == false) {
                     self.backgroundColor = backgroundColor
@@ -268,6 +274,7 @@ class DomesticMultiLegCell: UITableViewCell {
                     price.backgroundColor = backgroundColor
                     setupGradientView(selectedColor: backgroundColor)
               //  }
+        self.setColors()
         
     }
     

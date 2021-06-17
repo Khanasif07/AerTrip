@@ -34,7 +34,7 @@ class InternationalReturnDetailsCell: UITableViewCell {
         didSet{
             let selectedStateBGColor = AppColors.calendarSelectedGreen//AppColors.iceGreen
             
-            let backgroundColor = isSelected ? selectedStateBGColor : AppColors.themeWhiteDashboard
+            let backgroundColor = isSelected ? selectedStateBGColor : AppColors.themeWhite
             if !duration.isHidden{
                 self.backgroundColor = backgroundColor
                 stopsBackgroundView.backgroundColor = backgroundColor
@@ -61,7 +61,7 @@ class InternationalReturnDetailsCell: UITableViewCell {
         
         let selectedStateBGColor = AppColors.calendarSelectedGreen//AppColors.iceGreen
         
-        let backgroundColor = selected ? selectedStateBGColor : AppColors.themeWhiteDashboard//.white
+        let backgroundColor = selected ? selectedStateBGColor : AppColors.themeWhite//.white
         if !duration.isHidden{
             self.backgroundColor = backgroundColor
             stopsBackgroundView.backgroundColor = backgroundColor
@@ -79,8 +79,15 @@ class InternationalReturnDetailsCell: UITableViewCell {
              self.backgroundColor = backgroundColor
         }
         
+        
     }
     
+    
+    private func setColors(){
+        self.flightCode.textColor = AppColors.themeGray60
+        self.arrivalAirportCode.textColor = AppColors.themeGray40
+        self.departureAirportCode.textColor = AppColors.themeGray40
+    }
     
     
     override func awakeFromNib() {
@@ -133,7 +140,7 @@ class InternationalReturnDetailsCell: UITableViewCell {
         else {
             flightCode.isHidden = true
         }
-        
+        self.setColors()
         departureTime.text = leg.dt
         arrivalTime.attributedText = leg.endTime16size
         arrivalTimeWidth.constant = arrivalTime.intrinsicContentSize.width
