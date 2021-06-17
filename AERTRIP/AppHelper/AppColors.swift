@@ -149,7 +149,7 @@ enum AppColors {
     // RGB - 229,229,230
     static let blueGray = UIColor(named: "blueGray") ?? UIColor(displayP3Red: 0.8980392157, green: 0.8980392157, blue: 0.9019607843, alpha: 1)
     
-    // RGB - 238,238,239
+    // RGB - 238,238,239 (49, 49, 49)
     static let unicodeBackgroundColor = UIColor(named: "unicodeBackgroundColor") ?? UIColor(displayP3Red: 0.9333333333, green: 0.9333333333, blue: 0.937254902, alpha: 1)
     // RGB - 241,241,242 (255, 255, 255 0.1)
     static let quaternarySystemFillColor = UIColor(named: "quaternarySystemFillColor") ?? UIColor(displayP3Red: 0.9450980392, green: 0.9450980392, blue: 0.9490196078, alpha: 1)
@@ -316,6 +316,9 @@ enum AppColors {
 
     //(153,153,153) (120,120,120)
     static let flightFormGray: UIColor = UIColor(named: "flightFormGray") ?? .white
+    
+//    (204, 204, 204) (255, 255, 255, 0)
+    static let unicodeSwitchLineColor = UIColor(named: "unicodeSwitchLineColor") ?? .white
     
     case headlines
     case body

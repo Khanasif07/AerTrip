@@ -38,6 +38,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                         </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="fLU-oA-Qc7" secondAttribute="trailing" constant="16" id="1am-3v-Sjn"/>
                             <constraint firstAttribute="height" constant="59" id="DWF-I6-ynN"/>
@@ -68,7 +69,7 @@
     </objects>
     <designables>
         <designable name="fLU-oA-Qc7">
-            <size key="intrinsicContentSize" width="4" height="25"/>
+            <size key="intrinsicContentSize" width="4" height="24.5"/>
         </designable>
     </designables>
 </document>

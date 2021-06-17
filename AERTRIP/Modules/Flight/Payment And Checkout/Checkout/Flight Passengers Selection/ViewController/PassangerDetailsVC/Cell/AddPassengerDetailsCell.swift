@@ -424,7 +424,7 @@ class AddPassengerDetailsCell: UITableViewCell {
         containerView.layer.cornerRadius = 20.0
         unicodeSwitch.sliderView.layer.cornerRadius = 18
         unicodeSwitch.sliderInset = 1.0
-        verticalDividerView.backgroundColor = AppColors.themeGray20
+        verticalDividerView.backgroundColor = AppColors.unicodeSwitchLineColor
         configureSalutationSwicth(type: .none)
     }
     

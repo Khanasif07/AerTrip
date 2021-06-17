@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -54,7 +54,7 @@
                                         </connections>
                                     </switch>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" name="themeBlack26"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="7Hb-hG-1k1" secondAttribute="bottom" constant="16" id="CIQ-0o-XNK"/>
                                     <constraint firstItem="rKV-Gi-3eD" firstAttribute="top" secondItem="cbr-r2-eag" secondAttribute="bottom" constant="-5.5" id="OTL-ep-b93"/>
@@ -105,7 +105,7 @@ GSTIN - 27AAPCA3454J1Z4</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" name="themeBlack26"/>
                                 <constraints>
                                     <constraint firstItem="qa4-fN-Fmq" firstAttribute="top" secondItem="duS-n6-X4W" secondAttribute="bottom" constant="2" id="3s2-s5-wVz"/>
                                     <constraint firstItem="Yjn-Gf-IOg" firstAttribute="leading" secondItem="duS-n6-X4W" secondAttribute="leading" id="6BP-Go-xl2"/>
@@ -149,6 +149,7 @@ GSTIN - 27AAPCA3454J1Z4</string>
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q8Z-M6-2UH" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="16" y="53" width="418" height="0.5"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="0zn-Nz-YZK"/>
                                         </constraints>
@@ -174,6 +175,7 @@ GSTIN - 27AAPCA3454J1Z4</string>
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uyL-qi-2Bv" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="16" y="115" width="418" height="0.5"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="HER-TD-pGg"/>
                                         </constraints>
@@ -188,13 +190,13 @@ GSTIN - 27AAPCA3454J1Z4</string>
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iP5-Hq-kKD" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="174" width="450" height="0.5"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="20b-Ml-gjf"/>
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" name="themeBlack26"/>
                                 <constraints>
                                     <constraint firstItem="aqg-Xr-EIw" firstAttribute="leading" secondItem="6js-92-Sum" secondAttribute="leading" constant="16" id="0fa-ps-pXe"/>
                                     <constraint firstAttribute="trailing" secondItem="1W3-vK-PKa" secondAttribute="trailing" constant="16" id="97g-rb-j5a"/>
@@ -220,6 +222,7 @@ GSTIN - 27AAPCA3454J1Z4</string>
                         </subviews>
                     </stackView>
                 </subviews>
+                <color key="backgroundColor" name="themeBlack26"/>
                 <constraints>
                     <constraint firstItem="0Zw-mK-fcb" firstAttribute="top" secondItem="pUQ-W3-x6c" secondAttribute="top" id="7OF-G5-6N4"/>
                     <constraint firstAttribute="trailing" secondItem="0Zw-mK-fcb" secondAttribute="trailing" id="Mac-yh-hXf"/>
@@ -250,22 +253,22 @@ GSTIN - 27AAPCA3454J1Z4</string>
     </objects>
     <designables>
         <designable name="1W3-vK-PKa">
-            <size key="intrinsicContentSize" width="4" height="19"/>
+            <size key="intrinsicContentSize" width="4" height="18.5"/>
         </designable>
         <designable name="aqg-Xr-EIw">
-            <size key="intrinsicContentSize" width="4" height="19"/>
+            <size key="intrinsicContentSize" width="4" height="18.5"/>
         </designable>
         <designable name="duS-n6-X4W">
-            <size key="intrinsicContentSize" width="4" height="19"/>
+            <size key="intrinsicContentSize" width="4" height="18.5"/>
         </designable>
         <designable name="jK4-uB-dey">
-            <size key="intrinsicContentSize" width="4" height="19"/>
+            <size key="intrinsicContentSize" width="4" height="18.5"/>
         </designable>
     </designables>
     <resources>
         <image name="downArrow" width="9" height="6"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <namedColor name="themeBlack26">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
     </resources>
 </document>
