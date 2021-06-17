@@ -62,7 +62,7 @@ class RecentHotelSearcheView: UIView {
     }
     
     private func configureUI() {
-        self.recentSearchLabel.textColor =  AppColors.whiteColorForButton.withAlphaComponent(0.6)
+        self.recentSearchLabel.textColor =  AppColors.unicolorWhite.withAlphaComponent(0.6)
         self.recentSearchLabel.font = AppFonts.Regular.withSize(16.0)
     }
     

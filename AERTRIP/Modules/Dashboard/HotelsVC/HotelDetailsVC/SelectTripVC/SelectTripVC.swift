@@ -100,6 +100,9 @@ class SelectTripVC: BaseVC {
         }
         topNavView.darkView.backgroundColor = AppColors.flightsNavBackViewColor
         self.creatNewContainerView.backgroundColor = AppColors.doneViewClearColor
+        self.view.backgroundColor = AppColors.themeWhiteDashboard
+        self.tableView.backgroundColor = AppColors.themeWhiteDashboard
+
     }
     
     override func setupTexts() {
@@ -263,7 +266,8 @@ extension SelectTripVC: UITableViewDataSource, UITableViewDelegate {
             checkMarckImageView.contentMode = .center
             cell?.accessoryView = checkMarckImageView
         }
-        cell?.backgroundColor = AppColors.themeWhite
+        cell?.textLabel?.textColor = AppColors.themeBlack
+        cell?.backgroundColor = AppColors.themeWhiteDashboard
         return cell ?? UITableViewCell()
     }
     

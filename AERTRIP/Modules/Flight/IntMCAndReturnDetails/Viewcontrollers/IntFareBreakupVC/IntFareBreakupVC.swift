@@ -59,6 +59,7 @@ class IntFareBreakupVC: BaseVC {
     @IBOutlet weak var upgradeButton: UIButton!
     @IBOutlet weak var deviderView: UIView!
     @IBOutlet weak var indicator: UIActivityIndicatorView!
+    @IBOutlet weak var separatorLabel: UILabel!
     
     
     //MARK:- Variable Declaration
@@ -130,13 +131,13 @@ class IntFareBreakupVC: BaseVC {
         infoLabel.isHidden = false
         bookingInfoArrowImg.isHidden = false
         baseFareTableview.showsVerticalScrollIndicator = true
-        self.totalPayableView.backgroundColor = AppColors.themeWhite
+//        self.totalPayableView.backgroundColor = AppColors.themeWhite
     }
     
     override func viewDidLayoutSubviews(){
         if fromScreen == "upgradePlanCollapse"
         {
-            if let subLayers = bookingDataDisplayView.layer.sublayers{
+            if let subLayers = bookingView.layer.sublayers{
                 if subLayers.count > 0{
                     for layer in subLayers {
                         if layer.name == "bookingGradient" {
@@ -153,7 +154,7 @@ class IntFareBreakupVC: BaseVC {
             self.view.backgroundColor = .clear
             
             if isFareBreakupExpanded == true{
-                self.fareDataDisplayView.backgroundColor = AppColors.themeWhite//.white
+                self.fareDataDisplayView.backgroundColor = AppColors.themeWhiteDashboard//.white
                 bookingDataDisplayView.addGredient(isVertical: false)
             }
         }else{
@@ -167,7 +168,7 @@ class IntFareBreakupVC: BaseVC {
                 })
             }else{
                 fareDataDisplayView.removeGredient()
-                fareDataDisplayView.backgroundColor = AppColors.themeWhite//.white
+                fareDataDisplayView.backgroundColor = AppColors.themeWhiteDashboard//.white
                 self.bookingDataDisplayView.addGredient(isVertical: false)
             }
         }
@@ -175,6 +176,15 @@ class IntFareBreakupVC: BaseVC {
     
     override func currencyChanged(_ note: Notification) {
         self.reloadData()
+    }
+    
+    override func setupColors() {
+        self.separatorLabel.backgroundColor = AppColors.fewSeatLeftColor
+        self.totalPayableView.backgroundColor = AppColors.themeWhiteDashboard
+        self.fewSeatsLeftView.backgroundColor = AppColors.fewSeatLeftColor
+        self.fewSeatsLeftLabel.textColor = AppColors.themeRed
+        self.remainingSeatsCountLabel.backgroundColor = AppColors.themeRed
+        self.baseFareTableview.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     func setupBookingTitleDateView(){
@@ -238,7 +248,7 @@ class IntFareBreakupVC: BaseVC {
     
     private func manageLoader() {
         self.indicator.style = .medium// .white
-        self.indicator.color = AppColors.themeWhite
+        self.indicator.color = AppColors.unicolorWhite
         self.indicator.startAnimating()
         self.hideShowLoader(isHidden:true)
     }
@@ -381,14 +391,16 @@ class IntFareBreakupVC: BaseVC {
                 if ((self.journey.first?.fsr ?? 0) == 1) && (self.fromScreen != "upgradePlan"){
                     self.fewSeatsLeftView.isHidden = false
                     self.fewSeatsLeftViewHeight.constant = 35
-                    self.fareDataDisplayViewHeight.constant = 85 + CGFloat(bottomInset) + self.heightForBookingTitleView
-                    self.bookingDataDisplayViewHeight.constant = 50 + CGFloat(bottomInset)
+//                    self.fareDataDisplayViewHeight.constant = 85 + CGFloat(bottomInset) + self.heightForBookingTitleView
+//                    self.bookingDataDisplayViewHeight.constant = 50 + CGFloat(bottomInset)
                 }else{
                     self.fewSeatsLeftView.isHidden = true
                     self.fewSeatsLeftViewHeight.constant = 0
-                    self.fareDataDisplayViewHeight.constant = 50 + CGFloat(bottomInset) + self.heightForBookingTitleView
-                    self.bookingDataDisplayViewHeight.constant = 50 + CGFloat(bottomInset)
+//                    self.fareDataDisplayViewHeight.constant = 50 + CGFloat(bottomInset) + self.heightForBookingTitleView
+//                    self.bookingDataDisplayViewHeight.constant = 50 + CGFloat(bottomInset)
                 }
+                self.fareDataDisplayViewHeight.constant = 50 + CGFloat(bottomInset) + self.heightForBookingTitleView
+                self.bookingDataDisplayViewHeight.constant = 50 + CGFloat(bottomInset)
             }
             
             self.totalPayableViewBottom.constant = bottomInset
@@ -544,20 +556,26 @@ class IntFareBreakupVC: BaseVC {
                 self.fewSeatsLeftView.isHidden = false
                 self.fewSeatsLeftViewHeight.constant = 35
                 
-                if bottomInset == 0{
-                    self.fareDataDisplayViewHeight.constant = CGFloat(totalHeight+143) + heightForBookingTitleView
-                }else{
-                    self.fareDataDisplayViewHeight.constant = CGFloat(totalHeight+110+Int(bottomInset)) + heightForBookingTitleView
-                }
+//                if bottomInset == 0{
+//                    self.fareDataDisplayViewHeight.constant = CGFloat(totalHeight+143) + heightForBookingTitleView
+//                }else{
+//                    self.fareDataDisplayViewHeight.constant = CGFloat(totalHeight+110+Int(bottomInset)) + heightForBookingTitleView
+//                }
             }else{
                 self.fewSeatsLeftView.isHidden = true
                 self.fewSeatsLeftViewHeight.constant = 0
                 
-                if bottomInset == 0{
-                    self.fareDataDisplayViewHeight.constant = CGFloat(totalHeight+108) + heightForBookingTitleView
-                }else{
-                    self.fareDataDisplayViewHeight.constant = CGFloat(totalHeight+75+Int(bottomInset)) + heightForBookingTitleView
-                }
+//                if bottomInset == 0{
+//                    self.fareDataDisplayViewHeight.constant = CGFloat(totalHeight+108) + heightForBookingTitleView
+//                }else{
+//                    self.fareDataDisplayViewHeight.constant = CGFloat(totalHeight+75+Int(bottomInset)) + heightForBookingTitleView
+//                }
+            }
+            
+            if bottomInset == 0{
+                self.fareDataDisplayViewHeight.constant = CGFloat(totalHeight+108) + heightForBookingTitleView
+            }else{
+                self.fareDataDisplayViewHeight.constant = CGFloat(totalHeight+75+Int(bottomInset)) + heightForBookingTitleView
             }
         }
         

@@ -390,9 +390,9 @@ import UIKit
         self.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
         self.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
         
-        self.setTitleColor(AppColors.whiteColorForButton, for: UIControl.State.normal)
-        self.setTitleColor(AppColors.whiteColorForButton, for: UIControl.State.selected)
-        self.setTitleColor(AppColors.whiteColorForButton, for: UIControl.State.highlighted)
+        self.setTitleColor(AppColors.unicolorWhite, for: UIControl.State.normal)
+        self.setTitleColor(AppColors.unicolorWhite, for: UIControl.State.selected)
+        self.setTitleColor(AppColors.unicolorWhite, for: UIControl.State.highlighted)
 
         self.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
         

@@ -60,6 +60,10 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
         }else{
             self.shadowView.addShadow(cornerRadius: shadowProp.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: .clear, offset: shadowProp.offset, opacity: 0, shadowRadius: 0)
         }
+        
+        self.logoOne.roundedCorners(cornerRadius: 2)
+        self.logoTwo.roundedCorners(cornerRadius: 2)
+        self.logoThree.roundedCorners(cornerRadius: 2)
 
     }
     

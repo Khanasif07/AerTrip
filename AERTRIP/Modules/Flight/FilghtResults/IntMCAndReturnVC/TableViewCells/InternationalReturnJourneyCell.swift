@@ -34,6 +34,9 @@ class InternationalReturnJourneyCell : UITableViewCell {
         dashedView.setupDashedView()
         self.setupColors()
         self.selectionStyle = .none
+        logoOne.roundedCorners(cornerRadius: 2)
+        logoTwo.roundedCorners(cornerRadius: 2)
+        logoThree.roundedCorners(cornerRadius: 2)
     }
     
     override func prepareForReuse() {

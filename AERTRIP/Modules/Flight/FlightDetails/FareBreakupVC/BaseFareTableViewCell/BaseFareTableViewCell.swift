@@ -21,6 +21,7 @@ class BaseFareTableViewCell: UITableViewCell
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        self.setColors()
     }
     
     override func prepareForReuse() {
@@ -29,8 +30,13 @@ class BaseFareTableViewCell: UITableViewCell
         upArrowImg.image = UIImage(named: "")
         titleLabelLeading.constant = 31
         titleLabelYPosition.constant = 0
+        self.setColors()
     }
 
+    private func setColors(){
+        self.contentView.backgroundColor = AppColors.themeWhiteDashboard
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

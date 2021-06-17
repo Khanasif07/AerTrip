@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina3_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -80,7 +80,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="azd-wk-Pcu" firstAttribute="centerY" secondItem="TiQ-no-Mw6" secondAttribute="centerY" id="B1R-14-kFM"/>
                                             <constraint firstAttribute="trailing" secondItem="SR4-Yb-wCp" secondAttribute="trailing" id="Phk-VF-A4P"/>
@@ -105,7 +105,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="7ck-Jp-fUa" firstAttribute="centerY" secondItem="6fz-XD-vRt" secondAttribute="centerY" id="DMp-Hl-54t"/>
                                             <constraint firstItem="xOJ-jd-1ya" firstAttribute="centerY" secondItem="6fz-XD-vRt" secondAttribute="centerY" id="Pd0-hO-BQW"/>
@@ -130,7 +130,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="PBr-iw-Vb9" firstAttribute="centerY" secondItem="xJW-zC-4lo" secondAttribute="centerY" id="Dvr-w0-gzt"/>
                                             <constraint firstAttribute="trailing" secondItem="PBr-iw-Vb9" secondAttribute="trailing" id="Lsy-zr-BzU"/>
@@ -155,7 +155,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="Eht-mR-Ua4" secondAttribute="trailing" id="AgJ-ie-JQ2"/>
                                             <constraint firstItem="7VD-db-mK6" firstAttribute="leading" secondItem="SnP-cm-LPU" secondAttribute="leading" constant="16" id="ZDJ-bX-b8D"/>

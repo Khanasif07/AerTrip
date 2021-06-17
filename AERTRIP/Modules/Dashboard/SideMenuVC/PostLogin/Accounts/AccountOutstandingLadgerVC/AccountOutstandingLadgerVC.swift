@@ -214,7 +214,7 @@ class AccountOutstandingLadgerVC: BaseVC {
         self.subheaderDetailsConstainer.backgroundColor = AppColors.themeWhite
         self.blankSpaceView.backgroundColor = AppColors.themeGray04
         
-        self.makePaymentTitleLabel.textColor = AppColors.whiteColorForButton
+        self.makePaymentTitleLabel.textColor = AppColors.unicolorWhite
         
         self.makePaymentContainerView.addShadow(cornerRadius: 0.0, shadowColor: AppColors.themeGreen, backgroundColor: AppColors.clear, offset: CGSize(width: 0.0, height: 12.0))
     }
@@ -380,7 +380,7 @@ class AccountOutstandingLadgerVC: BaseVC {
             attrText = totalAmount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
             self.makePaymentTitleLabel.alpha = (totalAmount > 0) ? 1.0 : 0.6
         }
-        attrText.addAttributes([NSAttributedString.Key.foregroundColor : AppColors.whiteColorForButton], range: NSRange(location: 0, length: attrText.length))
+        attrText.addAttributes([NSAttributedString.Key.foregroundColor : AppColors.unicolorWhite], range: NSRange(location: 0, length: attrText.length))
         self.payableAmountLabel.attributedText = attrText
         self.makePaymentTitleLabel.text = LocalizedString.MakePayment.localized
     }

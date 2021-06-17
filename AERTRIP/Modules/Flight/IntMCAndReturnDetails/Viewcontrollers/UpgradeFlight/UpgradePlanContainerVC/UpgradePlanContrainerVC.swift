@@ -50,7 +50,7 @@ class UpgradePlanContrainerVC: BaseVC, UpgradePlanListVCDelegate {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.parchmentView?.view.frame = self.containerView.bounds
-        self.view.addGredient(isVertical: true, cornerRadius: 0, colors: AppConstants.appthemeGradientColors.reversed()) // [AppColors.themeGreen, AppColors.dashboardGradientColor] To be Check Gradient Nitin
+        self.view.addGredient(isVertical: true, cornerRadius: 0, colors: AppConstants.appDashboardGradientColors.reversed()) // [AppColors.themeGreen, AppColors.dashboardGradientColor] To be Check Gradient Nitin
         self.parchmentView?.view.frame.size.height = self.containerView.height - innerControllerBottomConstraint
         self.parchmentView?.loadViewIfNeeded()
     }
@@ -76,7 +76,7 @@ class UpgradePlanContrainerVC: BaseVC, UpgradePlanListVCDelegate {
     private func updateUI(){
         self.upgradeYourFlightLabel.text = "Upgrade your flight"
         self.upgradeYourFlightLabel.font = AppFonts.SemiBold.withSize(18.0)
-        self.upgradeYourFlightLabel.textColor = AppColors.themeWhite
+        self.upgradeYourFlightLabel.textColor = AppColors.unicolorWhite
         self.grabberView.layer.cornerRadius = 2.0
         self.grabberView.clipsToBounds = true
     }
@@ -125,8 +125,9 @@ class UpgradePlanContrainerVC: BaseVC, UpgradePlanListVCDelegate {
         self.parchmentView?.borderColor = AppColors.themeGray214
         self.parchmentView?.font = AppFonts.Regular.withSize(16.0)
         self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
-        self.parchmentView?.indicatorColor = AppColors.themeWhite
-        self.parchmentView?.selectedTextColor = AppColors.themeWhite
+        self.parchmentView?.indicatorColor = AppColors.upgradeFlightIndicator
+        self.parchmentView?.textColor = AppColors.unicolorWhite
+        self.parchmentView?.selectedTextColor = AppColors.unicolorWhite
         if self.parchmentView != nil{
             self.containerView.addSubview(self.parchmentView!.view)
         }
@@ -151,7 +152,7 @@ class UpgradePlanContrainerVC: BaseVC, UpgradePlanListVCDelegate {
 //        fullString.append(desinationAtrributedString)
         
         let string = "\(origin) → \(destination)"
-        let fullString = NSAttributedString(string: string, attributes: [.foregroundColor: AppColors.themeWhite, .font: AppFonts.Regular.withSize(16.0)])
+        let fullString = NSAttributedString(string: string, attributes: [.foregroundColor: AppColors.unicolorWhite, .font: AppFonts.Regular.withSize(16.0)])
         return fullString
     }
     

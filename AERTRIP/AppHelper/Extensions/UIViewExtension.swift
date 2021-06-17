@@ -560,7 +560,7 @@ extension UIView {
         view.layer.addSublayer(colorLayer)
         view.autoresizesSubviews = true
         view.clipsToBounds = true
-        
+        view.cornerradius = 2
         // 2. Add loader Layer
         let multiplier = CGFloat(4.0)
         let width = view.frame.width
@@ -571,9 +571,7 @@ extension UIView {
         gradientLayer.colors = [AppColors.themeWhite.withAlphaComponent(0).cgColor,
                                 AppColors.themeWhite.withAlphaComponent(0.7).cgColor,
                                 AppColors.themeWhite.withAlphaComponent(0).cgColor]
-//        [UIColor(white: 1.0, alpha: 0.0).cgColor,
-//                                UIColor(white: 1.0, alpha: 0.7).cgColor,
-//                                UIColor(white: 1.0, alpha: 0.0).cgColor]
+
         gradientLayer.name = "loaderLayer"
         gradientLayer.startPoint = CGPoint(x: 0, y: 0)
         gradientLayer.endPoint = CGPoint(x: 0, y: 1)
@@ -584,7 +582,6 @@ extension UIView {
         gradientLayer.transform = CATransform3DMakeRotation(radians, 0.0, 0.0, 1.0)
         
         view.layer.addSublayer(gradientLayer)
-        //                 view.layer.addSublayer(gradientLayer)
         
         // 3. Animate loader layer
         let animation = CABasicAnimation(keyPath: "transform.translation.x")

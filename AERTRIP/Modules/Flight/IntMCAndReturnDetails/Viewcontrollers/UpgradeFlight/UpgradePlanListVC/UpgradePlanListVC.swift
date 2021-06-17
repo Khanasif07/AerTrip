@@ -52,7 +52,7 @@ class UpgradePlanListVC: BaseVC {
     
     private func setupIndicator(){
         self.indicator.style = .medium// .white
-        self.indicator.color = AppColors.themeWhite
+        self.indicator.color = AppColors.unicolorWhite
         self.indicator.hidesWhenStopped = true
     }
     
@@ -64,12 +64,16 @@ class UpgradePlanListVC: BaseVC {
         }
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+    }
+    
     func setupPageController(){
         self.journeyPageControl.numberOfPages = 0
         self.journeyPageControl.currentPage = 0
         self.journeyPageControl.inactiveTransparency = 1.0
         self.journeyPageControl.inactiveTintColor = AppColors.themeGray220
-        self.journeyPageControl.currentPageTintColor = AppColors.themeWhite
+        self.journeyPageControl.currentPageTintColor = AppColors.unicolorWhite
         self.journeyPageControl.radius = 3.5
         self.journeyPageControl.padding = 5.0
 
@@ -112,7 +116,7 @@ class UpgradePlanListVC: BaseVC {
     private func setNoDataLabel(){
         let attributedString = NSMutableAttributedString(string: "Oops!\nOther Fares not found for this flight", attributes: [
             .font: AppFonts.Regular.withSize(18.0),
-            .foregroundColor: UIColor.white])
+            .foregroundColor: AppColors.unicolorWhite])
         
         attributedString.addAttribute(.font, value: AppFonts.Regular.withSize(22.0), range: NSRange(location: 0, length: 5))
         
@@ -170,7 +174,7 @@ extension UpgradePlanListVC : UICollectionViewDataSource, UICollectionViewDelega
             if upgradeResult[indexPath.row].isDefault{
                 cell.priceLabel.text = ""
                 cell.selectButton.backgroundColor = AppColors.themeGreen
-                cell.selectButton.setTitleColor(AppColors.themeWhite, for: .normal)
+                cell.selectButton.setTitleColor(AppColors.unicolorWhite, for: .normal)
                 cell.selectButton.setTitle("Selected", for: .normal)
                 cell.newPriceLabel.attributedText = getPrice(price: Double(farepr), fontSize: 18.0)
                 checkMarkImgName = AppImages.Green_Copy
@@ -227,6 +231,8 @@ extension UpgradePlanListVC : UICollectionViewDataSource, UICollectionViewDelega
             newStyle.headIndent = 0
             newStyle.paragraphSpacingBefore = 12
             updatedStr.addAttribute(NSAttributedString.Key.paragraphStyle, value: newStyle, range: newRange)
+            let totalRange = NSString(string: updatedStr.string).range(of: updatedStr.string)
+            updatedStr.addAttribute(.foregroundColor, value: AppColors.themeBlack, range: totalRange)
             cell.txtView.attributedText = updatedStr
             cell.txtView.layoutIfNeeded()
             cell.handler = {[weak self] in

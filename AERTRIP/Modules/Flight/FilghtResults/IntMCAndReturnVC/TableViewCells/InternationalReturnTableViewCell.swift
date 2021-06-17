@@ -51,16 +51,12 @@ class InternationalReturnTableViewCell: UITableViewCell {
         super.awakeFromNib()
         self.layer.masksToBounds = false
         setupBaseView()
-        //        dashedView.setupDashedView()
-        //        let img = AppImages.Back
-        //        let templetImage = img.withRenderingMode(.alwaysTemplate)
-        //        arrowImage.image = templetImage
-        //        arrowImage.tintColor = AppColors.themeGreen
         self.arrowImage.transform = CGAffineTransform(rotationAngle: CGFloat(3 * (Double.pi)/2))
         setupGradientView()
         self.setupColors()
         setupCollectionView()
         setUpTableView()
+        
     }
     
     
