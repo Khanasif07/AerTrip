@@ -84,8 +84,6 @@ class SelectBagageCell: UITableViewCell {
             self.quantityLabel.isHidden = false
         }
         
-        
-        
         if data.autoSelectedFor.isEmpty {
              self.autoSelectedForLabel.text = ""
              self.autoSelectedForTop.constant = 0
