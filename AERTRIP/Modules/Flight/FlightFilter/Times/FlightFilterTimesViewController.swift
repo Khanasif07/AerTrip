@@ -81,7 +81,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
             view?.backgroundColor = AppColors.themeWhiteDashboard
         }
         [self.departureStartTime, self.departureEndTime, self.arrivalEndTime, self.arrivalStartTime].forEach{view in
-            view?.backgroundColor = AppColors.sliderTrackColor
+            view?.backgroundColor = AppColors.flightFilterHighlightColor
         }
         
         [earlyMorningButton, noonButton, eveningButton, lateEveningButton].forEach { (btn) in

@@ -97,7 +97,7 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         
         [self.view, self.tripDurationSlider, self.layoverDurationSlider].forEach { $0?.backgroundColor = AppColors.themeWhiteDashboard }
         
-        [tripDurationMinLabel, tripDurationMaxLabel, layoverDurationMinLabel, layoverDurationMaxLabel].forEach { $0?.backgroundColor = AppColors.sliderTrackColor }
+        [tripDurationMinLabel, tripDurationMaxLabel, layoverDurationMinLabel, layoverDurationMaxLabel].forEach { $0?.backgroundColor = AppColors.flightFilterHighlightColor }
         
         
 //        self.backScrollView.backgroundColor = AppColors.themeWhiteDashboard
@@ -240,7 +240,7 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     private func getSegmentTitleFor(_ index: Int) -> String {
         let currentFilter = viewModel.durationFilters[(index - 1)]
         let isFilterApplied = currentFilter.filterApplied()
-        var title = "\(viewModel.legsArray[index - 1].origin) \u{279E} \(viewModel.legsArray[index - 1].destination)"
+        var title = "\(viewModel.legsArray[index - 1].origin) - \(viewModel.legsArray[index - 1].destination)"
         if viewModel.durationFilters.count > 3 {
             title = "\(index)"
         }

@@ -306,7 +306,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     private func getSegmentTitleFor(_ index: Int) -> String {
         let currentFilter = viewModel.allStopsFilters[(index - 1)]
         let isFilterApplied = currentFilter.userSelectedStops.count > 0
-        var title = "\(viewModel.allLegNames[index - 1].origin) \u{279E} \(viewModel.allLegNames[index - 1].destination)"
+        var title = "\(viewModel.allLegNames[index - 1].origin) - \(viewModel.allLegNames[index - 1].destination)"
         if viewModel.allStopsFilters.count > 3 {
             title = "\(index)"
         }
@@ -330,7 +330,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
         stopsBaseView.subviews.forEach{ view in
             if let button = view as? UIButton {
                 
-                button.backgroundColor = AppColors.flightFilterSessionSelectedColor
+                button.backgroundColor = AppColors.stopsAllDeselected
                 
                 if let title = button.viewWithTag(1) as? UILabel {
                     title.textColor =  UIColor.FIVE_ONE_COLOR

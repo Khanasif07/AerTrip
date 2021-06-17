@@ -76,6 +76,7 @@
     _customCalenderView.appearance.headerTitleColor = [UIColor themeBlack];
     _customCalenderView.appearance.titleDefaultColor = [UIColor themeBlack];
     _customCalenderView.appearance.titlePlaceholderColor = [UIColor flightFormGray];
+    _customCalenderView.appearance.todayColor = [UIColor appColor];
     _TopView.backgroundColor = [UIColor themeWhiteDashboard];
 //    _doneDarkView.backgroundColor = [UIColor themeWhiteDashboard];
 //    _weekDaysDarkView.backgroundColor = [UIColor themeWhiteDashboard];
