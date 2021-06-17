@@ -171,7 +171,7 @@ class SeatMapContainerVC: UIViewController {
         setupApiIndicatorView()
         planeLayoutTopSeparatorView.backgroundColor = AppColors.themeGray214
         planeLayoutBottomSeparatorView.backgroundColor = AppColors.themeGray214
-        totalSeatAmountTopSeparatorView.backgroundColor = AppColors.themeGray214
+//        totalSeatAmountTopSeparatorView.backgroundColor = AppColors.themeGray214
         seatTotalTitleLbl.text = LocalizedString.seatTotal.localized
         seatTotalTitleLbl.font = AppFonts.Regular.withSize(12)
         seatTotalTitleLbl.textColor = AppColors.themeGray60
@@ -277,8 +277,8 @@ class SeatMapContainerVC: UIViewController {
         
         self.parchmentView?.reloadData()
         self.parchmentView?.reloadMenu()
-        self.parchmentView?.menuBackgroundColor = UIColor.clear
-        self.parchmentView?.collectionView.backgroundColor = UIColor.clear
+        self.parchmentView?.menuBackgroundColor = AppColors.themeWhiteDashboard
+        self.parchmentView?.collectionView.backgroundColor = AppColors.themeWhiteDashboard
         self.parchmentView?.contentInteraction = .none
     }
     

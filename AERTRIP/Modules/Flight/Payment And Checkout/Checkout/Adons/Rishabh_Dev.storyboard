@@ -213,7 +213,7 @@
                                         <rect key="frame" x="371.5" y="15" width="20" height="20"/>
                                     </activityIndicatorView>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" name="themeBlack26"/>
                                 <constraints>
                                     <constraint firstItem="GQZ-d6-8Pg" firstAttribute="leading" secondItem="ZGb-d8-d3r" secondAttribute="leading" id="3nf-Sh-eff"/>
                                     <constraint firstItem="zDQ-8l-33X" firstAttribute="centerY" secondItem="ZGb-d8-d3r" secondAttribute="centerY" id="L9A-tE-llb"/>
@@ -229,7 +229,7 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PpY-Bs-ewN">
                                 <rect key="frame" x="0.0" y="862" width="414" height="34"/>
-                                <color key="backgroundColor" name="themeWhite"/>
+                                <color key="backgroundColor" name="themeBlack26"/>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Apj-dH-tZr"/>
@@ -494,7 +494,7 @@
         <image name="nose" width="168" height="109"/>
         <image name="tail" width="181" height="148"/>
         <image name="topWing" width="163" height="26"/>
-        <namedColor name="themeWhite">
+        <namedColor name="themeBlack26">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <systemColor name="darkTextColor">

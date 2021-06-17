@@ -161,7 +161,7 @@ extension MealsContainerVC {
         self.parchmentView?.reloadData()
         self.parchmentView?.reloadMenu()
         self.parchmentView?.menuBackgroundColor = AppColors.themeWhiteDashboard
-        self.parchmentView?.collectionView.backgroundColor = UIColor.clear
+        self.parchmentView?.collectionView.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     func calculateTotalAmount(){
