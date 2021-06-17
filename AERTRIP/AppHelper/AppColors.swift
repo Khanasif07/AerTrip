@@ -136,6 +136,18 @@ enum AppColors {
     // RGB - 246,246,246, 1.0
     static let greyO4 = UIColor(named: "greyO4") ?? UIColor(displayP3Red: 0.9647058824, green: 0.9647058824, blue: 0.9647058824, alpha: 1)
     
+    // RGB - 246,246,246, 1.0
+    static let flightsGrayO4 = UIColor(named: "flightsGrayO4") ?? .white
+    
+    /// (204,204,204) (26,26,26)
+    static let seatsGray = UIColor(named: "seatsGray") ?? .white
+    
+    /// (204,204,204) (102,102,102)
+    static let seatsBorder = UIColor(named: "seatsBorder") ?? .white
+    
+    /// (153,153,153) (247,193,12)
+    static let postBookingSeatColor = UIColor(named: "postBookingSeatColor") ?? .white
+    
     // RGB - 170, 2, 255
     static let brightViolet = UIColor(named: "brightViolet") ?? UIColor(displayP3Red: 0.6666666667, green: 0.007843137255, blue: 1, alpha: 1)
     
@@ -184,7 +196,7 @@ enum AppColors {
     /// (0,0,0) (146,255,228)
     static let addOnsGreenAttributed = UIColor(named: "addOnsGreenAttributed") ?? .white
     
-    // RGB - 0,0,0 , 0.15
+    // RGB - (0,0,0 , 0.15) (102,102,102)
     static let blackWith15PerAlpha =  UIColor(named: "blackWith15PerAlpha") ?? UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 0.15)
     
     // RGB - 0,0,0 , 0.4

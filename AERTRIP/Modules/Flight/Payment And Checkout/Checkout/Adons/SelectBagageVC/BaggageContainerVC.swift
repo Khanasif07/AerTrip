@@ -156,8 +156,8 @@ extension BaggageContainerVC {
         
         self.parchmentView?.reloadData()
         self.parchmentView?.reloadMenu()
-        self.parchmentView?.menuBackgroundColor = UIColor.clear
-        self.parchmentView?.collectionView.backgroundColor = UIColor.clear
+        self.parchmentView?.menuBackgroundColor = AppColors.themeWhiteDashboard
+        self.parchmentView?.collectionView.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     func calculateTotalAmount(){

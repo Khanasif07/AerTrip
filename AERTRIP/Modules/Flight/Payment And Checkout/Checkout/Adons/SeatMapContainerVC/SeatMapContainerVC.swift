@@ -29,8 +29,8 @@ class SeatMapContainerVC: UIViewController {
     @IBOutlet weak var topNavBarView: TopNavigationView!
     @IBOutlet weak var seatMapContainerView: UIView!
     @IBOutlet weak var planeLayoutView: UIView!
-    @IBOutlet weak var planeLayoutTopSeparatorView: UIView!
-    @IBOutlet weak var planeLayoutBottomSeparatorView: UIView!
+    @IBOutlet weak var planeLayoutTopSeparatorView: ATDividerView!
+    @IBOutlet weak var planeLayoutBottomSeparatorView: ATDividerView!
     @IBOutlet weak var planeLayoutScrollView: UIScrollView!
     @IBOutlet weak var planeLayoutScrollContentView: UIView!
     @IBOutlet weak var planeShadowView: UIView!
@@ -168,10 +168,11 @@ class SeatMapContainerVC: UIViewController {
     }
     
     private func setupViews() {
+        view.backgroundColor = AppColors.themeWhiteDashboard
         setupApiIndicatorView()
-        planeLayoutTopSeparatorView.backgroundColor = AppColors.themeGray214
-        planeLayoutBottomSeparatorView.backgroundColor = AppColors.themeGray214
-        totalSeatAmountTopSeparatorView.backgroundColor = AppColors.themeGray214
+//        planeLayoutTopSeparatorView.backgroundColor = AppColors.themeGray214
+//        planeLayoutBottomSeparatorView.backgroundColor = AppColors.themeGray214
+//        totalSeatAmountTopSeparatorView.backgroundColor = AppColors.themeGray214
         seatTotalTitleLbl.text = LocalizedString.seatTotal.localized
         seatTotalTitleLbl.font = AppFonts.Regular.withSize(12)
         seatTotalTitleLbl.textColor = AppColors.themeGray60
@@ -277,8 +278,8 @@ class SeatMapContainerVC: UIViewController {
         
         self.parchmentView?.reloadData()
         self.parchmentView?.reloadMenu()
-        self.parchmentView?.menuBackgroundColor = UIColor.clear
-        self.parchmentView?.collectionView.backgroundColor = UIColor.clear
+        self.parchmentView?.menuBackgroundColor = AppColors.themeWhiteDashboard
+        self.parchmentView?.collectionView.backgroundColor = AppColors.themeWhiteDashboard
         self.parchmentView?.contentInteraction = .none
     }
     

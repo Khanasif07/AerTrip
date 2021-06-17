@@ -160,7 +160,7 @@ get upto 20% off </string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" name="themeBlack26"/>
                                 <constraints>
                                     <constraint firstItem="IQf-YE-BrO" firstAttribute="leading" secondItem="LgN-Mq-e2q" secondAttribute="leading" id="1Yw-4J-sbd"/>
                                     <constraint firstItem="5k1-lY-bl9" firstAttribute="top" secondItem="LgN-Mq-e2q" secondAttribute="top" id="CSw-sM-bvl"/>
@@ -177,7 +177,7 @@ get upto 20% off </string>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B3Y-Pn-xkD">
                                 <rect key="frame" x="0.0" y="862" width="414" height="34"/>
-                                <color key="backgroundColor" name="themeWhite"/>
+                                <color key="backgroundColor" name="themeBlack26"/>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vn5-ki-PPF"/>
@@ -433,7 +433,7 @@ get upto 20% off </string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" name="themeBlack26"/>
                                 <constraints>
                                     <constraint firstItem="RIx-sk-7Gh" firstAttribute="leading" secondItem="Giu-ht-SKe" secondAttribute="leading" constant="16" id="0HC-xI-cza"/>
                                     <constraint firstItem="uXu-nE-Cx2" firstAttribute="top" secondItem="Giu-ht-SKe" secondAttribute="top" constant="7" id="76Z-PT-Ptm"/>
@@ -450,7 +450,7 @@ get upto 20% off </string>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j0X-dL-q0J">
                                 <rect key="frame" x="0.0" y="862" width="414" height="34"/>
-                                <color key="backgroundColor" name="themeWhite"/>
+                                <color key="backgroundColor" name="themeBlack26"/>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="UQG-dr-eC1"/>
@@ -573,7 +573,7 @@ get upto 20% off </string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" name="themeBlack26"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="wlN-Wr-yjZ" secondAttribute="trailing" id="7GL-ZI-I42"/>
                                     <constraint firstItem="wlN-Wr-yjZ" firstAttribute="top" secondItem="NWW-jW-zXS" secondAttribute="top" id="CAD-f6-Ozs"/>
@@ -592,7 +592,7 @@ get upto 20% off </string>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nq6-Og-HPF">
                                 <rect key="frame" x="0.0" y="862" width="414" height="34"/>
-                                <color key="backgroundColor" name="themeWhite"/>
+                                <color key="backgroundColor" name="themeBlack26"/>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="oV3-wK-Qxm"/>
@@ -860,7 +860,7 @@ get upto 20% off </string>
         </scene>
     </scenes>
     <resources>
-        <namedColor name="themeWhite">
+        <namedColor name="themeBlack26">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <systemColor name="groupTableViewBackgroundColor">
