@@ -178,7 +178,11 @@ enum AppColors {
     /// RGB - 255, 255, 255, 0.85
     static let themeWhite85  = UIColor(named: "themeWhite85") ?? UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 0.85)
 
+    /// (146,255,228) (0,0,0)
     static let greenBackground  = UIColor(named: "greenBackground") ?? UIColor(displayP3Red: 146/255, green: 255/255, blue: 228/255, alpha: 1)
+    
+    /// (0,0,0) (146,255,228)
+    static let addOnsGreenAttributed = UIColor(named: "addOnsGreenAttributed") ?? .white
     
     // RGB - 0,0,0 , 0.15
     static let blackWith15PerAlpha =  UIColor(named: "blackWith15PerAlpha") ?? UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 0.15)

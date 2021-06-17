@@ -53,7 +53,7 @@ class AddOnVC : BaseVC {
     
     override func setupTexts() {
         super.setupTexts()
-        self.bookNowLabel.attributedText = LocalizedString.Book_Now_And_Get_Off.localized.attributeStringWithColors(subString: " 20% off ", strClr: AppColors.themeBlack, substrClr: AppColors.themeBlack, strFont: AppFonts.c.withSize(38), subStrFont: AppFonts.c.withSize(38), backgroundColor: AppColors.greenBackground)
+        self.bookNowLabel.attributedText = LocalizedString.Book_Now_And_Get_Off.localized.attributeStringWithColors(subString: " 20% off ", strClr: AppColors.themeBlack, substrClr: AppColors.addOnsGreenAttributed, strFont: AppFonts.c.withSize(38), subStrFont: AppFonts.c.withSize(38), backgroundColor: AppColors.greenBackground)
     }
     
     override func setupFonts() {
