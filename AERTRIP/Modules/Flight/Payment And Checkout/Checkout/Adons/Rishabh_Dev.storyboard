@@ -141,14 +141,14 @@
                                             <constraint firstItem="NnB-te-p6A" firstAttribute="height" secondItem="0Oq-Vh-YC4" secondAttribute="height" id="wTi-HI-bWg"/>
                                         </constraints>
                                     </scrollView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mTL-qB-c68">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mTL-qB-c68" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="0.5"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="cBm-8D-cn2"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="24K-SN-z1d">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="24K-SN-z1d" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="99.5" width="414" height="0.5"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
