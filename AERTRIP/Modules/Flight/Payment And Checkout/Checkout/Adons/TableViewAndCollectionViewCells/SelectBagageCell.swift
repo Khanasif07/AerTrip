@@ -34,6 +34,16 @@ class SelectBagageCell: UITableViewCell {
         self.selectionStyle = .none
         self.bagageTitleLabel.backgroundColor = AppColors.clear
         self.priceLabel.backgroundColor = AppColors.clear
+        self.contentView.backgroundColor = AppColors.themeBlack26
+        
+        self.autoSelectedForBackView.backgroundColor = AppColors.lightYellowAndGoldenGray
+        self.autoSelectedForLabel.textColor = AppColors.grayWhite
+        
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.autoSelectedForBackView.roundedCorners(cornerRadius: 3)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -74,6 +84,8 @@ class SelectBagageCell: UITableViewCell {
             self.quantityLabel.isHidden = false
         }
         
+        
+        
         if data.autoSelectedFor.isEmpty {
              self.autoSelectedForLabel.text = ""
              self.autoSelectedForTop.constant = 0
@@ -83,8 +95,6 @@ class SelectBagageCell: UITableViewCell {
              self.autoSelectedForTop.constant = 11
              self.autoSelectedForBackView.isHidden = false
         }
-        
-        
     }
     
     func populateOtherAdonsData(data : AddonsDataCustom, index : Int){
