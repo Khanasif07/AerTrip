@@ -11,7 +11,7 @@ protocol ShowTostDelegate:NSObjectProtocol {
     func showTost(msg: String, isLoaded:Bool)
 }
 
-class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate{
+class IntFlightBaggageInfoVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
     //MARK:- Outlets
     @IBOutlet weak var baggageTableView: UITableView!
     @IBOutlet weak var baggageTableViewBottom: NSLayoutConstraint!
@@ -70,6 +70,16 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
         FirebaseEventLogs.shared.logFlightDetailsEvent(with: .FlightDetailsIntBaggageInfo)
 
 
+    }
+    
+    override func setupColors() {
+        self.view.backgroundColor = AppColors.flightResultsFooterSecondaryColor
+        self.baggageTableView.backgroundColor = AppColors.themeGray04
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.baggageTableView.reloadData()
     }
     
     private func setLoader(){
@@ -164,7 +174,7 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
             }else{
                 displayTxt = displayTxt + "•   Baggage details are indicative and subject to change without prior notice."
                 
-                let title = NSMutableAttributedString(string: displayTxt, attributes: [NSAttributedString.Key.paragraphStyle: style,NSAttributedString.Key.foregroundColor:UIColor.black])
+                let title = NSMutableAttributedString(string: displayTxt, attributes: [NSAttributedString.Key.paragraphStyle: style,NSAttributedString.Key.foregroundColor:AppColors.themeBlack])
                 changeAirportCell.dataLabel.attributedText = title
             }
             return changeAirportCell

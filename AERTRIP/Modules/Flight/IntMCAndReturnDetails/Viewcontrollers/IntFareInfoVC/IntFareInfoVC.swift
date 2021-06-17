@@ -114,6 +114,11 @@ class IntFareInfoVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
         self.fareInfoTableView.reloadData()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.fareInfoTableView.reloadData()
+    }
+    
     private func setLoader(){
         if #available(iOS 13.0, *) {
             indicator.style = .large

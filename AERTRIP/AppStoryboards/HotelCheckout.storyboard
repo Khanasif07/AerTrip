@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -819,6 +820,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="afj-T4-gai">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="0.0"/>
+                                <color key="backgroundColor" name="flightFilterSessionDefaultColor"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pA8-KE-Hsr" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -925,6 +930,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
                                 </subviews>
+                                <color key="backgroundColor" name="flightFilterSessionDefaultColor"/>
                                 <constraints>
                                     <constraint firstItem="2D9-P6-vGv" firstAttribute="leading" secondItem="nEl-0z-3ye" secondAttribute="leading" symbolic="YES" id="P22-Uh-cac"/>
                                     <constraint firstItem="2D9-P6-vGv" firstAttribute="top" secondItem="nEl-0z-3ye" secondAttribute="top" symbolic="YES" id="RRw-MV-Mmx"/>
@@ -944,12 +950,16 @@
                             <constraint firstItem="nEl-0z-3ye" firstAttribute="top" secondItem="DeF-PF-r5i" secondAttribute="bottom" id="0To-ry-RoN"/>
                             <constraint firstItem="7Og-LG-RhV" firstAttribute="leading" secondItem="WTL-bK-gFr" secondAttribute="leading" id="42k-2o-w2h"/>
                             <constraint firstItem="DeF-PF-r5i" firstAttribute="leading" secondItem="WTL-bK-gFr" secondAttribute="leading" id="6Ft-EE-taO"/>
+                            <constraint firstItem="afj-T4-gai" firstAttribute="leading" secondItem="EV6-t5-gFB" secondAttribute="leading" id="Osy-RP-5sM"/>
+                            <constraint firstItem="afj-T4-gai" firstAttribute="top" secondItem="EV6-t5-gFB" secondAttribute="top" id="Q9l-5Z-O5I"/>
+                            <constraint firstItem="pA8-KE-Hsr" firstAttribute="top" secondItem="afj-T4-gai" secondAttribute="bottom" id="QAZ-SD-ufN"/>
                             <constraint firstItem="pA8-KE-Hsr" firstAttribute="trailing" secondItem="WTL-bK-gFr" secondAttribute="trailing" id="RRj-FN-Q3e"/>
                             <constraint firstItem="DeF-PF-r5i" firstAttribute="top" secondItem="pA8-KE-Hsr" secondAttribute="bottom" id="Zlz-ZT-Q3d"/>
                             <constraint firstItem="nEl-0z-3ye" firstAttribute="leading" secondItem="DeF-PF-r5i" secondAttribute="leading" id="d6U-rU-rFl"/>
                             <constraint firstItem="WTL-bK-gFr" firstAttribute="trailing" secondItem="7Og-LG-RhV" secondAttribute="trailing" id="dJ3-Kq-mSb"/>
                             <constraint firstItem="WTL-bK-gFr" firstAttribute="trailing" secondItem="DeF-PF-r5i" secondAttribute="trailing" id="dK4-uS-BO0"/>
                             <constraint firstItem="pA8-KE-Hsr" firstAttribute="leading" secondItem="WTL-bK-gFr" secondAttribute="leading" id="fFM-4n-aEx"/>
+                            <constraint firstAttribute="trailing" secondItem="afj-T4-gai" secondAttribute="trailing" id="gfz-nV-E5C"/>
                             <constraint firstItem="WTL-bK-gFr" firstAttribute="trailing" secondItem="nEl-0z-3ye" secondAttribute="trailing" id="gzg-w6-2AZ"/>
                             <constraint firstItem="pA8-KE-Hsr" firstAttribute="top" secondItem="WTL-bK-gFr" secondAttribute="top" id="hjb-9k-On7"/>
                             <constraint firstItem="7Og-LG-RhV" firstAttribute="top" secondItem="nEl-0z-3ye" secondAttribute="bottom" id="lFy-Or-FyH"/>
@@ -2083,6 +2093,9 @@ Incomplete</string>
         <image name="ic_preferences" width="36" height="37"/>
         <image name="ic_up_arrow_gray" width="20" height="20"/>
         <image name="rightArrow" width="40" height="44"/>
+        <namedColor name="flightFilterSessionDefaultColor">
+            <color red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

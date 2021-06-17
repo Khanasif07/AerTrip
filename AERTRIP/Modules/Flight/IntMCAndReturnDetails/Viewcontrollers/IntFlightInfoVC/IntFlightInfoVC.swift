@@ -74,6 +74,7 @@ class IntFlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, getSe
     
     override func setupColors() {
         self.flightInfoTableView.backgroundColor = AppColors.themeGray04
+        self.view.backgroundColor = AppColors.flightResultsFooterSecondaryColor
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -85,6 +86,10 @@ class IntFlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, getSe
         }
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.flightInfoTableView.reloadData()
+    }
     //MARK:- Get Flight Info
     
     func getFlightsInfo(){

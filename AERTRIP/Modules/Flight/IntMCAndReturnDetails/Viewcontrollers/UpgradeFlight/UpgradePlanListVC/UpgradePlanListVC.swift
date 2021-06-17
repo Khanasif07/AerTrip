@@ -66,6 +66,7 @@ class UpgradePlanListVC: BaseVC {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        self.planCollectionView.reloadData()
     }
     
     func setupPageController(){
