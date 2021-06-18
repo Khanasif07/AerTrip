@@ -155,6 +155,9 @@ enum AppColors {
     /// (204,204,204) (102,102,102)
     static let seatsBorder = UIColor(named: "seatsBorder") ?? .white
     
+    /// RGB - (0, 204, 153) (117,117,117)
+    static let deckSelected = UIColor(named: "deckSelected") ?? .white
+    
     static let commonGray204 = UIColor(named: "commonGray204") ?? .white
     
     /// (153,153,153) (247,193,12)
