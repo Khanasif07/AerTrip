@@ -241,6 +241,9 @@ enum AppColors {
     /// RGB - 255, 255, 255  Dark mode   RGB  255, 255, 255
     static let unicolorWhite = UIColor(named: "unicolorWhite") ?? UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 1)
     
+    /// RGB - 0, 0, 0  Dark mode   RGB  0, 0, 0
+    static let unicolorBlack = UIColor(named: "unicolorBlack") ?? .black
+    
     /// RGB - 246, 246, 246, /// RGB - 70, 70, 70
     static let themeGray04SearchBar = UIColor(named: "themeGray04SearchBar") ?? UIColor(displayP3Red: 0.9647058824, green: 0.9647058824, blue: 0.9647058824, alpha: 1)
     
@@ -353,6 +356,15 @@ enum AppColors {
     
 //    (204, 204, 204) (255, 255, 255, 0)
     static let unicodeSwitchLineColor = UIColor(named: "unicodeSwitchLineColor") ?? .white
+    
+    
+    static let datePickerText = UIColor(named: "datePickerText") ?? UIColor(displayP3Red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
+    
+    // RGB - 228,228,229
+    static let datePickerToolbarColor = UIColor(named: "datePickerToolbarColor") ?? UIColor(displayP3Red: 0.8941176471, green: 0.8941176471, blue: 0.8980392157, alpha: 1)
+    
+    // RGB - 241,241,242 (49, 49, 49)
+    static let countryPickerBackground = UIColor(named: "countryPickerBackground") ?? UIColor(displayP3Red: 0.9450980392, green: 0.9450980392, blue: 0.9490196078, alpha: 1)
     
     case headlines
     case body

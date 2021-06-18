@@ -24,7 +24,13 @@ class HCWhatNextCollectionViewCell: UICollectionViewCell {
     //================
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.containerView.backgroundColor = AppColors.themeWhiteDashboard
         self.configUI()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.containerView.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     //Mark:- Methods

@@ -37,11 +37,11 @@ class PKCountryView: UIView {
     
     private func configureData() {
         
-        self.countryNameLabel.font = PKCountryPickerSettings.countryNameFont
-        self.countryNameLabel.textColor = PKCountryPickerSettings.countryNameColor
+        self.countryNameLabel.font = AppFonts.Regular.withSize(15.0)//PKCountryPickerSettings.countryNameFont
+        self.countryNameLabel.textColor = AppColors.themeBlack//PKCountryPickerSettings.countryNameColor
         
-        self.countryCodeLabel.font = PKCountryPickerSettings.countryCodeFont
-        self.countryCodeLabel.textColor = PKCountryPickerSettings.countryCodeColor
+        self.countryCodeLabel.font = AppFonts.Regular.withSize(15.0)//PKCountryPickerSettings.countryCodeFont
+        self.countryCodeLabel.textColor = AppColors.themeBlack//PKCountryPickerSettings.countryCodeColor
         
         self.countryNameLabel.text = self.countryData?.countryEnglishName
         self.countryCodeLabel.text = PKCountryPickerSettings.shouldShowCountryCode ? self.countryData?.countryCode : ""

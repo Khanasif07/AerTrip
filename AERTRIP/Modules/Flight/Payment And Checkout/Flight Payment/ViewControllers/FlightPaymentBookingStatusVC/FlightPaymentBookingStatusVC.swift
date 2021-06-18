@@ -31,6 +31,7 @@ class FlightPaymentBookingStatusVC: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = AppColors.themeBlack26
 
     }
     override func initialSetup() {
@@ -78,7 +79,7 @@ class FlightPaymentBookingStatusVC: BaseVC {
 
   private func setupReturnHomeButton() {
       self.returnHomeButton.titleLabel?.font = AppFonts.SemiBold.withSize(20.0)
-      self.returnHomeButton.setTitleColor(AppColors.themeWhite, for: .normal)
+      self.returnHomeButton.setTitleColor(AppColors.unicolorWhite, for: .normal)
       self.returnHomeButton.setTitle("Return Home", for: .normal)
   }
     @IBAction func returnHomeButtonTapped(_ sender: UIButton) {

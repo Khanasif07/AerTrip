@@ -173,7 +173,7 @@ class FlightPaymentVC: BaseVC {
     
     private func manageLoader() {
         self.activityLoader.style = .medium//.white
-        self.activityLoader.color = AppColors.themeWhite
+        self.activityLoader.color = AppColors.unicolorWhite
         self.activityLoader.startAnimating()
         self.loaderView.addGredient(isVertical: false)
         self.hideShowLoader(isHidden:true)

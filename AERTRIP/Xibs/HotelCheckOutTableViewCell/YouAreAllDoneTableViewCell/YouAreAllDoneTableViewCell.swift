@@ -47,6 +47,7 @@ class YouAreAllDoneTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        self.addToAppleWalletButton.backgroundColor = .black//AppColors.unicolorBlack
         self.addToAppleWalletButton.isLoading = false
     }
     
@@ -68,7 +69,7 @@ class YouAreAllDoneTableViewCell: UITableViewCell {
 
         //Color
         self.youAreAllDoneLabel.textColor = AppColors.themeBlack
-        self.addToAppleWalletButton.setTitleColor(AppColors.themeWhite, for: .normal)
+        self.addToAppleWalletButton.setTitleColor(AppColors.unicolorWhite, for: .normal)
         //Text
         self.youAreAllDoneLabel.text = LocalizedString.BookingConfirmed.localized
         self.addToAppleWalletButton.setTitle(LocalizedString.AddToAppleWallet.localized, for: .normal)
@@ -81,8 +82,10 @@ class YouAreAllDoneTableViewCell: UITableViewCell {
     }
     
     private func appleWalletButtonSetUp() {
-        self.addToAppleWalletButton.backgroundColor = AppColors.themeBlack
+        self.addToAppleWalletButton.backgroundColor = .black//AppColors.unicolorBlack
         self.addToAppleWalletButton.cornerradius = 10.0
+        self.addToAppleWalletButton.layer.borderWidth = 1.0
+        self.addToAppleWalletButton.layer.borderColor = AppColors.themeBlack.cgColor
         self.addToAppleWalletButton.clipsToBounds = true
         self.addToAppleWalletButton.imageView?.size = CGSize(width: 30.0, height: 22.0)
         self.addToAppleWalletButton.imageEdgeInsets = UIEdgeInsets(top: 0.0, left: -20.0, bottom: 0.0, right: 0.0)

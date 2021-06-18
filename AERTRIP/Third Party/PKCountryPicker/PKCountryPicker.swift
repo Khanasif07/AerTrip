@@ -113,26 +113,26 @@ open class PKCountryPicker: UIView {
 //        toolbar.layer.addSublayer(topBorder)
 //
         
-        if PKCountryPickerSettings.appearance == .dark {
+//        if PKCountryPickerSettings.appearance == .dark {
             //toolbar.barTintColor = UIColor(displayP3Red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
-            toolbar.backgroundColor = .clear
-            toolbar.barTintColor = AppColors.secondarySystemFillColor
-            cancelButton.tintColor = UIColor(displayP3Red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
-            doneButton.tintColor = UIColor(displayP3Red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
-        }
-        else {
+//            toolbar.backgroundColor = .clear
+//            toolbar.barTintColor = AppColors.secondarySystemFillColor
+//            cancelButton.tintColor = UIColor(displayP3Red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
+//            doneButton.tintColor = UIColor(displayP3Red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
+//        }
+//        else {
 //            toolbar.backgroundColor = AppColors.themeGray40
 //            toolbar.barTintColor = UIColor(displayP3Red: 0.9921568627, green: 0.9921568627, blue: 0.9921568627, alpha: 1)
             toolbar.backgroundColor = .clear
             toolbar.barTintColor = AppColors.secondarySystemFillColor
             cancelButton.tintColor = AppColors.themeGreen
             doneButton.tintColor = AppColors.themeGreen
-        }
+//        }
         
         // nitin removed the cancel button
         let array = [ spaceButton, doneButton]
         toolbar.setItems(array, animated: true)
-        self.backgroundColor = AppColors.quaternarySystemFillColor
+        self.backgroundColor = AppColors.countryPickerBackground
         // nitin change
         //self.addBlurEffect(backgroundColor: AppColors.quaternarySystemFillColor, style: .dark, alpha: 1.0)
         toolbar.clipsToBounds = true
@@ -147,7 +147,7 @@ open class PKCountryPicker: UIView {
         //        }
         //        else {
         //self.pickerView.backgroundColor = UIColor(displayP3Red: 0.9921568627, green: 0.9921568627, blue: 0.9921568627, alpha: 1)
-        self.pickerView.setValue(UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 1), forKey: "textColor")
+        self.pickerView.setValue(AppColors.themeBlack, forKey: "textColor")
         //        }
     }
     

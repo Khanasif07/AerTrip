@@ -34,6 +34,7 @@ class PassportExampleVC: UIViewController {
         self.exampleLabel.text = "Example"
         self.exampleLabel.font = AppFonts.SemiBold.withSize(18)
         self.exampleLabel.textColor = AppColors.themeBlack
+        self.containerView.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     static func showMe(){
