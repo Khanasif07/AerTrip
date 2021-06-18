@@ -38,7 +38,7 @@ class FareBreakupTableViewCell: UITableViewCell {
     }
     
     private func setColors(){
-        backView.backgroundColor = AppColors.themeWhiteDashboard
+        backView.backgroundColor = AppColors.themeBlack26
         titleLabel.textColor = AppColors.themeBlack
     }
 

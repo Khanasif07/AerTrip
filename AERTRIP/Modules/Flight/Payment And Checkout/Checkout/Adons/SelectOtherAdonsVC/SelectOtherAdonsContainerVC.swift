@@ -65,6 +65,8 @@ class SelectOtherAdonsContainerVC: BaseVC {
     
     override func setupColors() {
         super.setupColors()
+        self.MealTotalLabel.textColor = AppColors.themeGray60
+        self.totalLabel.textColor = AppColors.themeBlack
     }
     
     override func initialSetup() {
