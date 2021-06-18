@@ -604,6 +604,13 @@ extension SelectDestinationVC: UITableViewDelegate, UITableViewDataSource {
             self.view.endEditing(true)
             self.hide(animated: true, shouldRemove: true)
             self.delegate?.didSelectedDestination(hotel: selected)
+            
+            if currentlyUsingFor == .bulkBooking{
+                FirebaseEventLogs.shared.logSelectedCityForHotel(city: selected.dest_name, isFromHotelBulkBooking: true)
+            }else{
+                FirebaseEventLogs.shared.logSelectedCityForHotel(city: selected.dest_name, isFromHotelBulkBooking: false)
+
+            }
         }
     }
     

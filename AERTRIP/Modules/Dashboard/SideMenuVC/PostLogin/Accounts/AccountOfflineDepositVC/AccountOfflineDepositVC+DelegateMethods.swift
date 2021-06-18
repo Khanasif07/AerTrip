@@ -243,7 +243,9 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
         
         //depositCell.amountTextField.delegate = self
         depositCell.amountTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
-        depositCell.amount = self.viewModel.userEnteredDetails.depositAmount
+        let price = self.getConvertedAmount(for: self.viewModel.userEnteredDetails.depositAmount, with: self.viewModel.itineraryData?.currencyRate, isForCancellation: false)
+        
+        depositCell.amount = price//self.viewModel.userEnteredDetails.depositAmount
         depositCell.delegate = self
         depositCell.usingFor = .offlineDeposite
         if self.currentUsingFor == .addOns{

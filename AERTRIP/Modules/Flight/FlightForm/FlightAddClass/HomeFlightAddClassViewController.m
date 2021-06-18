@@ -264,9 +264,9 @@
     if ([flightClass.type isEqualToString:ECONOMY_FLIGHT_TYPE]) {
         [self logEvent:@"28"];
     }else if ([flightClass.type isEqualToString:BUSINESS_FLIGHT_TYPE]) {
-        [self logEvent:@"29"];
-    }else if ([flightClass.type isEqualToString:PREMIUM_FLIGHT_TYPE]) {
         [self logEvent:@"30"];
+    }else if ([flightClass.type isEqualToString:PREMIUM_FLIGHT_TYPE]) {
+        [self logEvent:@"29"];
     }else if ([flightClass.type isEqualToString:FIRST_FLIGHT_TYPE]) {
         [self logEvent:@"31"];
     }

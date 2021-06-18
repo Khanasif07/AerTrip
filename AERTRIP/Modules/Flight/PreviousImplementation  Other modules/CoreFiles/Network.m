@@ -136,7 +136,8 @@
         }
     }
     else {
-        [BaseViewController notifyNoInternetIssue];
+        failure(NO_INTERNET_ERROR,NO);
+//        [BaseViewController notifyNoInternetIssue];
     }
 }
 
@@ -248,7 +249,9 @@
         }
     }
     else {
-        [BaseViewController notifyNoInternetIssue];
+        failure(NO_INTERNET_ERROR,NO);
+        //NO_INTERNET_ERROR
+//        [BaseViewController notifyNoInternetIssue];
     }
 }
 

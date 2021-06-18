@@ -128,7 +128,10 @@ class AccountOnlineDepositVC: BaseVC {
         // self.payButton.setTitle(" " + LocalizedString.Pay.localized + " " + self.viewModel.totalPayableAmount.amountInDelimeterWithSymbol, for: .normal)
         
         let title = NSMutableAttributedString(string: " \(LocalizedString.Pay.localized) " , attributes: [.font: AppFonts.Regular.withSize(22.0)])
-        title.append(self.viewModel.totalPayableAmount.getTextWithChangedCurrency(with: self.viewModel.currency, using: AppFonts.Regular.withSize(22.0)))
+        let priceText = self.getConvertedPrice(for: self.viewModel.totalPayableAmount, with: self.viewModel.depositItinerary?.currencyRate, using: AppFonts.Regular.withSize(22.0), isForCancellation: false)
+        title.append(priceText)
+        
+//        title.append(self.viewModel.totalPayableAmount.getTextWithChangedCurrency(with: self.viewModel.currency, using: AppFonts.Regular.withSize(22.0)))
         
         //(self.viewModel.totalPayableAmount.amountInDelimeterWithSymbol).asStylizedPrice(using: AppFonts.Regular.withSize(22.0))
         self.payButton.setTitle(title.string, for: .normal)

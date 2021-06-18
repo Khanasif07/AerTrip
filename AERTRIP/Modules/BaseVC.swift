@@ -391,4 +391,17 @@ extension BaseVC{
         }
     }
     
+    func getConvertedAmount(for amount: Double, with rate:CurrencyConversionRate?, isForCancellation: Bool) -> Double{
+        
+        if let rate = rate{
+            if isForCancellation{
+                return amount * rate.cancellationRate
+            }else{
+                return amount * rate.rate
+            }
+        }else{
+            return amount
+        }
+    }
+    
 }

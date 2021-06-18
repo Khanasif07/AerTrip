@@ -101,13 +101,28 @@ extension OtherBookingsDetailsVC {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingPaymentDetailsTableViewCell.reusableIdentifier, for: indexPath) as? BookingPaymentDetailsTableViewCell else { return UITableViewCell() }
         cell.containerViewBottomConstraint.constant = 26.0
         
-        let amount = (self.viewModel.bookingDetail?.totalAmountPaid ?? 0)
+//        let amount = (self.viewModel.bookingDetail?.totalAmountPaid ?? 0)
+//
+//        let attAmount = self.getConvertedPrice(for: amount, with: self.viewModel.bookingDetail?.bookingCurrencyRate, using: AppFonts.Regular.withSize(16.0), isForCancellation: false)
+//
+//        cell.configCellForAmount(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: attAmount, priceInRupee: amount, isLastCell: true)
         
-        let attAmount = self.getConvertedPrice(for: amount, with: self.viewModel.bookingDetail?.bookingCurrencyRate, using: AppFonts.Regular.withSize(16.0), isForCancellation: false)
+
+        var transactionAmount = 0.0
+        let count = self.viewModel.bookingDetail?.receipt?.voucher.count ?? 0
+        for i in 0..<count{
+            let basic = self.viewModel.bookingDetail?.receipt?.voucher[i].basic
+
+            if basic?.type.lowercased() == "receipt"{
+                transactionAmount = self.viewModel.bookingDetail?.receipt?.voucher[i].transactions.first?.amount ?? 0.0
+            }
+        }
         
-        cell.configCellForAmount(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: attAmount, priceInRupee: amount, isLastCell: true)
+        let attAmount = self.getConvertedPrice(for: transactionAmount, with: self.viewModel.bookingDetail?.bookingCurrencyRate, using: AppFonts.Regular.withSize(16.0), isForCancellation: false)
         
-//        cell.configCell(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(self.viewModel.bookingDetail?.totalAmountPaid ?? 0)", isLastCell: true)
+        cell.configCellForAmount(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: attAmount, priceInRupee: transactionAmount, isLastCell: true)
+        
+ 
         cell.clipsToBounds = true
         return cell
     }
