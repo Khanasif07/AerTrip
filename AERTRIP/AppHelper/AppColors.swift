@@ -79,8 +79,11 @@ enum AppColors {
     /// RGB - 138, 138, 143, with alpha 0.22  Dark 70, 70, 70
     static let imageBackGroundColor = UIColor(named: "imageBackGroundColor") ?? UIColor(displayP3Red: 0.5411764706, green: 0.5411764706, blue: 0.5607843137, alpha: 1).withAlphaComponent(0.22)
     
-    /// RGB - 230, 230, 230
+    /// RGB - (230, 230, 230) (102,102,102)
     static let themeGray10  = UIColor(named: "themeGray10") ?? UIColor(displayP3Red: 0.9019607843, green: 0.9019607843, blue: 0.9019607843, alpha: 1)
+    
+    /// RGB - (230, 230, 230) (102,102,102)
+    static let commonThemeGray230  = UIColor(named: "commonThemeGray230") ?? .white
     
     /// RGB - 246, 246, 246 (0, 0, 0)
     static let themeGray04  = UIColor(named: "themeGray04") ?? UIColor(displayP3Red: 0.9647058824, green: 0.9647058824, blue: 0.9647058824, alpha: 1)
@@ -140,14 +143,19 @@ enum AppColors {
     // RGB - 246,246,246, 1.0
     static let greyO4 = UIColor(named: "greyO4") ?? UIColor(displayP3Red: 0.9647058824, green: 0.9647058824, blue: 0.9647058824, alpha: 1)
     
-    // RGB - 246,246,246, 1.0
+    // RGB - (246,246,246, 1.0) (0,0,0)
     static let flightsGrayO4 = UIColor(named: "flightsGrayO4") ?? .white
+    
+    // RGB - (246,246,246, 1.0) (49,49,49)
+    static let miniPlaneBack = UIColor(named: "miniPlaneBack") ?? .white
     
     /// (204,204,204) (26,26,26)
     static let seatsGray = UIColor(named: "seatsGray") ?? .white
     
     /// (204,204,204) (102,102,102)
     static let seatsBorder = UIColor(named: "seatsBorder") ?? .white
+    
+    static let commonGray204 = UIColor(named: "commonGray204") ?? .white
     
     /// (153,153,153) (247,193,12)
     static let postBookingSeatColor = UIColor(named: "postBookingSeatColor") ?? .white

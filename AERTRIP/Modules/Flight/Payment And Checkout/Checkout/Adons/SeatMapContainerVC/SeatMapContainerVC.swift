@@ -142,11 +142,11 @@ class SeatMapContainerVC: UIViewController {
     }
     
     private func setupPlaneLayoutCollView() {
-        planeLayoutScrollContentView.backgroundColor = AppColors.greyO4
-        planeLayoutScrollView.backgroundColor = AppColors.greyO4
+        planeLayoutScrollContentView.backgroundColor = AppColors.miniPlaneBack
+        planeLayoutScrollView.backgroundColor = AppColors.miniPlaneBack
         planeLayoutCollView.showsHorizontalScrollIndicator = false
         planeLayoutCollView.register(UINib(nibName: "LayoutSeatCollCell", bundle: nil), forCellWithReuseIdentifier: "LayoutSeatCollCell")
-        planeLayoutCollView.backgroundColor = AppColors.themeGray10
+        planeLayoutCollView.backgroundColor = AppColors.commonThemeGray230
         planeLayoutCollView.delegate = self
         planeLayoutCollView.dataSource = self
         planeShadowView.addShadow(ofColor: .black, radius: 60, opacity: 0.5)
@@ -200,7 +200,7 @@ class SeatMapContainerVC: UIViewController {
     
     private func addHighlightView() {
         highlightView = UIView(frame: .zero)
-        highlightView?.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.1)
+        highlightView?.backgroundColor = UIColor.black.withAlphaComponent(0.1)
         highlightContainerView.addSubview(highlightView!)
     }
     
