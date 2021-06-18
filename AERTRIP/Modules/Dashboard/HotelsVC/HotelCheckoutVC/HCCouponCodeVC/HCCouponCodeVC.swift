@@ -66,6 +66,8 @@ class HCCouponCodeVC: BaseVC {
     @IBOutlet weak var applyCouponButton: UIButton!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var textFieldContainer: UIView!
+    @IBOutlet weak var darkView: UIView!
+    @IBOutlet weak var blurView: BlurView!
     
     //Mark:- LifeCycle
     //================
@@ -82,9 +84,15 @@ class HCCouponCodeVC: BaseVC {
         IQKeyboardManager.shared().isEnableAutoToolbar = true
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        darkView.isHidden = isLightTheme()
+        blurView.isHidden = !isLightTheme()
+    }
+    
     override func initialSetup() {
         self.couponTableView.contentInset = UIEdgeInsets(top: headerView.height + textFieldContainer.height, left: 0.0, bottom: 0.0, right: 0.0)
-
+        
         self.manageLoader()
         self.registerNibs()
         self.couponTableView.delegate = self
@@ -106,6 +114,10 @@ class HCCouponCodeVC: BaseVC {
 //        if self.viewModel.searcedCouponsData.count == 0{
             self.emptyStateSetUp()
 //        }
+        
+        darkView.backgroundColor = AppColors.themeBlack26
+        darkView.isHidden = isLightTheme()
+        blurView.isHidden = !isLightTheme()
     }
     
     override func setupFonts() {
