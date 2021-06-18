@@ -35,7 +35,7 @@ class HCBookingDetailsTableViewHeaderFooterView: UITableViewHeaderFooterView {
     //================
     private func configUI() {
         
-        containerView.backgroundColor = AppColors.themeWhite//AppColors.themeGray04
+        containerView.backgroundColor = AppColors.themeBlack26//AppColors.themeGray04
         
         //Font
         self.bookingDetailsLabel.font = AppFonts.Regular.withSize(14.0)
