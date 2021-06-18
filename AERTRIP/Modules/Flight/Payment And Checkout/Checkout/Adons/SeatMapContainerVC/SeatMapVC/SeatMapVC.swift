@@ -93,6 +93,7 @@ class SeatMapVC: UIViewController {
         seatMapCollView.showsVerticalScrollIndicator = false
         seatMapCollView.showsHorizontalScrollIndicator = false
         seatMapCollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 12)
+        seatMapCollView.backgroundColor = AppColors.themeWhite
     }
     
     private func toggleUpperDeck(_ selected: Bool) {

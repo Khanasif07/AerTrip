@@ -29,8 +29,8 @@ class SeatMapContainerVC: UIViewController {
     @IBOutlet weak var topNavBarView: TopNavigationView!
     @IBOutlet weak var seatMapContainerView: UIView!
     @IBOutlet weak var planeLayoutView: UIView!
-    @IBOutlet weak var planeLayoutTopSeparatorView: UIView!
-    @IBOutlet weak var planeLayoutBottomSeparatorView: UIView!
+    @IBOutlet weak var planeLayoutTopSeparatorView: ATDividerView!
+    @IBOutlet weak var planeLayoutBottomSeparatorView: ATDividerView!
     @IBOutlet weak var planeLayoutScrollView: UIScrollView!
     @IBOutlet weak var planeLayoutScrollContentView: UIView!
     @IBOutlet weak var planeShadowView: UIView!
@@ -142,11 +142,11 @@ class SeatMapContainerVC: UIViewController {
     }
     
     private func setupPlaneLayoutCollView() {
-        planeLayoutScrollContentView.backgroundColor = AppColors.greyO4
-        planeLayoutScrollView.backgroundColor = AppColors.greyO4
+        planeLayoutScrollContentView.backgroundColor = AppColors.miniPlaneBack
+        planeLayoutScrollView.backgroundColor = AppColors.miniPlaneBack
         planeLayoutCollView.showsHorizontalScrollIndicator = false
         planeLayoutCollView.register(UINib(nibName: "LayoutSeatCollCell", bundle: nil), forCellWithReuseIdentifier: "LayoutSeatCollCell")
-        planeLayoutCollView.backgroundColor = AppColors.themeGray10
+        planeLayoutCollView.backgroundColor = AppColors.commonThemeGray230
         planeLayoutCollView.delegate = self
         planeLayoutCollView.dataSource = self
         planeShadowView.addShadow(ofColor: .black, radius: 60, opacity: 0.5)
@@ -168,9 +168,10 @@ class SeatMapContainerVC: UIViewController {
     }
     
     private func setupViews() {
+        view.backgroundColor = AppColors.themeWhiteDashboard
         setupApiIndicatorView()
-        planeLayoutTopSeparatorView.backgroundColor = AppColors.themeGray214
-        planeLayoutBottomSeparatorView.backgroundColor = AppColors.themeGray214
+//        planeLayoutTopSeparatorView.backgroundColor = AppColors.themeGray214
+//        planeLayoutBottomSeparatorView.backgroundColor = AppColors.themeGray214
 //        totalSeatAmountTopSeparatorView.backgroundColor = AppColors.themeGray214
         seatTotalTitleLbl.text = LocalizedString.seatTotal.localized
         seatTotalTitleLbl.font = AppFonts.Regular.withSize(12)
@@ -199,7 +200,7 @@ class SeatMapContainerVC: UIViewController {
     
     private func addHighlightView() {
         highlightView = UIView(frame: .zero)
-        highlightView?.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.1)
+        highlightView?.backgroundColor = UIColor.black.withAlphaComponent(0.1)
         highlightContainerView.addSubview(highlightView!)
     }
     

@@ -34,6 +34,16 @@ class SelectBagageCell: UITableViewCell {
         self.selectionStyle = .none
         self.bagageTitleLabel.backgroundColor = AppColors.clear
         self.priceLabel.backgroundColor = AppColors.clear
+        self.contentView.backgroundColor = AppColors.themeBlack26
+        
+        self.autoSelectedForBackView.backgroundColor = AppColors.lightYellowAndGoldenGray
+        self.autoSelectedForLabel.textColor = AppColors.grayWhite
+        
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.autoSelectedForBackView.roundedCorners(cornerRadius: 3)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -42,7 +52,7 @@ class SelectBagageCell: UITableViewCell {
     
     func populateData(data : AddonsDataCustom, index : Int){
 //        let price = "₹ \(data.price.commaSeprated)"
-        self.priceLabel.attributedText = data.price.getConvertedAmount(using: AppFonts.SemiBold.withSize(18))
+        self.priceLabel.attributedText = data.price.getConvertedAmount(using: AppFonts.Regular.withSize(18))
        
         self.priceLabelWidth.constant = self.priceLabel.attributedText?.string.getTextWidth(height: 21, font: AppFonts.Regular.withSize(18)) ?? 0
       
@@ -83,15 +93,13 @@ class SelectBagageCell: UITableViewCell {
              self.autoSelectedForTop.constant = 11
              self.autoSelectedForBackView.isHidden = false
         }
-        
-        
     }
     
     func populateOtherAdonsData(data : AddonsDataCustom, index : Int){
 //        let price = "₹ \(data.price.commaSeprated)"
 //        self.priceLabel.text = price
       
-        self.priceLabel.attributedText = data.price.getConvertedAmount(using: AppFonts.SemiBold.withSize(18))
+        self.priceLabel.attributedText = data.price.getConvertedAmount(using: AppFonts.Regular.withSize(18))
 
         self.priceLabelWidth.constant = self.priceLabel.attributedText?.string.getTextWidth(height: 21, font: AppFonts.Regular.withSize(18)) ?? 0
         

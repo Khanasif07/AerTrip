@@ -39,9 +39,12 @@ class SelectPassengerVC : BaseVC {
     
     override func setupColors() {
         super.setupColors()
-        self.selectPassengersLabel.textColor = AppColors.themeGray40
+        self.selectPassengersLabel.textColor = AppColors.commonThemeGray
         self.legsLabel.textColor = AppColors.themeGray60
-        doneButton.titleLabel?.textColor = AppColors.themeDarkGreen
+        self.doneButton.titleLabel?.textColor = AppColors.themeDarkGreen
+        self.popUpBackView.backgroundColor = AppColors.themeWhiteDashboard
+        self.emptyView.backgroundColor = AppColors.themeWhiteDashboard
+        self.doneButton.backgroundColor = AppColors.themeBlack26
     }
     
     override func setupTexts() {
@@ -52,6 +55,11 @@ class SelectPassengerVC : BaseVC {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         transformViewToOriginalState()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        passengerCollectionView.reloadData()
     }
     
     @IBAction func doneButtonTapped(_ sender: UIButton) {
@@ -67,11 +75,11 @@ extension SelectPassengerVC {
         self.selectPassengersVM.getAllowedPassengerForParticularAdon()
         self.configureCollectionView()
         self.setupForView()
+        self.doneButton.setTitle(LocalizedString.Done.localized, for: .normal)
+        addDismissGesture()
         self.transparentBackView.backgroundColor = UIColor.clear
         self.transparentBackView.transform = CGAffineTransform(translationX: 0, y: transparentBackView.height)
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
-        self.doneButton.setTitle(LocalizedString.Done.localized, for: .normal)
-        addDismissGesture()
     }
     
     private func transformViewToOriginalState() {

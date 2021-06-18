@@ -104,8 +104,8 @@ extension SelectBaggageVC : UITableViewDelegate, UITableViewDataSource {
                    }
                  headerView.headingLabel.font = AppFonts.Regular.withSize(14)
                  headerView.headingLabel.text = section == 0 ? LocalizedString.DomesticCheckIn.localized.uppercased() : LocalizedString.InternationalCheckIn.localized.uppercased()
-                 headerView.contentView.backgroundColor = AppColors.greyO4
-                 headerView.headingLabel.textColor = AppColors.themeGray60
+                 headerView.contentView.backgroundColor = AppColors.headerBackground
+                 headerView.headingLabel.textColor = AppColors.themeGray40
                  return  headerView
       }
     

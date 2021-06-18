@@ -731,6 +731,7 @@ get upto 20% off </string>
                     <connections>
                         <outlet property="clearButton" destination="oAw-T7-3zw" id="Iy0-LQ-CaG"/>
                         <outlet property="otherAdonsTableView" destination="lQJ-64-elP" id="iiw-rA-kin"/>
+                        <outlet property="specialRequestBackView" destination="Jf1-lq-BgG" id="F7F-dV-VrB"/>
                         <outlet property="specialRequestInfoLabel" destination="Zc5-Vh-va4" id="3UN-j6-t8H"/>
                         <outlet property="specialRequestLabel" destination="HjX-9e-u0h" id="Evw-OH-6pt"/>
                         <outlet property="specialRequestPlaceHolderLabel" destination="FQU-qF-dBb" id="Wob-5p-dpk"/>

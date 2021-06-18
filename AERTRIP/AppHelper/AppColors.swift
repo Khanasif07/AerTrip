@@ -69,14 +69,21 @@ enum AppColors {
     /// RGB - 204, 204, 204, RGB - 79, 79,79
     static let themeGray20  = UIColor(named: "themeGray20") ?? UIColor(displayP3Red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
     
+    /// RGB - 246, 246, 246  Dark 0, 0 ,0
+    static let headerBackground  = UIColor(named: "headerBackground") ?? UIColor(displayP3Red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
+
+    
     /// RGB - 214, 214, 214
     static let themeGray214  = UIColor(named: "themeGray214") ?? UIColor(displayP3Red: 0.839, green: 0.839, blue: 0.839, alpha: 1)
     
-    /// RGB - 138, 138, 143, with alpha 0.22
+    /// RGB - 138, 138, 143, with alpha 0.22  Dark 70, 70, 70
     static let imageBackGroundColor = UIColor(named: "imageBackGroundColor") ?? UIColor(displayP3Red: 0.5411764706, green: 0.5411764706, blue: 0.5607843137, alpha: 1).withAlphaComponent(0.22)
     
-    /// RGB - 230, 230, 230
+    /// RGB - (230, 230, 230) (102,102,102)
     static let themeGray10  = UIColor(named: "themeGray10") ?? UIColor(displayP3Red: 0.9019607843, green: 0.9019607843, blue: 0.9019607843, alpha: 1)
+    
+    /// RGB - (230, 230, 230) (102,102,102)
+    static let commonThemeGray230  = UIColor(named: "commonThemeGray230") ?? .white
     
     /// RGB - 246, 246, 246 (0, 0, 0)
     static let themeGray04  = UIColor(named: "themeGray04") ?? UIColor(displayP3Red: 0.9647058824, green: 0.9647058824, blue: 0.9647058824, alpha: 1)
@@ -136,6 +143,23 @@ enum AppColors {
     // RGB - 246,246,246, 1.0
     static let greyO4 = UIColor(named: "greyO4") ?? UIColor(displayP3Red: 0.9647058824, green: 0.9647058824, blue: 0.9647058824, alpha: 1)
     
+    // RGB - (246,246,246, 1.0) (0,0,0)
+    static let flightsGrayO4 = UIColor(named: "flightsGrayO4") ?? .white
+    
+    // RGB - (246,246,246, 1.0) (49,49,49)
+    static let miniPlaneBack = UIColor(named: "miniPlaneBack") ?? .white
+    
+    /// (204,204,204) (26,26,26)
+    static let seatsGray = UIColor(named: "seatsGray") ?? .white
+    
+    /// (204,204,204) (102,102,102)
+    static let seatsBorder = UIColor(named: "seatsBorder") ?? .white
+    
+    static let commonGray204 = UIColor(named: "commonGray204") ?? .white
+    
+    /// (153,153,153) (247,193,12)
+    static let postBookingSeatColor = UIColor(named: "postBookingSeatColor") ?? .white
+    
     // RGB - 170, 2, 255
     static let brightViolet = UIColor(named: "brightViolet") ?? UIColor(displayP3Red: 0.6666666667, green: 0.007843137255, blue: 1, alpha: 1)
     
@@ -175,6 +199,9 @@ enum AppColors {
     // RGB - (254, 242, 199)(71, 61, 20)
     static let lightYellow =  UIColor(named: "lightYellow") ?? UIColor(displayP3Red: 254.0/255.0, green: 242.0/255.0, blue: 199.0/255.0, alpha: 1.0)
     
+    // RGB - (254, 242, 199)(75, 72, 59)
+    static let lightYellowAndGoldenGray =  UIColor(named: "lightYellowAndGoldenGray") ?? UIColor(displayP3Red: 254.0/255.0, green: 242.0/255.0, blue: 199.0/255.0, alpha: 1.0)
+    
     /// RGB - 255, 255, 255, 0.85
     static let themeWhite85  = UIColor(named: "themeWhite85") ?? UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 0.85)
 
@@ -184,7 +211,7 @@ enum AppColors {
     /// (0,0,0) (146,255,228)
     static let addOnsGreenAttributed = UIColor(named: "addOnsGreenAttributed") ?? .white
     
-    // RGB - 0,0,0 , 0.15
+    // RGB - (0,0,0 , 0.15) (102,102,102)
     static let blackWith15PerAlpha =  UIColor(named: "blackWith15PerAlpha") ?? UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 0.15)
     
     // RGB - 0,0,0 , 0.4
@@ -249,6 +276,10 @@ enum AppColors {
     
     /// RGB - (102, 102, 102)  (102, 102, 102)
     static let flightCellDashColor = UIColor(named: "flightCellDashColor") ?? UIColor(displayP3Red: 0.4, green: 0.4, blue: 0.4, alpha: 1)
+    
+    /// RGB - (102, 102, 102)  (255, 255, 255)
+    static let grayWhite = UIColor(named: "grayWhite") ?? UIColor(displayP3Red: 0.4, green: 0.4, blue: 0.4, alpha: 1)
+    
     
     /// RGB - 255, 144, 0
     static let cheapestPriceColor = UIColor(named: "cheapestPriceColor") ?? UIColor(displayP3Red: 1, green: 0.5647058824, blue: 0, alpha: 1)

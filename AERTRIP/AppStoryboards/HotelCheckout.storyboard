@@ -1471,6 +1471,10 @@ Incomplete</string>
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="104"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5JP-fw-T5H">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VFj-MD-RgZ">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                 <subviews>
@@ -1662,7 +1666,10 @@ Incomplete</string>
                         <viewLayoutGuide key="safeArea" id="5Az-SF-g0l"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="5Az-SF-g0l" firstAttribute="trailing" secondItem="5JP-fw-T5H" secondAttribute="trailing" id="3hA-pR-AUn"/>
+                            <constraint firstItem="5JP-fw-T5H" firstAttribute="bottom" secondItem="VFj-MD-RgZ" secondAttribute="bottom" id="6Gy-e9-Pc3"/>
                             <constraint firstItem="5Az-SF-g0l" firstAttribute="trailing" secondItem="G1F-4q-n8L" secondAttribute="trailing" id="74F-oc-lpc"/>
+                            <constraint firstItem="5JP-fw-T5H" firstAttribute="leading" secondItem="5Az-SF-g0l" secondAttribute="leading" id="Czu-ht-top"/>
                             <constraint firstItem="ZMg-6h-E0A" firstAttribute="leading" secondItem="5Az-SF-g0l" secondAttribute="leading" constant="67.5" id="F0V-PI-BU7"/>
                             <constraint firstItem="dgG-hf-niu" firstAttribute="leading" secondItem="5Az-SF-g0l" secondAttribute="leading" id="Hkf-vf-e2U"/>
                             <constraint firstItem="VFj-MD-RgZ" firstAttribute="top" secondItem="5Az-SF-g0l" secondAttribute="top" id="I67-nI-TsO"/>
@@ -1679,6 +1686,7 @@ Incomplete</string>
                             <constraint firstAttribute="bottom" secondItem="nO1-9x-A83" secondAttribute="bottom" id="bLp-Bg-eKD"/>
                             <constraint firstItem="9uT-Oo-DUc" firstAttribute="top" secondItem="dgG-hf-niu" secondAttribute="bottom" id="bM3-ZU-aUt"/>
                             <constraint firstItem="dgG-hf-niu" firstAttribute="top" secondItem="VFj-MD-RgZ" secondAttribute="bottom" id="jZO-6z-rT4"/>
+                            <constraint firstItem="5JP-fw-T5H" firstAttribute="top" secondItem="I3d-Xj-2CM" secondAttribute="top" id="lHN-wM-dXf"/>
                             <constraint firstItem="nO1-9x-A83" firstAttribute="top" secondItem="5Az-SF-g0l" secondAttribute="top" id="ly2-SU-GFr"/>
                             <constraint firstItem="5Az-SF-g0l" firstAttribute="trailing" secondItem="9uT-Oo-DUc" secondAttribute="trailing" constant="16" id="mgb-L7-6Ft"/>
                             <constraint firstItem="dgG-hf-niu" firstAttribute="trailing" secondItem="5Az-SF-g0l" secondAttribute="trailing" id="nhX-hw-EjA"/>
@@ -1694,12 +1702,14 @@ Incomplete</string>
                         <outlet property="applyCouponButton" destination="z66-1x-NXM" id="X3S-7W-c3c"/>
                         <outlet property="backGroundView" destination="G1F-4q-n8L" id="b57-yv-WaY"/>
                         <outlet property="bestPriceLabel" destination="llj-Ng-uue" id="SzF-t4-AmY"/>
+                        <outlet property="blurView" destination="bbZ-Jw-SZK" id="6NR-VL-B4H"/>
                         <outlet property="cancelButton" destination="dN2-Ht-qoz" id="Y7g-6t-BWn"/>
                         <outlet property="coupanCodeLabel" destination="QAj-eH-e4Y" id="qoH-jH-1G5"/>
                         <outlet property="couponInfoTextView" destination="yeO-pL-fuX" id="Op8-0Y-KRu"/>
                         <outlet property="couponLabel" destination="r6P-mU-234" id="TtB-XC-yFy"/>
                         <outlet property="couponTableView" destination="nO1-9x-A83" id="RDo-rI-gAd"/>
                         <outlet property="couponTextField" destination="4sX-zf-2aM" id="Rj9-I5-Z95"/>
+                        <outlet property="darkView" destination="5JP-fw-T5H" id="U09-EM-rF3"/>
                         <outlet property="discountLabel" destination="Ac7-4o-Tfo" id="J8a-Vm-Z9f"/>
                         <outlet property="dividerView" destination="y9i-B2-tEL" id="d8t-UD-gvZ"/>
                         <outlet property="emptyStateImageView" destination="ude-fc-wVN" id="I4s-K6-hCa"/>
