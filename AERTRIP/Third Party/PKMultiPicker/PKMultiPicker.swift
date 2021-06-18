@@ -300,7 +300,7 @@ class PKDatePicker: UIDatePicker {
 //        }
 //        else {
 //            self.backgroundColor = UIColor(displayP3Red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
-            self.setValue(UIColor(displayP3Red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1), forKey: "textColor")
+            self.setValue(AppColors.datePickerText, forKey: "textColor")
 //            toolbar.barTintColor = UIColor(displayP3Red: 0.9215686275, green: 0.9215686275, blue: 0.9215686275, alpha: 1)
 //            cancelButton.tintColor = toolBarTint ?? UIColor(displayP3Red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
 //            doneButton.tintColor = toolBarTint ?? UIColor(displayP3Red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
@@ -310,7 +310,7 @@ class PKDatePicker: UIDatePicker {
         toolbar.setItems(array, animated: true)
         
         toolbar.backgroundColor = .clear
-        toolbar.barTintColor = AppColors.secondarySystemFillColor
+        toolbar.barTintColor = AppColors.datePickerToolbarColor
         
         let genericPickerView: UIView = UIView()
         let pickerSize: CGSize = UIPickerView.pickerSize

@@ -351,6 +351,15 @@ enum AppColors {
 //    (204, 204, 204) (255, 255, 255, 0)
     static let unicodeSwitchLineColor = UIColor(named: "unicodeSwitchLineColor") ?? .white
     
+    
+    static let datePickerText = UIColor(named: "datePickerText") ?? UIColor(displayP3Red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
+    
+    // RGB - 228,228,229
+    static let datePickerToolbarColor = UIColor(named: "datePickerToolbarColor") ?? UIColor(displayP3Red: 0.8941176471, green: 0.8941176471, blue: 0.8980392157, alpha: 1)
+    
+    // RGB - 241,241,242 (49, 49, 49)
+    static let countryPickerBackground = UIColor(named: "countryPickerBackground") ?? UIColor(displayP3Red: 0.9450980392, green: 0.9450980392, blue: 0.9490196078, alpha: 1)
+    
     case headlines
     case body
     case subheads
