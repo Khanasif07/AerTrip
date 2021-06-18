@@ -61,7 +61,7 @@ class TotalPayableNowCell: UITableViewCell {
     private func setUpColor() {
         self.totalPayableNowLabel.textColor = AppColors.themeBlack
         self.totalPriceLabel.textColor = AppColors.themeBlack
-        self.contentView.backgroundColor = AppColors.themeWhiteDashboard
+        self.contentView.backgroundColor = AppColors.themeBlack26
     }
     
     internal func setupFotFinalCheckoutScreen() {
