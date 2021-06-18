@@ -30,6 +30,9 @@ class AdonsCell: UITableViewCell {
         complementBackView.setBorder(borderWidth: 1, borderColor: AppColors.themeGreen)
         complementBackView.roundedCorners(cornerRadius: 3)
         self.contentView.backgroundColor = AppColors.themeWhite
+        complementBackView.backgroundColor = AppColors.clear
+        complementLabel.backgroundColor = AppColors.clear
+        descriptionLabel.numberOfLines = 3
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -155,6 +155,9 @@ enum AppColors {
     /// (204,204,204) (102,102,102)
     static let seatsBorder = UIColor(named: "seatsBorder") ?? .white
     
+    /// RGB - (0, 204, 153) (117,117,117)
+    static let deckSelected = UIColor(named: "deckSelected") ?? .white
+    
     static let commonGray204 = UIColor(named: "commonGray204") ?? .white
     
     /// (153,153,153) (247,193,12)
@@ -251,6 +254,7 @@ enum AppColors {
     
     
     static var recentSearchColletionCellColor: UIColor = UIColor(named: "recentSearchColletionCellColor") ?? UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 0.5)
+    
     // (255, 255, 255) (26, 26, 26)
     static var themeBlack26: UIColor { UIColor(named: "themeBlack26") ?? .white }
 

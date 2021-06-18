@@ -45,7 +45,7 @@ class DiscountCell: UITableViewCell {
     private func setUpColor() {
         self.titleLabel.textColor = AppColors.themeBlack
         self.amountLabel.textColor = AppColors.themeBlack
-        self.contentView.backgroundColor = AppColors.themeWhiteDashboard
+        self.contentView.backgroundColor = AppColors.themeBlack26
     }
     
     func configureCell(title: String, amount: String) {

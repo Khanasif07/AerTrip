@@ -56,12 +56,11 @@ class HotelFareSectionHeader: UITableViewHeaderFooterView {
         self.discountsTitleLabel.font = AppFonts.Regular.withSize(16.0)
         self.grossPriceLabel.font = AppFonts.Regular.withSize(16.0)
         self.discountPriceLabel.font = AppFonts.Regular.withSize(16.0)
-
     }
     
     private func setUpColor() {
-        self.discountBackView.backgroundColor = AppColors.themeWhiteDashboard
-        self.topBackgroundView.backgroundColor = AppColors.themeWhiteDashboard
+        self.discountBackView.backgroundColor = AppColors.themeBlack26
+        self.topBackgroundView.backgroundColor = AppColors.themeBlack26
         self.grossFareTitleLabel.textColor = AppColors.themeBlack
         self.grossPriceLabel.textColor = AppColors.themeBlack
         self.discountsTitleLabel.textColor = AppColors.themeBlack
