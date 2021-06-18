@@ -16,8 +16,13 @@ class CommunicationTextCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-       
+        self.setColors()
         // Initialization code
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.setColors()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -26,6 +31,9 @@ class CommunicationTextCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    private func setColors(){
+        self.contentView.backgroundColor = AppColors.themeBlack26
+    }
     
     func setupForTitlte(){
          self.selectionStyle = .none

@@ -60,6 +60,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="Jaf-ru-iO5" secondAttribute="trailing" id="EQ8-qp-70F"/>
                                     <constraint firstItem="10e-SF-pIM" firstAttribute="centerY" secondItem="RTn-rq-EGE" secondAttribute="centerY" id="RZA-1g-0fW"/>
@@ -94,6 +95,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                 </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="y9o-Yq-Usc" secondAttribute="trailing" id="4MZ-ZM-JfS"/>
                                     <constraint firstAttribute="bottom" secondItem="y9o-Yq-Usc" secondAttribute="bottom" constant="9" id="791-PJ-gOo"/>

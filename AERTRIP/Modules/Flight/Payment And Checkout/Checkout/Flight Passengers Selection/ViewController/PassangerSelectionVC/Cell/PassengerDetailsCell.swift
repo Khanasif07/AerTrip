@@ -73,6 +73,7 @@ class PassengerDetailsCell: UICollectionViewCell {
         lastNameAgeContainer.isHidden = true
         lastNameLabel.text = ""
         ageLabel.text = ""
+        self.backgroundColor = AppColors.themeBlack26
     }
     
     private func configData() {
