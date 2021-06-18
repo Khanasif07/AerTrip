@@ -102,7 +102,7 @@ class AppGlobals {
         IQKeyboardManager.shared().toolbarDoneBarButtonItemText = isEnabled ? LocalizedString.Done.localized : ""
     }
     
-    func getImageFor(firstName: String?, lastName: String?, font: UIFont = AppFonts.Regular.withSize(40.0), textColor: UIColor = AppColors.themeGray40, offSet: CGPoint = CGPoint(x: 0, y: 12), backGroundColor: UIColor = AppColors.themeWhite) -> UIImage {
+    func getImageFor(firstName: String?, lastName: String?, font: UIFont = AppFonts.Regular.withSize(40.0), textColor: UIColor = AppColors.themeGray40, offSet: CGPoint = CGPoint(x: 0, y: 12), backGroundColor: UIColor = .white) -> UIImage {
         var fName = firstName?.removeLeadingTrailingWhitespaces ?? ""
         var lName = lastName?.removeLeadingTrailingWhitespaces ?? ""
         
@@ -119,7 +119,7 @@ class AppGlobals {
         return self.getImageFromText(string, font: font, textColor: textColor, offSet: offSet, backGroundColor: backGroundColor)
     }
     
-    func getImageFromText(_ fromText: String, font: UIFont = AppFonts.Regular.withSize(40.0), textColor: UIColor = AppColors.themeGray40, offSet: CGPoint = CGPoint(x: 0, y: 12), backGroundColor: UIColor = AppColors.themeWhite) -> UIImage {
+    func getImageFromText(_ fromText: String, font: UIFont = AppFonts.Regular.withSize(40.0), textColor: UIColor = AppColors.themeGray40, offSet: CGPoint = CGPoint(x: 0, y: 12), backGroundColor: UIColor = .white) -> UIImage {
         let size = 70.0
         return UIImage(text: fromText, font: font, color: textColor, backgroundColor: backGroundColor, size: CGSize(width: size, height: size), offset: offSet)!
     }
