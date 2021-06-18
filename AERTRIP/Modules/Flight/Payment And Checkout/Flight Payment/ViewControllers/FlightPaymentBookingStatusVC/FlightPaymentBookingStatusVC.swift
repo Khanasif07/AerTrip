@@ -76,6 +76,12 @@ class FlightPaymentBookingStatusVC: BaseVC {
         self.statusTableView.registerCell(nibName: HCConfirmationVoucherTableViewCell.reusableIdentifier)
         self.statusTableView.registerCell(nibName: HCWhatNextTableViewCell.reusableIdentifier)
     }
+    
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.statusTableView.reloadData()
+    }
 
   private func setupReturnHomeButton() {
       self.returnHomeButton.titleLabel?.font = AppFonts.SemiBold.withSize(20.0)

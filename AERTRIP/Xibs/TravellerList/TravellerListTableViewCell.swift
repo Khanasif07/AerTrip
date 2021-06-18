@@ -68,6 +68,7 @@ class TravellerListTableViewCell: UITableViewCell {
 //    }
     
     private func configureCellForTraveller() {
+        self.userNameLabel.textColor = AppColors.themeBlack
         selectTravellerButton.isHidden = true
         leadingConstraint.constant = 16
         containerStackView.spacing = 16

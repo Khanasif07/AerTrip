@@ -79,11 +79,11 @@ class HCWhatNextTableViewCell: UITableViewCell {
         self.instagramButton.addShadow(cornerRadius: self.fbButton.frame.size.height / 2.0, maskedCorners: [.layerMinXMaxYCorner,.layerMaxXMinYCorner,.layerMaxXMaxYCorner,.layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.init(width: 0.0, height: 3.0), opacity: 1.0, shadowRadius: 5.0)
         //Image
         self.fbButton.setImage(AppImages.fbIconWhite.withRenderingMode(.alwaysTemplate), for: .normal)
-        self.fbButton.tintColor = AppColors.themeWhite
+        self.fbButton.tintColor = AppColors.unicolorWhite
         self.twitterButton.setImage(AppImages.twiterIcon.withRenderingMode(.alwaysTemplate), for: .normal)
-        self.twitterButton.tintColor = AppColors.themeWhite
-        self.instagramButton.setImage(AppImages.twiterIcon, for: .normal)
-//        self.instagramButton.tintColor = AppColors.themeWhite
+        self.twitterButton.tintColor = AppColors.unicolorWhite
+        self.instagramButton.setImage(AppImages.socialInstagram, for: .normal)//.setImage(AppImages.twiterIcon, for: .normal)
+//        self.instagramButton.tintColor = AppColors.unicolorWhite
 
         //Font
         self.tellYourPlanLabel.font = AppFonts.Regular.withSize(16.0)

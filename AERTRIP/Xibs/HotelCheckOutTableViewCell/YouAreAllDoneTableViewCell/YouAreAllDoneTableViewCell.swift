@@ -47,7 +47,7 @@ class YouAreAllDoneTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        self.addToAppleWalletButton.backgroundColor = .black//AppColors.unicolorBlack
+        self.addToAppleWalletButton.backgroundColor = AppColors.unicolorBlack
         self.addToAppleWalletButton.isLoading = false
     }
     
@@ -82,7 +82,7 @@ class YouAreAllDoneTableViewCell: UITableViewCell {
     }
     
     private func appleWalletButtonSetUp() {
-        self.addToAppleWalletButton.backgroundColor = .black//AppColors.unicolorBlack
+        self.addToAppleWalletButton.backgroundColor = AppColors.unicolorBlack
         self.addToAppleWalletButton.cornerradius = 10.0
         self.addToAppleWalletButton.layer.borderWidth = 1.0
         self.addToAppleWalletButton.layer.borderColor = AppColors.themeBlack.cgColor
@@ -175,7 +175,7 @@ class YouAreAllDoneTableViewCell: UITableViewCell {
         self.addToAppleWalletButton.setTitleFont(font: AppFonts.SemiBold.withSize(16), for: .selected)
         self.addToAppleWalletButton.setTitleColor(AppColors.themeWhite, for: .normal)
         self.addToAppleWalletButton.setTitleColor(AppColors.themeWhite, for: .selected)
-        self.addToAppleWalletButton.gradientColors = [AppColors.themeBlack, AppColors.themeBlack]
+        self.addToAppleWalletButton.gradientColors = [AppColors.unicolorBlack, AppColors.unicolorBlack]
     }
     
     
