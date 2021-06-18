@@ -183,16 +183,32 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         guard self.view.viewWithTag(500) == nil else {
             // Added Blur view Behind Status bar to avoid content getting merged with status bars
             statusBarBlurView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: statusBarHeight))
+            statusBarBlurView.tag = 602
+//            statusBarBlurView.isHidden = visualEffectView.frame.maxY >= visualEffectView.height
             statusBarBlurView.backgroundColor = .clear//AppColors.flightsNavBackViewColor
             statusBarBlurView.contentView.backgroundColor = .clear
             statusBarBlurView.effect = UIBlurEffect(style: .prominent)
             self.navigationController?.view.addSubview(statusBarBlurView)
             updateForAppearance()
+            
+            // sticky progress
+            stickyProgressView = UIProgressView(progressViewStyle: .bar)
+            stickyProgressView.progressTintColor = UIColor.AertripColor
+            stickyProgressView.trackTintColor = .white
+            stickyProgressView.progress = ApiProgress.progress
+            stickyProgressView.tag = 601
+            self.navigationController?.view.addSubview(stickyProgressView)
+            stickyProgressView.snp.makeConstraints { (maker) in
+                maker.top.equalTo(statusBarBlurView.bottom)
+                maker.leading.equalToSuperview()
+                maker.trailing.equalToSuperview()
+                maker.height.equalTo(1.5)
+            }
+            stickyProgressView.isHidden = true
+            
             return
         }
-        
-        let statusHeight = AppDelegate.shared.window?.safeAreaInsets.top ?? 0
-        
+                
         visualEffectView = UIView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: visualEffectViewHeight))
         visualEffectView.backgroundColor = .clear//AppColors.flightsNavBackViewColor
         let flightType = self.flightSearchResultVM.flightSearchType
@@ -217,7 +233,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         }
         
         visualEffectBlurView.snp.makeConstraints { (maker) in
-            maker.top.equalTo(self.visualEffectView.top + statusHeight)
+            maker.top.equalToSuperview()//(self.visualEffectView.top + statusHeight)
             maker.bottom.equalToSuperview()
             maker.leading.equalToSuperview()
             maker.trailing.equalToSuperview()
@@ -323,6 +339,8 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         
         // Added Blur view Behind Status bar to avoid content getting merged with status bars
         statusBarBlurView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: statusBarHeight))
+        statusBarBlurView.tag = 602
+        statusBarBlurView.isHidden = visualEffectView.frame.maxY >= visualEffectView.height
         statusBarBlurView.backgroundColor = .clear//AppColors.flightsNavBackViewColor
         statusBarBlurView.contentView.backgroundColor = .clear
         statusBarBlurView.effect = UIBlurEffect(style: .prominent)
@@ -347,6 +365,8 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         toggleFiltersView(hidden: true)
         statusBarBlurView.removeFromSuperview()
         statusBarBlurView = nil
+        stickyProgressView.removeFromSuperview()
+        stickyProgressView = nil
         self.flightSearchResultVM.cancelAllWebserviceCalls()
     }
     

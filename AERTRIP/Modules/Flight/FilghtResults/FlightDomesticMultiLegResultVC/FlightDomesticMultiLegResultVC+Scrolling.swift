@@ -411,6 +411,16 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
                 }
             }
         }
+        
+        // hide/show nav bar blur view
+        if let blurEffectView = self.navigationController?.view.viewWithTag(500), let navBlurView = self.navigationController?.view.viewWithTag(602) {
+            if blurEffectView.frame.maxY < blurEffectView.frame.height {
+                navBlurView.isHidden = false
+            } else {
+                navBlurView.isHidden = true
+            }
+        }
+
     }
     
     func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
