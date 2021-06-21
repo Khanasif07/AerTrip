@@ -71,7 +71,7 @@
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GxA-eO-3fS">
                                                                                 <rect key="frame" x="46.333333333333336" y="0.0" width="81.666666666666657" height="46"/>
                                                                                 <subviews>
-                                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CancelGreyFilled" translatesAutoresizingMaskIntoConstraints="NO" id="flL-qf-yxq">
+                                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="flightRemoveSection" translatesAutoresizingMaskIntoConstraints="NO" id="flL-qf-yxq">
                                                                                         <rect key="frame" x="0.0" y="12.000000000000007" width="22" height="22"/>
                                                                                         <constraints>
                                                                                             <constraint firstAttribute="width" constant="22" id="FfS-Di-LNK"/>
@@ -963,10 +963,10 @@
     </scenes>
     <resources>
         <image name="AdultBlack" width="8.6666669845581055" height="18.333333969116211"/>
-        <image name="CancelGreyFilled" width="22" height="22"/>
         <image name="FlightReverseArrow" width="16" height="15"/>
         <image name="FlightReverseArrowDisabled" width="16" height="15"/>
         <image name="childBlack" width="6.6666665077209473" height="14.333333015441895"/>
+        <image name="flightRemoveSection" width="22" height="22"/>
         <image name="greenFilledAdd" width="22" height="22"/>
         <image name="infantPax" width="18" height="18"/>
         <image name="plane" width="20" height="20"/>

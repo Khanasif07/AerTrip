@@ -131,11 +131,11 @@
 
 - (void) manageDoneView{
     self.doneView.backgroundColor = [UIColor doneViewClearColor];
-    if (self.isLightTheme){
-        [self.visualEffectsView setHidden: false];
-    }else{
-        [self.visualEffectsView setHidden: true];
-    }
+//    if (self.isLightTheme){
+//        [self.visualEffectsView setHidden: false];
+//    }else{
+//        [self.visualEffectsView setHidden: true];
+//    }
 }
 
 

@@ -370,6 +370,9 @@ enum AppColors {
     // RGB - 241,241,242 (49, 49, 49)
     static let countryPickerBackground = UIColor(named: "countryPickerBackground") ?? UIColor(displayP3Red: 0.9450980392, green: 0.9450980392, blue: 0.9490196078, alpha: 1)
     
+    /// (255,255,255) (64,85,80)
+    static let airportSwitcherBGColor = UIColor(named: "airportSwitcherBGColor")
+    
     case headlines
     case body
     case subheads

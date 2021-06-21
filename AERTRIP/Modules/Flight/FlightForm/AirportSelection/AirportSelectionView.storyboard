@@ -45,6 +45,10 @@
                                                     <constraint firstAttribute="height" constant="93" id="CCC-Qa-coQ"/>
                                                 </constraints>
                                             </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dRa-l4-Toi">
+                                                <rect key="frame" x="185" y="24.5" width="44" height="44"/>
+                                                <color key="backgroundColor" name="airportSwitcherBGColor"/>
+                                            </view>
                                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cFx-GV-Nqk">
                                                 <rect key="frame" x="185" y="24.5" width="44" height="44"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="17m-9U-cPO">
@@ -200,7 +204,7 @@
                                                     <constraint firstAttribute="width" constant="44" id="dvz-FL-1Jp"/>
                                                 </constraints>
                                                 <state key="normal" image="FlightReverseArrow"/>
-                                                <state key="disabled" image="FlightReverseArrowDisabled"/>
+                                                <state key="disabled" image="airportReverseArrowDisabled"/>
                                                 <connections>
                                                     <action selector="InvertAirportSelection:" destination="mEn-qe-GG0" eventType="touchUpInside" id="qNi-co-Wbs"/>
                                                 </connections>
@@ -213,6 +217,7 @@
                                             <constraint firstItem="i7X-dF-3wu" firstAttribute="leading" secondItem="IMc-qw-DkY" secondAttribute="leading" id="3at-Bj-cOF"/>
                                             <constraint firstItem="riV-rc-VRt" firstAttribute="trailing" secondItem="vEH-ql-PSE" secondAttribute="trailing" id="4EZ-R0-mNy"/>
                                             <constraint firstItem="RV2-B0-HUt" firstAttribute="width" secondItem="IMc-qw-DkY" secondAttribute="width" multiplier="0.5" id="4IU-yi-JU4"/>
+                                            <constraint firstItem="dRa-l4-Toi" firstAttribute="trailing" secondItem="cFx-GV-Nqk" secondAttribute="trailing" id="4eb-4Z-KSn"/>
                                             <constraint firstAttribute="trailing" secondItem="TQc-af-aOY" secondAttribute="trailing" id="4fd-fV-EVI"/>
                                             <constraint firstItem="CHA-V5-t09" firstAttribute="leading" secondItem="IMc-qw-DkY" secondAttribute="leading" id="5Hc-72-2Tu"/>
                                             <constraint firstItem="TQc-af-aOY" firstAttribute="width" secondItem="CHA-V5-t09" secondAttribute="width" id="5IW-Qi-Ekh"/>
@@ -222,6 +227,7 @@
                                             <constraint firstItem="TQc-af-aOY" firstAttribute="centerY" secondItem="CHA-V5-t09" secondAttribute="centerY" id="6k2-bC-kqx"/>
                                             <constraint firstItem="RV2-B0-HUt" firstAttribute="centerX" secondItem="IMc-qw-DkY" secondAttribute="centerX" id="9sN-rS-Gaa"/>
                                             <constraint firstItem="CHA-V5-t09" firstAttribute="width" secondItem="IMc-qw-DkY" secondAttribute="width" multiplier="1/2" id="ASk-hg-8uP"/>
+                                            <constraint firstItem="dRa-l4-Toi" firstAttribute="bottom" secondItem="cFx-GV-Nqk" secondAttribute="bottom" id="B7X-UN-1VD"/>
                                             <constraint firstItem="cFx-GV-Nqk" firstAttribute="centerX" secondItem="IMc-qw-DkY" secondAttribute="centerX" id="BKN-kj-vlr"/>
                                             <constraint firstAttribute="height" constant="93" id="GJZ-09-Xnm"/>
                                             <constraint firstItem="vEH-ql-PSE" firstAttribute="top" secondItem="RV2-B0-HUt" secondAttribute="top" constant="30" id="Gmg-ev-Q8T"/>
@@ -241,6 +247,8 @@
                                             <constraint firstItem="YVX-ve-40H" firstAttribute="top" secondItem="IMc-qw-DkY" secondAttribute="top" constant="30" id="fZA-FU-b0I"/>
                                             <constraint firstItem="i7X-dF-3wu" firstAttribute="top" secondItem="IMc-qw-DkY" secondAttribute="top" id="fbP-31-nAe"/>
                                             <constraint firstItem="CHA-V5-t09" firstAttribute="centerY" secondItem="IMc-qw-DkY" secondAttribute="centerY" id="gGL-uT-o4A"/>
+                                            <constraint firstItem="dRa-l4-Toi" firstAttribute="leading" secondItem="cFx-GV-Nqk" secondAttribute="leading" id="k8z-cZ-59Z"/>
+                                            <constraint firstItem="dRa-l4-Toi" firstAttribute="top" secondItem="cFx-GV-Nqk" secondAttribute="top" id="lNQ-Oz-hlh"/>
                                             <constraint firstItem="RV2-B0-HUt" firstAttribute="height" secondItem="IMc-qw-DkY" secondAttribute="height" id="no6-QF-H14"/>
                                             <constraint firstItem="JeI-Bw-VXo" firstAttribute="centerX" secondItem="IMc-qw-DkY" secondAttribute="centerX" id="oQP-ic-28b"/>
                                             <constraint firstItem="Olm-jt-QeJ" firstAttribute="centerY" secondItem="IMc-qw-DkY" secondAttribute="centerY" id="oda-DT-pWn"/>
@@ -425,7 +433,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DZd-3u-dmy" userLabel="DoneView">
                                         <rect key="frame" x="0.0" y="802" width="414" height="50"/>
                                         <subviews>
-                                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YWS-OV-yRl">
+                                            <visualEffectView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YWS-OV-yRl">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="cJp-0U-Edf">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
@@ -540,6 +548,7 @@
                         <outlet property="resultTableView" destination="rLO-4w-GOS" id="GtT-lw-mde"/>
                         <outlet property="searchBar" destination="CNN-mC-JZh" id="GAc-ws-EBO"/>
                         <outlet property="separatorView" destination="tep-5t-fE7" id="tan-kt-a62"/>
+                        <outlet property="switcherBGView" destination="dRa-l4-Toi" id="9ww-Zo-5ro"/>
                         <outlet property="switcherButton" destination="JeI-Bw-VXo" id="pRl-Il-NMe"/>
                         <outlet property="switcherButtonBlurBackground" destination="cFx-GV-Nqk" id="U8F-1Q-fGW"/>
                         <outlet property="toButton" destination="bY4-wY-Bdt" id="jn7-I8-O96"/>
@@ -559,10 +568,13 @@
     </scenes>
     <resources>
         <image name="FlightReverseArrow" width="16" height="15"/>
-        <image name="FlightReverseArrowDisabled" width="16" height="15"/>
         <image name="NoAirportPlaceholder" width="106" height="84.5"/>
+        <image name="airportReverseArrowDisabled" width="16" height="15"/>
         <image name="location" width="21" height="21"/>
         <image name="microphone" width="36" height="36"/>
+        <namedColor name="airportSwitcherBGColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="themeBlack26">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
