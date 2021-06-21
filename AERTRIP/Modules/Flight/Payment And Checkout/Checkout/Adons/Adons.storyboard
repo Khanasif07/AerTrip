@@ -223,6 +223,34 @@ get upto 20% off </string>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ik1-L7-daa">
                                 <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="Sio-ZD-IHx">
+                                    <rect key="frame" x="0.0" y="99.5" width="414" height="81"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hh8-CQ-BQn">
+                                            <rect key="frame" x="16" y="9" width="382" height="64"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="hh8-CQ-BQn" secondAttribute="trailing" constant="16" id="IP2-yN-9Id"/>
+                                        <constraint firstItem="hh8-CQ-BQn" firstAttribute="leading" secondItem="Sio-ZD-IHx" secondAttribute="leading" constant="16" id="co5-lt-UoF"/>
+                                        <constraint firstItem="hh8-CQ-BQn" firstAttribute="top" secondItem="Sio-ZD-IHx" secondAttribute="top" constant="9" id="goO-Uw-fen"/>
+                                    </constraints>
+                                </view>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="sfE-RM-1bW">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sfE-RM-1bW" id="l3l-hn-NoF">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6sb-7p-Xbg"/>
@@ -235,12 +263,14 @@ get upto 20% off </string>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="headsUpLabel" destination="hh8-CQ-BQn" id="7dg-cA-TRr"/>
                         <outlet property="mealsTableView" destination="Ik1-L7-daa" id="PBI-lY-wRI"/>
+                        <outlet property="tableFooterView" destination="Sio-ZD-IHx" id="3dk-NF-gCM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k8K-bw-JaK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-18" y="374"/>
+            <point key="canvasLocation" x="-18.840579710144929" y="373.66071428571428"/>
         </scene>
         <!--Select PassengerVC-->
         <scene sceneID="zps-3N-VRj">

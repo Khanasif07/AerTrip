@@ -32,7 +32,6 @@ class SelectBaggageVC: UIViewController {
     
     func setupFonts() {
         self.headsUpLabel.font = AppFonts.Regular.withSize(14)
-        
     }
     
     func setupTexts() {
