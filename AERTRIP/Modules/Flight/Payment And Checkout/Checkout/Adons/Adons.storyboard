@@ -918,6 +918,7 @@ get upto 20% off </string>
                     <connections>
                         <outlet property="agreeButton" destination="R4B-c1-aXs" id="0Sh-Ft-Wwy"/>
                         <outlet property="baggageTermsTableView" destination="IAb-ZG-vPF" id="qbm-d3-QMd"/>
+                        <outlet property="bottomFooterView" destination="sRS-PF-csH" id="wa9-8o-XTk"/>
                         <outlet property="declineButton" destination="ufn-6L-dnD" id="U4C-I0-xX0"/>
                         <outlet property="descriptionLabel" destination="dDn-bT-m6s" id="GiX-AO-sIE"/>
                         <outlet property="headingLabel" destination="GB1-nF-hV6" id="MYY-OY-9yg"/>
