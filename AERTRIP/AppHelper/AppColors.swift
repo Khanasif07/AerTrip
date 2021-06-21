@@ -252,6 +252,9 @@ enum AppColors {
         //return AppColors.themeRed.withAlphaComponent(0.30)
     }
     
+    // (0,0,0,0.15)
+    static var aertripBtnShadowColor: UIColor { UIColor(named: "aertripBtnShadowColor") ?? .white }
+    
     
     static var recentSearchColletionCellColor: UIColor = UIColor(named: "recentSearchColletionCellColor") ?? UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 0.5)
     
