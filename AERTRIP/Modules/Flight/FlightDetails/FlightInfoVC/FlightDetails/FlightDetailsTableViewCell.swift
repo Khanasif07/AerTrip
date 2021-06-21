@@ -59,6 +59,13 @@ class FlightDetailsTableViewCell: UITableViewCell
     @IBOutlet weak var topSeperatorViewHeight: NSLayoutConstraint!
     @IBOutlet weak var bottomSeperatorView: ATDividerView!
     
+    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var flightInfoView: UIView!
+    
+    
+    
+    
+    
     //MARK:- Variable Declaration
     var amenitiesData = [String]()
     weak var amenitiesDelegate:getSelectedAmenitiesDelegate?
@@ -113,18 +120,36 @@ class FlightDetailsTableViewCell: UITableViewCell
         departureDateLabel.layer.cornerRadius = 3
         departureAirportLabel.layer.cornerRadius = 3
         departureTerminalLabel.layer.cornerRadius = 3
+        self.setupColors()
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         topSeperatorView.isHidden = true
-        topSeperatorViewHeight.constant = 0        
+        topSeperatorViewHeight.constant = 0
+        self.setupColors()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state
+    }
+    
+    private func setupColors(){
+        [containerView, flightInfoView, flightNameView, flightDetailsView, amenitiesDisplayView, amenitiesCollectionView].forEach { view in
+            view?.backgroundColor = AppColors.flightResultsFooterSecondaryColor
+        }
+        contentView.backgroundColor = AppColors.themeGray04
+        [equipmentsLabel, travelingtimeLabel].forEach{ lbl in
+            lbl?.textColor  = AppColors.themeGray153
+            
+        }
+        [operatorLabel, classLabel,classNameLabel, arrivalAirportAddressLabel, departureAirportAddressLabel].forEach{ lbl in
+            lbl?.textColor  = AppColors.themeGray40
+            
+        }
+        
     }
     
     func setAirlineImage(with url: String)
@@ -156,8 +181,8 @@ class FlightDetailsTableViewCell: UITableViewCell
                 let haltAtAttributedString = NSMutableAttributedString(string:main_string111)
                 haltAtAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.clear , range: (main_string111 as NSString).range(of: "."))
                 
-                haltAtAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black , range: arrivalAirportRange)
-                haltAtAttributedString.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor(displayP3Red: 254.0/255.0, green: 242.0/255.0, blue: 199.0/255.0, alpha: 1.0), range: arrivalAirportRange)
+                haltAtAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: AppColors.themeBlack , range: arrivalAirportRange)
+                haltAtAttributedString.addAttribute(NSAttributedString.Key.backgroundColor, value: AppColors.lightYellow, range: arrivalAirportRange)
                 
                 haltAtAttributedString.addAttribute(NSAttributedString.Key.font, value: AppFonts.Regular.withSize(14) , range: (main_string111 as NSString).range(of: main_string111))
                 
@@ -172,8 +197,8 @@ class FlightDetailsTableViewCell: UITableViewCell
                 
                 let arrivalAirportRange = (main_string111 as NSString).range(of: string_to_color111)
                 let haltAtAttributedString = NSMutableAttributedString(string:main_string111)
-                haltAtAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black , range: arrivalAirportRange)
-                haltAtAttributedString.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor(displayP3Red: 254.0/255.0, green: 242.0/255.0, blue: 199.0/255.0, alpha: 1.0), range: arrivalAirportRange)
+                haltAtAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: AppColors.themeBlack , range: arrivalAirportRange)
+                haltAtAttributedString.addAttribute(NSAttributedString.Key.backgroundColor, value: AppColors.lightYellow, range: arrivalAirportRange)
                 haltAtAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.clear , range: (main_string111 as NSString).range(of: "."))
                 
                 haltAtAttributedString.addAttribute(NSAttributedString.Key.font, value: AppFonts.Regular.withSize(14) , range: (main_string111 as NSString).range(of: main_string111))
@@ -191,7 +216,7 @@ class FlightDetailsTableViewCell: UITableViewCell
             
             let imageAttachment =  NSTextAttachment()
             
-            imageAttachment.image = UIImage(named:"overnight.png")
+            imageAttachment.image = AppImages.overnight
             let imageOffsetY:CGFloat = -2.0;
             imageAttachment.bounds = CGRect(x: 0, y: imageOffsetY, width: 12, height: 12)
             let attachmentString = NSAttributedString(attachment: imageAttachment)
@@ -220,8 +245,8 @@ class FlightDetailsTableViewCell: UITableViewCell
     {
         let deptDateRange = (str as NSString).range(of: str)
         let deptDateAttrStr = NSMutableAttributedString(string:str)
-        deptDateAttrStr.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black , range: deptDateRange)
-        deptDateAttrStr.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor(displayP3Red: 254.0/255.0, green: 242.0/255.0, blue: 199.0/255.0, alpha: 1.0), range: deptDateRange)
+        deptDateAttrStr.addAttribute(NSAttributedString.Key.foregroundColor, value: AppColors.themeBlack , range: deptDateRange)
+        deptDateAttrStr.addAttribute(NSAttributedString.Key.backgroundColor, value: AppColors.lightYellow, range: deptDateRange)
         deptDateAttrStr.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.clear , range: (str as NSString).range(of: "."))
         departureAirportLabel.attributedText = deptDateAttrStr
     }
@@ -240,7 +265,7 @@ class FlightDetailsTableViewCell: UITableViewCell
         let range = (mainString as NSString).range(of: stringToColor)
         
         let attribute = NSMutableAttributedString(string: mainString, attributes: [.font: AppFonts.Regular.withSize(14), .foregroundColor: AppColors.themeGray40])
-        attribute.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black , range: range)
+        attribute.addAttribute(NSAttributedString.Key.foregroundColor, value: AppColors.themeBlack, range: range)
         departureAirportAddressLabel.attributedText = attribute
     }
     
@@ -260,8 +285,8 @@ class FlightDetailsTableViewCell: UITableViewCell
     {
         let deptDateRange = (str as NSString).range(of: str1)
         let deptDateAttrStr = NSMutableAttributedString(string:str)
-        deptDateAttrStr.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black , range: deptDateRange)
-        deptDateAttrStr.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor(displayP3Red: 254.0/255.0, green: 242.0/255.0, blue: 199.0/255.0, alpha: 1.0), range: deptDateRange)
+        deptDateAttrStr.addAttribute(NSAttributedString.Key.foregroundColor, value: AppColors.themeBlack , range: deptDateRange)
+        deptDateAttrStr.addAttribute(NSAttributedString.Key.backgroundColor, value: AppColors.lightYellow, range: deptDateRange)
         deptDateAttrStr.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.clear , range: (str as NSString).range(of: "."))
         departureDateLabel.attributedText = deptDateAttrStr
     }
@@ -300,13 +325,13 @@ extension FlightDetailsTableViewCell:UICollectionViewDelegate, UICollectionViewD
         amenitiesCell.amenitiTitleLabel.textColor = AppColors.themeGray60
         amenitiesCell.amenitiTitleLabel.text = amenitiesData[indexPath.row]
         if amenitiesData[indexPath.row].contains(find: "Cabbin"){
-            amenitiesCell.amenitiesImageView.image = UIImage(named: "cabinBaggage")
+            amenitiesCell.amenitiesImageView.image = AppImages.cabinBaggage
         }else if amenitiesData[indexPath.row].contains(find: "Check-in"){
-            amenitiesCell.amenitiesImageView.image = UIImage(named: "checkingBaggageKg")
+            amenitiesCell.amenitiesImageView.image = AppImages.checkingBaggageKg
         }else{
             amenitiesCell.amenitiesImageView.image = nil
         }
-        
+        amenitiesCell.contentView.backgroundColor = AppColors.flightResultsFooterSecondaryColor
         return amenitiesCell
     }
     

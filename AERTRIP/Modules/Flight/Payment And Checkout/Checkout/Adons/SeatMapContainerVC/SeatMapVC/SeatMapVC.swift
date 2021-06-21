@@ -45,6 +45,11 @@ class SeatMapVC: UIViewController {
         initialSetup()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        toggleUpperDeck(viewModel.curSelectedDeck == .upper)
+    }
+    
     func setFlightData(_ model: SeatMapModel.SeatMapFlight,_ setupFor: SeatMapContainerVM.SetupFor) {
         viewModel.flightData = model
         viewModel.setupFor = setupFor
@@ -93,24 +98,37 @@ class SeatMapVC: UIViewController {
         seatMapCollView.showsVerticalScrollIndicator = false
         seatMapCollView.showsHorizontalScrollIndicator = false
         seatMapCollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 12)
+        seatMapCollView.backgroundColor = AppColors.themeWhite
     }
     
     private func toggleUpperDeck(_ selected: Bool) {
         if selected {
-            upperDeckBtn.backgroundColor = AppColors.themeGreen
+            upperDeckBtn.backgroundColor = AppColors.deckSelected
             upperDeckBtn.setTitleColor(.white, for: .normal)
-            upperDeckBtn.layer.borderWidth = 0
-            mainDeckBtn.backgroundColor = .white
-            mainDeckBtn.setTitleColor(AppColors.themeGreen, for: .normal)
-            mainDeckBtn.layer.borderWidth = 1
+            mainDeckBtn.backgroundColor = AppColors.themeBlack26
+            if isLightTheme() {
+                mainDeckBtn.setTitleColor(AppColors.themeGreen, for: .normal)
+                upperDeckBtn.layer.borderWidth = 0
+                mainDeckBtn.layer.borderWidth = 1
+            } else {
+                mainDeckBtn.setTitleColor(.white, for: .normal)
+                upperDeckBtn.layer.borderWidth = 0
+                mainDeckBtn.layer.borderWidth = 0
+            }
             viewModel.curSelectedDeck = .upper
         } else {
-            mainDeckBtn.backgroundColor = AppColors.themeGreen
+            mainDeckBtn.backgroundColor = AppColors.deckSelected
             mainDeckBtn.setTitleColor(.white, for: .normal)
-            mainDeckBtn.layer.borderWidth = 0
-            upperDeckBtn.backgroundColor = .white
-            upperDeckBtn.setTitleColor(AppColors.themeGreen, for: .normal)
-            upperDeckBtn.layer.borderWidth = 1
+            upperDeckBtn.backgroundColor = AppColors.themeBlack26
+            if isLightTheme() {
+                upperDeckBtn.setTitleColor(AppColors.themeGreen, for: .normal)
+                upperDeckBtn.layer.borderWidth = 1
+                mainDeckBtn.layer.borderWidth = 0
+            } else {
+                upperDeckBtn.setTitleColor(.white, for: .normal)
+                upperDeckBtn.layer.borderWidth = 0
+                mainDeckBtn.layer.borderWidth = 0
+            }
             viewModel.curSelectedDeck = .main
         }
         seatMapCollView.reloadData()

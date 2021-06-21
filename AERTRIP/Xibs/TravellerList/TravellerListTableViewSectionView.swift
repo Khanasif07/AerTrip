@@ -25,6 +25,6 @@ class TravellerListTableViewSectionView: UITableViewHeaderFooterView {
     func clearDividerAndBackgroundColor() {
         topSepratorView.isHidden = true
         bottomSepratorView.isHidden = true
-        containerView.backgroundColor = UIColor.white
+        containerView.backgroundColor = AppColors.themeWhite
     }
 }

@@ -17,7 +17,7 @@ class IntHeaderCollectionCell: UICollectionViewCell {
     @IBOutlet weak var titleLeadingContraint: NSLayoutConstraint!
     
     var headerValue : MultiLegHeader?
-    var textColor  = UIColor.black
+    var textColor  = AppColors.themeBlack//UIColor.black
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -31,7 +31,7 @@ class IntHeaderCollectionCell: UICollectionViewCell {
             self.subtitle.textColor = .AERTRIP_RED_COLOR
         } else {
             self.title.attributedText = self.headerValue?.title
-            self.subtitle.textColor = .black
+            self.subtitle.textColor = AppColors.themeBlack//.black
 
         }
         if header.subTitle == "Onward" || header.subTitle == "Return"{
@@ -56,8 +56,8 @@ class IntHeaderCollectionCell: UICollectionViewCell {
     }
     
     func setBlackColoredTitles2(){
-        textColor = .black
+        textColor = AppColors.themeBlack//.black
         self.title.attributedText = self.headerValue?.title
-        self.subtitle.textColor = .black
+        self.subtitle.textColor = AppColors.themeBlack//.black
     }
 }

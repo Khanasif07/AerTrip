@@ -103,9 +103,9 @@ extension IntFareBreakupVC: UITableViewDelegate,UITableViewDataSource{
                 baseFareCell.selectionStyle = .none
                 
                 if !isTaxesSectionHidden{
-                    baseFareCell.upArrowImg.image = UIImage(named: "downGray.png")
+                    baseFareCell.upArrowImg.image = AppImages.downGray
                 }else{
-                    baseFareCell.upArrowImg.image = UIImage(named: "upGray.png")
+                    baseFareCell.upArrowImg.image = AppImages.upGray
                 }
                 baseFareCell.titleLabelLeading.constant = 16
                 
@@ -157,9 +157,9 @@ extension IntFareBreakupVC: UITableViewDelegate,UITableViewDataSource{
                 baseFareCell.selectionStyle = .none
                 baseFareCell.isHidden = false
                 if !isAddonsExpend{
-                    baseFareCell.upArrowImg.image = UIImage(named: "downGray.png")
+                    baseFareCell.upArrowImg.image = AppImages.downGray
                 }else{
-                    baseFareCell.upArrowImg.image = UIImage(named: "upGray.png")
+                    baseFareCell.upArrowImg.image = AppImages.upGray
                 }
                 baseFareCell.titleLabelLeading.constant = 16
                 baseFareCell.upArrowImg.isHidden = false
@@ -278,15 +278,18 @@ extension IntFareBreakupVC: UITableViewDelegate,UITableViewDataSource{
                 fewSeatsLeftLabel.text = "Seat left at this price. Hurry up!"
             }
             
-            self.fareDataDisplayViewHeight.constant = 85 + CGFloat(bottomInset) + self.heightForBookingTitleView
-            self.bookingDataDisplayViewHeight.constant = 50 + CGFloat(bottomInset)
+//            self.fareDataDisplayViewHeight.constant = 85 + CGFloat(bottomInset) + self.heightForBookingTitleView
+//            self.bookingDataDisplayViewHeight.constant = 50 + CGFloat(bottomInset)
         }else{
             fewSeatsLeftView.isHidden = true
             fewSeatsLeftViewHeight.constant = 0
             
-            self.fareDataDisplayViewHeight.constant = 50 + CGFloat(bottomInset) + self.heightForBookingTitleView
-            self.bookingDataDisplayViewHeight.constant = 50 + CGFloat(bottomInset)
+//            self.fareDataDisplayViewHeight.constant = 50 + CGFloat(bottomInset) + self.heightForBookingTitleView
+//            self.bookingDataDisplayViewHeight.constant = 50 + CGFloat(bottomInset)
         }
+        
+        self.fareDataDisplayViewHeight.constant = 50 + CGFloat(bottomInset) + self.heightForBookingTitleView
+        self.bookingDataDisplayViewHeight.constant = 50 + CGFloat(bottomInset)
         
         self.totalPayableViewBottom.constant = bottomInset
         self.fareDataDisplayViewBottom.constant = bottomInset

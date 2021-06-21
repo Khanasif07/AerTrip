@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,7 +21,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="429" height="120"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f8i-Ra-z6Q">
-                                <rect key="frame" x="16" y="15" width="42" height="20"/>
+                                <rect key="frame" x="16" y="15" width="41.5" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="rdh-Ho-FwY"/>
                                 </constraints>
@@ -49,7 +49,6 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
                                             <constraint firstItem="KVr-gH-tMu" firstAttribute="leading" secondItem="ZWA-4a-Qga" secondAttribute="leading" id="67A-yF-Pbd"/>
                                             <constraint firstItem="VeO-hS-dVI" firstAttribute="leading" secondItem="KVr-gH-tMu" secondAttribute="trailing" constant="10" id="E4n-BD-cQd"/>
@@ -75,7 +74,6 @@
                                                         <rect key="frame" x="185.5" y="21" width="9" height="6"/>
                                                     </imageView>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="h9i-uD-Oma" secondAttribute="bottom" id="Hik-Yh-ahK"/>
                                                     <constraint firstAttribute="height" constant="44" id="Huq-G2-HVh"/>
@@ -95,7 +93,6 @@
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="hTf-yB-And" secondAttribute="bottom" id="0Q7-W7-dH0"/>
                                                     <constraint firstItem="hTf-yB-And" firstAttribute="top" secondItem="Kay-co-CW8" secondAttribute="top" id="14c-8U-6B2"/>

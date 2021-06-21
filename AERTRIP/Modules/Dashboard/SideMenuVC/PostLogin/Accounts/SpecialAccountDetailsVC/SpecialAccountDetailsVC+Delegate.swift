@@ -557,7 +557,7 @@ class AccountSummeryCell: UITableViewCell {
         self.amountLabel.isHidden = false
         self.amountLabel.font = AppFonts.SemiBold.withSize(16.0)
         self.amountLabel.textColor = AppColors.themeBlack
-        self.amountLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: #imageLiteral(resourceName: "arrowNextScreen"), endText: "", font: AppFonts.SemiBold.withSize(16.0))
+        self.amountLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: AppImages.arrowNextScreen, endText: "", font: AppFonts.SemiBold.withSize(16.0))
         
       //  self.stackViewTop.constant = 6.0
         self.amountLabelTraillingConstant.constant = 0.0
@@ -641,8 +641,8 @@ class AccountDepositCell: UITableViewCell {
         self.depositButton.setTitle("Deposit", for: .normal)
         self.depositButton.setTitle("Deposit", for: .selected)
         self.depositButton.shadowColor = AppColors.appShadowColor
-        self.depositButton.setTitleColor(AppColors.themeWhite, for: .normal)
-        self.depositButton.setTitleColor(AppColors.themeWhite, for: .selected)
+        self.depositButton.setTitleColor(AppColors.unicolorWhite, for: .normal)
+        self.depositButton.setTitleColor(AppColors.unicolorWhite, for: .selected)
         self.depositButton.shadowColor = AppColors.appShadowColor//themeBlack.withAlphaComponent(0.16)
         self.depositButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
     }

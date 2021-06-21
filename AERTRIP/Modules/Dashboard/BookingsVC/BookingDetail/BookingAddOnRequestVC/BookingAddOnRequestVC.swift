@@ -120,7 +120,7 @@ class BookingAddOnRequestVC: BaseVC {
         self.topNavigationView.delegate = self
         self.topNavigationView.navTitleLabel.font = AppFonts.SemiBold.withSize(18.0)
         self.topNavigationView.navTitleLabel.textColor = AppColors.textFieldTextColor51
-        self.topNavigationView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "popOverMenuIcon"), selectedImage: #imageLiteral(resourceName: "popOverMenuIcon"), normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
+        self.topNavigationView.configureFirstRightButton(normalImage: AppImages.greenPopOverButton, selectedImage: AppImages.greenPopOverButton, normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
         
     }
     

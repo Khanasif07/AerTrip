@@ -22,10 +22,15 @@ class FlightStopsCollectionViewCell: UICollectionViewCell {
         self.configureUI()
     }
     
+    override func prepareForReuse() {
+        self.prepareForReuse()
+        self.configureUI()
+    }
     //MARK:- Functions
     //MARK:===========
     private func configureUI() {
         self.dotView.makeCircular()
         self.dotView.backgroundColor = AppColors.themeGreen
+        self.containerView.backgroundColor = AppColors.themeWhiteDashboard
     }
 }

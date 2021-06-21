@@ -111,14 +111,28 @@
     [self.viewModel getRecentSearches];
 }
 
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
+    [self setupMainView];
+}
+
 -(void)setupMainView
 {
-    self.mainView.layer.shadowOffset = CGSizeMake(0.0,16.0);
-    self.mainView.layer.shadowRadius = 6.0;
-    self.mainView.layer.shadowOpacity = 1.0;
-    self.mainView.layer.cornerRadius = 10.0;
-    self.mainView.layer.shadowColor = [UIColor appShadow].CGColor;
-    
+    self.mainView.backgroundColor = [UIColor themeWhiteDashboard];
+    if ([self isLightTheme]){
+        self.mainView.layer.shadowOffset = CGSizeMake(0.0,16.0);
+        self.mainView.layer.shadowRadius = 6.0;
+        self.mainView.layer.shadowOpacity = 1.0;
+        self.mainView.layer.cornerRadius = 10.0;
+        self.mainView.layer.shadowColor = [UIColor appShadow].CGColor;
+    }else{
+        self.mainView.layer.shadowOffset = CGSizeMake(0.0,0.0);
+        self.mainView.layer.shadowRadius = 0.0;
+        self.mainView.layer.shadowOpacity = 0.0;
+        self.mainView.layer.cornerRadius = 10.0;
+        self.mainView.layer.shadowColor = [UIColor clearColor].CGColor;
+    }
+    self.multicityAddTitle.textColor = [UIColor muticityAddRemoveTextColor];
+    self.multicityRemoveTitle.textColor = [UIColor muticityAddRemoveTextColor];
 }
 - (void)setupCollectionView {
     self.recentSearchTitleLabel.hidden = true;
@@ -424,7 +438,7 @@
 
 - (void)setupReturnDateView:(NSDate*)returnDate {
     if (self.viewModel.flightSearchType == RETURN_JOURNEY ) {
-        [self.returnLabel setTextColor:[ UIColor ONE_FIVE_THREE_COLOR] ];
+        [self.returnLabel setTextColor:[ UIColor flightFormReturnEnableColor] ];
         
         if (returnDate != nil) {
             [self changeLabelFont:self.returnLabel isSmall:YES];
@@ -441,7 +455,7 @@
         }
     }else {
         [self changeLabelFont:self.returnLabel isSmall:NO];
-        [self.returnLabel setTextColor:[UIColor TWO_THREE_ZERO_COLOR]];
+        [self.returnLabel setTextColor:[UIColor flightFormReturnDisableColor]];
         self.returnValueLabel.hidden = YES;
         self.returnSubTitleLabel.hidden = YES;
     }
@@ -782,6 +796,7 @@
 //MARK:- MULTICITY IMPLEMENTATION
 
 - (void)setupMultiCityTableView {
+    self.multiCityTableView.backgroundColor = [UIColor themeWhiteDashboard];
     self.multiCityTableView.delegate = self;
     self.multiCityTableView.dataSource = self;
 }

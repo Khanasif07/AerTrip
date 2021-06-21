@@ -118,7 +118,7 @@ class HCHotelAddreesCell: UITableViewCell {
         self.addressInfoTextView.text = address
         self.addressInfoTextView.textColor = AppColors.themeGray60
         
-//        self.addressInfoTextView.attributedText = AppGlobals.shared.getTextWithImageWithLink(startText: address, startTextColor: AppColors.themeGray60, middleText: "\n" + LocalizedString.Maps.localized + " ", image: #imageLiteral(resourceName: "send_icon"), endText: "", endTextColor: AppColors.themeGreen, middleTextColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(16.0))
+//        self.addressInfoTextView.attributedText = AppGlobals.shared.getTextWithImageWithLink(startText: address, startTextColor: AppColors.themeGray60, middleText: "\n" + LocalizedString.Maps.localized + " ", image: AppImages.send_icon, endText: "", endTextColor: AppColors.themeGreen, middleTextColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(16.0))
     }
     
     

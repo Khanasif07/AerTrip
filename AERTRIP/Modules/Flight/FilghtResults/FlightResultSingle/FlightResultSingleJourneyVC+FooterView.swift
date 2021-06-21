@@ -43,6 +43,8 @@ extension FlightResultSingleJourneyVC {
                 numberOfView = 3
             }
             
+            let footerBackgroundColor = [AppColors.themeWhiteDashboard, AppColors.flightResultsFooterSecondaryColor, AppColors.flightResultsFooterThirdColor]
+            
             let height = 44.0 + 35.0 + CGFloat(numberOfView - 1) * 16.0
             let footerViewRect =  CGRect(x: 0, y: 0, width: resultsTableView.frame.width, height: height)
             let groupedFooterView = UIView(frame:footerViewRect)
@@ -53,7 +55,11 @@ extension FlightResultSingleJourneyVC {
             groupedFooterView.addGestureRecognizer(tapGesture)
             
             for count in 1...numberOfView {
-                let baseView = createRepeatedFooterBaseView()
+                var backgroundColor = AppColors.themeWhiteDashboard
+                if let color = footerBackgroundColor[safe: count - 1]{
+                    backgroundColor = color
+                }
+                let baseView = createRepeatedFooterBaseView(with: backgroundColor)
                 
                 baseView.frame = CGRect(x: (8 * count) ,y: (10 + 6 * count) - 8 ,width: (Int(groupedFooterView.frame.width) - (16 * count))  ,height:44)
                 groupedFooterView.addSubview(baseView)
@@ -148,9 +154,9 @@ extension FlightResultSingleJourneyVC {
         }
         
         
-        func createRepeatedFooterBaseView() -> UIView {
+    func createRepeatedFooterBaseView(with backgroundColor: UIColor = AppColors.themeWhiteDashboard) -> UIView {
             let baseView = UIView(frame: CGRect(x: 0 , y: 0, width: resultsTableView.frame.width, height: 44))
-            baseView.backgroundColor = .white
+            baseView.backgroundColor = backgroundColor
 //            baseView.layer.cornerRadius = 5.0
 //            baseView.layer.shadowColor = UIColor.black.cgColor
 //            baseView.layer.shadowOpacity = 0.1

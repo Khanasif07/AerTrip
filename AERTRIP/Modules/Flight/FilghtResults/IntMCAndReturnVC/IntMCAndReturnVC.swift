@@ -18,6 +18,7 @@ class IntMCAndReturnVC : UIViewController, GetSharableUrlDelegate
     @IBOutlet weak var emailPinnedFlights: UIButton!
     @IBOutlet weak var sharePinnedFilghts: UIButton!
     @IBOutlet weak var resultTableViewTop: NSLayoutConstraint!
+    @IBOutlet weak var resultTableViewHeight: NSLayoutConstraint!
     @IBOutlet weak var passthroughView: PassthroughView!
     
     var airlineCode = ""
@@ -62,6 +63,7 @@ class IntMCAndReturnVC : UIViewController, GetSharableUrlDelegate
         setUpSubView()
         getSharableLink.delegate = self
         self.viewModel.setSharedFks()
+        view.backgroundColor = AppColors.themeWhite
     }
     
     override func viewWillAppear(_ animated: Bool)
@@ -70,9 +72,14 @@ class IntMCAndReturnVC : UIViewController, GetSharableUrlDelegate
         self.navigationController?.navigationBar.isHidden = true
         self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
         
-        self.emailPinnedFlights.setImage(UIImage(named: "EmailPinned"), for: .normal)
+        self.emailPinnedFlights.setImage(AppImages.EmailPinned, for: .normal)
         self.emailPinnedFlights.displayLoadingIndicator(false)
 
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.resultsTableView.reloadData()
     }
 }
 
@@ -94,6 +101,12 @@ extension IntMCAndReturnVC {
         resultsTableView.rowHeight = UITableView.automaticDimension
         resultsTableView.dataSource = self
         resultsTableView.delegate = self
+        self.view.backgroundColor = AppColors.themeWhite
+        self.resultsTableView.backgroundColor = AppColors.themeWhite
+        let statusHeight = AppDelegate.shared.window?.safeAreaInsets.top ?? 0
+        resultsTableView.contentInset = UIEdgeInsets(top: statusHeight, left: 0, bottom: 0, right: 0)
+        resultTableViewHeight.constant += statusHeight
+        resultTableViewTop.constant -= statusHeight
     }
     
     func addBannerTableHeaderView() {
@@ -113,11 +126,11 @@ extension IntMCAndReturnVC {
     
     func setupPinnedFlightsOptionsView() {
             switchView.delegate = self
-            switchView.tintColor = UIColor.TWO_ZERO_FOUR_COLOR
-            switchView.offTintColor = UIColor.TWO_THREE_ZERO_COLOR
+            switchView.tintColor = AppColors.switchGray
+            switchView.offTintColor = AppColors.switchGray
             switchView.onTintColor = AppColors.themeGreen
-            switchView.onThumbImage = #imageLiteral(resourceName: "pushpin")
-            switchView.offThumbImage = #imageLiteral(resourceName: "pushpin-gray")
+            switchView.onThumbImage = AppImages.pushpin
+            switchView.offThumbImage = AppImages.pushpin_gray
             switchView.setupUI()
             delay(seconds: 0.6) {
                 self.switchView.isOn = false
@@ -163,7 +176,9 @@ extension IntMCAndReturnVC {
             guard let headerView = bannerView  else { return }
             
             let rect = headerView.frame
-            resultTableViewTop.constant = 0
+            let statusHeight = AppDelegate.shared.window?.safeAreaInsets.top ?? 0
+
+            resultTableViewTop.constant = -statusHeight
             
             UIView.animate(withDuration: 1.0 , animations: {
                 let y = rect.origin.y - rect.size.height - 20
@@ -241,7 +256,7 @@ extension IntMCAndReturnVC {
     
     @IBAction func emailPinnedFlights(_ sender: Any)
     {
-        emailPinnedFlights.setImage(UIImage(named: "OvHotelResult"), for: .normal)
+        emailPinnedFlights.setImage(AppImages.OvHotelResult, for: .normal)
         emailPinnedFlights.displayLoadingIndicator(true)
 
         if let _ = UserInfo.loggedInUserId{
@@ -277,7 +292,7 @@ extension IntMCAndReturnVC {
     func returnEmailView(view: String)
     {
         DispatchQueue.main.async {
-            self.emailPinnedFlights.setImage(UIImage(named: "EmailPinned"), for: .normal)
+            self.emailPinnedFlights.setImage(AppImages.EmailPinned, for: .normal)
             self.emailPinnedFlights.displayLoadingIndicator(false)
 
             if #available(iOS 13.0, *) {
@@ -297,7 +312,7 @@ extension IntMCAndReturnVC {
     
     func returnSharableUrl(url: String) {
         sharePinnedFilghts.displayLoadingIndicator(false)
-        self.sharePinnedFilghts.setImage(UIImage(named: "SharePinned"), for: .normal)
+        self.sharePinnedFilghts.setImage(AppImages.SharePinned, for: .normal)
 
         if url.lowercased() == "No Data".lowercased(){
             AertripToastView.toast(in: self.view, withText: "Something went wrong. Please try again.")

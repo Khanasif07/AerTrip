@@ -6,6 +6,7 @@
 //  Copyright © 2016 Wenchao Ding. All rights reserved.
 //
 
+#import "AERTRIP-Swift.h"
 #import "DIYCalendarCell.h"
 #import "FSCalendarExtensions.h"
 
@@ -17,7 +18,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         CAShapeLayer *selectionLayer = [[CAShapeLayer alloc] init];
-        selectionLayer.fillColor = [UIColor colorWithDisplayP3Red:0/255.0 green:204/255.0 blue:153/255.0 alpha:1.0].CGColor;
+        selectionLayer.fillColor = [UIColor appColor].CGColor;
         
         selectionLayer.actions = @{@"hidden":[NSNull null]};
         [self.contentView.layer insertSublayer:selectionLayer below:self.titleLabel.layer];
@@ -26,7 +27,7 @@
         self.shapeLayer.hidden = YES;
         
         CAShapeLayer *previousTapSelectionLayer = [[CAShapeLayer alloc] init];
-        previousTapSelectionLayer.fillColor = [UIColor colorWithDisplayP3Red:236/255.0 green:253/255.0 blue:244/255.0 alpha:1].CGColor;
+        previousTapSelectionLayer.fillColor = [UIColor calendarSelectedGreen].CGColor;
         previousTapSelectionLayer.borderColor = [UIColor colorWithDisplayP3Red:0/255.0 green:204/255.0 blue:153/255.0 alpha:1].CGColor;
         previousTapSelectionLayer.borderWidth = 0.5;
         previousTapSelectionLayer.cornerRadius = 10.0;

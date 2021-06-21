@@ -248,7 +248,7 @@ extension HotlelBookingsDetailsVC {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FlightsOptionsTableViewCell.reusableIdentifier, for: indexPath) as? FlightsOptionsTableViewCell else { return UITableViewCell() }
         cell.delegate = self
         cell.additionalInformation = self.viewModel.bookingDetail?.additionalInformation
-        let optionImages: [UIImage] = [#imageLiteral(resourceName: "bookingsDirections"), #imageLiteral(resourceName: "bookingsCall"), #imageLiteral(resourceName: "bookingsCalendar"), #imageLiteral(resourceName: "shareBooking"), #imageLiteral(resourceName: "bookingsHotel")]
+        let optionImages: [UIImage] = [AppImages.bookingsDirections, AppImages.bookingsCall, AppImages.bookingsCalendar, AppImages.shareBooking, AppImages.bookingsHotel]
         let optionNames: [String] = [LocalizedString.Directions.localized, LocalizedString.Call.localized, LocalizedString.AddToCalender.localized, LocalizedString.Share.localized, LocalizedString.BookAnotherRoom.localized]
 //        if self.viewModel.bookingDetail?.tripInfo == nil {
 //            optionImages.append(#imageLiteral(resourceName: "addToTrips"))
@@ -265,21 +265,21 @@ extension HotlelBookingsDetailsVC {
     func getAddToCalenderCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingCommonActionTableViewCell.reusableIdentifier, for: indexPath) as? BookingCommonActionTableViewCell else { return UITableViewCell() }
         cell.usingFor = .addToCalender
-        cell.configureCell(buttonImage: #imageLiteral(resourceName: "greenCalenderIcon"), buttonTitle: LocalizedString.AddToCalender.localized)
+        cell.configureCell(buttonImage: AppImages.greenCalenderIcon, buttonTitle: LocalizedString.AddToCalender.localized)
         return cell
     }
     
     func getBookAnotherRoomCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingCommonActionTableViewCell.reusableIdentifier, for: indexPath) as? BookingCommonActionTableViewCell else { return UITableViewCell() }
         cell.usingFor = .bookSameFlight
-        cell.configureCell(buttonImage: #imageLiteral(resourceName: "BookAnotherRoom"), buttonTitle: LocalizedString.BookAnotherRoom.localized)
+        cell.configureCell(buttonImage: AppImages.BookAnotherRoom, buttonTitle: LocalizedString.BookAnotherRoom.localized)
         return cell
     }
     
     func getAddToWalletCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingCommonActionTableViewCell.reusableIdentifier, for: indexPath) as? BookingCommonActionTableViewCell else { return UITableViewCell() }
         cell.usingFor = .addToAppleWallet
-        cell.configureCell(buttonImage: #imageLiteral(resourceName: "AddToAppleWallet"), buttonTitle: LocalizedString.AddToAppleWallet.localized)
+        cell.configureCell(buttonImage: AppImages.AddToAppleWallet, buttonTitle: LocalizedString.AddToAppleWallet.localized)
         cell.actionButton.isLoading = self.viewModel.showWaletLoader
         cell.backgroundViewTopConstraint.constant = 16
         return cell

@@ -88,7 +88,7 @@ class DashboardVC: BaseVC {
             self.addOverlayView()
         }
         
-        self.backgroundGradientView.colors = AppConstants.appthemeGradientColors.reversed()
+        self.backgroundGradientView.colors = AppConstants.appDashboardGradientColors.reversed()
         mainScrollView.delaysContentTouches = false
         self.profileButton.imageView?.contentMode = .scaleAspectFill
         //addViewOnTop()
@@ -112,7 +112,7 @@ class DashboardVC: BaseVC {
     private func addViewOnTop() {
         let safeAreaView = UIView(frame: CGRect(x: 0, y: 0, width: view.width, height: UIApplication.shared.statusBarFrame.height))
         let safeAreaImgView = UIImageView(frame: safeAreaView.bounds)
-        safeAreaImgView.image = UIImage(named: "statusBarColor")
+        safeAreaImgView.image = AppImages.statusBarColor
         safeAreaView.addSubview(safeAreaImgView)
         view.addSubview(safeAreaView)
         view.bringSubviewToFront(safeAreaView)

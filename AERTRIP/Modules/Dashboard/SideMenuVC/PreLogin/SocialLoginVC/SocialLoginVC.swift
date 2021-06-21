@@ -35,7 +35,7 @@ class SocialLoginVC: BaseVC {
     @IBOutlet weak var appleButton: ATButton!
     @IBOutlet weak var newRegisterLabel: UILabel!
     @IBOutlet weak var existingUserLabel: UILabel!
-    @IBOutlet weak var sepratorLineImage: UIImageView!
+    @IBOutlet weak var sepratorLineImage: UIImageView!    
     @IBOutlet weak var socialButtonsStackView: UIStackView!
     @IBOutlet weak var logoContainerView: UIView!
     @IBOutlet weak var newRegistrationContainerView: UIView!
@@ -109,8 +109,12 @@ class SocialLoginVC: BaseVC {
     
     override func setupColors() {
         
+        self.fbButton.setTitleColor(UIColor.white, for: UIControl.State.normal)
+        self.googleButton.setTitleColor(UIColor.black, for: UIControl.State.normal)
+        self.appleButton.setTitleColor(AppColors.themeWhite, for: UIControl.State.normal)
+
         self.fbButton.gradientColors = [AppColors.fbButtonBackgroundColor, AppColors.fbButtonBackgroundColor]
-        self.googleButton.gradientColors = [AppColors.themeWhite, AppColors.themeWhite]
+        self.googleButton.gradientColors = [AppColors.themeBlack, AppColors.themeBlack]
         self.appleButton.gradientColors = [AppColors.appleButtonBackgroundColor, AppColors.appleButtonBackgroundColor]
         
         self.fbButton.isSocial = true
@@ -194,8 +198,7 @@ class SocialLoginVC: BaseVC {
         self.viewModel.firebaseLogEvent(with: .continueAsGuest)
         if currentlyUsingFrom == .loginVerificationForCheckout {
             popIfUsingFromCheckOut()
-        }
-        else {
+        } else {
             AppFlowManager.default.moveToCreateYourAccountVC(email: "", usingFor: currentlyUsingFrom)
         }
     }
@@ -222,7 +225,7 @@ class SocialLoginVC: BaseVC {
 private extension SocialLoginVC {
     func initialSetups() {
         
-        self.view.backgroundColor = AppColors.screensBackground.color
+        self.view.backgroundColor = AppColors.themeWhite
         
         self.setupsFonts()
         self.fbButton.isSocial = true
@@ -260,7 +263,7 @@ private extension SocialLoginVC {
             logoView?.messageLabel.font = AppFonts.c.withSize(38.0)
             logoView?.messageLabel.text = LocalizedString.PleaseSignInToContinue.localized
             logoView?.isAppNameHidden = true
-            logoView?.logoImageView.image = #imageLiteral(resourceName: "upwardAertripLogo")
+            logoView?.logoImageView.image = AppImages.upwardAertripLogo
             logoView?.logoImageTopContraint.constant = 40
             logoView?.logoImageAndNameConstraint.constant = 0
             logoView?.messageLabelTopConstraint.constant = -3
@@ -272,20 +275,12 @@ private extension SocialLoginVC {
             logoView?.messageLabel.font = AppFonts.c.withSize(38.0)
             logoView?.messageLabel.text = LocalizedString.PleaseSignInToContinue.localized
             logoView?.isAppNameHidden = true
-            logoView?.logoImageView.image = #imageLiteral(resourceName: "upwardAertripLogo")
+            logoView?.logoImageView.image = AppImages.upwardAertripLogo
             logoView?.logoImageTopContraint.constant = 40
             logoView?.logoImageAndNameConstraint.constant = 0
             logoView?.messageLabelTopConstraint.constant = -3
-            
             socialButtosCenterConstraint.constant = -42.0
             socialAndLogoSpace.constant = 93.0
-//            logoView?.messageLabel.font = AppFonts.c.withSize(38.0)
-//            logoView?.messageLabel.text = LocalizedString.PleaseSignInToContinue.localized
-//            logoView?.isAppNameHidden = true
-//            logoView?.logoImageView.image = #imageLiteral(resourceName: "upwardAertripLogo")
-//            logoView?.logoImageTopContraint.constant = 55
-//            //socialButtosCenterConstraint.constant = 0.0
-//            socialAndLogoSpace.constant = 135.0
         }
     }
     
@@ -295,7 +290,7 @@ private extension SocialLoginVC {
             let finalStr = "\(LocalizedString.SkipSignIn.localized)\n\(LocalizedString.ContinueAsGuest.localized)"
             let attributedString = NSMutableAttributedString(string: finalStr, attributes: [
                 .font: AppFonts.Regular.withSize(14.0),
-                .foregroundColor: UIColor.black
+                .foregroundColor: AppColors.themeBlack
             ])
             attributedString.addAttribute(.font, value: AppFonts.SemiBold.withSize(18.0), range: (finalStr as NSString).range(of: LocalizedString.SkipSignIn.localized))
             self.newRegisterLabel.attributedText = attributedString
@@ -303,7 +298,7 @@ private extension SocialLoginVC {
         else {
             let attributedString = NSMutableAttributedString(string: LocalizedString.I_am_new_register.localized, attributes: [
                 .font: AppFonts.Regular.withSize(14.0),
-                .foregroundColor: UIColor.black
+                .foregroundColor: AppColors.themeBlack
             ])
             attributedString.addAttribute(.font, value: AppFonts.SemiBold.withSize(18.0), range: NSRange(location: 0, length: 7))
             self.newRegisterLabel.attributedText = attributedString
@@ -311,7 +306,7 @@ private extension SocialLoginVC {
         
         let existingUserString = NSMutableAttributedString(string: LocalizedString.Existing_User_Sign.localized, attributes: [
             .font: AppFonts.SemiBold.withSize(18.0),
-            .foregroundColor: UIColor.black
+            .foregroundColor: AppColors.themeBlack
         ])
         existingUserString.addAttribute(.font, value: AppFonts.Regular.withSize(14.0), range: NSRange(location: 14, length: 7))
         self.existingUserLabel.attributedText = existingUserString
@@ -391,6 +386,8 @@ extension SocialLoginVC {
         self.googleButton.alpha = 0
         self.appleButton.alpha = 0
     }
+    
+    
     func animateContentOnLoad() {
         self.kickContentOutToScreen()
         let rDuration = 1.0 / 4.0

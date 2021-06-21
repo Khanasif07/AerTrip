@@ -53,6 +53,7 @@ class OtherBookingDetailsHeaderView: UIView {
         self.addSubview(view)
         self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
         self.progressView?.isHidden = true
+        self.bookingDataContainerView.backgroundColor = AppColors.themeWhite
         //        self.configureUI()
     }
     

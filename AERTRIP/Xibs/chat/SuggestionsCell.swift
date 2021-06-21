@@ -39,7 +39,7 @@ class SuggestionsCell : UICollectionViewCell {
         let prefix: String = cityName.isEmpty ? "" : "\(cityName),"
         let stateText = data.dest_name.deletingPrefix(prefix: prefix).removeSpaceAsSentence
         self.suggestionLabel.attributedText = self.createAttributedText(attTxt: "\(cityName) ", normalText: stateText)
-        self.suggestionImageView.image = #imageLiteral(resourceName: "hotelCopy4")
+        self.suggestionImageView.image = AppImages.hotelCopy4
         
         let checkIn = Date.getDateFromString(stringDate: data.checkInDate, currentFormat: Date.DateFormat.EComaddMMMyy.rawValue, requiredFormat: Date.DateFormat.ddMMM.rawValue) ?? ""
         
@@ -57,7 +57,7 @@ class SuggestionsCell : UICollectionViewCell {
         
 //        self.suggestionLabel.text = "BOM → DEL"
 //        self.dateLabel.text = "17 Jan"
-        self.suggestionImageView.image = #imageLiteral(resourceName: "blueflight")
+        self.suggestionImageView.image = AppImages.blueflight
         
         suggestionLabel.attributedText = flight.travelPlan
 

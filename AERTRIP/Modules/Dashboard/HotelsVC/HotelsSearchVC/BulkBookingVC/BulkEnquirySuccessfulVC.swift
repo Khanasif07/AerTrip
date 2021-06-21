@@ -189,6 +189,7 @@ class BulkEnquirySuccessfulVC: BaseVC {
         self.mainTitleLabel.isHidden = true
         self.subTitleLabel.isHidden = true
         self.doneBtnOutlet.isHidden = true
+        containerView.backgroundColor = AppColors.themeBlack26
     }
     //    "AddOnRequestPayment" = "Payment Successful";
     //    "AddOnRequestPaymentMessage" = "Thank you for your payment. We will book your add-ons and send you a confirmation shortly.";

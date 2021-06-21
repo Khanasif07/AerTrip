@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -70,7 +71,7 @@
                                         <constraint firstItem="QBt-L6-jVN" firstAttribute="leading" secondItem="Vqf-Df-WnD" secondAttribute="leading" id="gq0-5l-MK1"/>
                                     </constraints>
                                 </stackView>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1E5-XZ-FeR">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1E5-XZ-FeR">
                                     <rect key="frame" x="0.0" y="0.0" width="179" height="104"/>
                                     <connections>
                                         <action selector="checkInDateButtonAction:" destination="-1" eventType="touchUpInside" id="W13-Ty-KQ0"/>
@@ -122,7 +123,7 @@
                                         <constraint firstItem="Rjb-L0-GXv" firstAttribute="leading" secondItem="0Rx-xP-rRh" secondAttribute="leading" id="n4a-fj-87k"/>
                                     </constraints>
                                 </stackView>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n8X-oV-72R">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n8X-oV-72R">
                                     <rect key="frame" x="0.0" y="0.0" width="180" height="104"/>
                                     <connections>
                                         <action selector="checkOutDateButtonAction:" destination="-1" eventType="touchUpInside" id="jke-G3-vEh"/>
@@ -140,7 +141,7 @@
                             </constraints>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" name="themeWhiteDashboard"/>
                     <constraints>
                         <constraint firstItem="E9k-H6-qiC" firstAttribute="leading" secondItem="TAo-lS-b4K" secondAttribute="trailing" constant="16" id="7Ly-aV-GgH"/>
                         <constraint firstItem="TAo-lS-b4K" firstAttribute="top" secondItem="iFv-qO-pHW" secondAttribute="top" id="DhI-fe-cgq"/>
@@ -157,6 +158,7 @@
                     </constraints>
                 </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="iFv-qO-pHW" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Oud-SZ-apL"/>
@@ -165,8 +167,12 @@
                 <constraint firstAttribute="bottom" secondItem="iFv-qO-pHW" secondAttribute="bottom" id="chs-hq-EEg"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <point key="canvasLocation" x="194.40000000000001" y="321.13943028485761"/>
         </view>
     </objects>
+    <resources>
+        <namedColor name="themeWhiteDashboard">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+    </resources>
 </document>

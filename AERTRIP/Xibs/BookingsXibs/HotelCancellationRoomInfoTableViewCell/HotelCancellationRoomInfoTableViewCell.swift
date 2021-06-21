@@ -61,7 +61,7 @@ class HotelCancellationRoomInfoTableViewCell: UITableViewCell {
         
         self.topDividerView.isHidden = true
         self.bottomDividerView.isHidden = false
-        self.rightArrowImageView.image = #imageLiteral(resourceName: "rightArrow")
+        self.rightArrowImageView.image = AppImages.rightArrow
         
         self.rightArrowImageView.transform = CGAffineTransform(rotationAngle: CGFloat.pi/2) //make the arrow to down
     }
@@ -82,9 +82,9 @@ class HotelCancellationRoomInfoTableViewCell: UITableViewCell {
         }
         self.guestNamesLabel.text = nameArray.joined(separator: ", ")
         if isRoomSelected {
-            self.selectRoomButtonOutlet.setImage(#imageLiteral(resourceName: "CheckedGreenRadioButton"), for: .normal)
+            self.selectRoomButtonOutlet.setImage(AppImages.CheckedGreenRadioButton, for: .normal)
         } else {
-            self.selectRoomButtonOutlet.setImage(#imageLiteral(resourceName: "UncheckedGreenRadioButton"), for: .normal)
+            self.selectRoomButtonOutlet.setImage(AppImages.UncheckedGreenRadioButton, for: .normal)
         }
         self.topDividerView.isHidden = isExpanded
         self.bottomDividerView.isHidden = !isExpanded

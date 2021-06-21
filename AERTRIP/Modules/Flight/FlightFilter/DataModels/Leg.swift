@@ -25,7 +25,7 @@ struct Leg
     let destinationString = NSAttributedString(string: " " + destination, attributes: attributes)
     
     let textAttachment = NSTextAttachment()
-    if let image = UIImage(named: "oneway")?.withAlpha(0.4) {
+        if let image = AppImages.onewayIcon.withAlpha(0.4) {
         textAttachment.bounds = CGRect(x: 0.0, y: Double((sourcePro14.capHeight - image.size.height)/2.0), width: Double(image.size.width), height: Double(image.size.height))
         textAttachment.image = image
         
@@ -50,7 +50,7 @@ struct Leg
     let destinationString = NSAttributedString(string: " " + destination, attributes: attributes)
     
     let textAttachment = NSTextAttachment()
-    if let image = UIImage(named: "oneway")?.withAlpha(0.4) {
+        if let image = AppImages.onewayIcon.withAlpha(0.4) {
         textAttachment.bounds = CGRect(x: 0.0, y: Double((sourcePro14.capHeight - image.size.height)/2.0), width: Double(image.size.width), height: Double(image.size.height))
         textAttachment.image = image
         
@@ -85,21 +85,19 @@ struct Leg
         }
        
 
-        let imageName : String
+        let image : UIImage
         if isCurrentlySelected {
-            imageName = "onewayWhite"
+            image = AppImages.onewayWhite
         }
         else {
-            imageName = "onewayAertripColor"
+            image = AppImages.onewayAertripColor
         }
+        let textAttachment = NSTextAttachment()
+        textAttachment.bounds = CGRect(x: 0.0, y: 0.0 , width: 10, height: 10)
+        textAttachment.image = image
+        let join = NSAttributedString(attachment: textAttachment)
+        combinedString.append(join)
         
-        if let image = UIImage(named: imageName) {
-            let textAttachment = NSTextAttachment()
-            textAttachment.bounds = CGRect(x: 0.0, y: 0.0 , width: 10, height: 10)
-            textAttachment.image = image
-            let join = NSAttributedString(attachment: textAttachment)
-            combinedString.append(join)
-        }
         
         
         let dotString : NSAttributedString

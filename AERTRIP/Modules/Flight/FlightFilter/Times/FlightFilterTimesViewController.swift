@@ -57,16 +57,36 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     @IBOutlet weak var avoidOvernightDescLbl: UILabel!
     @IBOutlet weak var avoidOvernightImgView: UIImageView!
     @IBOutlet weak var avoidOvernightBtn: UIButton!
+    @IBOutlet weak var arrivalDepartureContainerView: UIView!
     
     //MARK:- View Controller Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         initialSetup()
+        self.setupColors()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateSegmentTitles()
+    }
+    
+    private func setupColors(){
+        [self.view, self.multiLegView, self.multiSegmentView, self.avoidOvernightView, arrivalDepartureContainerView,self.departureRangeSlider, self.arrivalRangeSlider].forEach{view in
+            view?.backgroundColor = AppColors.themeWhiteDashboard
+        }
+        [self.departureStartTime, self.departureEndTime, self.arrivalEndTime, self.arrivalStartTime].forEach{view in
+            view?.backgroundColor = AppColors.flightFilterHighlightColor
+        }
+        
+        [earlyMorningButton, noonButton, eveningButton, lateEveningButton].forEach { (btn) in
+            btn?.backgroundColor = AppColors.flightFilterSessionDefaultColor
+        }
     }
     
     /// Updates UI if data is coming and filters
@@ -324,10 +344,10 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
                         giveHapticFeedback()
                         highlightedBtnArr.insert(button)
                     }
-                    button.backgroundColor = UIColor(displayP3Red: 236.0/255.0 , green:253.0/255.0 , blue:244.0/255.0 , alpha:1)
+                    button.backgroundColor = AppColors.flightFilterSessionSelectedColor
                 } else {
                     highlightedBtnArr.remove(button)
-                    button.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
+                    button.backgroundColor = AppColors.flightFilterSessionDefaultColor
                 }
             }
         }
@@ -591,10 +611,10 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     private func resetAvoidOvernightBtn() {
         avoidOvernightBtn.isSelected = viewModel.currentTimerFilter.qualityFilter.isSelected
         if viewModel.currentTimerFilter.qualityFilter.isSelected {
-            avoidOvernightImgView.image = UIImage(named: "CheckedGreenRadioButton")
+            avoidOvernightImgView.image = AppImages.CheckedGreenRadioButton
         }
         else {
-            avoidOvernightImgView.image = UIImage(named: "UncheckedGreenRadioButton")
+            avoidOvernightImgView.image = AppImages.UncheckedGreenRadioButton
         }
     }
     
@@ -896,28 +916,28 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         {
         case 1 :
             
-            earlyMorningButton.backgroundColor = UIColor(displayP3Red: 236.0/255.0 , green:253.0/255.0 , blue:244.0/255.0 , alpha:1)
-            noonButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
-            eveningButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
-            lateEveningButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
+            earlyMorningButton.backgroundColor = AppColors.flightFilterSessionSelectedColor
+            noonButton.backgroundColor = AppColors.flightFilterSessionDefaultColor
+            eveningButton.backgroundColor = AppColors.flightFilterSessionDefaultColor
+            lateEveningButton.backgroundColor = AppColors.flightFilterSessionDefaultColor
             
         case 2 :
-            earlyMorningButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
-            noonButton.backgroundColor = UIColor(displayP3Red: 236.0/255.0 , green:253.0/255.0 , blue:244.0/255.0 , alpha:1)
-            eveningButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
-            lateEveningButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
+            earlyMorningButton.backgroundColor = AppColors.flightFilterSessionDefaultColor
+            noonButton.backgroundColor = AppColors.flightFilterSessionSelectedColor
+            eveningButton.backgroundColor = AppColors.flightFilterSessionDefaultColor
+            lateEveningButton.backgroundColor = AppColors.flightFilterSessionDefaultColor
             
         case 3 :
-            earlyMorningButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
-            noonButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
-            eveningButton.backgroundColor = UIColor(displayP3Red: 236.0/255.0 , green:253.0/255.0 , blue:244.0/255.0 , alpha:1)
-            lateEveningButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
+            earlyMorningButton.backgroundColor = AppColors.flightFilterSessionDefaultColor
+            noonButton.backgroundColor = AppColors.flightFilterSessionDefaultColor
+            eveningButton.backgroundColor = AppColors.flightFilterSessionSelectedColor
+            lateEveningButton.backgroundColor = AppColors.flightFilterSessionDefaultColor
             
         case 4 :
-            earlyMorningButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
-            noonButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
-            eveningButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
-            lateEveningButton.backgroundColor = UIColor(displayP3Red: 236.0/255.0 , green:253.0/255.0 , blue:244.0/255.0 , alpha:1)
+            earlyMorningButton.backgroundColor = AppColors.flightFilterSessionDefaultColor
+            noonButton.backgroundColor = AppColors.flightFilterSessionDefaultColor
+            eveningButton.backgroundColor = AppColors.flightFilterSessionDefaultColor
+            lateEveningButton.backgroundColor = AppColors.flightFilterSessionSelectedColor
             
         default:
             printDebug("unknown state")
@@ -929,10 +949,10 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     @objc func buttonReleased(sender:UIButton)
     {
         DispatchQueue.delay(0.1) {
-            self.earlyMorningButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
-            self.noonButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
-            self.eveningButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
-            self.lateEveningButton.backgroundColor = UIColor(displayP3Red: 246.0/255.0 , green:246.0/255.0 , blue:246.0/255.0 , alpha:1)
+            self.earlyMorningButton.backgroundColor = AppColors.flightFilterSessionDefaultColor
+            self.noonButton.backgroundColor = AppColors.flightFilterSessionDefaultColor
+            self.eveningButton.backgroundColor = AppColors.flightFilterSessionDefaultColor
+            self.lateEveningButton.backgroundColor = AppColors.flightFilterSessionDefaultColor
         }
     }
         

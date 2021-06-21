@@ -36,11 +36,9 @@ class AirlinesFilterViewController: UIViewController , FilterViewController {
         airlinesTableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
     }
     
-    
     fileprivate func setmultiLegSubviews () {
         
         multicitySegmentView.subviews.forEach { $0.removeFromSuperview() }
-        
         multicitySegmentView.layer.cornerRadius = 3
         multicitySegmentView.layer.borderColor = UIColor.AertripColor.cgColor
         multicitySegmentView.layer.borderWidth = 1.0
@@ -72,8 +70,6 @@ class AirlinesFilterViewController: UIViewController , FilterViewController {
                 stopButton.backgroundColor = UIColor.AertripColor
             }
             
-            
-            
             multicitySegmentView.addSubview(stopButton)
             
             if i != numberOfStops {
@@ -99,8 +95,13 @@ class AirlinesFilterViewController: UIViewController , FilterViewController {
         }
         setupTableView()
         setmultiLegSubviews()
+        setUpColors()
     }
     
+    func setUpColors(){
+        self.view.backgroundColor = AppColors.themeWhiteDashboard
+        self.airlinesTableView.backgroundColor = AppColors.clear
+    }
     
     
     func updateUIPostLatestResults() {
@@ -165,8 +166,7 @@ class AirlinesFilterViewController: UIViewController , FilterViewController {
         }
         JourneyTitle.attributedText = viewModel.currentSelectedAirlineFilter.leg.descriptionOneFiveThree
         self.airlinesTableView.reloadData()
-        
-        
+    
     }
     
     @objc func airlineRadioButtonTapped(sender : UIButton) {
@@ -283,10 +283,10 @@ extension AirlinesFilterViewController : UITableViewDataSource , UITableViewDele
             cell.imageView?.image = nil
             cell.radioButton.setImage(nil, for: .normal)
             cell.radioButton.setImage(nil, for: .selected)
-//            cell.radioButton.setImage(UIImage(named: "CheckedGreenRadioButton"), for: .selected)
-//            cell.radioButton.setImage(UIImage(named: "UncheckedGreenRadioButton"), for: .normal)
-            cell.radioButton.setBackgroundImage(UIImage(named:"radioButtonSelect"), for: .selected)
-            cell.radioButton.setBackgroundImage(UIImage(named:"radioButtonUnselect"), for: .normal)
+//            cell.radioButton.setImage(AppImages.CheckedGreenRadioButton, for: .selected)
+//            cell.radioButton.setImage(AppImages.UncheckedGreenRadioButton, for: .normal)
+            cell.radioButton.setBackgroundImage(AppImages.radioButtonSelect, for: .selected)
+            cell.radioButton.setBackgroundImage(AppImages.radioButtonUnselect, for: .normal)
             cell.selectionStyle = .none
             if indexPath.section == 0 {
                 cell.textLabel?.text = "All Airlines"
@@ -302,10 +302,10 @@ extension AirlinesFilterViewController : UITableViewDataSource , UITableViewDele
             if indexPath.section == 1 {
                 
                 cell.textLabel?.text = "Hide Multi-Airline Itinerary"
-                cell.imageView?.image = UIImage(named:"MultiAirlineItinery")
+                cell.imageView?.image = AppImages.MultiAirlineItinery
                 cell.radioButton.tag = 2
-                cell.radioButton.setBackgroundImage(UIImage(named:"radioButtonSelect"), for: .selected)
-                cell.radioButton.setBackgroundImage(UIImage(named:"radioButtonUnselect"), for: .normal)
+                cell.radioButton.setBackgroundImage(AppImages.radioButtonSelect, for: .selected)
+                cell.radioButton.setBackgroundImage(AppImages.radioButtonUnselect, for: .normal)
                 cell.radioButton.isSelected = viewModel.currentSelectedAirlineFilter.hideMultipleAirline
             }
             if indexPath.section == 2 {
@@ -351,7 +351,7 @@ extension AirlinesFilterViewController : UITableViewDataSource , UITableViewDele
             
             let view = ATDividerView()
             view.frame = CGRect(x: 16, y: 0, width: self.view.frame.size.width - 16, height: 0.5)
-            view.backgroundColor = UIColor.TWO_ZERO_FOUR_COLOR
+            view.backgroundColor = AppColors.divider.color//UIColor.TWO_ZERO_FOUR_COLOR
             footerView.addSubview(view)
             return footerView
         }

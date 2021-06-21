@@ -30,6 +30,7 @@ class CurrencyControler {
     }
     
     func scheduleCurrencyTimer(){
+        guard AppConstants.isCurrencyConversionEnable else {return}
         timer = Timer.scheduledTimer(timeInterval: 300, target: self, selector: #selector(callCurrencyApi), userInfo: nil, repeats: true)
     }
     
@@ -156,8 +157,12 @@ class CurrencyControler {
         
         let currentLocale = Locale.current
 //        print("currencyCode..\(currentLocale.currencyCode)")
+        if AppConstants.isCurrencyConversionEnable{
+            UserInfo.preferredCurrencyCode = currentLocale.currencyCode ?? "INR"
+        }else{
+            UserInfo.preferredCurrencyCode = "INR"
+        }
         
-        UserInfo.preferredCurrencyCode = currentLocale.currencyCode ?? "INR"
         
     }
     

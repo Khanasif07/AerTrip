@@ -548,7 +548,7 @@ extension UIViewController {
 
 
 // MARK: Added by Rishabh
-extension UIViewController {
+@objc extension UIViewController {
 //    func hideKeyboardWhenTappedAround() {
 //        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
 //        tap.cancelsTouchesInView = true
@@ -558,4 +558,8 @@ extension UIViewController {
 //    @objc private func dismissKeyboard() {
 //        view.endEditing(true)
 //    }
+    
+    @objc func isLightTheme() -> Bool {
+        traitCollection.userInterfaceStyle == .light
+    }
 }

@@ -218,7 +218,7 @@ struct AccountDetailEvent {
 //        printDebug(self.voucher.rawValue)
         switch self.voucher {
         case .lockAmount:
-            self.iconImage = #imageLiteral(resourceName: "ic_acc_lockAmount")
+            self.iconImage = AppImages.ic_acc_lockAmount
             if let details = json["detail"] as? JSONDictionary, let partyName = details["party_name"] {
                 self.title = "\(partyName)"
             }
@@ -232,17 +232,17 @@ struct AccountDetailEvent {
                 }
                 switch self.receiptMethod {
                 case .netbanking:
-                    self.iconImage = #imageLiteral(resourceName: "ic_acc_receipt")
+                    self.iconImage = AppImages.ic_acc_receipt
                     let bankName = (info["bank_name"] as? String) ?? ""
                     self.title = self._receiptMethod.isEmpty ? bankName : "\(self._receiptMethod.capitalizedFirst()): \(bankName)"
                     
                 case .upi:
-                    self.iconImage = #imageLiteral(resourceName: "ic_acc_receipt")
+                    self.iconImage = AppImages.ic_acc_receipt
                     let upi_id = (info["upi_id"] as? String) ?? ""
                     self.title = self._receiptMethod.isEmpty ? upi_id : "\(self._receiptMethod.uppercased()): \(upi_id)"
                     
                 case .card:
-                    self.iconImage = #imageLiteral(resourceName: "ic_acc_card")
+                    self.iconImage = AppImages.ic_acc_card
                     var card = ""
                     if let name = (info["card_name"] as? String), !name.isEmpty{
                         card = name
@@ -260,7 +260,7 @@ struct AccountDetailEvent {
                     self.creditCardNo = "XXXX - XXXX - XXXX - \(cardNum)"
                     
                 case .offline:
-                    self.iconImage = #imageLiteral(resourceName: "ic_acc_receipt")
+                    self.iconImage = AppImages.ic_acc_receipt
                     if (info["draft_cheque_number"] != nil) || (info["draft_cheque_date"] != nil) {
                         self.title = "Cheque / Demand Draft"
                         self.chequeNumber = info["draft_cheque_number"] as? String ?? ""
@@ -282,7 +282,7 @@ struct AccountDetailEvent {
 //                    let bankName = (info["bank_name"] as? String) ?? ""
 //                    self.title = self._receiptMethod.isEmpty ? bankName : "\(self._receiptMethod.capitalizedFirst()): \(bankName)"
                 case .wallet:
-                    self.iconImage = #imageLiteral(resourceName: "ic_acc_receipt")
+                    self.iconImage = AppImages.ic_acc_receipt
 //                    let walletName = (info["wallet_name"] as? String) ?? ""
                     let walletName :String
                     if let wName = (info["pg_wallet_alias"] as? String){
@@ -297,7 +297,7 @@ struct AccountDetailEvent {
                     }
                     
                 case .none:
-                    self.iconImage = #imageLiteral(resourceName: "ic_acc_receipt")
+                    self.iconImage = AppImages.ic_acc_receipt
                     self.title =  (details["party_name"] as? String) ?? ""
 //                @unknown default:
 //                    printDebug("No need for other voucher types")
@@ -307,25 +307,25 @@ struct AccountDetailEvent {
         case .payment:
             if let details = json["detail"] as? JSONDictionary, let info = details["info"] as? JSONDictionary {
                 self._receiptMethod = (info["method"] as? String) ?? ""
-                self.iconImage = #imageLiteral(resourceName: "ic_acc_receipt")
+                self.iconImage = AppImages.ic_acc_receipt
                 let bankName = (info["payment_method_value"] as? String) ?? ""
                 self.title = self._receiptMethod.isEmpty ? bankName : "\(self._receiptMethod.capitalizedFirst()): \(bankName)"
             }
             
         case .debitNote:
-            self.iconImage = #imageLiteral(resourceName: "ic_acc_debitNote")
+            self.iconImage = AppImages.ic_acc_debitNote
             if let details = json["detail"] as? JSONDictionary, let partyName = details["party_name"] {
                 self.title = "\(partyName)"
             }
             
         case .creditNote:
-            self.iconImage = #imageLiteral(resourceName: "ic_acc_creditNote")
+            self.iconImage = AppImages.ic_acc_creditNote
             if let details = json["detail"] as? JSONDictionary, let partyName = details["party_name"] {
                 self.title = "\(partyName)"
             }
             let txt = self.title
             if txt.removeAllWhitespaces.lowercased().contains("cashback"){
-                self.iconImage = #imageLiteral(resourceName: "ic_acc_cashback")
+                self.iconImage = AppImages.ic_acc_cashback
             }
             
         case .sales:
@@ -398,13 +398,13 @@ struct AccountDetailEvent {
     
     private mutating func parseForAddOnsSales(details: JSONDictionary) {
         
-        self.iconImage = #imageLiteral(resourceName: "ic_acc_addOns")
+        self.iconImage = AppImages.ic_acc_addOns
         self.title = "Add-ons"
         
     }
     private mutating func parseForFlightSales(details: JSONDictionary) {
         
-        self.iconImage = #imageLiteral(resourceName: "ic_acc_flight")
+        self.iconImage = AppImages.ic_acc_flight
         
         //booking date
         if let obj = details["booking_date"] {
@@ -433,15 +433,15 @@ struct AccountDetailEvent {
         if self.voucherNo.lowercased().contains("srjv") {
             self.title = "\(LocalizedString.CancellationFor.localized)\n\(self.title)"
             self.attributedString = self.setAttributedName(title: self.title, coloredText: LocalizedString.CancellationFor.localized, color: AppColors.themeRed)
-            self.iconImage = #imageLiteral(resourceName: "flightCancellation")
+            self.iconImage = AppImages.flightCancellation
         } else if self.voucherNo.lowercased().contains("rsrjv") {
             self.title = "\(LocalizedString.ReschedulingFor.localized)\n\(self.title)"
             self.attributedString = self.setAttributedName(title: self.title, coloredText: LocalizedString.ReschedulingFor.localized, color: AppColors.themeYellow)
-            self.iconImage = #imageLiteral(resourceName: "ic_acc_flightReScheduling")
+            self.iconImage = AppImages.ic_acc_flightReScheduling
         }else if self.voucherNo.lowercased().contains("sa/") {
             self.title = "Add-ons"
             self.attributedString = nil
-            self.iconImage = #imageLiteral(resourceName: "ic_acc_addOns")
+            self.iconImage = AppImages.ic_acc_addOns
         }
         
         if let rows = details["rows"] as? [JSONDictionary], !rows.isEmpty {
@@ -536,7 +536,7 @@ struct AccountDetailEvent {
     
     private mutating func parseForOtherSales(details: JSONDictionary) {
         
-        self.iconImage = (!(self._productType.lowercased() == "other")) ?  #imageLiteral(resourceName: "ic_acc_journalVoucher") :  #imageLiteral(resourceName: "others_hotels")
+        self.iconImage = (!(self._productType.lowercased() == "other")) ?  AppImages.ic_acc_journalVoucher :  AppImages.others_hotels
         
         //booking date
         if let obj = details["booking_date"] {
@@ -584,9 +584,9 @@ struct AccountDetailEvent {
             attributedString.append(text)
             if index != (ttls.count - 1){
                 if !isForReturn{
-                    attributedString.append(AppGlobals.shared.getStringFromImage(name : "oneway"))
+                    attributedString.append(AppGlobals.shared.getStringFromImage(with: AppImages.onewayIcon))
                 }else{
-                    attributedString.append(AppGlobals.shared.getStringFromImage(name : "return"))
+                    attributedString.append(AppGlobals.shared.getStringFromImage(with: AppImages.returnIcon))
                 }
                 
             }
@@ -598,7 +598,7 @@ struct AccountDetailEvent {
     
     private mutating func parseForHotelSales(details: JSONDictionary) {
         
-        self.iconImage = #imageLiteral(resourceName: "ic_acc_hotels")
+        self.iconImage = AppImages.ic_acc_hotels
         
         //parse title as hotelName, hotelAdd
         var tStr = ""
@@ -619,13 +619,13 @@ struct AccountDetailEvent {
         if self.voucherNo.lowercased().contains("srjv") {
             self.title = "\(LocalizedString.CancellationFor.localized)\n\(tStr)"
             self.attributedString = self.setAttributedName(title: self.title, coloredText: LocalizedString.CancellationFor.localized, color: AppColors.themeRed)
-            self.iconImage = #imageLiteral(resourceName: "ic_acc_hotelCancellation")
+            self.iconImage = AppImages.ic_acc_hotelCancellation
         } else if self.voucherNo.lowercased().contains("rsrjv") {
             self.title = "\(LocalizedString.ReschedulingFor.localized)\n\(tStr)"
             self.attributedString = self.setAttributedName(title: self.title, coloredText: LocalizedString.ReschedulingFor.localized, color: AppColors.themeYellow)
         }else if self.voucherNo.lowercased().contains("sa/") {
             self.title = "Add-ons"
-            self.iconImage = #imageLiteral(resourceName: "ic_acc_addOns")
+            self.iconImage = AppImages.ic_acc_addOns
         }
         
         //check-in

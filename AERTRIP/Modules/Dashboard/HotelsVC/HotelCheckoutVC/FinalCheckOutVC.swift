@@ -464,8 +464,8 @@ class FinalCheckOutVC: BaseVC {
     // Setup Image for Pay Button
     private func setUpImage(showImage: Bool = true) {
         if showImage {
-            self.payButton.setImage( #imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .normal)
-            self.payButton.setImage( #imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .highlighted)
+            self.payButton.setImage( AppImages.whiteBlackLockIcon.withRenderingMode(.alwaysOriginal), for: .normal)
+            self.payButton.setImage( AppImages.whiteBlackLockIcon.withRenderingMode(.alwaysOriginal), for: .highlighted)
             if self.payButton.imageView != nil{
                 self.payButton.bringSubviewToFront(self.payButton.imageView!)
             }

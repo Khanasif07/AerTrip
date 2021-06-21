@@ -105,7 +105,7 @@ class BookingReschedulingPassengerAccordionTableViewCell: ATTableViewCell {
     
     private func toggleCell() {
         self.detailView.isHidden = !expanded
-        self.arrowButton.setImage(#imageLiteral(resourceName: self.expanded ? "upArrowIconCheckout" : "downArrowCheckOut"), for: .normal)
+        self.arrowButton.setImage(self.expanded ? AppImages.upArrowIconCheckout : AppImages.downArrowCheckOut, for: .normal)
     }
     
     func configureCell(passengerName: String, pnrNo: String, saleValue: String, cancellationCharge: String, refundValue: String, age: String) {

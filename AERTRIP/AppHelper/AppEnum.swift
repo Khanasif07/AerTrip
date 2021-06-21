@@ -296,33 +296,33 @@ public enum ATTransitionMode: Int {
 }
 
 enum AppPlaceholderImage {
-    static let user: UIImage = #imageLiteral(resourceName: "userPlaceholder")
-    static let profile: UIImage = #imageLiteral(resourceName: "profilePlaceholder")
-    static let hotelCard: UIImage = #imageLiteral(resourceName: "hotelCardPlaceHolder")
-    static let frequentFlyer: UIImage = #imageLiteral(resourceName: "userPlaceholder")
-    static let `default`: UIImage = #imageLiteral(resourceName: "userPlaceholder")
+    static let user: UIImage = AppImages.userPlaceholder
+    static let profile: UIImage = AppImages.profilePlaceholder
+    static let hotelCard: UIImage = AppImages.hotelCardPlaceHolder
+    static let frequentFlyer: UIImage = AppImages.userPlaceholder
+    static let `default`: UIImage = AppImages.userPlaceholder
 }
 
 // Images
 
 enum AppImage {
-    static let linkedInLogoImage: UIImage = #imageLiteral(resourceName: "linkedInIcon")
-    static let facebookLogoImage: UIImage = #imageLiteral(resourceName: "facebook")
-    static let googleLogoImage: UIImage = #imageLiteral(resourceName: "google")
-    static let netBanking = #imageLiteral(resourceName: "netBanking")
-    static let visa = #imageLiteral(resourceName: "visa")
-    static let appleLogoImage: UIImage = #imageLiteral(resourceName: "Apple Logo")
-    static let mobikwik = #imageLiteral(resourceName: "paymentMobikwik.png")
-    static let freecharge = #imageLiteral(resourceName: "bankFreecharge")
-    static let payzapp = #imageLiteral(resourceName: "bankHdfcBank")
-    static let airtelmoney = #imageLiteral(resourceName: "bankAirtelPaymentsBank")
-    static let jiomoney = #imageLiteral(resourceName: "bankJiomoney")
-    static let olamoney = #imageLiteral(resourceName: "bankOlamoney")
-    static let phonepe = #imageLiteral(resourceName: "paymentPhonePay")
-    static let phonepeswitch = #imageLiteral(resourceName: "paymentPhonePay")
-    static let paypal = #imageLiteral(resourceName: "bankPayPal")
-    static let amazonpay = #imageLiteral(resourceName: "bankAmazonPay")
-    static let none = #imageLiteral(resourceName: "iconPaymentPlaceholder")
+    static let linkedInLogoImage: UIImage = AppImages.linkedInLogoImage
+    static let facebookLogoImage: UIImage = AppImages.facebookLogoImage
+    static let googleLogoImage: UIImage = AppImages.googleLogoImage
+    static let netBanking = AppImages.netBanking
+    static let visa = AppImages.visa
+    static let appleLogoImage: UIImage = AppImages.appleLogoImage
+    static let mobikwik = AppImages.mobikwik
+    static let freecharge = AppImages.freecharge
+    static let payzapp = AppImages.payzapp
+    static let airtelmoney = AppImages.airtelmoney
+    static let jiomoney = AppImages.jiomoney
+    static let olamoney = AppImages.olamoney
+    static let phonepe = AppImages.phonepe
+    static let phonepeswitch = AppImages.phonepe
+    static let paypal = AppImages.paypal
+    static let amazonpay = AppImages.amazonpay
+    static let none = AppImages.none
 
 }
 
@@ -376,34 +376,34 @@ enum ATAmenity: String, CaseIterable {
     var icon: UIImage {
         switch self {
         case .Wifi:
-            return #imageLiteral(resourceName: "ame-wi-fi")
+            return AppImages.wifi
             
         case .RoomService:
-            return #imageLiteral(resourceName: "ame-room-service")
+            return AppImages.RoomService
             
         case .Internet:
-            return #imageLiteral(resourceName: "ame-internet")
+            return AppImages.Internet
             
         case .AirConditioner:
-            return #imageLiteral(resourceName: "ame-air-conditioner")
+            return AppImages.AirConditioner
             
         case .RestaurantBar:
-            return #imageLiteral(resourceName: "ame-restaurant-bar")
+            return AppImages.RestaurantBar
             
         case .Gym:
-            return #imageLiteral(resourceName: "ame-gym")
+            return AppImages.Gym
             
         case .BusinessCenter:
-            return #imageLiteral(resourceName: "ame-business-center")
+            return AppImages.BusinessCenter
             
         case .Pool:
-            return #imageLiteral(resourceName: "ame-pool")
+            return AppImages.Pool
             
         case .Spa:
-            return #imageLiteral(resourceName: "ame-spa")
+            return AppImages.Spa
             
         case .Coffee_Shop:
-            return #imageLiteral(resourceName: "ame-coffee-shop")
+            return AppImages.Coffee_Shop
         }
     }
     
@@ -506,13 +506,13 @@ enum ProductType: Int, CaseIterable {
     var icon: UIImage {
         switch self {
         case .flight:
-            return #imageLiteral(resourceName: "flight_blue_icon")
+            return AppImages.flight_blue_icon
             
         case .hotel:
-            return #imageLiteral(resourceName: "hotel_green_icon")
+            return AppImages.hotel_green_icon
             
         case .other:
-            return #imageLiteral(resourceName: "others_hotels") //#imageLiteral(resourceName: "others")
+            return AppImages.others_hotels //#imageLiteral(resourceName: "others")
         }
     }
     
@@ -607,15 +607,15 @@ enum ATFileType: RawRepresentable {
     
     var icon: UIImage {
         switch self {
-        case .pdf: return #imageLiteral(resourceName: "ic_file_pdf")
-        case .text: return #imageLiteral(resourceName: "ic_file_text")
-        case .word: return #imageLiteral(resourceName: "ic_file_word")
-        case .powerPoint: return #imageLiteral(resourceName: "ic_file_powerpoint")
-        case .excel: return #imageLiteral(resourceName: "ic_file_excel")
-        case .zip: return #imageLiteral(resourceName: "ic_file_zip")
-        case .image: return #imageLiteral(resourceName: "ic_file_images")
-        case .code: return #imageLiteral(resourceName: "ic_file_others")
-        default: return #imageLiteral(resourceName: "ic_file_others")
+        case .pdf: return AppImages.ic_file_pdf
+        case .text: return AppImages.ic_file_text
+        case .word: return AppImages.ic_file_word
+        case .powerPoint: return AppImages.ic_file_powerpoint
+        case .excel: return AppImages.ic_file_excel
+        case .zip: return AppImages.ic_file_zip
+        case .image: return AppImages.ic_file_images
+        case .code: return AppImages.ic_file_others
+        default: return AppImages.ic_file_others
         }
     }
 }
@@ -821,15 +821,329 @@ enum ATWeatherType: RawRepresentable {
     
     var icon: UIImage {
         switch self {
-        case .clearSky: return #imageLiteral(resourceName: "ic_clearsky")
-        case .fewClouds: return #imageLiteral(resourceName: "ic_fewclouds")
-        case .scatteredClouds: return #imageLiteral(resourceName: "ic_scatterclouds")
-        case .brokenClouds: return #imageLiteral(resourceName: "ic_brokenclouds")
-        case .showerRain: return #imageLiteral(resourceName: "ic_showrain")
-        case .thunderStorm: return #imageLiteral(resourceName: "ic_thunderstorm")
-        case .rain:  return #imageLiteral(resourceName: "ic_rain")
-        case .snow:  return #imageLiteral(resourceName: "ic_snow")
-        case .mist:  return #imageLiteral(resourceName: "ic_mist")
+        case .clearSky: return AppImages.ic_clearsky
+        case .fewClouds: return AppImages.ic_fewclouds
+        case .scatteredClouds: return AppImages.ic_scatterclouds
+        case .brokenClouds: return AppImages.ic_brokenclouds
+        case .showerRain: return AppImages.ic_showrain
+        case .thunderStorm: return AppImages.ic_thunderstorm
+        case .rain:  return AppImages.ic_rain
+        case .snow:  return AppImages.ic_snow
+        case .mist:  return AppImages.ic_mist
         }
     }
+}
+
+
+@objc class AppImages  : NSObject{
+
+    static var ic_toast_cross:UIImage { #imageLiteral(resourceName: "ic_toast_cross") }
+    static var black_cross:UIImage { #imageLiteral(resourceName: "black_cross") }
+    static var CancelButtonWhite: UIImage { #imageLiteral(resourceName: "CancelButtonWhite") }
+    static var searchBarClearButton: UIImage { #imageLiteral(resourceName: "searchBarClearButton") }
+    
+    static var ic_gallery_horizontal_view: UIImage { #imageLiteral(resourceName: "ic_gallery_horizontal_view") }
+    static var ic_gallery_vertical_view: UIImage { #imageLiteral(resourceName: "ic_gallery_vertical_view") }
+    
+    static var searchBarIcon: UIImage  { #imageLiteral(resourceName: "searchBarIcon") }
+    static var ic_search_mic:UIImage  { #imageLiteral(resourceName: "ic_search_mic") }
+    
+    static var Checkmark:UIImage  { #imageLiteral(resourceName: "Checkmark") }
+    static var infoOrange:UIImage  { #imageLiteral(resourceName: "infoOrange") }
+    
+    static var profilePlaceholder: UIImage  { #imageLiteral(resourceName: "profilePlaceholder") }
+    static var userPlaceholder: UIImage { #imageLiteral(resourceName: "userPlaceholder") }
+    static var hotelCardPlaceHolder:UIImage  { #imageLiteral(resourceName: "hotelCardPlaceHolder") }
+    
+    static var linkedInLogoImage: UIImage  { #imageLiteral(resourceName: "linkedInIcon") }
+    static var facebookLogoImage: UIImage  { #imageLiteral(resourceName: "facebook") }
+    static var googleLogoImage: UIImage  { #imageLiteral(resourceName: "google") }
+    
+    static var netBanking: UIImage  { #imageLiteral(resourceName: "netBanking") }
+    static var visa: UIImage  { #imageLiteral(resourceName: "visa") }
+    static var appleLogoImage: UIImage  { #imageLiteral(resourceName: "Apple Logo") }
+    static var mobikwik: UIImage  { #imageLiteral(resourceName: "paymentMobikwik.png") }
+    static var freecharge: UIImage  { #imageLiteral(resourceName: "bankFreecharge") }
+    static var payzapp: UIImage  { #imageLiteral(resourceName: "bankHdfcBank") }
+    static var airtelmoney: UIImage  { #imageLiteral(resourceName: "bankAirtelPaymentsBank") }
+    static var jiomoney: UIImage  { #imageLiteral(resourceName: "bankJiomoney") }
+    static var olamoney: UIImage  { #imageLiteral(resourceName: "bankOlamoney") }
+    static var phonepe: UIImage  { #imageLiteral(resourceName: "paymentPhonePay") }
+    static var paypal: UIImage  { #imageLiteral(resourceName: "bankPayPal") }
+    static var amazonpay: UIImage  { #imageLiteral(resourceName: "bankAmazonPay") }
+    static var none: UIImage  { #imageLiteral(resourceName: "iconPaymentPlaceholder") }
+    
+    static var wifi:UIImage { #imageLiteral(resourceName: "ame-wi-fi") }
+    static var RoomService:UIImage { #imageLiteral(resourceName: "ame-room-service") }
+    static var Internet:UIImage { #imageLiteral(resourceName: "ame-internet") }
+    static var AirConditioner:UIImage { #imageLiteral(resourceName: "ame-air-conditioner") }
+    static var RestaurantBar:UIImage { #imageLiteral(resourceName: "ame-restaurant-bar") }
+    static var Gym:UIImage{ #imageLiteral(resourceName: "ame-gym") }
+    static var BusinessCenter:UIImage { #imageLiteral(resourceName: "ame-business-center") }
+    static var Pool:UIImage { #imageLiteral(resourceName: "ame-pool") }
+    static var Spa:UIImage { #imageLiteral(resourceName: "ame-spa") }
+    static var Coffee_Shop:UIImage { #imageLiteral(resourceName: "ame-coffee-shop") }
+    
+    static var ic_file_pdf: UIImage{ #imageLiteral(resourceName: "ic_file_pdf") }
+    static var ic_file_text: UIImage{ #imageLiteral(resourceName: "ic_file_text") }
+    static var ic_file_word: UIImage{ #imageLiteral(resourceName: "ic_file_word") }
+    static var ic_file_powerpoint: UIImage{ #imageLiteral(resourceName: "ic_file_powerpoint") }
+    static var ic_file_excel: UIImage{ #imageLiteral(resourceName: "ic_file_excel") }
+    static var ic_file_zip: UIImage{ #imageLiteral(resourceName: "ic_file_zip") }
+    static var ic_file_images: UIImage{ #imageLiteral(resourceName: "ic_file_images") }
+    static var ic_file_others: UIImage{ #imageLiteral(resourceName: "ic_file_others") }
+    
+    static var ic_clearsky: UIImage{ #imageLiteral(resourceName: "ic_clearsky") }
+    static var ic_fewclouds: UIImage{ #imageLiteral(resourceName: "ic_fewclouds") }
+    static var ic_scatterclouds: UIImage{ #imageLiteral(resourceName: "ic_scatterclouds") }
+    static var ic_brokenclouds: UIImage{ #imageLiteral(resourceName: "ic_brokenclouds") }
+    static var ic_showrain: UIImage{ #imageLiteral(resourceName: "ic_showrain") }
+    static var ic_thunderstorm: UIImage{ #imageLiteral(resourceName: "ic_thunderstorm") }
+    static var ic_rain: UIImage{ #imageLiteral(resourceName: "ic_rain") }
+    static var ic_snow: UIImage{ #imageLiteral(resourceName: "ic_snow") }
+    static var ic_mist: UIImage{ #imageLiteral(resourceName: "ic_mist") }
+    
+    static var whiteBlackLockIcon: UIImage { #imageLiteral(resourceName: "whiteBlackLockIcon") }
+    
+    static var othersAddon: UIImage { #imageLiteral(resourceName: "others") }
+    static var seatsAddon: UIImage { #imageLiteral(resourceName: "seats") }
+    static var baggageAddon: UIImage { #imageLiteral(resourceName: "baggage") }
+    static var mealsAddon: UIImage { #imageLiteral(resourceName: "meals") }
+    
+    
+    static var greenFilledAdd: UIImage { #imageLiteral(resourceName: "greenFilledAdd") }
+    static var ic_info_incomplete: UIImage{ #imageLiteral(resourceName: "ic_info_incomplete") }
+    
+    static var ic_deselected_hotel_guest_adult: UIImage{ #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult") }
+    static var adultPassengers: UIImage{ #imageLiteral(resourceName: "adultPassengers") }//Not in use Duplicate
+    static var ic_deselected_hotel_guest_child: UIImage { #imageLiteral(resourceName: "ic_deselected_hotel_guest_child") }
+    static var ic_deselected_hotel_guest_infant: UIImage { #imageLiteral(resourceName: "ic_deselected_hotel_guest_infant") }
+    static var ic_selected_hotel_guest_adult: UIImage { #imageLiteral(resourceName: "ic_selected_hotel_guest_adult") }
+    static var ic_selected_hotel_guest_child: UIImage { #imageLiteral(resourceName: "ic_selected_hotel_guest_child") }
+    static var ic_selected_hotel_guest_infant: UIImage { #imageLiteral(resourceName: "ic_selected_hotel_guest_infant") }
+    static var AddPassenger: UIImage { #imageLiteral(resourceName: "AddPassenger") }
+    
+    static var pushpin: UIImage { #imageLiteral(resourceName: "pushpin") }
+    static var pushpin_gray: UIImage { #imageLiteral(resourceName: "pushpin-gray") }
+    
+    static var starRatingFilled: UIImage { #imageLiteral(resourceName: "starRatingFilled") }
+    static var starRatingFilledHollow: UIImage{ #imageLiteral(resourceName: "starRatingFilledHollow") }
+    static var starRatingUnfill: UIImage{ #imageLiteral(resourceName: "starRatingUnfill") }
+    
+    static var selectedAdvisorRating: UIImage { #imageLiteral(resourceName: "selectedAdvisorRating") }
+    static var deselectedAdvisorRating: UIImage { #imageLiteral(resourceName: "deselectedAdvisorRating") }
+    static var CheckedGreenRadioButton: UIImage { #imageLiteral(resourceName: "CheckedGreenRadioButton") }
+    static var UncheckedGreenRadioButton: UIImage { #imageLiteral(resourceName: "UncheckedGreenRadioButton") }
+    
+    static var ic_hotel_filter_applied: UIImage{ #imageLiteral(resourceName: "ic_hotel_filter_applied") }
+    static var ic_hotel_filter: UIImage { #imageLiteral(resourceName: "ic_hotel_filter") }
+    static var bookingFilterIcon: UIImage { #imageLiteral(resourceName: "bookingFilterIcon") }
+    static var bookingFilterIconSelected: UIImage { #imageLiteral(resourceName: "bookingFilterIconSelected") }
+    
+    static var checkIcon: UIImage { #imageLiteral(resourceName: "checkIcon") }
+    static var aerinSmallMic: UIImage { #imageLiteral(resourceName: "aerinSmallMic") }
+    static var sendIcon: UIImage { #imageLiteral(resourceName: "sendIcon") }
+    
+    static var backGreen: UIImage { #imageLiteral(resourceName: "backGreen") }
+    static var green_2: UIImage { #imageLiteral(resourceName: "green_2") }
+    static var saveHotelsSelected: UIImage { #imageLiteral(resourceName: "saveHotelsSelected") }
+    static var save_icon_green: UIImage { #imageLiteral(resourceName: "save_icon_green") }
+    static var saveHotels: UIImage { #imageLiteral(resourceName: "saveHotels") }
+    static var buildingImage: UIImage { #imageLiteral(resourceName: "buildingImage") }
+    static var ic_fare_dipped: UIImage { #imageLiteral(resourceName: "ic_fare_dipped") }
+    
+    static var emptyStateCoupon: UIImage { #imageLiteral(resourceName: "emptyStateCoupon") }
+    static var frequentFlyerEmpty: UIImage { #imageLiteral(resourceName: "frequentFlyerEmpty") }
+    
+    static var emailIcon: UIImage { #imageLiteral(resourceName: "emailIcon") }
+    static var showPassword: UIImage { #imageLiteral(resourceName: "showPassword") }
+    static var hidePassword: UIImage { #imageLiteral(resourceName: "hidePassword") }
+    static var upwardAertripLogo: UIImage { #imageLiteral(resourceName: "upwardAertripLogo") }
+    static var greenPopOverButton: UIImage { #imageLiteral(resourceName: "greenPopOverButton") }
+    
+    static var indianFlag: UIImage { #imageLiteral(resourceName: "ne") }
+    static var ic_account_info: UIImage { #imageLiteral(resourceName: "ic_account_info") }
+    static var ic_upload_slip: UIImage {  #imageLiteral(resourceName: "ic_upload_slip") }
+    static var ic_next_arrow_zeroSpacing: UIImage { #imageLiteral(resourceName: "ic_next_arrow_zeroSpacing") }
+    static var arrowNextScreen: UIImage { #imageLiteral(resourceName: "arrowNextScreen") } //Duplicate Image assets
+    
+    
+    static var greenAdd: UIImage { #imageLiteral(resourceName: "greenAdd") }
+    static var Back: UIImage { #imageLiteral(resourceName: "Back") }
+    static var booking_Emptystate: UIImage { #imageLiteral(resourceName: "booking_Emptystate") }
+    
+    static var BookingDetailFlightNavIcon: UIImage { #imageLiteral(resourceName: "BookingDetailFlightNavIcon") }
+    static var flightIconDetailPage: UIImage { #imageLiteral(resourceName: "flightIconDetailPage") }
+    static var ic_acc_flight: UIImage {#imageLiteral(resourceName: "ic_acc_flight") }
+    static var flight_blue_icon:UIImage { #imageLiteral(resourceName: "flight_blue_icon") }
+    static var blueflight: UIImage { #imageLiteral(resourceName: "blueflight") }
+    
+    static var greenFlightIcon: UIImage {#imageLiteral(resourceName: "greenFlightIcon") }
+    static var flightCancellation: UIImage {#imageLiteral(resourceName: "flightCancellation") }
+    static var ic_acc_flightReScheduling: UIImage {#imageLiteral(resourceName: "ic_acc_flightReScheduling") }
+    
+
+    static var hotel_green_icon: UIImage{ return #imageLiteral(resourceName: "hotel_green_icon") }
+    static var hotelAerinIcon: UIImage {#imageLiteral(resourceName: "hotelAerinIcon") }
+    static var ic_acc_hotels: UIImage { #imageLiteral(resourceName: "ic_acc_hotels") }
+    static var hotelCopy4: UIImage { #imageLiteral(resourceName: "hotelCopy4") }
+    static var BookAnotherRoom: UIImage { #imageLiteral(resourceName: "BookAnotherRoom") }
+    static var ic_acc_hotelCancellation: UIImage {#imageLiteral(resourceName: "ic_acc_hotelCancellation") }
+    static var others_hotels: UIImage{ #imageLiteral(resourceName: "others_hotels") }
+    
+    static var greenCalenderIcon: UIImage {#imageLiteral(resourceName: "greenCalenderIcon") }
+    static var addToTripgreen: UIImage { #imageLiteral(resourceName: "addToTripgreen") }
+    static var AddToAppleWallet: UIImage { #imageLiteral(resourceName: "AddToAppleWallet") }
+    static var bookingsDirections: UIImage {#imageLiteral(resourceName: "bookingsDirections") }
+    static var bookingsCall: UIImage {#imageLiteral(resourceName: "bookingsCall") }
+    static var bookingsCalendar: UIImage {#imageLiteral(resourceName: "bookingsCalendar") }
+    static var shareBooking: UIImage {#imageLiteral(resourceName: "shareBooking") }
+    static var bookingsHotel: UIImage {#imageLiteral(resourceName: "bookingsHotel") }
+    
+    static var woman: UIImage { #imageLiteral(resourceName: "woman") }
+    static var man: UIImage { #imageLiteral(resourceName: "man") }
+    static var girl: UIImage { #imageLiteral(resourceName: "girl") }
+    static var infant: UIImage { #imageLiteral(resourceName: "infant") }
+    static var boy: UIImage { #imageLiteral(resourceName: "boy") }
+    static var person: UIImage { #imageLiteral(resourceName: "person") }
+    
+    static var ic_acc_receipt: UIImage { #imageLiteral(resourceName: "ic_acc_receipt") }
+    static var ic_acc_lockAmount: UIImage {#imageLiteral(resourceName: "ic_acc_lockAmount") }
+    static var ic_acc_card: UIImage {#imageLiteral(resourceName: "ic_acc_card") }
+    static var ic_acc_debitNote: UIImage {#imageLiteral(resourceName: "ic_acc_debitNote") }
+    static var ic_acc_creditNote: UIImage {#imageLiteral(resourceName: "ic_acc_creditNote") }
+    static var ic_acc_cashback: UIImage {#imageLiteral(resourceName: "ic_acc_cashback") }
+    static var ic_acc_addOns: UIImage {#imageLiteral(resourceName: "ic_acc_addOns") }
+    
+    static var ic_acc_journalVoucher: UIImage { #imageLiteral(resourceName: "ic_acc_journalVoucher") }
+    static var linkFacebook: UIImage { #imageLiteral(resourceName: "linkFacebook") }
+    static var linkGoogle: UIImage { #imageLiteral(resourceName: "linkGoogle") }
+    static var flight: UIImage { #imageLiteral(resourceName: "flight") }
+    static var downArrowCheckOut: UIImage { #imageLiteral(resourceName: "downArrowCheckOut") }
+    static var upArrowIconCheckout: UIImage { #imageLiteral(resourceName: "upArrowIconCheckout") }
+    static var AllDoneCalendar: UIImage { #imageLiteral(resourceName: "AllDoneCalendar") }
+    
+    static var trips: UIImage { #imageLiteral(resourceName: "trips") }
+    static var fbIconWhite: UIImage { #imageLiteral(resourceName: "fbIconWhite") }
+    static var twiterIcon: UIImage { #imageLiteral(resourceName: "twiterIcon") }
+    static var flightIcon: UIImage { #imageLiteral(resourceName: "flightIcon") }
+    static var socialInstagram: UIImage { #imageLiteral(resourceName: "socialInstagram") }
+    static var hotelsCopy2: UIImage { #imageLiteral(resourceName: "hotelsCopy2") }
+    static var favHotelWithShadowMarker: UIImage { #imageLiteral(resourceName: "favHotelWithShadowMarker") }
+    static var clusterSmallTag: UIImage { #imageLiteral(resourceName: "clusterSmallTag") }
+    static var share_file_icon: UIImage { #imageLiteral(resourceName: "share_file_icon") }
+    static var send_icon: UIImage { #imageLiteral(resourceName: "send_icon") }
+    static var cross_icon: UIImage { #imageLiteral(resourceName: "cross_icon") }
+    static var downArrow: UIImage { #imageLiteral(resourceName: "downArrow") }
+    static var HotelDetailsEmptyState: UIImage { #imageLiteral(resourceName: "HotelDetailsEmptyState") }
+    static var tripAdvisorLogo: UIImage {  #imageLiteral(resourceName: "tripAdvisorLogo") }
+    static var adult_icon: UIImage { #imageLiteral(resourceName: "adult_icon") }
+    static var child_icon: UIImage { #imageLiteral(resourceName: "child_icon") }
+    static var hotelsBlack: UIImage { #imageLiteral(resourceName: "hotelsBlack") }
+    static var ic_no_traveller: UIImage { #imageLiteral(resourceName: "ic_no_traveller") }
+    
+    static var hotelEmpty: UIImage { #imageLiteral(resourceName: "hotelEmpty") }
+    static var emptyHotelIcon: UIImage { #imageLiteral(resourceName: "emptyHotelIcon") }
+    static var contactsEmpty: UIImage { #imageLiteral(resourceName: "contactsEmpty") }
+    static var facebookEmpty: UIImage { #imageLiteral(resourceName: "facebookEmpty") }
+    static var googleEmpty: UIImage { #imageLiteral(resourceName: "googleEmpty") }
+    static var noHotelFound: UIImage { #imageLiteral(resourceName: "noHotelFound") }
+    static var upcoming_emptystate: UIImage { #imageLiteral(resourceName: "upcoming_emptystate") }
+    static var hotelCardNoImagePlaceHolder: UIImage { #imageLiteral(resourceName: "hotelCardNoImagePlaceHolder") }
+    static var editPencel: UIImage { #imageLiteral(resourceName: "editPencel") }
+    static var redMinusButton: UIImage { #imageLiteral(resourceName: "redMinusButton") }
+    static var ic_delete_toast: UIImage { #imageLiteral(resourceName: "ic_delete_toast") }
+    static var ic_red_dot: UIImage { #imageLiteral(resourceName: "ic_red_dot") }
+    static var headPhoneIcon: UIImage { #imageLiteral(resourceName: "headPhoneIcon") }
+    static var telex: UIImage { #imageLiteral(resourceName: "telex") }
+    static var bookingEmailIcon: UIImage { #imageLiteral(resourceName: "bookingEmailIcon") }
+    
+    static var flightInfoarrow: UIImage { #imageLiteral(resourceName: "flightInfoarrow") }
+    static var overnightIcon: UIImage { #imageLiteral(resourceName: "overnightIcon") }
+    static var downloadingImage: UIImage { #imageLiteral(resourceName: "downloadingImage") }
+    static var pdf: UIImage { #imageLiteral(resourceName: "pdf") }
+    static var DownloadingPlaceHolder: UIImage { #imageLiteral(resourceName: "DownloadingPlaceHolder") }
+    static var bookingsWebCheckin: UIImage { #imageLiteral(resourceName: "bookingsWebCheckin") }
+    static var bookSameFlight: UIImage { #imageLiteral(resourceName: "bookSameFlight") }
+    static var bookingsWebCheckinUnselected: UIImage { #imageLiteral(resourceName: "bookingsWebCheckinUnselected") }
+    static var bookingsDirectionsUnselected: UIImage { #imageLiteral(resourceName: "bookingsDirectionsUnselected") }
+    static var callGray: UIImage { #imageLiteral(resourceName: "callGray") }
+    static var dircetionGray: UIImage { #imageLiteral(resourceName: "dircetionGray") }
+    static var rightArrow: UIImage { #imageLiteral(resourceName: "rightArrow") }
+    static var switch_fav_on: UIImage { #imageLiteral(resourceName: "switch_fav_on") }
+    
+    
+    @objc static var greyColorTrack: UIImage { #imageLiteral(resourceName: "greyColorTrack") }
+    @objc static var sliderHandle: UIImage { #imageLiteral(resourceName: "sliderHandle") }
+    @objc static var greenBlueRangeImage: UIImage { #imageLiteral(resourceName: "greenBlueRangeImage") }
+    
+    
+    static var arrow: UIImage{ #imageLiteral(resourceName: "arrow") }
+    static var radioButtonSelect: UIImage { #imageLiteral(resourceName: "radioButtonSelect") }
+    static var radioButtonUnselect: UIImage { #imageLiteral(resourceName: "radioButtonUnselect") }
+    @objc static var onewayIcon: UIImage {#imageLiteral(resourceName: "oneway")}
+    @objc static var returnIcon: UIImage { #imageLiteral(resourceName: "return") }
+    static var onewayWhite: UIImage {#imageLiteral(resourceName: "onewayWhite")}
+    static var onewayAertripColor: UIImage {#imageLiteral(resourceName: "onewayAertripColor")}
+    @objc static var greenTick: UIImage { #imageLiteral(resourceName: "greenTick") }
+    static var MultiAirlineItinery: UIImage { #imageLiteral(resourceName: "MultiAirlineItinery") }
+    static var Green_Copy: UIImage { #imageLiteral(resourceName: "Green_Copy") }
+    static var blackCheckmark: UIImage { #imageLiteral(resourceName: "blackCheckmark") }
+    static var downGray: UIImage { #imageLiteral(resourceName: "downGray") }
+    static var upGray: UIImage { #imageLiteral(resourceName: "upGray") }
+    static var green: UIImage { #imageLiteral(resourceName: "green") }
+    static var InfoButton: UIImage { #imageLiteral(resourceName: "InfoButton") }
+    static var OvHotelResult: UIImage { #imageLiteral(resourceName: "OvHotelResult") }
+    static var EmailPinned: UIImage { #imageLiteral(resourceName: "EmailPinned") }
+    static var SharePinned: UIImage { #imageLiteral(resourceName: "SharePinned") }
+    static var checkingBaggageKg: UIImage { #imageLiteral(resourceName: "checkingBaggageKg") }
+    static var UpArrow: UIImage { #imageLiteral(resourceName: "UpArrow") }
+    static var DownArrow: UIImage { #imageLiteral(resourceName: "DownArrow") }
+    static var pinGreen: UIImage { #imageLiteral(resourceName: "pinGreen") }
+    static var FilledpinGreen: UIImage { #imageLiteral(resourceName: "FilledpinGreen") }
+    static var ShareGreen: UIImage { #imageLiteral(resourceName: "ShareGreen") }
+    static var redchangeAirport: UIImage { #imageLiteral(resourceName: "redchangeAirport") }
+    static var changeOfTerminal: UIImage { #imageLiteral(resourceName: "changeOfTerminal") }
+    static var overnight: UIImage { #imageLiteral(resourceName: "overnight") }
+    static var cabinBaggage: UIImage { #imageLiteral(resourceName: "cabinBaggage") }
+    static var group4: UIImage { #imageLiteral(resourceName: "group4") }
+    static var Group_4_1: UIImage { #imageLiteral(resourceName: "Group_4_1") }
+    static var Green_Chat_bubble: UIImage { #imageLiteral(resourceName: "Green Chat bubble") }
+    static var BlurCross: UIImage { #imageLiteral(resourceName: "BlurCross") }
+    static var statusBarColor: UIImage { #imageLiteral(resourceName: "statusBarColor") }
+    static var group: UIImage { #imageLiteral(resourceName: "group") }
+    static var aerinBlackIcon: UIImage { #imageLiteral(resourceName: "aerinBlackIcon") }
+    static var White_Chat_bubble: UIImage { #imageLiteral(resourceName: "White Chat bubble") }
+    static var darkNights: UIImage { #imageLiteral(resourceName: "darkNights") }
+    static var icon: UIImage { #imageLiteral(resourceName: "icon") }
+    @objc static var unSelectOption: UIImage { #imageLiteral(resourceName: "unSelectOption") }
+    @objc static var selectOption: UIImage { #imageLiteral(resourceName: "selectOption") }
+    @objc static var EconomyClassGreen: UIImage { #imageLiteral(resourceName: "EconomyClassGreen") }
+    @objc static var BusinessClassGreen: UIImage { #imageLiteral(resourceName: "BusinessClassGreen") }
+    @objc static var PremiumEconomyClassGreen: UIImage { #imageLiteral(resourceName: "PremiumEconomyClassGreen") }
+    @objc static var FirstClassGreen: UIImage { #imageLiteral(resourceName: "FirstClassGreen") }
+    @objc static var EconomyClassBlack: UIImage { #imageLiteral(resourceName: "EconomyClassBlack") }
+    @objc static var BusinessClassBlack: UIImage { #imageLiteral(resourceName: "BusinessClassBlack") }
+    @objc static var PreEconomyClassBlack: UIImage { #imageLiteral(resourceName: "PreEconomyClassBlack") }
+    @objc static var FirstClassBlack: UIImage { #imageLiteral(resourceName: "FirstClassBlack") }
+    static var ArrowRed: UIImage { #imageLiteral(resourceName: "ArrowRed") }
+    static var TripPurpleIcon:UIImage { #imageLiteral(resourceName: "TripPurpleIcon") }
+    
+    //    static var down: UIImage { #imageLiteral(resourceName: "ArrowRed") }//icon
+    
+
+// UIImage(named:
+// UIImage imageNamed:
+
+
+    
+    
+//    #imageLiteral(resourceName: "green")
+    
+//    #imageLiteral(resourceName: "down")//Duplicate Image assets
+//    #imageLiteral(resourceName: "up")//Duplicate Image assets
+//    #imageLiteral(resourceName: "popOverMenuIcon")//Duplicate Image assets
+//    #imageLiteral(resourceName: "plusButton")
+    
+    
 }

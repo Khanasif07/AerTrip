@@ -58,6 +58,9 @@ class DomesticMultiLegCell: UITableViewCell {
         dashedView.setupDashedView()
         setupCollectionView()
         setupGradientView()
+        self.iconOne.roundedCorners(cornerRadius: 2)
+        self.iconTwo.roundedCorners(cornerRadius: 2)
+        self.iconThree.roundedCorners(cornerRadius: 2)
     }
     
     func setupCollectionView() {
@@ -69,8 +72,14 @@ class DomesticMultiLegCell: UITableViewCell {
         smartIconCollectionView.delegate = self
     }
     
+    private func setColors(){
+        self.flightCode.textColor = AppColors.themeGray60
+        self.arrivalAirportCode.textColor = AppColors.themeGray40
+        self.departureAirportCode.textColor = AppColors.themeGray40
+    }
+    
     //MARK:- Methods
-    fileprivate func setupGradientView( selectedColor : UIColor = UIColor.white) {
+    fileprivate func setupGradientView( selectedColor : UIColor = AppColors.themeWhite) {
         
         let gradient = CAGradientLayer()
         let gradientViewRect = gradientView.bounds
@@ -255,9 +264,9 @@ class DomesticMultiLegCell: UITableViewCell {
             isSelected = false
         }
         
-        let selectedStateBGColor = UIColor(displayP3Red: (236.0/255.0), green: (253.0/255.0), blue: (244.0/255.0), alpha: 1.0)
+        let selectedStateBGColor = AppColors.calendarSelectedGreen//AppColors.themeGreenishWhite//UIColor(displayP3Red: (236.0/255.0), green: (253.0/255.0), blue: (244.0/255.0), alpha: 1.0)
         
-                let backgroundColor = isSelected ? selectedStateBGColor : .white
+        let backgroundColor = isSelected ? selectedStateBGColor : AppColors.themeWhite
         
                // if ( duration.isHidden == false) {
                     self.backgroundColor = backgroundColor
@@ -265,6 +274,7 @@ class DomesticMultiLegCell: UITableViewCell {
                     price.backgroundColor = backgroundColor
                     setupGradientView(selectedColor: backgroundColor)
               //  }
+        self.setColors()
         
     }
     
@@ -274,8 +284,8 @@ class DomesticMultiLegCell: UITableViewCell {
         self.layer.borderWidth = 0
         
         pinnedTriangleLayer?.removeFromSuperlayer()
-        duration.textColor = .black
-        price.textColor = .black
+        duration.textColor = AppColors.themeBlack
+        price.textColor = AppColors.themeBlack
         dashedView.isHidden = false
         stopCountLabel.isHidden = true
         flightCode.isHidden = false
@@ -342,7 +352,7 @@ extension DomesticMultiLegCell : UICollectionViewDataSource , UICollectionViewDe
         let cell = smartIconCollectionView.dequeueReusableCell(withReuseIdentifier: "SmartIconCell", for: indexPath) as! SmartIconCell
         
         if indexPath.section == 0 {
-            cell.imageView.image = UIImage(named: "checkingBaggageKg")
+            cell.imageView.image = AppImages.checkingBaggageKg
             cell.superScript.attributedText = baggageSuperScript
             cell.superScriptWidth.constant = 14
             cell.imageViewLeading.constant = 0

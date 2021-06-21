@@ -36,11 +36,11 @@ class LayoutSeatCollCell: UICollectionViewCell {
         } else {
             seatView.isHidden = false
             if seatData.columnData.availability != .available || seatData.columnData.postBooking {
-                seatView.backgroundColor = AppColors.themeGray20
+                seatView.backgroundColor = AppColors.commonGray204
             } else if seatData.columnData.passenger != nil {
                 seatView.backgroundColor = AppColors.themeGreen
             } else {
-                seatView.backgroundColor = AppColors.themeWhite
+                seatView.backgroundColor = .white
             }
         }
     }

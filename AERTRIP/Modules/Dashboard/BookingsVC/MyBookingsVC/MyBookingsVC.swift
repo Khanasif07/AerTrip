@@ -58,7 +58,7 @@ class MyBookingsVC: BaseVC {
     
     override func initialSetup() {
         self.topNavBar.configureNavBar(title: LocalizedString.MyBookings.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
-        self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "bookingFilterIcon"), selectedImage: #imageLiteral(resourceName: "bookingFilterIconSelected"))
+        self.topNavBar.configureFirstRightButton(normalImage: AppImages.bookingFilterIcon, selectedImage: AppImages.bookingFilterIconSelected)
         self.topNavBar.firstRightBtnTrailingConst.constant = 3.0
         //        self.topNavBar.configureSecondRightButton(normalImage: #imageLiteral(resourceName: "swipeArrow"), selectedImage: #imageLiteral(resourceName: "swipeArrow"))
         self.topNavBar.firstRightButton.isHidden = true
@@ -80,17 +80,17 @@ class MyBookingsVC: BaseVC {
             case .myBookingFilterApplied:
                 if  MyBookingFilterVM.shared.isFilterAplied() {
                     self.topNavBar.firstRightButton.isSelected = true
-                    self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "bookingFilterIconSelected"), selectedImage: #imageLiteral(resourceName: "bookingFilterIconSelected"))
+                    self.topNavBar.configureFirstRightButton(normalImage: AppImages.bookingFilterIconSelected, selectedImage: AppImages.bookingFilterIconSelected)
                 } else {
                     self.topNavBar.firstRightButton.isSelected = false
-                    self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "bookingFilterIcon"), selectedImage: #imageLiteral(resourceName: "bookingFilterIcon"))
+                    self.topNavBar.configureFirstRightButton(normalImage: AppImages.bookingFilterIcon, selectedImage: AppImages.bookingFilterIcon)
                 }
                                 
                 FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsFilterApplied)
                     
             case .myBookingFilterCleared:
                 self.topNavBar.firstRightButton.isSelected = false
-                self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "bookingFilterIcon"), selectedImage: #imageLiteral(resourceName: "bookingFilterIcon"))
+                self.topNavBar.configureFirstRightButton(normalImage: AppImages.bookingFilterIcon, selectedImage: AppImages.bookingFilterIcon)
                 MyBookingFilterVM.shared.setToDefault()
                 
                 FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsFilterCleared)
@@ -149,7 +149,7 @@ class MyBookingsVC: BaseVC {
     }
     
     override func setupTexts() {
-        self.emptyStateImageView.image = #imageLiteral(resourceName: "booking_Emptystate")
+        self.emptyStateImageView.image = AppImages.booking_Emptystate
         self.emptyStateTitleLabel.text = LocalizedString.NoBookingsYet.localized
         self.emptyStateSubTitleLabel.text = LocalizedString.StartYourWanderlustJourneyWithUs.localized
     }
@@ -166,6 +166,8 @@ class MyBookingsVC: BaseVC {
         self.topNavBar.navTitleLabel.textColor = AppColors.textFieldTextColor51
         self.searchBarContainerView.backgroundColor = AppColors.clear
         self.childContainerView.backgroundColor = AppColors.clear
+        self.blurBackgroundView.isHidden = !self.isLightTheme()
+        self.view.backgroundColor = AppColors.themeWhite
     }
     
     override func bindViewModel() {
@@ -295,7 +297,7 @@ class MyBookingsVC: BaseVC {
             self.searchBarContainerView.isHidden = false
             self.instantiateChildVC()
             self.setUpViewPager()
-            self.blurBackgroundView.isHidden = false
+            self.blurBackgroundView.isHidden = (!self.isLightTheme())
             self.topNavBar.firstRightButton.isHidden = false
         }
     }
@@ -328,23 +330,7 @@ class MyBookingsVC: BaseVC {
         self.childContainerView.isHidden = true
         self.searchBarContainerView.isHidden = true
     }
-    /*
-    func addCustomBackgroundBlurView(){
-            
-            headerBlurView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: blurBackgroundView.height))
-            headerBlurView.effect = UIBlurEffect(style: .prominent)
-            headerBlurView.autoresizingMask = [.flexibleWidth,.flexibleHeight]
-            
-            blurBackgroundView.backgroundColor = UIColor.white.withAlphaComponent(0.85)
-            blurBackgroundView.addSubview(headerBlurView)
-            
-            statusBarBlurView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: statusBarHeight))
-            statusBarBlurView.effect = UIBlurEffect(style: .prominent)
-            self.navigationController?.view.addSubview(statusBarBlurView)
-        statusBarBlurView.backgroundColor = UIColor.white.withAlphaComponent(0.85)
-            
-        }
- */
+
     
     func startProgress() {
         // Invalid timer if it is valid

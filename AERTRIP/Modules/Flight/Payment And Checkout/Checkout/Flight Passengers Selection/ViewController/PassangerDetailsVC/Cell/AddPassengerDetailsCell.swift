@@ -424,7 +424,7 @@ class AddPassengerDetailsCell: UITableViewCell {
         containerView.layer.cornerRadius = 20.0
         unicodeSwitch.sliderView.layer.cornerRadius = 18
         unicodeSwitch.sliderInset = 1.0
-        verticalDividerView.backgroundColor = AppColors.themeGray20
+        verticalDividerView.backgroundColor = AppColors.unicodeSwitchLineColor
         configureSalutationSwicth(type: .none)
     }
     
@@ -559,13 +559,13 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
             if let vc = self.parentViewController {
             let prevSectdContry = PKCountryPicker.default.getCountryData(forISOCode: GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].countryCode.isEmpty ? "IN" : GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].countryCode )
                 PKCountryPickerSettings.shouldShowCountryCode = false
-            PKCountryPicker.default.chooseCountry(onViewController: vc, preSelectedCountry: prevSectdContry) { [weak self] (selectedCountry,closePicker)  in
-                printDebug("selected country data: \(selectedCountry)")
-                guard let strongSelf = self else {return}
-                GuestDetailsVM.shared.guests[0][strongSelf.cellIndexPath.section].nationality = selectedCountry.countryEnglishName
-                GuestDetailsVM.shared.guests[0][strongSelf.cellIndexPath.section].countryCode = selectedCountry.ISOCode
-                textField.text = selectedCountry.countryEnglishName
-            }
+                PKCountryPicker.default.chooseCountry(onViewController: vc, preSelectedCountry: prevSectdContry) { [weak self] (selectedCountry,closePicker)  in
+                    printDebug("selected country data: \(selectedCountry)")
+                    guard let strongSelf = self else {return}
+                    GuestDetailsVM.shared.guests[0][strongSelf.cellIndexPath.section].nationality = selectedCountry.countryEnglishName
+                    GuestDetailsVM.shared.guests[0][strongSelf.cellIndexPath.section].countryCode = selectedCountry.ISOCode
+                    textField.text = selectedCountry.countryEnglishName
+                }
             }
             textField.tintColor = AppColors.clear
             return false

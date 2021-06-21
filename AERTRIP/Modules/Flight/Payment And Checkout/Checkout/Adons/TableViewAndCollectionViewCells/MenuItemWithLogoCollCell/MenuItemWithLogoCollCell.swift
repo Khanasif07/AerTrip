@@ -50,6 +50,7 @@ class MenuItemWithLogoCollCell: PagingCell {
     // MARK: View Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
+        mainView.backgroundColor = AppColors.themeWhiteDashboard
         logoImgView.roundedCorners(cornerRadius: 2)
     }
     

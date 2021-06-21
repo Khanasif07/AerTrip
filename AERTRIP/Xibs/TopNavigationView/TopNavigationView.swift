@@ -66,6 +66,9 @@ class TopNavigationView: PassthroughView {
         }
     }
     
+    @IBOutlet weak var darkView: UIView!
+    @IBOutlet weak var darkViewHeight: NSLayoutConstraint!
+    
     var isNeedExtraSpace  = false
     
     //MARK:- View Life Cycle
@@ -87,6 +90,11 @@ class TopNavigationView: PassthroughView {
         self.updateTitleFrames()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateForTraitChange()
+    }
+    
     //MARK:- Methods
     //MARK:- Private
     private func initialSetup() {
@@ -99,6 +107,9 @@ class TopNavigationView: PassthroughView {
         self.navTitleLabel.font = AppFonts.SemiBold.withSize(18.0)
         self.isToShowIndicatorView = false
         self.configureNavBar(title: "")
+        darkView.backgroundColor = AppColors.themeWhite
+        updateForTraitChange()
+        darkView.isHidden = true
         
     }
     
@@ -276,6 +287,14 @@ class TopNavigationView: PassthroughView {
         self.secondRightButton.titleLabel?.font = font
         
         self.updateTitleFrames()
+    }
+    
+    private func updateForTraitChange() {
+        if traitCollection.userInterfaceStyle == .dark {
+//            darkView.isHidden = false
+        } else {
+//            darkView.isHidden = true
+        }
     }
     
     

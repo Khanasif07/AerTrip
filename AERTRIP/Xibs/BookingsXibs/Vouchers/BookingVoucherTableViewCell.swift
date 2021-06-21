@@ -191,9 +191,9 @@ class BookingVoucherTableViewCell: ATTableViewCell {
             
             
         }else{if titleStr.lowercased().contains("netbanking"){
-            self.paymentTypeImageView.image = #imageLiteral(resourceName: "netBanking")
+            self.paymentTypeImageView.image = AppImages.netBanking
         }else{
-            self.paymentTypeImageView.image = #imageLiteral(resourceName: "visa")
+            self.paymentTypeImageView.image = AppImages.visa
         }
             
         }

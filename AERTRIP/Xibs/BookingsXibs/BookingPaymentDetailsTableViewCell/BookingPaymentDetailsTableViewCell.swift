@@ -26,11 +26,13 @@ class BookingPaymentDetailsTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configUI()
+        self.containerView.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         self.costLabel.attributedText = nil
+        self.containerView.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     // Mark:- Functions
@@ -46,7 +48,7 @@ class BookingPaymentDetailsTableViewCell: UITableViewCell {
         self.containerViewBottomConstraint.constant = 0.0
         //self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.7, shadowRadius: 5.0)
 //        self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
-        let shadow = AppShadowProperties()
+        let shadow = AppShadowProperties(self.isLightTheme())
         self.containerView.addShadow(cornerRadius: 0, maskedCorners: [], color: shadow.shadowColor, offset: shadow.offset, opacity: shadow.opecity, shadowRadius: shadow.shadowRadius)
     }
     
@@ -94,14 +96,14 @@ class BookingPaymentDetailsTableViewCell: UITableViewCell {
             self.cellHeight.constant = 41.5
             self.dividerView.isHidden = false
 //            self.containerView.addShadow(cornerRadius: 15.0, maskedCorners: [.layerMaxXMaxYCorner, .layerMinXMaxYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
-            let shadow = AppShadowProperties()
+            let shadow = AppShadowProperties(self.isLightTheme())
             self.containerView.addShadow(cornerRadius: 15.0, maskedCorners: [.layerMaxXMaxYCorner, .layerMinXMaxYCorner], color: shadow.shadowColor, offset: shadow.offset, opacity: shadow.opecity, shadowRadius: shadow.shadowRadius)
             
         } else {
             self.cellHeight.constant = cellHeight // 43.0
             self.dividerView.isHidden = true
 //            self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [.layerMaxXMaxYCorner, .layerMinXMaxYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
-            let shadow = AppShadowProperties()
+            let shadow = AppShadowProperties(self.isLightTheme())
             self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [.layerMaxXMaxYCorner, .layerMinXMaxYCorner], color: shadow.shadowColor, offset: shadow.offset, opacity: shadow.opecity, shadowRadius: shadow.shadowRadius)
         }
     }

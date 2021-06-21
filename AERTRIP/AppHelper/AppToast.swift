@@ -17,7 +17,7 @@ class AppToast : NSObject {
         var image: UIImage {
             switch self {
             case .cross:
-                return #imageLiteral(resourceName: "ic_toast_cross").withRenderingMode(.alwaysOriginal)
+                return AppImages.ic_toast_cross.withRenderingMode(.alwaysOriginal)
             }
         }
         

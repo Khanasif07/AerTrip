@@ -27,6 +27,7 @@ class PlansCollectionViewCell: UICollectionViewCell
     
     @IBOutlet weak var fewSeatsLeftLabel: UILabel!
     @IBOutlet weak var fewSeatsLeftCountLabel: UILabel!
+    @IBOutlet weak var dividerLabel: UILabel!
     
     var desc = NSAttributedString()
     var isAnimated = false
@@ -40,10 +41,26 @@ class PlansCollectionViewCell: UICollectionViewCell
         dataDisplayView.layer.cornerRadius = 10
         selectButton.layer.cornerRadius = selectButton.bounds.height/2
         self.dataDisplayView.addShadow(cornerRadius: AppShadowProperties().cornerRadius, maskedCorners: [.layerMaxXMaxYCorner,.layerMaxXMinYCorner,.layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppShadowProperties().shadowColor, offset: AppShadowProperties().offset, opacity: AppShadowProperties().opecity, shadowRadius: AppShadowProperties().shadowRadius)
+        self.setColor()
     }
     
-    @IBAction func tapSelectButton(_ sender: Any)
-    {
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.setColor()
+    }
+    
+    private func setColor(){
+        self.dataDisplayView.backgroundColor = AppColors.themeWhiteDashboard
+        self.fewSeatsLeftView.backgroundColor = AppColors.fewSeatLeftColor
+        self.dividerLabel.backgroundColor = AppColors.fewSeatLeftColor
+        self.txtView.backgroundColor = AppColors.themeWhiteDashboard
+        self.txtView.textColor = AppColors.themeBlack
+        self.fewSeatsLeftLabel.textColor = AppColors.themeRed
+        self.fewSeatsLeftCountLabel.backgroundColor = AppColors.themeRed
+        self.priceLabel.textColor = AppColors.themeGray60
+    }
+    
+    @IBAction func tapSelectButton(_ sender: Any) {
         self.handler?()
     }
 }

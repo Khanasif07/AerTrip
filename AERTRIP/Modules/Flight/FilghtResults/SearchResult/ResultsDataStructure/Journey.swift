@@ -416,7 +416,7 @@ public class Journey: Codable , Equatable {
         if flights.count > baggageArray.count {
 
             let attributes =   [NSAttributedString.Key.font : AppFonts.Regular.withSize(9) ,
-                                NSAttributedString.Key.foregroundColor : UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)]
+                                NSAttributedString.Key.foregroundColor : AppColors.themeRed]//UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)]
             let attributedSuperScript = NSAttributedString(string: "?", attributes: attributes)
             return attributedSuperScript
         }
@@ -425,7 +425,7 @@ public class Journey: Codable , Equatable {
         guard let firstValue = baggageArray.first else {
 
             let attributes =   [NSAttributedString.Key.font : AppFonts.Regular.withSize(9) ,
-                                NSAttributedString.Key.foregroundColor : UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)]
+                                NSAttributedString.Key.foregroundColor : AppColors.themeRed]//UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)]
             let attributedSuperScript = NSAttributedString(string: "?", attributes: attributes)
             return attributedSuperScript
         }
@@ -434,7 +434,7 @@ public class Journey: Codable , Equatable {
         if baggageArray.allSatisfy({ $0 == firstValue }) {
             
             let attributes =   [NSAttributedString.Key.font :AppFonts.Regular.withSize(9) ,
-                                NSAttributedString.Key.foregroundColor : UIColor.black]
+                                NSAttributedString.Key.foregroundColor : AppColors.themeBlack]
             
             if let ADTBaggage = firstValue["ADT"] {
                 
@@ -471,20 +471,20 @@ public class Journey: Codable , Equatable {
                 
                 if let pieces = ADTBaggage.pieces, pieces != "" && pieces != "-9" && pieces != "-1" && pieces != "0 pc" && pieces != "0" {
                     let attributes =   [NSAttributedString.Key.font : AppFonts.Regular.withSize(16) ,
-                                       NSAttributedString.Key.foregroundColor : UIColor.black]
+                                       NSAttributedString.Key.foregroundColor : AppColors.themeBlack]
 
                     let attributedSuperScript = NSAttributedString(string: "*", attributes: attributes)
                     return attributedSuperScript
 
                 }else{
                     let attributes =   [NSAttributedString.Key.font : AppFonts.Regular.withSize(9) ,
-                                         NSAttributedString.Key.foregroundColor : UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)]
+                                        NSAttributedString.Key.foregroundColor : AppColors.themeRed]//UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)
                      let attributedSuperScript = NSAttributedString(string: "?", attributes: attributes)
                      return attributedSuperScript
                 }
             }else{
                 let attributes =   [NSAttributedString.Key.font :AppFonts.Regular.withSize(9) ,
-                                     NSAttributedString.Key.foregroundColor : UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)]
+                                     NSAttributedString.Key.foregroundColor : AppColors.themeRed]//UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)]
                  let attributedSuperScript = NSAttributedString(string: "?", attributes: attributes)
                  return attributedSuperScript
                 
@@ -492,7 +492,7 @@ public class Journey: Codable , Equatable {
          }
 
         let attributes =   [NSAttributedString.Key.font :AppFonts.Regular.withSize(9) ,
-                             NSAttributedString.Key.foregroundColor : UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)]
+                             NSAttributedString.Key.foregroundColor : AppColors.themeRed]//UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)]
          let attributedSuperScript = NSAttributedString(string: "?", attributes: attributes)
          return attributedSuperScript
     }

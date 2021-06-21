@@ -239,7 +239,12 @@ class HotelsSearchVC: BaseVC {
 //        self.containerView.layer.shadowOpacity = 0.7
 //        self.containerView.layer.shadowRadius = 6.0
         
-        self.containerView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize(width: 0, height: 16), opacity: 1, shadowRadius: 6.0)
+        if self.isLightTheme(){
+            self.containerView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize(width: 0, height: 16), opacity: 1, shadowRadius: 6.0)
+        }else{
+            self.containerView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize(width: 0, height: 0), opacity: 1, shadowRadius: 0)
+        }
+        
     }
     
     ///ConfigureCheckInOutView
@@ -405,7 +410,7 @@ class HotelsSearchVC: BaseVC {
         //reset all the buttons first
         //        for starBtn in self.starButtonsOutlet {
         //            starBtn.isSelected = false
-        //            starBtn.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
+        //            starBtn.setImage(AppImages.starRatingUnfill, for: .normal)
         //        }
         //        for star in oldData.ratingCount {
         //            self.updateStarButtonState(forStar: star, isSettingFirstTime: isSettingForFirstTime)
@@ -463,16 +468,16 @@ class HotelsSearchVC: BaseVC {
             //
             //                if starBtn.tag == forStar {
             //                    starBtn.isSelected = isSettingFirstTime ? true : !starBtn.isSelected
-            //                    let img = starBtn.isSelected ? #imageLiteral(resourceName: "starRatingFilled") : #imageLiteral(resourceName: "starRatingUnfill")
+            //                    let img = starBtn.isSelected ? AppImages.starRatingFilled : AppImages.starRatingUnfill
             //                    starBtn.setImage(img, for: starBtn.isSelected ? .selected : .normal)
             //                }
             //                else if self.viewModel.searchedFormData.ratingCount.contains(starBtn.tag) {
             //                    starBtn.isSelected = true
-            //                    starBtn.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .selected)
+            //                    starBtn.setImage(AppImages.starRatingFilled, for: .selected)
             //                }
             //                else {
             //                    starBtn.isSelected = false
-            //                    starBtn.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
+            //                    starBtn.setImage(AppImages.starRatingUnfill, for: .normal)
             //                }
             //            }
         }

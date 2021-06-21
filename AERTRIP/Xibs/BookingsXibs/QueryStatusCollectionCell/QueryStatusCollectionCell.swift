@@ -18,6 +18,7 @@ class QueryStatusCollectionCell: UICollectionViewCell {
     //================
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var dividerView: ATDividerView!
+    @IBOutlet weak var statusView: UIView!
     @IBOutlet weak var statusImageView: UIImageView!
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var iconHeightConstraint: NSLayoutConstraint!
@@ -36,6 +37,11 @@ class QueryStatusCollectionCell: UICollectionViewCell {
         self.configUI()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.statusView.backgroundColor = AppColors.themeWhiteDashboard
+    }
+    
     //MARK:- Functions
     //================
     private func configUI() {
@@ -44,6 +50,7 @@ class QueryStatusCollectionCell: UICollectionViewCell {
         self.backgroundColor = AppColors.clear
         self.containerView.backgroundColor = AppColors.clear
         self.clipsToBounds = true
+        self.statusView.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     private func setData() {
@@ -54,17 +61,17 @@ class QueryStatusCollectionCell: UICollectionViewCell {
         if self.statusText.lowercased().hasSuffix("successful") {
             self.iconHeightConstraint.constant = 22
             self.iconTrailingConstraint.constant = -7
-            self.statusImageView.image = #imageLiteral(resourceName: "checkIcon")
+            self.statusImageView.image = AppImages.checkIcon
         }
         else if self.statusText.lowercased().hasSuffix("required") {
             self.iconHeightConstraint.constant = 8.0
             self.iconTrailingConstraint.constant = 0
-            self.statusImageView.image = #imageLiteral(resourceName: "ic_red_dot")
+            self.statusImageView.image = AppImages.ic_red_dot
         }
         else if self.statusText.lowercased().hasSuffix("pending") {
             self.iconHeightConstraint.constant = 8.0
             self.iconTrailingConstraint.constant = 0
-            self.statusImageView.image = #imageLiteral(resourceName: "ic_red_dot")
+            self.statusImageView.image = AppImages.ic_red_dot
         }
         else if self.statusText.lowercased().hasSuffix("aborted") ||
                     self.statusText.lowercased().hasSuffix("terminated") {

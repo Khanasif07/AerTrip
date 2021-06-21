@@ -67,6 +67,11 @@ class BookingDocumentsCollectionViewCell: UICollectionViewCell {
         self.configUI()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.containerView.backgroundColor = AppColors.themeWhiteDashboard
+    }
+    
     //MARK:- Functions
     //MARK:===========
     private func configUI() {
@@ -74,7 +79,7 @@ class BookingDocumentsCollectionViewCell: UICollectionViewCell {
         self.nameLabel.textColor = AppColors.themeBlack
         self.documentsSizeLabel.font = AppFonts.Regular.withSize(14.0)
         self.documentsSizeLabel.textColor = AppColors.themeGray40
-        self.documentsImageView.image = #imageLiteral(resourceName: "pdf")
+        self.documentsImageView.image = AppImages.pdf
         self.imageContainerViewTopConstraint.constant = self.normalTopConstraint
         self.imageContainerViewWidthConstraint.constant = self.normalWidthConstraint
         self.imageContainerViewHeightConstraint.constant = self.normalHeightConstraint
@@ -84,6 +89,7 @@ class BookingDocumentsCollectionViewCell: UICollectionViewCell {
         longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressGesture(recognizer:)))
         longPressGesture?.minimumPressDuration = 0.5 // 1 second press
         //longPressGesture?.delaysTouchesEnded = true
+        self.containerView.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     internal func configCell(name: String , documentsSize: String , request: DocumentDownloadingModel, type:String = "") {
@@ -157,7 +163,7 @@ class BookingDocumentsCollectionViewCell: UICollectionViewCell {
         self.imageContainerViewWidthConstraint.constant = self.widthConstraintForDownloading
         self.imageContainerViewHeightConstraint.constant = self.heightConstraintForDownloading
         self.imageContainerViewBottomConstraint.constant = self.bottomConstraintForDownloading
-        self.dowloadingPlaceHolderImgView.image = #imageLiteral(resourceName: "DownloadingPlaceHolder")
+        self.dowloadingPlaceHolderImgView.image = AppImages.DownloadingPlaceHolder
     }
     
     internal func downloadedStatusSetUp(name: String, type: String = "") {

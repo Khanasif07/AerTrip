@@ -254,20 +254,20 @@ extension HotelCardTableViewCell: UICollectionViewDataSource, UICollectionViewDe
         cell.imageView.contentMode = .scaleAspectFill
         if let images = hotelListData?.thumbnail, images.count > indexPath.item {
             //set image from url
-            //            cell.imageView.image = #imageLiteral(resourceName: "hotelCardPlaceHolder")
-//            cell.imageView.setImageWithUrl(images[indexPath.item], placeholder: #imageLiteral(resourceName: "hotelCardPlaceHolder"), showIndicator: false)
+            //            cell.imageView.image = AppImages.hotelCardPlaceHolder
+//            cell.imageView.setImageWithUrl(images[indexPath.item], placeholder: AppImages.hotelCardPlaceHolder, showIndicator: false)
             cell.imageView.cancelImageDownloading()
-            cell.imageView.setImageWithUrl(imageUrl: images[indexPath.item], placeholder: #imageLiteral(resourceName: "hotelCardPlaceHolder"), showIndicator: false) { [unowned self] (image, error) in
+            cell.imageView.setImageWithUrl(imageUrl: images[indexPath.item], placeholder: AppImages.hotelCardPlaceHolder, showIndicator: false) { [unowned self] (image, error) in
                 if let downloadedImage = image {
                     cell.imageView.image = downloadedImage
                 } else {
-                    cell.imageView.image = #imageLiteral(resourceName: "hotelCardNoImagePlaceHolder")
+                    cell.imageView.image = AppImages.hotelCardNoImagePlaceHolder
                 }
             }
         }
         else {
             //set thumbnail
-            cell.imageView.image = #imageLiteral(resourceName: "hotelCardNoImagePlaceHolder")
+            cell.imageView.image = AppImages.hotelCardNoImagePlaceHolder
         }
         
         return cell

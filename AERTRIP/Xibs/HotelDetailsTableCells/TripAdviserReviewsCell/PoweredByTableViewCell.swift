@@ -25,7 +25,7 @@ class PoweredByTableViewCell: UITableViewCell {
     private func configUI() {
         self.titleLable.font = AppFonts.Regular.withSize(18.0)
         self.titleLable.textColor = AppColors.themeBlack
-        self.tripAdvisorImageView.image = #imageLiteral(resourceName: "tripAdvisorLogo")
+        self.tripAdvisorImageView.image = AppImages.tripAdvisorLogo
     }
     
     internal func configCell() {

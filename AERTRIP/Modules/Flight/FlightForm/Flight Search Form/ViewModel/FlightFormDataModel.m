@@ -334,26 +334,26 @@
     return self.travellerCount.flightInfantCount;
 }
 
-- (NSString *)getImageNameForFlightClass:(FlightClass *)flightClass {
+- (UIImage *)getImageForFlightClass:(FlightClass *)flightClass {
     
     if ([flightClass.type isEqualToString:ECONOMY_FLIGHT_TYPE]) {
-        return @"EconomyClassBlack";
+        return AppImages.EconomyClassBlack;
     }else if ([flightClass.type isEqualToString:BUSINESS_FLIGHT_TYPE]) {
-        return @"BusinessClassBlack";
+        return AppImages.BusinessClassBlack;
         
     }else if ([flightClass.type isEqualToString:PREMIUM_FLIGHT_TYPE]) {
-        return @"PreEconomyClassBlack";
+        return AppImages.PreEconomyClassBlack;
         
     }else if ([flightClass.type isEqualToString:FIRST_FLIGHT_TYPE]) {
-        return @"FirstClassBlack";
+        return AppImages.FirstClassBlack;
         
     }
-    return @"";
+    return AppImages.EconomyClassBlack;
 }
 
 
 -(UIImage*)flightClassImage {
-    return [UIImage imageNamed:[self getImageNameForFlightClass:self.flightClass]];
+    return [self getImageForFlightClass:self.flightClass];
 
 }
 
@@ -687,7 +687,7 @@
         
         
         NSTextAttachment * textAttachment = [[NSTextAttachment alloc]init];
-        UIImage *iconImage = [UIImage imageNamed:@"return"];
+        UIImage *iconImage = AppImages.returnIcon;
         
         [textAttachment setBounds:CGRectMake(0, roundf(sourceSansPRO18.capHeight - iconImage.size.height)/2.f, iconImage.size.width, iconImage.size.height)];
         [textAttachment setImage:iconImage];
@@ -711,7 +711,7 @@
         
         
         NSTextAttachment * textAttachment = [[NSTextAttachment alloc]init];
-        UIImage *iconImage = [UIImage imageNamed:@"oneway"];
+        UIImage *iconImage = AppImages.onewayIcon;
         
         [textAttachment setBounds:CGRectMake(0, roundf(sourceSansPRO18.capHeight - iconImage.size.height)/2.f, iconImage.size.width, iconImage.size.height)];
         [textAttachment setImage:iconImage];
@@ -737,7 +737,7 @@
         
         
         NSTextAttachment * textAttachment = [[NSTextAttachment alloc]init];
-        UIImage *iconImage = [UIImage imageNamed:@"oneway"];
+        UIImage *iconImage = AppImages.onewayIcon;
         
         [textAttachment setBounds:CGRectMake(0, roundf(sourceSansPRO18.capHeight - iconImage.size.height)/2.f, iconImage.size.width, iconImage.size.height)];
         [textAttachment setImage:iconImage];

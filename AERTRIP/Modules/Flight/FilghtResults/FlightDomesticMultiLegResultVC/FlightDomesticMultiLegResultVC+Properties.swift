@@ -125,7 +125,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         setupScrollView()
         setupPinnedFlightsOptionsView()
         showHintAnimation()
-        
+        self.view.backgroundColor = AppColors.themeWhite
         ApiProgress = UIProgressView(progressViewStyle: .bar)
         ApiProgress.progressTintColor = UIColor.AertripColor
         ApiProgress.trackTintColor = .clear
@@ -137,13 +137,14 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         self.collectionContainerView.addSubview(ApiProgress)
         getSharableLink.delegate = self
         self.viewModel.setSharedFks()
+        view.backgroundColor = AppColors.themeWhite
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.emailPinnedFlights.setImage(UIImage(named: "EmailPinned"), for: .normal)
+        self.emailPinnedFlights.setImage(AppImages.EmailPinned, for: .normal)
         self.emailPinnedFlights.displayLoadingIndicator(false)
 
     }
@@ -167,8 +168,18 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         }
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        for view in self.baseScrollView.subviews{
+            if let table = view as? UITableView{
+                table.reloadData()
+            }
+        }
+    }
+    
     deinit {
         self.fareBreakupVC?.view.removeFromSuperview()
+        self.fareBreakupVC = nil
     }
     
     //MARK:- Additional UI Methods
@@ -464,7 +475,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
 //    MARK:- Email Flight code added by Monika
     @IBAction func emailPinnedFlights(_ sender: Any)
     {
-        emailPinnedFlights.setImage(UIImage(named: "OvHotelResult"), for: .normal)
+        emailPinnedFlights.setImage(AppImages.OvHotelResult, for: .normal)
         emailPinnedFlights.displayLoadingIndicator(true)
 
         if let _ = UserInfo.loggedInUserId{
@@ -515,7 +526,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
     
     func shareFlights( journeyArray : [Journey]) {
         sharePinnedFilghts.displayLoadingIndicator(true)
-        self.sharePinnedFilghts.setImage(UIImage(named: "OvHotelResult"), for: .normal)
+        self.sharePinnedFilghts.setImage(AppImages.OvHotelResult, for: .normal)
 
         let flightAdultCount = bookFlightObject.flightAdultCount
         let flightChildrenCount = bookFlightObject.flightChildrenCount
@@ -549,7 +560,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
     func returnSharableUrl(url: String)
     {
         sharePinnedFilghts.displayLoadingIndicator(false)
-        self.sharePinnedFilghts.setImage(UIImage(named: "SharePinned"), for: .normal)
+        self.sharePinnedFilghts.setImage(AppImages.SharePinned, for: .normal)
 
         if url.lowercased() == "no data"{
             AertripToastView.toast(in: self.view, withText: "Something went wrong. Please try again.")

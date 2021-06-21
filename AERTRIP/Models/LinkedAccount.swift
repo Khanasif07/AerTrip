@@ -60,16 +60,16 @@ struct LinkedAccount {
             switch self {
                 
             case .facebook:
-                return #imageLiteral(resourceName: "linkFacebook")
+                return AppImages.linkFacebook
                 
             case .google:
-                return #imageLiteral(resourceName: "linkGoogle")
+                return AppImages.linkGoogle
                 
                 //            case .linkedin:
                 //                return #imageLiteral(resourceName: "linkLinkedIn")
                 
             case .apple:
-                return #imageLiteral(resourceName: "Apple Logo")
+                return AppImages.appleLogoImage
                 
             default:
                 return nil

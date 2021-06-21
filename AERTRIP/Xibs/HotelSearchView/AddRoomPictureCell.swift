@@ -42,6 +42,12 @@ class AddRoomPictureCell: UICollectionViewCell {
         self.configureUI()
     }
     
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.configureUI()
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
     }
@@ -70,14 +76,15 @@ class AddRoomPictureCell: UICollectionViewCell {
         let regularFontSize16 = AppFonts.Regular.withSize(16.0)
         self.roomCountLabel.font = regularFontSize16
         self.roomCountLabel.textColor = AppColors.themeGray40
-        self.adultPopUpBtn.setImage(#imageLiteral(resourceName: "adult_icon"), for: .normal)
-        self.childPopUpBtn.setImage(#imageLiteral(resourceName: "child_icon"), for: .normal)
+        self.adultPopUpBtn.setImage(AppImages.adult_icon, for: .normal)
+        self.childPopUpBtn.setImage(AppImages.child_icon, for: .normal)
         self.adultPopUpBtn.titleLabel?.font = AppFonts.SemiBold.withSize(18.0)
         self.childPopUpBtn.titleLabel?.font = AppFonts.SemiBold.withSize(18.0)
         self.adultPopUpBtn.setTitleColor(AppColors.textFieldTextColor51, for: .normal)
         self.childPopUpBtn.setTitleColor(AppColors.textFieldTextColor51, for: .normal)
         self.adultPopUpBtn.isUserInteractionEnabled = false
         self.childPopUpBtn.isUserInteractionEnabled = false
+        self.backgroundColor = AppColors.themeWhiteDashboard
         
     }
     

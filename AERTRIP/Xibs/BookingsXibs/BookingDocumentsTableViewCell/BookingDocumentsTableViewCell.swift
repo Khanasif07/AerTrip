@@ -53,6 +53,11 @@ class BookingDocumentsTableViewCell: UITableViewCell {
         self.configUI()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.setupColors()
+    }
+    
     //MARK:- Functions
     //MARK:===========
     private func configUI() {
@@ -61,6 +66,13 @@ class BookingDocumentsTableViewCell: UITableViewCell {
         self.documentsLabel.text = LocalizedString.Documents.localized
         self.documentsCollectionView.registerCell(nibName: BookingDocumentsCollectionViewCell.reusableIdentifier)
         self.topdividerView.isHidden = true
+        self.setupColors()
+    }
+    
+    private func setupColors(){
+        self.containerView.backgroundColor = AppColors.themeWhiteDashboard
+        self.documentsCollectionView.backgroundColor = AppColors.themeWhiteDashboard
+        
     }
     
     private func checkCreateAndReturnDocumentFolder() -> String {
@@ -162,7 +174,7 @@ extension BookingDocumentsTableViewCell: UICollectionViewDelegate , UICollection
             cell.containerView.removeGestureRecognizer(cell.longPressGesture!)
             cell.containerView.addGestureRecognizer(cell.longPressGesture!)
         } else {
-            cell.downloadingIcon.image = #imageLiteral(resourceName: "downloadingImage")
+            cell.downloadingIcon.image = AppImages.downloadingImage
             cell.containerView.removeGestureRecognizer(cell.longPressGesture!)
 
         }

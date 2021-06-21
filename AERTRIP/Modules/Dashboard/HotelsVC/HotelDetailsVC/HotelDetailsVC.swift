@@ -287,7 +287,7 @@ class HotelDetailsVC: BaseVC {
         self.mainView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.001)
         self.headerView.configureNavBar(title: nil , isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .blurAnimatedView(isDark: false))
         self.manageFavIcon()
-        self.headerView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "CancelButtonWhite"), selectedImage: #imageLiteral(resourceName: "black_cross"), normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
+        self.headerView.configureFirstRightButton(normalImage: AppImages.CancelButtonWhite, selectedImage: AppImages.CancelButtonWhite, normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
         self.headerView.firstRightButton.imageEdgeInsets = UIEdgeInsets(top: 2, left: 0, bottom: 0, right: 0)
         self.headerView.firstLeftButtonLeadingConst.constant = 4.5
         self.headerView.firstRightButton.addTarget(self, action: #selector(self.cancelButtonAction), for: .touchUpInside)
@@ -322,8 +322,8 @@ class HotelDetailsVC: BaseVC {
     
     func manageFavIcon() {
         printDebug("Manage fav icon")
-        let buttonImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
-        let selectedFevImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "save_icon_green")
+        let buttonImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? AppImages.saveHotelsSelected : AppImages.saveHotels
+        let selectedFevImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? AppImages.saveHotelsSelected : AppImages.save_icon_green
         self.headerView.configureLeftButton(normalImage: buttonImage, selectedImage: selectedFevImage, normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil,isHideBackView: self.headerView.backView.isHidden)
     }
     

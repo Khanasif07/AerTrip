@@ -32,6 +32,7 @@ class SelectOtherAdonsContainerVC: BaseVC {
     @IBOutlet weak var specialRequestLabel: UILabel!
     
     
+    
     // MARK: View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,6 +65,8 @@ class SelectOtherAdonsContainerVC: BaseVC {
     
     override func setupColors() {
         super.setupColors()
+        self.MealTotalLabel.textColor = AppColors.themeGray60
+        self.totalLabel.textColor = AppColors.themeBlack
     }
     
     override func initialSetup() {
@@ -80,7 +83,7 @@ class SelectOtherAdonsContainerVC: BaseVC {
             AddonsDataStore.shared.flightsWithData[index].specialRequest = item.otherAdonsVm.specialRequest
             
             
-            let flightAtINdex = AddonsDataStore.shared.allFlights.filter { $0.ffk == AddonsDataStore.shared.flightsWithDataForMeals[index].flightId }
+            let flightAtINdex = AddonsDataStore.shared.allFlights.filter { $0.ffk == AddonsDataStore.shared.flightsWithData[index].flightId }
             
             if let firstFlight = flightAtINdex.first {
             
@@ -88,7 +91,7 @@ class SelectOtherAdonsContainerVC: BaseVC {
                     
                     if !addon.othersSelectedFor.isEmpty {
                         
-                        FirebaseEventLogs.shared.logAddons(with: FirebaseEventLogs.EventsTypeName.addOtherAddons, addonName: addon.adonsName, flightTitle: "\(firstFlight.fr) - \(firstFlight.to)" , fk: AddonsDataStore.shared.flightsWithDataForBaggage[index].flightId, addonQty: addon.othersSelectedFor.count)
+                        FirebaseEventLogs.shared.logAddons(with: FirebaseEventLogs.EventsTypeName.addOtherAddons, addonName: addon.adonsName, flightTitle: "\(firstFlight.fr) - \(firstFlight.to)" , fk: AddonsDataStore.shared.flightsWithData[index].flightId, addonQty: addon.othersSelectedFor.count)
                         
                     }
                     
@@ -116,6 +119,8 @@ extension SelectOtherAdonsContainerVC {
         let clearStr = "  \(LocalizedString.ClearAll.localized)"
         self.topNavBarView.configureLeftButton(normalTitle: clearStr, normalColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18), isLeftButtonEnabled : self.othersContainerVM.isAnyThingSelected())
         self.topNavBarView.configureFirstRightButton(normalTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18))
+        topNavBarView.darkView.isHidden = false
+        topNavBarView.darkView.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     private func setUpViewPager() {
@@ -170,8 +175,8 @@ extension SelectOtherAdonsContainerVC {
         
         self.parchmentView?.reloadData()
         self.parchmentView?.reloadMenu()
-        self.parchmentView?.menuBackgroundColor = UIColor.clear
-        self.parchmentView?.collectionView.backgroundColor = UIColor.clear
+        self.parchmentView?.menuBackgroundColor = AppColors.themeWhiteDashboard
+        self.parchmentView?.collectionView.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     func calculateTotalAmount(){

@@ -309,7 +309,7 @@ extension EmptyScreenView {
     private func setupForNoTraveller() {
         self.hideFirstButton(isHidden: true)
         
-        self.mainImageView.image = #imageLiteral(resourceName: "ic_no_traveller")
+        self.mainImageView.image = AppImages.ic_no_traveller
         
         self.messageLabel.font = AppFonts.Regular.withSize(22.0)
         self.messageLabel.textColor = AppColors.textFieldTextColor51
@@ -324,7 +324,7 @@ extension EmptyScreenView {
     private func setupForNoTravellerWithAddButton() {
         self.hideFirstButton(isHidden: true)
         
-        self.mainImageView.image = #imageLiteral(resourceName: "ic_no_traveller")
+        self.mainImageView.image = AppImages.ic_no_traveller
         
         self.messageLabel.font = AppFonts.Regular.withSize(22.0)
         self.messageLabel.textColor = AppColors.textFieldTextColor51
@@ -349,12 +349,12 @@ extension EmptyScreenView {
         self.searchTextLabel.isHidden = true
      //   self.messageLabelTopConstraint.constant = 30
      //   self.mainImageViewTopConstraint.constant = -171
-        self.mainImageView.image = #imageLiteral(resourceName: "hotelEmpty")
+        self.mainImageView.image = AppImages.hotelEmpty
         self.messageLabel.font = AppFonts.Regular.withSize(18.0)
         self.messageLabel.textColor = AppColors.themeGray40
      //   self.mainImageViewLeadingConstraint.constant = 54.0
      //   self.mainImageViewTrainlingConstraint.constant = 74.0
-        self.messageLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "Tap  ", image: #imageLiteral(resourceName: "emptyHotelIcon"), endText: "  to add a hotel to favorite list", font: AppFonts.Regular.withSize(17.0))//"Tap   to add a hotel to favorite list"
+        self.messageLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "Tap  ", image: AppImages.emptyHotelIcon, endText: "  to add a hotel to favorite list", font: AppFonts.Regular.withSize(17.0))//"Tap   to add a hotel to favorite list"
     }
     
     private func setupForImportPhoneContacts() {
@@ -378,7 +378,7 @@ extension EmptyScreenView {
         self.firstButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
         self.firstButton.isSocial = true
         
-        self.mainImageView.image = #imageLiteral(resourceName: "contactsEmpty")
+        self.mainImageView.image = AppImages.contactsEmpty
         self.messageLabel.font = AppFonts.Regular.withSize(14.0)
         self.messageLabel.textColor = AppColors.themeBlack
         self.messageLabel.text = LocalizedString.ImportContactMessage.localized
@@ -401,13 +401,13 @@ extension EmptyScreenView {
         self.firstButton.setTitleColor(AppColors.themeWhite, for: .selected)
         
         self.firstButton.setTitleFont(font: AppFonts.SemiBold.withSize(16.0), for: .normal)
-        self.firstButton.setImage(#imageLiteral(resourceName: "facebook").withRenderingMode(.alwaysOriginal), for: .normal)
-        self.firstButton.setImage(#imageLiteral(resourceName: "facebook").withRenderingMode(.alwaysOriginal), for: .selected)
+        self.firstButton.setImage(AppImages.facebookLogoImage.withRenderingMode(.alwaysOriginal), for: .normal)
+        self.firstButton.setImage(AppImages.facebookLogoImage.withRenderingMode(.alwaysOriginal), for: .selected)
         self.firstButton.layer.cornerRadius = self.firstButton.height / 2.0
         self.firstButton.shadowColor = AppColors.clear
         self.firstButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
         self.firstButton.isSocial = true
-        self.mainImageView.image = #imageLiteral(resourceName: "facebookEmpty")
+        self.mainImageView.image = AppImages.facebookEmpty
         self.messageLabel.font = AppFonts.Regular.withSize(14.0)
         self.messageLabel.textColor = AppColors.themeBlack
         self.messageLabel.text = LocalizedString.ImportFacebookMessage.localized
@@ -432,8 +432,8 @@ extension EmptyScreenView {
         
         self.firstButton.setTitleFont(font: AppFonts.SemiBold.withSize(16.0), for: .normal)
         
-        self.firstButton.setImage(#imageLiteral(resourceName: "google").withRenderingMode(.alwaysOriginal), for: .normal)
-        self.firstButton.setImage(#imageLiteral(resourceName: "google").withRenderingMode(.alwaysOriginal), for: .selected)
+        self.firstButton.setImage(AppImages.googleLogoImage.withRenderingMode(.alwaysOriginal), for: .normal)
+        self.firstButton.setImage(AppImages.googleLogoImage.withRenderingMode(.alwaysOriginal), for: .selected)
         self.firstButton.layer.cornerRadius = self.firstButton.height / 2.0
         self.firstButton.shadowColor = AppColors.clear
         self.firstButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
@@ -441,7 +441,7 @@ extension EmptyScreenView {
         
         self.firstButton.isSocial = true
         
-        self.mainImageView.image = #imageLiteral(resourceName: "googleEmpty")
+        self.mainImageView.image = AppImages.googleEmpty
         self.messageLabel.font = AppFonts.Regular.withSize(14.0)
         self.messageLabel.textColor = AppColors.themeBlack
         self.messageLabel.text = LocalizedString.ImportGoogleMessage.localized
@@ -456,7 +456,7 @@ extension EmptyScreenView {
      //   self.firstButtonTopConstraint.constant = 0
         self.firstbuttonHeightConstraint.constant  = 0.0
         self.firstButton.isHidden = true
-        self.mainImageView.image = #imageLiteral(resourceName: "frequentFlyerEmpty")
+        self.mainImageView.image = AppImages.frequentFlyerEmpty
         self.firstButtonContainerView.isHidden = true
         self.backgroundColor = .blue
         self.messageLabel.font = AppFonts.Regular.withSize(22.0)
@@ -470,7 +470,7 @@ extension EmptyScreenView {
     private func setUpNoHotelFound() {
         self.containerViewCenterYConstraint.constant = 0
     //    self.messageLabelTopConstraint.constant = 0
-        self.mainImageView.image = #imageLiteral(resourceName: "noHotelFound")
+        self.mainImageView.image = AppImages.noHotelFound
 //        self.messageLabel.font = AppFonts.Regular.withSize(22.0)
 //        self.messageLabel.textColor = AppColors.themeBlack
 //        self.messageLabel.attributedText = getAttributedBoldText(text: LocalizedString.NoHotelFound.localized, boldText: LocalizedString.NoHotelFoundMessage.localized)
@@ -494,7 +494,7 @@ extension EmptyScreenView {
     private func setUpNoHotelFoundOnFilter() {
         self.containerViewCenterYConstraint.constant = 0
      //   self.messageLabelTopConstraint.constant = 0
-        self.mainImageView.image = #imageLiteral(resourceName: "noHotelFound")
+        self.mainImageView.image = AppImages.noHotelFound
 //        self.messageLabel.font = AppFonts.Regular.withSize(22.0)
 //        self.messageLabel.textColor = AppColors.themeBlack
 //        self.messageLabel.attributedText = getAttributedBoldText(text: LocalizedString.NoResultsAvailable.localized, boldText: LocalizedString.NoHotelFoundFilter.localized)
@@ -543,7 +543,7 @@ extension EmptyScreenView {
         self.firstbuttonHeightConstraint.constant  = 0.0
         self.firstButton.isHidden = true
         self.bottomButton.isHidden = true
-        self.mainImageView.image = #imageLiteral(resourceName: "upcoming_emptystate")
+        self.mainImageView.image = AppImages.upcoming_emptystate
         self.firstButtonContainerView.isHidden = true
         self.bottomButton.isHidden = true
         self.backgroundColor = .blue
@@ -565,7 +565,7 @@ extension EmptyScreenView {
         self.firstbuttonHeightConstraint.constant  = 0.0
         self.firstButton.isHidden = true
         self.bottomButton.isHidden = true
-        self.mainImageView.image = #imageLiteral(resourceName: "upcoming_emptystate")
+        self.mainImageView.image = AppImages.upcoming_emptystate
         self.firstButtonContainerView.isHidden = true
         self.backgroundColor = .blue
         self.messageLabel.font = AppFonts.Regular.withSize(22.0)
@@ -586,7 +586,7 @@ extension EmptyScreenView {
         self.firstbuttonHeightConstraint.constant  = 0.0
         self.firstButton.isHidden = true
         self.bottomButton.isHidden = true
-        self.mainImageView.image = #imageLiteral(resourceName: "upcoming_emptystate")
+        self.mainImageView.image = AppImages.upcoming_emptystate
         self.firstButtonContainerView.isHidden = true
         self.backgroundColor = .blue
         self.messageLabel.font = AppFonts.Regular.withSize(22.0)
@@ -607,7 +607,7 @@ extension EmptyScreenView {
         self.firstbuttonHeightConstraint.constant  = 0.0
         self.firstButton.isHidden = true
         self.bottomButton.isHidden = true
-        self.mainImageView.image = #imageLiteral(resourceName: "upcoming_emptystate")
+        self.mainImageView.image = AppImages.upcoming_emptystate
         self.firstButtonContainerView.isHidden = true
         self.backgroundColor = .blue
         self.messageLabel.font = AppFonts.Regular.withSize(22.0)
@@ -690,7 +690,7 @@ extension EmptyScreenView {
     
     private func setupForNoSeatMapData() {
         self.hideFirstButton(isHidden: true)
-        self.mainImageView.image = #imageLiteral(resourceName: "frequentFlyerEmpty")
+        self.mainImageView.image = AppImages.frequentFlyerEmpty
         self.containerView.center = self.contentView.center
 //        self.mainImageViewTopConstraint.constant = -25
 //        self.messageLabelTopConstraint.constant = 39
@@ -706,7 +706,7 @@ extension EmptyScreenView {
     
     private func setupForNoMealsData() {
         self.hideFirstButton(isHidden: true)
-        self.mainImageView.image = #imageLiteral(resourceName: "frequentFlyerEmpty")
+        self.mainImageView.image = AppImages.frequentFlyerEmpty
         self.containerView.center = self.contentView.center
 //        self.mainImageViewTopConstraint.constant = -25
 //        self.messageLabelTopConstraint.constant = 39
@@ -722,7 +722,7 @@ extension EmptyScreenView {
     
     private func setupForNoBaggageData() {
           self.hideFirstButton(isHidden: true)
-          self.mainImageView.image = #imageLiteral(resourceName: "frequentFlyerEmpty")
+          self.mainImageView.image = AppImages.frequentFlyerEmpty
           self.containerView.center = self.contentView.center
 //          self.mainImageViewTopConstraint.constant = -25
 //          self.messageLabelTopConstraint.constant = 39
@@ -738,7 +738,7 @@ extension EmptyScreenView {
     
     private func setupForNoOthersData() {
           self.hideFirstButton(isHidden: true)
-          self.mainImageView.image = #imageLiteral(resourceName: "frequentFlyerEmpty")
+          self.mainImageView.image = AppImages.frequentFlyerEmpty
           self.containerView.center = self.contentView.center
 //          self.mainImageViewTopConstraint.constant = -25
 //          self.messageLabelTopConstraint.constant = 39

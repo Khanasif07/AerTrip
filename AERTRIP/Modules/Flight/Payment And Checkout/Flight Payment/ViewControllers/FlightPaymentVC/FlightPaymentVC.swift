@@ -18,7 +18,7 @@ class FlightPaymentVC: BaseVC {
             self.checkOutTableView.dataSource = self
             self.checkOutTableView.estimatedSectionFooterHeight = CGFloat.leastNonzeroMagnitude
             self.checkOutTableView.sectionFooterHeight = CGFloat.leastNonzeroMagnitude
-            self.checkOutTableView.backgroundColor = AppColors.screensBackground.color
+            self.checkOutTableView.backgroundColor = AppColors.themeWhite
         }
     }
     @IBOutlet weak var gradientView: UIView!
@@ -93,6 +93,11 @@ class FlightPaymentVC: BaseVC {
         self.updateAllData()
     }
     
+    override func setupColors() {
+        super.setupColors()
+        self.view.backgroundColor = AppColors.themeWhite
+    }
+    
     @IBAction func payButtonTapped(_ sender: UIButton) {
         self.hideShowLoader(isHidden:false)
         let useWallet = (self.isWallet && (self.getTotalPayableAmount() <= 0.0))
@@ -130,13 +135,13 @@ class FlightPaymentVC: BaseVC {
 
     private func setupPayButton() {
         self.payButton.titleLabel?.font = AppFonts.SemiBold.withSize(20.0)
-        self.payButton.setImage(#imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .normal)
-        self.payButton.setImage(#imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .highlighted)
+        self.payButton.setImage(AppImages.whiteBlackLockIcon.withRenderingMode(.alwaysOriginal), for: .normal)
+        self.payButton.setImage(AppImages.whiteBlackLockIcon.withRenderingMode(.alwaysOriginal), for: .highlighted)
         if self.payButton.imageView != nil{
             self.payButton.bringSubviewToFront(self.payButton.imageView!)
         }
         self.payButton.spaceInTextAndImageOfButton(spacing: 2)
-        self.payButton.setTitleColor(AppColors.themeWhite, for: .normal)
+        self.payButton.setTitleColor(UIColor.white, for: .normal)
         self.setupPayButtonTitle()
         
     }
@@ -147,13 +152,13 @@ class FlightPaymentVC: BaseVC {
 //            let amount = ttl.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
             let ttl = self.getTotalPayableAmount().getPriceStringWithCurrency
             let amount = self.getTotalPayableAmount().getConvertedAmount(using: AppFonts.SemiBold.withSize(20.0))
-            amount.addAttributes([.foregroundColor : AppColors.themeWhite], range: NSString(string: ttl).range(of: ttl))
-            let attributedTitle = NSMutableAttributedString(string: "  \(LocalizedString.Pay.localized) ", attributes: [.font: AppFonts.SemiBold.withSize(20), .foregroundColor: AppColors.themeWhite])
+            amount.addAttributes([.foregroundColor : UIColor.white], range: NSString(string: ttl).range(of: ttl))
+            let attributedTitle = NSMutableAttributedString(string: "  \(LocalizedString.Pay.localized) ", attributes: [.font: AppFonts.SemiBold.withSize(20), .foregroundColor: UIColor.white])
             attributedTitle.append(amount)
             self.payButton.setTitle(nil, for: .normal)
             self.payButton.setTitle(nil, for: .highlighted)
-            self.payButton.setImage(#imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .normal)
-            self.payButton.setImage(#imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .highlighted)
+            self.payButton.setImage(AppImages.whiteBlackLockIcon.withRenderingMode(.alwaysOriginal), for: .normal)
+            self.payButton.setImage(AppImages.whiteBlackLockIcon.withRenderingMode(.alwaysOriginal), for: .highlighted)
             self.payButton.setAttributedTitle(attributedTitle, for: .normal)
             self.payButton.setAttributedTitle(attributedTitle, for: .highlighted)
         }else{
@@ -168,7 +173,7 @@ class FlightPaymentVC: BaseVC {
     
     private func manageLoader() {
         self.activityLoader.style = .medium//.white
-        self.activityLoader.color = AppColors.themeWhite
+        self.activityLoader.color = AppColors.unicolorWhite
         self.activityLoader.startAnimating()
         self.loaderView.addGredient(isVertical: false)
         self.hideShowLoader(isHidden:true)

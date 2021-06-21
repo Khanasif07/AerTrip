@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -228,7 +228,7 @@
                                                                         </userDefinedRuntimeAttributes>
                                                                     </label>
                                                                 </subviews>
-                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstItem="SE6-J8-pBo" firstAttribute="trailing" secondItem="scC-7a-Tk2" secondAttribute="trailing" id="0Rf-C0-g3b"/>
                                                                     <constraint firstItem="SE6-J8-pBo" firstAttribute="leading" secondItem="aU3-uL-OzA" secondAttribute="leading" id="Eaz-hw-50a"/>
@@ -267,7 +267,7 @@
                                                                     </label>
                                                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xDa-5I-VI4">
                                                                         <rect key="frame" x="0.0" y="31.5" width="74.5" height="3"/>
-                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="3" id="Mnk-ep-T86"/>
                                                                         </constraints>
@@ -279,7 +279,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                 </subviews>
-                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstItem="CHO-iY-EY9" firstAttribute="leading" secondItem="Nzu-pD-9hH" secondAttribute="leading" id="Epz-PZ-D73"/>
                                                                     <constraint firstItem="CHO-iY-EY9" firstAttribute="top" secondItem="xDa-5I-VI4" secondAttribute="bottom" constant="3" id="GP0-h3-Ues"/>
@@ -355,7 +355,7 @@
                                                                         </userDefinedRuntimeAttributes>
                                                                     </label>
                                                                 </subviews>
-                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstItem="wdH-go-f23" firstAttribute="leading" secondItem="3NB-Jl-Jz9" secondAttribute="leading" id="0an-3M-uhj"/>
                                                                     <constraint firstItem="wdH-go-f23" firstAttribute="trailing" secondItem="FIB-1O-77r" secondAttribute="trailing" id="Ads-sP-sqL"/>
@@ -484,6 +484,7 @@
                 <outlet property="cancelledPerformanceSubViewWidth" destination="UQT-lL-jUy" id="ca1-JT-8ZA"/>
                 <outlet property="classLabel" destination="gme-7C-gqq" id="mgZ-Dd-91Q"/>
                 <outlet property="classNameLabel" destination="M4C-lr-7Oo" id="AHV-4t-R8G"/>
+                <outlet property="containerView" destination="bxx-MG-yle" id="YS9-lx-6nc"/>
                 <outlet property="dashedView" destination="xDa-5I-VI4" id="DkX-au-odQ"/>
                 <outlet property="delayedPerformanceSubView" destination="po3-Cg-ch9" id="PQU-zl-ZBr"/>
                 <outlet property="delayedPerformanceSubViewWidth" destination="1fD-zl-O9c" id="gfI-ga-htz"/>
@@ -495,6 +496,7 @@
                 <outlet property="displayViewBottom" destination="84d-vQ-48g" id="4Xk-ea-M5c"/>
                 <outlet property="equipmentsLabel" destination="CHO-iY-EY9" id="aML-hY-pg2"/>
                 <outlet property="flightDetailsView" destination="uT8-pm-sC0" id="oEY-00-0FS"/>
+                <outlet property="flightInfoView" destination="h0u-Dl-paI" id="dAb-iv-o6t"/>
                 <outlet property="flightNameLabel" destination="oOv-Nf-6Kq" id="cK7-QR-3nR"/>
                 <outlet property="flightNameView" destination="B4n-7x-Ob9" id="W6v-me-IsH"/>
                 <outlet property="onArrivalPerformanceLabel" destination="SUW-qg-pm5" id="lwM-kX-jma"/>

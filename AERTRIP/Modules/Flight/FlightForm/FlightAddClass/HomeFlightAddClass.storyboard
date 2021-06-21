@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17147" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17120"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -61,11 +61,11 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="greenTick" translatesAutoresizingMaskIntoConstraints="NO" id="ua1-IA-TFe">
-                                                            <rect key="frame" x="385" y="17" width="13" height="10"/>
+                                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="greenTick" translatesAutoresizingMaskIntoConstraints="NO" id="ua1-IA-TFe">
+                                                            <rect key="frame" x="378" y="12" width="20" height="20"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="13" id="FGb-pA-Hwh"/>
-                                                                <constraint firstAttribute="height" constant="10" id="jV5-r9-Tky"/>
+                                                                <constraint firstAttribute="width" constant="20" id="FGb-pA-Hwh"/>
+                                                                <constraint firstAttribute="height" constant="20" id="jV5-r9-Tky"/>
                                                             </constraints>
                                                         </imageView>
                                                     </subviews>
@@ -174,6 +174,7 @@
                         <outlet property="dimmerLayer" destination="bFB-ax-FHN" id="Wrt-iA-QHk"/>
                         <outlet property="doneButton" destination="v0a-N6-60R" id="hVX-bY-cEi"/>
                         <outlet property="doneView" destination="zU4-hk-Op8" id="Gma-gD-Ozy"/>
+                        <outlet property="visualEffectsView" destination="M00-B9-Sjz" id="6t4-EM-sO7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7ie-8o-dGQ" userLabel="First Responder" sceneMemberID="firstResponder"/>

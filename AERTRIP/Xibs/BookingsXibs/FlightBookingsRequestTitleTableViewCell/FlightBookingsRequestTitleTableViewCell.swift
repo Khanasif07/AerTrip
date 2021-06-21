@@ -32,6 +32,7 @@ class FlightBookingsRequestTitleTableViewCell: UITableViewCell {
         self.requestTitleLabel.font = AppFonts.Regular.withSize(14.0)
         self.requestTitleLabel.textColor = AppColors.themeGray40
         self.requestTitleLabel.text = LocalizedString.Requests.localized
+        self.containerView.backgroundColor = AppColors.themeWhite
     }
 
     

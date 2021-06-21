@@ -22,11 +22,11 @@ class ATSwitcher: UIControl {
         }
     }
     
-    var onThumbImage : UIImage = #imageLiteral(resourceName: "switch_fav_on")
+    var onThumbImage : UIImage = AppImages.switch_fav_on
     
-    var offThumbImage : UIImage = #imageLiteral(resourceName: "switch_fav_on")
+    var offThumbImage : UIImage = AppImages.switch_fav_on
     
-    public var offTintColor = UIColor.white {
+    public var offTintColor = AppColors.switchGray {
         didSet {
             self.setupUI()
         }
@@ -83,6 +83,14 @@ class ATSwitcher: UIControl {
         }
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        if isLightTheme() {
+            self.layer.shadowColor = UIColor.black.withAlphaComponent(0.2).cgColor
+        } else {
+            self.layer.shadowColor = UIColor.black.withAlphaComponent(0.6).cgColor
+        }
+    }
     
     func setupUI() {
         self.clear()
@@ -91,7 +99,11 @@ class ATSwitcher: UIControl {
         self.layer.shadowOpacity = 1.0
         self.layer.shadowRadius = 5.0
         self.layer.shadowOffset = CGSize(width: 0.0, height: 4)
-        self.layer.shadowColor = UIColor.black.withAlphaComponent(0.2).cgColor
+        if isLightTheme() {
+            self.layer.shadowColor = UIColor.black.withAlphaComponent(0.2).cgColor
+        } else {
+            self.layer.shadowColor = UIColor.black.withAlphaComponent(0.6).cgColor
+        }
       
         self.thumbView.backgroundColor = .white
         self.thumbView.isUserInteractionEnabled = false

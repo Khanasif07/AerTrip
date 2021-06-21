@@ -110,7 +110,7 @@ extension ToastView {
     
     private func getAttrText(title: String, message: String) -> NSMutableAttributedString {
         if self.isSettingForDelete {
-            return AppGlobals.shared.getTextWithImage(startText: "", image: #imageLiteral(resourceName: "ic_delete_toast"), endText: "  \(LocalizedString.Deleted.localized.lowercased())", font: AppFonts.Regular.withSize(16))
+            return AppGlobals.shared.getTextWithImage(startText: "", image: AppImages.ic_delete_toast, endText: "  \(LocalizedString.Deleted.localized.lowercased())", font: AppFonts.Regular.withSize(16))
         }
         else {
             

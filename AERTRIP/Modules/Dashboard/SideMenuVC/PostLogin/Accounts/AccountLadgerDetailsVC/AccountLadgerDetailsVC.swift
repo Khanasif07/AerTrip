@@ -140,6 +140,10 @@ class AccountLadgerDetailsVC: BaseVC {
         }
     }
     
+    override func setupColors() {
+        self.view.backgroundColor = AppColors.themeWhite
+    }
+    
     //MARK:- Methods
     //MARK:- Private
     private func setupParallexHeaderView() {
@@ -361,7 +365,7 @@ extension AccountLadgerDetailsVC: MXParallaxHeaderDelegate {
                     if !(sSelf.viewModel.isForOnAccount){
                         if let event = sSelf.viewModel.ladgerEvent, let img = event.iconImage {
                             if let abtTxt = event.attributedString{
-                                sSelf.topNavView.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImageAttributedTxt(image: #imageLiteral(resourceName: "BookingDetailFlightNavIcon"), attributedText: abtTxt)
+                                sSelf.topNavView.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImageAttributedTxt(image: AppImages.BookingDetailFlightNavIcon, attributedText: abtTxt)
                             }else{
                                 sSelf.topNavView.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: img, endText: "  \(event.title)", font: AppFonts.SemiBold.withSize(18.0))
                             }
@@ -376,7 +380,7 @@ extension AccountLadgerDetailsVC: MXParallaxHeaderDelegate {
                             
                         }
                     }else{
-                        let img = #imageLiteral(resourceName: "ic_acc_receipt")
+                        let img = AppImages.ic_acc_receipt
                         let atbtrTxt = sSelf.viewModel.onAccountEvent?.voucherName ?? ""
                         sSelf.topNavView.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: img, endText: "  \(atbtrTxt)", font: AppFonts.SemiBold.withSize(18.0))
                         

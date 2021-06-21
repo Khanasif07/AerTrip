@@ -23,11 +23,11 @@ extension FlightDomesticMultiLegResultVC {
     func setupPinnedFlightsOptionsView() {
         
         switchView.delegate = self
-        switchView.tintColor = UIColor.TWO_ZERO_FOUR_COLOR
-        switchView.offTintColor = UIColor.TWO_THREE_ZERO_COLOR
+        switchView.tintColor = AppColors.switchGray
+        switchView.offTintColor = AppColors.switchGray
         switchView.onTintColor = AppColors.themeGreen
-        switchView.onThumbImage = #imageLiteral(resourceName: "pushpin")
-        switchView.offThumbImage = #imageLiteral(resourceName: "pushpin-gray")
+        switchView.onThumbImage = AppImages.pushpin
+        switchView.offThumbImage = AppImages.pushpin_gray
         switchView.setupUI()
         delay(seconds: 0.6) {
             self.switchView.isOn = false
@@ -51,6 +51,8 @@ extension FlightDomesticMultiLegResultVC {
     }
     
     func setupScrollView(){
+        let statusHeight = AppDelegate.shared.window?.safeAreaInsets.top ?? 0
+        baseScrollViewTop.constant = -statusHeight
         let width =  UIScreen.main.bounds.size.width / 2.0
         let height = self.baseScrollView.frame.height
         baseScrollView.contentSize = CGSize( width: (CGFloat(self.viewModel.numberOfLegs) * width ), height:height + 88.0)
@@ -79,7 +81,7 @@ extension FlightDomesticMultiLegResultVC {
     
     
     func setupTableView(At index : Int) {
-        
+        let statusHeight = AppDelegate.shared.window?.safeAreaInsets.top ?? 0
         let width = UIScreen.main.bounds.width / 2.0
         let height = UIScreen.main.bounds.height
         let rect = CGRect(x: (width * CGFloat(index)), y: 170, width: width, height: height)
@@ -95,7 +97,7 @@ extension FlightDomesticMultiLegResultVC {
         tableView.separatorStyle = .none
         tableView.register(UINib(nibName: "DomesticMultiLegCell", bundle: nil), forCellReuseIdentifier: "DomesticMultiLegCell")
         tableView.register(UINib(nibName: "DomesticMultiLegTemplateCell", bundle: nil), forCellReuseIdentifier: "DomesticMultiLegTemplateCell")
-        
+        tableView.contentInset = UIEdgeInsets(top: statusHeight, left: 0, bottom: 0, right: 0)
         
         let headerRect = CGRect(x: 0, y: 0, width: width, height: 138)
         let tableViewHeader = UIView(frame: headerRect)
@@ -109,7 +111,7 @@ extension FlightDomesticMultiLegResultVC {
         let boarderRect = CGRect(x: ((width * CGFloat(index + 1)) - 1), y: 307.5, width: 0.5, height: height)
         let borderView = ATVerticalDividerView()
         borderView.frame = boarderRect//UIView(frame: boarderRect)
-        borderView.backgroundColor = .TWO_ZERO_FOUR_COLOR
+        borderView.backgroundColor = AppColors.divider.color//.TWO_ZERO_FOUR_COLOR
 //        borderView.tag = 300 + index
         
         baseScrollView.addSubview(tableView)
@@ -550,7 +552,7 @@ extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetails
         guard let headerView = bannerView, !headerView.isHidden  else { return }
         
         var rect = headerView.frame
-        baseScrollViewTop.constant = 0
+//        baseScrollViewTop.constant = 0
         self.baseScrollView.isScrollEnabled = true
         UIView.animate(withDuration: 1.0 , animations: {
             let y = rect.origin.y - rect.size.height - 20

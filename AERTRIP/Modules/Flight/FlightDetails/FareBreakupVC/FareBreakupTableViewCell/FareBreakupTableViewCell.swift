@@ -8,8 +8,7 @@
 
 import UIKit
 
-class FareBreakupTableViewCell: UITableViewCell
-{
+class FareBreakupTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var greenTickImgView: UIImageView!
     @IBOutlet weak var passangersView: UIView!
@@ -25,9 +24,22 @@ class FareBreakupTableViewCell: UITableViewCell
     @IBOutlet weak var infantCountDisplayViewWidth: NSLayoutConstraint!
     @IBOutlet weak var infantCountLabel: UILabel!
     
+    @IBOutlet weak var backView: UIView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        self.setColors()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.setColors()
+    }
+    
+    private func setColors(){
+        backView.backgroundColor = AppColors.themeWhiteDashboard
+        titleLabel.textColor = AppColors.themeBlack
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

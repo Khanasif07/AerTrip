@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,6 +14,7 @@
                 <outlet property="emailPinnedFlights" destination="yS5-oZ-tkl" id="ezx-nI-BQF"/>
                 <outlet property="passthroughView" destination="L1K-56-tzQ" id="isn-VS-bec"/>
                 <outlet property="pinnedFlightsOptionsView" destination="BM3-XS-cLM" id="rwr-5W-sv6"/>
+                <outlet property="resultTableViewHeight" destination="hyU-XB-M7R" id="Mkv-gg-pLp"/>
                 <outlet property="resultTableViewTop" destination="zPE-IE-hr7" id="JsY-Q4-lhR"/>
                 <outlet property="resultsTableView" destination="UzE-61-hhV" id="0EI-Hq-HS1"/>
                 <outlet property="sharePinnedFilghts" destination="hlD-Uh-Ku3" id="3uQ-Ww-kIB"/>
@@ -28,7 +30,7 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yJ8-EJ-tsk">
                     <rect key="frame" x="-21.5" y="238" width="457" height="1"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" name="themeWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="f6F-ce-Zw7"/>
                     </constraints>
@@ -154,5 +156,8 @@
         <image name="SharePinned" width="44" height="44"/>
         <image name="floatingButtonOnMapView" width="51" height="51"/>
         <image name="unpinAllButton" width="44" height="44"/>
+        <namedColor name="themeWhite">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
     </resources>
 </document>

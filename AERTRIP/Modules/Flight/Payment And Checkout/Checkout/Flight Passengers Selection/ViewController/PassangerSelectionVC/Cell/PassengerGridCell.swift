@@ -45,6 +45,7 @@ class PassengerGridCell: UITableViewCell{
     
     func configData(forIndexPath indexPath: IndexPath) {
         forIdx = indexPath
+        self.contentView.backgroundColor = AppColors.themeBlack26
         collectionView.reloadData()
     }
     

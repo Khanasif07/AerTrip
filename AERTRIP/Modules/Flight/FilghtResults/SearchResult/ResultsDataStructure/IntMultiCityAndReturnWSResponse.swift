@@ -365,7 +365,7 @@ struct IntMultiCityAndReturnWSResponse {
                 if flights.count > baggageArray.count {
 
                     let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 9.0)! ,
-                                        NSAttributedString.Key.foregroundColor : UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)]
+                                        NSAttributedString.Key.foregroundColor : AppColors.themeRed]//UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)]
                     let attributedSuperScript = NSAttributedString(string: "?", attributes: attributes)
                     return attributedSuperScript
                 }
@@ -373,7 +373,7 @@ struct IntMultiCityAndReturnWSResponse {
                 guard let firstValue = baggageArray.first else {
 
                     let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 9.0)! ,
-                                        NSAttributedString.Key.foregroundColor : UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)]
+                                        NSAttributedString.Key.foregroundColor : AppColors.themeRed]//UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)]
                     let attributedSuperScript = NSAttributedString(string: "?", attributes: attributes)
                     return attributedSuperScript
                 }
@@ -383,7 +383,7 @@ struct IntMultiCityAndReturnWSResponse {
                 if baggageArray.allSatisfy({ $0 == firstValue }) {
                     
                     let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 9.0)! ,
-                                        NSAttributedString.Key.foregroundColor : UIColor.black]
+                                        NSAttributedString.Key.foregroundColor : AppColors.themeBlack]
                     
                     if let ADTBaggage = firstValue["ADT"] {
                         
@@ -417,7 +417,7 @@ struct IntMultiCityAndReturnWSResponse {
                 } else {
 
 //                    let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 16.0)! ,
-//                                       NSAttributedString.Key.foregroundColor : UIColor.black]
+//                                       NSAttributedString.Key.foregroundColor : AppColors.themeBlack]
 //
 //                    let attributedSuperScript = NSAttributedString(string: "*", attributes: attributes)
 //                    return attributedSuperScript
@@ -429,20 +429,20 @@ struct IntMultiCityAndReturnWSResponse {
                         
                         if let pieces = ADTBaggage.pieces, pieces != "" && pieces != "-9" && pieces != "-1" && pieces != "0 pc" && pieces != "0" {
                             let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 16.0)! ,
-                                               NSAttributedString.Key.foregroundColor : UIColor.black]
+                                               NSAttributedString.Key.foregroundColor : AppColors.themeBlack]
 
                             let attributedSuperScript = NSAttributedString(string: "*", attributes: attributes)
                             return attributedSuperScript
 
                         }else{
                             let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 9.0)! ,
-                                                 NSAttributedString.Key.foregroundColor : UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)]
+                                                 NSAttributedString.Key.foregroundColor : AppColors.themeRed]//UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)]
                              let attributedSuperScript = NSAttributedString(string: "?", attributes: attributes)
                              return attributedSuperScript
                         }
                     }else{
                         let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 9.0)! ,
-                                             NSAttributedString.Key.foregroundColor : UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)]
+                                             NSAttributedString.Key.foregroundColor : AppColors.themeRed]//UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)]
                          let attributedSuperScript = NSAttributedString(string: "?", attributes: attributes)
                          return attributedSuperScript
 
@@ -450,7 +450,7 @@ struct IntMultiCityAndReturnWSResponse {
                  }
 
                 let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 9.0)! ,
-                                     NSAttributedString.Key.foregroundColor : UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)]
+                                     NSAttributedString.Key.foregroundColor : AppColors.themeRed]//UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)]
                  let attributedSuperScript = NSAttributedString(string: "?", attributes: attributes)
                  return attributedSuperScript
                 
@@ -932,7 +932,7 @@ struct IntMultiCityAndReturnWSResponse {
                 if flights.count > baggageArray.count {
 
                     let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 9.0)! ,
-                                        NSAttributedString.Key.foregroundColor : UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)]
+                                        NSAttributedString.Key.foregroundColor : AppColors.themeRed]//UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)]
                     let attributedSuperScript = NSAttributedString(string: "?", attributes: attributes)
                     return attributedSuperScript
                 }
@@ -941,7 +941,7 @@ struct IntMultiCityAndReturnWSResponse {
                 guard let firstValue = baggageArray.first else {
 
                     let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 9.0)! ,
-                                        NSAttributedString.Key.foregroundColor : UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)]
+                                        NSAttributedString.Key.foregroundColor : AppColors.themeRed]//UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)]
                     let attributedSuperScript = NSAttributedString(string: "?", attributes: attributes)
                     return attributedSuperScript
                 }
@@ -950,7 +950,7 @@ struct IntMultiCityAndReturnWSResponse {
                 if baggageArray.allSatisfy({ $0 == firstValue }) {
                     
                     let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 9.0)! ,
-                                        NSAttributedString.Key.foregroundColor : UIColor.black]
+                                        NSAttributedString.Key.foregroundColor : AppColors.themeBlack]
                     
                     if let ADTBaggage = firstValue["ADT"] {
                         
@@ -977,7 +977,7 @@ struct IntMultiCityAndReturnWSResponse {
                 } else {
 
 //                    let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 16.0)! ,
-//                                       NSAttributedString.Key.foregroundColor : UIColor.black]
+//                                       NSAttributedString.Key.foregroundColor : AppColors.themeBlack]
 //
 //                    let attributedSuperScript = NSAttributedString(string: "*", attributes: attributes)
 //                    return attributedSuperScript
@@ -988,20 +988,20 @@ struct IntMultiCityAndReturnWSResponse {
                         
                         if let pieces = ADTBaggage.pieces, pieces != "" && pieces != "-9" && pieces != "-1" && pieces != "0 pc" && pieces != "0" {
                             let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 16.0)! ,
-                                               NSAttributedString.Key.foregroundColor : UIColor.black]
+                                               NSAttributedString.Key.foregroundColor : AppColors.themeBlack]
 
                             let attributedSuperScript = NSAttributedString(string: "*", attributes: attributes)
                             return attributedSuperScript
 
                         }else{
                             let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 9.0)! ,
-                                                 NSAttributedString.Key.foregroundColor : UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)]
+                                                 NSAttributedString.Key.foregroundColor : AppColors.themeRed]//UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)]
                              let attributedSuperScript = NSAttributedString(string: "?", attributes: attributes)
                              return attributedSuperScript
                         }
                     }else{
                         let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 9.0)! ,
-                                             NSAttributedString.Key.foregroundColor : UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)]
+                                             NSAttributedString.Key.foregroundColor : AppColors.themeRed]//UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)]
                          let attributedSuperScript = NSAttributedString(string: "?", attributes: attributes)
                          return attributedSuperScript
 
@@ -1009,7 +1009,7 @@ struct IntMultiCityAndReturnWSResponse {
                  }
 
                 let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 9.0)! ,
-                                     NSAttributedString.Key.foregroundColor : UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)]
+                                     NSAttributedString.Key.foregroundColor : AppColors.themeRed]//UIColor(displayP3Red: (253.0/255.0), green: (51.0/255.0), blue: (51.0/255.0), alpha: 1.0)]
                  let attributedSuperScript = NSAttributedString(string: "?", attributes: attributes)
                  return attributedSuperScript
             }

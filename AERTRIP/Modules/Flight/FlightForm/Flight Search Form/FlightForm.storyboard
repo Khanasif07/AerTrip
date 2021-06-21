@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Smz-JN-LYQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Smz-JN-LYQ">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -68,7 +69,7 @@
                                                                         <rect key="frame" x="0.0" y="0.0" width="174" height="46"/>
                                                                         <subviews>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GxA-eO-3fS">
-                                                                                <rect key="frame" x="48.333333333333321" y="0.0" width="77.666666666666686" height="46"/>
+                                                                                <rect key="frame" x="46.333333333333336" y="0.0" width="81.666666666666657" height="46"/>
                                                                                 <subviews>
                                                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CancelGreyFilled" translatesAutoresizingMaskIntoConstraints="NO" id="flL-qf-yxq">
                                                                                         <rect key="frame" x="0.0" y="12.000000000000007" width="22" height="22"/>
@@ -78,13 +79,13 @@
                                                                                         </constraints>
                                                                                     </imageView>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remove" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FEc-vo-9Be">
-                                                                                        <rect key="frame" x="29.999999999999996" y="14.000000000000009" width="47.666666666666657" height="17.666666666666671"/>
+                                                                                        <rect key="frame" x="29.999999999999996" y="14.666666666666663" width="51.666666666666657" height="16.333333333333329"/>
                                                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                                                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
                                                                                 </subviews>
-                                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                <color key="backgroundColor" name="themeWhiteDashboard"/>
                                                                                 <constraints>
                                                                                     <constraint firstItem="flL-qf-yxq" firstAttribute="leading" secondItem="GxA-eO-3fS" secondAttribute="leading" id="2jb-fJ-xpX"/>
                                                                                     <constraint firstItem="FEc-vo-9Be" firstAttribute="centerY" secondItem="GxA-eO-3fS" secondAttribute="centerY" id="7gO-g6-d0J"/>
@@ -95,7 +96,7 @@
                                                                                 </constraints>
                                                                             </view>
                                                                         </subviews>
-                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <color key="backgroundColor" name="themeWhiteDashboard"/>
                                                                         <constraints>
                                                                             <constraint firstItem="GxA-eO-3fS" firstAttribute="centerY" secondItem="rFA-jf-EXn" secondAttribute="centerY" id="A7i-dp-vfY"/>
                                                                             <constraint firstItem="GxA-eO-3fS" firstAttribute="centerX" secondItem="rFA-jf-EXn" secondAttribute="centerX" id="ySK-xO-yG9"/>
@@ -105,7 +106,7 @@
                                                                         <rect key="frame" x="174" y="0.0" width="208" height="46"/>
                                                                         <subviews>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zWU-3a-K32">
-                                                                                <rect key="frame" x="59.333333333333336" y="0.0" width="89.333333333333314" height="46"/>
+                                                                                <rect key="frame" x="56.999999999999993" y="0.0" width="94.333333333333314" height="46"/>
                                                                                 <subviews>
                                                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="greenFilledAdd" translatesAutoresizingMaskIntoConstraints="NO" id="h24-O0-Jza">
                                                                                         <rect key="frame" x="0.0" y="12.000000000000007" width="22" height="22"/>
@@ -115,13 +116,13 @@
                                                                                         </constraints>
                                                                                     </imageView>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Flight" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nkt-3z-B1H">
-                                                                                        <rect key="frame" x="29.999999999999975" y="14.000000000000009" width="59.333333333333343" height="17.666666666666671"/>
+                                                                                        <rect key="frame" x="30" y="14.666666666666663" width="64.333333333333329" height="16.333333333333329"/>
                                                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                                                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
                                                                                 </subviews>
-                                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                <color key="backgroundColor" name="themeWhiteDashboard"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="trailing" secondItem="nkt-3z-B1H" secondAttribute="trailing" id="4Jj-dS-dZE"/>
                                                                                     <constraint firstItem="nkt-3z-B1H" firstAttribute="leading" secondItem="h24-O0-Jza" secondAttribute="trailing" constant="8" id="AHz-cA-oTO"/>
@@ -132,7 +133,7 @@
                                                                                 </constraints>
                                                                             </view>
                                                                         </subviews>
-                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <color key="backgroundColor" name="themeWhiteDashboard"/>
                                                                         <constraints>
                                                                             <constraint firstItem="zWU-3a-K32" firstAttribute="centerX" secondItem="eA7-Fe-flZ" secondAttribute="centerX" id="FTp-Rt-WeB"/>
                                                                             <constraint firstItem="zWU-3a-K32" firstAttribute="centerY" secondItem="eA7-Fe-flZ" secondAttribute="centerY" id="b7j-rU-kOZ"/>
@@ -166,7 +167,7 @@
                                                                 </connections>
                                                             </button>
                                                         </subviews>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="backgroundColor" name="themeWhiteDashboard"/>
                                                         <constraints>
                                                             <constraint firstItem="29v-eT-lNi" firstAttribute="centerX" secondItem="rFA-jf-EXn" secondAttribute="centerX" id="7cr-n1-akQ"/>
                                                             <constraint firstItem="SGb-ag-Qnn" firstAttribute="centerY" secondItem="x66-3R-0Rb" secondAttribute="centerY" id="7re-QX-IXd"/>
@@ -207,7 +208,7 @@
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="THB-C4-JC8">
                                                         <rect key="frame" x="95.666666666666686" y="0.0" width="191" height="104"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="backgroundColor" name="themeWhiteDashboard"/>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LlF-AQ-pO0">
                                                         <rect key="frame" x="66.666666666666671" y="38" width="50" height="24"/>
@@ -216,7 +217,7 @@
                                                             <constraint firstAttribute="height" constant="24" id="mac-ll-5YH"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
-                                                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="textColor" name="flightFormGray"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RaE-tT-qYT">
@@ -225,7 +226,7 @@
                                                             <constraint firstAttribute="height" constant="18" id="2A1-yj-TYW"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
-                                                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="textColor" name="flightFormGray"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BOM, PNQ, STR" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sKj-xi-Si5">
@@ -251,7 +252,7 @@
                                                             <constraint firstAttribute="width" constant="24" id="fAY-bo-zoP"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
-                                                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="textColor" name="flightFormGray"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eAI-zF-E4P">
@@ -260,7 +261,7 @@
                                                             <constraint firstAttribute="height" constant="18" id="ecF-hJ-iAn"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
-                                                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="textColor" name="flightFormGray"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BOM" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yPr-8e-s52">
@@ -317,7 +318,7 @@
                                                         </constraints>
                                                     </view>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" name="themeWhiteDashboard"/>
                                                 <constraints>
                                                     <constraint firstItem="Bpt-i0-oXr" firstAttribute="leading" secondItem="XrV-pQ-djy" secondAttribute="leading" constant="16" id="1rW-wq-XlB"/>
                                                     <constraint firstAttribute="trailing" secondItem="fjU-Ru-Y0V" secondAttribute="trailing" constant="16" id="7Ff-4A-eVr"/>
@@ -371,9 +372,9 @@
                                                                 <rect key="frame" x="0.0" y="14.999999999999996" width="191" height="55.666666666666657"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Passengers" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IZl-xY-6yM">
-                                                                        <rect key="frame" x="58.333333333333321" y="0.0" width="74.666666666666686" height="23.666666666666668"/>
+                                                                        <rect key="frame" x="53.666666666666664" y="0.0" width="83.666666666666686" height="23.666666666666668"/>
                                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
-                                                                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <color key="textColor" name="flightFormGray"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="Cft-eK-qNm">
@@ -390,12 +391,12 @@
                                                                                         </constraints>
                                                                                     </imageView>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="VNP-fT-2rz">
-                                                                                        <rect key="frame" x="12.000000000000007" y="0.66666666666662877" width="18" height="22.666666666666668"/>
+                                                                                        <rect key="frame" x="12.000000000000007" y="1.3333333333333144" width="18" height="21"/>
                                                                                         <constraints>
                                                                                             <constraint firstAttribute="width" constant="18" id="lcb-zB-b4i"/>
                                                                                         </constraints>
                                                                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
-                                                                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                        <nil key="textColor"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
                                                                                 </subviews>
@@ -419,12 +420,12 @@
                                                                                         </constraints>
                                                                                     </imageView>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="cfK-45-4jG">
-                                                                                        <rect key="frame" x="9" y="0.66666666666662877" width="18" height="22.666666666666668"/>
+                                                                                        <rect key="frame" x="9" y="1.3333333333333144" width="18" height="21"/>
                                                                                         <constraints>
                                                                                             <constraint firstAttribute="width" constant="18" id="Aij-vz-0jX"/>
                                                                                         </constraints>
                                                                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
-                                                                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                        <nil key="textColor"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
                                                                                 </subviews>
@@ -448,12 +449,12 @@
                                                                                         </constraints>
                                                                                     </imageView>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="KwE-fv-4jl">
-                                                                                        <rect key="frame" x="11" y="0.66666666666662877" width="18" height="22.666666666666668"/>
+                                                                                        <rect key="frame" x="11" y="1.3333333333333144" width="18" height="21"/>
                                                                                         <constraints>
                                                                                             <constraint firstAttribute="width" constant="18" id="uXL-ge-Tec"/>
                                                                                         </constraints>
                                                                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
-                                                                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                        <nil key="textColor"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
                                                                                 </subviews>
@@ -474,9 +475,9 @@
                                                                 <rect key="frame" x="191" y="14.999999999999996" width="191" height="55.666666666666657"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Class" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aGk-oJ-hhC">
-                                                                        <rect key="frame" x="78" y="0.0" width="35" height="23.666666666666668"/>
+                                                                        <rect key="frame" x="75.666666666666686" y="0.0" width="40" height="23.666666666666668"/>
                                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
-                                                                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <color key="textColor" name="flightFormGray"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0jJ-au-WVc">
@@ -490,13 +491,13 @@
                                                                                 </constraints>
                                                                             </imageView>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Economy" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qAv-PB-wdX">
-                                                                                <rect key="frame" x="20" y="1.6666666666666288" width="68" height="20.333333333333332"/>
+                                                                                <rect key="frame" x="20" y="2.6666666666666288" width="68" height="18.666666666666668"/>
                                                                                 <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
-                                                                                <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                         </subviews>
-                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <color key="backgroundColor" name="themeWhiteDashboard"/>
                                                                         <constraints>
                                                                             <constraint firstItem="qAv-PB-wdX" firstAttribute="leading" secondItem="Oas-dp-zs8" secondAttribute="trailing" constant="6" id="Tfk-da-8Mg"/>
                                                                             <constraint firstItem="qAv-PB-wdX" firstAttribute="centerY" secondItem="0jJ-au-WVc" secondAttribute="centerY" id="coC-Ui-qHc"/>
@@ -569,13 +570,13 @@
                                                                 <rect key="frame" x="0.0" y="15" width="191" height="73.666666666666671"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Onwards" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0lz-0p-8eh">
-                                                                        <rect key="frame" x="65.666666666666671" y="0.0" width="60" height="20.333333333333332"/>
+                                                                        <rect key="frame" x="63.333333333333336" y="0.0" width="64.333333333333314" height="20.333333333333332"/>
                                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
-                                                                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <color key="textColor" name="flightFormGray"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30 Aug" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="s5V-mb-U61">
-                                                                        <rect key="frame" x="59.333333333333336" y="20.333333333333343" width="72.333333333333314" height="33"/>
+                                                                        <rect key="frame" x="54.333333333333321" y="20.333333333333343" width="82.666666666666686" height="33"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="33" id="FGT-jO-TR1"/>
                                                                         </constraints>
@@ -583,7 +584,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wednesday" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OnY-t7-rnC">
-                                                                        <rect key="frame" x="56.999999999999993" y="53.333333333333343" width="77.333333333333314" height="20.333333333333329"/>
+                                                                        <rect key="frame" x="53.666666666666664" y="53.333333333333343" width="83.666666666666686" height="20.333333333333329"/>
                                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
@@ -593,13 +594,13 @@
                                                                 <rect key="frame" x="191" y="15" width="191" height="73.666666666666671"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Return" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W4F-Lh-X1c">
-                                                                        <rect key="frame" x="73" y="0.0" width="45.333333333333343" height="20.333333333333332"/>
+                                                                        <rect key="frame" x="71.666666666666686" y="0.0" width="48" height="20.333333333333332"/>
                                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
-                                                                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <color key="textColor" name="flightFormGray"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30 Aug" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V6v-vE-22H">
-                                                                        <rect key="frame" x="59.333333333333307" y="20.333333333333343" width="72.333333333333314" height="33"/>
+                                                                        <rect key="frame" x="54.333333333333321" y="20.333333333333343" width="82.666666666666686" height="33"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="33" id="4eW-q8-mwj"/>
                                                                         </constraints>
@@ -607,7 +608,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wednesday" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WgM-1M-C4g">
-                                                                        <rect key="frame" x="56.999999999999993" y="53.333333333333343" width="77.333333333333314" height="20.333333333333329"/>
+                                                                        <rect key="frame" x="53.666666666666693" y="53.333333333333343" width="83.666666666666686" height="20.333333333333329"/>
                                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
@@ -645,7 +646,7 @@
                                                         </constraints>
                                                     </view>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" name="themeWhiteDashboard"/>
                                                 <constraints>
                                                     <constraint firstItem="u5x-x6-BMQ" firstAttribute="top" secondItem="RLV-oD-1KY" secondAttribute="top" id="7NU-21-F3t"/>
                                                     <constraint firstItem="27K-OL-qsa" firstAttribute="height" secondItem="vQX-AU-xCo" secondAttribute="height" id="7ej-YV-V7q"/>
@@ -701,12 +702,12 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Travelling in a group? Request Bulk Booking" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="He0-CA-PB7">
-                                                <rect key="frame" x="52" y="439" width="278" height="17.666666666666686"/>
+                                                <rect key="frame" x="52" y="439" width="278" height="16.333333333333314"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="278" id="gTg-pe-VQB"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
-                                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" name="flightFormGray"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cmd-5B-LDk" userLabel="LineView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
@@ -717,7 +718,7 @@
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HGw-7j-31M">
-                                                <rect key="frame" x="191" y="433" width="139" height="30"/>
+                                                <rect key="frame" x="191" y="432.33333333333331" width="139" height="30"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal">
                                                     <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -828,34 +829,13 @@
                                                                 <constraint firstAttribute="width" constant="30" id="KzT-Pz-BD9"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="his-qh-nV1">
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BOM → DEL" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="his-qh-nV1">
                                                             <rect key="frame" x="62" y="16" width="139" height="24"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="24" id="UpW-zJ-TMX"/>
                                                             </constraints>
-                                                            <attributedString key="attributedText">
-                                                                <fragment content="BOM ">
-                                                                    <attributes>
-                                                                        <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                        <font key="NSFont" metaFont="system" size="17"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="→ ">
-                                                                    <attributes>
-                                                                        <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                        <font key="NSFont" size="18" name="Monaco"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                                <fragment content="DEL">
-                                                                    <attributes>
-                                                                        <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                        <font key="NSFont" metaFont="system" size="17"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                            </attributedString>
+                                                            <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="19 Dec" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Chg-zo-eSN">
@@ -990,5 +970,11 @@
         <image name="greenFilledAdd" width="22" height="22"/>
         <image name="infantPax" width="18" height="18"/>
         <image name="plane" width="20" height="20"/>
+        <namedColor name="flightFormGray">
+            <color red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="themeWhiteDashboard">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
     </resources>
 </document>

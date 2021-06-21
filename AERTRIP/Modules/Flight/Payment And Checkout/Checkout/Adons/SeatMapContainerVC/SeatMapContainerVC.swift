@@ -29,8 +29,8 @@ class SeatMapContainerVC: UIViewController {
     @IBOutlet weak var topNavBarView: TopNavigationView!
     @IBOutlet weak var seatMapContainerView: UIView!
     @IBOutlet weak var planeLayoutView: UIView!
-    @IBOutlet weak var planeLayoutTopSeparatorView: UIView!
-    @IBOutlet weak var planeLayoutBottomSeparatorView: UIView!
+    @IBOutlet weak var planeLayoutTopSeparatorView: ATDividerView!
+    @IBOutlet weak var planeLayoutBottomSeparatorView: ATDividerView!
     @IBOutlet weak var planeLayoutScrollView: UIScrollView!
     @IBOutlet weak var planeLayoutScrollContentView: UIView!
     @IBOutlet weak var planeShadowView: UIView!
@@ -142,11 +142,11 @@ class SeatMapContainerVC: UIViewController {
     }
     
     private func setupPlaneLayoutCollView() {
-        planeLayoutScrollContentView.backgroundColor = AppColors.greyO4
-        planeLayoutScrollView.backgroundColor = AppColors.greyO4
+        planeLayoutScrollContentView.backgroundColor = AppColors.miniPlaneBack
+        planeLayoutScrollView.backgroundColor = AppColors.miniPlaneBack
         planeLayoutCollView.showsHorizontalScrollIndicator = false
         planeLayoutCollView.register(UINib(nibName: "LayoutSeatCollCell", bundle: nil), forCellWithReuseIdentifier: "LayoutSeatCollCell")
-        planeLayoutCollView.backgroundColor = AppColors.themeGray10
+        planeLayoutCollView.backgroundColor = AppColors.commonThemeGray230
         planeLayoutCollView.delegate = self
         planeLayoutCollView.dataSource = self
         planeShadowView.addShadow(ofColor: .black, radius: 60, opacity: 0.5)
@@ -162,13 +162,17 @@ class SeatMapContainerVC: UIViewController {
         topNavBarView.configureFirstRightButton(normalTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen)
         
         topNavBarView.delegate = self
+        
+        topNavBarView.darkView.isHidden = false
+        topNavBarView.darkView.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     private func setupViews() {
+        view.backgroundColor = AppColors.themeWhiteDashboard
         setupApiIndicatorView()
-        planeLayoutTopSeparatorView.backgroundColor = AppColors.themeGray214
-        planeLayoutBottomSeparatorView.backgroundColor = AppColors.themeGray214
-        totalSeatAmountTopSeparatorView.backgroundColor = AppColors.themeGray214
+//        planeLayoutTopSeparatorView.backgroundColor = AppColors.themeGray214
+//        planeLayoutBottomSeparatorView.backgroundColor = AppColors.themeGray214
+//        totalSeatAmountTopSeparatorView.backgroundColor = AppColors.themeGray214
         seatTotalTitleLbl.text = LocalizedString.seatTotal.localized
         seatTotalTitleLbl.font = AppFonts.Regular.withSize(12)
         seatTotalTitleLbl.textColor = AppColors.themeGray60
@@ -196,7 +200,7 @@ class SeatMapContainerVC: UIViewController {
     
     private func addHighlightView() {
         highlightView = UIView(frame: .zero)
-        highlightView?.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.1)
+        highlightView?.backgroundColor = UIColor.black.withAlphaComponent(0.1)
         highlightContainerView.addSubview(highlightView!)
     }
     
@@ -274,25 +278,25 @@ class SeatMapContainerVC: UIViewController {
         
         self.parchmentView?.reloadData()
         self.parchmentView?.reloadMenu()
-        self.parchmentView?.menuBackgroundColor = UIColor.clear
-        self.parchmentView?.collectionView.backgroundColor = UIColor.clear
+        self.parchmentView?.menuBackgroundColor = AppColors.themeWhiteDashboard
+        self.parchmentView?.collectionView.backgroundColor = AppColors.themeWhiteDashboard
         self.parchmentView?.contentInteraction = .none
     }
     
     private func createAttHeaderTitle(_ origin: String,_ destination: String) -> NSAttributedString {
         let fullString = NSMutableAttributedString(string: origin + "" )
         let desinationAtrributedString = NSAttributedString(string: "" + destination)
-        let imageString = getStringFromImage(name : "oneway")
+        let imageString = getStringFromImage(with : AppImages.onewayIcon)
         fullString.append(imageString)
         fullString.append(desinationAtrributedString)
         return fullString
     }
     
-    private func getStringFromImage(name : String) -> NSAttributedString {
+    private func getStringFromImage(with image : UIImage) -> NSAttributedString {
         let imageAttachment = NSTextAttachment()
 //        let sourceSansPro18 = UIFont(name: "SourceSansPro-Semibold", size: 18.0)!
         let sourceSansPro18 = AppFonts.SemiBold.withSize(18)
-        let iconImage = UIImage(named: name )!
+        let iconImage = image
         imageAttachment.image = iconImage
         
         let yCordinate  = roundf(Float(sourceSansPro18.capHeight - iconImage.size.height) / 2.0)

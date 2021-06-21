@@ -9,7 +9,7 @@
 import UIKit
 import Parchment
 
-class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDelegate, getSelectedAmenitiesDelegate, UIScrollViewDelegate
+class IntFlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, getSelectedAmenitiesDelegate
 {
     //MARK:- Outlets
     @IBOutlet weak var flightInfoTableView: UITableView!
@@ -72,6 +72,11 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         }
     }
     
+    override func setupColors() {
+        self.flightInfoTableView.backgroundColor = AppColors.themeGray04
+        self.view.backgroundColor = AppColors.flightResultsFooterSecondaryColor
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
@@ -81,6 +86,10 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         }
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.flightInfoTableView.reloadData()
+    }
     //MARK:- Get Flight Info
     
     func getFlightsInfo(){
@@ -360,7 +369,7 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                             let str = flight.al + " - " + flight.fn + "・" + " " + cc + bc + " "
                         
                             cell.classNameLabel.attributedText = cell.addAttributsForRange(str, coloredString: (" " + flight.cc + bc + " "), color: AppColors.lightYellow)
-                            cell.classNameLabel.textColor = UIColor.black
+                            cell.classNameLabel.textColor = AppColors.themeBlack
                         }else{
                             cell.classLabel.text = ""
                             
@@ -401,7 +410,7 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                         if Double(flight.ontimePerformance ?? 0) > 90.0{
                             cell.onArrivalPerformanceLabel.textColor = AppColors.themeGreen
                         }else{
-                            cell.onArrivalPerformanceLabel.textColor = UIColor.black
+                            cell.onArrivalPerformanceLabel.textColor = AppColors.themeBlack
                         }
                         
                         
@@ -625,8 +634,8 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         
         let arrivalAirportRange = (main_string111 as NSString).range(of: string_to_color111)
         let haltAtAttributedString = NSMutableAttributedString(string:main_string111)
-        haltAtAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black , range: arrivalAirportRange)
-        haltAtAttributedString.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor(displayP3Red: 254.0/255.0, green: 242.0/255.0, blue: 199.0/255.0, alpha: 1.0), range: arrivalAirportRange)
+        haltAtAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: AppColors.themeBlack , range: arrivalAirportRange)
+        haltAtAttributedString.addAttribute(NSAttributedString.Key.backgroundColor, value: AppColors.lightYellow, range: arrivalAirportRange)
         return haltAtAttributedString
     }
     

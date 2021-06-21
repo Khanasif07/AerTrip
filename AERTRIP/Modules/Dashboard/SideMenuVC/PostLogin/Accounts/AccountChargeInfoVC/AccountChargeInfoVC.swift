@@ -38,7 +38,7 @@ class AccountChargeInfoVC: BaseVC {
         
         self.topNavView.delegate = self
         
-        self.topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "ic_toast_cross"), selectedImage: #imageLiteral(resourceName: "ic_toast_cross"), normalTitle: " ", selectedTitle: " ")
+        self.topNavView.configureFirstRightButton(normalImage: AppImages.ic_toast_cross, selectedImage: AppImages.ic_toast_cross, normalTitle: " ", selectedTitle: " ")
         
         //for header blur
         topNavView.backgroundColor = .clear

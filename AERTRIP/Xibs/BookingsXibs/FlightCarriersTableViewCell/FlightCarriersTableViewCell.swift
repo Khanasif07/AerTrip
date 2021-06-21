@@ -40,8 +40,14 @@ class FlightCarriersTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configUI()
+        self.setupColors()
     }
     
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.setupColors()
+    }
     // MARK: - Functions
     
     // MARK: ===========
@@ -57,15 +63,20 @@ class FlightCarriersTableViewCell: UITableViewCell {
         self.moreFlightCarriersLabel.textColor = AppColors.themeWhite
         self.totalCarriersOrFlNameLabel.textColor = AppColors.themeBlack
         self.flightCode.textColor = AppColors.themeBlack
-        self.remainingCodesLabel.textColor = AppColors.themeGray40
+        self.remainingCodesLabel.textColor = AppColors.themeGray153
         
         // SetUp
         self.secondFlightCarriersContView.isHidden = true
         self.moreFlightCarriersContView.isHidden = true
         
+        [firstFlightCarriersImgVw, secondFlightCarriersImgVw, moreFlightCarriersImgVw].forEach{ imgView in
+            imgView?.roundedCorners(cornerRadius: 2.0)
+        }
+        
+        
         //self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMinYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.7, shadowRadius: 5.0)
 //        self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMinYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
-        let shadow = AppShadowProperties()
+        let shadow = AppShadowProperties(self.isLightTheme())
         self.containerView.addShadow(cornerRadius: shadow.cornerRadius, maskedCorners: [.layerMaxXMinYCorner ,.layerMinXMinYCorner], color: shadow.shadowColor, offset: shadow.offset, opacity: shadow.opecity, shadowRadius: shadow.shadowRadius)
     }
     
@@ -77,6 +88,13 @@ class FlightCarriersTableViewCell: UITableViewCell {
         self.remainingCodesLabel.isHidden = false
         self.setupImageWith(carrierCode: carrierCode, carriers: carriers)
         
+    }
+    
+    
+    func setupColors(){
+        [containerView, firstFlightCarriersContView, secondFlightCarriersContView, moreFlightCarriersContView].forEach { view in
+            view?.backgroundColor = AppColors.themeWhiteDashboard
+        }
     }
     
     func setupImageWith(carrierCode:[String], carriers:[String]){

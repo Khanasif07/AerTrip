@@ -21,6 +21,8 @@ class AddOnVC : BaseVC {
     @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var adonsTableView: UITableView!
     @IBOutlet weak var bookNowLabel: UILabel!
+    @IBOutlet weak var subHeadingLabel: UILabel!
+    
     
     let adonsVm = AdonsVM()
     var fareBreakupVC:IntFareBreakupVC?
@@ -46,12 +48,17 @@ class AddOnVC : BaseVC {
     
     override func setupColors() {
         super.setupColors()
-        
+        self.subHeadingLabel.textColor = AppColors.themeGray60
     }
     
     override func setupTexts() {
         super.setupTexts()
-        self.bookNowLabel.attributedText = LocalizedString.Book_Now_And_Get_Off.localized.attributeStringWithColors(subString: " 20% off ", strClr: UIColor.black, substrClr: UIColor.black, strFont: AppFonts.c.withSize(38), subStrFont: AppFonts.c.withSize(38), backgroundColor: AppColors.greenBackground)
+        self.bookNowLabel.attributedText = LocalizedString.Book_Now_And_Get_Off.localized.attributeStringWithColors(subString: " 20% off ", strClr: AppColors.themeBlack, substrClr: AppColors.addOnsGreenAttributed, strFont: AppFonts.c.withSize(38), subStrFont: AppFonts.c.withSize(38), backgroundColor: AppColors.greenBackground)
+    }
+    
+    override func setupFonts() {
+        super.setupFonts()
+        self.subHeadingLabel.font = AppFonts.SemiBold.withSize(18)
     }
     
     override func bindViewModel() {
@@ -79,11 +86,12 @@ extension AddOnVC {
         self.topNavView.delegate = self
         self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: showSkip, isSecondRightButton: false,isDivider : false)
         self.topNavView.configureFirstRightButton(normalTitle: LocalizedString.Skip.localized, normalColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18))
+        topNavView.darkView.isHidden = false
     }
     
     private func configureTableView(){
         self.adonsTableView.register(UINib(nibName: "AdonsCell", bundle: nil), forCellReuseIdentifier: "AdonsCell")
-        self.adonsTableView.contentInset = UIEdgeInsets(top: topNavView.height - 12, left: 0, bottom: 0, right: 0)
+        self.adonsTableView.contentInset = UIEdgeInsets(top: topNavView.height - 12, left: 0, bottom: 50, right: 0)
         self.adonsTableView.separatorStyle = .none
         //        self.adonsTableView.estimatedRowHeight = 104
         self.adonsTableView.rowHeight = UITableView.automaticDimension

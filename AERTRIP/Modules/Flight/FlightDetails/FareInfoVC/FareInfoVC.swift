@@ -133,6 +133,16 @@ class FareInfoVC: BaseVC, UITableViewDelegate, UITableViewDataSource {
         self.fareInfoTableView.reloadData()
     }
     
+    override func setupColors() {
+        self.fareInfoTableView.backgroundColor = AppColors.themeGray04
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.fareInfoTableView.reloadData()
+    }
+    
+    
     private func setLoader(){
         if #available(iOS 13.0, *) {
             indicator.style = .large
@@ -164,21 +174,19 @@ class FareInfoVC: BaseVC, UITableViewDelegate, UITableViewDataSource {
     }
     
     //MARK:- Tableview Methods
-    func numberOfSections(in tableView: UITableView) -> Int
-    {
+    func numberOfSections(in tableView: UITableView) -> Int {
         if journey != nil{
             if isReturnJourney == true{
                 return journey.count+1
             }else{
                 return journey.count
             }
-        }else{
+        } else {
             return 0
         }
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-    {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == journey.count{
             return 1
         }else {
@@ -190,8 +198,7 @@ class FareInfoVC: BaseVC, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
-    {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == journey.count {
             guard let changeAirportCell = tableView.dequeueReusableCell(withIdentifier: "ChangeAirportCell") as? ChangeAirportTableViewCell else {return UITableViewCell()}
             changeAirportCell.titleLabel.text = ""
@@ -217,7 +224,6 @@ class FareInfoVC: BaseVC, UITableViewDelegate, UITableViewDataSource {
                     
                     fareInfoCell.setupTitle(flight: flights![indexPath.row], journey: journey, index: indexPath.section,airportDetailsResult: airportDetailsResult)
 
-                    
                     fareInfoCell.bottomSeparatorLabel.isHidden = true
  
                     if indexPath.section != 0{
@@ -516,14 +522,14 @@ class FareInfoVC: BaseVC, UITableViewDelegate, UITableViewDataSource {
         attString.append(attString2)
         attString.append(attString3)
         
-        attString.addAttributes([NSAttributedString.Key.paragraphStyle: style,NSAttributedString.Key.foregroundColor:UIColor.black], range: NSRange(location: 0, length: attString.string.count))
+        attString.addAttributes([NSAttributedString.Key.paragraphStyle: style,NSAttributedString.Key.foregroundColor:AppColors.themeBlack], range: NSRange(location: 0, length: attString.string.count))
         
         return attString
     }
 }
 
-
 extension FareInfoVC : FlightFareInfoVMDelegate{
+    
     func flightFareInfoData(data: Data, index:Int) {
 //        self.removeIndicator()
         let decoder = JSONDecoder()

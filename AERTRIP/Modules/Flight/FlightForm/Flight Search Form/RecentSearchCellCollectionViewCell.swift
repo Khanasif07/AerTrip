@@ -29,12 +29,26 @@ class RecentSearchCellCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        self.setupColor()
         blurView.layer.cornerRadius = 10.0;
         blurView.clipsToBounds = true;
         planeIcon.image = UIImage (named: "plane")?.withRenderingMode(.alwaysTemplate)
         planeIcon.tintColor = AppColors.recentSeachesSearchTypeBlue
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.setupColor()
+    }
+    
+    
+    func setupColor(){
+        self.blurView.backgroundColor = AppColors.recentSearchColletionCellColor
+        self.travelPath.textColor = AppColors.themeBlack
+        self.date.textColor = AppColors.themeGray60
+    }
+    
+
     
    @objc func setProperties( recentSearch : RecentSearchDisplayModel )
    {

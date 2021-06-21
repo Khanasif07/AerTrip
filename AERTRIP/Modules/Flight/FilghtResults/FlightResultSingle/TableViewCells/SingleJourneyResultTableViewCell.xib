@@ -246,6 +246,7 @@
             <connections>
                 <outlet property="airlineTitle" destination="Phz-X4-KKg" id="kCw-ps-Zd7"/>
                 <outlet property="airlineTitleWidth" destination="g3Q-bT-WGx" id="sVh-ZE-GmC"/>
+                <outlet property="airportsNameView" destination="LBS-x5-uyi" id="587-1d-e4s"/>
                 <outlet property="arrivalAirports" destination="wh7-Hj-y3O" id="YPi-xZ-Znb"/>
                 <outlet property="arrivalTime" destination="ZRK-NT-rhG" id="qd1-Jh-Gz3"/>
                 <outlet property="baseView" destination="NFA-Be-YnR" id="fMp-GB-Ntm"/>

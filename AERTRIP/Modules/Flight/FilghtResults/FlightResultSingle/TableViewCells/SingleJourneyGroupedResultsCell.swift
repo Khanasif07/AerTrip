@@ -151,7 +151,7 @@ class SingleJourneyGroupedResultsCell: UITableViewCell {
         logoTwo.isHidden = false
         logoThree.isHidden = false
         
-        price.textColor = .black
+        price.textColor = AppColors.themeBlack
         
     }
 }

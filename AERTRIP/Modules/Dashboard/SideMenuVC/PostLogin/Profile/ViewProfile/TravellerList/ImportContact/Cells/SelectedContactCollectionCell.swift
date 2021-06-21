@@ -135,30 +135,30 @@ class SelectedContactCollectionCell: UICollectionViewCell {
                 }
             }
             
-            var placeHolder: UIImage = #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult")
+            var placeHolder: UIImage = AppImages.ic_deselected_hotel_guest_adult
             if let ptype = self.contact?.passengerType {
                 if isSelectedForGuest {
                     switch ptype{
                     case .Adult:
-                        placeHolder = #imageLiteral(resourceName: "ic_selected_hotel_guest_adult")
+                        placeHolder = AppImages.ic_selected_hotel_guest_adult
                     case .Child:
-                        placeHolder = #imageLiteral(resourceName: "ic_selected_hotel_guest_child")
+                        placeHolder = AppImages.ic_selected_hotel_guest_child
                     case .Infant:
-                        placeHolder = #imageLiteral(resourceName: "ic_selected_hotel_guest_infant")
+                        placeHolder = AppImages.ic_selected_hotel_guest_infant
                     }
-//                    placeHolder = (ptype == .Adult) ? #imageLiteral(resourceName: "ic_selected_hotel_guest_adult") : #imageLiteral(resourceName: "ic_selected_hotel_guest_child")
+//                    placeHolder = (ptype == .Adult) ? AppImages.ic_selected_hotel_guest_adult : AppImages.ic_selected_hotel_guest_child
                     self.nameLabel.textColor = AppColors.themeBlack
                 }
                 else {
                     switch ptype{
                     case .Adult:
-                        placeHolder = #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult")
+                        placeHolder = AppImages.ic_deselected_hotel_guest_adult
                     case .Child:
-                        placeHolder = #imageLiteral(resourceName: "ic_deselected_hotel_guest_child")
+                        placeHolder = AppImages.ic_deselected_hotel_guest_child
                     case .Infant:
-                        placeHolder = #imageLiteral(resourceName: "ic_deselected_hotel_guest_infant")
+                        placeHolder = AppImages.ic_deselected_hotel_guest_infant
                     }
-//                    placeHolder = (ptype == .Adult) ? #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult") : #imageLiteral(resourceName: "ic_deselected_hotel_guest_child")
+//                    placeHolder = (ptype == .Adult) ? AppImages.ic_deselected_hotel_guest_adult : AppImages.ic_deselected_hotel_guest_child
                     self.nameLabel.textColor = AppColors.themeGray40
                 }
             }
@@ -307,30 +307,30 @@ class SelectedContactImportCollectionCell: UICollectionViewCell {
             }
             
             
-            var placeHolder: UIImage = #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult")
+            var placeHolder: UIImage = AppImages.ic_deselected_hotel_guest_adult
             if let ptype = self.contact?.passengerType {
                 if isSelectedForGuest {
                     switch ptype{
                     case .Adult:
-                        placeHolder = #imageLiteral(resourceName: "ic_selected_hotel_guest_adult")
+                        placeHolder = AppImages.ic_selected_hotel_guest_adult
                     case .Child:
-                        placeHolder = #imageLiteral(resourceName: "ic_selected_hotel_guest_child")
+                        placeHolder = AppImages.ic_selected_hotel_guest_child
                     case .Infant:
-                        placeHolder = #imageLiteral(resourceName: "ic_selected_hotel_guest_infant")
+                        placeHolder = AppImages.ic_selected_hotel_guest_infant
                     }
-//                    placeHolder = (ptype == .Adult) ? #imageLiteral(resourceName: "ic_selected_hotel_guest_adult") : #imageLiteral(resourceName: "ic_selected_hotel_guest_child")
+//                    placeHolder = (ptype == .Adult) ? AppImages.ic_selected_hotel_guest_adult : AppImages.ic_selected_hotel_guest_child
                     self.nameLabel.textColor = AppColors.themeBlack
                 }
                 else {
                     switch ptype{
                     case .Adult:
-                        placeHolder = #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult")
+                        placeHolder = AppImages.ic_deselected_hotel_guest_adult
                     case .Child:
-                        placeHolder = #imageLiteral(resourceName: "ic_deselected_hotel_guest_child")
+                        placeHolder = AppImages.ic_deselected_hotel_guest_child
                     case .Infant:
-                        placeHolder = #imageLiteral(resourceName: "ic_deselected_hotel_guest_infant")
+                        placeHolder = AppImages.ic_deselected_hotel_guest_infant
                     }
-//                    placeHolder = (ptype == .Adult) ? #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult") : #imageLiteral(resourceName: "ic_deselected_hotel_guest_child")
+//                    placeHolder = (ptype == .Adult) ? AppImages.ic_deselected_hotel_guest_adult : AppImages.ic_deselected_hotel_guest_child
                     self.nameLabel.textColor = AppColors.themeGray40
                 }
             }

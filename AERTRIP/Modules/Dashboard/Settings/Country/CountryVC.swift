@@ -70,6 +70,9 @@ class CountryVC : BaseVC {
     
     override func setupColors() {
         super.setupColors()
+        
+        self.view.backgroundColor = AppColors.themeWhite
+        
       //  self.searchBarBackView.backgroundColor = AppColors.themeGray04
       //  self.searchBarSepratorView.backgroundColor = AppColors.themeGray20
     }

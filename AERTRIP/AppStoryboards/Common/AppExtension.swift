@@ -118,9 +118,10 @@ extension UIView {
     
     func addBlurEffect(backgroundColor: UIColor = AppColors.clear, style: UIBlurEffect.Style = UIBlurEffect.Style.light, alpha: CGFloat = 0.5) {
         
-        let blurV = getBlurView()
+        let blurV = getBlurView(style: style)
         blurV.alpha = alpha
         blurV.backgroundColor = backgroundColor
+        blurV.contentView.backgroundColor = .clear
         self.insertSubview(blurV, at: 0)
     }
     

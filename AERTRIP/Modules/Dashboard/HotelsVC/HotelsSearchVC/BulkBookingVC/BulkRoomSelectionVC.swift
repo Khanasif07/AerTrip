@@ -101,6 +101,8 @@ class BulkRoomSelectionVC: BaseVC {
         self.adultAgeLabel.textColor = AppColors.themeGray40
         self.childLabel.textColor = AppColors.themeBlack
         self.childAgeLabel.textColor = AppColors.themeGray40
+        self.doneButton.backgroundColor = AppColors.doneViewClearColor
+        self.mainContainerView.backgroundColor = AppColors.themeWhiteDashboard
         //        self.firstLineView.backgroundColor = AppColors.themeGray10
         //        self.secondLineView.backgroundColor = AppColors.themeGray10
     }
@@ -143,7 +145,7 @@ class BulkRoomSelectionVC: BaseVC {
             self.safeAreaBackView.alpha = 1.0
             self.headerView.isHidden = self.mainContainerView.size.height > 200.0
             self.mainContainerView.transform = .identity
-            self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
+            self.view.backgroundColor = AppColors.themeBlackBackground.withAlphaComponent(0.3)
 
         }, completion: { (isDone) in
         })
@@ -157,7 +159,7 @@ class BulkRoomSelectionVC: BaseVC {
             guard let _self = self else { return }
             _self.safeAreaBackView.alpha = 0.0
             _self.mainContainerView.transform = CGAffineTransform(translationX: 0, y: heightToChange)
-            _self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.001)
+            _self.view.backgroundColor = AppColors.themeBlackBackground.withAlphaComponent(0.001)
 
             }, completion: { [weak self] _ in
                 guard let _self = self else { return }

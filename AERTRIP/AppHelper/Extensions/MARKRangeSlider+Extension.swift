@@ -15,10 +15,10 @@ extension MARKRangeSlider {
     func setupThemeImages() {
         self.disableOverlapping = true
         self.pushable = true
-        self.trackImage = UIImage(named: "greyColorTrack")
-        self.leftThumbImage = UIImage(named: "sliderHandle")
-        self.rightThumbImage = UIImage(named: "sliderHandle")
-        self.rangeImage = UIImage(named: "greenBlueRangeImage")
+        self.trackImage = AppImages.greyColorTrack
+        self.leftThumbImage = AppImages.sliderHandle
+        self.rightThumbImage = AppImages.sliderHandle
+        self.rangeImage = AppImages.greenBlueRangeImage
     }
 }
 

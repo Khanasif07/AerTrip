@@ -27,6 +27,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     @IBOutlet weak var emailPinnedFlights: UIButton!
     @IBOutlet weak var sharePinnedFilghts: UIButton!
     @IBOutlet weak var switchGradientView: UIView!
+    @IBOutlet weak var resultsTableViewHeight: NSLayoutConstraint!
     @IBOutlet weak var resultsTableViewTop: NSLayoutConstraint!
     @IBOutlet weak var passThroughView: PassthroughView!
     
@@ -58,14 +59,20 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         setupTableView()
         setupPinnedFlightsOptionsView()
         self.viewModel.setSharedFks()
-        
+        view.backgroundColor = AppColors.themeWhite
     }
         
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        self.emailPinnedFlights.setImage(UIImage(named: "EmailPinned"), for: .normal)
+        self.emailPinnedFlights.setImage(AppImages.EmailPinned, for: .normal)
         self.emailPinnedFlights.displayLoadingIndicator(false)
     }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.resultsTableView.reloadData()
+    }
+
     
     deinit {
         printDebug("FlightResultSingleJourneyVC")
@@ -110,17 +117,21 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         resultsTableView.scrollsToTop = true
         resultsTableView.estimatedRowHeight  = 123
         resultsTableView.rowHeight = UITableView.automaticDimension
+        let statusHeight = AppDelegate.shared.window?.safeAreaInsets.top ?? 0
+        resultsTableView.contentInset = UIEdgeInsets(top: statusHeight, left: 0, bottom: 0, right: 0)
+        resultsTableViewHeight.constant += statusHeight
+        resultsTableViewTop.constant -= statusHeight
     }
     
     func setupPinnedFlightsOptionsView() {
         //        pinnedFlightOptionsTop.constant = 0
         
         switchView.delegate = self
-        switchView.tintColor = UIColor.TWO_ZERO_FOUR_COLOR
-        switchView.offTintColor = UIColor.TWO_THREE_ZERO_COLOR
+        switchView.tintColor = AppColors.switchGray
+        switchView.offTintColor = AppColors.switchGray
         switchView.onTintColor = AppColors.themeGreen
-        switchView.onThumbImage = #imageLiteral(resourceName: "pushpin")
-        switchView.offThumbImage = #imageLiteral(resourceName: "pushpin-gray")
+        switchView.onThumbImage = AppImages.pushpin
+        switchView.offThumbImage = AppImages.pushpin_gray
         switchView.setupUI()
         delay(seconds: 0.6) {
             self.switchView.isOn = false
@@ -173,7 +184,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             // If blurEffectView yCoodinate is close to top of the screen
             if  ( yCoordinate > ( visualEffectViewHeight / 2.0 ) ){
                 
-                let progressBarrStopPositionValue : CGFloat = UIDevice.isIPhoneX ? 46 : 22
+                let progressBarrStopPositionValue : CGFloat = 0//UIDevice.isIPhoneX ? 46 : 22
 
                 rect.origin.y = -visualEffectViewHeight + progressBarrStopPositionValue
 
@@ -224,10 +235,6 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         }
     }
     
-    
-
-    
-    
     @IBAction func PinnedFlightSwitchToggled(_ sender: AertripSwitch) {
         
         if sender.isOn {
@@ -276,7 +283,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     }
     
     @IBAction func emailPinnedFlights(_ sender: Any) {
-        emailPinnedFlights.setImage(UIImage(named: "OvHotelResult"), for: .normal)
+        emailPinnedFlights.setImage(AppImages.OvHotelResult, for: .normal)
         emailPinnedFlights.displayLoadingIndicator(true)
 
         if let _ = UserInfo.loggedInUserId{
@@ -308,7 +315,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     func returnEmailView(view: String) {
         DispatchQueue.main.async {
             
-            self.emailPinnedFlights.setImage(UIImage(named: "EmailPinned"), for: .normal)
+            self.emailPinnedFlights.setImage(AppImages.EmailPinned, for: .normal)
             self.emailPinnedFlights.displayLoadingIndicator(false)
 
             if #available(iOS 13.0, *) {
@@ -408,7 +415,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             yCordinate = max (  -self.visualEffectViewHeight ,  -offsetDifference )
             yCordinate = min ( 0,  yCordinate)
             
-            let progressBarrStopPositionValue : CGFloat = UIDevice.isIPhoneX ? 46 : 22
+            let progressBarrStopPositionValue : CGFloat = 0//UIDevice.isIPhoneX ? 46 : 22
             
             UIView.animate(withDuration: 0.1, delay: 0.0, options: [.curveEaseOut], animations: {
                 
@@ -445,6 +452,47 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         }
     }
     
+    func switchProgressViews(_ scrollView: UIScrollView) {
+        let contentOffset = scrollView.contentOffset
+        let offsetDifference = contentOffset.y - self.viewModel.scrollviewInitialYOffset
+        let safeAreaTop = AppDelegate.shared.window?.safeAreaInsets.top ?? 0
+        if let blurEffectView = self.navigationController?.view.viewWithTag(500), let progressView = self.navigationController?.view.viewWithTag(600), let stickyProgressView = self.navigationController?.view.viewWithTag(601) as? UIProgressView {
+            if stickyProgressView.progress < 0.97 {
+                
+                if offsetDifference > 0 {
+                    // hiding
+                    if blurEffectView.frame.maxY <= safeAreaTop + 1 {
+                        progressView.isHidden = true
+                        stickyProgressView.isHidden = false
+                    } else {
+                        progressView.isHidden = false
+                        stickyProgressView.isHidden = true
+                    }
+                } else {
+                    // showing
+                    if blurEffectView.frame.maxY > safeAreaTop + 7 {
+                        progressView.isHidden = false
+                        stickyProgressView.isHidden = true
+                    } else {
+                        progressView.isHidden = true
+                        stickyProgressView.isHidden = false
+                    }
+                }
+            } else {
+                progressView.isHidden = true
+                stickyProgressView.isHidden = true
+            }
+        }
+        
+        if let blurEffectView = self.navigationController?.view.viewWithTag(500), let navBlurView = self.navigationController?.view.viewWithTag(602) {
+            if blurEffectView.frame.maxY < blurEffectView.frame.height {
+                navBlurView.isHidden = false
+            } else {
+                navBlurView.isHidden = true
+            }
+        }
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         let contentSize = scrollView.contentSize
@@ -463,7 +511,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
             let invertedOffset = -offsetDifference
             revealBlurredHeaderView(invertedOffset)
         }
-        
+        switchProgressViews(scrollView)
         
 //        guard let content = self.viewModel.contentOffset else { return }
 //
@@ -500,6 +548,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         snapToTopOrBottomOnSlowScrollDragging(scrollView)
+        switchProgressViews(scrollView)
         //        scrollviewInitialYOffset = 0.0
     }
     

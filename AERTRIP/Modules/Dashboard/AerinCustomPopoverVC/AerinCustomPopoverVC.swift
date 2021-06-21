@@ -63,8 +63,8 @@ class AerinCustomPopoverVC: BaseVC {
     private var sendBtnState: SendButtonState = .record {
         didSet {
             switch sendBtnState {
-            case .record:   sendBtn.setImage(#imageLiteral(resourceName: "aerinSmallMic"), for: .normal)
-            case .send:     sendBtn.setImage(#imageLiteral(resourceName: "sendIcon"), for: .normal)
+            case .record:   sendBtn.setImage(AppImages.aerinSmallMic, for: .normal)
+            case .send:     sendBtn.setImage(AppImages.sendIcon, for: .normal)
             }
         }
     }
@@ -136,7 +136,7 @@ class AerinCustomPopoverVC: BaseVC {
         IQKeyboardManager.shared().isEnableAutoToolbar = false
         IQKeyboardManager.shared().shouldResignOnTouchOutside = false
         addKeyboard()
-        self.statusBarStyle = .darkContent
+        self.statusBarStyle = .lightContent
         NotificationCenter.default.addObserver(self, selector: #selector(appDidEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
     
@@ -507,7 +507,7 @@ class AerinCustomPopoverVC: BaseVC {
         messageTextView.font = AppFonts.Regular.withSize(18)
         messageTextView.delegate = self
         messageTextView.autocorrectionType = .no
-        animationBubbleImageView.image = UIImage(named: "Green Chat bubble")?.resizableImage(withCapInsets: UIEdgeInsets(top: 17, left: 21, bottom: 17, right: 21), resizingMode: .stretch).withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+        animationBubbleImageView.image = AppImages.Green_Chat_bubble.resizableImage(withCapInsets: UIEdgeInsets(top: 17, left: 21, bottom: 17, right: 21), resizingMode: .stretch).withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
         view.addSubview(animationView)
         hideAnimationView()
         chatTableView.isHidden = true

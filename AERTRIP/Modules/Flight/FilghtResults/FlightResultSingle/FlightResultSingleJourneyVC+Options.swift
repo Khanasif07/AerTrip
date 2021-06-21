@@ -271,7 +271,7 @@ extension FlightResultSingleJourneyVC {
     }
     
     func shareJourney(journey : [Journey]) {
-        self.sharePinnedFilghts.setImage(UIImage(named: "OvHotelResult"), for: .normal)
+        self.sharePinnedFilghts.setImage(AppImages.OvHotelResult, for: .normal)
         sharePinnedFilghts.displayLoadingIndicator(true)
 
         let flightAdultCount = self.viewModel.bookFlightObject.flightAdultCount
@@ -294,7 +294,7 @@ extension FlightResultSingleJourneyVC : MFMailComposeViewControllerDelegate {
     func returnSharableUrl(url: String)
     {
         sharePinnedFilghts.displayLoadingIndicator(false)
-        self.sharePinnedFilghts.setImage(UIImage(named: "SharePinned"), for: .normal)
+        self.sharePinnedFilghts.setImage(AppImages.SharePinned, for: .normal)
 
         if url.lowercased() == "no data"{
             AertripToastView.toast(in: self.view, withText: "Something went wrong. Please try again.")

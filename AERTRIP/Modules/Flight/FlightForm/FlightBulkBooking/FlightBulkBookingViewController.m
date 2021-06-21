@@ -84,6 +84,14 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraintMainView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 
+@property (weak, nonatomic) IBOutlet UIView *headerView;
+@property (weak, nonatomic) IBOutlet UIView *formToCenterView;
+@property (weak, nonatomic) IBOutlet UIView *onwardReturnView;
+@property (weak, nonatomic) IBOutlet UIView *onwardDateView;
+@property (weak, nonatomic) IBOutlet UIView *returnDateView;
+@property (weak, nonatomic) IBOutlet UIView *passengerContainerView;
+@property (weak, nonatomic) IBOutlet UIView *classContainerView;
+
 
 
 @property (strong , nonatomic) CLLocationManager * locationManager;
@@ -143,6 +151,7 @@ CGFloat animatedDistance;
 
     [self setupFlightSection];
     [self handleLoginState];
+    [self setupColor];
     self.submitButton.layer.masksToBounds = NO;
     [self.submitButton configureCommonGreenButton];
 }
@@ -250,6 +259,25 @@ CGFloat animatedDistance;
     [self cancelAction:nil];
 }
 
+
+-(void)setupColor{
+    self.bottomView.backgroundColor = [UIColor WHITE_COLOR];
+    self.contentView.backgroundColor = [UIColor themeBlack26];
+    self.headerView.backgroundColor = [UIColor clearColor];//[UIColor doneViewClearColor];
+    self.FromToView.backgroundColor = [UIColor themeBlack26];
+    self.formToCenterView.backgroundColor = [UIColor themeBlack26];
+    self.onwardReturnView.backgroundColor = [UIColor themeBlack26];
+    self.onwardDateView.backgroundColor = [UIColor themeBlack26];
+    self.returnDateView.backgroundColor = [UIColor themeBlack26];
+    self.passengerContainerView.backgroundColor = [UIColor themeBlack26];
+    self.classContainerView.backgroundColor = [UIColor themeBlack26];
+    self.contentView.layer.masksToBounds = true;
+    self.contentView.layer.cornerRadius = 10;
+    self.contentView.layer.maskedCorners = kCALayerMinXMaxYCorner | kCALayerMaxXMaxYCorner;
+    self.multicityRemoveLabel.textColor = [UIColor muticityAddRemoveTextColor];
+    self.multicityRemoveLabel.textColor = [UIColor muticityAddRemoveTextColor];
+}
+
 - (void)setupSegmentControl {
     if (self.segmentTitleSectionArray.count == 0) self.segmentTitleSectionArray = [@[@"Oneway"] mutableCopy];
     
@@ -265,7 +293,7 @@ CGFloat animatedDistance;
     self.flightSegmentedControl.verticalDividerEnabled = NO;
     self.flightSegmentedControl.selectionIndicatorColor = [self getAppColor];
     
-    self.flightSegmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor FIVE_ONE_COLOR], NSFontAttributeName:[UIFont fontWithName:@"SourceSansPro-Regular" size:16]};
+    self.flightSegmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor ONE_FIVE_THREE_COLOR], NSFontAttributeName:[UIFont fontWithName:@"SourceSansPro-Regular" size:16]};
     
     self.flightSegmentedControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : [UIColor FIVE_ONE_COLOR], NSFontAttributeName:[UIFont fontWithName:@"SourceSansPro-Semibold" size:16]};
     
@@ -617,7 +645,7 @@ CGFloat animatedDistance;
         self.onwardsSubTitleLabel.hidden = YES;
     }
     if (self.isReturn) {
-        [self.ReturnLabelCenter setTextColor:[ UIColor ONE_FIVE_THREE_COLOR] ];
+        [self.ReturnLabelCenter setTextColor:[ UIColor flightFormReturnEnableColor]];
         if (self.formDataModel.returnDate != nil) {
             
             self.returnValueLabel.hidden = NO;
@@ -636,7 +664,7 @@ CGFloat animatedDistance;
         }
     }else {
 
-        [self.ReturnLabelCenter setTextColor:[UIColor TWO_THREE_ZERO_COLOR]];
+        [self.ReturnLabelCenter setTextColor:[UIColor flightFormReturnDisableColor]];
         self.returnValueLabel.hidden = YES;
         self.returnSubTitleLabel.hidden = YES;
         self.returnLabel.hidden = YES;
@@ -689,7 +717,7 @@ CGFloat animatedDistance;
 }
 
 - (void)setupFlightClassType {
-    [self.flightClassTypeImageView setImage:[UIImage imageNamed:[self getImageNameForFlightClass:self.formDataModel.flightClass]]];
+    [self.flightClassTypeImageView setImage:[self getImageForFlightClass:self.formDataModel.flightClass]];
     self.flightClassTypeLabel.text = self.formDataModel.flightClass.name;
     
     if ([self.formDataModel.flightClass.type isEqualToString:PREMIUM_FLIGHT_TYPE]) {
@@ -697,21 +725,21 @@ CGFloat animatedDistance;
     }
 }
 
-- (NSString *)getImageNameForFlightClass:(FlightClass *)flightClass {
+- (UIImage *)getImageForFlightClass:(FlightClass *)flightClass {
     
     if ([flightClass.type isEqualToString:ECONOMY_FLIGHT_TYPE]) {
-        return @"EconomyClassBlack";
+        return AppImages.EconomyClassBlack;
     }else if ([flightClass.type isEqualToString:BUSINESS_FLIGHT_TYPE]) {
-        return @"BusinessClassBlack";
+        return AppImages.BusinessClassBlack;
         
     }else if ([flightClass.type isEqualToString:PREMIUM_FLIGHT_TYPE]) {
-        return @"PreEconomyClassBlack";
+        return AppImages.PreEconomyClassBlack;
         
     }else if ([flightClass.type isEqualToString:FIRST_FLIGHT_TYPE]) {
-        return @"FirstClassBlack";
+        return AppImages.FirstClassBlack;
         
     }
-    return @"";
+    return AppImages.EconomyClassBlack;
 }
 
 - (void)setupSubmitButton {
@@ -1519,6 +1547,7 @@ CGFloat animatedDistance;
     cell.flightLegRow = flightLegRow;
     [cell setupFromAndToView];
     [cell setupDateView];
+    [cell setColorForFromView];
     return cell;
 }
 
@@ -1767,52 +1796,52 @@ CGFloat animatedDistance;
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
 
-    CGRect textFieldRect = [self.view.window convertRect:textField.bounds fromView:textField];
-     CGRect viewRect = [self.view.window convertRect:self.view.bounds fromView:self.view];
-     CGFloat midline = textFieldRect.origin.y + 0.5 * textFieldRect.size.height;
-     CGFloat numerator =  midline - viewRect.origin.y  - MINIMUM_SCROLL_FRACTION * viewRect.size.height;
-     CGFloat denominator = (MAXIMUM_SCROLL_FRACTION - MINIMUM_SCROLL_FRACTION)
-     * viewRect.size.height;
-     CGFloat heightFraction = numerator / denominator;
-     if (heightFraction < 0.0)
-     {
-         heightFraction = 0.0;
-     }
-     else if (heightFraction > 1.0)
-     {
-         heightFraction = 1.0;
-     }
-     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-    if (orientation == UIInterfaceOrientationPortrait ||
-     orientation == UIInterfaceOrientationPortraitUpsideDown)
-    {
-         animatedDistance = floor(PORTRAIT_KEYBOARD_HEIGHT * heightFraction);
-    }
-    else
-    {
-        animatedDistance = floor(LANDSCAPE_KEYBOARD_HEIGHT * heightFraction);
-    }
-    CGRect viewFrame = self.view.frame;
-    viewFrame.origin.y -= animatedDistance;
-
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
-    [self.view setFrame:viewFrame];
-    [UIView commitAnimations];
+//    CGRect textFieldRect = [self.view.window convertRect:textField.bounds fromView:textField];
+//     CGRect viewRect = [self.view.window convertRect:self.view.bounds fromView:self.view];
+//     CGFloat midline = textFieldRect.origin.y + 0.5 * textFieldRect.size.height;
+//     CGFloat numerator =  midline - viewRect.origin.y  - MINIMUM_SCROLL_FRACTION * viewRect.size.height;
+//     CGFloat denominator = (MAXIMUM_SCROLL_FRACTION - MINIMUM_SCROLL_FRACTION)
+//     * viewRect.size.height;
+//     CGFloat heightFraction = numerator / denominator;
+//     if (heightFraction < 0.0)
+//     {
+//         heightFraction = 0.0;
+//     }
+//     else if (heightFraction > 1.0)
+//     {
+//         heightFraction = 1.0;
+//     }
+//     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+//    if (orientation == UIInterfaceOrientationPortrait ||
+//     orientation == UIInterfaceOrientationPortraitUpsideDown)
+//    {
+//         animatedDistance = floor(PORTRAIT_KEYBOARD_HEIGHT * heightFraction);
+//    }
+//    else
+//    {
+//        animatedDistance = floor(LANDSCAPE_KEYBOARD_HEIGHT * heightFraction);
+//    }
+//    CGRect viewFrame = self.view.frame;
+//    viewFrame.origin.y -= animatedDistance;
+//
+//    [UIView beginAnimations:nil context:NULL];
+//    [UIView setAnimationBeginsFromCurrentState:YES];
+//    [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
+//    [self.view setFrame:viewFrame];
+//    [UIView commitAnimations];
     return YES;
 
 }
 
 - (BOOL) textFieldShouldEndEditing:(UITextField*)textField
 {
-     CGRect viewFrame = self.view.frame;
-     viewFrame.origin.y += animatedDistance;
-     [UIView beginAnimations:nil context:NULL];
-     [UIView setAnimationBeginsFromCurrentState:YES];
-     [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
-     [self.view setFrame:viewFrame];
-     [UIView commitAnimations];
+//     CGRect viewFrame = self.view.frame;
+//     viewFrame.origin.y += animatedDistance;
+//     [UIView beginAnimations:nil context:NULL];
+//     [UIView setAnimationBeginsFromCurrentState:YES];
+//     [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
+//     [self.view setFrame:viewFrame];
+//     [UIView commitAnimations];
     
     return YES;
 

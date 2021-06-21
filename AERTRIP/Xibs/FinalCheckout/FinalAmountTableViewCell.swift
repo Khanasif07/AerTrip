@@ -43,5 +43,7 @@ class FinalAmountTableViewCell: UITableViewCell {
     private func setUpColor() {
         self.payableWalletMessageLabel.textColor = AppColors.themeBlack
         self.netEffectiveFareLabel.textColor = AppColors.themeBlack
+        self.contentView.backgroundColor = AppColors.themeBlack26
     }
+    
 }

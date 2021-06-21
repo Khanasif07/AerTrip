@@ -35,10 +35,20 @@ class SelectMealCell: UITableViewCell {
         mealForLabel.textColor = AppColors.themeGray40
         mealAutoSelectedForLabel.textColor = AppColors.themeGray60
         priceLabel.textColor = AppColors.themeGray40
-        autoSelectionBackView.roundedCorners(cornerRadius: 3)
+        priceLabel.backgroundColor = AppColors.clear
+        mealTitleLabel.textColor = AppColors.themeBlack
+        mealTitleLabel.backgroundColor = AppColors.clear
+        self.contentView.backgroundColor = AppColors.themeBlack26
+        self.autoSelectionBackView.backgroundColor = AppColors.lightYellowAndGoldenGray
+        self.mealAutoSelectedForLabel.textColor = AppColors.grayWhite
 
     }
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        autoSelectionBackView.roundedCorners(cornerRadius: 3)
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

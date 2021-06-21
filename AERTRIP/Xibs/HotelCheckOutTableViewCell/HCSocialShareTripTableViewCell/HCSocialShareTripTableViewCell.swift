@@ -43,11 +43,11 @@ class HCSocialShareTripTableViewCell: UITableViewCell {
         self.twitterButton.addShadow(cornerRadius: self.fbButton.frame.size.height / 2.0, maskedCorners: [.layerMinXMaxYCorner,.layerMaxXMinYCorner,.layerMaxXMaxYCorner,.layerMinXMinYCorner], color: AppColors.twitterBackgroundColor.withAlphaComponent(0.3), offset: CGSize.init(width: 0.0, height: 3.0), opacity: 1.0, shadowRadius: 5.0)
         self.linkdInButton.addShadow(cornerRadius: self.fbButton.frame.size.height / 2.0, maskedCorners: [.layerMinXMaxYCorner,.layerMaxXMinYCorner,.layerMaxXMaxYCorner,.layerMinXMinYCorner], color: AppColors.linkedinButtonBackgroundColor.withAlphaComponent(0.3), offset: CGSize.init(width: 0.0, height: 3.0), opacity: 1.0, shadowRadius: 5.0)
         //Image
-        self.fbButton.setImage(#imageLiteral(resourceName: "fbIconWhite").withRenderingMode(.alwaysTemplate), for: .normal)
+        self.fbButton.setImage(AppImages.fbIconWhite.withRenderingMode(.alwaysTemplate), for: .normal)
         self.fbButton.tintColor = AppColors.themeWhite
-        self.twitterButton.setImage(#imageLiteral(resourceName: "twiterIcon").withRenderingMode(.alwaysTemplate), for: .normal)
+        self.twitterButton.setImage(AppImages.twiterIcon.withRenderingMode(.alwaysTemplate), for: .normal)
         self.twitterButton.tintColor = AppColors.themeWhite
-        self.linkdInButton.setImage(#imageLiteral(resourceName: "linkedInIcon"), for: .normal)
+        self.linkdInButton.setImage(AppImages.linkedInLogoImage, for: .normal)
         //Font
         self.tellYourPlanLabel.font = AppFonts.Regular.withSize(16.0)
         //Text

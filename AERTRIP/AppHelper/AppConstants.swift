@@ -76,6 +76,7 @@ import Foundation
 enum AppConstants {
     
     static let isReleasingForCustomers : Bool = false
+    static let isCurrencyConversionEnable: Bool = true
     static let logsEnabled: Bool = false
 
     static let kCurrency = ""
@@ -181,14 +182,34 @@ enum AppConstants {
     // color for aap disable gradient color
     static let appthemeDisableGradientColors: [UIColor] = [AppColors.themeGray20, AppColors.themeGray20]
 
+    // color for aap theme gradient color for dashboard
+    static let appDashboardGradientColors: [UIColor] = [AppColors.shadowBlueDashboard, AppColors.themeGreenDashboard] //AppColors.themeGreen
+    
     
 }
 
 
 struct AppShadowProperties {
-    let shadowRadius:CGFloat  = 4.0
-    let cornerRadius:CGFloat = 10.0
-    let opecity:Float = 1.0
-    let offset:CGSize = .zero
-    let shadowColor = AppColors.appShadowColor
+    var shadowRadius:CGFloat  = 4.0
+    var cornerRadius:CGFloat = 10.0
+    var opecity:Float = 1.0
+    var offset:CGSize = .zero
+    var shadowColor:UIColor = AppColors.appShadowColor
+    
+    init(_ isDarkMode: Bool = true) {
+        if isDarkMode{
+            shadowRadius  = 4.0
+            cornerRadius = 10.0
+            opecity = 1.0
+            offset = .zero
+            shadowColor = AppColors.appShadowColor
+        }else{
+            shadowRadius  = 0.0
+            cornerRadius = 10.0
+            opecity = 0.0
+            offset = .zero
+            shadowColor = .clear
+        }
+        
+    }
 }

@@ -33,13 +33,20 @@ class TravellersDetailsTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configureUI()
+        self.setColor()
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         self.travellerName.attributedText = nil
+        self.setColor()
     }
     // MARK: - Functions
+    
+    private func setColor(){
+        self.containerView.backgroundColor = AppColors.themeWhiteDashboard
+    }
+    
     
     // MARK: ===========
     
@@ -59,7 +66,7 @@ class TravellersDetailsTableViewCell: UITableViewCell {
             self.lastCellShadowSetUp(isLastCell: isLastTraveller)
         }
         if !travellersImage.isEmpty {
-            self.travellerProfileImage.setImageWithUrl(travellersImage, placeholder: #imageLiteral(resourceName: "profilePlaceholder"), showIndicator: true)
+            self.travellerProfileImage.setImageWithUrl(travellersImage, placeholder: AppImages.profilePlaceholder, showIndicator: true)
             self.travellerProfileImage.contentMode = .scaleAspectFill
         } else {
             //self.travellerProfileImage.image = AppGlobals.shared.getImageFor(firstName: firstName, lastName: lastName, font: AppFonts.Regular.withSize(35.0))
