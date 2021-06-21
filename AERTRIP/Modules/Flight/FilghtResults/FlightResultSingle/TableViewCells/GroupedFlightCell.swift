@@ -357,6 +357,7 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
             let currentTime = currentTimeFK.departurTime
             let currentFK = currentTimeFK.fk
             cell.timeLabel.text = currentTime
+            cell.timeLabel.textColor = AppColors.themeGray60
             if  let journey = flightGroup.getJourneyWith(fk: currentFK) {
                 cell.isPinnedView.isHidden = !(journey.isPinned ?? false)
             }
