@@ -244,7 +244,7 @@ class FlightDetailsBaseVC: BaseVC {
         self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 100, height: 49)
         self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 0.0))
         self.parchmentView?.borderOptions = PagingBorderOptions.visible(
-            height: 0.5,
+            height: 1.0,
             zIndex: Int.max - 1,
             insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
         
@@ -254,6 +254,7 @@ class FlightDetailsBaseVC: BaseVC {
         self.parchmentView?.selectedTextColor = AppColors.themeBlack
         self.parchmentView?.textColor = AppColors.themeBlack
         self.parchmentView?.menuBackgroundColor = .clear
+        self.parchmentView?.borderColor = AppColors.dividerColor
         self.dataDisplayView.addSubview(self.parchmentView!.view)
         
         self.parchmentView?.collectionView.isScrollEnabled = false

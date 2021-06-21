@@ -26,6 +26,7 @@ class UpgradePlanListVC: BaseVC {
     }
     @IBOutlet weak var noDataFoundView: UIView!
     @IBOutlet weak var noDataFoundLabel: UILabel!
+    @IBOutlet weak var noDataFoundImg: UIImageView!
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     
     var viewModel = UpgradePlanVM()
@@ -72,7 +73,11 @@ class UpgradePlanListVC: BaseVC {
     func setupPageController(){
         self.journeyPageControl.numberOfPages = 0
         self.journeyPageControl.currentPage = 0
-        self.journeyPageControl.inactiveTransparency = 1.0
+        if isLightTheme(){
+            self.journeyPageControl.inactiveTransparency = 1.0
+        }else{
+            self.journeyPageControl.inactiveTransparency = 0.5
+        }
         self.journeyPageControl.inactiveTintColor = AppColors.themeGray220
         self.journeyPageControl.currentPageTintColor = AppColors.unicolorWhite
         self.journeyPageControl.radius = 3.5
@@ -115,6 +120,12 @@ class UpgradePlanListVC: BaseVC {
     
     
     private func setNoDataLabel(){
+        if isLightTheme(){
+            noDataFoundImg.image = UIImage(named: "group3")
+        }else{
+            noDataFoundImg.image = UIImage(named: "opps")
+        }
+        
         let attributedString = NSMutableAttributedString(string: "Oops!\nOther Fares not found for this flight", attributes: [
             .font: AppFonts.Regular.withSize(18.0),
             .foregroundColor: AppColors.unicolorWhite])

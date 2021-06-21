@@ -910,7 +910,8 @@ enum ATWeatherType: RawRepresentable {
     static var baggageAddon: UIImage { #imageLiteral(resourceName: "baggage") }
     static var mealsAddon: UIImage { #imageLiteral(resourceName: "meals") }
     
-    
+
+    static var greenFilledAddBlack: UIImage { #imageLiteral(resourceName: "iconAddGreen") }
     static var greenFilledAdd: UIImage { #imageLiteral(resourceName: "greenFilledAdd") }
     static var ic_info_incomplete: UIImage{ #imageLiteral(resourceName: "ic_info_incomplete") }
     
@@ -1128,6 +1129,7 @@ enum ATWeatherType: RawRepresentable {
     @objc static var FirstClassBlack: UIImage { #imageLiteral(resourceName: "FirstClassBlack") }
     static var ArrowRed: UIImage { #imageLiteral(resourceName: "ArrowRed") }
     static var TripPurpleIcon:UIImage { #imageLiteral(resourceName: "TripPurpleIcon") }
+    
     
     //    static var down: UIImage { #imageLiteral(resourceName: "ArrowRed") }//icon
     

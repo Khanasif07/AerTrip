@@ -27,7 +27,11 @@ class LayoverViewTableViewCell: UITableViewCell
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        layoverView.layer.borderWidth = 0.5
+        if isLightTheme(){
+            layoverView.layer.borderWidth = 0.5
+        }else{
+            layoverView.layer.borderWidth = 0
+        }
         layoverView.layer.borderColor = AppColors.divider.color.cgColor
         layoverView.layer.cornerRadius = layoverView.frame.height/2
         self.layoverView.backgroundColor = AppColors.flightFilterSessionDefaultColor
