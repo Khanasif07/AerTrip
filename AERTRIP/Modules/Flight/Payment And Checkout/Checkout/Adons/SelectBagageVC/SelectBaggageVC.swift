@@ -12,6 +12,9 @@ import UIKit
 class SelectBaggageVC: UIViewController {
     
     @IBOutlet weak var bagageTableView: UITableView!
+    @IBOutlet weak var headsUpLabel: UILabel!
+    @IBOutlet weak var tableFooterView: UIView!
+    
     
     var selectBaggageVM : SelectBaggageVM!
     weak var delegate : SelectBaggageDelegate?
@@ -27,58 +30,65 @@ class SelectBaggageVC: UIViewController {
         initialSetup()
     }
     
-     func setupFonts() {
-          
+    func setupFonts() {
+        self.headsUpLabel.font = AppFonts.Regular.withSize(14)
+        
     }
-      
-     func setupTexts() {
-          
-     }
-      
+    
+    func setupTexts() {
+        headsUpLabel.text = LocalizedString.Heads_Up_Desc.localized
+    }
+    
     func setupColors() {
-          
+        self.view.backgroundColor = AppColors.themeBlack
+        self.tableFooterView.backgroundColor = AppColors.themeWhite
+        self.headsUpLabel.textColor = AppColors.themeGray40
     }
-      
+    
     func initialSetup() {
-          configureTableView()
-         checkForNoData()
-      }
+        setupTexts()
+        setupColors()
+        setupFonts()
+        configureTableView()
+        checkForNoData()
+    }
     
     func initializeVm(selectBaggageVM : SelectBaggageVM){
-           self.selectBaggageVM = selectBaggageVM
-       }
+        self.selectBaggageVM = selectBaggageVM
+    }
     
     func reloadData(index : Int = 0){
         guard let _ = self.bagageTableView else { return }
         self.bagageTableView.reloadData()
     }
     
-      private func checkForNoData() {
-          guard let _ = self.bagageTableView else { return }
-          if selectBaggageVM.getBaggage().isEmpty {
-               bagageTableView.backgroundView = noResultsemptyView
-           } else {
-               bagageTableView.backgroundView = nil
-           }
-       }
+    private func checkForNoData() {
+        guard let _ = self.bagageTableView else { return }
+        if selectBaggageVM.getBaggage().isEmpty {
+            bagageTableView.backgroundView = noResultsemptyView
+        } else {
+            bagageTableView.backgroundView = nil
+        }
+    }
+    
 }
 
 extension SelectBaggageVC {
     
-        private func configureTableView(){
-            self.bagageTableView.register(UINib(nibName: "SelectBagageCell", bundle: nil), forCellReuseIdentifier: "SelectBagageCell")
-            self.bagageTableView.register(UINib(nibName: "BagageSectionHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "BagageSectionHeaderView")
-            self.bagageTableView.separatorStyle = .none
-            self.bagageTableView.estimatedRowHeight = 200
-            self.bagageTableView.rowHeight = UITableView.automaticDimension
-            self.bagageTableView.dataSource = self
-            self.bagageTableView.delegate = self
-        }
+    private func configureTableView(){
+        self.bagageTableView.register(UINib(nibName: "SelectBagageCell", bundle: nil), forCellReuseIdentifier: "SelectBagageCell")
+        self.bagageTableView.register(UINib(nibName: "BagageSectionHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "BagageSectionHeaderView")
+        self.bagageTableView.separatorStyle = .none
+        self.bagageTableView.estimatedRowHeight = 200
+        self.bagageTableView.rowHeight = UITableView.automaticDimension
+        self.bagageTableView.dataSource = self
+        self.bagageTableView.delegate = self
+    }
     
 }
 
 extension SelectBaggageVC : UITableViewDelegate, UITableViewDataSource {
-
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.selectBaggageVM.sagrigatedData.keys.count
     }
@@ -94,20 +104,20 @@ extension SelectBaggageVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return self.selectBaggageVM.sagrigatedData.count < 2 ? 0 : 28
     }
-        
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-       
+        
         if self.selectBaggageVM.sagrigatedData.count < 2 { return nil }
         
-            guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "BagageSectionHeaderView") as? BagageSectionHeaderView else {
-                       fatalError("BagageSectionHeaderView not found")
-                   }
-                 headerView.headingLabel.font = AppFonts.Regular.withSize(14)
-                 headerView.headingLabel.text = section == 0 ? LocalizedString.DomesticCheckIn.localized.uppercased() : LocalizedString.InternationalCheckIn.localized.uppercased()
-                 headerView.contentView.backgroundColor = AppColors.headerBackground
-                 headerView.headingLabel.textColor = AppColors.themeGray40
-                 return  headerView
-      }
+        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "BagageSectionHeaderView") as? BagageSectionHeaderView else {
+            fatalError("BagageSectionHeaderView not found")
+        }
+        headerView.headingLabel.font = AppFonts.Regular.withSize(14)
+        headerView.headingLabel.text = section == 0 ? LocalizedString.DomesticCheckIn.localized.uppercased() : LocalizedString.InternationalCheckIn.localized.uppercased()
+        headerView.contentView.backgroundColor = AppColors.headerBackground
+        headerView.headingLabel.textColor = AppColors.themeGray40
+        return  headerView
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -116,15 +126,15 @@ extension SelectBaggageVC : UITableViewDelegate, UITableViewDataSource {
         guard let cellData = self.selectBaggageVM.sagrigatedData[indexPath.section] else {
             do { fatalError("cellData not found") }
         }
-       
+        
         cell.populateData(data: cellData[indexPath.row], index: indexPath.row)
         
         cell.bottomSeprator.isHidden = self.selectBaggageVM.sagrigatedData.count > 1 && indexPath.section == 0 && indexPath.row == cellData.count - 1
         
-            return cell
+        return cell
         
-        }
-                
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cellData = self.selectBaggageVM.sagrigatedData[indexPath.section] else { return }
         
