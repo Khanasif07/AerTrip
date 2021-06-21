@@ -282,8 +282,8 @@ extension PassengerDetailsVC: UITableViewDelegate, UITableViewDataSource{
                 fatalError("ViewProfileDetailTableViewSectionView not found")
             }
             headerView.headerLabel.text = GuestDetailsVM.shared.titleForSection(section: section).uppercased()
-            headerView.backgroundColor = AppColors.themeGray04
-            headerView.containerView.backgroundColor = AppColors.themeGray04
+            headerView.backgroundColor = AppColors.miniPlaneBack
+            headerView.containerView.backgroundColor = AppColors.miniPlaneBack
             headerView.topDividerHeightConstraint.constant = 0.5
             headerView.bottomSeparatorView.isHidden = false
             headerView.clipsToBounds = true
@@ -317,7 +317,7 @@ extension PassengerDetailsVC: UITableViewDelegate, UITableViewDataSource{
             cell.separatorView.isHidden = indexPath.row == 0
             cell.searchedText = self.viewModel.searchText
             cell.travellerModelData = GuestDetailsVM.shared.objectForIndexPath(indexPath: indexPath)
-            cell.contentView.backgroundColor = AppColors.themeWhite
+            cell.contentView.backgroundColor = AppColors.themeBlack26
             return cell
             
         }

@@ -99,9 +99,9 @@ class SelectTripVC: BaseVC {
             }
         }
         topNavView.darkView.backgroundColor = AppColors.flightsNavBackViewColor
-        self.creatNewContainerView.backgroundColor = AppColors.doneViewClearColor
-        self.view.backgroundColor = AppColors.themeWhiteDashboard
-        self.tableView.backgroundColor = AppColors.themeWhiteDashboard
+        self.creatNewContainerView.backgroundColor = AppColors.themeBlack26
+        self.view.backgroundColor = AppColors.themeBlack26
+        self.tableView.backgroundColor = AppColors.themeWhite
 
     }
     
@@ -267,7 +267,7 @@ extension SelectTripVC: UITableViewDataSource, UITableViewDelegate {
             cell?.accessoryView = checkMarckImageView
         }
         cell?.textLabel?.textColor = AppColors.themeBlack
-        cell?.backgroundColor = AppColors.themeWhiteDashboard
+        cell?.backgroundColor = AppColors.themeWhite
         return cell ?? UITableViewCell()
     }
     

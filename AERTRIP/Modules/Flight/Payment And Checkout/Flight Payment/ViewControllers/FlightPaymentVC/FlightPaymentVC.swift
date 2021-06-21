@@ -214,6 +214,15 @@ class FlightPaymentVC: BaseVC {
             self.previousAppliedCoupon = coupon
         }
         
+        
+        if (!(self.viewModel.itinerary.couponCode.isEmpty)){
+            var coupon = HCCouponModel()
+            coupon.isCouponApplied = true
+            coupon.couponCode = self.viewModel.itinerary.couponCode
+            coupon.discountBreakUp = DiscountBreakUp.getDiscountBreakUps(json: (self.viewModel.itinerary.details.fare.discount?.details ?? [:]))
+            self.previousAppliedCoupon = coupon
+        }
+        
         if self.previousAppliedCoupon != nil {
             self.viewModel.appliedCouponData.isCouponAppied = self.previousAppliedCoupon?.isCouponApplied ?? false
             self.viewModel.appliedCouponData.discountsBreakup = self.previousAppliedCoupon?.discountBreakUp
@@ -542,8 +551,6 @@ extension FlightPaymentVC : ApplyCouponTableViewCellDelegate {
         self.view.isUserInteractionEnabled = false
         self.checkOutTableView.reloadData()
         self.viewModel.removeCouponCode()
-        
-        
     }
 }
 
