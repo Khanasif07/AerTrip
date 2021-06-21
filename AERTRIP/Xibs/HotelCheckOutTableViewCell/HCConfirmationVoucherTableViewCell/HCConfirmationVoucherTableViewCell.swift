@@ -57,7 +57,7 @@ class HCConfirmationVoucherTableViewCell: UITableViewCell {
         //view button
         self.viewButton.isShadowColorNeeded = true
         self.viewButton.shadowColor = AppColors.themeBlack26
-        self.viewButton.gradientColors = [AppColors.themeBlack26, AppColors.themeBlack26]
+        self.viewButton.gradientColors = [.clear, .clear]
         self.viewButton.setTitle(LocalizedString.View.localized, for: .normal)
         
         //Font

@@ -163,7 +163,7 @@ enum AppColors {
     /// (153,153,153) (247,193,12)
     static let postBookingSeatColor = UIColor(named: "postBookingSeatColor") ?? .white
     
-    // RGB - 170, 2, 255
+    // RGB - 170, 2, 255, (170, 2, 255)
     static let brightViolet = UIColor(named: "brightViolet") ?? UIColor(displayP3Red: 0.6666666667, green: 0.007843137255, blue: 1, alpha: 1)
     
     // RGB - 24,159,166

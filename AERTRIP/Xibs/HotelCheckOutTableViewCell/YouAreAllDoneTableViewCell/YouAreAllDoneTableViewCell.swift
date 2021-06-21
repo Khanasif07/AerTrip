@@ -93,7 +93,7 @@ class YouAreAllDoneTableViewCell: UITableViewCell {
     }
     
     private func addToCallendarButtonSetUp() {
-        self.addToCalendarButton.backgroundColor = AppColors.themeWhite
+        self.addToCalendarButton.backgroundColor = AppColors.themeBlack26
         self.addToCalendarButton.cornerradius = 10.0
         self.addToCalendarButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.addToCalendarButton.setTitleColor(AppColors.themeGreen, for: .selected)
