@@ -64,7 +64,8 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
     //    var debugVisibilityView = UIView()
     //    var firstVisibleRectView = UIView()
     var statusBarHeight : CGFloat {
-        return UIApplication.shared.isStatusBarHidden ? CGFloat(0) : UIApplication.shared.statusBarFrame.height
+        return AppDelegate.shared.window?.safeAreaInsets.top ?? 0
+//        return UIApplication.shared.isStatusBarHidden ? CGFloat(0) : UIApplication.shared.statusBarFrame.height
     }
     
     var lastTargetContentOffsetX: CGFloat = 0
