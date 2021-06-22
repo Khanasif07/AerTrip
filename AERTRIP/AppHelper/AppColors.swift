@@ -248,7 +248,7 @@ enum AppColors {
     static let themeGray04SearchBar = UIColor(named: "themeGray04SearchBar") ?? UIColor(displayP3Red: 0.9647058824, green: 0.9647058824, blue: 0.9647058824, alpha: 1)
     
     static var appShadowColor: UIColor {
-        return AppColors.themeBlack.withAlphaComponent(0.15)
+        return AppColors.unicolorBlack.withAlphaComponent(0.15)
         //return AppColors.themeRed.withAlphaComponent(0.30)
     }
     
@@ -372,6 +372,9 @@ enum AppColors {
     
     /// (255,255,255) (64,85,80)
     static let airportSwitcherBGColor = UIColor(named: "airportSwitcherBGColor")
+    
+    /// RGB - 0, 160, 168
+    static let commonGradientBlue = UIColor(named: "farebreakupGradientBlue") ?? UIColor(displayP3Red: 0, green: 0.6274509804, blue: 0.6588235294, alpha: 1)
     
     case headlines
     case body
