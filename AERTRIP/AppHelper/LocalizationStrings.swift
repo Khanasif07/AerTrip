@@ -1203,6 +1203,7 @@ enum LocalizedString: String {
     case Book_Now_And_Get_Off = "Book_Now_And_Get_Off"
     case Special_Request = "Special_Request"
     case Special_Request_If_Any = "Special_Request_If_Any"
+    case Heads_Up_Desc = "Heads_Up_Desc"
     
     // FLight Filters
     case Stops = "Stops"

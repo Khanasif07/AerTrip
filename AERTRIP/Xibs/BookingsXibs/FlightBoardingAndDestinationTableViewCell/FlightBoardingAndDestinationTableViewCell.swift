@@ -75,16 +75,16 @@ class FlightBoardingAndDestinationTableViewCell: UITableViewCell {
         self.destinationDateLabel.font = AppFonts.Regular.withSize(14.0)
         
         // Color
-        self.boardingLabel.textColor = AppColors.themeGray40
-        self.destinationLabel.textColor = AppColors.themeGray40
+        self.boardingLabel.textColor = AppColors.themeGray153
+        self.destinationLabel.textColor = AppColors.themeGray153
         self.boardingCodeLabel.textColor = AppColors.themeBlack
         self.destinationCodeLabel.textColor = AppColors.themeBlack
-        self.economyLabel.textColor = AppColors.themeGray40
-        self.timeLabel.textColor = AppColors.themeGray40
+        self.economyLabel.textColor = AppColors.themeGray153
+        self.timeLabel.textColor = AppColors.themeGray153
         self.boardingTimeLabel.textColor = AppColors.themeBlack
         self.destinationTimeLabel.textColor = AppColors.themeBlack
-        self.boardingDateLabel.textColor = AppColors.themeGray40
-        self.destinationDateLabel.textColor = AppColors.themeGray40
+        self.boardingDateLabel.textColor = AppColors.themeGray153
+        self.destinationDateLabel.textColor = AppColors.themeGray153
         
         // Text
         self.economyLabel.text = LocalizedString.Economy.localized

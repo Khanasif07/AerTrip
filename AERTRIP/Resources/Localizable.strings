@@ -1090,7 +1090,6 @@ Not to worry! Your booking is our highest priority. Our customer support team sh
 
 "Complementary_Meal_Available" = "Complementary meal available";
 
-
 "Free_Seats_Available" = "Free Seats Available";
 
 
@@ -1120,6 +1119,11 @@ Not to worry! Your booking is our highest priority. Our customer support team sh
 "Book_Now_And_Get_Off" = "Book Now &\nget up to  20% off ";
 "Special_Request" = "Special Request";
 "Special_Request_If_Any" = "Special request if any...";
+
+
+"Heads_Up_Desc" = "Heads up! Your request will be personally handled by one of our agents and may be subject to additional costs.";
+
+
 
 // FLight Filters
 "Stops" = "Stops";

@@ -62,7 +62,7 @@ extension FlightPaymentBookingStatusVC{
         cell.titleTopConstraint.constant = 12.0
         cell.titleBottomConstraint.constant = 8.0
         
-        cell.configCell(title: self.viewModel.itinerary.travellerDetails.t.count > 1 ? LocalizedString.Travellers.localized : LocalizedString.Traveller.localized, titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, isFirstCell: false, price: "PNR/Status", isLastCell: false, cellHeight: 38.0)
+        cell.configCell(title: self.viewModel.itinerary.travellerDetails.t.count > 1 ? LocalizedString.Travellers.localized : LocalizedString.Traveller.localized, titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray153, isFirstCell: false, price: "PNR/Status", isLastCell: false, cellHeight: 38.0)
         cell.clipsToBounds = true
         return cell
     }

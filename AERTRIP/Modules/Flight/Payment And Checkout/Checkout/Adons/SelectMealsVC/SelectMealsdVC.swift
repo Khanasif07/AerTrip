@@ -12,6 +12,9 @@ import UIKit
 class SelectMealsdVC: UIViewController {
     
     @IBOutlet weak var mealsTableView: UITableView!
+    @IBOutlet weak var headsUpLabel: UILabel!
+    @IBOutlet weak var tableFooterView: UIView!
+    
     
     var selectMealsVM : SelectMealsVM!
     weak var delegate : SelectMealDelegate?
@@ -28,25 +31,29 @@ class SelectMealsdVC: UIViewController {
     }
     
     func setupFonts() {
-        
+        self.headsUpLabel.font = AppFonts.Regular.withSize(14)
     }
     
     func setupTexts() {
-        
+        headsUpLabel.text = LocalizedString.Heads_Up_Desc.localized
     }
     
     func setupColors() {
-        
+        self.view.backgroundColor = AppColors.themeBlack
+        self.tableFooterView.backgroundColor = AppColors.themeWhite
+        self.headsUpLabel.textColor = AppColors.themeGray40
     }
     
     func initialSetup() {
+        setupTexts()
+        setupColors()
+        setupFonts()
         self.configureTableView()
         self.checkForNoData()
     }
     
     func initializeVm(selectMealsVM : SelectMealsVM){
         self.selectMealsVM = selectMealsVM
-        
     }
     
     private func checkForNoData() {

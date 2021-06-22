@@ -153,6 +153,7 @@ class HCCouponCodeVC: BaseVC {
         self.backGroundView.backgroundColor = AppColors.themeGray60.withAlphaComponent(0.6)
         //self.couponValidationTextSetUp(isCouponValid: true)
         self.applyCouponButton.setTitleColor(AppColors.themeGreen, for: .normal)
+        self.view.backgroundColor = AppColors.themeWhite
     }
     
     override func bindViewModel() {
@@ -197,11 +198,12 @@ class HCCouponCodeVC: BaseVC {
             self.emptyStateImageView.contentMode = .scaleAspectFit
             self.emptyStateImageView.image = AppImages.frequentFlyerEmpty
             self.noCouponsReqLabel.text = "No Results"
-            self.bestPriceLabel.text = "for \(self.viewModel.searchText)"
+            self.bestPriceLabel.text = "for \"\(self.viewModel.searchText)\""
         }
         self.couponTextField.isError = self.viewModel.searcedCouponsData.isEmpty
         self.emptyStateView.isHidden = !self.viewModel.searcedCouponsData.isEmpty
         self.couponTableView.isHidden = self.viewModel.searcedCouponsData.isEmpty
+        self.emptyStateView.backgroundColor = AppColors.themeWhite
         self.couponTableView.reloadData()
     }
     

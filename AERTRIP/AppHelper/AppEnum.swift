@@ -1127,6 +1127,7 @@ enum ATWeatherType: RawRepresentable {
     @objc static var PreEconomyClassBlack: UIImage { #imageLiteral(resourceName: "PreEconomyClassBlack") }
     @objc static var FirstClassBlack: UIImage { #imageLiteral(resourceName: "FirstClassBlack") }
     static var ArrowRed: UIImage { #imageLiteral(resourceName: "ArrowRed") }
+    static var TripPurpleIcon:UIImage { #imageLiteral(resourceName: "TripPurpleIcon") }
     
     //    static var down: UIImage { #imageLiteral(resourceName: "ArrowRed") }//icon
     

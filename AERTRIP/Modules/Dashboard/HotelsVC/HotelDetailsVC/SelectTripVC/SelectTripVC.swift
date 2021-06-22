@@ -92,16 +92,16 @@ class SelectTripVC: BaseVC {
         creatNewButton.setTitleColor(AppColors.themeGreen, for: .normal)
         if self.isLightTheme(){
             AppGlobals.shared.addBlurEffect(forView: creatNewContainerView)
-        }else{
+        } else {
             let subview = self.creatNewContainerView.subviews.filter{$0 is UIVisualEffectView}
             for view in subview{
                 view.removeFromSuperview()
             }
         }
-        topNavView.darkView.backgroundColor = AppColors.flightsNavBackViewColor
-        self.creatNewContainerView.backgroundColor = AppColors.doneViewClearColor
-        self.view.backgroundColor = AppColors.themeWhiteDashboard
-        self.tableView.backgroundColor = AppColors.themeWhiteDashboard
+        topNavView.darkView.backgroundColor = AppColors.themeBlack26
+        self.creatNewContainerView.backgroundColor = AppColors.themeBlack26
+        self.view.backgroundColor = AppColors.themeBlack26
+        self.tableView.backgroundColor = AppColors.themeWhite
 
     }
     
@@ -267,7 +267,7 @@ extension SelectTripVC: UITableViewDataSource, UITableViewDelegate {
             cell?.accessoryView = checkMarckImageView
         }
         cell?.textLabel?.textColor = AppColors.themeBlack
-        cell?.backgroundColor = AppColors.themeWhiteDashboard
+        cell?.backgroundColor = AppColors.themeWhite
         return cell ?? UITableViewCell()
     }
     
