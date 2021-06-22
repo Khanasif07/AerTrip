@@ -24,8 +24,6 @@ enum AppColors {
 
     static let blackAndThemeGray = UIColor(named: "blackAndThemeGray") ?? UIColor(displayP3Red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
 
-    
-    
     /// RGB - 0, 179, 134
     static let themeDarkGreen = UIColor(named: "themeDarkGreen") ?? UIColor(displayP3Red: 0, green: 0.7019607843, blue: 0.5254901961, alpha: 1)
     
@@ -61,8 +59,6 @@ enum AppColors {
     /// RGB - 153, 153, 153   Dark RGB 102, 102, 102
     static let themeGray40  = UIColor(named: "themeGray40") ?? UIColor(displayP3Red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
     
-    
-    
     /// RGB - 151, 151, 151
     static let themeGray151  = UIColor(named: "themeGray151") ?? UIColor(displayP3Red: 0.5921568627, green: 0.5921568627, blue: 0.5921568627, alpha: 1)
     
@@ -72,7 +68,6 @@ enum AppColors {
     /// RGB - 246, 246, 246  Dark 0, 0 ,0
     static let headerBackground  = UIColor(named: "headerBackground") ?? UIColor(displayP3Red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
 
-    
     /// RGB - 214, 214, 214
     static let themeGray214  = UIColor(named: "themeGray214") ?? UIColor(displayP3Red: 0.839, green: 0.839, blue: 0.839, alpha: 1)
     
@@ -101,7 +96,6 @@ enum AppColors {
     static let textFieldTextColor51  = UIColor(named: "textFieldTextColor51") ?? UIColor(displayP3Red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
     
     /// RGB - 66, 97, 16
-    
     static let fbButtonBackgroundColor  = UIColor(named: "fbButtonBackgroundColor") ?? UIColor(displayP3Red: 0.2588235294, green: 0.3803921569, blue: 0.6588235294, alpha: 1)
     
     // RGB - 47, 173, 244
@@ -154,6 +148,10 @@ enum AppColors {
     
     /// (204,204,204) (102,102,102)
     static let seatsBorder = UIColor(named: "seatsBorder") ?? .white
+    
+   // (0, 0, 0) (153, 153, 153)
+    static let blackGray = UIColor(named: "blackGray") ?? AppColors.seatsBorder
+
     
     /// RGB - (0, 204, 153) (117,117,117)
     static let deckSelected = UIColor(named: "deckSelected") ?? .white
@@ -264,6 +262,10 @@ enum AppColors {
     // (236, 253, 244) (24, 69, 58)
     static var calendarSelectedGreen: UIColor { UIColor(named: "calendarSelectedGreen") ?? .white }
     
+    // (236, 253, 244) (0, 204, 153)
+    static var domesticReturnSelection: UIColor { UIColor(named: "domesticReturnSelection") ?? .white }
+
+    
     //(255, 255, 255, 0) (70, 70, 70, 1)
     static let doneViewClearColor = UIColor(named: "doneViewClearColor") ?? UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 0)
     
@@ -303,6 +305,8 @@ enum AppColors {
     //(66, 66, 66) (255, 255, 255)
     static let muticityAddRemoveTextColor  = UIColor(named: "muticityAddRemoveTextColor") ?? UIColor(displayP3Red: 66.0/255, green: 66.0/255, blue: 66.0/255, alpha: 1)
 
+    
+    
     ///(230,230,230) (49,49,49)
     static let switchGray = UIColor(named: "switchGray") ?? .white
     

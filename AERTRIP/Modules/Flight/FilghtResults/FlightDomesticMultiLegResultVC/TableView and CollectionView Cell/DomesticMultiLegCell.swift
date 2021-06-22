@@ -120,16 +120,15 @@ class DomesticMultiLegCell: UITableViewCell {
             if let triangleLayer = pinnedTriangleLayer {
                 self.layer.addSublayer(triangleLayer)
             }
-            
+                    
             self.layer.borderColor = UIColor.AertripColor.cgColor
             self.layer.borderWidth = 0.5
             
-            
-        }
-        else {
+        } else {
             pinnedTriangleLayer?.removeFromSuperlayer()
             self.layer.borderWidth = 0
         }
+        
     }
     
     
@@ -264,7 +263,7 @@ class DomesticMultiLegCell: UITableViewCell {
             isSelected = false
         }
         
-        let selectedStateBGColor = AppColors.calendarSelectedGreen//AppColors.themeGreenishWhite//UIColor(displayP3Red: (236.0/255.0), green: (253.0/255.0), blue: (244.0/255.0), alpha: 1.0)
+        let selectedStateBGColor = AppColors.domesticReturnSelection//AppColors.themeGreenishWhite//UIColor(displayP3Red: (236.0/255.0), green: (253.0/255.0), blue: (244.0/255.0), alpha: 1.0)
         
         let backgroundColor = isSelected ? selectedStateBGColor : AppColors.themeWhite
         
@@ -284,7 +283,7 @@ class DomesticMultiLegCell: UITableViewCell {
         self.layer.borderWidth = 0
         
         pinnedTriangleLayer?.removeFromSuperlayer()
-        duration.textColor = AppColors.themeBlack
+        duration.textColor = AppColors.blackGray
         price.textColor = AppColors.themeBlack
         dashedView.isHidden = false
         stopCountLabel.isHidden = true
@@ -295,7 +294,6 @@ class DomesticMultiLegCell: UITableViewCell {
         stopsBackgroundView.subviews.forEach { $0.removeFromSuperview() }
         super.prepareForReuse()
     }
-    
     
     func textToImage(drawText text: String, diameter: CGFloat, color: UIColor ) -> UIImage {
         let textColor = UIColor.white

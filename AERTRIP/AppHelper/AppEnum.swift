@@ -24,7 +24,6 @@ enum ATNotification {
     case preferenceUpdated
     case travellerDeleted
     
-    
 }
 
 extension Notification.Name {
