@@ -132,7 +132,7 @@ class PassengerDetailsCell: UICollectionViewCell {
                     self.iconImageView.setImageWithUrl(img, placeholder: placeHolder, showIndicator: false)
                 }
                 else {
-                    self.iconImageView.image = AppGlobals.shared.getImageFor(firstName: self.contact?.firstName, lastName: self.contact?.lastName, font: AppFonts.Light.withSize(36.0),textColor: AppColors.themeGray60, offSet: CGPoint(x: 0, y: 12), backGroundColor: AppColors.imageBackGroundColor)
+                    self.iconImageView.image = AppGlobals.shared.getImageFor(firstName: self.contact?.firstName, lastName: self.contact?.lastName, font: AppFonts.Light.withSize(36.0),textColor: AppColors.grayWhite, offSet: CGPoint(x: 0, y: 12), backGroundColor: AppColors.imageBackGroundColor)
                 }
 
                 if let year = self.contact?.age, year > 0 {
