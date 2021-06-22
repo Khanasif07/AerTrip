@@ -341,7 +341,10 @@ enum AppColors {
     //(0, 0, 0) (153, 153, 153)
     static let baggageTypeTitleColor:UIColor = UIColor(named: "baggageTypeTitleColor") ?? AppColors.themeBlack
     
-    
+        
+    static let commonOrange:UIColor = UIColor(named: "commonOrange") ?? AppColors.themeOrange
+
+
     //(238, 204, 78) (255, 255, 255, 0.1)
     static let fewSeatLeftColor :UIColor = UIColor(named: "fewSeatLeftColor") ?? AppColors.themeBlack
   
@@ -417,3 +420,5 @@ enum AppColors {
         }
     }
 }
+
+
