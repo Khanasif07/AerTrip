@@ -120,11 +120,8 @@ class UpgradePlanListVC: BaseVC {
     
     
     private func setNoDataLabel(){
-        if isLightTheme(){
-            noDataFoundImg.image = UIImage(named: "group3")
-        }else{
-            noDataFoundImg.image = UIImage(named: "opps")
-        }
+
+        noDataFoundImg.image = UIImage(named: "group3")
         
         let attributedString = NSMutableAttributedString(string: "Oops!\nOther Fares not found for this flight", attributes: [
             .font: AppFonts.Regular.withSize(18.0),

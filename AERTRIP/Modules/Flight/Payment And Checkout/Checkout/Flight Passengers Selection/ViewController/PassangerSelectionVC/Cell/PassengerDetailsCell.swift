@@ -79,12 +79,9 @@ class PassengerDetailsCell: UICollectionViewCell {
     private func configData() {
         
         func setupForAdd() {
-            if isLightTheme(){
-                infoImageView.image = (!self.isContinueButtonTapped) ?  AppImages.greenFilledAdd : AppImages.ic_info_incomplete
-            }else{
-                infoImageView.image = (!self.isContinueButtonTapped) ?  AppImages.greenFilledAddBlack : AppImages.ic_info_incomplete
 
-            }
+            infoImageView.image = (!self.isContinueButtonTapped) ?  AppImages.greenFilledAdd : AppImages.ic_info_incomplete
+
             var finalText = ""
             if let type = self.contact?.passengerType {
                 switch type{

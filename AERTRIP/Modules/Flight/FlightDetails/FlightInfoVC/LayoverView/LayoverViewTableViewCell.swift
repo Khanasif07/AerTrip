@@ -27,17 +27,20 @@ class LayoverViewTableViewCell: UITableViewCell
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        if isLightTheme(){
-            layoverView.layer.borderWidth = 0.5
-        }else{
-            layoverView.layer.borderWidth = 0
-        }
-        layoverView.layer.borderColor = AppColors.divider.color.cgColor
+        layoverView.layer.borderWidth = 0.5
+        layoverView.layer.borderColor = AppColors.layoverBorderColor.cgColor
         layoverView.layer.cornerRadius = layoverView.frame.height/2
         self.layoverView.backgroundColor = AppColors.flightFilterSessionDefaultColor
         layoverLabel.textColor = AppColors.themeBlack
     }
     
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        layoverView.layer.borderColor = AppColors.layoverBorderColor.cgColor
+
+    }
     
     override func prepareForReuse() {
         super.prepareForReuse()
