@@ -15,7 +15,7 @@ extension FlightDomesticMultiLegResultVC {
     func hidingAnimationOnNavigationBarOnScroll(offsetDifference : CGFloat, scrollView: UIScrollView) {
          DispatchQueue.main.async {
             let visualEffectViewHeight =  CGFloat(88.0)
-            let statusHeight = AppDelegate.shared.window?.safeAreaInsets.top ?? 0
+            let statusHeight = self.statusBarHeight
             
             var yCordinate : CGFloat
             yCordinate = max (  -visualEffectViewHeight ,  -offsetDifference )
@@ -370,7 +370,7 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        let statusHeight = AppDelegate.shared.window?.safeAreaInsets.top ?? 0
+        let statusHeight = statusBarHeight
         // Synchronizing scrolling of headerCollectionView to baseScrollView scroll movement
         
         if !scrollView.isScrollEnabled{

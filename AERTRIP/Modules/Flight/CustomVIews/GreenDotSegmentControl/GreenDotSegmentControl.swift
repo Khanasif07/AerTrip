@@ -26,7 +26,7 @@ class GreenDotSegmentControl: UISegmentedControl {
         let rangeOfDot = (mutableStr.string as NSString).range(of: "•")
         mutableStr.setAttributes([.font: AppFonts.Regular.withSize(16), .foregroundColor: AppColors.themeGreen], range: rangeOfDot)
         
-        UIGraphicsBeginImageContext(mutableStr.size())
+        UIGraphicsBeginImageContextWithOptions(mutableStr.size(), false, 7)
         mutableStr.draw(at: .zero)
         let resultImage = UIGraphicsGetImageFromCurrentImageContext()?.withRenderingMode(.alwaysOriginal)
         UIGraphicsEndImageContext()

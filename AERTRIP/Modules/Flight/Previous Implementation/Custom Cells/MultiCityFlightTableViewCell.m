@@ -232,6 +232,9 @@
     CGRect leftLabelTargetFrame = rightLabel.frame;
     CGRect rightLabelTargetFrame = leftLabel.frame;
     
+    [leftLabel setHidden:true];
+    [rightLabel setHidden:true];
+    
     if (leftLabel.frame.size.height > leftLabelTargetFrame.size.height){
         leftLabelTargetFrame.size.height = leftLabel.frame.size.height;
     }
@@ -254,7 +257,8 @@
         leftLabel.textColor = previousColor;
         rightLabel.textColor = previousColor;
         
-     
+        [leftLabel setHidden:false];
+        [rightLabel setHidden:false];
         
     }];
 }

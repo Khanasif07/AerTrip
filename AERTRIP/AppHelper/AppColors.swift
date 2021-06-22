@@ -252,6 +252,9 @@ enum AppColors {
         //return AppColors.themeRed.withAlphaComponent(0.30)
     }
     
+    // (0,0,0,0.15)
+    static var aertripBtnShadowColor: UIColor { UIColor(named: "aertripBtnShadowColor") ?? .white }
+    
     
     static var recentSearchColletionCellColor: UIColor = UIColor(named: "recentSearchColletionCellColor") ?? UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 0.5)
     
@@ -366,6 +369,9 @@ enum AppColors {
     
     // RGB - 241,241,242 (49, 49, 49)
     static let countryPickerBackground = UIColor(named: "countryPickerBackground") ?? UIColor(displayP3Red: 0.9450980392, green: 0.9450980392, blue: 0.9490196078, alpha: 1)
+    
+    /// (255,255,255) (64,85,80)
+    static let airportSwitcherBGColor = UIColor(named: "airportSwitcherBGColor")
     
     case headlines
     case body

@@ -90,7 +90,7 @@
     _endDateSubLabel.textColor = [UIColor themeBlack];
     _multicitySelectionBackView.backgroundColor = [UIColor themeWhiteDashboard];
     _multiCitySelectionTap.backgroundColor = [UIColor calendarSelectedGreen];
-    
+    _doneOutterView.backgroundColor = [UIColor themeWhiteDashboard];
 }
 
 - (void)hideShowDarkViews {

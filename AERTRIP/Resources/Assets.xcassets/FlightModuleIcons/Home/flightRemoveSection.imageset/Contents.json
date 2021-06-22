@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "FlightReverseArrowDisabled@1x.png",
+      "filename" : "grey-cancel@1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -12,12 +12,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "iconFormNavigationArrowGray.png",
+      "filename" : "iconCellsEditingRemoveCopy1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "FlightReverseArrowDisabled@2x.png",
+      "filename" : "grey-cancel@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -28,12 +28,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "iconFormNavigationArrowGray@2x.png",
+      "filename" : "iconCellsEditingRemoveCopy1@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "FlightReverseArrowDisabled@3x.png",
+      "filename" : "grey-cancel@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     },
@@ -44,7 +44,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "iconFormNavigationArrowGray@3x.png",
+      "filename" : "iconCellsEditingRemoveCopy1@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

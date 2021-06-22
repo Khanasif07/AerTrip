@@ -160,8 +160,8 @@ extension FlightDomesticMultiLegResultVC {
             
             let headerCollectionviewHeight = headerCollectionView.frame.size.height
             rect.origin.x = CGFloat(index) * width + 1.0
-            rect.origin.y = self.headerCollectionViewTop.constant + headerCollectionviewHeight
-            rect.size.height = baseScrollView.bounds.size.height - 50
+            rect.origin.y = self.headerCollectionViewTop.constant + headerCollectionviewHeight + statusBarHeight
+            rect.size.height = baseScrollView.bounds.size.height - 50 - statusBarHeight
             rect.size.width = width - 2.0
             
             noResultsView = NoResultScreenView(frame: rect)

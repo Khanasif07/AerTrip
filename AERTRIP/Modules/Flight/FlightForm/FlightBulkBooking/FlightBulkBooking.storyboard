@@ -81,7 +81,7 @@
                                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RuB-OJ-ACD">
                                                                                         <rect key="frame" x="53.333333333333336" y="0.0" width="81.666666666666657" height="46"/>
                                                                                         <subviews>
-                                                                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CancelGreyFilled" translatesAutoresizingMaskIntoConstraints="NO" id="w6D-zw-2TD">
+                                                                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="flightRemoveSection" translatesAutoresizingMaskIntoConstraints="NO" id="w6D-zw-2TD">
                                                                                                 <rect key="frame" x="0.0" y="12" width="22" height="22"/>
                                                                                                 <constraints>
                                                                                                     <constraint firstAttribute="height" constant="22" id="Amn-B0-tEP"/>
@@ -1119,12 +1119,12 @@
     </scenes>
     <resources>
         <image name="AdultBlack" width="8.6666669845581055" height="18.333333969116211"/>
-        <image name="CancelGreyFilled" width="22" height="22"/>
         <image name="EconomyClassBlack" width="20" height="20"/>
         <image name="FlightReverseArrow" width="16" height="15"/>
         <image name="FlightReverseArrowDisabled" width="16" height="15"/>
         <image name="InfantBlack" width="12.666666984558105" height="18.333333969116211"/>
         <image name="childBlack" width="6.6666665077209473" height="14.333333015441895"/>
+        <image name="flightRemoveSection" width="22" height="22"/>
         <image name="greenFilledAdd" width="22" height="22"/>
         <namedColor name="flightFormGray">
             <color red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

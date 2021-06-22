@@ -81,6 +81,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *NoResultLabel;
 
 @property (weak, nonatomic) IBOutlet UIVisualEffectView *visualEffectsView;
+@property (weak, nonatomic) IBOutlet UIView *switcherBGView;
 
 
 @property ( strong , nonatomic) NSArray * nearestAirports;
@@ -175,12 +176,13 @@
 -(void)setupColors {
     self.backgroundView.backgroundColor = [UIColor calendarSelectedGreen];
     self.resultTableView.backgroundColor = [UIColor WHITE_COLOR];
-    self.TableViewHeaderView.backgroundColor = [UIColor WHITE_COLOR];
+    self.TableViewHeaderView.backgroundColor = [UIColor themeBlack26];
     self.fromValueLabel.textColor = [UIColor themeBlack];
     self.fromSubTitleLabel.textColor = [UIColor themeBlack];
     self.toValueLabel.textColor = [UIColor themeBlack];
     self.toSubTitleLabel.textColor = [UIColor themeBlack];
     [self manageDoneView];
+    self.doneOutterView.backgroundColor = [UIColor themeWhiteDashboard];
 }
 
 
@@ -1713,6 +1715,8 @@
 {
     self.switcherButtonBlurBackground.layer.cornerRadius = 22.0;
     self.switcherButtonBlurBackground.clipsToBounds = YES;
+    _switcherBGView.layer.cornerRadius = 22.0;
+    _switcherBGView.clipsToBounds = YES;
 }
 
 - (void)changeColorTab {
