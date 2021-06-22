@@ -9,13 +9,15 @@
 import UIKit
 
 class ResultHeaderView: UIView {
+    
     @IBOutlet var contentView: UIView!
     @IBOutlet var grayView: UIView!
     @IBOutlet var yellowView: UIView!
     @IBOutlet weak var lineView: UIView!
     @IBOutlet weak var bottomHeightConstrints: NSLayoutConstraint!
-    
     @IBOutlet weak var bannerImageView: UIImageView!
+    @IBOutlet weak var useCoupanLabel: UILabel!
+    
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -31,9 +33,9 @@ class ResultHeaderView: UIView {
         Bundle.main.loadNibNamed("ResultHeaderView", owner: self, options: nil)
         addSubview(contentView)
         contentView.frame = self.bounds
-//        grayView.layer.cornerRadius = 10.0
         yellowView.layer.cornerRadius = 5.0
         setupGrayViewShadow()
+        self.useCoupanLabel.textColor = AppColors.commonOrange
     }
     
     fileprivate func setupGrayViewShadow() {

@@ -194,9 +194,11 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
             // sticky progress
             stickyProgressView = UIProgressView(progressViewStyle: .bar)
             stickyProgressView.progressTintColor = UIColor.AertripColor
-            stickyProgressView.trackTintColor = .white
+            stickyProgressView.trackTintColor = AppColors.themeWhite
             stickyProgressView.progress = ApiProgress.progress
             stickyProgressView.tag = 601
+            stickyProgressView.backgroundColor = AppColors.clear
+            
             self.navigationController?.view.addSubview(stickyProgressView)
             stickyProgressView.snp.makeConstraints { (maker) in
                 maker.top.equalTo(statusBarBlurView.bottom)
@@ -280,15 +282,18 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         
         ApiProgress = UIProgressView(progressViewStyle: .bar)
         ApiProgress.progressTintColor = UIColor.AertripColor
-        ApiProgress.trackTintColor = .clear
+        ApiProgress.trackTintColor = AppColors.themeWhite
         ApiProgress.tag = 600
         ApiProgress.progress = 0.25
-        
+        ApiProgress.backgroundColor = AppColors.clear
+    
         stickyProgressView = UIProgressView(progressViewStyle: .bar)
         stickyProgressView.progressTintColor = UIColor.AertripColor
-        stickyProgressView.trackTintColor = .white
+        stickyProgressView.trackTintColor = AppColors.themeWhite
         stickyProgressView.progress = 0.25
         stickyProgressView.tag = 601
+        stickyProgressView.backgroundColor = AppColors.clear
+
         
         if flightSearchResultVM.isIntMCOrReturnJourney {
             ApiProgress.progress = flightSearchResultVM.containsJourneyResuls ? 0 : 0.25
