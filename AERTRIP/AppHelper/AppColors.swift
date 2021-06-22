@@ -373,6 +373,9 @@ enum AppColors {
     /// (255,255,255) (64,85,80)
     static let airportSwitcherBGColor = UIColor(named: "airportSwitcherBGColor")
     
+    /// (0,0,0,0.4) (0,0,0,0.6)
+    static let filterRangeDots = UIColor(named: "filterRangeDots") ?? .white
+    
     case headlines
     case body
     case subheads
