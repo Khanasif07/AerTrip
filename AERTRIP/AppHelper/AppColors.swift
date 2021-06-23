@@ -151,8 +151,7 @@ enum AppColors {
     
    // (0, 0, 0) (153, 153, 153)
     static let blackGray = UIColor(named: "blackGray") ?? AppColors.seatsBorder
-
-    
+ 
     /// RGB - (0, 204, 153) (117,117,117)
     static let deckSelected = UIColor(named: "deckSelected") ?? .white
     
@@ -246,7 +245,7 @@ enum AppColors {
     static let themeGray04SearchBar = UIColor(named: "themeGray04SearchBar") ?? UIColor(displayP3Red: 0.9647058824, green: 0.9647058824, blue: 0.9647058824, alpha: 1)
     
     static var appShadowColor: UIColor {
-        return AppColors.themeBlack.withAlphaComponent(0.15)
+        return AppColors.unicolorBlack.withAlphaComponent(0.15)
         //return AppColors.themeRed.withAlphaComponent(0.30)
     }
     
@@ -262,10 +261,9 @@ enum AppColors {
     // (236, 253, 244) (24, 69, 58)
     static var calendarSelectedGreen: UIColor { UIColor(named: "calendarSelectedGreen") ?? .white }
     
-    // (236, 253, 244) (0, 204, 153)
+    // (236, 253, 244) (0, 42, 31)
     static var domesticReturnSelection: UIColor { UIColor(named: "domesticReturnSelection") ?? .white }
 
-    
     //(255, 255, 255, 0) (70, 70, 70, 1)
     static let doneViewClearColor = UIColor(named: "doneViewClearColor") ?? UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 0)
     
@@ -305,8 +303,6 @@ enum AppColors {
     //(66, 66, 66) (255, 255, 255)
     static let muticityAddRemoveTextColor  = UIColor(named: "muticityAddRemoveTextColor") ?? UIColor(displayP3Red: 66.0/255, green: 66.0/255, blue: 66.0/255, alpha: 1)
 
-    
-    
     ///(230,230,230) (49,49,49)
     static let switchGray = UIColor(named: "switchGray") ?? .white
     
@@ -325,10 +321,11 @@ enum AppColors {
     /// RGB - 204, 204, 204,   (255, 255, 255, 0.2)
     static let dividerColor = UIColor(named: "dividerColor") ?? UIColor(displayP3Red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
     
-    /// RGB - 204, 204, 204,   (255, 255, 255, 0)
+    static let dividerColor2 = UIColor(named: "dividerColor2") ?? UIColor(displayP3Red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
+
+        /// RGB - 204, 204, 204,   (255, 255, 255, 0)
     static var layoverBorderColor : UIColor { UIColor(named: "layoverBorderColor") ?? .clear }
 
-    
     
     //(230, 230, 230) (255, 255, 255, 0.2)
     static let sliderTrackColor = UIColor(named: "sliderTrackColor") ?? UIColor(displayP3Red: 0.9019607843, green: 0.9019607843, blue: 0.9019607843, alpha: 1)
@@ -349,10 +346,8 @@ enum AppColors {
 
     //(0, 0, 0) (153, 153, 153)
     static let baggageTypeTitleColor:UIColor = UIColor(named: "baggageTypeTitleColor") ?? AppColors.themeBlack
-    
         
     static let commonOrange:UIColor = UIColor(named: "commonOrange") ?? AppColors.themeOrange
-
 
     //(238, 204, 78) (255, 255, 255, 0.1)
     static let fewSeatLeftColor :UIColor = UIColor(named: "fewSeatLeftColor") ?? AppColors.themeBlack
@@ -384,13 +379,14 @@ enum AppColors {
     
     /// (255,255,255) (64,85,80)
     static let airportSwitcherBGColor = UIColor(named: "airportSwitcherBGColor")
-    
+
+    /// RGB - 0, 160, 168
+    static let commonGradientBlue = UIColor(named: "farebreakupGradientBlue") ?? UIColor(displayP3Red: 0, green: 0.6274509804, blue: 0.6588235294, alpha: 1)
+
     /// (0,0,0,0.4) (0,0,0,0.6)
     static let filterRangeDots = UIColor(named: "filterRangeDots") ?? .white
 
-//    (255,255,255, 1.0) (255,255,255, 0.0)
-    static let whiteAndClear = UIColor(named: "whiteAndClear") ?? . white
-
+    
     case headlines
     case body
     case subheads

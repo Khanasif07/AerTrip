@@ -129,7 +129,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         switchView.delegate = self
         switchView.tintColor = AppColors.switchGray
         switchView.offTintColor = AppColors.switchGray
-        switchView.onTintColor = AppColors.themeGreen
+        switchView.onTintColor = AppColors.commonThemeGreen
         switchView.onThumbImage = AppImages.pushpin
         switchView.offThumbImage = AppImages.pushpin_gray
         switchView.setupUI()

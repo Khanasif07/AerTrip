@@ -279,9 +279,7 @@ class DomesticMultiLegCell: UITableViewCell {
     
     
     override func prepareForReuse() {
-        
         self.layer.borderWidth = 0
-        
         pinnedTriangleLayer?.removeFromSuperlayer()
         duration.textColor = AppColors.blackGray
         price.textColor = AppColors.themeBlack
@@ -289,7 +287,6 @@ class DomesticMultiLegCell: UITableViewCell {
         stopCountLabel.isHidden = true
         flightCode.isHidden = false
         stopCountLabel.textColor = UIColor.ONE_FIVE_THREE_COLOR
-        
         priceWidth.constant = 100
         stopsBackgroundView.subviews.forEach { $0.removeFromSuperview() }
         super.prepareForReuse()

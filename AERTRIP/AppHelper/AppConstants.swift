@@ -185,6 +185,8 @@ enum AppConstants {
     // color for aap theme gradient color for dashboard
     static let appDashboardGradientColors: [UIColor] = [AppColors.shadowBlueDashboard, AppColors.themeGreenDashboard] //AppColors.themeGreen
     
+    static let fareBreakupGradientColor: [UIColor] = [AppColors.commonGradientBlue, AppColors.commonThemeGreen]
+    
     
 }
 

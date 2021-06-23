@@ -18,7 +18,7 @@ class SelectOtherAdonsVC: UIViewController {
     @IBOutlet weak var specialRequestPlaceHolderLabel: UILabel!
     @IBOutlet weak var specialRequestBackView: UIView!
     @IBOutlet weak var footerBackView: UIView!
-
+    @IBOutlet weak var dividerView: UIView!
     
     
     var otherAdonsVm : SelectOtherAdonsVM!
@@ -60,6 +60,7 @@ class SelectOtherAdonsVC: UIViewController {
         self.specialRequestBackView.backgroundColor = AppColors.themeBlack26
         self.view.backgroundColor = AppColors.themeBlack
         self.footerBackView.backgroundColor = AppColors.themeWhite
+        self.dividerView.backgroundColor = AppColors.dividerColor2
     }
     
     @IBAction func clearButtonTapped(_ sender: UIButton) {
