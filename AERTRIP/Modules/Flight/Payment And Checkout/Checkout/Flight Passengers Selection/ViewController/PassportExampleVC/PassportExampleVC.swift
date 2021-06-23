@@ -24,6 +24,9 @@ class PassportExampleVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        crossButton.setImage(UIImage(named: "GrayCross"), for: .normal)
+        
         UIView.animate(withDuration: 0.33, animations: {
             self.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
             self.containerView.transform = CGAffineTransform.identity

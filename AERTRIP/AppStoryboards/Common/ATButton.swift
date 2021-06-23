@@ -402,11 +402,11 @@ import UIKit
         self.setTitleColor(AppColors.unicolorWhite, for: UIControl.State.selected)
         self.setTitleColor(AppColors.unicolorWhite, for: UIControl.State.highlighted)
 
-        self.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
+        self.shadowColor = AppColors.aertripBtnShadowColor
         
         self.layer.cornerRadius = self.height / 2
-        self.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
-        self.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
+        self.layer.applySketchShadow(color: .black, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
+        self.shadowColor = AppColors.aertripBtnShadowColor
         
     }
     

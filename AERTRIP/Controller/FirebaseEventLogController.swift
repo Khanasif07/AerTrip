@@ -637,7 +637,7 @@ class FirebaseEventLogs: NSObject{
         case EnterFFProgramNumber
         case SelectMealPreference
         case SelectPassengerFromSuggestionList
-        
+
         //MARK:- Flight Checkout  Events TypeNames
 //        case fareDipped = "FareDipped"
 //        case fareIncrease = "FareIncrease"
@@ -651,8 +651,7 @@ class FirebaseEventLogs: NSObject{
         case TapOnFareRule
         case TapOnPrivacyPolicy
         case TapOnTermOfUse
-        
-        
+
         
         //MARK:- Flight Receipt Events TypeNames
 //        case TapOnChangeTrip
@@ -688,6 +687,9 @@ class FirebaseEventLogs: NSObject{
         case TripType
         case CheckInCheckOutDates
         case BulkBookingCheckInCheckOutDates
+        
+        case JourneyDates
+        case BulkBookingJourneyDates
         
         case CitySelectedForBulkBooking
         case SelectedCity
@@ -1157,7 +1159,7 @@ class FirebaseEventLogs: NSObject{
     func logFlightPassengerDetailsEvents(with type: EventsTypeName){
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightPassengerDetails.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
     }
-    
+
     //MARK:- Flight  Checkout Events Log Function
     func logFlightCheckoutEvents(with type: EventsTypeName){
         FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightCheckOut.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue, AnalyticsKeys.type.rawValue: "n/a", AnalyticsKeys.values.rawValue: "n/a"])
@@ -1223,6 +1225,8 @@ class FirebaseEventLogs: NSObject{
         case TapSearchButtonWithoutSelectingOriginCity
         case AddMoreSector
         case RemoveSector
+        case BulkBookingAirportSelection
+        case BulkBookingPassangerSelected
         
         //MARK:- Airport Selection Events TypeNames
         case SelectFromRecentlySearch
@@ -1265,7 +1269,7 @@ class FirebaseEventLogs: NSObject{
             case "16": self = .TapSearchButtonWithoutSelectingOriginCity
             case "17": self = .AddMoreSector
             case "18": self = .RemoveSector
-            case "19": self = .SelectFromRecentlySearch
+            case "19":  self = .SelectFromRecentlySearch
             case "20": self = .SelectFromPopularAirport
             case "21": self = .SelectFromNearByAirport
             case "22": self = .TapOnNearMe
@@ -1278,6 +1282,8 @@ class FirebaseEventLogs: NSObject{
             case "29": self = .SelectPremiumEconomyClass
             case "30": self = .SelectBusinessClass
             case "31": self = .SelectFistClass
+            case "32": self = .BulkBookingAirportSelection
+            case "33":self = .BulkBookingPassangerSelected
             default: return nil
             }
         }
@@ -1313,15 +1319,21 @@ class FirebaseEventLogs: NSObject{
     }
 //    MARK:- Flight Calender
     
-    @objc func logFlightCalenderDateSelectionEvents(_ tripType: String, dictValue:JSONDictionary){
+    @objc func logFlightCalenderDateSelectionEvents(_ tripType: String, dictValue:JSONDictionary,isFromFlightBulkBooking:Bool = false){
         
-        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightsCalendar.rawValue, params:[AnalyticsKeys.name.rawValue:EventsTypeName.TripType.rawValue,AnalyticsKeys.type.rawValue:tripType, AnalyticsKeys.values.rawValue:dictValue])
+        var eventName = ""
+        if isFromFlightBulkBooking{
+            eventName = EventsTypeName.BulkBookingJourneyDates.rawValue
+        }else{
+            eventName = EventsTypeName.JourneyDates.rawValue
+        }
+        FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightsCalendar.rawValue, params:[AnalyticsKeys.name.rawValue:eventName,AnalyticsKeys.type.rawValue:tripType, AnalyticsKeys.values.rawValue:dictValue])
 
     }
     //MARK:- Flight Form Events function
     @objc func logFlightFormEvents(_ nameInt: String, type: String, stringValue:String, dictValue:JSONDictionary){
-        var param :JSONDictionary = [:]
         if let event = EventsTypeNameObjc(with: nameInt){
+            var param :JSONDictionary = [:]
             param[AnalyticsKeys.name.rawValue] = event.rawValue
             if !type.isEmpty{
                 param[AnalyticsKeys.type.rawValue] = type
@@ -1385,8 +1397,7 @@ class FirebaseEventLogs: NSObject{
         }
         
         if nameInt == "0" || nameInt == "10"{
-            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.FlightSearch.rawValue, params: param)
-//            self.logEventsWithoutParam(with: .FlightSearch)
+            self.logEventsWithoutParam(with: .FlightSearch)
         }
         
     }
@@ -1403,10 +1414,10 @@ class FirebaseEventLogs: NSObject{
                 param[AnalyticsKeys.type.rawValue] = "DestinationAirport"
             }
             
-            if !dictValue.isEmpty{
-                param[AnalyticsKeys.values.rawValue] = dictValue
+            if dictValue.isEmpty{
+                param[AnalyticsKeys.values.rawValue] = "n/a"//dictValue
             }else{
-                param[AnalyticsKeys.values.rawValue] = "n/a"
+                param[AnalyticsKeys.values.rawValue] = dictValue//"n/a"
             }
             FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AirportSelection.rawValue, params: param)
         }
@@ -1419,11 +1430,11 @@ class FirebaseEventLogs: NSObject{
             var param :JSONDictionary = [:]
             param[AnalyticsKeys.name.rawValue] = event.rawValue
             param[AnalyticsKeys.type.rawValue] = "n/a"
-            if nameInt ==  "24"{
+            if nameInt ==  "24" || nameInt == "33"{
                 var passengerDetails:String = ""
                 passengerDetails += "adult:\(dictValue.flightAdultCount)"
                 passengerDetails += ", child:\(dictValue.flightChildrenCount)"
-                passengerDetails += ", infant:\(dictValue.flightInfantCount)"
+                passengerDetails += ", infant\(dictValue.flightInfantCount)"
                 param[AnalyticsKeys.values.rawValue] = passengerDetails
             }else{
                 param[AnalyticsKeys.values.rawValue] = "n/a"
@@ -1440,7 +1451,7 @@ class FirebaseEventLogs: NSObject{
             param[AnalyticsKeys.name.rawValue] = event.rawValue
             param[AnalyticsKeys.type.rawValue] = "n/a"
             param[AnalyticsKeys.values.rawValue] = "n/a"
-            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.CabinClassSelection.rawValue, params: param)
+            FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.AirportSelection.rawValue, params: param)
         }
         
     }
