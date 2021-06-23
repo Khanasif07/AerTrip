@@ -262,7 +262,7 @@ enum AppColors {
     // (236, 253, 244) (24, 69, 58)
     static var calendarSelectedGreen: UIColor { UIColor(named: "calendarSelectedGreen") ?? .white }
     
-    // (236, 253, 244) (0, 204, 153)
+    // (236, 253, 244) (0, 42, 31)
     static var domesticReturnSelection: UIColor { UIColor(named: "domesticReturnSelection") ?? .white }
 
     
@@ -324,6 +324,9 @@ enum AppColors {
     
     /// RGB - 204, 204, 204,   (255, 255, 255, 0.2)
     static let dividerColor = UIColor(named: "dividerColor") ?? UIColor(displayP3Red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
+    
+    static let dividerColor2 = UIColor(named: "dividerColor2") ?? UIColor(displayP3Red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
+
     
     //(230, 230, 230) (255, 255, 255, 0.2)
     static let sliderTrackColor = UIColor(named: "sliderTrackColor") ?? UIColor(displayP3Red: 0.9019607843, green: 0.9019607843, blue: 0.9019607843, alpha: 1)
