@@ -18,7 +18,7 @@ class SelectOtherAdonsVC: UIViewController {
     @IBOutlet weak var specialRequestPlaceHolderLabel: UILabel!
     @IBOutlet weak var specialRequestBackView: UIView!
     @IBOutlet weak var footerBackView: UIView!
-    @IBOutlet weak var dividerView: ATDividerView!
+    @IBOutlet weak var dividerView: UIView!
     
     
     var otherAdonsVm : SelectOtherAdonsVM!
