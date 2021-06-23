@@ -387,7 +387,10 @@ enum AppColors {
     
     /// (0,0,0,0.4) (0,0,0,0.6)
     static let filterRangeDots = UIColor(named: "filterRangeDots") ?? .white
-    
+
+//    (255,255,255, 1.0) (255,255,255, 0.0)
+    static let whiteAndClear = UIColor(named: "whiteAndClear") ?? . white
+
     case headlines
     case body
     case subheads
