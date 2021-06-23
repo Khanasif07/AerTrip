@@ -98,6 +98,11 @@ class FlightPaymentVC: BaseVC {
         self.view.backgroundColor = AppColors.themeWhite
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.checkOutTableView.reloadData()
+    }
+    
     @IBAction func payButtonTapped(_ sender: UIButton) {
         self.hideShowLoader(isHidden:false)
         let useWallet = (self.isWallet && (self.getTotalPayableAmount() <= 0.0))

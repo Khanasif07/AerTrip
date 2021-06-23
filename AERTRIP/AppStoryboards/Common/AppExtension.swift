@@ -21,7 +21,7 @@ extension UIView {
         }
     }
     
-    func addGredient(isVertical: Bool = true, cornerRadius: CGFloat = 0.0, colors: [UIColor] = AppConstants.appthemeGradientColors) {
+    func addGredient(isVertical: Bool = true, cornerRadius: CGFloat = 0.0, colors: [UIColor] = AppConstants.fareBreakupGradientColor) {
         removeGredient()
         let gradientLayer = CAGradientLayer()
         gradientLayer.name = "gradientLayer"

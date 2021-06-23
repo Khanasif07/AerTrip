@@ -281,6 +281,7 @@ extension AirlinesFilterViewController : UITableViewDataSource , UITableViewDele
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "RadioButtonCell") as? RadioButtonTableViewCell {
             cell.imageView?.image = nil
+            cell.imageView?.roundedCorners(cornerRadius: 2)
             cell.radioButton.setImage(nil, for: .normal)
             cell.radioButton.setImage(nil, for: .selected)
 //            cell.radioButton.setImage(AppImages.CheckedGreenRadioButton, for: .selected)
