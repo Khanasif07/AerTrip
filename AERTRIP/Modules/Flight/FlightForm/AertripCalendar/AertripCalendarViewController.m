@@ -195,10 +195,10 @@
     self.doneButton.userInteractionEnabled = YES;
     self.doneButton.titleLabel.font = [UIFont fontWithName:@"SourceSansPro-Semibold" size:20.0];
     [self setupWeekdays];
+    
+    [self.doneButton setTitleColor:[UIColor AertripColor] forState:UIControlStateNormal];
+    [self.doneButton setTitleColor:[UIColor TWO_ZERO_FOUR_COLOR] forState:UIControlStateDisabled];
     if ( self.viewModel.isHotelCalendar) {
-        
-        [self.doneButton setTitleColor:[self AertripColor] forState:UIControlStateNormal];
-        [self.doneButton setTitleColor:[self TWO_ZERO_FOUR_COLOR] forState:UIControlStateDisabled];
         
         self.cancelButton.hidden = YES;
     }
