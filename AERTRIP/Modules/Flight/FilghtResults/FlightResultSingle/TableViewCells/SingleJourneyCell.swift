@@ -116,7 +116,8 @@ class SingleJourneyCell: UITableViewCell
     }
     
     fileprivate func setPinnedFlight() {
-        self.baseView.layer.borderColor = UIColor.AertripColor.cgColor
+        
+        self.baseView.layer.borderColor = isLightTheme() ? UIColor.AertripColor.cgColor : AppColors.clear.cgColor
         self.baseView.layer.borderWidth = 1.0
         
         if pinnedRoundedLayer == nil

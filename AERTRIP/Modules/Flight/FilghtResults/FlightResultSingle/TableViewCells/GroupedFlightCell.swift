@@ -72,8 +72,6 @@ struct TimeFK {
         self.setupColor()
     }
     
-    
-    
     func setupTableView() {
         collaspableTableView.estimatedRowHeight  = 131
         collaspableTableView.rowHeight = UITableView.automaticDimension

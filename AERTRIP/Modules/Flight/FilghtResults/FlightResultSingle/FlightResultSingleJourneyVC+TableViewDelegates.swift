@@ -101,10 +101,12 @@ extension FlightResultSingleJourneyVC : UITableViewDataSource , UITableViewDeleg
             }
             
             cell.selectionStyle = .none
+            
             cell.setTitlesFrom( journey : journey)
+            
             if let logoArray = journey?.airlineLogoArray {
 
-                
+        
                 switch logoArray.count {
                     
                 case 1 :
@@ -162,7 +164,6 @@ extension FlightResultSingleJourneyVC : UITableViewDataSource , UITableViewDeleg
                 cell.delegate = self
                 cell.setVaulesFrom(journey: journey, sortOrder: self.viewModel.sortOrder, isConditionReverced : self.viewModel.isConditionReverced)
                 
-                
                 cell.buttonTapped = {shouldScroll in
                     if shouldScroll {
                         delay(seconds: 0.3) {
@@ -171,7 +172,6 @@ extension FlightResultSingleJourneyVC : UITableViewDataSource , UITableViewDeleg
                     }
                     
                     self.reloadTableCell(indexPath)
-                    
                     
                     journey.isCollapsed ?
                         

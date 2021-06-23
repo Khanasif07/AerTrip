@@ -73,6 +73,7 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
         self.layer.masksToBounds = false
         setupBaseView()
         dashedView.setupDashedView()
+        
         setupGradientView()
         setupCollectionView()
         self.setupColors()
@@ -109,29 +110,28 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
     }
     
     fileprivate func setPinnedFlight() {
-        self.baseView.layer.borderColor = UIColor.AertripColor.cgColor
+        
+        self.baseView.layer.borderColor = isLightTheme() ? UIColor.AertripColor.cgColor : AppColors.clear.cgColor
         self.baseView.layer.borderWidth = 1.0
         
-        if pinnedRoundedLayer == nil
-        {
-            let pinnedRoundedLayer = CAShapeLayer()
+        if pinnedRoundedLayer == nil {
             
+            let pinnedRoundedLayer = CAShapeLayer()
             pinnedRoundedLayer.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
             pinnedRoundedLayer.fillColor = UIColor.AertripColor.cgColor
-            
             let path = CGMutablePath()
             path.move(to: CGPoint(x: 10, y: 0))
             path.addLine(to: CGPoint(x: 20, y: 0))
             path.addLine(to: CGPoint(x: 0, y: 20))
             path.addArc(tangent1End: CGPoint(x: 0, y: 0), tangent2End: CGPoint(x: 20, y: 0), radius: 10)
             pinnedRoundedLayer.path = path
-            
             self.pinnedRoundedLayer = pinnedRoundedLayer
         }
         
         if let triangleLayer = pinnedRoundedLayer {
             self.baseView.layer.addSublayer(triangleLayer)
         }
+        
     }
     
     

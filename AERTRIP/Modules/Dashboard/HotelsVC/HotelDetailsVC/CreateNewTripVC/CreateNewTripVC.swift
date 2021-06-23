@@ -53,6 +53,7 @@ class CreateNewTripVC: BaseVC {
 //        inputContainerShadowView.addShadow(cornerRadius: inputContainerView.cornerradius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
         inputContainerShadowView.clipsToBounds = false
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.statusBarStyle = .lightContent
@@ -66,16 +67,10 @@ class CreateNewTripVC: BaseVC {
     }
     
     override func initialSetup() {
-//        if #available(iOS 13.0, *) {} else {
-//        let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
-//        swipeGesture.delegate = self
-//        self.popUpContainerView.addGestureRecognizer(swipeGesture)
-//        }
         
         headerView.backgroundColor = .clear
         popUpContainerView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
         self.view.backgroundColor = .clear
-        
         
         titleTextField.becomeFirstResponder()
         titleTextField.autocorrectionType = .no

@@ -98,7 +98,7 @@ class AertripRangeSlider : UIControl {
             let marker = UIView(frame: CGRect(x: xPosition, y: 0 , width: 3.0, height: 3.0 ))
             marker.tag = tag
             tag = tag + 1
-            marker.backgroundColor = UIColor.black.withAlphaComponent(0.4)
+            marker.backgroundColor = AppColors.filterRangeDots
             addedMarkers.append(marker)
             trackerView.addSubview(marker)
             trackerView.bringSubviewToFront(marker)
