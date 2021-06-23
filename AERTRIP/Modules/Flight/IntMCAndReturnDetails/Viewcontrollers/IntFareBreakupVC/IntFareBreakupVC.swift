@@ -708,6 +708,7 @@ class IntFareBreakupVC: BaseVC {
         if !isInfoViewHidden{
             self.isFareBreakupExpanded = true
             displayExpandedView(fromSelection: "info")
+            self.bookingInfoArrowImg.image = AppImages.downGray
             self.delegate?.infoButtonTapped(isViewExpanded: true)
             
         }else{

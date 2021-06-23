@@ -1002,7 +1002,7 @@ CGFloat animatedDistance;
     MulticityCalendarVM * newMulticityCalendarVM = [[MulticityCalendarVM alloc]init];
     newMulticityCalendarVM.currentIndex = currentIndex;
     newMulticityCalendarVM.delegate = self;
-    
+    newMulticityCalendarVM.isFromFlightBulkBooking = YES;
     NSMutableDictionary * travelDatesDictionary = [[NSMutableDictionary alloc]init];
     
     for (int i = 0 ; i < self.formDataModel.multiCityArray.count ; i++) {
@@ -1178,6 +1178,7 @@ CGFloat animatedDistance;
         }
         calendarVM.isHotelCalendar = NO;
         calendarVM.isReturn = self.isReturn;
+    calendarVM.isFromFlightBulkBooking = YES;
         calendarVM.delegate = self;
 
     return  calendarVM ;

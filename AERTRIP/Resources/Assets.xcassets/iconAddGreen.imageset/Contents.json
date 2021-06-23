@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "ic_toast_cross.png",
+      "filename" : "iconAddGreen.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "ic_toast_cross@2x.png",
+      "filename" : "iconAddGreen@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "ic_toast_cross@3x.png",
+      "filename" : "iconAddGreen@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

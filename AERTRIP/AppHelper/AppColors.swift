@@ -325,6 +325,11 @@ enum AppColors {
     /// RGB - 204, 204, 204,   (255, 255, 255, 0.2)
     static let dividerColor = UIColor(named: "dividerColor") ?? UIColor(displayP3Red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
     
+    /// RGB - 204, 204, 204,   (255, 255, 255, 0)
+    static var layoverBorderColor : UIColor { UIColor(named: "layoverBorderColor") ?? .clear }
+
+    
+    
     //(230, 230, 230) (255, 255, 255, 0.2)
     static let sliderTrackColor = UIColor(named: "sliderTrackColor") ?? UIColor(displayP3Red: 0.9019607843, green: 0.9019607843, blue: 0.9019607843, alpha: 1)
     
