@@ -54,14 +54,14 @@ class BookingFlightDetailVC: BaseVC {
             guard let self = self else  {return}
             self.setUpViewPager()
         }
-        topNavigationView.backgroundColor = .clear
+        topNavigationView.backgroundColor = AppColors.selectDestinationHeaderColor
         self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
         if #available(iOS 13.0, *) {
             navigationViewHeightConstraint.constant = 56
         } else {
             self.view.backgroundColor = .white
         }
-        
+        topNavigationView.dividerView.isHidden = !self.isLightTheme()
 
         FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsFlightDetails, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a", isFrom: "Bookings")
 
@@ -74,6 +74,11 @@ class BookingFlightDetailVC: BaseVC {
     override func viewDidLayoutSubviews() {
         self.parchmentView?.view.frame = self.containerView.bounds
         self.parchmentView?.loadViewIfNeeded()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        topNavigationView.dividerView.isHidden = !self.isLightTheme()
     }
     
     private func configureNavBar() {
@@ -150,8 +155,8 @@ class BookingFlightDetailVC: BaseVC {
         self.parchmentView?.reloadData()
         self.parchmentView?.reloadMenu()
         
-        self.parchmentView?.menuBackgroundColor = UIColor.clear
-        self.parchmentView?.collectionView.backgroundColor = UIColor.clear
+        self.parchmentView?.menuBackgroundColor = AppColors.selectDestinationHeaderColor//UIColor.clear
+        self.parchmentView?.collectionView.backgroundColor = AppColors.selectDestinationHeaderColor//UIColor.clear
         
     }
 }

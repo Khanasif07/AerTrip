@@ -60,8 +60,8 @@ class HCEmailItinerariesVC: BaseVC {
     }
     
     override func initialSetup() {
-        headerView.backgroundColor = .clear
-//        tableView.backgroundColor = .clear
+        headerView.backgroundColor = AppColors.clearBlack26
+        tableView.backgroundColor = AppColors.themeWhite
         self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
         if #available(iOS 13.0, *) {
             headerHeightConstraint.constant = 56
@@ -83,6 +83,11 @@ class HCEmailItinerariesVC: BaseVC {
     
     override func bindViewModel() {
         self.viewModel.delegate = self
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.tableView.reloadData()
     }
     
     //Mark:- Functions
