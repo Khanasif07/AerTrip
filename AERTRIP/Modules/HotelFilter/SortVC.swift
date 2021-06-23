@@ -46,6 +46,7 @@ class SortVC: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
+        tableView.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     func setFilterValues() {
@@ -85,12 +86,12 @@ extension SortVC: UITableViewDataSource, UITableViewDelegate {
             cell.accessoryView = setCheckBox()
             tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.bottom)
             cell.leftTitleLabel.textColor = AppColors.themeGreen
-            cell.rightTitleLabel.textColor = AppColors.themeGray40
+            cell.rightTitleLabel.textColor = AppColors.themeGray153
         }
         
         cell.accessoryView = nil
         cell.leftTitleLabel.textColor = AppColors.themeBlack
-        cell.rightTitleLabel.textColor = AppColors.themeGray40
+        cell.rightTitleLabel.textColor = AppColors.themeGray153
         
         
         switch indexPath.row {
