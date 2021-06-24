@@ -294,6 +294,11 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         stickyProgressView.tag = 601
         stickyProgressView.backgroundColor = AppColors.clear
 
+        stickyProgressView.roundTopCorners(cornerRadius: 5)
+        
+        ApiProgress.roundTopCorners(cornerRadius: 5)
+
+        
         
         if flightSearchResultVM.isIntMCOrReturnJourney {
             ApiProgress.progress = flightSearchResultVM.containsJourneyResuls ? 0 : 0.25
