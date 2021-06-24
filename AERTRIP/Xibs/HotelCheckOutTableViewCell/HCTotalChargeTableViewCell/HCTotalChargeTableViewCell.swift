@@ -29,6 +29,7 @@ class HCTotalChargeTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         self.totalCostLabel.attributedText = nil
+        self.configUI()
     }
     
     //Mark:- Methods
@@ -45,6 +46,7 @@ class HCTotalChargeTableViewCell: UITableViewCell {
         self.totalChargeLabel.textColor = AppColors.themeBlack
         self.totalCostLabel.textColor = AppColors.themeBlack
         self.paymentModeLabel.textColor = AppColors.themeGray40
+        self.contentView.backgroundColor = AppColors.themeBlack26
     }
     
     ///Configure Cell

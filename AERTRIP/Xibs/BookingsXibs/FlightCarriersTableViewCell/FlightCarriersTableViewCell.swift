@@ -47,6 +47,7 @@ class FlightCarriersTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         self.setupColors()
+        self.configUI()
     }
     // MARK: - Functions
     
@@ -95,6 +96,7 @@ class FlightCarriersTableViewCell: UITableViewCell {
         [containerView, firstFlightCarriersContView, secondFlightCarriersContView, moreFlightCarriersContView].forEach { view in
             view?.backgroundColor = AppColors.themeWhiteDashboard
         }
+        self.contentView.backgroundColor = AppColors.themeBlack26
     }
     
     func setupImageWith(carrierCode:[String], carriers:[String]){

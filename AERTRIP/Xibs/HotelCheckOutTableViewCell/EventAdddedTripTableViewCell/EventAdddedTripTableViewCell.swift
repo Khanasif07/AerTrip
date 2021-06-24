@@ -43,6 +43,7 @@ class EventAdddedTripTableViewCell: UITableViewCell {
         self.changeButtonLabel.setTitleColor(AppColors.themeGreen, for: .normal)
         //Text
         self.changeButtonLabel.setTitle(LocalizedString.Change.localized, for: .normal)
+        self.contentView.backgroundColor = AppColors.themeBlack26
     }
 
     internal func configCell(tripName: String) {
