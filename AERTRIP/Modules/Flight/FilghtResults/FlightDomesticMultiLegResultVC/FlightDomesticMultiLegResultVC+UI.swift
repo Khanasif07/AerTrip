@@ -55,7 +55,7 @@ extension FlightDomesticMultiLegResultVC {
         baseScrollViewTop.constant = -statusHeight
         let width =  UIScreen.main.bounds.size.width / 2.0
         let height = self.baseScrollView.frame.height
-        baseScrollView.contentSize = CGSize( width: (CGFloat(self.viewModel.numberOfLegs) * width ), height:height + 88.0)
+        baseScrollView.contentSize = CGSize( width: (CGFloat(self.viewModel.numberOfLegs) * width ), height:height + self.headerCollectionTop)
         baseScrollView.showsHorizontalScrollIndicator = false
         baseScrollView.showsVerticalScrollIndicator = false
         baseScrollView.alwaysBounceVertical = false
@@ -150,7 +150,7 @@ extension FlightDomesticMultiLegResultVC {
             tableview.reloadData()
         }
         let noResultsView : NoResultScreenView
-        if let errorView = baseScrollView.viewWithTag( 500 + index) as? NoResultScreenView {
+        if let errorView = baseScrollView.viewWithTag( self.errorViewTag + index) as? NoResultScreenView {
             noResultsView = errorView
             baseScrollView.addSubview(noResultsView)
         }
@@ -160,7 +160,7 @@ extension FlightDomesticMultiLegResultVC {
             
             let headerCollectionviewHeight = headerCollectionView.frame.size.height
             rect.origin.x = CGFloat(index) * width + 1.0
-            rect.origin.y = self.headerCollectionViewTop.constant + headerCollectionviewHeight + statusBarHeight
+            rect.origin.y = self.headerCollectionTop + headerCollectionviewHeight + statusBarHeight
             rect.size.height = baseScrollView.bounds.size.height - 50 - statusBarHeight
             rect.size.width = width - 2.0
             
@@ -173,7 +173,7 @@ extension FlightDomesticMultiLegResultVC {
                 noResultsView.delegate = self.parent as? NoResultScreenDelegate
 //            }
             noResultsView.frame = rect
-            noResultsView.tag = ( 500 + index)
+            noResultsView.tag = ( self.errorViewTag + index)
             baseScrollView.addSubview(noResultsView)
         }
         
