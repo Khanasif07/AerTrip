@@ -1060,10 +1060,10 @@ been sent</string>
                                                 <rect key="frame" x="225.33333333333329" y="0.0" width="112.66666666666666" height="266"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="12.5" translatesAutoresizingMaskIntoConstraints="NO" id="pK7-Yp-wzS">
-                                                        <rect key="frame" x="0.0" y="0.0" width="112.66666666666667" height="566.66666666666663"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="112.66666666666667" height="581.33333333333337"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yha-YK-x8Z">
-                                                                <rect key="frame" x="0.0" y="0.0" width="112.66666666666667" height="119.66666666666667"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="112.66666666666667" height="123"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Children" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Sw-4i-o5H">
                                                                         <rect key="frame" x="0.0" y="5" width="112.66666666666667" height="20.333333333333332"/>
@@ -1091,10 +1091,10 @@ been sent</string>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="6Bo-AR-Jbm">
-                                                                <rect key="frame" x="0.0" y="132.33333333333337" width="112.66666666666667" height="142"/>
+                                                                <rect key="frame" x="0.0" y="135.66666666666663" width="112.66666666666667" height="145.66666666666663"/>
                                                                 <subviews>
                                                                     <button opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JKq-Tl-RDH">
-                                                                        <rect key="frame" x="32.333333333333371" y="47" width="48" height="48"/>
+                                                                        <rect key="frame" x="32.333333333333371" y="48.666666666666742" width="48" height="48"/>
                                                                         <state key="normal" image="child_icon_bulk"/>
                                                                         <state key="selected" image="child_selected"/>
                                                                     </button>
@@ -1107,10 +1107,10 @@ been sent</string>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YzA-bp-NnN">
-                                                                <rect key="frame" x="0.0" y="287" width="112.66666666666667" height="279.66666666666674"/>
+                                                                <rect key="frame" x="0.0" y="294" width="112.66666666666667" height="287.33333333333326"/>
                                                                 <subviews>
                                                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Kp-MU-TGO">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="112.66666666666667" height="279.66666666666669"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="112.66666666666667" height="287.33333333333331"/>
                                                                     </pickerView>
                                                                 </subviews>
                                                                 <color key="backgroundColor" name="themeWhiteDashboard"/>
