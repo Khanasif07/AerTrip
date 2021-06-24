@@ -49,6 +49,11 @@ class PassengerGridCell: UITableViewCell{
         collectionView.reloadData()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?)
+    {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.collectionView.reloadData()
+    }
     
     // Mark:- IBActions
     // Mark:-

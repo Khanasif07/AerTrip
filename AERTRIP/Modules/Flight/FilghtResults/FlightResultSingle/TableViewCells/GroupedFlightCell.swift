@@ -449,7 +449,7 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView != self.resultsCollectionView { return }
-        selectionView.origin.x = 16 + ((timeCollectionView.contentSize.width - 32 + 6) * (resultsCollectionView.contentOffset.x / resultsCollectionView.contentSize.width))
+        selectionView.origin.x = 16 + CGFloat((timeCollectionView.contentSize.width - 32 + 6) * (resultsCollectionView.contentOffset.x / resultsCollectionView.contentSize.width))
         // 16 for leading space, 32 for leading+trailing, 6 for item spacing
     }
     

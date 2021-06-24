@@ -34,6 +34,9 @@ class HotelFilterVC: BaseVC {
     @IBOutlet weak var blurBackGroundView: UIView!
     @IBOutlet weak var filterContainerView: UIView!
     
+    @IBOutlet weak var filterIconDividerView: ATDividerView!
+    @IBOutlet weak var separatorView: UIView!
+    
     // MARK: - Private
     
 //    private var currentIndex: Int = 0
@@ -104,9 +107,11 @@ class HotelFilterVC: BaseVC {
     }
     
     override func setupColors() {
-        self.clearAllButton.setTitleColor(AppColors.themeGreen, for: .normal)
-        self.doneButton.setTitleColor(AppColors.themeGreen, for: .normal)
-        self.navigationTitleLabel.textColor = AppColors.themeGray40
+        self.clearAllButton.setTitleColor(AppColors.commonThemeGreen, for: .normal)
+        self.doneButton.setTitleColor(AppColors.commonThemeGreen, for: .normal)
+        self.navigationTitleLabel.textColor = AppColors.themeGray153
+        filterIconDividerView.isHidden = true
+        separatorView.backgroundColor = AppColors.dividerColor
     }
     
     
@@ -130,8 +135,10 @@ class HotelFilterVC: BaseVC {
             //  self?.show(animated: true)
             self?.mainContainerView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 10.0)
         }
-        blurBackGroundView.addBlurEffect(backgroundColor: AppColors.themeWhite.withAlphaComponent(0.85), style:  UIBlurEffect.Style.light, alpha: 1)
-        filterContainerView.addBlurEffect(backgroundColor: AppColors.themeWhite.withAlphaComponent(0.85), style:  UIBlurEffect.Style.light, alpha: 1)
+//        blurBackGroundView.addBlurEffect(backgroundColor: AppColors.themeWhite.withAlphaComponent(0.85), style:  UIBlurEffect.Style.light, alpha: 1)
+//        filterContainerView.addBlurEffect(backgroundColor: AppColors.themeWhite.withAlphaComponent(0.85), style:  UIBlurEffect.Style.light, alpha: 1)
+        blurBackGroundView.backgroundColor = AppColors.themeWhiteDashboard
+        filterContainerView.backgroundColor = AppColors.themeWhiteDashboard
         
     }
     
@@ -235,6 +242,7 @@ class HotelFilterVC: BaseVC {
     private func setupParchmentPageController(){
         
         self.parchmentView = PagingViewController()
+        parchmentView?.view.backgroundColor = AppColors.themeWhiteDashboard
         self.parchmentView?.menuItemSpacing = 10.0
         self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 41.0, bottom: 0.0, right: 11.0)
         self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 52)
@@ -250,7 +258,7 @@ class HotelFilterVC: BaseVC {
         self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
         self.parchmentView?.indicatorColor = AppColors.themeGreen
         self.parchmentView?.selectedTextColor = AppColors.themeBlack
-        // self.parchmentView?.borderColor = AppColors.divider.color
+        self.parchmentView?.borderColor = .clear//AppColors.divider.color
         self.dataContainerView.addSubview(self.parchmentView!.view)
         self.parchmentView?.dataSource = self
         self.parchmentView?.delegate = self

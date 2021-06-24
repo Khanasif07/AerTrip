@@ -12,7 +12,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "addCircleGreen.png",
+      "filename" : "iconAddGreen.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -28,7 +28,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "addCircleGreen@2x.png",
+      "filename" : "iconAddGreen@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -44,7 +44,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "addCircleGreen@3x.png",
+      "filename" : "iconAddGreen@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
