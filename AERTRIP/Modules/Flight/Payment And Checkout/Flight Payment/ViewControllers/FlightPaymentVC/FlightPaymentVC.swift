@@ -256,7 +256,6 @@ class FlightPaymentVC: BaseVC {
             FareUpdatedPopUpVC.showPopUp(isForIncreased: true, decreasedAmount: 0.0, increasedAmount: Double(diff), totalUpdatedAmount: Double(amount), continueButtonAction: { [weak self] in
                 guard let self = self else { return }
                 self.view.isUserInteractionEnabled = false
-//                self.viewModel.makePayment(forAmount: self.getTotalPayableAmount(), useWallet: self.isWallet)
                 self.checkForWalletOTP()
                 }, goBackButtonAction: { [weak self] in
                     guard let self = self else { return }
@@ -267,12 +266,8 @@ class FlightPaymentVC: BaseVC {
             // dipped
             FareUpdatedPopUpVC.showPopUp(isForIncreased: false, decreasedAmount: Double(-diff), increasedAmount: 0, totalUpdatedAmount: 0, continueButtonAction: nil, goBackButtonAction: nil)
             self.checkForWalletOTP()
-//            delay(seconds: 5.0) { [weak self] in
-//                guard let self = self else { return }
-//            }
         }else{
             self.checkForWalletOTP()
-//            self.viewModel.makePayment(forAmount: self.getTotalPayableAmount(), useWallet: self.isWallet)
         }
     }
     

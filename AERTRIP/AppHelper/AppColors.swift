@@ -131,7 +131,7 @@ enum AppColors {
     // RGB - 126,126,126, 1.0
     static let toastBackgroundBlur = UIColor(named: "toastBackgroundBlur") ?? UIColor(displayP3Red: 0.4941176471, green: 0.4941176471, blue: 0.4941176471, alpha: 1)
     
-    // RGB - 236,253,244, 1.0
+    // RGB - 236,253,244, 1.0 (75, 75, 75)
     static let iceGreen = UIColor(named: "iceGreen") ?? UIColor(displayP3Red: 0.9254901961, green: 0.9921568627, blue: 0.9568627451, alpha: 1)
     
     // RGB - 246,246,246, 1.0
