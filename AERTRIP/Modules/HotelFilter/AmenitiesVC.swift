@@ -38,6 +38,7 @@ class AmenitiesVC: BaseVC {
         tableView.separatorStyle = .none
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     private func registerXib() {
@@ -46,7 +47,7 @@ class AmenitiesVC: BaseVC {
     
     private func addFooterView() {
         let customView = UIView(frame: CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: 35))
-        customView.backgroundColor = AppColors.themeWhite
+        customView.backgroundColor = AppColors.themeWhiteDashboard
         
         tableView.tableFooterView = customView
     }

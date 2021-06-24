@@ -591,6 +591,12 @@ extension HotelResultVC {
             hideHeaderBlurView(offsetDifference)
         }
         else {
+            // hotel list scroll down header jerk fix - Rishabh
+            let totalHeight = backContainerView.height + statusBarHeight
+            if headerBlurView.frame.maxY == totalHeight {
+                return
+            }
+            // hotel list scroll down header jerk fix end
             let invertedOffset = -offsetDifference
             revealBlurredHeaderView(invertedOffset)
         }
