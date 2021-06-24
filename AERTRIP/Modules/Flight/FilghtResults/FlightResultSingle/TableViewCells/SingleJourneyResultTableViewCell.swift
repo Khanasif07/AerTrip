@@ -10,6 +10,7 @@ import UIKit
 
 
 class SingleJourneyResultTableViewCell: UITableViewCell {
+    
     //MARK:- Outlets
     @IBOutlet weak var logoOne: UIImageView!
     @IBOutlet weak var logoTwo: UIImageView!
@@ -54,12 +55,10 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
 //        layer.shadowOffset = CGSize(width: 0, height: 0)
 //        layer.shadowColor = UIColor.black.withAlphaComponent(0.3).cgColor
         self.baseView.layer.cornerRadius = 10
-        let shadowProp = AppShadowProperties()
-        if self.isLightTheme(){
-            self.shadowView.addShadow(cornerRadius: shadowProp.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: shadowProp.shadowColor, offset: shadowProp.offset, opacity: shadowProp.opecity, shadowRadius: shadowProp.shadowRadius)
-        }else{
-            self.shadowView.addShadow(cornerRadius: shadowProp.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: .clear, offset: shadowProp.offset, opacity: 0, shadowRadius: 0)
-        }
+       
+        let shadowProp = AppShadowProperties(self.isLightTheme())
+        
+        self.shadowView.addShadow(cornerRadius: shadowProp.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: shadowProp.shadowColor, offset: shadowProp.offset, opacity: shadowProp.opecity, shadowRadius: shadowProp.shadowRadius)
         
         self.logoOne.roundedCorners(cornerRadius: 2)
         self.logoTwo.roundedCorners(cornerRadius: 2)

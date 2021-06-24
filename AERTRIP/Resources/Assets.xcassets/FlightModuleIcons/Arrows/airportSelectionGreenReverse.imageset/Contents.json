@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "black_cross.png",
+      "filename" : "FlightReverseArrow.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -12,12 +12,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "ic_toast_cross.png",
+      "filename" : "iconFormNavigationArrow.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "black_cross@2x.png",
+      "filename" : "FlightReverseArrow@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -28,12 +28,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "ic_toast_cross@2x.png",
+      "filename" : "iconFormNavigationArrow@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "black_cross@3x.png",
+      "filename" : "FlightReverseArrow@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     },
@@ -44,7 +44,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "ic_toast_cross@3x.png",
+      "filename" : "iconFormNavigationArrow@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

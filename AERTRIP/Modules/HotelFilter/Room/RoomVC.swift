@@ -54,6 +54,8 @@ class RoomVC: UIViewController {
     // MARK: - Helper methods
     
     private func doInitialSetUp() {
+        view.backgroundColor = AppColors.themeWhiteDashboard
+        tableView.backgroundColor = AppColors.themeWhiteDashboard
         tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self

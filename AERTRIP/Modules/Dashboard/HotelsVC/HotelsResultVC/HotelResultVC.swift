@@ -65,6 +65,7 @@ class HotelResultVC: BaseVC {
             self.tableViewVertical.contentInset = UIEdgeInsets(top: topContentSpace, left: 0, bottom: 0, right: 0)
             self.tableViewVertical.tableHeaderView = searchResultHeaderView
             self.tableViewVertical.sectionHeaderHeight = hotelSearchResultHeaderViewHeight.min
+            self.tableViewVertical.backgroundColor = AppColors.themeWhite
         }
     }
     
@@ -86,6 +87,7 @@ class HotelResultVC: BaseVC {
         didSet {
             let tap = UITapGestureRecognizer(target: self, action: #selector(searchTabeleTapped(tap:)))
             self.hotelSearchTableView.addGestureRecognizer(tap)
+            self.hotelSearchTableView.backgroundColor = AppColors.themeWhite
         }
     }
     @IBOutlet weak var floatingViewBottomConstraint: NSLayoutConstraint!
@@ -109,7 +111,7 @@ class HotelResultVC: BaseVC {
     @IBOutlet weak var switchGradientView: UIView!
     @IBOutlet weak var searchButton: UIButton!
     @IBOutlet weak var blurViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var headerBlurView: BlurView!
+    @IBOutlet weak var headerBlurView: UIView!
     // MARK: - Properties
     
     //    var container: NSPersistentContainer!
@@ -274,7 +276,7 @@ class HotelResultVC: BaseVC {
         searchBar.setTextField(color: UIColor(displayP3Red: 153/255, green: 153/255, blue: 153/255, alpha: 0.12))
         self.setUpLongPressOnFilterButton()
         //addCustomBackgroundBlurView()
-        headerBlurView.backgroundColor = UIColor.white.withAlphaComponent(0.85)
+        headerBlurView.backgroundColor = .clear//UIColor.white.withAlphaComponent(0.85)
         
         setGroupedFooterView()
     }
@@ -283,14 +285,14 @@ class HotelResultVC: BaseVC {
         super.viewDidAppear(animated)
         self.isViewDidAppear = true
         self.statusBarColor = AppColors.clear
-        self.statusBarStyle = .darkContent
+        self.statusBarStyle = .default
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)        
         // addCustomBackgroundBlurView()
         self.statusBarColor = AppColors.clear
-        self.statusBarStyle = .darkContent
+        self.statusBarStyle = .default
     }
     
     override func viewWillDisappear(_ animated: Bool) {

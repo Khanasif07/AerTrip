@@ -23,6 +23,7 @@ class ViewProfileTableViewCell: UITableViewCell {
     }
     
     func configureCell(_ title: String) {
+        menuOptionLabel.textColor = AppColors.themeBlack
         menuOptionLabel.text  = title
         self.menuOptionLabel.font = AppFonts.Regular.withSize(20.0)
     }

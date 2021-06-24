@@ -56,10 +56,11 @@ class RatingVC: BaseVC {
     }
     
     override func setupColors() {
-        self.starRatingTitleLabel.textColor = AppColors.themeGray40
-        self.starLabel.textColor = AppColors.themeGray40
-        self.tripAdvisorTitleLabel.textColor = AppColors.themeGray40
-        self.tripAdvisorStarLabel.textColor = AppColors.themeGray40
+        view.backgroundColor = AppColors.themeWhiteDashboard
+        self.starRatingTitleLabel.textColor = AppColors.themeGray153
+        self.starLabel.textColor = AppColors.themeGray153
+        self.tripAdvisorTitleLabel.textColor = AppColors.themeGray153
+        self.tripAdvisorStarLabel.textColor = AppColors.themeGray153
     }
     
     override func setupFonts() {

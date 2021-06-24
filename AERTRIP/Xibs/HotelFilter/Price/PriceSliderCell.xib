@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -32,10 +32,10 @@
                                 <size key="shadowOffset" width="0.0" height="0.0"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SJm-r6-MAR">
-                                <rect key="frame" x="16" y="52.5" width="178.5" height="31"/>
+                                <rect key="frame" x="16" y="52.5" width="177.5" height="31"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Labelfds fsdf dsfsdfs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QVc-Sk-brs">
-                                        <rect key="frame" x="9" y="3" width="160.5" height="25"/>
+                                        <rect key="frame" x="9" y="3" width="159.5" height="25"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -69,7 +69,7 @@
                                     <constraint firstAttribute="trailing" secondItem="XbK-HJ-9Tz" secondAttribute="trailing" constant="9" id="mNQ-eZ-rAU"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nit-WS-kOl">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nit-WS-kOl" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="16" y="153.5" width="382" height="0.5"/>
                                 <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -83,7 +83,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Lha-k7-qcW" secondAttribute="trailing" constant="16" id="Boj-DS-OGY"/>
                             <constraint firstAttribute="trailing" secondItem="Nit-WS-kOl" secondAttribute="trailing" constant="16" id="Lw0-VG-15m"/>
@@ -99,6 +99,7 @@
                         </constraints>
                     </view>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="kEj-FZ-EyD" firstAttribute="leading" secondItem="8tF-aI-wNr" secondAttribute="leading" id="YRW-1X-bUM"/>
                     <constraint firstItem="kEj-FZ-EyD" firstAttribute="top" secondItem="8tF-aI-wNr" secondAttribute="top" id="YlF-l8-wGo"/>
@@ -106,12 +107,15 @@
                     <constraint firstAttribute="trailing" secondItem="kEj-FZ-EyD" secondAttribute="trailing" id="o5D-Ee-iIN"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="containerView" destination="kEj-FZ-EyD" id="Fli-yL-VRF"/>
                 <outlet property="maximumPriceLabel" destination="XbK-HJ-9Tz" id="On1-od-3PM"/>
                 <outlet property="maximumPriceView" destination="Lha-k7-qcW" id="ogD-pg-9vM"/>
                 <outlet property="minimumPriceLabel" destination="QVc-Sk-brs" id="NBt-Ih-mkb"/>
                 <outlet property="minimumPriceView" destination="SJm-r6-MAR" id="3bq-vW-GC9"/>
+                <outlet property="separatorView" destination="Nit-WS-kOl" id="ADc-j5-ras"/>
+                <outlet property="showPriceLbl" destination="kXM-Nx-Ah8" id="ULb-hH-te5"/>
                 <outlet property="titleLabel" destination="hmx-8v-f8e" id="anV-V3-hWq"/>
             </connections>
             <point key="canvasLocation" x="139" y="117"/>
