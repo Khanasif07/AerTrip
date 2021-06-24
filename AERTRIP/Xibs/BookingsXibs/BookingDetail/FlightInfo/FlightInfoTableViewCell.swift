@@ -30,6 +30,11 @@ class FlightInfoTableViewCell: UITableViewCell {
         self.setUpTextColor()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.setUpTextColor()
+    }
+    
     // MARK: - Helper methods
     
     private func setUpFont() {
@@ -40,6 +45,8 @@ class FlightInfoTableViewCell: UITableViewCell {
     private func setUpTextColor() {
         self.flightNameLabel.textColor = AppColors.themeBlack
         self.flightDetailsLabel.textColor = AppColors.themeGray40
+        self.contentView.backgroundColor = AppColors.themeBlack26
+        self.flightImageView.roundTopCorners(cornerRadius: 3.0)
     }
     
     private func configureCell() {

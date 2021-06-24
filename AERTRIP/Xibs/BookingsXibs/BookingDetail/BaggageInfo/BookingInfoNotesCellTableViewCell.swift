@@ -36,6 +36,7 @@ class BookingInfoNotesCellTableViewCell: UITableViewCell {
     
     private func setUpFont() {
         self.noteLabel.font = AppFonts.Regular.withSize(14.0)
+        self.contentView.backgroundColor = AppColors.themeBlack26
         
     }
     
@@ -94,7 +95,7 @@ class BookingInfoNotesCellTableViewCell: UITableViewCell {
         }
         
         
-        let title = NSMutableAttributedString(string: displayTxt, attributes: [NSAttributedString.Key.paragraphStyle: style,NSAttributedString.Key.foregroundColor:UIColor.black])
+        let title = NSMutableAttributedString(string: displayTxt, attributes: [NSAttributedString.Key.paragraphStyle: style,NSAttributedString.Key.foregroundColor:AppColors.themeBlack])
         if !displayTxt.isEmpty, displayTxt.contains(":") {
             let inx = displayTxt.range(of: ":")
             let index: Int = displayTxt.distance(from: displayTxt.startIndex, to: inx!.lowerBound)

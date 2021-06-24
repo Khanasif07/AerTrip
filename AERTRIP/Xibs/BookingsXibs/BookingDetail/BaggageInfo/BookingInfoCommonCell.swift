@@ -60,6 +60,7 @@ class BookingInfoCommonCell: ATTableViewCell {
         self.leftLabel.textColor = AppColors.themeBlack
         self.middleLabel.textColor = AppColors.themeBlack
         self.rightLabel.textColor = AppColors.themeBlack
+        self.contentView.backgroundColor = AppColors.themeBlack26
     }
     
     func setData(forFlight: BookingFlightDetail?, usingFor: UsingFor) {

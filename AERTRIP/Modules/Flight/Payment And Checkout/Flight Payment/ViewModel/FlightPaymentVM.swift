@@ -126,6 +126,22 @@ class FlightPaymentVM{
             addonsData.append(newArr)
             
         }
+        
+        var sortedArray = [(name:String, value:Double)]()
+        if let addon = self.addonsData.first(where: {$0.name.lowercased().contains("meal")}){
+            sortedArray.append(addon)
+        }
+        if let addon = self.addonsData.first(where: {$0.name.lowercased().contains("baggage")}){
+            sortedArray.append(addon)
+        }
+        if let addon = self.addonsData.first(where: {$0.name.lowercased().contains("seat")}){
+            sortedArray.append(addon)
+        }
+        if let addon = self.addonsData.first(where: {$0.name.lowercased().contains("other")}){
+            sortedArray.append(addon)
+        }
+        self.addonsData = sortedArray
+        
     }
     
     private func discountDataDisplay(){

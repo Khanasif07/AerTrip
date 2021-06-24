@@ -20,6 +20,11 @@ class BookingTravellerAddOnsCollectionViewCell: UICollectionViewCell {
         self.setUpColor()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.setUpColor()
+    }
+    
     private func setUpFont() {
         self.titleLabel.font = AppFonts.Regular.withSize(14.0)
         self.titleValueLabel.font = AppFonts.Regular.withSize(18.0)
@@ -28,6 +33,7 @@ class BookingTravellerAddOnsCollectionViewCell: UICollectionViewCell {
     private func setUpColor() {
         self.titleLabel.textColor = AppColors.themeGray40
         self.titleValueLabel.textColor = AppColors.textFieldTextColor51
+        self.mainView.backgroundColor = AppColors.themeBlack26
     }
     
     func configure(title: String, detail: String) {

@@ -112,7 +112,7 @@ extension FlightDomesticMultiLegResultVC {
                                         
                                     } else if modifiedResult.count > 0 {
                                         
-                                        if let errorView = self.baseScrollView.viewWithTag( 500 + index) {
+                                        if let errorView = self.baseScrollView.viewWithTag( self.errorViewTag + index) {
                                             if updatedArray.count > 0  {
                                                 errorView.removeFromSuperview()
                                             }

@@ -79,6 +79,10 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
     var isHiddingHeader = false
     var isSettingupHeader = false
     var reloadFilters : (() -> Void)?
+    
+    // Initial Constants
+    var headerCollectionTop:CGFloat = 88.0
+    var errorViewTag = 800
 
     
     //MARK:-  Initializers
@@ -154,7 +158,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         super.viewDidLayoutSubviews()
         guard isNeedToUpdateLayout else {return}
         let width =  UIScreen.main.bounds.size.width / 2.0
-        let height = self.baseScrollView.frame.height + 88.0//statusBarHeight + 88.0
+        let height = self.baseScrollView.frame.height + self.headerCollectionTop//statusBarHeight + 88.0
         baseScrollView.contentSize = CGSize( width: (CGFloat(self.viewModel.numberOfLegs) * width ), height:height)
         self.miniHeaderTopConstraint.constant = 0.0
         for view in self.baseScrollView.subviews {
@@ -438,7 +442,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
             
             viewModel.resultsTableStates = viewModel.stateBeforePinnedFlight
             for index in 0 ..< self.viewModel.numberOfLegs {
-                if let errorView = self.baseScrollView.viewWithTag( 500 + index) {
+                if let errorView = self.baseScrollView.viewWithTag( self.errorViewTag + index) {
                     errorView.removeFromSuperview()
                 }
                 self.updateUIForTableviewAt(index)

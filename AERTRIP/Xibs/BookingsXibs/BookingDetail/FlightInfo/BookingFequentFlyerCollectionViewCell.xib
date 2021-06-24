@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -33,7 +34,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="zsb-3k-e2a" secondAttribute="trailing" id="TPx-Xk-43t"/>
                                             <constraint firstItem="zsb-3k-e2a" firstAttribute="top" secondItem="bEm-gF-B7c" secondAttribute="top" constant="6" id="XGd-Mb-JUq"/>
@@ -55,13 +56,13 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fVk-Wy-iFt">
-                                                        <rect key="frame" x="37" y="0.0" width="189" height="27"/>
+                                                        <rect key="frame" x="37" y="0.0" width="189.5" height="27"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wfY-w9-8FC">
-                                                        <rect key="frame" x="236" y="0.0" width="42" height="27"/>
+                                                        <rect key="frame" x="236.5" y="0.0" width="41.5" height="27"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -69,7 +70,7 @@
                                                 </subviews>
                                             </stackView>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="2PI-Zi-OU8" secondAttribute="bottom" constant="11" id="0qE-CD-oG1"/>
                                             <constraint firstItem="2PI-Zi-OU8" firstAttribute="leading" secondItem="Dpw-Pm-4qQ" secondAttribute="leading" id="7x1-xB-a2e"/>
@@ -80,7 +81,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" name="themeBlack26"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="dzS-ZV-A8j" secondAttribute="bottom" id="3mS-Qf-SR7"/>
                             <constraint firstAttribute="trailing" secondItem="dzS-ZV-A8j" secondAttribute="trailing" constant="16" id="6SP-qS-I28"/>
@@ -90,13 +91,13 @@
                     </view>
                 </subviews>
             </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
                 <constraint firstItem="bYJ-tD-aFi" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="ECd-mj-0hN"/>
                 <constraint firstAttribute="trailing" secondItem="bYJ-tD-aFi" secondAttribute="trailing" id="SLX-qT-yHX"/>
                 <constraint firstItem="bYJ-tD-aFi" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="mxX-Kt-e97"/>
                 <constraint firstAttribute="bottom" secondItem="bYJ-tD-aFi" secondAttribute="bottom" id="zWt-T4-G4f"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="310" height="95"/>
             <connections>
                 <outlet property="airlineIconView" destination="48c-SE-fpN" id="3u7-Jl-CWv"/>
@@ -109,4 +110,9 @@
             <point key="canvasLocation" x="233.33333333333334" y="114.84375"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <namedColor name="themeBlack26">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+    </resources>
 </document>

@@ -302,7 +302,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         
         if flightSearchResultVM.isIntMCOrReturnJourney {
             ApiProgress.progress = flightSearchResultVM.containsJourneyResuls ? 0 : 0.25
-            stickyProgressView.progress = flightSearchResultVM.containsJourneyResuls ? 0 : 0.25
+            stickyProgressView?.progress = flightSearchResultVM.containsJourneyResuls ? 0 : 0.25
         }
                 
         backView.addSubview(ApiProgress)
@@ -1720,7 +1720,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
         default:
             return
         }
-        stickyProgressView.setProgress(updatedApiProgress, animated: true)
+        stickyProgressView?.setProgress(updatedApiProgress, animated: true)
     }
     
     func updateComboFare() {
@@ -1765,7 +1765,7 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
                 
                 if self.ApiProgress.progress < progress {
                     self.ApiProgress.setProgress(progress, animated: true)
-                    self.stickyProgressView.setProgress(progress, animated: true)
+                    self.stickyProgressView?.setProgress(progress, animated: true)
                 }
                 
                 if progress >= 0.97 {
