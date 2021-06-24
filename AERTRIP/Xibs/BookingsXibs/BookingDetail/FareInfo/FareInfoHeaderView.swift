@@ -45,6 +45,7 @@ class FareInfoHeaderView: UITableViewHeaderFooterView {
         self.refundPolicyLabel.textColor = AppColors.themeBlack
         self.infoLabel.textColor = AppColors.themeBlack
         self.fareRulesButton.setTitleColor(AppColors.themeGreen, for: .normal)
+        self.contentView.backgroundColor = AppColors.themeBlack26
     }
     
     

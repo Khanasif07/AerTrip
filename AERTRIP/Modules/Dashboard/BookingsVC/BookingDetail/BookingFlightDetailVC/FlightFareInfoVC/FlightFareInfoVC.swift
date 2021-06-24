@@ -44,6 +44,11 @@ class FlightFareInfoVC: BaseVC {
         self.viewModel.delegate = self
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.tableView.reloadData()
+    }
+    
     private func registerXib() {
         
         var frame = CGRect.zero

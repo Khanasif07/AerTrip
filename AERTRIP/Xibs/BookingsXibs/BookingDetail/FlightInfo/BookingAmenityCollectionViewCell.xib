@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -39,7 +39,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="gk8-fv-QjW" firstAttribute="top" secondItem="9lV-7N-UcE" secondAttribute="bottom" constant="2" id="6Ng-RZ-Xgt"/>
                             <constraint firstItem="9lV-7N-UcE" firstAttribute="top" secondItem="LrS-Wm-q81" secondAttribute="top" id="Rv7-Vb-uqY"/>
@@ -50,6 +50,7 @@
                     </view>
                 </subviews>
             </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
                 <constraint firstItem="LrS-Wm-q81" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="GnQ-vI-IMq"/>
                 <constraint firstAttribute="trailing" secondItem="LrS-Wm-q81" secondAttribute="trailing" id="bhw-RN-Mro"/>
@@ -57,7 +58,6 @@
                 <constraint firstItem="LrS-Wm-q81" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="uA3-5K-Gqe"/>
                 <constraint firstAttribute="bottom" secondItem="LrS-Wm-q81" secondAttribute="bottom" id="vvu-rf-xbk"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <connections>
                 <outlet property="amenityImageView" destination="9lV-7N-UcE" id="2tQ-8P-ivY"/>
                 <outlet property="amenityTitle" destination="gk8-fv-QjW" id="x55-EE-X67"/>

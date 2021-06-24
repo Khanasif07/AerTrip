@@ -70,7 +70,7 @@ class FlightCarriersTableViewCell: UITableViewCell {
         self.moreFlightCarriersContView.isHidden = true
         
         [firstFlightCarriersImgVw, secondFlightCarriersImgVw, moreFlightCarriersImgVw].forEach{ imgView in
-            imgView?.roundedCorners(cornerRadius: 2.0)
+            imgView?.roundedCorners(cornerRadius: 3.0)
         }
         
         

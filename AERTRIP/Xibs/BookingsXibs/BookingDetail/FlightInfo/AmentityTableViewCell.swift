@@ -36,6 +36,16 @@ class AmentityTableViewCell: UITableViewCell {
         
         self.doInitialSetup()
         self.registerXib()
+        self.setColors()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.setColors()
+    }
+    
+    private func setColors(){
+        self.contentView.backgroundColor = AppColors.themeBlack26
     }
     
     
