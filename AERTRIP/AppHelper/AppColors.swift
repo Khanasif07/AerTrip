@@ -389,6 +389,9 @@ enum AppColors {
 //    (255, 255, 255, 0) (26, 26, 26)
     static let clearBlack26 = UIColor(named: "clearBlack26") ?? .clear
 
+    //    (255,255,255, 1.0) (255,255,255, 0.0)
+        static let whiteAndClear = UIColor(named: "whiteAndClear") ?? . white
+
     
     case headlines
     case body
