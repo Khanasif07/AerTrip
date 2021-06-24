@@ -832,22 +832,17 @@
     [self reloadMultiCityTableView];
     
 }
--(void)disableAddMulticityButton:(BOOL)disable
-{
+-(void)disableAddMulticityButton:(BOOL)disable {
     if(disable){
-        
         self.multicityAddIcon.alpha = 0.2;
         self.multicityAddTitle.alpha = 0.2;
         self.multicityAddButton.enabled = NO;
-        
-    }
-    else {
+    } else {
         self.multicityAddButton.enabled = YES;
         self.multicityAddTitle.alpha = 1.0;
         self.multicityAddIcon.alpha = 1.0;
     }
 }
-
 
 - (void)reloadMultiCityTableView {
     [self.multiCityTableView reloadData];

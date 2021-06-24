@@ -60,6 +60,11 @@ class SingleJourneyCollectionViewCell: UICollectionViewCell {
         self.setupColors()
     }
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        dashedView.setupDashedView()
+    }
+    
     fileprivate func setupBaseView() {
         backgroundColor = .clear // very important
 

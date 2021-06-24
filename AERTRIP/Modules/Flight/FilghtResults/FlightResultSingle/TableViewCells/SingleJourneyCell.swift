@@ -8,9 +8,7 @@
 
 import UIKit
 
-
-class SingleJourneyCell: UITableViewCell
-{
+class SingleJourneyCell: UITableViewCell {
     //MARK:- Outlets
     @IBOutlet weak var logoStackViewTop: NSLayoutConstraint!
     @IBOutlet weak var logoOne: UIImageView!
@@ -55,14 +53,12 @@ class SingleJourneyCell: UITableViewCell
 //        layer.shadowOffset = CGSize(width: 0, height: 0)
 //        layer.shadowColor = UIColor.black.withAlphaComponent(0.3).cgColor
 //        self.baseView.layer.cornerRadius = 10
-        let shadowProp = AppShadowProperties()
-//        if self.isLightTheme(){
-            self.baseView.addShadow(cornerRadius: shadowProp.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: shadowProp.shadowColor, offset: shadowProp.offset, opacity: shadowProp.opecity, shadowRadius: shadowProp.shadowRadius)
-//        }else{
-//            self.baseView.addShadow(cornerRadius: shadowProp.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: .clear, offset: shadowProp.offset, opacity: 0.0, shadowRadius: 0.0)
-//        }
+                
+         let shadowProp = AppShadowProperties(self.isLightTheme())
+         
+         self.baseView.addShadow(cornerRadius: shadowProp.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: shadowProp.shadowColor, offset: shadowProp.offset, opacity: shadowProp.opecity, shadowRadius: shadowProp.shadowRadius)
+
         
-//        self.baseView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
     }
     
     override func awakeFromNib() {
