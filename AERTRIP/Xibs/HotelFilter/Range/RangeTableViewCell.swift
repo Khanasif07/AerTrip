@@ -38,9 +38,9 @@ class RangeTableViewCell: UITableViewCell {
     }
     
     func setupColors() {
-        self.rangeView.backgroundColor = AppColors.themeGray10
+        self.rangeView.backgroundColor = AppColors.flightFilterHighlightColor
         self.rangeLabel.textColor = AppColors.themeBlack
-        self.searchResultRangeLabel.textColor = AppColors.themeGray40
+        self.searchResultRangeLabel.textColor = AppColors.themeGray153
 
     }
     
