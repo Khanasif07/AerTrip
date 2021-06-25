@@ -514,12 +514,17 @@ extension SeatMapContainerVC: SeatMapContainerDelegate {
         legValues.forEach {
             let flightsArr = $0.flights.map { $0.value }
             totalFlightsData.append(contentsOf: flightsArr)
-            
-            let flightsStr = $0.flights.map {
-                createAttHeaderTitle($0.value.fr, $0.value.to)
-            }
-            viewModel.allTabsStr.append(contentsOf: flightsStr)
         }
+        
+        if legValues.count == 1 && totalFlightsData.count > 1 {
+            totalFlightsData = totalFlightsData.sorted(by: { ($0.intSortOrder ?? 0) < ($1.intSortOrder ?? 0) })
+        }
+        
+        let flightsStr = totalFlightsData.map {
+            createAttHeaderTitle($0.fr, $0.to)
+        }
+        viewModel.allTabsStr.append(contentsOf: flightsStr)
+        
         viewModel.originalAllFlightsData = totalFlightsData
         viewModel.allFlightsData = totalFlightsData
         if let allFlightsData = AddonsDataStore.shared.seatsAllFlightsData, viewModel.setupFor == .preSelection {
