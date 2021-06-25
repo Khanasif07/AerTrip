@@ -26,13 +26,18 @@ class BookingPaymentDetailsTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configUI()
-        self.containerView.backgroundColor = AppColors.themeWhiteDashboard
+        self.setColors()
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         self.costLabel.attributedText = nil
+        self.setColors()
+    }
+    
+    private func setColors(){
         self.containerView.backgroundColor = AppColors.themeWhiteDashboard
+        self.contentView.backgroundColor = AppColors.themeBlack26
     }
     
     // Mark:- Functions

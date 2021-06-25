@@ -34,6 +34,16 @@ class FareUpdatedPopUpVC: BaseVC {
     override func initialSetup() {
     }
     
+    override func setupColors() {
+        self.fareIncreasedContainerView.backgroundColor = AppColors.themeWhiteDashboard
+        self.decreaseContainerView.backgroundColor = AppColors.themeWhiteDashboard
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.setupDecreasePopUp()
+    }
+    
     //MARK:- Methods
     //MARK:- Private
     private func setupIncreasePopUp() {
@@ -66,7 +76,7 @@ class FareUpdatedPopUpVC: BaseVC {
     
     private func setupDecreasePopUp() {
         decreaseContainerView.cornerradius = 10.0
-        decreaseContainerView.layer.borderWidth = 1.0
+        decreaseContainerView.layer.borderWidth = self.isLightTheme() ? 1.0 : 0.0
         decreaseContainerView.layer.borderColor = AppColors.themeGreen.withAlphaComponent(0.2).cgColor
         decreaseContainerView.backgroundColor = AppColors.iceGreen
     }
@@ -135,7 +145,7 @@ class FareUpdatedPopUpVC: BaseVC {
     //MARK:- Public
     func showIncreasedPopUp(increasedAmount: Double, totalUpdatedAmount: Double, continueButtonAction: (()->Void)?, goBackButtonAction: (()->Void)?) {
         
-        view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
+        view.backgroundColor = AppColors.unicolorBlack.withAlphaComponent(0.3)
         view.isUserInteractionEnabled = true
         hideDecreasedPopUp()
         continueHandler = continueButtonAction
@@ -146,7 +156,7 @@ class FareUpdatedPopUpVC: BaseVC {
     
     func showRefundPopUp(refundAmount: Double, paymentMode: String, confirmButtonAction: (()->Void)?, cancelButtonAction: (()->Void)?) {
         
-        view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
+        view.backgroundColor = AppColors.unicolorBlack.withAlphaComponent(0.3)
         view.isUserInteractionEnabled = true
         hideDecreasedPopUp()
         continueHandler = confirmButtonAction

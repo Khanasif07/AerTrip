@@ -48,6 +48,8 @@ class BaggageAirlineInfoTableViewCell: UITableViewCell {
     private func setUpTextColor() {
         self.airlineNameLabel.textColor = AppColors.themeBlack
         self.dimensionButton.setTitleColor(AppColors.themeGreen, for: .normal)
+        self.contentView.backgroundColor = AppColors.themeBlack26
+        self.airlineImageView.roundTopCorners(cornerRadius: 3.0)
     }
     
     private func setUpText() {

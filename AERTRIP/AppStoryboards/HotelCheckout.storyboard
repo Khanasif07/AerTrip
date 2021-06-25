@@ -707,7 +707,7 @@
                                                         </connections>
                                                     </button>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" name="themeWhiteDashboard"/>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="elz-XH-Iij" secondAttribute="trailing" id="1pw-qb-i1B"/>
                                                     <constraint firstAttribute="trailing" secondItem="1XE-5A-AvF" secondAttribute="trailing" id="2tl-J9-3eC"/>
@@ -735,7 +735,7 @@
                                                         </connections>
                                                     </button>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" name="themeWhiteDashboard"/>
                                                 <constraints>
                                                     <constraint firstItem="sgF-bD-kwe" firstAttribute="top" secondItem="QFB-Cd-8Wz" secondAttribute="top" id="J4c-O5-yFF"/>
                                                     <constraint firstAttribute="bottom" secondItem="sgF-bD-kwe" secondAttribute="bottom" id="K9C-3P-Rn6"/>
@@ -2105,6 +2105,9 @@ Incomplete</string>
         <image name="rightArrow" width="40" height="44"/>
         <namedColor name="flightFilterSessionDefaultColor">
             <color red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="themeWhiteDashboard">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

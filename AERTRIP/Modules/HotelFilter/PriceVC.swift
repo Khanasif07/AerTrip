@@ -32,7 +32,7 @@ class PriceVC: BaseVC {
     private let priceTitles: [Price] = [.PerNight,.Total]
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        tableView.backgroundColor = AppColors.themeWhiteDashboard
         self.tableView.dataSource = self
         self.tableView.delegate = self
         registerXib()

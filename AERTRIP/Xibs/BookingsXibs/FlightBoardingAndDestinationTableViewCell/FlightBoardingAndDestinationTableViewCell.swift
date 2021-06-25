@@ -133,6 +133,7 @@ class FlightBoardingAndDestinationTableViewCell: UITableViewCell {
         self.containerView.backgroundColor = AppColors.themeWhiteDashboard
         self.greencircleContainerView.backgroundColor = AppColors.themeWhiteDashboard
         self.dottedView.backgroundColor = AppColors.themeWhiteDashboard
+        self.contentView.backgroundColor = AppColors.themeBlack26
     }
     
     // MARK: - IBActions

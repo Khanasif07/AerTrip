@@ -131,7 +131,7 @@ enum AppColors {
     // RGB - 126,126,126, 1.0
     static let toastBackgroundBlur = UIColor(named: "toastBackgroundBlur") ?? UIColor(displayP3Red: 0.4941176471, green: 0.4941176471, blue: 0.4941176471, alpha: 1)
     
-    // RGB - 236,253,244, 1.0
+    // RGB - 236,253,244, 1.0 (75, 75, 75)
     static let iceGreen = UIColor(named: "iceGreen") ?? UIColor(displayP3Red: 0.9254901961, green: 0.9921568627, blue: 0.9568627451, alpha: 1)
     
     // RGB - 246,246,246, 1.0
@@ -170,7 +170,7 @@ enum AppColors {
     // RGB - 140,140,140
      static let themeGray140 = UIColor(named: "themeGray140") ?? UIColor(displayP3Red: 0.5490196078, green: 0.5490196078, blue: 0.5490196078, alpha: 1)
     
-    // RGB - 229,229,230
+    // RGB - 229,229,230 (138, 138, 142, 0.22)
     static let blueGray = UIColor(named: "blueGray") ?? UIColor(displayP3Red: 0.8980392157, green: 0.8980392157, blue: 0.9019607843, alpha: 1)
     
     // RGB - 238,238,239 (49, 49, 49)
@@ -385,6 +385,9 @@ enum AppColors {
 
     /// (0,0,0,0.4) (0,0,0,0.6)
     static let filterRangeDots = UIColor(named: "filterRangeDots") ?? .white
+    
+//    (255, 255, 255, 0) (26, 26, 26)
+    static let clearBlack26 = UIColor(named: "clearBlack26") ?? .clear
 
     //    (255,255,255, 1.0) (255,255,255, 0.0)
         static let whiteAndClear = UIColor(named: "whiteAndClear") ?? . white

@@ -32,18 +32,16 @@ class DomesticMultiLegTemplateCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        self.contentView.backgroundColor = AppColors.themeWhiteDashboard
+        self.contentView.backgroundColor = AppColors.themeWhite
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         showTemplateView()
-        self.contentView.backgroundColor = AppColors.themeWhiteDashboard
-
+        self.contentView.backgroundColor = AppColors.themeWhite
     }
     
    //MARK:- Methods
-    
     func showTemplateView() {
         
         self.addShimmerEffect(to: [airlineLogo, departureTime ,departureAirportCode] )
@@ -52,5 +50,5 @@ class DomesticMultiLegTemplateCell: UITableViewCell {
             self.addShimmerEffect(to: [ self.flightCode ,  self.arrivalTime , self.arrivalAirportCode , self.price ] )
         }
     }
-
+    
 }

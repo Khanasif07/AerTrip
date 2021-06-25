@@ -52,6 +52,7 @@ class BookingTravellerAddOnsTableViewCell: UITableViewCell {
     private var detailsTitle: [String] = []
     weak var heightDelegate:TravellerAddOnsCellHeightDelegate?
     var parentIndexPath:IndexPath = [0,0]
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -59,6 +60,18 @@ class BookingTravellerAddOnsTableViewCell: UITableViewCell {
         self.titleLabel.text = "Travellers & Add-ons"
         self.registerXib()
         self.travellerAddonsCollectionView.isScrollEnabled = false
+        self.setColor()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.setColor()
+    }
+    
+    private func setColor(){
+        self.contentView.backgroundColor = AppColors.themeBlack26
+        self.travellerCollectionView.backgroundColor = AppColors.themeBlack26
+        self.travellerAddonsCollectionView.backgroundColor = AppColors.themeBlack26
     }
     
     private func registerXib() {

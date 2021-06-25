@@ -37,62 +37,43 @@ extension FlightFareInfoVC: UITableViewDataSource, UITableViewDelegate {
 //        if section == self.viewModel.legDetails.count{
 //            return nil
 //        }
-        if  self.viewModel.legDetails.indices.contains(section), let flight = self.viewModel.legDetails[section].flight.first {
-            
-            guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: self.fareInfoHeaderViewIdentifier) as? FareInfoHeaderView else { return nil }
-            
-            let cc = flight.cc
-            let fbn = flight.fbn
-            var bc = flight.bc
-            if bc != ""{
-                bc =  " (" + bc + ")"
+//        if  self.viewModel.legDetails.indices.contains(section), let flight = self.viewModel.legDetails[section].flight.first {
+//
+//            guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: self.fareInfoHeaderViewIdentifier) as? FareInfoHeaderView else { return nil }
+//
+//            let cc = flight.cc
+//            let fbn = flight.fbn
+//            var bc = flight.bc
+//            if bc != ""{
+//                bc =  " (" + bc + ")"
+//            }
+//            var displayTitle = ""
+//            if fbn != ""{
+//                displayTitle = fbn.capitalized + bc
+//            }else{
+//                displayTitle = cc.capitalized + bc
+//            }
+//
+//            headerView.dividerView.isHidden = false
+//            headerView.delegate = self
+//            headerView.fareRulesButton.setTitle(LocalizedString.FareRules.localized, for: .normal)
+//            if self.viewModel.legDetails.count == 1 {
+//                headerView.refundPolicyLabel.text = displayTitle
+//                headerView.infoLabel.isHidden = true
+//            } else {
+//                headerView.refundPolicyLabel.text = (flight.departCity) + " → " + (flight.arrivalCity)
+//                headerView.infoLabel.text = displayTitle
+//                headerView.infoLabel.isHidden = false
+//            }
+//            return headerView
+//        }
+        
+        if self.viewModel.bookingDetail?.isMultipleFlight() ?? false{
+            return self.getHeaderForSection(with: section)
+        }else{
+            if section == 0{
+                return self.getHeaderForSection(with: section)
             }
-            var displayTitle = ""
-            if fbn != ""{
-                displayTitle = fbn.capitalized + bc
-            }else{
-                displayTitle = cc.capitalized + bc
-            }
-            
-            headerView.dividerView.isHidden = false
-            headerView.delegate = self
-            headerView.fareRulesButton.setTitle(LocalizedString.FareRules.localized, for: .normal)
-            if self.viewModel.legDetails.count == 1 {
-                headerView.refundPolicyLabel.text = displayTitle
-                headerView.infoLabel.isHidden = true
-            } else {
-                headerView.refundPolicyLabel.text = (flight.departCity) + " → " + (flight.arrivalCity)
-                headerView.infoLabel.text = displayTitle
-                headerView.infoLabel.isHidden = false
-            }
-            
-            
-            //            var infoText = "We do not have information regarding refundability/reschedulability"
-            //            if let leg = self.viewModel.legDetails.first {
-            //                if leg.refundable == 1 {
-            //                    infoText = "Refundable"
-            //                }
-            //                else if leg.refundable == -9 {
-            //                    infoText = LocalizedString.na.localized
-            //                }
-            //                else {
-            //                    infoText = "Non-refundable"
-            //                }
-            //
-            //                if leg.reschedulable == 1 {
-            //                    infoText += infoText.isEmpty ? "Reschedulable" : " • Reschedulable"
-            //                }
-            //                else if leg.refundable == -9 {
-            //                    infoText += infoText.isEmpty ? LocalizedString.na.localized : " • \(LocalizedString.na.localized)"
-            //                }
-            //                else {
-            //                    infoText += infoText.isEmpty ? "Non-reschedulable" : " • Non-reschedulable"
-            //                }
-            //            }
-            
-            //            headerView.infoLabel.text = infoText
-            
-            return headerView
         }
         return nil
         
@@ -214,6 +195,43 @@ extension FlightFareInfoVC: UITableViewDataSource, UITableViewDelegate {
         //        cell.configureForCancelation(model: self.viewModel.bookingFee[indexPath.row], indexPath: indexPath)
         //        return cell
     }
+    
+    private func getHeaderForSection(with section: Int)-> UIView?{
+        if  self.viewModel.legDetails.indices.contains(section), let flight = self.viewModel.legDetails[section].flight.first {
+            
+            guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: self.fareInfoHeaderViewIdentifier) as? FareInfoHeaderView else { return nil }
+            
+            let cc = flight.cc
+            let fbn = flight.fbn
+            var bc = flight.bc
+            if bc != ""{
+                bc =  " (" + bc + ")"
+            }
+            var displayTitle = ""
+            if fbn != ""{
+                displayTitle = fbn.capitalized + bc
+            }else{
+                displayTitle = cc.capitalized + bc
+            }
+            
+            headerView.dividerView.isHidden = false
+            headerView.delegate = self
+            headerView.fareRulesButton.setTitle(LocalizedString.FareRules.localized, for: .normal)
+            if self.viewModel.legDetails.count == 1 {
+                headerView.refundPolicyLabel.text = displayTitle
+                headerView.infoLabel.isHidden = true
+            } else {
+                headerView.refundPolicyLabel.text = (flight.departCity) + " → " + (flight.arrivalCity)
+                headerView.infoLabel.text = displayTitle
+                headerView.infoLabel.isHidden = false
+            }
+            
+            return headerView
+        }
+        return nil
+    }
+    
+    
 }
 
 // Route Fare info table View cell Delegate methods

@@ -77,6 +77,7 @@ class YouAreAllDoneTableViewCell: UITableViewCell {
         self.appleWalletButtonSetUp()
         self.addToCallendarButtonSetUp()
         self.tickMarKButton.myCornerRadius = self.tickMarKButton.height/2
+        self.contentView.backgroundColor = AppColors.themeBlack26
         
         
     }

@@ -63,6 +63,7 @@ class FlightTimeLocationInfoTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         self.wingNameLabel.attributedText = nil
+        self.contentView.backgroundColor = AppColors.themeBlack26
     }
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -193,6 +194,8 @@ class FlightTimeLocationInfoTableViewCell: UITableViewCell {
         // Travel Time
         self.travelTimeLabel.textColor = AppColors.themeGray60
         self.wingNameLabel.textColor = AppColors.themeGray40
+        
+        self.contentView.backgroundColor = AppColors.themeBlack26
     }
  
     

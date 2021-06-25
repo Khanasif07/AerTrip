@@ -198,8 +198,8 @@ struct AppShadowProperties {
     var offset:CGSize = .zero
     var shadowColor:UIColor = AppColors.appShadowColor
     
-    init(_ isDarkMode: Bool = true) {
-        if isDarkMode{
+    init(_ isLightMode: Bool = true) {
+        if isLightMode{
             shadowRadius  = 4.0
             cornerRadius = 10.0
             opecity = 1.0

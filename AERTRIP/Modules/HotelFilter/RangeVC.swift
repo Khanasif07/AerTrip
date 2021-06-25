@@ -36,6 +36,7 @@ class RangeVC: BaseVC {
         registerXib()
         self.tableView.dataSource = self
         self.tableView.delegate = self
+        tableView.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     func registerXib() {

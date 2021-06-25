@@ -14,7 +14,7 @@ extension FlightDomesticMultiLegResultVC {
     //MARK:- NavigationView Animation
     func hidingAnimationOnNavigationBarOnScroll(offsetDifference : CGFloat, scrollView: UIScrollView) {
          DispatchQueue.main.async {
-            let visualEffectViewHeight =  CGFloat(88.0)
+            let visualEffectViewHeight =  CGFloat(self.headerCollectionTop)
             let statusHeight = self.statusBarHeight
             
             var yCordinate : CGFloat
@@ -22,8 +22,8 @@ extension FlightDomesticMultiLegResultVC {
             yCordinate = min ( 0,  yCordinate)
             
             var yCordinateForHeaderView : CGFloat
-            yCordinateForHeaderView = max (  0 , 88.0 - offsetDifference)
-            yCordinateForHeaderView = min ( 88.0  ,  yCordinateForHeaderView)
+            yCordinateForHeaderView = max (  0 , self.headerCollectionTop - offsetDifference)
+            yCordinateForHeaderView = min ( self.headerCollectionTop  ,  yCordinateForHeaderView)
             
             
             UIView.animate(withDuration: 0.1, delay: 0.0, options: [.curveEaseOut], animations: {
@@ -92,12 +92,12 @@ extension FlightDomesticMultiLegResultVC {
                     self.baseScrollView.setContentOffset(baseViewContentOffset, animated: false )
                     rect = self.collectionContainerView.frame
                     var yCordinateForHeaderView = (invertedOffset + 2.0)
-                    if rect.origin.y >= 88{
-                        yCordinateForHeaderView = 88.0
+                    if rect.origin.y >= self.headerCollectionTop{
+                        yCordinateForHeaderView = self.headerCollectionTop
                     }
-                    yCordinateForHeaderView = min(88.0 , yCordinateForHeaderView)
+                    yCordinateForHeaderView = min(self.headerCollectionTop , yCordinateForHeaderView)
                     self.headerCollectionViewTop.constant = yCordinateForHeaderView
-                    if ((scrollView as? UITableView) == nil) && (self.headerCollectionViewTop.constant == 88.0){
+                    if ((scrollView as? UITableView) == nil) && (self.headerCollectionViewTop.constant == self.headerCollectionTop){
                         self.setAllTableViewHeader()
                     }
                     self.view.layoutIfNeeded()
@@ -125,7 +125,7 @@ extension FlightDomesticMultiLegResultVC {
         if let blurEffectView = self.navigationController?.view.viewWithTag(500) {
             let rect = blurEffectView.frame
             let yCoordinate = rect.origin.y * ( -1 )
-            let visualEffectViewHeight =  CGFloat(88.0)
+            let visualEffectViewHeight =  self.headerCollectionTop//CGFloat(88.0)
 //            // After dragging if blurEffectView is at top or bottom position , snapping animation is not required
             if yCoordinate == 0 || yCoordinate == ( -visualEffectViewHeight){
                 return
@@ -133,11 +133,11 @@ extension FlightDomesticMultiLegResultVC {
 //
 //            // If blurEffectView yCoodinate is close to top of the screen
             if  ( yCoordinate > ( visualEffectViewHeight / 2.0 ) ){
-                hidingAnimationOnNavigationBarOnScroll(offsetDifference: 88.0, scrollView: scrollView)
+                hidingAnimationOnNavigationBarOnScroll(offsetDifference: self.headerCollectionTop, scrollView: scrollView)
                 
             }
             else {  //If blurEffectView yCoodinate is close to fully visible state of blurView
-                revealAnimationOfNavigationBarOnScroll(offsetDifference: (-88.0), scrollView: scrollView)
+                revealAnimationOfNavigationBarOnScroll(offsetDifference: (-self.headerCollectionTop), scrollView: scrollView)
             }
         }
     }
@@ -311,10 +311,10 @@ extension FlightDomesticMultiLegResultVC {
         guard let blurView = self.navigationController?.view.viewWithTag(500) else  {return}
         DispatchQueue.main.async {
             UIView.animate(withDuration: isNeedToAnimate ? 0.3 : 0.0) {
-                self.collectionContainerView.origin.y = (88.0 - self.baseScrollView.contentOffset.y)
-                self.headerCollectionViewTop.constant = (88.0 - self.baseScrollView.contentOffset.y)
+                self.collectionContainerView.origin.y = (self.headerCollectionTop - self.baseScrollView.contentOffset.y)
+                self.headerCollectionViewTop.constant = (self.headerCollectionTop - self.baseScrollView.contentOffset.y)
                 blurView.frame.origin.y = -self.baseScrollView.contentOffset.y
-                if ((self.headerCollectionViewTop.constant == 88.0) || (self.headerCollectionViewTop.constant == 0.0)){
+                if ((self.headerCollectionViewTop.constant == self.headerCollectionTop) || (self.headerCollectionViewTop.constant == 0.0)){
                     self.setAllTableViewHeader()
                 }
                 self.view.layoutIfNeeded()
@@ -378,8 +378,8 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
         }
         if scrollView == baseScrollView {
             self.syncScrollView(headerCollectionView, toScrollView: baseScrollView)
-            if scrollView.contentOffset.y > 88.0{
-                scrollView.contentOffset.y = 88.0
+            if scrollView.contentOffset.y > self.headerCollectionTop{
+                scrollView.contentOffset.y = self.headerCollectionTop
             }else{
                 self.changeContentOfssetWithMainScrollView()
             }
@@ -390,7 +390,7 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
         if scrollView.tag > 999 {
             
             for subview in baseScrollView.subviews.filter({ $0.tag > 999 }) {
-                guard (!scrollView.isBouncingBottom && ((scrollView.contentSize.height - 5.0) > (scrollView.contentOffset.y + scrollView.height)) || (self.baseScrollView.contentOffset.y < 88)) else {
+                guard (!scrollView.isBouncingBottom && ((scrollView.contentSize.height - 5.0) > (scrollView.contentOffset.y + scrollView.height)) || (self.baseScrollView.contentOffset.y < self.headerCollectionTop)) else {
                     return
                 }
                 if subview == scrollView {
@@ -495,11 +495,11 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
             }
         }
         else{
-            if scrollView == self.baseScrollView && scrollView.contentOffset.y < 88.0{
+            if scrollView == self.baseScrollView && scrollView.contentOffset.y < self.headerCollectionTop{
                 if scrollView.contentOffset.y < 44{
                     scrollView.contentOffset.y = 0.0
                 }else{
-                    scrollView.contentOffset.y = 88.0
+                    scrollView.contentOffset.y = self.headerCollectionTop
                 }
                 self.changeContentOfssetWithMainScrollView(true)
             }
@@ -520,11 +520,11 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
                 }
             }
         }
-        if self.baseScrollView.contentOffset.y < 88.0{
+        if self.baseScrollView.contentOffset.y < self.headerCollectionTop{
             if self.baseScrollView.contentOffset.y < 44{
                 self.baseScrollView.contentOffset.y = 0.0
             }else{
-                self.baseScrollView.contentOffset.y = 88.0
+                self.baseScrollView.contentOffset.y = self.headerCollectionTop
             }
             self.changeContentOfssetWithMainScrollView(true)
         }
@@ -543,11 +543,11 @@ extension FlightDomesticMultiLegResultVC: UIScrollViewDelegate{
                 self.setAllTableViewHeader()
             }
         }
-        if self.baseScrollView.contentOffset.y < 88.0{
+        if self.baseScrollView.contentOffset.y < self.headerCollectionTop{
             if self.baseScrollView.contentOffset.y < 44{
                 self.baseScrollView.contentOffset.y = 0.0
             }else{
-                self.baseScrollView.contentOffset.y = 88.0
+                self.baseScrollView.contentOffset.y = self.headerCollectionTop
             }
             self.changeContentOfssetWithMainScrollView(true)
         }

@@ -39,17 +39,23 @@ class TravellersPnrStatusTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configUI()
-        self.containerView.backgroundColor = AppColors.themeWhiteDashboard
+        self.setColors()
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         self.travellerNameLabel.attributedText = nil
-        self.containerView.backgroundColor = AppColors.themeWhiteDashboard
+        self.setColors()
+        
     }
     // MARK: - Functions
     
     // MARK: ===========
+    
+    private func setColors(){
+        self.containerView.backgroundColor = AppColors.themeWhiteDashboard
+        self.contentView.backgroundColor = AppColors.themeBlack26
+    }
     
     private func configUI() {
         self.containerView.layoutIfNeeded()

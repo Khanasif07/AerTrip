@@ -64,8 +64,9 @@ class HCEmailItinerariesTableViewCell: UITableViewCell {
         self.sendButton.layer.cornerRadius = 14.0
         self.sendButton.layer.masksToBounds = true
         self.activityIndicator.isHidden = true
+        self.activityIndicator.color = AppColors.flightFormReturnEnableColor
         //Color
-        self.sendButton.backgroundColor = AppColors.screensBackground.color
+        self.sendButton.backgroundColor = AppColors.singleJourneyGroupCellColor//screensBackground.color
         self.sendButton.setTitleColor(AppColors.themeGray20, for: .normal)
         self.nameLabel.textColor = AppColors.themeGray60
         self.emailTextField.textColor = AppColors.textFieldTextColor51
@@ -90,7 +91,7 @@ class HCEmailItinerariesTableViewCell: UITableViewCell {
         } else {
             self.sendButton.setImage(nil, for: .normal)
             self.sendButton.setTitle(LocalizedString.Send.localized, for: .normal)
-            self.sendButton.backgroundColor = AppColors.screensBackground.color
+            self.sendButton.backgroundColor = AppColors.singleJourneyGroupCellColor//AppColors.screensBackground.color
             self.emailTextField.textColor = AppColors.textFieldTextColor51
         }
     }
@@ -107,7 +108,7 @@ class HCEmailItinerariesTableViewCell: UITableViewCell {
             self.sendButton.isHidden = false
             self.sendButton.setImage(nil, for: .normal)
             self.sendButton.setTitle(LocalizedString.Send.localized, for: .normal)
-            self.sendButton.backgroundColor = AppColors.screensBackground.color
+            self.sendButton.backgroundColor = AppColors.singleJourneyGroupCellColor//AppColors.screensBackground.color
             self.sendButton.isUserInteractionEnabled = true
             if emailInfo.emailId.isEmail {
                 self.sendButton.setTitleColor(AppColors.themeGreen, for: .normal)
