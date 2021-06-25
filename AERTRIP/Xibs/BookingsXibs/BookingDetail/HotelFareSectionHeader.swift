@@ -65,6 +65,7 @@ class HotelFareSectionHeader: UITableViewHeaderFooterView {
         self.grossPriceLabel.textColor = AppColors.themeBlack
         self.discountsTitleLabel.textColor = AppColors.themeBlack
         self.discountPriceLabel.textColor = AppColors.themeBlack
+        self.backgroundColor = AppColors.themeBlack26
     }
 
     private func addGesture() {

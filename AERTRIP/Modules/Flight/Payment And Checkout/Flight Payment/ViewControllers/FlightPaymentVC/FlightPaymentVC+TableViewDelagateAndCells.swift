@@ -294,6 +294,7 @@ extension FlightPaymentVC{
             cell.infantCountDisplayView.isHidden = noInfant
             cell.infantCountDisplayViewWidth.constant = noInfant ? 0 : 35
             cell.infantCountLabel.text = noInfant ? "" : self.viewModel.itinerary.searchParams.infant
+            cell.backView.backgroundColor = AppColors.themeBlack26
             return cell
         default:
             return UITableViewCell()

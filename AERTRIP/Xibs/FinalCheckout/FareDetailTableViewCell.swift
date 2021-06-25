@@ -11,6 +11,7 @@ import UIKit
 class FareDetailTableViewCell: UITableViewCell {
     // MARK: - IB Outlets
     
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var fareDetailTitleLabel: UILabel!
     @IBOutlet weak var numberOfRoomAndLabel: UILabel!
     @IBOutlet weak var dividerView: ATDividerView!
@@ -35,6 +36,7 @@ class FareDetailTableViewCell: UITableViewCell {
     private func setUpColor() {
         self.fareDetailTitleLabel.textColor = AppColors.themeBlack
         self.numberOfRoomAndLabel.textColor = AppColors.themeBlack
+        self.containerView.backgroundColor = AppColors.themeBlack26
     }
     
     internal func setupForFinalCheckOutScreen(text: String) {

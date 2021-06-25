@@ -96,8 +96,9 @@ class FinalCheckOutVC: BaseVC {
     }
     
     override func setupColors() {
-        self.payButton.setTitleColor(AppColors.themeWhite, for: .normal)
-        self.payButton.setTitleColor(AppColors.themeWhite, for: .highlighted)
+        self.payButton.setTitleColor(AppColors.unicolorWhite, for: .normal)
+        self.payButton.setTitleColor(AppColors.unicolorWhite, for: .highlighted)
+        self.view.backgroundColor = AppColors.themeWhite
 
     }
     
@@ -570,7 +571,7 @@ class FinalCheckOutVC: BaseVC {
     
     private func manageLoader(shouldStart: Bool) {
         self.indicatorView.style = .medium//.white
-        self.indicatorView.color = AppColors.themeWhite
+        self.indicatorView.color = AppColors.unicolorWhite
         self.indicatorView.startAnimating()
         
         self.loaderContainer.isHidden = !shouldStart

@@ -18,7 +18,7 @@ class FlightPaymentVC: BaseVC {
             self.checkOutTableView.dataSource = self
             self.checkOutTableView.estimatedSectionFooterHeight = CGFloat.leastNonzeroMagnitude
             self.checkOutTableView.sectionFooterHeight = CGFloat.leastNonzeroMagnitude
-            self.checkOutTableView.backgroundColor = AppColors.themeWhite
+            self.checkOutTableView.backgroundColor = AppColors.themeGray04
         }
     }
     @IBOutlet weak var gradientView: UIView!

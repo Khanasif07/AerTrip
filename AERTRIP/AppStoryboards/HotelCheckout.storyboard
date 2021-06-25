@@ -309,7 +309,7 @@
                                     <constraint firstItem="A5L-jP-pJJ" firstAttribute="leading" secondItem="y34-L8-8sl" secondAttribute="leading" id="lNR-aR-TIp"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pDs-Hh-dQp">
+                            <view tag="100" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pDs-Hh-dQp">
                                 <rect key="frame" x="0.0" y="483" width="375" height="44"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="se2-Zr-Faa">
@@ -350,7 +350,7 @@
                                                 </subviews>
                                             </stackView>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="XOG-uI-Tui" secondAttribute="trailing" constant="16" id="0Jv-Xx-8AN"/>
                                             <constraint firstAttribute="trailing" secondItem="a76-4x-0W5" secondAttribute="trailing" id="0pZ-Jl-sFt"/>
@@ -497,7 +497,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" name="themeWhiteDashboard"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="8Ya-e6-EJa" secondAttribute="trailing" id="Agy-R8-tyu"/>
                                             <constraint firstItem="4Ci-kZ-Fp2" firstAttribute="leading" secondItem="w0v-ze-ZQc" secondAttribute="leading" id="B7p-dF-Amg"/>
@@ -1530,7 +1530,7 @@ Incomplete</string>
                                 <rect key="frame" x="0.0" y="44" width="375" height="60"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter a Coupon Code" minimumFontSize="16" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="4sX-zf-2aM" customClass="PKFloatLabelTextField" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="0.0" width="343" height="60"/>
+                                        <rect key="frame" x="16" y="0.0" width="351" height="60"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                                     </textField>
@@ -1539,13 +1539,13 @@ Incomplete</string>
                                 <constraints>
                                     <constraint firstItem="4sX-zf-2aM" firstAttribute="leading" secondItem="dgG-hf-niu" secondAttribute="leading" constant="16" id="6kX-1X-aSG"/>
                                     <constraint firstAttribute="height" constant="60" id="DLx-FG-S8T"/>
-                                    <constraint firstAttribute="trailing" secondItem="4sX-zf-2aM" secondAttribute="trailing" constant="16" id="Kk3-7X-YDI"/>
+                                    <constraint firstAttribute="trailing" secondItem="4sX-zf-2aM" secondAttribute="trailing" constant="8" id="Kk3-7X-YDI"/>
                                     <constraint firstAttribute="bottom" secondItem="4sX-zf-2aM" secondAttribute="bottom" id="fBT-Q0-8NN"/>
                                     <constraint firstItem="4sX-zf-2aM" firstAttribute="top" secondItem="dgG-hf-niu" secondAttribute="top" id="uLi-iM-hIu"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9uT-Oo-DUc" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="16" y="104" width="343" height="0.5"/>
+                                <rect key="frame" x="16" y="109" width="343" height="0.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="xtX-6X-Zbr"/>
@@ -1684,7 +1684,7 @@ Incomplete</string>
                             <constraint firstItem="5Az-SF-g0l" firstAttribute="trailing" secondItem="ZMg-6h-E0A" secondAttribute="trailing" constant="67.5" id="ZvK-Qo-DqC"/>
                             <constraint firstItem="bbZ-Jw-SZK" firstAttribute="top" secondItem="I3d-Xj-2CM" secondAttribute="top" id="aJ8-QS-MXe"/>
                             <constraint firstAttribute="bottom" secondItem="nO1-9x-A83" secondAttribute="bottom" id="bLp-Bg-eKD"/>
-                            <constraint firstItem="9uT-Oo-DUc" firstAttribute="top" secondItem="dgG-hf-niu" secondAttribute="bottom" id="bM3-ZU-aUt"/>
+                            <constraint firstItem="9uT-Oo-DUc" firstAttribute="top" secondItem="dgG-hf-niu" secondAttribute="bottom" constant="5" id="bM3-ZU-aUt"/>
                             <constraint firstItem="dgG-hf-niu" firstAttribute="top" secondItem="VFj-MD-RgZ" secondAttribute="bottom" id="jZO-6z-rT4"/>
                             <constraint firstItem="5JP-fw-T5H" firstAttribute="top" secondItem="I3d-Xj-2CM" secondAttribute="top" id="lHN-wM-dXf"/>
                             <constraint firstItem="nO1-9x-A83" firstAttribute="top" secondItem="5Az-SF-g0l" secondAttribute="top" id="ly2-SU-GFr"/>
@@ -1711,6 +1711,8 @@ Incomplete</string>
                         <outlet property="couponTextField" destination="4sX-zf-2aM" id="Rj9-I5-Z95"/>
                         <outlet property="darkView" destination="5JP-fw-T5H" id="U09-EM-rF3"/>
                         <outlet property="discountLabel" destination="Ac7-4o-Tfo" id="J8a-Vm-Z9f"/>
+                        <outlet property="dividerLeading" destination="LZa-py-Rr5" id="Fuf-1a-7ap"/>
+                        <outlet property="dividerTrailing" destination="mgb-L7-6Ft" id="SRh-3n-Zys"/>
                         <outlet property="dividerView" destination="y9i-B2-tEL" id="d8t-UD-gvZ"/>
                         <outlet property="emptyStateImageView" destination="ude-fc-wVN" id="I4s-K6-hCa"/>
                         <outlet property="emptyStateView" destination="ZMg-6h-E0A" id="eAh-jb-hba"/>
