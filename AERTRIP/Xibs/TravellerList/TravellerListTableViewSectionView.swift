@@ -17,6 +17,9 @@ class TravellerListTableViewSectionView: UITableViewHeaderFooterView {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        headerLabel.textColor = AppColors.blackAndThemeGray
+
     }
     func configureCell(_ title: String) {
         headerLabel.text = title.capitalizedFirst()
