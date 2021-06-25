@@ -48,6 +48,7 @@ class SeatMapVC: UIViewController {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         toggleUpperDeck(viewModel.curSelectedDeck == .upper)
+        seatMapCollView.reloadData()
     }
     
     func setFlightData(_ model: SeatMapModel.SeatMapFlight,_ setupFor: SeatMapContainerVM.SetupFor) {

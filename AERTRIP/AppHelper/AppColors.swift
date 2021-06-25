@@ -199,6 +199,12 @@ enum AppColors {
     // RGB - (254, 242, 199)(71, 61, 20)
     static let lightYellow =  UIColor(named: "lightYellow") ?? UIColor(displayP3Red: 254.0/255.0, green: 242.0/255.0, blue: 199.0/255.0, alpha: 1.0)
     
+    /// (254,242,199) (26,20,0)
+    static let flightsLightYellow = UIColor(named: "flightsLightYellow") ?? .white
+    
+    /// (0,0,0,0.2) (255,204,0)
+    static let flightsLightYellowBorder = UIColor(named: "flightsLightYellowBorder") ?? .white
+    
     // RGB - (254, 242, 199)(75, 72, 59)
     static let lightYellowAndGoldenGray =  UIColor(named: "lightYellowAndGoldenGray") ?? UIColor(displayP3Red: 254.0/255.0, green: 242.0/255.0, blue: 199.0/255.0, alpha: 1.0)
     
