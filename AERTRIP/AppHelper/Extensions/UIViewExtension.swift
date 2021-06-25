@@ -475,7 +475,7 @@ extension UIView {
             shadowLayer.name = "cardShadow"
             shadowLayer.shadowColor = UIColor.black.withAlphaComponent(0.4).cgColor
             shadowLayer.shadowPath = shadowLayer.path
-            shadowLayer.shadowOffset = CGSize(width: 1, height: 1)
+            shadowLayer.shadowOffset = CGSize(width: 0, height: 3)
             shadowLayer.shadowOpacity = 0.8
             shadowLayer.shadowRadius = 3
             

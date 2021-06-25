@@ -60,6 +60,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="containerView" destination="Jbb-aq-Bg0" id="oBk-sg-Nj4"/>
                 <outlet property="editableTextField" destination="lsh-jQ-zRg" id="ky7-dk-VX8"/>
                 <outlet property="separatorView" destination="tZF-zs-Pde" id="E8j-G9-Ipg"/>
                 <outlet property="textFieldTopConstraint" destination="4nS-Qn-3tP" id="Fde-cE-FAy"/>

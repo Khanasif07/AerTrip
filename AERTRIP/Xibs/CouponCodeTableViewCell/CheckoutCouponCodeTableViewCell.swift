@@ -34,6 +34,7 @@ class CheckoutCouponCodeTableViewCell: UITableViewCell {
     }
     @IBOutlet weak var offerTermsButton: UIButton!
     @IBOutlet weak var dividerView: ATDividerView! 
+    @IBOutlet weak var dividerLeadingConstraint: NSLayoutConstraint!
     
     //Mark:- LifeCycle
     //================

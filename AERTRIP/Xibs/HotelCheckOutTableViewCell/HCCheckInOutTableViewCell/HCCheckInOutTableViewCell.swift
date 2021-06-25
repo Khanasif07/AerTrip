@@ -19,6 +19,8 @@ class HCCheckInOutTableViewCell: UITableViewCell {
     @IBOutlet weak var checkInLabel: UILabel!
     @IBOutlet weak var checkOutLabel: UILabel!
     @IBOutlet weak var checkInDateLabel: UILabel!
+    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var nightsContainerView: UIView!
     @IBOutlet weak var checkOutDateLabel: UILabel!
     @IBOutlet weak var checkInDayLabel: UILabel!
     @IBOutlet weak var checkOutDayLabel: UILabel!
@@ -99,7 +101,9 @@ class HCCheckInOutTableViewCell: UITableViewCell {
         self.checkInDayLabel.font = AppFonts.Regular.withSize(14.0)
         self.checkOutDayLabel.font = AppFonts.Regular.withSize(14.0)
         self.totalNightsLabel.font = AppFonts.SemiBold.withSize(14.0)
-        self.checkInDayLabel.textColor = AppColors.themeGray40
-        self.checkOutDayLabel.textColor = AppColors.themeGray40
+        self.checkInDayLabel.textColor = AppColors.themeGray153
+        self.checkOutDayLabel.textColor = AppColors.themeGray153
+        self.containerView.backgroundColor = AppColors.themeWhiteDashboard
+        self.nightsContainerView.backgroundColor = AppColors.themeWhiteDashboard
     }
 }

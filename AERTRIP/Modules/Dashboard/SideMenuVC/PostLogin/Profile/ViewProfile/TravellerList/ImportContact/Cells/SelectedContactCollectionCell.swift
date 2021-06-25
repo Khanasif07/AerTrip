@@ -46,11 +46,13 @@ class SelectedContactCollectionCell: UICollectionViewCell {
         super.awakeFromNib()
         self.initialSetup()
         self.setupTextAndColor()
+        self.setBorder()
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         resetView()
+        self.setBorder()
     }
     
     override func layoutSubviews() {
@@ -81,6 +83,13 @@ class SelectedContactCollectionCell: UICollectionViewCell {
     
     private func resetView() {
         roomLabel.text = ""
+    }
+    
+    private func setBorder(){
+        self.crossButton.makeCircular()
+        self.crossButton.layer.borderWidth = 0.5
+        self.crossButton.layer.borderColor = AppColors.flightFilterSessionDefaultColor.cgColor
+        
     }
     
     private func populateData() {

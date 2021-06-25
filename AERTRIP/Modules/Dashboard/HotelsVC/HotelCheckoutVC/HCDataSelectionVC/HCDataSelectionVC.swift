@@ -93,7 +93,7 @@ class HCDataSelectionVC: BaseVC {
         //        manageLoader(shouldStart: true)
         manageLoader(shouldStart: false)
         startLoading()
-        continueButtonActivityIndicator.color = AppColors.themeWhite
+        continueButtonActivityIndicator.color = AppColors.unicolorWhite
         
         setUpUserEmailMobile()
         
@@ -169,14 +169,21 @@ class HCDataSelectionVC: BaseVC {
     }
     override func setupColors() {
         // continue button
-        totalFareLabel.textColor = AppColors.themeWhite
-        infoTextLabel.textColor = AppColors.themeWhite
-        continueButton.setTitleColor(AppColors.themeWhite, for: .normal)
+        totalFareLabel.textColor = AppColors.unicolorWhite
+        infoTextLabel.textColor = AppColors.unicolorWhite
+        continueButton.setTitleColor(AppColors.unicolorWhite, for: .normal)
         
         // hotel details
         hotelNameLabel.textColor = AppColors.themeBlack
-        checkInOutDate.textColor = AppColors.themeGray40
+        checkInOutDate.textColor = AppColors.themeGray153
         detailsButton.setTitleColor(AppColors.themeGreen, for: .normal)
+   
+        self.view.backgroundColor = AppColors.themeWhite
+        self.hotelDetailsParentContainerView.backgroundColor = AppColors.hotelDetailOnGuestSelection
+        self.hotelDetailsContainerView.backgroundColor = AppColors.clear
+        self.fareDetailContainerView.backgroundColor = AppColors.themeWhiteDashboard
+        
+        
     }
     
     override func bindViewModel() {
@@ -850,13 +857,14 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 cell.delegate = self
                 cell.editableTextField.text = viewModel.email
 //                cell.editableTextField.font = AppFonts.Regular.withSize(18.0)
-                cell.editableTextField.textColor = UserInfo.loggedInUserId == nil ? AppColors.themeBlack : AppColors.themeGray40
+                cell.editableTextField.textColor = UserInfo.loggedInUserId == nil ? AppColors.themeBlack : AppColors.themeGray153
                 cell.editableTextField.keyboardType = .emailAddress
                 
                 if viewModel.canShowErrorForEmailPhone {
                     cell.checkForErrorStateOfTextfield()
                 }
                 cell.editableTextField.font = AppFonts.Regular.withSize(18.0)
+                cell.containerView.backgroundColor = AppColors.themeBlack26
                 return cell
                 
             case 6:
@@ -890,6 +898,7 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 if viewModel.canShowErrorForEmailPhone {
                     cell.checkForErrorStateOfTextfield()
                 }
+                cell.containerView.backgroundColor = AppColors.themeBlack26
                 return cell
                 
             case 9:

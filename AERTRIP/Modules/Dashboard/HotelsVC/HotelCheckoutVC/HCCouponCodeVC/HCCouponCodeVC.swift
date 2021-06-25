@@ -68,6 +68,8 @@ class HCCouponCodeVC: BaseVC {
     @IBOutlet weak var textFieldContainer: UIView!
     @IBOutlet weak var darkView: UIView!
     @IBOutlet weak var blurView: BlurView!
+    @IBOutlet weak var dividerLeading: NSLayoutConstraint!
+    @IBOutlet weak var dividerTrailing: NSLayoutConstraint!
     
     //Mark:- LifeCycle
     //================
@@ -91,7 +93,7 @@ class HCCouponCodeVC: BaseVC {
     }
     
     override func initialSetup() {
-        self.couponTableView.contentInset = UIEdgeInsets(top: headerView.height + textFieldContainer.height, left: 0.0, bottom: 0.0, right: 0.0)
+        self.couponTableView.contentInset = UIEdgeInsets(top: headerView.height + textFieldContainer.height + 5, left: 0.0, bottom: 0.0, right: 0.0)
         
         self.manageLoader()
         self.registerNibs()
@@ -118,6 +120,8 @@ class HCCouponCodeVC: BaseVC {
         darkView.backgroundColor = AppColors.themeBlack26
         darkView.isHidden = isLightTheme()
         blurView.isHidden = !isLightTheme()
+        dividerLeading.constant = 0.0
+        dividerTrailing.constant = 0.0
     }
     
     override func setupFonts() {
@@ -335,6 +339,7 @@ extension HCCouponCodeVC: UITableViewDelegate, UITableViewDataSource {
             cell.checkMarkImageView.image = AppImages.UncheckedGreenRadioButton
         }
         cell.configCell(currentCoupon: model)
+        cell.dividerLeadingConstraint.constant = (self.viewModel.searcedCouponsData.count - 1 != indexPath.row) ? 16 : 0
         return cell
     }
     

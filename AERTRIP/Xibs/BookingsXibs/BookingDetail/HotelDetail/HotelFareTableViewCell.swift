@@ -24,6 +24,7 @@ class HotelFareTableViewCell: UITableViewCell {
     @IBOutlet weak var discountViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var grossFareTitleTopConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var discountHeaderContainer: UIView!
     @IBOutlet weak var dicountLabelBottomConstraints: NSLayoutConstraint!
     @IBOutlet weak var discountTitleLabelTopConstraint: NSLayoutConstraint!
     
@@ -65,6 +66,8 @@ class HotelFareTableViewCell: UITableViewCell {
         self.discountPriceLabel.textColor = AppColors.themeBlack
         self.grossPriceLabel.textColor = AppColors.themeBlack
         self.discountPriceLabel.textColor = AppColors.themeBlack
+        self.topBackgroundView.backgroundColor = AppColors.themeBlack26
+        self.discountHeaderContainer.backgroundColor = AppColors.themeBlack26
     }
     
     private func addGesture() {
