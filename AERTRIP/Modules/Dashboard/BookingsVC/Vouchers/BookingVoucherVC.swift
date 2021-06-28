@@ -61,6 +61,11 @@ class BookingVoucherVC: BaseVC {
         self.viewModel.delegate = self
     }
     
+    override func setupColors() {
+        self.voucherTableView.backgroundColor = AppColors.themeWhite
+        self.view.backgroundColor = AppColors.themeWhite
+    }
+    
     func registerXib() {
         self.voucherTableView.registerCell(nibName: BookingVoucherTableViewCell.reusableIdentifier)
         self.voucherTableView.registerCell(nibName: EmptyTableViewCell.reusableIdentifier)
@@ -167,6 +172,8 @@ extension BookingVoucherVC: UITableViewDataSource,UITableViewDelegate {
         guard let voucherCell = self.voucherTableView.dequeueReusableCell(withIdentifier: "BookingVoucherTableViewCell") as? BookingVoucherTableViewCell else {
             fatalError("BookingVoucherTableViewCell not found ")
         }
+        voucherCell.contentView.backgroundColor = AppColors.themeBlack26
+        voucherCell.priceLabel.backgroundColor = AppColors.themeBlack26
         
         if indexPath.section == 0 {
             //booking

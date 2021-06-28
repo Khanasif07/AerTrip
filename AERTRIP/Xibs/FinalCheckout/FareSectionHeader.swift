@@ -62,6 +62,14 @@ class FareSectionHeader: UITableViewHeaderFooterView {
         self.discountPriceLabel.textColor = AppColors.themeBlack
     }
     
+    func setColorsForBookingVouchers(){
+        
+        [topBackgroundView, arrowTapAreaView].forEach{ view in
+            view?.backgroundColor = AppColors.themeBlack26
+        }
+        
+    }
+    
     private func addGesture() {
         // Add tap gesture to your view
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleGesture))

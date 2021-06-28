@@ -34,6 +34,7 @@ class NotificationVC: BaseVC {
     override func setupColors() {
         self.titleLabel.textColor = AppColors.themeBlack
         self.subTiteLabel.textColor = AppColors.themeGray60
+        self.view.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     
@@ -41,7 +42,7 @@ class NotificationVC: BaseVC {
     // MARK: - Helper methods
     
     private func configureNavBar() {
-        self.topNavigation.configureNavBar(title: LocalizedString.Notifications.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: true, backgroundType: .color(color: AppColors.themeWhite))
+        self.topNavigation.configureNavBar(title: LocalizedString.Notifications.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: true, backgroundType: .color(color: AppColors.themeWhiteDashboard))
         self.topNavigation.delegate = self
     }
     

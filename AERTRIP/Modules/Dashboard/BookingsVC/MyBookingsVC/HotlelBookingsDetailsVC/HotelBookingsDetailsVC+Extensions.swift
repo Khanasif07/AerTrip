@@ -81,6 +81,8 @@ extension HotlelBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
             return UITableView.automaticDimension
         case .bookAnotherRoomCell:
             return UITableView.automaticDimension
+        default:
+            return UITableView.automaticDimension
         }
     }
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -116,6 +118,8 @@ extension HotlelBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
             return self.getAddOnsCell(tableView, indexPath: indexPath)
         case .cancellationCell:
             return self.getCancellationCell(tableView, indexPath: indexPath)
+        case .reschedulingCell:
+            return self.getReschedulingCell(tableView, indexPath: indexPath)
         case .refundCell:
             return self.getRefundCell(tableView, indexPath: indexPath)
         case .paymentPendingCell:
@@ -170,7 +174,7 @@ extension HotlelBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
             self.addToCalender()
         case .bookAnotherRoomCell:
             self.bookAnotherRoom()
-        case .paymentInfoCell, .bookingCell, .addOnsCell, .cancellationCell, .refundCell, .paidCell:
+        case .paymentInfoCell, .bookingCell, .addOnsCell, .cancellationCell, .refundCell, .paidCell, .reschedulingCell:
             if let rcpt = self.viewModel.bookingDetail?.receipt {
                 AppFlowManager.default.moveToBookingVoucherVC(receipt: rcpt, bookingId: self.viewModel.bookingId)
             }

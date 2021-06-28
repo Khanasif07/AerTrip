@@ -52,6 +52,12 @@ class EventTypeVC: BaseVC {
         self.eventTypeTableView.registerCell(nibName: RoomTableViewCell.reusableIdentifier)
         
     }
+    
+    override func setupColors() {
+        self.view?.backgroundColor = AppColors.themeWhiteDashboard
+        self.eventTypeTableView.backgroundColor = AppColors.themeWhiteDashboard
+    }
+    
     internal func setFilterValues() {
         eventType.removeAll()
         selectedIndexPath = nil

@@ -27,6 +27,11 @@ class MyBookingFilterVC: BaseVC {
     private var isFilterArray:[Bool] = [true,true,true]
     private var previousOffset = CGPoint.zero
     
+    var statusBarHeight : CGFloat {
+        return AppDelegate.shared.window?.safeAreaInsets.top ?? 0
+//        return UIApplication.shared.isStatusBarHidden ? CGFloat(0) : UIApplication.shared.statusBarFrame.height
+    }
+    
     //MARK:- IBOutlets
     @IBOutlet weak var topNavBar: TopNavigationView!{
         didSet {
@@ -43,7 +48,7 @@ class MyBookingFilterVC: BaseVC {
     
     //MARK:- LifeCycle
     override func initialSetup() {
-        self.mainContainerHeightConstraint.constant = 498 + UIApplication.shared.statusBarFrame.height
+        self.mainContainerHeightConstraint.constant = 498 + statusBarHeight
         self.fetchMinDateFromCoreData()
         self.fetchMaxDateFromCoreData()
         self.setCounts()
@@ -58,10 +63,10 @@ class MyBookingFilterVC: BaseVC {
         self.mainContainerView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 10.0)
         self.edgesForExtendedLayout = UIRectEdge(rawValue: 4)
         
-        let height = UIApplication.shared.statusBarFrame.height
+        let height = self.statusBarHeight
         self.navigationViewTopConstraint.constant = CGFloat(height)
         
-        self.mainBackView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.4)
+//        self.mainBackView.backgroundColor = AppColors.unicolorBlack.withAlphaComponent(0.4)
         delay(seconds: 1.0) { [weak self] in
            self?.setupGesture()
         }
@@ -84,7 +89,10 @@ class MyBookingFilterVC: BaseVC {
     }
     
     override func setupColors() {
-        self.topNavBar.navTitleLabel.textColor = AppColors.themeGray40
+        self.topNavBar.navTitleLabel.textColor = AppColors.themeGray153
+        self.mainBackView.backgroundColor = AppColors.unicolorBlack.withAlphaComponent(0.4)
+        self.mainContainerView.backgroundColor = AppColors.themeWhiteDashboard
+        self.childContainerView.backgroundColor = AppColors.themeWhiteDashboard
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -224,6 +232,7 @@ class MyBookingFilterVC: BaseVC {
         self.parchmentView?.indicatorColor = AppColors.themeGreen
         self.parchmentView?.selectedTextColor = AppColors.themeBlack
         self.childContainerView.addSubview(self.parchmentView!.view)
+        self.parchmentView?.menuBackgroundColor = AppColors.clear
         self.parchmentView?.dataSource = self
         self.parchmentView?.delegate = self
         self.parchmentView?.sizeDelegate = self
