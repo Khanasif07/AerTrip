@@ -19,6 +19,8 @@ class SelectMealCell: UITableViewCell {
     @IBOutlet weak var autoSelectionBackView: UIView!
     @IBOutlet weak var mealForLabelTop: NSLayoutConstraint!
     @IBOutlet weak var mealAutoSelectedTop: NSLayoutConstraint!
+    @IBOutlet weak var dividerView: ATDividerView!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -41,7 +43,7 @@ class SelectMealCell: UITableViewCell {
         self.contentView.backgroundColor = AppColors.themeBlack26
         self.autoSelectionBackView.backgroundColor = AppColors.lightYellowAndGoldenGray
         self.mealAutoSelectedForLabel.textColor = AppColors.grayWhite
-
+//        self.dividerView.backgroundColor
     }
 
     override func layoutSubviews() {
