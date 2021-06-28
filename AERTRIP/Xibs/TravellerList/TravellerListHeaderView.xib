@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -20,7 +21,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mnu-CP-o4A">
-                    <rect key="frame" x="0.0" y="36" width="375" height="44"/>
+                    <rect key="frame" x="0.0" y="-104" width="375" height="44"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profilePlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="F5x-Tb-XGw">
                             <rect key="frame" x="16" y="12" width="20" height="20"/>
@@ -71,7 +72,7 @@
                     </connections>
                 </view>
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xy9-4E-5NC">
-                    <rect key="frame" x="0.0" y="80" width="375" height="60"/>
+                    <rect key="frame" x="0.0" y="-60" width="375" height="60"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="JAF-xZ-b8H">
                             <rect key="frame" x="16" y="10" width="313" height="40"/>
@@ -94,7 +95,7 @@
                             <rect key="frame" x="339" y="20" width="20" height="20"/>
                         </activityIndicatorView>
                     </subviews>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="ANA-iX-N7a" secondAttribute="trailing" constant="16" id="3gY-kB-ckJ"/>
                         <constraint firstItem="JAF-xZ-b8H" firstAttribute="leading" secondItem="Xy9-4E-5NC" secondAttribute="leading" constant="16" id="92j-em-Iqf"/>
@@ -106,6 +107,7 @@
                     </constraints>
                 </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="Xy9-4E-5NC" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="7K5-Tn-EiJ"/>
@@ -117,8 +119,8 @@
                 <constraint firstItem="mnu-CP-o4A" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="w4w-7Z-EmG"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="backgroundView" destination="mnu-CP-o4A" id="1f9-j5-OHk"/>
                 <outlet property="bottomView" destination="kUv-aL-vXD" id="Omv-FX-Yfx"/>
                 <outlet property="importingContactLabel" destination="OMt-UE-ur2" id="V7r-Ed-hl3"/>
                 <outlet property="importingContactView" destination="Xy9-4E-5NC" id="nRK-ZY-jhM"/>
@@ -139,5 +141,8 @@
     </objects>
     <resources>
         <image name="profilePlaceholder" width="64" height="64"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

@@ -22,6 +22,9 @@ class QuickPayVC: BaseVC {
     
     override func initialSetup() {
         self.configureNavBar()
+        self.view.backgroundColor = AppColors.themeWhite
+        self.titleLabel.textColor = AppColors.themeBlack
+        self.subTiteLabel.textColor = AppColors.themeBlack
     }
     
     override func setupTexts() {
