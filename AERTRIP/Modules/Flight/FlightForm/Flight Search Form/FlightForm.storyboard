@@ -931,6 +931,7 @@
                         <outlet property="multicityAddTitle" destination="nkt-3z-B1H" id="53H-cD-JpZ"/>
                         <outlet property="multicityRemoveButton" destination="29v-eT-lNi" id="vRL-hK-xP2"/>
                         <outlet property="multicityRemoveTitle" destination="FEc-vo-9Be" id="HIH-b2-dip"/>
+                        <outlet property="onwardReturnView" destination="RLV-oD-1KY" id="s6a-05-HXr"/>
                         <outlet property="onwardReturnViewHeightConstraint" destination="rNi-oS-goV" id="ztW-SW-0ts"/>
                         <outlet property="onwardsLabel" destination="0lz-0p-8eh" id="STL-Ym-CBe"/>
                         <outlet property="onwardsSubTitleLabel" destination="OnY-t7-rnC" id="E02-kn-ydI"/>
