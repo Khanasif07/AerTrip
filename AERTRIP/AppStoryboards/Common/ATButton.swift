@@ -205,18 +205,18 @@ import UIKit
         if self.isEnabled {
             if isEnabledShadow {
                 gLayer.colors = disabledGradientColors.map { (clr) -> CGColor in
-                    clr.cgColor
+                    clr.resolvedColor(with: traitCollection).cgColor
                 }
             } else {
                 gLayer.colors = gradientColors.map { (clr) -> CGColor in
-                    clr.cgColor
+                    clr.resolvedColor(with: traitCollection).cgColor
                 }
             }
             
         }
         else {
             gLayer.colors = disabledGradientColors.map { (clr) -> CGColor in
-                clr.cgColor
+                clr.resolvedColor(with: traitCollection).cgColor
             }
         }
     }
