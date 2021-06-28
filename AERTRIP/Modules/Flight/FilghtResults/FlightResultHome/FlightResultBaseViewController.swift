@@ -119,7 +119,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         
 //        print("flightSearchParameters=",flightSearchParameters)
         setupSegmentView()
-        self.filterSegmentView.sectionTitles = flightSearchResultVM.segmentTitles(showSelection: false, selectedIndex: filterSegmentView.selectedSegmentIndex)
+        self.filterSegmentView.sectionTitles = flightSearchResultVM.segmentTitles(showSelection: false, selectedIndex: filterSegmentView.selectedSegmentIndex, traitColl: traitCollection)
         self.filterSegmentView.selectedSegmentIndex = HMSegmentedControlNoSegment
         NotificationCenter.default.addObserver(self, selector: #selector(updateFilterScreenText), name: NSNotification.Name("updateFilterScreenText"), object: nil)
         setupResultView()
@@ -148,7 +148,6 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
 //            visualEffectBlurView.isHidden = true
         }
     }
-    
     
     override func currencyChanged(_ note: Notification) {
         
@@ -921,7 +920,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         self.filterSegmentView.selectedTitleTextAttributes = [NSAttributedString.Key.foregroundColor : AppColors.themeBlack.resolvedColor(with: traitCollection) , NSAttributedString.Key.font : AppFonts.SemiBold.withSize(16)]
         self.filterSegmentView .addTarget(self, action: #selector(filtersegmentChanged(_:)), for: .valueChanged)
 
-        self.filterSegmentView.sectionTitles = flightSearchResultVM.segmentTitles(showSelection: false, selectedIndex: filterSegmentView.selectedSegmentIndex)
+        self.filterSegmentView.sectionTitles = flightSearchResultVM.segmentTitles(showSelection: false, selectedIndex: filterSegmentView.selectedSegmentIndex, traitColl: traitCollection)
         self.filterSegmentView.selectedSegmentIndex = HMSegmentedControlNoSegment
         
         self.filterSegmentView.isUserInteractionEnabled = false
