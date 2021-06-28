@@ -192,7 +192,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
             updateForAppearance()
             
             // sticky progress
-            stickyProgressView = UIProgressView(progressViewStyle: .default)
+            stickyProgressView = UIProgressView(progressViewStyle: .bar)
             stickyProgressView.progressTintColor = UIColor.AertripColor
             stickyProgressView.trackTintColor = AppColors.themeWhite
             stickyProgressView.progress = ApiProgress.progress
@@ -280,14 +280,14 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
             make.height.equalTo(42)
         }
         
-        ApiProgress = UIProgressView(progressViewStyle: .default)
+        ApiProgress = UIProgressView(progressViewStyle: .bar)
         ApiProgress.progressTintColor = UIColor.AertripColor
         ApiProgress.trackTintColor = AppColors.themeWhite
         ApiProgress.tag = 600
         ApiProgress.progress = 0.25
         ApiProgress.backgroundColor = AppColors.clear
     
-        stickyProgressView = UIProgressView(progressViewStyle: .default)
+        stickyProgressView = UIProgressView(progressViewStyle: .bar)
         stickyProgressView.progressTintColor = UIColor.AertripColor
         stickyProgressView.trackTintColor = AppColors.themeWhite
         stickyProgressView.progress = 0.25
