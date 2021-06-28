@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -24,7 +25,7 @@
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8yS-PW-mJT">
                         <rect key="frame" x="16" y="0.0" width="343" height="115"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5nL-Ou-YfH">
                         <rect key="frame" x="16" y="0.0" width="343" height="115"/>
@@ -57,7 +58,7 @@
                                                 <rect key="frame" x="0.0" y="6" width="311" height="44"/>
                                             </stackView>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="YyL-rV-lGt" secondAttribute="trailing" id="NCt-0f-KuO"/>
                                             <constraint firstAttribute="bottom" secondItem="YyL-rV-lGt" secondAttribute="bottom" id="XhW-Ie-p8J"/>
@@ -68,7 +69,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="CM9-M7-SCd" firstAttribute="leading" secondItem="5nL-Ou-YfH" secondAttribute="leading" constant="16" id="67Q-Kn-VCU"/>
                             <constraint firstAttribute="trailing" secondItem="CM9-M7-SCd" secondAttribute="trailing" constant="16" id="99a-di-cwx"/>
@@ -78,7 +79,7 @@
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FVR-J2-IqN" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                         <rect key="frame" x="16" y="114.5" width="343" height="0.5"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="0.5" id="akU-1u-3te"/>
                         </constraints>
@@ -103,6 +104,7 @@
                 <outlet property="containerBottomConstraint" destination="F83-Bj-1hr" id="uY6-rq-DCq"/>
                 <outlet property="containerView" destination="5nL-Ou-YfH" id="7EX-Sk-JuD"/>
                 <outlet property="dividerView" destination="FVR-J2-IqN" id="AFJ-1m-eTz"/>
+                <outlet property="guestContainerView" destination="iBG-ro-16F" id="HJ3-Qr-DoE"/>
                 <outlet property="passengerStackView" destination="YyL-rV-lGt" id="BXR-f8-zae"/>
                 <outlet property="roomDescLabel" destination="Avd-ZX-0Rb" id="bfR-8h-Taq"/>
                 <outlet property="roomNameLabel" destination="tJ2-oO-o6s" id="gOc-nr-TxE"/>
@@ -113,4 +115,9 @@
             <point key="canvasLocation" x="140" y="161.46926536731635"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

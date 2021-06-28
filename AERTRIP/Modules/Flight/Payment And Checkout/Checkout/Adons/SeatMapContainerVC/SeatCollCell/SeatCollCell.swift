@@ -26,11 +26,6 @@ class SeatCollCell: UICollectionViewCell {
         initialSetup()
     }
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        seatView.layer.borderColor = AppColors.seatsBorder.cgColor
-    }
-    
     // MARK: Functions
     
     private func initialSetup() {
@@ -71,14 +66,18 @@ class SeatCollCell: UICollectionViewCell {
             seatNumberLbl.textColor = AppColors.themeGray40
             
         } else if viewModel.seatData.columnData.postBooking && viewModel.setupFor == .preSelection {
-            seatView.backgroundColor = AppColors.lightYellow
+            seatView.backgroundColor = AppColors.flightsLightYellow
             seatNumberLbl.textColor = AppColors.postBookingSeatColor
+            seatView.layer.borderWidth = 1
+            seatView.layer.borderColor = AppColors.flightsLightYellowBorder.cgColor
         }
         if viewModel.seatData.columnData.amount < viewModel.flightFares.minAmount {
             seatNumberLbl.text?.removeAll()
             seatNumberLbl.isHidden = true
         } else {
-            seatNumberLbl.textColor = AppColors.blackWith15PerAlpha
+            if !(viewModel.seatData.columnData.postBooking && viewModel.setupFor == .preSelection) {
+                seatNumberLbl.textColor = AppColors.blackWith15PerAlpha
+            }
             seatNumberLbl.isHidden = false
             let seatAmount = viewModel.seatData.columnData.amount
             let fareDiff: Float = Float(viewModel.flightFares.maxAmount - viewModel.flightFares.minAmount)

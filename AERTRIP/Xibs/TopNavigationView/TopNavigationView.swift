@@ -88,6 +88,7 @@ class TopNavigationView: PassthroughView {
         super.layoutSubviews()
         
         self.updateTitleFrames()
+        updateDarkViewHeight()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -295,6 +296,11 @@ class TopNavigationView: PassthroughView {
         } else {
 //            darkView.isHidden = true
         }
+    }
+    
+    private func updateDarkViewHeight() {
+        let statusHeight = AppDelegate.shared.window?.safeAreaInsets.top ?? 0
+        darkViewHeight.constant = self.frame.height + statusHeight
     }
     
     

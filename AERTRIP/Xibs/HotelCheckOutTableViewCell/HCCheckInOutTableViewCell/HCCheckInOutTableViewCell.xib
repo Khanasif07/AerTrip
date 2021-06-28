@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -27,7 +28,7 @@
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gbd-ER-PWM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mMC-Nn-1Jl">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
@@ -172,10 +173,12 @@
                 <outlet property="checkOutLabel" destination="0Ds-63-h00" id="vjD-GW-dNl"/>
                 <outlet property="checkinDayLabelBottomConstriant" destination="M1s-5c-ijh" id="jNN-lA-43W"/>
                 <outlet property="checkinLabelTopConstraint" destination="Ez7-JT-Yua" id="kN8-ee-3qt"/>
+                <outlet property="containerView" destination="mMC-Nn-1Jl" id="xi1-O8-stD"/>
                 <outlet property="containerViewLeadingConstraint" destination="9T7-Ha-OOw" id="IWB-Ot-i3n"/>
                 <outlet property="containerViewTrailingConstraint" destination="yuC-sg-6Tv" id="Pb8-69-VPK"/>
                 <outlet property="dividerView" destination="tYW-oZ-5bv" id="GPQ-uu-r5U"/>
                 <outlet property="moonImageView" destination="dth-BB-qPO" id="aU7-AV-lv1"/>
+                <outlet property="nightsContainerView" destination="TWv-GF-fJM" id="dRW-0O-SaY"/>
                 <outlet property="shadowView" destination="gbd-ER-PWM" id="1c1-WB-b48"/>
                 <outlet property="topDividerView" destination="89K-aQ-0ee" id="vUm-M3-lv8"/>
                 <outlet property="totalNightsLabel" destination="njh-fF-zxC" id="w1Y-wF-ICY"/>
@@ -185,5 +188,8 @@
     </objects>
     <resources>
         <image name="moon" width="21" height="21"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

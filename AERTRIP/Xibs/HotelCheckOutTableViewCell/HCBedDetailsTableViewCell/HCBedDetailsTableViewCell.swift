@@ -24,6 +24,7 @@ class HCBedDetailsTableViewCell: UITableViewCell {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var containerBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var dividerView: ATDividerView!
+    @IBOutlet weak var guestContainerView: UIView!
     
     //Mark:- LifeCycle
     //================
@@ -74,7 +75,7 @@ class HCBedDetailsTableViewCell: UITableViewCell {
         
     }
     
-    internal func setupForLastCell(isLastCell: Bool) {
+    internal func setupForLastCell(isLastCell: Bool, isForAllDone:Bool = false) {
         if isLastCell {
             self.stackViewBottomConstraint.constant = 16
             self.containerBottomConstraint.constant = 26
@@ -91,6 +92,15 @@ class HCBedDetailsTableViewCell: UITableViewCell {
             let shadow = AppShadowProperties()
             self.shadowView.addShadow(cornerRadius: 0.0, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: shadow.shadowColor, offset: shadow.offset, opacity: shadow.opecity, shadowRadius: shadow.shadowRadius)
             self.dividerView.isHidden = true
+        }
+        if isForAllDone{
+            self.containerView.backgroundColor = AppColors.themeWhiteDashboard
+            self.guestContainerView.backgroundColor = AppColors.themeWhiteDashboard
+            for view in self.passengerStackView.subviews{
+                if let passView = view as? HCHotelPassengerView{
+                    passView.containerView.backgroundColor = AppColors.themeWhiteDashboard
+                }
+            }
         }
         self.contentView.layoutIfNeeded()
     }

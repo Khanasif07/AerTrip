@@ -43,7 +43,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *toValueHeight;
 @property (weak, nonatomic) IBOutlet UIButton *switcherButton;
 
-
+@property (weak, nonatomic) IBOutlet UIView *onwardReturnView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *onwardReturnViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *onwardsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *onwardsValueLabel;
@@ -219,9 +219,9 @@
     self.flightSegmentedControl.verticalDividerEnabled = NO;
     self.flightSegmentedControl.selectionIndicatorColor = [self getAppColor];
     
-    self.flightSegmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName : [ UIColor ONE_FIVE_THREE_COLOR] , NSFontAttributeName:[UIFont fontWithName:@"SourceSansPro-Regular" size:14]};
+    self.flightSegmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName : [ [UIColor ONE_FIVE_THREE_COLOR] resolvedColorWithTraitCollection:self.traitCollection] , NSFontAttributeName:[UIFont fontWithName:@"SourceSansPro-Regular" size:14]};
     
-    self.flightSegmentedControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : [UIColor FIVE_ONE_COLOR], NSFontAttributeName:[UIFont fontWithName:@"SourceSansPro-Semibold" size:14]};
+    self.flightSegmentedControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : [[UIColor FIVE_ONE_COLOR] resolvedColorWithTraitCollection:self.traitCollection], NSFontAttributeName:[UIFont fontWithName:@"SourceSansPro-Semibold" size:14]};
     
     self.flightSegmentedControl.borderType = HMSegmentedControlBorderTypeNone;
     self.flightSegmentedControl.selectedSegmentIndex = 0;
@@ -270,6 +270,9 @@
     if (self.viewModel.flightSearchType == MULTI_CITY ) {
         self.fromToViewHeightConstraint.constant = 0.0;
         self.onwardReturnViewHeightConstraint.constant = 0.0;
+        [self.FromToView setHidden:true];
+        [self.onwardReturnView setHidden:true];
+        [self.multiCityView setHidden:false];
         [self.viewModel setupMultiCityView];
         self.multiCityViewHeightConstraint.constant = 2000.0;
         self.viewModel.isAnimationNeedToAddRemoveSector = false;
@@ -280,7 +283,9 @@
         self.onwardReturnViewHeightConstraint.constant = 104.0;
         self.multiCityViewHeightConstraint.constant = 0.0;
         self.flightFormHeight.constant = 465.0;
-        
+        [self.FromToView setHidden:false];
+        [self.onwardReturnView setHidden:false];
+        [self.multiCityView setHidden:true];
         if (self.viewModel.flightSearchType == SINGLE_JOURNEY) {
             self.viewModel.returnDate  =  nil;
         }

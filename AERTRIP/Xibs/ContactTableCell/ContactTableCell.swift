@@ -27,6 +27,7 @@ class ContactTableCell: UITableViewCell {
     @IBOutlet weak var dividerView: ATDividerView!
     @IBOutlet weak var contactTitleLabel: UILabel!
     @IBOutlet weak var dividerViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var textFieldView: UIView!
     
     
     private var preSelectedCountry: PKCountryModel?
@@ -41,6 +42,7 @@ class ContactTableCell: UITableViewCell {
         
         self.selectionStyle = .none
         configUI()
+        self.setColors()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -49,18 +51,24 @@ class ContactTableCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    private func setColors(){
+        self.contentView.backgroundColor = AppColors.themeBlack26
+        self.countryCodeContainerView.backgroundColor = AppColors.themeBlack26
+        self.textFieldView.backgroundColor = AppColors.themeBlack26
+    }
+    
     //MARK:- Methods
     //MARK:- Private
     private func configUI() {
         titleLabel.font = AppFonts.Regular.withSize(14.0)
-        titleLabel.textColor = AppColors.themeGray40
+        titleLabel.textColor = AppColors.themeGray153
         titleLabel.text = LocalizedString.Mobile.localized
         
         countryCodeLabel.font = AppFonts.Regular.withSize(18.0)
         countryCodeLabel.textColor = AppColors.themeBlack
         
         contactTitleLabel.font = AppFonts.Regular.withSize(14.0)
-        contactTitleLabel.textColor = AppColors.themeGray40
+        contactTitleLabel.textColor = AppColors.themeGray153
         contactTitleLabel.text = LocalizedString.Mobile.localized
         
          contactNumberTextField.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
@@ -100,7 +108,7 @@ class ContactTableCell: UITableViewCell {
     internal func checkForErrorStateOfTextfield() {
         let finalTxt = (contactNumberTextField.text ?? "").removeAllWhitespaces
 
-        titleLabel.textColor = AppColors.themeGray40
+        titleLabel.textColor = AppColors.themeGray153
         
         
 //        self.editableTextField.isError = finalTxt.checkInvalidity(.Email)
@@ -110,7 +118,7 @@ class ContactTableCell: UITableViewCell {
            titleLabel.textColor = AppColors.themeRed
         }
         let firstName = self.contactNumberTextField.placeholder ?? ""
-        self.contactNumberTextField.attributedPlaceholder = NSAttributedString(string: firstName, attributes: [NSAttributedString.Key.foregroundColor: isValidEmail ? AppColors.themeGray40 :  AppColors.themeRed])
+        self.contactNumberTextField.attributedPlaceholder = NSAttributedString(string: firstName, attributes: [NSAttributedString.Key.foregroundColor: isValidEmail ? AppColors.themeGray153 :  AppColors.themeRed])
         self.dividerView.isSettingForErrorState = !isValidEmail
     }
 }
@@ -122,7 +130,7 @@ extension ContactTableCell : UITextFieldDelegate {
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         PKCountryPicker.default.closePicker()
-        titleLabel.textColor = AppColors.themeGray40
+        titleLabel.textColor = AppColors.themeGray153
         self.dividerView.isSettingForErrorState = false
         return true
     }

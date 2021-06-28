@@ -35,7 +35,7 @@ struct SeatMapModel {
         var sortOrder: Int?
         let lfk: String
         let ttl: [String]
-        let flights: [String: SeatMapFlight]
+        var flights: [String: SeatMapFlight]
         
         init(_ json: JSON,_ lfk: String) {
             self.lfk = lfk
@@ -45,6 +45,7 @@ struct SeatMapModel {
     }
     
     struct SeatMapFlight {
+        var intSortOrder: Int?
         let lfk: String
         let ffk: String
         let ttl: String

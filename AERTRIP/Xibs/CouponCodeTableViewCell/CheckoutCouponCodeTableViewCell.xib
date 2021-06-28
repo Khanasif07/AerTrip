@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -102,6 +102,7 @@
                 <outlet property="coupanCodeLabel" destination="dWR-oV-aZq" id="ShP-ym-Fos"/>
                 <outlet property="couponInfoTextView" destination="jSQ-sH-rA9" id="a2Z-vt-KSY"/>
                 <outlet property="discountLabel" destination="7pl-QQ-PPZ" id="ekq-Qr-bj3"/>
+                <outlet property="dividerLeadingConstraint" destination="Roy-Z8-4ie" id="GZO-w7-By5"/>
                 <outlet property="dividerView" destination="q5m-U6-gX4" id="ISw-d7-Vlh"/>
                 <outlet property="offerTermsButton" destination="gz5-Np-WrO" id="4Lc-71-Haa"/>
             </connections>

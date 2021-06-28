@@ -47,6 +47,7 @@ extension YouAreAllDoneVC {
     internal func getRatingCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HCHotelRatingTableViewCell.reusableIdentifier, for: indexPath) as? HCHotelRatingTableViewCell else { return nil }
         cell.configCell(hotelName: self.viewModel.hotelReceiptData?.hname ?? "", hotelRating: self.viewModel.hotelReceiptData?.star ?? 0.0, tripAdvisorRating: self.viewModel.hotelReceiptData?.rating ?? 0.0)
+        cell.containerView.backgroundColor = AppColors.themeWhiteDashboard
         return cell
     }
     
@@ -57,6 +58,8 @@ extension YouAreAllDoneVC {
         cell.moreBtnOutlet.isHidden = true
         cell.deviderView.isHidden = true
         cell.addressInfoTextView.isUserInteractionEnabled = false
+        cell.addressInfoTextView.backgroundColor = AppColors.selectDestinationHeaderColor
+        cell.containerView.backgroundColor = AppColors.selectDestinationHeaderColor
         return cell
     }
     
@@ -88,7 +91,7 @@ extension YouAreAllDoneVC {
         cell.configCell(roomData: self.viewModel.hotelReceiptData?.rooms[indexPath.row] ?? Room(), index: index, passengers: passenger)
         }
         let isLast = (self.viewModel.hotelReceiptData?.travellers.count ?? 0) ==  (indexPath.section - 1)
-        cell.setupForLastCell(isLastCell: isLast)
+        cell.setupForLastCell(isLastCell: isLast, isForAllDone: true)
         return cell
     }
     
