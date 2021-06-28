@@ -145,9 +145,10 @@ class BookingAddOnRequestVC: BaseVC {
     }
     
     override func setupColors() {
-        self.priceLabel.textColor = AppColors.themeWhite
-        self.makePaymentLabel.textColor = AppColors.themeWhite
-        self.makePaymentButton.setTitleColor(AppColors.themeWhite, for: .normal)
+        self.priceLabel.textColor = AppColors.unicolorWhite
+        self.makePaymentLabel.textColor = AppColors.unicolorWhite
+        self.view.backgroundColor = AppColors.themeWhite
+        self.makePaymentButton.setTitleColor(AppColors.unicolorWhite, for: .normal)
     }
     
     func reloadList() {
@@ -158,7 +159,7 @@ class BookingAddOnRequestVC: BaseVC {
     
     private func manageLoader(shouldStart: Bool) {
         self.indicator.style = .medium// .white
-        self.indicator.color = AppColors.themeWhite
+        self.indicator.color = AppColors.unicolorWhite
         if shouldStart{
             self.indicator.startAnimating()
         }else{
@@ -522,6 +523,7 @@ extension BookingAddOnRequestVC: UITableViewDataSource, UITableViewDelegate {
         
         bookingRouteCell.configure(title: self.viewModel.caseHistory?.caseName ?? LocalizedString.dash.localized, detail: self.viewModel.caseHistory?.caseNumber ?? LocalizedString.dash.localized)
         bookingRouteCell.dividerView.isHidden = false
+        bookingRouteCell.contentView.backgroundColor = AppColors.themeBlack26
         return bookingRouteCell
     }
     
@@ -548,7 +550,7 @@ extension BookingAddOnRequestVC: UITableViewDataSource, UITableViewDelegate {
         else {
             requestStatusCell.descriptorLabel.textColor = AppColors.themeTextColor
         }
-        
+        requestStatusCell.contentView.backgroundColor = AppColors.themeBlack26
         return requestStatusCell
     }
     
@@ -558,6 +560,7 @@ extension BookingAddOnRequestVC: UITableViewDataSource, UITableViewDelegate {
         }
         
         noteCell.configure(info: self.viewModel.caseHistory?.note ?? "")
+        noteCell.contentView.backgroundColor = AppColors.themeBlack26
         return noteCell
     }
     
@@ -570,7 +573,7 @@ extension BookingAddOnRequestVC: UITableViewDataSource, UITableViewDelegate {
         if let caseD = self.viewModel.caseHistory {
             bookingAddOnCell.isDeviderForLast = (indexPath.row == (caseD.communications.count-1))
         }
-        
+        bookingAddOnCell.contentView.backgroundColor = AppColors.themeBlack26
         return bookingAddOnCell
     }
     
@@ -583,7 +586,7 @@ extension BookingAddOnRequestVC: UITableViewDataSource, UITableViewDelegate {
         if let caseData = self.viewModel.caseHistory, caseData.resolutionStatus == .confirmationPending {
             titleText = "Kindly review and confirm"
         }
-        
+        requestStatusCell.contentView.backgroundColor = AppColors.themeBlack26
         requestStatusCell.configureCell(titleText)
         return requestStatusCell
     }
