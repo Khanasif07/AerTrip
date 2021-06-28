@@ -16,7 +16,9 @@ extension FlightPaymentBookingStatusVC{
     func getAllDoneCell(_ indexPath: IndexPath) -> UITableViewCell {
         guard let cell = self.statusTableView.dequeueReusableCell(withIdentifier: YouAreAllDoneTableViewCell.reusableIdentifier, for: indexPath) as? YouAreAllDoneTableViewCell else { return UITableViewCell() }
         
-        cell.configCell(forBookingId: self.viewModel.itinerary.bookingNumber, forCid: LocalizedString.na.localized, isBookingPending: (self.viewModel.itinerary.bookingStatus.status.lowercased() != "booked"))
+        let bookingNumber = self.viewModel.itinerary.bookingNumber.replacingOccurrences(of: ",", with: ", ")
+        
+        cell.configCell(forBookingId: bookingNumber, forCid: LocalizedString.na.localized, isBookingPending: (self.viewModel.itinerary.bookingStatus.status.lowercased() != "booked"))
         cell.delegate = self
         cell.handler = {[weak self] in
             self?.sendEmail()
