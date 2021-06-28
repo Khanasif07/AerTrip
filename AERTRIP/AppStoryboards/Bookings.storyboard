@@ -862,6 +862,7 @@ with us!</string>
                     </view>
                     <connections>
                         <outlet property="firstDividerView" destination="CQg-Sl-V9N" id="DtJ-zf-1k2"/>
+                        <outlet property="fromContainerView" destination="xzg-Rm-kCl" id="sTd-ka-eL6"/>
                         <outlet property="fromDateCloseBtn" destination="fT7-1Z-Z5o" id="UPS-N1-jZQ"/>
                         <outlet property="fromDateLabel" destination="QYa-dX-ybx" id="fl2-Ri-qh7"/>
                         <outlet property="fromDatePickerContainer" destination="jpb-Ck-MO9" id="fM8-Wx-Sq1"/>
@@ -871,6 +872,7 @@ with us!</string>
                         <outlet property="mainContainerView" destination="ZrN-2k-eZQ" id="gbK-A7-H5a"/>
                         <outlet property="secondDividerView" destination="uas-GW-mqc" id="Huc-it-Twj"/>
                         <outlet property="thirdDividerView" destination="qkq-mO-C2J" id="kQN-2B-tWt"/>
+                        <outlet property="toContainerView" destination="Xtl-t8-XgQ" id="Egl-bW-sQk"/>
                         <outlet property="toDateCloseBtn" destination="Hyq-Ad-CCd" id="M5i-t1-XyB"/>
                         <outlet property="toDateLabel" destination="hNr-hZ-Xwg" id="ocn-4r-M5u"/>
                         <outlet property="toDatePickerContainer" destination="8MY-08-GKK" id="fOc-sf-jEC"/>

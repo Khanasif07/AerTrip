@@ -473,7 +473,9 @@ extension HCGuestListVC: EmptyScreenViewDelegate {
             delay(seconds: 0.1) { [weak self] in
                 guard let `self` = self else {return}
                 self.viewModel.fetchPhoneContacts(forVC: self, sender: sender, cancled: {
-                    sender.isLoading = false
+                    DispatchQueue.main.async {
+                        sender.isLoading = false
+                    }
                 })
             }
         }

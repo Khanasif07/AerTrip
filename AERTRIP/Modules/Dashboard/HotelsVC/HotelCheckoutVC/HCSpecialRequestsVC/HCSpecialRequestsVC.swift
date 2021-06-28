@@ -53,6 +53,7 @@ class HCSpecialRequestsVC: BaseVC {
     
     override func setupColors() {
         self.headerView.navTitleLabel.textColor = AppColors.themeBlack
+        self.view.backgroundColor = AppColors.themeWhite
     }
     
     override func setupTexts() {
@@ -63,6 +64,7 @@ class HCSpecialRequestsVC: BaseVC {
     //================
     private func footerViewSetUp() {
         self.footerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.width, height: 35.0))
+        self.footerView?.backgroundColor = AppColors.themeWhite
         self.specialReqTableView.tableFooterView = self.footerView
     }
     

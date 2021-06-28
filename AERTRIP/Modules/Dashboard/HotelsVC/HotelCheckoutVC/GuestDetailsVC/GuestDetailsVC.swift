@@ -53,7 +53,7 @@ class GuestDetailsVC: BaseVC {
         //self.addFooterViewToGuestDetailTableView()
         self.getRoomDetails()
         self.addFooterViewToTravellerTableView()
-        
+        self.view.backgroundColor = AppColors.themeWhite
         self.viewModel.webserviceForGetSalutations()
     }
     
@@ -317,8 +317,8 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
                 fatalError("ViewProfileDetailTableViewSectionView not found")
             }
             headerView.headerLabel.text = self.viewModel.titleForSection(section: section).uppercased()
-            headerView.backgroundColor = AppColors.themeGray04
-            headerView.containerView.backgroundColor = AppColors.themeGray04
+            headerView.backgroundColor = AppColors.miniPlaneBack
+            headerView.containerView.backgroundColor = AppColors.miniPlaneBack
             headerView.topDividerHeightConstraint.constant = 0.5
             //headerView.topSeparatorView.isHidden = section == 0 ? true : false
             headerView.bottomSeparatorView.isHidden = false

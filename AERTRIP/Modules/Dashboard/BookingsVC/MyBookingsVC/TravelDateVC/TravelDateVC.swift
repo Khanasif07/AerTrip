@@ -27,6 +27,8 @@ class TravelDateVC: BaseVC {
     // Mark:- IBOutlets
     //================
     @IBOutlet weak var mainContainerView: UIView!
+    @IBOutlet weak var fromContainerView: UIView!
+    @IBOutlet weak var toContainerView: UIView!
     @IBOutlet weak var fromView: UIView!
     @IBOutlet weak var fromDateTitleLabel: UILabel!
     @IBOutlet weak var fromDateLabel: UILabel!
@@ -89,9 +91,12 @@ class TravelDateVC: BaseVC {
     
     override func setupColors() {
         self.fromDateTitleLabel.textColor = AppColors.themeBlack
-        self.fromDateLabel.textColor = AppColors.themeGray40
+        self.fromDateLabel.textColor = AppColors.themeGray153
         self.toDateTitleLabel.textColor = AppColors.themeBlack
-        self.toDateLabel.textColor = AppColors.themeGray40
+        self.toDateLabel.textColor = AppColors.themeGray153
+        [self.view, mainContainerView, fromContainerView, toContainerView, fromView, toView].forEach { view in
+            view?.backgroundColor = AppColors.themeWhiteDashboard
+        }
     }
     
     override func viewDidLayoutSubviews() {
