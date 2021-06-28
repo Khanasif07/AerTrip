@@ -26,7 +26,8 @@ class LinkedAccountsTableCell: UITableViewCell {
     @IBOutlet weak var disConnectedContainerView: UIView!
     @IBOutlet weak var connectButton: ATButton!
     @IBOutlet weak var buttonBackgroundView: UIView!
-    
+    @IBOutlet weak var dividerView: UIView!
+
     //MARK:- Properties
     //MARK:- Public
     weak var delegate: LinkedAccountsCellDelegate?
@@ -71,7 +72,8 @@ class LinkedAccountsTableCell: UITableViewCell {
     
     private func initialSetup() {
         self.selectionStyle = .none
-        
+        self.contentView.backgroundColor = AppColors.themeWhite
+        self.dividerView.backgroundColor = AppColors.dividerColor
         self.socialTypeLabel.font = AppFonts.Regular.withSize(20.0)
         self.socialTypeLabel.textColor = AppColors.themeBlack
         self.connectButton.isSocial = true

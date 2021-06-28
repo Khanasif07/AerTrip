@@ -22,7 +22,8 @@ class LinkedAccountsVC: BaseVC {
     }
     @IBOutlet weak var topNavigationView: TopNavigationView!
     @IBOutlet weak var backButton: UIButton!
-    
+    @IBOutlet weak var dividerView: UIView!
+
     var atButton: ATButton?
     
 
@@ -75,6 +76,9 @@ class LinkedAccountsVC: BaseVC {
     //MARK:- Methods
     //MARK:- Private
     private func initialSetups() {
+        self.view.backgroundColor = AppColors.themeWhite
+        self.dividerView.backgroundColor = AppColors.dividerColor
+
         topNavigationView.delegate = self
         self.viewModel.fetchLinkedAccounts()
     }
