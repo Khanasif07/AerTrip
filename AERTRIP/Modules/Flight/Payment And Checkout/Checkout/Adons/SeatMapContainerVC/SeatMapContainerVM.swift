@@ -105,7 +105,8 @@ class SeatMapContainerVM {
                 }
                 if let model = seatModel {
                     if self.seatMapModel.data.leg.count == 0 {
-                       self.seatMapModel = model
+                        self.seatMapModel = model
+                        self.addSortOrderToIntFlights()
                     } else {
                         self.addLegsToSeatMapModel(from: model)
                     }
@@ -141,6 +142,16 @@ class SeatMapContainerVM {
         domesticLegFKs.enumerated().forEach { (index, lfk) in
             if let _ = curLegs[lfk] {
                 seatMapModel.data.leg[lfk]?.sortOrder = index
+            }
+        }
+    }
+    
+    private func addSortOrderToIntFlights() {
+        guard let mainLegKey = seatMapModel.data.leg.keys.first else { return }
+        let flights = seatMapModel.data.leg[mainLegKey]?.flights
+        AddonsDataStore.shared.flightKeys.enumerated().forEach { (index, ffk) in
+            if let _ = flights?[ffk] {
+                seatMapModel.data.leg[mainLegKey]?.flights[ffk]?.intSortOrder = index
             }
         }
     }
