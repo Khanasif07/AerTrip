@@ -255,6 +255,21 @@ extension FlightBookingsDetailsVC {
         return cell
     }
     
+    func getReschedulingCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingPaymentDetailsTableViewCell.reusableIdentifier, for: indexPath) as? BookingPaymentDetailsTableViewCell else { return UITableViewCell() }
+        cell.titleTopConstraint.constant = 5.0
+        cell.titleBottomConstraint.constant = 12.0
+        cell.containerViewBottomConstraint.constant = 0.0
+        let amount = (self.viewModel.bookingDetail?.rescheduleAmount ?? 0)
+        let attAmount = self.getConvertedPrice(for: abs(amount), with: self.viewModel.bookingDetail?.cancellationCurrency, using: AppFonts.Regular.withSize(16.0), isForCancellation: false)
+        
+        cell.configCellForAmount(title: LocalizedString.Rescheduling.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: attAmount, priceInRupee: amount, isLastCell: false, cellHeight: 37.0)
+        
+        cell.clipsToBounds = true
+        return cell
+    }
+    
+    
 //    func getPaidCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
 //        guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingPaymentDetailsTableViewCell.reusableIdentifier, for: indexPath) as? BookingPaymentDetailsTableViewCell else { return UITableViewCell() }
 //        cell.containerViewBottomConstraint.constant = 26.0

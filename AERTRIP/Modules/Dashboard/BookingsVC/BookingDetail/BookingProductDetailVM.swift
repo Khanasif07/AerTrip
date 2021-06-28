@@ -26,7 +26,7 @@ class BookingProductDetailVM {
     
     // hotel details related
     enum TableViewCellForHotel {
-        case notesCell, requestCell, cancellationsReqCell, addOnRequestCell, reschedulingRequestCell, hotelBookingInfoCell, roomNameAndTypeCell, travellersCell, documentCell, paymentInfoCell, bookingCell, addOnsCell, cancellationCell, paidCell, refundCell, paymentPendingCell, nameCell, emailCell, mobileCell, gstCell, billingAddressCell, flightsOptionsCell, weatherHeaderCell, weatherInfoCell, weatherFooterCell, tripChangeCell, addToCalenderCell, addToAppleWallet, bookAnotherRoomCell
+        case notesCell, requestCell, cancellationsReqCell, addOnRequestCell, reschedulingRequestCell, hotelBookingInfoCell, roomNameAndTypeCell, travellersCell, documentCell, paymentInfoCell, bookingCell, addOnsCell, cancellationCell, reschedulingCell, paidCell, refundCell, paymentPendingCell, nameCell, emailCell, mobileCell, gstCell, billingAddressCell, flightsOptionsCell, weatherHeaderCell, weatherInfoCell, weatherFooterCell, tripChangeCell, addToCalenderCell, addToAppleWallet, bookAnotherRoomCell
     }
     
     var sectionDataForHotelDetail: [[TableViewCellForHotel]] = []
@@ -113,7 +113,7 @@ class BookingProductDetailVM {
         }
         
         if self.bookingDetail?.rescheduleAmount ?? 0.0 > 0.0 {
-            self.sectionDataForHotelDetail.append([.reschedulingRequestCell])
+            self.sectionDataForHotelDetail.append([.reschedulingCell])
         }
         
         if self.bookingDetail?.paid ?? 0.0 >= 0.0 {
@@ -185,7 +185,7 @@ class BookingProductDetailVM {
     var tripCitiesStr: NSMutableAttributedString = NSMutableAttributedString(string: "")
     private(set) var itineraryData: DepositItinerary?
     enum TableViewCellForFlightProductType {
-        case notesCell, requestCell, cancellationsReqCell, addOnRequestCell, reschedulingRequestCell, flightCarriersCell, flightBoardingAndDestinationCell, travellersPnrStatusTitleCell, travellersPnrStatusCell, documentCell, paymentInfoCell, bookingCell, addOnsCell, cancellationCell, paidCell, refundCell, paymentPendingCell, nameCell, emailCell, mobileCell, gstCell, billingAddressCell, flightsOptionsCell, weatherHeaderCell, weatherInfoCell, weatherFooterCell, tripChangeCell, addToCalenderCell, addToTripCell, bookSameFlightCell, addToAppleWallet
+        case notesCell, requestCell, cancellationsReqCell, addOnRequestCell, reschedulingRequestCell, flightCarriersCell, flightBoardingAndDestinationCell, travellersPnrStatusTitleCell, travellersPnrStatusCell, documentCell, paymentInfoCell, bookingCell, addOnsCell, cancellationCell, reschedulingCell, paidCell, refundCell, paymentPendingCell, nameCell, emailCell, mobileCell, gstCell, billingAddressCell, flightsOptionsCell, weatherHeaderCell, weatherInfoCell, weatherFooterCell, tripChangeCell, addToCalenderCell, addToTripCell, bookSameFlightCell, addToAppleWallet
     }
     
     var cityName: [String] = ["", "Mumbai, IN", "Bangkok, TH", "Bangkok, TH", "Mumbai, IN", "Chennai, IN"]
@@ -262,7 +262,7 @@ class BookingProductDetailVM {
         }
         
         if self.bookingDetail?.rescheduleAmount ?? 0.0 > 0.0 {
-            self.sectionDataForFlightProductType.append([.reschedulingRequestCell])
+            self.sectionDataForFlightProductType.append([.reschedulingCell])
         }
         
         if self.bookingDetail?.paid ?? 0.0 >= 0.0 {

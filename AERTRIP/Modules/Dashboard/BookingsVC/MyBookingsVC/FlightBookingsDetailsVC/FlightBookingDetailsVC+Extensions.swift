@@ -70,6 +70,8 @@ extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
             return self.getAddOnsCell(tableView, indexPath: indexPath)
         case .cancellationCell:
             return self.getCancellationCell(tableView, indexPath: indexPath)
+        case .reschedulingCell:
+            return self.getReschedulingCell(tableView, indexPath: indexPath)
         case .refundCell:
             return self.getRefundCell(tableView, indexPath: indexPath)
         case .paymentPendingCell:
@@ -134,7 +136,7 @@ extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
         case .addToCalenderCell:
 //            self.addToCalender()
         break
-        case .paymentInfoCell, .bookingCell, .addOnsCell, .cancellationCell, .refundCell, .paidCell://.paymentPendingCell
+        case .paymentInfoCell, .bookingCell, .addOnsCell, .cancellationCell, .refundCell, .paidCell, .reschedulingCell://.paymentPendingCell
             if let rcpt = self.viewModel.bookingDetail?.receipt {
                 AppFlowManager.default.moveToBookingVoucherVC(receipt: rcpt, bookingId: self.viewModel.bookingId)
             }

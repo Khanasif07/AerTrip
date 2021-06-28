@@ -610,7 +610,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="L3h-bM-RWW" firstAttribute="leading" secondItem="OxI-r9-dQF" secondAttribute="leading" constant="60" id="3br-xb-vfZ"/>
                                     <constraint firstItem="K3M-jn-8lT" firstAttribute="top" secondItem="L3h-bM-RWW" secondAttribute="bottom" constant="6" id="3hO-O3-538"/>
@@ -960,10 +960,10 @@
     </scenes>
     <designables>
         <designable name="dQP-Az-qGA">
-            <size key="intrinsicContentSize" width="62.5" height="19"/>
+            <size key="intrinsicContentSize" width="62.5" height="18.5"/>
         </designable>
         <designable name="p31-n3-9C6">
-            <size key="intrinsicContentSize" width="62.5" height="19"/>
+            <size key="intrinsicContentSize" width="62.5" height="18.5"/>
         </designable>
     </designables>
     <resources>
