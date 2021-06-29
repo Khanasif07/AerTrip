@@ -30,7 +30,8 @@ class TravellerListVC: BaseVC {
     @IBOutlet weak var headerDividerView: ATDividerView!
     @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var progressView: UIProgressView!
-    
+    @IBOutlet weak var topView: UIView!
+
     // MARK: - Variables
     
     private lazy var noTravEmptyView: EmptyScreenView = {
@@ -76,6 +77,9 @@ class TravellerListVC: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.topView.backgroundColor = AppColors.themeWhite
+        self.view.backgroundColor = AppColors.themeWhite
+        self.tableView.backgroundColor = AppColors.themeWhite
         self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
         self.progressView?.isHidden = true
         self.bottomBackgroundView.backgroundColor = AppColors.themeGray04
@@ -402,6 +406,7 @@ class TravellerListVC: BaseVC {
         
         travellerListHeaderView = TravellerListHeaderView.instanceFromNib()
         travellerListHeaderView.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: view.frame.size.width, height: 44)
+        travellerListHeaderView.backgroundColor = AppColors.themeWhite
         travellerListHeaderView.delegate = self
         travellerListHeaderView.bottomView.isHidden = true
         

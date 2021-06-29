@@ -492,6 +492,8 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
             headerView.headerLabel.text = ""
         }
        
+        headerView.headerLabel.textColor = AppColors.themeGray60
+        headerView.containerView.backgroundColor = AppColors.themeGray04SearchBar
         return headerView
     }
     
