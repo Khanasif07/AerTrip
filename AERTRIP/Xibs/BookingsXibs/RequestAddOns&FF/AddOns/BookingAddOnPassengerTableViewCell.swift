@@ -52,7 +52,7 @@ class BookingAddOnPassengerTableViewCell: ATTableViewCell {
         }
         self.passengerNameLabel.appendFixedText(text: passengerName, fixedText: age)
         if !age.isEmpty {
-            self.passengerNameLabel.AttributedFontColorForText(text: age, textColor: AppColors.themeGray40)
+            self.passengerNameLabel.AttributedFontColorForText(text: age, textColor: AppColors.themeGray153)
         }
     }
 }

@@ -168,7 +168,7 @@ extension HotelResultVC {
     
     
     
-    func createRepeatedFooterBaseView(backgroundColor: UIColor = AppColors.themeWhiteDashboard) -> UIView {// = 
+    func createRepeatedFooterBaseView(backgroundColor: UIColor = AppColors.themeWhiteDashboard) -> UIView {// =
         let baseView = UIView(frame: CGRect(x: 0 , y: 0, width: tableViewVertical.frame.width, height: 44))
         baseView.backgroundColor = backgroundColor
         let shadowProp = AppShadowProperties()
