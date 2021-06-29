@@ -282,6 +282,9 @@ enum AppColors {
     //(239, 242, 238)  (135, 135, 135)
     static let shimmerEffectLayerColor = UIColor(named: "shimmerEffectLayerColor") ?? UIColor(displayP3Red: 239.0/255, green: 242.0/255, blue: 238.0/255, alpha: 1)
     
+    //    (255, 255, 255, 0.7) (255, 255, 255, 0.3)
+        static let shimmerEffectColor = UIColor(named: "shimmerEffectColor") ?? .white
+    
     /// (clear) (49,49,49,1)
     static let flightsNavBackViewColor = UIColor(named: "flightsNavBackViewColor") ?? .white
     /// (1,105,79) (0,0,0)

@@ -568,9 +568,9 @@ extension UIView {
         
         
         let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [AppColors.themeWhite.withAlphaComponent(0).cgColor,
-                                AppColors.themeWhite.withAlphaComponent(0.7).cgColor,
-                                AppColors.themeWhite.withAlphaComponent(0).cgColor]
+        gradientLayer.colors = [AppColors.unicolorWhite.withAlphaComponent(0).cgColor,
+                                AppColors.shimmerEffectColor.cgColor,
+                                AppColors.unicolorWhite.withAlphaComponent(0).cgColor]
 
         gradientLayer.name = "loaderLayer"
         gradientLayer.startPoint = CGPoint(x: 0, y: 0)
