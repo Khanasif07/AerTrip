@@ -45,7 +45,7 @@ class HotelDetailsSearchTagTableCell: UITableViewCell {
         didSet {
             self.tagCollectionView.delegate = self
             self.tagCollectionView.dataSource = self
-            self.tagCollectionView.backgroundColor = AppColors.screensBackground.color
+            self.tagCollectionView.backgroundColor = AppColors.clear
             self.tagCollectionView.contentInset = UIEdgeInsets(top: 16.0, left: 16.0, bottom: 4.0, right: 16.0)
         }
     }
@@ -62,7 +62,9 @@ class HotelDetailsSearchTagTableCell: UITableViewCell {
     ///ConfigureUI
     private func configureUI() {
         //Color
-        self.containerView.backgroundColor = AppColors.screensBackground.color
+        self.containerView.backgroundColor = AppColors.clear
+        self.backgroundColor = AppColors.clear
+        
         //self.searchBarSetUp()
         searchBar.placeholder = LocalizedString.hotelFilterSearchBar.localized
         self.registerXibs()
