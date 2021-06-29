@@ -66,7 +66,7 @@ class HotelInfoAddressCell: UITableViewCell {
         // SetUps
 //        self.moreBtnContainerView.addGredient(isVertical: false, colors: [.white, UIColor.white.withAlphaComponent(0)])
         self.gradientView.backgroundColor = .clear
-        self.gradientView.addGredient(isVertical: false, colors: [UIColor.white.withAlphaComponent(0), UIColor.white])
+        self.gradientView.addGredient(isVertical: false, colors: [AppColors.themeBlack26.withAlphaComponent(0), AppColors.themeBlack26])
         self.moreBtnContainerView.isHidden = true
         
         // Color
@@ -125,6 +125,12 @@ class HotelInfoAddressCell: UITableViewCell {
         }
     }
     
+    func setColorsForBooking(){
+        self.contentView.backgroundColor = AppColors.themeBlack26
+        self.moreBtnOutlet.backgroundColor = AppColors.themeBlack26
+        self.moreBtnContainerView.backgroundColor = AppColors.themeBlack26
+        
+    }
  
     
     internal func configureAddressCell(hotelData: HotelDetails = HotelDetails(),isForBooking: Bool = false,address: String = "") {

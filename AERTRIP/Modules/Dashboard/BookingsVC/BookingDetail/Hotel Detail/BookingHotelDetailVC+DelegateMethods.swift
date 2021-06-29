@@ -110,6 +110,7 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
 //                roomTitle.append((self.viewModel.bookingDetail?.bookingDetail?.roomDetails[section - 1].voucher ?? ""))
 //            }
             headerView.configureHeader(roomTitle: roomTitle, roomType: self.viewModel.bookingDetail?.bookingDetail?.roomDetails[section - 1].roomType ?? "", roomDescription: self.viewModel.bookingDetail?.bookingDetail?.roomDetails[section - 1].description ?? "")
+            headerView.containerView.backgroundColor = AppColors.themeBlack26
             return headerView
         }
         
