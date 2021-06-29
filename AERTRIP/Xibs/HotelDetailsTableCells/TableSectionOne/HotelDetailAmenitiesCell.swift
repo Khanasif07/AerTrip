@@ -12,7 +12,7 @@ protocol HotelDetailAmenitiesCellDelegate: class {
     func viewAllButtonAction()
 }
 
-class HotelDetailAmenitiesCell: UITableViewCell {
+class HotelDetailAmenitiesCell : UITableViewCell {
 
     //Mark:- Variables
     //================
@@ -60,6 +60,10 @@ class HotelDetailAmenitiesCell: UITableViewCell {
         //Text Color
         self.amenitiesLabel.textColor = AppColors.themeBlack
         self.viewAllButtonOutlet.setTitleColor(AppColors.themeGreen, for: .normal)
+        
+        self.contentView.backgroundColor = AppColors.clear
+        self.backgroundColor = AppColors.clear
+        
         //Text SetUp
         self.amenitiesLabel.text = LocalizedString.Amenities.localized
         self.viewAllButtonOutlet.setTitle(LocalizedString.ViewAll.localized, for: .normal)

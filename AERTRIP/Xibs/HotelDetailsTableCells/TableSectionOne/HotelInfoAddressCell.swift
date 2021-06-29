@@ -73,6 +73,9 @@ class HotelInfoAddressCell: UITableViewCell {
         self.addressLabel.textColor = AppColors.themeBlack
         //self.deviderView.backgroundColor = AppColors.divider.color
         self.moreBtnOutlet.setTitleColor(AppColors.themeGreen, for: .normal)
+        self.backgroundColor = AppColors.clear
+        self.contentView.backgroundColor = AppColors.clear
+        
         
         // Size
         self.addressLabel.font = AppFonts.SemiBold.withSize(16.0)

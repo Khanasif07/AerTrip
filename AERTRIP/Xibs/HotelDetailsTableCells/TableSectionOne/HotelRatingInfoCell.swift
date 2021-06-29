@@ -48,6 +48,8 @@ class HotelRatingInfoCell: UITableViewCell {
         self.hotelNameLabel.textColor = AppColors.themeBlack
         self.distanceLabel.textColor = AppColors.themeGray60
         self.deviderView.backgroundColor = AppColors.divider.color
+        self.contentView.backgroundColor = AppColors.clear
+        self.backgroundColor = AppColors.clear
         
         //Size
         self.hotelNameLabel.font = AppFonts.SemiBold.withSize(22.0)
@@ -112,14 +114,6 @@ class HotelRatingInfoCell: UITableViewCell {
         }
     }
 
-//    func removeZeroAfterDecimal(_ number: Double)-> String{
-//        let formatter = NumberFormatter()
-//        formatter.minimumFractionDigits = 0
-//        formatter.maximumFractionDigits = 2
-//        return formatter.string(from: NSNumber(value: number)) ?? ""
-//    }
-    
-        
     internal func configureCell(hotelData: HotelSearched , placeData: PlaceModel?) {
 //        self.textSetUp(hotelName: hotelData.hotelName ?? "", distanceText: placeData.distanceText , durationValue: placeData.durationValue, starRating: hotelData.star, tripAdvisorRating: hotelData.rating)
         

@@ -57,8 +57,7 @@ class HotelDetailsVC: BaseVC {
         didSet {
             hotelTableView.delegate = self
             hotelTableView.dataSource = self
-            hotelTableView.backgroundColor = AppColors.themeGray04
-            
+            hotelTableView.backgroundColor = AppColors.themeWhiteDashboard
         }
     }
     @IBOutlet weak var headerView: TopNavigationView! {
@@ -66,6 +65,7 @@ class HotelDetailsVC: BaseVC {
             self.headerView.roundTopCorners(cornerRadius: 10.0)
         }
     }
+    
     @IBOutlet weak var smallLineView: UIView! {
         didSet {
             self.smallLineView.cornerradius = self.smallLineView.height/2.0
