@@ -92,7 +92,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
         FirebaseEventLogs.shared.logFlightDetailsEvent(with: .FlightDetailsFlightInfo)
 
     }
-    
+
     override func setupColors() {
         self.flightInfoTableView.backgroundColor = AppColors.themeGray04
         self.view.backgroundColor = AppColors.flightResultsFooterSecondaryColor

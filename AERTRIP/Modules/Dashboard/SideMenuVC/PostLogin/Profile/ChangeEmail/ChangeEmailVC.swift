@@ -102,6 +102,9 @@ class ChangeEmailVC: BaseVC {
         self.transparentBackView.transform = CGAffineTransform(translationX: 0, y: transparentBackView.height)
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
         self.verifyEmailView.isHidden = true
+        self.containerView.backgroundColor = AppColors.themeWhiteDashboard
+        self.emailView.backgroundColor = AppColors.themeWhiteDashboard
+        self.passwordView.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     private func transformViewToOriginalState() {
