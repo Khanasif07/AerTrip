@@ -34,7 +34,7 @@ class NotificationVC: BaseVC {
     override func setupColors() {
         self.titleLabel.textColor = AppColors.themeBlack
         self.subTiteLabel.textColor = AppColors.themeGray60
-        self.view.backgroundColor = AppColors.themeWhiteDashboard
+        self.view.backgroundColor = AppColors.themeBlack
     }
     
     
