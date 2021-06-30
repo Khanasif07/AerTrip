@@ -581,7 +581,9 @@ extension HotelResultVC {
         let scrollViewHeight = contentSize.height
         let viewHeight = self.view.frame.height
         
-        if scrollViewHeight < (viewHeight + visualEffectViewHeight) {
+        // added second or check as the table was jerking when trying to pull at the end
+        if scrollViewHeight < (viewHeight + visualEffectViewHeight) ||
+            (tableViewVertical.contentSize.height - tableViewVertical.contentOffset.y) < view.height {
             return
         }
         
