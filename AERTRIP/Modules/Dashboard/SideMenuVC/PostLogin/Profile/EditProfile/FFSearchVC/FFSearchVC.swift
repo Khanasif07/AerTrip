@@ -50,7 +50,7 @@ class FFSearchVC: BaseVC {
  
         searchBar.placeholder = LocalizedString.SearchAirlines.localized
         searchBar.delegate = self
-        
+        self.view.backgroundColor = AppColors.themeWhite
         doInitialSetUp()
         registerXib()
     }
@@ -71,6 +71,7 @@ class FFSearchVC: BaseVC {
     
     func doInitialSetUp() {
         
+//        self.view.backgroundColor = AppColors.themeWhite
         self.topNavView.delegate = self
         self.topNavView.firstLeftButtonLeadingConst.constant = 7.0
         self.topNavView.configureNavBar(title: LocalizedString.FrequentFlyer.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false)

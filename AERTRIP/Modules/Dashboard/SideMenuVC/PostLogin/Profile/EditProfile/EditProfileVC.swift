@@ -225,7 +225,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
        
         
         editProfileImageHeaderView = EditProfileImageHeaderView.instanceFromNib()
-        
+
         editProfileImageHeaderView.editButton.isHidden = (self.viewModel.paxId != UserInfo.loggedInUser?.paxId)
         editProfileImageHeaderView.editButton.isHidden =  false
         editProfileImageHeaderView.delegate = self
@@ -454,6 +454,10 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
             }
         }
         
+        
+        editProfileImageHeaderView.backgroundColor = AppColors.themeBlack26
+        editProfileImageHeaderView.firstNameTextField.textColor = AppColors.themeBlack
+        editProfileImageHeaderView.lastNameTextField.textColor = AppColors.themeBlack
         viewModel.seat = travel.preferences.seat.value
         viewModel.meal = travel.preferences.meal.name
         editProfileImageHeaderView.groupLabel.text = travel.label.isEmpty ? "Others" : travel.label.capitalizedFirst()

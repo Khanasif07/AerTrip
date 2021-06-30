@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -166,7 +166,7 @@
                                             </constraints>
                                         </view>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstItem="VLK-QA-oW2" firstAttribute="centerY" secondItem="hru-XK-TG8" secondAttribute="centerY" id="2wx-kn-Tud"/>
                                         <constraint firstItem="VGe-og-Xhe" firstAttribute="centerY" secondItem="VLK-QA-oW2" secondAttribute="centerY" id="HfC-Dm-MNq"/>
@@ -176,7 +176,7 @@
                                     </constraints>
                                 </view>
                             </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstItem="hru-XK-TG8" firstAttribute="top" secondItem="7fn-aW-4Me" secondAttribute="bottom" id="4Oq-bk-ron"/>
                                 <constraint firstItem="7xs-3o-QIb" firstAttribute="leading" secondItem="UMr-KD-giJ" secondAttribute="leading" constant="16" id="BdV-oc-e9q"/>
@@ -354,7 +354,7 @@
                                     </subviews>
                                 </stackView>
                             </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="Ywd-VP-iKN" secondAttribute="trailing" id="DJQ-mq-rPs"/>
                                 <constraint firstItem="Ywd-VP-iKN" firstAttribute="top" secondItem="bzw-i0-KZU" secondAttribute="top" id="E2C-oA-baC"/>
@@ -363,7 +363,7 @@
                             </constraints>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="bzw-i0-KZU" secondAttribute="trailing" id="2zQ-Mw-oZX"/>
                         <constraint firstItem="UMr-KD-giJ" firstAttribute="top" secondItem="7WK-Gu-nru" secondAttribute="top" constant="10" id="55O-V0-F62"/>
