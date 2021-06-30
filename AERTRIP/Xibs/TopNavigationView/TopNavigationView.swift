@@ -108,7 +108,7 @@ class TopNavigationView: PassthroughView {
         self.navTitleLabel.font = AppFonts.SemiBold.withSize(18.0)
         self.isToShowIndicatorView = false
         self.configureNavBar(title: "")
-        darkView.backgroundColor = AppColors.themeWhite
+        darkView.backgroundColor = AppColors.themeWhiteDashboard
         updateForTraitChange()
         darkView.isHidden = true
         
