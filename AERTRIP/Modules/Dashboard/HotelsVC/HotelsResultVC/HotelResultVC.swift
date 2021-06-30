@@ -78,7 +78,7 @@ class HotelResultVC: BaseVC {
     // Searching View
     @IBOutlet weak var hotelSearchView: UIView! {
         didSet {
-            self.hotelSearchView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.4)
+            self.hotelSearchView.backgroundColor = UIColor.black.withAlphaComponent(0.4)
             self.hotelSearchView.isUserInteractionEnabled = true
         }
     }
