@@ -46,6 +46,8 @@ class AddAddressTableViewCell: UITableViewCell {
     @IBOutlet weak var postalCodeSeparator: ATDividerView!
     @IBOutlet weak var stateSeparator: ATDividerView!
     
+    @IBOutlet weak var dataDisplayView: UIView!
+
     // MARK: - Variables
     weak var delegate:AddAddressTableViewCellDelegate?
     
@@ -61,6 +63,16 @@ class AddAddressTableViewCell: UITableViewCell {
       //self.cellDividerView.defaultHeight = 1.0
         hideSepratorView = true
         seperatorView.backgroundColor = AppColors.greyO4
+        dataDisplayView.backgroundColor = AppColors.themeBlack26
+        addressTypeTextField.textColor = AppColors.themeBlack
+        addressTypeLabel.textColor = AppColors.themeBlack
+        addressLineOneTextField.textColor = AppColors.themeBlack
+        addressLineTwoTextField.textColor = AppColors.themeBlack
+        cityTextField.textColor = AppColors.themeBlack
+        postalCodeTextField.textColor = AppColors.themeBlack
+        stateTextField.textColor = AppColors.themeBlack
+        countryLabel.textColor = AppColors.themeBlack
+
     }
     
     
