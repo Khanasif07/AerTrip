@@ -28,7 +28,7 @@ class PaymentPendingTableViewCell: UITableViewCell {
         self.priceLabel.font = AppFonts.Regular.withSize(20.0)
         
         //Color
-        self.priceLabel.textColor = AppColors.themeWhite
+        self.priceLabel.textColor = AppColors.unicolorWhite
     }
     
     override func layoutSubviews() {
@@ -56,7 +56,7 @@ class PaymentPendingTableViewCell: UITableViewCell {
     
     internal func configCell(price: Double) {
         let attributedString = NSMutableAttributedString()
-        let textAttribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(20.0), NSAttributedString.Key.foregroundColor: AppColors.themeWhite] as [NSAttributedString.Key : Any]
+        let textAttribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(20.0), NSAttributedString.Key.foregroundColor: AppColors.unicolorWhite] as [NSAttributedString.Key : Any]
         //let priceAttribute = [NSAttributedString.Key.font: AppFonts.SemiBold.withSize(20.0), NSAttributedString.Key.foregroundColor: AppColors.themeWhite]
         let text = price > 0 ? LocalizedString.PaymentPending.localized :LocalizedString.AmountToBeRefunded.localized
         let textAttributedString = NSAttributedString(string: text, attributes: textAttribute)
@@ -81,7 +81,7 @@ class PaymentPendingTableViewCell: UITableViewCell {
     
     internal func configCurrencyChange(price: Double, attPrice: NSMutableAttributedString) {
         let attributedString = NSMutableAttributedString()
-        let textAttribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(20.0), NSAttributedString.Key.foregroundColor: AppColors.themeWhite] as [NSAttributedString.Key : Any]
+        let textAttribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(20.0), NSAttributedString.Key.foregroundColor: AppColors.unicolorWhite] as [NSAttributedString.Key : Any]
         let text = price > 0 ? LocalizedString.PaymentPending.localized :LocalizedString.AmountToBeRefunded.localized
         let textAttributedString = NSAttributedString(string: text, attributes: textAttribute)
         let drAttr = NSMutableAttributedString(string: " \(LocalizedString.DebitShort.localized)", attributes: [.font: AppFonts.SemiBold.withSize(20.0)])

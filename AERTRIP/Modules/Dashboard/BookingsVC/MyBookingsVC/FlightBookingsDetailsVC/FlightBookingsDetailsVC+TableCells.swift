@@ -84,7 +84,7 @@ extension FlightBookingsDetailsVC {
 //
         cell.configCell(carriers: leg?.carriers ?? [], carrierCode: leg?.carrierCodes ?? [], flightNumbers: leg?.flightNumbers ?? [])
         // cell.configCell(carriers: tempCarrier, carrierCode: carrierCodes, flightNumbers: flightNumbers)
-        
+        cell.contentView.backgroundColor = AppColors.themeWhite
         cell.clipsToBounds = true
         return cell
     }
@@ -97,6 +97,7 @@ extension FlightBookingsDetailsVC {
         
         cell.noOfStops = leg?.numberOfStop ?? 0
         cell.clipsToBounds = true
+        cell.contentView.backgroundColor = AppColors.themeWhite
         return cell
     }
     
@@ -108,6 +109,7 @@ extension FlightBookingsDetailsVC {
         let paxCount = self.viewModel.bookingDetail?.bookingDetail?.leg[indexPath.section - self.viewModel.noOfLegCellAboveLeg].pax.count ?? 0
         cell.configCell(title: paxCount > 1 ? LocalizedString.Travellers.localized : LocalizedString.Traveller.localized, titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, isFirstCell: false, price: "PNR/Status", isLastCell: false, cellHeight: 38.0)
         cell.clipsToBounds = true
+        cell.contentView.backgroundColor = AppColors.themeWhite
         return cell
     }
     
@@ -127,6 +129,7 @@ extension FlightBookingsDetailsVC {
         }
         cell.configCell(travellersImage: traveller?.profileImage ?? "", travellerName: traveller?.paxName ?? "", travellerPnrStatus: traveller?.status == "booked" ? traveller?.pnr ?? "" : traveller?.status.capitalizedFirst() ?? "", firstName: traveller?.firstName ?? "", lastName: traveller?.lastName ?? "", isLastTraveller: indexPath.row - 2 == leg?.pax.count,paxType: traveller?.paxType ?? "", dob: traveller?.dob ?? "", salutation: traveller?.salutation ?? "")
         cell.clipsToBounds = true
+        cell.contentView.backgroundColor = AppColors.themeWhite
         return cell
     }
     
@@ -181,6 +184,7 @@ extension FlightBookingsDetailsVC {
         
 //        cell.configCell(title: LocalizedString.Booking.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(self.viewModel.bookingDetail?.bookingPrice ?? 0)", isLastCell: false)
         cell.clipsToBounds = true
+        cell.contentView.backgroundColor = AppColors.themeWhite
         return cell
     }
     
@@ -218,6 +222,7 @@ extension FlightBookingsDetailsVC {
         cell.containerViewBottomConstraint.constant = (isCellLast) ? 21.0 : 0.0
         cell.clipsToBounds = isCellLast
         cell.dividerView.isHidden = false
+        cell.contentView.backgroundColor = AppColors.themeWhite
         return cell
     }
     
@@ -236,6 +241,7 @@ extension FlightBookingsDetailsVC {
         
 //        cell.configCell(title: LocalizedString.AddOns.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(self.viewModel.bookingDetail?.addOnAmount ?? 0)", isLastCell: false, cellHeight: 30.0)
         cell.clipsToBounds = true
+        cell.contentView.backgroundColor = AppColors.themeWhite
         return cell
     }
     
@@ -252,6 +258,7 @@ extension FlightBookingsDetailsVC {
         
 //        cell.configCell(title: LocalizedString.Cancellation.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(self.viewModel.bookingDetail?.cancellationChargeAmount ?? 0)", isLastCell: false, cellHeight: 37.0)
         cell.clipsToBounds = true
+        cell.contentView.backgroundColor = AppColors.themeWhite
         return cell
     }
     
@@ -266,6 +273,7 @@ extension FlightBookingsDetailsVC {
         cell.configCellForAmount(title: LocalizedString.Rescheduling.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: attAmount, priceInRupee: amount, isLastCell: false, cellHeight: 37.0)
         
         cell.clipsToBounds = true
+        cell.contentView.backgroundColor = AppColors.themeWhite
         return cell
     }
     
@@ -298,6 +306,7 @@ extension FlightBookingsDetailsVC {
         cell.containerViewBottomConstraint.constant = (isCellLast) ? 21.0 : 0.0
         cell.clipsToBounds = isCellLast
         cell.dividerView.isHidden = false
+        cell.contentView.backgroundColor = AppColors.themeWhite
         return cell
     }
     
@@ -310,6 +319,7 @@ extension FlightBookingsDetailsVC {
         cell.configCurrencyChange(price: price, attPrice: attPrice)
 //        cell.configCell(price: self.viewModel.bookingDetail?.totalOutStanding ?? 0.0)
         cell.clipsToBounds = true
+        cell.contentView.backgroundColor = AppColors.themeWhite
         return cell
     }
     
