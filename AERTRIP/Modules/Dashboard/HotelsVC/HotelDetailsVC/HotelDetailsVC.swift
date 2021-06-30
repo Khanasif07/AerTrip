@@ -57,7 +57,7 @@ class HotelDetailsVC: BaseVC {
         didSet {
             hotelTableView.delegate = self
             hotelTableView.dataSource = self
-            hotelTableView.backgroundColor = AppColors.themeWhiteDashboard
+            hotelTableView.backgroundColor = AppColors.themeGray04
         }
     }
     @IBOutlet weak var headerView: TopNavigationView! {

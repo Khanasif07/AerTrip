@@ -158,11 +158,11 @@ class LinkedAccountsTableCell: UITableViewCell {
     private func setupForGoogle() {
         self.connectButton.isHidden = false
 //        self.buttonBackgroundView.addShadow(cornerRadius: self.connectButton.height/2.0, shadowColor: AppColors.themeBlack, backgroundColor: AppColors.themeWhite, offset: CGSize(width: -1.0, height: 1.0))
-        self.connectButton.gradientColors = [AppColors.themeWhite, AppColors.themeWhite]
+        self.connectButton.gradientColors = [AppColors.unicolorWhite, AppColors.unicolorWhite]
         self.connectButton.setTitle(LocalizedString.ConnectWithGoogle.localized, for: .normal)
         self.connectButton.setTitle(LocalizedString.ConnectWithGoogle.localized, for: .selected)
-        self.connectButton.setTitleColor(AppColors.themeBlack, for: .normal)
-        self.connectButton.setTitleColor(AppColors.themeBlack, for: .selected)
+        self.connectButton.setTitleColor(AppColors.unicolorBlack, for: .normal)
+        self.connectButton.setTitleColor(AppColors.unicolorBlack, for: .selected)
         self.connectButton.setTitleFont(font: AppFonts.SemiBold.withSize(16.0), for: .normal)
         self.connectButton.setImage(AppImages.googleLogoImage.withRenderingMode(.alwaysOriginal), for: .normal)
         self.connectButton.setImage(AppImages.googleLogoImage.withRenderingMode(.alwaysOriginal), for: .selected)

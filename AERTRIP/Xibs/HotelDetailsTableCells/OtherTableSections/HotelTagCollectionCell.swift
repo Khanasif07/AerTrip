@@ -32,8 +32,8 @@ class HotelTagCollectionCell: UICollectionViewCell {
     
     ///ConfigureUI
     private func configureUI() {
-        self.backgroundColor = AppColors.clear
-        self.contentView.backgroundColor = AppColors.clear
+//        self.backgroundColor = AppColors.clear
+//        self.contentView.backgroundColor = AppColors.clear
         self.containerView.layer.cornerRadius = 14.0
         self.containerView.layer.borderWidth = 0.6
         self.containerView.layer.masksToBounds = true

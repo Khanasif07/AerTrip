@@ -49,6 +49,7 @@ class HotelInfoAddressCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        self.configureUI()
         self.moreBtnOutlet.isUserInteractionEnabled = true
         addressInfoTextView.textContainer.lineBreakMode = .byTruncatingTail
     }
@@ -59,6 +60,7 @@ class HotelInfoAddressCell: UITableViewCell {
         self.addressInfoTextView.textContainerInset = UIEdgeInsets.zero
         self.addressInfoTextView.textContainer.lineFragmentPadding = 0.0
         self.configureUI()
+        self.addGestures()
     }
     
     /// COnfigure UI
@@ -85,7 +87,9 @@ class HotelInfoAddressCell: UITableViewCell {
         // Text
         self.moreBtnOutlet.setTitle(LocalizedString.More.localized, for: .normal)
         
-        
+    }
+    
+    private func addGestures(){
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressTapped))
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(textViewTapped))
         self.addressInfoTextView.isUserInteractionEnabled = true
@@ -128,7 +132,7 @@ class HotelInfoAddressCell: UITableViewCell {
     func setColorsForBooking(){
         self.contentView.backgroundColor = AppColors.themeBlack26
         self.moreBtnOutlet.backgroundColor = AppColors.themeBlack26
-        self.moreBtnContainerView.backgroundColor = AppColors.themeBlack26
+//        self.moreBtnContainerView.backgroundColor = AppColors.themeBlack26
         
     }
  

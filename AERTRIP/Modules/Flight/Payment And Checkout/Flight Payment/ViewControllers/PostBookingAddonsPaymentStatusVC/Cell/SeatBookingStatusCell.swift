@@ -27,6 +27,12 @@ class SeatBookingStatusCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configUI()
+        self.setColor()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.setColor()
     }
     
     //Mark:- Functions
@@ -44,7 +50,9 @@ class SeatBookingStatusCell: UITableViewCell {
         
     }
     
-    
+    private func setColor(){
+        self.contentView.backgroundColor = AppColors.themeBlack26
+    }
     
     ///AttributeLabelSetup
     //Congratulations, your seat booking is successful.

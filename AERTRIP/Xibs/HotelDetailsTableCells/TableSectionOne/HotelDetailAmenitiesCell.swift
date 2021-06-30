@@ -61,8 +61,8 @@ class HotelDetailAmenitiesCell : UITableViewCell {
         self.amenitiesLabel.textColor = AppColors.themeBlack
         self.viewAllButtonOutlet.setTitleColor(AppColors.themeGreen, for: .normal)
         
-        self.contentView.backgroundColor = AppColors.clear
-        self.backgroundColor = AppColors.clear
+//        self.contentView.backgroundColor = AppColors.clear
+//        self.backgroundColor = AppColors.clear
         
         //Text SetUp
         self.amenitiesLabel.text = LocalizedString.Amenities.localized

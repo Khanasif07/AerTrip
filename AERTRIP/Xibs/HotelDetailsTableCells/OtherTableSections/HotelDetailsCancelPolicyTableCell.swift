@@ -74,7 +74,7 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
     /// Asif Change
     private func attributeLabelSetUp( roomPrice: Double , toDate: String, fromDate: String, penalty: Double) {
         let attributedString = NSMutableAttributedString()
-        let orangeAtrribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(16.0), NSAttributedString.Key.foregroundColor: AppColors.themeOrange]
+        let orangeAtrribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(16.0), NSAttributedString.Key.foregroundColor: AppColors.cheapestPriceColor]
         let blackAttribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(16.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack] as [NSAttributedString.Key : Any]
         var startingDate: String = ""
         var endingDate: String = ""

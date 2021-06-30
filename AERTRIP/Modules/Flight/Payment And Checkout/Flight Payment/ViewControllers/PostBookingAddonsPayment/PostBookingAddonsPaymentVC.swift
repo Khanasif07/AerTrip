@@ -73,6 +73,7 @@ class PostBookingAddonsPaymentVC: BaseVC{
     
     override func initialSetup() {
         super.initialSetup()
+        self.view.backgroundColor = AppColors.themeWhite
         self.payButton.addGredient(isVertical: false)
     }
     
@@ -553,6 +554,7 @@ extension PostBookingAddonsPaymentVC{
             cell.infantCountDisplayView.isHidden = true
             cell.infantCountDisplayViewWidth.constant = 0
             cell.infantCountLabel.text = ""
+            cell.backView.backgroundColor = AppColors.themeBlack26
             return cell
         default:
             return UITableViewCell()
