@@ -158,6 +158,10 @@ class HotelDetailsVC: BaseVC {
     override func setupColors() {
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.hotelTableView.reloadData()
+    }
     
     override func currencyChanged(_ note: Notification) {
         self.hotelTableView.reloadData()
