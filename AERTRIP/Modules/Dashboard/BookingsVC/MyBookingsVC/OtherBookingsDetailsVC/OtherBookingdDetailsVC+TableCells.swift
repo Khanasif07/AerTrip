@@ -94,6 +94,7 @@ extension OtherBookingsDetailsVC {
         
 //        cell.configCell(title: LocalizedString.Booking.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(amount)", isLastCell: false)
         cell.clipsToBounds = true
+        cell.contentView.backgroundColor = AppColors.themeWhite
         return cell
     }
     
@@ -124,6 +125,7 @@ extension OtherBookingsDetailsVC {
         
  
         cell.clipsToBounds = true
+        cell.contentView.backgroundColor = AppColors.themeWhite
         return cell
     }
     
