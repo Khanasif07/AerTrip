@@ -33,6 +33,8 @@ extension HotelCheckoutDetailVC {
         if let hotelDetails = self.viewModel, let placeData = self.placeModel {
             cell.configHCDetailsCell(hotelData: hotelDetails, placeData: placeData)
         }
+        cell.containerView.backgroundColor = AppColors.themeBlack26
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -40,7 +42,7 @@ extension HotelCheckoutDetailVC {
         guard let cell = self.hotelDetailsTableView.dequeueReusableCell(withIdentifier: "HotelInfoAddressCell", for: indexPath) as? HotelInfoAddressCell  else { return UITableViewCell() }
         cell.addressInfoTextView.isUserInteractionEnabled = false
         cell.configureAddressCell(hotelData: hotelDetails)
-
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -48,6 +50,7 @@ extension HotelCheckoutDetailVC {
         guard let cell = self.hotelDetailsTableView.dequeueReusableCell(withIdentifier: "HotelInfoAddressCell", for: indexPath) as? HotelInfoAddressCell  else { return UITableViewCell() }
         cell.configureOverviewCell(hotelData: hotelDetails)
         cell.addressInfoTextView.isUserInteractionEnabled = false
+        cell.setColorsForBooking()
         return cell
     }
     
@@ -62,11 +65,13 @@ extension HotelCheckoutDetailVC {
             cell.dividerViewLeadingCons.constant = 0.0
             cell.dividerViewTrailingCons.constant = 0.0
         }
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
     internal func getTripAdviserCell(indexPath: IndexPath) -> UITableViewCell {
         guard let cell = self.hotelDetailsTableView.dequeueReusableCell(withIdentifier: "TripAdvisorTableViewCell", for: indexPath) as? TripAdvisorTableViewCell  else { return UITableViewCell() }
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -115,6 +120,7 @@ extension HotelCheckoutDetailVC {
 //        cell.bookmarkButtonOutlet.isHidden = true
 //        cell.deviderView.isHidden = false
 //        cell.clipsToBounds = true
+        cell.containerView.backgroundColor = AppColors.themeWhiteDashboard
         return cell
     }
     
@@ -123,11 +129,13 @@ extension HotelCheckoutDetailVC {
             guard let cell = self.hotelDetailsTableView.dequeueReusableCell(withIdentifier: "HotelDetailsInclusionTableViewCell", for: indexPath) as? HotelDetailsInclusionTableViewCell  else { return nil }
             cell.configureCell(ratesData: ratesData)
             cell.clipsToBounds = true
+            cell.containerView.backgroundColor = AppColors.themeWhiteDashboard
             return cell
         } else if let internetInclusion =  ratesData.inclusion_array[APIKeys.internet.rawValue] as? [String], !internetInclusion.isEmpty {
             guard let cell = self.hotelDetailsTableView.dequeueReusableCell(withIdentifier: "HotelDetailsInclusionTableViewCell", for: indexPath) as? HotelDetailsInclusionTableViewCell  else { return nil }
             cell.configureCell(ratesData: ratesData)
             cell.clipsToBounds = true
+            cell.containerView.backgroundColor = AppColors.themeWhiteDashboard
             return cell
         }
         return nil
@@ -144,6 +152,7 @@ extension HotelCheckoutDetailVC {
             }
             cell.configureOtherInclusionCell(otherInclusion: otherInclusion, isInclusionPresent: isInclusionPresent)
             cell.clipsToBounds = true
+            cell.containerView.backgroundColor = AppColors.themeWhiteDashboard
             return cell
         }
         return nil
@@ -168,6 +177,7 @@ extension HotelCheckoutDetailVC {
             cell.shadowViewBottomConstraints.constant = 0.0
             cell.containerView.layer.cornerRadius = 0
             cell.containerView.layer.maskedCorners = []
+            cell.containerView.backgroundColor = AppColors.themeWhiteDashboard
             return cell
         }
         return nil
@@ -191,6 +201,7 @@ extension HotelCheckoutDetailVC {
             cell.containerView.layer.cornerRadius = 10
             cell.containerView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
             cell.clipsToBounds = true
+            cell.containerView.backgroundColor = AppColors.themeWhiteDashboard
             return cell
         }
         
@@ -200,11 +211,14 @@ extension HotelCheckoutDetailVC {
     internal func getCheckInOutCell(_ tableView: UITableView, indexPath: IndexPath, hotelDetails: HotelDetails) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HCCheckInOutTableViewCell.reusableIdentifier, for: indexPath) as? HCCheckInOutTableViewCell else { return nil }
         cell.configCell(checkInDate: hotelDetails.checkin, checkOutDate: hotelDetails.checkout, totalNights: hotelDetails.no_of_nights)
+        cell.containerView.backgroundColor = AppColors.themeBlack26
+        cell.nightsContainerView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
     internal func getRoomCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HCRoomTableViewCell.reusableIdentifier, for: indexPath) as? HCRoomTableViewCell else { return nil }
+        cell.cntainerView.backgroundColor = AppColors.themeGray04
         return cell
     }
 }
