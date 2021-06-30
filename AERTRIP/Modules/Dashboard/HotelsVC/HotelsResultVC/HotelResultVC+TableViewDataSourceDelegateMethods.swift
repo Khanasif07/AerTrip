@@ -13,16 +13,16 @@ import Foundation
 // MARK: -
 
 extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
+    
     func manageViewForSearchAndFilterMode() {
         
         let count = self.viewModel.fetchedResultsController.fetchedObjects?.count ?? 0
+     
         if (self.viewModel.fetchRequestType == .FilterApplied), count <= 0 {
-            //self.hotelSearchView.isHidden = false
             self.tableViewVertical.backgroundView = noHotelFoundOnFilterEmptyView
             self.noHotelFoundOnFilter()
             self.manageFloatingView(isHidden: true)
-        }
-        else if (self.viewModel.fetchRequestType == .Searching) {
+        } else if (self.viewModel.fetchRequestType == .Searching) {
             self.manageFloatingView(isHidden: true)
             self.hotelSearchView.isHidden = !searchBar.isFirstResponder//false
             self.hotelSearchTableView.backgroundView = self.noResultemptyView
@@ -31,26 +31,24 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
             if !self.viewModel.searchedHotels.isEmpty {
                 self.hotelSearchTableView.backgroundView?.isHidden = true
                 self.tableViewVertical.backgroundView?.isHidden = true
-            }
-            else {
+            } else {
                 self.hotelSearchTableView.backgroundView?.isHidden = (self.viewModel.searchTextStr.isEmpty && self.viewModel.searchedHotels.isEmpty)
                 self.tableViewVertical.backgroundView?.isHidden = (self.viewModel.searchTextStr.isEmpty && self.viewModel.searchedHotels.isEmpty)
-
             }
+            
             if !searchBar.isFirstResponder && !self.viewModel.searchedHotels.isEmpty {
                 manageFloatingView(isHidden: false)
             } else {
                 manageFloatingView(isHidden: true)
             }
-        }
-        else if (self.viewModel.fetchRequestType == .normalInSearching) {
+            
+        } else if (self.viewModel.fetchRequestType == .normalInSearching) {
             self.viewModel.searchedHotels.removeAll()
             self.hotelSearchView.isHidden = false
             hotelSearchTableView.backgroundColor = AppColors.clear
             self.hotelSearchTableView.backgroundView?.isHidden = true
             manageFloatingView(isHidden: true)
-        }
-        else {
+        } else {
             self.dataFounOnFilter()
             self.hotelSearchView.isHidden = true
             self.tableViewVertical.backgroundView = nil
