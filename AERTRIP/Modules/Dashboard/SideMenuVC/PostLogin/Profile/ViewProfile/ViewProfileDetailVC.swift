@@ -493,7 +493,7 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
         }
        
         headerView.headerLabel.textColor = AppColors.themeGray60
-        headerView.containerView.backgroundColor = AppColors.themeGray04SearchBar
+        headerView.containerView.backgroundColor = AppColors.flightFilterSessionDefaultColor
         return headerView
     }
     
