@@ -112,44 +112,4 @@ class SelectMealCell: UITableViewCell {
         
     }
     
-//    func populateData(data : Addons, index : Int){
-//        let price = "₹ \(data.salePrice)"
-//        self.priceLabel.text = price
-//        self.priceLabelWidth.constant = price.getTextWidth(height: 21, font: AppFonts.Regular.withSize(18))
-//        self.mealTitleLabel.text = data.serviceName
-//
-//        if data.mealsSelectedFor.isEmpty {
-//            self.mealForLabel.text = ""
-//            self.mealForLabelTop.constant = 0
-//            self.quantityLabel.isHidden = true
-//        }else{
-//            self.mealForLabelTop.constant = 2
-//            let allNamesArray = data.mealsSelectedFor.map { (contact) -> String in
-//                return contact.firstName
-//            }
-//            let conaSaperatedNames = allNamesArray.joined(separator: ", ")
-//            self.mealForLabel.text = "For \(conaSaperatedNames)"
-//            self.quantityLabel.text = "X\(data.mealsSelectedFor.count)"
-//            self.quantityLabel.isHidden = false
-//        }
-//
-//        if index == 3 {
-//            self.mealAutoSelectedForLabel.text = "Auto Selected for DEL → HYD"
-//               self.mealAutoSelectedTop.constant = 11
-//               autoSelectionBackView.isHidden = false
-//            }else if index == 4 {
-//
-//                           self.mealAutoSelectedForLabel.text = ""
-//
-//                       self.mealAutoSelectedTop.constant = 0
-//                       autoSelectionBackView.isHidden = true
-//        }else {
-//
-//                     self.mealAutoSelectedForLabel.text = ""
-//                      self.mealAutoSelectedTop.constant = 0
-//                      autoSelectionBackView.isHidden = true
-//        }
-//
-//    }
-    
 }

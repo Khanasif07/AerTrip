@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -47,7 +46,7 @@
                                                                 </connections>
                                                             </button>
                                                         </subviews>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="44" id="E4H-IK-now"/>
                                                             <constraint firstAttribute="trailing" secondItem="FqT-MO-gqr" secondAttribute="trailing" id="FkK-ZM-3Nz"/>
@@ -225,6 +224,7 @@
                 <outlet property="cancellationChargeLabel" destination="oDM-Hr-iD9" id="Vmj-Lg-FNa"/>
                 <outlet property="cancellationChargeStackView" destination="0A5-aa-Xk6" id="pYx-JD-qnt"/>
                 <outlet property="cancellationChargeValueLabel" destination="Lpl-x6-Y88" id="y0u-XS-gtO"/>
+                <outlet property="containerView" destination="Ktz-xk-5Ps" id="ZZh-Xi-bXV"/>
                 <outlet property="detailView" destination="5q0-oW-NsX" id="3vx-PC-gut"/>
                 <outlet property="headerDividerView" destination="CC2-tq-crd" id="tHp-9h-GAB"/>
                 <outlet property="headerView" destination="kzZ-Oe-SUP" id="b0u-Tb-OaU"/>
@@ -248,8 +248,5 @@
         <image name="CheckedGreenRadioButton" width="22" height="22"/>
         <image name="UncheckedGreenRadioButton" width="22" height="22"/>
         <image name="downArrowCheckOut" width="20" height="20"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>

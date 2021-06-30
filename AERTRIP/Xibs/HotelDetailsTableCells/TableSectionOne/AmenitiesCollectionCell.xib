@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -22,13 +22,14 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6Pw-va-1KO">
                                 <rect key="frame" x="8" y="8" width="24" height="24"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="6Pw-va-1KO" secondAttribute="height" multiplier="1:1" id="B1x-yu-aFE"/>
                                     <constraint firstAttribute="height" constant="24" id="aqu-iU-5jS"/>
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="6Pw-va-1KO" firstAttribute="centerX" secondItem="LzA-ih-Y41" secondAttribute="centerX" id="PMU-04-vOP"/>
                             <constraint firstItem="6Pw-va-1KO" firstAttribute="centerY" secondItem="LzA-ih-Y41" secondAttribute="centerY" id="tSa-Jf-kYO"/>
@@ -36,13 +37,13 @@
                     </view>
                 </subviews>
             </view>
+            <viewLayoutGuide key="safeArea" id="t2V-kY-O6G"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="LzA-ih-Y41" secondAttribute="bottom" id="Hsp-a8-SZY"/>
                 <constraint firstItem="LzA-ih-Y41" firstAttribute="top" secondItem="P0N-qo-UEX" secondAttribute="top" id="MUe-wW-6gz"/>
                 <constraint firstItem="LzA-ih-Y41" firstAttribute="leading" secondItem="P0N-qo-UEX" secondAttribute="leading" id="Zpk-ui-yeX"/>
                 <constraint firstAttribute="trailing" secondItem="LzA-ih-Y41" secondAttribute="trailing" id="rFf-hC-O1R"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="t2V-kY-O6G"/>
             <size key="customSize" width="146" height="104"/>
             <connections>
                 <outlet property="amenitiesImageView" destination="6Pw-va-1KO" id="jA4-vS-Wv5"/>

@@ -26,8 +26,14 @@ extension HotelResultVC {
         tapGesture.numberOfTapsRequired = 1
         groupedFooterView.addGestureRecognizer(tapGesture)
         
+        let footerBackgroundColor = [AppColors.themeWhiteDashboard, AppColors.flightResultsFooterSecondaryColor, AppColors.flightResultsFooterThirdColor]
+        
         for count in 1...numberOfView {
-            let baseView = createRepeatedFooterBaseView()
+            var backgroundColor = AppColors.themeWhiteDashboard
+            if let color = footerBackgroundColor[safe: count - 1]{
+                backgroundColor = color
+            }
+            let baseView = createRepeatedFooterBaseView(backgroundColor: backgroundColor)
             
             baseView.frame = CGRect(x: (8 * count) ,y: (10 + 6 * count) - 8 ,width: (Int(groupedFooterView.frame.width) - (16 * count))  ,height:44)
             groupedFooterView.addSubview(baseView)
@@ -162,17 +168,11 @@ extension HotelResultVC {
     
     
     
-    func createRepeatedFooterBaseView() -> UIView {
+    func createRepeatedFooterBaseView(backgroundColor: UIColor = AppColors.themeWhiteDashboard) -> UIView {// =
         let baseView = UIView(frame: CGRect(x: 0 , y: 0, width: tableViewVertical.frame.width, height: 44))
-        baseView.backgroundColor = .white
-//            baseView.layer.cornerRadius = 5.0
-//            baseView.layer.shadowColor = UIColor.black.cgColor
-//            baseView.layer.shadowOpacity = 0.1
-//            baseView.layer.shadowRadius = 8.0
-//            baseView.layer.shadowOffset = CGSize(width: 0, height: 2)
+        baseView.backgroundColor = backgroundColor
         let shadowProp = AppShadowProperties()
         baseView.addShadow(cornerRadius: shadowProp.cornerRadius/2, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: shadowProp.shadowColor, offset: shadowProp.offset, opacity: shadowProp.opecity, shadowRadius: shadowProp.shadowRadius)
-//            baseView.addShadow(cornerRadius: 5.0, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize(width: 0, height: 2), opacity: 0.1, shadowRadius: 8.0)
         return baseView
     }
     

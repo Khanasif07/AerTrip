@@ -23,7 +23,7 @@ class BookingRequestRouteTableViewCell: ATTableViewCell {
     
     override func setupColors() {
         self.routeLabel.textColor = AppColors.themeBlack
-        self.routeIdLabel.textColor = AppColors.themeGray40
+        self.routeIdLabel.textColor = AppColors.themeGray153
     }
 
     func configure(title: String, detail: String) {

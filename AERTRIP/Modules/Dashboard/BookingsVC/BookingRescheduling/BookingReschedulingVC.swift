@@ -105,12 +105,13 @@ class BookingReschedulingVC: BaseVC {
     
     override func setupColors() {
         if (self.viewModel.legsData.first?.selectedPaxs.count == 0){//checked for pre selcted.
-            self.continueButton.setTitleColor(AppColors.themeWhite.withAlphaComponent(0.5), for: .normal)
-            self.continueButton.setTitleColor(AppColors.themeWhite.withAlphaComponent(0.5), for: .selected)
+            self.continueButton.setTitleColor(AppColors.unicolorWhite.withAlphaComponent(0.5), for: .normal)
+            self.continueButton.setTitleColor(AppColors.unicolorWhite.withAlphaComponent(0.5), for: .selected)
         }
         self.passengerLabel.textColor = AppColors.textFieldTextColor51
         self.totalNetRefundLabel.textColor = AppColors.themeBlack
         self.totalPriceLabel.textColor = AppColors.themeBlack
+        self.view.backgroundColor = AppColors.themeBlack26
     }
     
     override func setupTexts() {
@@ -284,7 +285,7 @@ class BookingReschedulingVC: BaseVC {
             }
             
             airlineCell.flightDetail = legD.flight[indexPath.row]
-            
+            airlineCell.containerView.backgroundColor = AppColors.themeBlack26
             return airlineCell
         }
         else {
@@ -349,6 +350,7 @@ class BookingReschedulingVC: BaseVC {
             bookingAccordionCell.selectedTravellerButton.isEnabled = !(paxD.inProcess)
             bookingAccordionCell.passengerNameLabel.isEnabled = !(paxD.inProcess)
             bookingAccordionCell.togglePaxDetails(hidden: paxD.inProcess)
+            bookingAccordionCell.setColorForRescheduling()
             return bookingAccordionCell
         }
     }
@@ -363,14 +365,14 @@ class BookingReschedulingVC: BaseVC {
         }
         
         if selectedCounts.isEmpty {
-            self.continueButton.setTitleColor(AppColors.themeWhite.withAlphaComponent(0.5), for: .normal)
+            self.continueButton.setTitleColor(AppColors.unicolorWhite.withAlphaComponent(0.5), for: .normal)
             
             self.passengerLabel.text = self.viewModel.usingFor == .rescheduling ? LocalizedString.SelectPassengerFlightRescheduled.localized : LocalizedString.SelectPassengerFlightCancellation.localized
             self.priceView.isHidden = true
             self.priceViewAndButtonContainerHeight.constant = 50.0
         }
         else {
-            self.continueButton.setTitleColor(AppColors.themeWhite.withAlphaComponent(1.0), for: .normal)
+            self.continueButton.setTitleColor(AppColors.unicolorWhite.withAlphaComponent(1.0), for: .normal)
             let pasngTtl = ((selectedCounts.count == 1) && ((selectedCounts.first ?? 0) == 1)) ? LocalizedString.Passenger.localized : LocalizedString.Passengers.localized
             self.passengerLabel.text = "\(selectedCounts.joined(separator: ", ")) \(pasngTtl) \(LocalizedString.Selected.localized)"
             self.priceView.isHidden = true //false
@@ -464,6 +466,7 @@ extension BookingReschedulingVC: UITableViewDataSource, UITableViewDelegate {
         headerView.routeLabel.text = legD.title
         headerView.infoLabel.text = infoData
         headerView.selectedButton.tag = section
+        headerView.topBackgroundView.backgroundColor = AppColors.themeBlack26
         return headerView
     }
     

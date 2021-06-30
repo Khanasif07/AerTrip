@@ -15,6 +15,7 @@ class BookingFrequentFlyerHeaderView: UITableViewHeaderFooterView {
     @IBOutlet weak var passengerNameLabel: UILabel!
     @IBOutlet weak var dividerView: UIView!
     @IBOutlet weak var frequentFlyerLabel: UILabel!
+    @IBOutlet weak var containerView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

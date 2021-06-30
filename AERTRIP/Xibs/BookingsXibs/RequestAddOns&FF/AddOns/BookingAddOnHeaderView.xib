@@ -52,6 +52,7 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="containerView" destination="vxA-Eg-DnU" id="oSz-Ro-RHO"/>
                 <outlet property="infoLabel" destination="vIE-uq-1aZ" id="b7G-W0-Ehc"/>
                 <outlet property="routeLabel" destination="ySg-3s-C6E" id="hKg-z1-ebJ"/>
             </connections>
