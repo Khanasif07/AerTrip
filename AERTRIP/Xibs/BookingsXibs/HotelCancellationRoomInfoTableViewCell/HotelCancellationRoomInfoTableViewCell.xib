@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -183,10 +183,13 @@ Mr. Clifford Hudson</string>
                 <outlet property="chargesCollectionView" destination="vQp-g8-NVK" id="BMu-6l-r3o"/>
                 <outlet property="containerView" destination="ctC-jY-hPI" id="H4j-r0-Iwk"/>
                 <outlet property="guestNamesLabel" destination="sw9-Bp-Gev" id="MWu-NE-6vE"/>
+                <outlet property="headerView" destination="VUX-8z-fX7" id="hjh-9a-Hzm"/>
+                <outlet property="nameAndChargesView" destination="ynp-Js-4Gm" id="k3H-1r-iVl"/>
                 <outlet property="rightArrowImageView" destination="YEa-Pk-3WJ" id="k03-Eq-qq7"/>
                 <outlet property="roomNameLabel" destination="NnA-m8-WrQ" id="6Cz-Ff-R0y"/>
                 <outlet property="roomNumberLabel" destination="zvs-3B-t8I" id="gfD-fr-Kkv"/>
                 <outlet property="selectRoomButtonOutlet" destination="YDu-fg-DcC" id="ybU-Ku-i1h"/>
+                <outlet property="titleView" destination="85e-tG-Lf9" id="s4u-Jw-352"/>
                 <outlet property="topDividerView" destination="Gmr-ct-IxM" id="KER-u2-BXQ"/>
                 <outlet property="topDividerViewLeadingConstraint" destination="Reb-kM-6Nv" id="Pbx-BZ-b4h"/>
             </connections>

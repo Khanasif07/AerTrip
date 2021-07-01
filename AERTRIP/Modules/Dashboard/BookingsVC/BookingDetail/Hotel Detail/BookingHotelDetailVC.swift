@@ -115,6 +115,11 @@ class BookingHotelDetailVC: BaseVC {
 
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.hotelDetailTableView.reloadData()
+    }
+    
     // configure nav bar
     private func configureNavBar() {
         self.topNavigationView.configureNavBar(title: nil , isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .blurAnimatedView(isDark: false))

@@ -3072,6 +3072,7 @@ with us!</string>
                         <outlet property="infoLabel" destination="Kx3-Q9-0fW" id="6fa-Qy-sFQ"/>
                         <outlet property="navigationViewHeightConstraint" destination="WRx-jt-n0K" id="DKT-7p-VUB"/>
                         <outlet property="toLabel" destination="K8j-GU-UKC" id="jQ3-bS-VRp"/>
+                        <outlet property="toView" destination="qAF-g6-14o" id="Cme-h4-sZG"/>
                         <outlet property="topNavigationView" destination="dpj-lG-1Gb" id="OHC-wn-fww"/>
                     </connections>
                 </viewController>
