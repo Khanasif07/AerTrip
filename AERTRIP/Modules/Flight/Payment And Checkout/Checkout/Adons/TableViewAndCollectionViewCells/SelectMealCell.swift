@@ -20,8 +20,9 @@ class SelectMealCell: UITableViewCell {
     @IBOutlet weak var mealForLabelTop: NSLayoutConstraint!
     @IBOutlet weak var mealAutoSelectedTop: NSLayoutConstraint!
     @IBOutlet weak var dividerView: ATDividerView!
-    
-    
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var descriptionLabelTop: NSLayoutConstraint!
+  
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -32,7 +33,9 @@ class SelectMealCell: UITableViewCell {
         mealAutoSelectedForLabel.font = AppFonts.Regular.withSize(12)
         priceLabel.font = AppFonts.Regular.withSize(18)
         quantityLabel.font = AppFonts.SemiBold.withSize(16)
-
+        descriptionLabel.font = AppFonts.Regular.withSize(14)
+        
+        descriptionLabel.textColor = AppColors.themeGray40
         quantityLabel.textColor = AppColors.themeGreen
         mealForLabel.textColor = AppColors.themeGray40
         mealAutoSelectedForLabel.textColor = AppColors.themeGray60
@@ -43,7 +46,7 @@ class SelectMealCell: UITableViewCell {
         self.contentView.backgroundColor = AppColors.themeBlack26
         self.autoSelectionBackView.backgroundColor = AppColors.lightYellowAndGoldenGray
         self.mealAutoSelectedForLabel.textColor = AppColors.grayWhite
-//        self.dividerView.backgroundColor
+
     }
 
     override func layoutSubviews() {
@@ -68,6 +71,14 @@ class SelectMealCell: UITableViewCell {
         self.priceLabelWidth.constant = priceAttrString.string.getTextWidth(height: 21, font: AppFonts.Regular.withSize(18))
         
         self.mealTitleLabel.text = data.ssrName?.name
+                
+        if data.addonDescription.isEmpty {
+            self.descriptionLabel.text = ""
+            self.descriptionLabelTop.constant = 0
+        } else{
+            self.descriptionLabel.text = data.addonDescription
+            self.descriptionLabelTop.constant = 2
+        }
         
         if data.mealsSelectedFor.isEmpty {
                self.mealForLabel.text = ""

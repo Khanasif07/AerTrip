@@ -119,6 +119,7 @@ struct AddonsDetails{
 struct AddonsDataCustom {
     
     var adonsName : String = ""
+    var addonDescription = ""
     var price : Double = 0
     var isAdult : Bool = false
     var isChild : Bool = false
