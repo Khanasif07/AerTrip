@@ -202,7 +202,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
                 maker.top.equalTo(statusBarBlurView.bottom)
                 maker.leading.equalToSuperview()
                 maker.trailing.equalToSuperview()
-                maker.height.equalTo(1.5)
+                maker.height.equalTo(1)
             }
             stickyProgressView.isHidden = true
             
@@ -299,8 +299,8 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
                 
         backView.addSubview(ApiProgress)
         ApiProgress.snp.makeConstraints { (make) in
-//            make.height.equalTo(1.0)
-            make.bottom.equalTo(visualEffectView).offset(-0.4)
+            make.height.equalTo(1.0)
+            make.bottom.equalTo(visualEffectView).offset(-0.9)
             make.width.equalToSuperview()
             make.left.equalToSuperview()
         }
@@ -355,7 +355,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
             maker.top.equalTo(statusBarBlurView.bottom)
             maker.leading.equalToSuperview()
             maker.trailing.equalToSuperview()
-            maker.height.equalTo(1.5)
+            maker.height.equalTo(1)
         }
         stickyProgressView.isHidden = true
         
@@ -868,6 +868,8 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
             }
             FilterBaseView.selectedIndex = index
         }
+        
+        backView.height = visualEffectViewHeight
     }
     
     private func addFilterBackView() {

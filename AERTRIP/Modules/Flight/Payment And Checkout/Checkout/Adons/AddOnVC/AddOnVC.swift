@@ -87,6 +87,7 @@ extension AddOnVC {
         self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: showSkip, isSecondRightButton: false,isDivider : false)
         self.topNavView.configureFirstRightButton(normalTitle: LocalizedString.Skip.localized, normalColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18))
         topNavView.darkView.isHidden = false
+        topNavView.darkView.backgroundColor = AppColors.themeWhite
     }
     
     private func configureTableView(){
