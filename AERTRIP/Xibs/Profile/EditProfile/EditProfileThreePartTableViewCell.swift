@@ -56,6 +56,7 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        self.contentView.backgroundColor = AppColors.themeWhite
         self.setUpFonts()
         leftView.isUserInteractionEnabled = true
         rightViewTextField.placeholder = LocalizedString.Phone.localized

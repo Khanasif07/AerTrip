@@ -382,8 +382,9 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
         headerView.topDividerHeightConstraint.constant = isDivider ? 0.5 : 0
         
         headerView.headerLabel.text = sections[section].localized
-        headerView.backgroundColor = AppColors.headerBackground
-        headerView.containerView.backgroundColor = AppColors.headerBackground
+        headerView.headerLabel.textColor = AppColors.themeGray60
+        headerView.backgroundColor = AppColors.profileHeaderBackground
+        headerView.containerView.backgroundColor = AppColors.profileHeaderBackground
         return headerView
     }
     
