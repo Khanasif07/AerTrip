@@ -39,6 +39,7 @@ class BookingCancellationPolicyVC: BaseVC {
         if self.viewModel.vcUsingType == .bookingPolicy {
             self.viewModel.getBookingPolicy()
         }
+        self.bookingPolicyTableView.backgroundColor = AppColors.themeWhite
     }
     
     override func setupFonts() {
@@ -78,7 +79,7 @@ class BookingCancellationPolicyVC: BaseVC {
         }
         
         cell.configureCell(isForBookingPolicy: true,fareRules: self.viewModel.bookingPolicies, ruteString: "")
-
+        cell.setColorForBookingPolicy()
         
 //        switch indexPath.row {
 //        case 0:
@@ -116,7 +117,8 @@ class BookingCancellationPolicyVC: BaseVC {
         guard let cancellationPolicy = self.bookingPolicyTableView.dequeueReusableCell(withIdentifier: "CancellationPolicyTableViewCell") as? CancellationPolicyTableViewCell else {
             fatalError("CancellationPolicyTableViewCell not found")
         }
-        
+        cancellationPolicy.containerView.backgroundColor = AppColors.themeWhite
+        cancellationPolicy.contentView.backgroundColor = AppColors.themeWhite
         guard let canc = self.viewModel.bookingDetail?.bookingDetail?.cancellation, !canc.charges.isEmpty else {
             cancellationPolicy.configureCell(cancellationTimePeriod: "This booking is non-refundable. If this booking is cancelled, or modified, or in case of no show, the total price of the reservation will be charged.", cancellationAmount: "", cancellationType: .nonRefundable)
 
