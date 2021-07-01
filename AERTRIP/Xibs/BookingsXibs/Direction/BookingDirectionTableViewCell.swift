@@ -16,6 +16,7 @@ class BookingDirectionTableViewCell: ATTableViewCell {
     @IBOutlet weak var aiportAddressLabel: UILabel!
     @IBOutlet weak var bottomDividerView: UIView!
     @IBOutlet weak var edgeToedgeBottomDividerView: UIView!
+    @IBOutlet weak var containerView: UIView!
     
     // MARK: Override methods
     
@@ -28,7 +29,7 @@ class BookingDirectionTableViewCell: ATTableViewCell {
     override func setupColors() {
         self.airportCodeLabel.textColor = AppColors.themeDarkGreen
         self.airportNameLabel.textColor = AppColors.themeBlack
-        self.aiportAddressLabel.textColor = AppColors.themeGray40
+        self.aiportAddressLabel.textColor = AppColors.themeGray153
     }
     
     func configureCell(airportCode: String, airportName: String, airportAddress: String) {

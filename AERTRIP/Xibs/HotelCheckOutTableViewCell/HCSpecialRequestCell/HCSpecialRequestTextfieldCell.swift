@@ -19,6 +19,7 @@ class HCSpecialRequestTextfieldCell: UITableViewCell {
     
     //Mark:- IBOutlets
     //================
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var topDividerView: ATDividerView!
     @IBOutlet weak var topDividerViewTopConstraints: NSLayoutConstraint!
     @IBOutlet weak var infoTextField: PKFloatLabelTextField! {

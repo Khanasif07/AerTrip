@@ -20,6 +20,7 @@ enum CallCellType {
 class BookingCallTableViewCell: ATTableViewCell {
     // MARK: - IBOutlet
     
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var dividerViewLeadingConst: NSLayoutConstraint!
     @IBOutlet weak var cellImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -45,7 +46,7 @@ class BookingCallTableViewCell: ATTableViewCell {
     override func setupColors() {
         self.airportCodeLabel.textColor = AppColors.themeGreen
         self.titleLabel.textColor = AppColors.themeBlack
-        self.phoneLabel.textColor = AppColors.themeGray40
+        self.phoneLabel.textColor = AppColors.themeGray153
     }
     
     func configureCell(code: String = "", title: String, phoneLabel: String, cellType: CallCellType = .none, email: String = "") {

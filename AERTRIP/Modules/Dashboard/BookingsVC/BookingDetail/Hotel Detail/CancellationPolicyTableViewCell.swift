@@ -30,6 +30,7 @@ class CancellationPolicyTableViewCell: ATTableViewCell {
     
     // MARK: - IBOultet
     
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var titleValueLabel: UILabel!
     
@@ -50,7 +51,7 @@ class CancellationPolicyTableViewCell: ATTableViewCell {
         switch cancellationType {
         case .freeCancellation:
             self.titleLabelLeadingConstraint.constant = 12
-            self.titleLabel.textColor = AppColors.themeOrange
+            self.titleLabel.textColor = AppColors.cheapestPriceColor
             self.titleLabel.text = " \(cancellationType.title)"
             self.titleLabel.font = AppFonts.SemiBold.withSize(18.0)
 //            self.titleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: (UIImage(named: "greenBgIcon"))!, endText: " \(cancellationType.title.uppercased())", font: AppFonts.Regular.withSize(18.0))

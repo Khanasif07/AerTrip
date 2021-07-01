@@ -2103,6 +2103,7 @@ with us!</string>
                         <outlet property="commectSeparator" destination="Dlr-zo-diu" id="WGR-5f-eTd"/>
                         <outlet property="commentPlaceholderLbl" destination="JCI-Zw-tkE" id="B6s-es-XYk"/>
                         <outlet property="commentTextView" destination="980-Yb-HBG" id="ynz-0q-RiF"/>
+                        <outlet property="emptyView" destination="1Tu-Wy-uni" id="hT5-9r-GZ5"/>
                         <outlet property="gradientView" destination="z4J-bT-1Xy" id="Oph-hU-pNZ"/>
                         <outlet property="infoLabel" destination="f6N-Sh-hdL" id="kF0-ym-aDO"/>
                         <outlet property="refundAmountLabel" destination="STk-Up-0s8" id="QA7-K5-MTK"/>
@@ -3071,6 +3072,7 @@ with us!</string>
                         <outlet property="infoLabel" destination="Kx3-Q9-0fW" id="6fa-Qy-sFQ"/>
                         <outlet property="navigationViewHeightConstraint" destination="WRx-jt-n0K" id="DKT-7p-VUB"/>
                         <outlet property="toLabel" destination="K8j-GU-UKC" id="jQ3-bS-VRp"/>
+                        <outlet property="toView" destination="qAF-g6-14o" id="Cme-h4-sZG"/>
                         <outlet property="topNavigationView" destination="dpj-lG-1Gb" id="OHC-wn-fww"/>
                     </connections>
                 </viewController>

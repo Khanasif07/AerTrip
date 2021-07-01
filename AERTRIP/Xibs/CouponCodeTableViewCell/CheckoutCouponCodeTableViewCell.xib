@@ -103,6 +103,7 @@
                 <outlet property="couponInfoTextView" destination="jSQ-sH-rA9" id="a2Z-vt-KSY"/>
                 <outlet property="discountLabel" destination="7pl-QQ-PPZ" id="ekq-Qr-bj3"/>
                 <outlet property="dividerLeadingConstraint" destination="Roy-Z8-4ie" id="GZO-w7-By5"/>
+                <outlet property="dividerTrailingConstraint" destination="4IS-jf-ccr" id="504-cJ-xEE"/>
                 <outlet property="dividerView" destination="q5m-U6-gX4" id="ISw-d7-Vlh"/>
                 <outlet property="offerTermsButton" destination="gz5-Np-WrO" id="4Lc-71-Haa"/>
             </connections>

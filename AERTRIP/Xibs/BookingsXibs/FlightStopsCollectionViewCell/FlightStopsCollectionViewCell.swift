@@ -23,7 +23,7 @@ class FlightStopsCollectionViewCell: UICollectionViewCell {
     }
     
     override func prepareForReuse() {
-        self.prepareForReuse()
+        super.prepareForReuse()
         self.configureUI()
     }
     //MARK:- Functions

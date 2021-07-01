@@ -35,7 +35,7 @@ class CheckoutCouponCodeTableViewCell: UITableViewCell {
     @IBOutlet weak var offerTermsButton: UIButton!
     @IBOutlet weak var dividerView: ATDividerView! 
     @IBOutlet weak var dividerLeadingConstraint: NSLayoutConstraint!
-    
+    @IBOutlet weak var dividerTrailingConstraint: NSLayoutConstraint!
     //Mark:- LifeCycle
     //================
     override func awakeFromNib() {
