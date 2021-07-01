@@ -833,8 +833,20 @@ extension FlightDetailsBaseVC : getBaggageDimentionsDelegate
         let section = sender.tag / 100
         let row = sender.tag % 100
         if let baggageData = baggage[section][row]["baggageData"] as? JSONDictionary{
-            if let cbgData = baggageData["cbg"] as? JSONDictionary{
-                if let adtCabinBaggage = cbgData["ADT"] as? JSONDictionary{
+            var cbgDict = JSONDictionary()
+            if baggageData.count == 1{
+                if let dict = baggageData.first?.value as? JSONDictionary{
+                    if let cbgData = dict["cbg"] as? JSONDictionary{
+                        cbgDict = cbgData
+                    }
+                }
+            }else{
+                if let cbgData = baggageData["cbg"] as? JSONDictionary{
+                    cbgDict = cbgData
+                }
+            }
+            if cbgDict.count > 0{
+                if let adtCabinBaggage = cbgDict["ADT"] as? JSONDictionary{
                     if let weight = adtCabinBaggage["weight"] as? String{
                         baggageDimensionVC.weight = weight
                     }
