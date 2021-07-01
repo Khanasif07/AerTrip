@@ -340,6 +340,7 @@ extension HCCouponCodeVC: UITableViewDelegate, UITableViewDataSource {
         }
         cell.configCell(currentCoupon: model)
         cell.dividerLeadingConstraint.constant = (self.viewModel.searcedCouponsData.count - 1 != indexPath.row) ? 16 : 0
+        cell.dividerTrailingConstraint.constant = (self.viewModel.searcedCouponsData.count - 1 != indexPath.row) ? 16 : 0
         return cell
     }
     

@@ -88,7 +88,7 @@ class SelectedContactCollectionCell: UICollectionViewCell {
     private func setBorder(){
         self.crossButton.makeCircular()
         self.crossButton.layer.borderWidth = 0.5
-        self.crossButton.layer.borderColor = AppColors.flightFilterSessionDefaultColor.cgColor
+        self.crossButton.layer.borderColor = AppColors.themeBlack26.cgColor
         
     }
     
