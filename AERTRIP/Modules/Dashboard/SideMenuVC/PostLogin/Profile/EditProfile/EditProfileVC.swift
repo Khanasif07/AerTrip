@@ -101,6 +101,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         registerXib()
         // Api calling
         viewModel.webserviceForGetDropDownkeys()
@@ -455,7 +456,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         }
         
         
-        editProfileImageHeaderView.backgroundColor = AppColors.themeBlack26
+        editProfileImageHeaderView.backgroundColor = AppColors.themeWhite
         editProfileImageHeaderView.firstNameTextField.textColor = AppColors.themeBlack
         editProfileImageHeaderView.lastNameTextField.textColor = AppColors.themeBlack
         viewModel.seat = travel.preferences.seat.value
