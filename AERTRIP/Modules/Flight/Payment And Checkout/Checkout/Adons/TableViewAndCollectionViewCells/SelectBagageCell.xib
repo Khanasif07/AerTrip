@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -33,7 +33,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z8A-G2-w2K" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                        <rect key="frame" x="16" y="89.5" width="424" height="0.5"/>
+                        <rect key="frame" x="16" y="110.5" width="424" height="0.5"/>
                         <color key="backgroundColor" red="0.90196078431372551" green="0.90196078431372551" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="0.5" id="X43-K6-pio"/>
@@ -47,7 +47,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label lksdfjlsdf sdlfsdf  sesdfsd sdf sdf" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kpd-KF-Bdw">
-                        <rect key="frame" x="16" y="32.5" width="303" height="20.5"/>
+                        <rect key="frame" x="16" y="55" width="303" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -59,12 +59,18 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6rQ-Ye-SOP">
-                        <rect key="frame" x="11" y="62" width="151" height="19.5"/>
+                        <rect key="frame" x="11" y="84.5" width="173" height="18"/>
                         <color key="backgroundColor" red="0.99607843139999996" green="0.94901960780000005" blue="0.78039215689999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Auto Selected for DEL → HYD" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G8J-ab-po5">
-                        <rect key="frame" x="16" y="64" width="141" height="15.5"/>
+                        <rect key="frame" x="16" y="86.5" width="163" height="14"/>
                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TXe-Sa-izf">
+                        <rect key="frame" x="16" y="32.5" width="303" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -76,14 +82,17 @@
                     <constraint firstItem="G8J-ab-po5" firstAttribute="leading" secondItem="kpd-KF-Bdw" secondAttribute="leading" id="5GW-BR-MAb"/>
                     <constraint firstItem="L2K-Pp-Lc5" firstAttribute="top" secondItem="YPX-4A-aP2" secondAttribute="bottom" id="8O5-Tl-emK"/>
                     <constraint firstItem="6rQ-Ye-SOP" firstAttribute="leading" secondItem="G8J-ab-po5" secondAttribute="leading" constant="-5" id="BaP-PS-5d6"/>
+                    <constraint firstItem="kpd-KF-Bdw" firstAttribute="top" secondItem="TXe-Sa-izf" secondAttribute="bottom" constant="2" id="CHT-qb-28n"/>
+                    <constraint firstItem="TXe-Sa-izf" firstAttribute="top" secondItem="PUo-bt-RrG" secondAttribute="bottom" constant="2" id="COL-FT-fbq"/>
                     <constraint firstItem="YPX-4A-aP2" firstAttribute="centerY" secondItem="PUo-bt-RrG" secondAttribute="centerY" id="Crf-SW-N8v"/>
                     <constraint firstItem="6rQ-Ye-SOP" firstAttribute="bottom" secondItem="G8J-ab-po5" secondAttribute="bottom" constant="2" id="ESw-k8-eAg"/>
-                    <constraint firstItem="kpd-KF-Bdw" firstAttribute="top" secondItem="PUo-bt-RrG" secondAttribute="bottom" constant="2" id="Kut-7a-FEo"/>
                     <constraint firstItem="G8J-ab-po5" firstAttribute="top" secondItem="kpd-KF-Bdw" secondAttribute="bottom" constant="11" id="L0v-C4-RbO"/>
                     <constraint firstItem="6rQ-Ye-SOP" firstAttribute="trailing" secondItem="G8J-ab-po5" secondAttribute="trailing" constant="5" id="MHR-xJ-OGZ"/>
+                    <constraint firstItem="TXe-Sa-izf" firstAttribute="trailing" secondItem="PUo-bt-RrG" secondAttribute="trailing" id="Mya-p3-GBp"/>
                     <constraint firstAttribute="trailing" secondItem="Z8A-G2-w2K" secondAttribute="trailing" id="OAM-9i-CuG"/>
                     <constraint firstItem="Z8A-G2-w2K" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="X8l-hQ-9hI"/>
                     <constraint firstItem="kpd-KF-Bdw" firstAttribute="trailing" secondItem="PUo-bt-RrG" secondAttribute="trailing" id="Xhb-kZ-0fa"/>
+                    <constraint firstItem="TXe-Sa-izf" firstAttribute="leading" secondItem="PUo-bt-RrG" secondAttribute="leading" id="eUs-0O-mIQ"/>
                     <constraint firstItem="L2K-Pp-Lc5" firstAttribute="leading" secondItem="YPX-4A-aP2" secondAttribute="leading" id="h9I-RK-k9u"/>
                     <constraint firstItem="kpd-KF-Bdw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="hLX-Xg-f5u"/>
                     <constraint firstAttribute="trailing" secondItem="YPX-4A-aP2" secondAttribute="trailing" constant="16" id="hsn-QP-hS6"/>
@@ -101,6 +110,8 @@
                 <outlet property="autoSelectedForTop" destination="L0v-C4-RbO" id="iOB-eF-FVZ"/>
                 <outlet property="bagageTitleLabel" destination="PUo-bt-RrG" id="KOf-Y1-oBp"/>
                 <outlet property="bottomSeprator" destination="Z8A-G2-w2K" id="0d9-Xt-wwu"/>
+                <outlet property="descriptionLabel" destination="TXe-Sa-izf" id="ah6-qz-YqR"/>
+                <outlet property="descriptionLabelTop" destination="COL-FT-fbq" id="4kg-fc-F6s"/>
                 <outlet property="priceLabel" destination="YPX-4A-aP2" id="fda-Be-w7U"/>
                 <outlet property="priceLabelWidth" destination="bKL-su-o0I" id="Vjp-TC-QdH"/>
                 <outlet property="quantityLabel" destination="L2K-Pp-Lc5" id="Zf0-L7-LHS"/>

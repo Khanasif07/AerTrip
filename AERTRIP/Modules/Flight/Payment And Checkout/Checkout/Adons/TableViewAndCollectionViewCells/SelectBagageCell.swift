@@ -19,6 +19,9 @@ class SelectBagageCell: UITableViewCell {
     @IBOutlet weak var autoSelectedForBackView: UIView!
     @IBOutlet weak var autoSelectedForTop: NSLayoutConstraint!
     @IBOutlet weak var bottomSeprator: UIView!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var descriptionLabelTop: NSLayoutConstraint!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,7 +29,9 @@ class SelectBagageCell: UITableViewCell {
         selectedForLabel.font = AppFonts.Regular.withSize(14)
         self.priceLabel.font = AppFonts.Regular.withSize(18)
         quantityLabel.font = AppFonts.SemiBold.withSize(16)
-      
+        self.descriptionLabel.font = AppFonts.Regular.withSize(14)
+        
+        self.descriptionLabel.textColor = AppColors.themeGray40
         self.bagageTitleLabel.textColor = AppColors.themeBlack
         selectedForLabel.textColor = AppColors.themeGray40
         self.priceLabel.textColor = AppColors.themeGray40
@@ -57,6 +62,18 @@ class SelectBagageCell: UITableViewCell {
         self.priceLabelWidth.constant = self.priceLabel.attributedText?.string.getTextWidth(height: 21, font: AppFonts.Regular.withSize(18)) ?? 0
       
         self.bagageTitleLabel.text = data.ssrName?.name
+        
+        
+        if data.addonDescription.isEmpty {
+            self.descriptionLabel.text = ""
+            self.descriptionLabelTop.constant = 0
+            self.descriptionLabel.isHidden = true
+        } else {
+            self.descriptionLabel.text = data.addonDescription
+            self.descriptionLabelTop.constant = 2
+            self.descriptionLabel.isHidden = false
+        }
+        
         
         if data.bagageSelectedFor.isEmpty {
             self.selectedForLabel.text = ""
@@ -104,6 +121,16 @@ class SelectBagageCell: UITableViewCell {
         self.priceLabelWidth.constant = self.priceLabel.attributedText?.string.getTextWidth(height: 21, font: AppFonts.Regular.withSize(18)) ?? 0
         
         self.bagageTitleLabel.text = data.ssrName?.name
+        
+        if data.addonDescription.isEmpty {
+            self.descriptionLabel.text = ""
+            self.descriptionLabelTop.constant = 0
+            self.descriptionLabel.isHidden = true
+        } else {
+            self.descriptionLabel.text = data.addonDescription
+            self.descriptionLabelTop.constant = 2
+            self.descriptionLabel.isHidden = false
+        }
         
         if data.othersSelectedFor.isEmpty {
             self.selectedForLabel.text = ""
