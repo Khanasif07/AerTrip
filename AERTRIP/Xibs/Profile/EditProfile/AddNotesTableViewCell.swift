@@ -34,8 +34,8 @@ class AddNotesTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.contentView.backgroundColor = AppColors.themeWhite
-        addNoteTextView.backgroundColor = AppColors.themeWhite
+        self.contentView.backgroundColor = AppColors.profileContentBackground
+        addNoteTextView.backgroundColor = AppColors.profileContentBackground
         addNoteTextView.textColor = AppColors.textFieldTextColor51
         addNoteTextView.placeholderColor = AppColors.themeGray20
         addNoteTextView.delegate = self
