@@ -406,19 +406,6 @@ class HotelResultVC: BaseVC {
         switchView.offTintColor = AppColors.themeGray10
         switchView.isOn = false
         switchView.setupUI()
-        /*
-         self.switchView.originalColor = AppColors.themeWhite.withAlphaComponent(0.85)
-         self.switchView.selectedColor = AppColors.themeRed
-         self.switchView.originalBorderColor = AppColors.themeGray04//AppColors.themeGray20
-         self.switchView.selectedBorderColor = AppColors.themeRed
-         self.switchView.originalBorderWidth = 0.0//1.5
-         self.switchView.selectedBorderWidth = 0.0//1.5
-         self.switchView.iconBorderWidth = 0.0
-         self.switchView.iconBorderColor = AppColors.clear
-         self.switchView.originalImage = AppImages.switch_fav_on.maskWithColor(color: UIColor(displayP3Red: 0.8470588235, green: 0.8470588235, blue: 0.8470588235, alpha: 1))
-         self.switchView.selectedImage = AppImages.switch_fav_on
-         self.switchView.isBackgroundBlurry = true
-         */
         
         self.switchGradientView.backgroundColor = AppColors.clear
         self.switchGradientView.isHidden = true
@@ -452,25 +439,19 @@ class HotelResultVC: BaseVC {
     
     
     private func presentEmailVC() {
+      
         func showEmailComposer() {
-            //            self.emailButton.isLoading = true
-            //            self.viewModel.getPinnedTemplate(hotels: self.viewModel.favouriteHotels) { [weak self] (status) in
-            //                guard let strongSelf = self else {return}
-            //                strongSelf.emailButton.isLoading = false
-            //                if status {
-            // url fetched
             AppFlowManager.default.presentMailComposerVC(self.viewModel.favouriteHotels, self.viewModel.hotelSearchRequest ?? HotelSearchRequestModel(), self.viewModel.shortUrl, presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: statusBarStyle)
             AppFlowManager.default.removeLoginConfirmationScreenFromStack()
-            //                }
-            //            }
         }
+        
         AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginFromEmailShare) { (_) in
             guard AppGlobals.shared.isNetworkRechable(showMessage: true) else {return}
             showEmailComposer()
             self.viewModel.updateRecentSearch()
         }
-        
     }
+    
     
     func manageShimmer(isHidden: Bool) {
         self.shimmerView.isHidden = isHidden
@@ -489,7 +470,6 @@ class HotelResultVC: BaseVC {
         self.filterButton.addGestureRecognizer(longPressGesture)
     }
     
-    // MARK: - Public
     
     // MARK: - Action
     
