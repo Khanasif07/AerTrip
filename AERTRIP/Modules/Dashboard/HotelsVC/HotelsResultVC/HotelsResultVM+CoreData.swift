@@ -110,10 +110,6 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
             self.fetchedResultsController.fetchRequest.predicate = pred
         }
         
-        
-        
-        
-
         self.fetchDataFromCoreData(finalPredicate: finalPredicate)
     }
     
@@ -340,10 +336,7 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         switch (type) {
-        //        case .insert:
-        //            if let indexPath = newIndexPath {
-        //                tableViewVertical.insertRows(at: [indexPath], with: .fade)
-        //            }
+
         case .delete:
             
             if self.isFavouriteOn, let indexPath = indexPath {
@@ -353,20 +346,7 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
                     self.deleteHotelsDataForCollectionView(hotel: hotel)
                 }
             }
-        //        case .update:
-        //            if let indexPath = indexPath, let cell = tableViewVertical.cellForRow(at: indexPath) as? HotelCardTableViewCell {
-        //                configureCell(cell: cell, at: indexPath)
-        //            }
-        //        case .move:
-        //            if let indexPath = indexPath {
-        //                tableViewVertical.deleteRows(at: [indexPath], with: .fade)
-        //            }
-        //
-        //            if let newIndexPath = newIndexPath {
-        //                tableViewVertical.insertRows(at: [newIndexPath], with: .fade)
-        //            }
-        
-        
+
         @unknown default: break
         }
     }

@@ -17,7 +17,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
     func manageViewForSearchAndFilterMode() {
         
         let count = self.viewModel.fetchedResultsController.fetchedObjects?.count ?? 0
-     
+        
         if (self.viewModel.fetchRequestType == .FilterApplied), count <= 0 {
             self.tableViewVertical.backgroundView = noHotelFoundOnFilterEmptyView
             self.noHotelFoundOnFilter()
@@ -60,8 +60,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
         if tableView === hotelSearchTableView {
             searchBar.enablesReturnKeyAutomatically = self.viewModel.searchedHotels.count < 0
             return 1
-        }
-        else {
+        } else {
             return self.viewModel.fetchedResultsController.sections?.count ?? 0
         }
     }
@@ -76,7 +75,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
                 return 0
             }
             let sectionInfo = sections[section]
-        //    let dbData = fetchedResultsController.fetchedObjects ?? []//CoreDataManager.shared.fetchData("HotelSearched") ?? []
+            //    let dbData = fetchedResultsController.fetchedObjects ?? []//CoreDataManager.shared.fetchData("HotelSearched") ?? []
             // shimmer will be remain hidden in this case
             self.manageShimmer(isHidden: true)
             manageViewForSearchAndFilterMode()
@@ -128,7 +127,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
             let title = allSections[section].name
             if title.contains("to") {
                 var titleArr = allSections[section].name.components(separatedBy: "to")
-               // titleArr[1] = " \(Int((self.viewModel.filterApplied.distanceRange < 1.0) ? 1.0 : self.viewModel.filterApplied.distanceRange))"
+                // titleArr[1] = " \(Int((self.viewModel.filterApplied.distanceRange < 1.0) ? 1.0 : self.viewModel.filterApplied.distanceRange))"
                 
                 finalText = titleArr.joined(separator: "to")
             }
@@ -155,12 +154,12 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
         } else {
             var cellHeight: CGFloat = 209.0
             if indexPath.row == 0 {
-                 cellHeight += 8.0
+                cellHeight += 8.0
             }
             if  let sections = self.viewModel.fetchedResultsController.sections {
                 let sectionInfo = sections[indexPath.section]
                 if indexPath.row ==  (sectionInfo.numberOfObjects - 1) {
-                     cellHeight += 8.0
+                    cellHeight += 8.0
                 }
             }
             return cellHeight
@@ -173,12 +172,12 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
         } else {
             var cellHeight: CGFloat = 209.0
             if indexPath.row == 0 {
-                 cellHeight += 8.0
+                cellHeight += 8.0
             }
             if  let sections = self.viewModel.fetchedResultsController.sections {
                 let sectionInfo = sections[indexPath.section]
                 if indexPath.row ==  (sectionInfo.numberOfObjects - 1) {
-                     cellHeight += 8.0
+                    cellHeight += 8.0
                 }
             }
             return cellHeight
@@ -225,95 +224,28 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
         self.selectedIndexPath = indexPath
         if tableView === hotelSearchTableView {
             let hData = self.viewModel.searchedHotels[indexPath.row]
-//            if let cell = tableView.cellForRow(at: indexPath) as? HotelSearchTableViewCell {
-//                AppFlowManager.default.presentHotelDetailsVC(self,hotelInfo: hData, sourceView: cell.contentView, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest){
-//                    self.statusBarColor = AppColors.themeWhite
-//                }
-//                self.presentController(cell: cell, hotelInfo: hData, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
-//                self.presentControllerDefault(cell: cell, hotelInfo: hData, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
+            
             AppFlowManager.default.presentHotelDetailsVC(self, hotelInfo: hData, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest, filterParams: viewModel.getFilterParams(), searchFormData: viewModel.searchedFormData)
-
-                self.selectedIndexPath = indexPath
-//            }
+            
+            self.selectedIndexPath = indexPath
         } else {
             let hData = viewModel.fetchedResultsController.object(at: indexPath)
-//            if let cell = tableView.cellForRow(at: indexPath) as? HotelCardTableViewCell {
-                
-                //self.presentControllerDefault(cell: cell, hotelInfo: hData, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
+            
             AppFlowManager.default.presentHotelDetailsVC(self, hotelInfo: hData, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest, filterParams: viewModel.getFilterParams(), searchFormData: viewModel.searchedFormData)
-
-//            }
+            
         }
         
         FirebaseEventLogs.shared.logHotelListEvents(with: .OpenHotelDetails)
     }
     ///Uncomment commented line when "Beyond 20km" label need to show.
     func getHeightForResult(section:Int)->CGFloat{
-//        if HotelFilterVM.shared.sortUsing == .DistanceNearestFirst(ascending: false){
-//            return (section == 0) ? 30 : 53
-//        }else{
-            return (section == 0) ? 0 : 21
-//        }
+        //        if HotelFilterVM.shared.sortUsing == .DistanceNearestFirst(ascending: false){
+        //            return (section == 0) ? 30 : 53
+        //        }else{
+        return (section == 0) ? 0 : 21
+        //        }
     }
     
-    
-//    func presentControllerDefault(cell:TransitionCellTypeDelegate, hotelInfo: HotelSearched, sid: String, hotelSearchRequest: HotelSearchRequestModel?){
-//        let vc = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
-//        vc.viewModel.hotelInfo = hotelInfo
-//        vc.delegate = self
-//        vc.viewModel.hotelSearchRequest = hotelSearchRequest
-//        var img = cell.selfImage
-//        if cell.selfImage == nil{
-//            img = cell.viewScreenShot()
-//        }
-//        vc.backImage = img
-//
-//        let nav = AppFlowManager.default.getNavigationController(forPresentVC: vc)
-//        self.present(nav, animated: true)
-//
-//    }
-    
-    
-    //--------------------------- Golu Change ---------------------
-//    func presentController(cell:TransitionCellTypeDelegate, hotelInfo: HotelSearched, sid: String, hotelSearchRequest: HotelSearchRequestModel?){
-//
-//        let vc = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
-//        vc.viewModel.hotelInfo = hotelInfo
-//        vc.delegate = self
-//        vc.viewModel.hotelSearchRequest = hotelSearchRequest
-//        var img = cell.selfImage
-//        if cell.selfImage == nil{
-//            img = cell.viewScreenShot()
-//        }
-//        vc.backImage = img
-//        cell.freezeAnimations()
-//        let currentCellFrame = cell.layer.presentation()!.frame
-//        let cardFrame = cell.superview!.convert(currentCellFrame, to: nil)
-//        vc.modalPresentationStyle = .custom
-//        let frameWithoutTransform = { () -> CGRect in
-//            let center = cell.center
-//            let size = cell.bounds.size
-//            let r = CGRect(
-//                x: center.x - size.width / 2,
-//                y: center.y - size.height / 2,
-//                width: size.width,
-//                height: size.height
-//            )
-//            return cell.superview!.convert(r, to: nil)
-//        }()
-//
-//        let params = CardTransition.Params(fromCardFrame: cardFrame, fromCardFrameWithoutTransform: frameWithoutTransform, fromCell: cell, img: img)
-//        self.transition = CardTransition(params: params)
-//
-//        let nav = AppFlowManager.default.getNavigationController(forPresentVC: vc)
-//        nav.transitioningDelegate = transition
-//        nav.modalPresentationCapturesStatusBarAppearance = true
-//        nav.modalPresentationStyle = .custom
-//        self.present(nav, animated: true, completion: {
-//            cell.unfreezeAnimations()
-//        })
-//
-//    }
 }
 
 

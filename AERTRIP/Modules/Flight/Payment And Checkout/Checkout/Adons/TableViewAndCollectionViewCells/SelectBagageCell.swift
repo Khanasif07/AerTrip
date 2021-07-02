@@ -63,7 +63,6 @@ class SelectBagageCell: UITableViewCell {
       
         self.bagageTitleLabel.text = data.ssrName?.name
         
-        
         if data.addonDescription.isEmpty {
             self.descriptionLabel.text = ""
             self.descriptionLabelTop.constant = 0

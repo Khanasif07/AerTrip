@@ -94,10 +94,7 @@ class HotelResultVC: BaseVC {
     @IBOutlet weak var floatingButtonBackView: UIView!
     @IBOutlet weak var switchContainerView: UIView!
     @IBOutlet weak var searchBarContainerView: UIView!
-    //    @IBOutlet weak var cardGradientView: UIView!
-    //    @IBOutlet weak var shimmerGradientView: UIView!
     @IBOutlet weak var filterView: UIView!
-    
     @IBOutlet weak var filterCollectionView: UICollectionView! {
         didSet {
             filterCollectionView.delegate = self
@@ -112,10 +109,8 @@ class HotelResultVC: BaseVC {
     @IBOutlet weak var searchButton: UIButton!
     @IBOutlet weak var blurViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var headerBlurView: UIView!
+    
     // MARK: - Properties
-    
-    //    var container: NSPersistentContainer!
-    
     let topContentSpace: CGFloat = 96
     var time: Float = 0.0
     var timer: Timer?
@@ -138,16 +133,9 @@ class HotelResultVC: BaseVC {
     var isDataFetched = false
     
     var hotelMapVC: HotelsMapVC?
-    //var statusBarBlurView : UIVisualEffectView!
-    //var headerBlurView : UIVisualEffectView!
-    
-    //    override var statusBarAnimatableConfig: StatusBarAnimatableConfig{
-    //        return StatusBarAnimatableConfig(prefersHidden: false, animation: .slide)
-    //    }
     
     
     // Empty State view
-    
     lazy var noResultemptyView: EmptyScreenView = {
         let newEmptyView = EmptyScreenView()
         newEmptyView.vType = .noResult
@@ -221,9 +209,6 @@ class HotelResultVC: BaseVC {
         self.view.layoutIfNeeded()
         mapButtonIndicator.tintColor = AppColors.themeGreen
         self.filterCollectionView.isUserInteractionEnabled = false
-        //        self.filterButton.isEnabled = false
-        //        self.mapButton.isEnabled = false
-        //        self.searchButton.isEnabled = false
         self.filterButton.isUserInteractionEnabled = false
         self.mapButton.isUserInteractionEnabled = false
         self.searchButton.isUserInteractionEnabled = false
@@ -368,9 +353,9 @@ class HotelResultVC: BaseVC {
             self.tableViewVertical.setContentOffset(CGPoint(x: 0, y: -self.topContentSpace), animated: false)
             self.showBluredHeaderViewCompleted()
         }
-       // self.tableViewVertical.contentInset = UIEdgeInsets(top: self.topContentSpace, left: 0, bottom: 0, right: 0)
-//        revealBlurredHeaderView(self.topContentSpace)
-
+        // self.tableViewVertical.contentInset = UIEdgeInsets(top: self.topContentSpace, left: 0, bottom: 0, right: 0)
+        //        revealBlurredHeaderView(self.topContentSpace)
+        
         return true
     }
     
@@ -468,16 +453,16 @@ class HotelResultVC: BaseVC {
     
     private func presentEmailVC() {
         func showEmailComposer() {
-//            self.emailButton.isLoading = true
-//            self.viewModel.getPinnedTemplate(hotels: self.viewModel.favouriteHotels) { [weak self] (status) in
-//                guard let strongSelf = self else {return}
-//                strongSelf.emailButton.isLoading = false
-//                if status {
-                    // url fetched
+            //            self.emailButton.isLoading = true
+            //            self.viewModel.getPinnedTemplate(hotels: self.viewModel.favouriteHotels) { [weak self] (status) in
+            //                guard let strongSelf = self else {return}
+            //                strongSelf.emailButton.isLoading = false
+            //                if status {
+            // url fetched
             AppFlowManager.default.presentMailComposerVC(self.viewModel.favouriteHotels, self.viewModel.hotelSearchRequest ?? HotelSearchRequestModel(), self.viewModel.shortUrl, presentingStatusBarStyle: .lightContent, dismissalStatusBarStyle: statusBarStyle)
-                    AppFlowManager.default.removeLoginConfirmationScreenFromStack()
-//                }
-//            }
+            AppFlowManager.default.removeLoginConfirmationScreenFromStack()
+            //                }
+            //            }
         }
         AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginFromEmailShare) { (_) in
             guard AppGlobals.shared.isNetworkRechable(showMessage: true) else {return}
@@ -609,7 +594,7 @@ class HotelResultVC: BaseVC {
     @objc func longPress(_ gesture: UILongPressGestureRecognizer) {
         if gesture.state == .began {
             printDebug("Long press tapped")
-//            AppFlowManager.default.presentAerinTextSpeechVC()
+            //            AppFlowManager.default.presentAerinTextSpeechVC()
         }
     }
     
