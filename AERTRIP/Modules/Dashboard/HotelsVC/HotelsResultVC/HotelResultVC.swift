@@ -263,7 +263,7 @@ class HotelResultVC: BaseVC {
         //addCustomBackgroundBlurView()
         headerBlurView.backgroundColor = .clear//UIColor.white.withAlphaComponent(0.85)
         
-        setGroupedFooterView()
+//        setGroupedFooterView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -370,6 +370,7 @@ class HotelResultVC: BaseVC {
             self.hotelSearchTableView.tableFooterView = footerView
         }
     }
+    
     override func keyboardWillHide(notification: Notification) {
         if let _ = self.view.window {
             //checking if the screen in window only then this method should call

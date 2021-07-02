@@ -77,16 +77,13 @@ extension HotelResultVC {
             
             self.tableViewVertical.tableFooterView?.transform = CGAffineTransform.identity
             
-            self.setExpandedStateFooter()
+//            self.setExpandedStateFooter()
             
             self.viewModel.showBeyondTwenty = true
             
             self.doneButtonTapped()
         }
-        
     }
-    
-    
     
     func setExpandedStateFooter() {
         

@@ -81,7 +81,9 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
             finalPredicate = finalPred
             
         case .normalInSearching, .normal :
+            
             self.fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+           
             if self.fetchRequestType == .normalInSearching {
                 self.searchedHotels.removeAll()
             }
@@ -91,20 +93,17 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
                 let favPred = NSPredicate(format: "fav == '1'")
                 finalPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [favPred])
                 
-            }
-            else {
+            } else {
                 self.fetchRequestWithoutFilter()
             }
         }
         
-        if !self.showBeyondTwenty{
-            let distancePredicate = NSPredicate(format: "distance <= 20")
-//            finalPredicate?.subpredicates.append(distancePredicate)
-            var pred : [NSPredicate] = finalPredicate?.subpredicates as? [NSPredicate] ?? []
-            pred.append(distancePredicate)
-            finalPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: pred)
-
-        }
+//        if !self.showBeyondTwenty{
+//            let distancePredicate = NSPredicate(format: "distance <= 20")
+//            var pred : [NSPredicate] = finalPredicate?.subpredicates as? [NSPredicate] ?? []
+//            pred.append(distancePredicate)
+//            finalPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: pred)
+//        }
         
         if let pred = finalPredicate {
             self.fetchedResultsController.fetchRequest.predicate = pred
