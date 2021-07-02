@@ -456,7 +456,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         }
         
         
-        editProfileImageHeaderView.backgroundColor = AppColors.themeWhite
+        editProfileImageHeaderView.backgroundColor = AppColors.profileContentBackground
         editProfileImageHeaderView.firstNameTextField.textColor = AppColors.themeBlack
         editProfileImageHeaderView.lastNameTextField.textColor = AppColors.themeBlack
         viewModel.seat = travel.preferences.seat.value

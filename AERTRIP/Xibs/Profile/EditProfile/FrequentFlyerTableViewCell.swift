@@ -64,7 +64,7 @@ class FrequentFlyerTableViewCell: UITableViewCell {
         // Initialization code
         frequentFlyerLabel.text = LocalizedString.SelectAirline.localized
         addGesture()
-        self.contentView.backgroundColor = AppColors.themeWhite
+        self.contentView.backgroundColor = AppColors.profileContentBackground
         self.leftSeparatorView.backgroundColor = AppColors.dividerColor
         self.rightSeparatorView.backgroundColor = AppColors.dividerColor
         self.airlineSeparatorView.backgroundColor = AppColors.dividerColor

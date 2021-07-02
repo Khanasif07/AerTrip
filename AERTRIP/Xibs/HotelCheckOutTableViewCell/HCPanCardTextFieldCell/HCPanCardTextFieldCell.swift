@@ -46,7 +46,7 @@ class HCPanCardTextFieldCell: UITableViewCell {
     
     
     private func doInitialSetup() {
-        self.contentView.backgroundColor = AppColors.themeWhite
+        self.contentView.backgroundColor = AppColors.profileContentBackground
         self.editableTextField.titleYPadding = 12.0
         self.editableTextField.hintYPadding = 12.0
         self.editableTextField.isHiddenBottomLine = true
