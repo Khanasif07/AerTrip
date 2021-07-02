@@ -36,6 +36,8 @@ class ViewProfileMultiDetailTableViewCell: UITableViewCell {
         // Initialization code
         
         self.selectionStyle = .none
+        self.contentView.backgroundColor = AppColors.profileContentBackground
+        self.frequentFlyerView.backgroundColor = AppColors.profileContentBackground
     }
     
     func cofigureCell(_ issueDate:String,_ expiryDate:String) {
