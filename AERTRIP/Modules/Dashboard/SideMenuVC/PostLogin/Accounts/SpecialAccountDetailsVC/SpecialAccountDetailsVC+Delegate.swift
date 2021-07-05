@@ -283,7 +283,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
         cell.depositButton.addTarget(self, action: #selector(self.depositButtonAction(_:)), for: .touchUpInside)
         
 //        cell.displayDepositeShimmer(time: self.time)
-        
+        cell.depositButton.isEnabled = (amount > 0)
         return cell
     }
     

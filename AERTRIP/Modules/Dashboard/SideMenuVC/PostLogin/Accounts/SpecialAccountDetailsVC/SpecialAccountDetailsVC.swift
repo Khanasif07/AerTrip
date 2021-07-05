@@ -210,8 +210,10 @@ class SpecialAccountDetailsVC: BaseVC {
     @objc func depositButtonAction(_ sender: ATButton) {
         
         FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .AccountsDepositeOptionSelected, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
-
-        self.viewModel.getOutstandingPayment()
+        if UserInfo.loggedInUser?.accountData?.statements?.amountDue ?? 0.0 > 0{
+            self.viewModel.getOutstandingPayment()
+        }
+        
     }
 }
 

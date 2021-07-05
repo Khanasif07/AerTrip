@@ -312,7 +312,7 @@ class BookingReschedulingVC: BaseVC {
                 saleValue = self.getConvertedPrice(for: paxD.amountPaid, with: self.viewModel.bookingDetails?.bookingCurrencyRate, using: AppFonts.Regular.withSize(16), isForCancellation: false).string //paxD.amountPaid.amountInDelimeterWithSymbol
                 cancelationValueText = self.getConvertedPrice(for: paxD.rescheduleCharge, with: self.viewModel.bookingDetails?.bookingCurrencyRate, using: AppFonts.Regular.withSize(16), isForCancellation: true).string //paxD.rescheduleCharge.amountInDelimeterWithSymbol
             }else{
-                saleValue = self.getConvertedPrice(for: paxD.cancellationCharge, with: self.viewModel.bookingDetails?.bookingCurrencyRate, using: AppFonts.Regular.withSize(16), isForCancellation: false).string
+                saleValue = self.getConvertedPrice(for: paxD.amountPaid, with: self.viewModel.bookingDetails?.bookingCurrencyRate, using: AppFonts.Regular.withSize(16), isForCancellation: false).string
                     //(paxD.amountPaid - paxD.reversalMFPax).amountInDelimeterWithSymbol
                 cancelationValueText = self.getConvertedPrice(for: paxD.rescheduleCharge, with: self.viewModel.bookingDetails?.bookingCurrencyRate, using: AppFonts.Regular.withSize(16), isForCancellation: true).string
                 //paxD.cancellationCharge.amountInDelimeterWithSymbol

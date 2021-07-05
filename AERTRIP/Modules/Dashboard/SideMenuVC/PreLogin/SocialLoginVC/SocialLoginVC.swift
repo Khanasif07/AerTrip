@@ -197,8 +197,13 @@ class SocialLoginVC: BaseVC {
     @IBAction func newRegistrationButtonAction(_ sender: UIButton) {
         self.viewModel.firebaseLogEvent(with: .continueAsGuest)
         if currentlyUsingFrom == .loginVerificationForCheckout {
-            popIfUsingFromCheckOut()
-        } else {
+            if self.viewModel.checkoutType != .none{
+                popIfUsingFromCheckOut()
+            }else{
+                AppFlowManager.default.moveToCreateYourAccountVC(email: "", usingFor: currentlyUsingFrom)
+            }
+        }
+        else {
             AppFlowManager.default.moveToCreateYourAccountVC(email: "", usingFor: currentlyUsingFrom)
         }
     }
@@ -286,7 +291,7 @@ private extension SocialLoginVC {
     
     func setupsFonts() {
         
-        if currentlyUsingFrom == .loginVerificationForCheckout {
+        if currentlyUsingFrom == .loginVerificationForCheckout && (self.viewModel.checkoutType != .none) {
             let finalStr = "\(LocalizedString.SkipSignIn.localized)\n\(LocalizedString.ContinueAsGuest.localized)"
             let attributedString = NSMutableAttributedString(string: finalStr, attributes: [
                 .font: AppFonts.Regular.withSize(14.0),
@@ -318,7 +323,7 @@ extension SocialLoginVC: TopNavigationViewDelegate {
         self.viewModel.firebaseLogEvent(with: .navigateBack)
         if self.currentlyUsingFrom == .loginProcess  {
             self.delegate?.backButtonTapped(sender)
-        } else if self.currentlyUsingFrom == .loginVerificationForCheckout || self.currentlyUsingFrom == .loginVerificationForBulkbooking{
+        } else if self.currentlyUsingFrom == .loginVerificationForCheckout || self.currentlyUsingFrom == .loginVerificationForBulkbooking || self.viewModel.checkoutType != .none{
             AppFlowManager.default.currentNavigation?.dismissAsPopAnimation()
         } else {
             AppFlowManager.default.popViewController(animated: true)
