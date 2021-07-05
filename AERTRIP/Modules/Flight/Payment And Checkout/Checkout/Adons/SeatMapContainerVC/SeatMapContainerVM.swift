@@ -106,10 +106,13 @@ class SeatMapContainerVM {
                 if let model = seatModel {
                     if self.seatMapModel.data.leg.count == 0 {
                        self.seatMapModel = model
+                        AddonsDataStore.shared.originalSeatMapModel = self.seatMapModel
                     } else {
                         self.addLegsToSeatMapModel(from: model)
+                        if self.seatMapModel.data.leg.count == self.domesticLegFKs.count {
+                            AddonsDataStore.shared.originalSeatMapModel = self.seatMapModel
+                        }
                     }
-                    AddonsDataStore.shared.originalSeatMapModel = self.seatMapModel
                     self.delegate?.didFetchSeatMapData()
                 }else {
                     self.delegate?.failedToFetchSeatMapData()
