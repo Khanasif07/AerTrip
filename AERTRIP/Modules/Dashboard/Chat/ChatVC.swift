@@ -585,7 +585,7 @@ extension ChatVC : ChatBotDelegatesDelegate {
         invalidateTypingCellTimer()
     }
     
-    func moveFurtherWhenallRequiredInformationSubmited(data: MessageModel) {
+    func moveFurtherWhenallRequiredInformationSubmited(data: MessageModel, type: AerinSearchType) {
         invalidateTypingCellTimer()
         printDebug("lets go...\(data)")
         chatVm.lastCachedResultModel = data

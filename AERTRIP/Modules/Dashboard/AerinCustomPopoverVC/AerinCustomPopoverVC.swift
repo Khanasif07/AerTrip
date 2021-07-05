@@ -895,11 +895,15 @@ extension AerinCustomPopoverVC : ChatBotDelegatesDelegate {
         invalidateTypingCellTimer()
     }
     
-    func moveFurtherWhenallRequiredInformationSubmited(data: MessageModel) {
+    func moveFurtherWhenallRequiredInformationSubmited(data: MessageModel, type: AerinSearchType) {
         invalidateTypingCellTimer()
         printDebug("lets go...\(data)")
         chatVm.lastCachedResultModel = data
-        chatVm.createFlightSearchDictionaryAndPushToVC(data)
+        if type == .flight {
+            chatVm.createFlightSearchDictionaryAndPushToVC(data)
+        } else {
+            chatVm.createHotelParamsAndPush(data)
+        }
         messageTextView.resignFirstResponder()
         startDismissAnimation()
     }

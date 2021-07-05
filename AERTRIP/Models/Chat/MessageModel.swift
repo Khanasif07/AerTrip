@@ -38,7 +38,16 @@ struct MessageModel {
     
     /// To be enabled on tap to show extra details
     var showDetails = false
-        
+    
+    // Mark: Hotel Exclusive keys
+    var destType: String
+    var destName: String
+    var checkin: String
+    var checkout: String
+    var destId: String
+    var guests: String
+    var roomDetailsDict: [String:Int]
+            
     init(msg : String, source : MessageSource) {
         self.msg = msg
         msgSource = source
@@ -54,6 +63,16 @@ struct MessageModel {
         infant = 0
         tripType = ""
         returnDate = ""
+        
+        // hotels
+        destType = ""
+        destName = ""
+        checkin = ""
+        checkout = ""
+        destId = ""
+        guests = ""
+        roomDetailsDict = [:]
+        
     }
     
     init(json : JSON){
@@ -72,6 +91,21 @@ struct MessageModel {
         infant = json[APIKeys.infant.rawValue].intValue
         tripType = json[APIKeys.tripType.rawValue].stringValue
         returnDate = json[APIKeys.returnDate.rawValue].stringValue
+        
+        // hotels
+        destType = json[APIKeys.dest_type.rawValue].stringValue
+        destName = json[APIKeys.dest_name.rawValue].stringValue
+        checkin = json[APIKeys.checkin.rawValue].stringValue
+        checkout = json[APIKeys.checkout.rawValue].stringValue
+        destId = json[APIKeys.dest_id.rawValue].stringValue
+        guests = json[APIKeys.guests.rawValue].stringValue
+        var roomDetails = [String:Int]()
+        json.forEach { (key, subJson) in
+            if key.contains("r0") || key.contains("r1") || key.contains("r2") || key.contains("r3") {
+                roomDetails[key] = subJson.intValue
+            }
+        }
+        roomDetailsDict = roomDetails
     }
     
 }
