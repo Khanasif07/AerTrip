@@ -37,7 +37,7 @@ class TextEditableTableViewCell: UITableViewCell {
         self.titleLabel.font = AppFonts.Regular.withSize(14.0)
         self.editableTextField.font = AppFonts.Regular.withSize(18.0)
         
-        titleLabel.textColor = AppColors.themeGray40
+        titleLabel.textColor = AppColors.themeGray153
         self.editableTextField.textColor = AppColors.themeBlack
          editableTextField.delegate = self
     }

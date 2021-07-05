@@ -84,6 +84,9 @@ class TwoPartEditTableViewCell: UITableViewCell {
     
     private func configureCell() {
         self.updateFFTitle()
+        
+        rightTextField.textColor = AppColors.textFieldTextColor51
+        leftTextField.textColor = AppColors.textFieldTextColor51
         if let ff = self.ffData {
            // frequentFlyerImageView.kf.setImage(with: URL(string: ff.logoUrl))
             frequentFlyerImageView.setImageWithUrl(ff.logoUrl, placeholder: AppPlaceholderImage.frequentFlyer, showIndicator: false)

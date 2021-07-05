@@ -104,6 +104,7 @@ class FrequentFlyerTableViewCell: UITableViewCell {
             frequentFlyerLabel.textColor = AppColors.textFieldTextColor51
         }
         rightTextField.text = ff.number
+        rightTextField.textColor = AppColors.textFieldTextColor51
         rightTextField.delegate = self
         titleLabel.text = LocalizedString.FrequentFlyer.rawValue
         leftTitleLabel.textColor = AppColors.themeGray20
