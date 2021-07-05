@@ -38,10 +38,10 @@ extension HotelsResultVM {
             if index < self.searchedFormData.childrenAge.count {
                 for (childIndex,child) in self.searchedFormData.childrenAge[index].enumerated() {
                     if  childIndex < self.searchedFormData.childrenCounts[index] {
-                    
-                    let show: Int = child >= 0 ? 1 : 0
-                    let childData: JSONDictionary = [APIKeys.show.rawValue : show , APIKeys.age.rawValue : child , APIKeys.error.rawValue : false]
-                    childArrayData.append(childData)
+                        
+                        let show: Int = child >= 0 ? 1 : 0
+                        let childData: JSONDictionary = [APIKeys.show.rawValue : show , APIKeys.age.rawValue : child , APIKeys.error.rawValue : false]
+                        childArrayData.append(childData)
                     }
                 }
             }
@@ -122,7 +122,7 @@ extension HotelsResultVM {
         
         //Meals
         var meals = JSONDictionary()
-                
+        
         meals[APIKeys.no_meals.rawValue] = filterApplied.roomMeal.contains(LocalizedString.RoomOnly.localized)
         meals[APIKeys.breakfast.rawValue] = filterApplied.roomMeal.contains(LocalizedString.Breakfast.localized)
         meals[APIKeys.full_board.rawValue] = filterApplied.roomMeal.contains(LocalizedString.FullBoard.localized)
@@ -173,7 +173,7 @@ extension HotelsResultVM {
         sort[APIKeys.orderAscending.rawValue] = sortAcending
         
         // Removed after discussion with Mahak and Girish
-//        filterParams[APIKeys.sort.rawValue] = sort
+        //        filterParams[APIKeys.sort.rawValue] = sort
         
         return filterParams
     }

@@ -281,12 +281,12 @@ extension HotelResultVC {
                 sSelf.switchContainerView.frame = newFrame
                 sSelf.view.layoutIfNeeded()
                 
-                }, completion: { [weak self](isDone) in
-                    guard let sSelf = self else {return}
-                    
-                    if isHidden {
-                        sSelf.switchContainerView.isHidden = true
-                    }
+            }, completion: { [weak self](isDone) in
+                guard let sSelf = self else {return}
+                
+                if isHidden {
+                    sSelf.switchContainerView.isHidden = true
+                }
             })
         }
         
@@ -363,10 +363,10 @@ extension HotelResultVC {
             final = "All \(starText)" // "0 \(LocalizedString.stars.localized)"
             return final
         }
-            //        else if arr.count == maxCount {
-            //            final = "All \(LocalizedString.stars.localized)"
-            //            return final
-            //        }
+        //        else if arr.count == maxCount {
+        //            final = "All \(LocalizedString.stars.localized)"
+        //            return final
+        //        }
         else if arr.count == 1 {
             final = "\(arr[0]) \((arr[0] == 1) ? "\(starText)" : "\(starText)")"
             return final
@@ -475,7 +475,7 @@ extension HotelResultVC {
                 
                 var rect = self.headerContainerView.frame
                 
-//                var yCordinate = rect.origin.y + invertedOffset
+                //                var yCordinate = rect.origin.y + invertedOffset
                 var yCordinate = invertedOffset - 100.0
                 yCordinate = min ( 0,  yCordinate)
                 if self.tableViewVertical.contentOffset.y <= 0 || rect.origin.y == 20{

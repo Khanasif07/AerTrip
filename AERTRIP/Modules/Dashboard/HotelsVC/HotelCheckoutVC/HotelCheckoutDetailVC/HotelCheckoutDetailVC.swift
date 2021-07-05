@@ -73,6 +73,11 @@ class HotelCheckoutDetailVC: BaseVC {
         super.viewWillDisappear(animated)
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.hotelDetailsTableView.reloadData()
+    }
+    
     deinit {
         printDebug("HotelCheckoutDetailVC deinit")
     }

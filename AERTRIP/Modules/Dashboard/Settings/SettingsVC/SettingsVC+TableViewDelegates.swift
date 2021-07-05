@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension SettingsVC : UITableViewDelegate, UITableViewDataSource {
+ extension SettingsVC : UITableViewDelegate, UITableViewDataSource {
   
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.settingsVm.settingsDataToPopulate.count

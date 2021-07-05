@@ -63,7 +63,7 @@ class AddAddressTableViewCell: UITableViewCell {
       //self.cellDividerView.defaultHeight = 1.0
         hideSepratorView = true
         seperatorView.backgroundColor = AppColors.greyO4
-        dataDisplayView.backgroundColor = AppColors.themeBlack26
+        dataDisplayView.backgroundColor = AppColors.profileContentBackground
         addressTypeTextField.textColor = AppColors.themeBlack
         addressTypeLabel.textColor = AppColors.themeBlack
         addressLineOneTextField.textColor = AppColors.themeBlack

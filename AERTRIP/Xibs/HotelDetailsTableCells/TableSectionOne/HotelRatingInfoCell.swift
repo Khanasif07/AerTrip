@@ -48,8 +48,7 @@ class HotelRatingInfoCell: UITableViewCell {
         self.hotelNameLabel.textColor = AppColors.themeBlack
         self.distanceLabel.textColor = AppColors.themeGray60
         self.deviderView.backgroundColor = AppColors.divider.color
-        self.contentView.backgroundColor = AppColors.clear
-        self.backgroundColor = AppColors.clear
+        self.setupColors()
         
         //Size
         self.hotelNameLabel.font = AppFonts.SemiBold.withSize(22.0)
@@ -81,6 +80,11 @@ class HotelRatingInfoCell: UITableViewCell {
                 self.indicator.startAnimating()
             }
         }
+    }
+    
+    private func setupColors(){
+        self.contentView.backgroundColor = AppColors.themeBlack26
+        self.backgroundColor = AppColors.themeBlack26
     }
     
     private func textSetUp(hotelName: String , distanceText: String, duration: Int?, starRating: Double , tripAdvisorRating: Double) {

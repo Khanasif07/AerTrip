@@ -61,7 +61,7 @@ class EditProfileTwoPartTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         leftTitleLabel.textColor = AppColors.textFieldTextColor51
-        self.contentView.backgroundColor = AppColors.themeBlack26
+        self.contentView.backgroundColor = AppColors.profileContentBackground
         addGesture()
     }
     

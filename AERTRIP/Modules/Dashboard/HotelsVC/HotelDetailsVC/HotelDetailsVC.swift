@@ -57,7 +57,7 @@ class HotelDetailsVC: BaseVC {
         didSet {
             hotelTableView.delegate = self
             hotelTableView.dataSource = self
-            hotelTableView.backgroundColor = AppColors.themeWhiteDashboard
+            hotelTableView.backgroundColor = AppColors.themeGray04
         }
     }
     @IBOutlet weak var headerView: TopNavigationView! {
@@ -158,6 +158,10 @@ class HotelDetailsVC: BaseVC {
     override func setupColors() {
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.hotelTableView.reloadData()
+    }
     
     override func currencyChanged(_ note: Notification) {
         self.hotelTableView.reloadData()

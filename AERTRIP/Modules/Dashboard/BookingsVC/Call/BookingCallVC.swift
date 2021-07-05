@@ -52,7 +52,7 @@ class BookingCallVC: BaseVC {
         
         self.setupNavBar()
         self.registerXib()
-
+        self.callTableView.backgroundColor = AppColors.themeGray04
         FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsContactNumberList, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a",isFrom: "Bookings")
 
 
@@ -96,6 +96,8 @@ class BookingCallVC: BaseVC {
                 bookingCell.dividerViewLeadingConst.constant = 59
             }
         }
+        bookingCell.containerView.backgroundColor = AppColors.themeBlack26
+        bookingCell.contentView.backgroundColor = AppColors.themeBlack26
         return bookingCell
     }
     
@@ -106,6 +108,8 @@ class BookingCallVC: BaseVC {
         bookingCell.configureCell(code: self.viewModel.airlineData[indexPath.row].airlineCode, title: self.viewModel.airlineData[indexPath.row].airlineName, phoneLabel: self.viewModel.airlineData[indexPath.row].phone, cellType: .airlines)
         bookingCell.dividerView.isHidden = false//self.viewModel.airlineData.count - 1 == indexPath.row
         bookingCell.dividerViewLeadingConst.constant = (self.viewModel.airlineData.count - 1 == indexPath.row) ? 0 : 59
+        bookingCell.containerView.backgroundColor = AppColors.themeBlack26
+        bookingCell.contentView.backgroundColor = AppColors.themeBlack26
         return bookingCell
     }
     
@@ -123,7 +127,8 @@ class BookingCallVC: BaseVC {
             bookingCell.configureCell(code: self.viewModel.airportData[indexPath.row].ataCode, title: title, phoneLabel: self.viewModel.airportData[indexPath.row].phone, cellType: .airports)
             bookingCell.dividerView.isHidden = false//self.viewModel.airportData.count - 1 == indexPath.row
             bookingCell.dividerViewLeadingConst.constant = self.viewModel.airportData.count - 1 == indexPath.row ? 0.0 : 59.0
-            
+            bookingCell.containerView.backgroundColor = AppColors.themeBlack26
+            bookingCell.contentView.backgroundColor = AppColors.themeBlack26
             return bookingCell
         }
     }
@@ -147,6 +152,8 @@ class BookingCallVC: BaseVC {
             bookingCell.dividerView.isHidden = self.viewModel.hotelData.count - 1 == indexPath.row
             bookingCell.dividerView.isHidden = indexPath.section == self.viewModel.section.count - 1 ? false : true
             bookingCell.dividerViewLeadingConst.constant = indexPath.section == self.viewModel.section.count - 1 ? 0.0 : 59.0
+            bookingCell.containerView.backgroundColor = AppColors.themeBlack26
+            bookingCell.contentView.backgroundColor = AppColors.themeBlack26
             return bookingCell
         }
     }
@@ -174,6 +181,7 @@ extension BookingCallVC: UITableViewDataSource, UITableViewDelegate {
         }
         callHeader.topSeparatorView.isHidden = (section == 0)
         callHeader.headerLabel.text = self.viewModel.section[section]
+        callHeader.containerView.backgroundColor = AppColors.themeGray04
         return callHeader
     }
     

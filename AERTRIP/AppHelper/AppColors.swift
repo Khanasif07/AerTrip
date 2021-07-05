@@ -68,6 +68,11 @@ enum AppColors {
     /// RGB - 246, 246, 246  Dark 0, 0 ,0
     static let headerBackground  = UIColor(named: "headerBackground") ?? UIColor(displayP3Red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
 
+
+    static let profileHeaderBackground  = UIColor(named: "profileHeaderBackground") ?? .black
+
+    static let profileContentBackground = UIColor(named: "profileContentBackground") ?? .white
+    
     /// RGB - 214, 214, 214
     static let themeGray214  = UIColor(named: "themeGray214") ?? UIColor(displayP3Red: 0.839, green: 0.839, blue: 0.839, alpha: 1)
     

@@ -65,7 +65,7 @@ class TwoPartEditTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        self.contentView.backgroundColor = AppColors.themeBlack26
+        self.contentView.backgroundColor = AppColors.profileContentBackground
         frequentFlyerLabel.text = LocalizedString.SelectAirline.localized
         addGesture()
     }

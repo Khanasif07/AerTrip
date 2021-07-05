@@ -20,9 +20,12 @@ class NotificationSettingsCell : UITableViewCell {
         selectionStyle = .none
         settingTitleLabel.font = AppFonts.Regular.withSize(18)
         settingDescriptionLabel.font = AppFonts.Regular.withSize(14)
-//        settingDescriptionLabel.textColor = AppColors.themeGray20
-//        self.sepratorView.backgroundColor = AppColors.themeGray20
-        settingDescriptionLabel.textColor = AppColors.themeGray40
+        settingTitleLabel.textColor = AppColors.themeBlack
+        settingDescriptionLabel.textColor = AppColors.commonThemeGray
+        self.contentView.backgroundColor = AppColors.themeBlack26
+        
+        //        settingDescriptionLabel.textColor = AppColors.themeGray20
+        //        self.sepratorView.backgroundColor = AppColors.themeGray20
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

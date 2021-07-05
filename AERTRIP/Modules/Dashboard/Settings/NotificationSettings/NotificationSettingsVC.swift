@@ -43,6 +43,8 @@ class NotificationSettingsVC: BaseVC {
     
         override func setupColors() {
             super.setupColors()
+            self.view.backgroundColor = AppColors.themeWhite
+            self.notificationSettingsTableView.backgroundColor = AppColors.themeGray04
         }
         
         //MARK:- Methods

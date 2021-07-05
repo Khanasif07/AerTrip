@@ -35,8 +35,8 @@ class TripAdvisorTableViewCell: UITableViewCell {
         self.checkTripAdvisorLabel.text = "TripAdvisor Rating"
         self.checkTripAdvisorLabel.font = AppFonts.SemiBold.withSize(16.0)
         self.checkTripAdvisorLabel.textColor = AppColors.themeBlack
-        self.backgroundColor = AppColors.clear
-        self.contentView.backgroundColor = AppColors.clear
+//        self.backgroundColor = AppColors.clear
+//        self.contentView.backgroundColor = AppColors.clear
     }
     
 }
