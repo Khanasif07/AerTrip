@@ -316,6 +316,7 @@ class HCDataSelectionVM {
         
         //save locally and update ui
         self.hotelInfo?.fav = self.hotelInfo?.fav == "0" ? "1" : "0"
+        
         _ = self.hotelInfo?.afterUpdate
         self.delegate?.updateFavouriteSuccess(withMessage: "")
         
@@ -323,6 +324,10 @@ class HCDataSelectionVM {
             if let sSelf = self {
                 if isSuccess {
                     sSelf.delegate?.updateFavouriteSuccess(withMessage: successMessage)
+                    if sSelf.itineraryData?.hotelDetails != nil{
+                        sSelf.itineraryData!.hotelDetails!.fav = (sSelf.itineraryData!.hotelDetails!.fav == "0") ? "1" : "0"
+                    }
+                    
                 } else {
                     if let _ = UserInfo.loggedInUserId {
                         //revert back in API not success fav/unfav locally
