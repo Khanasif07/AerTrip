@@ -243,6 +243,7 @@ extension FlightPaymentVC{
                 printDebug("ApplyCouponTableViewCell not found")
                 return UITableViewCell()
             }
+                        
             if self.isCouponApplied {
                 if let discountBreakUp = self.viewModel.appliedCouponData.discountsBreakup {
                     let saveAmount = discountBreakUp.CACB + discountBreakUp.CPD
@@ -272,6 +273,9 @@ extension FlightPaymentVC{
                 printDebug("WalletTableViewCell not found")
                 return UITableViewCell()
             }
+//            applyCouponCell.contentView.bringSubviewToFront(self.tblHighLighterView ?? UIView())
+
+            
             walletCell.clipsToBounds = true
             walletCell.delegate = self
             walletCell.walletSwitch.isOn = isWallet

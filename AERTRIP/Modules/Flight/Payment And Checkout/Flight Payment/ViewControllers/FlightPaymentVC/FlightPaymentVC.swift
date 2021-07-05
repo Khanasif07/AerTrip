@@ -54,7 +54,6 @@ class FlightPaymentVC: BaseVC {
     //Is taxes and fee expended
     var isTaxesAndFeeExpended = false
     var isAddonsExpended = false
-    
    
     
     override func viewDidLoad() {
@@ -77,6 +76,7 @@ class FlightPaymentVC: BaseVC {
         self.setUpNavigationView()
         self.setupPayButton()
         self.manageLoader()
+        
     }
     
     override func initialSetup() {
@@ -130,6 +130,7 @@ class FlightPaymentVC: BaseVC {
         self.checkOutTableView.registerCell(nibName: TotalPayableNowCell.reusableIdentifier)
         self.checkOutTableView.registerCell(nibName: ConvenienceFeeTableViewCell.reusableIdentifier)
     }
+    
     
     // Set up Navigation header
     private func setUpNavigationView() {
