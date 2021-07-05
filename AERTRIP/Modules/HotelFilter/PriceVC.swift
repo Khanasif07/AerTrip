@@ -32,7 +32,7 @@ class PriceVC: BaseVC {
     private let priceTitles: [Price] = [.PerNight,.Total]
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        tableView.backgroundColor = AppColors.themeWhiteDashboard
         self.tableView.dataSource = self
         self.tableView.delegate = self
         registerXib()
@@ -177,7 +177,7 @@ extension PriceVC: UITableViewDataSource, UITableViewDelegate {
     
     func setCheckBox() -> UIImageView {
         let checkMarkView = UIImageView(frame: CGRect(x: 0.0, y: 0.0, width: 20.0, height: 20.0))
-        checkMarkView.setImageWithUrl("", placeholder: #imageLiteral(resourceName: "checkIcon"), showIndicator: false)
+        checkMarkView.setImageWithUrl("", placeholder: AppImages.checkIcon, showIndicator: false)
         return checkMarkView
     }
     

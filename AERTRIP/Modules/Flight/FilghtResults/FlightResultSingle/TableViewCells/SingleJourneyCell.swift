@@ -8,15 +8,14 @@
 
 import UIKit
 
-
-class SingleJourneyCell: UITableViewCell
-{
+class SingleJourneyCell: UITableViewCell {
     //MARK:- Outlets
     @IBOutlet weak var logoStackViewTop: NSLayoutConstraint!
     @IBOutlet weak var logoOne: UIImageView!
     @IBOutlet weak var logoTwo: UIImageView!
     @IBOutlet weak var logoThree: UIImageView!
     
+    @IBOutlet weak var airportsNameView: UIView!
     @IBOutlet weak var singleairlineLogo: UIImageView!
     @IBOutlet weak var airlineTitleTop: NSLayoutConstraint!
     @IBOutlet weak var airlineTitleWidth: NSLayoutConstraint!
@@ -54,9 +53,12 @@ class SingleJourneyCell: UITableViewCell
 //        layer.shadowOffset = CGSize(width: 0, height: 0)
 //        layer.shadowColor = UIColor.black.withAlphaComponent(0.3).cgColor
 //        self.baseView.layer.cornerRadius = 10
-        let shadowProp = AppShadowProperties()
-        self.baseView.addShadow(cornerRadius: shadowProp.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: shadowProp.shadowColor, offset: shadowProp.offset, opacity: shadowProp.opecity, shadowRadius: shadowProp.shadowRadius)
-//        self.baseView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
+                
+         let shadowProp = AppShadowProperties(self.isLightTheme())
+         
+         self.baseView.addShadow(cornerRadius: shadowProp.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: shadowProp.shadowColor, offset: shadowProp.offset, opacity: shadowProp.opecity, shadowRadius: shadowProp.shadowRadius)
+
+        
     }
     
     override func awakeFromNib() {
@@ -66,6 +68,7 @@ class SingleJourneyCell: UITableViewCell
         dashedView.setupDashedView()
         setupGradientView()
         setupCollectionView()
+        self.setupColors()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -79,6 +82,16 @@ class SingleJourneyCell: UITableViewCell
         smartIconCollectionView.allowsSelection = false
         smartIconCollectionView.dataSource = self
         smartIconCollectionView.delegate = self
+    }
+    
+    func setupColors(){
+        self.baseView.backgroundColor = AppColors.themeWhiteDashboard
+        self.gradientView.isHidden = !self.isLightTheme()
+        self.smartIconCollectionView.backgroundColor = AppColors.themeWhiteDashboard
+        self.price.backgroundColor = AppColors.themeWhiteDashboard
+        self.airportsNameView.backgroundColor = AppColors.themeWhiteDashboard
+        self.intermediateAirports.backgroundColor = AppColors.themeWhiteDashboard
+        self.intermediateAirports.textColor = AppColors.themeGray153
     }
     
     //MARK:-
@@ -99,7 +112,8 @@ class SingleJourneyCell: UITableViewCell
     }
     
     fileprivate func setPinnedFlight() {
-        self.baseView.layer.borderColor = UIColor.AertripColor.cgColor
+        
+        self.baseView.layer.borderColor = isLightTheme() ? UIColor.AertripColor.cgColor : AppColors.clear.cgColor
         self.baseView.layer.borderWidth = 1.0
         
         if pinnedRoundedLayer == nil
@@ -203,10 +217,11 @@ class SingleJourneyCell: UITableViewCell
         
         self.baseView.layer.borderWidth = 0.0
         durationTime.textColor = UIColor.ONE_ZORE_TWO_COLOR
-        price.textColor = .black
+        price.textColor = AppColors.themeBlack
         priceWidth.constant = 170
         
         pinnedRoundedLayer?.removeFromSuperlayer()
+        self.setupColors()
         
     }
     
@@ -264,7 +279,7 @@ extension SingleJourneyCell : UICollectionViewDataSource , UICollectionViewDeleg
         let cell = smartIconCollectionView.dequeueReusableCell(withReuseIdentifier: "SmartIconCell", for: indexPath) as! SmartIconCell
         
         if indexPath.section == 0 {
-            cell.imageView.image = UIImage(named: "checkingBaggageKg")
+            cell.imageView.image = AppImages.checkingBaggageKg
             cell.superScript.attributedText = baggageSuperScript
             cell.superScriptWidth.constant = 14
             cell.imageViewLeading.constant = 0

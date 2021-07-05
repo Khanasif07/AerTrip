@@ -53,7 +53,7 @@ class HCHotelPassengerView: UIView {
     internal func configCell(travellersImage: String, travellerName: String,firstName: String,lastName: String, dob: String, salutation: String, age: String) {
         //self.travellerName.text = travellerName
         if !travellersImage.isEmpty {
-            self.travellerProfileImage.setImageWithUrl(travellersImage, placeholder: #imageLiteral(resourceName: "profilePlaceholder"), showIndicator: true)
+            self.travellerProfileImage.setImageWithUrl(travellersImage, placeholder: AppImages.profilePlaceholder, showIndicator: true)
             self.travellerProfileImage.contentMode = .scaleAspectFit
         } else {
             

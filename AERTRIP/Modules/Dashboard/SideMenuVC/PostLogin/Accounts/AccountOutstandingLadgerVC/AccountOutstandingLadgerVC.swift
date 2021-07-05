@@ -178,7 +178,7 @@ class AccountOutstandingLadgerVC: BaseVC {
         self.summeryLabel.text = LocalizedString.Summary.localized
         
         self.grossOutstandingLabel.text = LocalizedString.GrossOutstanding.localized
-        self.onAccountLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: LocalizedString.OnAccount.localized, image: #imageLiteral(resourceName: "ic_next_arrow_zeroSpacing"), endText: "", font: AppFonts.Regular.withSize(16.0))
+        self.onAccountLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: LocalizedString.OnAccount.localized, image: AppImages.ic_next_arrow_zeroSpacing, endText: "", font: AppFonts.Regular.withSize(16.0))
         self.netOutstandingLabel.text = LocalizedString.NetOutstanding.localized
         
         let drAttr = NSMutableAttributedString(string: " \(LocalizedString.DebitShort.localized)", attributes: [.font: AppFonts.Regular.withSize(16.0)])
@@ -204,15 +204,17 @@ class AccountOutstandingLadgerVC: BaseVC {
     }
     
     override func setupColors() {
+        self.view.backgroundColor = AppColors.themeWhite
         self.summeryLabel.textColor = AppColors.themeGray40
         
         self.tableView.backgroundColor = AppColors.themeWhite
         
         self.searchContainerView.backgroundColor = AppColors.themeWhite
         self.searchBarContainerView.backgroundColor = AppColors.themeWhite
+        self.subheaderDetailsConstainer.backgroundColor = AppColors.themeWhite
         self.blankSpaceView.backgroundColor = AppColors.themeGray04
         
-        self.makePaymentTitleLabel.textColor = AppColors.themeWhite
+        self.makePaymentTitleLabel.textColor = AppColors.unicolorWhite
         
         self.makePaymentContainerView.addShadow(cornerRadius: 0.0, shadowColor: AppColors.themeGreen, backgroundColor: AppColors.clear, offset: CGSize(width: 0.0, height: 12.0))
     }
@@ -232,7 +234,7 @@ class AccountOutstandingLadgerVC: BaseVC {
         if self.currentViewState == .normal {
             self.topNavView.configureNavBar(title: LocalizedString.OutstandingLedger.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: true, backgroundType: .color(color: AppColors.themeWhite))
             
-            self.topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "greenPopOverButton"), selectedImage: #imageLiteral(resourceName: "greenPopOverButton"), normalTitle: nil, selectedTitle: nil)
+            self.topNavView.configureFirstRightButton(normalImage: AppImages.greenPopOverButton, selectedImage: AppImages.greenPopOverButton, normalTitle: nil, selectedTitle: nil)
         }
         else {
             self.topNavView.configureNavBar(title: LocalizedString.SelectBooking.localized, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: true, backgroundType: .color(color: AppColors.themeWhite))
@@ -378,7 +380,7 @@ class AccountOutstandingLadgerVC: BaseVC {
             attrText = totalAmount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
             self.makePaymentTitleLabel.alpha = (totalAmount > 0) ? 1.0 : 0.6
         }
-        attrText.addAttributes([NSAttributedString.Key.foregroundColor : AppColors.themeWhite], range: NSRange(location: 0, length: attrText.length))
+        attrText.addAttributes([NSAttributedString.Key.foregroundColor : AppColors.unicolorWhite], range: NSRange(location: 0, length: attrText.length))
         self.payableAmountLabel.attributedText = attrText
         self.makePaymentTitleLabel.text = LocalizedString.MakePayment.localized
     }

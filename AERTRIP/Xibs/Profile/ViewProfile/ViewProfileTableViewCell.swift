@@ -20,9 +20,11 @@ class ViewProfileTableViewCell: UITableViewCell {
         super.awakeFromNib()
          self.menuOptionLabel.font = AppFonts.Regular.withSize(20.0)
         // Initialization code
+        
     }
     
     func configureCell(_ title: String) {
+        menuOptionLabel.textColor = AppColors.themeBlack
         menuOptionLabel.text  = title
         self.menuOptionLabel.font = AppFonts.Regular.withSize(20.0)
     }

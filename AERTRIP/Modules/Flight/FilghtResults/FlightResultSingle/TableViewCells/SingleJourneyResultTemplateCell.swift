@@ -33,19 +33,9 @@ class SingleJourneyResultTemplateCell: UITableViewCell {
     }
     
     fileprivate func setupBaseView() {
-       
-//        backgroundColor = .clear
-//        layer.masksToBounds = false
-//        layer.shadowOpacity = 0.4
-//        layer.shadowRadius = 4
-//        layer.shadowOffset = CGSize(width: 0, height: 0)
-//        layer.shadowColor = UIColor.black.withAlphaComponent(0.3).cgColor
-//        baseView.layer.cornerRadius = 10.0
-        
+               
         let shadowProp = AppShadowProperties()
         self.baseView.addShadow(cornerRadius: shadowProp.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: shadowProp.shadowColor, offset: shadowProp.offset, opacity: shadowProp.opecity, shadowRadius: shadowProp.shadowRadius)
-        
-//        self.baseView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
 
     }
     
@@ -57,7 +47,7 @@ class SingleJourneyResultTemplateCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        self.baseView.backgroundColor = AppColors.themeWhiteDashboard
         dashedView.setupDashedView()
         setupBaseView()
         addShimmerEffect(to: [singleairlineLogo,airlineTitle , DepartureTime , departureAirports ])
@@ -66,6 +56,11 @@ class SingleJourneyResultTemplateCell: UITableViewCell {
             self.addShimmerEffect(to: [ self.arrivalTime , self.arrivalAirports , self.price] )
         }
         
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.baseView.backgroundColor = AppColors.themeWhiteDashboard
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -514,7 +514,7 @@ extension CreateProfileVC {
     func setupViewForSuccessAnimation() {
         
         self.letsStartedButton.setTitle(nil, for: .normal)
-        self.letsStartedButton.setImage(#imageLiteral(resourceName: "Checkmark"), for: .normal)
+        self.letsStartedButton.setImage(AppImages.Checkmark, for: .normal)
 //        self.letStartButtonHeight.constant = 74
 //        self.letsStartButtonWidth.constant = 74
        // self.letsStartedButton.layer.masksToBounds = true

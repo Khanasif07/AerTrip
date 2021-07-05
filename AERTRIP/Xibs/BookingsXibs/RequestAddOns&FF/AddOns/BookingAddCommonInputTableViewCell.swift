@@ -48,9 +48,9 @@ class BookingAddCommonInputTableViewCell: ATTableViewCell {
     
     
     override func setupColors() {
-        self.titleLabel.textColor = AppColors.themeGray40
+        self.titleLabel.textColor = AppColors.themeGray153
         self.inputTextField.textColor = AppColors.themeTextColor
-       self.characterCountLabel.textColor = AppColors.themeGray40
+       self.characterCountLabel.textColor = AppColors.themeGray153
 
     }
     

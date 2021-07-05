@@ -100,7 +100,7 @@ class BookingTravellerCollectionViewCell: UICollectionViewCell {
         self.travellerLastNameLabel.isHidden = (self.paxData?.lastName ?? "").isEmpty
         self.travellerAgeLabel.isHidden = (self.paxData?.dob ?? "").isEmpty || ageYear.replacingOccurrences(of: " ", with: "").isEmpty
         
-        let placeImage = AppGlobals.shared.getImageFor(firstName: self.paxData?.firstName, lastName: self.paxData?.lastName, font: AppFonts.Regular.withSize(35.0),backGroundColor: AppColors.blueGray)
+        let placeImage = AppGlobals.shared.getImageFor(firstName: self.paxData?.firstName, lastName: self.paxData?.lastName, font: AppFonts.Regular.withSize(35.0), textColor: AppColors.themeGray153, backGroundColor: AppColors.blueGray)
         if self.paxData?.profileImage.isEmpty ?? false {
             self.profileImageView.image = placeImage
             self.profileImageView.contentMode = .scaleAspectFit
@@ -134,7 +134,7 @@ class BookingTravellerCollectionViewCell: UICollectionViewCell {
         self.travellerAgeLabel.isHidden = ageToShow.isEmpty
         self.bottomConstraint.constant = 0
         self.topConstraint.constant = 10
-        let placeImage = AppGlobals.shared.getImageFor(firstName: self.guestData?.firstName, lastName: self.guestData?.lastname, font: AppFonts.Regular.withSize(35.0),backGroundColor: AppColors.blueGray)
+        let placeImage = AppGlobals.shared.getImageFor(firstName: self.guestData?.firstName, lastName: self.guestData?.lastname, font: AppFonts.Regular.withSize(35.0), textColor: AppColors.themeGray153, backGroundColor: AppColors.blueGray)
         if self.guestData?.profileImage.isEmpty ?? false {
             self.profileImageView.image = placeImage
             self.profileImageView.contentMode = .scaleAspectFit

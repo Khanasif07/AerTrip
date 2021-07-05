@@ -34,6 +34,7 @@ class WebCheckinVC: BaseVC {
         } else {
             self.view.backgroundColor = AppColors.themeWhite
         }
+        self.webCheckinTableView.backgroundColor = AppColors.themeGray04
         self.viewModel.getIntialData()
         
         self.setupNavBar()
@@ -46,7 +47,7 @@ class WebCheckinVC: BaseVC {
     override func setupNavBar() {
         self.topNavBar.delegate = self
         self.topNavBar.configureNavBar(title: LocalizedString.WebCheckin.localized, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
-        topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "black_cross"), selectedImage: #imageLiteral(resourceName: "black_cross"))
+        topNavBar.configureFirstRightButton(normalImage: AppImages.CancelButtonWhite, selectedImage: AppImages.CancelButtonWhite)
     }
     
     // MARK: - Helper methods
@@ -63,6 +64,7 @@ class WebCheckinVC: BaseVC {
         bookingCell.configureCell(code: self.viewModel.airlineData[indexPath.row].airlineCode, title: self.viewModel.airlineData[indexPath.row].airlineName, phoneLabel: "", cellType: .webcheckin)
         bookingCell.dividerView.isHidden = false//self.viewModel.airlineData.count - 1 == indexPath.row
         bookingCell.dividerViewLeadingConst.constant = (self.viewModel.airlineData.count - 1 == indexPath.row) ? 0 : 59
+        bookingCell.containerView.backgroundColor  = AppColors.themeBlack26
         return bookingCell
     }
     
@@ -85,6 +87,7 @@ extension WebCheckinVC: UITableViewDataSource, UITableViewDelegate {
         }
         callHeader.topSeparatorView.isHidden = (section == 0)
         callHeader.headerLabel.text = self.viewModel.section[section]
+        callHeader.containerView.backgroundColor  = AppColors.themeGray04
         return callHeader
     }
     

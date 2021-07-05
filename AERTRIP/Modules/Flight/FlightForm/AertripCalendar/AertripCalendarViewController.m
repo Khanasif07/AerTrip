@@ -6,7 +6,7 @@
 //  Copyright © 2018 Aertrip. All rights reserved.
 //
 
-
+#import "AERTRIP-Swift.h"
 #import "AertripCalendarViewController.h"
 
 #import "DIYCalendarCell.h"
@@ -37,6 +37,12 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewWidth;
 @property (weak, nonatomic) IBOutlet UIView *backgroundView;
+@property (weak, nonatomic) IBOutlet UIVisualEffectView *weekDaysBlurView;
+@property (weak, nonatomic) IBOutlet UIVisualEffectView *doneBlurView;
+
+@property (weak, nonatomic) IBOutlet UIView *weekDaysDarkView;
+@property (weak, nonatomic) IBOutlet UIView *doneDarkView;
+@property (weak, nonatomic) IBOutlet UIView *multicitySelectionBackView;
 
 @end
 
@@ -58,7 +64,43 @@
     [super viewDidLoad];
     [self setupInitials];
     [self showDatesSelection];
-    self.backgroundView.backgroundColor = [UIColor colorWithDisplayP3Red: 236/255.0 green:253/255.0 blue:244/255.0 alpha:1];
+    self.backgroundView.backgroundColor = [UIColor calendarSelectedGreen];
+    [self setColors];
+    [self hideShowDarkViews];
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+    [self hideShowDarkViews];
+}
+
+- (void)setColors {
+    _customCalenderView.backgroundColor = [UIColor themeBlack26];
+    _customCalenderView.appearance.headerTitleColor = [UIColor themeBlack];
+    _customCalenderView.appearance.titleDefaultColor = [UIColor themeBlack];
+    _customCalenderView.appearance.titlePlaceholderColor = [UIColor flightFormGray];
+    _customCalenderView.appearance.todayColor = [UIColor appColor];
+    _TopView.backgroundColor = [UIColor themeWhiteDashboard];
+//    _doneDarkView.backgroundColor = [UIColor themeWhiteDashboard];
+//    _weekDaysDarkView.backgroundColor = [UIColor themeWhiteDashboard];
+    _backgroundView.backgroundColor = [UIColor calendarSelectedGreen];
+    _startDateValueLabel.textColor = [UIColor themeBlack];
+    _startDateSubLabel.textColor = [UIColor themeBlack];
+    _endDateValueLabel.textColor = [UIColor themeBlack];
+    _endDateSubLabel.textColor = [UIColor themeBlack];
+    _multicitySelectionBackView.backgroundColor = [UIColor themeWhiteDashboard];
+    _multiCitySelectionTap.backgroundColor = [UIColor calendarSelectedGreen];
+    _doneOutterView.backgroundColor = [UIColor themeWhiteDashboard];
+}
+
+- (void)hideShowDarkViews {
+    if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+//        _doneDarkView.hidden = NO;
+//        _weekDaysDarkView.hidden = NO;
+    } else {
+//        _doneDarkView.hidden = YES;
+//        _weekDaysDarkView.hidden = YES;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -110,7 +152,8 @@
 }
 
 -(UIColor*)ONE_FIVE_THREE_COLOR {
-    return  [UIColor colorWithDisplayP3Red:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0];
+    return [UIColor flightFormGray];
+//    return  [UIColor colorWithDisplayP3Red:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0];
 }
 
 -(UIColor*)AertripColor
@@ -152,10 +195,10 @@
     self.doneButton.userInteractionEnabled = YES;
     self.doneButton.titleLabel.font = [UIFont fontWithName:@"SourceSansPro-Semibold" size:20.0];
     [self setupWeekdays];
+    
+    [self.doneButton setTitleColor:[UIColor AertripColor] forState:UIControlStateNormal];
+    [self.doneButton setTitleColor:[UIColor TWO_ZERO_FOUR_COLOR] forState:UIControlStateDisabled];
     if ( self.viewModel.isHotelCalendar) {
-        
-        [self.doneButton setTitleColor:[self AertripColor] forState:UIControlStateNormal];
-        [self.doneButton setTitleColor:[self TWO_ZERO_FOUR_COLOR] forState:UIControlStateDisabled];
         
         self.cancelButton.hidden = YES;
     }
@@ -193,7 +236,9 @@
     
     self.tempView.layer.shadowColor = [UIColor colorWithDisplayP3Red:0 green:0 blue:0 alpha:0.05].CGColor;
     self.tempView.layer.shadowOpacity = 1;
-    self.tempView.layer.shadowRadius = 10;    
+    self.tempView.layer.shadowRadius = 10;
+    
+    _weekdaysBaseView.backgroundColor = [UIColor themeWhiteDashboard];
 }
 
 - (void) loadFont:(NSString*)fontName {
@@ -543,11 +588,11 @@
 
 - (void)applyShadowToDoneView {
     
-    self.doneOutterView.clipsToBounds = NO;
-    self.doneOutterView.layer.shadowColor = [UIColor colorWithDisplayP3Red:0 green:0 blue:0 alpha:0.05].CGColor;
-    self.doneOutterView.layer.shadowOpacity = 1.0;
-    self.doneOutterView.layer.shadowRadius = 10.0;
-    self.doneOutterView.layer.shadowOffset = CGSizeMake(0.0, -6.0);
+//    self.doneOutterView.clipsToBounds = NO;
+//    self.doneOutterView.layer.shadowColor = [UIColor colorWithDisplayP3Red:0 green:0 blue:0 alpha:0.05].CGColor;
+//    self.doneOutterView.layer.shadowOpacity = 1.0;
+//    self.doneOutterView.layer.shadowRadius = 10.0;
+//    self.doneOutterView.layer.shadowOffset = CGSizeMake(0.0, -6.0);
 }
 
 - (void)setupCalender {
@@ -577,6 +622,7 @@
     if ( self.multicityViewModel != nil) {
         self.customCalenderView.allowsMultipleSelection = NO;
     }
+    
     self.customCalenderView.firstWeekday = 1;
     self.customCalenderView.placeholderType = FSCalendarPlaceholderTypeNone;    //date cell placeholder make empty
     [self.customCalenderView registerClass:[DIYCalendarCell class] forCellReuseIdentifier:@"cell"];
@@ -585,7 +631,7 @@
     [self.customCalenderView  addGestureRecognizer:scopeGesture];
     
     //HEADER
-    self.customCalenderView.appearance.headerTitleColor = [UIColor blackColor];
+//    self.customCalenderView.appearance.headerTitleColor = [UIColor blackColor];
     self.customCalenderView.appearance.headerTitleFont = [UIFont fontWithName:@"SourceSansPro-Semibold" size:20.0];
     self.customCalenderView.headerHeight = 68.0;
     self.customCalenderView.calendarWeekdayView.hidden = true;
@@ -602,7 +648,7 @@
     } else {
         self.customCalenderView.rowHeight = 50.0;//70.0;
     }
-    self.customCalenderView.appearance.titleDefaultColor = [UIColor blackColor];
+//    self.customCalenderView.appearance.titleDefaultColor = [UIColor blackColor];
     self.customCalenderView.appearance.titleFont = [UIFont fontWithName:@"SourceSansPro-Regular" size:20.0];
     self.customCalenderView.swipeToChooseGesture.enabled = YES;
     self.customCalenderView.today = nil;
@@ -814,6 +860,7 @@
 - (FSCalendarCell *)calendar:(FSCalendar *)calendar cellForDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
 {
     DIYCalendarCell *cell = [calendar dequeueReusableCellWithIdentifier:@"cell" forDate:date atMonthPosition:monthPosition];
+    cell.titleLabel.textColor = [UIColor themeBlack];
     return cell;
 }
 
@@ -1176,14 +1223,14 @@
     
     if(timeInterval > 0 )
     {
-        cell.titleLabel.textColor = [UIColor blackColor];
+        cell.titleLabel.textColor = [UIColor themeBlack];
     }
     else {
-        cell.titleLabel.textColor = [UIColor colorWithDisplayP3Red:0.66 green:0.66 blue:0.66 alpha:1.0];
+        cell.titleLabel.textColor = [[UIColor flightFormGray] resolvedColorWithTraitCollection:self.traitCollection];
     }
     
     if( [date timeIntervalSinceDate:self.maximumDate] > 0 ){
-        cell.titleLabel.textColor = [UIColor colorWithDisplayP3Red:0.66 green:0.66 blue:0.66 alpha:1.0];
+        cell.titleLabel.textColor = [[UIColor flightFormGray] resolvedColorWithTraitCollection:self.traitCollection];
     }
     
     // Custom today circle

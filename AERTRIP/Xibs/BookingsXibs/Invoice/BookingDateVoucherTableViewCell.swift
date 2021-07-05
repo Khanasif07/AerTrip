@@ -9,6 +9,7 @@
 import UIKit
 
 class BookingDateVoucherTableViewCell: ATTableViewCell {
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var voucherLabel: UILabel!
     

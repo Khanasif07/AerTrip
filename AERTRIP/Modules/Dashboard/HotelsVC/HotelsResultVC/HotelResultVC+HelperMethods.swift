@@ -281,12 +281,12 @@ extension HotelResultVC {
                 sSelf.switchContainerView.frame = newFrame
                 sSelf.view.layoutIfNeeded()
                 
-                }, completion: { [weak self](isDone) in
-                    guard let sSelf = self else {return}
-                    
-                    if isHidden {
-                        sSelf.switchContainerView.isHidden = true
-                    }
+            }, completion: { [weak self](isDone) in
+                guard let sSelf = self else {return}
+                
+                if isHidden {
+                    sSelf.switchContainerView.isHidden = true
+                }
             })
         }
         
@@ -363,10 +363,10 @@ extension HotelResultVC {
             final = "All \(starText)" // "0 \(LocalizedString.stars.localized)"
             return final
         }
-            //        else if arr.count == maxCount {
-            //            final = "All \(LocalizedString.stars.localized)"
-            //            return final
-            //        }
+        //        else if arr.count == maxCount {
+        //            final = "All \(LocalizedString.stars.localized)"
+        //            return final
+        //        }
         else if arr.count == 1 {
             final = "\(arr[0]) \((arr[0] == 1) ? "\(starText)" : "\(starText)")"
             return final
@@ -475,7 +475,7 @@ extension HotelResultVC {
                 
                 var rect = self.headerContainerView.frame
                 
-//                var yCordinate = rect.origin.y + invertedOffset
+                //                var yCordinate = rect.origin.y + invertedOffset
                 var yCordinate = invertedOffset - 100.0
                 yCordinate = min ( 0,  yCordinate)
                 if self.tableViewVertical.contentOffset.y <= 0 || rect.origin.y == 20{
@@ -581,7 +581,9 @@ extension HotelResultVC {
         let scrollViewHeight = contentSize.height
         let viewHeight = self.view.frame.height
         
-        if scrollViewHeight < (viewHeight + visualEffectViewHeight) {
+        // added second or check as the table was jerking when trying to pull at the end
+        if scrollViewHeight < (viewHeight + visualEffectViewHeight) ||
+            (tableViewVertical.contentSize.height - tableViewVertical.contentOffset.y) < view.height {
             return
         }
         
@@ -591,6 +593,12 @@ extension HotelResultVC {
             hideHeaderBlurView(offsetDifference)
         }
         else {
+            // hotel list scroll down header jerk fix - Rishabh
+            let totalHeight = backContainerView.height + statusBarHeight
+            if headerBlurView.frame.maxY == totalHeight {
+                return
+            }
+            // hotel list scroll down header jerk fix end
             let invertedOffset = -offsetDifference
             revealBlurredHeaderView(invertedOffset)
         }

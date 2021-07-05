@@ -20,9 +20,17 @@
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="upwardAertripLogo" translatesAutoresizingMaskIntoConstraints="NO" id="bob-jK-b56">
                             <rect key="frame" x="159.5" y="38" width="27" height="29"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="27" id="6LH-Hm-CxS"/>
+                                <constraint firstAttribute="height" constant="29" id="f39-er-lqs"/>
+                            </constraints>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoText" translatesAutoresizingMaskIntoConstraints="NO" id="HJk-Os-vtO">
                             <rect key="frame" x="113.5" y="83" width="119" height="14"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="14" id="RXY-3i-pcx"/>
+                                <constraint firstAttribute="width" constant="119" id="drL-vu-orC"/>
+                            </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uho-Jk-ZYW">
                             <rect key="frame" x="71.5" y="120" width="203.5" height="41"/>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,7 +26,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="322" height="43.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nnO-jj-ewc">
-                                <rect key="frame" x="59" y="12.5" width="177.5" height="20.5"/>
+                                <rect key="frame" x="59" y="12.5" width="178" height="20.5"/>
                                 <attributedString key="attributedText">
                                     <fragment content="pawan\nkumar">
                                         <attributes>
@@ -37,7 +37,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="fsalfasjf" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0dO-Rk-d4s">
-                                <rect key="frame" x="246.5" y="12" width="59.5" height="21"/>
+                                <rect key="frame" x="247" y="12" width="59" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -103,6 +103,7 @@
                 <outlet property="airportCodeLabel" destination="OPc-yT-nwj" id="rc3-Hb-clL"/>
                 <outlet property="airportCodeLabelLeadingConstraint" destination="K5p-4X-SDf" id="gnx-VQ-xVg"/>
                 <outlet property="cellImageView" destination="NWX-9P-rvo" id="PCo-hS-nIW"/>
+                <outlet property="containerView" destination="zsE-L5-3En" id="GIZ-dK-IAm"/>
                 <outlet property="dividerView" destination="jhq-qH-khY" id="CPu-kJ-BQI"/>
                 <outlet property="dividerViewLeadingConst" destination="if1-7f-2jT" id="rqL-x8-cLu"/>
                 <outlet property="imageViewBottomConstraint" destination="TFe-8m-chz" id="6sh-Rc-IoP"/>

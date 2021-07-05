@@ -14,6 +14,7 @@ class BaggageDimensionsVC: UIViewController, UIScrollViewDelegate
     @IBOutlet weak var pageTitleView: UIView!
     @IBOutlet weak var dividerView: UILabel!
     @IBOutlet weak var baggageScrollView: UIScrollView!
+    @IBOutlet weak var scrollContainerView: UIView!
     @IBOutlet weak var dimensionInfoLabel: UILabel!
     
     @IBOutlet weak var dividerLabel: UILabel!
@@ -45,6 +46,7 @@ class BaggageDimensionsVC: UIViewController, UIScrollViewDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        baggageScrollView.contentInset = UIEdgeInsets(top: 56, left: 0, bottom: 0, right: 0)
         let blurEffect = UIBlurEffect(style: .prominent)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = self.backgroundView.bounds
@@ -55,7 +57,13 @@ class BaggageDimensionsVC: UIViewController, UIScrollViewDelegate
         }else{
             self.setDataWithDictionary()
         }
-
+        setColors()
+    }
+    
+    private func setColors() {
+        baggageScrollView.backgroundColor = AppColors.themeWhite
+        scrollContainerView.backgroundColor = AppColors.themeWhite
+        dimensionDetailsInfoLabel.textColor = AppColors.themeGray60
     }
     
     private func setDataFromDimesion(){
@@ -63,7 +71,7 @@ class BaggageDimensionsVC: UIViewController, UIScrollViewDelegate
         if let dimestion = self.dimesionsObj{
             baggageScrollView.isScrollEnabled = true
 
-            baggageImgView.image = UIImage(named: "group4")
+            baggageImgView.image = AppImages.group4
             self.hideUnhindContent(isHidden: false)
             weightLabel.text = self.weight.lowercased().removeAllWhitespaces.replacingLastOccurrenceOfString("kg", with: "")
             heightLabel.text = "\(dimestion.cm?.height ?? 0)"
@@ -94,7 +102,7 @@ class BaggageDimensionsVC: UIViewController, UIScrollViewDelegate
         if dimensions.count > 0{
             baggageScrollView.isScrollEnabled = true
 
-            baggageImgView.image = UIImage(named: "group4")
+            baggageImgView.image = AppImages.group4
             hideUnhindContent(isHidden: false)
 
             let weights = weight.components(separatedBy: " ")
@@ -135,7 +143,7 @@ class BaggageDimensionsVC: UIViewController, UIScrollViewDelegate
     private func clearData(){
         baggageScrollView.isScrollEnabled = false
         dimensionInfoLabel.text = ""
-        baggageImgView.image = UIImage(named: "Group 4.1")
+        baggageImgView.image = AppImages.Group_4_1
         heightLabel.text = ""
         widthLabel.text = ""
         breadthLabel.text = ""

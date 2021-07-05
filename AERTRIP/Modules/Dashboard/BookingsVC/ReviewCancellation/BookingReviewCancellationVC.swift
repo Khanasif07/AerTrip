@@ -47,6 +47,7 @@ class BookingReviewCancellationVC: BaseVC {
     @IBOutlet weak var cancellationReasonDivider: ATDividerView!
     @IBOutlet weak var refundModeDivider: ATDividerView!
     @IBOutlet weak var commectSeparator: ATDividerView!
+    @IBOutlet weak var emptyView: UIView!
     
     
     
@@ -181,15 +182,24 @@ class BookingReviewCancellationVC: BaseVC {
     }
     
     override func setupColors() {
-        self.refundModeTitleLabel.textColor = AppColors.themeGray40
+        self.refundModeTitleLabel.textColor = AppColors.themeGray153
         self.refundModeTextField.textColor = AppColors.textFieldTextColor51
         self.manageContinueButton()
 
         self.totalNetRefundLabel.textColor = AppColors.themeBlack
         self.refundAmountLabel.textColor = AppColors.themeBlack
-        self.infoLabel.textColor = AppColors.themeGray40
-        self.cancellationTitleLabel.textColor = AppColors.themeGray40
+        self.infoLabel.textColor = AppColors.themeGray153
+        self.cancellationTitleLabel.textColor = AppColors.themeGray153
         self.cancellationTextField.textColor = AppColors.themeBlack
+        self.setColorsForDarkMode()
+    }
+    
+    
+    private func setColorsForDarkMode(){
+        [self.view, self.refundView, cancellationReasonView, commentTextView, totalNetRefundView].forEach{ view in
+            view?.backgroundColor = AppColors.themeBlack26
+        }
+        self.emptyView.backgroundColor = AppColors.themeGray04
     }
     
     // MARK: - Override methods
@@ -331,7 +341,7 @@ class BookingReviewCancellationVC: BaseVC {
         // if want to manage the button enable/disable state then uncomment the Code 2 and comment Code 1
 
         //CODE 1
-        self.requestCancellationButton.setTitleColor(AppColors.themeWhite.withAlphaComponent(1.0), for: .normal)
+        self.requestCancellationButton.setTitleColor(AppColors.unicolorWhite.withAlphaComponent(1.0), for: .normal)
         self.requestCancellationButton.isUserInteractionEnabled = true
         
         

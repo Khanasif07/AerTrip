@@ -81,7 +81,9 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
             finalPredicate = finalPred
             
         case .normalInSearching, .normal :
+            
             self.fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+           
             if self.fetchRequestType == .normalInSearching {
                 self.searchedHotels.removeAll()
             }
@@ -91,29 +93,22 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
                 let favPred = NSPredicate(format: "fav == '1'")
                 finalPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [favPred])
                 
-            }
-            else {
+            } else {
                 self.fetchRequestWithoutFilter()
             }
         }
         
-        if !self.showBeyondTwenty{
-            let distancePredicate = NSPredicate(format: "distance <= 20")
-//            finalPredicate?.subpredicates.append(distancePredicate)
-            var pred : [NSPredicate] = finalPredicate?.subpredicates as? [NSPredicate] ?? []
-            pred.append(distancePredicate)
-            finalPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: pred)
-
-        }
+//        if !self.showBeyondTwenty{
+//            let distancePredicate = NSPredicate(format: "distance <= 20")
+//            var pred : [NSPredicate] = finalPredicate?.subpredicates as? [NSPredicate] ?? []
+//            pred.append(distancePredicate)
+//            finalPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: pred)
+//        }
         
         if let pred = finalPredicate {
             self.fetchedResultsController.fetchRequest.predicate = pred
         }
         
-        
-        
-        
-
         self.fetchDataFromCoreData(finalPredicate: finalPredicate)
     }
     
@@ -340,10 +335,7 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         switch (type) {
-        //        case .insert:
-        //            if let indexPath = newIndexPath {
-        //                tableViewVertical.insertRows(at: [indexPath], with: .fade)
-        //            }
+
         case .delete:
             
             if self.isFavouriteOn, let indexPath = indexPath {
@@ -353,20 +345,7 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
                     self.deleteHotelsDataForCollectionView(hotel: hotel)
                 }
             }
-        //        case .update:
-        //            if let indexPath = indexPath, let cell = tableViewVertical.cellForRow(at: indexPath) as? HotelCardTableViewCell {
-        //                configureCell(cell: cell, at: indexPath)
-        //            }
-        //        case .move:
-        //            if let indexPath = indexPath {
-        //                tableViewVertical.deleteRows(at: [indexPath], with: .fade)
-        //            }
-        //
-        //            if let newIndexPath = newIndexPath {
-        //                tableViewVertical.insertRows(at: [newIndexPath], with: .fade)
-        //            }
-        
-        
+
         @unknown default: break
         }
     }

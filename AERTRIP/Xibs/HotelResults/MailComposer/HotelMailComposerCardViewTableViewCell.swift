@@ -61,9 +61,9 @@ class HotelMailComposerCardViewTableViewCell: UITableViewCell {
             printDebug("hotel not found ")
             return 
         }
-        if let image = UIImage(named: "hotelCardPlaceHolder") {
-            self.hotelCardImageView.setImageWithUrl(self.favHotel?.thumbnail?.first ?? "", placeholder: image, showIndicator: true)
-        }
+        let image = AppImages.hotelCardPlaceHolder
+        self.hotelCardImageView.setImageWithUrl(self.favHotel?.thumbnail?.first ?? "", placeholder: image, showIndicator: true)
+        
         self.hotelNameLabel.text = self.favHotel?.hotelName
         self.hotelPriceLabel.text = favHotel.price.amountInDelimeterWithSymbol
         self.starRatingView.rating = favHotel.star

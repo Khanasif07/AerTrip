@@ -39,6 +39,7 @@ class BookingDirectionVC: BaseVC {
         } else {
             self.view.backgroundColor = AppColors.themeWhite
         }
+        self.directionTableView.backgroundColor = AppColors.themeGray04
         self.directionTableView.contentInset = UIEdgeInsets(top: topNavigationView.height , left: 0.0, bottom: 0.0, right: 0.0)
         self.directionTableView.dataSource = self
         self.directionTableView.delegate = self
@@ -54,7 +55,7 @@ class BookingDirectionVC: BaseVC {
         //self.topNavigationView.navTitleLabel.font = AppFonts.SemiBold.withSize(18.0)
         //self.topNavigationView.navTitleLabel.textColor = AppColors.textFieldTextColor51
         self.topNavigationView.configureNavBar(title: LocalizedString.Directions.localized, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
-         topNavigationView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "black_cross"), selectedImage: #imageLiteral(resourceName: "black_cross"))
+         topNavigationView.configureFirstRightButton(normalImage: AppImages.CancelButtonWhite, selectedImage: AppImages.CancelButtonWhite)
     }
     
     private func registerXib() {
@@ -87,6 +88,7 @@ extension BookingDirectionVC: UITableViewDataSource, UITableViewDelegate {
         directionCell.configureCell(airportCode: self.viewModel.directionData[indexPath.row].iataCode, airportName: airportName, airportAddress: self.viewModel.directionData[indexPath.row].airportName)
         directionCell.bottomDividerView.isHidden = self.viewModel.directionData.count - 1 == indexPath.row
         directionCell.edgeToedgeBottomDividerView.isHidden = self.viewModel.directionData.count - 1 != indexPath.row
+        directionCell.containerView.backgroundColor = AppColors.themeBlack26
         return directionCell
     }
     
@@ -102,6 +104,7 @@ extension BookingDirectionVC: UITableViewDataSource, UITableViewDelegate {
         headerView.headerLabel.font = AppFonts.Regular.withSize(14)
         headerView.headerLabel.text = self.viewModel.sectionData[section]
         headerView.topSeparatorView.isHidden = section == 0
+        headerView.containerView.backgroundColor = AppColors.themeGray04
         return headerView
     }
     

@@ -45,7 +45,7 @@ class FareBookingRulesVC: BaseVC {
     override func setupNavBar() {
         self.navBarView.delegate = self
         self.navBarView.configureNavBar(title: LocalizedString.FareRules.localized, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
-        navBarView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "black_cross"), selectedImage: #imageLiteral(resourceName: "black_cross"))
+        navBarView.configureFirstRightButton(normalImage: AppImages.CancelButtonWhite, selectedImage: AppImages.CancelButtonWhite)
     }
     
     // MARK: - Helper methods

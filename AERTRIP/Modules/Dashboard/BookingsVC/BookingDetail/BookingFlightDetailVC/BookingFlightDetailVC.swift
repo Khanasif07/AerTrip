@@ -54,14 +54,14 @@ class BookingFlightDetailVC: BaseVC {
             guard let self = self else  {return}
             self.setUpViewPager()
         }
-        topNavigationView.backgroundColor = .clear
+        topNavigationView.backgroundColor = AppColors.selectDestinationHeaderColor
         self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
         if #available(iOS 13.0, *) {
             navigationViewHeightConstraint.constant = 56
         } else {
             self.view.backgroundColor = .white
         }
-        
+        topNavigationView.dividerView.isHidden = !self.isLightTheme()
 
         FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .BookingsFlightDetails, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a", isFrom: "Bookings")
 
@@ -76,6 +76,11 @@ class BookingFlightDetailVC: BaseVC {
         self.parchmentView?.loadViewIfNeeded()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        topNavigationView.dividerView.isHidden = !self.isLightTheme()
+    }
+    
     private func configureNavBar() {
         
         self.topNavigationView.configureNavBar(title: "", isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
@@ -85,7 +90,7 @@ class BookingFlightDetailVC: BaseVC {
         self.topNavigationView.navTitleLabel.textAlignment = .center
         self.topNavigationView.navTitleLabel.attributedText = self.viewModel.tripStr
         self.topNavigationView.delegate = self
-        topNavigationView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "black_cross"), selectedImage: #imageLiteral(resourceName: "black_cross"))
+        topNavigationView.configureFirstRightButton(normalImage: AppImages.CancelButtonWhite, selectedImage: AppImages.CancelButtonWhite)
     }
     
     // Asif Change
@@ -150,8 +155,8 @@ class BookingFlightDetailVC: BaseVC {
         self.parchmentView?.reloadData()
         self.parchmentView?.reloadMenu()
         
-        self.parchmentView?.menuBackgroundColor = UIColor.clear
-        self.parchmentView?.collectionView.backgroundColor = UIColor.clear
+        self.parchmentView?.menuBackgroundColor = AppColors.selectDestinationHeaderColor//UIColor.clear
+        self.parchmentView?.collectionView.backgroundColor = AppColors.selectDestinationHeaderColor//UIColor.clear
         
     }
 }

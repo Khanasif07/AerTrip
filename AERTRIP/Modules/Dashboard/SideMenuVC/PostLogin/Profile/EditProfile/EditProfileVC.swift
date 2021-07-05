@@ -101,6 +101,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         registerXib()
         // Api calling
         viewModel.webserviceForGetDropDownkeys()
@@ -225,7 +226,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
        
         
         editProfileImageHeaderView = EditProfileImageHeaderView.instanceFromNib()
-        
+
         editProfileImageHeaderView.editButton.isHidden = (self.viewModel.paxId != UserInfo.loggedInUser?.paxId)
         editProfileImageHeaderView.editButton.isHidden =  false
         editProfileImageHeaderView.delegate = self
@@ -338,8 +339,8 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         let socialModel = SocialLoginVM()
         socialModel.googleLogin(vc: self) { [weak self] success in
             if success {
-                let placeHolder = UIImage(named: "group")
-                self?.editProfileImageHeaderView.profileImageView.setImageWithUrl(socialModel.userData.picture, placeholder: placeHolder!, showIndicator: true)
+                let placeHolder = AppImages.group
+                self?.editProfileImageHeaderView.profileImageView.setImageWithUrl(socialModel.userData.picture, placeholder: placeHolder, showIndicator: true)
                 self?.viewModel.profilePicture = socialModel.userData.picture
                 self?.viewModel.imageSource = "google"
                 self?.viewModel.logEventsForFirebase(with: .ImportPhotoFromGoogle)
@@ -454,6 +455,10 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
             }
         }
         
+        
+        editProfileImageHeaderView.backgroundColor = AppColors.profileContentBackground
+        editProfileImageHeaderView.firstNameTextField.textColor = AppColors.themeBlack
+        editProfileImageHeaderView.lastNameTextField.textColor = AppColors.themeBlack
         viewModel.seat = travel.preferences.seat.value
         viewModel.meal = travel.preferences.meal.name
         editProfileImageHeaderView.groupLabel.text = travel.label.isEmpty ? "Others" : travel.label.capitalizedFirst()

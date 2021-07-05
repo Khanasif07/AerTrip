@@ -43,7 +43,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *toValueHeight;
 @property (weak, nonatomic) IBOutlet UIButton *switcherButton;
 
-
+@property (weak, nonatomic) IBOutlet UIView *onwardReturnView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *onwardReturnViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *onwardsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *onwardsValueLabel;
@@ -111,14 +111,31 @@
     [self.viewModel getRecentSearches];
 }
 
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
+    [self setupMainView];
+    self.flightSegmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName : [ [UIColor ONE_FIVE_THREE_COLOR] resolvedColorWithTraitCollection:self.traitCollection] , NSFontAttributeName:[UIFont fontWithName:@"SourceSansPro-Regular" size:14]};
+    
+    self.flightSegmentedControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : [[UIColor FIVE_ONE_COLOR] resolvedColorWithTraitCollection:self.traitCollection], NSFontAttributeName:[UIFont fontWithName:@"SourceSansPro-Semibold" size:14]};
+}
+
 -(void)setupMainView
 {
-    self.mainView.layer.shadowOffset = CGSizeMake(0.0,16.0);
-    self.mainView.layer.shadowRadius = 6.0;
-    self.mainView.layer.shadowOpacity = 1.0;
-    self.mainView.layer.cornerRadius = 10.0;
-    self.mainView.layer.shadowColor = [UIColor appShadow].CGColor;
-    
+    self.mainView.backgroundColor = [UIColor themeWhiteDashboard];
+    if ([self isLightTheme]){
+        self.mainView.layer.shadowOffset = CGSizeMake(0.0,16.0);
+        self.mainView.layer.shadowRadius = 6.0;
+        self.mainView.layer.shadowOpacity = 1.0;
+        self.mainView.layer.cornerRadius = 10.0;
+        self.mainView.layer.shadowColor = [UIColor appShadow].CGColor;
+    }else{
+        self.mainView.layer.shadowOffset = CGSizeMake(0.0,0.0);
+        self.mainView.layer.shadowRadius = 0.0;
+        self.mainView.layer.shadowOpacity = 0.0;
+        self.mainView.layer.cornerRadius = 10.0;
+        self.mainView.layer.shadowColor = [UIColor clearColor].CGColor;
+    }
+    self.multicityAddTitle.textColor = [UIColor muticityAddRemoveTextColor];
+    self.multicityRemoveTitle.textColor = [UIColor muticityAddRemoveTextColor];
 }
 - (void)setupCollectionView {
     self.recentSearchTitleLabel.hidden = true;
@@ -205,9 +222,9 @@
     self.flightSegmentedControl.verticalDividerEnabled = NO;
     self.flightSegmentedControl.selectionIndicatorColor = [self getAppColor];
     
-    self.flightSegmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName : [ UIColor ONE_FIVE_THREE_COLOR] , NSFontAttributeName:[UIFont fontWithName:@"SourceSansPro-Regular" size:14]};
+    self.flightSegmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName : [ [UIColor ONE_FIVE_THREE_COLOR] resolvedColorWithTraitCollection:self.traitCollection] , NSFontAttributeName:[UIFont fontWithName:@"SourceSansPro-Regular" size:14]};
     
-    self.flightSegmentedControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : [UIColor FIVE_ONE_COLOR], NSFontAttributeName:[UIFont fontWithName:@"SourceSansPro-Semibold" size:14]};
+    self.flightSegmentedControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : [[UIColor FIVE_ONE_COLOR] resolvedColorWithTraitCollection:self.traitCollection], NSFontAttributeName:[UIFont fontWithName:@"SourceSansPro-Semibold" size:14]};
     
     self.flightSegmentedControl.borderType = HMSegmentedControlBorderTypeNone;
     self.flightSegmentedControl.selectedSegmentIndex = 0;
@@ -256,6 +273,9 @@
     if (self.viewModel.flightSearchType == MULTI_CITY ) {
         self.fromToViewHeightConstraint.constant = 0.0;
         self.onwardReturnViewHeightConstraint.constant = 0.0;
+        [self.FromToView setHidden:true];
+        [self.onwardReturnView setHidden:true];
+        [self.multiCityView setHidden:false];
         [self.viewModel setupMultiCityView];
         self.multiCityViewHeightConstraint.constant = 2000.0;
         self.viewModel.isAnimationNeedToAddRemoveSector = false;
@@ -266,7 +286,9 @@
         self.onwardReturnViewHeightConstraint.constant = 104.0;
         self.multiCityViewHeightConstraint.constant = 0.0;
         self.flightFormHeight.constant = 465.0;
-        
+        [self.FromToView setHidden:false];
+        [self.onwardReturnView setHidden:false];
+        [self.multiCityView setHidden:true];
         if (self.viewModel.flightSearchType == SINGLE_JOURNEY) {
             self.viewModel.returnDate  =  nil;
         }
@@ -424,7 +446,7 @@
 
 - (void)setupReturnDateView:(NSDate*)returnDate {
     if (self.viewModel.flightSearchType == RETURN_JOURNEY ) {
-        [self.returnLabel setTextColor:[ UIColor ONE_FIVE_THREE_COLOR] ];
+        [self.returnLabel setTextColor:[ UIColor flightFormReturnEnableColor] ];
         
         if (returnDate != nil) {
             [self changeLabelFont:self.returnLabel isSmall:YES];
@@ -441,7 +463,7 @@
         }
     }else {
         [self changeLabelFont:self.returnLabel isSmall:NO];
-        [self.returnLabel setTextColor:[UIColor TWO_THREE_ZERO_COLOR]];
+        [self.returnLabel setTextColor:[UIColor flightFormReturnDisableColor]];
         self.returnValueLabel.hidden = YES;
         self.returnSubTitleLabel.hidden = YES;
     }
@@ -782,6 +804,7 @@
 //MARK:- MULTICITY IMPLEMENTATION
 
 - (void)setupMultiCityTableView {
+    self.multiCityTableView.backgroundColor = [UIColor themeWhiteDashboard];
     self.multiCityTableView.delegate = self;
     self.multiCityTableView.dataSource = self;
 }
@@ -817,22 +840,17 @@
     [self reloadMultiCityTableView];
     
 }
--(void)disableAddMulticityButton:(BOOL)disable
-{
+-(void)disableAddMulticityButton:(BOOL)disable {
     if(disable){
-        
         self.multicityAddIcon.alpha = 0.2;
         self.multicityAddTitle.alpha = 0.2;
         self.multicityAddButton.enabled = NO;
-        
-    }
-    else {
+    } else {
         self.multicityAddButton.enabled = YES;
         self.multicityAddTitle.alpha = 1.0;
         self.multicityAddIcon.alpha = 1.0;
     }
 }
-
 
 - (void)reloadMultiCityTableView {
     [self.multiCityTableView reloadData];

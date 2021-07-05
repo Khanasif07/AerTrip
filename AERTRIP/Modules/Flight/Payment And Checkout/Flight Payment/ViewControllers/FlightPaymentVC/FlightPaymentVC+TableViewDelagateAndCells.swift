@@ -22,6 +22,7 @@ extension FlightPaymentVC: UITableViewDelegate, UITableViewDataSource {
             guard let headerView = self.checkOutTableView.dequeueReusableHeaderFooterView(withIdentifier: self.cellIdentifier) as? HotelFareSectionHeader else {
                 return nil
             }
+            headerView.arrowButton.isHidden = (self.viewModel.sectionTableCell[section].count == 0)
             headerView.tag = section
             headerView.delegate = self
             self.handleDiscountArrowAnimation(headerView)
@@ -40,6 +41,7 @@ extension FlightPaymentVC: UITableViewDelegate, UITableViewDataSource {
             guard let headerView = self.checkOutTableView.dequeueReusableHeaderFooterView(withIdentifier: self.cellIdentifier) as? HotelFareSectionHeader, !self.viewModel.discountData.isEmpty else {
                 return nil
             }
+            headerView.arrowButton.isHidden = (self.viewModel.sectionTableCell[section].count == 0)
             headerView.arrowButton.isUserInteractionEnabled = false
             headerView.grossFareTitleLabel.text = ""
             headerView.grossPriceLabel.text = ""
@@ -66,10 +68,14 @@ extension FlightPaymentVC: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch self.viewModel.sectionHeader[section]{
-        case .Taxes: return  isTaxesAndFeeExpended ? self.viewModel.sectionTableCell[section].count : 0
-        case .Discount: return (isCouponSectionExpanded && isCouponApplied) ? self.viewModel.sectionTableCell[section].count : 0
-        case .Addons: return isAddonsExpended ? self.viewModel.sectionTableCell[section].count : 0
-        default: return self.viewModel.sectionTableCell[section].count
+        case .Taxes:
+            return  isTaxesAndFeeExpended ? self.viewModel.sectionTableCell[section].count : 0
+        case .Discount://(isCouponSectionExpanded && isCouponApplied)
+            return (isCouponSectionExpanded) ? self.viewModel.sectionTableCell[section].count : 0
+        case .Addons:
+            return isAddonsExpended ? self.viewModel.sectionTableCell[section].count : 0
+        default:
+            return self.viewModel.sectionTableCell[section].count
         }
     }
     
@@ -156,6 +162,7 @@ extension FlightPaymentVC{
         headerView.tag = section
         headerView.delegate = self
         headerView.grossFareTitleTopConstraint.constant = 0
+        headerView.arrowButton.isHidden = (self.viewModel.sectionTableCell[section].count == 0)
         self.handleDiscountArrowAnimation(headerView)
         headerView.discountsTitleLabel.text = "Add-ons"
         headerView.discountPriceLabel.attributedText = (self.viewModel.itinerary.details.fare.addons?.value ?? 0).getConvertedAmount(using: AppFonts.Regular.withSize(16))
@@ -287,6 +294,7 @@ extension FlightPaymentVC{
             cell.infantCountDisplayView.isHidden = noInfant
             cell.infantCountDisplayViewWidth.constant = noInfant ? 0 : 35
             cell.infantCountLabel.text = noInfant ? "" : self.viewModel.itinerary.searchParams.infant
+            cell.backView.backgroundColor = AppColors.themeBlack26
             return cell
         default:
             return UITableViewCell()

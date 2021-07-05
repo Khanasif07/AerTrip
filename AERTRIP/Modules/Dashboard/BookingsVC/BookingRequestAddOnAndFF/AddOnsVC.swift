@@ -47,10 +47,12 @@ class AddOnsVC: BaseVC {
         }
         
         mealOrPreferencesCell.delegate = self
-        
+        mealOrPreferencesCell.contentView.backgroundColor = AppColors.themeBlack26
         guard let commontInputTableViewCell = self.addOnTableView.dequeueReusableCell(withIdentifier: "BookingAddCommonInputTableViewCell") as? BookingAddCommonInputTableViewCell else {
             fatalError("BookingAddCommonInputTableViewCell not found")
         }
+        
+        commontInputTableViewCell.contentView.backgroundColor = AppColors.themeBlack26
         let pax = BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5]
         commontInputTableViewCell.delegate = self
         switch indexPath.row % 5 {
@@ -75,6 +77,7 @@ class AddOnsVC: BaseVC {
                 cell.passengerNameLabel.isEnabled = !(pax?.inProcess ?? false)
                 cell.dividerView.isHidden = (pax?.inProcess ?? false)
                 cell.requestInProcessLbl.isHidden = !(user?.inProcess ?? false)
+                cell.contentView.backgroundColor = AppColors.themeBlack26
                 
             return cell
         // Seat Preference or Seat Booking Based on Flight type LCC or GDS
@@ -190,6 +193,7 @@ extension AddOnsVC: UITableViewDataSource, UITableViewDelegate {
 //        info += leg?.reschedulable == 1 ? "| Reschedulable " : "| Non-reschedulable "
         headerView.routeLabel.text = route
         headerView.infoLabel.text = info
+        headerView.containerView.backgroundColor = AppColors.themeBlack26
         return headerView
     }
     

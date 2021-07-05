@@ -43,8 +43,13 @@ class FlightBoardingAndDestinationTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configUI()
+        self.setupColor()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.setupColor()
+    }
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -70,16 +75,16 @@ class FlightBoardingAndDestinationTableViewCell: UITableViewCell {
         self.destinationDateLabel.font = AppFonts.Regular.withSize(14.0)
         
         // Color
-        self.boardingLabel.textColor = AppColors.themeGray40
-        self.destinationLabel.textColor = AppColors.themeGray40
+        self.boardingLabel.textColor = AppColors.themeGray153
+        self.destinationLabel.textColor = AppColors.themeGray153
         self.boardingCodeLabel.textColor = AppColors.themeBlack
         self.destinationCodeLabel.textColor = AppColors.themeBlack
-        self.economyLabel.textColor = AppColors.themeGray40
-        self.timeLabel.textColor = AppColors.themeGray40
+        self.economyLabel.textColor = AppColors.themeGray153
+        self.timeLabel.textColor = AppColors.themeGray153
         self.boardingTimeLabel.textColor = AppColors.themeBlack
         self.destinationTimeLabel.textColor = AppColors.themeBlack
-        self.boardingDateLabel.textColor = AppColors.themeGray40
-        self.destinationDateLabel.textColor = AppColors.themeGray40
+        self.boardingDateLabel.textColor = AppColors.themeGray153
+        self.destinationDateLabel.textColor = AppColors.themeGray153
         
         // Text
         self.economyLabel.text = LocalizedString.Economy.localized
@@ -90,7 +95,7 @@ class FlightBoardingAndDestinationTableViewCell: UITableViewCell {
         // Shadow
         //self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.7, shadowRadius: 5.0)
 //        self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
-        let shadow = AppShadowProperties()
+        let shadow = AppShadowProperties(self.isLightTheme())
         self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: shadow.shadowColor, offset: shadow.offset, opacity: shadow.opecity, shadowRadius: shadow.shadowRadius)
     }
     
@@ -121,6 +126,14 @@ class FlightBoardingAndDestinationTableViewCell: UITableViewCell {
         self.economyLabel.text = leg.flightsWithDetails.first?.cc
         self.noOfStops = leg.stp.toInt ?? 0
         self.noOfStoppageCollectionView.reloadData()
+    }
+    
+    
+    func setupColor(){
+        self.containerView.backgroundColor = AppColors.themeWhiteDashboard
+        self.greencircleContainerView.backgroundColor = AppColors.themeWhiteDashboard
+        self.dottedView.backgroundColor = AppColors.themeWhiteDashboard
+        self.contentView.backgroundColor = AppColors.themeBlack26
     }
     
     // MARK: - IBActions

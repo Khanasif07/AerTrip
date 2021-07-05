@@ -24,6 +24,7 @@
                 <outlet property="multiSegmentView" destination="hsk-VL-Lpy" id="UKI-7A-6GX"/>
                 <outlet property="multicityViewHeight" destination="RNo-AW-wNm" id="3gB-QF-Twt"/>
                 <outlet property="priceRangeSlider" destination="iQq-G5-KUi" id="3lg-tf-Gdc"/>
+                <outlet property="priceSliderContainerView" destination="R8a-VA-Hvl" id="blA-mH-KdE"/>
                 <outlet property="refundableFaresButton" destination="6E3-gN-P76" id="lV1-El-0sE"/>
                 <outlet property="refundableFaresOnlyLabel" destination="u3z-gj-ekL" id="4fK-81-YIj"/>
                 <outlet property="refundableFaresTopBtn" destination="AYo-6X-KpM" id="tZZ-IC-laY"/>

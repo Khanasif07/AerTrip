@@ -49,6 +49,7 @@ class FavouriteHotelsVC: BaseVC {
         // Do any additional setup after loading the view.
         self.initialSetups()
     }
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         self.parchmentView?.view.frame = self.dataContainerView.bounds
@@ -73,8 +74,13 @@ class FavouriteHotelsVC: BaseVC {
         
         self.topNavView.delegate = self
         self.topNavView.configureNavBar(title: LocalizedString.FavouriteHotels.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
-       self.topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "greenAdd"), selectedImage: #imageLiteral(resourceName: "greenAdd"))
+       self.topNavView.configureFirstRightButton(normalImage: AppImages.greenAdd, selectedImage: AppImages.greenAdd)
        // self.setUpViewPager()
+        self.view.backgroundColor = AppColors.themeWhite
+       
+        self.dataContainerView.backgroundColor = AppColors.clear
+    
+        self.shimmerView.backgroundColor = AppColors.themeWhite
     }
     
     private func setUpViewPager() {
@@ -127,7 +133,10 @@ class FavouriteHotelsVC: BaseVC {
            self.parchmentView?.delegate = self
            self.parchmentView?.sizeDelegate = self
            self.parchmentView?.select(index: 0)
-           
+        
+        self.parchmentView?.menuBackgroundColor = AppColors.clear
+        self.parchmentView?.collectionView.backgroundColor = AppColors.clear
+        
            self.parchmentView?.reloadData()
            self.parchmentView?.reloadMenu()
        }

@@ -98,10 +98,10 @@ class BookingRequestAddOnsFFVC: BaseVC {
         self.requestButton.setTitle(LocalizedString.Request.localized, for: .selected)
     }
     
-//    override func setupColors() {
-//        self.requestButton.setTitleColor(AppColors.themeWhite, for: .normal)
-//        self.requestButton.setTitleColor(AppColors.themeWhite, for: .normal)
-//    }
+    override func setupColors() {
+        self.view.backgroundColor = AppColors.themeBlack26
+        self.dataContainerView.backgroundColor = AppColors.themeBlack26
+    }
     
     override func bindViewModel() {
         BookingRequestAddOnsFFVM.shared.delegate = self
@@ -159,6 +159,7 @@ class BookingRequestAddOnsFFVC: BaseVC {
         self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
         self.parchmentView?.indicatorColor = AppColors.themeGreen
         self.parchmentView?.selectedTextColor = AppColors.themeBlack
+        self.parchmentView?.menuBackgroundColor = AppColors.clear
         self.dataContainerView.addSubview(self.parchmentView!.view)
         
         self.parchmentView?.dataSource = self
@@ -172,7 +173,7 @@ class BookingRequestAddOnsFFVC: BaseVC {
     
     func manageLoader(shouldStart: Bool) {
         self.indicatorView.style = .medium//.white
-        self.indicatorView.color = AppColors.themeWhite
+        self.indicatorView.color = AppColors.unicolorWhite
         if shouldStart{
             self.requestButton.setTitle("", for: .normal)
             self.requestButton.setTitle("", for: .selected)
@@ -324,10 +325,10 @@ extension BookingRequestAddOnsFFVC:BookingRequestAddOnsFFVCTextfiledDelegate
         }
                 
         if  !isAnythingEdited{
-            self.requestButton.setTitleColor(AppColors.themeWhite.withAlphaComponent(0.5), for: .normal)
+            self.requestButton.setTitleColor(AppColors.unicolorWhite.withAlphaComponent(0.5), for: .normal)
             isRequestButtonEnabled = false
         }else{
-            self.requestButton.setTitleColor(AppColors.themeWhite.withAlphaComponent(1.0), for: .normal)
+            self.requestButton.setTitleColor(AppColors.unicolorWhite.withAlphaComponent(1.0), for: .normal)
             isRequestButtonEnabled = true
         }
     }

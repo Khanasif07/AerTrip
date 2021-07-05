@@ -55,7 +55,7 @@ class MainHomeVC: BaseVC {
         super.viewWillAppear(animated)
         
         if let sideMenu = AppFlowManager.default.sideMenuController, sideMenu.isOpen {
-            self.statusBarStyle = .darkContent
+            self.statusBarStyle = .default
         }
         else {
             self.statusBarStyle = .lightContent
@@ -113,6 +113,8 @@ class MainHomeVC: BaseVC {
         self.view.layoutIfNeeded()
         self.view.backgroundColor = AppColors.screensBackground.color
         self.contentView.backgroundColor = AppColors.screensBackground.color
+        scrollView.backgroundColor = AppColors.screensBackground.color
+        mainContainerView.backgroundColor = AppColors.screensBackground.color
         
         //setup scroll view
         self.scrollViewSetup()
@@ -201,8 +203,8 @@ class MainHomeVC: BaseVC {
     }
     
     private func createSideMenu() -> PKSideMenuController {
-        PKSideMenuOptions.opacityViewBackgroundColor = AppColors.themeBlackGreen
-        PKSideMenuOptions.mainViewShadowColor = AppColors.themeBlackGreen
+//        PKSideMenuOptions.opacityViewBackgroundColor = AppColors.drawerSideColor
+        PKSideMenuOptions.mainViewShadowColor = AppColors.drawerSideColor
         PKSideMenuOptions.dropOffShadowColor = AppColors.themeBlack.withAlphaComponent(0.5)
         
         let sideMenuVC = PKSideMenuController()
@@ -320,7 +322,7 @@ class MainHomeVC: BaseVC {
     }
     
     func popProfileAnimation() {
-        self.statusBarStyle = .darkContent
+        self.statusBarStyle = .default
         let popPoint = CGPoint(x: 0.0, y: 0.0)
         
         viewProfileVC?.profileImageHeaderView?.profileImageView.isHidden = true
@@ -476,7 +478,7 @@ extension MainHomeVC: PKSideMenuControllerDelegate {
     func willOpenSideMenu() {
 //        self.sideMenuVC?.sideMenuTableView.setContentOffset(CGPoint(x: 0.0, y: -UIApplication.shared.statusBarFrame.height), animated: false)
         AppGlobals.shared.updateIQToolBarDoneButton(isEnabled: (UserInfo.loggedInUserId != nil), onView: self.view)
-        self.statusBarStyle = .darkContent
+        self.statusBarStyle = .default
         self.sideMenuVC?.getAccountSummary()
     }
 }

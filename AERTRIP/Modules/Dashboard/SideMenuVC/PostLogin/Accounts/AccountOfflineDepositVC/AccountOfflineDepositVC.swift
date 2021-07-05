@@ -67,7 +67,8 @@ class AccountOfflineDepositVC: BaseVC {
     }
     
     override func setupColors() {
-        self.payButton.setTitleColor(AppColors.themeWhite, for: .normal)
+        self.payButton.setTitleColor(AppColors.unicolorWhite, for: .normal)
+        self.checkOutTableView.backgroundColor = AppColors.screensBackground.color
     }
     
     override func bindViewModel() {
@@ -83,7 +84,7 @@ class AccountOfflineDepositVC: BaseVC {
         let navTitle = LocalizedString.PayOfflineNRegister.localized //(self.currentUsingAs == .chequeOrDD) ? LocalizedString.ChequeDemandDraft.localized : LocalizedString.FundTransfer.localized
         
         self.topNavView.configureNavBar(title: navTitle, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
-        self.topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "ic_account_info"), selectedImage: #imageLiteral(resourceName: "ic_account_info"))
+        self.topNavView.configureFirstRightButton(normalImage: AppImages.ic_account_info, selectedImage: AppImages.ic_account_info)
     }
     
     // Registe all Xib file to checkOut table view

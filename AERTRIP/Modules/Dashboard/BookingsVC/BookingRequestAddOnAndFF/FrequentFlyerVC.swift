@@ -77,7 +77,7 @@ extension FrequentFlyerVC: UITableViewDataSource, UITableViewDelegate {
         arilineCell.flightData = BookingRequestAddOnsFFVM.shared.bookingDetails?.frequentFlyerData[indexPath.section].flights[indexPath.row]
         arilineCell.leftDividerView.isHidden = indexPath.row == (BookingRequestAddOnsFFVM.shared.bookingDetails?.frequentFlyerData[indexPath.section].flights.count ?? 0) - 1
         arilineCell.rightDividerView.isHidden = indexPath.row == (BookingRequestAddOnsFFVM.shared.bookingDetails?.frequentFlyerData[indexPath.section].flights.count ?? 0) - 1
-        
+        arilineCell.contentView.backgroundColor = AppColors.themeBlack26
         arilineCell.delegate = self
         return arilineCell
     }
@@ -106,7 +106,7 @@ extension FrequentFlyerVC: UITableViewDataSource, UITableViewDelegate {
             age = AppGlobals.shared.getAgeLastString(dob: dob, formatter: Date.DateFormat.yyyy_MM_dd.rawValue)
         }
         headerView.configureCell(profileImage: passenger.profileImage, salutationImage: AppGlobals.shared.getEmojiIcon(dob: dob, salutation: passenger.salutation, dateFormatter: Date.DateFormat.yyyy_MM_dd.rawValue), passengerName: passenger.paxName, age: age)
-        
+        headerView.containerView.backgroundColor = AppColors.themeBlack26
         return headerView
     }
     

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -44,7 +45,11 @@
                                                     <constraint firstAttribute="height" constant="93" id="CCC-Qa-coQ"/>
                                                 </constraints>
                                             </view>
-                                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cFx-GV-Nqk">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dRa-l4-Toi">
+                                                <rect key="frame" x="185" y="24.5" width="44" height="44"/>
+                                                <color key="backgroundColor" name="airportSwitcherBGColor"/>
+                                            </view>
+                                            <visualEffectView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cFx-GV-Nqk">
                                                 <rect key="frame" x="185" y="24.5" width="44" height="44"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="17m-9U-cPO">
                                                     <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
@@ -67,7 +72,7 @@
                                                     <constraint firstAttribute="width" constant="44" id="Ymq-hm-7xY"/>
                                                     <constraint firstAttribute="height" constant="44" id="nqO-Qe-Qbc"/>
                                                 </constraints>
-                                                <blurEffect style="light"/>
+                                                <blurEffect style="prominent"/>
                                             </visualEffectView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ID7-Z6-2UD">
                                                 <rect key="frame" x="73.5" y="36.5" width="60" height="20.5"/>
@@ -198,20 +203,21 @@
                                                     <constraint firstAttribute="height" constant="44" id="37G-nG-nXF"/>
                                                     <constraint firstAttribute="width" constant="44" id="dvz-FL-1Jp"/>
                                                 </constraints>
-                                                <state key="normal" image="FlightReverseArrow"/>
-                                                <state key="disabled" image="FlightReverseArrowDisabled"/>
+                                                <state key="normal" image="airportSelectionGreenReverse"/>
+                                                <state key="disabled" image="airportReverseArrowDisabled"/>
                                                 <connections>
                                                     <action selector="InvertAirportSelection:" destination="mEn-qe-GG0" eventType="touchUpInside" id="qNi-co-Wbs"/>
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" name="themeWhiteDashboard"/>
                                         <constraints>
                                             <constraint firstItem="vEH-ql-PSE" firstAttribute="leading" secondItem="TQc-af-aOY" secondAttribute="leading" constant="8" id="07O-f7-htk"/>
                                             <constraint firstItem="NuL-ua-m2x" firstAttribute="top" secondItem="IMc-qw-DkY" secondAttribute="top" constant="10" id="1Hn-g2-kKd"/>
                                             <constraint firstItem="i7X-dF-3wu" firstAttribute="leading" secondItem="IMc-qw-DkY" secondAttribute="leading" id="3at-Bj-cOF"/>
                                             <constraint firstItem="riV-rc-VRt" firstAttribute="trailing" secondItem="vEH-ql-PSE" secondAttribute="trailing" id="4EZ-R0-mNy"/>
                                             <constraint firstItem="RV2-B0-HUt" firstAttribute="width" secondItem="IMc-qw-DkY" secondAttribute="width" multiplier="0.5" id="4IU-yi-JU4"/>
+                                            <constraint firstItem="dRa-l4-Toi" firstAttribute="trailing" secondItem="cFx-GV-Nqk" secondAttribute="trailing" id="4eb-4Z-KSn"/>
                                             <constraint firstAttribute="trailing" secondItem="TQc-af-aOY" secondAttribute="trailing" id="4fd-fV-EVI"/>
                                             <constraint firstItem="CHA-V5-t09" firstAttribute="leading" secondItem="IMc-qw-DkY" secondAttribute="leading" id="5Hc-72-2Tu"/>
                                             <constraint firstItem="TQc-af-aOY" firstAttribute="width" secondItem="CHA-V5-t09" secondAttribute="width" id="5IW-Qi-Ekh"/>
@@ -221,6 +227,7 @@
                                             <constraint firstItem="TQc-af-aOY" firstAttribute="centerY" secondItem="CHA-V5-t09" secondAttribute="centerY" id="6k2-bC-kqx"/>
                                             <constraint firstItem="RV2-B0-HUt" firstAttribute="centerX" secondItem="IMc-qw-DkY" secondAttribute="centerX" id="9sN-rS-Gaa"/>
                                             <constraint firstItem="CHA-V5-t09" firstAttribute="width" secondItem="IMc-qw-DkY" secondAttribute="width" multiplier="1/2" id="ASk-hg-8uP"/>
+                                            <constraint firstItem="dRa-l4-Toi" firstAttribute="bottom" secondItem="cFx-GV-Nqk" secondAttribute="bottom" id="B7X-UN-1VD"/>
                                             <constraint firstItem="cFx-GV-Nqk" firstAttribute="centerX" secondItem="IMc-qw-DkY" secondAttribute="centerX" id="BKN-kj-vlr"/>
                                             <constraint firstAttribute="height" constant="93" id="GJZ-09-Xnm"/>
                                             <constraint firstItem="vEH-ql-PSE" firstAttribute="top" secondItem="RV2-B0-HUt" secondAttribute="top" constant="30" id="Gmg-ev-Q8T"/>
@@ -240,6 +247,8 @@
                                             <constraint firstItem="YVX-ve-40H" firstAttribute="top" secondItem="IMc-qw-DkY" secondAttribute="top" constant="30" id="fZA-FU-b0I"/>
                                             <constraint firstItem="i7X-dF-3wu" firstAttribute="top" secondItem="IMc-qw-DkY" secondAttribute="top" id="fbP-31-nAe"/>
                                             <constraint firstItem="CHA-V5-t09" firstAttribute="centerY" secondItem="IMc-qw-DkY" secondAttribute="centerY" id="gGL-uT-o4A"/>
+                                            <constraint firstItem="dRa-l4-Toi" firstAttribute="leading" secondItem="cFx-GV-Nqk" secondAttribute="leading" id="k8z-cZ-59Z"/>
+                                            <constraint firstItem="dRa-l4-Toi" firstAttribute="top" secondItem="cFx-GV-Nqk" secondAttribute="top" id="lNQ-Oz-hlh"/>
                                             <constraint firstItem="RV2-B0-HUt" firstAttribute="height" secondItem="IMc-qw-DkY" secondAttribute="height" id="no6-QF-H14"/>
                                             <constraint firstItem="JeI-Bw-VXo" firstAttribute="centerX" secondItem="IMc-qw-DkY" secondAttribute="centerX" id="oQP-ic-28b"/>
                                             <constraint firstItem="Olm-jt-QeJ" firstAttribute="centerY" secondItem="IMc-qw-DkY" secondAttribute="centerY" id="oda-DT-pWn"/>
@@ -277,7 +286,7 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" name="themeWhiteDashboard"/>
                                         <constraints>
                                             <constraint firstItem="CNN-mC-JZh" firstAttribute="width" secondItem="I6B-Sg-G4g" secondAttribute="width" id="8pr-XL-3dt"/>
                                             <constraint firstAttribute="height" constant="52" id="HJM-Ro-75i"/>
@@ -316,7 +325,7 @@
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" name="themeWhiteDashboard"/>
                                             <constraints>
                                                 <constraint firstItem="kQd-QP-4wL" firstAttribute="leading" secondItem="0A7-C6-qQv" secondAttribute="leading" constant="17" id="Dv2-t9-kaL"/>
                                                 <constraint firstItem="kQd-QP-4wL" firstAttribute="centerY" secondItem="0A7-C6-qQv" secondAttribute="centerY" id="OFL-27-5mQ"/>
@@ -327,7 +336,7 @@
                                         <view key="tableFooterView" contentMode="scaleToFill" id="YyL-55-ek4">
                                             <rect key="frame" x="0.0" y="144" width="414" height="86"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" name="themeBlack26"/>
                                         </view>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HeaderCell" id="Lnp-Ls-aKU" customClass="SimpleLabelTableViewCell">
@@ -404,7 +413,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" name="themeWhite"/>
                                                 <constraints>
                                                     <constraint firstItem="s5f-0w-aKI" firstAttribute="centerX" secondItem="eUe-bm-n91" secondAttribute="centerX" id="D1I-2C-Yx2"/>
                                                     <constraint firstAttribute="height" constant="170" id="HF7-jT-JGw"/>
@@ -414,7 +423,7 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" name="themeWhite"/>
                                         <constraints>
                                             <constraint firstItem="eUe-bm-n91" firstAttribute="width" secondItem="ssf-vC-Xcc" secondAttribute="width" id="3Dd-Dn-5aE"/>
                                             <constraint firstItem="eUe-bm-n91" firstAttribute="centerY" secondItem="ssf-vC-Xcc" secondAttribute="centerY" id="Oxy-fM-rMT"/>
@@ -424,7 +433,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DZd-3u-dmy" userLabel="DoneView">
                                         <rect key="frame" x="0.0" y="802" width="414" height="50"/>
                                         <subviews>
-                                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YWS-OV-yRl">
+                                            <visualEffectView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YWS-OV-yRl">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="cJp-0U-Edf">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
@@ -539,6 +548,7 @@
                         <outlet property="resultTableView" destination="rLO-4w-GOS" id="GtT-lw-mde"/>
                         <outlet property="searchBar" destination="CNN-mC-JZh" id="GAc-ws-EBO"/>
                         <outlet property="separatorView" destination="tep-5t-fE7" id="tan-kt-a62"/>
+                        <outlet property="switcherBGView" destination="dRa-l4-Toi" id="9ww-Zo-5ro"/>
                         <outlet property="switcherButton" destination="JeI-Bw-VXo" id="pRl-Il-NMe"/>
                         <outlet property="switcherButtonBlurBackground" destination="cFx-GV-Nqk" id="U8F-1Q-fGW"/>
                         <outlet property="toButton" destination="bY4-wY-Bdt" id="jn7-I8-O96"/>
@@ -548,6 +558,7 @@
                         <outlet property="toValueLabel" destination="vEH-ql-PSE" id="bMe-wU-Ymd"/>
                         <outlet property="toView" destination="TQc-af-aOY" id="kh7-jI-fAV"/>
                         <outlet property="topConstraintMainView" destination="Wba-r7-HHe" id="nAa-Xq-oey"/>
+                        <outlet property="visualEffectsView" destination="YWS-OV-yRl" id="QIb-gI-hUY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bgy-ZE-n6a" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -556,10 +567,22 @@
         </scene>
     </scenes>
     <resources>
-        <image name="FlightReverseArrow" width="16" height="15"/>
-        <image name="FlightReverseArrowDisabled" width="16" height="15"/>
         <image name="NoAirportPlaceholder" width="106" height="84.5"/>
+        <image name="airportReverseArrowDisabled" width="16" height="15"/>
+        <image name="airportSelectionGreenReverse" width="16" height="15"/>
         <image name="location" width="21" height="21"/>
         <image name="microphone" width="36" height="36"/>
+        <namedColor name="airportSwitcherBGColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="themeBlack26">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="themeWhite">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="themeWhiteDashboard">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
     </resources>
 </document>

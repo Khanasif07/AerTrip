@@ -30,7 +30,7 @@ class PhotoGalleryFooterView: UICollectionReusableView {
     func setupView(){
         self.titleLabel.font = AppFonts.Regular.withSize(18)
         self.titleLabel.textColor = AppColors.themeWhite
-        self.arrowImage.image = UIImage(named: "arrow")?.withRenderingMode(.alwaysTemplate)
+        self.arrowImage.image = AppImages.arrow.withRenderingMode(.alwaysTemplate)
         self.arrowImage.tintColor = AppColors.themeGray20
         switch self.productType {
         case .hotel:

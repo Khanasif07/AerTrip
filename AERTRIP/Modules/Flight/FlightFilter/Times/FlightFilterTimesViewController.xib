@@ -17,6 +17,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FlightFilterTimesViewController" customModule="AERTRIP" customModuleProvider="target">
             <connections>
                 <outlet property="allSectorsLbl" destination="sox-9r-Z04" id="wC7-7k-hX6"/>
+                <outlet property="arrivalDepartureContainerView" destination="hUh-Qq-WQ0" id="36h-O2-NaZ"/>
                 <outlet property="arrivalEndTime" destination="fBg-O1-NMI" id="Uqu-oU-nO0"/>
                 <outlet property="arrivalEndTimeWidth" destination="GT1-b7-oyx" id="Bra-nZ-UmB"/>
                 <outlet property="arrivalRangeSlider" destination="OAV-cO-fKE" id="UZX-JZ-u55"/>

@@ -53,7 +53,7 @@ class IntReturnAndMCSortVM {
             if index == 2 && durationLongestFirst {
                 substring = "  " + "Longest first"
             }
-            let substringAttributedString = NSAttributedString(string: substring, attributes: [NSAttributedString.Key.font : AppFonts.Regular.withSize(14), NSAttributedString.Key.foregroundColor : UIColor.ONE_FIVE_THREE_COLOR  ])
+            let substringAttributedString = NSAttributedString(string: substring, attributes: [NSAttributedString.Key.font : AppFonts.Regular.withSize(14), NSAttributedString.Key.foregroundColor : AppColors.commonThemeGray  ])
             attributedString.append(substringAttributedString)
          
             return attributedString
@@ -81,7 +81,7 @@ class IntReturnAndMCSortVM {
             substring = "  " + "Latest First"
         }
         
-        let substringAttributedString = NSAttributedString(string: substring, attributes: [NSAttributedString.Key.font : AppFonts.Regular.withSize(14), NSAttributedString.Key.foregroundColor : UIColor.ONE_FIVE_THREE_COLOR  ])
+        let substringAttributedString = NSAttributedString(string: substring, attributes: [NSAttributedString.Key.font : AppFonts.Regular.withSize(14), NSAttributedString.Key.foregroundColor : AppColors.commonThemeGray ])
            attributedString.append(substringAttributedString)
         
         return attributedString

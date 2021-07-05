@@ -69,6 +69,7 @@ extension HotelDetailsVC {
         cell.addressInfoTextView.isUserInteractionEnabled = true
         cell.addressInfoTextView.isSelectable = false
         cell.addressInfoTextView.isEditable = false
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -76,6 +77,7 @@ extension HotelDetailsVC {
         guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelInfoAddressCell", for: indexPath) as? HotelInfoAddressCell  else { return UITableViewCell() }
         cell.configureOverviewCell(hotelData: hotelDetails)
         cell.addressInfoTextView.isUserInteractionEnabled = false
+        cell.setColorsForBooking()
 //        cell.addressInfoTextView.isSelectable = false
         return cell
     }
@@ -91,11 +93,13 @@ extension HotelDetailsVC {
             cell.dividerViewLeadingCons.constant = 0.0
             cell.dividerViewTrailingCons.constant = 0.0
         }
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
     internal func getTripAdviserCell(indexPath: IndexPath, hotelDetails: HotelDetails) -> UITableViewCell {
         guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "TripAdvisorTableViewCell", for: indexPath) as? TripAdvisorTableViewCell  else { return UITableViewCell() }
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -118,6 +122,7 @@ extension HotelDetailsVC {
         cell.allTagsForFilteration = AppConstants.staticRoomTags
         cell.statusBarStyle = statusBarStyle
         cell.tagCollectionView.reloadData()
+        cell.contentView.backgroundColor = AppColors.themeGray04
         return cell
     }
     
@@ -155,6 +160,7 @@ extension HotelDetailsVC {
         }
         
         cell.clipsToBounds = true
+        cell.containerView.backgroundColor = AppColors.themeWhiteDashboard
         return cell
     }
     
@@ -163,11 +169,13 @@ extension HotelDetailsVC {
             guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsInclusionTableViewCell", for: indexPath) as? HotelDetailsInclusionTableViewCell  else { return nil }
             cell.configureCell(ratesData: ratesData)
             cell.clipsToBounds = true
+            cell.containerView.backgroundColor = AppColors.themeWhiteDashboard
             return cell
         } else if let internetInclusion =  ratesData.inclusion_array[APIKeys.internet.rawValue] as? [String], !internetInclusion.isEmpty {
             guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsInclusionTableViewCell", for: indexPath) as? HotelDetailsInclusionTableViewCell  else { return nil }
             cell.configureCell(ratesData: ratesData)
             cell.clipsToBounds = true
+            cell.containerView.backgroundColor = AppColors.themeWhiteDashboard
             return cell
         }
         return nil
@@ -184,6 +192,7 @@ extension HotelDetailsVC {
             guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsInclusionTableViewCell", for: indexPath) as? HotelDetailsInclusionTableViewCell  else { return nil }
             cell.configureOtherInclusionCell(otherInclusion: otherInclusion,isInclusionPresent: isInclusionPresent)
             cell.clipsToBounds = true
+            cell.containerView.backgroundColor = AppColors.themeWhiteDashboard
             return cell
         }
         return nil
@@ -205,6 +214,7 @@ extension HotelDetailsVC {
                 cell.allDetailsLabel.attributedText = nil
             }
             cell.clipsToBounds = true
+            cell.containerView.backgroundColor = AppColors.themeWhiteDashboard
             return cell
         }
         return nil
@@ -225,6 +235,7 @@ extension HotelDetailsVC {
             cell.infoBtnOutlet.isHidden = false
         }
         cell.clipsToBounds = true
+        cell.contentView.backgroundColor = AppColors.themeWhiteDashboard
         return cell
     }
     
@@ -246,6 +257,7 @@ extension HotelDetailsVC {
                // cell.moreBtnOutlet.isHidden = false
             }
             cell.clipsToBounds = true
+            cell.containerView.backgroundColor = AppColors.themeWhiteDashboard
             return cell
         }
         return nil

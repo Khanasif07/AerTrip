@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -61,7 +61,6 @@
                                                                 </constraints>
                                                             </view>
                                                         </subviews>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
                                                             <constraint firstItem="goI-Ui-vra" firstAttribute="top" secondItem="lSY-8y-IWN" secondAttribute="top" id="JQa-QT-2Zx"/>
                                                             <constraint firstAttribute="trailing" secondItem="goI-Ui-vra" secondAttribute="trailing" id="Nhw-Yv-M04"/>
@@ -89,7 +88,6 @@
                                                                 </constraints>
                                                             </view>
                                                         </subviews>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
                                                             <constraint firstItem="aC0-ry-3Xg" firstAttribute="top" secondItem="Wgn-yh-7u2" secondAttribute="top" id="FAX-qN-J5Z"/>
                                                             <constraint firstAttribute="bottom" secondItem="aC0-ry-3Xg" secondAttribute="bottom" constant="5" id="KkG-Mx-Szo"/>
@@ -291,7 +289,6 @@
                                                         </constraints>
                                                     </view>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstItem="EPY-qX-PWK" firstAttribute="leading" secondItem="c7N-5W-txS" secondAttribute="leading" id="H8x-8K-RUn"/>
                                                     <constraint firstItem="z8e-qM-2Wm" firstAttribute="leading" secondItem="EPY-qX-PWK" secondAttribute="trailing" constant="16" id="LHE-bN-Asi"/>
@@ -330,7 +327,6 @@
                                                         </constraints>
                                                     </view>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="6P1-wk-8zn" secondAttribute="bottom" constant="5" id="OSl-pv-20h"/>
                                                     <constraint firstItem="o8i-M9-IZc" firstAttribute="leading" secondItem="vRL-LE-d4d" secondAttribute="leading" id="VBD-PQ-Jdi"/>
@@ -366,7 +362,6 @@
                                                         </constraints>
                                                     </view>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="h6i-j5-UG1" secondAttribute="trailing" id="3dM-dU-WnG"/>
                                                     <constraint firstAttribute="trailing" secondItem="Bi0-55-tnD" secondAttribute="trailing" id="BQO-dy-GhI"/>
@@ -397,7 +392,6 @@
                                                         </constraints>
                                                     </view>
                                                 </subviews>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="HXg-eY-TV2" secondAttribute="trailing" id="0rz-u2-0mS"/>
                                                     <constraint firstItem="HXg-eY-TV2" firstAttribute="leading" secondItem="7WH-cb-Lmv" secondAttribute="leading" id="7aY-MW-kbr"/>
@@ -435,7 +429,6 @@
                                                         </constraints>
                                                     </view>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="0uU-lR-nQp" secondAttribute="trailing" id="0lN-3B-plc"/>
                                                     <constraint firstItem="0uU-lR-nQp" firstAttribute="top" secondItem="bdg-XD-Dae" secondAttribute="top" id="4XH-rD-dso"/>
@@ -463,7 +456,6 @@
                                                         </constraints>
                                                     </view>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstItem="91t-3a-hAk" firstAttribute="top" secondItem="HqB-qN-ex2" secondAttribute="top" id="NhC-eo-taG"/>
                                                     <constraint firstAttribute="trailing" secondItem="91t-3a-hAk" secondAttribute="trailing" id="OiT-Ri-dzf"/>

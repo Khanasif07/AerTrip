@@ -18,7 +18,7 @@ class FlightPaymentVC: BaseVC {
             self.checkOutTableView.dataSource = self
             self.checkOutTableView.estimatedSectionFooterHeight = CGFloat.leastNonzeroMagnitude
             self.checkOutTableView.sectionFooterHeight = CGFloat.leastNonzeroMagnitude
-            self.checkOutTableView.backgroundColor = AppColors.screensBackground.color
+            self.checkOutTableView.backgroundColor = AppColors.themeGray04
         }
     }
     @IBOutlet weak var gradientView: UIView!
@@ -93,6 +93,16 @@ class FlightPaymentVC: BaseVC {
         self.updateAllData()
     }
     
+    override func setupColors() {
+        super.setupColors()
+        self.view.backgroundColor = AppColors.themeWhite
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.checkOutTableView.reloadData()
+    }
+    
     @IBAction func payButtonTapped(_ sender: UIButton) {
         self.hideShowLoader(isHidden:false)
         let useWallet = (self.isWallet && (self.getTotalPayableAmount() <= 0.0))
@@ -130,13 +140,13 @@ class FlightPaymentVC: BaseVC {
 
     private func setupPayButton() {
         self.payButton.titleLabel?.font = AppFonts.SemiBold.withSize(20.0)
-        self.payButton.setImage(#imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .normal)
-        self.payButton.setImage(#imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .highlighted)
+        self.payButton.setImage(AppImages.whiteBlackLockIcon.withRenderingMode(.alwaysOriginal), for: .normal)
+        self.payButton.setImage(AppImages.whiteBlackLockIcon.withRenderingMode(.alwaysOriginal), for: .highlighted)
         if self.payButton.imageView != nil{
             self.payButton.bringSubviewToFront(self.payButton.imageView!)
         }
         self.payButton.spaceInTextAndImageOfButton(spacing: 2)
-        self.payButton.setTitleColor(AppColors.themeWhite, for: .normal)
+        self.payButton.setTitleColor(UIColor.white, for: .normal)
         self.setupPayButtonTitle()
         
     }
@@ -147,13 +157,13 @@ class FlightPaymentVC: BaseVC {
 //            let amount = ttl.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
             let ttl = self.getTotalPayableAmount().getPriceStringWithCurrency
             let amount = self.getTotalPayableAmount().getConvertedAmount(using: AppFonts.SemiBold.withSize(20.0))
-            amount.addAttributes([.foregroundColor : AppColors.themeWhite], range: NSString(string: ttl).range(of: ttl))
-            let attributedTitle = NSMutableAttributedString(string: "  \(LocalizedString.Pay.localized) ", attributes: [.font: AppFonts.SemiBold.withSize(20), .foregroundColor: AppColors.themeWhite])
+            amount.addAttributes([.foregroundColor : UIColor.white], range: NSString(string: ttl).range(of: ttl))
+            let attributedTitle = NSMutableAttributedString(string: "  \(LocalizedString.Pay.localized) ", attributes: [.font: AppFonts.SemiBold.withSize(20), .foregroundColor: UIColor.white])
             attributedTitle.append(amount)
             self.payButton.setTitle(nil, for: .normal)
             self.payButton.setTitle(nil, for: .highlighted)
-            self.payButton.setImage(#imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .normal)
-            self.payButton.setImage(#imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .highlighted)
+            self.payButton.setImage(AppImages.whiteBlackLockIcon.withRenderingMode(.alwaysOriginal), for: .normal)
+            self.payButton.setImage(AppImages.whiteBlackLockIcon.withRenderingMode(.alwaysOriginal), for: .highlighted)
             self.payButton.setAttributedTitle(attributedTitle, for: .normal)
             self.payButton.setAttributedTitle(attributedTitle, for: .highlighted)
         }else{
@@ -168,7 +178,7 @@ class FlightPaymentVC: BaseVC {
     
     private func manageLoader() {
         self.activityLoader.style = .medium//.white
-        self.activityLoader.color = AppColors.themeWhite
+        self.activityLoader.color = AppColors.unicolorWhite
         self.activityLoader.startAnimating()
         self.loaderView.addGredient(isVertical: false)
         self.hideShowLoader(isHidden:true)
@@ -209,6 +219,15 @@ class FlightPaymentVC: BaseVC {
             self.previousAppliedCoupon = coupon
         }
         
+        
+        if (!(self.viewModel.itinerary.couponCode.isEmpty)){
+            var coupon = HCCouponModel()
+            coupon.isCouponApplied = true
+            coupon.couponCode = self.viewModel.itinerary.couponCode
+            coupon.discountBreakUp = DiscountBreakUp.getDiscountBreakUps(json: (self.viewModel.itinerary.details.fare.discount?.details ?? [:]))
+            self.previousAppliedCoupon = coupon
+        }
+        
         if self.previousAppliedCoupon != nil {
             self.viewModel.appliedCouponData.isCouponAppied = self.previousAppliedCoupon?.isCouponApplied ?? false
             self.viewModel.appliedCouponData.discountsBreakup = self.previousAppliedCoupon?.discountBreakUp
@@ -237,7 +256,6 @@ class FlightPaymentVC: BaseVC {
             FareUpdatedPopUpVC.showPopUp(isForIncreased: true, decreasedAmount: 0.0, increasedAmount: Double(diff), totalUpdatedAmount: Double(amount), continueButtonAction: { [weak self] in
                 guard let self = self else { return }
                 self.view.isUserInteractionEnabled = false
-//                self.viewModel.makePayment(forAmount: self.getTotalPayableAmount(), useWallet: self.isWallet)
                 self.checkForWalletOTP()
                 }, goBackButtonAction: { [weak self] in
                     guard let self = self else { return }
@@ -248,12 +266,8 @@ class FlightPaymentVC: BaseVC {
             // dipped
             FareUpdatedPopUpVC.showPopUp(isForIncreased: false, decreasedAmount: Double(-diff), increasedAmount: 0, totalUpdatedAmount: 0, continueButtonAction: nil, goBackButtonAction: nil)
             self.checkForWalletOTP()
-//            delay(seconds: 5.0) { [weak self] in
-//                guard let self = self else { return }
-//            }
         }else{
             self.checkForWalletOTP()
-//            self.viewModel.makePayment(forAmount: self.getTotalPayableAmount(), useWallet: self.isWallet)
         }
     }
     
@@ -537,8 +551,6 @@ extension FlightPaymentVC : ApplyCouponTableViewCellDelegate {
         self.view.isUserInteractionEnabled = false
         self.checkOutTableView.reloadData()
         self.viewModel.removeCouponCode()
-        
-        
     }
 }
 

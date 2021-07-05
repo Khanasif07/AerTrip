@@ -31,6 +31,7 @@ class FlightPaymentBookingStatusVC: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = AppColors.themeBlack26
 
     }
     override func initialSetup() {
@@ -75,10 +76,16 @@ class FlightPaymentBookingStatusVC: BaseVC {
         self.statusTableView.registerCell(nibName: HCConfirmationVoucherTableViewCell.reusableIdentifier)
         self.statusTableView.registerCell(nibName: HCWhatNextTableViewCell.reusableIdentifier)
     }
+    
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.statusTableView.reloadData()
+    }
 
   private func setupReturnHomeButton() {
       self.returnHomeButton.titleLabel?.font = AppFonts.SemiBold.withSize(20.0)
-      self.returnHomeButton.setTitleColor(AppColors.themeWhite, for: .normal)
+      self.returnHomeButton.setTitleColor(AppColors.unicolorWhite, for: .normal)
       self.returnHomeButton.setTitle("Return Home", for: .normal)
   }
     @IBAction func returnHomeButtonTapped(_ sender: UIButton) {

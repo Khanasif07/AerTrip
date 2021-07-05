@@ -109,6 +109,7 @@ extension HotlelBookingsDetailsVC {
         }
         cell.changeShadow()
         cell.clipsToBounds = true
+        cell.contentView.backgroundColor = AppColors.themeWhite
         return cell
     }
     
@@ -122,6 +123,7 @@ extension HotlelBookingsDetailsVC {
         
 //        cell.configCell(title: LocalizedString.Booking.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(self.viewModel.bookingDetail?.bookingPrice ?? 0)", isLastCell: false)
         cell.clipsToBounds = true
+        cell.contentView.backgroundColor = AppColors.themeWhite
         return cell
     }
     
@@ -153,6 +155,7 @@ extension HotlelBookingsDetailsVC {
         cell.containerViewBottomConstraint.constant = (isCellLast) ? 21.0 : 0.0
         cell.clipsToBounds = isCellLast
         cell.dividerView.isHidden = false
+        cell.contentView.backgroundColor = AppColors.themeWhite
         return cell
     }
     
@@ -180,6 +183,7 @@ extension HotlelBookingsDetailsVC {
 //
 //        cell.configCell(title: LocalizedString.AddOns.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(self.viewModel.bookingDetail?.addOnAmount ?? 0)", isLastCell: false, cellHeight: 30.0)
         cell.clipsToBounds = true
+        cell.contentView.backgroundColor = AppColors.themeWhite
         return cell
     }
     
@@ -197,6 +201,25 @@ extension HotlelBookingsDetailsVC {
         
 //        cell.configCell(title: LocalizedString.Cancellation.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(self.viewModel.bookingDetail?.cancellationAmount ?? 0)", isLastCell: false, cellHeight: 37.0)
         cell.clipsToBounds = true
+        cell.contentView.backgroundColor = AppColors.themeWhite
+        return cell
+    }
+    
+    func getReschedulingCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingPaymentDetailsTableViewCell.reusableIdentifier, for: indexPath) as? BookingPaymentDetailsTableViewCell else { return UITableViewCell() }
+        cell.titleTopConstraint.constant = 5.0
+        cell.titleBottomConstraint.constant = 12.0
+        cell.containerViewBottomConstraint.constant = 0.0
+        
+        let amount = self.viewModel.bookingDetail?.rescheduleAmount ?? 0
+        let attAmount = self.getConvertedPrice(for: amount, with: self.viewModel.bookingDetail?.bookingCurrencyRate, using: AppFonts.Regular.withSize(16.0), isForCancellation: false)
+        
+        cell.configCellForAmount(title: LocalizedString.Rescheduling.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: attAmount, priceInRupee: amount, isLastCell: false, cellHeight: 37.0)
+        
+        
+//        cell.configCell(title: LocalizedString.Cancellation.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(self.viewModel.bookingDetail?.cancellationAmount ?? 0)", isLastCell: false, cellHeight: 37.0)
+        cell.clipsToBounds = true
+        cell.contentView.backgroundColor = AppColors.themeWhite
         return cell
     }
     
@@ -228,6 +251,7 @@ extension HotlelBookingsDetailsVC {
         cell.containerViewBottomConstraint.constant = (isCellLast) ? 21.0 : 0.0
         cell.clipsToBounds = isCellLast
         cell.dividerView.isHidden = false
+        cell.contentView.backgroundColor = AppColors.themeWhite
         return cell
     }
     
@@ -241,6 +265,7 @@ extension HotlelBookingsDetailsVC {
         
 //        cell.configCell(price: self.viewModel.bookingDetail?.totalOutStanding ?? 0.0)
         cell.clipsToBounds = true
+        cell.contentView.backgroundColor = AppColors.themeWhite
         return cell
     }
     
@@ -248,7 +273,7 @@ extension HotlelBookingsDetailsVC {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FlightsOptionsTableViewCell.reusableIdentifier, for: indexPath) as? FlightsOptionsTableViewCell else { return UITableViewCell() }
         cell.delegate = self
         cell.additionalInformation = self.viewModel.bookingDetail?.additionalInformation
-        let optionImages: [UIImage] = [#imageLiteral(resourceName: "bookingsDirections"), #imageLiteral(resourceName: "bookingsCall"), #imageLiteral(resourceName: "bookingsCalendar"), #imageLiteral(resourceName: "shareBooking"), #imageLiteral(resourceName: "bookingsHotel")]
+        let optionImages: [UIImage] = [AppImages.bookingsDirections, AppImages.bookingsCall, AppImages.bookingsCalendar, AppImages.shareBooking, AppImages.bookingsHotel]
         let optionNames: [String] = [LocalizedString.Directions.localized, LocalizedString.Call.localized, LocalizedString.AddToCalender.localized, LocalizedString.Share.localized, LocalizedString.BookAnotherRoom.localized]
 //        if self.viewModel.bookingDetail?.tripInfo == nil {
 //            optionImages.append(#imageLiteral(resourceName: "addToTrips"))
@@ -265,21 +290,21 @@ extension HotlelBookingsDetailsVC {
     func getAddToCalenderCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingCommonActionTableViewCell.reusableIdentifier, for: indexPath) as? BookingCommonActionTableViewCell else { return UITableViewCell() }
         cell.usingFor = .addToCalender
-        cell.configureCell(buttonImage: #imageLiteral(resourceName: "greenCalenderIcon"), buttonTitle: LocalizedString.AddToCalender.localized)
+        cell.configureCell(buttonImage: AppImages.greenCalenderIcon, buttonTitle: LocalizedString.AddToCalender.localized)
         return cell
     }
     
     func getBookAnotherRoomCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingCommonActionTableViewCell.reusableIdentifier, for: indexPath) as? BookingCommonActionTableViewCell else { return UITableViewCell() }
         cell.usingFor = .bookSameFlight
-        cell.configureCell(buttonImage: #imageLiteral(resourceName: "BookAnotherRoom"), buttonTitle: LocalizedString.BookAnotherRoom.localized)
+        cell.configureCell(buttonImage: AppImages.BookAnotherRoom, buttonTitle: LocalizedString.BookAnotherRoom.localized)
         return cell
     }
     
     func getAddToWalletCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingCommonActionTableViewCell.reusableIdentifier, for: indexPath) as? BookingCommonActionTableViewCell else { return UITableViewCell() }
         cell.usingFor = .addToAppleWallet
-        cell.configureCell(buttonImage: #imageLiteral(resourceName: "AddToAppleWallet"), buttonTitle: LocalizedString.AddToAppleWallet.localized)
+        cell.configureCell(buttonImage: AppImages.AddToAppleWallet, buttonTitle: LocalizedString.AddToAppleWallet.localized)
         cell.actionButton.isLoading = self.viewModel.showWaletLoader
         cell.backgroundViewTopConstraint.constant = 16
         return cell

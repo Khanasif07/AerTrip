@@ -102,7 +102,7 @@ class AppGlobals {
         IQKeyboardManager.shared().toolbarDoneBarButtonItemText = isEnabled ? LocalizedString.Done.localized : ""
     }
     
-    func getImageFor(firstName: String?, lastName: String?, font: UIFont = AppFonts.Regular.withSize(40.0), textColor: UIColor = AppColors.themeGray40, offSet: CGPoint = CGPoint(x: 0, y: 12), backGroundColor: UIColor = AppColors.themeWhite) -> UIImage {
+    func getImageFor(firstName: String?, lastName: String?, font: UIFont = AppFonts.Regular.withSize(40.0), textColor: UIColor = AppColors.themeGray40, offSet: CGPoint = CGPoint(x: 0, y: 12), backGroundColor: UIColor = .white) -> UIImage {
         var fName = firstName?.removeLeadingTrailingWhitespaces ?? ""
         var lName = lastName?.removeLeadingTrailingWhitespaces ?? ""
         
@@ -119,7 +119,7 @@ class AppGlobals {
         return self.getImageFromText(string, font: font, textColor: textColor, offSet: offSet, backGroundColor: backGroundColor)
     }
     
-    func getImageFromText(_ fromText: String, font: UIFont = AppFonts.Regular.withSize(40.0), textColor: UIColor = AppColors.themeGray40, offSet: CGPoint = CGPoint(x: 0, y: 12), backGroundColor: UIColor = AppColors.themeWhite) -> UIImage {
+    func getImageFromText(_ fromText: String, font: UIFont = AppFonts.Regular.withSize(40.0), textColor: UIColor = AppColors.themeGray40, offSet: CGPoint = CGPoint(x: 0, y: 12), backGroundColor: UIColor = .white) -> UIImage {
         let size = 70.0
         return UIImage(text: fromText, font: font, color: textColor, backgroundColor: backGroundColor, size: CGSize(width: size, height: size), offset: offSet)!
     }
@@ -566,11 +566,11 @@ class AppGlobals {
     }
     
     
-    func getStringFromImage(name : String) -> NSAttributedString {
+    func getStringFromImage(with image : UIImage) -> NSAttributedString {
         
         let imageAttachment = NSTextAttachment()
         let sourceSansPro18 = UIFont(name: "SourceSansPro-Semibold", size: 18.0) ?? UIFont.systemFont(ofSize: 18.0)
-        let iconImage = UIImage(named: name ) ?? UIImage()
+        let iconImage = image//UIImage(named: name ) ?? UIImage()
         imageAttachment.image = iconImage
         
         let yCordinate  = roundf(Float(sourceSansPro18.capHeight - iconImage.size.height) / 2.0)
@@ -619,11 +619,23 @@ extension Double {
     
     func  getConvertedAmount(using font: UIFont)->NSMutableAttributedString{
         
-        return (self * (CurrencyControler.shared.selectedCurrency.rate )).amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font)
+        if AppConstants.isCurrencyConversionEnable{
+            return (self * (CurrencyControler.shared.selectedCurrency.rate )).amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font)
+        }else{
+            return self.amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font)
+        }
+        
+        
     }
     
     func  getConvertedCancellationAmount(using font: UIFont)->NSMutableAttributedString{
-        return (self * (CurrencyControler.shared.selectedCurrency.cancellation_rate)).amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font)
+        
+        if AppConstants.isCurrencyConversionEnable{
+            return (self * (CurrencyControler.shared.selectedCurrency.cancellation_rate)).amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font)
+        }else{
+            return self.amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font)
+        }
+
     }
     
     var getPriceStringWithCurrency:String{
@@ -638,13 +650,23 @@ extension Double {
     ///For Post Bookings And Account section
     func convertAmount(with rate:CurrencyConversionRate, using font: UIFont)->NSMutableAttributedString{
         let symbol = Currencies.getCurrencySymbol(currencyCode: rate.currencyCode)
-        return (self * rate.rate).amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font, symbol: symbol)
+        if AppConstants.isCurrencyConversionEnable{
+            return (self * rate.rate).amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font, symbol: symbol)
+        }else{
+            return self.amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font, symbol: symbol)
+        }
+        
     }
     
     ///For Post Bookings cancellation
     func convertCancellationAmount(with rate:CurrencyConversionRate, using font: UIFont)->NSMutableAttributedString{
         let symbol = Currencies.getCurrencySymbol(currencyCode: rate.currencyCode)
-        return (self * rate.cancellationRate).amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font, symbol: symbol)
+        if AppConstants.isCurrencyConversionEnable{
+            return (self * rate.cancellationRate).amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font, symbol: symbol)
+        }else{
+            return self.amountInDelimeterWithoutSymbol.asStylizedPriceWithSymbol(using: font, symbol: symbol)
+        }
+        
     }
     
     ///For Post Bookings And Account section
@@ -937,7 +959,7 @@ extension AppGlobals {
 
 extension AppGlobals {
     func getEmojiIcon(dob: String,salutation: String,dateFormatter: String) -> UIImage {
-        var emoji = UIImage(named: "person")
+        var emoji:UIImage? = AppImages.person
         var age = -1
         var day = -1
         var year = false
@@ -952,82 +974,82 @@ extension AppGlobals {
         switch (salutation) {
         case "Mr","Mr.", "Mast","Mast.":
             if (age == -1) {
-                emoji = UIImage(named: "man")
+                emoji = AppImages.man
             } else {
                 if (year) {
                     if (age > 12) {
-                        emoji = UIImage(named: "man")
+                        emoji = AppImages.man
                     } else if (age > 2) {
-                        emoji = UIImage(named: "boy")
+                        emoji = AppImages.boy
                     }else {
-                        emoji = UIImage(named: "infant")
+                        emoji = AppImages.infant
                     }
                 } else {
                     if (day > 0) {
-                        emoji = UIImage(named: "infant")
+                        emoji = AppImages.infant
                     } else {
-                        emoji = UIImage(named: "man")
+                        emoji = AppImages.man
                     }
                     
                 }
             }
         case "Mrs","Mrs.","Ms","Ms.","Miss","Miss.":
             if (age == -1) {
-                emoji = UIImage(named: "woman")
+                emoji = AppImages.woman
             } else {
                 if (year) {
                     if (age > 12) {
-                        emoji = UIImage(named: "woman")
+                        emoji = AppImages.woman
                     } else if (age > 2) {
-                        emoji = UIImage(named: "girl")
+                        emoji = AppImages.girl
                     }else {
-                        emoji = UIImage(named: "infant")
+                        emoji = AppImages.infant
                     }
                 } else {
                     if (day > 0) {
-                        emoji = UIImage(named: "infant")
+                        emoji = AppImages.infant
                     } else {
-                        emoji = UIImage(named: "woman")
+                        emoji = AppImages.woman
                     }
                 }
             }
         default:
-            emoji = UIImage(named: "person")
+            emoji = AppImages.person
         }
         return emoji ?? UIImage()
     }
     
     func getEmojiIconFromAge(ageString: String,salutation: String) -> UIImage {
-        var emoji = UIImage(named: "person")
+        var emoji:UIImage? = AppImages.person
         
         let age = Int(ageString) ?? 0
         switch (salutation) {
         case "Mr","Mr.", "Mast","Mast.":
             if (age <= 0) {
-                emoji = UIImage(named: "man")
+                emoji = AppImages.man
             } else {
                 if (age > 12) {
-                    emoji = UIImage(named: "man")
+                    emoji = AppImages.man
                 } else if (age > 2) {
-                    emoji = UIImage(named: "boy")
+                    emoji = AppImages.boy
                 }else {
-                    emoji = UIImage(named: "infant")
+                    emoji = AppImages.infant
                 }
             }
         case "Mrs","Mrs.","Ms","Ms.","Miss","Miss.":
             if (age <= 0) {
-                emoji = UIImage(named: "woman")
+                emoji = AppImages.woman
             } else {
                 if (age > 12) {
-                    emoji = UIImage(named: "woman")
+                    emoji = AppImages.woman
                 } else if (age > 2) {
-                    emoji = UIImage(named: "girl")
+                    emoji = AppImages.girl
                 }else {
-                    emoji = UIImage(named: "infant")
+                    emoji = AppImages.infant
                 }
             }
         default:
-            emoji = UIImage(named: "person")
+            emoji = AppImages.person
         }
         return emoji ?? UIImage()
     }

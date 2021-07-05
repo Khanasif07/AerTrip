@@ -34,7 +34,7 @@ class FreeMealAndSeatVC: UIViewController {
     static func showMe(type: FreeServiveType){
         if let topVC = UIApplication.topViewController() {
             let obj = FreeMealAndSeatVC.instantiate(fromAppStoryboard: .PassengersSelection)
-            obj.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
+            obj.view.backgroundColor = AppColors.unicolorBlack.withAlphaComponent(0.3)
             var frame = topVC.view.frame
             frame.origin.y = frame.height
             obj.view.frame = frame

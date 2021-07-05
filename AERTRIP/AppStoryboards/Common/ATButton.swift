@@ -32,7 +32,7 @@ import UIKit
     private(set) var currentActionState: ActionState = ActionState.released
     
     //MARK:- Public
-    var shadowColor: UIColor = AppColors.themeBlack.withAlphaComponent(0.16) {
+    var shadowColor: UIColor = AppColors.aertripBtnShadowColor {
         didSet {
             self.layoutSubviews()
         }
@@ -134,6 +134,14 @@ import UIKit
         self.setupLoader()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        if !self.isSocial {
+            self.addShadowLayer()
+        }
+        addGradientLayer()
+    }
+    
     private func addShadowLayer() {
         if shadowLayer == nil {
             shadowLayer = CAShapeLayer()
@@ -145,12 +153,12 @@ import UIKit
         shadowLayer.fillColor = AppColors.clear.cgColor
         if self.isEnabled {
             if isEnabledShadow {
-                shadowLayer.shadowColor = AppShadowProperties().shadowColor.cgColor//AppColors.clear.cgColor
+                shadowLayer.shadowColor = AppColors.aertripBtnShadowColor.cgColor//AppColors.clear.cgColor
                 shadowLayer.shadowOffset = CGSize.zero
                 shadowLayer.shadowOpacity = 0.0
                 shadowLayer.shadowRadius = 0.0
             } else {
-                shadowLayer.shadowColor = (!isShadowColorNeeded) ? AppShadowProperties().shadowColor.cgColor : shadowColor.cgColor//shadowColor.cgColor
+                shadowLayer.shadowColor = (!isShadowColorNeeded) ? AppColors.aertripBtnShadowColor.cgColor : shadowColor.cgColor//shadowColor.cgColor
             shadowLayer.shadowPath  = shadowLayer.path
             shadowLayer.shadowOffset = CGSize(width: 0.0, height: self.isSocial ? 2.0 : 12.0)
             shadowLayer.shadowOpacity = self.isSocial ? 0.16 : 0.5
@@ -197,18 +205,18 @@ import UIKit
         if self.isEnabled {
             if isEnabledShadow {
                 gLayer.colors = disabledGradientColors.map { (clr) -> CGColor in
-                    clr.cgColor
+                    clr.resolvedColor(with: traitCollection).cgColor
                 }
             } else {
                 gLayer.colors = gradientColors.map { (clr) -> CGColor in
-                    clr.cgColor
+                    clr.resolvedColor(with: traitCollection).cgColor
                 }
             }
             
         }
         else {
             gLayer.colors = disabledGradientColors.map { (clr) -> CGColor in
-                clr.cgColor
+                clr.resolvedColor(with: traitCollection).cgColor
             }
         }
     }
@@ -390,15 +398,15 @@ import UIKit
         self.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
         self.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
         
-        self.setTitleColor(AppColors.themeWhite, for: UIControl.State.normal)
-        self.setTitleColor(AppColors.themeWhite, for: UIControl.State.selected)
-        self.setTitleColor(AppColors.themeWhite, for: UIControl.State.highlighted)
+        self.setTitleColor(AppColors.unicolorWhite, for: UIControl.State.normal)
+        self.setTitleColor(AppColors.unicolorWhite, for: UIControl.State.selected)
+        self.setTitleColor(AppColors.unicolorWhite, for: UIControl.State.highlighted)
 
-        self.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
+        self.shadowColor = AppColors.aertripBtnShadowColor
         
         self.layer.cornerRadius = self.height / 2
-        self.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
-        self.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
+        self.layer.applySketchShadow(color: .black, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
+        self.shadowColor = AppColors.aertripBtnShadowColor
         
     }
     

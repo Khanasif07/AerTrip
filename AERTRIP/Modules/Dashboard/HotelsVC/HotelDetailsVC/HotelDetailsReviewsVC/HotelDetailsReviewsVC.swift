@@ -236,6 +236,7 @@ extension HotelDetailsReviewsVC: UITableViewDelegate , UITableViewDataSource {
         case 1,2:
             guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "TripAdvisorReviewsHeaderView") as? TripAdvisorReviewsHeaderView else { return nil }
             headerView.headerLabel.text = self.sectionName[section]
+            headerView.containerView.backgroundColor = AppColors.themeBlack26
             return headerView
         default:
             return nil
@@ -314,6 +315,7 @@ extension HotelDetailsReviewsVC {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "TripAdvisorTravelerRatingTableViewCell", for: indexPath) as? TripAdvisorTravelerRatingTableViewCell else { return UITableViewCell() }
         cell.configCell(reviewsLabel: "\(String(describing: tripAdviserDetails.numReviews.toInt ?? 0)) \(LocalizedString.Reviews.localized)", tripAdvisorRating: Double(tripAdviserDetails.rating) ?? 0.0, ranking: tripAdviserDetails.rankingData?.rankingString ?? "")
         cell.reviewsButton.addTarget(self, action: #selector(tapCellReviewBtn), for: .touchUpInside)
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -344,6 +346,7 @@ extension HotelDetailsReviewsVC {
             cell.noOfReviewsWidthContraint.constant = minWidth
             
         }
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -364,6 +367,7 @@ extension HotelDetailsReviewsVC {
                 cell.ratingViewTopConstraint.constant = 6.5
             }
         }
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -376,11 +380,13 @@ extension HotelDetailsReviewsVC {
         } else {
             cell.titleLabel.text = "\(LocalizedString.ReadAll.localized) \(tripAdviserDetails.numReviews) reviews"
         }
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
     internal func getPoweredByCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: PoweredByTableViewCell.reusableIdentifier, for: indexPath) as? PoweredByTableViewCell else { return UITableViewCell() }
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     

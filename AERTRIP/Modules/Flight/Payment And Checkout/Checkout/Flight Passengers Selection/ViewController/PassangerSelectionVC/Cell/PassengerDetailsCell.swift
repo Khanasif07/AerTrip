@@ -52,7 +52,7 @@ class PassengerDetailsCell: UICollectionViewCell {
     
     private func configUI() {
         self.layoutIfNeeded()
-        iconImageView.image = #imageLiteral(resourceName: "adultPassengers")
+        iconImageView.image = AppImages.ic_deselected_hotel_guest_adult
         
         firstNameLabel.font = AppFonts.Regular.withSize(14.0)
         firstNameLabel.textColor = AppColors.themeBlack
@@ -73,23 +73,26 @@ class PassengerDetailsCell: UICollectionViewCell {
         lastNameAgeContainer.isHidden = true
         lastNameLabel.text = ""
         ageLabel.text = ""
+        self.backgroundColor = AppColors.themeBlack26
     }
     
     private func configData() {
         
         func setupForAdd() {
-            infoImageView.image = (!self.isContinueButtonTapped) ?  #imageLiteral(resourceName: "greenFilledAdd") : #imageLiteral(resourceName: "ic_info_incomplete")
+
+            infoImageView.image = (!self.isContinueButtonTapped) ?  AppImages.greenFilledAdd : AppImages.ic_info_incomplete
+
             var finalText = ""
             if let type = self.contact?.passengerType {
                 switch type{
                 case .Adult:
-                    iconImageView.image = #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult")
+                    iconImageView.image = AppImages.ic_deselected_hotel_guest_adult
                     finalText = "\(LocalizedString.Adult.localized) \(self.contact?.numberInRoom ?? 0)"
                 case .Child:
-                    iconImageView.image = #imageLiteral(resourceName: "ic_deselected_hotel_guest_child")
+                    iconImageView.image = AppImages.ic_deselected_hotel_guest_child
                     finalText = "\(LocalizedString.Child.localized) \(self.contact?.numberInRoom ?? 0)"
                 case .Infant:
-                    iconImageView.image = #imageLiteral(resourceName: "ic_deselected_hotel_guest_infant")
+                    iconImageView.image = AppImages.ic_deselected_hotel_guest_infant
                     finalText = "\(LocalizedString.Infant.localized) \(self.contact?.numberInRoom ?? 0)"
                 }
             }
@@ -106,10 +109,10 @@ class PassengerDetailsCell: UICollectionViewCell {
         self.iconImageView.clipsToBounds = true
         self.iconImageView.layer.cornerRadius = self.iconImageView.frame.height / 2.0
         if let fName = self.contact?.firstName, let lName = self.contact?.lastName, let saltn = self.contact?.salutation {
-            infoImageView.image = #imageLiteral(resourceName: "ic_info_incomplete")
+            infoImageView.image = AppImages.ic_info_incomplete
             infoImageView.isHidden = true
 
-            let placeHolder = self.contact?.flImage ?? #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult")
+            let placeHolder = self.contact?.flImage ?? AppImages.ic_deselected_hotel_guest_adult
             self.iconImageView.image = placeHolder
 
             if (fName.isEmpty && lName.isEmpty) {
@@ -129,7 +132,7 @@ class PassengerDetailsCell: UICollectionViewCell {
                     self.iconImageView.setImageWithUrl(img, placeholder: placeHolder, showIndicator: false)
                 }
                 else {
-                    self.iconImageView.image = AppGlobals.shared.getImageFor(firstName: self.contact?.firstName, lastName: self.contact?.lastName, font: AppFonts.Light.withSize(36.0),textColor: AppColors.themeGray60, offSet: CGPoint(x: 0, y: 12), backGroundColor: AppColors.imageBackGroundColor)
+                    self.iconImageView.image = AppGlobals.shared.getImageFor(firstName: self.contact?.firstName, lastName: self.contact?.lastName, font: AppFonts.Light.withSize(36.0),textColor: AppColors.grayWhite, offSet: CGPoint(x: 0, y: 12), backGroundColor: AppColors.imageBackGroundColor)
                 }
 
                 if let year = self.contact?.age, year > 0 {

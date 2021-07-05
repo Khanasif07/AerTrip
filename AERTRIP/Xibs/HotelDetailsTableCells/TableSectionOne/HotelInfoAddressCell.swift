@@ -49,6 +49,7 @@ class HotelInfoAddressCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        self.configureUI()
         self.moreBtnOutlet.isUserInteractionEnabled = true
         addressInfoTextView.textContainer.lineBreakMode = .byTruncatingTail
     }
@@ -59,6 +60,7 @@ class HotelInfoAddressCell: UITableViewCell {
         self.addressInfoTextView.textContainerInset = UIEdgeInsets.zero
         self.addressInfoTextView.textContainer.lineFragmentPadding = 0.0
         self.configureUI()
+        self.addGestures()
     }
     
     /// COnfigure UI
@@ -66,13 +68,16 @@ class HotelInfoAddressCell: UITableViewCell {
         // SetUps
 //        self.moreBtnContainerView.addGredient(isVertical: false, colors: [.white, UIColor.white.withAlphaComponent(0)])
         self.gradientView.backgroundColor = .clear
-        self.gradientView.addGredient(isVertical: false, colors: [UIColor.white.withAlphaComponent(0), UIColor.white])
+        self.gradientView.addGredient(isVertical: false, colors: [AppColors.themeBlack26.withAlphaComponent(0), AppColors.themeBlack26])
         self.moreBtnContainerView.isHidden = true
         
         // Color
         self.addressLabel.textColor = AppColors.themeBlack
         //self.deviderView.backgroundColor = AppColors.divider.color
         self.moreBtnOutlet.setTitleColor(AppColors.themeGreen, for: .normal)
+        self.backgroundColor = AppColors.clear
+        self.contentView.backgroundColor = AppColors.clear
+        
         
         // Size
         self.addressLabel.font = AppFonts.SemiBold.withSize(16.0)
@@ -82,7 +87,9 @@ class HotelInfoAddressCell: UITableViewCell {
         // Text
         self.moreBtnOutlet.setTitle(LocalizedString.More.localized, for: .normal)
         
-        
+    }
+    
+    private func addGestures(){
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressTapped))
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(textViewTapped))
         self.addressInfoTextView.isUserInteractionEnabled = true
@@ -122,6 +129,12 @@ class HotelInfoAddressCell: UITableViewCell {
         }
     }
     
+    func setColorsForBooking(){
+        self.contentView.backgroundColor = AppColors.themeBlack26
+        self.moreBtnOutlet.backgroundColor = AppColors.themeBlack26
+//        self.moreBtnContainerView.backgroundColor = AppColors.themeBlack26
+        
+    }
  
     
     internal func configureAddressCell(hotelData: HotelDetails = HotelDetails(),isForBooking: Bool = false,address: String = "") {
@@ -133,10 +146,10 @@ class HotelInfoAddressCell: UITableViewCell {
             if address.isEmpty {
                 self.addressInfoTextView.text = "-"
             } else {
-                self.addressInfoTextView.attributedText = AppGlobals.shared.getTextWithImageWithLink(startText: address, startTextColor: AppColors.themeBlack, middleText: "\n" + LocalizedString.Maps.localized + " ", image: #imageLiteral(resourceName: "send_icon"), endText: "", endTextColor: AppColors.themeGreen, middleTextColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
+                self.addressInfoTextView.attributedText = AppGlobals.shared.getTextWithImageWithLink(startText: address, startTextColor: AppColors.themeBlack, middleText: "\n" + LocalizedString.Maps.localized + " ", image: AppImages.send_icon, endText: "", endTextColor: AppColors.themeGreen, middleTextColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
             }
         } else {
-                self.addressInfoTextView.attributedText = AppGlobals.shared.getTextWithImageWithLink(startText: hotelData.address, startTextColor: AppColors.themeBlack, middleText: "\n" + LocalizedString.Maps.localized + " ", image: #imageLiteral(resourceName: "send_icon"), endText: "", endTextColor: AppColors.themeGreen, middleTextColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
+                self.addressInfoTextView.attributedText = AppGlobals.shared.getTextWithImageWithLink(startText: hotelData.address, startTextColor: AppColors.themeBlack, middleText: "\n" + LocalizedString.Maps.localized + " ", image: AppImages.send_icon, endText: "", endTextColor: AppColors.themeGreen, middleTextColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
             
         }
     }
@@ -147,13 +160,13 @@ class HotelInfoAddressCell: UITableViewCell {
         self.addressInfoTextView.textContainer.maximumNumberOfLines = 3
         self.addressLabel.text = LocalizedString.Overview.localized
         if isForBooking {
-            self.addressInfoTextView.attributedText = AppGlobals.shared.getTextWithImageWithLink(startText:  overview, startTextColor: AppColors.themeBlack, middleText: " ", image: #imageLiteral(resourceName: "send_icon"), endText: "", endTextColor: AppColors.themeGreen, middleTextColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
+            self.addressInfoTextView.attributedText = AppGlobals.shared.getTextWithImageWithLink(startText:  overview, startTextColor: AppColors.themeBlack, middleText: " ", image: AppImages.send_icon, endText: "", endTextColor: AppColors.themeGreen, middleTextColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
              self.moreBtnContainerView.isHidden = (self.addressInfoTextView.numberOfLines >= 3) ? false : true
             self.attributeLabelSetUp(overview: overview)
             self.moreBtnOutlet.isUserInteractionEnabled = false
         }
         else {
-            self.addressInfoTextView.attributedText = AppGlobals.shared.getTextWithImageWithLink(startText:  hotelData.info, startTextColor: AppColors.themeBlack, middleText: " ", image: #imageLiteral(resourceName: "send_icon"), endText: "", endTextColor: AppColors.themeGreen, middleTextColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
+            self.addressInfoTextView.attributedText = AppGlobals.shared.getTextWithImageWithLink(startText:  hotelData.info, startTextColor: AppColors.themeBlack, middleText: " ", image: AppImages.send_icon, endText: "", endTextColor: AppColors.themeGreen, middleTextColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
              self.moreBtnContainerView.isHidden = (self.addressInfoTextView.numberOfLines >= 3) ? false : true
             self.attributeLabelSetUp(overview: hotelData.info)
             self.moreBtnOutlet.isUserInteractionEnabled = false
@@ -163,7 +176,7 @@ class HotelInfoAddressCell: UITableViewCell {
     internal func hcConfigureAddressCell(address: String) {
         self.moreBtnOutlet.isHidden = true
         self.addressLabel.text = LocalizedString.AddressSmallLaters.localized
-        self.addressInfoTextView.attributedText = AppGlobals.shared.getTextWithImageWithLink(startText: address, startTextColor: AppColors.themeBlack, middleText: "\n" + LocalizedString.Maps.localized + " ", image: #imageLiteral(resourceName: "send_icon"), endText: "", endTextColor: AppColors.themeGreen, middleTextColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
+        self.addressInfoTextView.attributedText = AppGlobals.shared.getTextWithImageWithLink(startText: address, startTextColor: AppColors.themeBlack, middleText: "\n" + LocalizedString.Maps.localized + " ", image: AppImages.send_icon, endText: "", endTextColor: AppColors.themeGreen, middleTextColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
     }
     
     internal func configureNotesCell(notes: String, isHiddenDivider: Bool = false) {
@@ -171,7 +184,7 @@ class HotelInfoAddressCell: UITableViewCell {
         self.moreBtnOutlet.isHidden = false
         self.addressInfoTextView.textContainer.maximumNumberOfLines = 3
         self.addressLabel.text = LocalizedString.Overview.localized
-        self.addressInfoTextView.attributedText = AppGlobals.shared.getTextWithImageWithLink(startText:  notes, startTextColor: AppColors.themeBlack, middleText: " ", image: #imageLiteral(resourceName: "send_icon"), endText: "", endTextColor: AppColors.themeGreen, middleTextColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
+        self.addressInfoTextView.attributedText = AppGlobals.shared.getTextWithImageWithLink(startText:  notes, startTextColor: AppColors.themeBlack, middleText: " ", image: AppImages.send_icon, endText: "", endTextColor: AppColors.themeGreen, middleTextColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
          self.moreBtnContainerView.isHidden = (self.addressInfoTextView.numberOfLines >= 3) ? false : true
         self.attributeLabelSetUp(overview: notes)
         self.moreBtnOutlet.isUserInteractionEnabled = false

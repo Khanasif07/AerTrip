@@ -28,6 +28,7 @@ struct TimeFK {
 
 @available(iOS 13.0, *) class GroupedFlightCell: UITableViewCell {
     //MARK:- View Outlets
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var summaryLabel: UILabel!
     @IBOutlet weak var expandCollapseButton: UIButton!
     @IBOutlet weak var collaspableTableView: UITableView!
@@ -60,13 +61,15 @@ struct TimeFK {
         setupTableView()
         setupCollectionView()
 //        selectionView.alpha = 0.0
-        selectionView.backgroundColor = UIColor.AertripColor.withAlphaComponent(0.10)
+        selectionView.backgroundColor = AppColors.groupCellSelectedTimeColor
+        //UIColor.AertripColor.withAlphaComponent(0.10)
         selectionView.layer.cornerRadius = 15.0
         //timeSegmentBGView.addSubview(selectionView)
         timeCollectionView.addSubview(selectionView)
         timeCollectionView.sendSubviewToBack(selectionView)
         timeSegmentBGView.clipsToBounds = true
         selectionView.frame = CGRect(x: 0, y: 0, width: 58, height: 30)
+        self.setupColor()
     }
     
     func setupTableView() {
@@ -90,6 +93,12 @@ struct TimeFK {
         resultsCollectionView.allowsMultipleSelection = false
         resultsCollectionView.isPagingEnabled = true
         resultsCollectionView.showsHorizontalScrollIndicator = false
+    }
+    
+    func setupColor(){
+        self.contentView.backgroundColor = AppColors.themeWhite.resolvedColor(with: traitCollection)
+        self.containerView.backgroundColor = AppColors.singleJourneyGroupCellColor.resolvedColor(with: traitCollection)
+        self.downArrow.backgroundColor = AppColors.singleJourneyGroupCellColor
     }
     
     @IBAction func expandCollapsedToggled(_ sender: UIButton) {
@@ -129,7 +138,7 @@ struct TimeFK {
        
         flightGroup = journey
         
-        let arrowImage = !flightGroup.isCollapsed ? UIImage(named:"DownArrow") : UIImage(named:"UpArrow")
+        let arrowImage = !flightGroup.isCollapsed ? AppImages.DownArrow : AppImages.UpArrow
         expandCollapseButton.setImage(arrowImage, for: .normal)
         
         let timeFKArray = journey.journeyArray.map{ return TimeFK(departurTime: $0.dt, fk: $0.fk) }
@@ -250,6 +259,7 @@ struct TimeFK {
 //        currentSelectedIndex = nil
         collaspableTableView.tableFooterView = nil
         expandCollapseButton.transform = .identity
+        self.setupColor()
 //        selectionView.alpha = 0.0
     }
 }
@@ -345,6 +355,7 @@ extension GroupedFlightCell : UICollectionViewDataSource , UICollectionViewDeleg
             let currentTime = currentTimeFK.departurTime
             let currentFK = currentTimeFK.fk
             cell.timeLabel.text = currentTime
+            cell.timeLabel.textColor = AppColors.themeGray60
             if  let journey = flightGroup.getJourneyWith(fk: currentFK) {
                 cell.isPinnedView.isHidden = !(journey.isPinned ?? false)
             }

@@ -120,7 +120,7 @@ class SelectDestinationVC: BaseVC {
         didYouMeanLbl.isHidden = true
         tableView.contentInset = UIEdgeInsets(top: headerView.height, left: 0.0, bottom: 0.0, right: 0.0)
         registerXib()
-        
+        self.headerView.backgroundColor = AppColors.selectDestinationHeaderColor
 //        let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
 //        mainContainerView.isUserInteractionEnabled = true
 //        swipeGesture.delegate = self

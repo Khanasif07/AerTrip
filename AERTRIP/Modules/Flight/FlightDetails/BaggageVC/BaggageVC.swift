@@ -62,6 +62,19 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
 
     }
     
+    
+    override func setupColors() {
+        self.view.backgroundColor = AppColors.flightResultsFooterSecondaryColor
+        self.baggageTableView.backgroundColor = AppColors.themeGray04
+    }
+    
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.baggageTableView.reloadData()
+    }
+    
+    
     //MARK:- Tableview Methods
     func numberOfSections(in tableView: UITableView) -> Int
     {
@@ -122,7 +135,7 @@ class BaggageVC: BaseVC, UITableViewDelegate, UITableViewDataSource
             }else{
                 displayTxt = displayTxt + "•   Baggage details are indicative and subject to change without prior notice."
                 
-                let title = NSMutableAttributedString(string: displayTxt, attributes: [NSAttributedString.Key.paragraphStyle: style,NSAttributedString.Key.foregroundColor:UIColor.black])
+                let title = NSMutableAttributedString(string: displayTxt, attributes: [NSAttributedString.Key.paragraphStyle: style,NSAttributedString.Key.foregroundColor:AppColors.themeBlack])
                 changeAirportCell.dataLabel.attributedText = title
             }
             

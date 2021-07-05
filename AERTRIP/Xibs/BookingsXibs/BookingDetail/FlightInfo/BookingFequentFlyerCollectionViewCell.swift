@@ -60,7 +60,7 @@ class BookingFequentFlyerCollectionViewCell: UICollectionViewCell {
         self.frequentFlyerLabel.text = LocalizedString.FrequentFlyer.localized
         self.airlineNameLabel.text = frequentFlyer?.key ?? ""
         self.airlineNoLabel.text = frequentFlyer?.value ?? ""
-        self.airlineIconView.image = #imageLiteral(resourceName: "greenFlightIcon")
+        self.airlineIconView.image = AppImages.greenFlightIcon
         
     }
     

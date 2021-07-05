@@ -112,7 +112,7 @@ extension FlightDomesticMultiLegResultVC {
                                         
                                     } else if modifiedResult.count > 0 {
                                         
-                                        if let errorView = self.baseScrollView.viewWithTag( 500 + index) {
+                                        if let errorView = self.baseScrollView.viewWithTag( self.errorViewTag + index) {
                                             if updatedArray.count > 0  {
                                                 errorView.removeFromSuperview()
                                             }
@@ -168,7 +168,7 @@ extension FlightDomesticMultiLegResultVC {
             guard let headerView = bannerView  else { return }
             
             var rect = headerView.frame
-            baseScrollViewTop.constant = 0
+//            baseScrollViewTop.constant = 0
             UIView.animate(withDuration: 1.0 , animations: {
                 let y = rect.origin.y - rect.size.height - 20
                 rect.origin.y = y

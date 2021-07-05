@@ -56,7 +56,12 @@ class BookingInvoiceVC: BaseVC {
         }
 //        let navTitle = self.viewModel.isForReceipt ? LocalizedString.Receipt.localized : LocalizedString.Booking.localized
         self.topNavBar.configureNavBar(title: navTitle, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: true)
+    }
+    
+    
+    override func setupColors() {
         self.invoiceTableView.backgroundColor = AppColors.themeGray04
+        self.view.backgroundColor = AppColors.themeWhite
     }
     
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
@@ -81,7 +86,8 @@ class BookingInvoiceVC: BaseVC {
         guard let totalPayableCell = self.invoiceTableView.dequeueReusableCell(withIdentifier: "TotalPayableNowWithIconCell") as? TotalPayableNowWithIconCell else {
             fatalError("TotalPayableNowCell not found")
         }
-        
+        totalPayableCell.contentView.backgroundColor = AppColors.themeBlack26
+        totalPayableCell.totalPayableNowLabel.backgroundColor = AppColors.themeBlack26
         totalPayableCell.topDeviderView.isHidden = true
         totalPayableCell.bottomDeviderView.isHidden = true
         let txt = self.viewModel.voucher?.paymentInfo?.paymentTitle ?? LocalizedString.dash.localized
@@ -157,6 +163,7 @@ class BookingInvoiceVC: BaseVC {
             
             bookingVoucherCell.configureCell(date: dateStr, voucher: voucherStr)
             bookingVoucherCell.dividerView.isHidden = false
+            bookingVoucherCell.containerView.backgroundColor = AppColors.themeBlack26
             return bookingVoucherCell
         case 1:
             guard let emptyCell = self.invoiceTableView.dequeueReusableCell(withIdentifier: "EmptyTableViewCell") as? EmptyTableViewCell else {
@@ -341,7 +348,7 @@ class BookingInvoiceVC: BaseVC {
             downloadInvoiceCell.topDividerView.isHidden = true
             downloadInvoiceCell.showLoader = self.isDownloadingRecipt
             downloadInvoiceCell.titleLabel.text = self.viewModel.isForReceipt ? LocalizedString.DownloadReceipt.localized : LocalizedString.DownloadInvoice.localized
-            
+            downloadInvoiceCell.contentView.backgroundColor = AppColors.themeBlack26
             return downloadInvoiceCell
         default:
             return UITableViewCell()
@@ -450,9 +457,10 @@ extension BookingInvoiceVC: UITableViewDataSource, UITableViewDelegate {
             headerView.isDownArrow = false
             headerView.discountContainer.isHidden = true
             headerView.topStackView.isHidden = false
+            headerView.setColorsForBookingVouchers()
             
             //headerView.stackViewTopConstriant.constant = 5.5
-            headerView.topBackgroundView.backgroundColor = AppColors.themeWhite
+//            headerView.topBackgroundView.backgroundColor = AppColors.themeWhite
             headerView.tag = section
             
             func showDataOnTopHeader() {

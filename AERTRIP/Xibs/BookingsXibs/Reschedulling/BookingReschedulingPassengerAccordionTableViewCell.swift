@@ -15,6 +15,7 @@ protocol BookingReschedulingPassengerAccordionTableViewCellDelegate: class {
 class BookingReschedulingPassengerAccordionTableViewCell: ATTableViewCell {
     // MARK: - IB Outlet
     
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var passengerNameLabel: UILabel!
     @IBOutlet weak var arrowButton: UIButton!
@@ -73,15 +74,16 @@ class BookingReschedulingPassengerAccordionTableViewCell: ATTableViewCell {
     
     override func setupColors() {
         requestInProcessLbl.textColor = AppColors.themeRed
-        self.pnrTitleLabel.textColor = AppColors.themeGray40
-        self.saleAmountLabel.textColor = AppColors.themeGray40
-        self.cancellationChargeLabel.textColor = AppColors.themeGray40
-        self.netRefundLabel.textColor = AppColors.themeGray40
+        self.pnrTitleLabel.textColor = AppColors.themeGray153
+        self.saleAmountLabel.textColor = AppColors.themeGray153
+        self.cancellationChargeLabel.textColor = AppColors.themeGray153
+        self.netRefundLabel.textColor = AppColors.themeGray153
         
-        self.pnrValueLabel.textColor = AppColors.themeGray40
-        self.saleValueLabel.textColor = AppColors.themeGray40
-        self.cancellationChargeValueLabel.textColor = AppColors.themeGray40
-        self.netRefundValueLabel.textColor = AppColors.themeGray40
+        self.pnrValueLabel.textColor = AppColors.themeGray153
+        self.saleValueLabel.textColor = AppColors.themeGray153
+        self.cancellationChargeValueLabel.textColor = AppColors.themeGray153
+        self.netRefundValueLabel.textColor = AppColors.themeGray153
+        self.passengerNameLabel.textColor = AppColors.themeBlack
     }
     
     func setExpanded(_ expanded: Bool, animated: Bool) {
@@ -105,7 +107,7 @@ class BookingReschedulingPassengerAccordionTableViewCell: ATTableViewCell {
     
     private func toggleCell() {
         self.detailView.isHidden = !expanded
-        self.arrowButton.setImage(#imageLiteral(resourceName: self.expanded ? "upArrowIconCheckout" : "downArrowCheckOut"), for: .normal)
+        self.arrowButton.setImage(self.expanded ? AppImages.upArrowIconCheckout : AppImages.downArrowCheckOut, for: .normal)
     }
     
     func configureCell(passengerName: String, pnrNo: String, saleValue: String, cancellationCharge: String, refundValue: String, age: String) {
@@ -116,7 +118,14 @@ class BookingReschedulingPassengerAccordionTableViewCell: ATTableViewCell {
         self.netRefundValueLabel.text = refundValue
         self.passengerNameLabel.appendFixedText(text: passengerName, fixedText: age)
         if !age.isEmpty {
-            self.passengerNameLabel.AttributedFontColorForText(text: age, textColor: AppColors.themeGray40)
+            self.passengerNameLabel.AttributedFontColorForText(text: age, textColor: AppColors.themeGray153)
+        }
+    }
+    
+    func setColorForRescheduling(){
+        [self.contentView, self.containerView, self.detailView, self.headerView].forEach{ view in
+            view?.backgroundColor = AppColors.themeBlack26
+            
         }
     }
     

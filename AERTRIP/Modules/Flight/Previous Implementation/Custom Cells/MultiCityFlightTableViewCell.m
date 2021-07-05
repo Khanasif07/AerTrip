@@ -27,6 +27,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *dateSubTitleLabel;
 @property (weak, nonatomic) IBOutlet UIButton *SwapButton;
 @property (weak, nonatomic) IBOutlet UIView *fromToView;
+@property (weak, nonatomic) IBOutlet UIStackView *dateStackView;
+@property (weak, nonatomic) IBOutlet UIView *fromToContainerView;
+@property (weak, nonatomic) IBOutlet UIView *slideCenterView;
 
 @end
 
@@ -130,6 +133,13 @@
 }
 
 
+-(void) setColorForFromView{
+    self.fromToView.backgroundColor = UIColor.themeBlack26;
+    self.fromToContainerView.backgroundColor = UIColor.themeBlack26;
+    self.slideCenterView.backgroundColor = UIColor.themeBlack26;
+    self.dateStackView.backgroundColor = UIColor.themeBlack26;
+}
+
 - (IBAction)fromAction:(id)sender {
     [self.delegate openAirportSelectionControllerFor:YES indexPath:self.indexPath];
 }
@@ -222,6 +232,9 @@
     CGRect leftLabelTargetFrame = rightLabel.frame;
     CGRect rightLabelTargetFrame = leftLabel.frame;
     
+    [leftLabel setHidden:true];
+    [rightLabel setHidden:true];
+    
     if (leftLabel.frame.size.height > leftLabelTargetFrame.size.height){
         leftLabelTargetFrame.size.height = leftLabel.frame.size.height;
     }
@@ -244,7 +257,8 @@
         leftLabel.textColor = previousColor;
         rightLabel.textColor = previousColor;
         
-     
+        [leftLabel setHidden:false];
+        [rightLabel setHidden:false];
         
     }];
 }

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -29,28 +29,28 @@
                         <rect key="frame" x="0.0" y="4" width="354" height="470"/>
                         <subviews>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UsR-Pb-hLG">
-                                <rect key="frame" x="16" y="0.0" width="322" height="83.5"/>
+                                <rect key="frame" x="16" y="0.0" width="322" height="80"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Economy Saver" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XNZ-At-ZhU">
-                                        <rect key="frame" x="0.0" y="16" width="221" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="16" width="221" height="19"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="₹ 7,374" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2NE-Jf-tJk">
-                                        <rect key="frame" x="0.0" y="44.5" width="55" height="23"/>
+                                        <rect key="frame" x="0.0" y="43" width="59.5" height="21"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="₹ 1,680" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1eC-CZ-NJe">
-                                        <rect key="frame" x="65" y="48.5" width="36.5" height="19"/>
+                                        <rect key="frame" x="69.5" y="47" width="40" height="17"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="12"/>
                                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QmD-5S-kGV">
-                                        <rect key="frame" x="237" y="28" width="85" height="28"/>
+                                        <rect key="frame" x="237" y="26" width="85" height="28"/>
                                         <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="28" id="aqC-cI-Amn"/>
@@ -62,7 +62,7 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GEh-ID-cXr">
-                                        <rect key="frame" x="237" y="22" width="85" height="40"/>
+                                        <rect key="frame" x="237" y="20" width="85" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="Cip-iE-d7v"/>
                                         </constraints>
@@ -71,7 +71,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="XNZ-At-ZhU" firstAttribute="top" secondItem="UsR-Pb-hLG" secondAttribute="top" constant="16" id="0OE-Ig-JYW"/>
                                     <constraint firstItem="XNZ-At-ZhU" firstAttribute="leading" secondItem="UsR-Pb-hLG" secondAttribute="leading" id="1xS-mf-pMf"/>
@@ -90,14 +90,14 @@
                                 </constraints>
                             </view>
                             <view clipsSubviews="YES" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S71-kg-Fy0" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="83.5" width="354" height="1"/>
+                                <rect key="frame" x="0.0" y="80" width="354" height="1"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="sV4-AX-tdd"/>
                                 </constraints>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YuN-a7-ey3">
-                                <rect key="frame" x="0.0" y="83.5" width="354" height="386.5"/>
+                                <rect key="frame" x="0.0" y="80" width="354" height="390"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9eY-qP-5GJ">
                                         <rect key="frame" x="0.0" y="0.5" width="354" height="0.0"/>
@@ -113,13 +113,13 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Seat left at this price. Hurry up!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bc4-k4-rb7">
-                                                <rect key="frame" x="86.5" y="-9" width="181" height="18"/>
+                                                <rect key="frame" x="80" y="-8" width="194.5" height="16.5"/>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                                 <color key="textColor" red="1" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HSK-jT-oOM">
-                                                <rect key="frame" x="61.5" y="-10" width="20" height="20"/>
+                                                <rect key="frame" x="55" y="-10" width="20" height="20"/>
                                                 <color key="backgroundColor" red="1" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="20" id="WRW-UH-SPw"/>
@@ -143,9 +143,9 @@
                                         </constraints>
                                     </view>
                                     <textView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oCj-68-bn3">
-                                        <rect key="frame" x="12" y="0.5" width="334" height="386"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <color key="textColor" systemColor="labelColor"/>
+                                        <rect key="frame" x="12" y="0.5" width="334" height="389.5"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="textColor" name="themeBlack"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
@@ -188,6 +188,7 @@
             <connections>
                 <outlet property="dataDisplayView" destination="GRY-k4-kkA" id="Dt7-HL-CL9"/>
                 <outlet property="dataDisplayViewBottom" destination="jl2-FE-fDK" id="l7h-jh-Oou"/>
+                <outlet property="dividerLabel" destination="n1x-Sv-bX5" id="Sg6-8L-OHm"/>
                 <outlet property="fewSeatsLeftCountLabel" destination="HSK-jT-oOM" id="zhI-cX-WLT"/>
                 <outlet property="fewSeatsLeftLabel" destination="Bc4-k4-rb7" id="vrv-IT-W2F"/>
                 <outlet property="fewSeatsLeftView" destination="9eY-qP-5GJ" id="ecF-uT-kZ4"/>
@@ -204,11 +205,8 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <namedColor name="themeBlack">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
     </resources>
 </document>

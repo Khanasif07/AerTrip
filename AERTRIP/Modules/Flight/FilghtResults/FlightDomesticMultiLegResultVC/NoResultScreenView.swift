@@ -38,6 +38,7 @@ class NoResultScreenView : UIView {
     private func commonInit() {
         Bundle.main.loadNibNamed("NoResultScreenView", owner: self, options: nil)
         addSubview(contentView)
+        self.contentView.backgroundColor = AppColors.themeWhite
         contentView.frame = self.bounds
         clearFilter.setTitle("Clear Filters", for: .normal)
         clearFilter.setTitle("Clear Filters", for: .selected)

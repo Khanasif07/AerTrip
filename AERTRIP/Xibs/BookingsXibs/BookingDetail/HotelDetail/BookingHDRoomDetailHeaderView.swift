@@ -11,7 +11,7 @@ import UIKit
 class BookingHDRoomDetailHeaderView: UITableViewHeaderFooterView {
     
     // MARK: - IBOutlet
-    
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var roomLabel: UILabel!
     @IBOutlet weak var roomTypeLabel: UILabel!
     @IBOutlet weak var roomDetailLabel: UILabel!

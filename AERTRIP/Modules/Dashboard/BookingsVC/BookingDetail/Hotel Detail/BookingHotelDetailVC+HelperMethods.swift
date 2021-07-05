@@ -60,10 +60,12 @@ extension BookingHotelDetailVC {
                 fatalError("HotelNameRatingTableViewCell not found ")
             }
             hotelNameCell.configureCell(hoteName: self.viewModel.hotelName, starRating: self.viewModel.hotelStarRating, tripRating: self.viewModel.taRating)
+            hotelNameCell.contentView.backgroundColor = AppColors.themeBlack26
             return hotelNameCell
         case 2:
             guard let cell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "HotelDetailsLoaderTableViewCell", for: indexPath) as? HotelDetailsLoaderTableViewCell  else { return UITableViewCell() }
             cell.activityIndicator.startAnimating()
+            cell.contentView.backgroundColor = AppColors.themeBlack26
             return cell
         default: return UITableViewCell()
         }
@@ -85,6 +87,7 @@ extension BookingHotelDetailVC {
                 
                 guard let cell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "NoImageDetailsCell", for: indexPath) as? NoImageDetailsCell else { return UITableViewCell() }
                 cell.configureCell(isTAImageAvailable: !(self.viewModel.bookingDetail?.bookingDetail?.taLocationID.isEmpty ?? false))
+                cell.contentView.backgroundColor = AppColors.themeBlack26
                 return cell
                 
             }
@@ -98,7 +101,7 @@ extension BookingHotelDetailVC {
             //            hotelNameCell.mainStackBtmConst.constant = 20.0
             //            hotelNameCell.stackViewTopConstraint.constant = 16.0
             hotelNameCell.configureCell(hoteName: self.viewModel.bookingDetail?.bookingDetail?.hotelName ?? "", starRating: self.viewModel.bookingDetail?.bookingDetail?.hotelStarRating ?? 0.0, tripRating: self.viewModel.bookingDetail?.bookingDetail?.taRating ?? 0.0)
-            
+            hotelNameCell.contentView.backgroundColor = AppColors.themeBlack26
             return hotelNameCell
             
         case 2: //  booking cancellation policy cell
@@ -106,6 +109,7 @@ extension BookingHotelDetailVC {
                 fatalError("BookingCancellationPolicyTableViewCell not found")
             }
             bookingCancellationPolicy.delegate = self
+            bookingCancellationPolicy.contentView.backgroundColor = AppColors.themeBlack26
             return bookingCancellationPolicy
             
         case 3: // Hotel checkin chekcout cell
@@ -113,6 +117,7 @@ extension BookingHotelDetailVC {
                 fatalError("BookingCheckinCheckOutTableViewCell not found")
             }
             checkInCheckOutCell.configureCell(checkInDate: self.viewModel.bookingDetail?.bookingDetail?.checkIn, checkOutDate: self.viewModel.bookingDetail?.bookingDetail?.checkOut, totalNights: self.viewModel.bookingDetail?.bookingDetail?.nights ?? 0)
+            checkInCheckOutCell.contentView.backgroundColor = AppColors.themeBlack26
             return checkInCheckOutCell
         default:
             return UITableViewCell()
@@ -123,6 +128,7 @@ extension BookingHotelDetailVC {
         guard let roomDetailCell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "BookingHDRoomDetailTableViewCell") as? BookingHDRoomDetailTableViewCell else {
             fatalError("BookingHDRoomDetailTableViewCell not found")
         }
+        roomDetailCell.contentView.backgroundColor = AppColors.themeBlack26
         switch indexPath.row {
         case 0: // Confirmation No.
             roomDetailCell.configureCell(title: "Confirmation No.", text: self.viewModel.bookingDetail?.bookingDetail?.roomDetails[indexPath.section - 1].voucher ?? "")
@@ -150,6 +156,7 @@ extension BookingHotelDetailVC {
             fareInfoNoteCell.configCell(notes: self.viewModel.bookingDetail?.bookingDetail?.roomDetails[indexPath.section - 1].includes?.notes ?? [],hotelNotes: true)
             fareInfoNoteCell.noteTextView.lineBreakMode = .byWordWrapping
             fareInfoNoteCell.noteTextViewBottomConstraint.constant = 16
+            fareInfoNoteCell.contentView.backgroundColor = AppColors.themeBlack26
             return fareInfoNoteCell
             
         case 5: // Guest Cell
@@ -160,6 +167,7 @@ extension BookingHotelDetailVC {
             guestCell.isForBooking = true
             guestCell.titleLabel.text = LocalizedString.Guests.localized
             guestCell.isToShowBottomView = false
+            guestCell.contentView.backgroundColor = AppColors.themeBlack26
             return guestCell
             
         default: return UITableViewCell()
@@ -185,6 +193,7 @@ extension BookingHotelDetailVC {
             cell.addressInfoTextView.isUserInteractionEnabled = true
             cell.addressInfoTextView.isSelectable = false
             cell.addressInfoTextView.isEditable = false
+            cell.setColorsForBooking()
             return cell
             
         case 1: // Phone Detail Cell
@@ -201,6 +210,7 @@ extension BookingHotelDetailVC {
             let result = PKCountryPicker.default.getCountryData(forISOCode: self.viewModel.bookingDetail?.bookingDetail?.country ?? AppConstants.kIndianCountryCode)
             cell.configCell(countryImage: result?.flagImage ?? UIImage(), phoneNumber: self.viewModel.bookingDetail?.bookingDetail?.phoneDetail ?? "")
             cell.dividerView.isHidden = !(self.viewModel.bookingDetail?.bookingDetail?.websiteDetail ?? "").isEmpty
+            cell.contentView.backgroundColor = AppColors.themeBlack26
             return cell
             
         // Website Detail Cell
@@ -217,6 +227,7 @@ extension BookingHotelDetailVC {
             cell.moreViewBottomConstraint.constant = 18.0
             cell.dividerBottomConstraint.constant = -0.3
             cell.deviderView.backgroundColor = AppColors.divider.color
+            cell.setColorsForBooking()
             //cell.clipsToBounds = true
             return cell
         case 4: // Amentities Cell
@@ -226,11 +237,12 @@ extension BookingHotelDetailVC {
             cell.dividerView.isHidden = (self.viewModel.bookingDetail?.bookingDetail?.taLocationID.isEmpty ?? false)
             cell.amenitiesTopConstraint.constant = 16
             cell.containerHeightConstraint.constant = 132
+            cell.contentView.backgroundColor = AppColors.themeBlack26
             return cell
             
         case 5: // Trip Advisor Cell
             guard let cell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "TripAdvisorTableViewCell", for: indexPath) as? TripAdvisorTableViewCell else { return UITableViewCell() }
-            
+            cell.contentView.backgroundColor = AppColors.themeBlack26
             return cell
         default: return UITableViewCell()
         }

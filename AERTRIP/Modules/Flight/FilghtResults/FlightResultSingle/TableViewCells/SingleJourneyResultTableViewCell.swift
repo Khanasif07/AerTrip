@@ -10,6 +10,7 @@ import UIKit
 
 
 class SingleJourneyResultTableViewCell: UITableViewCell {
+    
     //MARK:- Outlets
     @IBOutlet weak var logoOne: UIImageView!
     @IBOutlet weak var logoTwo: UIImageView!
@@ -36,6 +37,7 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
     @IBOutlet weak var smartIconCollectionView: UICollectionView!
     
     @IBOutlet weak var shadowView: UIView!
+    @IBOutlet weak var airportsNameView: UIView!
     
     var pinnedRoundedLayer : CALayer?
     
@@ -45,6 +47,7 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
     
     //MARK:- Setup Methods
     fileprivate func setupBaseView() {
+        self.baseView.backgroundColor = AppColors.themeWhiteDashboard
         backgroundColor = .clear // very important
 //        layer.masksToBounds = false
 //        layer.shadowOpacity = 0.5
@@ -52,9 +55,15 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
 //        layer.shadowOffset = CGSize(width: 0, height: 0)
 //        layer.shadowColor = UIColor.black.withAlphaComponent(0.3).cgColor
         self.baseView.layer.cornerRadius = 10
-        let shadowProp = AppShadowProperties()
+       
+        let shadowProp = AppShadowProperties(self.isLightTheme())
+        
         self.shadowView.addShadow(cornerRadius: shadowProp.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: shadowProp.shadowColor, offset: shadowProp.offset, opacity: shadowProp.opecity, shadowRadius: shadowProp.shadowRadius)
-//        self.shadowView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
+        
+        self.logoOne.roundedCorners(cornerRadius: 2)
+        self.logoTwo.roundedCorners(cornerRadius: 2)
+        self.logoThree.roundedCorners(cornerRadius: 2)
+
     }
     
     override func awakeFromNib() {
@@ -63,8 +72,10 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
         self.layer.masksToBounds = false
         setupBaseView()
         dashedView.setupDashedView()
+        
         setupGradientView()
         setupCollectionView()
+        self.setupColors()
 
     }
     
@@ -98,29 +109,28 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
     }
     
     fileprivate func setPinnedFlight() {
-        self.baseView.layer.borderColor = UIColor.AertripColor.cgColor
+        
+        self.baseView.layer.borderColor = isLightTheme() ? UIColor.AertripColor.cgColor : AppColors.clear.cgColor
         self.baseView.layer.borderWidth = 1.0
         
-        if pinnedRoundedLayer == nil
-        {
-            let pinnedRoundedLayer = CAShapeLayer()
+        if pinnedRoundedLayer == nil {
             
+            let pinnedRoundedLayer = CAShapeLayer()
             pinnedRoundedLayer.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
             pinnedRoundedLayer.fillColor = UIColor.AertripColor.cgColor
-            
             let path = CGMutablePath()
             path.move(to: CGPoint(x: 10, y: 0))
             path.addLine(to: CGPoint(x: 20, y: 0))
             path.addLine(to: CGPoint(x: 0, y: 20))
             path.addArc(tangent1End: CGPoint(x: 0, y: 0), tangent2End: CGPoint(x: 20, y: 0), radius: 10)
             pinnedRoundedLayer.path = path
-            
             self.pinnedRoundedLayer = pinnedRoundedLayer
         }
         
         if let triangleLayer = pinnedRoundedLayer {
             self.baseView.layer.addSublayer(triangleLayer)
         }
+        
     }
     
     
@@ -211,18 +221,28 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
         logoOne.image = nil
         logoTwo.image = nil
         logoTwo.image = nil
-
+        setupBaseView()
         self.immediateAirportWidth.constant = 100
         self.intermediateAirports.isHidden = false
         
         self.baseView.layer.borderWidth = 0.0
         durationTime.textColor = UIColor.ONE_ZORE_TWO_COLOR
-        price.textColor = .black
+        self.intermediateAirports.textColor = AppColors.themeGray153
+        price.textColor = AppColors.themeBlack
         priceWidth.constant = 170
         pinnedRoundedLayer?.removeFromSuperlayer()
+        self.setupColors()
         super.prepareForReuse()
     }
     
+    
+    func setupColors(){
+        self.gradientView.isHidden = !self.isLightTheme()
+        self.smartIconCollectionView.backgroundColor = AppColors.themeWhiteDashboard
+        self.price.backgroundColor = AppColors.themeWhiteDashboard
+        self.airportsNameView.backgroundColor = AppColors.themeWhiteDashboard
+        self.intermediateAirports.backgroundColor = AppColors.themeWhiteDashboard
+    }
     
     func textToImage(drawText text: String, diameter: CGFloat, color: UIColor ) -> UIImage {
         let textColor = UIColor.white
@@ -280,7 +300,7 @@ extension SingleJourneyResultTableViewCell : UICollectionViewDataSource , UIColl
         let cell = smartIconCollectionView.dequeueReusableCell(withReuseIdentifier: "SmartIconCell", for: indexPath) as! SmartIconCell
         
         if indexPath.section == 0 {
-            cell.imageView.image = UIImage(named: "checkingBaggageKg")
+            cell.imageView.image = AppImages.checkingBaggageKg
             cell.superScript.attributedText = baggageSuperScript
 //                    printDebug("baggageSuperScript...\(baggageSuperScript?.string)")
 //            cell.superScript.backgroundColor = UIColor.yellow

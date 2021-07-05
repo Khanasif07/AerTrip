@@ -84,6 +84,9 @@ class YouAreAllDoneVC: BaseVC {
         self.gradientView.addGredient(isVertical: false)
     }
     
+    override func setupColors() {
+        self.view.backgroundColor = AppColors.themeBlack26
+    }
     override func initialSetup() {
         self.view.layoutIfNeeded()
         self.registerNibs()
@@ -110,7 +113,7 @@ class YouAreAllDoneVC: BaseVC {
         //Font
         self.returnToHomeButton.titleLabel?.font = AppFonts.SemiBold.withSize(20.0)
         //Color
-        self.returnToHomeButton.setTitleColor(AppColors.themeWhite, for: .normal)
+        self.returnToHomeButton.setTitleColor(AppColors.unicolorWhite, for: .normal)
         
         self.tickMarckButton.setTitle("", for: .normal)
         

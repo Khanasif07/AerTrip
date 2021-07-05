@@ -70,6 +70,10 @@ class OnAccountDetailVC: BaseVC {
         self.viewModel.delegate = self
     }
     
+    override func setupColors() {
+        self.view.backgroundColor = AppColors.themeWhite
+    }
+    
     //MARK:- Methods
     //MARK:- Private
     private func setScreenTitle() {

@@ -18,7 +18,7 @@ class OtherBookingsDetailsVC: BaseVC {
     let viewModel = BookingProductDetailVM()
     var headerView: OtherBookingDetailsHeaderView?
     var eventTypeImage: UIImage {
-        return #imageLiteral(resourceName: "others_hotels")
+        return AppImages.others_hotels
     }
     
     private var navBarHeight: CGFloat {
@@ -66,8 +66,8 @@ class OtherBookingsDetailsVC: BaseVC {
         //self.statusBarStyle = .darkContent
         self.topNavBarHeightConstraint.constant = self.navBarHeight
         self.topNavBar.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false, backgroundType: .color(color: .white))
-        self.topNavBar.configureLeftButton(normalImage: #imageLiteral(resourceName: "backGreen"), selectedImage: #imageLiteral(resourceName: "backGreen"))
-        self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "greenPopOverButton"), selectedImage: #imageLiteral(resourceName: "greenPopOverButton"))
+        self.topNavBar.configureLeftButton(normalImage: AppImages.backGreen, selectedImage: AppImages.backGreen)
+        self.topNavBar.configureFirstRightButton(normalImage: AppImages.greenPopOverButton, selectedImage: AppImages.greenPopOverButton)
         self.topNavBar.navTitleLabel.numberOfLines = 1
         self.setupParallaxHeader()
         self.registerNibs()
@@ -105,6 +105,7 @@ class OtherBookingsDetailsVC: BaseVC {
     
     override func setupColors() {
         self.topNavBar.backgroundColor = AppColors.clear
+        self.view.backgroundColor = AppColors.themeWhite
     }
     
     override func bindViewModel() {
@@ -117,6 +118,11 @@ class OtherBookingsDetailsVC: BaseVC {
         if let view = self.headerView {
             view.frame = CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 152.0)
         }
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.dataTableView.reloadData()
     }
     
     @objc func bookingDetailFetched(_ note: Notification) {

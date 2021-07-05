@@ -14,7 +14,7 @@ class LayoverViewTableViewCell: UITableViewCell
     @IBOutlet weak var overNightLayoverImg: UIImageView!
     @IBOutlet weak var layoverLabel: UILabel!
     
-    var displayImgName = ""
+    var displayImgName:UIImage? = nil
     var isArrivalAirportChange = false
     var isArrivalTerminalChange = false
     var displayText = ""
@@ -28,29 +28,44 @@ class LayoverViewTableViewCell: UITableViewCell
         super.awakeFromNib()
 
         layoverView.layer.borderWidth = 0.5
-        layoverView.layer.borderColor = UIColor(displayP3Red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1.0).cgColor
+        layoverView.layer.borderColor = AppColors.layoverBorderColor.cgColor
         layoverView.layer.cornerRadius = layoverView.frame.height/2
+        self.layoverView.backgroundColor = AppColors.flightFilterSessionDefaultColor
+        layoverLabel.textColor = AppColors.themeBlack
     }
     
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        layoverView.layer.borderColor = AppColors.layoverBorderColor.cgColor
+
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.layoverView.backgroundColor = AppColors.flightFilterSessionDefaultColor
+        layoverLabel.textColor = AppColors.themeBlack
+    }
     
     func getLayoverString()->NSMutableAttributedString
     {
         if layoverCityName == "" || layoverCityName == " "{
             displayText = "Layover  • "
-            displayImgName = ""
+            displayImgName = nil
         }else{
             if isArrivalAirportChange == true{
                 displayText = "Change Airport in \(layoverCityName)  • "
-                displayImgName = "redchangeAirport"
+                displayImgName = AppImages.redchangeAirport
             }else if isArrivalTerminalChange == true{
                 displayText = "Change Terminal in \(layoverCityName)  • "
-                displayImgName = "changeOfTerminal"
+                displayImgName = AppImages.changeOfTerminal
             }else if ovgtlo == 1{
                 displayText = "Overnight layover in \(layoverCityName)  • "
-                displayImgName = "overnight"
+                displayImgName = AppImages.overnight
             }else {
                 displayText = "Layover in \(layoverCityName)  • "
-                displayImgName = ""
+                displayImgName = nil
             }
         }
         
@@ -58,8 +73,8 @@ class LayoverViewTableViewCell: UITableViewCell
         let completeText = NSMutableAttributedString(string: "")
         
         let imageAttachment =  NSTextAttachment()
-        if displayImgName != ""{
-            imageAttachment.image = UIImage(named:displayImgName)
+        if displayImgName != nil{
+            imageAttachment.image = displayImgName
             let imageOffsetY:CGFloat = -4.0;
             imageAttachment.bounds = CGRect(x: 0, y: imageOffsetY, width: 16, height: 16)
             let attachmentString = NSAttributedString(attachment: imageAttachment)
@@ -71,23 +86,23 @@ class LayoverViewTableViewCell: UITableViewCell
             if isArrivalAirportChange == true{
                 let range1 = (displayText as NSString).range(of: displayText)
                 
-                textAfterIcon.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.red , range: range1)
+                textAfterIcon.addAttribute(NSAttributedString.Key.foregroundColor, value: AppColors.themeRed , range: range1)
                 textAfterIcon.addAttribute(NSAttributedString.Key.font, value: AppFonts.SemiBold.withSize(14) , range: (displayText as NSString).range(of: layoverTime))
             }else{
                 let range1 = (displayText as NSString).range(of: layoverTime)
                 
-                textAfterIcon.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.red , range: range1)
+                textAfterIcon.addAttribute(NSAttributedString.Key.foregroundColor, value: AppColors.themeRed , range: range1)
                 textAfterIcon.addAttribute(NSAttributedString.Key.font, value: AppFonts.SemiBold.withSize(14), range: range1)
             }
         }else if isArrivalAirportChange == true{
             let range1 = (displayText as NSString).range(of: displayText)
             
-            textAfterIcon.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.red , range: range1)
+            textAfterIcon.addAttribute(NSAttributedString.Key.foregroundColor, value: AppColors.themeRed , range: range1)
             textAfterIcon.addAttribute(NSAttributedString.Key.font, value: AppFonts.SemiBold.withSize(14), range: (displayText as NSString).range(of: layoverTime))
         }else{
             let range1 = (displayText as NSString).range(of: layoverTime)
             
-            textAfterIcon.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black , range: range1)
+            textAfterIcon.addAttribute(NSAttributedString.Key.foregroundColor, value: AppColors.themeBlack , range: range1)
             textAfterIcon.addAttribute(NSAttributedString.Key.font, value: AppFonts.SemiBold.withSize(14), range: range1)
         }
         

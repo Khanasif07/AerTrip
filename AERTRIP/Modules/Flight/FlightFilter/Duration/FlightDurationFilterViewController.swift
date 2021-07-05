@@ -21,13 +21,30 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     @IBOutlet weak var multiLegView: UIView!
     @IBOutlet weak var multiLegSegmentView: UIView!
     @IBOutlet weak var sectorNameLbl: UILabel!
-    
     @IBOutlet weak var avoidOvernightView: UIView!
     @IBOutlet weak var avoidOvernightTitleLbl: UILabel!
     @IBOutlet weak var allSectorsLbl: UILabel!
     @IBOutlet weak var avoidOvernightDescLbl: UILabel!
     @IBOutlet weak var avoidOvernightImgView: UIImageView!
     @IBOutlet weak var avoidOvernightBtn: UIButton!
+    @IBOutlet weak var backScrollView: UIScrollView!
+    @IBOutlet weak var tripDurationTitleLabel: UILabel!
+    @IBOutlet weak var layoverDurationTitleLabel: UILabel!
+    
+
+    //MARK:- Outlets
+    @IBOutlet weak var tripDurationMinLabel: UILabel!
+    @IBOutlet weak var tripDurationMinLabelWidth: NSLayoutConstraint!
+    @IBOutlet weak var tripDurationMaxLabel: UILabel!
+    @IBOutlet weak var tripDurationMaxLabelWidth: NSLayoutConstraint!
+    @IBOutlet weak var layoverDurationMinLabel: UILabel!
+    @IBOutlet weak var layoverDurationMinLabelWidth: NSLayoutConstraint!
+    @IBOutlet weak var layoverDurationMaxLabel: UILabel!
+    @IBOutlet weak var layoverDurationMaxLabelWidth: NSLayoutConstraint!
+    @IBOutlet weak var tripDurationSlider: AertripRangeSlider!
+    @IBOutlet weak var layoverDurationSlider: AertripRangeSlider!
+    @IBOutlet weak var multicityViewHeight: NSLayoutConstraint!
+    
     
     //MARK:- Initializers
     convenience init(delegate : FlightDurationFilterDelegate, durationFilters : [DurationFilter]) {
@@ -49,21 +66,6 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
         
     }
     
-    
-    //MARK:- Outlets
-    @IBOutlet weak var tripDurationMinLabel: UILabel!
-    @IBOutlet weak var tripDurationMinLabelWidth: NSLayoutConstraint!
-    @IBOutlet weak var tripDurationMaxLabel: UILabel!
-    @IBOutlet weak var tripDurationMaxLabelWidth: NSLayoutConstraint!
-    @IBOutlet weak var layoverDurationMinLabel: UILabel!
-    @IBOutlet weak var layoverDurationMinLabelWidth: NSLayoutConstraint!
-    @IBOutlet weak var layoverDurationMaxLabel: UILabel!
-    @IBOutlet weak var layoverDurationMaxLabelWidth: NSLayoutConstraint!
-    @IBOutlet weak var tripDurationSlider: AertripRangeSlider!
-    @IBOutlet weak var layoverDurationSlider: AertripRangeSlider!
-    @IBOutlet weak var multicityViewHeight: NSLayoutConstraint!
-    
-    
     //MARK:- View Controller Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,7 +83,24 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
                 
         initialSetup()
         addMarkersOnTripDuration()
+        setUColors()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateSegmentTitles()
+    }
+    
+    
+    func setUColors(){
+        self.view.backgroundColor = AppColors.themeWhiteDashboard
         
+        [self.view, self.tripDurationSlider, self.layoverDurationSlider].forEach { $0?.backgroundColor = AppColors.themeWhiteDashboard }
+        
+        [tripDurationMinLabel, tripDurationMaxLabel, layoverDurationMinLabel, layoverDurationMaxLabel].forEach { $0?.backgroundColor = AppColors.flightFilterHighlightColor }
+        
+        
+//        self.backScrollView.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     private func addMarkersOnTripDuration() {
@@ -221,7 +240,7 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     private func getSegmentTitleFor(_ index: Int) -> String {
         let currentFilter = viewModel.durationFilters[(index - 1)]
         let isFilterApplied = currentFilter.filterApplied()
-        var title = "\(viewModel.legsArray[index - 1].origin) \u{279E} \(viewModel.legsArray[index - 1].destination)"
+        var title = "\(viewModel.legsArray[index - 1].origin) - \(viewModel.legsArray[index - 1].destination)"
         if viewModel.durationFilters.count > 3 {
             title = "\(index)"
         }
@@ -378,10 +397,10 @@ class FlightDurationFilterViewController : UIViewController , FilterViewControll
     private func resetAvoidOvernightBtn() {
         avoidOvernightBtn.isSelected = viewModel.currentDurationFilter.qualityFilter.isSelected
         if viewModel.currentDurationFilter.qualityFilter.isSelected {
-            avoidOvernightImgView.image = UIImage(named: "CheckedGreenRadioButton")
+            avoidOvernightImgView.image = AppImages.CheckedGreenRadioButton
         }
         else {
-            avoidOvernightImgView.image = UIImage(named: "UncheckedGreenRadioButton")
+            avoidOvernightImgView.image = AppImages.UncheckedGreenRadioButton
         }
     }
     

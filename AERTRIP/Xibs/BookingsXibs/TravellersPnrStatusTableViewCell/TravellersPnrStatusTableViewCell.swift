@@ -39,15 +39,23 @@ class TravellersPnrStatusTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configUI()
+        self.setColors()
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         self.travellerNameLabel.attributedText = nil
+        self.setColors()
+        
     }
     // MARK: - Functions
     
     // MARK: ===========
+    
+    private func setColors(){
+        self.containerView.backgroundColor = AppColors.themeWhiteDashboard
+        self.contentView.backgroundColor = AppColors.themeBlack26
+    }
     
     private func configUI() {
         self.containerView.layoutIfNeeded()
@@ -67,7 +75,7 @@ class TravellersPnrStatusTableViewCell: UITableViewCell {
 //        self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.4), offset: CGSize.zero, opacity: 0.7, shadowRadius: 1.5)
         //self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.7, shadowRadius: 5.0)
 //        self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
-        let shadow = AppShadowProperties()
+        let shadow = AppShadowProperties(self.isLightTheme())
         self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: shadow.shadowColor, offset: shadow.offset, opacity: shadow.opecity, shadowRadius: shadow.shadowRadius)
     }
     
@@ -75,7 +83,7 @@ class TravellersPnrStatusTableViewCell: UITableViewCell {
         self.tavellerImageBlurView.isHidden = true
         let travelName = travellerName
         if !travellersImage.isEmpty {
-            self.travellerImageView.setImageWithUrl(travellersImage, placeholder: #imageLiteral(resourceName: "profilePlaceholder"), showIndicator: false)
+            self.travellerImageView.setImageWithUrl(travellersImage, placeholder: AppImages.profilePlaceholder, showIndicator: false)
             self.travellerImageView.contentMode = .scaleAspectFill
         } else {
             self.travellerImageView.makeCircular(borderWidth: 1.0, borderColor: AppColors.themeGray20)
@@ -125,12 +133,12 @@ class TravellersPnrStatusTableViewCell: UITableViewCell {
         if isLastCell {
 //            self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMaxYCorner ,.layerMinXMaxYCorner], color: AppColors.themeBlack.withAlphaComponent(0.4), offset: CGSize.zero, opacity: 0.7, shadowRadius: 1.5)
 //            self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMaxYCorner, .layerMinXMaxYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
-            let shadow = AppShadowProperties()
+            let shadow = AppShadowProperties(self.isLightTheme())
             self.containerView.addShadow(cornerRadius: shadow.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMinXMaxYCorner], color: shadow.shadowColor, offset: shadow.offset, opacity: shadow.opecity, shadowRadius: shadow.shadowRadius)
         } else {
 //            self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.4), offset: CGSize.zero, opacity: 0.7, shadowRadius: 1.5)
 //            self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
-            let shadow = AppShadowProperties()
+            let shadow = AppShadowProperties(self.isLightTheme())
             self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: shadow.shadowColor, offset: shadow.offset, opacity: shadow.opecity, shadowRadius: shadow.shadowRadius)
         }
     }

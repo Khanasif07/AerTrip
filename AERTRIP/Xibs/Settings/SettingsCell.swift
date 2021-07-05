@@ -23,9 +23,10 @@ class SettingsCell: UITableViewCell {
         self.selectionStyle = .none
         settingsValueLavel.font = AppFonts.Regular.withSize(18)
         settingsLabel.font = AppFonts.Regular.withSize(18)
-        settingsLabel.textColor = UIColor.black
-        settingsValueLavel.textColor = AppColors.themeGray40
-        self.sepratorView.backgroundColor = AppColors.themeGray20
+//        settingsLabel.textColor = UIColor.black
+        backgroundColor = AppColors.themeBlack26
+        settingsValueLavel.textColor = AppColors.themeGray153
+//        self.sepratorView.backgroundColor = AppColors.themeGray20
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -122,7 +122,7 @@ extension AccountOutstandingLadgerVC: UITableViewDataSource, UITableViewDelegate
         
         //        cell.clipsToBounds = true
         //        cell.backgroundColor = AppColors.themeWhite
-        cell.mainContainerView.backgroundColor = AppColors.themeWhite
+        cell.mainContainerView.backgroundColor = AppColors.themeWhiteDashboard//themeWhite
         
         if table === self.tableView{
             if index.row == 0 &&  index.row == self.tableView.numberOfRows(inSection: index.section) - 1{

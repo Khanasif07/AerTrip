@@ -27,6 +27,11 @@ class HCDataSelectionRoomDetailCell: UITableViewCell {
         
         selectionStyle = .none
         configUI()
+        self.setColors()
+    }
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.setColors()
     }
     
     // Mark:- Functions
@@ -56,6 +61,11 @@ class HCDataSelectionRoomDetailCell: UITableViewCell {
         lineSpacing = isEmptyText ? 12 : 5
         collectionView.reloadData()
         self.dividerView.isHidden = idxPath.row != 0
+    }
+    
+    private func setColors(){
+        self.contentView.backgroundColor = AppColors.themeBlack26
+        self.collectionView.backgroundColor = AppColors.themeBlack26
     }
     
     // Mark:- IBActions
@@ -150,6 +160,11 @@ class HCDataSelectionPrefrencesCell: UITableViewCell {
         configUI()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.setColors()
+    }
+    
     // Mark:- Functions
     // Mark:-
     
@@ -159,8 +174,13 @@ class HCDataSelectionPrefrencesCell: UITableViewCell {
         titleLabel.text = LocalizedString.PreferencesSpecialRequests.localized
         
         descriptionLabel.font = AppFonts.Regular.withSize(14.0)
-        descriptionLabel.textColor = AppColors.themeGray40
+        descriptionLabel.textColor = AppColors.themeGray153
         descriptionLabel.text = LocalizedString.Optional.localized
+        self.setColors()
+    }
+    
+    private func setColors(){
+        self.contentView.backgroundColor = AppColors.themeBlack26
     }
     
     // Mark:- IBActions
@@ -199,6 +219,7 @@ class HCDataSelectionTextLabelCell: UITableViewCell {
         
         selectionStyle = .none
         configUI()
+        self.contentView.backgroundColor = AppColors.themeBlack26
     }
     
     // Mark:- Functions
@@ -206,7 +227,7 @@ class HCDataSelectionTextLabelCell: UITableViewCell {
     
     func configUI() {
         titleLabel.font = AppFonts.Regular.withSize(14.0)
-        titleLabel.textColor = AppColors.themeGray40
+        titleLabel.textColor = AppColors.themeGray153
         titleLabel.text = LocalizedString.EmailMobileCommunicationMessageForBooking.localized
     }
     
@@ -260,7 +281,7 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
         lastNameLabel.textColor = AppColors.themeBlack
         
         ageLabel.font = AppFonts.Regular.withSize(14.0)
-        ageLabel.textColor = AppColors.themeGray40
+        ageLabel.textColor = AppColors.themeGray153
         
         resetView()
     }
@@ -276,10 +297,10 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
     private func configData() {
         
         func setupForAdd() {
-            infoImageView.image = (!self.isContinueButtonTapped) ? #imageLiteral(resourceName: "greenFilledAdd") : #imageLiteral(resourceName: "ic_info_incomplete")
+            infoImageView.image = (!self.isContinueButtonTapped) ? AppImages.greenFilledAdd : AppImages.ic_info_incomplete
             var finalText = ""
             if let type = self.contact?.passengerType {
-                iconImageView.image = (type == .Adult) ? #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult") : #imageLiteral(resourceName: "ic_deselected_hotel_guest_child")
+                iconImageView.image = (type == .Adult) ? AppImages.ic_deselected_hotel_guest_adult : AppImages.ic_deselected_hotel_guest_child
                 
                 finalText = "\((type == .Adult) ? LocalizedString.Adult.localized : LocalizedString.Child.localized) \(self.contact?.numberInRoom ?? 0)"
             }
@@ -296,10 +317,10 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
         
         self.iconImageView.cornerradius = self.iconImageView.height / 2.0
         if let fName = self.contact?.firstName, let lName = self.contact?.lastName, let saltn = self.contact?.salutation {
-            infoImageView.image = #imageLiteral(resourceName: "ic_info_incomplete")
+            infoImageView.image = AppImages.ic_info_incomplete
             infoImageView.isHidden = true
             
-            let placeHolder = self.contact?.flImage ?? #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult")
+            let placeHolder = self.contact?.flImage ?? AppImages.ic_deselected_hotel_guest_adult
             self.iconImageView.image = placeHolder
 
             if (fName.isEmpty && lName.isEmpty) {
@@ -348,7 +369,7 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
             .font: AppFonts.Regular.withSize(14),
             .foregroundColor: AppColors.themeBlack
         ])
-        attributedString.addAttribute(.foregroundColor, value: AppColors.themeGray40, range: (text as NSString).range(of: ageText))
+        attributedString.addAttribute(.foregroundColor, value: AppColors.themeGray153, range: (text as NSString).range(of: ageText))
         return attributedString
     }
 }
@@ -374,6 +395,7 @@ class HCDataSelectionTravelSafetyCell: UITableViewCell {
         titleLabel.font = AppFonts.SemiBold.withSize(16.0)
         titleLabel.textColor = AppColors.themeBlack
         titleLabel.text = LocalizedString.TravelSafetyGuidelines.localized
+        self.contentView.backgroundColor = AppColors.themeBlack26
         
         
     }

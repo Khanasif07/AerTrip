@@ -23,6 +23,8 @@ class BookingConfimationMailVC: BaseVC {
     
     //    @IBOutlet weak var toEmailTextViewHeightConstraint: NSLayoutConstraint!
     //    @IBOutlet weak var toEmailViewHeightConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var toView: UIView!
     @IBOutlet weak var emailTextViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var navigationViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomView: UIView!
@@ -83,9 +85,9 @@ class BookingConfimationMailVC: BaseVC {
     }
     
     override func setupColors() {
-        self.toLabel.textColor = AppColors.themeGray40
+        self.toLabel.textColor = AppColors.themeGray153
         //        self.toMailTextView.textColor = AppColors.themeGray40
-        self.infoLabel.textColor = AppColors.themeGray40
+        self.infoLabel.textColor = AppColors.themeGray153
         
         //        self.toMailTextView.activeTagBackgroundColor = AppColors.clear
         //        self.toMailTextView.inactiveTagFontColor = AppColors.themeGreen
@@ -95,6 +97,10 @@ class BookingConfimationMailVC: BaseVC {
         //        }else{
         //            self.toMailTextView.placeholderTextColor = AppColors.themeGray40
         //        }
+        self.toView.backgroundColor = AppColors.themeBlack26
+        self.view.backgroundColor = AppColors.themeWhite
+        self.emailContainerView.backgroundColor = AppColors.themeBlack26
+        self.bottomView.backgroundColor = AppColors.themeGray04
     }
     
     override func setupNavBar() {
@@ -186,7 +192,7 @@ class BookingConfimationMailVC: BaseVC {
         tagsField.contentInset = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2) //old padding
         tagsField.spaceBetweenLines = 4
         tagsField.spaceBetweenTags = 4
-        tagsField.tintColor = UIColor(displayP3Red: 0.961, green: 0.961, blue: 0.961, alpha: 1) //0.961 f5f5f5
+        tagsField.tintColor = AppColors.miniPlaneBack//UIColor(displayP3Red: 0.961, green: 0.961, blue: 0.961, alpha: 1) //0.961 f5f5f5
         tagsField.textColor = AppColors.themeGreen
         tagsField.selectedColor = AppColors.themeGreen
         tagsField.selectedTextColor = AppColors.themeWhite

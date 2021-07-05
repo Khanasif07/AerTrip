@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -47,13 +47,13 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="171.5" height="60"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K6q-3f-aq6">
-                                                            <rect key="frame" x="0.0" y="0.0" width="42" height="60"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="41.5" height="60"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3vR-7f-6bF">
-                                                            <rect key="frame" x="47" y="19" width="20" height="22"/>
+                                                            <rect key="frame" x="46.5" y="19" width="20" height="22"/>
                                                             <state key="normal" image="downArrowCheckOut"/>
                                                         </button>
                                                     </subviews>
@@ -101,6 +101,7 @@
                     </constraints>
                 </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="S5L-Wq-Vl1" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="2Fb-Xf-F00"/>
@@ -109,7 +110,6 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="S5L-Wq-Vl1" secondAttribute="bottom" id="Pe5-LY-mnc"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="arrowButton" destination="3vR-7f-6bF" id="KuI-eF-OH3"/>
                 <outlet property="arrowTapAreaView" destination="J3d-Mb-pC5" id="4kS-GU-EGG"/>

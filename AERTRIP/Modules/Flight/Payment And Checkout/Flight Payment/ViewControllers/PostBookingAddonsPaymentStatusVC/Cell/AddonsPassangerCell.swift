@@ -70,7 +70,7 @@ class AddonsPassangerCell: UITableViewCell {
         self.tavellerImageBlurView.isHidden = true
         let travelName = travellerName
         if !travellersImage.isEmpty {
-            self.travellerImageView.setImageWithUrl(travellersImage, placeholder: #imageLiteral(resourceName: "profilePlaceholder"), showIndicator: true)
+            self.travellerImageView.setImageWithUrl(travellersImage, placeholder: AppImages.profilePlaceholder, showIndicator: true)
             self.travellerImageView.contentMode = .scaleAspectFit
         } else {
             self.travellerImageView.makeCircular(borderWidth: 1.0, borderColor: AppColors.themeGray20)

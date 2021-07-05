@@ -60,7 +60,7 @@ class BookingTopNavBarWithSubtitle: UIView {
         self.rightButtonOutlet.isHidden = true
     }
 
-    internal func configureView(title: String , subTitle: String, isleftButton: Bool = false, leftButtonImage: UIImage = #imageLiteral(resourceName: "backGreen"), isRightButton: Bool = false, rightButtonTitle: String = LocalizedString.Cancel.localized ) {
+    internal func configureView(title: String , subTitle: String, isleftButton: Bool = false, leftButtonImage: UIImage = AppImages.backGreen, isRightButton: Bool = false, rightButtonTitle: String = LocalizedString.Cancel.localized ) {
         self.titleLabel.text = title
         self.subTitleLabel.text = subTitle
         if isleftButton {

@@ -79,6 +79,11 @@
 @property (strong , nonatomic) CLLocationManager * locationManager;
 @property (strong , nonatomic) NSString * cellIdentifier;
 @property (weak, nonatomic) IBOutlet UILabel *NoResultLabel;
+
+@property (weak, nonatomic) IBOutlet UIVisualEffectView *visualEffectsView;
+@property (weak, nonatomic) IBOutlet UIView *switcherBGView;
+
+
 @property ( strong , nonatomic) NSArray * nearestAirports;
 @end
 
@@ -111,7 +116,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.backgroundView.backgroundColor = [UIColor SELECTION_COLOR];
+    [self setupColors];
     [self setupInitials];
     if(UIScreen.mainScreen.bounds.size.height == 667){
         self.noResultViewHeight.constant = 170;
@@ -162,6 +167,34 @@
 -(void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     self.bottomHeightConstraint.constant = 50 + self.view.safeAreaInsets.bottom;
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
+    [self manageDoneView];
+}
+
+-(void)setupColors {
+    self.backgroundView.backgroundColor = [UIColor calendarSelectedGreen];
+    self.resultTableView.backgroundColor = [UIColor WHITE_COLOR];
+    self.TableViewHeaderView.backgroundColor = [UIColor themeBlack26];
+    self.fromValueLabel.textColor = [UIColor themeBlack];
+    self.fromSubTitleLabel.textColor = [UIColor themeBlack];
+    self.toValueLabel.textColor = [UIColor themeBlack];
+    self.toSubTitleLabel.textColor = [UIColor themeBlack];
+    [self manageDoneView];
+    self.doneOutterView.backgroundColor = [UIColor themeWhiteDashboard];
+}
+
+
+- (void) manageDoneView{
+    self.visualEffectsView.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleProminent];
+    self.resultTableView.backgroundColor = [UIColor themeBlack26];
+//    self.doneOutterView.backgroundColor = [UIColor doneViewClearColor];
+//    if (self.isLightTheme){
+//        [self.visualEffectsView setHidden: false];
+//    }else{
+//        [self.visualEffectsView setHidden: true];
+//    }
 }
 
 -(void)createPopularAirportArray
@@ -1109,6 +1142,8 @@
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     NSString *key = [self.airportDisplayArray objectAtIndex:section];
+    cell.contentView.backgroundColor = [UIColor themeWhiteDashboard];
+    cell.mainLabel.textColor = [UIColor themeGray60];
     cell.mainLabel.text = [key uppercaseString];
     
     return [cell contentView];
@@ -1144,7 +1179,7 @@
     
     cell.secondaryLabel.attributedText = [self secondaryStringFor:airportSearch.airport];
     
-    
+    cell.distanceLabel.textColor = [UIColor ONE_FIVE_THREE_COLOR];
     if (self.viewModel.airportSelectionMode != AirportSelectionModeMultiCityJourney) {
         if ([self isFlightDestinationSelected:airportSearch]) {
             [cell.addButton setHidden:YES];
@@ -1208,7 +1243,7 @@
             count1 = [[self.displaySections objectForKey:key] count];
         }
     }
-
+    cell.contentView.backgroundColor = [UIColor themeBlack26];
     
     return cell;
 }
@@ -1680,6 +1715,8 @@
 {
     self.switcherButtonBlurBackground.layer.cornerRadius = 22.0;
     self.switcherButtonBlurBackground.clipsToBounds = YES;
+    _switcherBGView.layer.cornerRadius = 22.0;
+    _switcherBGView.clipsToBounds = YES;
 }
 
 - (void)changeColorTab {

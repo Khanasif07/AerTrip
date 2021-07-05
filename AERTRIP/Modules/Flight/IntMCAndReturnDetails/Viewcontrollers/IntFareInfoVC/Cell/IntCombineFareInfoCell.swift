@@ -51,6 +51,7 @@ class IntCombineFareInfoCell: UITableViewCell {
         
         combineFareTableView.register(UINib(nibName: "PerSlabFareInfoTableViewCell", bundle: nil), forCellReuseIdentifier: "PerSlabFareInfoCell")
         combineFareTableView.estimatedRowHeight = 85
+        self.setColor()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -60,6 +61,18 @@ class IntCombineFareInfoCell: UITableViewCell {
     
     override func layoutSubviews() {
         self.combineFareTableView.layoutIfNeeded()
+    }
+    
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.setColor()
+    }
+    
+    private func setColor(){
+        self.noInfoView.backgroundColor = AppColors.flightResultsFooterSecondaryColor
+        self.combineFareTableView.backgroundColor = AppColors.flightResultsFooterSecondaryColor
+        self.contentView.backgroundColor = AppColors.themeGray04
     }
     
     func setConstraint(isHidden: Bool){
@@ -110,10 +123,10 @@ extension IntCombineFareInfoCell:UITableViewDataSource, UITableViewDelegate
     {
         if section == 1{
             let footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 55))
-            footerView.backgroundColor = .white
+            footerView.backgroundColor = AppColors.flightResultsFooterSecondaryColor
             
             let innerView = UIView(frame: CGRect(x: 0, y: 20, width: UIScreen.main.bounds.width, height:45))
-            innerView.backgroundColor = UIColor(displayP3Red: (246.0/255.0), green: (246.0/255.0), blue: (246.0/255.0), alpha: 1.0)
+            innerView.backgroundColor = AppColors.themeGray04//UIColor(displayP3Red: (246.0/255.0), green: (246.0/255.0), blue: (246.0/255.0), alpha: 1.0)
             footerView.addSubview(innerView)
             
             
@@ -361,16 +374,16 @@ extension IntCombineFareInfoCell{
                         }
                         slabCell.statusLabel.isHidden = false
                         if airlineValue == -9{
-                            slabCell.statusLabel.textColor = .black
+                            slabCell.statusLabel.textColor = AppColors.themeBlack
                             slabCell.statusLabel.text = "NA"
                         }else if airlineValue == -1{
-                            slabCell.statusLabel.textColor = .black
+                            slabCell.statusLabel.textColor = AppColors.themeBlack
                             slabCell.statusLabel.text = "Non-refundable"
                         }else if airlineValue == 0 && aertripValue == 0 && adtRafVal == 0{
-                            slabCell.statusLabel.textColor = UIColor(displayP3Red: 255.0/255.0, green: 144.0/255.0, blue: 0.0/255.0, alpha: 1.0)
+                            slabCell.statusLabel.textColor = AppColors.cheapestPriceColor
                             slabCell.statusLabel.text = "Free Cancellation"
                         }else{
-                            slabCell.statusLabel.textColor = .black
+                            slabCell.statusLabel.textColor = AppColors.themeBlack
                             
                             if (aertripValue + adtRafVal) > 0{
                                 let displayValue = getPrice(price: Double(airlineValue + adtRafVal + aertripValue))
@@ -395,16 +408,16 @@ extension IntCombineFareInfoCell{
                         }
                         
                         if airlineValue == -9{
-                            slabCell.perAdultAmountLabel.textColor = .black
+                            slabCell.perAdultAmountLabel.textColor = AppColors.themeBlack
                             slabCell.perAdultAmountLabel.text = "NA"
                         }else if airlineValue == -1{
-                            slabCell.perAdultAmountLabel.textColor = .black
+                            slabCell.perAdultAmountLabel.textColor = AppColors.themeBlack
                             slabCell.perAdultAmountLabel.text = "Non-refundable"
                         }else if airlineValue == 0 && aertripValue == 0 && adtRafVal == 0{
-                            slabCell.perAdultAmountLabel.textColor = UIColor(displayP3Red: 255.0/255.0, green: 144.0/255.0, blue: 0.0/255.0, alpha: 1.0)
+                            slabCell.perAdultAmountLabel.textColor = AppColors.cheapestPriceColor
                             slabCell.perAdultAmountLabel.text = "Free Cancellation"
                         }else{
-                            slabCell.perAdultAmountLabel.textColor = .black
+                            slabCell.perAdultAmountLabel.textColor = AppColors.themeBlack
 
 
                             if (aertripValue + adtRafVal) > 0{
@@ -462,16 +475,16 @@ extension IntCombineFareInfoCell{
                         chdRafVal = (rafFees["CHD"] as? [String:Double])?.values.first ?? 0
                     }
                     if value == -9{
-                        slabCell.perChildAmountLabel.textColor = .black
+                        slabCell.perChildAmountLabel.textColor = AppColors.themeBlack
                         slabCell.perChildAmountLabel.text = "NA"
                     }else if value == -1{
-                        slabCell.perChildAmountLabel.textColor = .black
+                        slabCell.perChildAmountLabel.textColor = AppColors.themeBlack
                         slabCell.perChildAmountLabel.text = "Non-refundable"
                     }else if value == 0 && aertripValue == 0 && chdRafVal == 0{
-                        slabCell.perChildAmountLabel.textColor = UIColor(displayP3Red: 255.0/255.0, green: 144.0/255.0, blue: 0.0/255.0, alpha: 1.0)
+                        slabCell.perChildAmountLabel.textColor = AppColors.cheapestPriceColor
                         slabCell.perChildAmountLabel.text = "Free Cancellation"
                     }else{
-                        slabCell.perChildAmountLabel.textColor = .black
+                        slabCell.perChildAmountLabel.textColor = AppColors.themeBlack
                         if (aertripValue + chdRafVal) > 0 {
                             let displayValue = getPrice(price: Double(value + chdRafVal + aertripValue))
                             slabCell.perChildAmountLabel.attributedText = displayValue
@@ -526,16 +539,16 @@ extension IntCombineFareInfoCell{
                         iNFRafVal = (rafFees["INF"] as? [String:Double])?.values.first ?? 0
                     }
                     if value == -9{
-                        slabCell.perInfantAmountLabel.textColor = .black
+                        slabCell.perInfantAmountLabel.textColor = AppColors.themeBlack
                         slabCell.perInfantAmountLabel.text = "NA"
                     }else if value == -1{
-                        slabCell.perInfantAmountLabel.textColor = .black
+                        slabCell.perInfantAmountLabel.textColor = AppColors.themeBlack
                         slabCell.perInfantAmountLabel.text = "Non-refundable"
                     }else if value == 0 && aertripValue == 0 && iNFRafVal == 0{
-                        slabCell.perInfantAmountLabel.textColor = UIColor(displayP3Red: 255.0/255.0, green: 144.0/255.0, blue: 0.0/255.0, alpha: 1.0)
+                        slabCell.perInfantAmountLabel.textColor = AppColors.cheapestPriceColor
                         slabCell.perInfantAmountLabel.text = "Free Cancellation"
                     }else{
-                        slabCell.perInfantAmountLabel.textColor = .black
+                        slabCell.perInfantAmountLabel.textColor = AppColors.themeBlack
                         if (aertripValue + iNFRafVal) > 0{
                             let displayValue = getPrice(price: Double(value + iNFRafVal + aertripValue))
                             slabCell.perInfantAmountLabel.attributedText = displayValue
@@ -623,16 +636,16 @@ extension IntCombineFareInfoCell{
                     if flightAdultCount > 0 && flightChildrenCount == 0 && flightInfantCount == 0{
                         slabCell.statusLabel.isHidden = false
                         if value == -9{
-                            slabCell.statusLabel.textColor = .black
+                            slabCell.statusLabel.textColor = AppColors.themeBlack
                             slabCell.statusLabel.text = "NA"
                         }else if value == -1{
-                            slabCell.statusLabel.textColor = .black
+                            slabCell.statusLabel.textColor = AppColors.themeBlack
                             slabCell.statusLabel.text = "Not Permitted"
                         }else if value == 0 && aertripValue == 0{
-                            slabCell.statusLabel.textColor = UIColor(displayP3Red: 255.0/255.0, green: 144.0/255.0, blue: 0.0/255.0, alpha: 1.0)
+                            slabCell.statusLabel.textColor = AppColors.cheapestPriceColor
                             slabCell.statusLabel.text = "Free Rescheduling"
                         }else{
-                            slabCell.statusLabel.textColor = .black
+                            slabCell.statusLabel.textColor = AppColors.themeBlack
                             
                             if aertripValue > 0{
                                 let displayValue = getPrice(price: Double(value + aertripValue))
@@ -648,16 +661,16 @@ extension IntCombineFareInfoCell{
                         }
                     }else{
                         if value == -9{
-                            slabCell.perAdultAmountLabel.textColor = .black
+                            slabCell.perAdultAmountLabel.textColor = AppColors.themeBlack
                             slabCell.perAdultAmountLabel.text = "NA"
                         }else if value == -1{
-                            slabCell.perAdultAmountLabel.textColor = .black
+                            slabCell.perAdultAmountLabel.textColor = AppColors.themeBlack
                             slabCell.perAdultAmountLabel.text = "Not Permitted"
                         }else if value == 0 && aertripValue == 0{
-                            slabCell.perAdultAmountLabel.textColor =  UIColor(displayP3Red: 255.0/255.0, green: 144.0/255.0, blue: 0.0/255.0, alpha: 1.0)
+                            slabCell.perAdultAmountLabel.textColor =  AppColors.cheapestPriceColor
                             slabCell.perAdultAmountLabel.text = "Free Rescheduling"
                         }else{
-                            slabCell.perAdultAmountLabel.textColor = .black
+                            slabCell.perAdultAmountLabel.textColor = AppColors.themeBlack
                             
 
                             if aertripValue > 0{
@@ -707,16 +720,16 @@ extension IntCombineFareInfoCell{
                     let value = chdAirlineReschedulingSlab[indexPath.row].value
                     
                     if value == -9{
-                        slabCell.perChildAmountLabel.textColor = .black
+                        slabCell.perChildAmountLabel.textColor = AppColors.themeBlack
                         slabCell.perChildAmountLabel.text = "NA"
                     }else if value == -1{
-                        slabCell.perChildAmountLabel.textColor = .black
+                        slabCell.perChildAmountLabel.textColor = AppColors.themeBlack
                         slabCell.perChildAmountLabel.text = "Not Permitted"
                     }else if value == 0 && aertripValue == 0{
-                        slabCell.perChildAmountLabel.textColor =  UIColor(displayP3Red: 255.0/255.0, green: 144.0/255.0, blue: 0.0/255.0, alpha: 1.0)
+                        slabCell.perChildAmountLabel.textColor =  AppColors.cheapestPriceColor
                         slabCell.perChildAmountLabel.text = "Free Rescheduling"
                     }else{
-                        slabCell.perChildAmountLabel.textColor = .black
+                        slabCell.perChildAmountLabel.textColor = AppColors.themeBlack
 
                         if aertripValue > 0 {
                             let displayValue = getPrice(price: Double(value + aertripValue))
@@ -765,16 +778,16 @@ extension IntCombineFareInfoCell{
                     let value = infAirlineReschedulingSlab[indexPath.row].value
                     
                     if value == -9{
-                        slabCell.perInfantAmountLabel.textColor = .black
+                        slabCell.perInfantAmountLabel.textColor = AppColors.themeBlack
                         slabCell.perInfantAmountLabel.text = "NA"
                     }else if value == -1{
-                        slabCell.perInfantAmountLabel.textColor = .black
+                        slabCell.perInfantAmountLabel.textColor = AppColors.themeBlack
                         slabCell.perInfantAmountLabel.text = "Not Permitted"
                     }else if value == 0 && aertripValue == 0{
-                        slabCell.perInfantAmountLabel.textColor =  UIColor(displayP3Red: 255.0/255.0, green: 144.0/255.0, blue: 0.0/255.0, alpha: 1.0)
+                        slabCell.perInfantAmountLabel.textColor =  AppColors.cheapestPriceColor
                         slabCell.perInfantAmountLabel.text = "Free Rescheduling"
                     }else{
-                        slabCell.perInfantAmountLabel.textColor = .black
+                        slabCell.perInfantAmountLabel.textColor = AppColors.themeBlack
                         
                         if aertripValue > 0{
                             let displayValue = getPrice(price: Double(value + aertripValue))
@@ -805,7 +818,7 @@ extension IntCombineFareInfoCell{
                 slabCell.perInfantDataDisplayView.isHidden = true
                 
                 slabCell.statusLabel.isHidden = false
-                slabCell.statusLabel.textColor = .black
+                slabCell.statusLabel.textColor = AppColors.themeBlack
                 slabCell.statusLabel.text = slabCell.perAdultAmountLabel.text
             }else{
                 slabCell.slabDataDisplayViewHeight.constant = 140
@@ -862,16 +875,16 @@ extension IntCombineFareInfoCell{
             slabCell.perInfantDataDisplayView.isHidden = true
             
             if slabCell.perAdultAmountLabel.text == "Non-refundable"{
-                slabCell.statusLabel.textColor = .black
+                slabCell.statusLabel.textColor = AppColors.themeBlack
                 slabCell.statusLabel.text = "Non-refundable"
             }else if slabCell.perAdultAmountLabel.text == "Not Permitted"{
-                slabCell.statusLabel.textColor = .black
+                slabCell.statusLabel.textColor = AppColors.themeBlack
                 slabCell.statusLabel.text = "Not Permitted"
             }else if slabCell.perAdultAmountLabel.text == "Free Cancellation"{
-                slabCell.statusLabel.textColor = UIColor(displayP3Red: 255.0/255.0, green: 144.0/255.0, blue: 0.0/255.0, alpha: 1.0)
+                slabCell.statusLabel.textColor = AppColors.cheapestPriceColor
                 slabCell.statusLabel.text = "Free Cancellation"
             }else if slabCell.perAdultAmountLabel.text == "Free Rescheduling"{
-                slabCell.statusLabel.textColor = UIColor(displayP3Red: 255.0/255.0, green: 144.0/255.0, blue: 0.0/255.0, alpha: 1.0)
+                slabCell.statusLabel.textColor = AppColors.cheapestPriceColor
                 slabCell.statusLabel.text = "Free Rescheduling"
             }else{
                 slabCell.statusLabel.text = ""

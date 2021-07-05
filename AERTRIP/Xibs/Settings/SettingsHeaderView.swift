@@ -16,10 +16,10 @@ class SettingsHeaderView: UITableViewHeaderFooterView {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.contentView.backgroundColor = AppColors.themeGray04
         self.titleLabel.textColor = AppColors.themeGray60
         titleLabel.numberOfLines = 0
         titleLabel.font = AppFonts.Regular.withSize(14)
+        
     }
     
     override func prepareForReuse() {

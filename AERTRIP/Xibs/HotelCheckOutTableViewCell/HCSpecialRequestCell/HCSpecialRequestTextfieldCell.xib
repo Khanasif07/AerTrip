@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -78,6 +78,7 @@
                 <outlet property="bottomDividerView" destination="tfS-xN-gZM" id="h6L-zb-Mv9"/>
                 <outlet property="bottomDividerViewLeadingConstraints" destination="qDf-zb-Evh" id="eMC-DH-r9h"/>
                 <outlet property="bottomDividerViewTrailingConstraints" destination="pNp-Jt-4SE" id="gWQ-7k-Ctj"/>
+                <outlet property="containerView" destination="bgJ-7e-3eE" id="571-9H-M6U"/>
                 <outlet property="containerViewHeightConstraint" destination="A8T-Jf-s8J" id="xap-TS-qhb"/>
                 <outlet property="infoTextField" destination="9Mg-AH-RaU" id="wA5-cA-UVp"/>
                 <outlet property="topDividerTopConstraint" destination="4hC-dh-hua" id="Uva-gX-c7o"/>
@@ -88,4 +89,9 @@
             <point key="canvasLocation" x="249" y="-114"/>
         </tableViewCell>
     </objects>
+    <designables>
+        <designable name="9Mg-AH-RaU">
+            <size key="intrinsicContentSize" width="323" height="24.5"/>
+        </designable>
+    </designables>
 </document>

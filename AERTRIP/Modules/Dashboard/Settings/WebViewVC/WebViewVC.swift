@@ -34,7 +34,7 @@ extension WebViewVC {
     
     private func setUpNavigation(){
         self.topNavView.configureNavBar(title:  self.webViewVm.webViewType.rawValue, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false)
-        self.topNavView.configureLeftButton(normalImage: #imageLiteral(resourceName: "searchBarClearButton"), selectedImage: #imageLiteral(resourceName: "searchBarClearButton"))
+        self.topNavView.configureLeftButton(normalImage: AppImages.searchBarClearButton, selectedImage: AppImages.searchBarClearButton)
     }
     
     func loadWebView(){

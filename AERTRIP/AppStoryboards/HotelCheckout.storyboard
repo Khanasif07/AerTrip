@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -308,7 +309,7 @@
                                     <constraint firstItem="A5L-jP-pJJ" firstAttribute="leading" secondItem="y34-L8-8sl" secondAttribute="leading" id="lNR-aR-TIp"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pDs-Hh-dQp">
+                            <view tag="100" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pDs-Hh-dQp">
                                 <rect key="frame" x="0.0" y="483" width="375" height="44"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="se2-Zr-Faa">
@@ -349,7 +350,7 @@
                                                 </subviews>
                                             </stackView>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="XOG-uI-Tui" secondAttribute="trailing" constant="16" id="0Jv-Xx-8AN"/>
                                             <constraint firstAttribute="trailing" secondItem="a76-4x-0W5" secondAttribute="trailing" id="0pZ-Jl-sFt"/>
@@ -496,7 +497,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" name="themeWhiteDashboard"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="8Ya-e6-EJa" secondAttribute="trailing" id="Agy-R8-tyu"/>
                                             <constraint firstItem="4Ci-kZ-Fp2" firstAttribute="leading" secondItem="w0v-ze-ZQc" secondAttribute="leading" id="B7p-dF-Amg"/>
@@ -706,7 +707,7 @@
                                                         </connections>
                                                     </button>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" name="themeWhiteDashboard"/>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="elz-XH-Iij" secondAttribute="trailing" id="1pw-qb-i1B"/>
                                                     <constraint firstAttribute="trailing" secondItem="1XE-5A-AvF" secondAttribute="trailing" id="2tl-J9-3eC"/>
@@ -734,7 +735,7 @@
                                                         </connections>
                                                     </button>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" name="themeWhiteDashboard"/>
                                                 <constraints>
                                                     <constraint firstItem="sgF-bD-kwe" firstAttribute="top" secondItem="QFB-Cd-8Wz" secondAttribute="top" id="J4c-O5-yFF"/>
                                                     <constraint firstAttribute="bottom" secondItem="sgF-bD-kwe" secondAttribute="bottom" id="K9C-3P-Rn6"/>
@@ -819,6 +820,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="afj-T4-gai">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="0.0"/>
+                                <color key="backgroundColor" name="flightFilterSessionDefaultColor"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pA8-KE-Hsr" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -831,7 +836,7 @@
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="DZr-3p-gGY">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="118"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="yxK-Eg-DBG">
                                             <size key="itemSize" width="134" height="122"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -877,7 +882,6 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="trailing" secondItem="Ewk-ye-IsT" secondAttribute="trailing" id="43M-Ud-XEK"/>
                                                                 <constraint firstItem="Ewk-ye-IsT" firstAttribute="leading" secondItem="D9D-zG-3KL" secondAttribute="leading" id="DWi-nE-nRL"/>
@@ -910,7 +914,6 @@
                                         </cells>
                                     </collectionView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="118" id="T3m-yD-Z0i"/>
                                     <constraint firstItem="DZr-3p-gGY" firstAttribute="top" secondItem="DeF-PF-r5i" secondAttribute="top" id="Y7h-Z3-gCh"/>
@@ -927,7 +930,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" name="flightFilterSessionDefaultColor"/>
                                 <constraints>
                                     <constraint firstItem="2D9-P6-vGv" firstAttribute="leading" secondItem="nEl-0z-3ye" secondAttribute="leading" symbolic="YES" id="P22-Uh-cac"/>
                                     <constraint firstItem="2D9-P6-vGv" firstAttribute="top" secondItem="nEl-0z-3ye" secondAttribute="top" symbolic="YES" id="RRw-MV-Mmx"/>
@@ -938,20 +941,25 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Og-LG-RhV">
                                 <rect key="frame" x="0.0" y="214" width="375" height="453"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="WTL-bK-gFr"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="nEl-0z-3ye" firstAttribute="top" secondItem="DeF-PF-r5i" secondAttribute="bottom" id="0To-ry-RoN"/>
                             <constraint firstItem="7Og-LG-RhV" firstAttribute="leading" secondItem="WTL-bK-gFr" secondAttribute="leading" id="42k-2o-w2h"/>
                             <constraint firstItem="DeF-PF-r5i" firstAttribute="leading" secondItem="WTL-bK-gFr" secondAttribute="leading" id="6Ft-EE-taO"/>
+                            <constraint firstItem="afj-T4-gai" firstAttribute="leading" secondItem="EV6-t5-gFB" secondAttribute="leading" id="Osy-RP-5sM"/>
+                            <constraint firstItem="afj-T4-gai" firstAttribute="top" secondItem="EV6-t5-gFB" secondAttribute="top" id="Q9l-5Z-O5I"/>
+                            <constraint firstItem="pA8-KE-Hsr" firstAttribute="top" secondItem="afj-T4-gai" secondAttribute="bottom" id="QAZ-SD-ufN"/>
                             <constraint firstItem="pA8-KE-Hsr" firstAttribute="trailing" secondItem="WTL-bK-gFr" secondAttribute="trailing" id="RRj-FN-Q3e"/>
                             <constraint firstItem="DeF-PF-r5i" firstAttribute="top" secondItem="pA8-KE-Hsr" secondAttribute="bottom" id="Zlz-ZT-Q3d"/>
                             <constraint firstItem="nEl-0z-3ye" firstAttribute="leading" secondItem="DeF-PF-r5i" secondAttribute="leading" id="d6U-rU-rFl"/>
                             <constraint firstItem="WTL-bK-gFr" firstAttribute="trailing" secondItem="7Og-LG-RhV" secondAttribute="trailing" id="dJ3-Kq-mSb"/>
                             <constraint firstItem="WTL-bK-gFr" firstAttribute="trailing" secondItem="DeF-PF-r5i" secondAttribute="trailing" id="dK4-uS-BO0"/>
                             <constraint firstItem="pA8-KE-Hsr" firstAttribute="leading" secondItem="WTL-bK-gFr" secondAttribute="leading" id="fFM-4n-aEx"/>
+                            <constraint firstAttribute="trailing" secondItem="afj-T4-gai" secondAttribute="trailing" id="gfz-nV-E5C"/>
                             <constraint firstItem="WTL-bK-gFr" firstAttribute="trailing" secondItem="nEl-0z-3ye" secondAttribute="trailing" id="gzg-w6-2AZ"/>
                             <constraint firstItem="pA8-KE-Hsr" firstAttribute="top" secondItem="WTL-bK-gFr" secondAttribute="top" id="hjb-9k-On7"/>
                             <constraint firstItem="7Og-LG-RhV" firstAttribute="top" secondItem="nEl-0z-3ye" secondAttribute="bottom" id="lFy-Or-FyH"/>
@@ -1463,6 +1471,10 @@ Incomplete</string>
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="104"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5JP-fw-T5H">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VFj-MD-RgZ">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                 <subviews>
@@ -1518,7 +1530,7 @@ Incomplete</string>
                                 <rect key="frame" x="0.0" y="44" width="375" height="60"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter a Coupon Code" minimumFontSize="16" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="4sX-zf-2aM" customClass="PKFloatLabelTextField" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="0.0" width="343" height="60"/>
+                                        <rect key="frame" x="16" y="0.0" width="351" height="60"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                                     </textField>
@@ -1527,13 +1539,13 @@ Incomplete</string>
                                 <constraints>
                                     <constraint firstItem="4sX-zf-2aM" firstAttribute="leading" secondItem="dgG-hf-niu" secondAttribute="leading" constant="16" id="6kX-1X-aSG"/>
                                     <constraint firstAttribute="height" constant="60" id="DLx-FG-S8T"/>
-                                    <constraint firstAttribute="trailing" secondItem="4sX-zf-2aM" secondAttribute="trailing" constant="16" id="Kk3-7X-YDI"/>
+                                    <constraint firstAttribute="trailing" secondItem="4sX-zf-2aM" secondAttribute="trailing" constant="8" id="Kk3-7X-YDI"/>
                                     <constraint firstAttribute="bottom" secondItem="4sX-zf-2aM" secondAttribute="bottom" id="fBT-Q0-8NN"/>
                                     <constraint firstItem="4sX-zf-2aM" firstAttribute="top" secondItem="dgG-hf-niu" secondAttribute="top" id="uLi-iM-hIu"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9uT-Oo-DUc" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="16" y="104" width="343" height="0.5"/>
+                                <rect key="frame" x="16" y="109" width="343" height="0.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="xtX-6X-Zbr"/>
@@ -1654,7 +1666,10 @@ Incomplete</string>
                         <viewLayoutGuide key="safeArea" id="5Az-SF-g0l"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="5Az-SF-g0l" firstAttribute="trailing" secondItem="5JP-fw-T5H" secondAttribute="trailing" id="3hA-pR-AUn"/>
+                            <constraint firstItem="5JP-fw-T5H" firstAttribute="bottom" secondItem="VFj-MD-RgZ" secondAttribute="bottom" id="6Gy-e9-Pc3"/>
                             <constraint firstItem="5Az-SF-g0l" firstAttribute="trailing" secondItem="G1F-4q-n8L" secondAttribute="trailing" id="74F-oc-lpc"/>
+                            <constraint firstItem="5JP-fw-T5H" firstAttribute="leading" secondItem="5Az-SF-g0l" secondAttribute="leading" id="Czu-ht-top"/>
                             <constraint firstItem="ZMg-6h-E0A" firstAttribute="leading" secondItem="5Az-SF-g0l" secondAttribute="leading" constant="67.5" id="F0V-PI-BU7"/>
                             <constraint firstItem="dgG-hf-niu" firstAttribute="leading" secondItem="5Az-SF-g0l" secondAttribute="leading" id="Hkf-vf-e2U"/>
                             <constraint firstItem="VFj-MD-RgZ" firstAttribute="top" secondItem="5Az-SF-g0l" secondAttribute="top" id="I67-nI-TsO"/>
@@ -1669,8 +1684,9 @@ Incomplete</string>
                             <constraint firstItem="5Az-SF-g0l" firstAttribute="trailing" secondItem="ZMg-6h-E0A" secondAttribute="trailing" constant="67.5" id="ZvK-Qo-DqC"/>
                             <constraint firstItem="bbZ-Jw-SZK" firstAttribute="top" secondItem="I3d-Xj-2CM" secondAttribute="top" id="aJ8-QS-MXe"/>
                             <constraint firstAttribute="bottom" secondItem="nO1-9x-A83" secondAttribute="bottom" id="bLp-Bg-eKD"/>
-                            <constraint firstItem="9uT-Oo-DUc" firstAttribute="top" secondItem="dgG-hf-niu" secondAttribute="bottom" id="bM3-ZU-aUt"/>
+                            <constraint firstItem="9uT-Oo-DUc" firstAttribute="top" secondItem="dgG-hf-niu" secondAttribute="bottom" constant="5" id="bM3-ZU-aUt"/>
                             <constraint firstItem="dgG-hf-niu" firstAttribute="top" secondItem="VFj-MD-RgZ" secondAttribute="bottom" id="jZO-6z-rT4"/>
+                            <constraint firstItem="5JP-fw-T5H" firstAttribute="top" secondItem="I3d-Xj-2CM" secondAttribute="top" id="lHN-wM-dXf"/>
                             <constraint firstItem="nO1-9x-A83" firstAttribute="top" secondItem="5Az-SF-g0l" secondAttribute="top" id="ly2-SU-GFr"/>
                             <constraint firstItem="5Az-SF-g0l" firstAttribute="trailing" secondItem="9uT-Oo-DUc" secondAttribute="trailing" constant="16" id="mgb-L7-6Ft"/>
                             <constraint firstItem="dgG-hf-niu" firstAttribute="trailing" secondItem="5Az-SF-g0l" secondAttribute="trailing" id="nhX-hw-EjA"/>
@@ -1686,13 +1702,17 @@ Incomplete</string>
                         <outlet property="applyCouponButton" destination="z66-1x-NXM" id="X3S-7W-c3c"/>
                         <outlet property="backGroundView" destination="G1F-4q-n8L" id="b57-yv-WaY"/>
                         <outlet property="bestPriceLabel" destination="llj-Ng-uue" id="SzF-t4-AmY"/>
+                        <outlet property="blurView" destination="bbZ-Jw-SZK" id="6NR-VL-B4H"/>
                         <outlet property="cancelButton" destination="dN2-Ht-qoz" id="Y7g-6t-BWn"/>
                         <outlet property="coupanCodeLabel" destination="QAj-eH-e4Y" id="qoH-jH-1G5"/>
                         <outlet property="couponInfoTextView" destination="yeO-pL-fuX" id="Op8-0Y-KRu"/>
                         <outlet property="couponLabel" destination="r6P-mU-234" id="TtB-XC-yFy"/>
                         <outlet property="couponTableView" destination="nO1-9x-A83" id="RDo-rI-gAd"/>
                         <outlet property="couponTextField" destination="4sX-zf-2aM" id="Rj9-I5-Z95"/>
+                        <outlet property="darkView" destination="5JP-fw-T5H" id="U09-EM-rF3"/>
                         <outlet property="discountLabel" destination="Ac7-4o-Tfo" id="J8a-Vm-Z9f"/>
+                        <outlet property="dividerLeading" destination="LZa-py-Rr5" id="Fuf-1a-7ap"/>
+                        <outlet property="dividerTrailing" destination="mgb-L7-6Ft" id="SRh-3n-Zys"/>
                         <outlet property="dividerView" destination="y9i-B2-tEL" id="d8t-UD-gvZ"/>
                         <outlet property="emptyStateImageView" destination="ude-fc-wVN" id="I4s-K6-hCa"/>
                         <outlet property="emptyStateView" destination="ZMg-6h-E0A" id="eAh-jb-hba"/>
@@ -2085,6 +2105,12 @@ Incomplete</string>
         <image name="ic_preferences" width="36" height="37"/>
         <image name="ic_up_arrow_gray" width="20" height="20"/>
         <image name="rightArrow" width="40" height="44"/>
+        <namedColor name="flightFilterSessionDefaultColor">
+            <color red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="themeWhiteDashboard">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

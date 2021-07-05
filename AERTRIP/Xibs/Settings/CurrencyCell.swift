@@ -28,11 +28,20 @@ class CurrencyCell: UITableViewCell {
         self.currencySymbolLabel.attributedText = nil
         self.currencySymbolLabel.text = nil
         setFonts()
+        setColors()
     }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state
+    }
+    
+    func setColors(){
+        self.contentView.backgroundColor = AppColors.themeWhite
+        self.currencyNameLabel.textColor = AppColors.themeBlack
+        self.currencyCodeLabel.textColor = AppColors.themeBlack
+        self.currencySymbolLabel.textColor = AppColors.themeBlack
     }
     
     private func setFonts(){

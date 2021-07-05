@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -124,7 +124,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="CTD-vQ-aWq" secondAttribute="bottom" id="CMo-2G-3p3"/>
                                     <constraint firstItem="V6m-J4-t1S" firstAttribute="top" secondItem="rv8-CM-H6Z" secondAttribute="top" constant="8" id="DaY-mr-XjM"/>
@@ -140,7 +140,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LinkedAccountsTableCell" rowHeight="75" id="0I7-Y3-Bwy" customClass="LinkedAccountsTableCell" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="75"/>
+                                        <rect key="frame" x="0.0" y="24.5" width="375" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0I7-Y3-Bwy" id="gE9-1f-V5z">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="75"/>
@@ -160,7 +160,7 @@
                                                                     </state>
                                                                 </button>
                                                             </subviews>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="trailing" secondItem="izp-rN-J9r" secondAttribute="trailing" id="GM1-bj-hjS"/>
                                                                 <constraint firstAttribute="bottom" secondItem="izp-rN-J9r" secondAttribute="bottom" id="Wgg-77-6cW"/>
@@ -170,7 +170,7 @@
                                                             </constraints>
                                                         </view>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" secondItem="ANw-WS-SII" secondAttribute="trailing" constant="16" id="nlg-aq-503"/>
                                                         <constraint firstItem="ANw-WS-SII" firstAttribute="centerY" secondItem="hxJ-AM-2cn" secondAttribute="centerY" constant="-3" id="qZE-MW-6aG"/>
@@ -212,7 +212,7 @@
                                                             <state key="normal" title="Disconnect"/>
                                                         </button>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstItem="6P9-yM-9h6" firstAttribute="centerY" secondItem="se4-6I-Qzf" secondAttribute="centerY" id="V6M-ff-qhG"/>
                                                         <constraint firstItem="g1j-E5-a6c" firstAttribute="centerY" secondItem="se4-6I-Qzf" secondAttribute="centerY" id="Wiy-UG-ozT"/>
@@ -254,6 +254,7 @@
                                             <outlet property="connectedContainerView" destination="se4-6I-Qzf" id="OLh-Ie-9Ab"/>
                                             <outlet property="disConnectedContainerView" destination="hxJ-AM-2cn" id="wDs-mx-2nP"/>
                                             <outlet property="disconnectButton" destination="6P9-yM-9h6" id="2R4-2k-alG"/>
+                                            <outlet property="dividerView" destination="Irw-cL-Enz" id="h2p-PD-JS9"/>
                                             <outlet property="emailLabel" destination="HCE-8N-NTe" id="1K5-xu-QEb"/>
                                             <outlet property="iconImageView" destination="g1j-E5-a6c" id="hXm-X7-3ya"/>
                                             <outlet property="socialTypeLabel" destination="p6b-yI-NnY" id="eCa-wD-Itj"/>
@@ -279,6 +280,7 @@
                     </view>
                     <connections>
                         <outlet property="backButton" destination="sbG-hZ-whx" id="Juf-A1-Iyq"/>
+                        <outlet property="dividerView" destination="CTD-vQ-aWq" id="nJh-XX-hXU"/>
                         <outlet property="messageLabel" destination="V6m-J4-t1S" id="8BX-d5-Hod"/>
                         <outlet property="navTitleLabel" destination="zCc-43-VDT" id="k3w-wW-Q9d"/>
                         <outlet property="tableView" destination="KHs-VJ-mZp" id="qzl-7F-6rO"/>
@@ -381,13 +383,14 @@
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZOq-Vi-R1h" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="Km0-3z-Hao"/>
                                         </constraints>
                                     </view>
                                     <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Ssd-aD-SeZ" customClass="ATSearchBar" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="10" y="44" width="355" height="56"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CL0-jb-LYH" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
@@ -396,7 +399,7 @@
                                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="ZOq-Vi-R1h" firstAttribute="leading" secondItem="jVu-qX-qP1" secondAttribute="leading" id="1JO-dO-nfI"/>
                                     <constraint firstItem="Ssd-aD-SeZ" firstAttribute="leading" secondItem="jVu-qX-qP1" secondAttribute="leading" constant="10" id="4sI-az-TWL"/>
@@ -532,7 +535,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="urD-el-wtV" secondAttribute="trailing" constant="52" id="7fX-e5-BAQ"/>
                                     <constraint firstItem="Pyv-2w-0Wf" firstAttribute="leading" secondItem="xaO-99-9VT" secondAttribute="leading" constant="47" id="8kc-1n-q1h"/>
@@ -610,7 +613,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="L3h-bM-RWW" firstAttribute="leading" secondItem="OxI-r9-dQF" secondAttribute="leading" constant="60" id="3br-xb-vfZ"/>
                                     <constraint firstItem="K3M-jn-8lT" firstAttribute="top" secondItem="L3h-bM-RWW" secondAttribute="bottom" constant="6" id="3hO-O3-538"/>
@@ -960,10 +963,10 @@
     </scenes>
     <designables>
         <designable name="dQP-Az-qGA">
-            <size key="intrinsicContentSize" width="62.5" height="19"/>
+            <size key="intrinsicContentSize" width="62.5" height="18.5"/>
         </designable>
         <designable name="p31-n3-9C6">
-            <size key="intrinsicContentSize" width="62.5" height="19"/>
+            <size key="intrinsicContentSize" width="62.5" height="18.5"/>
         </designable>
     </designables>
     <resources>

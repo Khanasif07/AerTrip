@@ -15,7 +15,8 @@ class InternationalReturnJourneyTemplateCell : UITableViewCell {
         @IBOutlet weak var departureTime: UILabel!
         @IBOutlet weak var arrivalTime: UILabel!
         @IBOutlet weak var durationTime: UILabel!
-        @IBOutlet weak var departureAirports: UILabel!
+    @IBOutlet weak var airportsNameView: UIView!
+    @IBOutlet weak var departureAirports: UILabel!
         @IBOutlet weak var arrivalAirports: UILabel!
         @IBOutlet weak var dashedView: UIView!
     
@@ -24,8 +25,16 @@ class InternationalReturnJourneyTemplateCell : UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         dashedView.setupDashedView()
+        self.contentView.backgroundColor = AppColors.themeWhiteDashboard
+        self.airportsNameView.backgroundColor = AppColors.themeWhiteDashboard
         self.selectionStyle = .none
         self.addShimmerEffect(to: [ self.logoTwo ,  self.airlineTitle ,self.arrivalTime , self.departureTime, self.arrivalAirports ,self.departureAirports] )
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.airportsNameView.backgroundColor = AppColors.themeWhiteDashboard
+        self.contentView.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     func setUpView(){

@@ -36,6 +36,7 @@ class HotelDetailsAmenitiesVC: BaseVC {
             self.amenitiesTblView.rowHeight = UITableView.automaticDimension
             self.amenitiesTblView.sectionFooterHeight = CGFloat.leastNonzeroMagnitude
             self.amenitiesTblView.estimatedSectionFooterHeight = CGFloat.leastNonzeroMagnitude
+            self.amenitiesTblView.backgroundColor = AppColors.themeGray04
         }
     }
     
@@ -114,7 +115,7 @@ class HotelDetailsAmenitiesVC: BaseVC {
         if let confirmedImage = UIImage(named: imageName) {
             return confirmedImage
         } else {
-            return #imageLiteral(resourceName: "buildingImage")
+            return AppImages.buildingImage
         }
     }
     
@@ -181,6 +182,7 @@ extension HotelDetailsAmenitiesVC {
         if let safeAmenitiesData = self.viewModel.amenities {
             cell.amenitiesDetails = safeAmenitiesData
         }
+        cell.containerView.backgroundColor = AppColors.themeWhiteDashboard
         cell.amenitiesCollectionView.reloadData()
         return cell
     }
@@ -196,6 +198,7 @@ extension HotelDetailsAmenitiesVC {
         cell.facilitiesIconView.image = image
         cell.facilitiesNameLabel.AttributedFontForText(text: title, textFont: AppFonts.SemiBold.withSize(16))
         cell.facilitiesNameLabel.AttributedParagraphLineSpacing(lineSpacing: 10)
+        cell.contentView.backgroundColor = AppColors.themeWhiteDashboard
         return cell
     }
 }

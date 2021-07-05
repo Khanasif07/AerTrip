@@ -46,6 +46,7 @@ class HCConfirmationVoucherTableViewCell: UITableViewCell {
         loader.color = AppColors.themeGreen
         loader.hidesWhenStopped = true
         loader.stopAnimating()
+        self.configUI()
     }
     
     //Mark:- Methods
@@ -55,8 +56,8 @@ class HCConfirmationVoucherTableViewCell: UITableViewCell {
         
         //view button
         self.viewButton.isShadowColorNeeded = true
-        self.viewButton.shadowColor = AppColors.themeWhite
-        self.viewButton.gradientColors = [AppColors.themeWhite, AppColors.themeWhite]
+        self.viewButton.shadowColor = AppColors.themeBlack26
+        self.viewButton.gradientColors = [.clear, .clear]
         self.viewButton.setTitle(LocalizedString.View.localized, for: .normal)
         
         //Font
@@ -73,7 +74,7 @@ class HCConfirmationVoucherTableViewCell: UITableViewCell {
         //Color
         self.confirmationVoucherLabel.textColor = AppColors.themeBlack
         self.viewButton.setTitleColor(AppColors.themeGreen, for: .normal)
-        
+        self.contentView.backgroundColor = AppColors.themeBlack26
         self.dividerView.isHidden = true
     }
     

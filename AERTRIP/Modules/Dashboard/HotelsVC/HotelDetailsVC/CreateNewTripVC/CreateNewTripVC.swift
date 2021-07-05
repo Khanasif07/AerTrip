@@ -48,11 +48,12 @@ class CreateNewTripVC: BaseVC {
         
        // popUpContainerView.roundTopCorners(cornerRadius: 10.0)
         inputContainerView.cornerradius = 10.0
-        let shadowProp = AppShadowProperties()
+        let shadowProp = AppShadowProperties(self.isLightTheme())
         self.inputContainerShadowView.addShadow(cornerRadius: shadowProp.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: shadowProp.shadowColor, offset: shadowProp.offset, opacity: shadowProp.opecity, shadowRadius: shadowProp.shadowRadius)
 //        inputContainerShadowView.addShadow(cornerRadius: inputContainerView.cornerradius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
         inputContainerShadowView.clipsToBounds = false
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.statusBarStyle = .lightContent
@@ -66,16 +67,10 @@ class CreateNewTripVC: BaseVC {
     }
     
     override func initialSetup() {
-//        if #available(iOS 13.0, *) {} else {
-//        let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
-//        swipeGesture.delegate = self
-//        self.popUpContainerView.addGestureRecognizer(swipeGesture)
-//        }
         
         headerView.backgroundColor = .clear
         popUpContainerView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
         self.view.backgroundColor = .clear
-        
         
         titleTextField.becomeFirstResponder()
         titleTextField.autocorrectionType = .no
@@ -112,14 +107,17 @@ class CreateNewTripVC: BaseVC {
             view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.5)
         }
         createButton.isSocial = false
-        createButton.setTitleColor(AppColors.themeWhite, for: .normal)
+        createButton.setTitleColor(AppColors.unicolorWhite, for: .normal)
         
         editButton.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.3)
-        editButton.setTitleColor(AppColors.themeWhite, for: .normal)
+        editButton.setTitleColor(AppColors.unicolorWhite, for: .normal)
         
         tripImageShadowView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.5)
         
         self.stickyLabel.textColor = AppColors.themeBlack
+        self.headerView.backgroundColor = AppColors.flightsNavBackViewColor
+        self.inputContainerView?.backgroundColor = AppColors.themeWhiteDashboard
+        self.inputContainerShadowView?.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     //MARK:- Methods
@@ -193,40 +191,5 @@ extension CreateNewTripVC: CreateNewTripVMDelegate {
 }
 
 extension CreateNewTripVC {
-//    @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
-//
-//        func reset() {
-//            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-//                self.popUpContainerView.transform = .identity
-//            })
-//        }
-//
-//        func moveView() {
-//            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-//                self.popUpContainerView.transform = CGAffineTransform(translationX: 0, y: self.viewTranslation.y)
-//            })
-//        }
-//
-//        guard let direction = sender.direction, direction.isVertical, direction == .down
-//            else {
-//            reset()
-//            return
-//        }
-//
-//        switch sender.state {
-//        case .changed:
-//            viewTranslation = sender.translation(in: popUpContainerView)
-//            moveView()
-//        case .ended:
-//            if viewTranslation.y < 200 {
-//                reset()
-//            } else {
-//                dismiss(animated: true, completion: nil)
-//            }
-//        case .cancelled:
-//            reset()
-//        default:
-//            break
-//        }
-//    }
+
 }

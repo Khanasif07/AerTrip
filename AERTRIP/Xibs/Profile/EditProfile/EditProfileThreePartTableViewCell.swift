@@ -56,6 +56,7 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        self.contentView.backgroundColor = AppColors.profileContentBackground
         self.setUpFonts()
         leftView.isUserInteractionEnabled = true
         rightViewTextField.placeholder = LocalizedString.Phone.localized
@@ -67,9 +68,9 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
     var isSettingForEdit:Bool = false{
         didSet{
             if isSettingForEdit{
-                self.deleteButton.setImage(#imageLiteral(resourceName: "editPencel"), for: .normal)
+                self.deleteButton.setImage(AppImages.editPencel, for: .normal)
             }else{
-                self.deleteButton.setImage(#imageLiteral(resourceName: "redMinusButton"), for: .normal)
+                self.deleteButton.setImage(AppImages.redMinusButton, for: .normal)
             }
         }
     }
@@ -130,12 +131,14 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
     func setupForGrayColor(_ isShowDisable: Bool){
         if isShowDisable{
             self.rightViewTextField.textColor = AppColors.themeGray40
+            self.countryCodeLabel.textColor = AppColors.themeGray40
             self.middleViewDropDownImage.isHidden = true
             self.countryCodeLabel.isEnabled = false
             self.grayShadeView.backgroundColor = AppColors.themeGray60.withAlphaComponent(0.3)
             self.grayShadeView.isHidden = false
         }else{
             self.rightViewTextField.textColor = AppColors.themeBlack
+            self.countryCodeLabel.textColor = AppColors.themeBlack
             self.middleViewDropDownImage.isHidden = false
             self.countryCodeLabel.isEnabled = true
             self.grayShadeView.backgroundColor = AppColors.clear

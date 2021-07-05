@@ -53,8 +53,16 @@ class MyBookingFooterView: UIView {
         self.pendingActionsLabel.font = AppFonts.Regular.withSize(18.0)
         self.pendingActionsLabel.textColor = AppColors.themeBlack
         self.pendingActionsLabel.text = LocalizedString.ShowPendingActionsOnly.localized
+        self.setupColors()
 //        self.statusImageView.image = #imageLiteral(resourceName: "pending red image requird")
     }
+    
+    func setupColors(){
+        self.containerView.backgroundColor = AppColors.themeWhiteDashboard
+        self.switchContainerView.backgroundColor = AppColors.themeWhiteDashboard
+        self.backgroundColor = AppColors.themeWhite
+    }
+    
     
     @IBAction func showPendingActions(_ sender: UISwitch) {
         self.delegate?.myBookingFooterView(self, didChangedPendingActionSwitch: sender.isOn)

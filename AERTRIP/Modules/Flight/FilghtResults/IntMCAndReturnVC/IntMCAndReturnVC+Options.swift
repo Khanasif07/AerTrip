@@ -250,7 +250,7 @@ extension IntMCAndReturnVC: ATSwitcherChangeValueDelegate {
     
     func shareJourney(journey : [IntMultiCityAndReturnWSResponse.Results.J]) {
         
-        self.sharePinnedFilghts.setImage(UIImage(named: "OvHotelResult"), for: .normal)
+        self.sharePinnedFilghts.setImage(AppImages.OvHotelResult, for: .normal)
         sharePinnedFilghts.displayLoadingIndicator(true)
 
         let flightAdultCount = bookFlightObject.flightAdultCount

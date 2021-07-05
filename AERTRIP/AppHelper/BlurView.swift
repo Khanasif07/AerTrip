@@ -14,7 +14,8 @@ class BlurView: UIView {
         super.awakeFromNib()
         
         self.addBlurEffect(style: .prominent, alpha: 1.0)
-        self.backgroundColor = .clear //AppColors.themeWhite.withAlphaComponent(0.85)
+        self.backgroundColor = .clear
+        //AppColors.themeWhite.withAlphaComponent(0.85)
     }
     
 

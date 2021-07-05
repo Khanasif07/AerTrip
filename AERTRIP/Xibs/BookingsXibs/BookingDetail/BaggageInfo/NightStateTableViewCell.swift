@@ -30,7 +30,8 @@ class NightStateTableViewCell: UITableViewCell {
 //        self.topBackgroundView.layer.cornerRadius = 12.0
         self.topBackgroundView.layer.borderWidth = 0.2
         self.topBackgroundView.layer.borderColor = AppColors.themeGray20.cgColor
-        self.topBackgroundView.backgroundColor = AppColors.themeGray04
+        self.topBackgroundView.backgroundColor = AppColors.flightFilterSessionDefaultColor
+        self.contentView.backgroundColor = AppColors.themeBlack26
         self.selectionStyle = .none
     }
     
@@ -46,7 +47,7 @@ class NightStateTableViewCell: UITableViewCell {
         let finalText = " Overnight Layover in \(flightDetail?.arrivalCity ?? LocalizedString.dash.localized)\(timeStr)"//
            // let finalText = " Overnight Layover in \("Thiruvananthapuram Thiruvananthapuram")\(timeStr)"//
 
-            self.titleLabel.attributedText = self.getAttributedBoldText(text: finalText, boldText: timeStr, image: #imageLiteral(resourceName: "overnightIcon"))
+            self.titleLabel.attributedText = self.getAttributedBoldText(text: finalText, boldText: timeStr, image: AppImages.overnightIcon)
         } else {
             var timeStr = self.flightDetail?.layoverTime.asString(units: [.hour, .minute], style: .abbreviated) ?? LocalizedString.na.localized
             timeStr = "  •  \(timeStr)"

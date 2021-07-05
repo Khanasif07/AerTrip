@@ -43,6 +43,11 @@ class HotelBookingAddressDetailsTableViewCell: UITableViewCell {
         self.configureUI()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.setupColor()
+    }
+    
     //MARK:- Functions
     //MARK:===========
     private func configureUI() {
@@ -75,6 +80,13 @@ class HotelBookingAddressDetailsTableViewCell: UITableViewCell {
         self.checkInDayLabel.textColor = AppColors.themeGray40
         self.checkOutDayLabel.textColor = AppColors.themeGray40
         self.totalNightsLabel.textColor = AppColors.themeBlack
+        self.setupColor()
+    }
+    
+    
+    private func setupColor(){
+        self.containerView.backgroundColor = AppColors.themeWhiteDashboard
+        self.checkInOutContainerView.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     internal func configCell(hotelName: String, hotelAddress: String, hotelStarRating: Double, tripAdvisorRating: Double, checkInDate: Date? , checkOutDate: Date? , totalNights: Int) {

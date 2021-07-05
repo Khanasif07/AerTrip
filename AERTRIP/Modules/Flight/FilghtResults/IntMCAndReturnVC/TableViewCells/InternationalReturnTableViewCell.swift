@@ -35,33 +35,39 @@ class InternationalReturnTableViewCell: UITableViewCell {
     //MARK:- Setup Methods
     fileprivate func setupBaseView() {
         backgroundColor = .clear // very important
-//        layer.masksToBounds = false
-//        layer.shadowOpacity = 0.5
-//        layer.shadowRadius = 4
-//        layer.shadowOffset = CGSize(width: 0, height: 0)
-//        layer.shadowColor = UIColor.black.withAlphaComponent(0.3).cgColor
-//        self.baseView.layer.cornerRadius = 10
-        //        shadowBackView.addGrayShadow(ofColor: UIColor.black.withAlphaComponent(0.8), radius: 8, opacity: 0.7)
+
         self.baseView.layer.cornerRadius = 10
         let shadowProp = AppShadowProperties()
-        self.shadowBackView.addShadow(cornerRadius: shadowProp.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: shadowProp.shadowColor, offset: shadowProp.offset, opacity: shadowProp.opecity, shadowRadius: shadowProp.shadowRadius)
-        
-//        self.shadowBackView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
+        if self.isLightTheme(){
+            
+            self.baseView.addShadow(cornerRadius: shadowProp.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: shadowProp.shadowColor, offset: shadowProp.offset, opacity: shadowProp.opecity, shadowRadius: shadowProp.shadowRadius)
+        }else{
+            self.baseView.addShadow(cornerRadius: shadowProp.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: .clear, offset: shadowProp.offset, opacity: 0.0, shadowRadius: 0.0)
+        }
+
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.layer.masksToBounds = false
         setupBaseView()
-        //        dashedView.setupDashedView()
-        //        let img = #imageLiteral(resourceName: "Back")
-        //        let templetImage = img.withRenderingMode(.alwaysTemplate)
-        //        arrowImage.image = templetImage
-        //        arrowImage.tintColor = AppColors.themeGreen
         self.arrowImage.transform = CGAffineTransform(rotationAngle: CGFloat(3 * (Double.pi)/2))
         setupGradientView()
+        self.setupColors()
         setupCollectionView()
         setUpTableView()
+        
+    }
+    
+    
+    
+    func setupColors(){
+        self.gradientView.isHidden = (!self.isLightTheme())
+        self.contentView.backgroundColor = AppColors.themeWhite
+        self.baseView.backgroundColor = AppColors.themeWhiteDashboard
+        self.smartIconCollectionView.backgroundColor = AppColors.themeWhiteDashboard
+        self.multiFlightsTableView.backgroundColor = AppColors.themeWhiteDashboard
+        self.price.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -78,10 +84,12 @@ class InternationalReturnTableViewCell: UITableViewCell {
         
         self.baseView.layer.borderWidth = 0.0
         //        durationTime.textColor = UIColor.ONE_ZORE_TWO_COLOR
-        price.textColor = .black
+        price.textColor = AppColors.themeBlack
         priceWidth.constant = 170
         pinnedRoundedLayer?.removeFromSuperlayer()
         super.prepareForReuse()
+        self.setupColors()
+        self.setupBaseView()
     }
     
     func setupCollectionView() {
@@ -122,7 +130,7 @@ class InternationalReturnTableViewCell: UITableViewCell {
     }
     
     fileprivate func setPinnedFlight() {
-        self.baseView.layer.borderColor = UIColor.AertripColor.cgColor
+        self.baseView.layer.borderColor = isLightTheme() ? UIColor.AertripColor.cgColor : AppColors.clear.cgColor
         self.baseView.layer.borderWidth = 1.0
         
         if pinnedRoundedLayer == nil
@@ -191,7 +199,7 @@ class InternationalReturnTableViewCell: UITableViewCell {
         self.optionsViewHeight.constant = journey.count > 1 ? 45 : 0
         self.samePriceOptionsLabel.text = "\(journey.count) options at same price"
         self.dividerView.isHidden = !(journey.count > 1)
-        price.textColor = journey.isCheapest ? .AERTRIP_ORAGE_COLOR : UIColor.black
+        price.textColor = journey.isCheapest ? .AERTRIP_ORAGE_COLOR : AppColors.themeBlack
         self.priceWidth.constant =  self.price.intrinsicContentSize.width
         smartIconsArray = currentJourney.smartIconArray
         baggageSuperScript = currentJourney.baggageSuperScript
@@ -290,7 +298,7 @@ extension InternationalReturnTableViewCell : UICollectionViewDataSource , UIColl
 
         if indexPath.section == 0 {
         
-            cell.imageView.image = UIImage(named: "checkingBaggageKg")
+            cell.imageView.image = AppImages.checkingBaggageKg
             cell.superScript.attributedText = baggageSuperScript
             cell.superScriptWidth.constant = 14
                 

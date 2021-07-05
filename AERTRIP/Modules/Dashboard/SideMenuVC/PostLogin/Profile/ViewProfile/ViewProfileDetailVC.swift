@@ -115,7 +115,7 @@ class ViewProfileDetailVC: BaseVC {
         self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: editTitle, selectedTitle: editTitle, normalColor: AppColors.themeWhite, selectedColor: AppColors.themeGreen)
         
         
-        let tintedImage = #imageLiteral(resourceName: "Back").withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+        let tintedImage = AppImages.Back.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
         self.topNavView.leftButton.setImage(tintedImage, for: .normal)
         self.topNavView.leftButton.setTitleColor(AppColors.themeWhite, for: .normal)
         self.topNavView.leftButton.setTitleColor(AppColors.themeGreen, for: .selected)
@@ -492,6 +492,8 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
             headerView.headerLabel.text = ""
         }
        
+        headerView.headerLabel.textColor = AppColors.themeGray60
+        headerView.containerView.backgroundColor = AppColors.profileHeaderBackground
         return headerView
     }
     

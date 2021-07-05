@@ -63,8 +63,8 @@ class AerinCustomPopoverVC: BaseVC {
     private var sendBtnState: SendButtonState = .record {
         didSet {
             switch sendBtnState {
-            case .record:   sendBtn.setImage(#imageLiteral(resourceName: "aerinSmallMic"), for: .normal)
-            case .send:     sendBtn.setImage(#imageLiteral(resourceName: "sendIcon"), for: .normal)
+            case .record:   sendBtn.setImage(AppImages.aerinSmallMic, for: .normal)
+            case .send:     sendBtn.setImage(AppImages.sendIcon, for: .normal)
             }
         }
     }
@@ -136,7 +136,7 @@ class AerinCustomPopoverVC: BaseVC {
         IQKeyboardManager.shared().isEnableAutoToolbar = false
         IQKeyboardManager.shared().shouldResignOnTouchOutside = false
         addKeyboard()
-        self.statusBarStyle = .darkContent
+        self.statusBarStyle = .lightContent
         NotificationCenter.default.addObserver(self, selector: #selector(appDidEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
     
@@ -474,6 +474,7 @@ class AerinCustomPopoverVC: BaseVC {
         chatVm.getRecentFlights()
         resetFrames()
         addWaveAnimation()
+        messageTextView.textColor = AppColors.themeBlack
         
         if speechRecognizer.authStatus() == .denied {
             self.waveAnimationContainerView.isHidden = true
@@ -507,7 +508,7 @@ class AerinCustomPopoverVC: BaseVC {
         messageTextView.font = AppFonts.Regular.withSize(18)
         messageTextView.delegate = self
         messageTextView.autocorrectionType = .no
-        animationBubbleImageView.image = UIImage(named: "Green Chat bubble")?.resizableImage(withCapInsets: UIEdgeInsets(top: 17, left: 21, bottom: 17, right: 21), resizingMode: .stretch).withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+        animationBubbleImageView.image = AppImages.Green_Chat_bubble.resizableImage(withCapInsets: UIEdgeInsets(top: 17, left: 21, bottom: 17, right: 21), resizingMode: .stretch).withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
         view.addSubview(animationView)
         hideAnimationView()
         chatTableView.isHidden = true
@@ -562,6 +563,7 @@ class AerinCustomPopoverVC: BaseVC {
     
     //MARK:- Configure tableview
     private func configureTableView(){
+        chatTableView.backgroundColor = AppColors.themeWhiteDashboard
         chatTableView.dataSource = self
         chatTableView.delegate = self
         chatTableView.register(UINib(nibName: "SenderChatCell", bundle: nil), forCellReuseIdentifier: "SenderChatCell")
@@ -574,6 +576,7 @@ class AerinCustomPopoverVC: BaseVC {
     }
     
     func configureCollectionView(){
+        suggestionsCollectionView.backgroundColor = .clear
         suggestionsCollectionView.dataSource = self
         suggestionsCollectionView.delegate = self
         suggestionsCollectionView.register(UINib(nibName: "SuggestionsCell", bundle: nil), forCellWithReuseIdentifier: "SuggestionsCell")
@@ -610,13 +613,14 @@ class AerinCustomPopoverVC: BaseVC {
     }
     
     private func setupPopoverView() {
+        popoverView.backgroundColor = AppColors.themeWhiteDashboard
         popoverView.roundParticularCorners(10, [.layerMinXMinYCorner, .layerMaxXMinYCorner])
         popoverViewHeight.constant = view.bounds.height
         midPoint = view.bounds.height * 0.4
         maxPoint = 0
         minPoint = view.bounds.height
         popoverViewTop.constant = minPoint
-        dragView.backgroundColor = AppColors.blackWith20PerAlpha
+        dragView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.2)
         dragView.roundedCorners(cornerRadius: 2.5)
         topAerinImgView.alpha = 0
         

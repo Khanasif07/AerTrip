@@ -61,7 +61,8 @@ class MealsContainerVC: BaseVC {
     
     override func setupColors() {
         super.setupColors()
-        
+        self.MealTotalLabel.textColor = AppColors.themeGray60
+        self.totalLabel.textColor = AppColors.themeBlack
     }
     
     override func initialSetup() {
@@ -100,6 +101,8 @@ extension MealsContainerVC {
         let clearStr = "  \(LocalizedString.ClearAll.localized)"
         self.topNavBarView.configureLeftButton(normalTitle: clearStr, normalColor: AppColors.themeGreen, font : AppFonts.Regular.withSize(18), isLeftButtonEnabled : self.mealsContainerVM.isAnyThingSelected())
         self.topNavBarView.configureFirstRightButton(normalTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18))
+        topNavBarView.darkView.isHidden = false
+        topNavBarView.darkView.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     private func setUpViewPager() {
@@ -158,8 +161,8 @@ extension MealsContainerVC {
         
         self.parchmentView?.reloadData()
         self.parchmentView?.reloadMenu()
-        self.parchmentView?.menuBackgroundColor = UIColor.clear
-        self.parchmentView?.collectionView.backgroundColor = UIColor.clear
+        self.parchmentView?.menuBackgroundColor = AppColors.themeWhiteDashboard
+        self.parchmentView?.collectionView.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     func calculateTotalAmount(){

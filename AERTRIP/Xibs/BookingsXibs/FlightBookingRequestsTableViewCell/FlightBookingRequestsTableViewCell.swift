@@ -32,12 +32,14 @@ class FlightBookingRequestsTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configureUI()
+        self.containerView.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         
         //removing all shadow
+        self.containerView.backgroundColor = AppColors.themeWhiteDashboard
         self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeWhite.withAlphaComponent(0.0001), offset: CGSize.zero, opacity: 0.0, shadowRadius: 0.0)
         
     }

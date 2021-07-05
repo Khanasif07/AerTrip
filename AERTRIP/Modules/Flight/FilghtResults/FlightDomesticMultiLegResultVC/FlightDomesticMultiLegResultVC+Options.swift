@@ -41,7 +41,7 @@ extension FlightDomesticMultiLegResultVC : MFMailComposeViewControllerDelegate {
                 viewModel.resultsTableStates = viewModel.stateBeforePinnedFlight
                 for index in 0 ..< self.viewModel.numberOfLegs {
                     // Removal of ErrorScreen if pinned flights were 0
-                    if let errorView = self.baseScrollView.viewWithTag( 500 + index) {
+                    if let errorView = self.baseScrollView.viewWithTag( self.errorViewTag + index) {
                         if journeyArray.count > 0 {
                             errorView.removeFromSuperview()
                         }
@@ -95,7 +95,7 @@ extension FlightDomesticMultiLegResultVC : MFMailComposeViewControllerDelegate {
                    self.viewModel.results[index] = legArray
                    
                    // Removal of ErrorScreen if pinned flights were 0
-                   if let errorView = self.baseScrollView.viewWithTag( 500 + index) {
+                   if let errorView = self.baseScrollView.viewWithTag( self.errorViewTag + index) {
                        if journeyArray.count > 0 {
                            errorView.removeFromSuperview()
                        }
@@ -132,7 +132,7 @@ extension FlightDomesticMultiLegResultVC : MFMailComposeViewControllerDelegate {
     
     func returnEmailView(view: String) {
           DispatchQueue.main.async {
-            self.emailPinnedFlights.setImage(UIImage(named: "EmailPinned"), for: .normal)
+            self.emailPinnedFlights.setImage(AppImages.EmailPinned, for: .normal)
             self.emailPinnedFlights.displayLoadingIndicator(false)
 
 //          self.showEmailViewController(body : view)
@@ -264,7 +264,7 @@ extension FlightDomesticMultiLegResultVC: ATSwitcherChangeValueDelegate {
 //            viewModel.resultsTableStates = viewModel.stateBeforePinnedFlight
               
             for index in 0 ..< self.viewModel.numberOfLegs {
-                if let errorView = self.baseScrollView.viewWithTag( 500 + index) {
+                if let errorView = self.baseScrollView.viewWithTag( self.errorViewTag + index) {
                     errorView.removeFromSuperview()
                 }
                 self.updateUIForTableviewAt(index)

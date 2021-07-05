@@ -31,7 +31,7 @@ class FlightTableViewCell: UITableViewCell {
     //Mark:- Functions
     //================
     private func configUI() {
-        self.bookingTypeImgView.image = #imageLiteral(resourceName: "flightIcon")
+        self.bookingTypeImgView.image = AppImages.twiterIcon
         self.plcaeNameLabel.textColor = AppColors.themeBlack
         self.travellersNameLabel.textColor = AppColors.themeGray40
         self.plcaeNameLabel.font = AppFonts.Regular.withSize(18.0)

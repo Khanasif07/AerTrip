@@ -64,8 +64,8 @@ class AbortRequestVC: BaseVC {
     }
     
     override func setupColors() {
-        self.confirmAbortButton.setTitleColor(AppColors.themeWhite, for: .normal)
-        self.confirmAbortButton.setTitleColor(AppColors.themeWhite, for: .selected)
+        self.confirmAbortButton.setTitleColor(AppColors.unicolorWhite, for: .normal)
+        self.confirmAbortButton.setTitleColor(AppColors.unicolorWhite, for: .selected)
         
     }
     override func viewDidLayoutSubviews() {

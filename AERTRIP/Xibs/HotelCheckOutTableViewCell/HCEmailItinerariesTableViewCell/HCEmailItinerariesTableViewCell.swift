@@ -27,7 +27,7 @@ class HCEmailItinerariesTableViewCell: UITableViewCell {
     //Mark:- Variables
     //================
     weak var delegate: HCEmailItinerariesTableViewCellDelegate?
-    let sendBtnImage = #imageLiteral(resourceName: "checkIcon").withRenderingMode(.alwaysTemplate)
+    let sendBtnImage = AppImages.checkIcon.withRenderingMode(.alwaysTemplate)
     
     //Mark:- IBOutlets
     //================
@@ -64,8 +64,9 @@ class HCEmailItinerariesTableViewCell: UITableViewCell {
         self.sendButton.layer.cornerRadius = 14.0
         self.sendButton.layer.masksToBounds = true
         self.activityIndicator.isHidden = true
+        self.activityIndicator.color = AppColors.flightFormReturnEnableColor
         //Color
-        self.sendButton.backgroundColor = AppColors.screensBackground.color
+        self.sendButton.backgroundColor = AppColors.singleJourneyGroupCellColor//screensBackground.color
         self.sendButton.setTitleColor(AppColors.themeGray20, for: .normal)
         self.nameLabel.textColor = AppColors.themeGray60
         self.emailTextField.textColor = AppColors.textFieldTextColor51
@@ -80,17 +81,17 @@ class HCEmailItinerariesTableViewCell: UITableViewCell {
     }
     
     internal func configCell(isMailSended: Bool, name: String) {
-        self.profileImageView.image = #imageLiteral(resourceName: "linkFacebook")
+        self.profileImageView.image = AppImages.linkFacebook
         self.nameLabel.text = name
         if isMailSended {
             self.sendButton.setTitle(nil, for: .normal)
             self.sendButton.backgroundColor = UIColor.clear
-            self.sendButton.setImage(#imageLiteral(resourceName: "checkIcon"), for: .normal)
+            self.sendButton.setImage(AppImages.checkIcon, for: .normal)
             self.emailTextField.textColor = AppColors.themeGray40
         } else {
             self.sendButton.setImage(nil, for: .normal)
             self.sendButton.setTitle(LocalizedString.Send.localized, for: .normal)
-            self.sendButton.backgroundColor = AppColors.screensBackground.color
+            self.sendButton.backgroundColor = AppColors.singleJourneyGroupCellColor//AppColors.screensBackground.color
             self.emailTextField.textColor = AppColors.textFieldTextColor51
         }
     }
@@ -107,7 +108,7 @@ class HCEmailItinerariesTableViewCell: UITableViewCell {
             self.sendButton.isHidden = false
             self.sendButton.setImage(nil, for: .normal)
             self.sendButton.setTitle(LocalizedString.Send.localized, for: .normal)
-            self.sendButton.backgroundColor = AppColors.screensBackground.color
+            self.sendButton.backgroundColor = AppColors.singleJourneyGroupCellColor//AppColors.screensBackground.color
             self.sendButton.isUserInteractionEnabled = true
             if emailInfo.emailId.isEmail {
                 self.sendButton.setTitleColor(AppColors.themeGreen, for: .normal)

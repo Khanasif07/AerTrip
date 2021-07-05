@@ -69,6 +69,12 @@ class EnableDisableWalletOTPVC: BaseVC {
         self.cancelButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.verifyYourCredential.textColor = AppColors.themeBlack
         self.descriptionLabel.textColor = AppColors.themeBlack
+        self.containerView.backgroundColor = AppColors.themeWhiteDashboard
+        
+        self.passwordView.backgroundColor = AppColors.themeWhiteDashboard
+        self.emailView.backgroundColor = AppColors.themeWhiteDashboard
+        self.phoneView.backgroundColor = AppColors.themeWhiteDashboard
+
     }
     
     override func setupTexts() {

@@ -52,6 +52,10 @@ class PostSelectionSeatPopupVC: UIViewController {
     }
     
     private func initialSetup() {
+        
+        descriptionView.backgroundColor = AppColors.themeWhiteDashboard
+        cancelBtn.backgroundColor = AppColors.themeWhiteDashboard
+        
         descriptionView.roundedCorners(cornerRadius: 13)
         cancelBtn.roundedCorners(cornerRadius: 13)
         
@@ -60,7 +64,7 @@ class PostSelectionSeatPopupVC: UIViewController {
         statusLbl.font = AppFonts.SemiBold.withSize(14)
         cancelBtn.titleLabel?.font = AppFonts.SemiBold.withSize(20)
         
-        descLbl.textColor = AppColors.themeGray40
+        descLbl.textColor = AppColors.themeGray153
         statusLbl.textColor = AppColors.themeOrange
         cancelBtn.setTitleColor(AppColors.themeDarkGreen, for: .normal)
         
@@ -76,7 +80,7 @@ class PostSelectionSeatPopupVC: UIViewController {
     
     private func startPresentAnimation() {
         UIView.animate(withDuration: 0.33) {
-            self.view.backgroundColor = AppColors.blackWith40PerAlpha
+            self.view.backgroundColor = UIColor.black.withAlphaComponent(0.4)
             self.containerView.transform = .identity
         }
     }

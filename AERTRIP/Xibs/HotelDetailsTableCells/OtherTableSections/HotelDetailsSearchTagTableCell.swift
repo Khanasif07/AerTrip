@@ -45,7 +45,7 @@ class HotelDetailsSearchTagTableCell: UITableViewCell {
         didSet {
             self.tagCollectionView.delegate = self
             self.tagCollectionView.dataSource = self
-            self.tagCollectionView.backgroundColor = AppColors.screensBackground.color
+            self.tagCollectionView.backgroundColor = AppColors.clear
             self.tagCollectionView.contentInset = UIEdgeInsets(top: 16.0, left: 16.0, bottom: 4.0, right: 16.0)
         }
     }
@@ -62,7 +62,9 @@ class HotelDetailsSearchTagTableCell: UITableViewCell {
     ///ConfigureUI
     private func configureUI() {
         //Color
-        self.containerView.backgroundColor = AppColors.screensBackground.color
+        self.containerView.backgroundColor = AppColors.clear
+        self.backgroundColor = AppColors.clear
+        
         //self.searchBarSetUp()
         searchBar.placeholder = LocalizedString.hotelFilterSearchBar.localized
         self.registerXibs()
@@ -186,9 +188,9 @@ extension HotelDetailsSearchTagTableCell: UICollectionViewDelegate, UICollection
         cell.delegate = self
         if let parentVC = self.parentViewController as? HotelDetailsVC {
             if parentVC.viewModel.selectedTags.contains(self.availableTagsForFilterartion[indexPath.item]) {
-                cell.configureCell(tagTitle: self.availableTagsForFilterartion[indexPath.item], titleColor: AppColors.themeGreen, tagBtnColor: AppColors.iceGreen, isCancelButtonAvailable: false)
+                cell.configureCell(tagTitle: self.availableTagsForFilterartion[indexPath.item], titleColor: AppColors.themeGreen, tagBtnColor: AppColors.domesticReturnSelection, isCancelButtonAvailable: false)
             } else {
-                cell.configureCell(tagTitle: self.availableTagsForFilterartion[indexPath.item], titleColor: AppColors.themeGray40, tagBtnColor: AppColors.themeGray04, isCancelButtonAvailable: false)
+                cell.configureCell(tagTitle: self.availableTagsForFilterartion[indexPath.item], titleColor: AppColors.themeGray153, tagBtnColor: AppColors.themeGray04, isCancelButtonAvailable: false)
             }
         }
         return cell

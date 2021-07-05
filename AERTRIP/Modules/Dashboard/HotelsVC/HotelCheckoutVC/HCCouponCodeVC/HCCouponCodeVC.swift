@@ -48,7 +48,7 @@ class HCCouponCodeVC: BaseVC {
             self.couponTextField.autocorrectionType = .no
             self.couponTextField.autocapitalizationType = .allCharacters
             self.couponTextField.adjustsFontSizeToFitWidth = true
-            self.couponTextField.textFieldClearBtnSetUp(with: UIImage(named: "BlurCross"))
+            self.couponTextField.textFieldClearBtnSetUp(with: AppImages.BlurCross)
             self.couponTextField.clearButtonMode = .always
         }
     }
@@ -66,6 +66,10 @@ class HCCouponCodeVC: BaseVC {
     @IBOutlet weak var applyCouponButton: UIButton!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var textFieldContainer: UIView!
+    @IBOutlet weak var darkView: UIView!
+    @IBOutlet weak var blurView: BlurView!
+    @IBOutlet weak var dividerLeading: NSLayoutConstraint!
+    @IBOutlet weak var dividerTrailing: NSLayoutConstraint!
     
     //Mark:- LifeCycle
     //================
@@ -82,9 +86,15 @@ class HCCouponCodeVC: BaseVC {
         IQKeyboardManager.shared().isEnableAutoToolbar = true
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        darkView.isHidden = isLightTheme()
+        blurView.isHidden = !isLightTheme()
+    }
+    
     override func initialSetup() {
-        self.couponTableView.contentInset = UIEdgeInsets(top: headerView.height + textFieldContainer.height, left: 0.0, bottom: 0.0, right: 0.0)
-
+        self.couponTableView.contentInset = UIEdgeInsets(top: headerView.height + textFieldContainer.height + 5, left: 0.0, bottom: 0.0, right: 0.0)
+        
         self.manageLoader()
         self.registerNibs()
         self.couponTableView.delegate = self
@@ -93,7 +103,7 @@ class HCCouponCodeVC: BaseVC {
 //        if self.viewModel.product != .flights{
 //            self.viewModel.getCouponsDetailsApi()
 //        }
-        self.emptyStateImageView.image = #imageLiteral(resourceName: "emptyStateCoupon")
+        self.emptyStateImageView.image = AppImages.emptyStateCoupon
         self.offerTermsView.roundTopCorners(cornerRadius: 10.0)
         self.offerTermsViewSetUp()
         self.registerNibs()
@@ -106,6 +116,12 @@ class HCCouponCodeVC: BaseVC {
 //        if self.viewModel.searcedCouponsData.count == 0{
             self.emptyStateSetUp()
 //        }
+        
+        darkView.backgroundColor = AppColors.themeBlack26
+        darkView.isHidden = isLightTheme()
+        blurView.isHidden = !isLightTheme()
+        dividerLeading.constant = 0.0
+        dividerTrailing.constant = 0.0
     }
     
     override func setupFonts() {
@@ -141,6 +157,7 @@ class HCCouponCodeVC: BaseVC {
         self.backGroundView.backgroundColor = AppColors.themeGray60.withAlphaComponent(0.6)
         //self.couponValidationTextSetUp(isCouponValid: true)
         self.applyCouponButton.setTitleColor(AppColors.themeGreen, for: .normal)
+        self.view.backgroundColor = AppColors.themeWhite
     }
     
     override func bindViewModel() {
@@ -177,19 +194,20 @@ class HCCouponCodeVC: BaseVC {
     
     private func emptyStateSetUp() {
         if (self.viewModel.searchText.isEmpty){
-            self.emptyStateImageView.image = #imageLiteral(resourceName: "emptyStateCoupon")
+            self.emptyStateImageView.image = AppImages.emptyStateCoupon
             self.emptyStateImageView.contentMode = .scaleToFill
             self.noCouponsReqLabel.text = "No coupon required"
             self.bestPriceLabel.text = "You already have the best price."
         }else{
             self.emptyStateImageView.contentMode = .scaleAspectFit
-            self.emptyStateImageView.image = #imageLiteral(resourceName: "frequentFlyerEmpty")
+            self.emptyStateImageView.image = AppImages.frequentFlyerEmpty
             self.noCouponsReqLabel.text = "No Results"
-            self.bestPriceLabel.text = "for \(self.viewModel.searchText)"
+            self.bestPriceLabel.text = "for \"\(self.viewModel.searchText)\""
         }
         self.couponTextField.isError = self.viewModel.searcedCouponsData.isEmpty
         self.emptyStateView.isHidden = !self.viewModel.searcedCouponsData.isEmpty
         self.couponTableView.isHidden = self.viewModel.searcedCouponsData.isEmpty
+        self.emptyStateView.backgroundColor = AppColors.themeWhite
         self.couponTableView.reloadData()
     }
     
@@ -312,15 +330,17 @@ extension HCCouponCodeVC: UITableViewDelegate, UITableViewDataSource {
         cell.delegate = self
         let model = self.viewModel.searcedCouponsData[indexPath.item]
         if !self.viewModel.couponCode.isEmpty, self.viewModel.couponCode.lowercased() == model.couponCode.lowercased()  {
-            cell.checkMarkImageView.image =  #imageLiteral(resourceName: "CheckedGreenRadioButton")
+            cell.checkMarkImageView.image =  AppImages.CheckedGreenRadioButton
             self.viewModel.couponCode = model.couponCode
             self.couponTextField.text = model.couponCode
            // self.couponValidationTextSetUp(isCouponValid: true)
             self.couponTextField.becomeFirstResponder()
         } else {
-            cell.checkMarkImageView.image = #imageLiteral(resourceName: "UncheckedGreenRadioButton")
+            cell.checkMarkImageView.image = AppImages.UncheckedGreenRadioButton
         }
         cell.configCell(currentCoupon: model)
+        cell.dividerLeadingConstraint.constant = (self.viewModel.searcedCouponsData.count - 1 != indexPath.row) ? 16 : 0
+        cell.dividerTrailingConstraint.constant = (self.viewModel.searcedCouponsData.count - 1 != indexPath.row) ? 16 : 0
         return cell
     }
     

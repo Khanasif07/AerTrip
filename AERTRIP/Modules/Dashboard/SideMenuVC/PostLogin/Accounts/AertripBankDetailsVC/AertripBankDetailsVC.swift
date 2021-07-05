@@ -27,7 +27,7 @@ class AertripBankDetailsVC: BaseVC {
     //MARK:-
     override func initialSetup() {
         topNavBar.configureNavBar(title: "Bank Detail", isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: true, backgroundType: .clear)
-        topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "black_cross"), selectedImage: #imageLiteral(resourceName: "black_cross"))
+        topNavBar.configureFirstRightButton(normalImage: AppImages.CancelButtonWhite, selectedImage: AppImages.CancelButtonWhite)
         topNavBar.delegate = self
         topNavBar.backView.backgroundColor = .clear
         topNavBar.backgroundColor = .clear

@@ -29,12 +29,14 @@ class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.initialSetUp()
+        self.blurVibranyEffectView.backgroundColor = AppColors.recentSearchColletionCellColor
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         cityNameLabel.text = ""
         cityNameLabel.attributedText = nil
+        self.blurVibranyEffectView.backgroundColor = AppColors.recentSearchColletionCellColor
     }
     
     //Mark:- Functions
@@ -42,7 +44,7 @@ class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
     ///InitialSetUp
     private func initialSetUp() {
         
-        self.cityImageView.image = #imageLiteral(resourceName: "hotelsBlack").withRenderingMode(.alwaysTemplate)
+        self.cityImageView.image = AppImages.child_icon.withRenderingMode(.alwaysTemplate)
         self.cityImageView.tintColor = AppColors.recentSeachesSearchTypeBlue
         ///Font
         let regularFont14 = AppFonts.Regular.withSize(14.0)
@@ -111,10 +113,10 @@ class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
         //String to Date Convert
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "E, dd MMM yy"
-        let date = dateFormatter.date(from: stringDate)
+        guard let date = dateFormatter.date(from: stringDate) else {return nil}
         //CONVERT FROM Date to String
         dateFormatter.dateFormat = "dd MMM"
-        return dateFormatter.string(from: date!)
+        return dateFormatter.string(from: date)
     }
     
     ///AdultAndRoomText

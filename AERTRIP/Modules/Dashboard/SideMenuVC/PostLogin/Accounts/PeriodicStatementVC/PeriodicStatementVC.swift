@@ -45,7 +45,18 @@ class PeriodicStatementVC: BaseVC {
         self.parchmentView?.loadViewIfNeeded()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        topNavView.darkView.isHidden = isLightTheme()
+    }
+    
     override func bindViewModel() {
+    }
+    
+    override func setupColors() {
+        self.view.backgroundColor = AppColors.themeWhite
+        dataContainerView.backgroundColor = AppColors.themeBlack26
+        topNavView.darkView.backgroundColor = AppColors.themeBlack26
     }
     
     //MARK:- Methods
@@ -59,6 +70,7 @@ class PeriodicStatementVC: BaseVC {
         //for header blur
         //self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
         topNavView.backgroundColor = AppColors.clear
+        topNavView.darkView.isHidden = isLightTheme()
     }
     
     private func setupPagerView() {
@@ -110,6 +122,9 @@ class PeriodicStatementVC: BaseVC {
         
         self.parchmentView?.reloadData()
         self.parchmentView?.reloadMenu()
+        
+        parchmentView?.menuBackgroundColor = .clear
+        parchmentView?.collectionView.backgroundColor = .clear
     }
     private func reloadList() {
         self.setupPagerView()

@@ -70,6 +70,7 @@ extension AmenitiesDetailsTableViewCell: UICollectionViewDelegate, UICollectionV
         if let safeAmenitiesData = self.amenitiesDetails?.main {
             cell.configureCell(amenitiesMainData: safeAmenitiesData[index])
         }
+        cell.containerView.backgroundColor = AppColors.themeWhiteDashboard
         return cell
     }
     

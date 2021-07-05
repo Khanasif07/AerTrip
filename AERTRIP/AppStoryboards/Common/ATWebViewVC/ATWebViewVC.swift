@@ -54,10 +54,15 @@ class ATWebViewVC: BaseVC {
     //MARK:- ViewLifeCycle
     //MARK:-
     override func initialSetup() {
+        activityIndicatorView.color = AppColors.themeGray153
+        self.activityIndicatorView.startAnimating()
+        webView.backgroundColor = AppColors.themeWhite
+        webView.scrollView.backgroundColor = AppColors.themeWhite
+        webView.isOpaque = false
         topNavView.configureNavBar(title: navTitle, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: true, backgroundType: .clear)
         topNavView.navTitleLabel.numberOfLines = 1
         topNavView.navTitleLabel.lineBreakMode = .byTruncatingTail
-        topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "black_cross"), selectedImage: #imageLiteral(resourceName: "black_cross"))
+        topNavView.configureFirstRightButton(normalImage: AppImages.black_cross, selectedImage: AppImages.black_cross)
         topNavView.delegate = self
         topNavView.backView.backgroundColor = .clear
         topNavView.backgroundColor = .clear

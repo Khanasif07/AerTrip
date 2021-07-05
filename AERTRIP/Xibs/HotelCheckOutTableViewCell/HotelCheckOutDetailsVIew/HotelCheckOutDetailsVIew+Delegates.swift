@@ -164,16 +164,16 @@ extension HotelCheckOutDetailsVIew: UIScrollViewDelegate {
             // show
             self.headerView.navTitleLabel.text = self.hotelInfo?.hotelName
             self.headerView.animateBackView(isHidden: false, completion: nil)
-            let selectedFevImage: UIImage = self.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "save_icon_green")
+            let selectedFevImage: UIImage = self.hotelInfo?.fav == "1" ? AppImages.saveHotelsSelected : AppImages.save_icon_green
             self.headerView.leftButton.setImage(selectedFevImage, for: .normal)
-            self.headerView.firstRightButton.setImage(#imageLiteral(resourceName: "black_cross"), for: .normal)
+            self.headerView.firstRightButton.setImage(AppImages.CancelButtonWhite, for: .normal)
         } else {
             // hide
             self.headerView.navTitleLabel.text = ""
             self.headerView.animateBackView(isHidden: true, completion: nil)
-            let buttonImage: UIImage = self.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
+            let buttonImage: UIImage = self.hotelInfo?.fav == "1" ? AppImages.saveHotelsSelected : AppImages.saveHotels
             self.headerView.leftButton.setImage(buttonImage, for: .normal)
-            self.headerView.firstRightButton.setImage(#imageLiteral(resourceName: "CancelButtonWhite"), for: .normal)
+            self.headerView.firstRightButton.setImage(AppImages.CancelButtonWhite, for: .normal)
         }
     }
     

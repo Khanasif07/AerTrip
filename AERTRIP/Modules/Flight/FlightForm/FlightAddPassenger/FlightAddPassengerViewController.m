@@ -20,6 +20,8 @@
 @property (weak, nonatomic) IBOutlet UIView *WarningView;
 @property (weak, nonatomic) IBOutlet UILabel *warningLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewHeight;
+@property (weak, nonatomic) IBOutlet UIVisualEffectView *doneBlurView;
+@property (weak, nonatomic) IBOutlet UIView *backgroundView;
 
 
 @end
@@ -53,6 +55,11 @@ int alreadySelectedComponent = 0;
     // Dispose of any resources that can be recreated.
 }
 
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+    [self hideShowDarkViews];
+}
+
 //MARK:- Additional UI Methods
 
 - (void)setupInitials {
@@ -66,6 +73,23 @@ int alreadySelectedComponent = 0;
     [self.doneButton setTitleColor:[UIColor TWO_ZERO_FOUR_COLOR] forState:UIControlStateDisabled];
     self.warningLabel.textColor = [UIColor colorWithDisplayP3Red:255.0/255.0 green:144.0/255.0 blue:0.0/255.0 alpha:1.0];
     
+    [self setColors];
+    [self hideShowDarkViews];
+    
+}
+
+- (void)setColors {
+    _bottomView.backgroundColor = [UIColor themeWhiteDashboard];
+    _backgroundView.backgroundColor = [UIColor themeWhiteDashboard];
+    _doneView.backgroundColor = [UIColor doneViewClearColor];
+}
+
+- (void)hideShowDarkViews {
+//    if (self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+//        _doneBlurView.hidden = YES;
+//    } else {
+//        _doneBlurView.hidden = NO;
+//    }
 }
 
 -(void)setupBackgroundView{
@@ -193,30 +217,46 @@ int alreadySelectedComponent = 0;
     self.doneButton.enabled = YES;
 }
 
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
+//- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
+//
+//    NSString * stringForTitle;
+//    if (component == 0) {
+//        stringForTitle = [self.numberOfAdultArray objectAtIndex:row];
+//    }else if (component == 1) {
+//        stringForTitle =  [self.numberOfChildArray objectAtIndex:row];
+//    }else if (component == 2) {
+//        stringForTitle = [self.numberOfInfantArray objectAtIndex:row];
+//    }
+//
+//    return stringForTitle;
+//}
+
+- (NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component {
     
-    NSString * stringForTitle;
+    NSMutableDictionary *attributesDictionary = [NSMutableDictionary dictionary];
+    
+    [attributesDictionary setObject:[UIFont fontWithName:@"SourceSansPro-Regular" size:23.0] forKey:NSFontAttributeName];
+
+    NSAttributedString * stringForTitle;
     if (component == 0) {
-        stringForTitle = [self.numberOfAdultArray objectAtIndex:row];
+        stringForTitle = [[NSAttributedString alloc] initWithString:[self.numberOfAdultArray objectAtIndex:row] attributes:attributesDictionary];
     }else if (component == 1) {
-        stringForTitle =  [self.numberOfChildArray objectAtIndex:row];
+        stringForTitle = [[NSAttributedString alloc] initWithString:[self.numberOfChildArray objectAtIndex:row] attributes:attributesDictionary];
     }else if (component == 2) {
-        stringForTitle = [self.numberOfInfantArray objectAtIndex:row];
+        stringForTitle = [[NSAttributedString alloc] initWithString:[self.numberOfInfantArray objectAtIndex:row] attributes:attributesDictionary];
     }
-    
     return stringForTitle;
 }
-
 
 //- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
 //
 //    NSString * stringForTitle;
 //    if (component == 0) {
-//                stringForTitle = [self.numberOfAdultArray objectAtIndex:row];
+//        stringForTitle = [self.numberOfAdultArray objectAtIndex:row];
 //    }else if (component == 1) {
-//               stringForTitle =  [self.numberOfChildArray objectAtIndex:row];
+//        stringForTitle =  [self.numberOfChildArray objectAtIndex:row];
 //    }else if (component == 2) {
-//                stringForTitle = [self.numberOfInfantArray objectAtIndex:row];
+//        stringForTitle = [self.numberOfInfantArray objectAtIndex:row];
 //    }
 //
 //    UILabel * label = [[UILabel alloc] init];

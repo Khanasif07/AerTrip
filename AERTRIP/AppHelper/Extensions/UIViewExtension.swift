@@ -475,7 +475,7 @@ extension UIView {
             shadowLayer.name = "cardShadow"
             shadowLayer.shadowColor = UIColor.black.withAlphaComponent(0.4).cgColor
             shadowLayer.shadowPath = shadowLayer.path
-            shadowLayer.shadowOffset = CGSize(width: 1, height: 1)
+            shadowLayer.shadowOffset = CGSize(width: 0, height: 3)
             shadowLayer.shadowOpacity = 0.8
             shadowLayer.shadowRadius = 3
             
@@ -531,7 +531,7 @@ extension UIView {
         
         self.backgroundColor = .clear
         let shapeLayer = CAShapeLayer()
-        shapeLayer.strokeColor = UIColor.ONE_ZORE_TWO_COLOR.cgColor
+        shapeLayer.strokeColor = AppColors.flightCellDashColor.cgColor
         shapeLayer.lineWidth = 0.5
         shapeLayer.lineDashPattern = [2,3]
         
@@ -554,13 +554,13 @@ extension UIView {
     
     func animate(view:UIView) {
         let colorLayer = CALayer()
-        colorLayer.backgroundColor = UIColor(displayP3Red: (238.0/255.0), green: (239.0/255.0), blue: (242.0/255.0), alpha: 1).cgColor
+        colorLayer.backgroundColor = AppColors.shimmerEffectLayerColor.cgColor //UIColor(displayP3Red: (238.0/255.0), green: (239.0/255.0), blue: (242.0/255.0), alpha: 1).cgColor
         colorLayer.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height)
         colorLayer.name = "colorLayer"
         view.layer.addSublayer(colorLayer)
         view.autoresizesSubviews = true
         view.clipsToBounds = true
-        
+        view.cornerradius = 2
         // 2. Add loader Layer
         let multiplier = CGFloat(4.0)
         let width = view.frame.width
@@ -568,9 +568,10 @@ extension UIView {
         
         
         let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [UIColor(white: 1.0, alpha: 0.0).cgColor,
-                                UIColor(white: 1.0, alpha: 0.7).cgColor,
-                                UIColor(white: 1.0, alpha: 0.0).cgColor]
+        gradientLayer.colors = [AppColors.unicolorWhite.withAlphaComponent(0).cgColor,
+                                AppColors.shimmerEffectColor.cgColor,
+                                AppColors.unicolorWhite.withAlphaComponent(0).cgColor]
+
         gradientLayer.name = "loaderLayer"
         gradientLayer.startPoint = CGPoint(x: 0, y: 0)
         gradientLayer.endPoint = CGPoint(x: 0, y: 1)
@@ -581,7 +582,6 @@ extension UIView {
         gradientLayer.transform = CATransform3DMakeRotation(radians, 0.0, 0.0, 1.0)
         
         view.layer.addSublayer(gradientLayer)
-        //                 view.layer.addSublayer(gradientLayer)
         
         // 3. Animate loader layer
         let animation = CABasicAnimation(keyPath: "transform.translation.x")
@@ -617,3 +617,8 @@ extension UIView {
     }
 }
 
+extension UIView {
+    func isLightTheme() -> Bool {
+        traitCollection.userInterfaceStyle == .light
+    }
+}

@@ -20,8 +20,8 @@ class BaggageTermsVC : BaseVC {
     @IBOutlet weak var declineButton: UIButton!
     @IBOutlet weak var agreeButton: UIButton!
     @IBOutlet weak var tableHeaderView: UIView!
-    
-    
+    @IBOutlet weak var bottomFooterView: UIView!
+  
     let baggageTermsVM = BaggageTermsVM()
     weak var delegate : AcceptOrDeclineTerms?
     
@@ -31,6 +31,9 @@ class BaggageTermsVC : BaseVC {
             descriptionLabel.text = LocalizedString.emergencySeatDesc.localized
         }
         configureTableView()
+        self.bottomFooterView.backgroundColor = AppColors.themeBlack26
+        self.view.backgroundColor = AppColors.themeBlack26
+        self.baggageTermsTableView.backgroundColor = AppColors.themeWhite
     }
     
     override func setupFonts() {

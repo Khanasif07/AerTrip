@@ -30,6 +30,13 @@ class ATSearchBar: UISearchBar {
             self.hideMiceButton(isHidden: !self.isMicEnabled)
         }
     }
+    
+    var textFieldColor:UIColor = AppColors.themeGray04SearchBar{
+        didSet{
+            self.setupTextField()
+        }
+    }
+    
     private var status = SpeechStatus.ready
     private let audioEngine = AVAudioEngine()
     private let speechRecognizer: SFSpeechRecognizer? = SFSpeechRecognizer()
@@ -87,14 +94,8 @@ class ATSearchBar: UISearchBar {
     private func initialSetup() {
         self.backgroundImage = UIImage()
         
-        if let textField = self.value(forKey: "searchField") as? UITextField {
-            textField.backgroundColor = AppColors.themeGray04
-            textField.font = AppFonts.Regular.withSize(18.0)
-            textField.tintColor = AppColors.themeGreen
-        }
-        
         self.tintColor = AppColors.themeGreen
-        
+        self.setupTextField()
 //        self.micButton = UIButton(frame: CGRect(x: (self.width - self.height) + 15.0, y: 1.0, width: self.height, height: self.height))
 //        self.micButton.setImage(#imageLiteral(resourceName: "ic_search_mic"), for: .normal)
 //       self.micButton.setImage(#imageLiteral(resourceName: "ic_search_mic"), for: .selected)
@@ -106,9 +107,9 @@ class ATSearchBar: UISearchBar {
         
         //self.setImage(#imageLiteral(resourceName: "icClear"), for: .clear, state: .normal)
         //self.showsBookmarkButton = !self.isMicEnabled
-        self.setImage(#imageLiteral(resourceName: "searchBarIcon"), for: .search, state: .normal)
+        self.setImage(AppImages.searchBarIcon, for: .search, state: .normal)
 
-        self.setImage(#imageLiteral(resourceName: "ic_search_mic"), for: .bookmark, state: .normal)
+        self.setImage(AppImages.ic_search_mic, for: .bookmark, state: .normal)
         self.setPositionAdjustment(UIOffset(horizontal: +9, vertical: 0), for: .bookmark)
         self.setPositionAdjustment(UIOffset(horizontal: +3, vertical: 0), for: .search)
 
@@ -122,7 +123,13 @@ class ATSearchBar: UISearchBar {
         
     }
     
-    
+    private func setupTextField(){
+        if let textField = self.value(forKey: "searchField") as? UITextField {
+            textField.backgroundColor = textFieldColor
+            textField.font = AppFonts.Regular.withSize(18.0)
+            textField.tintColor = AppColors.themeGreen
+        }
+    }
     
     func hideMiceButton(isHidden: Bool) {
 //        self.micButton.isHidden = isHidden

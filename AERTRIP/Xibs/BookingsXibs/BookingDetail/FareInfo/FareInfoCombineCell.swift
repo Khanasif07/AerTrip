@@ -26,6 +26,7 @@ class FareInfoCombineCell: UITableViewCell {
         
         combineFareTableView.register(UINib(nibName: "FareInfoCommonCell", bundle: nil), forCellReuseIdentifier: "FareInfoCommonCell")
         combineFareTableView.estimatedRowHeight = 85
+        self.setColor()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -37,6 +38,13 @@ class FareInfoCombineCell: UITableViewCell {
     func configureView(model: BookingFeeDetail) {
         self.model = model
         combineFareTableView.reloadData()
+    }
+    
+    
+    func setColor(){
+        self.combineFareTableView.backgroundColor = AppColors.themeBlack26
+        self.noInfoView.backgroundColor = AppColors.themeBlack26
+        self.contentView.backgroundColor = AppColors.themeBlack26
     }
     
 }

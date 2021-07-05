@@ -33,6 +33,7 @@ class TextEditableTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.contentView.backgroundColor = AppColors.profileContentBackground
         self.titleLabel.font = AppFonts.Regular.withSize(14.0)
         self.editableTextField.font = AppFonts.Regular.withSize(18.0)
         

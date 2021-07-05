@@ -31,7 +31,8 @@ class SeatCollCell: UICollectionViewCell {
     private func initialSetup() {
         seatNumberLbl.textColor = AppColors.themeGray40
         seatView.roundedCorners(cornerRadius: 5)
-        seatView.layer.borderColor = AppColors.themeGray20.cgColor
+        seatView.layer.borderColor = AppColors.seatsBorder.cgColor
+        backgroundColor = AppColors.themeWhite
     }
     
     func setupViewModel(_ seatData: SeatMapModel.SeatMapRow,_ flightFares: (Int, Int),_ setupFor: SeatMapContainerVM.SetupFor) {
@@ -42,10 +43,10 @@ class SeatCollCell: UICollectionViewCell {
         seatNumberLbl.isHidden = true
         switch viewModel.seatData.columnData.availability {
         case .occupied:
-            seatView.backgroundColor = AppColors.themeGray20
+            seatView.backgroundColor = AppColors.seatsGray
             return
         case .blocked, .none:
-            seatView.backgroundColor = AppColors.themeGray20
+            seatView.backgroundColor = AppColors.seatsGray
             toggleUnavailableImgView(false)
             return
         default:    break
@@ -53,11 +54,11 @@ class SeatCollCell: UICollectionViewCell {
         
         seatView.backgroundColor = AppColors.themeWhite
         seatNumberLbl.isHidden = false
-        seatView.layer.borderColor = AppColors.themeGray20.cgColor
+        seatView.layer.borderColor = AppColors.seatsBorder.cgColor
         if let passenger = viewModel.seatData.columnData.passenger {
             seatNumberLbl.text = passenger.firstName.firstCharacter.uppercased() + passenger.lastName.firstCharacter.uppercased()
             seatView.backgroundColor = AppColors.themeGreen
-            seatNumberLbl.textColor = AppColors.themeWhite
+            seatNumberLbl.textColor = .white//
             return
         } else if viewModel.seatData.isPreselected {
             seatView.layer.borderColor = AppColors.themeGreen.cgColor
@@ -65,14 +66,18 @@ class SeatCollCell: UICollectionViewCell {
             seatNumberLbl.textColor = AppColors.themeGray40
             
         } else if viewModel.seatData.columnData.postBooking && viewModel.setupFor == .preSelection {
-            seatView.backgroundColor = AppColors.lightYellow
-            seatNumberLbl.textColor = AppColors.themeGray40
+            seatView.backgroundColor = AppColors.flightsLightYellow
+            seatNumberLbl.textColor = AppColors.postBookingSeatColor
+            seatView.layer.borderWidth = 1
+            seatView.layer.borderColor = AppColors.flightsLightYellowBorder.cgColor
         }
         if viewModel.seatData.columnData.amount < viewModel.flightFares.minAmount {
             seatNumberLbl.text?.removeAll()
             seatNumberLbl.isHidden = true
         } else {
-            seatNumberLbl.textColor = AppColors.blackWith15PerAlpha
+            if !(viewModel.seatData.columnData.postBooking && viewModel.setupFor == .preSelection) {
+                seatNumberLbl.textColor = AppColors.blackWith15PerAlpha
+            }
             seatNumberLbl.isHidden = false
             let seatAmount = viewModel.seatData.columnData.amount
             let fareDiff: Float = Float(viewModel.flightFares.maxAmount - viewModel.flightFares.minAmount)

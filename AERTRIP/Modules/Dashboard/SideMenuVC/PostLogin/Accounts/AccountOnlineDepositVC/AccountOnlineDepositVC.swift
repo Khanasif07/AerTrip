@@ -77,6 +77,7 @@ class AccountOnlineDepositVC: BaseVC {
     
     override func setupColors() {
         self.payButton.setTitleColor(AppColors.themeWhite, for: .normal)
+        self.view.backgroundColor = AppColors.themeWhite
     }
     
     override func bindViewModel() {
@@ -108,8 +109,8 @@ class AccountOnlineDepositVC: BaseVC {
     
     // Setup Image for Pay Button
     private func setUpImage() {
-        self.payButton.setImage(#imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .normal)
-        self.payButton.setImage(#imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .highlighted)
+        self.payButton.setImage(AppImages.whiteBlackLockIcon.withRenderingMode(.alwaysOriginal), for: .normal)
+        self.payButton.setImage(AppImages.whiteBlackLockIcon.withRenderingMode(.alwaysOriginal), for: .highlighted)
         if payButton.imageView != nil{
             self.payButton.bringSubviewToFront(self.payButton.imageView!)
         }
@@ -156,7 +157,7 @@ class AccountOnlineDepositVC: BaseVC {
             
             var config = BulkEnquirySuccessfulVC.ButtonConfiguration()
             config.text = self.payButton.titleLabel?.text ?? ""
-            config.image = #imageLiteral(resourceName: "whiteBlackLockIcon")
+            config.image = AppImages.whiteBlackLockIcon
             config.cornerRadius = 0.0
             config.textFont = AppFonts.SemiBold.withSize(20.0)
             config.width = self.payButton.width
@@ -167,7 +168,7 @@ class AccountOnlineDepositVC: BaseVC {
         else {
             var config = BulkEnquirySuccessfulVC.ButtonConfiguration()
             config.text = self.payButton.titleLabel?.text ?? ""
-            config.image = #imageLiteral(resourceName: "whiteBlackLockIcon")
+            config.image = AppImages.whiteBlackLockIcon
             config.cornerRadius = 0.0
             config.textFont = AppFonts.SemiBold.withSize(20.0)
             config.width = self.payButton.width

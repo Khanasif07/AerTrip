@@ -19,6 +19,8 @@ class CountryCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        backgroundColor = AppColors.themeWhite
+        countryLabel.textColor = AppColors.themeBlack
         self.selectionStyle = .none
         countryLabel.font = AppFonts.Regular.withSize(18)
         flagImageView.layer.borderWidth = 0.3
@@ -36,6 +38,24 @@ class CountryCell: UITableViewCell {
         self.flagImageView.image = country.flagImage
         self.tickImageView.isHidden = isSelected
         self.sepratorView.isHidden = country.countryID != 93
+    }
+    
+    func configureForAppearance(type: AppearanceVM.TableCells) {
+        flagImageView.isHidden = true
+        let appTheme = AppUserDefaults.value(forKey: .appTheme).stringValue
+        let selectedTheme = AppTheme.init(rawValue: appTheme) ?? .system
+        
+        switch type {
+        case .light:
+            countryLabel.text = LocalizedString.lightMode.localized
+            tickImageView.isHidden = selectedTheme != .light
+        case .dark:
+            countryLabel.text = LocalizedString.darkMode.localized
+            tickImageView.isHidden = selectedTheme != .dark
+        case .system:
+            countryLabel.text = LocalizedString.system.localized
+            tickImageView.isHidden = selectedTheme != .system
+        }
     }
     
 }

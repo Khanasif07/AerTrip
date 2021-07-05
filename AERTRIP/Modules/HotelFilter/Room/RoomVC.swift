@@ -46,9 +46,16 @@ class RoomVC: UIViewController {
         setFilterValues()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateSegmentControlTitle()
+    }
+    
     // MARK: - Helper methods
     
     private func doInitialSetUp() {
+        view.backgroundColor = AppColors.themeWhiteDashboard
+        tableView.backgroundColor = AppColors.themeWhiteDashboard
         tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self

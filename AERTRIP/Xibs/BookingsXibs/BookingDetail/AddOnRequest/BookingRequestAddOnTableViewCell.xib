@@ -38,7 +38,7 @@
                                         </constraints>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="2AJ-0U-Cbg" firstAttribute="centerX" secondItem="08G-qm-Wxa" secondAttribute="centerX" id="1bO-3d-WY8"/>
                                     <constraint firstItem="08G-qm-Wxa" firstAttribute="top" secondItem="w2U-aR-aCU" secondAttribute="top" id="ALn-L0-6Kj"/>
@@ -83,7 +83,7 @@
                                 <rect key="frame" x="298" y="16.5" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="YXP-a5-3y4" firstAttribute="leading" secondItem="w2U-aR-aCU" secondAttribute="trailing" constant="9" id="6OW-N8-M2G"/>
                             <constraint firstAttribute="bottom" secondItem="w2U-aR-aCU" secondAttribute="bottom" constant="33" id="CZu-Y1-eHv"/>

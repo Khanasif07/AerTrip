@@ -188,7 +188,7 @@
 
 //MARK:- Texts
 #define DISMISS_TEXT @"Ok"
-#define NO_INTERNET_ERROR @"No internet Connection found, try again"
+#define NO_INTERNET_ERROR @"No internet connection found, try again"
 #define OOPS_ERROR_TITLE @"Oops!"
 #define OOPS_ERROR_MESSAGE @"Oops, something went wrong, please try again!"
 

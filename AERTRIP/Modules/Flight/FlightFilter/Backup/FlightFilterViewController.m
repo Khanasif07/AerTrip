@@ -394,7 +394,7 @@
             cell.subLabel.text = [sortDict objectForKey:@"value"];;
             
             if ([[sortDict objectForKey:@"title"] isEqualToString:[self.flightFilter.sortSelected objectForKey:@"title"]]) {
-                [cell.coreImageView setImage:[UIImage imageNamed:@"greenTick"]];
+                [cell.coreImageView setImage:AppImages.greenTick];
             }else {
                 [cell.coreImageView setImage:nil];
             }
@@ -412,7 +412,7 @@
             cell.titleLabel.text = name;
 
             if ([name isEqualToString:self.flightFilter.stopSelected]) {
-                [cell.coreImageView setImage:[UIImage imageNamed:@"greenTick"]];
+                [cell.coreImageView setImage:AppImages.greenTick];
             }else {
                 [cell.coreImageView setImage:nil];
             }
@@ -434,9 +434,9 @@
             [cell.mainImageView setImage:[UIImage imageNamed:[dictionary objectForKey:@"iconName"]]];
             
             if ([self isAirlineSelected:dictionary]) {
-                [cell.secondaryImageView setImage:[UIImage imageNamed:@"selectOption"]];
+                [cell.secondaryImageView setImage:AppImages.selectOption];
             }else {
-                [cell.secondaryImageView setImage:[UIImage imageNamed:@"unSelectOption"]];
+                [cell.secondaryImageView setImage:AppImages.unSelectOption];
             }
             
             return  cell;
@@ -496,9 +496,9 @@
             cell.titleLabel.text = name;
             
             if ([self isObjectSelected:self.flightFilter.qualitySelectedArray object:name]) {
-                [cell.coreImageView setImage:[UIImage imageNamed:@"selectOption"]];
+                [cell.coreImageView setImage:AppImages.selectOption];
             }else {
-                [cell.coreImageView setImage:[UIImage imageNamed:@"unSelectOption"]];
+                [cell.coreImageView setImage:AppImages.unSelectOption];
             }
             
             return  cell;
@@ -516,9 +516,9 @@
             cell.titleLabel.text = name;
             
             if ([self isObjectSelected:self.flightFilter.apiSelectedArray object:name]) {
-                [cell.coreImageView setImage:[UIImage imageNamed:@"selectOption"]];
+                [cell.coreImageView setImage:AppImages.selectOption];
             }else {
-                [cell.coreImageView setImage:[UIImage imageNamed:@"unSelectOption"]];
+                [cell.coreImageView setImage:AppImages.unSelectOption];
             }
             
             return  cell;
@@ -695,9 +695,9 @@
 
 - (void)setupIsRefundableFareButton {
     if (self.flightFilter.isRefundableFare) {
-        [self.refundableSelectedButton setImage:[UIImage imageNamed:@"selectOption"] forState:UIControlStateNormal];
+        [self.refundableSelectedButton setImage:AppImages.selectOption forState:UIControlStateNormal];
     }else {
-        [self.refundableSelectedButton setImage:[UIImage imageNamed:@"unSelectOption"] forState:UIControlStateNormal];
+        [self.refundableSelectedButton setImage:AppImages.unSelectOption forState:UIControlStateNormal];
     }
 }
 
@@ -757,10 +757,10 @@
 }
 
 - (void)setupImagesToSlider:(MARKRangeSlider *)rangeSlider {
-    [rangeSlider setTrackImage:[UIImage imageNamed:@"greyColorTrack"]];
-    [rangeSlider setLeftThumbImage:[UIImage imageNamed:@"sliderHandle"]];
-    [rangeSlider setRightThumbImage:[UIImage imageNamed:@"sliderHandle"]];
-    [rangeSlider setRangeImage:[UIImage imageNamed:@"greenBlueRangeImage"]];
+    [rangeSlider setTrackImage: AppImages.greyColorTrack];
+    [rangeSlider setLeftThumbImage: AppImages.sliderHandle];
+    [rangeSlider setRightThumbImage: AppImages.sliderHandle];
+    [rangeSlider setRangeImage: AppImages.greenBlueRangeImage];
 }
 - (void)rangeSliderValueDidChange:(MARKRangeSlider *)slider {
     [self setPriceLabels];

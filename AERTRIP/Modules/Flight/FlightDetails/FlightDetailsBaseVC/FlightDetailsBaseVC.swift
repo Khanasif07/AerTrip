@@ -160,6 +160,11 @@ class FlightDetailsBaseVC: BaseVC {
         }
     }
     
+    override func setupColors() {
+        self.displayView.backgroundColor = AppColors.flightResultsFooterSecondaryColor
+        self.dataDisplayView.backgroundColor = AppColors.flightResultsFooterSecondaryColor
+    }
+    
     deinit {
         self.fareBreakup = nil
         self.intFareBreakup = nil
@@ -239,15 +244,17 @@ class FlightDetailsBaseVC: BaseVC {
         self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 100, height: 49)
         self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 0.0))
         self.parchmentView?.borderOptions = PagingBorderOptions.visible(
-            height: 0.5,
+            height: 1.0,
             zIndex: Int.max - 1,
             insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
         
         self.parchmentView?.font = AppFonts.Regular.withSize(16)
         self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16)
         self.parchmentView?.indicatorColor = UIColor.AertripColor
-        self.parchmentView?.selectedTextColor = .black
-        self.parchmentView?.menuBackgroundColor = .white
+        self.parchmentView?.selectedTextColor = AppColors.themeBlack
+        self.parchmentView?.textColor = AppColors.themeBlack
+        self.parchmentView?.menuBackgroundColor = .clear
+        self.parchmentView?.borderColor = AppColors.dividerColor
         self.dataDisplayView.addSubview(self.parchmentView!.view)
         
         self.parchmentView?.collectionView.isScrollEnabled = false
@@ -350,11 +357,11 @@ class FlightDetailsBaseVC: BaseVC {
                     if journey[i].isPinned == true{
                         journey[i].isPinned = false
                         isPinned = false
-                        pinButton.setImage(UIImage(named: "pinGreen"), for: .normal)
+                        pinButton.setImage(AppImages.pinGreen, for: .normal)
                     }else{
                         journey[i].isPinned = true
                         isPinned = true
-                        pinButton.setImage(UIImage(named: "FilledpinGreen"), for: .normal)
+                        pinButton.setImage(AppImages.FilledpinGreen, for: .normal)
                     }
                 }
             }
@@ -363,9 +370,9 @@ class FlightDetailsBaseVC: BaseVC {
         }else{
             if let journey = self.intJourney?.first{
                 if journey.isPinned{
-                    pinButton.setImage(UIImage(named: "pinGreen"), for: .normal)
+                    pinButton.setImage(AppImages.pinGreen, for: .normal)
                 }else{
-                    pinButton.setImage(UIImage(named: "FilledpinGreen"), for: .normal)
+                    pinButton.setImage(AppImages.FilledpinGreen, for: .normal)
                 }
                 var newJourney = journey
                 newJourney.isPinned = !journey.isPinned
@@ -470,9 +477,9 @@ extension FlightDetailsBaseVC{
             flights = journey.first?.leg.first?.flights
             for i in 0...journey.count-1{
                 if (journey[i].isPinned ?? false){
-                    pinButton.setImage(UIImage(named: "FilledpinGreen"), for: .normal)
+                    pinButton.setImage(AppImages.FilledpinGreen, for: .normal)
                 }else{
-                    pinButton.setImage(UIImage(named: "pinGreen"), for: .normal)
+                    pinButton.setImage(AppImages.pinGreen, for: .normal)
                 }
                 if journey[i].fsr == 1{
                     isFSRVisible = true
@@ -487,7 +494,7 @@ extension FlightDetailsBaseVC{
             for legs in journey.legsWithDetail{
                 self.intFlights?.append(contentsOf: legs.flightsWithDetails)
             }
-            let img = (journey.isPinned) ? UIImage(named: "FilledpinGreen") : UIImage(named: "pinGreen")
+            let img = (journey.isPinned) ? AppImages.FilledpinGreen : AppImages.pinGreen
             pinButton.setImage(img, for: .normal)
             isFSRVisible = (journey.fsr == 1)
         }
@@ -826,8 +833,20 @@ extension FlightDetailsBaseVC : getBaggageDimentionsDelegate
         let section = sender.tag / 100
         let row = sender.tag % 100
         if let baggageData = baggage[section][row]["baggageData"] as? JSONDictionary{
-            if let cbgData = baggageData["cbg"] as? JSONDictionary{
-                if let adtCabinBaggage = cbgData["ADT"] as? JSONDictionary{
+            var cbgDict = JSONDictionary()
+            if baggageData.count == 1{
+                if let dict = baggageData.first?.value as? JSONDictionary{
+                    if let cbgData = dict["cbg"] as? JSONDictionary{
+                        cbgDict = cbgData
+                    }
+                }
+            }else{
+                if let cbgData = baggageData["cbg"] as? JSONDictionary{
+                    cbgDict = cbgData
+                }
+            }
+            if cbgDict.count > 0{
+                if let adtCabinBaggage = cbgDict["ADT"] as? JSONDictionary{
                     if let weight = adtCabinBaggage["weight"] as? String{
                         baggageDimensionVC.weight = weight
                     }
@@ -871,7 +890,7 @@ extension FlightDetailsBaseVC : GetSharableUrlDelegate
 {
     func returnSharableUrl(url: String)
     {
-        shareButton.setImage(UIImage(named: "ShareGreen"), for: .normal)
+        shareButton.setImage(AppImages.ShareGreen, for: .normal)
         shareButton.displayLoadingIndicator(false)
         
         if url.lowercased() == "no data"{

@@ -16,6 +16,8 @@ class PriceSliderCell: UITableViewCell {
     @IBOutlet weak var maximumPriceView: UIView!
     @IBOutlet weak var maximumPriceLabel: UILabel!
     @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var separatorView: ATDividerView!
+    @IBOutlet weak var showPriceLbl: UILabel!
     
     let horizontalMultiSlider = MultiSlider()
     
@@ -34,11 +36,12 @@ class PriceSliderCell: UITableViewCell {
     }
     
     func setupColors() {
-        titleLabel.textColor = AppColors.themeGray40
+        titleLabel.textColor = AppColors.themeGray153
         minimumPriceLabel.textColor = AppColors.themeBlack
         maximumPriceLabel.textColor = AppColors.themeBlack
-        minimumPriceView.backgroundColor = AppColors.themeGray10
-        maximumPriceView.backgroundColor = AppColors.themeGray10
+        minimumPriceView.backgroundColor = AppColors.flightFilterHighlightColor
+        maximumPriceView.backgroundColor = AppColors.flightFilterHighlightColor
+        showPriceLbl.textColor = AppColors.themeGray153
     }
     
     func setupFonts() {

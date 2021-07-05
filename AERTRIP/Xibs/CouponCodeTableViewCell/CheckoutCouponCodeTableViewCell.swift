@@ -34,17 +34,20 @@ class CheckoutCouponCodeTableViewCell: UITableViewCell {
     }
     @IBOutlet weak var offerTermsButton: UIButton!
     @IBOutlet weak var dividerView: ATDividerView! 
-    
+    @IBOutlet weak var dividerLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var dividerTrailingConstraint: NSLayoutConstraint!
     //Mark:- LifeCycle
     //================
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configUI()
+        self.setupColors()
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         self.couponInfoTextView.attributedText = nil
+        self.setupColors()
     }
     
     //Mark:- Functions
@@ -56,10 +59,10 @@ class CheckoutCouponCodeTableViewCell: UITableViewCell {
         self.offerTermsButton.titleLabel?.font = AppFonts.SemiBold.withSize(14.0)
         //Colors
         self.offerTermsButton.setTitleColor(AppColors.themeGreen, for: .normal)
-        self.discountLabel.textColor = AppColors.themeOrange
+        self.discountLabel.textColor = AppColors.cheapestPriceColor
         self.couponInfoTextView.textColor = AppColors.textFieldTextColor51
         //Images
-        self.checkMarkImageView.image = #imageLiteral(resourceName: "UncheckedGreenRadioButton")
+        self.checkMarkImageView.image = AppImages.UncheckedGreenRadioButton
         
         self.discountLabel.font = AppFonts.Regular.withSize(18.0)
         self.offerTermsButton.isHidden = true
@@ -110,7 +113,7 @@ class CheckoutCouponCodeTableViewCell: UITableViewCell {
 
     private func discountTextSetUp(price: String, endText: String) {
         let attributedString = NSMutableAttributedString()
-        let orangeAttribut = [NSAttributedString.Key.font: AppFonts.Regular.withSize(18.0), NSAttributedString.Key.foregroundColor: AppColors.themeOrange] as [NSAttributedString.Key : Any]
+        let orangeAttribut = [NSAttributedString.Key.font: AppFonts.Regular.withSize(18.0), NSAttributedString.Key.foregroundColor: AppColors.cheapestPriceColor] as [NSAttributedString.Key : Any]
         let startTextAttributedString = NSAttributedString(string: "\(LocalizedString.Save.localized) ", attributes: orangeAttribut)
         let asStylizedPrice = price.asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
         let endTextAttributedString = NSAttributedString(string: endText , attributes: orangeAttribut)
@@ -119,6 +122,13 @@ class CheckoutCouponCodeTableViewCell: UITableViewCell {
         attributedString.append(endTextAttributedString)
         self.discountLabel.attributedText = attributedString
     }
+    
+    
+    private func setupColors(){
+        self.contentView.backgroundColor = AppColors.themeBlack26
+        self.couponInfoTextView.backgroundColor = AppColors.themeBlack26
+    }
+    
     
     internal func configCell(currentCoupon: HCCouponModel) {
         self.attributeLabelSetUp(couponCode: currentCoupon.couponTitle)

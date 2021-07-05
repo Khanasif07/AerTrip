@@ -84,6 +84,14 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraintMainView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 
+@property (weak, nonatomic) IBOutlet UIView *headerView;
+@property (weak, nonatomic) IBOutlet UIView *formToCenterView;
+@property (weak, nonatomic) IBOutlet UIView *onwardReturnView;
+@property (weak, nonatomic) IBOutlet UIView *onwardDateView;
+@property (weak, nonatomic) IBOutlet UIView *returnDateView;
+@property (weak, nonatomic) IBOutlet UIView *passengerContainerView;
+@property (weak, nonatomic) IBOutlet UIView *classContainerView;
+
 
 
 @property (strong , nonatomic) CLLocationManager * locationManager;
@@ -143,6 +151,7 @@ CGFloat animatedDistance;
 
     [self setupFlightSection];
     [self handleLoginState];
+    [self setupColor];
     self.submitButton.layer.masksToBounds = NO;
     [self.submitButton configureCommonGreenButton];
 }
@@ -250,6 +259,25 @@ CGFloat animatedDistance;
     [self cancelAction:nil];
 }
 
+
+-(void)setupColor{
+    self.bottomView.backgroundColor = [UIColor WHITE_COLOR];
+    self.contentView.backgroundColor = [UIColor themeBlack26];
+    self.headerView.backgroundColor = [UIColor clearColor];//[UIColor doneViewClearColor];
+    self.FromToView.backgroundColor = [UIColor themeBlack26];
+    self.formToCenterView.backgroundColor = [UIColor themeBlack26];
+    self.onwardReturnView.backgroundColor = [UIColor themeBlack26];
+    self.onwardDateView.backgroundColor = [UIColor themeBlack26];
+    self.returnDateView.backgroundColor = [UIColor themeBlack26];
+    self.passengerContainerView.backgroundColor = [UIColor themeBlack26];
+    self.classContainerView.backgroundColor = [UIColor themeBlack26];
+    self.contentView.layer.masksToBounds = true;
+    self.contentView.layer.cornerRadius = 10;
+    self.contentView.layer.maskedCorners = kCALayerMinXMaxYCorner | kCALayerMaxXMaxYCorner;
+    self.multicityRemoveLabel.textColor = [UIColor muticityAddRemoveTextColor];
+    self.multicityRemoveLabel.textColor = [UIColor muticityAddRemoveTextColor];
+}
+
 - (void)setupSegmentControl {
     if (self.segmentTitleSectionArray.count == 0) self.segmentTitleSectionArray = [@[@"Oneway"] mutableCopy];
     
@@ -265,7 +293,7 @@ CGFloat animatedDistance;
     self.flightSegmentedControl.verticalDividerEnabled = NO;
     self.flightSegmentedControl.selectionIndicatorColor = [self getAppColor];
     
-    self.flightSegmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor FIVE_ONE_COLOR], NSFontAttributeName:[UIFont fontWithName:@"SourceSansPro-Regular" size:16]};
+    self.flightSegmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor ONE_FIVE_THREE_COLOR], NSFontAttributeName:[UIFont fontWithName:@"SourceSansPro-Regular" size:16]};
     
     self.flightSegmentedControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : [UIColor FIVE_ONE_COLOR], NSFontAttributeName:[UIFont fontWithName:@"SourceSansPro-Semibold" size:16]};
     
@@ -617,7 +645,7 @@ CGFloat animatedDistance;
         self.onwardsSubTitleLabel.hidden = YES;
     }
     if (self.isReturn) {
-        [self.ReturnLabelCenter setTextColor:[ UIColor ONE_FIVE_THREE_COLOR] ];
+        [self.ReturnLabelCenter setTextColor:[ UIColor flightFormReturnEnableColor]];
         if (self.formDataModel.returnDate != nil) {
             
             self.returnValueLabel.hidden = NO;
@@ -636,7 +664,7 @@ CGFloat animatedDistance;
         }
     }else {
 
-        [self.ReturnLabelCenter setTextColor:[UIColor TWO_THREE_ZERO_COLOR]];
+        [self.ReturnLabelCenter setTextColor:[UIColor flightFormReturnDisableColor]];
         self.returnValueLabel.hidden = YES;
         self.returnSubTitleLabel.hidden = YES;
         self.returnLabel.hidden = YES;
@@ -689,7 +717,7 @@ CGFloat animatedDistance;
 }
 
 - (void)setupFlightClassType {
-    [self.flightClassTypeImageView setImage:[UIImage imageNamed:[self getImageNameForFlightClass:self.formDataModel.flightClass]]];
+    [self.flightClassTypeImageView setImage:[self getImageForFlightClass:self.formDataModel.flightClass]];
     self.flightClassTypeLabel.text = self.formDataModel.flightClass.name;
     
     if ([self.formDataModel.flightClass.type isEqualToString:PREMIUM_FLIGHT_TYPE]) {
@@ -697,21 +725,21 @@ CGFloat animatedDistance;
     }
 }
 
-- (NSString *)getImageNameForFlightClass:(FlightClass *)flightClass {
+- (UIImage *)getImageForFlightClass:(FlightClass *)flightClass {
     
     if ([flightClass.type isEqualToString:ECONOMY_FLIGHT_TYPE]) {
-        return @"EconomyClassBlack";
+        return AppImages.EconomyClassBlack;
     }else if ([flightClass.type isEqualToString:BUSINESS_FLIGHT_TYPE]) {
-        return @"BusinessClassBlack";
+        return AppImages.BusinessClassBlack;
         
     }else if ([flightClass.type isEqualToString:PREMIUM_FLIGHT_TYPE]) {
-        return @"PreEconomyClassBlack";
+        return AppImages.PreEconomyClassBlack;
         
     }else if ([flightClass.type isEqualToString:FIRST_FLIGHT_TYPE]) {
-        return @"FirstClassBlack";
+        return AppImages.FirstClassBlack;
         
     }
-    return @"";
+    return AppImages.EconomyClassBlack;
 }
 
 - (void)setupSubmitButton {
@@ -1519,6 +1547,7 @@ CGFloat animatedDistance;
     cell.flightLegRow = flightLegRow;
     [cell setupFromAndToView];
     [cell setupDateView];
+    [cell setColorForFromView];
     return cell;
 }
 

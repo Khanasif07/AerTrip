@@ -32,7 +32,8 @@ class HotelTagCollectionCell: UICollectionViewCell {
     
     ///ConfigureUI
     private func configureUI() {
-        self.backgroundColor = AppColors.screensBackground.color
+//        self.backgroundColor = AppColors.clear
+//        self.contentView.backgroundColor = AppColors.clear
         self.containerView.layer.cornerRadius = 14.0
         self.containerView.layer.borderWidth = 0.6
         self.containerView.layer.masksToBounds = true
@@ -43,7 +44,7 @@ class HotelTagCollectionCell: UICollectionViewCell {
         self.tagOptionNameLabel.tintColor = AppColors.themeGreen
         //Font
         self.tagOptionNameLabel.font = AppFonts.SemiBold.withSize(16.0)
-        self.cancelButton.setImage(#imageLiteral(resourceName: "cross_icon").withRenderingMode(.alwaysTemplate), for: .normal)
+        self.cancelButton.setImage(AppImages.cross_icon.withRenderingMode(.alwaysTemplate), for: .normal)
         self.cancelButton.imageView?.contentMode = .scaleAspectFit
         self.cancelButton.imageEdgeInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
         self.cancelButton.contentEdgeInsets = UIEdgeInsets(top: 0.0, left: 6.0, bottom: 0.0, right: -2.0)

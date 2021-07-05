@@ -17,6 +17,9 @@ class TravellerListTableViewSectionView: UITableViewHeaderFooterView {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        headerLabel.textColor = AppColors.blackAndThemeGray
+
     }
     func configureCell(_ title: String) {
         headerLabel.text = title.capitalizedFirst()
@@ -25,6 +28,6 @@ class TravellerListTableViewSectionView: UITableViewHeaderFooterView {
     func clearDividerAndBackgroundColor() {
         topSepratorView.isHidden = true
         bottomSepratorView.isHidden = true
-        containerView.backgroundColor = UIColor.white
+        containerView.backgroundColor = AppColors.themeWhite
     }
 }

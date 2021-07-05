@@ -18,10 +18,10 @@ class FlightBookingsDetailsVC: BaseVC {
     let viewModel = BookingProductDetailVM()
     var headerView: OtherBookingDetailsHeaderView?
     var eventTypeImage: UIImage {
-        return #imageLiteral(resourceName: "flightIconDetailPage")
+        return AppImages.flightIconDetailPage
     }
     var eventTypeNavigationBarImage: UIImage {
-        return #imageLiteral(resourceName: "BookingDetailFlightNavIcon")
+        return AppImages.BookingDetailFlightNavIcon
     }
     
     
@@ -73,9 +73,9 @@ class FlightBookingsDetailsVC: BaseVC {
     override func initialSetup() {
         self.topNavBarHeightConstraint.constant = self.navBarHeight
         self.topNavBar.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: true, isDivider: false, backgroundType: .color(color: .white))
-        self.topNavBar.configureLeftButton(normalImage: #imageLiteral(resourceName: "backGreen"), selectedImage: #imageLiteral(resourceName: "backGreen"))
+        self.topNavBar.configureLeftButton(normalImage: AppImages.backGreen, selectedImage: AppImages.backGreen)
         self.topNavBar.navTitleLabel.numberOfLines = 1
-        //self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "greenPopOverButton"), selectedImage: #imageLiteral(resourceName: "greenPopOverButton"))
+        //self.topNavBar.configureFirstRightButton(normalImage: AppImages.greenPopOverButton, selectedImage: AppImages.greenPopOverButton)
         self.topNavBar.configureFirstRightButton(normalTitle: LocalizedString.Request.localized, normalColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18))
         self.topNavBar.isNeedExtraSpace = true
         self.headerView = OtherBookingDetailsHeaderView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 147.0))
@@ -135,6 +135,11 @@ class FlightBookingsDetailsVC: BaseVC {
                 self.getBookingDetailSucces(showProgress: false)
             }
         }
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.bookingDetailsTableView.reloadData()
     }
     
     // MARK: - Functions

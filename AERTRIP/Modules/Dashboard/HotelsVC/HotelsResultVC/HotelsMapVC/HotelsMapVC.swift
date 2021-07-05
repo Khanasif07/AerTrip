@@ -67,7 +67,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     // Searching View
     @IBOutlet weak var hotelSearchView: UIView! {
         didSet {
-            self.hotelSearchView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.4)
+            self.hotelSearchView.backgroundColor = UIColor.black.withAlphaComponent(0.4)
             self.hotelSearchView.isUserInteractionEnabled = true
         }
     }
@@ -212,14 +212,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         searchBar.setTextField(color: UIColor(displayP3Red: 153/255, green: 153/255, blue: 153/255, alpha: 0.12))
         self.setUpLongPressOnFilterButton()
         
-        self.gradientLayer = CAGradientLayer()
-        self.gradientLayer?.frame = self.cardGradientView.bounds
-        let gradientColor = AppColors.themeWhite
-        self.gradientLayer?.colors =
-            [gradientColor.withAlphaComponent(0.0).cgColor, gradientColor.withAlphaComponent(0.5).cgColor, gradientColor.withAlphaComponent(1.0).cgColor]
-        self.gradientLayer?.locations = [0.0, 0.5, 1.0]
-        self.cardGradientView.layer.addSublayer(self.gradientLayer!)
-        self.cardGradientView.backgroundColor = AppColors.clear
+        addGradientToCardGradientView()
         self.additionalSafeAreaInsets = .zero
         self.addMapView()
         self.appleMap.delegate = self
@@ -235,6 +228,23 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         }
     }
     
+    private func addGradientToCardGradientView() {
+        
+        if let gLayer = gradientLayer {
+            gLayer.removeFromSuperlayer()
+            gradientLayer = nil
+        }
+        
+        self.gradientLayer = CAGradientLayer()
+        self.gradientLayer?.frame = self.cardGradientView.bounds
+        let gradientColor = AppColors.themeWhite
+        self.gradientLayer?.colors =
+            [gradientColor.withAlphaComponent(0.0).cgColor, gradientColor.withAlphaComponent(0.5).cgColor, gradientColor.withAlphaComponent(1.0).cgColor]
+        self.gradientLayer?.locations = [0.0, 0.5, 1.0]
+        self.cardGradientView.layer.addSublayer(self.gradientLayer!)
+        self.cardGradientView.backgroundColor = AppColors.clear
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.statusBarColor = AppColors.clear
@@ -247,6 +257,11 @@ class HotelsMapVC: StatusBarAnimatableViewController {
             self.isNeedToReload = false
         }
         
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        addGradientToCardGradientView()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -324,7 +339,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         backVisualEfectView.effect = UIBlurEffect(style: .prominent)
         backVisualEfectView.autoresizingMask = [.flexibleWidth,.flexibleHeight]
         
-        backContainerView.backgroundColor = UIColor.white.withAlphaComponent(0.85)
+        backContainerView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
         //backContainerView.addSubview(backVisualEfectView)
         
         
@@ -392,8 +407,8 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         self.switchView.selectedBorderWidth = 0.0//1.5
         self.switchView.iconBorderWidth = 0.0
         self.switchView.iconBorderColor = AppColors.clear
-        self.switchView.originalImage = #imageLiteral(resourceName: "switch_fav_on").maskWithColor(color: UIColor(displayP3Red: 0.8470588235, green: 0.8470588235, blue: 0.8470588235, alpha: 1))
-        self.switchView.selectedImage = #imageLiteral(resourceName: "switch_fav_on")
+        self.switchView.originalImage = AppImages.switch_fav_on.maskWithColor(color: UIColor(displayP3Red: 0.8470588235, green: 0.8470588235, blue: 0.8470588235, alpha: 1))
+        self.switchView.selectedImage = AppImages.switch_fav_on
         self.switchView.isBackgroundBlurry = true
         */
         self.switchGradientView.backgroundColor = AppColors.clear

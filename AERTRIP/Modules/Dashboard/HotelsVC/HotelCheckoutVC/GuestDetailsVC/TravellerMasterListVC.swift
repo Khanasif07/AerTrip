@@ -130,6 +130,8 @@ extension TravellerMasterListVC: UITableViewDelegate, UITableViewDataSource {
             return nil
         }
         headerView.configureCell(self.viewModel.tableSectionArray[section])
+        headerView.headerLabel.textColor = AppColors.themeBlack
+        headerView.containerView.backgroundColor = AppColors.themeWhiteDashboard
         return headerView
     }
     

@@ -48,7 +48,6 @@ class FavouriteHotelsListVC: BaseVC {
     //MARK:- Methods
     //MARK:- Private
     private func initialSetups() {
-        
         self.collectionView.register(UINib(nibName: "HotelCardCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "HotelCardCollectionViewCell")
         self.collectionView.register(UINib(nibName: "HotelsRemoveAllCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "HotelsRemoveAllCollectionViewCell")
         self.collectionView.dataSource = self
@@ -56,6 +55,8 @@ class FavouriteHotelsListVC: BaseVC {
         self.collectionView.backgroundView = self.emptyView
         self.collectionView.backgroundView?.isHidden = true
         self.dividerView.isHidden = false
+        self.collectionView.backgroundColor = AppColors.themeWhite
+        self.view.backgroundColor = AppColors.themeWhite
     }
     
     //MARK:- Public

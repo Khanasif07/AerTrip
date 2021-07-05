@@ -24,6 +24,9 @@ class PassportExampleVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        crossButton.setImage(UIImage(named: "GrayCross"), for: .normal)
+        
         UIView.animate(withDuration: 0.33, animations: {
             self.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
             self.containerView.transform = CGAffineTransform.identity
@@ -34,6 +37,7 @@ class PassportExampleVC: UIViewController {
         self.exampleLabel.text = "Example"
         self.exampleLabel.font = AppFonts.SemiBold.withSize(18)
         self.exampleLabel.textColor = AppColors.themeBlack
+        self.containerView.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     static func showMe(){

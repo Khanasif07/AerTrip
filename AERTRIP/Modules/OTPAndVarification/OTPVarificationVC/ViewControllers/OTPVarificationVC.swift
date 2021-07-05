@@ -106,6 +106,7 @@ class OTPVarificationVC: BaseVC {
         self.transparentBackView.backgroundColor = UIColor.clear
         self.transparentBackView.transform = CGAffineTransform(translationX: 0, y: transparentBackView.height)
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
+        self.containerView.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     private func transformViewToOriginalState() {

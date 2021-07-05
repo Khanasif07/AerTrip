@@ -96,8 +96,9 @@ class FinalCheckOutVC: BaseVC {
     }
     
     override func setupColors() {
-        self.payButton.setTitleColor(AppColors.themeWhite, for: .normal)
-        self.payButton.setTitleColor(AppColors.themeWhite, for: .highlighted)
+        self.payButton.setTitleColor(AppColors.unicolorWhite, for: .normal)
+        self.payButton.setTitleColor(AppColors.unicolorWhite, for: .highlighted)
+        self.view.backgroundColor = AppColors.themeWhite
 
     }
     
@@ -464,8 +465,8 @@ class FinalCheckOutVC: BaseVC {
     // Setup Image for Pay Button
     private func setUpImage(showImage: Bool = true) {
         if showImage {
-            self.payButton.setImage( #imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .normal)
-            self.payButton.setImage( #imageLiteral(resourceName: "whiteBlackLockIcon").withRenderingMode(.alwaysOriginal), for: .highlighted)
+            self.payButton.setImage( AppImages.whiteBlackLockIcon.withRenderingMode(.alwaysOriginal), for: .normal)
+            self.payButton.setImage( AppImages.whiteBlackLockIcon.withRenderingMode(.alwaysOriginal), for: .highlighted)
             if self.payButton.imageView != nil{
                 self.payButton.bringSubviewToFront(self.payButton.imageView!)
             }
@@ -570,7 +571,7 @@ class FinalCheckOutVC: BaseVC {
     
     private func manageLoader(shouldStart: Bool) {
         self.indicatorView.style = .medium//.white
-        self.indicatorView.color = AppColors.themeWhite
+        self.indicatorView.color = AppColors.unicolorWhite
         self.indicatorView.startAnimating()
         
         self.loaderContainer.isHidden = !shouldStart

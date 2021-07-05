@@ -21,6 +21,8 @@ class IntReturnAndMCSortVC: UIViewController, FilterViewController {
         
         initialSetup()
     }
+    
+  
 
     //MARK:- Additional setup methods
     fileprivate func setupTableView ()
@@ -57,6 +59,11 @@ class IntReturnAndMCSortVC: UIViewController, FilterViewController {
         viewModel.curSelectedIndex = 0
         viewModel.vmDelegate = self
         viewModel.setAppliedSortFromDeepLink()
+        setUpColor()
+    }
+    
+    func setUpColor(){
+        self.view.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     func resetFilter() {
@@ -81,6 +88,9 @@ extension IntReturnAndMCSortVC : UITableViewDataSource , UITableViewDelegate {
         
         let cell = UITableViewCell()
         cell.selectionStyle = .none
+        cell.backgroundColor = AppColors.themeWhiteDashboard
+        cell.contentView.backgroundColor = AppColors.themeWhiteDashboard
+        
         switch indexPath.row {
         case 0..<3:
             cell.textLabel?.attributedText = self.viewModel.getAttributedStringFor(index: indexPath.row)
@@ -96,7 +106,7 @@ extension IntReturnAndMCSortVC : UITableViewDataSource , UITableViewDelegate {
         cell.accessoryView = nil
         
         if viewModel.curSelectedIndex == indexPath.row {
-            cell.accessoryView = UIImageView(image: UIImage(named: "greenTick"))
+            cell.accessoryView = UIImageView(image: AppImages.greenTick)
         }
         
         return cell

@@ -113,6 +113,11 @@ class RegularAccountDetailsVC: BaseVC {
         }
     }
     
+    
+    override func setupColors() {
+        self.view.backgroundColor = AppColors.themeWhite
+    }
+    
     @objc func accountDetailFetched(_ note: Notification) {
         if let object = note.object as? AccountDetailPostModel {
             printDebug("accountDetailFetched")
@@ -177,8 +182,8 @@ class RegularAccountDetailsVC: BaseVC {
         let navTitle = LocalizedString.Accounts.localized
         self.topNavView.configureNavBar(title: navTitle, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: true, isDivider: false)
         self.topNavView.delegate = self
-        self.topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "greenPopOverButton"), selectedImage: #imageLiteral(resourceName: "greenPopOverButton"))
-        self.topNavView.configureSecondRightButton(normalImage: #imageLiteral(resourceName: "bookingFilterIcon"), selectedImage: #imageLiteral(resourceName: "bookingFilterIconSelected"))
+        self.topNavView.configureFirstRightButton(normalImage: AppImages.greenPopOverButton, selectedImage: AppImages.greenPopOverButton)
+        self.topNavView.configureSecondRightButton(normalImage: AppImages.bookingFilterIcon, selectedImage: AppImages.bookingFilterIconSelected)
         self.setNaviagationAndTitle(isNavFilter: false)
     }
     

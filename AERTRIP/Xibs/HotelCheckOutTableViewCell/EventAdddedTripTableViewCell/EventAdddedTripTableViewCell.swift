@@ -31,7 +31,7 @@ class EventAdddedTripTableViewCell: UITableViewCell {
     //Mark:- Functions
     //================
     private func configUI() {
-        self.eventImageView.image = #imageLiteral(resourceName: "trips").withRenderingMode(.alwaysTemplate)
+        self.eventImageView.image = AppImages.trips.withRenderingMode(.alwaysTemplate)
         self.eventImageView.tintColor = AppColors.brightViolet
         //Font
         self.eventAddedLabel.font = AppFonts.Regular.withSize(14.0)
@@ -43,6 +43,7 @@ class EventAdddedTripTableViewCell: UITableViewCell {
         self.changeButtonLabel.setTitleColor(AppColors.themeGreen, for: .normal)
         //Text
         self.changeButtonLabel.setTitle(LocalizedString.Change.localized, for: .normal)
+        self.contentView.backgroundColor = AppColors.themeBlack26
     }
 
     internal func configCell(tripName: String) {

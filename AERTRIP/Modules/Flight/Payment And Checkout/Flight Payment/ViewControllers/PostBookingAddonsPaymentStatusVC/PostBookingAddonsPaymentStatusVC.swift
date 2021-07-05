@@ -44,6 +44,9 @@ class PostBookingAddonsPaymentStatusVC: BaseVC {
         self.gradientView.addGredient(isVertical: false)
     }
     
+    override func setupColors() {
+        self.view.backgroundColor = AppColors.themeBlack26
+    }
     
     func registerCell(){
         self.paymentTable.registerCell(nibName: SeatBookingStatusCell.reusableIdentifier)
@@ -268,7 +271,8 @@ extension PostBookingAddonsPaymentStatusVC: UITableViewDelegate, UITableViewData
             cell.configCell(travellersImage: "", travellerName: "\(pax.salutation) \(pax.firstName) \(pax.lastName)", travellerPnrStatus: pnr, firstName: (pax.firstName), lastName: (pax.lastName), isLastTraveller: islast,paxType: "", dob: "", salutation: pax.salutation)
             
         }
-        
+        cell.contentView.backgroundColor = AppColors.themeBlack26
+        cell.containerView.backgroundColor = AppColors.themeBlack26
         cell.clipsToBounds = true
         return cell
     }
@@ -279,6 +283,8 @@ extension PostBookingAddonsPaymentStatusVC: UITableViewDelegate, UITableViewData
         
         let title = self.viewModel.cellDataToShow[indexPath.section - 1][indexPath.row].flight.route
         cell.configCell(title: title, type: "Seat")
+        cell.contentView.backgroundColor = AppColors.themeBlack26
+        cell.containerView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     

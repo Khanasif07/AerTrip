@@ -16,6 +16,7 @@
 @property (strong, nonatomic) FlightClass *selectedFlightClass;
 @property (assign, nonatomic) CGFloat primaryDuration;
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
+@property (weak, nonatomic) IBOutlet UIVisualEffectView *visualEffectsView;
 
 @end
 
@@ -42,6 +43,11 @@
     [self animateBottomViewIn];
     
 }
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
+    [self manageDoneView];
+}
+
 - (void)createFlightClasses {
     self.classArray = [[NSMutableArray alloc] init];
     
@@ -81,7 +87,9 @@
     [self setupBackgroundView];
     [self makeTopCornersRounded:self.bottomView withRadius:10.0];
     [self applyShadowToDoneView];
-    
+    [self manageDoneView];
+    self.bottomView.backgroundColor = [UIColor themeWhiteDashboard];
+    self.classTableView.backgroundColor = [UIColor themeWhiteDashboard];
     [self.doneButton setTitleColor:[UIColor AertripColor] forState:UIControlStateNormal];
     [self.doneButton setTitleColor:[UIColor TWO_ZERO_FOUR_COLOR] forState:UIControlStateDisabled];
 }
@@ -121,6 +129,16 @@
     [self.classTableView reloadData];
 }
 
+- (void) manageDoneView{
+    self.doneView.backgroundColor = [UIColor doneViewClearColor];
+//    if (self.isLightTheme){
+//        [self.visualEffectsView setHidden: false];
+//    }else{
+//        [self.visualEffectsView setHidden: true];
+//    }
+}
+
+
 //MARK:- TABLE VIEW
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -144,58 +162,93 @@
         cell = [[TwoImageViewAndLabelTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.contentView.backgroundColor = [UIColor themeWhiteDashboard];
     FlightClass *flightClass = self.classArray[indexPath.row];
     cell.mainLabel.text = flightClass.name;
     if ([self.selectedFlightClass.type isEqualToString:flightClass.type]) {
         cell.secondaryImageView.hidden = NO;
-        cell.secondaryImageView.image = [UIImage imageNamed:@"greenTick"];
+        cell.secondaryImageView.image = AppImages.greenTick;
         [cell.mainLabel setFont:[UIFont fontWithName:@"SourceSansPro-Semibold" size:18.0]];
         cell.mainLabel.textColor = [UIColor AertripColor];
-        cell.mainImageView.image = [UIImage imageNamed:[self getImageNameForFlightClass:flightClass isSelected:YES]];
+        cell.mainImageView.image = [self getImageForFlightClass:flightClass isSelected:YES];
         
     }else {
         [cell.mainLabel setFont:[UIFont fontWithName:@"SourceSansPro-Regular" size:18.0]];
         cell.mainLabel.textColor = [UIColor FIVE_ONE_COLOR];
         cell.secondaryImageView.hidden = YES;
-        cell.mainImageView.image = [UIImage imageNamed:[self getImageNameForFlightClass:flightClass isSelected:NO]];
+        cell.mainImageView.image = [self getImageForFlightClass:flightClass isSelected:NO];
 
     }
     return cell;
 }
 
 
-- (NSString *)getImageNameForFlightClass:(FlightClass *)flightClass isSelected:(BOOL) isSelected{
+//- (NSString *)getImageNameForFlightClass:(FlightClass *)flightClass isSelected:(BOOL) isSelected{
+//
+//    if (isSelected) {
+//        if ([flightClass.type isEqualToString:ECONOMY_FLIGHT_TYPE]) {
+//            return @"EconomyClassGreen";
+//        }else if ([flightClass.type isEqualToString:BUSINESS_FLIGHT_TYPE]) {
+//            return @"BusinessClassGreen";
+//
+//        }else if ([flightClass.type isEqualToString:PREMIUM_FLIGHT_TYPE]) {
+//            return @"PremiumEconomyClassGreen";
+//
+//        }else if ([flightClass.type isEqualToString:FIRST_FLIGHT_TYPE]) {
+//            return @"FirstClassGreen";
+//
+//        }
+//    }else {
+//        if ([flightClass.type isEqualToString:ECONOMY_FLIGHT_TYPE]) {
+//            return @"EconomyClassBlack";
+//        }else if ([flightClass.type isEqualToString:BUSINESS_FLIGHT_TYPE]) {
+//            return @"BusinessClassBlack";
+//
+//        }else if ([flightClass.type isEqualToString:PREMIUM_FLIGHT_TYPE]) {
+//            return @"PreEconomyClassBlack";
+//
+//        }else if ([flightClass.type isEqualToString:FIRST_FLIGHT_TYPE]) {
+//            return @"FirstClassBlack";
+//
+//        }
+//    }
+//    return @"";
+//
+//}
+
+- (UIImage *)getImageForFlightClass:(FlightClass *)flightClass isSelected:(BOOL) isSelected{
    
     if (isSelected) {
         if ([flightClass.type isEqualToString:ECONOMY_FLIGHT_TYPE]) {
-            return @"EconomyClassGreen";
+            return AppImages.EconomyClassGreen;
         }else if ([flightClass.type isEqualToString:BUSINESS_FLIGHT_TYPE]) {
-            return @"BusinessClassGreen";
+            return AppImages.BusinessClassGreen;
 
         }else if ([flightClass.type isEqualToString:PREMIUM_FLIGHT_TYPE]) {
-            return @"PremiumEconomyClassGreen";
+            return AppImages.PremiumEconomyClassGreen;
 
         }else if ([flightClass.type isEqualToString:FIRST_FLIGHT_TYPE]) {
-            return @"FirstClassGreen";
+            return AppImages.FirstClassGreen;
 
         }
     }else {
         if ([flightClass.type isEqualToString:ECONOMY_FLIGHT_TYPE]) {
-            return @"EconomyClassBlack";
+            return AppImages.EconomyClassBlack;
         }else if ([flightClass.type isEqualToString:BUSINESS_FLIGHT_TYPE]) {
-            return @"BusinessClassBlack";
+            return AppImages.BusinessClassBlack;
 
         }else if ([flightClass.type isEqualToString:PREMIUM_FLIGHT_TYPE]) {
-            return @"PreEconomyClassBlack";
+            return AppImages.PreEconomyClassBlack;
 
         }else if ([flightClass.type isEqualToString:FIRST_FLIGHT_TYPE]) {
-            return @"FirstClassBlack";
+            return AppImages.FirstClassBlack;
 
         }
     }
-    return @"";
+    return AppImages.EconomyClassBlack;
    
 }
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     FlightClass *flightClass = self.classArray[indexPath.row];
     if (![self.selectedFlightClass.type isEqualToString:flightClass.name]) {

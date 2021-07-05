@@ -40,8 +40,8 @@ class HotelDetailsCheckOutTableViewCell: UITableViewCell {
     
     private func manageLoader() {
         self.indicator.style = .medium//.gray
-        self.indicator.tintColor = AppColors.themeWhite
-        self.indicator.color = AppColors.themeWhite
+        self.indicator.tintColor = AppColors.unicolorWhite
+        self.indicator.color = AppColors.unicolorWhite
         self.indicator.startAnimating()
         self.hideShowLoader(isHidden:true)
     }
@@ -67,8 +67,8 @@ class HotelDetailsCheckOutTableViewCell: UITableViewCell {
 //        layer.shouldRasterize = true
 //        layer.rasterizationScale = UIScreen.main.scale
         self.containerView.backgroundColor = AppColors.themeGreen
-        self.hotelFeesLabel.textColor = AppColors.themeWhite
-        self.bookLabel.textColor = AppColors.themeWhite
+        self.hotelFeesLabel.textColor = AppColors.unicolorWhite
+        self.bookLabel.textColor = AppColors.unicolorWhite
         self.containerView.roundBottomCorners(cornerRadius: 10.0)
         //Size
         self.hotelFeesLabel.font = AppFonts.SemiBold.withSize(20.0)

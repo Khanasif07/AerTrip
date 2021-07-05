@@ -48,6 +48,7 @@ class HotelRatingInfoCell: UITableViewCell {
         self.hotelNameLabel.textColor = AppColors.themeBlack
         self.distanceLabel.textColor = AppColors.themeGray60
         self.deviderView.backgroundColor = AppColors.divider.color
+        self.setupColors()
         
         //Size
         self.hotelNameLabel.font = AppFonts.SemiBold.withSize(22.0)
@@ -73,12 +74,17 @@ class HotelRatingInfoCell: UITableViewCell {
         DispatchQueue.main.async {
             if isHidden{
                 self.indicator.stopAnimating()
-                self.shareButtonOutlet.setImage(#imageLiteral(resourceName: "share_file_icon"), for: .normal)
+                self.shareButtonOutlet.setImage(AppImages.share_file_icon, for: .normal)
             }else{
                 self.shareButtonOutlet.setImage(nil, for: .normal)
                 self.indicator.startAnimating()
             }
         }
+    }
+    
+    private func setupColors(){
+        self.contentView.backgroundColor = AppColors.themeBlack26
+        self.backgroundColor = AppColors.themeBlack26
     }
     
     private func textSetUp(hotelName: String , distanceText: String, duration: Int?, starRating: Double , tripAdvisorRating: Double) {
@@ -112,14 +118,6 @@ class HotelRatingInfoCell: UITableViewCell {
         }
     }
 
-//    func removeZeroAfterDecimal(_ number: Double)-> String{
-//        let formatter = NumberFormatter()
-//        formatter.minimumFractionDigits = 0
-//        formatter.maximumFractionDigits = 2
-//        return formatter.string(from: NSNumber(value: number)) ?? ""
-//    }
-    
-        
     internal func configureCell(hotelData: HotelSearched , placeData: PlaceModel?) {
 //        self.textSetUp(hotelName: hotelData.hotelName ?? "", distanceText: placeData.distanceText , durationValue: placeData.durationValue, starRating: hotelData.star, tripAdvisorRating: hotelData.rating)
         

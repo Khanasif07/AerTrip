@@ -31,7 +31,7 @@ class FareSectionHeader: UITableViewHeaderFooterView {
 
     var isDownArrow: Bool = true {
         didSet {
-            arrowButton.setImage(#imageLiteral(resourceName: isDownArrow ? "downArrowCheckOut": "upArrowIconCheckout"), for: .normal)
+            arrowButton.setImage(isDownArrow ? AppImages.downArrowCheckOut : AppImages.upArrowIconCheckout, for: .normal)
         }
     }
     
@@ -60,6 +60,14 @@ class FareSectionHeader: UITableViewHeaderFooterView {
         self.discountPriceLabel.textColor = AppColors.themeBlack
         self.grossPriceLabel.textColor = AppColors.themeBlack
         self.discountPriceLabel.textColor = AppColors.themeBlack
+    }
+    
+    func setColorsForBookingVouchers(){
+        
+        [topBackgroundView, arrowTapAreaView].forEach{ view in
+            view?.backgroundColor = AppColors.themeBlack26
+        }
+        
     }
     
     private func addGesture() {

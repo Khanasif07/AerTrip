@@ -73,6 +73,23 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
         setupOvernightFlightsView()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateSegmentTitles()
+        stopsBaseView.layer.borderColor = AppColors.themeGray10.cgColor
+    }
+    
+    
+    func initialSetup() {
+        setColors()
+    }
+    
+    func setColors(){
+        self.view.backgroundColor = AppColors.themeWhiteDashboard
+        
+    }
+    
+    
     private func setupOvernightFlightsView() {
         avoidChangeOfAirportsTitleLbl.font = AppFonts.Regular.withSize(18)
         avoidChangeOfAirportsDescLbl.font = AppFonts.Regular.withSize(14)
@@ -81,8 +98,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
         allSectorsLbl.textColor = AppColors.themeGray40
     }
     
-    func initialSetup() {
-    }
+
     
     func updateUIPostLatestResults() {
         viewModel.currentStopFilter = viewModel.allStopsFilters[viewModel.currentActiveIndex]
@@ -134,10 +150,10 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     }
     
     //MARK:- Additional UI Methods
-    fileprivate func setupStopsBaseView () {
+    fileprivate func setupStopsBaseView() {
         
         stopsBaseView.layer.borderWidth = 1.0
-        stopsBaseView.layer.borderColor = UIColor.TWO_THREE_ZERO_COLOR.cgColor
+        stopsBaseView.layer.borderColor = AppColors.themeGray10.cgColor
         stopsBaseView.layer.cornerRadius = 10.0
         stopsBaseView.clipsToBounds = true
         if viewModel.currentStopFilter != nil{
@@ -161,7 +177,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
             let height = self.stopsBaseView.frame.size.height
             var rect = CGRect(x: xcordinate, y: 0, width: width, height: height)
             let stopButton = UIButton(frame: rect)
-            stopButton.backgroundColor = UIColor.SELECTION_COLOR.withAlphaComponent(0.25)
+            stopButton.backgroundColor = AppColors.stopsAllDeselected
             
             stopButton.addTarget(self, action: #selector(tappedOnStopButton(sender:)), for: .touchDown)
             stopsBaseView.addSubview(stopButton)
@@ -290,7 +306,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     private func getSegmentTitleFor(_ index: Int) -> String {
         let currentFilter = viewModel.allStopsFilters[(index - 1)]
         let isFilterApplied = currentFilter.userSelectedStops.count > 0
-        var title = "\(viewModel.allLegNames[index - 1].origin) \u{279E} \(viewModel.allLegNames[index - 1].destination)"
+        var title = "\(viewModel.allLegNames[index - 1].origin) - \(viewModel.allLegNames[index - 1].destination)"
         if viewModel.allStopsFilters.count > 3 {
             title = "\(index)"
         }
@@ -314,7 +330,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
         stopsBaseView.subviews.forEach{ view in
             if let button = view as? UIButton {
                 
-                button.backgroundColor = UIColor.SELECTION_COLOR.withAlphaComponent(0.40)
+                button.backgroundColor = AppColors.stopsAllDeselected
                 
                 if let title = button.viewWithTag(1) as? UILabel {
                     title.textColor =  UIColor.FIVE_ONE_COLOR
@@ -360,13 +376,13 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     }
     
     fileprivate func deselectionStateUIFor(_ sender: UIButton) {
-        sender.backgroundColor = UIColor.white
+        sender.backgroundColor = AppColors.themeWhiteDashboard
         if let title = sender.viewWithTag(1) as? UILabel {
-            title.textColor = UIColor.black
+            title.textColor = AppColors.themeBlack
         }
         
         if let subTitle = sender.viewWithTag(2) as? UILabel {
-            subTitle.textColor = UIColor.black
+            subTitle.textColor = AppColors.themeBlack
 //            subTitle.font = UIFont(name: "SourceSansPro-Regular", size: 16)
             subTitle.font = AppFonts.Regular.withSize(16)
         }
@@ -381,13 +397,13 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
         }
         if allDeselected {
             stopsButtonsArray.forEach { (btn) in
-                btn.backgroundColor = UIColor.SELECTION_COLOR.withAlphaComponent(0.25)
+                btn.backgroundColor = AppColors.stopsAllDeselected
             }
         }
     }
     
     fileprivate func selectionStateUIFor(_ sender: UIButton) {
-        sender.backgroundColor = UIColor.SELECTION_COLOR
+        sender.backgroundColor = AppColors.flightFilterSessionSelectedColor
         if let title = sender.viewWithTag(1) as? UILabel {
             title.textColor = UIColor.AertripColor
         }
@@ -405,8 +421,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
         
         if sender.isSelected {
             return
-        }
-        else {
+        } else {
             sender.isSelected = true
             selectLeastStopsForAllLegs()
         }
@@ -434,7 +449,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
         for button in stopsButtonsArray {
             let buttonTag = button.tag - 1000
             if  !currentLegStopsSelection.contains(buttonTag) {
-                button.backgroundColor = UIColor.white
+                button.backgroundColor = AppColors.themeWhiteDashboard
             }
         }
         
@@ -544,10 +559,10 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     private func resetAvoidChangeOfAirportsBtn() {
         avoidChangeOfAirportsBtn.isSelected = viewModel.currentStopFilter?.qualityFilter.isSelected ?? false
         if viewModel.currentStopFilter?.qualityFilter.isSelected ?? false {
-            avoidChangeOfAirportsImgView.image = UIImage(named: "CheckedGreenRadioButton")
+            avoidChangeOfAirportsImgView.image = AppImages.CheckedGreenRadioButton
         }
         else {
-            avoidChangeOfAirportsImgView.image = UIImage(named: "UncheckedGreenRadioButton")
+            avoidChangeOfAirportsImgView.image = AppImages.UncheckedGreenRadioButton
         }
     }
     

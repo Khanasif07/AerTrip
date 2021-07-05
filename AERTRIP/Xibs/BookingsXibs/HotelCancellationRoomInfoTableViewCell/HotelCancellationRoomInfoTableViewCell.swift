@@ -34,6 +34,10 @@ class HotelCancellationRoomInfoTableViewCell: UITableViewCell {
     @IBOutlet weak var bottomDividerView: ATDividerView!
     @IBOutlet weak var topDividerViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomDividerViewLeadingConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var titleView: UIView!
+    @IBOutlet weak var nameAndChargesView: UIView!
 
     //MARK:- LifeCycle
     //MARK:===========
@@ -53,7 +57,7 @@ class HotelCancellationRoomInfoTableViewCell: UITableViewCell {
         //Color
         self.roomNumberLabel.textColor = AppColors.themeBlack
         self.roomNameLabel.textColor = AppColors.themeBlack
-        self.guestNamesLabel.textColor = AppColors.themeGray40
+        self.guestNamesLabel.textColor = AppColors.themeGray153
         
         self.chargesCollectionView.registerCell(nibName: HotleCancellationChargesCollectionViewCell.reusableIdentifier)
         self.chargesCollectionView.delegate = self
@@ -61,9 +65,16 @@ class HotelCancellationRoomInfoTableViewCell: UITableViewCell {
         
         self.topDividerView.isHidden = true
         self.bottomDividerView.isHidden = false
-        self.rightArrowImageView.image = #imageLiteral(resourceName: "rightArrow")
+        self.rightArrowImageView.image = AppImages.rightArrow
         
         self.rightArrowImageView.transform = CGAffineTransform(rotationAngle: CGFloat.pi/2) //make the arrow to down
+        self.setColor()
+    }
+    
+    private func setColor(){
+        [headerView, titleView, nameAndChargesView, chargesCollectionView, containerView, contentView].forEach{ view in
+            view?.backgroundColor = AppColors.themeBlack26
+        }
     }
     
     internal func configureCell(roomNumber: String, roomDetails: RoomDetailModel, isRoomSelected: Bool, isExpanded: Bool) {
@@ -82,9 +93,9 @@ class HotelCancellationRoomInfoTableViewCell: UITableViewCell {
         }
         self.guestNamesLabel.text = nameArray.joined(separator: ", ")
         if isRoomSelected {
-            self.selectRoomButtonOutlet.setImage(#imageLiteral(resourceName: "CheckedGreenRadioButton"), for: .normal)
+            self.selectRoomButtonOutlet.setImage(AppImages.CheckedGreenRadioButton, for: .normal)
         } else {
-            self.selectRoomButtonOutlet.setImage(#imageLiteral(resourceName: "UncheckedGreenRadioButton"), for: .normal)
+            self.selectRoomButtonOutlet.setImage(AppImages.UncheckedGreenRadioButton, for: .normal)
         }
         self.topDividerView.isHidden = isExpanded
         self.bottomDividerView.isHidden = !isExpanded
@@ -126,6 +137,7 @@ extension HotelCancellationRoomInfoTableViewCell: UICollectionViewDelegate , UIC
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HotleCancellationChargesCollectionViewCell.reusableIdentifier, for: indexPath) as? HotleCancellationChargesCollectionViewCell else { return UICollectionViewCell() }
         cell.configureCell(chargeName: self.chargesData[indexPath.row].chargeName, chargeAmount: self.chargesData[indexPath.row].chargeAmount)
+        cell.containerView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     

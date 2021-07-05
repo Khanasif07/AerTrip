@@ -126,11 +126,11 @@ class SecureYourAccountVC: BaseVC {
             if !self.passwordTextField.isSecureTextEntry {
                 self.viewModel.logEvent(with: .ViewPassword)
                 self.showPasswordButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 4, right: 1.5)
-                sender.setImage(#imageLiteral(resourceName: "showPassword"), for: .normal)
+                sender.setImage(AppImages.showPassword, for: .normal)
             } else {
                 self.viewModel.logEvent(with: .hidePassword)
                 self.showPasswordButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 1, bottom: -1, right: 1.5)
-                sender.setImage(#imageLiteral(resourceName: "hidePassword"), for: .normal)
+                sender.setImage(AppImages.hidePassword, for: .normal)
             }
     }
         

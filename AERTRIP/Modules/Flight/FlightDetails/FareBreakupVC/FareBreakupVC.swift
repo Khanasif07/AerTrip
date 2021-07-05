@@ -61,6 +61,7 @@ class FareBreakupVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
     @IBOutlet weak var bookingDataDisplayViewHeight: NSLayoutConstraint!
     @IBOutlet weak var dividerView: UIView!
     @IBOutlet weak var dividerViewWidth: NSLayoutConstraint!
+    @IBOutlet weak var separatorLabel: UILabel!
     
     //MARK:- Variable Declaration
     var taxesResult : [String : String]!
@@ -118,7 +119,7 @@ class FareBreakupVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
                 self.view.backgroundColor = .clear
             
             if isFareBreakupExpanded{
-                self.fareDataDisplayView.backgroundColor = .white
+                self.fareDataDisplayView.backgroundColor = AppColors.themeWhiteDashboard
                 self.bookingDataDisplayView.addGredient(isVertical: false)
             }else{
             }
@@ -133,7 +134,7 @@ class FareBreakupVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
                 })
             }else{
                 fareDataDisplayView.removeGredient()
-                fareDataDisplayView.backgroundColor = .white
+                fareDataDisplayView.backgroundColor =  AppColors.themeWhiteDashboard
                 self.bookingDataDisplayView.addGredient(isVertical: false)
             }
         }
@@ -142,6 +143,16 @@ class FareBreakupVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
     
     override func currencyChanged(_ note: Notification) {
         self.taxesDataDisplay()
+    }
+    
+    
+    override func setupColors() {
+        self.separatorLabel.backgroundColor = AppColors.fewSeatLeftColor
+        self.totalPayableView.backgroundColor = AppColors.themeWhiteDashboard
+        self.fewSeatsLeftView.backgroundColor = AppColors.fewSeatLeftColor
+        self.fewSeatsLeftLabel.textColor = AppColors.themeRed
+        self.remainingSeatsCountLabel.backgroundColor = AppColors.themeRed
+        self.baseFareTableview.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     func taxesDataDisplay()
@@ -345,7 +356,7 @@ class FareBreakupVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
         indicator.frame.size.width = 25
         self.bookingView.addSubview(indicator)
         self.indicator.style = .medium// .white
-        self.indicator.color = AppColors.themeWhite
+        self.indicator.color = AppColors.unicolorWhite
         self.indicator.startAnimating()
         self.hideShowLoader(isHidden:true)
     }
@@ -458,9 +469,9 @@ class FareBreakupVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
                 baseFareCell.selectionStyle = .none
                 
                 if isTaxesSectionHidden == false{
-                    baseFareCell.upArrowImg.image = UIImage(named: "downGray.png")
+                    baseFareCell.upArrowImg.image = AppImages.downGray
                 }else{
-                    baseFareCell.upArrowImg.image = UIImage(named: "upGray.png")
+                    baseFareCell.upArrowImg.image = AppImages.upGray
                 }
                 
                 baseFareCell.titleLabelLeading.constant = 16
@@ -616,7 +627,7 @@ class FareBreakupVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
                 fewSeatsLeftLabel.text = "Seat left at this price. Hurry up!"
             }
             
-            self.fareDataDisplayViewHeight.constant = 91 + CGFloat(bottomInset)
+            self.fareDataDisplayViewHeight.constant = 51 + CGFloat(bottomInset)
             self.bookingDataDisplayViewHeight.constant = 51 + CGFloat(bottomInset)
         }else{
             fewSeatsLeftView.isHidden = true
@@ -712,7 +723,7 @@ class FareBreakupVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
                     self.fewSeatsLeftView.isHidden = false
                     self.fewSeatsLeftViewHeight.constant = 40
                     
-                    self.fareDataDisplayViewHeight.constant = 91 + CGFloat(bottomInset)
+                    self.fareDataDisplayViewHeight.constant = 51 + CGFloat(bottomInset)
                     self.bookingDataDisplayViewHeight.constant = 51 + CGFloat(bottomInset)
                 }else{
                     self.fewSeatsLeftView.isHidden = true
@@ -850,21 +861,28 @@ class FareBreakupVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
                 self.fewSeatsLeftView.isHidden = false
                 self.fewSeatsLeftViewHeight.constant = 40
                 
-                if bottomInset == 0{
-                    self.fareDataDisplayViewHeight.constant = CGFloat(totalHeight+143)
-                }else{
-                    self.fareDataDisplayViewHeight.constant = CGFloat(totalHeight+110+Int(bottomInset))
-                }
+//                if bottomInset == 0{
+//                    self.fareDataDisplayViewHeight.constant = CGFloat(totalHeight+143)
+//                }else{
+//                    self.fareDataDisplayViewHeight.constant = CGFloat(totalHeight+110+Int(bottomInset))
+//                }
             }else{
                 self.fewSeatsLeftView.isHidden = true
                 self.fewSeatsLeftViewHeight.constant = 0
                 
-                if bottomInset == 0{
-                    self.fareDataDisplayViewHeight.constant = CGFloat(totalHeight+108)
-                }else{
-                    self.fareDataDisplayViewHeight.constant = CGFloat(totalHeight+75+Int(bottomInset))
-                }
+//                if bottomInset == 0{
+//                    self.fareDataDisplayViewHeight.constant = CGFloat(totalHeight + 108)
+//                }else{
+//                    self.fareDataDisplayViewHeight.constant = CGFloat(totalHeight + 75 + Int(bottomInset))
+//                }
             }
+            
+            if bottomInset == 0{
+                self.fareDataDisplayViewHeight.constant = CGFloat(totalHeight + 108)
+            }else{
+                self.fareDataDisplayViewHeight.constant = CGFloat(totalHeight + 75 + Int(bottomInset))
+            }
+            
         }
         
         self.bookingDataDisplayViewHeight.constant = 50
@@ -948,7 +966,7 @@ class FareBreakupVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
             break
         }
         
-        self.bookingInfoArrowImg.image = UIImage(named: "down.png")
+        self.bookingInfoArrowImg.image = AppImages.downGray
         if self.isBackgroundVisible == false{
             self.view.backgroundColor = .clear
             self.isBackgroundVisible = true
@@ -1017,7 +1035,7 @@ class FareBreakupVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
             }else{
                 self.isFareBreakupExpanded = false
                 displayCollapseView()
-                self.bookingInfoArrowImg.image = UIImage(named: "up.png")
+                self.bookingInfoArrowImg.image = AppImages.upGray
                 self.delegate?.infoButtonTapped(isViewExpanded: false)
             }
             

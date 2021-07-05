@@ -25,7 +25,9 @@ class ViewProfileDetailTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
       
-        
+        self.contentView.backgroundColor = AppColors.profileContentBackground
+        headerTitleLabel.textColor = AppColors.flightFormGray
+        contentLabel.textColor = AppColors.themeBlack
     }
 
     

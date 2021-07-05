@@ -67,7 +67,7 @@ class SpecialAccountDetailsVC: BaseVC {
         
         self.topNavView.delegate = self
         
-        self.topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "ic_account_info"), selectedImage: #imageLiteral(resourceName: "ic_account_info"))
+        self.topNavView.configureFirstRightButton(normalImage: AppImages.ic_account_info, selectedImage: AppImages.ic_account_info)
         
         self.viewModel.fetchScreenDetails(showProgress: true)
         topNavView.backgroundColor = AppColors.clear
@@ -93,6 +93,10 @@ class SpecialAccountDetailsVC: BaseVC {
         FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .Accounts, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
 
 
+    }
+    
+    override func setupColors() {
+        self.view.backgroundColor = AppColors.themeWhite
     }
     
     override func dataChanged(_ note: Notification) {

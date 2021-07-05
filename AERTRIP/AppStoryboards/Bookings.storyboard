@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -861,6 +862,7 @@ with us!</string>
                     </view>
                     <connections>
                         <outlet property="firstDividerView" destination="CQg-Sl-V9N" id="DtJ-zf-1k2"/>
+                        <outlet property="fromContainerView" destination="xzg-Rm-kCl" id="sTd-ka-eL6"/>
                         <outlet property="fromDateCloseBtn" destination="fT7-1Z-Z5o" id="UPS-N1-jZQ"/>
                         <outlet property="fromDateLabel" destination="QYa-dX-ybx" id="fl2-Ri-qh7"/>
                         <outlet property="fromDatePickerContainer" destination="jpb-Ck-MO9" id="fM8-Wx-Sq1"/>
@@ -870,6 +872,7 @@ with us!</string>
                         <outlet property="mainContainerView" destination="ZrN-2k-eZQ" id="gbK-A7-H5a"/>
                         <outlet property="secondDividerView" destination="uas-GW-mqc" id="Huc-it-Twj"/>
                         <outlet property="thirdDividerView" destination="qkq-mO-C2J" id="kQN-2B-tWt"/>
+                        <outlet property="toContainerView" destination="Xtl-t8-XgQ" id="Egl-bW-sQk"/>
                         <outlet property="toDateCloseBtn" destination="Hyq-Ad-CCd" id="M5i-t1-XyB"/>
                         <outlet property="toDateLabel" destination="hNr-hZ-Xwg" id="ocn-4r-M5u"/>
                         <outlet property="toDatePickerContainer" destination="8MY-08-GKK" id="fOc-sf-jEC"/>
@@ -2100,6 +2103,7 @@ with us!</string>
                         <outlet property="commectSeparator" destination="Dlr-zo-diu" id="WGR-5f-eTd"/>
                         <outlet property="commentPlaceholderLbl" destination="JCI-Zw-tkE" id="B6s-es-XYk"/>
                         <outlet property="commentTextView" destination="980-Yb-HBG" id="ynz-0q-RiF"/>
+                        <outlet property="emptyView" destination="1Tu-Wy-uni" id="hT5-9r-GZ5"/>
                         <outlet property="gradientView" destination="z4J-bT-1Xy" id="Oph-hU-pNZ"/>
                         <outlet property="infoLabel" destination="f6N-Sh-hdL" id="kF0-ym-aDO"/>
                         <outlet property="refundAmountLabel" destination="STk-Up-0s8" id="QA7-K5-MTK"/>
@@ -2184,7 +2188,7 @@ with us!</string>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="7aU-VL-6XS"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="themeWhite"/>
                         <constraints>
                             <constraint firstItem="28R-iA-8cu" firstAttribute="leading" secondItem="7aU-VL-6XS" secondAttribute="leading" id="B5K-DH-9WH"/>
                             <constraint firstItem="28R-iA-8cu" firstAttribute="trailing" secondItem="7aU-VL-6XS" secondAttribute="trailing" id="Hj9-CS-4yW"/>
@@ -3068,6 +3072,7 @@ with us!</string>
                         <outlet property="infoLabel" destination="Kx3-Q9-0fW" id="6fa-Qy-sFQ"/>
                         <outlet property="navigationViewHeightConstraint" destination="WRx-jt-n0K" id="DKT-7p-VUB"/>
                         <outlet property="toLabel" destination="K8j-GU-UKC" id="jQ3-bS-VRp"/>
+                        <outlet property="toView" destination="qAF-g6-14o" id="Cme-h4-sZG"/>
                         <outlet property="topNavigationView" destination="dpj-lG-1Gb" id="OHC-wn-fww"/>
                     </connections>
                 </viewController>
@@ -3084,6 +3089,9 @@ with us!</string>
         <image name="cross_icon" width="22" height="22"/>
         <image name="greenCircleButton" width="22" height="22"/>
         <image name="saveHotelsSelected" width="27" height="30"/>
+        <namedColor name="themeWhite">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
         <systemColor name="groupTableViewBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

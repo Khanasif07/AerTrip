@@ -74,8 +74,8 @@ extension TermAndPrivacyTableViewCell {
             label.text = textToDisplay
 
             for item in allTypes {
-                label.customColor[item] = AppColors.themeGreen
-                label.customSelectedColor[item] = AppColors.themeGreen
+                label.customColor[item] = AppColors.commonThemeGreen
+                label.customSelectedColor[item] = AppColors.commonThemeGreen
             }
             
             label.highlightFontName = AppFonts.SemiBold.rawValue

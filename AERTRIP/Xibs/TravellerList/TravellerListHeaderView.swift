@@ -25,6 +25,7 @@ class TravellerListHeaderView: UIView {
     @IBOutlet weak var loader: UIActivityIndicatorView!
     @IBOutlet weak var importingViewHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var backgroundView: UIView!
     // MARK: - Variables
     weak var delegate : TravellerListHeaderViewDelegate?
     var isImportContactViewVisible = false {
@@ -51,6 +52,9 @@ class TravellerListHeaderView: UIView {
         
         importingContactView.backgroundColor = AppColors.themeGray04
         isImportContactViewVisible = false
+    
+        userTypeLbel.textColor = AppColors.grayWhite
+        backgroundView.backgroundColor = AppColors.themeWhite
     }
     
     private func manageImportContactView() {

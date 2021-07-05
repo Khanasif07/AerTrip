@@ -56,10 +56,11 @@ class RatingVC: BaseVC {
     }
     
     override func setupColors() {
-        self.starRatingTitleLabel.textColor = AppColors.themeGray40
-        self.starLabel.textColor = AppColors.themeGray40
-        self.tripAdvisorTitleLabel.textColor = AppColors.themeGray40
-        self.tripAdvisorStarLabel.textColor = AppColors.themeGray40
+        view.backgroundColor = AppColors.themeWhiteDashboard
+        self.starRatingTitleLabel.textColor = AppColors.themeGray153
+        self.starLabel.textColor = AppColors.themeGray153
+        self.tripAdvisorTitleLabel.textColor = AppColors.themeGray153
+        self.tripAdvisorStarLabel.textColor = AppColors.themeGray153
     }
     
     override func setupFonts() {
@@ -95,7 +96,7 @@ class RatingVC: BaseVC {
         for btn in self.starButtonsOutlet ?? [] {
             //btn.adjustsImageWhenHighlighted = false
             btn.isSelected = false
-            btn.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .normal)
+            btn.setImage(AppImages.starRatingFilled, for: .normal)
             btn.setImage(nil, for: .selected)
             btn.setImage(nil, for: .highlighted)
         }
@@ -103,7 +104,7 @@ class RatingVC: BaseVC {
         for btn in self.tripAdvisorRatingButtons ?? [] {
             //btn.adjustsImageWhenHighlighted = false
             btn.isSelected = false
-            btn.setImage(#imageLiteral(resourceName: "selectedAdvisorRating"), for: .normal)
+            btn.setImage(AppImages.selectedAdvisorRating, for: .normal)
             btn.setImage(nil, for: .selected)
             btn.setImage(nil, for: .highlighted)
         }
@@ -230,8 +231,8 @@ class RatingVC: BaseVC {
             for starBtn in self.starButtonsOutlet ?? [] {
                 starBtn.isSelected = false
                 // starBtn.setImage(#imageLiteral(resourceName: "UnselectedStar"), for: .normal)
-                starBtn.setImage(#imageLiteral(resourceName: "starRatingFilledHollow"), for: .normal)
-                //                starBtn.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .normal)
+                starBtn.setImage(AppImages.starRatingFilledHollow, for: .normal)
+                //                starBtn.setImage(AppImages.starRatingFilled, for: .normal)
             }
         }
         else {
@@ -240,17 +241,17 @@ class RatingVC: BaseVC {
                 
                 if starBtn.tag == forStar {
                     starBtn.isSelected = isSettingFirstTime ? true : !starBtn.isSelected
-                    let img = starBtn.isSelected ? #imageLiteral(resourceName: "starRatingFilled") : #imageLiteral(resourceName: "starRatingUnfill")
+                    let img = starBtn.isSelected ? AppImages.starRatingFilled : AppImages.starRatingUnfill
                     starBtn.setImage(img, for: starBtn.isSelected ? .selected : .normal)
                 }
                 else
                     if HotelFilterVM.shared.ratingCount.contains(starBtn.tag) {
                         starBtn.isSelected = true
-                        starBtn.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .selected)
+                        starBtn.setImage(AppImages.starRatingFilled, for: .selected)
                     }
                     else {
                         starBtn.isSelected = false
-                        starBtn.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
+                        starBtn.setImage(AppImages.starRatingUnfill, for: .normal)
                 }
             }
         }
@@ -279,7 +280,7 @@ class RatingVC: BaseVC {
             for starBtn in self.tripAdvisorRatingButtons ?? [] {
                 starBtn.isSelected = false
                 // starBtn.setImage(#imageLiteral(resourceName: "UnselectedStar"), for: .normal)
-                starBtn.setImage(#imageLiteral(resourceName: "selectedAdvisorRating"), for: .normal)
+                starBtn.setImage(AppImages.selectedAdvisorRating, for: .normal)
             }
         }
         else {
@@ -288,17 +289,17 @@ class RatingVC: BaseVC {
                 
                 if starBtn.tag == forStar {
                     starBtn.isSelected = isSettingFirstTime ? true : !starBtn.isSelected
-                    let img = starBtn.isSelected ? #imageLiteral(resourceName: "selectedAdvisorRating") : #imageLiteral(resourceName: "deselectedAdvisorRating")
+                    let img = starBtn.isSelected ? AppImages.selectedAdvisorRating : AppImages.deselectedAdvisorRating
                     starBtn.setImage(img, for: starBtn.isSelected ? .selected : .normal)
                 }
                 else
                     if HotelFilterVM.shared.tripAdvisorRatingCount.contains(starBtn.tag) {
                         starBtn.isSelected = true
-                        starBtn.setImage(#imageLiteral(resourceName: "selectedAdvisorRating"), for: .selected)
+                        starBtn.setImage(AppImages.selectedAdvisorRating, for: .selected)
                     }
                     else {
                         starBtn.isSelected = false
-                        starBtn.setImage(#imageLiteral(resourceName: "deselectedAdvisorRating"), for: .normal)
+                        starBtn.setImage(AppImages.deselectedAdvisorRating, for: .normal)
                 }
             }
         }

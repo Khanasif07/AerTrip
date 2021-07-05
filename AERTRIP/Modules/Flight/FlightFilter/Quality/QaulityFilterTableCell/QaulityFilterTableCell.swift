@@ -49,10 +49,10 @@ class QaulityFilterTableCell: UITableViewCell {
         filterDescLbl.text = filter.getFilterDescription()
         
         if filter.isSelected {
-            selectDeselectImgView.image = UIImage(named: "CheckedGreenRadioButton")
+            selectDeselectImgView.image = AppImages.CheckedGreenRadioButton
         }
         else {
-            selectDeselectImgView.image = UIImage(named: "UncheckedGreenRadioButton")
+            selectDeselectImgView.image = AppImages.UncheckedGreenRadioButton
         }
     }
 }

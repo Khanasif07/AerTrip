@@ -46,6 +46,7 @@ class SortVC: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
+        tableView.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     func setFilterValues() {
@@ -85,12 +86,12 @@ extension SortVC: UITableViewDataSource, UITableViewDelegate {
             cell.accessoryView = setCheckBox()
             tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.bottom)
             cell.leftTitleLabel.textColor = AppColors.themeGreen
-            cell.rightTitleLabel.textColor = AppColors.themeGray40
+            cell.rightTitleLabel.textColor = AppColors.themeGray153
         }
         
         cell.accessoryView = nil
         cell.leftTitleLabel.textColor = AppColors.themeBlack
-        cell.rightTitleLabel.textColor = AppColors.themeGray40
+        cell.rightTitleLabel.textColor = AppColors.themeGray153
         
         
         switch indexPath.row {
@@ -146,7 +147,7 @@ extension SortVC: UITableViewDataSource, UITableViewDelegate {
     }
     func setCheckBox() -> UIImageView {
         let checkMarkView = UIImageView(frame: CGRect(x: 0.0, y: 0.0, width: 20.0, height: 20.0))
-        checkMarkView.setImageWithUrl("", placeholder: #imageLiteral(resourceName: "checkIcon"), showIndicator: false)
+        checkMarkView.setImageWithUrl("", placeholder: AppImages.checkIcon, showIndicator: false)
         return checkMarkView
     }
     

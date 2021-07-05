@@ -32,9 +32,9 @@ class InternationalReturnDetailsCell: UITableViewCell {
     
     override var isSelected: Bool{
         didSet{
-            let selectedStateBGColor = AppColors.iceGreen
+            let selectedStateBGColor = AppColors.calendarSelectedGreen//AppColors.iceGreen
             
-            let backgroundColor = isSelected ? selectedStateBGColor : .white
+            let backgroundColor = isSelected ? selectedStateBGColor : AppColors.themeWhite
             if !duration.isHidden{
                 self.backgroundColor = backgroundColor
                 stopsBackgroundView.backgroundColor = backgroundColor
@@ -59,9 +59,9 @@ class InternationalReturnDetailsCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
-        let selectedStateBGColor = AppColors.iceGreen
+        let selectedStateBGColor = AppColors.calendarSelectedGreen//AppColors.iceGreen
         
-        let backgroundColor = selected ? selectedStateBGColor : .white
+        let backgroundColor = selected ? selectedStateBGColor : AppColors.themeWhite//.white
         if !duration.isHidden{
             self.backgroundColor = backgroundColor
             stopsBackgroundView.backgroundColor = backgroundColor
@@ -79,8 +79,15 @@ class InternationalReturnDetailsCell: UITableViewCell {
              self.backgroundColor = backgroundColor
         }
         
+        
     }
     
+    
+    private func setColors(){
+        self.flightCode.textColor = AppColors.themeGray60
+        self.arrivalAirportCode.textColor = AppColors.themeGray40
+        self.departureAirportCode.textColor = AppColors.themeGray40
+    }
     
     
     override func awakeFromNib() {
@@ -133,7 +140,7 @@ class InternationalReturnDetailsCell: UITableViewCell {
         else {
             flightCode.isHidden = true
         }
-        
+        self.setColors()
         departureTime.text = leg.dt
         arrivalTime.attributedText = leg.endTime16size
         arrivalTimeWidth.constant = arrivalTime.intrinsicContentSize.width
@@ -186,7 +193,7 @@ class InternationalReturnDetailsCell: UITableViewCell {
         self.layer.borderWidth = 0
         
         pinnedTriangleLayer?.removeFromSuperlayer()
-        duration.textColor = .black
+        duration.textColor = AppColors.themeBlack
         dashedView.isHidden = false
         stopCountLabel.isHidden = true
         flightCode.isHidden = false
@@ -197,7 +204,7 @@ class InternationalReturnDetailsCell: UITableViewCell {
     
     
     func textToImage(drawText text: String, diameter: CGFloat, color: UIColor ) -> UIImage {
-        let textColor = UIColor.white  
+        let textColor = AppColors.themeWhite
         let textFont = AppFonts.SemiBold.withSize(16)
         let scale = UIScreen.main.scale
         UIGraphicsBeginImageContextWithOptions(CGSize(width: diameter, height: diameter), false, scale)

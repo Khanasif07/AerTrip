@@ -21,6 +21,7 @@ class PriceFilterViewController: BaseVC , FilterViewController {
     @IBOutlet weak var priceRangeSlider: AertripRangeSlider!
     @IBOutlet weak var multicityViewHeight: NSLayoutConstraint!
     @IBOutlet weak var JourneyTitle: UILabel!
+    @IBOutlet weak var priceSliderContainerView: UIView!
     @IBOutlet weak var fareMinValView: UIView!
     @IBOutlet weak var fareMinValue: UILabel!
     @IBOutlet weak var fareMaxValView: UIView!
@@ -52,6 +53,11 @@ class PriceFilterViewController: BaseVC , FilterViewController {
         
         fareMinValView.roundedCorners(cornerRadius: fareMinValView.height/2)
         fareMaxValView.roundedCorners(cornerRadius: fareMaxValView.height/2)
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateSegmentTitles()
     }
 
     //MARK:- Additional UI Methods
@@ -163,7 +169,7 @@ class PriceFilterViewController: BaseVC , FilterViewController {
     private func getSegmentTitleFor(_ index: Int) -> String {
         let currentFilter = viewModel.allPriceFilters[(index - 1)]
         let isFilterApplied = currentFilter.filterApplied()
-        var title = "\(viewModel.legsArray[index - 1].origin) \u{279E} \(viewModel.legsArray[index - 1].destination)"
+        var title = "\(viewModel.legsArray[index - 1].origin) - \(viewModel.legsArray[index - 1].destination)"
         if viewModel.allPriceFilters.count > 3 {
             title = "\(index)"
         }
@@ -186,6 +192,16 @@ class PriceFilterViewController: BaseVC , FilterViewController {
             let segmentTitle = getSegmentTitleFor(index + 1)
             multiLegSegmentControl.setTitle(segmentTitle, forSegmentAt: index)
         }
+    }
+    
+    override func setupColors() {
+        [self.view,self.multiLegView, self.multiSegmentView,priceSliderContainerView, self.priceRangeSlider].forEach { view in
+            view?.backgroundColor = AppColors.themeWhiteDashboard
+        }
+        self.fareMinValView.backgroundColor = AppColors.flightFilterHighlightColor
+        self.fareMaxValView.backgroundColor = AppColors.flightFilterHighlightColor
+        self.fareMinValue.backgroundColor = .clear//AppColors.sliderTrackColor
+        self.fareMaxValue.backgroundColor = .clear//AppColors.sliderTrackColor
     }
     
     fileprivate func setupPriceSlider() {
@@ -349,11 +365,13 @@ class PriceFilterViewController: BaseVC , FilterViewController {
                      seperatorView.isHidden = false
                      refundableFaresOnlyLabel.isHidden = false
                      refundableFaresButton.isHidden = false
+                    refundableFaresTopBtn.isHidden = false
                      refundableFaresButton.isUserInteractionEnabled = true
                  }else{
                      seperatorView.isHidden = true
                      refundableFaresOnlyLabel.isHidden = true
                      refundableFaresButton.isHidden = true
+                    refundableFaresTopBtn.isHidden = true
                      refundableFaresButton.isUserInteractionEnabled = false
                  }
              }
@@ -381,11 +399,13 @@ class PriceFilterViewController: BaseVC , FilterViewController {
                      seperatorView.isHidden = false
                      refundableFaresOnlyLabel.isHidden = false
                      refundableFaresButton.isHidden = false
+                    refundableFaresTopBtn.isHidden = false
                      refundableFaresButton.isUserInteractionEnabled = true
                  }else{
                      seperatorView.isHidden = true
                      refundableFaresOnlyLabel.isHidden = true
                      refundableFaresButton.isHidden = true
+                    refundableFaresTopBtn.isHidden = true
                      refundableFaresButton.isUserInteractionEnabled = false
                  }
              }

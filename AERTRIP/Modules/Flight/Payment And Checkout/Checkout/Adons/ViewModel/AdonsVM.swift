@@ -236,7 +236,7 @@ extension AdonsVM {
               }
                         
             
-           let totalAttributedString = NSMutableAttributedString(string: "\(LocalizedString.Total.localized) :", attributes: [NSAttributedString.Key.foregroundColor : AppColors.themeGray60, NSAttributedString.Key.font : AppFonts.Regular.withSize(isSEDevice ? 12 : 14)])
+           let totalAttributedString = NSMutableAttributedString(string: "\(LocalizedString.Total.localized): ", attributes: [NSAttributedString.Key.foregroundColor : AppColors.themeGray60, NSAttributedString.Key.font : AppFonts.Regular.withSize(isSEDevice ? 12 : 14)])
             
             totalAttributedString.append(mealsTotal.getConvertedAmount(using: AppFonts.SemiBold.withSize(isSEDevice ? 12 : 14)))
             
@@ -321,10 +321,9 @@ extension AdonsVM {
                     }
                 }
             }
-//            description = "\(LocalizedString.Total.localized) : \(baggageTotal.toDouble.getConvertedAmount(using: AppFonts.SemiBold.withSize(13)).string)"
             
             
-            let totalAttributedString = NSMutableAttributedString(string: "\(LocalizedString.Total.localized) :", attributes: [NSAttributedString.Key.foregroundColor : AppColors.themeGray60, NSAttributedString.Key.font : AppFonts.Regular.withSize(isSEDevice ? 12 : 14)])
+            let totalAttributedString = NSMutableAttributedString(string: "\(LocalizedString.Total.localized): ", attributes: [NSAttributedString.Key.foregroundColor : AppColors.themeGray60, NSAttributedString.Key.font : AppFonts.Regular.withSize(isSEDevice ? 12 : 14)])
              
              totalAttributedString.append(baggageTotal.getConvertedAmount(using: AppFonts.SemiBold.withSize(isSEDevice ? 12 : 14)))
              
@@ -416,9 +415,8 @@ extension AdonsVM {
                     }
                 }
             }
-//            description = "\(LocalizedString.Total.localized) : \(othersTotal.toDouble.getConvertedAmount(using: AppFonts.SemiBold.withSize(13)).string) "
             
-            let totalAttributedString = NSMutableAttributedString(string: "\(LocalizedString.Total.localized) :", attributes: [NSAttributedString.Key.foregroundColor : AppColors.themeGray60, NSAttributedString.Key.font : AppFonts.Regular.withSize(isSEDevice ? 12 : 14)])
+            let totalAttributedString = NSMutableAttributedString(string: "\(LocalizedString.Total.localized): ", attributes: [NSAttributedString.Key.foregroundColor : AppColors.themeGray60, NSAttributedString.Key.font : AppFonts.Regular.withSize(isSEDevice ? 12 : 14)])
              
              totalAttributedString.append(othersTotal.getConvertedAmount(using: AppFonts.SemiBold.withSize(isSEDevice ? 12 : 14)))
              
@@ -501,22 +499,15 @@ extension AdonsVM {
                 }
             
             
-            let totalAttributedString = NSMutableAttributedString(string: "\(LocalizedString.Total.localized) :", attributes: [NSAttributedString.Key.foregroundColor : AppColors.themeGray60, NSAttributedString.Key.font : AppFonts.Regular.withSize(isSEDevice ? 12 : 14)])
+            let totalAttributedString = NSMutableAttributedString(string: "\(LocalizedString.Total.localized): ", attributes: [NSAttributedString.Key.foregroundColor : AppColors.themeGray60, NSAttributedString.Key.font : AppFonts.Regular.withSize(isSEDevice ? 12 : 14)])
              
              totalAttributedString.append(seatsTotal.getConvertedAmount(using: AppFonts.SemiBold.withSize(isSEDevice ? 12 : 14)))
              
              descStr = totalAttributedString
-            
-//               if descStr.hasSuffix(", ") {
-//                   descStr.removeLast(2)
-//               }
-//
-//            descStr = "\(LocalizedString.Total.localized) : \(seatsTotal.getConvertedAmount(using: AppFonts.SemiBold.withSize(13)).string)"
-            
+                        
            }
            
         if (descStr == nil) || (descStr?.string.isEmpty ?? false) {
-//            description = LocalizedString.PreBook_Services.localized.localized
             
             let desc = NSMutableAttributedString(string: LocalizedString.Reserve_Seat.localized.localized, attributes: [NSAttributedString.Key.foregroundColor : AppColors.themeGray60, NSAttributedString.Key.font : AppFonts.Regular.withSize(isSEDevice ? 12 : 14)])
             

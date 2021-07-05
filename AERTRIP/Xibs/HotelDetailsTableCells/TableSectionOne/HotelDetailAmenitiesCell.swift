@@ -12,11 +12,11 @@ protocol HotelDetailAmenitiesCellDelegate: class {
     func viewAllButtonAction()
 }
 
-class HotelDetailAmenitiesCell: UITableViewCell {
+class HotelDetailAmenitiesCell : UITableViewCell {
 
     //Mark:- Variables
     //================
-    private let amenitiesItems: [UIImage] = [#imageLiteral(resourceName: "ame-wi-fi"),#imageLiteral(resourceName: "ame-room-service"),#imageLiteral(resourceName: "ame-gym"),#imageLiteral(resourceName: "ame-coffee-shop"),#imageLiteral(resourceName: "ame-business-center"),#imageLiteral(resourceName: "ame-internet"),#imageLiteral(resourceName: "ame-pool"),#imageLiteral(resourceName: "ame-restaurant-bar"),#imageLiteral(resourceName: "ame-air-conditioner"),#imageLiteral(resourceName: "ame-spa")]
+    private let amenitiesItems: [UIImage] = [AppImages.wifi,AppImages.RoomService,AppImages.Gym,AppImages.Coffee_Shop,AppImages.BusinessCenter,AppImages.Internet,AppImages.Pool,AppImages.RestaurantBar,AppImages.AirConditioner,AppImages.Spa]
     internal var amenitiesDetails: Amenities?
     weak var delegate: HotelDetailAmenitiesCellDelegate?
     
@@ -60,6 +60,10 @@ class HotelDetailAmenitiesCell: UITableViewCell {
         //Text Color
         self.amenitiesLabel.textColor = AppColors.themeBlack
         self.viewAllButtonOutlet.setTitleColor(AppColors.themeGreen, for: .normal)
+        
+//        self.contentView.backgroundColor = AppColors.clear
+//        self.backgroundColor = AppColors.clear
+        
         //Text SetUp
         self.amenitiesLabel.text = LocalizedString.Amenities.localized
         self.viewAllButtonOutlet.setTitle(LocalizedString.ViewAll.localized, for: .normal)

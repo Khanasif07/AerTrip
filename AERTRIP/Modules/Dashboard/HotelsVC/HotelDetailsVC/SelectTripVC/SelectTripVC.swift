@@ -90,8 +90,19 @@ class SelectTripVC: BaseVC {
     
     override func setupColors() {
         creatNewButton.setTitleColor(AppColors.themeGreen, for: .normal)
-        
-        AppGlobals.shared.addBlurEffect(forView: creatNewContainerView)
+        if self.isLightTheme(){
+            AppGlobals.shared.addBlurEffect(forView: creatNewContainerView)
+        } else {
+            let subview = self.creatNewContainerView.subviews.filter{$0 is UIVisualEffectView}
+            for view in subview{
+                view.removeFromSuperview()
+            }
+        }
+        topNavView.darkView.backgroundColor = AppColors.themeBlack26
+        self.creatNewContainerView.backgroundColor = AppColors.themeBlack26
+        self.view.backgroundColor = AppColors.themeBlack26
+        self.tableView.backgroundColor = AppColors.themeWhite
+
     }
     
     override func setupTexts() {
@@ -115,6 +126,11 @@ class SelectTripVC: BaseVC {
     
     override func bindViewModel() {
         viewModel.delegate = self
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+//        super.traitCollectionDidChange(previousTraitCollection)
+        self.setupColors()
     }
     
     // MARK: - Methods
@@ -246,11 +262,12 @@ extension SelectTripVC: UITableViewDataSource, UITableViewDelegate {
         cell?.accessoryView = nil
         
         if let idxPath = viewModel.selectedIndexPath, idxPath.row == indexPath.row {
-            let checkMarckImageView = UIImageView(image: UIImage(named: "checkIcon"))
+            let checkMarckImageView = UIImageView(image: AppImages.checkIcon)
             checkMarckImageView.contentMode = .center
             cell?.accessoryView = checkMarckImageView
         }
-        
+        cell?.textLabel?.textColor = AppColors.themeBlack
+        cell?.backgroundColor = AppColors.themeWhite
         return cell ?? UITableViewCell()
     }
     

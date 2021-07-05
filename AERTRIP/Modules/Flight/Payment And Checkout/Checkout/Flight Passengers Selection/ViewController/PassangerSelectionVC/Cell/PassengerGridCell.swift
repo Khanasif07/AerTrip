@@ -45,9 +45,15 @@ class PassengerGridCell: UITableViewCell{
     
     func configData(forIndexPath indexPath: IndexPath) {
         forIdx = indexPath
+        self.contentView.backgroundColor = AppColors.themeBlack26
         collectionView.reloadData()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?)
+    {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.collectionView.reloadData()
+    }
     
     // Mark:- IBActions
     // Mark:-

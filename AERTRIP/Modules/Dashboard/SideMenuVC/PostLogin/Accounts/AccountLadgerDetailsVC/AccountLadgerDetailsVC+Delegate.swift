@@ -70,6 +70,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
                     downloadInvoiceCell.titleLabel.text = LocalizedString.DownloadVoucher.localized
                 }
                 downloadInvoiceCell.showLoader = self.viewModel.isDownloadingRecipt
+                downloadInvoiceCell.contentView.backgroundColor = AppColors.themeWhite
                 return downloadInvoiceCell
             default: return UITableViewCell()
             }

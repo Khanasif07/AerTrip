@@ -165,8 +165,9 @@ extension FlightResultSingleJourneyVC {
             
             let rect = headerView.frame
             
+            let statusHeight = AppDelegate.shared.window?.safeAreaInsets.top ?? 0
             UIView.animate(withDuration: 1) {
-                self.resultsTableViewTop.constant = 0
+                self.resultsTableViewTop.constant = -statusHeight
                 self.view.layoutIfNeeded()
             }
             

@@ -27,6 +27,12 @@ class SeatBookingStatusCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configUI()
+        self.setColor()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.setColor()
     }
     
     //Mark:- Functions
@@ -39,12 +45,14 @@ class SeatBookingStatusCell: UITableViewCell {
         //Text
         self.youAreAllDoneLabel.text = "Seats Booked"
         self.tickMarKButton.myCornerRadius = self.tickMarKButton.height/2
-        self.tickMarKButton.setImage(#imageLiteral(resourceName: "Checkmark"), for: .normal)
+        self.tickMarKButton.setImage(AppImages.Checkmark, for: .normal)
         
         
     }
     
-    
+    private func setColor(){
+        self.contentView.backgroundColor = AppColors.themeBlack26
+    }
     
     ///AttributeLabelSetup
     //Congratulations, your seat booking is successful.
@@ -80,7 +88,7 @@ class SeatBookingStatusCell: UITableViewCell {
         if !isBookingPending {
             self.youAreAllDoneLabel.text = "Seats Booked"
             self.bookingIdAndDetailsLabel.attributedText = self.attributeLabelSetUp(prefixText: "Congratulations, your seat booking is successful.\nYour booking ID is ", id: forBookingId , postfixText: LocalizedString.AndAllDetailsWillBeSentToYourEmail.localized)
-            self.tickMarKButton.setImage(#imageLiteral(resourceName: "Checkmark"), for: .normal)
+            self.tickMarKButton.setImage(AppImages.Checkmark, for: .normal)
             self.importantNoteLabel.isHidden = true
             self.tickMarKButton.isHidden = false
             self.stackViewTopConstraint.constant = 0
@@ -90,7 +98,7 @@ class SeatBookingStatusCell: UITableViewCell {
         } else {
             self.youAreAllDoneLabel.text = LocalizedString.BookingIsInProcess.localized
         self.bookingIdAndDetailsLabel.attributedText = self.attributeLabelSetUp(prefixText: LocalizedString.YourBookingID.localized, id: forBookingId , postfixText: LocalizedString.AndAllDetailsWillBeSentToYourEmail.localized)
-            self.importantNoteLabel.attributedText = self.attributeLabelSetUp(prefixText: "", prefixTextColor: AppColors.themeRed, prefixFont: AppFonts.SemiBold.withSize(16.0)  , id: LocalizedString.YourBookingIdStmt.localized, middleTextColor: AppColors.themeBlack , middleFont: AppFonts.Regular.withSize(16.0), postfixText: LocalizedString.AertripEmailId.localized , postfixTextColor: AppColors.themeBlack , postfixFont: AppFonts.SemiBold.withSize(16.0), image: #imageLiteral(resourceName: "infoOrange"))
+            self.importantNoteLabel.attributedText = self.attributeLabelSetUp(prefixText: "", prefixTextColor: AppColors.themeRed, prefixFont: AppFonts.SemiBold.withSize(16.0)  , id: LocalizedString.YourBookingIdStmt.localized, middleTextColor: AppColors.themeBlack , middleFont: AppFonts.Regular.withSize(16.0), postfixText: LocalizedString.AertripEmailId.localized , postfixTextColor: AppColors.themeBlack , postfixFont: AppFonts.SemiBold.withSize(16.0), image: AppImages.infoOrange)
             self.importantNoteLabel.isHidden = false
             self.tickMarKButton.isHidden = true
             self.stackViewTopConstraint.constant = 16

@@ -36,6 +36,16 @@ class AmentityTableViewCell: UITableViewCell {
         
         self.doInitialSetup()
         self.registerXib()
+        self.setColors()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.setColors()
+    }
+    
+    private func setColors(){
+        self.contentView.backgroundColor = AppColors.themeBlack26
     }
     
     
@@ -82,9 +92,9 @@ extension AmentityTableViewCell : UICollectionViewDataSource,UICollectionViewDel
         // cell.amenity = self.flightDetail?.amenities[indexPath.item]
         cell.amenityTitle.text = amenities[indexPath.item]
         if amenities[indexPath.row].contains(find: "Cabbin"){
-            cell.amenityImageView.image = UIImage(named: "cabinBaggage")
+            cell.amenityImageView.image = AppImages.cabinBaggage
         }else if amenities[indexPath.row].contains(find: "Check-in"){
-            cell.amenityImageView.image = UIImage(named: "checkingBaggageKg")
+            cell.amenityImageView.image = AppImages.checkingBaggageKg
         }else{
             cell.amenityImageView.image = nil
         }

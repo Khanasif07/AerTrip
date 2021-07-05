@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -30,6 +31,8 @@
                 <outlet property="backView" destination="0Hi-Nc-atn" id="d1x-5a-YTI"/>
                 <outlet property="backViewHeightConstraint" destination="NE8-n0-naW" id="K7l-gh-9Yg"/>
                 <outlet property="containerView" destination="5iQ-SE-VF1" id="Wuj-Tf-miD"/>
+                <outlet property="darkView" destination="fI6-jb-mht" id="1zC-Zl-hcd"/>
+                <outlet property="darkViewHeight" destination="Q3s-ih-PBT" id="d3z-46-vLJ"/>
                 <outlet property="dividerView" destination="5XU-ZY-yPU" id="x2D-y5-ZIJ"/>
                 <outlet property="firstLeftButtonLeadingConst" destination="Oux-Ju-zAo" id="ILF-bJ-eof"/>
                 <outlet property="firstRightBtnTrailingConst" destination="N9p-Mc-gep" id="ZVP-1b-yMB"/>
@@ -64,6 +67,13 @@
                         <constraint firstAttribute="height" constant="60" id="NE8-n0-naW"/>
                         <constraint firstAttribute="trailing" secondItem="r6i-GV-TvM" secondAttribute="trailing" id="qc5-r7-K0B"/>
                         <constraint firstItem="r6i-GV-TvM" firstAttribute="leading" secondItem="0Hi-Nc-atn" secondAttribute="leading" id="xcE-9v-B1h"/>
+                    </constraints>
+                </view>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fI6-jb-mht">
+                    <rect key="frame" x="0.0" y="-88" width="375" height="150"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="150" id="Q3s-ih-PBT"/>
                     </constraints>
                 </view>
                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DSO-Ke-hNP">
@@ -109,19 +119,23 @@
                     </constraints>
                 </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="zxX-KT-F33"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="5XU-ZY-yPU" firstAttribute="leading" secondItem="zxX-KT-F33" secondAttribute="leading" id="3JR-9L-ZPu"/>
                 <constraint firstItem="D4F-Bu-HSK" firstAttribute="top" secondItem="zxX-KT-F33" secondAttribute="top" id="4Az-6w-Ij0"/>
                 <constraint firstItem="zxX-KT-F33" firstAttribute="trailing" secondItem="QfJ-5x-W3u" secondAttribute="trailing" constant="19" id="60y-pW-ZRN"/>
+                <constraint firstItem="fI6-jb-mht" firstAttribute="leading" secondItem="zxX-KT-F33" secondAttribute="leading" id="FwB-rB-ijr"/>
                 <constraint firstAttribute="bottom" secondItem="Wb6-dI-jbo" secondAttribute="bottom" id="GWF-oA-Exq"/>
                 <constraint firstItem="zxX-KT-F33" firstAttribute="trailing" secondItem="5XU-ZY-yPU" secondAttribute="trailing" id="Jkc-Vl-wAB"/>
                 <constraint firstItem="5XU-ZY-yPU" firstAttribute="top" secondItem="QfJ-5x-W3u" secondAttribute="bottom" constant="20.5" id="LsP-Ow-HRf"/>
                 <constraint firstItem="zxX-KT-F33" firstAttribute="trailing" secondItem="D4F-Bu-HSK" secondAttribute="trailing" constant="6" id="N9p-Mc-gep"/>
                 <constraint firstItem="DSO-Ke-hNP" firstAttribute="leading" secondItem="zxX-KT-F33" secondAttribute="leading" id="Oux-Ju-zAo"/>
+                <constraint firstItem="zxX-KT-F33" firstAttribute="trailing" secondItem="fI6-jb-mht" secondAttribute="trailing" id="Q5w-zS-Fge"/>
                 <constraint firstItem="7uz-9U-A8C" firstAttribute="centerY" secondItem="zxX-KT-F33" secondAttribute="centerY" id="ShQ-2l-S3C"/>
                 <constraint firstItem="Wb6-dI-jbo" firstAttribute="top" secondItem="zxX-KT-F33" secondAttribute="top" id="VQA-Gm-bb7"/>
                 <constraint firstItem="5XU-ZY-yPU" firstAttribute="bottom" secondItem="zxX-KT-F33" secondAttribute="bottom" id="YiK-BG-t9c"/>
+                <constraint firstItem="fI6-jb-mht" firstAttribute="bottom" secondItem="zxX-KT-F33" secondAttribute="bottom" id="g1b-Kj-81t"/>
                 <constraint firstItem="D4F-Bu-HSK" firstAttribute="leading" secondItem="Wb6-dI-jbo" secondAttribute="trailing" id="gCG-Xm-iOP"/>
                 <constraint firstItem="7uz-9U-A8C" firstAttribute="leading" secondItem="zxX-KT-F33" secondAttribute="leading" constant="44" id="kVb-z1-G5g"/>
                 <constraint firstItem="zxX-KT-F33" firstAttribute="trailing" secondItem="0Hi-Nc-atn" secondAttribute="trailing" id="mDY-cz-dDH"/>
@@ -135,7 +149,6 @@
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="zxX-KT-F33"/>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
                     <size key="value" width="0.0" height="2"/>
@@ -152,7 +165,10 @@
     </objects>
     <resources>
         <image name="backGreen" width="27" height="27"/>
-        <image name="ic_hotel_filter" width="27" height="27"/>
+        <image name="ic_hotel_filter" width="27" height="28"/>
         <image name="ic_map_view" width="27" height="27"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

@@ -21,7 +21,8 @@ class TableViewAddActionCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
-        self.cellBackgroundView.backgroundColor = AppColors.themeGray04
+        self.cellBackgroundView.backgroundColor = AppColors.profileHeaderBackground
+        actionLabel.textColor = AppColors.themeBlack
         self.bottomDividerView.isHidden = true
     }
     

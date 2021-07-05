@@ -47,6 +47,7 @@ class YouAreAllDoneTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        self.addToAppleWalletButton.backgroundColor = AppColors.unicolorBlack
         self.addToAppleWalletButton.isLoading = false
     }
     
@@ -60,7 +61,7 @@ class YouAreAllDoneTableViewCell: UITableViewCell {
     //================
     private func configUI() {
         //Image
-        self.addToAppleWalletButton.setImage(#imageLiteral(resourceName: "AddToAppleWallet"), for: .normal)
+        self.addToAppleWalletButton.setImage(AppImages.AddToAppleWallet, for: .normal)
         //Font
         self.youAreAllDoneLabel.font = AppFonts.c.withSize(38.0)
         self.configureAppleButton()
@@ -68,7 +69,7 @@ class YouAreAllDoneTableViewCell: UITableViewCell {
 
         //Color
         self.youAreAllDoneLabel.textColor = AppColors.themeBlack
-        self.addToAppleWalletButton.setTitleColor(AppColors.themeWhite, for: .normal)
+        self.addToAppleWalletButton.setTitleColor(AppColors.unicolorWhite, for: .normal)
         //Text
         self.youAreAllDoneLabel.text = LocalizedString.BookingConfirmed.localized
         self.addToAppleWalletButton.setTitle(LocalizedString.AddToAppleWallet.localized, for: .normal)
@@ -76,13 +77,16 @@ class YouAreAllDoneTableViewCell: UITableViewCell {
         self.appleWalletButtonSetUp()
         self.addToCallendarButtonSetUp()
         self.tickMarKButton.myCornerRadius = self.tickMarKButton.height/2
+        self.contentView.backgroundColor = AppColors.themeBlack26
         
         
     }
     
     private func appleWalletButtonSetUp() {
-        self.addToAppleWalletButton.backgroundColor = AppColors.themeBlack
+        self.addToAppleWalletButton.backgroundColor = AppColors.unicolorBlack
         self.addToAppleWalletButton.cornerradius = 10.0
+        self.addToAppleWalletButton.layer.borderWidth = 1.0
+        self.addToAppleWalletButton.layer.borderColor = AppColors.themeBlack.cgColor
         self.addToAppleWalletButton.clipsToBounds = true
         self.addToAppleWalletButton.imageView?.size = CGSize(width: 30.0, height: 22.0)
         self.addToAppleWalletButton.imageEdgeInsets = UIEdgeInsets(top: 0.0, left: -20.0, bottom: 0.0, right: 0.0)
@@ -90,7 +94,7 @@ class YouAreAllDoneTableViewCell: UITableViewCell {
     }
     
     private func addToCallendarButtonSetUp() {
-        self.addToCalendarButton.backgroundColor = AppColors.themeWhite
+        self.addToCalendarButton.backgroundColor = AppColors.themeBlack26
         self.addToCalendarButton.cornerradius = 10.0
         self.addToCalendarButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.addToCalendarButton.setTitleColor(AppColors.themeGreen, for: .selected)
@@ -98,8 +102,8 @@ class YouAreAllDoneTableViewCell: UITableViewCell {
         self.addToCalendarButton.layer.borderWidth = 1.0
         self.addToCalendarButton.layer.borderColor = AppColors.themeGreen.cgColor
         
-        self.addToCalendarButton.setImage( #imageLiteral(resourceName: "AllDoneCalendar") , for: .normal)
-        self.addToCalendarButton.setImage( #imageLiteral(resourceName: "AllDoneCalendar") , for: .selected)
+        self.addToCalendarButton.setImage( AppImages.AllDoneCalendar , for: .normal)
+        self.addToCalendarButton.setImage( AppImages.AllDoneCalendar , for: .selected)
         self.addToCalendarButton.setTitle(LocalizedString.AddToCalender.localized, for: .normal)
         self.addToCalendarButton.setTitle(LocalizedString.AddToCalender.localized, for: .selected)
         
@@ -172,7 +176,7 @@ class YouAreAllDoneTableViewCell: UITableViewCell {
         self.addToAppleWalletButton.setTitleFont(font: AppFonts.SemiBold.withSize(16), for: .selected)
         self.addToAppleWalletButton.setTitleColor(AppColors.themeWhite, for: .normal)
         self.addToAppleWalletButton.setTitleColor(AppColors.themeWhite, for: .selected)
-        self.addToAppleWalletButton.gradientColors = [AppColors.themeBlack, AppColors.themeBlack]
+        self.addToAppleWalletButton.gradientColors = [AppColors.unicolorBlack, AppColors.unicolorBlack]
     }
     
     
@@ -182,7 +186,7 @@ class YouAreAllDoneTableViewCell: UITableViewCell {
         
         
         let allTypes: [ActiveType] = [seeExample]
-        let textToDisplay = self.attributeLabelSetUp(prefixText: "", prefixTextColor: AppColors.themeRed, prefixFont: AppFonts.SemiBold.withSize(16.0)  , id: LocalizedString.YourBookingIdStmt.localized, middleTextColor: AppColors.themeBlack , middleFont: AppFonts.Regular.withSize(16.0), postfixText: LocalizedString.AertripEmailId.localized , postfixTextColor: AppColors.themeBlack , postfixFont: AppFonts.SemiBold.withSize(16.0), image: #imageLiteral(resourceName: "infoOrange"))
+        let textToDisplay = self.attributeLabelSetUp(prefixText: "", prefixTextColor: AppColors.themeRed, prefixFont: AppFonts.SemiBold.withSize(16.0)  , id: LocalizedString.YourBookingIdStmt.localized, middleTextColor: AppColors.themeBlack , middleFont: AppFonts.Regular.withSize(16.0), postfixText: LocalizedString.AertripEmailId.localized , postfixTextColor: AppColors.themeBlack , postfixFont: AppFonts.SemiBold.withSize(16.0), image: AppImages.infoOrange)
         withLabel.textColor = AppColors.themeBlack
         withLabel.enabledTypes = allTypes
         withLabel.customize { label in

@@ -26,6 +26,7 @@ extension OtherBookingsDetailsVC {
         cell.titleLabelBottomConstraint.constant = 0.0
         cell.configCell(title: self.viewModel.bookingDetail?.bookingDetail?.details ?? "", titleFont: AppFonts.SemiBold.withSize(16.0), titleColor: AppColors.themeBlack, subTitle: "", subTitleFont: AppFonts.Regular.withSize(18.0), subTitleColor: AppColors.themeBlack)
         cell.dividerView.isHidden = true
+        cell.containerView.backgroundColor = AppColors.themeWhite
         return cell
     }
     
@@ -43,6 +44,7 @@ extension OtherBookingsDetailsVC {
             cell.configCell(travellersImage: traveller?.profileImage ?? "" , travellerName: traveller?.paxName ?? "", firstName: traveller?.firstName ?? "", lastName: traveller?.lastName ?? "", dob: traveller?.dob ?? "", salutation: traveller?.salutation ?? "")
             cell.travellerImageViewBottomConstraint.constant = 0
             // cell divider will not be use here as divider is in document Cell.
+            cell.containerView.backgroundColor = AppColors.themeWhite
             return cell
         }
         else {
@@ -56,6 +58,7 @@ extension OtherBookingsDetailsVC {
             cell.containerViewLeadingConstraint.constant = 0
             cell.containerViewBottomConstraint.constant = 0
             cell.containerViewTrailingConstraint.constant = 0
+            cell.containerView.backgroundColor = AppColors.themeWhite
             return cell
         }
     }
@@ -91,6 +94,7 @@ extension OtherBookingsDetailsVC {
         
 //        cell.configCell(title: LocalizedString.Booking.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(amount)", isLastCell: false)
         cell.clipsToBounds = true
+        cell.contentView.backgroundColor = AppColors.themeWhite
         return cell
     }
     
@@ -121,6 +125,7 @@ extension OtherBookingsDetailsVC {
         
  
         cell.clipsToBounds = true
+        cell.contentView.backgroundColor = AppColors.themeWhite
         return cell
     }
     

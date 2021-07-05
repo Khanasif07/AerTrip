@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,7 +26,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S1n-j8-Uge" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                        <rect key="frame" x="16" y="89.5" width="390" height="0.5"/>
+                        <rect key="frame" x="16" y="127" width="390" height="0.5"/>
                         <color key="backgroundColor" red="0.90196078431372551" green="0.90196078431372551" blue="0.90196078431372551" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="0.5" id="BfF-e7-ZAQ"/>
@@ -40,17 +40,17 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="For Julin and Clifford" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bpE-DM-YCv">
-                        <rect key="frame" x="16" y="35" width="272" height="18"/>
+                        <rect key="frame" x="16" y="72.5" width="272" height="18"/>
                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="epk-Vd-zcs">
-                        <rect key="frame" x="11" y="62" width="151" height="19.5"/>
+                        <rect key="frame" x="11" y="99.5" width="151" height="19.5"/>
                         <color key="backgroundColor" red="0.99607843137254903" green="0.94901960784313721" blue="0.7803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Auto Selected for DEL → HYD" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1xR-Nm-7kt">
-                        <rect key="frame" x="16" y="64" width="141" height="15.5"/>
+                        <rect key="frame" x="16" y="101.5" width="141" height="15.5"/>
                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -71,6 +71,12 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hinarian) Meal Hindu Hinarian) Meal Hindu Hinarian) Meal Hindu Hinarian) M" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mMX-f0-utH">
+                        <rect key="frame" x="16" y="35" width="272" height="35.5"/>
+                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="1xR-Nm-7kt" firstAttribute="leading" secondItem="bpE-DM-YCv" secondAttribute="leading" id="27h-g7-xN4"/>
@@ -80,6 +86,7 @@
                     <constraint firstItem="hp1-G0-BN3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="LCO-8g-2HH"/>
                     <constraint firstItem="S1n-j8-Uge" firstAttribute="top" secondItem="1xR-Nm-7kt" secondAttribute="bottom" constant="10" id="OtY-M3-3Y2"/>
                     <constraint firstItem="bpE-DM-YCv" firstAttribute="trailing" secondItem="hp1-G0-BN3" secondAttribute="trailing" id="R1A-Qr-jfy"/>
+                    <constraint firstItem="bpE-DM-YCv" firstAttribute="top" secondItem="mMX-f0-utH" secondAttribute="bottom" constant="2" id="StJ-gB-6iA"/>
                     <constraint firstItem="7bd-Nc-ZQo" firstAttribute="top" secondItem="UNf-lX-BqA" secondAttribute="bottom" id="Tm5-WW-CSg"/>
                     <constraint firstItem="bpE-DM-YCv" firstAttribute="leading" secondItem="hp1-G0-BN3" secondAttribute="leading" id="W7k-wm-I9e"/>
                     <constraint firstItem="UNf-lX-BqA" firstAttribute="leading" secondItem="hp1-G0-BN3" secondAttribute="trailing" constant="2" id="Wlt-HQ-aSg"/>
@@ -88,9 +95,11 @@
                     <constraint firstItem="7bd-Nc-ZQo" firstAttribute="trailing" secondItem="UNf-lX-BqA" secondAttribute="trailing" id="a2K-0w-znJ"/>
                     <constraint firstItem="epk-Vd-zcs" firstAttribute="bottom" secondItem="1xR-Nm-7kt" secondAttribute="bottom" constant="2" id="bXy-IE-7C5"/>
                     <constraint firstAttribute="trailing" secondItem="S1n-j8-Uge" secondAttribute="trailing" id="crH-yx-kUZ"/>
-                    <constraint firstItem="bpE-DM-YCv" firstAttribute="top" secondItem="hp1-G0-BN3" secondAttribute="bottom" constant="2" id="dB4-Xh-sgO"/>
                     <constraint firstItem="1xR-Nm-7kt" firstAttribute="top" secondItem="bpE-DM-YCv" secondAttribute="bottom" constant="11" id="dbs-WS-PBV"/>
                     <constraint firstItem="epk-Vd-zcs" firstAttribute="trailing" secondItem="1xR-Nm-7kt" secondAttribute="trailing" constant="5" id="g3p-u0-2au"/>
+                    <constraint firstItem="mMX-f0-utH" firstAttribute="leading" secondItem="hp1-G0-BN3" secondAttribute="leading" id="iXz-F8-Gbk"/>
+                    <constraint firstItem="mMX-f0-utH" firstAttribute="top" secondItem="hp1-G0-BN3" secondAttribute="bottom" constant="2" id="jnH-aI-Lcd"/>
+                    <constraint firstItem="mMX-f0-utH" firstAttribute="trailing" secondItem="hp1-G0-BN3" secondAttribute="trailing" id="l4g-Gr-kre"/>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="S1n-j8-Uge" secondAttribute="bottom" id="mqC-6N-emx"/>
                     <constraint firstItem="UNf-lX-BqA" firstAttribute="centerY" secondItem="hp1-G0-BN3" secondAttribute="centerY" id="pON-0r-jgt"/>
                     <constraint firstItem="S1n-j8-Uge" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="sgc-FB-9Q1"/>
@@ -100,10 +109,13 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="autoSelectionBackView" destination="epk-Vd-zcs" id="VbW-5Y-D8D"/>
+                <outlet property="descriptionLabel" destination="mMX-f0-utH" id="luq-W5-ftK"/>
+                <outlet property="descriptionLabelTop" destination="jnH-aI-Lcd" id="JqH-VN-BJT"/>
+                <outlet property="dividerView" destination="S1n-j8-Uge" id="il6-H1-mR8"/>
                 <outlet property="mealAutoSelectedForLabel" destination="1xR-Nm-7kt" id="kEx-ye-cFZ"/>
                 <outlet property="mealAutoSelectedTop" destination="dbs-WS-PBV" id="M9R-hj-xh4"/>
                 <outlet property="mealForLabel" destination="bpE-DM-YCv" id="bk5-yd-lCx"/>
-                <outlet property="mealForLabelTop" destination="dB4-Xh-sgO" id="SU7-Fs-y27"/>
+                <outlet property="mealForLabelTop" destination="StJ-gB-6iA" id="4TX-NW-tgl"/>
                 <outlet property="mealTitleLabel" destination="hp1-G0-BN3" id="XmA-Cn-I9O"/>
                 <outlet property="priceLabel" destination="UNf-lX-BqA" id="Jwk-NP-AmK"/>
                 <outlet property="priceLabelWidth" destination="LHq-Zl-cDs" id="7kw-Pc-fuM"/>

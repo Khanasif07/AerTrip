@@ -48,9 +48,9 @@ class EditProfileTwoPartTableViewCell: UITableViewCell {
     var isSettingForEdit:Bool = false{
         didSet{
             if isSettingForEdit{
-                self.deleteButton.setImage(#imageLiteral(resourceName: "editPencel"), for: .normal)
+                self.deleteButton.setImage(AppImages.editPencel, for: .normal)
             }else{
-                self.deleteButton.setImage(#imageLiteral(resourceName: "redMinusButton"), for: .normal)
+                self.deleteButton.setImage(AppImages.redMinusButton, for: .normal)
             }
         }
     }
@@ -60,7 +60,8 @@ class EditProfileTwoPartTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-       
+        leftTitleLabel.textColor = AppColors.textFieldTextColor51
+        self.contentView.backgroundColor = AppColors.profileContentBackground
         addGesture()
     }
     
