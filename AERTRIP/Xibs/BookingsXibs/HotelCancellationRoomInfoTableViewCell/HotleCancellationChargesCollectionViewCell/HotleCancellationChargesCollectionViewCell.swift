@@ -43,9 +43,14 @@ class HotleCancellationChargesCollectionViewCell: UICollectionViewCell {
         self.chargeAmountLabel.textColor = AppColors.themeGray40
     }
     
-    internal func configureCell(chargeName: String, chargeAmount: String) {
+    internal func configureCell(chargeName: String, chargeAmount: String, convvertedAmount: NSAttributedString?) {
         self.chargeNameLabel.text = chargeName
-        self.chargeAmountLabel.attributedText = chargeAmount.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+        if convvertedAmount == nil{
+            self.chargeAmountLabel.attributedText = chargeAmount.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+        }else{
+            self.chargeAmountLabel.attributedText = convvertedAmount
+        }
+        
     }
     
 }

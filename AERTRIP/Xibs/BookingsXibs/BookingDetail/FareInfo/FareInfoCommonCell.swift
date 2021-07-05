@@ -35,6 +35,7 @@ class FareInfoCommonCell: ATTableViewCell
     var flightAdultCount = 0
     var flightChildrenCount = 0
     var flightInfantCount = 0
+    var currencyRate: CurrencyConversionRate?
     
     
     override func prepareForReuse() {
@@ -105,6 +106,7 @@ class FareInfoCommonCell: ATTableViewCell
             self.titleView.isHidden = true
         }
         
+        self.currencyRate = model.currencyRate
         if indexPath.section == 0 {
             configureForCancelation(model: model, indexPath: indexPath)
         } else {
@@ -154,7 +156,7 @@ class FareInfoCommonCell: ATTableViewCell
                         }
                     }
                 }
-                
+                let adtRafVal = model.rafCanCharges?.adult ?? 0//model.aertripCanCharges?.adult ?? 0
                 if flightAdultCount > 0 && flightChildrenCount == 0 && flightInfantCount == 0{
                     self.statusLabel.isHidden = false
                     if airlineValue == -9{
@@ -163,12 +165,12 @@ class FareInfoCommonCell: ATTableViewCell
                     }else if airlineValue == -1{
                         self.statusLabel.textColor = .black
                         self.statusLabel.text = "Non-refundable"
-                    }else if airlineValue == 0 && aertripValue == 0{
+                    }else if airlineValue == 0 && aertripValue == 0 && adtRafVal == 0{
                         self.statusLabel.textColor = UIColor(displayP3Red: 255.0/255.0, green: 144.0/255.0, blue: 0.0/255.0, alpha: 1.0)
                         self.statusLabel.text = "Free Cancellation"
                     }else{
                         self.statusLabel.textColor = .black
-                        let adtRafVal = model.rafCanCharges?.adult ?? 0//model.aertripCanCharges?.adult ?? 0
+//                        let adtRafVal = model.rafCanCharges?.adult ?? 0//model.aertripCanCharges?.adult ?? 0
                         let displayValue = Double(airlineValue + adtRafVal)
                         
                         self.statusLabel.attributedText = getFormatedPrice(flightPrice: displayValue, aertripPrice: aertripValue, font: self.statusLabel.font)
@@ -180,12 +182,12 @@ class FareInfoCommonCell: ATTableViewCell
                     }else if airlineValue == -1{
                         self.perAdultAmountLabel.textColor = .black
                         self.perAdultAmountLabel.text = "Non-refundable"
-                    }else if airlineValue == 0 && aertripValue == 0{
+                    }else if airlineValue == 0 && aertripValue == 0 && adtRafVal == 0{
                         self.perAdultAmountLabel.textColor = UIColor(displayP3Red: 255.0/255.0, green: 144.0/255.0, blue: 0.0/255.0, alpha: 1.0)
                         self.perAdultAmountLabel.text = "Free Cancellation"
                     }else{
                         self.perAdultAmountLabel.textColor = .black
-                        let adtRafVal = model.rafCanCharges?.adult ?? 0//model.aertripCanCharges?.adult ?? 0
+                        
                         let displayValue = Double(airlineValue + adtRafVal)
                         self.adultView.isHidden = false
                         self.perAdultAmountLabel.attributedText = getFormatedPrice(flightPrice: displayValue, aertripPrice: aertripValue, font: self.perAdultAmountLabel.font)
@@ -204,19 +206,19 @@ class FareInfoCommonCell: ATTableViewCell
             
             if indexPath.row < chdAirlineCancellationSlab.count{
                 let value = chdAirlineCancellationSlab[indexPath.row].value
-                
+                let chdRafVal = model.rafCanCharges?.child ?? 0//model.aertripCanCharges?.child ?? 0
                 if value == -9{
                     self.perChildAmountLabel.textColor = .black
                     self.perChildAmountLabel.text = "NA"
                 }else if value == -1{
                     self.perChildAmountLabel.textColor = .black
                     self.perChildAmountLabel.text = "Non-refundable"
-                }else if value == 0 && aertripValue == 0{
+                }else if value == 0 && aertripValue == 0 && chdRafVal == 0{
                     self.perChildAmountLabel.textColor = UIColor(displayP3Red: 255.0/255.0, green: 144.0/255.0, blue: 0.0/255.0, alpha: 1.0)
                     self.perChildAmountLabel.text = "Free Cancellation"
                 }else{
                     self.perChildAmountLabel.textColor = .black
-                    let chdRafVal = model.rafCanCharges?.child ?? 0//model.aertripCanCharges?.child ?? 0
+                    
                     let displayValue = Double(value! + chdRafVal)
                     self.childView.isHidden = false
                     self.perChildAmountLabel.attributedText = getFormatedPrice(flightPrice: displayValue, aertripPrice: aertripValue, font: self.perChildAmountLabel.font)
@@ -234,6 +236,7 @@ class FareInfoCommonCell: ATTableViewCell
             
             if indexPath.row < infAirlineCancellationSlab.count{
                 let value = infAirlineCancellationSlab[indexPath.row].value
+                let chdRafVal = model.rafCanCharges?.infant ?? 0//model.aertripCanCharges?.infant ?? 0
                 
                 if value == -9{
                     self.perInfantAmountLabel.textColor = .black
@@ -241,12 +244,11 @@ class FareInfoCommonCell: ATTableViewCell
                 }else if value == -1{
                     self.perInfantAmountLabel.textColor = .black
                     self.perInfantAmountLabel.text = "Non-refundable"
-                }else if value == 0 && aertripValue == 0{
+                }else if value == 0 && aertripValue == 0 && chdRafVal == 0{
                     self.perInfantAmountLabel.textColor = UIColor(displayP3Red: 255.0/255.0, green: 144.0/255.0, blue: 0.0/255.0, alpha: 1.0)
                     self.perInfantAmountLabel.text = "Free Cancellation"
                 }else{
                     self.perInfantAmountLabel.textColor = .black
-                    let chdRafVal = model.rafCanCharges?.infant ?? 0//model.aertripCanCharges?.infant ?? 0
                     let displayValue = Double(value! + chdRafVal)
                     self.infrantView.isHidden = false
                     self.perInfantAmountLabel.attributedText = getFormatedPrice(flightPrice: displayValue, aertripPrice: aertripValue, font: self.perInfantAmountLabel.font)
@@ -479,14 +481,26 @@ class FareInfoCommonCell: ATTableViewCell
     {
         if aertripPrice > 0.0{
             let totalPrice = flightPrice + aertripPrice
-            let price = totalPrice.amountInDelimeterWithSymbol.asStylizedPrice(using: font)
+            let price:NSMutableAttributedString
+            if let rate = self.currencyRate{
+                price = totalPrice.convertCancellationAmount(with: rate, using: font)
+            }else{
+                price = totalPrice.amountInDelimeterWithSymbol.asStylizedPrice(using: font)
+            }
             
             let finalString = NSMutableAttributedString(attributedString: price)
             return finalString
         }else{
-            let fPrice = flightPrice.amountInDelimeterWithSymbol.asStylizedPrice(using: font)
-            let aPrice = aertripPrice.amountInDelimeterWithSymbol.asStylizedPrice(using: font)
+            let fPrice:NSMutableAttributedString
+            let aPrice:NSMutableAttributedString
             
+            if let rate = self.currencyRate{
+                fPrice = flightPrice.convertCancellationAmount(with: rate, using: font)
+                aPrice = aertripPrice.convertCancellationAmount(with: rate, using: font)
+            }else{
+                fPrice = flightPrice.amountInDelimeterWithSymbol.asStylizedPrice(using: font)
+                aPrice = aertripPrice.amountInDelimeterWithSymbol.asStylizedPrice(using: font)
+            }
             let finalString = NSMutableAttributedString(attributedString: fPrice)
             finalString.append(NSMutableAttributedString(string: " + "))
             finalString.append(aPrice)
