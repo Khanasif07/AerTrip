@@ -30,7 +30,12 @@ extension HotelCancellationVC: UITableViewDelegate , UITableViewDataSource {
             self.cancellationButtonOutlet.setTitleColor(AppColors.themeWhite.withAlphaComponent(1.0), for: .normal)
             self.cancellationButtonOutlet.isUserInteractionEnabled = true
             self.totalNetRefundContainerView.isHidden = false
-            self.totalNetRefundLabelAmountLabel.text = self.viewModel.netRefundAmount.delimiterWithSymbol
+            if let currency = self.viewModel.bookingDetail?.bookingCurrencyRate{
+                self.totalNetRefundLabelAmountLabel.attributedText = self.viewModel.netRefundAmount.convertAmount(with: currency, using: AppFonts.Regular.withSize(18))//.delimiterWithSymbol
+            }else{
+                self.totalNetRefundLabelAmountLabel.text = self.viewModel.netRefundAmount.delimiterWithSymbol
+            }
+            
         }
     }
     
@@ -59,7 +64,7 @@ extension HotelCancellationVC: UITableViewDelegate , UITableViewDataSource {
         let isRoomSelected = self.viewModel.selectedRooms.contains(where: { $0.rid == roomD.rid })
         let isExpanded = self.expandedIndexPaths.contains(indexPath)
         
-        cell.configureCell(roomNumber: "\(LocalizedString.Room.localized) \(indexPath.row+1)", roomDetails: roomD, isRoomSelected: isRoomSelected, isExpanded: isExpanded)
+        cell.configureCell(roomNumber: "\(LocalizedString.Room.localized) \(indexPath.row+1)", roomDetails: roomD, isRoomSelected: isRoomSelected, isExpanded: isExpanded, currencyRate: self.viewModel.bookingDetail?.bookingCurrencyRate)
         
         cell.topDividerViewLeadingConstraint.constant = (indexPath.row == (rooms.count - 1)) ? 0.0 : 56.0
         cell.bottomDividerViewLeadingConstraint.constant = (indexPath.row == (rooms.count - 1)) ? 0.0 : 56.0

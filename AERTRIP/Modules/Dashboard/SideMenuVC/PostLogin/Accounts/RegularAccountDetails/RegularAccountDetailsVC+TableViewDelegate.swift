@@ -99,7 +99,7 @@ extension RegularAccountDetailsVC:UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let allEvent = self.getAllEvents(with: indexPath.row, for: tableView)
+        let allEvent = self.getAllEvents(with: indexPath.section, for: tableView)
 //        if tableView === self.tableView {
 //            allEvent = (self.viewModel.accountDetails[self.viewModel.allDates[indexPath.section]] as? [AccountDetailEvent]) ?? []
 //        }
