@@ -183,19 +183,15 @@ class ChatVM {
     
     
     func getRecentFlights(){
-        APICaller.shared.recentSearchesApi(searchFor: RecentSearchFor.flight) { (success, error, obj) in
-            
-            self.delegate?.willGetRecentSearchHotel()
-            APICaller.shared.recentSearchesApi(searchFor: RecentSearchFor.flight) { [weak self] (success, error, obj) in
-                printDebug("obj.....\(obj)")
-                if success {
-                    //self?.recentSearchesData = obj
-                    self?.arrangeHotelAndFlightsRecentSearch(obj)
-                    self?.delegate?.getRecentSearchHotelSuccessFully()
-                }else{
-                    self?.delegate?.failedToGetRecentSearchApi()
-                }
-                
+        self.delegate?.willGetRecentSearchHotel()
+        APICaller.shared.recentSearchesApi(searchFor: RecentSearchFor.flight) { [weak self] (success, error, obj) in
+            printDebug("obj.....\(obj)")
+            if success {
+                //self?.recentSearchesData = obj
+                self?.arrangeHotelAndFlightsRecentSearch(obj)
+                self?.delegate?.getRecentSearchHotelSuccessFully()
+            }else{
+                self?.delegate?.failedToGetRecentSearchApi()
             }
         }
     }
@@ -223,15 +219,13 @@ class ChatVM {
     
     func getRecentHotels(){
         self.delegate?.willGetRecentSearchHotel()
-        APICaller.shared.recentSearchesApi(searchFor: RecentSearchFor.hotel) { (success, error, obj) in
-            APICaller.shared.recentSearchesApi(searchFor: RecentSearchFor.hotel) { [weak self] (success, error, obj) in
-                if success {
-                    //self?.recentSearchesData = obj
-                    self?.arrangeHotelAndFlightsRecentSearch(obj)
-                    self?.delegate?.getRecentSearchHotelSuccessFully()
-                }else{
-                    self?.delegate?.failedToGetRecentSearchApi()
-                }
+        APICaller.shared.recentSearchesApi(searchFor: RecentSearchFor.hotel) { [weak self] (success, error, obj) in
+            if success {
+                //self?.recentSearchesData = obj
+                self?.arrangeHotelAndFlightsRecentSearch(obj)
+                self?.delegate?.getRecentSearchHotelSuccessFully()
+            }else{
+                self?.delegate?.failedToGetRecentSearchApi()
             }
         }
     }
@@ -315,9 +309,10 @@ class ChatVM {
         }
         
         let filtersDict = dict.filter { $0.key.contains("filters") }
-        filtersDict.forEach { (key, val) in
-            jsonDict[key] = "\(val)"
-        }
+//        filtersDict.forEach { (key, val) in
+//            jsonDict[key] = "\(val)"
+//        }
+        jsonDict["filters"] = filtersDict["filters"]
         jsonDict["aerinSessionId"] = sessionId
         SwiftObjCBridgingController.shared.sendFlightFormData(jsonDict)
     }
