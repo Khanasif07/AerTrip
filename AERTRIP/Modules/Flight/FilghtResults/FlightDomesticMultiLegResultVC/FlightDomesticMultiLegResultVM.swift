@@ -167,11 +167,11 @@ class FlightDomesticMultiLegResultVM {
         
         
         suggetedSortArray.sort(by: { (obj1, obj2) -> Bool in
-                return obj1.price  < obj2.price
+                return obj1.farepr  < obj2.farepr
         })
         
         journeySortedArray.sort(by: { (obj1, obj2) -> Bool in
-                return obj1.price  < obj2.price
+                return obj1.farepr  < obj2.farepr
         })
         
         switch  sortOrder {
@@ -189,17 +189,17 @@ class FlightDomesticMultiLegResultVM {
             suggetedSortArray.sort(by: { (obj1, obj2) -> Bool in
                 
                 if isConditionReverced {
-                    return obj1.price  > obj2.price
+                    return obj1.farepr  > obj2.farepr
                 } else {
-                    return obj1.price  < obj2.price
+                    return obj1.farepr  < obj2.farepr
                 }
             })
             
             journeySortedArray.sort(by: { (obj1, obj2) -> Bool in
                 if isConditionReverced {
-                    return obj1.price  > obj2.price
+                    return obj1.farepr  > obj2.farepr
                 } else {
-                    return obj1.price  < obj2.price
+                    return obj1.farepr  < obj2.farepr
                 }
             })
             
@@ -303,9 +303,7 @@ class FlightDomesticMultiLegResultVM {
         default: break;
             
         }
-        
-        
-
+    
         self.results[tableIndex].journeyArray = journeySortedArray
         
         self.results[tableIndex].suggestedJourneyArray = suggetedSortArray
