@@ -98,6 +98,11 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     
     // MARK: - View Lifecycle
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        tableView.reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -130,7 +135,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        statusBarStyle = .darkContent
+        statusBarStyle = .default
     }
     
   
@@ -204,6 +209,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     // MARK: - Helper Methods
     
     func doInitialSetUp() {
+        view.backgroundColor = AppColors.themeWhite
         activityIndicatorView.color = AppColors.themeGreen
         activityIndicatorView.isHidden = true
         topNavView.delegate = self
