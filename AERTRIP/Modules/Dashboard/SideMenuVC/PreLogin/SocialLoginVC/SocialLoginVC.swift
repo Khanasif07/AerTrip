@@ -109,12 +109,12 @@ class SocialLoginVC: BaseVC {
     
     override func setupColors() {
         
-        self.fbButton.setTitleColor(UIColor.white, for: UIControl.State.normal)
-        self.googleButton.setTitleColor(UIColor.black, for: UIControl.State.normal)
+        self.fbButton.setTitleColor(AppColors.unicolorWhite, for: UIControl.State.normal)
+        self.googleButton.setTitleColor(AppColors.unicolorBlack, for: UIControl.State.normal)
         self.appleButton.setTitleColor(AppColors.themeWhite, for: UIControl.State.normal)
 
         self.fbButton.gradientColors = [AppColors.fbButtonBackgroundColor, AppColors.fbButtonBackgroundColor]
-        self.googleButton.gradientColors = [AppColors.themeBlack, AppColors.themeBlack]
+        self.googleButton.gradientColors = [AppColors.unicolorWhite, AppColors.unicolorWhite]
         self.appleButton.gradientColors = [AppColors.appleButtonBackgroundColor, AppColors.appleButtonBackgroundColor]
         
         self.fbButton.isSocial = true
