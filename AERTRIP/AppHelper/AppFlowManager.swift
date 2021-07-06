@@ -1420,7 +1420,10 @@ extension AppFlowManager {
                 //                if tripType == .hotel {
                 //                    checkDefaultTrip(trips: trips)
                 //                } else {
-                openSelectTripScreen(trips: trips)
+                delay(seconds: 0.0) {
+                    openSelectTripScreen(trips: trips)
+                }
+                
                 //                }
                 //                }
             }
@@ -1435,7 +1438,10 @@ extension AppFlowManager {
                 //                if tripType == .hotel {
                 //                    checkDefaultTrip(trips: trips)
                 //                } else {
-                openSelectTripScreen(trips: trips)
+//                openSelectTripScreen(trips: trips)
+                delay(seconds: 0.0) {
+                    openSelectTripScreen(trips: trips)
+                }
                 //                }
                 //                }
             }

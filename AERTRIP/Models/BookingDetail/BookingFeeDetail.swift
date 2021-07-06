@@ -40,6 +40,7 @@ struct BookingFeeDetail {
     var aerlineResCharges: AerlineCharge?
     var aertripResCharges: Charges?
     var rafResCharges: Charges?
+    var currencyRate:CurrencyConversionRate?
     
     var legId: [String] = []
     var rfd:Bool = false
@@ -77,6 +78,10 @@ struct BookingFeeDetail {
         
         if let legId = json["leg_id"] as? [String] {
             self.legId = legId
+        }
+        
+        if let currency  = json["booking_currency_rate"] as? JSONDictionary {
+            self.currencyRate = CurrencyConversionRate(json: currency)
         }
         
         if let obj = json["rfd"] as? Bool{

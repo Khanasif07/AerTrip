@@ -218,16 +218,17 @@ class AccountDetailsVC: BaseVC {
     
     override func setupColors() {
         self.balanceTextLabel.textColor = AppColors.themeGray40
-        
+        self.view.backgroundColor = AppColors.themeWhite
         self.tableView.backgroundColor = AppColors.themeWhite
-        
+        self.searchTableView.backgroundColor = AppColors.themeWhite
         self.searchContainerView.backgroundColor = AppColors.themeWhite
         self.searchBarContainerView.backgroundColor = AppColors.themeWhite
         self.blankSpaceView.backgroundColor = AppColors.themeGray04
-        
+        self.subHeaderContainer.backgroundColor = AppColors.themeWhite
         self.openingBalanceTitleLabel.textColor = AppColors.themeBlack
         self.openingBalanceAmountLabel.textColor = AppColors.themeBlack
         self.openingBalanceDateLabel.textColor = AppColors.themeGray40
+        
     }
     
     func startProgress() {
@@ -350,7 +351,7 @@ class AccountDetailsVC: BaseVC {
                 sSelf.searchTableView.reloadData()
                 if (sSelf.currentViewState == .searching) {
                     sSelf.mainSearchBar.becomeFirstResponder()
-                    sSelf.searchDataContainerView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.4)
+                    sSelf.searchDataContainerView.backgroundColor = AppColors.unicolorBlack.withAlphaComponent(0.4)
                 }
                 else {
                     sSelf.searchDataContainerView.backgroundColor = AppColors.clear

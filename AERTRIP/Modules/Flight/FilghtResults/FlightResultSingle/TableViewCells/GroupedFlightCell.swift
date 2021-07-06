@@ -122,10 +122,6 @@ struct TimeFK {
         
         buttonTapped(false)
         
-        
-        
-        
-        
     }
     
     

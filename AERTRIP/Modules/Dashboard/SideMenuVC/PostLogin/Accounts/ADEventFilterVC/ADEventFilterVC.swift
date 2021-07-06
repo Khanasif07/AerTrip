@@ -153,7 +153,12 @@ class ADEventFilterVC: BaseVC {
     }
     
     override func setupColors() {
-        self.topNavBar.navTitleLabel.textColor = AppColors.themeGray40
+//        self.topNavBar.navTitleLabel.textColor = AppColors.themeGray40
+        self.topNavBar.navTitleLabel.textColor = AppColors.themeGray153
+        self.mainBackView.backgroundColor = AppColors.unicolorBlack.withAlphaComponent(0.4)
+        self.mainContainerView.backgroundColor = AppColors.themeWhiteDashboard
+        self.childContainerView.backgroundColor = AppColors.themeWhiteDashboard
+        
     }
     
     //MARK:- Methods
@@ -228,7 +233,7 @@ class ADEventFilterVC: BaseVC {
         self.parchmentView?.indicatorColor = AppColors.themeGreen
         self.parchmentView?.selectedTextColor = AppColors.themeBlack
         self.childContainerView.addSubview(self.parchmentView!.view)
-        
+        self.parchmentView?.menuBackgroundColor = AppColors.clear
         self.parchmentView?.dataSource = self
         self.parchmentView?.delegate = self
         self.parchmentView?.sizeDelegate = self
