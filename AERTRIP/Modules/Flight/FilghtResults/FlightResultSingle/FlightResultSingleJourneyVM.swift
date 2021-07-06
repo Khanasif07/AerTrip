@@ -300,7 +300,6 @@ class FlightResultSingleJourneyVM {
         
     }
     
-    
     func applySorting(sortOrder : Sort, isConditionReverced : Bool, legIndex : Int){
           
              var suggetedSortArray = self.results.suggestedJourneyArray
