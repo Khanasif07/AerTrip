@@ -408,6 +408,9 @@ enum AppColors {
     
     /// ( 255, 255, 255)  ( 255, 255, 255, 0.2)
     static let hotelDetailOnGuestSelection = UIColor(named: "hotelDetailOnGuestSelection") ?? UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 1)
+    
+    /// (0,0,0,0.5) (0,0,0,0)
+    static let sideDrawerShadowColor = UIColor(named: "sideDrawerShadowColor") ?? .white
 
     
     case headlines

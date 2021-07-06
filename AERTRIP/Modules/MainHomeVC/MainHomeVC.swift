@@ -205,7 +205,7 @@ class MainHomeVC: BaseVC {
     private func createSideMenu() -> PKSideMenuController {
 //        PKSideMenuOptions.opacityViewBackgroundColor = AppColors.drawerSideColor
         PKSideMenuOptions.mainViewShadowColor = AppColors.drawerSideColor
-        PKSideMenuOptions.dropOffShadowColor = UIColor.black.withAlphaComponent(0.5)
+        PKSideMenuOptions.dropOffShadowColor = AppColors.sideDrawerShadowColor
         
         let sideMenuVC = PKSideMenuController()
         sideMenuVC.delegate = self
@@ -295,7 +295,7 @@ class MainHomeVC: BaseVC {
         toAddImgView.layer.cornerRadius = (toAddImgView.frame.size.width ) / 2
         toAddImgView.clipsToBounds = true
         toAddImgView.layer.borderWidth = 2.5
-        toAddImgView.layer.borderColor = AppColors.themeGray20.cgColor
+        toAddImgView.layer.borderColor = AppColors.profileImageBorderColor.cgColor
         toAddImgView.image = self.profileView?.profileImageView.image
         toAddImgView.contentMode = .scaleAspectFill
         view.addSubview(toAddImgView)
@@ -333,7 +333,7 @@ class MainHomeVC: BaseVC {
         toAddImgView.layer.cornerRadius = (toAddImgView.frame.size.width ) / 2
         toAddImgView.clipsToBounds = true
         toAddImgView.layer.borderWidth = 2.5
-        toAddImgView.layer.borderColor = AppColors.themeGray20.cgColor
+        toAddImgView.layer.borderColor = AppColors.profileImageBorderColor.cgColor
         toAddImgView.image = viewProfileVC?.profileImageHeaderView?.profileImageView.image
         toAddImgView.contentMode = .scaleAspectFill
         view.addSubview(toAddImgView)
