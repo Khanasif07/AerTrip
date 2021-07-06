@@ -65,7 +65,7 @@ extension FlightResultSingleJourneyVC : UITableViewDataSource , UITableViewDeleg
                 
             }
             
-            if arrayForDisplay[indexPath.row].cellType == .singleJourneyCell {
+            if arrayForDisplay[safe:indexPath.row]?.cellType == .singleJourneyCell {
             
                 return getSingleJourneyCell(indexPath: indexPath ,journey:  arrayForDisplay[indexPath.row].journeyArray.first)
             
