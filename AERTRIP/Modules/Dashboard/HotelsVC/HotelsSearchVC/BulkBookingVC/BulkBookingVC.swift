@@ -182,7 +182,7 @@ class BulkBookingVC: BaseVC {
         self.specialReqTextView.returnKeyType = .done
 //        self.whereContainerView.backgroundColor = AppColors.themeWhiteDashboard
 //        self.bulkBookingView.backgroundColor = AppColors.themeWhiteDashboard
-        [self.whereContainerView, self.bulkBookingView, self.dateInfoView, self.prefredTextContainer, self.specialTextContainer, searchView, specialReqTextView].forEach{view in
+        [self.whereContainerView, self.bulkBookingView, self.dateInfoView, self.prefredTextContainer, self.specialTextContainer, searchView, specialReqTextView, self.bottomView].forEach{view in
             view?.backgroundColor = AppColors.themeWhiteDashboard
         }
     }
