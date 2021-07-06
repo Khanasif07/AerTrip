@@ -12,7 +12,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "arrowReturnCopy2.png",
+      "filename" : "White@1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -28,7 +28,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "arrowReturnCopy2@2x.png",
+      "filename" : "White@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -44,7 +44,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "arrowReturnCopy2@3x.png",
+      "filename" : "White@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
