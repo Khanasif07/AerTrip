@@ -112,6 +112,20 @@ class SecureYourAccountVC: BaseVC {
         self.eightPlusLabel.tintColor = AppColors.themeGray60
         self.charactersLabel.tintColor = AppColors.themeGray60
         self.passwordTextField.lineErrorColor = AppColors.themeRed
+//        self.setTextColors()
+    }
+    
+    private func setTextColors(){
+        self.numberLabel.textColor = AppColors.themeGray60
+        self.oneLabel.textColor = AppColors.themeGray60
+        self.smallALabel.textColor = AppColors.themeGray60
+        self.lowerCaseLabel.textColor = AppColors.themeGray60
+        self.capsALabel.textColor = AppColors.themeGray60
+        self.upperCaseLabel.textColor = AppColors.themeGray60
+        self.atLabel.textColor = AppColors.themeGray60
+        self.specialLabel.textColor = AppColors.themeGray60
+        self.eightPlusLabel.textColor = AppColors.themeGray60
+        self.charactersLabel.textColor = AppColors.themeGray60
     }
     
     override func bindViewModel() {
