@@ -36,11 +36,11 @@ class TripsVC: BaseVC {
         
 //        UIDevice.modelName//"iPhone SE"
         
-        if isSEDevice{
+//        if isSEDevice{
             tripImageView.contentMode = .scaleAspectFit
-        }else{
-            tripImageView.contentMode = .scaleAspectFill
-        }
+//        }else{
+//            tripImageView.contentMode = .scaleAspectFill
+//        }
     }
     
     //MARK:- Methods
