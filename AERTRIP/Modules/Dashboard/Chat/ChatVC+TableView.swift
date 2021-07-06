@@ -71,7 +71,8 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
         }
         
         if let _ = tableView.cellForRow(at: indexPath) as? SeeResultsAgainCell, let cachedMessageModel = chatVm.lastCachedResultModel {
-            moveFurtherWhenallRequiredInformationSubmited(data: cachedMessageModel)
+            let searchType: AerinSearchType = cachedMessageModel.checkin.isEmpty ? .flight : .hotel
+            moveFurtherWhenallRequiredInformationSubmited(data: cachedMessageModel, type: searchType)
         }
     }
     
