@@ -386,7 +386,7 @@ extension PKFloatLabelTextField {
                         textColor: UIColor = AppColors.themeBlack,
                         titleTextColor: UIColor = AppColors.themeGray40,//themeGray20
                         titleFont: UIFont = AppFonts.Regular.withSize(14.0),
-                        titleActiveTextColor: UIColor = AppColors.themeGreen,
+                        titleActiveTextColor: UIColor = AppColors.commonThemeGreen,
                         keyboardType: UIKeyboardType,
                         returnType: UIReturnKeyType,
                         isSecureText: Bool) {
@@ -397,7 +397,7 @@ extension PKFloatLabelTextField {
         self.isSecureTextEntry  = isSecureText
         self.returnKeyType      = returnType
         self.font           = AppFonts.Regular.withSize(18)
-        self.tintColor = AppColors.themeGreen
+        self.tintColor = AppColors.commonThemeGreen
         self.titleTextColour = titleTextColor
         self.titleFont = titleFont
         self.titleActiveTextColour = titleActiveTextColor

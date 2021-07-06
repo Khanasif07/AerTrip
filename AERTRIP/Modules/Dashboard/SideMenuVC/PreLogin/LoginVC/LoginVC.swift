@@ -199,6 +199,7 @@ private extension LoginVC {
         
 //        self.creditTypeButtonContainer.backgroundColor = AppColors.clear
         self.creditTypeButtonContainer.isHidden = AppConstants.isReleasingForCustomers
+        self.creditTypeButtonContainer.isHidden = true
         
         self.view.backgroundColor = AppColors.screensBackground.color
         
@@ -248,7 +249,7 @@ private extension LoginVC {
     
     func setupFontsAndText() {
         
-        self.emailTextField.delegate    = self
+        self.emailTextField.delegate = self
         self.passwordTextField.delegate = self
         self.emailTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
         self.passwordTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
