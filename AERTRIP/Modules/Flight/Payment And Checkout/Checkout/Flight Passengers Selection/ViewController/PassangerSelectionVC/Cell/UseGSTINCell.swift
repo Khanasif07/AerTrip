@@ -198,4 +198,20 @@ extension UseGSTINCell: UITextFieldDelegate{
         return true
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        switch textField {
+//        case self.companyNameTextField:
+//            companyNameTextField.resignFirstResponder()
+//            billingNameSeperatorView.becomeFirstResponder()
+//        case self.billingNameTextField:
+//            billingNameTextField.resignFirstResponder()
+//            gstNumberDivider.becomeFirstResponder()
+//        case self.gSTNumberTextField:
+//            gstNumberDivider.resignFirstResponder()
+//        default:break
+//        }
+        self.endEditing(true)
+        return true
+    }
+    
 }
