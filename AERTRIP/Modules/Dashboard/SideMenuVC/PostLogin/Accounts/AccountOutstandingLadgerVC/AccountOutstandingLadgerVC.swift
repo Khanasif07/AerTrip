@@ -211,12 +211,18 @@ class AccountOutstandingLadgerVC: BaseVC {
         
         self.searchContainerView.backgroundColor = AppColors.themeWhite
         self.searchBarContainerView.backgroundColor = AppColors.themeWhite
+        self.subHeaderContainer.backgroundColor = AppColors.themeWhite
         self.subheaderDetailsConstainer.backgroundColor = AppColors.themeWhite
         self.blankSpaceView.backgroundColor = AppColors.themeGray04
         
         self.makePaymentTitleLabel.textColor = AppColors.unicolorWhite
         
         self.makePaymentContainerView.addShadow(cornerRadius: 0.0, shadowColor: AppColors.themeGreen, backgroundColor: AppColors.clear, offset: CGSize(width: 0.0, height: 12.0))
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.reloadList()
     }
     
     @objc func accountDetailFetched(_ note: Notification) {
@@ -285,7 +291,7 @@ class AccountOutstandingLadgerVC: BaseVC {
             if (sSelf.viewModel.isSearching) {//(sSelf.currentViewState == .searching)
                 sSelf.searchDataContainerView.isHidden = false
                 sSelf.mainSearchBar.becomeFirstResponder()
-                sSelf.searchDataContainerView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.4)
+                sSelf.searchDataContainerView.backgroundColor = AppColors.unicolorBlack.withAlphaComponent(0.4)
             }
             else {
                 sSelf.searchDataContainerView.isHidden = true

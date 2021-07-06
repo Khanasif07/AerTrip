@@ -89,7 +89,7 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" name="themeWhite"/>
                                         <constraints>
                                             <constraint firstItem="mdq-aO-aUN" firstAttribute="top" secondItem="IJQ-2A-2pv" secondAttribute="top" id="4Tt-La-9zU"/>
                                             <constraint firstItem="mdq-aO-aUN" firstAttribute="leading" secondItem="IJQ-2A-2pv" secondAttribute="leading" id="FJb-93-Gyy"/>
@@ -139,7 +139,7 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" name="themeWhite"/>
                                         <constraints>
                                             <constraint firstItem="sE6-ys-C1a" firstAttribute="leading" secondItem="qt8-Ip-rbw" secondAttribute="leading" id="6aK-a4-E11"/>
                                             <constraint firstAttribute="height" constant="52" id="8Jt-3S-RfI"/>
@@ -653,7 +653,7 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" name="themeWhite"/>
                                         <constraints>
                                             <constraint firstItem="YiF-Cm-cqq" firstAttribute="leading" secondItem="kEt-uI-MIg" secondAttribute="leading" id="1rN-Mu-KYw"/>
                                             <constraint firstItem="3zy-7Y-ptX" firstAttribute="leading" secondItem="kEt-uI-MIg" secondAttribute="leading" id="IEl-HN-bxm"/>
