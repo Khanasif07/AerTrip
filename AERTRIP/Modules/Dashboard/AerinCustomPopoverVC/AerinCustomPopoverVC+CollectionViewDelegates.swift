@@ -107,9 +107,11 @@ extension AerinCustomPopoverVC : UICollectionViewDelegate, UICollectionViewDataS
                 printDebug("flight.quary: \(flight.quary)")
 //                FlightWhatNextData.shared.isSettingForWhatNext = true
 //                FlightWhatNextData.shared.recentSearch = flight.quary as NSDictionary
-//                AppFlowManager.default.goToDashboard(toBeSelect: .flight)
-                if let jsonDict = flight.quary as? JSONDictionary {
-                    chatVm.createFlightSearchDictFromRecentSearches(jsonDict)
+                AppFlowManager.default.goToDashboard(toBeSelect: .flight)
+                delay(seconds: 0.15) {
+                    if let jsonDict = flight.quary as? JSONDictionary {
+                        self.chatVm.createFlightSearchDictFromRecentSearches(jsonDict)
+                    }
                 }
             }
         }

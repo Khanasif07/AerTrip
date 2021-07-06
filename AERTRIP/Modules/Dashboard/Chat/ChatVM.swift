@@ -8,6 +8,11 @@
 
 import Foundation
 
+enum AerinSearchType {
+    case flight
+    case hotel
+}
+
 protocol ChatBotDelegatesDelegate: class {
     
     func willstarttChatBotSession()
@@ -19,7 +24,7 @@ protocol ChatBotDelegatesDelegate: class {
     func failedToCommunicateWithChatBot()
     
     func hideTypingCell()
-    func moveFurtherWhenallRequiredInformationSubmited(data : MessageModel)
+    func moveFurtherWhenallRequiredInformationSubmited(data : MessageModel, type: AerinSearchType)
     
     func willGetRecentSearchHotel()
     func getRecentSearchHotelSuccessFully()
@@ -121,7 +126,10 @@ class ChatVM {
                 self.updatedFiltersJSON = filters
                 self.delegate?.chatBotSessionCreatedSuccessfully()
                 if !msg.depart.isEmpty && !msg.origin.isEmpty && !msg.destination.isEmpty {
-                    self.delegate?.moveFurtherWhenallRequiredInformationSubmited(data: msg)
+                    self.delegate?.moveFurtherWhenallRequiredInformationSubmited(data: msg, type: .flight)
+                    
+                } else if !msg.checkin.isEmpty && !msg.checkout.isEmpty && !msg.destName.isEmpty && !msg.guests.isEmpty {
+                    self.delegate?.moveFurtherWhenallRequiredInformationSubmited(data: msg, type: .hotel)
                 }
                 
                 
@@ -157,10 +165,16 @@ class ChatVM {
                 self.checkToProvideVoiceFeedback(msg)
                 self.updatedFiltersJSON = filters
                 self.delegate?.chatBotCommunicatedSuccessfully()
+                
+                
                 if !msg.depart.isEmpty && !msg.origin.isEmpty && !msg.destination.isEmpty {
-                    self.delegate?.moveFurtherWhenallRequiredInformationSubmited(data: msg)
-                    
+                    self.delegate?.moveFurtherWhenallRequiredInformationSubmited(data: msg, type: .flight)
+                } else if !msg.checkin.isEmpty && !msg.checkout.isEmpty && !msg.destName.isEmpty && !msg.guests.isEmpty {
+                    self.delegate?.moveFurtherWhenallRequiredInformationSubmited(data: msg, type: .hotel)
                 }
+                
+                
+                
             }else{
                 self.delegate?.failedToCommunicateWithChatBot()
             }
@@ -169,19 +183,15 @@ class ChatVM {
     
     
     func getRecentFlights(){
-        APICaller.shared.recentSearchesApi(searchFor: RecentSearchFor.flight) { (success, error, obj) in
-            
-            self.delegate?.willGetRecentSearchHotel()
-            APICaller.shared.recentSearchesApi(searchFor: RecentSearchFor.flight) { [weak self] (success, error, obj) in
-                printDebug("obj.....\(obj)")
-                if success {
-                    //self?.recentSearchesData = obj
-                    self?.arrangeHotelAndFlightsRecentSearch(obj)
-                    self?.delegate?.getRecentSearchHotelSuccessFully()
-                }else{
-                    self?.delegate?.failedToGetRecentSearchApi()
-                }
-                
+        self.delegate?.willGetRecentSearchHotel()
+        APICaller.shared.recentSearchesApi(searchFor: RecentSearchFor.flight) { [weak self] (success, error, obj) in
+            printDebug("obj.....\(obj)")
+            if success {
+                //self?.recentSearchesData = obj
+                self?.arrangeHotelAndFlightsRecentSearch(obj)
+                self?.delegate?.getRecentSearchHotelSuccessFully()
+            }else{
+                self?.delegate?.failedToGetRecentSearchApi()
             }
         }
     }
@@ -209,15 +219,13 @@ class ChatVM {
     
     func getRecentHotels(){
         self.delegate?.willGetRecentSearchHotel()
-        APICaller.shared.recentSearchesApi(searchFor: RecentSearchFor.hotel) { (success, error, obj) in
-            APICaller.shared.recentSearchesApi(searchFor: RecentSearchFor.hotel) { [weak self] (success, error, obj) in
-                if success {
-                    //self?.recentSearchesData = obj
-                    self?.arrangeHotelAndFlightsRecentSearch(obj)
-                    self?.delegate?.getRecentSearchHotelSuccessFully()
-                }else{
-                    self?.delegate?.failedToGetRecentSearchApi()
-                }
+        APICaller.shared.recentSearchesApi(searchFor: RecentSearchFor.hotel) { [weak self] (success, error, obj) in
+            if success {
+                //self?.recentSearchesData = obj
+                self?.arrangeHotelAndFlightsRecentSearch(obj)
+                self?.delegate?.getRecentSearchHotelSuccessFully()
+            }else{
+                self?.delegate?.failedToGetRecentSearchApi()
             }
         }
     }
@@ -301,9 +309,10 @@ class ChatVM {
         }
         
         let filtersDict = dict.filter { $0.key.contains("filters") }
-        filtersDict.forEach { (key, val) in
-            jsonDict[key] = "\(val)"
-        }
+//        filtersDict.forEach { (key, val) in
+//            jsonDict[key] = "\(val)"
+//        }
+        jsonDict["filters"] = filtersDict["filters"]
         jsonDict["aerinSessionId"] = sessionId
         SwiftObjCBridgingController.shared.sendFlightFormData(jsonDict)
     }
@@ -435,7 +444,8 @@ class ChatVM {
             }
         }
         jsonDict["aerinSessionId"] = sessionId
-        SwiftObjCBridgingController.shared.sendFlightFormData(jsonDict)
+        AppDelegate.shared.searchFlightsWithDeepLink(dict: jsonDict)
+//        SwiftObjCBridgingController.shared.sendFlightFormData(jsonDict)
     }
 }
 
@@ -454,5 +464,22 @@ extension ChatVM {
             shouldTriggerSpeechRecognizer = false
         }
         lastMessageSentType = .text
+    }
+}
+
+// hotels
+extension ChatVM {
+    func createHotelParamsAndPush(_ data: MessageModel) {
+        
+        var jsonDict = JSONDictionary()
+        jsonDict["dest_type"] = data.destType
+        jsonDict["dest_name"] = data.destName
+        jsonDict["checkin"] = data.checkin
+        jsonDict["checkout"] = data.checkout
+        jsonDict["dest_id"] = data.destId
+        jsonDict["guests"] = data.guests
+        data.roomDetailsDict.forEach { jsonDict[$0.key] = "\($0.value)" }
+        
+        AppDelegate.shared.searchHotelsWithDeepLink(dict: jsonDict)
     }
 }
