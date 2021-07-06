@@ -361,9 +361,9 @@ class FlightResultSingleJourneyVM {
          journeySortedArray.sort(by: { (obj1, obj2) -> Bool in
           
            
-           let price1 = (obj1.journeyArray[safe : obj1.currentSelectedIndex]?.price) ?? 0
+           let price1 = (obj1.journeyArray[safe : obj1.currentSelectedIndex]?.farepr) ?? 0
            
-           let price2 = (obj2.journeyArray[safe : obj2.currentSelectedIndex]?.price) ?? 0
+           let price2 = (obj2.journeyArray[safe : obj2.currentSelectedIndex]?.farepr) ?? 0
            
            return price1 < price2
 
@@ -382,8 +382,8 @@ class FlightResultSingleJourneyVM {
                  
                  suggetedSortArray.sort(by: { (obj1, obj2) -> Bool in
                    
-                   let price1 = (obj1.journeyArray[safe : obj1.currentSelectedIndex]?.price) ?? 0
-                   let price2 = (obj2.journeyArray[safe : obj2.currentSelectedIndex]?.price) ?? 0
+                   let price1 = (obj1.journeyArray[safe : obj1.currentSelectedIndex]?.farepr) ?? 0
+                   let price2 = (obj2.journeyArray[safe : obj2.currentSelectedIndex]?.farepr) ?? 0
                    
                      if isConditionReverced {
                        return price1 > price2
@@ -394,8 +394,8 @@ class FlightResultSingleJourneyVM {
                
                journeySortedArray.sort(by: { (obj1, obj2) -> Bool in
                 
-                let price1 = (obj1.journeyArray[safe : obj1.currentSelectedIndex]?.price) ?? 0
-                let price2 = (obj2.journeyArray[safe : obj2.currentSelectedIndex]?.price) ?? 0
+                let price1 = (obj1.journeyArray[safe : obj1.currentSelectedIndex]?.farepr) ?? 0
+                let price2 = (obj2.journeyArray[safe : obj2.currentSelectedIndex]?.farepr) ?? 0
                 
                         if isConditionReverced {
                            return price1 > price2
