@@ -301,211 +301,230 @@ class FlightResultSingleJourneyVM {
     }
     
     
-      func applySorting(sortOrder : Sort, isConditionReverced : Bool, legIndex : Int){
-       
-          var suggetedSortArray = self.results.suggestedJourneyArray
-                
-          var journeySortedArray = self.results.journeyArray
-
-        
-        suggetedSortArray.sort(by: { (obj1, obj2) -> Bool in
+    func applySorting(sortOrder : Sort, isConditionReverced : Bool, legIndex : Int){
           
-            let duration1 = (obj1.journeyArray[safe : obj1.currentSelectedIndex]?.duration) ?? 0
-            
-            let duration2 = (obj2.journeyArray[safe : obj2.currentSelectedIndex]?.duration) ?? 0
-            
-            return duration1 < duration2
-        })
-      
-      journeySortedArray.sort(by: { (obj1, obj2) -> Bool in
-      
-        let duration1 = (obj1.journeyArray[safe : obj1.currentSelectedIndex]?.duration) ?? 0
-        let duration2 = (obj2.journeyArray[safe : obj2.currentSelectedIndex]?.duration) ?? 0
-        
-        return duration1 < duration2
+             var suggetedSortArray = self.results.suggestedJourneyArray
+                   
+             var journeySortedArray = self.results.journeyArray
 
-            })
-        
-        
-        
-        suggetedSortArray.sort(by: { (obj1, obj2) -> Bool in
-            
-            let firstObjDepartureTime = (obj1.journeyArray[safe : obj1.currentSelectedIndex]?.leg.first?.dt) ?? ""
+           
+           suggetedSortArray.sort(by: { (obj1, obj2) -> Bool in
+             
+               let duration1 = (obj1.journeyArray[safe : obj1.currentSelectedIndex]?.duration) ?? 0
+               
+               let duration2 = (obj2.journeyArray[safe : obj2.currentSelectedIndex]?.duration) ?? 0
+               
+               return duration1 < duration2
+           })
          
-            let secondObjDepartureTime = (obj2.journeyArray[safe : obj2.currentSelectedIndex]?.leg.first?.dt) ?? ""
-            
-            return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
+         journeySortedArray.sort(by: { (obj1, obj2) -> Bool in
+         
+           let duration1 = (obj1.journeyArray[safe : obj1.currentSelectedIndex]?.duration) ?? 0
+           let duration2 = (obj2.journeyArray[safe : obj2.currentSelectedIndex]?.duration) ?? 0
+           
+           return duration1 < duration2
 
-        })
-      
-      journeySortedArray.sort(by: { (obj1, obj2) -> Bool in
-          
-        let firstObjDepartureTime = (obj1.journeyArray[safe : obj1.currentSelectedIndex]?.leg.first?.dt) ?? ""
-     
-        let secondObjDepartureTime = (obj2.journeyArray[safe : obj2.currentSelectedIndex]?.leg.first?.dt) ?? ""
-          
-        return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
-
-      })
-        
-        
-        suggetedSortArray.sort(by: { (obj1, obj2) -> Bool in
-                 
-            let price1 = (obj1.journeyArray[safe : obj1.currentSelectedIndex]?.price) ?? 0
+               })
+           
+           
+           
+           suggetedSortArray.sort(by: { (obj1, obj2) -> Bool in
+               
+               let firstObjDepartureTime = (obj1.journeyArray[safe : obj1.currentSelectedIndex]?.leg.first?.dt) ?? ""
             
-            let price2 = (obj2.journeyArray[safe : obj2.currentSelectedIndex]?.price) ?? 0
-            
-            return price1 < price2
-        })
-      
-      journeySortedArray.sort(by: { (obj1, obj2) -> Bool in
-       
-        
-        let price1 = (obj1.journeyArray[safe : obj1.currentSelectedIndex]?.price) ?? 0
-        
-        let price2 = (obj2.journeyArray[safe : obj2.currentSelectedIndex]?.price) ?? 0
-        
-        return price1 < price2
+               let secondObjDepartureTime = (obj2.journeyArray[safe : obj2.currentSelectedIndex]?.leg.first?.dt) ?? ""
+               
+               return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
 
            })
-
+         
+         journeySortedArray.sort(by: { (obj1, obj2) -> Bool in
+             
+           let firstObjDepartureTime = (obj1.journeyArray[safe : obj1.currentSelectedIndex]?.leg.first?.dt) ?? ""
         
-          switch  sortOrder {
-              
-          case .Smart:
-              
-            suggetedSortArray = suggetedSortArray.sorted(by: { $0.computedHumanScore < $1.computedHumanScore })
-            
-            journeySortedArray = journeySortedArray.sorted(by: { $0.computedHumanScore < $1.computedHumanScore })
+           let secondObjDepartureTime = (obj2.journeyArray[safe : obj2.currentSelectedIndex]?.leg.first?.dt) ?? ""
+             
+           return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
 
-          case .Price:
-              
-              suggetedSortArray.sort(by: { (obj1, obj2) -> Bool in
-                  if isConditionReverced {
-                    return (obj1.journeyArray[obj1.currentSelectedIndex].price) > (obj2.journeyArray[obj2.currentSelectedIndex].price)
-                  }else{
-                    return (obj1.journeyArray[obj1.currentSelectedIndex].price) < (obj2.journeyArray[obj2.currentSelectedIndex].price)
-                  }
+         })
+           
+           
+           suggetedSortArray.sort(by: { (obj1, obj2) -> Bool in
+                    
+               let price1 = (obj1.journeyArray[safe : obj1.currentSelectedIndex]?.price) ?? 0
+               
+               let price2 = (obj2.journeyArray[safe : obj2.currentSelectedIndex]?.price) ?? 0
+               
+               return price1 < price2
+           })
+         
+         journeySortedArray.sort(by: { (obj1, obj2) -> Bool in
+          
+           
+           let price1 = (obj1.journeyArray[safe : obj1.currentSelectedIndex]?.price) ?? 0
+           
+           let price2 = (obj2.journeyArray[safe : obj2.currentSelectedIndex]?.price) ?? 0
+           
+           return price1 < price2
+
               })
-            
-            journeySortedArray.sort(by: { (obj1, obj2) -> Bool in
+
+           
+             switch  sortOrder {
+                 
+             case .Smart:
+                 
+               suggetedSortArray = suggetedSortArray.sorted(by: { $0.computedHumanScore < $1.computedHumanScore })
+               
+               journeySortedArray = journeySortedArray.sorted(by: { $0.computedHumanScore < $1.computedHumanScore })
+
+             case .Price:
+                 
+                 suggetedSortArray.sort(by: { (obj1, obj2) -> Bool in
+                   
+                   let price1 = (obj1.journeyArray[safe : obj1.currentSelectedIndex]?.price) ?? 0
+                   let price2 = (obj2.journeyArray[safe : obj2.currentSelectedIndex]?.price) ?? 0
+                   
                      if isConditionReverced {
-                        return (obj1.journeyArray[obj1.currentSelectedIndex].price) > (obj2.journeyArray[obj2.currentSelectedIndex].price)
+                       return price1 > price2
                      }else{
-                        return (obj1.journeyArray[obj1.currentSelectedIndex].price) < (obj2.journeyArray[obj2.currentSelectedIndex].price)
+                       return price1 < price2
+                     }
+                 })
+               
+               journeySortedArray.sort(by: { (obj1, obj2) -> Bool in
+                
+                let price1 = (obj1.journeyArray[safe : obj1.currentSelectedIndex]?.price) ?? 0
+                let price2 = (obj2.journeyArray[safe : obj2.currentSelectedIndex]?.price) ?? 0
+                
+                        if isConditionReverced {
+                           return price1 > price2
+                        }else{
+                           return price1 < price2
+                        }
+                    })
+                    
+                 
+             case .Duration:
+                 
+                 suggetedSortArray.sort(by: { (obj1, obj2) -> Bool in
+                   
+                   let duration1 = (obj1.journeyArray[safe : obj1.currentSelectedIndex]?.duration) ?? 0
+                   
+                   let duration2 = (obj2.journeyArray[safe : obj2.currentSelectedIndex]?.duration) ?? 0
+                   
+                   if isConditionReverced {
+                         return duration1 > duration2
+                     }else{
+                         return duration1 < duration2
+                     }
+                 })
+               
+               journeySortedArray.sort(by: { (obj1, obj2) -> Bool in
+                        
+                   let duration1 = (obj1.journeyArray[safe : obj1.currentSelectedIndex]?.duration) ?? 0
+                   
+                   let duration2 = (obj2.journeyArray[safe : obj2.currentSelectedIndex]?.duration) ?? 0
+                   
+                   if isConditionReverced {
+                             return duration1 > duration2
+                         }else{
+                             return duration1 < duration2
+                         }
+                     })
+                 
+             case .Depart:
+                 
+                 suggetedSortArray.sort(by: { (obj1, obj2) -> Bool in
+                     
+                   let firstObjDepartureTime = (obj1.journeyArray[safe : obj1.currentSelectedIndex]?.leg.first?.dt) ?? ""
+           
+                   let secondObjDepartureTime = (obj2.journeyArray[safe : obj2.currentSelectedIndex]?.leg.first?.dt) ?? ""
+                     
+                     if isConditionReverced {
+                         
+                       return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) > self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
+
+                     }else{
+                       
+                       return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
+
+                     }
+                 })
+               
+               journeySortedArray.sort(by: { (obj1, obj2) -> Bool in
+                   
+                   let firstObjDepartureTime = (obj1.journeyArray[safe : obj1.currentSelectedIndex]?.leg.first?.dt) ?? ""
+           
+                   let secondObjDepartureTime = (obj2.journeyArray[safe : obj2.currentSelectedIndex]?.leg.first?.dt) ?? ""
+                   
+                   if isConditionReverced {
+                       
+                       return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) > self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
+
+                     
+                   }else{
+                     
+                     return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
+
+                       
+                   }
+               })
+                 
+             case .Arrival:
+                 suggetedSortArray.sort(by: { (obj1, obj2) -> Bool in
+                     
+                     let firstObjDepartureTime = (obj1.journeyArray[obj1.currentSelectedIndex].leg[0].ad) + " " + (obj1.journeyArray[obj1.currentSelectedIndex].leg[0].at)
+                     
+                     let secondObjDepartureTime = (obj2.journeyArray[obj2.currentSelectedIndex].leg[0].ad) + " " + (obj2.journeyArray[obj2.currentSelectedIndex].leg[0].at)
+                     
+                     let firstObjTimeInterval = self.getTimeIntervalFromArivalDateString(dt: firstObjDepartureTime)
+                     
+                     let secondObjTimeInterval = self.getTimeIntervalFromArivalDateString(dt: secondObjDepartureTime)
+                     
+                     if isConditionReverced {
+                       
+                       return firstObjTimeInterval > secondObjTimeInterval
+
+                       
+                     }else{
+                       
+                       return firstObjTimeInterval < secondObjTimeInterval
+
                      }
                  })
                  
-              
-          case .Duration:
-              
-              suggetedSortArray.sort(by: { (obj1, obj2) -> Bool in
-                  if isConditionReverced {
-                      return (obj1.journeyArray[obj1.currentSelectedIndex].duration) > (obj2.journeyArray[obj2.currentSelectedIndex].duration)
-                  }else{
-                      return (obj1.journeyArray[obj1.currentSelectedIndex].duration) < (obj2.journeyArray[obj2.currentSelectedIndex].duration)
-                  }
-              })
-            
-            journeySortedArray.sort(by: { (obj1, obj2) -> Bool in
-                      if isConditionReverced {
-                          return (obj1.journeyArray[obj1.currentSelectedIndex].duration) > (obj2.journeyArray[obj2.currentSelectedIndex].duration)
-                      }else{
-                          return (obj1.journeyArray[obj1.currentSelectedIndex].duration) < (obj2.journeyArray[obj2.currentSelectedIndex].duration)
-                      }
-                  })
-              
-          case .Depart:
-              
-              suggetedSortArray.sort(by: { (obj1, obj2) -> Bool in
-                  
-                let firstObjDepartureTime = obj1.journeyArray[obj1.currentSelectedIndex].leg[0].dt
-                let secondObjDepartureTime = obj2.journeyArray[obj2.currentSelectedIndex].leg[0].dt
-                  
-                  if isConditionReverced {
-                      
-                    return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) > self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
+               journeySortedArray.sort(by: { (obj1, obj2) -> Bool in
+                   
+                   let firstObjDepartureTime = (obj1.journeyArray[obj1.currentSelectedIndex].leg[0].ad) + " " + (obj1.journeyArray[obj1.currentSelectedIndex].leg[0].at)
+                   
+                   let secondObjDepartureTime = (obj2.journeyArray[obj2.currentSelectedIndex].leg[0].ad) + " " + (obj2.journeyArray[obj2.currentSelectedIndex].leg[0].at)
+                   
+                   let firstObjTimeInterval = self.getTimeIntervalFromArivalDateString(dt: firstObjDepartureTime)
+                   
+                   let secondObjTimeInterval = self.getTimeIntervalFromArivalDateString(dt: secondObjDepartureTime)
+                   
+                   if isConditionReverced {
+                     
+                     return firstObjTimeInterval > secondObjTimeInterval
 
-                  }else{
-                    
-                    return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
+                     
+                   }else{
+                     
+                     return firstObjTimeInterval < secondObjTimeInterval
 
-                  }
-              })
-            
-            journeySortedArray.sort(by: { (obj1, obj2) -> Bool in
-                
-                let firstObjDepartureTime = obj1.journeyArray[obj1.currentSelectedIndex].leg[0].dt
-                let secondObjDepartureTime = obj2.journeyArray[obj2.currentSelectedIndex].leg[0].dt
-                
-                if isConditionReverced {
-                    
-                    return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) > self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
+                   }
+               })
+                 
+             default:
+                 break
+                 
+             }
+           
+           self.results.journeyArray = journeySortedArray
+           self.results.suggestedJourneyArray = suggetedSortArray
 
-                  
-                }else{
-                  
-                  return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
-
-                    
-                }
-            })
-              
-          case .Arrival:
-              suggetedSortArray.sort(by: { (obj1, obj2) -> Bool in
-                  
-                  let firstObjDepartureTime = (obj1.journeyArray[obj1.currentSelectedIndex].leg[0].ad) + " " + (obj1.journeyArray[obj1.currentSelectedIndex].leg[0].at)
-                  
-                  let secondObjDepartureTime = (obj2.journeyArray[obj2.currentSelectedIndex].leg[0].ad) + " " + (obj2.journeyArray[obj2.currentSelectedIndex].leg[0].at)
-                  
-                  let firstObjTimeInterval = self.getTimeIntervalFromArivalDateString(dt: firstObjDepartureTime)
-                  
-                  let secondObjTimeInterval = self.getTimeIntervalFromArivalDateString(dt: secondObjDepartureTime)
-                  
-                  if isConditionReverced {
-                    
-                    return firstObjTimeInterval > secondObjTimeInterval
-
-                    
-                  }else{
-                    
-                    return firstObjTimeInterval < secondObjTimeInterval
-
-                  }
-              })
-              
-            journeySortedArray.sort(by: { (obj1, obj2) -> Bool in
-                
-                let firstObjDepartureTime = (obj1.journeyArray[obj1.currentSelectedIndex].leg[0].ad) + " " + (obj1.journeyArray[obj1.currentSelectedIndex].leg[0].at)
-                
-                let secondObjDepartureTime = (obj2.journeyArray[obj2.currentSelectedIndex].leg[0].ad) + " " + (obj2.journeyArray[obj2.currentSelectedIndex].leg[0].at)
-                
-                let firstObjTimeInterval = self.getTimeIntervalFromArivalDateString(dt: firstObjDepartureTime)
-                
-                let secondObjTimeInterval = self.getTimeIntervalFromArivalDateString(dt: secondObjDepartureTime)
-                
-                if isConditionReverced {
-                  
-                  return firstObjTimeInterval > secondObjTimeInterval
-
-                  
-                }else{
-                  
-                  return firstObjTimeInterval < secondObjTimeInterval
-
-                }
-            })
-              
-          default:
-              break
-              
-          }
-        
-        self.results.journeyArray = journeySortedArray
-        self.results.suggestedJourneyArray = suggetedSortArray
-
-      }
-    
+         }
     
     func getTimeIntervalFromDepartureDateString(dt : String) -> TimeInterval {
          if dt.isEmpty { return  Date().timeIntervalSince1970 }
