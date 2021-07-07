@@ -100,6 +100,7 @@ class EditProfileImageHeaderView: UIView {
         relationshipOrNickNameTextField.textColor = AppColors.themeBlack
         relationshipOrNickNameTextField.delegate = self
         relationshipOrNickNameTextField.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
+        self.setColorForAddTraveller()
     }
     
     // MARK: - Helper methods
@@ -116,7 +117,16 @@ class EditProfileImageHeaderView: UIView {
         containerView.layer.cornerRadius = 20.0
         unicodeSwitch.sliderView.layer.cornerRadius = 18
         unicodeSwitch.sliderInset = 1.0
-        verticalDividerView.backgroundColor = AppColors.themeGray20
+        verticalDividerView.backgroundColor = AppColors.unicodeSwitchLineColor
+    }
+    
+    
+    func setColorForAddTraveller(){
+        [self, selectGroupValueView, RelationOrNickNameView].forEach{ view in
+            view?.backgroundColor = AppColors.themeBlack26
+        }
+        self.emptyView.backgroundColor = AppColors.themeGray04
+        self.groupLabel.textColor = AppColors.themeBlack
     }
     
     // MARK: - IB Actions
