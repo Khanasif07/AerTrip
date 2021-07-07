@@ -127,6 +127,8 @@ class EditProfileImageHeaderView: UIView {
         }
         self.emptyView.backgroundColor = AppColors.themeGray04
         self.groupLabel.textColor = AppColors.themeBlack
+        self.firstNameTextField.textColor = AppColors.themeBlack
+        self.lastNameTextField.textColor = AppColors.themeBlack
     }
     
     // MARK: - IB Actions
