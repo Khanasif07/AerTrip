@@ -175,7 +175,7 @@ class SlideMenuProfileImageHeaderView: UIView {
         
         self.emailIdLabel.font = AppFonts.Regular.withSize(14.0)
         self.mobileNumberLabel.font = AppFonts.Regular.withSize(14.0)
-        self.dividerView.backgroundColor = AppColors.themeGray20
+//        self.dividerView.backgroundColor = AppColors.themeGray20
         self.dividerView.isHidden = false
         self.emailIdLabel.isHidden = false
         self.mobileNumberLabel.isHidden = false

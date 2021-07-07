@@ -102,7 +102,7 @@ class ViewProfileVC: BaseVC {
         delay(seconds: 0.5) { [weak self] in
             self?.topNavView.isToShowIndicatorView = false
         }
-        self.topNavView.configureFirstRightButton( normalTitle: LocalizedString.Edit.localized, selectedTitle: LocalizedString.Edit.localized, normalColor: AppColors.themeWhite, selectedColor: AppColors.themeGreen)
+        self.topNavView.configureFirstRightButton( normalTitle: LocalizedString.Edit.localized, selectedTitle: LocalizedString.Edit.localized, normalColor: AppColors.unicolorWhite, selectedColor: AppColors.themeGreen)
         
     }
     
@@ -146,15 +146,15 @@ class ViewProfileVC: BaseVC {
         self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .clear)
         
         let editStr = "\(LocalizedString.Edit.rawValue) "
-        self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: editStr, selectedTitle: editStr, normalColor: AppColors.themeWhite, selectedColor: AppColors.themeGreen)
+        self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: editStr, selectedTitle: editStr, normalColor: AppColors.unicolorWhite, selectedColor: AppColors.themeGreen)
         
         let tintedImage = AppImages.Back.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
         self.topNavView.leftButton.setImage(tintedImage, for: .normal)
-        self.topNavView.leftButton.setTitleColor(AppColors.themeWhite, for: .normal)
+        self.topNavView.leftButton.setTitleColor(AppColors.unicolorWhite, for: .normal)
         self.topNavView.leftButton.setTitleColor(AppColors.themeGreen, for: .selected)
         self.topNavView.leftButton.isSelected = false
         
-        self.topNavView.firstRightButton.setTitleColor(AppColors.themeWhite, for: .normal)
+        self.topNavView.firstRightButton.setTitleColor(AppColors.unicolorWhite, for: .normal)
         self.topNavView.firstRightButton.setTitleColor(AppColors.themeGreen, for: .selected)
         self.topNavView.firstRightButton.isSelected = false
         
@@ -511,7 +511,7 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
                     
                     self?.topNavView.leftButton.isSelected = false
                     
-                    self?.topNavView.leftButton.tintColor = AppColors.themeWhite
+                    self?.topNavView.leftButton.tintColor = AppColors.unicolorWhite
                     
                     self?.topNavView.navTitleLabel.text = ""
                     
@@ -550,7 +550,7 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
                 
                 self?.topNavView.leftButton.isSelected = false
                 
-                self?.topNavView.leftButton.tintColor = AppColors.themeWhite
+                self?.topNavView.leftButton.tintColor = AppColors.unicolorWhite
                 
                 self?.topNavView.navTitleLabel.text = ""
                 

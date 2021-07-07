@@ -116,8 +116,11 @@ enum AppColors {
     /// RGB - 50, 58, 69
     static let themeTextColor  = UIColor(named: "themeTextColor") ?? UIColor(displayP3Red: 0.1960784314, green: 0.2274509804, blue: 0.2705882353, alpha: 1)
     
-    // RGB - 175,175,170
+    // RGB - 175,175,170 
     static let profileImageBorderColor =  UIColor(named: "profileImageBorderColor") ?? UIColor(displayP3Red: 0.8823529412, green: 0.8823529412, blue: 0.8823529412, alpha: 1)
+    
+    /// (175,175,170) (255,255,255)
+    static let dashProfileImgBorderColor = UIColor(named: "dashProfileImgBorderColor") ?? .white
     
     // RGB - 170 ,170 ,170
     static let noRoomsAvailableFooterColor = UIColor(named: "noRoomsAvailableFooterColor") ?? UIColor(displayP3Red: 0.6666666667, green: 0.6666666667, blue: 0.6666666667, alpha: 1)
