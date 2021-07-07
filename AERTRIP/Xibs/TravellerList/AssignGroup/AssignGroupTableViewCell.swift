@@ -15,6 +15,7 @@ class AssignGroupTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        groupNameLabel.textColor = AppColors.themeBlack
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
