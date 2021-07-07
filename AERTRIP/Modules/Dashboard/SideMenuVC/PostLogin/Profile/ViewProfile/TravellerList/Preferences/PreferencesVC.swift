@@ -51,6 +51,11 @@ class PreferencesVC: BaseVC {
         labelsCountDict = CoreDataManager.shared.fetchData(fromEntity: "TravellerData", forAttribute: "label", usingFunction: "count")
     }
     
+    override func setupColors() {
+        self.view.backgroundColor = AppColors.themeWhiteDashboard
+        self.tableView.backgroundColor = AppColors.themeGray04
+    }
+    
     deinit {
         printDebug("deinit")
     }
@@ -71,7 +76,7 @@ class PreferencesVC: BaseVC {
         tableView.dataSource = self
         tableView.allowsSelectionDuringEditing = true
         tableView.isEditing = true
-        tableView.backgroundColor = UIColor(displayP3Red: 0.9647058824, green: 0.9647058824, blue: 0.9647058824, alpha: 1)
+//        tableView.backgroundColor = UIColor(displayP3Red: 0.9647058824, green: 0.9647058824, blue: 0.9647058824, alpha: 1)
         indicatorView.color = AppColors.themeGreen
         self.tableFooterView()
         stopLoading()
@@ -270,6 +275,7 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
                 orderCell.checkIconImageView.isHidden = false
             }
             orderCell.separatorView.isHidden = indexPath.row == (order.count - 1)
+            orderCell.contentView.backgroundColor = AppColors.themeBlack26
             return orderCell
         case LocalizedString.DisplayOrder:
             if indexPath.row < 2 {
@@ -284,6 +290,7 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
                     orderCell.checkIconImageView.isHidden = false
                 }
                 orderCell.separatorView.isHidden = indexPath.row == (order.count - 1)
+                orderCell.contentView.backgroundColor = AppColors.themeBlack26
                 return orderCell
             } else if indexPath.row == 2 {
                 guard let emptyCell = tableView.dequeueReusableCell(withIdentifier: emptyCellIdentifier, for: indexPath) as? EmptyTableViewCell else {
@@ -297,7 +304,7 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
                 
                 categoryGroupCell.groupSwitch.addTarget(self, action: #selector(setCategorisedByGroupFlag(_:)), for: .valueChanged)
                 categoryGroupCell.groupSwitch.isOn = viewModel.isCategorizeByGroup
-                
+                categoryGroupCell.contentView.backgroundColor = AppColors.themeBlack26
                 return categoryGroupCell
             }
         case LocalizedString.Groups:
@@ -320,6 +327,7 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
             let (orgnlName, mdfdName) = self.viewModel.modifiedGroups[indexPath.row]
             let totalCount = getCount(forLabel: orgnlName)
             groupCell.configureCell(mdfdName, totalCount)
+            groupCell.contentView.backgroundColor = AppColors.themeBlack26
             return groupCell
             
         default:
@@ -348,6 +356,7 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
         headerView.backgroundColor = .clear
         headerView.containerView.backgroundColor = .clear
         headerView.contentView.backgroundColor = .clear
+        headerView.headerLabel.textColor = AppColors.themeGray60
         return headerView
     }
     

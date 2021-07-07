@@ -17,7 +17,7 @@ class OrderTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        titleLabel.textColor = AppColors.themeBlack
         self.checkIconImageView.isHidden = true
     }
 }
