@@ -18,6 +18,7 @@ class ViewProfileTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        backgroundColor = AppColors.themeWhite
          self.menuOptionLabel.font = AppFonts.Regular.withSize(20.0)
         // Initialization code
         

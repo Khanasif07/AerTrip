@@ -93,7 +93,7 @@ class ViewProfileDetailVC: BaseVC {
             self?.topNavView.stopActivityIndicaorLoading()
             self?.topNavView.isToShowIndicatorView = false
         }
-        self.topNavView.configureFirstRightButton( normalTitle: LocalizedString.Edit.localized, selectedTitle: LocalizedString.Edit.localized, normalColor: AppColors.themeWhite, selectedColor: AppColors.themeGreen)
+        self.topNavView.configureFirstRightButton( normalTitle: LocalizedString.Edit.localized, selectedTitle: LocalizedString.Edit.localized, normalColor: AppColors.unicolorWhite, selectedColor: AppColors.themeGreen)
         
     }
     
@@ -110,18 +110,18 @@ class ViewProfileDetailVC: BaseVC {
         self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .clear)
         
         let editTitle = "\(LocalizedString.Edit.localized) "
-        self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: editTitle, selectedTitle: editTitle, normalColor: AppColors.themeWhite, selectedColor: AppColors.themeGreen)
+        self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: editTitle, selectedTitle: editTitle, normalColor: AppColors.unicolorWhite, selectedColor: AppColors.themeGreen)
         
-        self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: editTitle, selectedTitle: editTitle, normalColor: AppColors.themeWhite, selectedColor: AppColors.themeGreen)
+        self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: editTitle, selectedTitle: editTitle, normalColor: AppColors.unicolorWhite, selectedColor: AppColors.themeGreen)
         
         
         let tintedImage = AppImages.Back.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
         self.topNavView.leftButton.setImage(tintedImage, for: .normal)
-        self.topNavView.leftButton.setTitleColor(AppColors.themeWhite, for: .normal)
+        self.topNavView.leftButton.setTitleColor(AppColors.unicolorWhite, for: .normal)
         self.topNavView.leftButton.setTitleColor(AppColors.themeGreen, for: .selected)
         self.topNavView.leftButton.isSelected = false
         
-        self.topNavView.firstRightButton.setTitleColor(AppColors.themeWhite, for: .normal)
+        self.topNavView.firstRightButton.setTitleColor(AppColors.unicolorWhite, for: .normal)
         self.topNavView.firstRightButton.setTitleColor(AppColors.themeGreen, for: .selected)
         self.topNavView.firstRightButton.isSelected = false
         self.topNavView.clipsToBounds = true
@@ -591,7 +591,7 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
                        self.topNavView.animateBackView(isHidden: true) { [weak self](isDone) in
                            self?.topNavView.firstRightButton.isSelected = false
                            self?.topNavView.leftButton.isSelected = false
-                           self?.topNavView.leftButton.tintColor = AppColors.themeWhite
+                           self?.topNavView.leftButton.tintColor = AppColors.unicolorWhite
                            self?.topNavView.navTitleLabel.text = ""
                         self?.topNavView.backView.backgroundColor = .clear //AppColors.themeWhite
                         self?.topNavView.dividerView.isHidden = true
@@ -611,7 +611,7 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
             self.topNavView.animateBackView(isHidden: true) { [weak self](isDone) in
                 self?.topNavView.firstRightButton.isSelected = false
                 self?.topNavView.leftButton.isSelected = false
-                self?.topNavView.leftButton.tintColor = AppColors.themeWhite
+                self?.topNavView.leftButton.tintColor = AppColors.unicolorWhite
                 self?.topNavView.navTitleLabel.text = ""
                 self?.topNavView.backView.backgroundColor = .clear //AppColors.themeWhite
                 self?.topNavView.dividerView.isHidden = true
