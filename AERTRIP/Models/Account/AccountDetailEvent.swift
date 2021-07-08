@@ -125,6 +125,7 @@ struct AccountDetailEvent {
     var travelDate: Date?
     var airline: String = ""
     var sector: String = ""
+    var attributedSector:NSAttributedString?
     var pnr: String = ""
     var ticketNo: String = ""
     var hotelAddress = ""
@@ -593,6 +594,7 @@ struct AccountDetailEvent {
             
         }
         self.attributedString = attributedString
+        self.attributedSector = attributedString
         
     }
     
