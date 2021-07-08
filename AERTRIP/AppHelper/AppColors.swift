@@ -291,7 +291,7 @@ enum AppColors {
     //(239, 242, 238)  (135, 135, 135)
     static let shimmerEffectLayerColor = UIColor(named: "shimmerEffectLayerColor") ?? UIColor(displayP3Red: 239.0/255, green: 242.0/255, blue: 238.0/255, alpha: 1)
     
-    //    (255, 255, 255, 0.7) (255, 255, 255, 0.3)
+    //    (255, 255, 255, 0.7) (255, 255, 255, 0.1)
         static let shimmerEffectColor = UIColor(named: "shimmerEffectColor") ?? .white
     
     /// (clear) (49,49,49,1)

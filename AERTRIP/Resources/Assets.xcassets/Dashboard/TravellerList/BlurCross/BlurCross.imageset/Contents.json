@@ -12,7 +12,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "ic_toast_cross.png",
+      "filename" : "closeIOsBlack.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -28,7 +28,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "ic_toast_cross@2x.png",
+      "filename" : "closeIOsBlack@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -44,7 +44,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "ic_toast_cross@3x.png",
+      "filename" : "closeIOsBlack@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

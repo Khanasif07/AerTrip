@@ -87,6 +87,14 @@ class SearchFavouriteHotelsVC: BaseVC {
         }
     }
     
+    
+    override func setupColors() {
+        self.view.backgroundColor = AppColors.themeBlack26
+        self.collectionView.backgroundColor = AppColors.themeWhite
+    }
+  
+    
+    
     //MARK:- Methods
     //MARK:- Private
     private func initialSetups() {

@@ -112,7 +112,7 @@ class TravellerListVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        statusBarStyle = .darkContent
+        statusBarStyle = .default
         setUpTravellerHeader()
         
     }
@@ -406,7 +406,7 @@ class TravellerListVC: BaseVC {
         
         travellerListHeaderView = TravellerListHeaderView.instanceFromNib()
         travellerListHeaderView.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: view.frame.size.width, height: 44)
-        travellerListHeaderView.backgroundColor = AppColors.themeWhite
+        travellerListHeaderView.backgroundColor = AppColors.themeBlack26
         travellerListHeaderView.delegate = self
         travellerListHeaderView.bottomView.isHidden = true
         
@@ -803,7 +803,8 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
 //                cell.backgroundConfiguration = nil
 //            }
 //        }
-        
+        cell.contentView.backgroundColor = AppColors.themeBlack26
+        cell.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -922,6 +923,8 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         } else {
             headerView.configureCell(self.tableSectionArray[section])
         }
+        headerView.containerView.backgroundColor = AppColors.themeGray04
+        headerView.headerLabel.textColor = AppColors.themeBlack
         return headerView
     }
     

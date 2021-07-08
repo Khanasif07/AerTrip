@@ -21,6 +21,7 @@ class CheckInOutView: UIView {
     
     //MARK:- IBOutlets
     //MARK:===========
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var totalNightsLabel: UILabel!
     @IBOutlet weak var checkInLabel: UILabel!
     @IBOutlet weak var checkInDateLabel: UILabel!
@@ -74,10 +75,18 @@ class CheckInOutView: UIView {
         self.checkOutDateLabel.font = fontSize26
         self.checkOutDateLabel.textColor = AppColors.textFieldTextColor51
         self.totalNightsLabel.font = UIFont(name: AppFonts.SemiBold.rawValue, size: 14.0)
-        self.totalNightsLabel.textColor = AppColors.themeGray40
+        self.totalNightsLabel.textColor = AppColors.themeGray153
         self.checkInLabel.text = LocalizedString.CheckIn.localized
         self.checkOutLabel.text = LocalizedString.CheckOut.localized
         self.totalNightsLabel.text = "20 \(LocalizedString.Nights.localized)"
+        self.setTotalNight()
+    }
+    
+    
+    private func setTotalNight(){
+        self.totalNightsLabel.layer.cornerRadius = 13.5
+        self.totalNightsLabel.clipsToBounds = true
+        self.totalNightsLabel.backgroundColor = AppColors.doneViewClearColor
     }
     
     //yyyy-MM-dd

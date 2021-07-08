@@ -133,6 +133,7 @@ class SocialLoginVC: BaseVC {
         self.appleButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
         
         //   self.appleButton.shadowColor = AppColors.themeBlack
+        self.setSeparatorLine()
     }
     
     override func setupTexts() {
@@ -162,6 +163,15 @@ class SocialLoginVC: BaseVC {
         self.setUpSocialBtnInset(button: fbButton)
         self.setUpSocialBtnInset(button: googleButton)
         self.setUpSocialBtnInset(button: appleButton)
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.setSeparatorLine()
+    }
+    
+    private func setSeparatorLine(){
+        self.sepratorLineImage.addGredient(isVertical: true, cornerRadius: 0.0, colors: [AppColors.unicolorWhite, AppColors.themeBlack, AppColors.unicolorWhite])
     }
     
     func setUpSocialBtnInset(button: UIButton) {

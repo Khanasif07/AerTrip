@@ -273,12 +273,12 @@ class SelectedContactImportCollectionCell: UICollectionViewCell {
     }
     
     private func initialSetup() {
-        self.crossButton.borderWidth = 2.0
         self.crossButton.blurColor = AppColors.clear
         self.crossButton.blurStyle = .dark
-        
         //self.crossButton.blurAlpha = 0.6
-        
+        self.crossButton.borderWidth = 2.0
+        self.crossButton.borderColor = AppColors.whiteAndClear
+        self.crossButton.layer.masksToBounds = true
         self.crossButton.addTarget(self, action: #selector(crossButtonAction(_:)), for: UIControl.Event.touchUpInside)
         profileImageView.contentMode = .scaleAspectFill
     }

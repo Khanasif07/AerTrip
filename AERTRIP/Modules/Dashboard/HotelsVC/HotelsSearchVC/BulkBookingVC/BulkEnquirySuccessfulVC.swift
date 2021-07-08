@@ -292,7 +292,7 @@ class BulkEnquirySuccessfulVC: BaseVC {
         self.tickLayer = shapeLayer
         shapeLayer.frame = CGRect(x: (self.searchBtnOutlet.frame.width - tickImageSize.width) / 2.0, y: ((self.searchBtnOutlet.frame.height - tickImageSize.height) / 2.0), width: tickImageSize.width, height: tickImageSize.height)
         shapeLayer.fillColor = AppColors.clear.cgColor
-        shapeLayer.strokeColor = AppColors.themeWhite.cgColor
+        shapeLayer.strokeColor = AppColors.unicolorWhite.cgColor
         shapeLayer.lineWidth = tickLineWidth
         shapeLayer.lineCap = CAShapeLayerLineCap.round
         shapeLayer.lineJoin = CAShapeLayerLineJoin.round

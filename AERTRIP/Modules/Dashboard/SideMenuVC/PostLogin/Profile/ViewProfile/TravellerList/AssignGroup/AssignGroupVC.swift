@@ -44,6 +44,11 @@ class AssignGroupVC: BaseVC {
         viewModel.delegate = self
     }
     
+    override func setupColors() {
+        self.view.backgroundColor = AppColors.themeWhiteDashboard
+        self.tableView.backgroundColor = AppColors.themeWhite
+    }
+    
     // MARK: - Helper methods
     
     func doInitialSetUp() {
@@ -179,6 +184,7 @@ extension AssignGroupVC: UITableViewDataSource, UITableViewDelegate {
         }
          let totalCount = self.getCount(forLabel: viewModel.groups[indexPath.row])
         groupCell.configureCell(viewModel.groups[indexPath.row],totalCount)
+        groupCell.contentView.backgroundColor = AppColors.themeBlack26
         return groupCell
     }
     
