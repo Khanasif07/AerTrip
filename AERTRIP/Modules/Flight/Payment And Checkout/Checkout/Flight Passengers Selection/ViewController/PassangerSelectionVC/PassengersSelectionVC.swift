@@ -410,6 +410,8 @@ extension PassengersSelectionVC:PassengerSelectionVMDelegate{
             AddonsDataStore.shared.isd = self.viewModel.isdCode
             AddonsDataStore.shared.isGSTOn = self.viewModel.isSwitchOn
             self.navigationController?.pushViewController(vc, animated: true)
+            FirebaseEventLogs.shared.logAddons(with: FirebaseEventLogs.EventsTypeName.openAddons)
+            
         }else{
             AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .flights)
         }

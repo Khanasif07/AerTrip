@@ -532,6 +532,8 @@ extension UIView {
         self.backgroundColor = .clear
         let shapeLayer = CAShapeLayer()
         shapeLayer.strokeColor = AppColors.flightCellDashColor.cgColor
+//        shapeLayer.strokeColor = AppColors.dividerColor.cgColor
+
         shapeLayer.lineWidth = 0.5
         shapeLayer.lineDashPattern = [2,3]
         

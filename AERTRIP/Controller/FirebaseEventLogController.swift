@@ -478,6 +478,7 @@ class FirebaseEventLogs: NSObject{
         case BookingConfirmationMail
 
         //Addons
+        case openAddons
         case OpenMeals
         case OpenBaggage
         case OpenSeat
@@ -1011,7 +1012,7 @@ class FirebaseEventLogs: NSObject{
         
         switch type {
      
-        case .OpenMeals, .OpenBaggage, .OpenOthers, .OpenSeat:
+        case .OpenMeals, .OpenBaggage, .OpenOthers, .OpenSeat, .openAddons:
             
             FirebaseAnalyticsController.shared.logEvent(name: AnalyticsEvents.Addons.rawValue, params: [AnalyticsKeys.name.rawValue: type.rawValue])
 
