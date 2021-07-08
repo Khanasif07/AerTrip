@@ -87,8 +87,8 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                     cell.rightViewTextField.isEnabled = false
 //                    cell.deleteButton.isHidden = true
                     cell.leftView.isUserInteractionEnabled = false
-                    cell.leftTitleLabel.textColor = AppColors.themeGray153
-                    cell.rightViewTextField.textColor = AppColors.themeGray153
+                    cell.leftTitleLabel.textColor = AppColors.themeGray40
+                    cell.rightViewTextField.textColor = AppColors.themeGray40
                     cell.blackDownImageView.isHidden = false
                     cell.isSettingForEdit = true
                 } else {
@@ -147,7 +147,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                     
                     cell.leftView.isUserInteractionEnabled = false
                     cell.rightViewTextField.isUserInteractionEnabled = !(self.viewModel.travelData?.id == UserInfo.loggedInUser?.paxId)
-                    cell.leftTitleLabel.textColor = AppColors.themeGray153
+                    cell.leftTitleLabel.textColor = AppColors.themeGray40
                     cell.blackDownImageView.isHidden = true
                     
                 } else {
@@ -382,7 +382,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
         headerView.topDividerHeightConstraint.constant = isDivider ? 0.5 : 0
         
         headerView.headerLabel.text = sections[section].localized
-        headerView.headerLabel.textColor = AppColors.themeGray60
+        headerView.headerLabel.textColor = AppColors.themeGray153
         headerView.backgroundColor = AppColors.profileHeaderBackground
         headerView.containerView.backgroundColor = AppColors.profileHeaderBackground
         return headerView
