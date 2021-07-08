@@ -69,7 +69,7 @@ class HCPanCardTextFieldCell: UITableViewCell {
         let isValidEmail = !finalTxt.checkInvalidity(.PanCard)
         self.editableTextField.isError = !isValidEmail
         let firstName = self.editableTextField.placeholder ?? ""
-        self.editableTextField.attributedPlaceholder = NSAttributedString(string: firstName, attributes: [NSAttributedString.Key.foregroundColor: isValidEmail ? AppColors.themeGray153 :  AppColors.themeRed])
+        self.editableTextField.attributedPlaceholder = NSAttributedString(string: firstName, attributes: [NSAttributedString.Key.foregroundColor: isValidEmail ? AppColors.themeGray40 :  AppColors.themeRed])
         self.separatorView.isSettingForErrorState = !isValidEmail
     }
 }

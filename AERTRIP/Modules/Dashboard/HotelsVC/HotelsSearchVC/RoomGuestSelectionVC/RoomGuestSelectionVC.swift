@@ -108,14 +108,14 @@ class RoomGuestSelectionVC: BaseVC {
         self.doneButton.addShadow(cornerRadius: 0.0, shadowColor: AppColors.appShadowColor,backgroundColor: AppColors.doneViewClearColor, offset: CGSize(width: 0, height: -8))
         
         self.roomNumberLabel.textColor = AppColors.themeBlack
-        self.guestSelectionLabel.textColor = AppColors.themeGray40
+        self.guestSelectionLabel.textColor = AppColors.themeGray153
         self.messageLabel.textColor = AppColors.themeOrange
         
         self.adultsTitleLabel.textColor = AppColors.themeBlack
-        self.adultsAgeLabel.textColor = AppColors.themeGray40
+        self.adultsAgeLabel.textColor = AppColors.themeGray153
         
         self.childTitleLabel.textColor = AppColors.themeBlack
-        self.childAgeLabel.textColor = AppColors.themeGray40
+        self.childAgeLabel.textColor = AppColors.themeGray153
         
         self.ageSelectionLabel.textColor = AppColors.themeBlack
         self.doneButton.backgroundColor = AppColors.doneViewClearColor
