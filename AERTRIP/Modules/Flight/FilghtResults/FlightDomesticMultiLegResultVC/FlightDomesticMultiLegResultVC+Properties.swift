@@ -136,7 +136,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         ApiProgress.trackTintColor = .clear
         ApiProgress.progress = 0.25
         
-        ApiProgress.transform = CGAffineTransform(scaleX: 1, y: 0.3)
+        ApiProgress.transform = CGAffineTransform(scaleX: 1, y: 0.2)
         ApiProgress.frame = CGRect(x: -2, y: 0, width: UIScreen.main.bounds.size.width, height: 0.5)
 
         self.collectionContainerView.addSubview(ApiProgress)
