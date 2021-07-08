@@ -49,11 +49,6 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
     fileprivate func setupBaseView() {
         self.baseView.backgroundColor = AppColors.themeWhiteDashboard
         backgroundColor = .clear // very important
-//        layer.masksToBounds = false
-//        layer.shadowOpacity = 0.5
-//        layer.shadowRadius = 4
-//        layer.shadowOffset = CGSize(width: 0, height: 0)
-//        layer.shadowColor = UIColor.black.withAlphaComponent(0.3).cgColor
         self.baseView.layer.cornerRadius = 10
        
         let shadowProp = AppShadowProperties(self.isLightTheme())
@@ -77,6 +72,11 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
         setupCollectionView()
         self.setupColors()
 
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        dashedView.setupDashedView()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

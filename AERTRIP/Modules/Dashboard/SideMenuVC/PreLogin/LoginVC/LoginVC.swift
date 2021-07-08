@@ -199,8 +199,6 @@ private extension LoginVC {
         
 //        self.creditTypeButtonContainer.backgroundColor = AppColors.clear
         self.creditTypeButtonContainer.isHidden = AppConstants.isReleasingForCustomers
-//        self.creditTypeButtonContainer.isHidden = true
-        
         self.view.backgroundColor = AppColors.screensBackground.color
         
         AppGlobals.shared.updateIQToolBarDoneButton(isEnabled: false, onView: self.emailTextField)

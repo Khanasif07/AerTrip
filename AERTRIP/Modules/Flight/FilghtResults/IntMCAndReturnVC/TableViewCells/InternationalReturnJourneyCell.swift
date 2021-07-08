@@ -39,6 +39,11 @@ class InternationalReturnJourneyCell : UITableViewCell {
         logoThree.roundedCorners(cornerRadius: 2)
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        dashedView.setupDashedView()
+    }
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         self.setupColors()
