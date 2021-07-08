@@ -129,7 +129,7 @@ import UIKit
 		}
 	}
 	
-	@IBInspectable var titleTextColour: UIColor = UIColor.gray {
+    @IBInspectable var titleTextColour: UIColor = AppColors.themeGray40 {
 		didSet {
 			if !isFirstResponder {
 				title.textColor = titleTextColour
