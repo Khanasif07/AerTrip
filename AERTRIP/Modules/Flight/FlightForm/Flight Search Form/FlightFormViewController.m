@@ -211,6 +211,7 @@
     self.flightSegmentedControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
     self.flightSegmentedControl.segmentWidthStyle = HMSegmentedControlSegmentWidthStyleFixed;
     
+    
     // self.flightSegmentedControl.segmentEdgeInset = UIEdgeInsetsMake(0, 20.0, 0, 20.0);
     // self.flightSegmentedControl.selectionIndicatorEdgeInsets = UIEdgeInsetsMake(0, 20.0, 0, 40.0);
     
