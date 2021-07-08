@@ -21,6 +21,7 @@ class CheckInOutView: UIView {
     
     //MARK:- IBOutlets
     //MARK:===========
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var totalNightsLabel: UILabel!
     @IBOutlet weak var checkInLabel: UILabel!
     @IBOutlet weak var checkInDateLabel: UILabel!

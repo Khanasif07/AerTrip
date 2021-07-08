@@ -19,6 +19,7 @@
                 <outlet property="checkOutDateLabel" destination="AYY-yl-qEv" id="uG1-LP-Utu"/>
                 <outlet property="checkOutDay" destination="EMz-CP-Y4f" id="9BA-Oi-vEp"/>
                 <outlet property="checkOutLabel" destination="Rjb-L0-GXv" id="bjk-yK-1vS"/>
+                <outlet property="containerView" destination="iFv-qO-pHW" id="tgM-0b-JF9"/>
                 <outlet property="totalNightsLabel" destination="UKL-PE-OWU" id="p5K-K8-A2k"/>
             </connections>
         </placeholder>
