@@ -157,6 +157,8 @@ extension SeatMapVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
     
     private func openPostSelectionSeatPopup(_ indexPath: IndexPath,_ seatData: SeatMapModel.SeatMapRow) {
         guard let curCell = seatMapCollView.cellForItem(at: indexPath) as? SeatCollCell else { return }
+        curCell.seatNumberLbl.textColor = AppColors.seatHighlightColor
+        curCell.seatView.layer.borderColor = AppColors.seatHighlightColor.cgColor
         curCell.seatView.backgroundColor = AppColors.themeGreen
         let postSeatSelectionPopupVC = PostSelectionSeatPopupVC.instantiate(fromAppStoryboard: AppStoryboard.Rishabh_Dev)
         postSeatSelectionPopupVC.onDismissTap = { [weak self] in

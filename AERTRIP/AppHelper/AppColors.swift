@@ -416,6 +416,8 @@ enum AppColors {
     /// (0,0,0,0.5) (0,0,0,0)
     static let sideDrawerShadowColor = UIColor(named: "sideDrawerShadowColor") ?? .white
 
+    /// 72,160,125
+    static let seatHighlightColor = UIColor(named: "seatHighlightColor") ?? .white
     
     case headlines
     case body
