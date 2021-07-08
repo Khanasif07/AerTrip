@@ -369,8 +369,8 @@ extension EmptyScreenView {
         self.firstButton.layoutIfNeeded()
         self.firstButton.setTitle(LocalizedString.AllowContacts.localized, for: .normal)
         self.firstButton.setTitle(LocalizedString.AllowContacts.localized, for: .selected)
-        self.firstButton.setTitleColor(AppColors.themeWhite, for: .normal)
-        self.firstButton.setTitleColor(AppColors.themeWhite, for: .selected)
+        self.firstButton.setTitleColor(AppColors.unicolorWhite, for: .normal)
+        self.firstButton.setTitleColor(AppColors.unicolorWhite, for: .selected)
         self.firstButton.setTitleFont(font: AppFonts.SemiBold.withSize(16.0), for: .normal)
         
         self.firstButton.layer.cornerRadius = self.firstButton.height / 2.0
@@ -423,12 +423,12 @@ extension EmptyScreenView {
         self.buttonLeadingConstraint.constant = 16
         self.buttonTrailingConstraint.constant = 16
         self.firstButton.layoutIfNeeded()
-        self.firstButton.gradientColors = [AppColors.themeWhite, AppColors.themeWhite]
+        self.firstButton.gradientColors = [AppColors.unicolorWhite, AppColors.unicolorWhite]
         self.firstButton.setTitle(LocalizedString.ConnectWithGoogle.localized, for: .normal)
         self.firstButton.setTitle(LocalizedString.ConnectWithGoogle.localized, for: .selected)
         
-        self.firstButton.setTitleColor(AppColors.themeBlack, for: .normal)
-        self.firstButton.setTitleColor(AppColors.themeBlack, for: .selected)
+        self.firstButton.setTitleColor(AppColors.unicolorBlack, for: .normal)
+        self.firstButton.setTitleColor(AppColors.unicolorBlack, for: .selected)
         
         self.firstButton.setTitleFont(font: AppFonts.SemiBold.withSize(16.0), for: .normal)
         
