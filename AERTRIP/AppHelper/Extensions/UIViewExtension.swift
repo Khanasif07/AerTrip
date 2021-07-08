@@ -534,7 +534,7 @@ extension UIView {
         shapeLayer.strokeColor = AppColors.flightCellDashColor.cgColor
 //        shapeLayer.strokeColor = AppColors.dividerColor.cgColor
 
-        shapeLayer.lineWidth = 0.5
+        shapeLayer.lineWidth = 2
         shapeLayer.lineDashPattern = [2,3]
         
         let path = CGMutablePath()

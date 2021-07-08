@@ -52,6 +52,10 @@ class DomesticMultiLegCell: UITableViewCell {
 //
 //    }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        dashedView.setupDashedView()
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
