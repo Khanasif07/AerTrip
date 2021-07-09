@@ -1561,8 +1561,8 @@ extension AppFlowManager {
         self.goToDashboard(launchThroughSplash: true)
         
     }
-    
 }
+
 
 extension AppFlowManager : UIGestureRecognizerDelegate {
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {

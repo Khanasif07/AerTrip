@@ -87,9 +87,9 @@ class IntMCAndReturnVM {
             
             sortArray.sort(by: { (obj1, obj2) -> Bool in
                 if isConditionReverced {
-                    return (obj1.price) > (obj2.price)
+                    return (obj1.farepr) > (obj2.farepr)
                 }else{
-                    return (obj1.price) < (obj2.price)
+                    return (obj1.farepr) < (obj2.farepr)
                 }
             })
             
@@ -115,6 +115,7 @@ class IntMCAndReturnVM {
                     return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) > self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
                     
                 }else{
+                    
                     return self.getTimeIntervalFromDepartureDateString(dt: firstObjDepartureTime) < self.getTimeIntervalFromDepartureDateString(dt: secondObjDepartureTime)
                     
                 }
@@ -171,7 +172,7 @@ class IntMCAndReturnVM {
         })
         
         sortArray.sort(by: { (obj1, obj2) -> Bool in
-                return (obj1.journeyArray.first?.price ?? 0) < (obj2.journeyArray.first?.price ?? 0)
+                return (obj1.journeyArray.first?.farepr ?? 0) < (obj2.journeyArray.first?.farepr ?? 0)
         })
         
         
@@ -185,9 +186,9 @@ class IntMCAndReturnVM {
             
             sortArray.sort(by: { (obj1, obj2) -> Bool in
                 if isConditionReverced {
-                    return (obj1.journeyArray.first?.price ?? 0) > (obj2.journeyArray.first?.price ?? 0)
+                    return (obj1.journeyArray.first?.farepr ?? 0) > (obj2.journeyArray.first?.farepr ?? 0)
                 }else{
-                    return (obj1.journeyArray.first?.price ?? 0) < (obj2.journeyArray.first?.price ?? 0)
+                    return (obj1.journeyArray.first?.farepr ?? 0) < (obj2.journeyArray.first?.farepr ?? 0)
                 }
             })
             
@@ -417,6 +418,5 @@ extension IntMCAndReturnVM{
         }
         
     }
-    
     
 }
