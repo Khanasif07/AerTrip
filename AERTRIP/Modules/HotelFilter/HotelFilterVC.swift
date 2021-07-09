@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Parchment
 
 protocol HotelFilteVCDelegate: class {
     func doneButtonTapped()

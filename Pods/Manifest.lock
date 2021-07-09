@@ -125,7 +125,6 @@ PODS:
     - nanopb/encode (= 1.30906.0)
   - nanopb/decode (1.30906.0)
   - nanopb/encode (1.30906.0)
-  - Parchment (2.4.0)
   - PhoneNumberKit (3.3.1):
     - PhoneNumberKit/PhoneNumberKitCore (= 3.3.1)
     - PhoneNumberKit/UIKit (= 3.3.1)
@@ -161,7 +160,6 @@ DEPENDENCIES:
   - lottie-ios
   - MiniLayout
   - MXParallaxHeader
-  - Parchment
   - PhoneNumberKit (~> 3.3)
   - PKLoader
   - razorpay-pod
@@ -202,7 +200,6 @@ SPEC REPOS:
     - MiniLayout
     - MXParallaxHeader
     - nanopb
-    - Parchment
     - PhoneNumberKit
     - PKLoader
     - PromisesObjC
@@ -243,7 +240,6 @@ SPEC CHECKSUMS:
   MiniLayout: f819ad87432712e6b2596081a62e633a4961bfc6
   MXParallaxHeader: de3c867e10ba46e8f6e20c8ee1f2a910372b3b94
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
-  Parchment: 002785473861582385db5c6725165353c500198e
   PhoneNumberKit: ff153d5e299f6da566cb73c6aa71e354933b2932
   PKLoader: 2d12343e6f3bdeedb2bc9d94af069c445f14981e
   PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
@@ -253,6 +249,6 @@ SPEC CHECKSUMS:
   TransitionButton: 36283346e17c64775a1b3bc3a7a72940a367de1f
   WSTagsField: a4e91b7d866e8c9755332ebcf8123f42f2abd4a0
 
-PODFILE CHECKSUM: 2ad758fc03c408597be5ab8ef2710122441165e7
+PODFILE CHECKSUM: 885da88ac2b7df3c842f34b776498437b0e2074f
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.10.1

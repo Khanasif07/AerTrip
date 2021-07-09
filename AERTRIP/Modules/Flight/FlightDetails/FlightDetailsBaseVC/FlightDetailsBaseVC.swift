@@ -24,7 +24,6 @@ protocol getArrivalPerformanceDelegate:AnyObject {
 }
 
 import UIKit
-import Parchment
 
 class FlightDetailsBaseVC: BaseVC {
     

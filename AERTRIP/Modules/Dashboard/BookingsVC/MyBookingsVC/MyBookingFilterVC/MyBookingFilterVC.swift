@@ -7,7 +7,6 @@
 //
 // Asif Change =================
 import UIKit
-import Parchment
 
 class MyBookingFilterVC: BaseVC {
     
