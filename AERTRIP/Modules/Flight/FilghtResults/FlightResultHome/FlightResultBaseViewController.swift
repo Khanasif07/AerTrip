@@ -869,7 +869,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
             FilterBaseView.selectedIndex = index
         }
         
-        backView.height = visualEffectViewHeight - 1
+        backView.height = visualEffectViewHeight// - 1
     }
     
     private func addFilterBackView() {
