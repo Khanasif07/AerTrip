@@ -189,11 +189,11 @@ extension HotelDetailsSearchTagTableCell: UICollectionViewDelegate, UICollection
         if let parentVC = self.parentViewController as? HotelDetailsVC {
             if parentVC.viewModel.selectedTags.contains(self.availableTagsForFilterartion[indexPath.item]) {
                 cell.configureCell(tagTitle: self.availableTagsForFilterartion[indexPath.item], titleColor: AppColors.themeGreen, tagBtnColor: AppColors.domesticReturnSelection, isCancelButtonAvailable: false)
-                cell.containerView.layer.borderColor = AppColors.domesticReturnSelection.cgColor
+                cell.containerView.layer.borderColor = AppColors.searchTagSelectedBorderColor.cgColor
             } else {
                 cell.configureCell(tagTitle: self.availableTagsForFilterartion[indexPath.item], titleColor: AppColors.flightFormReturnEnableColor, tagBtnColor: AppColors.singleJourneyGroupCellColor, isCancelButtonAvailable: false)
                 
-                cell.containerView.layer.borderColor = AppColors.singleJourneyGroupCellColor.cgColor
+                cell.containerView.layer.borderColor = AppColors.themeGray153Clear.cgColor
             }
             
         }
