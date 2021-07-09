@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Parchment
 
 // To display the view controllers, and how they traverse from one page to another
 extension HotelFilterVC: PagingViewControllerDataSource {

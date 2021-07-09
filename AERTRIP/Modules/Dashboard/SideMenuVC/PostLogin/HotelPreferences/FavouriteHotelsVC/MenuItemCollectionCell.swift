@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Parchment
 
 struct MenuItem : PagingItem ,Hashable, Comparable {
     static func < (lhs: MenuItem, rhs: MenuItem) -> Bool {

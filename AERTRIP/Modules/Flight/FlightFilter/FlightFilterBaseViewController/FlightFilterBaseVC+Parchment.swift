@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Parchment
 
 extension FlightFilterBaseVC: PagingViewControllerDataSource , PagingViewControllerDelegate ,PagingViewControllerSizeDelegate{
     

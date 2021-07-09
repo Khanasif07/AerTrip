@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Parchment
 
 protocol SelectMealDelegate : class {
     func addContactButtonTapped()

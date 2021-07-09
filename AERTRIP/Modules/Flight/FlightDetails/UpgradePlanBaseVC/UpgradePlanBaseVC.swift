@@ -8,7 +8,6 @@
 
 
 import UIKit
-import Parchment
 
 class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UIScrollViewDelegate
 {

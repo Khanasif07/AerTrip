@@ -6,7 +6,6 @@
 //  Copyright © 2020 Pramod Kumar. All rights reserved.
 //
 
-import Parchment
 import UIKit
 
 struct MenuItemForFilter : PagingItem ,Hashable, Comparable {

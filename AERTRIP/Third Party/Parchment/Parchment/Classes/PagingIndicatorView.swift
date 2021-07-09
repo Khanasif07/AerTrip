@@ -10,6 +10,7 @@ open class PagingIndicatorView: UICollectionReusableView {
     super.apply(layoutAttributes)
     if let attributes = layoutAttributes as? PagingIndicatorLayoutAttributes {
       backgroundColor = attributes.backgroundColor
+        cornerradius = 2
     }
   }
   

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Parchment
 
 extension SeatMapContainerVC: PagingViewControllerDataSource , PagingViewControllerDelegate ,PagingViewControllerSizeDelegate{
     

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Parchment
 
 struct LogoMenuItem : PagingItem ,Hashable, Comparable {
     static func < (lhs: LogoMenuItem, rhs: LogoMenuItem) -> Bool {

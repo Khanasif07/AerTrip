@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Parchment
 
 class MyBookingsVC: BaseVC {
     // Mark:- Variables
@@ -182,11 +181,13 @@ class MyBookingsVC: BaseVC {
             upcomingVC.showFirstDivider = allTabsStr.count ==  1
             self.allChildVCs.append(upcomingVC)
         }
+        
         if  allTabsStr.contains("Completed"){
             let completedVC = CompletedVC.instantiate(fromAppStoryboard: .Bookings)
             completedVC.showFirstDivider = allTabsStr.count ==  1
             self.allChildVCs.append(completedVC)
         }
+        
         if  allTabsStr.contains("Cancelled"){
             let cancelledVC = CancelledVC.instantiate(fromAppStoryboard: .Bookings)
             cancelledVC.showFirstDivider = allTabsStr.count ==  1

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Parchment
 
 protocol FlightFiltersToastDelegate: AnyObject {
     func showToastWithMsg(_ msg: String)

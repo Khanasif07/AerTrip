@@ -7,7 +7,6 @@
 //
 
 
-import Parchment
 
 protocol getSelectedAmenitiesDelegate: class {
     func getSelectedAmenities(amenitiesData:[String:String], index:Int, cellIndexPath: IndexPath)

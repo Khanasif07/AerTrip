@@ -1576,6 +1576,61 @@
 		84DB3CC822A2737200216159 /* FlightStopsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB3CC622A2737200216159 /* FlightStopsCollectionViewCell.swift */; };
 		84DB3CC922A2737200216159 /* FlightStopsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84DB3CC722A2737200216159 /* FlightStopsCollectionViewCell.xib */; };
 		84DB3CCE22A27DF000216159 /* FlightBookingsDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DB3CCD22A27DF000216159 /* FlightBookingsDataModel.swift */; };
+		84DC689126974C540070FE23 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 84DC685426974C530070FE23 /* LICENSE */; };
+		84DC689226974C540070FE23 /* PagingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC685726974C530070FE23 /* PagingViewController.swift */; };
+		84DC689326974C540070FE23 /* PagingTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC685826974C530070FE23 /* PagingTitleCell.swift */; };
+		84DC689426974C540070FE23 /* PagingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC685926974C530070FE23 /* PagingIndicatorView.swift */; };
+		84DC689526974C540070FE23 /* PagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC685A26974C530070FE23 /* PagingView.swift */; };
+		84DC689626974C540070FE23 /* PagingCellLayoutAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC685B26974C530070FE23 /* PagingCellLayoutAttributes.swift */; };
+		84DC689726974C540070FE23 /* EMPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC685C26974C530070FE23 /* EMPageViewController.swift */; };
+		84DC689826974C540070FE23 /* PagingIndicatorLayoutAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC685D26974C530070FE23 /* PagingIndicatorLayoutAttributes.swift */; };
+		84DC689926974C540070FE23 /* PagingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC685E26974C530070FE23 /* PagingController.swift */; };
+		84DC689A26974C540070FE23 /* PagingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC685F26974C530070FE23 /* PagingCell.swift */; };
+		84DC689B26974C540070FE23 /* PagingStaticDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC686026974C530070FE23 /* PagingStaticDataSource.swift */; };
+		84DC689C26974C540070FE23 /* PagingInvalidationContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC686126974C530070FE23 /* PagingInvalidationContext.swift */; };
+		84DC689D26974C540070FE23 /* PagingSizeCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC686226974C530070FE23 /* PagingSizeCache.swift */; };
+		84DC689E26974C540070FE23 /* PagingCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC686326974C530070FE23 /* PagingCollectionViewLayout.swift */; };
+		84DC689F26974C540070FE23 /* PagingBorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC686426974C530070FE23 /* PagingBorderView.swift */; };
+		84DC68A026974C540070FE23 /* PagingOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC686526974C530070FE23 /* PagingOptions.swift */; };
+		84DC68A126974C540070FE23 /* PagingFiniteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC686626974C530070FE23 /* PagingFiniteDataSource.swift */; };
+		84DC68A226974C540070FE23 /* PagingBorderLayoutAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC686726974C530070FE23 /* PagingBorderLayoutAttributes.swift */; };
+		84DC68A326974C540070FE23 /* PagingMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC686826974C530070FE23 /* PagingMenuView.swift */; };
+		84DC68A426974C540070FE23 /* PagingMenuInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC686A26974C530070FE23 /* PagingMenuInteraction.swift */; };
+		84DC68A526974C540070FE23 /* PagingMenuItemSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC686B26974C530070FE23 /* PagingMenuItemSize.swift */; };
+		84DC68A626974C540070FE23 /* PagingSelectedScrollPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC686C26974C530070FE23 /* PagingSelectedScrollPosition.swift */; };
+		84DC68A726974C540070FE23 /* InvalidationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC686D26974C530070FE23 /* InvalidationState.swift */; };
+		84DC68A826974C540070FE23 /* PagingMenuTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC686E26974C530070FE23 /* PagingMenuTransition.swift */; };
+		84DC68A926974C540070FE23 /* PagingMenuPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC686F26974C530070FE23 /* PagingMenuPosition.swift */; };
+		84DC68AA26974C540070FE23 /* PagingContentInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC687026974C530070FE23 /* PagingContentInteraction.swift */; };
+		84DC68AB26974C540070FE23 /* PagingMenuHorizontalAlignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC687126974C530070FE23 /* PagingMenuHorizontalAlignment.swift */; };
+		84DC68AC26974C540070FE23 /* PagingIndicatorOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC687226974C530070FE23 /* PagingIndicatorOptions.swift */; };
+		84DC68AD26974C540070FE23 /* PagingDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC687326974C530070FE23 /* PagingDirection.swift */; };
+		84DC68AE26974C540070FE23 /* PagingBorderOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC687426974C530070FE23 /* PagingBorderOptions.swift */; };
+		84DC68AF26974C540070FE23 /* PagingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC687526974C530070FE23 /* PagingState.swift */; };
+		84DC68B026974C540070FE23 /* PagingMenuItemSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC687626974C530070FE23 /* PagingMenuItemSource.swift */; };
+		84DC68B126974C540070FE23 /* UIColor+interpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC687826974C530070FE23 /* UIColor+interpolation.swift */; };
+		84DC68B226974C540070FE23 /* UIView+constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC687926974C530070FE23 /* UIView+constraints.swift */; };
+		84DC68B326974C540070FE23 /* UIEdgeInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC687A26974C530070FE23 /* UIEdgeInsets.swift */; };
+		84DC68B426974C540070FE23 /* PagingDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC687C26974C530070FE23 /* PagingDistance.swift */; };
+		84DC68B526974C540070FE23 /* PagingIndicatorMetric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC687D26974C530070FE23 /* PagingIndicatorMetric.swift */; };
+		84DC68B626974C540070FE23 /* PagingDiff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC687E26974C530070FE23 /* PagingDiff.swift */; };
+		84DC68B726974C540070FE23 /* PagingItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC687F26974C530070FE23 /* PagingItems.swift */; };
+		84DC68B826974C540070FE23 /* PagingCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC688026974C530070FE23 /* PagingCellViewModel.swift */; };
+		84DC68B926974C540070FE23 /* AnyPagingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC688126974C530070FE23 /* AnyPagingItem.swift */; };
+		84DC68BA26974C540070FE23 /* PagingTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC688226974C530070FE23 /* PagingTransition.swift */; };
+		84DC68BB26974C540070FE23 /* PagingIndexItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC688326974C530070FE23 /* PagingIndexItem.swift */; };
+		84DC68BC26974C540070FE23 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC688426974C530070FE23 /* PageView.swift */; };
+		84DC68BD26974C540070FE23 /* PagingMenuDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC688626974C540070FE23 /* PagingMenuDataSource.swift */; };
+		84DC68BE26974C540070FE23 /* PagingViewControllerInfiniteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC688726974C540070FE23 /* PagingViewControllerInfiniteDataSource.swift */; };
+		84DC68BF26974C540070FE23 /* Tween.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC688826974C540070FE23 /* Tween.swift */; };
+		84DC68C026974C540070FE23 /* PagingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC688926974C540070FE23 /* PagingItem.swift */; };
+		84DC68C126974C540070FE23 /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC688A26974C540070FE23 /* CollectionView.swift */; };
+		84DC68C226974C540070FE23 /* PagingViewControllerSizeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC688B26974C540070FE23 /* PagingViewControllerSizeDelegate.swift */; };
+		84DC68C326974C540070FE23 /* PagingViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC688C26974C540070FE23 /* PagingViewControllerDelegate.swift */; };
+		84DC68C426974C540070FE23 /* PagingViewControllerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC688D26974C540070FE23 /* PagingViewControllerDataSource.swift */; };
+		84DC68C526974C540070FE23 /* PagingMenuDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC688E26974C540070FE23 /* PagingMenuDelegate.swift */; };
+		84DC68C626974C540070FE23 /* PagingLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DC688F26974C540070FE23 /* PagingLayout.swift */; };
+		84DC68C726974C540070FE23 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 84DC689026974C540070FE23 /* README.md */; };
 		84DD0D1D220C0583004A6F91 /* BulkEnquirySuccessfulVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD0D1C220C0583004A6F91 /* BulkEnquirySuccessfulVC.swift */; };
 		84DD24532265A2FF0013F77E /* UpcomingBookingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD24522265A2FF0013F77E /* UpcomingBookingsVC.swift */; };
 		84DD24552265A3080013F77E /* UpcomingBookingsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD24542265A3080013F77E /* UpcomingBookingsVM.swift */; };
@@ -3432,6 +3487,61 @@
 		84DB3CC622A2737200216159 /* FlightStopsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightStopsCollectionViewCell.swift; sourceTree = "<group>"; };
 		84DB3CC722A2737200216159 /* FlightStopsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FlightStopsCollectionViewCell.xib; sourceTree = "<group>"; };
 		84DB3CCD22A27DF000216159 /* FlightBookingsDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightBookingsDataModel.swift; sourceTree = "<group>"; };
+		84DC685426974C530070FE23 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		84DC685726974C530070FE23 /* PagingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingViewController.swift; sourceTree = "<group>"; };
+		84DC685826974C530070FE23 /* PagingTitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingTitleCell.swift; sourceTree = "<group>"; };
+		84DC685926974C530070FE23 /* PagingIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingIndicatorView.swift; sourceTree = "<group>"; };
+		84DC685A26974C530070FE23 /* PagingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingView.swift; sourceTree = "<group>"; };
+		84DC685B26974C530070FE23 /* PagingCellLayoutAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingCellLayoutAttributes.swift; sourceTree = "<group>"; };
+		84DC685C26974C530070FE23 /* EMPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EMPageViewController.swift; sourceTree = "<group>"; };
+		84DC685D26974C530070FE23 /* PagingIndicatorLayoutAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingIndicatorLayoutAttributes.swift; sourceTree = "<group>"; };
+		84DC685E26974C530070FE23 /* PagingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingController.swift; sourceTree = "<group>"; };
+		84DC685F26974C530070FE23 /* PagingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingCell.swift; sourceTree = "<group>"; };
+		84DC686026974C530070FE23 /* PagingStaticDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingStaticDataSource.swift; sourceTree = "<group>"; };
+		84DC686126974C530070FE23 /* PagingInvalidationContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingInvalidationContext.swift; sourceTree = "<group>"; };
+		84DC686226974C530070FE23 /* PagingSizeCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingSizeCache.swift; sourceTree = "<group>"; };
+		84DC686326974C530070FE23 /* PagingCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingCollectionViewLayout.swift; sourceTree = "<group>"; };
+		84DC686426974C530070FE23 /* PagingBorderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingBorderView.swift; sourceTree = "<group>"; };
+		84DC686526974C530070FE23 /* PagingOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingOptions.swift; sourceTree = "<group>"; };
+		84DC686626974C530070FE23 /* PagingFiniteDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingFiniteDataSource.swift; sourceTree = "<group>"; };
+		84DC686726974C530070FE23 /* PagingBorderLayoutAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingBorderLayoutAttributes.swift; sourceTree = "<group>"; };
+		84DC686826974C530070FE23 /* PagingMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingMenuView.swift; sourceTree = "<group>"; };
+		84DC686A26974C530070FE23 /* PagingMenuInteraction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingMenuInteraction.swift; sourceTree = "<group>"; };
+		84DC686B26974C530070FE23 /* PagingMenuItemSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingMenuItemSize.swift; sourceTree = "<group>"; };
+		84DC686C26974C530070FE23 /* PagingSelectedScrollPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingSelectedScrollPosition.swift; sourceTree = "<group>"; };
+		84DC686D26974C530070FE23 /* InvalidationState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvalidationState.swift; sourceTree = "<group>"; };
+		84DC686E26974C530070FE23 /* PagingMenuTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingMenuTransition.swift; sourceTree = "<group>"; };
+		84DC686F26974C530070FE23 /* PagingMenuPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingMenuPosition.swift; sourceTree = "<group>"; };
+		84DC687026974C530070FE23 /* PagingContentInteraction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingContentInteraction.swift; sourceTree = "<group>"; };
+		84DC687126974C530070FE23 /* PagingMenuHorizontalAlignment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingMenuHorizontalAlignment.swift; sourceTree = "<group>"; };
+		84DC687226974C530070FE23 /* PagingIndicatorOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingIndicatorOptions.swift; sourceTree = "<group>"; };
+		84DC687326974C530070FE23 /* PagingDirection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingDirection.swift; sourceTree = "<group>"; };
+		84DC687426974C530070FE23 /* PagingBorderOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingBorderOptions.swift; sourceTree = "<group>"; };
+		84DC687526974C530070FE23 /* PagingState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingState.swift; sourceTree = "<group>"; };
+		84DC687626974C530070FE23 /* PagingMenuItemSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingMenuItemSource.swift; sourceTree = "<group>"; };
+		84DC687826974C530070FE23 /* UIColor+interpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+interpolation.swift"; sourceTree = "<group>"; };
+		84DC687926974C530070FE23 /* UIView+constraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+constraints.swift"; sourceTree = "<group>"; };
+		84DC687A26974C530070FE23 /* UIEdgeInsets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIEdgeInsets.swift; sourceTree = "<group>"; };
+		84DC687C26974C530070FE23 /* PagingDistance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingDistance.swift; sourceTree = "<group>"; };
+		84DC687D26974C530070FE23 /* PagingIndicatorMetric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingIndicatorMetric.swift; sourceTree = "<group>"; };
+		84DC687E26974C530070FE23 /* PagingDiff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingDiff.swift; sourceTree = "<group>"; };
+		84DC687F26974C530070FE23 /* PagingItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingItems.swift; sourceTree = "<group>"; };
+		84DC688026974C530070FE23 /* PagingCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingCellViewModel.swift; sourceTree = "<group>"; };
+		84DC688126974C530070FE23 /* AnyPagingItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyPagingItem.swift; sourceTree = "<group>"; };
+		84DC688226974C530070FE23 /* PagingTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingTransition.swift; sourceTree = "<group>"; };
+		84DC688326974C530070FE23 /* PagingIndexItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingIndexItem.swift; sourceTree = "<group>"; };
+		84DC688426974C530070FE23 /* PageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
+		84DC688626974C540070FE23 /* PagingMenuDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingMenuDataSource.swift; sourceTree = "<group>"; };
+		84DC688726974C540070FE23 /* PagingViewControllerInfiniteDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingViewControllerInfiniteDataSource.swift; sourceTree = "<group>"; };
+		84DC688826974C540070FE23 /* Tween.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tween.swift; sourceTree = "<group>"; };
+		84DC688926974C540070FE23 /* PagingItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingItem.swift; sourceTree = "<group>"; };
+		84DC688A26974C540070FE23 /* CollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
+		84DC688B26974C540070FE23 /* PagingViewControllerSizeDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingViewControllerSizeDelegate.swift; sourceTree = "<group>"; };
+		84DC688C26974C540070FE23 /* PagingViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingViewControllerDelegate.swift; sourceTree = "<group>"; };
+		84DC688D26974C540070FE23 /* PagingViewControllerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingViewControllerDataSource.swift; sourceTree = "<group>"; };
+		84DC688E26974C540070FE23 /* PagingMenuDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingMenuDelegate.swift; sourceTree = "<group>"; };
+		84DC688F26974C540070FE23 /* PagingLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingLayout.swift; sourceTree = "<group>"; };
+		84DC689026974C540070FE23 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		84DD0D1C220C0583004A6F91 /* BulkEnquirySuccessfulVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulkEnquirySuccessfulVC.swift; sourceTree = "<group>"; };
 		84DD24522265A2FF0013F77E /* UpcomingBookingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingBookingsVC.swift; sourceTree = "<group>"; };
 		84DD24542265A3080013F77E /* UpcomingBookingsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingBookingsVM.swift; sourceTree = "<group>"; };
@@ -8854,6 +8964,116 @@
 			path = FlightStopsCollectionViewCell;
 			sourceTree = "<group>";
 		};
+		84DC685326974C530070FE23 /* Parchment */ = {
+			isa = PBXGroup;
+			children = (
+				84DC685426974C530070FE23 /* LICENSE */,
+				84DC685526974C530070FE23 /* Parchment */,
+				84DC689026974C540070FE23 /* README.md */,
+			);
+			path = Parchment;
+			sourceTree = "<group>";
+		};
+		84DC685526974C530070FE23 /* Parchment */ = {
+			isa = PBXGroup;
+			children = (
+				84DC685626974C530070FE23 /* Classes */,
+				84DC686926974C530070FE23 /* Enums */,
+				84DC687726974C530070FE23 /* Extensions */,
+				84DC687B26974C530070FE23 /* Structs */,
+				84DC688526974C540070FE23 /* Protocols */,
+			);
+			path = Parchment;
+			sourceTree = "<group>";
+		};
+		84DC685626974C530070FE23 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				84DC685726974C530070FE23 /* PagingViewController.swift */,
+				84DC685826974C530070FE23 /* PagingTitleCell.swift */,
+				84DC685926974C530070FE23 /* PagingIndicatorView.swift */,
+				84DC685A26974C530070FE23 /* PagingView.swift */,
+				84DC685B26974C530070FE23 /* PagingCellLayoutAttributes.swift */,
+				84DC685C26974C530070FE23 /* EMPageViewController.swift */,
+				84DC685D26974C530070FE23 /* PagingIndicatorLayoutAttributes.swift */,
+				84DC685E26974C530070FE23 /* PagingController.swift */,
+				84DC685F26974C530070FE23 /* PagingCell.swift */,
+				84DC686026974C530070FE23 /* PagingStaticDataSource.swift */,
+				84DC686126974C530070FE23 /* PagingInvalidationContext.swift */,
+				84DC686226974C530070FE23 /* PagingSizeCache.swift */,
+				84DC686326974C530070FE23 /* PagingCollectionViewLayout.swift */,
+				84DC686426974C530070FE23 /* PagingBorderView.swift */,
+				84DC686526974C530070FE23 /* PagingOptions.swift */,
+				84DC686626974C530070FE23 /* PagingFiniteDataSource.swift */,
+				84DC686726974C530070FE23 /* PagingBorderLayoutAttributes.swift */,
+				84DC686826974C530070FE23 /* PagingMenuView.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		84DC686926974C530070FE23 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				84DC686A26974C530070FE23 /* PagingMenuInteraction.swift */,
+				84DC686B26974C530070FE23 /* PagingMenuItemSize.swift */,
+				84DC686C26974C530070FE23 /* PagingSelectedScrollPosition.swift */,
+				84DC686D26974C530070FE23 /* InvalidationState.swift */,
+				84DC686E26974C530070FE23 /* PagingMenuTransition.swift */,
+				84DC686F26974C530070FE23 /* PagingMenuPosition.swift */,
+				84DC687026974C530070FE23 /* PagingContentInteraction.swift */,
+				84DC687126974C530070FE23 /* PagingMenuHorizontalAlignment.swift */,
+				84DC687226974C530070FE23 /* PagingIndicatorOptions.swift */,
+				84DC687326974C530070FE23 /* PagingDirection.swift */,
+				84DC687426974C530070FE23 /* PagingBorderOptions.swift */,
+				84DC687526974C530070FE23 /* PagingState.swift */,
+				84DC687626974C530070FE23 /* PagingMenuItemSource.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		84DC687726974C530070FE23 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				84DC687826974C530070FE23 /* UIColor+interpolation.swift */,
+				84DC687926974C530070FE23 /* UIView+constraints.swift */,
+				84DC687A26974C530070FE23 /* UIEdgeInsets.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		84DC687B26974C530070FE23 /* Structs */ = {
+			isa = PBXGroup;
+			children = (
+				84DC687C26974C530070FE23 /* PagingDistance.swift */,
+				84DC687D26974C530070FE23 /* PagingIndicatorMetric.swift */,
+				84DC687E26974C530070FE23 /* PagingDiff.swift */,
+				84DC687F26974C530070FE23 /* PagingItems.swift */,
+				84DC688026974C530070FE23 /* PagingCellViewModel.swift */,
+				84DC688126974C530070FE23 /* AnyPagingItem.swift */,
+				84DC688226974C530070FE23 /* PagingTransition.swift */,
+				84DC688326974C530070FE23 /* PagingIndexItem.swift */,
+				84DC688426974C530070FE23 /* PageView.swift */,
+			);
+			path = Structs;
+			sourceTree = "<group>";
+		};
+		84DC688526974C540070FE23 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				84DC688626974C540070FE23 /* PagingMenuDataSource.swift */,
+				84DC688726974C540070FE23 /* PagingViewControllerInfiniteDataSource.swift */,
+				84DC688826974C540070FE23 /* Tween.swift */,
+				84DC688926974C540070FE23 /* PagingItem.swift */,
+				84DC688A26974C540070FE23 /* CollectionView.swift */,
+				84DC688B26974C540070FE23 /* PagingViewControllerSizeDelegate.swift */,
+				84DC688C26974C540070FE23 /* PagingViewControllerDelegate.swift */,
+				84DC688D26974C540070FE23 /* PagingViewControllerDataSource.swift */,
+				84DC688E26974C540070FE23 /* PagingMenuDelegate.swift */,
+				84DC688F26974C540070FE23 /* PagingLayout.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		84DD24562265A30D0013F77E /* UpcomingBookingsVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -9287,6 +9507,7 @@
 		84F9838121B51A070018DFED /* Third Party */ = {
 			isa = PBXGroup;
 			children = (
+				84DC685326974C530070FE23 /* Parchment */,
 				841F3980253EE75B007C99B6 /* HeartLoadingView */,
 				0CBADF0D2473C18800086EA7 /* FlightThirdParties */,
 				8463A5112456C7B200C70D8C /* GooleMapCluster */,
@@ -9690,6 +9911,7 @@
 				843FF53824740232001F21B1 /* SmartIconCell.xib in Resources */,
 				843FF48124740230001F21B1 /* popularAirports.json in Resources */,
 				84534EAE2248E099009FF536 /* HCBedDetailsTableViewCell.xib in Resources */,
+				84DC689126974C540070FE23 /* LICENSE in Resources */,
 				18038D1E226DE73B00A4D1DD /* AerinCurrentStateTableViewCell.xib in Resources */,
 				84DD24852267042A0013F77E /* TitleWithSubTitleTableViewCell.xib in Resources */,
 				84981CD921F74EC9002E68C7 /* AddRoomPictureCell.xib in Resources */,
@@ -9732,6 +9954,7 @@
 				0C4CC67E259B791200BBAA68 /* otp.csv in Resources */,
 				18F7493921D1071F0051FE6F /* EditProfileThreePartTableViewCell.xib in Resources */,
 				84D2FB9D21BE767700011000 /* Dashboard.storyboard in Resources */,
+				84DC68C726974C540070FE23 /* README.md in Resources */,
 				843FF4E924740231001F21B1 /* AirportTableViewCell.xib in Resources */,
 				843FF47D24740230001F21B1 /* AirlineSearchTableViewCell.xib in Resources */,
 				1809A48021CDFE850018AB2F /* EditProfileTwoPartTableViewCell.xib in Resources */,
@@ -10162,6 +10385,7 @@
 				84D2FB8321BE351E00011000 /* PKCountryView.swift in Sources */,
 				8459208D24E2CA710001ED28 /* GetSharableUrl.swift in Sources */,
 				0C6E394524FE7CE100D7383F /* FiltersCustomPagingView.swift in Sources */,
+				84DC689F26974C540070FE23 /* PagingBorderView.swift in Sources */,
 				84085CDC21F59C0E00F1E844 /* DashboardVC.swift in Sources */,
 				84F2DC95226472E300212F05 /* MyBookingsVM.swift in Sources */,
 				1F4636CE21F5ABE2000D56B0 /* CheckInOutView.swift in Sources */,
@@ -10187,6 +10411,7 @@
 				182D485B228AF036004796A2 /* BookingHDRoomDetailHeaderView.swift in Sources */,
 				84085CD621F59C0E00F1E844 /* DefaultNavigationTransition.swift in Sources */,
 				1820F100228E93820019B8BB /* BookingVoucherVM.swift in Sources */,
+				84DC68C626974C540070FE23 /* PagingLayout.swift in Sources */,
 				84246B6C2451C92900C3F5F6 /* HCPanCardTextFieldCell.swift in Sources */,
 				18AC309124878382004CB0B8 /* FlightPaymentVC.swift in Sources */,
 				843FF66D247409E3001F21B1 /* KeyValueData.m in Sources */,
@@ -10197,6 +10422,7 @@
 				8463A5782456D4BB00C70D8C /* HotelShimmerView.swift in Sources */,
 				18FD916C229678FE00D005E9 /* BookingReschedulingHeaderView.swift in Sources */,
 				0C14B8FB249343EA00C2D19A /* SelectOtherAdonsContainerVM.swift in Sources */,
+				84DC689726974C540070FE23 /* EMPageViewController.swift in Sources */,
 				84085CD821F59C0E00F1E844 /* DemoVC.swift in Sources */,
 				182E8ED221DB6AAC0089C02D /* HotelCardTableViewCell.swift in Sources */,
 				843FF663247409E3001F21B1 /* Itemable.m in Sources */,
@@ -10220,6 +10446,7 @@
 				8463A56B2456C7B200C70D8C /* GMUFeature.m in Sources */,
 				18D88BFA22C39A700089755D /* BookingConfirmationMailVM.swift in Sources */,
 				188A4DBF242DF1E700F871ED /* PhotoGalleryVC.swift in Sources */,
+				84DC68AE26974C540070FE23 /* PagingBorderOptions.swift in Sources */,
 				84085D0E21F59C0E00F1E844 /* ContactDetailsTableCell.swift in Sources */,
 				8448286C24A5C3DF00DC9C6E /* BookingNotesVM.swift in Sources */,
 				1835E50423EAC1CD00F6EEA1 /* CardPresentationController.swift in Sources */,
@@ -10321,10 +10548,12 @@
 				843FF56924740232001F21B1 /* LayoverViewTableViewCell.swift in Sources */,
 				18DE97D322CB689C0006C5E0 /* FrequentFlyerData.swift in Sources */,
 				84E4BC51229E6F2000B72306 /* FlightBoardingAndDestinationTableViewCell.swift in Sources */,
+				84DC68A826974C540070FE23 /* PagingMenuTransition.swift in Sources */,
 				84085CDA21F59C0E00F1E844 /* MainHomeVC.swift in Sources */,
 				18F181DC223BC8EE00323775 /* WalletTableViewCell.swift in Sources */,
 				1809A47B21CDFA7E0018AB2F /* TableViewAddActionCell.swift in Sources */,
 				0CBADF7F2473DC6F00086EA7 /* AFHTTPSessionManager.m in Sources */,
+				84DC68B926974C540070FE23 /* AnyPagingItem.swift in Sources */,
 				847C224C247C1664004F32D6 /* APICaller+SeatMap.swift in Sources */,
 				1811D152247F882C00607331 /* FlightItineraryData.swift in Sources */,
 				18FDDD23221E973D00EF01FC /* HotelFilter.swift in Sources */,
@@ -10333,6 +10562,7 @@
 				84D157FF22660B3900393528 /* AccountDetailEventDescriptionCell.swift in Sources */,
 				0C6E0A4A25EF7FA10021E823 /* RegularAccountDetailsVC.swift in Sources */,
 				84E4BC5E22A0EC0700B72306 /* OtherBookingdDetailsVC+TableCells.swift in Sources */,
+				84DC68A226974C540070FE23 /* PagingBorderLayoutAttributes.swift in Sources */,
 				842EDE7E2238E7D600E99409 /* HotelDetailsOverviewVM.swift in Sources */,
 				1879C4A92293CD6600897CED /* BookingDirectionTableViewCell.swift in Sources */,
 				84DD248E22671A4A0013F77E /* BookingDocumentsTableViewCell.swift in Sources */,
@@ -10340,6 +10570,7 @@
 				841AA50C247439B000B66720 /* Webservice.swift in Sources */,
 				1851A75C21C3E051008DF03F /* AppUserDefaults.swift in Sources */,
 				1870AD1B220C769400FB32C8 /* TravelDetailModel.swift in Sources */,
+				84DC689D26974C540070FE23 /* PagingSizeCache.swift in Sources */,
 				843FF48024740230001F21B1 /* AirportSelectionVM.swift in Sources */,
 				8441EF652649126A00477683 /* TravellerMasterListVM.swift in Sources */,
 				84741B7A22A680E5009E304B /* QueryStatusCollectionCell.swift in Sources */,
@@ -10359,6 +10590,7 @@
 				0C0506CF2435CEDD00BC4703 /* ATAlertController.swift in Sources */,
 				84F983BC21B51A070018DFED /* AppDelegate.swift in Sources */,
 				188DFC852318FC530060F9D1 /* PKTapAndCopyUITextView.swift in Sources */,
+				84DC68BC26974C540070FE23 /* PageView.swift in Sources */,
 				84271E832237A10700C1A70D /* HCDataSelectionVC.swift in Sources */,
 				8438B442245AB1DC00F7320B /* FlightBaggageInfoVC.swift in Sources */,
 				182EB22222859BA8001BFB20 /* FlightInfoTableViewCell.swift in Sources */,
@@ -10374,10 +10606,12 @@
 				8445B52522A5299400DDBC7F /* SelectDateTableViewCell.swift in Sources */,
 				18032DC223FA816A000B6A2F /* PassThroughView.swift in Sources */,
 				84E4BC22229BA21100B72306 /* FlightBookingsDetailsVC.swift in Sources */,
+				84DC689826974C540070FE23 /* PagingIndicatorLayoutAttributes.swift in Sources */,
 				18D4C412220AB572005E1E37 /* AmenitiesTableViewCell.swift in Sources */,
 				841DD1E72202DC690055FEBB /* DestinationMyLocationTableCell.swift in Sources */,
 				8441EF632649048A00477683 /* TravellerMasterListVC.swift in Sources */,
 				0C24D4F5242CAF9D00CBFF92 /* CurrencyVM.swift in Sources */,
+				84DC68AF26974C540070FE23 /* PagingState.swift in Sources */,
 				843FF4D924740231001F21B1 /* MealPreferenceCell.swift in Sources */,
 				1807A37B2297CBD100B78D47 /* BookingModel.swift in Sources */,
 				84DD0D1D220C0583004A6F91 /* BulkEnquirySuccessfulVC.swift in Sources */,
@@ -10426,6 +10660,7 @@
 				843E86BB25AE155C007D0C14 /* UserAccountDetailsCell.swift in Sources */,
 				8477163722843546000E1BB6 /* OnAccountDetailVC.swift in Sources */,
 				84DF1B9025889CB60067C678 /* AirlinesFilterVM.swift in Sources */,
+				84DC68AB26974C540070FE23 /* PagingMenuHorizontalAlignment.swift in Sources */,
 				846FB58D22250AFA007F70F9 /* PKBottomSheet.swift in Sources */,
 				18999D8E21E48D6500E66072 /* OrderTableViewCell.swift in Sources */,
 				18E61218234384FE00816250 /* UIPickerViewExtension.swift in Sources */,
@@ -10442,10 +10677,12 @@
 				847F7EB82279DB75009BE02F /* PKTextField.swift in Sources */,
 				843FF56724740232001F21B1 /* FlightAmenitiesCollectionViewCell.swift in Sources */,
 				843FF4CB24740231001F21B1 /* PassengerGridCell.swift in Sources */,
+				84DC68AC26974C540070FE23 /* PagingIndicatorOptions.swift in Sources */,
 				0C06BB20243B76DC0022281F /* APICaller+Settings.swift in Sources */,
 				843FF4D624740231001F21B1 /* GSTINListCell.swift in Sources */,
 				84AFF97122A78B8800E91F14 /* HotelCancellationVC.swift in Sources */,
 				0C24D4E0242C74F600CBFF92 /* SettingsVM.swift in Sources */,
+				84DC689226974C540070FE23 /* PagingViewController.swift in Sources */,
 				843FF66B247409E3001F21B1 /* DropDownData.m in Sources */,
 				0C6E393E24FE7B4C00D7383F /* IntMCAndReturnFiltersBaseVC.swift in Sources */,
 				843FF48724740230001F21B1 /* FlightFormDataModel.m in Sources */,
@@ -10523,6 +10760,7 @@
 				84DD249A226734D80013F77E /* BookingPaymentDetailsTableViewCell.swift in Sources */,
 				8422728422118C6C00D4F065 /* ATGalleryViewController.swift in Sources */,
 				843FF688247409E3001F21B1 /* CCache.m in Sources */,
+				84DC68B726974C540070FE23 /* PagingItems.swift in Sources */,
 				180F9BDC222D055100518D3B /* HotelResultVC+ DelegateMethods.swift in Sources */,
 				18EF753A228043C100FCBBE6 /* OneWayCardCollectionViewCell.swift in Sources */,
 				843FF54C24740232001F21B1 /* ResultWebServiceResponse.swift in Sources */,
@@ -10545,6 +10783,7 @@
 				1879C49B2292BD2600897CED /* DownloadInvoiceTableViewCell.swift in Sources */,
 				0C1238DF24CB25D1004828AE /* FlightFormViewController.m in Sources */,
 				84085CE321F59C0E00F1E844 /* SuccessPopupVC.swift in Sources */,
+				84DC68A726974C540070FE23 /* InvalidationState.swift in Sources */,
 				8443EAA725A46B5000CA3B65 /* ApiCaller+ChangeEmail.swift in Sources */,
 				841AA5102474496600B66720 /* MARKRangeSlider+Extension.swift in Sources */,
 				189EF58822B7B7C600D5E055 /* AdditionalInformationModel.swift in Sources */,
@@ -10565,10 +10804,12 @@
 				8463A5602456C7B200C70D8C /* GMUDefaultClusterIconGenerator.m in Sources */,
 				843FF4DC24740231001F21B1 /* AddEditGSTVC.swift in Sources */,
 				1871B672220823E30066636E /* ATGuestButton.swift in Sources */,
+				84DC68BB26974C540070FE23 /* PagingIndexItem.swift in Sources */,
 				1870AD14220C769400FB32C8 /* UserInfo.swift in Sources */,
 				846856AF2233C1A6001B9E13 /* TripAdvisorReviewsHeaderView.swift in Sources */,
 				18B4356A2202DCA6000C5E31 /* SortTableViewCell.swift in Sources */,
 				84085CEA21F59C0E00F1E844 /* SecureYourAccountVC.swift in Sources */,
+				84DC68A626974C540070FE23 /* PagingSelectedScrollPosition.swift in Sources */,
 				183B71B22289990B00A75B7F /* BookingTravellerTableViewCell.swift in Sources */,
 				843FF57824740232001F21B1 /* FareBreakupVC.swift in Sources */,
 				84E4BC27229C622700B72306 /* DownloadingModel.swift in Sources */,
@@ -10605,8 +10846,10 @@
 				84B6DEA0228018DC0042D902 /* SpecialAccountDetailsVM.swift in Sources */,
 				8477DE4A259E058B001B7505 /* APICaller+RecentSearches.swift in Sources */,
 				84EAABED21DA0A96006B757F /* SideMenuLogoView.swift in Sources */,
+				84DC689326974C540070FE23 /* PagingTitleCell.swift in Sources */,
 				842EDE96223A2CAA00E99409 /* HCSpecialRequestsVC.swift in Sources */,
 				84F983E121B51A070018DFED /* UserDefaultsExtension.swift in Sources */,
+				84DC68C526974C540070FE23 /* PagingMenuDelegate.swift in Sources */,
 				849DA81A23E2B6EB00C2E9D8 /* ATCategoryButton.swift in Sources */,
 				0C4CB41F25022EC4000C3904 /* NoImageDetailsCell.swift in Sources */,
 				0C9BF1D625839E5C00BAFF3B /* FlightBaggageVM.swift in Sources */,
@@ -10626,6 +10869,7 @@
 				84E4BC6022A0EC1F00B72306 /* OtherBookingsDetailsVC+Extensions.swift in Sources */,
 				84085CF321F59C0E00F1E844 /* LinkedAccountsVM.swift in Sources */,
 				18E79717224A06B100A7AC8B /* TotalPayableNowCell.swift in Sources */,
+				84DC68BE26974C540070FE23 /* PagingViewControllerInfiniteDataSource.swift in Sources */,
 				84085CE821F59C0E00F1E844 /* CreateYourAccountVC.swift in Sources */,
 				8463A56C2456C7B200C70D8C /* GMUGroundOverlay.m in Sources */,
 				0CBDEA4E2429EF9B009D7849 /* SuggestionsCell.swift in Sources */,
@@ -10637,6 +10881,7 @@
 				182D4860228AF515004796A2 /* BookingHDRoomDetailTableViewCell.swift in Sources */,
 				843E63202292782F00A04248 /* DepositItinerary.swift in Sources */,
 				843FF53724740232001F21B1 /* SingleJourneyCell.swift in Sources */,
+				84DC68BA26974C540070FE23 /* PagingTransition.swift in Sources */,
 				8483AFA622118549009F7600 /* HotelRatingInfoCell.swift in Sources */,
 				18A62BE222C38375008D000C /* BookingAddOnRequestVC+Delegatemethods.swift in Sources */,
 				849D37952289397200763AD8 /* AccountOnlineDepositVC+DelegateMethods.swift in Sources */,
@@ -10674,6 +10919,7 @@
 				8445B51F22A5110400DDBC7F /* BookingTopNavBarWithSubtitle.swift in Sources */,
 				843FF55524740232001F21B1 /* IntFlightResultDisplayGroup.swift in Sources */,
 				0CE3E89D24406627005E015E /* ThingsCanBeAskedCell.swift in Sources */,
+				84DC689426974C540070FE23 /* PagingIndicatorView.swift in Sources */,
 				84AFF97422A78C1900E91F14 /* RequestReschedulingVC+Extensions.swift in Sources */,
 				8472F102247C25D200A1CCD3 /* SeatMapContainerVM.swift in Sources */,
 				843FF52D24740232001F21B1 /* FlightDomesticMultiLegResultVC+TableViewFooter.swift in Sources */,
@@ -10690,6 +10936,7 @@
 				0CAC8C8222E1E0620039D612 /* UIImageExtension.swift in Sources */,
 				847AD59D265FBB220036437F /* AppearanceVC+TableView.swift in Sources */,
 				84DD24642265AFBA0013F77E /* FlightTableViewCell.swift in Sources */,
+				84DC689626974C540070FE23 /* PagingCellLayoutAttributes.swift in Sources */,
 				843FF4C524740231001F21B1 /* Passenger.swift in Sources */,
 				842EDE7F2238E7D600E99409 /* HotelDetailsVM.swift in Sources */,
 				18EF5E88221D2E1F00EFFA6E /* HotelSearchRequestModel.swift in Sources */,
@@ -10704,6 +10951,7 @@
 				84C0BE1E224E22850034E9EA /* HCSelectGuestsVM.swift in Sources */,
 				1820F0E4228D40D60019B8BB /* BookingRequestRouteTableViewCell.swift in Sources */,
 				84085CDD21F59C0E00F1E844 /* AerinVC.swift in Sources */,
+				84DC68C126974C540070FE23 /* CollectionView.swift in Sources */,
 				0C00EDE4247D6C4C00DDFD10 /* SelectMealCell.swift in Sources */,
 				843FF55024740232001F21B1 /* FlightResults+ UI.swift in Sources */,
 				841E75C72282E6BA003CE1CF /* AccountOutstandingLadgerVM.swift in Sources */,
@@ -10729,11 +10977,14 @@
 				0CA8181A25AD6EEA0025EEF6 /* UpdateAccountDropdownCell.swift in Sources */,
 				0C17B2A624F7E0B6004B721C /* FlightDomesticMultiLegResultVC+CollectionViewDelegates.swift in Sources */,
 				84F983E621B51A070018DFED /* AppConstants.swift in Sources */,
+				84DC68B226974C540070FE23 /* UIView+constraints.swift in Sources */,
 				84D5F22522A63FF300824A9F /* HotlelBookingsDetailsVM.swift in Sources */,
 				843ACE4621F8994500D87BA8 /* APICaller+HotelsSearch.swift in Sources */,
+				84DC68B326974C540070FE23 /* UIEdgeInsets.swift in Sources */,
 				1835E50323EAC1CD00F6EEA1 /* DismissCardAnimator.swift in Sources */,
 				84534E9A2248A16D009FF536 /* HCBookingDetailsTableViewHeaderFooterView.swift in Sources */,
 				84271E852237A13F00C1A70D /* HCDataSelectionVM.swift in Sources */,
+				84DC68C326974C540070FE23 /* PagingViewControllerDelegate.swift in Sources */,
 				843FF674247409E3001F21B1 /* GuestDetail.m in Sources */,
 				843FF677247409E3001F21B1 /* CheckoutViewController.m in Sources */,
 				8448286A24A5C30D00DC9C6E /* BookingNotesVC.swift in Sources */,
@@ -10751,7 +11002,9 @@
 				84534ECF22491991009FF536 /* HCWhatNextCollectionViewCell.swift in Sources */,
 				18038D13226DC37500A4D1DD /* AerinSuggestionCollectionViewCell.swift in Sources */,
 				18AAAC1F24B4979000025ABF /* FlightDetailsVM.swift in Sources */,
+				84DC68BF26974C540070FE23 /* Tween.swift in Sources */,
 				180E7C0C223205B8005FAEA9 /* EmailComposerFooterView.swift in Sources */,
+				84DC68C026974C540070FE23 /* PagingItem.swift in Sources */,
 				0C0B8CDA24D2C88C008942DB /* FlightResultSingleJourneyVM.swift in Sources */,
 				849DA81C23E2B6F800C2E9D8 /* ATCategoryNavBarStyle.swift in Sources */,
 				84791ED92281A04900472E54 /* AccountLadgerDetailsVC+Delegate.swift in Sources */,
@@ -10762,6 +11015,7 @@
 				18D4C417220AC515005E1E37 /* RoomVC.swift in Sources */,
 				843FF4FE24740231001F21B1 /* IntHeaderCollectionCell.swift in Sources */,
 				84085CE021F59C0E00F1E844 /* SideMenuVC.swift in Sources */,
+				84DC68B126974C540070FE23 /* UIColor+interpolation.swift in Sources */,
 				84B1406322A16E1A00EAA5D2 /* FlightBookingsRequestTitleTableViewCell.swift in Sources */,
 				843E86BD25AE155C007D0C14 /* UserAccountDetailsVM.swift in Sources */,
 				1800FC6521EF1FA20006D6D1 /* AddNotesTableViewCell.swift in Sources */,
@@ -10827,6 +11081,7 @@
 				1841AF9421C8BE830038111D /* ViewProfileTableViewCell.swift in Sources */,
 				84E4BC4C229E67CC00B72306 /* FlightCarriersTableViewCell.swift in Sources */,
 				841DD1E82202DC690055FEBB /* DestinationSearchedTableCell.swift in Sources */,
+				84DC68A426974C540070FE23 /* PagingMenuInteraction.swift in Sources */,
 				1879C48F22927AA700897CED /* BookingCallTableViewCell.swift in Sources */,
 				84534E9F2248AB8F009FF536 /* HCHotelRatingTableViewCell.swift in Sources */,
 				18889C9424B706CB001C01D6 /* NewAccountLedgerEventCell.swift in Sources */,
@@ -10856,6 +11111,7 @@
 				843FF4C224740231001F21B1 /* GSTINListVM.swift in Sources */,
 				84432AEA2420F7B100E7A387 /* UIPanGestureRecognizerExtension.swift in Sources */,
 				843FF4CE24740231001F21B1 /* FlightContactCell.swift in Sources */,
+				84DC68BD26974C540070FE23 /* PagingMenuDataSource.swift in Sources */,
 				0CBADF812473DC6F00086EA7 /* AFURLRequestSerialization.m in Sources */,
 				843FF4BB24740231001F21B1 /* NoResultsScreenViewController.swift in Sources */,
 				846EADAA24B344BF00BF5E40 /* PostSelectionSeatPopupVC.swift in Sources */,
@@ -10873,11 +11129,13 @@
 				843FF68B247409E3001F21B1 /* gradientView.swift in Sources */,
 				18999D9F21E4DA5000E66072 /* APICaller+TravellerPreferences.swift in Sources */,
 				1870BEC122C4DBE20030174C /* BookingAddCommonInputTableViewCell.swift in Sources */,
+				84DC689526974C540070FE23 /* PagingView.swift in Sources */,
 				18020AF62281A64400DE5FE0 /* AerinInfoSectionHeader.swift in Sources */,
 				843FF51424740231001F21B1 /* InternationalReturnTableViewCell.swift in Sources */,
 				843FF51824740231001F21B1 /* InternationalReturnTemplateTableViewCell.swift in Sources */,
 				84504D572212F375002C1374 /* AmenitiesDescriptionHeaderView.swift in Sources */,
 				186FD6E92488FFCD00335353 /* FlightPaymentBookingStatusVC.swift in Sources */,
+				84DC68C426974C540070FE23 /* PagingViewControllerDataSource.swift in Sources */,
 				1846EFCB24A49602001D93A2 /* AddonsQuotationsModel.swift in Sources */,
 				84BC598A22B7C28E008D9884 /* BookingFareInfoDetailVM.swift in Sources */,
 				841DD1E52202DC690055FEBB /* HotelsSearchVC.swift in Sources */,
@@ -10923,6 +11181,7 @@
 				84100A9022391B60006A05EC /* ContactTableCell.swift in Sources */,
 				843FF9CF240D216300CBE5EC /* ViewProfileDetailFrequentCell.swift in Sources */,
 				846856AC2233A482001B9E13 /* AdvisorRatingTableViewCell.swift in Sources */,
+				84DC68AD26974C540070FE23 /* PagingDirection.swift in Sources */,
 				18999D9221E48DCE00E66072 /* CategorisedByGroupsTableViewCell.swift in Sources */,
 				0C9BF1D0258374AD00BAFF3B /* FlightFareInfoVM.swift in Sources */,
 				849D6D222547EAB600647AC2 /* AerinCustomPopoverVC+SpeechRecognizer.swift in Sources */,
@@ -10956,12 +11215,15 @@
 				84247F9422A53D6D00A0FEB7 /* CancelledVC.swift in Sources */,
 				8463A5632456C7B200C70D8C /* GMUWeightedLatLng.m in Sources */,
 				842BA835223BBB4300EED7B0 /* HCGuestListVC.swift in Sources */,
+				84DC68B626974C540070FE23 /* PagingDiff.swift in Sources */,
 				847775632265EB2800EAB8B0 /* AccountDetailsVC+Delegates.swift in Sources */,
 				84B6DE9E228018D10042D902 /* SpecialAccountDetailsVC.swift in Sources */,
 				1873DD8722C9F3FC00DC8206 /* WeatherFooterTableViewCell.swift in Sources */,
+				84DC689B26974C540070FE23 /* PagingStaticDataSource.swift in Sources */,
 				1879C48B2292680C00897CED /* BookingCallVM.swift in Sources */,
 				843FF50E24740231001F21B1 /* ResultHeaderView.swift in Sources */,
 				84246B6A2451C7E500C3F5F6 /* HCEmailTextFieldCell.swift in Sources */,
+				84DC68A026974C540070FE23 /* PagingOptions.swift in Sources */,
 				0C4CB42625022F3D000C3904 /* UpgradePlanListVC.swift in Sources */,
 				1870AD18220C769400FB32C8 /* HotelModel.swift in Sources */,
 				849D37932289397200763AD8 /* AccountOnlineDepositVC.swift in Sources */,
@@ -10997,6 +11259,7 @@
 				843FF666247409E3001F21B1 /* FlightResultJDict.m in Sources */,
 				18D4C420220B13F2005E1E37 /* HotelFilterVM.swift in Sources */,
 				84085CF021F59C0E00F1E844 /* ThankYouRegistrationVM.swift in Sources */,
+				84DC68A526974C540070FE23 /* PagingMenuItemSize.swift in Sources */,
 				843FF54324740232001F21B1 /* GroupedFlightCell.swift in Sources */,
 				182D4855228AE8F7004796A2 /* BookingHotelDetailVC+HelperMethods.swift in Sources */,
 				183B719F22894D5600A75B7F /* FareBookingInfoVC.swift in Sources */,
@@ -11004,6 +11267,7 @@
 				840A84222229BA890040EB99 /* HotelTagCollectionCell.swift in Sources */,
 				843FF57724740232001F21B1 /* BaseFareTableViewCell.swift in Sources */,
 				0C1F4D5425F0C01500512E2F /* RegularAccountDetailsVC+FilterDelegates.swift in Sources */,
+				84DC689926974C540070FE23 /* PagingController.swift in Sources */,
 				84085D0321F59C0E00F1E844 /* EditProfileVC.swift in Sources */,
 				182D4847228AA8C8004796A2 /* ATTableViewCell.swift in Sources */,
 				0CBDEA432429CD3F009D7849 /* TypingStatusChatCell.swift in Sources */,
@@ -11043,6 +11307,7 @@
 				843FF51624740231001F21B1 /* InternationalReturnJourneyTemplateCell.swift in Sources */,
 				843FF64B247409E3001F21B1 /* PassengerCollectionViewCell.m in Sources */,
 				18611786242B7CC600BE1306 /* HCDataHotelRatingInfoTableViewCell.swift in Sources */,
+				84DC689A26974C540070FE23 /* PagingCell.swift in Sources */,
 				849D37922289397200763AD8 /* AccountOnlineDepositVC+Razorpay.swift in Sources */,
 				18FDF3272236A9A5009CC909 /* ATEmailSelectorTextView.swift in Sources */,
 				8477DE48259E0571001B7505 /* FlightSearchResultVM+RecentSearches.swift in Sources */,
@@ -11060,6 +11325,7 @@
 				84247F8D22A530BD00A0FEB7 /* CompletedVC+Delegates.swift in Sources */,
 				18FDDD27221FF52F00EF01FC /* SectionFooter.swift in Sources */,
 				84085D1221F59C0E00F1E844 /* TravellerListVM.swift in Sources */,
+				84DC68B826974C540070FE23 /* PagingCellViewModel.swift in Sources */,
 				182D4853228ACD5B004796A2 /* APICaller+Booking.swift in Sources */,
 				84FD0DCD228A8E4800915A09 /* AccountModel.swift in Sources */,
 				0C4CB41B25022E89000C3904 /* CommunicationVC.swift in Sources */,
@@ -11081,6 +11347,7 @@
 				8446C90222A7D55E0077556B /* HotleCancellationChargesCollectionViewCell.swift in Sources */,
 				843FF681247409E3001F21B1 /* RequestCompletedViewController.m in Sources */,
 				84F983E921B51A070018DFED /* EndPoints.swift in Sources */,
+				84DC68B026974C540070FE23 /* PagingMenuItemSource.swift in Sources */,
 				846640E7254AA17700D87651 /* SpeechSynthesizer.swift in Sources */,
 				84A03EE6247FA86F00CD3743 /* RangeTableViewCell.swift in Sources */,
 				180632A12251D66E008B1F32 /* PaymentModal.swift in Sources */,
@@ -11101,6 +11368,7 @@
 				18AAAC1B24B37D0700025ABF /* SeeExampleHeaderView.swift in Sources */,
 				84504D542212E436002C1374 /* TripAdvisorTableViewCell.swift in Sources */,
 				0C0AB1F6247BEC7E005E5E99 /* SelectMealsVM.swift in Sources */,
+				84DC689E26974C540070FE23 /* PagingCollectionViewLayout.swift in Sources */,
 				8402009622C1EF64002E5977 /* BookingCaseHistory.swift in Sources */,
 				18193A9B24A614BD0066C518 /* AddonsPassengerTitleCell.swift in Sources */,
 				842EDE98223A34A300E99409 /* HCSpecialRequestsVM.swift in Sources */,
@@ -11124,9 +11392,11 @@
 				843FF49124740230001F21B1 /* FlightFilterAmenitiesViewController.swift in Sources */,
 				84BBFF8924C9D6AC008010EB /* AppleLoginController.swift in Sources */,
 				843FF52424740231001F21B1 /* FlightSectorCollectionViewLayout.swift in Sources */,
+				84DC68AA26974C540070FE23 /* PagingContentInteraction.swift in Sources */,
 				1879C4932292ACEE00897CED /* BookingInvoiceVC.swift in Sources */,
 				842EDE772238E7D600E99409 /* HotelDetails.swift in Sources */,
 				848259FA252B030900F87D6E /* TextLogObjC.m in Sources */,
+				84DC68A926974C540070FE23 /* PagingMenuPosition.swift in Sources */,
 				18020AF92281A6FB00DE5FE0 /* AerinInfoTableViewCell.swift in Sources */,
 				8472F20923E4078100993B08 /* HotelsMapVC+animations.swift in Sources */,
 				0C6E393D24FE7B4C00D7383F /* IntMCAndReturnFiltersBaseVC+Parchment.swift in Sources */,
@@ -11137,6 +11407,7 @@
 				1851A75621C3B01A008DF03F /* SideMenuProfileImageCell.swift in Sources */,
 				84F983D821B51A070018DFED /* UIViewExtension.swift in Sources */,
 				843FF48824740230001F21B1 /* MulticityFlightLeg.m in Sources */,
+				84DC68A126974C540070FE23 /* PagingFiniteDataSource.swift in Sources */,
 				8472F21923E41DF900993B08 /* HotelsMapVC+TableViewDataSourceDelegateMethods.swift in Sources */,
 				1870AD1F220C769400FB32C8 /* GeneralPrefrenceModel.swift in Sources */,
 				8458816026402D300093DEBD /* AppTrackingTransparency.swift in Sources */,
@@ -11173,6 +11444,7 @@
 				18AE8F5A22A4F4E8009D625E /* BookingReviewCancellationVC.swift in Sources */,
 				1853A37222975BD600891E53 /* BookingReschedulingPassengerAccordionTableViewCell.swift in Sources */,
 				843FF4C024740231001F21B1 /* AddEditGSTVM.swift in Sources */,
+				84DC68B526974C540070FE23 /* PagingIndicatorMetric.swift in Sources */,
 				843FF669247409E3001F21B1 /* TypeValueData.m in Sources */,
 				8431ED0725837D15005B7026 /* FlightFilterTimesVM.swift in Sources */,
 				84F983D921B51A070018DFED /* Extensions.swift in Sources */,
@@ -11183,6 +11455,7 @@
 				8472F20523E4064C00993B08 /* HotelsMapVC+MapDelegate.swift in Sources */,
 				84F983E421B51A070018DFED /* AppFlowManager.swift in Sources */,
 				18F181D8223BC8C900323775 /* ApplyCouponTableViewCell.swift in Sources */,
+				84DC68B426974C540070FE23 /* PagingDistance.swift in Sources */,
 				84BBFF8524C9D549008010EB /* ReloadResultPopupVC.swift in Sources */,
 				84BF46CB2212A762000AA6E3 /* HotelDetailsLoaderTableViewCell.swift in Sources */,
 				849D379B22893A4B00763AD8 /* AccountOfflineDepositVC+DelegateMethods.swift in Sources */,
@@ -11239,6 +11512,7 @@
 				843FF47624740230001F21B1 /* MulticityCalendarVM.m in Sources */,
 				182D4864228B03F2004796A2 /* BookingCheckinCheckOutTableViewCell.swift in Sources */,
 				1835E50D23EAC1F100F6EEA1 /* StatusBarAnimatableViewController.swift in Sources */,
+				84DC68C226974C540070FE23 /* PagingViewControllerSizeDelegate.swift in Sources */,
 				180A3D8421C1098E001A1E6A /* ToastView.swift in Sources */,
 				84AFF97622A78C4B00E91F14 /* RequestReschedulingVC+TableCells.swift in Sources */,
 				8474CC31222713E700C4F076 /* HotelDetailsCheckOutTableViewCell.swift in Sources */,
@@ -11337,6 +11611,7 @@
 				188E930E221A957A008FE50A /* CustomMarker.swift in Sources */,
 				0C24D4F3242CAF8900CBFF92 /* CurrencyVC+TableViewDelegates.swift in Sources */,
 				843FF65B247409E3001F21B1 /* FlightSearchResult.m in Sources */,
+				84DC689C26974C540070FE23 /* PagingInvalidationContext.swift in Sources */,
 				84F983F221B51A070018DFED /* Reachability.swift in Sources */,
 				18EF5E22221C07F500EFFA6E /* ATSwitcher.swift in Sources */,
 				8463A55B2456C7B200C70D8C /* GMUGridBasedClusterAlgorithm.m in Sources */,
@@ -11370,6 +11645,7 @@
 				84A9447B24812A140024B828 /* HotelCheckoutDetailVC.swift in Sources */,
 				84DD24582265A5F10013F77E /* DateTableHeaderView.swift in Sources */,
 				843FF4EC24740231001F21B1 /* FlightFareRulesTableViewCell.m in Sources */,
+				84DC68A326974C540070FE23 /* PagingMenuView.swift in Sources */,
 				843FF65C247409E3001F21B1 /* GeneralUserPreferences.m in Sources */,
 				182C38AA24CB4D03000412CB /* FlightWhatNextData.swift in Sources */,
 				847A3CC525306380004C7382 /* SpeechRecognizer.swift in Sources */,
