@@ -33,16 +33,13 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Booking" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nKe-WE-HjL">
-                                <rect key="frame" x="16" y="9.5" width="151" height="21"/>
+                                <rect key="frame" x="16" y="9.5" width="55.5" height="21"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5JS-h4-6wS">
-                                <rect key="frame" x="177" y="10" width="95" height="20"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="95" id="qVo-wQ-hUy"/>
-                                </constraints>
+                                <rect key="frame" x="235" y="10" width="37" height="20"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -59,7 +56,7 @@
                             <constraint firstItem="nKe-WE-HjL" firstAttribute="leading" secondItem="8cC-tC-t7L" secondAttribute="leading" constant="16" id="cui-jt-55r"/>
                             <constraint firstAttribute="bottom" secondItem="nKe-WE-HjL" secondAttribute="bottom" constant="11" id="glF-Rb-di1"/>
                             <constraint firstAttribute="trailing" secondItem="VR6-oh-NG8" secondAttribute="trailing" constant="16" id="lx6-d9-SRJ"/>
-                            <constraint firstItem="5JS-h4-6wS" firstAttribute="leading" secondItem="nKe-WE-HjL" secondAttribute="trailing" constant="10" id="xs9-Vj-7Ev"/>
+                            <constraint firstItem="5JS-h4-6wS" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="nKe-WE-HjL" secondAttribute="trailing" constant="10" id="xs9-Vj-7Ev"/>
                         </constraints>
                     </view>
                 </subviews>
