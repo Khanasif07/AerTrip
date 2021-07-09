@@ -404,7 +404,7 @@ class HotelResultVC: BaseVC {
         
         // replaced the switch with flight switch
         switchView.tintColor = AppColors.themeGray20
-        switchView.offTintColor = AppColors.themeGray10
+        switchView.offTintColor = AppColors.switchGray
         switchView.isOn = false
         switchView.setupUI()
         

@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "currentLocationIcon.png",
+      "filename" : "rectangle2-1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -12,12 +12,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "locationCenter.png",
+      "filename" : "rectangle2.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "currentLocationIcon@2x.png",
+      "filename" : "rectangle2@2x-1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -28,12 +28,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "locationCenter@2x.png",
+      "filename" : "rectangle2@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "currentLocationIcon@3x.png",
+      "filename" : "rectangle2@3x-1.png",
       "idiom" : "universal",
       "scale" : "3x"
     },
@@ -44,7 +44,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "locationCenter@3x.png",
+      "filename" : "rectangle2@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
