@@ -156,6 +156,7 @@ class HotelDetailsVC: BaseVC {
     }
     
     override func setupColors() {
+        self.footerView.backgroundColor = AppColors.themeWhite
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
