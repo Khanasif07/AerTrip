@@ -60,7 +60,7 @@ class AdonsCell: UITableViewCell {
         
                case .otheres:
                    self.addOnImageView.image = #imageLiteral(resourceName: "others")
-                   self.headingLabel.attributedText = data.heading.attributeStringWithColors(subString: LocalizedString.OtherBookingTitle.localized, strClr: AppColors.themeGreen, substrClr: UIColor.black, strFont: AppFonts.SemiBold.withSize(16), subStrFont: AppFonts.SemiBold.withSize(18))
+                   self.headingLabel.attributedText = LocalizedString.OtherBookingTitle.localized.attributeStringWithColors(subString: LocalizedString.OtherBookingTitle.localized, strClr: AppColors.themeGreen, substrClr: UIColor.black, strFont: AppFonts.SemiBold.withSize(16), subStrFont: AppFonts.SemiBold.withSize(18))
                    self.descriptionLabel.text = data.description
                }
     }
