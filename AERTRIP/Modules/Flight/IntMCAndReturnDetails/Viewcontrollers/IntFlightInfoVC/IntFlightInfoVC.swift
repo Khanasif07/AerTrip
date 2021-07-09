@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Parchment
 
 class IntFlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, getSelectedAmenitiesDelegate
 {

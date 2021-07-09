@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Parchment
 
 extension IntMCAndReturnFiltersBaseVC: PagingViewControllerDataSource , PagingViewControllerDelegate ,PagingViewControllerSizeDelegate{
     

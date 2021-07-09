@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Parchment
 
 class UpgradePlanContrainerVC: BaseVC, UpgradePlanListVCDelegate {
     

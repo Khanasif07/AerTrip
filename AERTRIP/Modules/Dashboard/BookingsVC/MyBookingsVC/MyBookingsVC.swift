@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Parchment
 
 class MyBookingsVC: BaseVC {
     // Mark:- Variables

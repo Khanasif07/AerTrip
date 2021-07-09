@@ -8,7 +8,6 @@
 
 import UIKit
 import Foundation
-import Parchment
 
 class FavouriteHotelsVC: BaseVC {
     

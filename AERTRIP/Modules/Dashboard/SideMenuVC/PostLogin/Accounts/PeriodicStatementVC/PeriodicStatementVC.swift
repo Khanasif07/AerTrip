@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Parchment
 class PeriodicStatementVC: BaseVC {
     
     //MARK:- IBOutlets
