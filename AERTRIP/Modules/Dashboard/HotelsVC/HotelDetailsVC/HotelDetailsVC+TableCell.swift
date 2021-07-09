@@ -123,6 +123,7 @@ extension HotelDetailsVC {
         cell.statusBarStyle = statusBarStyle
         cell.tagCollectionView.reloadData()
         cell.contentView.backgroundColor = AppColors.themeGray04
+        cell.searchBar.textFieldColor = AppColors.hotelsDetailSearchBarColor
         return cell
     }
     

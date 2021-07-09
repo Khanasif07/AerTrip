@@ -419,6 +419,9 @@ enum AppColors {
     /// 72,160,125
     static let seatHighlightColor = UIColor(named: "seatHighlightColor") ?? .white
     
+    ///(230, 230, 230) (0, 0, 0)
+    static let hotelsDetailSearchBarColor = UIColor(named: "hotelsDetailSearchBarColor") ?? AppColors.themeGray153
+    
     case headlines
     case body
     case subheads

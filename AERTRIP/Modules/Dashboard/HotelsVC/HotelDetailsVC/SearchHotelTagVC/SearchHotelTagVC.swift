@@ -81,6 +81,8 @@ class SearchHotelTagVC: BaseVC {
     
     override func setupColors() {
         self.cancelBtnOutlet.setTitleColor(AppColors.themeGreen, for: .normal)
+        self.tagTableView.backgroundColor = AppColors.themeWhite
+        self.view.backgroundColor = AppColors.themeBlack26
     }
     
     override func initialSetup() {
@@ -138,6 +140,7 @@ extension SearchHotelTagVC: UITableViewDelegate, UITableViewDataSource {
             cell.dividerViewLeadingConstraints.constant = 16.0
              cell.dividerViewTrailingConstraints.constant = 16.0
         }
+        cell.contentView.backgroundColor = AppColors.themeWhite
         return cell
     }
     

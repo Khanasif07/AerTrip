@@ -21,7 +21,7 @@ class NoImageDetailsCell: UITableViewCell {
     private func initialSetup() {
         self.selectionStyle = .none
         self.gradientView.backgroundColor = AppColors.clear
-        self.gradientView.addGredientWithScreenWidth(isVertical: true, colors: [AppColors.themeBlack.withAlphaComponent(0.5),AppColors.themeBlack.withAlphaComponent(0.0)])
+        self.gradientView.addGredientWithScreenWidth(isVertical: true, colors: [AppColors.unicolorBlack.withAlphaComponent(0.5),AppColors.unicolorBlack.withAlphaComponent(0.0)])
     }
 
     func configureCell(isTAImageAvailable:Bool){
