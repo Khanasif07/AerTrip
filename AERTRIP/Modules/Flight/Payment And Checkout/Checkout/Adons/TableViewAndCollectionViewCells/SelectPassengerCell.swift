@@ -22,7 +22,7 @@ class SelectPassengerCell: UICollectionViewCell {
         selectionImageView.roundedCorners(cornerRadius: selectionImageView.frame.height/2)
         seatLabel.text = ""
         seatLabel.font = AppFonts.Regular.withSize(14)
-        seatLabel.textColor = AppColors.themeGray40
+        seatLabel.textColor = AppColors.themeGray153
         selectionImageView.backgroundColor = AppColors.themeGreen.withAlphaComponent(0.6)
         contentView.backgroundColor = AppColors.themeWhiteDashboard
         nameLabel.textColor = AppColors.themeBlack

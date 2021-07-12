@@ -128,7 +128,7 @@ extension SelectPassengerVC {
             titleLabel.attributedText = attString
 //            titleLabel.text = selectPassengersVM.selectedSeatData.columnData.seatNumber + "  •  ₹ \(selectPassengersVM.selectedSeatData.columnData.amount.formattedWithCommaSeparator)"
             legsLabel.text = selectPassengersVM.selectedSeatData.columnData.getCharactericstic()
-            legsLabel.textColor = AppColors.themeGray40
+            legsLabel.textColor = AppColors.themeGray153
             legsLabel.font = AppFonts.Regular.withSize(14)
             headerDetailsStackBottom.constant = 21
             selectPassengersVM.initalPassengerForSeat = selectPassengersVM.selectedSeatData.columnData.passenger

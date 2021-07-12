@@ -868,8 +868,11 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
             }
             FilterBaseView.selectedIndex = index
         }
-        
-        backView.height = visualEffectViewHeight// - 1
+        if flightSearchResultVM.flightSearchType.rawValue != 0 && flightSearchResultVM.isDomestic {
+            backView.height = visualEffectViewHeight
+        } else {
+            backView.height = visualEffectViewHeight - 1
+        }
     }
     
     private func addFilterBackView() {
