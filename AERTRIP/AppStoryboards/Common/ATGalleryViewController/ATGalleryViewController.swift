@@ -27,7 +27,7 @@ class ATGalleryViewController: UIViewController {
     @IBOutlet weak var pageControl: ISPageControl! {
         didSet {
             self.pageControl.tintColor = AppColors.themeGray220
-            self.pageControl.currentPageTintColor = AppColors.themeWhite
+            self.pageControl.currentPageTintColor = AppColors.unicolorWhite
             self.pageControl.radius = 3.0
         }
     }

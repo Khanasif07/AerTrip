@@ -120,13 +120,13 @@ class ClusterMarkerView: UIView {
     private func updateFav() {
         countLabel.cornerradius = countLabel.height / 2.0
         if isFavourite {
-            countLabel.textColor = isForHotel ? AppColors.themeWhite : AppColors.themeBlack
+            countLabel.textColor = isForHotel ? AppColors.unicolorWhite : AppColors.themeBlack
             countLabel.backgroundColor = isForHotel ? AppColors.themeRed : AppColors.themeWhite
             countLabel.layer.borderColor = AppColors.themeRed.cgColor
             countLabel.layer.borderWidth = 1.0
         }
         else {
-            countLabel.textColor = AppColors.themeWhite
+            countLabel.textColor = AppColors.unicolorWhite
             countLabel.backgroundColor = AppColors.themeGreen
             countLabel.layer.borderColor = AppColors.clear.cgColor
             countLabel.layer.borderWidth = 0.0
@@ -144,6 +144,6 @@ class ClusterMarkerView: UIView {
         countLabel.layer.borderColor = isSelected ? AppColors.clear.cgColor : AppColors.themeGreen.cgColor
         countLabel.layer.borderWidth = isSelected ? 0.0 : 1.0
         
-        countLabel.textColor = isSelected ? AppColors.themeWhite : AppColors.themeGreen
+        countLabel.textColor = isSelected ? AppColors.unicolorWhite : AppColors.themeGreen
     }
 }

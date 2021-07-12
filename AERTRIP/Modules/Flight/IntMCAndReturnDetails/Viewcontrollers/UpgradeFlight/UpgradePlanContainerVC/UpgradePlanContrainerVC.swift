@@ -121,7 +121,7 @@ class UpgradePlanContrainerVC: BaseVC, UpgradePlanListVCDelegate {
             insets: UIEdgeInsets(top: 0, left: -400, bottom: 0, right: -400))
         let nib = UINib(nibName: "MenuItemCollectionCell", bundle: nil)
         self.parchmentView?.register(nib, for: MenuItem.self)
-        self.parchmentView?.borderColor = AppColors.themeGray214
+        self.parchmentView?.borderColor = AppColors.divider.color //AppColors.themeGray214
         self.parchmentView?.font = AppFonts.Regular.withSize(16.0)
         self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
         self.parchmentView?.indicatorColor = AppColors.upgradeFlightIndicator

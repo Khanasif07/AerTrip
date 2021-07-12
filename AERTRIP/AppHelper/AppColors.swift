@@ -433,6 +433,13 @@ enum AppColors {
     ///(0, 204, 153) ( 255, 255, 255, 0.0)
     static let searchTagSelectedBorderColor = UIColor(named: "searchTagSelectedBorderColor") ?? AppColors.themeGray153
     
+    
+    //    (255,255,255, 1.0) (0, 38, 51)
+        static let markUnselectedColor = UIColor(named: "markUnselectedColor") ?? . white
+    
+    //    (255,255,255, 1.0) (26, 5, 5)
+        static let markUnselectedFavColor = UIColor(named: "markUnselectedFavColor") ?? . white
+    
     case headlines
     case body
     case subheads

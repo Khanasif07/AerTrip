@@ -1047,7 +1047,7 @@ enum ATWeatherType: RawRepresentable {
     static var contactsEmpty: UIImage { #imageLiteral(resourceName: "contactsEmpty") }
     static var facebookEmpty: UIImage { #imageLiteral(resourceName: "facebookEmpty") }
     static var googleEmpty: UIImage { #imageLiteral(resourceName: "googleEmpty") }
-    static var noHotelFound: UIImage { #imageLiteral(resourceName: "noHotelFound") }
+    static var noHotelFound: UIImage { #imageLiteral(resourceName: "EmptyHotelSearch") }
     static var upcoming_emptystate: UIImage { #imageLiteral(resourceName: "upcoming_emptystate") }
     static var hotelCardNoImagePlaceHolder: UIImage { #imageLiteral(resourceName: "hotelCardNoImagePlaceHolder") }
     static var editPencel: UIImage { #imageLiteral(resourceName: "editPencel") }
