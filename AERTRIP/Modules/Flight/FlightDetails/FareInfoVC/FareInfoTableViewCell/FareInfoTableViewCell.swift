@@ -66,6 +66,8 @@ class FareInfoTableViewCell: UITableViewCell
     
     private func setColors(){
         self.contentView.backgroundColor = AppColors.flightResultsFooterSecondaryColor
+        self.fareRulesButton.setTitleColor(AppColors.themeGreen, for: .normal)
+        self.fareRulesButton.setTitleColor(AppColors.themeGreen, for: .selected)
     }
     
     func setAirlineImage(with url: String){

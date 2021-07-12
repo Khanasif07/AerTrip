@@ -50,7 +50,7 @@ class NoResultScreenView : UIView {
         clearFilter.isHidden = false
         TryAgain.isHidden = true
         resetPinButton.isHidden = true
-        
+        setButtonTextColor()
         
     }
     
@@ -62,6 +62,14 @@ class NoResultScreenView : UIView {
         TryAgain.isHidden = false
         clearFilter.isHidden = true
         resetPinButton.isHidden = true
+        
+    }
+    
+    private func setButtonTextColor(){
+        [clearFilter, TryAgain, resetPinButton].forEach{ btn in
+            btn?.setTitleColor(AppColors.themeGreen, for: .normal)
+            btn?.setTitleColor(AppColors.themeGreen, for: .selected)
+        }
         
     }
     
