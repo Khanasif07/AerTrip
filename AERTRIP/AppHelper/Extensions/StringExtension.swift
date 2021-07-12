@@ -1128,12 +1128,12 @@ extension NSMutableAttributedString{
     
     func addCurrencySymbol(using font: UIFont, symbol: String?,isNegative:Bool)->NSMutableAttributedString{
         if let currency = symbol{
-            let text = isNegative ? "-\(currency) " : "\(currency) "
+            let text = isNegative ? "- \(currency) " : "\(currency) "
             let  currencyText = NSMutableAttributedString(string: text, attributes: [.font: font])
                 currencyText.append(self)
                 return currencyText
         }else{
-            let currency = NSMutableAttributedString(string: isNegative ? "-₹ " : "₹ ", attributes: [.font: font])
+            let currency = NSMutableAttributedString(string: isNegative ? "- ₹ " : "₹ ", attributes: [.font: font])
             currency.append(self)
             return currency
         }
