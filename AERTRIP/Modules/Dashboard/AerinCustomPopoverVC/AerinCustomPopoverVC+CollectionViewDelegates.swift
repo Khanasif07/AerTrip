@@ -101,7 +101,16 @@ extension AerinCustomPopoverVC : UICollectionViewDelegate, UICollectionViewDataS
             hotelData.isHotelNearMeSelected = false
             HotelsSearchVM.hotelFormData = hotelData
             AppFlowManager.default.showHotelResult = true
-            AppFlowManager.default.goToDashboard(toBeSelect: .hotels)
+            
+//            AppFlowManager.default.goToDashboard(toBeSelect: .hotels)
+            
+            guard let dashboardVC = (AppDelegate.shared.window?.rootViewController as? UINavigationController)?.viewControllers.first?.children.first?.children.first as? DashboardVC else { return }
+            dashboardVC.children.forEach { (viewCon) in
+                if let searchVC = viewCon as? HotelsSearchVC {
+                    searchVC.performAerinSearch()
+                }
+            }
+            
         } else {
             if let flight = object.flight {
                 printDebug("flight.quary: \(flight.quary)")
