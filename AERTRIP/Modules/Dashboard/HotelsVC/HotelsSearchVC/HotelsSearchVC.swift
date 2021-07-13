@@ -154,7 +154,12 @@ class HotelsSearchVC: BaseVC {
     }
     
     func performAerinSearch() {
-        initialSetup()
+        if AppFlowManager.default.showHotelResult {
+            AppFlowManager.default.showHotelResult = false
+            delay(seconds: 0.6) {
+                self.searchButtonAction(self.searchBtnOutlet)
+            }
+        }
     }
     
     override func bindViewModel() {
