@@ -62,7 +62,7 @@ class DestinationSearchedTableCell: UITableViewCell {
     private func getAttributedBoldText(text: String, boldText: String, fullTextColor: UIColor) -> NSMutableAttributedString {
         let attString: NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: [.foregroundColor: fullTextColor])
         
-        attString.addAttribute(.foregroundColor, value: AppColors.themeGreen, range: (text.lowercased() as NSString).range(of: boldText.lowercased()))
+        attString.addAttribute(.foregroundColor, value: AppColors.commonThemeGreen, range: (text.lowercased() as NSString).range(of: boldText.lowercased()))
         return attString
     }
 }
