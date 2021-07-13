@@ -444,8 +444,8 @@ class ChatVM {
             }
         }
         jsonDict["aerinSessionId"] = sessionId
-        AppDelegate.shared.searchFlightsWithDeepLink(dict: jsonDict)
-//        SwiftObjCBridgingController.shared.sendFlightFormData(jsonDict)
+//        AppDelegate.shared.searchFlightsWithDeepLink(dict: jsonDict)
+        SwiftObjCBridgingController.shared.sendFlightFormData(jsonDict)
     }
 }
 
