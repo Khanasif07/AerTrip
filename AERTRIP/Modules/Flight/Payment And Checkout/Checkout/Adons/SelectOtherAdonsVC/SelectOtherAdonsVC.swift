@@ -60,7 +60,7 @@ class SelectOtherAdonsVC: UIViewController {
         self.specialRequestBackView.backgroundColor = AppColors.themeBlack26
         self.view.backgroundColor = AppColors.themeBlack
         self.footerBackView.backgroundColor = AppColors.themeWhite
-        self.dividerView.backgroundColor = AppColors.dividerColor2
+        self.dividerView.backgroundColor = AppColors.dividerColor
     }
     
     @IBAction func clearButtonTapped(_ sender: UIButton) {
