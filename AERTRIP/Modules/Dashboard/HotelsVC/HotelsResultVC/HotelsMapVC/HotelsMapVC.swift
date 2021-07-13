@@ -189,7 +189,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         self.mapContainerViewBottomConstraint.constant = (!UIDevice.isIPhoneX) ? 173.0 : 207.0
         self.view.layoutIfNeeded()
         self.filterButton.isEnabled = false
-        self.view.backgroundColor = AppColors.themeWhite
+        self.view.backgroundColor = AppColors.themeWhiteDashboard
         
         self.initialSetups()
         self.registerXib()
@@ -248,7 +248,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.statusBarColor = AppColors.clear
-        self.statusBarStyle = .darkContent
+        self.statusBarStyle = .default
         
         addCustomBackgroundBlurView()
         //Reload collection when pushed from HotelResultVC.
@@ -262,6 +262,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         addGradientToCardGradientView()
+        dividerView.isHidden = !isLightTheme()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -339,7 +340,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         backVisualEfectView.effect = UIBlurEffect(style: .prominent)
         backVisualEfectView.autoresizingMask = [.flexibleWidth,.flexibleHeight]
         
-        backContainerView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        backContainerView.backgroundColor = AppColors.themeWhiteDashboard//.withAlphaComponent(0.85)
         //backContainerView.addSubview(backVisualEfectView)
         
         
@@ -381,6 +382,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     }
     
     func initialSetups() {
+        dividerView.isHidden = !isLightTheme()
         self.setUpFloatingView()
         self.searchBar.delegate = self
         self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
@@ -395,7 +397,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         self.searchBar.searchBarStyle = .default
         // replaced the switch with flight switch
         switchView.tintColor = AppColors.themeGray20
-        switchView.offTintColor = AppColors.themeGray10
+        switchView.offTintColor = AppColors.switchGray
         switchView.isOn = false
         switchView.setupUI()
         /*

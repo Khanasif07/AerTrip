@@ -34,6 +34,8 @@ class ADVoucherTypeVC: BaseVC {
     override func initialSetup() {
         setFilterValues()
         registerXib()
+        self.tableView.backgroundColor = AppColors.themeWhiteDashboard
+        self.view.backgroundColor = AppColors.themeWhiteDashboard
         self.tableView.dataSource = self
         self.tableView.delegate = self
     }

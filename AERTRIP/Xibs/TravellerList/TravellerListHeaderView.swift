@@ -54,7 +54,7 @@ class TravellerListHeaderView: UIView {
         isImportContactViewVisible = false
     
         userTypeLbel.textColor = AppColors.grayWhite
-        backgroundView.backgroundColor = AppColors.themeWhite
+        backgroundView.backgroundColor = AppColors.themeBlack26
     }
     
     private func manageImportContactView() {

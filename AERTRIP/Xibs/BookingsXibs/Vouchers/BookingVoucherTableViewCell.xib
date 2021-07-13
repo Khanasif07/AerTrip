@@ -21,13 +21,13 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3sp-Ns-yq2">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="75"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Yap-FG-vgL">
+                            <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Yap-FG-vgL">
                                 <rect key="frame" x="18" y="12" width="73.5" height="20.5"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="netBanking" translatesAutoresizingMaskIntoConstraints="NO" id="YFL-Lc-hrH">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" image="netBanking" translatesAutoresizingMaskIntoConstraints="NO" id="YFL-Lc-hrH">
                                         <rect key="frame" x="0.0" y="0.0" width="24" height="20.5"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JYN-5H-DQC">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="252" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JYN-5H-DQC">
                                         <rect key="frame" x="32" y="0.0" width="41.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -79,6 +79,7 @@
                             <constraint firstAttribute="bottom" secondItem="OQT-n8-1WH" secondAttribute="bottom" id="3zp-2Y-HeR"/>
                             <constraint firstItem="Kyp-ke-hOp" firstAttribute="centerY" secondItem="3sp-Ns-yq2" secondAttribute="centerY" id="4Pj-ss-hhe"/>
                             <constraint firstItem="jEU-yg-4kz" firstAttribute="centerY" secondItem="3sp-Ns-yq2" secondAttribute="centerY" id="4mc-6E-LGQ"/>
+                            <constraint firstItem="XGs-TQ-8Kd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Yap-FG-vgL" secondAttribute="trailing" constant="3" id="57p-JL-hL9"/>
                             <constraint firstItem="Yap-FG-vgL" firstAttribute="top" secondItem="3sp-Ns-yq2" secondAttribute="top" constant="12" id="F6K-6v-nhw"/>
                             <constraint firstItem="OQT-n8-1WH" firstAttribute="top" secondItem="sf2-o9-34p" secondAttribute="bottom" constant="15" id="ObP-YE-Jye"/>
                             <constraint firstItem="sf2-o9-34p" firstAttribute="top" secondItem="Yap-FG-vgL" secondAttribute="bottom" constant="8" id="Sax-bx-c4d"/>

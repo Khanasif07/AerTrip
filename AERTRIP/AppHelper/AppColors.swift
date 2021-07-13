@@ -25,13 +25,13 @@ enum AppColors {
 
     static let blackAndThemeGray = UIColor(named: "blackAndThemeGray") ?? UIColor(displayP3Red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
 
-    /// RGB - 0, 179, 134
+    /// RGB - 0, 179, 134  (0, 179, 134)
     static let themeDarkGreen = UIColor(named: "themeDarkGreen") ?? UIColor(displayP3Red: 0, green: 0.7019607843, blue: 0.5254901961, alpha: 1)
     
     /// RGB - 1, 105, 79
     static let themeBlackGreen = UIColor(named: "themeBlackGreen") ?? UIColor(displayP3Red: 0.003921568627, green: 0.4117647059, blue: 0.3098039216, alpha: 1)
     
-    /// RGB - 255, 144, 0
+    /// RGB - 255, 144, 0  (255, 144, 0)
     static let themeOrange = UIColor(named: "themeOrange") ?? UIColor(displayP3Red: 1, green: 0.5647058824, blue: 0, alpha: 1)
     
     /// RGB - 248, 185, 8
@@ -116,13 +116,16 @@ enum AppColors {
     /// RGB - 50, 58, 69
     static let themeTextColor  = UIColor(named: "themeTextColor") ?? UIColor(displayP3Red: 0.1960784314, green: 0.2274509804, blue: 0.2705882353, alpha: 1)
     
-    // RGB - 175,175,170
+    // RGB - 175,175,170 
     static let profileImageBorderColor =  UIColor(named: "profileImageBorderColor") ?? UIColor(displayP3Red: 0.8823529412, green: 0.8823529412, blue: 0.8823529412, alpha: 1)
     
-    // RGB - 170 ,170 ,170
+    /// (175,175,170) (255,255,255)
+    static let dashProfileImgBorderColor = UIColor(named: "dashProfileImgBorderColor") ?? .white
+    
+    // RGB - 170 ,170 ,170  (51, 51, 51)
     static let noRoomsAvailableFooterColor = UIColor(named: "noRoomsAvailableFooterColor") ?? UIColor(displayP3Red: 0.6666666667, green: 0.6666666667, blue: 0.6666666667, alpha: 1)
     
-    // RGB - 212 ,217 , 216
+    // RGB - 212 ,217 , 216  (51, 51, 51)
     static let noRoomsAvailableFooterShadow = UIColor(named: "noRoomsAvailableFooterShadow") ?? UIColor(displayP3Red: 0.831372549, green: 0.8509803922, blue: 0.8470588235, alpha: 1)
     
     // RGB - 220,220,220
@@ -288,7 +291,7 @@ enum AppColors {
     //(239, 242, 238)  (135, 135, 135)
     static let shimmerEffectLayerColor = UIColor(named: "shimmerEffectLayerColor") ?? UIColor(displayP3Red: 239.0/255, green: 242.0/255, blue: 238.0/255, alpha: 1)
     
-    //    (255, 255, 255, 0.7) (255, 255, 255, 0.3)
+    //    (255, 255, 255, 0.7) (255, 255, 255, 0.1)
         static let shimmerEffectColor = UIColor(named: "shimmerEffectColor") ?? .white
     
     /// (clear) (49,49,49,1)
@@ -409,11 +412,33 @@ enum AppColors {
        
     /// ( 255, 255, 255)  ( 255, 255, 255, 0.2)
     static let hotelDetailOnGuestSelection = UIColor(named: "hotelDetailOnGuestSelection") ?? UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 1)
+    
+    /// (0,0,0,0.5) (0,0,0,0)
+    static let sideDrawerShadowColor = UIColor(named: "sideDrawerShadowColor") ?? .white
+
+    /// 72,160,125
+    static let seatHighlightColor = UIColor(named: "seatHighlightColor") ?? .white
+    
+    ///(246,  246,  246) (0, 0, 0)
+    static let hotelsDetailSearchBarColor = UIColor(named: "hotelsDetailSearchBarColor") ?? AppColors.themeGray153
 
     static let common204 = UIColor(named: "common204") ?? UIColor(displayP3Red: 204/255, green: 204/255, blue: 204/255, alpha: 1)
     
     static let gray204And255With1 = UIColor(named: "gray204And255With1") ?? UIColor(displayP3Red: 204/255, green: 204/255, blue: 204/255, alpha: 1)
     
+    
+    ///(153,  153,  153) ( 255, 255, 255, 0.0)
+    static let themeGray153Clear = UIColor(named: "themeGray153Clear") ?? AppColors.themeGray153
+    
+    ///(0, 204, 153) ( 255, 255, 255, 0.0)
+    static let searchTagSelectedBorderColor = UIColor(named: "searchTagSelectedBorderColor") ?? AppColors.themeGray153
+    
+    
+    //    (255,255,255, 1.0) (0, 38, 51)
+        static let markUnselectedColor = UIColor(named: "markUnselectedColor") ?? . white
+    
+    //    (255,255,255, 1.0) (26, 5, 5)
+        static let markUnselectedFavColor = UIColor(named: "markUnselectedFavColor") ?? . white
     
     case headlines
     case body

@@ -25,6 +25,8 @@ class NoResultsScreenViewController: UIViewController {
         self.view.backgroundColor = AppColors.themeWhite
         header.font = AppFonts.Regular.withSize(22)
         subTitle.font = AppFonts.Regular.withSize(18)
+        button.setTitleColor(AppColors.themeGreen, for: .normal)
+        button.setTitleColor(AppColors.themeGreen, for: .selected)
     }
 
 

@@ -73,6 +73,11 @@ class DashboardVC: BaseVC {
     private var isScrollHeightSet = false
     
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateProfileButton()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         resetItems()
@@ -330,6 +335,8 @@ class DashboardVC: BaseVC {
                 }
             }
             
+            self.profileButton.layer.borderColor = AppColors.dashProfileImgBorderColor.cgColor
+            self.profileButton.layer.borderWidth = 2.0
 //            profileButton.kf.setImage(with: URL(string: imagePath), for: .normal, placeholder: image, options: [.keepCurrentImageWhileLoading], progressBlock: nil) { (result) in
 //
 //            }
@@ -339,7 +346,7 @@ class DashboardVC: BaseVC {
             if let userInfo = UserInfo.loggedInUser {
                 let image = userInfo.profileImagePlaceholder()
                 self.profileButton.setImage(image, for: .normal)
-                self.profileButton.layer.borderColor = AppColors.profileImageBorderColor.cgColor
+                self.profileButton.layer.borderColor = AppColors.dashProfileImgBorderColor.cgColor
                 self.profileButton.layer.borderWidth = 2.0
             }
             else {

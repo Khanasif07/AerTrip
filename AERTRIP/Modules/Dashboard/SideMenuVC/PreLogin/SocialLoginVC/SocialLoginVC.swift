@@ -109,12 +109,12 @@ class SocialLoginVC: BaseVC {
     
     override func setupColors() {
         
-        self.fbButton.setTitleColor(UIColor.white, for: UIControl.State.normal)
-        self.googleButton.setTitleColor(UIColor.black, for: UIControl.State.normal)
+        self.fbButton.setTitleColor(AppColors.unicolorWhite, for: UIControl.State.normal)
+        self.googleButton.setTitleColor(AppColors.unicolorBlack, for: UIControl.State.normal)
         self.appleButton.setTitleColor(AppColors.themeWhite, for: UIControl.State.normal)
 
         self.fbButton.gradientColors = [AppColors.fbButtonBackgroundColor, AppColors.fbButtonBackgroundColor]
-        self.googleButton.gradientColors = [AppColors.themeBlack, AppColors.themeBlack]
+        self.googleButton.gradientColors = [AppColors.unicolorWhite, AppColors.unicolorWhite]
         self.appleButton.gradientColors = [AppColors.appleButtonBackgroundColor, AppColors.appleButtonBackgroundColor]
         
         self.fbButton.isSocial = true
@@ -133,6 +133,7 @@ class SocialLoginVC: BaseVC {
         self.appleButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
         
         //   self.appleButton.shadowColor = AppColors.themeBlack
+        self.setSeparatorLine()
     }
     
     override func setupTexts() {
@@ -162,6 +163,15 @@ class SocialLoginVC: BaseVC {
         self.setUpSocialBtnInset(button: fbButton)
         self.setUpSocialBtnInset(button: googleButton)
         self.setUpSocialBtnInset(button: appleButton)
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.setSeparatorLine()
+    }
+    
+    private func setSeparatorLine(){
+        self.sepratorLineImage.addGredient(isVertical: true, cornerRadius: 0.0, colors: [AppColors.unicolorWhite, AppColors.themeBlack, AppColors.unicolorWhite])
     }
     
     func setUpSocialBtnInset(button: UIButton) {
@@ -197,8 +207,13 @@ class SocialLoginVC: BaseVC {
     @IBAction func newRegistrationButtonAction(_ sender: UIButton) {
         self.viewModel.firebaseLogEvent(with: .continueAsGuest)
         if currentlyUsingFrom == .loginVerificationForCheckout {
-            popIfUsingFromCheckOut()
-        } else {
+            if self.viewModel.checkoutType != .none{
+                popIfUsingFromCheckOut()
+            }else{
+                AppFlowManager.default.moveToCreateYourAccountVC(email: "", usingFor: currentlyUsingFrom)
+            }
+        }
+        else {
             AppFlowManager.default.moveToCreateYourAccountVC(email: "", usingFor: currentlyUsingFrom)
         }
     }
@@ -286,7 +301,7 @@ private extension SocialLoginVC {
     
     func setupsFonts() {
         
-        if currentlyUsingFrom == .loginVerificationForCheckout {
+        if currentlyUsingFrom == .loginVerificationForCheckout && (self.viewModel.checkoutType != .none) {
             let finalStr = "\(LocalizedString.SkipSignIn.localized)\n\(LocalizedString.ContinueAsGuest.localized)"
             let attributedString = NSMutableAttributedString(string: finalStr, attributes: [
                 .font: AppFonts.Regular.withSize(14.0),
@@ -318,7 +333,7 @@ extension SocialLoginVC: TopNavigationViewDelegate {
         self.viewModel.firebaseLogEvent(with: .navigateBack)
         if self.currentlyUsingFrom == .loginProcess  {
             self.delegate?.backButtonTapped(sender)
-        } else if self.currentlyUsingFrom == .loginVerificationForCheckout || self.currentlyUsingFrom == .loginVerificationForBulkbooking{
+        } else if self.currentlyUsingFrom == .loginVerificationForCheckout || self.currentlyUsingFrom == .loginVerificationForBulkbooking || self.viewModel.checkoutType != .none{
             AppFlowManager.default.currentNavigation?.dismissAsPopAnimation()
         } else {
             AppFlowManager.default.popViewController(animated: true)

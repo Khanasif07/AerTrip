@@ -130,6 +130,7 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
     
     func setupForGrayColor(_ isShowDisable: Bool){
         if isShowDisable{
+            self.leftTitleLabel.textColor = AppColors.themeGray40
             self.rightViewTextField.textColor = AppColors.themeGray40
             self.countryCodeLabel.textColor = AppColors.themeGray40
             self.middleViewDropDownImage.isHidden = true
@@ -137,6 +138,7 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
             self.grayShadeView.backgroundColor = AppColors.themeGray60.withAlphaComponent(0.3)
             self.grayShadeView.isHidden = false
         }else{
+            self.leftTitleLabel.textColor = AppColors.themeBlack
             self.rightViewTextField.textColor = AppColors.themeBlack
             self.countryCodeLabel.textColor = AppColors.themeBlack
             self.middleViewDropDownImage.isHidden = false

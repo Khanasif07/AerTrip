@@ -298,7 +298,7 @@ enum AppPlaceholderImage {
     static let user: UIImage = AppImages.userPlaceholder
     static let profile: UIImage = AppImages.profilePlaceholder
     static let hotelCard: UIImage = AppImages.hotelCardPlaceHolder
-    static let frequentFlyer: UIImage = AppImages.userPlaceholder
+    static let frequentFlyer: UIImage = AppImages.FlightCarriers
     static let `default`: UIImage = AppImages.userPlaceholder
 }
 
@@ -1047,7 +1047,7 @@ enum ATWeatherType: RawRepresentable {
     static var contactsEmpty: UIImage { #imageLiteral(resourceName: "contactsEmpty") }
     static var facebookEmpty: UIImage { #imageLiteral(resourceName: "facebookEmpty") }
     static var googleEmpty: UIImage { #imageLiteral(resourceName: "googleEmpty") }
-    static var noHotelFound: UIImage { #imageLiteral(resourceName: "noHotelFound") }
+    static var noHotelFound: UIImage { #imageLiteral(resourceName: "EmptyHotelSearch") }
     static var upcoming_emptystate: UIImage { #imageLiteral(resourceName: "upcoming_emptystate") }
     static var hotelCardNoImagePlaceHolder: UIImage { #imageLiteral(resourceName: "hotelCardNoImagePlaceHolder") }
     static var editPencel: UIImage { #imageLiteral(resourceName: "editPencel") }
@@ -1128,6 +1128,7 @@ enum ATWeatherType: RawRepresentable {
     @objc static var FirstClassBlack: UIImage { #imageLiteral(resourceName: "FirstClassBlack") }
     static var ArrowRed: UIImage { #imageLiteral(resourceName: "ArrowRed") }
     static var TripPurpleIcon:UIImage { #imageLiteral(resourceName: "TripPurpleIcon") }
+    static var FlightCarriers: UIImage {#imageLiteral(resourceName: "FlightCarriers")}
     
     
     //    static var down: UIImage { #imageLiteral(resourceName: "ArrowRed") }//icon

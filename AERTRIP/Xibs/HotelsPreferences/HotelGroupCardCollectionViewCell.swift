@@ -261,7 +261,7 @@ class HotelGroupCardCollectionViewCell: UICollectionViewCell {
     
     private func setupPageControl() {
         self.pageControl.pageIndicatorTintColor = AppColors.themeGray220
-        self.pageControl.currentPageIndicatorTintColor = AppColors.themeWhite
+        self.pageControl.currentPageIndicatorTintColor = AppColors.unicolorWhite
     }
     
     private func updateMutiPhotos() {

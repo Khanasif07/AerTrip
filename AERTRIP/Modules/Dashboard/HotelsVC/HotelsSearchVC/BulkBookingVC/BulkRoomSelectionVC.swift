@@ -103,6 +103,7 @@ class BulkRoomSelectionVC: BaseVC {
         self.childAgeLabel.textColor = AppColors.themeGray40
         self.doneButton.backgroundColor = AppColors.doneViewClearColor
         self.mainContainerView.backgroundColor = AppColors.themeWhiteDashboard
+        self.safeAreaBackView.backgroundColor = AppColors.doneViewClearColor
         //        self.firstLineView.backgroundColor = AppColors.themeGray10
         //        self.secondLineView.backgroundColor = AppColors.themeGray10
     }

@@ -41,6 +41,10 @@ class HotelShimmerView: UIView {
         self.setupShimmerView()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.setBorderForShadowView()
+    }
     //MARK:- Methods
     //MARK:- Private
     private func initialSetup() {
@@ -52,6 +56,7 @@ class HotelShimmerView: UIView {
 //        shadowView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
         let shadow = AppShadowProperties()
         shadowView.addShadow(cornerRadius: shadow.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: shadow.shadowColor, offset: shadow.offset, opacity: shadow.opecity, shadowRadius: shadow.shadowRadius)
+        self.setBorderForShadowView()
 
     }
     
@@ -73,6 +78,13 @@ class HotelShimmerView: UIView {
         
         printDebug("shimmerView.shimmeringFadeTime: \(shimmerView.shimmeringFadeTime)")
     }
+    
+    
+    private func setBorderForShadowView(){
+        self.shadowView.layer.borderColor = AppColors.themeGray214.cgColor
+        self.shadowView.layer.borderWidth = 0.2
+    }
+    
 }
 /*
 solShimmerView.setIntensity(0.0f);

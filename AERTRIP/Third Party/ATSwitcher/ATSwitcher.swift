@@ -127,7 +127,7 @@ class ATSwitcher: UIControl {
         if self.isOn {
             self.thumbImageView.image = onThumbImage
         } else {
-            self.thumbImageView.image = onThumbImage.maskWithColor(color: UIColor(displayP3Red: 0.8470588235, green: 0.8470588235, blue: 0.8470588235, alpha: 1))
+            self.thumbImageView.image = onThumbImage.maskWithColor(color: UIColor(named: "hotelPinDeselectedColor") ?? .white)
         }
         self.thumbImageView.contentMode = .center
         //        self.thumbImageView.image = self.isOn ? UIImage(named:"pushpin") :  UIImage(named:"pushpin-gray")

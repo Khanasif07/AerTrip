@@ -54,7 +54,7 @@ class NewCityMarkerView: UIView {
     private func configureUI() {
         backgroundView.backgroundColor = AppColors.clear//shouldAddRippel ? AppColors.clear : AppColors.themeOrange.withAlphaComponent(0.1)//AppColors.themeOrange.withAlphaComponent(0.1)
         dotView.backgroundColor = AppColors.themeOrange
-        dotView.setBorder(borderWidth: 2.0, borderColor: AppColors.themeWhite)
+        dotView.setBorder(borderWidth: 2.0, borderColor: AppColors.unicolorWhite)
         backgroundView.cornerradius = 31.0
         //dotView.cornerRadius = 6.5
         dotView.addShadow(cornerRadius: 8.5, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.appShadowColor, offset: CGSize(width: 0, height: 2), opacity: 1, shadowRadius: 4.0)

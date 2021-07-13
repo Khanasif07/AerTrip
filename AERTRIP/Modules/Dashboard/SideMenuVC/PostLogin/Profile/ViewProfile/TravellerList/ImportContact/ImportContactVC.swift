@@ -88,6 +88,11 @@ class ImportContactVC: BaseVC {
         self.parchmentView?.loadViewIfNeeded()
     }
     
+    
+    override func setupColors() {
+        self.view.backgroundColor = AppColors.themeWhiteDashboard
+    }
+    
     deinit {
         printDebug("deinit")
     }

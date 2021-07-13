@@ -369,7 +369,7 @@ extension FlightPaymentVC : TopNavigationViewDelegate, HotelFareSectionHeaderDel
         case .Addons: self.isAddonsExpended = !self.isAddonsExpended
         default: break;
         }
-        self.checkOutTableView.reloadSections([view.tag], with: .automatic)
+        self.checkOutTableView.reloadSections([view.tag], with: .none)
         checkOutTableView.endUpdates()
     }
 }

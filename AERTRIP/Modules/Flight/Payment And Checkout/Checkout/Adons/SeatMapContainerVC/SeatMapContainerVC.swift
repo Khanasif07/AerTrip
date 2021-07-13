@@ -262,7 +262,7 @@ class SeatMapContainerVC: UIViewController {
             insets: UIEdgeInsets(top: 0, left: -400, bottom: 0, right: -400))
         let nib = UINib(nibName: "MenuItemWithLogoCollCell", bundle: nil)
         self.parchmentView?.register(nib, for: LogoMenuItem.self)
-        self.parchmentView?.borderColor = AppColors.themeGray214
+        self.parchmentView?.borderColor = AppColors.divider.color
         self.parchmentView?.font = AppFonts.Regular.withSize(16.0)
         self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
         self.parchmentView?.indicatorColor = AppColors.themeGreen
@@ -428,7 +428,7 @@ extension SeatMapContainerVC {
         let yMul = originY / highlightContainerView.height
         
         if let seatMapCollView = allChildVCs[viewModel.currentIndex].seatMapCollView {
-            seatMapCollView.contentOffset = CGPoint(x: seatMapCollView.contentSize.width * xMul, y: seatMapCollView.contentSize.height * yMul)
+            seatMapCollView.contentOffset = CGPoint(x: (seatMapCollView.contentSize.width - 40) * xMul, y: seatMapCollView.contentSize.height * yMul)
         }
         
     }

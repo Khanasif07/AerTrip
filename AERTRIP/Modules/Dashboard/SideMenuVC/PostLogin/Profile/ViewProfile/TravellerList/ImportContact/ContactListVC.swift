@@ -33,7 +33,7 @@ class ContactListVC: BaseVC {
     let viewModel = ImportContactVM.shared
     let serialQueue = DispatchQueue(label: "serialQueue")
     let selectDeselectQueue = DispatchQueue(label: "selectDeselectQueue", qos: .userInteractive, target: .main)
-
+    var tableViewHeaderCellIdentifier = "TravellerListTableViewSectionView"
     private var workItem: DispatchWorkItem?
     
     //MARK:- Private
@@ -67,6 +67,7 @@ class ContactListVC: BaseVC {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        tableView.register(UINib(nibName: tableViewHeaderCellIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: tableViewHeaderCellIdentifier)
         self.initialSetups()
     }
     
@@ -87,6 +88,8 @@ class ContactListVC: BaseVC {
         self.bottomBackgroundView.isHidden = true
         self.selectAllButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.selectAllButton.setTitleColor(AppColors.themeGreen, for: .selected)
+        self.tableView.sectionIndexBackgroundColor = AppColors.clear
+        self.tableView.sectionIndexTrackingBackgroundColor = AppColors.clear
     }
     
     override func setupTexts() {
@@ -573,12 +576,35 @@ extension ContactListVC: UITableViewDelegate, UITableViewDataSource {
         return 0
     }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50.0
     }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: tableViewHeaderCellIdentifier) as? TravellerListTableViewSectionView else {
+            return nil
+        }
+        if self.currentlyUsingFor == .contacts {
+            headerView.configureCell(self.viewModel.sections[section].letter)
+        } else if self.currentlyUsingFor == .facebook {
+            headerView.configureCell(self.viewModel.facebookSection[section].letter)
+        } else if self.currentlyUsingFor == .google {
+            headerView.configureCell(self.viewModel.googleSection[section].letter)
+        }
+        headerView.containerView.backgroundColor = AppColors.themeGray04
+        headerView.headerLabel.textColor = AppColors.themeBlack
+        return headerView
+    }
+    
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ContactDetailsTableCell", for: indexPath) as! ContactDetailsTableCell
+        cell.contentView.backgroundColor = AppColors.themeBlack26
+        cell.backgroundColor = AppColors.themeBlack26
         return populateData(in: cell, indexPath: indexPath)
 
     }
@@ -670,16 +696,16 @@ extension ContactListVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if self.currentlyUsingFor == .contacts {
-            return self.viewModel.sections[section].letter
-        } else if self.currentlyUsingFor == .facebook {
-            return self.viewModel.facebookSection[section].letter
-        } else if self.currentlyUsingFor == .google {
-            return self.viewModel.googleSection[section].letter
-        }
-        return nil
-    }
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        if self.currentlyUsingFor == .contacts {
+//            return self.viewModel.sections[section].letter
+//        } else if self.currentlyUsingFor == .facebook {
+//            return self.viewModel.facebookSection[section].letter
+//        } else if self.currentlyUsingFor == .google {
+//            return self.viewModel.googleSection[section].letter
+//        }
+//        return nil
+//    }
     
 }
 

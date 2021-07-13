@@ -186,7 +186,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
             if let mutableString = suffix {
                 val.append(mutableString)
             }
-            printDebug("\(title)...\(val.string)....\(suffix)....\(desc)")
+//            printDebug("\(title)...\(val.string)....\(suffix)....\(desc)")
             cell.configureCellWithAttributedText(title: title, description: val)
         }else{
             if title == "Room" || title == " " || title == "Guests" || title == "Passengers"{
@@ -195,6 +195,12 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
 //                cell.descLabel.textAlignment = .right
             }
             cell.configure(title: title, description: description, age: age)
+        }
+        
+        //Sector Attributed text For return and single journey
+        
+        if let sector =  self.viewModel.ladgerEvent?.attributedSector, title == "Sector"{
+            cell.configureCellWithAttributedText(title: title, description: sector)
         }
         
 

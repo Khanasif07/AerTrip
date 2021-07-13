@@ -78,7 +78,7 @@ class EditProfileImageHeaderView: UIView {
         selectGroupValueView.addGestureRecognizer(selectGrouptap)
         
         profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2
-        profileImageView.layer.borderColor = AppColors.themeGray10.cgColor
+        profileImageView.layer.borderColor = AppColors.profileImageBorderColor.cgColor
         profileImageView.layer.borderWidth = 2.0
         profileImageView.clipsToBounds = true
         
@@ -100,6 +100,7 @@ class EditProfileImageHeaderView: UIView {
         relationshipOrNickNameTextField.textColor = AppColors.themeBlack
         relationshipOrNickNameTextField.delegate = self
         relationshipOrNickNameTextField.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
+        self.setColorForAddTraveller()
     }
     
     // MARK: - Helper methods
@@ -116,7 +117,18 @@ class EditProfileImageHeaderView: UIView {
         containerView.layer.cornerRadius = 20.0
         unicodeSwitch.sliderView.layer.cornerRadius = 18
         unicodeSwitch.sliderInset = 1.0
-        verticalDividerView.backgroundColor = AppColors.themeGray20
+        verticalDividerView.backgroundColor = AppColors.unicodeSwitchLineColor
+    }
+    
+    
+    func setColorForAddTraveller(){
+        [self, selectGroupValueView, RelationOrNickNameView].forEach{ view in
+            view?.backgroundColor = AppColors.themeBlack26
+        }
+        self.emptyView.backgroundColor = AppColors.themeGray04
+        self.groupLabel.textColor = AppColors.themeBlack
+        self.firstNameTextField.textColor = AppColors.themeBlack
+        self.lastNameTextField.textColor = AppColors.themeBlack
     }
     
     // MARK: - IB Actions

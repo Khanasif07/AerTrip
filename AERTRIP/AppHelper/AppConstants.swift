@@ -19,7 +19,7 @@ import Foundation
     static var googleClientID: String { "683481048334-568us2uci4j08mp801obq615lsr31pkj.apps.googleusercontent.com" }
     
     static var kGoogleAPIKey : String {
-        "AIzaSyBzr3tjY7rM37HneYJjMedi60o_73j6-vU"
+        "AIzaSyBmtn9CNGF74unsCyrdfUPlN4TeVbi4uDg"
     }
     
     static var fbUrl : String{

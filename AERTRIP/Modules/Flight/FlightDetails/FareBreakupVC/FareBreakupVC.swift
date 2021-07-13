@@ -247,10 +247,12 @@ class FareBreakupVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
         
         if !isUpgradePlanScreenVisible{
             upgradeButton.isHidden = false
+            dividerView.isHidden = false
             upgradeButtonWidth.constant = 32
             bookButtonTrailing.constant = 44
         }else{
             upgradeButton.isHidden = true
+            dividerView.isHidden = true
             upgradeButtonWidth.constant = 0
             bookButtonTrailing.constant = 16
         }

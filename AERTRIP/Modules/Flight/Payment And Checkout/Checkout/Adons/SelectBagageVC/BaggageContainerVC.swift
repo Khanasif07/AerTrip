@@ -140,7 +140,7 @@ extension BaggageContainerVC {
         }
         let nib = UINib(nibName: "MenuItemWithLogoCollCell", bundle: nil)
         self.parchmentView?.register(nib, for: LogoMenuItem.self)
-        self.parchmentView?.borderColor = AppColors.themeGray214
+        self.parchmentView?.borderColor = AppColors.divider.color
         self.parchmentView?.font = AppFonts.Regular.withSize(16.0)
         self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
         self.parchmentView?.indicatorColor = AppColors.themeGreen

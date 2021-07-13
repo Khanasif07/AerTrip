@@ -33,7 +33,12 @@ class SideMenuProfileImageCell: UITableViewCell {
         
         profileImageView.layer.cornerRadius = profileImageView.height / 2.0
         profileImageView.layer.borderWidth = 2.0
-        profileImageView.layer.borderColor = AppColors.themeGray20.cgColor
+        profileImageView.layer.borderColor = AppColors.profileImageBorderColor.cgColor
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        profileImageView.layer.borderColor = AppColors.profileImageBorderColor.cgColor
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

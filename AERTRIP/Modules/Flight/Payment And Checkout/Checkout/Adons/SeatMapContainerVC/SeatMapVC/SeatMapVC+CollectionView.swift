@@ -157,6 +157,8 @@ extension SeatMapVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
     
     private func openPostSelectionSeatPopup(_ indexPath: IndexPath,_ seatData: SeatMapModel.SeatMapRow) {
         guard let curCell = seatMapCollView.cellForItem(at: indexPath) as? SeatCollCell else { return }
+        curCell.seatNumberLbl.textColor = AppColors.seatHighlightColor
+        curCell.seatView.layer.borderColor = AppColors.seatHighlightColor.cgColor
         curCell.seatView.backgroundColor = AppColors.themeGreen
         let postSeatSelectionPopupVC = PostSelectionSeatPopupVC.instantiate(fromAppStoryboard: AppStoryboard.Rishabh_Dev)
         postSeatSelectionPopupVC.onDismissTap = { [weak self] in
@@ -172,9 +174,9 @@ extension SeatMapVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
 extension SeatMapVC: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView === seatMapCollView {
-            let xMul = scrollView.contentOffset.x / scrollView.contentSize.width
+            let xMul = scrollView.contentOffset.x / (scrollView.contentSize.width - 40)
             let yMul = scrollView.contentOffset.y / scrollView.contentSize.height
-            let widthMul = scrollView.size.width / scrollView.contentSize.width
+            let widthMul = (scrollView.size.width - 40) / scrollView.contentSize.width
             let heightMul = scrollView.size.height / scrollView.contentSize.height
             let multipliers = visibleRectMultipliers(xMul, yMul, widthMul, heightMul)
             onScrollViewScroll?(multipliers)

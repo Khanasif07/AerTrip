@@ -90,7 +90,7 @@ class CustomMarker: UIView {
         if isFavourite {
             priceView.layer.borderColor = AppColors.themeRed.cgColor
             priceView.backgroundColor = AppColors.themeRed
-            priceLabel.textColor = AppColors.themeWhite
+            priceLabel.textColor = AppColors.unicolorWhite
             connectorView.backgroundColor = AppColors.themeRed
             iconImageView.image = AppImages.favHotelWithShadowMarker
         }
@@ -115,8 +115,8 @@ class CustomMarker: UIView {
         
         priceView.layer.borderColor = isSelected ? AppColors.clear.cgColor : (isFavourite ? AppColors.themeRed.cgColor : AppColors.themeGreen.cgColor)
         priceView.layer.borderWidth = isSelected ? 0.0 : 1.0
-        priceView.backgroundColor = isSelected ? (isFavourite ? AppColors.themeRed : AppColors.themeGreen) : AppColors.themeWhite
+        priceView.backgroundColor = isSelected ? (isFavourite ? AppColors.themeRed : AppColors.themeGreen) : (isFavourite ? AppColors.markUnselectedFavColor : AppColors.markUnselectedColor)
 
-        priceLabel.textColor = isSelected ? AppColors.themeWhite : (isFavourite ? AppColors.themeRed : AppColors.themeGray60)
+        priceLabel.textColor = isSelected ? AppColors.unicolorWhite : (isFavourite ? AppColors.themeRed : AppColors.grayWhite)
     }
 }

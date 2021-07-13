@@ -396,7 +396,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" name="calendarNightViewColor"/>
                                                 <constraints>
                                                     <constraint firstItem="zaR-pw-U9N" firstAttribute="centerX" secondItem="rQX-Gg-1ig" secondAttribute="centerX" id="2oI-we-WNb"/>
                                                     <constraint firstItem="zaR-pw-U9N" firstAttribute="width" secondItem="rQX-Gg-1ig" secondAttribute="width" id="8zA-Qa-fkY"/>
@@ -534,6 +534,9 @@
     </scenes>
     <resources>
         <image name="CancelGrey" width="22" height="22"/>
+        <namedColor name="calendarNightViewColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="flightFormGray">
             <color red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>

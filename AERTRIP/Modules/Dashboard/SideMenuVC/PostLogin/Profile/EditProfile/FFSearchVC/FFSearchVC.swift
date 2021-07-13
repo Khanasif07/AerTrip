@@ -50,7 +50,7 @@ class FFSearchVC: BaseVC {
  
         searchBar.placeholder = LocalizedString.SearchAirlines.localized
         searchBar.delegate = self
-        self.view.backgroundColor = AppColors.themeWhite
+        self.view.backgroundColor = AppColors.themeBlack26
         doInitialSetUp()
         registerXib()
     }

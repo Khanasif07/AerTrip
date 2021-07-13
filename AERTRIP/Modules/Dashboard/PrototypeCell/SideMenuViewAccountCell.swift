@@ -84,7 +84,9 @@ extension SideMenuViewAccountCell {
             }
         }
         
-        self.amountLabel.attributedText = amount.getConvertedAmount(using: AppFonts.Regular.withSize(22.0))
+        let textSize: CGFloat = isSEDevice ? 17 : 22
+        
+        self.amountLabel.attributedText = amount.getConvertedAmount(using: AppFonts.Regular.withSize(textSize))
         
         self.dateLabel.text = ""
         self.dateLabel.isHidden = true

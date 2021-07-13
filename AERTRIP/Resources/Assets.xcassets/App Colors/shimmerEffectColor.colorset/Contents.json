@@ -22,7 +22,7 @@
       "color" : {
         "color-space" : "display-p3",
         "components" : {
-          "alpha" : "0.300",
+          "alpha" : "0.100",
           "blue" : "255",
           "green" : "255",
           "red" : "255"

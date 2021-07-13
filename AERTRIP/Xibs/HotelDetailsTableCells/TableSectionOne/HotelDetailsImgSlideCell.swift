@@ -40,7 +40,7 @@ class HotelDetailsImgSlideCell: UITableViewCell {
         didSet {
             self.pageControl.inactiveTransparency = 1.0
             self.pageControl.inactiveTintColor = AppColors.themeGray220
-            self.pageControl.currentPageTintColor = AppColors.themeWhite
+            self.pageControl.currentPageTintColor = AppColors.unicolorWhite
             self.pageControl.radius = 3.5
             self.pageControl.padding = 5.0
         }
@@ -56,6 +56,12 @@ class HotelDetailsImgSlideCell: UITableViewCell {
         self.initialSetUps()
         let nib = UINib(nibName: "HotelDetailsImageCollectionCell", bundle: nil)
         self.imageCollectionView.register(nib, forCellWithReuseIdentifier: "HotelDetailsImageCollectionCell")
+        self.setPageControllerColor()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.setPageControllerColor()
     }
     
     //Mark:- Methods
@@ -77,6 +83,13 @@ class HotelDetailsImgSlideCell: UITableViewCell {
         self.images = images
         self.pageControl.isHidden = !(images.count > 1)
         self.imageCollectionView.reloadData()
+    }
+    
+    
+    private func setPageControllerColor(){
+        self.pageControl.inactiveTransparency = (self.isLightTheme() ? 1.0 : 0.3)
+        self.pageControl.inactiveTintColor = AppColors.themeGray220
+        self.pageControl.currentPageTintColor = AppColors.unicolorWhite
     }
     
 }

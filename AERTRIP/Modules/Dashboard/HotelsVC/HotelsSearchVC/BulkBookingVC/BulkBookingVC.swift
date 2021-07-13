@@ -180,10 +180,8 @@ class BulkBookingVC: BaseVC {
         self.specialReqTextView.attributedPlaceholder = NSMutableAttributedString(string: LocalizedString.IfAny.localized, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeGray20,NSAttributedString.Key.font: regularFontSize16])
         self.specialReqTextView.textAlignment = .center
         self.specialReqTextView.returnKeyType = .done
-//        self.whereContainerView.backgroundColor = AppColors.themeWhiteDashboard
-//        self.bulkBookingView.backgroundColor = AppColors.themeWhiteDashboard
         [self.whereContainerView, self.bulkBookingView, self.dateInfoView, self.prefredTextContainer, self.specialTextContainer, searchView, specialReqTextView, self.bottomView].forEach{view in
-            view?.backgroundColor = AppColors.themeWhiteDashboard
+            view?.backgroundColor = AppColors.themeBlack26
         }
     }
     
@@ -208,7 +206,7 @@ class BulkBookingVC: BaseVC {
         self.topNavView.delegate = self
         self.topNavView.configureNavBar(title: LocalizedString.BulkBooking.localized, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
         self.topNavView.configureFirstRightButton(normalTitle: LocalizedString.Cancel.localized, selectedTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
-        self.topNavView.backgroundColor = AppColors.doneViewClearColor
+        self.topNavView.backgroundColor = AppColors.selectDestinationHeaderColor
         self.searchButtonOutlet.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
         self.searchButtonOutlet.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
         self.searchButtonOutlet.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
@@ -281,6 +279,8 @@ class BulkBookingVC: BaseVC {
         self.checkInOutView = CheckInOutView(frame: self.datePickerView.bounds)
         if let view = self.checkInOutView {
             view.delegate = self
+            view.containerView.backgroundColor = AppColors.themeBlack26
+            view.backgroundColor = AppColors.themeBlack26
             self.datePickerView.addSubview(view)
         }
     }

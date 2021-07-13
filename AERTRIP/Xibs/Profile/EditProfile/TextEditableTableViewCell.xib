@@ -91,7 +91,7 @@
     </objects>
     <designables>
         <designable name="eNX-Hf-1t1">
-            <size key="intrinsicContentSize" width="4" height="25"/>
+            <size key="intrinsicContentSize" width="4" height="24.5"/>
         </designable>
     </designables>
     <resources>
