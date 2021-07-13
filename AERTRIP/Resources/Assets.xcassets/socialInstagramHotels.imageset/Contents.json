@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "darkNights.png",
+      "filename" : "socialInstagram.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -12,12 +12,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "nights.png",
+      "filename" : "@1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "darkNights@2x.png",
+      "filename" : "socialInstagram@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -28,12 +28,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "nights@2x.png",
+      "filename" : "@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "darkNights@3x.png",
+      "filename" : "socialInstagram@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     },
@@ -44,7 +44,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "nights@3x.png",
+      "filename" : "@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

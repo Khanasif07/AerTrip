@@ -227,7 +227,7 @@ class HCDataSelectionTextLabelCell: UITableViewCell {
     
     func configUI() {
         titleLabel.font = AppFonts.Regular.withSize(14.0)
-        titleLabel.textColor = AppColors.themeGray153
+        titleLabel.textColor = AppColors.themeGray40
         titleLabel.text = LocalizedString.EmailMobileCommunicationMessageForBooking.localized
     }
     

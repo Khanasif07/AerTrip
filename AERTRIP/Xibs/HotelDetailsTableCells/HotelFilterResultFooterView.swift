@@ -52,7 +52,7 @@ class HotelFilterResultFooterView: UITableViewHeaderFooterView {
         self.fromLabel.textColor =  AppColors.unicolorWhite
         self.hotelFeesLabel.textColor =  AppColors.unicolorWhite
         self.selectRoomLabel.textColor =  AppColors.unicolorWhite
-        self.noRoomsAvailable.textColor =  AppColors.unicolorWhite
+        self.noRoomsAvailable.textColor =  AppColors.hotelDetailOnGuestSelection
         
         //Size
         let semiboldFontSize20 = AppFonts.SemiBold.withSize(20.0)

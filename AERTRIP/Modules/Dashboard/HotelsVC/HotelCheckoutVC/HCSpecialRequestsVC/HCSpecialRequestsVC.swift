@@ -30,6 +30,7 @@ class HCSpecialRequestsVC: BaseVC {
             self.specialReqTableView.dataSource = self
             self.specialReqTableView.estimatedRowHeight = UITableView.automaticDimension
             self.specialReqTableView.rowHeight = UITableView.automaticDimension
+            self.specialReqTableView.backgroundColor = AppColors.themeBlack26
         }
     }
     
@@ -64,7 +65,7 @@ class HCSpecialRequestsVC: BaseVC {
     //================
     private func footerViewSetUp() {
         self.footerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.width, height: 35.0))
-        self.footerView?.backgroundColor = AppColors.themeWhite
+        self.footerView?.backgroundColor = AppColors.themeBlack26
         self.specialReqTableView.tableFooterView = self.footerView
     }
     
@@ -164,6 +165,7 @@ extension HCSpecialRequestsVC {
             cell.statusButton.setImage(AppImages.UncheckedGreenRadioButton, for: .normal)
         }
         cell.configCell(title: self.viewModel.specialRequests[indexPath.row].name)
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -183,6 +185,8 @@ extension HCSpecialRequestsVC {
             cell.infoTextField.text =  self.viewModel.specialRequest
             cell.topDividerTopConstraint.constant = 0
         }
+        cell.contentView.backgroundColor = AppColors.themeBlack26
+        cell.containerView.backgroundColor = AppColors.themeBlack26
         return cell
     }
 }

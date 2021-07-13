@@ -1028,6 +1028,7 @@ enum ATWeatherType: RawRepresentable {
     static var twiterIcon: UIImage { #imageLiteral(resourceName: "twiterIcon") }
     static var flightIcon: UIImage { #imageLiteral(resourceName: "flightIcon") }
     static var socialInstagram: UIImage { #imageLiteral(resourceName: "socialInstagram") }
+    static var socialInstagramHotels: UIImage { #imageLiteral(resourceName: "socialInstagramHotels") }
     static var hotelsCopy2: UIImage { #imageLiteral(resourceName: "hotelsCopy2") }
     static var favHotelWithShadowMarker: UIImage { #imageLiteral(resourceName: "favHotelWithShadowMarker") }
     static var clusterSmallTag: UIImage { #imageLiteral(resourceName: "clusterSmallTag") }
