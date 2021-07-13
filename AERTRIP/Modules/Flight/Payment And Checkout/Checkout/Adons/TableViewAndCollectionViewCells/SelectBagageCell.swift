@@ -18,9 +18,10 @@ class SelectBagageCell: UITableViewCell {
     @IBOutlet weak var autoSelectedForLabel: UILabel!
     @IBOutlet weak var autoSelectedForBackView: UIView!
     @IBOutlet weak var autoSelectedForTop: NSLayoutConstraint!
-    @IBOutlet weak var bottomSeprator: UIView!
+    @IBOutlet weak var bottomSeprator: ATDividerView!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var descriptionLabelTop: NSLayoutConstraint!
+    @IBOutlet weak var saperatorLeading: NSLayoutConstraint!
     
     
     override func awakeFromNib() {

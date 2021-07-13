@@ -22,7 +22,9 @@ class SelectMealCell: UITableViewCell {
     @IBOutlet weak var dividerView: ATDividerView!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var descriptionLabelTop: NSLayoutConstraint!
-  
+    @IBOutlet weak var dividerLeading: NSLayoutConstraint!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
