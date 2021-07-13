@@ -444,8 +444,8 @@ class ChatVM {
             }
         }
         jsonDict["aerinSessionId"] = sessionId
-        AppDelegate.shared.searchFlightsWithDeepLink(dict: jsonDict)
-//        SwiftObjCBridgingController.shared.sendFlightFormData(jsonDict)
+//        AppDelegate.shared.searchFlightsWithDeepLink(dict: jsonDict)
+        SwiftObjCBridgingController.shared.sendFlightFormData(jsonDict)
     }
 }
 
@@ -480,6 +480,6 @@ extension ChatVM {
         jsonDict["guests"] = data.guests
         data.roomDetailsDict.forEach { jsonDict[$0.key] = "\($0.value)" }
         
-        AppDelegate.shared.searchHotelsWithDeepLink(dict: jsonDict)
+        AppDelegate.shared.searchHotelsWithDeepLink(dict: jsonDict, fromAerin: true)
     }
 }

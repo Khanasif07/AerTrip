@@ -153,6 +153,10 @@ class HotelsSearchVC: BaseVC {
 
     }
     
+    func performAerinSearch() {
+        initialSetup()
+    }
+    
     override func bindViewModel() {
         self.addRoomCollectionView.registerCell(nibName: AddRoomCell.reusableIdentifier)
         self.addRoomCollectionView.registerCell(nibName: AddRoomPictureCell.reusableIdentifier)

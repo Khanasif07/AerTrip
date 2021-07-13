@@ -281,7 +281,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func searchHotelsWithDeepLink(dict: JSONDictionary) {
+    func searchHotelsWithDeepLink(dict: JSONDictionary, fromAerin: Bool = false) {
         let formJson = JSON(dict)
         var recentSearchModel = RecentSearchesModel()
         var adultsArr = [String]()
@@ -330,11 +330,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         DispatchQueue.delay(1) {
             guard let dashboardVC = (self.window?.rootViewController as? UINavigationController)?.viewControllers.first?.children.first?.children.first as? DashboardVC else { return }
-            
-            dashboardVC.hotelsAction(UIButton())
+            if !fromAerin {
+                dashboardVC.hotelsAction(UIButton())
+            }
             dashboardVC.children.forEach { (viewCon) in
                 if let searchVC = viewCon as? HotelsSearchVC, !dict.isEmpty {
-                    delay(seconds: 1.0) {
+                    delay(seconds: fromAerin ? 0.0 : 1.0) {
                         searchVC.passRecentSearchesData(recentSearch: recentSearchModel)
                     }
                 }
