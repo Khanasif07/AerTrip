@@ -40,6 +40,12 @@ class SettingsCell: UITableViewCell {
         self.switch.isHidden = true
        
         switch type {
+        
+        case .appearance:
+            if let theme = AppTheme(rawValue: AppUserDefaults.value(forKey: .appTheme).stringValue) {
+                settingsValueLavel.isHidden = false
+                settingsValueLavel.text = theme.rawValue.capitalizedFirst()
+            }
             
         case .country:
             self.settingsValueLavel.isHidden = false
