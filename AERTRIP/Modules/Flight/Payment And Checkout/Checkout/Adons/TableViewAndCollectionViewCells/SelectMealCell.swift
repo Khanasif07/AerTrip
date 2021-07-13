@@ -97,7 +97,7 @@ class SelectMealCell: UITableViewCell {
             self.quantityLabel.isHidden = false
             self.mealForLabel.text = "For \(conaSaperatedNames)"
                       
-            self.mealForLabel.attributedText = "For \(conaSaperatedNames)".attributeStringWithColors(subString: ["For", "and"], strClr: AppColors.themeGreen, substrClr: AppColors.themeGray40, strFont: AppFonts.SemiBold.withSize(14), subStrFont: AppFonts.Regular.withSize(14))
+            self.mealForLabel.attributedText = "For \(conaSaperatedNames)".attributeStringWithColors(subString: ["For", "and"], strClr: AppColors.commonThemeGreen, substrClr: AppColors.themeGray40, strFont: AppFonts.SemiBold.withSize(14), subStrFont: AppFonts.Regular.withSize(14))
             
         }else{
                self.mealForLabelTop.constant = 2
@@ -109,7 +109,7 @@ class SelectMealCell: UITableViewCell {
                self.quantityLabel.isHidden = false
             self.mealForLabel.text = "For \(conaSaperatedNames)"
             
-            self.mealForLabel.attributedText = "For \(conaSaperatedNames)".attributeStringWithColors(subString: ["For", "and"], strClr: AppColors.themeGreen, substrClr: AppColors.themeGray40, strFont: AppFonts.SemiBold.withSize(14), subStrFont: AppFonts.Regular.withSize(14))
+            self.mealForLabel.attributedText = "For \(conaSaperatedNames)".attributeStringWithColors(subString: ["For", "and"], strClr: AppColors.commonThemeGreen, substrClr: AppColors.themeGray40, strFont: AppFonts.SemiBold.withSize(14), subStrFont: AppFonts.Regular.withSize(14))
             
            }
         
