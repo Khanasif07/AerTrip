@@ -428,7 +428,7 @@ extension SeatMapContainerVC {
         let yMul = originY / highlightContainerView.height
         
         if let seatMapCollView = allChildVCs[viewModel.currentIndex].seatMapCollView {
-            seatMapCollView.contentOffset = CGPoint(x: seatMapCollView.contentSize.width * xMul, y: seatMapCollView.contentSize.height * yMul)
+            seatMapCollView.contentOffset = CGPoint(x: (seatMapCollView.contentSize.width - 40) * xMul, y: seatMapCollView.contentSize.height * yMul)
         }
         
     }

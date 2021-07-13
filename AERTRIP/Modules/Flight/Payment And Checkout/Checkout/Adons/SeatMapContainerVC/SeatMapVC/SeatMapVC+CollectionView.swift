@@ -174,9 +174,9 @@ extension SeatMapVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
 extension SeatMapVC: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView === seatMapCollView {
-            let xMul = scrollView.contentOffset.x / scrollView.contentSize.width
+            let xMul = scrollView.contentOffset.x / (scrollView.contentSize.width - 40)
             let yMul = scrollView.contentOffset.y / scrollView.contentSize.height
-            let widthMul = scrollView.size.width / scrollView.contentSize.width
+            let widthMul = (scrollView.size.width - 40) / scrollView.contentSize.width
             let heightMul = scrollView.size.height / scrollView.contentSize.height
             let multipliers = visibleRectMultipliers(xMul, yMul, widthMul, heightMul)
             onScrollViewScroll?(multipliers)
