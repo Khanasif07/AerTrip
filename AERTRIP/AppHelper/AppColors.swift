@@ -439,6 +439,11 @@ enum AppColors {
     
     //    (255,255,255, 1.0) (26, 5, 5)
         static let markUnselectedFavColor = UIColor(named: "markUnselectedFavColor") ?? . white
+    /// RGB - 153, 153, 153   Dark RGB 51, 51, 51
+    static let emailDisableColor  = UIColor(named: "emailDisableColor") ?? AppColors.themeGray153
+    
+    /// RGB - 255, 255, 255   Dark RGB 70, 70, 70
+    static let hotelsCheckOutDetails  = UIColor(named: "hotelsCheckOutDetails") ?? AppColors.themeWhite
     
     case headlines
     case body

@@ -857,7 +857,7 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 cell.delegate = self
                 cell.editableTextField.text = viewModel.email
 //                cell.editableTextField.font = AppFonts.Regular.withSize(18.0)
-                cell.editableTextField.textColor = UserInfo.loggedInUserId == nil ? AppColors.themeBlack : AppColors.themeGray153
+                cell.editableTextField.textColor = UserInfo.loggedInUserId == nil ? AppColors.themeBlack : AppColors.emailDisableColor
                 cell.editableTextField.keyboardType = .emailAddress
                 
                 if viewModel.canShowErrorForEmailPhone {

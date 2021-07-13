@@ -56,8 +56,8 @@ class HCCheckInOutTableViewCell: UITableViewCell {
         self.checkInLabel.text = LocalizedString.CheckIn.localized
         self.checkOutLabel.text = LocalizedString.CheckOut.localized
         //Color
-        self.checkInLabel.textColor = AppColors.themeGray40
-        self.checkOutLabel.textColor = AppColors.themeGray40
+        self.checkInLabel.textColor = AppColors.themeGray153
+        self.checkOutLabel.textColor = AppColors.themeGray153
         self.checkInDateLabel.textColor = AppColors.textFieldTextColor51
         self.checkOutDateLabel.textColor = AppColors.textFieldTextColor51
         self.checkInDayLabel.textColor = AppColors.textFieldTextColor51

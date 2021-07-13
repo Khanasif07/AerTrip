@@ -119,6 +119,9 @@ class HCWhatNextTableViewCell: UITableViewCell {
             self.whatNextdata.insert(wtNext, at: whatNextdata.count)
         }
         self.pageControl.numberOfPages = self.whatNextdata.count
+        if usedFor == "hotel"{
+            self.instagramButton.setImage(AppImages.socialInstagramHotels, for: .normal)
+        }
         self.whatNextCollectionView.reloadData()
     }
     

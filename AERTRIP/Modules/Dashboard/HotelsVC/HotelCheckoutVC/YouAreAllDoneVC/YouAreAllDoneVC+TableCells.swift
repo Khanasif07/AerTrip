@@ -48,6 +48,7 @@ extension YouAreAllDoneVC {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HCHotelRatingTableViewCell.reusableIdentifier, for: indexPath) as? HCHotelRatingTableViewCell else { return nil }
         cell.configCell(hotelName: self.viewModel.hotelReceiptData?.hname ?? "", hotelRating: self.viewModel.hotelReceiptData?.star ?? 0.0, tripAdvisorRating: self.viewModel.hotelReceiptData?.rating ?? 0.0)
         cell.containerView.backgroundColor = AppColors.themeWhiteDashboard
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -60,6 +61,7 @@ extension YouAreAllDoneVC {
         cell.addressInfoTextView.isUserInteractionEnabled = false
         cell.addressInfoTextView.backgroundColor = AppColors.selectDestinationHeaderColor
         cell.containerView.backgroundColor = AppColors.selectDestinationHeaderColor
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -80,6 +82,7 @@ extension YouAreAllDoneVC {
         cell.topDividerView.isHidden = self.viewModel.sectionData[indexPath.section].contains(.webSiteCell) ? true : false
         cell.configCell(checkInDate: self.viewModel.hotelReceiptData?.checkin ?? "", checkOutDate: self.viewModel.hotelReceiptData?.checkout ?? "", totalNights: self.viewModel.hotelReceiptData?.num_nights ?? 0)
         cell.setupForAllDoneVC()
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -92,12 +95,14 @@ extension YouAreAllDoneVC {
         }
         let isLast = (self.viewModel.hotelReceiptData?.travellers.count ?? 0) ==  (indexPath.section - 1)
         cell.setupForLastCell(isLastCell: isLast, isForAllDone: true)
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
     internal func getBedTypeCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HotelDetailsInclusionTableViewCell.reusableIdentifier, for: indexPath) as? HotelDetailsInclusionTableViewCell else { return nil }
         cell.configHCBedsCell(bedDetails: "2 Single Beds")
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -105,12 +110,14 @@ extension YouAreAllDoneVC {
     internal func getInclusionCell(_ tableView: UITableView, indexPath: IndexPath, roomData: Room) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HotelDetailsInclusionTableViewCell.reusableIdentifier, for: indexPath) as? HotelDetailsInclusionTableViewCell else { return nil }
         cell.configHCInclusionCell(roomInclusions: roomData.inclusions)
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
     internal func getOtherInclusionCell(_ tableView: UITableView, indexPath: IndexPath, roomData: Room) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HotelDetailsInclusionTableViewCell.reusableIdentifier, for: indexPath) as? HotelDetailsInclusionTableViewCell else { return nil }
         cell.configHCOtherInlusionCell(roomInclusions: roomData.inclusions)
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -129,6 +136,7 @@ extension YouAreAllDoneVC {
             cell.allDetailsLabel.isHidden = true
             cell.allDetailsLabel.attributedText = nil
         }
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -137,6 +145,7 @@ extension YouAreAllDoneVC {
         cell.delegate = self
         cell.clipsToBounds = true
         cell.configureHCPaymentCell(isHotelDetailsScreen: false)
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -159,6 +168,7 @@ extension YouAreAllDoneVC {
                 cell.allDetailsLabel.attributedText = nil
               //  cell.moreBtnOutlet.isHidden = false
             }
+            cell.contentView.backgroundColor = AppColors.themeBlack26
             return cell
         }
         return nil
@@ -169,6 +179,7 @@ extension YouAreAllDoneVC {
         cell.delegate = self
         cell.travellers = self.viewModel.hotelReceiptData?.travellers[indexPath.section - 2] ?? [TravellersList]()
         cell.guestsCollectionView.reloadData()
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     

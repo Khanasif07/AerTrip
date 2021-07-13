@@ -51,7 +51,7 @@ class HCEmailTextFieldCell: UITableViewCell {
     
     
     private func setUpColor() {
-        self.editableTextField.titleTextColour = AppColors.themeGray153
+        self.editableTextField.titleTextColour = AppColors.themeGray40
         self.editableTextField.titleActiveTextColour = AppColors.themeGreen
         self.editableTextField.textColor =  AppColors.textFieldTextColor51
     }
@@ -67,7 +67,7 @@ class HCEmailTextFieldCell: UITableViewCell {
         let isValidEmail = !finalTxt.checkInvalidity(.Email)
         self.editableTextField.isError = !isValidEmail
         let firstName = self.editableTextField.placeholder ?? ""
-        self.editableTextField.attributedPlaceholder = NSAttributedString(string: firstName, attributes: [NSAttributedString.Key.foregroundColor: isValidEmail ? AppColors.themeGray153 :  AppColors.themeRed])
+        self.editableTextField.attributedPlaceholder = NSAttributedString(string: firstName, attributes: [NSAttributedString.Key.foregroundColor: isValidEmail ? AppColors.themeGray40 :  AppColors.themeRed])
         self.separatorView.isSettingForErrorState = !isValidEmail
     }
     
