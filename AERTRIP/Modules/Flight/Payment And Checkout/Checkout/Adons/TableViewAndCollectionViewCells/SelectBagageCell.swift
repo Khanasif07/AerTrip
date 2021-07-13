@@ -18,9 +18,10 @@ class SelectBagageCell: UITableViewCell {
     @IBOutlet weak var autoSelectedForLabel: UILabel!
     @IBOutlet weak var autoSelectedForBackView: UIView!
     @IBOutlet weak var autoSelectedForTop: NSLayoutConstraint!
-    @IBOutlet weak var bottomSeprator: UIView!
+    @IBOutlet weak var bottomSeprator: ATDividerView!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var descriptionLabelTop: NSLayoutConstraint!
+    @IBOutlet weak var saperatorLeading: NSLayoutConstraint!
     
     
     override func awakeFromNib() {
@@ -84,7 +85,7 @@ class SelectBagageCell: UITableViewCell {
                    }
                    let conaSaperatedNames = allNamesArray.joined(separator: " and ")
                    self.selectedForLabel.text = "For \(conaSaperatedNames)"
-            self.selectedForLabel.attributedText = "For \(conaSaperatedNames)".attributeStringWithColors(subString: ["For", "and"], strClr: AppColors.themeGreen, substrClr: AppColors.themeGray40, strFont: AppFonts.SemiBold.withSize(14), subStrFont: AppFonts.Regular.withSize(14))
+            self.selectedForLabel.attributedText = "For \(conaSaperatedNames)".attributeStringWithColors(subString: ["For", "and"], strClr: AppColors.commonThemeGreen, substrClr: AppColors.themeGray40, strFont: AppFonts.SemiBold.withSize(14), subStrFont: AppFonts.Regular.withSize(14))
 
                    self.quantityLabel.text = "X\(data.bagageSelectedFor.count)"
                    self.quantityLabel.isHidden = false
@@ -95,7 +96,7 @@ class SelectBagageCell: UITableViewCell {
             }
             let conaSaperatedNames = allNamesArray.joined(separator: ", ").replacingLastOccurrenceOfString(", ", with: " and ", caseInsensitive: true)
             self.selectedForLabel.text = "For \(conaSaperatedNames)"
-            self.selectedForLabel.attributedText = "For \(conaSaperatedNames)".attributeStringWithColors(subString: ["For", "and"], strClr: AppColors.themeGreen, substrClr: AppColors.themeGray40, strFont: AppFonts.SemiBold.withSize(14), subStrFont: AppFonts.Regular.withSize(14))
+            self.selectedForLabel.attributedText = "For \(conaSaperatedNames)".attributeStringWithColors(subString: ["For", "and"], strClr: AppColors.commonThemeGreen, substrClr: AppColors.themeGray40, strFont: AppFonts.SemiBold.withSize(14), subStrFont: AppFonts.Regular.withSize(14))
             self.quantityLabel.text = "X\(data.bagageSelectedFor.count)"
             self.quantityLabel.isHidden = false
         }
@@ -142,7 +143,7 @@ class SelectBagageCell: UITableViewCell {
             }
             let conaSaperatedNames = allNamesArray.joined(separator: " and ")
                    self.selectedForLabel.text = "For \(conaSaperatedNames)"
-            self.selectedForLabel.attributedText = "For \(conaSaperatedNames)".attributeStringWithColors(subString: ["For", "and"], strClr: AppColors.themeGreen, substrClr: AppColors.themeGray40, strFont: AppFonts.SemiBold.withSize(14), subStrFont: AppFonts.Regular.withSize(14))
+            self.selectedForLabel.attributedText = "For \(conaSaperatedNames)".attributeStringWithColors(subString: ["For", "and"], strClr: AppColors.commonThemeGreen, substrClr: AppColors.themeGray40, strFont: AppFonts.SemiBold.withSize(14), subStrFont: AppFonts.Regular.withSize(14))
 
             self.quantityLabel.text = "X\(data.othersSelectedFor.count)"
             self.quantityLabel.isHidden = false
@@ -153,7 +154,7 @@ class SelectBagageCell: UITableViewCell {
             }
             let conaSaperatedNames = allNamesArray.joined(separator: ", ").replacingLastOccurrenceOfString(", ", with: " and ", caseInsensitive: true)
             self.selectedForLabel.text = "For \(conaSaperatedNames)"
-            self.selectedForLabel.attributedText = "For \(conaSaperatedNames)".attributeStringWithColors(subString: ["For", "and"], strClr: AppColors.themeGreen, substrClr: AppColors.themeGray40, strFont: AppFonts.SemiBold.withSize(14), subStrFont: AppFonts.Regular.withSize(14))
+            self.selectedForLabel.attributedText = "For \(conaSaperatedNames)".attributeStringWithColors(subString: ["For", "and"], strClr: AppColors.commonThemeGreen, substrClr: AppColors.themeGray40, strFont: AppFonts.SemiBold.withSize(14), subStrFont: AppFonts.Regular.withSize(14))
 
             self.quantityLabel.text = "X\(data.othersSelectedFor.count)"
             self.quantityLabel.isHidden = false

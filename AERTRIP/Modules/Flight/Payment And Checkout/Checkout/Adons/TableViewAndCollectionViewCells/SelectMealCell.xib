@@ -111,6 +111,7 @@
                 <outlet property="autoSelectionBackView" destination="epk-Vd-zcs" id="VbW-5Y-D8D"/>
                 <outlet property="descriptionLabel" destination="mMX-f0-utH" id="luq-W5-ftK"/>
                 <outlet property="descriptionLabelTop" destination="jnH-aI-Lcd" id="JqH-VN-BJT"/>
+                <outlet property="dividerLeading" destination="sgc-FB-9Q1" id="hFz-Th-U9T"/>
                 <outlet property="dividerView" destination="S1n-j8-Uge" id="il6-H1-mR8"/>
                 <outlet property="mealAutoSelectedForLabel" destination="1xR-Nm-7kt" id="kEx-ye-cFZ"/>
                 <outlet property="mealAutoSelectedTop" destination="dbs-WS-PBV" id="M9R-hj-xh4"/>

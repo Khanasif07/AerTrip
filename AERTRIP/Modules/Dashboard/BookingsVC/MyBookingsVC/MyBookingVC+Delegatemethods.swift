@@ -99,7 +99,6 @@ extension MyBookingsVC: MyBookingsVMDelegate {
         
     }
     
-    
 }
 
 extension MyBookingsVC: SpeechToTextVCDelegate{

@@ -50,12 +50,12 @@ class WalletTableViewCell: UITableViewCell {
         self.balanceLabel.textColor = AppColors.themeGray40
         self.amountLabel.textColor = AppColors.textFieldTextColor51
         self.contentView.backgroundColor = AppColors.themeBlack26
+        self.walletSwitch.onTintColor = AppColors.commonThemeGreen
     }
     
     private func setUpText() {
         self.walletTitleLabel.text = LocalizedString.PayByAertripWallet.localized
         self.balanceLabel.text = "\(LocalizedString.Balance.localized):"
-        
     }
     
     

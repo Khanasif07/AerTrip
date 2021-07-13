@@ -107,6 +107,9 @@ extension SelectMealsdVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "SelectMealCell", for: indexPath) as? SelectMealCell else { fatalError("SelectMealCell not found") }
         cell.populateData(data: self.selectMealsVM.getMeals()[indexPath.row], index: indexPath.row)
+        
+        cell.dividerLeading.constant = (self.selectMealsVM.getMeals().count - 1 == indexPath.row) ? 0 : 16
+                
         return cell
     }
     

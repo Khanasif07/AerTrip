@@ -43,12 +43,14 @@ class UseGSTINCell: UITableViewCell {
             self.configureCell()
         }
     }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.setupFont()
         self.selectionStyle = .none
         self.selectGSTDetailView.isHidden = true
         self.enterGSTView.isHidden = true
+        gstSwitch.onTintColor = AppColors.commonThemeGreen
     }
     
     override func prepareForReuse() {

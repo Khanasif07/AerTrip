@@ -71,7 +71,8 @@ class HotelsGroupExpendedVC: StatusBarAnimatableViewController {
     private func initialSetups() {
         headerThumbView.layer.cornerRadius = headerThumbView.height / 2.0
         headerThumbView.layer.masksToBounds = true
-        self.view.backgroundColor = UIColor.clear
+        self.view.backgroundColor = AppColors.themeWhite
+        self.collectionView.backgroundColor = AppColors.themeWhite
         headerView.roundCorners(corners: [.topLeft,.topRight], radius: 10)
         if #available(iOS 13.0, *) {} else {
             headerViewTopConstraint.constant = AppFlowManager.default.safeAreaInsets.top + 8

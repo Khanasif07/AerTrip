@@ -27,6 +27,9 @@ class SettingsCell: UITableViewCell {
         backgroundColor = AppColors.themeBlack26
         settingsValueLavel.textColor = AppColors.themeGray153
 //        self.sepratorView.backgroundColor = AppColors.themeGray20
+//
+        self.switch.onTintColor = AppColors.commonThemeGreen
+        self.tintColor = AppColors.themeBlue
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
