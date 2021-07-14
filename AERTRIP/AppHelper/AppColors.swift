@@ -445,6 +445,9 @@ enum AppColors {
     /// RGB - 255, 255, 255   Dark RGB 70, 70, 70
     static let hotelsCheckOutDetails  = UIColor(named: "hotelsCheckOutDetails") ?? AppColors.themeWhite
     
+    /// (242,242,242) (49,49,49)
+    static let aerinRecentSearchColor = UIColor(named: "aerinRecentSearchColor") ?? .white
+    
     case headlines
     case body
     case subheads

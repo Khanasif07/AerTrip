@@ -18,6 +18,7 @@ class ThingsToAskHeader: UITableViewHeaderFooterView {
     override func awakeFromNib() {
         super.awakeFromNib()
 //        self.contentView.backgroundColor = AppColors.themeGray04
+        
         sectionTionTitleLabel.font = AppFonts.SemiBold.withSize(18)
         sectionTionTitleLabel.textColor = AppColors.themeTextColor
     }
