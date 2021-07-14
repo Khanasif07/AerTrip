@@ -28,7 +28,12 @@ class DomesticMultiLegTemplateCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        dashedView.setupDashedView()
+    }
+    
     
     override func prepareForReuse() {
         super.prepareForReuse()
