@@ -270,6 +270,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
         cell.topDividerView.isHidden = !isFirstCell
         
 //        cell.displayShimmer(time: time, isForOther: isForOther)
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -284,6 +285,7 @@ extension SpecialAccountDetailsVC: UITableViewDelegate, UITableViewDataSource {
         
 //        cell.displayDepositeShimmer(time: self.time)
         cell.depositButton.isEnabled = (amount > 0)
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
