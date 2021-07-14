@@ -62,6 +62,7 @@ class MealsContainerVC: BaseVC {
         super.setupColors()
         self.MealTotalLabel.textColor = AppColors.themeGray60
         self.totalLabel.textColor = AppColors.themeBlack
+        self.addButton.setTitleColor(AppColors.commonThemeGreen, for: UIControl.State.normal)
     }
     
     override func initialSetup() {

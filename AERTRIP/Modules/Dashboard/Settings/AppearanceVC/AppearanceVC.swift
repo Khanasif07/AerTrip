@@ -38,7 +38,7 @@ class AppearanceVC: BaseVC {
     
     override func initialSetup() {
         self.topNavView.delegate = self
-        navBlurView.backgroundColor = AppColors.themeWhiteDashboard
+//        navBlurView.backgroundColor = AppColors.themeWhiteDashboard
         self.topNavView.configureNavBar(title: LocalizedString.Appearance.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false,isDivider : true)
         configureTableView()
         self.appearanceTableView.backgroundColor = AppColors.themeGray04
@@ -49,6 +49,7 @@ class AppearanceVC: BaseVC {
         self.appearanceTableView.register(UINib(nibName: "SettingsHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "SettingsHeaderView")
         self.appearanceTableView.dataSource = self
         self.appearanceTableView.delegate = self
+        appearanceTableView.contentInset = UIEdgeInsets(top: 44, left: 0, bottom: 0, right: 0)
     }
 }
 

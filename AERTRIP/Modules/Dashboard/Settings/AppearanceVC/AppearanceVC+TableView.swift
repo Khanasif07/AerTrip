@@ -18,8 +18,9 @@ extension AppearanceVC: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CountryCell", for: indexPath) as? CountryCell else {
                        fatalError("CountryCell not found")
                }
-        cell.sepratorView.isHidden = indexPath.row == viewModel.tableCells.count - 1
+        cell.sepratorView.isHidden = false
         cell.configureForAppearance(type: viewModel.tableCells[indexPath.row])
+        cell.backgroundColor = AppColors.themeBlack26
         return cell
     }
     

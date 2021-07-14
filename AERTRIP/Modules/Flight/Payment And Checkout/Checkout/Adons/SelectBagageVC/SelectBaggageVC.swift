@@ -130,6 +130,8 @@ extension SelectBaggageVC : UITableViewDelegate, UITableViewDataSource {
         
         cell.bottomSeprator.isHidden = self.selectBaggageVM.sagrigatedData.count > 1 && indexPath.section == 0 && indexPath.row == cellData.count - 1
         
+        cell.saperatorLeading.constant = indexPath.row == cellData.count - 1 ? 0 : 16
+        
         return cell
         
     }

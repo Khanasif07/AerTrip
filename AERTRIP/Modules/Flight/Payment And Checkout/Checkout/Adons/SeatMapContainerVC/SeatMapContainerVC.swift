@@ -190,6 +190,9 @@ class SeatMapContainerVC: UIViewController {
         apiProgressView.progressTintColor = UIColor.AertripColor
         apiProgressView.trackTintColor = .clear
         apiProgressView.setProgress(0, animated: false)
+        
+        self.addBtn.setTitleColor(AppColors.commonThemeGreen, for: UIControl.State.normal)
+
     }
     
     private func setupApiIndicatorView() {

@@ -41,6 +41,7 @@ class RangeTableViewCell: UITableViewCell {
         self.rangeView.backgroundColor = AppColors.flightFilterHighlightColor
         self.rangeLabel.textColor = AppColors.themeBlack
         self.searchResultRangeLabel.textColor = AppColors.themeGray153
+        stepSlider.tintColor = AppColors.themeGreen
 
     }
     

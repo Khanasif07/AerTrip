@@ -153,6 +153,15 @@ class HotelsSearchVC: BaseVC {
 
     }
     
+    func performAerinSearch() {
+        if AppFlowManager.default.showHotelResult {
+            AppFlowManager.default.showHotelResult = false
+            delay(seconds: 0.6) {
+                self.searchButtonAction(self.searchBtnOutlet)
+            }
+        }
+    }
+    
     override func bindViewModel() {
         self.addRoomCollectionView.registerCell(nibName: AddRoomCell.reusableIdentifier)
         self.addRoomCollectionView.registerCell(nibName: AddRoomPictureCell.reusableIdentifier)

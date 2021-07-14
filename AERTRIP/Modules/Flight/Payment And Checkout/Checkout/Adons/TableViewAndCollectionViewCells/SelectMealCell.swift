@@ -22,7 +22,9 @@ class SelectMealCell: UITableViewCell {
     @IBOutlet weak var dividerView: ATDividerView!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var descriptionLabelTop: NSLayoutConstraint!
-  
+    @IBOutlet weak var dividerLeading: NSLayoutConstraint!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -95,7 +97,7 @@ class SelectMealCell: UITableViewCell {
             self.quantityLabel.isHidden = false
             self.mealForLabel.text = "For \(conaSaperatedNames)"
                       
-            self.mealForLabel.attributedText = "For \(conaSaperatedNames)".attributeStringWithColors(subString: ["For", "and"], strClr: AppColors.themeGreen, substrClr: AppColors.themeGray40, strFont: AppFonts.SemiBold.withSize(14), subStrFont: AppFonts.Regular.withSize(14))
+            self.mealForLabel.attributedText = "For \(conaSaperatedNames)".attributeStringWithColors(subString: ["For", "and"], strClr: AppColors.commonThemeGreen, substrClr: AppColors.themeGray40, strFont: AppFonts.SemiBold.withSize(14), subStrFont: AppFonts.Regular.withSize(14))
             
         }else{
                self.mealForLabelTop.constant = 2
@@ -107,7 +109,7 @@ class SelectMealCell: UITableViewCell {
                self.quantityLabel.isHidden = false
             self.mealForLabel.text = "For \(conaSaperatedNames)"
             
-            self.mealForLabel.attributedText = "For \(conaSaperatedNames)".attributeStringWithColors(subString: ["For", "and"], strClr: AppColors.themeGreen, substrClr: AppColors.themeGray40, strFont: AppFonts.SemiBold.withSize(14), subStrFont: AppFonts.Regular.withSize(14))
+            self.mealForLabel.attributedText = "For \(conaSaperatedNames)".attributeStringWithColors(subString: ["For", "and"], strClr: AppColors.commonThemeGreen, substrClr: AppColors.themeGray40, strFont: AppFonts.SemiBold.withSize(14), subStrFont: AppFonts.Regular.withSize(14))
             
            }
         
