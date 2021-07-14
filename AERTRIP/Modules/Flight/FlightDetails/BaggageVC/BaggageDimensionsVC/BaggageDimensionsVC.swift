@@ -64,6 +64,8 @@ class BaggageDimensionsVC: UIViewController, UIScrollViewDelegate
         baggageScrollView.backgroundColor = AppColors.themeWhite
         scrollContainerView.backgroundColor = AppColors.themeWhite
         dimensionDetailsInfoLabel.textColor = AppColors.themeGray60
+        dividerLabel.backgroundColor = AppColors.dividerColor
+        dividerView.backgroundColor = AppColors.dividerColor
     }
     
     private func setDataFromDimesion(){
@@ -98,6 +100,11 @@ class BaggageDimensionsVC: UIViewController, UIScrollViewDelegate
     }
     
     private func setDataWithDictionary(){
+        if note.isEmpty{
+            dividerLabel.isHidden = true
+        }else{
+            dividerLabel.isHidden = false
+        }
         dimensionDetailsInfoLabel.text = note
         if dimensions.count > 0{
             baggageScrollView.isScrollEnabled = true

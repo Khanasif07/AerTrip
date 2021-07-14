@@ -380,7 +380,7 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MBG-cE-VPm">
                                 <rect key="frame" x="0.0" y="527" width="375" height="140"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" name="themeWhiteDashboard"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ppY-MC-9bt">
                                 <rect key="frame" x="0.0" y="527" width="375" height="50"/>
@@ -486,6 +486,7 @@
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Labelvvv dsf vs" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Ci-kZ-Fp2">
                                                 <rect key="frame" x="0.0" y="0.0" width="220" height="44.5"/>
+                                                <color key="backgroundColor" name="themeWhiteDashboard"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>

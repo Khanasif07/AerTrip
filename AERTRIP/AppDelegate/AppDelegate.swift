@@ -346,21 +346,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func moveToRootVC() {
         DispatchQueue.main.async {
             
-            if AppFlowManager.default.sideMenuController?.isOpen ?? false {
-                AppFlowManager.default.sideMenuController?.closeMenu()
+            if let mainHomeVC = (self.window?.rootViewController as? UINavigationController)?.viewControllers.first as? MainHomeVC, mainHomeVC.scrollView.contentOffset.x > 0 {
+                if let _ = UserInfo.loggedInUserId {
+                    mainHomeVC.popProfileAnimation(completion: {
+                        self.dismissViews()
+                    })
+                } else {
+                    mainHomeVC.popLogoAnimation(completion: {
+                        self.dismissViews()
+                    })
+                }
+            } else {
+                self.dismissViews()
             }
             
-            let nvc = self.window?.rootViewController as? UINavigationController
-            
-            nvc?.dismiss(animated: true, completion: {
-                nvc?.popToRootViewController(animated: true)
-            })
-            
-//            guard let dashboardVC = nvc?.viewControllers.first?.children.first?.children.first as? DashboardVC else { return }
-//            if dashboardVC.mainScrollView.contentOffset.x > 0 {
-//                ma
-//            }
         }
+    }
+    
+    private func dismissViews() {
+        if AppFlowManager.default.sideMenuController?.isOpen ?? false {
+            AppFlowManager.default.sideMenuController?.closeMenu()
+        }
+        
+        let nvc = self.window?.rootViewController as? UINavigationController
+        
+        nvc?.dismiss(animated: true, completion: {
+            nvc?.popToRootViewController(animated: true)
+        })
     }
     
     

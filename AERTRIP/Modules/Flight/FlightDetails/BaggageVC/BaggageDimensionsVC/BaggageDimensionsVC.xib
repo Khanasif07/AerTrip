@@ -123,16 +123,16 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="breadthdimention" translatesAutoresizingMaskIntoConstraints="NO" id="Tho-e4-PY9">
-                                                            <rect key="frame" x="186.5" y="303" width="57" height="42"/>
+                                                            <rect key="frame" x="191.5" y="308" width="57" height="42"/>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ubb-md-Yje">
-                                                            <rect key="frame" x="208" y="310" width="15.5" height="18"/>
+                                                            <rect key="frame" x="213" y="315" width="15.5" height="18"/>
                                                             <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="14"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cm" textAlignment="center" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jZg-ol-NLh">
-                                                            <rect key="frame" x="208" y="323" width="15.5" height="15.5"/>
+                                                            <rect key="frame" x="213" y="328" width="15.5" height="15.5"/>
                                                             <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="12"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -166,11 +166,11 @@
                                                         <constraint firstItem="edy-V3-FtE" firstAttribute="leading" secondItem="Oz6-lV-WzB" secondAttribute="leading" id="dDq-R8-Sf1"/>
                                                         <constraint firstItem="f7u-dn-aQ7" firstAttribute="leading" secondItem="Ztc-FU-Fsz" secondAttribute="leading" id="doF-ao-hdt"/>
                                                         <constraint firstItem="f7u-dn-aQ7" firstAttribute="top" secondItem="Ztc-FU-Fsz" secondAttribute="bottom" constant="-5" id="fIf-ue-uUO"/>
-                                                        <constraint firstItem="Tho-e4-PY9" firstAttribute="trailing" secondItem="TSO-pg-iDy" secondAttribute="trailing" constant="30" id="fQ3-Kn-9Rx"/>
+                                                        <constraint firstItem="Tho-e4-PY9" firstAttribute="trailing" secondItem="TSO-pg-iDy" secondAttribute="trailing" constant="35" id="fQ3-Kn-9Rx"/>
                                                         <constraint firstItem="edy-V3-FtE" firstAttribute="trailing" secondItem="Oz6-lV-WzB" secondAttribute="trailing" id="gxm-99-vdz"/>
                                                         <constraint firstItem="TSO-pg-iDy" firstAttribute="centerX" secondItem="Jqv-jZ-vFO" secondAttribute="centerX" id="hvh-GC-Tnf"/>
                                                         <constraint firstAttribute="trailing" secondItem="BF3-aP-K4C" secondAttribute="trailing" id="m2O-8n-1TN"/>
-                                                        <constraint firstItem="Tho-e4-PY9" firstAttribute="bottom" secondItem="TSO-pg-iDy" secondAttribute="bottom" constant="20" id="mHF-e0-qyj"/>
+                                                        <constraint firstItem="Tho-e4-PY9" firstAttribute="bottom" secondItem="TSO-pg-iDy" secondAttribute="bottom" constant="25" id="mHF-e0-qyj"/>
                                                         <constraint firstItem="TSO-pg-iDy" firstAttribute="leading" secondItem="a3b-dt-duY" secondAttribute="trailing" constant="10" id="mlo-gd-PWl"/>
                                                         <constraint firstItem="yeX-sL-weG" firstAttribute="bottom" secondItem="TSO-pg-iDy" secondAttribute="bottom" constant="15" id="mqs-QZ-8F0"/>
                                                         <constraint firstItem="a3b-dt-duY" firstAttribute="bottom" secondItem="TSO-pg-iDy" secondAttribute="bottom" constant="-50" id="neW-vO-8nr"/>
@@ -340,8 +340,8 @@
     <resources>
         <image name="breadthdimention" width="57" height="42"/>
         <image name="closeblack" width="24" height="24"/>
-        <image name="group" width="335" height="269"/>
-        <image name="group4" width="375" height="319"/>
+        <image name="group" width="93" height="93"/>
+        <image name="group4" width="148" height="258"/>
         <image name="heightldimention" width="39" height="147"/>
         <image name="weight" width="39" height="38"/>
         <image name="widthdimention" width="96" height="44"/>

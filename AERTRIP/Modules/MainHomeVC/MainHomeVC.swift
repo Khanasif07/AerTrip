@@ -321,7 +321,7 @@ class MainHomeVC: BaseVC {
         animator.startAnimation()
     }
     
-    func popProfileAnimation() {
+    func popProfileAnimation(completion: (() -> ())? = nil) {
         self.statusBarStyle = .default
         let popPoint = CGPoint(x: 0.0, y: 0.0)
         
@@ -353,7 +353,7 @@ class MainHomeVC: BaseVC {
             }
             
             toAddImgView.removeFromSuperview()
-            
+            completion?()
         }
         
         animator.startAnimation()
@@ -423,7 +423,7 @@ class MainHomeVC: BaseVC {
         }
     }
     
-    private func popLogoAnimation() {
+    func popLogoAnimation(completion: (() -> ())? = nil) {
         
         let popPoint = CGPoint(x: 0.0, y: 0.0)
         self.socialLoginVC?.topNavView.leftButton.isHidden = true
@@ -446,6 +446,7 @@ class MainHomeVC: BaseVC {
             self.sideMenuVC?.logoContainerView.messageLabel.isHidden = false
             self.sideMenuVC?.logoContainerView.logoImageView.isHidden = false
             self.sideMenuVC?.logoContainerView.logoTextView.isHidden = false
+            completion?()
         })
     }
     

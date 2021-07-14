@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,7 +23,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RbE-wl-wUe" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                        <rect key="frame" x="16" y="60.5" width="307" height="0.5"/>
+                        <rect key="frame" x="16" y="60.5" width="291" height="0.5"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="0.5" id="d1B-Lz-Zeh"/>
                         </constraints>
@@ -53,7 +53,7 @@
                     <constraint firstItem="RbE-wl-wUe" firstAttribute="bottom" secondItem="rar-3x-bK2" secondAttribute="bottom" constant="2" id="BRI-K4-9Fj"/>
                     <constraint firstItem="RbE-wl-wUe" firstAttribute="leading" secondItem="SQY-Nf-lEb" secondAttribute="leading" constant="16" id="UgV-MR-DHo"/>
                     <constraint firstAttribute="trailing" secondItem="rar-3x-bK2" secondAttribute="trailing" id="Ukz-oS-q91"/>
-                    <constraint firstAttribute="trailing" secondItem="RbE-wl-wUe" secondAttribute="trailing" id="msY-mB-OEw"/>
+                    <constraint firstAttribute="trailing" secondItem="RbE-wl-wUe" secondAttribute="trailing" constant="16" id="msY-mB-OEw"/>
                     <constraint firstItem="rar-3x-bK2" firstAttribute="top" secondItem="SQY-Nf-lEb" secondAttribute="top" id="qeR-74-FHU"/>
                 </constraints>
             </tableViewCellContentView>
@@ -69,7 +69,7 @@
     </objects>
     <designables>
         <designable name="fLU-oA-Qc7">
-            <size key="intrinsicContentSize" width="4" height="24.5"/>
+            <size key="intrinsicContentSize" width="4" height="25"/>
         </designable>
     </designables>
 </document>
