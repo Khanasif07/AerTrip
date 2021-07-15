@@ -176,7 +176,7 @@ class AerinVC: BaseVC {
     override func setupColors() {
         self.messageLabel.textColor = AppColors.themeBlack
         //self.weekendMessageLabel.textColor = AppColors.themeWhite.withAlphaComponent(0.4)
-        self.travelSafetyLabel.textColor = AppColors.themeTextColor
+        self.travelSafetyLabel.textColor = AppColors.unicolorBlack
     }
     
     func setupInitialAnimation() {
