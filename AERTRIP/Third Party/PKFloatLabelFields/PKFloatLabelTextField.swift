@@ -389,7 +389,7 @@ extension PKFloatLabelTextField {
                         titleActiveTextColor: UIColor = AppColors.commonThemeGreen,
                         keyboardType: UIKeyboardType,
                         returnType: UIReturnKeyType,
-                        isSecureText: Bool) {
+                        isSecureText: Bool, placeholderColor: UIColor? = nil) {
         
         self.keyboardType       = keyboardType
         self.placeholder        = placehoder
@@ -402,6 +402,9 @@ extension PKFloatLabelTextField {
         self.titleFont = titleFont
         self.titleActiveTextColour = titleActiveTextColor
         let attriburedString = NSMutableAttributedString(string: placehoder)
+        if let col = placeholderColor {
+            attriburedString.addAttributes([.foregroundColor: col], range: NSRange(location: 0, length: attriburedString.length))
+        }
         let asterix = NSAttributedString(string: symbol, attributes: [.foregroundColor: foregroundColor])
         attriburedString.append(asterix)
         
