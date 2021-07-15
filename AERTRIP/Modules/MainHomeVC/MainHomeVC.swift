@@ -111,10 +111,10 @@ class MainHomeVC: BaseVC {
         self.statusBarStyle = .lightContent
 
         self.view.layoutIfNeeded()
-        self.view.backgroundColor = AppColors.screensBackground.color
-        self.contentView.backgroundColor = AppColors.screensBackground.color
-        scrollView.backgroundColor = AppColors.screensBackground.color
-        mainContainerView.backgroundColor = AppColors.screensBackground.color
+        self.view.backgroundColor = AppColors.homeScreenColor
+        self.contentView.backgroundColor = AppColors.homeScreenColor
+        scrollView.backgroundColor = AppColors.homeScreenColor
+        mainContainerView.backgroundColor = AppColors.homeScreenColor
         
         //setup scroll view
         self.scrollViewSetup()
@@ -210,7 +210,7 @@ class MainHomeVC: BaseVC {
         let sideMenuVC = PKSideMenuController()
         sideMenuVC.delegate = self
         sideMenuVC.view.frame = UIScreen.main.bounds
-        sideMenuVC.view.backgroundColor = AppColors.screensBackground.color
+        sideMenuVC.view.backgroundColor = AppColors.homeScreenColor
     
         let dashBoardScene = DashboardVC.instantiate(fromAppStoryboard: .Dashboard)
         dashBoardScene.isLaunchThroughSplash = self.isLaunchThroughSplash

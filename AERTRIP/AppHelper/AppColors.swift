@@ -20,7 +20,7 @@ enum AppColors {
 
     static let commonThemeGreen = UIColor(displayP3Red: 0/255, green: 204/255, blue: 153/255, alpha: 1)
     
-
+    /// (153,153,153)
     static let commonThemeGray = UIColor(named: "commonThemeGray") ?? UIColor(displayP3Red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
 
     static let blackAndThemeGray = UIColor(named: "blackAndThemeGray") ?? UIColor(displayP3Red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
@@ -344,6 +344,8 @@ enum AppColors {
         /// RGB - 204, 204, 204,   (255, 255, 255, 0)
     static var layoverBorderColor : UIColor { UIColor(named: "layoverBorderColor") ?? .clear }
 
+    /// (204,204,204) (51,51,51)
+    static var checkoutApplyColor: UIColor { UIColor(named: "checkoutApplyColor") ?? .white }
     
     //(230, 230, 230) (255, 255, 255, 0.2)
     static let sliderTrackColor = UIColor(named: "sliderTrackColor") ?? UIColor(displayP3Red: 0.9019607843, green: 0.9019607843, blue: 0.9019607843, alpha: 1)
@@ -448,6 +450,9 @@ enum AppColors {
     /// (242,242,242) (49,49,49)
     static let aerinRecentSearchColor = UIColor(named: "aerinRecentSearchColor") ?? .white
     
+    /// (246,246,246) (10,10,10)
+    static let homeScreenColor = UIColor(named: "homeScreenColor") ?? .white
+    
     case headlines
     case body
     case subheads
@@ -489,6 +494,7 @@ enum AppColors {
 
         case .viewProfileTopGradient:
             return AppColors.themeBlack.withAlphaComponent(0.21)
+            
         }
     }
 }
