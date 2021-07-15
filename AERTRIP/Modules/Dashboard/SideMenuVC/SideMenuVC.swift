@@ -105,7 +105,7 @@ class SideMenuVC: BaseVC {
     
     
     override func initialSetup() {
-        self.view.backgroundColor = AppColors.screensBackground.color
+        self.view.backgroundColor = AppColors.homeScreenColor
         self.socialOptionView.frame = CGRect(x: 0.0, y: 0.0, width: self.sideMenuTableView.width, height: (77.0))
         self.sideMenuTableView.tableFooterView = self.socialOptionView
         self.registerXibs()

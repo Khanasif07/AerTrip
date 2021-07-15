@@ -448,6 +448,9 @@ enum AppColors {
     /// (242,242,242) (49,49,49)
     static let aerinRecentSearchColor = UIColor(named: "aerinRecentSearchColor") ?? .white
     
+    /// (246,246,246) (10,10,10)
+    static let homeScreenColor = UIColor(named: "homeScreenColor") ?? .white
+    
     case headlines
     case body
     case subheads
@@ -489,6 +492,7 @@ enum AppColors {
 
         case .viewProfileTopGradient:
             return AppColors.themeBlack.withAlphaComponent(0.21)
+            
         }
     }
 }
