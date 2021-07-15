@@ -54,8 +54,8 @@ class PeriodicStatementVC: BaseVC {
     
     override func setupColors() {
         self.view.backgroundColor = AppColors.themeWhite
-        dataContainerView.backgroundColor = AppColors.themeBlack26
-        topNavView.darkView.backgroundColor = AppColors.themeBlack26
+        dataContainerView.backgroundColor = AppColors.themeWhiteDashboard
+        topNavView.darkView.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     //MARK:- Methods
