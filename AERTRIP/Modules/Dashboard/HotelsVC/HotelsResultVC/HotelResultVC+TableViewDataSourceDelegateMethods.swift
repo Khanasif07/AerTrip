@@ -22,6 +22,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
             self.tableViewVertical.backgroundView = noHotelFoundOnFilterEmptyView
             self.noHotelFoundOnFilter()
             self.manageFloatingView(isHidden: true)
+            self.searchResultHeaderView.updateHeight(height: CGFloat.leastNonzeroMagnitude)
         } else if (self.viewModel.fetchRequestType == .Searching) {
             self.manageFloatingView(isHidden: true)
             self.hotelSearchView.isHidden = !searchBar.isFirstResponder//false

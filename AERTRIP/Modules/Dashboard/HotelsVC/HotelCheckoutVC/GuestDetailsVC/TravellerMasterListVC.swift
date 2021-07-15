@@ -120,6 +120,7 @@ extension TravellerMasterListVC: UITableViewDelegate, UITableViewDataSource {
                 return UITableViewCell()
             }
             cell.bottomDividerView.isHidden = true
+            cell.backgroundColor = AppColors.themeGray04
             return cell
         }
         
