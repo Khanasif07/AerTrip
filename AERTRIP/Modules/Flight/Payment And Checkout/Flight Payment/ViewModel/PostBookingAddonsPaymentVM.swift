@@ -139,7 +139,7 @@ extension PostBookingAddonsPaymentVM{
         //forAmount used to decide that razor pay will use or not
         var params: [String : Any] = [ APIKeys.it_id.rawValue : self.addonsDetails.id]
         params[APIKeys.total_amount.rawValue] = grossTotalPayableAmount
-        params[APIKeys.currency_code.rawValue] = "INR"//self.itineraryData?.booking_currency ?? ""
+        params[APIKeys.currency_code.rawValue] = CurrencyControler.shared.selectedCurrency.currencyCode//"INR"
         params[APIKeys.use_points.rawValue] = self.addonsDetails.userPoints
         if UserInfo.loggedInUser != nil {
             params[APIKeys.use_wallet.rawValue] = useWallet ? 1 : 0

@@ -102,7 +102,7 @@ class AccountLadgerDetailsVC: BaseVC {
  */
         }
         
-        self.containerView.backgroundColor = AppColors.themeGray04
+        self.containerView.backgroundColor = AppColors.themeBlack26
         
 
         FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .AccountsLedgerDetails, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
@@ -162,7 +162,7 @@ class AccountLadgerDetailsVC: BaseVC {
             headerView.bookingIdButton.isHidden = true
             self.headerView.onAccountEvent = self.viewModel.onAccountEvent
         }
-        self.headerView.backgroundColor = AppColors.themeWhite
+        self.headerView.backgroundColor = AppColors.themeBlack26
         self.headerView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: self.parallexHeaderMaxHeight)
         self.headerView?.translatesAutoresizingMaskIntoConstraints = false
         self.headerView?.widthAnchor.constraint(equalToConstant: tableView?.width ?? 0.0).isActive = true

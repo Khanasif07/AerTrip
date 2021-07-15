@@ -204,18 +204,20 @@ class AccountOutstandingLadgerVC: BaseVC {
     }
     
     override func setupColors() {
-        self.view.backgroundColor = AppColors.themeWhite
+        self.view.backgroundColor = AppColors.themeBlack26
         self.summeryLabel.textColor = AppColors.themeGray40
         
         self.tableView.backgroundColor = AppColors.themeWhite
         
-        self.searchContainerView.backgroundColor = AppColors.themeWhite
-        self.searchBarContainerView.backgroundColor = AppColors.themeWhite
-        self.subHeaderContainer.backgroundColor = AppColors.themeWhite
-        self.subheaderDetailsConstainer.backgroundColor = AppColors.themeWhite
+        self.searchContainerView.backgroundColor = AppColors.themeBlack26
+        self.searchBarContainerView.backgroundColor = AppColors.themeBlack26
+        self.subHeaderContainer.backgroundColor = AppColors.themeBlack26
+        self.subheaderDetailsConstainer.backgroundColor = AppColors.themeBlack26
         self.blankSpaceView.backgroundColor = AppColors.themeGray04
         
         self.makePaymentTitleLabel.textColor = AppColors.unicolorWhite
+        self.searchBar.textFieldColor = AppColors.miniPlaneBack
+        self.mainSearchBar.textFieldColor = AppColors.miniPlaneBack
         
         self.makePaymentContainerView.addShadow(cornerRadius: 0.0, shadowColor: AppColors.themeGreen, backgroundColor: AppColors.clear, offset: CGSize(width: 0.0, height: 12.0))
     }

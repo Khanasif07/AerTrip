@@ -89,7 +89,7 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" name="themeWhite"/>
+                                        <color key="backgroundColor" name="themeBlack26"/>
                                         <constraints>
                                             <constraint firstItem="mdq-aO-aUN" firstAttribute="top" secondItem="IJQ-2A-2pv" secondAttribute="top" id="4Tt-La-9zU"/>
                                             <constraint firstItem="mdq-aO-aUN" firstAttribute="leading" secondItem="IJQ-2A-2pv" secondAttribute="leading" id="FJb-93-Gyy"/>
@@ -139,7 +139,7 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" name="themeWhite"/>
+                                        <color key="backgroundColor" name="themeBlack26"/>
                                         <constraints>
                                             <constraint firstItem="sE6-ys-C1a" firstAttribute="leading" secondItem="qt8-Ip-rbw" secondAttribute="leading" id="6aK-a4-E11"/>
                                             <constraint firstAttribute="height" constant="52" id="8Jt-3S-RfI"/>
@@ -284,7 +284,7 @@
                         </stackView>
                     </subviews>
                     <viewLayoutGuide key="safeArea" id="elU-cp-feh"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" name="themeWhite"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="if4-0F-OLH" secondAttribute="trailing" constant="16" id="0H5-iY-4R1"/>
                         <constraint firstItem="if4-0F-OLH" firstAttribute="top" secondItem="qsh-4H-Ggd" secondAttribute="top" constant="21" id="0kj-EZ-bOq"/>
@@ -341,6 +341,7 @@
                                     </constraints>
                                 </view>
                             </subviews>
+                            <color key="backgroundColor" name="themeBlack26"/>
                             <constraints>
                                 <constraint firstAttribute="bottom" secondItem="kOi-SN-d2z" secondAttribute="bottom" id="6Us-dD-eB3"/>
                                 <constraint firstAttribute="trailing" secondItem="kOi-SN-d2z" secondAttribute="trailing" id="IQZ-Xh-QY6"/>
@@ -354,6 +355,7 @@
                         </view>
                     </subviews>
                     <viewLayoutGuide key="safeArea" id="Ew3-fR-MTU"/>
+                    <color key="backgroundColor" name="clearBlack26"/>
                     <constraints>
                         <constraint firstItem="tF1-yx-byL" firstAttribute="leading" secondItem="OhW-km-KdJ" secondAttribute="leading" id="2gp-Di-hwM"/>
                         <constraint firstItem="ETc-M1-MdA" firstAttribute="leading" secondItem="Ew3-fR-MTU" secondAttribute="leading" id="ExL-O3-9Bl"/>
@@ -417,7 +419,7 @@
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
-                                                                <color key="backgroundColor" name="themeWhite"/>
+                                                                <color key="backgroundColor" name="themeBlack26"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="bottom" secondItem="zZX-An-8gJ" secondAttribute="bottom" id="Pci-rY-7dr"/>
                                                                     <constraint firstItem="zZX-An-8gJ" firstAttribute="leading" secondItem="fNU-dD-62K" secondAttribute="leading" id="UNe-b3-bAO"/>
@@ -653,7 +655,7 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" name="themeWhite"/>
+                                        <color key="backgroundColor" name="themeBlack26"/>
                                         <constraints>
                                             <constraint firstItem="YiF-Cm-cqq" firstAttribute="leading" secondItem="kEt-uI-MIg" secondAttribute="leading" id="1rN-Mu-KYw"/>
                                             <constraint firstItem="3zy-7Y-ptX" firstAttribute="leading" secondItem="kEt-uI-MIg" secondAttribute="leading" id="IEl-HN-bxm"/>
@@ -797,6 +799,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
+                                                    <color key="backgroundColor" name="themeBlack26"/>
                                                     <constraints>
                                                         <constraint firstItem="8TX-7v-mBX" firstAttribute="top" secondItem="tda-kZ-a6q" secondAttribute="top" id="2FW-il-xCt"/>
                                                         <constraint firstAttribute="trailing" secondItem="CQE-zb-w6O" secondAttribute="trailing" constant="16" id="DiK-D8-MMs"/>
@@ -834,6 +837,7 @@
                                                             </constraints>
                                                         </view>
                                                     </subviews>
+                                                    <color key="backgroundColor" name="themeBlack26"/>
                                                     <constraints>
                                                         <constraint firstItem="18c-15-wcI" firstAttribute="centerY" secondItem="7rK-yW-V57" secondAttribute="centerY" id="K25-ef-gPr"/>
                                                         <constraint firstItem="18c-15-wcI" firstAttribute="leading" secondItem="7rK-yW-V57" secondAttribute="leading" constant="16" id="VM0-5W-GG9"/>
@@ -1895,7 +1899,7 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" name="themeBlack26"/>
                                         <constraints>
                                             <constraint firstItem="d2L-UW-tpa" firstAttribute="leading" secondItem="vD0-gr-dmY" secondAttribute="leading" id="6PB-tt-Z47"/>
                                             <constraint firstItem="G1j-wF-JnI" firstAttribute="leading" secondItem="vD0-gr-dmY" secondAttribute="leading" id="6Xn-EJ-d0c"/>
@@ -2018,7 +2022,7 @@
                         </stackView>
                     </subviews>
                     <viewLayoutGuide key="safeArea" id="KWl-Ll-QdL"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" name="themeWhite"/>
                     <constraints>
                         <constraint firstItem="e6f-Vw-7ms" firstAttribute="trailing" secondItem="Ll8-6g-SeI" secondAttribute="trailing" id="0vC-se-86J"/>
                         <constraint firstAttribute="trailing" secondItem="Ll8-6g-SeI" secondAttribute="trailing" constant="16" id="Rl1-8w-I6A"/>
@@ -2034,6 +2038,12 @@
     </scenes>
     <resources>
         <image name="accountRightArrow" width="8" height="14"/>
+        <namedColor name="clearBlack26">
+            <color red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="themeBlack26">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
         <namedColor name="themeWhite">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
