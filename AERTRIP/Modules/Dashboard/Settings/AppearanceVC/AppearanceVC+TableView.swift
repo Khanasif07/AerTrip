@@ -21,6 +21,7 @@ extension AppearanceVC: UITableViewDelegate, UITableViewDataSource {
         cell.sepratorView.isHidden = false
         cell.configureForAppearance(type: viewModel.tableCells[indexPath.row])
         cell.backgroundColor = AppColors.themeBlack26
+        cell.tickImgViewTrailing.constant = 12
         return cell
     }
     

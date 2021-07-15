@@ -20,7 +20,7 @@ enum AppColors {
 
     static let commonThemeGreen = UIColor(displayP3Red: 0/255, green: 204/255, blue: 153/255, alpha: 1)
     
-
+    /// (153,153,153)
     static let commonThemeGray = UIColor(named: "commonThemeGray") ?? UIColor(displayP3Red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
 
     static let blackAndThemeGray = UIColor(named: "blackAndThemeGray") ?? UIColor(displayP3Red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
