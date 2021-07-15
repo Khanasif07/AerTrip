@@ -452,6 +452,7 @@ extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetails
     
     func reloadRowFromFlightDetails(fk: String, isPinned: Bool, isPinnedButtonClicked: Bool) {
         
+        var isAnyFlightPinned = false
 
         for index in 0 ..< self.viewModel.numberOfLegs {
                         
@@ -473,10 +474,29 @@ extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetails
                     
                     
                    }
-                   
+            
+            let journeyArray = self.viewModel.results[index].journeyArray
+                    
+                    for j in 0 ..<  journeyArray.count {
+                        let journey = journeyArray[j]
+
+                        let fkArr = fk.components(separatedBy: ",")
+
+                        if fkArr.contains(journey.fk){
+                            journeyArray[j].isPinned = isPinned
+                            self.viewModel.results[index].pinnedFlights.append(journey)
+                        }
+                        
+                        if let isJPinned = journey.isPinned{
+                            if isJPinned {
+                                isAnyFlightPinned = true
+                            }
+                        }
+                    }
                }
         
-        
+        showPinnedFlightsOption(isAnyFlightPinned)
+
         
         for index in 0 ..< self.viewModel.numberOfLegs {
             

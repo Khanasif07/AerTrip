@@ -297,8 +297,26 @@ extension FlightDomesticMultiLegResultVC: ATSwitcherChangeValueDelegate {
        
         let containsPinnedFlight = self.viewModel.results.reduce(false) { $0 || $1.containsPinnedFlight }
         
-        self.showPinnedFlightsOption(containsPinnedFlight)
+//        self.showPinnedFlightsOption(containsPinnedFlight)
         self.checkForOverlappingFlights()
+        
+        var isPinned = false
+        for index in 0 ..< self.viewModel.numberOfLegs {
+            let journeyArray = self.viewModel.results[index].journeyArray
+                    
+                    for j in 0 ..<  journeyArray.count {
+                        let journey = journeyArray[j]
+                        
+                        if let isJPinned = journey.isPinned{
+                            if isJPinned {
+                                isPinned = true
+                            }
+                        }
+                    }
+        }
+        
+        
+        self.showPinnedFlightsOption(isPinned)
 
     }
     

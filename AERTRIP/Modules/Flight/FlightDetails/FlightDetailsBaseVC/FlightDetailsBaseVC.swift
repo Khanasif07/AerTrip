@@ -353,8 +353,9 @@ class FlightDetailsBaseVC: BaseVC {
                     }
                 }
             }
+            let FKStr = (fk.map{String($0)}).joined(separator: ",")
             
-            self.delegate?.reloadRowFromFlightDetails(fk: journey.first?.fk ?? "", isPinned: isPinned, isPinnedButtonClicked: true)
+            self.delegate?.reloadRowFromFlightDetails(fk: FKStr, isPinned: isPinned, isPinnedButtonClicked: true)
         }else{
             if let journey = self.intJourney?.first{
                 if journey.isPinned{
