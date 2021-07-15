@@ -64,6 +64,26 @@ extension FlightDomesticMultiLegResultVC : MFMailComposeViewControllerDelegate {
         
         self.viewModel.setPinnedFlights(tableIndex: tableIndex)
 
+        var isAnyFlightPinned = false
+        for index in 0 ..< self.viewModel.numberOfLegs {
+            let legArray = self.viewModel.results[index]
+             let journeyArray = legArray.journeyArray
+                
+                for j in 0 ..<  journeyArray.count {
+                    let journey = journeyArray[j]
+
+                    if let isJPinned = journey.isPinned{
+                        if isJPinned {
+                            isAnyFlightPinned = true
+                        }
+                    }
+                }
+        
+        }
+                
+        if !isAnyFlightPinned{
+            showPinnedFlightsOption(false)
+        }
         
         //Updating pinned flight indicator in tableview Cell after pin / unpin action
         guard let tableview = self.baseScrollView.viewWithTag(1000 + tableIndex) as? UITableView  else { return }
