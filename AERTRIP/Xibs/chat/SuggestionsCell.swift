@@ -20,7 +20,7 @@ class SuggestionsCell : UICollectionViewCell {
         // Initialization code
         self.backgroundColor = UIColor.clear
         self.contentView.roundedCorners(cornerRadius: 10)
-        self.contentView.backgroundColor = UIColor.black.withAlphaComponent(0.05)
+        self.contentView.backgroundColor = AppColors.aerinRecentSearchColor
         self.suggestionLabel.font = AppFonts.SemiBold.withSize(18)
         self.dateLabel.font = AppFonts.Regular.withSize(14)
         self.dateLabel.textColor = AppColors.themeGray60

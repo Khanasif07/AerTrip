@@ -103,6 +103,7 @@ extension PeriodicStatementListVC: UITableViewDataSource, UITableViewDelegate {
         }
         
         headerView.headerLabel.text = dateStr.uppercased()
+        headerView.headerLabel.textColor = AppColors.themeGray153
         headerView.backgroundColor = AppColors.themeGray04
         headerView.containerView.backgroundColor = AppColors.themeGray04
         return headerView
@@ -133,7 +134,7 @@ extension PeriodicStatementListVC: UITableViewDataSource, UITableViewDelegate {
             cell.dividerView.isHidden = (indexPath.row >= (allCount - 1))
             cell.dividerViewLeadingConstraint.constant = 16.0
         }
-        
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     

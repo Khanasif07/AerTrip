@@ -76,6 +76,7 @@ class AerinCustomPopoverVC: BaseVC {
     @IBOutlet weak var popoverViewTop: NSLayoutConstraint!
     
     @IBOutlet weak var topNavView: TopNavigationView!
+    @IBOutlet weak var topNavBlurView: UIVisualEffectView!
     @IBOutlet weak var dismissBtn: UIButton!
     @IBOutlet weak var dragView: UIView!
     @IBOutlet weak var topAerinImgView: UIImageView!
@@ -287,7 +288,7 @@ class AerinCustomPopoverVC: BaseVC {
             alignmentViewHeight.constant = aerinCommunicationOptionsView.height
         } else {
             alignmentViewHeight.constant = 0
-            chatTableView.contentInset = UIEdgeInsets(top: topNavView.height, left: 0, bottom: waveContainerHeightConstant/1.5, right: 0)
+            chatTableView.contentInset = UIEdgeInsets(top: topNavView.height + 5, left: 0, bottom: waveContainerHeightConstant/1.5, right: 0)
         }
         toggleWaveAnimationsView(false)
         toggleCommControlsView(true)
@@ -303,13 +304,13 @@ class AerinCustomPopoverVC: BaseVC {
         toggleCommControlsView(false)
         scrollTableViewToLast()
         UIView.animate(withDuration: 0.3, delay: 0.4, options: .curveEaseInOut, animations: {
-            self.chatTableView.contentInset = UIEdgeInsets(top: self.topNavView.height, left: 0, bottom: 20, right: 0)
+            self.chatTableView.contentInset = UIEdgeInsets(top: self.topNavView.height + 5, left: 0, bottom: 20, right: 0)
         }, completion: nil)
     }
     
     private func setupForTextViewOpen() {
         UIView.animate(withDuration: 0.3, delay: 0.4, options: .curveEaseInOut, animations: {
-            self.chatTableView.contentInset = UIEdgeInsets(top: self.topNavView.height, left: 0, bottom: 0, right: 0)
+            self.chatTableView.contentInset = UIEdgeInsets(top: self.topNavView.height + 5, left: 0, bottom: 0, right: 0)
         }, completion: nil)
         toggleWaveAnimationsView(true)
         toggleSuggestions(false, animated: true)
@@ -401,6 +402,7 @@ class AerinCustomPopoverVC: BaseVC {
             self.morningLbl.isHidden = true
             self.whereToGoLbl.isHidden = true
             self.aerinImgView.isHidden = true
+            self.topNavBlurView.isHidden = false
             self.chatTableView.isHidden = false
         }
     }
@@ -511,6 +513,7 @@ class AerinCustomPopoverVC: BaseVC {
         animationBubbleImageView.image = AppImages.Green_Chat_bubble.resizableImage(withCapInsets: UIEdgeInsets(top: 17, left: 21, bottom: 17, right: 21), resizingMode: .stretch).withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
         view.addSubview(animationView)
         hideAnimationView()
+        topNavBlurView.isHidden = true
         chatTableView.isHidden = true
         chatTableView.keyboardDismissMode = .onDrag
         messageTextView.tintColor = AppColors.themeGreen
@@ -519,7 +522,7 @@ class AerinCustomPopoverVC: BaseVC {
     
     func resetListeningLbl() {
         listeningLblBackView.isHidden = false
-        listeningLbl.textColor = AppColors.themeBlack
+        listeningLbl.textColor = AppColors.themeBlack//.withAlphaComponent(0.5)
         listeningLbl.text = LocalizedString.Listening.localized + "..."
         listeningLbl.font = AppFonts.Regular.withSize(18)
         listeningLblBackView.backgroundColor = .clear
@@ -563,7 +566,7 @@ class AerinCustomPopoverVC: BaseVC {
     
     //MARK:- Configure tableview
     private func configureTableView(){
-        chatTableView.backgroundColor = AppColors.themeWhiteDashboard
+        chatTableView.backgroundColor = AppColors.themeBlack26
         chatTableView.dataSource = self
         chatTableView.delegate = self
         chatTableView.register(UINib(nibName: "SenderChatCell", bundle: nil), forCellReuseIdentifier: "SenderChatCell")
@@ -572,7 +575,7 @@ class AerinCustomPopoverVC: BaseVC {
         chatTableView.register(UINib(nibName: "SeeResultsAgainCell", bundle: nil), forCellReuseIdentifier: "SeeResultsAgainCell")
         chatTableView.estimatedRowHeight = 100
         chatTableView.rowHeight = UITableView.automaticDimension
-        chatTableView.contentInset = UIEdgeInsets(top: topNavView.height, left: 0, bottom: 0, right: 0)
+        chatTableView.contentInset = UIEdgeInsets(top: topNavView.height + 5, left: 0, bottom: 0, right: 0)
     }
     
     func configureCollectionView(){
@@ -587,7 +590,7 @@ class AerinCustomPopoverVC: BaseVC {
     private func setMorningLabelText(){
         if let info = UserInfo.loggedInUser, !info.firstName.isEmpty {
             let morningStr = "Good \(Date().morningOrEvening), \(info.firstName)"
-            morningLbl.attributedText = morningStr.attributeStringWithColors(subString: info.firstName, strClr: UIColor.black, substrClr: AppColors.themeGreen, strFont: AppFonts.Regular.withSize(28), subStrFont: AppFonts.SemiBold.withSize(28))
+            morningLbl.attributedText = morningStr.attributeStringWithColors(subString: info.firstName, strClr: AppColors.themeBlack, substrClr: AppColors.themeGreen, strFont: AppFonts.Regular.withSize(28), subStrFont: AppFonts.SemiBold.withSize(28))
         }else{
             morningLbl.text = "Good \(Date().morningOrEvening)"
         }
@@ -613,7 +616,7 @@ class AerinCustomPopoverVC: BaseVC {
     }
     
     private func setupPopoverView() {
-        popoverView.backgroundColor = AppColors.themeWhiteDashboard
+        popoverView.backgroundColor = AppColors.themeBlack26
         popoverView.roundParticularCorners(10, [.layerMinXMinYCorner, .layerMaxXMinYCorner])
         popoverViewHeight.constant = view.bounds.height
         midPoint = view.bounds.height * 0.4

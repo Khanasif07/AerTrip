@@ -19,7 +19,7 @@ class ThingsCanBeAskedCell: UITableViewCell {
         // Initialization code
         self.selectionStyle = .none
         thingsCanAskedLabel.font = AppFonts.Regular.withSize(16)
-        thingsCanAskedLabel.textColor = AppColors.themeTextColor
+        thingsCanAskedLabel.textColor = AppColors.blackGray
         thingsCanAskedLabel.numberOfLines = 0
     }
 

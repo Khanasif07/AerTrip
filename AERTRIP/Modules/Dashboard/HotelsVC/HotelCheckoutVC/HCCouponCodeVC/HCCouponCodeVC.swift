@@ -147,10 +147,10 @@ class HCCouponCodeVC: BaseVC {
     
     override func setupColors() {
         self.couponLabel.textColor = AppColors.themeBlack
-        self.applyButton.setTitleColor(AppColors.themeGray20, for: .normal)
+        self.applyButton.setTitleColor(AppColors.checkoutApplyColor, for: .normal)
         self.cancelButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.couponTextField.isHiddenBottomLine = true
-        self.couponTextField.setupTextField(placehoder: LocalizedString.EnterCouponCode.localized, keyboardType: .emailAddress, returnType: .done, isSecureText: false)
+        self.couponTextField.setupTextField(placehoder: LocalizedString.EnterCouponCode.localized, keyboardType: .emailAddress, returnType: .done, isSecureText: false, placeholderColor: AppColors.checkoutApplyColor)
 
         self.noCouponsReqLabel.textColor = AppColors.themeBlack
         self.bestPriceLabel.textColor = AppColors.themeGray60
@@ -355,7 +355,7 @@ extension HCCouponCodeVC {
         if self.viewModel.isCouponApplied{
             self.applyButton.setTitleColor(AppColors.themeGreen, for: .normal)
         }else{
-            self.applyButton.setTitleColor(AppColors.themeGray20, for: .normal)
+            self.applyButton.setTitleColor(AppColors.checkoutApplyColor, for: .normal)
         }
         
         self.viewModel.couponCode = ""
@@ -377,7 +377,7 @@ extension HCCouponCodeVC {
             if self.viewModel.isCouponApplied{
                 self.applyButton.setTitleColor(AppColors.themeGreen, for: .normal)
             }else{
-                self.applyButton.setTitleColor(AppColors.themeGray20, for: .normal)
+                self.applyButton.setTitleColor(AppColors.checkoutApplyColor, for: .normal)
             }
             
         } else {
@@ -412,7 +412,7 @@ extension HCCouponCodeVC: PassSelectedCoupon {
         let model = self.viewModel.searcedCouponsData[indexPath.item]
         if !self.viewModel.couponCode.isEmpty, self.viewModel.couponCode.lowercased() == model.couponCode.lowercased() {
             if !self.viewModel.isCouponApplied{
-                self.applyButton.setTitleColor(AppColors.themeGray20, for: .normal)
+                self.applyButton.setTitleColor(AppColors.checkoutApplyColor, for: .normal)
             }else{
                 self.applyButton.setTitleColor(AppColors.themeGreen, for: .normal)
             }

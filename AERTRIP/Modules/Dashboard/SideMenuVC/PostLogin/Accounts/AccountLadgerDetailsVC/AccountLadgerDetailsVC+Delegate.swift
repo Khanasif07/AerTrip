@@ -38,7 +38,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
         guard indexPath.section > 0 else {
             //first section's first cell
             let cell = UITableViewCell()
-            cell.backgroundColor = AppColors.themeWhite
+            cell.backgroundColor = AppColors.themeBlack26
             return cell
         }
         
@@ -70,7 +70,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
                     downloadInvoiceCell.titleLabel.text = LocalizedString.DownloadVoucher.localized
                 }
                 downloadInvoiceCell.showLoader = self.viewModel.isDownloadingRecipt
-                downloadInvoiceCell.contentView.backgroundColor = AppColors.themeWhite
+                downloadInvoiceCell.contentView.backgroundColor = AppColors.themeBlack26
                 return downloadInvoiceCell
             default: return UITableViewCell()
             }

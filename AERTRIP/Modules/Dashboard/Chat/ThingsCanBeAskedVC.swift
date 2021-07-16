@@ -66,6 +66,7 @@ extension ThingsCanBeAskedVC {
     }
     
     private func configureTableView(){
+        thingsCanBeAskedTableView.backgroundColor = AppColors.themeBlack26
         self.thingsCanBeAskedTableView.register(UINib(nibName: "ThingsCanBeAskedCell", bundle: nil), forCellReuseIdentifier: "ThingsCanBeAskedCell")
         
         self.thingsCanBeAskedTableView.register(UINib(nibName: "ThingsToAskHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "ThingsToAskHeader")

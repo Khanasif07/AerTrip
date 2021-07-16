@@ -74,7 +74,7 @@ extension FlightPaymentBookingStatusVC{
         let count = self.viewModel.itinerary.travellerDetails.t.count
         let traveller = self.viewModel.itinerary.travellerDetails.t[indexPath.row - 3]
         let pnr = self.viewModel.getPnrWith(indexPath)
-        cell.configCell(travellersImage: traveller.profileImg, travellerName: "\(traveller.firstName) \(traveller.lastName)", travellerPnrStatus: pnr, firstName: (traveller.firstName), lastName: (traveller.lastName), isLastTraveller: (indexPath.row == (count + 2)),paxType: traveller.paxType, dob: traveller.dob, salutation: traveller.salutation)
+        cell.configCell(travellersImage: traveller.profileImg, travellerName: "\(traveller.firstName) \(traveller.lastName)", travellerPnrStatus: pnr, firstName: (traveller.firstName), lastName: (traveller.lastName), isLastTraveller: (indexPath.row == (count + 2)),paxType: traveller.paxType, dob: traveller.dob, salutation: traveller.salutation, ageColor: AppColors.themeGray153)
         cell.containerViewBottomConstraint.constant = (indexPath.row == (count + 2)) ? 13.0 : 0.0
 //        cell.clipsToBounds = true
         return cell
@@ -93,7 +93,7 @@ extension FlightPaymentBookingStatusVC{
         guard let cell = self.statusTableView.dequeueReusableCell(withIdentifier: HCConfirmationVoucherTableViewCell.reusableIdentifier, for: indexPath) as? HCConfirmationVoucherTableViewCell else { return UITableViewCell() }
         cell.titleLabelTopConstraint.constant = 16.0
         cell.titleLabelBottomContraint.constant = 8.0
-        cell.confirmationVoucherLabel.text = "View E-tickets"
+        cell.confirmationVoucherLabel.text = "E-tickets"//"View E-tickets"
         cell.viewButton.isHidden = true
         return cell
     }

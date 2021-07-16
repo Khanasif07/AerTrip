@@ -218,16 +218,19 @@ class AccountDetailsVC: BaseVC {
     
     override func setupColors() {
         self.balanceTextLabel.textColor = AppColors.themeGray40
-        self.view.backgroundColor = AppColors.themeWhite
+        self.view.backgroundColor = AppColors.themeBlack26
         self.tableView.backgroundColor = AppColors.themeWhite
         self.searchTableView.backgroundColor = AppColors.themeWhite
-        self.searchContainerView.backgroundColor = AppColors.themeWhite
-        self.searchBarContainerView.backgroundColor = AppColors.themeWhite
+        self.searchContainerView.backgroundColor = AppColors.themeBlack26
+        self.searchBarContainerView.backgroundColor = AppColors.themeBlack26
         self.blankSpaceView.backgroundColor = AppColors.themeGray04
-        self.subHeaderContainer.backgroundColor = AppColors.themeWhite
+        self.subHeaderContainer.backgroundColor = AppColors.themeBlack26
         self.openingBalanceTitleLabel.textColor = AppColors.themeBlack
         self.openingBalanceAmountLabel.textColor = AppColors.themeBlack
         self.openingBalanceDateLabel.textColor = AppColors.themeGray40
+        [searchBar, mainSearchBar, ladgerDummySearchBar].forEach{ searchBar in
+            searchBar?.textFieldColor = AppColors.miniPlaneBack
+        }
         
     }
     

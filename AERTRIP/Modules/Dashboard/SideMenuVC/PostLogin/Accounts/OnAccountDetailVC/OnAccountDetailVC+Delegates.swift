@@ -67,7 +67,7 @@ extension OnAccountDetailVC: UITableViewDataSource, UITableViewDelegate {
             cell.dividerView.isHidden = (indexPath.row >= (allCount - 1))
             cell.dividerViewLeadingConstraint.constant = 16.0
         }
-        
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     

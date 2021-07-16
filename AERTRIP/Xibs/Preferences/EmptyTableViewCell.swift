@@ -15,7 +15,7 @@ class EmptyTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.backgroundColor = AppColors.greyO4
+        self.backgroundColor = AppColors.themeGray04
     }
     
 }

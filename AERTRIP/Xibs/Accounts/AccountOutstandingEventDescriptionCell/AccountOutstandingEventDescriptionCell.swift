@@ -79,8 +79,8 @@ class AccountOutstandingEventDescriptionCell: UITableViewCell {
         self.amountValueLabel.font = AppFonts.Regular.withSize(18.0)
         self.pendingValueLabel.font = AppFonts.Regular.withSize(18.0)
         
-        self.amountTitleLabel.textColor = AppColors.themeGray40
-        self.pendingTitleLabel.textColor = AppColors.themeGray40
+        self.amountTitleLabel.textColor = AppColors.themeGray153
+        self.pendingTitleLabel.textColor = AppColors.themeGray153
         
         self.amountValueLabel.textColor = AppColors.themeBlack
         self.pendingValueLabel.textColor = AppColors.themeBlack
@@ -96,8 +96,8 @@ class AccountOutstandingEventDescriptionCell: UITableViewCell {
         
         self.amountInOtherCurrency.font = AppFonts.Regular.withSize(18.0)
         self.pendingAmountInOtherCurrency.font = AppFonts.Regular.withSize(18.0)
-        self.amountInOtherCurrency.textColor = AppColors.themeGray40
-        self.pendingAmountInOtherCurrency.textColor = AppColors.themeGray40
+        self.amountInOtherCurrency.textColor = AppColors.themeGray153
+        self.pendingAmountInOtherCurrency.textColor = AppColors.themeGray153
         self.amountInOtherCurrency.text = ""
         self.pendingAmountInOtherCurrency.text = ""
     }
@@ -173,7 +173,7 @@ class AccountOutstandingEventDescriptionCell: UITableViewCell {
         
         let dateAttributedString = NSMutableAttributedString(string: finalText, attributes: [
             .font: AppFonts.Regular.withSize(14.0),
-            .foregroundColor: AppColors.themeGray40
+            .foregroundColor: AppColors.themeGray153
             ])
         
         //date beautify

@@ -25,7 +25,7 @@ class SettingsCell: UITableViewCell {
         settingsLabel.font = AppFonts.Regular.withSize(18)
 //        settingsLabel.textColor = UIColor.black
         backgroundColor = AppColors.themeBlack26
-        settingsValueLavel.textColor = AppColors.themeGray153
+        settingsValueLavel.textColor = AppColors.themeGray40
 //        self.sepratorView.backgroundColor = AppColors.themeGray20
 //
         self.switch.onTintColor = AppColors.commonThemeGreen

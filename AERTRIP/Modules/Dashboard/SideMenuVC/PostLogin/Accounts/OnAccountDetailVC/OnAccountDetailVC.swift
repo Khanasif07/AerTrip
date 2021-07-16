@@ -71,7 +71,7 @@ class OnAccountDetailVC: BaseVC {
     }
     
     override func setupColors() {
-        self.view.backgroundColor = AppColors.themeWhite
+        self.view.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     //MARK:- Methods

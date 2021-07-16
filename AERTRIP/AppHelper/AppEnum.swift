@@ -1131,6 +1131,8 @@ enum ATWeatherType: RawRepresentable {
     static var TripPurpleIcon:UIImage { #imageLiteral(resourceName: "TripPurpleIcon") }
     static var FlightCarriers: UIImage {#imageLiteral(resourceName: "FlightCarriers")}
     
+    static var specialReqCheck: UIImage? { UIImage(named: "specialRequestCheck") }
+    static var specialReqUncheck: UIImage? { UIImage(named: "specialRequestUncheck") }
     
     //    static var down: UIImage { #imageLiteral(resourceName: "ArrowRed") }//icon
     

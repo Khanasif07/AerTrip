@@ -160,9 +160,9 @@ extension HCSpecialRequestsVC {
         if self.viewModel.selectedRequests.contains(where: { (req) -> Bool in
             req.id == self.viewModel.specialRequests[indexPath.row].id
         }) {
-            cell.statusButton.setImage(AppImages.CheckedGreenRadioButton, for: .normal)
+            cell.statusButton.setImage(AppImages.specialReqCheck, for: .normal)
         } else {
-            cell.statusButton.setImage(AppImages.UncheckedGreenRadioButton, for: .normal)
+            cell.statusButton.setImage(AppImages.specialReqUncheck, for: .normal)
         }
         cell.configCell(title: self.viewModel.specialRequests[indexPath.row].name)
         cell.contentView.backgroundColor = AppColors.themeBlack26
@@ -174,14 +174,14 @@ extension HCSpecialRequestsVC {
         cell.delegate = self
         if indexPath.row == self.viewModel.specialRequests.count {
             //cell.topDividerViewTopConstraints.constant = 0.0//17.0
-            cell.configCell(placeHolderText: textFieldPlaceHolder[0])
+            cell.configCell(placeHolderText: textFieldPlaceHolder[0], placeholderColor: AppColors.hotelSpecialReqColor)
             cell.topDividerView.isHidden = false
             cell.infoTextField.text =  self.viewModel.other
             cell.topDividerTopConstraint.constant = 17.5
         } else {
            // cell.topDividerViewTopConstraints.constant = 0.0
             cell.topDividerView.isHidden = true
-            cell.configCell(placeHolderText: textFieldPlaceHolder[1])
+            cell.configCell(placeHolderText: textFieldPlaceHolder[1], placeholderColor: AppColors.hotelSpecialReqColor)
             cell.infoTextField.text =  self.viewModel.specialRequest
             cell.topDividerTopConstraint.constant = 0
         }

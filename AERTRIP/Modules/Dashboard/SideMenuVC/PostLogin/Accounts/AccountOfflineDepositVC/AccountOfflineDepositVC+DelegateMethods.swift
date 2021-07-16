@@ -256,6 +256,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
         depositCell.currencyLabel.text = self.viewModel.currency
         depositCell.topDividerView.isHidden = false
         depositCell.bottomDivider.isHidden = false
+        depositCell.contentView.backgroundColor = AppColors.themeBlack26
         return depositCell
     }
     
@@ -363,7 +364,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
         cell.editableTextField.delegate = self
         cell.editableTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
         cell.showError(isError: (value.isEmpty && self.viewModel.isPayButtonTapped))
-        cell.contentView.backgroundColor = AppColors.themeWhite
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -386,7 +387,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
         cell.editableTextField.delegate = self
         cell.editableTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
         cell.showErrorForAccountDeposit(isError: (value.isEmpty && self.viewModel.isPayButtonTapped))
-        cell.contentView.backgroundColor = AppColors.themeWhite
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -405,7 +406,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
         cell.sepratorView.isHidden = !isDivider
         cell.addNoteTextView.delegate = self
         //cell.addNoteTextView.textContainerInset = .zero
-        cell.contentView.backgroundColor = AppColors.themeWhite
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
