@@ -281,7 +281,7 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
         lastNameLabel.textColor = AppColors.themeBlack
         
         ageLabel.font = AppFonts.Regular.withSize(14.0)
-        ageLabel.textColor = AppColors.themeGray153
+        ageLabel.textColor = AppColors.themeGray40
         
         resetView()
     }
