@@ -137,7 +137,7 @@ class AccountOutstandingLadgerVC: BaseVC {
         self.manageLoader(shouldStart: false)
         
         //for header blur
-        self.searchDataContainerView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        self.searchDataContainerView.backgroundColor = AppColors.unicolorBlack.withAlphaComponent(0.85)
         //self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
         topNavView.backgroundColor = AppColors.clear
         
@@ -395,7 +395,7 @@ class AccountOutstandingLadgerVC: BaseVC {
     
     private func manageLoader(shouldStart: Bool) {
         self.indicatorView.style = .medium//.white
-        self.indicatorView.color = AppColors.themeWhite
+        self.indicatorView.color = AppColors.unicolorWhite
         self.indicatorView.startAnimating()
         self.makePaymentTitleLabel.text = shouldStart ? "" : "Make Payment"
         self.loaderContainer.isHidden = !shouldStart

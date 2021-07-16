@@ -112,7 +112,7 @@ class AccountOfflineDepositVC: BaseVC {
 
     func manageLoader(shouldStart: Bool) {
         self.indicatorView.style = .medium//.white
-        self.indicatorView.color = AppColors.themeWhite
+        self.indicatorView.color = AppColors.unicolorWhite
         self.indicatorView.startAnimating()
         self.payButton.isHidden = shouldStart
         self.loaderContainer.isHidden = !shouldStart

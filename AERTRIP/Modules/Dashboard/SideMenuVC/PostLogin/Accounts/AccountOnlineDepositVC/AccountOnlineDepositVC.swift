@@ -76,7 +76,7 @@ class AccountOnlineDepositVC: BaseVC {
     }
     
     override func setupColors() {
-        self.payButton.setTitleColor(AppColors.themeWhite, for: .normal)
+        self.payButton.setTitleColor(AppColors.unicolorWhite, for: .normal)
         self.view.backgroundColor = AppColors.themeWhite
     }
     
@@ -145,7 +145,7 @@ class AccountOnlineDepositVC: BaseVC {
     
     func manageLoader(shouldStart: Bool) {
         self.indicatorView.style = .medium//.white
-        self.indicatorView.color = AppColors.themeWhite
+        self.indicatorView.color = AppColors.unicolorWhite
         self.indicatorView.startAnimating()
         self.payButton.isHidden = shouldStart
         self.loaderContainer.isHidden = !shouldStart

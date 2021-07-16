@@ -42,12 +42,13 @@ class AccountChargeInfoVC: BaseVC {
         
         //for header blur
         topNavView.backgroundColor = .clear
-        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        self.view.backgroundColor = AppColors.themeBlack26.withAlphaComponent(0.85)
         if #available(iOS 13.0, *) {
             topNavBarHeightConstraint.constant = 56
         } else {
-            self.view.backgroundColor = .white
+            self.view.backgroundColor = AppColors.themeBlack26
         }
+        self.tableView.backgroundColor = AppColors.themeBlack26
     }
     
     override func viewDidLayoutSubviews() {
