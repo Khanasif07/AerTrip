@@ -55,6 +55,7 @@ class RegularAccountHeader: UIView {
     private func setText(){
         self.balanceTitleLabel.text = LocalizedString.Balance.localized
         self.accountLaderTitleLabel.text = LocalizedString.AccountLegder.localized
+        self.searchBar.placeholder = LocalizedString.search.localized
     }
     
     private func setFonts(){
@@ -65,8 +66,12 @@ class RegularAccountHeader: UIView {
     private func setColors(){
         self.balanceTitleLabel.textColor = AppColors.themeGray40
         self.accountLaderTitleLabel.textColor = AppColors.themeBlack
-        self.emptyView.backgroundColor = AppColors.greyO4
+        self.emptyView.backgroundColor = AppColors.themeGray04
+        [self.accountTitleFilterView, amountView, searchbarView].forEach{ view in
+            view?.backgroundColor = AppColors.themeBlack26
+        }
         
+        self.searchBar.textFieldColor = AppColors.miniPlaneBack
     }
     
     private func setImagesToButton(){

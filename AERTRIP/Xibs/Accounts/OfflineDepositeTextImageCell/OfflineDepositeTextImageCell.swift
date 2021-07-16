@@ -42,7 +42,7 @@ class OfflineDepositeTextImageCell: UITableViewCell {
     
     private func setFontAndColor() {
         
-        self.backgroundColor = AppColors.themeWhite
+        self.backgroundColor = AppColors.themeBlack26
         
         self.valueLabel.text = ""
         self.valueLabel.isHidden = true

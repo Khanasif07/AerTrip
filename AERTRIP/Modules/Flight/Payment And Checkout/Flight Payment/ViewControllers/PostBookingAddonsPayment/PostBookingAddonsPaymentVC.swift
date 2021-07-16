@@ -141,7 +141,7 @@ class PostBookingAddonsPaymentVC: BaseVC{
             self.payButton.bringSubviewToFront(self.payButton.imageView!)
         }
         self.payButton.spaceInTextAndImageOfButton(spacing: 2)
-        self.payButton.setTitleColor(AppColors.themeWhite, for: .normal)
+        self.payButton.setTitleColor(AppColors.unicolorWhite, for: .normal)
         self.setupPayButtonTitle()
         
     }
@@ -149,8 +149,8 @@ class PostBookingAddonsPaymentVC: BaseVC{
     func setupPayButtonTitle(){
         let ttl = self.getTotalPayableAmount().getPriceStringWithCurrency
         let amount = self.getTotalPayableAmount().getConvertedAmount(using: AppFonts.SemiBold.withSize(20.0))
-        amount.addAttributes([.foregroundColor : AppColors.themeWhite], range: NSString(string: ttl).range(of: ttl))
-        let attributedTitle = NSMutableAttributedString(string: "  \(LocalizedString.Pay.localized) ", attributes: [.font: AppFonts.SemiBold.withSize(20), .foregroundColor: AppColors.themeWhite])
+        amount.addAttributes([.foregroundColor : AppColors.unicolorWhite], range: NSString(string: ttl).range(of: ttl))
+        let attributedTitle = NSMutableAttributedString(string: "  \(LocalizedString.Pay.localized) ", attributes: [.font: AppFonts.SemiBold.withSize(20), .foregroundColor: AppColors.unicolorWhite])
         attributedTitle.append(amount)
         self.payButton.setAttributedTitle(attributedTitle, for: .normal)
         self.payButton.setAttributedTitle(attributedTitle, for: .highlighted)
@@ -158,7 +158,7 @@ class PostBookingAddonsPaymentVC: BaseVC{
     
     private func manageLoader() {
         self.activityLoader.style = .medium//.white
-        self.activityLoader.color = AppColors.themeWhite
+        self.activityLoader.color = AppColors.unicolorWhite
         self.activityLoader.startAnimating()
         self.loaderView.addGredient(isVertical: false)
         self.loaderView.isHidden = true

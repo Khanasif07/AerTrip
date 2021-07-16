@@ -34,6 +34,7 @@ extension AccountOnlineDepositVC: UITableViewDataSource, UITableViewDelegate {
             }
             //            depositCell.topDividerView.isHidden = false
             depositCell.currencyLabel.text = currency
+            depositCell.contentView.backgroundColor = AppColors.themeBlack26
             return depositCell
             
         case 1:

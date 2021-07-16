@@ -92,9 +92,9 @@ class NewAccountLedgerEventCell: UITableViewCell {
         
         self.voucherTitleLabel.textColor = AppColors.themeBlack
         self.balanceTitleLabel.textColor = AppColors.themeBlack
-        self.voucherValueLabel.textColor = AppColors.themeGray40
-        self.balanceValueLabel.textColor = AppColors.themeGray40
-        self.changeCurrencyValueLabel.textColor = AppColors.themeGray40
+        self.voucherValueLabel.textColor = AppColors.themeGray153
+        self.balanceValueLabel.textColor = AppColors.themeGray153
+        self.changeCurrencyValueLabel.textColor = AppColors.themeGray153
         self.changeCurrencyTitleLabel.textColor = AppColors.themeBlack
 
         self.voucherTitleLabel.text = LocalizedString.Voucher.localized
@@ -145,10 +145,10 @@ class NewAccountLedgerEventCell: UITableViewCell {
         let closingBalanceSuff = (self.event?.balance ?? 0.0) > 0 ? LocalizedString.CreditShort.localized : LocalizedString.DebitShort.localized
 
     
-        let mutableText = NSMutableAttributedString(string: "Closing Balance: ", attributes: [.font: AppFonts.Regular.withSize(12), .foregroundColor: AppColors.themeGray40])
+        let mutableText = NSMutableAttributedString(string: "Closing Balance: ", attributes: [.font: AppFonts.Regular.withSize(12), .foregroundColor: AppColors.themeGray153])
         mutableText.append((self.event?.balance ?? 0.0).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(12.0)))
         
-        let closingBalanceSuffAttributedString = NSAttributedString(string: " \(closingBalanceSuff)", attributes: [.font: AppFonts.Regular.withSize(12), .foregroundColor: AppColors.themeGray40])
+        let closingBalanceSuffAttributedString = NSAttributedString(string: " \(closingBalanceSuff)", attributes: [.font: AppFonts.Regular.withSize(12), .foregroundColor: AppColors.themeGray153])
         mutableText.append(closingBalanceSuffAttributedString)
         
         self.balanceValueLabel.attributedText = mutableText//(self.event?.balance ?? 0.0).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(12.0))

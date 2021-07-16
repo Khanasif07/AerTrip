@@ -89,6 +89,7 @@ class RegularAccountDetailsVC: BaseVC {
         self.setupNavigation()
         
         FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .Accounts, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
+        self.mainSearchBar.placeholder = LocalizedString.search.localized
 
     }
     
@@ -115,7 +116,8 @@ class RegularAccountDetailsVC: BaseVC {
     
     
     override func setupColors() {
-        self.view.backgroundColor = AppColors.themeWhite
+        self.view.backgroundColor = AppColors.themeBlack26
+        self.mainSearchBar.textFieldColor = AppColors.miniPlaneBack
     }
     
     @objc func accountDetailFetched(_ note: Notification) {
@@ -282,7 +284,7 @@ class RegularAccountDetailsVC: BaseVC {
                 self.searchTableView.reloadData()
                 if (self.currentViewState == .searching) {
                     self.mainSearchBar.becomeFirstResponder()
-                    self.searchDataContainerView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.4)
+                    self.searchDataContainerView.backgroundColor = AppColors.unicolorBlack.withAlphaComponent(0.4)
                 }
                 else {
                     self.searchDataContainerView.backgroundColor = AppColors.clear
