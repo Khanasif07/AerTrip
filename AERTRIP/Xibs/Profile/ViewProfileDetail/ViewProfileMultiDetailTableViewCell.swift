@@ -36,8 +36,13 @@ class ViewProfileMultiDetailTableViewCell: UITableViewCell {
         // Initialization code
         
         self.selectionStyle = .none
+        self.setColors()
+    }
+    
+    private func setColors(){
         self.contentView.backgroundColor = AppColors.profileContentBackground
         self.frequentFlyerView.backgroundColor = AppColors.profileContentBackground
+        
     }
     
     func cofigureCell(_ issueDate:String,_ expiryDate:String) {
@@ -46,6 +51,8 @@ class ViewProfileMultiDetailTableViewCell: UITableViewCell {
         self.secondSubTitleLabel.textAlignment = .left
         self.firstSubtTitleLabel.text = issueDate
         self.secondSubTitleLabel.text = expiryDate
+        self.firstSubtTitleLabel.textColor = AppColors.themeBlack
+        self.secondSubTitleLabel.textColor = AppColors.themeBlack
         self.contentStackView.spacing = 0.0
     }
     
@@ -55,6 +62,8 @@ class ViewProfileMultiDetailTableViewCell: UITableViewCell {
         self.frequentFlyerImageView.setImageWithUrl(logoUrl, placeholder: AppPlaceholderImage.frequentFlyer, showIndicator: true)
         self.frequentFlyerLabel.text = flightName
         self.secondSubTitleLabel.text = flightNo
+        self.frequentFlyerLabel.textColor = AppColors.themeBlack
+        self.secondSubTitleLabel.textColor = AppColors.themeBlack
 //        self.contentStackView.spacing = -20.0
         firstTitleLabel.isHidden = true
         self.firstTitleBtmConst.constant = 0.0

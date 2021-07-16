@@ -387,6 +387,7 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? ViewProfileDetailTableViewCell else {
             fatalError("ViewProfileDetailTableViewCell not found")
         }
+        cell.headerTitleLabel.textColor = AppColors.themeGray40
         switch sections[indexPath.section] {
         case "Relation or Nickname":
             cell.configureCell("Relation or Nickname", self.travelData?.userTag ?? "")
