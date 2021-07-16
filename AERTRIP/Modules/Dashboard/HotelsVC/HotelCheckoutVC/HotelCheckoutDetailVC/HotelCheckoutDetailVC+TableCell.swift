@@ -211,6 +211,8 @@ extension HotelCheckoutDetailVC {
     internal func getCheckInOutCell(_ tableView: UITableView, indexPath: IndexPath, hotelDetails: HotelDetails) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HCCheckInOutTableViewCell.reusableIdentifier, for: indexPath) as? HCCheckInOutTableViewCell else { return nil }
         cell.configCell(checkInDate: hotelDetails.checkin, checkOutDate: hotelDetails.checkout, totalNights: hotelDetails.no_of_nights)
+        cell.checkInLabel.textColor = AppColors.themeGray40
+        cell.checkOutLabel.textColor = AppColors.themeGray40
         cell.containerView.backgroundColor = AppColors.themeBlack26
         cell.nightsContainerView.backgroundColor = AppColors.themeBlack26
         return cell
