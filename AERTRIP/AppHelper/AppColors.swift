@@ -453,6 +453,9 @@ enum AppColors {
     /// (246,246,246) (10,10,10)
     static let homeScreenColor = UIColor(named: "homeScreenColor") ?? .white
     
+    /// (196,196,196) (71,71,71)
+    static let hotelSpecialReqColor = UIColor(named: "hotelSpecialReqColor") ?? .white
+    
     case headlines
     case body
     case subheads

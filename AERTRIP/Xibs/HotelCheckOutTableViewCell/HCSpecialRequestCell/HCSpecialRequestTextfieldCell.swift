@@ -60,9 +60,9 @@ class HCSpecialRequestTextfieldCell: UITableViewCell {
         
     }
     
-    internal func configCell(placeHolderText: String) {
+    internal func configCell(placeHolderText: String, placeholderColor: UIColor? = nil) {
 //        self.infoTextField.placeholder = placeHolderText
-        self.infoTextField.setupTextField(placehoder: placeHolderText,with: "", keyboardType: .default, returnType: .default, isSecureText: false)
+        self.infoTextField.setupTextField(placehoder: placeHolderText,with: "", keyboardType: .default, returnType: .default, isSecureText: false, placeholderColor: placeholderColor)
         self.infoTextField.isHiddenBottomLine = true
         self.infoTextField.lineHeight = 0.5
         self.infoTextField.selectedLineHeight = 0.5
