@@ -451,61 +451,41 @@ extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetails
     }
     
     func reloadRowFromFlightDetails(fk: String, isPinned: Bool, isPinnedButtonClicked: Bool) {
-        
-        var isAnyFlightPinned = false
-
-        for index in 0 ..< self.viewModel.numberOfLegs {
-                        
-                   let tableResultState = viewModel.resultsTableStates[index]
-                   if tableResultState == .showTemplateResults {  return  }
-                   
-                   if let tableView = baseScrollView.viewWithTag( 1000 + index ) as? UITableView {
-                    
-                    tableView.reloadData()
-                      
-                    if let selectedIndex = tableView.indexPathForSelectedRow {
-                        if let cell = tableView.cellForRow(at: selectedIndex) as? DomesticMultiLegCell {
-                            cell.setPinnedFlight()
-                            cell.smartIconsArray = cell.currentJourney?.smartIconArray
-                            cell.smartIconCollectionView.reloadData()
-
-                        }
-                    }
-                    
-                    
-                   }
             
-            let journeyArray = self.viewModel.results[index].journeyArray
-                    
-                    for j in 0 ..<  journeyArray.count {
-                        let journey = journeyArray[j]
 
-                        let fkArr = fk.components(separatedBy: ",")
-
-                        if fkArr.contains(journey.fk){
-                            journeyArray[j].isPinned = isPinned
-                            self.viewModel.results[index].pinnedFlights.append(journey)
-                        }
+            for index in 0 ..< self.viewModel.numberOfLegs {
+                            
+                       let tableResultState = viewModel.resultsTableStates[index]
+                       if tableResultState == .showTemplateResults {  return  }
+                       
+                       if let tableView = baseScrollView.viewWithTag( 1000 + index ) as? UITableView {
                         
-                        if let isJPinned = journey.isPinned{
-                            if isJPinned {
-                                isAnyFlightPinned = true
+                        tableView.reloadData()
+                          
+                        if let selectedIndex = tableView.indexPathForSelectedRow {
+                            if let cell = tableView.cellForRow(at: selectedIndex) as? DomesticMultiLegCell {
+                                cell.setPinnedFlight()
+                                cell.smartIconsArray = cell.currentJourney?.smartIconArray
+                                cell.smartIconCollectionView.reloadData()
+
                             }
                         }
-                    }
-               }
-        
-        showPinnedFlightsOption(isAnyFlightPinned)
-
-        
-        for index in 0 ..< self.viewModel.numberOfLegs {
+                        
+                        
+                       }
+                       
+                   }
             
-            print("ind is..\(index)")
+            
+            
+            for index in 0 ..< self.viewModel.numberOfLegs {
+                
+                print("ind is..\(index)")
 
+                
+            }
             
         }
-        
-    }
     
     func infoButtonTapped(isViewExpanded: Bool) {
         guard fareBreakupVC != nil else {return}

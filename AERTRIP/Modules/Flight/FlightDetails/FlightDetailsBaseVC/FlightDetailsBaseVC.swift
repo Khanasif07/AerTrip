@@ -325,51 +325,50 @@ class FlightDetailsBaseVC: BaseVC {
     }
     
     @IBAction func pinButtonClicked(_ sender: Any) {
-        FirebaseEventLogs.shared.logFlightDetailsEvent(with: .FlightDetailsPinOptionSelected)
+            FirebaseEventLogs.shared.logFlightDetailsEvent(with: .FlightDetailsPinOptionSelected)
 
-        pinButton.isHighlighted = false
-        pinButton.showsTouchWhenHighlighted = false
-        
-        let animation = CAKeyframeAnimation(keyPath: "transform.scale")
-        animation.values = [1.0, 1.5, 1.0]
-        animation.keyTimes = [0, 0.5, 1]
-        animation.duration = 0.2
-        pinButton.layer.add(animation, forKey: "pulse")
-        
-        var isPinned = false
-        if !isInternational{
-            var fk = [String]()
-            if journey != nil{
-                for i in 0...journey.count-1{
-                    fk.append(journey[i].fk)
-                    if journey[i].isPinned == true{
-                        journey[i].isPinned = false
-                        isPinned = false
-                        pinButton.setImage(UIImage(named: "pinGreen"), for: .normal)
-                    }else{
-                        journey[i].isPinned = true
-                        isPinned = true
-                        pinButton.setImage(UIImage(named: "FilledpinGreen"), for: .normal)
+            pinButton.isHighlighted = false
+            pinButton.showsTouchWhenHighlighted = false
+            
+            let animation = CAKeyframeAnimation(keyPath: "transform.scale")
+            animation.values = [1.0, 1.5, 1.0]
+            animation.keyTimes = [0, 0.5, 1]
+            animation.duration = 0.2
+            pinButton.layer.add(animation, forKey: "pulse")
+            
+            var isPinned = false
+            if !isInternational{
+                var fk = [String]()
+                if journey != nil{
+                    for i in 0...journey.count-1{
+                        fk.append(journey[i].fk)
+                        if journey[i].isPinned == true{
+                            journey[i].isPinned = false
+                            isPinned = false
+                            pinButton.setImage(UIImage(named: "pinGreen"), for: .normal)
+                        }else{
+                            journey[i].isPinned = true
+                            isPinned = true
+                            pinButton.setImage(UIImage(named: "FilledpinGreen"), for: .normal)
+                        }
                     }
                 }
-            }
-            let FKStr = (fk.map{String($0)}).joined(separator: ",")
-            
-            self.delegate?.reloadRowFromFlightDetails(fk: FKStr, isPinned: isPinned, isPinnedButtonClicked: true)
-        }else{
-            if let journey = self.intJourney?.first{
-                if journey.isPinned{
-                    pinButton.setImage(UIImage(named: "pinGreen"), for: .normal)
-                }else{
-                    pinButton.setImage(UIImage(named: "FilledpinGreen"), for: .normal)
+                
+                self.delegate?.reloadRowFromFlightDetails(fk: journey.first?.fk ?? "", isPinned: isPinned, isPinnedButtonClicked: true)
+            }else{
+                if let journey = self.intJourney?.first{
+                    if journey.isPinned{
+                        pinButton.setImage(UIImage(named: "pinGreen"), for: .normal)
+                    }else{
+                        pinButton.setImage(UIImage(named: "FilledpinGreen"), for: .normal)
+                    }
+                    var newJourney = journey
+                    newJourney.isPinned = !journey.isPinned
+                    self.intJourney[0] = newJourney
+                    self.delegate?.reloadRowFromFlightDetails(fk: journey.fk, isPinned: !journey.isPinned, isPinnedButtonClicked: true)
                 }
-                var newJourney = journey
-                newJourney.isPinned = !journey.isPinned
-                self.intJourney[0] = newJourney
-                self.delegate?.reloadRowFromFlightDetails(fk: journey.fk, isPinned: !journey.isPinned, isPinnedButtonClicked: true)
             }
         }
-    }
     
     @IBAction func addToTripButtonClicked(_ sender: Any){
 
