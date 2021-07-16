@@ -110,14 +110,14 @@ class SingleJourneyResultTableViewCell: UITableViewCell {
     
     fileprivate func setPinnedFlight() {
         
-        self.baseView.layer.borderColor = isLightTheme() ? UIColor.AertripColor.cgColor : AppColors.clear.cgColor
+        self.baseView.layer.borderColor = isLightTheme() ? AppColors.commonThemeGreen.cgColor : AppColors.clear.cgColor
         self.baseView.layer.borderWidth = 1.0
         
         if pinnedRoundedLayer == nil {
             
             let pinnedRoundedLayer = CAShapeLayer()
             pinnedRoundedLayer.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
-            pinnedRoundedLayer.fillColor = UIColor.AertripColor.cgColor
+            pinnedRoundedLayer.fillColor = AppColors.commonThemeGreen.cgColor
             let path = CGMutablePath()
             path.move(to: CGPoint(x: 10, y: 0))
             path.addLine(to: CGPoint(x: 20, y: 0))

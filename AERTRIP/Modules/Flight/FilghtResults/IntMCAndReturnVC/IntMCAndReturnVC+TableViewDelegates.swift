@@ -105,6 +105,7 @@ extension IntMCAndReturnVC : UITableViewDataSource , UITableViewDelegate {
                 cell.baseView.addInteraction(interaction)
             }
         }
+        
         cell.multiFlightsTableView.isUserInteractionEnabled = false
         cell.numberOfInnerCells = self.numberOfLegs
         cell.populateData(journey: journey, indexPath: indexPath)
