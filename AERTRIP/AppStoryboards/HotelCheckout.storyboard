@@ -993,7 +993,7 @@
                                 <subviews>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ipo-DC-tu6" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="0.5"/>
-                                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="s62-x8-0Dh"/>
                                         </constraints>
@@ -1075,7 +1075,7 @@
                                         </constraints>
                                     </progressView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" name="themeWhite"/>
                                 <constraints>
                                     <constraint firstItem="paY-TA-lCR" firstAttribute="top" secondItem="ipo-DC-tu6" secondAttribute="bottom" id="0lF-Ff-gam"/>
                                     <constraint firstAttribute="bottom" secondItem="Ido-g2-4IG" secondAttribute="bottom" id="6pC-C7-P55"/>
@@ -2108,6 +2108,9 @@ Incomplete</string>
         <image name="rightArrow" width="40" height="44"/>
         <namedColor name="flightFilterSessionDefaultColor">
             <color red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="themeWhite">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="themeWhiteDashboard">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
