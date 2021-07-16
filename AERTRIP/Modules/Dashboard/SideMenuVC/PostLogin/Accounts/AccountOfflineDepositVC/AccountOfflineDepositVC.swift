@@ -28,6 +28,7 @@ class AccountOfflineDepositVC: BaseVC {
     @IBOutlet weak var loaderContainer: UIView!
     @IBOutlet weak var indicatorView: UIActivityIndicatorView!
     @IBOutlet weak var paymentButtonContainerView: UIView!
+    @IBOutlet weak var navigationBackgroundView: UIView!
     
     // MARK: - Properties
     var currentUsingAs: UsingForPayBy = UsingForPayBy.chequeOrDD
@@ -54,6 +55,7 @@ class AccountOfflineDepositVC: BaseVC {
         //for header blur
         //self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
         topNavView.backgroundColor = AppColors.clear
+        self.navigationBackgroundView.backgroundColor = AppColors.doneViewClearColor
         
        
     }

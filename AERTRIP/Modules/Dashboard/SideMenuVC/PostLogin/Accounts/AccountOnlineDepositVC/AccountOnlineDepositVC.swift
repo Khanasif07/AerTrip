@@ -26,6 +26,7 @@ class AccountOnlineDepositVC: BaseVC {
     @IBOutlet weak var loaderContainer: UIView!
     @IBOutlet weak var indicatorView: UIActivityIndicatorView!
     @IBOutlet weak var gradientView: UIView!
+    @IBOutlet weak var navigationBackgroundView: UIView!
     
     // MARK: - Properties
     var currentUsingFor: UsingToPaymentFor = UsingToPaymentFor.accountDeposit
@@ -56,6 +57,7 @@ class AccountOnlineDepositVC: BaseVC {
         //for header blur
         //self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
         topNavView.backgroundColor = AppColors.clear
+        self.navigationBackgroundView.backgroundColor = AppColors.selectDestinationHeaderColor
         checkOutTableView.backgroundColor = AppColors.themeGray04
         if self.currentUsingFor == .accountDeposit {
             delay(seconds: 0.8) { [weak self] in
