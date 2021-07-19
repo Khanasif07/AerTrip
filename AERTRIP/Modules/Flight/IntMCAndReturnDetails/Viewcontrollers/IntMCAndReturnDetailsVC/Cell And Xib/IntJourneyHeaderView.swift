@@ -8,7 +8,7 @@
 
 import UIKit
 
-class IntJourneyHeaderView: UIView {
+class IntJourneyHeaderView : UIView {
 
     @IBOutlet weak var DepartTime: UILabel!
     @IBOutlet weak var arrivalTime: UILabel!
@@ -37,6 +37,11 @@ class IntJourneyHeaderView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        dashedView.setupDashedView()
     }
     
     private func commonInit() {

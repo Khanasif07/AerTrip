@@ -28,6 +28,7 @@ class AccountOfflineDepositVC: BaseVC {
     @IBOutlet weak var loaderContainer: UIView!
     @IBOutlet weak var indicatorView: UIActivityIndicatorView!
     @IBOutlet weak var paymentButtonContainerView: UIView!
+    @IBOutlet weak var navigationBackgroundView: UIView!
     
     // MARK: - Properties
     var currentUsingAs: UsingForPayBy = UsingForPayBy.chequeOrDD
@@ -54,6 +55,7 @@ class AccountOfflineDepositVC: BaseVC {
         //for header blur
         //self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
         topNavView.backgroundColor = AppColors.clear
+        self.navigationBackgroundView.backgroundColor = AppColors.doneViewClearColor
         
        
     }
@@ -112,7 +114,7 @@ class AccountOfflineDepositVC: BaseVC {
 
     func manageLoader(shouldStart: Bool) {
         self.indicatorView.style = .medium//.white
-        self.indicatorView.color = AppColors.themeWhite
+        self.indicatorView.color = AppColors.unicolorWhite
         self.indicatorView.startAnimating()
         self.payButton.isHidden = shouldStart
         self.loaderContainer.isHidden = !shouldStart

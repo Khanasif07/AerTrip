@@ -29,6 +29,12 @@ class JourneyHeaderView: UIView {
     @IBOutlet weak var departAirportCodeWidth: NSLayoutConstraint!
     @IBOutlet weak var arrivalAirportCodeWidth: NSLayoutConstraint!
     
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        dashedView.setupDashedView()
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         commonInit()

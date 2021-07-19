@@ -68,6 +68,8 @@ class InternationalReturnTableViewCell: UITableViewCell {
         self.smartIconCollectionView.backgroundColor = AppColors.themeWhiteDashboard
         self.multiFlightsTableView.backgroundColor = AppColors.themeWhiteDashboard
         self.price.backgroundColor = AppColors.themeWhiteDashboard
+        self.samePriceOptionsLabel.textColor = AppColors.commonThemeGreen
+        self.samePriceOptionButton.setTitleColor(AppColors.commonThemeGreen, for: UIControl.State.normal)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -626,7 +626,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
 //
 //        }
         PKMultiPicker.noOfComponent = 1
-        PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: pickerData, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [unowned self] (firstSelect, secondSelect) in
+        PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: pickerData, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen, backgroundColor: AppColors.profileDetailsPicker) { [unowned self] (firstSelect, secondSelect) in
             //textField.text = firstSelect
             printDebug("firstSelect: \(firstSelect)")
             self.pickerTitle = firstSelect

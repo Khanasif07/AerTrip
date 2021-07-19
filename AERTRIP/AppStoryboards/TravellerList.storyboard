@@ -172,6 +172,7 @@
                     </view>
                     <connections>
                         <outlet property="assignGroupButton" destination="fdo-f8-8XG" id="dQ6-XR-Zpk"/>
+                        <outlet property="blurView" destination="S6o-6H-67g" id="mW5-vK-W2h"/>
                         <outlet property="bottomBackgroundView" destination="Eqd-JQ-Emm" id="taG-yh-Nzn"/>
                         <outlet property="bottomSafeAreaView" destination="lez-45-AWT" id="ymP-cy-v4P"/>
                         <outlet property="bottomView" destination="ayy-IG-Mnv" id="q5Q-Mi-kFQ"/>

@@ -70,7 +70,7 @@ enum AppColors {
     static let headerBackground  = UIColor(named: "headerBackground") ?? UIColor(displayP3Red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
 
 
-    static let profileHeaderBackground  = UIColor(named: "profileHeaderBackground") ?? .black
+    static let profileHeaderBackground  =  AppColors.themeGray04//UIColor(named: "profileHeaderBackground") ?? .black
 
     static let profileContentBackground = UIColor(named: "profileContentBackground") ?? .white
     
@@ -455,6 +455,16 @@ enum AppColors {
     
     /// (196,196,196) (71,71,71)
     static let hotelSpecialReqColor = UIColor(named: "hotelSpecialReqColor") ?? .white
+    
+    
+    /// RGB - 255, 255, 255   Dark RGB  90, 90, 90
+    static let travellerHeaderColor  = UIColor(named: "travellerHeaderColor") ?? AppColors.themeWhite
+    
+    
+    ///(241,241,242) (26,  26,  26)
+    static let profileDetailsPicker = UIColor(named: "profileDetailsPicker") ?? .white
+ 
+    
     
     case headlines
     case body

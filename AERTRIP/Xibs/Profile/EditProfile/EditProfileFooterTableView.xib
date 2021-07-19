@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -37,9 +38,9 @@
                                                 <constraint firstAttribute="height" constant="0.5" id="eV0-ch-wIJ"/>
                                             </constraints>
                                         </view>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hc2-3o-iCx">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hc2-3o-iCx">
                                             <rect key="frame" x="16" y="0.5" width="353" height="44"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="44" id="rq3-q0-Qqg"/>
                                             </constraints>
@@ -56,7 +57,7 @@
                                             </constraints>
                                         </view>
                                     </subviews>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    <color key="backgroundColor" name="themeBlack26"/>
                                     <constraints>
                                         <constraint firstItem="Oh6-Kw-S02" firstAttribute="top" secondItem="dom-KP-rQ8" secondAttribute="top" id="0eJ-He-S4M"/>
                                         <constraint firstItem="Hc2-3o-iCx" firstAttribute="top" secondItem="Oh6-Kw-S02" secondAttribute="bottom" id="17S-L5-yCY"/>
@@ -89,6 +90,7 @@
                     </constraints>
                 </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="fde-gz-WBo"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="fde-gz-WBo" firstAttribute="bottom" secondItem="Cmh-gm-TT8" secondAttribute="bottom" id="5uC-Vr-8nW"/>
@@ -97,7 +99,6 @@
                 <constraint firstItem="fde-gz-WBo" firstAttribute="trailing" secondItem="Cmh-gm-TT8" secondAttribute="trailing" id="zey-In-1Ok"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="fde-gz-WBo"/>
             <connections>
                 <outlet property="deleteButton" destination="Hc2-3o-iCx" id="9sZ-n4-TIE"/>
                 <outlet property="deleteTravellerView" destination="dom-KP-rQ8" id="fXp-Qf-zLn"/>
@@ -106,4 +107,9 @@
             <point key="canvasLocation" x="-564" y="-1047.9760119940031"/>
         </view>
     </objects>
+    <resources>
+        <namedColor name="themeBlack26">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+    </resources>
 </document>

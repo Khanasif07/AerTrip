@@ -117,33 +117,68 @@ class ClusterMarkerView: UIView {
         }
     }
     
+//    private func updateFav() {
+//        countLabel.cornerradius = countLabel.height / 2.0
+//        if isFavourite {
+//            countLabel.textColor = isForHotel ? AppColors.unicolorWhite : AppColors.themeBlack
+//            countLabel.backgroundColor = isForHotel ? AppColors.themeRed : AppColors.themeWhite
+//            countLabel.layer.borderColor = AppColors.themeRed.cgColor
+//            countLabel.layer.borderWidth = 1.0
+//        }
+//        else {
+//            countLabel.textColor = AppColors.unicolorWhite
+//            countLabel.backgroundColor = AppColors.themeGreen
+//            countLabel.layer.borderColor = AppColors.clear.cgColor
+//            countLabel.layer.borderWidth = isSelected ? 0.0 : 1.0
+//        }
+//    }
+    
+//    private func updateSelection() {
+//        guard !isFavourite else {
+//            self.updateFav()
+//            return
+//        }
+//
+//        countLabel.backgroundColor = isSelected ? (isFavourite ? AppColors.themeRed : AppColors.themeGreen) : AppColors.themeWhite
+//
+//        countLabel.layer.borderColor = isSelected ? AppColors.clear.cgColor : AppColors.themeGreen.cgColor
+//        countLabel.layer.borderWidth = isSelected ? 0.0 : 1.0
+//
+//        countLabel.textColor = isSelected ? AppColors.unicolorWhite : AppColors.themeGreen
+//    }
+    
     private func updateFav() {
         countLabel.cornerradius = countLabel.height / 2.0
+        countLabel.layer.borderWidth = 1.0
+       // priceLabel.font = AppFonts.SemiBold.withSize(12.0)
+
         if isFavourite {
-            countLabel.textColor = isForHotel ? AppColors.unicolorWhite : AppColors.themeBlack
-            countLabel.backgroundColor = isForHotel ? AppColors.themeRed : AppColors.themeWhite
             countLabel.layer.borderColor = AppColors.themeRed.cgColor
-            countLabel.layer.borderWidth = 1.0
+            countLabel.backgroundColor = AppColors.themeRed
+            countLabel.textColor = AppColors.unicolorWhite
+            countLabel.backgroundColor = AppColors.themeRed
+//            iconImageView.image = AppImages.favHotelWithShadowMarker
         }
         else {
-            countLabel.textColor = AppColors.unicolorWhite
-            countLabel.backgroundColor = AppColors.themeGreen
-            countLabel.layer.borderColor = AppColors.clear.cgColor
-            countLabel.layer.borderWidth = 0.0
+//            iconImageView.image = AppImages.clusterSmallTag
+            self.updateSelection()
         }
     }
     
     private func updateSelection() {
-        guard !isFavourite else {
+        
+        if isSelected && isFavourite {
             self.updateFav()
             return
         }
+
+        countLabel.backgroundColor = (isFavourite ? AppColors.themeRed : AppColors.themeGreen)
         
-        countLabel.backgroundColor = isSelected ? (isFavourite ? AppColors.themeRed : AppColors.themeGreen) : AppColors.themeWhite
-        
-        countLabel.layer.borderColor = isSelected ? AppColors.clear.cgColor : AppColors.themeGreen.cgColor
+        countLabel.layer.borderColor = isSelected ? AppColors.clear.cgColor : (isFavourite ? AppColors.themeRed.cgColor : AppColors.themeGreen.cgColor)
         countLabel.layer.borderWidth = isSelected ? 0.0 : 1.0
-        
-        countLabel.textColor = isSelected ? AppColors.unicolorWhite : AppColors.themeGreen
+        countLabel.backgroundColor = isSelected ? (isFavourite ? AppColors.themeRed : AppColors.themeGreen) : (isFavourite ? AppColors.markUnselectedFavColor : AppColors.markUnselectedColor)
+
+        countLabel.textColor = isSelected ? AppColors.unicolorWhite : (isFavourite ? AppColors.themeRed : AppColors.grayWhite)
     }
+    
 }
