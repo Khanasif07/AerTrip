@@ -21,6 +21,7 @@ class SelectPassengerCell: UICollectionViewCell {
         passengerImageView.roundedCorners(cornerRadius: selectionImageView.frame.height/2)
         selectionImageView.roundedCorners(cornerRadius: selectionImageView.frame.height/2)
         seatLabel.text = ""
+        seatLabel.attributedText = nil
         seatLabel.font = AppFonts.Regular.withSize(14)
         seatLabel.textColor = AppColors.themeGray40
         selectionImageView.backgroundColor = AppColors.themeGreen.withAlphaComponent(0.6)
@@ -48,17 +49,27 @@ class SelectPassengerCell: UICollectionViewCell {
         populateData(data: passengerData)
         if passengerData.id == selectedSeatData.columnData.passenger?.id {
             selectionImageView.isHidden = false
-            seatLabel.text = selectedSeatData.columnData.ssrCode.replacingOccurrences(of: "-", with: "") + "・" + "₹ \(selectedSeatData.columnData.amount.formattedWithCommaSeparator)"
+            let attString = NSMutableAttributedString(string: selectedSeatData.columnData.ssrCode.replacingOccurrences(of: "-", with: "") + "・")
+            attString.append(Double(selectedSeatData.columnData.amount).getConvertedAmount(using: AppFonts.Regular.withSize(14)))
+//            seatLabel.text = selectedSeatData.columnData.ssrCode.replacingOccurrences(of: "-", with: "") + "・" + "₹ \(selectedSeatData.columnData.amount.formattedWithCommaSeparator)"
+            
+            seatLabel.attributedText = attString
         } else {
             selectionImageView.isHidden = true
             if let seat = seatDataArr.first(where: { $0.columnData.passenger?.id == passengerData.id }) {
                 if seat.columnData.ssrCode != selectedSeatData.columnData.ssrCode {
-                    seatLabel.text = seat.columnData.ssrCode.replacingOccurrences(of: "-", with: "") + "・" + "₹ \(seat.columnData.amount.formattedWithCommaSeparator)"
+                    
+                    let attString = NSMutableAttributedString(string: seat.columnData.ssrCode.replacingOccurrences(of: "-", with: "") + "・")
+                    attString.append(Double(seat.columnData.amount).getConvertedAmount(using: AppFonts.Regular.withSize(14)))
+                    
+                    seatLabel.attributedText = attString
+                    
+//                    seatLabel.text = seat.columnData.ssrCode.replacingOccurrences(of: "-", with: "") + "・" + "₹ \(seat.columnData.amount.formattedWithCommaSeparator)"
                 } else {
-                    seatLabel.text?.removeAll()
+                    seatLabel.attributedText = nil
                 }
             } else {
-                seatLabel.text?.removeAll()
+                seatLabel.attributedText = nil
             }
         }
     }
