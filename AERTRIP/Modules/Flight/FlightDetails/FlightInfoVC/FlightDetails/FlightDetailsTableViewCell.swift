@@ -141,10 +141,12 @@ class FlightDetailsTableViewCell: UITableViewCell
             view?.backgroundColor = AppColors.flightResultsFooterSecondaryColor
         }
         contentView.backgroundColor = AppColors.themeGray04
-        [equipmentsLabel, travelingtimeLabel].forEach{ lbl in
-            lbl?.textColor  = AppColors.themeGray153
-            
-        }
+//        [equipmentsLabel, travelingtimeLabel].forEach{ lbl in
+//            lbl?.textColor  = AppColors.themeGray153
+//            
+//        }
+        travelingtimeLabel.textColor = AppColors.themeGray153
+        equipmentsLabel.textColor = AppColors.themeGray40
         [operatorLabel, classLabel,classNameLabel, arrivalAirportAddressLabel, departureAirportAddressLabel].forEach{ lbl in
             lbl?.textColor  = AppColors.themeGray40
             
