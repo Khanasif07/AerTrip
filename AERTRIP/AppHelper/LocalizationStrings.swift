@@ -686,6 +686,7 @@ enum LocalizedString: String {
     
     // Select Guests
     case SelectGuests
+    case SelectPassengers
     
     case EmailItineraries
     case SendToAll

@@ -608,6 +608,9 @@ Not to worry! Your booking is our highest priority. Our customer support team sh
 //Select Guest
 "SelectGuests" = "Select Guests";
 
+//Select Passengers
+"SelectPassengers" = "Select Passengers";
+
 "EmailItineraries" = "Email Itineraries";
 "SendToAll" = "Send to all";
 
