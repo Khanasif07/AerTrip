@@ -136,7 +136,7 @@ class IntMCAndReturnDetailsVC: UIViewController {
         visualEffectView.effect = UIBlurEffect(style: .prominent)
         
         backView = UIView(frame: CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: 44))
-        backView.backgroundColor = UIColor.white.withAlphaComponent(0.4)
+        backView.backgroundColor = AppColors.themeWhite
         backView.addSubview(visualEffectView)
         backView.tag = 200
         let buttonImage = AppImages.green

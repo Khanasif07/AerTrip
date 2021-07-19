@@ -109,7 +109,7 @@ class DomesticMultiLegCell: UITableViewCell {
                 let pinnedRoundedLayer = CAShapeLayer()
                 
                 pinnedRoundedLayer.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
-                pinnedRoundedLayer.fillColor = UIColor.AertripColor.cgColor
+                pinnedRoundedLayer.fillColor = AppColors.commonThemeGreen.cgColor
                 
                 let path = CGMutablePath()
                 path.move(to: CGPoint(x: 0, y: 0))
@@ -125,7 +125,7 @@ class DomesticMultiLegCell: UITableViewCell {
                 self.layer.addSublayer(triangleLayer)
             }
                     
-            self.layer.borderColor = UIColor.AertripColor.cgColor
+            self.layer.borderColor = AppColors.commonThemeGreen.cgColor
             self.layer.borderWidth = 0.5
             
         } else {
