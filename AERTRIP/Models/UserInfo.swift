@@ -819,8 +819,8 @@ class UserInfo {
         UserDefaults.removeObject(forKey: "userProfileData_\(userId)")
     }
     
-    func profileImagePlaceholder(font: UIFont = AppFonts.Regular.withSize(35.0), textColor: UIColor = AppColors.themeGray40) -> UIImage {
-        return AppGlobals.shared.getImageFor(firstName: UserInfo.loggedInUser?.firstName, lastName: UserInfo.loggedInUser?.lastName, font: font, textColor: textColor)
+    func profileImagePlaceholder(font: UIFont = AppFonts.Regular.withSize(35.0), textColor: UIColor = AppColors.themeGray40, backgroundColor:UIColor = AppColors.themeWhiteDashboard) -> UIImage {
+        return AppGlobals.shared.getImageFor(firstName: UserInfo.loggedInUser?.firstName, lastName: UserInfo.loggedInUser?.lastName, font: font, textColor: textColor, backGroundColor: backgroundColor)
     }
 }
 
