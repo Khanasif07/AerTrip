@@ -45,6 +45,7 @@ class HotelInfoAddressCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.initialSetUp()
+        setColorsForBooking()
     }
     
     override func prepareForReuse() {

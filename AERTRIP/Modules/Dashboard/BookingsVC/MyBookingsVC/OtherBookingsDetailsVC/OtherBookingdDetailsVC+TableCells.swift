@@ -125,7 +125,7 @@ extension OtherBookingsDetailsVC {
         
  
         cell.clipsToBounds = true
-        cell.contentView.backgroundColor = AppColors.themeWhite
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     

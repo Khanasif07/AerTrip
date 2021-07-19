@@ -62,18 +62,15 @@ class QueryStatusCollectionCell: UICollectionViewCell {
             self.iconHeightConstraint.constant = 22
             self.iconTrailingConstraint.constant = -7
             self.statusImageView.image = AppImages.checkIcon
-        }
-        else if self.statusText.lowercased().hasSuffix("required") {
+        } else if self.statusText.lowercased().hasSuffix("required") {
             self.iconHeightConstraint.constant = 8.0
             self.iconTrailingConstraint.constant = 0
             self.statusImageView.image = AppImages.ic_red_dot
-        }
-        else if self.statusText.lowercased().hasSuffix("pending") {
+        } else if self.statusText.lowercased().hasSuffix("pending") {
             self.iconHeightConstraint.constant = 8.0
             self.iconTrailingConstraint.constant = 0
             self.statusImageView.image = AppImages.ic_red_dot
-        }
-        else if self.statusText.lowercased().hasSuffix("aborted") ||
+        } else if self.statusText.lowercased().hasSuffix("aborted") ||
                     self.statusText.lowercased().hasSuffix("terminated") {
             self.statusLabel.textColor = AppColors.themeGray40
             self.statusImageView.image = nil

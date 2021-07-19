@@ -78,8 +78,8 @@ class FlightsOptionsTableViewCell: UITableViewCell {
     // MARK: ===========
     
     private func setColors(){
-        self.containerView.backgroundColor = AppColors.themeWhite
-        self.flightsOptionCollectionView.backgroundColor = AppColors.themeWhite
+        self.containerView.backgroundColor = AppColors.themeBlack26
+        self.flightsOptionCollectionView.backgroundColor = AppColors.themeBlack26
     }
     
     private func configureUI() {

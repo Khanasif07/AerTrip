@@ -33,6 +33,7 @@ class FlightBookingRequestsTableViewCell: UITableViewCell {
         super.awakeFromNib()
         self.configureUI()
         self.containerView.backgroundColor = AppColors.themeWhiteDashboard
+        self.contentView.backgroundColor = AppColors.themeBlack26
     }
     
     override func prepareForReuse() {

@@ -49,6 +49,7 @@ class BookingCommonActionTableViewCell: ATTableViewCell {
     override func setupColors() {
         self.actionButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.actionButton.setTitleColor(AppColors.themeGreen, for: .selected)
+        self.contentView.backgroundColor = AppColors.themeBlack26
     }
     
     func configureCell(buttonImage: UIImage, buttonTitle: String) {

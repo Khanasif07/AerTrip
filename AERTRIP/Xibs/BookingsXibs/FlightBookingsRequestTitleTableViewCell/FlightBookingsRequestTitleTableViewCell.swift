@@ -33,6 +33,7 @@ class FlightBookingsRequestTitleTableViewCell: UITableViewCell {
         self.requestTitleLabel.textColor = AppColors.themeGray40
         self.requestTitleLabel.text = LocalizedString.Requests.localized
         self.containerView.backgroundColor = AppColors.themeWhite
+        self.contentView.backgroundColor = AppColors.themeBlack26
     }
 
     
