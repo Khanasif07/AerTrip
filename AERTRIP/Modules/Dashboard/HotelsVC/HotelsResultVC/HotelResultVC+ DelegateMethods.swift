@@ -127,8 +127,10 @@ extension HotelResultVC: ATSwitcherChangeValueDelegate {
         }
         
         showBluredHeaderViewCompleted()
-        tableViewVertical.setContentOffset(CGPoint(x: 0, y: -visualEffectViewHeight), animated: false)
+        delay(seconds: 0.4) {
+            self.tableViewVertical.setContentOffset(CGPoint(x: 0, y: -self.visualEffectViewHeight), animated: true)
 
+        }
     }
 }
 
