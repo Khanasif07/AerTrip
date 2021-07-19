@@ -35,7 +35,7 @@ extension FinalCheckOutVC : HotelFareTableViewCellDelegate {
             } else {
                 self.isCouponSectionExpanded = true
             }
-            self.checkOutTableView.reloadRow(at: IndexPath(row: 0, section: 1), with: .automatic)
+            self.checkOutTableView.reloadRow(at: IndexPath(row: 0, section: 1), with: .none)
         }
     }
 }
