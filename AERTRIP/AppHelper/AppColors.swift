@@ -465,9 +465,11 @@ enum AppColors {
     static let profileDetailsPicker = UIColor(named: "profileDetailsPicker") ?? .white
 
     ///(0,0,0, 0.2)  (255  ,  255,  255, 0.2)
-    static let flightDetailsGrabberColor = UIColor(named: "flightDetailsGrabberColor") ?? .red
+    static let flightDetailsGrabberColor = UIColor(named: "flightDetailsGrabberColor") ?? .lightGray
 
-    
+    ///(255,255,255, 0.85)  (255  ,  255,  255, 0.2)
+    static let passangersBottom = UIColor(named: "passangersBottom") ?? .white
+
     
     case headlines
     case body
