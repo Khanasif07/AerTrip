@@ -105,7 +105,7 @@ class OtherBookingsDetailsVC: BaseVC {
     
     override func setupColors() {
         self.topNavBar.backgroundColor = AppColors.clear
-        self.view.backgroundColor = AppColors.themeWhite
+        self.view.backgroundColor = AppColors.themeBlack26
     }
     
     override func bindViewModel() {
