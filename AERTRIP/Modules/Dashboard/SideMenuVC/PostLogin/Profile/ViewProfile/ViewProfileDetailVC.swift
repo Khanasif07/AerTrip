@@ -54,11 +54,7 @@ class ViewProfileDetailVC: BaseVC {
         profileImageHeaderView?.currentlyUsingAs = .profileDetails
         UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
             self?.tableView.origin.x = -200
-            if self?.viewModel.currentlyUsingFor != .travellerList {
-                self?.profileImageHeaderView?.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(font: AppFonts.Regular.withSize(35.0))
-            } else if self?.viewModel.currentlyUsingFor == .travellerList{
-                self?.profileImageHeaderView?.profileImageView.image = AppGlobals.shared.getImageFor(firstName: self?.viewModel.travelData?.firstName, lastName: self?.viewModel.travelData?.lastName, font: AppFonts.Regular.withSize(35.0))  
-            }
+            self?.updateProfileImage()
             self?.profileImageHeaderView?.profileImageViewHeightConstraint.constant = 127.0
             self?.profileImageHeaderView?.layoutIfNeeded()
             self?.view.alpha = 1.0
@@ -97,7 +93,21 @@ class ViewProfileDetailVC: BaseVC {
         
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.updateProfileImage()
+    }
+    
     // MARK: - Helper method
+    
+    private func updateProfileImage(){
+        if self.viewModel.currentlyUsingFor != .travellerList {
+            self.profileImageHeaderView?.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(font: AppFonts.Regular.withSize(35.0))
+        } else if self.viewModel.currentlyUsingFor == .travellerList{
+            self.profileImageHeaderView?.profileImageView.image = AppGlobals.shared.getImageFor(firstName: self.viewModel.travelData?.firstName, lastName: self.viewModel.travelData?.lastName, font: AppFonts.Regular.withSize(35.0))
+        }
+    }
+    
     
     func doInitialSetUp() {
         tableView.separatorStyle = .none

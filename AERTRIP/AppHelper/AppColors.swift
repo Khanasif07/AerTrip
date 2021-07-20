@@ -461,6 +461,11 @@ enum AppColors {
     static let travellerHeaderColor  = UIColor(named: "travellerHeaderColor") ?? AppColors.themeWhite
     
     
+    ///(241,241,242) (26,  26,  26)
+    static let profileDetailsPicker = UIColor(named: "profileDetailsPicker") ?? .white
+ 
+    
+    
     case headlines
     case body
     case subheads

@@ -111,6 +111,14 @@ class SideMenuVC: BaseVC {
         self.registerXibs()
     }
     
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        if let view = self.profileContainerView {
+            self.updateProfileImage(view: view)
+        }
+    }
+    
     @objc func profileTapped() {
         printDebug("dfasdfasdf")
     }
@@ -150,17 +158,7 @@ class SideMenuVC: BaseVC {
         view.userNameLabel.text = "\(UserInfo.loggedInUser?.firstName ?? LocalizedString.na.localized ) \(UserInfo.loggedInUser?.lastName ?? LocalizedString.na.localized )"
         view.emailIdLabel.text = UserInfo.loggedInUser?.email ?? LocalizedString.na.localized
         view.mobileNumberLabel.text = UserInfo.loggedInUser?.mobileWithISD
-        
-        if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty {
-            //view.profileImageView.kf.setImage(with: URL(string: imagePath))
-            view.profileImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder() ?? UIImage(), showIndicator: false)
-            //  view.backgroundImageView.kf.setImage(with: URL(string: imagePath))
-            view.backgroundImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder(font:AppConstants.profileViewBackgroundNameIntialsFont) ?? UIImage(), showIndicator: false)
-        }
-        else {
-            view.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder()
-            view.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(font:AppConstants.profileViewBackgroundNameIntialsFont, textColor: AppColors.themeBlack)
-        }
+        self.updateProfileImage(view: view)
         view.frame = CGRect(x: 0.0, y: 40.0, width: self.profileSuperView?.width ?? 0.0, height: self.profileSuperView?.height ?? 0.0)
         view.emailIdLabel.isHidden = true
         view.mobileNumberLabel.isHidden = true
@@ -178,6 +176,20 @@ class SideMenuVC: BaseVC {
         view.dividerView.alpha = 0.0
         view.translatesAutoresizingMaskIntoConstraints = true
         //        view.profileImageView.layer.borderColor = AppColors.themeGray20.cgColor
+    }
+    
+    
+    private func updateProfileImage(view: SlideMenuProfileImageHeaderView){
+        if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty {
+            //view.profileImageView.kf.setImage(with: URL(string: imagePath))
+            view.profileImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder() ?? UIImage(), showIndicator: false)
+            //  view.backgroundImageView.kf.setImage(with: URL(string: imagePath))
+            view.backgroundImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder(font:AppConstants.profileViewBackgroundNameIntialsFont) ?? UIImage(), showIndicator: false)
+        }
+        else {
+            view.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder()
+            view.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(font:AppConstants.profileViewBackgroundNameIntialsFont, textColor: AppColors.themeBlack)
+        }
     }
     
     override var preferredStatusBarStyle : UIStatusBarStyle {

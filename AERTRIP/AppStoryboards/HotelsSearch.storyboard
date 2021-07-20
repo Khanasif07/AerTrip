@@ -478,6 +478,10 @@
                                             <constraint firstAttribute="height" constant="0.5" id="YFE-yt-bzx"/>
                                         </constraints>
                                     </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8gu-B8-ocb">
+                                        <rect key="frame" x="0.0" y="370" width="414" height="50"/>
+                                        <color key="backgroundColor" name="doneViewClearColor"/>
+                                    </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F2a-tj-c9A">
                                         <rect key="frame" x="0.0" y="370" width="414" height="50"/>
                                         <color key="backgroundColor" name="doneViewClearColor"/>
@@ -493,9 +497,13 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="0DW-gc-R0u" firstAttribute="top" secondItem="02d-r4-SGK" secondAttribute="bottom" constant="10" id="0Lf-6d-7I3"/>
+                                    <constraint firstItem="8gu-B8-ocb" firstAttribute="trailing" secondItem="F2a-tj-c9A" secondAttribute="trailing" id="2tV-bY-a1c"/>
                                     <constraint firstItem="02d-r4-SGK" firstAttribute="top" secondItem="Z0V-XO-8Qo" secondAttribute="bottom" constant="15" id="8MK-5Q-21C"/>
+                                    <constraint firstItem="8gu-B8-ocb" firstAttribute="leading" secondItem="F2a-tj-c9A" secondAttribute="leading" id="AMG-lg-xkU"/>
                                     <constraint firstItem="rJ4-2s-W61" firstAttribute="trailing" secondItem="KXl-rh-TQG" secondAttribute="trailing" id="C6r-E9-nUt"/>
                                     <constraint firstAttribute="trailing" secondItem="KXl-rh-TQG" secondAttribute="trailing" id="DlU-pK-qeM"/>
+                                    <constraint firstItem="8gu-B8-ocb" firstAttribute="top" secondItem="F2a-tj-c9A" secondAttribute="top" id="FZJ-TH-jSh"/>
+                                    <constraint firstAttribute="bottom" secondItem="8gu-B8-ocb" secondAttribute="bottom" id="GVp-f6-5t9"/>
                                     <constraint firstItem="0DW-gc-R0u" firstAttribute="trailing" secondItem="F2a-tj-c9A" secondAttribute="trailing" id="GgE-Mx-tLT"/>
                                     <constraint firstItem="yB5-84-0cM" firstAttribute="leading" secondItem="bvJ-X6-lVo" secondAttribute="leading" id="H8B-kX-gCh"/>
                                     <constraint firstAttribute="height" constant="420" id="MMz-sL-Vad"/>

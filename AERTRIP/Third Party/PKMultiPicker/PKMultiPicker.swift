@@ -29,12 +29,22 @@ class PKMultiPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource 
         self.removeFromSuperview()
     }
     
-    class func openMultiPickerIn(_ textField: UITextField? , firstComponentArray: [String], secondComponentArray: [String], firstComponent: String?, secondComponent: String?, titles: [String]?, toolBarTint: UIColor = UIColor.black, doneBlock: @escaping PickerDone, doneWithIndex : PickerDoneWithIndex? = nil) {
+    class func openMultiPickerIn(_ textField: UITextField?,
+                                 firstComponentArray: [String],
+                                 secondComponentArray: [String],
+                                 firstComponent: String?,
+                                 secondComponent: String?,
+                                 titles: [String]?,
+                                 toolBarTint: UIColor = UIColor.black,
+                                 barTintColor: UIColor = AppColors.secondarySystemFillColor,
+                                 backgroundColor: UIColor = AppColors.quaternarySystemFillColor,
+                                 doneBlock: @escaping PickerDone,
+                                 doneWithIndex : PickerDoneWithIndex? = nil) {
         
         let picker = PKMultiPicker()
         picker.doneBlock = doneBlock
         picker.doneBlockWithIndex = doneWithIndex
-        picker.openPickerInTextField(textField, firstComponentArray: firstComponentArray, secondComponentArray: secondComponentArray, firstComponent: firstComponent, secondComponent: secondComponent, toolBarTint: toolBarTint)
+        picker.openPickerInTextField(textField, firstComponentArray: firstComponentArray, secondComponentArray: secondComponentArray, firstComponent: firstComponent, secondComponent: secondComponent, toolBarTint: toolBarTint, barTintColor: barTintColor, backgroundColor: backgroundColor)
         
         if titles != nil {
             let label = UILabel(frame: CGRect(x: UIScreen.main.bounds.size.width/4 - 10, y: 0, width: 100, height: 30))
@@ -54,7 +64,14 @@ class PKMultiPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource 
         }
     }
     
-    private func openPickerInTextField(_ textField: UITextField?, firstComponentArray: [String], secondComponentArray: [String], firstComponent: String?, secondComponent: String?, toolBarTint: UIColor = UIColor.black) {
+    private func openPickerInTextField(_ textField: UITextField?,
+                                       firstComponentArray: [String],
+                                       secondComponentArray: [String],
+                                       firstComponent: String?,
+                                       secondComponent: String?,
+                                       toolBarTint: UIColor = UIColor.black,
+                                       barTintColor: UIColor = AppColors.secondarySystemFillColor,
+                                       backgroundColor: UIColor = AppColors.quaternarySystemFillColor) {
         
         firstValueArray  = firstComponentArray
         secondValueArray = secondComponentArray
@@ -75,14 +92,14 @@ class PKMultiPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource 
         toolbar.setItems(array, animated: true)
         
         toolbar.backgroundColor = .clear
-        toolbar.barTintColor = AppColors.secondarySystemFillColor
+        toolbar.barTintColor = barTintColor
         
         let genericPickerView: UIView = UIView()
         let pickerSize: CGSize = UIPickerView.pickerSize
         self.frame = CGRect(x: 0, y: 0, width: pickerSize.width, height: pickerSize.height)
         genericPickerView.addSubview(self)
         genericPickerView.frame = CGRect(x: 0, y: 0, width: pickerSize.width, height: pickerSize.height)
-        genericPickerView.backgroundColor = AppColors.quaternarySystemFillColor
+        genericPickerView.backgroundColor = backgroundColor
         //genericPickerView.addBlurEffect(backgroundColor: AppColors.quaternarySystemFillColor, style: .dark, alpha: 1.0)
         
         
