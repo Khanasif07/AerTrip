@@ -180,7 +180,8 @@ class HotelResultVC: BaseVC {
         return statusBarHeight + 96
     }
     var statusBarHeight : CGFloat {
-        return UIApplication.shared.isStatusBarHidden ? CGFloat(0) : UIApplication.shared.statusBarFrame.height
+//        return UIApplication.shared.isStatusBarHidden ? CGFloat(0) : UIApplication.shared.statusBarFrame.height
+        return AppDelegate.shared.window?.safeAreaInsets.top ?? 0
     }
     var scrollviewInitialYOffset = CGFloat(0.0)
     

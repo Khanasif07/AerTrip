@@ -74,6 +74,8 @@ class FavouriteHotelsVC: BaseVC {
         self.topNavView.delegate = self
         self.topNavView.configureNavBar(title: LocalizedString.FavouriteHotels.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
        self.topNavView.configureFirstRightButton(normalImage: AppImages.greenAdd, selectedImage: AppImages.greenAdd)
+        topNavView.darkView.isHidden = false
+        topNavView.darkView.backgroundColor = AppColors.themeBlack26
        // self.setUpViewPager()
         self.view.backgroundColor = AppColors.themeWhite
        
@@ -133,8 +135,8 @@ class FavouriteHotelsVC: BaseVC {
            self.parchmentView?.sizeDelegate = self
            self.parchmentView?.select(index: 0)
         
-        self.parchmentView?.menuBackgroundColor = AppColors.clear
-        self.parchmentView?.collectionView.backgroundColor = AppColors.clear
+        self.parchmentView?.menuBackgroundColor = AppColors.themeBlack26
+        self.parchmentView?.collectionView.backgroundColor = AppColors.themeBlack26
         
            self.parchmentView?.reloadData()
            self.parchmentView?.reloadMenu()

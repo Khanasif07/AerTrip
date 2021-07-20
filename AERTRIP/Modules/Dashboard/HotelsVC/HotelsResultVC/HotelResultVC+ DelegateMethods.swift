@@ -126,8 +126,11 @@ extension HotelResultVC: ATSwitcherChangeValueDelegate {
             self.hideFavsButtons(isAnimated: true)
         }
         
-        tableViewVertical.setContentOffset(CGPoint(x: 0, y: -topContentSpace), animated: false)
         showBluredHeaderViewCompleted()
+        delay(seconds: 0.4) {
+            self.tableViewVertical.setContentOffset(CGPoint(x: 0, y: -self.visualEffectViewHeight), animated: true)
+
+        }
     }
 }
 
