@@ -249,7 +249,10 @@ enum AppColors {
 
     /// RGB - 255, 255, 255  Dark mode   RGB 49, 49, 49
     static let themeWhiteDashboard = UIColor(named: "themeWhiteDashboard") ?? UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 1)
-    
+
+    /// RGB - 255, 255, 255  Dark mode   RGB 51,51,51
+    static let passangerBottom = UIColor(named: "passangerBottom") ?? UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 1)
+
     /// RGB - 255, 255, 255  Dark mode   RGB  255, 255, 255
     static let unicolorWhite = UIColor(named: "unicolorWhite") ?? UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 1)
     
@@ -466,9 +469,6 @@ enum AppColors {
 
     ///(0,0,0, 0.2)  (255  ,  255,  255, 0.2)
     static let flightDetailsGrabberColor = UIColor(named: "flightDetailsGrabberColor") ?? .lightGray
-
-    ///(255,255,255, 0.85)  (255  ,  255,  255, 0.2)
-    static let passangersBottom = UIColor(named: "passangersBottom") ?? .white
 
     
     case headlines
