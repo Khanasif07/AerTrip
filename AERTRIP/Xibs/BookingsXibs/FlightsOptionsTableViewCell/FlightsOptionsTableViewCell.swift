@@ -143,7 +143,8 @@ extension FlightsOptionsTableViewCell: UICollectionViewDelegate, UICollectionVie
             }
             
             if indexPath.item == 0, self.additionalInformation?.directions.isEmpty ?? false {
-                cell.optionImageView.image = AppImages.dircetionGray
+//                cell.optionImageView.image = AppImages.dircetionGray
+                cell.optionImageView.image = AppImages.bookingsDirectionsUnselected
                 cell.optionNameLabel.textColor = AppColors.themeGray40
             } else if indexPath.item == 1, self.additionalInformation?.contactInfo == nil {
                 printDebug("inside contact cell")
