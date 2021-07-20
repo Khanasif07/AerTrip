@@ -53,6 +53,7 @@ class BookingCommonActionTableViewCell: ATTableViewCell {
     }
     
     func configureCell(buttonImage: UIImage, buttonTitle: String) {
+        
         if buttonTitle == LocalizedString.AddToAppleWallet.localized {
             self.actionButton.titleLabel?.font = AppFonts.Regular.withSize(16.0)
             self.actionButton.setTitleFont(font: AppFonts.SemiBold.withSize(16), for: .highlighted)
@@ -60,12 +61,13 @@ class BookingCommonActionTableViewCell: ATTableViewCell {
             self.actionButton.setTitleFont(font: AppFonts.SemiBold.withSize(16), for: .selected)
 
             self.topBackgroundView.backgroundColor = AppColors.themeBlack
-            self.actionButton.setTitleColor(AppColors.themeWhite, for: .normal)
-            self.actionButton.setTitleColor(AppColors.themeWhite, for: .selected)
+            self.actionButton.setTitleColor(UIColor.white, for: .normal)
+            self.actionButton.setTitleColor(UIColor.white, for: .selected)
             
-            self.topBackgroundView.layer.borderWidth = 0.0
-            self.topBackgroundView.layer.borderColor = AppColors.clear.cgColor
-            self.actionButton.gradientColors = [AppColors.themeBlack, AppColors.themeBlack]
+            self.topBackgroundView.layer.borderWidth = self.isLightTheme() ? 0.0 : 1
+            self.topBackgroundView.layer.borderColor = AppColors.border166.cgColor
+            self.actionButton.gradientColors = [UIColor.black, UIColor.black]
+//            actionButton.backgroundColor = AppColors.themeWhite
 
         } else {
             self.actionButton.titleLabel?.font = AppFonts.Regular.withSize(18.0)
