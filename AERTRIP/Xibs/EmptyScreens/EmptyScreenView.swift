@@ -464,6 +464,7 @@ extension EmptyScreenView {
         self.messageLabel.text = LocalizedString.noResults.localized
         self.labelsStackView.spacing = 9
         self.containerStackView.spacing = 33
+        searchTextLabel.textColor = AppColors.themeGray153
         self.containerStackView.layoutIfNeeded()
     }
     

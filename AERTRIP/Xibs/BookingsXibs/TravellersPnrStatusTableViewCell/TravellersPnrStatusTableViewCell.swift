@@ -79,7 +79,7 @@ class TravellersPnrStatusTableViewCell: UITableViewCell {
         self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: shadow.shadowColor, offset: shadow.offset, opacity: shadow.opecity, shadowRadius: shadow.shadowRadius)
     }
     
-    internal func configCell(travellersImage: String, travellerName: String, travellerPnrStatus: String, firstName: String, lastName: String, isLastTraveller: Bool,paxType: String, dob: String, salutation: String) {
+    internal func configCell(travellersImage: String, travellerName: String, travellerPnrStatus: String, firstName: String, lastName: String, isLastTraveller: Bool,paxType: String, dob: String, salutation: String, ageColor: UIColor = AppColors.themeGray40) {
         self.tavellerImageBlurView.isHidden = true
         let travelName = travellerName
         if !travellersImage.isEmpty {
@@ -110,7 +110,7 @@ class TravellersPnrStatusTableViewCell: UITableViewCell {
         self.nameDividerView.isHidden = true
         self.travellerPnrStatusLabel.text = travellerPnrStatus
         if !age.isEmpty {
-           self.travellerNameLabel.AttributedFontColorForText(text: age, textColor: AppColors.themeGray40)
+           self.travellerNameLabel.AttributedFontColorForText(text: age, textColor: ageColor)
         }
         switch self.pnrStatus {
         case .active:

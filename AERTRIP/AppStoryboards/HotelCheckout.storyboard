@@ -477,13 +477,6 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w0v-ze-ZQc">
                                         <rect key="frame" x="16" y="44" width="343" height="46"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Ya-e6-EJa" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="343" height="0.5"/>
-                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="0.5" id="gvf-l2-JNq"/>
-                                                </constraints>
-                                            </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Labelvvv dsf vs" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Ci-kZ-Fp2">
                                                 <rect key="frame" x="0.0" y="0.0" width="220" height="44.5"/>
                                                 <color key="backgroundColor" name="themeWhiteDashboard"/>
@@ -497,6 +490,13 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Ya-e6-EJa" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="343" height="0.5"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="0.5" id="gvf-l2-JNq"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" name="themeWhiteDashboard"/>
                                         <constraints>
@@ -823,7 +823,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="afj-T4-gai">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="0.0"/>
-                                <color key="backgroundColor" name="flightFilterSessionDefaultColor"/>
+                                <color key="backgroundColor" name="themeWhiteDashboard"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pA8-KE-Hsr" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -931,7 +931,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
                                 </subviews>
-                                <color key="backgroundColor" name="flightFilterSessionDefaultColor"/>
+                                <color key="backgroundColor" name="themeWhiteDashboard"/>
                                 <constraints>
                                     <constraint firstItem="2D9-P6-vGv" firstAttribute="leading" secondItem="nEl-0z-3ye" secondAttribute="leading" symbolic="YES" id="P22-Uh-cac"/>
                                     <constraint firstItem="2D9-P6-vGv" firstAttribute="top" secondItem="nEl-0z-3ye" secondAttribute="top" symbolic="YES" id="RRw-MV-Mmx"/>
@@ -993,7 +993,7 @@
                                 <subviews>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ipo-DC-tu6" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="0.5"/>
-                                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="s62-x8-0Dh"/>
                                         </constraints>
@@ -1075,7 +1075,7 @@
                                         </constraints>
                                     </progressView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" name="themeWhite"/>
                                 <constraints>
                                     <constraint firstItem="paY-TA-lCR" firstAttribute="top" secondItem="ipo-DC-tu6" secondAttribute="bottom" id="0lF-Ff-gam"/>
                                     <constraint firstAttribute="bottom" secondItem="Ido-g2-4IG" secondAttribute="bottom" id="6pC-C7-P55"/>
@@ -2040,7 +2040,7 @@ Incomplete</string>
                                     <constraint firstAttribute="height" constant="50" id="ajY-dW-nrq"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KY3-Sq-qLT">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KY3-Sq-qLT">
                                 <rect key="frame" x="169.5" y="6" width="36" height="4"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -2106,8 +2106,8 @@ Incomplete</string>
         <image name="ic_preferences" width="36" height="37"/>
         <image name="ic_up_arrow_gray" width="20" height="20"/>
         <image name="rightArrow" width="40" height="44"/>
-        <namedColor name="flightFilterSessionDefaultColor">
-            <color red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        <namedColor name="themeWhite">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="themeWhiteDashboard">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

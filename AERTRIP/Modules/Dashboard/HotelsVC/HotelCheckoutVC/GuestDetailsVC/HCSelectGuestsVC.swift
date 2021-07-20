@@ -81,6 +81,7 @@ class HCSelectGuestsVC: BaseVC {
 //        DispatchQueue.main.async {
             self.initialSetups()
 //        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -139,7 +140,7 @@ class HCSelectGuestsVC: BaseVC {
         
         self.topNavView.delegate = self
         self.topNavView.firstLeftButtonLeadingConst.constant = 7.0
-        self.topNavView.configureNavBar(title: LocalizedString.SelectGuests.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
+        self.topNavView.configureNavBar(title: LocalizedString.SelectPassengers.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
         self.topNavView.configureLeftButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Cancel.rawValue, selectedTitle: LocalizedString.Cancel.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen)
         self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Add.rawValue, selectedTitle: LocalizedString.Add.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
         self.topNavView.firstRightButton.setTitleColor(AppColors.themeGreen, for: .normal)
@@ -173,7 +174,7 @@ class HCSelectGuestsVC: BaseVC {
         self.selectedContactsSetHidden(isHidden: false, animated: false)
         self.selectedContactsCollectionView.reloadData()
         self.selectNextGuest()
-        self.topNavView.backgroundColor = AppColors.flightFilterSessionDefaultColor
+        self.topNavView.backgroundColor = AppColors.themeWhiteDashboard
     }
     
     
@@ -201,7 +202,7 @@ class HCSelectGuestsVC: BaseVC {
     
     
     override func setupColors() {
-        self.selectedContactsContainerView.backgroundColor = AppColors.flightFilterSessionDefaultColor
+        self.selectedContactsContainerView.backgroundColor = AppColors.themeWhiteDashboard
         self.selectedContactsCollectionView.backgroundColor = AppColors.clear//AppColors.themeGray04
     }
     
@@ -224,7 +225,7 @@ class HCSelectGuestsVC: BaseVC {
         self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
         self.parchmentView?.indicatorColor = AppColors.themeGreen
         self.parchmentView?.selectedTextColor = AppColors.themeBlack
-        self.parchmentView?.menuBackgroundColor = AppColors.flightFilterSessionDefaultColor
+        self.parchmentView?.menuBackgroundColor = AppColors.themeWhiteDashboard
         self.listContainerView.addSubview(self.parchmentView!.view)
         
         self.parchmentView?.dataSource = self

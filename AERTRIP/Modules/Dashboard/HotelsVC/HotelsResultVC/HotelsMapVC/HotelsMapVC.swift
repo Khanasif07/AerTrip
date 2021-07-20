@@ -89,6 +89,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     
     @IBOutlet weak var switchGradientView: UIView!
     @IBOutlet weak var appleMap: MKMapView!
+    @IBOutlet weak var bottomBackView: UIView!
     
     
     // MARK: - Properties
@@ -190,7 +191,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         self.view.layoutIfNeeded()
         self.filterButton.isEnabled = false
         self.view.backgroundColor = AppColors.themeWhiteDashboard
-        
+        bottomBackView.backgroundColor = AppColors.themeWhite
         self.initialSetups()
         self.registerXib()
         

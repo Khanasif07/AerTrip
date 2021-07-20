@@ -281,7 +281,7 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
         lastNameLabel.textColor = AppColors.themeBlack
         
         ageLabel.font = AppFonts.Regular.withSize(14.0)
-        ageLabel.textColor = AppColors.themeGray153
+        ageLabel.textColor = AppColors.themeGray40
         
         resetView()
     }
@@ -369,7 +369,7 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
             .font: AppFonts.Regular.withSize(14),
             .foregroundColor: AppColors.themeBlack
         ])
-        attributedString.addAttribute(.foregroundColor, value: AppColors.themeGray153, range: (text as NSString).range(of: ageText))
+        attributedString.addAttribute(.foregroundColor, value: AppColors.themeGray40, range: (text as NSString).range(of: ageText))
         return attributedString
     }
 }

@@ -31,7 +31,8 @@ class TravellerListVC: BaseVC {
     @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var topView: UIView!
-
+    @IBOutlet weak var blurView: BlurView!
+    
     // MARK: - Variables
     
     private lazy var noTravEmptyView: EmptyScreenView = {
@@ -82,7 +83,8 @@ class TravellerListVC: BaseVC {
         self.tableView.backgroundColor = AppColors.themeWhite
         self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
         self.progressView?.isHidden = true
-        self.bottomBackgroundView.backgroundColor = AppColors.themeGray04
+        self.bottomBackgroundView.backgroundColor = AppColors.travellerHeaderColor
+        self.blurView.backgroundColor = AppColors.travellerHeaderColor
         CoreDataManager.shared.deleteData("TravellerData")
         container = NSPersistentContainer(name: "AERTRIP")
         
@@ -924,7 +926,12 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
             headerView.configureCell(self.tableSectionArray[section])
         }
         headerView.containerView.backgroundColor = AppColors.themeGray04
-        headerView.headerLabel.textColor = AppColors.themeBlack
+        if isSelectMode {
+            headerView.headerLabel.textColor = AppColors.baggageTypeTitleColor
+        }else{
+            headerView.headerLabel.textColor = AppColors.themeBlack
+        }
+        
         return headerView
     }
     

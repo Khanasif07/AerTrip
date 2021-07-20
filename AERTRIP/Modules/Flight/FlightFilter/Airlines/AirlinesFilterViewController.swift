@@ -286,8 +286,8 @@ extension AirlinesFilterViewController : UITableViewDataSource , UITableViewDele
             cell.radioButton.setImage(nil, for: .selected)
 //            cell.radioButton.setImage(AppImages.CheckedGreenRadioButton, for: .selected)
 //            cell.radioButton.setImage(AppImages.UncheckedGreenRadioButton, for: .normal)
-            cell.radioButton.setBackgroundImage(AppImages.radioButtonSelect, for: .selected)
-            cell.radioButton.setBackgroundImage(AppImages.radioButtonUnselect, for: .normal)
+            cell.radioButton.setBackgroundImage(AppImages.CheckedGreenRadioButton, for: .selected)
+            cell.radioButton.setBackgroundImage(AppImages.UncheckedGreenRadioButton, for: .normal)
             cell.selectionStyle = .none
             if indexPath.section == 0 {
                 cell.textLabel?.text = "All Airlines"
@@ -305,8 +305,8 @@ extension AirlinesFilterViewController : UITableViewDataSource , UITableViewDele
                 cell.textLabel?.text = "Hide Multi-Airline Itinerary"
                 cell.imageView?.image = AppImages.MultiAirlineItinery
                 cell.radioButton.tag = 2
-                cell.radioButton.setBackgroundImage(AppImages.radioButtonSelect, for: .selected)
-                cell.radioButton.setBackgroundImage(AppImages.radioButtonUnselect, for: .normal)
+                cell.radioButton.setBackgroundImage(AppImages.CheckedGreenRadioButton, for: .selected)
+                cell.radioButton.setBackgroundImage(AppImages.UncheckedGreenRadioButton, for: .normal)
                 cell.radioButton.isSelected = viewModel.currentSelectedAirlineFilter.hideMultipleAirline
             }
             if indexPath.section == 2 {

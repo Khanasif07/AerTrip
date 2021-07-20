@@ -34,6 +34,7 @@
                 <outlet property="heightLabelCM" destination="9jG-DM-eA3" id="LFX-Et-aLU"/>
                 <outlet property="pageTitleView" destination="hzK-hr-lSt" id="Fan-nC-dY2"/>
                 <outlet property="scrollContainerView" destination="qoq-RS-K4p" id="L9R-pt-b5k"/>
+                <outlet property="titleLbl" destination="aAq-9J-Ny0" id="U79-PT-0Mh"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="weightImg" destination="41y-yK-sYu" id="yTP-4Y-fCM"/>
                 <outlet property="weightLabel" destination="Oz6-lV-WzB" id="n4T-af-qc2"/>
@@ -340,8 +341,8 @@
     <resources>
         <image name="breadthdimention" width="57" height="42"/>
         <image name="closeblack" width="24" height="24"/>
-        <image name="group" width="93" height="93"/>
-        <image name="group4" width="148" height="258"/>
+        <image name="group" width="335" height="269"/>
+        <image name="group4" width="375" height="319"/>
         <image name="heightldimention" width="39" height="147"/>
         <image name="weight" width="39" height="38"/>
         <image name="widthdimention" width="96" height="44"/>

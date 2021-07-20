@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -97,13 +97,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hotels" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qha-hg-Avg">
-                                <rect key="frame" x="178.5" y="441.5" width="57.5" height="23.5"/>
+                                <rect key="frame" x="180.5" y="440.5" width="53.5" height="25.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Under Development)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dqe-Xh-64F">
-                                <rect key="frame" x="126.5" y="480" width="161" height="20"/>
+                                <rect key="frame" x="130" y="481" width="154" height="21.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
                                 <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -478,6 +478,10 @@
                                             <constraint firstAttribute="height" constant="0.5" id="YFE-yt-bzx"/>
                                         </constraints>
                                     </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8gu-B8-ocb">
+                                        <rect key="frame" x="0.0" y="370" width="414" height="50"/>
+                                        <color key="backgroundColor" name="doneViewClearColor"/>
+                                    </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F2a-tj-c9A">
                                         <rect key="frame" x="0.0" y="370" width="414" height="50"/>
                                         <color key="backgroundColor" name="doneViewClearColor"/>
@@ -493,9 +497,13 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="0DW-gc-R0u" firstAttribute="top" secondItem="02d-r4-SGK" secondAttribute="bottom" constant="10" id="0Lf-6d-7I3"/>
+                                    <constraint firstItem="8gu-B8-ocb" firstAttribute="trailing" secondItem="F2a-tj-c9A" secondAttribute="trailing" id="2tV-bY-a1c"/>
                                     <constraint firstItem="02d-r4-SGK" firstAttribute="top" secondItem="Z0V-XO-8Qo" secondAttribute="bottom" constant="15" id="8MK-5Q-21C"/>
+                                    <constraint firstItem="8gu-B8-ocb" firstAttribute="leading" secondItem="F2a-tj-c9A" secondAttribute="leading" id="AMG-lg-xkU"/>
                                     <constraint firstItem="rJ4-2s-W61" firstAttribute="trailing" secondItem="KXl-rh-TQG" secondAttribute="trailing" id="C6r-E9-nUt"/>
                                     <constraint firstAttribute="trailing" secondItem="KXl-rh-TQG" secondAttribute="trailing" id="DlU-pK-qeM"/>
+                                    <constraint firstItem="8gu-B8-ocb" firstAttribute="top" secondItem="F2a-tj-c9A" secondAttribute="top" id="FZJ-TH-jSh"/>
+                                    <constraint firstAttribute="bottom" secondItem="8gu-B8-ocb" secondAttribute="bottom" id="GVp-f6-5t9"/>
                                     <constraint firstItem="0DW-gc-R0u" firstAttribute="trailing" secondItem="F2a-tj-c9A" secondAttribute="trailing" id="GgE-Mx-tLT"/>
                                     <constraint firstItem="yB5-84-0cM" firstAttribute="leading" secondItem="bvJ-X6-lVo" secondAttribute="leading" id="H8B-kX-gCh"/>
                                     <constraint firstAttribute="height" constant="420" id="MMz-sL-Vad"/>
@@ -679,7 +687,7 @@ been sent</string>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DestinationMyLocationTableCell" rowHeight="55" id="lqc-d4-5nd" customClass="DestinationMyLocationTableCell" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="24.5" width="414" height="55"/>
+                                                <rect key="frame" x="0.0" y="28" width="414" height="55"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lqc-d4-5nd" id="fq8-cv-7Tn">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="55"/>
@@ -718,7 +726,7 @@ been sent</string>
                                                 </connections>
                                             </tableViewCell>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DestinationSearchedTableCell" rowHeight="94" id="3Pj-hN-WPo" customClass="DestinationSearchedTableCell" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="79.5" width="414" height="94"/>
+                                                <rect key="frame" x="0.0" y="83" width="414" height="94"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3Pj-hN-WPo" id="KWp-GO-aMk">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="94"/>
@@ -906,7 +914,7 @@ been sent</string>
                                                         <rect key="frame" x="0.0" y="0.0" width="112.5" height="266"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="lUb-4B-UGW">
-                                                                <rect key="frame" x="0.0" y="0.0" width="112.5" height="125"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="112.5" height="128"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="627-JL-ot9">
                                                                         <rect key="frame" x="0.0" y="0.0" width="112.5" height="43"/>
@@ -928,10 +936,10 @@ been sent</string>
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LFd-nY-Rus">
-                                                                        <rect key="frame" x="0.0" y="55" width="112.5" height="70"/>
+                                                                        <rect key="frame" x="0.0" y="55" width="112.5" height="73"/>
                                                                         <subviews>
                                                                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l4l-qf-vJb">
-                                                                                <rect key="frame" x="41" y="6" width="31" height="58"/>
+                                                                                <rect key="frame" x="41" y="7.5" width="31" height="58"/>
                                                                                 <state key="normal" image="rooms_white_icon"/>
                                                                             </button>
                                                                         </subviews>
@@ -948,10 +956,10 @@ been sent</string>
                                                                 </constraints>
                                                             </stackView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="klb-yY-qLX">
-                                                                <rect key="frame" x="0.0" y="144.5" width="112.5" height="121.5"/>
+                                                                <rect key="frame" x="0.0" y="147.5" width="112.5" height="118.5"/>
                                                                 <subviews>
                                                                     <pickerView tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g2S-NB-xYW">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="112.5" height="121.5"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="112.5" height="118.5"/>
                                                                     </pickerView>
                                                                 </subviews>
                                                                 <color key="backgroundColor" name="themeWhiteDashboard"/>
@@ -983,7 +991,7 @@ been sent</string>
                                                         <rect key="frame" x="0.0" y="0.0" width="113" height="266"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="8sd-hy-MIr">
-                                                                <rect key="frame" x="0.0" y="0.0" width="113" height="119.5"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="113" height="120.5"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vxk-PK-7qo">
                                                                         <rect key="frame" x="0.0" y="0.0" width="113" height="45"/>
@@ -1014,10 +1022,10 @@ been sent</string>
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EmB-dd-HPg">
-                                                                        <rect key="frame" x="0.0" y="57" width="113" height="62.5"/>
+                                                                        <rect key="frame" x="0.0" y="57" width="113" height="63.5"/>
                                                                         <subviews>
                                                                             <button opaque="NO" tag="2" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XBn-d3-Nmd">
-                                                                                <rect key="frame" x="32.5" y="7.5" width="48" height="48"/>
+                                                                                <rect key="frame" x="32.5" y="8" width="48" height="48"/>
                                                                                 <state key="normal" image="adult_icon_bulk"/>
                                                                             </button>
                                                                         </subviews>
@@ -1031,10 +1039,10 @@ been sent</string>
                                                                 </subviews>
                                                             </stackView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WoY-az-onx">
-                                                                <rect key="frame" x="0.0" y="139" width="113" height="127"/>
+                                                                <rect key="frame" x="0.0" y="140" width="113" height="126"/>
                                                                 <subviews>
                                                                     <pickerView tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DEo-vf-mkT">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="113" height="127"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="113" height="126"/>
                                                                     </pickerView>
                                                                 </subviews>
                                                                 <color key="backgroundColor" name="themeWhiteDashboard"/>
@@ -2606,6 +2614,10 @@ been sent</string>
                                     <constraint firstItem="NVC-TV-wgh" firstAttribute="top" secondItem="517-wN-Pyh" secondAttribute="top" id="vqm-PO-9Nc"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xM7-r3-HNK">
+                                <rect key="frame" x="0.0" y="689" width="414" height="207"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" dataMode="prototypes" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tDJ-tn-Vwy">
                                 <rect key="frame" x="0.0" y="659" width="414" height="203"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2751,6 +2763,7 @@ been sent</string>
                         <color key="backgroundColor" name="themeWhiteDashboard"/>
                         <constraints>
                             <constraint firstItem="ZuB-T2-crU" firstAttribute="top" secondItem="ZPp-HR-M7c" secondAttribute="top" id="6XU-5F-0SS"/>
+                            <constraint firstItem="xM7-r3-HNK" firstAttribute="top" secondItem="tDJ-tn-Vwy" secondAttribute="top" constant="30" id="6aX-sP-03o"/>
                             <constraint firstItem="ZPp-HR-M7c" firstAttribute="top" secondItem="j3l-eS-uIm" secondAttribute="top" constant="144" id="7g6-lV-1c7"/>
                             <constraint firstItem="tDJ-tn-Vwy" firstAttribute="leading" secondItem="j3l-eS-uIm" secondAttribute="leading" id="8aD-C9-8ys"/>
                             <constraint firstItem="Um5-jk-PU5" firstAttribute="leading" secondItem="j3l-eS-uIm" secondAttribute="leading" id="Big-cD-A6Z"/>
@@ -2768,6 +2781,8 @@ been sent</string>
                             <constraint firstItem="Xzi-Hh-Ux3" firstAttribute="leading" secondItem="Spz-Rv-ajN" secondAttribute="leading" id="e7t-Xy-jd4"/>
                             <constraint firstItem="Xzi-Hh-Ux3" firstAttribute="trailing" secondItem="Spz-Rv-ajN" secondAttribute="trailing" id="eFY-tR-s6s"/>
                             <constraint firstItem="Spz-Rv-ajN" firstAttribute="trailing" secondItem="ZPp-HR-M7c" secondAttribute="trailing" id="fc4-wG-1sp"/>
+                            <constraint firstItem="xM7-r3-HNK" firstAttribute="leading" secondItem="tDJ-tn-Vwy" secondAttribute="leading" id="jf9-6H-idV"/>
+                            <constraint firstItem="xM7-r3-HNK" firstAttribute="bottom" secondItem="j3l-eS-uIm" secondAttribute="bottom" id="kDJ-Tv-N9k"/>
                             <constraint firstItem="Um5-jk-PU5" firstAttribute="top" secondItem="j3l-eS-uIm" secondAttribute="top" id="kwy-wJ-YaV"/>
                             <constraint firstItem="Spz-Rv-ajN" firstAttribute="bottom" secondItem="tDJ-tn-Vwy" secondAttribute="bottom" id="nvD-0B-f6z"/>
                             <constraint firstItem="Spz-Rv-ajN" firstAttribute="trailing" secondItem="oyO-vX-rBO" secondAttribute="trailing" id="oXS-nl-2G2"/>
@@ -2778,12 +2793,14 @@ been sent</string>
                             <constraint firstAttribute="trailing" secondItem="517-wN-Pyh" secondAttribute="trailing" id="yvz-la-EYM"/>
                             <constraint firstItem="oyO-vX-rBO" firstAttribute="leading" secondItem="Spz-Rv-ajN" secondAttribute="leading" id="zff-FW-dci"/>
                             <constraint firstItem="ZuB-T2-crU" firstAttribute="trailing" secondItem="ZPp-HR-M7c" secondAttribute="trailing" id="zrl-Tt-lVx"/>
+                            <constraint firstItem="xM7-r3-HNK" firstAttribute="trailing" secondItem="tDJ-tn-Vwy" secondAttribute="trailing" id="zy9-C5-MXE"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="appleMap" destination="ZuB-T2-crU" id="GbW-jT-ouo"/>
                         <outlet property="backButton" destination="vqc-c4-SP8" id="xFX-Qe-naA"/>
                         <outlet property="backContainerView" destination="VBx-dX-vpq" id="wZU-F0-afG"/>
+                        <outlet property="bottomBackView" destination="xM7-r3-HNK" id="azg-2T-iCK"/>
                         <outlet property="cancelButton" destination="4hR-JF-CJi" id="NUv-Vy-3Lf"/>
                         <outlet property="cardGradientView" destination="oyO-vX-rBO" id="jqF-ag-GWf"/>
                         <outlet property="collectionViewBottomConstraint" destination="nvD-0B-f6z" id="bxE-SW-Wx8"/>

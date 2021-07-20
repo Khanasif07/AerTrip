@@ -85,6 +85,8 @@ class MealPreferenceCell: UITableViewCell {
         self.programTextField.text = self.passenger.frequentFlyer[index].program
         self.airlineImage.setImageWithUrl(self.passenger.frequentFlyer[index].logoUrl, placeholder: UIImage(), showIndicator: false)
         self.numberTextField.text = self.passenger.frequentFlyer[index].number
+        self.numberTextField.setUpAttributedPlaceholder(placeholderString: "Number", with: "", foregroundColor: AppColors.checkoutApplyColor, isChnagePlacehoder:true)
+
         self.numberTextField.addTarget(self, action: #selector(textFieldDidChanged), for: .editingChanged)
         self.cellTitleLabel.text = (index == 0) ? "Frequent Flyer" : ""
         self.titleTopConstraint.constant = (index == 0) ? 8.0 : 0.0

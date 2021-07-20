@@ -147,6 +147,9 @@ class SlideMenuProfileImageHeaderView: UIView {
     }
     
     func doInitialSetup() {
+        familyButton.backgroundColor = AppColors.blackWith40PerAlpha
+        familyButton.setTitleColor(AppColors.themeWhite, for: .normal)
+        familyButton.setTitleColor(AppColors.themeWhite, for: .selected)
         familyButton.layer.cornerRadius = familyButton.height / 2.0
         self.makeImageCircular()
     }

@@ -1635,6 +1635,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dNJ-ub-7e2">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YZc-0A-tyn" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1682,18 +1686,22 @@
                             <constraint firstItem="7Le-pX-rey" firstAttribute="top" secondItem="jdd-ph-CmQ" secondAttribute="bottom" id="JWv-9X-3EW"/>
                             <constraint firstItem="BuY-Oc-bUv" firstAttribute="trailing" secondItem="YZc-0A-tyn" secondAttribute="trailing" id="KQs-4U-jSm"/>
                             <constraint firstItem="jdd-ph-CmQ" firstAttribute="leading" secondItem="BuY-Oc-bUv" secondAttribute="leading" id="LVr-du-mFo"/>
+                            <constraint firstItem="dNJ-ub-7e2" firstAttribute="leading" secondItem="k0p-4q-jD4" secondAttribute="leading" id="S5H-NM-NcA"/>
                             <constraint firstAttribute="bottom" secondItem="SET-HQ-7Y0" secondAttribute="bottom" id="TqM-qg-70b"/>
                             <constraint firstItem="4IB-Js-Lz2" firstAttribute="trailing" secondItem="7Le-pX-rey" secondAttribute="trailing" id="Wxo-tv-2sI"/>
                             <constraint firstItem="k0p-4q-jD4" firstAttribute="bottom" secondItem="YZc-0A-tyn" secondAttribute="bottom" id="YT3-Vs-GNL"/>
                             <constraint firstItem="BuY-Oc-bUv" firstAttribute="trailing" secondItem="7Le-pX-rey" secondAttribute="trailing" id="b8C-JQ-tDq"/>
                             <constraint firstItem="BuY-Oc-bUv" firstAttribute="bottom" secondItem="7Le-pX-rey" secondAttribute="bottom" id="dlG-o3-z8S"/>
+                            <constraint firstItem="dNJ-ub-7e2" firstAttribute="bottom" secondItem="k0p-4q-jD4" secondAttribute="bottom" id="e6x-30-Ln0"/>
                             <constraint firstItem="YZc-0A-tyn" firstAttribute="leading" secondItem="BuY-Oc-bUv" secondAttribute="leading" id="fuR-Fj-lio"/>
                             <constraint firstItem="4IB-Js-Lz2" firstAttribute="leading" secondItem="7Le-pX-rey" secondAttribute="leading" id="kdz-SS-g3W"/>
                             <constraint firstItem="7Le-pX-rey" firstAttribute="top" secondItem="SET-HQ-7Y0" secondAttribute="top" id="l8I-qM-CFd"/>
                             <constraint firstItem="k0p-4q-jD4" firstAttribute="top" secondItem="JrQ-VD-sWE" secondAttribute="top" id="lPj-mU-pvq"/>
                             <constraint firstItem="4IB-Js-Lz2" firstAttribute="top" secondItem="7Le-pX-rey" secondAttribute="top" id="nml-DY-P85"/>
                             <constraint firstItem="4IB-Js-Lz2" firstAttribute="bottom" secondItem="7Le-pX-rey" secondAttribute="bottom" id="pWE-3g-7hT"/>
+                            <constraint firstItem="dNJ-ub-7e2" firstAttribute="top" secondItem="k0p-4q-jD4" secondAttribute="top" id="qdI-TX-1Ov"/>
                             <constraint firstItem="7Le-pX-rey" firstAttribute="leading" secondItem="SET-HQ-7Y0" secondAttribute="leading" id="t4v-k7-3aD"/>
+                            <constraint firstItem="dNJ-ub-7e2" firstAttribute="trailing" secondItem="k0p-4q-jD4" secondAttribute="trailing" id="x9b-O4-flM"/>
                             <constraint firstItem="k0p-4q-jD4" firstAttribute="trailing" secondItem="YZc-0A-tyn" secondAttribute="trailing" id="xQK-Wh-yYj"/>
                         </constraints>
                     </view>
@@ -1702,6 +1710,7 @@
                         <outlet property="gradientView" destination="SET-HQ-7Y0" id="Id3-xV-2ix"/>
                         <outlet property="indicatorView" destination="5Bg-6S-EbS" id="ChK-EP-0Lr"/>
                         <outlet property="loaderContainer" destination="4IB-Js-Lz2" id="ewo-WX-zYJ"/>
+                        <outlet property="navigationBackgroundView" destination="dNJ-ub-7e2" id="WyV-YM-fgx"/>
                         <outlet property="payButton" destination="7Le-pX-rey" id="2BA-3F-Ob6"/>
                         <outlet property="topNavView" destination="YZc-0A-tyn" id="puE-CB-o1I"/>
                     </connections>
@@ -1723,6 +1732,10 @@
                                 <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GZr-s3-Mrg" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OA6-1U-gBW">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
@@ -1775,10 +1788,13 @@
                             <constraint firstItem="GZr-s3-Mrg" firstAttribute="trailing" secondItem="fTk-vB-NOm" secondAttribute="trailing" id="LIQ-Vn-lHg"/>
                             <constraint firstItem="GZr-s3-Mrg" firstAttribute="bottom" secondItem="fTk-vB-NOm" secondAttribute="bottom" id="QU0-e8-xkW"/>
                             <constraint firstItem="Trq-7T-wih" firstAttribute="top" secondItem="HxK-ol-UV0" secondAttribute="bottom" id="QwJ-aH-uiO"/>
+                            <constraint firstItem="OA6-1U-gBW" firstAttribute="bottom" secondItem="GZr-s3-Mrg" secondAttribute="bottom" id="Rmn-KU-9By"/>
                             <constraint firstItem="HxK-ol-UV0" firstAttribute="top" secondItem="xQM-Gm-sBL" secondAttribute="top" id="TZS-Wo-N8F"/>
                             <constraint firstItem="8Mf-KI-PPm" firstAttribute="leading" secondItem="IbO-22-i82" secondAttribute="leading" id="U4y-ay-KBi"/>
                             <constraint firstItem="xQM-Gm-sBL" firstAttribute="trailing" secondItem="HxK-ol-UV0" secondAttribute="trailing" id="Udj-Qs-HiA"/>
                             <constraint firstItem="xQM-Gm-sBL" firstAttribute="trailing" secondItem="fTk-vB-NOm" secondAttribute="trailing" id="V8R-qZ-ygO"/>
+                            <constraint firstItem="OA6-1U-gBW" firstAttribute="leading" secondItem="GZr-s3-Mrg" secondAttribute="leading" id="VXh-Tf-EJv"/>
+                            <constraint firstItem="OA6-1U-gBW" firstAttribute="top" secondItem="GZr-s3-Mrg" secondAttribute="top" id="Wft-la-weK"/>
                             <constraint firstItem="fTk-vB-NOm" firstAttribute="leading" secondItem="xQM-Gm-sBL" secondAttribute="leading" id="WrD-0u-DH7"/>
                             <constraint firstItem="GZr-s3-Mrg" firstAttribute="leading" secondItem="fTk-vB-NOm" secondAttribute="leading" id="ZaR-0z-KhG"/>
                             <constraint firstItem="8Mf-KI-PPm" firstAttribute="top" secondItem="PVc-GF-9ED" secondAttribute="top" id="bW2-Oa-bwF"/>
@@ -1786,12 +1802,14 @@
                             <constraint firstItem="8Mf-KI-PPm" firstAttribute="bottom" secondItem="PVc-GF-9ED" secondAttribute="bottom" id="fQo-kH-EXY"/>
                             <constraint firstItem="HxK-ol-UV0" firstAttribute="leading" secondItem="xQM-Gm-sBL" secondAttribute="leading" id="lMW-LL-tPM"/>
                             <constraint firstAttribute="trailing" secondItem="8Mf-KI-PPm" secondAttribute="trailing" id="sDI-kS-dgQ"/>
+                            <constraint firstItem="OA6-1U-gBW" firstAttribute="trailing" secondItem="GZr-s3-Mrg" secondAttribute="trailing" id="tkI-wM-f0N"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="checkOutTableView" destination="HxK-ol-UV0" id="J4B-oT-Myn"/>
                         <outlet property="indicatorView" destination="PPh-V8-eKo" id="6S3-mM-6kJ"/>
                         <outlet property="loaderContainer" destination="PVc-GF-9ED" id="NT4-dc-705"/>
+                        <outlet property="navigationBackgroundView" destination="OA6-1U-gBW" id="36g-tN-q9u"/>
                         <outlet property="payButton" destination="8Mf-KI-PPm" id="Ck2-Ow-C8q"/>
                         <outlet property="paymentButtonContainerView" destination="Trq-7T-wih" id="0HL-cO-N7o"/>
                         <outlet property="topNavView" destination="fTk-vB-NOm" id="YZb-eh-8AU"/>

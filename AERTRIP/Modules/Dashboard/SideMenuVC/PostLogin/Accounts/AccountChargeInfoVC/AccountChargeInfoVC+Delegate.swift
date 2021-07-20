@@ -26,7 +26,7 @@ extension AccountChargeInfoVC: UITableViewDelegate, UITableViewDataSource {
         }
         
         cell.configure(title: self.viewModel.titles[indexPath.row], description: self.viewModel.description[indexPath.row], usingFor: self.viewModel.currentUsingFor)
-        
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
 }

@@ -610,11 +610,11 @@ class AccountDepositCell: UITableViewCell {
 
         }else{
             amountLabel.textColor = .clear
-            amountLabel.backgroundColor = UIColor(displayP3Red: (238.0/255.0), green: (239.0/255.0), blue: (242.0/255.0), alpha: 1)
+            amountLabel.backgroundColor = AppColors.shimmerEffectLayerColor
             amountLabel.startShimmer()
             if !(self.dateLabel.text?.isEmpty ?? true){
                 self.dateLabel.textColor = .clear
-                self.dateLabel.backgroundColor =  UIColor(displayP3Red: (238.0/255.0), green: (239.0/255.0), blue: (242.0/255.0), alpha: 1)
+                self.dateLabel.backgroundColor =  AppColors.shimmerEffectLayerColor
                 self.dateLabel.startShimmer()
             }
             self.depositButton.isEnabled = false
@@ -646,7 +646,7 @@ class AccountDepositCell: UITableViewCell {
         self.depositButton.setTitleColor(AppColors.unicolorWhite, for: .normal)
         self.depositButton.setTitleColor(AppColors.unicolorWhite, for: .selected)
         self.depositButton.shadowColor = AppColors.appShadowColor//themeBlack.withAlphaComponent(0.16)
-        self.depositButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
+        self.depositButton.layer.applySketchShadow(color: AppColors.unicolorBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
     }
     
     //MARK:- Public

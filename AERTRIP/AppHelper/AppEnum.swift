@@ -1080,8 +1080,6 @@ enum ATWeatherType: RawRepresentable {
     
     
     static var arrow: UIImage{ #imageLiteral(resourceName: "arrow") }
-    static var radioButtonSelect: UIImage { #imageLiteral(resourceName: "radioButtonSelect") }
-    static var radioButtonUnselect: UIImage { #imageLiteral(resourceName: "radioButtonUnselect") }
     @objc static var onewayIcon: UIImage {#imageLiteral(resourceName: "oneway")}
     @objc static var returnIcon: UIImage { #imageLiteral(resourceName: "return") }
     static var onewayWhite: UIImage {#imageLiteral(resourceName: "onewayWhite")}

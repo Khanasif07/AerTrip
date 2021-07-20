@@ -139,16 +139,22 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                         if (UserInfo.loggedInUser?.mobile.isEmpty ?? false){
                             cell.isSettingForSetMobileNumber(isSettingMobile: true)
                         }
+                        cell.leftView.isUserInteractionEnabled = false
+                        cell.blackDownImageView.isHidden = true
+                        cell.rightViewTextField.isUserInteractionEnabled = false
                         
                     }else{
                         cell.deleteButton.isHidden = true
+                        cell.leftView.isUserInteractionEnabled = true
+                        cell.blackDownImageView.isHidden = false
+                        cell.rightViewTextField.isUserInteractionEnabled = true
                     }
                     //make disable
                     
-                    cell.leftView.isUserInteractionEnabled = false
-                    cell.rightViewTextField.isUserInteractionEnabled = !(self.viewModel.travelData?.id == UserInfo.loggedInUser?.paxId)
-                    cell.leftTitleLabel.textColor = AppColors.themeGray40
-                    cell.blackDownImageView.isHidden = true
+//                    cell.leftView.isUserInteractionEnabled = false
+//                    cell.rightViewTextField.isUserInteractionEnabled = !(self.viewModel.travelData?.id == UserInfo.loggedInUser?.paxId)
+//                    cell.leftTitleLabel.textColor = AppColors.themeGray40
+//                    cell.blackDownImageView.isHidden = true
                     
                 } else {
                     //make enable
