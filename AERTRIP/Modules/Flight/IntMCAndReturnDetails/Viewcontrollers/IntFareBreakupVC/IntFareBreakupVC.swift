@@ -189,7 +189,7 @@ class IntFareBreakupVC: BaseVC {
     
     func setupBookingTitleDateView(){
         self.bookingtitleAndDateViewHeight.constant = self.heightForBookingTitleView
-        self.bookingTitleAndDateView.backgroundColor = AppColors.themeBlack26
+        self.bookingTitleAndDateView.backgroundColor = AppColors.themeWhiteDashboard
         if self.isForSelectionAndCheckout{
             self.bookButton.setTitle("Continue", for: .normal)
             self.bookButtonTitle = "Continue"
