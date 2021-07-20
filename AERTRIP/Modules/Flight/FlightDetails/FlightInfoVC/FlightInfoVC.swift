@@ -407,7 +407,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                                 flightDetailsCell.classLabel.text = ""
                                 let lbl = flight.al + " - " + flight.fn + "・"
                                 let lbl1 = " " + flight.cc + bc + " "
-                                flightDetailsCell.classNameLabel.attributedText = flightDetailsCell.addAttributsForRange((lbl + lbl1), coloredString: (lbl1), color: AppColors.lightYellow)
+                                flightDetailsCell.classNameLabel.attributedText = flightDetailsCell.addAttributsForRange((lbl + lbl1), coloredString: (lbl1), color: AppColors.lightYellowAndGoldenGray)
                             }else{
                                 flightDetailsCell.classNameLabel.textColor = AppColors.themeGray40
                                 flightDetailsCell.classLabel.text = ""
@@ -439,7 +439,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         }
                         
                         if flight.isArrivalAirportChange == true{
-                            flightDetailsCell.arrivalAirportLabel.attributedText = flightDetailsCell.addAttributsForRange(" \(flight.to) ", coloredString: " \(flight.to) ", color: AppColors.lightYellow)
+                            flightDetailsCell.arrivalAirportLabel.attributedText = flightDetailsCell.addAttributsForRange(" \(flight.to) ", coloredString: " \(flight.to) ", color: AppColors.lightYellowAndGoldenGray)
                         }else{
                             flightDetailsCell.arrivalAirportLabel.attributedText = flightDetailsCell.addAttributsForRange(flight.to, coloredString: flight.to, color: AppColors.clear)
                         }
@@ -503,7 +503,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         if arrivalDateString != departureDateString{
                             let str = "  \(arrivalDateString)  "
                             
-                            flightDetailsCell.arrivalDateLabel.attributedText = flightDetailsCell.addAttributsForRange(str, coloredString: str, color: AppColors.lightYellow)
+                            flightDetailsCell.arrivalDateLabel.attributedText = flightDetailsCell.addAttributsForRange(str, coloredString: str, color: AppColors.lightYellowAndGoldenGray)
                         }else{
                             flightDetailsCell.arrivalDateLabel.attributedText = nil
                             flightDetailsCell.arrivalDateLabel.text = "\(arrivalDateString)"
@@ -518,7 +518,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         
                         if flight.atm != ""{
                             if flight.isArrivalTerminalChange == true{
-                                flightDetailsCell.arrivalTerminalLabel.attributedText = flightDetailsCell.addAttributsForRange(" \(flight.atm) ", coloredString: " \(flight.atm) ", color: AppColors.lightYellow)
+                                flightDetailsCell.arrivalTerminalLabel.attributedText = flightDetailsCell.addAttributsForRange(" \(flight.atm) ", coloredString: " \(flight.atm) ", color: AppColors.lightYellowAndGoldenGray)
                             }else{
                                 flightDetailsCell.arrivalTerminalLabel.attributedText = flightDetailsCell.addAttributsForRange(flight.atm, coloredString: flight.atm, color: AppColors.clear)
                             }
@@ -530,7 +530,7 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         if flight.dtm != ""{
                             if flight.isDepartureTerminalChange == true
                             {
-                                flightDetailsCell.departureTerminalLabel.attributedText = flightDetailsCell.addAttributsForRange(" \(flight.dtm) ", coloredString: " \(flight.dtm) ", color: AppColors.lightYellow)
+                                flightDetailsCell.departureTerminalLabel.attributedText = flightDetailsCell.addAttributsForRange(" \(flight.dtm) ", coloredString: " \(flight.dtm) ", color: AppColors.lightYellowAndGoldenGray)
                             }else{
                                 flightDetailsCell.departureTerminalLabel.attributedText = flightDetailsCell.addAttributsForRange(flight.dtm, coloredString: flight.dtm, color: AppColors.clear)
                             }

@@ -26,7 +26,11 @@ class FareRulesVC: UIViewController, UIScrollViewDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        view.backgroundColor = AppColors.themeWhite
+        fareRulesScrollView.backgroundColor = AppColors.themeWhite
+        webView.backgroundColor = AppColors.themeWhite
+        dividerLabel.backgroundColor = AppColors.dividerColor
+
         let blurEffect = UIBlurEffect(style: .prominent)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = self.backgroundView.bounds
@@ -52,6 +56,7 @@ class FareRulesVC: UIViewController, UIScrollViewDelegate
                         let cssStr = newVal.htmlCSSCodeString(withFont: AppFonts.Regular.withSize(28.0), isCustomFont: true, fontFileName: AppFonts.Regular.rawValue, fontColor: AppColors.themeBlack)
                         var url = Bundle.main.url(forResource: AppFonts.Regular.rawValue, withExtension: "ttf")
                         url?.deleteLastPathComponent()
+                        webView.isOpaque = false
                         webView.loadHTMLString(cssStr, baseURL: url)
                     }
                 }

@@ -382,6 +382,14 @@ extension PassengerDetailsVC: UITableViewDelegate, UITableViewDataSource{
         guard let cell = self.passengerTable.dequeueReusableCell(withIdentifier: "FlightEmptyCell") as? FlightEmptyCell else { return UITableViewCell() }
         cell.bottomDividerView.isHidden = ((self.viewModel.passengerList.count-1) == indexPath.section)
         cell.backgroundColor = AppColors.themeGray04
+        
+        cell.bottomDividerView.backgroundColor = AppColors.dividerColor2
+
+        if ((self.viewModel.passengerList.count-1) == indexPath.section){
+            cell.topDividerView.backgroundColor = AppColors.dividerColor
+        }else{
+            cell.topDividerView.backgroundColor = AppColors.dividerColor2
+        }
         return cell
         
     }

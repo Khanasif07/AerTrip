@@ -367,7 +367,7 @@ class IntFlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, getSe
 
                             let str = flight.al + " - " + flight.fn + "・" + " " + cc + bc + " "
                         
-                            cell.classNameLabel.attributedText = cell.addAttributsForRange(str, coloredString: (" " + flight.cc + bc + " "), color: AppColors.lightYellow)
+                            cell.classNameLabel.attributedText = cell.addAttributsForRange(str, coloredString: (" " + flight.cc + bc + " "), color: AppColors.lightYellowAndGoldenGray)
                             cell.classNameLabel.textColor = AppColors.themeBlack
                         }else{
                             cell.classLabel.text = ""
@@ -395,7 +395,7 @@ class IntFlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, getSe
                     }
                     
                     if flight.isArrivalAirportChange == true{
-                        cell.arrivalAirportLabel.attributedText = cell.addAttributsForRange(" \(flight.to) ", coloredString: " \(flight.to) ", color: AppColors.lightYellow)
+                        cell.arrivalAirportLabel.attributedText = cell.addAttributsForRange(" \(flight.to) ", coloredString: " \(flight.to) ", color: AppColors.lightYellowAndGoldenGray)
                     }else{
                         cell.arrivalAirportLabel.attributedText = cell.addAttributsForRange(flight.to, coloredString: flight.to, color: AppColors.clear)
                     }
@@ -453,7 +453,7 @@ class IntFlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, getSe
                     }
                     if (flight.isArrivalDateChange ?? false){
                         let str = "  "+cell.dateConverter(dateStr: flight.ad)+"  "
-                        cell.arrivalDateLabel.attributedText = cell.addAttributsForRange(str, coloredString: str, color: AppColors.lightYellow)
+                        cell.arrivalDateLabel.attributedText = cell.addAttributsForRange(str, coloredString: str, color: AppColors.lightYellowAndGoldenGray)
                     }else{
                         cell.arrivalDateLabel.attributedText = nil
                         cell.arrivalDateLabel.text = cell.dateConverter(dateStr: flight.ad)
@@ -472,7 +472,7 @@ class IntFlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, getSe
                     
                     if flight.atm != ""{
                         if flight.isArrivalTerminalChange == true{
-                            cell.arrivalTerminalLabel.attributedText = cell.addAttributsForRange(" \(flight.atm) ", coloredString: " \(flight.atm) ", color: AppColors.lightYellow)
+                            cell.arrivalTerminalLabel.attributedText = cell.addAttributsForRange(" \(flight.atm) ", coloredString: " \(flight.atm) ", color: AppColors.lightYellowAndGoldenGray)
                         }else{
                             cell.arrivalTerminalLabel.attributedText = cell.addAttributsForRange(flight.atm, coloredString: flight.atm, color: AppColors.clear)
                         }
@@ -484,7 +484,7 @@ class IntFlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, getSe
                     if flight.dtm != ""{
                         if flight.isDepartureTerminalChange == true
                         {
-                            cell.departureTerminalLabel.attributedText = cell.addAttributsForRange(" \(flight.dtm) ", coloredString: " \(flight.dtm) ", color: AppColors.lightYellow)
+                            cell.departureTerminalLabel.attributedText = cell.addAttributsForRange(" \(flight.dtm) ", coloredString: " \(flight.dtm) ", color: AppColors.lightYellowAndGoldenGray)
                         }else{
                             cell.departureTerminalLabel.attributedText = cell.addAttributsForRange(flight.dtm, coloredString: flight.dtm, color: AppColors.clear)
                         }
@@ -634,7 +634,7 @@ class IntFlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, getSe
         let arrivalAirportRange = (main_string111 as NSString).range(of: string_to_color111)
         let haltAtAttributedString = NSMutableAttributedString(string:main_string111)
         haltAtAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: AppColors.themeBlack , range: arrivalAirportRange)
-        haltAtAttributedString.addAttribute(NSAttributedString.Key.backgroundColor, value: AppColors.lightYellow, range: arrivalAirportRange)
+        haltAtAttributedString.addAttribute(NSAttributedString.Key.backgroundColor, value: AppColors.lightYellowAndGoldenGray, range: arrivalAirportRange)
         return haltAtAttributedString
     }
     

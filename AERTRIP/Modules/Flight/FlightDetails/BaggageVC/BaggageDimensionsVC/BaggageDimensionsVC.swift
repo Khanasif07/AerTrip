@@ -36,6 +36,7 @@ class BaggageDimensionsVC: UIViewController, UIScrollViewDelegate
     @IBOutlet weak var breadthImg: UIImageView!
     @IBOutlet weak var breadthLabel: UILabel!
     @IBOutlet weak var breadthLabelCM: UILabel!
+    @IBOutlet weak var titleLbl: UILabel!
     
     var weight = ""
     var dimensions = JSONDictionary()
@@ -66,6 +67,7 @@ class BaggageDimensionsVC: UIViewController, UIScrollViewDelegate
         dimensionDetailsInfoLabel.textColor = AppColors.themeGray60
         dividerLabel.backgroundColor = AppColors.dividerColor
         dividerView.backgroundColor = AppColors.dividerColor
+        titleLbl.textColor = AppColors.themeBlack
     }
     
     private func setDataFromDimesion(){

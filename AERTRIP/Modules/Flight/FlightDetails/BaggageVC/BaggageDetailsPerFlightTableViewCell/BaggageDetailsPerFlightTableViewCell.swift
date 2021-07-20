@@ -78,6 +78,8 @@ class BaggageDetailsPerFlightTableViewCell: UITableViewCell
     
     func setColors(){
         self.containerView.backgroundColor = AppColors.flightResultsFooterSecondaryColor
+        dimensionsButton.setTitleColor(AppColors.commonThemeGreen, for: .normal)
+        dimensionsButton.setTitleColor(AppColors.commonThemeGreen, for: .selected)
         self.contentView.backgroundColor = AppColors.themeGray04
         [typeTitleLabel, checkInTitleLabel, cabinTitleLabel].forEach{ lbl in
             lbl?.textColor = AppColors.baggageTypeTitleColor

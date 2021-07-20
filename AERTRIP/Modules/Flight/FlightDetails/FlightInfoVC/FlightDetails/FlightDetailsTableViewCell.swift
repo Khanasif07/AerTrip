@@ -141,10 +141,12 @@ class FlightDetailsTableViewCell: UITableViewCell
             view?.backgroundColor = AppColors.flightResultsFooterSecondaryColor
         }
         contentView.backgroundColor = AppColors.themeGray04
-        [equipmentsLabel, travelingtimeLabel].forEach{ lbl in
-            lbl?.textColor  = AppColors.themeGray153
-            
-        }
+//        [equipmentsLabel, travelingtimeLabel].forEach{ lbl in
+//            lbl?.textColor  = AppColors.themeGray153
+//            
+//        }
+        travelingtimeLabel.textColor = AppColors.themeGray153
+        equipmentsLabel.textColor = AppColors.themeGray40
         [operatorLabel, classLabel,classNameLabel, arrivalAirportAddressLabel, departureAirportAddressLabel].forEach{ lbl in
             lbl?.textColor  = AppColors.themeGray40
             
@@ -182,7 +184,7 @@ class FlightDetailsTableViewCell: UITableViewCell
                 haltAtAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.clear , range: (main_string111 as NSString).range(of: "."))
                 
                 haltAtAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: AppColors.themeBlack , range: arrivalAirportRange)
-                haltAtAttributedString.addAttribute(NSAttributedString.Key.backgroundColor, value: AppColors.lightYellow, range: arrivalAirportRange)
+                haltAtAttributedString.addAttribute(NSAttributedString.Key.backgroundColor, value: AppColors.lightYellowAndGoldenGray, range: arrivalAirportRange)
                 
                 haltAtAttributedString.addAttribute(NSAttributedString.Key.font, value: AppFonts.Regular.withSize(14) , range: (main_string111 as NSString).range(of: main_string111))
                 
@@ -198,7 +200,7 @@ class FlightDetailsTableViewCell: UITableViewCell
                 let arrivalAirportRange = (main_string111 as NSString).range(of: string_to_color111)
                 let haltAtAttributedString = NSMutableAttributedString(string:main_string111)
                 haltAtAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: AppColors.themeBlack , range: arrivalAirportRange)
-                haltAtAttributedString.addAttribute(NSAttributedString.Key.backgroundColor, value: AppColors.lightYellow, range: arrivalAirportRange)
+                haltAtAttributedString.addAttribute(NSAttributedString.Key.backgroundColor, value: AppColors.lightYellowAndGoldenGray, range: arrivalAirportRange)
                 haltAtAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.clear , range: (main_string111 as NSString).range(of: "."))
                 
                 haltAtAttributedString.addAttribute(NSAttributedString.Key.font, value: AppFonts.Regular.withSize(14) , range: (main_string111 as NSString).range(of: main_string111))
@@ -246,7 +248,7 @@ class FlightDetailsTableViewCell: UITableViewCell
         let deptDateRange = (str as NSString).range(of: str)
         let deptDateAttrStr = NSMutableAttributedString(string:str)
         deptDateAttrStr.addAttribute(NSAttributedString.Key.foregroundColor, value: AppColors.themeBlack , range: deptDateRange)
-        deptDateAttrStr.addAttribute(NSAttributedString.Key.backgroundColor, value: AppColors.lightYellow, range: deptDateRange)
+        deptDateAttrStr.addAttribute(NSAttributedString.Key.backgroundColor, value: AppColors.lightYellowAndGoldenGray, range: deptDateRange)
         deptDateAttrStr.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.clear , range: (str as NSString).range(of: "."))
         departureAirportLabel.attributedText = deptDateAttrStr
     }
@@ -286,7 +288,7 @@ class FlightDetailsTableViewCell: UITableViewCell
         let deptDateRange = (str as NSString).range(of: str1)
         let deptDateAttrStr = NSMutableAttributedString(string:str)
         deptDateAttrStr.addAttribute(NSAttributedString.Key.foregroundColor, value: AppColors.themeBlack , range: deptDateRange)
-        deptDateAttrStr.addAttribute(NSAttributedString.Key.backgroundColor, value: AppColors.lightYellow, range: deptDateRange)
+        deptDateAttrStr.addAttribute(NSAttributedString.Key.backgroundColor, value: AppColors.lightYellowAndGoldenGray, range: deptDateRange)
         deptDateAttrStr.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.clear , range: (str as NSString).range(of: "."))
         departureDateLabel.attributedText = deptDateAttrStr
     }
