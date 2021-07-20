@@ -70,8 +70,9 @@ class WeatherInfoTableViewCell: UITableViewCell {
     
     private func setColors(){
         self.contentView.backgroundColor = AppColors.themeBlack26
-        self.tempLabel.backgroundColor = AppColors.themeWhite
-        self.whetherLabel.backgroundColor = AppColors.themeWhite
+        self.tempLabel.backgroundColor = AppColors.themeBlack26
+        self.whetherLabel.backgroundColor = AppColors.themeBlack26
+        self.weatherIconLbl.backgroundColor = AppColors.themeBlack26
     }
     
     private func configureCell() {

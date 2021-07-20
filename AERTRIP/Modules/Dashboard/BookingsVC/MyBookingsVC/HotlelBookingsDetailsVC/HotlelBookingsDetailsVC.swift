@@ -52,7 +52,7 @@ class HotlelBookingsDetailsVC: BaseVC {
             self.bookingDetailsTableView.rowHeight = UITableView.automaticDimension
             self.bookingDetailsTableView.estimatedSectionHeaderHeight = 0
             self.bookingDetailsTableView.sectionHeaderHeight = 0
-            self.bookingDetailsTableView.backgroundColor = AppColors.screensBackground.color
+            self.bookingDetailsTableView.backgroundColor = AppColors.themeBlack26
             bookingDetailsTableView.showsVerticalScrollIndicator = true
         }
     }
@@ -79,6 +79,7 @@ class HotlelBookingsDetailsVC: BaseVC {
         self.headerView = OtherBookingDetailsHeaderView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 147.0))
         self.configureTableHeaderView(hideDivider: true)
         self.setupParallaxHeader()
+        headerView?.backgroundColor = AppColors.themeBlack26
         self.registerNibs()
         
         self.refreshControl.addTarget(self, action: #selector(self.handleRefresh(_:)), for: UIControl.Event.valueChanged)
@@ -100,7 +101,7 @@ class HotlelBookingsDetailsVC: BaseVC {
     
     override func setupColors() {
         self.topNavBar.backgroundColor = AppColors.clear
-        self.view.backgroundColor = AppColors.themeWhite
+        self.view.backgroundColor = AppColors.themeBlack26
     }
     
     override func bindViewModel() {
