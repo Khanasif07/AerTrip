@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -46,7 +46,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9BF-2O-r6W" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                        <rect key="frame" x="55" y="43.5" width="255" height="0.5"/>
+                        <rect key="frame" x="85" y="43.5" width="235" height="0.5"/>
                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="0.5" id="fHn-Am-sZQ"/>
@@ -58,12 +58,12 @@
                     <constraint firstItem="kTc-rF-rjt" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="A7g-hM-ASO"/>
                     <constraint firstItem="l7l-Wt-vFe" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="AmY-pT-ZDH"/>
                     <constraint firstAttribute="bottom" secondItem="9BF-2O-r6W" secondAttribute="bottom" id="JPh-TX-Ihn"/>
-                    <constraint firstAttribute="trailing" secondItem="9BF-2O-r6W" secondAttribute="trailing" constant="10" id="NJN-5s-nl9"/>
+                    <constraint firstAttribute="trailing" secondItem="9BF-2O-r6W" secondAttribute="trailing" id="NJN-5s-nl9"/>
                     <constraint firstItem="kUp-fZ-42g" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="fHq-2t-Hpc"/>
+                    <constraint firstItem="9BF-2O-r6W" firstAttribute="leading" secondItem="tCp-VQ-hw6" secondAttribute="leading" constant="-2" id="kMp-a5-PZZ"/>
                     <constraint firstAttribute="trailing" secondItem="l7l-Wt-vFe" secondAttribute="trailing" constant="12" id="ngN-ga-4GG"/>
                     <constraint firstItem="kUp-fZ-42g" firstAttribute="leading" secondItem="kTc-rF-rjt" secondAttribute="trailing" constant="10" id="pLd-XY-qRL"/>
                     <constraint firstItem="tCp-VQ-hw6" firstAttribute="leading" secondItem="kUp-fZ-42g" secondAttribute="trailing" constant="12" id="pPy-UY-OmY"/>
-                    <constraint firstItem="9BF-2O-r6W" firstAttribute="leading" secondItem="kUp-fZ-42g" secondAttribute="leading" id="s5Q-rU-evf"/>
                     <constraint firstItem="kTc-rF-rjt" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="wNg-Dn-ycw"/>
                     <constraint firstItem="tCp-VQ-hw6" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="z6M-wS-9pa"/>
                 </constraints>
