@@ -158,6 +158,8 @@ enum AppColors {
     /// (204,204,204) (102,102,102)
     static let seatsBorder = UIColor(named: "seatsBorder") ?? .white
     
+    static let border166 = UIColor(named: "border166") ?? .white
+    
    // (0, 0, 0) (153, 153, 153)
     static let blackGray = UIColor(named: "blackGray") ?? AppColors.seatsBorder
  

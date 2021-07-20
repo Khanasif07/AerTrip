@@ -59,6 +59,7 @@ class ContactDetailsTableCell: UITableViewCell {
     private func setupTextAndColor() {
         self.nameLabel.textColor = AppColors.themeBlack
         self.nameLabel.font = AppFonts.Regular.withSize(18.0)
+        dividerView.backgroundColor = AppColors.dividerColor
     }
 
     private func populateData() {

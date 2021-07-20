@@ -138,14 +138,17 @@ class HCSelectGuestsVC: BaseVC {
         }
         selectedContactsCollectionView.setCollectionViewLayout(self.collectionLayout, animated: false)
         
+//        self.topNavView.backgroundColor = AppColors.themeWhiteDashboard
         self.topNavView.delegate = self
         self.topNavView.firstLeftButtonLeadingConst.constant = 7.0
-        self.topNavView.configureNavBar(title: LocalizedString.SelectPassengers.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
+        self.topNavView.configureNavBar(title: LocalizedString.SelectPassengers.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .color(color: AppColors.themeWhiteDashboard))
         self.topNavView.configureLeftButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Cancel.rawValue, selectedTitle: LocalizedString.Cancel.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen)
         self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Add.rawValue, selectedTitle: LocalizedString.Add.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
         self.topNavView.firstRightButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.topNavView.firstRightButton.setTitleColor(AppColors.themeGreen, for: .selected)
         self.topNavView.firstRightButton.setTitleColor(AppColors.themeGray40, for: .disabled)
+        self.topNavView.darkView.isHidden = false
+        self.topNavView.darkView.backgroundColor = AppColors.themeWhiteDashboard
         
         //        self.viewModel.selectedPhoneContacts.removeAll()
         //        self.viewModel.selectedFacebookContacts.removeAll()
@@ -154,6 +157,8 @@ class HCSelectGuestsVC: BaseVC {
         self.searchBar.searchBarStyle = .default
         self.searchBar.delegate = self
         self.searchBar.placeholder = LocalizedString.search.localized
+        self.searchBar.backgroundColor = AppColors.themeWhiteDashboard
+        self.selectedContactsContainerView.backgroundColor = AppColors.themeWhiteDashboard
         
         self.selectedContactsCollectionView.dataSource = self
         self.selectedContactsCollectionView.delegate = self
