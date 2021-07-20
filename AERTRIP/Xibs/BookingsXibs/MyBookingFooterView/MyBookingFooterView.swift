@@ -58,8 +58,8 @@ class MyBookingFooterView: UIView {
     }
     
     func setupColors(){
-        self.containerView.backgroundColor = AppColors.themeWhiteDashboard
-        self.switchContainerView.backgroundColor = AppColors.themeWhiteDashboard
+        self.containerView.backgroundColor = AppColors.themeBlack26
+        self.switchContainerView.backgroundColor = AppColors.themeBlack26
         self.backgroundColor = AppColors.themeWhite
     }
     
