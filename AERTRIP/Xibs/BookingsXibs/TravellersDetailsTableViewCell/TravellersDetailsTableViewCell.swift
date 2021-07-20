@@ -45,6 +45,7 @@ class TravellersDetailsTableViewCell: UITableViewCell {
     
     private func setColor(){
         self.containerView.backgroundColor = AppColors.themeWhiteDashboard
+        self.contentView.backgroundColor = AppColors.themeBlack26
     }
     
     
