@@ -55,7 +55,7 @@ class FlightBookingsDetailsVC: BaseVC {
             self.bookingDetailsTableView.rowHeight = UITableView.automaticDimension
             self.bookingDetailsTableView.estimatedSectionHeaderHeight = 0
             self.bookingDetailsTableView.sectionHeaderHeight = 0
-            self.bookingDetailsTableView.backgroundColor = AppColors.screensBackground.color
+            self.bookingDetailsTableView.backgroundColor = AppColors.themeBlack26
             bookingDetailsTableView.showsVerticalScrollIndicator = true
         }
     }

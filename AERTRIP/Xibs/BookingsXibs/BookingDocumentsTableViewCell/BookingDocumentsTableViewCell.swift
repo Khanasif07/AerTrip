@@ -72,6 +72,7 @@ class BookingDocumentsTableViewCell: UITableViewCell {
     private func setupColors(){
         self.containerView.backgroundColor = AppColors.themeWhiteDashboard
         self.documentsCollectionView.backgroundColor = AppColors.themeWhiteDashboard
+        self.contentView.backgroundColor = AppColors.themeBlack26
         
     }
     

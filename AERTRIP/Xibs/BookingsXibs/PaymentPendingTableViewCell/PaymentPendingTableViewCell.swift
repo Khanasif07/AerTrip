@@ -29,6 +29,7 @@ class PaymentPendingTableViewCell: UITableViewCell {
         
         //Color
         self.priceLabel.textColor = AppColors.unicolorWhite
+        self.setColors()
     }
     
     override func layoutSubviews() {
@@ -36,8 +37,16 @@ class PaymentPendingTableViewCell: UITableViewCell {
         self.configUI()
         delay(seconds: 0.05) {
             self.configUI()
+            
         }
     }
+    
+    
+    func setColors(){
+        self.contentView.backgroundColor = AppColors.themeBlack26
+        self.containerView.backgroundColor = AppColors.themeWhiteDashboard
+    }
+    
     
     
     //MARK:- Functions
