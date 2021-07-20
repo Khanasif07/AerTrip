@@ -41,7 +41,7 @@ class SelectPassengerVC : BaseVC {
         super.setupColors()
         self.selectPassengersLabel.textColor = AppColors.commonThemeGray
         self.legsLabel.textColor = AppColors.themeGray60
-        self.doneButton.titleLabel?.textColor = AppColors.themeDarkGreen
+        doneButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.popUpBackView.backgroundColor = AppColors.themeWhiteDashboard
         self.emptyView.backgroundColor = AppColors.themeWhiteDashboard
         self.doneButton.backgroundColor = AppColors.themeBlack26
