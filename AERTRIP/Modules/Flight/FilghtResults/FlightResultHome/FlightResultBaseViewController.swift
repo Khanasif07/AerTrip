@@ -244,10 +244,10 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         backView.backgroundColor = .clear//AppColors.flightsNavBackViewColor
         
         backButton = UIButton(type: .custom)
-        let buttonImage = AppImages.green
+        let buttonImage = AppImages.backGreen
         backButton.setImage(buttonImage, for: .normal)
         backButton.setImage(buttonImage, for: .selected)
-        backButton.frame = CGRect(x: 6, y: statusBarHeight, width: 44, height: 44)
+        backButton.frame = CGRect(x: 1, y: statusBarHeight, width: 44, height: 44)
         backButton.addTarget(self, action: #selector(self.popToPreviousScreen(sender:)), for: .touchUpInside)
         visualEffectView.addSubview(backButton)
         
