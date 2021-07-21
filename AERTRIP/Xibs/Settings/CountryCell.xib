@@ -65,6 +65,7 @@
             <connections>
                 <outlet property="countryLabel" destination="e4o-dK-wHL" id="3AE-DR-RLU"/>
                 <outlet property="flagImageView" destination="v0p-Ux-msz" id="dGB-Z8-BNf"/>
+                <outlet property="separatorViewLeading" destination="YzF-VJ-d6a" id="Rwa-6K-oUs"/>
                 <outlet property="sepratorView" destination="BAv-jq-cH0" id="eUD-LI-saz"/>
                 <outlet property="tickImageView" destination="azv-zR-j1W" id="7ap-LS-1wE"/>
                 <outlet property="tickImgViewTrailing" destination="YDb-x3-bC3" id="D73-2S-055"/>

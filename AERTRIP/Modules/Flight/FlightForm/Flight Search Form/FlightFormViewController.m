@@ -116,6 +116,8 @@
     self.flightSegmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName : [ [UIColor ONE_FIVE_THREE_COLOR] resolvedColorWithTraitCollection:self.traitCollection] , NSFontAttributeName:[UIFont fontWithName:@"SourceSansPro-Regular" size:14]};
     
     self.flightSegmentedControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : [[UIColor FIVE_ONE_COLOR] resolvedColorWithTraitCollection:self.traitCollection], NSFontAttributeName:[UIFont fontWithName:@"SourceSansPro-Semibold" size:14]};
+    
+    [self.recentSearchCollectionView reloadData];
 }
 
 -(void)setupMainView

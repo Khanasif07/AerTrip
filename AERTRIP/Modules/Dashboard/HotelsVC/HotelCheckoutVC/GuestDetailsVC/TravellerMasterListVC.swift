@@ -114,6 +114,7 @@ extension TravellerMasterListVC: UITableViewDelegate, UITableViewDataSource {
                 contact.id == self.viewModel.tableDataArray[indexPath.section][indexPath.row].contact.id
             })
             cell.meLabel.isHidden = !(indexPath.section == 0)
+            cell.contentView.backgroundColor = AppColors.themeBlack26
             return cell
         }else{
             guard let cell = tableView.dequeueReusableCell(withIdentifier: EmptyTableViewCell.reusableIdentifier) as? EmptyTableViewCell else {
@@ -132,7 +133,7 @@ extension TravellerMasterListVC: UITableViewDelegate, UITableViewDataSource {
         }
         headerView.configureCell(self.viewModel.tableSectionArray[section])
         headerView.headerLabel.textColor = AppColors.themeBlack
-        headerView.containerView.backgroundColor = AppColors.themeWhiteDashboard
+        headerView.containerView.backgroundColor = AppColors.hotelsDetailSearchBarColor
         return headerView
     }
     

@@ -472,6 +472,8 @@ enum AppColors {
     ///(0,0,0, 0.2)  (255  ,  255,  255, 0.2)
     static let flightDetailsGrabberColor = UIColor(named: "flightDetailsGrabberColor") ?? .lightGray
 
+    /// (227,227,227) (102,102,102)
+    static let pageControlGrayColor = UIColor(named: "pageControlGrayColor") ?? .white
     
     case headlines
     case body

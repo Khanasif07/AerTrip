@@ -26,6 +26,7 @@ extension FlightBookingsDetailsVC {
             cell.requestLabelTopConstraint.constant = 22+3.5
         }
         cell.clipsToBounds = true
+        cell.containerView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -222,7 +223,7 @@ extension FlightBookingsDetailsVC {
         cell.containerViewBottomConstraint.constant = (isCellLast) ? 21.0 : 0.0
         cell.clipsToBounds = isCellLast
         cell.dividerView.isHidden = false
-        cell.contentView.backgroundColor = AppColors.themeWhite
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     

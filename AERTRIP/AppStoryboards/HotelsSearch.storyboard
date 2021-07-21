@@ -2502,7 +2502,7 @@ been sent</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4PY-DI-g8Y" customClass="PassthroughView" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="333" height="76"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="338" height="76"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="maT-Y0-9d2">
                                                 <rect key="frame" x="3.5" y="0.0" width="76" height="76"/>
@@ -2587,7 +2587,7 @@ been sent</string>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NVC-TV-wgh">
-                                        <rect key="frame" x="338" y="0.0" width="76" height="76"/>
+                                        <rect key="frame" x="343" y="5" width="66" height="66"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="NVC-TV-wgh" secondAttribute="height" multiplier="1:1" id="0xk-M7-Am7"/>
                                         </constraints>
@@ -2600,9 +2600,9 @@ been sent</string>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="NVC-TV-wgh" secondAttribute="bottom" id="0f1-52-tE4"/>
+                                    <constraint firstAttribute="bottom" secondItem="NVC-TV-wgh" secondAttribute="bottom" constant="5" id="0f1-52-tE4"/>
                                     <constraint firstItem="zeS-KR-t7T" firstAttribute="top" secondItem="517-wN-Pyh" secondAttribute="top" id="9oJ-86-Khd"/>
-                                    <constraint firstAttribute="trailing" secondItem="NVC-TV-wgh" secondAttribute="trailing" id="F4s-xC-hjO"/>
+                                    <constraint firstAttribute="trailing" secondItem="NVC-TV-wgh" secondAttribute="trailing" constant="5" id="F4s-xC-hjO"/>
                                     <constraint firstItem="4PY-DI-g8Y" firstAttribute="leading" secondItem="517-wN-Pyh" secondAttribute="leading" id="KXZ-Kq-VPk"/>
                                     <constraint firstAttribute="bottom" secondItem="zeS-KR-t7T" secondAttribute="bottom" id="TUZ-9S-WOz"/>
                                     <constraint firstItem="NVC-TV-wgh" firstAttribute="leading" secondItem="4PY-DI-g8Y" secondAttribute="trailing" constant="5" id="Uxr-5V-aE0"/>
@@ -2611,7 +2611,7 @@ been sent</string>
                                     <constraint firstItem="4PY-DI-g8Y" firstAttribute="top" secondItem="517-wN-Pyh" secondAttribute="top" id="juS-ro-B7E"/>
                                     <constraint firstAttribute="trailing" secondItem="zeS-KR-t7T" secondAttribute="trailing" id="tv5-U2-zms"/>
                                     <constraint firstItem="zeS-KR-t7T" firstAttribute="leading" secondItem="517-wN-Pyh" secondAttribute="leading" id="uvS-cV-2u9"/>
-                                    <constraint firstItem="NVC-TV-wgh" firstAttribute="top" secondItem="517-wN-Pyh" secondAttribute="top" id="vqm-PO-9Nc"/>
+                                    <constraint firstItem="NVC-TV-wgh" firstAttribute="top" secondItem="517-wN-Pyh" secondAttribute="top" constant="5" id="vqm-PO-9Nc"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xM7-r3-HNK">
@@ -2857,7 +2857,7 @@ been sent</string>
         <image name="ic_list_view" width="27" height="27"/>
         <image name="location" width="21" height="21"/>
         <image name="rooms_white_icon" width="31" height="58"/>
-        <image name="setCurrentLocationIcon" width="64" height="64"/>
+        <image name="setCurrentLocationIcon" width="44" height="44"/>
         <image name="shareIcon" width="76" height="76"/>
         <image name="unPinAllFavouriteIcon" width="76" height="76"/>
         <namedColor name="doneViewClearColor">

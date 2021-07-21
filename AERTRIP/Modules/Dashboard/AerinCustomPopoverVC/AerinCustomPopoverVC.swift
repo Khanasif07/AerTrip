@@ -160,6 +160,11 @@ class AerinCustomPopoverVC: BaseVC {
         speechRecognizer.stop()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        suggestionsCollectionView.reloadData()
+    }
+    
     override func bindViewModel() {
         super.bindViewModel()
         chatVm.delegate = self

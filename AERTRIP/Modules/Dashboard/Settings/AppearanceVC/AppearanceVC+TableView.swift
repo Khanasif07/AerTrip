@@ -20,6 +20,11 @@ extension AppearanceVC: UITableViewDelegate, UITableViewDataSource {
                }
         cell.sepratorView.isHidden = false
         cell.configureForAppearance(type: viewModel.tableCells[indexPath.row])
+        if indexPath.row == viewModel.tableCells.count - 1 {
+            cell.separatorViewLeading.constant = 0
+        } else {
+            cell.separatorViewLeading.constant = 16
+        }
         cell.backgroundColor = AppColors.themeBlack26
         cell.tickImgViewTrailing.constant = 12
         return cell

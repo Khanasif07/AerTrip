@@ -77,6 +77,7 @@ class SuggestionsCell : UICollectionViewCell {
     }
     
     func populateData(data : RecentSearchesModel){
+        data.flight?.setupTravelPlan()
         data.type == .hotel ? self.configureHotelCell(data : data) : self.configureFlightCell(data : data)
     }
     

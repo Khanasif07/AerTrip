@@ -48,11 +48,6 @@ class BaggageDimensionsVC: UIViewController, UIScrollViewDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         baggageScrollView.contentInset = UIEdgeInsets(top: 56, left: 0, bottom: 0, right: 0)
-        let blurEffect = UIBlurEffect(style: .prominent)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.frame = self.backgroundView.bounds
-        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        backgroundView.addSubview(blurEffectView)
         if settingForBookingDetails{
             self.setDataFromDimesion()
         }else{

@@ -95,7 +95,7 @@
                             </constraints>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" name="themeWhiteDashboard"/>
+                    <color key="backgroundColor" name="themeBlack26"/>
                     <constraints>
                         <constraint firstItem="RpD-Sk-c2p" firstAttribute="leading" secondItem="NBs-z9-fuB" secondAttribute="leading" id="Gs6-FD-C3L"/>
                         <constraint firstAttribute="trailing" secondItem="RpD-Sk-c2p" secondAttribute="trailing" id="gqj-fN-OQI"/>
@@ -117,7 +117,7 @@
     </objects>
     <resources>
         <image name="redDot" width="27" height="27"/>
-        <namedColor name="themeWhiteDashboard">
+        <namedColor name="themeBlack26">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
     </resources>

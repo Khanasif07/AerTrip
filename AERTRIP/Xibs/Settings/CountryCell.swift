@@ -14,6 +14,7 @@ class CountryCell: UITableViewCell {
     @IBOutlet weak var flagImageView: UIImageView!
     @IBOutlet weak var countryLabel: UILabel!
     @IBOutlet weak var sepratorView: ATDividerView!
+    @IBOutlet weak var separatorViewLeading: NSLayoutConstraint!
     @IBOutlet weak var tickImgViewTrailing: NSLayoutConstraint!
     
     

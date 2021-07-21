@@ -52,7 +52,7 @@ class HotlelBookingsDetailsVC: BaseVC {
             self.bookingDetailsTableView.rowHeight = UITableView.automaticDimension
             self.bookingDetailsTableView.estimatedSectionHeaderHeight = 0
             self.bookingDetailsTableView.sectionHeaderHeight = 0
-            self.bookingDetailsTableView.backgroundColor = AppColors.themeBlack26
+            self.bookingDetailsTableView.backgroundColor = AppColors.themeGray04
             bookingDetailsTableView.showsVerticalScrollIndicator = true
         }
     }

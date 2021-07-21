@@ -351,8 +351,8 @@ extension HCGuestListVC: UITableViewDelegate, UITableViewDataSource {
                 contact.id == self.viewModel.googleContacts[indexPath.row].id
             })
         }
+        cell.contentView.backgroundColor = AppColors.themeBlack26
 
-        
         return cell
         
         
