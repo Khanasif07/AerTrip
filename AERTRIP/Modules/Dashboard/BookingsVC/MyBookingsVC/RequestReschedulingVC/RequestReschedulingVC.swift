@@ -56,6 +56,7 @@ class RequestReschedulingVC: BaseVC {
         self.requestReschedulingBtnOutlet.isShadowColorNeeded = true
         self.requestReschedulingBtnOutlet.shadowColor = AppColors.clear
         self.requestReschedulingBtnOutlet.shouldShowPressAnimation = false
+        self.requestReschedulingBtnOutlet.gradientColors = [AppColors.clear, AppColors.clear]
         self.setTotalRefundAmount()
         self.gradientView.addGredient(isVertical: false)
         self.reschedulingTableView.backgroundColor = AppColors.themeGray04

@@ -45,7 +45,7 @@ class HotelMailComposerCardViewTableViewCell: UITableViewCell {
         self.cellBackgroundView.layer.cornerRadius = 5.0
         self.cellBackgroundView.clipsToBounds = true
         self.backgroundBorderView.layer.borderWidth = 0.5
-        self.backgroundBorderView.layer.borderColor = AppColors.themeGray40.cgColor
+        self.backgroundBorderView.layer.borderColor = AppColors.emailDisableColor.cgColor
         backgroundBorderView.roundBottomCorners(cornerRadius: 5)
         hotelCardImageView.contentMode = .scaleAspectFill
     }
