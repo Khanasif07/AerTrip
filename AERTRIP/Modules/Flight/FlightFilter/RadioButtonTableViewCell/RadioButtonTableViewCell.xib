@@ -18,7 +18,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ECq-jj-eZm">
-                        <rect key="frame" x="293" y="25.5" width="22" height="22"/>
+                        <rect key="frame" x="291" y="25.5" width="22" height="22"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="22" id="B2a-yk-8in"/>
                             <constraint firstAttribute="width" constant="22" id="U7W-yG-XRw"/>
@@ -26,7 +26,7 @@
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="ECq-jj-eZm" secondAttribute="trailing" constant="14" id="40M-js-red"/>
+                    <constraint firstAttribute="trailing" secondItem="ECq-jj-eZm" secondAttribute="trailing" constant="16" id="40M-js-red"/>
                     <constraint firstItem="ECq-jj-eZm" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="lJf-6l-NoS"/>
                 </constraints>
             </tableViewCellContentView>
