@@ -87,6 +87,7 @@ class HotelBookingAddressDetailsTableViewCell: UITableViewCell {
     private func setupColor(){
         self.containerView.backgroundColor = AppColors.themeWhiteDashboard
         self.checkInOutContainerView.backgroundColor = AppColors.themeWhiteDashboard
+        self.contentView.backgroundColor = AppColors.themeBlack26
     }
     
     internal func configCell(hotelName: String, hotelAddress: String, hotelStarRating: Double, tripAdvisorRating: Double, checkInDate: Date? , checkOutDate: Date? , totalNights: Int) {

@@ -78,7 +78,7 @@ class CheckInOutView: UIView {
         self.totalNightsLabel.textColor = AppColors.themeGray153
         self.checkInLabel.text = LocalizedString.CheckIn.localized
         self.checkOutLabel.text = LocalizedString.CheckOut.localized
-        self.totalNightsLabel.text = "20 \(LocalizedString.Nights.localized)"
+//        self.totalNightsLabel.text = "20 \(LocalizedString.Nights.localized)"
         self.setTotalNight()
     }
     
@@ -103,7 +103,10 @@ class CheckInOutView: UIView {
         }
         self.totalNightsLabel.text = ""
         if totalNights != 0 {
+            setTotalNight()
           self.totalNightsLabel.text = (totalNights == 1) ? "\(totalNights) \(LocalizedString.Night.localized)" : "\(totalNights) \(LocalizedString.Nights.localized)"
+        }else{
+            self.totalNightsLabel.backgroundColor = AppColors.clear
         }
         self.checkInDay.text = Date.getDateFromString(stringDate: searchData.checkInDate, currentFormat: "yyyy-MM-dd", requiredFormat: "EEEE")
         

@@ -55,7 +55,7 @@ class FlightBookingsDetailsVC: BaseVC {
             self.bookingDetailsTableView.rowHeight = UITableView.automaticDimension
             self.bookingDetailsTableView.estimatedSectionHeaderHeight = 0
             self.bookingDetailsTableView.sectionHeaderHeight = 0
-            self.bookingDetailsTableView.backgroundColor = AppColors.screensBackground.color
+            self.bookingDetailsTableView.backgroundColor = AppColors.themeGray04
             bookingDetailsTableView.showsVerticalScrollIndicator = true
         }
     }
@@ -102,6 +102,7 @@ class FlightBookingsDetailsVC: BaseVC {
     
     override func setupColors() {
         self.topNavBar.backgroundColor = AppColors.clear
+        self.view.backgroundColor = AppColors.themeBlack26
     }
     
     override func bindViewModel() {

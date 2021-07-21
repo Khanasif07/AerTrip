@@ -41,5 +41,8 @@ class WeatherFooterTableViewCell: UITableViewCell {
         
         // Text
         self.weatherLabel.text = LocalizedString.WeatherFooterInfo.localized
+        
+        self.contentView.backgroundColor = AppColors.themeBlack26
+        
     }
 }

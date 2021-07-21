@@ -106,7 +106,7 @@ class SpeechToTextVC: BaseVC {
         let maxViewColorAlpha:CGFloat = 0.4
         UIView.animate(withDuration: 0.33) {
             let fractionForAlpha = maxViewColorAlpha - ((midPoint/minPoint) * maxViewColorAlpha)
-            self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(fractionForAlpha)
+            self.view.backgroundColor = AppColors.unicolorBlack.withAlphaComponent(fractionForAlpha)
             self.popoverView.transform = .identity
             self.view.layoutIfNeeded()
         }

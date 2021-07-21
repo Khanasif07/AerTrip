@@ -823,7 +823,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="afj-T4-gai">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="0.0"/>
-                                <color key="backgroundColor" name="flightFilterSessionDefaultColor"/>
+                                <color key="backgroundColor" name="themeWhiteDashboard"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pA8-KE-Hsr" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -931,7 +931,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
                                 </subviews>
-                                <color key="backgroundColor" name="flightFilterSessionDefaultColor"/>
+                                <color key="backgroundColor" name="themeWhiteDashboard"/>
                                 <constraints>
                                     <constraint firstItem="2D9-P6-vGv" firstAttribute="leading" secondItem="nEl-0z-3ye" secondAttribute="leading" symbolic="YES" id="P22-Uh-cac"/>
                                     <constraint firstItem="2D9-P6-vGv" firstAttribute="top" secondItem="nEl-0z-3ye" secondAttribute="top" symbolic="YES" id="RRw-MV-Mmx"/>
@@ -2106,9 +2106,6 @@ Incomplete</string>
         <image name="ic_preferences" width="36" height="37"/>
         <image name="ic_up_arrow_gray" width="20" height="20"/>
         <image name="rightArrow" width="40" height="44"/>
-        <namedColor name="flightFilterSessionDefaultColor">
-            <color red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
         <namedColor name="themeWhite">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>

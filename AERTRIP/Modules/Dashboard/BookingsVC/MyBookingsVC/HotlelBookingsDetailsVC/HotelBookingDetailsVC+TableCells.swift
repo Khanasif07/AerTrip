@@ -15,6 +15,7 @@ extension HotlelBookingsDetailsVC {
         cell.containerViewBottomConstraint.constant = (self.viewModel.bookingDetail?.cases.isEmpty ?? true) ? 14 : 0
         cell.addressLblTopConst.constant = 16+3.5
         cell.clipsToBounds = true
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -24,6 +25,7 @@ extension HotlelBookingsDetailsVC {
             cell.requestLabelTopConstraint.constant = 22+3.5
         }
         cell.clipsToBounds = true
+        cell.containerView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -32,6 +34,7 @@ extension HotlelBookingsDetailsVC {
         let noOfCellAboveRequest = 2
         cell.configureCell(requestName: self.viewModel.bookingDetail?.cases[indexPath.row - (noOfCellAboveRequest - 1)].caseType ?? "", actionStatus: self.viewModel.bookingDetail?.cases[indexPath.row - (noOfCellAboveRequest - 1)].resolutionStatus ?? ResolutionStatus.aborted, isFirstCell: noOfCellAboveRequest - 1 == indexPath.row, isLastCell: indexPath.row == self.viewModel.bookingDetail?.cases.count, isStatusExpired: false)
         cell.clipsToBounds = true
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -39,6 +42,7 @@ extension HotlelBookingsDetailsVC {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FlightBookingRequestsTableViewCell.reusableIdentifier, for: indexPath) as? FlightBookingRequestsTableViewCell else { return UITableViewCell() }
         cell.configureCell(requestName: "Add-On Request", actionStatus: ResolutionStatus.inProgress, actionStatusColor: AppColors.themeRed, isFirstCell: false, isLastCell: false, isStatusExpired: false)
         cell.clipsToBounds = true
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -46,6 +50,7 @@ extension HotlelBookingsDetailsVC {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FlightBookingRequestsTableViewCell.reusableIdentifier, for: indexPath) as? FlightBookingRequestsTableViewCell else { return UITableViewCell() }
         cell.configureCell(requestName: "Rescheduling Request", actionStatus: ResolutionStatus.inProgress, actionStatusColor: AppColors.themeGreen, isFirstCell: false, isLastCell: indexPath.row == 3, isStatusExpired: false)
         cell.clipsToBounds = true
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -54,6 +59,7 @@ extension HotlelBookingsDetailsVC {
         
         let booking = self.viewModel.bookingDetail?.bookingDetail
         cell.configCell(hotelName: booking?.hotelName ?? LocalizedString.na.localized, hotelAddress: booking?.hotelAddress ?? LocalizedString.na.localized, hotelStarRating: booking?.hotelStarRating ?? 0.0, tripAdvisorRating: booking?.taRating ?? 0.0, checkInDate: booking?.checkIn, checkOutDate: booking?.checkOut, totalNights: booking?.nights ?? 0)
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         cell.clipsToBounds = true
         return cell
     }
@@ -68,6 +74,7 @@ extension HotlelBookingsDetailsVC {
         cell.configHotelBookingDetailsCell(title: title, subTitle: roomD?.roomType ?? LocalizedString.na.localized)
         cell.dividerView.isHidden = true
         cell.clipsToBounds = true
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -84,7 +91,7 @@ extension HotlelBookingsDetailsVC {
         let isLastTarv = (allGuest.count - 1) == currentGuestIndex
         let guest = allGuest[currentGuestIndex]
         cell.configCell(travellersImage: guest.profileImage, travellerName: guest.name, firstName: guest.firstName, lastName: guest.lastname, isLastTravellerInRoom: isLastTarv, isLastTraveller: isLastRoom && isLastTarv, dob: guest.dob, salutation: guest.salutation, age: guest.age, congigureForHotelDetail: true)
-        
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         cell.clipsToBounds = true
         return cell
     }
@@ -96,6 +103,7 @@ extension HotlelBookingsDetailsVC {
         cell.documentsData = self.viewModel.bookingDetail?.documents ?? []
         cell.currentDocumentType = .hotels
         cell.clipsToBounds = true
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -109,7 +117,7 @@ extension HotlelBookingsDetailsVC {
         }
         cell.changeShadow()
         cell.clipsToBounds = true
-        cell.contentView.backgroundColor = AppColors.themeWhite
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -123,7 +131,7 @@ extension HotlelBookingsDetailsVC {
         
 //        cell.configCell(title: LocalizedString.Booking.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(self.viewModel.bookingDetail?.bookingPrice ?? 0)", isLastCell: false)
         cell.clipsToBounds = true
-        cell.contentView.backgroundColor = AppColors.themeWhite
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -155,7 +163,7 @@ extension HotlelBookingsDetailsVC {
         cell.containerViewBottomConstraint.constant = (isCellLast) ? 21.0 : 0.0
         cell.clipsToBounds = isCellLast
         cell.dividerView.isHidden = false
-        cell.contentView.backgroundColor = AppColors.themeWhite
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -183,7 +191,7 @@ extension HotlelBookingsDetailsVC {
 //
 //        cell.configCell(title: LocalizedString.AddOns.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(self.viewModel.bookingDetail?.addOnAmount ?? 0)", isLastCell: false, cellHeight: 30.0)
         cell.clipsToBounds = true
-        cell.contentView.backgroundColor = AppColors.themeWhite
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -201,7 +209,7 @@ extension HotlelBookingsDetailsVC {
         
 //        cell.configCell(title: LocalizedString.Cancellation.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(self.viewModel.bookingDetail?.cancellationAmount ?? 0)", isLastCell: false, cellHeight: 37.0)
         cell.clipsToBounds = true
-        cell.contentView.backgroundColor = AppColors.themeWhite
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -219,7 +227,7 @@ extension HotlelBookingsDetailsVC {
         
 //        cell.configCell(title: LocalizedString.Cancellation.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(self.viewModel.bookingDetail?.cancellationAmount ?? 0)", isLastCell: false, cellHeight: 37.0)
         cell.clipsToBounds = true
-        cell.contentView.backgroundColor = AppColors.themeWhite
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -251,7 +259,7 @@ extension HotlelBookingsDetailsVC {
         cell.containerViewBottomConstraint.constant = (isCellLast) ? 21.0 : 0.0
         cell.clipsToBounds = isCellLast
         cell.dividerView.isHidden = false
-        cell.contentView.backgroundColor = AppColors.themeWhite
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -265,7 +273,7 @@ extension HotlelBookingsDetailsVC {
         
 //        cell.configCell(price: self.viewModel.bookingDetail?.totalOutStanding ?? 0.0)
         cell.clipsToBounds = true
-        cell.contentView.backgroundColor = AppColors.themeWhite
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
     

@@ -121,7 +121,10 @@ class RoomGuestSelectionVC: BaseVC {
         self.doneButton.backgroundColor = AppColors.doneViewClearColor
         self.mainContainerView.backgroundColor = AppColors.themeWhiteDashboard
     }
-    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.doneButton.addShadow(cornerRadius: 0.0, shadowColor: AppColors.appShadowColor,backgroundColor: AppColors.doneViewClearColor, offset: CGSize(width: 0, height: -8))
+    }
     
     //MARK:- Methods
     //MARK:- Private

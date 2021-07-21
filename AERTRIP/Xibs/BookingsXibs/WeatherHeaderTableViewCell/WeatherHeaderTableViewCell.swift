@@ -51,6 +51,9 @@ class WeatherHeaderTableViewCell: UITableViewCell {
         // Text
         self.weatherLabel.text = LocalizedString.Weather.localized
         self.seeAllBtnOutlet.setTitle(LocalizedString.SeeAll.localized, for: .normal)
+        
+        self.contentView.backgroundColor = AppColors.themeBlack26
+    
     }
     
     // MARK: - IBActions

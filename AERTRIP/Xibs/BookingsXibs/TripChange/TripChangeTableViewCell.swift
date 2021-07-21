@@ -40,6 +40,7 @@ class TripChangeTableViewCell: ATTableViewCell {
         self.tripNameLabel.textColor = AppColors.textFieldTextColor51
         self.changeButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.changeButton.setTitleColor(AppColors.themeGreen, for: .selected)
+        self.contentView.backgroundColor = AppColors.themeBlack26
     }
     
     override func setupTexts() {

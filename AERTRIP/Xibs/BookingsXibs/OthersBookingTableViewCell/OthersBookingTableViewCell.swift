@@ -66,7 +66,7 @@ class OthersBookingTableViewCell: UITableViewCell {
         //self.collectionView.isUserInteractionEnabled = false
         self.bookingTypeImgView.image = AppImages.othersAddon
         self.plcaeNameLabel.textColor = AppColors.themeBlack
-        self.travellersNameLabel.textColor = AppColors.themeGray40
+        self.travellersNameLabel.textColor = AppColors.themeGray153
         self.plcaeNameLabel.font = AppFonts.Regular.withSize(18.0)
         self.travellersNameLabel.font = AppFonts.Regular.withSize(14.0)
         self.backgroundColor = AppColors.themeWhite
