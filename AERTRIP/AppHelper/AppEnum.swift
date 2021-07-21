@@ -836,6 +836,8 @@ enum ATWeatherType: RawRepresentable {
 
 @objc class AppImages  : NSObject{
 
+    static var infoUpArrow : UIImage{ #imageLiteral(resourceName: "infoUpArrow") }
+    static var infoDownArrow:UIImage{#imageLiteral(resourceName: "infoDownArrow")}
     static var ic_toast_cross:UIImage { #imageLiteral(resourceName: "ic_toast_cross") }
     static var black_cross:UIImage { #imageLiteral(resourceName: "black_cross") }
     static var CancelButtonWhite: UIImage { #imageLiteral(resourceName: "CancelButtonWhite") }
