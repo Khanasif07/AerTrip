@@ -139,7 +139,7 @@ class IntMCAndReturnDetailsVC: UIViewController {
         backView.backgroundColor = AppColors.themeWhite
         backView.addSubview(visualEffectView)
         backView.tag = 200
-        let buttonImage = AppImages.green
+        let buttonImage = AppImages.backGreen
         backButton.setImage(buttonImage, for: .normal)
         backButton.setImage(buttonImage, for: .selected)
         

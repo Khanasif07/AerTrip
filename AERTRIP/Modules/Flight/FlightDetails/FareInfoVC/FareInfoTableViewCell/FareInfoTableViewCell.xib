@@ -49,16 +49,13 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="22M-MV-41x">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UGC-Dp-lgv" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="16" y="57" width="435" height="0.5"/>
-                                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="0.5" id="g3U-fD-RFo"/>
+                                            <constraint firstAttribute="height" constant="0.5" id="4a6-D9-bYq"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Economy Saver (SS50322)" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kjH-hz-cbX">
                                         <rect key="frame" x="16" y="73.5" width="313" height="238.5"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
@@ -79,18 +76,18 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="CWD-Hb-fte" firstAttribute="leading" secondItem="ckH-oJ-MUJ" secondAttribute="leading" constant="16" id="3gi-Wz-NcK"/>
-                                    <constraint firstItem="22M-MV-41x" firstAttribute="leading" secondItem="ckH-oJ-MUJ" secondAttribute="leading" constant="16" id="FxV-JZ-wWB"/>
-                                    <constraint firstAttribute="trailing" secondItem="22M-MV-41x" secondAttribute="trailing" id="Gr5-R0-iG0"/>
                                     <constraint firstItem="qdA-5j-iAh" firstAttribute="centerY" secondItem="kjH-hz-cbX" secondAttribute="centerY" id="L2J-gD-f2D"/>
                                     <constraint firstItem="0nO-CB-7K2" firstAttribute="leading" secondItem="CWD-Hb-fte" secondAttribute="trailing" constant="10" id="Pv1-I0-LgP"/>
                                     <constraint firstItem="kjH-hz-cbX" firstAttribute="top" secondItem="ckH-oJ-MUJ" secondAttribute="top" constant="73.5" id="QN7-bx-tBu"/>
                                     <constraint firstItem="qdA-5j-iAh" firstAttribute="leading" secondItem="kjH-hz-cbX" secondAttribute="trailing" constant="16" id="RAm-40-zHo"/>
+                                    <constraint firstItem="UGC-Dp-lgv" firstAttribute="top" secondItem="CWD-Hb-fte" secondAttribute="bottom" constant="16" id="eP7-I7-U1r"/>
                                     <constraint firstItem="0nO-CB-7K2" firstAttribute="centerY" secondItem="CWD-Hb-fte" secondAttribute="centerY" id="eTR-CB-5K8"/>
                                     <constraint firstItem="CWD-Hb-fte" firstAttribute="top" secondItem="ckH-oJ-MUJ" secondAttribute="top" constant="16" id="hLf-tW-W7B"/>
+                                    <constraint firstAttribute="trailing" secondItem="UGC-Dp-lgv" secondAttribute="trailing" id="hft-ZC-H1H"/>
                                     <constraint firstAttribute="bottom" secondItem="kjH-hz-cbX" secondAttribute="bottom" constant="16" id="ko3-Ox-qY7"/>
-                                    <constraint firstItem="22M-MV-41x" firstAttribute="top" secondItem="CWD-Hb-fte" secondAttribute="bottom" constant="16" id="pRW-iM-2Rk"/>
                                     <constraint firstAttribute="trailing" secondItem="qdA-5j-iAh" secondAttribute="trailing" constant="16" id="xF1-pP-RNG"/>
                                     <constraint firstItem="kjH-hz-cbX" firstAttribute="leading" secondItem="ckH-oJ-MUJ" secondAttribute="leading" constant="16" id="xh0-CW-wUF"/>
+                                    <constraint firstItem="UGC-Dp-lgv" firstAttribute="leading" secondItem="ckH-oJ-MUJ" secondAttribute="leading" constant="16" id="z1p-kc-iCc"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KX8-Q4-aZU" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
@@ -131,7 +128,7 @@
                 <outlet property="carrierImgView" destination="CWD-Hb-fte" id="ZNO-7t-EUf"/>
                 <outlet property="fareRulesButton" destination="qdA-5j-iAh" id="4WC-qd-nlD"/>
                 <outlet property="journeyNameLbl" destination="0nO-CB-7K2" id="iKu-7o-bVa"/>
-                <outlet property="journeyNameSeperatorLabel" destination="22M-MV-41x" id="rEf-gH-2SJ"/>
+                <outlet property="journeyNameSeperatorLabel" destination="UGC-Dp-lgv" id="90L-mQ-ZyS"/>
                 <outlet property="titleLabel" destination="kjH-hz-cbX" id="bjI-7r-of2"/>
                 <outlet property="titleLabelTop" destination="QN7-bx-tBu" id="3Mf-7f-2Ow"/>
                 <outlet property="titleView" destination="ckH-oJ-MUJ" id="WVn-N7-K49"/>

@@ -39,7 +39,7 @@ class FareInfoTableViewCell: UITableViewCell
     @IBOutlet weak var journeyNameLbl: UILabel!
     @IBOutlet weak var carrierImgView: UIImageView!
     
-    @IBOutlet weak var journeyNameSeperatorLabel: UILabel!
+    @IBOutlet weak var journeyNameSeperatorLabel: ATDividerView!
     @IBOutlet weak var titleLabelTop: NSLayoutConstraint!
     @IBOutlet weak var fareRulesView: UIView!
     @IBOutlet weak var fareRulesViewHeight: NSLayoutConstraint!
@@ -68,6 +68,8 @@ class FareInfoTableViewCell: UITableViewCell
         self.contentView.backgroundColor = AppColors.flightResultsFooterSecondaryColor
         self.fareRulesButton.setTitleColor(AppColors.commonThemeGreen, for: .normal)
         self.fareRulesButton.setTitleColor(AppColors.commonThemeGreen, for: .selected)
+        journeyNameSeperatorLabel.backgroundColor = AppColors.dividerColor
+        bottomSeparatorLabel.backgroundColor = AppColors.dividerColor
     }
     
     func setAirlineImage(with url: String){
