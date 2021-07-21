@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17124"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -112,7 +113,7 @@
                                             </constraints>
                                         </imageView>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="backgroundColor" name="themeBlack26"/>
                                     <constraints>
                                         <constraint firstItem="ROq-jJ-n40" firstAttribute="leading" secondItem="bDv-6g-COe" secondAttribute="leading" constant="2" id="5BX-ZK-Gdd"/>
                                         <constraint firstItem="kSY-Ce-4ki" firstAttribute="leading" secondItem="ROq-jJ-n40" secondAttribute="trailing" constant="11.6" id="BLa-gi-P7q"/>
@@ -123,7 +124,7 @@
                                     </constraints>
                                 </view>
                             </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="backgroundColor" name="themeBlack26"/>
                             <constraints>
                                 <constraint firstItem="bDv-6g-COe" firstAttribute="centerX" secondItem="oRo-04-jGV" secondAttribute="centerX" id="1Qt-Im-Kw6"/>
                                 <constraint firstItem="bDv-6g-COe" firstAttribute="top" secondItem="oRo-04-jGV" secondAttribute="top" constant="26" id="JEc-PF-uls"/>
@@ -270,7 +271,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <color key="backgroundColor" name="themeWhiteDashboard"/>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="Np4-mh-y3x" secondAttribute="trailing" id="3cp-cb-k7Z"/>
                                         <constraint firstItem="404-Dl-M0z" firstAttribute="leading" secondItem="6mW-C0-sfY" secondAttribute="leading" constant="5" id="7cZ-V3-W8E"/>
@@ -280,7 +281,7 @@
                                     </constraints>
                                 </view>
                             </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="backgroundColor" name="themeWhiteDashboard"/>
                             <constraints>
                                 <constraint firstItem="404-Dl-M0z" firstAttribute="centerY" secondItem="j5U-IC-iww" secondAttribute="centerY" id="0TP-iv-OVH"/>
                                 <constraint firstItem="6mW-C0-sfY" firstAttribute="centerX" secondItem="j5U-IC-iww" secondAttribute="centerX" id="6jD-sx-pHp"/>
@@ -306,7 +307,7 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" name="themeBlack26"/>
                     <accessibility key="accessibilityConfiguration">
                         <accessibilityTraits key="traits" notEnabled="YES"/>
                     </accessibility>
@@ -395,6 +396,12 @@
         <image name="aertripGreenText" width="112" height="15"/>
         <image name="greenCircleButton" width="22" height="22"/>
         <image name="nights" width="21" height="21"/>
+        <namedColor name="themeBlack26">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="themeWhiteDashboard">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

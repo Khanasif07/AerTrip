@@ -134,10 +134,13 @@ class HotelsSearchVC: BaseVC {
     }
     
     override func viewDidLayoutSubviews() {
+        
         super.viewDidLayoutSubviews()
+        
         if let view = self.checkInOutView {
             view.frame = self.datePickerView.bounds
         }
+        
         if let view = self.recentSearchesView {
             view.frame = self.recentSearchesContainerView.bounds
             view.layoutSubviews()

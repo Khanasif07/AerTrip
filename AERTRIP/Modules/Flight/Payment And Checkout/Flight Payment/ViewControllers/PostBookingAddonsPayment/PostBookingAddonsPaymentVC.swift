@@ -661,6 +661,7 @@ extension PostBookingAddonsPaymentVC : OtpConfirmationDelegate{
         }else{
             self.isWallet = false
             self.setConvenienceFeeToBeApplied()
+            self.hideShowLoader(isHidden: true)
         }
     }
     

@@ -81,11 +81,11 @@ class EmailComposerHeaderView: UIView {
         self.messageSubjectTextView.text = LocalizedString.CheckoutMyFavouriteHotels.localized
         self.checkInCheckOutView.layer.cornerRadius = 5.0
         self.checkInCheckOutView.layer.borderWidth = 0.5
-        self.checkInCheckOutView.layer.borderColor = AppColors.themeGray40.cgColor
+        self.checkInCheckOutView.layer.borderColor = AppColors.emailDisableColor.cgColor
         self.messageSubjectTextView.delegate = self
         self.seeRatesButton.layer.cornerRadius = 5.0
-        self.seeRatesButton.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
-        self.seeRatesButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
+        self.seeRatesButton.shadowColor = AppColors.unicolorBlack.withAlphaComponent(0.16)
+        self.seeRatesButton.layer.applySketchShadow(color: AppColors.unicolorBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
         self.seeRatesButton.isUserInteractionEnabled = false
         
         //        self.toEmailTextView.delegate = self
@@ -178,7 +178,7 @@ class EmailComposerHeaderView: UIView {
         tagsField.contentInset = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2) //old padding
         tagsField.spaceBetweenLines = 4
         tagsField.spaceBetweenTags = 4
-        tagsField.tintColor = UIColor(displayP3Red: 0.961, green: 0.961, blue: 0.961, alpha: 1) //0.961 f5f5f5
+        tagsField.tintColor = AppColors.miniPlaneBack//UIColor(displayP3Red: 0.961, green: 0.961, blue: 0.961, alpha: 1) //0.961 f5f5f5
         tagsField.textColor = AppColors.themeGreen
         tagsField.selectedColor = AppColors.themeGreen
         tagsField.selectedTextColor = AppColors.themeWhite

@@ -697,7 +697,7 @@ extension FlightBookingsDetailsVC: SelectTripVCDelegate {
         self.viewModel.bookingDetail?.tripInfo?.eventId = tripDetails?.event_id ?? ""
         self.viewModel.bookingDetail?.tripInfo?.tripId = tripDetails?.trip_id ?? ""
         self.viewModel.bookingDetail?.tripInfo?.name = tripDetails?.name ?? ""
-        AppToast.default.showToastMessage(message: LocalizedString.FlightTripChangeMessage.localized + "\(trip.name)")
+        AppToast.default.showToastMessage(message: LocalizedString.FlightTripChangeMessage.localized + " \(trip.name)")
         if let indexPath = self.tripChangeIndexPath {
             self.bookingDetailsTableView.reloadRow(at: indexPath, with: .none)
         }
