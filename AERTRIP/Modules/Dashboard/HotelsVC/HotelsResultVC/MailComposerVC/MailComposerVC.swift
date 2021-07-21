@@ -64,7 +64,7 @@ class MailComposerVC: BaseVC {
     
     override func setupColors() {
         self.view.backgroundColor = AppColors.themeBlack26
-        self.tableView.backgroundColor = AppColors.themeGray04
+        self.tableView.backgroundColor = AppColors.themeBlack26
     }
     
     override func viewDidLayoutSubviews() {
