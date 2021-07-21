@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "cross_icon.png",
+      "filename" : "Minus Gray@1x-1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -12,12 +12,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "deleteMinusGray.png",
+      "filename" : "Minus Gray@1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "cross_icon@2x.png",
+      "filename" : "Minus Gray@2x-1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -28,12 +28,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "deleteMinusGray@2x.png",
+      "filename" : "Minus Gray@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "cross_icon@3x.png",
+      "filename" : "Minus Gray@3x-1.png",
       "idiom" : "universal",
       "scale" : "3x"
     },
@@ -44,7 +44,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "deleteMinusGray@3x.png",
+      "filename" : "Minus Gray@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
