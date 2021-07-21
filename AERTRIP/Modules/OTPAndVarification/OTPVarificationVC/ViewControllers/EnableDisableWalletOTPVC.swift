@@ -178,8 +178,8 @@ class EnableDisableWalletOTPVC: BaseVC {
         self.nextButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
         self.nextButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
         self.nextButton.shadowColor = AppColors.appShadowColor
-        self.nextButton.setTitleColor(AppColors.themeWhite, for: .normal)
-        self.nextButton.setTitleColor(AppColors.themeWhite, for: .selected)
+        self.nextButton.setTitleColor(AppColors.unicolorWhite, for: .normal)
+        self.nextButton.setTitleColor(AppColors.unicolorWhite, for: .selected)
         self.nextButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
         self.nextButton.setTitle(LocalizedString.Submit.localized, for: .normal)
         self.nextButton.setTitle(LocalizedString.Submit.localized, for: .selected)

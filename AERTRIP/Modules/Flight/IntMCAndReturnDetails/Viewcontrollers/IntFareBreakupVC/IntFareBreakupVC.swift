@@ -661,7 +661,7 @@ class IntFareBreakupVC: BaseVC {
             }
         }
         
-        self.bookingInfoArrowImg.image = AppImages.downGray
+        self.bookingInfoArrowImg.image = AppImages.infoDownArrow
         if self.isBackgroundVisible == false{
             self.view.backgroundColor = .clear
             self.isBackgroundVisible = true
@@ -708,13 +708,13 @@ class IntFareBreakupVC: BaseVC {
         if !isInfoViewHidden{
             self.isFareBreakupExpanded = true
             displayExpandedView(fromSelection: "info")
-            self.bookingInfoArrowImg.image = AppImages.downGray
+            self.bookingInfoArrowImg.image = AppImages.infoDownArrow
             self.delegate?.infoButtonTapped(isViewExpanded: true)
             
         }else{
             self.isFareBreakupExpanded = false
             displayCollapseView()
-            self.bookingInfoArrowImg.image = AppImages.upGray
+            self.bookingInfoArrowImg.image = AppImages.infoUpArrow
             self.delegate?.infoButtonTapped(isViewExpanded: false)
             
         }
