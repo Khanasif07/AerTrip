@@ -62,6 +62,11 @@ class MailComposerVC: BaseVC {
         self.viewModel.delegate = self
     }
     
+    override func setupColors() {
+        self.view.backgroundColor = AppColors.themeBlack26
+        self.tableView.backgroundColor = AppColors.themeBlack26
+    }
+    
     override func viewDidLayoutSubviews() {
         guard let headerView = tableView.tableHeaderView else {
             return
