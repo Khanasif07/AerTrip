@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong , nonatomic) NSString * paxCount;
 @property (strong , nonatomic) NSDictionary * quary;
 
-
+-(void)setupTravelPlan;
 
 -(instancetype)initWithDictionary:(NSDictionary*)dictionary;
 @end

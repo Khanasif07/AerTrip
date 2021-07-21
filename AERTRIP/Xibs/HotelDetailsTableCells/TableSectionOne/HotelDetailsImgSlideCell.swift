@@ -39,7 +39,7 @@ class HotelDetailsImgSlideCell: UITableViewCell {
     @IBOutlet weak var pageControl: ISPageControl! {
         didSet {
             self.pageControl.inactiveTransparency = 1.0
-            self.pageControl.inactiveTintColor = AppColors.themeGray220
+            self.pageControl.inactiveTintColor = AppColors.pageControlGrayColor
             self.pageControl.currentPageTintColor = AppColors.unicolorWhite
             self.pageControl.radius = 3.5
             self.pageControl.padding = 5.0
@@ -87,8 +87,8 @@ class HotelDetailsImgSlideCell: UITableViewCell {
     
     
     private func setPageControllerColor(){
-        self.pageControl.inactiveTransparency = (self.isLightTheme() ? 1.0 : 0.3)
-        self.pageControl.inactiveTintColor = AppColors.themeGray220
+//        self.pageControl.inactiveTransparency = (self.isLightTheme() ? 1.0 : 0.3)
+        self.pageControl.inactiveTintColor = AppColors.pageControlGrayColor
         self.pageControl.currentPageTintColor = AppColors.unicolorWhite
     }
     

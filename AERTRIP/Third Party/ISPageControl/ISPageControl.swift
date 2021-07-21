@@ -24,7 +24,7 @@ open class ISPageControl: UIControl {
         }
     }
     
-    @IBInspectable open var inactiveTintColor: UIColor = UIColor.lightGray {
+    @IBInspectable open var inactiveTintColor: UIColor = AppColors.pageControlGrayColor {
         didSet {
             setNeedsLayout()
         }
@@ -73,7 +73,7 @@ open class ISPageControl: UIControl {
         }
     }
     
-    @IBInspectable open var inactiveTransparency: CGFloat = 0.4 {
+    @IBInspectable open var inactiveTransparency: CGFloat = 1.0 {
         didSet {
             setNeedsLayout()
         }

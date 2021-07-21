@@ -73,12 +73,12 @@ class UpgradePlanListVC: BaseVC {
     func setupPageController(){
         self.journeyPageControl.numberOfPages = 0
         self.journeyPageControl.currentPage = 0
-        if isLightTheme(){
-            self.journeyPageControl.inactiveTransparency = 1.0
-        }else{
-            self.journeyPageControl.inactiveTransparency = 0.5
-        }
-        self.journeyPageControl.inactiveTintColor = AppColors.themeGray220
+//        if isLightTheme(){
+//            self.journeyPageControl.inactiveTransparency = 1.0
+//        }else{
+//            self.journeyPageControl.inactiveTransparency = 0.5
+//        }
+        self.journeyPageControl.inactiveTintColor = AppColors.pageControlGrayColor
         self.journeyPageControl.currentPageTintColor = AppColors.unicolorWhite
         self.journeyPageControl.radius = 3.5
         self.journeyPageControl.padding = 5.0
