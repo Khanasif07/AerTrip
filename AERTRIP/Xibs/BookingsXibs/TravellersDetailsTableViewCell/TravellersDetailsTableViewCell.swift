@@ -93,7 +93,7 @@ class TravellersDetailsTableViewCell: UITableViewCell {
         // self.travellerNameLabel.text = travelName
         self.travellerName.appendFixedText(text: travellerName, fixedText: ageString)
         if !age.isEmpty {
-            self.travellerName.AttributedFontColorForText(text: ageString, textColor: AppColors.themeGray40)
+            self.travellerName.AttributedFontColorForText(text: ageString, textColor: AppColors.themeGray153)
         }
         
     }

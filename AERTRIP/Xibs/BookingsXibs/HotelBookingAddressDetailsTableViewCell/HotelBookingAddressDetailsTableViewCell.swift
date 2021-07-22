@@ -73,12 +73,12 @@ class HotelBookingAddressDetailsTableViewCell: UITableViewCell {
         //Color
         self.hotelNameLabel.textColor = AppColors.themeBlack
         self.hotelAddressLabel.textColor = AppColors.themeGray60
-        self.checkInLabel.textColor = AppColors.themeGray40
-        self.checkOutLabel.textColor = AppColors.themeGray40
+        self.checkInLabel.textColor = AppColors.themeGray153
+        self.checkOutLabel.textColor = AppColors.themeGray153
         self.checkInDateLabel.textColor = AppColors.themeBlack
         self.checkOutDateLabel.textColor = AppColors.themeBlack
-        self.checkInDayLabel.textColor = AppColors.themeGray40
-        self.checkOutDayLabel.textColor = AppColors.themeGray40
+        self.checkInDayLabel.textColor = AppColors.themeGray153
+        self.checkOutDayLabel.textColor = AppColors.themeGray153
         self.totalNightsLabel.textColor = AppColors.themeBlack
         self.setupColor()
     }
