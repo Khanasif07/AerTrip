@@ -64,7 +64,7 @@
     [super viewDidLoad];
     [self setupInitials];
     [self showDatesSelection];
-    self.backgroundView.backgroundColor = [UIColor calendarSelectedGreen];
+    self.backgroundView.backgroundColor = [UIColor airportSelectionGreen];
     [self setColors];
     [self hideShowDarkViews];
 }
@@ -83,13 +83,13 @@
     _TopView.backgroundColor = [UIColor themeWhiteDashboard];
 //    _doneDarkView.backgroundColor = [UIColor themeWhiteDashboard];
 //    _weekDaysDarkView.backgroundColor = [UIColor themeWhiteDashboard];
-    _backgroundView.backgroundColor = [UIColor calendarSelectedGreen];
+    _backgroundView.backgroundColor = [UIColor airportSelectionGreen];
     _startDateValueLabel.textColor = [UIColor themeBlack];
     _startDateSubLabel.textColor = [UIColor themeBlack];
     _endDateValueLabel.textColor = [UIColor themeBlack];
     _endDateSubLabel.textColor = [UIColor themeBlack];
     _multicitySelectionBackView.backgroundColor = [UIColor themeWhiteDashboard];
-    _multiCitySelectionTap.backgroundColor = [UIColor calendarSelectedGreen];
+    _multiCitySelectionTap.backgroundColor = [UIColor airportSelectionGreen];
     _doneOutterView.backgroundColor = [UIColor themeWhiteDashboard];
 }
 

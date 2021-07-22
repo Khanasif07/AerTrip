@@ -281,6 +281,9 @@ enum AppColors {
     // (236, 253, 244) (24, 69, 58)
     static var calendarSelectedGreen: UIColor { UIColor(named: "calendarSelectedGreen") ?? .white }
     
+    // (236, 253, 244) (39, 80, 70)
+    static var airportSelectionGreen: UIColor { UIColor(named: "airportSelectionGreen") ?? .white }
+    
     // (236, 253, 244) (0, 42, 31)
     static var domesticReturnSelection: UIColor { UIColor(named: "domesticReturnSelection") ?? .white }
 
