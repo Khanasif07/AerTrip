@@ -47,7 +47,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     // MARK: - Private
     
     var ffExtraCount: Int = 2
-    private var defaultPlaceHolder: UIImage = AppGlobals.shared.getImageFor(firstName: nil, lastName: nil, offSet: CGPoint(x: 0.0, y: 9.0))
+    private var defaultPlaceHolder: UIImage{ AppGlobals.shared.getImageFor(firstName: nil, lastName: nil, offSet: CGPoint(x: 0.0, y: 9.0)) }
     var KeyBoardHeight:CGFloat = 0.0
     var isEditingNickName = false
     
@@ -101,6 +101,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         tableView.reloadData()
+        self.reloadProfileImage()
     }
     
     override func viewDidLoad() {
@@ -321,6 +322,16 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             present(alert, animated: true, completion: nil)
         }
+    }
+    
+    
+    private func reloadProfileImage(){
+        if self.viewModel.profilePicture.isEmpty{
+            setUpProfilePhotoInitials()
+        }else{
+            self.editProfileImageHeaderView.profileImageView.setImageWithUrl(self.viewModel.profilePicture, placeholder: self.defaultPlaceHolder, showIndicator: true)
+        }
+        
     }
     
     func openGallery() {
