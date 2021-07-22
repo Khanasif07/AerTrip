@@ -192,7 +192,7 @@ enum AppColors {
     // RGB - 228,228,229
     static let secondarySystemFillColor = UIColor(named: "secondarySystemFillColor") ?? UIColor(displayP3Red: 0.8941176471, green: 0.8941176471, blue: 0.8980392157, alpha: 1)
 
-    /// RGB - 255, 255, 255
+    /// RGB - 255, 255, 255, 0.7
     static let themeWhite70  = UIColor(named: "themeWhite70") ?? UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 0.7)
     
     /// RGB -  0 170 108
@@ -477,6 +477,9 @@ enum AppColors {
 
     /// (227,227,227) (102,102,102)
     static let pageControlGrayColor = UIColor(named: "pageControlGrayColor") ?? .white
+    
+    /// ( 255, 255, 255, 0.6)  ( 255, 255, 255, 0.3)
+    static let white60Percent = UIColor(named: "white60Percent") ?? UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 0.6)
     
     case headlines
     case body

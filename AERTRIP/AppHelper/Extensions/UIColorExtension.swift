@@ -127,4 +127,6 @@ extension UIColor {
     @objc static var flightFormReturnEnableColor:UIColor { AppColors.flightFormReturnEnableColor }
     
     @objc static var flightFormGray: UIColor { AppColors.flightFormGray }
+    
+    @objc static var white60Percent:UIColor { AppColors.white60Percent }
 }
