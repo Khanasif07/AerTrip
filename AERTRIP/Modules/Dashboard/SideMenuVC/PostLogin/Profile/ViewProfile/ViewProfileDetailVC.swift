@@ -143,6 +143,7 @@ class ViewProfileDetailVC: BaseVC {
         tableView.tableFooterView = footerView
 //        profileImageHeaderView?.dividerView.isHidden = true
         setUpDataFromApi()
+        profileImageHeaderView?.familyButton.isHidden = true
     }
     
     private func setupParallaxHeader() { // Parallax Header

@@ -40,6 +40,9 @@ enum AppColors {
     /// RGB - 255, 51, 51,   (236, 85, 69)
     static let themeRed = UIColor(named: "themeRed") ?? UIColor(displayP3Red: 1, green: 0.2, blue: 0.2, alpha: 1)
     
+    /// RGB - 255, 51, 51,   (254, 68, 56)
+    static let themeRed254 = UIColor(named: "themeRed254") ?? .white
+    
     /// RGB - 51, 153, 255
     static let themeBlue = UIColor(named: "themeBlue") ?? UIColor(displayP3Red: 0.2, green: 0.6, blue: 1, alpha: 1)
     
