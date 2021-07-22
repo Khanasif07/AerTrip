@@ -1284,19 +1284,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VHE-d0-ntj" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="104"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tjU-nz-ENs" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44" width="414" height="60"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="NPV-P8-1EF"/>
-                                </constraints>
-                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ayw-ey-vwt" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="104" width="414" height="792"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AccountChargeInfoCell" rowHeight="105" id="Xi6-95-WAr" customClass="AccountChargeInfoCell" customModule="AERTRIP" customModuleProvider="target">
@@ -1340,17 +1329,28 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VHE-d0-ntj" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="104"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tjU-nz-ENs" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="414" height="60"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="NPV-P8-1EF"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Vq4-eM-kdJ"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Vq4-eM-kdJ" firstAttribute="trailing" secondItem="tjU-nz-ENs" secondAttribute="trailing" id="1Xg-RH-PVS"/>
-                            <constraint firstItem="ayw-ey-vwt" firstAttribute="top" secondItem="tjU-nz-ENs" secondAttribute="bottom" id="2J0-EP-IgO"/>
                             <constraint firstAttribute="bottom" secondItem="ayw-ey-vwt" secondAttribute="bottom" id="AkT-8O-iAr"/>
                             <constraint firstItem="VHE-d0-ntj" firstAttribute="top" secondItem="uAk-gv-a4s" secondAttribute="top" id="Geh-Tt-FNf"/>
                             <constraint firstItem="tjU-nz-ENs" firstAttribute="top" secondItem="Vq4-eM-kdJ" secondAttribute="top" id="Ifh-O3-0d7"/>
                             <constraint firstItem="VHE-d0-ntj" firstAttribute="bottom" secondItem="tjU-nz-ENs" secondAttribute="bottom" id="NOE-Z8-5mF"/>
                             <constraint firstItem="VHE-d0-ntj" firstAttribute="leading" secondItem="tjU-nz-ENs" secondAttribute="leading" id="NYv-yY-omm"/>
+                            <constraint firstItem="ayw-ey-vwt" firstAttribute="top" secondItem="uAk-gv-a4s" secondAttribute="top" id="Nnr-E1-Yt9"/>
                             <constraint firstItem="ayw-ey-vwt" firstAttribute="leading" secondItem="Vq4-eM-kdJ" secondAttribute="leading" id="S60-Ar-Ovc"/>
                             <constraint firstItem="Vq4-eM-kdJ" firstAttribute="trailing" secondItem="ayw-ey-vwt" secondAttribute="trailing" id="ff0-Cg-TbJ"/>
                             <constraint firstItem="tjU-nz-ENs" firstAttribute="leading" secondItem="Vq4-eM-kdJ" secondAttribute="leading" id="qgz-2D-T6n"/>
@@ -1358,6 +1358,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="blurView" destination="VHE-d0-ntj" id="qyL-l0-tYh"/>
                         <outlet property="tableView" destination="ayw-ey-vwt" id="kBq-fQ-DXL"/>
                         <outlet property="topNavBarHeightConstraint" destination="NPV-P8-1EF" id="SVi-Lo-2Jw"/>
                         <outlet property="topNavView" destination="tjU-nz-ENs" id="Q3G-Pa-IWK"/>
@@ -1365,7 +1366,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aHc-EU-5sC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2346" y="25"/>
+            <point key="canvasLocation" x="2344.9275362318845" y="24.776785714285712"/>
         </scene>
         <!--Voucher TypeVC-->
         <scene sceneID="L0h-oT-vE8">

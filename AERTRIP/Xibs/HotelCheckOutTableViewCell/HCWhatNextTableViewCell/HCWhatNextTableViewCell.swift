@@ -84,7 +84,7 @@ class HCWhatNextTableViewCell: UITableViewCell {
         self.twitterButton.tintColor = AppColors.unicolorWhite
         self.instagramButton.setImage(AppImages.socialInstagram, for: .normal)//.setImage(AppImages.twiterIcon, for: .normal)
 //        self.instagramButton.tintColor = AppColors.unicolorWhite
-
+        self.instagramButton.gradientColors = [AppColors.clear, AppColors.clear]
         //Font
         self.tellYourPlanLabel.font = AppFonts.Regular.withSize(16.0)
         self.whatNext.font = AppFonts.SemiBold.withSize(28.0)

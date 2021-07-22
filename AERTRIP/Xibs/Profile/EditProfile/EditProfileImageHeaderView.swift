@@ -103,6 +103,12 @@ class EditProfileImageHeaderView: UIView {
         self.setColorForAddTraveller()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.profileImageView.layer.borderColor = AppColors.profileImageBorderColor.cgColor
+        profileImageView.layer.borderWidth = 2.0
+    }
+    
     // MARK: - Helper methods
     
     class func instanceFromNib() -> EditProfileImageHeaderView {

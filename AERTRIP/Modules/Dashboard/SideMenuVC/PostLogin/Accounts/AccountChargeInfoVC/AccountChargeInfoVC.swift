@@ -15,6 +15,7 @@ class AccountChargeInfoVC: BaseVC {
     @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var tableView: ATTableView!
     @IBOutlet weak var topNavBarHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var blurView: BlurView!
     
     
     //MARK:- Properties
@@ -61,6 +62,10 @@ class AccountChargeInfoVC: BaseVC {
         }
         else {
             self.topNavView.navTitleLabel.textAlignment = .center
+        }
+        
+        if tableView.contentInset.top != blurView.height {
+            tableView.contentInset = UIEdgeInsets(top: blurView.height, left: 0, bottom: 0, right: 0)
         }
     }
     
