@@ -36,7 +36,7 @@ class TripChangeTableViewCell: ATTableViewCell {
     
     override func setupColors() {
         self.tripChangeImageView.tintColor = AppColors.brightViolet
-        self.tripTitleLabel.textColor = AppColors.themeGray40
+        self.tripTitleLabel.textColor = AppColors.themeGray153
         self.tripNameLabel.textColor = AppColors.textFieldTextColor51
         self.changeButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.changeButton.setTitleColor(AppColors.themeGreen, for: .selected)

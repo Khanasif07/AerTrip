@@ -79,7 +79,7 @@ class TravellersPnrStatusTableViewCell: UITableViewCell {
         self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: shadow.shadowColor, offset: shadow.offset, opacity: shadow.opecity, shadowRadius: shadow.shadowRadius)
     }
     
-    internal func configCell(travellersImage: String, travellerName: String, travellerPnrStatus: String, firstName: String, lastName: String, isLastTraveller: Bool,paxType: String, dob: String, salutation: String, ageColor: UIColor = AppColors.themeGray40) {
+    internal func configCell(travellersImage: String, travellerName: String, travellerPnrStatus: String, firstName: String, lastName: String, isLastTraveller: Bool,paxType: String, dob: String, salutation: String, ageColor: UIColor = AppColors.themeGray153) {
         self.tavellerImageBlurView.isHidden = true
         let travelName = travellerName
         if !travellersImage.isEmpty {
