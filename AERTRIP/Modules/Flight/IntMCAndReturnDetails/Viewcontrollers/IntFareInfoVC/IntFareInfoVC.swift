@@ -662,6 +662,10 @@ extension IntFareInfoVC{
             if legs.count == 1{
                 location = displayTitle
                 fareInfoCell.titleLabel.text = location
+                fareInfoCell.titleLabelTop.constant = 16
+                fareInfoCell.carrierImgView.isHidden = true
+                fareInfoCell.journeyNameLabel.isHidden = true
+                fareInfoCell.journeyDeviderView.isHidden = true
             }else{
                 let ap = legs[indexPath.section].ap
                 let departureAirportDetails = self.airportDetailsResult[ap[0]]
