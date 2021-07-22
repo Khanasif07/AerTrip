@@ -166,7 +166,7 @@ class MyBookingsVC: BaseVC {
         self.searchBarContainerView.backgroundColor = AppColors.clear
         self.childContainerView.backgroundColor = AppColors.clear
         self.blurBackgroundView.isHidden = !self.isLightTheme()
-        self.view.backgroundColor = AppColors.themeWhite
+        self.view.backgroundColor = AppColors.themeBlack26
     }
     
     override func bindViewModel() {
