@@ -41,7 +41,7 @@ class MyBookingsVC: BaseVC {
     @IBOutlet weak var searchBarContainerView: UIView!
     @IBOutlet weak var searchBar: ATSearchBar! {
         didSet {
-            self.searchBar.backgroundColor = AppColors.themeWhiteDashboard
+            self.searchBar.backgroundColor = .clear//AppColors.themeWhiteDashboard
             self.searchBar.textFieldColor = AppColors.themeWhiteDashboard
             self.searchBar.placeholder = LocalizedString.search.localized
             self.searchBar.delegate = self
