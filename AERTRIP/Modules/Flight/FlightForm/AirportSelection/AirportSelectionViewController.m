@@ -174,7 +174,7 @@
 }
 
 -(void)setupColors {
-    self.backgroundView.backgroundColor = [UIColor calendarSelectedGreen];
+    self.backgroundView.backgroundColor = [UIColor airportSelectionGreen];
     self.resultTableView.backgroundColor = [UIColor WHITE_COLOR];
     self.TableViewHeaderView.backgroundColor = [UIColor themeBlack26];
     self.fromValueLabel.textColor = [UIColor themeBlack];

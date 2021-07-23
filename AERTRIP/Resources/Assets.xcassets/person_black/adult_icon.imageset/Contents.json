@@ -12,7 +12,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "peopleManBlack.png",
+      "filename" : "peopleFillWhite.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -28,7 +28,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "peopleManBlack@2x.png",
+      "filename" : "peopleFillWhite@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -44,7 +44,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "peopleManBlack@3x.png",
+      "filename" : "peopleFillWhite@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
