@@ -71,6 +71,9 @@ class NoResultScreenView : UIView {
             btn?.setTitleColor(AppColors.themeGreen, for: .selected)
         }
         
+        headerLabel.textColor = AppColors.themeBlack
+        subTitle.textColor = AppColors.themeGray60
+        
     }
     
     @IBAction func clearFilterTapped(_ sender: Any) {

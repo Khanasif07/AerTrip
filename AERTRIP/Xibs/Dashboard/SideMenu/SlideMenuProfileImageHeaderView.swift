@@ -124,7 +124,6 @@ class SlideMenuProfileImageHeaderView: UIView {
             //always fill the view
             blurEffectView.frame = self.backgroundImageView.bounds
             blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            
             backgroundImageView.addSubview(blurEffectView)
         }
     }
