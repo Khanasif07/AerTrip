@@ -288,7 +288,7 @@
 #define SIMPLE_LABEL_IMAGE_COLLECTION_VIEW_NIB_IDENTIFIER @"SimpleLabelCollectionCell"
 
 
-#define AMENITIES_ARRAY @[@{@"iconName":@"WifiIcon", @"name": @"Wifi"}, @{@"iconName":@"RoomServiceIcon", @"name": @"Room Service"}, @{@"iconName":@"Interneticon", @"name": @"Internet"}, @{@"iconName":@"ACIcon", @"name": @"Air Conditioner"}, @{@"iconName":@"RestaurantBarIcon", @"name": @"Restaurant Bar"}, @{@"iconName":@"FitnessIcon", @"name": @"Gym"}, @{@"iconName":@"BusinessCenterIcon", @"name": @"Business Center"}, @{@"iconName":@"PoolIcon", @"name": @"Pool"}, @{@"iconName":@"SpaIcon", @"name": @"Spa"}, @{@"iconName":@"CoffeeShopIcon", @"name": @"Coffee Shop"}]
+#define AMENITIES_ARRAY @[@{@"iconName":@"ame-wi-fi", @"name": @"Wifi"}, @{@"iconName":@"ame-room-service", @"name": @"Room Service"}, @{@"iconName":@"ame-internet", @"name": @"Internet"}, @{@"iconName":@"ame-air-conditioner", @"name": @"Air Conditioner"}, @{@"iconName":@"ame-restaurant-bar", @"name": @"Restaurant Bar"}, @{@"iconName":@"ame-gym", @"name": @"Gym"}, @{@"iconName":@"ame-business-center", @"name": @"Business Center"}, @{@"iconName":@"ame-pool", @"name": @"Pool"}, @{@"iconName":@"ame-spa", @"name": @"Spa"}, @{@"iconName":@"ame-coffee-shop", @"name": @"Coffee Shop"}]
 
 #define ALL_ROOM_TYPE_ARRAY @[@"Taj Club - Tranquility", @"Taj Club", @"Twin Room", @"Double Room", @"Club King Room Queen Bed With City View", @"Club King Room Queen Bed", @"Club Room Single Beds With City View"]
 

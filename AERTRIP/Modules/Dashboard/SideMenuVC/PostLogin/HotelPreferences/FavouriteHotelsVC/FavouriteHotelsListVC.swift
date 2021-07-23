@@ -85,7 +85,7 @@ extension FavouriteHotelsListVC: UICollectionViewDataSource, UICollectionViewDel
             }
             
             cell.titleLabel.text = "Remove all from \(self.viewModel.forCity?.cityName ?? "this city")"
-            cell.titleLabel.textColor = AppColors.themeRed
+            cell.titleLabel.textColor = AppColors.themeRed254
             cell.titleLabel.font = AppFonts.Regular.withSize(18.0)
             cell.contentView.isHidden = indexPath.item == 1
             

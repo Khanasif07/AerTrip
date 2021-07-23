@@ -530,7 +530,7 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
                 
             } else {
                 if let parent = self.parent as? BaseVC {
-                    parent.statusBarStyle = .darkContent
+                    parent.statusBarStyle = .default
                 }
                 
                 self.topNavView.animateBackView(isHidden: false) { [weak self](isDone) in
