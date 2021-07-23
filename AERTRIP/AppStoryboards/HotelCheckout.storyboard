@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -31,7 +31,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HCDataSelectionRoomDetailCell" rowHeight="147" id="pb4-yD-P31" customClass="HCDataSelectionRoomDetailCell" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="24.5" width="375" height="147"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="147"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pb4-yD-P31" id="KFS-ah-IBh">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="147"/>
@@ -165,7 +165,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HCDataSelectionPrefrencesCell" rowHeight="90" id="5hj-Zt-T4T" customClass="HCDataSelectionPrefrencesCell" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="171.5" width="375" height="90"/>
+                                        <rect key="frame" x="0.0" y="175" width="375" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5hj-Zt-T4T" id="4pa-qf-MOj">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>
@@ -212,7 +212,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HCDataSelectionTextLabelCell" rowHeight="90" id="dqr-Y2-2nz" customClass="HCDataSelectionTextLabelCell" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="261.5" width="375" height="90"/>
+                                        <rect key="frame" x="0.0" y="265" width="375" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dqr-Y2-2nz" id="tvb-ip-w0g">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>
@@ -241,7 +241,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HCDataSelectionTravelSafetyCell" rowHeight="90" id="m8B-fZ-6Ps" customClass="HCDataSelectionTravelSafetyCell" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="351.5" width="375" height="90"/>
+                                        <rect key="frame" x="0.0" y="355" width="375" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="m8B-fZ-6Ps" id="YV6-5d-Okv">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>
@@ -1003,7 +1003,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ContactDetailsTableCell" rowHeight="61" id="S3g-tE-QrT" customClass="ContactDetailsTableCell" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="24.5" width="375" height="61"/>
+                                                <rect key="frame" x="0.0" y="28" width="375" height="61"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="S3g-tE-QrT" id="OO5-ax-THe">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="61"/>
@@ -1622,6 +1622,10 @@ Incomplete</string>
                                                     <constraint firstAttribute="height" constant="0.5" id="zIo-Qb-Sv9"/>
                                                 </constraints>
                                             </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dFp-N6-AjY">
+                                                <rect key="frame" x="0.0" y="159" width="375" height="50"/>
+                                                <color key="backgroundColor" name="white82"/>
+                                            </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z66-1x-NXM">
                                                 <rect key="frame" x="0.0" y="159" width="375" height="50"/>
                                                 <constraints>
@@ -1638,8 +1642,11 @@ Incomplete</string>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="jIv-eH-duv" firstAttribute="trailing" secondItem="z66-1x-NXM" secondAttribute="trailing" id="0a8-7M-fIF"/>
+                                            <constraint firstItem="dFp-N6-AjY" firstAttribute="top" secondItem="z66-1x-NXM" secondAttribute="top" id="1Vp-8K-7zl"/>
+                                            <constraint firstItem="dFp-N6-AjY" firstAttribute="trailing" secondItem="z66-1x-NXM" secondAttribute="trailing" id="5jh-To-HBG"/>
                                             <constraint firstItem="yeO-pL-fuX" firstAttribute="top" secondItem="QAj-eH-e4Y" secondAttribute="bottom" constant="15" id="BQg-E1-3q5"/>
                                             <constraint firstItem="yeO-pL-fuX" firstAttribute="leading" secondItem="QAj-eH-e4Y" secondAttribute="leading" id="D42-zw-igu"/>
+                                            <constraint firstAttribute="bottom" secondItem="dFp-N6-AjY" secondAttribute="bottom" id="EZn-Wb-KUt"/>
                                             <constraint firstItem="z66-1x-NXM" firstAttribute="top" secondItem="y9i-B2-tEL" secondAttribute="bottom" id="I4E-ND-GH9"/>
                                             <constraint firstItem="z66-1x-NXM" firstAttribute="leading" secondItem="jIv-eH-duv" secondAttribute="leading" id="ITw-1b-hlc"/>
                                             <constraint firstItem="Ac7-4o-Tfo" firstAttribute="centerY" secondItem="QAj-eH-e4Y" secondAttribute="centerY" id="P5b-Q4-LwO"/>
@@ -1648,6 +1655,7 @@ Incomplete</string>
                                             <constraint firstItem="yeO-pL-fuX" firstAttribute="trailing" secondItem="Ac7-4o-Tfo" secondAttribute="trailing" id="Vnm-7V-1uA"/>
                                             <constraint firstItem="Ac7-4o-Tfo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="QAj-eH-e4Y" secondAttribute="trailing" constant="10" id="Vrp-oG-zBe"/>
                                             <constraint firstItem="QAj-eH-e4Y" firstAttribute="top" secondItem="jIv-eH-duv" secondAttribute="top" constant="19" id="YS7-PS-Eph"/>
+                                            <constraint firstItem="dFp-N6-AjY" firstAttribute="leading" secondItem="z66-1x-NXM" secondAttribute="leading" id="bVX-xZ-sFW"/>
                                             <constraint firstAttribute="height" constant="209" id="bXs-rX-n45"/>
                                             <constraint firstItem="QAj-eH-e4Y" firstAttribute="leading" secondItem="jIv-eH-duv" secondAttribute="leading" constant="16" id="iVE-qi-9Yg"/>
                                             <constraint firstItem="jIv-eH-duv" firstAttribute="trailing" secondItem="Ac7-4o-Tfo" secondAttribute="trailing" constant="16" id="mcM-SM-h62"/>
@@ -2111,6 +2119,9 @@ Incomplete</string>
         </namedColor>
         <namedColor name="themeWhiteDashboard">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="white82">
+            <color red="1" green="0.99993687868118286" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
