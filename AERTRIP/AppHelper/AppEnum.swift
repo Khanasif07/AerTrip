@@ -862,7 +862,7 @@ enum ATWeatherType: RawRepresentable {
     
     static var netBanking: UIImage  { #imageLiteral(resourceName: "netBanking") }
     static var visa: UIImage  { #imageLiteral(resourceName: "visa") }
-    static var appleLogoImage: UIImage  { #imageLiteral(resourceName: "Apple Logo") }
+    static var appleLogoImage: UIImage  { UIImage(named: "AppleLogo") ?? UIImage() }
     static var mobikwik: UIImage  { #imageLiteral(resourceName: "paymentMobikwik.png") }
     static var freecharge: UIImage  { #imageLiteral(resourceName: "bankFreecharge") }
     static var payzapp: UIImage  { #imageLiteral(resourceName: "bankHdfcBank") }

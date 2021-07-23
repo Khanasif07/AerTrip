@@ -52,6 +52,11 @@ class LinkedAccountsVC: BaseVC {
         
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        tableView.reloadData()
+    }
+    
     override func setupFonts() {
         self.navTitleLabel.font = AppFonts.SemiBold.withSize(18.0)
         self.messageLabel.font = AppFonts.Regular.withSize(14.0)

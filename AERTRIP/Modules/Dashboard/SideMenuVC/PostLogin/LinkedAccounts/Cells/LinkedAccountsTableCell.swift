@@ -144,8 +144,8 @@ class LinkedAccountsTableCell: UITableViewCell {
         self.connectButton.gradientColors = [AppColors.fbButtonBackgroundColor, AppColors.fbButtonBackgroundColor]
         self.connectButton.setTitle(LocalizedString.ConnectWithFB.localized, for: .normal)
         self.connectButton.setTitle(LocalizedString.ConnectWithFB.localized, for: .selected)
-        self.connectButton.setTitleColor(AppColors.themeWhite, for: .normal)
-        self.connectButton.setTitleColor(AppColors.themeWhite, for: .selected)
+        self.connectButton.setTitleColor(AppColors.unicolorWhite, for: .normal)
+        self.connectButton.setTitleColor(AppColors.unicolorWhite, for: .selected)
         self.connectButton.setTitleFont(font: AppFonts.SemiBold.withSize(16.0), for: .normal)
         self.connectButton.setImage(AppImages.facebookLogoImage.withRenderingMode(.alwaysOriginal), for: .normal)
         self.connectButton.setImage(AppImages.facebookLogoImage.withRenderingMode(.alwaysOriginal), for: .selected)
@@ -199,8 +199,8 @@ class LinkedAccountsTableCell: UITableViewCell {
             self.connectButton.setTitleColor(AppColors.themeWhite, for: .normal)
             self.connectButton.setTitleColor(AppColors.themeWhite, for: .selected)
             self.connectButton.setTitleFont(font: AppFonts.SemiBold.withSize(16.0), for: .normal)
-            self.connectButton.setImage(AppImage.appleLogoImage.withRenderingMode(.alwaysOriginal), for: .normal)
-            self.connectButton.setImage(AppImage.appleLogoImage.withRenderingMode(.alwaysOriginal), for: .selected)
+            self.connectButton.setImage(AppImages.appleLogoImage, for: .normal)
+            self.connectButton.setImage(AppImages.appleLogoImage, for: .selected)
             self.connectButton.layer.cornerRadius = self.connectButton.height / 2.0
             //self.connectButton.shadowColor = AppColors.clear
             
