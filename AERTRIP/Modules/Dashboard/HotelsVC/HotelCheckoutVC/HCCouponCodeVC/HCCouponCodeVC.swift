@@ -50,6 +50,7 @@ class HCCouponCodeVC: BaseVC {
             self.couponTextField.adjustsFontSizeToFitWidth = true
             self.couponTextField.textFieldClearBtnSetUp(with: AppImages.BlurCross)
             self.couponTextField.clearButtonMode = .always
+            self.couponTextField.titleFont = AppFonts.Regular.withSize(14)
         }
     }
     @IBOutlet weak var emptyStateView: UIView!
@@ -154,10 +155,14 @@ class HCCouponCodeVC: BaseVC {
 
         self.noCouponsReqLabel.textColor = AppColors.themeBlack
         self.bestPriceLabel.textColor = AppColors.themeGray60
-        self.backGroundView.backgroundColor = AppColors.themeGray60.withAlphaComponent(0.6)
+        self.backGroundView.backgroundColor = AppColors.unicolorBlack.withAlphaComponent(0.35)
         //self.couponValidationTextSetUp(isCouponValid: true)
         self.applyCouponButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.view.backgroundColor = AppColors.themeWhite
+        self.offerTermsView.backgroundColor = AppColors.themeWhiteDashboard
+        self.discountLabel.textColor = AppColors.cheapestPriceColor
+        self.couponInfoTextView.backgroundColor = AppColors.themeWhiteDashboard
+        self.applyCouponButton.backgroundColor = AppColors.white82
     }
     
     override func bindViewModel() {
@@ -205,6 +210,11 @@ class HCCouponCodeVC: BaseVC {
             self.bestPriceLabel.text = "for \"\(self.viewModel.searchText)\""
         }
         self.couponTextField.isError = self.viewModel.searcedCouponsData.isEmpty
+        if (self.viewModel.searcedCouponsData.isEmpty){
+            self.couponTextField.titleFont = AppFonts.SemiBold.withSize(14)
+        }else{
+            self.couponTextField.titleFont = AppFonts.Regular.withSize(14)
+        }
         self.emptyStateView.isHidden = !self.viewModel.searcedCouponsData.isEmpty
         self.couponTableView.isHidden = self.viewModel.searcedCouponsData.isEmpty
         self.emptyStateView.backgroundColor = AppColors.themeWhite
@@ -340,7 +350,7 @@ extension HCCouponCodeVC: UITableViewDelegate, UITableViewDataSource {
         }
         cell.configCell(currentCoupon: model)
         cell.dividerLeadingConstraint.constant = (self.viewModel.searcedCouponsData.count - 1 != indexPath.row) ? 16 : 0
-        cell.dividerTrailingConstraint.constant = (self.viewModel.searcedCouponsData.count - 1 != indexPath.row) ? 16 : 0
+        cell.dividerTrailingConstraint.constant = 0//(self.viewModel.searcedCouponsData.count - 1 != indexPath.row) ? 16 : 0
         return cell
     }
     

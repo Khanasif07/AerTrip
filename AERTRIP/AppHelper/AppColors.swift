@@ -484,6 +484,10 @@ enum AppColors {
     /// ( 255, 255, 255, 0.6)  ( 255, 255, 255, 0.3)
     static let white60Percent = UIColor(named: "white60Percent") ?? UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 0.6)
     
+    /// RGB - 255, 255, 255   Dark RGB  82, 82, 82
+    static let white82  = UIColor(named: "white82") ?? AppColors.themeWhite
+    
+    
     case headlines
     case body
     case subheads
