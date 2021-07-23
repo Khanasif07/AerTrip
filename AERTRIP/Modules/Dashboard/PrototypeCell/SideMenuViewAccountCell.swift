@@ -53,7 +53,7 @@ extension SideMenuViewAccountCell {
         viewAccountButton.setTitleColor(AppColors.themeGreen, for: .normal)
         
         self.dateLabel.font = AppFonts.Regular.withSize(12)
-        self.dateLabel.textColor = AppColors.themeRed
+        self.dateLabel.textColor = AppColors.themeRed254
         
     }
     

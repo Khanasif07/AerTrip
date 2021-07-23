@@ -142,8 +142,8 @@ class AccountOutstandingEventDescriptionCell: UITableViewCell {
             self.titleLabel.text = event.title
         }
         
-        self.titleLabel.AttributedFontAndColorForText(atributedText: LocalizedString.CancellationFor.localized, textFont: AppFonts.Regular.withSize(14), textColor: AppColors.themeRed)
-        self.titleLabel.AttributedFontAndColorForText(atributedText: LocalizedString.ReschedulingFor.localized, textFont: AppFonts.Regular.withSize(14), textColor: AppColors.themeRed)
+        self.titleLabel.AttributedFontAndColorForText(atributedText: LocalizedString.CancellationFor.localized, textFont: AppFonts.Regular.withSize(14), textColor: AppColors.themeRed254)
+        self.titleLabel.AttributedFontAndColorForText(atributedText: LocalizedString.ReschedulingFor.localized, textFont: AppFonts.Regular.withSize(14), textColor: AppColors.themeRed254)
 
         
         let drAttr = NSMutableAttributedString(string: " \(LocalizedString.DebitShort.localized)", attributes: [.font: AppFonts.Regular.withSize(16.0)])
@@ -183,7 +183,7 @@ class AccountOutstandingEventDescriptionCell: UITableViewCell {
         
         //days beautify
         if let overDueRange = finalText.range(of: overDueText)?.asNSRange(inString: finalText) {
-            dateAttributedString.addAttribute(.foregroundColor, value: AppColors.themeRed, range: overDueRange)
+            dateAttributedString.addAttribute(.foregroundColor, value: AppColors.themeRed254, range: overDueRange)
         }
         
         self.dateLabel.attributedText = dateAttributedString

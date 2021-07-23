@@ -601,7 +601,7 @@ class AccountDepositCell: UITableViewCell {
             amountLabel.backgroundColor = .clear
             amountLabel.stopShimmer()
             if !(self.dateLabel.text?.isEmpty ?? true){
-                self.dateLabel.textColor = AppColors.themeRed
+                self.dateLabel.textColor = AppColors.themeRed254
                 self.dateLabel.backgroundColor = .clear
                 self.dateLabel.stopShimmer()
             }

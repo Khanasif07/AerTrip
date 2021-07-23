@@ -123,7 +123,7 @@
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" name="themeWhiteDashboard"/>
+                        <color key="backgroundColor" name="themeBlack26"/>
                         <constraints>
                             <constraint firstItem="g8Z-rH-aPH" firstAttribute="leading" secondItem="PwZ-aa-HBY" secondAttribute="leading" constant="16" id="62M-oP-asq"/>
                             <constraint firstAttribute="trailing" secondItem="JIY-kV-01k" secondAttribute="trailing" constant="15" id="95C-0e-dnh"/>
@@ -184,7 +184,7 @@
         <image name="starRatingFilled" width="31" height="30"/>
         <image name="starRatingUnfill" width="30" height="30"/>
         <image name="tripAdviser" width="25" height="19"/>
-        <namedColor name="themeWhiteDashboard">
+        <namedColor name="themeBlack26">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
     </resources>

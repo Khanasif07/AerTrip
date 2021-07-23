@@ -413,7 +413,7 @@ extension BookingAddOnRequestVC: TopNavigationViewDelegate {
         AppFlowManager.default.popViewController(animated: true)
     }
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.AbortThisRequest.localized], colors: [AppColors.themeRed])
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.AbortThisRequest.localized], colors: [AppColors.themeRed254])
         
         _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) {  _, index in
             
