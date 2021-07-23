@@ -66,6 +66,9 @@ enum AppColors {
     /// RGB - 151, 151, 151
     static let themeGray151  = UIColor(named: "themeGray151") ?? UIColor(displayP3Red: 0.5921568627, green: 0.5921568627, blue: 0.5921568627, alpha: 1)
     
+    static let common51  = UIColor(named: "common51") ?? UIColor(displayP3Red: 0.5921568627, green: 0.5921568627, blue: 0.5921568627, alpha: 1)
+
+    
     /// RGB - 204, 204, 204, RGB - 79, 79,79
     static let themeGray20  = UIColor(named: "themeGray20") ?? UIColor(displayP3Red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
     
@@ -383,6 +386,12 @@ enum AppColors {
     //(238, 204, 78) (255, 255, 255, 0.1)
     static let fewSeatLeftColor :UIColor = UIColor(named: "fewSeatLeftColor") ?? AppColors.themeBlack
   
+    static let whiteAndWhiteWithOpacity10 :UIColor = UIColor(named: "whiteAndWhiteWithOpacity10") ?? UIColor.white
+    
+    static let whiteAndAll32 :UIColor = UIColor(named: "whiteAndAll32") ?? UIColor.white
+
+    
+
 
     //(238, 204, 78) (255, 255, 255, 0.1)
 //    static let fewSeatLeftColor :UIColor = UIColor(named: "fewSeatLeftColor") ?? AppColors.themeBlack
