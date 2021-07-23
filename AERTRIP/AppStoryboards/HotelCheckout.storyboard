@@ -1055,6 +1055,8 @@
                                                 <connections>
                                                     <outlet property="dividerView" destination="Lqh-JP-VaR" id="hPW-af-SF5"/>
                                                     <outlet property="nameLabel" destination="GQb-s7-XUG" id="7w9-xc-DXx"/>
+                                                    <outlet property="profileImageTrailing" destination="mG8-fJ-ygx" id="2v1-k8-rmB"/>
+                                                    <outlet property="profileImageWidth" destination="5nW-Ke-HUe" id="Puu-v1-5KS"/>
                                                     <outlet property="selectionButton" destination="p7Q-bv-izH" id="rza-32-HaT"/>
                                                     <outlet property="userImageView" destination="9LR-dt-IC9" id="rnR-JZ-l0u"/>
                                                 </connections>
@@ -1562,13 +1564,13 @@ Incomplete</string>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No coupon required" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lld-jP-V4u">
-                                        <rect key="frame" x="21.5" y="145" width="197" height="28"/>
+                                        <rect key="frame" x="21.5" y="145" width="197" height="26"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="22"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You already have the best price." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="llj-Ng-uue">
-                                        <rect key="frame" x="0.0" y="177.5" width="240" height="23"/>
+                                        <rect key="frame" x="0.0" y="175.5" width="240" height="21"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1595,7 +1597,7 @@ Incomplete</string>
                                         <rect key="frame" x="0.0" y="458" width="375" height="209"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="CODE: AERHDFC" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QAj-eH-e4Y">
-                                                <rect key="frame" x="16" y="19" width="124.5" height="23"/>
+                                                <rect key="frame" x="16" y="19" width="144.5" height="23"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="23" id="8y7-no-4uK"/>
                                                 </constraints>
@@ -2121,7 +2123,7 @@ Incomplete</string>
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="white82">
-            <color red="1" green="0.99993687868118286" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

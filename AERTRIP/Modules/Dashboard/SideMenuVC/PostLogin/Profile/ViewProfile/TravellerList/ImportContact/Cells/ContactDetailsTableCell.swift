@@ -15,6 +15,8 @@ class ContactDetailsTableCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var dividerView: ATDividerView!
     @IBOutlet weak var userImageView: UIImageView!
+    @IBOutlet weak var profileImageWidth: NSLayoutConstraint!
+    @IBOutlet weak var profileImageTrailing: NSLayoutConstraint!
     
     var contact: ATContact? {
         didSet {
@@ -124,5 +126,10 @@ class ContactDetailsTableCell: UITableViewCell {
                 self.nameLabel.AttributedFontColorForText(text: age, textColor: AppColors.themeGray40)
             }
         }
+    }
+    
+    func manageProfileImage(isNeedToHide: Bool){
+        self.profileImageWidth.constant = isNeedToHide ? 0 : 20
+        self.profileImageTrailing.constant = isNeedToHide ? 0 : 12
     }
 }
