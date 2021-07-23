@@ -27,6 +27,9 @@ class FareRuleTableViewCell: UITableViewCell {
         self.setUpTextColor()
         self.webView.uiDelegate = self
         self.webView.navigationDelegate = self
+        webView.backgroundColor = AppColors.themeWhite
+        contentView.backgroundColor = AppColors.themeWhite
+
     }
     
     func setUpFont() {
@@ -36,11 +39,12 @@ class FareRuleTableViewCell: UITableViewCell {
     
     func setUpTextColor() {
         self.routeLabel.textColor = AppColors.themeBlack
-        self.fareRulesLabel.textColor = AppColors.themeGray60
+        self.fareRulesLabel.textColor = AppColors.themeBlack
     }
     
     
     func configureCell(isForBookingPolicy: Bool = false,fareRules: String, ruteString: String) {
+        setUpTextColor()
         self.routeLabel.text = ruteString
         if isForBookingPolicy {
             self.routeLabelHeightConstraint.constant = 0
@@ -53,6 +57,7 @@ class FareRuleTableViewCell: UITableViewCell {
 
         var url = Bundle.main.url(forResource: AppFonts.Regular.rawValue, withExtension: "ttf")
         url?.deleteLastPathComponent()
+        webView.isOpaque = false
         webView.loadHTMLString(cssStr, baseURL: url)
     }
     
