@@ -454,13 +454,6 @@ struct IntMultiCityAndReturnWSResponse {
                  let attributedSuperScript = NSAttributedString(string: "?", attributes: attributes)
                  return attributedSuperScript
                 
-                
-                
-                
-                
-                
-                
-                
             }
             
             var smartIconArray : [String] {
@@ -487,7 +480,7 @@ struct IntMultiCityAndReturnWSResponse {
                 }
                 
                 if fsr > 0 {
-                    logoArray.append("fsr")
+//                    logoArray.append("fsr")
                 }
                 
                 if slo > 0 {  logoArray.append("shortLayover") }

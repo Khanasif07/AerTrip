@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "overnight.png",
+      "filename" : "Overnight.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -12,12 +12,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "amenityOvernight.png",
+      "filename" : "Overnight-1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "overnight@2x.png",
+      "filename" : "Overnight@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -28,12 +28,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "amenityOvernight@2x.png",
+      "filename" : "Overnight@2x-1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "overnight@3x.png",
+      "filename" : "Overnight@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     },
@@ -44,7 +44,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "amenityOvernight@3x.png",
+      "filename" : "Overnight@3x-1.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
