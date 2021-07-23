@@ -99,7 +99,6 @@ class ViewProfileDetailVC: BaseVC {
     }
     
     // MARK: - Helper method
-    
     private func updateProfileImage(){
         if self.viewModel.currentlyUsingFor != .travellerList {
             self.profileImageHeaderView?.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(font: AppFonts.Regular.withSize(35.0))
@@ -317,26 +316,33 @@ class ViewProfileDetailVC: BaseVC {
     
     func createAddress(_ address : Address) -> String {
         var completeAddress = ""
+        
         if !address.line1.isEmpty {
             completeAddress += address.line1
         }
+        
         if !address.line2.isEmpty && !address.line1.isEmpty{
             completeAddress += "\n" + address.line2
         } else {
             completeAddress += address.line2
         }
+        
         if !address.city.isEmpty  {
             completeAddress += "\n" + address.city
         }
+        
         if !address.postalCode.isEmpty {
             completeAddress += "-" + address.postalCode
         }
+        
         if !address.state.isEmpty {
             completeAddress += "\n" + address.state
         }
+        
         if !address.countryName.isEmpty {
             completeAddress += ", " + address.countryName
         }
+        
         return completeAddress
     }
     

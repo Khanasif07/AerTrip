@@ -35,7 +35,7 @@ extension UserAccountDetailsVC : UITableViewDelegate, UITableViewDataSource {
         }
 //        headerView.topSepratorView.isHidden = self.settingsVm.isHeaderTopSeprator(section : section)
         headerView.titleLabel.text = ""
-        headerView.contentView.backgroundColor = AppColors.singleJourneyGroupCellColor
+        headerView.contentView.backgroundColor = AppColors.headerBackground
         return headerView
     }
     
@@ -45,6 +45,7 @@ extension UserAccountDetailsVC : UITableViewDelegate, UITableViewDataSource {
         let type = self.viewModel.accountDetailsDict[indexPath.section]?[indexPath.row] ?? .pan
         cell.dividerView.isHidden = type == .gSTIN
         cell.populateData(type: type, details: self.viewModel.details)
+        cell.contentView.backgroundColor = AppColors.profileContentBackground
         return cell
       }
     

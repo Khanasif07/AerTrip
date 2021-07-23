@@ -119,17 +119,17 @@ class ChangePasswordVC: BaseVC {
     override func setupColors() {
         
         self.secureAccountLabel.tintColor = AppColors.themeBlack
-        self.passwordConditionLabel.tintColor = AppColors.themeGray60
-        self.oneLabel.tintColor = AppColors.themeGray60
-        self.numberLabel.tintColor = AppColors.themeGray60
-        self.smallALabel.tintColor = AppColors.themeGray60
-        self.lowerCaseLabel.tintColor = AppColors.themeGray60
-        self.capsALabel.tintColor = AppColors.themeGray60
-        self.upperCaseLabel.tintColor = AppColors.themeGray60
-        self.atLabel.tintColor = AppColors.themeGray60
-        self.specialLabel.tintColor = AppColors.themeGray60
-        self.eightPlusLabel.tintColor = AppColors.themeGray60
-        self.charactersLabel.tintColor = AppColors.themeGray60
+        self.passwordConditionLabel.textColor = AppColors.themeGray60
+        self.oneLabel.textColor = AppColors.checkoutApplyColor
+        self.numberLabel.textColor = AppColors.checkoutApplyColor
+        self.smallALabel.textColor = AppColors.checkoutApplyColor
+        self.lowerCaseLabel.textColor = AppColors.checkoutApplyColor
+        self.capsALabel.textColor = AppColors.checkoutApplyColor
+        self.upperCaseLabel.textColor = AppColors.checkoutApplyColor
+        self.atLabel.textColor = AppColors.checkoutApplyColor
+        self.specialLabel.textColor = AppColors.checkoutApplyColor
+        self.eightPlusLabel.textColor = AppColors.checkoutApplyColor
+        self.charactersLabel.textColor = AppColors.checkoutApplyColor
         self.enterPasswordLabel.textColor = AppColors.themeBlack
         self.passwordTextField.lineErrorColor = AppColors.themeRed
         self.oldPasswordTextField.lineErrorColor = AppColors.themeRed
@@ -277,8 +277,21 @@ extension ChangePasswordVC {
         self.setupValidation()
         if self.viewModel.isPasswordType == .setPassword {
             self.nextButton.isEnabledShadow = self.viewModel.password.checkInvalidity(.Password)
+            
+            
+//            if self.viewModel.password.checkInvalidity(.Password){
+//                self.nextButton.setTitleColor(AppColors.unicolorWhite, for: .normal)
+//                self.nextButton.setTitleColor(AppColors.unicolorWhite, for: .selected)
+//            }
         } else {
             self.nextButton.isEnabledShadow = (self.viewModel.password.checkInvalidity(.Password) || self.viewModel.oldPassword.checkInvalidity(.Password))
+            
+            
+//            if (self.viewModel.password.checkInvalidity(.Password) || self.viewModel.oldPassword.checkInvalidity(.Password))
+//            {
+//                self.nextButton.setTitleColor(AppColors.unicolorWhite, for: .normal)
+//                self.nextButton.setTitleColor(AppColors.unicolorWhite, for: .selected)
+//            }
         }
     }
     
@@ -309,45 +322,45 @@ extension ChangePasswordVC {
     func setupValidation() {
         
         if self.viewModel.password.containsNumbers() {
-            self.numberLabel.textColor = AppColors.themeGray20
-            self.oneLabel.textColor = AppColors.themeGray20
-        } else {
             self.numberLabel.textColor = AppColors.themeGray60
             self.oneLabel.textColor = AppColors.themeGray60
+        } else {
+            self.numberLabel.textColor = AppColors.checkoutApplyColor
+            self.oneLabel.textColor = AppColors.checkoutApplyColor
         }
         
         if self.viewModel.password.containsLowerCase() {
-            self.smallALabel.textColor = AppColors.themeGray20
-            self.lowerCaseLabel.textColor = AppColors.themeGray20
-            
-        } else {
             self.smallALabel.textColor = AppColors.themeGray60
             self.lowerCaseLabel.textColor = AppColors.themeGray60
+            
+        } else {
+            self.smallALabel.textColor = AppColors.checkoutApplyColor
+            self.lowerCaseLabel.textColor = AppColors.checkoutApplyColor
         }
         
         if self.viewModel.password.containsUpperCase() {
-            self.capsALabel.textColor = AppColors.themeGray20
-            self.upperCaseLabel.textColor = AppColors.themeGray20
-        } else {
             self.capsALabel.textColor = AppColors.themeGray60
             self.upperCaseLabel.textColor = AppColors.themeGray60
+        } else {
+            self.capsALabel.textColor = AppColors.checkoutApplyColor
+            self.upperCaseLabel.textColor = AppColors.checkoutApplyColor
         }
         
         if self.viewModel.password.containsSpecialCharacters() {
             
             UIView.transition(with: self.view, duration: 1, options: .curveEaseIn, animations: {
-                self.atLabel.textColor = AppColors.themeGray20
-                self.specialLabel.textColor = AppColors.themeGray20
+                self.atLabel.textColor = AppColors.themeGray60
+                self.specialLabel.textColor = AppColors.themeGray60
             }, completion: nil)
             
         } else {
-            self.atLabel.textColor = AppColors.themeGray60
-            self.specialLabel.textColor = AppColors.themeGray60
+            self.atLabel.textColor = AppColors.checkoutApplyColor
+            self.specialLabel.textColor = AppColors.checkoutApplyColor
         }
         
         if self.viewModel.password.count >= 8 {
-            self.eightPlusLabel.textColor = AppColors.themeGray20
-            self.charactersLabel.textColor = AppColors.themeGray20
+            self.eightPlusLabel.textColor = AppColors.themeGray60
+            self.charactersLabel.textColor = AppColors.themeGray60
             if self.viewModel.password.checkValidity(.Password) {
                 
                 let animation = UIViewPropertyAnimator(duration: 0.3, curve: .easeOut, animations: { [weak self] in
@@ -394,8 +407,8 @@ extension ChangePasswordVC {
             
             let animation = UIViewPropertyAnimator(duration: 0.3, curve: .easeOut, animations: { [weak self] in
                 guard let strongSelf = self else {return}
-                self?.eightPlusLabel.textColor = AppColors.themeGray60
-                self?.charactersLabel.textColor = AppColors.themeGray60
+                self?.eightPlusLabel.textColor = AppColors.checkoutApplyColor
+                self?.charactersLabel.textColor = AppColors.checkoutApplyColor
                 strongSelf.nextButtonTopConstraint.constant = 146.5
                 strongSelf.view.layoutIfNeeded()
             })

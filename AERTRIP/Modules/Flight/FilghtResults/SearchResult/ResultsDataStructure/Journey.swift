@@ -278,7 +278,7 @@ public class Journey: Codable , Equatable {
         }
         
         if fsr > 0 {
-            logoArray.append("fsr")
+        //    logoArray.append("fsr")
         }
         
         // New logic for refundable icons start

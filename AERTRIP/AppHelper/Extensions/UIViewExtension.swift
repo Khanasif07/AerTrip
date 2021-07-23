@@ -527,12 +527,12 @@ extension UIView {
 // FLIGHTS
 
 extension UIView {
-    func setupDashedView() {
+    
+    func setupDashedView(strokeColor : UIColor = AppColors.flightCellDashColor) {
         
         self.backgroundColor = .clear
         let shapeLayer = CAShapeLayer()
-        shapeLayer.strokeColor = AppColors.flightCellDashColor.cgColor
-//        shapeLayer.strokeColor = AppColors.dividerColor.cgColor
+        shapeLayer.strokeColor = strokeColor.cgColor
 
         shapeLayer.lineWidth = 2
         shapeLayer.lineDashPattern = [2,3]

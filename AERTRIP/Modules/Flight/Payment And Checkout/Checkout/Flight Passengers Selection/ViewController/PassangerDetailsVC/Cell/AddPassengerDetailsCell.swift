@@ -106,6 +106,8 @@ class AddPassengerDetailsCell: UITableViewCell {
         self.guestTitleLabel.font = AppFonts.SemiBold.withSize(16.0)
         self.optionalDetailsButton.setTitle("Optional Details", for: .normal)
         self.optionalDetailsButton.titleLabel?.font = AppFonts.Regular.withSize(14.0)
+        self.optionalDetailsButton.setTitleColor(AppColors.themeGreen, for: .normal)
+        self.optionalDetailsButton.setTitleColor(AppColors.themeGreen, for: .selected)
         self.guestTitleLabel.textColor = AppColors.themeBlack
         self.isdLabel.font = AppFonts.Regular.withSize(18.0)
         self.isdLabel.textColor = AppColors.themeBlack

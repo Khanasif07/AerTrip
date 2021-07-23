@@ -31,7 +31,7 @@ class DomesticMultiLegTemplateCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        dashedView.setupDashedView()
+        dashedView.setupDashedView(strokeColor: AppColors.common51)
     }
     
     
@@ -44,6 +44,7 @@ class DomesticMultiLegTemplateCell: UITableViewCell {
         super.awakeFromNib()
         showTemplateView()
         self.contentView.backgroundColor = AppColors.themeWhite
+        dashedView.setupDashedView(strokeColor: AppColors.common51)
     }
     
    //MARK:- Methods

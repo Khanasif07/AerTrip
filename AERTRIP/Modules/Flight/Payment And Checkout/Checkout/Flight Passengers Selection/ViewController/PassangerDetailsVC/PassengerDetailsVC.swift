@@ -34,6 +34,8 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
         titleLabel.text = "Passenger Details"
         titleLabel.font = AppFonts.SemiBold.withSize(18)
         self.doneButton.titleLabel?.font = AppFonts.SemiBold.withSize(18)
+        self.doneButton.setTitleColor(AppColors.themeGreen, for: .normal)
+        self.doneButton.setTitleColor(AppColors.themeGreen, for: .selected)
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -48,7 +48,7 @@ class UserAccountDetailsVC : BaseVC {
         self.topNavView.configureNavBar(title: LocalizedString.Account_Details.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false,isDivider : true)
         configureTableView()
         self.accountDetailsTableView.contentInset = UIEdgeInsets(top: topNavView.height, left: 0, bottom: 0, right: 0)
-        self.accountDetailsTableView.backgroundColor = AppColors.singleJourneyGroupCellColor
+        self.accountDetailsTableView.backgroundColor = AppColors.headerBackground
         self.progressView.progressTintColor = UIColor.AertripColor
         self.progressView.trackTintColor = .clear
     

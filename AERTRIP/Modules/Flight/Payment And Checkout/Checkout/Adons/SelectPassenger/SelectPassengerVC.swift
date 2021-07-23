@@ -44,7 +44,7 @@ class SelectPassengerVC : BaseVC {
         doneButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.popUpBackView.backgroundColor = AppColors.themeWhiteDashboard
         self.emptyView.backgroundColor = AppColors.themeWhiteDashboard
-        self.doneButton.backgroundColor = AppColors.themeBlack26
+        self.doneButton.backgroundColor = AppColors.whiteAndAll32
     }
     
     override func setupTexts() {

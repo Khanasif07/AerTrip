@@ -24,11 +24,12 @@ class FareBookingRulesVC: BaseVC {
         registerXib()
         self.fareRuleTableView.dataSource = self
         self.fareRuleTableView.delegate = self
+        fareRuleTableView.backgroundColor = AppColors.themeWhite
 //        self.fareRuleTableView.isScrollEnabled = false
         self.fareRuleTableView.reloadData()
         
         navBarView.backgroundColor = .clear
-        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        self.view.backgroundColor = AppColors.themeWhite//.withAlphaComponent(0.85)
         if #available(iOS 13.0, *) {
             navBarHeightConstraint.constant = 56
         } else {
@@ -44,7 +45,7 @@ class FareBookingRulesVC: BaseVC {
     
     override func setupNavBar() {
         self.navBarView.delegate = self
-        self.navBarView.configureNavBar(title: LocalizedString.FareRules.localized, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
+        self.navBarView.configureNavBar(title: LocalizedString.FareRules.localized, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: true, backgroundType: .color(color: AppColors.themeWhite))
         navBarView.configureFirstRightButton(normalImage: AppImages.CancelButtonWhite, selectedImage: AppImages.CancelButtonWhite)
     }
     
