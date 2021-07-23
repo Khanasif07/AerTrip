@@ -114,7 +114,7 @@ class AccountOutstandingLadgerVC: BaseVC {
         self.tableView.registerCell(nibName: AccountOutstandingEventDescriptionCell.reusableIdentifier)
         self.tableView.register(UINib(nibName: tableViewHeaderCellIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: tableViewHeaderCellIdentifier)
 //        addSwipeSelectGestureOnTableView()
-        self.searchBar.isMicEnabled = true
+//        self.searchBar.isMicEnabled = true
         self.searchDataContainerView.backgroundColor = AppColors.clear
         self.mainSearchBar.showsCancelButton = true
         self.mainSearchBar.showsCancelButton = true
