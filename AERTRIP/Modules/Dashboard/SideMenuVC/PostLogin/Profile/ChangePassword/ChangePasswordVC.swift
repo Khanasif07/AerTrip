@@ -61,7 +61,7 @@ class ChangePasswordVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        statusBarStyle = .darkContent
+        statusBarStyle = .default
     }
     
     override func viewWillDisappear(_ animated: Bool) {
