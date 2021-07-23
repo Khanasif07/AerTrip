@@ -14,12 +14,14 @@ class UserAccountDetailsCell: UITableViewCell {
     @IBOutlet weak var desctiptionLabel: UILabel!
     @IBOutlet weak var dividerView: ATDividerView!
     
+    @IBOutlet weak var dividerViewLeading: NSLayoutConstraint!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         
         desctiptionLabel.textColor = AppColors.themeGray40
         self.selectionStyle = .none
+        
         
     }
 
@@ -59,6 +61,7 @@ class UserAccountDetailsCell: UITableViewCell {
         case .billingAddress:
             headingLabel.text = LocalizedString.BillingAddress.localized
             desctiptionLabel.text = details.billingAddressString.isEmpty ? "-" : details.billingAddressString
+            dividerViewLeading.constant = 0
 
         }
         
