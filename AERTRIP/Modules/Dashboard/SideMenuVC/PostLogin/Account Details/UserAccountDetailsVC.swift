@@ -47,8 +47,8 @@ class UserAccountDetailsVC : BaseVC {
         self.topNavView.delegate = self
         self.topNavView.configureNavBar(title: LocalizedString.Account_Details.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false,isDivider : true)
         configureTableView()
-        self.accountDetailsTableView.backgroundColor = AppColors.themeGray04
         self.accountDetailsTableView.contentInset = UIEdgeInsets(top: topNavView.height, left: 0, bottom: 0, right: 0)
+        self.accountDetailsTableView.backgroundColor = AppColors.singleJourneyGroupCellColor
         self.progressView.progressTintColor = UIColor.AertripColor
         self.progressView.trackTintColor = .clear
     
@@ -62,6 +62,7 @@ class UserAccountDetailsVC : BaseVC {
         self.accountDetailsTableView.estimatedRowHeight = 44
         self.accountDetailsTableView.dataSource = self
         self.accountDetailsTableView.delegate = self
+
     }
     
     func showProgressView(){

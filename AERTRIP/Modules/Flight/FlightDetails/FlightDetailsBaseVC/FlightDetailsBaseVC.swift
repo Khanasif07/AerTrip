@@ -107,7 +107,7 @@ class FlightDetailsBaseVC: BaseVC {
         backgroundViewForFareBreakup.tag = 1002
         self.view.addSubview(backgroundViewForFareBreakup)
         grabberView.layer.cornerRadius = 2
-        
+        grabberView.backgroundColor = AppColors.dividerColor
         self.navigationController?.navigationBar.isHidden = true
         
         if isInternational || !(needToAddFareBreakup){

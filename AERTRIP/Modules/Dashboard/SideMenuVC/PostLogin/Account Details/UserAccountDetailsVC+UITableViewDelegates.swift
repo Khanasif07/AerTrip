@@ -35,6 +35,7 @@ extension UserAccountDetailsVC : UITableViewDelegate, UITableViewDataSource {
         }
 //        headerView.topSepratorView.isHidden = self.settingsVm.isHeaderTopSeprator(section : section)
         headerView.titleLabel.text = ""
+        headerView.contentView.backgroundColor = AppColors.singleJourneyGroupCellColor
         return headerView
     }
     
