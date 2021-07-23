@@ -99,7 +99,6 @@ class ViewProfileDetailVC: BaseVC {
     }
     
     // MARK: - Helper method
-    
     private func updateProfileImage(){
         if self.viewModel.currentlyUsingFor != .travellerList {
             self.profileImageHeaderView?.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(font: AppFonts.Regular.withSize(35.0))
