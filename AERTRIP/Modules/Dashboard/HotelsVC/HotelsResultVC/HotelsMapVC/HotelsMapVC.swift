@@ -76,6 +76,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         didSet {
             let tap = UITapGestureRecognizer(target: self, action: #selector(searchTabeleTapped(tap:)))
             self.hotelSearchTableView.addGestureRecognizer(tap)
+            self.hotelSearchTableView.backgroundColor = AppColors.themeBlack26
         }
     }
     @IBOutlet weak var currentLocationButton: UIButton!
@@ -415,7 +416,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         self.switchView.isBackgroundBlurry = true
         */
         self.switchGradientView.backgroundColor = AppColors.clear
-        self.switchGradientView.addGrayShadow(ofColor: AppColors.themeBlack.withAlphaComponent(0.2), radius: 18, offset: .zero, opacity: 2, cornerRadius: 100)
+        self.switchGradientView.addGrayShadow(ofColor: AppColors.unicolorBlack.withAlphaComponent(0.2), radius: 18, offset: .zero, opacity: 2, cornerRadius: 100)
         // self.manageFloatingView(isHidden: true)
     }
     

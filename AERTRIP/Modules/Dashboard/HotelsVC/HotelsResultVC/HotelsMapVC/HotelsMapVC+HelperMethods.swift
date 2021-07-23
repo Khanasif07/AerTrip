@@ -203,7 +203,7 @@ extension HotelsMapVC {
     
     func reloadHotelList(isUpdatingFav: Bool = false,drawMarkers: Bool = true) {
         if !self.viewModel.searchTextStr.isEmpty {
-            self.hotelSearchTableView.backgroundColor = self.viewModel.searchedHotels.count > 0 ? AppColors.themeWhite : AppColors.clear
+            self.hotelSearchTableView.backgroundColor = self.viewModel.searchedHotels.count > 0 ? AppColors.themeBlack26 : AppColors.clear
         }
         self.hotelSearchTableView.reloadData()
         self.hotelsMapCV.reloadData()

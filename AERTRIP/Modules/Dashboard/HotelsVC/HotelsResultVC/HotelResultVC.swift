@@ -65,7 +65,7 @@ class HotelResultVC: BaseVC {
             self.tableViewVertical.contentInset = UIEdgeInsets(top: topContentSpace, left: 0, bottom: 0, right: 0)
             self.tableViewVertical.tableHeaderView = searchResultHeaderView
             self.tableViewVertical.sectionHeaderHeight = hotelSearchResultHeaderViewHeight.min
-            self.tableViewVertical.backgroundColor = AppColors.themeWhite
+            self.tableViewVertical.backgroundColor = AppColors.themeBlack26
         }
     }
     
@@ -87,7 +87,7 @@ class HotelResultVC: BaseVC {
         didSet {
             let tap = UITapGestureRecognizer(target: self, action: #selector(searchTabeleTapped(tap:)))
             self.hotelSearchTableView.addGestureRecognizer(tap)
-            self.hotelSearchTableView.backgroundColor = AppColors.themeWhite
+            self.hotelSearchTableView.backgroundColor = AppColors.themeBlack26
         }
     }
     @IBOutlet weak var floatingViewBottomConstraint: NSLayoutConstraint!
