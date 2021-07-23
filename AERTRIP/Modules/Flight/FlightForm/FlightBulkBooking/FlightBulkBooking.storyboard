@@ -1118,12 +1118,12 @@
         </scene>
     </scenes>
     <resources>
-        <image name="AdultBlack" width="8.6666669845581055" height="18.333333969116211"/>
+        <image name="AdultBlack" width="9" height="19"/>
         <image name="EconomyClassBlack" width="20" height="20"/>
         <image name="FlightReverseArrow" width="16" height="15"/>
         <image name="FlightReverseArrowDisabled" width="16" height="15"/>
-        <image name="InfantBlack" width="12.666666984558105" height="18.333333969116211"/>
-        <image name="childBlack" width="6.6666665077209473" height="14.333333015441895"/>
+        <image name="InfantBlack" width="14" height="13"/>
+        <image name="childBlack" width="8" height="15"/>
         <image name="flightRemoveSection" width="22" height="22"/>
         <image name="greenFilledAdd" width="22" height="22"/>
         <namedColor name="flightFormGray">

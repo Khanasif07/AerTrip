@@ -263,7 +263,7 @@ CGFloat animatedDistance;
 -(void)setupColor{
     self.bottomView.backgroundColor = [UIColor WHITE_COLOR];
     self.contentView.backgroundColor = [UIColor themeBlack26];
-    self.headerView.backgroundColor = [UIColor clearColor];//[UIColor doneViewClearColor];
+    self.headerView.backgroundColor = [UIColor themeWhiteDashboard];//[UIColor doneViewClearColor];
     self.FromToView.backgroundColor = [UIColor themeBlack26];
     self.formToCenterView.backgroundColor = [UIColor themeBlack26];
     self.onwardReturnView.backgroundColor = [UIColor themeBlack26];
