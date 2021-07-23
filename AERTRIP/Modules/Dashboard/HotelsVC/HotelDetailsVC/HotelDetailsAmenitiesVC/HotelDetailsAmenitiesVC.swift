@@ -36,7 +36,7 @@ class HotelDetailsAmenitiesVC: BaseVC {
             self.amenitiesTblView.rowHeight = UITableView.automaticDimension
             self.amenitiesTblView.sectionFooterHeight = CGFloat.leastNonzeroMagnitude
             self.amenitiesTblView.estimatedSectionFooterHeight = CGFloat.leastNonzeroMagnitude
-            self.amenitiesTblView.backgroundColor = AppColors.themeGray04
+            self.amenitiesTblView.backgroundColor = AppColors.themeBlack26
         }
     }
     
@@ -72,7 +72,7 @@ class HotelDetailsAmenitiesVC: BaseVC {
         self.amenitiesTblView.contentInset = UIEdgeInsets(top: headerContainerView.height + 8.0, left: 0.0, bottom: 0.0, right: 0.0)
 
         headerContainerView.backgroundColor = .clear
-               mainContainerView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+               mainContainerView.backgroundColor = AppColors.themeBlack26.withAlphaComponent(0.85)
                self.view.backgroundColor = .clear
         
         if #available(iOS 13.0, *) {} else {
@@ -182,7 +182,7 @@ extension HotelDetailsAmenitiesVC {
         if let safeAmenitiesData = self.viewModel.amenities {
             cell.amenitiesDetails = safeAmenitiesData
         }
-        cell.containerView.backgroundColor = AppColors.themeWhiteDashboard
+        cell.containerView.backgroundColor = AppColors.themeBlack26
         cell.amenitiesCollectionView.reloadData()
         return cell
     }
@@ -198,7 +198,7 @@ extension HotelDetailsAmenitiesVC {
         cell.facilitiesIconView.image = image
         cell.facilitiesNameLabel.AttributedFontForText(text: title, textFont: AppFonts.SemiBold.withSize(16))
         cell.facilitiesNameLabel.AttributedParagraphLineSpacing(lineSpacing: 10)
-        cell.contentView.backgroundColor = AppColors.themeWhiteDashboard
+        cell.contentView.backgroundColor = AppColors.themeBlack26
         return cell
     }
 }
