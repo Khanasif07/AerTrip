@@ -269,7 +269,10 @@ enum AppColors {
     
     /// RGB - 246, 246, 246, /// RGB - 70, 70, 70
     static let themeGray04SearchBar = UIColor(named: "themeGray04SearchBar") ?? UIColor(displayP3Red: 0.9647058824, green: 0.9647058824, blue: 0.9647058824, alpha: 1)
-    
+
+    static let searchBarColor = UIColor(named: "searchBarColor") ?? UIColor(displayP3Red: 0.9647058824, green: 0.9647058824, blue: 0.9647058824, alpha: 1)
+
+
     static var appShadowColor: UIColor {
         return AppColors.unicolorBlack.withAlphaComponent(0.15)
         //return AppColors.themeRed.withAlphaComponent(0.30)

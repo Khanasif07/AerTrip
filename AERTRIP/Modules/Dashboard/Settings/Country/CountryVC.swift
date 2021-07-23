@@ -17,6 +17,7 @@ class CountryVC : BaseVC {
     @IBOutlet weak var searchBarSepratorView: ATDividerView!
     @IBOutlet weak var searchBar: ATSearchBar! {
         didSet {
+            self.searchBar.textFieldColor = AppColors.searchBarColor
             self.searchBar.backgroundColor = AppColors.clear
             self.searchBar.delegate = self
             self.searchBar.placeholder = LocalizedString.search.localized
