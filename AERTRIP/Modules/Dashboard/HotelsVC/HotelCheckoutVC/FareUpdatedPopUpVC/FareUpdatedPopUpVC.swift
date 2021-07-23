@@ -57,7 +57,7 @@ class FareUpdatedPopUpVC: BaseVC {
         
         goBackButton.titleLabel?.font = AppFonts.Regular.withSize(18.0)
         goBackButton.setTitle(LocalizedString.GoBackToResults.localized, for: .normal)
-        goBackButton.setTitleColor(AppColors.themeRed, for: .normal)
+        goBackButton.setTitleColor(AppColors.themeRed254, for: .normal)
     }
     
     private func setupRefundPopUp() {
@@ -95,7 +95,7 @@ class FareUpdatedPopUpVC: BaseVC {
     
     private func updateIncreasePopUp(increasedAmount: Double, totalUpdatedAmount: Double) {
         setupIncreasePopUp()
-        titleLabel.attributedText = getIncreaseTitleAttrText(forAmount: increasedAmount, fontColor: AppColors.themeRed)
+        titleLabel.attributedText = getIncreaseTitleAttrText(forAmount: increasedAmount, fontColor: AppColors.themeRed254)
         
         descriptionLabel.text = "\(LocalizedString.TotalUpdatedPrice.localized) \(totalUpdatedAmount.getConvertedAmount(using: AppFonts.Regular.withSize(14)).string)"
     }
