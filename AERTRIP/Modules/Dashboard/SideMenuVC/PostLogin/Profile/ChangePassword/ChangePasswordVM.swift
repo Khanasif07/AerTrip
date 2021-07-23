@@ -48,6 +48,29 @@ class ChangePasswordVM {
         }
         return true
     }
+
+
+var isValidateDataWithoutMessage : Bool {
+    if isPasswordType == .changePassword {
+        if self.oldPassword.isEmpty {
+            return false
+        }
+        if self.oldPassword.checkInvalidity(.Password) {
+            
+            return false
+        }
+        if self.password.checkInvalidity(.Password) {
+            //AppToast.default.showToastMessage(message: LocalizedString.PleaseSelectSalutation.localized)
+            return false
+        }
+    } else {
+        if self.password.checkInvalidity(.Password) {
+            //                AppToast.default.showToastMessage(message: LocalizedString.PleaseSelectSalutation.localized)
+            return false
+        }
+    }
+    return true
+}
 }
 
 //MARK:- Extension Webservices
