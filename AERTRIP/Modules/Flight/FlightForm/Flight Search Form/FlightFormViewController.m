@@ -138,6 +138,7 @@
     }
     self.multicityAddTitle.textColor = [UIColor muticityAddRemoveTextColor];
     self.multicityRemoveTitle.textColor = [UIColor muticityAddRemoveTextColor];
+    self.recentSearchTitleLabel.textColor = [UIColor white60Percent];
 }
 - (void)setupCollectionView {
     self.recentSearchTitleLabel.hidden = true;
