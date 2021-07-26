@@ -25,7 +25,7 @@ import Foundation
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
         switch section {
-        case 0,1,3:
+        case 0,1,2,4:
             return 35
         default:
             return CGFloat.leastNormalMagnitude
@@ -34,7 +34,7 @@ import Foundation
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         switch section {
-            case 1:
+            case 2:
                 return 54
             default:
                 return CGFloat.leastNormalMagnitude
@@ -43,7 +43,7 @@ import Foundation
     
         func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
             
-            if section == 2 { return nil }
+            if section == 3 { return nil }
             
             guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "SettingsHeaderView") as? SettingsHeaderView else {
                 fatalError("SettingsHeaderView not found")
@@ -55,7 +55,7 @@ import Foundation
         
         
         func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-            if section != 1 { return nil }
+            if section != 2 { return nil }
             
             guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "SettingsHeaderView") as? SettingsHeaderView else {
                            fatalError("SettingsHeaderView not found") }
@@ -130,9 +130,9 @@ import Foundation
 //        toggleSettings.calenderSyncSettings = sender.isOn
         delay(seconds: 0.3) {
             AppToast.default.showToastMessage(message: LocalizedString.ThisFunctionalityWillBeAvailableSoon.localized)
-            guard let cell = self.settingsTableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? SettingsCell else { return }
+            guard let cell = self.settingsTableView.cellForRow(at: IndexPath(row: 0, section: 2)) as? SettingsCell else { return }
             cell.switch.setOn(false, animated: true)
-            self.settingsVm.logEvenOnTap(with: IndexPath(row: 0, section: 1))
+            self.settingsVm.logEvenOnTap(with: IndexPath(row: 0, section: 2))
         }
     }
     
