@@ -465,9 +465,11 @@ class IntFlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, getSe
                         let str1 = "  "+cell.dateConverter(dateStr: flight.dd)+" "
                         
                         cell.setDepartureDate(str:str,str1:str1)
+                        cell.departureDateLabel.backgroundColor = AppColors.lightYellowAndGoldenGray
                     }else{
                         cell.departureDateLabel.attributedText = nil
                         cell.departureDateLabel.text = cell.dateConverter(dateStr: flight.dd)
+                        cell.departureDateLabel.backgroundColor = .clear
                     }
                     
                     if flight.atm != ""{
