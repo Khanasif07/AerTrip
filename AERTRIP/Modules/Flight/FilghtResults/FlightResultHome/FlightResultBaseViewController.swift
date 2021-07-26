@@ -136,6 +136,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         updateForAppearance()
+        addTitleToNavigationController()
     }
     
     private func updateForAppearance() {
@@ -1097,7 +1098,8 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
             if departArrayCount > 3{
                 resultTitle.text = "Multicity"
             }else{
-                resultTitle.attributedText = flightSearchResultVM.titleString
+                let title = flightSearchResultVM.titleString
+                resultTitle.attributedText = title
             }
             
         }

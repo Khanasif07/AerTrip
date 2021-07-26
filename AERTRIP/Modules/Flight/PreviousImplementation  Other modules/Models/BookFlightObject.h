@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import "FlightJourney.h"
 #import "flightSearchType.h"
 
@@ -37,6 +38,15 @@
 
 @property (nonatomic, strong) NSString * taxSort;
 @property (nonatomic, strong) NSString * aerinSessionId;
+
+//Added to create title dark mode attachment issue.
+@property (nonatomic,strong) NSString *origin;
+@property (nonatomic,strong) NSString *destination;
+@property (nonatomic,strong) NSArray *originArray;
+@property (nonatomic,strong) NSArray *destinationArray;
+
+- (NSAttributedString *)getTitleString;
+
 @end
 
 

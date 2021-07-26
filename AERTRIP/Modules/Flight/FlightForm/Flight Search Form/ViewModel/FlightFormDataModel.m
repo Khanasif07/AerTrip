@@ -699,6 +699,9 @@
         [outputAttributedString appendAttributedString:join];
         [outputAttributedString appendAttributedString:destinatinAttributedString];
         
+        bookFlightObject.destination = [flightSearchParameters valueForKey:@"destination"];
+        bookFlightObject.origin = [flightSearchParameters valueForKey:@"origin"];
+        
         bookFlightObject.titleString =  outputAttributedString;
     }
     if ( [tripType isEqualToString:@"single"]) {
@@ -722,6 +725,9 @@
         [outputAttributedString appendAttributedString:join];
         [outputAttributedString appendAttributedString:destinatinAttributedString];
         
+        bookFlightObject.destination = [flightSearchParameters valueForKey:@"destination"];
+        bookFlightObject.origin = [flightSearchParameters valueForKey:@"origin"];
+        
         bookFlightObject.titleString =  outputAttributedString;
         
     }
@@ -744,6 +750,8 @@
         
         NSAttributedString* join = [NSAttributedString attributedStringWithAttachment:textAttachment];
         
+        NSMutableArray* originArray = [NSMutableArray new];
+        NSMutableArray* destinationsArray = [NSMutableArray new];
         
         for (int i = 0;  i < 5; i++) {
             
@@ -755,7 +763,8 @@
             if ( currentOrigin == nil) {
                 break;
             }
-            
+            [originArray addObject: currentOrigin];
+            [destinationsArray addObject: currentDestination];
             
             NSDictionary * attributesForAirportCode =  @{NSFontAttributeName:sourceSansPRO18};
             
@@ -786,7 +795,8 @@
             previousIndexOrigin = currentOrigin;
             previousIndexDestination = currentDestination;
         }
-        
+        bookFlightObject.originArray = originArray;
+        bookFlightObject.destinationArray = destinationsArray;
         bookFlightObject.titleString =  outputAttributedString;
     }
     return bookFlightObject;
