@@ -48,7 +48,7 @@ class FareInfoVC: BaseVC, UITableViewDelegate, UITableViewDataSource {
     
     var fewSeatsLeftViewHeight = 0
     var selectedIndex : IndexPath?
-    var isProgressBarHidden = false
+    var isProgressBarHidden = true
     var isAPICalled = false
     
     let viewModel = FlightFareInfoVM()
