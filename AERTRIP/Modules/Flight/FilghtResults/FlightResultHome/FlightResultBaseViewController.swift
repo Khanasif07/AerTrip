@@ -1809,7 +1809,7 @@ extension FlightResultBaseViewController{
         case SINGLE_JOURNEY: self.singleJourneyResultVC?.updatePriceWhenGoneup(flightItinary.itinerary.details.fk, changeResult: chngResult)
         case RETURN_JOURNEY:
             if flightSearchResultVM.isDomestic {
-
+                self.domesticMultiLegResultVC?.updateComboPrice(changeResult: flightItinary.itinerary)
                 if let changeData = flightItinary.changeResults{
                     for key in changeData.map({$0.key}){
                         if let index = key.toInt, let priceChnage = changeData[key]{

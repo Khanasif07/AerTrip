@@ -172,7 +172,7 @@ class FareUpdatedPopUpVC: BaseVC {
         updateDecreasePopUp(decreasedAmount: decreasedAmount)
         setVisiblityForDecreasedPopUp(isHidden: false, animated: true)
         
-        delay(seconds: 2.0) {[weak self] in
+        delay(seconds: 5.0) {[weak self] in
             self?.setVisiblityForDecreasedPopUp(isHidden: true, animated: true)
         }
     }
