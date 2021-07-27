@@ -16,6 +16,7 @@ class UpdateAccountTextFieldCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
+        backgroundColor = AppColors.themeBlack26
         self.hideSeparator()
         self.setUpTextField()
     }

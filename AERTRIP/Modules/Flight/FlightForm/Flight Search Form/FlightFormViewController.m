@@ -580,7 +580,7 @@
     NSMutableAttributedString *attributedLoginHereSrting =  [[NSMutableAttributedString alloc] initWithString:@"Travelling in a group? Request Bulk Booking"];
     NSMutableDictionary *attributesDictionary = [NSMutableDictionary dictionary];
     [attributesDictionary setObject:[UIFont fontWithName:@"SourceSansPro-Semibold" size:14] forKey:NSFontAttributeName];
-    [attributesDictionary setObject:[UIColor GREEN_BLUE_COLOR] forKey:NSForegroundColorAttributeName];
+    [attributesDictionary setObject:[UIColor AertripColor] forKey:NSForegroundColorAttributeName];
     [attributedLoginHereSrting addAttributes:attributesDictionary range:NSMakeRange(22, 21)];
     self.bulkFlightTravellingLabel.attributedText = attributedLoginHereSrting;
     
