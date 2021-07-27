@@ -136,7 +136,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         updateForAppearance()
-        addTitleToNavigationController()
+        self.setupTitleAccordingToText()
     }
     
     private func updateForAppearance() {
@@ -1079,6 +1079,12 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         resultTitle.textAlignment = .center
         resultTitle.lineBreakMode = NSLineBreakMode.byTruncatingMiddle
         
+        self.setupTitleAccordingToText()
+    }
+    
+    
+    func setupTitleAccordingToText(){
+        
         if((Int(flightSearchResultVM.titleString.size().width)) > (Int(UIScreen.main.bounds.size.width  - 100))){
             let flightType = flightSearchResultVM.flightSearchType
             
@@ -1090,19 +1096,17 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
                 resultTitle.text = "Multi-City"
             }
         }else{
-            
-            
             let allKey = self.flightSearchParameters.keys
             let departArrayCount = allKey.map{$0.contains("depart")}.filter{$0}.count
 
             if departArrayCount > 3{
                 resultTitle.text = "Multicity"
             }else{
-                let title = flightSearchResultVM.titleString
-                resultTitle.attributedText = title
+                resultTitle.attributedText = flightSearchResultVM.titleString
             }
             
         }
+        
     }
     
     
