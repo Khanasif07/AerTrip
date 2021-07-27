@@ -414,6 +414,10 @@ extension SelectDestinationVC: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.searchBar.resignFirstResponder()
     }
+    
+    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
+        AppFlowManager.default.moveToSpeechToText(with: self)
+    }
 }
 
 //MARK:- Table view datasource and delegate methods
@@ -621,4 +625,18 @@ extension SelectDestinationVC: UITableViewDelegate, UITableViewDataSource {
             self.cancelButtonAction(self.cancelButton)
         }
     }
+}
+
+
+extension SelectDestinationVC: SpeechToTextVCDelegate{
+    func getSpeechToText(_ text: String) {
+        guard !text.isEmpty else {return}
+        self.searchBar.text = text
+        self.noResultemptyView.searchTextLabel.isHidden = false
+        self.noResultemptyView.searchTextLabel.text = "\( LocalizedString.For.localized) '\(text)'"
+        self.isInSearchMode = true
+        self.viewModel.searchDestination(forText: text)
+    }
+
+    
 }
