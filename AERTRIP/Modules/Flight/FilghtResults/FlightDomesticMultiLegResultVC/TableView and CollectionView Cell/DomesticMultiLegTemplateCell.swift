@@ -22,7 +22,7 @@ class DomesticMultiLegTemplateCell: UITableViewCell {
     @IBOutlet weak var price: UILabel!
     @IBOutlet weak var dashedView: UIView!
    
-
+    
     //MARK:- Override methods
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -50,13 +50,11 @@ class DomesticMultiLegTemplateCell: UITableViewCell {
    //MARK:- Methods
     func showTemplateView() {
         
-        self.addShimmerEffect(to: [airlineLogo, departureTime ,departureAirportCode] )
+        self.addShimmerEffect(to: [airlineLogo, departureTime ,departureAirportCode], backgroundClr: AppColors.shimmerEffectLayerColor2, gradientColors: [AppColors.unicolorWhite.withAlphaComponent(0), AppColors.shimmerEffectColor, AppColors.unicolorWhite.withAlphaComponent(0)] )
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.40) {
-            self.addShimmerEffect(to: [ self.flightCode ,  self.arrivalTime , self.arrivalAirportCode , self.price ] )
-            
-            
-//            self.addShimmerEffect(to: [ self.flightCode ,  self.arrivalTime , self.arrivalAirportCode , self.price ], backgroundClr: AppColors.themeGreen, gradientColors: [AppColors.themeRed.withAlphaComponent(0), UIColor.yellow, AppColors.themeRed.withAlphaComponent(0)])
+                        
+            self.addShimmerEffect(to: [ self.flightCode ,  self.arrivalTime , self.arrivalAirportCode , self.price ], backgroundClr: AppColors.shimmerEffectLayerColor2, gradientColors: [AppColors.unicolorWhite.withAlphaComponent(0), AppColors.shimmerEffectColor, AppColors.unicolorWhite.withAlphaComponent(0)])
             
         }
     }

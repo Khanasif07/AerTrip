@@ -552,10 +552,9 @@ extension UIView {
         for view in views {
             animate(view: view, backgroundClr : backgroundClr, gradientColors :gradientColors)
         }
-        
     }
     
-    func animate(view:UIView, backgroundClr : UIColor = AppColors.shimmerEffectLayerColor, gradientColors : [UIColor] = [AppColors.unicolorWhite.withAlphaComponent(0), AppColors.shimmerEffectColor, AppColors.unicolorWhite.withAlphaComponent(0)]) {
+    func animate(view:UIView, backgroundClr : UIColor, gradientColors : [UIColor]) {
         
         let colorLayer = CALayer()
         colorLayer.backgroundColor = backgroundClr.cgColor

@@ -305,11 +305,14 @@ enum AppColors {
     //(255, 255, 255, 0) (49, 49, 49, 1)
     static let selectDestinationHeaderColor = UIColor(named: "selectDestinationHeaderColor") ?? UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 0)
     
-    //(239, 242, 238)  (135, 135, 135)
+    //(238, 239, 242)  (135, 135, 135)
     static let shimmerEffectLayerColor = UIColor(named: "shimmerEffectLayerColor") ?? UIColor(displayP3Red: 239.0/255, green: 242.0/255, blue: 238.0/255, alpha: 1)
     
     //    (255, 255, 255, 0.7) (255, 255, 255, 0.1)
         static let shimmerEffectColor = UIColor(named: "shimmerEffectColor") ?? .white
+    
+    static let shimmerEffectLayerColor2 = UIColor(named: "shimmerEffectLayerColor2") ?? UIColor(displayP3Red: 239.0/255, green: 242.0/255, blue: 238.0/255, alpha: 1)
+
     
     /// (clear) (49,49,49,1)
     static let flightsNavBackViewColor = UIColor(named: "flightsNavBackViewColor") ?? .white
