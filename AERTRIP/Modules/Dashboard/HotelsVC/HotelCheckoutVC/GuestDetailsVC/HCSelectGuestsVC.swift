@@ -348,6 +348,23 @@ extension HCSelectGuestsVC: UISearchBarDelegate {
         self.viewModel.searchText = searchBar.text ?? ""
         self.viewModel.search(forText: searchText)
     }
+    
+    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
+        AppFlowManager.default.moveToSpeechToText(with: self)
+    }
+    
+}
+
+extension HCSelectGuestsVC:SpeechToTextVCDelegate{
+    func getSpeechToText(_ text: String) {
+        self.searchBar.text = text
+        self.viewModel.searchText = text
+        self.viewModel.search(forText: text)
+    }
+    
+    
+    
+    
 }
 
 extension HCSelectGuestsVC: TopNavigationViewDelegate {
