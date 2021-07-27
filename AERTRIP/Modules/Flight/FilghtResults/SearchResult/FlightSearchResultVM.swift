@@ -82,7 +82,7 @@ extension FlightResultViewModelDelegate {
     //MARK:- Computed Properties
     var titleString : NSAttributedString {
         
-        return bookFlightObject.titleString
+        return bookFlightObject.getTitleString()
     }
     
     var subTitleString : String {

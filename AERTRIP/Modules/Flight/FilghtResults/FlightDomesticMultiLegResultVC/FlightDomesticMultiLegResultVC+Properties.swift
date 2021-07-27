@@ -631,8 +631,25 @@ extension FlightDomesticMultiLegResultVC {
         self.viewModel.results[tableIndex].journeyArray = journeyArray
         
         //Updating pinned flight indicator in tableview Cell after pin / unpin action
+        self.setTotalFare()
         guard let tableview = self.baseScrollView.viewWithTag(1000 + tableIndex) as? UITableView  else { return }
         tableview.reloadData()
+    }
+    
+    
+    func updateComboPrice(changeResult: FlightItinerary){
+        if let index = self.comboResults.firstIndex(where: {$0.fk == changeResult.details.legsWithDetail.map{$0.lfk}}){
+            self.comboResults[index].farepr = changeResult.details.farepr
+            self.comboResults[index].fare.BF.value = changeResult.details.fare.bf.value
+            self.comboResults[index].fare.taxes.value = changeResult.details.fare.taxes.value
+            self.comboResults[index].fare.taxes.details = changeResult.details.fare.taxes.details
+            self.checkForComboFares()
+            for view in self.baseScrollView.subviews{
+                if let table = view as? UITableView{
+                    table.reloadData()
+                }
+            }
+        }
     }
     
 }

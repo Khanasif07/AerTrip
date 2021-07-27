@@ -177,6 +177,8 @@ class HCDataSelectionVC: BaseVC {
         hotelNameLabel.textColor = AppColors.themeBlack
         checkInOutDate.textColor = AppColors.themeGray153
         detailsButton.setTitleColor(AppColors.themeGreen, for: .normal)
+        detailsButton.setTitleColor(AppColors.themeGreen, for: .selected)
+        detailsButton.setTitleColor(AppColors.themeGreen, for: .highlighted)
    
         self.view.backgroundColor = AppColors.themeWhite
         self.hotelDetailsParentContainerView.backgroundColor = AppColors.hotelDetailOnGuestSelection

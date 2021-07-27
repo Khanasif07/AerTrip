@@ -933,6 +933,64 @@ extension FlightDetailsBaseVC : getArrivalPerformanceDelegate
 }
 
 
+extension FlightDetailsBaseVC{
+    
+    func searchApiResult(flightItinerary: FlightItineraryData){
+        
+        guard let changeResult = flightItinerary.changeResults?.values.first else {return}
+        let flightType = self.bookFlightObject.flightSearchType
+        
+        switch flightType {
+        case SINGLE_JOURNEY:
+            self.journey.first?.farepr = changeResult.farepr
+            self.journey.first?.fare.BF.value = changeResult.fare.bf.value
+            self.journey.first?.fare.taxes.value = changeResult.fare.taxes.value
+            self.journey.first?.fare.taxes.details = changeResult.fare.taxes.details
+            self.journey.first?.fare.totalPayableNow.value = changeResult.fare.totalPayableNow.value
+            self.fareBreakup?.journey = self.journey
+        case RETURN_JOURNEY, MULTI_CITY:
+            if !isInternational {
+                if let changeData = flightItinerary.changeResults{
+                    for key in changeData.map({$0.key}){
+                        if let index = key.toInt, let priceChange = changeData[key], let journeyIndex = self.journey.firstIndex(where: {$0.fk == flightItinerary.itinerary.details.legsWithDetail[index - 1].lfk}){
+                            self.journey[journeyIndex].farepr = priceChange.farepr
+                            self.journey[journeyIndex].fare.BF.value = priceChange.fare.bf.value
+                            self.journey[journeyIndex].fare.taxes.value = priceChange.fare.taxes.value
+                            self.journey[journeyIndex].fare.taxes.details = priceChange.fare.taxes.details
+                            self.journey[journeyIndex].fare.totalPayableNow.value = priceChange.fare.totalPayableNow.value
+                        }
+                    }
+                    self.fareBreakup?.journey = self.journey
+                }
+                if self.bookFlightObject.flightSearchType == RETURN_JOURNEY, self.journeyCombo != nil{
+                    self.journeyCombo.first?.farepr = flightItinerary.itinerary.details.farepr
+                    self.journeyCombo.first?.fare.BF.value = flightItinerary.itinerary.details.fare.bf.value
+                    self.journeyCombo.first?.fare.taxes.value = flightItinerary.itinerary.details.fare.taxes.value
+                    self.journeyCombo.first?.fare.taxes.details = flightItinerary.itinerary.details.fare.taxes.details
+                    self.journeyCombo.first?.fare.totalPayableNow.value = flightItinerary.itinerary.details.fare.totalPayableNow.value
+                    self.fareBreakup?.journeyCombo = self.journeyCombo
+                }
+            }
+            else {
+                if var journey = self.intJourney.first{
+                    journey.farepr = changeResult.farepr
+                    journey.fare = changeResult.fare
+                    self.intJourney = [journey]
+                }
+                self.intFareBreakup?.journey = self.intJourney
+                self.fareBreakup?.taxesDataDisplay()
+                return
+            }
+
+        default:
+            return
+        }
+        
+        self.fareBreakup?.taxesDataDisplay()
+    }
+    
+}
+
 
 //MARK:- Firebase Analytics
 
