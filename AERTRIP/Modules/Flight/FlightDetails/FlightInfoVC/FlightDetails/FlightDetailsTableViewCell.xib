@@ -185,7 +185,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="BOM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ftx-fi-nEf">
-                                                                        <rect key="frame" x="0.0" y="1" width="52" height="29"/>
+                                                                        <rect key="frame" x="6" y="1" width="46" height="29"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="29" id="kWZ-f0-0Xh"/>
                                                                         </constraints>
@@ -242,7 +242,7 @@
                                                                     <constraint firstItem="SE6-J8-pBo" firstAttribute="top" secondItem="scC-7a-Tk2" secondAttribute="bottom" constant="2" id="dOg-ou-fPp"/>
                                                                     <constraint firstItem="Lp4-op-5h6" firstAttribute="trailing" secondItem="scC-7a-Tk2" secondAttribute="trailing" id="fKH-Zv-iia"/>
                                                                     <constraint firstItem="scC-7a-Tk2" firstAttribute="leading" secondItem="Ftx-fi-nEf" secondAttribute="trailing" constant="4" id="m0g-IN-P7D"/>
-                                                                    <constraint firstItem="Ftx-fi-nEf" firstAttribute="leading" secondItem="aU3-uL-OzA" secondAttribute="leading" id="uH7-6C-ROh"/>
+                                                                    <constraint firstItem="Ftx-fi-nEf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="aU3-uL-OzA" secondAttribute="leading" id="uH7-6C-ROh"/>
                                                                     <constraint firstItem="Ftx-fi-nEf" firstAttribute="centerY" secondItem="scC-7a-Tk2" secondAttribute="centerY" id="vnv-1j-YfL"/>
                                                                 </constraints>
                                                             </view>
