@@ -73,7 +73,7 @@ class FlightPaymentPendingVC: UIViewController {
         self.paidAmountValueLabel.textColor = AppColors.themeBlack
         self.balanceAmountTitleLabel.textColor = AppColors.themeRed
         self.balanceAmountValueLabel.textColor = AppColors.themeBlack
-        self.payButton.setTitleColor(AppColors.themeWhite, for: .normal)
+        self.payButton.setTitleColor(AppColors.unicolorWhite, for: .normal)
         self.requestRefaundButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.autoRefunddescriptionLabel.textColor = AppColors.themeGray60
 

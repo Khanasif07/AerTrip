@@ -88,7 +88,7 @@ extension HotelResultVC: UISearchBarDelegate {
     }
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        AppFlowManager.default.moveToSpeechToText(with: self)
+        AppFlowManager.default.moveToSpeechToText(speechToTextDelegate: self)
         FirebaseEventLogs.shared.logHotelListEvents(with: .HotelMicSearchTapped)
     }
 }

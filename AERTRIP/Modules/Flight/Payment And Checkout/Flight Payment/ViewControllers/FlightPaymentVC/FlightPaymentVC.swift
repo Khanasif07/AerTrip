@@ -566,7 +566,7 @@ extension FlightPaymentVC : RazorpayPaymentCompletionProtocolWithData {
     func initializePayment(withOptions options: JSONDictionary) {
         let razorpay: RazorpayCheckout = RazorpayCheckout.initWithKey(AppKeys.kRazorpayPublicKey, andDelegateWithData: self)
         //razorpay.open(options)
-        razorpay.open(options, displayController: self)
+        razorpay.open(options, displayController: self.navigationController ?? self)
         
         
         

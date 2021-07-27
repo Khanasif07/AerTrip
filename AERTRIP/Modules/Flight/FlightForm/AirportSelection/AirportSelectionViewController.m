@@ -13,7 +13,7 @@
 #import "AirlineSearchModel.h"
 
 
-@interface AirportSelectionViewController ()<AirportCellHandler, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate ,CLLocationManagerDelegate , UISearchBarDelegate >
+@interface AirportSelectionViewController ()<AirportCellHandler, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate ,CLLocationManagerDelegate , UISearchBarDelegate , SpeechToTextVCDelegate >
 @property (assign, nonatomic) CGFloat primaryDuration;
 @property (strong, nonatomic) NSMutableDictionary *displaySections;
 @property (strong, nonatomic) NSMutableArray *airportDisplayArray;
@@ -361,6 +361,7 @@
 - (void)addSearchBar {
    // self.searchBar.showsCancelButton = NO; // nitin change
     self.searchBar.delegate = self;
+    self.searchBar.isMicEnabled = YES;
     self.dictationButton.hidden = YES;
     // nitin change
     /*
@@ -1002,6 +1003,11 @@
 //MARK:- SEARCH DELEGATES
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
+    [self performSearch: searchText];
+}
+
+- (void) performSearch:(NSString *)searchText{
+    
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     
      dispatch_queue_t queue = dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0);
@@ -1040,6 +1046,7 @@
     if ([searchText length] == 0 ){
         [self setupInitials];
     }
+    
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
@@ -1049,6 +1056,21 @@
     searchBar.text = @"";
     
     [self ResetSearch];
+}
+ 
+//To add Speech to Text search
+- (void)searchBarBookmarkButtonClicked:(UISearchBar *)searchBar{
+    AppFlowManager *def = [AppFlowManager default];
+    [def moveToSpeechToTextWithSpeechToTextDelegate: self];
+    
+}
+
+- (void)getSpeechToText:(NSString *)text{
+    if ([text length] == 0){
+        return;
+    }
+    self.searchBar.text = text;
+    [self performSearch: text];
 }
 
 - (void ) sendSearchRequest

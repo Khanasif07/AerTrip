@@ -412,8 +412,8 @@ struct IntMultiCityAndReturnWSResponse {
                             }
                         }
                         
-  
                     }
+                    
                 } else {
 
 //                    let attributes =   [NSAttributedString.Key.font :UIFont(name: "SourceSansPro-Regular", size: 16.0)! ,
@@ -511,7 +511,7 @@ struct IntMultiCityAndReturnWSResponse {
 //                if legsWithDetail.first?.fcp != 1 && rfdPlcy.rfd.first?.value == 0 { logoArray.append("noRefund")}
                 
                 
-                if cot == 1 { logoArray.append("changeOfTerminal") }
+                if coa == 0 && cot > 0 { logoArray.append("changeOfTerminal") }
 //                if coa > 0 { logoArray.append("changeOfAirport") }
                 if ovngt > 0 { logoArray.append("overnight")}
                 if llow > 0 { logoArray.append("longLayover") }
