@@ -51,11 +51,11 @@ class AerinVC: BaseVC {
         containerScrollView.delegate = self
         
         if isSEDevice{
-            bottomViewImage.contentMode = .scaleAspectFit
-            travelSafetyLabelBottom.constant = 40
+//            bottomViewImage.contentMode = .scaleAspectFit
+//            travelSafetyLabelBottom.constant = 40
         }else{
-            bottomViewImage.contentMode = .scaleAspectFill
-            travelSafetyLabelBottom.constant = 16
+//            bottomViewImage.contentMode = .scaleAspectFill
+//            travelSafetyLabelBottom.constant = 16
         }
 
     }
@@ -100,15 +100,8 @@ class AerinVC: BaseVC {
                 self.travelSafetyViewTopConstraint.constant = value
             }
         }
-        
-        //Rishabh For card getting cut issue - start
-        if isSEDevice {
-            containerScrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -30, right: 0)
-        } else if view.window?.safeAreaInsets.bottom != 0 {
-            containerScrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
-        }
-        //Rishabh For card getting cut issue - end
-        
+        let bottomInset = AppDelegate.shared.window?.safeAreaInsets.bottom ?? 0
+        containerScrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottomInset, right: 0)
     }
     
     override func initialSetup() {

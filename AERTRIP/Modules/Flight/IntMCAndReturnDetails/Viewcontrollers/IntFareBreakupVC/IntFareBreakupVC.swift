@@ -187,6 +187,13 @@ class IntFareBreakupVC: BaseVC {
         self.baseFareTableview.backgroundColor = AppColors.themeWhiteDashboard
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        if self.isForSelectionAndCheckout{
+            self.bookingTitleLabel.attributedText = self.getTitleToshow()
+        }
+    }
+    
     func setupBookingTitleDateView(){
         self.bookingtitleAndDateViewHeight.constant = self.heightForBookingTitleView
         self.bookingTitleAndDateView.backgroundColor = AppColors.passangerBottom
@@ -228,7 +235,7 @@ class IntFareBreakupVC: BaseVC {
     }
     
     private func getTitleToshow()-> NSAttributedString{
-        if let mutableStr = self.bookFlightObject.titleString.mutableCopy() as? NSMutableAttributedString{
+        if let mutableStr = self.bookFlightObject.getTitleString().mutableCopy() as? NSMutableAttributedString{
             let comma = NSAttributedString.init(string: ", ", attributes: [.font:AppFonts.Regular.withSize(18), .foregroundColor: AppColors.themeBlack])
             if self.bookFlightObject.flightSearchType == MULTI_CITY{
                 return mutableStr
@@ -237,7 +244,7 @@ class IntFareBreakupVC: BaseVC {
                 return mutableStr
             }
         }else{
-            return self.bookFlightObject.titleString
+            return self.bookFlightObject.getTitleString()
         }
     }
     

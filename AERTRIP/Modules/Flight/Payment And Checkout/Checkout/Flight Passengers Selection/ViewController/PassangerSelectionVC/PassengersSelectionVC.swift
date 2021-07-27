@@ -285,6 +285,7 @@ extension PassengersSelectionVC{
                 if let freeType = self.viewModel.freeServiceType{
                     FreeMealAndSeatVC.showMe(type: freeType)
                     self.viewModel.logEvent(with: .continueWithFareIncrease)
+                    self.updateListingFare()
                 }
                 }, goBackButtonAction: { [weak self] in
                     guard let self = self else { return }
@@ -296,6 +297,7 @@ extension PassengersSelectionVC{
             // dipped
             self.viewModel.logEvent(with: .fareDipped)
             FareUpdatedPopUpVC.showPopUp(isForIncreased: false, decreasedAmount: Double(-diff), increasedAmount: 0, totalUpdatedAmount: 0, continueButtonAction: nil, goBackButtonAction: nil)
+            self.updateListingFare()
             delay(seconds: 5.0) { [weak self] in
                 guard let self = self else { return }
                 if let freeType = self.viewModel.freeServiceType{
@@ -319,6 +321,24 @@ extension PassengersSelectionVC{
           }
       }
     }
+    
+    private func updateListingFare(){
+        if let nav = self.navigationController?.presentingViewController?.presentingViewController as? UINavigationController{
+            DispatchQueue.main.async {
+                if let vc = nav.viewControllers.first(where: {$0.isKind(of: FlightResultBaseViewController.self)}) as? FlightResultBaseViewController{
+                    vc.searchApiResult(flightItinary: self.viewModel.itineraryData)
+                }
+            }
+        }
+        
+        if let flightDetails = self.navigationController?.presentingViewController as? FlightDetailsBaseVC{
+            DispatchQueue.main.async {
+                flightDetails.searchApiResult(flightItinerary: self.viewModel.itineraryData)
+            }
+        }
+        
+    }
+    
 }
 
 extension PassengersSelectionVC: HCSelectGuestsVCDelegate{

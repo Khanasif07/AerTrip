@@ -61,7 +61,7 @@ class ChangePasswordVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        statusBarStyle = .darkContent
+        statusBarStyle = .default
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -254,6 +254,7 @@ private extension ChangePasswordVC {
         showOldPasswordButtonAction(self.showOldPasswordButton)
         
         self.nextButton.isEnabledShadow = true
+        self.setButtonTextColor()
     }
 }
 
@@ -293,6 +294,7 @@ extension ChangePasswordVC {
 //                self.nextButton.setTitleColor(AppColors.unicolorWhite, for: .selected)
 //            }
         }
+        setButtonTextColor()
     }
     
     override func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -304,6 +306,24 @@ extension ChangePasswordVC {
         self.nextButtonAction(self.nextButton)
         return true
     }
+    
+    private func setButtonTextColor(){
+        if self.viewModel.isValidateDataWithoutMessage {
+            self.nextButton.gradientColors = AppConstants.appthemeGradientColors
+            self.nextButton.setTitleColor(AppColors.unicolorWhite, for: UIControl.State.normal)
+            self.nextButton.setTitleColor(AppColors.unicolorWhite, for: UIControl.State.selected)
+            self.nextButton.setTitleColor(AppColors.unicolorWhite, for: UIControl.State.highlighted)
+            
+        }else{
+            self.nextButton.disabledGradientColors = [AppColors.checkoutApplyColor, AppColors.checkoutApplyColor]
+            self.nextButton.gradientColors = [AppColors.checkoutApplyColor, AppColors.checkoutApplyColor]
+            self.nextButton.setTitleColor(AppColors.hotelDetailOnGuestSelection, for: UIControl.State.normal)
+            self.nextButton.setTitleColor(AppColors.hotelDetailOnGuestSelection, for: UIControl.State.selected)
+            self.nextButton.setTitleColor(AppColors.hotelDetailOnGuestSelection, for: UIControl.State.highlighted)
+            
+        }
+    }
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == oldPasswordTextField {
             let isValidPassword = !self.viewModel.oldPassword.checkInvalidity(.Password)

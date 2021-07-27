@@ -338,6 +338,7 @@ extension PassengerDetailsVC: UITableViewDelegate, UITableViewDataSource{
         cell.lastJourneyDate = self.viewModel.lastJourneyDate
         cell.journeyStartDate = self.viewModel.firstJourneyDate
         cell.journeyEndDate = self.viewModel.journeyEndDate
+        cell.backgroundColor = AppColors.themeBlack26
         return cell
     }
     
@@ -345,6 +346,7 @@ extension PassengerDetailsVC: UITableViewDelegate, UITableViewDataSource{
         
         guard let cell = self.passengerTable.dequeueReusableCell(withIdentifier: "MealPreferenceCell") as? MealPreferenceCell else { return UITableViewCell()}
         cell.configureForMealPreference(with: self.viewModel.passengerList[indexPath.section], at: indexPath)
+        cell.backgroundColor = AppColors.themeBlack26
         cell.eventLog = {[weak self] in
             self?.viewModel.logEvents(with: .SelectMealPreference)
         }
@@ -374,6 +376,7 @@ extension PassengerDetailsVC: UITableViewDelegate, UITableViewDataSource{
         
         guard let cell = self.passengerTable.dequeueReusableCell(withIdentifier: "MealPreferenceCell") as? MealPreferenceCell else { return UITableViewCell() }
         cell.configureForFlyer(with: self.viewModel.passengerList[indexPath.section], at: indexPath)
+        cell.backgroundColor = AppColors.themeBlack26
         cell.eventLog = {[weak self] in
             self?.viewModel.logEvents(with: .EnterFFProgramNumber)
         }
@@ -384,9 +387,8 @@ extension PassengerDetailsVC: UITableViewDelegate, UITableViewDataSource{
         guard let cell = self.passengerTable.dequeueReusableCell(withIdentifier: "FlightEmptyCell") as? FlightEmptyCell else { return UITableViewCell() }
         cell.bottomDividerView.isHidden = ((self.viewModel.passengerList.count-1) == indexPath.section)
         cell.backgroundColor = AppColors.themeGray04
-        
         cell.bottomDividerView.backgroundColor = AppColors.dividerColor2
-
+        cell.spaceView.backgroundColor = AppColors.themeBlack26
         if ((self.viewModel.passengerList.count-1) == indexPath.section){
             cell.topDividerView.backgroundColor = AppColors.dividerColor
         }else{

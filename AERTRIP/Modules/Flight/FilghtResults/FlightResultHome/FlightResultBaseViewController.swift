@@ -136,6 +136,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         updateForAppearance()
+        self.setupTitleAccordingToText()
     }
     
     private func updateForAppearance() {
@@ -1078,6 +1079,12 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         resultTitle.textAlignment = .center
         resultTitle.lineBreakMode = NSLineBreakMode.byTruncatingMiddle
         
+        self.setupTitleAccordingToText()
+    }
+    
+    
+    func setupTitleAccordingToText(){
+        
         if((Int(flightSearchResultVM.titleString.size().width)) > (Int(UIScreen.main.bounds.size.width  - 100))){
             let flightType = flightSearchResultVM.flightSearchType
             
@@ -1089,8 +1096,6 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
                 resultTitle.text = "Multi-City"
             }
         }else{
-            
-            
             let allKey = self.flightSearchParameters.keys
             let departArrayCount = allKey.map{$0.contains("depart")}.filter{$0}.count
 
@@ -1101,6 +1106,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
             }
             
         }
+        
     }
     
     
@@ -1809,7 +1815,7 @@ extension FlightResultBaseViewController{
         case SINGLE_JOURNEY: self.singleJourneyResultVC?.updatePriceWhenGoneup(flightItinary.itinerary.details.fk, changeResult: chngResult)
         case RETURN_JOURNEY:
             if flightSearchResultVM.isDomestic {
-
+                self.domesticMultiLegResultVC?.updateComboPrice(changeResult: flightItinary.itinerary)
                 if let changeData = flightItinary.changeResults{
                     for key in changeData.map({$0.key}){
                         if let index = key.toInt, let priceChnage = changeData[key]{

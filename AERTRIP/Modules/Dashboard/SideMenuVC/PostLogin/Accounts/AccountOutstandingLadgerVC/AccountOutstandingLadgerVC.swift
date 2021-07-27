@@ -114,8 +114,7 @@ class AccountOutstandingLadgerVC: BaseVC {
         self.tableView.registerCell(nibName: AccountOutstandingEventDescriptionCell.reusableIdentifier)
         self.tableView.register(UINib(nibName: tableViewHeaderCellIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: tableViewHeaderCellIdentifier)
 //        addSwipeSelectGestureOnTableView()
-        self.searchBar.isMicEnabled = true
-        
+//        self.searchBar.isMicEnabled = true
         self.searchDataContainerView.backgroundColor = AppColors.clear
         self.mainSearchBar.showsCancelButton = true
         self.mainSearchBar.showsCancelButton = true
@@ -252,7 +251,7 @@ class AccountOutstandingLadgerVC: BaseVC {
         topNavView.backgroundColor = AppColors.clear
     }
     
-    private func manageHeader(animated: Bool) {
+    private func manageHeader(animated: Bool, isForSpeechToText: Bool = false) {
         
         if (self.currentViewState == .normal) {
             self.subHeaderContainer.isHidden = false
@@ -292,7 +291,9 @@ class AccountOutstandingLadgerVC: BaseVC {
             sSelf.searchTableView.reloadData()
             if (sSelf.viewModel.isSearching) {//(sSelf.currentViewState == .searching)
                 sSelf.searchDataContainerView.isHidden = false
-                sSelf.mainSearchBar.becomeFirstResponder()
+                if !isForSpeechToText{
+                    sSelf.mainSearchBar.becomeFirstResponder()
+                }
                 sSelf.searchDataContainerView.backgroundColor = AppColors.unicolorBlack.withAlphaComponent(0.4)
             }
             else {
@@ -515,6 +516,18 @@ extension AccountOutstandingLadgerVC: UISearchBarDelegate {
             return false
         }
         return true
+    }
+    
+    
+    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
+        if !self.viewModel.isSearching{
+            self.viewModel.isSearching = true
+            self.manageHeader(animated: true, isForSpeechToText: true)
+        }
+        if searchBar === self.searchBar{
+            self.view.endEditing(true)
+        }
+        AppFlowManager.default.moveToSpeechToText(with: self)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -792,6 +805,20 @@ extension AccountOutstandingLadgerVC: AccountOutstandingLadgerVMDelegate {
         self.reloadList()
     }
 }
+
+extension AccountOutstandingLadgerVC: SpeechToTextVCDelegate{
+    func getSpeechToText(_ text: String) {
+
+        guard !text.isEmpty else {return}
+        mainSearchBar.hideMiceButton(isHidden: false)
+        self.mainSearchBar.text = text
+        self.viewModel.searchEvent(forText: text)
+        self.view.endEditing(true)
+    }
+
+    
+}
+
 
 //extension AccountOutstandingLadgerVC {
 //    private func addSwipeSelectGestureOnTableView() {

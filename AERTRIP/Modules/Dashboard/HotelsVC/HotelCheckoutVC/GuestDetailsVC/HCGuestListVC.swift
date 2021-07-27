@@ -338,18 +338,21 @@ extension HCGuestListVC: UITableViewDelegate, UITableViewDataSource {
             cell.selectionButton.isSelected = self.viewModel.selectedPhoneContacts.contains(where: { (contact) -> Bool in
                 contact.id == self.viewModel.phoneContacts[indexPath.row].id
             })
+            cell.manageProfileImage(isNeedToHide: true)
         case .facebook:
             cell.contact = self.viewModel.facebookContacts[indexPath.row]
             cell.dividerView.isHidden = indexPath.row == (self.viewModel.facebookContacts.count - 1)
             cell.selectionButton.isSelected = self.viewModel.selectedFacebookContacts.contains(where: { (contact) -> Bool in
                 contact.id == self.viewModel.facebookContacts[indexPath.row].id
             })
+            cell.manageProfileImage(isNeedToHide: false)
         case .google:
             cell.contact = self.viewModel.googleContacts[indexPath.row]
             cell.dividerView.isHidden = indexPath.row == (self.viewModel.googleContacts.count - 1)
             cell.selectionButton.isSelected = self.viewModel.selectedGoogleContacts.contains(where: { (contact) -> Bool in
                 contact.id == self.viewModel.googleContacts[indexPath.row].id
             })
+            cell.manageProfileImage(isNeedToHide: false)
         }
         cell.contentView.backgroundColor = AppColors.themeBlack26
 

@@ -87,7 +87,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 var descColor: UIColor? = nil
                 let age = model.age
                 if key.lowercased() == "Over Due by days".lowercased() {
-                    descColor = AppColors.themeRed
+                    descColor = AppColors.themeRed254
                 }
                 value = value.isEmpty ? LocalizedString.dash.localized : value
                 return self.getDetailCell(title: key, description: value, descriptionColor: descColor, age: age, at: indexPath)

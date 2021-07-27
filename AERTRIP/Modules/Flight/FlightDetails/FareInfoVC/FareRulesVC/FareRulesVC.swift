@@ -26,6 +26,7 @@ class FareRulesVC: UIViewController, UIScrollViewDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        titleLabel.font = AppFonts.SemiBold.withSize(16)
         view.backgroundColor = AppColors.themeWhite
         fareRulesScrollView.backgroundColor = AppColors.themeWhite
         webView.backgroundColor = AppColors.themeWhite

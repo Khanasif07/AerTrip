@@ -84,7 +84,7 @@ class IntFareInfoVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
                 self.fareInfoTableView.reloadData()
             }
         }else{
-            self.progressBar.isHidden = false
+            self.progressBar.isHidden = true
             self.addIndicator()
             self.viewModel.getFareInfoAPICall(sid: self.sid, fk: journey.fk, index: 0)
         }

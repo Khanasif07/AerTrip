@@ -79,6 +79,11 @@ class FlightPaymentVC: BaseVC {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        statusBarStyle = .default
+    }
+    
     override func initialSetup() {
         super.initialSetup()
         self.payButton.addGredient(isVertical: false)

@@ -22,7 +22,7 @@ class NoResultsScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupIndicatorView()
-        self.view.backgroundColor = AppColors.themeWhite
+        self.view.backgroundColor = AppColors.themeBlack26
         header.font = AppFonts.Regular.withSize(22)
         subTitle.font = AppFonts.Regular.withSize(18)
         button.setTitleColor(AppColors.themeGreen, for: .normal)

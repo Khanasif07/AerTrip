@@ -646,7 +646,7 @@ extension ViewProfileVC: ViewProfileDetailVMDelegate {
         self.profileImageHeaderView?.stopLoading()
         if AppGlobals.shared.isNetworkRechable() {
             if !((UserInfo.loggedInUser?.userCreditType ?? UserCreditType.statement) == .topup){
-                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+//                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
             }
         } else {
             AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)

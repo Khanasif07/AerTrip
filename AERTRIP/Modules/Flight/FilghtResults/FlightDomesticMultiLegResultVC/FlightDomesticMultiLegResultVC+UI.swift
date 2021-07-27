@@ -521,7 +521,7 @@ extension FlightDomesticMultiLegResultVC : FareBreakupVCDelegate , flightDetails
             flightDetailsVC.taxesResult = self.viewModel.taxesResult
             flightDetailsVC.sid = sid
             flightDetailsVC.journey = self.viewModel.getSelectedJourneyForAllLegs()
-            flightDetailsVC.titleString = titleString
+            flightDetailsVC.titleString = self.bookFlightObject.getTitleString()//self.bookFlightObject
             flightDetailsVC.airportDetailsResult = self.viewModel.airportDetailsResult
             flightDetailsVC.airlineDetailsResult = self.viewModel.airlineDetailsResult
         flightDetailsVC.flightSearchResultVM = self.flightSearchResultVM

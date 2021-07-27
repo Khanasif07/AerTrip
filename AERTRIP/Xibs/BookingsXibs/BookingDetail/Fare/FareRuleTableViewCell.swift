@@ -62,8 +62,8 @@ class FareRuleTableViewCell: UITableViewCell {
     }
     
     func setColorForBookingPolicy(){
-        self.contentView.backgroundColor = AppColors.themeWhite
-        self.webView.backgroundColor = AppColors.themeWhite
+        self.contentView.backgroundColor = AppColors.themeBlack26
+        self.webView.backgroundColor = AppColors.themeBlack26
         self.webView.isOpaque = false
     }
     
