@@ -46,7 +46,7 @@ class MealPreferenceCell: UITableViewCell {
         airlineNameLabel.textColor = AppColors.themeBlack
         programTextField.font = AppFonts.Regular.withSize(18)
         numberTextField.font = AppFonts.Regular.withSize(18)
-        numberTextField.setUpAttributedPlaceholder(placeholderString: "Number", with: "", foregroundColor: AppColors.themeBlack)
+        numberTextField.setUpAttributedPlaceholder(placeholderString: "Number", with: "", foregroundColor: AppColors.themeGray40)
         self.bottomSeparatorView.backgroundColor = AppColors.divider.color
         numberTextField.delegate = self
         programTextField.delegate = self
@@ -85,7 +85,7 @@ class MealPreferenceCell: UITableViewCell {
         self.programTextField.text = self.passenger.frequentFlyer[index].program
         self.airlineImage.setImageWithUrl(self.passenger.frequentFlyer[index].logoUrl, placeholder: UIImage(), showIndicator: false)
         self.numberTextField.text = self.passenger.frequentFlyer[index].number
-        self.numberTextField.setUpAttributedPlaceholder(placeholderString: "Number", with: "", foregroundColor: AppColors.checkoutApplyColor, isChnagePlacehoder:true)
+        self.numberTextField.setUpAttributedPlaceholder(placeholderString: "Number", with: "", foregroundColor: AppColors.themeGray40, isChnagePlacehoder:true)
 
         self.numberTextField.addTarget(self, action: #selector(textFieldDidChanged), for: .editingChanged)
         self.cellTitleLabel.text = (index == 0) ? "Frequent Flyer" : ""

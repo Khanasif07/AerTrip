@@ -288,7 +288,7 @@ class FlightDetailsTableViewCell: UITableViewCell
         let deptDateRange = (str as NSString).range(of: str1)
         let deptDateAttrStr = NSMutableAttributedString(string:str)
         deptDateAttrStr.addAttribute(NSAttributedString.Key.foregroundColor, value: AppColors.themeBlack , range: deptDateRange)
-        deptDateAttrStr.addAttribute(NSAttributedString.Key.backgroundColor, value: AppColors.lightYellowAndGoldenGray, range: deptDateRange)
+//        deptDateAttrStr.addAttribute(NSAttributedString.Key.backgroundColor, value: AppColors.lightYellowAndGoldenGray, range: deptDateRange)
         deptDateAttrStr.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.clear , range: (str as NSString).range(of: "."))
         departureDateLabel.attributedText = deptDateAttrStr
     }
