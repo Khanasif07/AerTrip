@@ -8,8 +8,8 @@
 
 import UIKit
 
-protocol  SpeechToTextVCDelegate:NSObjectProtocol{
-    func getSpeechToText(_ text: String)
+@objc protocol  SpeechToTextVCDelegate:NSObjectProtocol{
+    @objc func getSpeechToText(_ text: String)
 }
 
 class SpeechToTextVC: BaseVC {

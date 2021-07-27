@@ -534,7 +534,7 @@ extension AccountDetailsVC: UISearchBarDelegate {
 
         FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .AccountsLedgerSpeechToTextSelected, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
 
-        AppFlowManager.default.moveToSpeechToText(with: self)
+        AppFlowManager.default.moveToSpeechToText(speechToTextDelegate: self)
     }
 }
 

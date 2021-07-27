@@ -33,7 +33,7 @@ extension MyBookingsVC: UISearchBarDelegate {
                 
         FirebaseEventLogs.shared.logMyBookingsEvent(with: .MyBookingsSpeechToTextOptionSelected)
 
-        AppFlowManager.default.moveToSpeechToText(with: self)
+        AppFlowManager.default.moveToSpeechToText(speechToTextDelegate: self)
     }
 }
 

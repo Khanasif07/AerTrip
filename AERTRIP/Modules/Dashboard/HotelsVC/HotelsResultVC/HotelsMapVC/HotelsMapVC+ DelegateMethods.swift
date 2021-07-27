@@ -62,7 +62,7 @@ extension HotelsMapVC: UISearchBarDelegate {
         self.hotelSearchTableView.backgroundView = nil
         self.showSearchAnimation()
         self.reloadHotelList()
-        AppFlowManager.default.moveToSpeechToText(with: self)
+        AppFlowManager.default.moveToSpeechToText(speechToTextDelegate: self)
         FirebaseEventLogs.shared.logHotelMapViewEvents(with: .HotelMicSearchTapped)
     }
     

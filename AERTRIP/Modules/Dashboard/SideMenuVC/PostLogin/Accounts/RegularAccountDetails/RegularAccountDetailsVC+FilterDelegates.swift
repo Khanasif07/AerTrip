@@ -94,7 +94,7 @@ extension RegularAccountDetailsVC: RegularAccountHeaderDelegate{
         FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .AccountsSpeechToTextOptionSelected, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
 
         
-        AppFlowManager.default.moveToSpeechToText(with: self)
+        AppFlowManager.default.moveToSpeechToText(speechToTextDelegate: self)
     }
     
     func headerFilterButtonIsTapped() {
@@ -205,6 +205,6 @@ extension RegularAccountDetailsVC: UISearchBarDelegate {
 
         FirebaseEventLogs.shared.logAccountsEventsWithAccountType(with: .AccountsSpeechToTextOptionSelected, AccountType: UserInfo.loggedInUser?.userCreditType.rawValue ?? "n/a")
 
-        AppFlowManager.default.moveToSpeechToText(with: self)
+        AppFlowManager.default.moveToSpeechToText(speechToTextDelegate: self)
     }
 }

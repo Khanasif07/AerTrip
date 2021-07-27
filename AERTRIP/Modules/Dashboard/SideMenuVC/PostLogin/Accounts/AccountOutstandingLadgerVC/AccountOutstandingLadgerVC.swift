@@ -527,7 +527,7 @@ extension AccountOutstandingLadgerVC: UISearchBarDelegate {
         if searchBar === self.searchBar{
             self.view.endEditing(true)
         }
-        AppFlowManager.default.moveToSpeechToText(with: self)
+        AppFlowManager.default.moveToSpeechToText(speechToTextDelegate: self)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

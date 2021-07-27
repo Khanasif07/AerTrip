@@ -1359,7 +1359,7 @@ extension AppFlowManager {
         UIApplication.topViewController()?.present(alert, animated: true, completion: nil)
     }
     
-    func moveToSpeechToText(with speechToTextDelegate: SpeechToTextVCDelegate ){
+    @objc func moveToSpeechToText(speechToTextDelegate: SpeechToTextVCDelegate ){
         let vc = SpeechToTextVC.instantiate(fromAppStoryboard: .Common)
         vc.modalPresentationStyle = .overFullScreen
         vc.delegate = speechToTextDelegate

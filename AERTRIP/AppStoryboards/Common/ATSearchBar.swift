@@ -25,7 +25,7 @@ class ATSearchBar: UISearchBar {
     
     //private(set) var micButton: UIButton!
     
-    var isMicEnabled: Bool = true {
+    @objc var isMicEnabled: Bool = true {
         didSet {
             self.hideMiceButton(isHidden: !self.isMicEnabled)
         }
