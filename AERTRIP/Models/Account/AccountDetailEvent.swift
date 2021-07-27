@@ -51,6 +51,19 @@ struct AccountDetailEvent {
         return _creationDate?.toString(dateFormat: "yyyy-MM-dd")
     }
     
+    
+    var transactionDate:String{
+        guard let date = _creationDate else {return "" }
+        if date.isCurrentYear {
+                return date.toString(dateFormat: "EEE, dd MMM")
+            } else {
+                return date.toString(dateFormat: "dd MMM YYYY")
+            }
+//        }
+        
+//        return ""
+    }
+    
     private var _voucher : String = ""
     var voucher: VoucherType {
         get {
