@@ -547,16 +547,19 @@ extension UIView {
         
     }
     
-    func addShimmerEffect( to views : [UIView]) {
+    func addShimmerEffect( to views : [UIView], backgroundClr : UIColor = AppColors.shimmerEffectLayerColor, gradientColors : [UIColor] = [AppColors.unicolorWhite.withAlphaComponent(0), AppColors.shimmerEffectColor, AppColors.unicolorWhite.withAlphaComponent(0)]) {
         
         for view in views {
-            animate(view: view)
+            animate(view: view, backgroundClr : backgroundClr, gradientColors :gradientColors)
         }
+        
     }
     
-    func animate(view:UIView) {
+    func animate(view:UIView, backgroundClr : UIColor = AppColors.shimmerEffectLayerColor, gradientColors : [UIColor] = [AppColors.unicolorWhite.withAlphaComponent(0), AppColors.shimmerEffectColor, AppColors.unicolorWhite.withAlphaComponent(0)]) {
+        
         let colorLayer = CALayer()
-        colorLayer.backgroundColor = AppColors.shimmerEffectLayerColor.cgColor //UIColor(displayP3Red: (238.0/255.0), green: (239.0/255.0), blue: (242.0/255.0), alpha: 1).cgColor
+        colorLayer.backgroundColor = backgroundClr.cgColor
+        //UIColor(displayP3Red: (238.0/255.0), green: (239.0/255.0), blue: (242.0/255.0), alpha: 1).cgColor
         colorLayer.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height)
         colorLayer.name = "colorLayer"
         view.layer.addSublayer(colorLayer)
@@ -568,11 +571,15 @@ extension UIView {
         let width = view.frame.width
         let height = view.frame.height
         
-        
         let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [AppColors.unicolorWhite.withAlphaComponent(0).cgColor,
-                                AppColors.shimmerEffectColor.cgColor,
-                                AppColors.unicolorWhite.withAlphaComponent(0).cgColor]
+               
+        let gradients = gradientColors.map { $0.cgColor }
+        
+        gradientLayer.colors = gradients
+        
+//        gradientLayer.colors = [AppColors.unicolorWhite.withAlphaComponent(0).cgColor,
+//                                AppColors.shimmerEffectColor.cgColor,
+//                                AppColors.unicolorWhite.withAlphaComponent(0).cgColor]
 
         gradientLayer.name = "loaderLayer"
         gradientLayer.startPoint = CGPoint(x: 0, y: 0)

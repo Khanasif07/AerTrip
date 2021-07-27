@@ -54,6 +54,10 @@ class DomesticMultiLegTemplateCell: UITableViewCell {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.40) {
             self.addShimmerEffect(to: [ self.flightCode ,  self.arrivalTime , self.arrivalAirportCode , self.price ] )
+            
+            
+//            self.addShimmerEffect(to: [ self.flightCode ,  self.arrivalTime , self.arrivalAirportCode , self.price ], backgroundClr: AppColors.themeGreen, gradientColors: [AppColors.themeRed.withAlphaComponent(0), UIColor.yellow, AppColors.themeRed.withAlphaComponent(0)])
+            
         }
     }
     
