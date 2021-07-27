@@ -13,7 +13,8 @@ extension AccountOnlineDepositVC: RazorpayPaymentCompletionProtocolWithData {
     
     func initializePayment(withOptions options: JSONDictionary) {
         let razorpay: RazorpayCheckout = RazorpayCheckout.initWithKey(AppKeys.kRazorpayPublicKey, andDelegateWithData: self)
-        razorpay.open(options)
+//        razorpay.open(options)
+        razorpay.open(options, displayController: self.navigationController ?? self)
     }
     func onPaymentError(_ code: Int32, description str: String, andData response: [AnyHashable : Any]?) {
         AppToast.default.showToastMessage(message: LocalizedString.paymentFails.localized)//"Sorry! payment was faild.\nPlease try again.")
