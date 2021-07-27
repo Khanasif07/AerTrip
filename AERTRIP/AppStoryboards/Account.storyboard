@@ -177,11 +177,11 @@
                                     <constraint firstItem="kNn-Ad-ZBZ" firstAttribute="leading" secondItem="TN6-u3-v8D" secondAttribute="leading" id="y1y-gM-ksf"/>
                                 </constraints>
                             </view>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JfE-Y0-1gq">
-                                <rect key="frame" x="0.0" y="165" width="414" height="2"/>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JfE-Y0-1gq" customClass="AppProgressView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="165" width="414" height="1"/>
                                 <color key="tintColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="2" id="iiP-8c-DGw"/>
+                                    <constraint firstAttribute="height" constant="1" id="iiP-8c-DGw"/>
                                 </constraints>
                                 <color key="progressTintColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="trackTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1232,11 +1232,11 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qyf-xV-gcd">
-                                <rect key="frame" x="0.0" y="88" width="414" height="2"/>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qyf-xV-gcd" customClass="AppProgressView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="88" width="414" height="1"/>
                                 <color key="tintColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="2" id="hac-b9-CPc"/>
+                                    <constraint firstAttribute="height" constant="1" id="hac-b9-CPc"/>
                                 </constraints>
                                 <color key="progressTintColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="trackTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

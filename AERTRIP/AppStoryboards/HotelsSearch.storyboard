@@ -914,7 +914,7 @@ been sent</string>
                                                         <rect key="frame" x="0.0" y="0.0" width="112.5" height="266"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="lUb-4B-UGW">
-                                                                <rect key="frame" x="0.0" y="0.0" width="112.5" height="128"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="112.5" height="118.5"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="627-JL-ot9">
                                                                         <rect key="frame" x="0.0" y="0.0" width="112.5" height="43"/>
@@ -936,10 +936,10 @@ been sent</string>
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LFd-nY-Rus">
-                                                                        <rect key="frame" x="0.0" y="55" width="112.5" height="73"/>
+                                                                        <rect key="frame" x="0.0" y="55" width="112.5" height="63.5"/>
                                                                         <subviews>
                                                                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l4l-qf-vJb">
-                                                                                <rect key="frame" x="41" y="7.5" width="31" height="58"/>
+                                                                                <rect key="frame" x="41" y="3" width="31" height="58"/>
                                                                                 <state key="normal" image="rooms_white_icon"/>
                                                                             </button>
                                                                         </subviews>
@@ -956,10 +956,10 @@ been sent</string>
                                                                 </constraints>
                                                             </stackView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="klb-yY-qLX">
-                                                                <rect key="frame" x="0.0" y="147.5" width="112.5" height="118.5"/>
+                                                                <rect key="frame" x="0.0" y="138" width="112.5" height="128"/>
                                                                 <subviews>
                                                                     <pickerView tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g2S-NB-xYW">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="112.5" height="118.5"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="112.5" height="128"/>
                                                                     </pickerView>
                                                                 </subviews>
                                                                 <color key="backgroundColor" name="themeWhiteDashboard"/>
@@ -991,7 +991,7 @@ been sent</string>
                                                         <rect key="frame" x="0.0" y="0.0" width="113" height="266"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="8sd-hy-MIr">
-                                                                <rect key="frame" x="0.0" y="0.0" width="113" height="117"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="113" height="118.5"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vxk-PK-7qo">
                                                                         <rect key="frame" x="0.0" y="0.0" width="113" height="45"/>
@@ -1022,10 +1022,10 @@ been sent</string>
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EmB-dd-HPg">
-                                                                        <rect key="frame" x="0.0" y="57" width="113" height="60"/>
+                                                                        <rect key="frame" x="0.0" y="57" width="113" height="61.5"/>
                                                                         <subviews>
                                                                             <button opaque="NO" tag="2" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XBn-d3-Nmd">
-                                                                                <rect key="frame" x="32.5" y="6" width="48" height="48"/>
+                                                                                <rect key="frame" x="32.5" y="7" width="48" height="48"/>
                                                                                 <state key="normal" image="adult_icon_bulk"/>
                                                                             </button>
                                                                         </subviews>
@@ -1039,10 +1039,10 @@ been sent</string>
                                                                 </subviews>
                                                             </stackView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WoY-az-onx">
-                                                                <rect key="frame" x="0.0" y="136.5" width="113" height="129.5"/>
+                                                                <rect key="frame" x="0.0" y="138" width="113" height="128"/>
                                                                 <subviews>
                                                                     <pickerView tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DEo-vf-mkT">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="113" height="129.5"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="113" height="128"/>
                                                                     </pickerView>
                                                                 </subviews>
                                                                 <color key="backgroundColor" name="themeWhiteDashboard"/>
@@ -1699,14 +1699,11 @@ been sent</string>
                                     <constraint firstItem="8Gg-mF-c01" firstAttribute="top" secondItem="QAK-AD-OFu" secondAttribute="top" constant="16" id="OOa-0Q-eqJ"/>
                                 </constraints>
                             </view>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cYF-2F-5gQ">
-                                <rect key="frame" x="0.0" y="140" width="414" height="2"/>
-                                <color key="tintColor" name="themeGreen"/>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cYF-2F-5gQ" customClass="AppProgressView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="140" width="414" height="1"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="2" id="bco-IS-v2a"/>
+                                    <constraint firstAttribute="height" constant="1" id="bco-IS-v2a"/>
                                 </constraints>
-                                <color key="progressTintColor" name="themeGreen"/>
-                                <color key="trackTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </progressView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="b4p-u6-PAq"/>
@@ -2710,11 +2707,11 @@ been sent</string>
                                             <constraint firstAttribute="height" constant="0.5" id="vcg-jL-xI9"/>
                                         </constraints>
                                     </view>
-                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="P5e-ts-cTi">
-                                        <rect key="frame" x="0.0" y="42" width="414" height="2"/>
+                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="P5e-ts-cTi" customClass="AppProgressView" customModule="AERTRIP" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="43" width="414" height="1"/>
                                         <color key="tintColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="2" id="ext-Ua-j4s"/>
+                                            <constraint firstAttribute="height" constant="1" id="ext-Ua-j4s"/>
                                         </constraints>
                                         <color key="progressTintColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="trackTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2862,9 +2859,6 @@ been sent</string>
         <image name="unPinAllFavouriteIcon" width="76" height="76"/>
         <namedColor name="doneViewClearColor">
             <color red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
-        <namedColor name="themeGreen">
-            <color red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="themeWhite">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

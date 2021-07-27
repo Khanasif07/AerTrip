@@ -52,7 +52,7 @@ class MyBookingsVC: BaseVC {
     @IBOutlet weak var emptyStateTitleLabel: UILabel!
     @IBOutlet weak var emptyStateSubTitleLabel: UILabel!
     @IBOutlet weak var blurBackgroundView: BlurView!
-    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var progressView: AppProgressView!
     
     // Mark:- LifeCycle
     

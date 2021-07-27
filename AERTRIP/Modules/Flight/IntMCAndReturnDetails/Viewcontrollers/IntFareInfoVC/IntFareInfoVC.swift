@@ -16,7 +16,7 @@ class IntFareInfoVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
     //MARK:- Outlets
     @IBOutlet weak var fareInfoTableView: UITableView!
     @IBOutlet weak var fareInfoTableViewBottom: NSLayoutConstraint!
-    @IBOutlet weak var progressBar: UIProgressView!
+    @IBOutlet weak var progressBar: AppProgressView!
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     
     //MARK:- Variable Declaration
@@ -56,7 +56,6 @@ class IntFareInfoVC: BaseVC, UITableViewDelegate, UITableViewDataSource{
         self.viewModel.delegate = self
         progressBar.progress = 0.25
         progressBar.isHidden = true
-        progressBar.tintColor = .AertripColor
         self.fareInfoTableView.backgroundColor = AppColors.themeGray04
         fareInfoTableView.register(UINib(nibName: "IntFareInfoCell", bundle: nil), forCellReuseIdentifier: "IntFareInfoCell")
         fareInfoTableView.register(UINib(nibName: "ChangeAirportTableViewCell", bundle: nil), forCellReuseIdentifier: "ChangeAirportCell")

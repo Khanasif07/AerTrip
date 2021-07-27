@@ -48,7 +48,7 @@ class SeatMapContainerVC: UIViewController {
     @IBOutlet weak var addBtn: UIButton!
     @IBOutlet weak var totalSeatAmountViewHeight: NSLayoutConstraint!
     @IBOutlet weak var highlightContainerView: UIView!
-    @IBOutlet weak var apiProgressView: UIProgressView!
+    @IBOutlet weak var apiProgressView: AppProgressView!
     @IBOutlet weak var apiIndicatorView: UIActivityIndicatorView!
     
     // MARK: View Life Cycle
@@ -187,8 +187,6 @@ class SeatMapContainerVC: UIViewController {
         let addBtnTitle = viewModel.setupFor == .postSelection ? LocalizedString.CheckoutTitle.localized : LocalizedString.Add.localized
         addBtn.setTitle(addBtnTitle, for: .normal)
         totalSeatAmountView.addShadow(ofColor: .black, radius: 20, opacity: 0.1)
-        apiProgressView.progressTintColor = UIColor.AertripColor
-        apiProgressView.trackTintColor = .clear
         apiProgressView.setProgress(0, animated: false)
         
         self.addBtn.setTitleColor(AppColors.commonThemeGreen, for: UIControl.State.normal)

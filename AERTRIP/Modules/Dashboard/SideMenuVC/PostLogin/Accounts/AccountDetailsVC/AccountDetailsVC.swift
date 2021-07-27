@@ -47,7 +47,7 @@ class AccountDetailsVC: BaseVC {
     @IBOutlet weak var openingBalanceTitleLabel: UILabel!
     @IBOutlet weak var openingBalanceDateLabel: UILabel!
     @IBOutlet weak var openingBalanceAmountLabel: UILabel!
-    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var progressView: AppProgressView!
     
     
     //MARK:- Properties

@@ -697,6 +697,7 @@
 		8411E17824699D4600F8D4AE /* FareInfoCommonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8411E17624699D4600F8D4AE /* FareInfoCommonCell.xib */; };
 		8411E8D6222ED76300C93C0B /* HotelFilterResultFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8411E8D4222ED76300C93C0B /* HotelFilterResultFooterView.xib */; };
 		8411E8D7222ED76300C93C0B /* HotelFilterResultFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8411E8D5222ED76300C93C0B /* HotelFilterResultFooterView.swift */; };
+		84141EF326B006ED000118CB /* AppProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84141EF226B006ED000118CB /* AppProgressView.swift */; };
 		8414C5012653B895003507D1 /* GreenDotSegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8414C5002653B895003507D1 /* GreenDotSegmentControl.swift */; };
 		8417208A249A3ABD005672F3 /* SeatMapContainerVC+PagingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84172089249A3ABD005672F3 /* SeatMapContainerVC+PagingViewController.swift */; };
 		8417772C223F6DF700DAC087 /* hotelsSearch.csv in Resources */ = {isa = PBXBuildFile; fileRef = 8417772B223F6DF600DAC087 /* hotelsSearch.csv */; };
@@ -2467,6 +2468,7 @@
 		8411E17624699D4600F8D4AE /* FareInfoCommonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FareInfoCommonCell.xib; sourceTree = "<group>"; };
 		8411E8D4222ED76300C93C0B /* HotelFilterResultFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HotelFilterResultFooterView.xib; sourceTree = "<group>"; };
 		8411E8D5222ED76300C93C0B /* HotelFilterResultFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotelFilterResultFooterView.swift; sourceTree = "<group>"; };
+		84141EF226B006ED000118CB /* AppProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppProgressView.swift; sourceTree = "<group>"; };
 		8414A2DA25DCE60F004A4110 /* BoardingPass.pkpass */ = {isa = PBXFileReference; lastKnownFileType = file; path = BoardingPass.pkpass; sourceTree = "<group>"; };
 		8414C5002653B895003507D1 /* GreenDotSegmentControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreenDotSegmentControl.swift; sourceTree = "<group>"; };
 		84172089249A3ABD005672F3 /* SeatMapContainerVC+PagingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SeatMapContainerVC+PagingViewController.swift"; sourceTree = "<group>"; };
@@ -5354,6 +5356,7 @@
 		84085C6C21F59C0C00F1E844 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				84141EF126B006D5000118CB /* AppProgressView */,
 				84457BEF259C93C000D35EAE /* Version Controler */,
 				0C3955BE2594A7BB008B5344 /* OTPAndVarification */,
 				84816E5C2518833200D0C256 /* SplashAnimation */,
@@ -5725,6 +5728,14 @@
 				84100A9322392E3F006A05EC /* FareUpdatedPopUpVC.swift */,
 			);
 			path = FareUpdatedPopUpVC;
+			sourceTree = "<group>";
+		};
+		84141EF126B006D5000118CB /* AppProgressView */ = {
+			isa = PBXGroup;
+			children = (
+				84141EF226B006ED000118CB /* AppProgressView.swift */,
+			);
+			path = AppProgressView;
 			sourceTree = "<group>";
 		};
 		8414C4FF2653B87F003507D1 /* GreenDotSegmentControl */ = {
@@ -11034,6 +11045,7 @@
 				18930A2621D34D16005442C8 /* APICaller+Search.swift in Sources */,
 				84534ECA22490F91009FF536 /* HCWhatNextTableViewCell.swift in Sources */,
 				848F1A5D2203281C002BDA39 /* HotelsResultHeaderView.swift in Sources */,
+				84141EF326B006ED000118CB /* AppProgressView.swift in Sources */,
 				0C9D3FEA24E2C0EE00238A18 /* SingleJourneyCollectionViewCell.swift in Sources */,
 				18D88BF822C3894A0089755D /* BookingAddOnRequestFF+DelegateMethods.swift in Sources */,
 				84806833220990C600CBF362 /* BulkRoomSelectionVC.swift in Sources */,

@@ -23,7 +23,7 @@ class BookingAddOnRequestVC: BaseVC {
     @IBOutlet weak var bookingRequestStatusView: UIView!
     @IBOutlet weak var bookingRequestStatusLabel: UILabel!
     @IBOutlet weak var bookingStatusViewHeight: NSLayoutConstraint!
-    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var progressView: AppProgressView!
     
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     // MARK: - Variables

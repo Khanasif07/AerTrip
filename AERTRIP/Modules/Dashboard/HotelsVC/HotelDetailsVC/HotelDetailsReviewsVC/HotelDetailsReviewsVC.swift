@@ -42,7 +42,7 @@ class HotelDetailsReviewsVC: BaseVC {
         }
     }
     @IBOutlet weak var reviewTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var progressView: AppProgressView!
     
     
     private let maxHeaderHeight: CGFloat = 58.0

@@ -64,7 +64,7 @@ extension IntMCAndReturnVC {
         let contentOffset = scrollView.contentOffset
         let offsetDifference = contentOffset.y - scrollviewInitialYOffset
         let safeAreaTop = AppDelegate.shared.window?.safeAreaInsets.top ?? 0
-        if let blurEffectView = self.navigationController?.view.viewWithTag(500), let progressView = self.navigationController?.view.viewWithTag(600), let stickyProgressView = self.navigationController?.view.viewWithTag(601) as? UIProgressView {
+        if let blurEffectView = self.navigationController?.view.viewWithTag(500), let progressView = self.navigationController?.view.viewWithTag(600), let stickyProgressView = self.navigationController?.view.viewWithTag(601) as? AppProgressView {
             if stickyProgressView.progress < 0.97 {
                 
                 if offsetDifference > 0 {

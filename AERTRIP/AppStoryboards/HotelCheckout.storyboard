@@ -1070,10 +1070,10 @@
                                             <constraint firstAttribute="height" constant="0.5" id="vUS-Qy-EAw"/>
                                         </constraints>
                                     </view>
-                                    <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" translatesAutoresizingMaskIntoConstraints="NO" id="paY-TA-lCR">
-                                        <rect key="frame" x="0.0" y="0.5" width="375" height="3"/>
+                                    <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" translatesAutoresizingMaskIntoConstraints="NO" id="paY-TA-lCR" customClass="AppProgressView" customModule="AERTRIP" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.5" width="375" height="2"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="2" id="wt7-Yr-f2p"/>
+                                            <constraint firstAttribute="height" constant="1" id="wt7-Yr-f2p"/>
                                         </constraints>
                                     </progressView>
                                 </subviews>

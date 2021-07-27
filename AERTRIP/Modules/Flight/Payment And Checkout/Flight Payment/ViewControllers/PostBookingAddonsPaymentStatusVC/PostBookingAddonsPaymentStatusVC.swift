@@ -22,7 +22,7 @@ class PostBookingAddonsPaymentStatusVC: BaseVC {
     }
     @IBOutlet weak var returnHomeButton: UIButton!
     @IBOutlet weak var gradientView: UIView!
-    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var progressView: AppProgressView!
     @IBOutlet weak var progressViewHeight: NSLayoutConstraint!
     
     var viewModel = PostBookingAddonsPaymentStatusVM()
@@ -34,9 +34,6 @@ class PostBookingAddonsPaymentStatusVC: BaseVC {
         self.viewModel.delegate = self
         self.viewModel.getBookingReceipt()
         self.returnHomeButton.addGredient(isVertical: false)
-        self.progressView.progressTintColor = UIColor.AertripColor
-        self.progressView.trackTintColor = .clear
-        
     }
     
     override func viewDidLayoutSubviews() {
