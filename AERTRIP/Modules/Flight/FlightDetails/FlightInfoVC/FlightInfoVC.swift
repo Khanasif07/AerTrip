@@ -511,9 +511,12 @@ final class FlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, ge
                         
                         if flight.isDepartureDateChange!{
                             flightDetailsCell.setDepartureDate(str:"  \(departureDateString) .",str1:"  \(departureDateString) ")
+                            flightDetailsCell.departureDateLabel.backgroundColor = AppColors.lightYellowAndGoldenGray
+
                         }else{
                             flightDetailsCell.departureDateLabel.attributedText = nil
                             flightDetailsCell.departureDateLabel.text = "\(departureDateString)"
+                            flightDetailsCell.departureDateLabel.backgroundColor = .clear
                         }
                         
                         if flight.atm != ""{
