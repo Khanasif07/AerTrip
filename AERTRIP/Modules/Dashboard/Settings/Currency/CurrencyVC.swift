@@ -22,7 +22,7 @@ class CurrencyVC: BaseVC {
         }
     }
     @IBOutlet weak var searchBarContainer: UIView!
-    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var progressView: AppProgressView!
     @IBOutlet weak var progressViewHeight: NSLayoutConstraint!
     
     //MARK:- Properties
@@ -54,8 +54,6 @@ class CurrencyVC: BaseVC {
         self.searchBar.cornerradius = 10.0
         self.searchBar.clipsToBounds = true
         self.currencyTableView.contentInset = UIEdgeInsets(top: topNavView.height + self.searchBarContainer.height, left: 0, bottom: 0, right: 0)
-        self.progressView.progressTintColor = UIColor.AertripColor
-        self.progressView.trackTintColor = .clear
         self.currencyTableView.isHidden = true
     }
     

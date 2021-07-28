@@ -44,7 +44,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         return UIApplication.shared.isStatusBarHidden ? CGFloat(0) : UIApplication.shared.statusBarFrame.height
     }
     
-    var ApiProgress: UIProgressView!
+    var ApiProgress: AppProgressView!
     var previousRequest : DispatchWorkItem?
     let getSharableLink = GetSharableUrl()
     let viewModel = FlightResultSingleJourneyVM()
@@ -456,7 +456,7 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
         let contentOffset = scrollView.contentOffset
         let offsetDifference = contentOffset.y - self.viewModel.scrollviewInitialYOffset
         let safeAreaTop = AppDelegate.shared.window?.safeAreaInsets.top ?? 0
-        if let blurEffectView = self.navigationController?.view.viewWithTag(500), let progressView = self.navigationController?.view.viewWithTag(600), let stickyProgressView = self.navigationController?.view.viewWithTag(601) as? UIProgressView {
+        if let blurEffectView = self.navigationController?.view.viewWithTag(500), let progressView = self.navigationController?.view.viewWithTag(600), let stickyProgressView = self.navigationController?.view.viewWithTag(601) as? AppProgressView {
             if stickyProgressView.progress < 0.97 {
                 
                 if offsetDifference > 0 {

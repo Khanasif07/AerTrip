@@ -38,7 +38,7 @@ class HotelResultVC: BaseVC {
     @IBOutlet weak var mapButton: UIButton!
     @IBOutlet weak var searchBar: ATSearchBar!
     @IBOutlet weak var dividerView: ATDividerView!
-    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var progressView: AppProgressView!
     @IBOutlet weak var unPinAllFavouriteButton: UIButton!
     @IBOutlet weak var emailButton: ATButton! {
         didSet {
@@ -383,7 +383,7 @@ class HotelResultVC: BaseVC {
         self.setUpFloatingView()
         self.setupTableHeader()
         self.searchBar.delegate = self
-        self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
+//        self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
         self.searchIntitialFrame = self.searchBarContainerView.frame
         self.reloadHotelList()
         self.floatingButtonOnMapView.isHidden = true

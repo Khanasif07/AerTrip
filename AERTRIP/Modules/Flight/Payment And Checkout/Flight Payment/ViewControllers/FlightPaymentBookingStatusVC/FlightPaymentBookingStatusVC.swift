@@ -23,7 +23,7 @@ class FlightPaymentBookingStatusVC: BaseVC {
     }
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var returnHomeButton: UIButton!
-    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var progressView: AppProgressView!
     @IBOutlet weak var progressViewHeight: NSLayoutConstraint!
     
     var viewModel = FlightPaymentBookingStatusVM()
@@ -44,8 +44,6 @@ class FlightPaymentBookingStatusVC: BaseVC {
         self.setupReturnHomeButton()
         self.returnHomeButton.addGredient(isVertical: false)
         self.setBackgroundView()
-        self.progressView.progressTintColor = UIColor.AertripColor
-        self.progressView.trackTintColor = .clear
     }
     
     override func viewDidLayoutSubviews() {

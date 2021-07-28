@@ -27,7 +27,7 @@ class RegularAccountHeader: UIView {
     @IBOutlet weak var searchBar: ATSearchBar!
     @IBOutlet weak var filterButton: UIButton!
     @IBOutlet weak var optionButton: UIButton!
-    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var progressView: AppProgressView!
     
     weak var delegate:RegularAccountHeaderDelegate?
     private var time: Float = 0.0

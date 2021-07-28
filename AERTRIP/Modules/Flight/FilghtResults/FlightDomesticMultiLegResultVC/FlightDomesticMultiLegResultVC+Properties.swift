@@ -55,7 +55,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
 
     var testView = UIView()
     var apiProgress : Float = 0
-    var ApiProgress: UIProgressView!
+    var ApiProgress: AppProgressView!
     var flightSearchResultVM  : FlightSearchResultVM!
     var flightSearchType : FlightSearchType
     var fareBreakupVC : FareBreakupVC?
@@ -131,9 +131,7 @@ class FlightDomesticMultiLegResultVC: UIViewController , NoResultScreenDelegate,
         setupPinnedFlightsOptionsView()
         showHintAnimation()
         self.view.backgroundColor = AppColors.themeWhite
-        ApiProgress = UIProgressView(progressViewStyle: .bar)
-        ApiProgress.progressTintColor = UIColor.AertripColor
-        ApiProgress.trackTintColor = .clear
+        ApiProgress = AppProgressView(progressViewStyle: .bar)
         ApiProgress.progress = 0.25
         self.collectionContainerView.addSubview(ApiProgress)
 

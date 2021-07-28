@@ -19,7 +19,7 @@ class SpecialAccountDetailsVC: BaseVC {
             self.tableView.contentInset = UIEdgeInsets(top: 43.5, left: 0, bottom: 0, right: 0)
         }
     }
-    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var progressView: AppProgressView!
     @IBOutlet weak var loaderView:UIView!
     
     //MARK:- Properties

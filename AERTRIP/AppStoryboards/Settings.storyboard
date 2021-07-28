@@ -21,7 +21,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                                 <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="PLe-CU-TAW">
-                                    <rect key="frame" x="0.0" y="117.33333206176755" width="414" height="171.00000000000003"/>
+                                    <rect key="frame" x="0.0" y="117.33333206176758" width="414" height="171"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NRv-ny-DuO" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
@@ -254,7 +254,7 @@
                                     <constraint firstItem="Ozx-OB-bR7" firstAttribute="leading" secondItem="6Qh-Hh-DoL" secondAttribute="leading" id="ufm-XU-kNE"/>
                                 </constraints>
                             </view>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="BPm-xh-7yd">
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="BPm-xh-7yd" customClass="AppProgressView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="131" width="414" height="1"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="f6b-he-V6i"/>

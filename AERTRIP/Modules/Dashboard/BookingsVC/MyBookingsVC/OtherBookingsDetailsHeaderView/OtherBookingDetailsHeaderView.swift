@@ -23,7 +23,7 @@ class OtherBookingDetailsHeaderView: UIView {
     @IBOutlet weak var bookingIdAndDateTitleLabel: UILabel!
     @IBOutlet weak var bookingIdAndDateLabel: UILabel!
     @IBOutlet weak var dividerView: ATDividerView!
-    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var progressView: AppProgressView!
     @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var progressBottomConstraint: NSLayoutConstraint!
     

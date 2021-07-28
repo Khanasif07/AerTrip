@@ -17,7 +17,7 @@ class MailComposerVC: BaseVC {
     @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var acitivityIndicatorView: UIActivityIndicatorView!
-    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var progressView: AppProgressView!
     
     // MARK: Variables
     

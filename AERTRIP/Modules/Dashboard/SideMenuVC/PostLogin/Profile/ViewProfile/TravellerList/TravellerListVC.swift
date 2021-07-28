@@ -29,7 +29,7 @@ class TravellerListVC: BaseVC {
     @IBOutlet weak var searchBar: ATSearchBar!
     @IBOutlet weak var headerDividerView: ATDividerView!
     @IBOutlet weak var topNavView: TopNavigationView!
-    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var progressView: AppProgressView!
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var blurView: BlurView!
     

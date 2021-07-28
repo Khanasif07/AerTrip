@@ -11,7 +11,7 @@ import UIKit
 class PassengersSelectionVC: BaseVC {
 
     @IBOutlet weak var progressViewHeight: NSLayoutConstraint!
-    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var progressView: AppProgressView!
     @IBOutlet weak var backNavigationView: UIView!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var addButton: UIButton!
@@ -38,8 +38,6 @@ class PassengersSelectionVC: BaseVC {
         self.passengerTableview.separatorStyle = .none
         self.passengerTableview.delegate = self
         self.passengerTableview.dataSource = self
-        self.progressView.progressTintColor = UIColor.AertripColor
-        self.progressView.trackTintColor = .clear
         self.manageLoader()
         self.passengerTableview.contentInset = UIEdgeInsets(top: (backNavigationView.height - 0.5), left: 0, bottom: 0, right: 0)
 

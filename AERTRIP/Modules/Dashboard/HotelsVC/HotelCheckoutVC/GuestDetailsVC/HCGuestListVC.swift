@@ -39,7 +39,7 @@ class HCGuestListVC: BaseVC {
     //MARK:-
     @IBOutlet weak var tableView: ATTableView!
     @IBOutlet weak var containerBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var apiProgressBar: UIProgressView!
+    @IBOutlet weak var apiProgressBar: AppProgressView!
     
     //MARK:- Properties
     //MARK:- Public
@@ -82,8 +82,6 @@ class HCGuestListVC: BaseVC {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        self.apiProgressBar.progressTintColor = UIColor.AertripColor
-        self.apiProgressBar.trackTintColor = .clear
         self.apiProgressBar.progress = 0.0
         if self.currentlyUsingFor != .travellers{
             delay(seconds: 0.5) {

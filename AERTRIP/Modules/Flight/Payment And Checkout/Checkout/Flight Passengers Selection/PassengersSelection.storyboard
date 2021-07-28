@@ -241,7 +241,7 @@
                                     <constraint firstAttribute="height" constant="44" id="pxL-gz-yxo"/>
                                 </constraints>
                             </view>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="LQH-g6-sid">
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="LQH-g6-sid" customClass="AppProgressView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="88" width="414" height="1"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="pcb-Bp-ls1"/>

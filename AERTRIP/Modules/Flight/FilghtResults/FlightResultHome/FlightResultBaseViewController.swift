@@ -22,7 +22,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
         return statusBarHeight + 88.0
     }
 
-    var ApiProgress: UIProgressView!
+    var ApiProgress: AppProgressView!
     @IBOutlet weak var resultContainerTopOffset: NSLayoutConstraint!
     @IBOutlet weak var headerImageViewHeight: NSLayoutConstraint!
     var visualEffectView : UIView!
@@ -54,7 +54,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
     private var visualEffectBlurView: UIVisualEffectView!
     private var filterBackgroundColorView = UIView()
     
-    private var stickyProgressView: UIProgressView!
+    private var stickyProgressView: AppProgressView!
     
     private var numberOfLegs = 1 {
         didSet {
@@ -191,8 +191,7 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
             updateForAppearance()
             
             // sticky progress
-            stickyProgressView = UIProgressView(progressViewStyle: .bar)
-            stickyProgressView.progressTintColor = AppColors.themeGreen
+            stickyProgressView = AppProgressView(progressViewStyle: .bar)
             stickyProgressView.trackTintColor = AppColors.themeWhite
             stickyProgressView.progress = ApiProgress.progress
             stickyProgressView.tag = 601
@@ -279,15 +278,14 @@ class FlightResultBaseViewController: BaseVC , FilterUIDelegate {
             make.height.equalTo(42)
         }
         
-        ApiProgress = UIProgressView(progressViewStyle: .bar)
-        ApiProgress.progressTintColor = AppColors.themeGreen
+        ApiProgress = AppProgressView(progressViewStyle: .bar)
+        ApiProgress.hideBottomHalf = true
         ApiProgress.trackTintColor = AppColors.themeWhite
         ApiProgress.tag = 600
         ApiProgress.progress = 0.25
         ApiProgress.backgroundColor = AppColors.clear
     
-        stickyProgressView = UIProgressView(progressViewStyle: .bar)
-        stickyProgressView.progressTintColor = AppColors.themeGreen
+        stickyProgressView = AppProgressView(progressViewStyle: .bar)
         stickyProgressView.trackTintColor = AppColors.themeWhite
         stickyProgressView.progress = 0.25
         stickyProgressView.tag = 601

@@ -32,7 +32,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     @IBOutlet weak var filterButton: UIButton!
     @IBOutlet weak var searchBar: ATSearchBar!
     @IBOutlet weak var dividerView: ATDividerView!
-    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var progressView: AppProgressView!
     @IBOutlet weak var unPinAllFavouriteButton: UIButton!
     @IBOutlet weak var emailButton: UIButton!
     @IBOutlet weak var shareButton: UIButton!
