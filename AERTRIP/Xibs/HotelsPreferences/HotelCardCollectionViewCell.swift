@@ -69,7 +69,7 @@ class HotelCardCollectionViewCell: AppStoreAnimationCollectionCell {
         //-------------------------- End ---------------------
         gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.gradientView.bounds
-        let gradientColor = AppColors.themeBlack
+        let gradientColor = AppColors.unicolorBlack
         self.gradientLayer.colors =
             [gradientColor.withAlphaComponent(0.0).cgColor, gradientColor.withAlphaComponent(0.20).cgColor, gradientColor.withAlphaComponent(0.40).cgColor]
         self.gradientLayer.locations = [0.0, 0.5, 1.0]
