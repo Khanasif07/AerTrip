@@ -45,7 +45,7 @@ extension AppearanceVC: UITableViewDelegate, UITableViewDataSource {
         guard let footerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "SettingsHeaderView") as? SettingsHeaderView else {
             fatalError("SettingsHeaderView not found")
         }
-        footerView.topSepratorView.isHidden = false
+        footerView.topSepratorView.isHidden = true
         footerView.bottomSepratorView.isHidden = true
         footerView.titleLabel.text = ""
         return footerView

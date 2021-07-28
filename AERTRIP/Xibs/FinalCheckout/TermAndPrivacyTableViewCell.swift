@@ -20,7 +20,8 @@ class TermAndPrivacyTableViewCell: UITableViewCell {
     
     @IBOutlet weak var deviderView: ATDividerView!
     @IBOutlet weak var termAndPrivacyLabel: ActiveLabel!
-
+    @IBOutlet weak var labelTopConstraint: NSLayoutConstraint!
+    
     var currentUsingFrom = UsingFrom.hotelCheckout {
         didSet {
             self.linkSetupForTermsAndCondition(withLabel: self.termAndPrivacyLabel)
