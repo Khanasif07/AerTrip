@@ -504,8 +504,11 @@ enum AppColors {
     
     //(255,255,255)(92,92,92)
     static let changePasswordButtonColor = UIColor(named: "changePasswordButtonColor") ?? .white
-    
+//    (255, 255, 255, 0) (0, 0, 0)
     static let clearBlack = UIColor(named: "clearBlack") ?? AppColors.themeWhite
+    
+//    (0, 0, 0, 0.2) (0, 0, 0)
+    static let black20Percent = UIColor(named: "black20Percent") ?? AppColors.themeWhite
     
     case headlines
     case body
