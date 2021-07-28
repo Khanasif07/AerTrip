@@ -43,7 +43,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" name="themeBlack26"/>
                                 <constraints>
                                     <constraint firstItem="JZ8-SK-0S4" firstAttribute="centerX" secondItem="Nhh-IK-uzq" secondAttribute="centerX" id="Buw-ry-0So"/>
                                     <constraint firstItem="JZ8-SK-0S4" firstAttribute="top" secondItem="Nhh-IK-uzq" secondAttribute="top" constant="6" id="T2u-gL-0WJ"/>
@@ -2859,6 +2859,9 @@ been sent</string>
         <image name="unPinAllFavouriteIcon" width="76" height="76"/>
         <namedColor name="doneViewClearColor">
             <color red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="themeBlack26">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="themeWhite">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
