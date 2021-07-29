@@ -1079,6 +1079,7 @@ enum ATWeatherType: RawRepresentable {
     @objc static var greyColorTrack: UIImage { #imageLiteral(resourceName: "greyColorTrack") }
     @objc static var sliderHandle: UIImage { #imageLiteral(resourceName: "sliderHandle") }
     @objc static var greenBlueRangeImage: UIImage { #imageLiteral(resourceName: "greenBlueRangeImage") }
+    @objc static var thumbImage: UIImage { #imageLiteral(resourceName: "thumbImage") }
     
     
     static var arrow: UIImage{ #imageLiteral(resourceName: "arrow") }
