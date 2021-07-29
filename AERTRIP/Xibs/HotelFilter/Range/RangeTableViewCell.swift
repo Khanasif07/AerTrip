@@ -28,6 +28,11 @@ class RangeTableViewCell: UITableViewCell {
         addCurrentLocationView()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.stepSlider.sliderCircleImage = AppImages.thumbImage
+    }
+    
     func setupTexts() {
         self.searchResultRangeLabel.text = LocalizedString.SearchResultsRange.localized
     }

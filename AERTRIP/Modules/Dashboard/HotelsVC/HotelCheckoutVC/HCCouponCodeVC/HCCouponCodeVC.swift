@@ -71,6 +71,7 @@ class HCCouponCodeVC: BaseVC {
     @IBOutlet weak var blurView: BlurView!
     @IBOutlet weak var dividerLeading: NSLayoutConstraint!
     @IBOutlet weak var dividerTrailing: NSLayoutConstraint!
+    @IBOutlet weak var textFieldBackView: UIView!
     
     //Mark:- LifeCycle
     //================
@@ -121,6 +122,10 @@ class HCCouponCodeVC: BaseVC {
         darkView.backgroundColor = AppColors.themeBlack26
         darkView.isHidden = isLightTheme()
         blurView.isHidden = !isLightTheme()
+        //Remove prominent effect view to header color issue
+        self.blurView.subviews.first?.removeFromSuperview()
+        //add regular effect view for blur effect
+        blurView.addBlurEffect(style: .regular, alpha: 1.0)
         dividerLeading.constant = 0.0
         dividerTrailing.constant = 0.0
     }
@@ -163,6 +168,7 @@ class HCCouponCodeVC: BaseVC {
         self.discountLabel.textColor = AppColors.cheapestPriceColor
         self.couponInfoTextView.backgroundColor = AppColors.themeWhiteDashboard
         self.applyCouponButton.backgroundColor = AppColors.white82
+        self.textFieldBackView.backgroundColor = AppColors.clearBlack
     }
     
     override func bindViewModel() {
@@ -217,6 +223,7 @@ class HCCouponCodeVC: BaseVC {
         }
         self.emptyStateView.isHidden = !self.viewModel.searcedCouponsData.isEmpty
         self.couponTableView.isHidden = self.viewModel.searcedCouponsData.isEmpty
+        self.textFieldBackView.isHidden = self.viewModel.searcedCouponsData.isEmpty
         self.emptyStateView.backgroundColor = AppColors.themeWhite
         self.couponTableView.reloadData()
     }
