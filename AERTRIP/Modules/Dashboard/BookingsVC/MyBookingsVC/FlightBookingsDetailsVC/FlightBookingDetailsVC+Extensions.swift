@@ -440,6 +440,7 @@ extension FlightBookingsDetailsVC: MXParallaxHeaderDelegate {
             }
             
         }
+        self.topNavBar.backView.backgroundColor = .clear
         self.isNavBarHidden = false
         
     }

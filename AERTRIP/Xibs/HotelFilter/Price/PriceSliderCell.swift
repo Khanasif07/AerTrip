@@ -26,6 +26,10 @@ class PriceSliderCell: UITableViewCell {
         self.initialSetup()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.horizontalMultiSlider.showsThumbImageShadow = true
+    }
     
     private func initialSetup() {
         setupTexts()

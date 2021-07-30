@@ -67,7 +67,7 @@ class MyBookingsVC: BaseVC {
         self.hideAllData()
         MyBookingFilterVM.shared.searchText = ""
         MyBookingsVM.shared.isFetchingBooking = false
-
+        setBlurView()
         FirebaseEventLogs.shared.logEventsWithoutParam(with: .MyBookings)
 
 
@@ -148,6 +148,11 @@ class MyBookingsVC: BaseVC {
 //        self.statusBarBlurView.removeFromSuperview()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.setBlurView()
+    }
+    
     override func setupTexts() {
         self.emptyStateImageView.image = AppImages.booking_Emptystate
         self.emptyStateTitleLabel.text = LocalizedString.NoBookingsYet.localized
@@ -173,6 +178,20 @@ class MyBookingsVC: BaseVC {
     override func bindViewModel() {
         MyBookingsVM.shared.delgate = self
     }
+    
+    
+    private func setBlurView(){
+        //Remove prominent effect view to header color issue
+        self.blurBackgroundView.subviews.first?.removeFromSuperview()
+        //add regular effect view for blur effect
+        if !isLightTheme(){
+            blurBackgroundView.isHidden = isLightTheme()
+        }else{
+            blurBackgroundView.addBlurEffect(style: .regular, alpha: 1.0)
+        }
+        
+    }
+    
     // Asif Change
     public func setUpViewPager() {
         

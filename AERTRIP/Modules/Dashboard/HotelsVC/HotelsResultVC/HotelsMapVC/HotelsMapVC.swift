@@ -228,6 +228,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
             self.searchBar.text = self.viewModel.searchTextStr
             self.searchBar.hideMiceButton(isHidden: self.viewModel.searchTextStr.isEmpty)
         }
+        self.addCurrentLocationShadow()
     }
     
     private func addGradientToCardGradientView() {
@@ -265,6 +266,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         super.traitCollectionDidChange(previousTraitCollection)
         addGradientToCardGradientView()
         dividerView.isHidden = !isLightTheme()
+        self.addCurrentLocationShadow()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -327,6 +329,12 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         self.hotelsMapCV.reloadData()
         self.resetAllMarker()
         self.hotelSearchTableView.reloadData()
+    }
+    
+    
+    private func addCurrentLocationShadow(){
+        let cornerRadius = self.currentLocationButton.frame.height/2
+        self.currentLocationButton.addShadow(cornerRadius: cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMinXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMinYCorner], color: AppColors.black20Percent, offset: CGSize(width: 0.0, height: 4.0), opacity: 1, shadowRadius: 10)
     }
     
     func addCustomBackgroundBlurView(){

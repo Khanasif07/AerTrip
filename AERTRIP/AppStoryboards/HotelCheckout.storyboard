@@ -1471,7 +1471,7 @@ Incomplete</string>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bbZ-Jw-SZK" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="104"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="109.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5JP-fw-T5H">
@@ -1529,6 +1529,10 @@ Incomplete</string>
                                     <constraint firstItem="U23-fz-joJ" firstAttribute="leading" secondItem="r6P-mU-234" secondAttribute="trailing" constant="10" id="ue7-7v-CPR"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dws-le-PEc">
+                                <rect key="frame" x="0.0" y="44" width="375" height="65.5"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dgG-hf-niu">
                                 <rect key="frame" x="0.0" y="44" width="375" height="60"/>
                                 <subviews>
@@ -1543,6 +1547,7 @@ Incomplete</string>
                                     <constraint firstItem="4sX-zf-2aM" firstAttribute="leading" secondItem="dgG-hf-niu" secondAttribute="leading" constant="16" id="6kX-1X-aSG"/>
                                     <constraint firstAttribute="height" constant="60" id="DLx-FG-S8T"/>
                                     <constraint firstAttribute="trailing" secondItem="4sX-zf-2aM" secondAttribute="trailing" constant="8" id="Kk3-7X-YDI"/>
+                                    <constraint firstAttribute="width" constant="375" id="e2m-47-RUy"/>
                                     <constraint firstAttribute="bottom" secondItem="4sX-zf-2aM" secondAttribute="bottom" id="fBT-Q0-8NN"/>
                                     <constraint firstItem="4sX-zf-2aM" firstAttribute="top" secondItem="dgG-hf-niu" secondAttribute="top" id="uLi-iM-hIu"/>
                                 </constraints>
@@ -1564,13 +1569,13 @@ Incomplete</string>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No coupon required" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lld-jP-V4u">
-                                        <rect key="frame" x="21.5" y="145" width="197" height="26"/>
+                                        <rect key="frame" x="21.5" y="145" width="197" height="28"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="22"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You already have the best price." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="llj-Ng-uue">
-                                        <rect key="frame" x="0.0" y="175.5" width="240" height="21"/>
+                                        <rect key="frame" x="0.0" y="177.5" width="240" height="23"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1597,7 +1602,7 @@ Incomplete</string>
                                         <rect key="frame" x="0.0" y="458" width="375" height="209"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="CODE: AERHDFC" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QAj-eH-e4Y">
-                                                <rect key="frame" x="16" y="19" width="144.5" height="23"/>
+                                                <rect key="frame" x="16" y="19" width="124.5" height="23"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="23" id="8y7-no-4uK"/>
                                                 </constraints>
@@ -1680,6 +1685,7 @@ Incomplete</string>
                             <constraint firstItem="5Az-SF-g0l" firstAttribute="trailing" secondItem="5JP-fw-T5H" secondAttribute="trailing" id="3hA-pR-AUn"/>
                             <constraint firstItem="5JP-fw-T5H" firstAttribute="bottom" secondItem="VFj-MD-RgZ" secondAttribute="bottom" id="6Gy-e9-Pc3"/>
                             <constraint firstItem="5Az-SF-g0l" firstAttribute="trailing" secondItem="G1F-4q-n8L" secondAttribute="trailing" id="74F-oc-lpc"/>
+                            <constraint firstItem="Dws-le-PEc" firstAttribute="trailing" secondItem="dgG-hf-niu" secondAttribute="trailing" id="7YQ-Rx-Yhc"/>
                             <constraint firstItem="5JP-fw-T5H" firstAttribute="leading" secondItem="5Az-SF-g0l" secondAttribute="leading" id="Czu-ht-top"/>
                             <constraint firstItem="ZMg-6h-E0A" firstAttribute="leading" secondItem="5Az-SF-g0l" secondAttribute="leading" constant="67.5" id="F0V-PI-BU7"/>
                             <constraint firstItem="dgG-hf-niu" firstAttribute="leading" secondItem="5Az-SF-g0l" secondAttribute="leading" id="Hkf-vf-e2U"/>
@@ -1688,7 +1694,6 @@ Incomplete</string>
                             <constraint firstItem="nO1-9x-A83" firstAttribute="leading" secondItem="5Az-SF-g0l" secondAttribute="leading" id="OBF-Bb-Qk6"/>
                             <constraint firstItem="VFj-MD-RgZ" firstAttribute="leading" secondItem="5Az-SF-g0l" secondAttribute="leading" id="QAZ-Vt-QOF"/>
                             <constraint firstAttribute="bottom" secondItem="G1F-4q-n8L" secondAttribute="bottom" id="SYh-fz-dMo"/>
-                            <constraint firstItem="dgG-hf-niu" firstAttribute="bottom" secondItem="bbZ-Jw-SZK" secondAttribute="bottom" id="VTZ-3g-4lf"/>
                             <constraint firstItem="ZMg-6h-E0A" firstAttribute="centerY" secondItem="I3d-Xj-2CM" secondAttribute="centerY" constant="4.5" id="We5-3M-SZu"/>
                             <constraint firstItem="G1F-4q-n8L" firstAttribute="leading" secondItem="5Az-SF-g0l" secondAttribute="leading" id="YCe-ud-lYW"/>
                             <constraint firstItem="ZMg-6h-E0A" firstAttribute="centerX" secondItem="I3d-Xj-2CM" secondAttribute="centerX" id="YsD-xV-tls"/>
@@ -1696,16 +1701,20 @@ Incomplete</string>
                             <constraint firstItem="bbZ-Jw-SZK" firstAttribute="top" secondItem="I3d-Xj-2CM" secondAttribute="top" id="aJ8-QS-MXe"/>
                             <constraint firstAttribute="bottom" secondItem="nO1-9x-A83" secondAttribute="bottom" id="bLp-Bg-eKD"/>
                             <constraint firstItem="9uT-Oo-DUc" firstAttribute="top" secondItem="dgG-hf-niu" secondAttribute="bottom" constant="5" id="bM3-ZU-aUt"/>
+                            <constraint firstItem="Dws-le-PEc" firstAttribute="leading" secondItem="dgG-hf-niu" secondAttribute="leading" id="bZu-pP-4C4"/>
                             <constraint firstItem="dgG-hf-niu" firstAttribute="top" secondItem="VFj-MD-RgZ" secondAttribute="bottom" id="jZO-6z-rT4"/>
                             <constraint firstItem="5JP-fw-T5H" firstAttribute="top" secondItem="I3d-Xj-2CM" secondAttribute="top" id="lHN-wM-dXf"/>
                             <constraint firstItem="nO1-9x-A83" firstAttribute="top" secondItem="5Az-SF-g0l" secondAttribute="top" id="ly2-SU-GFr"/>
+                            <constraint firstItem="Dws-le-PEc" firstAttribute="top" secondItem="dgG-hf-niu" secondAttribute="top" id="mOV-4T-8qf"/>
                             <constraint firstItem="5Az-SF-g0l" firstAttribute="trailing" secondItem="9uT-Oo-DUc" secondAttribute="trailing" constant="16" id="mgb-L7-6Ft"/>
                             <constraint firstItem="dgG-hf-niu" firstAttribute="trailing" secondItem="5Az-SF-g0l" secondAttribute="trailing" id="nhX-hw-EjA"/>
                             <constraint firstItem="G1F-4q-n8L" firstAttribute="top" secondItem="I3d-Xj-2CM" secondAttribute="top" id="oHd-jl-XY8"/>
                             <constraint firstItem="5Az-SF-g0l" firstAttribute="trailing" secondItem="nO1-9x-A83" secondAttribute="trailing" id="obC-Iw-cI5"/>
+                            <constraint firstItem="bbZ-Jw-SZK" firstAttribute="bottom" secondItem="9uT-Oo-DUc" secondAttribute="bottom" id="obc-P3-xyQ"/>
                             <constraint firstItem="5Az-SF-g0l" firstAttribute="trailing" secondItem="VFj-MD-RgZ" secondAttribute="trailing" id="r6D-wy-TG8"/>
                             <constraint firstItem="bbZ-Jw-SZK" firstAttribute="leading" secondItem="5Az-SF-g0l" secondAttribute="leading" id="u6G-y2-alo"/>
                             <constraint firstItem="bbZ-Jw-SZK" firstAttribute="trailing" secondItem="5Az-SF-g0l" secondAttribute="trailing" id="vlh-hT-2Lb"/>
+                            <constraint firstItem="Dws-le-PEc" firstAttribute="bottom" secondItem="9uT-Oo-DUc" secondAttribute="bottom" id="xvB-kh-kQc"/>
                         </constraints>
                     </view>
                     <connections>
@@ -1732,6 +1741,7 @@ Incomplete</string>
                         <outlet property="noCouponsReqLabel" destination="lld-jP-V4u" id="6bL-z0-rZm"/>
                         <outlet property="offerTermsView" destination="Dlw-EG-3em" id="8Za-4r-XLZ"/>
                         <outlet property="offerTermsViewHeightConstraints" destination="bXs-rX-n45" id="7RX-7m-aKD"/>
+                        <outlet property="textFieldBackView" destination="Dws-le-PEc" id="bmq-1r-Nqt"/>
                         <outlet property="textFieldContainer" destination="dgG-hf-niu" id="0MH-Fi-j2L"/>
                     </connections>
                 </viewController>

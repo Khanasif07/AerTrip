@@ -24,6 +24,7 @@ class TextEditableTableViewCell: UITableViewCell {
         }
     }
     @IBOutlet weak var separatorView: ATDividerView!
+    @IBOutlet weak var separatorViewTrailing: NSLayoutConstraint!
     @IBOutlet weak var downArrowImageView: UIImageView!
     @IBOutlet weak var separatorLeadingConstraints: NSLayoutConstraint!
     

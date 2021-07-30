@@ -390,7 +390,6 @@ extension HotlelBookingsDetailsVC: MXParallaxHeaderDelegate {
     }
     
     @objc func updateForParallexProgress() {
-        
         let prallexProgress = self.bookingDetailsTableView.parallaxHeader.progress
         printDebug("intial progress value \(prallexProgress)")
         
@@ -465,6 +464,7 @@ extension HotlelBookingsDetailsVC: MXParallaxHeaderDelegate {
             }
             
         }
+//        self.topNavBar.backView.backgroundColor = AppColors.clear
         self.isNavBarHidden = false
         
     }

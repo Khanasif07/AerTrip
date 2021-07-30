@@ -30,7 +30,7 @@ class ViewProfileDetailVC: BaseVC {
     var frequentFlyer: [FrequentFlyer] = []
     var informations: [String] = []
     let passportDetaitTitle: [String] = [LocalizedString.passportNo.rawValue, LocalizedString.issueCountry.rawValue]
-    var flightPreferencesTitle: [String] = [LocalizedString.seatPreference.rawValue, LocalizedString.mealPreference.rawValue]
+    var flightPreferencesTitle: [String] = [LocalizedString.mealPreference.rawValue, LocalizedString.FrequentFlyer.rawValue]
     var passportDetails: [String] = []
     var flightDetails: [String] = []
     let tableViewHeaderViewIdentifier = "ViewProfileDetailTableViewSectionView"
@@ -183,8 +183,8 @@ class ViewProfileDetailVC: BaseVC {
         } else {
             if viewModel.currentlyUsingFor == .travellerList {
                 profileImageHeaderView?.profileImageView.image = AppGlobals.shared.getImageFor(firstName: travel.firstName, lastName: travel.lastName, font: AppFonts.Regular.withSize(35.0))
-                profileImageHeaderView?.backgroundImageView.image = AppGlobals.shared.getImageFor(firstName: travel.firstName, lastName: travel.lastName, textColor: AppColors.themeBlack)
-                profileImageHeaderView?.blurEffectView.alpha = 1.0
+                profileImageHeaderView?.backgroundImageView.image = AppGlobals.shared.getImageFor(firstName: travel.firstName, lastName: travel.lastName, textColor: AppColors.themeBlack).blur
+                profileImageHeaderView?.blurEffectView.alpha = 0.0
             } else {
                 profileImageHeaderView?.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(font: AppFonts.Regular.withSize(35.0))
                 profileImageHeaderView?.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(textColor: AppColors.themeBlack).blur
@@ -292,10 +292,17 @@ class ViewProfileDetailVC: BaseVC {
             if !sections.contains(LocalizedString.FlightPreferences.localized) {
                 sections.append(LocalizedString.FlightPreferences.localized)
                 flightPreferencesTitle.insert(LocalizedString.mealPreference.rawValue, at: 0)
+                flightPreferencesTitle.insert(LocalizedString.FrequentFlyer.rawValue, at: 1)
             } else {
                 flightPreferencesTitle.insert(LocalizedString.mealPreference.rawValue, at: 1)
+                flightPreferencesTitle.insert(LocalizedString.FrequentFlyer.rawValue, at: 2)
             }
+        }else{
+            flightPreferencesTitle.insert(LocalizedString.FrequentFlyer.rawValue, at: 0)
         }
+        
+        flightDetails.append("")
+        
         
         let frequentFlyer = travel.frequestFlyer
         if frequentFlyer.count > 0 {
@@ -455,6 +462,9 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
                 cell.configureCell(flightPreferencesTitle[indexPath.row], flightDetails[indexPath.row])
                 cell.sepratorLeadingConstraint.constant = (indexPath.row < (flightDetails.count + frequentFlyer.count)-1) ? 16.0 : 0.0
                 cell.separatorView.isHidden = false
+                if indexPath.row == flightDetails.count-1{
+                    cell.separatorView.isHidden = true
+                }
                 return cell
             }
             else {

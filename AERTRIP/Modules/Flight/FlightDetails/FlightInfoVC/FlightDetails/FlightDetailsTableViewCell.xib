@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -19,7 +19,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FlightDetailsCell" rowHeight="435" id="KGk-i7-Jjw" customClass="FlightDetailsTableViewCell" customModule="AERTRIP" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" restorationIdentifier="FlightDetailsCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="FlightDetailsCell" rowHeight="435" id="KGk-i7-Jjw" customClass="FlightDetailsTableViewCell" customModule="AERTRIP" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="435"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -265,15 +265,21 @@
                                                                             </userDefinedRuntimeAttribute>
                                                                         </userDefinedRuntimeAttributes>
                                                                     </label>
+                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OFB-1H-tqp">
+                                                                        <rect key="frame" x="37" y="27.5" width="0.0" height="0.0"/>
+                                                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
                                                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xDa-5I-VI4">
-                                                                        <rect key="frame" x="0.0" y="31.5" width="74.5" height="3"/>
+                                                                        <rect key="frame" x="0.0" y="30.5" width="74.5" height="3"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="3" id="Mnk-ep-T86"/>
                                                                         </constraints>
                                                                     </view>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Boeing 777-888 Passenger Aircraft (wingman)     3 - 4- 3 &gt;" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CHO-iY-EY9">
-                                                                        <rect key="frame" x="0.0" y="37.5" width="74.5" height="91"/>
+                                                                        <rect key="frame" x="0.0" y="36.5" width="74.5" height="91"/>
                                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="12"/>
                                                                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
@@ -285,11 +291,13 @@
                                                                     <constraint firstItem="CHO-iY-EY9" firstAttribute="top" secondItem="xDa-5I-VI4" secondAttribute="bottom" constant="3" id="GP0-h3-Ues"/>
                                                                     <constraint firstItem="BDa-l6-zti" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Nzu-pD-9hH" secondAttribute="leading" id="L6U-TQ-dcu"/>
                                                                     <constraint firstItem="xDa-5I-VI4" firstAttribute="leading" secondItem="Nzu-pD-9hH" secondAttribute="leading" id="La0-s6-BLz"/>
-                                                                    <constraint firstItem="xDa-5I-VI4" firstAttribute="top" secondItem="BDa-l6-zti" secondAttribute="bottom" constant="4" id="TCu-Qi-SmY"/>
+                                                                    <constraint firstItem="OFB-1H-tqp" firstAttribute="centerX" secondItem="BDa-l6-zti" secondAttribute="centerX" id="Mup-eJ-y7I"/>
+                                                                    <constraint firstItem="OFB-1H-tqp" firstAttribute="top" secondItem="BDa-l6-zti" secondAttribute="bottom" id="OBw-ho-pzJ"/>
                                                                     <constraint firstAttribute="trailing" secondItem="xDa-5I-VI4" secondAttribute="trailing" id="bHg-xb-ngL"/>
                                                                     <constraint firstAttribute="trailing" secondItem="CHO-iY-EY9" secondAttribute="trailing" id="fMp-Wn-e3h"/>
                                                                     <constraint firstItem="BDa-l6-zti" firstAttribute="centerX" secondItem="xDa-5I-VI4" secondAttribute="centerX" id="hq5-7q-anT"/>
                                                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="BDa-l6-zti" secondAttribute="trailing" id="k3J-7L-t3J"/>
+                                                                    <constraint firstItem="xDa-5I-VI4" firstAttribute="top" secondItem="OFB-1H-tqp" secondAttribute="bottom" constant="3" id="oUz-jy-FQ5"/>
                                                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="CHO-iY-EY9" secondAttribute="bottom" id="op6-8u-Kbr"/>
                                                                 </constraints>
                                                             </view>
@@ -510,6 +518,7 @@
                 <outlet property="topSeperatorView" destination="iht-fh-SCk" id="Iu2-V4-FjJ"/>
                 <outlet property="topSeperatorViewHeight" destination="eVO-gM-5Ij" id="cOK-3l-mxQ"/>
                 <outlet property="travelingtimeLabel" destination="BDa-l6-zti" id="5le-aZ-hso"/>
+                <outlet property="viaLabel" destination="OFB-1H-tqp" id="Qn2-rf-SBu"/>
             </connections>
             <point key="canvasLocation" x="244.92753623188409" y="217.29910714285714"/>
         </tableViewCell>
