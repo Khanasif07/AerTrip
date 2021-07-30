@@ -355,8 +355,8 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 cell.downArrowImageView.isHidden = false
 //                cell.configureCell(flightPreferencesTitle[indexPath.row], indexPath.row == 0 ? (viewModel.seat.isEmpty ? LocalizedString.Select.localized : viewModel.seat) : (viewModel.meal.isEmpty ? LocalizedString.Select.localized : viewModel.meal))
                 
-                
-                
+                cell.separatorView.backgroundColor = AppColors.dividerColor
+                cell.separatorViewTrailing.constant = 16
                 cell.configureCell(LocalizedString.mealPreference.rawValue, (viewModel.meal.isEmpty ? LocalizedString.Select.localized : viewModel.meal))
 
                 
