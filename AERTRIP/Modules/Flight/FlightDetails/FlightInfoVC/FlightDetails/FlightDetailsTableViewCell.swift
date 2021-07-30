@@ -61,6 +61,7 @@ class FlightDetailsTableViewCell: UITableViewCell
     
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var flightInfoView: UIView!
+    @IBOutlet weak var viaLabel: UILabel!
     
     
     
@@ -146,12 +147,22 @@ class FlightDetailsTableViewCell: UITableViewCell
 //            
 //        }
         travelingtimeLabel.textColor = AppColors.themeGray153
+        self.viaLabel.textColor = AppColors.themeBlack
+        self.viaLabel.font = AppFonts.Regular.withSize(14)
+        self.viaLabel.backgroundColor = AppColors.lightYellowAndGoldenGray
         equipmentsLabel.textColor = AppColors.themeGray40
         [operatorLabel, classLabel,classNameLabel, arrivalAirportAddressLabel, departureAirportAddressLabel].forEach{ lbl in
             lbl?.textColor  = AppColors.themeGray40
             
         }
         
+    }
+    
+    private func setCornerRadiusViaLabel(){
+        self.viaLabel.sizeToFit()
+        self.viaLabel.layer.cornerRadius = 3
+        self.viaLabel.layer.masksToBounds = true
+        self.viaLabel.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner,.layerMinXMaxYCorner, .layerMinXMinYCorner]
     }
     
     func setAirlineImage(with url: String)
@@ -176,37 +187,45 @@ class FlightDetailsTableViewCell: UITableViewCell
                 if halt.contains(","){
                     halt = halt.replacingOccurrences(of: ",", with: ", ")
                 }
-                let main_string111 = "  \(durationTitle) \n   Via \(halt)  ."
-                let string_to_color111 = "   Via \(halt)  "
+                let main_string111 = " \(durationTitle) "//\n   Via \(halt)  ."
+                let string_to_color111 = " Via \(halt) "
                 
-                let arrivalAirportRange = (main_string111 as NSString).range(of: string_to_color111)
+//                let arrivalAirportRange = (main_string111 as NSString).range(of: string_to_color111)
                 let haltAtAttributedString = NSMutableAttributedString(string:main_string111)
-                haltAtAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.clear , range: (main_string111 as NSString).range(of: "."))
+//                haltAtAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.clear , range: (main_string111 as NSString).range(of: "."))
                 
-                haltAtAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: AppColors.themeBlack , range: arrivalAirportRange)
-                haltAtAttributedString.addAttribute(NSAttributedString.Key.backgroundColor, value: AppColors.lightYellowAndGoldenGray, range: arrivalAirportRange)
+//                haltAtAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: AppColors.themeBlack , range: arrivalAirportRange)
+//                haltAtAttributedString.addAttribute(NSAttributedString.Key.backgroundColor, value: AppColors.lightYellowAndGoldenGray, range: arrivalAirportRange)
+                
                 
                 haltAtAttributedString.addAttribute(NSAttributedString.Key.font, value: AppFonts.Regular.withSize(14) , range: (main_string111 as NSString).range(of: main_string111))
-                
+                self.viaLabel.isHidden = false
+                self.viaLabel.text = string_to_color111
                 travellingTime = haltAtAttributedString
             }else{
+                self.viaLabel.isHidden = true
+                self.viaLabel.text = ""
                 travellingTime = NSAttributedString(string: durationTitle)
             }
         }else{
             if halt != ""{
-                let main_string111 = "\(travellingTiming) \n    Via \(halt)  ."
-                let string_to_color111 = "   Via \(halt)  "
+                let main_string111 = "\(travellingTiming)"// \n    Via \(halt)  ."
+                let string_to_color111 = " Via \(halt) "
                 
-                let arrivalAirportRange = (main_string111 as NSString).range(of: string_to_color111)
+//                let arrivalAirportRange = (main_string111 as NSString).range(of: string_to_color111)
                 let haltAtAttributedString = NSMutableAttributedString(string:main_string111)
-                haltAtAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: AppColors.themeBlack , range: arrivalAirportRange)
-                haltAtAttributedString.addAttribute(NSAttributedString.Key.backgroundColor, value: AppColors.lightYellowAndGoldenGray, range: arrivalAirportRange)
-                haltAtAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.clear , range: (main_string111 as NSString).range(of: "."))
+//                haltAtAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: AppColors.themeBlack , range: arrivalAirportRange)
+//                haltAtAttributedString.addAttribute(NSAttributedString.Key.backgroundColor, value: AppColors.lightYellowAndGoldenGray, range: arrivalAirportRange)
+//                haltAtAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.clear , range: (main_string111 as NSString).range(of: "."))
                 
                 haltAtAttributedString.addAttribute(NSAttributedString.Key.font, value: AppFonts.Regular.withSize(14) , range: (main_string111 as NSString).range(of: main_string111))
-                
+                self.viaLabel.text = string_to_color111
+                self.viaLabel.isHidden = false
                 travellingTime = haltAtAttributedString
+                
             }else{
+                self.viaLabel.isHidden = true
+                self.viaLabel.text = ""
                 travellingTime = NSAttributedString(string:travellingTiming)
             }
         }
@@ -231,6 +250,7 @@ class FlightDetailsTableViewCell: UITableViewCell
         }
         
         travelingtimeLabel.textAlignment = .center
+        self.setCornerRadiusViaLabel()
     }
     
     func setJourneyTitle(){
@@ -294,12 +314,12 @@ class FlightDetailsTableViewCell: UITableViewCell
     }
     
     
-    func setClassNameLabelWidth(){
-        let fontAttributes = [NSAttributedString.Key.font: AppFonts.Regular.withSize(14)]
-        let myText = classNameLabel.text ?? ""
-        let size = (myText as NSString).size(withAttributes: fontAttributes as [NSAttributedString.Key : Any])
-        classNameLabelWidth.constant = size.width
-    }
+//    func setClassNameLabelWidth(){
+//        let fontAttributes = [NSAttributedString.Key.font: AppFonts.Regular.withSize(14)]
+//        let myText = classNameLabel.text ?? ""
+//        let size = (myText as NSString).size(withAttributes: fontAttributes as [NSAttributedString.Key : Any])
+//        classNameLabelWidth.constant = size.width
+//    }
     
     func dateConverter(dateStr:String)-> String{
         let dateFormatter = DateFormatter()
