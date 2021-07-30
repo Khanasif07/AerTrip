@@ -183,8 +183,8 @@ class ViewProfileDetailVC: BaseVC {
         } else {
             if viewModel.currentlyUsingFor == .travellerList {
                 profileImageHeaderView?.profileImageView.image = AppGlobals.shared.getImageFor(firstName: travel.firstName, lastName: travel.lastName, font: AppFonts.Regular.withSize(35.0))
-                profileImageHeaderView?.backgroundImageView.image = AppGlobals.shared.getImageFor(firstName: travel.firstName, lastName: travel.lastName, textColor: AppColors.themeBlack)
-                profileImageHeaderView?.blurEffectView.alpha = 1.0
+                profileImageHeaderView?.backgroundImageView.image = AppGlobals.shared.getImageFor(firstName: travel.firstName, lastName: travel.lastName, textColor: AppColors.themeBlack).blur
+                profileImageHeaderView?.blurEffectView.alpha = 0.0
             } else {
                 profileImageHeaderView?.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(font: AppFonts.Regular.withSize(35.0))
                 profileImageHeaderView?.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(textColor: AppColors.themeBlack).blur
