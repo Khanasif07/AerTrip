@@ -124,7 +124,7 @@ extension SeatMapVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
             changesMade = true
             self.resetSeatColorToGreen(indexPath)
         }
-        present(passengerVC, animated: false, completion: nil)
+        parent?.parent?.view.superview?.viewContainingController?.present(passengerVC, animated: false, completion: nil)
     }
     
     private func resetSeatColorToGreen(_ indexPath: IndexPath) {
@@ -151,7 +151,7 @@ extension SeatMapVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
         baggageTermsVC.modalPresentationStyle = .overFullScreen
         baggageTermsVC.baggageTermsVM.agreeCompletion = agreed
 //        DispatchQueue.delay(0.5) {
-            self.present(baggageTermsVC, animated: true, completion: nil)
+        self.parent?.parent?.view.superview?.viewContainingController?.present(baggageTermsVC, animated: true, completion: nil)
 //        }
     }
     
@@ -167,7 +167,7 @@ extension SeatMapVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
         let seatTitle = seatData.columnData.seatNumber + " •  ₹ \(seatData.columnData.amount.formattedWithCommaSeparator)"
         postSeatSelectionPopupVC.setTexts(seatTitle, seatData.columnData.getCharactericstic())
         postSeatSelectionPopupVC.modalPresentationStyle = .overFullScreen
-        present(postSeatSelectionPopupVC, animated: false, completion: nil)
+        parent?.parent?.view.superview?.viewContainingController?.present(postSeatSelectionPopupVC, animated: false, completion: nil)
     }
 }
 
