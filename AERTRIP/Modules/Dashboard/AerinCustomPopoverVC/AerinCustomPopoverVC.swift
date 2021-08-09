@@ -223,7 +223,7 @@ class AerinCustomPopoverVC: BaseVC {
                 UIApplication.shared.endIgnoringInteractionEvents()
             }
             
-            self.messageTextView.placeholder = ""
+            self.messageTextView.placeholder = LocalizedString.TryDelhiToGoaTomorrow.localized
             self.invalidateTypingCellTimer()
             guard  let msg = self.messageTextView.text, !msg.isEmpty else { return }
             if self.chatVm.messages.isEmpty {
@@ -523,6 +523,7 @@ class AerinCustomPopoverVC: BaseVC {
         chatTableView.keyboardDismissMode = .onDrag
         messageTextView.tintColor = AppColors.themeGreen
         messageTextView.placeholder = LocalizedString.TryDelhiToGoaTomorrow.localized
+        messageTextView.placeholderTextColor = AppColors.seatsBorder
     }
     
     func resetListeningLbl() {
