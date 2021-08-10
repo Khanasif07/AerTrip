@@ -250,7 +250,8 @@ extension PassengersSelectionVC: UseGSTINCellDelegate, FareBreakupVCDelegate, Jo
         vc.intJourney = [self.viewModel.itineraryData.itinerary.details]
         vc.intAirportDetailsResult = self.viewModel.intAirportDetailsResult
         vc.intAirlineDetailsResult = self.viewModel.intAirlineDetailsResult
-        vc.selectedJourneyFK = [self.viewModel.itineraryData.itinerary.details.fk]
+        vc.selectedJourneyFK = self.viewModel.itineraryData.itinerary.details.leg
+        // [self.viewModel.itineraryData.itinerary.details.fk]
         vc.journeyTitle = self.viewModel.bookingTitle
         vc.journeyDate = self.viewModel.journeyDate
         vc.modalPresentationStyle = .popover

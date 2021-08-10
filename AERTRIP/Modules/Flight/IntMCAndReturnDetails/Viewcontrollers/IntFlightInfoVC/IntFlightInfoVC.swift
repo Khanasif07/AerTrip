@@ -252,51 +252,60 @@ class IntFlightInfoVC: BaseVC, UITableViewDataSource, UITableViewDelegate, getSe
                     
                     //let bgWeight = flight.bg?["ADT"]?.weight
                     if baggageData.count > 0{
-                        if index < (baggageData.first?.count ?? 0){
-//                            let bgs = baggageData.first
-                            let bgs = baggageData.first?["\(flight.ffk)"] as? JSONDictionary
+                        if indexPath.section < (baggageData.count){
+                            
+                            
+                            let bs = baggageData[indexPath.section].first
+                            if bs?.key == flight.ffk{
+//                                let bgs = baggageData.first?["\(flight.ffk)"] as? JSONDictionary
 
-                            if let bgData = bgs?["bg"] as? JSONDictionary{
-                                if let adtBaggage = bgData["ADT"] as? JSONDictionary{
-                                    if let weight = adtBaggage["weight"] as? String, let pieces = adtBaggage["pieces"] as? String{
-                                        if pieces != "" && pieces != "-9" && pieces != "-1" && pieces != "0 pc" && pieces != "0"{
-                                            if isSEDevice{
-                                                amenitiesData.append("Check-in Baggage (\(pieces))")
-                                            }else{
-                                                amenitiesData.append("Check-in Baggage \n(\(pieces))")
-                                            }
-                                        }else{
-                                            if weight != "" && weight != "-9" && weight != "-1" && weight != "0 kg"{
-                                                if isSEDevice{
-                                                    amenitiesData.append("Check-in Baggage (\(weight))")
-                                                }else{
-                                                    amenitiesData.append("Check-in Baggage \n(\(weight))")
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            if let cbgData = bgs?["cbg"] as? JSONDictionary{
-//                            if let cbgData = baggageData[index]["cbg"] as? JSONDictionary{
-                                if let adtCabinBaggage = cbgData["ADT"] as? JSONDictionary{
-                                    if let weight = adtCabinBaggage["weight"] as? String, let pieces = adtCabinBaggage["pieces"] as? String
-                                    {
-                                        if weight != "" && weight != "-9" && weight != "-1" && weight != "0 kg"{
-                                            amenitiesData.append("Cabbin Baggage \n(\(weight))")
-                                        }else{
+                                let bgs = bs?.value as? JSONDictionary
+
+                                if let bgData = bgs?["bg"] as? JSONDictionary{
+                                    if let adtBaggage = bgData["ADT"] as? JSONDictionary{
+                                        if let weight = adtBaggage["weight"] as? String, let pieces = adtBaggage["pieces"] as? String{
                                             if pieces != "" && pieces != "-9" && pieces != "-1" && pieces != "0 pc" && pieces != "0"{
-                                                
-                                                if pieces.containsIgnoringCase(find: "pc"){
-                                                    amenitiesData.append("Cabbin Baggage \n(\(pieces))")
+                                                if isSEDevice{
+                                                    amenitiesData.append("Check-in Baggage (\(pieces))")
                                                 }else{
-                                                    amenitiesData.append("Cabbin Baggage \n(\(pieces) pc)")
+                                                    amenitiesData.append("Check-in Baggage \n(\(pieces))")
+                                                }
+                                            }else{
+                                                if weight != "" && weight != "-9" && weight != "-1" && weight != "0 kg"{
+                                                    if isSEDevice{
+                                                        amenitiesData.append("Check-in Baggage (\(weight))")
+                                                    }else{
+                                                        amenitiesData.append("Check-in Baggage \n(\(weight))")
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                if let cbgData = bgs?["cbg"] as? JSONDictionary{
+    //                            if let cbgData = baggageData[index]["cbg"] as? JSONDictionary{
+                                    if let adtCabinBaggage = cbgData["ADT"] as? JSONDictionary{
+                                        if let weight = adtCabinBaggage["weight"] as? String, let pieces = adtCabinBaggage["pieces"] as? String
+                                        {
+                                            if weight != "" && weight != "-9" && weight != "-1" && weight != "0 kg"{
+                                                amenitiesData.append("Cabbin Baggage \n(\(weight))")
+                                            }else{
+                                                if pieces != "" && pieces != "-9" && pieces != "-1" && pieces != "0 pc" && pieces != "0"{
+                                                    
+                                                    if pieces.containsIgnoringCase(find: "pc"){
+                                                        amenitiesData.append("Cabbin Baggage \n(\(pieces))")
+                                                    }else{
+                                                        amenitiesData.append("Cabbin Baggage \n(\(pieces) pc)")
+                                                    }
                                                 }
                                             }
                                         }
                                     }
                                 }
                             }
+//                            let bs1 = bs?["\(flight.ffk)"] as? JSONDictionary
+//                            let bgs = baggageData.first
+
                         }
                         if amenitiesData.count > 0{
                             cell.amenitiesDelegate = self
