@@ -44,7 +44,7 @@ struct Leg
     
     
         let sourcePro14 = AppFonts.Regular.withSize(16)
-        let attributes =   [NSAttributedString.Key.font : sourcePro14 , NSAttributedString.Key.foregroundColor : UIColor.ONE_FIVE_THREE_COLOR]
+        let attributes =   [NSAttributedString.Key.font : sourcePro14 , NSAttributedString.Key.foregroundColor : AppColors.themeGray153]
     
     let combinedString = NSMutableAttributedString(string: origin + " ", attributes: attributes)
     let destinationString = NSAttributedString(string: " " + destination, attributes: attributes)
