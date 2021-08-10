@@ -134,6 +134,7 @@ extension AddOnVC {
         self.view.addSubview(viewForFare)
         let dataStore = AddonsDataStore.shared
         let vc = IntFareBreakupVC.instantiate(fromAppStoryboard: .InternationalReturnAndMulticityDetails)
+        vc.isCheckoutDetails = true
         vc.taxesResult = dataStore.taxesResult
         vc.journey = [dataStore.itinerary.details]
         vc.sid = dataStore.itinerary.sid
@@ -145,7 +146,6 @@ extension AddOnVC {
         vc.modalPresentationStyle = .overCurrentContext
         vc.selectedJourneyFK = [dataStore.itinerary.details.fk]
         vc.fewSeatsLeftViewHeightFromFlightDetails = 0
-        vc.isCheckoutDetails = true
         let ts = CATransition()
         ts.type = .moveIn
         ts.subtype = .fromTop
