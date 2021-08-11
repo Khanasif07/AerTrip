@@ -65,7 +65,12 @@ class ReceiverChatCell : UITableViewCell {
             paragraphDeltaText.removeLast()
         }
         let deltaAttStr = NSMutableAttributedString(string: paragraphDeltaText, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeBlack.withAlphaComponent(0.6), NSAttributedString.Key.font: AppFonts.Regular.withSize(14)])
-        
+
+        let fromRange: NSRange = deltaAttStr.mutableString.range(of: "From:", options: .caseInsensitive)
+        let toRange: NSRange = deltaAttStr.mutableString.range(of: "to:", options: .caseInsensitive)
+        let tripRange: NSRange = deltaAttStr.mutableString.range(of: "trip Type:", options: .caseInsensitive)
+
+
         if !msgObj.depart.isEmpty && !msgObj.origin.isEmpty && !msgObj.destination.isEmpty {
             let resultStr = LocalizedString.hereAreYourResults.localized
             var resultMutableStr = NSMutableAttributedString()
@@ -81,6 +86,12 @@ class ReceiverChatCell : UITableViewCell {
             if msgObj.showDetails {
                 let deltaStr = deltaAttStr.mutableString.appending("\n")
                 let newDeltaAttStr = NSMutableAttributedString(string: deltaStr, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeBlack.withAlphaComponent(0.6), NSAttributedString.Key.font: AppFonts.Regular.withSize(14)])
+                
+                newDeltaAttStr.addAttribute(NSAttributedString.Key.foregroundColor, value: AppColors.themeBlack.withAlphaComponent(0.4), range: fromRange)
+                newDeltaAttStr.addAttribute(NSAttributedString.Key.foregroundColor, value: AppColors.themeBlack.withAlphaComponent(0.4), range: toRange)
+                newDeltaAttStr.addAttribute(NSAttributedString.Key.foregroundColor, value: AppColors.themeBlack.withAlphaComponent(0.4), range: tripRange)
+
+                
                 newDeltaAttStr.append(resultStr)
                 if deltaAttStr.string.isEmpty {
                     finalStr = resultStr
