@@ -93,7 +93,7 @@ class SelectMealCell: UITableViewCell {
                 return contact.firstName
              }
             let conaSaperatedNames = allNamesArray.joined(separator: " and ")
-            self.quantityLabel.text = "X\(data.mealsSelectedFor.count)"
+            self.quantityLabel.text = "x\(data.mealsSelectedFor.count)"
             self.quantityLabel.isHidden = false
             self.mealForLabel.text = "For \(conaSaperatedNames)"
                       
@@ -105,7 +105,7 @@ class SelectMealCell: UITableViewCell {
                    return contact.firstName
                }
                let conaSaperatedNames = allNamesArray.joined(separator: ", ").replacingLastOccurrenceOfString(", ", with: " and ", caseInsensitive: true)
-               self.quantityLabel.text = "X\(data.mealsSelectedFor.count)"
+               self.quantityLabel.text = "x\(data.mealsSelectedFor.count)"
                self.quantityLabel.isHidden = false
             self.mealForLabel.text = "For \(conaSaperatedNames)"
             
