@@ -1028,6 +1028,7 @@ Not to worry! Your booking is our highest priority. Our customer support team sh
 
 
 //MARK:- Settings
+"disableOTP" = "Disable OTP";
 "Currency" = "Currency";
 "EnableDisableAllNotifications" = "To enable or disable notifications go to Settings → Notifications → Aertrip → All Notifications";
 "GetNotifiedAboutYourBookings" = "Get notified about your bookings";

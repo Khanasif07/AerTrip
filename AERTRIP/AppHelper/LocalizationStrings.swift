@@ -410,6 +410,7 @@ enum LocalizedString: String {
     case WantMoreRooms
     case RequestBulkBooking
     case LoginAndSubmit = "Login & Submit"
+
     
     // MARK: - Room Guest Selection
     
@@ -1104,6 +1105,7 @@ enum LocalizedString: String {
     case KindlyDisconnectMessage
     
     //MARK:- Settings
+    case disableOTP
     case Currency
     case EnableDisableAllNotifications = "EnableDisableAllNotifications"
     case GetNotifiedAboutYourBookings = "GetNotifiedAboutYourBookings"
