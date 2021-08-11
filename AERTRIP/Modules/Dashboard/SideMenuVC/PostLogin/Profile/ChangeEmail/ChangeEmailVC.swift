@@ -123,8 +123,8 @@ class ChangeEmailVC: BaseVC {
         self.nextButton.setTitleColor(AppColors.unicolorWhite, for: .normal)
         self.nextButton.setTitleColor(AppColors.unicolorWhite, for: .selected)
         self.nextButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
-        self.nextButton.setTitle(LocalizedString.Submit.localized, for: .normal)
-        self.nextButton.setTitle(LocalizedString.Submit.localized, for: .selected)
+        self.nextButton.setTitle(LocalizedString.Change.localized, for: .normal)
+        self.nextButton.setTitle(LocalizedString.Change.localized, for: .selected)
     }
     
     private func setOptTextField(){
