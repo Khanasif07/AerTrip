@@ -131,7 +131,7 @@ class UseGSTINCell: UITableViewCell {
         if self.isErrorNeedToShowError{
             companyNameSeparatorView.defaultBackgroundColor = (self.gstModel.companyName.isEmpty) ? AppColors.themeRed : AppColors.divider.color
             billingNameSeperatorView.defaultBackgroundColor = (self.gstModel.billingName.isEmpty) ? AppColors.themeRed : AppColors.divider.color
-            gstNumberDivider.defaultBackgroundColor = (!self.gstModel.GSTInNo.checkValidity(.gst)) ? AppColors.themeRed : AppColors.divider.color
+            gstNumberDivider.defaultBackgroundColor = (!self.gstModel.GSTInNo.checkValidity(.gst)) ? AppColors.themeRed : AppColors.dividerColor2
         }
     }
     
@@ -174,7 +174,7 @@ extension UseGSTINCell: UITextFieldDelegate{
         case self.billingNameTextField:
             billingNameSeperatorView.defaultBackgroundColor = AppColors.divider.color
         case self.gSTNumberTextField:
-            gstNumberDivider.defaultBackgroundColor = AppColors.divider.color
+            gstNumberDivider.defaultBackgroundColor = AppColors.dividerColor2
         default:break
         }
 

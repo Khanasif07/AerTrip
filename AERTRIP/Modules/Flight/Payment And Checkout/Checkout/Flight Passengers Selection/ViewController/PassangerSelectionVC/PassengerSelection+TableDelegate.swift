@@ -133,6 +133,8 @@ extension PassengersSelectionVC: UITableViewDelegate, UITableViewDataSource {
             return cell
         case 1:
             guard let cell = self.passengerTableview.dequeueReusableCell(withIdentifier: "FlightEmptyCell") as? FlightEmptyCell else {return UITableViewCell()}
+            cell.topDividerView.defaultBackgroundColor = AppColors.dividerColor2
+            cell.bottomDividerView.defaultBackgroundColor = AppColors.dividerColor2
             return cell
         default:
             return UITableViewCell()
@@ -173,6 +175,8 @@ extension PassengersSelectionVC: UITableViewDelegate, UITableViewDataSource {
             if viewModel.isSwitchOn{
                 cell.setupForNewGST()
             }
+            cell.gstNumberDivider.backgroundColor = AppColors.dividerColor2
+            cell.gstNumberDivider.defaultBackgroundColor = AppColors.dividerColor2
             return cell
         case 5:
             guard let cell = self.passengerTableview.dequeueReusableCell(withIdentifier: "FlightEmptyCell") as? FlightEmptyCell else {return UITableViewCell()}
@@ -180,6 +184,8 @@ extension PassengersSelectionVC: UITableViewDelegate, UITableViewDataSource {
             cell.spaceView.isHidden = viewModel.isSwitchOn
             cell.bottomDividerView.isHidden = !(self.viewModel.isTravelSefetyRequired)
             cell.backgroundColor = AppColors.themeGray04
+            cell.topDividerView.backgroundColor = AppColors.dividerColor2
+            cell.bottomDividerView.backgroundColor = AppColors.dividerColor2
 
             return cell
         default:
@@ -197,6 +203,7 @@ extension PassengersSelectionVC: UITableViewDelegate, UITableViewDataSource {
             guard let cell = self.passengerTableview.dequeueReusableCell(withIdentifier: "FlightEmptyCell") as? FlightEmptyCell else {return UITableViewCell()}
             cell.bottomDividerView.isHidden = true
             cell.backgroundColor = AppColors.themeGray04
+            cell.topDividerView.backgroundColor = AppColors.dividerColor2
             return cell
         default:
             return UITableViewCell()
