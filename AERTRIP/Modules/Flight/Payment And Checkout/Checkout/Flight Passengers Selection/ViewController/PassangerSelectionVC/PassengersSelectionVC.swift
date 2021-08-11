@@ -293,9 +293,14 @@ extension PassengersSelectionVC{
             })
         }
         else {
+            var isMulticity = false
+            if viewModel.bookingObject?.flightSearchType.rawValue == 2{
+                isMulticity = true
+            }
+            
             // dipped
             self.viewModel.logEvent(with: .fareDipped)
-            FareUpdatedPopUpVC.showPopUp(isForIncreased: false, decreasedAmount: Double(-diff), increasedAmount: 0, totalUpdatedAmount: 0, continueButtonAction: nil, goBackButtonAction: nil)
+            FareUpdatedPopUpVC.showPopUp(isForIncreased: false, decreasedAmount: Double(-diff), increasedAmount: 0, totalUpdatedAmount: 0, continueButtonAction: nil, goBackButtonAction: nil, isMultiJourney:isMulticity)
             self.updateListingFare()
             delay(seconds: 5.0) { [weak self] in
                 guard let self = self else { return }

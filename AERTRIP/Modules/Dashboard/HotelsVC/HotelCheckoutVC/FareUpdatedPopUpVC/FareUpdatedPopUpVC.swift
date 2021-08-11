@@ -177,7 +177,7 @@ class FareUpdatedPopUpVC: BaseVC {
         }
     }
     
-    class func showPopUp(isForIncreased: Bool, decreasedAmount: Double, increasedAmount: Double, totalUpdatedAmount: Double, continueButtonAction: (()->Void)?, goBackButtonAction: (()->Void)?){
+    class func showPopUp(isForIncreased: Bool, decreasedAmount: Double, increasedAmount: Double, totalUpdatedAmount: Double, continueButtonAction: (()->Void)?, goBackButtonAction: (()->Void)?, isMultiJourney : Bool = false){
         
         if let topVC = UIApplication.topViewController() {
             let obj = FareUpdatedPopUpVC.instantiate(fromAppStoryboard: .HotelCheckout)
@@ -188,6 +188,9 @@ class FareUpdatedPopUpVC: BaseVC {
                 obj.showIncreasedPopUp(increasedAmount: increasedAmount, totalUpdatedAmount: totalUpdatedAmount, continueButtonAction: continueButtonAction, goBackButtonAction: goBackButtonAction)
             }
             else {
+                if isMultiJourney{
+                    obj.decreaseBottomConstraint.constant = 118.0
+                }
                 obj.showDecreasedPopUp(decreasedAmount: decreasedAmount)
             }
         }
