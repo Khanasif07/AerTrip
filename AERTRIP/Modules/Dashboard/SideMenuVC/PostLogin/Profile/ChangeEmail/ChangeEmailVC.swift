@@ -26,7 +26,8 @@ class ChangeEmailVC: BaseVC {
     @IBOutlet weak var verifyEmailDescription: UILabel!
     @IBOutlet weak var dismisButton: UIButton!
     
-    
+    @IBOutlet weak var showPasswordButton: UIButton!
+
     let viewModel = ChangeEmailVM()
     
     override func viewDidLoad() {
@@ -159,6 +160,18 @@ class ChangeEmailVC: BaseVC {
         self.passwordTextField.placeholder = LocalizedString.Password.localized
     }
     
+    
+    @IBAction func showPasswordButtonAction(_ sender: UIButton) {
+        self.passwordTextField.isSecureTextEntry = !self.passwordTextField.isSecureTextEntry
+        if !self.passwordTextField.isSecureTextEntry {
+            self.showPasswordButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 4, right: 1.5)
+            sender.setImage(AppImages.showPassword, for: .normal)
+        } else {
+            self.showPasswordButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 1, bottom: -1, right: 1.5)
+            sender.setImage(AppImages.hidePassword, for: .normal)
+        }
+    }
+
     func performDismissAnimation(){
         UIView.animate(withDuration: 0.5, animations: {
             self.transparentBackView.transform = CGAffineTransform(translationX: 0, y: self.transparentBackView.height)
