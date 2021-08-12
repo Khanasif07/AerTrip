@@ -26,27 +26,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4lL-UD-KLw">
-                                <rect key="frame" x="16" y="8" width="288" height="18"/>
+                                <rect key="frame" x="16" y="8" width="288" height="16.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                 <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eNX-Hf-1t1" customClass="PKFloatLabelTextField" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="16" y="26" width="295" height="25"/>
+                                <rect key="frame" x="16" y="24.5" width="295" height="26.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mWy-wU-7W4" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="16" y="59.5" width="304" height="0.5"/>
+                                <rect key="frame" x="16" y="59.5" width="288" height="0.5"/>
                                 <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="D5B-vp-uP8"/>
                                 </constraints>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="downArrow" translatesAutoresizingMaskIntoConstraints="NO" id="9zh-hX-Yy2">
-                                <rect key="frame" x="295" y="35.5" width="9" height="6"/>
+                                <rect key="frame" x="295" y="35" width="9" height="6"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="6" id="9mU-m7-2ap"/>
                                     <constraint firstAttribute="width" constant="9" id="QR6-WO-knz"/>
@@ -62,7 +62,7 @@
                             <constraint firstItem="4lL-UD-KLw" firstAttribute="leading" secondItem="zQx-5q-OB9" secondAttribute="leading" constant="16" id="Mh2-y4-ZMb"/>
                             <constraint firstItem="9zh-hX-Yy2" firstAttribute="centerY" secondItem="eNX-Hf-1t1" secondAttribute="centerY" id="PQT-gJ-hHz"/>
                             <constraint firstAttribute="height" constant="60" id="PRV-Vc-Dpp"/>
-                            <constraint firstAttribute="trailing" secondItem="mWy-wU-7W4" secondAttribute="trailing" id="Sv4-1r-v0P"/>
+                            <constraint firstAttribute="trailing" secondItem="mWy-wU-7W4" secondAttribute="trailing" constant="16" id="Sv4-1r-v0P"/>
                             <constraint firstItem="eNX-Hf-1t1" firstAttribute="leading" secondItem="zQx-5q-OB9" secondAttribute="leading" constant="16" id="YKj-mR-HzI"/>
                             <constraint firstItem="9zh-hX-Yy2" firstAttribute="trailing" secondItem="eNX-Hf-1t1" secondAttribute="trailing" constant="-7" id="a8v-hv-JUb"/>
                             <constraint firstItem="4lL-UD-KLw" firstAttribute="top" secondItem="zQx-5q-OB9" secondAttribute="top" constant="8" id="gNf-cd-9Q3"/>
@@ -92,7 +92,7 @@
     </objects>
     <designables>
         <designable name="eNX-Hf-1t1">
-            <size key="intrinsicContentSize" width="4" height="24.5"/>
+            <size key="intrinsicContentSize" width="6" height="23"/>
         </designable>
     </designables>
     <resources>
