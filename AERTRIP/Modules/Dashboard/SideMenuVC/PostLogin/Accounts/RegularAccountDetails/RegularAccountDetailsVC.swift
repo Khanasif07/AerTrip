@@ -393,7 +393,7 @@ extension RegularAccountDetailsVC{
             self.topNavView.firstRightButton.isUserInteractionEnabled = false
             self.topNavView.secondRightButton.isUserInteractionEnabled = false
             self.topNavView.navTitleLabel.text = LocalizedString.Accounts.localized
-            self.headerView?.accountLaderTitleLabel.text = LocalizedString.AccountLegder.localized
+            self.headerView?.accountLaderTitleLabel.text = LocalizedString.AccountsLegder.localized
             self.headerView?.accountLaderTitleLabel.alpha = alpha
             self.headerView?.filterButton.alpha = alpha
             self.headerView?.optionButton.alpha = alpha
@@ -402,7 +402,7 @@ extension RegularAccountDetailsVC{
             self.topNavView.secondRightButton.alpha = alpha
             self.topNavView.firstRightButton.isUserInteractionEnabled = true
             self.topNavView.secondRightButton.isUserInteractionEnabled = true
-            self.topNavView.navTitleLabel.text = LocalizedString.AccountLegder.localized
+            self.topNavView.navTitleLabel.text = LocalizedString.AccountsLegder.localized
             self.headerView?.accountLaderTitleLabel.alpha = 1.0 - alpha
             self.headerView?.filterButton.alpha = 1.0 - alpha
             self.headerView?.optionButton.alpha = 1.0 - alpha
