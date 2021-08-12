@@ -21,6 +21,9 @@ class RegularAccountHeader: UIView {
     @IBOutlet weak var balanceTitleLabel: UILabel!
     @IBOutlet weak var balanceValueLabel: UILabel!
     @IBOutlet weak var emptyView: UIView!
+    @IBOutlet weak var dividerView: ATDividerView!
+    @IBOutlet weak var dividerView1: ATDividerView!
+    @IBOutlet weak var dividerView2: ATDividerView!
     @IBOutlet weak var accountTitleFilterView: UIView!
     @IBOutlet weak var accountLaderTitleLabel: UILabel!
     @IBOutlet weak var searchbarView: UIView!

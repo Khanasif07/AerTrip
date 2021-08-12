@@ -134,6 +134,9 @@ class RegularAccountDetailsVC: BaseVC {
 
     private func setHeaderView(){
         guard self.headerView != nil else{return}
+        headerView?.dividerView.defaultBackgroundColor = AppColors.dividerColor2
+        headerView?.dividerView1.defaultBackgroundColor = AppColors.dividerColor2
+        headerView?.dividerView2.defaultBackgroundColor = AppColors.dividerColor2
         self.headerView?.frame = CGRect(
             x: 0,
             y: tableView.safeAreaInsets.top,
@@ -291,7 +294,9 @@ class RegularAccountDetailsVC: BaseVC {
                 }
                 self.headerView?.filterButton.isSelected = (self.currentViewState == .filterApplied)
                 self.topNavView.secondRightButton.isSelected = (self.currentViewState == .filterApplied)
+                
         })
+        
     }
     
     

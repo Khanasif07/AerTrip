@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -192,6 +192,9 @@
                 <outlet property="amountView" destination="doE-No-beC" id="0Qj-Mv-YPb"/>
                 <outlet property="balanceTitleLabel" destination="Yti-aP-4I6" id="wT0-lQ-VFe"/>
                 <outlet property="balanceValueLabel" destination="AZQ-O3-b45" id="3pF-KM-oEo"/>
+                <outlet property="dividerView" destination="oWC-Ip-oLa" id="Lm8-dN-G2u"/>
+                <outlet property="dividerView1" destination="gIo-sB-ct5" id="arU-AG-Zlh"/>
+                <outlet property="dividerView2" destination="o1s-rN-uva" id="YNW-0k-ck9"/>
                 <outlet property="emptyView" destination="3e9-7K-i5w" id="ABt-Yh-Jym"/>
                 <outlet property="filterButton" destination="cyj-Gw-Fed" id="znT-4N-Kuk"/>
                 <outlet property="optionButton" destination="6M6-oo-che" id="PIR-yN-Rin"/>
