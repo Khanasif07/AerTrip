@@ -1482,6 +1482,7 @@
     self.searchBar.text = @"";
     
     [self ResetSearch];
+    [self doneAction:@"onAirportCellSelected"];
 }
 
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
