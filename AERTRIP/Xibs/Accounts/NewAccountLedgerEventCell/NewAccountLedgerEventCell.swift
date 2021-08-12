@@ -156,7 +156,7 @@ class NewAccountLedgerEventCell: UITableViewCell {
         if let currency = self.event?.currencyRate{
             self.currencyChangeStack.isHidden = false
             let attText = abs(self.event?.amount ?? 0.0).convertAmount(with: currency, using: AppFonts.SemiBold.withSize(18.0))
-            attText.append(NSAttributedString(string: suff))
+            attText.append(NSAttributedString(string: " \(suff)"))
             self.changeCurrencyValueLabel.attributedText =  attText
         }else{
             self.currencyChangeStack.isHidden = true
