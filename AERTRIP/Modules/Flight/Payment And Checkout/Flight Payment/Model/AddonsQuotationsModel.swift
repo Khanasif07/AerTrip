@@ -128,7 +128,20 @@ struct QTFlights {
         let attributes = [NSAttributedString.Key.font:AppFonts.Regular.withSize(14.0), .foregroundColor: AppColors.themeBlack]
         let origin = NSAttributedString(string: self.origin, attributes: attributes)
         route.append(origin)
-        route.append((AppGlobals.shared.getStringFromImage(with: AppImages.onewayIcon)))
+//        route.append((AppGlobals.shared.getStringFromImage(with: AppImages.onewayIcon)))
+        
+        
+        let imageAttachment = NSTextAttachment()
+        let sourceSansPro18 = AppFonts.Regular.withSize(14.0)
+        let iconImage = AppImages.onewayIcon//UIImage(named: name ) ?? UIImage()
+        imageAttachment.image = iconImage
+        
+        let yCordinate  = roundf(Float(sourceSansPro18.capHeight - iconImage.size.height) / 2.0)
+        imageAttachment.bounds = CGRect(x: CGFloat(0.0), y: CGFloat(yCordinate) , width: iconImage.size.width, height: iconImage.size.height )
+        let imageString = NSAttributedString(attachment: imageAttachment)
+        route.append(imageString)
+        
+        
         let destination = NSAttributedString(string: self.destination, attributes: attributes)
         route.append(destination)
         return route
