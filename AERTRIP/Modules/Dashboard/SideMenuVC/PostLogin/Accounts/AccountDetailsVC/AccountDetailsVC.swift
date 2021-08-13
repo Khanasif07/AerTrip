@@ -367,7 +367,7 @@ class AccountDetailsVC: BaseVC {
     private func showMoreOptions() {
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Email.localized, LocalizedString.DownloadAsPdf.localized], colors: [AppColors.themeDarkGreen, AppColors.themeDarkGreen])
         
-        _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
+        _ = PKAlertController.default.presentActionSheet(LocalizedString.AccountsLegder.localized, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
             if index == 0 {
                 //email tapped
 
