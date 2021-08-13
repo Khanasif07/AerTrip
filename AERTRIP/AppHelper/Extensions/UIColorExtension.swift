@@ -81,6 +81,8 @@ extension UIColor {
     
     @objc static var WHITE_COLOR : UIColor  { AppColors.themeWhite } //{ return UIColor(red: 255/255.0 , green:255/255.0 , blue:255/255.0 , alpha:1) }
     
+    @objc static var checkoutApplyColor : UIColor  { AppColors.checkoutApplyColor }
+    
     @objc static var FB_COLOR : UIColor {AppColors.fbButtonBackgroundColor} //{ return UIColor(red: 66/255.0 , green:97/255.0 , blue:168/255.0 , alpha:1) }
     
     @objc static var AppColorCustom : UIColor { AppColors.themeDarkGreen } //{ return UIColor(red: 0/255.0 , green:179/255.0 , blue:134/255.0 , alpha:1) }

@@ -262,6 +262,21 @@ CGFloat animatedDistance;
 
 
 -(void)setupColor{
+    UIColor *color = [UIColor checkoutApplyColor];
+    _preferredFlightValueTextField.attributedPlaceholder =
+      [[NSAttributedString alloc] initWithString:@"Flight Number"
+        attributes:@{
+           NSForegroundColorAttributeName: color
+        }
+      ];
+
+    _specialRequestValueTextField.attributedPlaceholder =
+      [[NSAttributedString alloc] initWithString:@"(If Any)"
+        attributes:@{
+           NSForegroundColorAttributeName: color
+        }
+      ];
+    
     self.bottomView.backgroundColor = [UIColor WHITE_COLOR];
     self.contentView.backgroundColor = [UIColor themeBlack26];
     self.headerView.backgroundColor = [UIColor themeWhiteDashboard];//[UIColor doneViewClearColor];
@@ -277,7 +292,6 @@ CGFloat animatedDistance;
     self.contentView.layer.maskedCorners = kCALayerMinXMaxYCorner | kCALayerMaxXMaxYCorner;
     self.multicityRemoveLabel.textColor = [UIColor muticityAddRemoveTextColor];
     self.multicityAddFlightTitle.textColor = [UIColor muticityAddRemoveTextColor];
-    
     
     self.grabberView.backgroundColor = [UIColor dividerColor];
 }
