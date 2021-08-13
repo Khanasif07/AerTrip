@@ -89,7 +89,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)getRecentSearches;
 - (void) logEvents:(NSString *) Name journyType:(NSString *) type valueString:(NSString *) value valueDict:(NSDictionary *) dictValue;
 - (NSString*) getCurrentBookingType;
-
+- (NSString *)formateDateForMultiCityAPIRequest:(NSDate *) date;
 @property (strong , nonatomic) NSString * airlineCode;
 
 @end

@@ -1049,6 +1049,42 @@ CGFloat animatedDistance;
     NSString *tripType = @"single";
     if (self.isMultiCity) {
         tripType = @"multi";
+        
+        for (int i = 0 ; i  < self.formDataModel.multiCityArray.count ; i++ ){
+            
+            MulticityFlightLeg * flightLeg = [self.formDataModel.multiCityArray objectAtIndex:i];
+            
+            NSString * origin = flightLeg.origin.iata;
+            
+            if ( origin == nil) {
+                break;
+            }
+            NSString * destination = flightLeg.destination.iata;
+
+            if ( destination == nil) {
+                break;
+            }
+            NSDate * date = flightLeg.travelDate;
+
+            if ( date == nil) {
+                break;
+            }
+            
+             NSString *nameOriginKey = [NSString stringWithFormat:@"source[%i]",i];
+            [parametersDynamic setObject:origin forKey:nameOriginKey];
+            
+
+            NSString *nameDestinationKey = [NSString stringWithFormat:@"destination[%i]",i];
+            [parametersDynamic setObject:destination forKey:nameDestinationKey];
+
+            
+            NSString * dateInString = [self.formDataModel formateDateForMultiCityAPIRequest:date];
+            
+            NSString *nameDepartKey = [NSString stringWithFormat:@"from_date[%i]",i];
+            [parametersDynamic setObject:dateInString forKey:nameDepartKey];
+
+        }
+        
     }else {
         if (self.isReturn) {
             tripType = @"return";
