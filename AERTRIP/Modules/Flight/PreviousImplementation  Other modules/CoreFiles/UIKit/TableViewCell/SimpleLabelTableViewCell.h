@@ -11,4 +11,5 @@
 @interface SimpleLabelTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *mainLabel;
 @property (weak, nonatomic) IBOutlet UIView *lineView;
+@property (weak, nonatomic) IBOutlet UIView *lineView1;
 @end

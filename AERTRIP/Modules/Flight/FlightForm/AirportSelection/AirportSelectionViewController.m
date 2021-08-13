@@ -183,6 +183,7 @@
     self.toSubTitleLabel.textColor = [UIColor themeBlack];
     [self manageDoneView];
     self.doneOutterView.backgroundColor = [UIColor themeWhiteDashboard];
+    self.separatorView.backgroundColor = [UIColor dividerColor2];
 }
 
 
@@ -1167,7 +1168,10 @@
     cell.contentView.backgroundColor = [UIColor themeWhiteDashboard];
     cell.mainLabel.textColor = [UIColor themeGray60];
     cell.mainLabel.text = [key uppercaseString];
-    
+
+    cell.lineView.backgroundColor = [UIColor dividerColor2];
+    cell.lineView1.backgroundColor = [UIColor dividerColor2];
+
     return [cell contentView];
 }
 - (AirportSearch *)airportSearchForIndexPath:(NSIndexPath * _Nonnull)indexPath {
