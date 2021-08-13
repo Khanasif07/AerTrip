@@ -276,7 +276,9 @@ CGFloat animatedDistance;
     self.contentView.layer.cornerRadius = 10;
     self.contentView.layer.maskedCorners = kCALayerMinXMaxYCorner | kCALayerMaxXMaxYCorner;
     self.multicityRemoveLabel.textColor = [UIColor muticityAddRemoveTextColor];
-    self.multicityRemoveLabel.textColor = [UIColor muticityAddRemoveTextColor];
+    self.multicityAddFlightTitle.textColor = [UIColor muticityAddRemoveTextColor];
+    
+    
     self.grabberView.backgroundColor = [UIColor dividerColor];
 }
 
