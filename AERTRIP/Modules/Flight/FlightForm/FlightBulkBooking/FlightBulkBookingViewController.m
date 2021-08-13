@@ -92,6 +92,7 @@
 @property (weak, nonatomic) IBOutlet UIView *passengerContainerView;
 @property (weak, nonatomic) IBOutlet UIView *classContainerView;
 
+@property (weak, nonatomic) IBOutlet UIView *grabberView;
 
 
 @property (strong , nonatomic) CLLocationManager * locationManager;
@@ -276,6 +277,7 @@ CGFloat animatedDistance;
     self.contentView.layer.maskedCorners = kCALayerMinXMaxYCorner | kCALayerMaxXMaxYCorner;
     self.multicityRemoveLabel.textColor = [UIColor muticityAddRemoveTextColor];
     self.multicityRemoveLabel.textColor = [UIColor muticityAddRemoveTextColor];
+    self.grabberView.backgroundColor = [UIColor dividerColor];
 }
 
 - (void)setupSegmentControl {

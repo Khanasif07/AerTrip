@@ -1064,6 +1064,7 @@
                         <outlet property="fromToViewHeightConstraint" destination="aXE-Mk-J3X" id="TZV-RM-cws"/>
                         <outlet property="fromValueHeight" destination="Zwr-a8-p1V" id="7xD-hC-3gE"/>
                         <outlet property="fromValueLabel" destination="9yH-va-rZA" id="3kl-8r-CjT"/>
+                        <outlet property="grabberView" destination="f2d-ck-dvR" id="pJb-3M-UWg"/>
                         <outlet property="headerView" destination="rT4-iu-vXO" id="uBl-OV-sXs"/>
                         <outlet property="multiCityTableView" destination="Awv-xQ-pyj" id="5jM-P8-dgV"/>
                         <outlet property="multiCityTableViewHeightConstraint" destination="nT9-em-5qo" id="EmJ-zS-TRX"/>
