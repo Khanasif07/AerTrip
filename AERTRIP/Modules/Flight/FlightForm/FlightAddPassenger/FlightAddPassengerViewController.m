@@ -441,7 +441,7 @@ int alreadySelectedComponent = 0;
         NSUInteger adultCount = tempTravellerCount.flightAdultCount ;
         [self.pickerView selectRow:adultCount inComponent:2 animated:YES];
         //        [AertripToastView hideToast];
-        [AertripToastView toastInView:self.view withText:@"Infats should not exceed adults"];
+        [AertripToastView toastInView:self.view withText:@"Infants should not exceed adults"];
         [self logEvents:@"27"];
         
         self.travellerCount.flightAdultCount = adultCount;
