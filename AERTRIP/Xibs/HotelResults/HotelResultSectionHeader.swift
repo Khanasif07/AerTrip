@@ -23,8 +23,10 @@ class HotelResultSectionHeader: UITableViewHeaderFooterView {
         labelBackgroundView.layer.cornerRadius =  labelBackgroundView.frame.size.height / 2
         labelBackgroundView.layer.masksToBounds = true
         titleLabel.layer.masksToBounds = true
-        labelBackgroundView.addBlurEffect(backgroundColor: AppColors.themeGray10.withAlphaComponent(0.85), style:  UIBlurEffect.Style.light, alpha: 1)
-        labelBackgroundView.backgroundColor = AppColors.clear
+//        labelBackgroundView.addBlurEffect(backgroundColor: AppColors.themeGray10.withAlphaComponent(0.85), style:  UIBlurEffect.Style.light, alpha: 1)
+        labelBackgroundView.backgroundColor = AppColors.hotel51
+        titleLabel.textColor = AppColors.themeBlack
+        
         titleLabel.font = AppFonts.Regular.withSize(14.0)
         //        UIView.animate(withDuration: 0.5) {
         //            if #available(iOS 14.0, *) {
