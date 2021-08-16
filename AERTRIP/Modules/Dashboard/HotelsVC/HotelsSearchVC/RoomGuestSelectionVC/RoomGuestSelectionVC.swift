@@ -109,7 +109,7 @@ class RoomGuestSelectionVC: BaseVC {
         
         self.roomNumberLabel.textColor = AppColors.themeBlack
         self.guestSelectionLabel.textColor = AppColors.themeGray153
-        self.messageLabel.textColor = AppColors.themeOrange
+        self.messageLabel.textColor = AppColors.cheapestPriceColor
         
         self.adultsTitleLabel.textColor = AppColors.themeBlack
         self.adultsAgeLabel.textColor = AppColors.themeGray153
