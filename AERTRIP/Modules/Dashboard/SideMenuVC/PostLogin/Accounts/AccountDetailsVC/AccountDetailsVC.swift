@@ -48,7 +48,8 @@ class AccountDetailsVC: BaseVC {
     @IBOutlet weak var openingBalanceDateLabel: UILabel!
     @IBOutlet weak var openingBalanceAmountLabel: UILabel!
     @IBOutlet weak var progressView: AppProgressView!
-    
+    @IBOutlet weak var searchBarDivider: ATDividerView!
+
     
     //MARK:- Properties
     //MARK:- Public
@@ -121,7 +122,7 @@ class AccountDetailsVC: BaseVC {
         self.tableView.registerCell(nibName: NewAccountLedgerEventCell.reusableIdentifier)
         
         self.searchBar.isMicEnabled = true
-        
+        self.searchBarDivider.defaultBackgroundColor = AppColors.dividerColor2
         
         if let usr = UserInfo.loggedInUser, usr.userCreditType == .regular {
             self.viewModel.getAccountDetails(showProgres: true)

@@ -229,6 +229,7 @@
                         <outlet property="progressView" destination="JfE-Y0-1gq" id="6Za-p8-Fba"/>
                         <outlet property="searchBar" destination="AMg-KB-Rja" id="1Cb-Bf-LOr"/>
                         <outlet property="searchBarContainerView" destination="ETc-M1-MdA" id="jly-ao-CLH"/>
+                        <outlet property="searchBarDivider" destination="iVV-oM-qnO" id="1Tg-Df-MFP"/>
                         <outlet property="searchContainerView" destination="OhW-km-KdJ" id="ZcA-ux-lHw"/>
                         <outlet property="searchDataContainerView" destination="PGS-5S-Bgb" id="dmu-Og-aAT"/>
                         <outlet property="searchModeSearchBarTopConstraint" destination="QK6-YX-wfb" id="XDb-93-afr"/>
