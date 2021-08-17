@@ -133,13 +133,13 @@ extension SearchHotelTagVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "SearchTagTableCell", for: indexPath) as? SearchTagTableCell else { return UITableViewCell() }
         cell.hotelTagName.text = self.copyOfTagButtons[indexPath.row]
-        if indexPath.row == self.copyOfTagButtons.count - 1 {
-            cell.dividerViewLeadingConstraints.constant = 0.0
-            cell.dividerViewTrailingConstraints.constant = 0.0
-        } else {
+//        if indexPath.row == self.copyOfTagButtons.count - 1 {
+//            cell.dividerViewLeadingConstraints.constant = 0.0
+//            cell.dividerViewTrailingConstraints.constant = 0.0
+//        } else {
             cell.dividerViewLeadingConstraints.constant = 16.0
-             cell.dividerViewTrailingConstraints.constant = 16.0
-        }
+             cell.dividerViewTrailingConstraints.constant = 0.0
+//        }
         cell.contentView.backgroundColor = AppColors.themeWhite
         return cell
     }
