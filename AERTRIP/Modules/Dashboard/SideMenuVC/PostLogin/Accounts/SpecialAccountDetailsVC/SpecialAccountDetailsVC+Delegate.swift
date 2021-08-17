@@ -538,7 +538,7 @@ class AccountSummeryCell: UITableViewCell {
         self.amountLabel.isHidden = false
         self.amountLabel.font = AppFonts.SemiBold.withSize(16.0)
         self.amountLabel.textColor = AppColors.themeBlack
-        self.amountLabel.attributedText = totalAmount.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+        self.amountLabel.attributedText = totalAmount.asStylizedPrice(using: AppFonts.SemiBold.withSize(18.0))
     }
     
     private func configureNext(title: String) {
