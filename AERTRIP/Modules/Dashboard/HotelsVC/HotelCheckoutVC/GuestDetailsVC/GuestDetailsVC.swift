@@ -277,6 +277,8 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
             //            if indexPath.row < self.travellers.count {
             cell.travellerModelData = self.viewModel.objectForIndexPath(indexPath: indexPath)
             //            }
+            
+            cell.backgroundColor = AppColors.hotelsCheckOutDetails
             return cell
         }
     }
