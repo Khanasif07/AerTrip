@@ -302,7 +302,16 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
             }
             
             if indexPath.row == 0 && (indexPath.section - 1) != 0{
-                return 36.0
+//                return 36.0
+                
+                let section = indexPath.section - 1
+                let model = self.viewModel.sectionArray[section][indexPath.row]
+                if (model.title == "Passengers" || model.title == "   " || model.title == "Guests"){
+                    return UITableView.automaticDimension
+                }else{
+                    return 36.0
+                }
+                
             }else if indexPath.row == 0 && isForVouchre{
                 return 36.0
             }else if indexPath.row == self.viewModel.sectionArray[indexPath.section - 1].count-2{
