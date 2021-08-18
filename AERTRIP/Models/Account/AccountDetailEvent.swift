@@ -531,6 +531,11 @@ struct AccountDetailEvent {
         let attributedString = NSMutableAttributedString(string: title, attributes: [NSAttributedString.Key.foregroundColor : AppColors.themeBlack])
         let range = NSString(string: title).range(of: coloredText)
         attributedString.addAttributes([NSAttributedString.Key.foregroundColor : color], range: range)
+        
+        if title.contains(LocalizedString.CancellationFor.localized){
+            attributedString.addAttributes([NSAttributedString.Key.font : AppFonts.Regular.withSize(14)], range: range)
+        }
+        
         return attributedString
         
     }
