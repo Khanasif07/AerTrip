@@ -199,8 +199,17 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
         
         //Sector Attributed text For return and single journey
         
-        if let sector =  self.viewModel.ladgerEvent?.attributedSector, title == "Sector"{
-            cell.configureCellWithAttributedText(title: title, description: sector)
+        if let sector =  self.viewModel.ladgerEvent?.attributedString, title == "Sector"{
+            
+
+
+            if sector.string.contains(LocalizedString.CancellationFor.localized){
+                let desc = LocalizedString.CancellationFor.localized + " " + description
+                cell.configure(title: title, description: desc, age: "")
+            }else{
+                cell.configureCellWithAttributedText(title: title, description: sector)
+            }
+            
         }
         
 
@@ -407,6 +416,7 @@ class AccountLadgerDetailCell: UITableViewCell {
         self.descLabel.font = AppFonts.Regular.withSize(16.0)
         self.descLabel.textColor = AppColors.themeBlack//textFieldTextColor51
         self.descLabel.attributedText = description
+        
     }
     
     func setTitleFor(key: String, value: String){
