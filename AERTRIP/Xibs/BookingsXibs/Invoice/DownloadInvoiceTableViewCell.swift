@@ -10,8 +10,8 @@ import UIKit
 
 class DownloadInvoiceTableViewCell: ATTableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var topDividerView: UIView!
-    @IBOutlet weak var bottomDividerView: UIView!
+    @IBOutlet weak var topDividerView: ATDividerView!
+    @IBOutlet weak var bottomDividerView: ATDividerView!
     @IBOutlet weak var loader: UIActivityIndicatorView!
     
     var showLoader: Bool = false {
@@ -38,5 +38,7 @@ class DownloadInvoiceTableViewCell: ATTableViewCell {
     
     override func setupColors() {
         self.titleLabel.textColor = AppColors.themeGreen
+        self.bottomDividerView.defaultBackgroundColor = AppColors.dividerColor2
+        self.topDividerView.defaultBackgroundColor = AppColors.dividerColor2
     }
 }
