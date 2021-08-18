@@ -49,7 +49,8 @@ class AccountOutstandingLadgerVC: BaseVC {
     @IBOutlet weak var indicatorView: UIActivityIndicatorView!
     @IBOutlet weak var subHeaderTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var gradientView: UIView!
-    
+    @IBOutlet weak var dividerView: ATDividerView!
+
     //MARK:- Properties
     //MARK:- Public
     let viewModel = AccountOutstandingLadgerVM()
@@ -219,6 +220,9 @@ class AccountOutstandingLadgerVC: BaseVC {
         self.mainSearchBar.textFieldColor = AppColors.miniPlaneBack
         
         self.makePaymentContainerView.addShadow(cornerRadius: 0.0, shadowColor: AppColors.themeGreen, backgroundColor: AppColors.clear, offset: CGSize(width: 0.0, height: 12.0))
+        
+        self.dividerView.defaultBackgroundColor = AppColors.dividerColor2
+//        self.dividerView.backgroundColor = AppColors.dividerColor2
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

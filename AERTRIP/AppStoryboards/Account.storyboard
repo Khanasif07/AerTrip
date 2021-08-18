@@ -717,6 +717,7 @@
                     </view>
                     <connections>
                         <outlet property="blankSpaceView" destination="nYu-z2-KrL" id="rJY-0n-8wL"/>
+                        <outlet property="dividerView" destination="yr9-of-4Ou" id="d6q-Ux-eFS"/>
                         <outlet property="gradientView" destination="NTQ-N0-pQw" id="SsZ-Xs-haS"/>
                         <outlet property="grossOutstandingLabel" destination="sK3-u2-UiK" id="mfM-Qt-NkE"/>
                         <outlet property="grossOutstandingValueLabel" destination="JVQ-UP-Rp0" id="w14-nE-5qI"/>
