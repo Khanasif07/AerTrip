@@ -274,6 +274,8 @@ class FlightResultSingleJourneyVC: UIViewController,  flightDetailsPinFlightDele
     func showEmailViewController(body : String) {
         if MFMailComposeViewController.canSendMail() {
             let composeVC = MFMailComposeViewController()
+            composeVC.overrideUserInterfaceStyle = .light
+
             composeVC.mailComposeDelegate = self
             // Configure the fields of the interface.
             composeVC.setSubject("Checkout these great flights I pinned on Aertrip!")
