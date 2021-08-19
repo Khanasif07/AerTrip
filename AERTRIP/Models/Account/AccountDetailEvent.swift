@@ -141,6 +141,7 @@ struct AccountDetailEvent {
     var utrNumner = ""
     
     var currencyRate:CurrencyConversionRate?
+    var currency = ""
     
     var numOfRows: Int {
         return 2
@@ -192,6 +193,9 @@ struct AccountDetailEvent {
             self.currencyRate = CurrencyConversionRate(json: obj)
         }
         
+        if let curr = json["currency"] as? String{
+            self.currency = curr
+        }
         if let obj = json["voucher_number"] {
             self.voucherNo = "\(obj)"
         }

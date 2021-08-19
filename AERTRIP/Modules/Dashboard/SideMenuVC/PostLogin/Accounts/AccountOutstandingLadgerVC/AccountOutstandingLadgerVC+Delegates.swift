@@ -172,7 +172,7 @@ extension AccountOutstandingLadgerVC: UITableViewDataSource, UITableViewDelegate
                 if self.viewModel.selectedEvent.isEmpty{
                     self.viewModel.selectedEvent.append(event)
                 }else{
-                    if self.viewModel.selectedEvent.first?.currencyRate?.currencyCode == event.currencyRate?.currencyCode{
+                    if self.viewModel.selectedEvent.first?.currency == event.currency{
                         self.viewModel.selectedEvent.append(event)
                     }else{
                         AppToast.default.showToastMessage(message: LocalizedString.SelectSameCurrencyOnly.localized)
