@@ -120,9 +120,9 @@ class AccountLadgerDetailsVM {
                 }
                 
                 if idx == (self.ladgerEvent!.names.count - 1){
-                    value += name.name
+                    value += name.name + age
                 }else{
-                    value += "\(name.name)\n"
+                    value += "\(name.name)\(age)\n"
                 }
                 
                 
@@ -206,9 +206,9 @@ class AccountLadgerDetailsVM {
                 }
                 
                 if idx == (self.ladgerEvent!.names.count - 1){
-                    value += name.name
+                    value += name.name + age
                 }else{
-                    value += "\(name.name)\n"
+                    value += "\(name.name)\(age)\n"
                 }
 //                section4.append((title: names, value: value, age: "", isEmptyCell: false))
 //                if idx == 0 {
@@ -270,9 +270,9 @@ class AccountLadgerDetailsVM {
                     age = AppGlobals.shared.getAgeLastString(dob: name.dob, formatter: Date.DateFormat.yyyy_MM_dd.rawValue)
                 }
                 if idx == (self.ladgerEvent!.names.count - 1){
-                    value += name.name
+                    value += name.name+age
                 }else{
-                    value += "\(name.name)\n"
+                    value += "\(name.name)\(age)\n"
                 }
                 
                 
