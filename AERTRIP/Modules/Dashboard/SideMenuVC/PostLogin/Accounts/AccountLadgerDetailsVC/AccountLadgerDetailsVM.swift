@@ -388,8 +388,10 @@ class AccountLadgerDetailsVM {
             section3.append((title: "Room", value: roomVal, age: "", isEmptyCell: false))
         }
         
-        
-        section3.append((title: "Inclusion", value: self.ladgerEvent!.inclusion, age: "", isEmptyCell: false))
+        if !self.ladgerEvent!.inclusion.isEmpty{
+            section3.append((title: "Inclusion", value: self.ladgerEvent!.inclusion, age: "", isEmptyCell: false))
+        }
+
         if !self.ladgerEvent!.confirmationId.isEmpty{
             section3.append((title: "Confirmation ID", value: self.ladgerEvent!.confirmationId, age: "", isEmptyCell: false))
         }
