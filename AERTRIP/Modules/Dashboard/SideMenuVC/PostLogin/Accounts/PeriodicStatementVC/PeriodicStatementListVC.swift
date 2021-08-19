@@ -20,7 +20,8 @@ class PeriodicStatementListVC: BaseVC {
     //MARK:- Properties
     //MARK:- Public
     let viewModel = PeriodicStatementListVM()
-    
+    let activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.large)
+
     //MARK:- Private
     private lazy var emptyView: EmptyScreenView = {
         let newEmptyView = EmptyScreenView()
@@ -56,11 +57,20 @@ class PeriodicStatementListVC: BaseVC {
         
     private func viewStatement(forId: String, screenTitle: String) {
         //open pdf for booking id
-        AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)user-accounts/report-action?action=pdf&type=statement&statement_id[]=\(forId)", screenTitle: screenTitle)
+        AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)user-accounts/report-action?action=pdf&type=statement&statement_id[]=\(forId)", screenTitle: screenTitle, complition: {_ in
+            self.activityIndicator.stopAnimating()
+        })
     }
 
     //MARK:- Public
-    
+    func displayLoader(){
+        let bottomInset = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
+        activityIndicator.center = CGPoint(x: self.view.bounds.size.width/2, y: self.view.bounds.size.height/2)
+        activityIndicator.color = AppColors.themeGreen
+        activityIndicator.backgroundColor = .clear
+        activityIndicator.startAnimating()
+        self.view.addSubview(activityIndicator)
+    }
     
     //MARK:- Action
 }
@@ -155,9 +165,13 @@ extension PeriodicStatementListVC: UITableViewDataSource, UITableViewDelegate {
                                              "StatementId":event.id]
             FirebaseEventLogs.shared.logAccountsDetailsEvents(with: .AccountsPeriodicStatementViewStatementDetailsSelectedFromList, value: jsonDict)
             
+            displayLoader()
+            
             self.viewStatement(forId: event.id, screenTitle: "Statement\(indexPath.row + 1)")
         }
     }
+    
+    
 }
 
 
