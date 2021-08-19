@@ -35,6 +35,10 @@ extension OnAccountDetailVC: UITableViewDataSource, UITableViewDelegate {
         headerView.headerLabel.textColor = AppColors.themeGray60
         headerView.backgroundColor = AppColors.themeGray04
         headerView.containerView.backgroundColor = AppColors.themeGray04
+        
+        
+        headerView.topSeparatorView.defaultBackgroundColor = AppColors.dividerColor2
+        headerView.bottomSeparatorView.defaultBackgroundColor = AppColors.dividerColor2
         return headerView
     }
     
@@ -151,6 +155,7 @@ class OnAccountEventCell: UITableViewCell {
         self.titleLabel.textColor = AppColors.themeBlack//themeTextColor
         self.descriptionLabel.textColor = AppColors.themeGray40
         self.amountLabel.textColor = AppColors.themeBlack//themeTextColor
+        
     }
     
     private func resetAllText() {

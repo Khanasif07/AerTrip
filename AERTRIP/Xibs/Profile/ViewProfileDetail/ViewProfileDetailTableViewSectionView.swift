@@ -10,7 +10,7 @@ import UIKit
 
 class ViewProfileDetailTableViewSectionView: UITableViewHeaderFooterView {
 
-    @IBOutlet weak var topSeparatorView: UIView!
+    @IBOutlet weak var topSeparatorView: ATDividerView!
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var topDividerHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var containerView: UIView!
