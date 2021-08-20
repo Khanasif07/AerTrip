@@ -64,7 +64,10 @@ class AdonsCell: UITableViewCell {
         
                case .otheres:
                    self.addOnImageView.image = AppImages.othersAddon
-                   self.headingLabel.attributedText = data.heading.attributeStringWithColors(subString: LocalizedString.Other.localized, strClr: AppColors.themeGreen, substrClr: AppColors.themeBlack, strFont: AppFonts.SemiBold.withSize(16), subStrFont: AppFonts.SemiBold.withSize(18))
+//                   self.headingLabel.attributedText = data.heading.attributeStringWithColors(subString: LocalizedString.Other.localized, strClr: AppColors.themeGreen, substrClr: AppColors.themeBlack, strFont: AppFonts.SemiBold.withSize(16), subStrFont: AppFonts.SemiBold.withSize(18))
+                
+                self.headingLabel.attributedText = LocalizedString.OtherBookingTitle.localized.attributeStringWithColors(subString: LocalizedString.OtherBookingTitle.localized, strClr: AppColors.themeGreen, substrClr: AppColors.themeBlack, strFont: AppFonts.SemiBold.withSize(16), subStrFont: AppFonts.SemiBold.withSize(18))
+                
                    self.descriptionLabel.attributedText = data.description
                }
     }
