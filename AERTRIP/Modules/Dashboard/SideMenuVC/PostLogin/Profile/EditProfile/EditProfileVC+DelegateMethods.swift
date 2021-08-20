@@ -112,6 +112,12 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
 //                cell.rightSeparatorView.isHidden = indexPath.row + 1 == self.viewModel.email.count
                 cell.setSeparator(isNeeded: ((self.viewModel.email.count > 1)), isError: self.viewModel.isSavedButtonTapped, isLast: (self.viewModel.email.count - 1 == indexPath.row))
                 
+                if (self.viewModel.email.count - 1 == indexPath.row){
+                                   
+                    cell.leftSeparatorView.defaultBackgroundColor = AppColors.dividerColor2
+                    cell.rightSeparatorView.defaultBackgroundColor = AppColors.dividerColor2
+                }
+                
                 return cell
             }
             
@@ -171,6 +177,14 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
 //                cell.middleSeparatorView.isHidden = indexPath.row + 1 == self.viewModel.mobile.count
 //                cell.rightSeparatorView.isHidden = indexPath.row + 1 == self.viewModel.mobile.count
                 cell.setSeparator(isNeeded: (self.viewModel.mobile.count > 1), isError: self.viewModel.isSavedButtonTapped, isLast: (self.viewModel.mobile.count - 1 == indexPath.row), mobile: self.viewModel.mobile[indexPath.row])
+                
+                
+                if (self.viewModel.mobile.count - 1 == indexPath.row){
+                                   
+                    cell.leftSeparatorView.defaultBackgroundColor = AppColors.dividerColor2
+                    cell.middleSeparatorView.defaultBackgroundColor = AppColors.dividerColor2
+                    cell.rightSeparatorView.defaultBackgroundColor = AppColors.dividerColor2
+                }
                 return cell
             }
         case LocalizedString.SocialAccounts.localized:
@@ -191,6 +205,12 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 cell.email = nil
                 cell.deleteButton.isHidden = self.viewModel.social.count == 1
                 cell.setSeparatorForSocial(isNeeded: ((self.viewModel.social.count > 1)), isError: self.viewModel.isSavedButtonTapped, isLast: (self.viewModel.social.count - 1 == indexPath.row))
+                
+                if (self.viewModel.social.count - 1 == indexPath.row){
+                                   
+                    cell.leftSeparatorView.defaultBackgroundColor = AppColors.dividerColor2
+                    cell.rightSeparatorView.defaultBackgroundColor = AppColors.dividerColor2
+                }
                 return cell
             }
             
@@ -339,6 +359,12 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                     cell.deleteButton.isHidden = self.viewModel.frequentFlyer.count == 1 ?  true : false
                     cell.isFFTitleHidden = !(indexPath.row == 1)
                     cell.setupForError(isNeedToShowError: self.viewModel.isSavedButtonTapped)
+                    
+                    
+                    if (indexPath.row == self.viewModel.frequentFlyer.count + (self.ffExtraCount - 2)){
+                        cell.rightSeparatorView.defaultBackgroundColor = AppColors.dividerColor2
+                        cell.leftSeparatorView.defaultBackgroundColor = AppColors.dividerColor2
+                    }
                     return cell
                 }
                 
@@ -391,6 +417,9 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
         headerView.headerLabel.textColor = AppColors.themeGray153
         headerView.backgroundColor = AppColors.profileHeaderBackground
         headerView.containerView.backgroundColor = AppColors.profileHeaderBackground
+        headerView.topSeparatorView.defaultBackgroundColor = AppColors.dividerColor2
+        headerView.bottomSeparatorView.defaultBackgroundColor = AppColors.dividerColor2
+
         return headerView
     }
     

@@ -24,6 +24,9 @@ class TableViewAddActionCell: UITableViewCell {
         self.cellBackgroundView.backgroundColor = AppColors.profileHeaderBackground
         actionLabel.textColor = AppColors.themeBlack
         self.bottomDividerView.isHidden = true
+        
+        self.topDividerView.defaultBackgroundColor = AppColors.dividerColor2
+        self.bottomDividerView.defaultBackgroundColor = AppColors.dividerColor2
     }
     
     override func prepareForReuse() {

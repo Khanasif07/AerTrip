@@ -65,6 +65,12 @@ class MealsContainerVC: BaseVC {
         self.addButton.setTitleColor(AppColors.commonThemeGreen, for: UIControl.State.normal)
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+            super.traitCollectionDidChange(previousTraitCollection)
+
+        parchmentView?.reloadMenu()
+        }
+    
     override func initialSetup() {
         super.initialSetup()
         setupNavBar()
