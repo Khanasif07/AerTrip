@@ -163,11 +163,17 @@ class HotelFilterVC: BaseVC {
         if  isFilterApplied {
             //self.topNavBar.firstRightButton.isEnabled = true
             //self.topNavBar.firstRightButton.setTitleColor(AppColors.themeGreen, for: .normal)
+            self.isFilterAppliedBtn.setImage(AppImages.ic_hotel_filter_applied, for: .normal)
+            self.isFilterAppliedBtn.setImage(AppImages.ic_hotel_filter_applied, for: .selected)
+
             self.clearAllButton.isEnabled = true
             self.clearAllButton.setTitleColor(AppColors.themeGreen, for: .normal)
         } else {
             //self.topNavBar.firstRightButton.isEnabled = false
             //self.topNavBar.firstRightButton.setTitleColor(AppColors.themeGray40, for: .normal)
+            self.isFilterAppliedBtn.setImage(AppImages.ic_hotel_filter, for: .normal)
+            self.isFilterAppliedBtn.setImage(AppImages.ic_hotel_filter, for: .selected)
+            
             self.clearAllButton.isEnabled = false
             self.clearAllButton.setTitleColor(AppColors.themeGray40, for: .normal)
         }
