@@ -525,7 +525,7 @@ class FinalCheckOutVC: BaseVC {
     func updatePayButtonText() {
         if self.getTotalPayableAmount() > 0 {
             setUpImage()
-            let title = (" " + LocalizedString.Pay.localized + " " + self.getTotalPayableAmount().getPriceStringWithCurrency).asStylizedPrice(using: AppFonts.Regular.withSize(22.0))
+            let title = (" " + LocalizedString.Pay.localized + " " + self.getTotalPayableAmount().getPriceStringWithCurrency).asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
             self.payButton.setTitle(title.string, for: .normal)
             self.payButton.setTitle(title.string, for: .highlighted)
             
