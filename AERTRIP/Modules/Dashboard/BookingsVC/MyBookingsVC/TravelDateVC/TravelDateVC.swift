@@ -270,8 +270,17 @@ class TravelDateVC: BaseVC {
             self.fromDatePicker?.minimumDate = self.minFromDate
             self.toDatePicker?.minimumDate = self.minFromDate
                         
-            self.fromDatePicker?.date = self.minFromDate ?? Date()
-            self.toDatePicker?.date = self.maxDate ?? Date()
+            if self.oldFromDate == nil{
+                self.fromDatePicker?.date = self.minFromDate ?? Date()
+            }else{
+                self.fromDatePicker?.date = self.oldFromDate ?? Date()
+            }
+            
+            if self.oldToDate == nil{
+                self.toDatePicker?.date = self.maxDate ?? Date()
+            }else{
+                self.toDatePicker?.date = self.oldToDate  ?? Date()
+            }
             
             self.setDateOnLabels(fromDate: self.oldFromDate, toDate: self.oldToDate)
         }
@@ -365,8 +374,26 @@ class TravelDateVC: BaseVC {
             self.oldToDate = self.toDatePicker.date
         }
         else {
-            self.oldToDate = self.toDatePicker.date
-            self.setDateOnLabels(fromDate: self.oldFromDate, toDate: self.toDatePicker.date)
+            if let selectedFromDate = self.oldFromDate{
+                if selectedFromDate.isGreaterThan(self.toDatePicker.date){
+                    
+                    self.oldToDate = nil
+                    if let toDate = self.maxDate{
+                        self.toDateLabel?.text = toDate.toString(dateFormat: self.dateFormate)
+                    }
+                    self.toDatePicker?.date = self.maxDate ?? Date()
+
+                    AppToast.default.showToastMessage(message: "Please select to date greater than from date")
+
+                }else{
+                    self.oldToDate = self.toDatePicker.date
+                    self.setDateOnLabels(fromDate: self.oldFromDate, toDate: self.toDatePicker.date)
+                }
+            }else{
+                self.oldToDate = self.toDatePicker.date
+                self.setDateOnLabels(fromDate: self.oldFromDate, toDate: self.toDatePicker.date)
+            }
+            
         }
         
         if self.toDatePicker.date.timeIntervalSince1970 < self.fromDatePicker.date.timeIntervalSince1970 {
