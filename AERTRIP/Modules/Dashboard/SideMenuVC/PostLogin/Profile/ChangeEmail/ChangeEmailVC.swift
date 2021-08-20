@@ -155,6 +155,7 @@ class ChangeEmailVC: BaseVC {
             txtField?.delegate = self
         }
         
+        self.newEmailTextField.keyboardType = .emailAddress
         self.newEmailTextField.placeholder = "New Email Id"
         self.passwordTextField.placeholder = "Existing Password"
         self.passwordTextField.placeholder = LocalizedString.Password.localized
