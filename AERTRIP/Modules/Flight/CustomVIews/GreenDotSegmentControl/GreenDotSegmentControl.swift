@@ -11,7 +11,7 @@ import UIKit
 class GreenDotSegmentControl: UISegmentedControl {
     
     override func setTitle(_ title: String?, forSegmentAt segment: Int) {
-        let image = getImgFromAttString(segmentTitle: title ?? "")
+        let image = getImgFromAttString(segmentTitle: title ?? "").withTintColor(AppColors.themeBlack)
         setImage(image, forSegmentAt: segment)
     }
     
