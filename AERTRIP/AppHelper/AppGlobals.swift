@@ -571,7 +571,7 @@ class AppGlobals {
         let imageAttachment = NSTextAttachment()
         let sourceSansPro18 = UIFont(name: "SourceSansPro-Semibold", size: 18.0) ?? UIFont.systemFont(ofSize: 18.0)
         let iconImage = image//UIImage(named: name ) ?? UIImage()
-        imageAttachment.image = iconImage
+        imageAttachment.image = iconImage.withTintColor(AppColors.themeBlack)
         
         let yCordinate  = roundf(Float(sourceSansPro18.capHeight - iconImage.size.height) / 2.0)
         imageAttachment.bounds = CGRect(x: CGFloat(0.0), y: CGFloat(yCordinate) , width: iconImage.size.width, height: iconImage.size.height )
