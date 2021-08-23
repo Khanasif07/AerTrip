@@ -219,6 +219,7 @@ extension YouAreAllDoneVC: MFMailComposeViewControllerDelegate{
     func sendEmail() {
         if MFMailComposeViewController.canSendMail() {
             let mail = MFMailComposeViewController()
+            mail.overrideUserInterfaceStyle = .light
             mail.mailComposeDelegate = self
             mail.setToRecipients([LocalizedString.AertripEmailId.localized])
             mail.setMessageBody("", isHTML: true)
