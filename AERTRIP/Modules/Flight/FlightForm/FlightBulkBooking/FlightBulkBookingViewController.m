@@ -260,6 +260,11 @@ CGFloat animatedDistance;
     [self cancelAction:nil];
 }
 
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
+    self.flightSegmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName : [ [UIColor ONE_FIVE_THREE_COLOR] resolvedColorWithTraitCollection:self.traitCollection] , NSFontAttributeName:[UIFont fontWithName:@"SourceSansPro-Regular" size:14]};
+    
+    self.flightSegmentedControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : [[UIColor FIVE_ONE_COLOR] resolvedColorWithTraitCollection:self.traitCollection], NSFontAttributeName:[UIFont fontWithName:@"SourceSansPro-Semibold" size:14]};
+}
 
 -(void)setupColor{
     UIColor *color = [UIColor checkoutApplyColor];
