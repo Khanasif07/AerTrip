@@ -159,7 +159,7 @@ class SocialLoginVC: BaseVC {
         
         self.fbButton.setImage(AppImage.facebookLogoImage, for: .normal)
         self.googleButton.setImage(AppImage.googleLogoImage, for: .normal)
-        self.appleButton.setImage(AppImage.appleLogoImage, for: .normal)
+        self.appleButton.setImage(AppImage.appleLogoImage.withTintColor(AppColors.themeWhite), for: .normal)
         self.setUpSocialBtnInset(button: fbButton)
         self.setUpSocialBtnInset(button: googleButton)
         self.setUpSocialBtnInset(button: appleButton)
