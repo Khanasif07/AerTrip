@@ -27,7 +27,7 @@ struct Leg
     let textAttachment = NSTextAttachment()
         if let image = AppImages.onewayIcon.withAlpha(0.4) {
         textAttachment.bounds = CGRect(x: 0.0, y: Double((sourcePro14.capHeight - image.size.height)/2.0), width: Double(image.size.width), height: Double(image.size.height))
-        textAttachment.image = image
+            textAttachment.image = AppImages.onewayIcon.withTintColor( UIColor.ONE_FIVE_THREE_COLOR)
         
         let join = NSAttributedString(attachment: textAttachment)
         
@@ -52,7 +52,7 @@ struct Leg
     let textAttachment = NSTextAttachment()
         if let image = AppImages.onewayIcon.withAlpha(0.4) {
         textAttachment.bounds = CGRect(x: 0.0, y: Double((sourcePro14.capHeight - image.size.height)/2.0), width: Double(image.size.width), height: Double(image.size.height))
-        textAttachment.image = image
+            textAttachment.image = AppImages.onewayIcon.withTintColor(AppColors.themeGray153)
         
         let join = NSAttributedString(attachment: textAttachment)
         
