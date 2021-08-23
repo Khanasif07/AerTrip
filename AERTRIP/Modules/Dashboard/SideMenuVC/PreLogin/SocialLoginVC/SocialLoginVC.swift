@@ -268,13 +268,40 @@ private extension SocialLoginVC {
     
     private func updateLogoMessage() {
         
-        if currentlyUsingFrom == .loginProcess {
-            logoView?.messageLabel.font = AppFonts.Regular.withSize(16.0)
-            logoView?.messageLabel.text = LocalizedString.EnjoyAMorePersonalisedTravelExperience.localized
-            logoView?.isAppNameHidden = false
-            socialButtosCenterConstraint.constant = 0.0
-            socialAndLogoSpace.constant = 89.0
-        } else if  currentlyUsingFrom == .loginVerificationForBulkbooking {
+//        if currentlyUsingFrom == .loginProcess {
+//            logoView?.messageLabel.font = AppFonts.Regular.withSize(16.0)
+//            logoView?.messageLabel.text = LocalizedString.EnjoyAMorePersonalisedTravelExperience.localized
+//            logoView?.isAppNameHidden = false
+//            socialButtosCenterConstraint.constant = 0.0
+//            socialAndLogoSpace.constant = 89.0
+//        } else if  currentlyUsingFrom == .loginVerificationForBulkbooking {
+//            logoView?.messageLabel.font = AppFonts.c.withSize(38.0)
+//            logoView?.messageLabel.text = LocalizedString.PleaseSignInToContinue.localized
+//            logoView?.isAppNameHidden = true
+//            logoView?.logoImageView.image = AppImages.upwardAertripLogo
+//            logoView?.logoImageTopContraint.constant = 40
+//            logoView?.logoImageAndNameConstraint.constant = 0
+//            logoView?.messageLabelTopConstraint.constant = -3
+//
+//            socialButtosCenterConstraint.constant = -42.0
+//            socialAndLogoSpace.constant = 93.0
+//        }
+//        else {
+//            logoView?.messageLabel.font = AppFonts.c.withSize(38.0)
+//            logoView?.messageLabel.text = LocalizedString.PleaseSignInToContinue.localized
+//            logoView?.isAppNameHidden = true
+//            logoView?.logoImageView.image = AppImages.upwardAertripLogo
+//            logoView?.logoImageTopContraint.constant = 40
+//            logoView?.logoImageAndNameConstraint.constant = 0
+//            logoView?.messageLabelTopConstraint.constant = -3
+//            socialButtosCenterConstraint.constant = -42.0
+//            socialAndLogoSpace.constant = 93.0
+//        }
+        
+        
+        
+        
+        if  currentlyUsingFrom == .loginVerificationForBulkbooking {
             logoView?.messageLabel.font = AppFonts.c.withSize(38.0)
             logoView?.messageLabel.text = LocalizedString.PleaseSignInToContinue.localized
             logoView?.isAppNameHidden = true
@@ -285,18 +312,14 @@ private extension SocialLoginVC {
             
             socialButtosCenterConstraint.constant = -42.0
             socialAndLogoSpace.constant = 93.0
+        }else{
+            logoView?.messageLabel.font = AppFonts.Regular.withSize(16.0)
+            logoView?.messageLabel.text = LocalizedString.EnjoyAMorePersonalisedTravelExperience.localized
+            logoView?.isAppNameHidden = false
+            socialButtosCenterConstraint.constant = 0.0
+            socialAndLogoSpace.constant = 89.0
         }
-        else {
-            logoView?.messageLabel.font = AppFonts.c.withSize(38.0)
-            logoView?.messageLabel.text = LocalizedString.PleaseSignInToContinue.localized
-            logoView?.isAppNameHidden = true
-            logoView?.logoImageView.image = AppImages.upwardAertripLogo
-            logoView?.logoImageTopContraint.constant = 40
-            logoView?.logoImageAndNameConstraint.constant = 0
-            logoView?.messageLabelTopConstraint.constant = -3
-            socialButtosCenterConstraint.constant = -42.0
-            socialAndLogoSpace.constant = 93.0
-        }
+        
     }
     
     func setupsFonts() {
