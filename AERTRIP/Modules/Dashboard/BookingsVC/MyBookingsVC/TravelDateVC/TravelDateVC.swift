@@ -350,8 +350,23 @@ class TravelDateVC: BaseVC {
             self.oldFromDate = self.fromDatePicker.date
         }
         else {
-            self.oldFromDate = self.fromDatePicker.date
-            self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: self.oldToDate)
+            
+            if let selectedToDate = self.oldToDate{
+                if selectedToDate.isSmallerThan(self.fromDatePicker.date){
+                    
+                    self.oldFromDate = nil
+                    if let fromDate = self.minDate{
+                        self.fromDateLabel?.text = fromDate.toString(dateFormat: self.dateFormate)
+                    }
+                    self.fromDatePicker?.date = self.minDate ?? Date()
+
+                    AppToast.default.showToastMessage(message: "Please select from date less than to date")
+                }
+            }else{
+                self.oldFromDate = self.fromDatePicker.date
+                self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: self.oldToDate)
+            }
+            
         }
         
         if self.toDatePicker.date.timeIntervalSince1970 < self.fromDatePicker.date.timeIntervalSince1970 {
