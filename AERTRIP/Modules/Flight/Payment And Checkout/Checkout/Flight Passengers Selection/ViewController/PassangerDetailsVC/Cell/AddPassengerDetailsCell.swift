@@ -186,7 +186,7 @@ class AddPassengerDetailsCell: UITableViewCell {
             self.setupForInternational()
         }
         self.lastNameTextField.text = ""
-        if let lName = self.guestDetail?.lastName, !lName.isEmpty {
+        if let lName = self.guestDetail?.lastName, !lName.trimmingCharacters(in: .whitespaces).isEmpty {
             self.lastNameTextField.text = lName
         }
         
