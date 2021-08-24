@@ -365,7 +365,16 @@ extension AccountLadgerDetailsVC: MXParallaxHeaderDelegate {
                     if !(sSelf.viewModel.isForOnAccount){
                         if let event = sSelf.viewModel.ladgerEvent, let img = event.iconImage {
                             if let abtTxt = event.attributedString{
-                                sSelf.topNavView.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImageAttributedTxt(image: AppImages.BookingDetailFlightNavIcon, attributedText: abtTxt)
+                                
+                                let attrText = AppGlobals.shared.getTextWithImageAttributedTxt(image: img, attributedText: abtTxt)
+                                
+                                let mutableText = NSMutableAttributedString(attributedString: attrText)
+
+                                mutableText.mutableString.replaceOccurrences(of: "\n", with: " ", options: [], range: NSMakeRange(0, mutableText.length))
+
+                                sSelf.topNavView.navTitleLabel.attributedText = mutableText
+
+//                                sSelf.topNavView.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImageAttributedTxt(image: AppImages.BookingDetailFlightNavIcon, attributedText: abtTxt)
                             }else{
                                 sSelf.topNavView.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: img, endText: "  \(event.title)", font: AppFonts.SemiBold.withSize(18.0))
                             }
