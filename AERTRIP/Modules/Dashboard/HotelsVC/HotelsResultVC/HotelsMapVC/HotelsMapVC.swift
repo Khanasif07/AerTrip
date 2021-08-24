@@ -208,7 +208,19 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         animateFloatingButtonOnMapView(isAnimated: false)
         self.switchContainerView.isHidden = self.viewModel.favouriteHotels.isEmpty
         self.floatingButtonOnMapView.isHidden = !self.viewModel.isFavouriteOn
+//        self.switchView.isOn = self.viewModel.isFavouriteOn
+        
+        
+        
+        switchView.tintColor = AppColors.themeGray20
+        switchView.offTintColor = AppColors.switchGray
+        switchView.onThumbImage = AppImages.switch_fav_on
+        switchView.offThumbImage = AppImages.switch_fav_on
         self.switchView.isOn = self.viewModel.isFavouriteOn
+        switchView.setupUI()
+        
+        
+        
         //        self.animateMapToFirstHotelInMapMode()
         self.filterButton.isSelected = self.viewModel.isFilterApplied
         searchBar.setTextField(color: UIColor(displayP3Red: 153/255, green: 153/255, blue: 153/255, alpha: 0.12))
@@ -406,10 +418,20 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         self.hotelSearchTableView.reloadData()
         self.searchBar.searchBarStyle = .default
         // replaced the switch with flight switch
+//        switchView.tintColor = AppColors.themeGray20
+//        switchView.offTintColor = AppColors.switchGray
+//        switchView.isOn = false
+//        switchView.setupUI()
+        
+        
+        
         switchView.tintColor = AppColors.themeGray20
         switchView.offTintColor = AppColors.switchGray
+        switchView.onThumbImage = AppImages.switch_fav_on
+        switchView.offThumbImage = AppImages.switch_fav_on
         switchView.isOn = false
         switchView.setupUI()
+        
         /*
         self.switchView.originalColor = AppColors.themeWhite.withAlphaComponent(0.85)
         self.switchView.selectedColor = AppColors.themeRed
