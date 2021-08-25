@@ -79,8 +79,14 @@ extension RegularAccountDetailsVC:UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        
-        let additionalHeight: CGFloat = (self.getAllEvents(with: indexPath.section, for: tableView)[indexPath.row].currencyRate == nil) ? 0 : 23
+        var additionalHeight:CGFloat = 0
+        if self.getAllEvents(with: indexPath.section, for: tableView).count > indexPath.row{
+            
+            additionalHeight = (self.getAllEvents(with: indexPath.section, for: tableView)[indexPath.row].currencyRate == nil) ? 0 : 23
+
+            
+        }
+//        let additionalHeight: CGFloat = (self.getAllEvents(with: indexPath.section, for: tableView)[indexPath.row].currencyRate == nil) ? 0 : 23
         
 //        if tableView === self.tableView{
             if indexPath.row == 0 && indexPath.row == self.tableView.numberOfRows(inSection: indexPath.section) - 1{
@@ -109,7 +115,11 @@ extension RegularAccountDetailsVC:UITableViewDelegate, UITableViewDataSource{
         guard !allEvent.isEmpty else {
             return UITableViewCell()
         }
-        return self.getEventCell(forData: allEvent[indexPath.row], indexPath: indexPath, table: tableView)
+        if indexPath.row < allEvent.count{
+            return self.getEventCell(forData: allEvent[indexPath.row], indexPath: indexPath, table: tableView)
+        }else{
+            return UITableViewCell()
+        }
     }
     
     func getEventCell(forData: AccountDetailEvent, indexPath: IndexPath, table: UITableView) -> UITableViewCell {

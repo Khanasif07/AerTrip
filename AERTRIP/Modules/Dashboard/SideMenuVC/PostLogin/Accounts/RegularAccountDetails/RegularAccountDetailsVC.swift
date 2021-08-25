@@ -125,6 +125,7 @@ class RegularAccountDetailsVC: BaseVC {
             printDebug("accountDetailFetched")
             self.viewModel.allVouchers = object.accVouchers
             self.viewModel.setAccountDetails(details: object.accountLadger)
+            self.applyFilter()
         }
     }
     

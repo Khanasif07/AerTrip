@@ -79,9 +79,16 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
         return self.getEvents(with: section, for: tableView).count
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        let additionalHeight:CGFloat = (self.getEvents(with: indexPath.section, for: tableView)[indexPath.row].currencyRate == nil) ? 0 : 23
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+    {
+        var additionalHeight:CGFloat = 0
+        if getEvents(with: indexPath.section, for: tableView).count > indexPath.row{
+            
+            additionalHeight = (self.getEvents(with: indexPath.section, for: tableView)[indexPath.row].currencyRate == nil) ? 0 : 23
+
+            
+        }
+//        let additionalHeight:CGFloat = (self.getEvents(with: indexPath.section, for: tableView)[indexPath.row].currencyRate == nil) ? 0 : 23
         
 //        if tableView === self.tableView{
             if indexPath.row == 0 && indexPath.row == self.tableView.numberOfRows(inSection: indexPath.section) - 1{
@@ -122,7 +129,11 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
         guard !allEvent.isEmpty else {
             return UITableViewCell()
         }
-        return self.getEventCell(forData: allEvent[indexPath.row], indexPath: indexPath, table: tableView)
+        if indexPath.row < allEvent.count{
+            return self.getEventCell(forData: allEvent[indexPath.row], indexPath: indexPath, table: tableView)
+        }else{
+            return UITableViewCell()
+        }
     }
     
     func getEventCell(forData: AccountDetailEvent, indexPath: IndexPath, table: UITableView) -> UITableViewCell {
