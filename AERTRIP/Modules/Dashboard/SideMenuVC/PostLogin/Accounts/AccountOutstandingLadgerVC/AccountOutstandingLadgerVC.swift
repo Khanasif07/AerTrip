@@ -221,7 +221,7 @@ class AccountOutstandingLadgerVC: BaseVC {
         
         self.makePaymentContainerView.addShadow(cornerRadius: 0.0, shadowColor: AppColors.themeGreen, backgroundColor: AppColors.clear, offset: CGSize(width: 0.0, height: 12.0))
         
-        self.dividerView.defaultBackgroundColor = AppColors.dividerColor2
+        self.dividerView.defaultBackgroundColor = AppColors.dividerColor
 //        self.dividerView.backgroundColor = AppColors.dividerColor2
     }
     
