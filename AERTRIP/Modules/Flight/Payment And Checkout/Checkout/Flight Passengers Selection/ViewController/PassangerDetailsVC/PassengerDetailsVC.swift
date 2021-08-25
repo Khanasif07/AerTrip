@@ -90,6 +90,14 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
             self.passengerTable.reloadData()
         }
         //        addFooterViewToTravellerTableView()
+        
+        
+        
+        for guest in self.viewModel.passengerList{
+            if !guest.firstName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || !guest.lastName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty{
+                GuestDetailsVM.shared.canShowSalutationError = true
+            }
+        }
     }
     
     private func addFooterViewToTravellerTableView() {
