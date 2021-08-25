@@ -23,6 +23,8 @@ var logoUrl = AppKeys.airlineMasterBaseUrl
 
 class PassengerSelectionVM  {
     //Common varialbles....
+    static let shared = PassengerSelectionVM()
+
     var bookingTitle:NSAttributedString?
     var bookingObject: BookFlightObject?
     var flightSearchType: FlightSearchType = RETURN_JOURNEY

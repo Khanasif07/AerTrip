@@ -158,6 +158,7 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
     
     @IBAction func tapBackBtn(_ sender: UIButton) {
         GuestDetailsVM.shared.canShowSalutationError = true
+        PassengerSelectionVM.shared.isContinueButtonTapped = true
         self.delegate?.didAddedContacts()
         self.viewModel.logEvents(with: .navigateBack)
         self.navigationController?.popViewController(animated: true)
@@ -166,6 +167,7 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
     @IBAction func tapDoneBtn(_ sender: UIButton) {
         let validation = self.viewModel.validationForPassenger()
         if validation.success{
+            PassengerSelectionVM.shared.isContinueButtonTapped = true
             GuestDetailsVM.shared.canShowSalutationError = true
             self.delegate?.didAddedContacts()
             self.navigationController?.popViewController(animated: true)
