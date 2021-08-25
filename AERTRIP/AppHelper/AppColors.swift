@@ -470,7 +470,11 @@ enum AppColors {
     
     //    (255,255,255, 1.0) (0, 38, 51)
         static let markUnselectedColor = UIColor(named: "markUnselectedColor") ?? . white
+
     
+    //    (255,255,255, 1.0) (0, 38, 51)
+        static let mapsUnselectedColor = UIColor(named: "mapsUnselectedColor") ?? . white
+
     //    (255,255,255, 1.0) (26, 5, 5)
         static let markUnselectedFavColor = UIColor(named: "markUnselectedFavColor") ?? . white
     /// RGB - 153, 153, 153   Dark RGB 51, 51, 51
