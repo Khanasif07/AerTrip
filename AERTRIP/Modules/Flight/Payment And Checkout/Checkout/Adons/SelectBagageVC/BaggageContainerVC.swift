@@ -79,6 +79,12 @@ class BaggageContainerVC : BaseVC {
         totalContainerView.addShadow(ofColor: .black, radius: 20, opacity: 0.1)
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+            super.traitCollectionDidChange(previousTraitCollection)
+
+        parchmentView?.reloadMenu()
+        }
+    
     @IBAction func addButtonTapped(_ sender: UIButton) {
         self.baggageContainerVM.updateBaggageToDataStore()
 //        let price = self.totalLabel.text ?? ""

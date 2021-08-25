@@ -77,6 +77,12 @@ class SelectOtherAdonsContainerVC: BaseVC {
         totalContainerView.addShadow(ofColor: .black, radius: 20, opacity: 0.1)
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+            super.traitCollectionDidChange(previousTraitCollection)
+
+        parchmentView?.reloadMenu()
+        }
+    
     @IBAction func addButtonTapped(_ sender: UIButton) {
         for (index,item) in self.othersContainerVM.allChildVCs.enumerated() {
             AddonsDataStore.shared.flightsWithData[index].special = item.otherAdonsVm.addonsDetails

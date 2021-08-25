@@ -140,6 +140,12 @@ class SeatMapContainerVC: UIViewController {
         viewModel.bookingAddOns = addOns.filter { $0.addonType.lowerCaseFirst() == "seat" }
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+            super.traitCollectionDidChange(previousTraitCollection)
+
+        parchmentView?.reloadMenu()
+        }
+    
     private func setupPlaneLayoutCollView() {
         planeLayoutScrollContentView.backgroundColor = AppColors.miniPlaneBack
         planeLayoutScrollView.backgroundColor = AppColors.miniPlaneBack
