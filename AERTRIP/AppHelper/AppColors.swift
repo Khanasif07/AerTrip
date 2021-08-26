@@ -233,6 +233,10 @@ enum AppColors {
     /// (146,255,228) (0,0,0)
     static let greenBackground  = UIColor(named: "greenBackground") ?? UIColor(displayP3Red: 146/255, green: 255/255, blue: 228/255, alpha: 1)
     
+    
+    //(146,255,228)(0,204,153)
+    static let addOnsTitleBackground  = UIColor(named: "addOnsTitleBackground") ?? UIColor(displayP3Red: 146/255, green: 255/255, blue: 228/255, alpha: 1)
+
     /// (0,0,0) (146,255,228)
     static let addOnsGreenAttributed = UIColor(named: "addOnsGreenAttributed") ?? .white
     

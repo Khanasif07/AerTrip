@@ -35,7 +35,7 @@ class SelectMealsdVC: UIViewController {
     }
     
     func setupTexts() {
-        headsUpLabel.text = LocalizedString.Heads_Up_Desc.localized
+        headsUpLabel.text = ""//LocalizedString.Heads_Up_Desc.localized
     }
     
     func setupColors() {
