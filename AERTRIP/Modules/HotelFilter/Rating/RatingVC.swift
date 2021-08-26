@@ -231,7 +231,7 @@ class RatingVC: BaseVC {
             for starBtn in self.starButtonsOutlet ?? [] {
                 starBtn.isSelected = false
                 // starBtn.setImage(#imageLiteral(resourceName: "UnselectedStar"), for: .normal)
-                starBtn.setImage(AppImages.starRatingFilledHollow, for: .normal)
+                starBtn.setImage(AppImages.starRatingUnfill, for: .normal)
                 //                starBtn.setImage(AppImages.starRatingFilled, for: .normal)
             }
         }
