@@ -62,9 +62,12 @@ class DomesticMultiLegCell: UITableViewCell {
         dashedView.setupDashedView()
         setupCollectionView()
         setupGradientView()
-        self.iconOne.roundedCorners(cornerRadius: 2)
-        self.iconTwo.roundedCorners(cornerRadius: 2)
-        self.iconThree.roundedCorners(cornerRadius: 2)
+        iconOne.clipsToBounds = true
+        iconTwo.clipsToBounds = true
+        iconThree.clipsToBounds = true
+        self.iconOne.roundedCorners(cornerRadius: 3)
+        self.iconTwo.roundedCorners(cornerRadius: 3)
+        self.iconThree.roundedCorners(cornerRadius: 3)
     }
     
     func setupCollectionView() {
