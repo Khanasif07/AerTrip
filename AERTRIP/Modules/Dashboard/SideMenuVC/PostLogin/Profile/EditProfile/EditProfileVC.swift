@@ -758,16 +758,6 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     
     func showDatePicker(_ pickerDate: Date?, _ minimumDate: Date?, maximumDate: Date?) {
         // Formate Date
-//        var components = DateComponents()
-//        components.year = -100
-//        if minimumDate == nil {
-//              let minDate = Calendar.current.date(byAdding: components, to: Date())
-//        }
-//
-//
-//        let calendar = Calendar.current
-//        let maxDateComponent = calendar.dateComponents([.day,.month,.year], from: Date())
-        
         var minDate: Date? = minimumDate
         if minimumDate == nil {
             var components = DateComponents()

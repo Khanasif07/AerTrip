@@ -44,15 +44,6 @@ class HotelsSearchVC: BaseVC {
     @IBOutlet weak var firstLineView: ATDividerView!
     @IBOutlet weak var secondLineView: ATDividerView!
     @IBOutlet weak var thirdLineView: ATDividerView!
-    //    @IBOutlet weak var fourthLineView: ATDividerView!
-    //    @IBOutlet weak var starRatingLabel: UILabel!
-    //    @IBOutlet weak var allStarLabel: UILabel!
-    //    @IBOutlet weak var oneStarLabel: UILabel!
-    //    @IBOutlet weak var twoStarLabel: UILabel!
-    //    @IBOutlet weak var threeStarLabel: UILabel!
-    //    @IBOutlet weak var fourStarLabel: UILabel!
-    //    @IBOutlet weak var fiveStarLabel: UILabel!
-    //    @IBOutlet var starButtonsOutlet: [UIButton]!
     @IBOutlet weak var searchBtnOutlet: ATButton!
     @IBOutlet weak var bulkBookingsLbl: UILabel!
     @IBOutlet weak var addRoomCollectionView: UICollectionView! {
@@ -397,22 +388,6 @@ class HotelsSearchVC: BaseVC {
         }
         else {
             
-            //            for starBtn in self.starButtonsOutlet {
-            //
-            //                if starBtn.tag == forStar {
-            //                    starBtn.isSelected = isSettingFirstTime ? true : !starBtn.isSelected
-            //                    let img = starBtn.isSelected ? #imageLiteral(resourceName: "starRatingFilled") : #imageLiteral(resourceName: "starRatingUnfill")
-            //                    starBtn.setImage(img, for: starBtn.isSelected ? .selected : .normal)
-            //                }
-            //                else if self.viewModel.searchedFormData.ratingCount.contains(starBtn.tag) {
-            //                    starBtn.isSelected = true
-            //                    starBtn.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .selected)
-            //                }
-            //                else {
-            //                    starBtn.isSelected = false
-            //                    starBtn.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
-            //                }
-            //            }
         }
     }
     
@@ -549,11 +524,6 @@ class HotelsSearchVC: BaseVC {
     //MARK:- IBAction
     //===============
     
-    //    @IBAction func starButtonsAction(_ sender: UIButton) {
-    //        self.updateStarButtonState(forStar: sender.tag)
-    ////        self.allStarLabel.text = self.getStarString(fromArr: self.viewModel.searchedFormData.ratingCount, maxCount: 5)
-    //        HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
-    //    }
     
     @IBAction func whereButtonAction(_ sender: UIButton) {
         AppFlowManager.default.showSelectDestinationVC(delegate: self,currentlyUsingFor: .hotelForm)
@@ -618,7 +588,7 @@ extension HotelsSearchVC: UICollectionViewDelegate , UICollectionViewDataSource 
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        if self.viewModel.searchedFormData.adultsCount.count < 4 && self.viewModel.searchedFormData.adultsCount.count == indexPath.item{
+        if self.viewModel.searchedFormData.adultsCount.count < 4 && self.viewModel.searchedFormData.adultsCount.count == indexPath.item {
             guard let addRoomCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddRoomCell", for: indexPath) as? AddRoomCell else {
                 return UICollectionViewCell()
             }

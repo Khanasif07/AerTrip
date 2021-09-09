@@ -350,15 +350,6 @@ extension HotelResultVC {
             if headrC != self.headerContainerViewTopConstraint.constant {
                 self.headerContainerViewTopConstraint.constant = headrC
             }
-            
-            
-            //            let finalPos = 100.0 + headrC
-            //            if finalPos != self.tableViewTopConstraint.constant {
-            //                self.tableViewTopConstraint.constant = finalPos
-            //                self.mapContainerTopConstraint.constant = finalPos
-            //            }
-            
-            //            }
         }
         
         

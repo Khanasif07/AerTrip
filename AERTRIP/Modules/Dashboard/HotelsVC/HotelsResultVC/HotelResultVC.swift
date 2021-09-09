@@ -231,7 +231,6 @@ class HotelResultVC: StatusBarAnimatableViewController {
         super.viewWillAppear(animated)
         self.statusBarColor = AppColors.clear
         self.statusBarStyle = .default
-        
         addCustomBackgroundBlurView()
     }
     

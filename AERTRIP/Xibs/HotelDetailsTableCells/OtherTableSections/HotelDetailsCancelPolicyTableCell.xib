@@ -93,7 +93,7 @@
                 <outlet property="shadowViewLeadingConstraint" destination="chj-XC-HZc" id="UaK-hP-gve"/>
                 <outlet property="shadowViewTrailingConstraint" destination="VoK-9j-8dR" id="BAi-EN-DS4"/>
             </connections>
-            <point key="canvasLocation" x="-1" y="153"/>
+            <point key="canvasLocation" x="-113" y="153"/>
         </tableViewCell>
     </objects>
     <resources>
